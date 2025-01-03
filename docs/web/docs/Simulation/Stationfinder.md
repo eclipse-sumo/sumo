@@ -135,10 +135,18 @@ The internal state of the stationfinder device can be accessed directly using
 and
 [*traci.vehicle.setParameter*](../TraCI/Change_Vehicle_State.md#supported_device_parameters).
 
-In addition to the device parameters explained above, some more **read-only** properties are available (Note that you need to supply the full name `device.stationfinder.<PARAMETER NAME>` to 
+Some of the device parameters explained above and more **read-only** properties are available (Note that you need to supply the full name `device.stationfinder.<PARAMETER NAME>` to 
 the TraCI function):
 
-| Parameter             | Description                                                                         |
-| --------------------- | ----------------------------------------------------------------------------------- |
-| chargingStation       | ID of the charging station the vehicle is heading to (empty string elsewise)        |
-| batteryNeed           | Estimated energy needed for completing the remaining route                          |
+| Parameter             | Get             | Set               | Description                                                                         |
+| --------------------- | --------------- | ----------------- | ----------------------------------------------------------------------------------- |
+| chargingStation       | yes             | no                | ID of the charging station the vehicle is heading to (empty string elsewise)        |
+| batteryNeed           | yes             | no                | Estimated energy needed for completing the remaining route                          |
+| needToChargeLevel     | yes             | yes               | See [above](#configuration)                                                         |
+| saturatedChargeLevel  | yes             | yes               | See [above](#configuration)                                                         |
+| waitForCharge         | yes             | yes               | See [above](#configuration)                                                         |
+| repeat                | yes             | yes               | See [above](#configuration)                                                         |
+| radius                | yes             | yes               | See [above](#configuration)                                                         |
+| reserveFactor         | yes             | yes               | See [above](#configuration)                                                         |
+
+
