@@ -68,11 +68,20 @@ namespace libsumo {
 // ===========================================================================
 SubscriptionResults Simulation::mySubscriptionResults;
 ContextSubscriptionResults Simulation::myContextSubscriptionResults;
+#ifdef HAVE_FOX
+FXMutex Simulation::myStepMutex;
+#endif
 
 
 // ===========================================================================
 // static member definitions
 // ===========================================================================
+std::pair<int, std::string>
+Simulation::init(int /* port */, int /* numRetries */, const std::string& /* host */, const std::string& /* label */, FILE* const /* pipe */) {
+    throw TraCIException("Multi client support (including connection switching) is not implemented in libsumo.");
+}
+
+
 std::pair<int, std::string>
 Simulation::start(const std::vector<std::string>& cmd, int /* port */, int /* numRetries */, const std::string& /* label */, const bool /* verbose */,
                   const std::string& /* traceFile */, bool /* traceGetters */, void* /* _stdout */) {
@@ -83,6 +92,30 @@ Simulation::start(const std::vector<std::string>& cmd, int /* port */, int /* nu
 #endif
     load(std::vector<std::string>(cmd.begin() + 1, cmd.end()));
     return getVersion();
+}
+
+
+bool
+Simulation::isLibsumo() {
+    return true;
+}
+
+
+void
+Simulation::switchConnection(const std::string& /* label */) {
+    throw TraCIException("Multi client support (including connection switching) is not implemented in libsumo.");
+}
+
+
+const std::string&
+Simulation::getLabel() {
+    throw TraCIException("Multi client support (including connection switching) is not implemented in libsumo.");
+}
+
+
+void
+Simulation::setOrder(int /* order */) {
+    throw TraCIException("Multi client support (including connection switching) is not implemented in libsumo.");
 }
 
 
@@ -128,6 +161,9 @@ Simulation::isLoaded() {
 
 void
 Simulation::step(const double time) {
+#ifdef HAVE_FOX
+    FXMutexLock lock(myStepMutex);
+#endif
     Helper::clearStateChanges();
     const SUMOTime t = TIME2STEPS(time);
 #ifdef HAVE_LIBSUMOGUI

@@ -40,24 +40,25 @@ namespace LIBSUMO_NAMESPACE {
  */
 class Simulation {
 public:
-#ifdef LIBTRACI
+    // not implemented in libsumo
     static std::pair<int, std::string> init(int port = 8813, int numRetries = libsumo::DEFAULT_NUM_RETRIES,
                                             const std::string& host = "localhost", const std::string& label = "default", FILE* const pipe = nullptr);
-
-    static bool isLibsumo();
-
-    // we cannot call this switch because it is a reserved word in C++
-    static void switchConnection(const std::string& label);
-
-    static const std::string& getLabel();
-
-    static void setOrder(int order);
-
-#endif
 
     static std::pair<int, std::string> start(const std::vector<std::string>& cmd, int port = -1, int numRetries = libsumo::DEFAULT_NUM_RETRIES,
             const std::string& label = "default", const bool verbose = false,
             const std::string& traceFile = "", bool traceGetters = true, void* _stdout = nullptr);
+
+    static bool isLibsumo();
+
+    // we cannot call this switch because it is a reserved word in C++
+    // not implemented in libsumo
+    static void switchConnection(const std::string& label);
+
+    // not implemented in libsumo
+    static const std::string& getLabel();
+
+    // not implemented in libsumo
+    static void setOrder(int order);
 
     /// @brief load a simulation with the given arguments
     static void load(const std::vector<std::string>& args);
@@ -185,6 +186,10 @@ private:
 #ifndef LIBTRACI
     static SubscriptionResults mySubscriptionResults;
     static ContextSubscriptionResults myContextSubscriptionResults;
+#ifdef HAVE_FOX
+    /// @brief to avoid concurrent write access to the subscription results
+    static FXMutex myStepMutex;
+#endif
 #endif
 
     /// @brief invalidated standard constructor
