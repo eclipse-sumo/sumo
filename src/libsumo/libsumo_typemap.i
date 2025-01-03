@@ -141,7 +141,7 @@ static PyObject* parseSubscriptionMap(const std::map<int, std::shared_ptr<libsum
             }
         }
         if (pyVal == nullptr) {
-            const libsumo::TraCIStringVectorWrapped* const theStringList = dynamic_cast<const libsumo::TraCIStringVectorWrapped*>(traciVal);
+            const libsumo::TraCIStringList* const theStringList = dynamic_cast<const libsumo::TraCIStringList*>(traciVal);
             if (theStringList != nullptr) {
                 const Py_ssize_t size = theStringList->value.size();
                 pyVal = PyTuple_New(size);
@@ -151,7 +151,7 @@ static PyObject* parseSubscriptionMap(const std::map<int, std::shared_ptr<libsum
             }
         }
         if (pyVal == nullptr) {
-            const libsumo::TraCIDoubleVectorWrapped* const theDoubleList = dynamic_cast<const libsumo::TraCIDoubleVectorWrapped*>(traciVal);
+            const libsumo::TraCIDoubleList* const theDoubleList = dynamic_cast<const libsumo::TraCIDoubleList*>(traciVal);
             if (theDoubleList != nullptr) {
                 const Py_ssize_t size = theDoubleList->value.size();
                 pyVal = PyTuple_New(size);
@@ -444,8 +444,8 @@ SUBSCRIBE_HELPER(RouteProbe)
 %shared_ptr(libsumo::TraCIInt)
 %shared_ptr(libsumo::TraCIDouble)
 %shared_ptr(libsumo::TraCIString)
-%shared_ptr(libsumo::TraCIStringVectorWrapped)
-%shared_ptr(libsumo::TraCIDoubleVectorWrapped)
+%shared_ptr(libsumo::TraCIStringList)
+%shared_ptr(libsumo::TraCIDoubleList)
 %shared_ptr(libsumo::TraCIPhase)
 %shared_ptr(libsumo::TraCILogic)
 %shared_ptr(libsumo::TraCILink)
@@ -575,9 +575,9 @@ SELF_NULL_CHECKER(TraCIRoadPosition)
 SELF_NULL_CHECKER(TraCIColor)
 SELF_NULL_CHECKER(TraCIInt)
 SELF_NULL_CHECKER(TraCIDouble)
-SELF_NULL_CHECKER(TraCIDoubleVectorWrapped)
+SELF_NULL_CHECKER(TraCIDoubleList)
 SELF_NULL_CHECKER(TraCIString)
-SELF_NULL_CHECKER(TraCIStringVectorWrapped)
+SELF_NULL_CHECKER(TraCIStringList)
 SELF_NULL_CHECKER(TraCIPhase)
 SELF_NULL_CHECKER(TraCILogic)
 SELF_NULL_CHECKER(TraCILink)

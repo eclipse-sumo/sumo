@@ -297,7 +297,7 @@ struct TraCIString : TraCIResult {
 };
 
 
-struct TraCIStringVectorWrapped : TraCIResult {
+struct TraCIStringList : TraCIResult {
     std::string getString() const {
         std::ostringstream os;
         os << "[";
@@ -309,12 +309,12 @@ struct TraCIStringVectorWrapped : TraCIResult {
     }
     std::vector<std::string> value;
 #ifdef SWIGJAVA
-    SWIGJAVA_CAST(TraCIStringVectorWrapped)
+    SWIGJAVA_CAST(TraCIStringList)
 #endif
 };
 
 
-struct TraCIDoubleVectorWrapped : TraCIResult {
+struct TraCIDoubleList : TraCIResult {
     std::string getString() const {
         std::ostringstream os;
         os << "[";
@@ -326,7 +326,7 @@ struct TraCIDoubleVectorWrapped : TraCIResult {
     }
     std::vector<double> value;
 #ifdef SWIGJAVA
-    SWIGJAVA_CAST(TraCIDoubleVectorWrapped)
+    SWIGJAVA_CAST(TraCIDoubleList)
 #endif
 };
 

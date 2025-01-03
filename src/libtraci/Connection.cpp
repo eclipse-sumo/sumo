@@ -392,7 +392,7 @@ Connection::readVariables(tcpip::Storage& inMsg, const std::string& objectID, in
                     into[objectID][variableID] = std::make_shared<libsumo::TraCIInt>(inMsg.readInt());
                     break;
                 case libsumo::TYPE_STRINGLIST: {
-                    auto sl = std::make_shared<libsumo::TraCIStringVectorWrapped>();
+                    auto sl = std::make_shared<libsumo::TraCIStringList>();
                     int n = inMsg.readInt();
                     for (int i = 0; i < n; ++i) {
                         sl->value.push_back(inMsg.readString());
@@ -414,7 +414,7 @@ Connection::readVariables(tcpip::Storage& inMsg, const std::string& objectID, in
                                 into[objectID][variableID] = r;
                                 break;
                             } else if (secondType == libsumo::TYPE_STRING) {
-                                auto sl = std::make_shared<libsumo::TraCIStringVectorWrapped>();
+                                auto sl = std::make_shared<libsumo::TraCIStringList>();
                                 sl->value.push_back(s);
                                 sl->value.push_back(inMsg.readString());
                                 into[objectID][variableID] = sl;
