@@ -6236,7 +6236,7 @@ msgstr "Ausgangs- und Endknoten an der Kante '%' haben die gleiche Position."
 
 #: src/netbuild/NBEdge.cpp:1054
 msgid "Removing sharp angle of % degrees at edge '%', segment %."
-msgstr ""
+msgstr "Der spitze Winkel von % Grad im Segment % der Kante '%' wird entfernt."
 
 #: src/netbuild/NBEdge.cpp:1063
 msgid "Found angle of % degrees at edge '%', segment %."
@@ -6252,7 +6252,7 @@ msgstr "Beginn"
 
 #: src/netbuild/NBEdge.cpp:1077 src/netbuild/NBEdge.cpp:1086
 msgid "end"
-msgstr ""
+msgstr "Ende"
 
 #: src/netbuild/NBEdge.cpp:1085
 msgid "Found sharp turn with radius % at the % of edge '%'."
@@ -6486,6 +6486,8 @@ msgstr ""
 msgid ""
 "Negative allowed speed (%) on lane '%', use --speed.minimum to prevent this."
 msgstr ""
+"Negative Geschwindigkeitsbeschränkung (%) auf Fahrstreifen '%'; verwende --"
+"speed.minimum um es zu vermeiden."
 
 #: src/netbuild/NBEdgeCont.cpp:945
 #, c-format
@@ -6613,7 +6615,7 @@ msgstr "Die Standardlänge beim Überschreiben von Verbindungslängen"
 
 #: src/netbuild/NBFrame.cpp:107
 msgid "Whether/where connections should have an internal junction"
-msgstr ""
+msgstr "Ob/wo Verbinder einen internen Knotenpunkt haben sollten"
 
 #: src/netbuild/NBFrame.cpp:110
 msgid ""
@@ -7052,7 +7054,7 @@ msgstr ""
 
 #: src/netbuild/NBFrame.cpp:660
 msgid "Remove edges after loading, patching and joining"
-msgstr ""
+msgstr "Kanten nach Laden, Überarbeitung und Vereinigung löschen"
 
 #: src/netbuild/NBFrame.cpp:664
 msgid ""
@@ -7101,7 +7103,7 @@ msgstr "Isolierte Kanten entfernen"
 
 #: src/netbuild/NBFrame.cpp:691
 msgid "Only keep lanes with width in meters > FLOAT"
-msgstr ""
+msgstr "Nur Fahrstreifen mit einer Breite in Metern > FLOAT behalten"
 
 #: src/netbuild/NBFrame.cpp:697
 msgid "All nodes will be unregulated"
@@ -7190,7 +7192,7 @@ msgstr ""
 
 #: src/netbuild/NBFrame.cpp:772
 msgid "'tls.green.time' must be positive"
-msgstr ""
+msgstr "'tls.green.time' muss positiv sein"
 
 #: src/netbuild/NBFrame.cpp:776
 msgid "default.lanenumber must be at least 1"
@@ -7361,7 +7363,7 @@ msgstr "Entferne unerwünschte Kanten"
 #: src/netbuild/NBNetBuilder.cpp:124
 #, c-format
 msgid " Removed % edges because by minimum speed."
-msgstr ""
+msgstr " % Kanten aufgrund der Mindestgeschwindigkeit entfernt."
 
 #: src/netbuild/NBNetBuilder.cpp:129
 #, c-format
@@ -7371,7 +7373,7 @@ msgstr " % Kanten aufgrund der Fahrzeugklasse entfernt."
 #: src/netbuild/NBNetBuilder.cpp:136
 #, c-format
 msgid " Removed % edges because of lane width."
-msgstr ""
+msgstr " % Kanten aufgrund der Fahrstreifenbreite entfernt."
 
 #: src/netbuild/NBNetBuilder.cpp:141
 msgid "Processing public transport stops"
@@ -7693,6 +7695,7 @@ msgstr ""
 #, c-format
 msgid "Ignoring additional sidewalk lane % on edge '%' for walkingareas."
 msgstr ""
+"Der zusätzliche Fußweg % der Kante '%' wird für Walkingareas ignoriert."
 
 #: src/netbuild/NBNode.cpp:3297
 msgid ""
@@ -9267,6 +9270,8 @@ msgid ""
 "Almost duplicate s-value '%' for lane sections occurred at edge '%'; first "
 "entry was removed."
 msgstr ""
+"Nahezu identischer s-Wert '%' von Fahrstreifensektionen der Kante '%'; Der "
+"erste Eintrag wurde entfernt."
 
 #: src/netimport/NIImporter_OpenDrive.cpp:1769
 msgid "Could not compute spiral geometry for edge '%' (cDot=% length=%)."
@@ -12554,10 +12559,14 @@ msgid ""
 "defaults for its vehicle class. Please use a different emission model or "
 "complete the vType definition with further parameters."
 msgstr ""
+"Der Fahrzeugtyp '%' benutzt die Emissionsklasse '%', welche keine geeigneten "
+"Standardwerte für seine Fahrzeugklasse zur Verfügung stellt. Bitte nutze "
+"entweder ein anderes Emissionsmodell oder vervollständige die "
+"Fahrzeugtypdefinition mit weiteren Parametern."
 
 #: src/utils/emissions/EnergyParams.cpp:91
 msgid " And also set a vehicle mass!"
-msgstr ""
+msgstr " Und lege auch die Fahrzeugmasse fest!"
 
 #: src/utils/emissions/EnergyParams.cpp:97
 #, c-format
@@ -12565,6 +12574,8 @@ msgid ""
 "Vehicle type '%' uses the Energy model parameter 'internalMomentOfInertia' "
 "which is deprecated. Use 'rotatingMass' instead."
 msgstr ""
+"Der Fahrzeugtyp '%' benutzt den veralteten Energiemodellparameter "
+"'internalMomentOfInertia'. Nutze stattdessen 'rotatingMass'."
 
 #: src/utils/emissions/HelpersEnergy.cpp:223
 msgid "An acceleration given by the power was not found."
