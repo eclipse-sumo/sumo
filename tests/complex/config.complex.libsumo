@@ -11,6 +11,7 @@ errors:Requested command not implemented (0xac): GUI
 errors:GUI is not running
 errors:GUIMainWindow instance
 errors:DeprecationWarning: builtin type .*wig.* has no __module__ attribute
+errors:at org.eclipse.sumo.libsumo
 output:***Starting server on port
 output:TraCI {REPLACE Libsumo }
 output:legacy getNextStops

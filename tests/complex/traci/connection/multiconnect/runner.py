@@ -58,3 +58,4 @@ try:
         c.close()
 except Exception:
     traci.close()
+    raise
