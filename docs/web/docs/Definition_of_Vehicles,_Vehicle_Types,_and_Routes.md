@@ -79,7 +79,7 @@ A vehicle may be defined using the following attributes:
 | route           | id                                                                            | The id of the route the vehicle shall drive along               |
 | color           | [color](#colors)                                                   | This vehicle's color       |
 | **depart**      | float (s) or [human-readable-time](Other/Glossary.md#t) or one of *triggered*, *containerTriggered*, *begin*                | The time step at which the vehicle shall enter the network; see [\#depart](#depart). Alternatively the vehicle departs once a [person enters](Specification/Persons.md#rides) or a [container is loaded](Specification/Containers.md) |
-| departLane      | int/string (≥0, "random", "free", "allowed", "best", "first")                 | The lane on which the vehicle shall be inserted; see [\#departLane](#departlane). *default: "first"*                                                                                                                                                  |
+| departLane      | int/string (≥0, "random", "free", "allowed", "best", "first", "best_prob")                 | The lane on which the vehicle shall be inserted; see [\#departLane](#departlane). *default: "first"*                                                                                                                                                  |
 | departPos       | float(m)/string ("random", "free", "random_free", "base", "last", "stop", "splitFront")            | The position at which the vehicle shall enter the net; see [\#departPos](#departpos). *default: "base"*                                                                                                                                               |
 | departSpeed     | float(m/s)/string (≥0, "random", "max", "desired", "speedLimit", "last", "avg")              | The speed with which the vehicle shall enter the network; see [\#departSpeed](#departspeed). *default: 0*                                                                                                                                             |
 | departEdge     | int (index from \[0, routeLength\[ or "random"    | The initial edge along the route where the vehicle should enter the network (only supported if a complete route is defined); see [\#departEdge](#departedge). *default: 0*                                                                                                                                             |
@@ -298,6 +298,7 @@ Determines on which lane the vehicle is tried to be inserted;
 - "`best`": the most free (least occupied) lane is chosen among all lanes that allow the vehicle and which minimize the required number of future lane changes
 - "`first`": the rightmost lane the vehicle
   may use
+- "`best_prob`": like `best`, but in case of equally suitable lanes, a vehicle with lower [speedFactor](#individual_speed_factor) is never inserted to the left of a vehicle with a higher [speedFactor](#individual_speed_factor)
 
 ### departPos
 
