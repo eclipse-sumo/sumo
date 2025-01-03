@@ -750,17 +750,17 @@ MSDevice_StationFinder::getParameter(const std::string& key) const {
     } else if (key == "batteryNeed") {
         return toString(estimateConsumption() * myReserveFactor);
     } else if (key == "needToChargeLevel") {
-        return toString(myRadius);
+        return toString(mySearchSoC);
     } else if (key == "saturatedChargeLevel") {
-        return toString(myRadius);
+        return toString(myTargetSoC);
     } else if (key == "waitForCharge") {
-        return toString(myRadius);
+        return toString(myWaitForCharge);
     } else if (key == "repeat") {
-        return toString(myRadius);
+        return toString(myRepeatInterval);
     } else if (key == "radius") {
         return toString(myRadius);
     } else if (key == "reserveFactor") {
-        return toString(myRadius);
+        return toString(myReserveFactor);
     }
     throw InvalidArgument(TLF("Parameter '%' is not supported for device of type '%'", key, deviceName()));
 }
