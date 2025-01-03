@@ -1,9 +1,9 @@
 Success.
 Written configuration to 'osm.polycfg'
-Parsing network projection from 'osm.net.xml.gz' ... done (21ms).
-Parsing nodes from osm-file '/home/erdm_ja/.texttest/tmp/tools.20Dec142750.4112119/tools/import/OSM/webWizard/osm_bbox.osm.xml' ... done (230ms).
-Parsing relations from osm-file '/home/erdm_ja/.texttest/tmp/tools.20Dec142750.4112119/tools/import/OSM/webWizard/osm_bbox.osm.xml' ... done (169ms).
-Parsing edges from osm-file '/home/erdm_ja/.texttest/tmp/tools.20Dec142750.4112119/tools/import/OSM/webWizard/osm_bbox.osm.xml' ... done (185ms).
+Parsing network projection from 'osm.net.xml.gz' ... done (7ms).
+Parsing nodes from osm-file '/home/erdm_ja/.texttest/tmp/tools.03Jan100727.4140054/tools/import/OSM/webWizard/osm_bbox.osm.xml' ... done (247ms).
+Parsing relations from osm-file '/home/erdm_ja/.texttest/tmp/tools.03Jan100727.4140054/tools/import/OSM/webWizard/osm_bbox.osm.xml' ... done (167ms).
+Parsing edges from osm-file '/home/erdm_ja/.texttest/tmp/tools.03Jan100727.4140054/tools/import/OSM/webWizard/osm_bbox.osm.xml' ... done (180ms).
 Assembled polygon from relation '3619' (name:Altes Museum)
 Assembled polygon from relation '6647' (name:Humboldt-Universität zu Berlin)
 Assembled polygon from relation '23745' (name:Altes Stadthaus)
@@ -141,7 +141,7 @@ Assembled polygon from relation '8249214' (name:Hof V)
 Assembled polygon from relation '8249215' (name:)
 Assembled polygon from relation '8249216' (name:)
 Success.
-Building scenario in '/home/erdm_ja/.texttest/tmp/tools.20Dec142750.4112119/tools/import/OSM/webWizard/test'.
+Building scenario in '/home/erdm_ja/.texttest/tmp/tools.03Jan100727.4140054/tools/import/OSM/webWizard/test'.
 generating trips...
 Skipping line '2194813' because it only drives at night
 Skipping line '2194814' because it only drives at night
@@ -172,23 +172,23 @@ Success.
 Success.
 Success.
 Written configuration to 'osm.sumocfg'
-Loading net-file from '/home/erdm_ja/.texttest/tmp/tools.20Dec142750.4112119/tools/import/OSM/webWizard/test/osm.net.xml.gz' ... done (278ms).
-Loading additional-files from '/home/erdm_ja/.texttest/tmp/tools.20Dec142750.4112119/tools/import/OSM/webWizard/test/osm.poly.xml.gz' ... done (114ms).
-Loading additional-files from '/home/erdm_ja/.texttest/tmp/tools.20Dec142750.4112119/tools/import/OSM/webWizard/test/osm_stops.add.xml' ... done (9ms).
-Loading route-files incrementally from '/home/erdm_ja/.texttest/tmp/tools.20Dec142750.4112119/tools/import/OSM/webWizard/test/osm_pt.rou.xml'
-Loading route-files incrementally from '/home/erdm_ja/.texttest/tmp/tools.20Dec142750.4112119/tools/import/OSM/webWizard/test/osm.bicycle.trips.xml'
-Loading route-files incrementally from '/home/erdm_ja/.texttest/tmp/tools.20Dec142750.4112119/tools/import/OSM/webWizard/test/osm.passenger.trips.xml'
-Loading route-files incrementally from '/home/erdm_ja/.texttest/tmp/tools.20Dec142750.4112119/tools/import/OSM/webWizard/test/osm.pedestrian.rou.xml'
-Loading route-files incrementally from '/home/erdm_ja/.texttest/tmp/tools.20Dec142750.4112119/tools/import/OSM/webWizard/test/osm.ship.trips.xml'
+Loading net-file from '/home/erdm_ja/.texttest/tmp/tools.03Jan100727.4140054/tools/import/OSM/webWizard/test/osm.net.xml.gz' ... done (257ms).
+Loading additional-files from '/home/erdm_ja/.texttest/tmp/tools.03Jan100727.4140054/tools/import/OSM/webWizard/test/osm.poly.xml.gz' ... done (106ms).
+Loading additional-files from '/home/erdm_ja/.texttest/tmp/tools.03Jan100727.4140054/tools/import/OSM/webWizard/test/osm_stops.add.xml' ... done (8ms).
+Loading route-files incrementally from '/home/erdm_ja/.texttest/tmp/tools.03Jan100727.4140054/tools/import/OSM/webWizard/test/osm_pt.rou.xml'
+Loading route-files incrementally from '/home/erdm_ja/.texttest/tmp/tools.03Jan100727.4140054/tools/import/OSM/webWizard/test/osm.bicycle.trips.xml'
+Loading route-files incrementally from '/home/erdm_ja/.texttest/tmp/tools.03Jan100727.4140054/tools/import/OSM/webWizard/test/osm.passenger.trips.xml'
+Loading route-files incrementally from '/home/erdm_ja/.texttest/tmp/tools.03Jan100727.4140054/tools/import/OSM/webWizard/test/osm.pedestrian.rou.xml'
+Loading route-files incrementally from '/home/erdm_ja/.texttest/tmp/tools.03Jan100727.4140054/tools/import/OSM/webWizard/test/osm.ship.trips.xml'
 Loading done.
-Simulation version v1_21_0+1557-fb9ec070d59 started with time: 0.00.
-Simulation ended at time: 3116.00.
+Simulation version v1_21_0+1644-a3c1cd57ad7 started with time: 0.00.
+Simulation ended at time: 3115.00.
 Reason: All vehicles have left the simulation.
 Performance:
- Duration: 1.66s
- Real time factor: 1872.6
- UPS: 83370.192308
- UPS-Persons: 87311.298077
+ Duration: 1.15s
+ Real time factor: 2713.41
+ UPS: 121099.303136
+ UPS-Persons: 126450.348432
 Vehicles:
  Inserted: 414
  Running: 0
@@ -198,30 +198,30 @@ Persons:
  Running: 0
 Statistics (avg of 344):
  RouteLength: 1881.93
- Speed: 6.60
- Duration: 324.92
- WaitingTime: 52.57
- TimeLoss: 110.54
- DepartDelay: 3.85
+ Speed: 6.58
+ Duration: 325.88
+ WaitingTime: 52.92
+ TimeLoss: 111.05
+ DepartDelay: 3.87
 Bike Statistics (avg of 70):
  RouteLength: 1576.91
  Speed: 4.19
- Duration: 385.08
- WaitingTime: 52.78
- TimeLoss: 89.42
+ Duration: 384.56
+ WaitingTime: 52.54
+ TimeLoss: 88.90
  DepartDelay: 0.46
 Pedestrian Statistics (avg of 434 walks):
- RouteLength: 256.10
- Duration: 212.62
- TimeLoss: 27.90
+ RouteLength: 256.11
+ Duration: 212.54
+ TimeLoss: 27.81
 Ride Statistics (avg of 169 rides):
- WaitingTime: 107.26
+ WaitingTime: 107.14
  RouteLength: 922.47
- Duration: 117.63
+ Duration: 117.18
  Bus: 56
  Train: 107
  Aborted: 6
-DijkstraRouter answered 6335 queries and explored 10.72 edges on average.
+DijkstraRouter answered 6345 queries and explored 10.62 edges on average.
 DijkstraRouter spent 0.01s answering queries (0.00ms on average).
-DijkstraRouter answered 259 queries and explored 576.69 edges on average.
-DijkstraRouter spent 0.08s answering queries (0.31ms on average).
+DijkstraRouter answered 259 queries and explored 576.65 edges on average.
+DijkstraRouter spent 0.04s answering queries (0.14ms on average).
