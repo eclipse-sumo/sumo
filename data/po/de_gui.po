@@ -10433,11 +10433,11 @@ msgstr "Abfahrtszeit des ersten Flusses"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:8579
 msgid "Criterion for flow termination"
-msgstr ""
+msgstr "Kriterium für Flussende"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:8586
 msgid "Criterion for flow spacing"
-msgstr ""
+msgstr "Kriterium für Flussabstand"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:8599
 #: src/netedit/elements/GNEAttributeCarrier.cpp:8620
@@ -12066,11 +12066,11 @@ msgstr "Ungültiger Zielparkplatz '%' in % von % '%' genutzt"
 
 #: src/netedit/elements/demand/GNEPlanParents.cpp:163
 msgid "Invalid from route '%' used in % of % '%'"
-msgstr ""
+msgstr "Ungültige Ausgangsroute '%' in % von % '%' benutzt"
 
 #: src/netedit/elements/demand/GNEPlanParents.cpp:166
 msgid "Invalid to route '%' used in % of % '%'"
-msgstr ""
+msgstr "Ungültige Zielroute '%' in % von % '%' benutzt"
 
 #: src/netedit/elements/demand/GNERoute.cpp:282
 msgid "Cannot repeat in routes with only one edge"
@@ -12089,7 +12089,7 @@ msgstr "% '%' kopieren"
 
 #: src/netedit/elements/demand/GNERouteHandler.cpp:93
 msgid "delete % '%'"
-msgstr ""
+msgstr "% '%' entfernen"
 
 #: src/netedit/elements/demand/GNERouteHandler.cpp:125
 #: src/netedit/elements/demand/GNERouteHandler.cpp:159
@@ -12217,6 +12217,8 @@ msgstr ""
 msgid ""
 "Could not build % with ID '%' in netedit; via % with ID '%' doesn't exist."
 msgstr ""
+"% mit der ID '%' konnte in netedit nicht erstellt werden; Zwischenelement % "
+"mit der ID '%' existiert nicht."
 
 #: src/netedit/elements/demand/GNERouteHandler.cpp:2553
 msgid "% with id '%' doesn't exist in % '%'"
@@ -12730,7 +12732,7 @@ msgstr "Erreichbare Fahrstreifen auswählen (berechne Knotenpunkte)"
 
 #: src/netedit/elements/network/GNENetworkElement.cpp:312
 msgid "% (Edited shape)"
-msgstr ""
+msgstr "% (bearbeiteter Shape)"
 
 #: src/netedit/elements/network/GNENetworkElement.cpp:315
 #: src/utils/gui/globjects/GUIGlObject.cpp:278
@@ -12739,7 +12741,7 @@ msgstr "Testkoordinaten in Zwischenablage kopieren"
 
 #: src/netedit/elements/network/GNENetworkElement.cpp:321
 msgid "Simplify shape"
-msgstr ""
+msgstr "Shape vereinfachen"
 
 #: src/netedit/elements/network/GNENetworkElement.cpp:327
 msgid "Open junction's shape"
@@ -12751,15 +12753,15 @@ msgstr ""
 
 #: src/netedit/elements/network/GNENetworkElement.cpp:332
 msgid "Straighten shape"
-msgstr ""
+msgstr "Shape glätten"
 
 #: src/netedit/elements/network/GNENetworkElement.cpp:341
 msgid "Remove geometry point (shift+click)"
-msgstr ""
+msgstr "Geometriepunkt entfernen (Shift+Klick)"
 
 #: src/netedit/elements/network/GNENetworkElement.cpp:355
 msgid "Finish editing (Enter)"
-msgstr ""
+msgstr "Bearbeitung abschließen (Enter)"
 
 #: src/netedit/frames/GNEAttributesCreator.cpp:50
 msgid "Internal attributes"
@@ -12793,13 +12795,13 @@ msgstr ""
 #: src/netedit/frames/GNEAttributesEditor.cpp:153
 #, c-format
 msgid "Open % dialog"
-msgstr ""
+msgstr "%-Dialog öffnen"
 
 #: src/netedit/frames/GNEAttributesEditor.cpp:313
 #: src/netedit/frames/GNEAttributesEditor.cpp:338
 #, c-format
 msgid "change multiple % attributes"
-msgstr ""
+msgstr "mehrere %-Attribute ändern"
 
 #: src/netedit/frames/GNEAttributesEditor.cpp:316
 #, c-format
