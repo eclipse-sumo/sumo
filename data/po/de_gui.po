@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-01-02 15:02+0100\n"
-"PO-Revision-Date: 2024-12-03 14:24+0000\n"
+"PO-Revision-Date: 2025-01-03 12:17+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
-"Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/sumo-"
-"gui-netedit/de/>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
+"sumo-gui-netedit/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.9-dev\n"
+"X-Generator: Weblate 5.10-dev\n"
 
 #: src/gui/GUIApplicationWindow.cpp:299 src/gui/GUIApplicationWindow.cpp:302
 #: src/gui/GUIApplicationWindow.cpp:2262 src/gui/GUIApplicationWindow.cpp:2263
@@ -6698,23 +6698,23 @@ msgstr "ungültige Fußgängerfurten auswählen"
 
 #: src/netedit/dialogs/GNEKeepElementsDialog.cpp:59
 msgid "Keep new"
-msgstr ""
+msgstr "Neue behalten"
 
 #: src/netedit/dialogs/GNEKeepElementsDialog.cpp:59
 msgid "Keep new elements"
-msgstr ""
+msgstr "Behalte neue Elemente"
 
 #: src/netedit/dialogs/GNEKeepElementsDialog.cpp:60
 msgid "Keep old"
-msgstr ""
+msgstr "Alte behalten"
 
 #: src/netedit/dialogs/GNEKeepElementsDialog.cpp:60
 msgid "Keep old elements"
-msgstr ""
+msgstr "Behalte alte Elemente"
 
 #: src/netedit/dialogs/GNEKeepElementsDialog.cpp:61
 msgid "Cancel loading of elements"
-msgstr ""
+msgstr "Elementeladevorgang abbrechen"
 
 #: src/netedit/dialogs/GNEMultipleParametersDialog.cpp:286
 #: src/netedit/dialogs/GNESingleParametersDialog.cpp:283
@@ -12002,67 +12002,67 @@ msgstr "Kante '%' folgt nicht direkt auf Kante '%'"
 
 #: src/netedit/elements/demand/GNEPlanParents.cpp:115
 msgid "Invalid from edge '%' used in % of % '%'"
-msgstr ""
+msgstr "Ungültige Ausgangskante '%' in % von % '%' genutzt"
 
 #: src/netedit/elements/demand/GNEPlanParents.cpp:118
 msgid "Invalid to edge '%' used in % of % '%'"
-msgstr ""
+msgstr "Ungültige Zielkante '%' in % von % '%' genutzt"
 
 #: src/netedit/elements/demand/GNEPlanParents.cpp:121
 msgid "Invalid from junction '%' used in % of % '%'"
-msgstr ""
+msgstr "Ungültiger Ausgangsknotenpunkt '%' in % von % '%' genutzt"
 
 #: src/netedit/elements/demand/GNEPlanParents.cpp:124
 msgid "Invalid to junction '%' used in % of % '%'"
-msgstr ""
+msgstr "Ungültiger Zielknotenpunkt '%' in % von % '%' genutzt"
 
 #: src/netedit/elements/demand/GNEPlanParents.cpp:127
 msgid "Invalid from TAZ '%' used in % of % '%'"
-msgstr ""
+msgstr "Ungültige Ausgangsverkehrsumlegungszone '%' in % von % '%' genutzt"
 
 #: src/netedit/elements/demand/GNEPlanParents.cpp:130
 msgid "Invalid to TAZ '%' used in % of % '%'"
-msgstr ""
+msgstr "Ungültige Zielverkehrsumlegungszone '%' in % von % '%' genutzt"
 
 #: src/netedit/elements/demand/GNEPlanParents.cpp:133
 msgid "Invalid from bus stop '%' used in % of % '%'"
-msgstr ""
+msgstr "Ungültige Ausgangsbushaltestelle '%' in % von % '%' genutzt"
 
 #: src/netedit/elements/demand/GNEPlanParents.cpp:136
 msgid "Invalid from train stop '%' used in % of % '%'"
-msgstr ""
+msgstr "Ungültiger Ausgangsbahnhaltepunkt '%' in % von % '%' genutzt"
 
 #: src/netedit/elements/demand/GNEPlanParents.cpp:139
 msgid "Invalid from container stop '%' used in % of % '%'"
-msgstr ""
+msgstr "Ungültiger Ausgangscontainerhaltepunkt '%' in % von % '%' genutzt"
 
 #: src/netedit/elements/demand/GNEPlanParents.cpp:142
 msgid "Invalid from charging station '%' used in % of % '%'"
-msgstr ""
+msgstr "Ungültige Ausgangsladestation '%' in % von % '%' genutzt"
 
 #: src/netedit/elements/demand/GNEPlanParents.cpp:145
 msgid "Invalid from parking area '%' used in % of % '%'"
-msgstr ""
+msgstr "Ungültiger Ausgangsparkplatz '%' in % von % '%' genutzt"
 
 #: src/netedit/elements/demand/GNEPlanParents.cpp:148
 msgid "Invalid to bus stop '%' used in % of % '%'"
-msgstr ""
+msgstr "Ungültige Zielbushaltestelle '%' in % von % '%' genutzt"
 
 #: src/netedit/elements/demand/GNEPlanParents.cpp:151
 msgid "Invalid to train stop '%' used in % of % '%'"
-msgstr ""
+msgstr "Ungültiger Zielbahnhaltepunkt '%' in % von % '%' genutzt"
 
 #: src/netedit/elements/demand/GNEPlanParents.cpp:154
 msgid "Invalid to container stop '%' used in % of % '%'"
-msgstr ""
+msgstr "Ungültiger Zielcontainerhaltepunkt '%' in % von % '%' genutzt"
 
 #: src/netedit/elements/demand/GNEPlanParents.cpp:157
 msgid "Invalid to charging station '%' used in % of % '%'"
-msgstr ""
+msgstr "Ungültige Zielladestation '%' in % von % '%' genutzt"
 
 #: src/netedit/elements/demand/GNEPlanParents.cpp:160
 msgid "Invalid to parking area '%' used in % of % '%'"
-msgstr ""
+msgstr "Ungültiger Zielparkplatz '%' in % von % '%' genutzt"
 
 #: src/netedit/elements/demand/GNEPlanParents.cpp:163
 msgid "Invalid from route '%' used in % of % '%'"
