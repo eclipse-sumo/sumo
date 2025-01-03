@@ -56,5 +56,5 @@ try:
         print("routes", c.route.getIDList())
         print("edges", c.route.getEdges("h2"))
         c.close()
-except:
+except Exception:
     traci.close()
