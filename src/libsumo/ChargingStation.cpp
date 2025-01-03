@@ -122,8 +122,8 @@ ChargingStation::getChargeInTransit(const std::string& stopID) {
 
 
 void
-ChargingStation::setChargingPower(const std::string& stopID, double chargingpower) {
-    dynamic_cast<MSChargingStation*>(getChargingStation(stopID))->setChargingPower(chargingpower);
+ChargingStation::setChargingPower(const std::string& stopID, double power) {
+    dynamic_cast<MSChargingStation*>(getChargingStation(stopID))->setChargingPower(power);
 }
 
 
@@ -140,8 +140,8 @@ ChargingStation::setChargeDelay(const std::string& stopID, double delay) {
 
 
 void
-ChargingStation::setChargeInTransit(const std::string& stopID, bool value) {
-    dynamic_cast<MSChargingStation*>(getChargingStation(stopID))->setChargeInTransit(value);
+ChargingStation::setChargeInTransit(const std::string& stopID, bool inTransit) {
+    dynamic_cast<MSChargingStation*>(getChargingStation(stopID))->setChargeInTransit(inTransit);
 }
 
 
