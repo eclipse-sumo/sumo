@@ -1,0 +1,4 @@
+Could not connect to TraCI server at localhost:45297 tcpip::Socket::connect() @ socket: Connection refused
+ Retrying in 1 second
+Using libtraci as traci as requested by environment variable.
+vehicle.setParameter() got an unexpected keyword argument 'oID'

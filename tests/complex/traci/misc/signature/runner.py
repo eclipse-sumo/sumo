@@ -54,10 +54,10 @@ if not traci.isLibsumo():
         traci.simulationStep()
         if not traci.isLibtraci():
             traci.vehicle.setLaneChangeMode("horiz", lcm=0)
-        traci.vehicle.setParameter(objectID="horiz", key="blub", value="blubber")
-        traci.vehicle.setParameter(objID="horiz", key="blub", value="blubber")
-        traci.vehicle.setParameter(objectID="horiz", param="blub", value="blubber")
-        traci.vehicle.setParameter(objID="horiz", param="blub", value="blubber")
+            traci.vehicle.setParameter(objectID="horiz", key="blub", value="blubber")
+            traci.vehicle.setParameter(objID="horiz", key="blub", value="blubber")
+            traci.vehicle.setParameter(objectID="horiz", param="blub", value="blubber")
+            traci.vehicle.setParameter(objID="horiz", param="blub", value="blubber")
         try:
             traci.vehicle.setParameter(oID="horiz", param="blub", value="blubber")
         except TypeError as e:
