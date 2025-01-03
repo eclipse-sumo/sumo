@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-01-02 15:02+0100\n"
-"PO-Revision-Date: 2024-12-03 14:24+0000\n"
+"PO-Revision-Date: 2025-01-03 14:36+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.9-dev\n"
+"X-Generator: Weblate 5.10-dev\n"
 
 #: src/gui/GUIApplicationWindow.cpp:299 src/gui/GUIApplicationWindow.cpp:302
 #: src/gui/GUIApplicationWindow.cpp:2262 src/gui/GUIApplicationWindow.cpp:2263
@@ -2884,7 +2884,7 @@ msgstr "Elementi di domanda salvati in '"
 #: src/netedit/GNEApplicationWindow.cpp:4021
 #: src/netedit/GNEApplicationWindow.cpp:4202
 msgid "Saving demand elements aborted"
-msgstr ""
+msgstr "Salvataggio degli elementi di domanda interrotto"
 
 #: src/netedit/GNEApplicationWindow.cpp:4028
 #: src/netedit/GNEApplicationWindow.cpp:4383
@@ -2939,11 +2939,11 @@ msgstr "ricarica meanData da '"
 
 #: src/netedit/GNEApplicationWindow.cpp:4373
 msgid "MeanDatas elements saved in '"
-msgstr ""
+msgstr "Elementi MeanData salvati in '"
 
 #: src/netedit/GNEApplicationWindow.cpp:4376
 msgid "Saving MeanData elements aborted"
-msgstr ""
+msgstr "Salvataggio degli elementi MeanData interrotto"
 
 #: src/netedit/GNEApplicationWindow.cpp:4430
 msgid "Confirm close Network"
@@ -3162,12 +3162,14 @@ msgstr "Elementi meanData"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:305
 msgid "Allow undoing element loading"
-msgstr ""
+msgstr "Permetti di annullare la carica degli elementi"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:305
 msgid ""
 "Allow to undo loading of elements (Slow if a lot of elements are loaded)"
 msgstr ""
+"Permette di annullare la carica degli elementi (lento se ci sono molti "
+"elementi caricati)"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:313
 msgid "Close the network."
