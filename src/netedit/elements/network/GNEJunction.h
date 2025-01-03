@@ -367,7 +367,7 @@ private:
                              const double exaggeration) const;
 
     /// @brief draw TLS icon
-    void drawTLSIcon(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const;
+    void drawTLSIcon(const GUIVisualizationSettings& s) const;
 
     /// @brief draw elevation
     void drawElevation(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const;

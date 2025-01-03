@@ -677,7 +677,7 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
                     drawJunctionAsBubble(s, d, junctionExaggeration);
                 }
                 // draw TLS
-                drawTLSIcon(s, d);
+                drawTLSIcon(s);
                 // draw elevation
                 drawElevation(s, d);
                 // pop layer Matrix
@@ -1771,9 +1771,9 @@ GNEJunction::drawJunctionAsShape(const GUIVisualizationSettings& s, const GUIVis
 
 
 void
-GNEJunction::drawTLSIcon(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const {
+GNEJunction::drawTLSIcon(const GUIVisualizationSettings& s) const {
     // draw TLS icon if isn't being drawn for selecting
-    if ((d <= GUIVisualizationSettings::Detail::TLSIcon) && myNBNode->isTLControlled() && !myAmTLSSelected &&
+    if (myNBNode->isTLControlled() && !myAmTLSSelected &&
             (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_TLS)) {
         GLHelper::pushMatrix();
         const Position pos = myNBNode->getPosition();
