@@ -130,7 +130,15 @@ Currently two charging strategies can be set in the stationfinder device using t
 - `chargingStrategy="latest"`: still charge at the maximum charge rate but rather than start charging immediately after arrival, start the latest time possible to reach the target SoC
 
 # TraCI
-The internal state of the stationfindedr device can be accessed directly using
+The internal state of the stationfinder device can be accessed directly using
 [*traci.vehicle.getParameter*](../TraCI/Vehicle_Value_Retrieval.md#supported_device_parameters)
 and
 [*traci.vehicle.setParameter*](../TraCI/Change_Vehicle_State.md#supported_device_parameters).
+
+In addition to the device parameters explained above, some more **read-only** properties are available (Note that you need to supply the full name `device.stationfinder.<PARAMETER NAME>` to 
+the TraCI function):
+
+| Parameter             | Description                                                                         |
+| --------------------- | ----------------------------------------------------------------------------------- |
+| chargingStation       | ID of the charging station the vehicle is heading to (empty string elsewise)        |
+| batteryNeed           | Estimated energy needed for completing the remaining route                          |
