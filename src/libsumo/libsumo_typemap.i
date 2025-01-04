@@ -362,14 +362,14 @@ static PyObject* parseSubscriptionMap(const std::map<int, std::shared_ptr<libsum
 %}
 
 %define SUBSCRIBE_HELPER(domain)
-%pythonprepend SWIG_MODULE::domain::subscribe(const std::string&, const std::vector<int>&, double begin, double, const SWIG_MODULE::TraCIResults&) %{
+%pythonprepend SWIG_MODULE::domain::subscribe(const std::string&, const std::vector<int>&, double begin, double, const libsumo::TraCIResults&) %{
     if len(args) > 1 and args[1] is None:
         args = (args[0], [-1]) + args[2:]
     if "varIDs" in kwargs and kwargs["varIDs"] is None:
         kwargs["varIDs"] = [-1]
 %}
 
-%pythonprepend SWIG_MODULE::domain::subscribeContext(const std::string&, int, double, const std::vector<int>&, double begin, double, const SWIG_MODULE::TraCIResults&) %{
+%pythonprepend SWIG_MODULE::domain::subscribeContext(const std::string&, int, double, const std::vector<int>&, double begin, double, const libsumo::TraCIResults&) %{
     if len(args) > 3 and args[3] is None:
         args = (args[0], args[1], args[2], [-1]) + args[4:]
     if "varIDs" in kwargs and kwargs["varIDs"] is None:
@@ -401,12 +401,12 @@ SUBSCRIBE_HELPER(MeanData)
 SUBSCRIBE_HELPER(VariableSpeedSign)
 SUBSCRIBE_HELPER(RouteProbe)
 
-%pythonprepend SWIG_MODULE::Simulation::subscribe(const std::string&, const std::vector<int>&, double begin, double, const SWIG_MODULE::TraCIResults&) %{
+%pythonprepend SWIG_MODULE::Simulation::subscribe(const std::string&, const std::vector<int>&, double begin, double, const libsumo::TraCIResults&) %{
     if len(args) > 1 and args[1] is None:
         args = (args[0], [-1]) + args[2:]
 %}
 
-%pythonprepend SWIG_MODULE::Simulation::subscribeContext(const std::string&, int, double, const std::vector<int>&, double begin, double, const SWIG_MODULE::TraCIResults&) %{
+%pythonprepend SWIG_MODULE::Simulation::subscribeContext(const std::string&, int, double, const std::vector<int>&, double begin, double, const libsumo::TraCIResults&) %{
     if len(args) > 3 and args[3] is None:
         args = (args[0], args[1], args[2], [-1]) + args[4:]
     if "varIDs" in kwargs and kwargs["varIDs"] is None:
