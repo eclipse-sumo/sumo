@@ -413,11 +413,9 @@ class ArgumentParser(argparse.ArgumentParser):
                                 config_args += value.split()
                             elif option.name in multi_value:
                                 config_args += ["--" + option.name] + value.split()
-                            elif value:
-                                # permit negative values in cfg files
-                                config_args += ["--" + option.name + "=" + value]
                             else:
-                                config_args += ["--" + option.name]
+                                # permit negative values and empty strings in cfg files
+                                config_args += ["--" + option.name + "=" + value]
         combined_args = args + config_args + [p for p in pos_args if p is not None]
         namespace, unknown_args = argparse.ArgumentParser.parse_known_args(
             self, args=combined_args, namespace=namespace)

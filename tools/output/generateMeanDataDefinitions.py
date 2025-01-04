@@ -20,7 +20,6 @@ from __future__ import absolute_import
 
 import os
 import logging
-import optparse
 import sys
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -112,16 +111,13 @@ if __name__ == "__main__":
 
     logging.basicConfig()
 
-    option_parser = optparse.OptionParser()
-    option_parser.add_option("-d", "--detector-file",
-                             help="Input detector FILE",
-                             dest="detector_file",
-                             type="string")
-    option_parser.add_option("-t", "--detector-type",
+    option_parser = sumolib.options.ArgumentParser()
+    option_parser.add_option("-d", "--detector-file", required=True,
+                             help="Input detector FILE. Mandatory.")
+    option_parser.add_option("-t", "--detector-type", required=True,
+                             choices=('e1', 'e2', 'e3'),
                              help="Type of detectors defined in the input. "
-                                  "Allowed values: e1, e2, e3. Mandatory.",
-                             dest="detector_type",
-                             type="string")
+                                  "Allowed values: e1, e2, e3. Mandatory.")
     option_parser.add_option("-f", "--frequency",
                              help="The aggregation period the values the "
                                   "detector collects shall be summed up. "
@@ -130,8 +126,6 @@ if __name__ == "__main__":
                                   "the default. If specified, must be a "
                                   "positive integer (seconds) representing "
                                   "time range length.",
-                             dest="frequency",
-                             type="string",
                              default="")
     option_parser.add_option("-l", "--lane-based-dump",
                              help="Generate lane based dump instead of "
@@ -151,15 +145,12 @@ if __name__ == "__main__":
                                   "build from the detector's ID and this "
                                   "suffix, with '.xml' extension. Defaults "
                                   "to -results-aggregated.",
-                             dest="output_suffix",
                              default="-results-aggregated")
     option_parser.add_option("-o", "--output",
                              help="Output to write the mean data definition "
-                                  "to. Defaults to stdout.",
-                             dest="output",
-                             type="string")
+                                  "to. Defaults to stdout.")
 
-    (options, args) = option_parser.parse_args()
+    options = option_parser.parse_args()
 
     output = sys.stdout
     if options.output is not None:
