@@ -1,0 +1,5 @@
+<configuration>
+    <detector-file value="e1.add.xml"/>
+    <detector-type value="e1"/>
+    <output-suffix value=""/>
+</configuration>
