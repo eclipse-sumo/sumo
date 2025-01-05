@@ -1,4 +1,3 @@
- Retrying in 1 seconds
 
 Run dispatcher
 New reservations: ['0']
@@ -13,7 +12,7 @@ Pending reservations: []
 Solve DARP with exhaustive_search
 Solve ILP
 Dispatch: taxiA_0y_2y_0z_2z
-Dispatch: taxiB_3y_1y_3z_1z
+Dispatch: taxiB_1y_3y_3z_1z
 
 Run dispatcher
 New reservations: ['4', '5', '6']
@@ -64,11 +63,13 @@ Pending reservations: ['4', '5', '7', '8']
 Solve DARP with exhaustive_search
 Reservation 4 (person ('4',)) cannot be served
 Reservation 5 (person ('5',)) cannot be served
+Solve ILP
 
 Run dispatcher
 Pending reservations: ['7', '8']
 Solve DARP with exhaustive_search
 Reservation 7 (person ('7',)) cannot be served
+Solve ILP
 
 Run dispatcher
 Pending reservations: ['8']
