@@ -429,7 +429,7 @@ def main():
                 veh_constraints = {}
                 res_constraints = {}
                 costs = {}
-                trips = list(routes.keys())  # trips for parsing ILP solution
+                trips = list(sorted(routes.keys()))  # trips for parsing ILP solution
 
                 # add bonus_cost to trip cost (makes trips with more served
                 # reservations cheaper than splitting the reservations to more
@@ -456,10 +456,8 @@ def main():
                                for route_index in ilp_result]
 
             # assign routes to vehicles
-            for route_id in best_routes:
-                stops = route_id.replace('y', '')
-                stops = stops.replace('z', '')
-                stops = stops.split("_")
+            for route_id in sorted(best_routes):
+                stops = route_id.replace('y', '').replace('z', '').split("_")
                 veh_id = stops[0]
                 # first check if new route is better than the current one
                 current_route = []
