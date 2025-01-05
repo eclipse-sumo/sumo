@@ -277,27 +277,19 @@ errors:Execution of .*duarouter.*'{REPLACE Execution of <path-to>duarouter'}
 errors:Leaked object at
 errors:*** 9 leaks found
 errors:delete: freed
-errors:lxml.etree.XMLSyntaxError{REPLACE XMLSyntaxError}
-errors:File .* lxml.etree.
 errors:OSError: Error reading file{REPLACE IOError: Error reading file}
 errors:.*RuntimeWarning: divide{REPLACE RuntimeWarning: divide}
 errors:Ran [0-9]+ tests in [0-9]+\.[0-9]+s{REPLACE Ran <COUNT> tests in <TIME>}
 errors:No imaging
-errors:Bytes: 0xF6 0x74 0x2E 0x6E, line 3, column 27{REPLACE Bytes: 0xF6 0x74 0x2E 0x6E, line 3, column 26}
-errors:column ([0-9]*) \(line [0-9]*\){REPLACE column \1}
 errors:Scipy version [0-9]+\.[0-9]+\.[0-9]+{REPLACE Scipy}
 errors:OptimizeWarning
-errors:(file:)?/.*/tests/sumo/{REPLACE sumo/tests/sumo/}
-errors:/.*/tests/../tools/{REPLACE sumo/tools/}
+errors:File ".*[\\/]tests[\\/]..[\\/]tools[\\/]{REPLACE File "sumo/tools/}
 errors:.*statistics.py:[0-9]+{REPLACE statistics.py:}
-errors:.*[/\\]([a-zA-Z0-9]*).py", line [0-9]+{REPLACE \1.py}
 errors:unknown url type{REPLACE [Errno 2] No such file or directory}
-errors::ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element
 errors:Matplotlib is building the font cache; this may take a moment.
 errors:apport/report.py:13: DeprecationWarning: the imp{LINES 2}
 errors:dateutil/tz/tz.py:.*: DeprecationWarning: datetime.datetime.utcfromtimestamp{LINES 2}
 errors:matplotlib/projections/__init__.py:.*: UserWarning: Unable to import Axes3D.{LINES 2}
-errors:schemaCheck.py
 errors:site-packages/ortools.*DeprecationWarning:
 errors:remaining_args \.\.\.
 errors:FutureWarning:{LINES 2}
