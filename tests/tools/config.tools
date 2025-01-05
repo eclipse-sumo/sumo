@@ -307,6 +307,7 @@ errors:LinAlgWarning: Ill-conditioned matrix
 errors:= opt.linprog(
 errors:return sp.linalg.solve
 errors:usage: {[->}error:
+errors:\(choose from .*\){REPLACE (choose wisely)}
 omnet:<!-- generated on
 shawn:<!-- generated on
 gpsdat:r[0-9]
