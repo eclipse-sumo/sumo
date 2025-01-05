@@ -57,14 +57,17 @@ def addToBoundingBox(coordList, bbox=None):
     return minX, minY, maxX, maxY
 
 
+def isLeft(point, line_start, line_end):
+    return ((line_end[0] - line_start[0]) * (point[1] - line_start[1])
+            < (point[0] - line_start[0]) * (line_end[1] - line_start[1]))
+
+
 def lineOffsetWithMinimumDistanceToPoint(point, line_start, line_end, perpendicular=False):
     """Return the offset from line (line_start, line_end) where the distance to
     point is minimal"""
-    p = point
-    p1 = line_start
-    p2 = line_end
-    d = distance(p1, p2)
-    u = ((p[0] - p1[0]) * (p2[0] - p1[0])) + ((p[1] - p1[1]) * (p2[1] - p1[1]))
+    d = distance(line_start, line_end)
+    u = ((point[0] - line_start[0]) * (line_end[0] - line_start[0])
+         + (point[1] - line_start[1]) * (line_end[1] - line_start[1]))
     if d == 0. or u < 0. or u > d * d:
         if perpendicular:
             return INVALID_DISTANCE
@@ -159,16 +162,34 @@ def positionAtOffset(p1, p2, offset):
     return (p1[0] + (p2[0] - p1[0]) * (offset / dist), p1[1] + (p2[1] - p1[1]) * (offset / dist))
 
 
-def positionAtShapeOffset(shape, offset):
-    seenLength = 0
+def indexAtShapeOffset(shape, offset):
+    """Returns the index of the shape segment which contains the offset and
+       the cumulated length of the shape up to the start point of the segment.
+       If the offset is less or equal to 0, it returns (0, 0.) If the offset is
+       larger than the shape length it returns (None, length of the shape)"""
+    seenLength = 0.
     curr = shape[0]
-    for p in shape[1:]:
+    for idx, p in enumerate(shape[1:]):
         nextLength = distance(curr, p)
         if seenLength + nextLength > offset:
-            return positionAtOffset(curr, p, offset - seenLength)
+            return idx, seenLength
         seenLength += nextLength
         curr = p
-    return shape[-1]
+    return None, seenLength
+
+
+def positionAtShapeOffset(shape, offset):
+    idx, seen = indexAtShapeOffset(shape, offset)
+    if idx is None:
+        return shape[-1]
+    return positionAtOffset(shape[idx], shape[idx + 1], offset - seen)
+
+
+def rotationAtShapeOffset(shape, offset):
+    idx, _ = indexAtShapeOffset(shape, offset)
+    if idx is None:
+        return None
+    return math.atan2(shape[idx + 1][1] - shape[idx][1], shape[idx + 1][0] - shape[idx][0])
 
 
 def angle2D(p1, p2):
