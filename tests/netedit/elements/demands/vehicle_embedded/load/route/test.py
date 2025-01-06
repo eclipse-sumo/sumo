@@ -34,11 +34,14 @@ netedit.supermodeDemand()
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)
 
-# save Netedit config
-netedit.saveNeteditConfig(referencePosition)
+# save routes
+netedit.saveRoutes(referencePosition)
 
 # remove invalid routes
 netedit.typeSpace()
+
+# save Netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

@@ -1,3 +1,4 @@
+Error: Could not build flow with ID 'vehicle_0' in netedit; Requiere either a route or an embedded route or a from-to attribute (Edges, junctions or TAZs).
 Error: At least one of 'period', 'vehsPerHour', 'personsPerHour', 'containersPerHour', 'perHour', 'probability', and 'number' is needed in flow 'vehicle_1'.
 Error: a route must be defined either within a vehicle/flow or with an ID attribute
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.16Jul140604.3906/netedit.gui/elements/demands/flow_embedded/load/route/routes.rou.xml failed.
+Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.06Jan154439.17844\netedit.gui\elements\demands\flow_embedded\load\route\routes.rou.xml failed.

@@ -907,9 +907,11 @@ def saveRoutes(referencePosition, clickOverReference=True):
     # check if clickOverReference is enabled
     if clickOverReference:
         # click over reference (to avoid problem with undo-redo)
-        leftClick(referencePosition, 0, 0)
+        leftClick(referencePosition, positions.reference, 0, 0)
     # save routes using hotkey
     typeThreeKeys('ctrl', 'shift', 'd')
+    # wait for saving
+    time.sleep(DELAY_SAVING)
 
 
 def openDataElementsAs(waitTime=2):
