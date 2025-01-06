@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-19 14:45:03 by Eclipse SUMO sumo Version v1_14_1+14171-52efda50904
+<!-- generated on 2025-01-06 16:05:59 by Eclipse SUMO sumo Version v1_21_0+1684-07c849faa0a
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -605,7 +605,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="veh_tow" energyConsumed="0.0139" totalEnergyConsumed="131.4265" totalEnergyRegenerated="29.4648" actualBatteryCapacity="261.9315" maximumBatteryCapacity="35000.0000" chargingStationId="CS2" energyCharged="2.7500" energyChargedInTransit="0.0000" energyChargedStopped="2.7500" speed="0.0000" acceleration="0.0000" x="250.0000" y="201.6000" lane="D2C2_0" posOnLane="250.0000" timeStopped="81"/>
     </timestep>
     <timestep time="144.00">
-        <vehicle id="veh_none" energyConsumed="0.0139" totalEnergyConsumed="1137.0913" totalEnergyRegenerated="82.6819" actualBatteryCapacity="42.6625" maximumBatteryCapacity="35000.0000" chargingStationId="CS2" energyCharged="2.7500" energyChargedInTransit="0.0000" energyChargedStopped="2.7500" speed="0.0000" acceleration="-0.0000" x="252.4826" y="201.6000" lane="D2C2_0" posOnLane="235.4990" timeStopped="2"/>
+        <vehicle id="veh_none" energyConsumed="0.0139" totalEnergyConsumed="1137.0913" totalEnergyRegenerated="82.6819" actualBatteryCapacity="42.6625" maximumBatteryCapacity="35000.0000" chargingStationId="CS2" energyCharged="2.7500" energyChargedInTransit="0.0000" energyChargedStopped="2.7500" speed="0.0000" acceleration="0.0000" x="252.4826" y="201.6000" lane="D2C2_0" posOnLane="235.4990" timeStopped="2"/>
         <vehicle id="veh_tow" energyConsumed="0.0139" totalEnergyConsumed="131.4404" totalEnergyRegenerated="29.4648" actualBatteryCapacity="264.6676" maximumBatteryCapacity="35000.0000" chargingStationId="CS2" energyCharged="2.7500" energyChargedInTransit="0.0000" energyChargedStopped="2.7500" speed="0.0000" acceleration="0.0000" x="250.0000" y="201.6000" lane="D2C2_0" posOnLane="250.0000" timeStopped="82"/>
     </timestep>
     <timestep time="145.00">
