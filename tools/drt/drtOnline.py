@@ -63,7 +63,7 @@ def initOptions():
                     help="Timeout for exhaustive search (default 5 seconds)")
     ap.add_argument("--ilp-time", type=float, default=5,
                     help="Timeout for ILP solver (default 5 seconds)")
-    ap.add_argument("--c-ko", type=int, default=1000000000000,
+    ap.add_argument("--c-ko", type=int, default=1000000000,
                     help="Cost of ignoring a reservation")
     ap.add_argument("--cost-per-trip", type=int, default=600, help="Cost to avoid using multiple vehicles"
                     " if the travel time of trips is similar (default 600 seconds)")
@@ -440,7 +440,7 @@ def main():
                     # TODO specific cost for vehicle can be consider here
                     bonus_cost = (sum(routes[trip_id][2]) + 1) * options.cost_per_trip
                     # generate dict with costs
-                    costs.update({idx: 10 * (routes[trip_id][0] + bonus_cost)})
+                    costs.update({idx: routes[trip_id][0] + bonus_cost})
                     # generate dict with vehicle used in the trip
                     veh_constraints.update({idx: routes[trip_id][1]})
                     # generate dict with served reservations in the trip
