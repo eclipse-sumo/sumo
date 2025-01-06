@@ -5657,6 +5657,13 @@ MSVehicle::enterLaneAtInsertion(MSLane* enteredLane, double pos, double speed, d
         myLastBestLanesEdge = nullptr;
         myLastBestLanesInternalLane = nullptr;
         myLaneChangeModel->resetState();
+        while (!myStops.empty() && myStops.front().edge == myCurrEdge && &myStops.front().lane->getEdge() == &myLane->getEdge()
+                && myStops.front().pars.endPos < pos) {
+            WRITE_WARNINGF(TL("Vehicle '%' skips stop on lane '%' time=%."), getID(), myStops.front().lane->getID(),
+                    time2string(MSNet::getInstance()->getCurrentTimeStep()));
+            myStops.pop_front();
+        }
+
     }
     computeFurtherLanes(enteredLane, pos);
     if (MSGlobals::gLateralResolution > 0) {
