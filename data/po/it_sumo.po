@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2025-01-02 15:02+0100\n"
+"POT-Creation-Date: 2025-01-06 11:22+0100\n"
 "PO-Revision-Date: 2025-01-02 10:39+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
@@ -975,11 +975,11 @@ msgstr ""
 "Non ho potuto determinare la posizione sulla corsia '%' alla posizione "
 "laterale %."
 
-#: src/libsumo/Simulation.cpp:105
+#: src/libsumo/Simulation.cpp:138
 msgid "Simulation version % started via libsumo with time: %."
 msgstr "Simulazione con la versione % iniziata attraverso libsumo alle ore %."
 
-#: src/libsumo/Simulation.cpp:702
+#: src/libsumo/Simulation.cpp:738
 msgid ""
 "Ignoring vehicle type '%' when performing intermodal routing because it is "
 "not allowed on the start edge '%'."
@@ -1462,41 +1462,41 @@ msgstr ""
 "L'arco di partenza % del veicolo '%' con % archi nell'itinerario verrà "
 "ignorato"
 
-#: src/microsim/MSBaseVehicle.cpp:1665
+#: src/microsim/MSBaseVehicle.cpp:1668
 msgid "Invalid stop index % (has % stops)."
 msgstr "Indice di fermata invalido % (ha % fermate)."
 
-#: src/microsim/MSBaseVehicle.cpp:1745 src/microsim/MSBaseVehicle.cpp:1868
-#: src/microsim/MSBaseVehicle.cpp:1977
+#: src/microsim/MSBaseVehicle.cpp:1748 src/microsim/MSBaseVehicle.cpp:1871
+#: src/microsim/MSBaseVehicle.cpp:1980
 msgid "invalid nextStopIndex % for % remaining stops"
 msgstr "nextStopIndex % invalido per % fermate rimaste"
 
-#: src/microsim/MSBaseVehicle.cpp:1749
+#: src/microsim/MSBaseVehicle.cpp:1752
 msgid "cannot replace reached stop"
 msgstr "non si può sostituire la fermata alla quale ci si trova attualmente"
 
-#: src/microsim/MSBaseVehicle.cpp:1764
+#: src/microsim/MSBaseVehicle.cpp:1767
 msgid "vehicle '%' does not have the right badge to access parkingArea '%'"
 msgstr ""
 "il veicolo '%' non tiene la credenziale adeguata per accedere al parcheggio "
 "'%'"
 
-#: src/microsim/MSBaseVehicle.cpp:1777 src/microsim/MSBaseVehicle.cpp:1989
+#: src/microsim/MSBaseVehicle.cpp:1780 src/microsim/MSBaseVehicle.cpp:1992
 msgid "disallowed stop lane '%'"
 msgstr "corsia della fermata '%' vietata"
 
-#: src/microsim/MSBaseVehicle.cpp:1796 src/microsim/MSBaseVehicle.cpp:1890
-#: src/microsim/MSBaseVehicle.cpp:2017
+#: src/microsim/MSBaseVehicle.cpp:1799 src/microsim/MSBaseVehicle.cpp:1893
+#: src/microsim/MSBaseVehicle.cpp:2020
 msgid "no route found from edge '%' to stop edge '%'"
 msgstr ""
 "non è stato trovato nessun'itinerario tra l'arco '%' e l'arco di fermata '%'"
 
-#: src/microsim/MSBaseVehicle.cpp:1805 src/microsim/MSBaseVehicle.cpp:2026
+#: src/microsim/MSBaseVehicle.cpp:1808 src/microsim/MSBaseVehicle.cpp:2029
 msgid "no route found from stop edge '%' to edge '%'"
 msgstr ""
 "non è stato trovato nessun'itinerario tra l'arco di fermata '%' e l'arco '%'"
 
-#: src/microsim/MSBaseVehicle.cpp:1817 src/microsim/MSBaseVehicle.cpp:2040
+#: src/microsim/MSBaseVehicle.cpp:1820 src/microsim/MSBaseVehicle.cpp:2043
 msgid ""
 "Mesoscopic simulation does not allow stopping on internal edge '%' for "
 "vehicle '%'."
@@ -1504,81 +1504,81 @@ msgstr ""
 "La simulazione mesoscopica non permette di fermarsi sull'arco interno '%' "
 "con il veicolo '%'."
 
-#: src/microsim/MSBaseVehicle.cpp:1872
+#: src/microsim/MSBaseVehicle.cpp:1875
 msgid "cannot reroute towards reached stop"
 msgstr "non si può trovare un itinerario verso una fermata oltrepassata"
 
-#: src/microsim/MSBaseVehicle.cpp:1953
+#: src/microsim/MSBaseVehicle.cpp:1956
 msgid "unable to replace stop with teleporting"
 msgstr "impossibile di sostituire la fermata usando il teletrasporto"
 
-#: src/microsim/MSBaseVehicle.cpp:1981
+#: src/microsim/MSBaseVehicle.cpp:1984
 msgid "cannot insert stop before the currently reached stop"
 msgstr ""
 "impossibile di inserire la fermata prima di quella raggiunta attualmente"
 
-#: src/microsim/MSBaseVehicle.cpp:1997
+#: src/microsim/MSBaseVehicle.cpp:2000
 msgid "Vehicle '%' does not have the right badge to access parkingArea '%'."
 msgstr ""
 "Il veicolo '%' non possiede la credenziale giusta per accedere al parcheggio "
 "'%'."
 
-#: src/microsim/MSBaseVehicle.cpp:2297
+#: src/microsim/MSBaseVehicle.cpp:2300
 #, c-format
 msgid "creating device of type '%' is not supported"
 msgstr "non è supportata la creazione di attrezzi del tipo '%'"
 
-#: src/microsim/MSBaseVehicle.cpp:2310 src/microsim/MSBaseVehicle.cpp:2322
+#: src/microsim/MSBaseVehicle.cpp:2313 src/microsim/MSBaseVehicle.cpp:2325
 #, c-format
 msgid "no device of type '%' exists"
 msgstr "non esiste nessun'attrezzo del tipo '%'"
 
-#: src/microsim/MSBaseVehicle.cpp:2333
+#: src/microsim/MSBaseVehicle.cpp:2336
 msgid "Vehicle '%' does not support junctionModel parameter '%'."
 msgstr "Il veicolo '%' non supporta il parametro di modello di incroci '%'."
 
-#: src/microsim/MSBaseVehicle.cpp:2379
+#: src/microsim/MSBaseVehicle.cpp:2382
 msgid "could not interpret routing.mode '%'"
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:2462
+#: src/microsim/MSBaseVehicle.cpp:2465
 msgid "Invalid device parameter '%' for vehicle '%'."
 msgstr "Parametro di attrezzo '%' invalido per veicolo '%'."
 
-#: src/microsim/MSBaseVehicle.cpp:2468
+#: src/microsim/MSBaseVehicle.cpp:2471
 msgid "Vehicle '%' does not support device parameter '%' (%)."
 msgstr "Il veicolo '%' non supporta il parametro di attrezzo '%' (%)."
 
-#: src/microsim/MSBaseVehicle.cpp:2473
+#: src/microsim/MSBaseVehicle.cpp:2476
 #, c-format
 msgid "Mesoscopic vehicle '%' does not support laneChangeModel parameters."
 msgstr ""
 "Il veicolo mesoscopico '%' non supporta parametri del modello di cambi "
 "corsia."
 
-#: src/microsim/MSBaseVehicle.cpp:2480
+#: src/microsim/MSBaseVehicle.cpp:2483
 msgid "Vehicle '%' does not support laneChangeModel parameter '%' (%)."
 msgstr ""
 "Il veicolo '%' non supporta il parametro del modello di cambio corsia "
 "'%' (%)."
 
-#: src/microsim/MSBaseVehicle.cpp:2485
+#: src/microsim/MSBaseVehicle.cpp:2488
 #, c-format
 msgid "Mesoscopic vehicle '%' does not support carFollowModel parameters."
 msgstr ""
 "Il veicolo mesoscopico '%' non supporta parametri del modello di guida."
 
-#: src/microsim/MSBaseVehicle.cpp:2492
+#: src/microsim/MSBaseVehicle.cpp:2495
 msgid "Vehicle '%' does not support carFollowModel parameter '%' (%)."
 msgstr "Il veicolo '%' non supporta il parametro del modello di guida '%' (%)."
 
-#: src/microsim/MSBaseVehicle.cpp:2498
+#: src/microsim/MSBaseVehicle.cpp:2501
 msgid "Invalid check for device. Expected format is 'has.DEVICENAME.device'."
 msgstr ""
 "Richiesta invalida per un attrezzo. Si aspetta il formato 'has.DEVICENAME."
 "device'."
 
-#: src/microsim/MSBaseVehicle.cpp:2525
+#: src/microsim/MSBaseVehicle.cpp:2528
 msgid "Unsupported parking parameter '%' for vehicle '%'."
 msgstr "Parametro di parcheggio '%' non supportato per veicolo '%'."
 
@@ -3033,11 +3033,11 @@ msgstr ""
 "La corsia '%' può essere raggiunta da più collegamenti provenienti dallo "
 "stesso arco '%'. Questo può causare collisioni."
 
-#: src/microsim/MSLane.cpp:4421
+#: src/microsim/MSLane.cpp:4418
 msgid "Invalid % '%'."
 msgstr "% '%' invalido."
 
-#: src/microsim/MSLane.cpp:4589
+#: src/microsim/MSLane.cpp:4586
 msgid ""
 "State was saved with more than % threads. Change the number of threads or do "
 "not load RNG state"
@@ -3429,20 +3429,20 @@ msgstr ""
 msgid "Unknown lane '%' in loaded state."
 msgstr "Corsia sconosciuta '%' nello stato caricato."
 
-#: src/microsim/MSStateHandler.cpp:403
+#: src/microsim/MSStateHandler.cpp:413
 #, c-format
 msgid "Ignoring program '%' for traffic light '%' in loaded state"
 msgstr "Programma '%' del semaforo '%' viene ignorato nello stato caricato"
 
-#: src/microsim/MSStateHandler.cpp:438
+#: src/microsim/MSStateHandler.cpp:448
 msgid "Could not load vehicle control state"
 msgstr "Non ho potuto caricare lo stato del controllo di veicoli"
 
-#: src/microsim/MSStateHandler.cpp:447
+#: src/microsim/MSStateHandler.cpp:457
 msgid "Removed % vehicles while loading state."
 msgstr "% veicoli rimossi nel caricare lo stato."
 
-#: src/microsim/MSStateHandler.cpp:473
+#: src/microsim/MSStateHandler.cpp:487
 #, c-format
 msgid "Could not load vehicle '%' from state"
 msgstr "Non ho potuto caricare il veicolo '%' dallo stato"
@@ -3528,7 +3528,7 @@ msgstr ""
 "Errore: Lo stato contiene dei veicoli invalidi (potrebbe trattarsi di uno "
 "stato mesoscopico)!"
 
-#: src/microsim/MSVehicle.cpp:7686
+#: src/microsim/MSVehicle.cpp:7690
 msgid "Action steps are out of sync for loaded vehicle '%'."
 msgstr "I passi di azione del veicolo caricato '%' non sono sincronizzati."
 
@@ -11523,24 +11523,24 @@ msgstr ""
 msgid "The output file (-o) must be given."
 msgstr ""
 
-#: src/traci-server/TraCIServer.cpp:314
+#: src/traci-server/TraCIServer.cpp:362
 msgid "Starting TraCI without using internal lanes!"
 msgstr "Avviamento di TraCI senza l'uso di corsie interne!"
 
-#: src/traci-server/TraCIServer.cpp:320
+#: src/traci-server/TraCIServer.cpp:368
 msgid "***Starting server on port % ***"
 msgstr "***Avviamento del server su porta % ***"
 
-#: src/traci-server/TraCIServer.cpp:323
+#: src/traci-server/TraCIServer.cpp:371
 #, c-format
 msgid "  waiting for % clients..."
 msgstr "  aspettando % clienti..."
 
-#: src/traci-server/TraCIServer.cpp:347
+#: src/traci-server/TraCIServer.cpp:395
 msgid "  client connected"
 msgstr "  cliente collegato"
 
-#: src/traci-server/TraCIServer.cpp:480
+#: src/traci-server/TraCIServer.cpp:528
 msgid ""
 "Execution order (libsumo::CMD_SETORDER) was not set for all TraCI clients in "
 "pre-execution phase."
@@ -12033,7 +12033,7 @@ msgid "Invalid icon % for POI '%', using default"
 msgstr ""
 
 #: src/utils/handlers/AdditionalHandler.cpp:2056
-msgid "Calibrator Flows has to be defined within of a %."
+msgid "Calibrator Flows have to be defined within a %."
 msgstr ""
 
 #: src/utils/handlers/AdditionalHandler.cpp:2066
@@ -12361,19 +12361,19 @@ msgstr ""
 msgid "Could not set option '%' (probably defined twice)."
 msgstr ""
 
-#: src/utils/options/OptionsParser.cpp:127
-#: src/utils/options/OptionsParser.cpp:134
+#: src/utils/options/OptionsParser.cpp:136
+#: src/utils/options/OptionsParser.cpp:143
 msgid "Missing value for parameter '%'."
 msgstr ""
 
-#: src/utils/options/OptionsParser.cpp:146
+#: src/utils/options/OptionsParser.cpp:155
 #, c-format
 msgid ""
 "The parameter '%' is not allowed in this context.\n"
 " Switch or parameter name expected."
 msgstr ""
 
-#: src/utils/options/OptionsParser.cpp:150
+#: src/utils/options/OptionsParser.cpp:159
 msgid "Mixed parameter syntax in '%'."
 msgstr ""
 

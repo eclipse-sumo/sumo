@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2025-01-02 15:02+0100\n"
+"POT-Creation-Date: 2025-01-06 11:22+0100\n"
 "PO-Revision-Date: 2024-12-11 12:11+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Chinese (Traditional Han script) <https://hosted.weblate.org/"
@@ -901,11 +901,11 @@ msgstr "出發時間 % 發生在過去;人員為 '%';使用目前時間 % 將其
 msgid "Could not determine position on lane '%' at lateral position %."
 msgstr "無法決定在車道'%'上側向位置為 % 的位置。"
 
-#: src/libsumo/Simulation.cpp:105
+#: src/libsumo/Simulation.cpp:138
 msgid "Simulation version % started via libsumo with time: %."
 msgstr "在時間: % 下,模擬版本 % 透過 libsumo 已啟動。"
 
-#: src/libsumo/Simulation.cpp:702
+#: src/libsumo/Simulation.cpp:738
 msgid ""
 "Ignoring vehicle type '%' when performing intermodal routing because it is "
 "not allowed on the start edge '%'."
@@ -1339,107 +1339,107 @@ msgstr "車輛 '%' 將無法以給定的速度抵達!"
 msgid "Ignoring departEdge % for vehicle '%' with % route edges"
 msgstr "忽略departEdge % (被用於車輛 '%' 及位於 % 路徑路段)。"
 
-#: src/microsim/MSBaseVehicle.cpp:1665
+#: src/microsim/MSBaseVehicle.cpp:1668
 msgid "Invalid stop index % (has % stops)."
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:1745 src/microsim/MSBaseVehicle.cpp:1868
-#: src/microsim/MSBaseVehicle.cpp:1977
+#: src/microsim/MSBaseVehicle.cpp:1748 src/microsim/MSBaseVehicle.cpp:1871
+#: src/microsim/MSBaseVehicle.cpp:1980
 msgid "invalid nextStopIndex % for % remaining stops"
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:1749
+#: src/microsim/MSBaseVehicle.cpp:1752
 msgid "cannot replace reached stop"
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:1764
+#: src/microsim/MSBaseVehicle.cpp:1767
 msgid "vehicle '%' does not have the right badge to access parkingArea '%'"
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:1777 src/microsim/MSBaseVehicle.cpp:1989
+#: src/microsim/MSBaseVehicle.cpp:1780 src/microsim/MSBaseVehicle.cpp:1992
 msgid "disallowed stop lane '%'"
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:1796 src/microsim/MSBaseVehicle.cpp:1890
-#: src/microsim/MSBaseVehicle.cpp:2017
+#: src/microsim/MSBaseVehicle.cpp:1799 src/microsim/MSBaseVehicle.cpp:1893
+#: src/microsim/MSBaseVehicle.cpp:2020
 msgid "no route found from edge '%' to stop edge '%'"
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:1805 src/microsim/MSBaseVehicle.cpp:2026
+#: src/microsim/MSBaseVehicle.cpp:1808 src/microsim/MSBaseVehicle.cpp:2029
 msgid "no route found from stop edge '%' to edge '%'"
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:1817 src/microsim/MSBaseVehicle.cpp:2040
+#: src/microsim/MSBaseVehicle.cpp:1820 src/microsim/MSBaseVehicle.cpp:2043
 msgid ""
 "Mesoscopic simulation does not allow stopping on internal edge '%' for "
 "vehicle '%'."
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:1872
+#: src/microsim/MSBaseVehicle.cpp:1875
 msgid "cannot reroute towards reached stop"
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:1953
+#: src/microsim/MSBaseVehicle.cpp:1956
 msgid "unable to replace stop with teleporting"
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:1981
+#: src/microsim/MSBaseVehicle.cpp:1984
 msgid "cannot insert stop before the currently reached stop"
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:1997
+#: src/microsim/MSBaseVehicle.cpp:2000
 msgid "Vehicle '%' does not have the right badge to access parkingArea '%'."
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:2297
+#: src/microsim/MSBaseVehicle.cpp:2300
 #, c-format
 msgid "creating device of type '%' is not supported"
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:2310 src/microsim/MSBaseVehicle.cpp:2322
+#: src/microsim/MSBaseVehicle.cpp:2313 src/microsim/MSBaseVehicle.cpp:2325
 #, c-format
 msgid "no device of type '%' exists"
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:2333
+#: src/microsim/MSBaseVehicle.cpp:2336
 msgid "Vehicle '%' does not support junctionModel parameter '%'."
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:2379
+#: src/microsim/MSBaseVehicle.cpp:2382
 msgid "could not interpret routing.mode '%'"
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:2462
+#: src/microsim/MSBaseVehicle.cpp:2465
 msgid "Invalid device parameter '%' for vehicle '%'."
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:2468
+#: src/microsim/MSBaseVehicle.cpp:2471
 msgid "Vehicle '%' does not support device parameter '%' (%)."
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:2473
+#: src/microsim/MSBaseVehicle.cpp:2476
 #, c-format
 msgid "Mesoscopic vehicle '%' does not support laneChangeModel parameters."
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:2480
+#: src/microsim/MSBaseVehicle.cpp:2483
 msgid "Vehicle '%' does not support laneChangeModel parameter '%' (%)."
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:2485
+#: src/microsim/MSBaseVehicle.cpp:2488
 #, c-format
 msgid "Mesoscopic vehicle '%' does not support carFollowModel parameters."
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:2492
+#: src/microsim/MSBaseVehicle.cpp:2495
 msgid "Vehicle '%' does not support carFollowModel parameter '%' (%)."
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:2498
+#: src/microsim/MSBaseVehicle.cpp:2501
 msgid "Invalid check for device. Expected format is 'has.DEVICENAME.device'."
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:2525
+#: src/microsim/MSBaseVehicle.cpp:2528
 msgid "Unsupported parking parameter '%' for vehicle '%'."
 msgstr ""
 
@@ -2842,11 +2842,11 @@ msgid ""
 "collisions."
 msgstr "車道 '%' 從路段 '%' 多次被接近。這可能會導致碰撞。"
 
-#: src/microsim/MSLane.cpp:4421
+#: src/microsim/MSLane.cpp:4418
 msgid "Invalid % '%'."
 msgstr "無效 % '%'."
 
-#: src/microsim/MSLane.cpp:4589
+#: src/microsim/MSLane.cpp:4586
 msgid ""
 "State was saved with more than % threads. Change the number of threads or do "
 "not load RNG state"
@@ -3208,20 +3208,20 @@ msgstr "狀態(state)是用SUMO版本 % 寫出（現在版本： %）!"
 msgid "Unknown lane '%' in loaded state."
 msgstr "在載入的狀態(state)中有未知車道 '%'。"
 
-#: src/microsim/MSStateHandler.cpp:403
+#: src/microsim/MSStateHandler.cpp:413
 #, c-format
 msgid "Ignoring program '%' for traffic light '%' in loaded state"
 msgstr "忽略載入狀態(state)內的時制計畫 '%'; 交通號誌為 '%'"
 
-#: src/microsim/MSStateHandler.cpp:438
+#: src/microsim/MSStateHandler.cpp:448
 msgid "Could not load vehicle control state"
 msgstr "無法載入車輛控制狀態"
 
-#: src/microsim/MSStateHandler.cpp:447
+#: src/microsim/MSStateHandler.cpp:457
 msgid "Removed % vehicles while loading state."
 msgstr "當載入狀態時, 移除 % 車輛。"
 
-#: src/microsim/MSStateHandler.cpp:473
+#: src/microsim/MSStateHandler.cpp:487
 #, c-format
 msgid "Could not load vehicle '%' from state"
 msgstr "無法從狀態載入車輛 '%'"
@@ -3298,7 +3298,7 @@ msgstr "車輛 '%'跳過停靠站(位於車道'%', 時間為%)."
 msgid "Error: Invalid vehicles in state (may be a meso state)!"
 msgstr "錯誤：狀態中的無效車輛 （可能是中觀(meso)狀態）！"
 
-#: src/microsim/MSVehicle.cpp:7686
+#: src/microsim/MSVehicle.cpp:7690
 msgid "Action steps are out of sync for loaded vehicle '%'."
 msgstr "已載入的車輛'%'的操作步驟(action steps)不同步調."
 
@@ -10985,24 +10985,24 @@ msgstr "排放物類別 (-e) 必須給定。"
 msgid "The output file (-o) must be given."
 msgstr "輸出檔案 (-o) 必須給定。"
 
-#: src/traci-server/TraCIServer.cpp:314
+#: src/traci-server/TraCIServer.cpp:362
 msgid "Starting TraCI without using internal lanes!"
 msgstr "在不使用內部車道的情況下, 啟動 TraCI!"
 
-#: src/traci-server/TraCIServer.cpp:320
+#: src/traci-server/TraCIServer.cpp:368
 msgid "***Starting server on port % ***"
 msgstr "***在埠(port) % 上啟動服務器 % ***"
 
-#: src/traci-server/TraCIServer.cpp:323
+#: src/traci-server/TraCIServer.cpp:371
 #, c-format
 msgid "  waiting for % clients..."
 msgstr "  等待 % 個用戶端..."
 
-#: src/traci-server/TraCIServer.cpp:347
+#: src/traci-server/TraCIServer.cpp:395
 msgid "  client connected"
 msgstr "  已連結用戶端"
 
-#: src/traci-server/TraCIServer.cpp:480
+#: src/traci-server/TraCIServer.cpp:528
 msgid ""
 "Execution order (libsumo::CMD_SETORDER) was not set for all TraCI clients in "
 "pre-execution phase."
@@ -11485,7 +11485,7 @@ msgid "Invalid icon % for POI '%', using default"
 msgstr ""
 
 #: src/utils/handlers/AdditionalHandler.cpp:2056
-msgid "Calibrator Flows has to be defined within of a %."
+msgid "Calibrator Flows have to be defined within a %."
 msgstr ""
 
 #: src/utils/handlers/AdditionalHandler.cpp:2066
@@ -11810,12 +11810,12 @@ msgstr "無法載入設定(configuration)'%'。"
 msgid "Could not set option '%' (probably defined twice)."
 msgstr "無法設定選項 '%' (可能定義了兩次)。"
 
-#: src/utils/options/OptionsParser.cpp:127
-#: src/utils/options/OptionsParser.cpp:134
+#: src/utils/options/OptionsParser.cpp:136
+#: src/utils/options/OptionsParser.cpp:143
 msgid "Missing value for parameter '%'."
 msgstr "缺少參數 '%' 的值。"
 
-#: src/utils/options/OptionsParser.cpp:146
+#: src/utils/options/OptionsParser.cpp:155
 #, c-format
 msgid ""
 "The parameter '%' is not allowed in this context.\n"
@@ -11824,7 +11824,7 @@ msgstr ""
 "此上下文中不允許使用參數 '%'。\n"
 " 需要切換或是提供參數名稱。"
 
-#: src/utils/options/OptionsParser.cpp:150
+#: src/utils/options/OptionsParser.cpp:159
 msgid "Mixed parameter syntax in '%'."
 msgstr "'%' 中有混合參數語法(syntax)。"
 

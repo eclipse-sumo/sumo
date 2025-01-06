@@ -582,7 +582,7 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
             if (buildClosingLaneReroute(obj,
                                         obj->getStringAttribute(SUMO_ATTR_ID),
                                         parseVehicleClasses(obj->getStringAttribute(SUMO_ATTR_ALLOW),
-                                        obj->getStringAttribute(SUMO_ATTR_DISALLOW)))) {
+                                                obj->getStringAttribute(SUMO_ATTR_DISALLOW)))) {
                 obj->markAsCreated();
             }
             break;
@@ -590,7 +590,7 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
             if (buildClosingReroute(obj,
                                     obj->getStringAttribute(SUMO_ATTR_ID),
                                     parseVehicleClasses(obj->getStringAttribute(SUMO_ATTR_ALLOW),
-                                    obj->getStringAttribute(SUMO_ATTR_DISALLOW)))) {
+                                            obj->getStringAttribute(SUMO_ATTR_DISALLOW)))) {
                 obj->markAsCreated();
             }
             break;
@@ -1553,7 +1553,7 @@ AdditionalHandler::parseRerouterAttributes(const SUMOSAXAttributes& attrs) {
     const bool off = attrs.getOpt<bool>(SUMO_ATTR_OFF, id.c_str(), parsedOk, false);
     const bool optional = attrs.getOpt<bool>(SUMO_ATTR_OPTIONAL, id.c_str(), parsedOk, false);
     // check attributes
-    if (!checkNegative(SUMO_TAG_REROUTER, id, SUMO_ATTR_PROB , probability, true)) {
+    if (!checkNegative(SUMO_TAG_REROUTER, id, SUMO_ATTR_PROB, probability, true)) {
         parsedOk = false;
     }
     // continue if flag is ok
@@ -2050,10 +2050,10 @@ AdditionalHandler::checkCalibratorFlowParents() {
     if (parentRootFile != nullptr) {
         return false;
     }
-    if ((parentCalibrator->getTag() == SUMO_TAG_CALIBRATOR) || (parentCalibrator->getTag() == GNE_TAG_CALIBRATOR_LANE)){
+    if ((parentCalibrator->getTag() == SUMO_TAG_CALIBRATOR) || (parentCalibrator->getTag() == GNE_TAG_CALIBRATOR_LANE)) {
         return true;
     } else {
-        return writeError(TLF("Calibrator Flows has to be defined within of a %.", toString(SUMO_TAG_CALIBRATOR)));
+        return writeError(TLF("Calibrator Flows have to be defined within a %.", toString(SUMO_TAG_CALIBRATOR)));
     }
 }
 

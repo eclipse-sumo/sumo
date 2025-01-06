@@ -10,8 +10,8 @@ msgstr ""
 "POT-Creation-Date: 2025-01-02 15:02+0100\n"
 "PO-Revision-Date: 2025-01-03 12:17+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
-"Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
-"sumo-gui-netedit/de/>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/sumo-"
+"gui-netedit/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -17766,13 +17766,8 @@ msgstr "(Keine Projektion definiert)"
 msgid "Could not convert coordinates in %."
 msgstr "Konnte Koordinaten nicht in % konvertieren."
 
-#: src/netedit/dialogs/GNEKeepElementsDialog.cpp:61
-msgid "cancel loading of elements"
-msgstr "Laden von Elementen abbrechen"
-
-#: src/netedit/dialogs/GNEKeepElementsDialog.cpp:59
-msgid "Keep news elements"
-msgstr ""
+#~ msgid "cancel loading of elements"
+#~ msgstr "Laden von Elementen abbrechen"
 
 #, c-format
 #~ msgid "% doesn't exist."
