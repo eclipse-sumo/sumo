@@ -2982,6 +2982,8 @@ msgid ""
 "Railsignal-deadlock will not be detected because time-to-teleport (%) is "
 "lower than time-to-teleport.railsignal-deadlock (%)."
 msgstr ""
+"Bahnsignalbedingte Blockaden werden nicht erkannt, da time-to-teleport (%) "
+"niedriger als time-to-teleport.railsignal-deadlock (%) ist."
 
 #: src/microsim/MSFrame.cpp:1051
 msgid "You need a non-negative delay."
@@ -6180,11 +6182,11 @@ msgstr "% Bahnsignale an % Halten hinzugefügt."
 
 #: src/netbuild/NBAlgorithms_Railway.cpp:1496
 msgid "Could not straighten corridor %."
-msgstr ""
+msgstr "Der Korridor % konnte nicht geglättet werden."
 
 #: src/netbuild/NBAlgorithms_Railway.cpp:1501
 msgid "Moved % rail junctions for straightening % corridors."
-msgstr ""
+msgstr "% Bahnknoten wurden verschoben, um % Korridore zu glätten."
 
 #: src/netbuild/NBAlgorithms_Ramps.cpp:121
 #, c-format
@@ -6745,6 +6747,8 @@ msgstr ""
 msgid ""
 "Straighten edge geometries with an angle above max-angle successive segments"
 msgstr ""
+"Kantengeometrien mit einem über max-angle liegenden Winkel zwischen "
+"aufeinanderfolgenden Segmenten glätten"
 
 #: src/netbuild/NBFrame.cpp:208
 msgid ""
@@ -10659,6 +10663,8 @@ msgid ""
 "LaneData '%' requested for mesoscopic simulation but --meso-lane-queue is "
 "not active. Falling back to edgeData."
 msgstr ""
+"LaneData '%' in der mesoskopischen Simulation angefragt, ohne dass --meso-"
+"lane-queue aktiviert wurde. Deshalb wird stattdessen edgeData genutzt."
 
 #: src/netload/NLHandler.cpp:1428
 #, c-format
@@ -11374,6 +11380,8 @@ msgstr "Polygon aus Beziehung '%' gebildet (Name:%)%"
 msgid ""
 "Could not import polygon from relation '%' (name:% reason: found gap of %m)."
 msgstr ""
+"Das Polygon der Beziehung '%' konnte nicht importiert werden (Name:% Grund: "
+"Lücke von %m gefunden)."
 
 #: src/polyconvert/PCLoaderOSM.cpp:231
 #, c-format
@@ -12687,14 +12695,15 @@ msgstr "Konvertieren von Gauß-Krüger zu UTM"
 #: src/utils/geom/GeoConvHelper.cpp:374
 msgid "Failed to create transformation, reason unknown."
 msgstr ""
+"Die Transformation konnte aus unbekannten Gründen nicht erstellt werden."
 
 #: src/utils/geom/GeoConvHelper.cpp:376
 msgid "Failed to create transformation, %."
-msgstr ""
+msgstr "Die Transformation konnte nicht erstellt werden: %."
 
 #: src/utils/geom/GeoConvHelper.cpp:381
 msgid "Failed to transform, %."
-msgstr ""
+msgstr "Transformation fehlgeschlagen: %."
 
 #: src/utils/geom/GeoConvHelper.cpp:464
 msgid "Could not transform (%,%)"
@@ -12726,7 +12735,7 @@ msgstr "Versuche PositionVector verschiedener Länge zu addieren."
 
 #: src/utils/handlers/AdditionalHandler.cpp:972
 msgid "Invalid charge type '%' defined in chargingStation '%'."
-msgstr ""
+msgstr "Ungültiger Ladetyp '%' in der Ladestation '%' definiert."
 
 #: src/utils/handlers/AdditionalHandler.cpp:1127
 msgid ""
