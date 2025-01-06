@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-01-06 11:22+0100\n"
-"PO-Revision-Date: 2025-01-03 09:03+0000\n"
+"PO-Revision-Date: 2025-01-06 12:50+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -8313,6 +8313,8 @@ msgid ""
 "traffic_light_right_on_red|priority_stop|allway_stop|...] Determines "
 "junction type (see wiki/Networks/PlainXML#Node_types)"
 msgstr ""
+"[traffic_light|priority|right_before_left|left_before_right|traffic_light_right_on_red|priority_stop|allway_stop|...]"
+" Bestimmt den Knotenpunktttyp (siehe wiki/Networks/PlainXML#Node_types)"
 
 #: src/netgen/netgen_main.cpp:120
 msgid "Spider networks need at least 3 arms."
@@ -12883,15 +12885,21 @@ msgstr ""
 #: src/utils/handlers/CommonHandler.cpp:230
 msgid "Could not build % with ID '%' in netedit; Invalid position over lane."
 msgstr ""
+"% mit der ID '%' konnte nicht in netedit erstellt werden; Ungültige "
+"Fahrstreifenposition."
 
 #: src/utils/handlers/CommonHandler.cpp:236
 msgid ""
 "Could not build % with ID '%' in netedit; Found another % with the same ID."
 msgstr ""
+"% mit der ID '%' konnte nicht in netedit erstellt werden; Es wurde ein "
+"anderes %-Objekt mit der gleichern ID gefunden."
 
 #: src/utils/handlers/CommonHandler.cpp:242
 msgid "Could not build % with ID '%' in netedit; List of lanes isn't valid."
 msgstr ""
+"% mit der ID '%' konnte nicht in netedit erstellt werden; Ungültige Liste an "
+"Fahrstreifen."
 
 #: src/utils/handlers/CommonHandler.cpp:248
 msgid ""
@@ -12905,16 +12913,22 @@ msgstr ""
 msgid ""
 "Could not build % with ID '%' in netedit; % parent with ID '%' doesn't exist."
 msgstr ""
+"Konnte % mit der ID '%' nicht in netedit erstellen; Das Elternelement vom "
+"Typ % mit der ID '%' existiert nicht."
 
 #: src/utils/handlers/CommonHandler.cpp:260
 #, c-format
 msgid "Could not build % in netedit; % parent with ID '%' doesn't exist."
 msgstr ""
+"Konnte % nicht in netedit erstellen; Das Elternelement mit der ID '%' "
+"existiert nicht."
 
 #: src/utils/handlers/CommonHandler.cpp:266
 #, c-format
 msgid "Could not build % in netedit; % parent doesn't exist."
 msgstr ""
+"Konnte % nicht in netedit erstellen; Das Elternelement vom Typ % existiert "
+"nicht."
 
 #: src/utils/handlers/DataHandler.cpp:119
 msgid "Data elements cannot load attributes as params"
@@ -12949,10 +12963,14 @@ msgstr ""
 #: src/utils/handlers/RouteHandler.cpp:813
 msgid "Speed and duration attributes cannot be defined together in walks"
 msgstr ""
+"Die Attribute 'speed' und 'duration' schließen sich bei der Definition eines "
+"Fußwegs gegenseitig aus"
 
 #: src/utils/handlers/RouteHandler.cpp:932
 msgid "Speed and duration attributes cannot be defined together in tranships"
 msgstr ""
+"Die Attribute 'speed' und 'duration' schließen sich bei der Definition einer "
+"Umladung gegenseitig aus"
 
 #: src/utils/handlers/RouteHandler.cpp:975
 #: src/utils/vehicle/SUMORouteHandler.cpp:205
