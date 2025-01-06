@@ -2099,6 +2099,13 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
             parseArrivalPosLat(value, myTagProperty.getTagStr(), id, arrivalPosLat, arrivalPosLatProcedure, error);
             break;
         case SUMO_ATTR_INSERTIONCHECKS:
+            if (value.empty() || (value == "all")) {
+                // unset parameter
+                parametersSet &= ~VEHPARS_INSERTION_CHECKS_SET;
+            } else {
+                // mark parameter as set
+                parametersSet |= VEHPARS_INSERTION_CHECKS_SET;
+            }
             insertionChecks = parseInsertionChecks(value);
             break;
         // Specific of vehicles over routes
