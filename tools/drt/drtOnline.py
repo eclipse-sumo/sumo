@@ -440,7 +440,7 @@ def main():
                     # TODO specific cost for vehicle can be consider here
                     bonus_cost = (sum(routes[trip_id][2]) + 1) * options.cost_per_trip
                     # generate dict with costs
-                    costs.update({idx: routes[trip_id][0] + bonus_cost})
+                    costs.update({idx: 10 * (routes[trip_id][0] + bonus_cost)})
                     # generate dict with vehicle used in the trip
                     veh_constraints.update({idx: routes[trip_id][1]})
                     # generate dict with served reservations in the trip
