@@ -55,7 +55,7 @@ GUIMainWindow::GUIMainWindow(FXApp* app) :
     FXMainWindow(app, "sumo-gui main window", nullptr, nullptr, DECOR_ALL, 20, 20, 600, 400),
     myAmFullScreen(false),
     myTrackerLock(true),
-    myGLVisual(new FXGLVisual(app, VISUAL_DOUBLEBUFFER)),
+    myGLVisual(new MFXGLVisual(app, VISUAL_DOUBLEBUFFER)),
     myAmGaming(false),
     myListInternal(false),
     myListParking(true),
@@ -82,6 +82,7 @@ GUIMainWindow::GUIMainWindow(FXApp* app) :
     }
     myInstance = this;
     //myGLVisual->setStencilSize(8); // enable stencil buffer
+    myGLVisual->create();
 }
 
 
@@ -199,7 +200,7 @@ GUIMainWindow::updateChildren(int msg) {
 }
 
 
-FXGLVisual*
+MFXGLVisual*
 GUIMainWindow::getGLVisual() const {
     return myGLVisual;
 }

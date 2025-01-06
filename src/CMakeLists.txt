@@ -8,7 +8,7 @@ if (OPENSCENEGRAPH_FOUND)
     set(osgviewlib osgview)
 endif ()
 set(sumoguilibs
-        gui guinetload guisim gui gui_dialogs utils_gui_windows utils_gui_globjects utils_gui_div utils_gui_settings
+        gui guinetload guisim gui gui_dialogs utils_gui_windows utils_gui_globjects utils_gui_moderngl utils_gui_div utils_gui_settings
         utils_gui_images utils_gui_cursors utils_gui_shortcuts utils_gui_tracker utils_foxtools utils_traction_wire ${osgviewlib} microsim traciserver libsumoguistatic ${sumolibs} mesogui
         ${GDAL_LIBRARY} ${FFMPEG_LIBRARIES} ${OPENSCENEGRAPH_LIBRARIES} ${GL2PS_LIBRARIES})
 if (MSVC)

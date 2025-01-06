@@ -44,7 +44,7 @@ class GUIParameterTableWindow;
 class GUIDialog_Breakpoints;
 class MFXLCDLabel;
 class MFXLabelTooltip;
-
+class MFXGLCanvas;
 
 // ===========================================================================
 // class definition
@@ -98,7 +98,7 @@ public:
     void addRecentConfig(const FX::FXString& f);
 
     /// @brief get build GLCanvas
-    FXGLCanvas* getBuildGLCanvas() const;
+    MFXGLCanvas* getBuildGLCanvas() const;
 
     /// @brief get current simulation time
     SUMOTime getCurrentSimTime() const;

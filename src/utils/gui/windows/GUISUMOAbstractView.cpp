@@ -23,6 +23,14 @@
 /****************************************************************************/
 #include <config.h>
 
+#ifndef GLEW_STATIC
+#define GLEW_STATIC
+#endif
+
+#ifndef __glew_h__
+#include <GL/glew.h>
+#endif
+
 #include <iostream>
 #include <utility>
 #include <cmath>
@@ -130,14 +138,14 @@ FXDEFMAP(GUISUMOAbstractView) GUISUMOAbstractViewMap[] = {
 };
 
 
-FXIMPLEMENT_ABSTRACT(GUISUMOAbstractView, FXGLCanvas, GUISUMOAbstractViewMap, ARRAYNUMBER(GUISUMOAbstractViewMap))
+FXIMPLEMENT_ABSTRACT(GUISUMOAbstractView, MFXGLCanvas, GUISUMOAbstractViewMap, ARRAYNUMBER(GUISUMOAbstractViewMap))
 
 
 /* -------------------------------------------------------------------------
  * GUISUMOAbstractView - methods
  * ----------------------------------------------------------------------- */
-GUISUMOAbstractView::GUISUMOAbstractView(FXComposite* p, GUIMainWindow& app, GUIGlChildWindow* parent, const SUMORTree& grid, FXGLVisual* glVis, FXGLCanvas* share) :
-    FXGLCanvas(p, glVis, share, p, MID_GLCANVAS, LAYOUT_SIDE_TOP | LAYOUT_FILL_X | LAYOUT_FILL_Y, 0, 0, 0, 0),
+GUISUMOAbstractView::GUISUMOAbstractView(FXComposite* p, GUIMainWindow& app, GUIGlChildWindow* parent, const SUMORTree& grid, MFXGLVisual* glVis, MFXGLCanvas* share) :
+    MFXGLCanvas(p, glVis, share, p, MID_GLCANVAS, LAYOUT_SIDE_TOP | LAYOUT_FILL_X | LAYOUT_FILL_Y, 0, 0, 0, 0),
     myApp(&app),
     myGlChildWindowParent(parent),
     myGrid(&grid),
@@ -996,7 +1004,7 @@ GUISUMOAbstractView::setWindowCursorPosition(FXint x, FXint y) {
 
 FXbool
 GUISUMOAbstractView::makeCurrent() {
-    FXbool ret = FXGLCanvas::makeCurrent();
+    FXbool ret = MFXGLCanvas::makeCurrent();
     return ret;
 }
 
@@ -1333,7 +1341,7 @@ GUISUMOAbstractView::onKeyPress(FXObject* o, FXSelector sel, void* ptr) {
                 return 1;
             }
         }
-        FXGLCanvas::onKeyPress(o, sel, ptr);
+        MFXGLCanvas::onKeyPress(o, sel, ptr);
         return myChanger->onKeyPress(ptr);
     }
 }
@@ -1345,7 +1353,7 @@ GUISUMOAbstractView::onKeyRelease(FXObject* o, FXSelector sel, void* ptr) {
     if (myPopup != nullptr) {
         return myPopup->onKeyRelease(o, sel, ptr);
     } else {
-        FXGLCanvas::onKeyRelease(o, sel, ptr);
+        MFXGLCanvas::onKeyRelease(o, sel, ptr);
         return myChanger->onKeyRelease(ptr);
     }
 }

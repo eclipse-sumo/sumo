@@ -809,6 +809,306 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
     GLHelper::popName();
 }
 
+
+void
+GUILane::drawGLModern(const GUIVisualizationSettings& s) const {
+    GLHelper::pushMatrix();
+    GLHelper::pushName(getGlID());
+    const bool s2 = s.secondaryShape;
+    double exaggeration = s.laneWidthExaggeration;
+    if (MSGlobals::gUseMesoSim) {
+        GUIEdge* myGUIEdge = dynamic_cast<GUIEdge*>(myEdge);
+        exaggeration *= s.edgeScaler.getScheme().getColor(myGUIEdge->getScaleValue(s, s.edgeScaler.getActive()));
+    }
+    else {
+        exaggeration *= s.laneScaler.getScheme().getColor(getScaleValue(s, s.laneScaler.getActive(), s2));
+    }
+    // set lane color
+    const RGBColor color = setColor(s);
+    // recognize full transparency and simply don't draw
+    if (color.alpha() != 0 && s.scale * exaggeration > s.laneMinSize) {
+
+        const bool isCrossing = myEdge->isCrossing();
+        const bool isWalkingArea = myEdge->isWalkingArea();
+        const bool isInternal = isCrossing || isWalkingArea || myEdge->isInternal();
+        const PositionVector& baseShape = getShape(s2);
+        const bool hasRailSignal = myEdge->getToJunction()->getType() == SumoXMLNodeType::RAIL_SIGNAL;
+        if (s.trueZ) {
+            glTranslated(0, 0, baseShape.getMinZ());
+        }
+        else {
+            if (isCrossing) {
+                // draw internal lanes on top of junctions
+                glTranslated(0, 0, GLO_JUNCTION + 0.1);
+            }
+            else if (isWalkingArea) {
+                // draw internal lanes on top of junctions
+                glTranslated(0, 0, GLO_JUNCTION + 0.3);
+            }
+            else if (isWaterway(myPermissions)) {
+                // draw waterways below normal roads
+                glTranslated(0, 0, getType() - 0.2);
+            }
+            else if (myPermissions == SVC_SUBWAY) {
+                // draw subways further below
+                glTranslated(0, 0, getType() - 0.4);
+            }
+            else {
+                glTranslated(0, 0, getType());
+            }
+        }
+        auto& shapeColors = getShapeColors(s2);
+        if (MSGlobals::gUseMesoSim) {
+            shapeColors.clear();
+            const std::vector<RGBColor>& segmentColors = static_cast<const GUIEdge*>(myEdge)->getSegmentColors();
+            if (segmentColors.size() > 0) {
+                // apply segment specific shape colors
+                //std::cout << getID() << " shape=" << myShape << " shapeSegs=" << toString(myShapeSegments) << "\n";
+                for (int ii = 0; ii < (int)baseShape.size() - 1; ++ii) {
+                    shapeColors.push_back(segmentColors[myShapeSegments[ii]]);
+                }
+            }
+        }
+
+        // scale tls-controlled lane2lane-arrows along with their junction shapes
+        double junctionExaggeration = 1;
+        if (!isInternal
+            && myEdge->getToJunction()->getType() <= SumoXMLNodeType::RAIL_CROSSING
+            && (s.junctionSize.constantSize || s.junctionSize.exaggeration > 1)) {
+            junctionExaggeration = MAX2(1.001, s.junctionSize.getExaggeration(s, this, 4));
+        }
+        // draw lane
+        // check whether it is not too small
+        if (s.scale * exaggeration < 1. && junctionExaggeration == 1 && s.junctionSize.minSize != 0) {
+            if (!isInternal || hasRailSignal) {
+                if (shapeColors.size() > 0) {
+                    GLHelper::drawLineModern(baseShape, shapeColors);
+                }
+                else {
+                    GLHelper::drawLineModern(baseShape);
+                }
+            }
+            GLHelper::popMatrix();
+        }
+        else {
+
+            GUINet* net = (GUINet*)MSNet::getInstance();
+            bool mustDrawMarkings = false;
+            bool hiddenBidi = getBidiLane() != nullptr && myEdge->getNumericalID() > myEdge->getBidiEdge()->getNumericalID();
+            const bool detailZoom = s.scale * exaggeration > 5;
+            const bool drawDetails = (detailZoom || s.junctionSize.minSize == 0 || hasRailSignal);
+            const bool drawRails = drawAsRailway(s);
+            const bool spreadSuperposed = s.spreadSuperposed && myBidiLane != nullptr;
+            if (hiddenBidi && !spreadSuperposed) {
+                // do not draw shape
+                mustDrawMarkings = !isInternal && myPermissions != 0 && myPermissions != SVC_PEDESTRIAN && exaggeration == 1.0 && !isWaterway(myPermissions) && neighLaneNotBidi();
+            }
+            else if (drawRails) {
+                // draw as railway: assume standard gauge of 1435mm when lane width is not set
+                // draw foot width 150mm, assume that distance between rail feet inner sides is reduced on both sides by 39mm with regard to the gauge
+                // assume crosstie length of 181% gauge (2600mm for standard gauge)
+                PositionVector shape = baseShape;
+                const double width = myWidth;
+                double halfGauge = 0.5 * (width == SUMO_const_laneWidth ? 1.4350 : width) * exaggeration;
+                if (spreadSuperposed) {
+                    try {
+                        shape.move2side(halfGauge * 0.8);
+                    }
+                    catch (InvalidArgument&) {}
+                    halfGauge *= 0.4;
+                }
+                const double halfInnerFeetWidth = halfGauge - 0.039 * exaggeration;
+                const double halfRailWidth = detailZoom ? (halfInnerFeetWidth + 0.15 * exaggeration) : SUMO_const_halfLaneWidth * exaggeration;
+                const double halfCrossTieWidth = halfGauge * 1.81;
+                if (shapeColors.size() > 0) {
+                    GLHelper::drawBoxLines(shape, getShapeRotations(s2), getShapeLengths(s2), getShapeColors(s2), halfRailWidth);
+                }
+                else {
+                    GLHelper::drawBoxLines(shape, getShapeRotations(s2), getShapeLengths(s2), halfRailWidth);
+                }
+                // Draw white on top with reduced width (the area between the two tracks)
+                if (detailZoom) {
+                    glColor3d(1, 1, 1);
+                    glTranslated(0, 0, .1);
+                    GLHelper::drawBoxLines(shape, getShapeRotations(s2), getShapeLengths(s2), halfInnerFeetWidth);
+                    setColor(s);
+                    GLHelper::drawCrossTies(shape, getShapeRotations(s2), getShapeLengths(s2), 0.26 * exaggeration, 0.6 * exaggeration,
+                        halfCrossTieWidth, 0, s.forceDrawForRectangleSelection);
+                }
+            }
+            else if (isCrossing) {
+                if (s.drawCrossingsAndWalkingareas && (s.scale > 3.0 || s.junctionSize.minSize == 0)) {
+                    glTranslated(0, 0, .2);
+                    GLHelper::drawCrossTies(baseShape, getShapeRotations(s2), getShapeLengths(s2), 0.5, 1.0, getWidth() * 0.5,
+                        0, s.drawForRectangleSelection);
+#ifdef GUILane_DEBUG_DRAW_CROSSING_OUTLINE
+                    if (myOutlineShape != nullptr) {
+                        GLHelper::setColor(RGBColor::BLUE);
+                        glTranslated(0, 0, 0.4);
+                        GLHelper::drawBoxLines(*myOutlineShape, 0.1);
+                        glTranslated(0, 0, -0.4);
+                        if (s.geometryIndices.show(this)) {
+                            GLHelper::debugVertices(*myOutlineShape, s.geometryIndices, s.scale);
+                        }
+                    }
+#endif
+                    glTranslated(0, 0, -.2);
+                }
+            }
+            else if (isWalkingArea) {
+                if (s.drawCrossingsAndWalkingareas && (s.scale > 3.0 || s.junctionSize.minSize == 0)) {
+                    glTranslated(0, 0, .2);
+                    if (myTesselation == nullptr) {
+                        myTesselation = new TesselatedPolygon(getID(), "", RGBColor::MAGENTA, PositionVector(), false, true, 0);
+                    }
+                    myTesselation->drawTesselation(baseShape);
+                    glTranslated(0, 0, -.2);
+                    if (s.geometryIndices.show(this)) {
+                        GLHelper::debugVertices(baseShape, s.geometryIndices, s.scale);
+                    }
+                }
+            }
+            else {
+                // we draw the lanes with reduced width so that the lane markings below are visible
+                // (this avoids artifacts at geometry corners without having to
+                // compute lane-marking intersection points)
+                double halfWidth = isInternal ? myQuarterLaneWidth : (myHalfLaneWidth - SUMO_const_laneMarkWidth / 2);
+                mustDrawMarkings = !isInternal && myPermissions != 0 && myPermissions != SVC_PEDESTRIAN && exaggeration == 1.0 && !isWaterway(myPermissions) && !isAirway(myPermissions);
+                const int cornerDetail = drawDetails && !isInternal ? (s.drawForRectangleSelection ? 4 : MIN2(32, (int)(s.scale * exaggeration))) : 0;
+                double offset = halfWidth * MAX2(0., (exaggeration - 1)) * (MSGlobals::gLefthand ? -1 : 1);
+                if (spreadSuperposed) {
+                    offset += halfWidth * 0.5 * (MSGlobals::gLefthand ? -1 : 1);
+                    halfWidth *= 0.4; // create visible gap
+                }
+                if (shapeColors.size() > 0) {
+                    GLHelper::drawBoxLines(baseShape, getShapeRotations(s2), getShapeLengths(s2), shapeColors, halfWidth * exaggeration, cornerDetail, offset);
+                }
+                else {
+                    GLHelper::drawBoxLines(baseShape, getShapeRotations(s2), getShapeLengths(s2), halfWidth * exaggeration, cornerDetail, offset);
+                }
+            }
+            GLHelper::popMatrix();
+#ifdef GUILane_DEBUG_DRAW_FOE_INTERSECTIONS
+            if (myEdge->isInternal() && gSelected.isSelected(getType(), getGlID())) {
+                debugDrawFoeIntersections();
+            }
+#endif
+            if (s.geometryIndices.show(this)) {
+                GLHelper::debugVertices(baseShape, s.geometryIndices, s.scale);
+            }
+            // draw details
+            if ((!isInternal || isCrossing || !s.drawJunctionShape) && (drawDetails || junctionExaggeration > 1)) {
+                GLHelper::pushMatrix();
+                glTranslated(0, 0, GLO_JUNCTION); // must draw on top of junction shape
+                glTranslated(0, 0, .5);
+                if (drawDetails) {
+                    if (s.showLaneDirection) {
+                        if (drawRails) {
+                            // improve visibility of superposed rail edges
+                            GLHelper::setColor(setColor(s).changedBrightness(100));
+                        }
+                        else {
+                            glColor3d(0.3, 0.3, 0.3);
+                        }
+                        if (!isCrossing || s.drawCrossingsAndWalkingareas) {
+                            drawDirectionIndicators(exaggeration, spreadSuperposed, s.secondaryShape);
+                        }
+                    }
+                    if (!isInternal || isCrossing
+                        // controlled internal junction
+                        || (getLinkCont().size() != 0 && getLinkCont()[0]->isInternalJunctionLink() && getLinkCont()[0]->getTLLogic() != nullptr)) {
+                        if (MSGlobals::gLateralResolution > 0 && s.showSublanes && !hiddenBidi && (myPermissions & ~(SVC_PEDESTRIAN | SVC_RAIL_CLASSES)) != 0) {
+                            // draw sublane-borders
+                            const double offsetSign = MSGlobals::gLefthand ? -1 : 1;
+                            GLHelper::setColor(color.changedBrightness(51));
+                            for (double offset = -myHalfLaneWidth; offset < myHalfLaneWidth; offset += MSGlobals::gLateralResolution) {
+                                GLHelper::drawBoxLines(baseShape, getShapeRotations(s2), getShapeLengths(s2), 0.01, 0, -offset * offsetSign);
+                            }
+                        }
+                        if (MSGlobals::gUseMesoSim && mySegmentStartIndex.size() > 0 && (myPermissions & ~SVC_PEDESTRIAN) != 0) {
+                            // draw segment borders
+                            GLHelper::setColor(color.changedBrightness(51));
+                            for (int i : mySegmentStartIndex) {
+                                if (shapeColors.size() > 0) {
+                                    GLHelper::setColor(shapeColors[i].changedBrightness(51));
+                                }
+                                GLHelper::drawBoxLine(baseShape[i], getShapeRotations(s2)[i] + 90, myWidth / 3, 0.2, 0);
+                                GLHelper::drawBoxLine(baseShape[i], getShapeRotations(s2)[i] - 90, myWidth / 3, 0.2, 0);
+                            }
+                        }
+                        if (s.showLinkDecals && !drawRails && !drawAsWaterway(s) && myPermissions != SVC_PEDESTRIAN) {
+                            drawArrows(s.secondaryShape);
+                        }
+                        glTranslated(0, 0, 1000);
+                        if (s.drawLinkJunctionIndex.show(nullptr)) {
+                            drawLinkNo(s);
+                        }
+                        if (s.drawLinkTLIndex.show(nullptr)) {
+                            drawTLSLinkNo(s, *net);
+                        }
+                        glTranslated(0, 0, -1000);
+                    }
+                    glTranslated(0, 0, .1);
+                }
+                if ((drawDetails || junctionExaggeration > 1) && s.showLane2Lane) {
+                    //  draw from end of first to the begin of second but respect junction scaling
+                    drawLane2LaneConnections(junctionExaggeration, s.secondaryShape);
+                }
+                GLHelper::popMatrix();
+                // make sure link rules are drawn so tls can be selected via right-click
+                if (s.showLinkRules && drawDetails && !isWalkingArea &&
+                    (!myEdge->isInternal() || (getLinkCont().size() > 0 && getLinkCont()[0]->isInternalJunctionLink()))) {
+                    GLHelper::pushMatrix();
+                    glTranslated(0, 0, GLO_SHAPE); // must draw on top of junction shape and additionals
+                    drawLinkRules(s, *net);
+                    GLHelper::popMatrix();
+                }
+            }
+            if (mustDrawMarkings && drawDetails && s.laneShowBorders) { // needs matrix reset
+                drawMarkings(s, exaggeration);
+            }
+            if (drawDetails && isInternal && s.showBikeMarkings && myPermissions == SVC_BICYCLE && exaggeration == 1.0 && s.showLinkDecals && s.laneShowBorders && !hiddenBidi
+                && MSGlobals::gUsingInternalLanes
+                && getNormalSuccessorLane()->getPermissions() == SVC_BICYCLE && getNormalPredecessorLane()->getPermissions() == SVC_BICYCLE) {
+                drawBikeMarkings();
+            }
+            if (drawDetails && isInternal && exaggeration == 1.0 && s.showLinkDecals && s.laneShowBorders && !hiddenBidi && myIndex > 0
+                && !(myEdge->getLanes()[myIndex - 1]->allowsChangingLeft(SVC_PASSENGER) && allowsChangingRight(SVC_PASSENGER))) {
+                // draw lane changing prohibitions on junction
+                drawJunctionChangeProhibitions();
+            }
+        }
+    }
+    else {
+        GLHelper::popMatrix();
+    }
+    // draw vehicles
+    if (s.scale * s.vehicleSize.getExaggeration(s, nullptr) > s.vehicleSize.minSize) {
+        // retrieve vehicles from lane; disallow simulation
+        const MSLane::VehCont& vehicles = getVehiclesSecure();
+        for (MSLane::VehCont::const_iterator v = vehicles.begin(); v != vehicles.end(); ++v) {
+            if ((*v)->getLane() == this) {
+                static_cast<const GUIVehicle*>(*v)->drawGL(s);
+            } // else: this is the shadow during a continuous lane change
+        }
+        // draw long partial vehicles (#14342)
+        for (const MSVehicle* veh : myPartialVehicles) {
+            if (veh->getLength() > RENDERING_BUFFER) {
+                // potential double rendering taken into account
+                static_cast<const GUIVehicle*>(veh)->drawGL(s);
+            }
+        }
+        // draw parking vehicles
+        for (const MSBaseVehicle* const v : myParkingVehicles) {
+            dynamic_cast<const GUIBaseVehicle*>(v)->drawGL(s);
+        }
+        // allow lane simulation
+        releaseVehicles();
+    }
+    GLHelper::popName();
+}
+
+
 bool
 GUILane::neighLaneNotBidi() const {
     const MSLane* right = getParallelLane(-1, false);

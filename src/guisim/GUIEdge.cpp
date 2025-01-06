@@ -266,7 +266,7 @@ GUIEdge::drawGL(const GUIVisualizationSettings& s) const {
         setColor(s);
     }
     for (std::vector<MSLane*>::const_iterator i = myLanes->begin(); i != myLanes->end(); ++i) {
-        static_cast<GUILane*>(*i)->drawGL(s);
+        static_cast<GUILane*>(*i)->drawGLModern(s);
     }
     if (MSGlobals::gUseMesoSim) {
         if (s.scale * s.vehicleSize.getExaggeration(s, nullptr) > s.vehicleSize.minSize) {

@@ -27,6 +27,7 @@
 #include <utils/common/RGBColor.h>
 #include <utils/geom/PositionVector.h>
 #include <utils/gui/settings/GUIVisualizationSettings.h>
+#include <utils/gui/moderngl/GLBufferStruct.h>
 
 
 // ===========================================================================
@@ -74,6 +75,9 @@ public:
     /// @brief get vertex counter
     static int getVertexCounter();
 
+    /// @brief get vertex counter (for modern OpenGL)
+    static long getVertexCounterModern();
+
     /// @brief reset vertex counter
     static void resetVertexCounter();
 
@@ -82,6 +86,15 @@ public:
 
     /// @brief check counter name (for debug purposes)
     static void checkCounterName();
+
+    /// @brief get ref to the vertex data
+    static std::vector<GLBufferStruct>& getVertexData();
+    
+    /// @brief clear vertex data
+    static void clearVertexData();
+
+    /// @brief sum size of vertex attributes
+    static unsigned int computeVertexAttributeSize(const std::vector<std::pair<GLint, unsigned int>>& attributeDefinitions);
 
     /** @brief Draws a filled polygon described by the list of points
      * @note this only works well for convex polygons
@@ -94,7 +107,7 @@ public:
 
     /** @brief Draws a filled polygon described by the list of points
      * @note this works for convex and concave polygons but is slower than
-     * drawFilledPoly
+     * drawFilledPoly --> UNUSED
      *
      * @param[in] v The polygon to draw
      * @param[in] close Whether the first point shall be appended
@@ -110,6 +123,8 @@ public:
      * @param[in] height The height of the rectangle
      */
     static void drawRectangle(const Position& center, const double width, const double height);
+
+    static void drawRectangleModern(const Position& center, const double width, const double height);
 
     /** @brief Draws a thick line
      *
@@ -236,6 +251,7 @@ public:
      */
     static void drawLine(const PositionVector& v);
 
+    static void drawLineModern(const PositionVector& v);
 
     /** @brief Draws a thin line along the given position vector with variable color
      *
@@ -247,6 +263,7 @@ public:
      */
     static void drawLine(const PositionVector& v, const std::vector<RGBColor>& cols);
 
+    static void drawLineModern(const PositionVector& v, const std::vector<RGBColor>& cols);
 
     /** @brief Draws a thin line between the two points
      *
@@ -411,6 +428,13 @@ public:
                                      const double width, const double length, const bool vehicle);
 
 private:
+    /// @brief Add vertx data (position and colour) to the global vertex storage (to be transferred to the GPU)
+    static void addVertex(const Position& pos, const RGBColor& col);
+    static void addVertex(const Position& pos);
+    static void addVertex(float x, float y , float z);
+    static void addVertex(float x, float y, float z, float r, float g, float b, float a);
+
+private:
     /// @brief whether the road makes a right turn (or goes straight)
     static bool rightTurn(double angle1, double angle2);
 
@@ -426,6 +450,9 @@ private:
     /// @brief matrix counter (for debug purposes)
     static int myVertexCounter;
 
+    /// @brief vertex counter
+    static long myVertexCounterModern;
+
     /// @brief matrix counter (for debug purposes)
     static int myMatrixCounterDebug;
 
@@ -434,6 +461,15 @@ private:
 
     /// @brief Storage for precomputed sin/cos-values describing a circle
     static std::vector<std::pair<double, double> > myCircleCoords;
+
+    /// @brief Storage for precomputed sin/cos-values describing a circle
+    static std::vector<GLBufferStruct> myVertices;
+
+    /// @brief Storage for current color (helper variable for transition to modern OpenGL)
+    static RGBColor myCurrentColor;
+
+    /// @brief Layer / Z coordinate
+    static double myCurrentLayer;
 
     /// @brief Font context
     static struct FONScontext* myFont;

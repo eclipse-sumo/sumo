@@ -49,7 +49,8 @@
 
 #define CIRCLE_RESOLUTION (double)10 // inverse in degrees
 //#define CHECK_PUSHPOP         // enable or disable check push and pop matrix/names
-//#define CHECK_ELEMENTCOUNTER  // enable or disable element counter (for matrix and vertex)
+#define CHECK_ELEMENTCOUNTER  // enable or disable element counter (for matrix and vertex)
+#define MODERN_OPENGL
 
 #ifndef CALLBACK
 #define CALLBACK
@@ -61,9 +62,13 @@
 
 int GLHelper::myMatrixCounter = 0;
 int GLHelper::myVertexCounter = 0;
+long GLHelper::myVertexCounterModern = 0;
 int GLHelper::myMatrixCounterDebug = 0;
 int GLHelper::myNameCounter = 0;
 std::vector<std::pair<double, double> > GLHelper::myCircleCoords;
+std::vector<GLBufferStruct> GLHelper::myVertices;
+RGBColor GLHelper::myCurrentColor(255,255,255,255);
+double GLHelper::myCurrentLayer = 0.;
 std::vector<RGBColor> GLHelper::myDottedcontourColors;
 FONScontext* GLHelper::myFont = nullptr;
 double GLHelper::myFontSize = 50.0;
@@ -172,6 +177,12 @@ GLHelper::getVertexCounter() {
 }
 
 
+long
+GLHelper::getVertexCounterModern() {
+    return myVertexCounterModern;
+}
+
+
 void
 GLHelper::resetVertexCounter() {
     myVertexCounter = 0;
@@ -197,6 +208,38 @@ GLHelper::checkCounterName() {
     }
     myNameCounter = 0;
 #endif
+}
+
+
+std::vector<GLBufferStruct>&
+GLHelper::getVertexData() {
+    return myVertices;
+}
+
+
+void
+GLHelper::clearVertexData() {
+    myVertices.clear();
+    myVertexCounterModern = 0;
+}
+
+
+unsigned int
+GLHelper::computeVertexAttributeSize(const std::vector<std::pair<GLint, unsigned int>>& attributeDefinitions) {
+    unsigned int result = 0;
+    for (auto entry : attributeDefinitions) {
+        unsigned int typeSize = 0;
+        switch (entry.first) {
+        case GL_FLOAT:
+            typeSize = sizeof(float);
+            break;
+        case GL_BYTE:
+            typeSize = sizeof(char);
+            break;
+        }
+        result += typeSize * entry.second;
+    }
+    return result;
 }
 
 
@@ -287,9 +330,26 @@ GLHelper::drawRectangle(const Position& center, const double width, const double
     glVertex2d(halfWidth, halfHeight);
     glEnd();
     GLHelper::popMatrix();
+
 #ifdef CHECK_ELEMENTCOUNTER
     myVertexCounter += 4;
 #endif
+}
+
+
+void
+GLHelper::drawRectangleModern(const Position& center, const double width, const double height) {
+    const double halfWidth = width * 0.5;
+    const double halfHeight = height * 0.5;
+
+    float centerX = center.x();
+    float centerY = center.y();
+    addVertex(centerX - halfWidth, centerY + halfHeight, 0.); // P0
+    addVertex(centerX - halfWidth, centerY - halfHeight, 0.); // P1
+    addVertex(centerX + halfWidth, centerY - halfHeight, 0.); // P2
+    addVertex(centerX + halfWidth, centerY - halfHeight, 0.); // P2
+    addVertex(centerX + halfWidth, centerY + halfHeight, 0.); // P3
+    addVertex(centerX - halfWidth, centerY + halfHeight, 0.); // P0
 }
 
 void
@@ -479,6 +539,20 @@ GLHelper::drawLine(const PositionVector& v) {
 
 
 void
+GLHelper::drawLineModern(const PositionVector& v) {
+    int e = (int)v.size() - 1;
+    for (int i = 0; i < e; ++i) {
+        addVertex(v[i]);
+        addVertex(v[i + 1]);
+#ifdef CHECK_ELEMENTCOUNTER
+        myVertexCounterModern += 2;
+#endif
+    }
+
+}
+
+
+void
 GLHelper::drawLine(const PositionVector& v, const std::vector<RGBColor>& cols) {
     glBegin(GL_LINES);
     int e = (int) v.size() - 1;
@@ -491,6 +565,20 @@ GLHelper::drawLine(const PositionVector& v, const std::vector<RGBColor>& cols) {
 #endif
     }
     glEnd();
+}
+
+
+void
+GLHelper::drawLineModern(const PositionVector& v, const std::vector<RGBColor>& cols) {
+    int e = (int)v.size() - 1;
+    for (int i = 0; i < e; ++i) {
+        setColor(cols[i]);
+        addVertex(v[i]);
+        addVertex(v[i + 1]);
+#ifdef CHECK_ELEMENTCOUNTER
+        myVertexCounterModern += 2;
+#endif
+    }
 }
 
 
@@ -647,6 +735,7 @@ GLHelper::drawTriangleAtEnd(const Position& p1, const Position& p2, double tLeng
 
 void
 GLHelper::setColor(const RGBColor& c) {
+    myCurrentColor.set(c.red(), c.green(), c.blue(), c.alpha());
     glColor4ub(c.red(), c.green(), c.blue(), c.alpha());
 }
 
@@ -710,6 +799,32 @@ GLHelper::drawSpaceOccupancies(const double exaggeration, const Position& pos, c
     GLHelper::drawBoxLines(geom, 0.1 * exaggeration);
     // pop matrix
     GLHelper::popMatrix();
+}
+
+
+void
+GLHelper::addVertex(const Position& pos, const RGBColor& col) {
+    addVertex(pos.x(), pos.y(), myCurrentLayer, col.red(), col.green(), col.blue(), col.alpha());
+}
+
+
+void
+GLHelper::addVertex(const Position& pos) {
+    addVertex(pos.x(), pos.y(), myCurrentLayer);
+}
+
+
+void
+GLHelper::addVertex(float x, float y, float z) {
+    addVertex(x, y, myCurrentLayer, myCurrentColor.red(), myCurrentColor.green(), myCurrentColor.blue(), myCurrentColor.alpha());
+}
+
+
+void
+GLHelper::addVertex(float x, float y, float z, float r, float g, float b, float a) {
+    GLBufferStruct vertex = { { x, y, z }, { r, g, b, a } };
+    myVertices.push_back(vertex);
+    myVertexCounterModern++;
 }
 
 
@@ -870,7 +985,7 @@ GLHelper::drawCrossTies(const PositionVector& geom, const std::vector<double>& r
                 glVertex2d(halfWidth - offset, -t);
                 glEnd();
 #ifdef CHECK_ELEMENTCOUNTER
-                myVertexCounter += 4;
+                //myVertexCounter += 4;
 #endif
             }
         } else {
@@ -882,7 +997,7 @@ GLHelper::drawCrossTies(const PositionVector& geom, const std::vector<double>& r
             glVertex2d(halfWidth - offset, 0);
             glEnd();
 #ifdef CHECK_ELEMENTCOUNTER
-            myVertexCounter += 4;
+            //myVertexCounter += 4;
 #endif
         }
         // pop three draw matrix
@@ -921,7 +1036,7 @@ GLHelper::drawInverseMarkings(const PositionVector& geom,
                 glVertex2d(-mw2, -t);
                 glEnd();
 #ifdef CHECK_ELEMENTCOUNTER
-                myVertexCounter += 4;
+                //myVertexCounter += 4;
 #endif
                 if (!cl || !cr) {
                     // draw inverse marking between asymmetrical lane markings
@@ -933,7 +1048,7 @@ GLHelper::drawInverseMarkings(const PositionVector& geom,
                     glVertex2d(-halfWidth - 0.02, -t - length2);
                     glEnd();
 #ifdef CHECK_ELEMENTCOUNTER
-                    myVertexCounter += 4;
+                    //myVertexCounter += 4;
 #endif
                 }
             }

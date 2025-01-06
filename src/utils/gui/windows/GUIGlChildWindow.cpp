@@ -173,7 +173,7 @@ GUIGlChildWindow::buildScreenshotToolBar() {
 }
 
 
-FXGLCanvas*
+MFXGLCanvas*
 GUIGlChildWindow::getBuildGLCanvas() const {
     return myView;
 }

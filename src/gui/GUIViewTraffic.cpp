@@ -31,6 +31,10 @@
 #include <utility>
 #include <cmath>
 #include <limits>
+
+#include "glm.hpp"
+#include "gtc/matrix_transform.hpp"
+
 #include <foreign/rtree/SUMORTree.h>
 #include <gui/GUIApplicationWindow.h>
 #include <gui/GUIGlobals.h>
@@ -58,6 +62,8 @@
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/gui/globjects/GUIShapeContainer.h>
 #include <utils/gui/images/GUIIconSubSys.h>
+#include <utils/gui/moderngl/GLShader.h>
+#include <utils/gui/moderngl/GLBufferStruct.h>
 #include <utils/gui/settings/GUICompleteSchemeStorage.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/windows/GUIDialog_ViewSettings.h>
@@ -71,23 +77,27 @@
 // ===========================================================================
 // member method definitions
 // ===========================================================================
+
 GUIViewTraffic::GUIViewTraffic(
     FXComposite* p,
     GUIMainWindow& app,
     GUISUMOViewParent* parent,
-    GUINet& net, FXGLVisual* glVis,
-    FXGLCanvas* share) :
+    GUINet& net, MFXGLVisual* glVis,
+    MFXGLCanvas* share) :
     GUISUMOAbstractView(p, app, parent, net.getVisualisationSpeedUp(), glVis, share),
     myTrackedID(GUIGlObject::INVALID_ID),
     myTLSGame(OptionsCont::getOptions().getString("game.mode") == "tls")
 #ifdef HAVE_FFMPEG
     , myCurrentVideo(nullptr)
 #endif
-{}
+{
+}
 
 
 GUIViewTraffic::~GUIViewTraffic() {
     endSnapshot();
+    myRenderer->deactivateCurrentConfiguration();
+    //delete myContext;
 }
 
 
@@ -300,6 +310,7 @@ GUIViewTraffic::getVehicleParamKeys(bool /*vTypeKeys*/) const {
     return std::vector<std::string>(keys.begin(), keys.end());
 }
 
+
 std::vector<std::string>
 GUIViewTraffic::getPOIParamKeys() const {
     std::set<std::string> keys;
@@ -311,6 +322,19 @@ GUIViewTraffic::getPOIParamKeys() const {
     }
     return std::vector<std::string>(keys.begin(), keys.end());
 }
+
+
+void
+GUIViewTraffic::create() {
+    MFXGLCanvas::create();
+    initModernOpenGL();
+
+#ifdef _DEBUG
+    // check obtained OpenGL version
+    WRITE_MESSAGEF("The obtained OpenGL version is %.", glGetString(GL_VERSION));
+#endif
+}
+
 
 int
 GUIViewTraffic::doPaintGL(int mode, const Boundary& bound) {
@@ -330,6 +354,7 @@ GUIViewTraffic::doPaintGL(int mode, const Boundary& bound) {
     if (myVisualizationSettings->showGrid) {
         paintGLGrid();
     }
+
     glLineWidth(1);
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     const float minB[2] = { (float)bound.xmin(), (float)bound.ymin() };
@@ -338,6 +363,7 @@ GUIViewTraffic::doPaintGL(int mode, const Boundary& bound) {
     glEnable(GL_POLYGON_OFFSET_LINE);
     const SUMORTree& grid = GUINet::getGUIInstance()->getVisualisationSpeedUp(myVisualizationSettings->secondaryShape);
     int hits2 = grid.Search(minB, maxB, *myVisualizationSettings);
+
     GUIGlobals::gSecondaryShape = myVisualizationSettings->secondaryShape;
     // Draw additional objects
     if (myAdditionallyDrawn.size() > 0) {
@@ -350,15 +376,39 @@ GUIViewTraffic::doPaintGL(int mode, const Boundary& bound) {
         glTranslated(0, 0, .01);
     }
     GLHelper::popMatrix();
-    /*
-    // draw legends
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
-    glTranslated(1.-.2, 1.-.5, 0.);
-    glScaled(.2, .5, 1.);
-    GUIColoringSchemesMap<GUILane> &sm = GUIViewTraffic::getLaneSchemesMap(); //!!!
-    sm.getColorer(myVisualizationSettings->laneEdgeMode)->drawLegend();
-    */
+
+    // Test/Debug insert modern OpenGL drawing routine here
+    if (myRenderer != nullptr) {
+        GLHelper::clearVertexData();
+
+        // Debug / Demo rectangles
+        //GLHelper::setColor(RGBColor(0, 255, 0));
+        //Position pos1(150.f, 20.f);
+        //GLHelper::drawRectangleModern(pos1, 150.f, 150.f);
+        //GLHelper::setColor(RGBColor(0, 0, 255));
+        //Position pos2(250., 500.);
+        //GLHelper::drawRectangleModern(pos2, 30., 80.);
+
+        if (GLHelper::getVertexCounterModern() > 0) {
+            // render
+            // set camera perspective through GLSL uniform
+            glm::mat4 proj = glm::ortho(0.f, (float)getWidth(), 0.f, (float)getHeight(), -1.0f, 1.0f);
+
+            glm::mat4 rotate = glm::translate(glm::mat4(), glm::vec3(-bound.getCenter().x(), -bound.getCenter().y(), 0.0f));
+            rotate = glm::rotate(rotate, glm::radians((float)myChanger->getRotation()), glm::vec3(0.0, 0.0, 1.0));
+            rotate = glm::translate(rotate, glm::vec3(bound.getCenter().x(), bound.getCenter().y(), 0.0f));
+
+            glm::mat4 scale = glm::scale(glm::mat4(1), glm::vec3((double)getWidth() / bound.getWidth(), (double)getHeight() / bound.getHeight(), 1));
+            glm::mat4 translate = glm::translate(glm::mat4(), glm::vec3(-bound.xmin(), -bound.ymin(), 0.0f));
+            myRenderer->activateConfiguration("Standard");
+            myRenderer->setUniform("u_MVP", proj * scale * translate * rotate);
+            myRenderer->checkBufferSizes();
+            myRenderer->setVertexData(GLHelper::getVertexData());
+            myRenderer->paintGL();
+            myRenderer->deactivateCurrentConfiguration();
+        }
+    }
+
     return hits2;
 }
 
@@ -761,6 +811,28 @@ GUIViewTraffic::changePedestrianNetworkColor(const GUIVisualizationSettings& s) 
         }
     }
     update();
+}
+
+
+void
+GUIViewTraffic::initModernOpenGL() {
+    // create modern OpenGL structures
+    if (getenv("SUMO_HOME") != nullptr && myRenderer == nullptr) {
+        // shader paths
+        // TODO: replace with production path
+        const std::string vertexShaderPath = "D:/Repos/sumo-opengl3.3/data/shaders/vertexShader.glsl"; // production value should be: std::string(getenv("SUMO_HOME")) + "/data/shaders/vertexShader.glsl";
+        const std::string fragmentShaderPath = "D:/Repos/sumo-opengl3.3/data/shaders/fragmentShader.glsl"; // production value should be: std::string(getenv("SUMO_HOME")) + "/data/shaders/fragmentShader.glsl";
+        const GLShader shader = GLShader(vertexShaderPath, fragmentShaderPath);
+
+        myRenderer = std::make_shared<GLRenderer>();
+        myRenderer->addShader("FaceColorShader", shader);
+        const std::vector<std::pair<GLint, unsigned int>> attributeDefinitions = { {GL_FLOAT, 3}, {GL_BYTE, 4} };
+        myRenderer->addConfiguration("Standard", "FaceColorShader", GLHelper::computeVertexAttributeSize(attributeDefinitions));
+        myRenderer->activateConfiguration("Standard");
+        myRenderer->getVAO()->setGeometryType(GL_LINES);
+        myRenderer->setVertexAttributes(attributeDefinitions);
+        myRenderer->deactivateCurrentConfiguration();
+    }
 }
 
 /****************************************************************************/

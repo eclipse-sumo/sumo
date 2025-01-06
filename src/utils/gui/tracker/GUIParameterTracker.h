@@ -24,6 +24,7 @@
 
 #include <vector>
 #include <utils/foxtools/MFXComboBoxIcon.h>
+#include <utils/foxtools/MFXGLCanvas.h>
 // fx3d includes windows.h so we need to guard against macro pollution
 #ifdef WIN32
 #define NOMINMAX
@@ -116,7 +117,7 @@ public:
      * It is the widget responsible for displaying the information while
      * GUIParameterTracker only provides window-facilities.
      */
-    class GUIParameterTrackerPanel : public FXGLCanvas {
+    class GUIParameterTrackerPanel : public MFXGLCanvas {
         FXDECLARE(GUIParameterTrackerPanel)
     public:
         /** @brief Constructor

@@ -49,7 +49,7 @@ public:
     virtual ~GUIGlChildWindow();
 
     /// @brief get build GL Canvas
-    virtual FXGLCanvas* getBuildGLCanvas() const;
+    virtual MFXGLCanvas* getBuildGLCanvas() const;
 
     /// @brief create GUIGlChildWindow
     virtual void create();

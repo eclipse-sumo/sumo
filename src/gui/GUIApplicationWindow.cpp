@@ -2223,7 +2223,7 @@ GUIApplicationWindow::openNewView(GUISUMOViewParent::ViewType vt, std::string ca
 }
 
 
-FXGLCanvas*
+MFXGLCanvas*
 GUIApplicationWindow::getBuildGLCanvas() const {
     if (myMDIClient->numChildren() == 0) {
         return nullptr;

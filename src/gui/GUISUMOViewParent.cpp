@@ -87,7 +87,7 @@ GUISUMOViewParent::GUISUMOViewParent(FXMDIClient* p, FXMDIMenu* mdimenu,
 
 
 GUISUMOAbstractView*
-GUISUMOViewParent::init(FXGLCanvas* share, GUINet& net, GUISUMOViewParent::ViewType type) {
+GUISUMOViewParent::init(MFXGLCanvas* share, GUINet& net, GUISUMOViewParent::ViewType type) {
     switch (type) {
         default:
         case VIEW_2D_OPENGL:

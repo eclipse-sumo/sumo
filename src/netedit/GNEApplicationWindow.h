@@ -22,6 +22,7 @@
 
 #include "GNEApplicationWindowHelper.h"
 
+class MFXGLCanvas;
 
 // ===========================================================================
 // class definition
@@ -536,7 +537,7 @@ public:
     /// @name inherited from GUIMainWindow
     /// @{
     /// @brief get build OpenGL Canvas (due netedit only uses a single View, it always return nullptr)
-    FXGLCanvas* getBuildGLCanvas() const;
+    MFXGLCanvas* getBuildGLCanvas() const;
 
     /// @brief get current simulation time (pure virtual but we don't need it)
     SUMOTime getCurrentSimTime() const;

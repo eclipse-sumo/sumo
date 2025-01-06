@@ -301,8 +301,9 @@ if (SUMO_LIBRARIES AND WIN32)
     file(GLOB FREETYPE_PATH "${SUMO_LIBRARIES}/3rdPartyLibs/freetype-2.??.?")
     file(GLOB EIGEN3_PATH "${SUMO_LIBRARIES}/eigen-3.?.?")
     file(GLOB GETTEXT_PATH "${SUMO_LIBRARIES}/gettext-?.??")
+    file(GLOB GLEW_PATH "${SUMO_LIBRARIES}/3rdPartyLibs/glew-2.?.?")
     # set all paths in prefix
-    set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${EIGEN3_PATH};${XERCES_PATH};${ZLIB_PATH};${PROJ_PATH};${FOX_PATH};${FREETYPE_PATH};${GETTEXT_PATH};${GETTEXT_PATH}/tools/gettext")
+    set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${EIGEN3_PATH};${XERCES_PATH};${ZLIB_PATH};${PROJ_PATH};${FOX_PATH};${FREETYPE_PATH};${GLEW_PATH};${GETTEXT_PATH};${GETTEXT_PATH}/tools/gettext")
     # save in variable SUMO_LIBRARIES_DLL all paths to dll files
     file(GLOB SUMO_LIBRARIES_DLL "${XERCES_PATH}/bin/*.dll"
                                  "${PROJ_PATH}/bin/*.dll"
@@ -310,7 +311,7 @@ if (SUMO_LIBRARIES AND WIN32)
                                  "${ZLIB_PATH}/bin/*.dll"
                                  "${FREETYPE_PATH}/bin/*.dll"
                                  "${GETTEXT_PATH}/bin/*.dll"
-								 "${GDAL_PATH}/bin/*.dll"
+                                 "${GDAL_PATH}/bin/*.dll"
                                  "${SUMO_LIBRARIES}/libspatialite-*/bin/*.dll"
                                  "${SUMO_LIBRARIES}/3rdPartyLibs/bzip2-*/bin/*.dll"
                                  "${SUMO_LIBRARIES}/3rdPartyLibs/geos-*/bin/*.dll"
@@ -382,16 +383,22 @@ endif (PROJ_FOUND)
 
 find_package(FOX)
 if (FOX_FOUND)
-    set(OpenGL_GL_PREFERENCE LEGACY)
-    find_package(OpenGL)
-    if (OPENGL_FOUND AND OPENGL_GLU_FOUND)
+    set(OpenGL_GL_PREFERENCE GVND)
+    find_package(GLEW)
+    if (GLEW_FOUND)
+        add_compile_definitions(GLEW_STATIC)
+        include_directories(SYSTEM ${GLEW_INCLUDE_DIRS})
+        link_libraries(${GLEW_STATIC_LIBRARIES})
         include_directories(SYSTEM ${FOX_INCLUDE_DIR})
         add_definitions(${FOX_CXX_FLAGS})
         add_definitions(-DFLOAT_MATH_FUNCTIONS)
+        file(GLOB GLM_ROOT "${SUMO_LIBRARIES}/3rdPartyLibs/glm-?.?.?.?")
+        message(STATUS "Found GLM: " ${GLM_ROOT})
+        include_directories("${GLM_ROOT}/glm")
         set(HAVE_FOX 1)
         set(ENABLED_FEATURES "${ENABLED_FEATURES} GUI")
     else ()
-        message(WARNING "Fox is present but OpenGL or GLU cannot be found, GUI will be disabled.")
+        message(WARNING "Fox is present but Glew cannot be found, GUI will be disabled.")
     endif ()
 endif (FOX_FOUND)
 
@@ -470,10 +477,10 @@ if (CHECK_OPTIONAL_LIBS)
     file(GLOB GDAL_PATH "${SUMO_LIBRARIES}/gdal-?.?.?")
     file(GLOB FFMPEG_PATH "${SUMO_LIBRARIES}/FFMPEG-?.?.?")
     file(GLOB OSG_PATH "${SUMO_LIBRARIES}/OSG-?.?.?")
-    file(GLOB GL2PS_PATH "${SUMO_LIBRARIES}/gl2ps-?.?.?")
+    #file(GLOB GL2PS_PATH "${SUMO_LIBRARIES}/gl2ps-?.?.?")
     file(GLOB GEOS_PATH "${SUMO_LIBRARIES}/3rdPartyLibs/geos-*")
-    set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${GDAL_PATH};${FFMPEG_PATH};${OSG_PATH};${GL2PS_PATH};${GEOS_PATH}")
-    file(GLOB SUMO_OPTIONAL_LIBRARIES_DLL "${GDAL_PATH}/bin/*.dll" "${FFMPEG_PATH}/bin/*.dll" "${OSG_PATH}/bin/*.dll" "${GL2PS_PATH}/bin/*.dll" "${JUPEDSIM_CUSTOMDIR}/bin/*.dll")
+    set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${GDAL_PATH};${FFMPEG_PATH};${OSG_PATH};${GEOS_PATH}")
+    file(GLOB SUMO_OPTIONAL_LIBRARIES_DLL "${GDAL_PATH}/bin/*.dll" "${FFMPEG_PATH}/bin/*.dll" "${OSG_PATH}/bin/*.dll" "${JUPEDSIM_CUSTOMDIR}/bin/*.dll")
 
     # GDAL (for geopositioning)
     find_package(GDAL)

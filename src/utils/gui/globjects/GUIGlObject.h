@@ -185,6 +185,9 @@ public:
     /// @param[in] s The settings for the current view (may influence drawing)
     virtual void drawGL(const GUIVisualizationSettings& s) const = 0;
 
+    /// TODO: @brief provide the current vertex data (including color information), return the number of written data points
+    //virtual int writeVertices() const = 0;
+
     /// @brief check if element is locked (Currently used only in netedit)
     virtual bool isGLObjectLocked() const;
 

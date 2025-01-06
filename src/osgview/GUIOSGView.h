@@ -23,6 +23,7 @@
 
 #ifdef HAVE_OSG
 
+#include <utils/gui/windows/GUISUMOAbstractView.h>
 #include "GUIOSGHeader.h"
 #include "GUIOSGManipulator.h"
 
@@ -33,7 +34,7 @@
 #include <utils/common/RGBColor.h>
 #include <utils/geom/PositionVector.h>
 #include <gui/GUISUMOViewParent.h>
-#include <utils/gui/windows/GUISUMOAbstractView.h>
+
 
 
 // ===========================================================================
@@ -47,6 +48,8 @@ class GUILaneWrapper;
 class MSRoute;
 class MSTransportable;
 class MSVehicle;
+class MFXGLCanvas;
+class MFXGLVisual;
 
 namespace osgGA {
 class CameraManipulator;
@@ -138,8 +141,8 @@ public:
 
     /// @brief constructor
     GUIOSGView(FXComposite* p, GUIMainWindow& app,
-               GUISUMOViewParent* parent, GUINet& net, FXGLVisual* glVis,
-               FXGLCanvas* share);
+               GUISUMOViewParent* parent, GUINet& net, MFXGLVisual* glVis,
+               MFXGLCanvas* share);
 
     /// @brief destructor
     virtual ~GUIOSGView();

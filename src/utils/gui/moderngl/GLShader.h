@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2012-2025 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -11,30 +11,34 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GLIncludes.h
-/// @author  Daniel Krajzewicz
-/// @author  Jakob Erdmann
-/// @author  Michael Behrisch
-/// @date    2012
+/// @file    GLShader.h
+/// @author  Mirko Barthauer
+/// @date    17.01.2025
 ///
-// collection of includes for GL usage
+//
 /****************************************************************************/
 #pragma once
 #include <config.h>
 
-#ifdef WIN32
-#ifndef NOMINMAX
-#define NOMINMAX
-#include <windows.h>
-#undef NOMINMAX
-#else
-#include <windows.h>
-#endif
-#endif
-
 #ifndef __glew_h__
 #include <GL/glew.h>
 #endif
+#include <string>
 
-//#include <GL/gl.h>
-//#include <GL/glu.h>
+class GLShader {
+
+public:
+    GLShader(const std::string& vertexShaderPath, const std::string& fragmentShaderPath);
+    ~GLShader();
+
+    GLuint getVertexShaderID() const { return myVertexShaderID; };
+    GLuint getFragmentShaderID() const { return myFragmentShaderID; };
+    std::string readShaderFile(const std::string& path) const;
+
+private:
+    GLuint compileShader(GLuint type, const std::string& source);
+
+private:
+    GLuint myVertexShaderID;
+    GLuint myFragmentShaderID;
+};

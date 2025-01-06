@@ -23,6 +23,8 @@
 #pragma once
 #include <config.h>
 
+#include <utils/foxtools/fxheader.h>
+
 #include <string>
 #include <utils/geom/Boundary.h>
 #include <utils/geom/Position.h>
@@ -30,6 +32,7 @@
 #include <utils/geom/PositionVector.h>
 #include "GUISUMOViewParent.h"
 #include <utils/gui/windows/GUISUMOAbstractView.h>
+#include <utils/gui/moderngl/GLRenderer.h>
 
 
 // ===========================================================================
@@ -40,7 +43,8 @@ class GUISUMOViewParent;
 class GUIVehicle;
 class GUIVideoEncoder;
 class MSRoute;
-
+class MFXGLcanvas;
+class MFXGLVisual;
 
 // ===========================================================================
 // class definitions
@@ -53,8 +57,8 @@ class GUIViewTraffic : public GUISUMOAbstractView {
 public:
     /// @brief constructor
     GUIViewTraffic(FXComposite* p, GUIMainWindow& app,
-                   GUISUMOViewParent* parent, GUINet& net, FXGLVisual* glVis,
-                   FXGLCanvas* share);
+                   GUISUMOViewParent* parent, GUINet& net, MFXGLVisual* glVis,
+                   MFXGLCanvas* share);
     /// @brief destructor
     virtual ~GUIViewTraffic();
 
@@ -140,10 +144,19 @@ public:
     /// @param s The visualization settings
     void changePedestrianNetworkColor(const GUIVisualizationSettings& s) const override;
 
+    /// @brief Init modern OpenGL structure
+    /// Create all of the server-side resources for this window
+    void create() override;
+
 protected:
     int doPaintGL(int mode, const Boundary& bound) override;
 
     GUILane* getLaneUnderCursor() override;
+
+    GUIViewTraffic() { }
+
+private:
+    void initModernOpenGL();
 
 private:
     GUIGlID myTrackedID;
@@ -151,11 +164,13 @@ private:
     /// @brief whether game mode was set to 'tls'
     bool myTLSGame;
 
+    /// @brief modern OpenGL rendering
+    std::shared_ptr<GLRenderer> myRenderer;
+
 #ifdef HAVE_FFMPEG
     GUIVideoEncoder* myCurrentVideo;
 #endif
 
-protected:
-    GUIViewTraffic() { }
+
 
 };

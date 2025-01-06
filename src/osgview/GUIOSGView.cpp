@@ -90,6 +90,8 @@ operator<<(std::ostream& os, const osg::Vec3d& v) {
 // GUIOSGView::Command_TLSChange member method definitions
 // ===========================================================================
 
+class MFXGLCanvas;
+
 GUIOSGView::Command_TLSChange::Command_TLSChange(const MSLink* const link, osg::Switch* switchNode)
     : myLink(link), mySwitch(switchNode), myLastState(LINKSTATE_TL_OFF_NOSIGNAL) {
     execute();
@@ -135,8 +137,8 @@ GUIOSGView::GUIOSGView(
     FXComposite* p,
     GUIMainWindow& app,
     GUISUMOViewParent* parent,
-    GUINet& net, FXGLVisual* glVis,
-    FXGLCanvas* share) :
+    GUINet& net, MFXGLVisual* glVis,
+    MFXGLCanvas* share) :
     GUISUMOAbstractView(p, app, parent, net.getVisualisationSpeedUp(), glVis, share),
     myTracked(0), myLastUpdate(-1),
     myOSGNormalizedCursorX(0.), myOSGNormalizedCursorY(0.) {
@@ -772,7 +774,7 @@ long GUIOSGView::onConfigure(FXObject* sender, FXSelector sel, void* ptr) {
         myAdapter->resized(0, 0, w, h);
         updateHUDPosition(w, h);
     }
-    return FXGLCanvas::onConfigure(sender, sel, ptr);
+    return MFXGLCanvas::onConfigure(sender, sel, ptr);
 }
 
 
@@ -783,7 +785,7 @@ long GUIOSGView::onKeyPress(FXObject* sender, FXSelector sel, void* ptr) {
     if (key == FX::KEY_f || key == FX::KEY_Left || key == FX::KEY_Right || key == FX::KEY_Up || key == FX::KEY_Down) {
         return 1;
     }
-    return FXGLCanvas::onKeyPress(sender, sel, ptr);
+    return MFXGLCanvas::onKeyPress(sender, sel, ptr);
 }
 
 
@@ -794,7 +796,7 @@ long GUIOSGView::onKeyRelease(FXObject* sender, FXSelector sel, void* ptr) {
     if (key == FX::KEY_f || key == FX::KEY_Left || key == FX::KEY_Right || key == FX::KEY_Up || key == FX::KEY_Down) {
         return 1;
     }
-    return FXGLCanvas::onKeyRelease(sender, sel, ptr);
+    return MFXGLCanvas::onKeyRelease(sender, sel, ptr);
 }
 
 
@@ -807,7 +809,7 @@ long GUIOSGView::onLeftBtnPress(FXObject* sender, FXSelector sel, void* ptr) {
         onGamingClick(getPositionInformation());
     }
 
-    return FXGLCanvas::onLeftBtnPress(sender, sel, ptr);
+    return MFXGLCanvas::onLeftBtnPress(sender, sel, ptr);
 }
 
 
@@ -815,7 +817,7 @@ long GUIOSGView::onLeftBtnRelease(FXObject* sender, FXSelector sel, void* ptr) {
     FXEvent* event = (FXEvent*)ptr;
     myAdapter->getEventQueue()->mouseButtonRelease((float)event->click_x, (float)event->click_y, 1);
     myChanger->onLeftBtnRelease(ptr);
-    return FXGLCanvas::onLeftBtnRelease(sender, sel, ptr);
+    return MFXGLCanvas::onLeftBtnRelease(sender, sel, ptr);
 }
 
 
@@ -825,7 +827,7 @@ long GUIOSGView::onMiddleBtnPress(FXObject* sender, FXSelector sel, void* ptr) {
     FXEvent* event = (FXEvent*)ptr;
     myAdapter->getEventQueue()->mouseButtonPress((float)event->click_x, (float)event->click_y, 2);
 
-    return FXGLCanvas::onMiddleBtnPress(sender, sel, ptr);
+    return MFXGLCanvas::onMiddleBtnPress(sender, sel, ptr);
 }
 
 
@@ -833,7 +835,7 @@ long GUIOSGView::onMiddleBtnRelease(FXObject* sender, FXSelector sel, void* ptr)
     FXEvent* event = (FXEvent*)ptr;
     myAdapter->getEventQueue()->mouseButtonRelease((float)event->click_x, (float)event->click_y, 2);
     myChanger->onMiddleBtnRelease(ptr);
-    return FXGLCanvas::onMiddleBtnRelease(sender, sel, ptr);
+    return MFXGLCanvas::onMiddleBtnRelease(sender, sel, ptr);
 }
 
 
@@ -843,7 +845,7 @@ long GUIOSGView::onRightBtnPress(FXObject* sender, FXSelector sel, void* ptr) {
     FXEvent* event = (FXEvent*)ptr;
     myAdapter->getEventQueue()->mouseButtonPress((float)event->click_x, (float)event->click_y, 3);
 
-    return FXGLCanvas::onRightBtnPress(sender, sel, ptr);
+    return MFXGLCanvas::onRightBtnPress(sender, sel, ptr);
 }
 
 
@@ -851,7 +853,7 @@ long GUIOSGView::onRightBtnRelease(FXObject* sender, FXSelector sel, void* ptr) 
     FXEvent* event = (FXEvent*)ptr;
     myAdapter->getEventQueue()->mouseButtonRelease((float)event->click_x, (float)event->click_y, 3);
     myChanger->onRightBtnRelease(ptr);
-    return FXGLCanvas::onRightBtnRelease(sender, sel, ptr);
+    return MFXGLCanvas::onRightBtnRelease(sender, sel, ptr);
 }
 
 
@@ -869,7 +871,7 @@ GUIOSGView::onMouseMove(FXObject* sender, FXSelector sel, void* ptr) {
         updateViewportValues();
     }
     updatePositionInformation();
-    return FXGLCanvas::onMotion(sender, sel, ptr);
+    return MFXGLCanvas::onMotion(sender, sel, ptr);
 }
 
 

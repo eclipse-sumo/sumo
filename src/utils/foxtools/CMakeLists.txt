@@ -15,6 +15,10 @@ set(utils_foxtools_STAT_SRCS
    MFXDecalsTable.h
    MFXDynamicLabel.cpp
    MFXDynamicLabel.h
+   MFXGLCanvas.cpp
+   MFXGLCanvas.h
+   MFXGLVisual.cpp
+   MFXGLVisual.h
    MFXGroupBoxModule.cpp
    MFXGroupBoxModule.h
    MFXImageHelper.cpp

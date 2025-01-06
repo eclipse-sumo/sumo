@@ -51,6 +51,11 @@
 // ===========================================================================
 int
 main(int argc, char** argv) {
+
+#if defined(__gl_h_) || defined(__GL_H__) || defined(_GL_H) || defined(__X_GL_H)
+    bool quiik = true;
+#endif
+
     // make the output aware of threading
     MsgHandler::setFactory(&MsgHandlerSynchronized::create);
     OptionsCont& oc = OptionsCont::getOptions();

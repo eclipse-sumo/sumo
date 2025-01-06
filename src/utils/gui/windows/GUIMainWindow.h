@@ -38,7 +38,8 @@ class GUIEvent;
 class GUIGlChildWindow;
 class GUISUMOAbstractView;
 class MFXStaticToolTip;
-
+class MFXGLCanvas;
+class MFXGLVisual;
 
 // ===========================================================================
 // class definitions
@@ -88,7 +89,7 @@ public:
     FXFont* getFallbackFont();
 
     /// @brief get GL Visual
-    FXGLVisual* getGLVisual() const;
+    MFXGLVisual* getGLVisual() const;
 
     /// @brief get static toolTip for menus
     MFXStaticToolTip* getStaticTooltipMenu() const;
@@ -97,7 +98,7 @@ public:
     MFXStaticToolTip* getStaticTooltipView() const;
 
     /// @brief get build GL Canvas (must be implemented in all children)
-    virtual FXGLCanvas* getBuildGLCanvas() const = 0;
+    virtual MFXGLCanvas* getBuildGLCanvas() const = 0;
 
     /// @brief get current sim time (must be implemented in all children)
     virtual SUMOTime getCurrentSimTime() const = 0;
@@ -229,7 +230,7 @@ protected:
     FXHorizontalFrame* myTestFrame = nullptr;
 
     /// @brief The gl-visual used
-    FXGLVisual* myGLVisual = nullptr;
+    MFXGLVisual* myGLVisual = nullptr;
 
     /// @brief dock sites
     FXDockSite* myTopDock = nullptr;

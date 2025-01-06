@@ -283,14 +283,14 @@ FXDEFMAP(GUIParameterTracker::GUIParameterTrackerPanel) GUIParameterTrackerPanel
 };
 
 // Macro for the GLTestApp class hierarchy implementation
-FXIMPLEMENT(GUIParameterTracker::GUIParameterTrackerPanel, FXGLCanvas, GUIParameterTrackerPanelMap, ARRAYNUMBER(GUIParameterTrackerPanelMap))
+FXIMPLEMENT(GUIParameterTracker::GUIParameterTrackerPanel, MFXGLCanvas, GUIParameterTrackerPanelMap, ARRAYNUMBER(GUIParameterTrackerPanelMap))
 
 
 
 GUIParameterTracker::GUIParameterTrackerPanel::GUIParameterTrackerPanel(
     FXComposite* c, GUIMainWindow& app,
     GUIParameterTracker& parent)
-    : FXGLCanvas(c, app.getGLVisual(), app.getBuildGLCanvas(), (FXObject*) nullptr, (FXSelector) 0, LAYOUT_SIDE_TOP | LAYOUT_FILL_X | LAYOUT_FILL_Y, 0, 0, 300, 200),
+    : MFXGLCanvas(c, app.getGLVisual(), app.getBuildGLCanvas(), (FXObject*) nullptr, (FXSelector) 0, LAYOUT_SIDE_TOP | LAYOUT_FILL_X | LAYOUT_FILL_Y, 0, 0, 300, 200),
       myParent(&parent) {}
 
 

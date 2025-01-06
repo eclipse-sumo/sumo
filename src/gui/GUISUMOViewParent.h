@@ -35,7 +35,7 @@ class GUINet;
 class GUISUMOAbstractView;
 class GUIDialog_GLObjChooser;
 class GUIDialog_ChooserAbstract;
-
+class MFXGLCanvas;
 
 // ===========================================================================
 // class declarations
@@ -86,7 +86,7 @@ public:
      * @param[in] vt The view type to use
      * @todo Check whether this could be done in the constructor
      */
-    virtual GUISUMOAbstractView* init(FXGLCanvas* share, GUINet& net, ViewType type);
+    virtual GUISUMOAbstractView* init(MFXGLCanvas* share, GUINet& net, ViewType type);
 
     /// @brief Destructor
     ~GUISUMOViewParent();

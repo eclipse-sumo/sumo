@@ -27,6 +27,7 @@
 #include <bitset>
 #include <utility>
 #include <utils/foxtools/fxheader.h>
+#include <utils/foxtools/MFXGLCanvas.h>
 // fx3d includes windows.h so we need to guard against macro pollution
 #ifdef WIN32
 #define NOMINMAX
@@ -141,7 +142,7 @@ public:
      *
      * The drawing itself id done by the parent.
      */
-    class GUITLLogicPhasesTrackerPanel : public FXGLCanvas {
+    class GUITLLogicPhasesTrackerPanel : public MFXGLCanvas {
         FXDECLARE(GUITLLogicPhasesTrackerPanel)
     public:
         /** @brief Constructor

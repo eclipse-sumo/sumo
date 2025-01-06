@@ -102,6 +102,7 @@ GUIGlObjectStorage::remove(GUIGlID id) {
     myFullNameMap.erase(myObjects[id]->getFullName());
     const bool wasBlocked = myObjects[id]->isBlocked();
     myObjects[id] = nullptr;
+
     if (id < myNextID) {
         myNextID = id;
     }
