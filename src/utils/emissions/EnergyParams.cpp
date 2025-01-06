@@ -83,7 +83,7 @@ EnergyParams::EnergyParams(const SUMOVTypeParameter* typeParams) {
             myMap[SUMO_ATTR_FRONTSURFACEAREA] = typeParams->width * typeParams->height * M_PI / 4.;
         }
         const std::string& ecName = PollutantsInterface::getName(typeParams->emissionClass);
-        if ((typeParams->vehicleClass & (SVC_PASSENGER | SVC_HOV | SVC_TAXI | SVC_E_VEHICLE)) == 0 && myHaveDefaultFrontSurfaceArea) {
+        if (typeParams->vehicleClass != SVC_IGNORING && (typeParams->vehicleClass & (SVC_PRIVATE | SVC_VIP | SVC_PASSENGER | SVC_HOV | SVC_TAXI | SVC_E_VEHICLE | SVC_CUSTOM1 | SVC_CUSTOM2)) == 0 && myHaveDefaultFrontSurfaceArea) {
             if (StringUtils::startsWith(ecName, "MMPEVEM") || StringUtils::startsWith(ecName, "Energy")) {
                 WRITE_WARNINGF(TL("Vehicle type '%' uses the emission class '%' which does not have proper defaults for its vehicle class. "
                                   "Please use a different emission model or complete the vType definition with further parameters."), typeParams->id, ecName);
