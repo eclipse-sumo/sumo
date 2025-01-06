@@ -4564,7 +4564,7 @@ MSVehicle::executeMove() {
     // (Leo) to avoid tiny oscillations (< 1e-10) of vNext in a standing vehicle column (observed for ballistic update), we cap off vNext
     //       (We assure to do this only for vNext<<NUMERICAL_EPS since otherwise this would nullify the workaround for #2995
     // (Jakob) We also need to make sure to reach a stop at the start of the next edge
-    if (fabs(vNext) < NUMERICAL_EPS_SPEED && myStopDist > POSITION_EPS) {
+    if (fabs(vNext) < NUMERICAL_EPS_SPEED && (myStopDist > POSITION_EPS || (hasStops() && myCurrEdge == getNextStop().edge))) {
         vNext = 0.;
     }
 #ifdef DEBUG_EXEC_MOVE
