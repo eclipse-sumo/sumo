@@ -118,6 +118,37 @@ CommonHandler::checkListOfVehicleTypes(const SumoXMLTag tag, const std::string& 
 
 
 bool
+CommonHandler::checkVehicleParents(CommonXMLStructure::SumoBaseObject* obj) {
+    if (obj == nullptr) {
+        return false;
+    } else if (!obj->hasStringAttribute(SUMO_ATTR_ID)) {
+        return false;
+    } else {
+        SumoXMLTag tag = obj->getTag();
+        const std::string id = obj->getStringAttribute(SUMO_ATTR_ID);
+        const bool hasRoute = obj->hasStringAttribute(SUMO_ATTR_ROUTE);
+        const bool embeddedRoute = (obj->getSumoBaseObjectChildren().size() > 0) && (obj->getSumoBaseObjectChildren().front()->getTag() == SUMO_TAG_ROUTE);
+        const bool overEdges = obj->hasStringAttribute(SUMO_ATTR_FROM) && obj->hasStringAttribute(SUMO_ATTR_TO);
+        const bool overJunctions = obj->hasStringAttribute(SUMO_ATTR_FROM_JUNCTION) && obj->hasStringAttribute(SUMO_ATTR_TO_JUNCTION);
+        const bool overTAZs = obj->hasStringAttribute(SUMO_ATTR_FROM_TAZ) && obj->hasStringAttribute(SUMO_ATTR_TO_TAZ);
+        if (hasRoute && embeddedRoute) {
+            return writeError(TLF("Could not build % with ID '%' in netedit; Cannot have an external route and an embedded route in the same definition.", toString(tag), id));
+        }
+        if ((overEdges + overJunctions + overTAZs) > 1) {
+            return writeError(TLF("Could not build % with ID '%' in netedit; Cannot have multiple from-to attributes.", toString(tag), id));
+        }
+        if ((hasRoute + embeddedRoute + overEdges + overJunctions + overTAZs) > 1) {
+            return writeError(TLF("Could not build % with ID '%' in netedit; Cannot have from-to attributes and route attributes in the same definition.", toString(tag), id));
+        }
+        if ((hasRoute + embeddedRoute + overEdges + overJunctions + overTAZs) == 0) {
+            return writeError(TLF("Could not build % with ID '%' in netedit; Requiere either a route or an embedded route or a from-to attribute (Edges, junctions or TAZs).", toString(tag), id));
+        }
+        return true;
+    }
+}
+
+
+bool
 CommonHandler::checkNegative(const SumoXMLTag tag, const std::string& id, const SumoXMLAttr attribute, const int value, const bool canBeZero) {
     if (canBeZero) {
         if (value < 0) {

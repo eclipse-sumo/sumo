@@ -251,76 +251,80 @@ RouteHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) {
             break;
         // vehicles
         case SUMO_TAG_TRIP:
-            if (obj->hasStringAttribute(SUMO_ATTR_FROM_JUNCTION) &&
-                obj->hasStringAttribute(SUMO_ATTR_TO_JUNCTION)) {
-                // build trip with from-to junctions
-                if (buildTripJunctions(obj,
-                                       obj->getVehicleParameter(),
-                                       obj->getStringAttribute(SUMO_ATTR_FROM_JUNCTION),
-                                       obj->getStringAttribute(SUMO_ATTR_TO_JUNCTION))) {
-                    obj->markAsCreated();
-                }
-            } else if (obj->hasStringAttribute(SUMO_ATTR_FROM_TAZ) &&
-                       obj->hasStringAttribute(SUMO_ATTR_TO_TAZ)) {
-                // build trip with from-to TAZs
-                if (buildTripTAZs(obj,
+            if (checkVehicleParents(obj)) {
+                if (obj->hasStringAttribute(SUMO_ATTR_FROM_JUNCTION) &&
+                    obj->hasStringAttribute(SUMO_ATTR_TO_JUNCTION)) {
+                    // build trip with from-to junctions
+                    if (buildTripJunctions(obj,
+                                           obj->getVehicleParameter(),
+                                           obj->getStringAttribute(SUMO_ATTR_FROM_JUNCTION),
+                                           obj->getStringAttribute(SUMO_ATTR_TO_JUNCTION))) {
+                        obj->markAsCreated();
+                    }
+                } else if (obj->hasStringAttribute(SUMO_ATTR_FROM_TAZ) &&
+                           obj->hasStringAttribute(SUMO_ATTR_TO_TAZ)) {
+                    // build trip with from-to TAZs
+                    if (buildTripTAZs(obj,
+                                      obj->getVehicleParameter(),
+                                      obj->getStringAttribute(SUMO_ATTR_FROM_TAZ),
+                                      obj->getStringAttribute(SUMO_ATTR_TO_TAZ))) {
+                        obj->markAsCreated();
+                    }
+                } else {
+                    // build trip with from-to edges
+                    if (buildTrip(obj,
                                   obj->getVehicleParameter(),
-                                  obj->getStringAttribute(SUMO_ATTR_FROM_TAZ),
-                                  obj->getStringAttribute(SUMO_ATTR_TO_TAZ))) {
-                    obj->markAsCreated();
-                }
-            } else {
-                // build trip with from-to edges
-                if (buildTrip(obj,
-                              obj->getVehicleParameter(),
-                              obj->hasStringAttribute(SUMO_ATTR_FROM) ? obj->getStringAttribute(SUMO_ATTR_FROM) : "",
-                              obj->hasStringAttribute(SUMO_ATTR_TO) ? obj->getStringAttribute(SUMO_ATTR_TO) : "")) {
-                    obj->markAsCreated();
+                                  obj->hasStringAttribute(SUMO_ATTR_FROM) ? obj->getStringAttribute(SUMO_ATTR_FROM) : "",
+                                  obj->hasStringAttribute(SUMO_ATTR_TO) ? obj->getStringAttribute(SUMO_ATTR_TO) : "")) {
+                        obj->markAsCreated();
+                    }
                 }
             }
             break;
         case SUMO_TAG_VEHICLE:
-            if (obj->hasStringAttribute(SUMO_ATTR_ROUTE)) {
+            if (checkVehicleParents(obj) && obj->hasStringAttribute(SUMO_ATTR_ROUTE)) {
                 if (buildVehicleOverRoute(obj,
-                                          obj->getVehicleParameter())) {
+                                            obj->getVehicleParameter())) {
                     obj->markAsCreated();
                 }
             }
             break;
         // flows
         case SUMO_TAG_FLOW:
-            if (obj->hasStringAttribute(SUMO_ATTR_ROUTE)) {
-                // build flow over route
-                if (buildFlowOverRoute(obj,
-                                       obj->getVehicleParameter())) {
-                    obj->markAsCreated();
-                }
-            } else if (obj->hasStringAttribute(SUMO_ATTR_FROM_JUNCTION) &&
-                       obj->hasStringAttribute(SUMO_ATTR_TO_JUNCTION)) {
-                // build flow with from-to junctions
-                if (buildFlowJunctions(obj,
-                                       obj->getVehicleParameter(),
-                                       obj->getStringAttribute(SUMO_ATTR_FROM_JUNCTION),
-                                       obj->getStringAttribute(SUMO_ATTR_TO_JUNCTION))) {
-                    obj->markAsCreated();
-                }
-            } else if (obj->hasStringAttribute(SUMO_ATTR_FROM_TAZ) &&
-                       obj->hasStringAttribute(SUMO_ATTR_TO_TAZ)) {
-                // build flow with from-to TAZs
-                if (buildFlowTAZs(obj,
+            if (checkVehicleParents(obj)) {
+                if (obj->hasStringAttribute(SUMO_ATTR_ROUTE)) {
+                    // build flow over route
+                    if (buildFlowOverRoute(obj,
+                                           obj->getVehicleParameter())) {
+                        obj->markAsCreated();
+                    }
+                } else if (obj->hasStringAttribute(SUMO_ATTR_FROM_JUNCTION) &&
+                           obj->hasStringAttribute(SUMO_ATTR_TO_JUNCTION)) {
+                    // build flow with from-to junctions
+                    if (buildFlowJunctions(obj,
+                                           obj->getVehicleParameter(),
+                                           obj->getStringAttribute(SUMO_ATTR_FROM_JUNCTION),
+                                           obj->getStringAttribute(SUMO_ATTR_TO_JUNCTION))) {
+                        obj->markAsCreated();
+                    }
+                } else if (obj->hasStringAttribute(SUMO_ATTR_FROM_TAZ) &&
+                           obj->hasStringAttribute(SUMO_ATTR_TO_TAZ)) {
+                    // build flow with from-to TAZs
+                    if (buildFlowTAZs(obj,
+                                      obj->getVehicleParameter(),
+                                      obj->getStringAttribute(SUMO_ATTR_FROM_TAZ),
+                                      obj->getStringAttribute(SUMO_ATTR_TO_TAZ))) {
+                        obj->markAsCreated();
+                    }
+                } else if ((obj->getSumoBaseObjectChildren().size() == 0) ||
+                           (obj->getSumoBaseObjectChildren().front()->getTag() != SUMO_TAG_ROUTE)) {
+                    // build flow with from-to edges
+                    if (buildFlow(obj,
                                   obj->getVehicleParameter(),
-                                  obj->getStringAttribute(SUMO_ATTR_FROM_TAZ),
-                                  obj->getStringAttribute(SUMO_ATTR_TO_TAZ))) {
-                    obj->markAsCreated();
-                }
-            } else if ((obj->getSumoBaseObjectChildren().size() == 0) ||
-                       (obj->getSumoBaseObjectChildren().front()->getTag() != SUMO_TAG_ROUTE)) {
-                // build flow with from-to edges
-                if (buildFlow(obj,
-                              obj->getVehicleParameter(),
-                              obj->hasStringAttribute(SUMO_ATTR_FROM) ? obj->getStringAttribute(SUMO_ATTR_FROM) : "",
-                              obj->hasStringAttribute(SUMO_ATTR_TO) ? obj->getStringAttribute(SUMO_ATTR_TO) : "")) {
-                    obj->markAsCreated();
+                                  obj->hasStringAttribute(SUMO_ATTR_FROM) ? obj->getStringAttribute(SUMO_ATTR_FROM) : "",
+                                  obj->hasStringAttribute(SUMO_ATTR_TO) ? obj->getStringAttribute(SUMO_ATTR_TO) : "")) {
+                        obj->markAsCreated();
+                    }
                 }
             }
             break;

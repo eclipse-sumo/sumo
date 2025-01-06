@@ -64,6 +64,9 @@ protected:
     /// @brief check list of IDs
     bool checkListOfVehicleTypes(const SumoXMLTag tag, const std::string& id, const std::vector<std::string>& vTypeIDs);
 
+    /// @brief check vehicle parents
+    bool checkVehicleParents(CommonXMLStructure::SumoBaseObject* obj);
+
     /// @brief check if the given int value is NOT negative
     bool checkNegative(const SumoXMLTag tag, const std::string& id, const SumoXMLAttr attribute, const int value, const bool canBeZero);
 
