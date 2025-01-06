@@ -54,3 +54,6 @@ ticket15843
 
 # unsafe approach speed to pedestrian crossing
 ticket15848
+
+# teleport beyond busStop
+ticket15972
