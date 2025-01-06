@@ -2391,16 +2391,16 @@ class stopBusStop:
         extensionEnable = 5
         extension = 6
         triggered = 7
-        expected = 9
-        join = 9
-        permitted = 10
-        parking = 11
-        actType = 13
-        tripID = 14
-        line = 15
-        onDemand = 16
-        jump = 17
-        split = 18
+        expected = 8
+        join = 8
+        permitted = 9
+        parking = 10
+        actType = 12
+        tripID = 13
+        line = 14
+        onDemand = 15
+        jump = 16
+        split = 17
 
 # stop over train stop
 
@@ -2452,16 +2452,16 @@ class stopTrainStop:
         extensionEnable = 5
         extension = 6
         triggered = 7
-        expected = 9
-        join = 9
-        permitted = 10
-        parking = 11
-        actType = 13
-        tripID = 14
-        line = 15
-        onDemand = 16
-        jump = 17
-        split = 18
+        expected = 8
+        join = 8
+        permitted = 9
+        parking = 10
+        actType = 12
+        tripID = 13
+        line = 14
+        onDemand = 15
+        jump = 16
+        split = 17
 
 # stop over container stop
 
