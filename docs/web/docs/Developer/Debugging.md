@@ -95,3 +95,7 @@ Debugging symbols (`.pdb` files) are available **for some** of the external libr
 
 ![](../images/ExternalDebuggingSymbols.png)<br>
 *Example: Adding the FOX debugging symbol*
+
+### FOX Toolkit message logging
+
+The FOX Toolkit library uses a macro to output debugging messages of varying importance. Every message gets a numeric level assigned and will get printed only in debug mode. In order to receive the messages, it is necessary to provide the command line parameter `-tracelevel <INT>` to sumo-guiD. Only messages with an assigned level below the given level will be printed to the console.
