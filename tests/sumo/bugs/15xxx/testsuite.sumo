@@ -43,6 +43,9 @@ ticket15667b
 # parking outflow is blocked
 ticket15757
 
+# parking outflow is blocked (with trucks and longer busStops)
+ticket15757b
+
 # collision
 ticket15770
 
