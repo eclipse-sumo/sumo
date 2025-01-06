@@ -8,10 +8,10 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-01-02 15:02+0100\n"
-"PO-Revision-Date: 2025-01-03 12:17+0000\n"
+"PO-Revision-Date: 2025-01-07 13:29+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
-"Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/sumo-"
-"gui-netedit/de/>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
+"sumo-gui-netedit/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -11137,11 +11137,13 @@ msgstr ""
 msgid ""
 "speed of the person for this tranship in m/s (not together with duration)"
 msgstr ""
+"Geschwindigkeit der Person während dieser Umladung (Umstieg) in m/s ("
+"schließt 'duration' aus)"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:9507
 #: src/netedit/elements/GNEAttributeCarrier.cpp:9560
 msgid "duration of the plan in second (not together with speed)"
-msgstr ""
+msgstr "Dauer dieses Plans in Sekunden (schließt 'speed' aus)"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:9520
 msgid "list of vehicle alternatives to take for the ride"
