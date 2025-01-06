@@ -3055,12 +3055,13 @@ class person:
         parameters = 11
 
     class inspectSelection:
-        type = 1
-        colorButton = 3
-        color = 4
-        departPos = 5
-        depart = 6
-        parameters = 9
+        typeButton = 1
+        type = 2
+        colorButton = 4
+        color = 5
+        departPos = 6
+        depart = 7
+        parameters = 10
 
 
 class personFlow:
@@ -3093,16 +3094,17 @@ class personFlow:
         parameters = 18
 
     class inspectSelection:
-        type = 1
-        colorButton = 3
-        color = 4
-        departPos = 5
-        begin = 6
-        terminate = 9
-        spacing = 11
-        terminateOption = 13
-        spacingOption = 14
-        parameters = 16
+        typeButton = 1
+        type = 2
+        colorButton = 4
+        color = 5
+        departPos = 6
+        begin = 7
+        terminate = 10
+        spacing = 12
+        terminateOption = 14
+        spacingOption = 15
+        parameters = 17
 
 # PersonPlans
 
@@ -3666,12 +3668,13 @@ class container:
         parameters = 11
 
     class inspectSelection:
-        type = 1
-        colorButton = 3
-        color = 4
-        departPos = 5
-        depart = 6
-        parameters = 9
+        typeButton = 1
+        type = 2
+        colorButton = 4
+        color = 5
+        departPos = 6
+        depart = 7
+        parameters = 10
 
 
 class containerFlow:
@@ -3704,16 +3707,17 @@ class containerFlow:
         parameters = 18
 
     class inspectSelection:
-        type = 1
-        colorButton = 3
-        color = 4
-        departPos = 5
-        begin = 6
-        terminate = 9
-        spacing = 11
-        terminateOption = 13
-        spacingOption = 14
-        parameters = 16
+        typeButton = 1
+        type = 2
+        colorButton = 4
+        color = 5
+        departPos = 6
+        begin = 7
+        terminate = 10
+        spacing = 12
+        terminateOption = 14
+        spacingOption = 15
+        parameters = 17
 
 # PersonPlans
 
