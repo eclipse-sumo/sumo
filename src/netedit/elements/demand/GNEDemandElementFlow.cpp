@@ -128,7 +128,7 @@ GNEDemandElementFlow::getFlowAttribute(const GNEDemandElement* flowElement, Sumo
         case SUMO_ATTR_VEHSPERHOUR:
         case SUMO_ATTR_PERSONSPERHOUR:
         case SUMO_ATTR_CONTAINERSPERHOUR:
-            return adjustDecimalValue(3600 / STEPS2TIME(repetitionOffset));
+            return toString(int(3600 / STEPS2TIME(repetitionOffset)));
         case SUMO_ATTR_PERIOD:
             return time2string(repetitionOffset);
         case GNE_ATTR_POISSON:
