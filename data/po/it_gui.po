@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-01-02 15:02+0100\n"
-"PO-Revision-Date: 2025-01-03 14:36+0000\n"
+"PO-Revision-Date: 2025-01-06 12:50+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -3807,7 +3807,7 @@ msgstr "Apri il dialogo con l'elenco di annullamenti e reimpostazioni."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1285
 msgid "Allow undo-redo"
-msgstr ""
+msgstr "Permetti annullazione-reimpostazione"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1307
 msgid "Clear front element"
@@ -4503,12 +4503,16 @@ msgstr ""
 msgid ""
 "If the lane is shorter than the additional, automatically enable friendlyPos"
 msgstr ""
+"Attiva friendlyPos automaticamente se la corsia è più corta dell'elemento "
+"addizionale"
 
 #: src/netedit/GNELoadThread.cpp:340
 msgid ""
 "If enabled, elements will be saved regardless of whether they have been "
 "edited or not"
 msgstr ""
+"Se attivato gli elementi verranno salvati indipendemente se sono stati "
+"modificati oppure no"
 
 #: src/netedit/GNELoadThread.cpp:345
 msgid "Prefix for node naming"
@@ -4950,7 +4954,7 @@ msgstr "Annulla sostituzione semaforo"
 
 #: src/netedit/GNEUndoList.cpp:470
 msgid "Disabled undo"
-msgstr ""
+msgstr "Annullazione disattivata"
 
 #: src/netedit/GNEUndoList.cpp:472 src/netedit/GNEUndoList.cpp:474
 msgid "Cannot Undo in the middle of "
@@ -4958,7 +4962,7 @@ msgstr "Impossibile annullare nel mezzo di "
 
 #: src/netedit/GNEUndoList.cpp:521
 msgid "Disabled redo"
-msgstr ""
+msgstr "Reimpostazione disattivata"
 
 #: src/netedit/GNEUndoList.cpp:523 src/netedit/GNEUndoList.cpp:525
 msgid "Cannot Redo in the middle of "
@@ -5253,11 +5257,11 @@ msgstr "seleziona nell'area delimitata dal poligono"
 #: src/netedit/GNEViewNet.cpp:2840 src/netedit/GNEViewNet.cpp:2857
 #: src/netedit/GNEViewNet.cpp:2874 src/netedit/GNEViewNet.cpp:2889
 msgid "simplify edited shape"
-msgstr ""
+msgstr "semplifica la forma modificata"
 
 #: src/netedit/GNEViewNet.cpp:2810
 msgid "straigthen edited shape"
-msgstr ""
+msgstr "appiana la forma modificata"
 
 #: src/netedit/GNEViewNet.cpp:2924
 #, c-format
