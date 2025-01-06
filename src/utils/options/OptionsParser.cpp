@@ -15,6 +15,7 @@
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
+/// @author  Mirko Barthauer
 /// @date    Mon, 17 Dec 2001
 ///
 // Parses the command line arguments
@@ -65,6 +66,14 @@ OptionsParser::check(const std::string& arg1, const std::string* const arg2, boo
         ok = false;
         return 1;
     }
+
+#ifdef _DEBUG
+    // allow to set FOX FXApp switches tracelevel (messages) and maxcolors
+    if ((arg1 == "-tracelevel" || arg1 == "-maxcolors") && arg2 != nullptr) {
+        ok = true;
+        return 2;
+    }
+#endif
 
     OptionsCont& oc = OptionsCont::getOptions();
     const bool append = arg1[0] == '+';
