@@ -46,6 +46,9 @@ ticket15757
 # parking outflow is blocked (with trucks and longer busStops)
 ticket15757b
 
+# use parkingAreas instead of busStops
+ticket15757_parkingArea
+
 # collision
 ticket15770
 

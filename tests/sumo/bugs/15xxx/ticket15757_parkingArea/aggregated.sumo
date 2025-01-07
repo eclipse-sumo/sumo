@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-01-07 11:55:59 by Eclipse SUMO sumo Version v1_21_0+1705-23b70bff074
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <edgedata-output value="aggregated.xml"/>
+    </output>
+
+    <processing>
+        <time-to-teleport value="400"/>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+</sumoConfiguration>
+-->
+
+<meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
+    <interval begin="0.00" end="7390.00" id="DEFAULT_EDGEDATA">
+        <edge id="E0" sampledSeconds="131350.24" traveltime="2059.47" overlapTraveltime="2090.56" density="88.87" laneDensity="44.44" occupancy="30.70" waitingTime="121194.50" timeLoss="130294.62" speed="0.10" speedRelative="0.01" departed="0" arrived="58" entered="196" left="138" laneChangedFrom="44" laneChangedTo="46" teleported="19"/>
+        <edge id="E1" sampledSeconds="81943.65" traveltime="965.29" overlapTraveltime="1072.78" density="110.88" laneDensity="55.44" occupancy="36.58" waitingTime="76818.00" timeLoss="81354.68" speed="0.10" speedRelative="0.01" departed="77" arrived="0" entered="0" left="77" laneChangedFrom="23" laneChangedTo="23" teleported="3"/>
+    </interval>
+</meandata>
