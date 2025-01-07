@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-01-02 15:02+0100\n"
-"PO-Revision-Date: 2025-01-07 13:29+0000\n"
+"PO-Revision-Date: 2025-01-08 07:46+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -11745,6 +11745,8 @@ msgstr "folgendes JuPedSim-Hindernis hinzufügen: '"
 #: src/netedit/elements/demand/GNERouteHandler.cpp:2476
 msgid "Could not build % with ID '%' in netedit; % with ID '%' doesn't exist."
 msgstr ""
+"Konnte % mit der ID '%' nicht in netedit erstellen; % mit der ID '%' "
+"existiert nicht."
 
 #: src/netedit/elements/additional/GNECalibrator.cpp:216
 msgid "Both edges and lanes aren't defined"
@@ -12747,11 +12749,11 @@ msgstr "Shape vereinfachen"
 
 #: src/netedit/elements/network/GNENetworkElement.cpp:327
 msgid "Open junction's shape"
-msgstr ""
+msgstr "Knotenpunkt-Shape öffnen"
 
 #: src/netedit/elements/network/GNENetworkElement.cpp:329
 msgid "Close junction's shape"
-msgstr ""
+msgstr "Knotenpunkt-Shape schließen"
 
 #: src/netedit/elements/network/GNENetworkElement.cpp:332
 msgid "Straighten shape"
@@ -12784,15 +12786,15 @@ msgstr "Nicht unterstützte ID für weitere Elemente"
 
 #: src/netedit/frames/GNEAttributesEditor.cpp:71
 msgid "Front element"
-msgstr ""
+msgstr "Vorderstes Element"
 
 #: src/netedit/frames/GNEAttributesEditor.cpp:73
 msgid "Open element dialog"
-msgstr ""
+msgstr "Elementdialog öffnen"
 
 #: src/netedit/frames/GNEAttributesEditor.cpp:77
 msgid "Edit extended attributes"
-msgstr ""
+msgstr "Erweiterte Attribute bearbeiten"
 
 #: src/netedit/frames/GNEAttributesEditor.cpp:153
 #, c-format
@@ -12812,7 +12814,7 @@ msgstr "Attribut % ändern"
 
 #: src/netedit/frames/GNEAttributesEditorRow.cpp:80
 msgid "Change parent of this element"
-msgstr ""
+msgstr "Elternelement wechseln"
 
 #: src/netedit/frames/GNEAttributesEditorRow.cpp:91
 #: src/netedit/frames/GNEAttributesEditorRow.cpp:92
@@ -13271,7 +13273,7 @@ msgstr "Ungültiges Netztyp-Element"
 
 #: src/netedit/frames/GNEOverlappedInspection.cpp:53
 msgid "Overlapped junctions"
-msgstr ""
+msgstr "Überlappende Knotenpunkte"
 
 #: src/netedit/frames/GNEOverlappedInspection.cpp:53
 msgid "Overlapped elements"
@@ -15391,7 +15393,7 @@ msgstr "Mitgliedschaft an-/abwählen:"
 #: src/netedit/frames/network/GNETAZFrame.cpp:515
 #: src/netedit/frames/network/GNETAZFrame.cpp:649
 msgid "Create new Sources/Sinks with given weights."
-msgstr ""
+msgstr "Neue Quellen/Senken mit den gegebenen Gewichten erstellen."
 
 #: src/netedit/frames/network/GNETAZFrame.cpp:565
 #: src/netedit/frames/network/GNETAZFrame.cpp:657
@@ -17470,7 +17472,7 @@ msgstr "Poldetail"
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2234
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2271
 msgid "Custom Layer"
-msgstr ""
+msgstr "Individuelle Ebene"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2240
 msgid "Show poi id"
