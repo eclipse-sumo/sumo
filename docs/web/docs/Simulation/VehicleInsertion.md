@@ -77,6 +77,11 @@ insertion delay:
 - The parameter Dialog for individual vehicles lists *desired depart*
   and *depart delay*
 
+The following simulation outputs provide information on insertion delay:
+
+- [tripinfo-output](Output/TripInfo.md)
+- [statistic-output](Output/StatisticOutput.md)
+
 ## Effect of simulation step-length
 Insertion attempts can only happen in every simulation step. This may cause artifacts in insertion spacing because at the default step-length of 1s is (usually) too short for vehicles to be inserted in successive steps on the same depart location.
 By default, the next attempt happens 2 seconds after the first vehicle has departed and this gap may be much larger then mandated by the carFollowModel. There are multiple ways to avoid this effect:
