@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-01-06 11:22+0100\n"
-"PO-Revision-Date: 2025-01-07 13:29+0000\n"
+"PO-Revision-Date: 2025-01-08 07:47+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -1781,24 +1781,25 @@ msgstr "Aggiungi i valori dei parametri generici all'uscita FCD"
 
 #: src/microsim/MSFrame.cpp:181
 msgid "Restrict fcd output to the edge selection from the given input file"
-msgstr ""
+msgstr "Limita l'uscita FCD alla selezione di archi nel file indicato"
 
 #: src/microsim/MSFrame.cpp:183
 msgid "List attributes that should be included in the FCD output"
-msgstr ""
+msgstr "Elenca gli attributi da includere nell'uscita FCD"
 
 #: src/microsim/MSFrame.cpp:185
 msgid "List shape names that should be used to filter the FCD output"
-msgstr ""
+msgstr "Elenca gli nomi delle forme da usare per filtrate l'uscita FCD"
 
 #: src/microsim/MSFrame.cpp:188
 msgid ""
 "Restrict SSM device output to the edge selection from the given input file"
-msgstr ""
+msgstr "Limita l'uscita SSM alla selezione di archi nel file indicato"
 
 #: src/microsim/MSFrame.cpp:191
 msgid "Save a lot of information for each timestep (very redundant)"
 msgstr ""
+"Salva molte informazioni per ogni passo di simulazione (molto ridondante)"
 
 #: src/microsim/MSFrame.cpp:194
 msgid "Save the vehicle queues at the junctions (experimental)"
