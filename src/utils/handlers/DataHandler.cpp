@@ -138,17 +138,19 @@ DataHandler::myEndElement(int element) {
     CommonXMLStructure::SumoBaseObject* obj = myCommonXMLStructure.getCurrentSumoBaseObject();
     // close SUMOBaseOBject
     myCommonXMLStructure.closeSUMOBaseOBject();
-    // check tag
-    switch (tag) {
-        // only interval
-        case SUMO_TAG_INTERVAL:
-            // parse object and all their childrens
-            parseSumoBaseObject(obj);
-            // delete object (and all of their childrens)
-            delete obj;
-            break;
-        default:
-            break;
+    if (obj) {
+        // check tag
+        switch (tag) {
+            // only interval
+            case SUMO_TAG_INTERVAL:
+                // parse object and all their childrens
+                parseSumoBaseObject(obj);
+                // delete object (and all of their childrens)
+                delete obj;
+                break;
+            default:
+                break;
+        }
     }
 }
 
