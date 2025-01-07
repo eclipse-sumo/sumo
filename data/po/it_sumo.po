@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-01-06 11:22+0100\n"
-"PO-Revision-Date: 2025-01-02 10:39+0000\n"
+"PO-Revision-Date: 2025-01-07 13:29+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -1652,6 +1652,8 @@ msgid ""
 "Initialize a TAZ for every junction to use attributes toJunction and "
 "fromJunction"
 msgstr ""
+"Crea una zona di assegnazione del traffico per ogni incrocio per fare si che "
+"si possono usare gli attributi toJunction e fromJunction"
 
 #: src/microsim/MSFrame.cpp:114
 msgid "Save complete network states into FILE"
@@ -1677,16 +1679,20 @@ msgstr ""
 #: src/microsim/MSFrame.cpp:132
 msgid "Save the positions in emission output using geo-coordinates (lon/lat)"
 msgstr ""
+"Salva le posizioni nella uscita di emissioni utilizzando coordinate "
+"geografiche (lon/lat)"
 
 #: src/microsim/MSFrame.cpp:135
 msgid ""
 "Write emission values scaled to the step length rather than as per-second "
 "values"
 msgstr ""
+"Scrivi valori di emissioni graduati con il passo di simulazione invece di un "
+"secondo"
 
 #: src/microsim/MSFrame.cpp:137
 msgid "List attributes that should be included in the emission output"
-msgstr ""
+msgstr "Elenca gli attributi da includere nell'uscita di emissioni"
 
 #: src/microsim/MSFrame.cpp:140
 msgid "Save the battery values of each vehicle"
@@ -1742,32 +1748,36 @@ msgstr ""
 
 #: src/microsim/MSFrame.cpp:167
 msgid "Save the Floating Car Data"
-msgstr ""
+msgstr "Salva Floating Car Data"
 
 #: src/microsim/MSFrame.cpp:169
 msgid "Save the Floating Car Data using geo-coordinates (lon/lat)"
-msgstr ""
+msgstr "Salva Floating Car Data utilizzando coordinate geografiche (lon/lat)"
 
 #: src/microsim/MSFrame.cpp:171
 msgid "Add the vehicle signal state to the FCD output (brake lights etc.)"
 msgstr ""
+"Aggiungi lo stato dei segnali luminosi del veicolo alL'uscita FCD (luce di "
+"arresto etc.)"
 
 #: src/microsim/MSFrame.cpp:173
 msgid "Add kilometrage to the FCD output (linear referencing)"
-msgstr ""
+msgstr "Aggiungi chilometraggio all'uscita FCD (referenza lineale)"
 
 #: src/microsim/MSFrame.cpp:175
 msgid "Add acceleration to the FCD output"
-msgstr ""
+msgstr "Aggiungi accelerazione all'uscita FCD"
 
 #: src/microsim/MSFrame.cpp:177
 msgid ""
 "Add leader vehicle information to the FCD output (within the given distance)"
 msgstr ""
+"Aggiungi informazione sul veicolo anteriore all'uscita FCD (dentro la "
+"distanza indicata)"
 
 #: src/microsim/MSFrame.cpp:179
 msgid "Add generic parameter values to the FCD output"
-msgstr ""
+msgstr "Aggiungi i valori dei parametri generici all'uscita FCD"
 
 #: src/microsim/MSFrame.cpp:181
 msgid "Restrict fcd output to the edge selection from the given input file"
