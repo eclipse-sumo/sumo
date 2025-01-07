@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-17 15:32:42 by Eclipse SUMO netedit Version v1_20_0+1264-f5cae912633
+<!-- generated on 2025-01-07 10:58:40 by Eclipse SUMO netedit Version v1_21_0+1687-5d9a0443092
 <neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="D:\Netedit_dev\tests\netedit\network\junctions\inspect\tls\net.net.xml"/>
+        <sumo-net-file value="D:\SUMO\tests\netedit\network\junctions\inspect\tls\net.net.xml"/>
     </input>
 
     <processing>
@@ -31,12 +31,18 @@
 
 <tlLogics version="1.20" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tllogic_file.xsd">
     <tlLogic id="JunctionCenter" type="static" programID="0" offset="0">
-        <phase duration="37" state="gGgrrrgGgrrrrGrG"/>
-        <phase duration="5"  state="gGgrrrgGgrrrrrrr"/>
-        <phase duration="3"  state="yyyrrryyyrrrrrrr"/>
-        <phase duration="37" state="rrrgGgrrrgGgGrGr"/>
-        <phase duration="5"  state="rrrgGgrrrgGgrrrr"/>
-        <phase duration="3"  state="rrryyyrrryyyrrrr"/>
+        <phase duration="13" state="gGgrrrrrrrrrrGrG"/>
+        <phase duration="5"  state="gGgrrrrrrrrrrrrr"/>
+        <phase duration="3"  state="yyyrrrrrrrrrrrrr"/>
+        <phase duration="15" state="rrrgGgrrrrrrGrGr"/>
+        <phase duration="5"  state="rrrgGgrrrrrrrrrr"/>
+        <phase duration="3"  state="rrryyyrrrrrrrrrr"/>
+        <phase duration="15" state="rrrrrrgGgrrrrGrG"/>
+        <phase duration="5"  state="rrrrrrgGgrrrrrrr"/>
+        <phase duration="3"  state="rrrrrryyyrrrrrrr"/>
+        <phase duration="15" state="rrrrrrrrrgGgGrGr"/>
+        <phase duration="5"  state="rrrrrrrrrgGgrrrr"/>
+        <phase duration="3"  state="rrrrrrrrryyyrrrr"/>
     </tlLogic>
     <tlLogic id="JunctionLeft" type="actuated" programID="0" offset="0">
         <phase duration="42" state="GgrrGG" minDur="5" maxDur="50"/>
@@ -44,11 +50,18 @@
         <phase duration="42" state="rrGGGr" minDur="5" maxDur="50"/>
         <phase duration="3"  state="rryyGr"/>
     </tlLogic>
+    <tlLogic id="JunctionRight" type="static" programID="0" offset="0">
+        <phase duration="90" state="GGGGGG"/>
+    </tlLogic>
 
     <connection from="-E0" to="E1" fromLane="0" toLane="0" tl="JunctionLeft" linkIndex="0"/>
     <connection from="-E0" to="-E4" fromLane="0" toLane="1" tl="JunctionLeft" linkIndex="1"/>
     <connection from="-E1" to="-E4" fromLane="0" toLane="1" tl="JunctionLeft" linkIndex="4"/>
     <connection from="-E1" to="E0" fromLane="0" toLane="0" tl="JunctionLeft" linkIndex="5"/>
+    <connection from="-E2" to="-E6" fromLane="0" toLane="1" tl="JunctionRight" linkIndex="0"/>
+    <connection from="-E2" to="E3" fromLane="0" toLane="0" tl="JunctionRight" linkIndex="1"/>
+    <connection from="-E3" to="E2" fromLane="0" toLane="0" tl="JunctionRight" linkIndex="2"/>
+    <connection from="-E3" to="-E6" fromLane="0" toLane="1" tl="JunctionRight" linkIndex="3"/>
     <connection from="-E4" to="E7" fromLane="1" toLane="1" tl="JunctionCenter" linkIndex="9"/>
     <connection from="-E4" to="E6" fromLane="1" toLane="1" tl="JunctionCenter" linkIndex="10"/>
     <connection from="-E4" to="E5" fromLane="1" toLane="1" tl="JunctionCenter" linkIndex="11"/>
@@ -63,4 +76,6 @@
     <connection from="-E7" to="E4" fromLane="1" toLane="1" tl="JunctionCenter" linkIndex="8"/>
     <connection from="E4" to="E0" fromLane="1" toLane="0" tl="JunctionLeft" linkIndex="2"/>
     <connection from="E4" to="E1" fromLane="1" toLane="0" tl="JunctionLeft" linkIndex="3"/>
+    <connection from="E6" to="E3" fromLane="1" toLane="0" tl="JunctionRight" linkIndex="4"/>
+    <connection from="E6" to="E2" fromLane="1" toLane="0" tl="JunctionRight" linkIndex="5"/>
 </tlLogics>

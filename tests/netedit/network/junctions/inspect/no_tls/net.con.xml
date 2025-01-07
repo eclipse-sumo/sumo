@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-06-28 12:05:32 by Eclipse SUMO netedit Version v1_20_0+0903-50ed8d6b852
+<!-- generated on 2025-01-07 10:59:56 by Eclipse SUMO netedit Version v1_21_0+1687-5d9a0443092
 <neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="D:\Netedit_dev\tests\netedit\network\junctions\inspect\no_tls\net.net.xml"/>
+        <sumo-net-file value="D:\SUMO\tests\netedit\network\junctions\inspect\no_tls\net.net.xml"/>
     </input>
 
     <processing>
@@ -23,18 +23,18 @@
     </junctions>
 
     <pedestrian>
-        <walkingareas value="true"/>
+        <walkingareas value="0"/>
     </pedestrian>
 
 </neteditConfiguration>
 -->
 
 <connections version="1.20" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/connections_file.xsd">
-    <connection from="-E0" to="E1" fromLane="0" toLane="0"/>
-    <connection from="-E0" to="-E4" fromLane="0" toLane="1"/>
+    <connection from="-E0" to="E1" fromLane="0" toLane="0" keepClear="0"/>
+    <connection from="-E0" to="-E4" fromLane="0" toLane="1" keepClear="0"/>
 
-    <connection from="-E1" to="-E4" fromLane="0" toLane="1"/>
-    <connection from="-E1" to="E0" fromLane="0" toLane="0"/>
+    <connection from="-E1" to="-E4" fromLane="0" toLane="1" keepClear="0"/>
+    <connection from="-E1" to="E0" fromLane="0" toLane="0" keepClear="0"/>
 
     <connection from="-E2" to="-E6" fromLane="0" toLane="1"/>
     <connection from="-E2" to="E3" fromLane="0" toLane="0"/>
@@ -66,8 +66,8 @@
 
     <connection from="E3"/>
 
-    <connection from="E4" to="E0" fromLane="1" toLane="0"/>
-    <connection from="E4" to="E1" fromLane="1" toLane="0"/>
+    <connection from="E4" to="E0" fromLane="1" toLane="0" keepClear="0"/>
+    <connection from="E4" to="E1" fromLane="1" toLane="0" keepClear="0"/>
 
     <connection from="E5"/>
 

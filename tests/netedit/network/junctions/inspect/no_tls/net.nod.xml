@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-06-28 12:05:32 by Eclipse SUMO netedit Version v1_20_0+0903-50ed8d6b852
+<!-- generated on 2025-01-07 10:59:56 by Eclipse SUMO netedit Version v1_21_0+1687-5d9a0443092
 <neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="D:\Netedit_dev\tests\netedit\network\junctions\inspect\no_tls\net.net.xml"/>
+        <sumo-net-file value="D:\SUMO\tests\netedit\network\junctions\inspect\no_tls\net.net.xml"/>
     </input>
 
     <processing>
@@ -23,7 +23,7 @@
     </junctions>
 
     <pedestrian>
-        <walkingareas value="true"/>
+        <walkingareas value="0"/>
     </pedestrian>
 
 </neteditConfiguration>
@@ -41,6 +41,6 @@
     <node id="JunctionExtern0" x="-60.00" y="0.00" type="priority"/>
     <node id="JunctionExtern1" x="60.00" y="0.00" type="priority"/>
     <node id="JunctionLeft" x="-25.00" y="0.00" type="left_before_right" radius="2.00" fringe="outer" name="left"/>
-    <node id="JunctionRight" x="25.00" y="0.00" type="priority"/>
+    <node id="JunctionRight" x="25.00" y="0.00" type="priority" rightOfWay="edgePriority"/>
     <node id="JunctionTop" x="0.00" y="25.00" type="dead_end"/>
 </nodes>

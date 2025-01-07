@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-17 15:32:42 by Eclipse SUMO netedit Version v1_20_0+1264-f5cae912633
+<!-- generated on 2025-01-07 10:58:40 by Eclipse SUMO netedit Version v1_21_0+1687-5d9a0443092
 <neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="D:\Netedit_dev\tests\netedit\network\junctions\inspect\tls\net.net.xml"/>
+        <sumo-net-file value="D:\SUMO\tests\netedit\network\junctions\inspect\tls\net.net.xml"/>
     </input>
 
     <processing>
@@ -36,11 +36,11 @@
     <connection from="-E1" to="-E4" fromLane="0" toLane="1"/>
     <connection from="-E1" to="E0" fromLane="0" toLane="0"/>
 
-    <connection from="-E2" to="-E6" fromLane="0" toLane="1"/>
-    <connection from="-E2" to="E3" fromLane="0" toLane="0"/>
+    <connection from="-E2" to="-E6" fromLane="0" toLane="1" keepClear="0"/>
+    <connection from="-E2" to="E3" fromLane="0" toLane="0" keepClear="0"/>
 
-    <connection from="-E3" to="E2" fromLane="0" toLane="0"/>
-    <connection from="-E3" to="-E6" fromLane="0" toLane="1"/>
+    <connection from="-E3" to="E2" fromLane="0" toLane="0" keepClear="0"/>
+    <connection from="-E3" to="-E6" fromLane="0" toLane="1" keepClear="0"/>
 
     <connection from="-E4" to="E7" fromLane="1" toLane="1"/>
     <connection from="-E4" to="E6" fromLane="1" toLane="1"/>
@@ -71,8 +71,8 @@
 
     <connection from="E5"/>
 
-    <connection from="E6" to="E3" fromLane="1" toLane="0"/>
-    <connection from="E6" to="E2" fromLane="1" toLane="0"/>
+    <connection from="E6" to="E3" fromLane="1" toLane="0" keepClear="0"/>
+    <connection from="E6" to="E2" fromLane="1" toLane="0" keepClear="0"/>
 
     <connection from="E7"/>
 

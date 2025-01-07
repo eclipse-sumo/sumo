@@ -40,6 +40,8 @@ netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.ce
 # select select second junction
 netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.left)
 
+# select select second junction
+netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.right)
 # go to inspect mode
 netedit.inspectMode()
 

@@ -140,24 +140,24 @@ class junction:
 
     class inspectSelection:
         type = 1
-        radius = 3
-        keepClear = 4
-        rightOfWay = 5
-        fringe = 7
-        name = 9
-        parameters = 12
+        radius = 2
+        keepClear = 3
+        rightOfWay = 4
+        fringe = 5
+        name = 6
+        parameters = 9
 
     class inspectSelectionTLS:
         type = 1
-        radius = 3
-        keepClear = 4
-        rightOfWay = 5
-        fringe = 7
-        name = 9
-        tlType = 10
-        tlLayout = 12
-        tl = 14
-        parameters = 17
+        radius = 2
+        keepClear = 3
+        rightOfWay = 4
+        fringe = 5
+        name = 6
+        tlType = 7
+        tlLayout = 8
+        tl = 10
+        parameters = 13
 
 # edge
 
@@ -203,7 +203,7 @@ class edge:
         stopOffset = 21
         stopOffsetExceptionButton = 22
         stopOffsetException = 23
-        parameters = 24
+        parameters = 26
 
     class inspectSelection:
         speed = 1
@@ -215,15 +215,15 @@ class edge:
         disallow = 7
         length = 8
         spreadType = 9
-        name = 11
-        width = 12
-        endOffset = 13
-        shapeStart = 14
-        shapeEnd = 15
-        stopOffset = 16
-        stopOffsetExceptionButton = 17
-        stopOffsetException = 18
-        parameters = 21
+        name = 10
+        width = 11
+        endOffset = 12
+        shapeStart = 13
+        shapeEnd = 14
+        stopOffset = 15
+        stopOffsetExceptionButton = 16
+        stopOffsetException = 17
+        parameters = 20
 
     class template:
         create = 30
@@ -261,7 +261,7 @@ class lane:
         stopOffset = 15
         stopOffsetExceptionButton = 16
         stopOffsetException = 17
-        parameters = 18
+        parameters = 20
 
     class inspectSelection:
         speed = 1
@@ -1990,7 +1990,7 @@ class flow:
         end = 28
         terminateOption = 29
         spacingOption = 30
-        parameters = 32
+        parameters = 33
 
     class inspectSelection:
         typeButton = 1
@@ -2014,7 +2014,7 @@ class flow:
         spacing = 23
         terminateOption = 25
         spacingOption = 26
-        parameters = 26
+        parameters = 29
 
 # flow (from-to junctions)
 
@@ -2071,7 +2071,7 @@ class flowJunction:
         end = 27
         terminateOption = 28
         spacingOption = 29
-        parameters = 31
+        parameters = 32
 
     class inspectSelection:
         typeButton = 1
@@ -2095,7 +2095,7 @@ class flowJunction:
         spacing = 23
         terminateOption = 25
         spacingOption = 26
-        parameters = 26
+        parameters = 29
 
 # flow (from-to TAZs)
 
@@ -2152,7 +2152,7 @@ class flowTAZ:
         end = 27
         terminateOption = 28
         spacingOption = 29
-        parameters = 31
+        parameters = 32
 
     class inspectSelection:
         typeButton = 1
@@ -2176,7 +2176,7 @@ class flowTAZ:
         spacing = 23
         terminateOption = 25
         spacingOption = 26
-        parameters = 26
+        parameters = 29
 
 # flow (over route)
 
@@ -2258,7 +2258,7 @@ class routeFlow:
         spacing = 23
         terminateOption = 25
         spacingOption = 26
-        parameters = 26
+        parameters = 29
 
 # flow (embedded route)
 
@@ -2339,7 +2339,7 @@ class flowEmbedded:
         spacing = 23
         terminateOption = 25
         spacingOption = 26
-        parameters = 26
+        parameters = 29
 
 # stop over bus stop
 
@@ -3091,7 +3091,7 @@ class personFlow:
         end = 14
         terminateOption = 15
         spacingOption = 16
-        parameters = 18
+        parameters = 19
 
     class inspectSelection:
         typeButton = 1
@@ -3704,7 +3704,7 @@ class containerFlow:
         end = 14
         terminateOption = 15
         spacingOption = 16
-        parameters = 18
+        parameters = 19
 
     class inspectSelection:
         typeButton = 1
@@ -3717,7 +3717,7 @@ class containerFlow:
         spacing = 12
         terminateOption = 14
         spacingOption = 15
-        parameters = 18
+        parameters = 19
 
 # PersonPlans
 

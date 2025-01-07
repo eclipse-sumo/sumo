@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-29 09:23:21 by Eclipse SUMO netedit Version v1_20_0+1432-eb803cea24d
+<!-- generated on 2025-01-07 11:14:18 by Eclipse SUMO netedit Version v1_21_0+1687-5d9a0443092
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,15 +14,16 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-        <additional-files value="/home/palcraft/.texttest/tmp/netedit.gui.29Jul091806.4209/netedit.gui/network/junctions/inspect/no_tls/unselected/type/priority_stop/additionals.add.xml"/>
-        <route-files value="/home/palcraft/.texttest/tmp/netedit.gui.29Jul091806.4209/netedit.gui/network/junctions/inspect/no_tls/unselected/type/priority_stop/routes.rou.xml"/>
-        <data-files value="/home/palcraft/.texttest/tmp/netedit.gui.29Jul091806.4209/netedit.gui/network/junctions/inspect/no_tls/unselected/type/priority_stop/datas.dat.xml"/>
-        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.gui.29Jul091806.4209/netedit.gui/network/junctions/inspect/no_tls/unselected/type/priority_stop/net.net.xml"/>
+        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Jan110902.14028\netedit.gui\network\junctions\inspect\no_tls\unselected\type\priority_stop\additionals.add.xml"/>
+        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Jan110902.14028\netedit.gui\network\junctions\inspect\no_tls\unselected\type\priority_stop\routes.rou.xml"/>
+        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Jan110902.14028\netedit.gui\network\junctions\inspect\no_tls\unselected\type\priority_stop\datas.dat.xml"/>
+        <meandata-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Jan110902.14028\netedit.gui\network\junctions\inspect\no_tls\unselected\type\priority_stop\datas.med.add.xml"/>
+        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Jan110902.14028\netedit.gui\network\junctions\inspect\no_tls\unselected\type\priority_stop\net.net.xml"/>
     </input>
 
     <output>
         <write-license value="true"/>
-        <output-file value="/home/palcraft/.texttest/tmp/netedit.gui.29Jul091806.4209/netedit.gui/network/junctions/inspect/no_tls/unselected/type/priority_stop/net.net.xml"/>
+        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Jan110902.14028\netedit.gui\network\junctions\inspect\no_tls\unselected\type\priority_stop\net.net.xml"/>
     </output>
 
     <processing>
@@ -46,19 +47,20 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <netedit>
         <ignore-supermode-question value="true"/>
+        <force-saving value="true"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="/home/palcraft/.texttest/tmp/netedit.gui.29Jul091806.4209/netedit.gui/network/junctions/inspect/no_tls/unselected/type/priority_stop/gui-settings.xml"/>
+        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Jan110902.14028\netedit.gui\network\junctions\inspect\no_tls\unselected\type\priority_stop\gui-settings.xml"/>
         <window-size value="1280, 720"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
-        <gui-testing.setting-output value="/home/palcraft/.texttest/tmp/netedit.gui.29Jul091806.4209/netedit.gui/network/junctions/inspect/no_tls/unselected/type/priority_stop/guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Jan110902.14028\netedit.gui\network\junctions\inspect\no_tls\unselected\type\priority_stop\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="/home/palcraft/.texttest/tmp/netedit.gui.29Jul091806.4209/netedit.gui/network/junctions/inspect/no_tls/unselected/type/priority_stop/log.txt"/>
+        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Jan110902.14028\netedit.gui\network\junctions\inspect\no_tls\unselected\type\priority_stop\log.txt"/>
     </report>
 
 </neteditConfiguration>
@@ -289,13 +291,13 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <request index="4" response="000010" foes="000010" cont="0"/>
         <request index="5" response="000010" foes="001110" cont="0"/>
     </junction>
-    <junction id="JunctionRight" type="priority" x="25.00" y="0.00" incLanes="-E2_0 -E3_0 E6_0 E6_1" intLanes=":JunctionRight_0_0 :JunctionRight_1_0 :JunctionRight_2_0 :JunctionRight_3_0 :JunctionRight_4_0 :JunctionRight_5_0" shape="21.80,7.20 28.20,7.20 28.20,-7.20 21.80,-7.20 21.58,-6.09 21.30,-5.70 20.91,-5.42 20.41,-5.26 19.80,-5.20 19.80,5.20 20.91,5.42 21.30,5.70 21.58,6.09 21.74,6.59">
+    <junction id="JunctionRight" type="priority" x="25.00" y="0.00" incLanes="-E2_0 -E3_0 E6_0 E6_1" intLanes=":JunctionRight_0_0 :JunctionRight_1_0 :JunctionRight_2_0 :JunctionRight_3_0 :JunctionRight_4_0 :JunctionRight_5_0" shape="21.80,7.20 28.20,7.20 28.20,-7.20 21.80,-7.20 21.58,-6.09 21.30,-5.70 20.91,-5.42 20.41,-5.26 19.80,-5.20 19.80,5.20 20.91,5.42 21.30,5.70 21.58,6.09 21.74,6.59" rightOfWay="edgePriority">
         <request index="0" response="000000" foes="001000" cont="0"/>
-        <request index="1" response="110000" foes="111000" cont="0"/>
-        <request index="2" response="100000" foes="100000" cont="0"/>
-        <request index="3" response="100011" foes="100011" cont="0"/>
-        <request index="4" response="000000" foes="000010" cont="0"/>
-        <request index="5" response="000000" foes="001110" cont="0"/>
+        <request index="1" response="000000" foes="111000" cont="0"/>
+        <request index="2" response="000000" foes="100000" cont="0"/>
+        <request index="3" response="000011" foes="100011" cont="0"/>
+        <request index="4" response="000010" foes="000010" cont="0"/>
+        <request index="5" response="001110" foes="001110" cont="0"/>
     </junction>
     <junction id="JunctionTop" type="dead_end" x="0.00" y="25.00" incLanes="E5_0 E5_1" intLanes="" shape="0.00,25.00 5.20,25.00 0.00,25.00"/>
 
@@ -304,30 +306,30 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <junction id=":JunctionCenter_14_0" type="internal" x="3.20" y="-2.88" incLanes=":JunctionCenter_6_0" intLanes=":JunctionCenter_2_0 :JunctionCenter_10_0 :JunctionCenter_c1_0 :JunctionCenter_c2_0"/>
     <junction id=":JunctionCenter_15_0" type="internal" x="0.96" y="-3.20" incLanes=":JunctionCenter_8_0 -E5_1" intLanes=":JunctionCenter_0_0 :JunctionCenter_1_0 :JunctionCenter_4_0 :JunctionCenter_5_0 :JunctionCenter_10_0 :JunctionCenter_11_0 :JunctionCenter_c2_0 :JunctionCenter_c3_0"/>
 
-    <connection from="-E0" to="E1" fromLane="0" toLane="0" via=":JunctionLeft_0_0" dir="s" state="="/>
-    <connection from="-E0" to="-E4" fromLane="0" toLane="1" via=":JunctionLeft_1_0" dir="l" state="="/>
-    <connection from="-E1" to="-E4" fromLane="0" toLane="1" via=":JunctionLeft_4_0" dir="r" state="="/>
-    <connection from="-E1" to="E0" fromLane="0" toLane="0" via=":JunctionLeft_5_0" dir="s" state="="/>
+    <connection from="-E0" to="E1" fromLane="0" toLane="0" keepClear="0" via=":JunctionLeft_0_0" dir="s" state="="/>
+    <connection from="-E0" to="-E4" fromLane="0" toLane="1" keepClear="0" via=":JunctionLeft_1_0" dir="l" state="="/>
+    <connection from="-E1" to="-E4" fromLane="0" toLane="1" keepClear="0" via=":JunctionLeft_4_0" dir="r" state="="/>
+    <connection from="-E1" to="E0" fromLane="0" toLane="0" keepClear="0" via=":JunctionLeft_5_0" dir="s" state="="/>
     <connection from="-E2" to="-E6" fromLane="0" toLane="1" via=":JunctionRight_0_0" dir="r" state="M"/>
-    <connection from="-E2" to="E3" fromLane="0" toLane="0" via=":JunctionRight_1_0" dir="s" state="m"/>
-    <connection from="-E3" to="E2" fromLane="0" toLane="0" via=":JunctionRight_2_0" dir="s" state="m"/>
+    <connection from="-E2" to="E3" fromLane="0" toLane="0" via=":JunctionRight_1_0" dir="s" state="M"/>
+    <connection from="-E3" to="E2" fromLane="0" toLane="0" via=":JunctionRight_2_0" dir="s" state="M"/>
     <connection from="-E3" to="-E6" fromLane="0" toLane="1" via=":JunctionRight_3_0" dir="l" state="m"/>
     <connection from="-E4" to="E7" fromLane="1" toLane="1" via=":JunctionCenter_9_0" dir="r" state="s"/>
     <connection from="-E4" to="E6" fromLane="1" toLane="1" via=":JunctionCenter_10_0" dir="s" state="s"/>
     <connection from="-E4" to="E5" fromLane="1" toLane="1" via=":JunctionCenter_11_0" dir="l" state="s"/>
-    <connection from="-E5" to="E4" fromLane="1" toLane="1" via=":JunctionCenter_0_0" dir="r" state="s"/>
+    <connection from="-E5" to="E4" fromLane="1" toLane="1" via=":JunctionCenter_0_0" dir="r" state="m"/>
     <connection from="-E5" to="E7" fromLane="1" toLane="1" via=":JunctionCenter_1_0" dir="s" state="M"/>
-    <connection from="-E5" to="E6" fromLane="1" toLane="1" via=":JunctionCenter_2_0" dir="l" state="s"/>
+    <connection from="-E5" to="E6" fromLane="1" toLane="1" via=":JunctionCenter_2_0" dir="l" state="m"/>
     <connection from="-E6" to="E5" fromLane="1" toLane="1" via=":JunctionCenter_3_0" dir="r" state="s"/>
     <connection from="-E6" to="E4" fromLane="1" toLane="1" via=":JunctionCenter_4_0" dir="s" state="s"/>
     <connection from="-E6" to="E7" fromLane="1" toLane="1" via=":JunctionCenter_5_0" dir="l" state="s"/>
-    <connection from="-E7" to="E6" fromLane="1" toLane="1" via=":JunctionCenter_6_0" dir="r" state="s"/>
+    <connection from="-E7" to="E6" fromLane="1" toLane="1" via=":JunctionCenter_6_0" dir="r" state="m"/>
     <connection from="-E7" to="E5" fromLane="1" toLane="1" via=":JunctionCenter_7_0" dir="s" state="M"/>
-    <connection from="-E7" to="E4" fromLane="1" toLane="1" via=":JunctionCenter_8_0" dir="l" state="s"/>
-    <connection from="E4" to="E0" fromLane="1" toLane="0" via=":JunctionLeft_2_0" dir="r" state="="/>
-    <connection from="E4" to="E1" fromLane="1" toLane="0" via=":JunctionLeft_3_0" dir="l" state="="/>
-    <connection from="E6" to="E3" fromLane="1" toLane="0" via=":JunctionRight_4_0" dir="r" state="M"/>
-    <connection from="E6" to="E2" fromLane="1" toLane="0" via=":JunctionRight_5_0" dir="l" state="M"/>
+    <connection from="-E7" to="E4" fromLane="1" toLane="1" via=":JunctionCenter_8_0" dir="l" state="m"/>
+    <connection from="E4" to="E0" fromLane="1" toLane="0" keepClear="0" via=":JunctionLeft_2_0" dir="r" state="="/>
+    <connection from="E4" to="E1" fromLane="1" toLane="0" keepClear="0" via=":JunctionLeft_3_0" dir="l" state="="/>
+    <connection from="E6" to="E3" fromLane="1" toLane="0" via=":JunctionRight_4_0" dir="r" state="m"/>
+    <connection from="E6" to="E2" fromLane="1" toLane="0" via=":JunctionRight_5_0" dir="l" state="m"/>
     <connection from="EdgeExternBot" to="EdgeExternTop" fromLane="0" toLane="0" via=":JunctionExtern1_0_0" dir="t" state="M"/>
     <connection from="EdgeExternTop" to="EdgeExternBot" fromLane="0" toLane="0" via=":JunctionExtern0_0_0" dir="t" state="M"/>
 
