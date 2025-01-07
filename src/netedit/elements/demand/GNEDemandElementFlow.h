@@ -113,7 +113,7 @@ private:
     void setDefaultFlowAttributes(GNEDemandElement* flowElement);
 
     /// @brief adjust decimal value
-    std::string adjustDecimalValue(const double value) const;
+    std::string adjustDecimalValue(const double value, const int precission) const;
 
     /// @brief Invalidated copy constructor.
     GNEDemandElementFlow(const GNEDemandElementFlow&) = delete;
