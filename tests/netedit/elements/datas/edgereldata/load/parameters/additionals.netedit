@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-31 15:37:32 by Eclipse SUMO netedit Version v1_20_0+1585-7f20689389f
+<!-- generated on 2025-01-07 15:46:24 by Eclipse SUMO netedit Version v1_21_0+1715-027d6d78c14
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -21,10 +21,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <trainStop id="trainStopB" name="m" lane="EdgeCenter0_1" startPos="5.00" endPos="10.00"/>
     <containerStop id="containerStopA" lane="Edge2_1" startPos="34.00" endPos="44.00"/>
     <containerStop id="containerStopB" lane="EdgeCenter1_1" startPos="17.50" endPos="22.50"/>
-    <chargingStation id="chargingStationA" lane="Edge2_1" startPos="13.00" endPos="21.00"/>
-    <chargingStation id="chargingStationB" lane="EdgeCenter1_1" startPos="37.50" endPos="42.50"/>
     <parkingArea id="parkingAreaA" lane="Edge2_1" startPos="22.00" endPos="32.00"/>
     <parkingArea id="parkingAreaB" lane="EdgeCenter0_1" startPos="15.00" endPos="20.00"/>
+    <chargingStation id="chargingStationA" lane="Edge2_1" startPos="13.00" endPos="21.00"/>
+    <chargingStation id="chargingStationB" lane="EdgeCenter1_1" startPos="37.50" endPos="42.50"/>
     <!-- Detectors -->
     <inductionLoop id="e1_0" lane="Edge4_1" pos="3.00" period="300.00" file="e1_0.xml"/>
     <inductionLoop id="e1_1" lane="Edge1_1" pos="27.00" period="300.00" file="e1_1.xml"/>

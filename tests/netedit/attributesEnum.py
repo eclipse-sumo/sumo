@@ -374,14 +374,14 @@ class connection:
 
 class crossing:
     class create:
-        edges = 1
-        priority = 2
-        width = 3
+        edges = 2
+        priority = 3
+        width = 4
         button = 9
 
     class createTLS:
-        edges = 1
-        width = 2
+        edges = 2
+        width = 3
         button = 9
 
     class inspect:
@@ -4062,7 +4062,7 @@ class edgeData:
         parameters = 3
 
     class inspectSelection:
-        parameters = 3
+        parameters = 1
 
 # edgeRelData
 
@@ -4077,7 +4077,7 @@ class edgeRelData:
         parameters = 5
 
     class inspectSelection:
-        parameters = 3
+        parameters = 1
 
 # TAZRelData
 
@@ -4092,7 +4092,7 @@ class TAZRelData:
         parameters = 5
 
     class inspectSelection:
-        parameters = 3
+        parameters = 1
 
 # edge mean data
 
