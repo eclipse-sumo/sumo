@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-10-30 15:10:04 by Eclipse SUMO netedit Version v1_21_0+0519-b8bbe24a86f
+<!-- generated on 2025-01-07 13:58:23 by Eclipse SUMO netedit Version v1_21_0+1701-5bbacf4f4a3
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,17 +14,4 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <!-- Vehicles, persons and containers (sorted by depart) -->
-    <flow id="t_0" type="DEFAULT_BIKETYPE" begin="20.00" from="Edge2" to="EdgeCenter1" end="500.00" number="10"/>
-    <flow id="t_1" type="DEFAULT_BIKETYPE" begin="20.00" from="Edge2" to="EdgeCenter0" end="500.00" number="10"/>
-    <flow id="t_10" type="DEFAULT_BIKETYPE" begin="20.00" from="Edge2" to="Edge2" end="500.00" number="10"/>
-    <flow id="t_11" type="DEFAULT_BIKETYPE" begin="20.00" from="Edge0" to="Edge0" end="500.00" number="10"/>
-    <flow id="t_2" type="DEFAULT_BIKETYPE" begin="20.00" from="Edge2" to="EdgeCenter1" end="500.00" number="10"/>
-    <flow id="t_3" type="DEFAULT_BIKETYPE" begin="20.00" from="Edge2" to="EdgeCenter1" end="500.00" number="10"/>
-    <flow id="t_4" type="DEFAULT_BIKETYPE" begin="20.00" from="Edge2" to="EdgeCenter0" end="500.00" number="10"/>
-    <flow id="t_5" type="DEFAULT_BIKETYPE" begin="20.00" from="Edge0" to="Edge3" end="500.00" number="10"/>
-    <flow id="t_6" type="DEFAULT_BIKETYPE" begin="20.00" from="Edge2" to="Edge2" end="500.00" number="10"/>
-    <flow id="t_7" type="DEFAULT_BIKETYPE" begin="20.00" from="Edge2" to="Edge2" end="500.00" number="10"/>
-    <flow id="t_8" type="DEFAULT_BIKETYPE" begin="20.00" from="Edge2" to="Edge2" end="500.00" number="10"/>
-    <flow id="t_9" type="DEFAULT_BIKETYPE" begin="20.00" from="Edge2" to="Edge2" end="500.00" number="10"/>
 </routes>

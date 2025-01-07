@@ -4,11 +4,10 @@
 '-avx512pf' is not a recognized feature for this target (ignoring feature)
 '-avx512er' is not a recognized feature for this target (ignoring feature)
 '-avx512pf' is not a recognized feature for this target (ignoring feature)
-Error: Could not build flow with ID 'flow_0' in netedit; edge parent with ID '' doesn't exist.
-Error: Could not build flow with ID 'flow_0' in netedit; edge parent with ID '' doesn't exist.
+Error: Could not build flow with ID 'flow_0' in netedit; Requiere either a route or an embedded route or a from-to attribute (Edges, junctions or TAZs).
 Error: Attribute 'fromTaz' in definition of flow 'flow_1' is empty.
 Error: Could not build flowTAZs with ID 'flow_2' in netedit; taz parent with ID 'dummyFrom' doesn't exist.
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.18Dec174643.2935/netedit.gui/elements/demands/flow_taz/load/from/routes.rou.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.07Jan110850.11178/netedit.gui/elements/demands/flow_taz/load/from/routes.rou.xml failed.
 '-avx512er' is not a recognized feature for this target (ignoring feature)
 '-avx512pf' is not a recognized feature for this target (ignoring feature)
 '-avx512er' is not a recognized feature for this target (ignoring feature)

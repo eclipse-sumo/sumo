@@ -1,5 +1,4 @@
-Error: Could not build flow with ID 'flow_0' in netedit; edge parent with ID '' doesn't exist.
-Error: Could not build flow with ID 'flow_0' in netedit; edge parent with ID '' doesn't exist.
+Error: Could not build flow with ID 'flow_0' in netedit; Requiere either a route or an embedded route or a from-to attribute (Edges, junctions or TAZs).
 Error: Attribute 'toJunction' in definition of flow 'flow_1' is empty.
 Error: Could not build flowJunctions with ID 'flow_2' in netedit; junction parent with ID 'dummyEdge' doesn't exist.
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.18Dec174643.2935/netedit.gui/elements/demands/flow_junctions/load/to/routes.rou.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.07Jan110856.11280/netedit.gui/elements/demands/flow_junctions/load/to/routes.rou.xml failed.
