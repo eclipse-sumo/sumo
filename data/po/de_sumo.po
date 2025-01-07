@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-01-06 11:22+0100\n"
-"PO-Revision-Date: 2025-01-06 12:50+0000\n"
+"PO-Revision-Date: 2025-01-08 07:47+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -12786,13 +12786,13 @@ msgstr "Ungültiges Icon % für PoI '%' - nutze Standard-Icon"
 
 #: src/utils/handlers/AdditionalHandler.cpp:2056
 msgid "Calibrator Flows have to be defined within a %."
-msgstr ""
+msgstr "Calibrator-Flüsse müsen innerhalb eines/einer % definiert werden."
 
 #: src/utils/handlers/AdditionalHandler.cpp:2066
 msgid ""
 "Attribute '%' defined in % with id '%' doesn't have a valid value (given "
 "'%')."
-msgstr ""
+msgstr "Das Attribut '%' des % mit der ID '%' hat einen ungültigen Wert ('%')."
 
 #: src/utils/handlers/CommonHandler.cpp:56
 msgid "Parameters must be defined within an object"
@@ -12820,36 +12820,48 @@ msgstr ""
 
 #: src/utils/handlers/CommonHandler.cpp:95
 msgid "'%' must be defined within the definition of a %."
-msgstr ""
+msgstr "'%' muss innerhalb der Definition eines/einer % definiert werden."
 
 #: src/utils/handlers/CommonHandler.cpp:98
 msgid "'%' must be defined within the definition of a '%' (found % '%')."
 msgstr ""
+"'%' muss innerhalb der Definition eines/einer % definiert werden (% '%' "
+"vorgefunden)."
 
 #: src/utils/handlers/CommonHandler.cpp:101
 msgid "'%' must be defined within the definition of a '%' (found %)."
 msgstr ""
+"'%' muss innerhalb der Definition eines/einer % definiert werden (% "
+"vorgefunden)."
 
 #: src/utils/handlers/CommonHandler.cpp:113
 msgid "Could not build % with ID '%' in netedit; '%' ist not a valid vType ID."
 msgstr ""
+"Konnte % mit der ID '%' nicht in netedit erstellen; '%' ist keine gültige "
+"Fahrzeugtyp-ID."
 
 #: src/utils/handlers/CommonHandler.cpp:124
 msgid ""
 "Could not build % with ID '%' in netedit; Attribute % cannot be negative."
 msgstr ""
+"Konnte % mit der ID '%' nicht in netedit erstellen; Das Attribut % darf "
+"keinen negativen Wert annehmen."
 
 #: src/utils/handlers/CommonHandler.cpp:130
 msgid ""
 "Could not build % with ID '%' in netedit; Attribute % must be greather than "
 "zero."
 msgstr ""
+"Konnte % mit der ID '%' nicht in netedit erstellen; Das Attribut % muss "
+"einen Wert größer Null annehmen."
 
 #: src/utils/handlers/CommonHandler.cpp:142
 #: src/utils/handlers/CommonHandler.cpp:160
 msgid ""
 "Could not build % with ID '%' in netedit; Attribute % cannot be negative (%)."
 msgstr ""
+"Konnte % mit der ID '%' nicht in netedit erstellen; Das Attribut % darf "
+"keinen negativen Wert annehmen (%)."
 
 #: src/utils/handlers/CommonHandler.cpp:148
 #: src/utils/handlers/CommonHandler.cpp:166
@@ -12857,16 +12869,18 @@ msgid ""
 "Could not build % with ID '%' in netedit; Attribute % must be greather than "
 "zero (%)."
 msgstr ""
+"Konnte % mit der ID '%' nicht in netedit erstellen; Das Attribut % muss "
+"einen Wert größer Null annehmen (%)."
 
 #: src/utils/handlers/CommonHandler.cpp:179
 msgid "Could not build % with ID '%' in netedit; % is invalid % ()"
-msgstr ""
+msgstr "Konnte % mit der ID '%' nicht in netedit erstellen; % ist ungültig % ()"
 
 #: src/utils/handlers/CommonHandler.cpp:187
 #: src/utils/handlers/CommonHandler.cpp:199
 #: src/utils/handlers/CommonHandler.cpp:211
 msgid "Could not build %; ID cannot be empty"
-msgstr ""
+msgstr "Konnte % nicht erstellen; ID darf nicht leer sein"
 
 #: src/utils/handlers/CommonHandler.cpp:189
 #: src/utils/handlers/CommonHandler.cpp:213
@@ -12881,6 +12895,8 @@ msgid ""
 "Could not build % with ID '%' in netedit; detector ID contains invalid "
 "characters."
 msgstr ""
+"Konnte % mit der ID '%' nicht in netedit erstellen; Die Detektor-ID enthält "
+"ungültige Zeichen."
 
 #: src/utils/handlers/CommonHandler.cpp:230
 msgid "Could not build % with ID '%' in netedit; Invalid position over lane."
