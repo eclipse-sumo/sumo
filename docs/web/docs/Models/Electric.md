@@ -120,7 +120,9 @@ the [stationfinder device](../Simulation/Stationfinder.md) can be configured to 
 
 A charging station is a surface defined on a lane in which the vehicles
 equipped with a battery are charged. The basic structure and parameters
-of bus stops were used for the implementation of charging stations.
+of bus stops were used for the implementation of charging stations. 
+A charging station can be converted to a gas station by setting the **chargeType** attribute to `fuel`. Then electric vehicles cannot charge there anymore.
+
 
 | key                 | Value Type | Value range                                                                                | Default   | Description         |
 | ------------------- | ---------- | -------------------------------- | --------- | ----------------------------------------------------------------------------- |
