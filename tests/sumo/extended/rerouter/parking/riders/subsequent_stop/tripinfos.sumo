@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-05-18 11:11:51 by Eclipse SUMO sumo Version v1_20_0+0118-42103d31dfe
+<!-- generated on 2025-01-07 12:37:07 by Eclipse SUMO sumo Version v1_21_0+1707-e20019a517b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -36,15 +36,15 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <no-step-log value="true"/>
     </report>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
     <tripinfo id="blocker" depart="0.00" departLane="C0C1_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="47.00" arrivalLane="C2C3_0" arrivalPos="90.60" arrivalSpeed="13.89" duration="47.00" routeLength="285.50" waitingTime="0.00" waitingCount="0" stopTime="20.00" timeLoss="5.60" rerouteNo="1" devices="vehroute_blocker tripinfo_blocker routing_blocker" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
-    <tripinfo id="egoVeh" depart="2.00" departLane="C0C1_0" departPos="5.10" departSpeed="0.00" departDelay="2.00" arrival="60.00" arrivalLane="C2C3_0" arrivalPos="90.60" arrivalSpeed="13.89" duration="58.00" routeLength="478.22" waitingTime="0.00" waitingCount="0" stopTime="10.00" timeLoss="13.00" rerouteNo="2" devices="vehroute_egoVeh tripinfo_egoVeh routing_egoVeh person_egoVeh" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
-    <personinfo id="ego" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="168.00" waitingTime="2.00" timeLoss="10.41" traveltime="156.00">
-        <ride waitingTime="2.00" vehicle="egoVeh" depart="2.00" arrival="29.00" arrivalPos="55.00" duration="27.00" routeLength="246.26" timeLoss="8.27"/>
-        <walk depart="29.00" departPos="55.00" arrival="158.00" arrivalPos="60.00" duration="129.00" routeLength="176.20" timeLoss="2.14" maxSpeed="1.39"/>
-        <stop duration="10.00" arrival="168.00" arrivalPos="60.00" actType="waiting"/>
+    <tripinfo id="egoVeh" depart="2.00" departLane="C0C1_0" departPos="5.10" departSpeed="0.00" departDelay="2.00" arrival="62.00" arrivalLane="C2C3_0" arrivalPos="90.60" arrivalSpeed="13.89" duration="60.00" routeLength="478.22" waitingTime="1.00" waitingCount="1" stopTime="10.00" timeLoss="15.00" rerouteNo="2" devices="vehroute_egoVeh tripinfo_egoVeh routing_egoVeh person_egoVeh" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <personinfo id="ego" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="170.00" waitingTime="2.00" timeLoss="12.41" traveltime="158.00">
+        <ride waitingTime="2.00" vehicle="egoVeh" depart="2.00" arrival="31.00" arrivalPos="55.00" duration="29.00" routeLength="246.26" timeLoss="10.27"/>
+        <walk depart="31.00" departPos="55.00" arrival="160.00" arrivalPos="60.00" duration="129.00" routeLength="176.20" timeLoss="2.14" maxSpeed="1.39"/>
+        <stop duration="10.00" arrival="170.00" arrivalPos="60.00" actType="waiting"/>
     </personinfo>
 </tripinfos>
