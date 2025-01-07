@@ -47,6 +47,12 @@ sys.path += [os.path.join(SUMO_HOME, "tools"), os.path.join(SUMO_HOME, "tests")]
 import sumolib  # noqa
 import runExtraTests  # noqa
 
+try:
+    import matplotlib
+    MATPLOTLIB_CACHE = matplotlib.get_cachedir()
+except ImportError:
+    MATPLOTLIB_CACHE = None
+
 BINARIES = ("activitygen", "emissionsDrivingCycle", "emissionsMap",
             "dfrouter", "duarouter", "jtrrouter", "marouter",
             "netconvert", "netedit", "netgenerate",
@@ -77,6 +83,8 @@ def runTests(options, env, gitrev, debugSuffix=""):
     env["TEXTTEST_TMP"] = os.path.join(options.rootDir, prefix + "tmp")
     env["TEXTTEST_HOME"] = os.path.join(SUMO_HOME, "tests")
     shutil.rmtree(env["TEXTTEST_TMP"], True)
+    if MATPLOTLIB_CACHE:
+        shutil.rmtree(MATPLOTLIB_CACHE, True)
     if not os.path.exists(env["SUMO_REPORT"]):
         os.makedirs(env["SUMO_REPORT"])
     for name in BINARIES:
