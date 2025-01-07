@@ -3133,8 +3133,10 @@ NBNode::buildCrossings() {
             crossingEnd.width = (crossingEnd.width == NBEdge::UNSPECIFIED_WIDTH ? SUMO_const_laneWidth : crossingEnd.width);
             crossingBeg.shape.move2side(begDir * crossingBeg.width / 2);
             crossingEnd.shape.move2side(endDir * crossingEnd.width / 2);
-            crossingBeg.shape.extrapolate(c->width / 2);
-            crossingEnd.shape.extrapolate(c->width / 2);
+            double offset = c->width / 2;
+            patchOffset_pathAcrossStreet(offset);
+            crossingBeg.shape.extrapolate(offset);
+            crossingEnd.shape.extrapolate(offset);
             // check if after all changes shape are NAN (in these case, discard)
             if (crossingBeg.shape.isNAN() || crossingEnd.shape.isNAN()) {
                 WRITE_WARNINGF(TL("Discarding invalid crossing '%' at junction '%' with edges [%] (invalid shape)."), c->id, getID(), toString(c->edges));
@@ -3149,6 +3151,89 @@ NBNode::buildCrossings() {
         }
     }
     return index;
+}
+
+
+void
+NBNode::patchOffset_pathAcrossStreet(double& offset) {
+    if (myCrossings.size() == 1 && myAllEdges.size() >= 3) {
+        EdgeVector nonPedIncoming;
+        EdgeVector nonPedOutgoing;
+        EdgeVector pedIncoming;
+        EdgeVector pedOutgoing;
+        for (NBEdge* e : getIncomingEdges()) {
+            if (e->getPermissions() != SVC_PEDESTRIAN) {
+                nonPedIncoming.push_back(e);
+            } else {
+                pedIncoming.push_back(e);
+            }
+        }
+        for (NBEdge* e : getOutgoingEdges()) {
+            if (e->getPermissions() != SVC_PEDESTRIAN) {
+                nonPedOutgoing.push_back(e);
+            } else {
+                pedOutgoing.push_back(e);
+            }
+        }
+        if (geometryLike(nonPedIncoming, nonPedOutgoing) && (pedIncoming.size() > 0 || pedOutgoing.size() > 0)) {
+            double maxAngle = 0;
+            double inWidth = 0;
+            double outWidth = 0;
+            NBEdge* in = nonPedIncoming.front();
+            NBEdge* out = nonPedOutgoing.front();
+            if (nonPedIncoming.size() == 1) {
+                maxAngle = fabs(NBHelpers::relAngle(in->getAngleAtNode(this), out->getAngleAtNode(this)));
+                inWidth = in->getTotalWidth();
+                outWidth = out->getTotalWidth();
+
+            } else {
+                for (NBEdge* in2 : nonPedIncoming) {
+                    double minAngle = 180;
+                    for (NBEdge* out2 : nonPedOutgoing) {
+                        double angle = fabs(NBHelpers::relAngle(in2->getAngleAtNode(this), out2->getAngleAtNode(this)));
+                        if (angle < minAngle) {
+                            minAngle = angle;
+                            in = in2;
+                            out = out2;
+                            inWidth += in->getTotalWidth();
+                            outWidth += out->getTotalWidth();
+                        }
+                    }
+                    maxAngle = MAX2(maxAngle, minAngle);
+                }
+            }
+            // changing the offset only handles the simple case where the road stays straight and keeps its width
+            if (maxAngle < 15 && inWidth == outWidth) {
+                int inLane = in->getFirstNonPedestrianLaneIndex(FORWARD);
+                int outLane = out->getFirstNonPedestrianLaneIndex(FORWARD);
+                if (inLane >= 0 && outLane >= 0) {
+                    Position p0 = in->getLaneShape(inLane).back();
+                    Position p1 = out->getLaneShape(outLane).front();
+                    PositionVector road;
+                    road.push_back(p0);
+                    road.push_back(p1);
+                    Position mid = (p0 + p1) / 2;
+                    double maxPathDist = 0;
+                    for (NBEdge* e : pedIncoming) {
+                        Position roadPos = road.positionAtOffset2D(road.nearest_offset_to_point2D(e->getLaneShape(0).back()));
+                        maxPathDist = MAX2(maxPathDist, mid.distanceTo2D(roadPos));
+                    }
+                    for (NBEdge* e : pedOutgoing) {
+                        Position roadPos = road.positionAtOffset2D(road.nearest_offset_to_point2D(e->getLaneShape(0).front()));
+                        maxPathDist = MAX2(maxPathDist, mid.distanceTo2D(roadPos));
+                    }
+                    // if the junction is stretched, the crossing should stay close to the paths
+                    if (maxPathDist < myCrossings.front()->width) {
+                        offset = p0.distanceTo2D(p1) / 2;
+                    } else {
+                        //std::cout << getID() << " maxPathDist=" << maxPathDist << "\n";
+                    }
+                }
+            } else {
+                //std::cout << getID() << " maxAngle=" << maxAngle << " inWidth=" << inWidth << " outWidth=" << outWidth << "\n";
+            }
+        }
+    }
 }
 
 

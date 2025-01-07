@@ -905,6 +905,9 @@ private:
     /// @brief geometry helper that cuts the first shape where bordered by the other two
     PositionVector cutAtShapes(const PositionVector& cut, const PositionVector& border1, const PositionVector& border2, const PositionVector& def);
 
+    /// @brief compute offset for centering path-across-street crossings 
+    void patchOffset_pathAcrossStreet(double& offset); 
+
 private:
     /// @brief The position the node lies at
     Position myPosition;
