@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-10-30 11:50:37 by Eclipse SUMO netconvert Version v1_21_0+0515-80728aea4bd
+<!-- generated on 2025-01-07 09:38:58 by Eclipse SUMO netconvert Version v1_21_0+1697-7fb9a6a7246
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -51,7 +51,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <OpenDRIVE>
-    <header revMajor="1" revMinor="4" name="" version="1.00" date="Wed Oct 30 11:50:37 2024" north="2335.16" south="1844.07" east="2701.86" west="2090.59">
+    <header revMajor="1" revMinor="4" name="" version="1.00" date="Tue Jan  7 09:38:58 2025" north="2335.16" south="1844.07" east="2701.86" west="2090.59">
         <geoReference>
  <![CDATA[
  +proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs
@@ -971,7 +971,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <paramPoly3 aU="0.00000000" bU="9.50205680" cU="9.50165816" dU="-6.33450307" aV="0.00000000" bV="0.00000000" cV="0.15150784" dV="-0.08082264" pRange="normalized"/>
             </geometry>
             <geometry s="71.06362231" x="2180.08486193" y="2126.61102351" hdg="-0.89443986" length="7.77912359">
-                <paramPoly3 aU="0.00000000" bU="5.83426787" cU="5.83526246" dU="-3.89051299" aV="0.00000000" bV="-0.00000000" cV="-0.07863619" dV="0.08868152" pRange="normalized"/>
+                <paramPoly3 aU="0.00000000" bU="5.83426787" cU="5.83526246" dU="-3.89051299" aV="0.00000000" bV="0.00000000" cV="-0.07863619" dV="0.08868152" pRange="normalized"/>
             </geometry>
             <geometry s="78.84274590" x="2184.96201645" y="2120.55077801" hdg="-0.87579511" length="0.20000000">
                 <line/>
@@ -1064,12 +1064,12 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             </laneSection>
         </lanes>
         <objects>
-            <object id=":cluster_3792418585_3792418767_c0" type="crosswalk" s="0.00000000" t="0.00000000" hdg="0.00000000" length="4.00000000" width="6.14000000">
+            <object id=":cluster_3792418585_3792418767_c0" type="crosswalk" s="0.00000000" t="0.00000000" hdg="0.00000000" length="4.00000000" width="6.03000000">
                 <outline id="0" fillType="concrete" outer="true" closed="false" laneType="border">
-                    <cornerLocal u="1.98150647" v="-3.08402274" z="0.00000000" height="0.00000000" id="0"/>
-                    <cornerLocal u="2.01842133" v="3.05999011" z="0.00000000" height="0.00000000" id="1"/>
-                    <cornerLocal u="-1.98150647" v="3.08402274" z="0.00000000" height="0.00000000" id="2"/>
-                    <cornerLocal u="-2.01842133" v="-3.05999011" z="0.00000000" height="0.00000000" id="3"/>
+                    <cornerLocal u="1.97609671" v="-3.03203516" z="0.00000000" height="0.00000000" id="0"/>
+                    <cornerLocal u="2.02377835" v="3.00041940" z="0.00000000" height="0.00000000" id="1"/>
+                    <cornerLocal u="-1.97609671" v="3.03203516" z="0.00000000" height="0.00000000" id="2"/>
+                    <cornerLocal u="-2.02377835" v="-3.00041940" z="0.00000000" height="0.00000000" id="3"/>
                 </outline>
             </object>
         </objects>
@@ -1224,12 +1224,12 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                     <cornerLocal u="-4.38864260" v="-2.74948080" z="0.00000000" height="0.00000000" id="4"/>
                 </outline>
             </object>
-            <object id=":cluster_1827996511_1827996525_c0" type="crosswalk" s="0.00000000" t="0.00000000" hdg="0.00000000" length="4.00000000" width="5.59000000">
+            <object id=":cluster_1827996511_1827996525_c0" type="crosswalk" s="0.00000000" t="0.00000000" hdg="0.00000000" length="4.00000000" width="5.57000000">
                 <outline id="0" fillType="concrete" outer="true" closed="false" laneType="border">
-                    <cornerLocal u="1.99935722" v="-2.79519152" z="0.00000000" height="0.00000000" id="0"/>
-                    <cornerLocal u="2.00064267" v="2.79427161" z="0.00000000" height="0.00000000" id="1"/>
-                    <cornerLocal u="-1.99935722" v="2.79519152" z="0.00000000" height="0.00000000" id="2"/>
-                    <cornerLocal u="-2.00064267" v="-2.79427161" z="0.00000000" height="0.00000000" id="3"/>
+                    <cornerLocal u="1.99916194" v="-2.78444428" z="0.00000000" height="0.00000000" id="0"/>
+                    <cornerLocal u="2.00083788" v="2.78324024" z="0.00000000" height="0.00000000" id="1"/>
+                    <cornerLocal u="-1.99916194" v="2.78444428" z="0.00000000" height="0.00000000" id="2"/>
+                    <cornerLocal u="-2.00083788" v="-2.78324024" z="0.00000000" height="0.00000000" id="3"/>
                 </outline>
             </object>
         </objects>
@@ -1291,12 +1291,12 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             </laneSection>
         </lanes>
         <objects>
-            <object id=":cluster_1827996436_1827996440_c0" type="crosswalk" s="0.00000000" t="0.00000000" hdg="0.00000000" length="4.00000000" width="6.00000000">
+            <object id=":cluster_1827996436_1827996440_c0" type="crosswalk" s="0.00000000" t="0.00000000" hdg="0.00000000" length="4.00000000" width="5.96000000">
                 <outline id="0" fillType="concrete" outer="true" closed="false" laneType="border">
-                    <cornerLocal u="1.99629405" v="-3.00380250" z="0.00000000" height="0.00000000" id="0"/>
-                    <cornerLocal u="2.00370290" v="2.99886546" z="0.00000000" height="0.00000000" id="1"/>
-                    <cornerLocal u="-1.99629405" v="3.00380250" z="0.00000000" height="0.00000000" id="2"/>
-                    <cornerLocal u="-2.00370290" v="-2.99886546" z="0.00000000" height="0.00000000" id="3"/>
+                    <cornerLocal u="1.99528278" v="-2.98104735" z="0.00000000" height="0.00000000" id="0"/>
+                    <cornerLocal u="2.00471221" v="2.97471438" z="0.00000000" height="0.00000000" id="1"/>
+                    <cornerLocal u="-1.99528278" v="2.98104735" z="0.00000000" height="0.00000000" id="2"/>
+                    <cornerLocal u="-2.00471221" v="-2.97471438" z="0.00000000" height="0.00000000" id="3"/>
                 </outline>
             </object>
         </objects>
@@ -2047,7 +2047,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <line/>
             </geometry>
             <geometry s="64.62434795" x="2232.24696820" y="2125.42803825" hdg="-2.48035381" length="7.78342417">
-                <paramPoly3 aU="-0.00000000" bU="5.83756809" cU="5.83756861" dU="-3.89171259" aV="0.00000000" bV="-0.00000000" cV="0.00143706" dV="-0.00179973" pRange="normalized"/>
+                <paramPoly3 aU="-0.00000000" bU="5.83756809" cU="5.83756861" dU="-3.89171259" aV="0.00000000" bV="0.00000000" cV="0.00143706" dV="-0.00179973" pRange="normalized"/>
             </geometry>
             <geometry s="72.40777211" x="2226.10381757" y="2120.64856220" hdg="-2.48078636" length="0.20000000">
                 <line/>
@@ -7455,7 +7455,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <line/>
             </geometry>
             <geometry s="33.17546882" x="2599.59415931" y="2249.84269078" hdg="-0.83024998" length="5.55999722">
-                <paramPoly3 aU="0.00000000" bU="4.16999737" cU="4.16999737" dU="-2.78000175" aV="0.00000000" bV="-0.00000000" cV="0.00936658" dV="-0.00312220" pRange="normalized"/>
+                <paramPoly3 aU="0.00000000" bU="4.16999737" cU="4.16999737" dU="-2.78000175" aV="0.00000000" bV="0.00000000" cV="0.00936658" dV="-0.00312220" pRange="normalized"/>
             </geometry>
             <geometry s="38.73546604" x="2603.35004703" y="2245.74307270" hdg="-0.82800380" length="30.10759953">
                 <line/>
@@ -10040,7 +10040,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <type s="0" type="town"/>
         <planView>
             <geometry s="0.00000000" x="2419.95171277" y="1950.19541476" hdg="1.06170154" length="9.44945754">
-                <paramPoly3 aU="0.00000000" bU="14.31083506" cU="-11.44866804" dU="0.00000000" aV="0.00000000" bV="-0.00000000" cV="5.72433402" dV="0.00000000" pRange="normalized"/>
+                <paramPoly3 aU="0.00000000" bU="14.31083506" cU="-11.44866804" dU="0.00000000" aV="0.00000000" bV="0.00000000" cV="5.72433402" dV="0.00000000" pRange="normalized"/>
             </geometry>
         </planView>
         <elevationProfile>
@@ -10807,7 +10807,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <type s="0" type="town"/>
         <planView>
             <geometry s="0.00000000" x="2187.90944736" y="2081.14236033" hdg="0.68534731" length="51.38246627">
-                <paramPoly3 aU="0.00000000" bU="57.98299959" cU="-28.36723123" dU="0.00000000" aV="0.00000000" bV="0.00000000" cV="33.97945307" dV="0.00000000" pRange="normalized"/>
+                <paramPoly3 aU="0.00000000" bU="57.98299959" cU="-28.36723123" dU="0.00000000" aV="0.00000000" bV="-0.00000000" cV="33.97945307" dV="0.00000000" pRange="normalized"/>
             </geometry>
         </planView>
         <elevationProfile>

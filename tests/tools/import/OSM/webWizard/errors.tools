@@ -131,6 +131,5 @@ Warning: busStop '30731700' on lane '167272531#9_0' is too short for vehicle '21
 Warning: busStop '30731700' on lane '167272531#9_0' is too short for vehicle 'pt_tram_12:1.0'.
 Warning: Person 'ped67' aborted waiting for M5:3 at busStop '30731481'.
 Warning: Person 'ped94' aborted waiting for N2:0 at busStop '2915590925'.
-Warning: Person 'ped53' aborted waiting for 200:0 at busStop '1827996417'.
 Warning: Person 'ped75' aborted waiting for 200:0 at busStop '1827996417'.
 Warning: Person 'ped47' aborted waiting for TXL:0 at busStop '3869306771'.

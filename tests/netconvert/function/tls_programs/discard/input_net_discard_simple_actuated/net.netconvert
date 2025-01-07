@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-11-15 10:30:09 by Eclipse SUMO netconvert Version v1_21_0+0785-a50d27c97d7
+<!-- generated on 2025-01-07 09:38:58 by Eclipse SUMO netconvert Version v1_21_0+1697-7fb9a6a7246
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -121,13 +121,13 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id=":C0_5_0" index="0" disallow="pedestrian" speed="3.65" length="3.23" shape="299.70,99.20 300.10,100.00 299.70,100.80 298.50,101.60"/>
     </edge>
     <edge id=":C0_c0" function="crossing" crossingEdges="C0D0 D0C0">
-        <lane id=":C0_c0_0" index="0" allow="pedestrian" speed="2.78" length="6.40" width="4.00" shape="302.70,96.80 302.70,103.20" outlineShape="304.70,96.70 304.70,103.30 300.70,103.20 300.70,96.80"/>
+        <lane id=":C0_c0_0" index="0" allow="pedestrian" speed="2.78" length="6.40" width="4.00" shape="301.60,96.80 301.60,103.20" outlineShape="303.60,96.70 303.60,103.30 299.60,103.20 299.60,96.80"/>
     </edge>
     <edge id=":C0_w0" function="walkingarea">
-        <lane id=":C0_w0_0" index="0" allow="pedestrian" speed="2.78" length="3.99" width="4.00" shape="298.50,103.20 298.50,105.20 300.00,106.70 303.20,106.70 304.70,103.20 300.70,103.20"/>
+        <lane id=":C0_w0_0" index="0" allow="pedestrian" speed="2.78" length="3.58" width="4.00" shape="298.50,103.20 298.50,105.20 300.00,106.70 303.20,106.70 303.60,103.20 299.60,103.20"/>
     </edge>
     <edge id=":C0_w1" function="walkingarea">
-        <lane id=":C0_w1_0" index="0" allow="pedestrian" speed="2.78" length="3.99" width="4.00" shape="300.70,96.80 304.70,96.80 303.20,93.30 300.00,93.30 298.50,94.80 298.50,96.80"/>
+        <lane id=":C0_w1_0" index="0" allow="pedestrian" speed="2.78" length="3.58" width="4.00" shape="299.60,96.80 303.60,96.80 303.20,93.30 300.00,93.30 298.50,94.80 298.50,96.80"/>
     </edge>
     <edge id=":D0_0" function="internal">
         <lane id=":D0_0_0" index="0" disallow="pedestrian" speed="6.51" length="9.03" shape="398.40,107.20 398.05,104.75 397.00,103.00 395.25,101.95 392.80,101.60"/>
