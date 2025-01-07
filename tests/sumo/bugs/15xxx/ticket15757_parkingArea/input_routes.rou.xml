@@ -9,6 +9,6 @@
     <flow id="f_0" type="t" begin="0.00" departPos="0.00" end="1000" period="13" departLane="random">
         <route edges="E1 E0"/>
         <stop parkingArea="pa_0" duration="100.00" parking="1"/>
-        <stop parkingArea="pa_1" duration="180.00" parking="1"/>
+        <stop parkingArea="pa_1" duration="115.00" parking="1"/>
     </flow>
 </routes>

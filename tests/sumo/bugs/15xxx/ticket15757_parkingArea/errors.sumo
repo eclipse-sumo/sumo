@@ -1,0 +1,34 @@
+Warning: Teleporting vehicle 'f_0.40'; waited too long (jam), lane='E0_0', time=2009.00.
+Warning: Vehicle 'f_0.40' teleports beyond arrival edge 'E0', time=2009.00.
+Warning: Vehicle 'f_0.40' skips stop on lane 'E0_0' time=2009.00.
+Warning: Vehicle 'f_0.40' skips stop on lane 'E0_0' time=2009.00.
+Warning: Teleporting vehicle 'f_0.60'; waited too long (jam), lane='E1_1', time=2048.00.
+Warning: Vehicle 'f_0.60' ends teleporting on edge 'E0', time=2048.00.
+Warning: Teleporting vehicle 'f_0.43'; waited too long (wrong lane), lane='E0_1', time=2428.00.
+Warning: Vehicle 'f_0.43' teleports beyond arrival edge 'E0', time=2428.00.
+Warning: Vehicle 'f_0.43' skips stop on lane 'E0_0' time=2428.00.
+Warning: Vehicle 'f_0.43' skips stop on lane 'E0_0' time=2428.00.
+Warning: Teleporting vehicle 'f_0.60'; waited too long (jam), lane='E0_0', time=2452.00.
+Warning: Vehicle 'f_0.60' teleports beyond arrival edge 'E0', time=2452.00.
+Warning: Vehicle 'f_0.60' skips stop on lane 'E0_0' time=2452.00.
+Warning: Vehicle 'f_0.60' skips stop on lane 'E0_0' time=2452.00.
+Warning: Teleporting vehicle 'f_0.22'; waited too long (jam), lane='E0_0', time=2973.00.
+Warning: Vehicle 'f_0.22' teleports beyond arrival edge 'E0', time=2973.00.
+Warning: Vehicle 'f_0.22' skips stop on lane 'E0_0' time=2973.00.
+Warning: Vehicle 'f_0.22' skips stop on lane 'E0_0' time=2973.00.
+Warning: Teleporting vehicle 'f_0.25'; waited too long (jam), lane='E0_0', time=3499.00.
+Warning: Vehicle 'f_0.25' teleports beyond arrival edge 'E0', time=3499.00.
+Warning: Vehicle 'f_0.25' skips stop on lane 'E0_0' time=3499.00.
+Warning: Vehicle 'f_0.25' skips stop on lane 'E0_0' time=3499.00.
+Warning: Teleporting vehicle 'f_0.48'; waited too long (wrong lane), lane='E0_1', time=3501.00.
+Warning: Vehicle 'f_0.48' teleports beyond arrival edge 'E0', time=3501.00.
+Warning: Vehicle 'f_0.48' skips stop on lane 'E0_0' time=3501.00.
+Warning: Vehicle 'f_0.48' skips stop on lane 'E0_0' time=3501.00.
+Warning: Teleporting vehicle 'f_0.54'; waited too long (jam), lane='E0_0', time=4027.00.
+Warning: Vehicle 'f_0.54' teleports beyond arrival edge 'E0', time=4027.00.
+Warning: Vehicle 'f_0.54' skips stop on lane 'E0_0' time=4027.00.
+Warning: Vehicle 'f_0.54' skips stop on lane 'E0_0' time=4027.00.
+Warning: Teleporting vehicle 'f_0.56'; waited too long (wrong lane), lane='E0_1', time=4029.00.
+Warning: Vehicle 'f_0.56' teleports beyond arrival edge 'E0', time=4029.00.
+Warning: Vehicle 'f_0.56' skips stop on lane 'E0_0' time=4029.00.
+Warning: Vehicle 'f_0.56' skips stop on lane 'E0_0' time=4029.00.
