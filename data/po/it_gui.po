@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-01-02 15:02+0100\n"
-"PO-Revision-Date: 2025-01-06 12:50+0000\n"
+"PO-Revision-Date: 2025-01-08 12:16+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -6263,7 +6263,7 @@ msgstr "Reimposta i valori anteriori"
 
 #: src/netedit/dialogs/GNEAllowVClassesDialog.cpp:54
 msgid "Edit vClasses of attribute '%'"
-msgstr ""
+msgstr "Modifica classi di veicoli dell'attributo '%'"
 
 #: src/netedit/dialogs/GNEAllowVClassesDialog.cpp:200
 msgid "Selection options"
@@ -6693,23 +6693,23 @@ msgstr "seleziona passaggi pedonali invalidi"
 
 #: src/netedit/dialogs/GNEKeepElementsDialog.cpp:59
 msgid "Keep new"
-msgstr ""
+msgstr "Mantieni quelli nuovi"
 
 #: src/netedit/dialogs/GNEKeepElementsDialog.cpp:59
 msgid "Keep new elements"
-msgstr ""
+msgstr "Mantiene gli elementi nuovi"
 
 #: src/netedit/dialogs/GNEKeepElementsDialog.cpp:60
 msgid "Keep old"
-msgstr ""
+msgstr "Mantieni quelli vecchi"
 
 #: src/netedit/dialogs/GNEKeepElementsDialog.cpp:60
 msgid "Keep old elements"
-msgstr ""
+msgstr "Mantiene gli elementi vecchi"
 
 #: src/netedit/dialogs/GNEKeepElementsDialog.cpp:61
 msgid "Cancel loading of elements"
-msgstr ""
+msgstr "Annulla carica di elementi"
 
 #: src/netedit/dialogs/GNEMultipleParametersDialog.cpp:286
 #: src/netedit/dialogs/GNESingleParametersDialog.cpp:283
@@ -8043,6 +8043,8 @@ msgid ""
 "List of edge ids that must all be part of the future route of the vehicle to "
 "qualify for detection"
 msgstr ""
+"Elenco di codici identificativi di archi che devono tutti far parte "
+"dell'itinerario futuro del veicolo per essere rivelato"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:2256
 #: src/netedit/elements/GNEAttributeCarrier.cpp:2334
@@ -8050,7 +8052,7 @@ msgstr ""
 #: src/netedit/elements/GNEAttributeCarrier.cpp:2522
 #: src/netedit/elements/GNEAttributeCarrier.cpp:2659
 msgid "Detect persons instead of vehicles (pedestrians or passengers)"
-msgstr ""
+msgstr "Rivela persone invece di veicoli (pedoni o passeggeri)"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:2277
 msgid "E2 LaneAreaDetector"
@@ -8110,7 +8112,7 @@ msgstr ""
 #: src/netedit/elements/GNEAttributeCarrier.cpp:2367
 #: src/netedit/elements/GNEAttributeCarrier.cpp:2468
 msgid "Show detector in sumo-gui"
-msgstr ""
+msgstr "Mostra il rivelatore nell'interfaccia grafica"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:2379
 msgid "E2 MultiLaneAreaDetector"
@@ -8159,6 +8161,8 @@ msgid ""
 "If set to true, no error will be reported if vehicles leave the detector "
 "without first entering it"
 msgstr ""
+"Se impostato nessun errore verrà generato se dei veicoli escono dal "
+"rivelatore senza essere mai entrati"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:2535
 msgid ""
@@ -8561,7 +8565,7 @@ msgstr ""
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:3312
 msgid "A custom geo shape for this polygon"
-msgstr ""
+msgstr "Una forma geografica personalizzata per questo poligono"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:3324
 msgid "PointOfInterest"
@@ -9439,7 +9443,7 @@ msgstr "Spedizione"
 #: src/netedit/elements/GNEAttributeCarrier.cpp:8331
 #: src/utils/gui/div/GUIMessageWindow.cpp:71
 msgid "edge"
-msgstr ""
+msgstr "arco"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:4872
 #: src/netedit/elements/GNEAttributeCarrier.cpp:4943
@@ -9517,7 +9521,7 @@ msgstr ""
 #: src/netedit/elements/GNEAttributeCarrier.cpp:8158
 #: src/netedit/elements/GNEAttributeCarrier.cpp:8239
 msgid "taz"
-msgstr ""
+msgstr "zona di assegnazione del traffico"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:4882
 #: src/netedit/elements/GNEAttributeCarrier.cpp:4963
@@ -9596,7 +9600,7 @@ msgstr ""
 #: src/netedit/elements/GNEAttributeCarrier.cpp:8249
 #: src/utils/gui/div/GUIMessageWindow.cpp:73
 msgid "junction"
-msgstr ""
+msgstr "incrocio"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:4892
 #: src/netedit/elements/GNEAttributeCarrier.cpp:4973
@@ -10075,7 +10079,7 @@ msgstr ""
 #: src/netedit/elements/GNEAttributeCarrier.cpp:5533
 #: src/netedit/elements/GNEAttributeCarrier.cpp:6971
 msgid "edges"
-msgstr ""
+msgstr "archi"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:6292
 #: src/netedit/elements/GNEAttributeCarrier.cpp:6301
@@ -10303,7 +10307,7 @@ msgstr ""
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:8411
 msgid "Change element parent"
-msgstr ""
+msgstr "Cambia elemento padre"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:8422
 msgid "The color with which the POI shall be displayed"
