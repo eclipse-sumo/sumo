@@ -355,16 +355,16 @@ GNECrossingFrame::CrossingParameters::onCmdSetAttribute(FXObject*, FXSelector, v
     myCurrentParametersValid = true;
     // get string vector with the edges
     const auto& crossingEdgeIDs = GNEAttributeCarrier::parse<std::vector<std::string> > (myCrossingEdges->getText().text());
+    GNEJunction* currentJunction = myCrossingFrameParent->myEdgeSelector->getCurrentJunction();
     // Clear selected edges
     myCurrentSelectedEdges.clear();
     // iterate over vector of edge IDs
     for (const auto& crossingEdgeID : crossingEdgeIDs) {
         GNEEdge* edge = myCrossingFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveEdge(crossingEdgeID, false);
-        GNEJunction* currentJunction = myCrossingFrameParent->myEdgeSelector->getCurrentJunction();
         // Check that edge exists and belongs to Junction
         if (edge == nullptr) {
             myCurrentParametersValid = false;
-        } else if (std::find(currentJunction->getChildEdges().begin(), currentJunction->getChildEdges().end(), edge) == currentJunction->getChildEdges().end()) {
+        } else if (currentJunction && (std::find(currentJunction->getChildEdges().begin(), currentJunction->getChildEdges().end(), edge) == currentJunction->getChildEdges().end())) {
             myCurrentParametersValid = false;
         } else {
             // select or unselected edge
@@ -385,32 +385,33 @@ GNECrossingFrame::CrossingParameters::onCmdSetAttribute(FXObject*, FXSelector, v
         myCurrentParametersValid = false;
     }
     // Update edge colors
-    if (myCurrentSelectedEdges.empty()) {
-        for (const auto& edge : myCrossingFrameParent->myEdgeSelector->getCurrentJunction()->getChildEdges()) {
-            // restore colors
-            edge->resetCandidateFlags();
-            // mark all edges as possible candidate
-            edge->setPossibleCandidate(true);
-        }
-    } else {
-        EdgeVector selected;
-        for (GNEEdge* e : myCurrentSelectedEdges) {
-            selected.push_back(e->getNBEdge());
-        }
-        NBNode* node = myCrossingFrameParent->myEdgeSelector->getCurrentJunction()->getNBNode();
-        for (const auto& edge : myCrossingFrameParent->myEdgeSelector->getCurrentJunction()->getChildEdges()) {
-            // restore colors
-            edge->resetCandidateFlags();
-            // set selected or candidate color
-            if (std::find(myCurrentSelectedEdges.begin(), myCurrentSelectedEdges.end(), edge) != myCurrentSelectedEdges.end()) {
-                edge->setTargetCandidate(true);
-            } else {
-                EdgeVector newCandidates = selected;;
-                newCandidates.push_back(edge->getNBEdge());
-                if (node->checkCrossing(newCandidates, true) == 0) {
-                    edge->setInvalidCandidate(true);
+    if (currentJunction) {
+        if (myCurrentSelectedEdges.empty()) {
+            for (const auto& edge : myCrossingFrameParent->myEdgeSelector->getCurrentJunction()->getChildEdges()) {
+                // restore colors
+                edge->resetCandidateFlags();
+                // mark all edges as possible candidate
+                edge->setPossibleCandidate(true);
+            }
+        } else {
+            EdgeVector selected;
+            for (GNEEdge* e : myCurrentSelectedEdges) {
+                selected.push_back(e->getNBEdge());
+            }
+            for (const auto& edge : myCrossingFrameParent->myEdgeSelector->getCurrentJunction()->getChildEdges()) {
+                // restore colors
+                edge->resetCandidateFlags();
+                // set selected or candidate color
+                if (std::find(myCurrentSelectedEdges.begin(), myCurrentSelectedEdges.end(), edge) != myCurrentSelectedEdges.end()) {
+                    edge->setTargetCandidate(true);
                 } else {
-                    edge->setPossibleCandidate(true);
+                    EdgeVector newCandidates = selected;;
+                    newCandidates.push_back(edge->getNBEdge());
+                    if (currentJunction->getNBNode()->checkCrossing(newCandidates, true) == 0) {
+                        edge->setInvalidCandidate(true);
+                    } else {
+                        edge->setPossibleCandidate(true);
+                    }
                 }
             }
         }
