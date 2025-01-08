@@ -197,7 +197,7 @@ GNEAttributesEditorRow::showAttributeRow(const GNEAttributeProperties& attrPrope
     // continue depending of type of attribute
     if (attrProperty.isBool()) {
         showValueCheckButton(value, attributeEnabled, computedAttribute);
-    } else if (attrProperty.isDiscrete()) {
+    } else if (attrProperty.isDiscrete() || attrProperty.isVType()) {
         showValueComboBox(attrProperty, value, attributeEnabled, computedAttribute);
     } else {
         showValueString(value, attributeEnabled, computedAttribute);
