@@ -73,7 +73,9 @@ RORouteHandler::RORouteHandler(RONet& net, const std::string& file,
     myCurrentVTypeDistribution(nullptr),
     myCurrentAlternatives(nullptr),
     myUseTaz(OptionsCont::getOptions().getBool("with-taz")),
-    myWriteJunctions(OptionsCont::getOptions().getBool("write-trips") && OptionsCont::getOptions().getBool("write-trips.junctions"))
+    myWriteJunctions(OptionsCont::getOptions().exists("write-trips")
+            && OptionsCont::getOptions().getBool("write-trips")
+            && OptionsCont::getOptions().getBool("write-trips.junctions"))
 {
     myActiveRoute.reserve(100);
 }
