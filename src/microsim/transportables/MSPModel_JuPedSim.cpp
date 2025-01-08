@@ -304,7 +304,7 @@ MSPModel_JuPedSim::add(MSTransportable* person, MSStageMoving* stage, SUMOTime n
                                 waitingStage = myCrossingWaits[crossing].second;
                             }
                         } else {
-                            throw ProcessError(TLF("No waiting set for crossing at %.", person->getID(), person->getEdge()->getID(), time2string(SIMSTEP)));
+                            throw ProcessError(TLF("No waiting set for crossing at %.", ce->getID()));
                         }
                     }
                 }
