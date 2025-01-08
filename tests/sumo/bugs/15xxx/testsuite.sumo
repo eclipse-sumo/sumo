@@ -49,6 +49,9 @@ ticket15757b
 # use parkingAreas instead of busStops
 ticket15757_parkingArea
 
+# use short parkingAreas and very long vehicles
+ticket15757_parkingArea2
+
 # collision
 ticket15770
 
