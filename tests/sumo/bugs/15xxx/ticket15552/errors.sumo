@@ -1,11 +1,11 @@
 Warning: ParkingArea 'pa_end' is targeted by rerouter 'pa_middle' but doesn't have its own rerouter. This may cause parking search to abort.
 Warning: No connection between edge 'end' and edge 'end' found.
 Warning: No connection between edge 'end' and edge 'end' found.
-Warning: Teleporting vehicle 'veh1'; waited too long (jam), lane='end_0', time=486.50.
-Warning: Vehicle 'veh1' teleports beyond arrival edge 'end', time=486.50.
-Warning: Vehicle 'veh1' skips stop on lane 'end_0' time=486.50.
 Warning: No connection between edge 'end' and edge 'end' found.
 Warning: No connection between edge 'end' and edge 'end' found.
-Warning: Teleporting vehicle 'veh2'; waited too long (jam), lane='end_0', time=790.00.
-Warning: Vehicle 'veh2' teleports beyond arrival edge 'end', time=790.00.
-Warning: Vehicle 'veh2' skips stop on lane 'end_0' time=790.00.
+Warning: Teleporting vehicle 'veh1'; waited too long (jam), lane='end_0', time=489.50.
+Warning: Vehicle 'veh1' teleports beyond arrival edge 'end', time=489.50.
+Warning: Vehicle 'veh1' skips stop on lane 'end_0' time=489.50.
+Warning: Teleporting vehicle 'veh2'; waited too long (jam), lane='end_0', time=535.50.
+Warning: Vehicle 'veh2' teleports beyond arrival edge 'end', time=535.50.
+Warning: Vehicle 'veh2' skips stop on lane 'end_0' time=535.50.

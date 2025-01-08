@@ -1,6 +1,0 @@
-Warning: Teleporting vehicle 'f_0.27'; waited too long (jam), lane='E0_0', time=777.00.
-Warning: Vehicle 'f_0.27' teleports beyond arrival edge 'E0', time=777.00.
-Warning: Vehicle 'f_0.27' skips stop on lane 'E0_0' time=777.00.
-Warning: Vehicle 'f_0.27' skips stop on lane 'E0_0' time=777.00.
-Warning: Teleporting vehicle 'f_0.19'; waited too long (jam), lane='E1_0', time=785.00.
-Warning: Vehicle 'f_0.19' ends teleporting on edge 'E0', time=785.00.
