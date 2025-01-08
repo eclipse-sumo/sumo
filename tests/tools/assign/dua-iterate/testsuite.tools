@@ -79,3 +79,6 @@ custom_output
 
 # test user error
 invalid_option
+
+# origins and destinations are junctions
+fromJunction
