@@ -562,6 +562,49 @@ RORouteHandler::closeRouteDistribution() {
         } else if (!myNet.addRouteDef(myCurrentAlternatives)) {
             myErrorOutput->inform("Another route (or distribution) with the id '" + myCurrentAlternatives->getID() + "' exists.");
             delete myCurrentAlternatives;
+        } else {
+            if (myVehicleParameter != nullptr
+                    && OptionsCont::getOptions().getBool("with-taz")
+                    && (myVehicleParameter->wasSet(VEHPARS_FROM_TAZ_SET) ||
+                        myVehicleParameter->wasSet(VEHPARS_TO_TAZ_SET))) {
+                // we are loading a rou.alt.xml, permit rerouting between taz
+                bool ok = true;
+                ConstROEdgeVector edges;
+                if (myVehicleParameter->fromTaz != "") {
+                    const std::string tazID = myVehicleParameter->fromTaz;
+                    const ROEdge* fromTaz = myNet.getEdge(tazID + "-source");
+                    if (fromTaz == nullptr) {
+                        myErrorOutput->inform("Source taz '" + tazID + "' not known for vehicle '" + myVehicleParameter->id + "'!");
+                        ok = false;
+                    } else if (fromTaz->getNumSuccessors() == 0) {
+                        myErrorOutput->inform("Source taz '" + tazID + "' has no outgoing edges for vehicle '" + myVehicleParameter->id + "'!");
+                        ok = false;
+                    } else {
+                        edges.push_back(fromTaz);
+                    }
+                } else {
+                    edges.push_back(myCurrentAlternatives->getOrigin());
+                }
+                if (myVehicleParameter->toTaz != "") {
+                    const std::string tazID = myVehicleParameter->toTaz;
+                    const ROEdge* toTaz = myNet.getEdge(tazID + "-sink");
+                    if (toTaz == nullptr) {
+                        myErrorOutput->inform("Sink taz '" + tazID + "' not known for vehicle '" + myVehicleParameter->id + "'!");
+                        ok = false;
+                    } else if (toTaz->getNumPredecessors() == 0) {
+                        myErrorOutput->inform("Sink taz '" + tazID + "' has no incoming edges for vehicle '" + myVehicleParameter->id + "'!");
+                        ok = false;
+                    } else {
+                        edges.push_back(toTaz);
+                    }
+                } else {
+                    edges.push_back(myCurrentAlternatives->getDestination());
+                }
+                if (ok) {
+                    RORoute* route = new RORoute(myCurrentAlternatives->getID(), 0, 1, edges, nullptr, myActiveRouteStops);
+                    myCurrentAlternatives->addLoadedAlternative(route);
+                }
+            }
         }
         myCurrentAlternatives = nullptr;
     }

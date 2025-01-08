@@ -93,6 +93,7 @@ public:
     void addAlternative(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
                         const ROVehicle* const, RORoute* current, SUMOTime begin);
 
+    const ROEdge* getOrigin() const;
     const ROEdge* getDestination() const;
 
     const RORoute* getFirstRoute() const {

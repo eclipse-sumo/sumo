@@ -137,9 +137,7 @@ RORouteDef::preComputeCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router
         myPrecomputed = myAlternatives[myLastUsed];
     } else {
         // build a new route to test whether it is better
-        ConstROEdgeVector oldEdges;
-        oldEdges.push_back(myAlternatives[0]->getFirst());
-        oldEdges.push_back(myAlternatives[0]->getLast());
+        ConstROEdgeVector oldEdges({getOrigin(), getDestination()});
         ConstROEdgeVector edges;
         repairCurrentRoute(router, begin, veh, oldEdges, edges);
         // check whether the same route was already used
@@ -391,10 +389,15 @@ RORouteDef::addAlternative(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
     }
 }
 
+const ROEdge*
+RORouteDef::getOrigin() const {
+    return myAlternatives.back()->getFirst();
+}
+
 
 const ROEdge*
 RORouteDef::getDestination() const {
-    return myAlternatives[0]->getLast();
+    return myAlternatives.back()->getLast();
 }
 
 
