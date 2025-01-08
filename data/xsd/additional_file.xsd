@@ -452,7 +452,7 @@
             <xsd:simpleType>
                 <xsd:restriction base="xsd:string">
                     <xsd:enumeration value="normal"/>
-                    <xsd:enumeration value="electric"/>
+                    <xsd:enumeration value="battery-exchange"/>
                     <xsd:enumeration value="fuel"/>
                 </xsd:restriction>
             </xsd:simpleType>

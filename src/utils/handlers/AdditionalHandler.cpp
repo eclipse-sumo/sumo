@@ -968,7 +968,7 @@ AdditionalHandler::parseChargingStationAttributes(const SUMOSAXAttributes& attrs
     const std::string parkingAreaID = attrs.getOpt<std::string>(SUMO_ATTR_PARKING_AREA, id.c_str(), parsedOk, "");
 
     // check charge type
-    if ((chargeType != "normal") && (chargeType != "electric") && (chargeType != "fuel")) {
+    if ((chargeType != "normal") && (chargeType != "battery-exchange") && (chargeType != "fuel")) {
         writeError(TLF("Invalid charge type '%' defined in chargingStation '%'.", chargeType, id));
         parsedOk = false;
     }
