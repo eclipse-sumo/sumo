@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-01-06 11:22+0100\n"
-"PO-Revision-Date: 2025-01-08 12:16+0000\n"
+"PO-Revision-Date: 2025-01-08 12:47+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -1814,6 +1814,8 @@ msgid ""
 "Save complete vehicle positions inclusive speed values in the VTK Format "
 "(usage: /path/out will produce /path/out_$TIMESTEP$.vtp files)"
 msgstr ""
+"Salva posizioni complete dei veicoli velocità inclusa nel formato VTK "
+"(utilizzo: /path/out produrrà file /path/out_$TIMESTEP$.vtp)"
 
 #: src/microsim/MSFrame.cpp:201
 msgid "Save the vehicle trajectories in the Amitran format"
@@ -1839,16 +1841,20 @@ msgstr ""
 msgid ""
 "Write tripinfo output for vehicles which have not arrived at simulation end"
 msgstr ""
+"Scrivi uscita tripinfo anche per i veicoli non arrivati a destinazione alla "
+"fine della simulazione"
 
 #: src/microsim/MSFrame.cpp:222
 msgid ""
 "Write tripinfo output for vehicles which have not departed at simulation end "
 "because of depart delay"
 msgstr ""
+"Scrivi uscita tripinfo per i veicoli non ancora partiti alla fine della "
+"simulazione per causa del ritardo di partenza"
 
 #: src/microsim/MSFrame.cpp:226
 msgid "Save personinfo and containerinfo to separate FILE"
-msgstr ""
+msgstr "Salva personinfo e containerinfo in FILE"
 
 #: src/microsim/MSFrame.cpp:230
 msgid "Save single vehicle route info into FILE"
