@@ -109,6 +109,8 @@ public:
     /// @brief Returns the area occupancy
     int getOccupancyIncludingBlocked() const;
 
+    int getOccupancyIncludingReservations(const SUMOVehicle* forVehicle) const;
+
     /// @brief Returns the area occupancy at the end of the last simulation step
     int getLastStepOccupancy() const;
 
@@ -332,6 +334,9 @@ protected:
 
     /// @brief reservation max length
     double myReservationMaxLength;
+
+    /// @brief the set of vehicles that performed a reservation in this step
+    std::set<const SUMOVehicle*> myReservedVehicles;
 
     /// @brief the number of alternative parkingAreas that are assigned to parkingAreaRerouter
     int myNumAlternatives;

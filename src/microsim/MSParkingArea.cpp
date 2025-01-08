@@ -440,6 +440,8 @@ MSParkingArea::getLastFreePosWithReservation(SUMOTime t, const SUMOVehicle& forV
         myReservationTime = t;
         myReservations = 1;
         myReservationMaxLength = forVehicle.getVehicleType().getLength();
+        myReservedVehicles.clear();
+        myReservedVehicles.insert(&forVehicle);
         for (const auto& lsd : mySpaceOccupancies) {
             if (lsd.vehicle != nullptr) {
                 myReservationMaxLength = MAX2(myReservationMaxLength, lsd.vehicle->getVehicleType().getLength());
@@ -455,6 +457,7 @@ MSParkingArea::getLastFreePosWithReservation(SUMOTime t, const SUMOVehicle& forV
 #endif
             myReservations++;
             myReservationMaxLength = MAX2(myReservationMaxLength, forVehicle.getVehicleType().getLength());
+            myReservedVehicles.insert(&forVehicle);
             return getLastFreePos(forVehicle, brakePos);
         } else {
             if (myCapacity == 0) {
@@ -515,6 +518,14 @@ MSParkingArea::getOccupancyIncludingBlocked() const {
     return (int)myEndPositions.size();
 }
 
+int
+MSParkingArea::getOccupancyIncludingReservations(const SUMOVehicle* forVehicle) const {
+    if (myReservedVehicles.count(forVehicle) != 0) {
+        return (int)myEndPositions.size();
+    } else {
+        return (int)myEndPositions.size() + myReservations;
+    }
+}
 
 int
 MSParkingArea::getLastStepOccupancy() const {
