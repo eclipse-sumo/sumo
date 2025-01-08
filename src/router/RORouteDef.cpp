@@ -139,7 +139,14 @@ RORouteDef::preComputeCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router
         // build a new route to test whether it is better
         ConstROEdgeVector oldEdges({getOrigin(), getDestination()});
         ConstROEdgeVector edges;
-        repairCurrentRoute(router, begin, veh, oldEdges, edges);
+        if (repairCurrentRoute(router, begin, veh, oldEdges, edges)) {
+            if (edges.front()->isTazConnector()) {
+                edges.erase(edges.begin());
+            }
+            if (edges.back()->isTazConnector()) {
+                edges.pop_back();
+            }
+        }
         // check whether the same route was already used
         int existing = -1;
         for (int i = 0; i < (int)myAlternatives.size(); i++) {
@@ -302,6 +309,10 @@ RORouteDef::addAlternative(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
         return;
     }
     // add the route when it's new
+    if (myAlternatives.back()->getProbability() < 0) {
+        delete myAlternatives.back();
+        myAlternatives.pop_back();
+    }
     if (myNewRoute) {
         myAlternatives.push_back(current);
     }

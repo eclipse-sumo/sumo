@@ -612,7 +612,8 @@ RORouteHandler::closeRouteDistribution() {
                     edges.push_back(myCurrentAlternatives->getDestination());
                 }
                 if (ok) {
-                    RORoute* route = new RORoute(myCurrentAlternatives->getID(), 0, 1, edges, nullptr, myActiveRouteStops);
+                    // negative probability indicates that this route should not be written
+                    RORoute* route = new RORoute(myCurrentAlternatives->getID(), 0, -1, edges, nullptr, myActiveRouteStops);
                     myCurrentAlternatives->addLoadedAlternative(route);
                 }
             }
