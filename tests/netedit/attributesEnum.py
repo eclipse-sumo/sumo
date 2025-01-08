@@ -762,9 +762,9 @@ class chargingStation:
         chargeInTrainsit = 5
         chargeDelay = 6
         chargeType = 7
-        waitingTime = 9
-        parkingArea = 10
-        parameters = 13
+        waitingTime = 8
+        parkingArea = 9
+        parameters = 12
 
 # access
 
