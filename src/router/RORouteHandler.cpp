@@ -71,7 +71,10 @@ RORouteHandler::RORouteHandler(RONet& net, const std::string& file,
     myKeepVTypeDist(OptionsCont::getOptions().getBool("keep-vtype-distributions")),
     myUnsortedInput(OptionsCont::getOptions().exists("unsorted-input") && OptionsCont::getOptions().getBool("unsorted-input")),
     myCurrentVTypeDistribution(nullptr),
-    myCurrentAlternatives(nullptr) {
+    myCurrentAlternatives(nullptr),
+    myUseTaz(OptionsCont::getOptions().getBool("with-taz")),
+    myWriteJunctions(OptionsCont::getOptions().getBool("write-trips") && OptionsCont::getOptions().getBool("write-trips.junctions"))
+{
     myActiveRoute.reserve(100);
 }
 
@@ -101,9 +104,8 @@ void
 RORouteHandler::parseFromViaTo(SumoXMLTag tag, const SUMOSAXAttributes& attrs, bool& ok) {
     const std::string element = toString(tag);
     myActiveRoute.clear();
-    bool useTaz = OptionsCont::getOptions().getBool("with-taz");
-    const bool writeJunctions = OptionsCont::getOptions().getBool("write-trips") && OptionsCont::getOptions().getBool("write-trips.junctions");
-    if (useTaz && !myVehicleParameter->wasSet(VEHPARS_FROM_TAZ_SET) && !myVehicleParameter->wasSet(VEHPARS_TO_TAZ_SET)) {
+    bool useTaz = myUseTaz;
+    if (myUseTaz && !myVehicleParameter->wasSet(VEHPARS_FROM_TAZ_SET) && !myVehicleParameter->wasSet(VEHPARS_TO_TAZ_SET)) {
         WRITE_WARNINGF(TL("Taz usage was requested but no taz present in % '%'!"), element, myVehicleParameter->id);
         useTaz = false;
     }
@@ -131,7 +133,7 @@ RORouteHandler::parseFromViaTo(SumoXMLTag tag, const SUMOSAXAttributes& attrs, b
             ok = false;
         } else {
             myActiveRoute.push_back(fromTaz);
-            if (useJunction && tag != SUMO_TAG_PERSON && !writeJunctions) {
+            if (useJunction && tag != SUMO_TAG_PERSON && !myWriteJunctions) {
                 myVehicleParameter->fromTaz = tazID;
                 myVehicleParameter->parametersSet |= VEHPARS_FROM_TAZ_SET;
             }
@@ -195,7 +197,7 @@ RORouteHandler::parseFromViaTo(SumoXMLTag tag, const SUMOSAXAttributes& attrs, b
             ok = false;
         } else {
             myActiveRoute.push_back(toTaz);
-            if (useJunction && tag != SUMO_TAG_PERSON && !writeJunctions) {
+            if (useJunction && tag != SUMO_TAG_PERSON && !myWriteJunctions) {
                 myVehicleParameter->toTaz = tazID;
                 myVehicleParameter->parametersSet |= VEHPARS_TO_TAZ_SET;
             }
@@ -573,7 +575,7 @@ RORouteHandler::closeRouteDistribution() {
             delete myCurrentAlternatives;
         } else {
             if (myVehicleParameter != nullptr
-                    && OptionsCont::getOptions().getBool("with-taz")
+                    && myUseTaz
                     && (myVehicleParameter->wasSet(VEHPARS_FROM_TAZ_SET) ||
                         myVehicleParameter->wasSet(VEHPARS_TO_TAZ_SET))) {
                 // we are loading a rou.alt.xml, permit rerouting between taz

@@ -235,6 +235,10 @@ protected:
     /// @brief The currently parsed route alternatives
     RORouteDef* myCurrentAlternatives;
 
+    /// @brief cached options
+    bool myUseTaz;
+    bool myWriteJunctions;
+
 private:
     /// @brief Invalidated copy constructor
     RORouteHandler(const RORouteHandler& s) = delete;
