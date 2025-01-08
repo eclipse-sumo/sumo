@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-01-08 14:19:55 by Eclipse SUMO duarouter Version v1_21_0+1730-5891c3031a0
+<!-- generated on 2025-01-08 16:52:38 by Eclipse SUMO duarouter Version v1_21_0+1754-0aca5441274
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -41,62 +41,62 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <vType id="0" length="3.00" minGap="2.00" maxSpeed="70.00" color="yellow" accel="2.6" decel="4.5" sigma="0.5"/>
     <vehicle id="0" type="0" depart="0.00" color="black" fromTaz="1" toTaz="2">
         <routeDistribution last="1">
-            <route cost="125.90" probability="0.73358691" edges="beg middle end rend"/>
-            <route cost="89.93" probability="0.26641309" edges="middle end"/>
+            <route cost="125.90" probability="0.47858454" edges="beg middle end rend"/>
+            <route cost="89.93" probability="0.52141546" edges="middle end"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="1" type="0" depart="0.00" color="black" fromTaz="1" toTaz="2">
-        <routeDistribution last="0">
-            <route cost="125.90" probability="0.73358691" edges="beg middle end rend"/>
-            <route cost="89.93" probability="0.26641309" edges="middle end"/>
+        <routeDistribution last="1">
+            <route cost="125.90" probability="0.47858454" edges="beg middle end rend"/>
+            <route cost="89.93" probability="0.52141546" edges="middle end"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="2" type="0" depart="0.00" color="black" fromTaz="1" toTaz="2">
         <routeDistribution last="0">
-            <route cost="125.90" probability="0.73358691" edges="beg middle end rend"/>
-            <route cost="89.93" probability="0.26641309" edges="middle end"/>
+            <route cost="125.90" probability="0.47858454" edges="beg middle end rend"/>
+            <route cost="89.93" probability="0.52141546" edges="middle end"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="3" type="0" depart="0.00" color="black" fromTaz="1" toTaz="2">
-        <routeDistribution last="0">
-            <route cost="125.90" probability="0.73358691" edges="beg middle end rend"/>
-            <route cost="89.93" probability="0.26641309" edges="middle end"/>
+        <routeDistribution last="1">
+            <route cost="125.90" probability="0.47858454" edges="beg middle end rend"/>
+            <route cost="89.93" probability="0.52141546" edges="middle end"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="4" type="0" depart="0.00" color="black" fromTaz="1" toTaz="2">
-        <routeDistribution last="0">
-            <route cost="125.90" probability="0.73358691" edges="beg middle end rend"/>
-            <route cost="89.93" probability="0.26641309" edges="middle end"/>
+        <routeDistribution last="1">
+            <route cost="125.90" probability="0.47858454" edges="beg middle end rend"/>
+            <route cost="89.93" probability="0.52141546" edges="middle end"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="5" type="0" depart="0.00" color="black" fromTaz="1" toTaz="2">
         <routeDistribution last="0">
-            <route cost="125.90" probability="0.73358691" edges="beg middle end rend"/>
-            <route cost="89.93" probability="0.26641309" edges="middle end"/>
+            <route cost="125.90" probability="0.47858454" edges="beg middle end rend"/>
+            <route cost="89.93" probability="0.52141546" edges="middle end"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="6" type="0" depart="0.00" color="black" fromTaz="1" toTaz="2">
         <routeDistribution last="1">
-            <route cost="125.90" probability="0.73358691" edges="beg middle end rend"/>
-            <route cost="89.93" probability="0.26641309" edges="middle end"/>
+            <route cost="125.90" probability="0.47858454" edges="beg middle end rend"/>
+            <route cost="89.93" probability="0.52141546" edges="middle end"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="7" type="0" depart="0.00" color="black" fromTaz="1" toTaz="2">
         <routeDistribution last="0">
-            <route cost="125.90" probability="0.73358691" edges="beg middle end rend"/>
-            <route cost="89.93" probability="0.26641309" edges="middle end"/>
+            <route cost="125.90" probability="0.47858454" edges="beg middle end rend"/>
+            <route cost="89.93" probability="0.52141546" edges="middle end"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="8" type="0" depart="0.00" color="black" fromTaz="1" toTaz="2">
-        <routeDistribution last="0">
-            <route cost="125.90" probability="0.73358691" edges="beg middle end rend"/>
-            <route cost="89.93" probability="0.26641309" edges="middle end"/>
+        <routeDistribution last="1">
+            <route cost="125.90" probability="0.47858454" edges="beg middle end rend"/>
+            <route cost="89.93" probability="0.52141546" edges="middle end"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="9" type="0" depart="0.00" color="black" fromTaz="1" toTaz="2">
         <routeDistribution last="1">
-            <route cost="125.90" probability="0.73358691" edges="beg middle end rend"/>
-            <route cost="89.93" probability="0.26641309" edges="middle end"/>
+            <route cost="125.90" probability="0.47858454" edges="beg middle end rend"/>
+            <route cost="89.93" probability="0.52141546" edges="middle end"/>
         </routeDistribution>
     </vehicle>
 </routes>

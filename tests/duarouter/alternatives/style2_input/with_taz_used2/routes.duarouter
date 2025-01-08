@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-01-08 14:41:40 by Eclipse SUMO duarouter Version v1_21_0+1736-53ee2e6a794
+<!-- generated on 2025-01-08 16:52:38 by Eclipse SUMO duarouter Version v1_21_0+1754-0aca5441274
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -40,16 +40,16 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="middle end"/>
     </vehicle>
     <vehicle id="1" type="0" depart="0.00" color="black" fromTaz="1" toTaz="2">
-        <route edges="beg middle end rend"/>
+        <route edges="middle end"/>
     </vehicle>
     <vehicle id="2" type="0" depart="0.00" color="black" fromTaz="1" toTaz="2">
         <route edges="beg middle end rend"/>
     </vehicle>
     <vehicle id="3" type="0" depart="0.00" color="black" fromTaz="1" toTaz="2">
-        <route edges="beg middle end rend"/>
+        <route edges="middle end"/>
     </vehicle>
     <vehicle id="4" type="0" depart="0.00" color="black" fromTaz="1" toTaz="2">
-        <route edges="beg middle end rend"/>
+        <route edges="middle end"/>
     </vehicle>
     <vehicle id="5" type="0" depart="0.00" color="black" fromTaz="1" toTaz="2">
         <route edges="beg middle end rend"/>
@@ -61,7 +61,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg middle end rend"/>
     </vehicle>
     <vehicle id="8" type="0" depart="0.00" color="black" fromTaz="1" toTaz="2">
-        <route edges="beg middle end rend"/>
+        <route edges="middle end"/>
     </vehicle>
     <vehicle id="9" type="0" depart="0.00" color="black" fromTaz="1" toTaz="2">
         <route edges="middle end"/>
