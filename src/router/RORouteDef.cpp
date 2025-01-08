@@ -141,15 +141,15 @@ RORouteDef::preComputeCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router
         ConstROEdgeVector edges;
         repairCurrentRoute(router, begin, veh, oldEdges, edges);
         // check whether the same route was already used
-        int cheapest = -1;
+        int existing = -1;
         for (int i = 0; i < (int)myAlternatives.size(); i++) {
             if (edges == myAlternatives[i]->getEdgeVector()) {
-                cheapest = i;
+                existing = i;
                 break;
             }
         }
-        if (cheapest >= 0) {
-            myPrecomputed = myAlternatives[cheapest];
+        if (existing >= 0) {
+            myPrecomputed = myAlternatives[existing];
         } else {
             RGBColor* col = myAlternatives[0]->getColor() != nullptr ? new RGBColor(*myAlternatives[0]->getColor()) : nullptr;
             myPrecomputed = new RORoute(myID, 0, 1, edges, col, myAlternatives[0]->getStops());
