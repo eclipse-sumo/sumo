@@ -60,16 +60,16 @@ Warning: No connection between edge '199847347#3' and edge '272795470#1' found.
 Warning: No route for vehicle '84_subway_U2:1' found.
 Warning: No connection between edge '384294422#2' and edge '387106270#2' found.
 Warning: No route for vehicle '83_subway_U2:0' found.
-Warning: Teleporting vehicle '84_subway_U2:1'; waited too long (wrong lane), lane='387106272_0', time=25948.00.
-Warning: Vehicle '84_subway_U2:1' ends teleporting on edge '387106272', time=25948.00.
-Warning: Teleporting vehicle '83_subway_U2:0'; waited too long (wrong lane), lane='200422335#0_0', time=25983.00.
-Warning: Vehicle '83_subway_U2:0' ends teleporting on edge '200422335#0', time=25983.00.
+Warning: Teleporting vehicle '84_subway_U2:1'; waited too long (wrong lane), lane='387106272_0', time=25949.00.
+Warning: Vehicle '84_subway_U2:1' ends teleporting on edge '387106272', time=25949.00.
+Warning: Teleporting vehicle '83_subway_U2:0'; waited too long (wrong lane), lane='200422335#0_0', time=25984.00.
+Warning: Vehicle '83_subway_U2:0' ends teleporting on edge '200422335#0', time=25984.00.
 Warning: Teleporting vehicle '84_subway_U2:1'; waited too long (wrong lane), lane='387106272_0', time=26265.00.
 Warning: Vehicle '84_subway_U2:1' ends teleporting on edge '199847347#2', time=26265.00.
-Warning: Teleporting vehicle '83_subway_U2:0'; waited too long (wrong lane), lane='200422335#1_0', time=26455.00.
-Warning: Vehicle '83_subway_U2:0' ends teleporting on edge '200422335#1', time=26455.00.
-Warning: Teleporting vehicle '84_subway_U2:1'; waited too long (wrong lane), lane='199847347#3_0', time=26680.00.
-Warning: Vehicle '84_subway_U2:1' ends teleporting on edge '272795470#1', time=26680.00.
+Warning: Teleporting vehicle '83_subway_U2:0'; waited too long (wrong lane), lane='200422335#1_0', time=26458.00.
+Warning: Vehicle '83_subway_U2:0' ends teleporting on edge '200422335#1', time=26458.00.
+Warning: Teleporting vehicle '84_subway_U2:1'; waited too long (wrong lane), lane='199847347#3_0', time=26679.00.
+Warning: Vehicle '84_subway_U2:1' ends teleporting on edge '272795470#1', time=26679.00.
 Warning: 7 total messages of type: At actuated tlLogic '%', linkIndex % has no controlling detector.
 Warning: 7 total messages of type: Teleporting vehicle '%'; waited too long (wrong lane), lane='%', time=%.
 Warning: 7 total messages of type: Vehicle '%' ends teleporting on edge '%', time=%.
