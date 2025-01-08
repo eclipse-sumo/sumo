@@ -1968,6 +1968,16 @@ enum class ParkingType {
     OPPORTUNISTIC = 2
 };
 
+/**
+ * @enum ChargeType
+ * @brief Charging types of charging stations
+ */
+enum class ChargeType {
+    NORMAL = 0,
+    BATERY_ECHANGE = 1,
+    FUEL = 2,
+};
+
 /// @brief algorithms for computing right of way
 enum class RightOfWay {
     DEFAULT,
@@ -2273,6 +2283,9 @@ public:
     /// @brief parking types
     static StringBijection<ParkingType> ParkingTypes;
 
+    /// @brief charge type
+    static StringBijection<ChargeType> ChargeTypes;
+
     /// @brief righ of way algorithms
     static StringBijection<RightOfWay> RightOfWayValues;
 
@@ -2382,6 +2395,9 @@ private:
 
     /// @brief lane spread function values
     static StringBijection<ParkingType>::Entry parkingTypeValues[];
+
+    /// @brief charge type values
+    static StringBijection<ChargeType>::Entry chargeTypeValues[];
 
     /// @brief lane spread function values
     static StringBijection<RightOfWay>::Entry rightOfWayValuesInitializer[];

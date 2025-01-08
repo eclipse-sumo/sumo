@@ -315,8 +315,7 @@ GNEChargingStation::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_CHARGEDELAY:
             return canParse<SUMOTime>(value) && parse<SUMOTime>(value) >= 0;
         case SUMO_ATTR_CHARGETYPE: {
-            const auto validValues = myTagProperty.getAttributeProperties(key).getDiscreteValues();
-            return std::find(validValues.begin(), validValues.end(), value) != validValues.end();
+            return SUMOXMLDefinitions::ChargeTypes.hasString(value);
         }
         case SUMO_ATTR_WAITINGTIME:
             return canParse<SUMOTime>(value) && parse<SUMOTime>(value) >= 0;

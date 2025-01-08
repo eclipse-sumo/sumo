@@ -2043,8 +2043,8 @@ GNEAttributeCarrier::fillAdditionalElements() {
         attrProperty = GNEAttributeProperties(SUMO_ATTR_CHARGETYPE,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::DEFAULTVALUE,
                                               TL("Battery charging type"),
-                                              "normal");
-        attrProperty.setDiscreteValues({"normal", "battery-exchange", "fuel"});
+                                              SUMOXMLDefinitions::ChargeTypes.getString(ChargeType::NORMAL));
+        attrProperty.setDiscreteValues(SUMOXMLDefinitions::ChargeTypes.getStrings());
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_WAITINGTIME,

@@ -283,6 +283,8 @@ GNEAdditionalHandler::buildChargingStation(const CommonXMLStructure::SumoBaseObj
         return false;
     } else if (!checkDuplicatedAdditional(SUMO_TAG_CHARGING_STATION, {SUMO_TAG_CHARGING_STATION}, id)) {
         return false;
+    } else if (!SUMOXMLDefinitions::ChargeTypes.hasString(chargeType)) {
+        return writeError(TLF("Could not build % with ID '%' in netedit; Invalid charge type '%' .", toString(SUMO_TAG_CHARGING_STATION), id, chargeType));
     } else {
         // get netedit parameters
         NeteditParameters neteditParameters(sumoBaseObject);
