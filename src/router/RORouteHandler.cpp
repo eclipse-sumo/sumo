@@ -575,7 +575,7 @@ RORouteHandler::closeRouteDistribution() {
             delete myCurrentAlternatives;
         } else {
             if (myVehicleParameter != nullptr
-                    && myUseTaz
+                    && (myUseTaz || OptionsCont::getOptions().getBool("junction-taz"))
                     && (myVehicleParameter->wasSet(VEHPARS_FROM_TAZ_SET) ||
                         myVehicleParameter->wasSet(VEHPARS_TO_TAZ_SET))) {
                 // we are loading a rou.alt.xml, permit rerouting between taz
