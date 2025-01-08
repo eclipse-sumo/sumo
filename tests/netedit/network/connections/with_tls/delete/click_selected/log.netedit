@@ -6,6 +6,8 @@ Warning: Lane 'E0_0' is not connected from any incoming edge at junction 'Juncti
 Warning: Lane 'E1_0' is not connected from any incoming edge at junction 'Junction5'.
 Warning: Lane 'E2_0' is not connected from any incoming edge at junction 'Junction5'.
 Warning: Lane 'E3_0' is not connected from any incoming edge at junction 'Junction5'.
+Warning: The traffic light 'Junction5' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light 'Junction5'
 Warning: Edge '-E0' is not connected to outgoing edges at junction 'Junction5'.
 Warning: Lane 'E0_0' is not connected from any incoming edge at junction 'Junction5'.
 Warning: The traffic light 'Junction5' does not control any links; it will not be build.

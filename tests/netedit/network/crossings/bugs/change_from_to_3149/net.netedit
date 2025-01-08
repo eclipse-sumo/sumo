@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-02 11:27:28 by Eclipse SUMO netedit Version v1_20_0+0930-542f1297b48
+<!-- generated on 2025-01-08 09:31:23 by Eclipse SUMO netedit Version v1_21_0+1718-0eae274f7e2
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,15 +14,16 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.02Jul112553.21468\netedit.gui\network\crossings\bugs\change_from_to_3149\additionals.add.xml"/>
-        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.02Jul112553.21468\netedit.gui\network\crossings\bugs\change_from_to_3149\routes.rou.xml"/>
-        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.02Jul112553.21468\netedit.gui\network\crossings\bugs\change_from_to_3149\datas.dat.xml"/>
-        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.02Jul112553.21468\netedit.gui\network\crossings\bugs\change_from_to_3149\net.net.xml"/>
+        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.08Jan092944.13132\netedit.gui\network\crossings\bugs\change_from_to_3149\additionals.add.xml"/>
+        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.08Jan092944.13132\netedit.gui\network\crossings\bugs\change_from_to_3149\routes.rou.xml"/>
+        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.08Jan092944.13132\netedit.gui\network\crossings\bugs\change_from_to_3149\datas.dat.xml"/>
+        <meandata-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.08Jan092944.13132\netedit.gui\network\crossings\bugs\change_from_to_3149\datas.med.add.xml"/>
+        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.08Jan092944.13132\netedit.gui\network\crossings\bugs\change_from_to_3149\net.net.xml"/>
     </input>
 
     <output>
         <write-license value="true"/>
-        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.02Jul112553.21468\netedit.gui\network\crossings\bugs\change_from_to_3149\net.net.xml"/>
+        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.08Jan092944.13132\netedit.gui\network\crossings\bugs\change_from_to_3149\net.net.xml"/>
     </output>
 
     <processing>
@@ -46,19 +47,20 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <netedit>
         <ignore-supermode-question value="true"/>
+        <force-saving value="true"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.02Jul112553.21468\netedit.gui\network\crossings\bugs\change_from_to_3149\gui-settings.xml"/>
+        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.08Jan092944.13132\netedit.gui\network\crossings\bugs\change_from_to_3149\gui-settings.xml"/>
         <window-size value="1280, 720"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
-        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.02Jul112553.21468\netedit.gui\network\crossings\bugs\change_from_to_3149\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.08Jan092944.13132\netedit.gui\network\crossings\bugs\change_from_to_3149\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.02Jul112553.21468\netedit.gui\network\crossings\bugs\change_from_to_3149\log.txt"/>
+        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.08Jan092944.13132\netedit.gui\network\crossings\bugs\change_from_to_3149\log.txt"/>
     </report>
 
 </neteditConfiguration>
@@ -86,9 +88,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </edge>
     <edge id=":J0_6" function="internal">
         <lane id=":J0_6_0" index="0" allow="bicycle" speed="7.46" length="17.09" width="1.00" shape="3.10,21.17 2.69,23.94 0.28,26.29 -3.75,25.56 -9.39,21.73"/>
-    </edge>
-    <edge id=":J0_7" function="internal">
-        <lane id=":J0_7_0" index="0" disallow="pedestrian" speed="6.60" length="12.40" width="3.00" shape="1.19,20.42 0.90,22.24 -0.90,23.77 -3.91,23.09 -8.11,20.19"/>
+        <lane id=":J0_6_1" index="0" disallow="pedestrian" speed="6.60" length="12.40" width="3.00" shape="1.19,20.42 0.90,22.24 -0.90,23.77 -3.91,23.09 -8.11,20.19"/>
     </edge>
     <edge id=":J0_w0" function="walkingarea">
         <lane id=":J0_w0_0" index="0" allow="pedestrian" speed="2.78" length="20.71" width="2.00" shape="-9.71,22.11 -10.99,23.65 -7.33,26.19 -3.66,27.72 0.00,28.23 3.66,27.72 7.33,26.19 10.99,23.65 9.71,22.11 6.48,24.36 3.24,25.71 0.00,26.16 -3.24,25.71 -6.48,24.36"/>
@@ -105,9 +105,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </edge>
     <edge id=":J3_6" function="internal">
         <lane id=":J3_6_0" index="0" allow="bicycle" speed="7.46" length="17.09" width="1.00" shape="-3.10,-21.17 -2.69,-23.94 -0.28,-26.29 3.75,-25.56 9.39,-21.73"/>
-    </edge>
-    <edge id=":J3_7" function="internal">
-        <lane id=":J3_7_0" index="0" disallow="pedestrian" speed="6.60" length="12.40" width="3.00" shape="-1.19,-20.42 -0.90,-22.24 0.90,-23.77 3.91,-23.09 8.11,-20.19"/>
+        <lane id=":J3_6_1" index="0" disallow="pedestrian" speed="6.60" length="12.40" width="3.00" shape="-1.19,-20.42 -0.90,-22.24 0.90,-23.77 3.91,-23.09 8.11,-20.19"/>
     </edge>
     <edge id=":J3_2" function="internal">
         <lane id=":J3_2_0" index="0" allow="bicycle" speed="10.11" length="20.67" width="1.00" shape="-9.39,-21.73 -4.70,-24.66 0.00,-25.64 4.70,-24.66 9.39,-21.73"/>
@@ -205,7 +203,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <phase duration="5"  state="rrrrrr"/>
     </tlLogic>
 
-    <junction id="J0" type="priority" x="0.00" y="25.00" incLanes="-E2_0 -E2_1 -E2_2 E0_0 E0_1 E0_2" intLanes=":J0_0_0 :J0_1_0 :J0_2_0 :J0_3_0 :J0_6_0 :J0_7_0" shape="10.99,23.65 7.15,19.04 6.51,19.41 6.29,19.38 6.13,19.23 6.03,18.93 6.00,18.50 -6.00,18.50 -6.13,19.23 -6.29,19.38 -6.51,19.41 -6.80,19.29 -7.15,19.04 -10.99,23.65 -7.33,26.19 -3.66,27.72 -0.00,28.23 3.66,27.72 7.33,26.19">
+    <junction id="J0" type="priority" x="0.00" y="25.00" incLanes="-E2_0 -E2_1 -E2_2 E0_0 E0_1 E0_2" intLanes=":J0_0_0 :J0_1_0 :J0_2_0 :J0_3_0 :J0_6_0 :J0_6_1" shape="10.99,23.65 7.15,19.04 6.51,19.41 6.29,19.38 6.13,19.23 6.03,18.93 6.00,18.50 -6.00,18.50 -6.13,19.23 -6.29,19.38 -6.51,19.41 -6.80,19.29 -7.15,19.04 -10.99,23.65 -7.33,26.19 -3.66,27.72 -0.00,28.23 3.66,27.72 7.33,26.19">
         <request index="0" response="000000" foes="010000" cont="0"/>
         <request index="1" response="000100" foes="110100" cont="0"/>
         <request index="2" response="000000" foes="110010" cont="0"/>
@@ -215,7 +213,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </junction>
     <junction id="J1" type="dead_end" x="-30.00" y="0.00" incLanes="E1_0 E1_1 E1_2" intLanes="" shape="-33.84,4.61 -30.00,0.00 -33.84,-4.61 -35.38,-3.07 -36.30,-1.54 -36.61,0.00 -36.30,1.54 -35.38,3.07"/>
     <junction id="J2" type="dead_end" x="30.00" y="0.00" incLanes="E2_0 E2_1 E2_2" intLanes="" shape="33.84,-4.61 30.00,0.00 33.84,4.61 35.38,3.07 36.30,1.54 36.61,-0.00 36.30,-1.54 35.38,-3.07"/>
-    <junction id="J3" type="priority" x="0.00" y="-25.00" incLanes="E3_0 E3_1 E3_2 -E1_0 -E1_1 -E1_2" intLanes=":J3_6_0 :J3_7_0 :J3_2_0 :J3_3_0 :J3_4_0 :J3_5_0" shape="-6.00,-18.50 6.00,-18.50 6.13,-19.23 6.29,-19.38 6.51,-19.41 6.80,-19.29 7.15,-19.04 10.99,-23.65 7.33,-26.19 3.66,-27.72 0.00,-28.23 -3.66,-27.72 -7.33,-26.19 -10.99,-23.65 -7.15,-19.04 -6.51,-19.41 -6.29,-19.38 -6.13,-19.23 -6.03,-18.93">
+    <junction id="J3" type="priority" x="0.00" y="-25.00" incLanes="E3_0 E3_1 E3_2 -E1_0 -E1_1 -E1_2" intLanes=":J3_6_0 :J3_6_1 :J3_2_0 :J3_3_0 :J3_4_0 :J3_5_0" shape="-6.00,-18.50 6.00,-18.50 6.13,-19.23 6.29,-19.38 6.51,-19.41 6.80,-19.29 7.15,-19.04 10.99,-23.65 7.33,-26.19 3.66,-27.72 0.00,-28.23 -3.66,-27.72 -7.33,-26.19 -10.99,-23.65 -7.15,-19.04 -6.51,-19.41 -6.29,-19.38 -6.13,-19.23 -6.03,-18.93">
         <request index="0" response="111100" foes="111100" cont="1"/>
         <request index="1" response="111000" foes="111000" cont="1"/>
         <request index="2" response="000000" foes="000001" cont="0"/>
@@ -239,9 +237,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </junction>
 
     <junction id=":J0_6_0" type="internal" x="3.10" y="21.17" incLanes=":J0_4_0 -E2_1 -E2_2" intLanes=":J0_0_0 :J0_1_0 :J0_2_0 :J0_3_0"/>
-    <junction id=":J0_7_0" type="internal" x="1.19" y="20.42" incLanes=":J0_4_1 -E2_1 -E2_2" intLanes=":J0_0_0 :J0_1_0 :J0_2_0 :J0_3_0"/>
+    <junction id=":J0_6_1" type="internal" x="1.19" y="20.42" incLanes=":J0_4_1 -E2_1 -E2_2" intLanes=":J0_0_0 :J0_1_0 :J0_2_0 :J0_3_0"/>
     <junction id=":J3_6_0" type="internal" x="-3.10" y="-21.17" incLanes=":J3_0_0 -E1_1 -E1_2" intLanes=":J3_2_0 :J3_3_0 :J3_4_0 :J3_5_0"/>
-    <junction id=":J3_7_0" type="internal" x="-1.19" y="-20.42" incLanes=":J3_0_1 -E1_1 -E1_2" intLanes=":J3_2_0 :J3_3_0 :J3_4_0 :J3_5_0"/>
+    <junction id=":J3_6_1" type="internal" x="-1.19" y="-20.42" incLanes=":J3_0_1 -E1_1 -E1_2" intLanes=":J3_2_0 :J3_3_0 :J3_4_0 :J3_5_0"/>
 
     <connection from="-E0" to="E3" fromLane="1" toLane="1" via=":Junction5_0_0" tl="Junction5" linkIndex="0" dir="s" state="o"/>
     <connection from="-E0" to="E3" fromLane="2" toLane="2" via=":Junction5_0_1" tl="Junction5" linkIndex="1" dir="s" state="o"/>
@@ -268,12 +266,12 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <connection from=":J0_3" to="-E0" fromLane="0" toLane="2" dir="l" state="M"/>
     <connection from=":J0_4" to="E1" fromLane="0" toLane="1" via=":J0_6_0" dir="l" state="m"/>
     <connection from=":J0_6" to="E1" fromLane="0" toLane="1" dir="l" state="M"/>
-    <connection from=":J0_4" to="E1" fromLane="1" toLane="2" via=":J0_7_0" dir="l" state="m"/>
-    <connection from=":J0_7" to="E1" fromLane="0" toLane="2" dir="l" state="M"/>
+    <connection from=":J0_4" to="E1" fromLane="1" toLane="2" via=":J0_6_1" dir="l" state="m"/>
+    <connection from=":J0_6" to="E1" fromLane="1" toLane="2" dir="l" state="M"/>
     <connection from=":J3_0" to="E2" fromLane="0" toLane="1" via=":J3_6_0" dir="l" state="m"/>
     <connection from=":J3_6" to="E2" fromLane="0" toLane="1" dir="l" state="M"/>
-    <connection from=":J3_0" to="E2" fromLane="1" toLane="2" via=":J3_7_0" dir="l" state="m"/>
-    <connection from=":J3_7" to="E2" fromLane="0" toLane="2" dir="l" state="M"/>
+    <connection from=":J3_0" to="E2" fromLane="1" toLane="2" via=":J3_6_1" dir="l" state="m"/>
+    <connection from=":J3_6" to="E2" fromLane="1" toLane="2" dir="l" state="M"/>
     <connection from=":J3_2" to="E2" fromLane="0" toLane="1" dir="L" state="M"/>
     <connection from=":J3_3" to="-E3" fromLane="0" toLane="1" dir="l" state="M"/>
     <connection from=":J3_4" to="E2" fromLane="0" toLane="2" dir="L" state="M"/>

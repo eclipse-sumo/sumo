@@ -50,11 +50,14 @@ netedit.rebuildNetwork()
 # check redos
 netedit.redo(referencePosition, 1)
 
-# save Netedit config
-netedit.saveNeteditConfig(referencePosition)
+# save routes
+netedit.saveRoutes(referencePosition)
 
 # remove invalid trips
 netedit.typeSpace()
+
+# save Netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

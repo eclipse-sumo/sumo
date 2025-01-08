@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-01 15:44:04 by Eclipse SUMO netedit Version v1_20_0+0930-542f1297b48
+<!-- generated on 2025-01-08 10:29:23 by Eclipse SUMO netedit Version v1_21_0+1720-9160afd48ee
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,15 +14,16 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.01Jul154112.13676\netedit.gui\network\crossings\without_tls\create\default_invalid\additionals.add.xml"/>
-        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.01Jul154112.13676\netedit.gui\network\crossings\without_tls\create\default_invalid\routes.rou.xml"/>
-        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.01Jul154112.13676\netedit.gui\network\crossings\without_tls\create\default_invalid\datas.dat.xml"/>
-        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.01Jul154112.13676\netedit.gui\network\crossings\without_tls\create\default_invalid\net.net.xml"/>
+        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.08Jan102630.19868\netedit.gui\network\crossings\without_tls\create\default_invalid\additionals.add.xml"/>
+        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.08Jan102630.19868\netedit.gui\network\crossings\without_tls\create\default_invalid\routes.rou.xml"/>
+        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.08Jan102630.19868\netedit.gui\network\crossings\without_tls\create\default_invalid\datas.dat.xml"/>
+        <meandata-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.08Jan102630.19868\netedit.gui\network\crossings\without_tls\create\default_invalid\datas.med.add.xml"/>
+        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.08Jan102630.19868\netedit.gui\network\crossings\without_tls\create\default_invalid\net.net.xml"/>
     </input>
 
     <output>
         <write-license value="true"/>
-        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.01Jul154112.13676\netedit.gui\network\crossings\without_tls\create\default_invalid\net.net.xml"/>
+        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.08Jan102630.19868\netedit.gui\network\crossings\without_tls\create\default_invalid\net.net.xml"/>
     </output>
 
     <processing>
@@ -46,19 +47,20 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <netedit>
         <ignore-supermode-question value="true"/>
+        <force-saving value="true"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.01Jul154112.13676\netedit.gui\network\crossings\without_tls\create\default_invalid\gui-settings.xml"/>
+        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.08Jan102630.19868\netedit.gui\network\crossings\without_tls\create\default_invalid\gui-settings.xml"/>
         <window-size value="1280, 720"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
-        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.01Jul154112.13676\netedit.gui\network\crossings\without_tls\create\default_invalid\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.08Jan102630.19868\netedit.gui\network\crossings\without_tls\create\default_invalid\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.01Jul154112.13676\netedit.gui\network\crossings\without_tls\create\default_invalid\log.txt"/>
+        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.08Jan102630.19868\netedit.gui\network\crossings\without_tls\create\default_invalid\log.txt"/>
     </report>
 
 </neteditConfiguration>

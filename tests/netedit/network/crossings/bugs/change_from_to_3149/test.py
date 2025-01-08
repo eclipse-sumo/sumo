@@ -62,11 +62,14 @@ netedit.rebuildNetwork()
 netedit.redo(referencePosition, 4)
 netedit.rebuildNetwork()
 
-# save Netedit config
-netedit.saveNeteditConfig(referencePosition)
+# save routes
+netedit.saveRoutes(referencePosition)
 
 # press space to fix crossings
 netedit.typeSpace()
+
+# save Netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

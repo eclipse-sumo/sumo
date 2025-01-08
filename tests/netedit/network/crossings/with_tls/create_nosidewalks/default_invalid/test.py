@@ -50,11 +50,14 @@ netedit.rebuildNetwork()
 
 netedit.redo(referencePosition, 1)
 
+# save network
+netedit.saveNetwork(referencePosition)
+
+# press space to fix crossings
+netedit.typeSpace()
+
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)
-
-# press space to remove invalid crossing
-netedit.typeSpace()
 
 # quit netedit
 netedit.quit(neteditProcess)
