@@ -464,10 +464,9 @@ MSParkingArea::getLastFreePosWithReservation(SUMOTime t, const SUMOVehicle& forV
                 if (DEBUG_COND2(forVehicle)) std::cout << SIMTIME << " pa=" << getID() << " freePosRes veh=" << forVehicle.getID()
                                                            << " res=" << myReservations << " resTime=" << myReservationTime << " reserved full, maxLen=" << myReservationMaxLength << " endPos=" << mySpaceOccupancies[0].endPos << "\n";
 #endif
-                return (MIN2(mySpaceOccupancies[0].endPos
-                             - myReservationMaxLength
-                             - forVehicle.getVehicleType().getMinGap(),
-                             myBegPos)
+                return (mySpaceOccupancies[0].endPos
+                        - myReservationMaxLength
+                        - forVehicle.getVehicleType().getMinGap()
                         - NUMERICAL_EPS);
             }
         }
