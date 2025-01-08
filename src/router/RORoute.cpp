@@ -113,7 +113,7 @@ RORoute::getNormalEdges() const {
 OutputDevice&
 RORoute::writeXMLDefinition(OutputDevice& dev, const ROVehicle* const veh,
                             const bool withCosts,
-                            const bool withProb,
+                            const bool asAlternatives,
                             const bool withExitTimes,
                             const bool withLength,
                             const std::string& id) const {
@@ -124,7 +124,7 @@ RORoute::writeXMLDefinition(OutputDevice& dev, const ROVehicle* const veh,
     if (withCosts) {
         dev.writeAttr(SUMO_ATTR_COST, myCosts);
     }
-    if (withProb) {
+    if (asAlternatives) {
         dev.setPrecision(8);
         dev.writeAttr(SUMO_ATTR_PROB, myProbability);
         dev.setPrecision();
