@@ -427,6 +427,9 @@ private:
     /// @brief The current state of the charging search (remember for decision logic)
     SearchState mySearchState = SEARCHSTATE_NONE;
 
+    /// @brief Whether to skip searching charging stations if the battery charge is sufficient to complete the current route
+    bool myCheckEnergyForRoute;
+
 private:
     /// @brief Invalidated copy constructor.
     MSDevice_StationFinder(const MSDevice_StationFinder&);

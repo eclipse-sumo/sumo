@@ -92,6 +92,8 @@ MSDevice_StationFinder::insertOptions(OptionsCont& oc) {
     oc.addDescription("device.stationfinder.maxDistanceToReplacedStop", "Battery", TL("Maximum distance in meters from the original stop to be replaced by the charging stop"));
     oc.doRegister("device.stationfinder.chargingStrategy", new Option_String("none"));
     oc.addDescription("device.stationfinder.chargingStrategy", "Battery", TL("Set a charging strategy to alter time and charging load from the set: [none, balanced, latest]"));
+    oc.doRegister("device.stationfinder.checkEnergyForRoute", new Option_Bool(true));
+    oc.addDescription("device.stationfinder.checkEnergyForRoute", "Battery", TL("Only search for charging stations if the battery charge is not estimated sufficient to complete the current route"));
 }
 
 
@@ -168,6 +170,7 @@ myLastOpportunisticSearch(-1) {
     myReplacePlannedStop = MAX2(0., holder.getFloatParam("device.stationfinder.replacePlannedStop"));
     myDistanceToOriginalStop = holder.getFloatParam("device.stationfinder.maxDistanceToReplacedStop");
     myUpdateSoC = -1.; // MAX2(0., mySearchSoC - DEFAULT_SOC_INTERVAL);
+    myCheckEnergyForRoute = holder.getBoolParam("device.stationfinder.checkEnergyForRoute");
 }
 
 
@@ -322,8 +325,8 @@ MSDevice_StationFinder::saveState(OutputDevice& out) const {
     }
     internals.push_back(toString(myOpportunitySoC));
     internals.push_back(toString(myMinOpportunisticTime));
+    internals.push_back(toString(myCheckEnergyForRoute));
     out.writeAttr(SUMO_ATTR_STATE, toString(internals));
-
     out.closeTag();
 }
 
@@ -360,6 +363,7 @@ MSDevice_StationFinder::loadState(const SUMOSAXAttributes& attrs) {
     }
     bis >> myOpportunitySoC;
     bis >> myMinOpportunisticTime;
+    bis >> myCheckEnergyForRoute;
 }
 
 
@@ -429,7 +433,7 @@ MSDevice_StationFinder::findChargingStation(SUMOAbstractRouter<MSEdge, SUMOVehic
 bool
 MSDevice_StationFinder::rerouteToChargingStation(bool replace) {
     double expectedConsumption = MIN2(estimateConsumption() * myReserveFactor, myBattery->getMaximumBatteryCapacity() * myTargetSoC);
-    if (myBattery->getActualBatteryCapacity() < expectedConsumption + myEmptySoC * myBattery->getMaximumBatteryCapacity()) {
+    if (!myCheckEnergyForRoute || myBattery->getActualBatteryCapacity() < expectedConsumption + myEmptySoC * myBattery->getMaximumBatteryCapacity()) {
         myLastSearch = SIMSTEP;
         MSVehicleRouter& router = MSRoutingEngine::getRouterTT(myHolder.getRNGIndex(), myHolder.getVClass());
         StoppingPlaceParamMap_t scores = {};
