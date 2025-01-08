@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-01-07 12:37:07 by Eclipse SUMO sumo Version v1_21_0+1707-e20019a517b
+<!-- generated on 2024-09-25 11:57:09 by Eclipse SUMO sumo Version v1_20_0+2138-4520b1603e4
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -38,7 +38,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vehicle id="flow1.5" depart="25.00" arrival="297.00">
+    <vehicle id="flow1.5" depart="25.00" arrival="296.00">
         <routeDistribution>
             <route replacedOnEdge="a" reason="REROUTER_Via_Montespirello:parkingAreaReroute" replacedAtTime="43.00" probability="0" edges="a b c"/>
             <route edges="a b c"/>
@@ -46,7 +46,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <stop parkingArea="ParkAreaB" duration="400.00"/>
     </vehicle>
 
-    <vehicle id="flow1.6" depart="30.00" arrival="300.00">
+    <vehicle id="flow1.6" depart="30.00" arrival="299.00">
         <routeDistribution>
             <route replacedOnEdge="a" reason="REROUTER_Via_Montespirello:parkingAreaReroute" replacedAtTime="43.00" probability="0" edges="a b c"/>
             <route edges="a b c"/>

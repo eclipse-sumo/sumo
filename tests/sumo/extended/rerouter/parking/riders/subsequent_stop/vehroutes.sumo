@@ -1,17 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-01-07 12:37:07 by Eclipse SUMO sumo Version v1_21_0+1707-e20019a517b
+<!-- generated on 2021-11-16 15:39:15 by Eclipse SUMO sumo Version v1_10_0+2328-8bad6b1
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-This file may also be made available under the following Secondary
-Licenses when the conditions for such availability set forth in the Eclipse
-Public License 2.0 are satisfied: GNU General Public License, version 2
-or later which is available at
-https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
-SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -32,11 +27,12 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <report>
         <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
         <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
 
-</sumoConfiguration>
+</configuration>
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
@@ -45,7 +41,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <stop parkingArea="parkC0C1" duration="20.00"/>
     </vehicle>
 
-    <vehicle id="egoVeh" depart="triggered" arrival="62.00">
+    <vehicle id="egoVeh" depart="triggered" arrival="60.00">
         <routeDistribution>
             <route replacedOnEdge="C0C1" reason="rr1:parkingAreaReroute" replacedAtTime="9.00" probability="0" edges="C0C1 C1C2 C2C3"/>
             <route edges="C0C1 C1D1 D1D2 D2C2 C2C3"/>
@@ -54,7 +50,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="parking.distancefrom.weight" value="1"/>
     </vehicle>
 
-    <person id="ego" depart="0.00" arrival="170.00">
+    <person id="ego" depart="0.00" arrival="168.00">
         <ride from="C0C1" to="D1D2" parkingArea="parkD1D2" lines="egoVeh"/>
         <walk edges="D1D2 D1C1 C0C1"/>
         <stop lane="C0C1_0" endPos="60.00" duration="10.00"/>

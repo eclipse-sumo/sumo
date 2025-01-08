@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-01-07 12:37:07 by Eclipse SUMO sumo Version v1_21_0+1707-e20019a517b
+<!-- generated on 2024-06-26 13:46:44 by Eclipse SUMO sumo Version v1_20_0+0840-6edfc792969
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -45,7 +45,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <stop parkingArea="parkC0C1" duration="20.00"/>
     </vehicle>
 
-    <person id="ego" depart="0.00" arrival="466.00">
+    <person id="ego" depart="0.00" arrival="464.00">
         <ride from="C0C1" to="A1A2" parkingArea="parkA1A2" lines="egoVeh"/>
         <walk edges="A1A2 A1B1 C1B1 C1D1"/>
         <stop lane="C1D1_0" endPos="45.30" duration="10.00"/>
@@ -53,7 +53,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <ride from="A1A2" to="A2A3" arrivalPos="55.00" lines="egoVeh"/>
     </person>
 
-    <vehicle id="egoVeh" depart="triggered" arrival="510.00">
+    <vehicle id="egoVeh" depart="triggered" arrival="508.00">
         <routeDistribution>
             <route replacedOnEdge="C0C1" reason="rr1:parkingAreaReroute" replacedAtTime="9.00" probability="0" edges="C0C1 C1C2 C2B2 B2A2 A2A3 A3B3 B3B2 B2C2 C2C3"/>
             <route edges="C0C1 C1B1 B1A1 A1A2 A2A3 A3B3 B3B2 B2C2 C2C3"/>
