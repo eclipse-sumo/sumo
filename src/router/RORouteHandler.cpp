@@ -102,6 +102,7 @@ RORouteHandler::parseFromViaTo(SumoXMLTag tag, const SUMOSAXAttributes& attrs, b
     const std::string element = toString(tag);
     myActiveRoute.clear();
     bool useTaz = OptionsCont::getOptions().getBool("with-taz");
+    const bool writeJunctions = OptionsCont::getOptions().getBool("write-trips") && OptionsCont::getOptions().getBool("write-trips.junctions");
     if (useTaz && !myVehicleParameter->wasSet(VEHPARS_FROM_TAZ_SET) && !myVehicleParameter->wasSet(VEHPARS_TO_TAZ_SET)) {
         WRITE_WARNINGF(TL("Taz usage was requested but no taz present in % '%'!"), element, myVehicleParameter->id);
         useTaz = false;
@@ -130,6 +131,10 @@ RORouteHandler::parseFromViaTo(SumoXMLTag tag, const SUMOSAXAttributes& attrs, b
             ok = false;
         } else {
             myActiveRoute.push_back(fromTaz);
+            if (useJunction && tag != SUMO_TAG_PERSON && !writeJunctions) {
+                myVehicleParameter->fromTaz = tazID;
+                myVehicleParameter->parametersSet |= VEHPARS_FROM_TAZ_SET;
+            }
         }
     } else if (attrs.hasAttribute(SUMO_ATTR_FROMXY)) {
         parseGeoEdges(attrs.get<PositionVector>(SUMO_ATTR_FROMXY, myVehicleParameter->id.c_str(), ok), false, vClass, myActiveRoute, rid, true, ok);
@@ -190,6 +195,10 @@ RORouteHandler::parseFromViaTo(SumoXMLTag tag, const SUMOSAXAttributes& attrs, b
             ok = false;
         } else {
             myActiveRoute.push_back(toTaz);
+            if (useJunction && tag != SUMO_TAG_PERSON && !writeJunctions) {
+                myVehicleParameter->toTaz = tazID;
+                myVehicleParameter->parametersSet |= VEHPARS_TO_TAZ_SET;
+            }
         }
     } else if (attrs.hasAttribute(SUMO_ATTR_TOXY)) {
         parseGeoEdges(attrs.get<PositionVector>(SUMO_ATTR_TOXY, myVehicleParameter->id.c_str(), ok, true), false, vClass, myActiveRoute, rid, false, ok);
