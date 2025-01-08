@@ -328,15 +328,21 @@ protected:
 
     /// @brief track parking reservations from the lane for the current time step
     SUMOTime myReservationTime;
+    SUMOTime myLastReservationTime;
 
     /// @brief number of reservations
     int myReservations;
+    int myLastReservations;
 
     /// @brief reservation max length
     double myReservationMaxLength;
+    double myLastReservationMaxLength;
 
     /// @brief the set of vehicles that performed a reservation in this step
     std::set<const SUMOVehicle*> myReservedVehicles;
+
+    /// @brief maximum length of all parked vehicles
+    double myMaxVehLength;
 
     /// @brief the number of alternative parkingAreas that are assigned to parkingAreaRerouter
     int myNumAlternatives;
