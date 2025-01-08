@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-12-01 22:08:32 by Eclipse SUMO sumo Version v1_21_0+1093-f807130dc4a
+<!-- generated on 2025-01-08 13:52:26 by Eclipse SUMO sumo Version v1_14_1+16863-ce7ff89bb23
 -->
 
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -923,6 +923,9 @@
 
         <!-- Set a charging strategy to alter time and charging load from the set: [none, balanced, latest] -->
         <device.stationfinder.chargingStrategy value="none" type="STR"/>
+
+        <!-- Only search for charging stations if the battery charge is not estimated sufficient to complete the current route -->
+        <device.stationfinder.checkEnergyForRoute value="true" type="BOOL"/>
 
         <!-- The probability for a vehicle to have a &apos;battery&apos; device -->
         <device.battery.probability value="-1" type="FLOAT"/>

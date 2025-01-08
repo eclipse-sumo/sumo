@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-12-01 22:08:32 by Eclipse SUMO sumo Version v1_21_0+1093-f807130dc4a
+<!-- generated on 2025-01-08 13:52:26 by Eclipse SUMO sumo Version v1_14_1+16863-ce7ff89bb23
 -->
 
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -330,6 +330,7 @@
         <device.stationfinder.replacePlannedStop value="0" type="FLOAT" help="Share of stopping time of the next independently planned stop to use for charging instead"/>
         <device.stationfinder.maxDistanceToReplacedStop value="300" type="FLOAT" help="Maximum distance in meters from the original stop to be replaced by the charging stop"/>
         <device.stationfinder.chargingStrategy value="none" type="STR" help="Set a charging strategy to alter time and charging load from the set: [none, balanced, latest]"/>
+        <device.stationfinder.checkEnergyForRoute value="true" type="BOOL" help="Only search for charging stations if the battery charge is not estimated sufficient to complete the current route"/>
         <device.battery.probability value="-1" type="FLOAT" help="The probability for a vehicle to have a &apos;battery&apos; device"/>
         <device.battery.explicit value="" synonymes="device.battery.knownveh" type="STR[]" help="Assign a &apos;battery&apos; device to named vehicles"/>
         <device.battery.deterministic value="false" type="BOOL" help="The &apos;battery&apos; devices are set deterministic using a fraction of 1000"/>

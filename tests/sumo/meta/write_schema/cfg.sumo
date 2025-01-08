@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-12-01 22:08:32 by Eclipse SUMO sumo Version v1_21_0+1093-f807130dc4a
+<!-- generated on 2025-01-08 13:52:26 by Eclipse SUMO sumo Version v1_14_1+16863-ce7ff89bb23
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -372,6 +372,7 @@
             <xsd:element name="device.stationfinder.replacePlannedStop" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="device.stationfinder.maxDistanceToReplacedStop" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="device.stationfinder.chargingStrategy" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="device.stationfinder.checkEnergyForRoute" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="device.battery.probability" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="device.battery.explicit" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="device.battery.deterministic" type="boolOptionType" minOccurs="0"/>
