@@ -1,35 +1,34 @@
 Warning: Vehicle 'flow_5.0' ignores container triggered stop on lane 'Edge2_1' due to capacity constraints.
-Warning: Teleporting vehicle 'flow_3.1'; waited too long (jam), lane='Edge2_1', time=349.00.
-Warning: Vehicle 'flow_3.1' teleports beyond arrival edge 'Edge2', time=349.00.
-Warning: Vehicle 'flow_3.1' skips stop on lane 'Edge2_1' time=349.00.
-Warning: Vehicle 'flow_5.1' ignores container triggered stop on lane 'Edge2_1' due to capacity constraints.
-Warning: Teleporting vehicle 'flow_5.2'; waited too long (jam), lane='Edge2_1', time=679.00.
-Warning: Vehicle 'flow_5.2' teleports beyond arrival edge 'Edge2', time=679.00.
-Warning: Vehicle 'flow_5.2' skips stop on lane 'Edge2_1' time=679.00.
-Warning: Teleporting vehicle 'flow_3.3'; waited too long (jam), lane='Edge2_1', time=992.00.
-Warning: Vehicle 'flow_3.3' teleports beyond arrival edge 'Edge2', time=992.00.
-Warning: Vehicle 'flow_3.3' skips stop on lane 'Edge2_1' time=992.00.
-Warning: Teleporting vehicle 'flow_5.3'; waited too long (jam), lane='Edge2_1', time=1302.00.
-Warning: Vehicle 'flow_5.3' teleports beyond arrival edge 'Edge2', time=1302.00.
-Warning: Vehicle 'flow_5.3' skips stop on lane 'Edge2_1' time=1302.00.
-Warning: Teleporting vehicle 'flow_3.4'; waited too long (jam), lane='Edge2_1', time=1613.00.
-Warning: Vehicle 'flow_3.4' teleports beyond arrival edge 'Edge2', time=1613.00.
-Warning: Vehicle 'flow_3.4' skips stop on lane 'Edge2_1' time=1613.00.
-Warning: Teleporting vehicle 'flow_5.4'; waited too long (jam), lane='Edge2_1', time=1920.00.
-Warning: Vehicle 'flow_5.4' teleports beyond arrival edge 'Edge2', time=1920.00.
-Warning: Vehicle 'flow_5.4' skips stop on lane 'Edge2_1' time=1920.00.
-Warning: Teleporting vehicle 'flow_3.5'; waited too long (jam), lane='Edge2_1', time=2234.00.
-Warning: Vehicle 'flow_3.5' teleports beyond arrival edge 'Edge2', time=2234.00.
-Warning: Vehicle 'flow_3.5' skips stop on lane 'Edge2_1' time=2234.00.
-Warning: Teleporting vehicle 'flow_5.5'; waited too long (jam), lane='Edge2_1', time=2542.00.
-Warning: Vehicle 'flow_5.5' teleports beyond arrival edge 'Edge2', time=2542.00.
-Warning: Vehicle 'flow_5.5' skips stop on lane 'Edge2_1' time=2542.00.
-Warning: Teleporting vehicle 'flow_3.6'; waited too long (jam), lane='Edge2_1', time=2856.00.
-Warning: Vehicle 'flow_3.6' teleports beyond arrival edge 'Edge2', time=2856.00.
-Warning: Vehicle 'flow_3.6' skips stop on lane 'Edge2_1' time=2856.00.
-Warning: Teleporting vehicle 'flow_5.6'; waited too long (jam), lane='Edge2_1', time=3164.00.
-Warning: Vehicle 'flow_5.6' teleports beyond arrival edge 'Edge2', time=3164.00.
-Warning: Vehicle 'flow_5.6' skips stop on lane 'Edge2_1' time=3164.00.
-Warning: Teleporting vehicle 'flow_3.7'; waited too long (jam), lane='Edge2_1', time=3476.00.
-Warning: Vehicle 'flow_3.7' teleports beyond arrival edge 'Edge2', time=3476.00.
-Warning: Vehicle 'flow_3.7' skips stop on lane 'Edge2_1' time=3476.00.
+Warning: Teleporting vehicle 'flow_5.1'; waited too long (jam), lane='Edge2_1', time=366.00.
+Warning: Vehicle 'flow_5.1' teleports beyond arrival edge 'Edge2', time=366.00.
+Warning: Vehicle 'flow_5.1' skips stop on lane 'Edge2_1' time=366.00.
+Warning: Teleporting vehicle 'flow_3.2'; waited too long (jam), lane='Edge2_1', time=679.00.
+Warning: Vehicle 'flow_3.2' teleports beyond arrival edge 'Edge2', time=679.00.
+Warning: Vehicle 'flow_3.2' skips stop on lane 'Edge2_1' time=679.00.
+Warning: Teleporting vehicle 'flow_5.2'; waited too long (jam), lane='Edge2_1', time=987.00.
+Warning: Vehicle 'flow_5.2' teleports beyond arrival edge 'Edge2', time=987.00.
+Warning: Vehicle 'flow_5.2' skips stop on lane 'Edge2_1' time=987.00.
+Warning: Teleporting vehicle 'flow_3.3'; waited too long (jam), lane='Edge2_1', time=1301.00.
+Warning: Vehicle 'flow_3.3' teleports beyond arrival edge 'Edge2', time=1301.00.
+Warning: Vehicle 'flow_3.3' skips stop on lane 'Edge2_1' time=1301.00.
+Warning: Teleporting vehicle 'flow_5.3'; waited too long (jam), lane='Edge2_1', time=1609.00.
+Warning: Vehicle 'flow_5.3' teleports beyond arrival edge 'Edge2', time=1609.00.
+Warning: Vehicle 'flow_5.3' skips stop on lane 'Edge2_1' time=1609.00.
+Warning: Teleporting vehicle 'flow_3.4'; waited too long (jam), lane='Edge2_1', time=1923.00.
+Warning: Vehicle 'flow_3.4' teleports beyond arrival edge 'Edge2', time=1923.00.
+Warning: Vehicle 'flow_3.4' skips stop on lane 'Edge2_1' time=1923.00.
+Warning: Teleporting vehicle 'flow_5.4'; waited too long (jam), lane='Edge2_1', time=2230.00.
+Warning: Vehicle 'flow_5.4' teleports beyond arrival edge 'Edge2', time=2230.00.
+Warning: Vehicle 'flow_5.4' skips stop on lane 'Edge2_1' time=2230.00.
+Warning: Teleporting vehicle 'flow_3.5'; waited too long (jam), lane='Edge2_1', time=2543.00.
+Warning: Vehicle 'flow_3.5' teleports beyond arrival edge 'Edge2', time=2543.00.
+Warning: Vehicle 'flow_3.5' skips stop on lane 'Edge2_1' time=2543.00.
+Warning: Teleporting vehicle 'flow_5.5'; waited too long (jam), lane='Edge2_1', time=2851.00.
+Warning: Vehicle 'flow_5.5' teleports beyond arrival edge 'Edge2', time=2851.00.
+Warning: Vehicle 'flow_5.5' skips stop on lane 'Edge2_1' time=2851.00.
+Warning: Teleporting vehicle 'flow_3.6'; waited too long (jam), lane='Edge2_1', time=3164.00.
+Warning: Vehicle 'flow_3.6' teleports beyond arrival edge 'Edge2', time=3164.00.
+Warning: Vehicle 'flow_3.6' skips stop on lane 'Edge2_1' time=3164.00.
+Warning: Teleporting vehicle 'flow_5.6'; waited too long (jam), lane='Edge2_1', time=3471.00.
+Warning: Vehicle 'flow_5.6' teleports beyond arrival edge 'Edge2', time=3471.00.
+Warning: Vehicle 'flow_5.6' skips stop on lane 'Edge2_1' time=3471.00.

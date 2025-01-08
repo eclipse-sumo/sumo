@@ -1,0 +1,51 @@
+Warning: Vehicle 'customSplit' to split from vehicle 'flowB.0' is not known. time=11.00.
+Warning: Vehicle 'customSplit' to split from vehicle 'flowB.1' is not known. time=13.00.
+Warning: Vehicle 'customSplit' to split from vehicle 'flowB.2' is not known. time=16.00.
+Warning: Vehicle 'customSplit' to split from vehicle 'flowB.3' is not known. time=19.00.
+Warning: Vehicle 'customSplit' to split from vehicle 'flowB.4' is not known. time=22.00.
+Warning: Vehicle 'customSplit' to split from vehicle 'flowB.5' is not known. time=24.00.
+Warning: Vehicle 'customSplit' to split from vehicle 'flowB.6' is not known. time=26.00.
+Warning: Vehicle 'customSplit' to split from vehicle 'flowB.7' is not known. time=30.00.
+Warning: Vehicle 'customSplit' to split from vehicle 'flowB.8' is not known. time=33.00.
+Warning: Vehicle 'customSplit' to split from vehicle 'flowB.9' is not known. time=36.00.
+Warning: Vehicle 'customSplit' to split from vehicle 'flowB.10' is not known. time=38.00.
+Warning: Vehicle 'customSplit' to split from vehicle 'flowB.11' is not known. time=40.00.
+Warning: Vehicle 'customSplit' to split from vehicle 'flowB.12' is not known. time=42.00.
+Warning: Vehicle 'customSplit' to split from vehicle 'flowB.13' is not known. time=44.00.
+Warning: Vehicle 'customSplit' to split from vehicle 'flowB.14' is not known. time=46.00.
+Warning: Vehicle 'customSplit' to split from vehicle 'flowB.15' is not known. time=48.00.
+Warning: Vehicle 'customSplit' to split from vehicle 'flowB.16' is not known. time=50.00.
+Warning: Vehicle 'customSplit' to split from vehicle 'flowB.17' is not known. time=52.00.
+Warning: Teleporting vehicle 'flowA.0'; waited too long (wrong lane), lane='Edge0_1', time=316.00.
+Warning: Vehicle 'flowA.0' ends teleporting on edge 'Edge2', time=316.00.
+Warning: Vehicle 'customSplit' to split from vehicle 'flowA.0' is not known. time=319.00.
+Warning: Teleporting vehicle 'flowA.1'; waited too long (wrong lane), lane='Edge0_1', time=620.00.
+Warning: Vehicle 'flowA.1' ends teleporting on edge 'Edge2', time=620.00.
+Warning: Vehicle 'customSplit' to split from vehicle 'flowA.1' is not known. time=624.00.
+Warning: Teleporting vehicle 'flowA.2'; waited too long (wrong lane), lane='Edge0_1', time=924.00.
+Warning: Vehicle 'flowA.2' ends teleporting on edge 'Edge2', time=924.00.
+Warning: Vehicle 'customSplit' to split from vehicle 'flowA.2' is not known. time=928.00.
+Warning: Teleporting vehicle 'flowA.3'; waited too long (wrong lane), lane='Edge0_1', time=1229.00.
+Warning: Vehicle 'flowA.3' ends teleporting on edge 'Edge2', time=1229.00.
+Warning: Vehicle 'customSplit' to split from vehicle 'flowA.3' is not known. time=1233.00.
+Warning: Teleporting vehicle 'flowA.4'; waited too long (wrong lane), lane='Edge0_1', time=1533.00.
+Warning: Vehicle 'flowA.4' ends teleporting on edge 'Edge2', time=1533.00.
+Warning: Vehicle 'customSplit' to split from vehicle 'flowA.4' is not known. time=1537.00.
+Warning: Teleporting vehicle 'flowA.5'; waited too long (wrong lane), lane='Edge0_1', time=1838.00.
+Warning: Vehicle 'flowA.5' ends teleporting on edge 'Edge2', time=1838.00.
+Warning: Vehicle 'customSplit' to split from vehicle 'flowA.5' is not known. time=1841.00.
+Warning: Teleporting vehicle 'flowA.6'; waited too long (wrong lane), lane='Edge0_1', time=2141.00.
+Warning: Vehicle 'flowA.6' ends teleporting on edge 'Edge2', time=2141.00.
+Warning: Vehicle 'customSplit' to split from vehicle 'flowA.6' is not known. time=2145.00.
+Warning: Teleporting vehicle 'flowA.7'; waited too long (wrong lane), lane='Edge0_1', time=2445.00.
+Warning: Vehicle 'flowA.7' ends teleporting on edge 'Edge2', time=2445.00.
+Warning: Vehicle 'customSplit' to split from vehicle 'flowA.7' is not known. time=2449.00.
+Warning: Teleporting vehicle 'flowA.8'; waited too long (wrong lane), lane='Edge0_1', time=2749.00.
+Warning: Vehicle 'flowA.8' ends teleporting on edge 'Edge2', time=2749.00.
+Warning: Vehicle 'customSplit' to split from vehicle 'flowA.8' is not known. time=2753.00.
+Warning: Teleporting vehicle 'flowA.9'; waited too long (wrong lane), lane='Edge0_1', time=3053.00.
+Warning: Vehicle 'flowA.9' ends teleporting on edge 'Edge2', time=3053.00.
+Warning: Vehicle 'customSplit' to split from vehicle 'flowA.9' is not known. time=3057.00.
+Warning: Teleporting vehicle 'flowA.10'; waited too long (wrong lane), lane='Edge0_1', time=3358.00.
+Warning: Vehicle 'flowA.10' ends teleporting on edge 'Edge2', time=3358.00.
+Warning: Vehicle 'customSplit' to split from vehicle 'flowA.10' is not known. time=3362.00.
