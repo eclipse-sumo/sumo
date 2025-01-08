@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-01-06 11:22+0100\n"
-"PO-Revision-Date: 2025-01-08 07:47+0000\n"
+"PO-Revision-Date: 2025-01-08 12:16+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -1803,11 +1803,11 @@ msgstr ""
 
 #: src/microsim/MSFrame.cpp:194
 msgid "Save the vehicle queues at the junctions (experimental)"
-msgstr ""
+msgstr "Salva le code di veicoli agli incroci (esperimentale)"
 
 #: src/microsim/MSFrame.cpp:196
 msgid "Save vehicle queues with the given period"
-msgstr ""
+msgstr "Salva le code di veicoli con l'intervallo indicato"
 
 #: src/microsim/MSFrame.cpp:199
 msgid ""
@@ -2193,6 +2193,8 @@ msgid ""
 "The waiting time after which vehicles with a disconnected route are "
 "teleported. Negative values disable teleporting"
 msgstr ""
+"Il tempo di attesa dopodiché gli veicoli con un itinerario sconnesso "
+"verranno teleportati. Può essere disattivato impostando un valore negativo"
 
 #: src/microsim/MSFrame.cpp:443
 msgid ""
@@ -12718,10 +12720,14 @@ msgstr ""
 #: src/utils/vehicle/SUMOVehicleParserHelper.cpp:996
 msgid "Lane change model 'JE2013' is deprecated. Using default model instead."
 msgstr ""
+"Il modello di cambio corsia 'JE2013' non si usa più. Invece verrà usaot il "
+"modello standard."
 
 #: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1210
 msgid "maneuverAngleTimes format for vType '%' % contains an invalid triplet."
 msgstr ""
+"Il formato maneuverAngleTimes per il tipo di veicolo '%' % contiene un "
+"tripletto invalido."
 
 #: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1219
 #, c-format
@@ -12729,6 +12735,8 @@ msgid ""
 "Triplet '%' for vType '%' maneuverAngleTimes cannot be parsed as 'int double "
 "double'"
 msgstr ""
+"Il tripletto '%' per il tipo di veicolo '%' maneuverAngleTimes non può "
+"essere analizzato come 'int double double'"
 
 #: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1245
 msgid "Unknown car-following model % when parsing vType '%'"
