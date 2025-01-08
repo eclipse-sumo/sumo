@@ -1974,7 +1974,7 @@ enum class ParkingType {
  */
 enum class ChargeType {
     NORMAL = 0,
-    BATERY_ECHANGE = 1,
+    BATTERY_ECHANGE = 1,
     FUEL = 2,
 };
 

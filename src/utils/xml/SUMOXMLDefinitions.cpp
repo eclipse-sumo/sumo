@@ -1473,7 +1473,7 @@ StringBijection<ParkingType>::Entry SUMOXMLDefinitions::parkingTypeValues[] = {
 
 StringBijection<ChargeType>::Entry SUMOXMLDefinitions::chargeTypeValues[] = {
     {"normal",              ChargeType::NORMAL },           // default: either connected with a wire or charged by induction
-    {"battery-exchange",    ChargeType::BATERY_ECHANGE},    // battery echange
+    {"battery-exchange",    ChargeType::BATTERY_ECHANGE},    // battery echange
     {"fuel",                ChargeType::FUEL }              // use fuel for charging
 };
 
