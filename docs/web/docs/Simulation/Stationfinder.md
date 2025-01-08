@@ -45,6 +45,7 @@ This paragraph shall convey the major conditions used in the decision logic of t
 vehicle to charge. The user can configure multiple thresholds to change how different vehicles behave.
 
 - As long as the battery state of charge (SoC) is above `needToChargeLevel`, no action is taken. This condition is rechecked each time the SoC has lowered by 10%.
+- If the stationfinder device estimates the battery charge is still sufficient to reach the destination and keep at least the `emptyThreshold` state of charge, then no action is taken.
 - When the SoC reaches `needToChargeLevel`, possible charging stations are searched and evaluated using the [target function](#charging_station_target_function). Only charging stations offering the right charging type (such as charging the vehicle battery) are considered valid destinations. If the destination can presumably still be reached with the current SoC and without using the SoC below `emptyThreshold` then no charging station is targeted. If a valid charging station is found within `radius` travel time (and optionally within `maxEuclideanDistance` air line), the vehicle is immediately rerouted to go there. Other programmed stops will be served after charging.
 - If no charging station is available, the vehicle continues its original route. It will search again after `repeat` seconds.
 - If the charging station is occupied on arrival, the vehicle will wait `waitForCharge` seconds before looking for an alternative site.
