@@ -41,5 +41,9 @@ with_taz_used
 # trigger use when option --junction-taz is set
 with_taz_used2
 
+# taz information stored in rou.alt.xml.
+# input already contains more than one alternative
+with_taz_used3
+
 # Checks handling of broken input
 errors
