@@ -499,6 +499,8 @@ GNEDemandElementFlow::setDefaultFlowAttributes(GNEDemandElement* flowElement) {
             toggleFlowAttribute(SUMO_ATTR_PERIOD, false);
             toggleFlowAttribute(GNE_ATTR_POISSON, true);
             setFlowAttribute(flowElement, GNE_ATTR_POISSON, toString(poissonRate));
+        } else {
+            setFlowAttribute(flowElement, SUMO_ATTR_PERIOD, time2string(repetitionOffset));
         }
     }
 }
