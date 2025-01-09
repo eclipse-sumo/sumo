@@ -1044,126 +1044,10 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
             print("Cannot fulfill total interval count of %s due to lack of unrestricted routes" % intervalCount,
                   file=sys.stderr)
 
-    # avoid bias from sampling order / optimization
-    rng.shuffle(usedRoutes)
-
     if usedRoutes:
-        outf.write('<!-- begin="%s" end="%s" -->\n' % (begin, end))
-        routeCounts = getRouteCounts(routes, usedRoutes)
-        if options.writeRouteIDs:
-            for routeIndex in sorted(set(usedRoutes)):
-                routes.write(outf, options.prefix, intervalPrefix, routeIndex, routeCounts[routeIndex])
-            outf.write('\n')
-        elif options.writeRouteDist:
-            outf.write('    <routeDistribution id="%s%s%s">\n' % (
-                       options.prefix, intervalPrefix, options.writeRouteDist))
-            for routeIndex in sorted(set(usedRoutes)):
-                routes.write(outf, options.prefix, intervalPrefix, routeIndex,
-                             routeCounts[routeIndex], writeDist=True)
-            outf.write('    </routeDistribution>\n\n')
-
-        routeID = options.writeRouteDist
-
-        if options.writeFlows is None:
-            if options.departDist:
-                departs = options.departDist.sample(rng, len(usedRoutes), begin, end)
-            else:
-                departs = [rng.uniform(begin, end) for ri in usedRoutes]
-            departs.sort()
-            for i, routeIndex in enumerate(usedRoutes):
-                if options.writeRouteIDs:
-                    routeID = routeIndex
-                vehID = options.prefix + intervalPrefix + str(i)
-                depart = departs[i]
-                if routeID is not None:
-                    if options.pedestrians:
-                        outf.write('    <person id="%s" depart="%.2f"%s>\n' % (
-                            vehID, depart, options.vehattrs))
-                        outf.write('        <walk route="%s%s%s"/>\n' % (options.prefix, intervalPrefix, routeID))
-                        outf.write('    </person>\n')
-                    else:
-                        outf.write('    <vehicle id="%s" depart="%.2f" route="%s%s%s"%s/>\n' % (
-                            vehID, depart, options.prefix, intervalPrefix, routeID, options.vehattrs))
-                else:
-                    if options.pedestrians:
-                        outf.write('    <person id="%s" depart="%.2f"%s>\n' % (
-                            vehID, depart, options.vehattrs))
-                        outf.write('        <walk edges="%s"/>\n' % ' '.join(routes.unique[routeIndex]))
-                        outf.write('    </person>\n')
-                    else:
-                        outf.write('    <vehicle id="%s" depart="%.2f"%s>\n' % (
-                            vehID, depart, options.vehattrs))
-                        routes.write(outf, None, None, routeIndex, None)
-                        outf.write('    </vehicle>\n')
-        else:
-            if options.writeRouteDist:
-                totalCount = sum(routeCounts)
-                probability = totalCount / (end - begin)
-                fBegin = begin
-                if options.writeFlows == "number":
-                    # don't always start at the interval begin
-                    fBegin += rng.uniform(0, 1 / probability)
-                flowID = options.prefix + intervalPrefix + options.writeRouteDist
-                if options.writeFlows == "poisson":
-                    repeat = 'period="exp(%.4f)"' % probability
-                elif options.writeFlows == "number" or probability > 1.00004:
-                    repeat = 'number="%s"' % totalCount
-                    if options.writeFlows == "probability":
-                        sys.stderr.write("Warning: could not write flow %s with probability %.5f\n" %
-                                         (flowID, probability))
-                else:
-                    repeat = 'probability="%.4f"' % probability
-                outf.write('    <flow id="%s" begin="%.2f" end="%.2f" %s route="%s"%s/>\n' % (
-                    flowID, fBegin, end, repeat,
-                    options.writeRouteDist, options.vehattrs))
-            else:
-                # ensure flows are sorted
-                flows = []
-                for routeIndex in sorted(set(usedRoutes)):
-                    outf2 = StringIO()
-                    probability = routeCounts[routeIndex] / (end - begin)
-                    fBegin = begin
-                    fEnd = end
-                    if options.writeFlows == "number":
-                        # don't always start at the interval begin
-                        fBegin += rng.uniform(0, 1 / probability)
-                    flowID = "%s%s%s" % (options.prefix, intervalPrefix, routeIndex)
-                    if options.writeFlows == "poisson":
-                        repeat = 'period="exp(%.4f)"' % probability
-                    elif options.writeFlows == "number" or probability > 1.00004:
-                        repeat = 'number="%s"' % routeCounts[routeIndex]
-                        if options.writeFlows == "probability":
-                            sys.stderr.write("Warning: could not write flow %s with probability %.5f\n" % (
-                                flowID, probability))
-                    else:
-                        repeat = 'probability="%.4f"' % probability
-                    if options.writeRouteIDs:
-                        if options.pedestrians:
-                            outf2.write('    <personFlow id="%s" begin="%.2f" end="%.2f" %s%s>\n' % (
-                                flowID, fBegin, fEnd, repeat, options.vehattrs))
-                            outf2.write('        <walk route="%s%s%s"/>\n' % (
-                                options.prefix, intervalPrefix, routeIndex))
-                            outf2.write('    </personFlow>\n')
-                        else:
-                            outf2.write('    <flow id="%s" begin="%.2f" end="%.2f" %s route="%s%s%s"%s/>\n' % (
-                                flowID, fBegin, fEnd, repeat,
-                                options.prefix, intervalPrefix, routeIndex, options.vehattrs))
-                    else:
-                        if options.pedestrians:
-                            outf2.write('    <personFlow id="%s" begin="%.2f" end="%.2f" %s%s>\n' % (
-                                flowID, fBegin, fEnd, repeat, options.vehattrs))
-                            outf2.write('        <walk edges="%s"/>\n' % ' '.join(routes.unique[routeIndex]))
-                            outf2.write('    </personFlow>\n')
-                        else:
-                            outf2.write('    <flow id="%s" begin="%.2f" end="%.2f" %s%s>\n' % (
-                                flowID, fBegin, fEnd, repeat, options.vehattrs))
-                            routes.write(outf2, None, None, routeIndex, None)
-                            outf2.write('    </flow>\n')
-                    # secondary sort by routeIndex so we don't have to compare stringIO
-                    flows.append((fBegin, routeIndex, outf2))
-                flows.sort()
-                for fBegin, index, outf2 in flows:
-                    outf.write(outf2.getvalue())
+        # avoid bias from sampling order / optimization
+        rng.shuffle(usedRoutes)
+        writeRoutes(options, rng, outf, routes, usedRoutes, begin, end, intervalPrefix)
 
     underflow = sumolib.miscutils.Statistics("underflow locations")
     overflow = sumolib.miscutils.Statistics("overflow locations")
@@ -1240,23 +1124,7 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
     sys.stdout.flush()  # needed for multiprocessing
 
     if mismatchf:
-        mismatchf.write('    <interval id="deficit" begin="%s" end="%s">\n' % (begin, end))
-        for cd in countData:
-            if len(cd.edgeTuple) == 1:
-                mismatchf.write('        <edge id="%s" measuredCount="%s" deficit="%s"/>\n' % (
-                    cd.edgeTuple[0], cd.origCount, cd.count))
-            elif len(cd.edgeTuple) == 2:
-                if cd.isRatio:
-                    deficit = setPrecision("%.2f",  options.precision) % (cd.assignedProbability() - cd.origCount)
-                    mismatchf.write('        <edgeRelation from="%s" to="%s" measuredProbability="%s" deficit="%s" totalAssignedFromCount="%s"/>\n' % (  # noqa
-                        cd.edgeTuple[0], cd.edgeTuple[1], cd.origCount, deficit, cd.getSiblingCount()))
-                else:
-                    mismatchf.write('        <edgeRelation from="%s" to="%s" measuredCount="%s" deficit="%s"/>\n' % (
-                        cd.edgeTuple[0], cd.edgeTuple[1], cd.origCount, cd.count))
-            else:
-                print("Warning: output for edge relations with more than 2 edges not supported (%s)" % cd.edgeTuple,
-                      file=sys.stderr)
-        mismatchf.write('    </interval>\n')
+        writeMismatch(options, mismatchf, countData, begin, end)
 
     return sum(underflow.values), sum(overflow.values), gehOKPerc, ratioPerc, totalOrigCount, usedRoutes, outf
 
@@ -1322,6 +1190,145 @@ def sampleRoutes(options, rng, routes, countData, routeUsage, openRoutes, openCo
                         openCounts = [c for c in openCounts if c not in closedCounts]
 
     return usedRoutes, numSampled
+
+
+def writeRoutes(options, rng, outf, routes, usedRoutes, begin, end, intervalPrefix):
+    outf.write('<!-- begin="%s" end="%s" -->\n' % (begin, end))
+    routeCounts = getRouteCounts(routes, usedRoutes)
+    if options.writeRouteIDs:
+        for routeIndex in sorted(set(usedRoutes)):
+            routes.write(outf, options.prefix, intervalPrefix, routeIndex, routeCounts[routeIndex])
+        outf.write('\n')
+    elif options.writeRouteDist:
+        outf.write('    <routeDistribution id="%s%s%s">\n' % (
+                   options.prefix, intervalPrefix, options.writeRouteDist))
+        for routeIndex in sorted(set(usedRoutes)):
+            routes.write(outf, options.prefix, intervalPrefix, routeIndex,
+                         routeCounts[routeIndex], writeDist=True)
+        outf.write('    </routeDistribution>\n\n')
+
+    routeID = options.writeRouteDist
+
+    if options.writeFlows is None:
+        if options.departDist:
+            departs = options.departDist.sample(rng, len(usedRoutes), begin, end)
+        else:
+            departs = [rng.uniform(begin, end) for ri in usedRoutes]
+        departs.sort()
+        for i, routeIndex in enumerate(usedRoutes):
+            if options.writeRouteIDs:
+                routeID = routeIndex
+            vehID = options.prefix + intervalPrefix + str(i)
+            depart = departs[i]
+            if routeID is not None:
+                if options.pedestrians:
+                    outf.write('    <person id="%s" depart="%.2f"%s>\n' % (
+                        vehID, depart, options.vehattrs))
+                    outf.write('        <walk route="%s%s%s"/>\n' % (options.prefix, intervalPrefix, routeID))
+                    outf.write('    </person>\n')
+                else:
+                    outf.write('    <vehicle id="%s" depart="%.2f" route="%s%s%s"%s/>\n' % (
+                        vehID, depart, options.prefix, intervalPrefix, routeID, options.vehattrs))
+            else:
+                if options.pedestrians:
+                    outf.write('    <person id="%s" depart="%.2f"%s>\n' % (
+                        vehID, depart, options.vehattrs))
+                    outf.write('        <walk edges="%s"/>\n' % ' '.join(routes.unique[routeIndex]))
+                    outf.write('    </person>\n')
+                else:
+                    outf.write('    <vehicle id="%s" depart="%.2f"%s>\n' % (
+                        vehID, depart, options.vehattrs))
+                    routes.write(outf, None, None, routeIndex, None)
+                    outf.write('    </vehicle>\n')
+    else:
+        if options.writeRouteDist:
+            totalCount = sum(routeCounts)
+            probability = totalCount / (end - begin)
+            fBegin = begin
+            if options.writeFlows == "number":
+                # don't always start at the interval begin
+                fBegin += rng.uniform(0, 1 / probability)
+            flowID = options.prefix + intervalPrefix + options.writeRouteDist
+            if options.writeFlows == "poisson":
+                repeat = 'period="exp(%.4f)"' % probability
+            elif options.writeFlows == "number" or probability > 1.00004:
+                repeat = 'number="%s"' % totalCount
+                if options.writeFlows == "probability":
+                    sys.stderr.write("Warning: could not write flow %s with probability %.5f\n" %
+                                     (flowID, probability))
+            else:
+                repeat = 'probability="%.4f"' % probability
+            outf.write('    <flow id="%s" begin="%.2f" end="%.2f" %s route="%s"%s/>\n' % (
+                flowID, fBegin, end, repeat,
+                options.writeRouteDist, options.vehattrs))
+        else:
+            # ensure flows are sorted
+            flows = []
+            for routeIndex in sorted(set(usedRoutes)):
+                outf2 = StringIO()
+                probability = routeCounts[routeIndex] / (end - begin)
+                fBegin = begin
+                fEnd = end
+                if options.writeFlows == "number":
+                    # don't always start at the interval begin
+                    fBegin += rng.uniform(0, 1 / probability)
+                flowID = "%s%s%s" % (options.prefix, intervalPrefix, routeIndex)
+                if options.writeFlows == "poisson":
+                    repeat = 'period="exp(%.4f)"' % probability
+                elif options.writeFlows == "number" or probability > 1.00004:
+                    repeat = 'number="%s"' % routeCounts[routeIndex]
+                    if options.writeFlows == "probability":
+                        sys.stderr.write("Warning: could not write flow %s with probability %.5f\n" % (
+                            flowID, probability))
+                else:
+                    repeat = 'probability="%.4f"' % probability
+                if options.writeRouteIDs:
+                    if options.pedestrians:
+                        outf2.write('    <personFlow id="%s" begin="%.2f" end="%.2f" %s%s>\n' % (
+                            flowID, fBegin, fEnd, repeat, options.vehattrs))
+                        outf2.write('        <walk route="%s%s%s"/>\n' % (
+                            options.prefix, intervalPrefix, routeIndex))
+                        outf2.write('    </personFlow>\n')
+                    else:
+                        outf2.write('    <flow id="%s" begin="%.2f" end="%.2f" %s route="%s%s%s"%s/>\n' % (
+                            flowID, fBegin, fEnd, repeat,
+                            options.prefix, intervalPrefix, routeIndex, options.vehattrs))
+                else:
+                    if options.pedestrians:
+                        outf2.write('    <personFlow id="%s" begin="%.2f" end="%.2f" %s%s>\n' % (
+                            flowID, fBegin, fEnd, repeat, options.vehattrs))
+                        outf2.write('        <walk edges="%s"/>\n' % ' '.join(routes.unique[routeIndex]))
+                        outf2.write('    </personFlow>\n')
+                    else:
+                        outf2.write('    <flow id="%s" begin="%.2f" end="%.2f" %s%s>\n' % (
+                            flowID, fBegin, fEnd, repeat, options.vehattrs))
+                        routes.write(outf2, None, None, routeIndex, None)
+                        outf2.write('    </flow>\n')
+                # secondary sort by routeIndex so we don't have to compare stringIO
+                flows.append((fBegin, routeIndex, outf2))
+            flows.sort()
+            for fBegin, index, outf2 in flows:
+                outf.write(outf2.getvalue())
+
+
+def writeMismatch(options, mismatchf, countData, begin, end):
+    mismatchf.write('    <interval id="deficit" begin="%s" end="%s">\n' % (begin, end))
+    for cd in countData:
+        if len(cd.edgeTuple) == 1:
+            mismatchf.write('        <edge id="%s" measuredCount="%s" deficit="%s"/>\n' % (
+                cd.edgeTuple[0], cd.origCount, cd.count))
+        elif len(cd.edgeTuple) == 2:
+            if cd.isRatio:
+                deficit = setPrecision("%.2f",  options.precision) % (cd.assignedProbability() - cd.origCount)
+                mismatchf.write('        <edgeRelation from="%s" to="%s" measuredProbability="%s" deficit="%s" totalAssignedFromCount="%s"/>\n' % (  # noqa
+                    cd.edgeTuple[0], cd.edgeTuple[1], cd.origCount, deficit, cd.getSiblingCount()))
+            else:
+                mismatchf.write('        <edgeRelation from="%s" to="%s" measuredCount="%s" deficit="%s"/>\n' % (
+                    cd.edgeTuple[0], cd.edgeTuple[1], cd.origCount, cd.count))
+        else:
+            print("Warning: output for edge relations with more than 2 edges not supported (%s)" % cd.edgeTuple,
+                  file=sys.stderr)
+    mismatchf.write('    </interval>\n')
 
 
 if __name__ == "__main__":
