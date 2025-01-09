@@ -146,6 +146,8 @@ def get_options(args=None):
                     help="Skip resampling and run optimize directly on the input routes")
     op.add_argument("--init-input", dest="initInput", action="store_true", default=False,
                     help="use loaded routes as initialization for the used routes")
+    op.add_argument("--init-input.remove-overflow", dest="initInputRemove", action="store_true", default=False,
+                    help="use loaded routes as initialization but remove those that are responsible for overflow")
     op.add_argument("--no-sampling", dest="noSampling", action="store_true", default=False,
                     help="Skip sampling of routes")
     op.add_argument("--min-count", dest="minCount", type=int, default=1,
@@ -208,6 +210,9 @@ def get_options(args=None):
             sys.exit(1)
         options.initInput = True
         options.noSampling = True
+
+    if options.initInputRemove:
+        options.initInput = True
 
     if options.threads > 1 and sys.version_info[0] < 3:
         print("Using multiple cpus is only supported for python 3", file=sys.stderr)
@@ -1008,64 +1013,7 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
         openRoutes = updateOpenRoutes(openRoutes, routeUsage, countData)
         openCounts = updateOpenCounts(openCounts, countData, openRoutes)
 
-    if options.optimize != "full" and not options.noSampling:
-        while openCounts:
-            if intervalCount is not None and numSampled >= intervalCount:
-                break
-
-            if ratioIndices and intervalCount is None:
-                realCounts = [cdi for cdi in openCounts if cdi not in ratioIndices]
-                if not realCounts:
-                    if numSampled == 0:
-                        print("Stopped sampling routes because only ratios are still open."
-                              + " Set option --total-count to sample ratios without local counts",
-                              file=sys.stderr)
-                    break
-
-            if options.weighted:
-                routeIndex = _sample_skewed(openRoutes, rng, routes.probabilities)
-            else:
-                # sampling equally among open counting locations appears to
-                # improve GEH but it would also introduce a bias in the loaded
-                # route probabilities
-                cd = countData[rng.choice(openCounts)]
-                routeIndex = rng.choice([r for r in openRoutes if r in cd.routeSet])
-            numSampled += 1
-            usedRoutes.append(routeIndex)
-            for dataIndex in routeUsage[routeIndex]:
-                countData[dataIndex].use()
-
-            if ratioIndices:
-                for dataIndex in routeUsage[routeIndex]:
-                    countData[dataIndex].updateTurnRatioCounts(openRoutes, openCounts, True)
-
-                # this is the old and slow way to update things
-                openRoutes = updateOpenRoutes(openRoutes, routeUsage, countData)
-                openCounts = updateOpenCounts(openCounts, countData, openRoutes)
-
-            else:
-                # update openRouts and openCounts only if needed
-                closedRoutes = set()
-                for dataIndex in routeUsage[routeIndex]:
-                    cd = countData[dataIndex]
-                    if cd.count == 0:
-                        openCounts.remove(dataIndex)
-                        for r in cd.routeSet:
-                            closedRoutes.add(r)
-
-                if closedRoutes:
-                    cdRecheck = set()
-                    openRoutes2 = []
-                    for r in openRoutes:
-                        if r in closedRoutes:
-                            for dataIndex in routeUsage[r]:
-                                cdRecheck.add(dataIndex)
-                        else:
-                            openRoutes2.append(r)
-                    openRoutes = openRoutes2
-                    closedCounts = [c for c in cdRecheck if not countData[c].routeSet.intersection(openRoutes)]
-                    if closedCounts:
-                        openCounts = [c for c in openCounts if c not in closedCounts]
+    usedRoutes, numSampled = sampleRoutes(options, rng, routes, countData, routeUsage, openRoutes, openCounts, ratioIndices, numSampled, intervalCount, usedRoutes)
 
     totalMismatch = sum([cd.count for cd in countData])  # noqa
 
@@ -1311,6 +1259,69 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
         mismatchf.write('    </interval>\n')
 
     return sum(underflow.values), sum(overflow.values), gehOKPerc, ratioPerc, totalOrigCount, usedRoutes, outf
+
+
+def sampleRoutes(options, rng, routes, countData, routeUsage, openRoutes, openCounts, ratioIndices, numSampled, intervalCount, usedRoutes):
+    if options.optimize != "full" and not options.noSampling:
+        while openCounts:
+            if intervalCount is not None and numSampled >= intervalCount:
+                break
+
+            if ratioIndices and intervalCount is None:
+                realCounts = [cdi for cdi in openCounts if cdi not in ratioIndices]
+                if not realCounts:
+                    if numSampled == 0:
+                        print("Stopped sampling routes because only ratios are still open."
+                              + " Set option --total-count to sample ratios without local counts",
+                              file=sys.stderr)
+                    break
+
+            if options.weighted:
+                routeIndex = _sample_skewed(openRoutes, rng, routes.probabilities)
+            else:
+                # sampling equally among open counting locations appears to
+                # improve GEH but it would also introduce a bias in the loaded
+                # route probabilities
+                cd = countData[rng.choice(openCounts)]
+                routeIndex = rng.choice([r for r in openRoutes if r in cd.routeSet])
+            numSampled += 1
+            usedRoutes.append(routeIndex)
+            for dataIndex in routeUsage[routeIndex]:
+                countData[dataIndex].use()
+
+            if ratioIndices:
+                for dataIndex in routeUsage[routeIndex]:
+                    countData[dataIndex].updateTurnRatioCounts(openRoutes, openCounts, True)
+
+                # this is the old and slow way to update things
+                openRoutes = updateOpenRoutes(openRoutes, routeUsage, countData)
+                openCounts = updateOpenCounts(openCounts, countData, openRoutes)
+
+            else:
+                # update openRouts and openCounts only if needed
+                closedRoutes = set()
+                for dataIndex in routeUsage[routeIndex]:
+                    cd = countData[dataIndex]
+                    if cd.count == 0:
+                        openCounts.remove(dataIndex)
+                        for r in cd.routeSet:
+                            closedRoutes.add(r)
+
+                if closedRoutes:
+                    cdRecheck = set()
+                    openRoutes2 = []
+                    for r in openRoutes:
+                        if r in closedRoutes:
+                            for dataIndex in routeUsage[r]:
+                                cdRecheck.add(dataIndex)
+                        else:
+                            openRoutes2.append(r)
+                    openRoutes = openRoutes2
+                    closedCounts = [c for c in cdRecheck if not countData[c].routeSet.intersection(openRoutes)]
+                    if closedCounts:
+                        openCounts = [c for c in openCounts if c not in closedCounts]
+
+    return usedRoutes, numSampled
 
 
 if __name__ == "__main__":
