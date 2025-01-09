@@ -2449,7 +2449,7 @@ NBNode::getDirection(const NBEdge* const incoming, const NBEdge* const outgoing,
 
     if (angle > 0) {
         // check whether any other edge goes further to the right
-        if (angle > 90) {
+        if (angle > 90 + NUMERICAL_EPS) {
             return LinkDirection::RIGHT;
         }
         NBEdge* outCW = getNextCompatibleOutgoing(incoming, vehPerm, itOut, !leftHand);
@@ -2465,7 +2465,7 @@ NBNode::getDirection(const NBEdge* const incoming, const NBEdge* const outgoing,
                 return LinkDirection::STRAIGHT;
             }
             return leftHand ? LinkDirection::TURN_LEFTHAND : LinkDirection::TURN;
-        } else if (angle < -90) {
+        } else if (angle < -(90 + NUMERICAL_EPS)) {
             return LinkDirection::LEFT;
         }
         NBEdge* outCCW = getNextCompatibleOutgoing(incoming, vehPerm, itOut, leftHand);
@@ -2848,7 +2848,7 @@ NBNode::checkCrossing(EdgeVector candidates, bool checkOnly) {
         if (candidates.size() == 1 || getType() == SumoXMLNodeType::RAIL_CROSSING) {
             if (!checkOnly) {
                 addCrossing(candidates, NBEdge::UNSPECIFIED_WIDTH, isTLControlled()
-                        || (isRoundabout() && OptionsCont::getOptions().getBool("crossings.guess.roundabout-priority")));
+                            || (isRoundabout() && OptionsCont::getOptions().getBool("crossings.guess.roundabout-priority")));
                 DEBUGCOUT(gDebugFlag1, "adding crossing: " << toString(candidates) << "\n")
             }
             return 1;
@@ -2892,7 +2892,7 @@ NBNode::checkCrossing(EdgeVector candidates, bool checkOnly) {
             }
             if (!checkOnly) {
                 addCrossing(candidates, NBEdge::UNSPECIFIED_WIDTH, isTLControlled()
-                        || (isRoundabout() && OptionsCont::getOptions().getBool("crossings.guess.roundabout-priority")));
+                            || (isRoundabout() && OptionsCont::getOptions().getBool("crossings.guess.roundabout-priority")));
                 DEBUGCOUT(gDebugFlag1, "adding crossing: " << toString(candidates) << "\n")
             }
             return 1;
