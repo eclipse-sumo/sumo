@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-02-29 13:56:01 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
+<!-- generated on 2025-01-09 15:21:08 by Eclipse SUMO netconvert Version v1_21_0+1775-c2a2f9e96c3
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <sumo-net-file value="input_net.net.xml"/>
@@ -45,7 +45,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <xml-validation value="never"/>
     </report>
 
-</configuration>
+</netconvertConfiguration>
 -->
 
 <net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
@@ -217,9 +217,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <connection from="SC" to="CE" fromLane="0" toLane="0" via=":C_10_0" dir="r" state="M"/>
     <connection from="SC" to="CN" fromLane="0" toLane="0" via=":C_11_0" dir="R" state="M"/>
     <connection from="SC" to="CN" fromLane="1" toLane="1" via=":C_11_1" dir="R" state="M"/>
-    <connection from="SC" to="CW" fromLane="1" toLane="1" via=":C_13_0" dir="r" state="m"/>
+    <connection from="SC" to="CW" fromLane="1" toLane="1" via=":C_13_0" dir="R" state="m"/>
     <connection from="SC" to="CS" fromLane="1" toLane="1" via=":C_14_0" dir="t" state="m"/>
-    <connection from="WC" to="CS" fromLane="0" toLane="0" via=":C_15_0" dir="l" state="m"/>
+    <connection from="WC" to="CS" fromLane="0" toLane="0" via=":C_15_0" dir="L" state="m"/>
     <connection from="WC" to="CE" fromLane="0" toLane="0" via=":C_16_0" dir="l" state="m"/>
     <connection from="WC" to="CN" fromLane="1" toLane="1" via=":C_17_0" dir="l" state="m"/>
     <connection from="WC" to="CW" fromLane="1" toLane="1" via=":C_18_0" dir="t" state="m"/>
@@ -240,10 +240,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <connection from=":C_10" to="CE" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from=":C_11" to="CN" fromLane="0" toLane="0" dir="R" state="M"/>
     <connection from=":C_11" to="CN" fromLane="1" toLane="1" dir="R" state="M"/>
-    <connection from=":C_13" to="CW" fromLane="0" toLane="1" dir="r" state="M"/>
+    <connection from=":C_13" to="CW" fromLane="0" toLane="1" dir="R" state="M"/>
     <connection from=":C_14" to="CS" fromLane="0" toLane="1" via=":C_22_0" dir="t" state="m"/>
     <connection from=":C_22" to="CS" fromLane="0" toLane="1" dir="t" state="M"/>
-    <connection from=":C_15" to="CS" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from=":C_15" to="CS" fromLane="0" toLane="0" dir="L" state="M"/>
     <connection from=":C_16" to="CE" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from=":C_17" to="CN" fromLane="0" toLane="1" dir="l" state="M"/>
     <connection from=":C_18" to="CW" fromLane="0" toLane="1" dir="t" state="M"/>
