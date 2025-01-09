@@ -1022,6 +1022,8 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
             openRoutes, openCounts = initOpen(options, routes, routeUsage, countData, unrestricted)
             usedRoutes, numSampled = sampleRoutes(options, rng, routes, countData, routeUsage, openRoutes, openCounts,
                                                   None, numSampled, intervalCount, usedRoutes, remove=True)
+            if numSampled < 0:
+                print("  Removed %s routes from input to reduce overflow" % -numSampled)
             negateCounts(countData)
 
         openRoutes, openCounts = initOpen(options, routes, routeUsage, countData, unrestricted)
