@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-01-06 11:22+0100\n"
-"PO-Revision-Date: 2025-01-08 12:47+0000\n"
+"PO-Revision-Date: 2025-01-09 14:19+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -762,6 +762,8 @@ msgstr "L'opzione --logit è obsoleta, va usato --route-choice-method logit."
 #: src/duarouter/RODUAFrame.cpp:251
 msgid "Cannot derive file name for alternatives output, skipping it."
 msgstr ""
+"Non si può derivare il nome del file per l'uscita di alternative e perciò "
+"l'uscita va essere omessa."
 
 #: src/duarouter/RODUAFrame.cpp:258
 msgid ""
@@ -1831,11 +1833,11 @@ msgstr ""
 
 #: src/microsim/MSFrame.cpp:212
 msgid "Save aggregated person counts into FILE"
-msgstr ""
+msgstr "Salva censimenti di persone in FILE"
 
 #: src/microsim/MSFrame.cpp:216
 msgid "Save single vehicle trip info into FILE"
-msgstr ""
+msgstr "Salva informazioni sulle corse dei veicoli singoli in FILE"
 
 #: src/microsim/MSFrame.cpp:219
 msgid ""
@@ -1858,7 +1860,7 @@ msgstr "Salva personinfo e containerinfo in FILE"
 
 #: src/microsim/MSFrame.cpp:230
 msgid "Save single vehicle route info into FILE"
-msgstr ""
+msgstr "Salva informazioni sugli itinerari di veicoli singoli in FILE"
 
 #: src/microsim/MSFrame.cpp:234
 msgid "Write the exit times for all edges"
@@ -1930,16 +1932,21 @@ msgstr "Salva blocchi dei segnali ferroviari in FILE"
 #: src/microsim/MSFrame.cpp:288
 msgid "Record entry and exit times of vehicles for railsignal blocks into FILE"
 msgstr ""
+"Registra l'ora di entrata e di uscita di veicoli nei blocchi ferroviari in "
+"FILE"
 
 #: src/microsim/MSFrame.cpp:291
 msgid ""
 "Save bluetooth visibilities into FILE (in conjunction with device.btreceiver "
 "and device.btsender)"
 msgstr ""
+"Salva le visibilità bluetooth in FILE (insieme con device.btreceiver e "
+"device.btsender)"
 
 #: src/microsim/MSFrame.cpp:294
 msgid "Record lane changes and their motivations for all vehicles into FILE"
 msgstr ""
+"Registra i cambi corsia di tutti i veicoli e le loro motivazioni in FILE"
 
 #: src/microsim/MSFrame.cpp:297
 msgid "Record start of lane change manoeuvres"
@@ -2175,12 +2182,17 @@ msgstr ""
 msgid ""
 "Abort the simulation if the given maximum number of teleports is exceeded"
 msgstr ""
+"Interrompi la simulazione se si oltrepassa il numero di teletrasporti "
+"indicato"
 
 #: src/microsim/MSFrame.cpp:431
 msgid ""
 "Specify how long a vehicle may wait until being teleported, defaults to 300, "
 "non-positive values disable teleporting"
 msgstr ""
+"Specifica quanto tempo un veicolo deve aspettare prima di essere "
+"teletrasportato (standard 300) - valori non positivi disattivano il "
+"teletrasporto"
 
 #: src/microsim/MSFrame.cpp:434
 msgid ""
