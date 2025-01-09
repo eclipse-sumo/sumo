@@ -469,7 +469,9 @@ def parseDataIntervals(parseFun, fnames, begin, end, allRoutes, attr, options,
         return result
     for fname in fnames:
         for interval in sumolib.xml.parse(fname, 'interval', heterogeneous=True):
-            overlap = 1 if isRatio else getOverlap(begin, end, parseTime(interval.begin), parseTime(interval.end))
+            iBegin = parseTime(interval.begin)
+            iEnd = parseTime(interval.end)
+            overlap = 1 if isRatio else getOverlap(begin, end, iBegin, iEnd)
             if overlap > 0:
                 # print(begin, end, interval.begin, interval.end, "overlap:", overlap)
                 for edges, value in parseFun(interval, attr, warn):
@@ -489,6 +491,14 @@ def parseDataIntervals(parseFun, fnames, begin, end, allRoutes, attr, options,
                     elif isRatio != locations[edges].isRatio:
                         print("Warning: Edge relation '%s' occurs as turn relation and also as turn-ratio" %
                               ' '.join(edges), file=sys.stderr)
+                    elif not warn and overlap == 1 and begin == iBegin and end == iEnd:
+                        # in 'Warn' mode we are parsing the whole time range at once so duplicate occurences are expected.
+                        # Hence we warn only in the context of solveInterval where 'warn=False'
+                        print("Edge %s'%s' occurs more than once in interval %s-%s" % (
+                            "relation " if len(edges) > 1 else "",
+                            ' '.join(edges),
+                            interval.begin, interval.end),
+                            file=sys.stderr)
                     value *= overlap
                     if not isRatio:
                         value = int(value)
