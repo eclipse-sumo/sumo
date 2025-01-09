@@ -1,0 +1,3 @@
+Wrote 105 routes (98 distinct) achieving total count 857 (111.15%) at 82 locations. GEH<5 for 86.59%
+Warning: underflow locations: count 1, min 3.00 (('-123.121.42',)), max 3.00 (('-123.121.42',)), mean 3.00, Q1 3.00, median 3.00, Q3 3.00 (total 3)
+Warning: overflow locations: count 51, min -5.00 (('-55.80.00',)), max -1.00 (('45',)), mean -1.75, Q1 -2.00, median -1.00, Q3 -1.00 (total -89)

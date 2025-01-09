@@ -1,0 +1,5 @@
+# using edgedata as input and sample on top of that
+init-input
+
+# using edgedata as input and use it directly as output
+no-sampling

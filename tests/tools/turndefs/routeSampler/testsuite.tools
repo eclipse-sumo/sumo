@@ -27,6 +27,9 @@ OD
 
 # load a custom  distribution for depart times
 departtime_dist
+
+# Use the input as a starting point for sampling
+keep_input
 verbose
 
 # save configuration file
