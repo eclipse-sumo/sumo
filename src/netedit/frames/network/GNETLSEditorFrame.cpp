@@ -167,16 +167,16 @@ void
 GNETLSEditorFrame::editTLS(GNEViewNetHelper::ViewObjectsSelector& viewObjects, const Position &clickedPosition, const bool shiftKeyPressed) {
     // first check if in viewObjects there is a junction
     if (viewObjects.getJunctionFront()) {
-        // show objects under cursor
-        myOverlappedInspection->showOverlappedInspection(viewObjects, clickedPosition, shiftKeyPressed);
-        // hide if we inspect only one junction
-        if (myOverlappedInspection->getNumberOfOverlappedACs() == 1) {
-            myOverlappedInspection->clearOverlappedInspection();
-        }
         // check if we're adding or removing joined TLSs
         if (myTLSJunction->isJoiningJunctions()) {
             myTLSJunction->toggleJunctionSelected(viewObjects.getJunctionFront());
         } else {
+            // show objects under cursor
+            myOverlappedInspection->showOverlappedInspection(viewObjects, clickedPosition, shiftKeyPressed);
+            // hide if we inspect only one junction
+            if (myOverlappedInspection->getNumberOfOverlappedACs() == 1) {
+                myOverlappedInspection->clearOverlappedInspection();
+            }
             editJunction(viewObjects.getJunctionFront());
         }
     } else if (viewObjects.getAdditionalFront() && myTLSAttributes->isSetDetectorsToggleButtonEnabled() &&
