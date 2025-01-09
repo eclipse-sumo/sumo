@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-01-02 15:02+0100\n"
-"PO-Revision-Date: 2025-01-08 07:46+0000\n"
+"PO-Revision-Date: 2025-01-09 13:57+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -2939,7 +2939,7 @@ msgstr "Lädt meanData erneut aus '"
 
 #: src/netedit/GNEApplicationWindow.cpp:4373
 msgid "MeanDatas elements saved in '"
-msgstr ""
+msgstr "MeanData-Elemente gespeichert in '"
 
 #: src/netedit/GNEApplicationWindow.cpp:4376
 msgid "Saving MeanData elements aborted"
@@ -10326,7 +10326,7 @@ msgstr ""
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:8400
 msgid "Toggle front element"
-msgstr ""
+msgstr "Oberstes Element festhalten"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:8404
 msgid "Toggle select element"
@@ -11131,6 +11131,7 @@ msgstr "Gehgeschwindigkeitsfaktor"
 msgid ""
 "id of the travel group. Persons with the same group may share a taxi ride"
 msgstr ""
+"ID der Reisegruppe. Personen derselben Gruppe können sich ein Taxi teilen"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:9501
 #: src/netedit/elements/GNEAttributeCarrier.cpp:9554
@@ -11406,7 +11407,7 @@ msgstr "Attribut '%' existiert nicht"
 #: src/netedit/elements/GNETagProperties.cpp:215
 #, c-format
 msgid "Invalid index '%' used in getAttributeProperties(int)"
-msgstr ""
+msgstr "Ungültiger Index '%' in getAttributeProperties(int) verwendet"
 
 #: src/netedit/elements/additional/GNEAccess.cpp:171
 #: src/netedit/elements/additional/GNEEntryExitDetector.cpp:98
@@ -11884,7 +11885,7 @@ msgstr "Polygon bereits vereinfacht"
 
 #: src/netedit/elements/additional/GNEPoly.cpp:528
 msgid "Using GEO Shape"
-msgstr ""
+msgstr "Geografischen Shape benutzen"
 
 #: src/netedit/elements/additional/GNERerouter.cpp:104
 msgid "' needs at least one edge"
@@ -12545,7 +12546,7 @@ msgstr "Länge bis zur Position: "
 
 #: src/netedit/elements/network/GNELane.cpp:591
 msgid "Distance: "
-msgstr ""
+msgstr "Distanz: "
 
 #: src/netedit/elements/network/GNELane.cpp:593
 msgid "Height: "
@@ -12839,12 +12840,12 @@ msgstr "Element einen Fahrstreifen zurückschieben"
 #: src/netedit/frames/GNEAttributesEditorRow.cpp:333
 #, c-format
 msgid "ComboBox value '%' for attribute % of % isn't valid"
-msgstr ""
+msgstr "Wert '%' des Kombinationsfelds für Attribut '%' von % ist ungültig"
 
 #: src/netedit/frames/GNEAttributesEditorRow.cpp:383
 #, c-format
 msgid "TextField value '%' for attribute % of % isn't valid"
-msgstr ""
+msgstr "Die Textfeldeingabe '%' für Attribut % von % ist ungültig"
 
 #: src/netedit/frames/GNEConsecutiveSelector.cpp:55
 msgid "Consecutive lane selector"
@@ -12918,7 +12919,7 @@ msgstr "' im Nachfragelement-Auswähler"
 
 #: src/netedit/frames/GNEDemandSelector.cpp:281
 msgid "Selected invalid item in DemandElementSelector"
-msgstr ""
+msgstr "In der Nachfrageelementauswahl wurde ein ungültiges Element ausgewählt"
 
 #: src/netedit/frames/GNEDrawingShape.cpp:50
 msgid "Drawing"
