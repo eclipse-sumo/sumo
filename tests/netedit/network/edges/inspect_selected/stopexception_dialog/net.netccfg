@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-01-08 11:15:45 by Eclipse SUMO netedit Version v1_21_0+1720-9160afd48ee
+<!-- generated on 2025-01-09 15:32:39 by Eclipse SUMO netconvert Version v1_21_0+1778-fdebe6ae1ee
 -->
 
-<neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <node-files value="D:\SUMO\tests\netedit\network\edges\inspect_selected\stopexception_dialog\net.nod.xml"/>
@@ -30,4 +30,4 @@
         <walkingareas value="0"/>
     </pedestrian>
 
-</neteditConfiguration>
+</netconvertConfiguration>
