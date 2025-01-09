@@ -35,6 +35,7 @@
     <optimize value="None" type="string" help="set optimization method level (full, INT boundary)" category="processing"/>
     <optimize-input value="False" type="bool" help="Skip resampling and run optimize directly on the input routes" category="processing"/>
     <init-input value="False" type="bool" help="use loaded routes as initialization for the used routes" category="processing"/>
+    <init-input.remove-overflow value="False" type="bool" help="use loaded routes as initialization but remove those that are responsible for overflow" category="processing"/>
     <no-sampling value="False" type="bool" help="Skip sampling of routes" category="processing"/>
     <min-count value="1" type="int" help="Set minimum number of counting locations that a route must visit" category="processing"/>
     <minimize-vehicles value="0" type="float" help="Set optimization factor from [0, 1[ for reducing the number of vehicles(prefer routes that pass multiple counting locations over routes that pass fewer)" category="processing"/>
