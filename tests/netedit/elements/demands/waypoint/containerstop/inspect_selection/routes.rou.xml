@@ -42,6 +42,6 @@
     </trip>
 
     <trip id="tripB" depart="0.00" from="EdgeCenter0" to="EdgeCenter1">
-        <stop containerStop="containerStopB" duration="60.00" until="20.00" extension="20.00" parking="0" permitted="C D" actType="singing" speed="22.5" tripId="tripB" line="lineB" jump="2" split="splitB"/>
+        <stop containerStop="containerStopB" duration="60.00" until="20.00" extension="20.00" parking="opportunistic" permitted="C D" actType="singing" speed="22.5" tripId="tripB" line="lineB" jump="2" split="splitB"/>
     </trip>
 </routes>

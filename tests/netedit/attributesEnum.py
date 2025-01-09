@@ -2392,8 +2392,8 @@ class stopBusStop:
         extensionEnable = 5
         extension = 6
         triggered = 7
-        expected = 8
-        join = 8
+        expected = 9
+        join = 9
         permitted = 9
         parking = 10
         actType = 12
@@ -2453,8 +2453,8 @@ class stopTrainStop:
         extensionEnable = 5
         extension = 6
         triggered = 7
-        expected = 8
-        join = 8
+        expected = 9
+        join = 9
         permitted = 9
         parking = 10
         actType = 12
@@ -2516,14 +2516,14 @@ class stopContainerStop:
         triggered = 7
         expected = 9
         join = 9
-        permitted = 10
-        parking = 11
-        actType = 13
-        tripID = 14
-        line = 15
-        onDemand = 16
-        jump = 17
-        split = 18
+        permitted = 9
+        parking = 10
+        actType = 12
+        tripID = 13
+        line = 14
+        onDemand = 15
+        jump = 16
+        split = 17
 
 # stop over charging station
 
@@ -2577,14 +2577,14 @@ class stopChargingStation:
         triggered = 7
         expected = 9
         join = 9
-        permitted = 10
-        parking = 11
-        actType = 13
-        tripID = 14
-        line = 15
-        onDemand = 16
-        jump = 17
-        split = 18
+        permitted = 9
+        parking = 10
+        actType = 12
+        tripID = 13
+        line = 14
+        onDemand = 15
+        jump = 16
+        split = 17
 
 # stop over parkings
 
@@ -2706,14 +2706,14 @@ class stopLane:
         triggered = 9
         expected = 11
         join = 11
-        permitted = 12
-        parking = 13
-        actType = 15
-        tripID = 16
-        line = 17
-        onDemand = 18
-        jump = 19
-        split = 20
+        permitted = 11
+        parking = 12
+        actType = 14
+        tripID = 15
+        line = 16
+        onDemand = 17
+        jump = 18
+        split = 19
 
 # waypoint over bus stops
 
@@ -2758,14 +2758,17 @@ class waypointBusStop:
         until = 4
         extensionEnable = 5
         extension = 6
-        permitted = 7
-        parking = 8
-        actType = 10
-        tripID = 11
-        line = 12
-        speed = 13
-        jump = 14
-        split = 15
+        triggered = 7
+        expected = 9
+        join = 9
+        permitted = 9
+        parking = 10
+        actType = 12
+        tripID = 13
+        line = 14
+        onDemand = 15
+        jump = 16
+        split = 17
 
 # waypoint over train stops
 
@@ -3718,7 +3721,7 @@ class containerFlow:
         spacing = 12
         terminateOption = 14
         spacingOption = 15
-        parameters = 19
+        parameters = 18
 
 # PersonPlans
 

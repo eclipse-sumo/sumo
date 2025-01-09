@@ -42,6 +42,6 @@
     </route>
 
     <route edges="EdgeCenter0 EdgeCenter1" color="yellow" id="route_1">
-        <stop busStop="busStopB" duration="60.00" until="20.00" extension="20.00" parking="0" permitted="C D" actType="singing" speed="22.5" tripId="tripB" line="lineB" jump="13" split="splitB"/>
+        <stop busStop="busStopB" duration="60.00" until="20.00" extension="20.00" parking="opportunistic" permitted="C D" actType="singing" speed="22.5" tripId="tripB" line="lineB" jump="13" split="splitB"/>
     </route>
 </routes>

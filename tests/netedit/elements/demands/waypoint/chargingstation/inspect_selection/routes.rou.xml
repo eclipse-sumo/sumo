@@ -44,6 +44,6 @@
     </flow>
 
     <flow id="flowB" type="bike" begin="0.00" end="36.00" number="18" from="EdgeCenter1" to="Edge5">
-        <stop chargingStation="chargingStationB" duration="60.00" until="20.00" extension="20.00" parking="0" permitted="C D" actType="singing" speed="22.5" tripId="tripB" line="lineB" jump="16" split="splitB"/>
+        <stop chargingStation="chargingStationB" duration="60.00" until="20.00" extension="20.00" parking="opportunistic" permitted="C D" actType="singing" speed="22.5" tripId="tripB" line="lineB" jump="16" split="splitB"/>
     </flow>
 </routes>
