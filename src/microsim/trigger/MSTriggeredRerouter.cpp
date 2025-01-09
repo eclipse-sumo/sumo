@@ -415,6 +415,9 @@ MSTriggeredRerouter::triggerRouting(SUMOTrafficObject& tObject, MSMoveReminder::
     if (!applies(tObject)) {
         return false;
     }
+    if (myRadius == std::numeric_limits<double>::max() || tObject.getPosition().distanceTo(myPosition) > myRadius) {
+        return true;
+    }
     // check whether the vehicle shall be rerouted
     const SUMOTime now = MSNet::getInstance()->getCurrentTimeStep();
     const MSTriggeredRerouter::RerouteInterval* const rerouteDef = getCurrentReroute(now, tObject);
