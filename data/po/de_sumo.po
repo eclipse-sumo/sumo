@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-01-06 11:22+0100\n"
-"PO-Revision-Date: 2025-01-08 07:47+0000\n"
+"PO-Revision-Date: 2025-01-09 13:57+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -5400,15 +5400,15 @@ msgstr "Zirkuläre BLockade nach % gefunden (% Kanten, Länge %)"
 
 #: src/microsim/traffic_lights/MSDriveWay.cpp:2003
 msgid "Unknown driveWay '%' with route '%'"
-msgstr ""
+msgstr "Unbekannte Fahrstraße '%' mit Route '%'"
 
 #: src/microsim/traffic_lights/MSDriveWay.cpp:2013
 msgid "Unknown parent driveway '%' for subDriveWay '%'"
-msgstr ""
+msgstr "Unbekannte übergeordnete Fahrstraße '%' für Teilfahrstraße '%'"
 
 #: src/microsim/traffic_lights/MSDriveWay.cpp:2032
 msgid "Unknown vehicle '%' in driveway '%'"
-msgstr ""
+msgstr "Unbekanntes Fahrzeug '%' in Fahrstraße '%'"
 
 #: src/microsim/traffic_lights/MSOffTrafficLightLogic.cpp:80
 msgid "Invalid 'off'-state for link % at junction '%'"
@@ -5600,7 +5600,7 @@ msgstr ""
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:307
 msgid "No waiting set for crossing at %."
-msgstr ""
+msgstr "Keine Wartemenge an der Fußgängerfurt über %."
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:344
 msgid "Error while adding a journey for person '%': %"
@@ -6483,6 +6483,7 @@ msgstr ""
 #: src/netbuild/NBEdgeCont.cpp:940
 msgid "Invalid endOffset % at lane '%' with length % (startOffset %)."
 msgstr ""
+"Ungültiger endOffset % für Fahrstreifen '%' mit der Länge % (startOffset %)."
 
 #: src/netbuild/NBEdgeCont.cpp:943
 msgid ""
@@ -10282,11 +10283,11 @@ msgstr "Fahrstreifengrößen unterscheiden sich für die Verbindung '%'."
 
 #: src/netimport/vissim/tempstructs/NIVissimConnectionCluster.cpp:496
 msgid "NIVissimConnectionCluster: More than a single node"
-msgstr ""
+msgstr "NIVissimConnectionCluster: Mehr als ein einzelner Knoten"
 
 #: src/netimport/vissim/tempstructs/NIVissimConnectionCluster.cpp:662
 msgid "NIVissimConnectionCluster: how to get an edge's position?"
-msgstr ""
+msgstr "NIVissimConnectionCluster: Wie die Kantenposition bekommen?"
 
 #: src/netimport/vissim/tempstructs/NIVissimDistrictConnection.cpp:205
 #, c-format
@@ -10342,7 +10343,7 @@ msgstr "Konnte '%' von '%' nicht verbieten."
 
 #: src/netimport/vissim/tempstructs/NIVissimDisturbance.cpp:307
 msgid "NIVissimDisturbance: no connection"
-msgstr ""
+msgstr "NIVissimDisturbance: keine Verbindung"
 
 #: src/netimport/vissim/tempstructs/NIVissimDisturbance.cpp:340
 #, c-format
@@ -12552,16 +12553,22 @@ msgstr "minimaler Wert % größer als Maximum %"
 #: src/utils/distribution/Distribution_Parameterized.cpp:173
 msgid "minimum value % too large for distribution with mean % and deviation %"
 msgstr ""
+"der minimale Wert % ist zu groß für eine Verteilung mit dem Mittelwert % und "
+"der Abweichung %"
 
 #: src/utils/distribution/Distribution_Parameterized.cpp:176
 msgid "maximum value % too small for distribution with mean % and deviation %"
 msgstr ""
+"der maximale Wert % ist zu klein für eine Verteilung mit dem Mittelwert % "
+"und der Abweichung %"
 
 #: src/utils/distribution/Distribution_Parameterized.cpp:179
 msgid ""
 "maximum value % and minimum value % too close for distribution with mean % "
 "and deviation %"
 msgstr ""
+"der maximale Wert % und der minimale Wert % sind zu nah bei einander für "
+"eine Verteilung mit dem Mittelwert % und der Abweiching %"
 
 #: src/utils/emissions/EnergyParams.cpp:88
 msgid ""
@@ -13208,11 +13215,14 @@ msgstr "Landmark-Kante '%' existiert nicht im Netz."
 #: src/utils/router/AStarLookupTable.h:166
 msgid "Invalid coordinate in landmark file, could not find edge at  '%'"
 msgstr ""
+"Ungültige Koordinate in der Landmark-Datei - die Kante in Zeile '%' konnte "
+"nicht gefunden werden"
 
 #: src/utils/router/AStarLookupTable.h:178
 #, c-format
 msgid "Broken landmark file, could not parse '%' as coordinates."
 msgstr ""
+"Kaputte Landmark-Datei - '%' konnte nicht als Koordinaten eingelesen werden."
 
 #: src/utils/router/AStarLookupTable.h:185
 #: src/utils/router/AStarLookupTable.h:198
@@ -13248,6 +13258,8 @@ msgid ""
 "Landmark % is not reachable from % edges and is unable to reach % out of "
 "% total edges."
 msgstr ""
+"Landmark % kann von % Kanten nicht erreicht werden und von dort können % von "
+"insgesamt % Kanten nicht erreicht werden."
 
 #: src/utils/router/AStarLookupTable.h:338
 msgid "Saving new matrix to '%'."
