@@ -739,6 +739,10 @@ def resetCounts(usedRoutes, routeUsage, countData):
         for i in routeUsage[r]:
             countData[i].use()
 
+def negateCounts(countData):
+    for cd in countData:
+        cd.count *= -1
+        cd.assignedCount *= -1
 
 def getRouteCounts(routes, usedRoutes):
     result = [0] * routes.number
@@ -978,6 +982,15 @@ def hasODCount(cdIndices, countData):
     return False
 
 
+def initOpen(options, routes, routeUsage, countData, unrestricted):
+    openRoutes = updateOpenRoutes(range(0, routes.number), routeUsage, countData)
+    openRoutes = [r for r in openRoutes if r not in unrestricted]
+    if options.odFiles and not options.extraOD:
+        openRoutes = [r for r in openRoutes if hasODCount(routeUsage[r], countData)]
+    openCounts = updateOpenCounts(range(0, len(countData)), countData, openRoutes)
+    return openRoutes, openCounts
+
+
 def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, rng, intervalCount):
     countData = parseCounts(options, routes, begin, end)
 
@@ -995,25 +1008,27 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
             print("Ignored %s routes which pass fewer than %s counting location" % (
                 len(unrestricted), options.minCount))
 
-    # pick a random counting location and select a new route that passes it until
-    # all counts are satisfied or no routes can be used anymore
-
-    openRoutes = updateOpenRoutes(range(0, routes.number), routeUsage, countData)
-    openRoutes = [r for r in openRoutes if r not in unrestricted]
-    if options.odFiles and not options.extraOD:
-        openRoutes = [r for r in openRoutes if hasODCount(routeUsage[r], countData)]
-
-    openCounts = updateOpenCounts(range(0, len(countData)), countData, openRoutes)
+    openRoutes, openCounts = initOpen(options, routes, routeUsage, countData, unrestricted)
 
     usedRoutes = []
     numSampled = 0
     if options.initInput:
         usedRoutes = [routes.edges2index[e] for e in routes.all]
         resetCounts(usedRoutes, routeUsage, countData)
-        openRoutes = updateOpenRoutes(openRoutes, routeUsage, countData)
-        openCounts = updateOpenCounts(openCounts, countData, openRoutes)
 
-    usedRoutes, numSampled = sampleRoutes(options, rng, routes, countData, routeUsage, openRoutes, openCounts, ratioIndices, numSampled, intervalCount, usedRoutes)
+        if options.initInputRemove:
+            negateCounts(countData)
+            #usedRoutes.sort() # for efficient removal
+            openRoutes, openCounts = initOpen(options, routes, routeUsage, countData, unrestricted)
+            usedRoutes, numSampled = sampleRoutes(options, rng, routes, countData, routeUsage, openRoutes, openCounts,
+                                                  None, numSampled, intervalCount, usedRoutes, remove=True)
+            negateCounts(countData)
+
+        openRoutes, openCounts = initOpen(options, routes, routeUsage, countData, unrestricted)
+
+    if options.optimize != "full" and not options.noSampling:
+        usedRoutes, numSampled = sampleRoutes(options, rng, routes, countData, routeUsage, openRoutes, openCounts,
+                                              ratioIndices, numSampled, intervalCount, usedRoutes)
 
     totalMismatch = sum([cd.count for cd in countData])  # noqa
 
@@ -1129,65 +1144,74 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
     return sum(underflow.values), sum(overflow.values), gehOKPerc, ratioPerc, totalOrigCount, usedRoutes, outf
 
 
-def sampleRoutes(options, rng, routes, countData, routeUsage, openRoutes, openCounts, ratioIndices, numSampled, intervalCount, usedRoutes):
-    if options.optimize != "full" and not options.noSampling:
-        while openCounts:
-            if intervalCount is not None and numSampled >= intervalCount:
+def sampleRoutes(options, rng, routes, countData, routeUsage, openRoutes, openCounts,
+                ratioIndices, numSampled, intervalCount, usedRoutes, remove=False):
+    """pick a random counting location and select a new route that passes it until
+       all counts are satisfied or no routes can be used anymore """
+    while openCounts:
+        if intervalCount is not None and numSampled >= intervalCount:
+            break
+
+        if ratioIndices and intervalCount is None:
+            realCounts = [cdi for cdi in openCounts if cdi not in ratioIndices]
+            if not realCounts:
+                if numSampled == 0:
+                    print("Stopped sampling routes because only ratios are still open."
+                          + " Set option --total-count to sample ratios without local counts",
+                          file=sys.stderr)
                 break
 
-            if ratioIndices and intervalCount is None:
-                realCounts = [cdi for cdi in openCounts if cdi not in ratioIndices]
-                if not realCounts:
-                    if numSampled == 0:
-                        print("Stopped sampling routes because only ratios are still open."
-                              + " Set option --total-count to sample ratios without local counts",
-                              file=sys.stderr)
-                    break
-
-            if options.weighted:
-                routeIndex = _sample_skewed(openRoutes, rng, routes.probabilities)
-            else:
-                # sampling equally among open counting locations appears to
-                # improve GEH but it would also introduce a bias in the loaded
-                # route probabilities
-                cd = countData[rng.choice(openCounts)]
-                routeIndex = rng.choice([r for r in openRoutes if r in cd.routeSet])
+        if options.weighted:
+            routeIndex = _sample_skewed(openRoutes, rng, routes.probabilities)
+        else:
+            # sampling equally among open counting locations appears to
+            # improve GEH but it would also introduce a bias in the loaded
+            # route probabilities
+            cd = countData[rng.choice(openCounts)]
+            routeIndex = rng.choice([r for r in openRoutes if r in cd.routeSet])
+        if remove:
+            numSampled -= 1
+            usedRoutes.remove(routeIndex)
+        else:
             numSampled += 1
             usedRoutes.append(routeIndex)
+        for dataIndex in routeUsage[routeIndex]:
+            countData[dataIndex].use()
+
+        if ratioIndices:
             for dataIndex in routeUsage[routeIndex]:
-                countData[dataIndex].use()
+                countData[dataIndex].updateTurnRatioCounts(openRoutes, openCounts, True)
 
-            if ratioIndices:
-                for dataIndex in routeUsage[routeIndex]:
-                    countData[dataIndex].updateTurnRatioCounts(openRoutes, openCounts, True)
+            # this is the old and slow way to update things
+            openRoutes = updateOpenRoutes(openRoutes, routeUsage, countData)
+            openCounts = updateOpenCounts(openCounts, countData, openRoutes)
 
-                # this is the old and slow way to update things
-                openRoutes = updateOpenRoutes(openRoutes, routeUsage, countData)
-                openCounts = updateOpenCounts(openCounts, countData, openRoutes)
+        else:
+            # update openRouts and openCounts only if needed
+            closedRoutes = set()
+            for dataIndex in routeUsage[routeIndex]:
+                cd = countData[dataIndex]
+                if cd.count == 0:
+                    openCounts.remove(dataIndex)
+                    for r in cd.routeSet:
+                        closedRoutes.add(r)
 
-            else:
-                # update openRouts and openCounts only if needed
-                closedRoutes = set()
-                for dataIndex in routeUsage[routeIndex]:
-                    cd = countData[dataIndex]
-                    if cd.count == 0:
-                        openCounts.remove(dataIndex)
-                        for r in cd.routeSet:
-                            closedRoutes.add(r)
+            if remove and routeIndex not in usedRoutes:
+                closedRoutes.add(routeIndex)
 
-                if closedRoutes:
-                    cdRecheck = set()
-                    openRoutes2 = []
-                    for r in openRoutes:
-                        if r in closedRoutes:
-                            for dataIndex in routeUsage[r]:
-                                cdRecheck.add(dataIndex)
-                        else:
-                            openRoutes2.append(r)
-                    openRoutes = openRoutes2
-                    closedCounts = [c for c in cdRecheck if not countData[c].routeSet.intersection(openRoutes)]
-                    if closedCounts:
-                        openCounts = [c for c in openCounts if c not in closedCounts]
+            if closedRoutes:
+                cdRecheck = set()
+                openRoutes2 = []
+                for r in openRoutes:
+                    if r in closedRoutes:
+                        for dataIndex in routeUsage[r]:
+                            cdRecheck.add(dataIndex)
+                    else:
+                        openRoutes2.append(r)
+                openRoutes = openRoutes2
+                closedCounts = [c for c in cdRecheck if not countData[c].routeSet.intersection(openRoutes)]
+                if closedCounts:
+                    openCounts = [c for c in openCounts if c not in closedCounts]
 
     return usedRoutes, numSampled
 
