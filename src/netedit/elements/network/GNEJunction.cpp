@@ -163,6 +163,13 @@ GNEJunction::checkDrawFromContour() const {
             } else {
                 return myNet->getViewNet()->getViewObjectsSelector().getJunctionFront() == this;
             }
+        } else if ((modes.networkEditMode == NetworkEditMode::NETWORK_TLS) &&
+                    viewParent->getTLSEditorFrame()->getTLSJunction()->isJoiningJunctions()) {
+            for (const auto &id : viewParent->getTLSEditorFrame()->getTLSJunction()->getSelectedJunctionIDs()) {
+                if (id == getMicrosimID()) {
+                    return true;
+                }
+            }
         }
     } else if (modes.isCurrentSupermodeDemand()) {
         // get current GNEPlanCreator
