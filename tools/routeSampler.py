@@ -144,6 +144,10 @@ def get_options(args=None):
                     help="set optimization method level (full, INT boundary)")
     op.add_argument("--optimize-input", dest="optimizeInput", action="store_true", default=False,
                     help="Skip resampling and run optimize directly on the input routes")
+    op.add_argument("--init-input", dest="initInput", action="store_true", default=False,
+                    help="use loaded routes as initialization for the used routes")
+    op.add_argument("--no-sampling", dest="noSampling", action="store_true", default=False,
+                    help="Skip sampling of routes")
     op.add_argument("--min-count", dest="minCount", type=int, default=1,
                     help="Set minimum number of counting locations that a route must visit")
     op.add_argument("--minimize-vehicles", dest="minimizeVehs", type=float, default=0,
@@ -198,9 +202,12 @@ def get_options(args=None):
             print("Cannot use optimization (scipy not installed)", file=sys.stderr)
             sys.exit(1)
 
-    if options.optimizeInput and not isinstance(options.optimize, int):
-        print("Option --optimize-input requires an integer argument for --optimize", file=sys.stderr)
-        sys.exit(1)
+    if options.optimizeInput:
+        if not isinstance(options.optimize, int):
+            print("Option --optimize-input requires an integer argument for --optimize", file=sys.stderr)
+            sys.exit(1)
+        options.initInput = True
+        options.noSampling = True
 
     if options.threads > 1 and sys.version_info[0] < 3:
         print("Using multiple cpus is only supported for python 3", file=sys.stderr)
@@ -874,7 +881,7 @@ def main(options):
                     if result[4][i] is not None:
                         ratioSummary.add(result[4][i], begin)
                     inputCountSummary.add(result[5][i], begin)
-                    usedRoutesSummary.add(result[6][i], begin)
+                    usedRoutesSummary.add(len(result[6][i]), begin)
         else:
             for i, (begin, end) in enumerate(intervals):
                 intervalPrefix = "" if len(intervals) == 1 else "%s_" % int(begin)
@@ -887,7 +894,7 @@ def main(options):
                 if ratioPerc is not None:
                     ratioSummary.add(ratioPerc, begin)
                 inputCountSummary.add(inputCount, begin)
-                usedRoutesSummary.add(usedRoutes, begin)
+                usedRoutesSummary.add(len(usedRoutes), begin)
         outf.write('</routes>\n')
 
     if options.mismatchOut:
@@ -995,10 +1002,13 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
 
     usedRoutes = []
     numSampled = 0
-    if options.optimizeInput:
+    if options.initInput:
         usedRoutes = [routes.edges2index[e] for e in routes.all]
         resetCounts(usedRoutes, routeUsage, countData)
-    elif options.optimize != "full":
+        openRoutes = updateOpenRoutes(openRoutes, routeUsage, countData)
+        openCounts = updateOpenCounts(openCounts, countData, openRoutes)
+
+    if options.optimize != "full" and not options.noSampling:
         while openCounts:
             if intervalCount is not None and numSampled >= intervalCount:
                 break
@@ -1300,7 +1310,7 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
                       file=sys.stderr)
         mismatchf.write('    </interval>\n')
 
-    return sum(underflow.values), sum(overflow.values), gehOKPerc, ratioPerc, totalOrigCount, len(usedRoutes), outf
+    return sum(underflow.values), sum(overflow.values), gehOKPerc, ratioPerc, totalOrigCount, usedRoutes, outf
 
 
 if __name__ == "__main__":
