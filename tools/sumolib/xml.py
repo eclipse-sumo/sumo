@@ -14,6 +14,7 @@
 # @file    xml.py
 # @author  Michael Behrisch
 # @author  Jakob Erdmann
+# @author  Mirko Barthauer
 # @date    2011-06-23
 
 from __future__ import print_function
@@ -130,7 +131,12 @@ def compound_object(element_name, attrnames, warn=False, sort=True):
 
         def setAttribute(self, name, value):
             if name not in self._original_fields:
-                self._original_fields.append(name)
+                if isinstance(self._original_fields, tuple):
+                    tempList = list(self._original_fields)
+                    tempList.append(name)
+                    self._original_fields = tuple(tempList)
+                else:
+                    self._original_fields.append(name)
                 self._fields.append(_prefix_keyword(name, warn))
             self.__dict__[_prefix_keyword(name, warn)] = value
 
