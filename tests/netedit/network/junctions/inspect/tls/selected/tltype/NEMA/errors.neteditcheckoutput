@@ -2,3 +2,5 @@ Warning: Cannot build detector of length 20 because no further continuation lane
 Warning: Cannot build detector of length 20 because no further continuation lane was found for lane '-E7_1'! Truncated detector at length 17.8.
 Warning: Cannot build detector of length 20 because no further continuation lane was found for lane '-E0_0'! Truncated detector at length 17.8.
 Warning: Cannot build detector of length 20 because no further continuation lane was found for lane '-E1_0'! Truncated detector at length 17.8.
+Warning: Cannot build detector of length 20 because no further continuation lane was found for lane '-E2_0'! Truncated detector at length 17.8.
+Warning: Cannot build detector of length 20 because no further continuation lane was found for lane '-E3_0'! Truncated detector at length 17.8.

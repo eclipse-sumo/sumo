@@ -2634,15 +2634,15 @@ class stopParkingArea:
         extensionEnable = 5
         extension = 6
         triggered = 7
-        expected = 9
-        join = 9
-        permitted = 10
-        actType = 11
-        tripID = 12
-        line = 13
-        onDemand = 14
-        jump = 15
-        split = 16
+        expected = 8
+        join = 8
+        permitted = 9
+        actType = 10
+        tripID = 11
+        line = 12
+        onDemand = 13
+        jump = 14
+        split = 15
 
 # stop over lane
 
