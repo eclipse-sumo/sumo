@@ -994,9 +994,6 @@ RouteHandler::parseNestedCFM(const SumoXMLTag tag, const SUMOSAXAttributes& attr
 
 bool
 RouteHandler::parseStopParameters(SUMOVehicleParameter::Stop& stop, const SUMOSAXAttributes& attrs) {
-    const auto falseStr = toString(false);
-    // get parameters
-    bool ok = true;
     // check stop parameters
     if (attrs.hasAttribute(SUMO_ATTR_ARRIVAL)) {
         stop.parametersSet |= STOP_ARRIVAL_SET;
@@ -1025,14 +1022,14 @@ RouteHandler::parseStopParameters(SUMOVehicleParameter::Stop& stop, const SUMOSA
     if (attrs.hasAttribute(SUMO_ATTR_POSITION_LAT)) {
         stop.parametersSet |= STOP_POSLAT_SET;
     }
-    if (attrs.hasAttribute(SUMO_ATTR_TRIGGERED) && (attrs.getOpt<std::string>(SUMO_ATTR_TRIGGERED, nullptr, ok, falseStr) != falseStr)) {
+    if (attrs.hasAttribute(SUMO_ATTR_TRIGGERED)) {
         stop.parametersSet |= STOP_TRIGGER_SET;
     }
     // legacy attribute
-    if (attrs.hasAttribute(SUMO_ATTR_CONTAINER_TRIGGERED) && (attrs.getOpt<std::string>(SUMO_ATTR_CONTAINER_TRIGGERED, nullptr, ok, falseStr) != falseStr)) {
+    if (attrs.hasAttribute(SUMO_ATTR_CONTAINER_TRIGGERED)) {
         stop.parametersSet |= STOP_TRIGGER_SET;
     }
-    if (attrs.hasAttribute(SUMO_ATTR_PARKING) && (attrs.getOpt<std::string>(SUMO_ATTR_PARKING, nullptr, ok, falseStr) != falseStr)) {
+    if (attrs.hasAttribute(SUMO_ATTR_PARKING)) {
         stop.parametersSet |= STOP_PARKING_SET;
     }
     if (attrs.hasAttribute(SUMO_ATTR_EXPECTED)) {
@@ -1065,6 +1062,8 @@ RouteHandler::parseStopParameters(SUMOVehicleParameter::Stop& stop, const SUMOSA
     if (attrs.hasAttribute(SUMO_ATTR_JUMP)) {
         stop.parametersSet |= STOP_JUMP_SET;
     }
+    // get parameters
+    bool ok = true;
     // edge/lane
     stop.edge = attrs.getOpt<std::string>(SUMO_ATTR_EDGE, nullptr, ok, "");
     stop.lane = attrs.getOpt<std::string>(SUMO_ATTR_LANE, nullptr, ok, stop.busstop);
