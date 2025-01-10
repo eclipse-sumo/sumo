@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-06-11 09:11:30 by Eclipse SUMO netedit Version v1_20_0+0353-d865fbd950c
+<!-- generated on 2025-01-10 13:12:46 by Eclipse SUMO netedit Version v1_21_0+1799-8988b277446
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
@@ -11,10 +11,10 @@
     <trainStop id="trainStopB" name="m" lane="EdgeCenter0_1" startPos="6.05" endPos="12.95"/>
     <containerStop id="containerStopA" lane="Edge2_1" startPos="34.00" endPos="44.00"/>
     <containerStop id="containerStopB" lane="EdgeCenter1_1" startPos="10.36" endPos="20.73"/>
-    <chargingStation id="chargingStationA" lane="Edge2_1" startPos="13.00" endPos="21.00"/>
-    <chargingStation id="chargingStationB" lane="EdgeCenter1_1" startPos="34.42" endPos="41.58"/>
     <parkingArea id="parkingAreaA" lane="Edge2_1" startPos="22.00" endPos="32.00"/>
     <parkingArea id="parkingAreaB" lane="EdgeCenter0_1" startPos="16.41" endPos="26.77"/>
+    <chargingStation id="chargingStationA" lane="Edge2_1" startPos="13.00" endPos="21.00"/>
+    <chargingStation id="chargingStationB" lane="EdgeCenter1_1" startPos="34.42" endPos="41.58"/>
     <!-- Detectors -->
     <inductionLoop id="e1_0" lane="Edge4_1" pos="3.00" period="300.00" file="e1_0.xml"/>
     <inductionLoop id="e1_1" lane="Edge1_1" pos="27.00" period="300.00" file="e1_1.xml"/>

@@ -1,1 +1,1 @@
-Error: Could not build laneAreaDetector with ID 'e2_0' in netedit; Attribute timeThreshold cannot be negative.
+Error: Could not build multiLaneAreaDetector with ID 'e2_0' in netedit; Attribute timeThreshold cannot be negative (-12.00).

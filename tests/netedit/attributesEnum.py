@@ -902,8 +902,8 @@ class E1:
         vTypes = 4
         nextEdges = 5
         detectPersons = 6
-        friendlyPos = 8
-        parameters = 11
+        friendlyPos = 7
+        parameters = 10
 
 # E2
 
@@ -954,12 +954,12 @@ class E2:
         vTypes = 6
         nextEdges = 7
         detectPersons = 8
-        timeThreshold = 10
-        speedThreshold = 11
-        jamThreshold = 12
-        friendlyPos = 13
-        show = 14
-        parameters = 17
+        timeThreshold = 9
+        speedThreshold = 10
+        jamThreshold = 11
+        friendlyPos = 12
+        show = 13
+        parameters = 16
 
 # E2Multilane
 
@@ -1007,12 +1007,12 @@ class E2Multilane:
         vTypes = 5
         nextEdges = 6
         detectPersons = 7
-        timeThreshold = 9
-        speedThreshold = 10
-        jamThreshold = 11
-        friendlyPos = 12
-        show = 13
-        parameters = 16
+        timeThreshold = 8
+        speedThreshold = 9
+        jamThreshold = 10
+        friendlyPos = 11
+        show = 12
+        parameters = 15
 
 # E3
 
@@ -1073,12 +1073,14 @@ class entryExit:
         pos = 3
         friendlyPos = 4
         parameters = 7
-        parent = 11
+        parentButton = 11
+        parent = 12
 
     class inspectSelection:
         friendlyPos = 1
         parameters = 4
-        parent = 7
+        parentButton = 8
+        parent = 9
 
 # E1Instant
 
@@ -1112,8 +1114,8 @@ class E1Instant:
         vTypes = 3
         nextEdges = 4
         detectPersons = 5
-        friendlyPos = 7
-        parameters = 10
+        friendlyPos = 6
+        parameters = 9
 
 # calibrator
 
