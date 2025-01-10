@@ -1,0 +1,6 @@
+-r input_routes.rou.xml --edgedata-file input_edgedata.xml 
+--edgedata-attribute count
+-o out.rou.xml 
+--init-input.remove-overflow
+--no-sampling
+--min-count 2
