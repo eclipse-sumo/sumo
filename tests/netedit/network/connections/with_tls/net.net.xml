@@ -1,43 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-01-09 15:32:29 by Eclipse SUMO netconvert Version v1_21_0+1778-fdebe6ae1ee
-This data file and the accompanying materials
-are made available under the terms of the Eclipse Public License v2.0
-which accompanies this distribution, and is available at
-http://www.eclipse.org/legal/epl-v20.html
-This file may also be made available under the following Secondary
-Licenses when the conditions for such availability set forth in the Eclipse
-Public License 2.0 are satisfied: GNU General Public License, version 2
-or later which is available at
-https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
-SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<!-- generated on 2025-01-10 11:17:38 by Eclipse SUMO netedit Version v1_21_0+1797-9b282cfea17
+<neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-        <node-files value=".\netedit\network\connections\with_tls\net.nod.xml"/>
-        <edge-files value=".\netedit\network\connections\with_tls\net.edg.xml"/>
-        <connection-files value=".\netedit\network\connections\with_tls\net.con.xml"/>
-        <tllogic-files value=".\netedit\network\connections\with_tls\net.tll.xml"/>
+        <sumo-net-file value="D:\SUMO\tests\netedit\network\connections\with_tls\net.net.xml"/>
     </input>
 
     <output>
-        <write-license value="true"/>
-        <output-file value=".\netedit\network\connections\with_tls\net.net.xml"/>
+        <output-file value="D:\SUMO\tests\netedit\network\connections\with_tls\net.net.xml"/>
     </output>
 
-    <projection>
-        <proj value="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs"/>
-    </projection>
-
     <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
     </processing>
 
-    <report>
-        <verbose value="true"/>
-    </report>
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
 
-</netconvertConfiguration>
+    <pedestrian>
+        <walkingareas value="0"/>
+    </pedestrian>
+
+</neteditConfiguration>
 -->
 
 <net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
@@ -55,12 +47,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </edge>
     <edge id=":Junction5_3" function="internal">
         <lane id=":Junction5_3_0" index="0" allow="bus" speed="13.89" length="14.00" width="3.00" shape="-7.00,-1.50 7.00,-1.50"/>
-    </edge>
-    <edge id=":JunctionExtern0_0" function="internal">
-        <lane id=":JunctionExtern0_0_0" index="0" disallow="pedestrian" speed="3.53" length="4.38" width="3.00" shape="-60.00,1.50 -61.12,0.75 -61.50,0.00 -61.12,-0.75 -60.00,-1.50"/>
-    </edge>
-    <edge id=":JunctionExtern1_0" function="internal">
-        <lane id=":JunctionExtern1_0_0" index="0" disallow="pedestrian" speed="3.53" length="4.38" width="3.00" shape="60.00,-1.50 61.12,-0.75 61.50,0.00 61.12,0.75 60.00,1.50"/>
     </edge>
 
     <edge id="-E0" from="J0" to="Junction5" priority="-1">
@@ -111,25 +97,17 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <request index="2" response="0000" foes="1010" cont="0"/>
         <request index="3" response="0100" foes="0101" cont="0"/>
     </junction>
-    <junction id="JunctionExtern0" type="priority" x="-60.00" y="0.00" incLanes="EdgeExternTop_0" intLanes=":JunctionExtern0_0_0" shape="-60.00,0.00 -60.00,3.00 -60.00,0.00">
-        <request index="0" response="0" foes="0" cont="0"/>
-    </junction>
-    <junction id="JunctionExtern1" type="priority" x="60.00" y="0.00" incLanes="EdgeExternBot_0" intLanes=":JunctionExtern1_0_0" shape="60.00,0.00 60.00,-3.00 60.00,0.00">
-        <request index="0" response="0" foes="0" cont="0"/>
-    </junction>
+    <junction id="JunctionExtern0" type="dead_end" x="-60.00" y="0.00" incLanes="EdgeExternTop_0" intLanes="" shape="-60.00,0.00 -60.00,3.00 -60.00,0.00"/>
+    <junction id="JunctionExtern1" type="dead_end" x="60.00" y="0.00" incLanes="EdgeExternBot_0" intLanes="" shape="60.00,0.00 60.00,-3.00 60.00,0.00"/>
 
     <connection from="-E0" to="E3" fromLane="0" toLane="0" pass="1" keepClear="0" changeLeft="private authority army vip pedestrian passenger hov taxi bus coach delivery motorcycle moped bicycle evehicle tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone custom1 custom2" changeRight="private emergency pedestrian passenger hov taxi bus coach delivery truck trailer motorcycle moped bicycle evehicle tram rail_urban rail rail_electric rail_fast ship cable_car subway aircraft wheelchair scooter drone custom1 custom2" speed="15.00" length="6.00" shape="-1.50,7.00 -2.00,5.00 0.00,5.00 0.00,3.00 -2.00,3.00 -2.00,-3.00 0.00,-3.00 0.00,-5.00 -2.00,-5.00 -1.50,-7.00" uncontrolled="1" indirect="1" type="custom" via=":Junction5_0_0" dir="s" state="M" visibility="2.00"/>
     <connection from="-E1" to="E2" fromLane="0" toLane="0" via=":Junction5_3_0" tl="Junction5" linkIndex="2" dir="s" state="o"/>
     <connection from="-E2" to="E1" fromLane="0" toLane="0" via=":Junction5_1_0" tl="Junction5" linkIndex="0" dir="s" state="o"/>
     <connection from="-E3" to="E0" fromLane="0" toLane="0" via=":Junction5_2_0" tl="Junction5" linkIndex="1" dir="s" state="O"/>
-    <connection from="EdgeExternBot" to="EdgeExternTop" fromLane="0" toLane="0" via=":JunctionExtern1_0_0" dir="t" state="M"/>
-    <connection from="EdgeExternTop" to="EdgeExternBot" fromLane="0" toLane="0" via=":JunctionExtern0_0_0" dir="t" state="M"/>
 
     <connection from=":Junction5_0" to="E3" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":Junction5_1" to="E1" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":Junction5_2" to="E0" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":Junction5_3" to="E2" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":JunctionExtern0_0" to="EdgeExternBot" fromLane="0" toLane="0" dir="t" state="M"/>
-    <connection from=":JunctionExtern1_0" to="EdgeExternTop" fromLane="0" toLane="0" dir="t" state="M"/>
 
 </net>

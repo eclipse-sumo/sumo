@@ -42,13 +42,13 @@ netedit.createSquaredShape(referencePosition, netedit.positions.elements.additio
 netedit.deleteMode()
 
 # delete created polygon
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeA)
 
 # try to delete second polygon (not possible due isn't fill)
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeD)
 
-# delete loaded filled polygon
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+# try to delete second polygon (not possible due isn't fill)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeD)
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

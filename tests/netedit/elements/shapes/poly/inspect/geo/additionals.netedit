@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-01-10 10:15:49 by Eclipse SUMO netedit Version v1_21_0+1795-43a3ca5d6da
+<!-- generated on 2025-01-10 10:11:59 by Eclipse SUMO netedit Version v1_21_0+1795-43a3ca5d6da
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -13,9 +13,7 @@ https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
-<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <!-- Routes -->
-    <route id="r_0" edges="Edge0 Edge1 Edge2"/>
-    <!-- Vehicles, persons and containers (sorted by depart) -->
-    <flow id="f_0" begin="0.00" route="r_0" end="3600.00" vehsPerHour="180"/>
-</routes>
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- Shapes -->
+    <poly id="po_0" color="red" fill="0" layer="0.00" geo="1" shape="-0.000180,0.000090 -0.000180,0.000198 -0.000269,0.000198 -0.000269,0.000090 -0.000180,0.000090"/>
+</additional>

@@ -2,12 +2,6 @@
 # edit poi id
 id
 
-# edit poi lon
-lon
-
-# edit poi lat
-lat
-
 # edit poi color
 color
 
@@ -34,6 +28,12 @@ relativepath
 
 # edit poi angle
 angle
+
+# edit poi lon
+lon
+
+# edit poi lat
+lat
 
 # edit poi parameters
 parameters

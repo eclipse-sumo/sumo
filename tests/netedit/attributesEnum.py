@@ -261,7 +261,7 @@ class lane:
         stopOffset = 15
         stopOffsetExceptionButton = 16
         stopOffsetException = 17
-        parameters = 20
+        parameters = 18
 
     class inspectSelection:
         speed = 1
@@ -1236,7 +1236,8 @@ class poly:
         imgFile = 13
         reativePath = 14
         angle = 15
-        closeShape = 19
+        angle = 16
+        closeShape = 20
 
     class inspect:
         id = 1
@@ -1251,10 +1252,10 @@ class poly:
         imgFile = 10
         reativePath = 11
         angle = 12
+        geo = 15
         geoshape = 15
-        geo = 16
-        parameters = 19
-        closeShape = 23
+        parameters = 18
+        closeShape = 22
 
     class inspectSelection:
         colorButton = 1
@@ -1340,20 +1341,20 @@ class poiGeo:
 
     class inspect:
         id = 1
-        lon = 2
-        lat = 3
-        colorButton = 4
-        color = 5
-        type = 6
-        icon = 7
-        name = 9
-        layer = 10
-        width = 11
-        height = 12
-        imgFile = 13
-        relativePath = 14
-        angle = 15
-        parameters = 18
+        colorButton = 2
+        color = 3
+        type = 4
+        icon = 5
+        name = 6
+        layer = 8
+        width = 9
+        height = 10
+        imgFile = 11
+        relativePath = 12
+        angle = 13
+        lon = 16
+        lat = 17
+        parameters = 20
 
     class inspectSelection:
         colorButton = 1
@@ -2634,8 +2635,8 @@ class stopParkingArea:
         extensionEnable = 5
         extension = 6
         triggered = 7
-        expected = 8
-        join = 8
+        expected = 9
+        join = 9
         permitted = 9
         actType = 10
         tripID = 11
@@ -2758,17 +2759,14 @@ class waypointBusStop:
         until = 4
         extensionEnable = 5
         extension = 6
-        triggered = 7
-        expected = 9
-        join = 9
-        permitted = 9
-        parking = 10
-        actType = 12
-        tripID = 13
-        line = 14
-        onDemand = 15
-        jump = 16
-        split = 17
+        permitted = 7
+        parking = 8
+        actType = 10
+        tripID = 11
+        line = 12
+        speed = 13
+        jump = 14
+        split = 15
 
 # waypoint over train stops
 
