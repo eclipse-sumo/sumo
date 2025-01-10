@@ -157,6 +157,8 @@ def get_options(args=None):
                     "(prefer routes that pass multiple counting locations over routes that pass fewer)")
     op.add_argument("--geh-ok", dest="gehOk", type=float, default=5,
                     help="threshold for acceptable GEH values")
+    op.add_argument("--geh-scale", dest="gehScale", type=float, default=None,
+                    help="Should be set to 0.1 when loading traffic for a full day (estimating peak hour traffic as 1/10 of daily traffic)")
     op.add_argument("--turn-ratio-total", dest="turnRatioTotal", type=float, default=1,
                     help="Set value for normalizing turning ratios (default 1)")
     op.add_argument("--turn-ratio-tolerance", dest="turnRatioTolerance", type=float,
@@ -980,6 +982,13 @@ def initOpen(options, routes, routeUsage, countData, unrestricted):
     return openRoutes, openCounts
 
 
+def getHourFraction(options, begin, end):
+    if options.gehScale is None:
+        return (end - begin) / 3600.0
+    else:
+        return 1 / options.gehScale
+
+
 def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, rng, intervalCount):
     countData = parseCounts(options, routes, begin, end)
 
@@ -1062,7 +1071,7 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
     numGehOK = 0.0
     gehOKPerc = 100
     ratioPerc = None
-    hourFraction = (end - begin) / 3600.0
+    hourFraction = getHourFraction(options, begin, end)
     totalCount = 0
     totalOrigCount = 0
     totalRatioCount = 0
@@ -1334,8 +1343,9 @@ def writeRoutes(options, rng, outf, routes, routeCounts, begin, end, intervalPre
 
 def writeMismatch(options, mismatchf, countData, begin, end):
     mismatchf.write('    <interval id="deficit" begin="%s" end="%s">\n' % (begin, end))
+    hourFraction = getHourFraction(options, begin, end)
     for cd in countData:
-        geh = None if cd.isRatio else sumolib.miscutils.geh(cd.origCount, cd.origCount - cd.count) 
+        geh = None if cd.isRatio else sumolib.miscutils.geh(cd.origCount / hourFraction, (cd.origCount - cd.count) / hourFraction)
         if len(cd.edgeTuple) == 1:
             mismatchf.write('        <edge id="%s" measuredCount="%s" deficit="%s" GEH="%.2f"/>\n' % (
                 cd.edgeTuple[0], cd.origCount, cd.count, geh))
