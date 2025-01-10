@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-01-06 11:22+0100\n"
-"PO-Revision-Date: 2025-01-09 14:19+0000\n"
+"PO-Revision-Date: 2025-01-10 15:16+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -2199,12 +2199,18 @@ msgid ""
 "The waiting time after which vehicles on a fast road (speed > 69km/h) are "
 "teleported if they are on a non-continuing lane"
 msgstr ""
+"Il tempo di attesa dopodiché i veicoli su una via rapida (limite di velocità "
+"> 69km/h) verranno teletrasportati se si trovono su una corsia senza "
+"successore"
 
 #: src/microsim/MSFrame.cpp:437
 msgid ""
 "The waiting time after which vehicles on a fast road (default: speed > 69km/"
 "h) are teleported if they are on a non-continuing lane"
 msgstr ""
+"Il tempo di attesa dopodiché i veicoli su una via rapida (valore standard: "
+"limite di velocità > 69km/h) verranno teletrasportati se si trovono su una "
+"corsia senza successore"
 
 #: src/microsim/MSFrame.cpp:440
 msgid ""
@@ -2219,6 +2225,8 @@ msgid ""
 "Whether vehicles shall be removed after waiting too long instead of being "
 "teleported"
 msgstr ""
+"Se i veicoli devono essere rimossi dopo aver atteso troppo a lungo invece di "
+"essere teletrasportati"
 
 #: src/microsim/MSFrame.cpp:446
 msgid ""
@@ -2231,11 +2239,16 @@ msgid ""
 "The waiting time after which persons / containers waiting for a pickup are "
 "teleported. Negative values disable teleporting"
 msgstr ""
+"Il tempo di attesa dopodiché le persone / i contenitori in attesa di una "
+"corsa verranno teletrasportato. Può essere disattivato impostando un valore "
+"negativo"
 
 #: src/microsim/MSFrame.cpp:452
 msgid ""
 "The waiting time after which vehicles on bidirectional edges are teleported"
 msgstr ""
+"Il tempo di attesa dopodiché i veicoli sugli archi bidirezionali verranno "
+"teletrasportati"
 
 #: src/microsim/MSFrame.cpp:455
 msgid ""
