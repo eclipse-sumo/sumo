@@ -1016,8 +1016,9 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
         resetCounts(routeCounts, routeUsage, countData)
 
         if options.initInputRemove:
+            fully_unrestricted = set([r for r, usage in enumerate(routeUsage) if len(usage) == 0])
             negateCounts(countData)
-            openRoutes, openCounts = initOpen(options, routes, routeUsage, countData, unrestricted)
+            openRoutes, openCounts = initOpen(options, routes, routeUsage, countData, fully_unrestricted)
             routeCounts, numSampled = sampleRoutes(options, rng, routes, countData, routeUsage, openRoutes, openCounts,
                                                   None, numSampled, intervalCount, routeCounts, remove=True)
             if numSampled < 0:
