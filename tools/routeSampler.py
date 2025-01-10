@@ -318,7 +318,7 @@ class CountData:
             return None
         return i
 
-    def use(self, n):
+    def use(self, n = 1):
         self.count -= n
         self.assignedCount += n
 
