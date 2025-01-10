@@ -318,25 +318,13 @@ class CountData:
             return None
         return i
 
-    def use(self):
-        self.count -= 1
-        self.assignedCount += 1
+    def use(self, n):
+        self.count -= n
+        self.assignedCount += n
 
     def addCount(self, count):
         self.count += count
         self.origCount += count
-
-    def sampleOpen(self, rng, openRoutes, routeCounts):
-        cands = list(self.routeSet.intersection(openRoutes))
-        assert cands
-        probs = [routeCounts[i] for i in cands]
-        x = rng.rand() * sum(probs)
-        seen = 0
-        for route, prob in zip(cands, probs):
-            seen += prob
-            if seen >= x:
-                return route
-        assert False
 
     def updateTurnRatioCounts(self, openRoutes, openCounts, updateSiblings=False):
         if self.isRatio:
@@ -540,7 +528,7 @@ def updateOpenCounts(openCounts, countData, openRoutes):
     return list(filter(lambda i: countData[i].routeSet.intersection(openRoutes), openCounts))
 
 
-def optimize(options, countData, routes, usedRoutes, routeUsage, intervalCount, rng):
+def optimize(options, countData, routes, priorRouteCounts, routeUsage, intervalCount, rng):
     """ use relaxtion of the ILP problem for picking the number of times that each route is used
     x = usageCount vector (count for each route index)
     c = weight vector (vector of 1s)
@@ -555,8 +543,6 @@ def optimize(options, countData, routes, usedRoutes, routeUsage, intervalCount, 
     import scipy.optimize as opt
 
     m = len(countData)
-
-    priorRouteCounts = getRouteCounts(routes, usedRoutes)
 
     relevantRoutes = [i for i in range(routes.number) if len(routeUsage[i]) >= options.minCount]
     priorRelevantRouteCounts = [priorRouteCounts[r] for r in relevantRoutes]
@@ -615,7 +601,6 @@ def optimize(options, countData, routes, usedRoutes, routeUsage, intervalCount, 
 
     if res.success:
         print("Optimization succeeded")
-        del usedRoutes[:]
         routeCountsR = res.x[:k]  # cut of slack variables
         # translate to original route indices
         # routeCounts = [0] * routes.number
@@ -640,11 +625,12 @@ def optimize(options, countData, routes, usedRoutes, routeUsage, intervalCount, 
         #    sum(map(round, routeCounts)),
         #    routeCounts))
         # print("slack (n=%s, sum=%s) %s" % (len(slack), sum(slack), slack))
-        usedRoutes.extend(sum([[i] * count for i, count in enumerate(routeCountsRounded)], []))
+        return routeCountsRounded
         # print("#usedRoutes=%s" % len(usedRoutes))
         # update countData
     else:
         print("Optimization failed")
+        return priorRouteCounts
 
 
 def zero():
@@ -745,21 +731,14 @@ def resetCounts(usedRoutes, routeUsage, countData):
     for cd in countData:
         cd.count = cd.origCount
         cd.assignedCount = 0
-    for r in usedRoutes:
+    for r, usage in enumerate(usedRoutes):
         for i in routeUsage[r]:
-            countData[i].use()
+            countData[i].use(usage)
 
 def negateCounts(countData):
     for cd in countData:
         cd.count *= -1
         cd.assignedCount *= -1
-
-def getRouteCounts(routes, usedRoutes):
-    result = [0] * routes.number
-    for r in usedRoutes:
-        result[r] += 1
-    return result
-
 
 def getRouteUsage(routes, countData):
     """store which counting locations are used by each route (using countData index)"""
@@ -900,7 +879,7 @@ def main(options):
                     if result[4][i] is not None:
                         ratioSummary.add(result[4][i], begin)
                     inputCountSummary.add(result[5][i], begin)
-                    usedRoutesSummary.add(len(result[6][i]), begin)
+                    usedRoutesSummary.add(sum(result[6][i]), begin)
         else:
             for i, (begin, end) in enumerate(intervals):
                 intervalPrefix = "" if len(intervals) == 1 else "%s_" % int(begin)
@@ -913,7 +892,7 @@ def main(options):
                 if ratioPerc is not None:
                     ratioSummary.add(ratioPerc, begin)
                 inputCountSummary.add(inputCount, begin)
-                usedRoutesSummary.add(len(usedRoutes), begin)
+                usedRoutesSummary.add(sum(usedRoutes), begin)
         outf.write('</routes>\n')
 
     if options.mismatchOut:
@@ -1020,18 +999,18 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
 
     openRoutes, openCounts = initOpen(options, routes, routeUsage, countData, unrestricted)
 
-    usedRoutes = []
+    routeCounts = [0] * routes.number # hold the use-count for each route
     numSampled = 0
     if options.initInput:
-        usedRoutes = [routes.edges2index[e] for e in routes.all]
-        resetCounts(usedRoutes, routeUsage, countData)
+        for e in routes.all:
+            routeCounts[routes.edges2index[e]] += 1
+        resetCounts(routeCounts, routeUsage, countData)
 
         if options.initInputRemove:
             negateCounts(countData)
-            #usedRoutes.sort() # for efficient removal
             openRoutes, openCounts = initOpen(options, routes, routeUsage, countData, unrestricted)
-            usedRoutes, numSampled = sampleRoutes(options, rng, routes, countData, routeUsage, openRoutes, openCounts,
-                                                  None, numSampled, intervalCount, usedRoutes, remove=True)
+            routeCounts, numSampled = sampleRoutes(options, rng, routes, countData, routeUsage, openRoutes, openCounts,
+                                                  None, numSampled, intervalCount, routeCounts, remove=True)
             if numSampled < 0:
                 print("  Removed %s routes from input to reduce overflow" % -numSampled)
             negateCounts(countData)
@@ -1039,8 +1018,8 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
         openRoutes, openCounts = initOpen(options, routes, routeUsage, countData, unrestricted)
 
     if options.optimize != "full" and not options.noSampling:
-        usedRoutes, numSampled = sampleRoutes(options, rng, routes, countData, routeUsage, openRoutes, openCounts,
-                                              ratioIndices, numSampled, intervalCount, usedRoutes)
+        routeCounts, numSampled = sampleRoutes(options, rng, routes, countData, routeUsage, openRoutes, openCounts,
+                                              ratioIndices, numSampled, intervalCount, routeCounts)
 
     totalMismatch = sum([cd.count for cd in countData])  # noqa
 
@@ -1048,9 +1027,9 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
         if options.verbose:
             print("Starting optimization for interval [%s, %s] (mismatch %s)" % (
                 begin, end, totalMismatch))
-        optimize(options, countData, routes, usedRoutes, routeUsage, intervalCount, rng)
-        resetCounts(usedRoutes, routeUsage, countData)
-        numSampled = len(usedRoutes)
+        routeCounts = optimize(options, countData, routes, routeCounts, routeUsage, intervalCount, rng)
+        resetCounts(routeCounts, routeUsage, countData)
+        numSampled = sum(routeCounts)
 
     if intervalCount is not None and numSampled < intervalCount:
         if unrestricted:
@@ -1064,17 +1043,17 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
                     routeIndex = _sample_skewed(unrestricted, rng, routes.probabilities)
                 else:
                     routeIndex = rng.choice(unrestricted_list)
-                usedRoutes.append(routeIndex)
+                routeCounts[routeIndex] += 1
                 assert len(routeUsage[routeIndex]) == 0
                 numSampled += 1
         else:
             print("Cannot fulfill total interval count of %s due to lack of unrestricted routes" % intervalCount,
                   file=sys.stderr)
 
-    if usedRoutes:
-        # avoid bias from sampling order / optimization
-        rng.shuffle(usedRoutes)
-        writeRoutes(options, rng, outf, routes, usedRoutes, begin, end, intervalPrefix)
+    if any(routeCounts):
+        usedRoutes = writeRoutes(options, rng, outf, routes, routeCounts, begin, end, intervalPrefix)
+    else:
+        usedRoutes = []
 
     underflow = sumolib.miscutils.Statistics("underflow locations")
     overflow = sumolib.miscutils.Statistics("overflow locations")
@@ -1130,7 +1109,7 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
     outputIntervalPrefix = "" if intervalPrefix == "" else "%s: " % int(begin)
     print("%sWrote %s routes (%s distinct) %s%s%s" % (
         outputIntervalPrefix,
-        len(usedRoutes), len(set(usedRoutes)),
+        sum(routeCounts), len([c for c in routeCounts if c != 0]),
         ("achieving " if countData else "no data"),
         gehInfo, ratioInfo))
 
@@ -1153,11 +1132,11 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
     if mismatchf:
         writeMismatch(options, mismatchf, countData, begin, end)
 
-    return sum(underflow.values), sum(overflow.values), gehOKPerc, ratioPerc, totalOrigCount, usedRoutes, outf
+    return sum(underflow.values), sum(overflow.values), gehOKPerc, ratioPerc, totalOrigCount, routeCounts, outf
 
 
 def sampleRoutes(options, rng, routes, countData, routeUsage, openRoutes, openCounts,
-                ratioIndices, numSampled, intervalCount, usedRoutes, remove=False):
+                ratioIndices, numSampled, intervalCount, routeCounts, remove=False):
     """pick a random counting location and select a new route that passes it until
        all counts are satisfied or no routes can be used anymore """
     while openCounts:
@@ -1183,12 +1162,13 @@ def sampleRoutes(options, rng, routes, countData, routeUsage, openRoutes, openCo
             routeIndex = rng.choice([r for r in openRoutes if r in cd.routeSet])
         if remove:
             numSampled -= 1
-            usedRoutes.remove(routeIndex)
+            routeCounts[routeIndex] -= 1
         else:
             numSampled += 1
-            usedRoutes.append(routeIndex)
+            routeCounts[routeIndex] += 1
+
         for dataIndex in routeUsage[routeIndex]:
-            countData[dataIndex].use()
+            countData[dataIndex].use(1)
 
         if ratioIndices:
             for dataIndex in routeUsage[routeIndex]:
@@ -1208,7 +1188,7 @@ def sampleRoutes(options, rng, routes, countData, routeUsage, openRoutes, openCo
                     for r in cd.routeSet:
                         closedRoutes.add(r)
 
-            if remove and routeIndex not in usedRoutes:
+            if remove and routeCounts[routeIndex] == 0:
                 closedRoutes.add(routeIndex)
 
             if closedRoutes:
@@ -1225,12 +1205,16 @@ def sampleRoutes(options, rng, routes, countData, routeUsage, openRoutes, openCo
                 if closedCounts:
                     openCounts = [c for c in openCounts if c not in closedCounts]
 
-    return usedRoutes, numSampled
+    return routeCounts, numSampled
 
 
-def writeRoutes(options, rng, outf, routes, usedRoutes, begin, end, intervalPrefix):
+def writeRoutes(options, rng, outf, routes, routeCounts, begin, end, intervalPrefix):
     outf.write('<!-- begin="%s" end="%s" -->\n' % (begin, end))
-    routeCounts = getRouteCounts(routes, usedRoutes)
+    usedRoutes = [] # simple list of route indices with
+    for r, usage in enumerate(routeCounts):
+        usedRoutes += [r] * usage
+    rng.shuffle(usedRoutes)
+
     if options.writeRouteIDs:
         for routeIndex in sorted(set(usedRoutes)):
             routes.write(outf, options.prefix, intervalPrefix, routeIndex, routeCounts[routeIndex])
@@ -1345,6 +1329,7 @@ def writeRoutes(options, rng, outf, routes, usedRoutes, begin, end, intervalPref
             flows.sort()
             for fBegin, index, outf2 in flows:
                 outf.write(outf2.getvalue())
+    return usedRoutes
 
 
 def writeMismatch(options, mismatchf, countData, begin, end):
