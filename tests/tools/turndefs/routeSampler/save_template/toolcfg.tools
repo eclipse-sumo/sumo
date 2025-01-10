@@ -40,6 +40,7 @@
     <min-count value="1" type="int" help="Set minimum number of counting locations that a route must visit" category="processing"/>
     <minimize-vehicles value="0" type="float" help="Set optimization factor from [0, 1[ for reducing the number of vehicles(prefer routes that pass multiple counting locations over routes that pass fewer)" category="processing"/>
     <geh-ok value="5" type="float" help="threshold for acceptable GEH values" category="processing"/>
+    <geh-scale value="None" type="float" help="Should be set to 0.1 when loading traffic for a full day (estimating peak hour traffic as 1/10 of daily traffic)" category="processing"/>
     <turn-ratio-total value="1" type="float" help="Set value for normalizing turning ratios (default 1)" category="processing"/>
     <turn-ratio-tolerance value="None" type="float" help="Set tolerance for error in resulting ratios (relative to turn-ratio-total)" category="processing"/>
     <turn-ratio-abs-tolerance value="1" type="int" help="Set tolerance for error in resulting turning ratios as absolute count" category="processing"/>

@@ -57,6 +57,9 @@ geh
 attrs
 mismatch-output
 
+# change scaling for estimating hourly traffic
+gehScale
+
 # use linear programming to optimize route usage
 optimize_full
 
