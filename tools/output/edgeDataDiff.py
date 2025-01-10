@@ -90,6 +90,7 @@ def write_diff(options):
                         if not options.no_statistics and attr.startswith('std_'):
                             delta = math.sqrt(val_new**2 + val_old**2)
                         else:
+                            fmt = ' %s="%s"'
                             if options.relative:
                                 if val_old != 0:
                                     delta /= abs(val_old)
@@ -97,8 +98,9 @@ def write_diff(options):
                                     delta = options.undefined
                             elif options.geh:
                                 delta = geh(val_new, val_old)
+                                fmt = ' %s="%.2f"'
                         diffStats[attr].add(delta, edge_old.id)
-                        f.write(' %s="%s"' % (attr, delta))
+                        f.write(fmt % (attr, delta))
                     except Exception:
                         pass
                 f.write("/>\n")
