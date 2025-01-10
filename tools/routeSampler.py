@@ -1350,17 +1350,18 @@ def writeRoutes(options, rng, outf, routes, usedRoutes, begin, end, intervalPref
 def writeMismatch(options, mismatchf, countData, begin, end):
     mismatchf.write('    <interval id="deficit" begin="%s" end="%s">\n' % (begin, end))
     for cd in countData:
+        geh = None if cd.isRatio else sumolib.miscutils.geh(cd.origCount, cd.origCount - cd.count) 
         if len(cd.edgeTuple) == 1:
-            mismatchf.write('        <edge id="%s" measuredCount="%s" deficit="%s"/>\n' % (
-                cd.edgeTuple[0], cd.origCount, cd.count))
+            mismatchf.write('        <edge id="%s" measuredCount="%s" deficit="%s" GEH="%.2f"/>\n' % (
+                cd.edgeTuple[0], cd.origCount, cd.count, geh))
         elif len(cd.edgeTuple) == 2:
             if cd.isRatio:
                 deficit = setPrecision("%.2f",  options.precision) % (cd.assignedProbability() - cd.origCount)
                 mismatchf.write('        <edgeRelation from="%s" to="%s" measuredProbability="%s" deficit="%s" totalAssignedFromCount="%s"/>\n' % (  # noqa
                     cd.edgeTuple[0], cd.edgeTuple[1], cd.origCount, deficit, cd.getSiblingCount()))
             else:
-                mismatchf.write('        <edgeRelation from="%s" to="%s" measuredCount="%s" deficit="%s"/>\n' % (
-                    cd.edgeTuple[0], cd.edgeTuple[1], cd.origCount, cd.count))
+                mismatchf.write('        <edgeRelation from="%s" to="%s" measuredCount="%s" deficit="%s" GEH="%.2f"/>\n' % (
+                    cd.edgeTuple[0], cd.edgeTuple[1], cd.origCount, cd.count, geh))
         else:
             print("Warning: output for edge relations with more than 2 edges not supported (%s)" % cd.edgeTuple,
                   file=sys.stderr)
