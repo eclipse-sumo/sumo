@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-01-02 15:02+0100\n"
-"PO-Revision-Date: 2025-01-08 12:16+0000\n"
+"PO-Revision-Date: 2025-01-10 15:16+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -8519,7 +8519,7 @@ msgstr "La forma del poligono"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:3248
 msgid "Toggle close or open shape"
-msgstr ""
+msgstr "Scegli tra chiudere o aprire la forma"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:3253
 msgid "The RGBA color with which the polygon shall be displayed"
@@ -8561,7 +8561,7 @@ msgstr "Angolo dell'immagine in gradi"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:3306
 msgid "Enable or disable GEO attributes"
-msgstr ""
+msgstr "(Dis)attiva attributi geografici"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:3312
 msgid "A custom geo shape for this polygon"
@@ -8752,7 +8752,7 @@ msgstr "La forma dell'area pedonale"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:3669
 msgid "Toggle close or open walkable area shape"
-msgstr ""
+msgstr "Scegli tra chiudere o aprire la forma di un'area pedonale"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:3674
 msgid "Walkable area's name"
@@ -8772,7 +8772,7 @@ msgstr "La forma dell'ostacolo"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:3700
 msgid "Toggle close or open obstacle shape"
-msgstr ""
+msgstr "Scegli tra chiudere o aprire una forma di ostacolo"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:3705
 msgid "Obstacle's name"
