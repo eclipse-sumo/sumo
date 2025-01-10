@@ -5,7 +5,7 @@ input route detector count: count 98, min 0.00 (0), max 3.00 (53), mean 0.37, Q1
  histogram: [(0, 69), (1, 24), (2, 3), (3, 2)]
 Ignored 69 routes which do not pass any counting location
 Wrote 13 routes (9 distinct) achieving total count 13 (92.86%) at 5 locations. GEH<5 for 80.00%
-result route edge count: count 13, min 4.00 (8), max 14.00 (3), mean 9.69, Q1 6.00, median 11.00, Q3 11.00
+result route edge count: count 13, min 4.00 (5), max 14.00 (12), mean 9.69, Q1 6.00, median 11.00, Q3 11.00
  histogram: [(4, 1), (5, 1), (6, 2), (10, 1), (11, 5), (13, 2), (14, 1)]
 result route detector count: count 13, min 1.00 (0), max 1.00 (0), mean 1.00, Q1 1.00, median 1.00, Q3 1.00
  histogram: [(1, 13)]
