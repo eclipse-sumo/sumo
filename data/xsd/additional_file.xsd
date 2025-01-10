@@ -379,6 +379,7 @@
         <xsd:attribute name="vTypes" type="xsd:string" use="optional"/>
         <xsd:attribute name="timeThreshold" type="nonNegativeFloatType" use="optional"/>
         <xsd:attribute name="pos" type="xsd:string" use="optional"/>
+        <xsd:attribute name="radius" type="nonNegativeFloatType" use="optional"/>
         <xsd:attribute name="name" type="xsd:string" use="optional"/>
         <xsd:attribute name="visible" type="boolType" use="optional"/>
         <xsd:attribute name="off" type="boolType" use="optional"/>
