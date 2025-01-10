@@ -93,7 +93,7 @@ MeanDataHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) {
     switch (obj->getTag()) {
         case SUMO_TAG_MEANDATA_EDGE:
             if (buildEdgeMeanData(obj,
-                                      obj->getStringAttribute(SUMO_ATTR_ID),
+                                  obj->getStringAttribute(SUMO_ATTR_ID),
                                   obj->getStringAttribute(SUMO_ATTR_FILE),
                                   obj->getTimeAttribute(SUMO_ATTR_PERIOD),
                                   obj->getTimeAttribute(SUMO_ATTR_BEGIN),
