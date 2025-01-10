@@ -25,8 +25,9 @@ from collections import defaultdict
 import math
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 from sumolib.xml import parse  # noqa
-from sumolib.miscutils import Statistics, geh, short_names  # noqa
+from sumolib.miscutils import Statistics, geh, short_names, parseTime  # noqa
 from sumolib.options import ArgumentParser  # noqa
+from routeSampler import getHourFraction
 
 
 def get_options(args=None):
@@ -38,6 +39,8 @@ def get_options(args=None):
                          help="write relative instead of absolute differences")
     optParser.add_option("--geh", action="store_true", default=False,
                          help="write geh value instead of absolute differences")
+    optParser.add_argument("--geh-scale", dest="gehScale", type=float, default=None,
+                         help="Should be set to 0.1 when loading traffic for a full day (estimating peak hour traffic as 1/10 of daily traffic)")
     optParser.add_option("--undefined", type=float, default=-1001, help="value to use if the difference is undefined")
     optParser.add_option("--attributes", help="compare list of custom attributes (A1,A2,B1,B2,C1,C2,...)")
     optParser.add_option("--no-statistics", action="store_true", default=False,
@@ -72,6 +75,7 @@ def write_diff(options):
                         interval_new.id, options.new,
                         interval_old.id, options.orig))
             interval_new_edges = dict([(e.id, e) for e in interval_new.edge])
+            hourFraction = getHourFraction(options, parseTime(interval_old.begin), parseTime(interval_old.end))
             for edge_old in interval_old.edge:
                 edge_new = interval_new_edges.get(edge_old.id, None)
                 if edge_new is None:
@@ -97,7 +101,7 @@ def write_diff(options):
                                 else:
                                     delta = options.undefined
                             elif options.geh:
-                                delta = geh(val_new, val_old)
+                                delta = geh(val_new / hourFraction, val_old / hourFraction)
                                 fmt = ' %s="%.2f"'
                         diffStats[attr].add(delta, edge_old.id)
                         f.write(fmt % (attr, delta))
