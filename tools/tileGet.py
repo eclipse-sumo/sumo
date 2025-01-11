@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2009-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2009-2025 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -185,7 +185,7 @@ def get_options(args=None):
         "mapquest": "https://www.mapquestapi.com/staticmap/v5/map",
         "google": "https://maps.googleapis.com/maps/api/staticmap",
         "openstreetmap": "https://tile.openstreetmap.org",
-        "berlin2024": "https://tiles.codefor.de/berlin-2024-dop20rgbi"
+        "berlin2024": "https://tiles.codefor.de/berlin-2025-dop20rgbi"
     }
     options = optParser.parse_args(args=args)
     if not options.bbox and not options.net and not options.polygon:

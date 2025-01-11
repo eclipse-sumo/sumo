@@ -12287,10 +12287,10 @@ msgstr "'%' non è un vettore di numeri interi valido."
 
 #: src/utils/options/OptionsCont.cpp:66
 msgid ""
-"Copyright (C) 2001-2024 German Aerospace Center (DLR) and others; https://"
+"Copyright (C) 2001-2025 German Aerospace Center (DLR) and others; https://"
 "sumo.dlr.de"
 msgstr ""
-"Copyright (C) 2001-2024 Deutsches Zentrum für Luft- und Raumfahrt (DLR) e "
+"Copyright (C) 2001-2025 Deutsches Zentrum für Luft- und Raumfahrt (DLR) e "
 "altri; https://sumo.dlr.de"
 
 #: src/utils/options/OptionsCont.cpp:152
