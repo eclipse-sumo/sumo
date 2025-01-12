@@ -28,14 +28,14 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <route edges="a b"/>
-    <route edges="a b"/>
-    <route edges="a b"/>
-    <route edges="a b"/>
-    <route edges="a b"/>
-    <route edges="a b"/>
-    <route edges="a b"/>
-    <route edges="a b"/>
+    <route id="1" edges="a b"/>
+    <route id="2" edges="a b"/>
+    <route id="3" edges="a b"/>
+    <route id="4" edges="a b"/>
+    <route id="5" edges="a b"/>
+    <route id="6" edges="a b"/>
+    <route id="7" edges="a b"/>
+    <route id="8" edges="a b"/>
 
-    <route edges="a c"/>
+    <route id="9" edges="a c"/>
 </routes>
