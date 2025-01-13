@@ -44,7 +44,7 @@ netedit.modifyAttribute(netedit.attrs.type.edit.vClass, "dummy", False)
 netedit.modifyAttribute(netedit.attrs.type.edit.vClass, "", False)
 
 # modify attribute
-netedit.modifyAttribute(netedit.attrs.type.edit.vClass, "pedestrian", False)
+netedit.modifyAttribute(netedit.attrs.type.edit.vClassEdited, "pedestrian", False)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

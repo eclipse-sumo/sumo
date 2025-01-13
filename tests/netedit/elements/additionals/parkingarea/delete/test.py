@@ -47,7 +47,7 @@ netedit.deleteMode()
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.parkingArea)
 
 # Check undo
-netedit.undo(referencePosition, 3)
+netedit.undo(referencePosition, 2)
 
 # Change to delete
 netedit.deleteMode()

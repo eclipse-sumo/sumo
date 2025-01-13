@@ -856,7 +856,7 @@ class parkingSpace:
         angle = 5
         slope = 6
         parameters = 9
-        parent = 13
+        parent = 14
 
     class inspectSelection:
         name = 1
@@ -865,7 +865,7 @@ class parkingSpace:
         angle = 4
         slope = 5
         parameters = 8
-        parent = 11
+        parent = 13
 
 # E1
 
@@ -1053,11 +1053,11 @@ class E3:
         vTypes = 4
         nextEdges = 5
         detectPersons = 6
-        openEntry = 8
-        timeThreshold = 9
-        speedThreshold = 10
-        expectArrival = 11
-        parameters = 14
+        openEntry = 7
+        timeThreshold = 8
+        speedThreshold = 9
+        expectArrival = 10
+        parameters = 13
 
 # entryExit
 
@@ -1519,6 +1519,7 @@ class type:
         id = 8
         typeDist = 8
         vClass = 9
+        vClassEdited = 9
         colorButton = 11
         color = 12
         length = 13
@@ -1533,6 +1534,7 @@ class type:
 
     class editDefault:
         vClass = 7
+        vClassEdited = 8
         colorButton = 9
         color = 10
         length = 11
@@ -2099,7 +2101,7 @@ class flowJunction:
         spacing = 23
         terminateOption = 25
         spacingOption = 26
-        parameters = 29
+        parameters = 27
 
 # flow (from-to TAZs)
 
@@ -2180,7 +2182,7 @@ class flowTAZ:
         spacing = 23
         terminateOption = 25
         spacingOption = 26
-        parameters = 29
+        parameters = 27
 
 # flow (over route)
 
@@ -2343,7 +2345,7 @@ class flowEmbedded:
         spacing = 23
         terminateOption = 25
         spacingOption = 26
-        parameters = 29
+        parameters = 27
 
 # stop over bus stop
 

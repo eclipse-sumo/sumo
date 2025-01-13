@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-01-07 12:36:20 by Eclipse SUMO netedit Version v1_21_0+1701-5bbacf4f4a3
+<!-- generated on 2025-01-13 12:21:20 by Eclipse SUMO netedit Version v1_21_0+1812-d38238bef51
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -22,7 +22,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <containerFlow id="cf_0" type="typeC" begin="10.00" departPos="0.00" color="red" end="3600.00" containersPerHour="1200">
         <tranship from="Edge0" to="Edge2"/>
     </containerFlow>
-    <containerFlow id="cf_1" type="typeC" begin="12.00" departPos="11.00" color="blue" end="3800.00" containersPerHour="11501.6">
+    <containerFlow id="cf_1" type="typeC" begin="12.00" departPos="11.00" color="blue" end="3800.00" containersPerHour="11612.9">
         <tranship from="Edge1" to="Edge2"/>
     </containerFlow>
 </routes>

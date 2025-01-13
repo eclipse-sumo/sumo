@@ -69,7 +69,6 @@ netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squa
 # undo
 netedit.undo(referencePosition, 1)
 
-
 # Change to delete
 netedit.deleteMode()
 

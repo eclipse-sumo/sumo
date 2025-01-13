@@ -62,6 +62,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter0)
 netedit.waitDeleteWarning()
 
 # check redo
+netedit.undo(referencePosition, 3)
 netedit.redo(referencePosition, 3)
 
 # save netedit config
