@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-01-06 11:22+0100\n"
-"PO-Revision-Date: 2025-01-13 13:21+0000\n"
+"PO-Revision-Date: 2025-01-14 07:29+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -1075,15 +1075,15 @@ msgstr "Destinazione '%' sconosciuta."
 
 #: src/marouter/ROMAFrame.cpp:71 src/od2trips_main.cpp:121
 msgid "Does not save vtype information"
-msgstr ""
+msgstr "Non salvare informazione del tipo di veicolo"
 
 #: src/marouter/ROMAFrame.cpp:74
 msgid "Writes edge loads and final costs into FILE"
-msgstr ""
+msgstr "Scrivi flussi di arco e costi finali in FILE"
 
 #: src/marouter/ROMAFrame.cpp:77
 msgid "Writes complete distance matrix into FILE"
-msgstr ""
+msgstr "Scrivi matrice di distanze completa in FILE"
 
 #: src/marouter/ROMAFrame.cpp:81 src/od2trips_main.cpp:85
 msgid "Loads O/D-files from FILE(s)"
@@ -1301,6 +1301,8 @@ msgid ""
 "Teleporting vehicle '%'; waited too long%, from edge '%':% to edge '%':%, "
 "time=%."
 msgstr ""
+"Veicolo '%' teletraspotato per causa di attesa troppo lunga%, dall'arco '%':"
+"% all'arco '%':%, alle ore %."
 
 #: src/mesosim/METriggeredCalibrator.cpp:129
 #: src/microsim/trigger/MSCalibrator.cpp:628
@@ -1544,7 +1546,7 @@ msgstr "Il veicolo '%' non supporta il parametro di modello di incroci '%'."
 
 #: src/microsim/MSBaseVehicle.cpp:2382
 msgid "could not interpret routing.mode '%'"
-msgstr ""
+msgstr "non ho potuto analizzare routing.mode '%'"
 
 #: src/microsim/MSBaseVehicle.cpp:2465
 msgid "Invalid device parameter '%' for vehicle '%'."
@@ -1616,6 +1618,8 @@ msgstr "Archi sovrapponibili e ambigui tra gli incroci '%' e '%'."
 #, c-format
 msgid "Edge '%' and bidi edge '%' have no matching bidi lanes"
 msgstr ""
+"L'arco '%' e l'arco bidirezionale '%' non hanno corsie bidirizionale "
+"coincidenti"
 
 #: src/microsim/MSFrame.cpp:78
 msgid "Load road network description from FILE"
@@ -1832,7 +1836,7 @@ msgstr "Salva l'informazione aggregata delle partenze dei veicoli in FILE"
 
 #: src/microsim/MSFrame.cpp:209
 msgid "Save summary-output with the given period"
-msgstr ""
+msgstr "Salva summary-output con l'intervallo indicato"
 
 #: src/microsim/MSFrame.cpp:212
 msgid "Save aggregated person counts into FILE"
@@ -2258,16 +2262,20 @@ msgid ""
 "The waiting time after which vehicles in a rail-signal based deadlock are "
 "teleported"
 msgstr ""
+"Il tempo di attesa dopodiché i veicoli coinvolti in un blocco causato da un "
+"segnale ferroviario verranno teletrasportati"
 
 #: src/microsim/MSFrame.cpp:458
 msgid ""
 "Length of time interval, over which accumulated waiting time is taken into "
 "account (default is 100s.)"
 msgstr ""
+"Durata dell'intervallo in secondi nel quale il tempo di attesa accumulato "
+"viene considerato (valore standard 100)"
 
 #: src/microsim/MSFrame.cpp:461
 msgid "Minimum consecutive waiting time before applying startupDelay"
-msgstr ""
+msgstr "Tempo di attesa consecutivo minimale prima di aggiungere startupDelay"
 
 #: src/microsim/MSFrame.cpp:464
 msgid ""
