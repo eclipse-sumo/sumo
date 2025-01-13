@@ -95,7 +95,7 @@ private:
         inline Position getPosition(const MSStageMoving&, SUMOTime) const override {
             return myRemoteXYPos;
         }
-        void setPosition(double x, double y);
+        void setPosition(const double x, const double y, const double z = 0.);
 
         inline void setAngle(double angle) {
             myAngle = angle;

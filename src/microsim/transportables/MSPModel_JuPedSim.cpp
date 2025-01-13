@@ -390,6 +390,7 @@ MSPModel_JuPedSim::remove(MSTransportableStateAdapter* state) {
     if (pstate->getLane() != nullptr) {
         auto& peds = myActiveLanes[pstate->getLane()];
         peds.erase(std::find(peds.begin(), peds.end(), pstate));
+        pstate->setLane(nullptr);
     }
     if (pstate->getStage() != nullptr) {
         pstate->getStage()->setPState(nullptr);  // we need to remove the old state reference to avoid double deletion
@@ -426,8 +427,8 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
             continue;
         }
 
-        MSPerson* person = state->getPerson();
-        MSStageWalking* stage = dynamic_cast<MSStageWalking*>(person->getCurrentStage());
+        MSPerson* const person = state->getPerson();
+        MSStageWalking* const stage = dynamic_cast<MSStageWalking*>(person->getCurrentStage());
         if (stage == nullptr) {
             // It seems we kept the state for another stage but the new stage is not a walk.
             // So let's remove the state because after the new stage we will be elsewhere and need to be reinserted for JuPedSim anyway.
@@ -450,6 +451,7 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
         Position newPosition(position.x, position.y);
         ConstMSEdgeVector route = stage->getEdges();
         const int routeIndex = (int)(stage->getRouteStep() - stage->getRoute().begin());
+        const double oldLanePos = state->getEdgePos(time);
         ConstMSEdgeVector forwardRoute = ConstMSEdgeVector(route.begin() + routeIndex, route.end());
         double bestDistance = std::numeric_limits<double>::max();
         MSLane* candidateLane = nullptr;
@@ -462,9 +464,7 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
             if (candidateLane != state->getLane()) {
                 if (state->getLane() != nullptr) {
                     auto& peds = myActiveLanes[state->getLane()];
-                    if (!peds.empty()) {
-                        peds.erase(std::find(peds.begin(), peds.end(), state));
-                    }
+                    peds.erase(std::find(peds.begin(), peds.end(), state));
                 }
                 myActiveLanes[candidateLane].push_back(state);
                 state->setLane(candidateLane);
@@ -530,6 +530,7 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
                 JPS_WaitingSetProxy_SetWaitingSetState(proxy, open ? JPS_WaitingSet_Inactive : JPS_WaitingSet_Active);
             }
         }
+        stage->activateMoveReminders(person, oldLanePos, state->getEdgePos(time), state->getSpeed(*stage));
         // In the worst case during one SUMO step the person touches the waypoint radius and walks immediately into a different direction,
         // but at some simstep it should have a maximum distance of v * delta_t / 2 to the waypoint circle.
         const double slack = person->getMaxSpeed() * TS / 2. + POSITION_EPS;
@@ -1300,13 +1301,13 @@ MSPModel_JuPedSim::PState::~PState() {
 }
 
 
-void MSPModel_JuPedSim::PState::setPosition(double x, double y) {
+void MSPModel_JuPedSim::PState::setPosition(const double x, const double y, const double z) {
     if (myRemoteXYPos != Position::INVALID) {
-        mySpeed = myRemoteXYPos.distanceTo2D(Position(x, y)) / STEPS2TIME(DELTA_T);
+        mySpeed = myRemoteXYPos.distanceTo2D(Position(x, y, z)) / STEPS2TIME(DELTA_T);
     } else {
         mySpeed = 0.;
     }
-    myRemoteXYPos.set(x, y);
+    myRemoteXYPos.set(x, y, z);
 }
 
 

@@ -723,20 +723,18 @@ NLTriggerBuilder::parseAndBuildRerouter(MSNet& net, const SUMOSAXAttributes& att
     const bool optional = attrs.getOpt<bool>(SUMO_ATTR_OPTIONAL, id.c_str(), ok, false);
     const SUMOTime timeThreshold = TIME2STEPS(attrs.getOpt<double>(SUMO_ATTR_HALTING_TIME_THRESHOLD, id.c_str(), ok, 0));
     const std::string vTypes = attrs.getOpt<std::string>(SUMO_ATTR_VTYPES, id.c_str(), ok, "");
-    const std::string pos = attrs.getOpt<std::string>(SUMO_ATTR_POSITION, id.c_str(), ok, "");
+    const std::string pos = attrs.getOpt<std::string>(SUMO_ATTR_POSITION, id.c_str(), ok, "0");
     const double radius = attrs.getOpt<double>(SUMO_ATTR_RADIUS, id.c_str(), ok, std::numeric_limits<double>::max());
     Position p = Position::INVALID;
-    if (pos != "") {
-        const std::vector<std::string> posSplit = StringTokenizer(pos, ",").getVector();
-        if (posSplit.size() == 1) {
-            p = edges.front()->getLanes()[0]->geometryPositionAtOffset(StringUtils::toDouble(posSplit[0]));
-        } else if (posSplit.size() == 2) {
-            p = Position(StringUtils::toDouble(posSplit[0]), StringUtils::toDouble(posSplit[1]));
-        } else if (posSplit.size() == 3) {
-            p = Position(StringUtils::toDouble(posSplit[0]), StringUtils::toDouble(posSplit[1]), StringUtils::toDouble(posSplit[2]));
-        } else {
-            throw InvalidArgument("Invalid position for rerouter '" + id + "'.");
-        }
+    const std::vector<std::string> posSplit = StringTokenizer(pos, ",").getVector();
+    if (posSplit.size() == 1) {
+        p = edges.front()->getLanes()[0]->geometryPositionAtOffset(StringUtils::toDouble(posSplit[0]));
+    } else if (posSplit.size() == 2) {
+        p = Position(StringUtils::toDouble(posSplit[0]), StringUtils::toDouble(posSplit[1]));
+    } else if (posSplit.size() == 3) {
+        p = Position(StringUtils::toDouble(posSplit[0]), StringUtils::toDouble(posSplit[1]), StringUtils::toDouble(posSplit[2]));
+    } else {
+        throw InvalidArgument("Invalid position for rerouter '" + id + "'.");
     }
     if (!ok) {
         throw InvalidArgument("Could not parse rerouter '" + id + "'.");

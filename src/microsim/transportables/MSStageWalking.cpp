@@ -394,16 +394,6 @@ MSStageWalking::moveToNextEdge(MSTransportable* person, SUMOTime currentTime, in
 
 
 void
-MSStageWalking::activateLeaveReminders(MSTransportable* person, const MSLane* lane, double lastPos, SUMOTime t, bool arrived) {
-    MSMoveReminder::Notification notification = arrived ? MSMoveReminder::NOTIFICATION_ARRIVED : MSMoveReminder::NOTIFICATION_JUNCTION;
-    for (MSMoveReminder* const rem : myMoveReminders) {
-        rem->updateDetector(*person, 0.0, lane->getLength(), myLastEdgeEntryTime, t, t, true);
-        rem->notifyLeave(*person, lastPos, notification);
-    }
-}
-
-
-void
 MSStageWalking::activateEntryReminders(MSTransportable* person, const bool isDepart) {
     const MSLane* const nextLane = getSidewalk<MSEdge, MSLane>(getEdge());
     if (nextLane != nullptr) {
@@ -430,6 +420,28 @@ MSStageWalking::activateEntryReminders(MSTransportable* person, const bool isDep
             nearest->triggerRouting(*person, MSMoveReminder::NOTIFICATION_JUNCTION);
         }
         // TODO maybe removal of the reminders? Or can we rely on movetonextedge to clean everything up?
+    }
+}
+
+
+void
+MSStageWalking::activateMoveReminders(MSTransportable* person, double oldPos, double newPos, double newSpeed) {
+    for (std::vector<MSMoveReminder*>::iterator rem = myMoveReminders.begin(); rem != myMoveReminders.end();) {
+        if ((*rem)->notifyMove(*person, oldPos, newPos, newSpeed)) {
+            ++rem;
+        } else {
+            rem = myMoveReminders.erase(rem);
+        }
+    }
+}
+
+
+void
+MSStageWalking::activateLeaveReminders(MSTransportable* person, const MSLane* lane, double lastPos, SUMOTime t, bool arrived) {
+    MSMoveReminder::Notification notification = arrived ? MSMoveReminder::NOTIFICATION_ARRIVED : MSMoveReminder::NOTIFICATION_JUNCTION;
+    for (MSMoveReminder* const rem : myMoveReminders) {
+        rem->updateDetector(*person, 0.0, lane->getLength(), myLastEdgeEntryTime, t, t, true);
+        rem->notifyLeave(*person, lastPos, notification);
     }
 }
 

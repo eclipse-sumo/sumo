@@ -117,6 +117,8 @@ public:
 
     void activateEntryReminders(MSTransportable* person, const bool isDepart = false);
 
+    void activateMoveReminders(MSTransportable* person, double oldPos, double newPos, double newSpeed);
+
     void activateLeaveReminders(MSTransportable* person, const MSLane* lane, double lastPos, SUMOTime t, bool arrived);
 
     /// @brief accessors to be used by MSPModel
