@@ -2264,7 +2264,7 @@ class routeFlow:
         spacing = 23
         terminateOption = 25
         spacingOption = 26
-        parameters = 29
+        parameters = 27
 
 # flow (embedded route)
 
