@@ -1238,7 +1238,7 @@ class poly:
         imgFile = 13
         reativePath = 14
         angle = 15
-        angle = 16
+        geo = 16
         closeShape = 20
 
     class inspect:
@@ -1347,7 +1347,7 @@ class poiGeo:
         color = 3
         type = 4
         icon = 5
-        name = 6
+        name = 7
         layer = 8
         width = 9
         height = 10
