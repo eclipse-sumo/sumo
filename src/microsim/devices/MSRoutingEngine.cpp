@@ -182,13 +182,9 @@ SumoRNG*
 MSRoutingEngine::getThreadRNG() {
     if (myHaveRoutingThreads) {
         auto it = myThreadRNGs.find(std::this_thread::get_id());
-        if (it != myThreadRNGs.end()) {
-            return it->second;
-        } else {
-            SumoRNG* rng = new SumoRNG("routing_" + toString(myThreadRNGs.size()));
-            myThreadRNGs[std::this_thread::get_id()] = rng;
-            return rng;
-        }
+        // created by InitTask
+        assert(it != myThreadRNGs.end());
+        return it->second;
     }
     return nullptr;
 }
@@ -435,6 +431,10 @@ MSRoutingEngine::initRouter(SUMOVehicle* vehicle) {
             }
         }
         myHaveRoutingThreads = true;
+        for (int i = 0; i < threadPool.size(); i++) {
+            threadPool.add(new InitTask(), i);
+        }
+        threadPool.waitAll();
     }
 #endif
 #endif
@@ -639,6 +639,17 @@ MSRoutingEngine::RoutingTask::run(MFXWorkerThread* context) {
         }
     }
 }
+
+// ---------------------------------------------------------------------------
+// MSRoutingEngine::InitTask-methods
+// ---------------------------------------------------------------------------
+void
+MSRoutingEngine::InitTask::run(MFXWorkerThread* context) {
+    FXMutexLock lock(myRouteCacheMutex);
+    SumoRNG* rng = new SumoRNG("routing_" + toString(myThreadRNGs.size()));
+    myThreadRNGs[std::this_thread::get_id()] = rng;
+}
+
 #endif
 
 

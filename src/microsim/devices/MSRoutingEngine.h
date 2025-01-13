@@ -172,6 +172,19 @@ private:
         /// @brief Invalidated assignment operator.
         RoutingTask& operator=(const RoutingTask&) = delete;
     };
+
+    /**
+     * @class InitTask
+     * @brief setup RNGs for each thread (with proper locking so we don't need
+     * locking later */
+    class InitTask : public MFXWorkerThread::Task {
+    public:
+        InitTask() {}
+        void run(MFXWorkerThread* context);
+    private:
+        /// @brief Invalidated assignment operator.
+        RoutingTask& operator=(const RoutingTask&) = delete;
+    };
 #endif
 
     /// @name Network state adaptation
