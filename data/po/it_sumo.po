@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-01-06 11:22+0100\n"
-"PO-Revision-Date: 2025-01-10 15:16+0000\n"
+"PO-Revision-Date: 2025-01-13 13:21+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -550,19 +550,19 @@ msgstr "Verifica dei flussi caricati"
 
 #: src/dfrouter/dfrouter_main.cpp:195
 msgid "Writing emitters"
-msgstr ""
+msgstr "Uscita degli emittenti"
 
 #: src/dfrouter/dfrouter_main.cpp:207
 msgid "Writing emitter pois"
-msgstr ""
+msgstr "Uscita dei punti di interesse emittenti"
 
 #: src/dfrouter/dfrouter_main.cpp:214
 msgid "Writing speed triggers"
-msgstr ""
+msgstr "Uscita dei generatori di velocità"
 
 #: src/dfrouter/dfrouter_main.cpp:221
 msgid "Writing validation detectors"
-msgstr ""
+msgstr "Uscita dei rivelatori di convalida"
 
 #: src/dfrouter/dfrouter_main.cpp:228
 msgid "Writing highway end rerouter"
@@ -571,6 +571,7 @@ msgstr ""
 #: src/dfrouter/dfrouter_main.cpp:248
 msgid "Builds vehicle routes for SUMO using detector values."
 msgstr ""
+"Crea degli itinerari di veicoli per SUMO utilizzando valori di rivelatori."
 
 #: src/duarouter/RODUAFrame.cpp:69
 msgid "Write generated route alternatives to FILE"
@@ -578,7 +579,7 @@ msgstr "Scrivi itinerari alternativi generati in FILE"
 
 #: src/duarouter/RODUAFrame.cpp:72
 msgid "Write edge splits and connectivity to FILE"
-msgstr ""
+msgstr "Scrivi tagli di archi e collegamenti in FILE"
 
 #: src/duarouter/RODUAFrame.cpp:75
 msgid "Write intermodal edges with lengths and travel times to FILE"
@@ -644,10 +645,12 @@ msgstr "Salva la tabella di ricerca astar ALT-variant nel file dato"
 msgid ""
 "Scale demand by the given factor (by discarding or duplicating vehicles)"
 msgstr ""
+"Gradua la domanda con il fattore indicato (raddoppiando oppure scartando "
+"veicoli)"
 
 #: src/duarouter/RODUAFrame.cpp:113 src/microsim/MSFrame.cpp:428
 msgid "Suffix to be added when creating ids for cloned vehicles"
-msgstr ""
+msgstr "Suffisso da aggiungere al codice idenficativo degli veicoli raddoppiati"
 
 #: src/duarouter/RODUAFrame.cpp:124 src/marouter/ROMAFrame.cpp:206
 msgid "Use FLOAT as Gawron's beta"
