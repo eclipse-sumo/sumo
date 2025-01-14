@@ -136,7 +136,7 @@ GNEAttributesEditorRow::showAttributeRow(const GNEAttributeProperties& attrPrope
     // check if we're editing multiple ACs
     const auto multipleEditedACs = (myAttributeTable->myEditedACs.size() > 1);
     // declare flag for show attribute enabled
-    const bool attributeEnabled = attrProperty.isAlwaysEnabled() ? true : firstEditedAC->isAttributeEnabled(myAttribute);
+    const bool attributeEnabled = isAttributeEnabled(attrProperty);
     // check if this attribute is computed
     const bool computedAttribute = multipleEditedACs ? false : firstEditedAC->isAttributeComputed(myAttribute);
     // get string value depending if attribute is enabled
@@ -176,13 +176,12 @@ GNEAttributesEditorRow::showAttributeRow(const GNEAttributeProperties& attrPrope
         }
     }
     // don't show stop offset exception if stopOffset is zero
-    if ((myAttribute == GNE_ATTR_STOPOEXCEPTION) &&
-            (GNEAttributeCarrier::parse<double>(firstEditedAC->getAttribute(GNE_ATTR_STOPOFFSET)) == 0)) {
+    if ((myAttribute == GNE_ATTR_STOPOEXCEPTION) && !attributeEnabled) {
         return hideAttributeRow();
     }
     // show elements depending of attribute properties
     if (attrProperty.isActivatable()) {
-        showAttributeToggleEnable(attrProperty, firstEditedAC->isAttributeEnabled(myAttribute));
+        showAttributeToggleEnable(attrProperty, attributeEnabled);
     } else if (myAttribute == GNE_ATTR_PARENT) {
         showAttributeReparent(attributeEnabled);
     } else if ((myAttribute == SUMO_ATTR_TYPE) && tagProperty.hasTypeParent()) {
@@ -750,6 +749,21 @@ GNEAttributesEditorRow::enableElements(const GNEAttributeProperties& attrPropert
         myValueCheckButton->disable();
         myValueLaneUpButton->disable();
         myValueLaneDownButton->disable();
+    }
+}
+
+
+bool
+GNEAttributesEditorRow::isAttributeEnabled(const GNEAttributeProperties& attrProperty) const {
+    if (attrProperty.isAlwaysEnabled()) {
+        return true;
+    } else {
+        for (const auto &AC : myAttributeTable->myEditedACs) {
+            if (AC->isAttributeEnabled(attrProperty.getAttr())) {
+                return true;
+            }
+        }
+        return false;
     }
 }
 

@@ -121,6 +121,9 @@ protected:
     /// @brief check if enable or disable all elements depending of current supermode or forceDisable
     void enableElements(const GNEAttributeProperties& attrProperty, const bool forceDisable);
 
+    /// @brief check if the given attribute is enabled
+    bool isAttributeEnabled(const GNEAttributeProperties& attrProperty) const;
+
     /// @brief check junction merging
     /// bool mergeJunction(SumoXMLAttr attr, const std::string& newVal) const;
 
