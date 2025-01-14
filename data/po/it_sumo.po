@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-01-06 11:22+0100\n"
-"PO-Revision-Date: 2025-01-14 07:29+0000\n"
+"PO-Revision-Date: 2025-01-14 08:03+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -2240,6 +2240,8 @@ msgid ""
 "Whether rail-signal-constraint based deadlocks shall be cleared by removing "
 "a constraint"
 msgstr ""
+"Se dei blocchi causati da restrizioni dei segnali ferroviari possono essere "
+"risolti rimuovendo una restrizione"
 
 #: src/microsim/MSFrame.cpp:449
 msgid ""
@@ -2282,20 +2284,27 @@ msgid ""
 "How long vehicles wait for departure before being skipped, defaults to -1 "
 "which means vehicles are never skipped"
 msgstr ""
+"Il tempo di attesa dei veicoli prima della partenza dopodiché esse verranno "
+"omessi - il valore standard -1 significa di mai omettere dei veicoli"
 
 #: src/microsim/MSFrame.cpp:467
 msgid ""
 "Whether insertion on an edge shall not be repeated in same step once failed"
 msgstr ""
+"Se la inserzione su un arco non deve essere ripetuta nello stesso passo di "
+"simulazione dopo essere fallita"
 
 #: src/microsim/MSFrame.cpp:470
 msgid "Whether each vehicle is checked separately for insertion on an edge"
 msgstr ""
+"Se si deve controllare l'inserzione di ogni veicolo su un arco separatamente"
 
 #: src/microsim/MSFrame.cpp:473
 msgid ""
 "Allow inserting a vehicle in a situation which requires emergency braking"
 msgstr ""
+"Permetti di inserire un veicolo in una situazione che richiede il freno "
+"d'emergenza"
 
 #: src/microsim/MSFrame.cpp:476
 msgid "Override default value for vehicle attribute insertionChecks"
