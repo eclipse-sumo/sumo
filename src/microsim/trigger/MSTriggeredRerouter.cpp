@@ -105,6 +105,9 @@ MSTriggeredRerouter::MSTriggeredRerouter(const std::string& id,
     }
     const std::vector<std::string> vt = StringTokenizer(vTypes).getVector();
     myVehicleTypes.insert(vt.begin(), vt.end());
+    if (myPosition == Position::INVALID) {
+        myPosition = edges.front()->getLanes()[0]->getShape()[0];
+    }
 }
 
 

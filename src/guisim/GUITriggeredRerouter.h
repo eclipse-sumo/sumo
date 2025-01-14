@@ -130,7 +130,8 @@ public:
     class GUITriggeredRerouterEdge : public GUIGlObject {
 
     public:
-        GUITriggeredRerouterEdge(GUIEdge* edge, GUITriggeredRerouter* parent, RerouterEdgeType edgeType, int distIndex = -1);
+        GUITriggeredRerouterEdge(GUIEdge* edge, GUITriggeredRerouter* parent, RerouterEdgeType edgeType, int distIndex = -1,
+                                 const Position& pos = Position::INVALID, const double radius = std::numeric_limits<double>::max());
 
         virtual ~GUITriggeredRerouterEdge();
 
