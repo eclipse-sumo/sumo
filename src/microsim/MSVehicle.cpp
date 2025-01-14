@@ -5653,6 +5653,9 @@ MSVehicle::enterLaneAtInsertion(MSLane* enteredLane, double pos, double speed, d
     // schedule action for the next timestep
     myLastActionTime = MSNet::getInstance()->getCurrentTimeStep() + DELTA_T;
     if (notification != MSMoveReminder::NOTIFICATION_TELEPORT) {
+        if (notification == MSMoveReminder::NOTIFICATION_PARKING && myInfluencer != nullptr) {
+            drawOutsideNetwork(false);
+        }
         // set and activate the new lane's reminders, teleports already did that at enterLaneAtMove
         for (std::vector< MSMoveReminder* >::const_iterator rem = enteredLane->getMoveReminders().begin(); rem != enteredLane->getMoveReminders().end(); ++rem) {
             addReminder(*rem);
