@@ -1,6 +1,9 @@
 # tests for mapping vehicles outside the road network
 keepRoute2
 
+# move a parked vehicle
+keepRoute2_parking
+
 # tests for mapping vehicles on multi-lane road
 multi_lane
 
