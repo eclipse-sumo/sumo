@@ -644,7 +644,7 @@ MSRoutingEngine::RoutingTask::run(MFXWorkerThread* context) {
 // MSRoutingEngine::InitTask-methods
 // ---------------------------------------------------------------------------
 void
-MSRoutingEngine::InitTask::run(MFXWorkerThread* context) {
+MSRoutingEngine::InitTask::run(MFXWorkerThread* /*context*/) {
     FXMutexLock lock(myRouteCacheMutex);
     SumoRNG* rng = new SumoRNG("routing_" + toString(myThreadRNGs.size()));
     myThreadRNGs[std::this_thread::get_id()] = rng;
