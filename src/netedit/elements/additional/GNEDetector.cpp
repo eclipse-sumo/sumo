@@ -324,7 +324,7 @@ GNEDetector::isDetectorValid(SumoXMLAttr key, const std::string& value) {
 
 void
 GNEDetector::writeDetectorValues(OutputDevice& device) const {
-    if (myPeriod > 0) {
+    if (myPeriod != SUMOTime_MAX_PERIOD) {
         device.writeAttr(SUMO_ATTR_PERIOD, time2string(myPeriod));
     }
     if (myAdditionalName.size() > 0) {
