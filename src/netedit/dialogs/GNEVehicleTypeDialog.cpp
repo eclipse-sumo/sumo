@@ -133,7 +133,9 @@ GNEVehicleTypeDialog::VTypeAttributes::VClassRow::setVariable() {
                 myVTypeAttributesParent->myLocomotiveLength->updateValue(toString(defaultVTypeParameters.locomotiveLength));
             }
             // update GUIShape
-            myVTypeAttributesParent->myVShapeRow->updateValue(SumoVehicleClassStrings.get(myComboBoxVClass->getText().text()));
+            if (SumoVehicleClassStrings.hasString(myComboBoxVClass->getText().text())) {
+                myVTypeAttributesParent->myVShapeRow->updateValue(SumoVehicleClassStrings.get(myComboBoxVClass->getText().text()));
+            }
         }
     } else {
         myComboBoxVClass->setTextColor(FXRGB(255, 0, 0));
