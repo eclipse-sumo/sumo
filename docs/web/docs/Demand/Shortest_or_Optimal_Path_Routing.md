@@ -50,7 +50,7 @@ the router using an XML-file. The syntax of a single trip definition is:
 | fromLonLat   | float, float    | The network position from which to depart in geo-coordinates [note](#mapmatching)    |
 | toLonLat   | float, float    | The network position from which to depart in geo-coordinates [note](#mapmatching)    |
 | viaLonLat   | float, float [float,float]    | The network positions to pass along the way in geo-coordinates  [note](#mapmatching)   |
-| speedFactor   | float > 0                                   | Sets custom speedFactor (factor on road speed limit) and overrides the [speedFactor distribution](#speed_distributions) of the vehicle type                                               |
+| speedFactor   | float > 0                                   | Sets custom speedFactor (factor on road speed limit) and overrides the [speedFactor distribution](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#speed_distributions) of the vehicle type                                               |
 | insertionChecks  | string list  |  Sets the list of safety checks to perform during vehicle insertion. Possible values are: `all`, `none`, `collision`, `leaderGap`, `followerGap`, `junction`, `stop`, `arrivalSpeed`, `oncomingTrain`, `speedLimit`, `pedestrians`. default *all* |
 | parkingBadges | string list | list of keywords to access restricted parking areas (the default empty list will still allow access to unrestricted parking areas) |
 
