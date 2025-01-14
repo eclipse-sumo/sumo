@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-01-06 11:22+0100\n"
-"PO-Revision-Date: 2025-01-14 08:03+0000\n"
+"PO-Revision-Date: 2025-01-14 10:20+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -2308,13 +2308,15 @@ msgstr ""
 
 #: src/microsim/MSFrame.cpp:476
 msgid "Override default value for vehicle attribute insertionChecks"
-msgstr ""
+msgstr "Sovrascrivi il valore standard del attributo di veicolo insertionChecks"
 
 #: src/microsim/MSFrame.cpp:479
 msgid ""
 "Each vehicle receives a random offset to its depart value drawn uniformly "
 "from [0, TIME]"
 msgstr ""
+"Ogni veicolo riceve un ritardo casuale tirato da [0, TIME] per rispetto alla "
+"sua ora di partenza"
 
 #: src/microsim/MSFrame.cpp:482
 msgid "Duration of a lane change maneuver (default 0)"
@@ -2357,7 +2359,7 @@ msgstr ""
 
 #: src/microsim/MSFrame.cpp:509
 msgid "Do not build blocks longer than FLOAT and issue a warning instead"
-msgstr ""
+msgstr "Non creare blocchi più lunghi di FLOAT e invece emettere un avviso"
 
 #: src/microsim/MSFrame.cpp:512
 msgid ""
@@ -2443,10 +2445,14 @@ msgstr ""
 #: src/microsim/MSFrame.cpp:543
 msgid "Override stop until times with stop ended times when given"
 msgstr ""
+"Sovrascrivi le ore di partenza alle fermate programmate con le ore reali se "
+"disponibili"
 
 #: src/microsim/MSFrame.cpp:546
 msgid "Override stop arrival times with stop started times when given"
 msgstr ""
+"Sovrascrivi le ore di arrivo alle fermate con le ore di inizio fermata se "
+"disponibili"
 
 #: src/microsim/MSFrame.cpp:550
 msgid "Select among pedestrian models ['nonInteracting', 'striping', 'remote']"
