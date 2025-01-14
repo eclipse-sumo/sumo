@@ -265,5 +265,5 @@ Crossings can be created with 'crossing mode' by clicking on a junction and then
 !!! note
     Crossings can only be created if the edges to be crossed have lanes that prohibit pedestrian use
     
-Walkingareas are created automatically if the network contains at least one pedestrian crossing or if option **walkingareas** is set in the options screen (<kd>F10<kbd>, in the Pedestrians tab).
+Walkingareas are created automatically if the network contains at least one pedestrian crossing or if option **walkingareas** is set in the options screen (<kd>F10</kbd>, in the Pedestrians tab).
 They will be created wherever footpaths or sidewalks are bordered by lanes that prohibit pedestrian use.
