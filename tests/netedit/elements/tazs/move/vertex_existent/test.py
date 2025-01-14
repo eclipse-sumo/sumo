@@ -31,19 +31,22 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 # go to TAZ mode
 netedit.TAZMode()
 
-# create TAZ
-netedit.createSquaredShape(referencePosition, 612, 325, 400, True)
+# create polygon with default values
+netedit.createSquaredShape(referencePosition, netedit.positions.elements.additionals.shapeB,
+                           netedit.positions.elements.additionals.shapeSize, True)
 
 # go to move mode
 netedit.moveMode()
 
-# move
-netedit.moveElement(referencePosition, netedit.positions.tmp, netedit.positions.elements.movementRadius)
+# move vertex new
+netedit.moveGeometryPoint(referencePosition, 
+                          netedit.positions.elements.additionals.geometryPointExistent,
+                          netedit.positions.elements.additionals.geometryPointDestinyA,
+                          netedit.positions.elements.additionals.geometryPointDestinyB)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)
 
-# save TAZs
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)
 

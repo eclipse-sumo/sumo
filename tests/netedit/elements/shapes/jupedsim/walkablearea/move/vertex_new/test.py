@@ -28,20 +28,24 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
-# go to Shape mode
+# go to shape mode
 netedit.shapeMode()
 
-# go to additional mode
+# go to shape mode
 netedit.changeElement("jupedsim.walkable_area")
 
-# create Shape
-netedit.createSquaredShape(referencePosition, 500, 331, 600, True)
+# create polygon with default values
+netedit.createSquaredShape(referencePosition, netedit.positions.elements.additionals.shapeB,
+                           netedit.positions.elements.additionals.shapeSize, True)
 
 # go to move mode
 netedit.moveMode()
 
-# move
-netedit.moveElement(referencePosition, netedit.positions.tmp, netedit.positions.elements.movementRadius)
+# move vertex new
+netedit.moveGeometryPoint(referencePosition, 
+                          netedit.positions.elements.additionals.geometryPointNew,
+                          netedit.positions.elements.additionals.geometryPointDestinyA,
+                          netedit.positions.elements.additionals.geometryPointDestinyB)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

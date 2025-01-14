@@ -1468,6 +1468,28 @@ def moveElement(referencePosition, originalPosition, radius):
              originalPosition.x + radius.left,
              originalPosition.y + radius.up)
 
+
+def moveGeometryPoint(referencePosition, originalPosition, destinyPositionA, destinyPositionB):
+    """
+    @brief move geometry point
+    """
+    leftClick(referencePosition, originalPosition)
+    # move element
+    dragDrop(referencePosition, originalPosition.x, originalPosition.y, destinyPositionA.x, destinyPositionA.y)
+    dragDrop(referencePosition, destinyPositionA.x, destinyPositionA.y, destinyPositionB.x, destinyPositionB.y)
+
+
+def toggleMoveEntireShape():
+    """
+    @brief toggle move entire shape
+    """
+    # focus current frame
+    focusOnFrame()
+    for _ in range(attrs.move.moveWholePolygon):
+        typeTab()
+    # type space to create crossing
+    typeSpace()
+
 #################################################
     # crossings
 #################################################

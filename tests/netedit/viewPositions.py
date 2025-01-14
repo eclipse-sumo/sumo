@@ -547,6 +547,26 @@ class elements:
             x = 650
             y = 233
 
+        class centerShape:
+            x = 400
+            y = 121
+
+        class geometryPointNew:
+            x = 400
+            y = 138
+
+        class geometryPointExistent:
+            x = 362
+            y = 138
+
+        class geometryPointDestinyA:
+            x = 574
+            y = 238
+
+        class geometryPointDestinyB:
+            x = 498
+            y = 332
+
         shapeSize = 200
 
     # demand elements (for inspect, delete, etc.)

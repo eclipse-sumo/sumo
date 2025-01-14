@@ -24,6 +24,10 @@ class editElements:
     overlapped = 5
 
 
+class move:
+    moveWholePolygon = 5
+
+
 class selection:
     class lockSelectionNetwork:
         junctions = 1
