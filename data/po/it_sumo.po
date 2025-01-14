@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-01-06 11:22+0100\n"
-"PO-Revision-Date: 2025-01-14 10:20+0000\n"
+"PO-Revision-Date: 2025-01-14 14:40+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -2456,7 +2456,7 @@ msgstr ""
 
 #: src/microsim/MSFrame.cpp:550
 msgid "Select among pedestrian models ['nonInteracting', 'striping', 'remote']"
-msgstr ""
+msgstr "Scegli tra i modelli di pedoni ['nonInteracting', 'striping', 'remote']"
 
 #: src/microsim/MSFrame.cpp:553
 msgid ""
@@ -2469,10 +2469,13 @@ msgid ""
 "Width of parallel stripes for segmenting a sidewalk (meters) for use with "
 "model 'striping'"
 msgstr ""
+"Larghezza delle fasce parallele per suddividere un marciapiede (in metri) da "
+"usare con il modello 'striping'"
 
 #: src/microsim/MSFrame.cpp:559
 msgid "Factor for random slow-downs [0,1] for use with model 'striping'"
 msgstr ""
+"Fattore per decelerazione a caso [0,1] da usare con il modello 'striping'"
 
 #: src/microsim/MSFrame.cpp:562
 msgid ""
