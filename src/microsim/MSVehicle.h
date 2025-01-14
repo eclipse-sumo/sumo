@@ -2109,7 +2109,7 @@ protected:
      *         acceleration a within the next time step is then a = (vNext - vCurrent)/TS )
      *  @param[in] vNext speed in the next time step
      */
-    void updateState(double vNext);
+    void updateState(double vNext, bool parking = false);
 
 
     /// @brief decide whether the given link must be kept clear
