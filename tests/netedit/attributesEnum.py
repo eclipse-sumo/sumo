@@ -223,7 +223,7 @@ class edge:
         stopOffset = 15
         stopOffsetExceptionButton = 16
         stopOffsetException = 17
-        parameters = 18
+        parameters = 20
 
     class template:
         create = 30
