@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-01-02 15:02+0100\n"
-"PO-Revision-Date: 2025-01-09 13:57+0000\n"
+"PO-Revision-Date: 2025-01-14 11:40+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -13361,7 +13361,7 @@ msgstr "Nur zwei Knotenpunkte sind erlaubt"
 
 #: src/netedit/frames/GNEPathCreator.cpp:297
 msgid "creation of path between junctions"
-msgstr ""
+msgstr "Pfad zwischen Knotenpunkten erstellen"
 
 #: src/netedit/frames/GNEPathCreator.cpp:325
 #: src/netedit/frames/GNEPlanCreator.cpp:817
@@ -13374,7 +13374,7 @@ msgstr "Es sind nur zwei Verkehrsumlegungszonen erlaubt"
 
 #: src/netedit/frames/GNEPathCreator.cpp:344
 msgid "creation of path between TAZs"
-msgstr ""
+msgstr "Pfad zwischen Verkehrsumlegezonen erstellen"
 
 #: src/netedit/frames/GNEPathCreator.cpp:368
 #: src/netedit/frames/GNEPlanCreator.cpp:759
@@ -13402,7 +13402,7 @@ msgstr "Ungültige Kante (wähle unverbundene Kante über Ctrl + Klick)"
 
 #: src/netedit/frames/GNEPathCreator.cpp:416
 msgid "creation of path between edges"
-msgstr ""
+msgstr "Pfad zwischen Kanten erstellen"
 
 #: src/netedit/frames/GNEPathCreator.cpp:818
 msgid "- Selected edges: "
@@ -13766,7 +13766,7 @@ msgstr "Keine Kantenvorlage gewählt"
 
 #: src/netedit/frames/common/GNEInspectorFrame.cpp:261
 msgid "GEO attributes"
-msgstr ""
+msgstr "geografische Attribute"
 
 #: src/netedit/frames/common/GNEMatchAttribute.cpp:47
 msgid "Match Attribute"
@@ -17116,11 +17116,11 @@ msgstr "Regenbogen neu kalibrieren"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1698
 msgid "min"
-msgstr ""
+msgstr "min."
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1703
 msgid "max"
-msgstr ""
+msgstr "max."
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1708
 msgid "center"
