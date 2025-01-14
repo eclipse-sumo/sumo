@@ -6,32 +6,30 @@ This tutorial shows how to use SUMO to run simulations inside a docker container
 
 ## Introduction
 
-This tutorial shows how to use SUMO for running simulations when you do not want to install the software on your local
-machine.
+This tutorial demonstrates how to use SUMO for running simulations without installing the software on your local machine.
 
 It is also possible to run the GUI applications from the docker container.
-The way to do this is highly dependent on your individual setup, so we will not provide the required
-configuration/commands.
+The way to do this is highly dependent on your individual setup, so we will not provide the required configuration or commands.
 
 ## Getting the docker image
 
-You can either get the latest docker image from our docker registry by using
+You can either get the latest docker image from the SUMO docker registry by using
 
 ```shell
-  docker pull ghcr.io/sumo-eclipse/sumo:main
+  docker pull ghcr.io/eclipse-sumo/sumo:main
 ```
 
-or build your own local version of the image by checking out the [SUMO repository](https://github.com/eclipse-sumo/sumo)
-and executing:
+or build your own local version of the image by checking out the [SUMO repository](https://github.com/eclipse-sumo/sumo) and executing:
 
 ```shell
   cd build_config/docker
-  docker build -t ghcr.io/sumo-eclipse/sumo:main -f Dockerfile.ubuntu.git .
+  docker build -t ghcr.io/eclipse-sumo/sumo:main -f Dockerfile.ubuntu.git .
 ```
 
 ## Creating simulation files
 
 For this tutorial we use the simulation files from the [Hello SUMO Tutorial](Hello_SUMO.md).
+Check out that tutorial to learn about the purpose of the files.
 
 Create a directory called `hello_sumo_docker` and in it create 3 files:
 
@@ -68,7 +66,6 @@ Create a directory called `hello_sumo_docker` and in it create 3 files:
 #### `hello.rou.xml`
 
 ```xml
-
 <routes>
     <vType accel="1.0" decel="5.0" id="Car" length="2.0" maxSpeed="100.0" sigma="0.0"/>
     <route id="route0" edges="1to2 out"/>
@@ -95,22 +92,22 @@ Create a directory called `hello_sumo_docker` and in it create 3 files:
 ## Running the simulation
 
 To run the simulation start a new container from the image and mount the directory in there with the `-v`-Option.
-Also add `--full-output result.xml` to the SUMO command, to get the result of the simulation.
+Add `--full-output result.xml` to the SUMO command to get the result of the simulation.
 The command to start the container might look like this:
 
 ```shell
-  # Replace this with the location your simulation files are located.
+  # Replace this with the location where your simulation files are located.
   export SIMULATION_FILES_DIR=$PWD
-  
+
   docker run \
       --rm \
-      -v $SIMULATION_FILES_DIR:$SIMULATION_FILES_DIR
-      ghcr.io/sumo-eclipse/sumo:main \
+      -v $SIMULATION_FILES_DIR:$SIMULATION_FILES_DIR \
+      ghcr.io/eclipse-sumo/sumo:main \
       sumo --configuration-file $SIMULATION_FILES_DIR/hello.sumocfg --full-output $SIMULATION_FILES_DIR/result.xml
 ```
 
 This will run the simulation specified in `hello.sumocfg`.
-After that a file named `result.xml` will have been created, which contains
+After that, a file named `result.xml` will have been created, which contains the output of the simulation.
 
 ## Further Reading
 

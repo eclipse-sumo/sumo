@@ -6,21 +6,19 @@ title: Docker
 
 Building and installing SUMO from source is not an easy task for beginner users.
 Docker is a popular tool to solve this issue.
-SUMO provides [Dockerfiles](https://github.com/eclipse-sumo/sumo/blob/main/build_config/docker)
-and [prebuilt Docker images](https://github.com/eclipse-sumo/sumo/pkgs/container/sumo/versions) to use.
+SUMO provides [Dockerfiles](https://github.com/eclipse-sumo/sumo/blob/main/build_config/docker) and [prebuilt Docker images](https://github.com/eclipse-sumo/sumo/pkgs/container/sumo/versions) to use.
 
 ### Available Dockerfiles
 
 There are several Dockerfiles available in the SUMO repository.
-To build them check out [the SUMO repository](https://github.com/eclipse-sumo/sumo) and use the following command whilst
-in the `build_config/docker` directory of the repository:
+To build them, check out [the SUMO repository](https://github.com/eclipse-sumo/sumo) and use the following command while in the `build_config/docker` directory of the repository:
 
 ```shell
     docker build -f {NAME_OF_DOCKERFILE} .
 ```
 
 !!! note
-    Mind the dot at the end of the command
+    Ensure to include the dot at the end of the command.
 
 The following Dockerfiles containing SUMO are available:
 
@@ -69,5 +67,6 @@ A quick example for running a prepared simulation looks like this:
 A use-case for this could be preparing the simulation data on a computer with SUMO installed and then running the simulation on a server without needing to install SUMO.
 
 The container images also contains the graphical applications.
-There are ways to use them, but these are highly dependent on your individual setup (OS, X/Wayland).
-Therefor we can not give specific instructions here.
+However, configuring them for use depends on your operating system and graphical environment (e.g., X11, Wayland).
+For guidance, consult Docker's documentation on GUI application forwarding.
+Therefore, we cannot provide specific instructions here.

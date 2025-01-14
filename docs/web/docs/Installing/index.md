@@ -158,14 +158,7 @@ you need several additional python modules. The easiest way to install them is t
 
 # via Docker
 
-Building and installing SUMO from source is not an easy task for
-beginner users. Docker is a popular tool to solve this issue. Searching
-"SUMO" at [Docker Hub](https://hub.docker.com) will give several results
-from existing attempts at Dockerising SUMO.
-
-The solution given at
-[docker-sumo](https://github.com/bogaotory/docker-sumo) demonstrates how
-to Dockerise SUMO version 0.30.0 on top of Ubuntu 16.04. As well as
-**sumo** and **traci**, the use of **sumo-gui** is also demonstrated by
-[docker-sumo](https://github.com/bogaotory/docker-sumo) so that the
-users have access to the graphical interface of a Dockerised SUMO.
+Building and installing SUMO from source is not an easy task for beginner users.
+Docker is a popular tool to solve this issue.
+SUMO provides [Dockerfiles](https://github.com/eclipse-sumo/sumo/blob/main/build_config/docker) and [prebuilt Docker images](https://github.com/eclipse-sumo/sumo/pkgs/container/sumo/versions) to use.
+For more details check out [the documentation on dockerized SUMO](../Developer/Docker.md) or [the tutorial on dockerized SUMO](../Tutorials/Containerized_SUMO.md).
