@@ -1,4 +1,5 @@
 editElements.overlapped 
+move.moveWholePolygon 
 selection.lockSelectionNetwork.junctions 
 selection.lockSelectionNetwork.edges 
 selection.lockSelectionNetwork.lanes 
@@ -874,6 +875,7 @@ routeProbe.create.frequency
 routeProbe.create.name 
 routeProbe.create.file 
 routeProbe.create.begin 
+routeProbe.create.vTypes 
 routeProbe.create.center 
 routeProbe.inspect.id 
 routeProbe.inspect.edge 
@@ -881,11 +883,13 @@ routeProbe.inspect.frequency
 routeProbe.inspect.name 
 routeProbe.inspect.file 
 routeProbe.inspect.begin 
+routeProbe.inspect.vTypes 
 routeProbe.inspect.parameters 
 routeProbe.inspectSelection.frequency 
 routeProbe.inspectSelection.name 
 routeProbe.inspectSelection.file 
 routeProbe.inspectSelection.begin 
+routeProbe.inspectSelection.vTypes 
 routeProbe.inspectSelection.parameters 
 vaporizer.create.begin 
 vaporizer.create.end 

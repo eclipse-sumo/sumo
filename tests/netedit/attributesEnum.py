@@ -1181,7 +1181,8 @@ class routeProbe:
         name = 7
         file = 8
         begin = 9
-        center = 13
+        vTypes = 10
+        center = 14
 
     class inspect:
         id = 1
@@ -1190,14 +1191,16 @@ class routeProbe:
         name = 4
         file = 5
         begin = 6
-        parameters = 9
+        vTypes = 7
+        parameters = 10
 
     class inspectSelection:
         frequency = 1
         name = 2
         file = 3
         begin = 4
-        parameters = 7
+        vTypes = 5
+        parameters = 8
 
 # vaporizer
 

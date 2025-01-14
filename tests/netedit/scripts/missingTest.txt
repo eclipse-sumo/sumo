@@ -313,6 +313,9 @@ ride.junction.junction.inspectSelection.arrivalPos
 ride.junction.junction.inspectSelection.group
 ride.junction.junction.inspectSelection.lines
 routeFlow.inspectSelection.typeButton
+routeProbe.create.vTypes
+routeProbe.inspect.vTypes
+routeProbe.inspectSelection.vTypes
 selection.lockSelectionNetwork.selected
 selection.lockSelectionNetwork.unlockAll
 selection.lockSelectionNetwork.wires
