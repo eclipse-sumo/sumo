@@ -31,17 +31,17 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 # go to select mode
 netedit.selectMode()
 
-# select first TAZ
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+# delete created polygon
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeA)
 
-# select second TAZ
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+# delete loaded filled polygon
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeC)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first TAZ
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeA)
 
 # Change parameter 2 with a non valid value (dummy)
 netedit.modifyAttribute(netedit.attrs.TAZ.inspectSelection.center, "dummyColor", False)

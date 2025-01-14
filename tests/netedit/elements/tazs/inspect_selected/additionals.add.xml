@@ -1,61 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 30.08.2018 10:07:32 by Eclipse SUMO netedit Version b980bbd93f
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
-
-    <input>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_30Aug100524.2648/netedit.gui/shapeElements/TAZ/inspect_selected/inspect_selected_id\input_net.net.xml"/>
-    </input>
-
-    <output>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_30Aug100524.2648/netedit.gui/shapeElements/TAZ/inspect_selected/inspect_selected_id\net.net.xml"/>
-    </output>
-
-    <processing>
-        <offset.disable-normalization value="true"/>
-        <lefthand value="false"/>
-    </processing>
-
-    <junctions>
-        <no-turnarounds value="true"/>
-        <junctions.corner-detail value="5"/>
-        <junctions.limit-turn-speed value="-1"/>
-        <rectangular-lane-cut value="false"/>
-    </junctions>
-
-    <pedestrian>
-        <walkingareas value="false"/>
-    </pedestrian>
-
-    <netedit>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_30Aug100524.2648/netedit.gui/shapeElements/TAZ/inspect_selected/inspect_selected_id\additionals.xml"/>
-        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_30Aug100524.2648/netedit.gui/shapeElements/TAZ/inspect_selected/inspect_selected_id\shapes.xml"/>
-    </netedit>
-
-    <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_30Aug100524.2648/netedit.gui/shapeElements/TAZ/inspect_selected/inspect_selected_id\gui-settings.xml"/>
-        <window-size value="700,500"/>
-        <window-pos value="50,50"/>
-        <gui-testing value="true"/>
-        <gui-testing-debug value="true"/>
-        <gui-testing-debug-gl value="true"/>
-    </visualisation>
-
-    <report>
-        <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_30Aug100524.2648/netedit.gui/shapeElements/TAZ/inspect_selected/inspect_selected_id\log.txt"/>
-    </report>
-
-</configuration>
+<!-- generated on 2025-01-14 10:33:50 by Eclipse SUMO netedit Version v1_21_0+1831-1e6ba8b2e29
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <taz id="TAZ_0" center="20,30" name="name1" fill="true" color="red" shape="12.000000,8.000000 12.000000,18.000000 2.000000,18.000000 2.000000,8.000000 12.000000,8.000000">
+    <!-- TAZs -->
+    <taz id="TAZ_0" shape="26.00,8.00 26.00,18.00 2.00,18.00 2.00,8.00 26.00,8.00" center="20.00,30.00" fill="1" name="name1" color="yellow">
         <param key="keyA1" value="valueA1"/>
         <param key="keyA2" value="valueA2"/>
         <param key="keyA3" value="valueA3"/>
     </taz>
-    <taz id="TAZ_1" center="40,50" name="name2" color="red" shape="32.000000,8.000000 32.000000,18.000000 22.000000,18.000000 22.000000,8.000000 32.000000,8.000000">
+    <taz id="TAZ_1" shape="-8.00,10.00 -8.00,18.00 -24.00,18.00 -24.00,10.00 -8.00,10.00" center="40.00,50.00" name="name2" color="red">
         <param key="keyB1" value="valueB1"/>
         <param key="keyB2" value="valueB2"/>
         <param key="keyB3" value="valueB3"/>

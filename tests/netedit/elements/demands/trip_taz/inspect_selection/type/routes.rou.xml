@@ -37,9 +37,9 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vType id="typeA" length="20.00" width="5.00" height="12.00" color="cyan"/>
-    <vType id="typeB" length="20.00" width="5.00" height="12.00" color="cyan"/>
-    <vType id="typeC" length="20.00" width="5.00" height="12.00" color="cyan"/>
+    <vType id="typeA" length="10.00" width="5.00" height="12.00" color="cyan"/>
+    <vType id="typeB" length="10.00" width="5.00" height="12.00" color="cyan"/>
+    <vType id="typeC" length="15.00" width="5.00" height="12.00" color="cyan"/>
 
     <!-- trip A -->
     <trip id="flowA" type="typeA" fromTaz="taz_green" toTaz="taz_red" departLane="random" departPos="2.00" departPosLat="2.00" departSpeed="12.00" arrivalLane="0" arrivalPos="3.00" arrivalPosLat="3.00" arrivalSpeed="12.00" color="red" line="line A" personNumber="1" containerNumber="5" depart="0.00">
@@ -49,7 +49,7 @@
     </trip>
 
     <!-- trip B -->
-    <trip id="flowB" type="typeB" fromJunction="Junction2" toJunction="Junction3" departLane="free" departPos="random" departPosLat="random_free" departSpeed="speedLimit" arrivalLane="current" arrivalPos="random" arrivalPosLat="right" arrivalSpeed="current" color="blue" line="line B" personNumber="2" containerNumber="10" depart="5.00">
+    <trip id="flowB" type="typeB" fromTaz="taz_red" toTaz="taz_green" departLane="free" departPos="random" departPosLat="random_free" departSpeed="speedLimit" arrivalLane="current" arrivalPos="random" arrivalPosLat="right" arrivalSpeed="current" color="blue" line="line B" personNumber="2" containerNumber="10" depart="5.00">
         <param key="KeyB1" value="valueB1"/>
         <param key="KeyB3" value="valueB2"/>
         <param key="KeyB2" value="valueB3"/>

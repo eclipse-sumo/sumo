@@ -203,7 +203,7 @@ class edge:
         stopOffset = 21
         stopOffsetExceptionButton = 22
         stopOffsetException = 23
-        parameters = 26
+        parameters = 24
 
     class inspectSelection:
         speed = 1
@@ -223,7 +223,7 @@ class edge:
         stopOffset = 15
         stopOffsetExceptionButton = 16
         stopOffsetException = 17
-        parameters = 20
+        parameters = 18
 
     class template:
         create = 30
@@ -2020,7 +2020,7 @@ class flow:
         spacing = 23
         terminateOption = 25
         spacingOption = 26
-        parameters = 29
+        parameters = 27
 
 # flow (from-to junctions)
 
