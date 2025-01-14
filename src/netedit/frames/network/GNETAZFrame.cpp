@@ -1279,7 +1279,7 @@ GNETAZFrame::TAZParameters::onCmdSetAttribute(FXObject* obj, FXSelector, void*) 
         }
     } else if (obj == myTextFieldCenter) {
         // check center
-        if (myTextFieldCenter->getText().empty() || GNEAttributeCarrier::canParse<RGBColor>(myTextFieldCenter->getText().text())) {
+        if (myTextFieldCenter->getText().empty() || GNEAttributeCarrier::canParse<Position>(myTextFieldCenter->getText().text())) {
             myTextFieldCenter->setTextColor(FXRGB(0, 0, 0));
             myTextFieldCenter->killFocus();
         } else {
