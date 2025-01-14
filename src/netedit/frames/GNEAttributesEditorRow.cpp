@@ -767,31 +767,4 @@ GNEAttributesEditorRow::isAttributeEnabled(const GNEAttributeProperties& attrPro
     }
 }
 
-/*
-bool
-GNEAttributesEditorRow::mergeJunction(SumoXMLAttr attr, const std::string& newVal) const {
-    const auto viewNet = myAttributesEditorParent->getFrameParent()->getViewNet();
-    const auto& inspectedElements = viewNet->getInspectedElements();
-    // check if we're editing junction position
-    if (inspectedElements.isInspectingSingleElement() && (inspectedElements.getFirstAC()->getTagProperty().getTag() == SUMO_TAG_JUNCTION) && (attr == SUMO_ATTR_POSITION)) {
-        // retrieve original junction
-        GNEJunction* movedJunction = viewNet->getNet()->getAttributeCarriers()->retrieveJunction(inspectedElements.getFirstAC()->getID());
-        // parse position
-        const Position newPosition = GNEAttributeCarrier::parse<Position>(newVal);
-        // iterate over network junction
-        for (const auto& targetjunction : viewNet->getNet()->getAttributeCarriers()->getJunctions()) {
-            // check distance position
-            if ((targetjunction.second->getPositionInView().distanceTo2D(newPosition) < POSITION_EPS) &&
-                    viewNet->askMergeJunctions(movedJunction, targetjunction.second)) {
-                viewNet->getNet()->mergeJunctions(movedJunction, targetjunction.second, viewNet->getUndoList());
-                return true;
-            }
-        }
-    }
-    // nothing to merge
-    return false;
-}
-*/
-
-
 /****************************************************************************/

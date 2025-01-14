@@ -1116,7 +1116,7 @@ void
 GNENet::mergeJunctions(GNEJunction* moved, GNEJunction* target, GNEUndoList* undoList) {
     undoList->begin(moved, TL("merge junctions"));
     // place moved junction in the same position of target junction
-    moved->setAttribute(SUMO_ATTR_POSITION, target->getAttribute(SUMO_ATTR_POSITION), undoList);
+    moved->setAttribute(GNE_ATTR_POSITION_MERGED, target->getAttribute(SUMO_ATTR_POSITION), undoList);
     // deleting edges changes in the underlying EdgeVector so we have to make a copy
     const EdgeVector incomingNBEdges = moved->getNBNode()->getIncomingEdges();
     for (const auto& incomingNBEdge : incomingNBEdges) {

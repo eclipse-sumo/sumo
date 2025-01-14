@@ -1412,6 +1412,21 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
             GNEChange_Attribute::changeAttribute(this, key, value, undoList, true);
             break;
         case SUMO_ATTR_POSITION: {
+            // parse position
+            const Position newPosition = GNEAttributeCarrier::parse<Position>(value);
+            // retrieve all junctions placed in this position
+            myNet->getViewNet()->updateObjectsInPosition(newPosition);
+            for (const auto& junction : myNet->getViewNet()->getViewObjectsSelector().getJunctions()) {
+                // check distance position
+                if ((junction != this) && (junction->getPositionInView().distanceTo2D(newPosition) < POSITION_EPS) &&
+                    myNet->getViewNet()->askMergeJunctions(this, junction)) {
+                    myNet->mergeJunctions(this, junction, undoList);
+                    break;
+                }
+            }
+            // note: in this point we don't need a break because we jump directly to setting the position merged
+        }
+        case GNE_ATTR_POSITION_MERGED: {
             // change Keep Clear attribute in all connections
             undoList->begin(this, TL("change junction position"));
             // obtain NBNode position
