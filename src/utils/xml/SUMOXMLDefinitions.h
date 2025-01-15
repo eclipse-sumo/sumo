@@ -1839,8 +1839,6 @@ enum SumoXMLAttr {
     GNE_ATTR_FLOW_TERMINATE,
     /// @brief flow spacing
     GNE_ATTR_FLOW_SPACING,
-    /// @brief position merged (used in netedit for junctions)
-    GNE_ATTR_POSITION_MERGED,
     // virtual attributes for easier UI
     GNE_ATTR_FROM_BUSSTOP,
     GNE_ATTR_FROM_TRAINSTOP,
