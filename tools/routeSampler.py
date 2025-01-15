@@ -184,6 +184,10 @@ def get_options(args=None):
         sys.stderr.write("Options --write-flows only accepts arguments 'number', 'probability' and 'poisson'")
         sys.exit()
 
+    for attr in ["edgeDataAttr", "arrivalAttr", "departAttr", "turnAttr", "turnRatioAttr"]:
+        if getattr(options, attr) not in [None, "None"]:
+            setattr(options, attr, getattr(options, attr).split(","))
+
     options.routeFiles = options.routeFiles.split(',')
     options.turnFiles = options.turnFiles.split(',') if options.turnFiles is not None else []
     options.turnRatioFiles = options.turnRatioFiles.split(',') if options.turnRatioFiles is not None else []
@@ -427,7 +431,7 @@ def parseTurnCounts(interval, attr, warn):
         for edgeRel in interval.edgeRelation:
             via = [] if edgeRel.via is None else edgeRel.via.split(' ')
             edges = tuple([edgeRel.attr_from] + via + [edgeRel.to])
-            value = getattr(edgeRel, attr)
+            value = [getattr(edgeRel, a) for a in attr]
             yield edges, value
     elif interval.tazRelation is None and warn:
         sys.stderr.write("Warning: No edgeRelations in interval from=%s to=%s\n" % (interval.begin, interval.end))
@@ -437,7 +441,7 @@ def parseTazCounts(interval, attr, warn):
     if interval.tazRelation is not None:
         for tazRel in interval.tazRelation:
             tazs = tuple([tazRel.attr_from] + [tazRel.to])
-            value = getattr(tazRel, attr)
+            value = [getattr(tazRel, a) for a in attr]
             yield tazs, value
     elif interval.edgeRelation is None and warn:
         sys.stderr.write("Warning: No tazRelations in interval from=%s to=%s\n" % (interval.begin, interval.end))
@@ -446,7 +450,7 @@ def parseTazCounts(interval, attr, warn):
 def parseEdgeCounts(interval, attr, warn):
     if interval.edge is not None:
         for edge in interval.edge:
-            yield (edge.id,), getattr(edge, attr)
+            yield (edge.id,), [getattr(edge, a) for a in attr]
     elif warn:
         sys.stderr.write("Warning: No edges in interval from=%s to=%s\n" % (interval.begin, interval.end))
 
@@ -466,7 +470,7 @@ def parseDataIntervals(parseFun, fnames, begin, end, allRoutes, attr, options,
                 # print(begin, end, interval.begin, interval.end, "overlap:", overlap)
                 for edges, value in parseFun(interval, attr, warn):
                     try:
-                        value = float(value)
+                        value = sum([float(v) for v in value])
                     except TypeError:
                         if warn:
                             print("Warning: Missing '%s' value in file '%s' for edge(s) '%s'" %
