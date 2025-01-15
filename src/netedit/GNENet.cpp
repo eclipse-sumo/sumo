@@ -1996,16 +1996,14 @@ GNENet::splitJunction(GNEJunction* junction, bool reconnect, GNEUndoList* undoLi
     // start operation
     undoList->begin(junction, TL("split junction"));
     // record connections
-    std::map<GNEEdge*, std::vector<NBEdge::Connection>> straightConnections;
+    std::map<std::pair<std::string, GNEEdge*>, std::vector<NBEdge::Connection>> straightConnections;
     for (GNEEdge* e : junction->getGNEIncomingEdges()) {
         for (const auto& c : e->getNBEdge()->getConnections()) {
             if (c.fromLane >= 0 && junction->getNBNode()->getDirection(e->getNBEdge(), c.toEdge) == LinkDirection::STRAIGHT) {
-                straightConnections[e].push_back(c);
+                straightConnections[std::make_pair(e->getID(), e)].push_back(c);
             }
         };
     }
-    //std::cout << "split junction at endpoints:\n";
-
     junction->setLogicValid(false, undoList);
     for (const auto& pair : endpoints) {
         const Position& pos = pair.first;
@@ -2041,22 +2039,22 @@ GNENet::splitJunction(GNEJunction* junction, bool reconnect, GNEUndoList* undoLi
     // recreate edges from straightConnections
     if (reconnect) {
         for (const auto& item : straightConnections) {
-            GNEEdge* in = item.first;
-            std::map<NBEdge*, GNEEdge*> newEdges;
+            GNEEdge* in = item.first.second;
+            std::map<std::pair<std::string, NBEdge*>, GNEEdge*> newEdges;
             for (auto& c : item.second) {
                 GNEEdge* out = myAttributeCarriers->retrieveEdge(c.toEdge->getID());
                 GNEEdge* newEdge = nullptr;
                 if (in->getToJunction() == out->getFromJunction()) {
                     continue;
                 }
-                if (newEdges.count(c.toEdge) == 0) {
+                if (newEdges.count(std::make_pair(c.toEdge->getID(), c.toEdge)) == 0) {
                     newEdge = createEdge(in->getToJunction(), out->getFromJunction(), in, undoList);
                     if (newEdge) {
-                        newEdges[c.toEdge] = newEdge;
+                        newEdges[std::make_pair(c.toEdge->getID(), c.toEdge)] = newEdge;
                         newEdge->setAttribute(SUMO_ATTR_NUMLANES, "1", undoList);
                     }
                 } else {
-                    newEdge = newEdges[c.toEdge];
+                    newEdge = newEdges[std::make_pair(c.toEdge->getID(), c.toEdge)];
                     duplicateLane(newEdge->getLanes().back(), undoList, true);
                 }
                 if (newEdge) {
@@ -2067,7 +2065,6 @@ GNENet::splitJunction(GNEJunction* junction, bool reconnect, GNEUndoList* undoLi
             }
         }
     }
-
     deleteJunction(junction, undoList);
     // finish operation
     undoList->end();
