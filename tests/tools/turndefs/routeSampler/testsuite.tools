@@ -41,6 +41,9 @@ save_template
 # using edgedata as input
 edgedata
 
+# read multiple attributes from the same edge
+edgedata_entered_departed
+
 # using edgedata as input to specify departure counts
 edgedata_departures
 
