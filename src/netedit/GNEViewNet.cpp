@@ -893,14 +893,16 @@ GNEViewNet::showJunctionAsBubbles() const {
 
 
 bool
-GNEViewNet::askMergeJunctions(const GNEJunction* movedJunction, const GNEJunction* targetJunction) {
-    // optionally ask for confirmation
-    if (!myNetworkViewOptions.menuCheckWarnAboutMerge->amChecked()) {
+GNEViewNet::askMergeJunctions(const GNEJunction* movedJunction, const GNEJunction* targetJunction, bool &alreadyAsked) {
+    if (alreadyAsked) {
+        return false;
+    } else if (!myNetworkViewOptions.menuCheckWarnAboutMerge->amChecked()) {
         WRITE_DEBUG("Opening FXMessageBox 'merge junctions'");
         // open question box
         const std::string header = TL("Confirm Junction Merger");
         const std::string body = (TLF("Do you wish to merge junctions '%' and '%'?\n('%' will be eliminated and its roads added to '%')", movedJunction->getMicrosimID(), targetJunction->getMicrosimID(), movedJunction->getMicrosimID(), targetJunction->getMicrosimID()));
         const FXuint answer = FXMessageBox::question(this, MBOX_YES_NO, header.c_str(), "%s", body.c_str());
+        alreadyAsked = true;
         if (answer != 1) { //1:yes, 2:no, 4:esc
             // write warning if netedit is running in testing mode
             if (answer == 2) {
@@ -913,8 +915,8 @@ GNEViewNet::askMergeJunctions(const GNEJunction* movedJunction, const GNEJunctio
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Closed FXMessageBox 'merge junctions' with 'Yes'");
         }
+        return true;
     }
-    return true;
 }
 
 

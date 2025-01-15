@@ -1417,6 +1417,7 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
             break;
         case SUMO_ATTR_POSITION: {
             const GNEJunction* junctionToMerge = nullptr;
+            bool alreadyAsked = false;
             // parse position
             const Position newPosition = GNEAttributeCarrier::parse<Position>(value);
             // retrieve all junctions placed in this position
@@ -1424,14 +1425,14 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
             for (const auto& junction : myNet->getViewNet()->getViewObjectsSelector().getJunctions()) {
                 // check distance position
                 if ((junctionToMerge == nullptr) && (junction != this) && (junction->getPositionInView().distanceTo2D(newPosition) < POSITION_EPS) &&
-                    myNet->getViewNet()->askMergeJunctions(this, junction)) {
+                    myNet->getViewNet()->askMergeJunctions(this, junction, alreadyAsked)) {
                     junctionToMerge = junction;
                 }
             }
             // also check the merging junctions located during drawGL
             for (const auto& junction : myNet->getViewNet()->getViewObjectsSelector().getMergingJunctions()) {
                 // check distance position
-                if ((junctionToMerge == nullptr) && (junction != this) && myNet->getViewNet()->askMergeJunctions(this, junction)) {
+                if ((junctionToMerge == nullptr) && (junction != this) && myNet->getViewNet()->askMergeJunctions(this, junction, alreadyAsked)) {
                     junctionToMerge = junction;
                 }
             }
