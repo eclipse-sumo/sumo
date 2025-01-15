@@ -30,6 +30,7 @@ RUN cd /opt; git clone -b $JUPEDSIM_VERSION https://github.com/PedestrianDynamic
 RUN cd /opt; cmake -B jupedsim-build -D CMAKE_INSTALL_PREFIX=jupedsim-install jupedsim; \
  cmake --build jupedsim-build -j4 --config Release; cmake --install jupedsim-build --config Release; rm -rf jupedsim-build
 RUN echo "/opt/jupedsim-install/lib" > /etc/ld.so.conf.d/jupedsim.conf
+RUN ldconfig
 
 # python packages needed for the tools (the ones where we do not have ubuntu packages)
 RUN pip3 install -r /opt/sumo/tools/requirements.txt
