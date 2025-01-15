@@ -18,6 +18,7 @@
 # import common functions for netedit tests
 import os
 import sys
+import time
 
 testRoot = os.path.join(os.environ.get('SUMO_HOME', '.'), 'tests')
 neteditTestRoot = os.path.join(
@@ -38,6 +39,9 @@ netedit.dragDrop(referencePosition,
                  netedit.positions.network.junction.merge.fromB.y,
                  netedit.positions.network.junction.merge.toB.x,
                  netedit.positions.network.junction.merge.toB.y)
+
+# wait for output
+time.sleep(2)
 
 # press enter
 netedit.typeEnter()

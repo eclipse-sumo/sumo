@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-09-02 10:08:14 by Eclipse SUMO netedit Version v1_20_0+1821-fef78581e33
+<!-- generated on 2025-01-15 15:21:02 by Eclipse SUMO netedit Version v1_21_0+1861-576d70cd5b1
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,15 +14,16 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.02Sep100517.1248\netedit.gui\network\junctions\merge\bubble\additionals.add.xml"/>
-        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.02Sep100517.1248\netedit.gui\network\junctions\merge\bubble\routes.rou.xml"/>
-        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.02Sep100517.1248\netedit.gui\network\junctions\merge\bubble\datas.dat.xml"/>
-        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.02Sep100517.1248\netedit.gui\network\junctions\merge\bubble\net.net.xml"/>
+        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.15Jan151709.9628\netedit.gui\network\junctions\merge\bubble\additionals.add.xml"/>
+        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.15Jan151709.9628\netedit.gui\network\junctions\merge\bubble\routes.rou.xml"/>
+        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.15Jan151709.9628\netedit.gui\network\junctions\merge\bubble\datas.dat.xml"/>
+        <meandata-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.15Jan151709.9628\netedit.gui\network\junctions\merge\bubble\datas.med.add.xml"/>
+        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.15Jan151709.9628\netedit.gui\network\junctions\merge\bubble\net.net.xml"/>
     </input>
 
     <output>
         <write-license value="true"/>
-        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.02Sep100517.1248\netedit.gui\network\junctions\merge\bubble\net.net.xml"/>
+        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.15Jan151709.9628\netedit.gui\network\junctions\merge\bubble\net.net.xml"/>
     </output>
 
     <processing>
@@ -46,19 +47,20 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <netedit>
         <ignore-supermode-question value="true"/>
+        <force-saving value="true"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.02Sep100517.1248\netedit.gui\network\junctions\merge\bubble\gui-settings.xml"/>
+        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.15Jan151709.9628\netedit.gui\network\junctions\merge\bubble\gui-settings.xml"/>
         <window-size value="1280, 720"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
-        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.02Sep100517.1248\netedit.gui\network\junctions\merge\bubble\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.15Jan151709.9628\netedit.gui\network\junctions\merge\bubble\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.02Sep100517.1248\netedit.gui\network\junctions\merge\bubble\log.txt"/>
+        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.15Jan151709.9628\netedit.gui\network\junctions\merge\bubble\log.txt"/>
     </report>
 
 </neteditConfiguration>
@@ -115,6 +117,12 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </edge>
     <edge id=":J0_w2" function="walkingarea">
         <lane id=":J0_w2_0" index="0" allow="pedestrian" speed="2.78" length="3.30" width="4.00" shape="17.20,-3.20 17.20,-5.20 15.20,-7.20 13.20,-7.20 13.31,-5.98 13.64,-4.98 14.20,-4.20 14.98,-3.64 15.98,-3.31"/>
+    </edge>
+    <edge id=":J1_0" function="internal">
+        <lane id=":J1_0_0" index="0" disallow="pedestrian" speed="7.58" length="12.62" shape="11.60,14.80 11.05,17.78 9.40,19.90 6.65,21.17 2.80,21.60"/>
+    </edge>
+    <edge id=":J1_1" function="internal">
+        <lane id=":J1_1_0" index="0" disallow="pedestrian" speed="5.99" length="7.49" shape="2.80,18.40 5.25,18.18 7.00,17.50 8.05,16.38 8.40,14.80"/>
     </edge>
     <edge id=":J1_w0" function="walkingarea">
         <lane id=":J1_w0_0" index="0" allow="pedestrian" speed="2.78" length="8.16" width="3.20" shape="6.80,14.80 4.80,14.80 2.80,16.80 2.80,20.00 2.80,23.20 15.20,14.80 13.20,14.80"/>
@@ -340,7 +348,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <request index="7" response="000000000" foes="000011110" cont="0"/>
         <request index="8" response="000000000" foes="000111001" cont="0"/>
     </junction>
-    <junction id="J1" type="dead_end" x="10.00" y="20.00" incLanes="E0_0 E0_1 E7_0" intLanes="" shape="15.20,14.80 4.80,14.80 4.58,15.91 4.30,16.30 3.91,16.58 3.41,16.74 2.80,16.80 2.80,23.20 6.59,22.97 9.69,22.27 12.10,21.10 13.82,19.47 14.86,17.37"/>
+    <junction id="J1" type="priority" x="10.00" y="20.00" incLanes="E0_0 E0_1 E7_0" intLanes=":J1_0_0 :J1_1_0" shape="15.20,14.80 4.80,14.80 4.58,15.91 4.30,16.30 3.91,16.58 3.41,16.74 2.80,16.80 2.80,23.20 6.59,22.97 9.69,22.27 12.10,21.10 13.82,19.47 14.86,17.37">
+        <request index="0" response="00" foes="00" cont="0"/>
+        <request index="1" response="00" foes="00" cont="0"/>
+    </junction>
     <junction id="J2" type="dead_end" x="10.00" y="-20.00" incLanes="E1_0 E1_1" intLanes="" shape="10.00,-20.00 4.80,-20.00 10.00,-20.00"/>
     <junction id="J3" type="dead_end" x="30.00" y="0.00" incLanes="E2_0 E2_1" intLanes="" shape="30.00,0.00 30.00,-5.20 30.00,0.00"/>
     <junction id="J4" type="traffic_light" x="-10.00" y="0.00" incLanes="E6_0 E6_1 -E3_0 -E3_1 :J4_w1_0 :J4_w0_0" intLanes=":J4_2_0 :J4_1_0 :J4_c0_0 :J4_c1_0" shape="-4.80,-5.20 -15.20,-5.20 -15.20,5.20 -12.02,4.91 -9.42,4.04 -7.40,2.60 -5.96,0.58 -5.09,-2.02">
@@ -394,10 +405,12 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <connection from="-E4" to="-E3" fromLane="1" toLane="1" via=":J5_1_0" tl="J5" linkIndex="1" dir="r" state="o"/>
     <connection from="-E5" to="-E4" fromLane="1" toLane="1" via=":J6_1_0" tl="J6" linkIndex="1" dir="r" state="o"/>
     <connection from="-E6" to="-E5" fromLane="1" toLane="1" via=":J7_0_0" tl="J7" linkIndex="0" dir="r" state="o"/>
+    <connection from="E0" to="-E7" fromLane="1" toLane="0" via=":J1_0_0" dir="l" state="M"/>
     <connection from="E3" to="E4" fromLane="1" toLane="1" via=":J5_0_0" tl="J5" linkIndex="0" dir="l" state="o"/>
     <connection from="E4" to="E5" fromLane="1" toLane="1" via=":J6_0_0" tl="J6" linkIndex="0" dir="l" state="o"/>
     <connection from="E5" to="E6" fromLane="1" toLane="1" via=":J7_1_0" tl="J7" linkIndex="1" dir="l" state="o"/>
     <connection from="E6" to="E3" fromLane="1" toLane="1" via=":J4_0_0" tl="J4" linkIndex="0" dir="l" state="o"/>
+    <connection from="E7" to="-E0" fromLane="0" toLane="1" via=":J1_1_0" dir="r" state="M"/>
     <connection from="EdgeExternBot" to="EdgeExternTop" fromLane="0" toLane="0" via=":JunctionExtern1_0_0" dir="t" state="M"/>
     <connection from="EdgeExternTop" to="EdgeExternBot" fromLane="0" toLane="0" via=":JunctionExtern0_0_0" dir="t" state="M"/>
 
@@ -411,6 +424,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <connection from=":J0_4" to="E2" fromLane="0" toLane="1" via=":J0_9_0" dir="r" state="m"/>
     <connection from=":J0_9" to="E2" fromLane="0" toLane="1" dir="r" state="m"/>
     <connection from=":J0_5" to="E0" fromLane="0" toLane="1" dir="s" state="M"/>
+    <connection from=":J1_0" to="-E7" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from=":J1_1" to="-E0" fromLane="0" toLane="1" dir="r" state="M"/>
     <connection from=":J4_0" to="E3" fromLane="0" toLane="1" via=":J4_2_0" dir="l" state="m"/>
     <connection from=":J4_2" to="E3" fromLane="0" toLane="1" dir="l" state="m"/>
     <connection from=":J4_1" to="-E6" fromLane="0" toLane="1" dir="r" state="M"/>

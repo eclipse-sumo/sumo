@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-04 14:11:41 by Eclipse SUMO netedit Version v1_20_0+0930-542f1297b48
+<!-- generated on 2025-01-15 16:12:11 by Eclipse SUMO netedit Version v1_21_0+1861-576d70cd5b1
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -39,10 +39,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <containerStop id="ct_1" lane="E11_0" startPos="5.80" endPos="15.80"/>
     <containerStop id="ct_2" lane="-E7_0" startPos="4.80" endPos="14.80"/>
     <containerStop id="ct_4" lane="-E6_0" startPos="5.80" endPos="15.80"/>
-    <chargingStation id="cs_0" lane="E6_0" startPos="4.80" endPos="14.80"/>
-    <chargingStation id="cs_1" lane="-E10_0" startPos="5.80" endPos="15.80"/>
-    <chargingStation id="cs_2" lane="-E11_0" startPos="4.80" endPos="14.80"/>
-    <chargingStation id="cs_3" lane="E7_0" startPos="5.80" endPos="15.80"/>
     <parkingArea id="pa_0" lane="-E4_0">
         <space x="-26.00" y="10.00"/>
     </parkingArea>
@@ -55,12 +51,15 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <parkingArea id="pa_3" lane="-E5_0">
         <space x="-26.00" y="-18.00"/>
     </parkingArea>
+    <chargingStation id="cs_0" lane="E6_0" startPos="4.80" endPos="14.80"/>
+    <chargingStation id="cs_1" lane="-E10_0" startPos="5.80" endPos="15.80"/>
+    <chargingStation id="cs_2" lane="-E11_0" startPos="4.80" endPos="14.80"/>
+    <chargingStation id="cs_3" lane="E7_0" startPos="5.80" endPos="15.80"/>
     <!-- Detectors -->
     <laneAreaDetector id="e2_0" lane="E1_1" pos="7.80" length="10.00" period="300.00" file="e2_0.xml"/>
     <laneAreaDetector id="e2_1" lane="-E1_1" pos="4.80" length="10.00" period="300.00" file="e2_1.xml"/>
     <laneAreaDetector id="e2_2" lane="-E0_1" pos="4.80" length="10.00" period="300.00" file="e2_2.xml"/>
     <laneAreaDetector id="e2_3" lane="E0_1" pos="7.80" length="10.00" period="300.00" file="e2_3.xml"/>
-    <laneAreaDetector id="e2_4" lanes="E4_1 E5_1" pos="5.80" endPos="4.80" period="300.00" file="e2_4.xml"/>
     <laneAreaDetector id="e2_5" lanes="E8_1 E2_1" pos="5.80" endPos="4.80" period="300.00" file="e2_5.xml"/>
     <entryExitDetector id="e3_0" pos="-22.00,14.00" period="300.00" file="e3_0.xml">
         <detEntry lane="-E4_0" pos="4.80"/>
