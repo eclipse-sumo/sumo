@@ -332,6 +332,9 @@ struct GNEViewNetHelper {
         /// @brief update objects (using gViewObjectsHandler)
         void updateObjects();
 
+        /// @brief update merging junctions
+        void updateMergingJunctions();
+
         /// @brief filter all elements except the given GLO type
         void filterAllExcept(GUIGlObjectType exception);
 
@@ -458,6 +461,9 @@ struct GNEViewNetHelper {
         /// @brief get vector with Demand Elements
         const std::vector<GNEDemandElement*>& getDemandElements() const;
 
+        /// @brief get merging junctions
+        const std::vector<const GNEJunction*>& getMergingJunctions() const;
+
     protected:
         /// @brief objects container
         class ViewObjectsContainer {
@@ -545,6 +551,9 @@ struct GNEViewNetHelper {
 
         /// @brief objects container with selected objects
         ViewObjectsContainer myViewObjects;
+
+        /// @brief merging junctions
+        std::vector<const GNEJunction*> myMergingJunctions;
 
     private:
         /// @brief update network elements

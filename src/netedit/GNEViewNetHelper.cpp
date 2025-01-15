@@ -382,6 +382,12 @@ GNEViewNetHelper::ViewObjectsSelector::updateObjects() {
 
 
 void
+GNEViewNetHelper::ViewObjectsSelector::updateMergingJunctions() {
+    myMergingJunctions = gViewObjectsHandler.getMergingJunctions();
+}
+
+
+void
 GNEViewNetHelper::ViewObjectsSelector::filterAllExcept(GUIGlObjectType exception) {
     // get all elements to filter
     std::vector<const GUIGlObject*> glElements;
@@ -812,19 +818,28 @@ GNEViewNetHelper::ViewObjectsSelector::getEdges() const {
     return myViewObjects.edges;
 }
 
+
 const std::vector<GNETAZ*>&
 GNEViewNetHelper::ViewObjectsSelector::getTAZs() const {
     return myViewObjects.TAZs;
 }
+
 
 const std::vector<GNEAdditional*>&
 GNEViewNetHelper::ViewObjectsSelector::getAdditionals() const {
     return myViewObjects.additionals;
 }
 
+
 const std::vector<GNEDemandElement*>&
 GNEViewNetHelper::ViewObjectsSelector::getDemandElements() const {
     return myViewObjects.demandElements;
+}
+
+
+const std::vector<const GNEJunction*>&
+GNEViewNetHelper::ViewObjectsSelector::getMergingJunctions() const {
+    return myMergingJunctions;
 }
 
 

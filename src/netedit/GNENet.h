@@ -291,7 +291,7 @@ public:
      * @param[in] target The junction that will be enlarged
      * @param[in] undoList The undo list with which to register changes
      */
-    void mergeJunctions(GNEJunction* moved, GNEJunction* target, GNEUndoList* undoList);
+    void mergeJunctions(GNEJunction* moved, const GNEJunction* target, GNEUndoList* undoList);
 
     /// @brief select all roundabout edges and junctions for the current roundabout
     void selectRoundabout(GNEJunction* junction, GNEUndoList* undoList);

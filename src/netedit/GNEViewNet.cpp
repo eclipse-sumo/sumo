@@ -893,23 +893,6 @@ GNEViewNet::showJunctionAsBubbles() const {
 
 
 bool
-GNEViewNet::checkMergeJunctions() {
-    // first check if there are junctions to merging
-    if (gViewObjectsHandler.getMergingJunctions().size() > 1) {
-        // get junctions (this call is neccesary because merging junctions are constants)
-        auto movedJunction = myNet->getAttributeCarriers()->retrieveJunction(gViewObjectsHandler.getMergingJunctions().at(0)->getID());
-        auto targetJunction = myNet->getAttributeCarriers()->retrieveJunction(gViewObjectsHandler.getMergingJunctions().at(1)->getID());
-        if (askMergeJunctions(movedJunction, targetJunction)) {
-            // merge moved and targed junctions
-            myNet->mergeJunctions(movedJunction, targetJunction, myUndoList);
-            return true;
-        }
-    }
-    return false;
-}
-
-
-bool
 GNEViewNet::askMergeJunctions(const GNEJunction* movedJunction, const GNEJunction* targetJunction) {
     // optionally ask for confirmation
     if (!myNetworkViewOptions.menuCheckWarnAboutMerge->amChecked()) {
@@ -1399,6 +1382,8 @@ GNEViewNet::doPaintGL(int mode, const Boundary& drawingBoundary) {
     myNet->drawGL(*myVisualizationSettings);
     // draw all GL elements
     int hits = drawGLElements(drawingBoundary);
+    // after drawing all elements, update list of merged junctions
+    myViewObjectsSelector.updateMergingJunctions();
     // draw temporal split junction
     drawTemporalSplitJunction();
     // draw temporal roundabout

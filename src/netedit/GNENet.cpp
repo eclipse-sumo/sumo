@@ -1113,7 +1113,7 @@ GNENet::addReversedEdge(GNEEdge* edge, const bool disconnected, GNEUndoList* und
 
 
 void
-GNENet::mergeJunctions(GNEJunction* moved, GNEJunction* target, GNEUndoList* undoList) {
+GNENet::mergeJunctions(GNEJunction* moved, const GNEJunction* target, GNEUndoList* undoList) {
     undoList->begin(moved, TL("merge junctions"));
     // deleting edges changes in the underlying EdgeVector so we have to make a copy
     const EdgeVector incomingNBEdges = moved->getNBNode()->getIncomingEdges();

@@ -230,13 +230,13 @@ GNEJunction::checkDrawToContour() const {
                     const double junctionBubbleRadius = myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.junctionBubbleRadius;
                     const double radiusTo = getExaggeration(myNet->getViewNet()->getVisualisationSettings()) * junctionBubbleRadius;
                     if (myNBNode->getPosition().distanceSquaredTo2D(movedJunction->getPositionInView()) < (radiusTo * radiusTo)) {
-                        // add it in the list of merging junction (first the moved junction)
+                        // add both it in the list of merging junction
                         gViewObjectsHandler.addMergingJunctions(movedJunction);
                         gViewObjectsHandler.addMergingJunctions(this);
                         return true;
                     }
                 } else if (myNBNode->getShape().around(movedJunction->getNBNode()->getPosition())) {
-                    // add it in the list of merging junction (first the moved junction)
+                    // add both it in the list of merging junction
                     gViewObjectsHandler.addMergingJunctions(movedJunction);
                     gViewObjectsHandler.addMergingJunctions(this);
                     return true;
@@ -1425,6 +1425,14 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
                     break;
                 }
             }
+            // also check the merging junctions located during drawGL
+            for (const auto& junction : myNet->getViewNet()->getViewObjectsSelector().getMergingJunctions()) {
+                // check distance position
+                if ((junction != this) && myNet->getViewNet()->askMergeJunctions(this, junction)) {
+                    myNet->mergeJunctions(this, junction, undoList);
+                    break;
+                }
+            }
             // note: in this point we don't need a break because we jump directly to setting the position merged
         }
         case GNE_ATTR_POSITION_MERGED: {
@@ -2027,8 +2035,6 @@ GNEJunction::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoL
         } else {
             setAttribute(SUMO_ATTR_POSITION, toString(moveResult.shapeToUpdate.front()), undoList);
         }
-        // check merge junctions
-        myNet->getViewNet()->checkMergeJunctions();
     }
 }
 
