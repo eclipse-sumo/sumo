@@ -1115,8 +1115,6 @@ GNENet::addReversedEdge(GNEEdge* edge, const bool disconnected, GNEUndoList* und
 void
 GNENet::mergeJunctions(GNEJunction* moved, GNEJunction* target, GNEUndoList* undoList) {
     undoList->begin(moved, TL("merge junctions"));
-    // place moved junction in the same position of target junction
-    moved->setAttribute(GNE_ATTR_POSITION_MERGED, target->getAttribute(SUMO_ATTR_POSITION), undoList);
     // deleting edges changes in the underlying EdgeVector so we have to make a copy
     const EdgeVector incomingNBEdges = moved->getNBNode()->getIncomingEdges();
     for (const auto& incomingNBEdge : incomingNBEdges) {
@@ -1125,7 +1123,7 @@ GNENet::mergeJunctions(GNEJunction* moved, GNEJunction* target, GNEUndoList* und
         if (edge->getFromJunction() == target) {
             deleteEdge(edge, undoList, false);
         } else {
-            GNEChange_Attribute::changeAttribute(edge, SUMO_ATTR_TO, target->getID(), undoList);
+            edge->setAttribute(SUMO_ATTR_TO, target->getID(), undoList);
         }
     }
     // deleting edges changes in the underlying EdgeVector so we have to make a copy
@@ -1136,7 +1134,7 @@ GNENet::mergeJunctions(GNEJunction* moved, GNEJunction* target, GNEUndoList* und
         if (edge->getToJunction() == target) {
             deleteEdge(edge, undoList, false);
         } else {
-            GNEChange_Attribute::changeAttribute(edge, SUMO_ATTR_FROM, target->getID(), undoList);
+            edge->setAttribute(SUMO_ATTR_FROM, target->getID(), undoList);
         }
     }
     // deleted moved junction

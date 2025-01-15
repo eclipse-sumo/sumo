@@ -1324,6 +1324,7 @@ GNEJunction::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_ID:
             return getMicrosimID();
         case SUMO_ATTR_POSITION:
+        case GNE_ATTR_POSITION_MERGED:
             return toString(myNBNode->getPosition());
         case SUMO_ATTR_TYPE:
             return toString(myNBNode->getType());
@@ -1912,7 +1913,8 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
             myNBNode->reinit(myNBNode->getPosition(), type);
             break;
         }
-        case SUMO_ATTR_POSITION: {
+        case SUMO_ATTR_POSITION:
+        case GNE_ATTR_POSITION_MERGED: {
             // set new position in NBNode updating edge boundaries
             moveJunctionGeometry(parse<Position>(value), true);
             // mark this connections and all of the junction's Neighbours as deprecated
