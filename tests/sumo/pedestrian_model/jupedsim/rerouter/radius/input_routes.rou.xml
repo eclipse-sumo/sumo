@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-12-01 10:47:24 by Eclipse SUMO netedit Version v1_19_0+0260-f25044b3d77
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <!-- Vehicles, persons and containers (sorted by depart) -->
+    <personFlow id="p_0" begin="0" departPos="random" color="blue" end="150" period="4.47">
+        <walk edges="E0 E4 E5"/>
+        <!--        <walk edges="E2 E3"/>   -->
+    </personFlow>
+    <personFlow id="p_1" begin="0" departPos="random" color="red" end="165" period="4.87">
+        <walk edges="E1 E4 E5"/>
+        <!--    <walk edges="E2 E3"/>   -->
+    </personFlow>
+</routes>
