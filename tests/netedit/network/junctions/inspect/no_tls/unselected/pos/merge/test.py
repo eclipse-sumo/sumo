@@ -18,6 +18,7 @@
 # import common functions for netedit tests
 import os
 import sys
+import time
 
 testRoot = os.path.join(os.environ.get('SUMO_HOME', '.'), 'tests')
 neteditTestRoot = os.path.join(
@@ -31,44 +32,44 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 # rebuild network
 netedit.rebuildNetwork()
 
-# go to select mode
-netedit.selectMode()
-
-# select first junction
-netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.center)
-
-# select select second junction
-netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.left)
-
-# select select second junction
-netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.right)
-
-# go to inspect mode
-netedit.inspectMode()
-
 # inspect central node
 netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.center)
 
-# set invalid value
-netedit.modifyAttribute(netedit.attrs.junction.inspectSelectionTLS.tl, "dummyTLS", False)
+# change position with a non valid value
+netedit.modifyAttribute(netedit.attrs.junction.inspect.pos, "dummy position", False)
 
-# change type of junction
-netedit.modifyAttribute(netedit.attrs.junction.inspectSelectionTLS.tl + 1, "JunctionCenter", False)
+# change position with a non valid value (another junction in the same position)
+netedit.modifyAttribute(netedit.attrs.junction.inspect.pos, "-25.00,0.00", False)
+
+# wait for output
+time.sleep(2)
+
+# merge
+netedit.typeEnter()
+
+# wait for output
+time.sleep(2)
 
 # rebuild network
 netedit.rebuildNetwork()
 
 # Check undo
-netedit.undo(referencePosition, 1)
+netedit.undo(referencePosition, 5)
 
 # rebuild network
 netedit.rebuildNetwork()
 
 # Check redo
-netedit.redo(referencePosition, 1)
+netedit.redo(referencePosition, 5)
+
+# rebuild network
+netedit.rebuildNetwork()
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)
+
+# type space
+netedit.typeSpace()
 
 # quit netedit
 netedit.quit(neteditProcess)

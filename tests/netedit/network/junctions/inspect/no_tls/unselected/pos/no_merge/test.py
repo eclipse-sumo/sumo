@@ -32,9 +32,6 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 # rebuild network
 netedit.rebuildNetwork()
 
-# wait for output
-time.sleep(3)
-
 # inspect central node
 netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.center)
 
@@ -44,8 +41,14 @@ netedit.modifyAttribute(netedit.attrs.junction.inspect.pos, "dummy position", Fa
 # change position with a non valid value (another junction in the same position)
 netedit.modifyAttribute(netedit.attrs.junction.inspect.pos, "-25.00,0.00", False)
 
+# wait for output
+time.sleep(2)
+
 # avoid merging
 netedit.typeTwoKeys('alt', 'n')
+
+# wait for output
+time.sleep(2)
 
 # rebuild network
 netedit.rebuildNetwork()
@@ -60,13 +63,13 @@ netedit.modifyAttribute(netedit.attrs.junction.inspect.pos, "-15.00, 15.00", Fal
 netedit.rebuildNetwork()
 
 # Check undo
-netedit.undo(referencePosition, 1)
+netedit.undo(referencePosition, 5)
 
 # rebuild network
 netedit.rebuildNetwork()
 
 # Check redo
-netedit.redo(referencePosition, 1)
+netedit.redo(referencePosition, 5)
 
 # rebuild network
 netedit.rebuildNetwork()
