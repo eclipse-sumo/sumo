@@ -365,6 +365,7 @@ image:1.001
 image-600:1.001
 image-800:1.001
 osmbatch:0.001
+osmimport:0.0101
 osmlines:0.0101
 osmstops:0.0101
 osmtrips:0.0101
