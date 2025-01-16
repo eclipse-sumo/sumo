@@ -184,7 +184,7 @@
 #include "icons/computepathmanager.xpm"
 
 #include "icons/checkboxes/checkbox_applytoallphases.xpm"
-#include "icons/checkboxes/checkbox_askformerge.xpm"
+#include "icons/checkboxes/checkbox_mergeautomatically.xpm"
 #include "icons/checkboxes/checkbox_autoselectjunctions.xpm"
 #include "icons/checkboxes/checkbox_bubbles.xpm"
 #include "icons/checkboxes/checkbox_chain.xpm"
@@ -740,7 +740,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::NETWORKMODE_CHECKBOX_SELECTEDGES] = new FXXPMIcon(a, checkbox_selectededges_xpm);
     myIcons[GUIIcon::NETWORKMODE_CHECKBOX_SHOWCONNECTIONS] = new FXXPMIcon(a, checkbox_showconnections_xpm);
     myIcons[GUIIcon::NETWORKMODE_CHECKBOX_AUTOSELECTJUNCTIONS] = new FXXPMIcon(a, checkbox_autoselectjunctions_xpm);
-    myIcons[GUIIcon::NETWORKMODE_CHECKBOX_ASKFORMERGE] = new FXXPMIcon(a, checkbox_askformerge_xpm);
+    myIcons[GUIIcon::NETWORKMODE_CHECKBOX_MERGEAUTOMATICALLY] = new FXXPMIcon(a, checkbox_mergeautomatically_xpm);
     myIcons[GUIIcon::NETWORKMODE_CHECKBOX_BUBBLES] = new FXXPMIcon(a, checkbox_bubbles_xpm);
     myIcons[GUIIcon::NETWORKMODE_CHECKBOX_ELEVATION] = new FXXPMIcon(a, checkbox_elevation_xpm);
     myIcons[GUIIcon::NETWORKMODE_CHECKBOX_CHAIN] = new FXXPMIcon(a, checkbox_chain_xpm);

@@ -859,8 +859,8 @@ struct GNEViewNetHelper {
         /// @brief checkable button to set change all phases
         MFXCheckableButton* menuCheckChangeAllPhases = nullptr;
 
-        /// @brief checkable button to we should warn about merging junctions
-        MFXCheckableButton* menuCheckWarnAboutMerge = nullptr;
+        /// @brief checkable button to we should't warn about merging junctions
+        MFXCheckableButton* menuCheckMergeAutomatically = nullptr;
 
         /// @brief checkable button to show connection as bubble in "Move" mode.
         MFXCheckableButton* menuCheckShowJunctionBubble = nullptr;

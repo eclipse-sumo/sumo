@@ -416,7 +416,7 @@ public:
     long onCmdToggleDrawSpreadVehicles(FXObject*, FXSelector, void*);
 
     /// @brief toggle warn for merge
-    long onCmdToggleWarnAboutMerge(FXObject*, FXSelector, void*);
+    long onCmdToggleMergeAutomatically(FXObject*, FXSelector, void*);
 
     /// @brief toggle show junction bubbles
     long onCmdToggleShowJunctionBubbles(FXObject*, FXSelector, void*);

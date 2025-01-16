@@ -516,7 +516,7 @@ struct GNEApplicationWindowHelper {
             MFXMenuCheckIcon* menuCheckChangeAllPhases = nullptr;
 
             /// @brief menu check to we should warn about merging junctions
-            MFXMenuCheckIcon* menuCheckWarnAboutMerge = nullptr;
+            MFXMenuCheckIcon* menuCheckMergeAutomatically = nullptr;
 
             /// @brief menu check to show connection as bubble in "Move" mode.
             MFXMenuCheckIcon* menuCheckShowJunctionBubble = nullptr;

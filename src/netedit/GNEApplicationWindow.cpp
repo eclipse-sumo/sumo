@@ -240,8 +240,8 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,  MID_GNE_NETWORKVIEWOPTIONS_EXTENDSELECTION,          GNEApplicationWindow::onUpdToggleViewOption),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_CHANGEALLPHASES,          GNEApplicationWindow::onCmdToggleViewOption),
     FXMAPFUNC(SEL_UPDATE,  MID_GNE_NETWORKVIEWOPTIONS_CHANGEALLPHASES,          GNEApplicationWindow::onUpdToggleViewOption),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_ASKFORMERGE,              GNEApplicationWindow::onCmdToggleViewOption),
-    FXMAPFUNC(SEL_UPDATE,  MID_GNE_NETWORKVIEWOPTIONS_ASKFORMERGE,              GNEApplicationWindow::onUpdToggleViewOption),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_MERGEAUTOMATICALLY,       GNEApplicationWindow::onCmdToggleViewOption),
+    FXMAPFUNC(SEL_UPDATE,  MID_GNE_NETWORKVIEWOPTIONS_MERGEAUTOMATICALLY,       GNEApplicationWindow::onUpdToggleViewOption),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_SHOWBUBBLES,              GNEApplicationWindow::onCmdToggleViewOption),
     FXMAPFUNC(SEL_UPDATE,  MID_GNE_NETWORKVIEWOPTIONS_SHOWBUBBLES,              GNEApplicationWindow::onUpdToggleViewOption),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_MOVEELEVATION,            GNEApplicationWindow::onCmdToggleViewOption),
@@ -2830,8 +2830,8 @@ GNEApplicationWindow::onCmdToggleViewOption(FXObject* sender, FXSelector sel, vo
                 return myViewNet->onCmdToggleExtendSelection(sender, sel, ptr);
             case MID_GNE_NETWORKVIEWOPTIONS_CHANGEALLPHASES:
                 return myViewNet->onCmdToggleChangeAllPhases(sender, sel, ptr);
-            case MID_GNE_NETWORKVIEWOPTIONS_ASKFORMERGE:
-                return myViewNet->onCmdToggleWarnAboutMerge(sender, sel, ptr);
+            case MID_GNE_NETWORKVIEWOPTIONS_MERGEAUTOMATICALLY:
+                return myViewNet->onCmdToggleMergeAutomatically(sender, sel, ptr);
             case MID_GNE_NETWORKVIEWOPTIONS_SHOWBUBBLES:
                 return myViewNet->onCmdToggleShowJunctionBubbles(sender, sel, ptr);
             case MID_GNE_NETWORKVIEWOPTIONS_MOVEELEVATION:
@@ -2975,8 +2975,8 @@ GNEApplicationWindow::onUpdToggleViewOption(FXObject* sender, FXSelector sel, vo
                     menuCheck->setCheck(FALSE);
                 }
                 break;
-            case MID_GNE_NETWORKVIEWOPTIONS_ASKFORMERGE:
-                if (myViewNet->getNetworkViewOptions().menuCheckWarnAboutMerge->amChecked()) {
+            case MID_GNE_NETWORKVIEWOPTIONS_MERGEAUTOMATICALLY:
+                if (myViewNet->getNetworkViewOptions().menuCheckMergeAutomatically->amChecked()) {
                     menuCheck->setCheck(TRUE);
                 } else {
                     menuCheck->setCheck(FALSE);

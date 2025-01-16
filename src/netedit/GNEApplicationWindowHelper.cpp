@@ -903,10 +903,10 @@ GNEApplicationWindowHelper::EditMenuCommands::NetworkViewOptions::buildNetworkVi
                                GUIIconSubSys::getIcon(GUIIcon::NETWORKMODE_CHECKBOX_APPLYTOALLPHASES),
                                myGNEApp, MID_GNE_NETWORKVIEWOPTIONS_CHANGEALLPHASES);
 
-    menuCheckWarnAboutMerge = GUIDesigns::buildFXMenuCheckboxIcon(editMenu,
-                              TL("Ask for confirmation before merging junction"), "Alt+5", "",
-                              GUIIconSubSys::getIcon(GUIIcon::NETWORKMODE_CHECKBOX_ASKFORMERGE),
-                              myGNEApp, MID_GNE_NETWORKVIEWOPTIONS_ASKFORMERGE);
+    menuCheckMergeAutomatically = GUIDesigns::buildFXMenuCheckboxIcon(editMenu,
+                              TL("Don't ask for confirmation before merging junction"), "Alt+5", "",
+                              GUIIconSubSys::getIcon(GUIIcon::NETWORKMODE_CHECKBOX_MERGEAUTOMATICALLY),
+                              myGNEApp, MID_GNE_NETWORKVIEWOPTIONS_MERGEAUTOMATICALLY);
 
     menuCheckShowJunctionBubble = GUIDesigns::buildFXMenuCheckboxIcon(editMenu,
                                   TL("Show bubbles over junctions shapes"), "Alt+6", "",
@@ -946,7 +946,7 @@ GNEApplicationWindowHelper::EditMenuCommands::NetworkViewOptions::hideNetworkVie
     menuCheckShowTAZElements->hide();
     menuCheckExtendSelection->hide();
     menuCheckChangeAllPhases->hide();
-    menuCheckWarnAboutMerge->hide();
+    menuCheckMergeAutomatically->hide();
     menuCheckShowJunctionBubble->hide();
     menuCheckMoveElevation->hide();
     menuCheckChainEdges->hide();
@@ -999,8 +999,8 @@ GNEApplicationWindowHelper::EditMenuCommands::NetworkViewOptions::updateShortcut
         menuCheckChangeAllPhases->setAccelText(("Alt+" + toString(index)).c_str());
         index++;
     }
-    if (menuCheckWarnAboutMerge->shown()) {
-        menuCheckWarnAboutMerge->setAccelText(("Alt+" + toString(index)).c_str());
+    if (menuCheckMergeAutomatically->shown()) {
+        menuCheckMergeAutomatically->setAccelText(("Alt+" + toString(index)).c_str());
         index++;
     }
     if (menuCheckShowJunctionBubble->shown()) {
@@ -2465,17 +2465,17 @@ GNEApplicationWindowHelper::toggleEditOptionsNetwork(GNEViewNet* viewNet, const 
         }
         // Call manually onCmdToggleChangeAllPhases
         viewNet->onCmdToggleChangeAllPhases(obj, sel, nullptr);
-    } else if (menuCheck == viewNet->getNetworkViewOptions().menuCheckWarnAboutMerge) {
+    } else if (menuCheck == viewNet->getNetworkViewOptions().menuCheckMergeAutomatically) {
         // Toggle menuCheckWarnAboutMerge
-        if (viewNet->getNetworkViewOptions().menuCheckWarnAboutMerge->amChecked() == TRUE) {
+        if (viewNet->getNetworkViewOptions().menuCheckMergeAutomatically->amChecked() == TRUE) {
             // show extra information for tests
             WRITE_DEBUG("Disabled warn about merge through alt + " + toString(numericalKeyPressed + 1));
         } else {
             // show extra information for tests
             WRITE_DEBUG("Enabled warn about merge through alt + " + toString(numericalKeyPressed + 1));
         }
-        // Call manually onCmdToggleWarnAboutMerge
-        viewNet->onCmdToggleWarnAboutMerge(obj, sel, nullptr);
+        // Call manually onCmdToggleMergeAutomatically
+        viewNet->onCmdToggleMergeAutomatically(obj, sel, nullptr);
     } else if (menuCheck == viewNet->getNetworkViewOptions().menuCheckShowJunctionBubble) {
         // Toggle menuCheckShowJunctionBubble
         if (viewNet->getNetworkViewOptions().menuCheckShowJunctionBubble->amChecked() == TRUE) {

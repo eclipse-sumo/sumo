@@ -119,7 +119,7 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_SHOWTAZELEMENTS,          GNEViewNet::onCmdToggleShowTAZElements),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_EXTENDSELECTION,          GNEViewNet::onCmdToggleExtendSelection),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_CHANGEALLPHASES,          GNEViewNet::onCmdToggleChangeAllPhases),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_ASKFORMERGE,              GNEViewNet::onCmdToggleWarnAboutMerge),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_MERGEAUTOMATICALLY,       GNEViewNet::onCmdToggleMergeAutomatically),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_SHOWBUBBLES,              GNEViewNet::onCmdToggleShowJunctionBubbles),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_MOVEELEVATION,            GNEViewNet::onCmdToggleMoveElevation),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_CHAINEDGES,               GNEViewNet::onCmdToggleChainEdges),
@@ -896,7 +896,9 @@ bool
 GNEViewNet::askMergeJunctions(const GNEJunction* movedJunction, const GNEJunction* targetJunction, bool &alreadyAsked) {
     if (alreadyAsked) {
         return false;
-    } else if (!myNetworkViewOptions.menuCheckWarnAboutMerge->amChecked()) {
+    } else if (myNetworkViewOptions.menuCheckMergeAutomatically->amChecked()) {
+        return true;
+    } else {
         WRITE_DEBUG("Opening FXMessageBox 'merge junctions'");
         // open question box
         const std::string header = TL("Confirm Junction Merger");
@@ -4078,19 +4080,19 @@ GNEViewNet::onCmdToggleDrawSpreadVehicles(FXObject*, FXSelector sel, void*) {
 
 
 long
-GNEViewNet::onCmdToggleWarnAboutMerge(FXObject*, FXSelector sel, void*) {
+GNEViewNet::onCmdToggleMergeAutomatically(FXObject*, FXSelector sel, void*) {
     // Toggle menuCheckWarnAboutMerge
-    if (myNetworkViewOptions.menuCheckWarnAboutMerge->amChecked() == TRUE) {
-        myNetworkViewOptions.menuCheckWarnAboutMerge->setChecked(FALSE);
+    if (myNetworkViewOptions.menuCheckMergeAutomatically->amChecked() == TRUE) {
+        myNetworkViewOptions.menuCheckMergeAutomatically->setChecked(FALSE);
     } else {
-        myNetworkViewOptions.menuCheckWarnAboutMerge->setChecked(TRUE);
+        myNetworkViewOptions.menuCheckMergeAutomatically->setChecked(TRUE);
     }
-    myNetworkViewOptions.menuCheckWarnAboutMerge->update();
+    myNetworkViewOptions.menuCheckMergeAutomatically->update();
     // Only update view
     updateViewNet();
     // set focus in menu check again, if this function was called clicking over menu check instead using alt+<key number>
-    if (sel == FXSEL(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_ASKFORMERGE)) {
-        myNetworkViewOptions.menuCheckWarnAboutMerge->setFocus();
+    if (sel == FXSEL(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_MERGEAUTOMATICALLY)) {
+        myNetworkViewOptions.menuCheckMergeAutomatically->setFocus();
     }
     return 1;
 }
@@ -4763,11 +4765,11 @@ GNEViewNet::updateNetworkModeSpecificControls() {
             myCurrentFrame = myViewParent->getMoveFrame();
             myNetworkCheckableButtons.moveNetworkElementsButton->setChecked(true);
             // show view options
-            myNetworkViewOptions.menuCheckWarnAboutMerge->show();
+            myNetworkViewOptions.menuCheckMergeAutomatically->show();
             myNetworkViewOptions.menuCheckShowJunctionBubble->show();
             myNetworkViewOptions.menuCheckMoveElevation->show();
             // show menu checks
-            menuChecks.menuCheckWarnAboutMerge->show();
+            menuChecks.menuCheckMergeAutomatically->show();
             menuChecks.menuCheckShowJunctionBubble->show();
             menuChecks.menuCheckMoveElevation->show();
             break;

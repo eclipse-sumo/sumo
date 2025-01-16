@@ -835,8 +835,8 @@ enum {
     MID_GNE_NETWORKVIEWOPTIONS_EXTENDSELECTION,
     /// @brief change all phases
     MID_GNE_NETWORKVIEWOPTIONS_CHANGEALLPHASES,
-    /// @brief ask before merging junctions
-    MID_GNE_NETWORKVIEWOPTIONS_ASKFORMERGE,
+    /// @brief don't ask before merging junctions
+    MID_GNE_NETWORKVIEWOPTIONS_MERGEAUTOMATICALLY,
     /// @brief show junctions as bubbles
     MID_GNE_NETWORKVIEWOPTIONS_SHOWBUBBLES,
     /// @brief move elevation instead of x,y
