@@ -242,6 +242,20 @@ def pasteIntoTextField(value, removePreviousContents=True, useClipboard=True, la
         pyautogui.typewrite(translateKeys(value, layout))
 
 
+def moveMouse(referencePosition, position, offsetX=0, offsetY=0):
+    """
+    @brief move mouse to the given position
+    """
+    # obtain clicked position
+    movePosition = [referencePosition[0] + position.x + offsetX, referencePosition[1] + position.y + offsetY]
+    # move mouse to position
+    pyautogui.moveTo(movePosition)
+    # wait after move
+    time.sleep(DELAY_MOUSE_MOVE)
+    # show debug
+    print("TestFunctions: Moved to position", movePosition[0], '-', movePosition[1])
+
+
 def leftClick(referencePosition, position, offsetX=0, offsetY=0):
     """
     @brief do left click over a position relative to referencePosition (pink square)
@@ -256,6 +270,7 @@ def leftClick(referencePosition, position, offsetX=0, offsetY=0):
     pyautogui.click(button='left')
     # wait after every operation
     time.sleep(DELAY_MOUSE_CLICK)
+    # show debug
     print("TestFunctions: Clicked over position", clickedPosition[0], '-', clickedPosition[1])
 
 
@@ -808,12 +823,19 @@ def quit(NeteditProcess, openNetNonSavedDialog=False, saveNet=False,
         return
 
 
-def openNetworkAs(waitTime=2):
+def openNetworkAs(useShortcut, waitTime=2):
     """
     @brief load network using dialog
     """
-    # open save network as dialog
-    typeTwoKeys('ctrl', 'o')
+    if (useShortcut):
+        typeTwoKeys('ctrl', 'o')
+    else:
+        typeTwoKeys('alt', 'f')
+        for _ in range(attrs.toolbar.file.openNetwork):
+            typeDown()
+        typeSpace()
+    # wait for saving
+    time.sleep(waitTime)
     # jump to filename TextField
     typeTwoKeys('alt', 'f')
     pasteIntoTextField(_TEXTTEST_SANDBOX)
@@ -856,12 +878,22 @@ def saveNetworkAs(waitTime=2):
     time.sleep(DELAY_RECOMPUTE)
 
 
-def openAdditionalsAs(waitTime=2):
+def openAdditionalsAs(useShortcut, waitTime=2):
     """
     @brief load additional using dialog
     """
-    # open save network as dialog
-    typeTwoKeys('ctrl', 'a')
+    if (useShortcut):
+        typeTwoKeys('ctrl', 'a')
+    else:
+        typeTwoKeys('alt', 'f')
+        for _ in range(attrs.toolbar.file.aditionalElements.menu):
+            typeDown()
+        typeSpace()
+        for _ in range(attrs.toolbar.file.aditionalElements.load):
+            typeDown()
+        typeSpace()
+    # wait for saving
+    time.sleep(waitTime)
     # jump to filename TextField
     typeTwoKeys('alt', 'f')
     pasteIntoTextField(_TEXTTEST_SANDBOX)
@@ -884,12 +916,22 @@ def saveAdditionals(referencePosition, clickOverReference=False):
     typeThreeKeys('ctrl', 'shift', 'a')
 
 
-def openDemandElementsAs(waitTime=2):
+def openDemandElementsAs(useShortcut, waitTime=2):
     """
     @brief load demand elements using dialog
     """
-    # open save network as dialog
-    typeTwoKeys('ctrl', 'd')
+    if (useShortcut):
+        typeTwoKeys('ctrl', 'd')
+    else:
+        typeTwoKeys('alt', 'f')
+        for _ in range(attrs.toolbar.file.demandElements.menu):
+            typeDown()
+        typeSpace()
+        for _ in range(attrs.toolbar.file.demandElements.load):
+            typeDown()
+        typeSpace()
+    # wait for saving
+    time.sleep(waitTime)
     # jump to filename TextField
     typeTwoKeys('alt', 'f')
     pasteIntoTextField(_TEXTTEST_SANDBOX)
@@ -914,12 +956,22 @@ def saveRoutes(referencePosition, clickOverReference=True):
     time.sleep(DELAY_SAVING)
 
 
-def openDataElementsAs(waitTime=2):
+def openDataElementsAs(useShortcut, waitTime=2):
     """
     @brief load data elements using dialog
     """
-    # open save network as dialog
-    typeTwoKeys('ctrl', 'b')
+    if (useShortcut):
+        typeTwoKeys('ctrl', 'b')
+    else:
+        typeTwoKeys('alt', 'f')
+        for _ in range(attrs.toolbar.file.dataElements.menu):
+            typeDown()
+        typeSpace()
+        for _ in range(attrs.toolbar.file.dataElements.load):
+            typeDown()
+        typeSpace()
+    # wait for saving
+    time.sleep(waitTime)
     # jump to filename TextField
     typeTwoKeys('alt', 'f')
     pasteIntoTextField(_TEXTTEST_SANDBOX)
@@ -946,15 +998,18 @@ def openMeanDataElementsAs(waitTime=2):
     """
     @brief load mean data elements using dialog
     """
-    # open save network as dialog
+    # open load mean data dialog (because doesn't have shortcut)
     typeTwoKeys('alt', 'f')
-    for _ in range(17):
+    for _ in range(attrs.toolbar.file.meanDataElements.menu):
         typeDown()
     typeSpace()
-    typeDown()
+    for _ in range(attrs.toolbar.file.meanDataElements.load):
+        typeDown()
     typeSpace()
     # jump to filename TextField
     typeTwoKeys('alt', 'f')
+    # wait for saving
+    time.sleep(waitTime)
     pasteIntoTextField(_TEXTTEST_SANDBOX)
     typeEnter()
     pasteIntoTextField("datas.med.add.xml")
@@ -973,6 +1028,21 @@ def saveMeanDatas(referencePosition, clickOverReference=True, offsetX=0, offsetY
         leftClick(referencePosition, positions.reference, offsetX, offsetY)
     # save datas using hotkey
     typeThreeKeys('ctrl', 'shift', 'm')
+
+
+def overwritte(value):
+    """
+    @brief check if overwritte loaded elements
+    """
+    if value == "yes":
+        typeSpace()
+    elif value == "no":
+        typeTab()
+        typeSpace()
+    else:
+        typeTab()
+        typeTab()
+        typeSpace()
 
 
 def fixDemandElements(solution):
@@ -1048,7 +1118,7 @@ def saveNeteditConfigNew(waitTime=2):
     # jump to filename TextField
     typeTwoKeys('alt', 'f')
     typeEnter()
-    pasteIntoTextField("saveConfigAs.netecfg")
+    pasteIntoTextField("configAs.netecfg")
     typeEnter()
     typeEnter()
     # wait for saving

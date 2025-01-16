@@ -28,13 +28,14 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
-# open additionals
-netedit.openDataElementsAs()
+# move to down (to avoid invalid selection)
+netedit.moveMouse(referencePosition, netedit.positions.downLeft)
 
-# type space
-netedit.typeTab()
-netedit.typeTab()
-netedit.typeSpace()
+# open additionals
+netedit.openDataElementsAs(False)
+
+# open additionals
+netedit.overwritte("cancel")
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

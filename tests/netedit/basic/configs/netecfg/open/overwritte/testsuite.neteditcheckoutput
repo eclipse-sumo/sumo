@@ -1,7 +1,5 @@
-network
+yes
 
-keep_new
-
-keep_old
+no
 
 cancel
