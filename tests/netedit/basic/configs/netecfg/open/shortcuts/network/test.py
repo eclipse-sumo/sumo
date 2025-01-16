@@ -29,7 +29,7 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # open network
-netedit.openNetworkAs(True)
+netedit.loadNetwork(True)
 
 # save Netedit config
 netedit.saveNeteditConfigNew()

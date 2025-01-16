@@ -52,7 +52,6 @@ copy_test_path:loadViewport.xml
 neteconfigas:configAs.netecfg
 sumoconfigas:configAs.sumo
 
-net:net.net.xml
 netcon:net.con.xml
 netedg:net.edg.xml
 netnod:net.nod.xml
@@ -70,14 +69,20 @@ netccfgedg:netccfg.edg.xml
 netccfgnod:netccfg.nod.xml
 netccfgtll:netccfg.tll.xml
 
+net:net.net.xml
+netas:netAs.net.xml
+
 additionals:additionals.add.xml
-additionals:netedit.add.xml
+additionalsas:additionalsAs.add.xml
+
 routes:routes.rou.xml
-routes:netedit.rou.xml
+routesas:routesAs.rou.xml
+
 datas:datas.dat.xml
-datas:netedit.dat.xml
+datasas:datasAs.dat.xml
+
 meandatas:datas.med.add.xml
-meandatas:netedit.med.add.xml
+meandatasas:datasAs.med.add.xml
 
 guisettingsoutput:guisettingsoutput.xml
 cfg:config.cfg
@@ -88,27 +93,51 @@ viewport:viewport.xml
 
 [run_dependent_text]
 net:<!--{[->]}-->
+netas:<!--{[->]}-->
+
 additionals:<!-- generated{[->]}-->
 additionals:{INTERNAL writedir}{REPLACE <TEXTTEST_SANDBOX>}
 additionals:\\{REPLACE /}
+
+additionalsas:<!-- generated{[->]}-->
+additionalsas:{INTERNAL writedir}{REPLACE <TEXTTEST_SANDBOX>}
+additionalsas:\\{REPLACE /}
+
 routes:<!-- generated{[->]}-->
 routes:{INTERNAL writedir}{REPLACE <TEXTTEST_SANDBOX>}
 routes:\\{REPLACE /}
-configmanually:<!-- generated{[->]}-->
+
+routesas:<!-- generated{[->]}-->
+routesas:{INTERNAL writedir}{REPLACE <TEXTTEST_SANDBOX>}
+routesas:\\{REPLACE /}
+
 datas:<!-- generated{[->]}-->
 datas:{INTERNAL writedir}{REPLACE <TEXTTEST_SANDBOX>}
 datas:\\{REPLACE /}
+
+datasas:<!-- generated{[->]}-->
+datasas:{INTERNAL writedir}{REPLACE <TEXTTEST_SANDBOX>}
+datasas:\\{REPLACE /}
+
 meandatas:<!-- generated{[->]}-->
 meandatas:{INTERNAL writedir}{REPLACE <TEXTTEST_SANDBOX>}
 meandatas:\\{REPLACE /}
+
+meandatasas:<!-- generated{[->]}-->
+meandatasas:{INTERNAL writedir}{REPLACE <TEXTTEST_SANDBOX>}
+meandatasas:\\{REPLACE /}
+
 netcon:<!--{[->]}-->
 netedg:<!--{[->]}-->
 netnod:<!--{[->]}-->
 nettll:<!--{[->]}-->
+
 neteconfig:<!--{[->]}-->
 neteconfigas:<!--{[->]}-->
+
 sumoconfig:<!--{[->]}-->
 sumoconfigas:<!--{[->]}-->
+
 output:\[log\]
 output:\[info\]
 output:+++
@@ -116,7 +145,9 @@ output:\\{REPLACE /}
 output:script{LINES 1}
 output:  File{LINES 1}
 output:{INTERNAL writedir}
+
 guisettingsoutput:<scheme{[->]}</scheme>
+
 errors:Leaked object at
 errors:*** 9 leaks found
 errors:delete: freed
@@ -131,6 +162,7 @@ errors:MESA: error: ZINK: {LINES 2}
 errors:\\{REPLACE /}
 errors:avx512er{LINES 1}
 errors:avx512pf{LINES 1}
+
 log:{INTERNAL writedir}{REPLACE <TEXTTEST_SANDBOX>}
 log:\\{REPLACE /}
 log:Discarding invalid crossing{LINES 1}

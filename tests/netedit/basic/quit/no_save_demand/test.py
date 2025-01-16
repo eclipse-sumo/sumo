@@ -58,10 +58,10 @@ netedit.leftClick(referencePosition, netedit.positions.tmp)
 netedit.typeEnter()
 
 # save network
-netedit.saveNetwork(referencePosition)
+netedit.saveNetwork(True, referencePosition)
 
 # save additionals
-netedit.saveAdditionals(referencePosition)
+netedit.saveAdditionalElements(True, referencePosition)
 
 # quit netedit without saving demand
 netedit.quit(neteditProcess, False, False, False, False, True, False)

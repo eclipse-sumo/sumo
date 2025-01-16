@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.moveMouse(referencePosition, netedit.positions.downLeft)
 
 # open meanDatas
-netedit.openMeanDataElementsAs()
+netedit.loadMeanDataElements()
 
 # overwritte
 netedit.overwritte("no")

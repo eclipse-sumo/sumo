@@ -63,7 +63,7 @@ netedit.redo(referencePosition, 4)
 netedit.rebuildNetwork()
 
 # save routes
-netedit.saveRoutes(referencePosition)
+netedit.saveDemandElements(True, referencePosition)
 
 # press space to fix crossings
 netedit.typeSpace()

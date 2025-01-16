@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.moveMouse(referencePosition, netedit.positions.downLeft)
 
 # open network
-netedit.openNetworkAs(False)
+netedit.loadNetwork(False)
 
 # overwritte
 netedit.overwritte("yes")

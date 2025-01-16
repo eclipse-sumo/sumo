@@ -667,7 +667,7 @@ def waitQuestion(answer):
 
 
 def reload(NeteditProcess, openNetNonSavedDialog=False, saveNet=False,
-           openAdditionalsNonSavedDialog=False, saveAdditionals=False,
+           openAdditionalsNonSavedDialog=False, saveAdditionalElements=False,
            openDemandNonSavedDialog=False, saveDemandElements=False,
            openDataNonSavedDialog=False, saveDataElements=False,
            openMeanDataNonSavedDialog=False, saveMeanDataElements=False):
@@ -692,7 +692,7 @@ def reload(NeteditProcess, openNetNonSavedDialog=False, saveNet=False,
     if openAdditionalsNonSavedDialog:
         # Wait some seconds
         time.sleep(DELAY_QUESTION)
-        if saveAdditionals:
+        if saveAdditionalElements:
             waitQuestion('s')
         else:
             waitQuestion('d')
@@ -728,7 +728,7 @@ def reload(NeteditProcess, openNetNonSavedDialog=False, saveNet=False,
 
 
 def quit(NeteditProcess, openNetNonSavedDialog=False, saveNet=False,
-         openAdditionalsNonSavedDialog=False, saveAdditionals=False,
+         openAdditionalsNonSavedDialog=False, saveAdditionalElements=False,
          openDemandNonSavedDialog=False, saveDemandElements=False,
          openDataNonSavedDialog=False, saveDataElements=False,
          openMeanDataNonSavedDialog=False, saveMeanDataElements=False):
@@ -758,7 +758,7 @@ def quit(NeteditProcess, openNetNonSavedDialog=False, saveNet=False,
         if openAdditionalsNonSavedDialog:
             # Wait some seconds
             time.sleep(DELAY_QUESTION)
-            if saveAdditionals:
+            if saveAdditionalElements:
                 waitQuestion('s')
             else:
                 waitQuestion('d')
@@ -823,7 +823,7 @@ def quit(NeteditProcess, openNetNonSavedDialog=False, saveNet=False,
         return
 
 
-def openNetworkAs(useShortcut, waitTime=2):
+def loadNetwork(useShortcut, waitTime=2):
     """
     @brief load network using dialog
     """
@@ -831,7 +831,7 @@ def openNetworkAs(useShortcut, waitTime=2):
         typeTwoKeys('ctrl', 'o')
     else:
         typeTwoKeys('alt', 'f')
-        for _ in range(attrs.toolbar.file.openNetwork):
+        for _ in range(attrs.toolbar.file.loadNetwork):
             typeDown()
         typeSpace()
     # wait for saving
@@ -846,7 +846,7 @@ def openNetworkAs(useShortcut, waitTime=2):
     time.sleep(waitTime)
 
 
-def saveNetwork(referencePosition, clickOverReference=False, offsetX=0, offsetY=0):
+def saveNetwork(useShortcut, referencePosition, clickOverReference=False, offsetX=0, offsetY=0, waitTime=2):
     """
     @brief save network
     """
@@ -854,31 +854,38 @@ def saveNetwork(referencePosition, clickOverReference=False, offsetX=0, offsetY=
     if clickOverReference:
         # click over reference (to avoid problem with undo-redo)
         leftClick(referencePosition, positions.reference, offsetX, offsetY)
-    # save network using hotkey
-    typeTwoKeys('ctrl', 's')
+    if (useShortcut):
+        typeTwoKeys('ctrl', 's')
+    else:
+        typeTwoKeys('alt', 'f')
+        for _ in range(attrs.toolbar.file.saveNetwork):
+            typeDown()
+        typeSpace()
     # wait for debug (due recomputing)
-    time.sleep(DELAY_RECOMPUTE)
+    time.sleep(waitTime)
 
 
 def saveNetworkAs(waitTime=2):
     """
     @brief save network as
     """
-    # open save network as dialog
-    typeThreeKeys('ctrl', 'shift', 's')
+    typeTwoKeys('alt', 'f')
+    for _ in range(attrs.toolbar.file.saveNetworkAs):
+        typeDown()
+    typeSpace()
+    # wait for saving
+    time.sleep(waitTime)
     # jump to filename TextField
     typeTwoKeys('alt', 'f')
     pasteIntoTextField(_TEXTTEST_SANDBOX)
     typeEnter()
-    pasteIntoTextField("net.net.xml")
+    pasteIntoTextField("netAs.net.xml")
     typeEnter()
     # wait for saving
     time.sleep(waitTime)
-    # wait for debug
-    time.sleep(DELAY_RECOMPUTE)
 
 
-def openAdditionalsAs(useShortcut, waitTime=2):
+def loadAdditionalElements(useShortcut, waitTime=2):
     """
     @brief load additional using dialog
     """
@@ -904,7 +911,7 @@ def openAdditionalsAs(useShortcut, waitTime=2):
     time.sleep(waitTime)
 
 
-def saveAdditionals(referencePosition, clickOverReference=False):
+def saveAdditionalElements(useShortcut, referencePosition, clickOverReference=False, waitTime=2):
     """
     @brief save additionals
     """
@@ -912,11 +919,44 @@ def saveAdditionals(referencePosition, clickOverReference=False):
     if clickOverReference:
         # click over reference (to avoid problem with undo-redo)
         leftClick(referencePosition, 0, 0)
-    # save additionals using hotkey
-    typeThreeKeys('ctrl', 'shift', 'a')
+    if (useShortcut):
+        typeThreeKeys('ctrl', 'shift', 'a')
+    else:
+        typeTwoKeys('alt', 'f')
+        for _ in range(attrs.toolbar.file.aditionalElements.menu):
+            typeDown()
+        typeSpace()
+        for _ in range(attrs.toolbar.file.aditionalElements.save):
+            typeDown()
+        typeSpace()
+    # wait for saving
+    time.sleep(waitTime)
 
 
-def openDemandElementsAs(useShortcut, waitTime=2):
+def saveAdditionalElementsAs(waitTime=2):
+    """
+    @brief save additional as
+    """
+    typeTwoKeys('alt', 'f')
+    for _ in range(attrs.toolbar.file.aditionalElements.menu):
+        typeDown()
+    typeSpace()
+    for _ in range(attrs.toolbar.file.aditionalElements.saveAs):
+        typeDown()
+    typeSpace()
+    # wait for saving
+    time.sleep(waitTime)
+    # jump to filename TextField
+    typeTwoKeys('alt', 'f')
+    pasteIntoTextField(_TEXTTEST_SANDBOX)
+    typeEnter()
+    pasteIntoTextField("additionalsAs.add.xml")
+    typeEnter()
+    # wait for saving
+    time.sleep(waitTime)
+
+
+def loadDemandElements(useShortcut, waitTime=2):
     """
     @brief load demand elements using dialog
     """
@@ -942,21 +982,52 @@ def openDemandElementsAs(useShortcut, waitTime=2):
     time.sleep(waitTime)
 
 
-def saveRoutes(referencePosition, clickOverReference=True):
+def saveDemandElements(useShortcut, referencePosition, clickOverReference=False, offsetX=0, offsetY=0, waitTime=2):
     """
     @brief save routes
     """
     # check if clickOverReference is enabled
     if clickOverReference:
         # click over reference (to avoid problem with undo-redo)
-        leftClick(referencePosition, positions.reference, 0, 0)
-    # save routes using hotkey
-    typeThreeKeys('ctrl', 'shift', 'd')
+        leftClick(referencePosition, positions.reference, offsetX, offsetY)
+    if (useShortcut):
+        typeThreeKeys('ctrl', 'shift', 'd')
+    else:
+        typeTwoKeys('alt', 'f')
+        for _ in range(attrs.toolbar.file.demandElements.menu):
+            typeDown()
+        typeSpace()
+        for _ in range(attrs.toolbar.file.demandElements.save):
+            typeDown()
+        typeSpace()
     # wait for saving
-    time.sleep(DELAY_SAVING)
+    time.sleep(waitTime)
 
 
-def openDataElementsAs(useShortcut, waitTime=2):
+def saveDemandElementsAs(waitTime=2):
+    """
+    @brief save demand element as
+    """
+    typeTwoKeys('alt', 'f')
+    for _ in range(attrs.toolbar.file.demandElements.menu):
+        typeDown()
+    typeSpace()
+    for _ in range(attrs.toolbar.file.demandElements.saveAs):
+        typeDown()
+    typeSpace()
+    # wait for saving
+    time.sleep(waitTime)
+    # jump to filename TextField
+    typeTwoKeys('alt', 'f')
+    pasteIntoTextField(_TEXTTEST_SANDBOX)
+    typeEnter()
+    pasteIntoTextField("routesAs.rou.xml")
+    typeEnter()
+    # wait for saving
+    time.sleep(waitTime)
+
+
+def loadDataElements(useShortcut, waitTime=2):
     """
     @brief load data elements using dialog
     """
@@ -982,7 +1053,7 @@ def openDataElementsAs(useShortcut, waitTime=2):
     time.sleep(waitTime)
 
 
-def saveDatas(referencePosition, clickOverReference=True, offsetX=0, offsetY=0):
+def saveDataElements(useShortcut, referencePosition, clickOverReference=False, offsetX=0, offsetY=0, waitTime=2):
     """
     @brief save datas
     """
@@ -990,11 +1061,44 @@ def saveDatas(referencePosition, clickOverReference=True, offsetX=0, offsetY=0):
     if clickOverReference:
         # click over reference (to avoid problem with undo-redo)
         leftClick(referencePosition, positions.reference, offsetX, offsetY)
-    # save datas using hotkey
-    typeThreeKeys('ctrl', 'shift', 'b')
+    if (useShortcut):
+        typeThreeKeys('ctrl', 'shift', 'b')
+    else:
+        typeTwoKeys('alt', 'f')
+        for _ in range(attrs.toolbar.file.dataElements.menu):
+            typeDown()
+        typeSpace()
+        for _ in range(attrs.toolbar.file.dataElements.save):
+            typeDown()
+        typeSpace()
+    # wait for saving
+    time.sleep(waitTime)
 
 
-def openMeanDataElementsAs(waitTime=2):
+def saveDataElementsAs(waitTime=2):
+    """
+    @brief save data element as
+    """
+    typeTwoKeys('alt', 'f')
+    for _ in range(attrs.toolbar.file.dataElements.menu):
+        typeDown()
+    typeSpace()
+    for _ in range(attrs.toolbar.file.dataElements.saveAs):
+        typeDown()
+    typeSpace()
+    # wait for saving
+    time.sleep(waitTime)
+    # jump to filename TextField
+    typeTwoKeys('alt', 'f')
+    pasteIntoTextField(_TEXTTEST_SANDBOX)
+    typeEnter()
+    pasteIntoTextField("datasAs.dat.xml")
+    typeEnter()
+    # wait for saving
+    time.sleep(waitTime)
+
+
+def loadMeanDataElements(waitTime=2):
     """
     @brief load mean data elements using dialog
     """
@@ -1018,7 +1122,7 @@ def openMeanDataElementsAs(waitTime=2):
     time.sleep(waitTime)
 
 
-def saveMeanDatas(referencePosition, clickOverReference=True, offsetX=0, offsetY=0):
+def saveMeanDatas(referencePosition, clickOverReference=False, offsetX=0, offsetY=0):
     """
     @brief save mean datas
     """
@@ -1028,6 +1132,29 @@ def saveMeanDatas(referencePosition, clickOverReference=True, offsetX=0, offsetY
         leftClick(referencePosition, positions.reference, offsetX, offsetY)
     # save datas using hotkey
     typeThreeKeys('ctrl', 'shift', 'm')
+
+
+def saveMeanDatasAs(waitTime=2):
+    """
+    @brief save data element as
+    """
+    typeTwoKeys('alt', 'f')
+    for _ in range(attrs.toolbar.file.meanDataElements.menu):
+        typeDown()
+    typeSpace()
+    for _ in range(attrs.toolbar.file.meanDataElements.saveAs):
+        typeDown()
+    typeSpace()
+    # wait for saving
+    time.sleep(waitTime)
+    # jump to filename TextField
+    typeTwoKeys('alt', 'f')
+    pasteIntoTextField(_TEXTTEST_SANDBOX)
+    typeEnter()
+    pasteIntoTextField("datasAs.med.add.xml")
+    typeEnter()
+    # wait for saving
+    time.sleep(waitTime)
 
 
 def overwritte(value):

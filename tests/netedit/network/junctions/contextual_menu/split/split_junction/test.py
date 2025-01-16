@@ -54,7 +54,7 @@ netedit.redo(referencePosition, 1)
 netedit.rebuildNetwork()
 
 # save routes
-netedit.saveRoutes(referencePosition)
+netedit.saveDemandElements(True, referencePosition)
 
 # remove invalid trips
 netedit.typeSpace()

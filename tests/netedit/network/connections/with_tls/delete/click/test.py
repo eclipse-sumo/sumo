@@ -52,11 +52,14 @@ netedit.rebuildNetwork()
 # Check redo
 netedit.redo(referencePosition, 1)
 
-# save Netedit config
-netedit.saveNeteditConfig(referencePosition)
+# save routes
+netedit.saveDemandElements(True, referencePosition)
 
 # remove invalid connections
 netedit.typeSpace()
+
+# save Netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

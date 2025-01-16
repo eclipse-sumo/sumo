@@ -86,4 +86,4 @@ Error: Could not build jupedsim.obstacle with ID 'jps.obstacle_0' in netedit; Fo
 Error: Could not build jupedsim.obstacle with ID 'jps.obstacle_1' in netedit; Found another jupedsim.obstacle with the same ID.
 Error: Could not build jupedsim.obstacle with ID 'jps.obstacle_2' in netedit; Found another jupedsim.obstacle with the same ID.
 Error: Could not build jupedsim.obstacle with ID 'jps.obstacle_3' in netedit; Found another jupedsim.obstacle with the same ID.
-Error: Loading of additional file failed: C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Jan122306.8344\netedit.gui\basic\configs\netecfg\open\overwritte\keep_old\additionals\additionals.add.xml
+Error: Loading of additional file failed: C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Jan171539.4668\netedit.gui\basic\configs\netecfg\open\overwritte\no\additionals\additionals.add.xml

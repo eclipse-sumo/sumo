@@ -35,7 +35,7 @@ netedit.supermodeDemand()
 netedit.checkUndoRedo(referencePosition)
 
 # save routes
-netedit.saveRoutes(referencePosition)
+netedit.saveDemandElements(True, referencePosition)
 
 # remove invalid routes
 netedit.typeSpace()

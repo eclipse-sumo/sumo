@@ -59,7 +59,7 @@ netedit.rebuildNetwork()
 netedit.redo(referencePosition, 1)
 
 # save network
-netedit.saveNetwork(referencePosition)
+netedit.saveNetwork(True, referencePosition)
 
 # press space to fix crossings
 netedit.typeSpace()

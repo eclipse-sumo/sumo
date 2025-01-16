@@ -58,10 +58,10 @@ netedit.leftClick(referencePosition, netedit.positions.tmp)
 netedit.typeEnter()
 
 # save additionals
-netedit.saveAdditionals(referencePosition)
+netedit.saveAdditionalElements(True, referencePosition)
 
 # save routes
-netedit.saveRoutes(referencePosition)
+netedit.saveDemandElements(True, referencePosition)
 
 # quit netedit without saving demand
 netedit.quit(neteditProcess, True, False, False, False, False, False)

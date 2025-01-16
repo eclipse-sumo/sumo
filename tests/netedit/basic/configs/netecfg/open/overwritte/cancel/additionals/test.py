@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.moveMouse(referencePosition, netedit.positions.downLeft)
 
 # open additionals
-netedit.openAdditionalsAs(False)
+netedit.loadAdditionalElements(False)
 
 # open additionals
 netedit.overwritte("cancel")

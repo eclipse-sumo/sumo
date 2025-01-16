@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-10-08 12:59:32 by Eclipse SUMO netedit Version v1_20_0+2304-fef34dc9e05
+<!-- generated on 2025-01-16 11:32:27 by Eclipse SUMO netedit Version v1_21_0+1913-712b77191d5
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,15 +14,16 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-        <additional-files value="/home/palcraft/.texttest/tmp/netedit.gui.08Oct125211.19304/netedit.gui/network/trafficlights/single/phases/delay_based/name/additionals.add.xml"/>
-        <route-files value="/home/palcraft/.texttest/tmp/netedit.gui.08Oct125211.19304/netedit.gui/network/trafficlights/single/phases/delay_based/name/routes.rou.xml"/>
-        <data-files value="/home/palcraft/.texttest/tmp/netedit.gui.08Oct125211.19304/netedit.gui/network/trafficlights/single/phases/delay_based/name/datas.dat.xml"/>
-        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.gui.08Oct125211.19304/netedit.gui/network/trafficlights/single/phases/delay_based/name/net.net.xml"/>
+        <additional-files value="/home/palcraft/.texttest/tmp/netedit.gui.16Jan103040.9141/netedit.gui/network/trafficlights/single/phases/delay_based/name/additionals.add.xml"/>
+        <route-files value="/home/palcraft/.texttest/tmp/netedit.gui.16Jan103040.9141/netedit.gui/network/trafficlights/single/phases/delay_based/name/routes.rou.xml"/>
+        <data-files value="/home/palcraft/.texttest/tmp/netedit.gui.16Jan103040.9141/netedit.gui/network/trafficlights/single/phases/delay_based/name/datas.dat.xml"/>
+        <meandata-files value="/home/palcraft/.texttest/tmp/netedit.gui.16Jan103040.9141/netedit.gui/network/trafficlights/single/phases/delay_based/name/datas.med.add.xml"/>
+        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.gui.16Jan103040.9141/netedit.gui/network/trafficlights/single/phases/delay_based/name/net.net.xml"/>
     </input>
 
     <output>
         <write-license value="true"/>
-        <output-file value="/home/palcraft/.texttest/tmp/netedit.gui.08Oct125211.19304/netedit.gui/network/trafficlights/single/phases/delay_based/name/net.net.xml"/>
+        <output-file value="/home/palcraft/.texttest/tmp/netedit.gui.16Jan103040.9141/netedit.gui/network/trafficlights/single/phases/delay_based/name/net.net.xml"/>
     </output>
 
     <processing>
@@ -45,19 +46,20 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <netedit>
         <ignore-supermode-question value="true"/>
+        <force-saving value="true"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="/home/palcraft/.texttest/tmp/netedit.gui.08Oct125211.19304/netedit.gui/network/trafficlights/single/phases/delay_based/name/gui-settings.xml"/>
+        <gui-settings-file value="/home/palcraft/.texttest/tmp/netedit.gui.16Jan103040.9141/netedit.gui/network/trafficlights/single/phases/delay_based/name/gui-settings.xml"/>
         <window-size value="1280, 720"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
-        <gui-testing.setting-output value="/home/palcraft/.texttest/tmp/netedit.gui.08Oct125211.19304/netedit.gui/network/trafficlights/single/phases/delay_based/name/guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="/home/palcraft/.texttest/tmp/netedit.gui.16Jan103040.9141/netedit.gui/network/trafficlights/single/phases/delay_based/name/guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="/home/palcraft/.texttest/tmp/netedit.gui.08Oct125211.19304/netedit.gui/network/trafficlights/single/phases/delay_based/name/log.txt"/>
+        <error-log value="/home/palcraft/.texttest/tmp/netedit.gui.16Jan103040.9141/netedit.gui/network/trafficlights/single/phases/delay_based/name/log.txt"/>
     </report>
 
 </neteditConfiguration>
@@ -185,7 +187,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <tlLogic id="J0" type="delay_based" programID="0" offset="0">
         <phase duration="42" state="GGGgrrrrGGGgrrrr" minDur="5" maxDur="50"/>
-        <phase duration="3"  state="yyyyrrrryyyyrrrr"/>
+        <phase duration="3"  state="yyyyrrrryyyyrrrr" name="custom name"/>
         <phase duration="42" state="rrrrGGGgrrrrGGGg" minDur="5" maxDur="50"/>
         <phase duration="3"  state="rrrryyyyrrrryyyy"/>
     </tlLogic>

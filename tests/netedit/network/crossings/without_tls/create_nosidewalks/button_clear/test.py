@@ -43,7 +43,7 @@ netedit.leftClick(referencePosition, netedit.positions.network.edge.leftBot)
 netedit.crossingClearEdges()
 
 # save network
-netedit.saveNetwork(referencePosition)
+netedit.saveNetwork(True, referencePosition)
 
 # press space to fix crossings
 netedit.typeSpace()

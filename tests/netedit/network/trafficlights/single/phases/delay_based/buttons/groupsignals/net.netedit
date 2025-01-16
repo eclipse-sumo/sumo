@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-10-08 13:01:39 by Eclipse SUMO netedit Version v1_20_0+2304-fef34dc9e05
+<!-- generated on 2025-01-16 11:46:09 by Eclipse SUMO netedit Version v1_21_0+1913-712b77191d5
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,15 +14,16 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-        <additional-files value="/home/palcraft/.texttest/tmp/netedit.gui.08Oct125211.19304/netedit.gui/network/trafficlights/single/phases/delay_based/buttons/groupsignals/additionals.add.xml"/>
-        <route-files value="/home/palcraft/.texttest/tmp/netedit.gui.08Oct125211.19304/netedit.gui/network/trafficlights/single/phases/delay_based/buttons/groupsignals/routes.rou.xml"/>
-        <data-files value="/home/palcraft/.texttest/tmp/netedit.gui.08Oct125211.19304/netedit.gui/network/trafficlights/single/phases/delay_based/buttons/groupsignals/datas.dat.xml"/>
-        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.gui.08Oct125211.19304/netedit.gui/network/trafficlights/single/phases/delay_based/buttons/groupsignals/net.net.xml"/>
+        <additional-files value="/home/palcraft/.texttest/tmp/netedit.gui.16Jan103040.9141/netedit.gui/network/trafficlights/single/phases/delay_based/buttons/groupsignals/additionals.add.xml"/>
+        <route-files value="/home/palcraft/.texttest/tmp/netedit.gui.16Jan103040.9141/netedit.gui/network/trafficlights/single/phases/delay_based/buttons/groupsignals/routes.rou.xml"/>
+        <data-files value="/home/palcraft/.texttest/tmp/netedit.gui.16Jan103040.9141/netedit.gui/network/trafficlights/single/phases/delay_based/buttons/groupsignals/datas.dat.xml"/>
+        <meandata-files value="/home/palcraft/.texttest/tmp/netedit.gui.16Jan103040.9141/netedit.gui/network/trafficlights/single/phases/delay_based/buttons/groupsignals/datas.med.add.xml"/>
+        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.gui.16Jan103040.9141/netedit.gui/network/trafficlights/single/phases/delay_based/buttons/groupsignals/net.net.xml"/>
     </input>
 
     <output>
         <write-license value="true"/>
-        <output-file value="/home/palcraft/.texttest/tmp/netedit.gui.08Oct125211.19304/netedit.gui/network/trafficlights/single/phases/delay_based/buttons/groupsignals/net.net.xml"/>
+        <output-file value="/home/palcraft/.texttest/tmp/netedit.gui.16Jan103040.9141/netedit.gui/network/trafficlights/single/phases/delay_based/buttons/groupsignals/net.net.xml"/>
     </output>
 
     <processing>
@@ -45,19 +46,20 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <netedit>
         <ignore-supermode-question value="true"/>
+        <force-saving value="true"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="/home/palcraft/.texttest/tmp/netedit.gui.08Oct125211.19304/netedit.gui/network/trafficlights/single/phases/delay_based/buttons/groupsignals/gui-settings.xml"/>
+        <gui-settings-file value="/home/palcraft/.texttest/tmp/netedit.gui.16Jan103040.9141/netedit.gui/network/trafficlights/single/phases/delay_based/buttons/groupsignals/gui-settings.xml"/>
         <window-size value="1280, 720"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
-        <gui-testing.setting-output value="/home/palcraft/.texttest/tmp/netedit.gui.08Oct125211.19304/netedit.gui/network/trafficlights/single/phases/delay_based/buttons/groupsignals/guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="/home/palcraft/.texttest/tmp/netedit.gui.16Jan103040.9141/netedit.gui/network/trafficlights/single/phases/delay_based/buttons/groupsignals/guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="/home/palcraft/.texttest/tmp/netedit.gui.08Oct125211.19304/netedit.gui/network/trafficlights/single/phases/delay_based/buttons/groupsignals/log.txt"/>
+        <error-log value="/home/palcraft/.texttest/tmp/netedit.gui.16Jan103040.9141/netedit.gui/network/trafficlights/single/phases/delay_based/buttons/groupsignals/log.txt"/>
     </report>
 
 </neteditConfiguration>
@@ -184,10 +186,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </edge>
 
     <tlLogic id="J0" type="delay_based" programID="0" offset="0">
-        <phase duration="42" state="GGGgrrrrGGGgrrrr" minDur="5" maxDur="50"/>
-        <phase duration="3"  state="yyyyrrrryyyyrrrr"/>
-        <phase duration="42" state="rrrrGGGgrrrrGGGg" minDur="5" maxDur="50"/>
-        <phase duration="3"  state="rrrryyyyrrrryyyy"/>
+        <phase duration="42" state="GgrrGgrr" minDur="5" maxDur="50"/>
+        <phase duration="3"  state="yyrryyrr"/>
+        <phase duration="42" state="rrGgrrGg" minDur="5" maxDur="50"/>
+        <phase duration="3"  state="rryyrryy"/>
     </tlLogic>
 
     <junction id="J0" type="traffic_light" x="0.00" y="0.00" incLanes="-E2_0 -E2_1 -E2_2 -E1_0 -E1_1 -E1_2 -E3_0 -E3_1 -E3_2 -E0_0 -E0_1 -E0_2" intLanes=":J0_0_0 :J0_0_1 :J0_2_0 :J0_16_0 :J0_4_0 :J0_4_1 :J0_6_0 :J0_17_0 :J0_8_0 :J0_8_1 :J0_10_0 :J0_18_0 :J0_12_0 :J0_12_1 :J0_14_0 :J0_19_0" shape="-9.60,11.10 9.60,11.10 9.77,10.27 9.97,9.97 10.27,9.77 10.64,9.64 11.10,9.60 11.10,-9.60 10.27,-9.77 9.97,-9.97 9.77,-10.27 9.64,-10.64 9.60,-11.10 -9.60,-11.10 -9.77,-10.27 -9.97,-9.97 -10.27,-9.77 -10.64,-9.64 -11.10,-9.60 -11.10,9.60 -10.27,9.77 -9.97,9.97 -9.77,10.27 -9.64,10.64">
@@ -232,22 +234,22 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <junction id=":J0_18_0" type="internal" x="0.89" y="-6.14" incLanes=":J0_11_0 -E2_1 -E2_2" intLanes=":J0_0_0 :J0_0_1 :J0_2_0 :J0_6_0 :J0_7_0 :J0_14_0 :J0_15_0"/>
     <junction id=":J0_19_0" type="internal" x="-6.14" y="-0.89" incLanes=":J0_15_0 -E1_1 -E1_2" intLanes=":J0_2_0 :J0_3_0 :J0_4_0 :J0_4_1 :J0_6_0 :J0_10_0 :J0_11_0"/>
 
-    <connection from="-E0" to="E3" fromLane="1" toLane="1" via=":J0_12_0" tl="J0" linkIndex="12" dir="r" state="o"/>
-    <connection from="-E0" to="E3" fromLane="2" toLane="2" via=":J0_12_1" tl="J0" linkIndex="13" dir="r" state="o"/>
-    <connection from="-E0" to="E1" fromLane="2" toLane="2" via=":J0_14_0" tl="J0" linkIndex="14" dir="s" state="o"/>
-    <connection from="-E0" to="E2" fromLane="2" toLane="2" via=":J0_15_0" tl="J0" linkIndex="15" dir="l" state="o"/>
-    <connection from="-E1" to="E2" fromLane="1" toLane="1" via=":J0_4_0" tl="J0" linkIndex="4" dir="r" state="o"/>
-    <connection from="-E1" to="E2" fromLane="2" toLane="2" via=":J0_4_1" tl="J0" linkIndex="5" dir="r" state="o"/>
-    <connection from="-E1" to="E0" fromLane="2" toLane="2" via=":J0_6_0" tl="J0" linkIndex="6" dir="s" state="o"/>
-    <connection from="-E1" to="E3" fromLane="2" toLane="2" via=":J0_7_0" tl="J0" linkIndex="7" dir="l" state="o"/>
+    <connection from="-E0" to="E3" fromLane="1" toLane="1" via=":J0_12_0" tl="J0" linkIndex="6" dir="r" state="o"/>
+    <connection from="-E0" to="E3" fromLane="2" toLane="2" via=":J0_12_1" tl="J0" linkIndex="6" dir="r" state="o"/>
+    <connection from="-E0" to="E1" fromLane="2" toLane="2" via=":J0_14_0" tl="J0" linkIndex="6" dir="s" state="o"/>
+    <connection from="-E0" to="E2" fromLane="2" toLane="2" via=":J0_15_0" tl="J0" linkIndex="7" dir="l" state="o"/>
+    <connection from="-E1" to="E2" fromLane="1" toLane="1" via=":J0_4_0" tl="J0" linkIndex="2" dir="r" state="o"/>
+    <connection from="-E1" to="E2" fromLane="2" toLane="2" via=":J0_4_1" tl="J0" linkIndex="2" dir="r" state="o"/>
+    <connection from="-E1" to="E0" fromLane="2" toLane="2" via=":J0_6_0" tl="J0" linkIndex="2" dir="s" state="o"/>
+    <connection from="-E1" to="E3" fromLane="2" toLane="2" via=":J0_7_0" tl="J0" linkIndex="3" dir="l" state="o"/>
     <connection from="-E2" to="E0" fromLane="1" toLane="1" via=":J0_0_0" tl="J0" linkIndex="0" dir="r" state="O"/>
-    <connection from="-E2" to="E0" fromLane="2" toLane="2" via=":J0_0_1" tl="J0" linkIndex="1" dir="r" state="O"/>
-    <connection from="-E2" to="E3" fromLane="2" toLane="2" via=":J0_2_0" tl="J0" linkIndex="2" dir="s" state="O"/>
-    <connection from="-E2" to="E1" fromLane="2" toLane="2" via=":J0_3_0" tl="J0" linkIndex="3" dir="l" state="o"/>
-    <connection from="-E3" to="E1" fromLane="1" toLane="1" via=":J0_8_0" tl="J0" linkIndex="8" dir="r" state="O"/>
-    <connection from="-E3" to="E1" fromLane="2" toLane="2" via=":J0_8_1" tl="J0" linkIndex="9" dir="r" state="O"/>
-    <connection from="-E3" to="E2" fromLane="2" toLane="2" via=":J0_10_0" tl="J0" linkIndex="10" dir="s" state="O"/>
-    <connection from="-E3" to="E0" fromLane="2" toLane="2" via=":J0_11_0" tl="J0" linkIndex="11" dir="l" state="o"/>
+    <connection from="-E2" to="E0" fromLane="2" toLane="2" via=":J0_0_1" tl="J0" linkIndex="0" dir="r" state="O"/>
+    <connection from="-E2" to="E3" fromLane="2" toLane="2" via=":J0_2_0" tl="J0" linkIndex="0" dir="s" state="O"/>
+    <connection from="-E2" to="E1" fromLane="2" toLane="2" via=":J0_3_0" tl="J0" linkIndex="1" dir="l" state="o"/>
+    <connection from="-E3" to="E1" fromLane="1" toLane="1" via=":J0_8_0" tl="J0" linkIndex="4" dir="r" state="O"/>
+    <connection from="-E3" to="E1" fromLane="2" toLane="2" via=":J0_8_1" tl="J0" linkIndex="4" dir="r" state="O"/>
+    <connection from="-E3" to="E2" fromLane="2" toLane="2" via=":J0_10_0" tl="J0" linkIndex="4" dir="s" state="O"/>
+    <connection from="-E3" to="E0" fromLane="2" toLane="2" via=":J0_11_0" tl="J0" linkIndex="5" dir="l" state="o"/>
     <connection from="E0" to="-E0" fromLane="1" toLane="1" via=":J1_0_0" dir="t" state="M"/>
     <connection from="E0" to="-E0" fromLane="2" toLane="2" via=":J1_0_1" dir="t" state="M"/>
     <connection from="E1" to="-E1" fromLane="1" toLane="1" via=":J2_0_0" dir="t" state="M"/>

@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.moveMouse(referencePosition, netedit.positions.downLeft)
 
 # open additionals
-netedit.openDemandElementsAs(False)
+netedit.loadDemandElements(False)
 
 # overwritte
 netedit.overwritte("yes")

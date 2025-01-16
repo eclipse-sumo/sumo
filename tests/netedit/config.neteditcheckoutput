@@ -3,12 +3,24 @@ kill_timeout:600
 binary:$SUMO_BINARY
 
 copy_test_path:net.netedit
+copy_test_path:netas.netedit
+
 copy_test_path:additionals.netedit
+copy_test_path:additionalsas.netedit
+
 copy_test_path:meandatas.netedit
+copy_test_path:meandatasas.netedit
+
 copy_test_path:routes.netedit
+copy_test_path:routesas.netedit
+
 copy_test_path:datas.netedit
-copy_test_path:shapes.netedit
+copy_test_path:datasas.netedit
+
 copy_test_path:sumo.sumocfg
+copy_test_path:sumoas.sumocfg
+
+copy_test_path:shapes.netedit
 copy_test_path_merge:myOwnFilenameRerouter.txt
 
 [collate_file]

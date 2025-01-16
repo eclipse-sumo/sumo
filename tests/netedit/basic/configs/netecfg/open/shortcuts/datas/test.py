@@ -29,7 +29,7 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # open additionals
-netedit.openDataElementsAs(True)
+netedit.loadDataElements(True)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)
