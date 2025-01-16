@@ -46,7 +46,9 @@ title: ChangeLog
   - Fixed inconsisent arrivalPos when loading state #15961
   - Fixed invalid stopping after vehicle teleports beyond stopping place #15972
   - Fixed bug where a vehicle steals another vehicles parking spot #15976
-  - Fixed bug where parking egress is blocked after lane change #15757 
+  - Fixed bug where parking egress is blocked after lane change #15757
+  - Fixed missing XML validation for parking badges #16005
+  - Fixed undefined behavior when using options **--device.rerouting.threads** with **--weights.random-factor** #15994 
 
 - netedit
   - Fixed crash when moving a big selection #15132 (regression in 1.16.0)
@@ -99,7 +101,9 @@ title: ChangeLog
   - Walkingareas no longer intercept clicks in in crossing mode #15916
   - Stop saving sumo/netedit config if a fix element dialog is opened #15918
   - Fixed Invalid behavior after loading demand elements with keep old enabled #15904
-  - Dotted contour no longer hides flow label and vehicle stack label #15929 
+  - Dotted contour no longer hides flow label and vehicle stack label #15929
+  - Fixed crash editing vClass in VType dialog #16008
+  - Selection mode function 'select parents' now selects incoming and outgoing lane of selected connections #15968 
   
 - sumo-gui
   - Fixed framerate drop when zoomed in very far #15666
@@ -148,7 +152,9 @@ title: ChangeLog
   - Fixed non-functional libsumo windows wheels #15516
   - setEmissionClass now works with PHEMlight #15761
   - subscribing to complex types now works with the python API #15785
-  - Concurrent access to libsumo now works #15967 
+  - Concurrent access to libsumo now works #15967
+  - moveToXY now works on parked vehicles #16010
+  - When setting option **--keep-after-arrival**, vehicles that were affected by moveToXY while parking are no longer drawn after arrival. #16009 
  
 - Tools
   - matsim_importPlans.py: no longer writes unsorted trips with option **-vehicles-only** #15743
@@ -156,17 +162,19 @@ title: ChangeLog
   - countEdgeUsage.py: Fixed misleading warning message #15790
   - sumolib: Fixed invalid result by `net.getShortestPath(..., ignoreDirection=True)` #15789
   - Sumolib: Fixed crash in function `miscutils.getFlowNumber` #15799
+  - sumolib: Can now set a new attribute in sumolib.xml element #15991 
   - sumolib.xml: Fixed bug where parse_fast retrieves wrong attribute if one attribute is the end-suffix of another attribute #15901 
   - randomTrips.py: option **--fringe-factor** now works in lefthand networks #15876
   - randomTrips.py: Options **--random-departpos** and **--random-arrivalpos** now take effect for persons #15946 
   - routeSampler.py: fixed crash when loading negative counts #15908
   - gtfs2pt.py: Import now works when optional 'direction_id' is missing #15736
-  - Empty strings can now be passed via tool config file #15499 
+  - Empty strings can now be passed via tool config file #15499
+  - tracemapper.py No longer creates routes with the same edge repeated over and over #15625 
     
 ### Enhancements
 
 - sumo
-  - Added new [stationfinder device](Simulation/Stationfinder.md) which reroutes electric vehicles to a chargingStation depending on it's state of charge #9663, #15871, #15931
+  - Added new [stationfinder device](Simulation/Stationfinder.md) which reroutes electric vehicles to a chargingStation depending on it's state of charge #9663, #15871, #15931, #15980
   - The new vType attribute `lcContRight` can be used to configure lane choice at a lane split where all lanes have equal strategic value. #15579
   - Added option **--insertion-checks** to set global defaults for vehicle attribute `insertionChecks` #15149
   - Added option **--pedestrian.striping.jamfactor** to configure the speed of jammed pedestrians (default 0.25) #15610
@@ -258,6 +266,11 @@ title: ChangeLog
   - routeSampler.py: Added option **--verbose.timing** to print wall-clock-time performance statistics #15910
   - routeSampler.py: Major increase in processing speed for long routes #15911
   - routeSampler.py: Added option **--depart-distribution** to distribute departures within the counting data intervals #15909
+  - routeSampler.py: now warn about duplicate counting data #15997
+  - routeSampler.py: now includes GEH in mismatch-output #16000
+  - routeSampler.py: Added option **--geh-scale** to permit custom scaling for GEH value (i.e. to avoid averaging daily counts over 24 hours) #16001
+  - edgeDataDiff.py: Added option **--geh-scale** to permit custom scaling for GEH value and otherwise scaling data to hourly values automatically #16002
+  - routeSampler.py: Options that set attributse to parse (i.e. **--edgedata-attribute**) now support a list of comma separated attributs (values are added) #16020 
   - xml2csv.py: Added option **--keep-attributes** to limit the attributes exported to csv #15915
   - plotXMLAttributes.py: Added options **--split-x** and **--split-y** for plotting attributes with list values #15934
   - sumolib: Geometry helper functions for rotation at offset is now available #15445
