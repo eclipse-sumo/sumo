@@ -29,22 +29,22 @@ import traci  # noqa
 import sumolib  # noqa
 
 traci.start([sumolib.checkBinary("sumo"),
-    '-n', 'input_net.net.xml',
-    '-a', 'input_additional.add.xml',
-    '-r', 'input_routes.rou.xml',
-    '--keep-after-arrival', '3',
-    '--fcd-output', 'fcd.xml',
-    '--no-step-log',
-    #'-C', 'debug.sumocfg'
-    ])
+             '-n', 'input_net.net.xml',
+             '-a', 'input_additional.add.xml',
+             '-r', 'input_routes.rou.xml',
+             '--keep-after-arrival', '3',
+             '--fcd-output', 'fcd.xml',
+             '--no-step-log',
+             # '-C', 'debug.sumocfg'
+             ])
 traci.simulationStep()
 vehID = traci.vehicle.getIDList()[0]
 
 maneuver = [
-        (-3, 0, -30),
-        (-1, -3, -30),
-        (0, -3, -30),
-        ]
+    (-3, 0, -30),
+    (-1, -3, -30),
+    (0, -3, -30),
+]
 maneuverStart = None
 maneuverDuration = len(maneuver)
 

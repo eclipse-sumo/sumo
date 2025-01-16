@@ -43,7 +43,7 @@ netedit.moveMode()
 netedit.toggleMoveEntireShape()
 
 # move vertex new
-netedit.moveGeometryPoint(referencePosition, 
+netedit.moveGeometryPoint(referencePosition,
                           netedit.positions.elements.additionals.geometryPointExistent,
                           netedit.positions.elements.additionals.geometryPointDestinyA,
                           netedit.positions.elements.additionals.geometryPointDestinyB)

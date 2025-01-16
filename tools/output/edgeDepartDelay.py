@@ -77,6 +77,7 @@ def main(options):
             outf.write('  </interval>\n')
             outf.write('</data>\n')
 
+
 if __name__ == "__main__":
     options = get_options()
     main(options)

@@ -39,7 +39,7 @@ netedit.createSquaredShape(referencePosition, netedit.positions.elements.additio
 netedit.moveMode()
 
 # move vertex new
-netedit.moveGeometryPoint(referencePosition, 
+netedit.moveGeometryPoint(referencePosition,
                           netedit.positions.elements.additionals.shapeB,
                           netedit.positions.elements.additionals.geometryPointDestinyA,
                           netedit.positions.elements.additionals.geometryPointDestinyB)

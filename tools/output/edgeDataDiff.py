@@ -27,7 +27,7 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 from sumolib.xml import parse  # noqa
 from sumolib.miscutils import Statistics, geh, short_names, parseTime  # noqa
 from sumolib.options import ArgumentParser  # noqa
-from routeSampler import getHourFraction
+from routeSampler import getHourFraction  # noqa
 
 
 def get_options(args=None):
@@ -40,7 +40,8 @@ def get_options(args=None):
     optParser.add_option("--geh", action="store_true", default=False,
                          help="write geh value instead of absolute differences")
     optParser.add_argument("--geh-scale", dest="gehScale", type=float, default=None,
-                         help="Should be set to 0.1 when loading traffic for a full day (estimating peak hour traffic as 1/10 of daily traffic)")
+                           help="Should be set to 0.1 when loading traffic for a full day "
+                                "(estimating peak hour traffic as 1/10 of daily traffic)")
     optParser.add_option("--undefined", type=float, default=-1001, help="value to use if the difference is undefined")
     optParser.add_option("--attributes", help="compare list of custom attributes (A1,A2,B1,B2,C1,C2,...)")
     optParser.add_option("--no-statistics", action="store_true", default=False,
