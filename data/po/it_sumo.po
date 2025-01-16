@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-01-06 11:22+0100\n"
-"PO-Revision-Date: 2025-01-14 16:53+0000\n"
+"PO-Revision-Date: 2025-01-16 13:38+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -2491,6 +2491,9 @@ msgid ""
 "Time in seconds after which pedestrians start squeezing through a jam when "
 "using model 'striping' (non-positive values disable squeezing)"
 msgstr ""
+"Tempo in secondi dopodiché i pedoni iniziano a premere contro una coda "
+"quando si usa il modello 'striping' (valori non negativi disattivano detto "
+"comportamento)"
 
 #: src/microsim/MSFrame.cpp:567
 msgid ""
@@ -2498,16 +2501,21 @@ msgid ""
 "on a pedestrian crossing when using model 'striping' (non-positive values "
 "disable squeezing)"
 msgstr ""
+"Tempo in secondi dopodiché i pedoni iniziano a premere contro una coda su un "
+"passaggio pedonale quando si usa il modello 'striping' (valori non negativi "
+"disattivano detto comportamento)"
 
 #: src/microsim/MSFrame.cpp:569
 msgid ""
 "Time in seconds after which pedestrians start squeezing through a jam while "
 "on a narrow lane when using model 'striping'"
 msgstr ""
+"Tempo in secondi dopodiché i pedoni iniziano a premere contro una coda su "
+"una corsia stretta quando si usa il modello 'striping'"
 
 #: src/microsim/MSFrame.cpp:572
 msgid "Factor for reducing speed of pedestrian in jammed state"
-msgstr ""
+msgstr "Fattore per ridurre la velocità di marcia nello stato bloccato"
 
 #: src/microsim/MSFrame.cpp:575
 msgid "Fraction of stripes to reserve for oncoming pedestrians"
@@ -2606,7 +2614,7 @@ msgstr "Assegna posizioni a incroci invece di archi"
 
 #: src/microsim/MSFrame.cpp:622 src/router/ROFrame.cpp:169
 msgid "Match positions to taz instead of edges"
-msgstr ""
+msgstr "Assegna posizioni a zone di assegnazione del traffico invece di archi"
 
 #: src/microsim/MSFrame.cpp:633
 msgid ""
@@ -2637,6 +2645,9 @@ msgid ""
 "Distinguish travel time by turn direction and shift a fraction of the "
 "estimated time loss ahead of the intersection onto the internal edges"
 msgstr ""
+"Distingui il tempo di percorrenza secondo la direzione di svolta e sposta "
+"una frazione della stima di tempo morto a valle dell'incrocio sugli archi "
+"interni"
 
 #: src/microsim/MSFrame.cpp:670
 msgid ""
