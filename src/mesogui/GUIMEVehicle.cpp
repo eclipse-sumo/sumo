@@ -321,4 +321,9 @@ GUIMEVehicle::getVisualPosition(bool s2, const double offset) const {
     return MEVehicle::getPosition(offset);
 }
 
+bool
+GUIMEVehicle::isSelected() const {
+    return gSelected.isSelected(GLO_VEHICLE, getGlID());
+}
+
 /****************************************************************************/

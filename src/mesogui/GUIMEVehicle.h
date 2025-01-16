@@ -140,4 +140,6 @@ public:
      */
     GUIParameterTableWindow* getTypeParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent);
 
+    /// @brief whether this vehicle is selected in the GUI
+    bool isSelected() const;
 };
