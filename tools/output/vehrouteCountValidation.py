@@ -93,6 +93,10 @@ def get_options(args=None):
              and options.odFiles is None)):
         sys.exit()
 
+    for attr in ["edgeDataAttr", "arrivalAttr", "departAttr", "turnAttr"]:
+        if getattr(options, attr) not in [None, "None"]:
+            setattr(options, attr, getattr(options, attr).split(","))
+
     options.routeFiles = options.routeFiles.split(',')
     options.turnFiles = options.turnFiles.split(',') if options.turnFiles is not None else []
     options.turnRatioFiles = options.turnRatioFiles.split(',') if options.turnRatioFiles is not None else []
