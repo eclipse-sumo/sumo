@@ -1323,7 +1323,7 @@ GNEAdditionalHandler::buildTAZ(const CommonXMLStructure::SumoBaseObject* sumoBas
             }
             // iterate over children and add sourceSinkEdge boundaries to make a taz shape
             for (const auto& sourceSink : sumoBaseObject->getSumoBaseObjectChildren()) {
-                // check that childre is a source or sink elements (to abool parameters)
+                // check that child is a source or sink elements (to avoid other elements)
                 if ((sourceSink->getTag() == SUMO_TAG_TAZSOURCE) || (sourceSink->getTag() == SUMO_TAG_TAZSINK)) {
                     const GNEEdge* sourceSinkEdge = myNet->getAttributeCarriers()->retrieveEdge(sourceSink->getStringAttribute(SUMO_ATTR_ID), false);
                     if (sourceSinkEdge) {
@@ -1393,41 +1393,18 @@ GNEAdditionalHandler::buildTAZSource(const CommonXMLStructure::SumoBaseObject* s
     GNEAdditional* TAZ = getAdditionalParent(sumoBaseObject, SUMO_TAG_TAZ);
     // get edge
     GNEEdge* edge = myNet->getAttributeCarriers()->retrieveEdge(edgeID, false);
-    // declare TAZ Sink
-    GNEAdditional* TAZSink = nullptr;
     // check parents
     if (TAZ == nullptr) {
-        return writeErrorInvalidParent(SUMO_TAG_SOURCE, "", SUMO_TAG_TAZ, sumoBaseObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID));
+        return writeErrorInvalidParent(SUMO_TAG_SOURCE, edgeID, SUMO_TAG_TAZ, sumoBaseObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID));
     } else if (edge == nullptr) {
-        return writeErrorInvalidParent(SUMO_TAG_SOURCE, "", SUMO_TAG_EDGE, edgeID);
+        return writeErrorInvalidParent(SUMO_TAG_SOURCE, edgeID, SUMO_TAG_EDGE, TAZ->getID());
     } else {
-        // first check if a TAZSink in the same edge for the same TAZ
-        for (const auto& TAZElement : edge->getChildAdditionals()) {
-            if ((TAZElement->getTagProperty().getTag() == SUMO_TAG_TAZSINK) && (TAZElement->getAttribute(SUMO_ATTR_EDGE) == edge->getID())) {
-                TAZSink = TAZElement;
-            }
-        }
-        // check if TAZSink has to be created
-        if (TAZSink == nullptr) {
-            // Create TAZ with weight 0 (default)
-            TAZSink = new GNETAZSourceSink(SUMO_TAG_TAZSINK, TAZ, edge, 0);
-            // add it depending of allow undoRed
-            if (myAllowUndoRedo) {
-                myNet->getViewNet()->getUndoList()->begin(TAZ, TL("add TAZ Sink in '") + TAZ->getID() + "'");
-                myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(TAZSink, true), true);
-                myNet->getViewNet()->getUndoList()->end();
-            } else {
-                myNet->getAttributeCarriers()->insertAdditional(TAZSink);
-                TAZ->addChildElement(TAZSink);
-                TAZSink->incRef("buildTAZSource");
-            }
-        }
-        // now check check if TAZSource exist
+        // declare TAZ Source
         GNEAdditional* TAZSource = nullptr;
-        // first check if a TAZSink in the same edge for the same TAZ
-        for (const auto& TAZElement : edge->getChildAdditionals()) {
-            if ((TAZElement->getTagProperty().getTag() == SUMO_TAG_TAZSOURCE) && (TAZElement->getAttribute(SUMO_ATTR_EDGE) == edge->getID())) {
-                TAZSource = TAZElement;
+        // first check if already exist a TAZ Source for the given edge and TAZ
+        for (auto it = edge->getChildAdditionals().begin(); (it != edge->getChildAdditionals().end()) && !TAZSource; it++) {
+            if (((*it)->getTagProperty().getTag() == SUMO_TAG_TAZSOURCE) && ((*it)->getParentAdditionals().front() == TAZ)) {
+                TAZSource = (*it);
             }
         }
         // check if TAZSource has to be created
@@ -1467,43 +1444,21 @@ GNEAdditionalHandler::buildTAZSink(const CommonXMLStructure::SumoBaseObject* sum
     GNEEdge* edge = myNet->getAttributeCarriers()->retrieveEdge(edgeID, false);
     // check parents
     if (TAZ == nullptr) {
-        return writeErrorInvalidParent(SUMO_TAG_SINK, "", SUMO_TAG_TAZ, sumoBaseObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID));
+        return writeErrorInvalidParent(SUMO_TAG_SOURCE, edgeID, SUMO_TAG_TAZ, sumoBaseObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID));
     } else if (edge == nullptr) {
-        return writeErrorInvalidParent(SUMO_TAG_SINK, "", SUMO_TAG_EDGE, edgeID);
+        return writeErrorInvalidParent(SUMO_TAG_SOURCE, edgeID, SUMO_TAG_EDGE, TAZ->getID());
     } else {
-        // declare TAZ source
-        GNEAdditional* TAZSource = nullptr;
-        // first check if a TAZSink in the same edge for the same TAZ
-        for (const auto& TAZElement : edge->getChildAdditionals()) {
-            if ((TAZElement->getTagProperty().getTag() == SUMO_TAG_TAZSOURCE) && (TAZElement->getAttribute(SUMO_ATTR_EDGE) == edge->getID())) {
-                TAZSource = TAZElement;
-            }
-        }
-        // check if TAZSource has to be created
-        if (TAZSource == nullptr) {
-            // Create TAZ with empty value
-            TAZSource = new GNETAZSourceSink(SUMO_TAG_TAZSOURCE, TAZ, edge, 0);
-            // add it depending of allow undoRed
-            if (myAllowUndoRedo) {
-                myNet->getViewNet()->getUndoList()->begin(TAZ, TL("add TAZ Source in '") + TAZ->getID() + "'");
-                myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(TAZSource, true), true);
-                myNet->getViewNet()->getUndoList()->end();
-            } else {
-                myNet->getAttributeCarriers()->insertAdditional(TAZSource);
-                TAZ->addChildElement(TAZSource);
-                TAZSource->incRef("buildTAZSink");
-            }
-        }
+        // declare TAZ Sink
         GNEAdditional* TAZSink = nullptr;
-        // first check if a TAZSink in the same edge for the same TAZ
-        for (const auto& TAZElement : edge->getChildAdditionals()) {
-            if ((TAZElement->getTagProperty().getTag() == SUMO_TAG_TAZSINK) && (TAZElement->getAttribute(SUMO_ATTR_EDGE) == edge->getID())) {
-                TAZSink = TAZElement;
+        // first check if already exist a TAZ Sink for the given edge and TAZ
+        for (auto it = edge->getChildAdditionals().begin(); (it != edge->getChildAdditionals().end()) && !TAZSink; it++) {
+            if (((*it)->getTagProperty().getTag() == SUMO_TAG_TAZSINK) && ((*it)->getParentAdditionals().front() == TAZ)) {
+                TAZSink = (*it);
             }
         }
         // check if TAZSink has to be created
         if (TAZSink == nullptr) {
-            // Create TAZ only with arrivalWeight
+            // Create TAZ only with departWeight
             TAZSink = new GNETAZSourceSink(SUMO_TAG_TAZSINK, TAZ, edge, arrivalWeight);
             // add it depending of allow undoRed
             if (myAllowUndoRedo) {
