@@ -136,19 +136,28 @@ public:
 
     /// @brief add parent element
     template<typename T>
-    void addParentElement(T* element);
+    void addParentElement(T* element) {
+        myHierarchicalContainer.addParentElement(element);
+    }
 
     /// @brief remove parent element
     template<typename T>
-    void removeParentElement(T* element);
+    void removeParentElement(T* element) {
+        myHierarchicalContainer.removeParentElement(element);
+    }
 
     /// @brief add child element
     template<typename T>
-    void addChildElement(T* element);
+    void addChildElement(T* element) {
+        myHierarchicalContainer.addChildElement(element);
+    }
 
     /// @brief remove child element
     template<typename T>
-    void removeChildElement(T* element);
+    void removeChildElement(T* element) {
+        myHierarchicalContainer.removeChildElement(element);
+    }
+
     /// @}
 
     /// @name specific get functions

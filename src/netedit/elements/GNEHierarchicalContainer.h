@@ -59,19 +59,19 @@ public:
 
     /// @brief add parent element
     template<typename T>
-    void addParentElement(const GNEHierarchicalElement* hierarchicalElement, T* element);
+    void addParentElement(T* element);
 
     /// @brief remove parent element
     template<typename T>
-    void removeParentElement(const GNEHierarchicalElement* hierarchicalElement, T* element);
+    void removeParentElement(T* element);
 
     /// @brief add child element
     template<typename T>
-    void addChildElement(const GNEHierarchicalElement* hierarchicalElement, T* element);
+    void addChildElement(T* element);
 
     /// @brief remove child element
     template<typename T>
-    void removeChildElement(const GNEHierarchicalElement* hierarchicalElement, T* element);
+    void removeChildElement(T* element);
 
     /// @brief get parents
     template<typename T>
@@ -125,7 +125,4 @@ private:
 
     /// @brief vector with the generic child data elements
     std::vector<GNEGenericData*> myChildGenericDatas;
-
-    /// @brief flag for enable/disable check duplicate elements (only used for debug purposes)
-    static const bool checkContainer;
 };
