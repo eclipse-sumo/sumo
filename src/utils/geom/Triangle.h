@@ -20,7 +20,9 @@
 #pragma once
 #include <config.h>
 
-#include "Position.h"
+#include <vector>
+
+#include "PositionVector.h"
 
 // ===========================================================================
 // class definitions
@@ -32,9 +34,45 @@
 class Triangle {
 
 public:
-    /// @brief Constructor. Creates an empty position vector
+    /// @brief default constructor
     Triangle();
 
-private:
+    /// @brief parameter constructor
+    Triangle(const Position &positionA, const Position &positionB, const Position &positionC);
 
+    /// @brief destructor
+    ~Triangle();
+
+    /// @brief check if the given position is within this triangle
+    bool isAround(const Position &pos) const;
+
+    // @brief triangulate using Ear Clipping algorithm
+    static std::vector<Triangle> triangulate(const PositionVector &shape);
+
+private:
+    /// @name function used  in triangulate function
+    /// @{
+
+    /// @brief check if point p is to the left of line ab
+    static bool isLeft(const Position &p, const Position &a, const Position &b);
+
+    /// @brief calculate triangle area (2D)
+    static double calculateTriangleArea2D(const Position& a, const Position& b, const Position& c) ;
+
+    /// @brief check if the given point is whitin the triangle formed by a-b-c
+    static bool isInsideTriangle2D(const Position &pos, const Position &a, const Position &b, const Position &c);
+    
+    /// @}
+
+    /// @brief first triangle position
+    Position myA = Position::INVALID;
+
+    /// @brief second triangle position
+    Position myB = Position::INVALID;
+
+    /// @brief third triangle position
+    Position myC = Position::INVALID;
+
+    /// @brief triangle Area
+    double myArea = -1;
 };
