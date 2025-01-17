@@ -75,13 +75,13 @@ GNENetDiffTool::postProcessing() {
         }
         // load shapes
         if (myPythonToolsOptions.getBool("load-shapes-modified")) {
-            loadShapes(myPythonToolsOptions.getString("outprefix") + ".changed.shape.xml");
+            loadShapes(myPythonToolsOptions.getString("outprefix") + ".changed.shape.add.xml");
         }
         if (myPythonToolsOptions.getBool("load-shapes-added")) {
-            loadShapes(myPythonToolsOptions.getString("outprefix") + ".created.shape.xml");
+            loadShapes(myPythonToolsOptions.getString("outprefix") + ".created.shape.add.xml");
         }
         if (myPythonToolsOptions.getBool("load-shapes-deleted")) {
-            loadShapes(myPythonToolsOptions.getString("outprefix") + ".deleted.shape.xml");
+            loadShapes(myPythonToolsOptions.getString("outprefix") + ".deleted.shape.add.xml");
         }
     }
 }

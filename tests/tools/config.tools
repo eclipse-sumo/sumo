@@ -135,9 +135,9 @@ diff_xml:diff.xml
 created_sel:diff.created.sel.txt
 deleted_sel:diff.deleted.sel.txt
 changed_sel:diff.changed.sel.txt
-created_shapes:diff.created.shape.xml
-deleted_shapes:diff.deleted.shape.xml
-changed_shapes:diff.changed.shape.xml
+created_shapes:diff.created.shape.add.xml
+deleted_shapes:diff.deleted.shape.add.xml
+changed_shapes:diff.changed.shape.add.xml
 omnet:omnet.xml
 shawn:shawn.xml
 dri:test.dri
