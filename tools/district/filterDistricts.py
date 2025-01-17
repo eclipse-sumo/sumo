@@ -17,7 +17,11 @@
 # @date    2017-10-05
 
 """
-Filters a TAZ file for a specific vehicle class
+Filters a TAZ file for edges that exist in the given net
+and optionally 
+- keep edges that permit a specific vehicle class
+- remove specific edge ids
+
 """
 from __future__ import absolute_import
 from __future__ import print_function
@@ -41,13 +45,32 @@ def getOptions():
                     required=True, help="the district file to be filtered")
     ap.add_argument("-o", "--output", default="taz_filtered.add.xml", category="output", type=ArgumentParser.file,
                     help="write filtered districts to FILE (default: %(default)s)", metavar="FILE")
-    ap.add_argument("--vclass", type=str, required=True, help="filter taz edges that allow the given vehicle class")
+    ap.add_argument("--vclass", type=str, help="filter taz edges that allow the given vehicle class")
+    ap.add_argument("--remove-ids", category="processing", dest="removeIDs",
+                    help="Remove the given ids from all TAZ")
+    ap.add_argument("--remove-ids-file", dest="removeIDsFile", category="processing", type=ap.additional_file,
+                    help="Remove ids listed in FILE from all TAZ")
     options = ap.parse_args()
-    if not options.netfile or not options.tazfile or not options.vclass:
+    if not options.netfile or not options.tazfile:
         ap.print_help()
         ap.exit(
             "Error! net-file, taz-file and vclass are mandatory")
+
+    options.remove = set()
+    if options.removeIDs is not None:
+        options.remove.update(options.removeIDs.strip("'").split(','))
+    if options.removeIDsFile is not None:
+        with open(options.removeIDsFile) as idf:
+            for line in idf:
+                options.remove.update(line.strip().split(','))
+
     return options
+
+
+def keep(options, net, edge):
+    return (net.hasEdge(edge)
+            and (options.vclass is None or net.getEdge(edge).allows(options.vclass))
+            and edge not in options.remove)
 
 
 if __name__ == "__main__":
@@ -60,13 +83,11 @@ if __name__ == "__main__":
         for taz in sumolib.output.parse(options.tazfile, "taz"):
             if taz.edges is not None:
                 taz.edges = " ".join(
-                    [e for e in taz.edges.split() if
-                     net.hasEdge(e) and net.getEdge(e).allows(options.vclass)])
+                    [e for e in taz.edges.split() if keep(options, net, e)])
             deleteSources = []
             if taz.tazSink is not None:
-                taz.tazSink = [s for s in taz.tazSink if net.hasEdge(s.id) and net.getEdge(s.id).allows(options.vclass)]
+                taz.tazSink = [s for s in taz.tazSink if keep(options, net, s.id)]
             if taz.tazSource is not None:
-                taz.tazSource = [s for s in taz.tazSource if net.hasEdge(
-                    s.id) and net.getEdge(s.id).allows(options.vclass)]
+                taz.tazSource = [s for s in taz.tazSource if keep(options, net, s.id)]
             outf.write(taz.toXML(initialIndent=" " * 4))
         outf.write("</additional>\n")
