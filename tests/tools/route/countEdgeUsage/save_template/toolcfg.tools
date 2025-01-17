@@ -11,5 +11,6 @@
     <min-count value="0" type="int" help="include only values above the minimum" category="processing"/>
     <net-file value="None" type="net_file" help="parse net for geo locations of the edges" category="processing"/>
     <poi-file value="None" type="additional_file" help="write geo POIs" category="processing"/>
+    <verbose value="False" type="bool" help="tell me what you are doing" category="processing"/>
     <routefiles value="None" type="route_file" help="Set one or more input route files" category="input" required="true" positional="true" listSeparator=" "/>
 </configuration>
