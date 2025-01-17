@@ -496,6 +496,8 @@ GNEViewNet::updateObjectsInBoundary(const Boundary& boundary) {
     myVisualizationSettings->drawForRectangleSelection = true;
     // draw all GL elements within the small boundary
     drawGLElements(boundary);
+    // swap selected objects (needed after selecting)
+    gViewObjectsHandler.reverseSelectedObjects();
     // restore draw for object under cursor
     myVisualizationSettings->drawForViewObjectsHandler = false;
     myVisualizationSettings->drawForRectangleSelection = false;
@@ -526,6 +528,8 @@ GNEViewNet::updateObjectsInPosition(const Position& pos) {
     myVisualizationSettings->drawForViewObjectsHandler = true;
     // draw all GL elements within the small boundary
     drawGLElements(positionBoundary);
+    // swap selected objects (needed after selecting)
+    gViewObjectsHandler.reverseSelectedObjects();
     // check if filter edges that have the mouse over their geometry points
     if (myEditModes.isCurrentSupermodeNetwork() && myEditModes.networkEditMode == NetworkEditMode::NETWORK_MOVE) {
         gViewObjectsHandler.isolateEdgeGeometryPoints();

@@ -145,6 +145,9 @@ public:
     /// @brief get number of selected objects
     int getNumberOfSelectedObjects() const;
 
+    /// @brief reverse selected objects
+    void reverseSelectedObjects();
+
     /// @}
 
     /// @name functions related with redrawing path elements

@@ -273,7 +273,10 @@ GUIViewObjectsHandler::selectObject(const GUIGlObject* GLObject, const double la
         return false;
     } else {
         auto& layerContainer = mySortedSelectedObjects[layer * -1];
-        layerContainer.insert(layerContainer.begin(), ObjectContainer(GLObject));
+        if (layerContainer.size() == 10) {
+            layerContainer.reserve(10000000);
+        }
+        layerContainer.push_back(ObjectContainer(GLObject));
         mySelectedObjects[GLObject] = std::make_pair(fullBoundary, segment);
         myNumberOfSelectedObjects++;
         return true;
@@ -302,8 +305,8 @@ GUIViewObjectsHandler::selectGeometryPoint(const GUIGlObject* GLObject, const in
     }
     // no element found then add it
     auto& layerContainer = mySortedSelectedObjects[layer * -1];
-    auto it = layerContainer.insert(layerContainer.begin(), ObjectContainer(GLObject));
-    it->geometryPoints.push_back(newIndex);
+    layerContainer.push_back(ObjectContainer(GLObject));
+    layerContainer.back().geometryPoints.push_back(newIndex);
     mySelectedObjects[GLObject] = std::make_pair(false, nullptr);
     myNumberOfSelectedObjects++;
     return true;
@@ -330,8 +333,8 @@ GUIViewObjectsHandler::selectPositionOverShape(const GUIGlObject* GLObject, cons
     }
     // no element found then add it
     auto& layerContainer = mySortedSelectedObjects[layer * -1];
-    auto it = layerContainer.insert(layerContainer.begin(), ObjectContainer(GLObject));
-    it->posOverShape = pos;
+    layerContainer.push_back(ObjectContainer(GLObject));
+    layerContainer.back().posOverShape = pos;
     mySelectedObjects[GLObject] = std::make_pair(false, nullptr);
     myNumberOfSelectedObjects++;
     return true;
@@ -403,6 +406,14 @@ GUIViewObjectsHandler::getSelectedPositionOverShape(const GUIGlObject* GLObject)
 int
 GUIViewObjectsHandler::getNumberOfSelectedObjects() const {
     return myNumberOfSelectedObjects;
+}
+
+
+void
+GUIViewObjectsHandler::reverseSelectedObjects() {
+    for (auto &layerContainer : mySortedSelectedObjects) {
+        std::reverse(layerContainer.second.begin(), layerContainer.second.end());
+    }
 }
 
 
