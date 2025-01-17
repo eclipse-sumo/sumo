@@ -704,16 +704,29 @@ GUISUMOAbstractView::displayLegends() {
     if (myVisualizationSettings->showSizeLegend) {
         displayLegend();
     }
+    std::string key = "";
     if (myVisualizationSettings->showColorLegend) {
-        displayColorLegend(myVisualizationSettings->getLaneEdgeScheme(), false);
+        auto const& scheme = myVisualizationSettings->getLaneEdgeScheme();
+        if (scheme.getName() == GUIVisualizationSettings::SCHEME_NAME_EDGEDATA_NUMERICAL) {
+            key = myVisualizationSettings->edgeData;
+        } else if (scheme.getName() == GUIVisualizationSettings::SCHEME_NAME_EDGE_PARAM_NUMERICAL) {
+            key = myVisualizationSettings->edgeParam;
+        } else if (scheme.getName() == GUIVisualizationSettings::SCHEME_NAME_LANE_PARAM_NUMERICAL) {
+            key = myVisualizationSettings->laneParam;
+        }
+        displayColorLegend(scheme, false, key);
     }
     if (myVisualizationSettings->showVehicleColorLegend) {
-        displayColorLegend(myVisualizationSettings->vehicleColorer.getScheme(), true);
+        auto const& scheme = myVisualizationSettings->vehicleColorer.getScheme();
+        if (scheme.getName() == GUIVisualizationSettings::SCHEME_NAME_PARAM_NUMERICAL) {
+            key = myVisualizationSettings->vehicleParam;
+        }
+        displayColorLegend(myVisualizationSettings->vehicleColorer.getScheme(), true, key);
     }
 }
 
 void
-GUISUMOAbstractView::displayColorLegend(const GUIColorScheme& scheme, bool leftSide) {
+GUISUMOAbstractView::displayColorLegend(const GUIColorScheme& scheme, bool leftSide, const std::string& key) {
     // compute the scale bar length
     glLineWidth(1.0);
     glMatrixMode(GL_PROJECTION);
@@ -839,7 +852,17 @@ GUISUMOAbstractView::displayColorLegend(const GUIColorScheme& scheme, bool leftS
     }
     // draw scheme name
     std::string name = scheme.getName();
-    if (StringUtils::startsWith(name, "by ")) {
+    if (name == GUIVisualizationSettings::SCHEME_NAME_EDGEDATA_NUMERICAL) {
+        name = "edgeData (" + key + ")";
+    } else if (name == GUIVisualizationSettings::SCHEME_NAME_EDGE_PARAM_NUMERICAL) {
+        name = "edgeParam (" + key + ")";
+    } else if (name == GUIVisualizationSettings::SCHEME_NAME_LANE_PARAM_NUMERICAL) {
+        name = "laneParam (" + key + ")";
+    } else if (name == GUIVisualizationSettings::SCHEME_NAME_PARAM_NUMERICAL) {
+        name = "param (" + key + ")";
+    } else if (name == GUIVisualizationSettings::SCHEME_NAME_DATA_ATTRIBUTE_NUMERICAL) {
+        name = "attribute (" + key + ")";
+    } else if (StringUtils::startsWith(name, "by ")) {
         name = name.substr(3);
     }
     const double topN = -0.8;

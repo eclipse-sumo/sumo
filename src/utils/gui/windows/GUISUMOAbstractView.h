@@ -495,7 +495,7 @@ protected:
     void displayLegends();
 
     /// @brief Draws a legend for the given scheme
-    void displayColorLegend(const GUIColorScheme& scheme, bool leftSide);
+    void displayColorLegend(const GUIColorScheme& scheme, bool leftSide, const std::string& key);
 
     /// @brief Draws frames-per-second indicator
     void drawFPS();
