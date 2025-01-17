@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-01-06 11:22+0100\n"
-"PO-Revision-Date: 2025-01-16 13:38+0000\n"
+"PO-Revision-Date: 2025-01-17 12:25+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -2867,25 +2867,29 @@ msgstr ""
 
 #: src/microsim/MSFrame.cpp:931
 msgid "The begin time should not be negative."
-msgstr ""
+msgstr "L'ora di inizio non deve essere negativa."
 
 #: src/microsim/MSFrame.cpp:941
 msgid "The end time should be after the begin time."
-msgstr ""
+msgstr "L'ora terminale deve essere posteriore all'ora di inizio."
 
 #: src/microsim/MSFrame.cpp:946
 msgid "the minimum step-length is 0.001."
-msgstr ""
+msgstr "il valore minimo del passo di simulazione è di 0.001."
 
 #: src/microsim/MSFrame.cpp:961
 msgid "The save-state time=% will not be used before simulation end at %."
 msgstr ""
+"L'ora % per salvare lo stato di simulazione non avverrà perché la "
+"simulazione finisce a %."
 
 #: src/microsim/MSFrame.cpp:973
 msgid ""
 "option movereminder-output.vehicles requires option movereminder-output to "
 "be set"
 msgstr ""
+"l'opzione movereminder-output .vehicles richiede di impostare anche "
+"l'opzione movereminder-output"
 
 #: src/microsim/MSFrame.cpp:978
 msgid ""
@@ -2906,6 +2910,8 @@ msgstr ""
 #: src/microsim/MSFrame.cpp:985
 msgid "Sublane dynamics are not supported by mesoscopic simulation."
 msgstr ""
+"La dinamica delle sottocorsie non è disponibile nella simulazione "
+"mesoscopica."
 
 #: src/microsim/MSFrame.cpp:989
 msgid ""
@@ -2934,6 +2940,8 @@ msgid ""
 "Invalid value '%' for option 'default.emergencydecel'. Must be a FLOAT or "
 "'default' or 'decel'."
 msgstr ""
+"Valore invalido '%' dell'opzione 'default.emergencydecel'. Deve essere un "
+"FLOAT oppure 'default' o 'decel'."
 
 #: src/microsim/MSFrame.cpp:1043
 msgid ""
@@ -2951,17 +2959,20 @@ msgstr ""
 
 #: src/microsim/MSFrame.cpp:1069
 msgid "You need at least one thread."
-msgstr ""
+msgstr "C'è bisogno di almeno un thread."
 
 #: src/microsim/MSFrame.cpp:1073
 msgid ""
 "Number of threads exceeds number of thread-rngs. Simulation runs with the "
 "same seed may produce different results."
 msgstr ""
+"Il numero di thread eccede il numero di generatori di numeri casuali. "
+"Simulazioni inizializzate con lo stesso seme casuale possono generare "
+"risultati differenti."
 
 #: src/microsim/MSFrame.cpp:1076
 msgid "game.mode must be one of ['tls', 'drt']"
-msgstr ""
+msgstr "game.mode deve essere uno tra ['tls', 'drt']"
 
 #: src/microsim/MSFrame.cpp:1083
 msgid ""
@@ -2984,12 +2995,12 @@ msgstr ""
 #: src/microsim/MSInsertionControl.cpp:284 src/router/RONet.cpp:481
 #, c-format
 msgid "Another vehicle with the id '%' exists."
-msgstr ""
+msgstr "Esiste già un veicolo con il codice identificativo '%'."
 
 #: src/microsim/MSInternalJunction.cpp:55
 #, c-format
 msgid "Internal junction % has no incoming lanes"
-msgstr ""
+msgstr "L'incrocio interno % non tiene corsie entranti"
 
 #: src/microsim/MSLane.cpp:334
 msgid "Unequal lengths of neigh lane '%' and lane '%' (% != %)."
@@ -3029,15 +3040,15 @@ msgstr ""
 
 #: src/microsim/MSLane.cpp:2012
 msgid "frontal collision"
-msgstr ""
+msgstr "collisione frontale"
 
 #: src/microsim/MSLane.cpp:2013
 msgid "junction collision"
-msgstr ""
+msgstr "collisione sull'incrocio"
 
 #: src/microsim/MSLane.cpp:2013
 msgid "collision"
-msgstr ""
+msgstr "collisione"
 
 #: src/microsim/MSLane.cpp:2019
 msgid "Vehicle '%'; % with vehicle '%"
