@@ -63,8 +63,18 @@ public:
         double offset = 0;
     };
 
+    /// @brief object container layer
+    struct ObjectContainerLayer : public std::vector<ObjectContainer> {
+
+        /// @brief parameter constructor
+        ObjectContainerLayer() {}
+
+        // @brief append object container and resize if neccesary
+        void append(const ObjectContainer &objectContainer);
+    };
+
     /// @brief typedef for pack elements sorted by layer
-    typedef std::map<double, std::vector<ObjectContainer> > GLObjectsSortedContainer;
+    typedef std::map<double, ObjectContainerLayer > GLObjectsSortedContainer;
 
     /// @brief constructor
     GUIViewObjectsHandler();

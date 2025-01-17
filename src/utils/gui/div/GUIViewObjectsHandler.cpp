@@ -273,10 +273,7 @@ GUIViewObjectsHandler::selectObject(const GUIGlObject* GLObject, const double la
         return false;
     } else {
         auto& layerContainer = mySortedSelectedObjects[layer * -1];
-        if (layerContainer.size() == 10) {
-            layerContainer.reserve(10000000);
-        }
-        layerContainer.push_back(ObjectContainer(GLObject));
+        layerContainer.append(ObjectContainer(GLObject));
         mySelectedObjects[GLObject] = std::make_pair(fullBoundary, segment);
         myNumberOfSelectedObjects++;
         return true;
@@ -305,7 +302,7 @@ GUIViewObjectsHandler::selectGeometryPoint(const GUIGlObject* GLObject, const in
     }
     // no element found then add it
     auto& layerContainer = mySortedSelectedObjects[layer * -1];
-    layerContainer.push_back(ObjectContainer(GLObject));
+    layerContainer.append(ObjectContainer(GLObject));
     layerContainer.back().geometryPoints.push_back(newIndex);
     mySelectedObjects[GLObject] = std::make_pair(false, nullptr);
     myNumberOfSelectedObjects++;
@@ -333,7 +330,7 @@ GUIViewObjectsHandler::selectPositionOverShape(const GUIGlObject* GLObject, cons
     }
     // no element found then add it
     auto& layerContainer = mySortedSelectedObjects[layer * -1];
-    layerContainer.push_back(ObjectContainer(GLObject));
+    layerContainer.append(ObjectContainer(GLObject));
     layerContainer.back().posOverShape = pos;
     mySelectedObjects[GLObject] = std::make_pair(false, nullptr);
     myNumberOfSelectedObjects++;
@@ -478,7 +475,7 @@ GUIViewObjectsHandler::updateFrontObject(const GUIGlObject* GLObject) {
     }
     // add element again wit a new layer
     if (frontElement.object) {
-        mySortedSelectedObjects[(double)GLO_FRONTELEMENT].push_back(frontElement);
+        mySortedSelectedObjects[(double)GLO_FRONTELEMENT].append(frontElement);
     }
 }
 
@@ -500,8 +497,21 @@ GUIViewObjectsHandler::isolateEdgeGeometryPoints() {
         // clear all selected objects
         mySortedSelectedObjects.clear();
         // add edge with geometry points as front element
-        mySortedSelectedObjects[(double)GLO_FRONTELEMENT].push_back(edgeWithGeometryPoints);
+        mySortedSelectedObjects[(double)GLO_FRONTELEMENT].append(edgeWithGeometryPoints);
     }
+}
+
+
+void
+GUIViewObjectsHandler::ObjectContainerLayer::append(const ObjectContainer& objectContainer) {
+    if (capacity() == size()) {
+        if (size() < 10) {
+            reserve(size() + 10);
+        } else {
+            reserve(size() + 1000);
+        }
+    }
+    push_back(objectContainer);
 }
 
 /****************************************************************************/
