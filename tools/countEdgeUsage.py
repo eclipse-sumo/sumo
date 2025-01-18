@@ -174,7 +174,7 @@ def writeInterval(outf, options, departCounts, arrivalCounts, intermediateCounts
         arrivalStats.add(arrivalCounts[e], e)
     if options.verbose:
         print("Loaded %s routes" % sum(departCounts.values()))
-        
+
     print(departStats)
     print(arrivalStats)
     if options.intermediate:

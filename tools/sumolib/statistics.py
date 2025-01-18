@@ -263,7 +263,7 @@ class Statistics:
         description = ' description="%s"' % label if label != '' else ''
 
         result = ' ' * indent + '<%s%s' % (tag, description)
-        for k,v in extraAttributes.items():
+        for k, v in extraAttributes.items():
             result += ' %s="%s"' % (k, v)
         if self.count() > 0:
             result += ' count="%i"' % self.count()

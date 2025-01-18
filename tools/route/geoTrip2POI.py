@@ -16,21 +16,21 @@
 # @date    2025-01-16
 
 """
-Load a file with trips define with fromLonLat / toLonLat and convert it to a poi file with POIs scaled to the relative amound of
-departes/arrivals
+Load a file with trips define with fromLonLat / toLonLat and convert it to a poi file
+with POIs scaled to the relative amount of departs / arrivals
 """
 from __future__ import absolute_import
 import sys
 import os
+import random
 import colorsys
 from collections import defaultdict
 sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
-import sumolib
+import sumolib  # noqa
 from sumolib.xml import parse  # noqa
 
 
 def parse_args(args):
-    USAGE = "Usage: " + sys.argv[0] + " <netfile> <routefile> [options]"
     op = sumolib.options.ArgumentParser(description="convert geoTrips to POIs")
     op.add_argument("routeFiles", nargs="+", category="input", type=op.file,
                     help="trip files to analyze")
@@ -53,8 +53,8 @@ def parse_args(args):
 
 def main(args):
     options = parse_args(args)
-    departLocs = defaultdict(lambda : 0)
-    arrivalLocs = defaultdict(lambda : 0)
+    departLocs = defaultdict(lambda: 0)
+    arrivalLocs = defaultdict(lambda: 0)
 
     for routefile in options.routeFiles:
         for trip in parse(routefile, 'trip'):
@@ -62,16 +62,16 @@ def main(args):
             arrivalLocs[trip.toLonLat] += 1
 
     maxCount = max(
-            max(departLocs.values()),
-            max(arrivalLocs.values()))
+        max(departLocs.values()),
+        max(arrivalLocs.values()))
 
     with open(options.outfile, 'w') as outf:
-        sumolib.writeXMLHeader(outf, "$Id$", root="additional", options=options)  # noqa
+        sumolib.writeXMLHeader(outf, root="additional", options=options)
         for comment, counts, rgb in (
                 ('departures', departLocs, (1, 0, 0)),
                 ('arrivals', arrivalLocs, (0, 0, 1))):
 
-            outf.write('<!-- %s -->\n' % comment);
+            outf.write('<!-- %s -->\n' % comment)
             hue, sat, val = colorsys.rgb_to_hsv(*rgb)
             for i, (lonLat, count) in enumerate(counts.items()):
                 frac = 0.2 + (count / maxCount) * 0.8

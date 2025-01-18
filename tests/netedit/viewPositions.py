@@ -25,21 +25,29 @@ class tmp:
     y = 0
 
 # reference position
+
+
 class reference:
     x = 0
     y = 0
 
 # down-left position (to avoid missclicks with toolbar menus)
+
+
 class downLeft:
     x = 950
     y = 470
 
 # extern lane bot (common for all tests)
+
+
 class externLaneBot:
     x = 42
     y = 332
 
 # extern lane Top (common for all tests)
+
+
 class externLaneTop:
     x = 42
     y = 136
@@ -50,6 +58,8 @@ class overlappedTest:
     y = 218
 
 # network
+
+
 class selection:
 
     class edge:

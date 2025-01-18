@@ -18,7 +18,7 @@
 
 """
 Filters a TAZ file for edges that exist in the given net
-and optionally 
+and optionally
 - keep edges that permit a specific vehicle class
 - remove specific edge ids
 

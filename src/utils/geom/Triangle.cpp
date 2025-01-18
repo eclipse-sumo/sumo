@@ -1,4 +1,4 @@
-﻿/****************************************************************************/
+/****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
@@ -29,7 +29,7 @@
 Triangle::Triangle() {}
 
 
-Triangle::Triangle(const Position &positionA, const Position &positionB, const Position &positionC) :
+Triangle::Triangle(const Position& positionA, const Position& positionB, const Position& positionC) :
     myA(positionA),
     myB(positionB),
     myC(positionC) {
@@ -41,14 +41,14 @@ Triangle::~Triangle() {}
 
 
 bool
-Triangle::isAround(const Position &pos) const {
+Triangle::isAround(const Position& pos) const {
     if (myArea == -1) {
         return false;
     } else {
         const double areaPAB = calculateTriangleArea2D(pos, myA, myB);
         const double areaPBC = calculateTriangleArea2D(pos, myB, myC);
         const double areaPCA = calculateTriangleArea2D(pos, myC, myA);
-        // Check if the sum of the areas matches the total area of ​​the triangle
+        // Check if the sum of the areas matches the total area of the triangle
         return std::abs(myArea - (areaPAB + areaPBC + areaPCA)) < 1e-9;
     }
 }
