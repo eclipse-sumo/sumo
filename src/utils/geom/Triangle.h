@@ -46,6 +46,9 @@ public:
 
     /// @brief get triangle boundary
     const Boundary &getBoundary() const;
+    
+    /// @brief get shape boundary
+    const PositionVector getShape() const;
 
     /// @brief check if the given position is within this triangle
     bool isAroundPosition(const Position &pos) const;

@@ -259,6 +259,9 @@ public:
     /// @brief select elements within polygon boundary
     long onCmdSelectPolygonElements(FXObject*, FXSelector, void*);
 
+    /// @brief triangulate polygon
+    long onCmdTriangulatePolygon(FXObject*, FXSelector, void*);
+
     /// @brief set as first geometry point the closes geometry point
     long onCmdSetFirstGeometryPoint(FXObject*, FXSelector, void*);
 

@@ -21,6 +21,7 @@
 #pragma once
 #include <config.h>
 #include <utils/gui/globjects/GUIPolygon.h>
+#include <utils/xml/CommonXMLStructure.h>
 
 #include "GNEAdditional.h"
 
@@ -230,6 +231,9 @@ public:
 
     /// @brief replace the current shape with a rectangle
     void simplifyShape(bool allowUndo = true);
+
+    /// @brief get SUMOBaseObject with all polygon attributes
+    CommonXMLStructure::SumoBaseObject* getSumoBaseObject() const;
 
 protected:
     /// @brief Latitude of Polygon

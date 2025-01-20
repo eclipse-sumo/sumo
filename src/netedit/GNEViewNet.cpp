@@ -213,6 +213,7 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_GNE_POLYGON_CLOSE,                   GNEViewNet::onCmdClosePolygon),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_POLYGON_OPEN,                    GNEViewNet::onCmdOpenPolygon),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_POLYGON_SELECT,                  GNEViewNet::onCmdSelectPolygonElements),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_POLYGON_TRIANGULATE,             GNEViewNet::onCmdTriangulatePolygon),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_POLYGON_SET_FIRST_POINT,         GNEViewNet::onCmdSetFirstGeometryPoint),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_POLYGON_DELETE_GEOMETRY_POINT,   GNEViewNet::onCmdDeleteGeometryPoint),
     // edit custom shapes
@@ -2748,7 +2749,7 @@ GNEViewNet::onCmdSelectPolygonElements(FXObject*, FXSelector, void*) {
                         ACsUnderPolygon.push_back(AC);
                     } else if ((AC->getTagProperty().getTag() == SUMO_TAG_LANE) && !checkSelectEdges()) {
                         ACsUnderPolygon.push_back(AC);
-                    } else if (AC != polygonUnderMouse) {
+                    } else if (!AC->getTagProperty().isSymbol() && (AC != polygonUnderMouse)) {
                         ACsUnderPolygon.push_back(AC);
                     }
                 }
@@ -2765,6 +2766,35 @@ GNEViewNet::onCmdSelectPolygonElements(FXObject*, FXSelector, void*) {
             // end undo-list
             myNet->getViewNet()->getUndoList()->end();
         }
+    }
+    return 1;
+}
+
+
+long
+GNEViewNet::onCmdTriangulatePolygon(FXObject*, FXSelector, void*) {
+// get polygon under mouse
+    GNEPoly* polygonUnderMouse = getPolygonAtPopupPosition();
+    // check polygon
+    if (polygonUnderMouse) {
+        // declare additional handler
+        GNEAdditionalHandler additionalHandler(myNet, myViewParent->getGNEAppWindows()->isUndoRedoAllowed(), false);
+        // triangulate shape
+        const auto triangulation = Triangle::triangulate(polygonUnderMouse->getShape());
+        // begin undo-list
+        myNet->getViewNet()->getUndoList()->begin(GUIIcon::POLY, TL("triangulate polygon"));
+        // create every individual triangle
+        for (const auto &triangle : triangulation) {
+            auto basePolygon = polygonUnderMouse->getSumoBaseObject();
+            basePolygon->addStringAttribute(SUMO_ATTR_ID, myNet->getAttributeCarriers()->generateAdditionalID(polygonUnderMouse->getTagProperty().getTag()));
+            basePolygon->addPositionVectorAttribute(SUMO_ATTR_SHAPE, triangle.getShape());
+            // build shape
+            additionalHandler.parseSumoBaseObject(basePolygon);
+        }
+        // delete original polygon
+        myNet->deleteAdditional(polygonUnderMouse, myNet->getViewNet()->getUndoList());
+        // end undo-list
+        myNet->getViewNet()->getUndoList()->end();
     }
     return 1;
 }

@@ -1323,6 +1323,8 @@ enum {
     MID_GNE_POLYGON_DELETE_GEOMETRY_POINT,
     /// @brief select elements within polygon boundary
     MID_GNE_POLYGON_SELECT,
+    /// @brief triangulate polygon
+    MID_GNE_POLYGON_TRIANGULATE,
 
     /// @}
 

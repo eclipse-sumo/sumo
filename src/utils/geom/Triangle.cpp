@@ -103,6 +103,12 @@ Triangle::getBoundary() const {
 }
 
 
+const PositionVector
+Triangle::getShape() const {
+    return PositionVector({myA, myB, myC});
+}
+
+
 std::vector<Triangle>
 Triangle::triangulate(PositionVector shape) {
     std::vector<Triangle> triangles;

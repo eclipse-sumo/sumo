@@ -275,6 +275,9 @@ GNEPoly::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
         }
     }
     GUIDesigns::buildFXMenuCommand(ret, TL("Select elements within polygon"), TL("Select elements within polygon boundary"), nullptr, &parent, MID_GNE_POLYGON_SELECT);
+    if (myShape.size() > 3) {
+        GUIDesigns::buildFXMenuCommand(ret, TL("Triangulate polygon"), TL("Convert the current polygon in triangles"), nullptr, &parent, MID_GNE_POLYGON_TRIANGULATE);
+    }
     // add separator
     new FXMenuSeparator(ret);
     // create a extra FXMenuCommand if mouse is over a vertex
@@ -515,6 +518,27 @@ GNEPoly::simplifyShape(bool allowUndo) {
     } else {
         WRITE_WARNING(TL("Polygon already simplified"))
     }
+}
+
+
+CommonXMLStructure::SumoBaseObject*
+GNEPoly::getSumoBaseObject() const {
+    CommonXMLStructure::SumoBaseObject* polygonBaseObject = new CommonXMLStructure::SumoBaseObject(nullptr);
+    polygonBaseObject->setTag(myTagProperty.getTag());
+    // fill attributes
+    polygonBaseObject->addStringAttribute(SUMO_ATTR_ID, myID);
+    polygonBaseObject->addPositionVectorAttribute(SUMO_ATTR_SHAPE, myShape);
+    polygonBaseObject->addBoolAttribute(SUMO_ATTR_GEO, myGEO);
+    polygonBaseObject->addBoolAttribute(SUMO_ATTR_FILL, myFill);
+    polygonBaseObject->addDoubleAttribute(SUMO_ATTR_LINEWIDTH, myLineWidth);
+    polygonBaseObject->addColorAttribute(SUMO_ATTR_COLOR, getShapeColor());
+    polygonBaseObject->addStringAttribute(SUMO_ATTR_TYPE, getShapeType());
+    polygonBaseObject->addDoubleAttribute(SUMO_ATTR_LAYER, getShapeLayer());
+    polygonBaseObject->addStringAttribute(SUMO_ATTR_IMGFILE, getShapeImgFile());
+    polygonBaseObject->addDoubleAttribute(SUMO_ATTR_ANGLE, getShapeNaviDegree());
+    polygonBaseObject->addStringAttribute(SUMO_ATTR_NAME, getShapeName());
+    polygonBaseObject->addBoolAttribute(SUMO_ATTR_RELATIVEPATH, getShapeRelativePath());
+    return polygonBaseObject;
 }
 
 
