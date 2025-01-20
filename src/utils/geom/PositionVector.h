@@ -150,6 +150,9 @@ public:
     /// @brief Returns the position of the intersection
     Position intersectionPosition2D(const PositionVector& v1) const;
 
+    /// @brief open polygon
+    void openPolygon();
+
     /// @brief ensures that the last position equals the first
     void closePolygon();
 

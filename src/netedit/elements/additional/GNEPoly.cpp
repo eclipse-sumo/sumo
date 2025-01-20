@@ -663,7 +663,7 @@ GNEPoly::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_NAME:
             return SUMOXMLDefinitions::isValidAttribute(value);
         case GNE_ATTR_CLOSE_SHAPE:
-            if (canParse<bool>(value)) {
+            if (canParse<bool>(value) && (myShape.size() > 0)) {
                 bool closePolygon = parse<bool>(value);
                 if (closePolygon && (myShape.begin() == myShape.end())) {
                     // Polygon already closed, then invalid value
@@ -821,8 +821,8 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
                 myShape.closePolygon();
                 myGeoShape.closePolygon();
             } else {
-                myShape.pop_back();
-                myGeoShape.pop_back();
+                myShape.openPolygon();
+                myGeoShape.openPolygon();
             }
             // disable simplified shape flag
             mySimplifiedShape = false;

@@ -1355,6 +1355,14 @@ PositionVector::angleAt2D(int pos) const {
 
 
 void
+PositionVector::openPolygon() {
+    if ((size() > 1) && (front() == back())) {
+        pop_back();
+    }
+}
+
+
+void
 PositionVector::closePolygon() {
     if ((size() != 0) && ((*this)[0] != back())) {
         push_back((*this)[0]);
