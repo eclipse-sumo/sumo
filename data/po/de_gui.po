@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-01-02 15:02+0100\n"
-"PO-Revision-Date: 2025-01-14 11:40+0000\n"
+"PO-Revision-Date: 2025-01-20 13:51+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -10326,7 +10326,7 @@ msgstr ""
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:8400
 msgid "Toggle front element"
-msgstr "Oberstes Element festhalten"
+msgstr "Oberstes Element durchschalten"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:8404
 msgid "Toggle select element"
