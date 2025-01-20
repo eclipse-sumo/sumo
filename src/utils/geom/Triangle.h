@@ -44,8 +44,20 @@ public:
     /// @brief destructor
     ~Triangle();
 
+    /// @brief get triangle boundary
+    const Boundary &getBoundary() const;
+
     /// @brief check if the given position is within this triangle
-    bool isAround(const Position &pos) const;
+    bool isAroundPosition(const Position &pos) const;
+
+    /// @brief check if the given shape is within this triangle or intersect in a certain point
+    bool isAroundShape(const PositionVector &shape) const;
+
+    /// @brief check if the given boundary is within this triangle
+    bool isBoundaryAround(const Boundary &boundary) const;
+
+    /// @brief check if the given circunference is within this triangle
+    bool isCircunferenceAround(const Position& center, const double radius) const;
 
     // @brief triangulate using Ear Clipping algorithm
     static std::vector<Triangle> triangulate(PositionVector shape);
@@ -53,6 +65,12 @@ public:
 private:
     /// @brief calculate triangle area (2D)
     double calculateTriangleArea2D(const Position& a, const Position& b, const Position& c) const;
+
+    /// @brief calculate cross product of the given points
+    double crossProduct(const Position& A, const Position& B, const Position& C) const;
+
+    /// @brief function to check if line between posA and posB intersect circle
+    bool lineIntersectCircle(const Position& posA, const Position& posB, const Position& center, const double radius) const;
 
     /// @brief first triangle position
     Position myA = Position::INVALID;
