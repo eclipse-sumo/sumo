@@ -31,6 +31,7 @@
 #include <utils/common/IDSupplier.h>
 #include <utils/common/SUMOVehicleClass.h>
 #include <utils/geom/Boundary.h>
+#include <utils/geom/Triangle.h>
 #include <utils/geom/PositionVector.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/gui/globjects/GUIShapeContainer.h>
@@ -107,8 +108,8 @@ struct GNENetHelper {
         /// @brief remap junction and edge IDs
         void remapJunctionAndEdgeIds();
 
-        /// @brief check if shape of given AC (network element) is around the given shape
-        bool isNetworkElementAroundShape(GNEAttributeCarrier* AC, const PositionVector& shape) const;
+        /// @brief check if shape of given AC (network element) is around the given triangle
+        bool isNetworkElementAroundTriangle(GNEAttributeCarrier* AC, const Triangle& triangle) const;
 
         /// @brief functions related with number of elements sorted by categories
         /// @{

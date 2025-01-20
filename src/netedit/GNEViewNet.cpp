@@ -2733,30 +2733,33 @@ GNEViewNet::onCmdSelectPolygonElements(FXObject*, FXSelector, void*) {
     GNEPoly* polygonUnderMouse = getPolygonAtPopupPosition();
     // check polygon
     if (polygonUnderMouse) {
-        // get ACs in boundary
-        updateObjectsInBoundary(polygonUnderMouse->getShape().getBoxBoundary());
+        // triangulate shape
+        const auto triangulation = Triangle::triangulate(polygonUnderMouse->getShape());
         // declare filtered ACs
-        std::vector<GNEAttributeCarrier*> filteredACs;
-        // iterate over obtained GUIGlIDs
-        for (const auto& AC : myViewObjectsSelector.getAttributeCarriers()) {
-            if (AC->getTagProperty().getTag() == SUMO_TAG_EDGE) {
-                if (checkSelectEdges() && myNet->getAttributeCarriers()->isNetworkElementAroundShape(AC, polygonUnderMouse->getShape())) {
-                    filteredACs.push_back(AC);
+        std::vector<GNEAttributeCarrier*> ACsUnderPolygon;
+        // iterate over every triangle
+        for (const auto &triangle : triangulation) {
+            // get ACs in boundary
+            updateObjectsInBoundary(triangle.getBoundary());
+            // iterate over obtained GUIGlIDs
+            for (const auto& AC : myViewObjectsSelector.getAttributeCarriers()) {
+                if (myNet->getAttributeCarriers()->isNetworkElementAroundTriangle(AC, triangle)) {
+                    if ((AC->getTagProperty().getTag() == SUMO_TAG_EDGE) && checkSelectEdges()) {
+                        ACsUnderPolygon.push_back(AC);
+                    } else if ((AC->getTagProperty().getTag() == SUMO_TAG_LANE) && !checkSelectEdges()) {
+                        ACsUnderPolygon.push_back(AC);
+                    } else if (AC != polygonUnderMouse) {
+                        ACsUnderPolygon.push_back(AC);
+                    }
                 }
-            } else if (AC->getTagProperty().getTag() == SUMO_TAG_LANE) {
-                if (!checkSelectEdges() && myNet->getAttributeCarriers()->isNetworkElementAroundShape(AC, polygonUnderMouse->getShape())) {
-                    filteredACs.push_back(AC);
-                }
-            } else if ((AC != polygonUnderMouse) && myNet->getAttributeCarriers()->isNetworkElementAroundShape(AC, polygonUnderMouse->getShape())) {
-                filteredACs.push_back(AC);
             }
         }
         // continue if there are ACs
-        if (filteredACs.size() > 0) {
+        if (ACsUnderPolygon.size() > 0) {
             // begin undo-list
             myNet->getViewNet()->getUndoList()->begin(GUIIcon::MODESELECT, TL("select within polygon boundary"));
             // iterate over shapes
-            for (const auto& AC : filteredACs) {
+            for (const auto& AC : ACsUnderPolygon) {
                 AC->setAttribute(GNE_ATTR_SELECTED, "true", myUndoList);
             }
             // end undo-list

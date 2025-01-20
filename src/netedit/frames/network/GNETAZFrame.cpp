@@ -32,6 +32,7 @@
 #include <netedit/elements/additional/GNEAdditionalHandler.h>
 #include <netedit/GNEUndoList.h>
 #include <utils/options/OptionsCont.h>
+#include <utils/geom/Triangle.h>
 
 #include "GNETAZFrame.h"
 
@@ -1629,14 +1630,17 @@ GNETAZFrame::shapeDrawed() {
         }
         // check if TAZ has to be created with edges
         if (myTAZParameters->isAddEdgesWithinEnabled()) {
-            // update objects in boundary
-            myViewNet->updateObjectsInBoundary(shape.getBoxBoundary());
-            // get all edge IDs
             std::vector<std::string> edgeIDs;
-            // get only edges with geometry around shape
-            for (const auto& edge : myViewNet->getViewObjectsSelector().getEdges()) {
-                if (myViewNet->getNet()->getAttributeCarriers()->isNetworkElementAroundShape(edge, shape)) {
-                    edgeIDs.push_back(edge->getID());
+            // triangulate shape
+            const auto triangulation = Triangle::triangulate(shape);
+            for (const auto &triangle : triangulation) {
+                // update objects in boundary
+                myViewNet->updateObjectsInBoundary(triangle.getBoundary());
+                // get only edges with geometry around triangle
+                for (const auto& edge : myViewNet->getViewObjectsSelector().getEdges()) {
+                    if (myViewNet->getNet()->getAttributeCarriers()->isNetworkElementAroundTriangle(edge, triangle)) {
+                        edgeIDs.push_back(edge->getID());
+                    }
                 }
             }
             myBaseTAZ->addStringListAttribute(SUMO_ATTR_EDGES, edgeIDs);

@@ -179,40 +179,40 @@ GNENetHelper::AttributeCarriers::remapJunctionAndEdgeIds() {
 
 
 bool
-GNENetHelper::AttributeCarriers::isNetworkElementAroundShape(GNEAttributeCarrier* AC, const PositionVector& shape) const {
+GNENetHelper::AttributeCarriers::isNetworkElementAroundTriangle(GNEAttributeCarrier* AC, const Triangle& triangle) const {
     // check what type of AC
     if (AC->getTagProperty().getTag() == SUMO_TAG_JUNCTION) {
         // Junction
         const GNEJunction* junction = myJunctions.at(AC->getID());
         if (junction->getNBNode()->getShape().size() == 0) {
-            return shape.around(junction->getNBNode()->getCenter());
+            return triangle.isAroundPosition(junction->getNBNode()->getCenter());
         } else {
-            return (shape.overlapsWith(junction->getNBNode()->getShape()));
+            return (triangle.isAroundShape(junction->getNBNode()->getShape()));
         }
     } else if (AC->getTagProperty().getTag() == SUMO_TAG_EDGE) {
         // Edge
         for (const auto& lane : myEdges.at(AC->getID())->getLanes()) {
-            if (shape.overlapsWith(lane->getLaneShape())) {
+            if (triangle.isAroundShape(lane->getLaneShape())) {
                 return true;
             }
         }
         return false;
     } else if (AC->getTagProperty().getTag() == SUMO_TAG_LANE) {
         // Lane
-        return shape.overlapsWith(retrieveLane(AC->getID())->getLaneShape());
+        return triangle.isAroundShape(retrieveLane(AC->getID())->getLaneShape());
     } else if (AC->getTagProperty().getTag() == SUMO_TAG_CONNECTION) {
         // connection
-        return shape.overlapsWith(myConnections.at(AC->getGUIGlObject())->getConnectionShape());
+        return triangle.isAroundShape(myConnections.at(AC->getGUIGlObject())->getConnectionShape());
     } else if (AC->getTagProperty().getTag() == SUMO_TAG_CROSSING) {
         // crossing
-        return shape.overlapsWith(myCrossings.at(AC->getGUIGlObject())->getCrossingShape());
+        return triangle.isAroundShape(myCrossings.at(AC->getGUIGlObject())->getCrossingShape());
     } else if (AC->getTagProperty().isAdditionalElement()) {
         // Additional (including shapes and TAZs
         const GNEAdditional* additional = retrieveAdditional(AC->getGUIGlObject());
         if (additional->getAdditionalGeometry().getShape().size() <= 1) {
-            return shape.around(additional->getPositionInView());
+            return triangle.isAroundPosition(additional->getPositionInView());
         } else {
-            return shape.overlapsWith(additional->getAdditionalGeometry().getShape());
+            return triangle.isAroundShape(additional->getAdditionalGeometry().getShape());
         }
     } else {
         return false;
