@@ -124,6 +124,51 @@ def create_installer_conclusion_content(framework_name):
     return html
 
 
+def sign_file(file_path):
+    """Signs a file using the specified signing service."""
+    signing_service_url = "https://cbi.eclipse.org/macos/codesign/sign"
+    signed_file_path = f"{file_path}-signed"
+
+    # Create a temporary entitlements file
+    with tempfile.NamedTemporaryFile(delete=False, suffix=".entitlement") as temp_entitlements:
+        temp_entitlements.write(b'''<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>com.apple.security.cs.allow-jit</key>
+    <true/>
+    <key>com.apple.security.cs.allow-unsigned-executable-memory</key>
+    <true/>
+    <key>com.apple.security.cs.disable-executable-page-protection</key>
+    <true/>
+    <key>com.apple.security.cs.allow-dyld-environment-variables</key>
+    <true/>
+    <key>com.apple.security.cs.disable-library-validation</key>
+    <true/>
+    <key>com.apple.security.cs.debugger</key>
+    <true/>
+</dict>
+</plist>
+''')
+
+    try:
+        command = [
+            "curl",
+            "-o", signed_file_path,
+            "-F", f"file=@{file_path}",
+            "-F", f"entitlements=@{temp_entitlements.name}",
+            signing_service_url,
+        ]
+        result = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+        if result.returncode != 0:
+            raise RuntimeError(f"Failed to sign file {file_path}: {result.stderr}")
+        if not os.path.exists(signed_file_path):
+            raise FileNotFoundError(f"Signed file not created: {signed_file_path}")
+        return signed_file_path
+    finally:
+        os.remove(temp_entitlements.name)
+
+
 def create_framework(name, longname, pkg_id, version, sumo_build_directory):
     print(" - Creating directory structure")
     temp_dir = tempfile.mkdtemp()
@@ -213,6 +258,16 @@ def create_framework(name, longname, pkg_id, version, sumo_build_directory):
                 os.makedirs(dest_dir, exist_ok=True)
                 for file in proj_file_list:
                     shutil.copy2(os.path.join(source_dir, file), os.path.join(dest_dir, file))
+
+    # Signing the binaries and libraries
+    print(" - Signing binaries and libraries")
+    for dir_path in [bin_dir, lib_dir]:
+        for file in os.listdir(dir_path):
+            file_path = os.path.join(dir_path, file)
+            if os.path.isfile(file_path):
+                print(f"    . Signing {file_path}...")
+                signed_file_path = sign_file(file_path)
+                shutil.move(signed_file_path, file_path)
 
     # Build the framework package
     cwd = os.path.dirname(os.path.abspath(__file__))
