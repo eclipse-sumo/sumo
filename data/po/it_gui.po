@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-01-02 15:02+0100\n"
-"PO-Revision-Date: 2025-01-10 15:16+0000\n"
+"PO-Revision-Date: 2025-01-20 13:51+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -9681,7 +9681,7 @@ msgstr "incrocio"
 #: src/netedit/elements/GNEAttributeCarrier.cpp:8342
 #: src/utils/gui/div/GUIMessageWindow.cpp:77
 msgid "busStop"
-msgstr ""
+msgstr "fermata di autobus"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:4902
 #: src/netedit/elements/GNEAttributeCarrier.cpp:4983
@@ -9762,7 +9762,7 @@ msgstr ""
 #: src/netedit/elements/GNEAttributeCarrier.cpp:8353
 #: src/utils/gui/div/GUIMessageWindow.cpp:78
 msgid "trainStop"
-msgstr ""
+msgstr "fermata ferroviaria"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:4912
 #: src/netedit/elements/GNEAttributeCarrier.cpp:4993
@@ -9843,7 +9843,7 @@ msgstr ""
 #: src/netedit/elements/GNEAttributeCarrier.cpp:8364
 #: src/utils/gui/div/GUIMessageWindow.cpp:79
 msgid "containerStop"
-msgstr ""
+msgstr "fermata di contenitori"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:4922
 #: src/netedit/elements/GNEAttributeCarrier.cpp:5003
@@ -9924,7 +9924,7 @@ msgstr ""
 #: src/netedit/elements/GNEAttributeCarrier.cpp:8374
 #: src/utils/gui/div/GUIMessageWindow.cpp:80
 msgid "chargingStation"
-msgstr ""
+msgstr "stazione di ricarica"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:4932
 #: src/netedit/elements/GNEAttributeCarrier.cpp:5013
@@ -10005,7 +10005,7 @@ msgstr ""
 #: src/netedit/elements/GNEAttributeCarrier.cpp:8385
 #: src/utils/gui/div/GUIMessageWindow.cpp:82
 msgid "parkingArea"
-msgstr ""
+msgstr "parcheggio"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:5524
 #: src/netedit/elements/GNEAttributeCarrier.cpp:5533
@@ -10074,7 +10074,7 @@ msgstr ""
 #: src/netedit/elements/GNEAttributeCarrier.cpp:6171
 #: src/netedit/elements/GNEAttributeCarrier.cpp:6181
 msgid "Tranship"
-msgstr ""
+msgstr "Trasbordo"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:5533
 #: src/netedit/elements/GNEAttributeCarrier.cpp:6971
@@ -10218,7 +10218,7 @@ msgstr ""
 #: src/netedit/elements/GNEAttributeCarrier.cpp:7619
 #: src/netedit/elements/GNEAttributeCarrier.cpp:7629
 msgid "Walk"
-msgstr ""
+msgstr "Cammino"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:7662
 #: src/netedit/elements/GNEAttributeCarrier.cpp:7672
@@ -10285,7 +10285,7 @@ msgstr ""
 #: src/netedit/elements/GNEAttributeCarrier.cpp:8289
 #: src/netedit/elements/GNEAttributeCarrier.cpp:8299
 msgid "Ride"
-msgstr ""
+msgstr "Corsa"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:8322
 #: src/netedit/elements/GNEAttributeCarrier.cpp:8331
@@ -10407,11 +10407,11 @@ msgstr "Partenza iniziale del flusso"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:8579
 msgid "Criterion for flow termination"
-msgstr ""
+msgstr "Criterio per terminare il flusso"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:8586
 msgid "Criterion for flow spacing"
-msgstr ""
+msgstr "Criterio per spaziare il flusso"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:8599
 #: src/netedit/elements/GNEAttributeCarrier.cpp:8620
@@ -10886,7 +10886,7 @@ msgstr "Il colore del contenitore"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:9169
 msgid "The position at which the container shall enter the net"
-msgstr ""
+msgstr "La posizione dove il contenitore deve entrare nella rete"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:9182
 #: src/netedit/elements/GNEAttributeCarrier.cpp:9573
@@ -11005,11 +11005,11 @@ msgstr "Codice identificativo della fermata di contenitori"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:9337
 msgid "Charging station ID"
-msgstr ""
+msgstr "Codice identificativo di stazione di ricarica"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:9343
 msgid "Parking area ID"
-msgstr ""
+msgstr "Codice identicativo di parcheggio"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:9350
 msgid "Edge start ID"
@@ -11026,7 +11026,7 @@ msgstr "Codice identificativo dell'incrocio di origine"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:9368
 msgid "BusStop start ID"
-msgstr ""
+msgstr "Codice identificativo di fermata di autobus"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:9374
 msgid "TrainStop start ID"
@@ -11038,7 +11038,7 @@ msgstr "Codice identificativo della fermata di contenitori di origine"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:9386
 msgid "ChargingStation start ID"
-msgstr ""
+msgstr "Codice identificativo della stazione di ricarica di partenza"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:9392
 msgid "ParkingArea start ID"
@@ -11759,7 +11759,7 @@ msgstr ""
 
 #: src/netedit/elements/additional/GNEMultiEntryExitDetector.cpp:121
 msgid "' needs at least one entry and one exit"
-msgstr ""
+msgstr "' richiede almeno un'entrata e un'uscita"
 
 #: src/netedit/elements/additional/GNEMultiEntryExitDetector.cpp:359
 msgid "An entry-exit detector needs at least one entry detector"
@@ -11897,16 +11897,16 @@ msgstr ""
 
 #: src/netedit/elements/data/GNEDataHandler.cpp:230
 msgid "There is already a TAZ rel defined between '%' and '%'."
-msgstr ""
+msgstr "Esiste già una relazione origine-destinazione tra '%' e '%'."
 
 #: src/netedit/elements/data/GNEDataHandler.cpp:232
 msgid "There is already a TAZ rel defined in '%'."
-msgstr ""
+msgstr "E già stata definita una relazione origine-destinazione in '%'."
 
 #: src/netedit/elements/data/GNEDataHandler.cpp:236
 #: src/netedit/elements/data/GNEDataHandler.cpp:248
 msgid "add TAZ rel"
-msgstr ""
+msgstr "aggiuni relazione di origine-destinazione"
 
 #: src/netedit/elements/data/GNEDataInterval.cpp:221
 msgid "GenericData was already inserted"
@@ -11980,19 +11980,19 @@ msgstr "L'arco '%' non segue l'arco '%'"
 
 #: src/netedit/elements/demand/GNEPlanParents.cpp:115
 msgid "Invalid from edge '%' used in % of % '%'"
-msgstr ""
+msgstr "Arco di partenza invalido '%' utilizzato in % di % '%'"
 
 #: src/netedit/elements/demand/GNEPlanParents.cpp:118
 msgid "Invalid to edge '%' used in % of % '%'"
-msgstr ""
+msgstr "Arco di arrivo invalido '%' utilizzato in % di % '%'"
 
 #: src/netedit/elements/demand/GNEPlanParents.cpp:121
 msgid "Invalid from junction '%' used in % of % '%'"
-msgstr ""
+msgstr "Incrocio di partenza invalido '%' utilizzato in % di % '%'"
 
 #: src/netedit/elements/demand/GNEPlanParents.cpp:124
 msgid "Invalid to junction '%' used in % of % '%'"
-msgstr ""
+msgstr "Incrocio di arrivo invalido '%' utilizzato in % di % '%'"
 
 #: src/netedit/elements/demand/GNEPlanParents.cpp:127
 msgid "Invalid from TAZ '%' used in % of % '%'"
