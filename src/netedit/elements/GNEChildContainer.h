@@ -11,11 +11,11 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEHierarchicalContainer.h
+/// @file    GNEChildContainer.h
 /// @author  Pablo Alvarez Lopez
-/// @date    Jul 2020
+/// @date    Jan 2025
 ///
-// Container for GNEHierarchicalElements
+// Container for GNEHierarchical child elements
 /****************************************************************************/
 #pragma once
 #include <config.h>
@@ -40,14 +40,14 @@ class GNEHierarchicalElement;
 // ===========================================================================
 
 /// @brief Hierarchical container (used for keep myParent and myChildren
-class GNEHierarchicalContainer {
+class GNEChildContainer {
 
 public:
     /// @brief default constructor
-    GNEHierarchicalContainer();
+    GNEChildContainer();
 
     /// @brief parameter constructor (only for parents)
-    GNEHierarchicalContainer(
+    GNEChildContainer(
         const std::vector<GNEJunction*>& parentJunctions,
         const std::vector<GNEEdge*>& parentEdges,
         const std::vector<GNELane*>& parentLanes,
