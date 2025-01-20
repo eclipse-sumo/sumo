@@ -174,6 +174,12 @@ def create_framework(name, longname, pkg_id, version, sumo_build_directory):
     ]
     subprocess.run(cmake_install_command, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
+    # Copy the JuPedSim Lib
+    jupedsimlib_src = "/Users/genie.sumo/jenkins/workspace/macOS Installer/jupedsim-install/lib/libjupedsim.dylib"
+    jupedsimlib_dst = os.path.join(version_dir, name, "lib")
+    print(f"  - Copying jupedsim lib {jupedsimlib_src} --> {jupedsimlib_dst}")
+    shutil.copy(jupedsimlib_src, jupedsimlib_dst)
+
     # We need to add a symlink to the binary folder to have the same folder structure
     os.symlink("../../bin", os.path.join(version_dir, name, "share", "sumo", "bin"))
 
