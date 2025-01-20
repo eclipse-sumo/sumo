@@ -191,7 +191,6 @@ def create_framework(name, longname, pkg_id, version, sumo_build_directory):
             shutil.move(os.path.join(lib_dir, file_name), os.path.join(bin_dir, file_name))
 
     # Start the delocation of the libraries and binaries
-    print(f"DYLD_LIBRARY_PATH: {os.environ.get("DYLD_LIBRARY_PATH", "Not set")}")
     delocate_path("./bin", lib_filt_func=None, lib_path="./lib", sanitize_rpaths=True)
 
     # - and we need to move them back to the lib folder
