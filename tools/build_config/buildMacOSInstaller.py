@@ -126,7 +126,7 @@ def create_installer_conclusion_content(framework_name):
 
 def sign_file(file_path):
     """Signs a file using the specified signing service."""
-    signing_service_url = "https://cbi.eclipse.org/macos/codesign/sign"
+    signing_service_url = "https://cbi-staging.eclipse.org/macos/codesign/sign"
     signed_file_path = f"{file_path}-signed"
 
     # Create a temporary entitlements file
