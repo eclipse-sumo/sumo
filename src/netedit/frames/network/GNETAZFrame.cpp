@@ -1636,6 +1636,8 @@ GNETAZFrame::shapeDrawed() {
             for (const auto &triangle : triangulation) {
                 // update objects in boundary
                 myViewNet->updateObjectsInBoundary(triangle.getBoundary());
+                // resize to improve efficiency
+                edgeIDs.reserve(edgeIDs.size() + myViewNet->getViewObjectsSelector().getEdges().size());
                 // get only edges with geometry around triangle
                 for (const auto& edge : myViewNet->getViewObjectsSelector().getEdges()) {
                     if (myViewNet->getNet()->getAttributeCarriers()->isNetworkElementAroundTriangle(edge, triangle)) {
