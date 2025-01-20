@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-01-06 11:22+0100\n"
-"PO-Revision-Date: 2025-01-17 12:25+0000\n"
+"PO-Revision-Date: 2025-01-20 12:30+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -2955,7 +2955,7 @@ msgstr "C'è bisogno di un valore di ritardo non negativo."
 
 #: src/microsim/MSFrame.cpp:1064
 msgid "Parallel simulation is only possible when compiled with Fox."
-msgstr ""
+msgstr "La simulazione parallela é possibile unicamente se compilato con Fox."
 
 #: src/microsim/MSFrame.cpp:1069
 msgid "You need at least one thread."
@@ -2979,12 +2979,16 @@ msgid ""
 "Invalid transfer option '%'. Must be one of 'parkingAreas', 'ptStops' or "
 "'allJunctions'."
 msgstr ""
+"Opzione di trasbordo invalida '%'. Deve essere una di 'parkingAreas', "
+"'ptStops' o 'allJunctions'."
 
 #: src/microsim/MSFrame.cpp:1093
 msgid ""
 "Invalid JuPedSim model '%'. Must be one of 'CollisionFreeSpeed', "
 "'CollisionFreeSpeedV2', 'GeneralizedCentrifugalForce' or 'SocialForce'."
 msgstr ""
+"Modello JuPedSim invalido '%'. Deve essere uno di 'CollisionFreeSpeed', "
+"'CollisionFreeSpeedV2', 'GeneralizedCentrifugalForce' o 'SocialForce'."
 
 #: src/microsim/MSFrame.cpp:1154
 msgid ""
@@ -3004,25 +3008,29 @@ msgstr "L'incrocio interno % non tiene corsie entranti"
 
 #: src/microsim/MSLane.cpp:334
 msgid "Unequal lengths of neigh lane '%' and lane '%' (% != %)."
-msgstr ""
+msgstr "Lunghezze differenti tra la corsia vicina '%' e la corsia '%' (% != %)."
 
 #: src/microsim/MSLane.cpp:343
 msgid "Unequal lengths of bidi lane '%' and lane '%' (% != %)."
 msgstr ""
+"Lunghezze differenti tra la corsia bidirezionale '%' e la corsia '%' (% != "
+"%)."
 
 #: src/microsim/MSLane.cpp:810
 #, c-format
 msgid "Vehicle '%' is inserted in emergency situation."
-msgstr ""
+msgstr "Il veicolo '%' viene inserito in una situazione di emergenza."
 
 #: src/microsim/MSLane.cpp:816
 msgid "Vehicle '%' will not be able to depart using the given velocity (%)!"
-msgstr ""
+msgstr "Il veicolo '%' non sarà capace di partire con la velocità indicata (%)!"
 
 #: src/microsim/MSLane.cpp:833
 msgid ""
 "Invalid departPos % given for vehicle '%'. Inserting at lane end instead."
 msgstr ""
+"La posizione di partenza (departPos) invalida % è stata data per veicolo "
+"'%'. Pertanto il veicolo verrà inserito alla fine della corsia."
 
 #: src/microsim/MSLane.cpp:1094
 msgid ""
@@ -3070,11 +3078,15 @@ msgstr ""
 msgid ""
 "Removing % participant: vehicle '%', keeping remote-controlled vehicle '%"
 msgstr ""
+"Il veicolo participante % '%' viene rimosso e mantenuto il veicolo "
+"controllato esternamente '%"
 
 #: src/microsim/MSLane.cpp:2099
 msgid ""
 "Keeping remote-controlled % participant: vehicle '%', removing vehicle '%"
 msgstr ""
+"Il veicolo controllato esternamente % '%' viene rimosso e mantenuto il "
+"veicolo participante '%"
 
 #: src/microsim/MSLane.cpp:2110
 msgid ", latGap="
@@ -3110,6 +3122,8 @@ msgstr ""
 #: src/microsim/MSLane.cpp:2252
 msgid "Removing vehicle '%' after breaking down, lane='%', time=%."
 msgstr ""
+"Il veicolo '%' viene rimosso dopo essere rimasto fermo sulla corsia '%' alle "
+"%."
 
 #: src/microsim/MSLane.cpp:2263
 msgid "Teleporting vehicle '%'; beyond end of lane, target lane='%', time=%."
@@ -3174,11 +3188,11 @@ msgstr "Simulazione finita alle ore %."
 
 #: src/microsim/MSNet.cpp:680
 msgid "Reason: "
-msgstr ""
+msgstr "Motivo: "
 
 #: src/microsim/MSNet.cpp:940
 msgid "The final simulation step has been reached."
-msgstr ""
+msgstr "Il passo finale della simulazione è stato raggiunto."
 
 #: src/microsim/MSNet.cpp:942
 msgid "All vehicles have left the simulation."
@@ -4132,6 +4146,7 @@ msgstr ""
 #: src/microsim/devices/MSDevice_Routing.cpp:84
 msgid "The number of parallel execution threads used for rerouting"
 msgstr ""
+"Il numero di thread di esecuzione paralleli da usare per l'instradamento"
 
 #: src/microsim/devices/MSDevice_Routing.cpp:87
 msgid "Let rerouting happen at the same time for all vehicles"
@@ -4170,7 +4185,7 @@ msgstr ""
 
 #: src/microsim/devices/MSDevice_Routing.cpp:122 src/router/ROFrame.cpp:252
 msgid "Parallel routing is only possible when compiled with Fox."
-msgstr ""
+msgstr "L'instradamento parallelo é possibile unicamente se compilato con Fox."
 
 #: src/microsim/devices/MSDevice_Routing.cpp:127
 msgid "Adapting number of routing threads to number of simulation threads."
