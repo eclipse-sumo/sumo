@@ -67,8 +67,6 @@ Triangle::isAroundShape(const PositionVector &shape) const {
 bool
 Triangle::isBoundaryAround(const Boundary &boundary) const {
     if (isAroundPosition(Position(boundary.xmin(), boundary.ymin())) && 
-        isAroundPosition(Position(boundary.xmin(), boundary.ymax())) && 
-        isAroundPosition(Position(boundary.xmax(), boundary.ymin())) && 
         isAroundPosition(Position(boundary.xmax(), boundary.ymax()))) {
         return true;
     } else {
@@ -115,7 +113,7 @@ Triangle::triangulate(PositionVector shape) {
             int shapeSize = (int)shape.size();
             int earIndex = -1;
             // first find an "ear"
-            for (int i = 0; (i != shapeSize) && (earIndex == -1); i++) {
+            for (int i = 0; (i < shapeSize) && (earIndex == -1); i++) {
                 const auto &earA = shape[(i + shapeSize - 1) % shapeSize];
                 const auto &earB = shape[i];
                 const auto &earC = shape[(i + 1) % shapeSize];
@@ -124,7 +122,11 @@ Triangle::triangulate(PositionVector shape) {
                 }
             }
             if (earIndex != -1) {
-                triangles.push_back(Triangle(shape[earIndex-1], shape[earIndex], shape[earIndex+1]));
+                triangles.push_back(Triangle(
+                    shape[(earIndex + shapeSize - 1) % shapeSize],
+                    shape[earIndex],
+                    shape[(earIndex + 1) % shapeSize])
+                    );
                 shape.erase(shape.begin() + earIndex);
             } else {
                 // simply remove the first three
