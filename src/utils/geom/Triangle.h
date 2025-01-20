@@ -66,11 +66,21 @@ public:
     static std::vector<Triangle> triangulate(PositionVector shape);
 
 private:
-    /// @brief calculate triangle area (2D)
-    double calculateTriangleArea2D(const Position& a, const Position& b, const Position& c) const;
+    /// @name functions used for triangulating
+    /// @{
+    /// @brief check if the given position is within this triangle
+    static bool isAroundPosition(const Position &A, const Position &B, const Position &C, const Position &pos);
+
+    // Check if the triangle (A, B, C) is an ear
+    static bool isEar(const Position& a, const Position& b, const Position& c, const PositionVector& shape);
 
     /// @brief calculate cross product of the given points
-    double crossProduct(const Position& A, const Position& B, const Position& C) const;
+    static double crossProduct(const Position& a, const Position& b, const Position& c);
+
+    /// @}
+
+    /// @brief calculate triangle area (2D)
+    double calculateTriangleArea2D(const Position& a, const Position& b, const Position& c) const;
 
     /// @brief function to check if line between posA and posB intersect circle
     bool lineIntersectCircle(const Position& posA, const Position& posB, const Position& center, const double radius) const;

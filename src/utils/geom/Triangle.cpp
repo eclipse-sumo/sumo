@@ -46,13 +46,7 @@ Triangle::~Triangle() {}
 
 bool
 Triangle::isAroundPosition(const Position &pos) const {
-    // Calculate cross products for each edge of the triangle
-    const double crossAB = crossProduct(myA, myB, pos);
-    const double crossBC = crossProduct(myB, myC, pos);
-    const double crossCA = crossProduct(myC, myA, pos);
-    // Check if all cross products have the same sign
-    return (crossAB >= 0 && crossBC >= 0 && crossCA >= 0) || 
-           (crossAB <= 0 && crossBC <= 0 && crossCA <= 0);
+    return isAroundPosition(myA, myB, myC, pos);
 }
 
 
@@ -118,8 +112,25 @@ Triangle::triangulate(PositionVector shape) {
     if (shape.size() >= 3) {
         // greedy algorithm
         while (shape.size() > 3) {
-            triangles.push_back(Triangle(shape[0], shape[1], shape[2]));
-            shape.erase(shape.begin() + 1);
+            int shapeSize = (int)shape.size();
+            int earIndex = -1;
+            // first find an "ear"
+            for (int i = 0; (i != shapeSize) && (earIndex == -1); i++) {
+                const auto &earA = shape[(i + shapeSize - 1) % shapeSize];
+                const auto &earB = shape[i];
+                const auto &earC = shape[(i + 1) % shapeSize];
+                if (isEar(earA, earB, earC, shape)) {
+                    earIndex = i;
+                }
+            }
+            if (earIndex != -1) {
+                triangles.push_back(Triangle(shape[earIndex-1], shape[earIndex], shape[earIndex+1]));
+                shape.erase(shape.begin() + earIndex);
+            } else {
+                // simply remove the first three
+                triangles.push_back(Triangle(shape[0], shape[1], shape[2]));
+                shape.erase(shape.begin() + 1);
+            }
         }
         // add last triangle
         triangles.push_back(Triangle(shape[0], shape[1], shape[2]));
@@ -128,15 +139,43 @@ Triangle::triangulate(PositionVector shape) {
 }
 
 
-double
-Triangle::calculateTriangleArea2D(const Position& a, const Position& b, const Position& c) const {
-    return std::abs((a.x() * (b.y() - c.y()) + b.x() * (c.y() - a.y()) + c.x() * (a.y() - b.y())) / 2.0);
+bool
+Triangle::isAroundPosition(const Position &A, const Position &B, const Position &C, const Position &pos) {
+    // Calculate cross products for each edge of the triangle
+    const double crossAB = crossProduct(A, B, pos);
+    const double crossBC = crossProduct(B, C, pos);
+    const double crossCA = crossProduct(C, A, pos);
+    // Check if all cross products have the same sign
+    return (crossAB >= 0 && crossBC >= 0 && crossCA >= 0) || 
+           (crossAB <= 0 && crossBC <= 0 && crossCA <= 0);
+}
+
+
+bool
+Triangle::isEar(const Position& a, const Position& b, const Position& c, const PositionVector& shape) {
+    // Check if triangle ABC is counter-clockwise
+    if (crossProduct(a, b, c) <= 0) {
+        return false;
+    }
+    // Check if any other point in the polygon lies inside the triangle
+    for (const auto& pos : shape) {
+        if ((pos != a) && (pos != b) && (pos != c) && isAroundPosition(a, b, c, pos)) {
+            return false;
+        }
+    }
+    return true;
 }
 
 
 double
-Triangle::crossProduct(const Position& A, const Position& B, const Position& C) const {
-    return (B.x() - A.x()) * (C.y() - A.y()) - (B.y() - A.y()) * (C.x() - A.x());
+Triangle::crossProduct(const Position& a, const Position& b, const Position& c) {
+    return (b.x() - a.x()) * (c.y() - a.y()) - (b.y() - a.y()) * (c.x() - a.x());
+}
+
+
+double
+Triangle::calculateTriangleArea2D(const Position& a, const Position& b, const Position& c) const {
+    return std::abs((a.x() * (b.y() - c.y()) + b.x() * (c.y() - a.y()) + c.x() * (a.y() - b.y())) / 2.0);
 }
 
 
