@@ -32,8 +32,6 @@ class GNEHierarchicalContainerParents : public std::vector<T> {
 public:
     /// @brief default constructor
     GNEHierarchicalContainerParents() {
-        // we reserve at least 5 positions
-        reserve(5);
     }
 
     /// @brief parameter constructor
