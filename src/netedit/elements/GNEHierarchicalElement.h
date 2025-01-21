@@ -172,37 +172,37 @@ public:
     /// @brief check if children are overlapped (Used by Rerouters)
     bool checkChildAdditionalsOverlapping() const;
 
-    /// @brief check if childs demand elements are overlapped
+    /// @brief check if child demand elements are overlapped
     bool checkChildDemandElementsOverlapping() const;
 
 protected:
-    /// @brief replace parent elements
+    /// @brief replace parents in the given edited element 
     template<typename T, typename U>
-    void replaceParentElements(T* elementChild, const std::vector<U>& newParents) {
-        // remove elementChild from parents
+    void replaceParentElements(T* editedElement, const std::vector<U>& newParents) {
+        // remove edited elements from parents
         for (const auto& parent : myHierarchicalStructure.getParents<U>()) {
-            parent->removeChildElement(elementChild);
+            parent->removeChildElement(editedElement);
         }
-        // set new parents junctions
+        // set new parents
         myHierarchicalStructure.setParents(newParents);
-        // add elementChild into new parents
+        // add edited elements in new parents
         for (const auto& parent : myHierarchicalStructure.getParents<U>()) {
-            parent->addChildElement(elementChild);
+            parent->addChildElement(editedElement);
         }
     }
 
-    /// @brief replace child elements
+    /// @brief replace children in the given edited element 
     template<typename T, typename U>
-    void replaceChildElements(T* elementChild, const std::vector<U>& newChildren) {
-        // remove elementChild from childs
+    void replaceChildElements(T* editedElement, const std::vector<U>& newChildren) {
+        // remove edited elements from children
         for (const auto& child : myHierarchicalStructure.getChildren<U>()) {
-            child->removeChildElement(elementChild);
+            child->removeChildElement(editedElement);
         }
-        // set new childs junctions
+        // set new children
         myHierarchicalStructure.setChildren(newChildren);
-        // add elementChild into new childs
+        // add edited elements in new children
         for (const auto& child : myHierarchicalStructure.getChildren<U>()) {
-            child->addChildElement(elementChild);
+            child->addChildElement(editedElement);
         }
     }
 
