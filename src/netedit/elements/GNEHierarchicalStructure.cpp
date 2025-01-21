@@ -26,7 +26,7 @@
 #include <netedit/elements/data/GNEGenericData.h>
 #include <utils/common/UtilExceptions.h>
 
-#include "GNEHierarchicalContainer.h"
+#include "GNEHierarchicalStructure.h"
 
 // ===========================================================================
 // member method definitions
