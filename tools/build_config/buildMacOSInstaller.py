@@ -268,15 +268,15 @@ def create_framework(name, longname, pkg_id, version, sumo_build_directory, outp
                 for file in proj_file_list:
                     shutil.copy2(os.path.join(source_dir, file), os.path.join(dest_dir, file))
 
-    # Signing the binaries and libraries
-    print(" - Signing binaries and libraries")
-    for dir_path in [bin_dir, lib_dir]:
-        for file in os.listdir(dir_path):
-            file_path = os.path.join(dir_path, file)
-            if os.path.isfile(file_path):
-                print(f"    . Signing {file_path}...")
-                signed_file_path = sign_file(file_path)
-                shutil.move(signed_file_path, file_path)
+    # # Signing the binaries and libraries
+    # print(" - Signing binaries and libraries")
+    # for dir_path in [bin_dir, lib_dir]:
+    #     for file in os.listdir(dir_path):
+    #         file_path = os.path.join(dir_path, file)
+    #         if os.path.isfile(file_path):
+    #             print(f"    . Signing {file_path}...")
+    #             signed_file_path = sign_file(file_path)
+    #             shutil.move(signed_file_path, file_path)
 
     # Build the framework package
     cwd = os.path.dirname(os.path.abspath(__file__))
@@ -520,7 +520,8 @@ def main():
 
     # Building the framework package
     print("Building framework package 'EclipseSUMO'")
-    framework_pkg = create_framework("EclipseSUMO", "Eclipse SUMO", f"{base_id}.framework", version, opts.build_dir, opts.output_framework_dir)
+    framework_pkg = create_framework("EclipseSUMO", "Eclipse SUMO", f"{
+                                     base_id}.framework", version, opts.build_dir, opts.output_framework_dir)
     print(f"Successfully built: '{framework_pkg[1]}' ({framework_pkg[4] / (1024 * 1024):.2f} MB)\n")
 
     # # Building all the app launchers packages
