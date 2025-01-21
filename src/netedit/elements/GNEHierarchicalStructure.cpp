@@ -40,14 +40,14 @@ GNEHierarchicalStructure::GNEHierarchicalStructure(
     const std::vector<GNEEdge*>& parentEdges,
     const std::vector<GNELane*>& parentLanes,
     const std::vector<GNEAdditional*>& parentAdditionals,
-    const std::vector<GNEDemandElement*>& ParentDemandElements,
+    const std::vector<GNEDemandElement*>& parentDemandElements,
     const std::vector<GNEGenericData*>& parentGenericDatas):
-    myParentJunctions(parentJunctions),
-    myParentEdges(parentEdges),
-    myParentLanes(parentLanes),
-    myParentAdditionals(parentAdditionals),
-    myParentDemandElements(ParentDemandElements),
-    myParentGenericDatas(parentGenericDatas) {
+    myParentJunctions(parentJunctions, HierarchicalContainerType::BASIC),
+    myParentEdges(parentEdges, HierarchicalContainerType::BASIC),
+    myParentLanes(parentLanes, HierarchicalContainerType::BASIC),
+    myParentAdditionals(parentAdditionals, HierarchicalContainerType::BASIC),
+    myParentDemandElements(parentDemandElements, HierarchicalContainerType::BASIC),
+    myParentGenericDatas(parentGenericDatas, HierarchicalContainerType::BASIC) {
 }
 
 
@@ -72,252 +72,204 @@ GNEHierarchicalStructure::getContainerSize() const {
 
 template <> void
 GNEHierarchicalStructure::addParentElement(GNEJunction* junction) {
-    myParentJunctions.push_back(junction);
+    myParentJunctions.insert(junction);
 }
 
 
 template <> void
 GNEHierarchicalStructure::addParentElement(GNEEdge* edge) {
-    myParentEdges.push_back(edge);
+    myParentEdges.insert(edge);
 }
 
 
 template <> void
 GNEHierarchicalStructure::addParentElement(GNELane* lane) {
-    myParentLanes.push_back(lane);
+    myParentLanes.insert(lane);
 }
 
 
 template <> void
 GNEHierarchicalStructure::addParentElement(GNEAdditional* additional) {
-    myParentAdditionals.push_back(additional);
+    myParentAdditionals.insert(additional);
 }
 
 
 template <> void
 GNEHierarchicalStructure::addParentElement(GNEDemandElement* demandElement) {
-    myParentDemandElements.push_back(demandElement);
+    myParentDemandElements.insert(demandElement);
 }
 
 
 template <> void
 GNEHierarchicalStructure::addParentElement(GNEGenericData* genericData) {
-    myParentGenericDatas.push_back(genericData);
+    myParentGenericDatas.insert(genericData);
 }
 
 
 template <> void
 GNEHierarchicalStructure::removeParentElement(GNEJunction* junction) {
-    // check junction
-    auto it = std::find(myParentJunctions.begin(), myParentJunctions.end(), junction);
-    if (it == myParentJunctions.end()) {
+    if (myParentJunctions.erase(junction) == false) {
         throw ProcessError(junction->getTagStr() + " with ID='" + junction->getID() + "' is not a parent element");
-    } else {
-        myParentJunctions.erase(it);
     }
 }
 
 
 template <> void
 GNEHierarchicalStructure::removeParentElement(GNEEdge* edge) {
-    // check edge
-    auto it = std::find(myParentEdges.begin(), myParentEdges.end(), edge);
-    if (it == myParentEdges.end()) {
+    if (myParentEdges.erase(edge) == false) {
         throw ProcessError(edge->getTagStr() + " with ID='" + edge->getID() + "' is not a parent element");
-    } else {
-        myParentEdges.erase(it);
     }
 }
 
 
 template <> void
 GNEHierarchicalStructure::removeParentElement(GNELane* lane) {
-    // check lane
-    auto it = std::find(myParentLanes.begin(), myParentLanes.end(), lane);
-    if (it == myParentLanes.end()) {
+    if (myParentLanes.erase(lane) == false) {
         throw ProcessError(lane->getTagStr() + " with ID='" + lane->getID() + "' is not a parent element");
-    } else {
-        myParentLanes.erase(it);
     }
 }
 
 
 template <> void
 GNEHierarchicalStructure::removeParentElement(GNEAdditional* additional) {
-    // check additional
-    auto it = std::find(myParentAdditionals.begin(), myParentAdditionals.end(), additional);
-    if (it == myParentAdditionals.end()) {
+    if (myParentAdditionals.erase(additional) == false) {
         throw ProcessError(additional->getTagStr() + " with ID='" + additional->getID() + "' is not a parent element");
-    } else {
-        myParentAdditionals.erase(it);
     }
 }
 
 
 template <> void
 GNEHierarchicalStructure::removeParentElement(GNEDemandElement* demandElement) {
-    // check TAZElement
-    auto it = std::find(myParentDemandElements.begin(), myParentDemandElements.end(), demandElement);
-    if (it == myParentDemandElements.end()) {
+    if (myParentDemandElements.erase(demandElement) == false) {
         throw ProcessError(demandElement->getTagStr() + " is not a parent element");
-    } else {
-        myParentDemandElements.erase(it);
     }
 }
 
 
 template <> void
 GNEHierarchicalStructure::removeParentElement(GNEGenericData* genericData) {
-    // check generic data
-    auto it = std::find(myParentGenericDatas.begin(), myParentGenericDatas.end(), genericData);
-    if (it == myParentGenericDatas.end()) {
+    if (myParentGenericDatas.erase(genericData) == false) {
         throw ProcessError(genericData->getTagStr() + " is not a parent element");
-    } else {
-        myParentGenericDatas.erase(it);
     }
 }
 
 
 template <> void
 GNEHierarchicalStructure::addChildElement(GNEJunction* junction) {
-    myChildJunctions.push_back(junction);
+    myChildJunctions.insert(junction);
 }
 
 
 template <> void
 GNEHierarchicalStructure::addChildElement(GNEEdge* edge) {
-    myChildEdges.push_back(edge);
+    myChildEdges.insert(edge);
 }
 
 
 template <> void
 GNEHierarchicalStructure::addChildElement(GNELane* lane) {
-    myChildLanes.push_back(lane);
+    myChildLanes.insert(lane);
 }
 
 
 template <> void
 GNEHierarchicalStructure::addChildElement(GNEAdditional* additional) {
-    myChildAdditionals.push_back(additional);
+    myChildAdditionals.insert(additional);
 }
 
 
 template <> void
 GNEHierarchicalStructure::addChildElement(GNEDemandElement* demandElement) {
-    myChildDemandElements.push_back(demandElement);
+    myChildDemandElements.insert(demandElement);
 
 }
 
 
 template <> void
 GNEHierarchicalStructure::addChildElement(GNEGenericData* genericData) {
-    myChildGenericDatas.push_back(genericData);
+    myChildGenericDatas.insert(genericData);
 }
 
 
 template <> void
 GNEHierarchicalStructure::removeChildElement(GNEJunction* junction) {
-    // check junction
-    auto it = std::find(myChildJunctions.begin(), myChildJunctions.end(), junction);
-    if (it == myChildJunctions.end()) {
+    if (myChildJunctions.erase(junction) == false) {
         throw ProcessError(junction->getTagStr() + " is not a child element");
-    } else {
-        myChildJunctions.erase(it);
     }
 }
 
 
 template <> void
 GNEHierarchicalStructure::removeChildElement(GNEEdge* edge) {
-    // check edge
-    auto it = std::find(myChildEdges.begin(), myChildEdges.end(), edge);
-    if (it == myChildEdges.end()) {
+    if (myChildEdges.erase(edge) == false) {
         throw ProcessError(edge->getTagStr() + " is not a child element");
-    } else {
-        myChildEdges.erase(it);
     }
 }
 
 
 template <> void
 GNEHierarchicalStructure::removeChildElement(GNELane* lane) {
-    // check lane
-    auto it = std::find(myChildLanes.begin(), myChildLanes.end(), lane);
-    if (it == myChildLanes.end()) {
+    if (myChildLanes.erase(lane) == false) {
         throw ProcessError(lane->getTagStr() + " is not a child element");
-    } else {
-        myChildLanes.erase(it);
     }
 }
 
 
 template <> void
 GNEHierarchicalStructure::removeChildElement(GNEAdditional* additional) {
-    // check additional
-    auto it = std::find(myChildAdditionals.begin(), myChildAdditionals.end(), additional);
-    if (it == myChildAdditionals.end()) {
+    if (myChildAdditionals.erase(additional) == false) {
         throw ProcessError(additional->getTagStr() + " is not a child element");
-    } else {
-        myChildAdditionals.erase(it);
     }
 }
 
 
 template <> void
 GNEHierarchicalStructure::removeChildElement(GNEDemandElement* demandElement) {
-    // check demand element
-    auto it = std::find(myChildDemandElements.begin(), myChildDemandElements.end(), demandElement);
-    if (it == myChildDemandElements.end()) {
+    if (myChildDemandElements.erase(demandElement) == false) {
         throw ProcessError(demandElement->getTagStr() + " is not a child element");
-    } else {
-        myChildDemandElements.erase(it);
     }
 }
 
 
 template <> void
 GNEHierarchicalStructure::removeChildElement(GNEGenericData* genericData) {
-    // check generic data
-    auto it = std::find(myChildGenericDatas.begin(), myChildGenericDatas.end(), genericData);
-    if (it == myChildGenericDatas.end()) {
+    if (myChildGenericDatas.erase(genericData) == false) {
         throw ProcessError(genericData->getTagStr() + " is not a child element");
-    } else {
-        myChildGenericDatas.erase(it);
     }
 }
 
 
-template<> const std::vector<GNEJunction*>&
+template<> const GNEHierarchicalContainer<GNEJunction*>&
 GNEHierarchicalStructure::getParents() const {
     return myParentJunctions;
 }
 
 
-template<> const std::vector<GNEEdge*>&
+template<> const GNEHierarchicalContainer<GNEEdge*>&
 GNEHierarchicalStructure::getParents() const {
     return myParentEdges;
 }
 
 
-template<> const std::vector<GNELane*>&
+template<> const GNEHierarchicalContainer<GNELane*>&
 GNEHierarchicalStructure::getParents() const {
     return myParentLanes;
 }
 
 
-template<> const std::vector<GNEAdditional*>&
+template<> const GNEHierarchicalContainer<GNEAdditional*>&
 GNEHierarchicalStructure::getParents() const {
     return myParentAdditionals;
 }
 
 
-template<> const std::vector<GNEDemandElement*>&
+template<> const GNEHierarchicalContainer<GNEDemandElement*>&
 GNEHierarchicalStructure::getParents() const {
     return myParentDemandElements;
 }
 
 
-template<> const std::vector<GNEGenericData*>&
+template<> const GNEHierarchicalContainer<GNEGenericData*>&
 GNEHierarchicalStructure::getParents() const {
     return myParentGenericDatas;
 }
@@ -325,71 +277,71 @@ GNEHierarchicalStructure::getParents() const {
 
 template<> void
 GNEHierarchicalStructure::setParents(const std::vector<GNEJunction*>& newParents) {
-    myParentJunctions = newParents;
+    myParentJunctions.set(newParents);
 }
 
 
 template<> void
 GNEHierarchicalStructure::setParents(const std::vector<GNEEdge*>& newParents) {
-    myParentEdges = newParents;
+    myParentEdges.set(newParents);
 }
 
 
 template<> void
 GNEHierarchicalStructure::setParents(const std::vector<GNELane*>& newParents) {
-    myParentLanes = newParents;
+    myParentLanes.set(newParents);
 }
 
 
 template<> void
 GNEHierarchicalStructure::setParents(const std::vector<GNEAdditional*>& newParents) {
-    myParentAdditionals = newParents;
+    myParentAdditionals.set(newParents);
 }
 
 
 template<> void
 GNEHierarchicalStructure::setParents(const std::vector<GNEDemandElement*>& newParents) {
-    myParentDemandElements = newParents;
+    myParentDemandElements.set(newParents);
 }
 
 
 template<> void
 GNEHierarchicalStructure::setParents(const std::vector<GNEGenericData*>& newParents) {
-    myParentGenericDatas = newParents;
+    myParentGenericDatas.set(newParents);
 }
 
 
-template<> const std::vector<GNEJunction*>&
+template<> const GNEHierarchicalContainer<GNEJunction*>&
 GNEHierarchicalStructure::getChildren() const {
     return myChildJunctions;
 }
 
 
-template<> const std::vector<GNEEdge*>&
+template<> const GNEHierarchicalContainer<GNEEdge*>&
 GNEHierarchicalStructure::getChildren() const {
     return myChildEdges;
 }
 
 
-template<> const std::vector<GNELane*>&
+template<> const GNEHierarchicalContainer<GNELane*>&
 GNEHierarchicalStructure::getChildren() const {
     return myChildLanes;
 }
 
 
-template<> const std::vector<GNEAdditional*>&
+template<> const GNEHierarchicalContainer<GNEAdditional*>&
 GNEHierarchicalStructure::getChildren() const {
     return myChildAdditionals;
 }
 
 
-template<> const std::vector<GNEDemandElement*>&
+template<> const GNEHierarchicalContainer<GNEDemandElement*>&
 GNEHierarchicalStructure::getChildren() const {
     return myChildDemandElements;
 }
 
 
-template<> const std::vector<GNEGenericData*>&
+template<> const GNEHierarchicalContainer<GNEGenericData*>&
 GNEHierarchicalStructure::getChildren() const {
     return myChildGenericDatas;
 }
@@ -397,37 +349,37 @@ GNEHierarchicalStructure::getChildren() const {
 
 template<> void
 GNEHierarchicalStructure::setChildren(const std::vector<GNEJunction*>& newChildren) {
-    myChildJunctions = newChildren;
+    myChildJunctions.set(newChildren);
 }
 
 
 template<> void
 GNEHierarchicalStructure::setChildren(const std::vector<GNEEdge*>& newChildren) {
-    myChildEdges = newChildren;
+    myChildEdges.set(newChildren);
 }
 
 
 template<> void
 GNEHierarchicalStructure::setChildren(const std::vector<GNELane*>& newChildren) {
-    myChildLanes = newChildren;
+    myChildLanes.set(newChildren);
 }
 
 
 template<> void
 GNEHierarchicalStructure::setChildren(const std::vector<GNEAdditional*>& newChildren) {
-    myChildAdditionals = newChildren;
+    myChildAdditionals.set(newChildren);
 }
 
 
 template<> void
 GNEHierarchicalStructure::setChildren(const std::vector<GNEDemandElement*>& newChildren) {
-    myChildDemandElements = newChildren;
+    myChildDemandElements.set(newChildren);
 }
 
 
 template<> void
 GNEHierarchicalStructure::setChildren(const std::vector<GNEGenericData*>& newChildren) {
-    myChildGenericDatas = newChildren;
+    myChildGenericDatas.set(newChildren);
 }
 
 /****************************************************************************/

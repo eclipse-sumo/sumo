@@ -107,33 +107,33 @@ GNEHierarchicalElement::getAllHierarchicalElements() const {
 }
 
 
-const std::vector<GNEJunction*>&
+const GNEHierarchicalContainer<GNEJunction*>&
 GNEHierarchicalElement::getParentJunctions() const {
-    return myHierarchicalStructure.getParents<std::vector<GNEJunction*> >();
+    return myHierarchicalStructure.getParents<GNEHierarchicalContainer<GNEJunction*> >();
 }
 
 
-const std::vector<GNEEdge*>&
+const GNEHierarchicalContainer<GNEEdge*>&
 GNEHierarchicalElement::getParentEdges() const {
-    return myHierarchicalStructure.getParents<std::vector<GNEEdge*> >();
+    return myHierarchicalStructure.getParents<GNEHierarchicalContainer<GNEEdge*> >();
 }
 
 
-const std::vector<GNELane*>&
+const GNEHierarchicalContainer<GNELane*>&
 GNEHierarchicalElement::getParentLanes() const {
-    return myHierarchicalStructure.getParents<std::vector<GNELane*> >();
+    return myHierarchicalStructure.getParents<GNEHierarchicalContainer<GNELane*> >();
 }
 
 
-const std::vector<GNEAdditional*>&
+const GNEHierarchicalContainer<GNEAdditional*>&
 GNEHierarchicalElement::getParentAdditionals() const {
-    return myHierarchicalStructure.getParents<std::vector<GNEAdditional*> >();
+    return myHierarchicalStructure.getParents<GNEHierarchicalContainer<GNEAdditional*> >();
 }
 
 
-const std::vector<GNEAdditional*>
+const GNEHierarchicalContainer<GNEAdditional*>
 GNEHierarchicalElement::getParentStoppingPlaces() const {
-    std::vector<GNEAdditional*> stoppingPlaces;
+    GNEHierarchicalContainer<GNEAdditional*> stoppingPlaces;
     for (const auto& additional : getParentAdditionals()) {
         if (additional->getTagProperty().isStoppingPlace()) {
             stoppingPlaces.push_back(additional);
@@ -143,9 +143,9 @@ GNEHierarchicalElement::getParentStoppingPlaces() const {
 }
 
 
-const std::vector<GNEAdditional*>
+const GNEHierarchicalContainer<GNEAdditional*>
 GNEHierarchicalElement::getParentTAZs() const {
-    std::vector<GNEAdditional*> TAZs;
+    GNEHierarchicalContainer<GNEAdditional*> TAZs;
     for (const auto& additional : getParentAdditionals()) {
         if (additional->getTagProperty().isTAZElement()) {
             TAZs.push_back(additional);
@@ -155,51 +155,51 @@ GNEHierarchicalElement::getParentTAZs() const {
 }
 
 
-const std::vector<GNEDemandElement*>&
+const GNEHierarchicalContainer<GNEDemandElement*>&
 GNEHierarchicalElement::getParentDemandElements() const {
-    return myHierarchicalStructure.getParents<std::vector<GNEDemandElement*> >();
+    return myHierarchicalStructure.getParents<GNEHierarchicalContainer<GNEDemandElement*> >();
 }
 
 
-const std::vector<GNEGenericData*>&
+const GNEHierarchicalContainer<GNEGenericData*>&
 GNEHierarchicalElement::getParentGenericDatas() const {
-    return myHierarchicalStructure.getParents<std::vector<GNEGenericData*> >();
+    return myHierarchicalStructure.getParents<GNEHierarchicalContainer<GNEGenericData*> >();
 }
 
 
-const std::vector<GNEJunction*>&
+const GNEHierarchicalContainer<GNEJunction*>&
 GNEHierarchicalElement::getChildJunctions() const {
-    return myHierarchicalStructure.getChildren<std::vector<GNEJunction*> >();
+    return myHierarchicalStructure.getChildren<GNEHierarchicalContainer<GNEJunction*> >();
 }
 
 
-const std::vector<GNEEdge*>&
+const GNEHierarchicalContainer<GNEEdge*>&
 GNEHierarchicalElement::getChildEdges() const {
-    return myHierarchicalStructure.getChildren<std::vector<GNEEdge*> >();
+    return myHierarchicalStructure.getChildren<GNEHierarchicalContainer<GNEEdge*> >();
 }
 
 
-const std::vector<GNELane*>&
+const GNEHierarchicalContainer<GNELane*>&
 GNEHierarchicalElement::getChildLanes() const {
-    return myHierarchicalStructure.getChildren<std::vector<GNELane*> >();
+    return myHierarchicalStructure.getChildren<GNEHierarchicalContainer<GNELane*> >();
 }
 
 
-const std::vector<GNEAdditional*>&
+const GNEHierarchicalContainer<GNEAdditional*>&
 GNEHierarchicalElement::getChildAdditionals() const {
-    return myHierarchicalStructure.getChildren<std::vector<GNEAdditional*> >();
+    return myHierarchicalStructure.getChildren<GNEHierarchicalContainer<GNEAdditional*> >();
 }
 
 
-const std::vector<GNEDemandElement*>&
+const GNEHierarchicalContainer<GNEDemandElement*>&
 GNEHierarchicalElement::getChildDemandElements() const {
-    return myHierarchicalStructure.getChildren<std::vector<GNEDemandElement*> >();
+    return myHierarchicalStructure.getChildren<GNEHierarchicalContainer<GNEDemandElement*> >();
 }
 
 
-const std::vector<GNEGenericData*>&
+const GNEHierarchicalContainer<GNEGenericData*>&
 GNEHierarchicalElement::getChildGenericDatas() const {
-    return myHierarchicalStructure.getChildren<std::vector<GNEGenericData*> >();
+    return myHierarchicalStructure.getChildren<GNEHierarchicalContainer<GNEGenericData*> >();
 }
 
 

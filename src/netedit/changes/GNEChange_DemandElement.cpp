@@ -91,7 +91,7 @@ GNEChange_DemandElement::undo() {
         myDemandElement->getNet()->getViewNet()->getViewParent()->getTypeFrame()->getTypeSelector()->refreshTypeSelector(true);
     }
     // update stack labels
-    const auto parentEdges = myOriginalHierarchicalContainer.getParents<std::vector<GNEEdge*> >();
+    const auto parentEdges = myOriginalHierarchicalContainer.getParents<GNEHierarchicalContainer<GNEEdge*> >();
     if (parentEdges.size() > 0) {
         parentEdges.front()->updateVehicleStackLabels();
         parentEdges.front()->updatePersonStackLabels();
@@ -132,7 +132,7 @@ GNEChange_DemandElement::redo() {
         myDemandElement->getNet()->getViewNet()->getViewParent()->getTypeFrame()->getTypeSelector()->refreshTypeSelector(true);
     }
     // update stack labels
-    const auto parentEdges = myOriginalHierarchicalContainer.getParents<std::vector<GNEEdge*> >();
+    const auto parentEdges = myOriginalHierarchicalContainer.getParents<GNEHierarchicalContainer<GNEEdge*> >();
     if (parentEdges.size() > 0) {
         parentEdges.front()->updateVehicleStackLabels();
         parentEdges.front()->updatePersonStackLabels();

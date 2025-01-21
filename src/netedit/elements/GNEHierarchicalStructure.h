@@ -22,6 +22,8 @@
 
 #include <vector>
 
+#include "GNEHierarchicalContainer.h"
+
 // ===========================================================================
 // class declarations
 // ===========================================================================
@@ -52,7 +54,7 @@ public:
         const std::vector<GNEEdge*>& parentEdges,
         const std::vector<GNELane*>& parentLanes,
         const std::vector<GNEAdditional*>& parentAdditionals,
-        const std::vector<GNEDemandElement*>& ParentDemandElements,
+        const std::vector<GNEDemandElement*>& parentDemandElements,
         const std::vector<GNEGenericData*>& parentGenericDatas);
 
     /// @brief get container size
@@ -91,39 +93,39 @@ public:
     void setChildren(const T& newChildren);
 
 private:
-    /// @brief vector of parent junctions
-    std::vector<GNEJunction*> myParentJunctions;
+    /// @brief parents junctions
+    GNEHierarchicalContainer<GNEJunction*> myParentJunctions;
 
-    /// @brief vector of parent edges
-    std::vector<GNEEdge*> myParentEdges;
+    /// @brief parents edges
+    GNEHierarchicalContainer<GNEEdge*> myParentEdges;
 
-    /// @brief vector of parent lanes
-    std::vector<GNELane*> myParentLanes;
+    /// @brief parents lanes
+    GNEHierarchicalContainer<GNELane*> myParentLanes;
 
-    /// @brief vector of parent additionals
-    std::vector<GNEAdditional*> myParentAdditionals;
+    /// @brief parents additionals
+    GNEHierarchicalContainer<GNEAdditional*> myParentAdditionals;
 
-    /// @brief vector of parent demand elements
-    std::vector<GNEDemandElement*> myParentDemandElements;
+    /// @brief parents demand elements
+    GNEHierarchicalContainer<GNEDemandElement*> myParentDemandElements;
 
-    /// @brief vector of parent generic datas
-    std::vector<GNEGenericData*> myParentGenericDatas;
+    /// @brief parents generic datas
+    GNEHierarchicalContainer<GNEGenericData*> myParentGenericDatas;
 
-    /// @brief vector with the child junctions
-    std::vector<GNEJunction*> myChildJunctions;
+    /// @brief children junctions
+    GNEHierarchicalContainer<GNEJunction*> myChildJunctions;
 
-    /// @brief vector with the child edges
-    std::vector<GNEEdge*> myChildEdges;
+    /// @brief children edges
+    GNEHierarchicalContainer<GNEEdge*> myChildEdges;
 
-    /// @brief vector with the child lanes
-    std::vector<GNELane*> myChildLanes;
+    /// @brief children lanes
+    GNEHierarchicalContainer<GNELane*> myChildLanes;
 
-    /// @brief vector with the child additional
-    std::vector<GNEAdditional*> myChildAdditionals;
+    /// @brief children additional elements
+    GNEHierarchicalContainer<GNEAdditional*> myChildAdditionals;
 
-    /// @brief vector with the child demand elements
-    std::vector<GNEDemandElement*> myChildDemandElements;
+    /// @brief children demand elements
+    GNEHierarchicalContainer<GNEDemandElement*> myChildDemandElements;
 
-    /// @brief vector with the generic child data elements
-    std::vector<GNEGenericData*> myChildGenericDatas;
+    /// @brief children genericdata elements
+    GNEHierarchicalContainer<GNEGenericData*> myChildGenericDatas;
 };
