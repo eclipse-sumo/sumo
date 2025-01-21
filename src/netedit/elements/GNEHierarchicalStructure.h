@@ -78,7 +78,7 @@ public:
 
     /// @brief get parents
     template<typename T>
-    const T& getParents() const;
+    const GNEHierarchicalContainer<T>& getParents() const;
 
     /// @brief set parents
     template<typename T>
@@ -86,7 +86,7 @@ public:
 
     /// @brief get children
     template<typename T>
-    const T& getChildren() const;
+    const GNEHierarchicalContainer<T>& getChildren() const;
 
     /// @brief set children
     template<typename T>

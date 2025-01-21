@@ -123,41 +123,41 @@ protected:
     template<typename T>
     void addElementInParentsAndChildren(T* element) {
         // add element in parents
-        for (const auto& junction : myOriginalHierarchicalContainer.getParents<GNEHierarchicalContainer<GNEJunction*> >()) {
+        for (const auto& junction : myOriginalHierarchicalContainer.getParents<GNEJunction*>()) {
             junction->addChildElement(element);
         }
-        for (const auto& edge : myOriginalHierarchicalContainer.getParents<GNEHierarchicalContainer<GNEEdge*> >()) {
+        for (const auto& edge : myOriginalHierarchicalContainer.getParents<GNEEdge*>()) {
             edge->addChildElement(element);
         }
-        for (const auto& lane : myOriginalHierarchicalContainer.getParents<GNEHierarchicalContainer<GNELane*> >()) {
+        for (const auto& lane : myOriginalHierarchicalContainer.getParents<GNELane*>()) {
             lane->addChildElement(element);
         }
-        for (const auto& additional : myOriginalHierarchicalContainer.getParents<GNEHierarchicalContainer<GNEAdditional*> >()) {
+        for (const auto& additional : myOriginalHierarchicalContainer.getParents<GNEAdditional*>()) {
             additional->addChildElement(element);
         }
-        for (const auto& demandElement : myOriginalHierarchicalContainer.getParents<GNEHierarchicalContainer<GNEDemandElement*> >()) {
+        for (const auto& demandElement : myOriginalHierarchicalContainer.getParents<GNEDemandElement*>()) {
             demandElement->addChildElement(element);
         }
-        for (const auto& genericData : myOriginalHierarchicalContainer.getParents<GNEHierarchicalContainer<GNEGenericData*> >()) {
+        for (const auto& genericData : myOriginalHierarchicalContainer.getParents<GNEGenericData*>()) {
             genericData->addChildElement(element);
         }
         // add element in children
-        for (const auto& junction : myOriginalHierarchicalContainer.getChildren<GNEHierarchicalContainer<GNEJunction*> >()) {
+        for (const auto& junction : myOriginalHierarchicalContainer.getChildren<GNEJunction*>()) {
             junction->addParentElement(element);
         }
-        for (const auto& edge : myOriginalHierarchicalContainer.getChildren<GNEHierarchicalContainer<GNEEdge*> >()) {
+        for (const auto& edge : myOriginalHierarchicalContainer.getChildren<GNEEdge*>()) {
             edge->addParentElement(element);
         }
-        for (const auto& lane : myOriginalHierarchicalContainer.getChildren<GNEHierarchicalContainer<GNELane*> >()) {
+        for (const auto& lane : myOriginalHierarchicalContainer.getChildren<GNELane*>()) {
             lane->addParentElement(element);
         }
-        for (const auto& additional : myOriginalHierarchicalContainer.getChildren<GNEHierarchicalContainer<GNEAdditional*> >()) {
+        for (const auto& additional : myOriginalHierarchicalContainer.getChildren<GNEAdditional*>()) {
             additional->addParentElement(element);
         }
-        for (const auto& demandElement : myOriginalHierarchicalContainer.getChildren<GNEHierarchicalContainer<GNEDemandElement*> >()) {
+        for (const auto& demandElement : myOriginalHierarchicalContainer.getChildren<GNEDemandElement*>()) {
             demandElement->addParentElement(element);
         }
-        for (const auto& genericData : myOriginalHierarchicalContainer.getChildren<GNEHierarchicalContainer<GNEGenericData*> >()) {
+        for (const auto& genericData : myOriginalHierarchicalContainer.getChildren<GNEGenericData*>()) {
             genericData->addParentElement(element);
         }
     }
@@ -166,41 +166,41 @@ protected:
     template<typename T>
     void removeElementFromParentsAndChildren(T* element) {
         // Remove element from parents
-        for (const auto& junction : myOriginalHierarchicalContainer.getParents<GNEHierarchicalContainer<GNEJunction*> >()) {
+        for (const auto& junction : myOriginalHierarchicalContainer.getParents<GNEJunction*>()) {
             junction->removeChildElement(element);
         }
-        for (const auto& edge : myOriginalHierarchicalContainer.getParents<GNEHierarchicalContainer<GNEEdge*> >()) {
+        for (const auto& edge : myOriginalHierarchicalContainer.getParents<GNEEdge*>()) {
             edge->removeChildElement(element);
         }
-        for (const auto& lane : myOriginalHierarchicalContainer.getParents<GNEHierarchicalContainer<GNELane*> >()) {
+        for (const auto& lane : myOriginalHierarchicalContainer.getParents<GNELane*>()) {
             lane->removeChildElement(element);
         }
-        for (const auto& additional : myOriginalHierarchicalContainer.getParents<GNEHierarchicalContainer<GNEAdditional*> >()) {
+        for (const auto& additional : myOriginalHierarchicalContainer.getParents<GNEAdditional*>()) {
             additional->removeChildElement(element);
         }
-        for (const auto& demandElement : myOriginalHierarchicalContainer.getParents<GNEHierarchicalContainer<GNEDemandElement*> >()) {
+        for (const auto& demandElement : myOriginalHierarchicalContainer.getParents<GNEDemandElement*>()) {
             demandElement->removeChildElement(element);
         }
-        for (const auto& genericData : myOriginalHierarchicalContainer.getParents<GNEHierarchicalContainer<GNEGenericData*> >()) {
+        for (const auto& genericData : myOriginalHierarchicalContainer.getParents<GNEGenericData*>()) {
             genericData->removeChildElement(element);
         }
         // Remove element from children
-        for (const auto& junction : myOriginalHierarchicalContainer.getChildren<GNEHierarchicalContainer<GNEJunction*> >()) {
+        for (const auto& junction : myOriginalHierarchicalContainer.getChildren<GNEJunction*>()) {
             junction->removeParentElement(element);
         }
-        for (const auto& edge : myOriginalHierarchicalContainer.getChildren<GNEHierarchicalContainer<GNEEdge*> >()) {
+        for (const auto& edge : myOriginalHierarchicalContainer.getChildren<GNEEdge*>()) {
             edge->removeParentElement(element);
         }
-        for (const auto& lane : myOriginalHierarchicalContainer.getChildren<GNEHierarchicalContainer<GNELane*> >()) {
+        for (const auto& lane : myOriginalHierarchicalContainer.getChildren<GNELane*>()) {
             lane->removeParentElement(element);
         }
-        for (const auto& additional : myOriginalHierarchicalContainer.getChildren<GNEHierarchicalContainer<GNEAdditional*> >()) {
+        for (const auto& additional : myOriginalHierarchicalContainer.getChildren<GNEAdditional*>()) {
             additional->removeParentElement(element);
         }
-        for (const auto& demandElement : myOriginalHierarchicalContainer.getChildren<GNEHierarchicalContainer<GNEDemandElement*> >()) {
+        for (const auto& demandElement : myOriginalHierarchicalContainer.getChildren<GNEDemandElement*>()) {
             demandElement->removeParentElement(element);
         }
-        for (const auto& genericData : myOriginalHierarchicalContainer.getChildren<GNEHierarchicalContainer<GNEGenericData*> >()) {
+        for (const auto& genericData : myOriginalHierarchicalContainer.getChildren<GNEGenericData*>()) {
             genericData->removeParentElement(element);
         }
     }

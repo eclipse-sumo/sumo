@@ -129,6 +129,7 @@ public:
 
     /// @brief return child generic data elements
     const GNEHierarchicalContainer<GNEGenericData*>& getChildGenericDatas() const;
+
     /// @}
 
     /// @name common generic add/remove functions
@@ -179,13 +180,13 @@ protected:
     template<typename T, typename U>
     void replaceParentElements(T* elementChild, const std::vector<U>& newParents) {
         // remove elementChild from parents
-        for (const auto& parent : myHierarchicalStructure.getParents< GNEHierarchicalContainer<U> >()) {
+        for (const auto& parent : myHierarchicalStructure.getParents<U>()) {
             parent->removeChildElement(elementChild);
         }
         // set new parents junctions
         myHierarchicalStructure.setParents(newParents);
         // add elementChild into new parents
-        for (const auto& parent : myHierarchicalStructure.getParents< GNEHierarchicalContainer<U> >()) {
+        for (const auto& parent : myHierarchicalStructure.getParents<U>()) {
             parent->addChildElement(elementChild);
         }
     }
@@ -194,13 +195,13 @@ protected:
     template<typename T, typename U>
     void replaceChildElements(T* elementChild, const std::vector<U>& newChildren) {
         // remove elementChild from childs
-        for (const auto& child : myHierarchicalStructure.getChildren< GNEHierarchicalContainer<U> >()) {
+        for (const auto& child : myHierarchicalStructure.getChildren<U>()) {
             child->removeChildElement(elementChild);
         }
         // set new childs junctions
         myHierarchicalStructure.setChildren(newChildren);
         // add elementChild into new childs
-        for (const auto& child : myHierarchicalStructure.getChildren< GNEHierarchicalContainer<U> >()) {
+        for (const auto& child : myHierarchicalStructure.getChildren<U>()) {
             child->addChildElement(elementChild);
         }
     }

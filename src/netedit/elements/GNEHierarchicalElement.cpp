@@ -109,25 +109,25 @@ GNEHierarchicalElement::getAllHierarchicalElements() const {
 
 const GNEHierarchicalContainer<GNEJunction*>&
 GNEHierarchicalElement::getParentJunctions() const {
-    return myHierarchicalStructure.getParents<GNEHierarchicalContainer<GNEJunction*> >();
+    return myHierarchicalStructure.getParents<GNEJunction*>();
 }
 
 
 const GNEHierarchicalContainer<GNEEdge*>&
 GNEHierarchicalElement::getParentEdges() const {
-    return myHierarchicalStructure.getParents<GNEHierarchicalContainer<GNEEdge*> >();
+    return myHierarchicalStructure.getParents<GNEEdge*>();
 }
 
 
 const GNEHierarchicalContainer<GNELane*>&
 GNEHierarchicalElement::getParentLanes() const {
-    return myHierarchicalStructure.getParents<GNEHierarchicalContainer<GNELane*> >();
+    return myHierarchicalStructure.getParents<GNELane*>();
 }
 
 
 const GNEHierarchicalContainer<GNEAdditional*>&
 GNEHierarchicalElement::getParentAdditionals() const {
-    return myHierarchicalStructure.getParents<GNEHierarchicalContainer<GNEAdditional*> >();
+    return myHierarchicalStructure.getParents<GNEAdditional*>();
 }
 
 
@@ -157,49 +157,49 @@ GNEHierarchicalElement::getParentTAZs() const {
 
 const GNEHierarchicalContainer<GNEDemandElement*>&
 GNEHierarchicalElement::getParentDemandElements() const {
-    return myHierarchicalStructure.getParents<GNEHierarchicalContainer<GNEDemandElement*> >();
+    return myHierarchicalStructure.getParents<GNEDemandElement*>();
 }
 
 
 const GNEHierarchicalContainer<GNEGenericData*>&
 GNEHierarchicalElement::getParentGenericDatas() const {
-    return myHierarchicalStructure.getParents<GNEHierarchicalContainer<GNEGenericData*> >();
+    return myHierarchicalStructure.getParents<GNEGenericData*>();
 }
 
 
 const GNEHierarchicalContainer<GNEJunction*>&
 GNEHierarchicalElement::getChildJunctions() const {
-    return myHierarchicalStructure.getChildren<GNEHierarchicalContainer<GNEJunction*> >();
+    return myHierarchicalStructure.getChildren<GNEJunction*>();
 }
 
 
 const GNEHierarchicalContainer<GNEEdge*>&
 GNEHierarchicalElement::getChildEdges() const {
-    return myHierarchicalStructure.getChildren<GNEHierarchicalContainer<GNEEdge*> >();
+    return myHierarchicalStructure.getChildren<GNEEdge*>();
 }
 
 
 const GNEHierarchicalContainer<GNELane*>&
 GNEHierarchicalElement::getChildLanes() const {
-    return myHierarchicalStructure.getChildren<GNEHierarchicalContainer<GNELane*> >();
+    return myHierarchicalStructure.getChildren<GNELane*>();
 }
 
 
 const GNEHierarchicalContainer<GNEAdditional*>&
 GNEHierarchicalElement::getChildAdditionals() const {
-    return myHierarchicalStructure.getChildren<GNEHierarchicalContainer<GNEAdditional*> >();
+    return myHierarchicalStructure.getChildren<GNEAdditional*>();
 }
 
 
 const GNEHierarchicalContainer<GNEDemandElement*>&
 GNEHierarchicalElement::getChildDemandElements() const {
-    return myHierarchicalStructure.getChildren<GNEHierarchicalContainer<GNEDemandElement*> >();
+    return myHierarchicalStructure.getChildren<GNEDemandElement*>();
 }
 
 
 const GNEHierarchicalContainer<GNEGenericData*>&
 GNEHierarchicalElement::getChildGenericDatas() const {
-    return myHierarchicalStructure.getChildren<GNEHierarchicalContainer<GNEGenericData*> >();
+    return myHierarchicalStructure.getChildren<GNEGenericData*>();
 }
 
 
