@@ -71,6 +71,8 @@ def parse_args(def_dmg_name, def_pkg_name):
     op.add_argument("build_dir", help="Build dir of sumo")
     op.add_argument("--output-pkg", dest="output_pkg", help="Output path for pkg", default=def_output_pkg_path)
     op.add_argument("--output-dmg", dest="output_dmg", help="Output path for dmg", default=def_output_dmg_path)
+    op.add_argument("--output-framework-dir", dest="output_framework_dir")
+
     op.add_option("-v", "--verbose", action="store_true", default=False, help="tell me more")
 
     return op.parse_args()
@@ -169,9 +171,16 @@ def sign_file(file_path):
         os.remove(temp_entitlements.name)
 
 
-def create_framework(name, longname, pkg_id, version, sumo_build_directory):
+def create_framework(name, longname, pkg_id, version, sumo_build_directory, output_dir=None):
     print(" - Creating directory structure")
-    temp_dir = tempfile.mkdtemp()
+
+    # Use the provided framework_dir or create a temporary directory
+    if output_dir:
+        if not os.path.exists(output_dir):
+            os.makedirs(output_dir, exist_ok=True)
+        temp_dir = output_dir
+    else:
+        temp_dir = tempfile.mkdtemp()
 
     # Create the directory structure for the framework bundle
     # see: https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/BPFrameworks/Concepts/FrameworkAnatomy.html  # noqa
@@ -285,14 +294,15 @@ def create_framework(name, longname, pkg_id, version, sumo_build_directory):
         f"/Library/Frameworks/{name}.framework",
         f"{pkg_path}",
     ]
-    print(" - Calling pkgbuild")
-    subprocess.run(pkg_build_command, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-    pkg_size = os.path.getsize(pkg_path)
+    # print(" - Calling pkgbuild")
+    # subprocess.run(pkg_build_command, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    # pkg_size = os.path.getsize(pkg_path)
 
-    # Cleanup the temporary directory
-    print(" - Cleaning up")
-    shutil.rmtree(temp_dir)
-    return name, pkg_name, pkg_id, pkg_path, pkg_size
+    # # Cleanup the temporary directory
+    # print(" - Cleaning up")
+    # shutil.rmtree(temp_dir)
+    # return name, pkg_name, pkg_id, pkg_path, pkg_size
+    return name, pkg_name, pkg_id, pkg_path, 0
 
 
 def create_app(app_name, exec_call, framework_name, pkg_id, version, icns_path, verbose):
@@ -510,68 +520,68 @@ def main():
 
     # Building the framework package
     print("Building framework package 'EclipseSUMO'")
-    framework_pkg = create_framework("EclipseSUMO", "Eclipse SUMO", f"{base_id}.framework", version, opts.build_dir)
+    framework_pkg = create_framework("EclipseSUMO", "Eclipse SUMO", f"{base_id}.framework", version, opts.build_dir, opts.output_framework_dir)
     print(f"Successfully built: '{framework_pkg[1]}' ({framework_pkg[4] / (1024 * 1024):.2f} MB)\n")
 
-    # Building all the app launchers packages
-    cwd = os.path.dirname(os.path.abspath(__file__))
-    app_pkgs = []
-    app_list = [
-        (
-            "SUMO sumo-gui",
-            'exec "$SUMO_HOME/bin/sumo-gui" "$@" &',
-            framework_pkg[0],
-            f"{base_id}.apps.sumo-gui",
-            version,
-            "sumo-gui.icns",
-        ),
-        (
-            "SUMO netedit",
-            'exec "$SUMO_HOME/bin/netedit" "$@" &',
-            framework_pkg[0],
-            f"{base_id}.apps.netedit",
-            version,
-            "netedit.icns",
-        ),
-        (
-            "SUMO Scenario Wizard",
-            (
-                "python  $SUMO_HOME/share/sumo/tools/osmWebWizard.py ||"
-                "python3 $SUMO_HOME/share/sumo/tools/osmWebWizard.py  &"
-            ),
-            framework_pkg[0],
-            f"{base_id}.apps.scenario-wizard",
-            version,
-            "scenario-wizard.icns",
-        ),
-    ]
-    for app_name, app_binary, app_framework, app_id, app_ver, app_icons in app_list:
-        print(f"Building app package for '{app_name}'")
+    # # Building all the app launchers packages
+    # cwd = os.path.dirname(os.path.abspath(__file__))
+    # app_pkgs = []
+    # app_list = [
+    #     (
+    #         "SUMO sumo-gui",
+    #         'exec "$SUMO_HOME/bin/sumo-gui" "$@" &',
+    #         framework_pkg[0],
+    #         f"{base_id}.apps.sumo-gui",
+    #         version,
+    #         "sumo-gui.icns",
+    #     ),
+    #     (
+    #         "SUMO netedit",
+    #         'exec "$SUMO_HOME/bin/netedit" "$@" &',
+    #         framework_pkg[0],
+    #         f"{base_id}.apps.netedit",
+    #         version,
+    #         "netedit.icns",
+    #     ),
+    #     (
+    #         "SUMO Scenario Wizard",
+    #         (
+    #             "python  $SUMO_HOME/share/sumo/tools/osmWebWizard.py ||"
+    #             "python3 $SUMO_HOME/share/sumo/tools/osmWebWizard.py  &"
+    #         ),
+    #         framework_pkg[0],
+    #         f"{base_id}.apps.scenario-wizard",
+    #         version,
+    #         "scenario-wizard.icns",
+    #     ),
+    # ]
+    # for app_name, app_binary, app_framework, app_id, app_ver, app_icons in app_list:
+    #     print(f"Building app package for '{app_name}'")
 
-        icon_path = os.path.join(cwd, "..", "..", "build_config", "macos", "installer", app_icons)
-        app_pkg = create_app(app_name, app_binary, app_framework, app_id, app_ver, icon_path, opts.verbose)
-        app_pkgs.append(app_pkg)
-        print(f"Successfully built: '{app_pkg[1]}' ({app_pkg[4] / (1024 * 1024):.2f} MB)\n")
+    #     icon_path = os.path.join(cwd, "..", "..", "build_config", "macos", "installer", app_icons)
+    #     app_pkg = create_app(app_name, app_binary, app_framework, app_id, app_ver, icon_path, opts.verbose)
+    #     app_pkgs.append(app_pkg)
+    #     print(f"Successfully built: '{app_pkg[1]}' ({app_pkg[4] / (1024 * 1024):.2f} MB)\n")
 
-    # Building the installer package
-    print("Building installer")
-    installer_pkg = create_installer(framework_pkg, app_pkgs, f"{base_id}.installer", version,
-                                     opts.output_pkg, opts.verbose)
-    print("Successfully built installer\n")
+    # # Building the installer package
+    # print("Building installer")
+    # installer_pkg = create_installer(framework_pkg, app_pkgs, f"{base_id}.installer", version,
+    #                                  opts.output_pkg, opts.verbose)
+    # print("Successfully built installer\n")
 
-    # Putting the installer package into a dmg file - ready for signing
-    print("Building disk image")
-    create_dmg("Eclipse SUMO", opts.output_dmg, installer_pkg[3])
-    print("Successfully built disk image\n")
+    # # Putting the installer package into a dmg file - ready for signing
+    # print("Building disk image")
+    # create_dmg("Eclipse SUMO", opts.output_dmg, installer_pkg[3])
+    # print("Successfully built disk image\n")
 
-    # Removing non-installer pkg-files
-    os.remove(framework_pkg[3])
-    for app_pkg in app_pkgs:
-        os.remove(app_pkg[3])
+    # # Removing non-installer pkg-files
+    # os.remove(framework_pkg[3])
+    # for app_pkg in app_pkgs:
+    #     os.remove(app_pkg[3])
 
-    print("Build completed successfully")
-    print(f" - disk image   : '{opts.output_dmg}' ({os.path.getsize(opts.output_dmg) / (1024 * 1024):.2f} MB)")
-    print(f" - installer pkg: '{opts.output_pkg}' ({os.path.getsize(opts.output_pkg) / (1024 * 1024):.2f} MB)")
+    # print("Build completed successfully")
+    # print(f" - disk image   : '{opts.output_dmg}' ({os.path.getsize(opts.output_dmg) / (1024 * 1024):.2f} MB)")
+    # print(f" - installer pkg: '{opts.output_pkg}' ({os.path.getsize(opts.output_pkg) / (1024 * 1024):.2f} MB)")
 
 
 if __name__ == "__main__":
