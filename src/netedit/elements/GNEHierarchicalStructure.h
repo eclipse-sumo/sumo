@@ -24,6 +24,7 @@
 
 #include "GNEHierarchicalContainerParents.h"
 #include "GNEHierarchicalContainerChildren.h"
+#include "GNEHierarchicalContainerChildrenHash.h"
 
 // ===========================================================================
 // class declarations
@@ -34,6 +35,7 @@ class GNEJunction;
 class GNEEdge;
 class GNELane;
 class GNEAdditional;
+class GNETAZSourceSink;
 class GNEDemandElement;
 class GNEGenericData;
 class GNEHierarchicalElement;
@@ -83,15 +85,23 @@ public:
 
     /// @brief set parents
     template<typename T>
-    void setParents(const T& newParents);
+    void setParents(const std::vector<T>& newParents);
 
     /// @brief get children
     template<typename T>
     const GNEHierarchicalContainerChildren<T>& getChildren() const;
 
+    /// @brief get children (hash)
+    template<typename T>
+    const GNEHierarchicalContainerChildrenHash<T>& getChildrenHash() const;
+
     /// @brief set children
     template<typename T>
-    void setChildren(const T& newChildren);
+    void setChildren(const std::vector<T>& newChildren);
+
+    /// @brief set children (Hash)
+    template<typename T>
+    void setChildren(const std::unordered_set<T>& newChildren);
 
 private:
     /// @brief parents junctions
@@ -123,6 +133,9 @@ private:
 
     /// @brief children additional elements
     GNEHierarchicalContainerChildren<GNEAdditional*> myChildAdditionals;
+
+    /// @brief children additional elements
+    GNEHierarchicalContainerChildrenHash<GNETAZSourceSink*> myChildSourceSinks;
 
     /// @brief children demand elements
     GNEHierarchicalContainerChildren<GNEDemandElement*> myChildDemandElements;

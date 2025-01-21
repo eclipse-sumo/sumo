@@ -23,6 +23,7 @@
 #include <netedit/elements/network/GNELane.h>
 #include <netedit/elements/demand/GNEDemandElement.h>
 #include <netedit/elements/additional/GNEAdditional.h>
+#include <netedit/elements/additional/GNETAZSourceSink.h>
 #include <netedit/elements/data/GNEGenericData.h>
 #include <utils/common/UtilExceptions.h>
 
@@ -64,6 +65,7 @@ GNEHierarchicalStructure::getContainerSize() const {
                myChildEdges.size() +
                myChildLanes.size() +
                myChildAdditionals.size() +
+               myChildSourceSinks.size() +
                myChildDemandElements.size() +
                myChildGenericDatas.size()
            );
@@ -197,6 +199,12 @@ GNEHierarchicalStructure::addChildElement(GNEAdditional* additional) {
 
 
 template <> void
+GNEHierarchicalStructure::addChildElement(GNETAZSourceSink* TAZSourceSink) {
+    myChildSourceSinks.insert(TAZSourceSink);
+}
+
+
+template <> void
 GNEHierarchicalStructure::addChildElement(GNEDemandElement* demandElement) {
     myChildDemandElements.push_back(demandElement);
 
@@ -252,6 +260,16 @@ GNEHierarchicalStructure::removeChildElement(GNEAdditional* additional) {
     }
 }
 
+
+template <> void
+GNEHierarchicalStructure::removeChildElement(GNETAZSourceSink* TAZSourceSink) {
+    auto it = myChildSourceSinks.find(TAZSourceSink);
+    if (it != myChildSourceSinks.end()) {
+        myChildSourceSinks.erase(it);
+    } else {
+        throw ProcessError(TAZSourceSink->getTagStr() + " is not a child element");
+    }
+}
 
 template <> void
 GNEHierarchicalStructure::removeChildElement(GNEDemandElement* demandElement) {
@@ -371,6 +389,12 @@ GNEHierarchicalStructure::getChildren() const {
 }
 
 
+template<> const GNEHierarchicalContainerChildrenHash<GNETAZSourceSink*>&
+GNEHierarchicalStructure::getChildrenHash() const {
+    return myChildSourceSinks;
+}
+
+
 template<> const GNEHierarchicalContainerChildren<GNEDemandElement*>&
 GNEHierarchicalStructure::getChildren() const {
     return myChildDemandElements;
@@ -404,6 +428,12 @@ GNEHierarchicalStructure::setChildren(const std::vector<GNELane*>& newChildren) 
 template<> void
 GNEHierarchicalStructure::setChildren(const std::vector<GNEAdditional*>& newChildren) {
     myChildAdditionals = newChildren;
+}
+
+
+template<> void
+GNEHierarchicalStructure::setChildren(const std::unordered_set<GNETAZSourceSink*>& newChildren) {
+    myChildSourceSinks = newChildren;
 }
 
 

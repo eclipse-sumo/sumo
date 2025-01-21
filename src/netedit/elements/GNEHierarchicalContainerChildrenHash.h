@@ -31,11 +31,11 @@ class GNEHierarchicalContainerChildrenHash : public std::unordered_set<T> {
 
 public:
     /// @brief default constructor
-    GNEHierarchicalContainerChildren() {
+    GNEHierarchicalContainerChildrenHash() {
     }
 
     /// @brief parameter constructor
-    GNEHierarchicalContainerChildren(const std::unordered_set<T>& elements) :
+    GNEHierarchicalContainerChildrenHash(const std::unordered_set<T>& elements) :
         std::unordered_set<T>(elements) {
     }
 };
