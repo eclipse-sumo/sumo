@@ -20,6 +20,7 @@
 #include <config.h>
 
 #include <netedit/changes/GNEChange_Additional.h>
+#include <netedit/changes/GNEChange_TAZSourceSink.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNENet.h>
@@ -1356,11 +1357,11 @@ GNEAdditionalHandler::buildTAZ(const CommonXMLStructure::SumoBaseObject* sumoBas
                 // create TAZEdges
                 for (const auto& edge : edges) {
                     // create TAZ Source using GNEChange_Additional
-                    GNEAdditional* TAZSource = new GNETAZSourceSink(SUMO_TAG_TAZSOURCE, TAZ, edge, 1);
-                    myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(TAZSource, true), true);
+                    GNETAZSourceSink* TAZSource = new GNETAZSourceSink(SUMO_TAG_TAZSOURCE, TAZ, edge, 1);
+                    myNet->getViewNet()->getUndoList()->add(new GNEChange_TAZSourceSink(TAZSource, true), true);
                     // create TAZ Sink using GNEChange_Additional
-                    GNEAdditional* TAZSink = new GNETAZSourceSink(SUMO_TAG_TAZSINK, TAZ, edge, 1);
-                    myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(TAZSink, true), true);
+                    GNETAZSourceSink* TAZSink = new GNETAZSourceSink(SUMO_TAG_TAZSINK, TAZ, edge, 1);
+                    myNet->getViewNet()->getUndoList()->add(new GNEChange_TAZSourceSink(TAZSink, true), true);
                 }
                 myNet->getViewNet()->getUndoList()->end();
             } else {
@@ -1400,21 +1401,21 @@ GNEAdditionalHandler::buildTAZSource(const CommonXMLStructure::SumoBaseObject* s
         return writeErrorInvalidParent(SUMO_TAG_SOURCE, edgeID, SUMO_TAG_EDGE, TAZ->getID());
     } else {
         // declare TAZ Source
-        GNEAdditional* TAZSource = nullptr;
+        GNEAdditional* existentTAZSource = nullptr;
         // first check if already exist a TAZ Source for the given edge and TAZ
-        for (auto it = edge->getChildAdditionals().begin(); (it != edge->getChildAdditionals().end()) && !TAZSource; it++) {
+        for (auto it = edge->getChildAdditionals().begin(); (it != edge->getChildAdditionals().end()) && !existentTAZSource; it++) {
             if (((*it)->getTagProperty().getTag() == SUMO_TAG_TAZSOURCE) && ((*it)->getParentAdditionals().front() == TAZ)) {
-                TAZSource = (*it);
+                existentTAZSource = (*it);
             }
         }
         // check if TAZSource has to be created
-        if (TAZSource == nullptr) {
+        if (existentTAZSource == nullptr) {
             // Create TAZ only with departWeight
-            TAZSource = new GNETAZSourceSink(SUMO_TAG_TAZSOURCE, TAZ, edge, departWeight);
+            GNETAZSourceSink* TAZSource = new GNETAZSourceSink(SUMO_TAG_TAZSOURCE, TAZ, edge, departWeight);
             // add it depending of allow undoRed
             if (myAllowUndoRedo) {
                 myNet->getViewNet()->getUndoList()->begin(TAZ, TL("add TAZ Source in '") + TAZ->getID() + "'");
-                myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(TAZSource, true), true);
+                myNet->getViewNet()->getUndoList()->add(new GNEChange_TAZSourceSink(TAZSource, true), true);
                 myNet->getViewNet()->getUndoList()->end();
             } else {
                 myNet->getAttributeCarriers()->insertAdditional(TAZSource);
@@ -1425,10 +1426,10 @@ GNEAdditionalHandler::buildTAZSource(const CommonXMLStructure::SumoBaseObject* s
             // update TAZ Attribute depending of allow undoRed
             if (myAllowUndoRedo) {
                 myNet->getViewNet()->getUndoList()->begin(TAZ, TL("update TAZ Source in '") + TAZ->getID() + "'");
-                TAZSource->setAttribute(SUMO_ATTR_WEIGHT, toString(departWeight), myNet->getViewNet()->getUndoList());
+                existentTAZSource->setAttribute(SUMO_ATTR_WEIGHT, toString(departWeight), myNet->getViewNet()->getUndoList());
                 myNet->getViewNet()->getUndoList()->end();
             } else {
-                TAZSource->setAttribute(SUMO_ATTR_WEIGHT, toString(departWeight), nullptr);
+                existentTAZSource->setAttribute(SUMO_ATTR_WEIGHT, toString(departWeight), nullptr);
             }
         }
         return true;
@@ -1449,21 +1450,21 @@ GNEAdditionalHandler::buildTAZSink(const CommonXMLStructure::SumoBaseObject* sum
         return writeErrorInvalidParent(SUMO_TAG_SOURCE, edgeID, SUMO_TAG_EDGE, TAZ->getID());
     } else {
         // declare TAZ Sink
-        GNEAdditional* TAZSink = nullptr;
+        GNEAdditional* existentTAZSink = nullptr;
         // first check if already exist a TAZ Sink for the given edge and TAZ
-        for (auto it = edge->getChildAdditionals().begin(); (it != edge->getChildAdditionals().end()) && !TAZSink; it++) {
+        for (auto it = edge->getChildAdditionals().begin(); (it != edge->getChildAdditionals().end()) && !existentTAZSink; it++) {
             if (((*it)->getTagProperty().getTag() == SUMO_TAG_TAZSINK) && ((*it)->getParentAdditionals().front() == TAZ)) {
-                TAZSink = (*it);
+                existentTAZSink = (*it);
             }
         }
         // check if TAZSink has to be created
-        if (TAZSink == nullptr) {
+        if (existentTAZSink == nullptr) {
             // Create TAZ only with departWeight
-            TAZSink = new GNETAZSourceSink(SUMO_TAG_TAZSINK, TAZ, edge, arrivalWeight);
+            GNETAZSourceSink* TAZSink = new GNETAZSourceSink(SUMO_TAG_TAZSINK, TAZ, edge, arrivalWeight);
             // add it depending of allow undoRed
             if (myAllowUndoRedo) {
                 myNet->getViewNet()->getUndoList()->begin(TAZ, TL("add TAZ Sink in '") + TAZ->getID() + "'");
-                myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(TAZSink, true), true);
+                myNet->getViewNet()->getUndoList()->add(new GNEChange_TAZSourceSink(TAZSink, true), true);
                 myNet->getViewNet()->getUndoList()->end();
             } else {
                 myNet->getAttributeCarriers()->insertAdditional(TAZSink);
@@ -1474,10 +1475,10 @@ GNEAdditionalHandler::buildTAZSink(const CommonXMLStructure::SumoBaseObject* sum
             // update TAZ Attribute depending of allow undoRed
             if (myAllowUndoRedo) {
                 myNet->getViewNet()->getUndoList()->begin(TAZ, TL("update TAZ Sink in '") + TAZ->getID() + "'");
-                TAZSink->setAttribute(SUMO_ATTR_WEIGHT, toString(arrivalWeight), myNet->getViewNet()->getUndoList());
+                existentTAZSink->setAttribute(SUMO_ATTR_WEIGHT, toString(arrivalWeight), myNet->getViewNet()->getUndoList());
                 myNet->getViewNet()->getUndoList()->end();
             } else {
-                TAZSink->setAttribute(SUMO_ATTR_WEIGHT, toString(arrivalWeight), nullptr);
+                existentTAZSink->setAttribute(SUMO_ATTR_WEIGHT, toString(arrivalWeight), nullptr);
             }
         }
         return true;

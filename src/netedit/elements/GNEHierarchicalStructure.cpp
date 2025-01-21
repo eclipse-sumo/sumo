@@ -225,7 +225,6 @@ GNEHierarchicalStructure::addChildElement(GNETAZSourceSink* TAZSourceSink) {
 template <> void
 GNEHierarchicalStructure::addChildElement(GNEDemandElement* demandElement) {
     myChildDemandElements.push_back(demandElement);
-
 }
 
 
