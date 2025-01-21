@@ -11,11 +11,11 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEChildContainer.h
+/// @file    GNEHierarchicalContainer.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Jan 2025
 ///
-// Container for GNEHierarchical child elements
+// Template container for GNEHierarchical elements
 /****************************************************************************/
 #pragma once
 #include <config.h>
@@ -39,16 +39,15 @@ class GNEHierarchicalElement;
 // class definitions
 // ===========================================================================
 
-/// @brief child container (used for keep children either as vector or as hash)
 template <typename T> 
-class GNEChildContainer {
+class GNEHierarchicalContainer {
 
 public:
     /// @brief default constructor
-    GNEChildContainer() {}
+    GNEHierarchicalContainer() {}
 
     /// @brief parameter constructor
-    GNEChildContainer(const std::vector<T*>& elements) {}
+    GNEHierarchicalContainer(const std::vector<T*>& elements) {}
 
     /// @brief get container size
     size_t size() const {}
