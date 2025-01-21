@@ -91,17 +91,9 @@ public:
     template<typename T>
     const GNEHierarchicalContainerChildren<T>& getChildren() const;
 
-    /// @brief get children (hash)
-    template<typename T>
-    const GNEHierarchicalContainerChildrenHash<T>& getChildrenHash() const;
-
     /// @brief set children
     template<typename T>
     void setChildren(const std::vector<T>& newChildren);
-
-    /// @brief set children (Hash)
-    template<typename T>
-    void setChildren(const std::unordered_set<T>& newChildren);
 
 private:
     /// @brief parents junctions
@@ -115,6 +107,9 @@ private:
 
     /// @brief parents additionals
     GNEHierarchicalContainerParents<GNEAdditional*> myParentAdditionals;
+
+    /// @brief parents additionals
+    GNEHierarchicalContainerParents<GNETAZSourceSink*> myParentTAZSourceSinks;
 
     /// @brief parents demand elements
     GNEHierarchicalContainerParents<GNEDemandElement*> myParentDemandElements;
@@ -135,7 +130,7 @@ private:
     GNEHierarchicalContainerChildren<GNEAdditional*> myChildAdditionals;
 
     /// @brief children additional elements
-    GNEHierarchicalContainerChildrenHash<GNETAZSourceSink*> myChildSourceSinks;
+    GNEHierarchicalContainerChildren<GNETAZSourceSink*> myChildSourceSinks;
 
     /// @brief children demand elements
     GNEHierarchicalContainerChildren<GNEDemandElement*> myChildDemandElements;

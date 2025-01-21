@@ -59,6 +59,7 @@ GNEHierarchicalStructure::getContainerSize() const {
                myParentEdges.size() +
                myParentLanes.size() +
                myParentAdditionals.size() +
+               myParentTAZSourceSinks.size() +
                myParentDemandElements.size() +
                myParentGenericDatas.size() +
                myChildJunctions.size() +
@@ -93,6 +94,12 @@ GNEHierarchicalStructure::addParentElement(GNELane* lane) {
 template <> void
 GNEHierarchicalStructure::addParentElement(GNEAdditional* additional) {
     myParentAdditionals.push_back(additional);
+}
+
+
+template <> void
+GNEHierarchicalStructure::addParentElement(GNETAZSourceSink* TAZSourceSink) {
+    myParentTAZSourceSinks.push_back(TAZSourceSink);
 }
 
 
@@ -142,10 +149,21 @@ GNEHierarchicalStructure::removeParentElement(GNELane* lane) {
 
 
 template <> void
-GNEHierarchicalStructure::removeParentElement(GNEAdditional* additional) {
-    auto it = std::find(myParentAdditionals.begin(), myParentAdditionals.end(), additional);
+GNEHierarchicalStructure::removeParentElement(GNETAZSourceSink* TAZSourceSink) {
+    auto it = std::find(myParentAdditionals.begin(), myParentAdditionals.end(), TAZSourceSink);
     if (it != myParentAdditionals.end()) {
         myParentAdditionals.erase(it);
+    } else {
+        throw ProcessError(TAZSourceSink->getTagStr() + " with ID='" + TAZSourceSink->getID() + "' is not a parent element");
+    }
+}
+
+
+template <> void
+GNEHierarchicalStructure::removeParentElement(GNEAdditional* additional) {
+    auto it = std::find(myParentTAZSourceSinks.begin(), myParentTAZSourceSinks.end(), additional);
+    if (it != myParentTAZSourceSinks.end()) {
+        myParentTAZSourceSinks.erase(it);
     } else {
         throw ProcessError(additional->getTagStr() + " with ID='" + additional->getID() + "' is not a parent element");
     }
@@ -200,7 +218,7 @@ GNEHierarchicalStructure::addChildElement(GNEAdditional* additional) {
 
 template <> void
 GNEHierarchicalStructure::addChildElement(GNETAZSourceSink* TAZSourceSink) {
-    myChildSourceSinks.insert(TAZSourceSink);
+    myChildSourceSinks.push_back(TAZSourceSink);
 }
 
 
@@ -263,7 +281,7 @@ GNEHierarchicalStructure::removeChildElement(GNEAdditional* additional) {
 
 template <> void
 GNEHierarchicalStructure::removeChildElement(GNETAZSourceSink* TAZSourceSink) {
-    auto it = myChildSourceSinks.find(TAZSourceSink);
+    auto it = std::find(myChildSourceSinks.begin(), myChildSourceSinks.end(), TAZSourceSink);
     if (it != myChildSourceSinks.end()) {
         myChildSourceSinks.erase(it);
     } else {
@@ -317,6 +335,12 @@ GNEHierarchicalStructure::getParents() const {
 }
 
 
+template<> const GNEHierarchicalContainerParents<GNETAZSourceSink*>&
+GNEHierarchicalStructure::getParents() const {
+    return myParentTAZSourceSinks;
+}
+
+
 template<> const GNEHierarchicalContainerParents<GNEDemandElement*>&
 GNEHierarchicalStructure::getParents() const {
     return myParentDemandElements;
@@ -350,6 +374,12 @@ GNEHierarchicalStructure::setParents(const std::vector<GNELane*>& newParents) {
 template<> void
 GNEHierarchicalStructure::setParents(const std::vector<GNEAdditional*>& newParents) {
     myParentAdditionals = newParents;
+}
+
+
+template<> void
+GNEHierarchicalStructure::setParents(const std::vector<GNETAZSourceSink*>& newParents) {
+    myParentTAZSourceSinks = newParents;
 }
 
 
@@ -389,8 +419,8 @@ GNEHierarchicalStructure::getChildren() const {
 }
 
 
-template<> const GNEHierarchicalContainerChildrenHash<GNETAZSourceSink*>&
-GNEHierarchicalStructure::getChildrenHash() const {
+template<> const GNEHierarchicalContainerChildren<GNETAZSourceSink*>&
+GNEHierarchicalStructure::getChildren() const {
     return myChildSourceSinks;
 }
 
@@ -432,7 +462,7 @@ GNEHierarchicalStructure::setChildren(const std::vector<GNEAdditional*>& newChil
 
 
 template<> void
-GNEHierarchicalStructure::setChildren(const std::unordered_set<GNETAZSourceSink*>& newChildren) {
+GNEHierarchicalStructure::setChildren(const std::vector<GNETAZSourceSink*>& newChildren) {
     myChildSourceSinks = newChildren;
 }
 

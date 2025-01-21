@@ -191,6 +191,12 @@ GNEHierarchicalElement::getChildAdditionals() const {
 }
 
 
+const GNEHierarchicalContainerChildren<GNETAZSourceSink*>&
+GNEHierarchicalElement::getChildTAZSourceSinks() const {
+    return myHierarchicalStructure.getChildren<GNETAZSourceSink*>();
+}
+
+
 const GNEHierarchicalContainerChildren<GNEDemandElement*>&
 GNEHierarchicalElement::getChildDemandElements() const {
     return myHierarchicalStructure.getChildren<GNEDemandElement*>();

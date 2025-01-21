@@ -27,7 +27,7 @@
 #include <netedit/elements/network/GNEJunction.h>
 #include <netedit/elements/network/GNEEdge.h>
 #include <netedit/elements/network/GNELane.h>
-#include <netedit/elements/additional/GNEAdditional.h>
+#include <netedit/elements/additional/GNETAZSourceSink.h>
 #include <netedit/elements/demand/GNEDemandElement.h>
 #include <netedit/elements/data/GNEGenericData.h>
 #include <utils/foxtools/fxheader.h>
@@ -132,8 +132,8 @@ protected:
         for (const auto& lane : myOriginalHierarchicalContainer.getParents<GNELane*>()) {
             lane->addChildElement(element);
         }
-        for (const auto& additional : myOriginalHierarchicalContainer.getParents<GNEAdditional*>()) {
-            additional->addChildElement(element);
+        for (const auto& sourceSink : myOriginalHierarchicalContainer.getParents<GNETAZSourceSink*>()) {
+            sourceSink->addChildElement(element);
         }
         for (const auto& demandElement : myOriginalHierarchicalContainer.getParents<GNEDemandElement*>()) {
             demandElement->addChildElement(element);
@@ -151,8 +151,11 @@ protected:
         for (const auto& lane : myOriginalHierarchicalContainer.getChildren<GNELane*>()) {
             lane->addParentElement(element);
         }
-        for (const auto& additional : myOriginalHierarchicalContainer.getChildren<GNEAdditional*>()) {
-            additional->addParentElement(element);
+        for (const auto& sourceSink : myOriginalHierarchicalContainer.getChildren<GNETAZSourceSink*>()) {
+            sourceSink->addParentElement(element);
+        }
+        for (const auto& TAZSourceSink : myOriginalHierarchicalContainer.getChildren<GNETAZSourceSink*>()) {
+            TAZSourceSink->addParentElement(element);
         }
         for (const auto& demandElement : myOriginalHierarchicalContainer.getChildren<GNEDemandElement*>()) {
             demandElement->addParentElement(element);
@@ -175,8 +178,8 @@ protected:
         for (const auto& lane : myOriginalHierarchicalContainer.getParents<GNELane*>()) {
             lane->removeChildElement(element);
         }
-        for (const auto& additional : myOriginalHierarchicalContainer.getParents<GNEAdditional*>()) {
-            additional->removeChildElement(element);
+        for (const auto& sourceSink : myOriginalHierarchicalContainer.getParents<GNETAZSourceSink*>()) {
+            sourceSink->removeChildElement(element);
         }
         for (const auto& demandElement : myOriginalHierarchicalContainer.getParents<GNEDemandElement*>()) {
             demandElement->removeChildElement(element);
@@ -194,8 +197,11 @@ protected:
         for (const auto& lane : myOriginalHierarchicalContainer.getChildren<GNELane*>()) {
             lane->removeParentElement(element);
         }
-        for (const auto& additional : myOriginalHierarchicalContainer.getChildren<GNEAdditional*>()) {
-            additional->removeParentElement(element);
+        for (const auto& sourceSink : myOriginalHierarchicalContainer.getChildren<GNETAZSourceSink*>()) {
+            sourceSink->removeParentElement(element);
+        }
+        for (const auto& TAZSourceSink : myOriginalHierarchicalContainer.getChildren<GNETAZSourceSink*>()) {
+            TAZSourceSink->removeParentElement(element);
         }
         for (const auto& demandElement : myOriginalHierarchicalContainer.getChildren<GNEDemandElement*>()) {
             demandElement->removeParentElement(element);

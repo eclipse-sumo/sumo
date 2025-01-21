@@ -88,6 +88,7 @@ struct GNENetHelper {
         friend class GNEChange_Junction;
         friend class GNEChange_EdgeType;
         friend class GNEChange_Edge;
+        friend class GNEChange_TAZSourceSink;
         friend class GNEChange_Additional;
         friend class GNEChange_Shape;
         friend class GNEChange_TAZElement;
