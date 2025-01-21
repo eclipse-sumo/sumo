@@ -46,9 +46,9 @@ GNEChange_Edge::GNEChange_Edge(GNEEdge* edge, bool forward):
         myLaneParentAdditionals.push_back(lane->getParentAdditionals());
         myLaneParentDemandElements.push_back(lane->getParentDemandElements());
         myLaneParentGenericData.push_back(lane->getParentGenericDatas());
-        myChildLaneAdditionals.push_back(lane->getChildAdditionals());
-        myChildLaneDemandElements.push_back(lane->getChildDemandElements());
-        myChildLaneGenericData.push_back(lane->getChildGenericDatas());
+        myChildLaneAdditionals.push_back(lane->getChildAdditionals().getCopy());
+        myChildLaneDemandElements.push_back(lane->getChildDemandElements().getCopy());
+        myChildLaneGenericData.push_back(lane->getChildGenericDatas().getCopy());
     }
 }
 

@@ -76,8 +76,8 @@ private:
     const Operation myOperation;
 
     /// @brief copy of child demand elements before apply operation
-    const std::vector<GNEDemandElement*> myOriginalChildElements;
+    const GNEHierarchicalContainerChildren<GNEDemandElement*> myOriginalChildElements;
 
     /// @brief element children after apply operation
-    std::vector<GNEDemandElement*> myEditedChildElements;
+    GNEHierarchicalContainerChildren<GNEDemandElement*> myEditedChildElements;
 };

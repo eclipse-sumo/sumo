@@ -66,22 +66,22 @@ protected:
     void removeEdgeLanes();
 
     /// @brief vector of references to vector of parent additionals (used by edge lanes)
-    std::vector<std::vector<GNEAdditional*> > myLaneParentAdditionals;
+    std::vector<GNEHierarchicalContainerParents<GNEAdditional*> > myLaneParentAdditionals;
 
     /// @brief vector of references to vector of parent demand elements (used by edge lanes)
-    std::vector<std::vector<GNEDemandElement*> > myLaneParentDemandElements;
+    std::vector<GNEHierarchicalContainerParents<GNEDemandElement*> > myLaneParentDemandElements;
 
     /// @brief vector of references to vector of parent generic datas (used by edge lanes)
-    std::vector<std::vector<GNEGenericData*> > myLaneParentGenericData;
+    std::vector<GNEHierarchicalContainerParents<GNEGenericData*> > myLaneParentGenericData;
 
     /// @brief vector of references to vector of child additional (used by edge lanes)
-    std::vector<std::vector<GNEAdditional*> > myChildLaneAdditionals;
+    std::vector<std::unordered_set<GNEAdditional*> > myChildLaneAdditionals;
 
     /// @brief vector of references to vector of child demand elements (used by edge lanes)
-    std::vector<std::vector<GNEDemandElement*> > myChildLaneDemandElements;
+    std::vector<std::unordered_set<GNEDemandElement*> > myChildLaneDemandElements;
 
     /// @brief vector of references to vector of child generic datas (used by edge lanes)
-    std::vector<std::vector<GNEGenericData*> > myChildLaneGenericData;
+    std::vector<std::unordered_set<GNEGenericData*> > myChildLaneGenericData;
 
 private:
     /**@brief full information regarding the edge that is to be created/deleted
