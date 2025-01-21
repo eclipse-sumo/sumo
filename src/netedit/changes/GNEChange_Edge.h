@@ -75,13 +75,13 @@ protected:
     std::vector<GNEHierarchicalContainerParents<GNEGenericData*> > myLaneParentGenericData;
 
     /// @brief vector of references to vector of child additional (used by edge lanes)
-    std::vector<std::unordered_set<GNEAdditional*> > myChildLaneAdditionals;
+    std::vector<GNEHierarchicalContainerChildren<GNEAdditional*> > myChildLaneAdditionals;
 
     /// @brief vector of references to vector of child demand elements (used by edge lanes)
-    std::vector<std::unordered_set<GNEDemandElement*> > myChildLaneDemandElements;
+    std::vector<GNEHierarchicalContainerChildren<GNEDemandElement*> > myChildLaneDemandElements;
 
     /// @brief vector of references to vector of child generic datas (used by edge lanes)
-    std::vector<std::unordered_set<GNEGenericData*> > myChildLaneGenericData;
+    std::vector<GNEHierarchicalContainerChildren<GNEGenericData*> > myChildLaneGenericData;
 
 private:
     /**@brief full information regarding the edge that is to be created/deleted
