@@ -132,6 +132,9 @@ protected:
         for (const auto& lane : myOriginalHierarchicalContainer.getParents<GNELane*>()) {
             lane->addChildElement(element);
         }
+        for (const auto& additional : myOriginalHierarchicalContainer.getParents<GNEAdditional*>()) {
+            additional->addChildElement(element);
+        }
         for (const auto& sourceSink : myOriginalHierarchicalContainer.getParents<GNETAZSourceSink*>()) {
             sourceSink->addChildElement(element);
         }
@@ -151,8 +154,8 @@ protected:
         for (const auto& lane : myOriginalHierarchicalContainer.getChildren<GNELane*>()) {
             lane->addParentElement(element);
         }
-        for (const auto& sourceSink : myOriginalHierarchicalContainer.getChildren<GNETAZSourceSink*>()) {
-            sourceSink->addParentElement(element);
+        for (const auto& additional : myOriginalHierarchicalContainer.getChildren<GNEAdditional*>()) {
+            additional->addParentElement(element);
         }
         for (const auto& TAZSourceSink : myOriginalHierarchicalContainer.getChildren<GNETAZSourceSink*>()) {
             TAZSourceSink->addParentElement(element);
@@ -178,6 +181,9 @@ protected:
         for (const auto& lane : myOriginalHierarchicalContainer.getParents<GNELane*>()) {
             lane->removeChildElement(element);
         }
+        for (const auto& additional : myOriginalHierarchicalContainer.getParents<GNEAdditional*>()) {
+            additional->removeChildElement(element);
+        }
         for (const auto& sourceSink : myOriginalHierarchicalContainer.getParents<GNETAZSourceSink*>()) {
             sourceSink->removeChildElement(element);
         }
@@ -197,8 +203,8 @@ protected:
         for (const auto& lane : myOriginalHierarchicalContainer.getChildren<GNELane*>()) {
             lane->removeParentElement(element);
         }
-        for (const auto& sourceSink : myOriginalHierarchicalContainer.getChildren<GNETAZSourceSink*>()) {
-            sourceSink->removeParentElement(element);
+        for (const auto& additional : myOriginalHierarchicalContainer.getChildren<GNEAdditional*>()) {
+            additional->removeParentElement(element);
         }
         for (const auto& TAZSourceSink : myOriginalHierarchicalContainer.getChildren<GNETAZSourceSink*>()) {
             TAZSourceSink->removeParentElement(element);
