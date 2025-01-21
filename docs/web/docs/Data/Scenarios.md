@@ -8,6 +8,11 @@ Building a scenario is a lot of work. If you have built a SUMO scenario
 you can share (under a sufficiently open license), please
 [contact us](../Contact.md).
 
+# Alicante-Murcia highway scenario
+Large-scale and high-accuracy traffic simulation scenario that models 9 full days of traffic over a 97 km freeway section, with mixed traffic (light and heavy vehicles). The simulation scenario has been calibrated using a unique dataset provided by the Spanish road authority and a novel learning-based and iterative traffic demand calibration technique for SUMO.
+
+More info at: https://github.com/msepulcre/Alicante-Murcia-SUMO-Scenario
+
 # Berlin
 
 - [Mosaic Berlin Sumo Traffic (BeST) Scenario on GitHub](https://github.com/mosaic-addons/best-scenario)
