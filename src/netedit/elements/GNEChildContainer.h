@@ -39,91 +39,27 @@ class GNEHierarchicalElement;
 // class definitions
 // ===========================================================================
 
-/// @brief Hierarchical container (used for keep myParent and myChildren
+/// @brief child container (used for keep children either as vector or as hash)
+template <typename T> 
 class GNEChildContainer {
 
 public:
     /// @brief default constructor
-    GNEChildContainer();
+    GNEChildContainer() {}
 
-    /// @brief parameter constructor (only for parents)
-    GNEChildContainer(
-        const std::vector<GNEJunction*>& parentJunctions,
-        const std::vector<GNEEdge*>& parentEdges,
-        const std::vector<GNELane*>& parentLanes,
-        const std::vector<GNEAdditional*>& parentAdditionals,
-        const std::vector<GNEDemandElement*>& ParentDemandElements,
-        const std::vector<GNEGenericData*>& parentGenericDatas);
+    /// @brief parameter constructor
+    GNEChildContainer(const std::vector<T*>& elements) {}
 
     /// @brief get container size
-    size_t getContainerSize() const;
+    size_t size() const {}
 
     /// @brief add parent element
-    template<typename T>
-    void addParentElement(T* element);
+    void insertElement(T* element) {}
 
     /// @brief remove parent element
-    template<typename T>
-    void removeParentElement(T* element);
-
-    /// @brief add child element
-    template<typename T>
-    void addChildElement(T* element);
-
-    /// @brief remove child element
-    template<typename T>
-    void removeChildElement(T* element);
-
-    /// @brief get parents
-    template<typename T>
-    const T& getParents() const;
-
-    /// @brief set parents
-    template<typename T>
-    void setParents(const T& newParents);
-
-    /// @brief get children
-    template<typename T>
-    const T& getChildren() const;
-
-    /// @brief set children
-    template<typename T>
-    void setChildren(const T& newChildren);
+    void removeElement(T* element) {}
 
 private:
-    /// @brief vector of parent junctions
-    std::vector<GNEJunction*> myParentJunctions;
-
-    /// @brief vector of parent edges
-    std::vector<GNEEdge*> myParentEdges;
-
-    /// @brief vector of parent lanes
-    std::vector<GNELane*> myParentLanes;
-
-    /// @brief vector of parent additionals
-    std::vector<GNEAdditional*> myParentAdditionals;
-
-    /// @brief vector of parent demand elements
-    std::vector<GNEDemandElement*> myParentDemandElements;
-
-    /// @brief vector of parent generic datas
-    std::vector<GNEGenericData*> myParentGenericDatas;
-
-    /// @brief vector with the child junctions
-    std::vector<GNEJunction*> myChildJunctions;
-
-    /// @brief vector with the child edges
-    std::vector<GNEEdge*> myChildEdges;
-
-    /// @brief vector with the child lanes
-    std::vector<GNELane*> myChildLanes;
-
-    /// @brief vector with the child additional
-    std::vector<GNEAdditional*> myChildAdditionals;
-
-    /// @brief vector with the child demand elements
-    std::vector<GNEDemandElement*> myChildDemandElements;
-
-    /// @brief vector with the generic child data elements
-    std::vector<GNEGenericData*> myChildGenericDatas;
+    /// @brief elements vector
+    std::vector<T*> myElements;
 };
