@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-01-02 15:02+0100\n"
-"PO-Revision-Date: 2025-01-20 13:51+0000\n"
+"PO-Revision-Date: 2025-01-21 14:41+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -11111,17 +11111,21 @@ msgstr ""
 msgid ""
 "id of the travel group. Persons with the same group may share a taxi ride"
 msgstr ""
+"codice identificativo del gruppo di viaggio. Persone dello stesso gruppo "
+"possono condividere una corsa di taxi"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:9501
 #: src/netedit/elements/GNEAttributeCarrier.cpp:9554
 msgid ""
 "speed of the person for this tranship in m/s (not together with duration)"
 msgstr ""
+"velocità della persona durante questo trasbordo in m/s (esclude l'uso di "
+"duration)"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:9507
 #: src/netedit/elements/GNEAttributeCarrier.cpp:9560
 msgid "duration of the plan in second (not together with speed)"
-msgstr ""
+msgstr "durata del piano in secondi (esclude l'uso di speed)"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:9520
 msgid "list of vehicle alternatives to take for the ride"
@@ -11724,6 +11728,8 @@ msgstr "aggiungi ostacolo JuPedSim '"
 #: src/netedit/elements/demand/GNERouteHandler.cpp:2476
 msgid "Could not build % with ID '%' in netedit; % with ID '%' doesn't exist."
 msgstr ""
+"Non è stato possibile creare % con il codice identificativo '%' in netedit "
+"perché % con il codice identificativo '%' non esiste."
 
 #: src/netedit/elements/additional/GNECalibrator.cpp:216
 msgid "Both edges and lanes aren't defined"
@@ -11740,6 +11746,8 @@ msgid ""
 "calibratorFlow of calibrator '%' cannot be written. Either type or "
 "vehsPerHour or speed must be enabled"
 msgstr ""
+"calibratorFlow del Calibrator '%' non può essere scritto. Uno degli "
+"attributi type, vehsPerHour o speed deve essere impostato"
 
 #: src/netedit/elements/additional/GNELaneAreaDetector.cpp:168
 #: src/netedit/elements/additional/GNEOverheadWire.cpp:127
@@ -11859,7 +11867,7 @@ msgstr "Poligono già semplificato"
 
 #: src/netedit/elements/additional/GNEPoly.cpp:528
 msgid "Using GEO Shape"
-msgstr ""
+msgstr "Usando la forma geografica"
 
 #: src/netedit/elements/additional/GNERerouter.cpp:104
 msgid "' needs at least one edge"
@@ -12702,28 +12710,28 @@ msgstr "Seleziona raggiungibili (computa incroci)"
 
 #: src/netedit/elements/network/GNENetworkElement.cpp:312
 msgid "% (Edited shape)"
-msgstr ""
+msgstr "% (forma modificata)"
 
 #: src/netedit/elements/network/GNENetworkElement.cpp:315
 #: src/utils/gui/globjects/GUIGlObject.cpp:278
 msgid "Copy test coordinates to clipboard"
-msgstr ""
+msgstr "Copia coordinate test negli appunti"
 
 #: src/netedit/elements/network/GNENetworkElement.cpp:321
 msgid "Simplify shape"
-msgstr ""
+msgstr "Semplifica forma"
 
 #: src/netedit/elements/network/GNENetworkElement.cpp:327
 msgid "Open junction's shape"
-msgstr ""
+msgstr "Apri la forma dell'incrocio"
 
 #: src/netedit/elements/network/GNENetworkElement.cpp:329
 msgid "Close junction's shape"
-msgstr ""
+msgstr "Chiudi la forma dell'incrocio"
 
 #: src/netedit/elements/network/GNENetworkElement.cpp:332
 msgid "Straighten shape"
-msgstr ""
+msgstr "Appiana la forma"
 
 #: src/netedit/elements/network/GNENetworkElement.cpp:341
 msgid "Remove geometry point (shift+click)"
@@ -12765,7 +12773,7 @@ msgstr ""
 #: src/netedit/frames/GNEAttributesEditor.cpp:153
 #, c-format
 msgid "Open % dialog"
-msgstr ""
+msgstr "Apri il dialogo %"
 
 #: src/netedit/frames/GNEAttributesEditor.cpp:313
 #: src/netedit/frames/GNEAttributesEditor.cpp:338
@@ -13724,7 +13732,7 @@ msgstr "Nessun modello di arco definito"
 
 #: src/netedit/frames/common/GNEInspectorFrame.cpp:261
 msgid "GEO attributes"
-msgstr ""
+msgstr "Attributi geografici"
 
 #: src/netedit/frames/common/GNEMatchAttribute.cpp:47
 msgid "Match Attribute"
@@ -15318,11 +15326,11 @@ msgstr ""
 
 #: src/netedit/frames/network/GNETAZFrame.cpp:499
 msgid "New source"
-msgstr ""
+msgstr "Nuova sorgente"
 
 #: src/netedit/frames/network/GNETAZFrame.cpp:504
 msgid "New sink"
-msgstr ""
+msgstr "Nuovo scarico"
 
 #: src/netedit/frames/network/GNETAZFrame.cpp:510
 msgid "Set zero fringe prob."
@@ -15369,7 +15377,7 @@ msgstr ""
 
 #: src/netedit/frames/network/GNETAZFrame.cpp:605
 msgid "Add "
-msgstr ""
+msgstr "Aggiungi "
 
 #: src/netedit/frames/network/GNETAZFrame.cpp:605
 msgid " edges to selection"
@@ -15389,12 +15397,12 @@ msgstr ""
 
 #: src/netedit/frames/network/GNETAZFrame.cpp:671
 msgid "Press ESC to clear the current selection."
-msgstr ""
+msgstr "Premi ESC per svuotare la selezione attuale."
 
 #: src/netedit/frames/network/GNETAZFrame.cpp:848
 #: src/netedit/frames/network/GNETAZFrame.cpp:851
 msgid "Set weight 0 in "
-msgstr ""
+msgstr "Imposta il peso 0 in "
 
 #: src/netedit/frames/network/GNETAZFrame.cpp:848
 #: src/netedit/frames/network/GNETAZFrame.cpp:851
@@ -15998,11 +16006,11 @@ msgstr " ora"
 
 #: src/utils/gui/div/GUIMessageWindow.cpp:74
 msgid "vehicle"
-msgstr ""
+msgstr "veicolo"
 
 #: src/utils/gui/div/GUIMessageWindow.cpp:75
 msgid "person"
-msgstr ""
+msgstr "persona"
 
 #: src/utils/gui/div/GUIMessageWindow.cpp:76
 msgid "tlLogic"
@@ -16040,11 +16048,11 @@ msgstr ""
 #: src/utils/gui/div/GUISelectedStorage.cpp:237
 #, c-format
 msgid "% objects ignored, % objects not found\n"
-msgstr ""
+msgstr "% oggetti ignorati, % oggetti introvabili\n"
 
 #: src/utils/gui/div/GUISelectedStorage.cpp:248
 msgid "Could not open '%'.\n"
-msgstr ""
+msgstr "Non ho potuto aprire '%'.\n"
 
 #: src/utils/gui/div/GUIVideoEncoder.h:74
 msgid "Unknown format!"
