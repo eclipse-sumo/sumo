@@ -14,7 +14,8 @@ set(netedit_elements_SRCS
    GNEContour.h
    GNEGeneralHandler.cpp
    GNEGeneralHandler.h
-   GNEHierarchicalContainer.h
+   GNEHierarchicalContainerParents.h
+   GNEHierarchicalContainerChildren.h
    GNEHierarchicalElement.cpp
    GNEHierarchicalElement.h
    GNEHierarchicalStructure.cpp

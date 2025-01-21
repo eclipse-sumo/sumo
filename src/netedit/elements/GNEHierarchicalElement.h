@@ -89,46 +89,46 @@ public:
     std::vector<GNEHierarchicalElement*> getAllHierarchicalElements() const;
 
     /// @brief get parent junctions
-    const GNEHierarchicalContainer<GNEJunction*>& getParentJunctions() const;
+    const GNEHierarchicalContainerParents<GNEJunction*>& getParentJunctions() const;
 
     /// @brief get parent edges
-    const GNEHierarchicalContainer<GNEEdge*>& getParentEdges() const;
+    const GNEHierarchicalContainerParents<GNEEdge*>& getParentEdges() const;
 
     /// @brief get parent lanes
-    const GNEHierarchicalContainer<GNELane*>& getParentLanes() const;
+    const GNEHierarchicalContainerParents<GNELane*>& getParentLanes() const;
 
     /// @brief get parent additionals
-    const GNEHierarchicalContainer<GNEAdditional*>& getParentAdditionals() const;
+    const GNEHierarchicalContainerParents<GNEAdditional*>& getParentAdditionals() const;
 
     /// @brief get parent stoppingPlaces (used by plans)
-    const GNEHierarchicalContainer<GNEAdditional*> getParentStoppingPlaces() const;
+    const GNEHierarchicalContainerParents<GNEAdditional*> getParentStoppingPlaces() const;
 
     /// @brief get parent TAZs (used by plans)
-    const GNEHierarchicalContainer<GNEAdditional*> getParentTAZs() const;
+    const GNEHierarchicalContainerParents<GNEAdditional*> getParentTAZs() const;
 
     /// @brief get parent demand elements
-    const GNEHierarchicalContainer<GNEDemandElement*>& getParentDemandElements() const;
+    const GNEHierarchicalContainerParents<GNEDemandElement*>& getParentDemandElements() const;
 
     /// @brief get parent demand elements
-    const GNEHierarchicalContainer<GNEGenericData*>& getParentGenericDatas() const;
+    const GNEHierarchicalContainerParents<GNEGenericData*>& getParentGenericDatas() const;
 
     /// @brief get child junctions
-    const GNEHierarchicalContainer<GNEJunction*>& getChildJunctions() const;
+    const GNEHierarchicalContainerChildren<GNEJunction*>& getChildJunctions() const;
 
     /// @brief get child edges
-    const GNEHierarchicalContainer<GNEEdge*>& getChildEdges() const;
+    const GNEHierarchicalContainerChildren<GNEEdge*>& getChildEdges() const;
 
     /// @brief get child lanes
-    const GNEHierarchicalContainer<GNELane*>& getChildLanes() const;
+    const GNEHierarchicalContainerChildren<GNELane*>& getChildLanes() const;
 
     /// @brief return child additionals
-    const GNEHierarchicalContainer<GNEAdditional*>& getChildAdditionals() const;
+    const GNEHierarchicalContainerChildren<GNEAdditional*>& getChildAdditionals() const;
 
     /// @brief return child demand elements
-    const GNEHierarchicalContainer<GNEDemandElement*>& getChildDemandElements() const;
+    const GNEHierarchicalContainerChildren<GNEDemandElement*>& getChildDemandElements() const;
 
     /// @brief return child generic data elements
-    const GNEHierarchicalContainer<GNEGenericData*>& getChildGenericDatas() const;
+    const GNEHierarchicalContainerChildren<GNEGenericData*>& getChildGenericDatas() const;
 
     /// @}
 

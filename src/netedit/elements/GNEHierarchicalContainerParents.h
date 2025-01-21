@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEHierarchicalContainer.h
+/// @file    GNEHierarchicalContainerParents.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Jan 2025
 ///
@@ -42,24 +42,19 @@ class GNEHierarchicalElement;
 // class definitions
 // ===========================================================================
 
-/// @brief container type
-enum class HierarchicalContainerType {
-    BASIC
-};
-
 template <typename T> 
-class GNEHierarchicalContainer : public std::vector<T> {
+class GNEHierarchicalContainerParents : public std::vector<T> {
 
 public:
     /// @brief default constructor
-    GNEHierarchicalContainer() {}
+    GNEHierarchicalContainerParents() {
+        myVectorElements.reserve(10);
+    }
 
     /// @brief parameter constructor
-    GNEHierarchicalContainer(const std::vector<T>& elements, HierarchicalContainerType type):
-        myType(type) {
-        if (myType == HierarchicalContainerType::BASIC) {
-            myVectorElements.reserve(MAX_HIERARCHICAL_PARENTS);
-        }
+    GNEHierarchicalContainerParents(const std::vector<T>& elements) {
+        myVectorElements.reserve(10);
+        myVectorElements = elements;
     }
 
     /// @brief get container size
@@ -93,9 +88,6 @@ public:
     }
 
 private:
-    /// @brief container type
-    HierarchicalContainerType myType;
-
     /// @brief elements vector
     std::vector<T> myVectorElements;
 };

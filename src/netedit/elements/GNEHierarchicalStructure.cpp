@@ -42,12 +42,12 @@ GNEHierarchicalStructure::GNEHierarchicalStructure(
     const std::vector<GNEAdditional*>& parentAdditionals,
     const std::vector<GNEDemandElement*>& parentDemandElements,
     const std::vector<GNEGenericData*>& parentGenericDatas):
-    myParentJunctions(parentJunctions, HierarchicalContainerType::BASIC),
-    myParentEdges(parentEdges, HierarchicalContainerType::BASIC),
-    myParentLanes(parentLanes, HierarchicalContainerType::BASIC),
-    myParentAdditionals(parentAdditionals, HierarchicalContainerType::BASIC),
-    myParentDemandElements(parentDemandElements, HierarchicalContainerType::BASIC),
-    myParentGenericDatas(parentGenericDatas, HierarchicalContainerType::BASIC) {
+    myParentJunctions(parentJunctions),
+    myParentEdges(parentEdges),
+    myParentLanes(parentLanes),
+    myParentAdditionals(parentAdditionals),
+    myParentDemandElements(parentDemandElements),
+    myParentGenericDatas(parentGenericDatas) {
 }
 
 
@@ -239,37 +239,37 @@ GNEHierarchicalStructure::removeChildElement(GNEGenericData* genericData) {
 }
 
 
-template<> const GNEHierarchicalContainer<GNEJunction*>&
+template<> const GNEHierarchicalContainerParents<GNEJunction*>&
 GNEHierarchicalStructure::getParents() const {
     return myParentJunctions;
 }
 
 
-template<> const GNEHierarchicalContainer<GNEEdge*>&
+template<> const GNEHierarchicalContainerParents<GNEEdge*>&
 GNEHierarchicalStructure::getParents() const {
     return myParentEdges;
 }
 
 
-template<> const GNEHierarchicalContainer<GNELane*>&
+template<> const GNEHierarchicalContainerParents<GNELane*>&
 GNEHierarchicalStructure::getParents() const {
     return myParentLanes;
 }
 
 
-template<> const GNEHierarchicalContainer<GNEAdditional*>&
+template<> const GNEHierarchicalContainerParents<GNEAdditional*>&
 GNEHierarchicalStructure::getParents() const {
     return myParentAdditionals;
 }
 
 
-template<> const GNEHierarchicalContainer<GNEDemandElement*>&
+template<> const GNEHierarchicalContainerParents<GNEDemandElement*>&
 GNEHierarchicalStructure::getParents() const {
     return myParentDemandElements;
 }
 
 
-template<> const GNEHierarchicalContainer<GNEGenericData*>&
+template<> const GNEHierarchicalContainerParents<GNEGenericData*>&
 GNEHierarchicalStructure::getParents() const {
     return myParentGenericDatas;
 }
@@ -311,37 +311,37 @@ GNEHierarchicalStructure::setParents(const std::vector<GNEGenericData*>& newPare
 }
 
 
-template<> const GNEHierarchicalContainer<GNEJunction*>&
+template<> const GNEHierarchicalContainerChildren<GNEJunction*>&
 GNEHierarchicalStructure::getChildren() const {
     return myChildJunctions;
 }
 
 
-template<> const GNEHierarchicalContainer<GNEEdge*>&
+template<> const GNEHierarchicalContainerChildren<GNEEdge*>&
 GNEHierarchicalStructure::getChildren() const {
     return myChildEdges;
 }
 
 
-template<> const GNEHierarchicalContainer<GNELane*>&
+template<> const GNEHierarchicalContainerChildren<GNELane*>&
 GNEHierarchicalStructure::getChildren() const {
     return myChildLanes;
 }
 
 
-template<> const GNEHierarchicalContainer<GNEAdditional*>&
+template<> const GNEHierarchicalContainerChildren<GNEAdditional*>&
 GNEHierarchicalStructure::getChildren() const {
     return myChildAdditionals;
 }
 
 
-template<> const GNEHierarchicalContainer<GNEDemandElement*>&
+template<> const GNEHierarchicalContainerChildren<GNEDemandElement*>&
 GNEHierarchicalStructure::getChildren() const {
     return myChildDemandElements;
 }
 
 
-template<> const GNEHierarchicalContainer<GNEGenericData*>&
+template<> const GNEHierarchicalContainerChildren<GNEGenericData*>&
 GNEHierarchicalStructure::getChildren() const {
     return myChildGenericDatas;
 }

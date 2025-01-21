@@ -22,7 +22,8 @@
 
 #include <vector>
 
-#include "GNEHierarchicalContainer.h"
+#include "GNEHierarchicalContainerParents.h"
+#include "GNEHierarchicalContainerChildren.h"
 
 // ===========================================================================
 // class declarations
@@ -78,7 +79,7 @@ public:
 
     /// @brief get parents
     template<typename T>
-    const GNEHierarchicalContainer<T>& getParents() const;
+    const GNEHierarchicalContainerParents<T>& getParents() const;
 
     /// @brief set parents
     template<typename T>
@@ -86,7 +87,7 @@ public:
 
     /// @brief get children
     template<typename T>
-    const GNEHierarchicalContainer<T>& getChildren() const;
+    const GNEHierarchicalContainerChildren<T>& getChildren() const;
 
     /// @brief set children
     template<typename T>
@@ -94,38 +95,38 @@ public:
 
 private:
     /// @brief parents junctions
-    GNEHierarchicalContainer<GNEJunction*> myParentJunctions;
+    GNEHierarchicalContainerParents<GNEJunction*> myParentJunctions;
 
     /// @brief parents edges
-    GNEHierarchicalContainer<GNEEdge*> myParentEdges;
+    GNEHierarchicalContainerParents<GNEEdge*> myParentEdges;
 
     /// @brief parents lanes
-    GNEHierarchicalContainer<GNELane*> myParentLanes;
+    GNEHierarchicalContainerParents<GNELane*> myParentLanes;
 
     /// @brief parents additionals
-    GNEHierarchicalContainer<GNEAdditional*> myParentAdditionals;
+    GNEHierarchicalContainerParents<GNEAdditional*> myParentAdditionals;
 
     /// @brief parents demand elements
-    GNEHierarchicalContainer<GNEDemandElement*> myParentDemandElements;
+    GNEHierarchicalContainerParents<GNEDemandElement*> myParentDemandElements;
 
     /// @brief parents generic datas
-    GNEHierarchicalContainer<GNEGenericData*> myParentGenericDatas;
+    GNEHierarchicalContainerParents<GNEGenericData*> myParentGenericDatas;
 
     /// @brief children junctions
-    GNEHierarchicalContainer<GNEJunction*> myChildJunctions;
+    GNEHierarchicalContainerChildren<GNEJunction*> myChildJunctions;
 
     /// @brief children edges
-    GNEHierarchicalContainer<GNEEdge*> myChildEdges;
+    GNEHierarchicalContainerChildren<GNEEdge*> myChildEdges;
 
     /// @brief children lanes
-    GNEHierarchicalContainer<GNELane*> myChildLanes;
+    GNEHierarchicalContainerChildren<GNELane*> myChildLanes;
 
     /// @brief children additional elements
-    GNEHierarchicalContainer<GNEAdditional*> myChildAdditionals;
+    GNEHierarchicalContainerChildren<GNEAdditional*> myChildAdditionals;
 
     /// @brief children demand elements
-    GNEHierarchicalContainer<GNEDemandElement*> myChildDemandElements;
+    GNEHierarchicalContainerChildren<GNEDemandElement*> myChildDemandElements;
 
     /// @brief children genericdata elements
-    GNEHierarchicalContainer<GNEGenericData*> myChildGenericDatas;
+    GNEHierarchicalContainerChildren<GNEGenericData*> myChildGenericDatas;
 };
