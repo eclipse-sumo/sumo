@@ -445,7 +445,9 @@ GNEJunction::rebuildGNECrossings(bool rebuildNBNodeCrossings) {
                 crossing->unselectAttributeCarrier();
             }
             // remove it from inspected ACS
-            myNet->getViewNet()->getInspectedElements().uninspectAC(crossing);
+            if (myNet->getViewNet()) {
+                myNet->getViewNet()->getInspectedElements().uninspectAC(crossing);
+            }
             // remove it from net
             myNet->removeGLObjectFromGrid(crossing);
             // remove it from attributeCarriers

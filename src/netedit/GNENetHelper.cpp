@@ -2417,9 +2417,11 @@ GNENetHelper::AttributeCarriers::deleteCrossing(GNECrossing* crossing) {
         myCrossings.erase(finder);
         myNumberOfNetworkElements--;
         // remove it from inspected elements and GNEElementTree
-        myNet->getViewNet()->getInspectedElements().uninspectAC(crossing);
-        crossing->unmarkForDrawingFront();;
-        myNet->getViewNet()->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(crossing);
+        if (myNet->getViewNet()) {
+            myNet->getViewNet()->getInspectedElements().uninspectAC(crossing);
+            crossing->unmarkForDrawingFront();;
+            myNet->getViewNet()->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(crossing);
+        }
     }
 }
 
