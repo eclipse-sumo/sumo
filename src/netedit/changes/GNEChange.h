@@ -23,7 +23,7 @@
 
 #include <netbuild/NBEdge.h>
 #include <netbuild/NBNode.h>
-#include <netedit/elements/GNEHierarchicalContainer.h>
+#include <netedit/elements/GNEHierarchicalStructure.h>
 #include <netedit/elements/network/GNEJunction.h>
 #include <netedit/elements/network/GNEEdge.h>
 #include <netedit/elements/network/GNELane.h>
@@ -215,10 +215,10 @@ protected:
     const bool mySelectedElement;
 
     /// @brief Hierarchical container with parent and children
-    const GNEHierarchicalContainer myOriginalHierarchicalContainer;
+    const GNEHierarchicalStructure myOriginalHierarchicalContainer;
 
     /// @brief map with hierarchical container of all parent and children elements
-    std::map<GNEHierarchicalElement*, GNEHierarchicalContainer> myHierarchicalContainers;
+    std::map<GNEHierarchicalElement*, GNEHierarchicalStructure> myHierarchicalContainers;
 
 private:
     // @brief next GNEChange (can be access by GNEChangeGroup and GNEUndoList)

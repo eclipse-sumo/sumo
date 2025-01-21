@@ -23,7 +23,7 @@
 #include <utils/gui/div/GUIGeometry.h>
 #include <netedit/elements/GNEAttributeCarrier.h>
 
-#include "GNEHierarchicalContainer.h"
+#include "GNEHierarchicalStructure.h"
 
 
 // ===========================================================================
@@ -77,10 +77,10 @@ public:
     /// @}
 
     /// @brief get hierarchicalcontainer with parents and children
-    const GNEHierarchicalContainer& getHierarchicalContainer() const;
+    const GNEHierarchicalStructure& getHierarchicalContainer() const;
 
     /// @brief restore hierarchical container
-    void restoreHierarchicalContainer(const GNEHierarchicalContainer& container);
+    void restoreHierarchicalContainer(const GNEHierarchicalStructure& container);
 
     /// @name common get functions
     /// @{
@@ -137,25 +137,25 @@ public:
     /// @brief add parent element
     template<typename T>
     void addParentElement(T* element) {
-        myHierarchicalContainer.addParentElement(element);
+        myHierarchicalStructure.addParentElement(element);
     }
 
     /// @brief remove parent element
     template<typename T>
     void removeParentElement(T* element) {
-        myHierarchicalContainer.removeParentElement(element);
+        myHierarchicalStructure.removeParentElement(element);
     }
 
     /// @brief add child element
     template<typename T>
     void addChildElement(T* element) {
-        myHierarchicalContainer.addChildElement(element);
+        myHierarchicalStructure.addChildElement(element);
     }
 
     /// @brief remove child element
     template<typename T>
     void removeChildElement(T* element) {
-        myHierarchicalContainer.removeChildElement(element);
+        myHierarchicalStructure.removeChildElement(element);
     }
 
     /// @}
@@ -179,13 +179,13 @@ protected:
     template<typename T, typename U>
     void replaceParentElements(T* elementChild, const U& newParents) {
         // remove elementChild from parents
-        for (const auto& parent : myHierarchicalContainer.getParents<U>()) {
+        for (const auto& parent : myHierarchicalStructure.getParents<U>()) {
             parent->removeChildElement(elementChild);
         }
         // set new parents junctions
-        myHierarchicalContainer.setParents(newParents);
+        myHierarchicalStructure.setParents(newParents);
         // add elementChild into new parents
-        for (const auto& parent : myHierarchicalContainer.getParents<U>()) {
+        for (const auto& parent : myHierarchicalStructure.getParents<U>()) {
             parent->addChildElement(elementChild);
         }
     }
@@ -194,20 +194,20 @@ protected:
     template<typename T, typename U>
     void replaceChildElements(T* elementChild, const U& newChildren) {
         // remove elementChild from childs
-        for (const auto& child : myHierarchicalContainer.getChildren<U>()) {
+        for (const auto& child : myHierarchicalStructure.getChildren<U>()) {
             child->removeChildElement(elementChild);
         }
         // set new childs junctions
-        myHierarchicalContainer.setChildren(newChildren);
+        myHierarchicalStructure.setChildren(newChildren);
         // add elementChild into new childs
-        for (const auto& child : myHierarchicalContainer.getChildren<U>()) {
+        for (const auto& child : myHierarchicalStructure.getChildren<U>()) {
             child->addChildElement(elementChild);
         }
     }
 
 private:
-    /// @brief hierarchical container with parents and children
-    GNEHierarchicalContainer myHierarchicalContainer;
+    /// @brief hierarchical structure with parents and children
+    GNEHierarchicalStructure myHierarchicalStructure;
 
     /// @brief Invalidated copy constructor.
     GNEHierarchicalElement(const GNEHierarchicalElement&) = delete;
