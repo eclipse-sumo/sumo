@@ -461,11 +461,8 @@ GNEHierarchicalStructure::setChildren(const std::vector<GNEAdditional*>& newChil
 
 
 template<> void
-GNEHierarchicalStructure::setChildren(const std::vector<GNETAZSourceSink*>& newChildren) {
-    myChildSourceSinks.clear();
-    for (const auto &newChild : newChildren) {
-        myChildSourceSinks.insert(newChild);
-    }
+GNEHierarchicalStructure::setChildrenHash(const std::unordered_set<GNETAZSourceSink*>& newChildren) {
+    myChildSourceSinks = newChildren;
 }
 
 
