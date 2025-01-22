@@ -1019,9 +1019,9 @@ GNEEdge::clearGNEConnections() {
 int
 GNEEdge::getRouteProbeRelativePosition(GNERouteProbe* routeProbe) const {
     std::vector<GNEAdditional*> routeProbes;
-    for (auto i : getChildAdditionals()) {
-        if (i->getTagProperty().getTag() == routeProbe->getTagProperty().getTag()) {
-            routeProbes.push_back(i);
+    for (const auto &additional : getChildAdditionals()) {
+        if (additional->getTagProperty().getTag() == routeProbe->getTagProperty().getTag()) {
+            routeProbes.push_back(additional);
         }
     }
     // return index of routeProbe in routeProbes vector
@@ -2910,18 +2910,10 @@ void
 GNEEdge::drawTAZElements(const GUIVisualizationSettings& s) const {
     // first check if draw TAZ Elements is enabled
     if (myNet->getViewNet()->getNetworkViewOptions().showTAZElements()) {
-        std::vector<GNEAdditional*> TAZSourceSinks;
-        // get all TAZ source/sinks vinculated with this edge
-        for (const auto& additional : getChildAdditionals()) {
-            if ((additional->getTagProperty().getTag() == SUMO_TAG_TAZSOURCE) ||
-                    (additional->getTagProperty().getTag() == SUMO_TAG_TAZSINK)) {
-                TAZSourceSinks.push_back(additional);
-            }
-        }
-        if (TAZSourceSinks.size() > 0) {
+        if (getChildTAZSourceSinks().size() > 0) {
             // check if TAZ Source/sink is selected
             bool selected = false;
-            for (const auto& TAZSourceSink : TAZSourceSinks) {
+            for (const auto& TAZSourceSink : getChildTAZSourceSinks()) {
                 if (TAZSourceSink->isAttributeCarrierSelected()) {
                     selected = true;
                 }

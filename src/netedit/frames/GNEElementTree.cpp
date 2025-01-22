@@ -835,6 +835,10 @@ GNEElementTree::showHierarchicalElementChildren(GNEHierarchicalElement* HE, FXTr
                     for (const auto& additional : edge->getChildAdditionals()) {
                         showHierarchicalElementChildren(additional, edgeItem);
                     }
+                    // insert child TAZSourceSink
+                    for (const auto& TAZSourceSink : edge->getChildTAZSourceSinks()) {
+                        showHierarchicalElementChildren(TAZSourceSink, edgeItem);
+                    }
                     // insert child demand elements
                     for (const auto& demandElement : edge->getChildDemandElements()) {
                         showHierarchicalElementChildren(demandElement, edgeItem);
@@ -930,6 +934,10 @@ GNEElementTree::showHierarchicalElementChildren(GNEHierarchicalElement* HE, FXTr
             if (!additional->getTagProperty().isSymbol()) {
                 showHierarchicalElementChildren(additional, treeItem);
             }
+        }
+        // insert additional children
+        for (const auto& TAZSourceSink : HE->getChildTAZSourceSinks()) {
+            showHierarchicalElementChildren(TAZSourceSink, treeItem);
         }
         // insert child demand elements
         for (const auto& demandElement : HE->getChildDemandElements()) {

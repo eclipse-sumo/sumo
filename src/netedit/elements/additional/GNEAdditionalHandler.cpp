@@ -1403,7 +1403,7 @@ GNEAdditionalHandler::buildTAZSource(const CommonXMLStructure::SumoBaseObject* s
         // declare TAZ Source
         GNEAdditional* existentTAZSource = nullptr;
         // first check if already exist a TAZ Source for the given edge and TAZ
-        for (auto it = edge->getChildAdditionals().begin(); (it != edge->getChildAdditionals().end()) && !existentTAZSource; it++) {
+        for (auto it = edge->getChildTAZSourceSinks().begin(); (it != edge->getChildTAZSourceSinks().end()) && !existentTAZSource; it++) {
             if (((*it)->getTagProperty().getTag() == SUMO_TAG_TAZSOURCE) && ((*it)->getParentAdditionals().front() == TAZ)) {
                 existentTAZSource = (*it);
             }
@@ -1452,7 +1452,7 @@ GNEAdditionalHandler::buildTAZSink(const CommonXMLStructure::SumoBaseObject* sum
         // declare TAZ Sink
         GNEAdditional* existentTAZSink = nullptr;
         // first check if already exist a TAZ Sink for the given edge and TAZ
-        for (auto it = edge->getChildAdditionals().begin(); (it != edge->getChildAdditionals().end()) && !existentTAZSink; it++) {
+        for (auto it = edge->getChildTAZSourceSinks().begin(); (it != edge->getChildTAZSourceSinks().end()) && !existentTAZSink; it++) {
             if (((*it)->getTagProperty().getTag() == SUMO_TAG_TAZSINK) && ((*it)->getParentAdditionals().front() == TAZ)) {
                 existentTAZSink = (*it);
             }

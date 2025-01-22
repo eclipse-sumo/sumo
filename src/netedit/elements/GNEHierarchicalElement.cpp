@@ -97,6 +97,9 @@ GNEHierarchicalElement::getAllHierarchicalElements() const {
     for (const auto& element : getChildAdditionals()) {
         result.push_back(element);
     }
+    for (const auto& element : getChildTAZSourceSinks()) {
+        result.push_back(element);
+    }
     for (const auto& element : getChildDemandElements()) {
         result.push_back(element);
     }

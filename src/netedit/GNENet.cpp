@@ -40,6 +40,7 @@
 #include <netedit/changes/GNEChange_Junction.h>
 #include <netedit/changes/GNEChange_Lane.h>
 #include <netedit/changes/GNEChange_RegisterJoin.h>
+#include <netedit/changes/GNEChange_TAZSourceSink.h>
 #include <netedit/dialogs/GNEFixAdditionalElements.h>
 #include <netedit/dialogs/GNEFixDemandElements.h>
 #include <netedit/elements/GNEGeneralHandler.h>
@@ -455,6 +456,10 @@ GNENet::deleteEdge(GNEEdge* edge, GNEUndoList* undoList, bool recomputeConnectio
     while (edge->getChildAdditionals().size() > 0) {
         deleteAdditional(edge->getChildAdditionals().front(), undoList);
     }
+    // delete TAZSourceSink children
+    while (edge->getChildTAZSourceSinks().size() > 0) {
+        deleteTAZSourceSink(edge->getChildTAZSourceSinks().front(), undoList);
+    }
     // delete edge child demand elements
     while (edge->getChildDemandElements().size() > 0) {
         // special case for embedded routes
@@ -675,20 +680,33 @@ GNENet::deleteCrossing(GNECrossing* crossing, GNEUndoList* undoList) {
 void
 GNENet::deleteAdditional(GNEAdditional* additional, GNEUndoList* undoList) {
     undoList->begin(GUIIcon::MODEDELETE, TL("delete ") + additional->getTagStr());
-    // remove all demand element children of this additional deleteDemandElement this function recursively
+    // remove all demand element children
     while (additional->getChildDemandElements().size() > 0) {
         deleteDemandElement(additional->getChildDemandElements().front(), undoList);
     }
-    // remove all generic data children of this additional deleteGenericData this function recursively
+    // remove all generic data children
     while (additional->getChildGenericDatas().size() > 0) {
         deleteGenericData(additional->getChildGenericDatas().front(), undoList);
     }
-    // remove all additional children of this additional calling this function recursively
+    // remove all additional children
     while (additional->getChildAdditionals().size() > 0) {
         deleteAdditional(additional->getChildAdditionals().front(), undoList);
     }
+    // remove all TAZSourceSinks children
+    while (additional->getChildTAZSourceSinks().size() > 0) {
+        deleteTAZSourceSink(additional->getChildTAZSourceSinks().front(), undoList);
+    }
     // remove additional
     undoList->add(new GNEChange_Additional(additional, false), true);
+    undoList->end();
+}
+
+
+void
+GNENet::deleteTAZSourceSink(GNETAZSourceSink* TAZSourceSink, GNEUndoList* undoList) {
+    undoList->begin(GUIIcon::MODEDELETE, TL("delete ") + TAZSourceSink->getTagStr());
+    // remove additional
+    undoList->add(new GNEChange_TAZSourceSink(TAZSourceSink, false), true);
     undoList->end();
 }
 

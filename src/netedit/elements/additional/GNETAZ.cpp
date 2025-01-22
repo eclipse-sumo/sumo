@@ -168,7 +168,7 @@ GNETAZ::writeAdditional(OutputDevice& device) const {
     device.writeAttr(SUMO_ATTR_COLOR, getShapeColor());
     // sort all Source/Sinks by ID
     std::map<std::pair<std::string, SumoXMLTag>, GNEAdditional*> sortedSourceSinks;
-    for (const auto& sourceSink : getChildAdditionals()) {
+    for (const auto& sourceSink : getChildTAZSourceSinks()) {
         sortedSourceSinks[std::make_pair(sourceSink->getAttribute(SUMO_ATTR_EDGE), sourceSink->getTagProperty().getTag())] = sourceSink;
     }
     // write all TAZ Source/sinks
@@ -443,8 +443,8 @@ GNETAZ::getAttribute(SumoXMLAttr key) const {
             return toString(myFill);
         case SUMO_ATTR_EDGES: {
             std::vector<std::string> edgeIDs;
-            for (const auto& TAZChild : getChildAdditionals()) {
-                edgeIDs.push_back(TAZChild->getAttribute(SUMO_ATTR_EDGE));
+            for (const auto& TAZSourceSink : getChildTAZSourceSinks()) {
+                edgeIDs.push_back(TAZSourceSink->getAttribute(SUMO_ATTR_EDGE));
             }
             return toString(edgeIDs);
         }
@@ -617,9 +617,9 @@ GNETAZ::updateTAZStatistic() {
     int numberOfSources = 0;
     int numberOfSinks = 0;
     // iterate over child additional
-    for (const auto& TAZChild : getChildAdditionals()) {
-        if (TAZChild->getTagProperty().getTag() == SUMO_TAG_TAZSOURCE) {
-            const double weight = TAZChild->getAttributeDouble(SUMO_ATTR_WEIGHT);
+    for (const auto& TAZSourceSink : getChildTAZSourceSinks()) {
+        if (TAZSourceSink->getTagProperty().getTag() == SUMO_TAG_TAZSOURCE) {
+            const double weight = TAZSourceSink->getAttributeDouble(SUMO_ATTR_WEIGHT);
             // check max Weight
             if ((myMaxWeightSource == INVALID_DOUBLE) || (myMaxWeightSource < weight)) {
                 myMaxWeightSource = weight;
@@ -632,8 +632,8 @@ GNETAZ::updateTAZStatistic() {
             myAverageWeightSource += weight;
             // update number of sources
             numberOfSources++;
-        } else if (TAZChild->getTagProperty().getTag() == SUMO_TAG_TAZSINK) {
-            const double weight = TAZChild->getAttributeDouble(SUMO_ATTR_WEIGHT);
+        } else if (TAZSourceSink->getTagProperty().getTag() == SUMO_TAG_TAZSINK) {
+            const double weight = TAZSourceSink->getAttributeDouble(SUMO_ATTR_WEIGHT);
             // check max Weight
             if ((myMaxWeightSink == INVALID_DOUBLE) || myMaxWeightSink < weight) {
                 myMaxWeightSink = weight;
