@@ -1,4 +1,4 @@
-Eclipse SUMO polyconvert Version v1_21_0+0462-0373bcb962f
+Eclipse SUMO polyconvert Version v1_21_0+1946-5cf10712f6d
  Copyright (C) 2001-2025 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Importer of polygons and POIs for the microscopic, multi-modal traffic
  simulation SUMO.
@@ -36,6 +36,7 @@ Input Options:
   --osm.merge-relations FLOAT       If FLOAT >= 0, assemble one polygon from
                                      all ways of a relation if they all connect
                                      with gaps below FLOAT
+  --geojson-files FILE              Reads shapes from geojson FILE
   --shapefile-prefixes FILE         Reads shapes from shapefiles FILE
   --shapefile.guess-projection      Guesses the shapefile's projection
   --shapefile.traditional-axis-mapping  Use traditional axis order (lon, lat)
