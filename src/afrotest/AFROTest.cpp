@@ -44,6 +44,7 @@ AFROTest::test(const ROVehicle* const vehicle, bool unbuildIsWarning, typename S
                const std::shared_ptr<const FlippedLookupTable> flippedLookup,
                const bool havePermissions, const bool haveRestrictions) {
     std::cout << "Creating forward k-d tree partition..." << std::endl;
+    int actualNumberOfLevels = -1;
     const ROEdgeVector& edges = ROEdge::getAllEdges();
     long long int kDPartitionBuildStart = 0;
     long long int kDPartitionBuildTime = 0;
@@ -60,13 +61,28 @@ AFROTest::test(const ROVehicle* const vehicle, bool unbuildIsWarning, typename S
         edges, unbuildIsWarning, operation, /*SVC_IGNORING*/vehicle->getVClass(), weightPeriod, havePermissions, haveRestrictions);
     AStarRouter<ROEdge, ROVehicle>* aStar = new AStarRouter<ROEdge, ROVehicle>(edges, unbuildIsWarning, operation, lookup,
             havePermissions, haveRestrictions);
+    actualNumberOfLevels = partition->getNumberOfLevels();
+    std::cout << "Actual number of levels after partitioning: " << actualNumberOfLevels << std::endl;
+    if (actualNumberOfLevels == 3) {
+        try {
+            const Cell* cell2 = partition->cell(2);
 
-    if (NUMBER_OF_LEVELS == 4) {
+            std::cout << "Test suite started: " << std::endl;
+            testRoutes(cell2, cell2, vehicle, arcFlagRouter, cHRouter, aStar);
+            std::cout << "Stats:" << std::endl;
+            arcFlagRouter->reportStatistics();
+            arcFlagRouter->resetStatistics();
+            std::cout << "Tests are done." << std::endl;
+        } catch (const std::invalid_argument& e) {
+            std::cerr << "Exception: " << e.what() << std::endl;
+            exit(-1);
+        }
+    } else if (actualNumberOfLevels == 4) {
         try {
             const Cell* cell3 = partition->cell(3);
             const Cell* cell14 = partition->cell(14);
 
-            std::cout << "Test suite started (" << (NUMBER_OF_END_EDGES * NUMBER_OF_START_EDGES) << " routes): " << std::endl;
+            std::cout << "Test suite started: " << std::endl;
             testRoutes(cell3, cell14, vehicle, arcFlagRouter, cHRouter, aStar);
             std::cout << "Stats:" << std::endl;
             arcFlagRouter->reportStatistics();
@@ -76,7 +92,7 @@ AFROTest::test(const ROVehicle* const vehicle, bool unbuildIsWarning, typename S
             std::cerr << "Exception: " << e.what() << std::endl;
             exit(-1);
         }
-    } else if (NUMBER_OF_LEVELS == 5) {
+    } else if (actualNumberOfLevels == 5) {
         try {
             const Cell* cell4 = partition->cell(4);
             //const Cell* cell5 = partition->cell(5);
@@ -86,7 +102,7 @@ AFROTest::test(const ROVehicle* const vehicle, bool unbuildIsWarning, typename S
             //const Cell* cell23 = partition->cell(23);
             const Cell* cell30 = partition->cell(30);
 
-            std::cout << "Test suite started (" << (NUMBER_OF_END_EDGES * NUMBER_OF_START_EDGES) << " routes): " << std::endl;
+            std::cout << "Test suite started: " << std::endl;
             //testRoutes(cell4, cell5, vehicle, arcFlagRouter, cHRouter, aStar);
             //std::cout << "Stats:" << std::endl;
             //arcFlagRouter->reportStatistics();
@@ -112,7 +128,7 @@ AFROTest::test(const ROVehicle* const vehicle, bool unbuildIsWarning, typename S
             std::cerr << "Exception: " << e.what() << std::endl;
             exit(-1);
         }
-    } else if (NUMBER_OF_LEVELS == 8) {
+    } else if (actualNumberOfLevels == 8) {
         try {
             const Cell* cell7 = partition->cell(7);
             const Cell* cell254 = partition->cell(254);
@@ -125,7 +141,7 @@ AFROTest::test(const ROVehicle* const vehicle, bool unbuildIsWarning, typename S
             //const Cell* cell14 = partition->cell(14);
             //const Cell* cell247 = partition->cell(247);
 
-            std::cout << "Test suite started (" << (NUMBER_OF_END_EDGES * NUMBER_OF_START_EDGES) << " routes): " << std::endl;
+            std::cout << "Test suite started: " << std::endl;
             //testRoutes(cell14, cell247, vehicle, arcFlagRouter, cHRouter, aStar);
             //std::cout << "Stats:" << std::endl;
             //arcFlagRouter->reportStatistics();
@@ -155,6 +171,7 @@ AFROTest::test(const ROVehicle* const vehicle, bool unbuildIsWarning, typename S
     delete arcFlagRouter;
     delete cHRouter;
     delete aStar;
+    delete partition;
 } // end of test method
 
 void
@@ -215,7 +232,9 @@ AFROTest::testRoutes(const Cell* cell1, const Cell* cell2, const ROVehicle* cons
     bool alreadyTriedAStar = false;
     for (const ROEdge* edge1 : someCell2InsideEdges) {
         for (const ROEdge* edge2 : someCell1InsideEdges) {
-            assert(edge1 != edge2);
+            if (edge1 == edge2) {
+                continue;
+            }
             std::cout << "routeCnt: " << routeCnt++ << ", edge1: " << edge1->getID() << ", edge2 : " << edge2->getID() << std::endl;
             into.clear();
             into2.clear();
@@ -233,7 +252,7 @@ AFROTest::testRoutes(const Cell* cell1, const Cell* cell2, const ROVehicle* cons
                 if (!into.empty() && aStar->compute(edge1, edge2, vehicle, msTime, into2)) {
                     double recomputedEffortCHRouter = cHRouter->recomputeCosts(into, vehicle, msTime);
                     recomputedEffortAStar = aStar->recomputeCosts(into2, vehicle, msTime);
-                    std::cout << "Recomputed CH router effort : " << recomputedEffortCHRouter << ", recomputed A* effort : "
+                    std::cout << "Recomputed CH router effort: " << recomputedEffortCHRouter << ", recomputed A* effort: "
                               << recomputedEffortAStar << std::endl;
                     if (recomputedEffortCHRouter > recomputedEffortAStar) {
                         std::cout << "CH FAIL: Recomputed CH router effort greater than recomputed A* effort." << std::endl;
@@ -280,7 +299,7 @@ AFROTest::testRoutes(const Cell* cell1, const Cell* cell2, const ROVehicle* cons
                     if (recomputedEffortAStar == -1.) {
                         recomputedEffortAStar = aStar->recomputeCosts(into2, vehicle, msTime);
                     }
-                    std::cout << "Recomputed arc flag router effort : " << recomputedEffortArcFlagRouter << ", recomputed A* effort : "
+                    std::cout << "Recomputed arc flag router effort : " << recomputedEffortArcFlagRouter << ", recomputed A* effort: "
                               << recomputedEffortAStar << std::endl;
                     if (recomputedEffortArcFlagRouter > recomputedEffortAStar) {
                         std::cout << "ERROR: Recomputed arc flag router effort greater than recomputed A* effort." << std::endl;
@@ -303,11 +322,22 @@ AFROTest::testRoutes(const Cell* cell1, const Cell* cell2, const ROVehicle* cons
             }
         } // end of loop over cell boundary edge
     } // end of loop over sibling boundary edge
-    std::cout << "Arc flag router: " << errorCnt << " errors in " << (NUMBER_OF_START_EDGES * NUMBER_OF_END_EDGES)
-              << " routes (that is " << (static_cast<double>(errorCnt) / static_cast<double>(NUMBER_OF_START_EDGES * NUMBER_OF_END_EDGES)) * 100. << " percent)." << std::endl;
-    std::cout << "CH router: " << failCnt << " errors in " << (NUMBER_OF_START_EDGES * NUMBER_OF_END_EDGES)
-              << " routes (that is " << (static_cast<double>(failCnt) / static_cast<double>(NUMBER_OF_START_EDGES * NUMBER_OF_END_EDGES)) * 100.
-              << " percent)." << std::endl;
+    std::cout << "Arc flag router: " << errorCnt << " errors in " << routeCnt
+              << " routes";
+    if (routeCnt == 0) {
+        std::cout << "." << std::endl;
+    } else {
+        std::cout << " (that is " << (static_cast<double>(errorCnt) / static_cast<double>(routeCnt)) * 100.
+                  << " percent)." << std::endl;
+    }
+    std::cout << "CH router: " << failCnt << " errors in " << routeCnt
+              << " routes";
+    if (routeCnt == 0) {
+        std::cout << "." << std::endl;
+    } else {
+        std::cout << " (that is " << (static_cast<double>(failCnt) / static_cast<double>(routeCnt)) * 100.
+                  << " percent)." << std::endl;
+    }
     if (failCnt && errorSum && aStarEffortSum) {
         std::cout << "Average deviation of CH Router result from the (smaller) A* result: "
                   << (errorSum / aStarEffortSum) * 100. << " percent." << std::endl;
