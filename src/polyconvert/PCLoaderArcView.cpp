@@ -63,14 +63,19 @@ bool PCLoaderArcView::myWarnMissingProjection = true;
 // ===========================================================================
 void
 PCLoaderArcView::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill, PCTypeMap& tm) {
-    if (!oc.isSet("shapefile-prefixes")) {
+    if (!oc.isSet("shapefile-prefixes") && !oc.isSet("geojson-files")) {
         return;
     }
     // parse file(s)
-    std::vector<std::string> files = oc.getStringVector("shapefile-prefixes");
-    for (std::vector<std::string>::const_iterator file = files.begin(); file != files.end(); ++file) {
-        PROGRESS_BEGIN_MESSAGE("Parsing from shape-file '" + *file + "'");
-        load(*file, oc, toFill, tm);
+    for (std::string file : oc.getStringVector("shapefile-prefixes")) {
+        file += ".shp";
+        PROGRESS_BEGIN_MESSAGE("Parsing from shape-file '" + file + "'");
+        load(file, oc, toFill, tm);
+        PROGRESS_DONE_MESSAGE();
+    }
+    for (const std::string& file : oc.getStringVector("geojson-files")) {
+        PROGRESS_BEGIN_MESSAGE("Parsing from geojson-file '" + file + "'");
+        load(file, oc, toFill, tm);
         PROGRESS_DONE_MESSAGE();
     }
 }
@@ -120,8 +125,6 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
     // get defaults
     const std::string idField = oc.getString("shapefile.id-column");
     const bool useRunningID = oc.getBool("shapefile.use-running-id") || idField == "";
-    // start parsing
-    std::string shpName = file + ".shp";
     int fillType = -1;
     if (oc.getString("shapefile.fill") == "true") {
         fillType = 1;
@@ -130,13 +133,13 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
     }
 #if GDAL_VERSION_MAJOR < 2
     OGRRegisterAll();
-    OGRDataSource* poDS = OGRSFDriverRegistrar::Open(shpName.c_str(), FALSE);
+    OGRDataSource* poDS = OGRSFDriverRegistrar::Open(file.c_str(), FALSE);
 #else
     GDALAllRegister();
-    GDALDataset* poDS = (GDALDataset*) GDALOpenEx(shpName.c_str(), GDAL_OF_VECTOR | GA_ReadOnly, NULL, NULL, NULL);
+    GDALDataset* poDS = (GDALDataset*) GDALOpenEx(file.c_str(), GDAL_OF_VECTOR | GA_ReadOnly, NULL, NULL, NULL);
 #endif
     if (poDS == NULL) {
-        throw ProcessError(TLF("Could not open shape description '%'.", shpName));
+        throw ProcessError(TLF("Could not open shape description '%'.", file));
     }
 
     // begin file parsing

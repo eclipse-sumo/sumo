@@ -110,6 +110,10 @@ fillOptions() {
     oc.doRegister("osm.merge-relations", new Option_Float(-1));
     oc.addDescription("osm.merge-relations", "Input", TL("If FLOAT >= 0, assemble one polygon from all ways of a relation if they all connect with gaps below FLOAT"));
 
+    // geojson import
+    oc.doRegister("geojson-files", new Option_FileName());
+    oc.addDescription("geojson-files", "Input", TL("Reads shapes from geojson FILE"));
+    
     // arcview import
     oc.doRegister("shapefile-prefixes", new Option_FileName());
     oc.addSynonyme("shapefile-prefixes", "shapefile-prefix");
@@ -263,7 +267,12 @@ main(int argc, char** argv) {
             // from the given options
 #ifdef PROJ_API_FILE
             const int numProjections = oc.getBool("simple-projection") + oc.getBool("proj.utm") + oc.getBool("proj.dhdn") + (oc.getString("proj").length() > 1);
-            if ((oc.isSet("osm-files") || oc.isSet("dlr-navteq-poly-files") || oc.isSet("dlr-navteq-poi-files") || oc.isSet("shapefile-prefixes")) && numProjections == 0) {
+            if ((oc.isSet("osm-files") 
+                        || oc.isSet("dlr-navteq-poly-files")
+                        || oc.isSet("dlr-navteq-poi-files") 
+                        || oc.isSet("geojson-files") 
+                        || oc.isSet("shapefile-prefixes"))
+                    && numProjections == 0) {
                 // input is lon,lat and projecting it to UTM ensures accurate handling of geometry
                 oc.set("proj.utm", "true");
                 if (oc.isDefault("proj.plain-geo")) {
