@@ -157,7 +157,7 @@ protected:
         for (const auto& additional : myOriginalHierarchicalContainer.getChildren<GNEAdditional*>()) {
             additional->addParentElement(element);
         }
-        for (const auto& TAZSourceSink : myOriginalHierarchicalContainer.getChildren<GNETAZSourceSink*>()) {
+        for (const auto& TAZSourceSink : myOriginalHierarchicalContainer.getChildrenHash<GNETAZSourceSink*>()) {
             TAZSourceSink->addParentElement(element);
         }
         for (const auto& demandElement : myOriginalHierarchicalContainer.getChildren<GNEDemandElement*>()) {
@@ -206,7 +206,7 @@ protected:
         for (const auto& additional : myOriginalHierarchicalContainer.getChildren<GNEAdditional*>()) {
             additional->removeParentElement(element);
         }
-        for (const auto& TAZSourceSink : myOriginalHierarchicalContainer.getChildren<GNETAZSourceSink*>()) {
+        for (const auto& TAZSourceSink : myOriginalHierarchicalContainer.getChildrenHash<GNETAZSourceSink*>()) {
             TAZSourceSink->removeParentElement(element);
         }
         for (const auto& demandElement : myOriginalHierarchicalContainer.getChildren<GNEDemandElement*>()) {

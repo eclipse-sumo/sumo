@@ -458,7 +458,7 @@ GNENet::deleteEdge(GNEEdge* edge, GNEUndoList* undoList, bool recomputeConnectio
     }
     // delete TAZSourceSink children
     while (edge->getChildTAZSourceSinks().size() > 0) {
-        deleteTAZSourceSink(edge->getChildTAZSourceSinks().front(), undoList);
+        deleteTAZSourceSink(*edge->getChildTAZSourceSinks().begin(), undoList);
     }
     // delete edge child demand elements
     while (edge->getChildDemandElements().size() > 0) {
@@ -694,7 +694,7 @@ GNENet::deleteAdditional(GNEAdditional* additional, GNEUndoList* undoList) {
     }
     // remove all TAZSourceSinks children
     while (additional->getChildTAZSourceSinks().size() > 0) {
-        deleteTAZSourceSink(additional->getChildTAZSourceSinks().front(), undoList);
+        deleteTAZSourceSink(*additional->getChildTAZSourceSinks().begin(), undoList);
     }
     // remove additional
     undoList->add(new GNEChange_Additional(additional, false), true);

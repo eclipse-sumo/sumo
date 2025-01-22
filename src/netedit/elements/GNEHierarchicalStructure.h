@@ -91,6 +91,10 @@ public:
     template<typename T>
     const GNEHierarchicalContainerChildren<T>& getChildren() const;
 
+    /// @brief get childrenHash
+    template<typename T>
+    const GNEHierarchicalContainerChildrenHash<T>& getChildrenHash() const;
+
     /// @brief set children
     template<typename T>
     void setChildren(const std::vector<T>& newChildren);
@@ -108,7 +112,7 @@ private:
     /// @brief parents additionals
     GNEHierarchicalContainerParents<GNEAdditional*> myParentAdditionals;
 
-    /// @brief parents additionals
+    /// @brief parents TAZSourceSinks (Unused, but needed for function addElementInParentsAndChildren)
     GNEHierarchicalContainerParents<GNETAZSourceSink*> myParentTAZSourceSinks;
 
     /// @brief parents demand elements
@@ -129,8 +133,8 @@ private:
     /// @brief children additional elements
     GNEHierarchicalContainerChildren<GNEAdditional*> myChildAdditionals;
 
-    /// @brief children additional elements
-    GNEHierarchicalContainerChildren<GNETAZSourceSink*> myChildSourceSinks;
+    /// @brief children TAZSourceSinks elements (hash)
+    GNEHierarchicalContainerChildrenHash<GNETAZSourceSink*> myChildSourceSinks;
 
     /// @brief children demand elements
     GNEHierarchicalContainerChildren<GNEDemandElement*> myChildDemandElements;

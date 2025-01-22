@@ -218,7 +218,7 @@ GNEHierarchicalStructure::addChildElement(GNEAdditional* additional) {
 
 template <> void
 GNEHierarchicalStructure::addChildElement(GNETAZSourceSink* TAZSourceSink) {
-    myChildSourceSinks.push_back(TAZSourceSink);
+    myChildSourceSinks.insert(TAZSourceSink);
 }
 
 
@@ -280,7 +280,7 @@ GNEHierarchicalStructure::removeChildElement(GNEAdditional* additional) {
 
 template <> void
 GNEHierarchicalStructure::removeChildElement(GNETAZSourceSink* TAZSourceSink) {
-    auto it = std::find(myChildSourceSinks.begin(), myChildSourceSinks.end(), TAZSourceSink);
+    auto it = myChildSourceSinks.find(TAZSourceSink);
     if (it != myChildSourceSinks.end()) {
         myChildSourceSinks.erase(it);
     } else {
@@ -418,8 +418,8 @@ GNEHierarchicalStructure::getChildren() const {
 }
 
 
-template<> const GNEHierarchicalContainerChildren<GNETAZSourceSink*>&
-GNEHierarchicalStructure::getChildren() const {
+template<> const GNEHierarchicalContainerChildrenHash<GNETAZSourceSink*>&
+GNEHierarchicalStructure::getChildrenHash() const {
     return myChildSourceSinks;
 }
 
@@ -462,7 +462,10 @@ GNEHierarchicalStructure::setChildren(const std::vector<GNEAdditional*>& newChil
 
 template<> void
 GNEHierarchicalStructure::setChildren(const std::vector<GNETAZSourceSink*>& newChildren) {
-    myChildSourceSinks = newChildren;
+    myChildSourceSinks.clear();
+    for (const auto &newChild : newChildren) {
+        myChildSourceSinks.insert(newChild);
+    }
 }
 
 
