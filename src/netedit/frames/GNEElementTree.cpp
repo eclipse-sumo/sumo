@@ -835,9 +835,14 @@ GNEElementTree::showHierarchicalElementChildren(GNEHierarchicalElement* HE, FXTr
                     for (const auto& additional : edge->getChildAdditionals()) {
                         showHierarchicalElementChildren(additional, edgeItem);
                     }
-                    // insert child TAZSourceSink
-                    for (const auto& TAZSourceSink : edge->getChildTAZSourceSinks()) {
-                        showHierarchicalElementChildren(TAZSourceSink, edgeItem);
+                    // avoid show a high number of TAZSource SInks
+                    if (edge->getChildTAZSourceSinks().size() > 20) {
+                        addListItem(edgeItem, TLF("SourceSinks (%)", toString(edge->getChildTAZSourceSinks().size())), GUIIconSubSys::getIcon(GUIIcon::TAZ), false);
+                    } else {
+                        // insert child TAZSourceSink
+                        for (const auto& TAZSourceSink : edge->getChildTAZSourceSinks()) {
+                            showHierarchicalElementChildren(TAZSourceSink, edgeItem);
+                        }
                     }
                     // insert child demand elements
                     for (const auto& demandElement : edge->getChildDemandElements()) {
@@ -935,9 +940,14 @@ GNEElementTree::showHierarchicalElementChildren(GNEHierarchicalElement* HE, FXTr
                 showHierarchicalElementChildren(additional, treeItem);
             }
         }
-        // insert additional children
-        for (const auto& TAZSourceSink : HE->getChildTAZSourceSinks()) {
-            showHierarchicalElementChildren(TAZSourceSink, treeItem);
+        // avoid show a high number of TAZSource SInks
+        if (HE->getChildTAZSourceSinks().size() > 20) {
+            addListItem(treeItem, TLF("SourceSinks (%)", toString(HE->getChildTAZSourceSinks().size())), GUIIconSubSys::getIcon(GUIIcon::TAZ), false);
+        } else {
+            // insert child TAZSourceSink
+            for (const auto& TAZSourceSink : HE->getChildTAZSourceSinks()) {
+                showHierarchicalElementChildren(TAZSourceSink, treeItem);
+            }
         }
         // insert child demand elements
         for (const auto& demandElement : HE->getChildDemandElements()) {
