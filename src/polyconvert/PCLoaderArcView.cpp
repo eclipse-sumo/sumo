@@ -310,7 +310,7 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
                 WRITE_WARNINGF(TL("Unsupported shape type occurred (id='%')."), id);
                 break;
         }
-        if (oc.getBool("shapefile.add-param")) {
+        if (oc.getBool("shapefile.add-param") || oc.getBool("all-attributes")) {
             for (std::vector<Parameterised*>::const_iterator it = parCont.begin(); it != parCont.end(); ++it) {
                 OGRFeatureDefn* poFDefn = poLayer->GetLayerDefn();
                 for (int iField = 0; iField < poFDefn->GetFieldCount(); iField++) {
