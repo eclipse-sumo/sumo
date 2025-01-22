@@ -149,23 +149,23 @@ GNEHierarchicalStructure::removeParentElement(GNELane* lane) {
 
 
 template <> void
-GNEHierarchicalStructure::removeParentElement(GNETAZSourceSink* TAZSourceSink) {
-    auto it = std::find(myParentAdditionals.begin(), myParentAdditionals.end(), TAZSourceSink);
+GNEHierarchicalStructure::removeParentElement(GNEAdditional* additional) {
+    auto it = std::find(myParentAdditionals.begin(), myParentAdditionals.end(), additional);
     if (it != myParentAdditionals.end()) {
         myParentAdditionals.erase(it);
     } else {
-        throw ProcessError(TAZSourceSink->getTagStr() + " with ID='" + TAZSourceSink->getID() + "' is not a parent element");
+        throw ProcessError(additional->getTagStr() + " with ID='" + additional->getID() + "' is not a parent element");
     }
 }
 
 
 template <> void
-GNEHierarchicalStructure::removeParentElement(GNEAdditional* additional) {
-    auto it = std::find(myParentTAZSourceSinks.begin(), myParentTAZSourceSinks.end(), additional);
+GNEHierarchicalStructure::removeParentElement(GNETAZSourceSink* TAZSourceSink) {
+    auto it = std::find(myParentTAZSourceSinks.begin(), myParentTAZSourceSinks.end(), TAZSourceSink);
     if (it != myParentTAZSourceSinks.end()) {
         myParentTAZSourceSinks.erase(it);
     } else {
-        throw ProcessError(additional->getTagStr() + " with ID='" + additional->getID() + "' is not a parent element");
+        throw ProcessError(TAZSourceSink->getTagStr() + " with ID='" + TAZSourceSink->getID() + "' is not a parent element");
     }
 }
 
