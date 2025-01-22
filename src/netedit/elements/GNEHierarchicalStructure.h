@@ -21,10 +21,20 @@
 #include <config.h>
 
 #include <vector>
+#include <set>
 
-#include "GNEHierarchicalContainerParents.h"
-#include "GNEHierarchicalContainerChildren.h"
-#include "GNEHierarchicalContainerChildrenHash.h"
+// ===========================================================================
+// template declarations
+// ===========================================================================
+
+template <typename T>
+using GNEHierarchicalContainerParents = std::vector<T>;
+
+template <typename T>
+using GNEHierarchicalContainerChildren = std::vector<T>;
+
+template <typename T>
+using GNEHierarchicalContainerChildrenHash = std::set<T>;
 
 // ===========================================================================
 // class declarations

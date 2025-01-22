@@ -402,12 +402,6 @@ GNEAttributeCarrier::parse(GNENet* net, const std::string& value) {
 }
 
 
-template<> GNEHierarchicalContainerChildren<GNEEdge*>
-GNEAttributeCarrier::parse(GNENet* net, const std::string& value) {
-    return GNEHierarchicalContainerChildren<GNEEdge*>(parse<std::vector<GNEEdge*> >(net, value));
-}
-
-
 template<> std::vector<GNELane*>
 GNEAttributeCarrier::parse(GNENet* net, const std::string& value) {
     // Declare string vector
@@ -425,12 +419,6 @@ GNEAttributeCarrier::parse(GNENet* net, const std::string& value) {
         }
     }
     return parsedLanes;
-}
-
-
-template<> GNEHierarchicalContainerChildren<GNELane*>
-GNEAttributeCarrier::parse(GNENet* net, const std::string& value) {
-    return GNEHierarchicalContainerChildren<GNELane*>(parse<std::vector<GNELane*> >(net, value));
 }
 
 
