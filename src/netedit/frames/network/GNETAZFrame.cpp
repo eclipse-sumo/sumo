@@ -1650,12 +1650,25 @@ GNETAZFrame::shapeDrawed() {
             // TAZ is created without edges
             myBaseTAZ->addStringListAttribute(SUMO_ATTR_EDGES, std::vector<std::string>());
         }
-        // declare additional handler
-        GNEAdditionalHandler additionalHandler(myViewNet->getNet(), myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), false);
-        // build TAZ
-        additionalHandler.parseSumoBaseObject(myBaseTAZ);
-        // TAZ created, then return true
-        return true;
+        const bool allowUndoRedo = (myBaseTAZ->getStringListAttribute(SUMO_ATTR_EDGES).size() < 2000);
+        // due lack of memory, we need to ask if we're creating a lot of sourcesinks
+        if (allowUndoRedo) {
+            // declare additional handler
+            GNEAdditionalHandler additionalHandler(myViewNet->getNet(), myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), false);
+            // build TAZ
+            additionalHandler.parseSumoBaseObject(myBaseTAZ);
+            // TAZ created, then return true
+            return true;
+        } else if (askCreateMultipleSourceSinks(myBaseTAZ->getStringListAttribute(SUMO_ATTR_EDGES).size())) {
+            // declare additional handler
+            GNEAdditionalHandler additionalHandler(myViewNet->getNet(), false, false);
+            // build TAZ
+            additionalHandler.parseSumoBaseObject(myBaseTAZ);
+            // TAZ created, then return true
+            return true;
+        } else {
+            return false;
+        }
     }
 }
 
@@ -1720,5 +1733,28 @@ GNETAZFrame::dropTAZMembers() {
     myCurrentTAZ->refreshTAZEdges();
 }
 
-
+bool
+GNETAZFrame::askCreateMultipleSourceSinks(const size_t numSourceSinks) const {
+    // declare variable to save FXMessageBox outputs.
+    FXuint answer = 0;
+    // write warning if netedit is running in testing mode
+    WRITE_DEBUG("Opening FXMessageBox 'Ask create multiple sourceSinks'");
+    // open question dialog box
+    answer = FXMessageBox::question(myViewNet->getApp(), MBOX_YES_NO, TL("Create multiple sourceSInks"),
+                                    TLF("Creation of % cannot be undo. Continue?", toString(numSourceSinks)).c_str());
+    if (answer != 1) { //1:yes, 2:no, 4:esc
+        // write warning if netedit is running in testing mode
+        if (answer == 2) {
+            WRITE_DEBUG("Closed FXMessageBox 'Ask create multiple sourceSinks' with 'No'");
+        } else if (answer == 4) {
+            WRITE_DEBUG("Closed FXMessageBox 'Ask create multiple sourceSinks' with 'ESC'");
+        }
+        // abort recompute with volatile options
+        return false;
+    } else {
+        // write warning if netedit is running in testing mode
+        WRITE_DEBUG("Closed FXMessageBox 'Ask create multiple sourceSinks' with 'Yes'");
+        return true;
+    }
+}
 /****************************************************************************/

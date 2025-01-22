@@ -1369,13 +1369,17 @@ GNEAdditionalHandler::buildTAZ(const CommonXMLStructure::SumoBaseObject* sumoBas
                 TAZ->incRef("buildTAZ");
                 for (const auto& edge : edges) {
                     // create TAZ Source
-                    GNEAdditional* TAZSource = new GNETAZSourceSink(SUMO_TAG_TAZSOURCE, TAZ, edge, 1);
+                    GNETAZSourceSink* TAZSource = new GNETAZSourceSink(SUMO_TAG_TAZSOURCE, TAZ, edge, 1);
+                    myNet->getAttributeCarriers()->insertAdditional(TAZSource);
                     TAZSource->incRef("buildTAZ");
                     TAZ->addChildElement(TAZSource);
+                    edge->addChildElement(TAZSource);
                     // create TAZ Sink
-                    GNEAdditional* TAZSink = new GNETAZSourceSink(SUMO_TAG_TAZSINK, TAZ, edge, 1);
+                    GNETAZSourceSink* TAZSink = new GNETAZSourceSink(SUMO_TAG_TAZSINK, TAZ, edge, 1);
+                    myNet->getAttributeCarriers()->insertAdditional(TAZSink);
                     TAZSink->incRef("buildTAZ");
                     TAZ->addChildElement(TAZSink);
+                    edge->addChildElement(TAZSink);
                 }
             }
             // enable updating geometry again and update geometry of TAZ
@@ -1420,6 +1424,7 @@ GNEAdditionalHandler::buildTAZSource(const CommonXMLStructure::SumoBaseObject* s
             } else {
                 myNet->getAttributeCarriers()->insertAdditional(TAZSource);
                 TAZ->addChildElement(TAZSource);
+                edge->addChildElement(TAZSource);
                 TAZSource->incRef("buildTAZSource");
             }
         } else {
@@ -1469,6 +1474,7 @@ GNEAdditionalHandler::buildTAZSink(const CommonXMLStructure::SumoBaseObject* sum
             } else {
                 myNet->getAttributeCarriers()->insertAdditional(TAZSink);
                 TAZ->addChildElement(TAZSink);
+                edge->addChildElement(TAZSink);
                 TAZSink->incRef("buildTAZSink");
             }
         } else {

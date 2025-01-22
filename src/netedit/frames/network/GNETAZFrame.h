@@ -568,6 +568,9 @@ protected:
     /// @brief drop all TAZSources and TAZ Sinks of current TAZ
     void dropTAZMembers();
 
+    /// @brief ask for massive TAZ creation
+    bool askCreateMultipleSourceSinks(const size_t numSourceSinks) const;
+
 private:
     /// @brief current TAZ
     CurrentTAZ* myCurrentTAZ;
