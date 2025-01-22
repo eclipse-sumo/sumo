@@ -664,13 +664,13 @@ GNEAdditional::replaceAdditionalParentLanes(const std::string& value) {
 
 void
 GNEAdditional::replaceAdditionalChildEdges(const std::string& value) {
-    replaceChildElements(this, parse<std::vector<GNEEdge*> >(getNet(), value));
+    replaceChildElements(this, parse<GNEHierarchicalContainerChildren<GNEEdge*> >(getNet(), value));
 }
 
 
 void
 GNEAdditional::replaceAdditionalChildLanes(const std::string& value) {
-    replaceChildElements(this, parse<std::vector<GNELane*> >(getNet(), value));
+    replaceChildElements(this, parse<GNEHierarchicalContainerChildren<GNELane*> >(getNet(), value));
 }
 
 

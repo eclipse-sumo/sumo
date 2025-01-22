@@ -20,14 +20,14 @@
 #pragma once
 #include <config.h>
 
-#include <unordered_set>
+#include <set>
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
 template <typename T> 
-class GNEHierarchicalContainerChildrenHash : public std::unordered_set<T> {
+class GNEHierarchicalContainerChildrenHash : public std::set<T> {
 
 public:
     /// @brief default constructor
@@ -35,7 +35,7 @@ public:
     }
 
     /// @brief parameter constructor
-    GNEHierarchicalContainerChildrenHash(const std::unordered_set<T>& elements) :
-        std::unordered_set<T>(elements) {
+    GNEHierarchicalContainerChildrenHash(const std::set<T>& elements) :
+        std::set<T>(elements) {
     }
 };

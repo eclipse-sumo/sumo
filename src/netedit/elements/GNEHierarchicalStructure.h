@@ -97,11 +97,11 @@ public:
 
     /// @brief set children
     template<typename T>
-    void setChildren(const std::vector<T>& newChildren);
+    void setChildren(const GNEHierarchicalContainerChildren<T>& newChildren);
 
     /// @brief set children hash
     template<typename T>
-    void setChildrenHash(const std::unordered_set<T>& newChildren);
+    void setChildrenHash(const GNEHierarchicalContainerChildrenHash<T>& newChildren);
 
 private:
     /// @brief parents junctions

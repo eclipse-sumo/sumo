@@ -196,7 +196,7 @@ protected:
 
     /// @brief replace children in the given edited element 
     template<typename T, typename U>
-    void replaceChildElements(T* editedElement, const std::vector<U>& newChildren) {
+    void replaceChildElements(T* editedElement, const GNEHierarchicalContainerChildren<U>& newChildren) {
         // remove edited elements from children
         for (const auto& child : myHierarchicalStructure.getChildren<U>()) {
             child->removeChildElement(editedElement);
