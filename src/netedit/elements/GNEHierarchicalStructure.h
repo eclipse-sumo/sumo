@@ -34,7 +34,7 @@ template <typename T>
 using GNEHierarchicalContainerChildren = std::vector<T>;
 
 template <typename T>
-using GNEHierarchicalContainerChildrenHash = std::set<T>;
+using GNEHierarchicalContainerChildrenSet = std::set<T>;
 
 // ===========================================================================
 // class declarations
@@ -95,23 +95,23 @@ public:
 
     /// @brief set parents
     template<typename T>
-    void setParents(const std::vector<T>& newParents);
+    void setParents(const GNEHierarchicalContainerParents<T>& newParents);
 
     /// @brief get children
     template<typename T>
     const GNEHierarchicalContainerChildren<T>& getChildren() const;
 
-    /// @brief get children hash
+    /// @brief get children set
     template<typename T>
-    const GNEHierarchicalContainerChildrenHash<T>& getChildrenHash() const;
+    const GNEHierarchicalContainerChildrenSet<T>& getChildrenSet() const;
 
     /// @brief set children
     template<typename T>
     void setChildren(const GNEHierarchicalContainerChildren<T>& newChildren);
 
-    /// @brief set children hash
+    /// @brief set children set
     template<typename T>
-    void setChildrenHash(const GNEHierarchicalContainerChildrenHash<T>& newChildren);
+    void setChildrenSet(const GNEHierarchicalContainerChildrenSet<T>& newChildren);
 
 private:
     /// @brief parents junctions
@@ -147,8 +147,8 @@ private:
     /// @brief children additional elements
     GNEHierarchicalContainerChildren<GNEAdditional*> myChildAdditionals;
 
-    /// @brief children TAZSourceSinks elements (hash)
-    GNEHierarchicalContainerChildrenHash<GNETAZSourceSink*> myChildSourceSinks;
+    /// @brief children TAZSourceSinks elements (set)
+    GNEHierarchicalContainerChildrenSet<GNETAZSourceSink*> myChildSourceSinks;
 
     /// @brief children demand elements
     GNEHierarchicalContainerChildren<GNEDemandElement*> myChildDemandElements;

@@ -125,7 +125,7 @@ public:
     const GNEHierarchicalContainerChildren<GNEAdditional*>& getChildAdditionals() const;
 
     /// @brief return child TAZSourceSinks (Hash)
-    const GNEHierarchicalContainerChildrenHash<GNETAZSourceSink*>& getChildTAZSourceSinks() const;
+    const GNEHierarchicalContainerChildrenSet<GNETAZSourceSink*>& getChildTAZSourceSinks() const;
 
     /// @brief return child demand elements
     const GNEHierarchicalContainerChildren<GNEDemandElement*>& getChildDemandElements() const;

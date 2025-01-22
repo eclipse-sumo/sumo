@@ -353,43 +353,43 @@ GNEHierarchicalStructure::getParents() const {
 
 
 template<> void
-GNEHierarchicalStructure::setParents(const std::vector<GNEJunction*>& newParents) {
+GNEHierarchicalStructure::setParents(const GNEHierarchicalContainerParents<GNEJunction*>& newParents) {
     myParentJunctions = newParents;
 }
 
 
 template<> void
-GNEHierarchicalStructure::setParents(const std::vector<GNEEdge*>& newParents) {
+GNEHierarchicalStructure::setParents(const GNEHierarchicalContainerParents<GNEEdge*>& newParents) {
     myParentEdges = newParents;
 }
 
 
 template<> void
-GNEHierarchicalStructure::setParents(const std::vector<GNELane*>& newParents) {
+GNEHierarchicalStructure::setParents(const GNEHierarchicalContainerParents<GNELane*>& newParents) {
     myParentLanes = newParents;
 }
 
 
 template<> void
-GNEHierarchicalStructure::setParents(const std::vector<GNEAdditional*>& newParents) {
+GNEHierarchicalStructure::setParents(const GNEHierarchicalContainerParents<GNEAdditional*>& newParents) {
     myParentAdditionals = newParents;
 }
 
 
 template<> void
-GNEHierarchicalStructure::setParents(const std::vector<GNETAZSourceSink*>& newParents) {
+GNEHierarchicalStructure::setParents(const GNEHierarchicalContainerParents<GNETAZSourceSink*>& newParents) {
     myParentTAZSourceSinks = newParents;
 }
 
 
 template<> void
-GNEHierarchicalStructure::setParents(const std::vector<GNEDemandElement*>& newParents) {
+GNEHierarchicalStructure::setParents(const GNEHierarchicalContainerParents<GNEDemandElement*>& newParents) {
     myParentDemandElements = newParents;
 }
 
 
 template<> void
-GNEHierarchicalStructure::setParents(const std::vector<GNEGenericData*>& newParents) {
+GNEHierarchicalStructure::setParents(const GNEHierarchicalContainerParents<GNEGenericData*>& newParents) {
     myParentGenericDatas = newParents;
 }
 
@@ -418,8 +418,8 @@ GNEHierarchicalStructure::getChildren() const {
 }
 
 
-template<> const GNEHierarchicalContainerChildrenHash<GNETAZSourceSink*>&
-GNEHierarchicalStructure::getChildrenHash() const {
+template<> const GNEHierarchicalContainerChildrenSet<GNETAZSourceSink*>&
+GNEHierarchicalStructure::getChildrenSet() const {
     return myChildSourceSinks;
 }
 
@@ -461,7 +461,7 @@ GNEHierarchicalStructure::setChildren(const GNEHierarchicalContainerChildren<GNE
 
 
 template<> void
-GNEHierarchicalStructure::setChildrenHash(const GNEHierarchicalContainerChildrenHash<GNETAZSourceSink*>& newChildren) {
+GNEHierarchicalStructure::setChildrenSet(const GNEHierarchicalContainerChildrenSet<GNETAZSourceSink*>& newChildren) {
     myChildSourceSinks = newChildren;
 }
 

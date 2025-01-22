@@ -194,9 +194,9 @@ GNEHierarchicalElement::getChildAdditionals() const {
 }
 
 
-const GNEHierarchicalContainerChildrenHash<GNETAZSourceSink*>&
+const GNEHierarchicalContainerChildrenSet<GNETAZSourceSink*>&
 GNEHierarchicalElement::getChildTAZSourceSinks() const {
-    return myHierarchicalStructure.getChildrenHash<GNETAZSourceSink*>();
+    return myHierarchicalStructure.getChildrenSet<GNETAZSourceSink*>();
 }
 
 
