@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-01-06 11:22+0100\n"
-"PO-Revision-Date: 2025-01-20 12:30+0000\n"
+"PO-Revision-Date: 2025-01-22 12:13+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -3037,6 +3037,8 @@ msgid ""
 "Vehicle '%' is inserted too fast and will violate the speed limit on a lane "
 "'%'."
 msgstr ""
+"Il veicolo '%' viene inserito con una velocità troppo elevata e quindi "
+"violerà il limite di velocità della corsia '%'."
 
 #: src/microsim/MSLane.cpp:1098
 msgid ""
@@ -3060,19 +3062,20 @@ msgstr "collisione"
 
 #: src/microsim/MSLane.cpp:2019
 msgid "Vehicle '%'; % with vehicle '%"
-msgstr ""
+msgstr "Veicolo '%'; % con veicolo '%"
 
 #: src/microsim/MSLane.cpp:2076
 msgid "Teleporting vehicle '%'; % with vehicle '%"
-msgstr ""
+msgstr "Teletrasporto di veicolo '%', % con veicolo '%"
 
 #: src/microsim/MSLane.cpp:2081
 msgid "Removing % participants: vehicle '%', vehicle '%"
-msgstr ""
+msgstr "Rimozione di % participanti: veicolo '%', veicolo '%"
 
 #: src/microsim/MSLane.cpp:2094
 msgid "Keeping remote-controlled % participants: vehicle '%', vehicle '%"
 msgstr ""
+"Mantenuti % participanti controllati esternamente: veicolo '%', veicolo '%"
 
 #: src/microsim/MSLane.cpp:2096
 msgid ""
@@ -3128,14 +3131,19 @@ msgstr ""
 #: src/microsim/MSLane.cpp:2263
 msgid "Teleporting vehicle '%'; beyond end of lane, target lane='%', time=%."
 msgstr ""
+"Teletrasporto di veicolo '%'; oltre la fine della corsia, corsia di "
+"destinazione='%' alle ore %."
 
 #: src/microsim/MSLane.cpp:2271
 msgid "Removing vehicle '%' after earlier collision, lane='%', time=%."
 msgstr ""
+"Rimozione di veicolo '%' dopo una previa collisione, corsia='%' alle ore %."
 
 #: src/microsim/MSLane.cpp:2276
 msgid "Teleporting vehicle '%' after earlier collision, lane='%', time=%."
 msgstr ""
+"Teletrasporto di veicolo '%' dopo una previa collisione, corsia='%' alle ore "
+"%."
 
 #: src/microsim/MSLane.cpp:2797
 msgid ""
@@ -3449,6 +3457,8 @@ msgid ""
 "The attribute departPos is no longer supported for walks, please use the "
 "person attribute, the arrivalPos of the previous step or explicit stops."
 msgstr ""
+"L'attributo departPos non si usa più per dei cammini. Invece usa l'attributo "
+"person, quello arrivalPos del passo antecedente o fermate esplicite."
 
 #: src/microsim/MSRouteHandler.cpp:1508
 msgid "Ignoring arrivalPos for % because it is outside the given stop '%'."
@@ -3579,6 +3589,8 @@ msgid ""
 "Vehicle '%' moved by TraCI from % to % (dist %) with implied speed of % "
 "(exceeding maximum speed %). time=%."
 msgstr ""
+"Mosso veicolo '%'attraverso TraCI da % a % (distanza %) con una velocità "
+"implicita di % (eccedendo la velocità massima di %) alle ore %."
 
 #: src/microsim/MSVehicle.cpp:1732
 msgid "Vehicle '%' aborts joining after extension of %s at time %."
@@ -3610,6 +3622,8 @@ msgid ""
 "Vehicle '%' performs emergency stop at the end of lane '%'% (decel=%, offset="
 "%), time=%."
 msgstr ""
+"Il veicolo '%' effettua una frenata d'urgenza alle fine della corsia '%'% ("
+"decel=%, offset=%) alle ore %."
 
 #: src/microsim/MSVehicle.cpp:4729
 msgid "Unexpected end of opposite lane for vehicle '%' at lane '%', time=%."
@@ -3723,12 +3737,16 @@ msgid ""
 "The number of lanes needs to be specified in the attributes of carFollowing-"
 "CC with the \"lanesCount\" attribute"
 msgstr ""
+"Il numero di corsie deve essere specificato negli attributi di carFollowing-"
+"CC sotto l'attributo \"lanesCount\""
 
 #: src/microsim/cfmodels/MSCFModel_Daniel1.cpp:61
 msgid ""
 "Maximum speed of vehicle '%' is lower than the minimum speed (min: %, max: "
 "%)."
 msgstr ""
+"La velocità massima del veicolo '%' è inferiore alla velocità minima (min: "
+"%, max: %)."
 
 #: src/microsim/cfmodels/MSCFModel_Krauss.cpp:58
 msgid "Rounding 'sigmaStep' to % for vType '%'"
