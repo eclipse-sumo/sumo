@@ -312,6 +312,9 @@ private:
     /// @brief import sidewalks
     bool myImportSidewalks;
 
+    /// @brief import sidewalks
+    bool myOnewayDualSidewalk;
+
     /// @brief import bike path specific permissions and directions
     bool myImportBikeAccess;
 

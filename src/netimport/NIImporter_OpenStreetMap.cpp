@@ -140,6 +140,7 @@ NIImporter_OpenStreetMap::load(const OptionsCont& oc, NBNetBuilder& nb) {
     myImportSidewalks = oc.getBool("osm.sidewalks");
     myImportBikeAccess = oc.getBool("osm.bike-access");
     myImportCrossings = oc.getBool("osm.crossings");
+    myOnewayDualSidewalk = oc.getBool("osm.oneway-reverse-sidewalk");
 
     myAllAttributes = OptionsCont::getOptions().getBool("osm.all-attributes");
     std::vector<std::string> extra = OptionsCont::getOptions().getStringVector("osm.extra-attributes");
@@ -725,7 +726,9 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
     WayType sidewalkType = e->mySidewalkType; // make a copy because we do some temporary modifications
     if (sidewalkType == WAY_UNKNOWN && (e->myExtraAllowed & SVC_PEDESTRIAN) != 0 && (permissions & SVC_PASSENGER) != 0) {
         // do not assume shared space unless sidewalk is actively disabled
-        sidewalkType = WAY_BOTH;
+        if (myOnewayDualSidewalk) {
+            sidewalkType = WAY_BOTH;
+        }
     }
     if (addSidewalk || (myImportSidewalks && (permissions & SVC_ROAD_CLASSES) != 0 && defaultPermissions != SVC_PEDESTRIAN)) {
         if (!addForward && (sidewalkType & WAY_FORWARD) != 0) {
