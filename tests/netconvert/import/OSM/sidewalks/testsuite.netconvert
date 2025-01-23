@@ -6,3 +6,6 @@ opposite
 
 # divided roads should not get sidewalks within
 divided_road
+
+# divided roads should not get sidewalks within (unless option overrides)
+divided_road_reverseSidewalk

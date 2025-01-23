@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-12-03 14:04:28 by Eclipse SUMO netconvert Version v1_21_0+1145-26b70b44877
+<!-- generated on 2025-01-23 14:36:52 by Eclipse SUMO netconvert Version v1_21_0+1983-aac325cbcaf
 -->
 
 <netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -869,6 +869,9 @@
 
         <!-- Import sidewalks -->
         <osm.sidewalks value="false" type="BOOL"/>
+
+        <!-- Default to building two sidewals on oneway streets (may affect divided roads) -->
+        <osm.oneway-reverse-sidewalk value="false" type="BOOL"/>
 
         <!-- Import crossings -->
         <osm.crossings value="false" type="BOOL"/>
