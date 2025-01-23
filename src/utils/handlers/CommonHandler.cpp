@@ -75,6 +75,18 @@ CommonHandler::parseParameters(const SUMOSAXAttributes& attrs) {
 }
 
 
+CommonXMLStructure::SumoBaseObject*
+CommonHandler::getEmbeddedRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject) const {
+    // locate route in childrens
+    for (const auto &embeddedRoute : sumoBaseObject->getSumoBaseObjectChildren()) {
+        if ((embeddedRoute->getTag() == SUMO_TAG_ROUTE) && (!embeddedRoute->hasStringAttribute(SUMO_ATTR_ID))) {
+            return embeddedRoute;
+        }
+    }
+    return nullptr;
+}
+
+
 void
 CommonHandler::checkParsedParent(const SumoXMLTag currentTag, const std::vector<SumoXMLTag>& parentTags, bool& ok) {
     if (parentTags.size() > 0) {
@@ -141,20 +153,20 @@ CommonHandler::checkVehicleParents(CommonXMLStructure::SumoBaseObject* obj) {
         SumoXMLTag tag = obj->getTag();
         const std::string id = obj->getStringAttribute(SUMO_ATTR_ID);
         const bool hasRoute = obj->hasStringAttribute(SUMO_ATTR_ROUTE);
-        const bool embeddedRoute = (obj->getSumoBaseObjectChildren().size() > 0) && (obj->getSumoBaseObjectChildren().front()->getTag() == SUMO_TAG_ROUTE);
+        const bool hasEmbeddedRoute = (getEmbeddedRoute(obj) != nullptr);
         const bool overEdges = obj->hasStringAttribute(SUMO_ATTR_FROM) && obj->hasStringAttribute(SUMO_ATTR_TO);
         const bool overJunctions = obj->hasStringAttribute(SUMO_ATTR_FROM_JUNCTION) && obj->hasStringAttribute(SUMO_ATTR_TO_JUNCTION);
         const bool overTAZs = obj->hasStringAttribute(SUMO_ATTR_FROM_TAZ) && obj->hasStringAttribute(SUMO_ATTR_TO_TAZ);
-        if (hasRoute && embeddedRoute) {
+        if (hasRoute && hasEmbeddedRoute) {
             return writeError(TLF("Could not build % with ID '%' in netedit; Cannot have an external route and an embedded route in the same definition.", toString(tag), id));
         }
         if ((overEdges + overJunctions + overTAZs) > 1) {
             return writeError(TLF("Could not build % with ID '%' in netedit; Cannot have multiple from-to attributes.", toString(tag), id));
         }
-        if ((hasRoute + embeddedRoute + overEdges + overJunctions + overTAZs) > 1) {
+        if ((hasRoute + hasEmbeddedRoute + overEdges + overJunctions + overTAZs) > 1) {
             return writeError(TLF("Could not build % with ID '%' in netedit; Cannot have from-to attributes and route attributes in the same definition.", toString(tag), id));
         }
-        if ((hasRoute + embeddedRoute + overEdges + overJunctions + overTAZs) == 0) {
+        if ((hasRoute + hasEmbeddedRoute + overEdges + overJunctions + overTAZs) == 0) {
             return writeError(TLF("Could not build % with ID '%' in netedit; Requiere either a route or an embedded route or a from-to attribute (Edges, junctions or TAZs).", toString(tag), id));
         }
         return true;

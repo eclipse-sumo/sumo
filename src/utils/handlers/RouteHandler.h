@@ -241,9 +241,6 @@ private:
     /// @brief check if element is defined over from-to junctions
     bool isOverFromToTAZs(const CommonXMLStructure::SumoBaseObject* sumoBaseObject) const;
 
-    /// @brief get embedded route from children
-    CommonXMLStructure::SumoBaseObject* getEmbeddedRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject) const;
-
     /// @}
 
     /// @brief invalidate copy constructor

@@ -1243,16 +1243,4 @@ RouteHandler::isOverFromToTAZs(const CommonXMLStructure::SumoBaseObject* sumoBas
     return sumoBaseObject->hasStringAttribute(SUMO_ATTR_FROM_TAZ) && sumoBaseObject->hasStringAttribute(SUMO_ATTR_TO_TAZ);
 }
 
-
-CommonXMLStructure::SumoBaseObject*
-RouteHandler::getEmbeddedRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject) const {
-    // locate route in childrens
-    for (const auto &embeddedRoute : sumoBaseObject->getSumoBaseObjectChildren()) {
-        if ((embeddedRoute->getTag() == SUMO_TAG_ROUTE) && (!embeddedRoute->hasStringAttribute(SUMO_ATTR_ID))) {
-            return embeddedRoute;
-        }
-    }
-    return nullptr;
-}
-
 /****************************************************************************/

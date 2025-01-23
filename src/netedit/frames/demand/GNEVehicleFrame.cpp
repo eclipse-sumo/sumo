@@ -380,13 +380,13 @@ GNEVehicleFrame::createPath(const bool useLastRoute) {
                     // create route base object
                     CommonXMLStructure::SumoBaseObject* embeddedRouteObject = new CommonXMLStructure::SumoBaseObject(myVehicleBaseObject);
                     embeddedRouteObject->setTag(SUMO_TAG_ROUTE);
-                    embeddedRouteObject->addStringAttribute(SUMO_ATTR_ID, "");
                     embeddedRouteObject->addStringListAttribute(SUMO_ATTR_EDGES, routeEdges);
-                    embeddedRouteObject->addColorAttribute(SUMO_ATTR_COLOR, RGBColor::INVISIBLE),
-                                        embeddedRouteObject->addIntAttribute(SUMO_ATTR_REPEAT, 0),
-                                        embeddedRouteObject->addTimeAttribute(SUMO_ATTR_CYCLETIME, 0),
-                                        // parse route
-                                        myRouteHandler.parseSumoBaseObject(embeddedRouteObject);
+                    embeddedRouteObject->addColorAttribute(SUMO_ATTR_COLOR, RGBColor::INVISIBLE);
+                    embeddedRouteObject->addIntAttribute(SUMO_ATTR_REPEAT, 0);
+                    embeddedRouteObject->addTimeAttribute(SUMO_ATTR_CYCLETIME, 0);
+                    embeddedRouteObject->addDoubleAttribute(SUMO_ATTR_PROB, 1.0);
+                    // parse route
+                    myRouteHandler.parseSumoBaseObject(myVehicleBaseObject);
                     // delete vehicleParamters
                     delete vehicleParameters;
                 }
@@ -446,13 +446,13 @@ GNEVehicleFrame::createPath(const bool useLastRoute) {
                     // create under base object
                     CommonXMLStructure::SumoBaseObject* embeddedRouteObject = new CommonXMLStructure::SumoBaseObject(myVehicleBaseObject);
                     embeddedRouteObject->setTag(SUMO_TAG_ROUTE);
-                    embeddedRouteObject->addStringAttribute(SUMO_ATTR_ID, "");
                     embeddedRouteObject->addStringListAttribute(SUMO_ATTR_EDGES, routeEdges);
-                    embeddedRouteObject->addColorAttribute(SUMO_ATTR_COLOR, RGBColor::INVISIBLE),
-                                        embeddedRouteObject->addIntAttribute(SUMO_ATTR_REPEAT, 0),
-                                        embeddedRouteObject->addTimeAttribute(SUMO_ATTR_CYCLETIME, 0),
-                                        // parse route
-                                        myRouteHandler.parseSumoBaseObject(embeddedRouteObject);
+                    embeddedRouteObject->addColorAttribute(SUMO_ATTR_COLOR, RGBColor::INVISIBLE);
+                    embeddedRouteObject->addIntAttribute(SUMO_ATTR_REPEAT, 0);
+                    embeddedRouteObject->addTimeAttribute(SUMO_ATTR_CYCLETIME, 0);
+                    embeddedRouteObject->addDoubleAttribute(SUMO_ATTR_PROB, 1.0);
+                    // parse route
+                    myRouteHandler.parseSumoBaseObject(myVehicleBaseObject);
                     // delete vehicleParamters
                     delete flowParameters;
                 }

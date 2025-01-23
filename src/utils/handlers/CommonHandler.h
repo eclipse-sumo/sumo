@@ -56,6 +56,9 @@ protected:
     /// @brief parse generic parameters
     void parseParameters(const SUMOSAXAttributes& attrs);
 
+    /// @brief get embedded route from children
+    CommonXMLStructure::SumoBaseObject* getEmbeddedRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject) const;
+
     /// @name check functions
     /// @{
 
