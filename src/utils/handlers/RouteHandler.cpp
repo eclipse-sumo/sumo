@@ -153,6 +153,10 @@ RouteHandler::endParseAttributes() {
         myCommonXMLStructure.closeSUMOBaseOBject();
         switch (obj->getTag()) {
             case SUMO_TAG_ROUTE:
+                // special case for embedded routes
+                if (!obj->hasStringAttribute(SUMO_ATTR_ID)) {
+                    break;
+                }
             case SUMO_TAG_VTYPE:
             case SUMO_TAG_VTYPE_DISTRIBUTION:
             case SUMO_TAG_ROUTE_DISTRIBUTION:
