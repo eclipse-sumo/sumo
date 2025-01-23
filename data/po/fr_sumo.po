@@ -10436,7 +10436,7 @@ msgstr "Un simulateur de trafic microscopique et multimodal."
 
 #: src/sumo_main.cpp:114 /src/sumo_main.cpp:123
 msgid "Quitting (on error)."
-msgstr "Fermeture (suite à une erreur)."
+msgstr "Fermeture (après erreur)."
 
 #: src/sumo_main.cpp:126
 msgid "Quitting (on unknown error)."
