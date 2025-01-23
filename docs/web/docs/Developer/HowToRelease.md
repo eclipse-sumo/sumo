@@ -51,6 +51,7 @@ software (Veins, VSimRTI, flow etc.) at this stage.
   - update the [ChangeLog](../ChangeLog.md)
   - generate options documentation and xsd schemata for configuration files
     using `tools/build_config/rebuildConfigDocsAndXsd.py`
+- update `tools/build_config/templates.py` to include any tools that were added or had their compatibility fixed since the last release
 - check the internal tests (same procedure as above), especially the
   (to be) published scenarios
 - GitHub
