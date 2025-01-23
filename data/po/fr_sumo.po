@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-01-06 11:22+0100\n"
-"PO-Revision-Date: 2025-01-23 14:34+0000\n"
+"PO-Revision-Date: 2025-01-23 14:35+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/fr/>\n"
@@ -10432,7 +10432,7 @@ msgstr "Signal d'interruption reçu, fermeture."
 
 #: src/sumo_main.cpp:86
 msgid "A microscopic, multi-modal traffic simulation."
-msgstr "Un simulateur de trafic microscopique et multimodal."
+msgstr "Une simulation microscopique et multi-modale du trafic routier."
 
 #: src/sumo_main.cpp:114 /src/sumo_main.cpp:123
 msgid "Quitting (on error)."
