@@ -316,11 +316,7 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
                 for (int iField = 0; iField < poFDefn->GetFieldCount(); iField++) {
                     OGRFieldDefn* poFieldDefn = poFDefn->GetFieldDefn(iField);
                     if (poFieldDefn->GetNameRef() != idField) {
-                        if (poFieldDefn->GetType() == OFTReal) {
-                            (*it)->setParameter(poFieldDefn->GetNameRef(), toString(poFeature->GetFieldAsDouble(iField)));
-                        } else {
-                            (*it)->setParameter(poFieldDefn->GetNameRef(), StringUtils::latin1_to_utf8(poFeature->GetFieldAsString(iField)));
-                        }
+                        (*it)->setParameter(poFieldDefn->GetNameRef(), StringUtils::latin1_to_utf8(poFeature->GetFieldAsString(iField)));
                     }
                 }
             }
