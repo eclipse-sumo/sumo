@@ -107,7 +107,7 @@ The tool uses the <SUMO\>/tools/lib/sumonet.py library.
 
 # poly2edgedata.py
 
-Transform polygons with params into edgedata with attributes
+Transform polygons with params into edgedata with attributes.
 For each polygon a unique edge is selected that gives the best geometrical match.
 
 ```
@@ -123,12 +123,13 @@ Further options:
 - **--angle-tolerance**: avoid matching if edge and shape angle are too different (default 20 degrees)
 
 !!! note
-    polygons can be obtained from OSM, shapefiles or geojson with the help of [../
+    polygons can be obtained from OSM, shapefiles or geojson with the help of [../polyconvert.md]
 
 ## patches
 Option **--patchfile** loads instructions to modify the matching in special cases.
 The following syntax is supported in the patch file (one patch per line):
 
+```
 # lines starting with '#' are ignored as comments
 # rev overrides the reverse edge of EDGEID to be REVEDGEID
 rev EDGEID REVEDGEID
@@ -136,9 +137,10 @@ rev EDGEID REVEDGEID
 edg POLYID EDGEID
 # dat overrrides the data attribute ATTR for POLYID to take on value VALUE
 dat POLYID ATTR VALUE
+```
 
 any ID or VALUE may bet set to 'None' to signify that
 - a reverse edge should not be assigned
 - a polygon should not be mapped
 - data should be ignored
-polyconvert.md]
+
