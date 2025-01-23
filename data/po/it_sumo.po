@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-01-06 11:22+0100\n"
-"PO-Revision-Date: 2025-01-23 12:23+0000\n"
+"PO-Revision-Date: 2025-01-23 14:34+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -4188,11 +4188,11 @@ msgstr ""
 
 #: src/microsim/devices/MSDevice_Routing.cpp:87
 msgid "Let rerouting happen at the same time for all vehicles"
-msgstr ""
+msgstr "Instrada tutti gli veicolo allo stesso tempo"
 
 #: src/microsim/devices/MSDevice_Routing.cpp:90
 msgid "Allow rerouting triggered by rail signals."
-msgstr ""
+msgstr "Permetti instradamento suscitato da segnali ferroviari."
 
 #: src/microsim/devices/MSDevice_Routing.cpp:93
 msgid "Compute separate average speeds for bicycles"
@@ -4207,10 +4207,12 @@ msgid ""
 "Only one of the options 'device.rerouting.adaptation-steps' or 'device."
 "rerouting.adaptation-weight' may be given."
 msgstr ""
+"Si può utilizzare soltanto una delle opzioni 'device.rerouting.adaptation-"
+"steps' e 'device.rerouting.adaptation-weight' alla volta."
 
 #: src/microsim/devices/MSDevice_Routing.cpp:108
 msgid "weights.random-factor cannot be less than 1"
-msgstr ""
+msgstr "weights.random-factor non può essere inferiore di 1"
 
 #: src/microsim/devices/MSDevice_Routing.cpp:112
 msgid "Negative value for device.rerouting.adaptation-interval!"
