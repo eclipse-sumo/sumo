@@ -665,9 +665,15 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
         // the total number of lanes is not known but at least one direction
         if (e->myNoLanesForward > 0) {
             numLanesForward = e->myNoLanesForward;
+        } else if ((e->myBuswayType & WAY_FORWARD) != 0 && (extraDis & SVC_PASSENGER) == 0) {
+            // if we have a busway lane, yet cars may drive this implies at least two lanes
+            numLanesForward = MAX2(numLanesForward, 2);
         }
         if (e->myNoLanesForward < 0) {
             numLanesBackward = -e->myNoLanesForward;
+        } else if ((e->myBuswayType & WAY_BACKWARD) != 0 && (extraDis & SVC_PASSENGER) == 0) {
+            // if we have a busway lane, yet cars may drive this implies at least two lanes
+            numLanesBackward = MAX2(numLanesForward, 2);
         }
     }
     // deal with busways that run in the opposite direction of a one-way street
