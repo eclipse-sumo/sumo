@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-01-02 15:02+0100\n"
-"PO-Revision-Date: 2025-01-23 14:35+0000\n"
+"PO-Revision-Date: 2025-01-23 14:49+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/fr/>\n"
@@ -3101,7 +3101,7 @@ msgstr "Sauvegarder Junctions Connectées..."
 msgid "Save log of joined junctions (allows reproduction of joins)."
 msgstr ""
 "Sauvegarder journal des junctions connectées (permet reproduction des "
-"connections)."
+"connexions)."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:261
 msgid "Reload"
@@ -3465,11 +3465,11 @@ msgstr "Modes de création de feux de circulation sur junctions."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:623
 msgid "&Connection"
-msgstr "&Connection"
+msgstr "&Connexion"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:623
 msgid "Modes connections between lanes."
-msgstr "Modes de connection entre voies."
+msgstr "Modes de connexion entre voies."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:627
 msgid "Pro&hibition"
@@ -3664,7 +3664,7 @@ msgstr "Cliquer devrait cibler voies"
 #: src/netedit/GNEApplicationWindowHelper.cpp:877
 #: src/netedit/GNEViewNetHelper.cpp:2697
 msgid "Show connections over junctions"
-msgstr "Visualiser connections aux junctions"
+msgstr "Visualiser connexions aux junctions"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:882
 #: src/netedit/GNEViewNetHelper.cpp:2704
