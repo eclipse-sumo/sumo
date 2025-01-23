@@ -829,7 +829,7 @@ msgstr "Un simulateur de trafic microscopique et multimodal."
 
 #: src/libsumo/GUI.cpp:332
 msgid "This system has no OpenGL support. Exiting."
-msgstr ""
+msgstr "Ce système ne prend pas en charge OpenGL. Fermeture."
 
 #: src/libsumo/Helper.cpp:910
 #, c-format
