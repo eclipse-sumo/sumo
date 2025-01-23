@@ -58,6 +58,7 @@ title: ChangeLog
   - E2 multilane detectors can be moved avain #15551 (regression in 1.20.0)
   - Fixed invalid rectangle selection when zoomed out #15766 (regression in 1.20.0)
   - Traffic light mode shows traffic light icons again when zoomed out #15966 (regression in 1.20.0)
+  - Fixed crash when loading nework with crossings and overlapping edge geometry #16053 (regression in 1.21.0)
   - Loaded containers starting from stops are now drawn #15567
   - ESC aborts creation of edgeRel and tazRel datas #15601
   - Fixed invalid TAZ coloring during mouse hovering in create TAZRel mode #15544
@@ -103,7 +104,9 @@ title: ChangeLog
   - Fixed Invalid behavior after loading demand elements with keep old enabled #15904
   - Dotted contour no longer hides flow label and vehicle stack label #15929
   - Fixed crash editing vClass in VType dialog #16008
-  - Selection mode function 'select parents' now selects incoming and outgoing lane of selected connections #15968 
+  - Selection mode function 'select parents' now selects incoming and outgoing lane of selected connections #15968
+  - Fixed invalid weights loading values of TAZ source/sinks #16037
+  - Fixed "freezing" when handling very large TAZ #15844
   
 - sumo-gui
   - Fixed framerate drop when zoomed in very far #15666
@@ -136,6 +139,7 @@ title: ChangeLog
   - Fixed invalid route involving vClass-restricted connection #15883
     
 - meso
+  - fixed invalid queue assignment for turning vehicles #16034 (regression in 1.7.0)
   - Fixed crash when using **--mapmatch.junctions** in a network with internal edges #15741
   - Fixed crash when using **--time-to-teleport.disconnected** #15751
   - Option **--time-to-teleport.disconnected** is now working when connections are missing #15777
@@ -222,7 +226,8 @@ title: ChangeLog
   - The lane parameter dialog provide information on driveway/foes that prevent train insertion #15823
   - A selection file loaded with **--selection-file** will now cause vehicles, persons and containers to be selected as soon as they are loaded #5427, #14093
   - Improved layering of chargingStation and parkingArea #15826
-  - Disabled 'secondary shape' controls if no alternative net is loaded #12653 
+  - Disabled 'secondary shape' controls if no alternative net is loaded #12653
+  - edge color legend now shows the used attribute/key #16026
  
 - netconvert
   - Added support for zipped shape files #15623
@@ -238,7 +243,10 @@ title: ChangeLog
  
 - duarouter
   - The input file for ALT-landmarks can now be defined with geo-coordinates #15855
-  - Option **--scale** can now be used for scaling traffic #8353 
+  - Option **--scale** can now be used for scaling traffic #8353
+ 
+- polyconvert
+  - Added option **--geosjon-files** for official geojson support #16055
      
 - TraCI
   - stationfinder device parameters can now be modified at runtime #15622
@@ -274,7 +282,12 @@ title: ChangeLog
   - xml2csv.py: Added option **--keep-attributes** to limit the attributes exported to csv #15915
   - plotXMLAttributes.py: Added options **--split-x** and **--split-y** for plotting attributes with list values #15934
   - sumolib: Geometry helper functions for rotation at offset is now available #15445
-  - duaIterate.py: When loading trips with taz or junction-taz, vehicles may change their depart and arrival edge in each iteration #15983 
+  - duaIterate.py: When loading trips with taz or junction-taz, vehicles may change their depart and arrival edge in each iteration #15983
+  - filterDistricts.py: New options **--remove-ids** and **--remove-ids-file** allow filtering out explicit edges #16038
+  - countEdgeUsage.py: print output on number loaded / filtered routes when option **--verbose** is set #16040
+  - countEdgeUsage.py: New option **--subpart.via** allow filtering subparts with gaps (i.e. via edges) #16041
+  - netdiff.py: Modified file edges for generated polygons to simplify file filtering in netedit #16042
+  - poly2edgedata.py: Added new tool to transform traffic data from polygons (i.e. from geojson) to edgedata (i.e. for routeSampler.py) #16051
 
 ### Miscellaneous
 
