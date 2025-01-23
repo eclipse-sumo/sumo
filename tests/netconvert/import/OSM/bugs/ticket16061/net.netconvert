@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-01-23 14:57:50 by Eclipse SUMO netconvert Version v1_21_0+1986-6b66905bd15
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <osm-files value="osm.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+    </output>
+
+    <projection>
+        <proj.utm value="true"/>
+    </projection>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</netconvertConfiguration>
+-->
+
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="-456372.29,-5654342.77" convBoundary="0.00,0.00,31.99,51.04" origBoundary="2.377729,51.038970,2.378179,51.039432" projParameter="+proj=utm +zone=31 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <type id="highway.tertiary" priority="10" numLanes="1" speed="22.22" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" oneway="0"/>
+
+    <edge id=":10030620008_0" function="internal">
+        <lane id=":10030620008_0_0" index="0" allow="pedestrian bus bicycle" speed="13.89" length="0.30" shape="24.39,38.92 24.55,39.18"/>
+    </edge>
+
+    <edge id="118179611#0" from="428208710" to="10030620008" priority="10" type="highway.tertiary" spreadType="center" shape="0.00,0.00 22.08,35.25 24.47,39.05">
+        <lane id="118179611#0_0" index="0" allow="pedestrian bus bicycle" speed="13.89" length="45.93" shape="0.00,0.00 22.08,35.25 24.39,38.92"/>
+    </edge>
+    <edge id="118179611#1" from="10030620008" to="3212356977" priority="10" type="highway.tertiary" spreadType="center" shape="24.47,39.05 26.08,41.63 31.99,51.04">
+        <lane id="118179611#1_0" index="0" allow="pedestrian bus bicycle" speed="13.89" length="14.00" shape="24.55,39.18 26.08,41.63 31.99,51.04"/>
+    </edge>
+
+    <tlLogic id="10030620008" type="static" programID="0" offset="0">
+        <phase duration="82" state="G"/>
+        <phase duration="3"  state="y"/>
+        <phase duration="5"  state="r"/>
+    </tlLogic>
+
+    <junction id="10030620008" type="traffic_light" x="24.47" y="39.05" incLanes="118179611#0_0" intLanes=":10030620008_0_0" shape="23.19,40.03 25.91,38.33 25.75,38.07 23.04,39.77">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="3212356977" type="dead_end" x="31.99" y="51.04" incLanes="118179611#1_0" intLanes="" shape="33.34,50.19 30.63,51.89"/>
+    <junction id="428208710" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="-1.36,0.85 1.36,-0.85"/>
+
+    <connection from="118179611#0" to="118179611#1" fromLane="0" toLane="0" via=":10030620008_0_0" tl="10030620008" linkIndex="0" dir="s" state="O"/>
+
+    <connection from=":10030620008_0" to="118179611#1" fromLane="0" toLane="0" dir="s" state="M"/>
+
+</net>

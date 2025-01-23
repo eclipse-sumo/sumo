@@ -139,3 +139,6 @@ ticket15150
 
 # psv=yes with bus=no
 ticket15301
+
+# busway:right=lane with access=yes
+ticket16061
