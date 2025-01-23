@@ -493,8 +493,10 @@ RouteHandler::parseRoute(const SUMOSAXAttributes& attrs) {
     // get embedded route flag
     const bool embeddedRoute = isEmbeddedRoute(attrs);
     // first check if this is an embedded route
-    if ((embeddedRoute && attrs.hasAttribute(SUMO_ATTR_ID)) || (!embeddedRoute && !attrs.hasAttribute(SUMO_ATTR_ID))) {
-        writeError(TL("a route must be defined either within a vehicle/flow or with an ID attribute"));
+    if (embeddedRoute && attrs.hasAttribute(SUMO_ATTR_ID)) {
+        writeError(TL("an embedded route cannot have their own ID"));
+    } else if (!embeddedRoute && !attrs.hasAttribute(SUMO_ATTR_ID)) {
+        writeError(TL("a non-embedded route requieres their own ID"));
     } else {
         // declare Ok Flag
         bool parsedOk = true;
