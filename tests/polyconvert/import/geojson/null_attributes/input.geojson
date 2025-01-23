@@ -1,0 +1,9 @@
+{
+"type": "FeatureCollection",
+"name": "241113_VerkehrsmengenLE",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::25833" } },
+"features": [
+{ "type": "Feature", "properties": { "objectid": 234545.0, "Sid": 1.0, "GN_Kfz_Rund": 2500.0, "GN_Kfz_Jahr": 1991.0, "GN_SV_Rund": 400.0, "GN_Rad_Rund": 0.0, "GN_Rad_Jahr": 1991.0, "N_CODE_23": null }, "geometry": { "type": "MultiLineString", "coordinates": [ [ [ 318686.761500000022352, 5694908.745899999514222 ], [ 318741.306300000287592, 5694640.399399999529123 ], [ 318744.75650000013411, 5694628.373299999162555 ] ] ] } },
+{ "type": "Feature", "properties": { "objectid": 235542.0, "Sid": 1001.0, "GN_Kfz_Rund": null, "GN_Kfz_Jahr": null, "GN_SV_Rund": null, "GN_Rad_Rund": null, "GN_Rad_Jahr": null, "N_CODE_23": null }, "geometry": { "type": "MultiLineString", "coordinates": [ [ [ 318765.183899999596179, 5691598.371799999848008 ], [ 318855.291000000201166, 5691587.5142 ] ] ] } }
+]
+}

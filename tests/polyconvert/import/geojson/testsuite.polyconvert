@@ -3,3 +3,6 @@ no_crs
 
 # import all attributes
 all-attributes
+
+# import all attributes but some have null values
+null_attributes
