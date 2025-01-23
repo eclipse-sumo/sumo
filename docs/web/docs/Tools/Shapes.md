@@ -140,6 +140,7 @@ dat POLYID ATTR VALUE
 ```
 
 any ID or VALUE may bet set to 'None' to signify that
+
 - a reverse edge should not be assigned
 - a polygon should not be mapped
 - data should be ignored
