@@ -197,12 +197,10 @@ if __name__ == "__main__":
               "taz only.")
     dec = DistrictEdgeComputer(sumolib.net.readNet(nets[0]))
     tazFiles = nets + options.taz_files.split(",")
-    polyReader = sumolib.shapes.polygon.PolygonReader(True)
-    for tf in tazFiles:
-        parse(tf, polyReader)
+    polygons = sumolib.shapes.polygon.read(tazFiles, includeTaz=True)
     if options.verbose:
         print("Calculating")
-    dec.computeWithin(polyReader.getPolygons(), options)
+    dec.computeWithin(polygons, options)
     if options.verbose:
         print("Writing results")
     dec.writeResults(options)

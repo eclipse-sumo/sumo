@@ -127,7 +127,10 @@ class PolygonReader(handler.ContentHandler):
         return self._polys
 
 
-def read(filename, includeTaz=False):
-    polys = PolygonReader(includeTaz)
-    parse(filename, polys)
-    return polys.getPolygons()
+def read(filenames, includeTaz=False):
+    pr = PolygonReader(includeTaz)
+    if isinstance(filenames, str):
+        filenames = [filenames]
+    for fn in filenames:
+        parse(miscutils.openz(fn), pr)
+    return pr.getPolygons()
