@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-01-23 16:05:41.290889 by geoTrip2POI.py v1_21_0+1992-6f51ceaef8b
+<configuration>
+    <routeFiles value="input_trips.trips.xml"/>
+    <output-file value="pois.add.xml"/>
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+<!-- departures -->
+  <poi id="d0" layer="100" color="1,0.0,0.0,1" width="11.0" type="2" lon="13.522013" lat="52.426592"/>
+<!-- arrivals -->
+  <poi id="a0" layer="100" color="0.0,0.0,1,1" width="11.0" type="2" lon="13.535143" lat="52.432031"/>
+</additional>
