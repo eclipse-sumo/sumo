@@ -14,6 +14,8 @@ The generated traffic should obviously match the counting data but this requirem
 - [jtcrouter](../Tools/Turns.md#jtcrouterpy) uses turn-counts
 - [routeSampler](../Tools/Turns.md#routesamplerpy) uses turn-counts and edge counts (and also origin-destination counts)
 
+There is also a large suite of tools to import and transform different counting data formats. An overview of these can be found at [Counting data meta ticket](https://github.com/eclipse-sumo/sumo/issues/6609).
+
 
 ## Choosing the right tool
 The algorithms listed above where developed to solve different problems and may work badly when used on the wrong kind of problem.
