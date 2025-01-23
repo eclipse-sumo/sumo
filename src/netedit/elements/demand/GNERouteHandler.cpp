@@ -180,6 +180,8 @@ bool
 GNERouteHandler::buildRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, SUMOVehicleClass vClass,
                             const std::vector<std::string>& edgeIDs, const RGBColor& color, const int repeat, const SUMOTime cycleTime,
                             const double probability, const Parameterised::Map& routeParameters) {
+    // first check if we have to overwritte element
+    checkOverwritteElement({SUMO_TAG_ROUTE}, id);
     // check conditions
     if (!checkValidDemandElementID(SUMO_TAG_ROUTE, id)) {
         return false;
@@ -259,6 +261,8 @@ GNERouteHandler::buildRouteDistribution(const CommonXMLStructure::SumoBaseObject
 
 bool
 GNERouteHandler::buildVehicleOverRoute(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const SUMOVehicleParameter& vehicleParameters) {
+    // first check if we have to overwritte element
+    checkOverwritteElement(myVehicleTags, vehicleParameters.id);
     // first check if ID is duplicated
     if (!checkValidDemandElementID(SUMO_TAG_VEHICLE, vehicleParameters.id)) {
         return false;
@@ -300,6 +304,8 @@ bool
 GNERouteHandler::buildVehicleEmbeddedRoute(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const SUMOVehicleParameter& vehicleParameters,
                                            const std::vector<std::string>& edgeIDs, const RGBColor& color, const int repeat, const SUMOTime cycleTime,
                                            const double probability, const Parameterised::Map& routeParameters) {
+    // first check if we have to overwritte element
+    checkOverwritteElement(myVehicleTags, vehicleParameters.id);
     // check if ID is duplicated
     if (!checkValidDemandElementID(GNE_TAG_VEHICLE_WITHROUTE, vehicleParameters.id)) {
         return false;
@@ -349,6 +355,8 @@ GNERouteHandler::buildVehicleEmbeddedRoute(const CommonXMLStructure::SumoBaseObj
 
 bool
 GNERouteHandler::buildFlowOverRoute(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const SUMOVehicleParameter& vehicleParameters) {
+    // first check if we have to overwritte element
+    checkOverwritteElement(myVehicleTags, vehicleParameters.id);
     // first check if ID is duplicated
     if (!checkValidDemandElementID(GNE_TAG_FLOW_ROUTE, vehicleParameters.id)) {
         return false;
@@ -390,6 +398,8 @@ bool
 GNERouteHandler::buildFlowEmbeddedRoute(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const SUMOVehicleParameter& vehicleParameters,
                                         const std::vector<std::string>& edgeIDs, const RGBColor& color, const int repeat, const SUMOTime cycleTime,
                                         const double probability, const Parameterised::Map& routeParameters) {
+    // first check if we have to overwritte element
+    checkOverwritteElement(myVehicleTags, vehicleParameters.id);
     // check if ID is duplicated
     if (!checkValidDemandElementID(GNE_TAG_FLOW_WITHROUTE, vehicleParameters.id)) {
         return false;
@@ -440,7 +450,8 @@ GNERouteHandler::buildFlowEmbeddedRoute(const CommonXMLStructure::SumoBaseObject
 bool
 GNERouteHandler::buildTrip(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters,
                            const std::string& fromEdgeID, const std::string& toEdgeID) {
-
+    // first check if we have to overwritte element
+    checkOverwritteElement(myVehicleTags, vehicleParameters.id);
     // set via attribute
     if (sumoBaseObject && sumoBaseObject->hasStringListAttribute(SUMO_ATTR_VIA)) {
         vehicleParameters.via = sumoBaseObject->getStringListAttribute(SUMO_ATTR_VIA);
@@ -493,7 +504,8 @@ GNERouteHandler::buildTrip(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
 bool
 GNERouteHandler::buildTripJunctions(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const SUMOVehicleParameter& vehicleParameters,
                                     const std::string& fromJunctionID, const std::string& toJunctionID) {
-
+    // first check if we have to overwritte element
+    checkOverwritteElement(myVehicleTags, vehicleParameters.id);
     // check if exist another vehicle with the same ID (note: Vehicles, Flows and Trips share namespace)
     if (!checkValidDemandElementID(GNE_TAG_TRIP_JUNCTIONS, vehicleParameters.id)) {
         return false;
@@ -540,6 +552,8 @@ GNERouteHandler::buildTripJunctions(const CommonXMLStructure::SumoBaseObject* /*
 bool
 GNERouteHandler::buildTripTAZs(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const SUMOVehicleParameter& vehicleParameters,
                                const std::string& fromTAZID, const std::string& toTAZID) {
+    // first check if we have to overwritte element
+    checkOverwritteElement(myVehicleTags, vehicleParameters.id);
     // check if exist another vehicle with the same ID (note: Vehicles, Flows and Trips share namespace)
     if (!checkValidDemandElementID(GNE_TAG_TRIP_TAZS, vehicleParameters.id)) {
         return false;
@@ -586,7 +600,8 @@ GNERouteHandler::buildTripTAZs(const CommonXMLStructure::SumoBaseObject* /*sumoB
 bool
 GNERouteHandler::buildFlow(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters,
                            const std::string& fromEdgeID, const std::string& toEdgeID) {
-
+    // first check if we have to overwritte element
+    checkOverwritteElement(myVehicleTags, vehicleParameters.id);
     // set via attribute
     if (sumoBaseObject && sumoBaseObject->hasStringListAttribute(SUMO_ATTR_VIA)) {
         vehicleParameters.via = sumoBaseObject->getStringListAttribute(SUMO_ATTR_VIA);
@@ -639,6 +654,8 @@ GNERouteHandler::buildFlow(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
 bool
 GNERouteHandler::buildFlowJunctions(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const SUMOVehicleParameter& vehicleParameters,
                                     const std::string& fromJunctionID, const std::string& toJunctionID) {
+    // first check if we have to overwritte element
+    checkOverwritteElement(myVehicleTags, vehicleParameters.id);
     // check if exist another vehicle with the same ID (note: Vehicles, Flows and Trips share namespace)
     if (!checkValidDemandElementID(GNE_TAG_FLOW_JUNCTIONS, vehicleParameters.id)) {
         return false;
@@ -685,6 +702,8 @@ GNERouteHandler::buildFlowJunctions(const CommonXMLStructure::SumoBaseObject* /*
 bool
 GNERouteHandler::buildFlowTAZs(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const SUMOVehicleParameter& vehicleParameters,
                                const std::string& fromTAZID, const std::string& toTAZID) {
+    // first check if we have to overwritte element
+    checkOverwritteElement(myVehicleTags, vehicleParameters.id);
     // check if exist another vehicle with the same ID (note: Vehicles, Flows and Trips share namespace)
     if (!checkValidDemandElementID(GNE_TAG_FLOW_TAZS, vehicleParameters.id)) {
         return false;
@@ -730,6 +749,8 @@ GNERouteHandler::buildFlowTAZs(const CommonXMLStructure::SumoBaseObject* /*sumoB
 
 bool
 GNERouteHandler::buildPerson(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const SUMOVehicleParameter& personParameters) {
+    // first check if we have to overwritte element
+    checkOverwritteElement(myPersonTags, personParameters.id);
     // first check if ID is duplicated
     if (!checkValidDemandElementID(SUMO_TAG_PERSON, personParameters.id)) {
         return false;
@@ -763,6 +784,8 @@ GNERouteHandler::buildPerson(const CommonXMLStructure::SumoBaseObject* /*sumoBas
 
 bool
 GNERouteHandler::buildPersonFlow(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const SUMOVehicleParameter& personFlowParameters) {
+    // first check if we have to overwritte element
+    checkOverwritteElement(myPersonTags, personFlowParameters.id);
     // first check if ID is duplicated
     if (!checkValidDemandElementID(SUMO_TAG_PERSONFLOW, personFlowParameters.id)) {
         return false;
@@ -904,6 +927,8 @@ GNERouteHandler::buildRide(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
 
 bool
 GNERouteHandler::buildContainer(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const SUMOVehicleParameter& containerParameters) {
+    // first check if we have to overwritte element
+    checkOverwritteElement(myPersonTags, containerParameters.id);
     // first check if ID is duplicated
     if (!checkValidDemandElementID(SUMO_TAG_CONTAINER, containerParameters.id)) {
         return false;
@@ -937,6 +962,8 @@ GNERouteHandler::buildContainer(const CommonXMLStructure::SumoBaseObject* /*sumo
 
 bool
 GNERouteHandler::buildContainerFlow(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const SUMOVehicleParameter& containerFlowParameters) {
+    // first check if we have to overwritte element
+    checkOverwritteElement(myPersonTags, containerFlowParameters.id);
     // first check if ID is duplicated
     if (!checkValidDemandElementID(SUMO_TAG_CONTAINERFLOW, containerFlowParameters.id)) {
         return false;
@@ -2616,6 +2643,23 @@ GNERouteHandler::checkDuplicatedDemandElement(const SumoXMLTag tag, const std::v
         }
     }
     return true;
+}
+
+
+void
+GNERouteHandler::checkOverwritteElement(const std::vector<SumoXMLTag> &tags, const std::string &id) {
+    if (myOverwrite) {
+        // retrieve demand element and remove it
+        for (const auto &tag : tags) {
+            auto demandElement = myNet->getAttributeCarriers()->retrieveDemandElement(tag, id, false);
+            if (demandElement) {
+                writeWarningOverwritting(tag, id);
+                myNet->getViewNet()->getUndoList()->begin(demandElement, TL("delete ") + demandElement->getTagStr() + " '" + id + "'");
+                myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(demandElement, false), true);
+                myNet->getViewNet()->getUndoList()->end();
+            }
+        }
+    }
 }
 
 /****************************************************************************/

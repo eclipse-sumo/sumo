@@ -292,6 +292,9 @@ protected:
     /// @brief check if given ID correspond to a duplicated demand element
     bool checkDuplicatedDemandElement(const SumoXMLTag tag, const std::vector<SumoXMLTag> tags, const std::string& id);
 
+    /// @brief check if 
+    void checkOverwritteElement(const std::vector<SumoXMLTag> &tags, const std::string &id);
+
 private:
     /// @brief pointer to GNENet
     GNENet* myNet;
