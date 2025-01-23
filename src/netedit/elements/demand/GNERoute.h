@@ -85,10 +85,11 @@ public:
      * @param[in] color route color
      * @param[in] repeat the number of times that the edges of this route shall be repeated
      * @param[in] cycleType the times will be shifted forward by 'cycleTime' on each repeat
+     * @param[in] probability used in routeDistributions
      * @param[in] parameters generic parameters
      */
     GNERoute(GNENet* net, const std::string& id, SUMOVehicleClass vClass, const std::vector<GNEEdge*>& edges, const RGBColor& color,
-             const int repeat, const SUMOTime cycleTime, const Parameterised::Map& parameters);
+             const int repeat, const SUMOTime cycleTime, const double probability, const Parameterised::Map& parameters);
 
     /**@brief parameter constructor for embedded routes
      * @param[in] viewNet view in which this Route is placed
@@ -97,10 +98,11 @@ public:
      * @param[in] color route color
      * @param[in] repeat the number of times that the edges of this route shall be repeated
      * @param[in] cycleType the times will be shifted forward by 'cycleTime' on each repeat
+     * @param[in] probability used in routeDistributions
      * @param[in] parameters generic parameters
      */
     GNERoute(GNENet* net, GNEDemandElement* vehicleParent, const std::vector<GNEEdge*>& edges, const RGBColor& color,
-             const int repeat, const SUMOTime cycleTime, const Parameterised::Map& parameters);
+             const int repeat, const SUMOTime cycleTime, const double probability, const Parameterised::Map& parameters);
 
     /// @brief destructor
     ~GNERoute();
@@ -274,6 +276,9 @@ protected:
 
     /// @brief cycleTime
     SUMOTime myCycleTime;
+
+    /// @brief probability
+    double myProbability;
 
     /// @brief SUMOVehicleClass (Only used for drawing)
     SUMOVehicleClass myVClass;

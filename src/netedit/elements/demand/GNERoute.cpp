@@ -77,12 +77,13 @@ GNERoute::GNERoutePopupMenu::onCmdApplyDistance(FXObject*, FXSelector, void*) {
 GNERoute::GNERoute(SumoXMLTag tag, GNENet* net) :
     GNEDemandElement("", net, GLO_ROUTE, tag, GUIIconSubSys::getIcon(GUIIcon::ROUTE),
                      GNEPathElement::Options::DEMAND_ELEMENT | GNEPathElement::Options::ROUTE,
-{}, {}, {}, {}, {}, {}),
-Parameterised(),
-myColor(RGBColor::YELLOW),
-myRepeat(0),
-myCycleTime(0),
-myVClass(SVC_PASSENGER) {
+    {}, {}, {}, {}, {}, {}),
+    Parameterised(),
+    myColor(RGBColor::YELLOW),
+    myRepeat(0),
+    myCycleTime(0),
+    myProbability(1.0),
+    myVClass(SVC_PASSENGER) {
     // reset default values
     resetDefaultValues();
 }
@@ -92,12 +93,13 @@ GNERoute::GNERoute(GNENet* net) :
     GNEDemandElement(net->getAttributeCarriers()->generateDemandElementID(SUMO_TAG_ROUTE), net, GLO_ROUTE, SUMO_TAG_ROUTE,
                      GUIIconSubSys::getIcon(GUIIcon::ROUTE),
                      GNEPathElement::Options::DEMAND_ELEMENT | GNEPathElement::Options::ROUTE,
-{}, {}, {}, {}, {}, {}),
-Parameterised(),
-myColor(RGBColor::YELLOW),
-myRepeat(0),
-myCycleTime(0),
-myVClass(SVC_PASSENGER) {
+    {}, {}, {}, {}, {}, {}),
+    Parameterised(),
+    myColor(RGBColor::YELLOW),
+    myRepeat(0),
+    myCycleTime(0),
+    myProbability(1.0),
+    myVClass(SVC_PASSENGER) {
     // reset default values
     resetDefaultValues();
 }
@@ -106,11 +108,12 @@ myVClass(SVC_PASSENGER) {
 GNERoute::GNERoute(GNENet* net, const std::string& id, const GNEDemandElement* originalRoute) :
     GNEDemandElement(id, net, GLO_ROUTE, SUMO_TAG_ROUTE, GUIIconSubSys::getIcon(GUIIcon::ROUTE),
                      GNEPathElement::Options::DEMAND_ELEMENT | GNEPathElement::Options::ROUTE,
-{}, originalRoute->getParentEdges(), {}, {}, {}, {}),
-Parameterised(originalRoute->getACParametersMap()),
-myRepeat(parse<int>(originalRoute->getAttribute(SUMO_ATTR_REPEAT))),
-myCycleTime(string2time(originalRoute->getAttribute(SUMO_ATTR_REPEAT))),
-myVClass(originalRoute->getVClass()) {
+    {}, originalRoute->getParentEdges(), {}, {}, {}, {}),
+    Parameterised(originalRoute->getACParametersMap()),
+    myRepeat(parse<int>(originalRoute->getAttribute(SUMO_ATTR_REPEAT))),
+    myCycleTime(string2time(originalRoute->getAttribute(SUMO_ATTR_REPEAT))),
+    myProbability(parse<double>(originalRoute->getAttribute(SUMO_ATTR_PROB))),
+    myVClass(originalRoute->getVClass()) {
     setAttribute(SUMO_ATTR_COLOR, originalRoute->getAttribute(SUMO_ATTR_COLOR));
 }
 
@@ -118,38 +121,43 @@ myVClass(originalRoute->getVClass()) {
 GNERoute::GNERoute(GNENet* net, GNEVehicle* vehicleParent, const GNEDemandElement* originalRoute) :
     GNEDemandElement(vehicleParent, net, GLO_ROUTE_EMBEDDED, GNE_TAG_ROUTE_EMBEDDED, GUIIconSubSys::getIcon(GUIIcon::ROUTE),
                      GNEPathElement::Options::DEMAND_ELEMENT | GNEPathElement::Options::ROUTE,
-{}, originalRoute->getParentEdges(), {}, {}, {vehicleParent}, {}),
-Parameterised(originalRoute->getACParametersMap()),
-myRepeat(parse<int>(originalRoute->getAttribute(SUMO_ATTR_REPEAT))),
-myCycleTime(string2time(originalRoute->getAttribute(SUMO_ATTR_REPEAT))),
-myVClass(originalRoute->getVClass()) {
+    {}, originalRoute->getParentEdges(), {}, {}, {vehicleParent}, {}),
+    Parameterised(originalRoute->getACParametersMap()),
+    myRepeat(parse<int>(originalRoute->getAttribute(SUMO_ATTR_REPEAT))),
+    myCycleTime(string2time(originalRoute->getAttribute(SUMO_ATTR_REPEAT))),
+    myProbability(parse<double>(originalRoute->getAttribute(SUMO_ATTR_PROB))),
+    myVClass(originalRoute->getVClass()) {
     setAttribute(SUMO_ATTR_COLOR, originalRoute->getAttribute(SUMO_ATTR_COLOR));
 }
 
 
 GNERoute::GNERoute(GNENet* net, const std::string& id, SUMOVehicleClass vClass, const std::vector<GNEEdge*>& edges,
-                   const RGBColor& color, const int repeat, const SUMOTime cycleTime, const Parameterised::Map& parameters) :
+                   const RGBColor& color, const int repeat, const SUMOTime cycleTime, const double probability,
+                   const Parameterised::Map& parameters) :
     GNEDemandElement(id, net, GLO_ROUTE, SUMO_TAG_ROUTE, GUIIconSubSys::getIcon(GUIIcon::ROUTE),
                      GNEPathElement::Options::DEMAND_ELEMENT | GNEPathElement::Options::ROUTE,
-{}, edges, {}, {}, {}, {}),
-Parameterised(parameters),
-myColor(color),
-myRepeat(repeat),
-myCycleTime(cycleTime),
-myVClass(vClass) {
+    {}, edges, {}, {}, {}, {}),
+    Parameterised(parameters),
+    myColor(color),
+    myRepeat(repeat),
+    myCycleTime(cycleTime),
+    myProbability(probability), 
+    myVClass(vClass) {
 }
 
 
 GNERoute::GNERoute(GNENet* net, GNEDemandElement* vehicleParent, const std::vector<GNEEdge*>& edges,
-                   const RGBColor& color, const int repeat, const SUMOTime cycleTime, const Parameterised::Map& parameters) :
+                   const RGBColor& color, const int repeat, const SUMOTime cycleTime, const double probability, 
+                   const Parameterised::Map& parameters) :
     GNEDemandElement(vehicleParent, net, GLO_ROUTE_EMBEDDED, GNE_TAG_ROUTE_EMBEDDED, GUIIconSubSys::getIcon(GUIIcon::ROUTE),
                      GNEPathElement::Options::DEMAND_ELEMENT | GNEPathElement::Options::ROUTE,
-{}, edges, {}, {}, {vehicleParent}, {}),
-Parameterised(parameters),
-myColor(color),
-myRepeat(repeat),
-myCycleTime(cycleTime),
-myVClass(vehicleParent->getVClass()) {
+    {}, edges, {}, {}, {vehicleParent}, {}),
+    Parameterised(parameters),
+    myColor(color),
+    myRepeat(repeat),
+    myCycleTime(cycleTime),
+    myProbability(probability), 
+    myVClass(vehicleParent->getVClass()) {
 }
 
 
@@ -211,6 +219,9 @@ GNERoute::writeDemandElement(OutputDevice& device) const {
     }
     if (myCycleTime != 0) {
         device.writeAttr(SUMO_ATTR_CYCLETIME, time2string(myCycleTime));
+    }
+    if (myProbability != 1) {
+        device.writeAttr(SUMO_ATTR_PROB, toString(myProbability));
     }
     // write sorted stops
     if (myTagProperty.getTag() == SUMO_TAG_ROUTE) {
@@ -536,6 +547,8 @@ GNERoute::getAttribute(SumoXMLAttr key) const {
             return toString(myRepeat);
         case SUMO_ATTR_CYCLETIME:
             return time2string(myCycleTime);
+        case SUMO_ATTR_PROB:
+            return toString(myProbability);
         case GNE_ATTR_PARAMETERS:
             return getParametersStr();
         case GNE_ATTR_ROUTE_DISTRIBUTION:
@@ -576,6 +589,7 @@ bool
 GNERoute::isAttributeEnabled(SumoXMLAttr key) const {
     switch (key) {
         case GNE_ATTR_ROUTE_DISTRIBUTION:
+        case SUMO_ATTR_PROB:
             return false;
         default:
             return true;
@@ -593,6 +607,7 @@ GNERoute::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* u
         case SUMO_ATTR_COLOR:
         case SUMO_ATTR_REPEAT:
         case SUMO_ATTR_CYCLETIME:
+        case SUMO_ATTR_PROB:
         case GNE_ATTR_PARAMETERS:
             GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
@@ -659,6 +674,8 @@ GNERoute::isValid(SumoXMLAttr key, const std::string& value) {
             } else {
                 return false;
             }
+        case SUMO_ATTR_PROB:
+            return canParse<double>(value) && (parse<double>(value) >= 0);
         case GNE_ATTR_PARAMETERS:
             return Parameterised::areParametersValid(value);
         default:
@@ -833,6 +850,9 @@ GNERoute::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_CYCLETIME:
             myCycleTime = string2time(value);
+            break;
+        case SUMO_ATTR_PROB:
+            myProbability = parse<double>(value);
             break;
         case GNE_ATTR_PARAMETERS:
             setParametersStr(value);

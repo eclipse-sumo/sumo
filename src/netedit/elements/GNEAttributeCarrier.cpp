@@ -3753,6 +3753,12 @@ GNEAttributeCarrier::fillDemandElements() {
                                               TL("the times will be shifted forward by 'cycleTime' on each repeat"),
                                               "0");
         myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_PROB,
+                                              GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::EXTENDED,
+                                              TL("The probability when being added to a distribution without an explicit probability"),
+                                              "1.0");
+        myTagProperties[currentTag].addAttribute(attrProperty);
     }
     currentTag = SUMO_TAG_ROUTE_DISTRIBUTION;
     {
