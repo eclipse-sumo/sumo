@@ -65,11 +65,6 @@ public:
                             const std::vector<std::string>& edgeIDs, const RGBColor& color, const int repeat, const SUMOTime cycleTime,
                             const double probability, const Parameterised::Map& routeParameters) = 0;
 
-    /// @brief build embedded route
-    virtual bool buildEmbeddedRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::vector<std::string>& edgeIDs,
-                                    const RGBColor& color, const int repeat, const SUMOTime cycleTime,
-                                    const Parameterised::Map& routeParameters) = 0;
-
     /// @brief build route distribution
     virtual bool buildRouteDistribution(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id,
                                         const std::vector<std::string>& vTypeIDs, const std::vector<double>& probabilities) = 0;
@@ -77,8 +72,18 @@ public:
     /// @brief build a vehicle over an existent route
     virtual bool buildVehicleOverRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters) = 0;
 
+    /// @brief build a vehicle with an embedded route
+    virtual bool buildVehicleEmbeddedRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters,
+                                           const std::vector<std::string>& edgeIDs, const RGBColor& color, const int repeat, const SUMOTime cycleTime,
+                                           const double probability, const Parameterised::Map& routeParameters) = 0;
+
     /// @brief build a flow over an existent route
     virtual bool buildFlowOverRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters) = 0;
+
+    /// @brief build a flow with an embedded route
+    virtual bool buildFlowEmbeddedRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters,
+                                        const std::vector<std::string>& edgeIDs, const RGBColor& color, const int repeat, const SUMOTime cycleTime,
+                                        const double probability, const Parameterised::Map& routeParameters) = 0;
 
     /// @brief build trip (from-to edges)
     virtual bool buildTrip(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters,
@@ -219,10 +224,27 @@ private:
     /// @brief parse stop parameters
     bool parseStopParameters(SUMOVehicleParameter::Stop& stop, const SUMOSAXAttributes& attrs);
 
+    /// @brief check if the current obj is an embedded route
+    bool isEmbeddedRoute(const SUMOSAXAttributes& attrs) const;
+
     /// @}
 
-    /// @brief check embedded route
-    bool isEmbeddedRoute(const SUMOSAXAttributes& attrs) const;
+    /// @name check functions used for simplify code in handlers
+    /// @{
+        
+    /// @brief check if element is defined over from-to edges
+    bool isOverFromToEdges(const CommonXMLStructure::SumoBaseObject* sumoBaseObject) const;
+
+    /// @brief check if element is defined over from-to junctions
+    bool isOverFromToJunctions(const CommonXMLStructure::SumoBaseObject* sumoBaseObject) const;
+
+    /// @brief check if element is defined over from-to junctions
+    bool isOverFromToTAZs(const CommonXMLStructure::SumoBaseObject* sumoBaseObject) const;
+
+    /// @brief get embedded route from children
+    CommonXMLStructure::SumoBaseObject* getEmbeddedRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject) const;
+
+    /// @}
 
     /// @brief invalidate copy constructor
     RouteHandler(const RouteHandler& s) = delete;

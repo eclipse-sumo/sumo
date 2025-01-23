@@ -58,11 +58,15 @@ protected:
 
     /// @name check functions
     /// @{
+
     /// @brief check parsed parents
     void checkParsedParent(const SumoXMLTag currentTag, const std::vector<SumoXMLTag>& parentTags, bool& ok);
 
     /// @brief check list of IDs
     bool checkListOfVehicleTypes(const SumoXMLTag tag, const std::string& id, const std::vector<std::string>& vTypeIDs);
+
+    /// @brief check if the given object is within a distribution (VType or routes)
+    bool checkDistribution(CommonXMLStructure::SumoBaseObject* obj);
 
     /// @brief check vehicle parents
     bool checkVehicleParents(CommonXMLStructure::SumoBaseObject* obj);
@@ -99,6 +103,9 @@ protected:
     /// @brief write error "duplicated additional"
     bool writeErrorDuplicated(const SumoXMLTag tag, const std::string& id, const SumoXMLTag checkedTag);
 
+    /// @brief write error "empty edges"
+    bool writeErrorEmptyEdges(const SumoXMLTag tag, const std::string& id);
+
     /// @brief write error "invalid list of lanes"
     bool writeErrorInvalidLanes(const SumoXMLTag tag, const std::string& id);
 
@@ -113,8 +120,6 @@ protected:
 
     /// @brief write error "invalid parent element" without giving IDs
     bool writeErrorInvalidParent(const SumoXMLTag tag, const SumoXMLTag parentTag);
-
-
 
 private:
     /// @brief invalidate copy constructor

@@ -151,30 +151,9 @@ RouteHandler::endParseAttributes() {
     if (obj) {
         // close SUMOBaseOBject
         myCommonXMLStructure.closeSUMOBaseOBject();
-        // get parent tag (if exist)
-        const auto parentTag = obj->getParentSumoBaseObject() ? obj->getParentSumoBaseObject()->getTag() : SUMO_TAG_NOTHING;
         switch (obj->getTag()) {
-            // specia case for route (because can be embedded)
             case SUMO_TAG_ROUTE:
-                // only parse non-embedded and without distributionsroutes
-                if ((obj->getStringAttribute(SUMO_ATTR_ID).size() > 0) &&
-                        (parentTag != SUMO_TAG_ROUTE_DISTRIBUTION)) {
-                    // parse route and all their childrens
-                    parseSumoBaseObject(obj);
-                    // delete object (and all of their childrens)
-                    delete obj;
-                }
-                break;
-            // demand elements
             case SUMO_TAG_VTYPE:
-                // only parse vTypes without distributions
-                if (parentTag != SUMO_TAG_VTYPE_DISTRIBUTION) {
-                    // parse vType and all their childrens
-                    parseSumoBaseObject(obj);
-                    // delete object (and all of their childrens)
-                    delete obj;
-                }
-                break;
             case SUMO_TAG_VTYPE_DISTRIBUTION:
             case SUMO_TAG_ROUTE_DISTRIBUTION:
             case SUMO_TAG_TRIP:
@@ -202,9 +181,12 @@ RouteHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) {
     switch (obj->getTag()) {
         // vTypes
         case SUMO_TAG_VTYPE:
-            if (buildVType(obj,
-                           obj->getVehicleTypeParameter())) {
-                obj->markAsCreated();
+            // avoid create distributions here
+            if (!checkDistribution(obj)) {
+                if (buildVType(obj,
+                               obj->getVehicleTypeParameter())) {
+                    obj->markAsCreated();
+                }
             }
             break;
         case SUMO_TAG_VTYPE_DISTRIBUTION:
@@ -218,16 +200,8 @@ RouteHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) {
             break;
         // route
         case SUMO_TAG_ROUTE:
-            if (obj->getStringAttribute(SUMO_ATTR_ID).empty()) {
-                if (buildEmbeddedRoute(obj,
-                                   obj->getStringListAttribute(SUMO_ATTR_EDGES),
-                                   obj->getColorAttribute(SUMO_ATTR_COLOR),
-                                   obj->getIntAttribute(SUMO_ATTR_REPEAT),
-                                   obj->getTimeAttribute(SUMO_ATTR_CYCLETIME),
-                                   obj->getParameters())) {
-                    obj->markAsCreated();
-                }
-            } else {
+            // embedded routes are created in build<Vehicle/Flow>EmbeddedRoute
+            if (!checkDistribution(obj) && obj->hasStringAttribute(SUMO_ATTR_ID)) {
                 if (buildRoute(obj,
                                obj->getStringAttribute(SUMO_ATTR_ID),
                                obj->getVClass(),
@@ -252,25 +226,7 @@ RouteHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) {
         // vehicles
         case SUMO_TAG_TRIP:
             if (checkVehicleParents(obj)) {
-                if (obj->hasStringAttribute(SUMO_ATTR_FROM_JUNCTION) &&
-                    obj->hasStringAttribute(SUMO_ATTR_TO_JUNCTION)) {
-                    // build trip with from-to junctions
-                    if (buildTripJunctions(obj,
-                                           obj->getVehicleParameter(),
-                                           obj->getStringAttribute(SUMO_ATTR_FROM_JUNCTION),
-                                           obj->getStringAttribute(SUMO_ATTR_TO_JUNCTION))) {
-                        obj->markAsCreated();
-                    }
-                } else if (obj->hasStringAttribute(SUMO_ATTR_FROM_TAZ) &&
-                           obj->hasStringAttribute(SUMO_ATTR_TO_TAZ)) {
-                    // build trip with from-to TAZs
-                    if (buildTripTAZs(obj,
-                                      obj->getVehicleParameter(),
-                                      obj->getStringAttribute(SUMO_ATTR_FROM_TAZ),
-                                      obj->getStringAttribute(SUMO_ATTR_TO_TAZ))) {
-                        obj->markAsCreated();
-                    }
-                } else {
+                if (isOverFromToEdges(obj)) {
                     // build trip with from-to edges
                     if (buildTrip(obj,
                                   obj->getVehicleParameter(),
@@ -278,14 +234,48 @@ RouteHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) {
                                   obj->hasStringAttribute(SUMO_ATTR_TO) ? obj->getStringAttribute(SUMO_ATTR_TO) : "")) {
                         obj->markAsCreated();
                     }
+                } else if (isOverFromToJunctions(obj)) {
+                    // build trip with from-to junctions
+                    if (buildTripJunctions(obj,
+                                           obj->getVehicleParameter(),
+                                           obj->getStringAttribute(SUMO_ATTR_FROM_JUNCTION),
+                                           obj->getStringAttribute(SUMO_ATTR_TO_JUNCTION))) {
+                        obj->markAsCreated();
+                    }
+                } else if (isOverFromToTAZs(obj)) {
+                    // build trip with from-to TAZs
+                    if (buildTripTAZs(obj,
+                                      obj->getVehicleParameter(),
+                                      obj->getStringAttribute(SUMO_ATTR_FROM_TAZ),
+                                      obj->getStringAttribute(SUMO_ATTR_TO_TAZ))) {
+                        obj->markAsCreated();
+                    }
                 }
             }
             break;
         case SUMO_TAG_VEHICLE:
-            if (checkVehicleParents(obj) && obj->hasStringAttribute(SUMO_ATTR_ROUTE)) {
-                if (buildVehicleOverRoute(obj,
-                                            obj->getVehicleParameter())) {
-                    obj->markAsCreated();
+            if (checkVehicleParents(obj)) {
+                if (obj->hasStringAttribute(SUMO_ATTR_ROUTE)) {
+                    // build vehicle over route
+                    if (buildVehicleOverRoute(obj,
+                                              obj->getVehicleParameter())) {
+                        obj->markAsCreated();
+                    }
+                } else {
+                    const auto embeddedRoute = getEmbeddedRoute(obj);
+                    if (embeddedRoute) {
+                        // build vehicle with embedded route
+                        if (buildVehicleEmbeddedRoute(obj,
+                                                      obj->getVehicleParameter(),
+                                                      embeddedRoute->getStringListAttribute(SUMO_ATTR_EDGES),
+                                                      embeddedRoute->getColorAttribute(SUMO_ATTR_COLOR),
+                                                      embeddedRoute->getIntAttribute(SUMO_ATTR_REPEAT),
+                                                      embeddedRoute->getTimeAttribute(SUMO_ATTR_CYCLETIME),
+                                                      embeddedRoute->getDoubleAttribute(SUMO_ATTR_PROB),
+                                                      embeddedRoute->getParameters())) {
+                            obj->markAsCreated();
+                        }
+                    }
                 }
             }
             break;
@@ -298,8 +288,15 @@ RouteHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) {
                                            obj->getVehicleParameter())) {
                         obj->markAsCreated();
                     }
-                } else if (obj->hasStringAttribute(SUMO_ATTR_FROM_JUNCTION) &&
-                           obj->hasStringAttribute(SUMO_ATTR_TO_JUNCTION)) {
+                } else if (isOverFromToEdges(obj)) {
+                    // build flow with from-to edges
+                    if (buildFlow(obj,
+                                  obj->getVehicleParameter(),
+                                  obj->getStringAttribute(SUMO_ATTR_FROM),
+                                  obj->getStringAttribute(SUMO_ATTR_TO))) {
+                        obj->markAsCreated();
+                    }
+                } else if (isOverFromToJunctions(obj)) {
                     // build flow with from-to junctions
                     if (buildFlowJunctions(obj,
                                            obj->getVehicleParameter(),
@@ -307,8 +304,7 @@ RouteHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) {
                                            obj->getStringAttribute(SUMO_ATTR_TO_JUNCTION))) {
                         obj->markAsCreated();
                     }
-                } else if (obj->hasStringAttribute(SUMO_ATTR_FROM_TAZ) &&
-                           obj->hasStringAttribute(SUMO_ATTR_TO_TAZ)) {
+                } else if (isOverFromToTAZs(obj)) {
                     // build flow with from-to TAZs
                     if (buildFlowTAZs(obj,
                                       obj->getVehicleParameter(),
@@ -316,14 +312,21 @@ RouteHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) {
                                       obj->getStringAttribute(SUMO_ATTR_TO_TAZ))) {
                         obj->markAsCreated();
                     }
-                } else if ((obj->getSumoBaseObjectChildren().size() == 0) ||
-                           (obj->getSumoBaseObjectChildren().front()->getTag() != SUMO_TAG_ROUTE)) {
-                    // build flow with from-to edges
-                    if (buildFlow(obj,
-                                  obj->getVehicleParameter(),
-                                  obj->hasStringAttribute(SUMO_ATTR_FROM) ? obj->getStringAttribute(SUMO_ATTR_FROM) : "",
-                                  obj->hasStringAttribute(SUMO_ATTR_TO) ? obj->getStringAttribute(SUMO_ATTR_TO) : "")) {
-                        obj->markAsCreated();
+
+                } else {
+                    const auto embeddedRoute = getEmbeddedRoute(obj);
+                    if (embeddedRoute) {
+                        // build flow with embedded route
+                        if (buildFlowEmbeddedRoute(obj,
+                                                   obj->getVehicleParameter(),
+                                                   embeddedRoute->getStringListAttribute(SUMO_ATTR_EDGES),
+                                                   embeddedRoute->getColorAttribute(SUMO_ATTR_COLOR),
+                                                   embeddedRoute->getIntAttribute(SUMO_ATTR_REPEAT),
+                                                   embeddedRoute->getTimeAttribute(SUMO_ATTR_CYCLETIME),
+                                                   embeddedRoute->getDoubleAttribute(SUMO_ATTR_PROB),
+                                                   embeddedRoute->getParameters())) {
+                            obj->markAsCreated();
+                        }
                     }
                 }
             }
@@ -480,7 +483,7 @@ RouteHandler::parseRoute(const SUMOSAXAttributes& attrs) {
         // declare Ok Flag
         bool parsedOk = true;
         // special case for ID
-        const std::string id = attrs.getOpt<std::string>(SUMO_ATTR_ID, "", parsedOk, "");
+        const std::string id = embeddedRoute? myCommonXMLStructure.getCurrentSumoBaseObject()->getParentSumoBaseObject()->getVehicleParameter().id : attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk);
         // needed attributes
         const std::vector<std::string> edges = attrs.get<std::vector<std::string> >(SUMO_ATTR_EDGES, id.c_str(), parsedOk);
         // optional attributes
@@ -496,8 +499,11 @@ RouteHandler::parseRoute(const SUMOSAXAttributes& attrs) {
         if (parsedOk) {
             // set tag
             myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_ROUTE);
+            // special case for ID (because empty id means embedded route)
+            if (!embeddedRoute) {
+                myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, id);
+            }
             // add all attributes
-            myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, id);
             myCommonXMLStructure.getCurrentSumoBaseObject()->setVClass(vClass);
             myCommonXMLStructure.getCurrentSumoBaseObject()->addStringListAttribute(SUMO_ATTR_EDGES, edges);
             myCommonXMLStructure.getCurrentSumoBaseObject()->addColorAttribute(SUMO_ATTR_COLOR, color);
@@ -1205,6 +1211,36 @@ RouteHandler::isEmbeddedRoute(const SUMOSAXAttributes& attrs) const {
     } else {
         return false;
     }
+}
+
+
+bool
+RouteHandler::isOverFromToEdges(const CommonXMLStructure::SumoBaseObject* sumoBaseObject) const {
+    return sumoBaseObject->hasStringAttribute(SUMO_ATTR_FROM) && sumoBaseObject->hasStringAttribute(SUMO_ATTR_TO);
+}
+
+
+bool
+RouteHandler::isOverFromToJunctions(const CommonXMLStructure::SumoBaseObject* sumoBaseObject) const {
+    return sumoBaseObject->hasStringAttribute(SUMO_ATTR_FROM_JUNCTION) && sumoBaseObject->hasStringAttribute(SUMO_ATTR_TO_JUNCTION);
+}
+
+
+bool
+RouteHandler::isOverFromToTAZs(const CommonXMLStructure::SumoBaseObject* sumoBaseObject) const {
+    return sumoBaseObject->hasStringAttribute(SUMO_ATTR_FROM_TAZ) && sumoBaseObject->hasStringAttribute(SUMO_ATTR_TO_TAZ);
+}
+
+
+CommonXMLStructure::SumoBaseObject*
+RouteHandler::getEmbeddedRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject) const {
+    // locate route in childrens
+    for (const auto &embeddedRoute : sumoBaseObject->getSumoBaseObjectChildren()) {
+        if ((embeddedRoute->getTag() == SUMO_TAG_ROUTE) && (!embeddedRoute->hasStringAttribute(SUMO_ATTR_ID))) {
+            return embeddedRoute;
+        }
+    }
+    return nullptr;
 }
 
 /****************************************************************************/

@@ -118,6 +118,20 @@ CommonHandler::checkListOfVehicleTypes(const SumoXMLTag tag, const std::string& 
 
 
 bool
+CommonHandler::checkDistribution(CommonXMLStructure::SumoBaseObject* obj) {
+    if (obj->getParentSumoBaseObject() == nullptr) {
+        return false;
+    } else if (obj->getParentSumoBaseObject()->getTag() == SUMO_TAG_ROUTE_DISTRIBUTION) {
+        return true;
+    } else if (obj->getParentSumoBaseObject()->getTag() == SUMO_TAG_VTYPE_DISTRIBUTION) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
+bool
 CommonHandler::checkVehicleParents(CommonXMLStructure::SumoBaseObject* obj) {
     if (obj == nullptr) {
         return false;
@@ -265,6 +279,12 @@ CommonHandler::writeErrorInvalidPosition(const SumoXMLTag tag, const std::string
 bool
 CommonHandler::writeErrorDuplicated(const SumoXMLTag tag, const std::string& id, const SumoXMLTag checkedTag) {
     return writeError(TLF("Could not build % with ID '%' in netedit; Found another % with the same ID.", toString(tag), id, toString(checkedTag)));
+}
+
+
+bool
+CommonHandler::writeErrorEmptyEdges(const SumoXMLTag tag, const std::string& id) {
+    return writeError(TLF("Could not build % with ID '%' in netedit; List of edges cannot be empty.", toString(tag), id));
 }
 
 

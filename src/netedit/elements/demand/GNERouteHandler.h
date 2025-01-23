@@ -79,11 +79,6 @@ public:
                     const std::vector<std::string>& edgeIDs, const RGBColor& color, const int repeat, const SUMOTime cycleTime,
                     const double probability, const Parameterised::Map& routeParameters);
 
-    /// @brief build embedded route
-    bool buildEmbeddedRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::vector<std::string>& edgeIDs,
-                            const RGBColor& color, const int repeat, const SUMOTime cycleTime,
-                            const Parameterised::Map& routeParameters);
-
     /// @brief build route distribution
     bool buildRouteDistribution(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id,
                                 const std::vector<std::string>& routeIDs, const std::vector<double>& probabilities);
@@ -91,8 +86,18 @@ public:
     /// @brief build a vehicle over an existent route
     bool buildVehicleOverRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters);
 
+    /// @brief build a vehicle with an embedded route
+    bool buildVehicleEmbeddedRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters,
+                                   const std::vector<std::string>& edgeIDs, const RGBColor& color, const int repeat, const SUMOTime cycleTime,
+                                   const double probability, const Parameterised::Map& routeParameters);
+
     /// @brief build a flow over an existent route
     bool buildFlowOverRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters);
+
+    /// @brief build a flow with an embedded route
+    bool buildFlowEmbeddedRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters,
+                                const std::vector<std::string>& edgeIDs, const RGBColor& color, const int repeat, const SUMOTime cycleTime,
+                                const double probability, const Parameterised::Map& routeParameters);
 
     /// @brief build trip
     bool buildTrip(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters,
