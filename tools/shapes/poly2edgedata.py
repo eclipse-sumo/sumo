@@ -20,7 +20,7 @@ Transform polygons with params into edgedata with attributes
 For each polygon a unique edge is selected that gives the best geometrical match
 
 The following syntax is supported in the patch file (one patch per line):
- 
+
 # lines starting with '#' are ignored as comments
 # rev overrides the reverse edge of EDGEID to be REVEDGEID
 rev EDGEID REVEDGEID
@@ -69,7 +69,7 @@ def get_options(args=None):
                   help="If a reverse edge is found, split the values of the given attribute list among edge and reverse edge")
     op.add_option("-S", "--nosplit-attributes", dest="noSplitAttrs",
                   help="If a reverse edge is found, split the values of all attributes except the given attribute list among edge and reverse edge")  # noqa
-    op.add_option("-f", "--filter", dest="filter", 
+    op.add_option("-f", "--filter", dest="filter",
                   help="Read a list of triplets ATTR,MIN,MAX and only keep polygons where value ATTR is within [MIN,MAX]")
     op.add_option("-b", "--begin", default=0, type=op.time,
                   help="edgedata interval begin time")
@@ -104,25 +104,27 @@ def readPatches(net, pfile):
     patchEdg = {}  # polyID->edge
     patchRev = {}  # forwardEdge->reverseEdge
     patchDat = defaultdict(lambda: {}) # polyID->attr->data (-1 ignores)
-    with open(pfile) as pf:
-        for line in pf:
-            items = line.split()
-            patchtype = items[0]
-            if patchtype == "rev":
-                edgeID, reverseID = items[1:]
-                patchRev[edgeID] = reverseID
-                test = net.getEdge(edgeID)
-            elif patchtype == "edg":
-                polyID, edgeID = items[1:]
-                patchEdg[polyID] = edgeID
-            elif patchtype == "dat":
-                polyID, attrName, value = items[1:]
-                patchDat[polyID][attrName] = value
-            elif patchtype == "#":
-                # comment 
-                continue
-            else:
-                print("unknown patchtype '%s'" % patchtype)
+    if pfile is not None:
+        with open(pfile) as pf:
+            for line in pf:
+                items = line.split()
+                patchtype = items[0]
+                if patchtype == "rev":
+                    edgeID, reverseID = items[1:]
+                    patchRev[edgeID] = reverseID
+                    test = net.getEdge(edgeID)
+                elif patchtype == "edg":
+                    polyID, edgeID = items[1:]
+                    patchEdg[polyID] = edgeID
+                elif patchtype == "dat":
+                    polyID, attrName, value = items[1:]
+                    patchDat[polyID][attrName] = value
+                elif patchtype == "#":
+                    # comment
+                    continue
+                else:
+                    print("unknown patchtype '%s'" % patchtype)
+
     return patchEdg, patchRev, patchDat
 
 
@@ -157,7 +159,7 @@ def main(options):
                 if not edges:
                     print("No long edges near %.2f,%.2f (poly %s)" % (cx, cy, poly.id), file=sys.stderr)
                     continue
-                
+
                 if shapelen < scut:
                     polyAngle = gh.angleTo2D(shape[0], shape[-1])
                 else:
@@ -242,28 +244,29 @@ def main(options):
                     print("Duplicate assignment to reverse edge %s from poly %s%s" % (
                         bestReverse.getID(), poly.id, patchInfo),  file=sys.stderr)
                     continue
-                
+
                 attrs = 'polyID="%s"' % poly.id
                 skip = False
-                for param in poly.param:
-                    value = param.value
-                    if poly.id in patchDat:
-                        if param.key in patchDat[poly.id]:
-                            value = patchDat[poly.id][param.key]
-                            #print("patched %s to %s" % (param.value, value))
-                            if value == PATCH_NONE:
-                                continue
-                    if param.key in options.filter:
-                        if (float(value) < options.filter[param.key][0] or
-                            float(value) > options.filter[param.key][1]):
-                            skip = True
-                    if bestReverse is not None and (param.key in options.splitAttrs
-                            or options.noSplitAttrs and param.key not in options.noSplitAttrs):
-                        try:
-                            value = float(value) / 2
-                        except:
-                            pass
-                    attrs += ' %s="%s"' % (param.key, value)
+                if poly.param:
+                    for param in poly.param:
+                        value = param.value
+                        if poly.id in patchDat:
+                            if param.key in patchDat[poly.id]:
+                                value = patchDat[poly.id][param.key]
+                                #print("patched %s to %s" % (param.value, value))
+                                if value == PATCH_NONE:
+                                    continue
+                        if param.key in options.filter:
+                            if (float(value) < options.filter[param.key][0] or
+                                float(value) > options.filter[param.key][1]):
+                                skip = True
+                        if bestReverse is not None and (param.key in options.splitAttrs
+                                or options.noSplitAttrs and param.key not in options.noSplitAttrs):
+                            try:
+                                value = float(value) / 2
+                            except:
+                                pass
+                        attrs += ' %s="%s"' % (param.key, value)
 
                 if skip:
                     continue
