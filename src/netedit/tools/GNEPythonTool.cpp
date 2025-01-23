@@ -201,18 +201,7 @@ GNEPythonTool::loadConfiguration(const std::string& file) {
 
 void
 GNEPythonTool::saveConfiguration(const std::string& file) const {
-    std::string command = getCommandPath() + " -C \"" + file + "\" ";
-    // add arguments
-    for (const auto& option : myPythonToolsOptions) {
-        // only write modified values
-        if (!option.second->isDefault()) {
-            if (option.second->isBool()) {
-                command += ("--" + option.first + " ");
-            } else {
-                command += ("--" + option.first + " \"" + StringUtils::escapeShell(option.second->getValueString()) + "\" ");
-            }
-        }
-    }
+    std::string command = getCommand() + " -C \"" + file + "\" ";
     // start in background
 #ifndef WIN32
     command = command + " &";
