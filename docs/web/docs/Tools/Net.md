@@ -194,6 +194,7 @@ By default, normal edge geometries will be exported. This can be changed with op
 - **--lanes**: write lane geometries
 - **--internal**: write junction-internal edges or lanes
 
+It is also possible to enrich the generated geojson with edge-related data (i.e. traffic counts or speeds) by loading an edgedata file with option **--edgedata-file**.
 
 # split_at_stops.py
 
