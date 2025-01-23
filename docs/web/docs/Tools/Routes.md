@@ -257,6 +257,7 @@ python tools/countEdgeUsage.py <route-file> --output-file <output-file> --subpar
 
 This will only generate results for routes that contain the edge
 sequence *edge3 edge4 edge5*.
+By default, subpart must be a sequence of consecutive edges. By adding option **--subpart.via**, non-consecutive sequences are permitted.
 
 # addParkingAreaStops2Routes.py
 
