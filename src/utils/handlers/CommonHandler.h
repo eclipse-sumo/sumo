@@ -71,6 +71,15 @@ protected:
     /// @brief check vehicle parents
     bool checkVehicleParents(CommonXMLStructure::SumoBaseObject* obj);
 
+    /// @brief check person plan parents
+    bool checkPersonPlanParents(CommonXMLStructure::SumoBaseObject* obj);
+
+    /// @brief check container plan parents
+    bool checkContainerPlanParents(CommonXMLStructure::SumoBaseObject* obj);
+
+    /// @brief check stop parents
+    bool checkStopParents(CommonXMLStructure::SumoBaseObject* obj);
+
     /// @brief check if the given int value is NOT negative
     bool checkNegative(const SumoXMLTag tag, const std::string& id, const SumoXMLAttr attribute, const int value, const bool canBeZero);
 

@@ -346,33 +346,39 @@ RouteHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) {
             break;
         // person plans
         case SUMO_TAG_PERSONTRIP:
-            if (buildPersonTrip(obj,
-                                obj->getPlanParameters(),
-                                obj->getDoubleAttribute(SUMO_ATTR_ARRIVALPOS),
-                                obj->getStringListAttribute(SUMO_ATTR_VTYPES),
-                                obj->getStringListAttribute(SUMO_ATTR_MODES),
-                                obj->getStringListAttribute(SUMO_ATTR_LINES),
-                                obj->getDoubleAttribute(SUMO_ATTR_WALKFACTOR),
-                                obj->getStringAttribute(SUMO_ATTR_GROUP))) {
-                obj->markAsCreated();
+            if (checkPersonPlanParents(obj)) {
+                if (buildPersonTrip(obj,
+                                    obj->getPlanParameters(),
+                                    obj->getDoubleAttribute(SUMO_ATTR_ARRIVALPOS),
+                                    obj->getStringListAttribute(SUMO_ATTR_VTYPES),
+                                    obj->getStringListAttribute(SUMO_ATTR_MODES),
+                                    obj->getStringListAttribute(SUMO_ATTR_LINES),
+                                    obj->getDoubleAttribute(SUMO_ATTR_WALKFACTOR),
+                                    obj->getStringAttribute(SUMO_ATTR_GROUP))) {
+                    obj->markAsCreated();
+                }
             }
             break;
         case SUMO_TAG_RIDE:
-            if (buildRide(obj,
-                          obj->getPlanParameters(),
-                          obj->getDoubleAttribute(SUMO_ATTR_ARRIVALPOS),
-                          obj->getStringListAttribute(SUMO_ATTR_LINES),
-                          obj->getStringAttribute(SUMO_ATTR_GROUP))) {
-                obj->markAsCreated();
+            if (checkPersonPlanParents(obj)) {
+                if (buildRide(obj,
+                              obj->getPlanParameters(),
+                              obj->getDoubleAttribute(SUMO_ATTR_ARRIVALPOS),
+                              obj->getStringListAttribute(SUMO_ATTR_LINES),
+                              obj->getStringAttribute(SUMO_ATTR_GROUP))) {
+                    obj->markAsCreated();
+                }
             }
             break;
         case SUMO_TAG_WALK:
-            if (buildWalk(obj,
-                          obj->getPlanParameters(),
-                          obj->getDoubleAttribute(SUMO_ATTR_ARRIVALPOS),
-                          obj->getDoubleAttribute(SUMO_ATTR_SPEED),
-                          obj->getTimeAttribute(SUMO_ATTR_DURATION))) {
-                obj->markAsCreated();
+            if (checkPersonPlanParents(obj)) {
+                if (buildWalk(obj,
+                              obj->getPlanParameters(),
+                              obj->getDoubleAttribute(SUMO_ATTR_ARRIVALPOS),
+                              obj->getDoubleAttribute(SUMO_ATTR_SPEED),
+                              obj->getTimeAttribute(SUMO_ATTR_DURATION))) {
+                    obj->markAsCreated();
+                }
             }
             break;
         // container
@@ -390,30 +396,36 @@ RouteHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) {
             break;
         // container plans
         case SUMO_TAG_TRANSPORT:
-            if (buildTransport(obj,
-                               obj->getPlanParameters(),
-                               obj->getDoubleAttribute(SUMO_ATTR_ARRIVALPOS),
-                               obj->getStringListAttribute(SUMO_ATTR_LINES),
-                               obj->getStringAttribute(SUMO_ATTR_GROUP))) {
-                obj->markAsCreated();
+            if (checkContainerPlanParents(obj)) {
+                if (buildTransport(obj,
+                                   obj->getPlanParameters(),
+                                   obj->getDoubleAttribute(SUMO_ATTR_ARRIVALPOS),
+                                   obj->getStringListAttribute(SUMO_ATTR_LINES),
+                                   obj->getStringAttribute(SUMO_ATTR_GROUP))) {
+                    obj->markAsCreated();
+                }
             }
             break;
         case SUMO_TAG_TRANSHIP:
-            if (buildTranship(obj,
-                              obj->getPlanParameters(),
-                              obj->getDoubleAttribute(SUMO_ATTR_ARRIVALPOS),
-                              obj->getDoubleAttribute(SUMO_ATTR_DEPARTPOS),
-                              obj->getDoubleAttribute(SUMO_ATTR_SPEED),
-                              obj->getTimeAttribute(SUMO_ATTR_DURATION))) {
-                obj->markAsCreated();
+            if (checkContainerPlanParents(obj)) {
+                if (buildTranship(obj,
+                                  obj->getPlanParameters(),
+                                  obj->getDoubleAttribute(SUMO_ATTR_ARRIVALPOS),
+                                  obj->getDoubleAttribute(SUMO_ATTR_DEPARTPOS),
+                                  obj->getDoubleAttribute(SUMO_ATTR_SPEED),
+                                  obj->getTimeAttribute(SUMO_ATTR_DURATION))) {
+                    obj->markAsCreated();
+                }
             }
             break;
         // stops
         case SUMO_TAG_STOP:
-            if (buildStop(obj,
-                          obj->getPlanParameters(),
-                          obj->getStopParameter())) {
-                obj->markAsCreated();
+            if (checkStopParents(obj)) {
+                if (buildStop(obj,
+                              obj->getPlanParameters(),
+                              obj->getStopParameter())) {
+                    obj->markAsCreated();
+                }
             }
             break;
         default:

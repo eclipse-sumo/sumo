@@ -163,6 +163,54 @@ CommonHandler::checkVehicleParents(CommonXMLStructure::SumoBaseObject* obj) {
 
 
 bool
+CommonHandler::checkPersonPlanParents(CommonXMLStructure::SumoBaseObject* obj) {
+    const auto parent = obj->getParentSumoBaseObject();
+    if (parent == nullptr) {
+        return false;
+    } else if (!parent->wasCreated()) {
+        return false;
+    } else if ((parent->getTag() == SUMO_TAG_PERSON) || (parent->getTag() == SUMO_TAG_PERSONFLOW)) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
+bool
+CommonHandler::checkContainerPlanParents(CommonXMLStructure::SumoBaseObject* obj) {
+    const auto parent = obj->getParentSumoBaseObject();
+    if (parent == nullptr) {
+        return false;
+    } else if (!parent->wasCreated()) {
+        return false;
+    } else if ((parent->getTag() == SUMO_TAG_CONTAINER) || (parent->getTag() == SUMO_TAG_CONTAINERFLOW)) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
+bool
+CommonHandler::checkStopParents(CommonXMLStructure::SumoBaseObject* obj) {
+    const auto parent = obj->getParentSumoBaseObject();
+    if (parent == nullptr) {
+        return false;
+    } else if (!parent->wasCreated()) {
+        return false;
+    } else if ((parent->getTag() == SUMO_TAG_ROUTE) || (parent->getTag() == SUMO_TAG_TRIP) ||
+               (parent->getTag() == SUMO_TAG_VEHICLE) || (parent->getTag() == SUMO_TAG_FLOW) ||
+               (parent->getTag() == SUMO_TAG_PERSON) || (parent->getTag() == SUMO_TAG_PERSONFLOW) ||
+               (parent->getTag() == SUMO_TAG_CONTAINER) || (parent->getTag() == SUMO_TAG_CONTAINERFLOW)) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
+bool
 CommonHandler::checkNegative(const SumoXMLTag tag, const std::string& id, const SumoXMLAttr attribute, const int value, const bool canBeZero) {
     if (canBeZero) {
         if (value < 0) {
