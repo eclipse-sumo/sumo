@@ -32,6 +32,6 @@ SPDX-License-Identifier: EPL-2.0
     <edge id="CW" from="C" to="W" priority="2" numLanes="2" speed="13.89" allow="rail"/>
     <edge id="EC" from="E" to="C" priority="2" numLanes="2" speed="13.89" allow="rail"/>
     <edge id="NC" from="N" to="C" priority="2" numLanes="2" speed="13.89" allow="passenger"/>
-    <edge id="SC" from="S" to="C" priority="2" numLanes="2" speed="13.89" allow="passenger pedestrian"/>
+    <edge id="SC" from="S" to="C" priority="2" numLanes="1" speed="13.89" allow="bicycle pedestrian"/>
     <edge id="WC" from="W" to="C" priority="2" numLanes="2" speed="13.89" disallow="rail"/>
 </edges>
