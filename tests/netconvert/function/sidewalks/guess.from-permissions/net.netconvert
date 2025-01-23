@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-01-23 14:42:21 by Eclipse SUMO netconvert Version v1_21_0+1983-aac325cbcaf
+<!-- generated on 2025-01-23 14:47:30 by Eclipse SUMO netconvert Version v1_21_0+1986-6b66905bd15
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -93,8 +93,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="NC_1" index="1" allow="passenger" speed="13.89" length="92.10" shape="98.40,200.00 98.40,107.90"/>
     </edge>
     <edge id="SC" from="S" to="C" priority="2">
-        <lane id="SC_0" index="0" allow="pedestrian" speed="13.89" length="90.10" width="2.00" shape="104.20,0.00 104.20,90.10"/>
-        <lane id="SC_1" index="1" allow="bicycle" speed="13.89" length="90.10" shape="101.60,0.00 101.60,90.10"/>
+        <lane id="SC_0" index="0" allow="pedestrian bicycle" speed="13.89" length="90.10" shape="101.60,0.00 101.60,90.10"/>
     </edge>
     <edge id="WC" from="W" to="C" priority="2">
         <lane id="WC_0" index="0" allow="pedestrian" speed="13.89" length="92.10" width="2.00" shape="0.00,92.60 92.10,92.60"/>
@@ -111,7 +110,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <phase duration="3"  state="yyrrrrrrr"/>
     </tlLogic>
 
-    <junction id="C" type="traffic_light" x="100.00" y="100.00" incLanes="NC_0 NC_1 EC_0 EC_1 SC_0 SC_1 WC_0 WC_1 WC_2" intLanes=":C_0_0 :C_0_1 :C_2_0 :C_2_1 :C_4_0 :C_5_0 :C_5_1 :C_9_0 :C_9_1" shape="93.60,107.90 108.40,107.90 108.57,107.07 108.78,106.77 109.07,106.57 109.44,106.44 109.90,106.40 109.90,91.60 107.29,91.43 106.38,91.22 105.72,90.93 105.33,90.56 105.20,90.10 93.60,90.10 93.43,90.93 93.22,91.22 92.93,91.43 92.56,91.56 92.10,91.60 92.10,106.40 92.93,106.57 93.23,106.78 93.43,107.07 93.56,107.44">
+    <junction id="C" type="traffic_light" x="100.00" y="100.00" incLanes="NC_0 NC_1 EC_0 EC_1 SC_0 WC_0 WC_1 WC_2" intLanes=":C_0_0 :C_0_1 :C_2_0 :C_2_1 :C_4_0 :C_5_0 :C_5_1 :C_9_0 :C_9_1" shape="93.60,107.90 108.40,107.90 108.57,107.07 108.78,106.77 109.07,106.57 109.44,106.44 109.90,106.40 109.90,91.60 107.85,91.56 106.18,91.43 104.87,91.22 103.94,90.93 103.39,90.56 103.20,90.10 93.60,90.10 93.43,90.93 93.22,91.22 92.93,91.43 92.56,91.56 92.10,91.60 92.10,106.40 92.93,106.57 93.23,106.78 93.43,107.07 93.56,107.44">
         <request index="0" response="111111100" foes="111111100" cont="0"/>
         <request index="1" response="111101100" foes="111101100" cont="0"/>
         <request index="2" response="000000000" foes="110000011" cont="0"/>
@@ -134,7 +133,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <connection from="EC" to="CW" fromLane="1" toLane="1" via=":C_2_1" tl="C" linkIndex="3" dir="s" state="O"/>
     <connection from="NC" to="CE" fromLane="0" toLane="1" via=":C_0_0" tl="C" linkIndex="0" dir="l" state="o"/>
     <connection from="NC" to="CE" fromLane="1" toLane="2" via=":C_0_1" tl="C" linkIndex="1" dir="l" state="o"/>
-    <connection from="SC" to="CE" fromLane="1" toLane="1" via=":C_4_0" tl="C" linkIndex="4" dir="r" state="o"/>
+    <connection from="SC" to="CE" fromLane="0" toLane="1" via=":C_4_0" tl="C" linkIndex="4" dir="r" state="o"/>
     <connection from="WC" to="CE" fromLane="1" toLane="1" via=":C_5_0" tl="C" linkIndex="5" dir="s" state="O"/>
     <connection from="WC" to="CE" fromLane="2" toLane="2" via=":C_5_1" tl="C" linkIndex="6" dir="s" state="O"/>
     <connection from="WC" to="CN" fromLane="2" toLane="1" via=":C_7_0" tl="C" linkIndex="7" dir="l" state="o"/>
