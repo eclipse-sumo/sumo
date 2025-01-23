@@ -1,0 +1,7 @@
+<meandata>
+    <interval begin="0" end="86400.0" id="input.poly.xml">
+        <edge id="E6" polyID="po_3" foo="45"/> 
+        <edge id="E8" polyID="po_5"/>   <!-- reverse: E7 -->
+        <edge id="E7" polyID="po_5"/>   <!-- reverse: E8 -->
+    </interval>
+</meandata>

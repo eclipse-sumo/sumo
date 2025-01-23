@@ -12,3 +12,6 @@ poi_at_stops
 
 # Tests for Point of Interest at Trafic light signals
 poi_atTLS
+
+# map polygons onto network edges
+poly2edgedata

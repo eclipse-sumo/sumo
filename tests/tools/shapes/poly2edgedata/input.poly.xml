@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-01-23 10:51:48 by Eclipse SUMO netedit Version v1_21_0+1964-f37231df5c8
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- Shapes -->
+    <poly id="po_0" color="red" fill="0" layer="10.00" geo="1" shape="11.076256,48.832680 11.077125,48.832678">
+        <param key="foo" value="42"/>
+        <param key="bar" value="23"/>
+    </poly>
+    <poly id="po_1" color="red" fill="0" layer="20.00" geo="1" shape="11.069398,48.832832 11.070500,48.832815">
+        <param key="foo" value="43"/>
+        <param key="bar" value="24"/>
+    </poly>
+    <poly id="po_2" color="red" fill="0" layer="30.00" geo="1" shape="11.070829,48.832808 11.072771,48.832783">
+        <param key="foo" value="44"/>
+    </poly>
+    <poly id="po_3" color="red" fill="0" layer="40.00" geo="1" shape="11.071102,48.834585 11.071210,48.834063">
+        <param key="foo" value="45"/>
+    </poly>
+    <poly id="po_4" color="red" fill="0" layer="50.00" geo="1" shape="11.069439,48.834688 11.069690,48.834144">
+        <param key="foo" value="46"/>
+    </poly>
+    <poly id="po_5" color="red" fill="0" layer="60.00" geo="1" shape="11.076332,48.834319 11.079979,48.834265">
+    </poly>
+</additional>

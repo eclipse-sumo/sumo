@@ -1,0 +1,8 @@
+# comment
+rev -E0 E3
+rev E0 None
+edg po_4 E6
+edg E8 None
+dat po_3 foo 100
+dat po_1 bar None
+dummy

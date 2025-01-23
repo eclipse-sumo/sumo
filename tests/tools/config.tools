@@ -6,6 +6,7 @@ copy_test_path:routes2.rou.xml
 copy_test_path:net.net.xml
 copy_test_path:net2.net.xml
 copy_test_path:net3.net.xml
+copy_test_path:input.poly.xml
 copy_test_path:input_additional.add.xml
 copy_test_path:input_additional2.add.xml
 copy_test_path:three_split.net.xml
