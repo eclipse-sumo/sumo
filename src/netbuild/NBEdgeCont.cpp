@@ -1699,8 +1699,10 @@ NBEdgeCont::guessSpecialLanes(SUMOVehicleClass svc, double width, double minSpee
         NBEdge* edge = it->second;
         if (// not excluded
             exclude.count(edge->getID()) == 0
-            // does not yet have a sidewalk
+            // does not yet have a sidewalk/bikelane
             && !edge->hasRestrictedLane(svc)
+            // needs a sidewalk/bikelane
+            && ((edge->getPermissions() & ~SVC_VULNERABLE) != 0 || (edge->getPermissions() & svc) == 0)
             && (
                 // guess.from-permissions
                 (fromPermissions && (edge->getPermissions() & svc) != 0)
