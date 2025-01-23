@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-01-23 15:48:18.902147 by edgeDepartDelay.py v1_21_0+1991-2ba39f5b914
+<configuration>
+    <tripinfo-file value="tripinfos.xml"/>
+    <output value="edgedata.xml"/>
+</configuration>
+-->
+
+<data xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/datamode_file.xsd">
+  <interval id="edgeDepartDelay" begin="0.0" end="0.0">
+    <edge id="4/1to3/1" count="4" min="0.00" minLabel="0" max="3.00" maxLabel="1" mean="0.75" Q1="0.00" median="0.00" Q3="3.00" meanAbs="0.75" medianAbs="0.00"/>
+  </interval>
+</data>
