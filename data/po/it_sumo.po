@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-01-06 11:22+0100\n"
-"PO-Revision-Date: 2025-01-22 12:13+0000\n"
+"PO-Revision-Date: 2025-01-23 12:23+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -3750,7 +3750,7 @@ msgstr ""
 
 #: src/microsim/cfmodels/MSCFModel_Krauss.cpp:58
 msgid "Rounding 'sigmaStep' to % for vType '%'"
-msgstr ""
+msgstr "Arrotondo 'sigmaStep' a % per il tipo di veicolo '%'"
 
 #: src/microsim/cfmodels/MSCFModel_Rail.cpp:86
 msgid "Unknown train type: %. Exiting!"
@@ -3760,52 +3760,68 @@ msgstr "Tipo di treno sconosciuto: %. Uscita!"
 msgid ""
 "Invalid size of speedTable for vType '%' (at least 2 values are required)."
 msgstr ""
+"Misura invalida della tabella di velocità (speedTable) del tipo di veicolo "
+"'%' (bisogna contenere almeno 2 valori)."
 
 #: src/microsim/cfmodels/MSCFModel_Rail.cpp:116
 msgid "Mismatching size of speedTable and tractionTable for vType '%'."
 msgstr ""
+"Le misure della tabella di velocità (speedTable) e quella di trazione "
+"(tractionTable) non coincidono nel tipo di veicolo '%'."
 
 #: src/microsim/cfmodels/MSCFModel_Rail.cpp:118
 msgid "Mismatching size of speedTable and resistanceTable for vType '%'."
 msgstr ""
+"Le misure della tabella di velocità (speedTable) e quella di resistenza ("
+"resistanceTable ) non coincidono nel tipo di veicolo '%'."
 
 #: src/microsim/cfmodels/MSCFModel_Rail.cpp:136
 msgid "Undefined maxPower for vType '%'."
-msgstr ""
+msgstr "Non è stato definito maxPower per il tipo di veicolo '%'."
 
 #: src/microsim/cfmodels/MSCFModel_Rail.cpp:138
 msgid "Undefined maxTraction for vType '%'."
-msgstr ""
+msgstr "Non è stato definito maxTraction per il tipo di veicolo '%'."
 
 #: src/microsim/cfmodels/MSCFModel_Rail.cpp:141
 msgid ""
 "Ignoring tractionTable because maxPower and maxTraction are set for vType "
 "'%'."
 msgstr ""
+"La tabella di trazione (tractionTable) verrà ignorata perché maxPower e "
+"maxTraction sono stati impostati per il tipo di veicolo '%'."
 
 #: src/microsim/cfmodels/MSCFModel_Rail.cpp:150
 msgid ""
 "Some undefined resistance coefficients for vType '%' (requires "
 "resCoef_constant, resCoef_linear and resCoef_quadratic)"
 msgstr ""
+"Ci sono dei coefficenti di resistenza non definiti nel tipo di veicolo '%' ("
+"richiede resCoef_constant, resCoef_linear e resCoef_quadratic)"
 
 #: src/microsim/cfmodels/MSCFModel_Rail.cpp:153
 msgid ""
 "Ignoring resistanceTable because resistance coefficients are set for vType "
 "'%'."
 msgstr ""
+"La tabella di resistenza verrà ignorata perché i coefficienti di resistenza "
+"sono stati impostati per il tipo di veicolo '%'."
 
 #: src/microsim/cfmodels/MSCFModel_Rail.cpp:157
 msgid ""
 "Either tractionTable or maxPower must be defined for vType '%' with Rail "
 "model type '%'."
 msgstr ""
+"O la tabelle di trazione (tractionTable) o maxPower deve essere impostato "
+"per il tipo di veicolo '%' con il tipo di modello ferroviario '%'."
 
 #: src/microsim/cfmodels/MSCFModel_Rail.cpp:160
 msgid ""
 "Either resistanceTable or resCoef_constant must be defined for vType '%' "
 "with Rail model type '%'."
 msgstr ""
+"O la tabella di resistenza o resCoef_constant deve essere impostato per il "
+"tipo di veicolo '%' con il tipo di modello ferroviario '%'."
 
 #: src/microsim/cfmodels/MSCFModel_Rail.cpp:337
 msgid ""
@@ -4132,28 +4148,32 @@ msgstr "L'intervallo dopo cui l'itinerario del veicolo deve essere aggiornato"
 
 #: src/microsim/devices/MSDevice_Routing.cpp:57
 msgid "The rerouting period before depart"
-msgstr ""
+msgstr "L'intervallo di instradamento prima della partenza"
 
 #: src/microsim/devices/MSDevice_Routing.cpp:61
 msgid "The weight of prior edge weights for exponential moving average"
-msgstr ""
+msgstr "La valutazione di pesi di archi previ per la media mobile esponentiale"
 
 #: src/microsim/devices/MSDevice_Routing.cpp:65
 msgid "The number of steps for moving average weight of prior edge weights"
-msgstr ""
+msgstr "Il numero di passi per la media mobile del peso di pesi di archi previ"
 
 #: src/microsim/devices/MSDevice_Routing.cpp:69
 msgid "The interval for updating the edge weights"
-msgstr ""
+msgstr "L'intervallo di aggiornamento dei pesi degli archi"
 
 #: src/microsim/devices/MSDevice_Routing.cpp:74
 msgid "Use zones (districts) as routing start- and endpoints"
 msgstr ""
+"Usa zone (distretti) come punti di inizio e di destinazione "
+"dell'instradamento"
 
 #: src/microsim/devices/MSDevice_Routing.cpp:77
 #: src/microsim/devices/MSTransportableDevice_Routing.cpp:51
 msgid "Set routing flags (8 ignores temporary blockages)"
 msgstr ""
+"Imposta segnali di instradamento (blocchi temporanei verrano ignorati con il "
+"valore 8)"
 
 #: src/microsim/devices/MSDevice_Routing.cpp:80
 msgid ""
@@ -4176,7 +4196,7 @@ msgstr ""
 
 #: src/microsim/devices/MSDevice_Routing.cpp:93
 msgid "Compute separate average speeds for bicycles"
-msgstr ""
+msgstr "Calcola velocità medie separate per biciclette"
 
 #: src/microsim/devices/MSDevice_Routing.cpp:96
 msgid "Save adapting weights to FILE"
@@ -4194,12 +4214,12 @@ msgstr ""
 
 #: src/microsim/devices/MSDevice_Routing.cpp:112
 msgid "Negative value for device.rerouting.adaptation-interval!"
-msgstr ""
+msgstr "Valore negativo per device.rerouting.adaptation-interval!"
 
 #: src/microsim/devices/MSDevice_Routing.cpp:117
 msgid ""
 "The value for device.rerouting.adaptation-weight must be between 0 and 1!"
-msgstr ""
+msgstr "Il valore di device.rerouting.adaptation-weight deve essere tra 0 e 1!"
 
 #: src/microsim/devices/MSDevice_Routing.cpp:122 src/router/ROFrame.cpp:252
 msgid "Parallel routing is only possible when compiled with Fox."
