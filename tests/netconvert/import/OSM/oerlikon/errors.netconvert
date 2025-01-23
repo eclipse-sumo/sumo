@@ -50,10 +50,7 @@ Warning: Removing pt stop '5710994954' on non existing edge ''.
 Warning: Removed 4 pt stops because they could not be assigned to the network
 Warning: Ambiguous tram edges '12089777#1' and '219012222' for lane '-163302813#0_0'.
 Warning: Ambiguous tram edges '218990870#0' and '219014586#1' for lane '163302813#0_0'.
-Warning: Found sharp turn with radius 5.09 at the start of edge '-926136448'.
 Warning: Found sharp turn with radius 8.40 at the start of edge '11990237#0'.
-Warning: Found sharp turn with radius 3.69 at the start of edge '137132908#4'.
-Warning: Found sharp turn with radius 5.40 at the start of edge '42922205'.
 Warning: Converting invalid rail_crossing to priority junction '10268308575'.
 Warning: Converting invalid rail_crossing to priority junction '10268308584'.
 Warning: Converting invalid rail_crossing to priority junction '10268336874'.

@@ -4,4 +4,3 @@ Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|high
 Warning: Referenced platform: '385969276' in relation: '1119037' is corrupt. Probably OSM file is incomplete.
 Warning: Referenced platform: '385969276' in relation: '1119037' is corrupt. Probably OSM file is incomplete.
 Warning: PT stop '837697309' has been moved to edge '-70130312#0'.
-Warning: Found sharp turn with radius 2.97 at the end of edge '69923037#0'.

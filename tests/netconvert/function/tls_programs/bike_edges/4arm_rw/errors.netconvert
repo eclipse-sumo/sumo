@@ -1,5 +1,3 @@
-Warning: Found sharp turn with radius 5.48 at the end of edge '-177182139#0'.
-Warning: Found sharp turn with radius 5.48 at the start of edge '35084893#1'.
 Warning: The traffic light 'joinedS_2453091696_cluster_1537334946_2453091683_7202621463_8355251671_#1more_cluster_2453091662_2453091707_31532419_31532420_#1more' cannot be adapted to a cycle time of 90.00.
 Warning: The traffic light 'joinedS_2453091696_cluster_1537334946_2453091683_7202621463_8355251671_#1more_cluster_2453091662_2453091707_31532419_31532420_#1more' has a high cycle time of 280.00.
 Warning: The traffic light 'joinedS_2453091696_cluster_1537334946_2453091683_7202621463_8355251671_#1more_cluster_2453091662_2453091707_31532419_31532420_#1more' cannot be adapted to a cycle time of 90.00.

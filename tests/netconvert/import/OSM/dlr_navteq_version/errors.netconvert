@@ -7,10 +7,6 @@ Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|hi
 Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.tertiary' (first occurrence for edge '81096583').
 Warning: No way found for reference '320741893' in relation '3422297'
 Warning: Ignoring restriction relation '3422297' with unknown to-way.
-Warning: Found sharp turn with radius 6.56 at the end of edge '415852877'.
-Warning: Found angle of 138.43 degrees at edge '415852893', segment 0.
-Warning: Found sharp turn with radius 6.56 at the start of edge '415852968'.
-Warning: Found angle of 138.43 degrees at edge '415852994', segment 5.
 Warning: ambiguous zip code '12489;12345' for edge '415852867'. (using first value)
 Warning: ambiguous zip code '12489;12345' for edge '415852868'. (using first value)
 Warning: ambiguous zip code '12489;12345' for edge '415852869'. (using first value)

@@ -1,4 +1,2 @@
 Warning: PT line in relation 15097874 with no stops ignored. Probably OSM file is incomplete.
 Warning: PT stop '7096121260' has been moved to edge '-288968955#1'.
-Warning: Found sharp turn with radius 2.74 at the start of edge '-110364720#1'.
-Warning: Found sharp turn with radius 2.74 at the end of edge '110364720#1'.

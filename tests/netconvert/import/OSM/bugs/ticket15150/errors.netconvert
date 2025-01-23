@@ -27,7 +27,6 @@ Warning: No way found for reference '4254135033' in relation '6749958'
 Warning: No way found for reference '1860841058' in relation '6749958'
 Warning: PT line in relation 7026678 with no stops ignored. Probably OSM file is incomplete.
 Warning: No way found for reference '4254135033' in relation '11882449'
-Warning: Found sharp turn with radius 8.33 at the end of edge '1004914191#1'.
 Warning: The traffic light 'joinedS_cluster_11737663837_2822414390_28300252_28300261_#15more_cluster_1860841058_3822937545_cluster_1860841069_1860841070_1860841073_277870595_#7more' cannot be adapted to a cycle time of 90.00.
 Warning: The traffic light 'joinedS_cluster_11737663837_2822414390_28300252_28300261_#15more_cluster_1860841058_3822937545_cluster_1860841069_1860841070_1860841073_277870595_#7more' has a high cycle time of 318.00.
 Warning: 132 total messages of type: Discarding way '%' because it has only % node(s)
