@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-01-06 11:22+0100\n"
-"PO-Revision-Date: 2025-01-24 08:18+0000\n"
+"PO-Revision-Date: 2025-01-25 15:01+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -4683,29 +4683,33 @@ msgstr ""
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:765
 msgid "Parameter '%' is not supported for device of type '%'"
-msgstr ""
+msgstr "Il parametro '%' non viene supportato per attrezzi del tipo '%'"
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:775
 msgid "Setting parameter '%' requires a number for device of type '%'"
-msgstr ""
+msgstr "Il parametro '%' richiede un valore numerico per attrezzi del tipo '%'"
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:790
 msgid "Setting parameter '%' is not supported for device of type '%'"
-msgstr ""
+msgstr "Il parametro '%' non può essere aggiornato per attrezzi del tipo '%'"
 
 #: src/microsim/devices/MSDevice_Taxi.cpp:86
 msgid ""
 "The dispatch algorithm [greedy|greedyClosest|greedyShared|routeExtension|"
 "traci]"
 msgstr ""
+"L'algoritmo di disposzione "
+"[greedy|greedyClosest|greedyShared|routeExtension|traci]"
 
 #: src/microsim/devices/MSDevice_Taxi.cpp:89
 msgid "Write information from the dispatch algorithm to FILE"
-msgstr ""
+msgstr "Scrivi informazioni del algoritmo di disposizione in FILE"
 
 #: src/microsim/devices/MSDevice_Taxi.cpp:92
 msgid "Load dispatch algorithm parameters in format KEY1:VALUE1[,KEY2:VALUE]"
 msgstr ""
+"Carica parametri del algoritmo di disposizione nel formato KEY1:VALUE1"
+"[,KEY2:VALUE]"
 
 #: src/microsim/devices/MSDevice_Taxi.cpp:95
 msgid "The period between successive calls to the dispatcher"
@@ -4755,7 +4759,7 @@ msgstr "Non ho potuto aggiungere fermata di taxi alle ore %, errore=%"
 
 #: src/microsim/devices/MSDevice_Taxi.cpp:550
 msgid "Taxi '%' aborts waiting for customers: % at time=%."
-msgstr ""
+msgstr "Il taxi '%' smette di aspettare dei passeggeri: % alle ore %."
 
 #: src/microsim/devices/MSDevice_Taxi.cpp:739
 msgid "Taxi '%' reaches scheduled end of service at time=%."
