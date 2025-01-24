@@ -24,7 +24,6 @@ from __future__ import print_function
 
 import os
 import sys
-from argparse import ArgumentParser
 from collections import defaultdict
 import subprocess
 
@@ -36,6 +35,7 @@ else:
     sys.path.append(os.path.join(THIS_DIR, 'turn-defs'))
 
 import sumolib  # noqa
+from sumolib.options import ArgumentParser
 from turnCount2EdgeCount import parseEdgeCounts  # noqa
 
 
