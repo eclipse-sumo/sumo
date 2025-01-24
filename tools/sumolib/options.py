@@ -312,7 +312,7 @@ class ArgumentParser(argparse.ArgumentParser):
                                 v = a.default
                             # help
                             if a.help is not None:
-                                help = ' help="%s"' % a.help
+                                help = ' help="%s"' % xmlescape(a.help)
 
                             # note: missing time, filename, list of vehicles, edges and lanes
                             # category

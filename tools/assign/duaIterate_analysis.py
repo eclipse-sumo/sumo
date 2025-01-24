@@ -48,7 +48,7 @@ def parse_args():
                         help="output prefix for plotting with gnuplot")
     parser.add_argument("-l", "--label-size", default=40, dest="label_size", type=int,
                         help="limit length of the plot label to this size")
-    parser.add_argument("--limit", type=int, default=uMax,
+    parser.add_argument("--limit", type=int,
                         help="only parse the first INT number of iterations")
     parser.add_argument("--teleports", category="output", default="teleplot",
                         help="output prefix for plotting teleport-prone edges")
@@ -57,6 +57,9 @@ def parse_args():
     parser.add_argument("dualog", category="output", nargs=1, type=parser.file, help="file path to dua log file")
     options = parser.parse_args()
     options.dualog = options.dualog[0]
+    
+    if options.limit is None:
+        options.limit = uMax
     return options
 
 
