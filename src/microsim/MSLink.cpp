@@ -867,7 +867,7 @@ MSLink::opened(SUMOTime arrivalTime, double arrivalSpeed, double leaveSpeed, dou
     }
 #endif
 
-    if (MSGlobals::gUseMesoSim && impatience == 1) {
+    if (MSGlobals::gUseMesoSim && impatience == 1 && !myLane->getEdge().isRoundabout()) {
         return true;
     }
     const bool lastWasContRed = lastWasContState(LINKSTATE_TL_RED);
