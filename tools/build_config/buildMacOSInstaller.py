@@ -520,8 +520,8 @@ def main():
 
     # Building the framework package
     print("Building framework package 'EclipseSUMO'")
-    framework_pkg = create_framework("EclipseSUMO", "Eclipse SUMO", f"{
-                                     base_id}.framework", version, opts.build_dir, opts.output_framework_dir)
+    framework_pkg = create_framework("EclipseSUMO", "Eclipse SUMO", base_id + ".framework", version,
+                                     opts.build_dir, opts.output_framework_dir)
     print(f"Successfully built: '{framework_pkg[1]}' ({framework_pkg[4] / (1024 * 1024):.2f} MB)\n")
 
     # # Building all the app launchers packages
