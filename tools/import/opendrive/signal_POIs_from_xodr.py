@@ -149,9 +149,9 @@ def extract_lanes_width_data(rte, ):
 
 if __name__ == "__main__":
     op = sumolib.options.ArgumentParser()
-    op.add_argument("xodr_file", category="input", required=True,
+    op.add_argument("xodr_file", category="input", 
                     help="file path of open drive file")
-    op.add_argument("net_file", category="input", required=True,
+    op.add_argument("net_file", category="input",
                     help="file path of net file")
     # op.add_argument("workLog", type=str, help="work log file")
     args = op.parse_args()
