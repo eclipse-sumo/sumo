@@ -273,6 +273,10 @@ NGFrame::checkOptions() {
     if (oc.getBool("random-type") && !oc.isSet("type-files")) {
         WRITE_WARNING(TL("Option 'random-type' takes no effect unless 'type-files' are loaded"));
     }
+    if (oc.getFloat("rand.connectivity") > 0.999) {
+        WRITE_ERROR(TL("Option 'rand.connectivity' requires a value below 0.999"));
+        ok = false;
+    }
     return ok;
 }
 
