@@ -1416,6 +1416,7 @@ GNEApplicationWindow::fillMenuBar() {
     myLocateMenuCommands.buildLocateMenuCommands(myLocatorMenu);
     // build tools menu
     myToolsMenu = new FXMenuPane(this);
+    myToolsAssignMenu = new FXMenuPane(this);
     myToolsDetectorMenu = new FXMenuPane(this);
     myToolsDistrictMenu = new FXMenuPane(this);
     myToolsDRTMenu = new FXMenuPane(this);
@@ -1430,11 +1431,13 @@ GNEApplicationWindow::fillMenuBar() {
     myToolsOutputMenu = new FXMenuPane(this);
     myToolsShapes = new FXMenuPane(this);
     myToolsTLS = new FXMenuPane(this);
+    myToolsTriggerMenu = new FXMenuPane(this);
     myToolsTurnDefs = new FXMenuPane(this);
     myToolsVisualizationMenu = new FXMenuPane(this);
     myToolsXML = new FXMenuPane(this);
     GUIDesigns::buildFXMenuTitle(myToolbarsGrip.menu, TL("&Tools"), nullptr, myToolsMenu);
     // build tools menu cascasde
+    new FXMenuCascade(myToolsMenu, TL("Assign"), nullptr, myToolsAssignMenu);
     new FXMenuCascade(myToolsMenu, TL("Detectors"), GUIIconSubSys::getIcon(GUIIcon::E1), myToolsDetectorMenu);
     new FXMenuCascade(myToolsMenu, TL("Districts"), GUIIconSubSys::getIcon(GUIIcon::TAZ), myToolsDistrictMenu);
     new FXMenuCascade(myToolsMenu, TL("DRT"), GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_TAXI), myToolsDRTMenu);
@@ -1445,10 +1448,11 @@ GNEApplicationWindow::fillMenuBar() {
     new FXMenuCascade(myToolsImportMenu, TL("Visum"), GUIIconSubSys::getIcon(GUIIcon::TOOL_VISUM), myToolsImportVisum);
     new FXMenuCascade(myToolsMenu, TL("Import"), GUIIconSubSys::getIcon(GUIIcon::TOOL_IMPORT), myToolsImportMenu);
     new FXMenuCascade(myToolsMenu, TL("Net"), GUIIconSubSys::getIcon(GUIIcon::MODECREATEEDGE), myToolsNetMenu);
-    new FXMenuCascade(myToolsMenu, TL("Route"), GUIIconSubSys::getIcon(GUIIcon::MODEADDITIONAL), myToolsRouteMenu);
     new FXMenuCascade(myToolsMenu, TL("Output"), GUIIconSubSys::getIcon(GUIIcon::TOOL_OUTPUT), myToolsOutputMenu);
+    new FXMenuCascade(myToolsMenu, TL("Route"), GUIIconSubSys::getIcon(GUIIcon::MODEADDITIONAL), myToolsRouteMenu);
     //new FXMenuCascade(myToolsMenu, TL("Shapes"), GUIIconSubSys::getIcon(GUIIcon::MODESHAPE), myToolsShapes);
     new FXMenuCascade(myToolsMenu, TL("TLS"), GUIIconSubSys::getIcon(GUIIcon::MODETLS), myToolsTLS);
+    new FXMenuCascade(myToolsMenu, TL("Trigger"), nullptr, myToolsTriggerMenu);
     new FXMenuCascade(myToolsMenu, TL("Turn-defs"), GUIIconSubSys::getIcon(GUIIcon::TOOL_TURNDEFS), myToolsTurnDefs);
     new FXMenuCascade(myToolsMenu, TL("Visualization"), GUIIconSubSys::getIcon(GUIIcon::COLORWHEEL), myToolsVisualizationMenu);
     new FXMenuCascade(myToolsMenu, TL("XML"), GUIIconSubSys::getIcon(GUIIcon::TOOL_XML), myToolsXML);
@@ -1456,6 +1460,7 @@ GNEApplicationWindow::fillMenuBar() {
     new FXMenuSeparator(myToolsMenu);
     new FXMenuSeparator(myToolsImportMenu);
     // create map with tool Menu panes and their associated folder
+    myMenuPaneToolMaps["assign"] = myToolsAssignMenu;
     myMenuPaneToolMaps["detector"] = myToolsDetectorMenu;
     myMenuPaneToolMaps["district"] = myToolsDistrictMenu;
     myMenuPaneToolMaps["drt"] = myToolsDRTMenu;
@@ -1470,6 +1475,7 @@ GNEApplicationWindow::fillMenuBar() {
     myMenuPaneToolMaps["output"] = myToolsOutputMenu;
     myMenuPaneToolMaps["shapes"] = myToolsShapes;
     myMenuPaneToolMaps["tls"] = myToolsTLS;
+    myMenuPaneToolMaps["trigger"] = myToolsTriggerMenu;
     myMenuPaneToolMaps["turn-defs"] = myToolsTurnDefs;
     myMenuPaneToolMaps["visualization"] = myToolsVisualizationMenu;
     myMenuPaneToolMaps["xml"] = myToolsXML;
