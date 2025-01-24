@@ -4,3 +4,4 @@ flowFromRoutes
 flowFromEdgeData
 edgeDataFromFlow
 mapDetectors
+plotFlows
