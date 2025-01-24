@@ -29,10 +29,11 @@ from collections import OrderedDict
 sys.path.append(os.path.join(os.environ["SUMO_HOME"], 'tools'))
 from sumolib.output import parse  # noqa
 from sumolib.miscutils import Statistics, parseTime  # noqa
+from sumolib.options import ArgumentParser  # noqa
 
 
 def get_options(args=None):
-    argParser = argparse.ArgumentParser()
+    argParser = ArgumentParser()
     argParser.add_argument("orig", help="the first tripinfo file")
     argParser.add_argument("new", help="the second tripinfo file")
     argParser.add_argument("output", help="the output file")
