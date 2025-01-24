@@ -30,11 +30,12 @@ import argparse
 from collections import defaultdict
 sys.path.append(os.path.join(os.environ["SUMO_HOME"], 'tools'))
 from sumolib.output import parse  # noqa
+from sumolib.options import ArgumentParser  # noqa
 from sumolib.miscutils import Statistics, parseTime  # noqa
 
 
 def get_options(args=None):
-    argParser = argparse.ArgumentParser()
+    argParser = ArgumentParser()
     argParser.add_argument("-t", "--tripinfo-file", dest="tripinfoFile",
                            help="tripinfo file written by the simulation")
     argParser.add_argument("-r", "--route-files", dest="routeFiles",
