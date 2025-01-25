@@ -64,16 +64,20 @@ def transform_pep440_version(version):
 
 
 def parse_args(def_dmg_name, def_pkg_name):
-    def_output_dmg_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", def_dmg_name))
-    def_output_pkg_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", def_pkg_name))
+    def_output_framework_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "..", "framework"))
+    # def_output_dmg_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", def_dmg_name))
+    # def_output_pkg_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", def_pkg_name))
 
     op = ArgumentParser(description="Build an installer for macOS (dmg file)")
-    op.add_argument("build_dir", help="Build dir of sumo")
-    op.add_argument("--output-pkg", dest="output_pkg", help="Output path for pkg", default=def_output_pkg_path)
-    op.add_argument("--output-dmg", dest="output_dmg", help="Output path for dmg", default=def_output_dmg_path)
-    op.add_argument("--output-framework-dir", dest="output_framework_dir")
+    action_group = op.add_mutually_exclusive_group(required=True)
+    action_group.add_argument("--create-framework-directory", dest="create_framework_dir", action="store_true")
+    action_group.add_argument("--create-framework-pkg", dest="create_framework_pkg", action="store_true")
+    action_group.add_argument("--create-apps", dest="create_apps", action="store_true")
 
-    op.add_option("-v", "--verbose", action="store_true", default=False, help="tell me more")
+    op.add_argument("--build-dir", dest="build_dir")
+    op.add_argument("--output-framework-dir", dest="output_framework_dir", default=def_output_framework_dir)
+    # op.add_argument("--output-pkg", dest="output_pkg", help="Output path for pkg", default=def_output_pkg_path)
+    # op.add_argument("--output-dmg", dest="output_dmg", help="Output path for dmg", default=def_output_dmg_path)
 
     return op.parse_args()
 
@@ -126,62 +130,7 @@ def create_installer_conclusion_content(framework_name):
     return html
 
 
-def sign_file(file_path):
-    """Signs a file using the specified signing service."""
-    signing_service_url = "https://cbi-staging.eclipse.org/macos/codesign/sign"
-    signed_file_path = f"{file_path}-signed"
-
-    # Create a temporary entitlements file
-    with tempfile.NamedTemporaryFile(delete=False, suffix=".entitlement") as temp_entitlements:
-        temp_entitlements.write(b'''<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
-<dict>
-    <key>com.apple.security.cs.allow-jit</key>
-    <true/>
-    <key>com.apple.security.cs.allow-unsigned-executable-memory</key>
-    <true/>
-    <key>com.apple.security.cs.disable-executable-page-protection</key>
-    <true/>
-    <key>com.apple.security.cs.allow-dyld-environment-variables</key>
-    <true/>
-    <key>com.apple.security.cs.disable-library-validation</key>
-    <true/>
-    <key>com.apple.security.cs.debugger</key>
-    <true/>
-</dict>
-</plist>
-''')
-
-    try:
-        command = [
-            "curl",
-            "-o", signed_file_path,
-            "-F", f"file=@{file_path}",
-            "-F", f"entitlements=@{temp_entitlements.name}",
-            signing_service_url,
-        ]
-        result = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
-        if result.returncode != 0:
-            raise RuntimeError(f"Failed to sign file {file_path}: {result.stderr}")
-        if not os.path.exists(signed_file_path):
-            raise FileNotFoundError(f"Signed file not created: {signed_file_path}")
-        return signed_file_path
-    finally:
-        os.remove(temp_entitlements.name)
-
-
-def create_framework(name, longname, pkg_id, version, sumo_build_directory, output_dir=None):
-    print(" - Creating directory structure")
-
-    # Use the provided framework_dir or create a temporary directory
-    if output_dir:
-        if not os.path.exists(output_dir):
-            os.makedirs(output_dir, exist_ok=True)
-        temp_dir = output_dir
-    else:
-        temp_dir = tempfile.mkdtemp()
-
+def create_framework_dir(name, longname, pkg_id, version, sumo_build_directory, framework_output_dir):
     # Create the directory structure for the framework bundle
     # see: https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/BPFrameworks/Concepts/FrameworkAnatomy.html  # noqa
     #
@@ -195,7 +144,10 @@ def create_framework(name, longname, pkg_id, version, sumo_build_directory, outp
     #     │       └── Info.plist
     #     └── Current   --> v_1_20_0
 
-    framework_dir = os.path.join(temp_dir, f"{name}.framework")
+    print(" - Creating directory structure")
+    os.makedirs(framework_output_dir, exist_ok=True)
+
+    framework_dir = os.path.join(framework_output_dir, f"{name}.framework")
     version_dir = os.path.join(framework_dir, f"Versions/{version}")
     os.makedirs(os.path.join(version_dir, name), exist_ok=True)
     os.makedirs(os.path.join(version_dir, "Resources"), exist_ok=True)
@@ -206,7 +158,7 @@ def create_framework(name, longname, pkg_id, version, sumo_build_directory, outp
 
     # Create the Info.plist file
     plist_file = os.path.join(version_dir, "Resources", "Info.plist")
-    print(" - Creating plist file")
+    print(" - Creating properties list")
     plist_content = {
         "CFBundleExecutable": longname,
         "CFBundleIdentifier": pkg_id,
@@ -218,7 +170,7 @@ def create_framework(name, longname, pkg_id, version, sumo_build_directory, outp
         plistlib.dump(plist_content, f)
 
     # Copy files from the current repository clone to version_dir/EclipseSUMO
-    print(" - Calling cmake install")
+    print(" - Installing SUMO")
     cmake_install_command = [
         "cmake",
         "--install",
@@ -232,13 +184,12 @@ def create_framework(name, longname, pkg_id, version, sumo_build_directory, outp
     os.symlink("../../bin", os.path.join(version_dir, name, "share", "sumo", "bin"))
 
     # Determine library dependencies
-    print(" - Delocating binaries and copying all libraries  - this may take a while")
+    print(" - Delocating binaries and libraries")
     os.chdir(os.path.join(version_dir, name))
 
     # - libraries that landed in the lib folder need to be delocated as well
     lib_dir = os.path.join(version_dir, name, "lib")
     bin_dir = os.path.join(version_dir, name, "bin")
-
     for pattern in ("*.jnilib", "*.dylib"):
         for file in iglob(os.path.join(lib_dir, pattern)):
             file_name = os.path.basename(file)
@@ -254,7 +205,7 @@ def create_framework(name, longname, pkg_id, version, sumo_build_directory, outp
             shutil.move(os.path.join(bin_dir, file_name), os.path.join(lib_dir, file_name))
 
     # Add proj db files from /opt/homebrew/Cellar/proj/<X.Y.Z>/share/proj
-    print(" - Copying proj.db files")
+    print(" - Copying additional files (e.g. proj.db)")
     proj_dir = "/opt/homebrew/Cellar/proj"
     proj_file_list = ["GL27", "ITRF2000", "ITRF2008", "ITRF2014", "nad.lst", "nad27", "nad83", "other.extra", "proj.db",
                       "proj.ini", "projjson.schema.json", "triangulation.schema.json", "world", "CH", "deformation_model.schema.json"]  # noqa
@@ -268,16 +219,8 @@ def create_framework(name, longname, pkg_id, version, sumo_build_directory, outp
                 for file in proj_file_list:
                     shutil.copy2(os.path.join(source_dir, file), os.path.join(dest_dir, file))
 
-    # # Signing the binaries and libraries
-    # print(" - Signing binaries and libraries")
-    # for dir_path in [bin_dir, lib_dir]:
-    #     for file in os.listdir(dir_path):
-    #         file_path = os.path.join(dir_path, file)
-    #         if os.path.isfile(file_path):
-    #             print(f"    . Signing {file_path}...")
-    #             signed_file_path = sign_file(file_path)
-    #             shutil.move(signed_file_path, file_path)
 
+def create_framework_pkg(name, pkg_id, version, framework_dir):
     # Build the framework package
     cwd = os.path.dirname(os.path.abspath(__file__))
     pkg_name = f"{name}-{version}.pkg"
@@ -294,15 +237,10 @@ def create_framework(name, longname, pkg_id, version, sumo_build_directory, outp
         f"/Library/Frameworks/{name}.framework",
         f"{pkg_path}",
     ]
-    # print(" - Calling pkgbuild")
-    # subprocess.run(pkg_build_command, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-    # pkg_size = os.path.getsize(pkg_path)
-
-    # # Cleanup the temporary directory
-    # print(" - Cleaning up")
-    # shutil.rmtree(temp_dir)
-    # return name, pkg_name, pkg_id, pkg_path, pkg_size
-    return name, pkg_name, pkg_id, pkg_path, 0
+    print(" - Calling pkgbuild")
+    subprocess.run(pkg_build_command, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    pkg_size = os.path.getsize(pkg_path)
+    return name, pkg_name, pkg_id, pkg_path, pkg_size
 
 
 def create_app(app_name, exec_call, framework_name, pkg_id, version, icns_path, verbose):
@@ -505,24 +443,45 @@ def main():
 
     # Parse and check the command line arguments
     opts = parse_args(default_dmg_name, default_pkg_name)
-    if not os.path.exists(opts.build_dir):
-        print(f"Error: build directory '{opts.build_dir}' does not exist.", file=sys.stderr)
-        sys.exit(1)
-    if not os.path.exists(os.path.join(opts.build_dir, "CMakeCache.txt")):
-        print(f"Error: directory '{opts.build_dir}' is not a build directory.", file=sys.stderr)
-        sys.exit(1)
-    if not os.path.exists(os.path.dirname(opts.output_dmg)):
-        print(f"Error: dmg output directory '{os.path.dirname(opts.output_dmg)}' does not exist.", file=sys.stderr)
-        sys.exit(1)
-    if not os.path.exists(os.path.dirname(opts.output_pkg)):
-        print(f"Error: pkg output directory '{os.path.dirname(opts.output_pkg)}' does not exist.", file=sys.stderr)
-        sys.exit(1)
+    # if not os.path.exists(os.path.dirname(opts.output_dmg)):
+    #     print(f"Error: dmg output directory '{os.path.dirname(opts.output_dmg)}' does not exist.", file=sys.stderr)
+    #     sys.exit(1)
+    # if not os.path.exists(os.path.dirname(opts.output_pkg)):
+    #     print(f"Error: pkg output directory '{os.path.dirname(opts.output_pkg)}' does not exist.", file=sys.stderr)
+    #     sys.exit(1)
+
+    # Let's see what we need to do
+    if opts.create_framework_dir:
+        if not opts.build_dir:
+            print("Please set the build_dir")
+            sys.exit(1)
+        if os.path.exists(opts.framework_output_dir):
+            print(f"Directory {opts.framework_output_dir} already exists. Aborting.")
+            sys.exit(1)
+        if not os.path.exists(opts.build_dir):
+            print(f"Error: build directory '{opts.build_dir}' does not exist.", file=sys.stderr)
+            sys.exit(1)
+        if not os.path.exists(os.path.join(opts.build_dir, "CMakeCache.txt")):
+            print(f"Error: directory '{opts.build_dir}' is not a build directory.", file=sys.stderr)
+            sys.exit(1)
+
+        print(f"Creating EclipseSUMO framework directory: \"{opts.output_framework_dir}\"")
+        create_framework_dir("EclipseSUMO", "Eclipse SUMO", f"{base_id}.framework", version,
+                             opts.build_dir, opts.output_framework_dir)
+        print("Successfully created EclipseSUMO framework directory")
+
+    elif opts.create_framework_pkg:
+        print("Creating EclipseSUMO framework *.pkg file")
+        print(f" - Using framework directory: \"{opts.output_framework_dir}\"")
+        _, pkg_name, _, pkg_path, pkg_size = create_framework_pkg("EclipseSUMO", f"{base_id}.framework", version,
+                                                                  opts.output_framework_dir)
+        print(f"Successfully created \"{pkg_name}\" ({pkg_size / (1024 * 1024):.2f} MB) in {pkg_path}")
 
     # Building the framework package
-    print("Building framework package 'EclipseSUMO'")
-    framework_pkg = create_framework("EclipseSUMO", "Eclipse SUMO", base_id + ".framework", version,
-                                     opts.build_dir, opts.output_framework_dir)
-    print(f"Successfully built: '{framework_pkg[1]}' ({framework_pkg[4] / (1024 * 1024):.2f} MB)\n")
+    # print("Building framework package 'EclipseSUMO'")
+    # framework_pkg = create_framework_dir("EclipseSUMO", "Eclipse SUMO", base_id + ".framework", version,
+    #                                  opts.build_dir, opts.output_framework_dir)
+    # print(f"Successfully built: '{framework_pkg[1]}' ({framework_pkg[4] / (1024 * 1024):.2f} MB)\n")
 
     # # Building all the app launchers packages
     # cwd = os.path.dirname(os.path.abspath(__file__))
