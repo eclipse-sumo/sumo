@@ -36,8 +36,8 @@ import sumolib  # noqa
 
 
 def get_options(args=None):
-    optParser = sumolib.options.ArgumentParser(description="Generate parking areas along the edges")
-    optParser.add_argument("-n", "--net-file", category="input", dest="netfile",
+    optParser = sumolib.options.ArgumentParser(description="Generate random boundary landmarks for a given network")
+    optParser.add_argument("-n", "--net-file", category="input", dest="netfile", required=True,
                            help="define the net file (mandatory)")
     optParser.add_argument("-o", "--output-file", category="output", dest="outfile",
                            default="landmarks.txt", help="define the output filename")
@@ -59,13 +59,7 @@ def get_options(args=None):
                            help="only use edges which permit the given vehicle class")
     optParser.add_argument("-v", "--verbose", category="processing", action="store_true",
                            default=False, help="tell me what you are doing")
-
-    options = optParser.parse_args(args=args)
-    if not options.netfile:
-        optParser.print_help()
-        sys.exit(1)
-
-    return options
+    return optParser.parse_args(args=args)
 
 
 def filterEdges(options, edges):
