@@ -67,7 +67,8 @@ def parse_args(def_dmg_name, def_pkg_name):
     def_build_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "..", "sumo-build"))
     def_output_fw_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "..", "framework"))
     def_output_apps_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "..", "apps"))
-    def_output_fw_pkg_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", ".."))
+    def_output_fw_pkg_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "..", "framework-pkg"))
+    def_output_apps_pkg_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "..", "apps-pkg"))
     # def_output_dmg_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", def_dmg_name))
     # def_output_pkg_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", def_pkg_name))
 
@@ -78,12 +79,14 @@ def parse_args(def_dmg_name, def_pkg_name):
     action_group.add_argument("--create-framework-directory", dest="create_framework_dir", action="store_true")
     action_group.add_argument("--create-framework-pkg", dest="create_framework_pkg", action="store_true")
     action_group.add_argument("--create-apps-dir", dest="create_apps_dir", action="store_true")
+    action_group.add_argument("--create-apps-pkg", dest="create_apps_pkg", action="store_true")
 
     # ... and supply some arguments
     op.add_argument("--build-dir", dest="build_dir", default=def_build_dir)
     op.add_argument("--framework-dir", dest="framework_dir", default=def_output_fw_dir)
     op.add_argument("--framework-pkg-dir", dest="framework_pkg_dir", default=def_output_fw_pkg_dir)
     op.add_argument("--apps-dir", dest="apps_dir", default=def_output_apps_dir)
+    op.add_argument("--apps-pkg-dir", dest="apps_pkg_dir", default=def_output_apps_pkg_dir)
 
     # op.add_argument("--output-pkg", dest="output_pkg", help="Output path for pkg", default=def_output_pkg_path)
     # op.add_argument("--output-dmg", dest="output_dmg", help="Output path for dmg", default=def_output_dmg_path)
@@ -155,9 +158,6 @@ def create_installer_conclusion_content(framework_name):
 
 
 def create_framework_dir(name, longname, pkg_id, version, sumo_build_directory, framework_output_dir):
-
-
-def create_framework_dir(name, longname, pkg_id, version, sumo_build_directory, framework_output_dir):
     # Create the directory structure for the framework bundle
     # see: https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/BPFrameworks/Concepts/FrameworkAnatomy.html  # noqa
     #
@@ -186,7 +186,6 @@ def create_framework_dir(name, longname, pkg_id, version, sumo_build_directory, 
     # Create the Info.plist file
     plist_file = os.path.join(version_dir, "Resources", "Info.plist")
     print(" - Creating properties list")
-    print(" - Creating properties list")
     plist_content = {
         "CFBundleExecutable": longname,
         "CFBundleIdentifier": pkg_id,
@@ -198,8 +197,7 @@ def create_framework_dir(name, longname, pkg_id, version, sumo_build_directory, 
         plistlib.dump(plist_content, f)
 
     # Copy files from the current repository clone to version_dir/EclipseSUMO
-    print(" - Installing SUMO")
-    print(" - Installing SUMO")
+    print(" - Installing Eclipse SUMO build")
     cmake_install_command = [
         "cmake",
         "--install",
@@ -213,7 +211,6 @@ def create_framework_dir(name, longname, pkg_id, version, sumo_build_directory, 
     os.symlink("../../bin", os.path.join(version_dir, name, "share", "sumo", "bin"))
 
     # Determine library dependencies
-    print(" - Delocating binaries and libraries")
     print(" - Delocating binaries and libraries")
     os.chdir(os.path.join(version_dir, name))
 
@@ -236,7 +233,6 @@ def create_framework_dir(name, longname, pkg_id, version, sumo_build_directory, 
 
     # Add proj db files from /opt/homebrew/Cellar/proj/<X.Y.Z>/share/proj
     print(" - Copying additional files (e.g. proj.db)")
-    print(" - Copying additional files (e.g. proj.db)")
     proj_dir = "/opt/homebrew/Cellar/proj"
     proj_file_list = ["GL27", "ITRF2000", "ITRF2008", "ITRF2014", "nad.lst", "nad27", "nad83", "other.extra", "proj.db",
                       "proj.ini", "projjson.schema.json", "triangulation.schema.json", "world", "CH", "deformation_model.schema.json"]  # noqa
@@ -251,18 +247,15 @@ def create_framework_dir(name, longname, pkg_id, version, sumo_build_directory, 
                     shutil.copy2(os.path.join(source_dir, file), os.path.join(dest_dir, file))
 
 
-def create_framework_pkg(name, pkg_id, version, framework_dir):
-
-
-def create_framework_pkg(name, pkg_id, version, framework_dir):
+def create_framework_pkg(name, pkg_id, version, framework_dir, framework_pkg_dir):
     # Build the framework package
-    cwd = os.path.dirname(os.path.abspath(__file__))
+    os.makedirs(framework_pkg_dir, exist_ok=False)
     pkg_name = f"{name}-{version}.pkg"
-    pkg_path = os.path.join(cwd, "..", "..", pkg_name)
+    pkg_path = os.path.join(framework_pkg_dir, pkg_name)
     pkg_build_command = [
         "pkgbuild",
         "--root",
-        framework_dir,
+        os.path.join(framework_dir, f"{name}.framework"),
         "--identifier",
         pkg_id,
         "--version",
@@ -320,11 +313,9 @@ export SUMO_HOME="/Library/Frameworks/{framework_name}.framework/Versions/Curren
         plistlib.dump(plist_content, f)
 
 
-def create_app_pkg(app_name, pkg_id, version, app_dir):
-    print(" - Calling pkgbuild")
-    cwd = os.path.dirname(os.path.abspath(__file__))
+def create_app_pkg(app_name, pkg_id, version, app_dir, apps_pkg_dir):
     pkg_name = f"Launcher-{app_name}-{version}.pkg"
-    pkg_path = os.path.join(cwd, "..", "..", pkg_name)
+    pkg_path = os.path.join(apps_pkg_dir, pkg_name)
     pkg_build_command = [
         "pkgbuild",
         "--root",
@@ -468,6 +459,40 @@ def main():
     default_pkg_name = f"sumo-{version}.pkg"
     default_dmg_name = f"sumo-{version}.dmg"
 
+    # Which launcher apps do we have?
+    app_list = [
+        (
+            "SUMO sumo-gui",
+            'exec "$SUMO_HOME/bin/sumo-gui" "$@" &',
+            default_framework_name,
+            f"{base_id}.apps.sumo-gui",
+            version,
+            "sumo-gui.icns",
+            "sumo-gui"
+        ),
+        (
+            "SUMO netedit",
+            'exec "$SUMO_HOME/bin/netedit" "$@" &',
+            default_framework_name,
+            f"{base_id}.apps.netedit",
+            version,
+            "netedit.icns",
+            "netedit"
+        ),
+        (
+            "SUMO Scenario Wizard",
+            (
+                "python  $SUMO_HOME/tools/osmWebWizard.py ||"
+                "python3 $SUMO_HOME/tools/osmWebWizard.py  &"
+            ),
+            default_framework_name,
+            f"{base_id}.apps.scenario-wizard",
+            version,
+            "scenario-wizard.icns",
+            "scenario-wizard"
+        ),
+    ]
+
     # Parse and check the command line arguments
     opts = parse_args(default_dmg_name, default_pkg_name)
     # if not os.path.exists(os.path.dirname(opts.output_dmg)):
@@ -495,50 +520,26 @@ def main():
         print(f"Successfully created {default_framework_name} framework directory")
 
     elif opts.create_framework_pkg:
+        if os.path.exists(opts.framework_pkg_dir):
+            print(f"Directory {opts.framework_pkg_dir} already exists. Aborting.")
+            sys.exit(1)
+        if not os.path.exists(opts.framework_dir):
+            print(f"Error: framework directory '{opts.framework_dir}' does not exist.", file=sys.stderr)
+            sys.exit(1)
+
         print(f"Creating {default_framework_name} framework *.pkg file")
         print(f" - Using framework directory: \"{opts.framework_dir}\"")
         _, pkg_name, _, _, pkg_size = create_framework_pkg(default_framework_name, f"{base_id}.framework", version,
-                                                           opts.framework_dir)
+                                                           opts.framework_dir, opts.framework_pkg_dir)
         print(f"Successfully created \"{pkg_name}\" ({pkg_size / (1024 * 1024):.2f} MB)")
 
     elif opts.create_apps_dir:
         if os.path.exists(opts.apps_dir):
             print(f"Directory {opts.apps_dir} already exists. Aborting.")
             sys.exit(1)
+
+        print(f"Creating {default_framework_name} launcher apps directories")
         os.makedirs(opts.apps_dir, exist_ok=False)
-        print("Creating all apps directories")
-        app_list = [
-            (
-                "SUMO sumo-gui",
-                'exec "$SUMO_HOME/bin/sumo-gui" "$@" &',
-                default_framework_name,
-                f"{base_id}.apps.sumo-gui",
-                version,
-                "sumo-gui.icns",
-                "sumo-gui"
-            ),
-            (
-                "SUMO netedit",
-                'exec "$SUMO_HOME/bin/netedit" "$@" &',
-                default_framework_name,
-                f"{base_id}.apps.netedit",
-                version,
-                "netedit.icns",
-                "netedit"
-            ),
-            (
-                "SUMO Scenario Wizard",
-                (
-                    "python  $SUMO_HOME/tools/osmWebWizard.py ||"
-                    "python3 $SUMO_HOME/tools/osmWebWizard.py  &"
-                ),
-                default_framework_name,
-                f"{base_id}.apps.scenario-wizard",
-                version,
-                "scenario-wizard.icns",
-                "webwizard"
-            ),
-        ]
         for app_name, app_binary, app_framework, app_id, app_ver, app_icons, app_folder in app_list:
             app_dir = os.path.join(opts.apps_dir, app_folder)
             print(f" - Building app directory for '{app_name}' in folder {app_dir}")
@@ -548,8 +549,18 @@ def main():
             create_app_dir(app_name, app_binary, app_framework, app_id, app_ver, icon_path, app_dir)
             print(f" - Successfully created app directory for '{app_name}'")
 
-    #     app_pkgs.append(app_pkg)
-    #     print(f"Successfully built: '{app_pkg[1]}' ({app_pkg[4] / (1024 * 1024):.2f} MB)\n")
+    elif opts.create_apps_pkg:
+        if os.path.exists(opts.apps_pkg_dir):
+            print(f"Directory {opts.apps_pkg_dir} already exists. Aborting.")
+            sys.exit(1)
+
+        print(f"Creating {default_framework_name} launcher app pkg files")
+        os.makedirs(opts.apps_pkg_dir, exist_ok=False)
+
+        for app_name, app_binary, app_framework, app_id, app_ver, app_icons, app_folder in app_list:
+            app_dir = os.path.join(opts.apps_dir, app_folder)
+            _, pkg_name, _, _, pkg_size = create_app_pkg(app_name, app_id, app_ver, app_dir, opts.apps_pkg_dir)
+            print(f" - Created \"{pkg_name}\" ({pkg_size / (1024 * 1024):.2f} MB)")
 
     # # Building the installer package
     # print("Building installer")
