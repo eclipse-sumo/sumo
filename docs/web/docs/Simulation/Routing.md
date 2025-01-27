@@ -155,8 +155,7 @@ also be set using *traci.edge.setEffort*.
 !!! caution
     The default effort value is 0 which causes detour routes to be preferred when not loading sensible effort values.
 
-The applications [duarouter](../duarouter.md) and [marouter](../marouter.md) also support the options **--weight-file** and **--weight-attribute** but they can only be used with one of the weight attributes "CO", "CO2", "PMx", "HC", "NOx", "fuel", "electricity", "noise". However, they will still work as expected when the user loads custom effort values for these attributes.
-
+The applications [duarouter](../duarouter.md) and [marouter](../marouter.md) also support the options **--weight-file** and **--weight-attribute** and this may be used to ready any edge attribute value in the given file.
 
 # Routing by *distance*
 
