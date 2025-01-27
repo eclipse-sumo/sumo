@@ -540,10 +540,13 @@ def main():
             print(f" - Created \"{pkg_name}\" ({pkg_size / (1024 * 1024):.2f} MB)")
 
     elif opts.create_installer_pkg:
-        if not os.path.exists(os.path.dirname(opts.installer_pkg_file)):
-            print(f"Error: pkg output directory '{os.path.dirname(opts.installer_pkg_file)}' does not exist.",
+        if os.path.exists(os.path.dirname(opts.installer_pkg_file)):
+            print(f"Error: pkg output directory '{os.path.dirname(opts.installer_pkg_file)}' exists.",
                   file=sys.stderr)
             sys.exit(1)
+
+        # Create the output directory for the installer pkg
+        os.makedirs(os.path.dirname(opts.installer_pkg_file))
 
         print("Building installer pkg file")
         # Where do we find our pkgs?
