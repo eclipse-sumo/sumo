@@ -93,7 +93,7 @@ MELoop::changeSegment(MEVehicle* veh, SUMOTime leaveTime, MESegment* const toSeg
         MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(veh);
         return leaveTime;
     } else if (!MSGlobals::gCheckRoutes && !ignoreLink && !MESegment::isInvalid(onSegment) && &onSegment->getEdge() != &toSegment->getEdge() &&
-            veh->getEdge()->allowedLanes(*veh->succEdge(1), veh->getVClass()) == nullptr) {
+               veh->getEdge()->allowedLanes(*veh->succEdge(1), veh->getVClass()) == nullptr) {
         if (veh->isStopped()) {
             veh->processStop();
         }

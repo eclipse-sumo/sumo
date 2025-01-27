@@ -337,10 +337,10 @@ NBRequest::setBlocking(NBEdge* from1, NBEdge* to1,
                 myForbids[idx2][idx1] = true;
             }
 #ifdef DEBUG_SETBLOCKING
-    if (DEBUGCOND) std::cout << "setBlocking"
-                                 << " 1:" << from1->getID() << "->" << to1->getID()
-                                 << " 2:" << from2->getID() << "->" << to2->getID()
-                                 << " 1 yields\n";
+            if (DEBUGCOND) std::cout << "setBlocking"
+                                         << " 1:" << from1->getID() << "->" << to1->getID()
+                                         << " 2:" << from2->getID() << "->" << to2->getID()
+                                         << " 1 yields\n";
 #endif
             return;
         }
@@ -359,10 +359,10 @@ NBRequest::setBlocking(NBEdge* from1, NBEdge* to1,
                 myForbids[idx1][idx2] = true;
             }
 #ifdef DEBUG_SETBLOCKING
-    if (DEBUGCOND) std::cout << "setBlocking"
-                                 << " 1:" << from1->getID() << "->" << to1->getID()
-                                 << " 2:" << from2->getID() << "->" << to2->getID()
-                                 << " 2 yields\n";
+            if (DEBUGCOND) std::cout << "setBlocking"
+                                         << " 1:" << from1->getID() << "->" << to1->getID()
+                                         << " 2:" << from2->getID() << "->" << to2->getID()
+                                         << " 2 yields\n";
 #endif
             return;
         }
@@ -479,9 +479,9 @@ NBRequest::resetSignalised() {
                                 myForbids[idx2][idx1] = false;
 #ifdef DEBUG_SETBLOCKING
                                 if (DEBUGCOND) std::cout << "resetSignalised both"
-                                    << " 1:" << (*i11)->getID() << "->" << (*i12).toEdge->getID()
-                                        << " 2:" << (*i21)->getID() << "->" << (*i22).toEdge->getID()
-                                        << "\n";
+                                                             << " 1:" << (*i11)->getID() << "->" << (*i12).toEdge->getID()
+                                                             << " 2:" << (*i21)->getID() << "->" << (*i22).toEdge->getID()
+                                                             << "\n";
 #endif
                                 continue;
                             }
@@ -505,16 +505,16 @@ NBRequest::resetSignalised() {
                                 myForbids[idx2][idx1] = false;
 #ifdef DEBUG_SETBLOCKING
                                 if (DEBUGCOND) std::cout << "resetSignalised:2 yields"
-                                    << " 1:" << (*i11)->getID() << "->" << (*i12).toEdge->getID()
-                                        << " 2:" << (*i21)->getID() << "->" << (*i22).toEdge->getID() << "\n";
+                                                             << " 1:" << (*i11)->getID() << "->" << (*i12).toEdge->getID()
+                                                             << " 2:" << (*i21)->getID() << "->" << (*i22).toEdge->getID() << "\n";
 #endif
                             } else {
                                 myForbids[idx1][idx2] = false;
                                 myForbids[idx2][idx1] = true;
 #ifdef DEBUG_SETBLOCKING
                                 if (DEBUGCOND) std::cout << "resetSignalised:1 yields"
-                                    << " 1:" << (*i11)->getID() << "->" << (*i12).toEdge->getID()
-                                        << " 2:" << (*i21)->getID() << "->" << (*i22).toEdge->getID() << "\n";
+                                                             << " 1:" << (*i11)->getID() << "->" << (*i12).toEdge->getID()
+                                                             << " 2:" << (*i21)->getID() << "->" << (*i22).toEdge->getID() << "\n";
 #endif
                             }
                         }
@@ -1168,9 +1168,9 @@ NBRequest::resetCooperating() {
                     myForbids[getIndex(e1, to)][getIndex(e2, to)] = false;
 #ifdef DEBUG_SETBLOCKING
                     if (DEBUGCOND) std::cout << "resetCooperating"
-                        << " 1:" << e1->getID() << "->" << to->getID()
-                            << " 2:" << e2->getID() << "->" << to->getID()
-                            << "\n";
+                                                 << " 1:" << e1->getID() << "->" << to->getID()
+                                                 << " 2:" << e2->getID() << "->" << to->getID()
+                                                 << "\n";
 #endif
                 }
             }

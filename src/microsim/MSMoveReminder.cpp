@@ -47,7 +47,7 @@ StringBijection<MSMoveReminder::Notification>::Entry MSMoveReminder::Notificatio
 };
 
 StringBijection<MSMoveReminder::Notification> MSMoveReminder::Notifications(
-        MSMoveReminder::NotificationValues, MSMoveReminder::NOTIFICATION_NONE, false);
+    MSMoveReminder::NotificationValues, MSMoveReminder::NOTIFICATION_NONE, false);
 
 // ===========================================================================
 // method definitions

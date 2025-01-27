@@ -45,17 +45,17 @@ Triangle::~Triangle() {}
 
 
 bool
-Triangle::isAroundPosition(const Position &pos) const {
+Triangle::isAroundPosition(const Position& pos) const {
     return isAroundPosition(myA, myB, myC, pos);
 }
 
 
 bool
-Triangle::isAroundShape(const PositionVector &shape) const {
+Triangle::isAroundShape(const PositionVector& shape) const {
     if (isBoundaryAround(shape.getBoxBoundary())) {
         return true;
     } else {
-        for (const auto &pos : shape) {
+        for (const auto& pos : shape) {
             if (isAroundPosition(pos)) {
                 return true;
             }
@@ -65,9 +65,9 @@ Triangle::isAroundShape(const PositionVector &shape) const {
 }
 
 bool
-Triangle::isBoundaryAround(const Boundary &boundary) const {
-    if (isAroundPosition(Position(boundary.xmin(), boundary.ymin())) && 
-        isAroundPosition(Position(boundary.xmax(), boundary.ymax()))) {
+Triangle::isBoundaryAround(const Boundary& boundary) const {
+    if (isAroundPosition(Position(boundary.xmin(), boundary.ymin())) &&
+            isAroundPosition(Position(boundary.xmax(), boundary.ymax()))) {
         return true;
     } else {
         return false;
@@ -114,19 +114,19 @@ Triangle::triangulate(PositionVector shape) {
             int earIndex = -1;
             // first find an "ear"
             for (int i = 0; (i < shapeSize) && (earIndex == -1); i++) {
-                const auto &earA = shape[(i + shapeSize - 1) % shapeSize];
-                const auto &earB = shape[i];
-                const auto &earC = shape[(i + 1) % shapeSize];
+                const auto& earA = shape[(i + shapeSize - 1) % shapeSize];
+                const auto& earB = shape[i];
+                const auto& earC = shape[(i + 1) % shapeSize];
                 if (isEar(earA, earB, earC, shape)) {
                     earIndex = i;
                 }
             }
             if (earIndex != -1) {
                 triangles.push_back(Triangle(
-                    shape[(earIndex + shapeSize - 1) % shapeSize],
-                    shape[earIndex],
-                    shape[(earIndex + 1) % shapeSize])
-                    );
+                                        shape[(earIndex + shapeSize - 1) % shapeSize],
+                                        shape[earIndex],
+                                        shape[(earIndex + 1) % shapeSize])
+                                   );
                 shape.erase(shape.begin() + earIndex);
             } else {
                 // simply remove the first three
@@ -142,13 +142,13 @@ Triangle::triangulate(PositionVector shape) {
 
 
 bool
-Triangle::isAroundPosition(const Position &A, const Position &B, const Position &C, const Position &pos) {
+Triangle::isAroundPosition(const Position& A, const Position& B, const Position& C, const Position& pos) {
     // Calculate cross products for each edge of the triangle
     const double crossAB = crossProduct(A, B, pos);
     const double crossBC = crossProduct(B, C, pos);
     const double crossCA = crossProduct(C, A, pos);
     // Check if all cross products have the same sign
-    return (crossAB >= 0 && crossBC >= 0 && crossCA >= 0) || 
+    return (crossAB >= 0 && crossBC >= 0 && crossCA >= 0) ||
            (crossAB <= 0 && crossBC <= 0 && crossCA <= 0);
 }
 
@@ -199,8 +199,7 @@ Triangle::lineIntersectCircle(const Position& posA, const Position& posB, const 
         const double t2 = (-b - sqrtDiscriminant) / (2 * a);
         // if at least t1 or t2 is between [0,1], then intersect
         return (t1 >= 0 && t1 <= 1) || (t2 >= 0 && t2 <= 1);
-    }
-    else {
+    } else {
         return false;
     }
 }

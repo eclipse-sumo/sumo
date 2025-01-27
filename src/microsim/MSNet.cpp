@@ -1642,7 +1642,7 @@ MSNet::warnOnce(const std::string& typeAndID) {
 }
 
 
-MSMapMatcher* 
+MSMapMatcher*
 MSNet::getMapMatcher() const {
     auto loader = myRouteLoaders->getFirstLoader();
     if (loader != nullptr) {

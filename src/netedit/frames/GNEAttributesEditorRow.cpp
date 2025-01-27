@@ -758,7 +758,7 @@ GNEAttributesEditorRow::isAttributeEnabled(const GNEAttributeProperties& attrPro
     if (attrProperty.isAlwaysEnabled()) {
         return true;
     } else {
-        for (const auto &AC : myAttributeTable->myEditedACs) {
+        for (const auto& AC : myAttributeTable->myEditedACs) {
             if (AC->isAttributeEnabled(attrProperty.getAttr())) {
                 return true;
             }

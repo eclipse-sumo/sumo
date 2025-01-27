@@ -898,7 +898,7 @@ GNEViewNet::showJunctionAsBubbles() const {
 
 
 bool
-GNEViewNet::askMergeJunctions(const GNEJunction* movedJunction, const GNEJunction* targetJunction, bool &alreadyAsked) {
+GNEViewNet::askMergeJunctions(const GNEJunction* movedJunction, const GNEJunction* targetJunction, bool& alreadyAsked) {
     if (alreadyAsked) {
         return false;
     } else if (myNetworkViewOptions.menuCheckMergeAutomatically->amChecked()) {
@@ -2739,7 +2739,7 @@ GNEViewNet::onCmdSelectPolygonElements(FXObject*, FXSelector, void*) {
         // declare filtered ACs
         std::vector<GNEAttributeCarrier*> ACsUnderPolygon;
         // iterate over every triangle
-        for (const auto &triangle : triangulation) {
+        for (const auto& triangle : triangulation) {
             // get ACs in boundary
             updateObjectsInBoundary(triangle.getBoundary());
             // iterate over obtained GUIGlIDs
@@ -2784,7 +2784,7 @@ GNEViewNet::onCmdTriangulatePolygon(FXObject*, FXSelector, void*) {
         // begin undo-list
         myNet->getViewNet()->getUndoList()->begin(GUIIcon::POLY, TL("triangulate polygon"));
         // create every individual triangle
-        for (const auto &triangle : triangulation) {
+        for (const auto& triangle : triangulation) {
             auto basePolygon = polygonUnderMouse->getSumoBaseObject();
             basePolygon->addStringAttribute(SUMO_ATTR_ID, myNet->getAttributeCarriers()->generateAdditionalID(polygonUnderMouse->getTagProperty().getTag()));
             basePolygon->addPositionVectorAttribute(SUMO_ATTR_SHAPE, triangle.getShape());
@@ -5949,8 +5949,8 @@ GNEViewNet::processLeftButtonPressDemand(void* eventData) {
         case DemandEditMode::DEMAND_INSPECT: {
             // filter locked elements
             myViewObjectsSelector.filterLockedElements();
-                // inspect clicked elements
-                myViewParent->getInspectorFrame()->inspectClickedElements(myViewObjectsSelector, getPositionInformation(), myMouseButtonKeyPressed.shiftKeyPressed());
+            // inspect clicked elements
+            myViewParent->getInspectorFrame()->inspectClickedElements(myViewObjectsSelector, getPositionInformation(), myMouseButtonKeyPressed.shiftKeyPressed());
             // process click
             processClick(eventData);
             break;

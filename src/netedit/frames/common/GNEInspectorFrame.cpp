@@ -244,7 +244,7 @@ GNEInspectorFrame::GNEInspectorFrame(GNEViewParent* viewParent, GNEViewNet* view
 
     // Create back button
     myBackButton = GUIDesigns::buildFXButton(myHeaderLeftFrame, "", "", "", GUIIconSubSys::getIcon(GUIIcon::BIGARROWLEFT),
-                                             this, MID_GNE_INSPECTORFRAME_INSPECTPREVIOUSELEMENT, GUIDesignButtonRectangular);
+                   this, MID_GNE_INSPECTORFRAME_INSPECTPREVIOUSELEMENT, GUIDesignButtonRectangular);
     myHeaderLeftFrame->hide();
     myBackButton->hide();
 
@@ -296,7 +296,7 @@ GNEInspectorFrame::hide() {
 
 bool
 GNEInspectorFrame::inspectClickedElements(GNEViewNetHelper::ViewObjectsSelector& viewObjects,
-        const Position &clickedPosition, const bool shiftKeyPressed) {
+        const Position& clickedPosition, const bool shiftKeyPressed) {
     // get unlocked attribute carrier front
     auto AC = viewObjects.getAttributeCarrierFront();
     // first check if we have clicked over an Attribute Carrier

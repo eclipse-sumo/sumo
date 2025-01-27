@@ -1019,7 +1019,7 @@ GNEEdge::clearGNEConnections() {
 int
 GNEEdge::getRouteProbeRelativePosition(GNERouteProbe* routeProbe) const {
     std::vector<GNEAdditional*> routeProbes;
-    for (const auto &additional : getChildAdditionals()) {
+    for (const auto& additional : getChildAdditionals()) {
         if (additional->getTagProperty().getTag() == routeProbe->getTagProperty().getTag()) {
             routeProbes.push_back(additional);
         }

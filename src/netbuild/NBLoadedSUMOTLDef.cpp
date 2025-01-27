@@ -467,11 +467,11 @@ NBLoadedSUMOTLDef::registerModifications(bool addedConnections, bool removedConn
 bool
 NBLoadedSUMOTLDef::isValid(const NBConnection& con) const {
     return (// edge still exists
-            std::find(myIncomingEdges.begin(), myIncomingEdges.end(), con.getFrom()) != myIncomingEdges.end()
-            // connection still exists
-            && con.getFrom()->hasConnectionTo(con.getTo(), con.getToLane(), con.getFromLane())
-            // connection is still set to be controlled
-            && con.getFrom()->mayBeTLSControlled(con.getFromLane(), con.getTo(), con.getToLane()));
+               std::find(myIncomingEdges.begin(), myIncomingEdges.end(), con.getFrom()) != myIncomingEdges.end()
+               // connection still exists
+               && con.getFrom()->hasConnectionTo(con.getTo(), con.getToLane(), con.getFromLane())
+               // connection is still set to be controlled
+               && con.getFrom()->mayBeTLSControlled(con.getFromLane(), con.getTo(), con.getToLane()));
 }
 
 void

@@ -95,7 +95,7 @@ MSDevice_GLOSA::cleanup() {
 // MSDevice_GLOSA-methods
 // ---------------------------------------------------------------------------
 MSDevice_GLOSA::MSDevice_GLOSA(SUMOVehicle& holder, const std::string& id, double minSpeed, double range, double maxSpeedFactor,
-    double addSwitchTime, bool useQueue, bool overrideSafety, bool ignoreCFModel) :
+                               double addSwitchTime, bool useQueue, bool overrideSafety, bool ignoreCFModel) :
     MSVehicleDevice(holder, id),
     myVeh(dynamic_cast<MSVehicle&>(holder)),
     myNextTLSLink(nullptr),
@@ -148,8 +148,11 @@ MSDevice_GLOSA::notifyMove(SUMOTrafficObject& /*tObject*/, double oldPos,
         // The vehicle should then rather opt for the next phase (trade travel time for traffic flow)
         int switchOffset = 0;
 
-        if (myNextTLSLink->haveGreen()) { currentPhaseGreen = true; }
-        else if (myNextTLSLink->haveRed() || myNextTLSLink->haveYellow()) { currentPhaseStop = true; }
+        if (myNextTLSLink->haveGreen()) {
+            currentPhaseGreen = true;
+        } else if (myNextTLSLink->haveRed() || myNextTLSLink->haveYellow()) {
+            currentPhaseStop = true;
+        }
         // else if any other phase, GLOSA does not interfere
 #if defined DEBUG_GLOSA || defined DEBUG_QUEUE
         if (DEBUG_COND) {
@@ -192,7 +195,7 @@ MSDevice_GLOSA::notifyMove(SUMOTrafficObject& /*tObject*/, double oldPos,
             }
         }
 
-        // Search for the next passable phase, maximum 10 Phases 
+        // Search for the next passable phase, maximum 10 Phases
         for (int countwhile = 1; countwhile < 11; countwhile++) {
             if (currentPhaseGreen) {
                 // reset nextSwitch because the queue matters only for the current Phase
@@ -222,9 +225,9 @@ MSDevice_GLOSA::notifyMove(SUMOTrafficObject& /*tObject*/, double oldPos,
                         const double yellowSlack = myVeh.getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_DRIVE_AFTER_YELLOW_TIME, 0);
 #ifdef DEBUG_GLOSA
                         if (DEBUG_COND) {
-                            std::cout << SIMTIME << " veh=" << myVeh.getID() 
-                                      << " vMax2=" << vMax2 
-                                      << " timetoJunction2=" << timetoJunction2 
+                            std::cout << SIMTIME << " veh=" << myVeh.getID()
+                                      << " vMax2=" << vMax2
+                                      << " timetoJunction2=" << timetoJunction2
                                       << " yellowSlack=" << yellowSlack << "\n";
                         }
 #endif
@@ -253,7 +256,7 @@ MSDevice_GLOSA::notifyMove(SUMOTrafficObject& /*tObject*/, double oldPos,
                 if (DEBUG_COND) {
                     std::cout << SIMTIME << " veh=" << myVeh.getID() << " traffic light will be/is red" << "\n";
                     std::cout << SIMTIME << " veh=" << myVeh.getID()
-                              << " timeToJunction=" << timeToJunction 
+                              << " timeToJunction=" << timeToJunction
                               << " nextSwitch=" << nextSwitch
                               << " myDistance=" << myDistance << "\n";
                 }
@@ -396,11 +399,11 @@ MSDevice_GLOSA::getTimeToNextSwitch(const MSLink* tlsLink, bool& currentPhaseGre
         const auto& phase = phases[(cur + i) % n];
         const char ls = phase->getState()[tlsLink->getTLIndex()];
         if (currentPhaseGreen && (ls == 'g' || ls == 'G')) {
-            countOld = (cur + i)%n;
+            countOld = (cur + i) % n;
             break;
         }
         if (currentPhaseStop && (ls != 'g' && ls != 'G')) {
-            countOld = (cur + i)%n;
+            countOld = (cur + i) % n;
             break;
         }
         result += phase->duration;
@@ -425,7 +428,7 @@ MSDevice_GLOSA::timeGreen(const MSLink* tlsLink) {
     for (int i = 1; i < n; i++) {
         const auto& phase = phases[(cur - i) % n];
         const char ls = phase->getState()[tlsLink->getTLIndex()];
-        if ( ls != 'g' && ls != 'G') {
+        if (ls != 'g' && ls != 'G') {
             break;
         }
         result += phase->duration;
@@ -495,7 +498,7 @@ MSDevice_GLOSA::time_to_junction_at_continuous_accel(double d, double v) {
 
 
 void
-MSDevice_GLOSA::adaptSpeed(double distance, double /*timeToJunction*/, double timeToSwitch, bool &solved) {
+MSDevice_GLOSA::adaptSpeed(double distance, double /*timeToJunction*/, double timeToSwitch, bool& solved) {
     // ensure that myVehicle arrives at the
     // junction with maximum speed when it switches to green
     // car performs a slowDown at time z to speed x for duration y
@@ -539,7 +542,7 @@ MSDevice_GLOSA::adaptSpeed(double distance, double /*timeToJunction*/, double ti
 #ifdef DEBUG_GLOSA
         WRITE_WARNINGF("GLOSA error 1 root_argument=% s=% t=% v=%", root_argument, s, t, v);
 #endif
-        // no reset of speedFactor because in this case, current speed can be kept        
+        // no reset of speedFactor because in this case, current speed can be kept
         solved = true;
 
         return;
@@ -567,7 +570,7 @@ MSDevice_GLOSA::adaptSpeed(double distance, double /*timeToJunction*/, double ti
         WRITE_WARNINGF("GLOSA error 2 x=% y=% s=% t=% v=%", x, y, s, t, v);
 #endif
         if (x < u) {
- #ifdef DEBUG_GLOSA
+#ifdef DEBUG_GLOSA
             if (DEBUG_COND) {
                 std::cout << "veh=" << myVeh.getID() << " cant go slow enough" << "\n";
             }

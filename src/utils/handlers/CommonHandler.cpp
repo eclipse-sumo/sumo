@@ -78,7 +78,7 @@ CommonHandler::parseParameters(const SUMOSAXAttributes& attrs) {
 CommonXMLStructure::SumoBaseObject*
 CommonHandler::getEmbeddedRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject) const {
     // locate route in childrens
-    for (const auto &embeddedRoute : sumoBaseObject->getSumoBaseObjectChildren()) {
+    for (const auto& embeddedRoute : sumoBaseObject->getSumoBaseObjectChildren()) {
         if ((embeddedRoute->getTag() == SUMO_TAG_ROUTE) && (!embeddedRoute->hasStringAttribute(SUMO_ATTR_ID))) {
             return embeddedRoute;
         }
@@ -93,8 +93,8 @@ CommonHandler::checkParsedParent(const SumoXMLTag currentTag, const std::vector<
         std::string tagsStr;
         for (auto it = parentTags.begin(); it != parentTags.end(); it++) {
             tagsStr.append(toString(*it));
-            if ((it+1) != parentTags.end()) {
-                if ((it+2) != parentTags.end()) {
+            if ((it + 1) != parentTags.end()) {
+                if ((it + 2) != parentTags.end()) {
                     tagsStr.append(", ");
                 } else {
                     tagsStr.append(" or ");
@@ -277,7 +277,7 @@ CommonHandler::checkNegative(const SumoXMLTag tag, const std::string& id, const 
 
 
 bool
-CommonHandler::checkFileName(const SumoXMLTag tag, const std::string& id, const SumoXMLAttr attribute, const std::string &value) {
+CommonHandler::checkFileName(const SumoXMLTag tag, const std::string& id, const SumoXMLAttr attribute, const std::string& value) {
     if (SUMOXMLDefinitions::isValidFilename(value)) {
         return true;
     } else {

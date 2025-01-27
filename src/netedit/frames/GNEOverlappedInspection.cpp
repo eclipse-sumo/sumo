@@ -50,7 +50,7 @@ FXIMPLEMENT(GNEOverlappedInspection,       MFXGroupBoxModule,     OverlappedInsp
 // ===========================================================================
 
 GNEOverlappedInspection::GNEOverlappedInspection(GNEFrame* frameParent, const bool onlyJunctions) :
-    MFXGroupBoxModule(frameParent, onlyJunctions? TL("Overlapped junctions") : TL("Overlapped elements")),
+    MFXGroupBoxModule(frameParent, onlyJunctions ? TL("Overlapped junctions") : TL("Overlapped elements")),
     myFrameParent(frameParent),
     myOnlyJunctions(onlyJunctions) {
     FXHorizontalFrame* frameButtons = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
@@ -75,7 +75,7 @@ GNEOverlappedInspection::~GNEOverlappedInspection() {}
 
 
 void
-GNEOverlappedInspection::showOverlappedInspection(GNEViewNetHelper::ViewObjectsSelector& viewObjects, const Position &clickedPosition, const bool shiftKeyPressed) {
+GNEOverlappedInspection::showOverlappedInspection(GNEViewNetHelper::ViewObjectsSelector& viewObjects, const Position& clickedPosition, const bool shiftKeyPressed) {
     // check if filter all except junctions
     if (myOnlyJunctions) {
         viewObjects.filterAllExcept(GLO_JUNCTION);
@@ -134,7 +134,7 @@ GNEOverlappedInspection::refreshOverlappedInspection() {
         myOverlappedElementList->getItem(myItemIndex)->setSelected(TRUE);
         // show modul
         show();
-        // call selectedOverlappedElement 
+        // call selectedOverlappedElement
         myFrameParent->selectedOverlappedElement(myOverlappedACs.at(myItemIndex));
     } else {
         if (myOverlappedACs.size() > 0) {

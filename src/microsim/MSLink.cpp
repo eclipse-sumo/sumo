@@ -936,7 +936,7 @@ MSLink::blockedAtTime(SUMOTime arrivalTime, SUMOTime leaveTime, double arrivalSp
         for (const auto& it : *myApproachingPersons) {
 //#ifdef MSLink_DEBUG_OPENED
 //            if (gDebugFlag1) {
-//                std::cout << SIMTIME << ": " << ego->getID() << " check person " << it.first->getID() << " aTime=" << arrivalTime << " foeATime=" << it.second.arrivalTime 
+//                std::cout << SIMTIME << ": " << ego->getID() << " check person " << it.first->getID() << " aTime=" << arrivalTime << " foeATime=" << it.second.arrivalTime
 //                    << " lTime=" << leaveTime << " foeLTime=" << it.second.leavingTime
 //                    << " dist=" << dist << "\n";
 //            }
@@ -1739,7 +1739,7 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
                 // advance up to the crossing point unless we have the same target or same source
                 // (for sameSource, the crossing point indicates the point of divergence)
                 const bool stopAsap = ((leader->isFrontOnLane(foeLane) ? cannotIgnore : (sameTarget || sameSource))
-                    || (ego != nullptr && ego->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_ADVANCE, 1.0) == 0.0));
+                                       || (ego != nullptr && ego->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_ADVANCE, 1.0) == 0.0));
                 if (gDebugFlag1) {
                     std::cout << " leader=" << leader->getID() << " contLane=" << contLane << " cannotIgnore=" << cannotIgnore << " stopAsap=" << stopAsap << " gap=" << gap << "\n";
                 }
@@ -1762,7 +1762,7 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
             // @check lefthand?!
             const bool wayIn = myConflicts[i].lengthBehindCrossing < myLaneBefore->getLength() * 0.5;
             const double vehCenter = (foeDistToCrossing + myLaneBefore->getWidth() * 0.5
-                                          + ego->getLateralPositionOnLane() * (wayIn ? -1 : 1));
+                                      + ego->getLateralPositionOnLane() * (wayIn ? -1 : 1));
             // can access the movement model here since we already checked for existing persons above
             if (distToPeds >= -MSPModel::SAFETY_GAP && MSNet::getInstance()->getPersonControl().getMovementModel()->blockedAtDist(ego, foeLane, vehCenter, vehWidth,
                     ego->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_CROSSING_GAP, JM_CROSSING_GAP_DEFAULT),

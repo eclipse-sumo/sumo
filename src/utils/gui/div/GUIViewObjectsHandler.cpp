@@ -408,7 +408,7 @@ GUIViewObjectsHandler::getNumberOfSelectedObjects() const {
 
 void
 GUIViewObjectsHandler::reverseSelectedObjects() {
-    for (auto &layerContainer : mySortedSelectedObjects) {
+    for (auto& layerContainer : mySortedSelectedObjects) {
         std::reverse(layerContainer.second.begin(), layerContainer.second.end());
     }
 }

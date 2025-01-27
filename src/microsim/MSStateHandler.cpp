@@ -353,8 +353,8 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
             MSRailSignalConstraint_Predecessor::loadState(attrs);
             break;
         }
-        case SUMO_TAG_DRIVEWAY: 
-        case SUMO_TAG_SUBDRIVEWAY: { 
+        case SUMO_TAG_DRIVEWAY:
+        case SUMO_TAG_SUBDRIVEWAY: {
             MSDriveWay::loadState(attrs, element);
             break;
         }

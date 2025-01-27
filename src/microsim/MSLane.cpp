@@ -4531,18 +4531,18 @@ MSLane::checkForPedestrians(const MSVehicle* aVehicle, double& speed, double& di
             const MSLink* link = prev->getLinkTo(cur);
             if (link->hasFoeCrossing()) {
                 for (const MSLane* foe : link->getFoeLanes()) {
-                    if (foe->isCrossing() && (foe->hasPedestrians() || 
-                                (foe->getIncomingLanes()[0].viaLink->getApproachingPersons() != nullptr
-                                 && foe->getIncomingLanes()[0].viaLink->getApproachingPersons()->size() > 0))) {
+                    if (foe->isCrossing() && (foe->hasPedestrians() ||
+                                              (foe->getIncomingLanes()[0].viaLink->getApproachingPersons() != nullptr
+                                               && foe->getIncomingLanes()[0].viaLink->getApproachingPersons()->size() > 0))) {
 #ifdef DEBUG_INSERTION
                         if (DEBUG_COND2(aVehicle)) std::cout << SIMTIME
-                            << " isInsertionSuccess lane=" << getID()
-                                << " veh=" << aVehicle->getID()
-                                << " pos=" << pos
-                                << " backCrossing=" << foe->getID()
-                                << " peds=" << joinNamedToString(foe->getEdge().getPersons(), " ")
-                                << " approaching=" << foe->getIncomingLanes()[0].viaLink->getApproachingPersons()->size()
-                                << " failed (@4550)!\n";
+                                                                 << " isInsertionSuccess lane=" << getID()
+                                                                 << " veh=" << aVehicle->getID()
+                                                                 << " pos=" << pos
+                                                                 << " backCrossing=" << foe->getID()
+                                                                 << " peds=" << joinNamedToString(foe->getEdge().getPersons(), " ")
+                                                                 << " approaching=" << foe->getIncomingLanes()[0].viaLink->getApproachingPersons()->size()
+                                                                 << " failed (@4550)!\n";
 #endif
                         return false;
                     }

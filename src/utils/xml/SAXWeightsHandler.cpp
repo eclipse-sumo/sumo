@@ -133,8 +133,8 @@ SAXWeightsHandler::tryParse(const SUMOSAXAttributes& attrs, bool isEdge) {
                             // warn only once
                             definition->myHadNonNumeric = true;
                             WRITE_ERRORF(TL("The value '%' of attribute '%' should be numeric in edge '%' at time step %."),
-                                    attrs.getStringSecure(definition->myAttributeName, ""), definition->myAttributeName,
-                                    myCurrentEdgeID, time2string(TIME2STEPS(myCurrentTimeBeg)));
+                                         attrs.getStringSecure(definition->myAttributeName, ""), definition->myAttributeName,
+                                         myCurrentEdgeID, time2string(TIME2STEPS(myCurrentTimeBeg)));
                         }
                     }
                 } else {
@@ -160,8 +160,8 @@ SAXWeightsHandler::tryParse(const SUMOSAXAttributes& attrs, bool isEdge) {
                         // warn only once
                         definition->myHadNonNumeric = true;
                         WRITE_ERRORF(TL("The value '%' of attribute '%' should be numeric in edge '%' at time step %."),
-                                attrs.getStringSecure(definition->myAttributeName, ""), definition->myAttributeName,
-                                myCurrentEdgeID, time2string(TIME2STEPS(myCurrentTimeBeg)));
+                                     attrs.getStringSecure(definition->myAttributeName, ""), definition->myAttributeName,
+                                     myCurrentEdgeID, time2string(TIME2STEPS(myCurrentTimeBeg)));
                     }
                 }
             }

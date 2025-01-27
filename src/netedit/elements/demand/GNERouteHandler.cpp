@@ -87,7 +87,7 @@ GNERouteHandler::~GNERouteHandler() {
 bool
 GNERouteHandler::postParserTasks() {
     // clear all parent plan elements without children
-    for (const auto &parentPlanElement : myParentPlanElements) {
+    for (const auto& parentPlanElement : myParentPlanElements) {
         if (parentPlanElement->getChildDemandElements().empty()) {
             if (myAllowUndoRedo) {
                 myNet->getViewNet()->getUndoList()->begin(parentPlanElement, TLF("delete % '%'", parentPlanElement->getTagStr(), parentPlanElement->getID()));
@@ -302,8 +302,8 @@ GNERouteHandler::buildVehicleOverRoute(const CommonXMLStructure::SumoBaseObject*
 
 bool
 GNERouteHandler::buildVehicleEmbeddedRoute(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const SUMOVehicleParameter& vehicleParameters,
-                                           const std::vector<std::string>& edgeIDs, const RGBColor& color, const int repeat, const SUMOTime cycleTime,
-                                           const double probability, const Parameterised::Map& routeParameters) {
+        const std::vector<std::string>& edgeIDs, const RGBColor& color, const int repeat, const SUMOTime cycleTime,
+        const double probability, const Parameterised::Map& routeParameters) {
     // first check if we have to overwritte element
     checkOverwritteElement(myVehicleTags, vehicleParameters.id);
     // check if ID is duplicated
@@ -2405,7 +2405,7 @@ GNERouteHandler::addReverse(GNEDemandElement* element) {
 // ===========================================================================
 
 GNEJunction*
-GNERouteHandler::parseJunction(const SumoXMLTag tag, const std::string &id, const std::string& junctionID) {
+GNERouteHandler::parseJunction(const SumoXMLTag tag, const std::string& id, const std::string& junctionID) {
     GNEJunction* junction = myNet->getAttributeCarriers()->retrieveJunction(junctionID, false);
     // empty junctions aren't allowed. If junction is empty, write error, clear junctions and stop
     if (junction == nullptr) {
@@ -2416,7 +2416,7 @@ GNERouteHandler::parseJunction(const SumoXMLTag tag, const std::string &id, cons
 
 
 GNEAdditional*
-GNERouteHandler::parseTAZ(const SumoXMLTag tag, const std::string &id, const std::string& TAZID) {
+GNERouteHandler::parseTAZ(const SumoXMLTag tag, const std::string& id, const std::string& TAZID) {
     GNEAdditional* TAZ = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_TAZ, TAZID, false);
     // empty TAZs aren't allowed. If TAZ is empty, write error, clear TAZs and stop
     if (TAZ == nullptr) {
@@ -2427,7 +2427,7 @@ GNERouteHandler::parseTAZ(const SumoXMLTag tag, const std::string &id, const std
 
 
 GNEEdge*
-GNERouteHandler::parseEdge(const SumoXMLTag tag, const std::string &id, const std::string& edgeID,
+GNERouteHandler::parseEdge(const SumoXMLTag tag, const std::string& id, const std::string& edgeID,
                            const CommonXMLStructure::SumoBaseObject* sumoBaseObject,
                            const bool firstEdge) {
     GNEEdge* edge = nullptr;
@@ -2522,7 +2522,7 @@ GNERouteHandler::parseEdgeFromLaneID(const std::string& laneID) const {
 
 
 std::vector<GNEEdge*>
-GNERouteHandler::parseEdges(const SumoXMLTag tag, const std::string &id, const std::vector<std::string>& edgeIDs) {
+GNERouteHandler::parseEdges(const SumoXMLTag tag, const std::string& id, const std::vector<std::string>& edgeIDs) {
     std::vector<GNEEdge*> edges;
     for (const auto& edgeID : edgeIDs) {
         GNEEdge* edge = myNet->getAttributeCarriers()->retrieveEdge(edgeID, false);
@@ -2647,10 +2647,10 @@ GNERouteHandler::checkDuplicatedDemandElement(const SumoXMLTag tag, const std::v
 
 
 void
-GNERouteHandler::checkOverwritteElement(const std::vector<SumoXMLTag> &tags, const std::string &id) {
+GNERouteHandler::checkOverwritteElement(const std::vector<SumoXMLTag>& tags, const std::string& id) {
     if (myOverwrite) {
         // retrieve demand element and remove it
-        for (const auto &tag : tags) {
+        for (const auto& tag : tags) {
             auto demandElement = myNet->getAttributeCarriers()->retrieveDemandElement(tag, id, false);
             if (demandElement) {
                 writeWarningOverwritting(tag, id);

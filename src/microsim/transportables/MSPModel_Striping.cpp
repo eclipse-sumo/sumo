@@ -1088,11 +1088,11 @@ MSPModel_Striping::moveInDirectionOnLane(Pedestrians& pedestrians, const MSLane*
         const MSLane* nextLane = p.myNLI.lane;
         const MSLink* link = p.myNLI.link;
         const double dist = p.distToLaneEnd();
-        const double speed (p.getStage()->getConfiguredSpeed() >= 0
-                ? p.getStage()->getConfiguredSpeed()
-                : ((nextLane != nullptr && (USE_NET_SPEEDS || nextLane->isNormal() || nextLane->isInternal()))
-                    ? nextLane->getVehicleMaxSpeed(p.getPerson())
-                    : p.getStage()->getMaxSpeed(p.getPerson())));
+        const double speed(p.getStage()->getConfiguredSpeed() >= 0
+                           ? p.getStage()->getConfiguredSpeed()
+                           : ((nextLane != nullptr && (USE_NET_SPEEDS || nextLane->isNormal() || nextLane->isInternal()))
+                              ? nextLane->getVehicleMaxSpeed(p.getPerson())
+                              : p.getStage()->getMaxSpeed(p.getPerson())));
 
 
         if (nextLane != nullptr && dist <= LOOKAHEAD_ONCOMING_DIST) {

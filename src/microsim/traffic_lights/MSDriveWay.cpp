@@ -869,7 +869,7 @@ MSDriveWay::buildRoute(const MSLink* origin,
             // larger countries (USA, Russia) might see blocks beyond 20km)
             if (myRoute.size() == 0 || myBlockLengthWarnings.count(myRoute.front()) == 0) {
                 WRITE_WARNINGF("Block after % exceeds maximum length (stopped searching after edge '%' (length=%m).",
-                        warnID, toLane->getEdge().getID(), length);
+                               warnID, toLane->getEdge().getID(), length);
                 myBlockLengthWarnings.insert(myRoute.front());
             }
             myAbortedBuild = true;

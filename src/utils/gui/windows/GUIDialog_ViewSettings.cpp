@@ -1887,7 +1887,7 @@ GUIDialog_ViewSettings::buildStreetsFrame(FXTabBook* tabbook) {
     mySecondaryShape->setCheck(mySettings->secondaryShape);
     new FXLabel(matrixLanes, " ", nullptr, GUIDesignViewSettingsLabel1);
     if (!OptionsCont::getOptions().exists("alternative-net-file") ||
-        !OptionsCont::getOptions().isSet("alternative-net-file")) {
+            !OptionsCont::getOptions().isSet("alternative-net-file")) {
         mySecondaryShape->disable();
     }
 

@@ -164,8 +164,8 @@ GNEJunction::checkDrawFromContour() const {
                 return myNet->getViewNet()->getViewObjectsSelector().getJunctionFront() == this;
             }
         } else if ((modes.networkEditMode == NetworkEditMode::NETWORK_TLS) &&
-                    viewParent->getTLSEditorFrame()->getTLSJunction()->isJoiningJunctions()) {
-            for (const auto &id : viewParent->getTLSEditorFrame()->getTLSJunction()->getSelectedJunctionIDs()) {
+                   viewParent->getTLSEditorFrame()->getTLSJunction()->isJoiningJunctions()) {
+            for (const auto& id : viewParent->getTLSEditorFrame()->getTLSJunction()->getSelectedJunctionIDs()) {
                 if (id == getMicrosimID()) {
                     return true;
                 }
@@ -790,7 +790,7 @@ GNEJunction::addOutgoingGNEEdge(GNEEdge* edge) {
 void
 GNEJunction::removeIncomingGNEEdge(GNEEdge* edge) {
     // Check if incoming edge was already inserted
-     auto i = std::find(myGNEIncomingEdges.begin(), myGNEIncomingEdges.end(), edge);
+    auto i = std::find(myGNEIncomingEdges.begin(), myGNEIncomingEdges.end(), edge);
     if (i == myGNEIncomingEdges.end()) {
         throw InvalidArgument("Incoming " + toString(SUMO_TAG_EDGE) + " with ID '" + edge->getID() + "' doesn't found into " + getTagStr() + " with ID " + getID() + "'");
     } else {
@@ -1427,7 +1427,7 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
             for (const auto& junction : myNet->getViewNet()->getViewObjectsSelector().getJunctions()) {
                 // check distance position
                 if ((junctionToMerge == nullptr) && (junction != this) && (junction->getPositionInView().distanceTo2D(newPosition) < POSITION_EPS) &&
-                    myNet->getViewNet()->askMergeJunctions(this, junction, alreadyAsked)) {
+                        myNet->getViewNet()->askMergeJunctions(this, junction, alreadyAsked)) {
                     junctionToMerge = junction;
                 }
             }

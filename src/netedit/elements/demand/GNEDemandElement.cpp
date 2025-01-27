@@ -174,11 +174,11 @@ bool
 GNEDemandElement::checkDrawRelatedContour() const {
     if (myTagProperty.getTag() == GNE_TAG_ROUTE_EMBEDDED) {
         // check if inspected parent is inspected
-        for (const auto &inspectedAC : myNet->getViewNet()->getInspectedElements().getACs()) {
+        for (const auto& inspectedAC : myNet->getViewNet()->getInspectedElements().getACs()) {
             if (inspectedAC->getTagProperty().vehicleRouteEmbedded()) {
                 const auto demandElement = dynamic_cast<GNEDemandElement*>(inspectedAC);
                 if (demandElement && (demandElement->getChildDemandElements().size() > 0) &&
-                    (demandElement->getChildDemandElements().at(0) == this)) {
+                        (demandElement->getChildDemandElements().at(0) == this)) {
                     return true;
                 }
             }
