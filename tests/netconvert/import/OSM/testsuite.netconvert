@@ -138,4 +138,7 @@ crossings
 
 # see #14786
 crossings_no_barrier
+
+# read highway=busway
+busway
 bugs
