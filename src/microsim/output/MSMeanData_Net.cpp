@@ -161,7 +161,7 @@ MSMeanData_Net::MSLaneMeanDataValues::notifyMoveInternal(
     if (!veh.isStopped()) {
         if (myParent != nullptr && meanSpeedVehicleOnLane < myParent->myHaltSpeed) {
             waitSeconds += timeOnLane;
-        } else {
+        } else if (MSGlobals::gUseMesoSim) {
             waitSeconds += STEPS2TIME(veh.getWaitingTime());
         }
         const double vmax = veh.getLane() == nullptr ? veh.getEdge()->getVehicleMaxSpeed(&veh) : veh.getLane()->getVehicleMaxSpeed(&veh);
