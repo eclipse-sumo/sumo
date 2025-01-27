@@ -44,5 +44,5 @@
     <turn-ratio-total value="1" type="float" help="Set value for normalizing turning ratios (default 1)" category="processing"/>
     <turn-ratio-tolerance value="None" type="float" help="Set tolerance for error in resulting ratios (relative to turn-ratio-total)" category="processing"/>
     <turn-ratio-abs-tolerance value="1" type="int" help="Set tolerance for error in resulting turning ratios as absolute count" category="processing"/>
-    <threads value="1" type="int" help="If parallelization is desired, enter the number of CPUs to use. Set to a value >> then your machines CPUs if you want to utilize all CPUs (Default is 1)" category="processing"/>
+    <threads value="1" type="int" help="If parallelization is desired, enter the number of CPUs to use. Set to a value &gt;&gt; then your machines CPUs if you want to utilize all CPUs (Default is 1)" category="processing"/>
 </configuration>
