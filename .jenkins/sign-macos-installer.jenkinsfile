@@ -283,7 +283,6 @@ pipeline {
                             mv "\$signed_file" "\$file"
 
                             curl -X POST -F file=@"\$file" -F 'options={"primaryBundleId": "org.eclipse.sumo", "staple": true};type=application/json' https://cbi.eclipse.org/macos/xcrun/notarize
-                            done
                         """,
                         returnStdout: true
                     ).trim()
@@ -307,7 +306,7 @@ pipeline {
                             returnStdout: true
                         ).trim()
 
-                        statusMatch = (pollResponse =~ statusRegex)
+                        statusMatch = (pollResponse =~ /"status"\s*:\s*"([^"]+)"/)
                         if (!statusMatch) {
                             error("Failed to extract status from notarization polling response: ${pollResponse}")
                         }
@@ -328,13 +327,18 @@ pipeline {
                         mkdir notarized
                         curl -s -o notarized/\$file https://cbi.eclipse.org/macos/xcrun/${uuid}/download
                     """
+
+                    stash name: 'notarized', includes: 'notarized/sumo*.pkg'
                 }
             }
         }
-        // stage('Building DMG') {
-        //     steps {
-        //         unstash 'notarized'
-        //     }
-        // }
+        stage('Building DMG') {
+            steps {
+                unstash 'notarized'
+                sh """
+                  ls -lsa
+                """
+            }
+        }
     }
 }
