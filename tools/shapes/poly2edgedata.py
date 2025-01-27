@@ -44,9 +44,10 @@ from collections import defaultdict
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.join(THIS_DIR, '..'))
 import sumolib  # noqa
-import sumolib.geomhelper as gh
+import sumolib.geomhelper as gh  #noqa
 
 PATCH_NONE = 'None'
+
 
 def get_options(args=None):
     op = sumolib.options.ArgumentParser(description="Transform polygons with params into edgedata with attributes")
@@ -56,7 +57,7 @@ def get_options(args=None):
     op.add_option("-n", "--netfile", category="input", required=True, type=op.net_file,
                   help="Network file on which to map the polygons")
     op.add_option("-p", "--patchfile", category="input",  type=op.file,
-                    help="Load a file with patches to apply during import")
+                  help="Load a file with patches to apply during import")
     op.add_option("-r", "--radius", type=float, default=20,
                   help="radius for finding edges near polygons")
     op.add_option("--shapecut", type=float, default=40,
@@ -66,11 +67,11 @@ def get_options(args=None):
     op.add_option("--min-length", type=float, default=10, dest="minLength",
                   help="minimum edge length that may be mapped to")
     op.add_option("-s", "--split-attributes", dest="splitAttrs",
-                  help="If a reverse edge is found, split the values of the given attribute list among edge and reverse edge")
+                  help="If a reverse edge is found, split the values of the given attribute list among edge and reverse edge")  # noqa
     op.add_option("-S", "--nosplit-attributes", dest="noSplitAttrs",
                   help="If a reverse edge is found, split the values of all attributes except the given attribute list among edge and reverse edge")  # noqa
     op.add_option("-f", "--filter", dest="filter",
-                  help="Read a list of triplets ATTR,MIN,MAX and only keep polygons where value ATTR is within [MIN,MAX]")
+                  help="Read a list of triplets ATTR,MIN,MAX and only keep polygons where value ATTR is within [MIN,MAX]")  # noqa
     op.add_option("-b", "--begin", default=0, type=op.time,
                   help="edgedata interval begin time")
     op.add_option("-e", "--end", default="1:0:0:0", type=op.time,
@@ -87,7 +88,7 @@ def get_options(args=None):
     options.splitAttrs = set(options.splitAttrs.split(',')) if options.splitAttrs else []
     options.noSplitAttrs = set(options.noSplitAttrs.split(',')) if options.noSplitAttrs else []
     tuples = options.filter.split(',') if options.filter else []
-    options.filter = {} # attr -> (min, max)
+    options.filter = {}  # attr -> (min, max)
     for i in range(0, len(tuples), 3):
         options.filter[tuples[i]] = (float(tuples[i + 1]), float(tuples[i + 2]))
     return options
@@ -103,7 +104,7 @@ def hasReverse(edge):
 def readPatches(net, pfile):
     patchEdg = {}  # polyID->edge
     patchRev = {}  # forwardEdge->reverseEdge
-    patchDat = defaultdict(lambda: {}) # polyID->attr->data (-1 ignores)
+    patchDat = defaultdict(lambda: {})  # polyID->attr->data (-1 ignores)
     if pfile is not None:
         with open(pfile) as pf:
             for line in pf:
@@ -112,7 +113,7 @@ def readPatches(net, pfile):
                 if patchtype == "rev":
                     edgeID, reverseID = items[1:]
                     patchRev[edgeID] = reverseID
-                    test = net.getEdge(edgeID)
+                    net.getEdge(edgeID)  # provoke error if edgeID does not exist in net
                 elif patchtype == "edg":
                     polyID, edgeID = items[1:]
                     patchEdg[polyID] = edgeID
@@ -131,7 +132,7 @@ def readPatches(net, pfile):
 def main(options):
     net = sumolib.net.readNet(options.netfile)
     patchEdg, patchRev, patchDat = readPatches(net, options.patchfile)
-    usedEdges = set() # do not assign different polygons/counts to the same edge
+    usedEdges = set()  # do not assign different polygons/counts to the same edge
     scut = options.shapecut
 
     with open(options.outfile, 'w') as foutobj:
@@ -143,7 +144,7 @@ def main(options):
 
                 shape = []
                 for lonlat in poly.shape.split():
-                    lon,lat = lonlat.split(',')
+                    lon, lat = lonlat.split(',')
                     shape.append(net.convertLonLat2XY(float(lon), float(lat)))
                 shapelen = gh.polyLength(shape)
                 cx, cy = gh.positionAtShapeOffset(shape, shapelen / 2)
@@ -179,8 +180,9 @@ def main(options):
                         angle = gh.angleTo2D(gh.positionAtShapeOffset(eShape, offset1),
                                              gh.positionAtShapeOffset(eShape, offset2))
                         revAngle = gh.angleTo2D(gh.positionAtShapeOffset(eShape, offset2),
-                                             gh.positionAtShapeOffset(eShape, offset1))
-                    if degrees(fabs(polyAngle - angle)) < options.atol or degrees(fabs(polyAngle - revAngle)) < options.atol:
+                                                gh.positionAtShapeOffset(eShape, offset1))
+                    if (degrees(fabs(polyAngle - angle)) < options.atol or
+                        degrees(fabs(polyAngle - revAngle)) < options.atol):
                         cands.append(e)
                 edges = cands
                 if not edges:
@@ -196,8 +198,6 @@ def main(options):
                         maxDist = max([gh.distancePointToPolygon(xy, shape) for xy in e.getShape()])
                     else:
                         maxDist = max([gh.distancePointToPolygon(xy, e.getShape()) for xy in shape])
-                    #if poly.id == "241517.0":
-                    #    print(e.getID(), maxDist, "shapelen", shapelen, "eLen", e.getLength())
                     if maxDist < bestDist:
                         bestDist = maxDist
                         bestEdge = e
@@ -214,8 +214,7 @@ def main(options):
                     continue
                 # find opposite direction for undivided road
                 for e in edges:
-                    if (e.getFromNode() == bestEdge.getToNode() and
-                        e.getToNode() == bestEdge.getFromNode()):
+                    if e.getFromNode() == bestEdge.getToNode() and e.getToNode() == bestEdge.getFromNode():
                         bestReverse = e
                         break
                 # apply revers edge patch
@@ -253,18 +252,19 @@ def main(options):
                         if poly.id in patchDat:
                             if param.key in patchDat[poly.id]:
                                 value = patchDat[poly.id][param.key]
-                                #print("patched %s to %s" % (param.value, value))
+                                # print("patched %s to %s" % (param.value, value))
                                 if value == PATCH_NONE:
                                     continue
                         if param.key in options.filter:
-                            if (float(value) < options.filter[param.key][0] or
-                                float(value) > options.filter[param.key][1]):
+                            if ((float(value) < options.filter[param.key][0] or
+                                 float(value) > options.filter[param.key][1])):
                                 skip = True
-                        if bestReverse is not None and (param.key in options.splitAttrs
-                                or options.noSplitAttrs and param.key not in options.noSplitAttrs):
+                        if (bestReverse is not None
+                                and (param.key in options.splitAttrs
+                                     or options.noSplitAttrs and param.key not in options.noSplitAttrs)):
                             try:
                                 value = float(value) / 2
-                            except:
+                            except ValueError:
                                 pass
                         attrs += ' %s="%s"' % (param.key, value)
 

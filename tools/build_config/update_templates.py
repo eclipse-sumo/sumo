@@ -19,10 +19,10 @@
 This script finds tools that should be added to templates.py
 """
 
-import os,sys
+import os
+import sys
 from os import path
 import glob
-import re
 from templates import TOOLS, generateToolTemplates
 
 toolDir = path.join(path.dirname(__file__), '..')
@@ -35,7 +35,7 @@ for fname in pyfiles:
         for line in f:
             if "ArgumentParser" in line:
                 candidates.append(fname)
-                break;
+                break
 print("found %s files that use ArgumentParser" % len(candidates))
 
 candidates = [f for f in candidates if path.dirname(f) not in ('build_config', 'devel', 'game', 'purgatory')]

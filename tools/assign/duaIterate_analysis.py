@@ -57,7 +57,7 @@ def parse_args():
     parser.add_argument("dualog", category="output", nargs=1, type=parser.file, help="file path to dua log file")
     options = parser.parse_args()
     options.dualog = options.dualog[0]
-    
+
     if options.limit is None:
         options.limit = uMax
     return options

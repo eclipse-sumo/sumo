@@ -149,7 +149,7 @@ def extract_lanes_width_data(rte, ):
 
 if __name__ == "__main__":
     op = sumolib.options.ArgumentParser()
-    op.add_argument("xodr_file", category="input", 
+    op.add_argument("xodr_file", category="input",
                     help="file path of open drive file")
     op.add_argument("net_file", category="input",
                     help="file path of net file")

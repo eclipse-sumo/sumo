@@ -27,8 +27,6 @@ from __future__ import absolute_import
 import sys
 import argparse
 import collections
-from xml.sax import parse
-
 import sumolib
 
 

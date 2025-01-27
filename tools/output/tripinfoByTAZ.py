@@ -26,7 +26,6 @@ from __future__ import absolute_import
 from __future__ import print_function
 import os
 import sys
-import argparse
 from collections import defaultdict
 sys.path.append(os.path.join(os.environ["SUMO_HOME"], 'tools'))
 from sumolib.output import parse  # noqa
