@@ -1,16 +1,16 @@
-Parsing types from '/home/behr_mi/sumo/data/typemap/osmNetconvert.typ.xml' ... done.
-Parsing types from '/home/behr_mi/sumo/data/typemap/osmNetconvertBicycle.typ.xml' ... done.
-Parsing nodes from osm-file 'osm.xml.gz' ... done (3ms).
+Parsing types from '/scr1/sumo/data/typemap/osmNetconvert.typ.xml' ... done.
+Parsing types from '/scr1/sumo/data/typemap/osmNetconvertBicycle.typ.xml' ... done.
+Parsing nodes from osm-file 'osm.xml.gz' ... done (19ms).
 Parsing edges from osm-file 'osm.xml.gz' ...
- done (4ms).
+ done (27ms).
 Removing duplicate edges ... done.
 Adding new type 'cycleway.track|highway.tertiary' (first occurrence for edge '10597569').
 Adding new type 'cycleway.lane|cycleway.track|highway.secondary' (first occurrence for edge '93203448').
 Parsing relations from osm-file 'osm.xml.gz' ...
- done (16ms).
+ done (73ms).
  Import done:
    61 nodes loaded.
-   41 types loaded.
+   42 types loaded.
    95 edges loaded.
 Proj projection parameters used: '+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs'.
 Removing self-loops ... done (0ms).
@@ -21,30 +21,30 @@ Align pt stop id signs with corresponding edge id signs ... done (0ms).
 Joining tram edges ...
  done (1ms).
  Joined 21 tram edges into roads.
-Joining junction clusters ... done (1ms).
+Joining junction clusters ... done (25ms).
  Joined 2 junction cluster(s).
 Removing empty nodes and geometry nodes ... done (0ms).
    11 nodes removed.
-Moving network to origin ... done (1ms).
+Moving network to origin ... done (2ms).
 Computing turning directions ...
  done (0ms).
 Assigning nodes to traffic lights ... done (0ms).
 Removing sharp turn with radius 2.18 at the start of edge '236529400'.
 Sorting nodes' edges ... done (0ms).
 Computing node shapes ... done (2ms).
-Computing edge shapes ... done (0ms).
+Computing edge shapes ... done (1ms).
 Computing node types ... done (0ms).
-Computing priorities ... done (0ms).
+Computing priorities ... done (1ms).
 Computing approached edges ... done (0ms).
 Guessing and setting roundabouts ... done (0ms).
-Computing approaching lanes ... done (1ms).
-Dividing of lanes on approached lanes ... done (0ms).
+Computing approaching lanes ... done (0ms).
+Dividing of lanes on approached lanes ... done (4ms).
 Processing turnarounds ... done (0ms).
 Rechecking of lane endings ...
  done (0ms).
 Computing traffic light control information ... done (0ms).
 Computing node logics ... done (1ms).
-Computing traffic light logics ... done (0ms).
+Computing traffic light logics ... done (1ms).
  8 traffic light(s) computed.
 Find accesses for pt rail stops ... done (1ms).
 -----------------------------------------------------
@@ -60,5 +60,5 @@ Summary:
   Applied offset     : -398939.91,-5813454.64
   Converted boundary : 0.00,0.00,207.75,105.63
 -----------------------------------------------------
-Writing network ... done (4ms).
+Writing network ... done (13ms).
 Success.
