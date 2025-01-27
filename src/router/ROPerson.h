@@ -435,7 +435,7 @@ public:
      * @param[in] options to find out about defaults and whether exit times for the edges shall be written
      * @exception IOError If something fails (not yet implemented)
      */
-    void saveAsXML(OutputDevice& os, OutputDevice* const typeos, bool asAlternatives, OptionsCont& options, int cloneIndex=0) const;
+    void saveAsXML(OutputDevice& os, OutputDevice* const typeos, bool asAlternatives, OptionsCont& options, int cloneIndex = 0) const;
 
     std::vector<PlanItem*>& getPlan() {
         return myPlan;

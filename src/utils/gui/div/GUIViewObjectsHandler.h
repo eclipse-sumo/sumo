@@ -70,7 +70,7 @@ public:
         ObjectContainerLayer() {}
 
         // @brief append object container and resize if neccesary
-        void append(const ObjectContainer &objectContainer);
+        void append(const ObjectContainer& objectContainer);
     };
 
     /// @brief typedef for pack elements sorted by layer

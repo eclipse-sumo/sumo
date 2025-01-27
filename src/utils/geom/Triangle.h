@@ -39,25 +39,25 @@ public:
     Triangle();
 
     /// @brief parameter constructor
-    Triangle(const Position &positionA, const Position &positionB, const Position &positionC);
+    Triangle(const Position& positionA, const Position& positionB, const Position& positionC);
 
     /// @brief destructor
     ~Triangle();
 
     /// @brief get triangle boundary
-    const Boundary &getBoundary() const;
-    
+    const Boundary& getBoundary() const;
+
     /// @brief get shape boundary
     const PositionVector getShape() const;
 
     /// @brief check if the given position is within this triangle
-    bool isAroundPosition(const Position &pos) const;
+    bool isAroundPosition(const Position& pos) const;
 
     /// @brief check if the given shape is within this triangle or intersect in a certain point
-    bool isAroundShape(const PositionVector &shape) const;
+    bool isAroundShape(const PositionVector& shape) const;
 
     /// @brief check if the given boundary is within this triangle
-    bool isBoundaryAround(const Boundary &boundary) const;
+    bool isBoundaryAround(const Boundary& boundary) const;
 
     /// @brief check if the given circunference is within this triangle
     bool isCircunferenceAround(const Position& center, const double radius) const;
@@ -69,7 +69,7 @@ private:
     /// @name functions used for triangulating
     /// @{
     /// @brief check if the given position is within this triangle
-    static bool isAroundPosition(const Position &A, const Position &B, const Position &C, const Position &pos);
+    static bool isAroundPosition(const Position& A, const Position& B, const Position& C, const Position& pos);
 
     // Check if the triangle (A, B, C) is an ear
     static bool isEar(const Position& a, const Position& b, const Position& c, const PositionVector& shape);

@@ -97,7 +97,7 @@ public:
         std::cout << "Instantiating arc flag build..." << std::endl;
 #endif
         myArcFlagBuild = new AFBuild<E, N, V, M>(myFlippedEdges, myFlippedPartition, numberOfLevels, unbuildIsWarning,
-                                              flippedOperation, flippedLookup, havePermissions, haveRestrictions, toProhibit);
+                flippedOperation, flippedLookup, havePermissions, haveRestrictions, toProhibit);
 
 #ifdef AFBL_DEBUG_LEVEL_0
         std::cout << "Arc flag build is instantiated (but still uninitialized)." << std::endl;

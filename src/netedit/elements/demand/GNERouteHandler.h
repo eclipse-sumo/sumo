@@ -256,13 +256,13 @@ public:
 
 protected:
     /// @brief parse junction
-    GNEJunction* parseJunction(const SumoXMLTag tag, const std::string &id, const std::string& junctionID);
+    GNEJunction* parseJunction(const SumoXMLTag tag, const std::string& id, const std::string& junctionID);
 
     /// @brief parse TAZ
-    GNEAdditional* parseTAZ(const SumoXMLTag tag, const std::string &id, const std::string& TAZID);
+    GNEAdditional* parseTAZ(const SumoXMLTag tag, const std::string& id, const std::string& TAZID);
 
     /// @brief parse edge
-    GNEEdge* parseEdge(const SumoXMLTag tag, const std::string &id, const std::string& edgeID,
+    GNEEdge* parseEdge(const SumoXMLTag tag, const std::string& id, const std::string& edgeID,
                        const CommonXMLStructure::SumoBaseObject* sumoBaseObject,
                        const bool firstEdge);
 
@@ -270,10 +270,10 @@ protected:
     GNEEdge* parseStopEdge(const CommonXMLStructure::SumoBaseObject* sumoBaseObject) const;
 
     /// @brief parse edge from lane ID
-    GNEEdge* parseEdgeFromLaneID(const std::string &laneID) const;
+    GNEEdge* parseEdgeFromLaneID(const std::string& laneID) const;
 
     /// @brief parse edges
-    std::vector<GNEEdge*> parseEdges(const SumoXMLTag tag, const std::string &id, const std::vector<std::string>& edgeIDs);
+    std::vector<GNEEdge*> parseEdges(const SumoXMLTag tag, const std::string& id, const std::vector<std::string>& edgeIDs);
 
     /// @brief get type (Either type o typeDistribution)
     GNEDemandElement* getType(const std::string& id) const;
@@ -292,8 +292,8 @@ protected:
     /// @brief check if given ID correspond to a duplicated demand element
     bool checkDuplicatedDemandElement(const SumoXMLTag tag, const std::vector<SumoXMLTag> tags, const std::string& id);
 
-    /// @brief check if 
-    void checkOverwritteElement(const std::vector<SumoXMLTag> &tags, const std::string &id);
+    /// @brief check if
+    void checkOverwritteElement(const std::vector<SumoXMLTag>& tags, const std::string& id);
 
 private:
     /// @brief pointer to GNENet

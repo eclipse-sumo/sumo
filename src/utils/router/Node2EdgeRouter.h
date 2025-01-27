@@ -98,7 +98,7 @@ public:
     /// @brief Cloning method
     virtual SUMOAbstractRouter<E, V>* clone() {
         return new Node2EdgeRouter<E, N, V, M>(this->myEdgeInfos, this->myErrorMsgHandler == MsgHandler::getWarningInstance(), this->myOperation, this->myLookupTable,
-                                            this->myHavePermissions, this->myHaveRestrictions);
+                                               this->myHavePermissions, this->myHaveRestrictions);
     }
 
     /** @brief Reset method

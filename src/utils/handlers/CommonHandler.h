@@ -93,7 +93,7 @@ protected:
     bool checkNegative(const SumoXMLTag tag, const std::string& id, const SumoXMLAttr attribute, const SUMOTime value, const bool canBeZero);
 
     /// @brief check if the given filename is valid
-    bool checkFileName(const SumoXMLTag tag, const std::string& id, const SumoXMLAttr attribute, const std::string &value);
+    bool checkFileName(const SumoXMLTag tag, const std::string& id, const SumoXMLAttr attribute, const std::string& value);
 
     /// @brief check if the given additional ID is valid
     bool checkValidAdditionalID(const SumoXMLTag tag, const std::string& value);

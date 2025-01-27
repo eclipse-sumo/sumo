@@ -122,7 +122,7 @@ public:
 
     virtual SUMOAbstractRouter<E, V>* clone() {
         return new AStarRouter<E, V, M>(this->myEdgeInfos, this->myErrorMsgHandler == MsgHandler::getWarningInstance(), this->myOperation, myLookupTable,
-                                     this->myHavePermissions, this->myHaveRestrictions);
+                                        this->myHavePermissions, this->myHaveRestrictions);
     }
 
     /** @brief Builds the route between the given edges using the minimum travel time */

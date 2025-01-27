@@ -591,7 +591,7 @@ public:
     bool showJunctionAsBubbles() const;
 
     /// @brief ask merge junctions
-    bool askMergeJunctions(const GNEJunction* movedJunction, const GNEJunction* targetJunction, bool &alreadyAsked);
+    bool askMergeJunctions(const GNEJunction* movedJunction, const GNEJunction* targetJunction, bool& alreadyAsked);
 
     /// @brief ask about change supermode
     bool aksChangeSupermode(const std::string& operation, Supermode expectedSupermode);

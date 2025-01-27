@@ -231,7 +231,7 @@ private:
 
     /// @name check functions used for simplify code in handlers
     /// @{
-        
+
     /// @brief check if element is defined over from-to edges
     bool isOverFromToEdges(const CommonXMLStructure::SumoBaseObject* sumoBaseObject) const;
 

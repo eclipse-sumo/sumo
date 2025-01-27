@@ -41,7 +41,7 @@ public:
         FROM,           // Element marked as from (green)
         TO,             // Element marked as to (magenta)
         RELATED,        // Element marked as related (cyan)
-        WALKINGAREA,    // Used if we're drawing walking areas in contour mode 
+        WALKINGAREA,    // Used if we're drawing walking areas in contour mode
         NOTHING
     };
 

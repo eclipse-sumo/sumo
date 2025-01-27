@@ -179,7 +179,7 @@ public:
     bool checkChildDemandElementsOverlapping() const;
 
 protected:
-    /// @brief replace parents in the given edited element 
+    /// @brief replace parents in the given edited element
     template<typename T, typename U>
     void replaceParentElements(T* editedElement, const std::vector<U>& newParents) {
         // remove edited elements from parents
@@ -194,7 +194,7 @@ protected:
         }
     }
 
-    /// @brief replace children in the given edited element 
+    /// @brief replace children in the given edited element
     template<typename T, typename U>
     void replaceChildElements(T* editedElement, const GNEHierarchicalContainerChildren<U>& newChildren) {
         // remove edited elements from children
