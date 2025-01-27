@@ -17,14 +17,6 @@
 # @date    2024-07-16
 
 # Creates the macOS installer for the current version of SUMO.
-# It requires a build to have completed successfully.
-# This build directory needs to be provided as parameter.
-#
-# This script will then:
-# 1. Create a pkg file for Eclipse SUMO (= "framework") (and also add dependent libraries)
-# 2. Create pkg files for all launchers (= "apps")
-# 3. Create an installer pkg to jointly install the framework pkg and all app pkgs
-# 4. Put the installer pkg into a dmg - ready to be notarized
 
 import os
 import plistlib
