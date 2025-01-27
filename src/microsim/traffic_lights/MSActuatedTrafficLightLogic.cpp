@@ -41,6 +41,7 @@
 
 //#define DEBUG_DETECTORS
 //#define DEBUG_PHASE_SELECTION
+//#define DEBUG_PHASE_SELECTION_CUSTOM
 #define DEBUG_COND (getID()=="C")
 
 // ===========================================================================
@@ -1173,7 +1174,12 @@ MSActuatedTrafficLightLogic::decideNextPhaseCustom(bool mustSwitch) {
     for (int next : getCurrentPhaseDef().nextPhases) {
         const MSPhaseDefinition* phase = myPhases[next];
         const std::string& condition = mustSwitch ? phase->finalTarget : phase->earlyTarget;
-        //std::cout << SIMTIME << " mustSwitch=" << mustSwitch << " condition=" << condition << "\n";
+#ifdef DEBUG_PHASE_SELECTION_CUSTOM
+        if (DEBUG_COND) {
+            std::cout << SIMTIME << " mustSwitch=" << mustSwitch << " cur=" << myStep << " next=" << next << " condition=" << condition
+                << " eval=" << (condition == "" ? NAN : evalExpression(condition)) << "\n";
+        }
+#endif
         if (condition != "") {
             // backward compatibility if a user redefined DEFAULT_CONDITION
             if (condition == DEFAULT_CONDITION && myConditions.count(DEFAULT_CONDITION) == 0) {
