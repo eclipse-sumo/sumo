@@ -236,10 +236,11 @@ pipeline {
                         rm -rf apps-pkg
                         unzip -q -o apps-pkg-signed.zip -d "${WORKSPACE}"
 
+                        rm -rf installer
                         env/bin/python3 sumo/tools/build_config/buildMacOSInstaller.py --create-installer-pkg --framework-pkg-dir framework-pkg --apps-pkg-dir apps-pkg
                     """
                 }
-                stash name: 'installer-unsiged', includes: 'sumo*.pkg'
+                stash name: 'installer-unsigned', includes: 'installer/sumo*.pkg'
             }
         }
         stage('Signing and Notarizing Installer .pkg file') {
@@ -247,7 +248,7 @@ pipeline {
                 label 'ubuntu-latest'
             }
             steps {
-                unstash 'installer-unsiged'
+                unstash 'installer-unsigned'
                 script {
                     // Create the entitlements file
                     def entitlementsFile = 'sumo.entitlements'
@@ -275,7 +276,7 @@ pipeline {
                     // Sign and initiate notarization for the installer pkg
                     def response = sh(
                         script: """
-                            file=\$(ls sumo*.pkg)
+                            file=\$(ls installer/sumo*.pkg)
                             signed_file="\${file}-signed"
 
                             curl -s -o "\$signed_file" -F "file=@\$file" -F "entitlements=@${entitlementsFile}" https://cbi-staging.eclipse.org/macos/codesign/sign
@@ -319,7 +320,11 @@ pipeline {
                     }
 
                     sh """
-                        file=\$(ls sumo*.pkg)
+                        # Determine the name of the file
+                        file=\$(ls installer/sumo*.pkg)
+                        file=\$(basename "\$file")
+
+                        rm -rf notarized
                         mkdir notarized
                         curl -s -o notarized/\$file https://cbi.eclipse.org/macos/xcrun/${uuid}/download
                     """
