@@ -1633,7 +1633,7 @@ GNETAZFrame::shapeDrawed() {
             std::vector<std::string> edgeIDs;
             // triangulate shape
             const auto triangulation = Triangle::triangulate(shape);
-            for (const auto &triangle : triangulation) {
+            for (const auto& triangle : triangulation) {
                 // update objects in boundary
                 myViewNet->updateObjectsInBoundary(triangle.getBoundary());
                 // resize to improve efficiency
@@ -1735,13 +1735,12 @@ GNETAZFrame::dropTAZMembers() {
 
 bool
 GNETAZFrame::askCreateMultipleSourceSinks(const size_t numSourceSinks) const {
-    // declare variable to save FXMessageBox outputs.
-    FXuint answer = 0;
     // write warning if netedit is running in testing mode
     WRITE_DEBUG("Opening FXMessageBox 'Ask create multiple sourceSinks'");
     // open question dialog box
-    answer = FXMessageBox::question(myViewNet->getApp(), MBOX_YES_NO, TL("Create multiple sourceSInks"),
-                                    TLF("Creation of % cannot be undo. Continue?", toString(numSourceSinks)).c_str());
+    const std::string header = TL("Create multiple sourceSinks");
+    const std::string info = TLF("Creation of % cannot be undo. Continue?", toString(numSourceSinks));
+    const auto answer = FXMessageBox::question(myViewNet->getApp(), MBOX_YES_NO, header.c_str(), info.c_str());
     if (answer != 1) { //1:yes, 2:no, 4:esc
         // write warning if netedit is running in testing mode
         if (answer == 2) {
@@ -1757,4 +1756,5 @@ GNETAZFrame::askCreateMultipleSourceSinks(const size_t numSourceSinks) const {
         return true;
     }
 }
+
 /****************************************************************************/

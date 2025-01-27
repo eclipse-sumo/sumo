@@ -153,10 +153,14 @@ RouteHandler::endParseAttributes() {
         myCommonXMLStructure.closeSUMOBaseOBject();
         switch (obj->getTag()) {
             case SUMO_TAG_ROUTE:
-                // special case for embedded routes
-                if (!obj->hasStringAttribute(SUMO_ATTR_ID)) {
-                    break;
+                // special case, because embedded routes are created within vehicles
+                if (obj->hasStringAttribute(SUMO_ATTR_ID)) {
+                    // parse object and all their childrens
+                    parseSumoBaseObject(obj);
+                    // delete object (and all of their childrens)
+                    delete obj;
                 }
+                break;
             case SUMO_TAG_VTYPE:
             case SUMO_TAG_VTYPE_DISTRIBUTION:
             case SUMO_TAG_ROUTE_DISTRIBUTION:
@@ -388,7 +392,7 @@ RouteHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) {
         // container
         case SUMO_TAG_CONTAINER:
             if (buildContainer(obj,
-                              obj->getVehicleParameter())) {
+                               obj->getVehicleParameter())) {
                 obj->markAsCreated();
             }
             break;
@@ -501,7 +505,7 @@ RouteHandler::parseRoute(const SUMOSAXAttributes& attrs) {
         // declare Ok Flag
         bool parsedOk = true;
         // special case for ID
-        const std::string id = embeddedRoute? myCommonXMLStructure.getCurrentSumoBaseObject()->getParentSumoBaseObject()->getVehicleParameter().id : attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk);
+        const std::string id = embeddedRoute ? myCommonXMLStructure.getCurrentSumoBaseObject()->getParentSumoBaseObject()->getVehicleParameter().id : attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk);
         // needed attributes
         const std::vector<std::string> edges = attrs.get<std::vector<std::string> >(SUMO_ATTR_EDGES, id.c_str(), parsedOk);
         // optional attributes
