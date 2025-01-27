@@ -67,7 +67,7 @@ def parse_args(def_dmg_name, def_pkg_name):
 
     # We can set one these actions exclusively
     action_group = op.add_mutually_exclusive_group("Actions")
-    action_group.add_argument("--create-framework-directory", dest="create_framework_dir", action="store_true")
+    action_group.add_argument("--create-framework-dir", dest="create_framework_dir", action="store_true")
     action_group.add_argument("--create-framework-pkg", dest="create_framework_pkg", action="store_true")
     action_group.add_argument("--create-apps-dir", dest="create_apps_dir", action="store_true")
     action_group.add_argument("--create-apps-pkg", dest="create_apps_pkg", action="store_true")
@@ -540,14 +540,14 @@ def main():
 
     elif opts.create_installer_pkg:
         if not os.path.exists(os.path.dirname(opts.installer_pkg_file)):
-            print(f"Error: pkg output directory '{os.path.dirname(
-                opts.installer_pkg_file)}' does not exist.", file=sys.stderr)
+            print(f"Error: pkg output directory '{os.path.dirname(opts.installer_pkg_file)}' does not exist.",
+                  file=sys.stderr)
             sys.exit(1)
 
         print("Building installer pkg file")
         # Where do we find our pkgs?
-        fw_pkg = [os.path.join(opts.framework_pkg_dir, f"{
-                               default_framework_name}-{version}.pkg"), f"{base_id}.framework"]
+        fw_pkg = [os.path.join(opts.framework_pkg_dir, f"{default_framework_name}-{version}.pkg"),
+                  f"{base_id}.framework"]
         app_pkgs = []
         for app_name, app_binary, app_framework, app_id, app_ver, app_icons, app_folder in app_list:
             app_pkgs.append([os.path.join(opts.apps_pkg_dir, f"Launcher-{app_name}-{version}.pkg"), app_id])
@@ -560,8 +560,8 @@ def main():
 
     elif opts.create_installer_dmg:
         if not os.path.exists(os.path.dirname(opts.installer_dmg_file)):
-            print(f"Error: output directory '{os.path.dirname(
-                opts.installer_dmg_file)}' does not exist.", file=sys.stderr)
+            print(f"Error: output directory '{os.path.dirname(opts.installer_dmg_file)}' does not exist.",
+                  file=sys.stderr)
             sys.exit(1)
 
         print("Building installer disk image (dmg file)")
