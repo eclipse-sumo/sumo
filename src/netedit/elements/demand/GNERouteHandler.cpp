@@ -2625,14 +2625,13 @@ GNERouteHandler::checkElement(const SumoXMLTag tag, GNEDemandElement* demandElem
     if (demandElement) {
         if (myAllowUndoRedo && myOverwrite) {
             writeWarningOverwritting(tag, demandElement->getID());
-            myNet->getViewNet()->getUndoList()->begin(demandElement, TL("delete ") + demandElement->getTagStr() + " '" + demandElement->getID() + "'");
-            myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(demandElement, false), true);
-            myNet->getViewNet()->getUndoList()->end();
+            // delete element
+            myNet->deleteDemandElement(demandElement, myNet->getViewNet()->getUndoList());
             // continue creating new element
             return true;
         } else {
             // write errorduplicated demand element
-            return writeErrorDuplicated(tag, demandElement->getID(), demandElement->getTagProperty().getTag());
+            return writeWarningDuplicated(tag, demandElement->getID(), demandElement->getTagProperty().getTag());
         }
     } else {
         return true;

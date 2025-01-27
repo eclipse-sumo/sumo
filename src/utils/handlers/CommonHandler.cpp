@@ -329,6 +329,12 @@ CommonHandler::writeWarningOverwritting(const SumoXMLTag tag, const std::string&
 
 
 bool
+CommonHandler::writeWarningDuplicated(const SumoXMLTag tag, const std::string& id, const SumoXMLTag checkedTag) {
+    return writeError(TLF("Could not build % with ID '%' in netedit; Found another % with the same ID.", toString(tag), id, toString(checkedTag)));
+}
+
+
+bool
 CommonHandler::writeError(const std::string& error) {
     WRITE_ERROR(error);
     myErrorCreatingElement = true;
@@ -339,12 +345,6 @@ CommonHandler::writeError(const std::string& error) {
 bool
 CommonHandler::writeErrorInvalidPosition(const SumoXMLTag tag, const std::string& id) {
     return writeError(TLF("Could not build % with ID '%' in netedit; Invalid position over lane.", toString(tag), id));
-}
-
-
-bool
-CommonHandler::writeErrorDuplicated(const SumoXMLTag tag, const std::string& id, const SumoXMLTag checkedTag) {
-    return writeError(TLF("Could not build % with ID '%' in netedit; Found another % with the same ID.", toString(tag), id, toString(checkedTag)));
 }
 
 

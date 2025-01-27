@@ -109,14 +109,14 @@ protected:
     /// @brief write warning overwritting element
     void writeWarningOverwritting(const SumoXMLTag tag, const std::string& id);
 
+    /// @brief write warning duplicated element
+    bool writeWarningDuplicated(const SumoXMLTag tag, const std::string& id, const SumoXMLTag checkedTag);
+
     /// @brief write error and enable error creating element
     bool writeError(const std::string& error);
 
     /// @brief write error "invalid position"
     bool writeErrorInvalidPosition(const SumoXMLTag tag, const std::string& id);
-
-    /// @brief write error duplicated element
-    bool writeErrorDuplicated(const SumoXMLTag tag, const std::string& id, const SumoXMLTag checkedTag);
 
     /// @brief write error "empty edges"
     bool writeErrorEmptyEdges(const SumoXMLTag tag, const std::string& id);

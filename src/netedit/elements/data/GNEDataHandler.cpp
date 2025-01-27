@@ -273,13 +273,13 @@ GNEDataHandler::checkDuplicatedDataSet(const std::string& id) {
     if (dataSet) {
         if (!myAllowUndoRedo) {
             // only overwrite if allow undo-redo
-            return writeErrorDuplicated(SUMO_TAG_DATASET, id, SUMO_TAG_DATASET);
+            return writeWarningDuplicated(SUMO_TAG_DATASET, id, SUMO_TAG_DATASET);
         } else if (myOverwrite) {
             // delete demand element (and all of their childrens)
             myNet->deleteDataSet(dataSet, myNet->getViewNet()->getUndoList());
         } else {
             // duplicated dataSet
-            return writeErrorDuplicated(SUMO_TAG_DATASET, id, SUMO_TAG_DATASET);
+            return writeWarningDuplicated(SUMO_TAG_DATASET, id, SUMO_TAG_DATASET);
         }
     }
     return true;

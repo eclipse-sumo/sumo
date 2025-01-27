@@ -2066,13 +2066,13 @@ GNEAdditionalHandler::checkDuplicatedAdditional(const SumoXMLTag tag, const std:
         if (additional) {
             if (!myAllowUndoRedo) {
                 // only overwrite if allow undo-redo
-                return writeErrorDuplicated(tag, id, tagChecked);
+                return writeWarningDuplicated(tag, id, tagChecked);
             } else if (myOverwrite) {
                 // delete additional (and all of their childrens)
                 myNet->deleteAdditional(additional, myNet->getViewNet()->getUndoList());
             } else {
                 // duplicated additional
-                return writeErrorDuplicated(tag, id, tagChecked);
+                return writeWarningDuplicated(tag, id, tagChecked);
             }
         }
     }

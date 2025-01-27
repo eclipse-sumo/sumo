@@ -191,13 +191,13 @@ GNEMeanDataHandler::checkDuplicatedMeanDataElement(const SumoXMLTag tag, const s
     if (meanDataElement) {
         if (!myAllowUndoRedo) {
             // only overwrite if allow undo-redo
-            return writeErrorDuplicated(SUMO_TAG_DATASET, id, SUMO_TAG_DATASET);
+            return writeWarningDuplicated(SUMO_TAG_DATASET, id, SUMO_TAG_DATASET);
         } else if (myOverwrite) {
             // delete meanData element (and all of their childrens)
             myNet->deleteMeanData(meanDataElement, myNet->getViewNet()->getUndoList());
         } else {
             // duplicated demand
-            return writeErrorDuplicated(SUMO_TAG_DATASET, id, SUMO_TAG_DATASET);
+            return writeWarningDuplicated(SUMO_TAG_DATASET, id, SUMO_TAG_DATASET);
         }
     }
     return true;
