@@ -399,15 +399,15 @@ GNERouteHandler::buildFlowEmbeddedRoute(const CommonXMLStructure::SumoBaseObject
                                         const double probability, const Parameterised::Map& routeParameters) {
     // check conditions
     const auto element = retrieveDemandElement(myVehicleTags, vehicleParameters.id);
-    if (!checkElement(GNE_TAG_ROUTE_EMBEDDED, element)) {
+    if (!checkElement(GNE_TAG_FLOW_WITHROUTE, element)) {
         return false;
-    } else if (!checkValidDemandElementID(GNE_TAG_ROUTE_EMBEDDED, vehicleParameters.id)) {
+    } else if (!checkValidDemandElementID(GNE_TAG_FLOW_WITHROUTE, vehicleParameters.id)) {
         return false;
     } else {
         // parse route edges
-        const auto edges = parseEdges(GNE_TAG_ROUTE_EMBEDDED, vehicleParameters.id, edgeIDs);
+        const auto edges = parseEdges(GNE_TAG_FLOW_WITHROUTE, vehicleParameters.id, edgeIDs);
         if (edges.empty()) {
-            return writeErrorEmptyEdges(GNE_TAG_ROUTE_EMBEDDED, vehicleParameters.id);
+            return writeErrorEmptyEdges(GNE_TAG_FLOW_WITHROUTE, vehicleParameters.id);
         } else {
             // obtain  type
             GNEDemandElement* type = getType(vehicleParameters.vtypeid);

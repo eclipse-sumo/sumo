@@ -93,7 +93,7 @@ GNEAdditionalHandler::buildBusStop(const CommonXMLStructure::SumoBaseObject* sum
     const auto element = retrieveAdditionalElement(NamespaceIDs::busStops, id);
     if (!checkElement(SUMO_TAG_BUS_STOP, element)) {
         return false;
-    } else if (!checkValidDemandElementID(SUMO_TAG_BUS_STOP, id)) {
+    } else if (!checkValidAdditionalID(SUMO_TAG_BUS_STOP, id)) {
         return false;
     } else {
         // get netedit parameters
@@ -138,7 +138,7 @@ GNEAdditionalHandler::buildTrainStop(const CommonXMLStructure::SumoBaseObject* s
     const auto element = retrieveAdditionalElement(NamespaceIDs::busStops, id);
     if (!checkElement(SUMO_TAG_TRAIN_STOP, element)) {
         return false;
-    } else if (!checkValidDemandElementID(SUMO_TAG_TRAIN_STOP, id)) {
+    } else if (!checkValidAdditionalID(SUMO_TAG_TRAIN_STOP, id)) {
         return false;
     } else {
         // get netedit parameters
@@ -241,7 +241,7 @@ GNEAdditionalHandler::buildContainerStop(const CommonXMLStructure::SumoBaseObjec
     const auto element = retrieveAdditionalElement({SUMO_TAG_CONTAINER_STOP}, id);
     if (!checkElement(SUMO_TAG_CONTAINER_STOP, element)) {
         return false;
-    } else if (!checkValidDemandElementID(SUMO_TAG_CONTAINER_STOP, id)) {
+    } else if (!checkValidAdditionalID(SUMO_TAG_CONTAINER_STOP, id)) {
         return false;
     } else {
         // get netedit parameters
@@ -286,7 +286,7 @@ GNEAdditionalHandler::buildChargingStation(const CommonXMLStructure::SumoBaseObj
     const auto element = retrieveAdditionalElement({SUMO_TAG_CHARGING_STATION}, id);
     if (!checkElement(SUMO_TAG_CHARGING_STATION, element)) {
         return false;
-    } else if (!checkValidDemandElementID(SUMO_TAG_CHARGING_STATION, id)) {
+    } else if (!checkValidAdditionalID(SUMO_TAG_CHARGING_STATION, id)) {
         return false;
     } else {
         // get netedit parameters
@@ -333,7 +333,7 @@ GNEAdditionalHandler::buildParkingArea(const CommonXMLStructure::SumoBaseObject*
     const auto element = retrieveAdditionalElement({SUMO_TAG_PARKING_AREA}, id);
     if (!checkElement(SUMO_TAG_PARKING_AREA, element)) {
         return false;
-    } else if (!checkValidDemandElementID(SUMO_TAG_PARKING_AREA, id)) {
+    } else if (!checkValidAdditionalID(SUMO_TAG_PARKING_AREA, id)) {
         return false;
     } else {
         // get netedit parameters
@@ -432,7 +432,7 @@ GNEAdditionalHandler::buildE1Detector(const CommonXMLStructure::SumoBaseObject* 
     const auto element = retrieveAdditionalElement({SUMO_TAG_INDUCTION_LOOP}, id);
     if (!checkElement(SUMO_TAG_INDUCTION_LOOP, element)) {
         return false;
-    } else if (!checkValidDemandElementID(SUMO_TAG_INDUCTION_LOOP, id)) {
+    } else if (!checkValidDetectorID(SUMO_TAG_INDUCTION_LOOP, id)) {
         return false;
     } else {
         // get netedit parameters
@@ -480,7 +480,7 @@ GNEAdditionalHandler::buildSingleLaneDetectorE2(const CommonXMLStructure::SumoBa
     const auto element = retrieveAdditionalElement(NamespaceIDs::laneAreaDetectors, id);
     if (!checkElement(SUMO_TAG_LANE_AREA_DETECTOR, element)) {
         return false;
-    } else if (!checkValidDemandElementID(SUMO_TAG_LANE_AREA_DETECTOR, id)) {
+    } else if (!checkValidDetectorID(SUMO_TAG_LANE_AREA_DETECTOR, id)) {
         return false;
     } else {
         // get netedit parameters
@@ -544,7 +544,7 @@ GNEAdditionalHandler::buildMultiLaneDetectorE2(const CommonXMLStructure::SumoBas
     const auto element = retrieveAdditionalElement(NamespaceIDs::laneAreaDetectors, id);
     if (!checkElement(GNE_TAG_MULTI_LANE_AREA_DETECTOR, element)) {
         return false;
-    } else if (!checkValidDemandElementID(GNE_TAG_MULTI_LANE_AREA_DETECTOR, id)) {
+    } else if (!checkValidDetectorID(GNE_TAG_MULTI_LANE_AREA_DETECTOR, id)) {
         return false;
     } else {
         // get netedit parameters
@@ -610,7 +610,7 @@ GNEAdditionalHandler::buildDetectorE3(const CommonXMLStructure::SumoBaseObject* 
     const auto element = retrieveAdditionalElement({SUMO_TAG_ENTRY_EXIT_DETECTOR}, id);
     if (!checkElement(SUMO_TAG_ENTRY_EXIT_DETECTOR, element)) {
         return false;
-    } else if (!checkValidDemandElementID(SUMO_TAG_ENTRY_EXIT_DETECTOR, id)) {
+    } else if (!checkValidDetectorID(SUMO_TAG_ENTRY_EXIT_DETECTOR, id)) {
         return false;
     } else if (!checkNegative(SUMO_TAG_ENTRY_EXIT_DETECTOR, id, SUMO_ATTR_PERIOD, period, true)) {
         return false;
@@ -720,7 +720,7 @@ GNEAdditionalHandler::buildDetectorE1Instant(const CommonXMLStructure::SumoBaseO
     const auto element = retrieveAdditionalElement({SUMO_TAG_INSTANT_INDUCTION_LOOP}, id);
     if (!checkElement(SUMO_TAG_INSTANT_INDUCTION_LOOP, element)) {
         return false;
-    } else if (!checkValidDemandElementID(SUMO_TAG_INSTANT_INDUCTION_LOOP, id)) {
+    } else if (!checkValidDetectorID(SUMO_TAG_INSTANT_INDUCTION_LOOP, id)) {
         return false;
     } else {
         // get netedit parameters
@@ -766,7 +766,7 @@ GNEAdditionalHandler::buildLaneCalibrator(const CommonXMLStructure::SumoBaseObje
     const auto element = retrieveAdditionalElement(NamespaceIDs::calibrators, id);
     if (!checkElement(GNE_TAG_CALIBRATOR_LANE, element)) {
         return false;
-    } else if (!checkValidDemandElementID(GNE_TAG_CALIBRATOR_LANE, id)) {
+    } else if (!checkValidAdditionalID(GNE_TAG_CALIBRATOR_LANE, id)) {
         return false;
     } else if ((routeprobeID.size() > 0) && (routeProbe == nullptr)) {
         return writeErrorInvalidParent(GNE_TAG_CALIBRATOR_LANE, id, SUMO_TAG_ROUTEPROBE, routeprobeID);
@@ -822,7 +822,7 @@ GNEAdditionalHandler::buildEdgeCalibrator(const CommonXMLStructure::SumoBaseObje
     const auto element = retrieveAdditionalElement(NamespaceIDs::calibrators, id);
     if (!checkElement(SUMO_TAG_CALIBRATOR, element)) {
         return false;
-    } else if (!checkValidDemandElementID(SUMO_TAG_CALIBRATOR, id)) {
+    } else if (!checkValidAdditionalID(SUMO_TAG_CALIBRATOR, id)) {
         return false;
     } else if ((routeprobeID.size() > 0) && (routeProbe == nullptr)) {
         return writeErrorInvalidParent(SUMO_TAG_CALIBRATOR, id, SUMO_TAG_ROUTEPROBE, routeprobeID);
@@ -908,7 +908,7 @@ GNEAdditionalHandler::buildRerouter(const CommonXMLStructure::SumoBaseObject* su
     const auto element = retrieveAdditionalElement({SUMO_TAG_REROUTER}, id);
     if (!checkElement(SUMO_TAG_REROUTER, element)) {
         return false;
-    } else if (!checkValidDemandElementID(SUMO_TAG_REROUTER, id)) {
+    } else if (!checkValidAdditionalID(SUMO_TAG_REROUTER, id)) {
         return false;
     } else if (!checkNegative(SUMO_TAG_REROUTER, id, SUMO_ATTR_PROB, prob, true)) {
         return false;
@@ -1154,7 +1154,7 @@ GNEAdditionalHandler::buildRouteProbe(const CommonXMLStructure::SumoBaseObject* 
     const auto element = retrieveAdditionalElement({SUMO_TAG_ROUTEPROBE}, id);
     if (!checkElement(SUMO_TAG_ROUTEPROBE, element)) {
         return false;
-    } else if (!checkValidDemandElementID(SUMO_TAG_ROUTEPROBE, id)) {
+    } else if (!checkValidAdditionalID(SUMO_TAG_ROUTEPROBE, id)) {
         return false;
     } else {
         // get netedit parameters
@@ -1200,7 +1200,7 @@ GNEAdditionalHandler::buildVariableSpeedSign(const CommonXMLStructure::SumoBaseO
     const auto element = retrieveAdditionalElement({SUMO_TAG_VSS}, id);
     if (!checkElement(SUMO_TAG_VSS, element)) {
         return false;
-    } else if (!checkValidDemandElementID(SUMO_TAG_VSS, id)) {
+    } else if (!checkValidAdditionalID(SUMO_TAG_VSS, id)) {
         return false;
     } else {
         // get netedit parameters
@@ -1282,7 +1282,7 @@ GNEAdditionalHandler::buildVaporizer(const CommonXMLStructure::SumoBaseObject* s
     const auto element = retrieveAdditionalElement({SUMO_TAG_VAPORIZER}, edgeID);
     if (!checkElement(SUMO_TAG_VAPORIZER, element)) {
         return false;
-    } else if (!checkValidDemandElementID(SUMO_TAG_VAPORIZER, edgeID)) {
+    } else if (!checkValidAdditionalID(SUMO_TAG_VAPORIZER, edgeID)) {
         return false;
     } else {
         // get netedit parameters
@@ -1355,7 +1355,7 @@ GNEAdditionalHandler::buildTAZ(const CommonXMLStructure::SumoBaseObject* sumoBas
         const auto element = retrieveAdditionalElement({SUMO_TAG_TAZ}, id);
         if (!checkElement(SUMO_TAG_TAZ, element)) {
             return false;
-        } else if (!checkValidDemandElementID(SUMO_TAG_TAZ, id)) {
+        } else if (!checkValidAdditionalID(SUMO_TAG_TAZ, id)) {
             return false;
         } else if (TAZShape.size() == 0) {
             return writeError(TLF("Could not build TAZ with ID '%' in netedit; Invalid Shape.", id));
@@ -1516,7 +1516,7 @@ GNEAdditionalHandler::buildTractionSubstation(const CommonXMLStructure::SumoBase
     const auto element = retrieveAdditionalElement({SUMO_TAG_TRACTION_SUBSTATION}, id);
     if (!checkElement(SUMO_TAG_TRACTION_SUBSTATION, element)) {
         return false;
-    } else if (!checkValidDemandElementID(SUMO_TAG_TRACTION_SUBSTATION, id)) {
+    } else if (!checkValidAdditionalID(SUMO_TAG_TRACTION_SUBSTATION, id)) {
         return false;
     } else if (!checkNegative(SUMO_TAG_TRACTION_SUBSTATION, id, SUMO_ATTR_VOLTAGE, voltage, true)) {
         return false;
@@ -1549,7 +1549,7 @@ GNEAdditionalHandler::buildOverheadWire(const CommonXMLStructure::SumoBaseObject
     const auto element = retrieveAdditionalElement({SUMO_TAG_OVERHEAD_WIRE_SECTION}, id);
     if (!checkElement(SUMO_TAG_OVERHEAD_WIRE_SECTION, element)) {
         return false;
-    } else if (!checkValidDemandElementID(SUMO_TAG_OVERHEAD_WIRE_SECTION, id)) {
+    } else if (!checkValidAdditionalID(SUMO_TAG_OVERHEAD_WIRE_SECTION, id)) {
         return false;
     } else {
         // get netedit parameters
@@ -1616,7 +1616,7 @@ GNEAdditionalHandler::buildPolygon(const CommonXMLStructure::SumoBaseObject* sum
         const auto element = retrieveAdditionalElement(NamespaceIDs::polygons, id);
         if (!checkElement(SUMO_TAG_POLY, element)) {
             return false;
-        } else if (!checkValidDemandElementID(SUMO_TAG_POLY, id)) {
+        } else if (!checkValidAdditionalID(SUMO_TAG_POLY, id)) {
             return false;
         } else {
             // get netedit parameters
@@ -1648,7 +1648,7 @@ GNEAdditionalHandler::buildPOI(const CommonXMLStructure::SumoBaseObject* sumoBas
     const auto element = retrieveAdditionalElement(NamespaceIDs::POIs, id);
     if (!checkElement(SUMO_TAG_POI, element)) {
         return false;
-    } else if (!checkValidDemandElementID(SUMO_TAG_POI, id)) {
+    } else if (!checkValidAdditionalID(SUMO_TAG_POI, id)) {
         return false;
     } else if (!checkNegative(SUMO_TAG_POI, id, SUMO_ATTR_WIDTH, width, true)) {
         return false;
@@ -1685,7 +1685,7 @@ GNEAdditionalHandler::buildPOILane(const CommonXMLStructure::SumoBaseObject* sum
     const auto element = retrieveAdditionalElement(NamespaceIDs::POIs, id);
     if (!checkElement(GNE_TAG_POILANE, element)) {
         return false;
-    } else if (!checkValidDemandElementID(GNE_TAG_POILANE, id)) {
+    } else if (!checkValidAdditionalID(GNE_TAG_POILANE, id)) {
         return false;
     } else if (!checkNegative(GNE_TAG_POILANE, id, SUMO_ATTR_WIDTH, width, true)) {
         return false;
@@ -1733,7 +1733,7 @@ GNEAdditionalHandler::buildPOIGeo(const CommonXMLStructure::SumoBaseObject* sumo
     const auto element = retrieveAdditionalElement(NamespaceIDs::POIs, id);
     if (!checkElement(GNE_TAG_POIGEO, element)) {
         return false;
-    } else if (!checkValidDemandElementID(GNE_TAG_POIGEO, id)) {
+    } else if (!checkValidAdditionalID(GNE_TAG_POIGEO, id)) {
         return false;
     } else if (!checkNegative(GNE_TAG_POIGEO, id, SUMO_ATTR_WIDTH, width, true)) {
         return false;
@@ -1770,7 +1770,7 @@ GNEAdditionalHandler::buildJpsWalkableArea(const CommonXMLStructure::SumoBaseObj
     const auto element = retrieveAdditionalElement(NamespaceIDs::polygons, id);
     if (!checkElement(GNE_TAG_JPS_WALKABLEAREA, element)) {
         return false;
-    } else if (!checkValidDemandElementID(GNE_TAG_JPS_WALKABLEAREA, id)) {
+    } else if (!checkValidAdditionalID(GNE_TAG_JPS_WALKABLEAREA, id)) {
         return false;
     } else {
         // get netedit parameters
@@ -1799,7 +1799,7 @@ GNEAdditionalHandler::buildJpsObstacle(const CommonXMLStructure::SumoBaseObject*
     const auto element = retrieveAdditionalElement(NamespaceIDs::polygons, id);
     if (!checkElement(GNE_TAG_JPS_OBSTACLE, element)) {
         return false;
-    } else if (!checkValidDemandElementID(GNE_TAG_JPS_OBSTACLE, id)) {
+    } else if (!checkValidAdditionalID(GNE_TAG_JPS_OBSTACLE, id)) {
         return false;
     } else {
         // get netedit parameters
