@@ -30,7 +30,6 @@ import os
 import plistlib
 import re
 import shutil
-import string
 import subprocess
 import sys
 import tempfile
@@ -69,8 +68,8 @@ def parse_args(def_dmg_name, def_pkg_name):
     def_output_apps_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "..", "apps"))
     def_output_fw_pkg_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "..", "framework-pkg"))
     def_output_apps_pkg_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "..", "apps-pkg"))
-    # def_output_dmg_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", def_dmg_name))
-    # def_output_pkg_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", def_pkg_name))
+    def_output_dmg_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", def_dmg_name))
+    def_output_pkg_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", def_pkg_name))
 
     op = ArgumentParser(description="Build an installer for macOS (dmg file)")
 
@@ -80,6 +79,8 @@ def parse_args(def_dmg_name, def_pkg_name):
     action_group.add_argument("--create-framework-pkg", dest="create_framework_pkg", action="store_true")
     action_group.add_argument("--create-apps-dir", dest="create_apps_dir", action="store_true")
     action_group.add_argument("--create-apps-pkg", dest="create_apps_pkg", action="store_true")
+    action_group.add_argument("--create-installer-pkg", dest="create_installer_pkg", action="store_true")
+    action_group.add_argument("--create-installer-dmg", dest="create_installer_dmg", action="store_true")
 
     # ... and supply some arguments
     op.add_argument("--build-dir", dest="build_dir", default=def_build_dir)
@@ -87,9 +88,8 @@ def parse_args(def_dmg_name, def_pkg_name):
     op.add_argument("--framework-pkg-dir", dest="framework_pkg_dir", default=def_output_fw_pkg_dir)
     op.add_argument("--apps-dir", dest="apps_dir", default=def_output_apps_dir)
     op.add_argument("--apps-pkg-dir", dest="apps_pkg_dir", default=def_output_apps_pkg_dir)
-
-    # op.add_argument("--output-pkg", dest="output_pkg", help="Output path for pkg", default=def_output_pkg_path)
-    # op.add_argument("--output-dmg", dest="output_dmg", help="Output path for dmg", default=def_output_dmg_path)
+    op.add_argument("--installer-pkg-file", dest="installer_pkg_file", default=def_output_pkg_path)
+    op.add_argument("--installer-dmg-file", dest="installer_dmg_file", default=def_output_dmg_path)
 
     args = op.parse_args()
 
@@ -107,54 +107,6 @@ def parse_args(def_dmg_name, def_pkg_name):
         sys.exit(1)
 
     return args
-
-
-def create_installer_conclusion_content(framework_name):
-    template_html = """
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <style>
-        body {
-            font-family: Helvetica;
-            font-size: 14px;
-        }
-    </style>
-</head>
-<body>
-    <div>
-        <h4>Important:</h4>
-        <ul>
-            <li>
-                For applications with a graphical user interface to function properly, please ensure
-                you have <b>XQuartz</b> installed.
-                It can be obtained from: <a href="https://www.xquartz.org" target="_blank">XQuartz</a>.
-            </li>
-            <li>
-                If you intend to use SUMO from the command line, please remember to set
-                the <b>SUMO_HOME</b> environment variable
-                <br>
-                For more details, visit the
-                <a href="https://sumo.dlr.de/docs/Installing/index.html#macos" target="_blank">
-                    SUMO macOS installation guide
-                </a>.
-            </li>
-        </ul>
-        </p>
-        <p>For support options, including the "sumo-user" mailing list, please visit:
-           <a href="https://eclipse.dev/sumo/contact/" target="_blank">SUMO Contact</a>.
-        </p>
-    </div>
-</body>
-</html>
-"""
-    template = string.Template(template_html)
-    context = {
-        "framework_name": framework_name,
-    }
-    html = template.substitute(context)
-    return html
 
 
 def create_framework_dir(name, longname, pkg_id, version, sumo_build_directory, framework_output_dir):
@@ -333,45 +285,87 @@ def create_app_pkg(app_name, pkg_id, version, app_dir, apps_pkg_dir):
     return app_name, pkg_name, pkg_id, pkg_path, pkg_size
 
 
-def create_installer(frmwk_pkg, app_pkgs, id, version, output_path, verbose):
-    cwd = os.path.dirname(os.path.abspath(__file__))
-    print(" - Creating temporary directory")
+def create_installer(framework_pkg, apps_pkg, version, installer_pkg_file):
+    """"Creates the installer package
+
+        framework_pkg: framework info [framework_path, framework_id]
+        apps_pkg: apps info [[app1_path, app1_id], [app2_path, app2_id], ...]
+        id: id of the pkg-file for the installer
+        version: 1.20.0
+        installer_pkg_file: name of the output pkg file
+    """
+
+    # Create a temporary directory to assemble everything for the installer
     temp_dir = tempfile.mkdtemp()
-    resources_dir = os.path.join(temp_dir, "Resources")
-    os.makedirs(resources_dir)
 
-    # Copy the framework package
-    framework_pkg_path = frmwk_pkg[3]
-    shutil.copy(framework_pkg_path, temp_dir)
-
-    # Copy the app packages
-    for app_pkg in app_pkgs:
-        app_pkg_path = app_pkg[3]
-        shutil.copy(app_pkg_path, temp_dir)
+    # Copy the framework pkg file and the launcher apps pkg files
+    shutil.copy(framework_pkg[0], temp_dir)
+    for app_pkg in apps_pkg:
+        shutil.copy(app_pkg[0], temp_dir)
 
     # Add license, background and other nice stuff
-    print(" - Adding additional resources to the installer")
-    sumo_dir = os.path.join(cwd, "..", "..", "")
+    resources_dir = os.path.join(temp_dir, "Resources")
+    os.makedirs(resources_dir)
+    sumo_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..")
     sumo_data_installer_dir = os.path.join(sumo_dir, "build_config", "macos", "installer")
-    installer_resources_dir = os.path.join(temp_dir, "Resources")
-    shutil.copy(os.path.join(sumo_data_installer_dir, "background.png"), installer_resources_dir)
-    shutil.copy(os.path.join(sumo_dir, "LICENSE"), os.path.join(installer_resources_dir, "LICENSE.txt"))
+    shutil.copy(os.path.join(sumo_data_installer_dir, "background.png"), resources_dir)
+    shutil.copy(os.path.join(sumo_dir, "LICENSE"), os.path.join(resources_dir, "LICENSE.txt"))
 
     # Create conclusion.html in the installer resources folder
-    with open(os.path.join(installer_resources_dir, "conclusion.html"), "w") as file:
-        file.write(create_installer_conclusion_content(frmwk_pkg[0]))
+    with open(os.path.join(resources_dir, "conclusion.html"), "w") as file:
+        file.write("""<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            font-family: Helvetica;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h4>Important:</h4>
+        <ul>
+            <li>
+                For applications with a graphical user interface to function properly, please ensure
+                you have <b>XQuartz</b> installed.
+                It can be obtained from: <a href="https://www.xquartz.org" target="_blank">XQuartz</a>.
+            </li>
+            <li>
+                You may need to install Python 3, if it is not installed yet. Python is required for the
+                Scenario Wizard and other tools.
+            </li>
+            <li>
+                If you intend to use SUMO from the command line, please remember to set
+                the <b>SUMO_HOME</b> environment variable and add it to the <b>PATH</b> variable.
+                <br>
+                For more details, visit the
+                <a href="https://sumo.dlr.de/docs/Installing/index.html#macos" target="_blank">
+                    SUMO macOS installation guide
+                </a>.
+            </li>
+        </ul>
+        </p>
+        <p>For support options, including the "sumo-user" mailing list, please visit:
+           <a href="https://eclipse.dev/sumo/contact/" target="_blank">SUMO Contact</a>.
+        </p>
+    </div>
+</body>
+</html>
+""")
 
     # Create distribution.xml
     print(" - Creating distribution.xml")
+    size = os.path.getsize(framework_pkg[0]) // 1024
+    path = os.path.basename(framework_pkg[0])
+    refs = f"        <pkg-ref id='{framework_pkg[1]}' version='{version}' installKBytes='{size}'>{path}</pkg-ref>"
 
-    size = frmwk_pkg[4] // 1024
-    path = os.path.basename(frmwk_pkg[3])
-    refs = f"        <pkg-ref id='{frmwk_pkg[2]}' version='{version}' installKBytes='{size}'>{path}</pkg-ref>"
-
-    for _, app_pkg in enumerate(app_pkgs):
-        size = app_pkg[4] // 1024
-        path = os.path.basename(app_pkg[3])
-        refs += f"\n        <pkg-ref id='{app_pkg[2]}' version='{version}' installKBytes='{size}'>{path}</pkg-ref>"
+    for app_pkg in apps_pkg:
+        size = os.path.getsize(app_pkg[0]) // 1024
+        path = os.path.basename(app_pkg[0])
+        refs += f"\n        <pkg-ref id='{app_pkg[1]}' version='{version}' installKBytes='{size}'>{path}</pkg-ref>"
 
     # See: https://developer.apple.com/library/archive/documentation/
     #      DeveloperTools/Reference/DistributionDefinitionRef/Chapters/Distribution_XML_Ref.html
@@ -405,20 +399,16 @@ def create_installer(frmwk_pkg, app_pkgs, id, version, output_path, verbose):
         temp_dir,
         "--resources",
         resources_dir,
-        output_path,
+        installer_pkg_file,
     ]
-    sys.stdout.flush()
-    out = None if verbose else subprocess.DEVNULL
-    subprocess.run(productbuild_command, check=True, stdout=out, stderr=out)
-    pkg_size = os.path.getsize(output_path)
+    subprocess.run(productbuild_command, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
+    # Removing temporary build directory
     print(" - Cleaning up")
     shutil.rmtree(temp_dir)
 
-    return "Installer", os.path.basename(output_path), id, output_path, pkg_size
 
-
-def create_dmg(dmg_title, dmg_output_path, installer_pkg_path):
+def create_dmg(dmg_title, installer_pkg_path, dmg_path):
 
     print(" - Preparing disk image folder")
     dmg_prep_folder = tempfile.mkdtemp()
@@ -426,9 +416,9 @@ def create_dmg(dmg_title, dmg_output_path, installer_pkg_path):
 
     # FIXME: Add uninstaller script to the installer folder
 
-    if os.path.exists(dmg_output_path):
-        print(" - Removing already existing disk image before creating a new disk image")
-        os.remove(dmg_output_path)
+    if os.path.exists(dmg_path):
+        print(" - Removing existing disk image before creating a new disk image")
+        os.remove(dmg_path)
 
     print(" - Collecting files and calculating file size")
     files_to_store = []
@@ -445,7 +435,7 @@ def create_dmg(dmg_title, dmg_output_path, installer_pkg_path):
         "files": files_to_store,
         # FIXME: add background and badge
     }
-    build_dmg(dmg_output_path, dmg_title, settings=settings)
+    build_dmg(dmg_path, dmg_title, settings=settings)
 
     print(" - Cleaning up")
     shutil.rmtree(dmg_prep_folder)
@@ -495,12 +485,6 @@ def main():
 
     # Parse and check the command line arguments
     opts = parse_args(default_dmg_name, default_pkg_name)
-    # if not os.path.exists(os.path.dirname(opts.output_dmg)):
-    #     print(f"Error: dmg output directory '{os.path.dirname(opts.output_dmg)}' does not exist.", file=sys.stderr)
-    #     sys.exit(1)
-    # if not os.path.exists(os.path.dirname(opts.output_pkg)):
-    #     print(f"Error: pkg output directory '{os.path.dirname(opts.output_pkg)}' does not exist.", file=sys.stderr)
-    #     sys.exit(1)
 
     # Let's see what we need to do
     if opts.create_framework_dir:
@@ -562,25 +546,36 @@ def main():
             _, pkg_name, _, _, pkg_size = create_app_pkg(app_name, app_id, app_ver, app_dir, opts.apps_pkg_dir)
             print(f" - Created \"{pkg_name}\" ({pkg_size / (1024 * 1024):.2f} MB)")
 
-    # # Building the installer package
-    # print("Building installer")
-    # installer_pkg = create_installer(framework_pkg, app_pkgs, f"{base_id}.installer", version,
-    #                                  opts.output_pkg, opts.verbose)
-    # print("Successfully built installer\n")
+    elif opts.create_installer_pkg:
+        if not os.path.exists(os.path.dirname(opts.installer_pkg_file)):
+            print(f"Error: pkg output directory '{os.path.dirname(
+                opts.installer_pkg_file)}' does not exist.", file=sys.stderr)
+            sys.exit(1)
 
-    # # Putting the installer package into a dmg file - ready for signing
-    # print("Building disk image")
-    # create_dmg("Eclipse SUMO", opts.output_dmg, installer_pkg[3])
-    # print("Successfully built disk image\n")
+        print("Building installer pkg file")
+        # Where do we find our pkgs?
+        fw_pkg = [os.path.join(opts.framework_pkg_dir, f"{
+                               default_framework_name}-{version}.pkg"), f"{base_id}.framework"]
+        app_pkgs = []
+        for app_name, app_binary, app_framework, app_id, app_ver, app_icons, app_folder in app_list:
+            app_pkgs.append([os.path.join(opts.apps_pkg_dir, f"Launcher-{app_name}-{version}.pkg"), app_id])
 
-    # # Removing non-installer pkg-files
-    # os.remove(framework_pkg[3])
-    # for app_pkg in app_pkgs:
-    #     os.remove(app_pkg[3])
+        # Build the installer pkg file
+        create_installer(fw_pkg, app_pkgs, f"{base_id}.installer", version, opts.installer_pkg_file)
+        pkg_size = os.path.getsize(opts.installer_pkg_file)
 
-    # print("Build completed successfully")
-    # print(f" - disk image   : '{opts.output_dmg}' ({os.path.getsize(opts.output_dmg) / (1024 * 1024):.2f} MB)")
-    # print(f" - installer pkg: '{opts.output_pkg}' ({os.path.getsize(opts.output_pkg) / (1024 * 1024):.2f} MB)")
+        print(f"Installer pkg file created: \"{opts.installer_pkg_file}\" ({pkg_size / (1024 * 1024):.2f} MB)")
+
+    elif opts.create_installer_dmg:
+        if not os.path.exists(os.path.dirname(opts.installer_dmg_file)):
+            print(f"Error: output directory '{os.path.dirname(
+                opts.installer_dmg_file)}' does not exist.", file=sys.stderr)
+            sys.exit(1)
+
+        print("Building installer disk image (dmg file)")
+        create_dmg(default_framework_long_name, opts.installer_pkg_file, opts.installer_dmg_file)
+        pkg_size = os.path.getsize(opts.installer_dmg_file)
+        print(f"Successfully built disk image: \"{opts.installer_dmg_file}\" ({pkg_size / (1024 * 1024):.2f} MB)")
 
 
 if __name__ == "__main__":
