@@ -499,9 +499,7 @@ RouteHandler::parseRoute(const SUMOSAXAttributes& attrs) {
     // first check if this is an embedded route
     if (embeddedRoute && attrs.hasAttribute(SUMO_ATTR_ID)) {
         writeError(TL("an embedded route cannot have their own ID"));
-    } else if (!embeddedRoute && !attrs.hasAttribute(SUMO_ATTR_ID)) {
-        writeError(TL("a non-embedded route requieres their own ID"));
-    } else {
+    } else if (embeddedRoute || attrs.hasAttribute(SUMO_ATTR_ID)) {
         // declare Ok Flag
         bool parsedOk = true;
         // special case for ID
