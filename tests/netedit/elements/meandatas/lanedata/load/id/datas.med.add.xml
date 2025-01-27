@@ -17,13 +17,13 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <!-- MeanDataLanes -->
     <laneData id="" file="ed_0.xml"/>
-	
+
 	<laneData id="%%%" file="ed_0.xml"/>
-	
+
 	<laneData id="ld_0" file="ed_0.xml"/>
-	
+
 	<laneData id="ld_0" file="ed_0.xml"/>
-	
+
 	<laneData id="ld_1" file="ed_0.xml"/>
-	
+
 </additional>

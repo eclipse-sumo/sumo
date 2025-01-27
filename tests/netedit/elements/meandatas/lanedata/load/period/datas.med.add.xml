@@ -17,11 +17,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <!-- MeanDataLanes -->
     <laneData id="ld_0" file="ed_0.xml" period=""/>
-	
+
 	<laneData id="ld_1" file="ed_0.xml" period="dummy"/>
-	
+
 	<laneData id="ld_2" file="ed_0.xml" period="-56"/>
-	
+
 	<laneData id="ld_3" file="ed_0.xml" period="11.22"/>
-	
+
 </additional>

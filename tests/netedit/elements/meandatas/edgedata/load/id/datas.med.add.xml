@@ -17,13 +17,13 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <!-- MeanDataEdges -->
     <edgeData id="" file="ed_0.xml"/>
-	
+
 	<edgeData id="%%%" file="ed_0.xml"/>
-	
+
 	<edgeData id="ed_0" file="ed_0.xml"/>
-	
+
 	<edgeData id="ed_0" file="ed_0.xml"/>
-	
+
 	<edgeData id="ed_1" file="ed_0.xml"/>
-	
+
 </additional>

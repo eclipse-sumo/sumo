@@ -1,5 +1,5 @@
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-   
+
     <!-- non valid speedThreshold (missing)-->
     <laneAreaDetector id="E2_01" lane="EdgeCenter0_0" pos="27" length="10.00" period="120.00" file="fileA.txt" timeThreshold="1.00" jamThreshold="10.00" friendlyPos="0"/>
 

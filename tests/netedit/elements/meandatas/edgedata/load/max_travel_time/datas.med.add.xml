@@ -17,11 +17,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <!-- MeanDataEdges -->
     <edgeData id="ed_0" file="ed_0.xml" maxTraveltime=""/>
-	
+
 	<edgeData id="ed_1" file="ed_0.xml" maxTraveltime="dummy"/>
-	
+
 	<edgeData id="ed_2" file="ed_0.xml" maxTraveltime="-12"/>
-	
+
 	<edgeData id="ed_3" file="ed_0.xml" maxTraveltime="17.50"/>
-	
+
 </additional>

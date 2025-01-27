@@ -9,12 +9,12 @@
         <walk from="Edge0" to="Edge1"/>
         <walk to="Edge2" duration="dummyDuration"/>
     </person>
-	
+
 	<person id="p_1" depart="0.00">
         <walk from="Edge0" to="Edge1"/>
         <walk to="Edge2" duration="-12"/>
     </person>
-	
+
 	<person id="p_2" depart="0.00">
         <walk from="Edge0" to="Edge1"/>
         <walk to="Edge2" duration="13.3"/>
