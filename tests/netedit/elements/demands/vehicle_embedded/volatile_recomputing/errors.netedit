@@ -4,8 +4,9 @@
 '-avx512pf' is not a recognized feature for this target (ignoring feature)
 '-avx512er' is not a recognized feature for this target (ignoring feature)
 '-avx512pf' is not a recognized feature for this target (ignoring feature)
-Error: Could not build route with ID 'v_3' in netedit; edge with ID 'EdgeExternTot' doesn't exist.
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.elements.demands.embedded.19Dec113136.2401/netedit.daily.elements.demands.embedded/elements/demands/vehicle_embedded/volatile_recomputing/routes.rou.xml failed.
+Error: Could not build routeEmbedded with ID 'v_3' in netedit; edge with ID 'EdgeExternTot' doesn't exist.
+Error: Could not build routeEmbedded with ID 'v_3' in netedit; List of edges cannot be empty.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.27Jan114014.15134/netedit.gui/elements/demands/vehicle_embedded/volatile_recomputing/routes.rou.xml failed.
 '-avx512er' is not a recognized feature for this target (ignoring feature)
 '-avx512pf' is not a recognized feature for this target (ignoring feature)
 '-avx512er' is not a recognized feature for this target (ignoring feature)

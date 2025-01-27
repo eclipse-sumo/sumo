@@ -7,7 +7,8 @@
 Error: Attribute 'edges' is missing in definition of route 'route_0'.
 Error: Attribute 'edges' in definition of route 'route_1' is empty.
 Error: Could not build route with ID 'route_2' in netedit; edge with ID 'dummy1' doesn't exist.
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.18Dec174643.2935/netedit.gui/elements/demands/route/load/edges/routes.rou.xml failed.
+Error: Could not build route with ID 'route_2' in netedit; List of edges cannot be empty.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.27Jan111722.9539/netedit.gui/elements/demands/route/load/edges/routes.rou.xml failed.
 '-avx512er' is not a recognized feature for this target (ignoring feature)
 '-avx512pf' is not a recognized feature for this target (ignoring feature)
 '-avx512er' is not a recognized feature for this target (ignoring feature)

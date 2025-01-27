@@ -6,16 +6,13 @@
 '-avx512pf' is not a recognized feature for this target (ignoring feature)
 Error: Attribute 'id' is missing in definition of vehicle
 Error: vehicle cannot be created
-Error: a route must be defined either within a vehicle/flow or with an ID attribute
 Error: Attribute 'id' in definition of a vehicle is empty.
 Error: Invalid vehicle id ''.
 Error: vehicle cannot be created
-Error: a route must be defined either within a vehicle/flow or with an ID attribute
 Error: Invalid vehicle id 'id with spaces'. Contains invalid characters.
 Error: vehicle cannot be created
-Error: a route must be defined either within a vehicle/flow or with an ID attribute
 Error: Could not build vehicleWithRoute with ID 'vehicle_valid' in netedit; Found another vehicleWithRoute with the same ID.
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.elements.demands.embedded.19Dec113136.2401/netedit.daily.elements.demands.embedded/elements/demands/vehicle_embedded/load/id/routes.rou.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.27Jan111722.9539/netedit.gui/elements/demands/vehicle_embedded/load/id/routes.rou.xml failed.
 '-avx512er' is not a recognized feature for this target (ignoring feature)
 '-avx512pf' is not a recognized feature for this target (ignoring feature)
 '-avx512er' is not a recognized feature for this target (ignoring feature)

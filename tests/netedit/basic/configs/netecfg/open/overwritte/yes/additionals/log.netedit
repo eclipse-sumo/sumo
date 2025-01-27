@@ -1,92 +1,87 @@
-Error: Could not build routeProbe with ID 'rp_0' in netedit; Found another routeProbe with the same ID.
-Error: Could not build routeProbe with ID 'rp_1' in netedit; Found another routeProbe with the same ID.
-Error: Could not build routeProbe with ID 'rp_2' in netedit; Found another routeProbe with the same ID.
-Error: Could not build routeProbe with ID 'rp_3' in netedit; Found another routeProbe with the same ID.
-Error: Could not build calibrator with ID 'ca_0' in netedit; Found another calibrator with the same ID.
-Error: Could not build calibrator with ID 'ca_1' in netedit; Found another calibrator with the same ID.
-Error: Could not build calibrator with ID 'ca_2' in netedit; Found another calibrator with the same ID.
-Error: Could not build calibrator with ID 'ca_3' in netedit; Found another calibrator with the same ID.
-Error: Could not build calibratorLane with ID 'ca_5' in netedit; Found another calibratorLane with the same ID.
-Error: Could not build calibratorLane with ID 'ca_6' in netedit; Found another calibratorLane with the same ID.
-Error: Could not build busStop with ID 'bs_0' in netedit; Found another busStop with the same ID.
-Error: Could not build access in netedit; busStop parent already owns an access in the edge '-E1'
-Error: Could not build busStop with ID 'bs_1' in netedit; Found another busStop with the same ID.
-Error: Could not build access in netedit; busStop parent already owns an access in the edge 'E0'
-Error: Could not build busStop with ID 'bs_2' in netedit; Found another busStop with the same ID.
-Error: Could not build access in netedit; busStop parent already owns an access in the edge '-E0'
-Error: Could not build busStop with ID 'bs_4' in netedit; Found another busStop with the same ID.
-Error: Could not build access in netedit; busStop parent already owns an access in the edge 'E1'
-Error: Could not build trainStop with ID 'ts_0' in netedit; Found another trainStop with the same ID.
-Error: Could not build trainStop with ID 'ts_1' in netedit; Found another trainStop with the same ID.
-Error: Could not build trainStop with ID 'ts_2' in netedit; Found another trainStop with the same ID.
-Error: Could not build trainStop with ID 'ts_3' in netedit; Found another trainStop with the same ID.
-Error: Could not build containerStop with ID 'ct_0' in netedit; Found another containerStop with the same ID.
-Error: Could not build containerStop with ID 'ct_1' in netedit; Found another containerStop with the same ID.
-Error: Could not build containerStop with ID 'ct_2' in netedit; Found another containerStop with the same ID.
-Error: Could not build containerStop with ID 'ct_4' in netedit; Found another containerStop with the same ID.
-Error: Could not build chargingStation with ID 'cs_0' in netedit; Found another chargingStation with the same ID.
-Error: Could not build chargingStation with ID 'cs_1' in netedit; Found another chargingStation with the same ID.
-Error: Could not build chargingStation with ID 'cs_2' in netedit; Found another chargingStation with the same ID.
-Error: Could not build chargingStation with ID 'cs_3' in netedit; Found another chargingStation with the same ID.
-Error: Could not build parkingArea with ID 'pa_0' in netedit; Found another parkingArea with the same ID.
-Error: Could not build parkingArea with ID 'pa_1' in netedit; Found another parkingArea with the same ID.
-Error: Could not build parkingArea with ID 'pa_2' in netedit; Found another parkingArea with the same ID.
-Error: Could not build parkingArea with ID 'pa_3' in netedit; Found another parkingArea with the same ID.
-Error: Could not build inductionLoop with ID 'e1_0' in netedit; Found another inductionLoop with the same ID.
-Error: Could not build inductionLoop with ID 'e1_1' in netedit; Found another inductionLoop with the same ID.
-Error: Could not build inductionLoop with ID 'e1_2' in netedit; Found another inductionLoop with the same ID.
-Error: Could not build inductionLoop with ID 'e1_8' in netedit; Found another inductionLoop with the same ID.
-Error: Could not build instantInductionLoop with ID 'e1i_0' in netedit; Found another instantInductionLoop with the same ID.
-Error: Could not build instantInductionLoop with ID 'e1i_1' in netedit; Found another instantInductionLoop with the same ID.
-Error: Could not build instantInductionLoop with ID 'e1i_2' in netedit; Found another instantInductionLoop with the same ID.
-Error: Could not build instantInductionLoop with ID 'e1i_3' in netedit; Found another instantInductionLoop with the same ID.
-Error: Could not build laneAreaDetector with ID 'e2_0' in netedit; Found another laneAreaDetector with the same ID.
-Error: Could not build laneAreaDetector with ID 'e2_1' in netedit; Found another laneAreaDetector with the same ID.
-Error: Could not build laneAreaDetector with ID 'e2_2' in netedit; Found another laneAreaDetector with the same ID.
-Error: Could not build laneAreaDetector with ID 'e2_3' in netedit; Found another laneAreaDetector with the same ID.
-Error: Could not build multiLaneAreaDetector with ID 'e2_4' in netedit; Found another multiLaneAreaDetector with the same ID.
-Error: Could not build multiLaneAreaDetector with ID 'e2_5' in netedit; Found another multiLaneAreaDetector with the same ID.
-Error: Could not build entryExitDetector with ID 'e3_0' in netedit; Found another entryExitDetector with the same ID.
-Error: Could not build entryExitDetector with ID 'e3_1' in netedit; Found another entryExitDetector with the same ID.
-Error: Could not build entryExitDetector with ID 'e3_2' in netedit; Found another entryExitDetector with the same ID.
-Error: Could not build entryExitDetector with ID 'e3_3' in netedit; Found another entryExitDetector with the same ID.
-Error: Could not build rerouter with ID 'rr_0' in netedit; Found another rerouter with the same ID.
-Error: Could not build rerouter with ID 'rr_1' in netedit; Found another rerouter with the same ID.
-Error: Could not build variableSpeedSign with ID 'vs_1' in netedit; Found another variableSpeedSign with the same ID.
-Error: Could not build variableSpeedSign with ID 'vs_2' in netedit; Found another variableSpeedSign with the same ID.
-Error: Could not build vaporizer with ID '-E10' in netedit; Found another vaporizer with the same ID.
-Error: Could not build vaporizer with ID '-E11' in netedit; Found another vaporizer with the same ID.
-Error: Could not build vaporizer with ID 'E6' in netedit; Found another vaporizer with the same ID.
-Error: Could not build vaporizer with ID 'E7' in netedit; Found another vaporizer with the same ID.
-Error: Could not build poly with ID 'po_0' in netedit; Found another poly with the same ID.
-Error: Could not build poly with ID 'po_1' in netedit; Found another poly with the same ID.
-Error: Could not build poly with ID 'po_2' in netedit; Found another poly with the same ID.
-Error: Could not build poly with ID 'po_3' in netedit; Found another poly with the same ID.
-Error: Could not build poi with ID 'poi_0' in netedit; Found another poi with the same ID.
-Error: Could not build poi with ID 'poi_1' in netedit; Found another poi with the same ID.
-Error: Could not build poiGeo with ID 'poi_10' in netedit; Found another poiGeo with the same ID.
-Error: Could not build poiGeo with ID 'poi_11' in netedit; Found another poiGeo with the same ID.
-Error: Could not build poi with ID 'poi_2' in netedit; Found another poi with the same ID.
-Error: Could not build poi with ID 'poi_3' in netedit; Found another poi with the same ID.
-Error: Could not build poiLane with ID 'poi_4' in netedit; Found another poiLane with the same ID.
-Error: Could not build poiLane with ID 'poi_5' in netedit; Found another poiLane with the same ID.
-Error: Could not build poiLane with ID 'poi_6' in netedit; Found another poiLane with the same ID.
-Error: Could not build poiLane with ID 'poi_7' in netedit; Found another poiLane with the same ID.
-Error: Could not build poiGeo with ID 'poi_8' in netedit; Found another poiGeo with the same ID.
-Error: Could not build poiGeo with ID 'poi_9' in netedit; Found another poiGeo with the same ID.
-Error: Could not build taz with ID 'taz_0' in netedit; Found another taz with the same ID.
-Error: Could not build taz with ID 'taz_1' in netedit; Found another taz with the same ID.
-Error: Could not build taz with ID 'taz_2' in netedit; Found another taz with the same ID.
-Error: Could not build taz with ID 'taz_3' in netedit; Found another taz with the same ID.
-Error: Could not build jupedsim.walkable_area with ID 'jps.walkable_area_0' in netedit; Found another jupedsim.walkable_area with the same ID.
-Error: Could not build jupedsim.walkable_area with ID 'jps.walkable_area_1' in netedit; Found another jupedsim.walkable_area with the same ID.
-Error: Could not build jupedsim.walkable_area with ID 'jps.walkable_area_2' in netedit; Found another jupedsim.walkable_area with the same ID.
-Error: Could not build jupedsim.walkable_area with ID 'jps.walkable_area_4' in netedit; Found another jupedsim.walkable_area with the same ID.
-Error: Could not build jupedsim.obstacle with ID 'jps.obstacle_0' in netedit; Found another jupedsim.obstacle with the same ID.
-Error: Could not build jupedsim.obstacle with ID 'jps.obstacle_1' in netedit; Found another jupedsim.obstacle with the same ID.
-Error: Could not build jupedsim.obstacle with ID 'jps.obstacle_2' in netedit; Found another jupedsim.obstacle with the same ID.
-Error: Could not build jupedsim.obstacle with ID 'jps.obstacle_3' in netedit; Found another jupedsim.obstacle with the same ID.
-Error: Loading of additional file failed: C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Jan171539.4668\netedit.gui\basic\configs\netecfg\open\overwritte\yes\additionals\additionals.add.xml
+Warning: Overwritting routeProbe with ID 'rp_0'
+Warning: Overwritting routeProbe with ID 'rp_1'
+Warning: Overwritting routeProbe with ID 'rp_2'
+Warning: Overwritting routeProbe with ID 'rp_3'
+Warning: Overwritting calibrator with ID 'ca_0'
+Warning: Overwritting calibrator with ID 'ca_1'
+Warning: Overwritting calibrator with ID 'ca_2'
+Warning: Overwritting calibrator with ID 'ca_3'
+Warning: Overwritting calibratorLane with ID 'ca_5'
+Warning: Overwritting calibratorLane with ID 'ca_6'
+Warning: Overwritting busStop with ID 'bs_0'
+Warning: Overwritting busStop with ID 'bs_1'
+Warning: Overwritting busStop with ID 'bs_2'
+Warning: Overwritting busStop with ID 'bs_4'
+Warning: Overwritting trainStop with ID 'ts_0'
+Warning: Overwritting trainStop with ID 'ts_1'
+Warning: Overwritting trainStop with ID 'ts_2'
+Warning: Overwritting trainStop with ID 'ts_3'
+Warning: Overwritting containerStop with ID 'ct_0'
+Warning: Overwritting containerStop with ID 'ct_1'
+Warning: Overwritting containerStop with ID 'ct_2'
+Warning: Overwritting containerStop with ID 'ct_4'
+Warning: Overwritting chargingStation with ID 'cs_0'
+Warning: Overwritting chargingStation with ID 'cs_1'
+Warning: Overwritting chargingStation with ID 'cs_2'
+Warning: Overwritting chargingStation with ID 'cs_3'
+Warning: Overwritting parkingArea with ID 'pa_0'
+Warning: Overwritting parkingArea with ID 'pa_1'
+Warning: Overwritting parkingArea with ID 'pa_2'
+Warning: Overwritting parkingArea with ID 'pa_3'
+Warning: Overwritting inductionLoop with ID 'e1_0'
+Warning: Overwritting inductionLoop with ID 'e1_1'
+Warning: Overwritting inductionLoop with ID 'e1_2'
+Warning: Overwritting inductionLoop with ID 'e1_8'
+Warning: Overwritting instantInductionLoop with ID 'e1i_0'
+Warning: Overwritting instantInductionLoop with ID 'e1i_1'
+Warning: Overwritting instantInductionLoop with ID 'e1i_2'
+Warning: Overwritting instantInductionLoop with ID 'e1i_3'
+Warning: Overwritting laneAreaDetector with ID 'e2_0'
+Warning: Overwritting laneAreaDetector with ID 'e2_1'
+Warning: Overwritting laneAreaDetector with ID 'e2_2'
+Warning: Overwritting laneAreaDetector with ID 'e2_3'
+Warning: Overwritting multiLaneAreaDetector with ID 'e2_4'
+Warning: Overwritting multiLaneAreaDetector with ID 'e2_5'
+Warning: Overwritting entryExitDetector with ID 'e3_0'
+Warning: Overwritting entryExitDetector with ID 'e3_1'
+Warning: Overwritting entryExitDetector with ID 'e3_2'
+Warning: Overwritting entryExitDetector with ID 'e3_3'
+Warning: Overwritting rerouter with ID 'rr_0'
+Warning: Overwritting rerouter with ID 'rr_1'
+Warning: Overwritting variableSpeedSign with ID 'vs_1'
+Warning: Overwritting variableSpeedSign with ID 'vs_2'
+Warning: Overwritting vaporizer with ID '-E10'
+Warning: Overwritting vaporizer with ID '-E11'
+Warning: Overwritting vaporizer with ID 'E6'
+Warning: Overwritting vaporizer with ID 'E7'
+Warning: Overwritting poly with ID 'po_0'
+Warning: Overwritting poly with ID 'po_1'
+Warning: Overwritting poly with ID 'po_2'
+Warning: Overwritting poly with ID 'po_3'
+Warning: Overwritting poi with ID 'poi_0'
+Warning: Overwritting poi with ID 'poi_1'
+Warning: Overwritting poiGeo with ID 'poi_10'
+Warning: Overwritting poiGeo with ID 'poi_11'
+Warning: Overwritting poi with ID 'poi_2'
+Warning: Overwritting poi with ID 'poi_3'
+Warning: Overwritting poiLane with ID 'poi_4'
+Warning: Overwritting poiLane with ID 'poi_5'
+Warning: Overwritting poiLane with ID 'poi_6'
+Warning: Overwritting poiLane with ID 'poi_7'
+Warning: Overwritting poiGeo with ID 'poi_8'
+Warning: Overwritting poiGeo with ID 'poi_9'
+Warning: Overwritting taz with ID 'taz_0'
+Warning: Overwritting taz with ID 'taz_1'
+Warning: Overwritting taz with ID 'taz_2'
+Warning: Overwritting taz with ID 'taz_3'
+Warning: Overwritting jupedsim.walkable_area with ID 'jps.walkable_area_0'
+Warning: Overwritting jupedsim.walkable_area with ID 'jps.walkable_area_1'
+Warning: Overwritting jupedsim.walkable_area with ID 'jps.walkable_area_2'
+Warning: Overwritting jupedsim.walkable_area with ID 'jps.walkable_area_4'
+Warning: Overwritting jupedsim.obstacle with ID 'jps.obstacle_0'
+Warning: Overwritting jupedsim.obstacle with ID 'jps.obstacle_1'
+Warning: Overwritting jupedsim.obstacle with ID 'jps.obstacle_2'
+Warning: Overwritting jupedsim.obstacle with ID 'jps.obstacle_3'
 Warning: Lane 'E4_0' is not connected from any incoming edge at junction 'J4'.
 Warning: Lane 'E8_0' is not connected from any incoming edge at junction 'J7'.
 Warning: Lane 'E4_0' is not connected from any incoming edge at junction 'J4'.

@@ -6,9 +6,8 @@
 '-avx512pf' is not a recognized feature for this target (ignoring feature)
 Error: Could not build vehicleWithRoute with ID 'vehicle_1' in netedit; vType parent with ID 'dummy_Type' doesn't exist.
 Error: Attribute 'type' in definition of vehicle 'vehicle_2' is empty.
-Error: a route must be defined either within a vehicle/flow or with an ID attribute
 Error: Could not build vehicleWithRoute with ID 'vehicle_3' in netedit; vType parent with ID 'id with invalid characters' doesn't exist.
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.elements.demands.embedded.19Dec113136.2401/netedit.daily.elements.demands.embedded/elements/demands/vehicle_embedded/load/type/routes.rou.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.27Jan111722.9539/netedit.gui/elements/demands/vehicle_embedded/load/type/routes.rou.xml failed.
 '-avx512er' is not a recognized feature for this target (ignoring feature)
 '-avx512pf' is not a recognized feature for this target (ignoring feature)
 '-avx512er' is not a recognized feature for this target (ignoring feature)
