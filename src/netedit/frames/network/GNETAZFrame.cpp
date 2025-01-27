@@ -1740,7 +1740,7 @@ GNETAZFrame::askCreateMultipleSourceSinks(const size_t numSourceSinks) const {
     // open question dialog box
     const std::string header = TL("Create multiple sourceSinks");
     const std::string info = TLF("Creation of % cannot be undo. Continue?", toString(numSourceSinks));
-    const auto answer = FXMessageBox::question(myViewNet->getApp(), MBOX_YES_NO, header.c_str(), info.c_str());
+    const auto answer = FXMessageBox::question(myViewNet->getApp(), MBOX_YES_NO, "%s", header.c_str(), "%s", info.c_str());
     if (answer != 1) { //1:yes, 2:no, 4:esc
         // write warning if netedit is running in testing mode
         if (answer == 2) {
