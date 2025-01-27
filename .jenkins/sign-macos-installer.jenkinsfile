@@ -272,10 +272,10 @@ pipeline {
 </plist>
 '''
 
-                    // Sign and initiate notarization
+                    // Sign and initiate notarization for the installer pkg
                     def response = sh(
                         script: """
-                            file=$(ls sumo*.pkg)
+                            file=\$(ls sumo*.pkg)
                             signed_file="\${file}-signed"
 
                             curl -s -o "\$signed_file" -F "file=@\$file" -F "entitlements=@${entitlementsFile}" https://cbi-staging.eclipse.org/macos/codesign/sign
@@ -318,11 +318,8 @@ pipeline {
                         error("Notarization failed: ${response}")
                     }
 
-                    def notarizedZip = "macos-14-installer.zip"
-
-                    // Download the notarized result
                     sh """
-                        file=$(ls sumo*.pkg)
+                        file=\$(ls sumo*.pkg)
                         mkdir notarized
                         curl -s -o notarized/\$file https://cbi.eclipse.org/macos/xcrun/${uuid}/download
                     """
