@@ -699,13 +699,16 @@ protected:
     GNEAdditional* getRerouterIntervalParent(const CommonXMLStructure::SumoBaseObject* sumoBaseObject) const;
 
     /// @brief parse edges
-    std::vector<GNEEdge*> parseEdges(const SumoXMLTag tag, const std::string &id, const std::vector<std::string>& edgeIDs);
+    std::vector<GNEEdge*> parseEdges(const SumoXMLTag tag, const std::string& id, const std::vector<std::string>& edgeIDs);
 
     /// @brief parse lanes
-    std::vector<GNELane*> parseLanes(const SumoXMLTag tag, const std::string &id, const std::vector<std::string>& laneIDs);
+    std::vector<GNELane*> parseLanes(const SumoXMLTag tag, const std::string& id, const std::vector<std::string>& laneIDs);
 
-    /// @brief check if given ID correspond to a duplicated additional
-    bool checkDuplicatedAdditional(const SumoXMLTag tag, const std::vector<SumoXMLTag> tags, const std::string& id);
+    /// @brief get element by ID
+    GNEAdditional* retrieveAdditionalElement(const std::vector<SumoXMLTag> tags, const std::string& id);
+
+    /// @brief check if element exist, and if overwritte
+    bool checkElement(const SumoXMLTag tag, GNEAdditional* additional);
 
     /// @brief struct for Netedit parameters
     struct NeteditParameters {

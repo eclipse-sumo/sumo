@@ -2630,7 +2630,7 @@ GNERouteHandler::checkElement(const SumoXMLTag tag, GNEDemandElement* demandElem
             // continue creating new element
             return true;
         } else {
-            // write errorduplicated demand element
+            // write warning duplicated demand element
             return writeWarningDuplicated(tag, demandElement->getID(), demandElement->getTagProperty().getTag());
         }
     } else {
