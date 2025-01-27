@@ -289,11 +289,11 @@ protected:
                                  const std::vector<std::string>& distributionElementIDs, const std::vector<double>& probabilities,
                                  std::vector<const GNEDemandElement*>& elements);
 
-    /// @brief check if given ID correspond to a duplicated demand element
-    bool checkDuplicatedDemandElement(const SumoXMLTag tag, const std::vector<SumoXMLTag> tags, const std::string& id);
+    /// @brief get element by ID
+    GNEDemandElement* retrieveDemandElement(const std::vector<SumoXMLTag> tags, const std::string& id);
 
-    /// @brief check if
-    void checkOverwritteElement(const std::vector<SumoXMLTag>& tags, const std::string& id);
+    /// @brief check if element exist, and if overwritte
+    bool checkElement(const SumoXMLTag tag, GNEDemandElement* demandElement);
 
 private:
     /// @brief pointer to GNENet
@@ -308,7 +308,7 @@ private:
     /// @brief allow undo/redo
     const bool myAllowUndoRedo;
 
-    /// @brief check if overwrite
+    /// @brief flag to check if overwrite elements
     const bool myOverwrite;
 
     /// @brief vehicle tags
