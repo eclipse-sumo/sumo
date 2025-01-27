@@ -553,7 +553,7 @@ def main():
             app_pkgs.append([os.path.join(opts.apps_pkg_dir, f"Launcher-{app_name}-{version}.pkg"), app_id])
 
         # Build the installer pkg file
-        create_installer(fw_pkg, app_pkgs, f"{base_id}.installer", version, opts.installer_pkg_file)
+        create_installer(fw_pkg, app_pkgs, version, opts.installer_pkg_file)
         pkg_size = os.path.getsize(opts.installer_pkg_file)
 
         print(f"Installer pkg file created: \"{opts.installer_pkg_file}\" ({pkg_size / (1024 * 1024):.2f} MB)")
