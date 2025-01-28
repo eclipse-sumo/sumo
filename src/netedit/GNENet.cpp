@@ -408,7 +408,7 @@ GNENet::deleteJunction(GNEJunction* junction, GNEUndoList* undoList) {
         // iterate over crossing of neighbour junction
         for (const auto& crossing : junctionNeighbour->getGNECrossings()) {
             // if at least one of the edges of junction to remove belongs to a crossing of the neighbour junction, delete it
-            if (crossing->checkEdgeBelong(junctionNeighbour->getChildEdges())) {
+            if (crossing->checkEdgeBelong(junction->getChildEdges())) {
                 crossingsToRemove.push_back(crossing);
             }
         }
