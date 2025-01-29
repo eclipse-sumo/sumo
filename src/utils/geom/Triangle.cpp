@@ -179,6 +179,7 @@ Triangle::operator!=(const Triangle& other) const {
     return !(*this == other);
 }
 
+
 bool
 Triangle::isPositionWithin(const Position& A, const Position& B, const Position& C, const Position& pos) {
     // Calculate cross products for each edge of the triangle
@@ -186,8 +187,8 @@ Triangle::isPositionWithin(const Position& A, const Position& B, const Position&
     const double crossBC = crossProduct(B, C, pos);
     const double crossCA = crossProduct(C, A, pos);
     // Check if all cross products have the same sign
-    return (crossAB >= 0 && crossBC >= 0 && crossCA >= 0) ||
-           (crossAB <= 0 && crossBC <= 0 && crossCA <= 0);
+    return ((crossAB >= 0) && (crossBC >= 0) && (crossCA >= 0)) ||
+           ((crossAB <= 0) && (crossBC <= 0) && (crossCA <= 0));
 }
 
 
