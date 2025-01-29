@@ -343,7 +343,7 @@ pipeline {
             steps {
                 unstash 'notarized'
                 sh """
-                  file="$(ls installer/sumo*.pkg)"
+                  file="\$(ls installer/sumo*.pkg)"
                   dmg_file="\${file%.pkg}.dmg"
                   env/bin/python3 sumo/tools/build_config/buildMacOSInstaller.py --create-installer-dmg --installer-pkg-file notarized/sumo*.pkg --installer-dmg-file notarized/\${dmg_file}
                 """

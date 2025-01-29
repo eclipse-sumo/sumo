@@ -401,7 +401,7 @@ def create_installer(framework_pkg, apps_pkg, version, installer_pkg_file):
     shutil.rmtree(temp_dir)
 
 
-def create_dmg(dmg_title, installer_pkg_path, installer_dmg_path):
+def create_dmg(dmg_title, version, installer_pkg_path, installer_dmg_path):
 
     if os.path.exists(installer_dmg_path):
         print(" - Removing existing disk image before creating a new disk image")
@@ -463,7 +463,7 @@ exit 0
     total_size = 0
     for root, _, files in os.walk(dmg_prep_folder):
         for file in files:
-            files_to_store.append((os.path.join(root, file), file))
+            files_to_store.append((os.path.join(root, file), f"{dmg_title} {version}"))
             total_size += os.path.getsize(os.path.join(root, file))
 
     print(" - Building diskimage")
@@ -619,7 +619,7 @@ def main():
             sys.exit(1)
 
         print("Building installer disk image (dmg file)")
-        create_dmg(default_framework_long_name, opts.installer_pkg_file, opts.installer_dmg_file)
+        create_dmg(default_framework_long_name, version, opts.installer_pkg_file, opts.installer_dmg_file)
         pkg_size = os.path.getsize(opts.installer_dmg_file)
         print(f"Successfully built disk image: \"{opts.installer_dmg_file}\" ({pkg_size / (1024 * 1024):.2f} MB)")
 
