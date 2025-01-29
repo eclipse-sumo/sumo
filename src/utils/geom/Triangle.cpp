@@ -23,6 +23,12 @@
 
 
 // ===========================================================================
+// static member definitions
+// ===========================================================================
+
+const Triangle Triangle::INVALID(Position::INVALID, Position::INVALID, Position::INVALID);
+
+// ===========================================================================
 // method definitions
 // ===========================================================================
 
@@ -52,7 +58,18 @@ Triangle::isAroundPosition(const Position& pos) const {
 
 bool
 Triangle::isAroundShape(const PositionVector& shape) const {
-    if (isBoundaryAround(shape.getBoxBoundary())) {
+    for (const auto& pos : shape) {
+        if (isAroundPosition(pos)) {
+            return true;
+        }
+    }
+    return false;
+}
+
+
+bool
+Triangle::isAroundShape(const PositionVector& shape, const Boundary& boundary) const {
+    if (isBoundaryAround(boundary)) {
         return true;
     } else {
         for (const auto& pos : shape) {
@@ -63,6 +80,7 @@ Triangle::isAroundShape(const PositionVector& shape) const {
         return false;
     }
 }
+
 
 bool
 Triangle::isBoundaryAround(const Boundary& boundary) const {
@@ -140,6 +158,17 @@ Triangle::triangulate(PositionVector shape) {
     return triangles;
 }
 
+
+bool
+Triangle::operator==(const Triangle& other) const {
+    return myA == other.myA && myB == other.myB && myC == other.myC;
+}
+
+
+bool
+Triangle::operator!=(const Triangle& other) const {
+    return !(*this == other);
+}
 
 bool
 Triangle::isAroundPosition(const Position& A, const Position& B, const Position& C, const Position& pos) {

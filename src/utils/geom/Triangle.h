@@ -35,6 +35,9 @@
 class Triangle {
 
 public:
+    /// @brief invalid triangle
+    static const Triangle INVALID;
+
     /// @brief default constructor
     Triangle();
 
@@ -56,6 +59,9 @@ public:
     /// @brief check if the given shape is within this triangle or intersect in a certain point
     bool isAroundShape(const PositionVector& shape) const;
 
+    /// @brief check if the given shape is within this triangle or intersect in a certain point
+    bool isAroundShape(const PositionVector& shape, const Boundary& boundary) const;
+
     /// @brief check if the given boundary is within this triangle
     bool isBoundaryAround(const Boundary& boundary) const;
 
@@ -64,6 +70,12 @@ public:
 
     // @brief triangulate using Ear Clipping algorithm
     static std::vector<Triangle> triangulate(PositionVector shape);
+
+    /// @brief equalityoperators
+    bool operator==(const Triangle& other) const;
+
+    /// @brief inequality operator
+    bool operator!=(const Triangle& other) const;
 
 private:
     /// @name functions used for triangulating
