@@ -4,8 +4,14 @@ stop
 # remove check on gap to leader
 leaderGap
 
+# remove check on gap to leader but keep all other checks
+leaderGap_only
+
 # remove check on gap to leader with option
 leaderGap_option
 
 # remove check on gap to follower
 followerGap
+
+# remove all checks
+none
