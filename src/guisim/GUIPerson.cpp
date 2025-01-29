@@ -234,6 +234,7 @@ GUIPerson::getParameterWindow(GUIMainWindow& app,
     ret->mkItem(TL("dest stop [id]"), true, new FunctionBindingString<GUIPerson>(this, &GUIPerson::getDestinationStopID));
     ret->mkItem(TL("arrival position [m]"), true, new FunctionBinding<GUIPerson, double>(this, &GUIPerson::getStageArrivalPos));
     ret->mkItem(TL("edge [id]"), true, new FunctionBindingString<GUIPerson>(this, &GUIPerson::getEdgeID));
+    ret->mkItem(TL("lane [id]"), true, new FunctionBindingString<GUIPerson>(this, &GUIPerson::getLaneID));
     ret->mkItem(TL("position [m]"), true, new FunctionBinding<GUIPerson, double>(this, &GUIPerson::getEdgePos));
     ret->mkItem(TL("speed [m/s]"), true, new FunctionBinding<GUIPerson, double>(this, &GUIPerson::getSpeed));
     ret->mkItem(TL("speed factor"), false, getChosenSpeedFactor());
@@ -591,6 +592,16 @@ GUIPerson::getEdgeID() const {
         return "arrived";
     }
     return  getEdge()->getID();
+}
+
+
+std::string
+GUIPerson::getLaneID() const {
+    FXMutexLock locker(myLock);
+    if (hasArrived()) {
+        return "arrived";
+    }
+    return getLane() != nullptr ? getLane()->getID() : "";
 }
 
 

@@ -150,7 +150,10 @@ public:
     /// @brief get edge ID
     std::string getEdgeID() const;
 
-    /// @brief ger from edge ID
+    /// @brief get lane ID
+    std::string getLaneID() const;
+
+    /// @brief get from edge ID
     std::string getFromEdgeID() const;
 
     /// @brief get destination edge ID
