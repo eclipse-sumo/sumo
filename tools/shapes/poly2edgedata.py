@@ -44,7 +44,7 @@ from collections import defaultdict
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.join(THIS_DIR, '..'))
 import sumolib  # noqa
-import sumolib.geomhelper as gh  #noqa
+import sumolib.geomhelper as gh  # noqa
 
 PATCH_NONE = 'None'
 
@@ -181,8 +181,8 @@ def main(options):
                                              gh.positionAtShapeOffset(eShape, offset2))
                         revAngle = gh.angleTo2D(gh.positionAtShapeOffset(eShape, offset2),
                                                 gh.positionAtShapeOffset(eShape, offset1))
-                    if (degrees(fabs(polyAngle - angle)) < options.atol or
-                        degrees(fabs(polyAngle - revAngle)) < options.atol):
+                    if ((degrees(fabs(polyAngle - angle)) < options.atol or
+                         degrees(fabs(polyAngle - revAngle)) < options.atol)):
                         cands.append(e)
                 edges = cands
                 if not edges:
