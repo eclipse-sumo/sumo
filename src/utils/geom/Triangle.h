@@ -94,55 +94,16 @@ private:
     /// @name functions used for check if a shape intersect with the triangle
     /// @{
     /// @brief Compute the orientation of ordered triplet (p, q, r)
-    int orientation(const Position& p, const Position& q, const Position& r) const {
-        const double val = (q.y() - p.y()) * (r.x() - q.x()) - (q.x() - p.x()) * (r.y() - q.y());
-        if (val > 0) {
-            // Clockwise
-            return 1;
-        } else if (val < 0) {
-            // Counterclockwise
-            return -1;
-        } else {
-            // Collinear
-            return 0;       
-        }
-    }
+    int orientation(const Position& p, const Position& q, const Position& r) const;
 
     /// @brief check if point q lies on segment pr
-    bool onSegment(const Position& p, const Position& q, const Position& r) const {
-        return (q.x() >= std::min(p.x(), r.x()) && q.x() <= std::max(p.x(), r.x()) &&
-                q.y() >= std::min(p.y(), r.y()) && q.y() <= std::max(p.y(), r.y()));
-    }
+    bool onSegment(const Position& p, const Position& q, const Position& r) const;
 
     /// @brief check if two line segments (p1,q1) and (p2,q2) intersect
-    bool segmentsIntersect(const Position& p1, const Position& q1, const Position& p2, const Position& q2) const {
-        const int o1 = orientation(p1, q1, p2);
-        const int o2 = orientation(p1, q1, q2);
-        const int o3 = orientation(p2, q2, p1);
-        const int o4 = orientation(p2, q2, q1);
-        // General case: segments intersect if they have different orientations
-        // Special cases: checking if points are collinear and on segment
-        if (o1 != o2 && o3 != o4) {
-            return true;
-        } else if (o1 == 0 && onSegment(p1, p2, q1)) {
-            return true;
-        } else if (o2 == 0 && onSegment(p1, q2, q1)) {
-            return true;
-        } else if (o3 == 0 && onSegment(p2, p1, q2)) {
-            return true;
-        } else if (o4 == 0 && onSegment(p2, q1, q2)) {
-            return true;
-        } else {
-            return false;
-        }
-    }
+    bool segmentsIntersect(const Position& p1, const Position& q1, const Position& p2, const Position& q2) const;
 
     /// @brief check if a line segment (p1, p2) intersects this triangle
-    bool lineIntersectsTriangle(const Position& p1, const Position& p2) const {
-        return segmentsIntersect(p1, p2, myA, myB) || 
-               segmentsIntersect(p1, p2, myB, myC) || 
-               segmentsIntersect(p1, p2, myC, myA);
-    }
+    bool lineIntersectsTriangle(const Position& p1, const Position& p2) const;
 
     /// @}
 
