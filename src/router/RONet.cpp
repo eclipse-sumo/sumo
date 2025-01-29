@@ -764,7 +764,7 @@ RONet::saveAndRemoveRoutesUntil(OptionsCont& options, const RORouterProvider& pr
                     // delete routes and the vehicle
                     const ROVehicle* const veh = dynamic_cast<const ROVehicle*>(r);
                     if (veh != nullptr && veh->getRouteDefinition()->getID()[0] == '!') {
-                        if (!myRoutes.remove(veh->getRouteDefinition()->getID())) {
+                        if (r->isPartOfFlow() || !myRoutes.remove(veh->getRouteDefinition()->getID())) {
                             delete veh->getRouteDefinition();
                         }
                     }
