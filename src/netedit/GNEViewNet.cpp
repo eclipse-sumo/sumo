@@ -485,20 +485,19 @@ GNEViewNet::getViewObjectsSelector() const {
 
 
 void
-GNEViewNet::updateObjectsInTriangle(const Triangle& triangle) {
+GNEViewNet::updateObjectsInTriangles(const std::vector<Triangle>& triangles) {
     // clear post drawing elements
     gViewObjectsHandler.reset();
-    // set selection boundary in gObjectsInPosition
-    gViewObjectsHandler.setSelectionTriangle(triangle);
     // push matrix
     GLHelper::pushMatrix();
     // enable draw for object under cursor and rectangle selection
     myVisualizationSettings->drawForViewObjectsHandler = true;
     myVisualizationSettings->drawForRectangleSelection = true;
-    // draw all GL elements within the small boundary
-    drawGLElements(triangle.getBoundary());
-    // swap selected objects (needed after selecting)
-    gViewObjectsHandler.reverseSelectedObjects();
+    // draw all GL elements within the boundares formed by triangles
+    for (const auto &triangle : triangles) {
+        gViewObjectsHandler.setSelectionTriangle(triangle);
+        drawGLElements(triangle.getBoundary());
+    }
     // restore draw for object under cursor
     myVisualizationSettings->drawForViewObjectsHandler = false;
     myVisualizationSettings->drawForRectangleSelection = false;
@@ -2735,24 +2734,18 @@ GNEViewNet::onCmdSelectPolygonElements(FXObject*, FXSelector, void*) {
     // check polygon
     if (polygonUnderMouse) {
         // triangulate shape
-        const auto triangulation = Triangle::triangulate(polygonUnderMouse->getShape());
+        updateObjectsInTriangles(Triangle::triangulate(polygonUnderMouse->getShape()));
         // declare filtered ACs
         std::vector<GNEAttributeCarrier*> ACsUnderPolygon;
-        // iterate over every triangle
-        for (const auto& triangle : triangulation) {
-            // get ACs in boundary
-            updateObjectsInTriangle(triangle);
-            // iterate over obtained GUIGlIDs
-            for (const auto& AC : myViewObjectsSelector.getAttributeCarriers()) {
-                if (myNet->getAttributeCarriers()->isNetworkElementAroundTriangle(AC, triangle)) {
-                    if ((AC->getTagProperty().getTag() == SUMO_TAG_EDGE) && checkSelectEdges()) {
-                        ACsUnderPolygon.push_back(AC);
-                    } else if ((AC->getTagProperty().getTag() == SUMO_TAG_LANE) && !checkSelectEdges()) {
-                        ACsUnderPolygon.push_back(AC);
-                    } else if (!AC->getTagProperty().isSymbol() && (AC != polygonUnderMouse)) {
-                        ACsUnderPolygon.push_back(AC);
-                    }
-                }
+        ACsUnderPolygon.reserve(myViewObjectsSelector.getAttributeCarriers().size());
+        // iterate over obtained GUIGlIDs
+        for (const auto& AC : myViewObjectsSelector.getAttributeCarriers()) {
+            if ((AC->getTagProperty().getTag() == SUMO_TAG_EDGE) && checkSelectEdges()) {
+                ACsUnderPolygon.push_back(AC);
+            } else if ((AC->getTagProperty().getTag() == SUMO_TAG_LANE) && !checkSelectEdges()) {
+                ACsUnderPolygon.push_back(AC);
+            } else if (!AC->getTagProperty().isSymbol() && (AC != polygonUnderMouse)) {
+                ACsUnderPolygon.push_back(AC);
             }
         }
         // continue if there are ACs

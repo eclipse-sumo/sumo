@@ -1630,18 +1630,14 @@ GNETAZFrame::shapeDrawed() {
         }
         // check if TAZ has to be created with edges
         if (myTAZParameters->isAddEdgesWithinEnabled()) {
+            // triangulate shape and get all elements within triangles
+            myViewNet->updateObjectsInTriangles(Triangle::triangulate(shape));
+            // declare edge IDs
             std::vector<std::string> edgeIDs;
-            // triangulate shape
-            const auto triangulation = Triangle::triangulate(shape);
-            for (const auto& triangle : triangulation) {
-                // update objects in boundary
-                myViewNet->updateObjectsInTriangle(triangle);
-                // resize to improve efficiency
-                edgeIDs.reserve(edgeIDs.size() + myViewNet->getViewObjectsSelector().getEdges().size());
-                // get only edges with geometry around triangle
-                for (const auto& edge : myViewNet->getViewObjectsSelector().getEdges()) {
-                    edgeIDs.push_back(edge->getID());
-                }
+            edgeIDs.reserve(myViewNet->getViewObjectsSelector().getEdges().size());
+            // get only edges with geometry around triangle
+            for (const auto& edge : myViewNet->getViewObjectsSelector().getEdges()) {
+                edgeIDs.push_back(edge->getID());
             }
             myBaseTAZ->addStringListAttribute(SUMO_ATTR_EDGES, edgeIDs);
         } else {

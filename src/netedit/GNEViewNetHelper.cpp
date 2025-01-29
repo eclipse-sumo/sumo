@@ -1998,8 +1998,8 @@ GNEViewNetHelper::SelectingArea::processEdgeRectangleSelection() {
         Boundary rectangleBoundary;
         rectangleBoundary.add(selectionCorner1);
         rectangleBoundary.add(selectionCorner2);
-        // obtain all elements in boundary
-        // XXXX myViewNet->updateObjectsInBoundary(rectangleBoundary);
+        // triangulate and obtain all elements in boundary
+        myViewNet->updateObjectsInTriangles(Triangle::triangulate(rectangleBoundary.getShape(false)));
         // return all edges
         return myViewNet->getViewObjectsSelector().getEdges();
     } else {
@@ -2031,7 +2031,7 @@ void
 GNEViewNetHelper::SelectingArea::processBoundarySelection(const Boundary& boundary) {
     const bool selEdges = myViewNet->myNetworkViewOptions.selectEdges();
     // obtain all elements in boundary
-    // XXXX myViewNet->updateObjectsInBoundary(boundary);
+    myViewNet->updateObjectsInTriangles(Triangle::triangulate(boundary.getShape(false)));
     // filter ACsInBoundary depending of current supermode
     std::vector<GNEAttributeCarrier*> ACsFiltered;
     ACsFiltered.reserve(myViewNet->getViewObjectsSelector().getAttributeCarriers().size());
