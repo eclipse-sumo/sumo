@@ -613,6 +613,11 @@ def main():
                   file=sys.stderr)
             sys.exit(1)
 
+        if not os.path.exists(opts.installer_pkg_file):
+            print(f"Error: installer pkg file '{opts.installer_pkg_file}' does not exist.",
+                  file=sys.stderr)
+            sys.exit(1)
+
         print("Building installer disk image (dmg file)")
         create_dmg(default_framework_long_name, opts.installer_pkg_file, opts.installer_dmg_file)
         pkg_size = os.path.getsize(opts.installer_dmg_file)
