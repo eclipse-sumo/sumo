@@ -1691,10 +1691,11 @@ GUIDialog_ViewSettings::RainbowPanel::RainbowPanel(
     FXMatrix* matrixRainbow = new FXMatrix(parent, 9, GUIDesignViewSettingsMatrix3);
     myColorRainbow = GUIDesigns::buildFXButton(matrixRainbow, TL("Recalibrate Rainbow"), "", "", nullptr, target, MID_SIMPLE_VIEW_COLORCHANGE,
                      (BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT), 0, 0, 0, 0, 20, 20, 4, 4);
-    myRainbowStyle = new MFXComboBoxIcon(matrixRainbow, 5, false, 10, target, MID_SIMPLE_VIEW_RAINBOW_CHANGE, GUIDesignViewSettingsComboBox1);
+    myRainbowStyle = new MFXComboBoxIcon(matrixRainbow, 5, false, 10, target, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsComboBox1);
     for (auto item : GUIVisualizationSettings::RAINBOW_SCHEMES) {
         myRainbowStyle->appendIconItem(item.first.c_str());
     }
+    myRainbowStyle->setCurrentItem(settings.rainbowScheme);
     myHideMinCheck = new FXCheckButton(matrixRainbow, TL("min"), target, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
     myHideMinCheck->setCheck(settings.hideMin);
     myMinThreshold = new FXRealSpinner(matrixRainbow, 6, target, MID_SIMPLE_VIEW_COLORCHANGE, REALSPIN_NOMIN | GUIDesignViewSettingsSpinDial2);
@@ -1723,7 +1724,8 @@ GUIDialog_ViewSettings::RainbowPanel::getSettings() {
                                         myMaxThreshold->getValue(),
                                         mySetNeutral->getCheck() != FALSE,
                                         myNeutralThreshold->getValue(),
-                                        myFixRange->getCheck() != FALSE);
+                                        myFixRange->getCheck() != FALSE,
+                                        myRainbowStyle->getCurrentItem());
     std::string sName = myRainbowStyle->getItemText(myRainbowStyle->getCurrentItem());
     res.colors = GUIVisualizationSettings::RAINBOW_SCHEMES[sName];
     return res;
@@ -1739,6 +1741,7 @@ GUIDialog_ViewSettings::RainbowPanel::update(const GUIVisualizationRainbowSettin
     mySetNeutral->setCheck(settings.setNeutral);
     myNeutralThreshold->setValue(settings.neutralThreshold);
     myFixRange->setCheck(settings.fixRange);
+    myRainbowStyle->setCurrentItem(settings.rainbowScheme);
 }
 
 void

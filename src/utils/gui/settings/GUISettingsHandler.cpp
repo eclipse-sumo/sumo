@@ -503,7 +503,8 @@ GUISettingsHandler::parseRainbowSettings(
                StringUtils::toDouble(attrs.getStringSecure(prefix + "HideThreshold2", toString(defaults.maxThreshold))),
                StringUtils::toBool(attrs.getStringSecure(prefix + "SetNeutral", toString(defaults.hideMax))),
                StringUtils::toDouble(attrs.getStringSecure(prefix + "NeutralThreshold", toString(defaults.neutralThreshold))),
-               StringUtils::toBool(attrs.getStringSecure(prefix + "FixRange", toString(defaults.fixRange))));
+               StringUtils::toBool(attrs.getStringSecure(prefix + "FixRange", toString(defaults.fixRange))),
+               StringUtils::toInt(attrs.getStringSecure(prefix + "RainbowScheme", toString(defaults.rainbowScheme))));
 }
 
 const std::vector<std::string>&
