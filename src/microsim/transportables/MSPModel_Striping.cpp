@@ -2411,7 +2411,9 @@ MSPModel_Striping::PState::moveToXY(MSPerson* p, Position pos, MSLane* lane, dou
 #endif
         }
 #ifdef DEBUG_MOVETOXY
-        std::cout << " newRelPos=" << Position(myEdgePos, myPosLat) << " edge=" << myPerson->getEdge()->getID() << " newPos=" << myPerson->getPosition()
+        std::cout << " newRelPos=" << Position(myEdgePos, myPosLat) << " edge=" << myPerson->getEdge()->getID()
+                  << " newPos=" << myPerson->getPosition()
+                  << " latOffset=" << getLatOffset()
                   << " oldAngle=" << oldAngle << " angleDiff=" << angleDiff << " newDir=" << myDir << "\n";
 #endif
         if (oldLane == myLane) {
