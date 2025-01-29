@@ -401,18 +401,63 @@ def create_installer(framework_pkg, apps_pkg, version, installer_pkg_file):
     shutil.rmtree(temp_dir)
 
 
-def create_dmg(dmg_title, installer_pkg_path, dmg_path):
+def create_dmg(dmg_title, installer_pkg_path, installer_dmg_path):
+
+    if os.path.exists(installer_dmg_path):
+        print(" - Removing existing disk image before creating a new disk image")
+        os.remove(installer_dmg_path)
 
     print(" - Preparing disk image folder")
     dmg_prep_folder = tempfile.mkdtemp()
+
+    # Copy the installer pkg
     shutil.copy(installer_pkg_path, dmg_prep_folder)
 
-    # FIXME: Add uninstaller script to the installer folder
+    # Add the uninstall script
+    uninstall_script_path = os.path.join(dmg_prep_folder, "uninstall.sh")
+    with open(uninstall_script_path, "w") as f:
+        f.write("""#!/bin/bash
+echo "This will uninstall Eclipse SUMO and its components."
+read -p "Are you sure? (y/N): " CONFIRM
+if [[ ! "$CONFIRM" =~ ^[Yy]$ ]]; then
+    echo "Uninstallation aborted."
+    exit 0
+fi
 
-    if os.path.exists(dmg_path):
-        print(" - Removing existing disk image before creating a new disk image")
-        os.remove(dmg_path)
+# Request sudo privileges
+osascript -e 'do shell script "sudo -v" with administrator privileges'
 
+# Define installed paths
+FRAMEWORK="/Library/Frameworks/EclipseSUMO.framework"
+APP1="/Applications/SUMO sumo-gui.app"
+APP2="/Applications/SUMO netedit.app"
+APP3="/Applications/SUMO Scenario Wizard.app"
+
+# Remove framework
+if [ -d "$FRAMEWORK" ]; then
+    echo "Removing framework: $FRAMEWORK"
+    sudo rm -rf "$FRAMEWORK"
+else
+    echo "Framework not found: $FRAMEWORK"
+fi
+
+# Remove apps
+for APP in "$APP1" "$APP2" "$APP3"; do
+    if [ -d "$APP" ]; then
+        echo "Removing application: $APP"
+        sudo rm -rf "$APP"
+    else
+        echo "Application not found: $APP"
+    fi
+done
+
+echo "Eclipse SUMO has been successfully uninstalled!"
+exit 0
+""")
+    # Make the script executable
+    os.chmod(uninstall_script_path, 0o755)
+
+    # Collect all files and add to the dmg
     print(" - Collecting files and calculating file size")
     files_to_store = []
     total_size = 0
@@ -428,7 +473,7 @@ def create_dmg(dmg_title, installer_pkg_path, dmg_path):
         "files": files_to_store,
         # FIXME: add background and badge
     }
-    build_dmg(dmg_path, dmg_title, settings=settings)
+    build_dmg(installer_dmg_path, dmg_title, settings=settings)
 
     print(" - Cleaning up")
     shutil.rmtree(dmg_prep_folder)
