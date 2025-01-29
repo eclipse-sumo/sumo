@@ -54,16 +54,16 @@ public:
     const PositionVector getShape() const;
 
     /// @brief check if the given position is within this triangle
-    bool isAroundPosition(const Position& pos) const;
+    bool isPositionWithin(const Position& pos) const;
 
-    /// @brief check if the given shape is within this triangle or intersect in a certain point
+    /// @brief check if the given position is FULL within this triangle
+    bool isBoundaryFullWithin(const Boundary& boundary) const;
+
+    /// @brief check if the given shape is within or intersect with this triangle
     bool isAroundShape(const PositionVector& shape) const;
 
-    /// @brief check if the given shape is within this triangle or intersect in a certain point
-    bool isAroundShape(const PositionVector& shape, const Boundary& boundary) const;
-
-    /// @brief check if the given boundary is within this triangle
-    bool isBoundaryAround(const Boundary& boundary) const;
+    /// @brief check if the given shape is within or intersect with this triangle
+    bool isAroundShape(const PositionVector& shape, const Boundary& shapeBoundary) const;
 
     /// @brief check if the given circunference is within this triangle
     bool isCircunferenceAround(const Position& center, const double radius) const;
@@ -78,12 +78,12 @@ public:
     bool operator!=(const Triangle& other) const;
 
 private:
-    /// @name functions used for triangulating
+    /// @name functions used for triangulation
     /// @{
     /// @brief check if the given position is within this triangle
-    static bool isAroundPosition(const Position& A, const Position& B, const Position& C, const Position& pos);
+    static bool isPositionWithin(const Position& A, const Position& B, const Position& C, const Position& pos);
 
-    // Check if the triangle (A, B, C) is an ear
+    /// @brief Check if the triangle (A, B, C) is an ear
     static bool isEar(const Position& a, const Position& b, const Position& c, const PositionVector& shape);
 
     /// @brief calculate cross product of the given points
@@ -91,8 +91,60 @@ private:
 
     /// @}
 
-    /// @brief calculate triangle area (2D)
-    double calculateTriangleArea2D(const Position& a, const Position& b, const Position& c) const;
+    /// @name functions used for check if a shape intersect with the triangle
+    /// @{
+    /// @brief Compute the orientation of ordered triplet (p, q, r)
+    int orientation(const Position& p, const Position& q, const Position& r) const {
+        const double val = (q.y() - p.y()) * (r.x() - q.x()) - (q.x() - p.x()) * (r.y() - q.y());
+        if (val > 0) {
+            // Clockwise
+            return 1;
+        } else if (val < 0) {
+            // Counterclockwise
+            return -1;
+        } else {
+            // Collinear
+            return 0;       
+        }
+    }
+
+    /// @brief check if point q lies on segment pr
+    bool onSegment(const Position& p, const Position& q, const Position& r) const {
+        return (q.x() >= std::min(p.x(), r.x()) && q.x() <= std::max(p.x(), r.x()) &&
+                q.y() >= std::min(p.y(), r.y()) && q.y() <= std::max(p.y(), r.y()));
+    }
+
+    /// @brief check if two line segments (p1,q1) and (p2,q2) intersect
+    bool segmentsIntersect(const Position& p1, const Position& q1, const Position& p2, const Position& q2) const {
+        const int o1 = orientation(p1, q1, p2);
+        const int o2 = orientation(p1, q1, q2);
+        const int o3 = orientation(p2, q2, p1);
+        const int o4 = orientation(p2, q2, q1);
+        // General case: segments intersect if they have different orientations
+        // Special cases: checking if points are collinear and on segment
+        if (o1 != o2 && o3 != o4) {
+            return true;
+        } else if (o1 == 0 && onSegment(p1, p2, q1)) {
+            return true;
+        } else if (o2 == 0 && onSegment(p1, q2, q1)) {
+            return true;
+        } else if (o3 == 0 && onSegment(p2, p1, q2)) {
+            return true;
+        } else if (o4 == 0 && onSegment(p2, q1, q2)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /// @brief check if a line segment (p1, p2) intersects this triangle
+    bool lineIntersectsTriangle(const Position& p1, const Position& p2) const {
+        return segmentsIntersect(p1, p2, myA, myB) || 
+               segmentsIntersect(p1, p2, myB, myC) || 
+               segmentsIntersect(p1, p2, myC, myA);
+    }
+
+    /// @}
 
     /// @brief function to check if line between posA and posB intersect circle
     bool lineIntersectCircle(const Position& posA, const Position& posB, const Position& center, const double radius) const;
@@ -105,9 +157,6 @@ private:
 
     /// @brief third triangle position
     Position myC = Position::INVALID;
-
-    /// @brief triangle Area
-    double myArea = -1;
 
     /// @brief triangle boundary
     Boundary myBoundary;

@@ -185,7 +185,7 @@ GNENetHelper::AttributeCarriers::isNetworkElementAroundTriangle(GNEAttributeCarr
         // Junction
         const GNEJunction* junction = myJunctions.at(AC->getID());
         if (junction->getNBNode()->getShape().size() == 0) {
-            return triangle.isAroundPosition(junction->getNBNode()->getCenter());
+            return triangle.isPositionWithin(junction->getNBNode()->getCenter());
         } else {
             return (triangle.isAroundShape(junction->getNBNode()->getShape()));
         }
@@ -210,7 +210,7 @@ GNENetHelper::AttributeCarriers::isNetworkElementAroundTriangle(GNEAttributeCarr
         // Additional (including shapes and TAZs
         const GNEAdditional* additional = retrieveAdditional(AC->getGUIGlObject());
         if (additional->getAdditionalGeometry().getShape().size() <= 1) {
-            return triangle.isAroundPosition(additional->getPositionInView());
+            return triangle.isPositionWithin(additional->getPositionInView());
         } else {
             return triangle.isAroundShape(additional->getAdditionalGeometry().getShape());
         }

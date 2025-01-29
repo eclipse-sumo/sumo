@@ -26,7 +26,7 @@
 // static member definitions
 // ===========================================================================
 
-const Triangle Triangle::INVALID(Position::INVALID, Position::INVALID, Position::INVALID);
+const Triangle Triangle::INVALID = Triangle();
 
 // ===========================================================================
 // method definitions
@@ -39,8 +39,7 @@ Triangle::Triangle(const Position& positionA, const Position& positionB, const P
     myA(positionA),
     myB(positionB),
     myC(positionC) {
-    // calculate area and boundary
-    myArea = calculateTriangleArea2D(myA, myB, myC);
+    // calculate boundary
     myBoundary.add(positionA);
     myBoundary.add(positionB);
     myBoundary.add(positionC);
@@ -51,45 +50,53 @@ Triangle::~Triangle() {}
 
 
 bool
-Triangle::isAroundPosition(const Position& pos) const {
-    return isAroundPosition(myA, myB, myC, pos);
+Triangle::isPositionWithin(const Position& pos) const {
+    return isPositionWithin(myA, myB, myC, pos);
+}
+
+
+bool
+Triangle::isBoundaryFullWithin(const Boundary& boundary) const {
+    if (!isPositionWithin(Position(boundary.xmax(), boundary.ymax())) ||
+        !isPositionWithin(Position(boundary.xmin(), boundary.ymin())) ||
+        !isPositionWithin(Position(boundary.xmax(), boundary.ymin())) ||
+        !isPositionWithin(Position(boundary.xmin(), boundary.ymax()))) {
+        return false;
+    } else {
+        return true;
+    }
 }
 
 
 bool
 Triangle::isAroundShape(const PositionVector& shape) const {
-    for (const auto& pos : shape) {
-        if (isAroundPosition(pos)) {
+    return isAroundShape(shape, shape.getBoxBoundary());
+}
+
+
+bool
+Triangle::isAroundShape(const PositionVector& shape, const Boundary& shapeBoundary) const {
+    // check if at leas two corners of the shape boundary are within triangle
+    const int cornerA = isPositionWithin(Position(shapeBoundary.xmax(), shapeBoundary.ymax()));
+    const int cornerB = isPositionWithin(Position(shapeBoundary.xmin(), shapeBoundary.ymin()));
+    if ((cornerA + cornerB) == 2) {
+        return true;
+    }
+    const int cornerC = isPositionWithin(Position(shapeBoundary.xmax(), shapeBoundary.ymin()));
+    if ((cornerA + cornerB + cornerC) == 2) {
+        return true;
+    }
+    const int cornerD = isPositionWithin(Position(shapeBoundary.xmin(), shapeBoundary.ymax()));
+    if ((cornerA + cornerB + cornerC + cornerD) == 2) {
+        return true;
+    }
+    // on this point, whe need to check if every shape line intersect with triangle
+    for (int i = 0; i < ((int)shape.size() - 1); i++) {
+        if (lineIntersectsTriangle(shape[i], shape[i+1])) {
             return true;
         }
     }
     return false;
-}
-
-
-bool
-Triangle::isAroundShape(const PositionVector& shape, const Boundary& boundary) const {
-    if (isBoundaryAround(boundary)) {
-        return true;
-    } else {
-        for (const auto& pos : shape) {
-            if (isAroundPosition(pos)) {
-                return true;
-            }
-        }
-        return false;
-    }
-}
-
-
-bool
-Triangle::isBoundaryAround(const Boundary& boundary) const {
-    if (isAroundPosition(Position(boundary.xmin(), boundary.ymin())) &&
-            isAroundPosition(Position(boundary.xmax(), boundary.ymax()))) {
-        return true;
-    } else {
-        return false;
-    }
 }
 
 
@@ -102,7 +109,7 @@ Triangle::isCircunferenceAround(const Position& center, const double radius) con
     } else if (lineIntersectCircle(myA, myB, center, radius)) {
         return true;
     } else {
-        return isAroundPosition(center);
+        return isPositionWithin(center);
     }
 }
 
@@ -171,7 +178,7 @@ Triangle::operator!=(const Triangle& other) const {
 }
 
 bool
-Triangle::isAroundPosition(const Position& A, const Position& B, const Position& C, const Position& pos) {
+Triangle::isPositionWithin(const Position& A, const Position& B, const Position& C, const Position& pos) {
     // Calculate cross products for each edge of the triangle
     const double crossAB = crossProduct(A, B, pos);
     const double crossBC = crossProduct(B, C, pos);
@@ -190,7 +197,7 @@ Triangle::isEar(const Position& a, const Position& b, const Position& c, const P
     }
     // Check if any other point in the polygon lies inside the triangle
     for (const auto& pos : shape) {
-        if ((pos != a) && (pos != b) && (pos != c) && isAroundPosition(a, b, c, pos)) {
+        if ((pos != a) && (pos != b) && (pos != c) && isPositionWithin(a, b, c, pos)) {
             return false;
         }
     }
@@ -201,12 +208,6 @@ Triangle::isEar(const Position& a, const Position& b, const Position& c, const P
 double
 Triangle::crossProduct(const Position& a, const Position& b, const Position& c) {
     return (b.x() - a.x()) * (c.y() - a.y()) - (b.y() - a.y()) * (c.x() - a.x());
-}
-
-
-double
-Triangle::calculateTriangleArea2D(const Position& a, const Position& b, const Position& c) const {
-    return std::abs((a.x() * (b.y() - c.y()) + b.x() * (c.y() - a.y()) + c.x() * (a.y() - b.y())) / 2.0);
 }
 
 

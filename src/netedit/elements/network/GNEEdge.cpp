@@ -2886,7 +2886,7 @@ GNEEdge::drawChildrens(const GUIVisualizationSettings& s) const {
 void
 GNEEdge::calculateEdgeContour(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, const double layer) const {
     // if we're selecting using a boundary, first don't calculate contour bt check if edge boundary is within selection boundary
-    if (gViewObjectsHandler.selectingUsingRectangle() && gViewObjectsHandler.getSelectionTriangle().isBoundaryAround(myEdgeBoundary)) {
+    if (gViewObjectsHandler.selectingUsingRectangle() && gViewObjectsHandler.getSelectionTriangle().isBoundaryFullWithin(myEdgeBoundary)) {
         // simply add object in ViewObjectsHandler with full boundary
         gViewObjectsHandler.selectObject(this, layer, false, true, nullptr);
     } else {

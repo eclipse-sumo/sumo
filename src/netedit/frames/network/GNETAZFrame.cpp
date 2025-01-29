@@ -1640,9 +1640,7 @@ GNETAZFrame::shapeDrawed() {
                 edgeIDs.reserve(edgeIDs.size() + myViewNet->getViewObjectsSelector().getEdges().size());
                 // get only edges with geometry around triangle
                 for (const auto& edge : myViewNet->getViewObjectsSelector().getEdges()) {
-                    if (myViewNet->getNet()->getAttributeCarriers()->isNetworkElementAroundTriangle(edge, triangle)) {
-                        edgeIDs.push_back(edge->getID());
-                    }
+                    edgeIDs.push_back(edge->getID());
                 }
             }
             myBaseTAZ->addStringListAttribute(SUMO_ATTR_EDGES, edgeIDs);
