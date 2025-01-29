@@ -54,7 +54,9 @@ pipeline {
                 sh '''
                     # Creating the EclipseSUMO framework directory
                     export DYLD_LIBRARY_PATH="${WORKSPACE}/jupedsim-install/lib"
-                    env/bin/python3 sumo/tools/build_config/buildMacOSInstaller.py --create-framework-dir --build-dir sumo-build --framework-dir framework
+                    env/bin/python3 sumo/tools/build_config/buildMacOSInstaller.py --create-framework-dir \
+                            --build-dir sumo-build \
+                            --framework-dir framework
                     zip -q -r --symlinks framework-unsigned.zip framework
 
                     # Creating the EclipseSUMO launcher apps directory
@@ -107,10 +109,10 @@ pipeline {
                     subDirs.each { subDir ->
                         sh """
                             for file in framework/EclipseSUMO.framework/EclipseSUMO/${subDir}/*; do
-                                original_perms=\$(stat -f '%A' "\${file}")
                                 signed_file="\${file}-signed"
                                 curl -s -o "\${signed_file}" -F "file=@\${file}" -F "entitlements=@${entitlementsFile}" https://cbi-staging.eclipse.org/macos/codesign/sign
-                                chmod "\${original_perms}" "\${signed_file}"
+                                # keep the original permissions
+                                chmod --reference="\${file}" "\${signed_file}"
                                 mv -v "\${signed_file}" "\${file}"
                             done
                         """
@@ -123,10 +125,10 @@ pipeline {
                     ]
                     additionalFiles.each { file ->
                         sh """
-                            original_perms=\$(stat -f '%A' "${file}")
                             signed_file="${file}-signed"
                             curl -s -o "\${signed_file}" -F "file=@${file}" -F "entitlements=@${entitlementsFile}" https://cbi-staging.eclipse.org/macos/codesign/sign
-                            chmod "\${original_perms}" "\${signed_file}"
+                            # keep the original permissions
+                            chmod --reference="${file}" "\${signed_file}"
                             mv -v "\${signed_file}" "${file}"
                         """
                     }
@@ -154,11 +156,15 @@ pipeline {
                         unzip -q -o apps-signed.zip -d "${WORKSPACE}"
 
                         rm -rf framework-pkg
-                        env/bin/python3 sumo/tools/build_config/buildMacOSInstaller.py --create-framework-pkg --framework-dir framework --framework-pkg-dir framework-pkg
+                        env/bin/python3 sumo/tools/build_config/buildMacOSInstaller.py --create-framework-pkg \
+                              --framework-dir framework \
+                              --framework-pkg-dir framework-pkg
                         zip -q -r --symlinks "framework-pkg-unsigned.zip" framework-pkg
 
                         rm -rf apps-pkg
-                        env/bin/python3 sumo/tools/build_config/buildMacOSInstaller.py --create-apps-pkg --apps-dir apps --apps-pkg-dir apps-pkg
+                        env/bin/python3 sumo/tools/build_config/buildMacOSInstaller.py --create-apps-pkg \
+                              --apps-dir apps \
+                              --apps-pkg-dir apps-pkg
                         zip -q -r --symlinks "apps-pkg-unsigned.zip" apps-pkg
                     """
                 }
@@ -212,9 +218,10 @@ pipeline {
                     subDirs.each { subDir ->
                         sh """
                             for file in ${subDir}/*; do
-                                original_perms=\$(stat -f '%A' "\${file}")
                                 signed_file="\${file}-signed"
                                 curl -s -o "\${signed_file}" -F "file=@\${file}" -F "entitlements=@${entitlementsFile}" https://cbi-staging.eclipse.org/macos/codesign/sign
+                                # keep the original permissions
+                                chmod --reference="\${file}" "\${signed_file}"
                                 mv -v "\${signed_file}" "\${file}"
                             done
                         """
@@ -244,7 +251,9 @@ pipeline {
                         unzip -q -o apps-pkg-signed.zip -d "${WORKSPACE}"
 
                         rm -rf installer
-                        env/bin/python3 sumo/tools/build_config/buildMacOSInstaller.py --create-installer-pkg --framework-pkg-dir framework-pkg --apps-pkg-dir apps-pkg
+                        env/bin/python3 sumo/tools/build_config/buildMacOSInstaller.py --create-installer-pkg \
+                            --framework-pkg-dir framework-pkg \
+                            --apps-pkg-dir apps-pkg
                     """
                 }
                 stash name: 'installer-unsigned', includes: 'installer/sumo*.pkg'
@@ -286,9 +295,11 @@ pipeline {
                             file=\$(ls installer/sumo*.pkg)
                             signed_file="\${file}-signed"
                             curl -s -o "\$signed_file" -F "file=@\$file" -F "entitlements=@${entitlementsFile}" https://cbi-staging.eclipse.org/macos/codesign/sign
-                            chmod "\${original_perms}" "\${signed_file}"
+                            # keep the original permissions
+                            chmod --reference="\${file}" "\${signed_file}"
                             mv "\$signed_file" "\$file"
 
+                            # Start notarization
                             curl -X POST -F file=@"\$file" -F 'options={"primaryBundleId": "org.eclipse.sumo", "staple": true};type=application/json' https://cbi.eclipse.org/macos/xcrun/notarize
                         """,
                         returnStdout: true
@@ -343,9 +354,15 @@ pipeline {
             steps {
                 unstash 'notarized'
                 sh """
+                  # Determine the name of the dmg file based on the sumo*.pkg file
                   file="\$(ls installer/sumo*.pkg)"
+                  file=\$(basename "\$file")
                   dmg_file="\${file%.pkg}.dmg"
-                  env/bin/python3 sumo/tools/build_config/buildMacOSInstaller.py --create-installer-dmg --installer-pkg-file notarized/sumo*.pkg --installer-dmg-file notarized/\${dmg_file}
+
+                  # Create the dmg file
+                  env/bin/python3 sumo/tools/build_config/buildMacOSInstaller.py --create-installer-dmg \
+                      --installer-pkg-file notarized/sumo*.pkg \
+                      --installer-dmg-file notarized/\${dmg_file}
                 """
             }
         }
