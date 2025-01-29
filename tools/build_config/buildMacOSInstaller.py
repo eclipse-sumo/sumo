@@ -209,6 +209,7 @@ def create_framework_pkg(name, pkg_id, version, framework_dir, framework_pkg_dir
         f"/Library/Frameworks/{name}.framework",
         f"{pkg_path}",
     ]
+    print(f" - Using the call {pkg_build_command}")
     print(f" - Calling pkgbuild to create \"{pkg_path}\"")
     subprocess.run(pkg_build_command, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     pkg_size = os.path.getsize(pkg_path)
