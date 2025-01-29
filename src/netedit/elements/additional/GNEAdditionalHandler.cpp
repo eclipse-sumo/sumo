@@ -1618,6 +1618,8 @@ GNEAdditionalHandler::buildPolygon(const CommonXMLStructure::SumoBaseObject* sum
             return false;
         } else if (!checkValidAdditionalID(SUMO_TAG_POLY, id)) {
             return false;
+        } else if (!checkNegative(SUMO_TAG_POLY, id, SUMO_ATTR_LINEWIDTH, lineWidth, true)) {
+            return false;
         } else {
             // get netedit parameters
             NeteditParameters neteditParameters(sumoBaseObject);
