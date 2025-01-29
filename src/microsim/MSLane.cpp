@@ -798,7 +798,7 @@ MSLane::checkFailure(const MSVehicle* aVehicle, double& speed, double& dist, con
             speed = MIN2(nspeed, speed);
             dist = aVehicle->getCarFollowModel().brakeGap(speed) + aVehicle->getVehicleType().getMinGap();
         } else if (speed > 0) {
-            if ((getInsertionChecks(aVehicle) & (int)check) == 0) {
+            if ((aVehicle->getInsertionChecks() & (int)check) == 0) {
                 return false;
             }
             if (MSGlobals::gEmergencyInsert) {
@@ -827,7 +827,7 @@ bool
 MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                            double speed, double pos, double posLat, bool patchSpeed,
                            MSMoveReminder::Notification notification) {
-    int insertionChecks = getInsertionChecks(aVehicle);
+    int insertionChecks = aVehicle->getInsertionChecks();
     if (pos < 0 || pos > myLength) {
         // we may not start there
         WRITE_WARNINGF(TL("Invalid departPos % given for vehicle '%'. Inserting at lane end instead."),
@@ -1355,14 +1355,6 @@ MSLane::forceVehicleInsertion(MSVehicle* veh, double pos, MSMoveReminder::Notifi
     }), notification);
 }
 
-int
-MSLane::getInsertionChecks(const MSVehicle* veh) {
-    if (veh->getParameter().wasSet(VEHPARS_INSERTION_CHECKS_SET)) {
-        return veh->getParameter().insertionChecks;
-    } else {
-        return MSGlobals::gInsertionChecks;
-    }
-}
 
 double
 MSLane::safeInsertionSpeed(const MSVehicle* veh, double seen, const MSLeaderInfo& leaders, double speed) {
@@ -1386,7 +1378,7 @@ MSLane::safeInsertionSpeed(const MSVehicle* veh, double seen, const MSLeaderInfo
                     std::cout << "    leader=" << leader->getID() << " bPos=" << leader->getBackPositionOnLane(this) << " gap=" << gap << "\n";
                 }
 #endif
-                if ((getInsertionChecks(veh) & (int)InsertionCheck::COLLISION) != 0) {
+                if ((veh->getInsertionChecks() & (int)InsertionCheck::COLLISION) != 0) {
                     return INVALID_SPEED;
                 } else {
                     return 0;
@@ -4503,7 +4495,7 @@ MSLane::checkForPedestrians(const MSVehicle* aVehicle, double& speed, double& di
         if (leader.first != 0) {
             const double gap = leader.second - aVehicle->getVehicleType().getLengthWithGap();
             const double stopSpeed = aVehicle->getCarFollowModel().stopSpeed(aVehicle, speed, gap, MSCFModel::CalcReason::FUTURE);
-            if ((gap < 0 && (getInsertionChecks(aVehicle) & ((int)InsertionCheck::COLLISION | (int)InsertionCheck::PEDESTRIAN)) != 0)
+            if ((gap < 0 && (aVehicle->getInsertionChecks() & ((int)InsertionCheck::COLLISION | (int)InsertionCheck::PEDESTRIAN)) != 0)
                     || checkFailure(aVehicle, speed, dist, stopSpeed, patchSpeed, "", InsertionCheck::PEDESTRIAN)) {
                 // we may not drive with the given velocity - we crash into the pedestrian
 #ifdef DEBUG_INSERTION

@@ -991,6 +991,14 @@ MSBaseVehicle::setDepartAndArrivalEdge() {
     }
 }
 
+int
+MSBaseVehicle::getInsertionChecks() const {
+    if (getParameter().wasSet(VEHPARS_INSERTION_CHECKS_SET)) {
+        return getParameter().insertionChecks;
+    } else {
+        return MSGlobals::gInsertionChecks;
+    }
+}
 
 double
 MSBaseVehicle::getImpatience() const {

@@ -1622,8 +1622,6 @@ private:
     static double myCollisionMinGapFactor;
     static bool myExtrapolateSubstepDepart;
 
-    static int getInsertionChecks(const MSVehicle* veh);
-
     /**
      * @class vehicle_position_sorter
      * @brief Sorts vehicles by their position (descending)
