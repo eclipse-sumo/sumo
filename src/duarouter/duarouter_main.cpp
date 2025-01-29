@@ -157,7 +157,6 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
             ROVehicle defaultVehicle(SUMOVehicleParameter(), nullptr, net.getVehicleTypeSecure(DEFAULT_VTYPE_ID), &net);
             KDTreePartition<ROEdge, RONode, ROVehicle>* partition = new KDTreePartition<ROEdge, RONode, ROVehicle>(NUMBER_OF_LEVELS, ROEdge::getAllEdges(), net.hasPermissions(), oc.isSet("restriction-params"));
             partition->init(&defaultVehicle);
-            auto ttFunction = gWeightsRandomFactor > 1 ? &ROEdge::getTravelTimeStaticRandomized : &ROEdge::getTravelTimeStatic;
             auto reversedTtFunction = gWeightsRandomFactor > 1 ? &FlippedEdge<ROEdge, RONode, ROVehicle>::getTravelTimeStaticRandomized : &FlippedEdge<ROEdge, RONode, ROVehicle>::getTravelTimeStatic;
             router = new AFRouter<ROEdge, RONode, ROVehicle, ROMapMatcher>(ROEdge::getAllEdges(),
                     partition, oc.getBool("ignore-errors"), ttFunction, reversedTtFunction, (oc.isSet("weight-files") ? string2time(oc.getString("weight-period")) : SUMOTime_MAX),

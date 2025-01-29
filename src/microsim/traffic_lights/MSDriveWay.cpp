@@ -1272,13 +1272,13 @@ MSDriveWay::buildDriveWay(const std::string& id, const MSLink* link, MSRouteIter
     }
     std::set<MSLink*> flankSwitchesBidiExtended;
     dw->checkFlanks(link, dw->myBidiExtended, visited, false, flankSwitchesBidiExtended);
-    for (MSLink* link : flankSwitchesBidiExtended) {
+    for (MSLink* const flink : flankSwitchesBidiExtended) {
 #ifdef DEBUG_ADD_FOES
         if (DEBUG_COND_DW) {
-            std::cout << " fsLinkExtended=" << link->getDescription() << "\n";
+            std::cout << " fsLinkExtended=" << flink->getDescription() << "\n";
         }
 #endif
-        dw->findFlankProtection(link, link, dw->myBidiExtended);
+        dw->findFlankProtection(flink, flink, dw->myBidiExtended);
     }
     MSRailSignal* rs = link ? const_cast<MSRailSignal*>(static_cast<const MSRailSignal*>(link->getTLLogic())) : nullptr;
     const bool movingBlock = (rs && rs->isMovingBlock()) || (!rs && OptionsCont::getOptions().getBool("railsignal-moving-block"));
