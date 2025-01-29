@@ -414,7 +414,7 @@ def create_dmg(dmg_title, version, installer_pkg_path, installer_dmg_path):
     shutil.copy(installer_pkg_path, dmg_prep_folder)
 
     # Add the uninstall script
-    uninstall_script_path = os.path.join(dmg_prep_folder, "uninstall.sh")
+    uninstall_script_path = os.path.join(dmg_prep_folder, "uninstall.command")
     with open(uninstall_script_path, "w") as f:
         f.write("""#!/bin/bash
 echo "This will uninstall Eclipse SUMO and its components."
@@ -463,12 +463,12 @@ exit 0
     total_size = 0
     for root, _, files in os.walk(dmg_prep_folder):
         for file in files:
-            files_to_store.append((os.path.join(root, file), f"{dmg_title} {version}"))
+            files_to_store.append((os.path.join(root, file), file))
             total_size += os.path.getsize(os.path.join(root, file))
 
     print(" - Building diskimage")
     settings = {
-        "volume_name": "Eclipse SUMO",
+        "volume_name": f"Eclipse SUMO {version}",
         "size": f"{total_size // 1024 * 1.2}K",
         "files": files_to_store,
         # FIXME: add background and badge
