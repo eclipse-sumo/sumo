@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-01-06 11:22+0100\n"
-"PO-Revision-Date: 2025-01-29 09:02+0000\n"
+"PO-Revision-Date: 2025-01-29 11:10+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -4276,23 +4276,28 @@ msgstr ""
 
 #: src/microsim/devices/MSDevice_SSM.cpp:248
 msgid "Specifies the perception reaction time for MDRAC computation."
-msgstr ""
+msgstr "Specifica il tempo di reazione della percezione per calcolare MDRAC."
 
 #: src/microsim/devices/MSDevice_SSM.cpp:250
 msgid "Give a global default filename for the SSM output"
-msgstr ""
+msgstr "Indica un nome di file standard globale per la uscita SSM"
 
 #: src/microsim/devices/MSDevice_SSM.cpp:252
 msgid "Whether to use coordinates of the original reference system in output"
 msgstr ""
+"Se si devono usare le coordinate del sistema di referenza originale in uscita"
 
 #: src/microsim/devices/MSDevice_SSM.cpp:254
 msgid "Whether to write positions (coordinates) for each timestep"
 msgstr ""
+"Se le posizioni (coordinate) devono essere scritte per ogni passo di "
+"simulazione"
 
 #: src/microsim/devices/MSDevice_SSM.cpp:256
 msgid "Whether to write lanes and their positions for each timestep"
 msgstr ""
+"Se le corsie e le loro posizioni devono essere scritte per ogni passo di "
+"simulazione"
 
 #: src/microsim/devices/MSDevice_SSM.cpp:258
 msgid ""
@@ -4301,16 +4306,26 @@ msgid ""
 "numerical valid conflict type code). An empty value will log all and "
 "'ego'/'foe' refer to a certain conflict type subset."
 msgstr ""
+"Quale conflitto verrà escluso dal protocollo a prescindere dal suo tipo ("
+"sono validi combinazioni di 'ego', 'foe', '' oppure ogni codice numerico di "
+"tipo di conflitto). Un valore vuoto farà che tutti i conflitti verranno "
+"inclusi e 'ego'/'foe' fanno referenza a dei sottoinsieme di conflitti "
+"predefiniti."
 
 #: src/microsim/devices/MSDevice_SSM.cpp:269
 msgid "Could not load names of edges for filtering SSM device output from '%'."
 msgstr ""
+"Non ho potuto caricare i nomi degli archi da '%' per filtrare la uscita "
+"dell'attrezzo SSM."
 
 #: src/microsim/devices/MSDevice_SSM.cpp:963
 msgid ""
 "SSM device of vehicle '%' encountered an unexpected conflict with foe % at "
 "time=%. Please review your vehicle behavior settings."
 msgstr ""
+"L'attrezzo SSM del veicolo '%' ha incontrato un conflitto inaspettato con il "
+"veicolo % alle ore %. Ripensa alla configurazione di comportamento del "
+"veicolo."
 
 #: src/microsim/devices/MSDevice_SSM.cpp:1128
 msgid ""
@@ -4431,6 +4446,8 @@ msgid ""
 "SSM order filter '%' is not supported. Aborting construction of SSM device "
 "'%'."
 msgstr ""
+"Il filtro di ordine SSM '%' non è supportato. La creazione dell'attrezzo SSM "
+"'%' viene interrotta."
 
 #: src/microsim/devices/MSDevice_SSM.cpp:4039
 #, c-format
@@ -4492,6 +4509,9 @@ msgid ""
 "Negative (or no) value encountered for vehicle parameter 'device.ssm."
 "extratime' in vehicle '%' using default value % instead."
 msgstr ""
+"Un valore negativo (oppure nessuno) è stato trovato per il parametro di "
+"veicolo 'device.ssm.extratime' nel veicolo '%'. Perciò verra usato il valore "
+"standard %."
 
 #: src/microsim/devices/MSDevice_SSM.cpp:4126
 #, c-format
@@ -4524,6 +4544,8 @@ msgstr ""
 msgid ""
 "SSM identifier '%' is not supported. Aborting construction of SSM device '%'."
 msgstr ""
+"La misura SSM '%' non è supportata. La creazione dell'attrezzo SSM '%' viene "
+"interrotta."
 
 #: src/microsim/devices/MSDevice_SSM.cpp:4194
 #, c-format
