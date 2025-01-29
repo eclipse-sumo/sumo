@@ -547,7 +547,7 @@ When using the attributes in this way, the default cut-off range [0.2, 2] remain
     The distribution mean must fall within the cut-off range. In order to use mean values below 0.2 or above 2.0, the 4-parameter version must be used to modify the cut-off parameters as well.
 
 !!! caution
-    Attribute `speedFactor` has three different meanings: in a `<vehicle>` it defines the individual speedFactor directly. In a `<vType>` if given as a single floating point value, it defines the mean of the speed distribution and when giving as `norm(...)` / `nomrc(...)`, it defines the whole distribution.
+    Attribute `speedFactor` has three different meanings: in a `<vehicle>` it defines the individual speedFactor directly. In a `<vType>` if given as a single floating point value, it defines the mean of the speed distribution and when giving as `norm(...)` / `normc(...)`, it defines the whole distribution.
 
 ### Vehicle class specific defaults
 
