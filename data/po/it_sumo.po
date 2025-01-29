@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-01-06 11:22+0100\n"
-"PO-Revision-Date: 2025-01-29 11:10+0000\n"
+"PO-Revision-Date: 2025-01-30 12:17+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -4024,7 +4024,7 @@ msgstr ""
 #: src/microsim/devices/MSDevice_Emissions.cpp:97
 #, c-format
 msgid "Unknown attribute '%' to write in emission output."
-msgstr ""
+msgstr "Attributo sconosciuto '%' da scrivere nell'uscita di emissioni."
 
 #: src/microsim/devices/MSDevice_Example.cpp:48
 msgid ""
@@ -4060,11 +4060,12 @@ msgstr "Registra oggetti in un raggio attorno a veicoli attrezzati"
 #: src/microsim/devices/MSDevice_FCD.cpp:138
 #, c-format
 msgid "Specified shape '%' for filtering fcd-output could not be found."
-msgstr ""
+msgstr "La forma specificata '%' per filtrate l'uscita FCD non è stata trovata."
 
 #: src/microsim/devices/MSDevice_FCD.cpp:163
 msgid "Could not load names of edges for filtering fcd-output from '%'."
 msgstr ""
+"Non ho potuto caricare i nome degli archi da '%' per filtrare l'uscita FCD."
 
 #: src/microsim/devices/MSDevice_FCD.cpp:182
 #, c-format
@@ -4073,7 +4074,7 @@ msgstr "Attributo sconosciuto '%' da emettere in uscita FCD."
 
 #: src/microsim/devices/MSDevice_FCDReplay.cpp:61
 msgid "FCD file to read"
-msgstr ""
+msgstr "File FCD da leggere"
 
 #: src/microsim/devices/MSDevice_FCDReplay.cpp:216
 msgid "Unknown edge '%' in fcd replay file for person '%'."
@@ -4119,22 +4120,28 @@ msgid ""
 "Additional time the vehicle shall need to reach the intersection after the "
 "signal turns green"
 msgstr ""
+"Tempo addizionale che il veicolo necessita per giungere all'incrocio dopo "
+"che il signale diventa verde"
 
 #: src/microsim/devices/MSDevice_GLOSA.cpp:63
 msgid "Use queue in front of the tls for GLOSA calculation"
-msgstr ""
+msgstr "Usa la coda di veicoli a monte del semaforo per il calcolo GLOSA"
 
 #: src/microsim/devices/MSDevice_GLOSA.cpp:66
 msgid ""
 "Override safety features - ignore the current light state, always follow "
 "GLOSA's predicted state"
 msgstr ""
+"Non tenere conto delle funzioni di sicurezza - ignora lo stato del segnale e "
+"segui sempre lo stato previsto da GLOSA"
 
 #: src/microsim/devices/MSDevice_GLOSA.cpp:69
 msgid ""
 "Vehicles follow a perfect speed calculation - ignore speed calculations from "
 "the CF model if not safety critical"
 msgstr ""
+"I veicoli seguono un calcolo di velocità perfetto - ignora i calcoli di "
+"velocità tratti da modelli di guida se non sono critici per la sicurezza"
 
 #: src/microsim/devices/MSDevice_GLOSA.cpp:345
 msgid ""
@@ -4180,6 +4187,8 @@ msgid ""
 "Use weight files given with option --weight-files for initializing edge "
 "weights"
 msgstr ""
+"Usa i file di pesi dati con l'opzione --weight-files per inizializzare i "
+"pesi di archi"
 
 #: src/microsim/devices/MSDevice_Routing.cpp:84
 msgid "The number of parallel execution threads used for rerouting"
@@ -4200,7 +4209,7 @@ msgstr "Calcola velocità medie separate per biciclette"
 
 #: src/microsim/devices/MSDevice_Routing.cpp:96
 msgid "Save adapting weights to FILE"
-msgstr ""
+msgstr "Salva pesi di adattamento in FILE"
 
 #: src/microsim/devices/MSDevice_Routing.cpp:104
 msgid ""
@@ -4571,17 +4580,24 @@ msgid ""
 "measures ('%').\n"
 "Please specify exactly one threshold for each measure."
 msgstr ""
+"L'elenco dato di valori soglia ('%') non è della stessa dimensione che "
+"l'elenco di misure ('%').\n"
+"Per favore specifica esattamente un valore soglia per ogni misura."
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:62
 msgid ""
 "Time to wait for a rescue vehicle on the road side when the battery is empty"
 msgstr ""
+"Tempo di attesa sul lato della strada per un veicolo rimorchiatore quando la "
+"batteria è scarica"
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:64
 msgid ""
 "How to deal with a vehicle which has to stop due to low battery: [none, "
 "remove, tow]"
 msgstr ""
+"Come procedere con un veicolo fermatosi per causa di batteria scarica: "
+"[none, remove, tow]"
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:66
 msgid ""
@@ -4613,33 +4629,42 @@ msgstr ""
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:78
 msgid "Type of energy transfer"
-msgstr ""
+msgstr "Tipo di trasferimento di energia"
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:80
 msgid ""
 "After this waiting time vehicle searches for a new station when the initial "
 "one is blocked"
 msgstr ""
+"Dopo questo tempo d'attesa il veicolo inizia di nuovo a cercare una stazione "
+"di ricarica se quella iniziale è occupata"
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:82
 msgid ""
 "Only stops with a predicted duration of at least the given threshold are "
 "considered for opportunistic charging."
 msgstr ""
+"Considera unicamente le fermate per la carica opportunistica che hanno una "
+"durata stimata di almeno il valore soglia dato."
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:84
 msgid "Target state of charge after which the vehicle stops charging"
 msgstr ""
+"Traguardo di livello di carica dopo il quale il veicolo ferma la ricarica"
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:86
 msgid "State of charge the vehicle begins searching for charging stations"
 msgstr ""
+"Livello di carica allo quale il veicolo inizia a cercare delle stazioni di "
+"ricarica"
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:88
 msgid ""
 "State of charge below which the vehicle may look for charging opportunities "
 "along its planned stops"
 msgstr ""
+"Livello di carica sotto il quale il veicolo può cercare della opportunità di "
+"carica intorno alle sue fermate pianificate"
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:90
 msgid ""
