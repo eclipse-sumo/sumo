@@ -22,15 +22,27 @@ pipeline {
                 git clone -q --filter=tree:0 --branch master https://github.com/PedestrianDynamics/jupedsim.git
 
                 # Building JuPedSim
-                cmake -D CMAKE_INSTALL_PREFIX=jupedsim-install -D CMAKE_C_COMPILER_LAUNCHER=ccache -D CMAKE_CXX_COMPILER_LAUNCHER=ccache -B jupedsim-build jupedsim
+                cmake -Wno-dev -D CMAKE_INSTALL_PREFIX=jupedsim-install -D CMAKE_C_COMPILER_LAUNCHER=ccache -D CMAKE_CXX_COMPILER_LAUNCHER=ccache -B jupedsim-build jupedsim
                 cmake --build jupedsim-build -j16 --config Release
                 cmake --install jupedsim-build --config Release
 
                 # Cloning SUMO
                 git clone -q --filter=tree:0 --branch v1_21_0 https://github.com/eclipse-sumo/sumo.git
+                export SUMO_HOME=\${WORKSPACE}/sumo
+
+                # FIXME (load file from main to have the current version)
+                curl -s -o "${WORKSPACE}/sumo/tools/build_config/buildMacOSInstaller.py" https://raw.githubusercontent.com/eclipse-sumo/sumo/main/tools/build_config/buildMacOSInstaller.py
+                curl -s -o "${WORKSPACE}/sumo/tools/requirements.txt"                    https://raw.githubusercontent.com/eclipse-sumo/sumo/main/tools/requirements.txt
+
+                # Creating virtual env for Python for the whole process
+                /opt/homebrew/bin/python3.13 -m venv env
+                env/bin/python3 -m pip install --quiet -r sumo/tools/requirements.txt
+                env/bin/python3 -m pip install --quiet dmgbuild delocate
 
                 # Building SUMO & TraaS
-                cmake -D CMAKE_INSTALL_PREFIX=sumo-install -B sumo-build sumo
+                export VIRTUAL_ENV=${WORKSPACE}/env
+                export PATH=${WORKSPACE}/env/bin:\$PATH
+                cmake -Wno-dev -D CMAKE_INSTALL_PREFIX=sumo-install -B sumo-build sumo
                 cmake --build sumo-build -j16
                 cmake --build sumo-build --target traas
               '''
@@ -40,14 +52,8 @@ pipeline {
             steps {
 
                 sh '''
-                    export DYLD_LIBRARY_PATH="${WORKSPACE}/jupedsim-install/lib"
-
-                    /opt/homebrew/bin/python3.11 -m venv env
-                    env/bin/python3 -m pip install --quiet dmgbuild delocate
-
-                    curl -s -o "${WORKSPACE}/sumo/tools/build_config/buildMacOSInstaller.py" https://raw.githubusercontent.com/eclipse-sumo/sumo/main/tools/build_config/buildMacOSInstaller.py
-
                     # Creating the EclipseSUMO framework directory
+                    export DYLD_LIBRARY_PATH="${WORKSPACE}/jupedsim-install/lib"
                     env/bin/python3 sumo/tools/build_config/buildMacOSInstaller.py --create-framework-dir --build-dir sumo-build --framework-dir framework
                     zip -q -r --symlinks framework-unsigned.zip framework
 
