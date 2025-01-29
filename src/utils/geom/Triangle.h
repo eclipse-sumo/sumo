@@ -60,13 +60,13 @@ public:
     bool isBoundaryFullWithin(const Boundary& boundary) const;
 
     /// @brief check if the given shape is within or intersect with this triangle
-    bool isAroundShape(const PositionVector& shape) const;
+    bool intersectWithShape(const PositionVector& shape) const;
 
     /// @brief check if the given shape is within or intersect with this triangle
-    bool isAroundShape(const PositionVector& shape, const Boundary& shapeBoundary) const;
+    bool intersectWithShape(const PositionVector& shape, const Boundary& shapeBoundary) const;
 
-    /// @brief check if the given circunference is within this triangle
-    bool isCircunferenceAround(const Position& center, const double radius) const;
+    /// @brief check if the given circle intersect with this triangle
+    bool intersectWithCircle(const Position& center, const double radius, const Boundary& circleBoundary) const;
 
     // @brief triangulate using Ear Clipping algorithm
     static std::vector<Triangle> triangulate(PositionVector shape);

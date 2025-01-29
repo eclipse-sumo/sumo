@@ -69,13 +69,13 @@ Triangle::isBoundaryFullWithin(const Boundary& boundary) const {
 
 
 bool
-Triangle::isAroundShape(const PositionVector& shape) const {
-    return isAroundShape(shape, shape.getBoxBoundary());
+Triangle::intersectWithShape(const PositionVector& shape) const {
+    return intersectWithShape(shape, shape.getBoxBoundary());
 }
 
 
 bool
-Triangle::isAroundShape(const PositionVector& shape, const Boundary& shapeBoundary) const {
+Triangle::intersectWithShape(const PositionVector& shape, const Boundary& shapeBoundary) const {
     // check if at leas two corners of the shape boundary are within triangle
     const int cornerA = isPositionWithin(Position(shapeBoundary.xmax(), shapeBoundary.ymax()));
     const int cornerB = isPositionWithin(Position(shapeBoundary.xmin(), shapeBoundary.ymin()));
@@ -101,8 +101,10 @@ Triangle::isAroundShape(const PositionVector& shape, const Boundary& shapeBounda
 
 
 bool
-Triangle::isCircunferenceAround(const Position& center, const double radius) const {
-    if (lineIntersectCircle(myA, myB, center, radius)) {
+Triangle::intersectWithCircle(const Position& center, const double radius, const Boundary& circleBoundary) const {
+    if (isBoundaryFullWithin(circleBoundary)) {
+        return true;
+    } else if (lineIntersectCircle(myA, myB, center, radius)) {
         return true;
     } else if (lineIntersectCircle(myA, myB, center, radius)) {
         return true;

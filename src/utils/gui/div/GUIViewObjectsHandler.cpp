@@ -120,19 +120,20 @@ GUIViewObjectsHandler::checkCircleObject(const GUIVisualizationSettings::Detail 
         if (selectingUsingRectangle()) {
             // continue depending of detail level
             if (d <= GUIVisualizationSettings::Detail::PreciseSelection) {
-                // check if triangle intersect with circunference
-                if (mySelectionTriangle.isCircunferenceAround(center, radius)) {
+                // check if triangle intersect with circle
+                if (mySelectionTriangle.intersectWithCircle(center, radius, circleBoundary)) {
                     return selectObject(GLObject, layer, false, false, nullptr);
+                } else {
+                    return false;
                 }
             } else {
-                /* check if exist a more optimal method */
-
-                // check if triangle intersect with circunference
-                if (mySelectionTriangle.isCircunferenceAround(center, radius)) {
+                // simply check if center is within triangle
+                if (mySelectionTriangle.isPositionWithin(center)) {
                     return selectObject(GLObject, layer, false, false, nullptr);
+                } else {
+                    return false;
                 }
             }
-            return false;
         } else if (mySelectionPosition != Position::INVALID) {
             // check distance between selection position and center
             if (mySelectionPosition.distanceSquaredTo2D(center) <= squaredRadius) {
@@ -158,18 +159,19 @@ GUIViewObjectsHandler::checkGeometryPoint(const GUIVisualizationSettings::Detail
     if (selectingUsingRectangle()) {
         // continue depending of detail level
         if (d <= GUIVisualizationSettings::Detail::PreciseSelection) {
+            // calculate boundary for geometry point
+            Boundary geometryPointBoundary;
+            geometryPointBoundary.add(geometryPointPos);
             // check if center is within mySelectionBoundary
-            if (mySelectionTriangle.isCircunferenceAround(geometryPointPos, radius)) {
+            if (mySelectionTriangle.intersectWithCircle(geometryPointPos, radius, geometryPointBoundary.grow(radius))) {
                 return selectGeometryPoint(GLObject, index, layer);
             } else {
                 return false;
             }
         } else {
-            /* check if exist a more optimal method */
-
-            // check if center is within mySelectionBoundary
-            if (mySelectionTriangle.isCircunferenceAround(geometryPointPos, radius)) {
-                return selectGeometryPoint(GLObject, index, layer);
+            // simply check if center is within triangle
+            if (mySelectionTriangle.isPositionWithin(geometryPointPos)) {
+                return selectObject(GLObject, layer, false, false, nullptr);
             } else {
                 return false;
             }
@@ -219,7 +221,7 @@ GUIViewObjectsHandler::checkShapeObject(const GUIGlObject* GLObject, const Posit
             return false;
         }
         // check if triangle contains the given shape
-        if (mySelectionTriangle.isAroundShape(shape, shapeBoundary)) {
+        if (mySelectionTriangle.intersectWithShape(shape, shapeBoundary)) {
             return selectObject(GLObject, layer, false, true, segment);
         }
         // no intersection, then return false

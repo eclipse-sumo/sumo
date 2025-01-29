@@ -187,32 +187,32 @@ GNENetHelper::AttributeCarriers::isNetworkElementAroundTriangle(GNEAttributeCarr
         if (junction->getNBNode()->getShape().size() == 0) {
             return triangle.isPositionWithin(junction->getNBNode()->getCenter());
         } else {
-            return (triangle.isAroundShape(junction->getNBNode()->getShape()));
+            return (triangle.intersectWithShape(junction->getNBNode()->getShape()));
         }
     } else if (AC->getTagProperty().getTag() == SUMO_TAG_EDGE) {
         // Edge
         for (const auto& lane : myEdges.at(AC->getID())->getLanes()) {
-            if (triangle.isAroundShape(lane->getLaneShape())) {
+            if (triangle.intersectWithShape(lane->getLaneShape())) {
                 return true;
             }
         }
         return false;
     } else if (AC->getTagProperty().getTag() == SUMO_TAG_LANE) {
         // Lane
-        return triangle.isAroundShape(retrieveLane(AC->getID())->getLaneShape());
+        return triangle.intersectWithShape(retrieveLane(AC->getID())->getLaneShape());
     } else if (AC->getTagProperty().getTag() == SUMO_TAG_CONNECTION) {
         // connection
-        return triangle.isAroundShape(myConnections.at(AC->getGUIGlObject())->getConnectionShape());
+        return triangle.intersectWithShape(myConnections.at(AC->getGUIGlObject())->getConnectionShape());
     } else if (AC->getTagProperty().getTag() == SUMO_TAG_CROSSING) {
         // crossing
-        return triangle.isAroundShape(myCrossings.at(AC->getGUIGlObject())->getCrossingShape());
+        return triangle.intersectWithShape(myCrossings.at(AC->getGUIGlObject())->getCrossingShape());
     } else if (AC->getTagProperty().isAdditionalElement()) {
         // Additional (including shapes and TAZs
         const GNEAdditional* additional = retrieveAdditional(AC->getGUIGlObject());
         if (additional->getAdditionalGeometry().getShape().size() <= 1) {
             return triangle.isPositionWithin(additional->getPositionInView());
         } else {
-            return triangle.isAroundShape(additional->getAdditionalGeometry().getShape());
+            return triangle.intersectWithShape(additional->getAdditionalGeometry().getShape());
         }
     } else {
         return false;
