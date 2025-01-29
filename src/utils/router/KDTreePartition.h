@@ -208,6 +208,14 @@ public:
             delete myRightOrUpperSubcell;
         }
 
+        /** @brief Returns the globally smallest leaf level
+          * @return The globally smallest leaf level
+          */
+        static int& smallestLeafLevel() {
+            constexpr int maxInt = std::numeric_limits<int>::max();
+            static int smallestLeafLevel{ maxInt };
+            return smallestLeafLevel;
+        }
         /// @brief Returns the axis of the cell's spatial extension (x or y)
         Axis getAxis() const {
             return myAxis;
@@ -216,17 +224,101 @@ public:
          * @brief Returns all edges situated inside the cell
          * @param[in] vehicle The vehicle
          */
-        std::unordered_set<const E*>* edgeSet(const V* const vehicle) const;
+        std::unordered_set<const E*>* edgeSet(const V* const vehicle = nullptr) const {
+            std::unordered_set<const E*>* edgeSet = new std::unordered_set<const E*>();
+            typename std::vector<const N*>::const_iterator first = mySortedNodes->begin() + myFromInclusive;
+            typename std::vector<const N*>::const_iterator last = mySortedNodes->begin() + myToExclusive;
+            typename std::vector<const N*>::const_iterator iter;
+            for (iter = first; iter != last; iter++) {
+                const N* edgeNode;
+                const std::vector<const E*>& incomingEdges = (*iter)->getIncoming();
+                for (const E* incomingEdge : incomingEdges) {
+                    if (vehicle != nullptr && isProhibited(incomingEdge, vehicle)) {
+                        continue;
+                    }
+#ifdef KDTP_EXCLUDE_INTERNAL_EDGES
+                    if (incomingEdge->isInternal()) {
+                        continue;
+                    }
+#endif
+                    edgeNode = incomingEdge->getFromJunction();
+                    if (contains(edgeNode)) {
+                        edgeSet->insert(incomingEdge);
+                    }
+                }
+                const std::vector<const E*>& outgoingEdges = (*iter)->getOutgoing();
+                for (const E* outgoingEdge : outgoingEdges) {
+                    if (vehicle != nullptr && isProhibited(outgoingEdge, vehicle)) {
+                        continue;
+                    }
+#ifdef KDTP_EXCLUDE_INTERNAL_EDGES
+                    if (outgoingEdge->isInternal()) {
+                        continue;
+                    }
+#endif
+                    edgeNode = outgoingEdge->getToJunction();
+                    if (contains(edgeNode)) {
+                        edgeSet->insert(outgoingEdge);
+                    }
+                }
+            }
+            return edgeSet;
+        }
+
         /**
          * @brief Returns the number of edges ending in the cell
          * @param[in] vehicle The vehicle.
          */
-        size_t numberOfEdgesEndingInCell(const V* const vehicle) const;
+        size_t numberOfEdgesEndingInCell(const V* const vehicle = nullptr) const {
+            typename std::vector<const N*>::const_iterator first = mySortedNodes->begin() + myFromInclusive;
+            typename std::vector<const N*>::const_iterator last = mySortedNodes->begin() + myToExclusive;
+            typename std::vector<const N*>::const_iterator iter;
+            size_t edgeCounter = 0;
+            for (iter = first; iter != last; iter++) {
+                const std::vector<const E*>& incomingEdges = (*iter)->getIncoming();
+                for (const E* incomingEdge : incomingEdges) {
+                    if (vehicle != nullptr && isProhibited(incomingEdge, vehicle)) {
+                        continue;
+                    }
+#ifdef KDTP_EXCLUDE_INTERNAL_EDGES
+                    if (incomingEdge->isInternal()) {
+                        continue;
+                    } else {
+                        edgeCounter++;
+                    }
+#endif
+                }
+            }
+            return edgeCounter;
+        }
+
         /**
          * @brief Returns the number of edges starting in the cell
          * @param[in] vehicle The vehicle.
          */
-        size_t numberOfEdgesStartingInCell(const V* const vehicle) const;
+        size_t numberOfEdgesStartingInCell(const V* const vehicle = nullptr) const {
+            typename std::vector<const N*>::const_iterator first = mySortedNodes->begin() + myFromInclusive;
+            typename std::vector<const N*>::const_iterator last = mySortedNodes->begin() + myToExclusive;
+            typename std::vector<const N*>::const_iterator iter;
+            size_t edgeCounter = 0;
+            for (iter = first; iter != last; iter++) {
+                const std::vector<const E*>& outgoingEdges = (*iter)->getOutgoing();
+                for (const E* outgoingEdge : outgoingEdges) {
+                    if (vehicle != nullptr && isProhibited(outgoingEdge, vehicle)) {
+                        continue;
+                    }
+#ifdef KDTP_EXCLUDE_INTERNAL_EDGES
+                    if (outgoingEdge->isInternal()) {
+                        continue;
+                    } else {
+                        edgeCounter++;
+                    }
+                }
+#endif
+            }
+            return edgeCounter;
+        }
+
         /// @brief Returns the cell's number
         int getNumber() const {
             return myNumber;
@@ -337,12 +429,10 @@ public:
         /** @brief Returns the global cell counter
          * @return The global cell counter
          */
-
         static int& cellCounter() {
             static int cellCounter{ 0 };
             return cellCounter;
         }
-
         /** @brief Returns true iff driving the given vehicle on the given edge is prohibited
          * @param[in] edge The edge
          * @param[in] vehicle The vehicle
@@ -390,7 +480,7 @@ public:
         /// @brief The container with all nodes, sorted wrt to the k-d tree subdivisional scheme
         std::vector<const N*>* mySortedNodes;
         /// @brief The total number of levels of the k-d tree
-        const int myNumberOfLevels;
+        int myNumberOfLevels;
         /// @brief The level
         const int myLevel;
         /// @brief The number
@@ -478,19 +568,104 @@ public:
     ~KDTreePartition() {
         std::vector<const N*>().swap(mySortedNodes);
         std::vector<const Cell*>().swap(myCells);
+        for (std::vector<const Cell*> v : myLevelCells) {
+            std::vector<const Cell*>().swap(v);
+        }
         std::vector<std::vector<const Cell*>>().swap(myLevelCells);
         delete myRoot;
     };
 
     /** @brief Initialize the k-d tree wrt to the given vehicle's permissions
-     * @param[in] vehicle The vehicle
+     * @note If the net is too small to build a k-d tree with the given number of levels, a k-d tree with as much levels as possible is built.
+     * @note Afterward, the actual number of levels can be queried via {@link #getNumberOfLevels()}.
+     * @param[in] vehicle The optional vehicle
      */
-    void init(const V* const vehicle);
+    void init(const V* const vehicle = nullptr) {
+        size_t nodeCounter = 0;
+        std::unordered_set<const N*> nodeSet;
+        // extract nodes from edges
+        mySortedNodes.resize(myEdges.size() * 2);
+#ifdef KDTP_DEBUG_LEVEL_1
+        std::cout << "Extracting nodes from edges..." << std::endl;
+#endif
+        for (E* edge : myEdges) {
+            if (vehicle != nullptr && ((myHavePermissions && edge->prohibits(vehicle))
+                                       || (myHaveRestrictions && edge->restricts(vehicle)))) {
+                continue;
+            }
+            const N* node = edge->getFromJunction();
+            typename std::unordered_set<const N*>::const_iterator it = nodeSet.find(node);
+            if (it == nodeSet.end()) {
+                nodeSet.insert(node);
+                assert(nodeCounter < mySortedNodes.size());
+                mySortedNodes[nodeCounter++] = node;
+            }
+            node = edge->getToJunction();
+            it = nodeSet.find(node);
+            if (it == nodeSet.end()) {
+                nodeSet.insert(node);
+                assert(nodeCounter < mySortedNodes.size());
+                mySortedNodes[nodeCounter++] = node;
+            }
+        }
+#ifdef KDTP_DEBUG_LEVEL_1
+        std::cout << "Nodes extracted from edges." << std::endl;
+#endif
+        assert(nodeCounter <= myEdges.size() * 2);
+        mySortedNodes.resize(nodeCounter);
+        mySortedNodes.shrink_to_fit();
+        myCells.resize(numberOfCells());
+        myLevelCells.resize(myNumberOfLevels);
+        // call the recursive cell constructor at the root (instantiates the whole k-d tree of cells)
+#ifdef KDTP_DEBUG_LEVEL_1
+        std::cout << "Calling root cell constructor..." << std::endl;
+#endif
+#ifdef KDTP_FOR_SYNTHETIC_NETWORKS
+        myRoot = new Cell(&myCells, &myLevelCells, &mySortedNodes, myNumberOfLevels, 0, Axis::Y, 0, mySortedNodes.size(), nullptr, -1, -1, -1, -1,
+                          nullptr, nullptr, nullptr, nullptr, false, vehicle, havePermissions, haveRestrictions);
+#else
+        myRoot = new Cell(&myCells, &myLevelCells, &mySortedNodes, myNumberOfLevels, 0, Axis::Y, 0, mySortedNodes.size(), nullptr, -1, -1, -1, -1,
+                          false, vehicle, myHavePermissions, myHaveRestrictions);
+#endif
+        assert(myRoot->smallestLeafLevel() + 1 <= myNumberOfLevels);
+        myNumberOfLevels = myRoot->smallestLeafLevel() + 1;
+        myCells.resize(numberOfCells());
+        myCells.shrink_to_fit();
+        myLevelCells.resize(myNumberOfLevels);
+        myLevelCells.shrink_to_fit();
+#ifdef KDTP_DEBUG_LEVEL_1
+        std::cout << "Done." << std::endl;
+#endif
+        assert(myCells[0] == myRoot);
+        assert(myRoot->getNumber() == 0);
+        // nodes are now sorted wrt to the k-d tree's subdivisional scheme
+#ifdef KDTP_DEBUG_LEVEL_0
+        const N* node = mySortedNodes[0];
+        std::vector<int>* numbers = cellNumbers(node);
+        int i;
+        for (i = 0; i < myNumberOfLevels; ++i) {
+            std::cout << "Cell numbers of test node: " << (*numbers)[i] << std::endl;
+        }
+        delete numbers;
+        for (i = 0; i < myNumberOfLevels; ++i) {
+            const std::vector<const Cell*>& levelCells = getCellsAtLevel(i);
+            size_t size = levelCells.size();
+            std::cout << "Level " << i << " has " << size << " cells." << std::endl;
+            std::cout << "The numbers of the cells are: " << std::endl;
+            size_t k = 0;
+            for (const Cell* cell : levelCells) {
+                std::cout << cell->getNumber() << (k++ < size ? ", " : "") << std::endl;
+            }
+        }
+#endif
+        myAmClean = false;
+    }
+
     /** @brief Delete the k-d tree, and create a new one
      * param[in] vehicle The vehicle
      * @note Recreated wrt the network given at construction and the given edge
      */
-    void reset(const V* const vehicle) {
+    void reset(const V* const vehicle = nullptr) {
         delete myRoot;
         init(vehicle);
     }
@@ -573,7 +748,7 @@ private:
     /// @brief The root of the k-d tree
     const Cell* myRoot;
     /// @brief The number of levels
-    const int myNumberOfLevels;
+    int myNumberOfLevels;
     /// @brief The reference to a constant container with pointers to edges
     const std::vector<E*>& myEdges;
     /// @brief The container with all nodes, sorted wrt to the k-d tree subdivision scheme
@@ -597,6 +772,7 @@ private:
 template<class E, class N, class V>
 KDTreePartition<E, N, V>::KDTreePartition(int numberOfLevels, const std::vector<E*>& edges,
         const bool havePermissions, const bool haveRestrictions) :
+    myRoot(nullptr),
     myNumberOfLevels(numberOfLevels),
     myEdges(edges),
     myHavePermissions(havePermissions),
@@ -605,81 +781,6 @@ KDTreePartition<E, N, V>::KDTreePartition(int numberOfLevels, const std::vector<
     if (numberOfLevels <= 0) {
         throw std::invalid_argument("KDTreePartition::KDTreePartition: zero or negative number of levels has been passed!");
     }
-}
-
-template<class E, class N, class V>
-void KDTreePartition<E, N, V>::init(const V* const vehicle) {
-    size_t edgeCounter = 0;
-    std::unordered_set<const N*> nodeSet;
-    // extract nodes from edges
-    mySortedNodes.resize(myEdges.size() * 2);
-#ifdef KDTP_DEBUG_LEVEL_1
-    std::cout << "Extracting nodes from edges..." << std::endl;
-#endif
-    for (E* edge : myEdges) {
-        if ((myHavePermissions && edge->prohibits(vehicle))
-                || (myHaveRestrictions && edge->restricts(vehicle))) {
-            continue;
-        }
-        const N* node = edge->getFromJunction();
-        typename std::unordered_set<const N*>::const_iterator it = nodeSet.find(node);
-        if (it == nodeSet.end()) {
-            nodeSet.insert(node);
-            assert(edgeCounter < mySortedNodes.size());
-            mySortedNodes[edgeCounter++] = node;
-        }
-        node = edge->getToJunction();
-        it = nodeSet.find(node);
-        if (it == nodeSet.end()) {
-            nodeSet.insert(node);
-            assert(edgeCounter < mySortedNodes.size());
-            mySortedNodes[edgeCounter++] = node;
-        }
-    }
-    mySortedNodes.shrink_to_fit();
-#ifdef KDTP_DEBUG_LEVEL_1
-    std::cout << "Nodes extracted from edges." << std::endl;
-#endif
-    mySortedNodes.resize(edgeCounter);
-    myCells.resize(numberOfCells());
-    myLevelCells.resize(myNumberOfLevels);
-    // call the recursive cell constructor at the root (instantiates the whole k-d tree of cells)
-#ifdef KDTP_DEBUG_LEVEL_1
-    std::cout << "Calling root cell constructor..." << std::endl;
-#endif
-#ifdef KDTP_FOR_SYNTHETIC_NETWORKS
-    myRoot = new Cell(&myCells, &myLevelCells, &mySortedNodes, myNumberOfLevels, 0, Axis::Y, 0, mySortedNodes.size(), nullptr, -1, -1, -1, -1,
-                      nullptr, nullptr, nullptr, nullptr, false, vehicle, havePermissions, haveRestrictions);
-#else
-    myRoot = new Cell(&myCells, &myLevelCells, &mySortedNodes, myNumberOfLevels, 0, Axis::Y, 0, mySortedNodes.size(), nullptr, -1, -1, -1, -1,
-                      false, vehicle, myHavePermissions, myHaveRestrictions);
-#endif
-#ifdef KDTP_DEBUG_LEVEL_1
-    std::cout << "Done." << std::endl;
-#endif
-    assert(myCells[0] == myRoot);
-    assert(myRoot->getNumber() == 0);
-    // nodes are now sorted wrt to the k-d tree's subdivisional scheme
-#ifdef KDTP_DEBUG_LEVEL_0
-    const N* node = mySortedNodes[0];
-    std::vector<int>* numbers = cellNumbers(node);
-    int i;
-    for (i = 0; i < myNumberOfLevels; ++i) {
-        std::cout << "Cell numbers of test node: " << (*numbers)[i] << std::endl;
-    }
-    delete numbers;
-    for (i = 0; i < myNumberOfLevels; ++i) {
-        const std::vector<const Cell*>& levelCells = getCellsAtLevel(i);
-        size_t size = levelCells.size();
-        std::cout << "Level " << i << " has " << size << " cells." << std::endl;
-        std::cout << "The numbers of the cells are: " << std::endl;
-        size_t k = 0;
-        for (const Cell* cell : levelCells) {
-            std::cout << cell->getNumber() << (k++ < size ? ", " : "") << std::endl;
-        }
-    }
-#endif
-    myAmClean = false;
 }
 
 template<class E, class N, class V>
@@ -824,6 +925,7 @@ KDTreePartition<E, N, V>::Cell::Cell(std::vector<const Cell*>* cells, std::vecto
     typename std::vector<const N*>::const_iterator iter;
 #ifdef KDTP_WRITE_QGIS_FILTERS
     size_t numberOfNodes = myToExclusive - myFromInclusive;
+    assert(numberOfNodes > 0);
     size_t k = 0;
     std::string qgisFilterString = "id IN (";
     // go through the nodes of the cell
@@ -863,7 +965,7 @@ KDTreePartition<E, N, V>::Cell::Cell(std::vector<const Cell*>* cells, std::vecto
 #if defined(KDTP_KEEP_BOUNDARY_EDGES) || defined(KDTP_KEEP_BOUNDARY_NODES) || defined(KDTP_WRITE_QGIS_FILTERS)
         const std::vector<const E*>& incomingEdges = (*iter)->getIncoming();
         for (const E* incomingEdge : incomingEdges) {
-            if (isProhibited(incomingEdge, vehicle)) {
+            if (vehicle != nullptr && isProhibited(incomingEdge, vehicle)) {
                 continue;
             }
 #ifdef KDTP_EXCLUDE_INTERNAL_EDGES
@@ -875,7 +977,7 @@ KDTreePartition<E, N, V>::Cell::Cell(std::vector<const Cell*>* cells, std::vecto
         }
         const std::vector<const E*>& outgoingEdges = (*iter)->getOutgoing();
         for (const E* outgoingEdge : outgoingEdges) {
-            if (isProhibited(outgoingEdge, vehicle)) {
+            if (vehicle != nullptr && isProhibited(outgoingEdge, vehicle)) {
                 continue;
             }
 #ifdef KDTP_EXCLUDE_INTERNAL_EDGES
@@ -906,7 +1008,7 @@ KDTreePartition<E, N, V>::Cell::Cell(std::vector<const Cell*>* cells, std::vecto
         const std::vector<const E*>& incoming = (*iter)->getIncoming();
         std::unordered_set<const N*> boundaryToNodesSet;
         for (const E* nodeEdge : incoming) {
-            if (isProhibited(nodeEdge, vehicle)) {
+            if (vehicle != nullptr && isProhibited(nodeEdge, vehicle)) {
                 continue;
             }
 #ifdef KDTP_EXCLUDE_INTERNAL_EDGES
@@ -933,7 +1035,7 @@ KDTreePartition<E, N, V>::Cell::Cell(std::vector<const Cell*>* cells, std::vecto
         const std::vector<const E*>& outgoing = (*iter)->getOutgoing();
         std::unordered_set<const N*> boundaryFromNodesSet;
         for (const E* nodeEdge : outgoing) {
-            if (isProhibited(nodeEdge, vehicle)) {
+            if (vehicle != nullptr && isProhibited(nodeEdge, vehicle)) {
                 continue;
             }
 #ifdef KDTP_EXCLUDE_INTERNAL_EDGES
@@ -1022,7 +1124,18 @@ KDTreePartition<E, N, V>::Cell::Cell(std::vector<const Cell*>* cells, std::vecto
     std::cout << "Done. Now calling the constructor recursively to instantiate the subcells (left or lower one first)..." << std::endl;
 #endif
     size_t medianIndex = partition();
-    completeSpatialInfo();
+    if (medianIndex == (size_t) -1) {
+        // leaves of the k-d tree: subcell pointers equal nullptr
+        myLeftOrLowerSubcell = nullptr;
+        myRightOrUpperSubcell = nullptr;
+        if (myLevel < smallestLeafLevel()) {
+            smallestLeafLevel() = myLevel;
+        }
+        return;
+    }
+    if (!myHasCompleteSpatialInfo) {
+        completeSpatialInfo();
+    }
     // create subcells
     if (myLevel < myNumberOfLevels - 1) {
         // determine min/max X/Y-values to pass on to left or lower subcell
@@ -1113,6 +1226,9 @@ KDTreePartition<E, N, V>::Cell::Cell(std::vector<const Cell*>* cells, std::vecto
         // leaves of the k-d tree: subcell pointers equal nullptr
         myLeftOrLowerSubcell = nullptr;
         myRightOrUpperSubcell = nullptr;
+        if (myLevel < smallestLeafLevel()) {
+            smallestLeafLevel() = myLevel;
+        }
     }
 } // end of cell constructor
 
@@ -1195,11 +1311,20 @@ double KDTreePartition<E, N, V>::Cell::maxAxisValue() const {
 
 template<class E, class N, class V>
 size_t KDTreePartition<E, N, V>::Cell::partition() {
+    if (!myHasCompleteSpatialInfo) {
+        completeSpatialInfo();
+    }
     typename std::vector<const N*>::iterator first = mySortedNodes->begin() + myFromInclusive;
     typename std::vector<const N*>::iterator last = mySortedNodes->begin() + myToExclusive;
     if (myAxis == Axis::Y) {
+        if (myMinY == myMaxY) {
+            return (size_t) -1;
+        }
         std::sort(first, last, NodeYComparator());
     } else {
+        if (myMinX == myMaxX) {
+            return (size_t) -1;
+        }
         std::sort(first, last, NodeXComparator());
     }
     myHasNodesSortedWrtToMyAxis = true;
@@ -1208,6 +1333,9 @@ size_t KDTreePartition<E, N, V>::Cell::partition() {
         mySupercell->myHasNodesSortedWrtToMyAxis = false;
     }
     size_t length = myToExclusive - myFromInclusive;
+    if (length < 2) {
+        return (size_t) -1;
+    }
     size_t medianIndex = myFromInclusive + (length % 2 == 0 ? length / 2 - 1 : (length + 1) / 2 - 1);
 #ifndef KDTP_FOR_SYNTHETIC_NETWORKS
     // notice that nodes with indexes medianIndex and medianIndex+1 may have the same coordinate in the direction of myAxis -
@@ -1226,6 +1354,9 @@ size_t KDTreePartition<E, N, V>::Cell::partition() {
                                   : medianNode->getPosition().y();
     double afterMedianNodeCoordinate = myAxis == Axis::X ? afterMedianNode->getPosition().x()
                                        : afterMedianNode->getPosition().y();
+    if (medianNodeCoordinate == afterMedianNodeCoordinate && length < 3) {
+        return (size_t) -1;
+    }
     while (medianNodeCoordinate == afterMedianNodeCoordinate && medianIndex < myToExclusive - 3) {
 #ifdef KDTP_DEBUG_LEVEL_2
         std::cout << "Found spatially conflicting nodes." << std::endl;
@@ -1239,6 +1370,9 @@ size_t KDTreePartition<E, N, V>::Cell::partition() {
                                     : afterMedianNode->getPosition().y();
     }
 #endif
+    if (medianNodeCoordinate == afterMedianNodeCoordinate) {
+        return (size_t) -1;
+    }
     myMedianCoordinate = medianNodeCoordinate;
     return medianIndex;
 }
@@ -1259,96 +1393,6 @@ void KDTreePartition<E, N, V>::Cell::completeSpatialInfo() {
         myMaxY = maxAxisValue(Axis::Y);
     }
     myHasCompleteSpatialInfo = true;
-}
-
-template<class E, class N, class V>
-std::unordered_set<const E*>* KDTreePartition<E, N, V>::Cell::edgeSet(const V* const vehicle) const {
-    std::unordered_set<const E*>* edgeSet = new std::unordered_set<const E*>();
-    typename std::vector<const N*>::const_iterator first = mySortedNodes->begin() + myFromInclusive;
-    typename std::vector<const N*>::const_iterator last = mySortedNodes->begin() + myToExclusive;
-    typename std::vector<const N*>::const_iterator iter;
-    for (iter = first; iter != last; iter++) {
-        const N* edgeNode;
-        const std::vector<const E*>& incomingEdges = (*iter)->getIncoming();
-        for (const E* incomingEdge : incomingEdges) {
-            if (isProhibited(incomingEdge, vehicle)) {
-                continue;
-            }
-#ifdef KDTP_EXCLUDE_INTERNAL_EDGES
-            if (incomingEdge->isInternal()) {
-                continue;
-            }
-#endif
-            edgeNode = incomingEdge->getFromJunction();
-            if (contains(edgeNode)) {
-                edgeSet->insert(incomingEdge);
-            }
-        }
-        const std::vector<const E*>& outgoingEdges = (*iter)->getOutgoing();
-        for (const E* outgoingEdge : outgoingEdges) {
-            if (isProhibited(outgoingEdge, vehicle)) {
-                continue;
-            }
-#ifdef KDTP_EXCLUDE_INTERNAL_EDGES
-            if (outgoingEdge->isInternal()) {
-                continue;
-            }
-#endif
-            edgeNode = outgoingEdge->getToJunction();
-            if (contains(edgeNode)) {
-                edgeSet->insert(outgoingEdge);
-            }
-        }
-    }
-    return edgeSet;
-}
-
-template<class E, class N, class V>
-size_t KDTreePartition<E, N, V>::Cell::numberOfEdgesEndingInCell(const V* const vehicle) const {
-    typename std::vector<const N*>::const_iterator first = mySortedNodes->begin() + myFromInclusive;
-    typename std::vector<const N*>::const_iterator last = mySortedNodes->begin() + myToExclusive;
-    typename std::vector<const N*>::const_iterator iter;
-    size_t edgeCounter = 0;
-    for (iter = first; iter != last; iter++) {
-        const std::vector<const E*>& incomingEdges = (*iter)->getIncoming();
-        for (const E* incomingEdge : incomingEdges) {
-            if (isProhibited(incomingEdge, vehicle)) {
-                continue;
-            }
-#ifdef KDTP_EXCLUDE_INTERNAL_EDGES
-            if (incomingEdge->isInternal()) {
-                continue;
-            } else {
-                edgeCounter++;
-            }
-#endif
-        }
-    }
-    return edgeCounter;
-}
-
-template<class E, class N, class V>
-size_t KDTreePartition<E, N, V>::Cell::numberOfEdgesStartingInCell(const V* const vehicle) const {
-    typename std::vector<const N*>::const_iterator first = mySortedNodes->begin() + myFromInclusive;
-    typename std::vector<const N*>::const_iterator last = mySortedNodes->begin() + myToExclusive;
-    typename std::vector<const N*>::const_iterator iter;
-    size_t edgeCounter = 0;
-    for (iter = first; iter != last; iter++) {
-        const std::vector<const E*>& outgoingEdges = (*iter)->getOutgoing();
-        for (const E* outgoingEdge : outgoingEdges) {
-            if (isProhibited(outgoingEdge, vehicle)) {
-                continue;
-            }
-#ifdef KDTP_EXCLUDE_INTERNAL_EDGES
-            if (outgoingEdge->isInternal()) {
-                continue;
-            } else {
-                edgeCounter++;
-            }
-        }
-#endif
-    }
-    return edgeCounter;
 }
 
 template<class E, class N, class V>
