@@ -19,10 +19,10 @@
 import glob
 import os
 import shutil
-import subprocess
 import sys
 from os.path import join, dirname
 
+import status
 import version
 
 
@@ -31,7 +31,7 @@ def main():
     BUILD_CONFIG = join(SUMO_HOME, "tools", "build_config")
     shutil.copy(join(SUMO_HOME, "build_config", "pyproject.toml"), SUMO_HOME)
     version.filter_setup_py(join(BUILD_CONFIG, "setup-sumo.py"), join(SUMO_HOME, "setup.py"))
-    subprocess.call([sys.executable, "-m", "build", "--wheel", "--config-setting=-G=Ninja"], cwd=SUMO_HOME)
+    status.log_subprocess([sys.executable, "-m", "build", "--wheel", "--config-setting=-G=Ninja"], cwd=SUMO_HOME)
     f = glob.glob(join(SUMO_HOME, "dist", "eclipse_sumo-*"))[0]
     os.rename(f, f.replace("cp3%s-cp3%s" % (sys.version_info.minor, sys.version_info.minor), "py2.py3-none"))
 
