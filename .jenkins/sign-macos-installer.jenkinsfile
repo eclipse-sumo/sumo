@@ -107,25 +107,26 @@ pipeline {
                     subDirs.each { subDir ->
                         sh """
                             for file in framework/EclipseSUMO.framework/EclipseSUMO/${subDir}/*; do
+                                original_perms=\$(stat -f '%A' "\${file}")
                                 signed_file="\${file}-signed"
                                 curl -s -o "\${signed_file}" -F "file=@\${file}" -F "entitlements=@${entitlementsFile}" https://cbi-staging.eclipse.org/macos/codesign/sign
+                                chmod "\${original_perms}" "\${signed_file}"
                                 mv -v "\${signed_file}" "\${file}"
                             done
                         """
                     }
 
-                    // Sign individual files in share/sumo/tools and the shell scripts of the launchers
+                    // Sign individual files in share/sumo/tools
                     def additionalFiles = [
                         "framework/EclipseSUMO.framework/EclipseSUMO/share/sumo/tools/libsumo/_libsumo.so",
                         "framework/EclipseSUMO.framework/EclipseSUMO/share/sumo/tools/libtraci/_libtraci.so",
-                        "apps/sumo-gui/SUMO sumo-gui.app/Contents/MacOS/SUMO sumo-gui",
-                        "apps/netedit/SUMO netedit.app/Contents/MacOS/SUMO netedit",
-                        "apps/scenario-wizard/SUMO Scenario Wizard.app/Contents/MacOS/SUMO Scenario Wizard"
                     ]
                     additionalFiles.each { file ->
                         sh """
+                            original_perms=\$(stat -f '%A' "${file}")
                             signed_file="${file}-signed"
                             curl -s -o "\${signed_file}" -F "file=@${file}" -F "entitlements=@${entitlementsFile}" https://cbi-staging.eclipse.org/macos/codesign/sign
+                            chmod "\${original_perms}" "\${signed_file}"
                             mv -v "\${signed_file}" "${file}"
                         """
                     }
@@ -207,11 +208,11 @@ pipeline {
 </dict>
 </plist>
         '''
-                    // Sign all files in the bin and lib folder (binaries and libraries)
                     def subDirs = ["framework-pkg", "apps-pkg"]
                     subDirs.each { subDir ->
                         sh """
                             for file in ${subDir}/*; do
+                                original_perms=\$(stat -f '%A' "\${file}")
                                 signed_file="\${file}-signed"
                                 curl -s -o "\${signed_file}" -F "file=@\${file}" -F "entitlements=@${entitlementsFile}" https://cbi-staging.eclipse.org/macos/codesign/sign
                                 mv -v "\${signed_file}" "\${file}"
@@ -284,8 +285,8 @@ pipeline {
                         script: """
                             file=\$(ls installer/sumo*.pkg)
                             signed_file="\${file}-signed"
-
                             curl -s -o "\$signed_file" -F "file=@\$file" -F "entitlements=@${entitlementsFile}" https://cbi-staging.eclipse.org/macos/codesign/sign
+                            chmod "\${original_perms}" "\${signed_file}"
                             mv "\$signed_file" "\$file"
 
                             curl -X POST -F file=@"\$file" -F 'options={"primaryBundleId": "org.eclipse.sumo", "staple": true};type=application/json' https://cbi.eclipse.org/macos/xcrun/notarize
@@ -342,7 +343,9 @@ pipeline {
             steps {
                 unstash 'notarized'
                 sh """
-                  ls -lsa
+                  file="$(ls installer/sumo*.pkg)"
+                  dmg_file="\${file%.pkg}.dmg"
+                  env/bin/python3 sumo/tools/build_config/buildMacOSInstaller.py --create-installer-dmg --installer-pkg-file notarized/sumo*.pkg --installer-dmg-file notarized/\${dmg_file}
                 """
             }
         }
