@@ -485,18 +485,18 @@ GNEViewNet::getViewObjectsSelector() const {
 
 
 void
-GNEViewNet::updateObjectsInBoundary(const Boundary& boundary) {
+GNEViewNet::updateObjectsInTriangle(const Triangle& triangle) {
     // clear post drawing elements
     gViewObjectsHandler.reset();
     // set selection boundary in gObjectsInPosition
-    gViewObjectsHandler.setSelectionBoundary(boundary);
+    gViewObjectsHandler.setSelectionTriangle(triangle);
     // push matrix
     GLHelper::pushMatrix();
     // enable draw for object under cursor and rectangle selection
     myVisualizationSettings->drawForViewObjectsHandler = true;
     myVisualizationSettings->drawForRectangleSelection = true;
     // draw all GL elements within the small boundary
-    drawGLElements(boundary);
+    drawGLElements(triangle.getBoundary());
     // swap selected objects (needed after selecting)
     gViewObjectsHandler.reverseSelectedObjects();
     // restore draw for object under cursor
@@ -2741,7 +2741,7 @@ GNEViewNet::onCmdSelectPolygonElements(FXObject*, FXSelector, void*) {
         // iterate over every triangle
         for (const auto& triangle : triangulation) {
             // get ACs in boundary
-            updateObjectsInBoundary(triangle.getBoundary());
+            updateObjectsInTriangle(triangle);
             // iterate over obtained GUIGlIDs
             for (const auto& AC : myViewObjectsSelector.getAttributeCarriers()) {
                 if (myNet->getAttributeCarriers()->isNetworkElementAroundTriangle(AC, triangle)) {

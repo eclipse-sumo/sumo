@@ -296,7 +296,7 @@ GNENetworkElement::setNetworkElementID(const std::string& newID) {
 
 bool
 GNENetworkElement::checkDrawingBoundarySelection() const {
-    if (!gViewObjectsHandler.getSelectionBoundary().isInitialised()) {
+    if (!gViewObjectsHandler.selectingUsingRectangle()) {
         return true;
     } else if (!gViewObjectsHandler.isObjectSelected(this)) {
         return true;
