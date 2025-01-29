@@ -89,11 +89,11 @@ public:
     /// @brief get move multiple element values
     const GNEViewNetHelper::MoveMultipleElementModul& getMoveMultipleElementValues() const;
 
-    /// @brief get objects in the given vector of triangles
-    void updateObjectsInTriangles(const std::vector<Triangle>& triangles);
-
     /// @brief update objects and boundaries in position
     void updateObjectsInPosition(const Position& pos);
+
+    /// @brief get objects in the given shape (using triangulation)
+    void updateObjectsInShape(const PositionVector &shape);
 
     /// @brief redraw elements only for calculating boundary
     void redrawPathElementContours();

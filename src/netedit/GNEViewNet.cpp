@@ -485,34 +485,6 @@ GNEViewNet::getViewObjectsSelector() const {
 
 
 void
-GNEViewNet::updateObjectsInTriangles(const std::vector<Triangle>& triangles) {
-    // clear post drawing elements
-    gViewObjectsHandler.reset();
-    // push matrix
-    GLHelper::pushMatrix();
-    // enable draw for object under cursor and rectangle selection
-    myVisualizationSettings->drawForViewObjectsHandler = true;
-    myVisualizationSettings->drawForRectangleSelection = true;
-    // draw all GL elements within the boundares formed by triangles
-    for (const auto &triangle : triangles) {
-        gViewObjectsHandler.setSelectionTriangle(triangle);
-        drawGLElements(triangle.getBoundary());
-    }
-    // restore draw for object under cursor
-    myVisualizationSettings->drawForViewObjectsHandler = false;
-    myVisualizationSettings->drawForRectangleSelection = false;
-    // pop matrix
-    GLHelper::popMatrix();
-    // check if update front elements
-    for (const auto& AC : myMarkFrontElements.getACs()) {
-        gViewObjectsHandler.updateFrontObject(AC->getGUIGlObject());
-    }
-    // after draw elements, update objects under cursor
-    myViewObjectsSelector.updateObjects();
-}
-
-
-void
 GNEViewNet::updateObjectsInPosition(const Position& pos) {
     // clear post drawing elements
     gViewObjectsHandler.reset();
@@ -536,6 +508,36 @@ GNEViewNet::updateObjectsInPosition(const Position& pos) {
     }
     // restore draw for view objects handler (this calculate the contours)
     myVisualizationSettings->drawForViewObjectsHandler = false;
+    // pop matrix
+    GLHelper::popMatrix();
+    // check if update front elements
+    for (const auto& AC : myMarkFrontElements.getACs()) {
+        gViewObjectsHandler.updateFrontObject(AC->getGUIGlObject());
+    }
+    // after draw elements, update objects under cursor
+    myViewObjectsSelector.updateObjects();
+}
+
+
+void
+GNEViewNet::updateObjectsInShape(const PositionVector& shape) {
+    // triangulate shape
+    const auto triangles = Triangle::triangulate(shape); 
+    // clear post drawing elements
+    gViewObjectsHandler.reset();
+    // push matrix
+    GLHelper::pushMatrix();
+    // enable draw for object under cursor and rectangle selection
+    myVisualizationSettings->drawForViewObjectsHandler = true;
+    myVisualizationSettings->drawForRectangleSelection = true;
+    // draw all GL elements within the boundares formed by triangles
+    for (const auto &triangle : triangles) {
+        gViewObjectsHandler.setSelectionTriangle(triangle);
+        drawGLElements(triangle.getBoundary());
+    }
+    // restore draw for object under cursor
+    myVisualizationSettings->drawForViewObjectsHandler = false;
+    myVisualizationSettings->drawForRectangleSelection = false;
     // pop matrix
     GLHelper::popMatrix();
     // check if update front elements
@@ -2733,8 +2735,8 @@ GNEViewNet::onCmdSelectPolygonElements(FXObject*, FXSelector, void*) {
     GNEPoly* polygonUnderMouse = getPolygonAtPopupPosition();
     // check polygon
     if (polygonUnderMouse) {
-        // triangulate shape
-        updateObjectsInTriangles(Triangle::triangulate(polygonUnderMouse->getShape()));
+        // get all elements under polygon shape
+        updateObjectsInShape(polygonUnderMouse->getShape());
         // declare filtered ACs
         std::vector<GNEAttributeCarrier*> ACsUnderPolygon;
         ACsUnderPolygon.reserve(myViewObjectsSelector.getAttributeCarriers().size());
