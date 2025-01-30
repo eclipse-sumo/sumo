@@ -22,7 +22,7 @@
 
 #include <vector>
 #include <unordered_map>
-#include <utils/geom/triangle.h>
+#include <utils/geom/Triangle.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/gui/settings/GUIVisualizationSettings.h>
 
