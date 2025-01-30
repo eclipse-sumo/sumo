@@ -4429,66 +4429,43 @@ GNEApplicationWindow::onCmdSaveMeanDatasAs(FXObject* sender, FXSelector sel, voi
 
 bool
 GNEApplicationWindow::continueWithUnsavedChanges() {
+    if (continueWithUnsavedNetworkChanges() &&
+            continueWithUnsavedAdditionalChanges() &&
+            continueWithUnsavedDemandElementChanges() &&
+            continueWithUnsavedDataElementChanges() &&
+            continueWithUnsavedMeanDataElementChanges()) {
+        // clear undo list
+        clearUndoList();
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
+bool
+GNEApplicationWindow::continueWithUnsavedNetworkChanges() {
     if (myNet && !myNet->getSavingStatus()->isNetworkSaved()) {
         // write warning if netedit is running in testing mode
-        WRITE_DEBUG("Opening FXMessageBox 'Confirm close network'");
         // open question box
         const std::string header = TL("Confirm close Network");
         const std::string contentsA = TL("You have unsaved changes in the network.");
         const std::string contentsB = TL("Do you wish to close and discard all changes?");
         const auto answer = GUISaveDialog::question(getApp(), header.c_str(), "%s", (contentsA + "\n" + contentsB).c_str());
-        // restore focus to view net
-        myViewNet->setFocus();
         // if user close dialog box, check additionals and demand elements
         if (answer == GUISaveDialog::CLICKED_DISCARD) {
-            // write warning if netedit is running in testing mode
-            WRITE_DEBUG("Closed FXMessageBox 'Confirm close network' with 'Quit'");
-            if (continueWithUnsavedAdditionalChanges() &&
-                    continueWithUnsavedDemandElementChanges() &&
-                    continueWithUnsavedDataElementChanges() &&
-                    continueWithUnsavedMeanDataElementChanges()) {
-                // clear undo list
-                clearUndoList();
-                return true;
-            } else {
-                return false;
-            }
+            // nothing to save, return true
+            return true;
         } else if (answer == GUISaveDialog::CLICKED_SAVE) {
-            // save network
-            onCmdSaveNetwork(nullptr, 0, nullptr);
-            // check
-            if (continueWithUnsavedAdditionalChanges() &&
-                    continueWithUnsavedDemandElementChanges() &&
-                    continueWithUnsavedDataElementChanges() &&
-                    continueWithUnsavedMeanDataElementChanges()) {
-                // clear undo list
-                clearUndoList();
-                return true;
-            } else {
-                return false;
-            }
+            // return true if was sucessfully saved
+            return (onCmdSaveNetwork(nullptr, 0, nullptr) == 1);
         } else {
-            // write warning if netedit is running in testing mode
-            if (answer == 2) {
-                WRITE_DEBUG("Closed FXMessageBox 'Confirm close network' with 'No'");
-            } else if (answer == 4) {
-                WRITE_DEBUG("Closed FXMessageBox 'Confirm close network' with 'ESC'");
-            }
             // return false to stop closing/reloading
             return false;
         }
     } else {
-        if (continueWithUnsavedAdditionalChanges() &&
-                continueWithUnsavedDemandElementChanges() &&
-                continueWithUnsavedDataElementChanges() &&
-                continueWithUnsavedMeanDataElementChanges()) {
-            // clear undo list
-            clearUndoList();
-            return true;
-        } else {
-            // return false to stop closing/reloading
-            return false;
-        }
+        // nothing to save, return true
+        return true;
     }
 }
 
@@ -4497,36 +4474,19 @@ bool
 GNEApplicationWindow::continueWithUnsavedAdditionalChanges() {
     // Check if there are non saved additionals
     if (myNet && !myNet->getSavingStatus()->isAdditionalsSaved()) {
-        WRITE_DEBUG("Opening FXMessageBox 'Save additionals before close'");
         // open question box
         const std::string header = TL("Save additional elements before close");
         const std::string contentsA = TL("You have unsaved additional elements.");
         const std::string contentsB = TL("Do you wish to close and discard all changes?");
         const auto answer = GUISaveDialog::question(getApp(), header.c_str(), "%s", (contentsA + "\n" + contentsB).c_str());
-        // restore focus to view net
-        myViewNet->setFocus();
         // if answer was affirmative, but there was an error during saving additionals, return false to stop closing/reloading
         if (answer == GUISaveDialog::CLICKED_DISCARD) {
-            WRITE_DEBUG("Closed FXMessageBox 'Save additionals before close' with 'Quit'");
             // nothing to save, return true
             return true;
         } else if (answer == GUISaveDialog::CLICKED_SAVE) {
-            // write warning if netedit is running in testing mode
-            WRITE_DEBUG("Closed FXMessageBox 'Save additionals before close' with 'Yes'");
-            if (onCmdSaveAdditionals(nullptr, 0, nullptr) == 1) {
-                // additionals successfully saved
-                return true;
-            } else {
-                // error saving additionals, abort saving
-                return false;
-            }
+            // return true if was sucessfully saved
+            return (onCmdSaveAdditionals(nullptr, 0, nullptr) == 1);
         } else {
-            // write warning if netedit is running in testing mode
-            if (answer == 2) {
-                WRITE_DEBUG("Closed FXMessageBox 'Save additionals before close' with 'No'");
-            } else if (answer == 4) {
-                WRITE_DEBUG("Closed FXMessageBox 'Save additionals before close' with 'ESC'");
-            }
             // abort saving
             return false;
         }
@@ -4541,36 +4501,19 @@ bool
 GNEApplicationWindow::continueWithUnsavedDemandElementChanges() {
     // Check if there are non saved demand elements
     if (myNet && !myNet->getSavingStatus()->isDemandElementsSaved()) {
-        WRITE_DEBUG("Opening FXMessageBox 'Save demand elements before close'");
         // open question box
         const std::string header = TL("Save demand elements before close");
         const std::string contentsA = TL("You have unsaved demand elements.");
         const std::string contentsB = TL("Do you wish to close and discard all changes?");
         const auto answer = GUISaveDialog::question(getApp(), header.c_str(), "%s", (contentsA + "\n" + contentsB).c_str());
-        // restore focus to view net
-        myViewNet->setFocus();
         // if answer was affirmative, but there was an error during saving demand elements, return false to stop closing/reloading
         if (answer == GUISaveDialog::CLICKED_DISCARD) {
-            WRITE_DEBUG("Closed FXMessageBox 'Save demand elements before close' with 'Quit'");
             // nothing to save, return true
             return true;
         } else if (answer == GUISaveDialog::CLICKED_SAVE) {
-            // write warning if netedit is running in testing mode
-            WRITE_DEBUG("Closed FXMessageBox 'Save demand elements before close' with 'Yes'");
-            if (onCmdSaveDemandElements(nullptr, MID_GNE_AUTOMATICFILENAME, nullptr) == 1) {
-                // demand elements successfully saved
-                return true;
-            } else {
-                // error saving demand elements, abort saving
-                return false;
-            }
+            // return true if was sucessfully saved
+            return (onCmdSaveDemandElements(nullptr, MID_GNE_AUTOMATICFILENAME, nullptr) == 1);
         } else {
-            // write warning if netedit is running in testing mode
-            if (answer == 2) {
-                WRITE_DEBUG("Closed FXMessageBox 'Save demand elements before close' with 'No'");
-            } else if (answer == 4) {
-                WRITE_DEBUG("Closed FXMessageBox 'Save demand elements before close' with 'ESC'");
-            }
             // abort saving
             return false;
         }
@@ -4585,36 +4528,19 @@ bool
 GNEApplicationWindow::continueWithUnsavedDataElementChanges() {
     // Check if there are non saved data elements
     if (myNet && !myNet->getSavingStatus()->isDataElementsSaved()) {
-        WRITE_DEBUG("Opening FXMessageBox 'Save data elements before close'");
         // open question box
         const std::string header = TL("Save data elements before close");
         const std::string contentsA = TL("You have unsaved data elements.");
         const std::string contentsB = TL("Do you wish to close and discard all changes?");
         const auto answer = GUISaveDialog::question(getApp(), header.c_str(), "%s", (contentsA + "\n" + contentsB).c_str());
-        // restore focus to view net
-        myViewNet->setFocus();
         // if answer was affirmative, but there was an error during saving data elements, return false to stop closing/reloading
         if (answer == GUISaveDialog::CLICKED_DISCARD) {
-            WRITE_DEBUG("Closed FXMessageBox 'Save data elements before close' with 'Quit'");
             // nothing to save, return true
             return true;
         } else if (answer == GUISaveDialog::CLICKED_SAVE) {
-            // write warning if netedit is running in testing mode
-            WRITE_DEBUG("Closed FXMessageBox 'Save data elements before close' with 'Yes'");
-            if (onCmdSaveDataElements(nullptr, MID_GNE_AUTOMATICFILENAME, nullptr) == 1) {
-                // data elements successfully saved
-                return true;
-            } else {
-                // error saving data elements, abort saving
-                return false;
-            }
+            // return true if was sucessfully saved
+            return (onCmdSaveDataElements(nullptr, MID_GNE_AUTOMATICFILENAME, nullptr) == 1);
         } else {
-            // write warning if netedit is running in testing mode
-            if (answer == 2) {
-                WRITE_DEBUG("Closed FXMessageBox 'Save data elements before close' with 'No'");
-            } else if (answer == 4) {
-                WRITE_DEBUG("Closed FXMessageBox 'Save data elements before close' with 'ESC'");
-            }
             // abort saving
             return false;
         }
@@ -4629,36 +4555,19 @@ bool
 GNEApplicationWindow::continueWithUnsavedMeanDataElementChanges() {
     // Check if there are non saved data elements
     if (myNet && !myNet->getSavingStatus()->isMeanDatasSaved()) {
-        WRITE_DEBUG("Opening FXMessageBox 'Save meanData elements before close'");
         // open question box
         const std::string header = TL("Save meanData elements before close");
         const std::string contentsA = TL("You have unsaved meanData elements.");
         const std::string contentsB = TL("Do you wish to close and discard all changes?");
         const auto answer = GUISaveDialog::question(getApp(), header.c_str(), "%s", (contentsA + "\n" + contentsB).c_str());
-        // restore focus to view net
-        myViewNet->setFocus();
         // if answer was affirmative, but there was an error during saving meanData elements, return false to stop closing/reloading
         if (answer == GUISaveDialog::CLICKED_DISCARD) {
-            WRITE_DEBUG("Closed FXMessageBox 'Save meanData elements before close' with 'Quit'");
             // nothing to save, return true
             return true;
         } else if (answer == GUISaveDialog::CLICKED_SAVE) {
-            // write warning if netedit is running in testing mode
-            WRITE_DEBUG("Closed FXMessageBox 'Save meanData elements before close' with 'Yes'");
-            if (onCmdSaveMeanDatas(nullptr, MID_GNE_AUTOMATICFILENAME, nullptr) == 1) {
-                // meanData elements successfully saved
-                return true;
-            } else {
-                // error saving meanData elements, abort saving
-                return false;
-            }
+            // return true if was sucessfully saved
+            return (onCmdSaveMeanDatas(nullptr, MID_GNE_AUTOMATICFILENAME, nullptr) == 1);
         } else {
-            // write warning if netedit is running in testing mode
-            if (answer == 2) {
-                WRITE_DEBUG("Closed FXMessageBox 'Save meanData elements before close' with 'No'");
-            } else if (answer == 4) {
-                WRITE_DEBUG("Closed FXMessageBox 'Save meanData elements before close' with 'ESC'");
-            }
             // abort saving
             return false;
         }

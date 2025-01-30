@@ -791,6 +791,9 @@ private:
     /// @brief warns about unsaved changes and gives the user the option to abort
     bool continueWithUnsavedChanges();
 
+    /// @brief warns about unsaved changes in network and gives the user the option to abort
+    bool continueWithUnsavedNetworkChanges();
+
     /// @brief warns about unsaved changes in additionals and gives the user the option to abort
     bool continueWithUnsavedAdditionalChanges();
 
