@@ -1660,6 +1660,12 @@ StringBijection<POIIcon>::Entry SUMOXMLDefinitions::POIIconValues[] = {
     {"",                 POIIcon::NONE} //< must be the last one
 };
 
+StringBijection<ExcludeEmpty>::Entry SUMOXMLDefinitions::excludeEmptyValues[] = {
+    {"true",        ExcludeEmpty::TRUES},
+    {"false",       ExcludeEmpty::FALSES},
+    {"defaults",    ExcludeEmpty::DEFAULTS} //< must be the last one
+};
+
 SequentialStringBijection SUMOXMLDefinitions::Tags(
     SUMOXMLDefinitions::tags, SUMO_TAG_NOTHING);
 
@@ -1720,6 +1726,8 @@ StringBijection<TrainType> SUMOXMLDefinitions::TrainTypes(
 StringBijection<POIIcon> SUMOXMLDefinitions::POIIcons(
     SUMOXMLDefinitions::POIIconValues, POIIcon::NONE, false);
 
+StringBijection<ExcludeEmpty> SUMOXMLDefinitions::ExcludeEmptys(
+    SUMOXMLDefinitions::excludeEmptyValues, ExcludeEmpty::FALSES, false);
 
 std::string
 SUMOXMLDefinitions::getJunctionIDFromInternalEdge(const std::string internalEdge) {

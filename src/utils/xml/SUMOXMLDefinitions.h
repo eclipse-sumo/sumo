@@ -2247,6 +2247,13 @@ enum class POIIcon {
     NONE = 0,
 };
 
+/// @brief Exclude empty
+enum class ExcludeEmpty {
+    TRUES,
+    FALSES,
+    DEFAULTS
+};
+
 // @}
 
 /**
@@ -2324,6 +2331,10 @@ public:
 
     /// @brief POI icon values
     static StringBijection<POIIcon> POIIcons;
+
+    /// @brief exclude empty values
+    static StringBijection<ExcludeEmpty> ExcludeEmptys;
+
     /// @}
 
     /// @name Helper functions for ID-string manipulations
@@ -2437,6 +2448,9 @@ private:
 
     /// @brief POI icon values
     static StringBijection<POIIcon>::Entry POIIconValues[];
+
+    /// @brief Exclude empty values
+    static StringBijection<ExcludeEmpty>::Entry excludeEmptyValues[];
 
     /// @}
 
