@@ -1277,6 +1277,7 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element, const SUMOSA
                 && key != "bicycle"
                 && key != "oneway:bicycle"
                 && key != "oneway:bus"
+                && key != "oneway:psv"
                 && key != "bus:lanes"
                 && key != "bus:lanes:forward"
                 && key != "bus:lanes:backward"
@@ -1492,7 +1493,7 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element, const SUMOSA
             }
         } else if (key == "oneway:bicycle") {
             myCurrentEdge->myExtraTags["oneway:bicycle"] = value;
-        } else if (key == "oneway:bus") {
+        } else if (key == "oneway:bus" || key == "oneway:psv") {
             if (value == "no") {
                 // need to add a bus way in reversed direction of way
                 myCurrentEdge->myBuswayType = WAY_BACKWARD;
