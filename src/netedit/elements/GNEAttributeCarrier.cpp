@@ -9778,8 +9778,8 @@ GNEAttributeCarrier::fillCommonMeanDataAttributes(GNETagProperties& tagPropertie
     attrProperty = GNEAttributeProperties(SUMO_ATTR_EXCLUDE_EMPTY,
                                           GNEAttributeProperties::STRING | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::DEFAULTVALUE,
                                           TL("If set to true, edges/lanes which were not used by a vehicle during this period will not be written"),
-                                          "default");
-    attrProperty.setDiscreteValues({"1", "0", "default"});
+                                          SUMOXMLDefinitions::ExcludeEmptys.getString(ExcludeEmpty::FALSES));
+    attrProperty.setDiscreteValues(SUMOXMLDefinitions::ExcludeEmptys.getStrings());
     tagProperties.addAttribute(attrProperty);
 
     attrProperty = GNEAttributeProperties(SUMO_ATTR_WITH_INTERNAL,

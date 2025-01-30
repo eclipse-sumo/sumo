@@ -84,6 +84,9 @@ protected:
     /// @brief check if given ID correspond to a duplicated mean data element
     bool checkDuplicatedMeanDataElement(const SumoXMLTag tag, const std::string& id);
 
+    /// @brief check if given excludeEmpty is valid
+    bool checkExcludeEmpty(const SumoXMLTag tag, const std::string& id, const std::string& excludeEmpty);
+
 private:
     /// @brief invalidate copy constructor
     GNEMeanDataHandler(const GNEMeanDataHandler& s) = delete;

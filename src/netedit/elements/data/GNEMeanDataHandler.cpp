@@ -83,6 +83,8 @@ GNEMeanDataHandler::buildEdgeMeanData(const CommonXMLStructure::SumoBaseObject* 
         return false;
     } else if (!checkNegative(SUMO_TAG_MEANDATA_EDGE, id, SUMO_ATTR_HALTING_SPEED_THRESHOLD, speedThreshold, true)) {
         return false;
+    } else if (!checkExcludeEmpty(SUMO_TAG_MEANDATA_EDGE, id, excludeEmpty)) {
+        return false;
     } else if ((edges.size() == edgeIDs.size()) && (attributes.size() == writtenAttributes.size())) {
         GNEMeanData* edgeMeanData = new GNEMeanData(myNet, SUMO_TAG_MEANDATA_EDGE, id, file, period, begin, end,
                 trackVehicles, attributes,  aggregate, edgeIDs, edgeFile, excludeEmpty,  withInternal,
@@ -129,6 +131,8 @@ GNEMeanDataHandler::buildLaneMeanData(const CommonXMLStructure::SumoBaseObject* 
     } else if (!checkNegative(SUMO_TAG_MEANDATA_EDGE, id, SUMO_ATTR_MIN_SAMPLES, minSamples, true)) {
         return false;
     } else if (!checkNegative(SUMO_TAG_MEANDATA_EDGE, id, SUMO_ATTR_HALTING_SPEED_THRESHOLD, speedThreshold, true)) {
+        return false;
+    } else if (!checkExcludeEmpty(SUMO_TAG_MEANDATA_EDGE, id, excludeEmpty)) {
         return false;
     } else if ((edges.size() == edgeIDs.size()) && (attributes.size() == writtenAttributes.size())) {
         GNEMeanData* edgeMeanData = new GNEMeanData(myNet, SUMO_TAG_MEANDATA_LANE, id, file, period, begin, end,
@@ -201,6 +205,18 @@ GNEMeanDataHandler::checkDuplicatedMeanDataElement(const SumoXMLTag tag, const s
         }
     }
     return true;
+}
+
+
+bool
+GNEMeanDataHandler::checkExcludeEmpty(const SumoXMLTag tag, const std::string& id, const std::string& excludeEmpty) {
+    if (GNEAttributeCarrier::canParse<bool>(excludeEmpty)) {
+        return true;
+    } else if (excludeEmpty == SUMOXMLDefinitions::ExcludeEmptys.getString(ExcludeEmpty::DEFAULTS)) {
+        return true;
+    } else {
+        return writeError(TLF("Could not build % with ID '%' in netedit; Invalid value '%' for %.", toString(tag), id, excludeEmpty, toString(SUMO_ATTR_EXCLUDE_EMPTY)));
+    }
 }
 
 /****************************************************************************/

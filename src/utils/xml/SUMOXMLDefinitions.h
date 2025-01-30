@@ -2251,7 +2251,7 @@ enum class POIIcon {
 enum class ExcludeEmpty {
     TRUES,
     FALSES,
-    DEFAULTS
+    DEFAULTS,
 };
 
 // @}

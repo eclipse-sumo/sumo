@@ -162,7 +162,7 @@ MeanDataHandler::parseEdgeMeanData(const SUMOSAXAttributes& attrs) {
     const bool aggregate = attrs.getOpt<bool>(SUMO_ATTR_AGGREGATE, id.c_str(), parsedOk, false);
     const std::vector<std::string> edges = attrs.getOpt<std::vector<std::string> >(SUMO_ATTR_EDGES, id.c_str(), parsedOk, {});
     const std::string edgeFile = attrs.getOpt<std::string>(SUMO_ATTR_EDGESFILE, id.c_str(), parsedOk, "");
-    const std::string excludeEmpty = attrs.getOpt<std::string>(SUMO_ATTR_EXCLUDE_EMPTY, id.c_str(), parsedOk, "default");
+    const std::string excludeEmpty = attrs.getOpt<std::string>(SUMO_ATTR_EXCLUDE_EMPTY, id.c_str(), parsedOk, SUMOXMLDefinitions::ExcludeEmptys.getString(ExcludeEmpty::DEFAULTS));
     const bool withInternal = attrs.getOpt<bool>(SUMO_ATTR_WITH_INTERNAL, id.c_str(), parsedOk, false);
     const std::vector<std::string> detectPersons = attrs.getOpt<std::vector<std::string> >(SUMO_ATTR_DETECT_PERSONS, id.c_str(), parsedOk, {});
     const double minSamples = attrs.getOpt<double>(SUMO_ATTR_MIN_SAMPLES, id.c_str(), parsedOk, 0);
@@ -213,7 +213,7 @@ MeanDataHandler::parseLaneMeanData(const SUMOSAXAttributes& attrs) {
     const bool aggregate = attrs.getOpt<bool>(SUMO_ATTR_AGGREGATE, id.c_str(), parsedOk, false);
     const std::vector<std::string> edges = attrs.getOpt<std::vector<std::string> >(SUMO_ATTR_EDGES, id.c_str(), parsedOk, {});
     const std::string edgeFile = attrs.getOpt<std::string>(SUMO_ATTR_EDGESFILE, id.c_str(), parsedOk, "");
-    const std::string excludeEmpty = attrs.getOpt<std::string>(SUMO_ATTR_EXCLUDE_EMPTY, id.c_str(), parsedOk, "default");
+    const std::string excludeEmpty = attrs.getOpt<std::string>(SUMO_ATTR_EXCLUDE_EMPTY, id.c_str(), parsedOk, SUMOXMLDefinitions::ExcludeEmptys.getString(ExcludeEmpty::DEFAULTS));
     const bool withInternal = attrs.getOpt<bool>(SUMO_ATTR_WITH_INTERNAL, id.c_str(), parsedOk, false);
     const std::vector<std::string> detectPersons = attrs.getOpt<std::vector<std::string> >(SUMO_ATTR_DETECT_PERSONS, id.c_str(), parsedOk, {});
     const double minSamples = attrs.getOpt<double>(SUMO_ATTR_MIN_SAMPLES, id.c_str(), parsedOk, 0);

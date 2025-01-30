@@ -1727,7 +1727,7 @@ StringBijection<POIIcon> SUMOXMLDefinitions::POIIcons(
     SUMOXMLDefinitions::POIIconValues, POIIcon::NONE, false);
 
 StringBijection<ExcludeEmpty> SUMOXMLDefinitions::ExcludeEmptys(
-    SUMOXMLDefinitions::excludeEmptyValues, ExcludeEmpty::FALSES, false);
+    SUMOXMLDefinitions::excludeEmptyValues, ExcludeEmpty::DEFAULTS, false);
 
 std::string
 SUMOXMLDefinitions::getJunctionIDFromInternalEdge(const std::string internalEdge) {

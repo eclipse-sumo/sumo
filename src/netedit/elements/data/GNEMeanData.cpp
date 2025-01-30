@@ -102,7 +102,7 @@ GNEMeanData::writeMeanData(OutputDevice& device) const {
     if (myEnd != -1) {
         device.writeAttr(SUMO_ATTR_END, STEPS2TIME(myEnd));
     }
-    if (myExcludeEmpty != "default") {
+    if (myExcludeEmpty != myTagProperty.getDefaultValue(SUMO_ATTR_EXCLUDE_EMPTY)) {
         device.writeAttr(SUMO_ATTR_EXCLUDE_EMPTY, myExcludeEmpty);
     }
     if (myWithInternal) {
@@ -320,7 +320,7 @@ GNEMeanData::isValid(SumoXMLAttr key, const std::string& value) {
             if (canParse<bool>(value)) {
                 return true;
             } else {
-                return (value == "default");
+                return (value == SUMOXMLDefinitions::ExcludeEmptys.getString(ExcludeEmpty::DEFAULTS));
             }
         case SUMO_ATTR_WITH_INTERNAL:
             return (canParse<bool>(value));
@@ -408,7 +408,13 @@ GNEMeanData::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             break;
         case SUMO_ATTR_EXCLUDE_EMPTY:
-            myExcludeEmpty = value;
+            if (value == SUMOXMLDefinitions::ExcludeEmptys.getString(ExcludeEmpty::DEFAULTS)) {
+                myExcludeEmpty = value;
+            } else if (parse<bool>(value)) {
+                myExcludeEmpty = SUMOXMLDefinitions::ExcludeEmptys.getString(ExcludeEmpty::TRUES);
+            } else {
+                myExcludeEmpty = SUMOXMLDefinitions::ExcludeEmptys.getString(ExcludeEmpty::FALSES);
+            }
             break;
         case SUMO_ATTR_WITH_INTERNAL:
             myWithInternal = parse<bool>(value);
