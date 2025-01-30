@@ -1700,7 +1700,8 @@ Helper::findCloserLane(const MSEdge* edge, const Position& pos, SUMOVehicleClass
             // mapping to shapeless lanes is a bad idea
             continue;
         }
-        const double dist = candidateLane->getShape().distance2D(pos);
+        double dist = candidateLane->getShape().distance2D(pos);
+        dist = patchShapeDistance(candidateLane, pos, dist, false);
 #ifdef DEBUG_MOVEXY
         std::cout << "   b at lane " << candidateLane->getID() << " dist:" << dist << " best:" << bestDistance << std::endl;
 #endif
