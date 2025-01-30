@@ -2377,6 +2377,7 @@ MSPModel_Striping::PState::moveToXY(MSPerson* p, Position pos, MSLane* lane, dou
             myWalkingAreaPath = nullptr;
             myEdgePos = lanePos;
             myPosLat = lateral_offset - lanePosLat;
+            lane->requireCollisionCheck();
         }
         // guess direction
         const double angleDiff = GeomHelper::getMinAngleDiff(angle, oldAngle);
