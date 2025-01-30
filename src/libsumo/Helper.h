@@ -186,6 +186,10 @@ public:
 
     static bool findCloserLane(const MSEdge* edge, const Position& pos, SUMOVehicleClass vClass, double& bestDistance, MSLane** lane);
 
+    /// @brief return the distance of pos from the area covered by this lane
+    static double patchShapeDistance(const MSLane* lane, const Position& pos, double dist, bool wasPerpendicular);
+
+
     class LaneUtility {
     public:
         LaneUtility(double dist_, double perpendicularDist_, double lanePos_, double angleDiff_, bool ID_,

@@ -1568,10 +1568,12 @@ Helper::moveToXYMap(const Position& pos, double maxRouteDistance, bool mayLeaveN
             double off = laneShape.nearest_offset_to_point2D(pos, true);
             if (off != GeomHelper::INVALID_OFFSET) {
                 perpendicularDist = laneShape.distance2D(pos, true);
+                perpendicularDist = patchShapeDistance(l, pos, perpendicularDist, true);
             }
             off = l->getShape().nearest_offset_to_point2D(pos, perpendicular);
             if (off != GeomHelper::INVALID_OFFSET) {
                 dist = l->getShape().distance2D(pos, perpendicular);
+                dist = patchShapeDistance(l, pos, dist, perpendicular);
                 langle = GeomHelper::naviDegree(l->getShape().rotationAtOffset(off));
             }
             // cannot trust lanePos on walkingArea
@@ -1697,7 +1699,7 @@ Helper::findCloserLane(const MSEdge* edge, const Position& pos, SUMOVehicleClass
             // mapping to shapeless lanes is a bad idea
             continue;
         }
-        const double dist = candidateLane->getShape().distance2D(pos); // get distance
+        const double dist = candidateLane->getShape().distance2D(pos);
 #ifdef DEBUG_MOVEXY
         std::cout << "   b at lane " << candidateLane->getID() << " dist:" << dist << " best:" << bestDistance << std::endl;
 #endif
@@ -1840,6 +1842,15 @@ Helper::moveToXYMap_matchingRoutePosition(const Position& pos, const std::string
     std::cout << "  b ok lane " << (*lane)->getID() << " lanePos:" << lanePos << std::endl;
 #endif
     return true;
+}
+
+
+double
+Helper::patchShapeDistance(const MSLane* lane, const Position& pos, double dist, bool wasPerpendicular) {
+    if ((lane->isNormal() || lane->isCrossing()) && (wasPerpendicular || lane->getShape().nearest_offset_to_point25D(pos, true) != GeomHelper::INVALID_OFFSET)) {
+        dist = MAX2(0.0, dist - lane->getWidth() * 0.5);
+    }
+    return dist;
 }
 
 
