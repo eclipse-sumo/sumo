@@ -3266,8 +3266,8 @@ GNEApplicationWindow::onCmdSaveNetworkAs(FXObject*, FXSelector, void*) {
         neteditOptions.set("net-file", networkFile);
         // update netedit title with the network name
         setTitle(MFXUtils::getTitleText(myTitlePrefix, networkFile.c_str()));
-        // set focus again in viewNet
-        myViewNet->setFocus();
+        // enable save network
+        myNet->getSavingStatus()->requireSaveNetwork();
         // save network
         return onCmdSaveNetwork(nullptr, 0, nullptr);
     } else {
