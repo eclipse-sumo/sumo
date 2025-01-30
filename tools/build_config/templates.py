@@ -223,7 +223,7 @@ TOOLS = [
     "assign/duaIterate_analysis.py",
     "assign/duaIterate_reroutingAnalysis.py",
     "assign/one-shot.py",
-    "assign/cadytsIterate.py",
+    # "assign/cadytsIterate.py", NOT_WORKING (on windows to due classpath default)
     "assign/costFunctionChecker.py",
     "assign/duaIterate.py",
     "detector/aggregateFlows.py",
