@@ -1868,9 +1868,11 @@ NIImporter_OpenStreetMap::RelationHandler::myStartElement(int element, const SUM
             myFromWay = ref;
         } else if (role == "to" && checkEdgeRef(ref)) {
             myToWay = ref;
-        } else if (role == "stop") {
+        } else if (StringUtils::startsWith(role, "stop")) {
+            // permit _entry_only and _exit_only variants
             myStops.push_back(ref);
-        } else if (role == "platform") {
+        } else if (StringUtils::startsWith(role, "platform")) {
+            // permit _entry_only and _exit_only variants
             std::string memberType = attrs.get<std::string>(SUMO_ATTR_TYPE, nullptr, ok);
             if (memberType == "way") {
                 const std::map<long long int, NIImporter_OpenStreetMap::Edge*>::const_iterator& wayIt = myPlatformShapes.find(ref);
