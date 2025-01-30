@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-03-18 19:31:15 by Eclipse SUMO netconvert Version v1_19_0+1380-39d533f191b
+<!-- generated on 2025-01-30 09:41:04 by Eclipse SUMO netconvert Version v1_21_0+2125-f7884de39c4
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <osm-files value="osm.xml"/>
@@ -36,7 +36,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <xml-validation value="never"/>
     </report>
 
-</configuration>
+</netconvertConfiguration>
 -->
 
 <ptLines xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/ptlines_file.xsd">
@@ -131,19 +131,19 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <busStop id="-1711953916" name="Ahrensburg, Klaus-Groth-Straße"/>
         <busStop id="1711974498" name="Ahrensburg, Rathaus"/>
     </ptLine>
-    <ptLine id="9316947" name="Bus 776: Ahrensburg, Berufsschule =&gt; Meilsdorf, Kampsredder =&gt; S Reinbek" line="776" type="bus" vClass="bus" color="red" completeness="0.01" missingBefore="2" missingAfter="109">
+    <ptLine id="9316947" name="Bus 776: Ahrensburg, Berufsschule =&gt; Meilsdorf, Kampsredder =&gt; S Reinbek" line="776" type="bus" vClass="bus" color="red" completeness="0.01" missingBefore="4" missingAfter="115">
         <route edges="39546438 321385419"/>
         <busStop id="2705494849" name="Ahrensburg, Fritz-Reuter-Straße"/>
     </ptLine>
-    <ptLine id="9316948" name="Bus 776: Ahrensburg, Berufsschule =&gt; S Reinbek" line="776" type="bus" vClass="bus" color="red" completeness="0.01" missingBefore="2" missingAfter="100">
+    <ptLine id="9316948" name="Bus 776: Ahrensburg, Berufsschule =&gt; S Reinbek" line="776" type="bus" vClass="bus" color="red" completeness="0.01" missingBefore="4" missingAfter="106">
         <route edges="39546438 321385419"/>
         <busStop id="2705494849" name="Ahrensburg, Fritz-Reuter-Straße"/>
     </ptLine>
-    <ptLine id="9316949" name="Bus 776: S Reinbek =&gt; Ahrensburg, Berufsschule" line="776" type="bus" vClass="bus" color="red" completeness="0.01" missingBefore="88" missingAfter="2">
+    <ptLine id="9316949" name="Bus 776: S Reinbek =&gt; Ahrensburg, Berufsschule" line="776" type="bus" vClass="bus" color="red" completeness="0.01" missingBefore="90" missingAfter="4">
         <route edges="228523367#0 228523367#1 76424358 244492518#0 244492518#1 244492518#2 244492518#3"/>
         <busStop id="69420884" name="Ahrensburg, Reesenbüttler Graben"/>
     </ptLine>
-    <ptLine id="9316950" name="Bus 776: Glinde, Markt =&gt; Ahrensburg, Berufsschule" line="776" type="bus" vClass="bus" color="red" completeness="0.01" missingBefore="68" missingAfter="2">
+    <ptLine id="9316950" name="Bus 776: Glinde, Markt =&gt; Ahrensburg, Berufsschule" line="776" type="bus" vClass="bus" color="red" completeness="0.01" missingBefore="70" missingAfter="4">
         <route edges="228523367#0 228523367#1 76424358 244492518#0 244492518#1 244492518#2 244492518#3"/>
         <busStop id="69420884" name="Ahrensburg, Reesenbüttler Graben"/>
     </ptLine>

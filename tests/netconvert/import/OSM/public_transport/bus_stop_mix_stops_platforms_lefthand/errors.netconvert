@@ -6,8 +6,6 @@ Warning: No way found for reference '5001019' in relation '1057486'
 Warning: Ignoring restriction relation '1057486' with unknown from-way.
 Warning: Ignoring restriction relation '1057486' with unknown to-way.
 Warning: PT line in relation 2755611 with no stops ignored. Probably OSM file is incomplete.
-Warning: PT line in relation 3068086 with no stops ignored. Probably OSM file is incomplete.
-Warning: PT line in relation 4622890 with no stops ignored. Probably OSM file is incomplete.
 Warning: PT line in relation 5659550 with no stops ignored. Probably OSM file is incomplete.
 Warning: PT line in relation 5664147 with no stops ignored. Probably OSM file is incomplete.
 Warning: No way found for reference '634042794' in relation '9082479'
@@ -30,5 +28,4 @@ Warning: Speed of straight connection '24546642#0_0->24546642#1_0' reduced by 5.
 Warning: Speed of straight connection '300873532#2_0->300873532#3_0' reduced by 7.31 due to turning radius of 6.77 (length=2.24, angle=36.47).
 Warning: Speed of straight connection '300873532#2_1->300873532#3_1' reduced by 8.92 due to turning radius of 3.67 (length=1.07, angle=36.47).
 Warning: 6 total messages of type: No way found for reference '%' in relation '%'
-Warning: 9 total messages of type: PT line in relation % with no stops ignored. Probably OSM file is incomplete.
 Warning: 8 total messages of type: PT stop '%' has been moved to edge '%'.

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-03-18 19:31:12 by Eclipse SUMO netconvert Version v1_19_0+1380-39d533f191b
+<!-- generated on 2025-01-30 09:41:02 by Eclipse SUMO netconvert Version v1_21_0+2125-f7884de39c4
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <osm-files value="osm.xml"/>
@@ -35,11 +35,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <xml-validation value="never"/>
     </report>
 
-</configuration>
+</netconvertConfiguration>
 -->
 
 <ptLines xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/ptlines_file.xsd">
-    <ptLine id="102308" name="Bus 420: Braunschweig Rathaus =&gt; Wolfenbüttel Bahnhof" line="420" type="bus" vClass="bus" period="900" color="112,111,111" completeness="0.05" missingBefore="4" missingAfter="15">
+    <ptLine id="102308" name="Bus 420: Braunschweig Rathaus =&gt; Wolfenbüttel Bahnhof" line="420" type="bus" vClass="bus" period="900" color="112,111,111" completeness="0.04" missingBefore="5" missingAfter="17">
         <route edges="320432221#0 320432221#1 320432218 316779262 316779263#0 316779263#1 316779264#0 316779264#1 316779264#2 316779264#3 316779264#4 315207578 23198871 33289080 61793945"/>
         <busStop id="302112841" name="Bürgerpark"/>
     </ptLine>
@@ -91,19 +91,19 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <busStop id="3156641197" name="Bürgerpark"/>
         <busStop id="3156641198" name="Jahnplatz"/>
     </ptLine>
-    <ptLine id="6086282" name="Bus 420: Wolfenbüttel Bahnhof =&gt; Braunschweig Rathaus" line="420" type="bus" vClass="bus" period="900" color="112,111,111" completeness="0.05" missingBefore="17" missingAfter="4">
+    <ptLine id="6086282" name="Bus 420: Wolfenbüttel Bahnhof =&gt; Braunschweig Rathaus" line="420" type="bus" vClass="bus" period="900" color="112,111,111" completeness="0.04" missingBefore="18" missingAfter="5">
         <route edges="591178594 316779260 316779261#0 316779261#1 32353230 320432219#0 320432219#1 61793942"/>
         <busStop id="309922823" name="Bürgerpark"/>
     </ptLine>
-    <ptLine id="6996668" name="Bus 420: Braunschweig Hauptbahnhof =&gt; Wolfenbüttel Bahnhof" line="420" type="bus" vClass="bus" color="112,111,111" completeness="0.06" missingBefore="1" missingAfter="15">
+    <ptLine id="6996668" name="Bus 420: Braunschweig Hauptbahnhof =&gt; Wolfenbüttel Bahnhof" line="420" type="bus" vClass="bus" color="112,111,111" completeness="0.05" missingBefore="1" missingAfter="17">
         <route edges="320432221#0 320432221#1 320432218 316779262 316779263#0 316779263#1 316779264#0 316779264#1 316779264#2 316779264#3 316779264#4 315207578 23198871 33289080 61793945"/>
         <busStop id="302112841" name="Bürgerpark"/>
     </ptLine>
-    <ptLine id="6996669" name="Bus 420: Braunschweig Rathaus =&gt; Wolfenbüttel Kornmarkt" line="420" type="bus" vClass="bus" color="112,111,111" completeness="0.05" missingBefore="4" missingAfter="14">
+    <ptLine id="6996669" name="Bus 420: Braunschweig Rathaus =&gt; Wolfenbüttel Kornmarkt" line="420" type="bus" vClass="bus" color="112,111,111" completeness="0.05" missingBefore="5" missingAfter="14">
         <route edges="320432221#0 320432221#1 320432218 316779262 316779263#0 316779263#1 316779264#0 316779264#1 316779264#2 316779264#3 316779264#4 315207578 23198871 33289080 61793945"/>
         <busStop id="302112841" name="Bürgerpark"/>
     </ptLine>
-    <ptLine id="6996670" name="Bus 420: Wolfenbüttel Kornmarkt =&gt; Braunschweig Rathaus" line="420" type="bus" vClass="bus" color="112,111,111" completeness="0.05" missingBefore="16" missingAfter="4">
+    <ptLine id="6996670" name="Bus 420: Wolfenbüttel Kornmarkt =&gt; Braunschweig Rathaus" line="420" type="bus" vClass="bus" color="112,111,111" completeness="0.05" missingBefore="16" missingAfter="5">
         <route edges="591178594 316779260 316779261#0 316779261#1 32353230 320432219#0 320432219#1 61793942"/>
         <busStop id="309922823" name="Bürgerpark"/>
     </ptLine>
@@ -131,7 +131,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <busStop id="51519930" name="Bürgerpark"/>
         <busStop id="3153581347" name="Heinrich-Büssing-Ring"/>
     </ptLine>
-    <ptLine id="7090530" name="Tram 2: Heidberg =&gt; Hauptbahnhof =&gt; Rathaus" line="2" type="tram" vClass="tram" color="148,193,26" completeness="0.25" missingBefore="5" missingAfter="4">
+    <ptLine id="7090530" name="Tram 2: Heidberg =&gt; Hauptbahnhof =&gt; Rathaus" line="2" type="tram" vClass="tram" color="148,193,26" completeness="0.23" missingBefore="5" missingAfter="5">
         <route edges="393236370 26811659#0 26811659#1 310144577 310144574#0 310144574#1 310144574#2"/>
         <busStop id="3372476419" name="Jahnplatz"/>
         <busStop id="51519930" name="Bürgerpark"/>
