@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="openstreetmap-cgimap 2.0.1 (2981459 spike-07.openstreetmap.org)" copyright="OpenStreetMap and contributors" attribution="http://www.openstreetmap.org/copyright" license="http://opendatacommons.org/licenses/odbl/1-0/">
+ <bounds minlat="46.1955160" minlon="6.1506410" maxlat="46.1957550" maxlon="6.1508740"/>
+ <node id="25648692" visible="true" version="7" changeset="161744724" timestamp="2025-01-25T12:57:22Z" user="WilliamHarrison" uid="16806535" lat="46.1962129" lon="6.1516747"/>
+ <node id="25649703" visible="true" version="11" changeset="36233335" timestamp="2015-12-29T03:15:42Z" user="Marc Mongenet" uid="74847" lat="46.1959102" lon="6.1506510"/>
+ <node id="25649708" visible="true" version="6" changeset="36233335" timestamp="2015-12-29T03:15:42Z" user="Marc Mongenet" uid="74847" lat="46.1959029" lon="6.1504142"/>
+ <node id="25649716" visible="true" version="4" changeset="153235810" timestamp="2024-06-27T08:18:04Z" user="MFlamm" uid="617875" lat="46.1955424" lon="6.1508507"/>
+ <node id="905372035" visible="true" version="3" changeset="36233335" timestamp="2015-12-29T03:15:43Z" user="Marc Mongenet" uid="74847" lat="46.1957483" lon="6.1506519"/>
+ <node id="929553100" visible="true" version="5" changeset="13063373" timestamp="2012-09-10T22:33:02Z" user="x-pab" uid="120583" lat="46.1956985" lon="6.1503981"/>
+ <node id="1329107898" visible="true" version="5" changeset="153235810" timestamp="2024-06-27T08:18:04Z" user="MFlamm" uid="617875" lat="46.1954180" lon="6.1507963">
+  <tag k="crossing" v="uncontrolled"/>
+  <tag k="crossing:island" v="no"/>
+  <tag k="highway" v="crossing"/>
+ </node>
+ <node id="1329107902" visible="true" version="4" changeset="68096164" timestamp="2019-03-13T11:34:02Z" user="Dharma-ae" uid="314664" lat="46.1957964" lon="6.1505708">
+  <tag k="crossing" v="traffic_signals"/>
+  <tag k="highway" v="crossing"/>
+ </node>
+ <node id="1329107904" visible="true" version="3" changeset="68096164" timestamp="2019-03-13T11:34:02Z" user="Dharma-ae" uid="314664" lat="46.1958219" lon="6.1506525">
+  <tag k="crossing" v="traffic_signals"/>
+  <tag k="highway" v="crossing"/>
+ </node>
+ <node id="1329107905" visible="true" version="2" changeset="68096164" timestamp="2019-03-13T11:34:02Z" user="Dharma-ae" uid="314664" lat="46.1958290" lon="6.1508145">
+  <tag k="crossing" v="traffic_signals"/>
+  <tag k="highway" v="crossing"/>
+ </node>
+ <node id="1329107909" visible="true" version="1" changeset="8469399" timestamp="2011-06-17T23:15:04Z" user="Milliams" uid="3422" lat="46.1959027" lon="6.1509916"/>
+ <node id="1481253289" visible="true" version="3" changeset="13063373" timestamp="2012-09-10T22:32:59Z" user="x-pab" uid="120583" lat="46.1957364" lon="6.1504667"/>
+ <node id="1481253350" visible="true" version="3" changeset="13063373" timestamp="2012-09-10T22:32:59Z" user="x-pab" uid="120583" lat="46.1956922" lon="6.1504084"/>
+ <node id="1808104059" visible="true" version="1" changeset="12070257" timestamp="2012-06-30T21:25:24Z" user="x-pab" uid="120583" lat="46.1957809" lon="6.1504520"/>
+ <node id="1809099156" visible="true" version="1" changeset="12079011" timestamp="2012-07-01T17:36:36Z" user="x-pab" uid="120583" lat="46.1868110" lon="6.1473041"/>
+ <node id="1809099157" visible="true" version="1" changeset="12079011" timestamp="2012-07-01T17:36:36Z" user="x-pab" uid="120583" lat="46.1872310" lon="6.1473030"/>
+ <node id="1809099158" visible="true" version="2" changeset="12080266" timestamp="2012-07-01T19:41:39Z" user="x-pab" uid="120583" lat="46.1872361" lon="6.1475900"/>
+ <node id="1809099159" visible="true" version="1" changeset="12079011" timestamp="2012-07-01T17:36:36Z" user="x-pab" uid="120583" lat="46.1873398" lon="6.1477629"/>
+ <node id="1809099160" visible="true" version="1" changeset="12079011" timestamp="2012-07-01T17:36:36Z" user="x-pab" uid="120583" lat="46.1876532" lon="6.1480290"/>
+ <node id="1809099161" visible="true" version="1" changeset="12079011" timestamp="2012-07-01T17:36:36Z" user="x-pab" uid="120583" lat="46.1882349" lon="6.1483865"/>
+ <node id="1809099162" visible="true" version="1" changeset="12079011" timestamp="2012-07-01T17:36:36Z" user="x-pab" uid="120583" lat="46.1894052" lon="6.1487657"/>
+ <node id="1809099164" visible="true" version="1" changeset="12079011" timestamp="2012-07-01T17:36:36Z" user="x-pab" uid="120583" lat="46.1916525" lon="6.1490615"/>
+ <node id="1809099165" visible="true" version="1" changeset="12079011" timestamp="2012-07-01T17:36:36Z" user="x-pab" uid="120583" lat="46.1918268" lon="6.1491471"/>
+ <node id="1809099166" visible="true" version="1" changeset="12079011" timestamp="2012-07-01T17:36:36Z" user="x-pab" uid="120583" lat="46.1920076" lon="6.1493383"/>
+ <node id="1809099167" visible="true" version="1" changeset="12079011" timestamp="2012-07-01T17:36:36Z" user="x-pab" uid="120583" lat="46.1923971" lon="6.1500088"/>
+ <node id="1809099168" visible="true" version="1" changeset="12079011" timestamp="2012-07-01T17:36:37Z" user="x-pab" uid="120583" lat="46.1926262" lon="6.1502820"/>
+ <node id="1809099169" visible="true" version="1" changeset="12079011" timestamp="2012-07-01T17:36:37Z" user="x-pab" uid="120583" lat="46.1927106" lon="6.1534604"/>
+ <node id="1809099170" visible="true" version="1" changeset="12079011" timestamp="2012-07-01T17:36:37Z" user="x-pab" uid="120583" lat="46.1928931" lon="6.1530311"/>
+ <node id="1809099171" visible="true" version="1" changeset="12079011" timestamp="2012-07-01T17:36:37Z" user="x-pab" uid="120583" lat="46.1929873" lon="6.1505383"/>
+ <node id="1809099172" visible="true" version="1" changeset="12079011" timestamp="2012-07-01T17:36:37Z" user="x-pab" uid="120583" lat="46.1932882" lon="6.1521189"/>
+ <node id="1809099173" visible="true" version="1" changeset="12079011" timestamp="2012-07-01T17:36:37Z" user="x-pab" uid="120583" lat="46.1933142" lon="6.1537085"/>
+ <node id="1809099174" visible="true" version="1" changeset="12079011" timestamp="2012-07-01T17:36:37Z" user="x-pab" uid="120583" lat="46.1933352" lon="6.1516310"/>
+ <node id="1809099175" visible="true" version="1" changeset="12079011" timestamp="2012-07-01T17:36:37Z" user="x-pab" uid="120583" lat="46.1933512" lon="6.1505751"/>
+ <node id="1809099176" visible="true" version="1" changeset="12079011" timestamp="2012-07-01T17:36:37Z" user="x-pab" uid="120583" lat="46.1934786" lon="6.1536857"/>
+ <node id="1809099177" visible="true" version="1" changeset="12079011" timestamp="2012-07-01T17:36:37Z" user="x-pab" uid="120583" lat="46.1937116" lon="6.1536059"/>
+ <node id="1809099178" visible="true" version="1" changeset="12079011" timestamp="2012-07-01T17:36:37Z" user="x-pab" uid="120583" lat="46.1938319" lon="6.1534608"/>
+ <node id="1809099179" visible="true" version="1" changeset="12079011" timestamp="2012-07-01T17:36:37Z" user="x-pab" uid="120583" lat="46.1940980" lon="6.1528988"/>
+ <node id="1809099180" visible="true" version="1" changeset="12079011" timestamp="2012-07-01T17:36:37Z" user="x-pab" uid="120583" lat="46.1945210" lon="6.1518749"/>
+ <node id="1809099181" visible="true" version="1" changeset="12079011" timestamp="2012-07-01T17:36:37Z" user="x-pab" uid="120583" lat="46.1948525" lon="6.1513817"/>
+ <node id="1809099182" visible="true" version="1" changeset="12079011" timestamp="2012-07-01T17:36:37Z" user="x-pab" uid="120583" lat="46.1956394" lon="6.1506418"/>
+ <node id="1909229808" visible="true" version="1" changeset="13063373" timestamp="2012-09-10T22:32:00Z" user="x-pab" uid="120583" lat="46.1953390" lon="6.1504870"/>
+ <node id="1909229904" visible="true" version="1" changeset="13063373" timestamp="2012-09-10T22:32:01Z" user="x-pab" uid="120583" lat="46.1953842" lon="6.1505730"/>
+ <node id="1909229938" visible="true" version="1" changeset="13063373" timestamp="2012-09-10T22:32:02Z" user="x-pab" uid="120583" lat="46.1954065" lon="6.1506154"/>
+ <node id="1909229976" visible="true" version="1" changeset="13063373" timestamp="2012-09-10T22:32:02Z" user="x-pab" uid="120583" lat="46.1954445" lon="6.1503713"/>
+ <node id="1909229994" visible="true" version="1" changeset="13063373" timestamp="2012-09-10T22:32:03Z" user="x-pab" uid="120583" lat="46.1954610" lon="6.1504205"/>
+ <node id="1909230002" visible="true" version="1" changeset="13063373" timestamp="2012-09-10T22:32:03Z" user="x-pab" uid="120583" lat="46.1954658" lon="6.1507281"/>
+ <node id="1909230011" visible="true" version="1" changeset="13063373" timestamp="2012-09-10T22:32:03Z" user="x-pab" uid="120583" lat="46.1954675" lon="6.1504140"/>
+ <node id="1909230013" visible="true" version="1" changeset="13063373" timestamp="2012-09-10T22:32:03Z" user="x-pab" uid="120583" lat="46.1954694" lon="6.1504629"/>
+ <node id="1909230017" visible="true" version="1" changeset="13063373" timestamp="2012-09-10T22:32:03Z" user="x-pab" uid="120583" lat="46.1954730" lon="6.1505124"/>
+ <node id="1909230021" visible="true" version="1" changeset="13063373" timestamp="2012-09-10T22:32:03Z" user="x-pab" uid="120583" lat="46.1954767" lon="6.1505212"/>
+ <node id="1909230023" visible="true" version="1" changeset="13063373" timestamp="2012-09-10T22:32:03Z" user="x-pab" uid="120583" lat="46.1954786" lon="6.1504551"/>
+ <node id="1909230050" visible="true" version="1" changeset="13063373" timestamp="2012-09-10T22:32:04Z" user="x-pab" uid="120583" lat="46.1954872" lon="6.1505134"/>
+ <node id="1909230053" visible="true" version="1" changeset="13063373" timestamp="2012-09-10T22:32:04Z" user="x-pab" uid="120583" lat="46.1954888" lon="6.1504974"/>
+ <node id="1909230062" visible="true" version="1" changeset="13063373" timestamp="2012-09-10T22:32:04Z" user="x-pab" uid="120583" lat="46.1954987" lon="6.1505144"/>
+ <node id="1909230065" visible="true" version="1" changeset="13063373" timestamp="2012-09-10T22:32:04Z" user="x-pab" uid="120583" lat="46.1955034" lon="6.1507374"/>
+ <node id="1909230074" visible="true" version="1" changeset="13063373" timestamp="2012-09-10T22:32:04Z" user="x-pab" uid="120583" lat="46.1955152" lon="6.1504924"/>
+ <node id="1909230080" visible="true" version="1" changeset="13063373" timestamp="2012-09-10T22:32:04Z" user="x-pab" uid="120583" lat="46.1955205" lon="6.1505034"/>
+ <node id="1909230101" visible="true" version="1" changeset="13063373" timestamp="2012-09-10T22:32:04Z" user="x-pab" uid="120583" lat="46.1955325" lon="6.1504570"/>
+ <node id="1909230107" visible="true" version="1" changeset="13063373" timestamp="2012-09-10T22:32:04Z" user="x-pab" uid="120583" lat="46.1955357" lon="6.1503971"/>
+ <node id="1909230111" visible="true" version="1" changeset="13063373" timestamp="2012-09-10T22:32:04Z" user="x-pab" uid="120583" lat="46.1955364" lon="6.1504111"/>
+ <node id="1909230114" visible="true" version="1" changeset="13063373" timestamp="2012-09-10T22:32:05Z" user="x-pab" uid="120583" lat="46.1955379" lon="6.1504702"/>
+ <node id="1909230120" visible="true" version="1" changeset="13063373" timestamp="2012-09-10T22:32:05Z" user="x-pab" uid="120583" lat="46.1955495" lon="6.1504381"/>
+ <node id="1909230158" visible="true" version="1" changeset="13063373" timestamp="2012-09-10T22:32:05Z" user="x-pab" uid="120583" lat="46.1955842" lon="6.1503470"/>
+ <node id="1909230169" visible="true" version="1" changeset="13063373" timestamp="2012-09-10T22:32:05Z" user="x-pab" uid="120583" lat="46.1955912" lon="6.1506495"/>
+ <node id="1909230172" visible="true" version="1" changeset="13063373" timestamp="2012-09-10T22:32:05Z" user="x-pab" uid="120583" lat="46.1955935" lon="6.1503525"/>
+ <node id="1909230177" visible="true" version="1" changeset="13063373" timestamp="2012-09-10T22:32:05Z" user="x-pab" uid="120583" lat="46.1955985" lon="6.1503658"/>
+ <node id="1909230187" visible="true" version="1" changeset="13063373" timestamp="2012-09-10T22:32:06Z" user="x-pab" uid="120583" lat="46.1956177" lon="6.1503456"/>
+ <node id="1909230190" visible="true" version="1" changeset="13063373" timestamp="2012-09-10T22:32:06Z" user="x-pab" uid="120583" lat="46.1956267" lon="6.1503581"/>
+ <node id="1909230202" visible="true" version="7" changeset="122819935" timestamp="2022-06-24T21:55:13Z" user="b_l" uid="300892" lat="46.1956593" lon="6.1507479">
+  <tag k="bench" v="yes"/>
+  <tag k="bus" v="yes"/>
+  <tag k="ele" v="394"/>
+  <tag k="highway" v="bus_stop"/>
+  <tag k="name" v="Place Claparède"/>
+  <tag k="network" v="Unireso"/>
+  <tag k="network:short" v="CTGE"/>
+  <tag k="network:wikidata" v="Q1312883"/>
+  <tag k="operator" v="TPG"/>
+  <tag k="public_transport" v="stop_position"/>
+  <tag k="shelter" v="yes"/>
+  <tag k="trolleybus" v="yes"/>
+  <tag k="uic_name" v="Genève, Place Claparède"/>
+  <tag k="uic_ref" v="8592805"/>
+ </node>
+ <node id="1909230205" visible="true" version="1" changeset="13063373" timestamp="2012-09-10T22:32:06Z" user="x-pab" uid="120583" lat="46.1956458" lon="6.1503271"/>
+ <node id="1909230227" visible="true" version="1" changeset="13063373" timestamp="2012-09-10T22:32:06Z" user="x-pab" uid="120583" lat="46.1956667" lon="6.1505714"/>
+ <node id="1909230345" visible="true" version="1" changeset="13063373" timestamp="2012-09-10T22:32:09Z" user="x-pab" uid="120583" lat="46.1958481" lon="6.1508572">
+  <tag k="highway" v="traffic_signals"/>
+ </node>
+ <node id="3915669727" visible="true" version="3" changeset="153235810" timestamp="2024-06-27T08:18:04Z" user="MFlamm" uid="617875" lat="46.1953252" lon="6.1506637"/>
+ <node id="4849512017" visible="true" version="1" changeset="48621778" timestamp="2017-05-12T11:51:39Z" user="tsoukomi" uid="3765401" lat="46.1950369" lon="6.1500290"/>
+ <node id="6335274480" visible="true" version="1" changeset="68096164" timestamp="2019-03-13T11:33:44Z" user="Dharma-ae" uid="314664" lat="46.1948643" lon="6.1496816"/>
+ <node id="6335274599" visible="true" version="1" changeset="68096164" timestamp="2019-03-13T11:33:45Z" user="Dharma-ae" uid="314664" lat="46.1954116" lon="6.1507291"/>
+ <node id="6335274600" visible="true" version="2" changeset="153235810" timestamp="2024-06-27T08:18:04Z" user="MFlamm" uid="617875" lat="46.1954506" lon="6.1507566"/>
+ <node id="6335274607" visible="true" version="1" changeset="68096164" timestamp="2019-03-13T11:33:45Z" user="Dharma-ae" uid="314664" lat="46.1955160" lon="6.1507532"/>
+ <node id="6335274608" visible="true" version="1" changeset="68096164" timestamp="2019-03-13T11:33:45Z" user="Dharma-ae" uid="314664" lat="46.1956618" lon="6.1506017"/>
+ <node id="6335274609" visible="true" version="1" changeset="68096164" timestamp="2019-03-13T11:33:45Z" user="Dharma-ae" uid="314664" lat="46.1957263" lon="6.1505125"/>
+ <node id="8465279260" visible="true" version="1" changeset="100124456" timestamp="2021-02-28T07:02:51Z" user="b_l" uid="300892" lat="46.1956054" lon="6.1506646"/>
+ <node id="9195017668" visible="true" version="1" changeset="112862999" timestamp="2021-10-23T05:55:22Z" user="Dharma-ae" uid="314664" lat="46.1911806" lon="6.1490167"/>
+ <node id="9195020166" visible="true" version="1" changeset="112862999" timestamp="2021-10-23T05:55:22Z" user="Dharma-ae" uid="314664" lat="46.1890173" lon="6.1486523"/>
+ <node id="9310265847" visible="true" version="2" changeset="161744724" timestamp="2025-01-25T12:57:22Z" user="WilliamHarrison" uid="16806535" lat="46.1960054" lon="6.1512720"/>
+ <node id="12014504241" visible="true" version="1" changeset="153235810" timestamp="2024-06-27T08:18:04Z" user="MFlamm" uid="617875" lat="46.1953066" lon="6.1510457"/>
+ <node id="12014504244" visible="true" version="1" changeset="153235810" timestamp="2024-06-27T08:18:04Z" user="MFlamm" uid="617875" lat="46.1954863" lon="6.1507619"/>
+ <node id="12014504246" visible="true" version="1" changeset="153235810" timestamp="2024-06-27T08:18:04Z" user="MFlamm" uid="617875" lat="46.1954761" lon="6.1508303"/>
+ <node id="12014504247" visible="true" version="1" changeset="153235810" timestamp="2024-06-27T08:18:04Z" user="MFlamm" uid="617875" lat="46.1953805" lon="6.1507579"/>
+ <node id="12531672686" visible="true" version="1" changeset="161744724" timestamp="2025-01-25T12:57:22Z" user="WilliamHarrison" uid="16806535" lat="46.1961000" lon="6.1514966"/>
+ <node id="12531672687" visible="true" version="1" changeset="161744724" timestamp="2025-01-25T12:57:22Z" user="WilliamHarrison" uid="16806535" lat="46.1958455" lon="6.1506521"/>
+ <node id="12531672690" visible="true" version="1" changeset="161744724" timestamp="2025-01-25T12:57:22Z" user="WilliamHarrison" uid="16806535" lat="46.1959093" lon="6.1510097"/>
+ <way id="45754906" visible="true" version="15" changeset="110728992" timestamp="2021-09-04T20:46:22Z" user="luja" uid="120636">
+  <nd ref="25649708"/>
+  <nd ref="1329107902"/>
+  <nd ref="905372035"/>
+  <tag k="highway" v="secondary"/>
+  <tag k="lanes" v="3"/>
+  <tag k="lit" v="yes"/>
+  <tag k="maxspeed" v="50"/>
+  <tag k="name" v="Place Edouard-Claparède"/>
+  <tag k="oneway" v="yes"/>
+  <tag k="surface" v="asphalt"/>
+  <tag k="trolley_wire" v="yes"/>
+ </way>
+ <way id="180489778" visible="true" version="3" changeset="33174786" timestamp="2015-08-07T09:21:07Z" user="floyd70" uid="3068030">
+  <nd ref="1909230080"/>
+  <nd ref="1909230062"/>
+  <nd ref="1909230050"/>
+  <nd ref="1909230021"/>
+  <nd ref="1909230017"/>
+  <nd ref="1909230053"/>
+  <nd ref="1909230013"/>
+  <nd ref="1909230023"/>
+  <nd ref="1909229994"/>
+  <nd ref="1909230011"/>
+  <nd ref="1909229976"/>
+  <nd ref="1909229808"/>
+  <nd ref="1909229904"/>
+  <nd ref="1909229938"/>
+  <nd ref="1909230002"/>
+  <nd ref="1909230065"/>
+  <nd ref="1909230169"/>
+  <nd ref="1909230080"/>
+  <tag k="addr:city" v="Genève"/>
+  <tag k="addr:housenumber" v="29"/>
+  <tag k="addr:street" v="Rue Sautter"/>
+  <tag k="building" v="yes"/>
+  <tag k="building:levels" v="6"/>
+ </way>
+ <way id="180489779" visible="true" version="3" changeset="33174795" timestamp="2015-08-07T09:21:31Z" user="floyd70" uid="3068030">
+  <nd ref="1481253289"/>
+  <nd ref="1909230227"/>
+  <nd ref="1909230169"/>
+  <nd ref="1909230080"/>
+  <nd ref="1909230074"/>
+  <nd ref="1909230114"/>
+  <nd ref="1909230101"/>
+  <nd ref="1909230120"/>
+  <nd ref="1909230111"/>
+  <nd ref="1909230107"/>
+  <nd ref="1909230158"/>
+  <nd ref="1909230172"/>
+  <nd ref="1909230177"/>
+  <nd ref="1909230187"/>
+  <nd ref="1909230190"/>
+  <nd ref="1909230205"/>
+  <nd ref="929553100"/>
+  <nd ref="1481253350"/>
+  <nd ref="1481253289"/>
+  <tag k="addr:city" v="Genève"/>
+  <tag k="addr:housenumber" v="1"/>
+  <tag k="addr:street" v="Place Edouard-Claparède"/>
+  <tag k="building" v="yes"/>
+  <tag k="building:levels" v="6"/>
+ </way>
+ <way id="181033387" visible="true" version="3" changeset="112862999" timestamp="2021-10-23T05:55:22Z" user="Dharma-ae" uid="314664">
+  <nd ref="1808104059"/>
+  <nd ref="1809099182"/>
+  <nd ref="1809099181"/>
+  <nd ref="1809099180"/>
+  <nd ref="1809099179"/>
+  <nd ref="1809099178"/>
+  <nd ref="1809099177"/>
+  <nd ref="1809099176"/>
+  <nd ref="1809099173"/>
+  <nd ref="1809099169"/>
+  <nd ref="1809099170"/>
+  <nd ref="1809099172"/>
+  <nd ref="1809099174"/>
+  <nd ref="1809099175"/>
+  <nd ref="1809099171"/>
+  <nd ref="1809099168"/>
+  <nd ref="1809099167"/>
+  <nd ref="1809099166"/>
+  <nd ref="1809099165"/>
+  <nd ref="1809099164"/>
+  <nd ref="9195017668"/>
+  <nd ref="1809099162"/>
+  <nd ref="9195020166"/>
+  <nd ref="1809099161"/>
+  <nd ref="1809099160"/>
+  <nd ref="1809099159"/>
+  <nd ref="1809099158"/>
+  <nd ref="1809099157"/>
+  <nd ref="1809099156"/>
+  <tag k="admin_level" v="10"/>
+  <tag k="boundary" v="administrative"/>
+ </way>
+ <way id="579887368" visible="true" version="9" changeset="161846896" timestamp="2025-01-28T07:58:51Z" user="WilliamHarrison" uid="16806535">
+  <nd ref="905372035"/>
+  <nd ref="1909230202"/>
+  <nd ref="25649716"/>
+  <tag k="busway" v="lane"/>
+  <tag k="cycleway:left" v="lane"/>
+  <tag k="cycleway:right" v="share_busway"/>
+  <tag k="highway" v="secondary"/>
+  <tag k="lanes" v="4"/>
+  <tag k="lanes:forward" v="3"/>
+  <tag k="lanes:psv:backward" v="1"/>
+  <tag k="maxspeed" v="50"/>
+  <tag k="name" v="Avenue de Champel"/>
+  <tag k="oneway" v="yes"/>
+  <tag k="oneway:bicycle" v="no"/>
+  <tag k="oneway:psv" v="no"/>
+  <tag k="psv:lanes:backward" v="designated"/>
+  <tag k="psv:lanes:forward" v="yes|yes|designated"/>
+  <tag k="surface" v="asphalt"/>
+  <tag k="trolley_wire" v="yes"/>
+ </way>
+ <way id="676518916" visible="true" version="6" changeset="155726517" timestamp="2024-08-25T08:58:08Z" user="TucoTuco" uid="21884155">
+  <nd ref="6335274609"/>
+  <nd ref="6335274608"/>
+  <nd ref="8465279260"/>
+  <nd ref="6335274607"/>
+  <tag k="bench" v="yes"/>
+  <tag k="bin" v="yes"/>
+  <tag k="footway" v="sidewalk"/>
+  <tag k="highway" v="platform"/>
+  <tag k="name" v="Place Claparède"/>
+  <tag k="network" v="Unireso"/>
+  <tag k="operator" v="TPG"/>
+  <tag k="public_transport" v="platform"/>
+  <tag k="shelter" v="yes"/>
+  <tag k="surface" v="concrete"/>
+  <tag k="uic_name" v="Genève, Place Claparède"/>
+  <tag k="uic_ref" v="8592805"/>
+ </way>
+ <way id="1296577185" visible="true" version="3" changeset="161846896" timestamp="2025-01-28T07:58:51Z" user="WilliamHarrison" uid="16806535">
+  <nd ref="25649716"/>
+  <nd ref="12014504241"/>
+  <tag k="busway" v="lane"/>
+  <tag k="cycleway:both" v="share_busway"/>
+  <tag k="highway" v="secondary"/>
+  <tag k="lanes" v="3"/>
+  <tag k="lanes:forward" v="2"/>
+  <tag k="lanes:psv:backward" v="1"/>
+  <tag k="maxspeed" v="50"/>
+  <tag k="name" v="Avenue de Champel"/>
+  <tag k="oneway" v="yes"/>
+  <tag k="oneway:bicycle" v="no"/>
+  <tag k="oneway:psv" v="no"/>
+  <tag k="psv:lanes:backward" v="designated"/>
+  <tag k="surface" v="asphalt"/>
+  <tag k="trolley_wire" v="yes"/>
+  <tag k="turn:lanes:forward" v="through;left|through"/>
+ </way>
+ <way id="1296577187" visible="true" version="1" changeset="153235810" timestamp="2024-06-27T08:18:04Z" user="MFlamm" uid="617875">
+  <nd ref="25649716"/>
+  <nd ref="12014504246"/>
+  <nd ref="1329107898"/>
+  <nd ref="12014504247"/>
+  <nd ref="3915669727"/>
+  <tag k="access" v="no"/>
+  <tag k="bus" v="yes"/>
+  <tag k="highway" v="service"/>
+  <tag k="lanes" v="1"/>
+  <tag k="lit" v="yes"/>
+  <tag k="oneway" v="yes"/>
+  <tag k="surface" v="asphalt"/>
+  <tag k="trolley_wire" v="yes"/>
+ </way>
+</osm>
