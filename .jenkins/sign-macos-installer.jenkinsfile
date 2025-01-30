@@ -27,12 +27,8 @@ pipeline {
                 cmake --install jupedsim-build --config Release
 
                 # Cloning SUMO
-                git clone -q --filter=tree:0 --branch v1_21_0 https://github.com/eclipse-sumo/sumo.git
+                git clone -q --filter=tree:0 --branch main https://github.com/eclipse-sumo/sumo.git
                 export SUMO_HOME=\${WORKSPACE}/sumo
-
-                # FIXME (load file from main to have the current version)
-                curl -s -o "${WORKSPACE}/sumo/tools/build_config/buildMacOSInstaller.py" https://raw.githubusercontent.com/eclipse-sumo/sumo/main/tools/build_config/buildMacOSInstaller.py
-                curl -s -o "${WORKSPACE}/sumo/tools/requirements.txt"                    https://raw.githubusercontent.com/eclipse-sumo/sumo/main/tools/requirements.txt
 
                 # Creating virtual env for Python for the whole process
                 /opt/homebrew/bin/python3.13 -m venv env
