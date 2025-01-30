@@ -431,7 +431,8 @@ Helper::convertCartesianToRoadMap(const Position& pos, const SUMOVehicleClass vC
             MSLane* lane = const_cast<MSLane*>(dynamic_cast<const MSLane*>(named));
             if (lane->allowsVehicleClass(vClass)) {
                 // @todo this may be a place where 3D is required but 2D is used
-                const double newDistance = lane->getShape().distance2D(pos);
+                double newDistance = lane->getShape().distance2D(pos);
+                newDistance = patchShapeDistance(lane, pos, newDistance, false);
                 if (newDistance < minDistance ||
                         (newDistance == minDistance
                          && result.first != nullptr
