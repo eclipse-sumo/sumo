@@ -7,7 +7,8 @@
 # This Dockerfile installs everything for a full fledged SUMO with all tools runnable.
 # If you don't need certain features and rather have a smaller container you can comment the unneeded parts below
 
-FROM ubuntu:jammy
+# We are dividing the build into multiple stages to reduce the size of the resulting image
+FROM ubuntu:jammy as build
 
 ENV SUMO_HOME=/usr/share/sumo
 ARG DEBIAN_FRONTEND=noninteractive
@@ -27,12 +28,48 @@ RUN apt-get -y install $(cat /opt/sumo/build_config/tools_req_deb.txt)
 
 # JuPedSim
 RUN cd /opt; git clone -b $JUPEDSIM_VERSION https://github.com/PedestrianDynamics/jupedsim
-RUN cd /opt; cmake -B jupedsim-build -D CMAKE_INSTALL_PREFIX=jupedsim-install jupedsim; \
- cmake --build jupedsim-build -j4 --config Release; cmake --install jupedsim-build --config Release; rm -rf jupedsim-build
+RUN cd /opt; cmake -B jupedsim-build -D CMAKE_INSTALL_PREFIX=/install/usr jupedsim; \
+ cmake --build jupedsim-build -j4 --config Release; cmake --install jupedsim-build --config Release
 
 # python packages needed for the tools (the ones where we do not have ubuntu packages)
 RUN pip3 install -r /opt/sumo/tools/requirements.txt
 # python packages needed for the docs (the ones where we do not have ubuntu packages)
 RUN pip3 install -r /opt/sumo/docs/web/requirements.txt
-RUN cd /opt/sumo; cmake -B cmake-build -DCMAKE_INSTALL_PREFIX=/usr -DSUMO_UTILS=TRUE; \
- cd cmake-build; make -j8 all examples doc install; cd ..; rm -rf cmake-build
+
+RUN cd /opt/sumo; cmake -B cmake-build -DCMAKE_INSTALL_PREFIX=/install/usr -DSUMO_UTILS=TRUE; \
+ cd cmake-build; make -j8 all examples doc install
+
+# Now create actual image
+FROM ubuntu:jammy
+
+# Add metadata
+LABEL org.opencontainers.image.authors="SUMO Developers <sumo-dev@eclipse.org>" \
+      org.opencontainers.image.url="https://ghcr.io/eclipse-sumo/sumo" \
+      org.opencontainers.image.source="https://github.com/eclipse-sumo/sumo/blob/main/build_config/docker/Dockerfile.ubuntu.git" \
+      org.opencontainers.image.documentation="https://sumo.dlr.de/docs/Developer/Docker.html" \
+      org.opencontainers.image.licenses="EPL-2.0 OR GPL-2.0-or-later"
+
+# Setup environment
+ENV SUMO_HOME=/usr/share/sumo
+ARG DEBIAN_FRONTEND=noninteractive
+
+# Getting build artifacts
+COPY --from=build /install/usr /usr
+# Get dependency lists
+COPY --from=build /opt/sumo/build_config/build_req_deb.txt /tmp/build_req_deb.txt
+COPY --from=build /opt/sumo/build_config/tools_req_deb.txt /tmp/tools_req_deb.txt
+COPY --from=build /opt/sumo/tools/requirements.txt /tmp/requirements.txt
+
+# Installing runtime dependencies (for simplicity we use the build dependencies. Possibility for optimization in the future)
+RUN apt-get -qq update; \
+    apt-get -qq -y install $(cat /tmp/build_req_deb.txt) $(cat /tmp/tools_req_deb.txt) \
+                           libavformat58 libopenscenegraph161 libswscale5; \
+    apt-get -qq clean autoclean; \
+    apt-get -qq -y autoremove; \
+    rm -rf /var/lib/apt/lists/*
+
+# Installing tools dependencies for python
+RUN pip3 install --no-cache-dir -r /tmp/requirements.txt
+
+CMD ["/bin/bash", "-c"]
+
