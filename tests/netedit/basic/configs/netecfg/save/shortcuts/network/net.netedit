@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-01-16 16:06:59 by Eclipse SUMO netedit Version v1_21_0+1868-927af3e7845
+<!-- generated on 2025-01-30 14:12:02 by Eclipse SUMO netedit Version v1_21_0+2140-a3a4c2d371c
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,16 +14,16 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Jan160532.1512\netedit.gui\basic\configs\netecfg\save\menu\network\additionals.add.xml"/>
-        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Jan160532.1512\netedit.gui\basic\configs\netecfg\save\menu\network\routes.rou.xml"/>
-        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Jan160532.1512\netedit.gui\basic\configs\netecfg\save\menu\network\datas.dat.xml"/>
-        <meandata-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Jan160532.1512\netedit.gui\basic\configs\netecfg\save\menu\network\datas.med.add.xml"/>
-        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Jan160532.1512\netedit.gui\basic\configs\netecfg\save\menu\network\net.net.xml"/>
+        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.30Jan140951.10536\netedit.gui\basic\configs\netecfg\save\shortcuts\network\additionals.add.xml"/>
+        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.30Jan140951.10536\netedit.gui\basic\configs\netecfg\save\shortcuts\network\routes.rou.xml"/>
+        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.30Jan140951.10536\netedit.gui\basic\configs\netecfg\save\shortcuts\network\datas.dat.xml"/>
+        <meandata-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.30Jan140951.10536\netedit.gui\basic\configs\netecfg\save\shortcuts\network\datas.med.add.xml"/>
+        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.30Jan140951.10536\netedit.gui\basic\configs\netecfg\save\shortcuts\network\net.net.xml"/>
     </input>
 
     <output>
         <write-license value="true"/>
-        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Jan160532.1512\netedit.gui\basic\configs\netecfg\save\menu\network\net.net.xml"/>
+        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.30Jan140951.10536\netedit.gui\basic\configs\netecfg\save\shortcuts\network\net.net.xml"/>
     </output>
 
     <processing>
@@ -51,16 +51,16 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Jan160532.1512\netedit.gui\basic\configs\netecfg\save\menu\network\gui-settings.xml"/>
+        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.30Jan140951.10536\netedit.gui\basic\configs\netecfg\save\shortcuts\network\gui-settings.xml"/>
         <window-size value="1280, 720"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
-        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Jan160532.1512\netedit.gui\basic\configs\netecfg\save\menu\network\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.30Jan140951.10536\netedit.gui\basic\configs\netecfg\save\shortcuts\network\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Jan160532.1512\netedit.gui\basic\configs\netecfg\save\menu\network\log.txt"/>
+        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.30Jan140951.10536\netedit.gui\basic\configs\netecfg\save\shortcuts\network\log.txt"/>
     </report>
 
 </neteditConfiguration>
@@ -230,7 +230,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="-E12_1" index="1" disallow="pedestrian" speed="8.00" length="12.60" shape="1.60,7.20 1.60,19.80"/>
     </edge>
     <edge id="-E13" from="J12" to="J11" priority="-1">
-        <lane id="-E13_0" index="0" disallow="pedestrian" speed="13.89" length="52.00" shape="-26.00,16.40 26.00,16.40"/>
+        <lane id="-E13_0" index="0" disallow="pedestrian" speed="13.89" length="56.00" shape="-28.00,16.40 28.00,16.40"/>
     </edge>
     <edge id="-E2" from="J3" to="J2" priority="-1">
         <lane id="-E2_0" index="0" disallow="pedestrian" speed="8.00" length="10.60" shape="33.40,17.80 33.40,7.20"/>
@@ -273,7 +273,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="E12_1" index="1" disallow="pedestrian" speed="8.00" length="12.60" shape="-1.60,19.80 -1.60,7.20"/>
     </edge>
     <edge id="E13" from="J11" to="J12" priority="-1">
-        <lane id="E13_0" index="0" disallow="pedestrian" speed="13.89" length="52.00" shape="26.00,19.60 -26.00,19.60"/>
+        <lane id="E13_0" index="0" disallow="pedestrian" speed="13.89" length="56.00" shape="28.00,19.60 -28.00,19.60"/>
     </edge>
     <edge id="E2" from="J2" to="J3" priority="-1">
         <lane id="E2_0" index="0" allow="tram rail_urban rail rail_electric rail_fast cable_car subway" speed="8.00" length="10.60" shape="39.80,7.20 39.80,17.80"/>
@@ -340,8 +340,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <request index="6" response="0011000" foes="0011100" cont="0"/>
     </junction>
     <junction id="J10" type="dead_end" x="26.00" y="-18.00" incLanes="E3_0" intLanes="" shape="26.00,-21.20 26.00,-18.00"/>
-    <junction id="J11" type="dead_end" x="26.00" y="18.00" incLanes="-E13_0" intLanes="" shape="26.00,18.00 26.00,14.80 26.00,18.00"/>
-    <junction id="J12" type="dead_end" x="-26.00" y="18.00" incLanes="E13_0" intLanes="" shape="-26.00,18.00 -26.00,21.20 -26.00,18.00"/>
+    <junction id="J11" type="dead_end" x="28.00" y="18.00" incLanes="-E13_0" intLanes="" shape="28.00,18.00 28.00,14.80 28.00,18.00"/>
+    <junction id="J12" type="dead_end" x="-28.00" y="18.00" incLanes="E13_0" intLanes="" shape="-28.00,18.00 -28.00,21.20 -28.00,18.00"/>
     <junction id="J2" type="priority" x="35.00" y="0.00" incLanes="-E2_0 E8_0 E8_1 E1_0 E1_1" intLanes=":J2_0_0 :J2_1_0 :J2_2_0 :J2_2_1 :J2_4_0 :J2_5_0 :J2_6_0" shape="31.80,7.20 41.40,7.20 41.40,-7.20 31.80,-7.20 31.58,-6.09 31.30,-5.70 30.91,-5.42 30.41,-5.26 29.80,-5.20 29.80,5.20 30.91,5.42 31.30,5.70 31.58,6.09 31.74,6.59">
         <request index="0" response="0000000" foes="0010000" cont="0"/>
         <request index="1" response="1100000" foes="1110000" cont="0"/>

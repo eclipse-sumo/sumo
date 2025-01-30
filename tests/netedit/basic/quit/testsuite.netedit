@@ -1,15 +1,3 @@
-no_save
+saving
 
-no_save_network
-
-no_save_additionals
-
-no_save_demand
-
-save_network
-
-save_additionals
-
-save_demand
-
-save_all
+no_saving
