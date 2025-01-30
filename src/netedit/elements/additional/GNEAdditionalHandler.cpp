@@ -889,6 +889,7 @@ GNEAdditionalHandler::buildCalibratorFlow(const CommonXMLStructure::SumoBaseObje
             myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(flow, true), true);
             myNet->getViewNet()->getUndoList()->end();
         } else {
+            myNet->getAttributeCarriers()->insertAdditional(flow);
             calibrator->addChildElement(flow);
             route->addChildElement(flow);
             vType->addChildElement(flow);
