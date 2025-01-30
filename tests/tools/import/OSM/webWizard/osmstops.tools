@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-04-26 09:53:55 by Eclipse SUMO netconvert Version v1_19_0+1942-af64547e310
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<!-- generated on 2025-01-30 10:36:15 by Eclipse SUMO netconvert Version v1_21_0+2127-1e2a421b562
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <type-files value="${SUMO_HOME}/data/typemap/osmNetconvert.typ.xml,${SUMO_HOME}/data/typemap/osmNetconvertUrbanDe.typ.xml,${SUMO_HOME}/data/typemap/osmNetconvertPedestrians.typ.xml,${SUMO_HOME}/data/typemap/osmNetconvertShips.typ.xml,${SUMO_HOME}/data/typemap/osmNetconvertBicycle.typ.xml,${SUMO_HOME}/data/typemap/osmNetconvertAerialway.typ.xml"/>
-        <osm-files value="/home/erdm_ja/.texttest/tmp/tools.26Apr095353.1353728/tools/import/OSM/webWizard/osm_bbox.osm.xml"/>
+        <osm-files value="/home/erdm_ja/.texttest/tmp/tools.30Jan103613.2789103/tools/import/OSM/webWizard/osm_bbox.osm.xml"/>
     </input>
 
     <output>
@@ -54,7 +54,7 @@
         <osm.sidewalks value="true"/>
     </formats>
 
-</configuration>
+</netconvertConfiguration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
@@ -422,14 +422,14 @@
         <access lane="483624524#0_0" pos="0.00" length="13.57" friendlyPos="1"/>
         <access lane="72157168#5_0" pos="13.37" length="11.29" friendlyPos="1"/>
     </busStop>
-    <busStop id="2094266776" name="U Alexanderplatz" lane="4699210#3_0" startPos="25.48" endPos="225.48" friendlyPos="true">
+    <busStop id="2094266776" name="U Alexanderplatz" lane="4699210#3_0" startPos="25.48" endPos="225.48" friendlyPos="true" lines="U5">
         <access lane="272795500#1_0" pos="0.20" length="12.23" friendlyPos="1"/>
         <access lane="272795500#2_0" pos="4.09" length="3.53" friendlyPos="1"/>
         <access lane="272795500#3_0" pos="0.00" length="10.93" friendlyPos="1"/>
         <access lane="377634139_0" pos="0.00" length="6.66" friendlyPos="1"/>
         <access lane="377634144_0" pos="0.00" length="9.84" friendlyPos="1"/>
     </busStop>
-    <busStop id="2094266777" name="U Alexanderplatz" lane="438860770_0" startPos="356.38" endPos="556.38" friendlyPos="true">
+    <busStop id="2094266777" name="U Alexanderplatz" lane="438860770_0" startPos="356.38" endPos="556.38" friendlyPos="true" lines="U5">
         <access lane="272780747#1_0" pos="2.13" length="8.05" friendlyPos="1"/>
         <access lane="272780750#0_0" pos="0.00" length="12.60" friendlyPos="1"/>
         <access lane="272795502#2_0" pos="6.82" length="3.30" friendlyPos="1"/>

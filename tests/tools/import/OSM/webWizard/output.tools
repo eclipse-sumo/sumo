@@ -1,9 +1,9 @@
 Success.
 Written configuration to 'osm.polycfg'
-Parsing network projection from 'osm.net.xml.gz' ... done (6ms).
-Parsing nodes from osm-file '/home/erdm_ja/.texttest/tmp/tools.07Jan104829.1566787/tools/import/OSM/webWizard/osm_bbox.osm.xml' ... done (244ms).
-Parsing relations from osm-file '/home/erdm_ja/.texttest/tmp/tools.07Jan104829.1566787/tools/import/OSM/webWizard/osm_bbox.osm.xml' ... done (167ms).
-Parsing edges from osm-file '/home/erdm_ja/.texttest/tmp/tools.07Jan104829.1566787/tools/import/OSM/webWizard/osm_bbox.osm.xml' ... done (186ms).
+Parsing network projection from 'osm.net.xml.gz' ... done (21ms).
+Parsing nodes from osm-file '/home/erdm_ja/.texttest/tmp/tools.30Jan103613.2789103/tools/import/OSM/webWizard/osm_bbox.osm.xml' ... done (244ms).
+Parsing relations from osm-file '/home/erdm_ja/.texttest/tmp/tools.30Jan103613.2789103/tools/import/OSM/webWizard/osm_bbox.osm.xml' ... done (173ms).
+Parsing edges from osm-file '/home/erdm_ja/.texttest/tmp/tools.30Jan103613.2789103/tools/import/OSM/webWizard/osm_bbox.osm.xml' ... done (193ms).
 Assembled polygon from relation '3619' (name:Altes Museum)
 Assembled polygon from relation '6647' (name:Humboldt-Universität zu Berlin)
 Assembled polygon from relation '23745' (name:Altes Stadthaus)
@@ -141,10 +141,12 @@ Assembled polygon from relation '8249214' (name:Hof V)
 Assembled polygon from relation '8249215' (name:)
 Assembled polygon from relation '8249216' (name:)
 Success.
-Building scenario in '/home/erdm_ja/.texttest/tmp/tools.07Jan104829.1566787/tools/import/OSM/webWizard/test'.
+Building scenario in '/home/erdm_ja/.texttest/tmp/tools.30Jan103613.2789103/tools/import/OSM/webWizard/test'.
 generating trips...
 Skipping line '2194813' because it only drives at night
 Skipping line '2194814' because it only drives at night
+Cannot extend route to fringe for line '2227743' (not enough edges given)
+Cannot extend route to fringe for line '2227744' (not enough edges given)
 Cannot extend route to fringe for line '2669183' (not enough edges given)
 Cannot extend route to fringe for line '2669184' (not enough edges given)
 Cannot extend route to fringe for line '2679013' (not enough edges given)
@@ -153,10 +155,10 @@ Cannot extend route before first stop for line '300432' (stop edge 25946661 not 
 Cannot extend route after last stop for line '300432' (stop edge 25946661 not in route)
 Cannot extend route before first stop for line '6593455' (stop edge 25946661 not in route)
 Cannot extend route after last stop for line '6593455' (stop edge 25946661 not in route)
-Imported 84 lines with 317 stops and skipped 2 lines
+Imported 86 lines with 319 stops and skipped 2 lines
    bus: 27
    light_rail: 18
-   subway: 6
+   subway: 8
    train: 13
    tram: 20
 done.
@@ -172,56 +174,56 @@ Success.
 Success.
 Success.
 Written configuration to 'osm.sumocfg'
-Loading net-file from '/home/erdm_ja/.texttest/tmp/tools.07Jan104829.1566787/tools/import/OSM/webWizard/test/osm.net.xml.gz' ... done (270ms).
-Loading additional-files from '/home/erdm_ja/.texttest/tmp/tools.07Jan104829.1566787/tools/import/OSM/webWizard/test/osm.poly.xml.gz' ... done (112ms).
-Loading additional-files from '/home/erdm_ja/.texttest/tmp/tools.07Jan104829.1566787/tools/import/OSM/webWizard/test/osm_stops.add.xml' ... done (8ms).
-Loading route-files incrementally from '/home/erdm_ja/.texttest/tmp/tools.07Jan104829.1566787/tools/import/OSM/webWizard/test/osm_pt.rou.xml'
-Loading route-files incrementally from '/home/erdm_ja/.texttest/tmp/tools.07Jan104829.1566787/tools/import/OSM/webWizard/test/osm.bicycle.trips.xml'
-Loading route-files incrementally from '/home/erdm_ja/.texttest/tmp/tools.07Jan104829.1566787/tools/import/OSM/webWizard/test/osm.passenger.trips.xml'
-Loading route-files incrementally from '/home/erdm_ja/.texttest/tmp/tools.07Jan104829.1566787/tools/import/OSM/webWizard/test/osm.pedestrian.rou.xml'
-Loading route-files incrementally from '/home/erdm_ja/.texttest/tmp/tools.07Jan104829.1566787/tools/import/OSM/webWizard/test/osm.ship.trips.xml'
+Loading net-file from '/home/erdm_ja/.texttest/tmp/tools.30Jan103613.2789103/tools/import/OSM/webWizard/test/osm.net.xml.gz' ... done (251ms).
+Loading additional-files from '/home/erdm_ja/.texttest/tmp/tools.30Jan103613.2789103/tools/import/OSM/webWizard/test/osm.poly.xml.gz' ... done (104ms).
+Loading additional-files from '/home/erdm_ja/.texttest/tmp/tools.30Jan103613.2789103/tools/import/OSM/webWizard/test/osm_stops.add.xml' ... done (8ms).
+Loading route-files incrementally from '/home/erdm_ja/.texttest/tmp/tools.30Jan103613.2789103/tools/import/OSM/webWizard/test/osm_pt.rou.xml'
+Loading route-files incrementally from '/home/erdm_ja/.texttest/tmp/tools.30Jan103613.2789103/tools/import/OSM/webWizard/test/osm.bicycle.trips.xml'
+Loading route-files incrementally from '/home/erdm_ja/.texttest/tmp/tools.30Jan103613.2789103/tools/import/OSM/webWizard/test/osm.passenger.trips.xml'
+Loading route-files incrementally from '/home/erdm_ja/.texttest/tmp/tools.30Jan103613.2789103/tools/import/OSM/webWizard/test/osm.pedestrian.rou.xml'
+Loading route-files incrementally from '/home/erdm_ja/.texttest/tmp/tools.30Jan103613.2789103/tools/import/OSM/webWizard/test/osm.ship.trips.xml'
 Loading done.
-Simulation version v1_21_0+1697-7fb9a6a7246 started with time: 0.00.
-Simulation ended at time: 3179.00.
+Simulation version v1_21_0+2127-1e2a421b562 started with time: 0.00.
+Simulation ended at time: 3103.00.
 Reason: All vehicles have left the simulation.
 Performance:
- Duration: 1.17s
- Real time factor: 2726.42
- UPS: 119502.572899
- UPS-Persons: 123560.891938
+ Duration: 1.10s
+ Real time factor: 2823.48
+ UPS: 127151.956324
+ UPS-Persons: 133719.745223
 Vehicles:
- Inserted: 414
+ Inserted: 420
  Running: 0
  Waiting: 0
 Persons:
  Inserted: 183
  Running: 0
-Statistics (avg of 344):
- RouteLength: 1881.94
+Statistics (avg of 350):
+ RouteLength: 1857.20
  Speed: 6.57
- Duration: 327.08
- WaitingTime: 54.36
- TimeLoss: 112.88
- DepartDelay: 3.81
+ Duration: 322.35
+ WaitingTime: 53.86
+ TimeLoss: 111.59
+ DepartDelay: 3.85
 Bike Statistics (avg of 70):
  RouteLength: 1576.91
- Speed: 4.20
- Duration: 383.21
- WaitingTime: 51.66
- TimeLoss: 87.52
- DepartDelay: 0.48
-Pedestrian Statistics (avg of 434 walks):
- RouteLength: 257.11
- Duration: 213.71
- TimeLoss: 28.19
-Ride Statistics (avg of 169 rides):
- WaitingTime: 107.66
- RouteLength: 928.01
- Duration: 118.07
- Bus: 57
- Train: 107
- Aborted: 5
-DijkstraRouter answered 6475 queries and explored 10.80 edges on average.
+ Speed: 4.21
+ Duration: 384.51
+ WaitingTime: 52.71
+ TimeLoss: 88.81
+ DepartDelay: 0.46
+Pedestrian Statistics (avg of 433 walks):
+ RouteLength: 254.50
+ Duration: 211.18
+ TimeLoss: 27.86
+Ride Statistics (avg of 172 rides):
+ WaitingTime: 110.75
+ RouteLength: 898.15
+ Duration: 113.13
+ Bus: 56
+ Train: 109
+ Aborted: 7
+DijkstraRouter answered 6422 queries and explored 10.86 edges on average.
 DijkstraRouter spent 0.01s answering queries (0.00ms on average).
-DijkstraRouter answered 259 queries and explored 576.56 edges on average.
-DijkstraRouter spent 0.03s answering queries (0.12ms on average).
+DijkstraRouter answered 259 queries and explored 576.44 edges on average.
+DijkstraRouter spent 0.03s answering queries (0.13ms on average).

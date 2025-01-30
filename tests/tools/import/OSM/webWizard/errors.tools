@@ -28,7 +28,7 @@ Warning: Platform '383505803' in relation: '1650240' is given as polygon, which 
 Warning: Platform '383505803' in relation: '1650240' is given as polygon, which currently is not supported.
 Warning: Platform '383505803' in relation: '1650240' is given as polygon, which currently is not supported.
 Warning: PT line in relation 1798225 with no stops ignored. Probably OSM file is incomplete.
-Warning: PT line in relation 2227743 with no stops ignored. Probably OSM file is incomplete.
+Warning: PT line in relation 2466742 with no stops ignored. Probably OSM file is incomplete.
 Warning: No way found for reference '29177662' in relation '3832450'
 Warning: No way found for reference '134833998' in relation '3832450'
 Warning: No way found for reference '29177662' in relation '3832461'
@@ -105,7 +105,7 @@ Warning: 15 total messages of type: Converting invalid rail_crossing to priority
 Warning: 10 total messages of type: Could not re-assign PT stop '%', probably broken osm file.
 Warning: 13 total messages of type: Discarding unusable type '%' (first occurrence for edge '%').
 Warning: 15 total messages of type: No way found for reference '%' in relation '%'
-Warning: 17 total messages of type: PT line in relation % with no stops ignored. Probably OSM file is incomplete.
+Warning: 15 total messages of type: PT line in relation % with no stops ignored. Probably OSM file is incomplete.
 Warning: 13 total messages of type: PT stop '%' has been moved to edge '%'.
 Warning: 22 total messages of type: Platform '%' in relation: '%' is given as polygon, which currently is not supported.
 Warning: 26 total messages of type: The rail crossing '%' does not have any roads.
@@ -124,7 +124,9 @@ Warning: At actuated tlLogic 'joinedS_1840326421_cluster_1828018077_1828018093_1
 Warning: At actuated tlLogic 'joinedS_cluster_1876468341_25665883_29219439_5747234980_#4more_cluster_262469634_29219441_961875301_961875308_#2more', linkIndex 5,6,16,24,32,33 has no controlling detector.
 Warning: busStop '30731700' on lane '167272531#9_0' is too short for vehicle '21_tram_12:1'.
 Warning: busStop '30731700' on lane '167272531#9_0' is too short for vehicle 'pt_tram_12:1.0'.
+Warning: Person 'ped170' aborted waiting for 147:1 at busStop '-3869306770'.
 Warning: Person 'ped67' aborted waiting for M5:3 at busStop '30731481'.
-Warning: Person 'ped94' aborted waiting for N2:0 at busStop '2915590925'.
+Warning: Person 'ped53' aborted waiting for 200:0 at busStop '1827996417'.
 Warning: Person 'ped75' aborted waiting for 200:0 at busStop '1827996417'.
+Warning: Person 'ped10' aborted waiting for S7:1 at busStop '27412232'.
 Warning: Person 'ped47' aborted waiting for TXL:0 at busStop '3869306771'.

@@ -29,7 +29,7 @@ Warning: Platform '383505803' in relation: '1650240' is given as polygon, which 
 Warning: Platform '383505803' in relation: '1650240' is given as polygon, which currently is not supported.
 Warning: Platform '383505803' in relation: '1650240' is given as polygon, which currently is not supported.
 Warning: PT line in relation 1798225 with no stops ignored. Probably OSM file is incomplete.
-Warning: PT line in relation 2227743 with no stops ignored. Probably OSM file is incomplete.
+Warning: PT line in relation 2466742 with no stops ignored. Probably OSM file is incomplete.
 Warning: No way found for reference '29177662' in relation '3832450'
 Warning: No way found for reference '134833998' in relation '3832450'
 Warning: No way found for reference '29177662' in relation '3832461'
@@ -95,7 +95,7 @@ Warning: 13 total messages of type: Discarding unknown compound '%' in type '%' 
 Warning: 15 total messages of type: Discarding unusable type '%' (first occurrence for edge '%').
 Warning: 15 total messages of type: No way found for reference '%' in relation '%'
 Warning: 6 total messages of type: Not joining junctions % (%).
-Warning: 17 total messages of type: PT line in relation % with no stops ignored. Probably OSM file is incomplete.
+Warning: 15 total messages of type: PT line in relation % with no stops ignored. Probably OSM file is incomplete.
 Warning: 9 total messages of type: PT stop '%' has been moved to edge '%'.
 Warning: 22 total messages of type: Platform '%' in relation: '%' is given as polygon, which currently is not supported.
 Warning: 29 total messages of type: The rail crossing '%' does not have any roads.
