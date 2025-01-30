@@ -146,8 +146,6 @@ GNERouteFrame::RouteModeSelector::onCmdSelectRouteMode(FXObject*, FXSelector, vo
             myCurrentRouteMode = routeMode.first;
             // set color of myTypeMatchBox to black (valid)
             myRouteModeMatchBox->setTextColor(FXRGB(0, 0, 0));
-            // Write Warning in console if we're in testing mode
-            WRITE_DEBUG(("Selected RouteMode '" + myRouteModeMatchBox->getText() + "' in RouteModeSelector").text());
         }
     }
     // check if parameters are valid
@@ -173,8 +171,6 @@ GNERouteFrame::RouteModeSelector::onCmdSelectVClass(FXObject*, FXSelector, void*
             myVClassMatchBox->setTextColor(FXRGB(0, 0, 0));
             // set vClass in Path creator
             myRouteFrameParent->myPathCreator->setVClass(SumoVehicleClassStrings.get(vClass));
-            // Write Warning in console if we're in testing mode
-            WRITE_DEBUG(("Selected VClass '" + myVClassMatchBox->getText() + "' in RouteModeSelector").text());
         }
     }
     // check if parameters are valid

@@ -49,8 +49,6 @@ GNEChange_Junction::~GNEChange_Junction() {
     if (myJunction->getNet()->getViewNet()->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed()) {
         myJunction->decRef("GNEChange_Junction");
         if (myJunction->unreferenced()) {
-            // show extra information for tests
-            WRITE_DEBUG("Deleting unreferenced " + myJunction->getTagStr() + " '" + myJunction->getID() + "' in GNEChange_Junction");
             delete myJunction;
         }
     }
@@ -60,8 +58,6 @@ GNEChange_Junction::~GNEChange_Junction() {
 void
 GNEChange_Junction::undo() {
     if (myForward) {
-        // show extra information for tests
-        WRITE_DEBUG("Removing " + myJunction->getTagStr() + " '" + myJunction->getID() + "' from " + toString(SUMO_TAG_NET));
         // unselect if mySelectedElement is enabled
         if (mySelectedElement) {
             myJunction->unselectAttributeCarrier();
@@ -69,8 +65,6 @@ GNEChange_Junction::undo() {
         // add junction to net
         myJunction->getNet()->getAttributeCarriers()->deleteSingleJunction(myJunction);
     } else {
-        // show extra information for tests
-        WRITE_DEBUG("Adding " + myJunction->getTagStr() + " '" + myJunction->getID() + "' into " + toString(SUMO_TAG_NET));
         // select if mySelectedElement is enabled
         if (mySelectedElement) {
             myJunction->selectAttributeCarrier();
@@ -86,8 +80,6 @@ GNEChange_Junction::undo() {
 void
 GNEChange_Junction::redo() {
     if (myForward) {
-        // show extra information for tests
-        WRITE_DEBUG("Adding " + myJunction->getTagStr() + " '" + myJunction->getID() + "' into " + toString(SUMO_TAG_NET));
         // select if mySelectedElement is enabled
         if (mySelectedElement) {
             myJunction->selectAttributeCarrier();
@@ -95,8 +87,6 @@ GNEChange_Junction::redo() {
         // add junction into net
         myJunction->getNet()->getAttributeCarriers()->insertJunction(myJunction);
     } else {
-        // show extra information for tests
-        WRITE_DEBUG("Removing " + myJunction->getTagStr() + " '" + myJunction->getID() + "' from " + toString(SUMO_TAG_NET));
         // unselect if mySelectedElement is enabled
         if (mySelectedElement) {
             myJunction->unselectAttributeCarrier();

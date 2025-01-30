@@ -106,8 +106,6 @@ GNEEdge::~GNEEdge() {
             if (myNet->getAttributeCarriers()->getLanes().count(lane) > 0) {
                 myNet->getAttributeCarriers()->deleteLane(lane);
             }
-            // show extra information for tests
-            WRITE_DEBUG("Deleting unreferenced " + lane->getTagStr() + " '" + lane->getID() + "' in GNEEdge destructor");
             delete lane;
         }
     }
@@ -119,8 +117,6 @@ GNEEdge::~GNEEdge() {
             if (myNet->getAttributeCarriers()->getConnections().count(connection) > 0) {
                 myNet->getAttributeCarriers()->deleteConnection(connection);
             }
-            // show extra information for tests
-            WRITE_DEBUG("Deleting unreferenced " + connection->getTagStr() + " '" + connection->getID() + "' in GNEEdge destructor");
             delete connection;
         }
     }
@@ -978,9 +974,6 @@ GNEEdge::remakeGNEConnections(bool junctionsReady) {
         }
         // delete GNEConnection if is unreferenced
         if (connection->unreferenced()) {
-
-            // show extra information for tests
-            WRITE_DEBUG("Deleting unreferenced " + connection->getTagStr() + " '" + connection->getID() + "' in rebuildGNEConnections()");
             delete connection;
         }
     }
@@ -1007,8 +1000,6 @@ GNEEdge::clearGNEConnections() {
         }
         // Delete GNEConnectionToErase if is unreferenced
         if (connection->unreferenced()) {
-            // show extra information for tests
-            WRITE_DEBUG("Deleting unreferenced " + connection->getTagStr() + " '" + connection->getID() + "' in clearGNEConnections()");
             delete connection;
         }
     }
@@ -1945,11 +1936,9 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
         case GNE_ATTR_MODIFICATION_STATUS:
             myConnectionStatus = value;
             if (value == FEATURE_GUESSED) {
-                WRITE_DEBUG("invalidating (removing) connections of edge '" + getID() + "' due it were guessed");
                 myNBEdge->invalidateConnections(true);
                 clearGNEConnections();
             } else if (value != FEATURE_GUESSED) {
-                WRITE_DEBUG("declaring connections of edge '" + getID() + "' as loaded (It will not be removed)");
                 myNBEdge->declareConnectionsAsLoaded();
             }
             break;
@@ -2200,8 +2189,6 @@ GNEEdge::removeLane(GNELane* lane, bool recomputeConnections) {
     myNet->getAttributeCarriers()->deleteLane(lane);
     // Delete lane if is unreferenced
     if (lane->unreferenced()) {
-        // show extra information for tests
-        WRITE_DEBUG("Deleting unreferenced " + lane->getTagStr() + " '" + lane->getID() + "' in removeLane()");
         delete lane;
     }
     // update indices
@@ -2280,8 +2267,6 @@ GNEEdge::removeConnection(NBEdge::Connection nbCon) {
             myNet->getAttributeCarriers()->deleteConnection(connection);
         }
         if (connection->unreferenced()) {
-            // show extra information for tests
-            WRITE_DEBUG("Deleting unreferenced " + connection->getTagStr() + " '" + connection->getID() + "' in removeConnection()");
             // actually we only do this to force a redraw
             updateGeometry();
         }
@@ -2299,8 +2284,6 @@ GNEEdge::retrieveGNEConnection(int fromLane, NBEdge* to, int toLane, bool create
     if (createIfNoExist) {
         // create new connection. Will be added to the rTree on first geometry computation
         GNEConnection* connection = new GNEConnection(myLanes[fromLane], myNet->getAttributeCarriers()->retrieveEdge(to->getID())->getLanes()[toLane]);
-        // show extra information for tests
-        WRITE_DEBUG("Created " + connection->getTagStr() + " '" + connection->getID() + "' in retrieveGNEConnection()");
         // add it into network
         myNet->addGLObjectIntoGrid(connection);
         // add it in attributeCarriers

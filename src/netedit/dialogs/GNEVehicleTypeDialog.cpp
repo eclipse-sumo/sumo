@@ -1264,17 +1264,10 @@ GNEVehicleTypeDialog::VTypeAttributes::onCmdOpenAttributeDialog(FXObject* obj, F
 
 long
 GNEVehicleTypeDialog::VTypeAttributes::onCmdOpenParametersEditor(FXObject*, FXSelector, void*) {
-    // write debug information
-    WRITE_DEBUG("Open parameters dialog");
     // edit parameters using dialog
     if (GNESingleParametersDialog(myParameters, myVehicleTypeDialog->getEditedDemandElement()->getNet()->getViewNet()).execute()) {
-        // write debug information
-        WRITE_DEBUG("Close parameters dialog");
         // set values edited in Parameter dialog in Edited AC
         myVehicleTypeDialog->getEditedDemandElement()->setAttribute(GNE_ATTR_PARAMETERS, myParameters->getParametersStr(), myVehicleTypeDialog->getEditedDemandElement()->getNet()->getViewNet()->getUndoList());
-    } else {
-        // write debug information
-        WRITE_DEBUG("Cancel parameters dialog");
     }
     return 1;
 }
@@ -1804,8 +1797,6 @@ GNEVehicleTypeDialog::~GNEVehicleTypeDialog() {}
 long
 GNEVehicleTypeDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     if (!myVehicleTypeValid) {
-        // write warning if netedit is running in testing mode
-        WRITE_DEBUG("Opening FXMessageBox of type 'warning'");
         std::string operation1 = myUpdatingElement ? ("updating") : ("creating");
         std::string operation2 = myUpdatingElement ? ("updated") : ("created");
         std::string tagString = myEditedDemandElement->getTagStr();
@@ -1815,8 +1806,6 @@ GNEVehicleTypeDialog::onCmdAccept(FXObject*, FXSelector, void*) {
                               (tagString + " cannot be " + operation2 +
                                " because parameter " + toString(myInvalidAttr) +
                                " is invalid.").c_str());
-        // write warning if netedit is running in testing mode
-        WRITE_DEBUG("Closed FXMessageBox of type 'warning' with 'OK'");
         return 0;
     } else {
         // accept changes before closing dialog

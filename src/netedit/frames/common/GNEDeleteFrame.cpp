@@ -222,12 +222,8 @@ GNEDeleteFrame::SubordinatedElements::openWarningDialog(const std::string& type,
               "' cannot be deleted because it is part of " + toString(number) + " " + type + " element" + plural + ".\n" +
               "To delete it, uncheck 'protect " + type + " elements'.";
     }
-    // write warning
-    WRITE_DEBUG("Opened FXMessageBox " + header);
     // open message box
     FXMessageBox::warning(myViewNet->getApp(), MBOX_OK, header.c_str(), "%s", msg.c_str());
-    // write warning if netedit is running in testing mode
-    WRITE_DEBUG("Closed FXMessageBox " + header);
 }
 
 // ---------------------------------------------------------------------------

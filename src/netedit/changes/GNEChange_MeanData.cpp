@@ -52,8 +52,6 @@ GNEChange_MeanData::~GNEChange_MeanData() {
     if (myMeanData->getNet()->getViewNet()->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed()) {
         myMeanData->decRef("GNEChange_MeanData");
         if (myMeanData->unreferenced()) {
-            // show extra information for tests
-            WRITE_DEBUG("Deleting unreferenced " + myMeanData->getTagStr());
             // make sure that MeanData isn't in net before removing
             if (myMeanData->getNet()->getAttributeCarriers()->retrieveMeanData(myMeanData->getTagProperty().getTag(), myMeanData->getID(), false)) {
                 // delete MeanData from net
@@ -69,8 +67,6 @@ GNEChange_MeanData::~GNEChange_MeanData() {
 void
 GNEChange_MeanData::undo() {
     if (myForward) {
-        // show extra information for tests
-        WRITE_DEBUG("Removing " + myMeanData->getTagStr() + " '" + myMeanData->getID() + "' in GNEChange_MeanData");
         // unselect if mySelectedElement is enabled
         if (mySelectedElement) {
             myMeanData->unselectAttributeCarrier();
@@ -78,8 +74,6 @@ GNEChange_MeanData::undo() {
         // delete meanData from net
         myMeanData->getNet()->getAttributeCarriers()->deleteMeanData(myMeanData);
     } else {
-        // show extra information for tests
-        WRITE_DEBUG("Adding " + myMeanData->getTagStr() + " '" + myMeanData->getID() + "' in GNEChange_MeanData");
         // select if mySelectedElement is enabled
         if (mySelectedElement) {
             myMeanData->selectAttributeCarrier();
@@ -95,8 +89,6 @@ GNEChange_MeanData::undo() {
 void
 GNEChange_MeanData::redo() {
     if (myForward) {
-        // show extra information for tests
-        WRITE_DEBUG("Adding " + myMeanData->getTagStr() + " '" + myMeanData->getID() + "' in GNEChange_MeanData");
         // select if mySelectedElement is enabled
         if (mySelectedElement) {
             myMeanData->selectAttributeCarrier();
@@ -104,8 +96,6 @@ GNEChange_MeanData::redo() {
         // insert meanData into net
         myMeanData->getNet()->getAttributeCarriers()->insertMeanData(myMeanData);
     } else {
-        // show extra information for tests
-        WRITE_DEBUG("Removing " + myMeanData->getTagStr() + " '" + myMeanData->getID() + "' in GNEChange_MeanData");
         // unselect if mySelectedElement is enabled
         if (mySelectedElement) {
             myMeanData->unselectAttributeCarrier();

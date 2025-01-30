@@ -52,8 +52,6 @@ GNEChange_ToggleAttribute::~GNEChange_ToggleAttribute() {
         myAC->decRef("GNEChange_ToggleAttribute " + myAC->getTagProperty().getTagStr());
         // remove if is unreferenced
         if (myAC->unreferenced()) {
-            // show extra information for tests
-            WRITE_DEBUG("Deleting unreferenced " + myAC->getTagStr() + " '" + myAC->getID() + "' in GNEChange_ToggleAttribute");
             // delete AC
             delete myAC;
         }
@@ -63,8 +61,6 @@ GNEChange_ToggleAttribute::~GNEChange_ToggleAttribute() {
 
 void
 GNEChange_ToggleAttribute::undo() {
-    // show extra information for tests
-    WRITE_DEBUG("Toggle attribute into " + myAC->getTagStr() + " '" + myAC->getID() + "'");
     // set original value
     myAC->toggleAttribute(myKey, myOrigValue);
     // check if networkElements, additional or shapes has to be saved
@@ -84,8 +80,6 @@ GNEChange_ToggleAttribute::undo() {
 
 void
 GNEChange_ToggleAttribute::redo() {
-    // show extra information for tests
-    WRITE_DEBUG("Toggle attribute into " + myAC->getTagStr() + " '" + myAC->getID() + "'");
     // set new attributes
     myAC->toggleAttribute(myKey, myNewValue);
     // check if networkElements, additional or shapes has to be saved

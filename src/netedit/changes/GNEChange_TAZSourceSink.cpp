@@ -47,8 +47,6 @@ GNEChange_TAZSourceSink::~GNEChange_TAZSourceSink() {
     if (mySourceSink->getNet()->getViewNet()->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed()) {
         mySourceSink->decRef("GNEChange_TAZSourceSink");
         if (mySourceSink->unreferenced()) {
-            // show extra information for tests
-            WRITE_DEBUG("Deleting unreferenced " + mySourceSink->getTagStr());
             // make sure that sourceSink isn't in net before removing
             if (mySourceSink->getNet()->getAttributeCarriers()->retrieveAdditional(mySourceSink, false)) {
                 // delete sourceSink from net
@@ -63,8 +61,6 @@ GNEChange_TAZSourceSink::~GNEChange_TAZSourceSink() {
 void
 GNEChange_TAZSourceSink::undo() {
     if (myForward) {
-        // show extra information for tests
-        WRITE_DEBUG("Removing " + mySourceSink->getTagStr() + " '" + mySourceSink->getID() + "' in GNEChange_TAZSourceSink");
         // unselect if mySelectedElement is enabled
         if (mySelectedElement) {
             mySourceSink->unselectAttributeCarrier();
@@ -74,8 +70,6 @@ GNEChange_TAZSourceSink::undo() {
         // restore container
         restoreHierarchicalContainers();
     } else {
-        // show extra information for tests
-        WRITE_DEBUG("Adding " + mySourceSink->getTagStr() + " '" + mySourceSink->getID() + "' in GNEChange_TAZSourceSink");
         // select if mySelectedElement is enabled
         if (mySelectedElement) {
             mySourceSink->selectAttributeCarrier();
@@ -93,8 +87,6 @@ GNEChange_TAZSourceSink::undo() {
 void
 GNEChange_TAZSourceSink::redo() {
     if (myForward) {
-        // show extra information for tests
-        WRITE_DEBUG("Adding " + mySourceSink->getTagStr() + " '" + mySourceSink->getID() + "' in GNEChange_TAZSourceSink");
         // select if mySelectedElement is enabled
         if (mySelectedElement) {
             mySourceSink->selectAttributeCarrier();
@@ -104,8 +96,6 @@ GNEChange_TAZSourceSink::redo() {
         // add sourceSink in parent elements
         addElementInParentsAndChildren(mySourceSink);
     } else {
-        // show extra information for tests
-        WRITE_DEBUG("Removing " + mySourceSink->getTagStr() + " '" + mySourceSink->getID() + "' in GNEChange_TAZSourceSink");
         // unselect if mySelectedElement is enabled
         if (mySelectedElement) {
             mySourceSink->unselectAttributeCarrier();

@@ -76,8 +76,6 @@ GNEChange_Distribution::~GNEChange_Distribution() {
         myDistribution->decRef("GNEChange_Distribution " + myDistribution->getTagProperty().getTagStr());
         // remove if is unreferenced
         if (myDistribution->unreferenced()) {
-            // show extra information for tests
-            WRITE_DEBUG("Deleting unreferenced " + myDistribution->getTagStr() + " '" + myDistribution->getID() + "' in GNEChange_Distribution");
             // delete distribution
             delete myDistribution;
         }
@@ -87,8 +85,6 @@ GNEChange_Distribution::~GNEChange_Distribution() {
 
 void
 GNEChange_Distribution::undo() {
-    // show extra information for tests
-    WRITE_DEBUG("Setting previous distribution into " + myDistribution->getTagStr() + " '" + myDistribution->getID() + "'");
     // continue depending of flags
     if (myEditingProbability) {
         myDistribution->editDistributionValue(myKey, myOriginalProbability);
@@ -104,8 +100,6 @@ GNEChange_Distribution::undo() {
 
 void
 GNEChange_Distribution::redo() {
-    // show extra information for tests
-    WRITE_DEBUG("Setting new distribution into " + myDistribution->getTagStr() + " '" + myDistribution->getID() + "'");
     // continue depending of flags
     if (myEditingProbability) {
         myDistribution->editDistributionValue(myKey, myNewProbability);

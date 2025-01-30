@@ -86,7 +86,6 @@ ShapeHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
                         } else if (!SUMOXMLDefinitions::isValidParameterKey(key)) {
                             WRITE_WARNING(TL("Error parsing key from shape generic parameter. Key contains invalid characters"));
                         } else {
-                            WRITE_DEBUG("Inserting generic parameter '" + key + "|" + val + "' into shape.");
                             myLastParameterised->setParameter(key, val);
                         }
                     }

@@ -169,8 +169,6 @@ GNETypeFrame::TypeSelector::onCmdSelectItem(FXObject*, FXSelector, void*) {
             myTypeFrameParent->myTypeAttributesEditor->showAttributesEditor(myCurrentType);
             myTypeFrameParent->myAttributesEditorExtended->showAttributesEditor(myCurrentType);
             myTypeFrameParent->myParametersEditor->refreshParametersEditor();
-            // Write Warning in console if we're in testing mode
-            WRITE_DEBUG(("Selected item '" + myTypeComboBox->getText() + "' in TypeSelector").text());
             // update viewNet
             myTypeFrameParent->getViewNet()->updateViewNet();
             return 1;
@@ -184,8 +182,6 @@ GNETypeFrame::TypeSelector::onCmdSelectItem(FXObject*, FXSelector, void*) {
     myTypeFrameParent->myAttributesEditorExtended->hideAttributesEditor();
     // set color of myTypeMatchBox to red (invalid)
     myTypeComboBox->setTextColor(FXRGB(255, 0, 0));
-    // Write Warning in console if we're in testing mode
-    WRITE_DEBUG("Selected invalid item in TypeSelector");
     // update viewNet
     myTypeFrameParent->getViewNet()->updateViewNet();
     return 1;
@@ -345,22 +341,13 @@ GNETypeFrame::TypeEditor::deleteType() {
     // show question dialog if vtype has already assigned vehicles
     if (myTypeFrameParent->myTypeSelector->getCurrentType()->getChildDemandElements().size() > 0) {
         std::string plural = myTypeFrameParent->myTypeSelector->getCurrentType()->getChildDemandElements().size() == 1 ? ("") : ("s");
-        // show warning in gui testing debug mode
-        WRITE_DEBUG("Opening FXMessageBox 'remove vType'");
         // Ask confirmation to user
         FXuint answer = FXMessageBox::question(getApp(), MBOX_YES_NO,
                                                ("Remove " + toString(SUMO_TAG_VTYPE) + "s").c_str(), "%s",
                                                ("Delete " + toString(SUMO_TAG_VTYPE) + " '" + myTypeFrameParent->myTypeSelector->getCurrentType()->getID() +
                                                 "' will remove " + toString(myTypeFrameParent->myTypeSelector->getCurrentType()->getChildDemandElements().size()) +
                                                 " vehicle" + plural + ". Continue?").c_str());
-        if (answer != 1) { // 1:yes, 2:no, 4:esc
-            // write warning if netedit is running in testing mode
-            if (answer == 2) {
-                WRITE_DEBUG("Closed FXMessageBox 'remove vType' with 'No'");
-            } else if (answer == 4) {
-                WRITE_DEBUG("Closed FXMessageBox 'remove vType' with 'ESC'");
-            }
-        } else {
+        if (answer == 1) { // 1:yes, 2:no, 4:esc
             // begin undo list operation
             myTypeFrameParent->myViewNet->getUndoList()->begin(myTypeFrameParent->myTypeSelector->getCurrentType(), ("delete vehicle type"));
             // remove vehicle type (and all of their children)

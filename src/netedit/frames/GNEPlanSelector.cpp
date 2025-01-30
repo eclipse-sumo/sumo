@@ -305,8 +305,6 @@ GNEPlanSelector::onCmdSelectPlan(FXObject*, FXSelector, void*) {
             myPlansComboBox->killFocus();
             // call tag selected function
             myFrameParent->tagSelected();
-            // Write Warning in console if we're in testing mode
-            WRITE_DEBUG(("Selected item '" + myPlansComboBox->getText() + "' in GNEPlanSelector").text());
             return 1;
         }
     }
@@ -314,8 +312,6 @@ GNEPlanSelector::onCmdSelectPlan(FXObject*, FXSelector, void*) {
     myCurrentPlanTemplate = std::make_pair(GNETagProperties(), nullptr);
     // set color of myTypeMatchBox to red (invalid)
     myPlansComboBox->setTextColor(FXRGB(255, 0, 0));
-    // Write Warning in console if we're in testing mode
-    WRITE_DEBUG("Selected invalid item in TemplatePlanSelector");
     // call tag selected function
     myFrameParent->tagSelected();
     return 1;

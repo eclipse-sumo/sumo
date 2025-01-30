@@ -99,8 +99,6 @@ GNEChange_TLS::~GNEChange_TLS() {
     if (myJunction->getNet()->getViewNet()->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed()) {
         myJunction->decRef("GNEChange_TLS");
         if (myJunction->unreferenced()) {
-            // show extra information for tests
-            WRITE_DEBUG("Deleting unreferenced " + myJunction->getTagStr() + " '" + myJunction->getID() + "' in GNEChange_TLS");
             delete myJunction;
         }
     }
@@ -111,25 +109,17 @@ void
 GNEChange_TLS::undo() {
     if (myForward) {
         if (myNewID.empty()) {
-            // show extra information for tests
-            WRITE_DEBUG("Removing TLS from " + myJunction->getTagStr() + " '" + myJunction->getID() + "'");
             // remove traffic light from junction
             myJunction->removeTrafficLight(myTlDef);
         } else {
-            // show extra information for tests
-            WRITE_DEBUG("Renaming Traffic Light: " + myOldID);
             // set old ID
             myJunction->getNet()->getTLLogicCont().rename(myTlDef, myOldID);
         }
     } else {
         if (myNewID.empty()) {
-            // show extra information for tests
-            WRITE_DEBUG("Adding TLS into " + myJunction->getTagStr() + " '" + myJunction->getID() + "'");
             // add traffic light to junction
             myJunction->addTrafficLight(myTlDef, myForceInsert);
         } else {
-            // show extra information for tests
-            WRITE_DEBUG("Renaming Traffic Light: " + myNewID);
             // set new ID
             myJunction->getNet()->getTLLogicCont().rename(myTlDef, myNewID);
         }
@@ -143,25 +133,17 @@ void
 GNEChange_TLS::redo() {
     if (myForward) {
         if (myNewID.empty()) {
-            // show extra information for tests
-            WRITE_DEBUG("Adding TLS into " + myJunction->getTagStr() + " '" + myJunction->getID() + "'");
             // add traffic light to junction
             myJunction->addTrafficLight(myTlDef, myForceInsert);
         } else {
-            // show extra information for tests
-            WRITE_DEBUG("Renaming Traffic Light: " + myNewID);
             // set new ID
             myJunction->getNet()->getTLLogicCont().rename(myTlDef, myNewID);
         }
     } else {
         if (myNewID.empty()) {
-            // show extra information for tests
-            WRITE_DEBUG("Deleting TLS from " + myJunction->getTagStr() + " '" + myJunction->getID() + "'");
             // remove traffic light from junction
             myJunction->removeTrafficLight(myTlDef);
         } else {
-            // show extra information for tests
-            WRITE_DEBUG("Renaming Traffic Light: " + myOldID);
             // set old ID
             myJunction->getNet()->getTLLogicCont().rename(myTlDef, myOldID);
         }

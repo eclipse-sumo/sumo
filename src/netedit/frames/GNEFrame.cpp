@@ -233,8 +233,6 @@ GNEFrame::openHelpAttributesDialog(const GNEAttributeCarrier* AC) const {
     new FXHorizontalFrame(myHorizontalFrameOKButton, GUIDesignAuxiliarHorizontalFrame);
     GUIDesigns::buildFXButton(myHorizontalFrameOKButton, TL("OK"), "", TL("close"), GUIIconSubSys::getIcon(GUIIcon::ACCEPT), attributesHelpDialog, FXDialogBox::ID_ACCEPT, GUIDesignButtonOK);
     new FXHorizontalFrame(myHorizontalFrameOKButton, GUIDesignAuxiliarHorizontalFrame);
-    // Write Warning in console if we're in testing mode
-    WRITE_DEBUG(TLF("Opening HelpAttributes dialog for tag '%' showing % attributes", AC->getTagProperty().getTagStr(), toString(AC->getTagProperty().getNumberOfAttributes())));
     // create Dialog
     attributesHelpDialog->create();
     // show in the given position
@@ -243,8 +241,6 @@ GNEFrame::openHelpAttributesDialog(const GNEAttributeCarrier* AC) const {
     getApp()->refresh();
     // open as modal dialog (will block all windows until stop() or stopModal() is called)
     getApp()->runModalFor(attributesHelpDialog);
-    // Write Warning in console if we're in testing mode
-    WRITE_DEBUG(TL("Closing HelpAttributes dialog for tag '") + AC->getTagProperty().getTagStr() + "'");
 }
 
 

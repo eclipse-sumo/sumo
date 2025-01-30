@@ -200,19 +200,11 @@ GNEFixNetworkElements::FixOptions::saveContents() const {
         }
         // close output device
         dev.close();
-        // write warning if netedit is running in testing mode
-        WRITE_DEBUG("Opening FXMessageBox 'Saving list of conflicted items successfully'");
         // open message box error
         FXMessageBox::information(myTable, MBOX_OK, TL("Saving successfully"), "%s", "List of conflicted items was successfully saved");
-        // write warning if netedit is running in testing mode
-        WRITE_DEBUG("Closed FXMessageBox 'Saving list of conflicted items successfully' with 'OK'");
     } catch (IOError& e) {
-        // write warning if netedit is running in testing mode
-        WRITE_DEBUG("Opening FXMessageBox 'error saving list of conflicted items'");
         // open message box error
         FXMessageBox::error(myTable, MBOX_OK, TL("Saving list of conflicted items failed"), "%s", e.what());
-        // write warning if netedit is running in testing mode
-        WRITE_DEBUG("Closed FXMessageBox 'error saving list of conflicted items' with 'OK'");
     }
     return true;
 }

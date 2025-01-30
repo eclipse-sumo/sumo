@@ -83,12 +83,8 @@ long
 GNERerouterDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     // Check if there is overlapping between Intervals
     if (!myEditedAdditional->checkChildAdditionalsOverlapping()) {
-        // write warning if netedit is running in testing mode
-        WRITE_DEBUG("Opening FXMessageBox of type 'warning'");
         // open warning Box
         FXMessageBox::warning(getApp(), MBOX_OK, "Overlapping detected", "%s", ("Values of '" + myEditedAdditional->getID() + "' cannot be saved. There are intervals overlapped.").c_str());
-        // write warning if netedit is running in testing mode
-        WRITE_DEBUG("Closed FXMessageBox of type 'warning' with 'OK'");
         return 0;
     } else {
         // accept changes before closing dialog

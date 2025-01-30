@@ -50,16 +50,12 @@ GNEChange_RegisterJoin::~GNEChange_RegisterJoin() {
 
 void
 GNEChange_RegisterJoin::undo() {
-    // show extra information for tests
-    WRITE_DEBUG("Reverting join registration");
     myNC.unregisterJoinedCluster(myNodeIDs);
 }
 
 
 void
 GNEChange_RegisterJoin::redo() {
-    // show extra information for tests
-    WRITE_DEBUG("Redo join registration");
     myNC.registerJoinedCluster(myNodeIDs);
 }
 

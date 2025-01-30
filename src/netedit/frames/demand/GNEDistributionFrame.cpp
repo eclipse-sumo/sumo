@@ -242,8 +242,6 @@ GNEDistributionFrame::DistributionSelector::onCmdSelectDistribution(FXObject*, F
             // show modules
             myAttributesEditor->showAttributesEditor(distribution.second);
             myDistributionValuesEditor->showDistributionValuesEditor();
-            // Write Warning in console if we're in testing mode
-            WRITE_DEBUG(("Selected item '" + myDistributionsComboBox->getText() + "' in DistributionSelector").text());
             // update viewNet
             viewNet->updateViewNet();
             return 1;
@@ -256,8 +254,6 @@ GNEDistributionFrame::DistributionSelector::onCmdSelectDistribution(FXObject*, F
     myDistributionValuesEditor->hideDistributionValuesEditor();
     // set color of myTypeMatchBox to red (invalid)
     myDistributionsComboBox->setTextColor(FXRGB(255, 0, 0));
-    // Write Warning in console if we're in testing mode
-    WRITE_DEBUG("Selected invalid item in DistributionSelector");
     // update viewNet
     viewNet->updateViewNet();
     return 1;

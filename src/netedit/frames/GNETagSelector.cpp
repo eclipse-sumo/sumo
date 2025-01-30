@@ -268,8 +268,6 @@ GNETagSelector::onCmdSelectTag(FXObject*, FXSelector, void*) {
             myTagsMatchBox->killFocus();
             // call tag selected function
             myFrameParent->tagSelected();
-            // Write Warning in console if we're in testing mode
-            WRITE_DEBUG(("Selected item '" + myTagsMatchBox->getText() + "' in GNETagSelector").text());
             return 1;
         }
     }
@@ -277,8 +275,6 @@ GNETagSelector::onCmdSelectTag(FXObject*, FXSelector, void*) {
     myCurrentTemplateAC = nullptr;
     // set color of myTypeMatchBox to red (invalid)
     myTagsMatchBox->setTextColor(FXRGB(255, 0, 0));
-    // Write Warning in console if we're in testing mode
-    WRITE_DEBUG("Selected invalid item in GNETagSelector");
     // call tag selected function
     myFrameParent->tagSelected();
     return 1;

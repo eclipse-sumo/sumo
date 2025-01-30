@@ -59,7 +59,6 @@ GNEAbout::GNEAbout(FXWindow* parent) :
     while ((modules.size() > 0) && (modules.front() != ' ')) {
         modules.erase(modules.begin());
     }
-    WRITE_DEBUG(("Modules: " + modules).c_str());
     // SUMO_HOME
     new FXLabel(descriptionFrame, std::string("SUMO_HOME: " + std::string(getenv("SUMO_HOME"))).c_str(), nullptr, GUIDesignLabelAboutInfo);
     // copyright notice

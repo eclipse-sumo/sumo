@@ -97,8 +97,6 @@ GNENet::GNENet(NBNetBuilder* netBuilder) :
     myDataPathManager(new GNEPathManager(this)) {
     // set net in gIDStorage
     GUIGlObjectStorage::gIDStorage.setNetObject(this);
-    // Write GL debug information
-    WRITE_GLDEBUG("initJunctionsAndEdges function called in GNENet constructor");
     // init junction and edges
     initJunctionsAndEdges();
     // check Z boundary
@@ -118,8 +116,6 @@ GNENet::~GNENet() {
     delete myAttributeCarriers;
     // delete saving status
     delete mySavingStatus;
-    // show extra information for tests
-    WRITE_DEBUG("Deleting net builder in GNENet destructor");
     delete myNetBuilder;
 }
 
@@ -1610,24 +1606,14 @@ GNENet::joinSelectedJunctions(GNEUndoList* undoList) {
     // Check that there isn't another junction in the same position as Pos but doesn't belong to cluster
     for (const auto& junction : myAttributeCarriers->getJunctions()) {
         if ((junction.second->getPositionInView() == pos) && (cluster.find(junction.second->getNBNode()) == cluster.end())) {
-            // show warning in gui testing debug mode
-            WRITE_DEBUG("Opening FXMessageBox 'Join non-selected junction'");
             // Ask confirmation to user
             const std::string header = TL("Position of joined junction");
             const std::string bodyA = TL("There is another unselected junction in the same position of joined junction.");
             const std::string bodyB = TL("It will be joined with the other selected junctions. Continue?");
             const auto answer = FXMessageBox::question(getApp(), MBOX_YES_NO, header.c_str(), "%s", (bodyA + std::string("\n") + bodyB).c_str());
             if (answer != 1) { // 1:yes, 2:no, 4:esc
-                // write warning if netedit is running in testing mode
-                if (answer == 2) {
-                    WRITE_DEBUG("Closed FXMessageBox 'Join non-selected junction' with 'No'");
-                } else if (answer == 4) {
-                    WRITE_DEBUG("Closed FXMessageBox 'Join non-selected junction' with 'ESC'");
-                }
                 return false;
             } else {
-                // write warning if netedit is running in testing mode
-                WRITE_DEBUG("Closed FXMessageBox 'Join non-selected junction' with 'Yes'");
                 // select conflicted junction an join all again
                 junction.second->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
                 return joinSelectedJunctions(undoList);
@@ -1725,30 +1711,19 @@ GNENet::cleanInvalidCrossings(GNEUndoList* undoList) {
     }
 
     if (myInvalidCrossings.empty()) {
-        // show warning in gui testing debug mode
-        WRITE_DEBUG("Opening FXMessageBox 'No crossing to remove'");
         // open a dialog informing that there isn't crossing to remove
         const std::string header = TL("Clear crossings");
         const std::string body = TL("There are no invalid crossings to remove.");
         FXMessageBox::warning(getApp(), MBOX_OK, (header).c_str(), "%s", (body).c_str());
-        // show warning in gui testing debug mode
-        WRITE_DEBUG("Closed FXMessageBox 'No crossing to remove' with 'OK'");
     } else {
         std::string plural = myInvalidCrossings.size() == 1 ? ("") : ("s");
-        // show warning in gui testing debug mode
-        WRITE_DEBUG("Opening FXMessageBox 'clear crossings'");
         // Ask confirmation to user
         const std::string header = TL("Clear crossings");
         const std::string body = TL("Crossings will be cleared. Continue?");
         const auto answer = FXMessageBox::question(getApp(), MBOX_YES_NO, header.c_str(), "%s", body.c_str());
         // 1:yes, 2:no, 4:esc
         if (answer != 1) {
-            // write warning if netedit is running in testing mode
-            if (answer == 2) {
-                WRITE_DEBUG("Closed FXMessageBox 'clear crossings' with 'No'");
-            } else if (answer == 4) {
-                WRITE_DEBUG("Closed FXMessageBox 'clear crossings' with 'ESC'");
-            }
+            return false;
         } else {
             undoList->begin(GUIIcon::MODEDELETE, TL("clear crossings"));
             for (auto i = myInvalidCrossings.begin(); i != myInvalidCrossings.end(); i++) {
@@ -1757,7 +1732,7 @@ GNENet::cleanInvalidCrossings(GNEUndoList* undoList) {
             undoList->end();
         }
     }
-    return 1;
+    return true;
 }
 
 
@@ -2226,19 +2201,13 @@ GNENet::saveAdditionals() {
         // 1 -> Invalid stoppingPlaces and E2 fixed, friendlyPos enabled, or saved with invalid positions
         GNEFixAdditionalElements fixAdditionalElementsDialog(myViewNet, invalidSingleLaneAdditionals, invalidMultiLaneAdditionals);
         if (fixAdditionalElementsDialog.execute() == 0) {
-            // show debug information
-            WRITE_DEBUG("Additionals saving aborted");
             return false;
         } else {
             saveAdditionalsConfirmed();
-            // show debug information
-            WRITE_DEBUG("Additionals saved after dialog");
             return true;
         }
     } else {
         saveAdditionalsConfirmed();
-        // show debug information
-        WRITE_DEBUG("Additionals saved");
         return true;
     }
 }
@@ -2257,8 +2226,6 @@ GNENet::saveJuPedSimElements(const std::string& file) {
     device.close();
     // set focus again in net
     myViewNet->setFocus();
-    // show debug information
-    WRITE_DEBUG("JuPedSim elements saved");
     return true;
 }
 
@@ -2288,19 +2255,13 @@ GNENet::saveDemandElements() {
         // 1 -> Invalid demand elements fixed, friendlyPos enabled, or saved with invalid positions
         GNEFixDemandElements fixDemandElementsDialog(myViewNet, invalidSingleLaneDemandElements);
         if (fixDemandElementsDialog.execute() == 0) {
-            // show debug information
-            WRITE_DEBUG("demand elements saving aborted");
             return false;
         } else {
             saveDemandElementsConfirmed();
-            // show debug information
-            WRITE_DEBUG("demand elements saved after dialog");
             return true;
         }
     } else {
         saveDemandElementsConfirmed();
-        // show debug information
-        WRITE_DEBUG("demand elements saved");
         return true;
     }
 }
@@ -2314,8 +2275,6 @@ GNENet::saveDataElements() {
     saveDataElementsConfirmed();
     // set focus again in net
     myViewNet->setFocus();
-    // show debug information
-    WRITE_DEBUG("data sets saved");
     return true;
 }
 
@@ -2359,8 +2318,6 @@ GNENet::saveMeanDatas() {
     saveMeanDatasConfirmed();
     // set focus again in net
     myViewNet->setFocus();
-    // show debug information
-    WRITE_DEBUG("MeanDatas saved");
     return true;
 }
 
@@ -2801,8 +2758,6 @@ GNENet::saveTLSPrograms(const std::string& filename) {
     device.close();
     // change save status
     mySavingStatus->TLSSaved();
-    // show debug information
-    WRITE_DEBUG("TLSPrograms saved");
 }
 
 
@@ -2948,12 +2903,10 @@ GNENet::computeAndUpdate(OptionsCont& neteditOptions, bool volatileOptions) {
         }
     }
     // removes all junctions of grid
-    WRITE_GLDEBUG("Removing junctions during recomputing");
     for (const auto& junction : myAttributeCarriers->getJunctions()) {
         removeGLObjectFromGrid(junction.second);
     }
     // remove all edges from grid
-    WRITE_GLDEBUG("Removing edges during recomputing");
     for (const auto& edge : myAttributeCarriers->getEdges()) {
         removeGLObjectFromGrid(edge.second);
     }
@@ -2996,15 +2949,12 @@ GNENet::computeAndUpdate(OptionsCont& neteditOptions, bool volatileOptions) {
         myAttributeCarriers->clearDemandElements();
         // enable update geometry again
         myUpdateGeometryEnabled = true;
-        // Write GL debug information
-        WRITE_GLDEBUG("initJunctionsAndEdges function called in computeAndUpdate(...) due recomputing with volatile options");
         // init again junction an edges (Additionals and shapes will be loaded after the end of this function)
         initJunctionsAndEdges();
         // init default vTypes again
         myAttributeCarriers->addDefaultVTypes();
     } else {
         // insert all junctions of grid again
-        WRITE_GLDEBUG("Add junctions during recomputing after calling myNetBuilder->compute(...)");
         for (const auto& junction : myAttributeCarriers->getJunctions()) {
             // update centering boundary
             junction.second->updateCenteringBoundary(false);
@@ -3012,7 +2962,6 @@ GNENet::computeAndUpdate(OptionsCont& neteditOptions, bool volatileOptions) {
             addGLObjectIntoGrid(junction.second);
         }
         // insert all edges from grid again
-        WRITE_GLDEBUG("Add edges during recomputing after calling myNetBuilder->compute(...)");
         for (const auto& edge : myAttributeCarriers->getEdges()) {
             // update centeting boundary
             edge.second->updateCenteringBoundary(false);

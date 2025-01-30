@@ -67,8 +67,6 @@ GNELoadThread::run() {
     auto& neteditOptions = OptionsCont::getOptions();
     // register message callbacks
     MsgHandler::getMessageInstance()->addRetriever(myMessageRetriever);
-    MsgHandler::getDebugInstance()->addRetriever(myDebugRetriever);
-    MsgHandler::getGLDebugInstance()->addRetriever(myGLDebugRetriever);
     MsgHandler::getErrorInstance()->addRetriever(myErrorRetriever);
     MsgHandler::getWarningInstance()->addRetriever(myWarningRetriever);
     // flag for check if input is valid
@@ -138,8 +136,6 @@ GNELoadThread::run() {
         return 0;
     }
     // clear message instances
-    MsgHandler::getGLDebugInstance()->clear();
-    MsgHandler::getDebugInstance()->clear();
     MsgHandler::getErrorInstance()->clear();
     MsgHandler::getWarningInstance()->clear();
     MsgHandler::getMessageInstance()->clear();
@@ -240,8 +236,6 @@ GNELoadThread::run() {
 void
 GNELoadThread::submitEndAndCleanup(GNENet* net, const std::string& loadedFile, const std::string& guiSettingsFile, const bool viewportFromRegistry) {
     // remove message callbacks
-    MsgHandler::getDebugInstance()->removeRetriever(myDebugRetriever);
-    MsgHandler::getGLDebugInstance()->removeRetriever(myGLDebugRetriever);
     MsgHandler::getErrorInstance()->removeRetriever(myErrorRetriever);
     MsgHandler::getWarningInstance()->removeRetriever(myWarningRetriever);
     MsgHandler::getMessageInstance()->removeRetriever(myMessageRetriever);

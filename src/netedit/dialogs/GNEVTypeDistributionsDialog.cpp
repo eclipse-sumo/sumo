@@ -407,8 +407,6 @@ GNEVTypeDistributionsDialog::ParametersOperations::onCmdHelpParameter(FXObject*,
     new FXHorizontalFrame(myHorizontalFrameOKButton, GUIDesignAuxiliarHorizontalFrame);
     GUIDesigns::buildFXButton(myHorizontalFrameOKButton, TL("OK"), "", TL("close"), GUIIconSubSys::getIcon(GUIIcon::ACCEPT), ParameterHelpDialog, FXDialogBox::ID_ACCEPT, GUIDesignButtonOK);
     new FXHorizontalFrame(myHorizontalFrameOKButton, GUIDesignAuxiliarHorizontalFrame);
-    // Write Warning in console if we're in testing mode
-    WRITE_DEBUG("Opening Parameter help dialog");
     // create Dialog
     ParameterHelpDialog->create();
     // show in the given position
@@ -417,8 +415,6 @@ GNEVTypeDistributionsDialog::ParametersOperations::onCmdHelpParameter(FXObject*,
     getApp()->refresh();
     // open as modal dialog (will block all windows until stop() or stopModal() is called)
     getApp()->runModalFor(ParameterHelpDialog);
-    // Write Warning in console if we're in testing mode
-    WRITE_DEBUG("Closing Parameter help dialog");
     return 1;
 }
 

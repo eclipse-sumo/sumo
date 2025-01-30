@@ -851,9 +851,6 @@ GNEApplicationWindow::onCmdOpenTLSPrograms(FXObject*, FXSelector, void*) {
             myUndoList->end();
             update();
         }
-    } else {
-        // write debug information
-        WRITE_DEBUG("Cancel TLSProgram dialog");
     }
     return 1;
 }
@@ -1191,30 +1188,22 @@ GNEApplicationWindow::onCmdClearMsgWindow(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdLoadAdditionalsInSUMOGUI(FXObject*, FXSelector, void*) {
-    // write warning if netedit is running in testing mode
-    WRITE_DEBUG("Toggle load additionals in sumo-gui");
     return 1;
 }
 
 
 long
 GNEApplicationWindow::onCmdLoadDemandInSUMOGUI(FXObject*, FXSelector, void*) {
-    // write warning if netedit is running in testing mode
-    WRITE_DEBUG("Toggle load demand in sumo-gui");
     return 1;
 }
 
 
 long
 GNEApplicationWindow::onCmdAbout(FXObject*, FXSelector, void*) {
-    // write warning if netedit is running in testing mode
-    WRITE_DEBUG("Opening about dialog");
     // create and open about dialog
     GNEAbout* about = new GNEAbout(this);
     about->create();
     about->show(PLACEMENT_OWNER);
-    // write warning if netedit is running in testing mode
-    WRITE_DEBUG("Closed about dialog");
     return 1;
 }
 
@@ -1755,23 +1744,13 @@ long
 GNEApplicationWindow::computeJunctionWithVolatileOptions() {
     // declare variable to save FXMessageBox outputs.
     FXuint answer = 0;
-    // write warning if netedit is running in testing mode
-    WRITE_DEBUG("Opening FXMessageBox 'Volatile Recomputing'");
     // open question dialog box
     answer = FXMessageBox::question(myNet->getViewNet()->getApp(), MBOX_YES_NO, TL("Recompute with volatile options"),
                                     TL("Changes produced in the net due a recomputing with volatile options cannot be undone. Continue?"));
     if (answer != 1) { //1:yes, 2:no, 4:esc
-        // write warning if netedit is running in testing mode
-        if (answer == 2) {
-            WRITE_DEBUG("Closed FXMessageBox 'Volatile Recomputing' with 'No'");
-        } else if (answer == 4) {
-            WRITE_DEBUG("Closed FXMessageBox 'Volatile Recomputing' with 'ESC'");
-        }
         // abort recompute with volatile options
         return 0;
     } else {
-        // write warning if netedit is running in testing mode
-        WRITE_DEBUG("Closed FXMessageBox 'Volatile Recomputing' with 'Yes'");
         // save all elements
         onCmdSaveAdditionals(nullptr, 0, nullptr);
         onCmdSaveDemandElements(nullptr, 0, nullptr);
@@ -1903,29 +1882,19 @@ GNEApplicationWindow::onCmdProcessButton(FXObject*, FXSelector sel, void*) {
             // check what FXMenuCommand was called
             switch (FXSELID(sel)) {
                 case MID_HOTKEY_F5_COMPUTE_NETWORK_DEMAND:
-                    // show extra information for tests
-                    WRITE_DEBUG("Key F5 (Compute) pressed");
                     myNet->computeNetwork(this, true, false);
                     updateControls();
                     break;
                 case MID_HOTKEY_SHIFT_F5_COMPUTEJUNCTIONS_VOLATILE:
-                    // show extra information for tests
-                    WRITE_DEBUG("Keys Shift + F5 (Compute with volatile options) pressed");
                     computeJunctionWithVolatileOptions();
                     break;
                 case MID_HOTKEY_F6_CLEAN_SOLITARYJUNCTIONS_UNUSEDROUTES:
-                    // show extra information for tests
-                    WRITE_DEBUG("Key F6 (Clean junction) pressed");
                     myNet->removeSolitaryJunctions(myUndoList);
                     break;
                 case MID_HOTKEY_F7_JOIN_SELECTEDJUNCTIONS_ROUTES:
-                    // show extra information for tests
-                    WRITE_DEBUG("Key F7 (Join junctions) pressed");
                     myNet->joinSelectedJunctions(myUndoList);
                     break;
                 case MID_HOTKEY_F8_CLEANINVALID_CROSSINGS_DEMANDELEMENTS:
-                    // show extra information for tests
-                    WRITE_DEBUG("Key F8 (Clean invalid crossings) pressed");
                     myNet->cleanInvalidCrossings(myUndoList);
                     break;
                 default:
@@ -1935,29 +1904,19 @@ GNEApplicationWindow::onCmdProcessButton(FXObject*, FXSelector sel, void*) {
             // check what FXMenuCommand was called
             switch (FXSELID(sel)) {
                 case MID_HOTKEY_F5_COMPUTE_NETWORK_DEMAND:
-                    // show extra information for tests
-                    WRITE_DEBUG("Key F5 (Compute) pressed");
                     myNet->computeDemandElements(this);
                     updateControls();
                     break;
                 case MID_HOTKEY_F6_CLEAN_SOLITARYJUNCTIONS_UNUSEDROUTES:
-                    // show extra information for tests
-                    WRITE_DEBUG("Key F6 (RemoveUnusedRoutes) pressed");
                     myNet->cleanUnusedRoutes(myUndoList);
                     break;
                 case MID_HOTKEY_F7_JOIN_SELECTEDJUNCTIONS_ROUTES:
-                    // show extra information for tests
-                    WRITE_DEBUG("Key F7 (JoinRoutes) pressed");
                     myNet->joinRoutes(myUndoList);
                     break;
                 case MID_HOTKEY_SHIFT_F7_ADJUST_PERSON_PLANS:
-                    // show extra information for tests
-                    WRITE_DEBUG("Key F7 (AdjustPersonPlans) pressed");
                     myNet->adjustPersonPlans(myUndoList);
                     break;
                 case MID_HOTKEY_F8_CLEANINVALID_CROSSINGS_DEMANDELEMENTS:
-                    // show extra information for tests
-                    WRITE_DEBUG("Key F8 (CleanInvalidDemandElements) pressed");
                     myNet->cleanInvalidDemandElements(myUndoList);
                     break;
                 default:
@@ -2070,24 +2029,16 @@ long
 GNEApplicationWindow::onCmdAbort(FXObject*, FXSelector, void*) {
     // check that view exists
     if (myViewNet) {
-        // show extra information for tests
-        WRITE_DEBUG("Key ESC (abort) pressed");
         // first check if we're selecting a subset of edges in TAZ Frame
         if (myViewNet->getViewParent()->getTAZFrame()->getTAZSelectionStatisticsModule()->getEdgeAndTAZChildrenSelected().size() > 0) {
-            // show extra information for tests
-            WRITE_DEBUG("Cleaning current selected edges");
             // clear current selection
             myViewNet->getViewParent()->getTAZFrame()->getTAZSelectionStatisticsModule()->clearSelectedEdges();
         } else if (myViewNet->getViewParent()->getInspectorFrame()->shown()) {
             // check if stop select parent
             if (myViewNet->getViewParent()->getInspectorFrame()->getNeteditAttributesEditor()->isReparenting()) {
-                // show extra information for tests
-                WRITE_DEBUG("Stop select new parent");
                 // and stop select paretn
                 myViewNet->getViewParent()->getInspectorFrame()->getNeteditAttributesEditor()->abortReparenting();
             } else {
-                // show extra information for tests
-                WRITE_DEBUG("Cleaning inspected elements");
                 // clear inspected elements
                 myViewNet->getViewParent()->getInspectorFrame()->clearInspection();
             }
@@ -2104,8 +2055,6 @@ long
 GNEApplicationWindow::onCmdDel(FXObject*, FXSelector, void*) {
     // check that view exists
     if (myViewNet) {
-        // show extra information for tests
-        WRITE_DEBUG("Key DEL (delete) pressed");
         myViewNet->hotkeyDel();
     }
     return 1;
@@ -2116,8 +2065,6 @@ long
 GNEApplicationWindow::onCmdEnter(FXObject*, FXSelector, void*) {
     // check that view exists
     if (myViewNet) {
-        // show extra information for tests
-        WRITE_DEBUG("Key ENTER pressed");
         myViewNet->hotkeyEnter();
     }
     return 1;
@@ -2128,8 +2075,6 @@ long
 GNEApplicationWindow::onCmdBackspace(FXObject*, FXSelector, void*) {
     // check that view exists
     if (myViewNet) {
-        // show extra information for tests
-        WRITE_DEBUG("Key BACKSPACE pressed");
         myViewNet->hotkeyBackSpace();
     }
     return 1;
@@ -2239,14 +2184,6 @@ long
 GNEApplicationWindow::onCmdToggleGrid(FXObject* sender, FXSelector sel, void* ptr) {
     // check that view exists
     if (myViewNet) {
-        // show debug info
-        if (myViewNet->getVisualisationSettings().showGrid) {
-            // show extra information for tests
-            WRITE_DEBUG("Disabled grid through Ctrl+g hotkey");
-        } else {
-            // show extra information for tests
-            WRITE_DEBUG("Enabled grid through Ctrl+g hotkey");
-        }
         // Call manually toggle grid function
         myViewNet->onCmdToggleShowGrid(sender, sel, ptr);
     }
@@ -2258,14 +2195,6 @@ long
 GNEApplicationWindow::onCmdToggleDrawJunctionShape(FXObject* sender, FXSelector sel, void* ptr) {
     // check that view exists
     if (myViewNet) {
-        // show debug info
-        if (myViewNet->getVisualisationSettings().drawJunctionShape) {
-            // show extra information for tests
-            WRITE_DEBUG("Disabled draw junction shape through Ctrl+j hotkey");
-        } else {
-            // show extra information for tests
-            WRITE_DEBUG("Enabled draw junction shape through Ctrl+j hotkey");
-        }
         // Call manually toggle junction shape function
         myViewNet->onCmdToggleDrawJunctionShape(sender, sel, ptr);
     }
@@ -2397,14 +2326,10 @@ GNEApplicationWindow::onCmdTutorial(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdFeedback(FXObject*, FXSelector, void*) {
-    // write warning if netedit is running in testing mode
-    WRITE_DEBUG("Opening feedback dialog");
     // create and open feedback dialog
     GUIDialog_Feedback* feedback = new GUIDialog_Feedback(this);
     feedback->create();
     feedback->show(PLACEMENT_OWNER);
-    // write warning if netedit is running in testing mode
-    WRITE_DEBUG("Closed feedback dialog");
     return 1;
 }
 
@@ -2452,7 +2377,6 @@ GNEApplicationWindow::onCmdOpenNetgenerateOptionsDialog(FXObject*, FXSelector, v
 
 long
 GNEApplicationWindow::onCmdUndo(FXObject*, FXSelector, void*) {
-    WRITE_DEBUG("Keys Ctrl+Z (Undo) pressed");
     // Check conditions
     if (myViewNet == nullptr) {
         return 0;
@@ -2484,7 +2408,6 @@ GNEApplicationWindow::onCmdUndo(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdRedo(FXObject*, FXSelector, void*) {
-    WRITE_DEBUG("Keys Ctrl+Y (Redo) pressed");
     // Check conditions
     if (myViewNet == nullptr) {
         return 0;
@@ -2554,7 +2477,6 @@ GNEApplicationWindow::onCmdComputePathManager(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdCut(FXObject*, FXSelector, void*) {
-    WRITE_DEBUG("Key Ctrl+X (Cut) pressed");
     // Prepared for #6042
     return 1;
 }
@@ -2562,7 +2484,6 @@ GNEApplicationWindow::onCmdCut(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdCopy(FXObject*, FXSelector, void*) {
-    WRITE_DEBUG("Key Ctrl+C (Copy) pressed");
     // Prepared for #6042
     return 1;
 }
@@ -2570,7 +2491,6 @@ GNEApplicationWindow::onCmdCopy(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdPaste(FXObject*, FXSelector, void*) {
-    WRITE_DEBUG("Key Ctrl+V (Paste) pressed");
     // Prepared for #6042
     return 1;
 }
@@ -2578,7 +2498,6 @@ GNEApplicationWindow::onCmdPaste(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdSetTemplate(FXObject*, FXSelector, void*) {
-    WRITE_DEBUG("Key Ctrl+F1 (Set Template) pressed");
     // first check if myViewNet exist
     if (myViewNet) {
         // call set template in inspector frame
@@ -2590,7 +2509,6 @@ GNEApplicationWindow::onCmdSetTemplate(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdCopyTemplate(FXObject*, FXSelector, void*) {
-    WRITE_DEBUG("Key Ctrl+F2 (Copy Template) pressed");
     // first check if myViewNet exist
     if (myViewNet) {
         // call copy template in inspector frame
@@ -2602,7 +2520,6 @@ GNEApplicationWindow::onCmdCopyTemplate(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdClearTemplate(FXObject*, FXSelector, void*) {
-    WRITE_DEBUG("Key Ctrl+F3 (Clear Template) pressed");
     // first check if myViewNet exist
     if (myViewNet) {
         // call clear template in inspector frame
@@ -3213,31 +3130,21 @@ GNEApplicationWindow::onCmdSaveNetwork(FXObject* sender, FXSelector sel, void* p
                 // 1 -> Invalid network elements fixed, friendlyPos enabled, or saved with invalid positions
                 GNEFixNetworkElements fixNetworkElementsDialog(myViewNet, invalidNetworkElements);
                 if (fixNetworkElementsDialog.execute() == 0) {
-                    // show debug information
-                    WRITE_DEBUG("network elements saving aborted");
                     // stop
                     return 0;
                 } else {
                     // Save network
                     myNet->saveNetwork();
                     saved = true;
-                    // show debug information
-                    WRITE_DEBUG("network elements saved after dialog");
                 }
             } else {
                 // Save network
                 myNet->saveNetwork();
                 saved = true;
-                // show debug information
-                WRITE_DEBUG("network elements saved");
             }
         } catch (IOError& e) {
-            // write warning if netedit is running in testing mode
-            WRITE_DEBUG("Opening FXMessageBox 'error saving network'");
             // open error message box
             FXMessageBox::error(this, MBOX_OK, TL("Saving Network failed!"), "%s", e.what());
-            // write warning if netedit is running in testing mode
-            WRITE_DEBUG("Closed FXMessageBox 'error saving network' with 'OK'");
         }
         if (saved) {
             // write info
@@ -3303,12 +3210,8 @@ GNEApplicationWindow::onCmdSavePlainXMLAs(FXObject*, FXSelector, void*) {
             // write info
             WRITE_MESSAGE(TL("Plain XML saved with prefix '") + plainXMLFile + "'");
         } catch (IOError& e) {
-            // write warning if netedit is running in testing mode
-            WRITE_DEBUG("Opening FXMessageBox 'Error saving plainXML'");
             // open message box
             FXMessageBox::error(this, MBOX_OK, TL("Saving plain xml failed!"), "%s", e.what());
-            // write warning if netedit is running in testing mode
-            WRITE_DEBUG("Closed FXMessageBox 'Error saving plainXML' with 'OK'");
         }
         // end saving plain XML
         getApp()->endWaitCursor();
@@ -3331,12 +3234,8 @@ GNEApplicationWindow::onCmdSaveJoinedJunctionsAs(FXObject*, FXSelector, void*) {
             // write info
             WRITE_MESSAGE(TL("Joined junctions saved to '") + joinedJunctionsFile + "'");
         } catch (IOError& e) {
-            // write warning if netedit is running in testing mode
-            WRITE_DEBUG("Opening FXMessageBox 'error saving joined'");
             // opening error message
             FXMessageBox::error(this, MBOX_OK, TL("Saving joined junctions failed!"), "%s", e.what());
-            // write warning if netedit is running in testing mode
-            WRITE_DEBUG("Closed FXMessageBox 'error saving joined' with 'OK'");
         }
         getApp()->endWaitCursor();
         // set focus again in viewNet
@@ -3560,12 +3459,8 @@ GNEApplicationWindow::onCmdSaveTLSPrograms(FXObject* obj, FXSelector sel, void* 
             // write info
             WRITE_MESSAGE(TL("TLS Programs saved in '") + neteditOptions.getString("tls-file") + "'");
         } catch (IOError& e) {
-            // write warning if netedit is running in testing mode
-            WRITE_DEBUG("Opening FXMessageBox 'error saving TLS Programs'");
             // open error message box
             FXMessageBox::error(this, MBOX_OK, TL("Saving TLS Programs failed!"), "%s", e.what());
-            // write warning if netedit is running in testing mode
-            WRITE_DEBUG("Closed FXMessageBox 'error saving TLS Programs' with 'OK'");
         }
         myMessageWindow->addSeparator();
         getApp()->endWaitCursor();
@@ -3608,12 +3503,8 @@ GNEApplicationWindow::onCmdSaveEdgeTypes(FXObject* obj, FXSelector sel, void* pt
             // write info
             WRITE_MESSAGE(TL("EdgeType saved in '") + neteditOptions.getString("edgetypes-file") + "'");
         } catch (IOError& e) {
-            // write warning if netedit is running in testing mode
-            WRITE_DEBUG("Opening FXMessageBox 'error saving edgeTypes'");
             // open error message box
             FXMessageBox::error(this, MBOX_OK, TL("Saving edgeTypes failed!"), "%s", e.what());
-            // write warning if netedit is running in testing mode
-            WRITE_DEBUG("Closed FXMessageBox 'error saving edgeTypes' with 'OK'");
         }
         myMessageWindow->addSeparator();
         getApp()->endWaitCursor();
@@ -3820,12 +3711,8 @@ GNEApplicationWindow::onCmdSaveAdditionals(FXObject* sender, FXSelector sel, voi
                 return 0;
             }
         } catch (IOError& e) {
-            // write warning if netedit is running in testing mode
-            WRITE_DEBUG("Opening FXMessageBox 'error saving additionals'");
             // open error message box
             FXMessageBox::error(this, MBOX_OK, TL("Saving additionals failed!"), "%s", e.what());
-            // write warning if netedit is running in testing mode
-            WRITE_DEBUG("Closed FXMessageBox 'error saving additionals' with 'OK'");
         }
         return 0;
     }
@@ -3885,12 +3772,8 @@ GNEApplicationWindow::onCmdSaveJuPedSimElementsAs(FXObject*, FXSelector, void*) 
                 return 0;
             }
         } catch (IOError& e) {
-            // write warning if netedit is running in testing mode
-            WRITE_DEBUG("Opening FXMessageBox 'error saving JuPedSim elements'");
             // open error message box
             FXMessageBox::error(this, MBOX_OK, TL("Saving JuPedSim elements failed!"), "%s", e.what());
-            // write warning if netedit is running in testing mode
-            WRITE_DEBUG("Closed FXMessageBox 'error saving JuPedSim elements' with 'OK'");
         }
     }
     return 0;
@@ -4028,12 +3911,8 @@ GNEApplicationWindow::onCmdSaveDemandElements(FXObject* sender, FXSelector sel, 
                 return 0;
             }
         } catch (IOError& e) {
-            // write warning if netedit is running in testing mode
-            WRITE_DEBUG("Opening FXMessageBox 'error saving demand elements'");
             // open error message box
             FXMessageBox::error(this, MBOX_OK, TL("Saving demand elements failed!"), "%s", e.what());
-            // write warning if netedit is running in testing mode
-            WRITE_DEBUG("Closed FXMessageBox 'error saving demand elements' with 'OK'");
         }
     }
     return 0;
@@ -4209,12 +4088,8 @@ GNEApplicationWindow::onCmdSaveDataElements(FXObject* sender, FXSelector sel, vo
                 return 0;
             }
         } catch (IOError& e) {
-            // write warning if netedit is running in testing mode
-            WRITE_DEBUG("Opening FXMessageBox 'error saving data elements'");
             // open error message box
             FXMessageBox::error(this, MBOX_OK, TL("Saving data elements failed!"), "%s", e.what());
-            // write warning if netedit is running in testing mode
-            WRITE_DEBUG("Closed FXMessageBox 'error saving data elements' with 'OK'");
         }
     }
     return 0;
@@ -4383,12 +4258,8 @@ GNEApplicationWindow::onCmdSaveMeanDatas(FXObject* sender, FXSelector sel, void*
                 return 0;
             }
         } catch (IOError& e) {
-            // write warning if netedit is running in testing mode
-            WRITE_DEBUG("Opening FXMessageBox 'error saving demand elements'");
             // open error message box
             FXMessageBox::error(this, MBOX_OK, TL("Saving demand elements failed!"), "%s", e.what());
-            // write warning if netedit is running in testing mode
-            WRITE_DEBUG("Closed FXMessageBox 'error saving demand elements' with 'OK'");
         }
     }
     return 0;

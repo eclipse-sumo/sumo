@@ -134,8 +134,6 @@ GNEMeanDataFrame::MeanDataTypeSelector::onCmdSelectItem(FXObject*, FXSelector, v
             // show modules if selected item is valid
             myMeanDataFrameParent->myMeanDataEditor->showMeanDataEditorModule();
             myMeanDataFrameParent->myMeanDataSelector->showMeanDataSelector();
-            // Write Warning in console if we're in testing mode
-            WRITE_DEBUG(("Selected item '" + myTypeComboBox->getText() + "' in MeanDataTypeSelector").text());
             return 1;
         }
     }
@@ -147,8 +145,6 @@ GNEMeanDataFrame::MeanDataTypeSelector::onCmdSelectItem(FXObject*, FXSelector, v
     myMeanDataFrameParent->myMeanDataSelector->hideMeanDataSelector();
     // set color of myTypeMatchBox to red (invalid)
     myTypeComboBox->setTextColor(FXRGB(255, 0, 0));
-    // Write Warning in console if we're in testing mode
-    WRITE_DEBUG("Selected invalid item in MeanDataTypeSelector");
     return 1;
 }
 
@@ -404,8 +400,6 @@ GNEMeanDataFrame::MeanDataSelector::onCmdSelectItem(FXObject*, FXSelector, void*
             myMeanDataFrameParent->myMeanDataEditor->refreshMeanDataEditorModule();
             // show modules if selected item is valid
             myMeanDataFrameParent->myMeanDataAttributesEditor->showAttributesEditor(myCurrentMeanData);
-            // Write Warning in console if we're in testing mode
-            WRITE_DEBUG(("Selected item '" + myMeanDataComboBox->getText() + "' in MeanDataSelector").text());
             // update viewNet
             myMeanDataFrameParent->getViewNet()->updateViewNet();
             return 1;
@@ -418,8 +412,6 @@ GNEMeanDataFrame::MeanDataSelector::onCmdSelectItem(FXObject*, FXSelector, void*
     myMeanDataFrameParent->myMeanDataAttributesEditor->hideAttributesEditor();
     // set color of myMeanDataMatchBox to red (invalid)
     myMeanDataComboBox->setTextColor(FXRGB(255, 0, 0));
-    // Write Warning in console if we're in testing mode
-    WRITE_DEBUG("Selected invalid item in MeanDataSelector");
     // update viewNet
     myMeanDataFrameParent->getViewNet()->updateViewNet();
     return 1;

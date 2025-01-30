@@ -86,8 +86,6 @@ GNEJunction::~GNEJunction() {
             if (myNet->getAttributeCarriers()->getCrossings().count(crossing) > 0) {
                 myNet->getAttributeCarriers()->deleteCrossing(crossing);
             }
-            // show extra information for tests
-            WRITE_DEBUG("Deleting unreferenced " + crossing->getTagStr() + " '" + crossing->getID() + "' in GNEJunction destructor");
             delete crossing;
         }
     }
@@ -99,14 +97,10 @@ GNEJunction::~GNEJunction() {
             if (myNet->getAttributeCarriers()->getWalkingAreas().count(walkingArea) > 0) {
                 myNet->getAttributeCarriers()->deleteWalkingArea(walkingArea);
             }
-            // show extra information for tests
-            WRITE_DEBUG("Deleting unreferenced " + walkingArea->getTagStr() + " '" + walkingArea->getID() + "' in GNEJunction destructor");
             delete walkingArea;
         }
     }
     if (myAmResponsible) {
-        // show extra information for tests
-        WRITE_DEBUG("Deleting NBNode of '" + getID() + "' in GNEJunction destructor");
         delete myNBNode;
     }
 }
@@ -453,8 +447,6 @@ GNEJunction::rebuildGNECrossings(bool rebuildNBNodeCrossings) {
             // remove it from attributeCarriers
             myNet->getAttributeCarriers()->deleteCrossing(crossing);
             if (crossing->unreferenced()) {
-                // show extra information for tests
-                WRITE_DEBUG("Deleting unreferenced " + crossing->getTagStr() + " in rebuildGNECrossings()");
                 delete crossing;
             }
         }
@@ -873,8 +865,6 @@ void
 GNEJunction::invalidateShape() {
     if (!myNBNode->hasCustomShape()) {
         if (myNBNode->myPoly.size() > 0) {
-            // write GL Debug
-            WRITE_GLDEBUG("<-- Invalidating shape of junction '" + getID() + "' -->");
             // clear poly
             myNBNode->myPoly.clear();
             // update centering boundary
@@ -1159,8 +1149,6 @@ GNEJunction::retrieveGNECrossing(NBNode::Crossing* NBNodeCrossing, bool createIf
     if (createIfNoExist) {
         // create new GNECrossing
         GNECrossing* createdGNECrossing = new GNECrossing(this, NBNodeCrossing->edges);
-        // show extra information for tests
-        WRITE_DEBUG("Created " + createdGNECrossing->getTagStr() + " '" + createdGNECrossing->getID() + "' in retrieveGNECrossing()");
         // update geometry after creating
         createdGNECrossing->updateGeometry();
         // add it in Network
@@ -1186,8 +1174,6 @@ GNEJunction::retrieveGNEWalkingArea(const std::string& NBNodeWalkingAreaID, bool
     if (createIfNoExist) {
         // create new GNEWalkingArea
         GNEWalkingArea* createdGNEWalkingArea = new GNEWalkingArea(this, NBNodeWalkingAreaID);
-        // show extra information for tests
-        WRITE_DEBUG("Created " + createdGNEWalkingArea->getTagStr() + " '" + createdGNEWalkingArea->getID() + "' in retrieveGNEWalkingArea()");
         // update geometry after creating
         createdGNEWalkingArea->updateGeometry();
         // add it in Network
@@ -1273,8 +1259,6 @@ GNEJunction::clearWalkingAreas() {
         // remove it from attributeCarriers
         myNet->getAttributeCarriers()->deleteWalkingArea(walkingArea);
         if (walkingArea->unreferenced()) {
-            // show extra information for tests
-            WRITE_DEBUG("Deleting unreferenced " + walkingArea->getTagStr() + " in rebuildGNEWalkingAreas()");
             delete walkingArea;
         }
     }

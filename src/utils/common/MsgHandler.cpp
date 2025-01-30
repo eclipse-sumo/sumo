@@ -44,8 +44,6 @@
 // static member variables
 // ===========================================================================
 MsgHandler::Factory MsgHandler::myFactory = nullptr;
-MsgHandler* MsgHandler::myDebugInstance = nullptr;
-MsgHandler* MsgHandler::myGLDebugInstance = nullptr;
 MsgHandler* MsgHandler::myErrorInstance = nullptr;
 MsgHandler* MsgHandler::myWarningInstance = nullptr;
 MsgHandler* MsgHandler::myMessageInstance = nullptr;
@@ -94,24 +92,6 @@ MsgHandler::getErrorInstance() {
         myErrorInstance = new MsgHandler(MsgType::MT_ERROR);
     }
     return myErrorInstance;
-}
-
-
-MsgHandler*
-MsgHandler::getDebugInstance() {
-    if (myDebugInstance == nullptr) {
-        myDebugInstance = new MsgHandler(MsgType::MT_DEBUG);
-    }
-    return myDebugInstance;
-}
-
-
-MsgHandler*
-MsgHandler::getGLDebugInstance() {
-    if (myGLDebugInstance == nullptr) {
-        myGLDebugInstance = new MsgHandler(MsgType::MT_GLDEBUG);
-    }
-    return myGLDebugInstance;
 }
 
 
@@ -258,12 +238,6 @@ MsgHandler::isRetriever(OutputDevice* retriever) const {
 
 void
 MsgHandler::removeRetrieverFromAllInstances(OutputDevice* out) {
-    if (myDebugInstance != nullptr) {
-        myDebugInstance->removeRetriever(out);
-    }
-    if (myGLDebugInstance != nullptr) {
-        myGLDebugInstance->removeRetriever(out);
-    }
     if (myErrorInstance != nullptr) {
         myErrorInstance->removeRetriever(out);
     }
@@ -363,10 +337,6 @@ MsgHandler::cleanupOnEnd() {
     myWarningInstance = nullptr;
     delete myErrorInstance;
     myErrorInstance = nullptr;
-    delete myDebugInstance;
-    myDebugInstance = nullptr;
-    delete myGLDebugInstance;
-    myGLDebugInstance = nullptr;
 }
 
 

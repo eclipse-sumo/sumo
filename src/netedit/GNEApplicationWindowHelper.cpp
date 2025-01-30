@@ -2345,179 +2345,51 @@ GNEApplicationWindowHelper::toggleEditOptionsNetwork(GNEViewNet* viewNet, const 
         const int numericalKeyPressed, FXObject* obj, FXSelector sel) {
     // finally function correspond to visibleMenuCommands[numericalKeyPressed]
     if (menuCheck == viewNet->getNetworkViewOptions().menuCheckToggleGrid) {
-        // Toggle menuCheckToggleGrid
-        if (viewNet->getNetworkViewOptions().menuCheckToggleGrid->amChecked() == TRUE) {
-            // show extra information for tests
-            WRITE_DEBUG("Disabled toggle show grid through alt + " + toString(numericalKeyPressed + 1));
-        } else {
-            // show extra information for tests
-            WRITE_DEBUG("Enabled toggle show grid through alt + " + toString(numericalKeyPressed + 1));
-        }
         // Call manually onCmdToggleShowGrid
         viewNet->onCmdToggleShowGrid(obj, sel, nullptr);
     } else if (menuCheck == viewNet->getNetworkViewOptions().menuCheckToggleDrawJunctionShape) {
-        // Toggle menuCheckToggleDrawJunctionShape
-        if (viewNet->getNetworkViewOptions().menuCheckToggleDrawJunctionShape->amChecked() == TRUE) {
-            // show extra information for tests
-            WRITE_DEBUG("Disabled draw junction shape through alt + " + toString(numericalKeyPressed + 1));
-        } else {
-            // show extra information for tests
-            WRITE_DEBUG("Enabled draw junction shape through alt + " + toString(numericalKeyPressed + 1));
-        }
         // Call manually onCmdToggleDrawJunctionShape
         viewNet->onCmdToggleDrawJunctionShape(obj, sel, nullptr);
     } else if (menuCheck == viewNet->getNetworkViewOptions().menuCheckDrawSpreadVehicles) {
-        // Toggle menuCheckDrawSpreadVehicles
-        if (viewNet->getNetworkViewOptions().menuCheckDrawSpreadVehicles->amChecked() == TRUE) {
-            // show extra information for tests
-            WRITE_DEBUG("Disabled toggle draw spread vehicles through alt + " + toString(numericalKeyPressed + 1));
-        } else {
-            // show extra information for tests
-            WRITE_DEBUG("Enabled toggle spread vehicles through alt + " + toString(numericalKeyPressed + 1));
-        }
         // Call manually onCmdToggleDrawSpreadVehicles
         viewNet->onCmdToggleDrawSpreadVehicles(obj, sel, nullptr);
     } else if (menuCheck == viewNet->getNetworkViewOptions().menuCheckShowDemandElements) {
-        // Toggle menuCheckShowDemandElements
-        if (viewNet->getNetworkViewOptions().menuCheckShowDemandElements->amChecked() == TRUE) {
-            // show extra information for tests
-            WRITE_DEBUG("Disabled show demand elements through alt + " + toString(numericalKeyPressed + 1));
-        } else {
-            // show extra information for tests
-            WRITE_DEBUG("Enabled show demand elements through alt + " + toString(numericalKeyPressed + 1));
-        }
         // Call manually onCmdToggleShowDemandElementsNetwork
         viewNet->onCmdToggleShowDemandElementsNetwork(obj, sel, nullptr);
     } else if (menuCheck == viewNet->getNetworkViewOptions().menuCheckSelectEdges) {
-        // Toggle menuCheckSelectEdges
-        if (viewNet->getNetworkViewOptions().menuCheckSelectEdges->amChecked() == TRUE) {
-            // show extra information for tests
-            WRITE_DEBUG("Disabled select edges through alt + " + toString(numericalKeyPressed + 1));
-        } else {
-            // show extra information for tests
-            WRITE_DEBUG("Enabled select edges through alt + " + toString(numericalKeyPressed + 1));
-        }
         // Call manually onCmdToggleSelectEdges
         viewNet->onCmdToggleSelectEdges(obj, sel, nullptr);
     } else if (menuCheck == viewNet->getNetworkViewOptions().menuCheckShowConnections) {
-        // Toggle menuCheckShowConnections
-        if (viewNet->getNetworkViewOptions().menuCheckShowConnections->amChecked() == TRUE) {
-            // show extra information for tests
-            WRITE_DEBUG("Disabled show connections through alt + " + toString(numericalKeyPressed + 1));
-        } else {
-            // show extra information for tests
-            WRITE_DEBUG("Enabled show connections through alt + " + toString(numericalKeyPressed + 1));
-        }
         // Call manually onCmdToggleShowConnections
         viewNet->onCmdToggleShowConnections(obj, sel, nullptr);
     } else if (menuCheck == viewNet->getNetworkViewOptions().menuCheckHideConnections) {
-        // Toggle menuCheckHideConnections
-        if (viewNet->getNetworkViewOptions().menuCheckHideConnections->amChecked() == TRUE) {
-            // show extra information for tests
-            WRITE_DEBUG("Disabled hide connections through alt + " + toString(numericalKeyPressed + 1));
-        } else {
-            // show extra information for tests
-            WRITE_DEBUG("Enabled hide connections through alt + " + toString(numericalKeyPressed + 1));
-        }
         // Call manually onCmdToggleHideConnections
         viewNet->onCmdToggleHideConnections(obj, sel, nullptr);
     } else if (menuCheck == viewNet->getNetworkViewOptions().menuCheckShowAdditionalSubElements) {
-        // Toggle menuCheckShowAdditionalSubElements
-        if (viewNet->getNetworkViewOptions().menuCheckShowAdditionalSubElements->amChecked() == TRUE) {
-            // show extra information for tests
-            WRITE_DEBUG("Disabled show additional sub-elements through alt + " + toString(numericalKeyPressed + 1));
-        } else {
-            // show extra information for tests
-            WRITE_DEBUG("Enabled show additional sub-elements through alt + " + toString(numericalKeyPressed + 1));
-        }
         // Call manually onCmdToggleShowAdditionalSubElements
         viewNet->onCmdToggleShowAdditionalSubElements(obj, sel, nullptr);
     } else if (menuCheck == viewNet->getNetworkViewOptions().menuCheckShowTAZElements) {
-        // Toggle menuCheckShowTAZElements
-        if (viewNet->getNetworkViewOptions().menuCheckShowTAZElements->amChecked() == TRUE) {
-            // show extra information for tests
-            WRITE_DEBUG("Disabled show TAZ elements through alt + " + toString(numericalKeyPressed + 1));
-        } else {
-            // show extra information for tests
-            WRITE_DEBUG("Enabled show TAZ elements through alt + " + toString(numericalKeyPressed + 1));
-        }
         // Call manually onCmdToggleShowTAZElements
         viewNet->onCmdToggleShowTAZElements(obj, sel, nullptr);
     } else if (menuCheck == viewNet->getNetworkViewOptions().menuCheckExtendSelection) {
-        // Toggle menuCheckExtendSelection
-        if (viewNet->getNetworkViewOptions().menuCheckExtendSelection->amChecked() == TRUE) {
-            // show extra information for tests
-            WRITE_DEBUG("Disabled extend selection through alt + " + toString(numericalKeyPressed + 1));
-        } else {
-            // show extra information for tests
-            WRITE_DEBUG("Enabled extend selection through alt + " + toString(numericalKeyPressed + 1));
-        }
         // Call manually onCmdToggleExtendSelection
         viewNet->onCmdToggleExtendSelection(obj, sel, nullptr);
     } else if (menuCheck == viewNet->getNetworkViewOptions().menuCheckChangeAllPhases) {
-        // Toggle menuCheckChangeAllPhases
-        if (viewNet->getNetworkViewOptions().menuCheckChangeAllPhases->amChecked() == TRUE) {
-            // show extra information for tests
-            WRITE_DEBUG("Disabled change all phases through alt + " + toString(numericalKeyPressed + 1));
-        } else {
-            // show extra information for tests
-            WRITE_DEBUG("Enabled change all phases through alt + " + toString(numericalKeyPressed + 1));
-        }
         // Call manually onCmdToggleChangeAllPhases
         viewNet->onCmdToggleChangeAllPhases(obj, sel, nullptr);
     } else if (menuCheck == viewNet->getNetworkViewOptions().menuCheckMergeAutomatically) {
-        // Toggle menuCheckWarnAboutMerge
-        if (viewNet->getNetworkViewOptions().menuCheckMergeAutomatically->amChecked() == TRUE) {
-            // show extra information for tests
-            WRITE_DEBUG("Disabled warn about merge through alt + " + toString(numericalKeyPressed + 1));
-        } else {
-            // show extra information for tests
-            WRITE_DEBUG("Enabled warn about merge through alt + " + toString(numericalKeyPressed + 1));
-        }
         // Call manually onCmdToggleMergeAutomatically
         viewNet->onCmdToggleMergeAutomatically(obj, sel, nullptr);
     } else if (menuCheck == viewNet->getNetworkViewOptions().menuCheckShowJunctionBubble) {
-        // Toggle menuCheckShowJunctionBubble
-        if (viewNet->getNetworkViewOptions().menuCheckShowJunctionBubble->amChecked() == TRUE) {
-            // show extra information for tests
-            WRITE_DEBUG("Disabled show junction as bubble through alt + " + toString(numericalKeyPressed + 1));
-        } else {
-            // show extra information for tests
-            WRITE_DEBUG("Enabled show junction as bubble through alt + " + toString(numericalKeyPressed + 1));
-        }
         // Call manually onCmdToggleShowJunctionBubble
         viewNet->onCmdToggleShowJunctionBubbles(obj, sel, nullptr);
     } else if (menuCheck == viewNet->getNetworkViewOptions().menuCheckMoveElevation) {
-        // Toggle menuCheckMoveElevation
-        if (viewNet->getNetworkViewOptions().menuCheckMoveElevation->amChecked() == TRUE) {
-            // show extra information for tests
-            WRITE_DEBUG("Disabled move elevation through alt + " + toString(numericalKeyPressed + 1));
-        } else {
-            // show extra information for tests
-            WRITE_DEBUG("Enabled move elevation through alt + " + toString(numericalKeyPressed + 1));
-        }
         // Call manually onCmdToggleMoveElevation
         viewNet->onCmdToggleMoveElevation(obj, sel, nullptr);
     } else if (menuCheck == viewNet->getNetworkViewOptions().menuCheckChainEdges) {
-        // Toggle menuCheckChainEdges
-        if (viewNet->getNetworkViewOptions().menuCheckChainEdges->amChecked() == TRUE) {
-            // show extra information for tests
-            WRITE_DEBUG("Disabled chain edges through alt + " + toString(numericalKeyPressed + 1));
-        } else {
-            // show extra information for tests
-            WRITE_DEBUG("Enabled chain edges through alt + " + toString(numericalKeyPressed + 1));
-        }
         // Call manually onCmdToggleChainEdges
         viewNet->onCmdToggleChainEdges(obj, sel, nullptr);
     } else if (menuCheck == viewNet->getNetworkViewOptions().menuCheckAutoOppositeEdge) {
-        // Toggle menuCheckAutoOppositeEdge
-        if (viewNet->getNetworkViewOptions().menuCheckAutoOppositeEdge->amChecked() == TRUE) {
-            // show extra information for tests
-            WRITE_DEBUG("Disabled auto opposite edge through alt + " + toString(numericalKeyPressed + 1));
-        } else {
-            // show extra information for tests
-            WRITE_DEBUG("Enabled auto opposite edge through alt + " + toString(numericalKeyPressed + 1));
-        }
         // Call manually onCmdToggleAutoOppositeEdge
         viewNet->onCmdToggleAutoOppositeEdge(obj, sel, nullptr);
     } else {
@@ -2530,125 +2402,36 @@ GNEApplicationWindowHelper::toggleEditOptionsNetwork(GNEViewNet* viewNet, const 
 bool
 GNEApplicationWindowHelper::toggleEditOptionsDemand(GNEViewNet* viewNet, const MFXCheckableButton* menuCheck, const int numericalKeyPressed, FXObject* obj, FXSelector sel) {
     if (menuCheck == viewNet->getDemandViewOptions().menuCheckToggleGrid) {
-        // Toggle menuCheckToggleGrid
-        if (viewNet->getDemandViewOptions().menuCheckToggleGrid->amChecked() == TRUE) {
-            // show extra information for tests
-            WRITE_DEBUG("Disabled toggle show grid through alt + " + toString(numericalKeyPressed + 1));
-        } else {
-            // show extra information for tests
-            WRITE_DEBUG("Enabled toggle show grid through alt + " + toString(numericalKeyPressed + 1));
-        }
         // Call manually onCmdToggleShowGrid
         viewNet->onCmdToggleShowGrid(obj, sel, nullptr);
     } else if (menuCheck == viewNet->getDemandViewOptions().menuCheckToggleDrawJunctionShape) {
-        // Toggle menuCheckToggleDrawJunctionShape
-        if (viewNet->getDemandViewOptions().menuCheckToggleDrawJunctionShape->amChecked() == TRUE) {
-            // show extra information for tests
-            WRITE_DEBUG("Disabled draw junction shape through alt + " + toString(numericalKeyPressed + 1));
-        } else {
-            // show extra information for tests
-            WRITE_DEBUG("Enabled draw junction shape through alt + " + toString(numericalKeyPressed + 1));
-        }
         // Call manually onCmdToggleDrawJunctionShape
         viewNet->onCmdToggleDrawJunctionShape(obj, sel, nullptr);
     } else if (menuCheck == viewNet->getDemandViewOptions().menuCheckDrawSpreadVehicles) {
-        // Toggle menuCheckDrawSpreadVehicles
-        if (viewNet->getDemandViewOptions().menuCheckDrawSpreadVehicles->amChecked() == TRUE) {
-            // show extra information for tests
-            WRITE_DEBUG("Disabled toggle draw spread vehicles through alt + " + toString(numericalKeyPressed + 1));
-        } else {
-            // show extra information for tests
-            WRITE_DEBUG("Enabled toggle spread vehicles through alt + " + toString(numericalKeyPressed + 1));
-        }
         // Call manually onCmdToggleDrawSpreadVehicles
         viewNet->onCmdToggleDrawSpreadVehicles(obj, sel, nullptr);
     } else if (menuCheck == viewNet->getDemandViewOptions().menuCheckHideShapes) {
-        // Toggle menuCheckHideShapes
-        if (viewNet->getDemandViewOptions().menuCheckHideShapes->amChecked() == TRUE) {
-            // show extra information for tests
-            WRITE_DEBUG("Disabled hide shapes through alt + " + toString(numericalKeyPressed + 1));
-        } else {
-            // show extra information for tests
-            WRITE_DEBUG("Enabled hide shapes through alt + " + toString(numericalKeyPressed + 1));
-        }
         // Call manually onCmdToggleHideShapes
         viewNet->onCmdToggleHideShapes(obj, sel, nullptr);
     } else if (menuCheck == viewNet->getDemandViewOptions().menuCheckShowAllTrips) {
-        // Toggle menuCheckShowAllTrips
-        if (viewNet->getDemandViewOptions().menuCheckShowAllTrips->amChecked() == TRUE) {
-            // show extra information for tests
-            WRITE_DEBUG("Disabled show all trips through alt + " + toString(numericalKeyPressed + 1));
-        } else {
-            // show extra information for tests
-            WRITE_DEBUG("Enabled show all trips through alt + " + toString(numericalKeyPressed + 1));
-        }
         // Call manually onCmdToggleShowTrips
         viewNet->onCmdToggleShowTrips(obj, sel, nullptr);
     } else if (menuCheck == viewNet->getDemandViewOptions().menuCheckShowAllPersonPlans) {
-        // Toggle menuCheckShowAllPersonPlans
-        if (viewNet->getDemandViewOptions().menuCheckShowAllPersonPlans->amChecked() == TRUE) {
-            // show extra information for tests
-            WRITE_DEBUG("Disabled show all person plans through alt + " + toString(numericalKeyPressed + 1));
-        } else {
-            // show extra information for tests
-            WRITE_DEBUG("Enabled show all person plans through alt + " + toString(numericalKeyPressed + 1));
-        }
         // Call manually onCmdToggleShowAllPersonPlans
         viewNet->onCmdToggleShowAllPersonPlans(obj, sel, nullptr);
     } else if (menuCheck == viewNet->getDemandViewOptions().menuCheckLockPerson) {
-        // Toggle menuCheckShowAllPersonPlans
-        if (viewNet->getDemandViewOptions().menuCheckLockPerson->amChecked() == TRUE) {
-            // show extra information for tests
-            WRITE_DEBUG("Disabled lock person plan through alt + " + toString(numericalKeyPressed + 1));
-        } else {
-            // show extra information for tests
-            WRITE_DEBUG("Enabled lock person plan through alt + " + toString(numericalKeyPressed + 1));
-        }
         // Call manually onCmdToggleLockPerson
         viewNet->onCmdToggleLockPerson(obj, sel, nullptr);
     } else if (menuCheck == viewNet->getDemandViewOptions().menuCheckShowAllContainerPlans) {
-        // Toggle menuCheckShowAllContainerPlans
-        if (viewNet->getDemandViewOptions().menuCheckShowAllContainerPlans->amChecked() == TRUE) {
-            // show extra information for tests
-            WRITE_DEBUG("Disabled show all container plans through alt + " + toString(numericalKeyPressed + 1));
-        } else {
-            // show extra information for tests
-            WRITE_DEBUG("Enabled show all container plans through alt + " + toString(numericalKeyPressed + 1));
-        }
         // Call manually onCmdToggleShowAllContainerPlans
         viewNet->onCmdToggleShowAllContainerPlans(obj, sel, nullptr);
     } else if (menuCheck == viewNet->getDemandViewOptions().menuCheckLockContainer) {
-        // Toggle menuCheckShowAllContainerPlans
-        if (viewNet->getDemandViewOptions().menuCheckLockContainer->amChecked() == TRUE) {
-            // show extra information for tests
-            WRITE_DEBUG("Disabled lock container plan through alt + " + toString(numericalKeyPressed + 1));
-        } else {
-            // show extra information for tests
-            WRITE_DEBUG("Enabled lock container plan through alt + " + toString(numericalKeyPressed + 1));
-        }
         // Call manually onCmdToggleLockContainer
         viewNet->onCmdToggleLockContainer(obj, sel, nullptr);
     } else if (menuCheck == viewNet->getDemandViewOptions().menuCheckHideNonInspectedDemandElements) {
-        // Toggle menuCheckHideNonInspectedDemandElements
-        if (viewNet->getDemandViewOptions().menuCheckHideNonInspectedDemandElements->amChecked() == TRUE) {
-            // show extra information for tests
-            WRITE_DEBUG("Disabled hide non inspected demand elements through alt + " + toString(numericalKeyPressed + 1));
-        } else {
-            // show extra information for tests
-            WRITE_DEBUG("Enabled hide non inspected demand elements through alt + " + toString(numericalKeyPressed + 1));
-        }
         // Call manually onCmdToggleHideNonInspecteDemandElements
         viewNet->onCmdToggleHideNonInspecteDemandElements(obj, sel, nullptr);
-
     } else if (menuCheck == viewNet->getDemandViewOptions().menuCheckShowOverlappedRoutes) {
-        // Toggle menuCheckShowOverlappedRoutes
-        if (viewNet->getDemandViewOptions().menuCheckShowOverlappedRoutes->amChecked() == TRUE) {
-            // show extra information for tests
-            WRITE_DEBUG("Disabled show overlapped routes through alt + " + toString(numericalKeyPressed + 1));
-        } else {
-            // show extra information for tests
-            WRITE_DEBUG("Enabled show overlapped routes through alt + " + toString(numericalKeyPressed + 1));
-        }
         // Call manually onCmdToggleHideNonInspecteDemandElements
         viewNet->onCmdToggleShowOverlappedRoutes(obj, sel, nullptr);
     } else {
@@ -2661,91 +2444,27 @@ GNEApplicationWindowHelper::toggleEditOptionsDemand(GNEViewNet* viewNet, const M
 bool
 GNEApplicationWindowHelper::toggleEditOptionsData(GNEViewNet* viewNet, const MFXCheckableButton* menuCheck, const int numericalKeyPressed, FXObject* obj, FXSelector sel) {
     if (menuCheck == viewNet->getDataViewOptions().menuCheckToggleDrawJunctionShape) {
-        // Toggle menuCheckToggleDrawJunctionShape
-        if (viewNet->getDataViewOptions().menuCheckToggleDrawJunctionShape->amChecked() == TRUE) {
-            // show extra information for tests
-            WRITE_DEBUG("Disabled draw junction shape through alt + " + toString(numericalKeyPressed + 1));
-        } else {
-            // show extra information for tests
-            WRITE_DEBUG("Enabled draw junction shape through alt + " + toString(numericalKeyPressed + 1));
-        }
         // Call manually onCmdToggleDrawJunctionShape
         viewNet->onCmdToggleDrawJunctionShape(obj, sel, nullptr);
     } else if (menuCheck == viewNet->getDataViewOptions().menuCheckShowAdditionals) {
-        // Toggle menuCheckHideShapes
-        if (viewNet->getDataViewOptions().menuCheckShowAdditionals->amChecked() == TRUE) {
-            // show extra information for tests
-            WRITE_DEBUG("Disabled show additionals through alt + " + toString(numericalKeyPressed + 1));
-        } else {
-            // show extra information for tests
-            WRITE_DEBUG("Enabled show shapes through alt + " + toString(numericalKeyPressed + 1));
-        }
         // Call manually onCmdToggleShowAdditionals
         viewNet->onCmdToggleShowAdditionals(obj, sel, nullptr);
     } else if (menuCheck == viewNet->getDataViewOptions().menuCheckShowShapes) {
-        // Toggle menuCheckHideShapes
-        if (viewNet->getDataViewOptions().menuCheckShowShapes->amChecked() == TRUE) {
-            // show extra information for tests
-            WRITE_DEBUG("Disabled show shapes through alt + " + toString(numericalKeyPressed + 1));
-        } else {
-            // show extra information for tests
-            WRITE_DEBUG("Enabled show shapes through alt + " + toString(numericalKeyPressed + 1));
-        }
         // Call manually onCmdToggleShowShapes
         viewNet->onCmdToggleShowShapes(obj, sel, nullptr);
     } else if (menuCheck == viewNet->getDataViewOptions().menuCheckShowDemandElements) {
-        // Toggle menuCheckShowDemandElements
-        if (viewNet->getDataViewOptions().menuCheckShowDemandElements->amChecked() == TRUE) {
-            // show extra information for tests
-            WRITE_DEBUG("Disabled show demand elements through alt + " + toString(numericalKeyPressed + 1));
-        } else {
-            // show extra information for tests
-            WRITE_DEBUG("Enabled show demand elements through alt + " + toString(numericalKeyPressed + 1));
-        }
         // Call manually onCmdToggleShowDemandElementsData
         viewNet->onCmdToggleShowDemandElementsData(obj, sel, nullptr);
     } else if (menuCheck == viewNet->getDataViewOptions().menuCheckToggleTAZRelDrawing) {
-        // Toggle menuCheckToggleTAZRelDrawing
-        if (viewNet->getDataViewOptions().menuCheckToggleTAZRelDrawing->amChecked() == TRUE) {
-            // show extra information for tests
-            WRITE_DEBUG("Disabled toggle TAXRel drawing through alt + " + toString(numericalKeyPressed + 1));
-        } else {
-            // show extra information for tests
-            WRITE_DEBUG("Enabled toggle TAXRel drawing through alt + " + toString(numericalKeyPressed + 1));
-        }
         // Call manually onCmdToggleTAZRelDrawing
         viewNet->onCmdToggleTAZRelDrawing(obj, sel, nullptr);
     } else if (menuCheck == viewNet->getDataViewOptions().menuCheckToggleTAZDrawFill) {
-        // Toggle menuCheckToggleTAZDrawFill
-        if (viewNet->getDataViewOptions().menuCheckToggleTAZDrawFill->amChecked() == TRUE) {
-            // show extra information for tests
-            WRITE_DEBUG("Disabled toggle TAZ draw fill through alt + " + toString(numericalKeyPressed + 1));
-        } else {
-            // show extra information for tests
-            WRITE_DEBUG("Enabled toggle TAZ draw fill through alt + " + toString(numericalKeyPressed + 1));
-        }
         // Call manually onCmdToggleTAZDrawFill
         viewNet->onCmdToggleTAZDrawFill(obj, sel, nullptr);
     } else if (menuCheck == viewNet->getDataViewOptions().menuCheckToggleTAZRelOnlyFrom) {
-        // Toggle menuCheckToggleTAZRelOnlyFrom
-        if (viewNet->getDataViewOptions().menuCheckToggleTAZRelOnlyFrom->amChecked() == TRUE) {
-            // show extra information for tests
-            WRITE_DEBUG("Disabled toggle TAZRel only from through alt + " + toString(numericalKeyPressed + 1));
-        } else {
-            // show extra information for tests
-            WRITE_DEBUG("Enabled toggle TAZRel only from through alt + " + toString(numericalKeyPressed + 1));
-        }
         // Call manually onCmdToggleTAZRelOnlyFrom
         viewNet->onCmdToggleTAZRelOnlyFrom(obj, sel, nullptr);
     } else if (menuCheck == viewNet->getDataViewOptions().menuCheckToggleTAZRelOnlyTo) {
-        // Toggle menuCheckToggleTAZRelOnlyTo
-        if (viewNet->getDataViewOptions().menuCheckToggleTAZRelOnlyTo->amChecked() == TRUE) {
-            // show extra information for tests
-            WRITE_DEBUG("Disabled toggle TAZRel only to through alt + " + toString(numericalKeyPressed + 1));
-        } else {
-            // show extra information for tests
-            WRITE_DEBUG("Enabled toggle TAZRel only to through alt + " + toString(numericalKeyPressed + 1));
-        }
         // Call manually onCmdToggleTAZRelOnlyTo
         viewNet->onCmdToggleTAZRelOnlyTo(obj, sel, nullptr);
     } else {
@@ -2978,8 +2697,6 @@ GNEApplicationWindowHelper::openOptionFileDialog(FXWindow* window, bool save) {
 std::string
 GNEApplicationWindowHelper::openFileDialog(FXWindow* window, const std::string title,
         GUIIcon icon, const std::string patternList, bool save, bool multi) {
-    // write title information
-    WRITE_DEBUG(title);
     // configure open dialog
     FXFileDialog opendialog(window, title.c_str());
     // check if allow to create a new file, or select only existent files
@@ -3005,22 +2722,16 @@ GNEApplicationWindowHelper::openFileDialog(FXWindow* window, const std::string t
         if (save) {
             // check if overwritte file
             if (MFXUtils::userPermitsOverwritingWhenFileExists(window, opendialog.getFilename())) {
-                // close save dialog
-                WRITE_DEBUG("Close save dialog sucesfully");
                 // udpate current folder
                 gCurrentFolder = opendialog.getDirectory();
                 // assureExtension
                 return MFXUtils::assureExtension(opendialog.getFilename(),
                                                  opendialog.getPatternText(opendialog.getCurrentPattern()).after('.').before(')')).text();
             } else {
-                // close additional dialog
-                WRITE_DEBUG("Abort overwritte file");
                 // return empty file
                 return "";
             }
         } else {
-            // close load dialog
-            WRITE_DEBUG("Close load dialog sucesfully");
             // udpate current folder
             gCurrentFolder = opendialog.getDirectory();
             // return file
@@ -3046,8 +2757,6 @@ GNEApplicationWindowHelper::openFileDialog(FXWindow* window, const std::string t
             }
         }
     } else {
-        // close additional dialog
-        WRITE_DEBUG("Abort dialog");
         // return empty file
         return "";
     }

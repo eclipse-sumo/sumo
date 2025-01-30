@@ -47,8 +47,6 @@ GNEChange_Additional::~GNEChange_Additional() {
     if (myAdditional->getNet()->getViewNet()->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed()) {
         myAdditional->decRef("GNEChange_Additional");
         if (myAdditional->unreferenced()) {
-            // show extra information for tests
-            WRITE_DEBUG("Deleting unreferenced " + myAdditional->getTagStr());
             // make sure that additional isn't in net before removing
             if (myAdditional->getNet()->getAttributeCarriers()->retrieveAdditional(myAdditional, false)) {
                 // delete additional from net
@@ -63,8 +61,6 @@ GNEChange_Additional::~GNEChange_Additional() {
 void
 GNEChange_Additional::undo() {
     if (myForward) {
-        // show extra information for tests
-        WRITE_DEBUG("Removing " + myAdditional->getTagStr() + " '" + myAdditional->getID() + "' in GNEChange_Additional");
         // unselect if mySelectedElement is enabled
         if (mySelectedElement) {
             myAdditional->unselectAttributeCarrier();
@@ -74,8 +70,6 @@ GNEChange_Additional::undo() {
         // restore container
         restoreHierarchicalContainers();
     } else {
-        // show extra information for tests
-        WRITE_DEBUG("Adding " + myAdditional->getTagStr() + " '" + myAdditional->getID() + "' in GNEChange_Additional");
         // select if mySelectedElement is enabled
         if (mySelectedElement) {
             myAdditional->selectAttributeCarrier();
@@ -93,8 +87,6 @@ GNEChange_Additional::undo() {
 void
 GNEChange_Additional::redo() {
     if (myForward) {
-        // show extra information for tests
-        WRITE_DEBUG("Adding " + myAdditional->getTagStr() + " '" + myAdditional->getID() + "' in GNEChange_Additional");
         // select if mySelectedElement is enabled
         if (mySelectedElement) {
             myAdditional->selectAttributeCarrier();
@@ -104,8 +96,6 @@ GNEChange_Additional::redo() {
         // add additional in parent elements
         addElementInParentsAndChildren(myAdditional);
     } else {
-        // show extra information for tests
-        WRITE_DEBUG("Removing " + myAdditional->getTagStr() + " '" + myAdditional->getID() + "' in GNEChange_Additional");
         // unselect if mySelectedElement is enabled
         if (mySelectedElement) {
             myAdditional->unselectAttributeCarrier();

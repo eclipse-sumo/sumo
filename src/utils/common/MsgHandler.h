@@ -76,12 +76,6 @@ public:
     /// @brief Returns the instance to add errors to
     static MsgHandler* getErrorInstance();
 
-    /// @brief Returns the instance to add debug to
-    static MsgHandler* getDebugInstance();
-
-    /// @brief Returns the instance to add GLdebug to
-    static MsgHandler* getGLDebugInstance();
-
     /// @brief enable/disable debug messages
     static void enableDebugMessages(bool enable);
 
@@ -222,12 +216,6 @@ private:
     /// @brief The function to call for new MsgHandlers, nullptr means use default constructor
     static Factory myFactory;
 
-    /// @brief The instance to handle debug
-    static MsgHandler* myDebugInstance;
-
-    /// @brief The instance to handle glDebug
-    static MsgHandler* myGLDebugInstance;
-
     /// @brief The instance to handle errors
     static MsgHandler* myErrorInstance;
 
@@ -303,8 +291,6 @@ private:
 #define PROGRESS_FAILED_MESSAGE() MsgHandler::getMessageInstance()->endProcessMsg2(false);
 #define WRITE_ERROR(msg) MsgHandler::getErrorInstance()->inform(msg);
 #define WRITE_ERRORF(...) MsgHandler::getErrorInstance()->informf(__VA_ARGS__);
-#define WRITE_DEBUG(msg) if(MsgHandler::writeDebugMessages()){MsgHandler::getDebugInstance()->inform(msg);};
-#define WRITE_GLDEBUG(msg) if(MsgHandler::writeDebugGLMessages()){MsgHandler::getGLDebugInstance()->inform(msg);};
 #ifdef HAVE_INTL
 // basic translation
 #define TL(string) gettext(string)

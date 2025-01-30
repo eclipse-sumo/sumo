@@ -265,8 +265,6 @@ GNEDemandElementSelector::onCmdSelectDemandElement(FXObject*, FXSelector, void*)
                 myCurrentDemandElement = demandElement.second;
                 // call demandElementSelected function
                 myFrameParent->demandElementSelected();
-                // Write Warning in console if we're in testing mode
-                WRITE_DEBUG((TL("Selected item '") + myDemandElementsComboBox->getText() + TL("' in DemandElementSelector")).text());
                 return 1;
             }
         }
@@ -277,8 +275,6 @@ GNEDemandElementSelector::onCmdSelectDemandElement(FXObject*, FXSelector, void*)
     myFrameParent->demandElementSelected();
     // change color of myDemandElementsComboBox to red (invalid)
     myDemandElementsComboBox->setTextColor(FXRGB(255, 0, 0));
-    // Write Warning in console if we're in testing mode
-    WRITE_DEBUG(TL("Selected invalid item in DemandElementSelector"));
     return 1;
 }
 

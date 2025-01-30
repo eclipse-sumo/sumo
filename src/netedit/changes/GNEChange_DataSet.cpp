@@ -49,8 +49,6 @@ GNEChange_DataSet::~GNEChange_DataSet() {
         myDataSet->decRef("GNEChange_DataSet");
         if (myDataSet->unreferenced() &&
                 myDataSet->getNet()->getAttributeCarriers()->retrieveDataSet(myDataSet->getID(), false)) {
-            // show extra information for tests
-            WRITE_DEBUG("Deleting unreferenced " + myDataSet->getTagStr() + " '" + myDataSet->getID() + "'");
             // make sure that element isn't in net before removing
             myDataSet->getNet()->getAttributeCarriers()->deleteDataSet(myDataSet);
             // delete data set
@@ -63,13 +61,9 @@ GNEChange_DataSet::~GNEChange_DataSet() {
 void
 GNEChange_DataSet::undo() {
     if (myForward) {
-        // show extra information for tests
-        WRITE_DEBUG("Removing " + myDataSet->getTagStr() + " '" + myDataSet->getID() + "' in GNEChange_DataSet");
         // delete data set from net
         myDataSet->getNet()->getAttributeCarriers()->deleteDataSet(myDataSet);
     } else {
-        // show extra information for tests
-        WRITE_DEBUG("Adding " + myDataSet->getTagStr() + " '" + myDataSet->getID() + "' in GNEChange_DataSet");
         // insert data set into net
         myDataSet->getNet()->getAttributeCarriers()->insertDataSet(myDataSet);
     }
@@ -81,13 +75,9 @@ GNEChange_DataSet::undo() {
 void
 GNEChange_DataSet::redo() {
     if (myForward) {
-        // show extra information for tests
-        WRITE_DEBUG("Adding " + myDataSet->getTagStr() + " '" + myDataSet->getID() + "' in GNEChange_DataSet");
         // insert data set into net
         myDataSet->getNet()->getAttributeCarriers()->insertDataSet(myDataSet);
     } else {
-        // show extra information for tests
-        WRITE_DEBUG("Removing " + myDataSet->getTagStr() + " '" + myDataSet->getID() + "' in GNEChange_DataSet");
         // delete data set from net
         myDataSet->getNet()->getAttributeCarriers()->deleteDataSet(myDataSet);
     }

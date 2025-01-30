@@ -78,8 +78,6 @@ public:
             // cannot throw exception in destructor
             WRITE_ERROR("Mutex of SUMORTree is locked during call of the destructor");
         }
-        // show information in gui testing debug gl mode
-        WRITE_GLDEBUG("Number of objects in SUMORTree during call of the destructor: " + toString(myTreeDebug.size()));
     }
 
     /** @brief Insert entry
@@ -144,8 +142,6 @@ public:
                 throw ProcessError("GUIGlObject was already inserted");
             } else {
                 myTreeDebug[o] = b;
-                // write GL Debug
-                WRITE_GLDEBUG("\tInserted " + o->getFullName() + " into SUMORTree with boundary " + toString(b));
             }
         }
         // insert it in Tree
@@ -186,7 +182,6 @@ public:
                 throw ProcessError("add boundary of GUIGlObject " + o->getMicrosimID() + " is different of removed boundary (" + toString(b) + " != " + toString(myTreeDebug.at(o)) + ")");
             } else {
                 myTreeDebug.erase(o);
-                WRITE_GLDEBUG("\tRemoved object " + o->getFullName() + " from SUMORTree with boundary " + toString(b));
             }
         }
         // remove it from Tree

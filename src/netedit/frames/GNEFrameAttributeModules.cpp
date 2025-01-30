@@ -170,16 +170,9 @@ GNEFrameAttributeModules::GenericDataAttributes::areAttributesValid() const {
 
 long
 GNEFrameAttributeModules::GenericDataAttributes::onCmdEditParameters(FXObject*, FXSelector, void*) {
-    // write debug information
-    WRITE_DEBUG("Open single parameters dialog");
     if (GNESingleParametersDialog(this).execute()) {
-        // write debug information
-        WRITE_DEBUG("Close single parameters dialog");
         // Refresh parameter EditorCreator
         refreshGenericDataAttributes();
-    } else {
-        // write debug information
-        WRITE_DEBUG("Cancel single parameters dialog");
     }
     return 1;
 }
@@ -349,52 +342,27 @@ GNEFrameAttributeModules::ParametersEditor::onCmdEditParameters(FXObject*, FXSel
         // continue depending of markAC
         if (inspectedElements.getFirstAC() && inspectedElements.getFirstAC()->getTagProperty().hasParameters()) {
             if (inspectedElements.isInspectingMultipleElements()) {
-                // write debug information
-                WRITE_DEBUG("Open multiple parameters dialog");
                 // open multiple parameters dialog
                 if (GNEMultipleParametersDialog(this).execute()) {
-                    // write debug information
-                    WRITE_DEBUG("Close multiple parameters dialog");
                     // update frame parent after attribute successfully set
                     myInspectorFrameParent->attributeUpdated(GNE_ATTR_PARAMETERS);
                     // Refresh parameter EditorInspector
                     refreshParametersEditor();
-                } else {
-                    // write debug information
-                    WRITE_DEBUG("Cancel multiple parameters dialog");
                 }
-            } else {
-                // write debug information
-                WRITE_DEBUG("Open single parameters dialog");
-                if (GNESingleParametersDialog(this).execute()) {
-                    // write debug information
-                    WRITE_DEBUG("Close single parameters dialog");
-                    // update frame parent after attribute successfully set
-                    myInspectorFrameParent->attributeUpdated(GNE_ATTR_PARAMETERS);
-                    // Refresh parameter EditorInspector
-                    refreshParametersEditor();
-                } else {
-                    // write debug information
-                    WRITE_DEBUG("Cancel single parameters dialog");
-                }
+            } else if (GNESingleParametersDialog(this).execute()) {
+                // update frame parent after attribute successfully set
+                myInspectorFrameParent->attributeUpdated(GNE_ATTR_PARAMETERS);
+                // Refresh parameter EditorInspector
+                refreshParametersEditor();
             }
         }
     } else if (myTypeFrameParent) {
         // get type
         GNEDemandElement* type = myTypeFrameParent->getTypeSelector()->getCurrentType();
         // continue depending of type
-        if (type) {
-            // write debug information
-            WRITE_DEBUG("Open single parameters dialog");
-            if (GNESingleParametersDialog(this).execute()) {
-                // write debug information
-                WRITE_DEBUG("Close single parameters dialog");
-                // Refresh parameter EditorInspector
-                refreshParametersEditor();
-            } else {
-                // write debug information
-                WRITE_DEBUG("Cancel single parameters dialog");
-            }
+        if (type && GNESingleParametersDialog(this).execute()) {
+            // Refresh parameter EditorInspector
+            refreshParametersEditor();
         }
     }
     return 1;

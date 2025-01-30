@@ -56,8 +56,6 @@ GNEChange_GenericData::~GNEChange_GenericData() {
         if (myGenericData->unreferenced() &&
                 myGenericData->getNet()->getAttributeCarriers()->retrieveDataInterval(myDataIntervalParent, false) &&
                 myGenericData->getNet()->getAttributeCarriers()->retrieveGenericData(myGenericData, false)) {
-            // show extra information for tests
-            WRITE_DEBUG("Deleting unreferenced " + myGenericData->getTagStr());
             // delete generic data from interval parent
             myDataIntervalParent->removeGenericDataChild(myGenericData);
             // delete generic data
@@ -70,8 +68,6 @@ GNEChange_GenericData::~GNEChange_GenericData() {
 void
 GNEChange_GenericData::undo() {
     if (myForward) {
-        // show extra information for tests
-        WRITE_DEBUG("Removing " + myGenericData->getTagStr() + " '" + myGenericData->getID() + "' in GNEChange_GenericData");
         // unselect if mySelectedElement is enabled
         if (mySelectedElement) {
             myGenericData->unselectAttributeCarrier();
@@ -81,8 +77,6 @@ GNEChange_GenericData::undo() {
         // restore container
         restoreHierarchicalContainers();
     } else {
-        // show extra information for tests
-        WRITE_DEBUG("Adding " + myGenericData->getTagStr() + " '" + myGenericData->getID() + "' in GNEChange_GenericData");
         // select if mySelectedElement is enabled
         if (mySelectedElement) {
             myGenericData->selectAttributeCarrier();
@@ -100,8 +94,6 @@ GNEChange_GenericData::undo() {
 void
 GNEChange_GenericData::redo() {
     if (myForward) {
-        // show extra information for tests
-        WRITE_DEBUG("Adding " + myGenericData->getTagStr() + " '" + myGenericData->getID() + "' in GNEChange_GenericData");
         // select if mySelectedElement is enabled
         if (mySelectedElement) {
             myGenericData->selectAttributeCarrier();
@@ -111,8 +103,6 @@ GNEChange_GenericData::redo() {
         // add genericData in parents and children
         addElementInParentsAndChildren(myGenericData);
     } else {
-        // show extra information for tests
-        WRITE_DEBUG("Removing " + myGenericData->getTagStr() + " '" + myGenericData->getID() + "' in GNEChange_GenericData");
         // unselect if mySelectedElement is enabled
         if (mySelectedElement) {
             myGenericData->unselectAttributeCarrier();

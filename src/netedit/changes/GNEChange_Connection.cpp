@@ -47,18 +47,9 @@ GNEChange_Connection::~GNEChange_Connection() {
 void
 GNEChange_Connection::undo() {
     if (myForward) {
-        // show extra information for tests
-        WRITE_DEBUG("Removing " + toString(SUMO_TAG_CONNECTION) + " '" +
-                    myEdge->getNBEdge()->getLaneID(myNBEdgeConnection.fromLane) + "->" + myNBEdgeConnection.toEdge->getLaneID(myNBEdgeConnection.toLane) + "' from " +
-                    toString(SUMO_TAG_EDGE) + " '" + myEdge->getID() + "'");
         // remove connection from edge
         myEdge->removeConnection(myNBEdgeConnection);
     } else {
-        // show extra information for tests
-        std::string selected = mySelectedElement ? ("a previously selected ") : ("");
-        WRITE_DEBUG("Adding " + selected + toString(SUMO_TAG_CONNECTION) + " '" +
-                    myEdge->getNBEdge()->getLaneID(myNBEdgeConnection.fromLane) + "->" + myNBEdgeConnection.toEdge->getLaneID(myNBEdgeConnection.toLane) + "' into " +
-                    toString(SUMO_TAG_EDGE) + " '" + myEdge->getID() + "'");
         // add connection into edge
         myEdge->addConnection(myNBEdgeConnection, mySelectedElement);
     }
@@ -70,18 +61,9 @@ GNEChange_Connection::undo() {
 void
 GNEChange_Connection::redo() {
     if (myForward) {
-        // show extra information for tests
-        std::string selected = mySelectedElement ? ("a previously selected ") : ("");
-        WRITE_DEBUG("Adding " + selected + toString(SUMO_TAG_CONNECTION) + " '" +
-                    myEdge->getNBEdge()->getLaneID(myNBEdgeConnection.fromLane) + "->" + myNBEdgeConnection.toEdge->getLaneID(myNBEdgeConnection.toLane) + "' into " +
-                    toString(SUMO_TAG_EDGE) + " '" + myEdge->getID() + "'");
         // add connection into edge
         myEdge->addConnection(myNBEdgeConnection, mySelectedElement);
     } else {
-        // show extra information for tests
-        WRITE_DEBUG("Removing " + toString(SUMO_TAG_CONNECTION) + " '" +
-                    myEdge->getNBEdge()->getLaneID(myNBEdgeConnection.fromLane) + "->" + myNBEdgeConnection.toEdge->getLaneID(myNBEdgeConnection.toLane) + "' from " +
-                    toString(SUMO_TAG_EDGE) + " '" + myEdge->getID() + "'");
         // remove connection from edge
         myEdge->removeConnection(myNBEdgeConnection);
     }

@@ -359,12 +359,8 @@ GNESelectorFrame::SelectionOperation::onCmdSave(FXObject*, FXSelector, void*) {
         }
         dev.close();
     } catch (IOError& e) {
-        // write warning if netedit is running in testing mode
-        WRITE_DEBUG("Opening FXMessageBox 'error storing selection'");
         // open message box error
         FXMessageBox::error(getCollapsableFrame(), MBOX_OK, "Storing Selection failed", "%s", e.what());
-        // write warning if netedit is running in testing mode
-        WRITE_DEBUG("Closed FXMessageBox 'error storing selection' with 'OK'");
     }
     return 1;
 }
@@ -601,21 +597,12 @@ GNESelectorFrame::SelectionOperation::processMassiveDataElementSelection() const
 
 bool
 GNESelectorFrame::SelectionOperation::askContinueIfLock() const {
-    WRITE_DEBUG("Opening FXMessageBox 'confirm selection operation'");
     // open question box
     const FXuint answer = FXMessageBox::question(mySelectorFrameParent->getViewNet()->getApp(),
                           MBOX_YES_NO, "Confirm selection operation", "There are locked elements in the current selection.\nApply operation to locked elements?");
     if (answer != 1) { //1:yes, 2:no, 4:esc
-        // write warning if netedit is running in testing mode
-        if (answer == 2) {
-            WRITE_DEBUG("Closed FXMessageBox 'confirm selection operation' with 'No'");
-        } else if (answer == 4) {
-            WRITE_DEBUG("Closed FXMessageBox 'confirm selection operation' with 'ESC'");
-        }
         return false;
     } else {
-        // write warning if netedit is running in testing mode
-        WRITE_DEBUG("Closed FXMessageBox 'confirm selection operation' with 'Yes'");
         return true;
     }
 }

@@ -48,8 +48,6 @@ GNEChange_DemandElement::~GNEChange_DemandElement() {
     if (myDemandElement->getNet()->getViewNet()->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed()) {
         myDemandElement->decRef("GNEChange_DemandElement");
         if (myDemandElement->unreferenced()) {
-            // show extra information for tests
-            WRITE_DEBUG("Deleting unreferenced " + myDemandElement->getTagStr());
             // make sure that element isn't in net before removing
             if (myDemandElement->getNet()->getAttributeCarriers()->retrieveDemandElement(myDemandElement, false)) {
                 // remove demand element of network
@@ -64,8 +62,6 @@ GNEChange_DemandElement::~GNEChange_DemandElement() {
 void
 GNEChange_DemandElement::undo() {
     if (myForward) {
-        // show extra information for tests
-        WRITE_DEBUG("Removing " + myDemandElement->getTagStr() + " '" + myDemandElement->getID() + "' in GNEChange_DemandElement");
         // unselect if mySelectedElement is enabled
         if (mySelectedElement) {
             myDemandElement->unselectAttributeCarrier();
@@ -75,8 +71,6 @@ GNEChange_DemandElement::undo() {
         // restore container
         restoreHierarchicalContainers();
     } else {
-        // show extra information for tests
-        WRITE_DEBUG("Adding " + myDemandElement->getTagStr() + " '" + myDemandElement->getID() + "' in GNEChange_DemandElement");
         // select if mySelectedElement is enabled
         if (mySelectedElement) {
             myDemandElement->selectAttributeCarrier();
@@ -105,8 +99,6 @@ GNEChange_DemandElement::undo() {
 void
 GNEChange_DemandElement::redo() {
     if (myForward) {
-        // show extra information for tests
-        WRITE_DEBUG("Adding " + myDemandElement->getTagStr() + " '" + myDemandElement->getID() + "' in GNEChange_DemandElement");
         // select if mySelectedElement is enabled
         if (mySelectedElement) {
             myDemandElement->selectAttributeCarrier();
@@ -116,8 +108,6 @@ GNEChange_DemandElement::redo() {
         // add demand element in parents and children
         addElementInParentsAndChildren(myDemandElement);
     } else {
-        // show extra information for tests
-        WRITE_DEBUG("Removing " + myDemandElement->getTagStr() + " '" + myDemandElement->getID() + "' in GNEChange_DemandElement");
         // unselect if mySelectedElement is enabled
         if (mySelectedElement) {
             myDemandElement->unselectAttributeCarrier();

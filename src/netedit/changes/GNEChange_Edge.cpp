@@ -58,8 +58,6 @@ GNEChange_Edge::~GNEChange_Edge() {
     if (myEdge->getNet()->getViewNet()->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed()) {
         myEdge->decRef("GNEChange_Edge");
         if (myEdge->unreferenced()) {
-            // show extra information for tests
-            WRITE_DEBUG("Deleting unreferenced " + myEdge->getTagStr() + " '" + myEdge->getID() + "' GNEChange_Edge");
             // delete edge
             delete myEdge;
         }
@@ -70,8 +68,6 @@ GNEChange_Edge::~GNEChange_Edge() {
 void
 GNEChange_Edge::undo() {
     if (myForward) {
-        // show extra information for tests
-        WRITE_DEBUG("Removing " + myEdge->getTagStr() + " '" + myEdge->getID() + "' from " + toString(SUMO_TAG_NET));
         // unselect if mySelectedElement is enabled
         if (mySelectedElement) {
             myEdge->unselectAttributeCarrier();
@@ -83,8 +79,6 @@ GNEChange_Edge::undo() {
         // delete edge from net
         myEdge->getNet()->getAttributeCarriers()->deleteSingleEdge(myEdge);
     } else {
-        // show extra information for tests
-        WRITE_DEBUG("Adding " + myEdge->getTagStr() + " '" + myEdge->getID() + "' from " + toString(SUMO_TAG_NET));
         // select if mySelectedElement is enabled
         if (mySelectedElement) {
             myEdge->selectAttributeCarrier();
@@ -104,8 +98,6 @@ GNEChange_Edge::undo() {
 void
 GNEChange_Edge::redo() {
     if (myForward) {
-        // show extra information for tests
-        WRITE_DEBUG("Adding " + myEdge->getTagStr() + " '" + myEdge->getID() + "' from " + toString(SUMO_TAG_NET));
         // select if mySelectedElement is enabled
         if (mySelectedElement) {
             myEdge->selectAttributeCarrier();
@@ -117,8 +109,6 @@ GNEChange_Edge::redo() {
         // add edge lanes into parents and children
         addEdgeLanes();
     } else {
-        // show extra information for tests
-        WRITE_DEBUG("Removing " + myEdge->getTagStr() + " '" + myEdge->getID() + "' from " + toString(SUMO_TAG_NET));
         // unselect if mySelectedElement is enabled
         if (mySelectedElement) {
             myEdge->unselectAttributeCarrier();

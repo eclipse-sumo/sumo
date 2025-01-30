@@ -191,27 +191,19 @@ GNETLSEditorFrame::editTLS(GNEViewNetHelper::ViewObjectsSelector& viewObjects, c
 bool
 GNETLSEditorFrame::isTLSSaved() {
     if (myTLSDefinition->checkHaveModifications()) {
-        // write warning if netedit is running in testing mode
-        WRITE_DEBUG("Opening question FXMessageBox 'save TLS'");
         // open question box
         FXuint answer = FXMessageBox::question(this, MBOX_YES_NO_CANCEL,
                                                TL("Save TLS Changes"), "%s",
                                                TL("There are unsaved changes in the currently edited traffic light.\nDo you want to save it before changing mode?"));
         if (answer == MBOX_CLICKED_YES) { //1:yes, 2:no, 4:esc/cancel
-            // write warning if netedit is running in testing mode
-            WRITE_DEBUG("Closed FXMessageBox 'save TLS' with 'YES'");
             // save modifications
             myTLSDefinition->onCmdSaveChanges(nullptr, 0, nullptr);
             return true;
         } else if (answer == MBOX_CLICKED_NO) {
-            // write warning if netedit is running in testing mode
-            WRITE_DEBUG("Closed FXMessageBox 'save TLS' with 'No'");
             // cancel modifications
             myTLSDefinition->onCmdSaveChanges(nullptr, 0, nullptr);
             return true;
         } else {
-            // write warning if netedit is running in testing mode
-            WRITE_DEBUG("Closed FXMessageBox 'save TLS' with 'Cancel'");
             // abort changing mode
             return false;
         }
@@ -781,20 +773,13 @@ GNETLSEditorFrame::TLSAttributes::onCmdParametersDialog(FXObject*, FXSelector, v
     if (myTLSEditorParent->myEditedDef) {
         // get previous parameters
         const auto previousParameters = getParameters();
-        // write debug information
-        WRITE_DEBUG("Open single parameters dialog");
         if (GNESingleParametersDialog(myTLSEditorParent->getViewNet()->getApp(), myTLSEditorParent->myEditedDef).execute()) {
-            // write debug information
-            WRITE_DEBUG("Close single parameters dialog");
             // set parameters in textfield
             setParameters(myTLSEditorParent->myEditedDef->getParametersStr());
             // only mark as modified if parameters are different
             if (getParameters() != previousParameters) {
                 myTLSEditorParent->myTLSDefinition->markAsModified();
             }
-        } else {
-            // write debug information
-            WRITE_DEBUG("Cancel single parameters dialog");
         }
     }
     return 1;
@@ -1543,28 +1528,20 @@ GNETLSEditorFrame::TLSDefinition::onCmdCreate(FXObject*, FXSelector, void*) {
     discardChanges(false);
     // check number of edges
     if (currentJunction->getGNEIncomingEdges().empty() && currentJunction->getGNEOutgoingEdges().empty()) {
-        // write warning if netedit is running in testing mode
-        WRITE_DEBUG("Opening warning FXMessageBox 'invalid TLS'");
         // open question box
         FXMessageBox::warning(this, MBOX_OK,
                               TL("TLS cannot be created"), "%s",
                               (TL("Traffic Light cannot be created because junction must have") + std::string("\n") +
                                TL("at least one incoming edge and one outgoing edge.")).c_str());
-        // write warning if netedit is running in testing mode
-        WRITE_DEBUG("Closed FXMessageBox 'invalid TLS'");
         return 1;
     }
     // check number of connections
     if (currentJunction->getGNEConnections().empty()) {
-        // write warning if netedit is running in testing mode
-        WRITE_DEBUG("Opening warning FXMessageBox 'invalid TLS'");
         // open question box
         FXMessageBox::warning(this, MBOX_OK,
                               TL("TLS cannot be created"), "%s",
                               (TL("Traffic Light cannot be created because junction") + std::string("\n") +
                                TL("must have at least one connection.")).c_str());
-        // write warning if netedit is running in testing mode
-        WRITE_DEBUG("Closed FXMessageBox 'invalid TLS'");
         return 1;
     }
     // check uncontrolled connections
@@ -1575,15 +1552,11 @@ GNETLSEditorFrame::TLSDefinition::onCmdCreate(FXObject*, FXSelector, void*) {
         }
     }
     if (!connectionControlled) {
-        // write warning if netedit is running in testing mode
-        WRITE_DEBUG("Opening warning FXMessageBox 'invalid TLS'");
         // open question box
         FXMessageBox::warning(this, MBOX_OK,
                               TL("TLS cannot be created"), "%s",
                               (TL("Traffic Light cannot be created because junction") + std::string("\n") +
                                TL("must have at least one controlled connection.")).c_str());
-        // write warning if netedit is running in testing mode
-        WRITE_DEBUG("Closed FXMessageBox 'invalid TLS'");
         return 1;
     }
     // all checks ok, then create TLS in junction
@@ -2131,12 +2104,6 @@ GNETLSEditorFrame::TLSPhases::addPhase(const int row, const char c) {
         default:
             break;
     }
-    // Write debug
-    if (c == ' ') {
-        WRITE_DEBUG("Add default phase in row " + toString(row));
-    } else {
-        WRITE_DEBUG("Add new phase in row " + toString(row) + " of type: " + c);
-    }
     // int phase table again
     initPhaseTable();
     // mark new row as selected
@@ -2154,8 +2121,6 @@ GNETLSEditorFrame::TLSPhases::duplicatePhase(const int row) {
     const int newIndex = buildDefaultPhase(row);
     // coply old phase in the new phase
     myTLSEditorParent->myEditedDef->getLogic()->copyPhase(row, row + 1);
-    // Write debug
-    WRITE_DEBUG("Duplicated phase " + toString(row));
     // int phase table again
     initPhaseTable();
     // mark new row as selected
@@ -2173,8 +2138,6 @@ GNETLSEditorFrame::TLSPhases::removePhase(const int row) {
     const auto newRow = MAX2(0, (row - 1));
     // delete selected row
     myTLSEditorParent->myEditedDef->getLogic()->deletePhase(row);
-    // Write debug
-    WRITE_DEBUG("removed phase " + toString(row));
     // int phase table again
     initPhaseTable();
     // mark new row as selected
@@ -2188,8 +2151,6 @@ void
 GNETLSEditorFrame::TLSPhases::movePhaseUp(const int row) {
     // mark TLS ad modified
     myTLSEditorParent->myTLSDefinition->markAsModified();
-    // Write debug
-    WRITE_DEBUG("Move up phase " + toString(row));
     // delete selected row
     if (row == 0) {
         myTLSEditorParent->myEditedDef->getLogic()->swapfirstPhase();
@@ -2213,8 +2174,6 @@ void
 GNETLSEditorFrame::TLSPhases::movePhaseDown(const int row) {
     // mark TLS ad modified
     myTLSEditorParent->myTLSDefinition->markAsModified();
-    // Write debug
-    WRITE_DEBUG("Move down phase " + toString(row));
     // delete selected row
     if (row == (int)myTLSEditorParent->myEditedDef->getLogic()->getPhases().size() - 1) {
         myTLSEditorParent->myEditedDef->getLogic()->swaplastPhase();
@@ -2307,7 +2266,6 @@ GNETLSEditorFrame::TLSPhases::onCmdCleanStates(FXObject*, FXSelector, void*) {
     initPhaseTable();
     myPhaseTable->setFocus();
     myTLSEditorParent->myTLSDefinition->markAsModified();
-    WRITE_DEBUG("Clean states");
     return 1;
 }
 
@@ -2318,7 +2276,6 @@ GNETLSEditorFrame::TLSPhases::onCmdAddUnusedStates(FXObject*, FXSelector, void*)
     myTLSEditorParent->myTLSDefinition->markAsModified();
     initPhaseTable();
     myPhaseTable->setFocus();
-    WRITE_DEBUG("Add unused states");
     return 1;
 }
 
@@ -2330,7 +2287,6 @@ GNETLSEditorFrame::TLSPhases::onCmdGroupStates(FXObject*, FXSelector, void*) {
     myTLSEditorParent->buildInternalLanes(myTLSEditorParent->myEditedDef);
     initPhaseTable();
     myPhaseTable->setFocus();
-    WRITE_DEBUG("Group states");
     return 1;
 }
 
@@ -2343,7 +2299,6 @@ GNETLSEditorFrame::TLSPhases::onCmdUngroupStates(FXObject*, FXSelector, void*) {
     myTLSEditorParent->buildInternalLanes(myTLSEditorParent->myEditedDef);
     initPhaseTable();
     myPhaseTable->setFocus();
-    WRITE_DEBUG("Ungroup states");
     return 1;
 }
 

@@ -212,64 +212,36 @@ GNERerouterIntervalDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     std::string errorTitle = "Error" + toString(myUpdatingElement ? "updating" : "creating") + " " + myEditedAdditional->getTagStr() + " of " + myEditedAdditional->getParentAdditionals().at(0)->getTagStr();
     std::string operationType = myEditedAdditional->getParentAdditionals().at(0)->getTagStr() + "'s " + myEditedAdditional->getTagStr() + " cannot be " + (myUpdatingElement ? "updated" : "created") + " because ";
     if (!myBeginEndValid) {
-        // write warning if netedit is running in testing mode
-        WRITE_DEBUG("Opening FXMessageBox of type 'warning'");
         // open warning Box
         FXMessageBox::warning(getApp(), MBOX_OK, errorTitle.c_str(), "%s", (operationType + myEditedAdditional->getTagStr() + " defined by " + toString(SUMO_ATTR_BEGIN) + " and " + toString(SUMO_ATTR_END) + " is invalid.").c_str());
-        // write warning if netedit is running in testing mode
-        WRITE_DEBUG("Closed FXMessageBox of type 'warning' with 'OK'");
         return 0;
     } else if (myClosingLaneReroutesEdited.empty() &&
                myClosingReroutesEdited.empty() &&
                myDestProbReroutesEdited.empty() &&
                myParkingAreaRerouteEdited.empty() &&
                myRouteProbReroutesEdited.empty()) {
-        // write warning if netedit is running in testing mode
-        WRITE_DEBUG("Opening FXMessageBox of type 'warning'");
         // open warning Box
         FXMessageBox::warning(getApp(), MBOX_OK, errorTitle.c_str(), "%s", (operationType + "at least one " + myEditedAdditional->getTagStr() + "'s element must be defined.").c_str());
-        // write warning if netedit is running in testing mode
-        WRITE_DEBUG("Closed FXMessageBox of type 'warning' with 'OK'");
         return 0;
     } else if ((myClosingLaneReroutesEdited.size() > 0) && (myClosingLaneReroutesValid == false)) {
-        // write warning if netedit is running in testing mode
-        WRITE_DEBUG("Opening FXMessageBox of type 'warning'");
         // open warning Box
         FXMessageBox::warning(getApp(), MBOX_OK, errorTitle.c_str(), "%s", (operationType + "there are invalid " + toString(SUMO_TAG_CLOSING_LANE_REROUTE) + "s.").c_str());
-        // write warning if netedit is running in testing mode
-        WRITE_DEBUG("Closed FXMessageBox of type 'warning' with 'OK'");
         return 0;
     } else if ((myClosingLaneReroutesEdited.size() > 0) && (myClosingReroutesValid == false)) {
-        // write warning if netedit is running in testing mode
-        WRITE_DEBUG("Opening FXMessageBox of type 'warning'");
         // open warning Box
         FXMessageBox::warning(getApp(), MBOX_OK, errorTitle.c_str(), "%s", (operationType + "there are invalid " + toString(SUMO_TAG_CLOSING_REROUTE) + "s.").c_str());
-        // write warning if netedit is running in testing mode
-        WRITE_DEBUG("Closed FXMessageBox of type 'warning' with 'OK'");
         return 0;
     } else if ((myDestProbReroutesEdited.size() > 0) && (myDestProbReroutesValid == false)) {
-        // write warning if netedit is running in testing mode
-        WRITE_DEBUG("Opening FXMessageBox of type 'warning'");
         // open warning Box
         FXMessageBox::warning(getApp(), MBOX_OK, errorTitle.c_str(), "%s", (operationType + "there are invalid " + toString(SUMO_TAG_PARKING_AREA_REROUTE) + "s.").c_str());
-        // write warning if netedit is running in testing mode
-        WRITE_DEBUG("Closed FXMessageBox of type 'warning' with 'OK'");
         return 0;
     } else if ((myParkingAreaRerouteEdited.size() > 0) && (myParkingAreaReroutesValid == false)) {
-        // write warning if netedit is running in testing mode
-        WRITE_DEBUG("Opening FXMessageBox of type 'warning'");
         // open warning Box
         FXMessageBox::warning(getApp(), MBOX_OK, errorTitle.c_str(), "%s", (operationType + "there are invalid " + toString(SUMO_TAG_DEST_PROB_REROUTE) + "s.").c_str());
-        // write warning if netedit is running in testing mode
-        WRITE_DEBUG("Closed FXMessageBox of type 'warning' with 'OK'");
         return 0;
     } else if ((myRouteProbReroutesEdited.size() > 0) && (myRouteProbReroutesValid == false)) {
-        // write warning if netedit is running in testing mode
-        WRITE_DEBUG("Opening FXMessageBox of type 'warning'");
         // open warning Box
         FXMessageBox::warning(getApp(), MBOX_OK, errorTitle.c_str(), "%s", (operationType + "there are invalid " + toString(SUMO_TAG_ROUTE_PROB_REROUTE) + "s.").c_str());
-        // write warning if netedit is running in testing mode
-        WRITE_DEBUG("Closed FXMessageBox of type 'warning' with 'OK'");
         return 0;
     } else {
         // accept changes before closing dialog

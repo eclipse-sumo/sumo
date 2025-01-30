@@ -94,22 +94,16 @@ GNENetHelper::AttributeCarriers::~AttributeCarriers() {
     // Drop EdgeTypes
     for (const auto& edgeType : myEdgeTypes) {
         edgeType.second->decRef("GNENetHelper::~GNENet");
-        // show extra information for tests
-        WRITE_DEBUG("Deleting unreferenced " + edgeType.second->getTagStr() + " '" + edgeType.second->getID() + "' in AttributeCarriers destructor");
         delete edgeType.second;
     }
     // Drop Edges
     for (const auto& edge : myEdges) {
         edge.second->decRef("GNENetHelper::~GNENet");
-        // show extra information for tests
-        WRITE_DEBUG("Deleting unreferenced " + edge.second->getTagStr() + " '" + edge.second->getID() + "' in AttributeCarriers destructor");
         delete edge.second;
     }
     // Drop myJunctions
     for (const auto& junction : myJunctions) {
         junction.second->decRef("GNENetHelper::~GNENet");
-        // show extra information for tests
-        WRITE_DEBUG("Deleting unreferenced " + junction.second->getTagStr() + " '" + junction.second->getID() + "' in AttributeCarriers destructor");
         delete junction.second;
     }
     // Drop Additionals (Only used for additionals that were inserted without using GNEChange_Additional)
@@ -117,8 +111,6 @@ GNENetHelper::AttributeCarriers::~AttributeCarriers() {
         for (const auto& additional : additionalTag.second) {
             // decrease reference manually (because it was increased manually in GNEAdditionalHandler)
             additional.second->decRef();
-            // show extra information for tests
-            WRITE_DEBUG("Deleting unreferenced " + additional.second->getTagStr() + " in AttributeCarriers destructor");
             delete additional.second;
         }
     }
@@ -127,15 +119,6 @@ GNENetHelper::AttributeCarriers::~AttributeCarriers() {
         for (const auto& demandElement : demandElementTag.second) {
             // decrease reference manually (because it was increased manually in GNERouteHandler)
             demandElement.second->decRef();
-            // show extra information for tests
-            if (demandElement.second->getTagProperty().isType()) {
-                // special case for default VTypes
-                if (DEFAULT_VTYPES.count(demandElement.second->getID()) == 0) {
-                    WRITE_DEBUG("Deleting unreferenced " + demandElement.second->getTagStr() + " in AttributeCarriers destructor");
-                }
-            } else {
-                WRITE_DEBUG("Deleting unreferenced " + demandElement.second->getTagStr() + " in AttributeCarriers destructor");
-            }
             delete demandElement.second;
         }
     }
@@ -143,8 +126,6 @@ GNENetHelper::AttributeCarriers::~AttributeCarriers() {
     for (const auto& dataSet : myDataSets) {
         // decrease reference manually (because it was increased manually in GNEDataHandler)
         dataSet.second->decRef();
-        // show extra information for tests
-        WRITE_DEBUG("Deleting unreferenced " + dataSet.second->getTagStr() + " in AttributeCarriers destructor");
         delete dataSet.second;
     }
     // Drop MeanDatas (Only used for meanDatas that were inserted without using GNEChange_MeanData)
@@ -152,8 +133,6 @@ GNENetHelper::AttributeCarriers::~AttributeCarriers() {
         for (const auto& meanData : meanDataTag.second) {
             // decrease reference manually (because it was increased manually in GNEMeanDataHandler)
             meanData.second->decRef();
-            // show extra information for tests
-            WRITE_DEBUG("Deleting unreferenced " + meanData.second->getTagStr() + " in AttributeCarriers destructor");
             delete meanData.second;
         }
     }

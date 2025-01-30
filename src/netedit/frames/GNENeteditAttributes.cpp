@@ -401,8 +401,6 @@ GNENeteditAttributes::onCmdHelp(FXObject*, FXSelector, void*) {
     new FXHorizontalFrame(myHorizontalFrameOKButton, GUIDesignAuxiliarHorizontalFrame);
     GUIDesigns::buildFXButton(myHorizontalFrameOKButton, TL("OK"), "", TL("close"), GUIIconSubSys::getIcon(GUIIcon::ACCEPT), additionalNeteditAttributesHelpDialog, FXDialogBox::ID_ACCEPT, GUIDesignButtonOK);
     new FXHorizontalFrame(myHorizontalFrameOKButton, GUIDesignAuxiliarHorizontalFrame);
-    // Write Warning in console if we're in testing mode
-    WRITE_DEBUG("Opening GNENeteditAttributes help dialog");
     // create Dialog
     additionalNeteditAttributesHelpDialog->create();
     // show in the given position
@@ -411,8 +409,6 @@ GNENeteditAttributes::onCmdHelp(FXObject*, FXSelector, void*) {
     getApp()->refresh();
     // open as modal dialog (will block all windows until stop() or stopModal() is called)
     getApp()->runModalFor(additionalNeteditAttributesHelpDialog);
-    // Write Warning in console if we're in testing mode
-    WRITE_DEBUG("Closing GNENeteditAttributes help dialog");
     return 1;
 }
 

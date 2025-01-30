@@ -327,8 +327,6 @@ GNEAttributesEditorRow::onCmdSetAttribute(FXObject* obj, FXSelector, void*) {
             if (newValue.empty()) {
                 myValueComboBox->setBackColor(TEXTCOLOR_BACKGROUND_RED);
             }
-            // Write Warning in console if we're in testing mode
-            WRITE_DEBUG(TLF("ComboBox value '%' for attribute % of % isn't valid", newValue, attrProperties.getAttrStr(), attrProperties.getTagPropertyParent().getTagStr()));
         }
     } else if (obj == myValueTextField) {
         // check if we're merging junction
@@ -377,8 +375,6 @@ GNEAttributesEditorRow::onCmdSetAttribute(FXObject* obj, FXSelector, void*) {
             if (newValue.empty()) {
                 myValueTextField->setBackColor(TEXTCOLOR_BACKGROUND_RED);
             }
-            // Write Warning in console if we're in testing mode
-            WRITE_DEBUG(TLF("TextField value '%' for attribute % of % isn't valid", newValue, attrProperties.getAttrStr(), attrProperties.getTagPropertyParent().getTagStr()));
         }
     }
     return 1;

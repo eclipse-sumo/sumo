@@ -522,7 +522,7 @@ GNEViewNet::updateObjectsInPosition(const Position& pos) {
 void
 GNEViewNet::updateObjectsInShape(const PositionVector& shape) {
     // triangulate shape
-    const auto triangles = Triangle::triangulate(shape); 
+    const auto triangles = Triangle::triangulate(shape);
     // clear post drawing elements
     gViewObjectsHandler.reset();
     // push matrix
@@ -531,7 +531,7 @@ GNEViewNet::updateObjectsInShape(const PositionVector& shape) {
     myVisualizationSettings->drawForViewObjectsHandler = true;
     myVisualizationSettings->drawForRectangleSelection = true;
     // draw all GL elements within the boundares formed by triangles
-    for (const auto &triangle : triangles) {
+    for (const auto& triangle : triangles) {
         gViewObjectsHandler.setSelectionTriangle(triangle);
         drawGLElements(triangle.getBoundary());
     }
@@ -905,25 +905,16 @@ GNEViewNet::askMergeJunctions(const GNEJunction* movedJunction, const GNEJunctio
     } else if (myNetworkViewOptions.menuCheckMergeAutomatically->amChecked()) {
         return true;
     } else {
-        WRITE_DEBUG("Opening FXMessageBox 'merge junctions'");
         // open question box
         const std::string header = TL("Confirm Junction Merger");
         const std::string body = (TLF("Do you wish to merge junctions '%' and '%'?\n('%' will be eliminated and its roads added to '%')", movedJunction->getMicrosimID(), targetJunction->getMicrosimID(), movedJunction->getMicrosimID(), targetJunction->getMicrosimID()));
         const FXuint answer = FXMessageBox::question(this, MBOX_YES_NO, header.c_str(), "%s", body.c_str());
         alreadyAsked = true;
         if (answer != 1) { //1:yes, 2:no, 4:esc
-            // write warning if netedit is running in testing mode
-            if (answer == 2) {
-                WRITE_DEBUG("Closed FXMessageBox 'merge junctions' with 'No'");
-            } else if (answer == 4) {
-                WRITE_DEBUG("Closed FXMessageBox 'merge junctions' with 'ESC'");
-            }
             return false;
         } else {
-            // write warning if netedit is running in testing mode
-            WRITE_DEBUG("Closed FXMessageBox 'merge junctions' with 'Yes'");
+            return true;
         }
-        return true;
     }
 }
 
@@ -1022,22 +1013,12 @@ GNEViewNet::restrictLane(GNELane* lane, SUMOVehicleClass vclass) {
             FXMessageBox::information(getApp(), MBOX_OK, header.c_str(), "%s", (body + toString(vclass) + ".").c_str());
             return 0;
         } else {
-            WRITE_DEBUG("Opening FXMessageBox 'restrict lanes'");
             // Ask confirmation to user
             const std::string header = TLF("Set vclass to % for selected lanes", toString(vclass));
             const std::string body = TLF("% lanes will be restricted to %. Continue?", toString(mapOfEdgesAndLanes.size() - counter), toString(vclass));
             FXuint answer = FXMessageBox::question(getApp(), MBOX_YES_NO, header.c_str(), "%s", body.c_str());
             if (answer != 1) { //1:yes, 2:no, 4:esc
-                // write warning if netedit is running in testing mode
-                if (answer == 2) {
-                    WRITE_DEBUG("Closed FXMessageBox 'restrict lanes' with 'No'");
-                } else if (answer == 4) {
-                    WRITE_DEBUG("Closed FXMessageBox 'restrict lanes' with 'ESC'");
-                }
                 return 0;
-            } else {
-                // write warning if netedit is running in testing mode
-                WRITE_DEBUG("Closed FXMessageBox 'restrict lanes' with 'Yes'");
             }
         }
         // begin undo operation
@@ -1096,22 +1077,12 @@ GNEViewNet::addRestrictedLane(GNELane* lane, SUMOVehicleClass vclass, const bool
             FXMessageBox::information(getApp(), MBOX_OK, header.c_str(), "%s", body.c_str());
             return 0;
         } else {
-            WRITE_DEBUG("Opening FXMessageBox 'restrict lanes'");
             // Ask confirmation to user
             const std::string header = TLF("Add vclass % to selected lanes", toString(vclass));
             const std::string body = TLF("% restrictions to % will be added. Continue?", toString(setOfEdges.size() - counter), toString(vclass));
             FXuint answer = FXMessageBox::question(getApp(), MBOX_YES_NO, header.c_str(), "%s", body.c_str());
             if (answer != 1) { //1:yes, 2:no, 4:esc
-                // write warning if netedit is running in testing mode
-                if (answer == 2) {
-                    WRITE_DEBUG("Closed FXMessageBox 'restrict lanes' with 'No'");
-                } else if (answer == 4) {
-                    WRITE_DEBUG("Closed FXMessageBox 'restrict lanes' with 'ESC'");
-                }
                 return 0;
-            } else {
-                // write warning if netedit is running in testing mode
-                WRITE_DEBUG("Closed FXMessageBox 'restrict lanes' with 'Yes'");
             }
         }
         // begin undo operation
@@ -1184,22 +1155,12 @@ GNEViewNet::removeRestrictedLane(GNELane* lane, SUMOVehicleClass vclass) {
             FXMessageBox::information(getApp(), MBOX_OK, header.c_str(), "%s", body.c_str());
             return 0;
         } else {
-            WRITE_DEBUG("Opening FXMessageBox 'restrict lanes'");
             // Ask confirmation to user
             const std::string header = TLF("Remove vclass % from selected lanes", toString(vclass));
             const std::string body = TLF("% restrictions to % will be removed. Continue?", toString(setOfEdges.size() - counter), toString(vclass));
             FXuint answer = FXMessageBox::question(getApp(), MBOX_YES_NO, header.c_str(), "%s", body.c_str());
             if (answer != 1) { //1:yes, 2:no, 4:esc
-                // write warning if netedit is running in testing mode
-                if (answer == 2) {
-                    WRITE_DEBUG("Closed FXMessageBox 'restrict lanes' with 'No'");
-                } else if (answer == 4) {
-                    WRITE_DEBUG("Closed FXMessageBox 'restrict lanes' with 'ESC'");
-                }
                 return 0;
-            } else {
-                // write warning if netedit is running in testing mode
-                WRITE_DEBUG("Closed FXMessageBox 'restrict lanes' with 'Yes'");
             }
         }
         // begin undo operation

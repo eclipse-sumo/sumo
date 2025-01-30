@@ -179,8 +179,6 @@ GNEAttributesCreator::showWarningMessage(std::string extra) const {
     }
     // set message in status bar
     myFrameParent->getViewNet()->setStatusBarText(errorMessage);
-    // Write Warning in console if we're in testing mode
-    WRITE_DEBUG(errorMessage);
 }
 
 

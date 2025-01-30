@@ -300,13 +300,9 @@ GUIMessageWindow::registerMsgHandlers() {
         // initialize only if registration is requested
         myMessageRetriever = new MsgOutputDevice(this, GUIEventType::MESSAGE_OCCURRED);
         myErrorRetriever = new MsgOutputDevice(this, GUIEventType::ERROR_OCCURRED);
-        myDebugRetriever = new MsgOutputDevice(this, GUIEventType::DEBUG_OCCURRED);
-        myGLDebugRetriever = new MsgOutputDevice(this, GUIEventType::GLDEBUG_OCCURRED);
         myWarningRetriever = new MsgOutputDevice(this, GUIEventType::WARNING_OCCURRED);
     }
     MsgHandler::getMessageInstance()->addRetriever(myMessageRetriever);
-    MsgHandler::getDebugInstance()->addRetriever(myDebugRetriever);
-    MsgHandler::getGLDebugInstance()->addRetriever(myGLDebugRetriever);
     MsgHandler::getErrorInstance()->addRetriever(myErrorRetriever);
     MsgHandler::getWarningInstance()->addRetriever(myWarningRetriever);
 }
@@ -315,8 +311,6 @@ GUIMessageWindow::registerMsgHandlers() {
 void
 GUIMessageWindow::unregisterMsgHandlers() {
     MsgHandler::getMessageInstance()->removeRetriever(myMessageRetriever);
-    MsgHandler::getDebugInstance()->removeRetriever(myDebugRetriever);
-    MsgHandler::getGLDebugInstance()->removeRetriever(myGLDebugRetriever);
     MsgHandler::getErrorInstance()->removeRetriever(myErrorRetriever);
     MsgHandler::getWarningInstance()->removeRetriever(myWarningRetriever);
 }

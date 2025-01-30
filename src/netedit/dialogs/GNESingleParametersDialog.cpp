@@ -412,8 +412,6 @@ GNESingleParametersDialog::ParametersOperations::onCmdHelpParameter(FXObject*, F
     new FXHorizontalFrame(myHorizontalFrameOKButton, GUIDesignAuxiliarHorizontalFrame);
     GUIDesigns::buildFXButton(myHorizontalFrameOKButton, TL("OK"), "", TL("close"), GUIIconSubSys::getIcon(GUIIcon::ACCEPT), ParameterHelpDialog, FXDialogBox::ID_ACCEPT, GUIDesignButtonOK);
     new FXHorizontalFrame(myHorizontalFrameOKButton, GUIDesignAuxiliarHorizontalFrame);
-    // Write Warning in console if we're in testing mode
-    WRITE_DEBUG("Opening Parameter help dialog");
     // create Dialog
     ParameterHelpDialog->create();
     // show in the given position
@@ -422,8 +420,6 @@ GNESingleParametersDialog::ParametersOperations::onCmdHelpParameter(FXObject*, F
     getApp()->refresh();
     // open as modal dialog (will block all windows until stop() or stopModal() is called)
     getApp()->runModalFor(ParameterHelpDialog);
-    // Write Warning in console if we're in testing mode
-    WRITE_DEBUG("Closing Parameter help dialog");
     return 1;
 }
 
@@ -576,20 +572,12 @@ GNESingleParametersDialog::onCmdAccept(FXObject*, FXSelector, void*) {
         // ignore last row
         if (parameterRow != myParametersValues->getParameterRows().back()) {
             if (parameterRow->keyField->getText().empty()) {
-                // write warning if netedit is running in testing mode
-                WRITE_DEBUG("Opening FXMessageBox of type 'warning'");
                 // open warning Box
                 FXMessageBox::warning(getApp(), MBOX_OK, "Empty Parameter key", "%s", "Parameters with empty keys aren't allowed");
-                // write warning if netedit is running in testing mode
-                WRITE_DEBUG("Closed FXMessageBox of type 'warning' with 'OK'");
                 return 1;
             } else if (!SUMOXMLDefinitions::isValidParameterKey(parameterRow->keyField->getText().text())) {
-                // write warning if netedit is running in testing mode
-                WRITE_DEBUG("Opening FXMessageBox of type 'warning'");
                 // open warning Box
                 FXMessageBox::warning(getApp(), MBOX_OK, "Invalid Parameter key", "%s", "There are keys with invalid characters");
-                // write warning if netedit is running in testing mode
-                WRITE_DEBUG("Closed FXMessageBox of type 'warning' with 'OK'");
                 return 1;
             }
             // insert in parameters
@@ -601,12 +589,8 @@ GNESingleParametersDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     // check if there is duplicated keys
     for (auto i = parameters.begin(); i != parameters.end(); i++) {
         if (((i + 1) != parameters.end()) && (i->first) == (i + 1)->first) {
-            // write warning if netedit is running in testing mode
-            WRITE_DEBUG("Opening FXMessageBox of type 'warning'");
             // open warning Box
             FXMessageBox::warning(getApp(), MBOX_OK, "Duplicated Parameters", "%s", "Parameters with the same Key aren't allowed");
-            // write warning if netedit is running in testing mode
-            WRITE_DEBUG("Closed FXMessageBox of type 'warning' with 'OK'");
             return 1;
         }
     }

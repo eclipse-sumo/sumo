@@ -86,8 +86,6 @@ GNEChange_Attribute::~GNEChange_Attribute() {
         myAC->decRef("GNEChange_Attribute " + toString(myKey));
         // remove if is unreferenced
         if (myAC->unreferenced()) {
-            // show extra information for tests
-            WRITE_DEBUG("Deleting unreferenced " + myAC->getTagStr() + " in GNEChange_Attribute");
             // delete AC
             delete myAC;
         }
@@ -97,8 +95,6 @@ GNEChange_Attribute::~GNEChange_Attribute() {
 
 void
 GNEChange_Attribute::undo() {
-    // show extra information for tests
-    WRITE_DEBUG("Restoring previous attribute"/* + toString(myKey)*/);
     // set original value
     myAC->setAttribute(myKey, myOrigValue);
     // certain attributes needs extra operations
@@ -131,8 +127,6 @@ GNEChange_Attribute::undo() {
 
 void
 GNEChange_Attribute::redo() {
-    // show extra information for tests
-    WRITE_DEBUG("Setting new attribute"/* + toString(myKey)*/);
     // set new value
     myAC->setAttribute(myKey, myNewValue);
     // certain attributes needs extra operations

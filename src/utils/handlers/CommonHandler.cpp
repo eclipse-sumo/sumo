@@ -67,7 +67,6 @@ CommonHandler::parseParameters(const SUMOSAXAttributes& attrs) {
         } else if (!SUMOXMLDefinitions::isValidParameterKey(key)) {
             writeError(TLF("Error parsing key from % generic parameter. Key contains invalid characters", parentTagStr));
         } else {
-            WRITE_DEBUG("Inserting generic parameter '" + key + "|" + value + "' into " + parentTagStr);
             // insert parameter in SumoBaseObjectParent
             SumoBaseObjectParent->addParameter(key, value);
         }

@@ -179,5 +179,5 @@ private:
     static std::map<std::string, std::string> myTypeStrings;
 
     /// @brief The instances of message retriever encapsulations
-    OutputDevice* myErrorRetriever, *myDebugRetriever, *myGLDebugRetriever, *myMessageRetriever, *myWarningRetriever;
+    OutputDevice* myErrorRetriever, *myMessageRetriever, *myWarningRetriever;
 };

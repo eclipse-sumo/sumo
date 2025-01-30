@@ -1729,24 +1729,14 @@ GNETAZFrame::dropTAZMembers() {
 
 bool
 GNETAZFrame::askCreateMultipleSourceSinks(const size_t numSourceSinks) const {
-    // write warning if netedit is running in testing mode
-    WRITE_DEBUG("Opening FXMessageBox 'Ask create multiple sourceSinks'");
     // open question dialog box
     const std::string header = TL("Create multiple sourceSinks");
     const std::string info = TLF("Creation of % cannot be undo. Continue?", toString(numSourceSinks));
     const auto answer = FXMessageBox::question(myViewNet->getApp(), MBOX_YES_NO, "%s", header.c_str(), "%s", info.c_str());
     if (answer != 1) { //1:yes, 2:no, 4:esc
-        // write warning if netedit is running in testing mode
-        if (answer == 2) {
-            WRITE_DEBUG("Closed FXMessageBox 'Ask create multiple sourceSinks' with 'No'");
-        } else if (answer == 4) {
-            WRITE_DEBUG("Closed FXMessageBox 'Ask create multiple sourceSinks' with 'ESC'");
-        }
         // abort recompute with volatile options
         return false;
     } else {
-        // write warning if netedit is running in testing mode
-        WRITE_DEBUG("Closed FXMessageBox 'Ask create multiple sourceSinks' with 'Yes'");
         return true;
     }
 }

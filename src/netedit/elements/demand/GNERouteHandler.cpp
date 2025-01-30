@@ -1651,12 +1651,8 @@ GNERouteHandler::transformToVehicle(GNEVehicle* originalVehicle, bool createEmbe
         const std::string header = "Problem transforming to vehicle";
         // declare message
         const std::string message = "Vehicle cannot be transformed. Invalid number of edges";
-        // write warning
-        WRITE_DEBUG("Opened FXMessageBox " + header);
         // open message box
         FXMessageBox::warning(originalVehicle->getNet()->getViewNet()->getApp(), MBOX_OK, header.c_str(), "%s", message.c_str());
-        // write warning if netedit is running in testing mode
-        WRITE_DEBUG("Closed FXMessageBox " + header);
     } else {
         // begin undo-redo operation
         net->getViewNet()->getUndoList()->begin(originalVehicle, "transform " + originalVehicle->getTagStr() + " to " + toString(SUMO_TAG_VEHICLE));
@@ -1733,12 +1729,8 @@ GNERouteHandler::transformToRouteFlow(GNEVehicle* originalVehicle, bool createEm
         const std::string header = "Problem transforming to vehicle";
         // declare message
         const std::string message = "Vehicle cannot be transformed. Invalid number of edges";
-        // write warning
-        WRITE_DEBUG("Opened FXMessageBox " + header);
         // open message box
         FXMessageBox::warning(originalVehicle->getNet()->getViewNet()->getApp(), MBOX_OK, header.c_str(), "%s", message.c_str());
-        // write warning if netedit is running in testing mode
-        WRITE_DEBUG("Closed FXMessageBox " + header);
     } else {
         // begin undo-redo operation
         net->getViewNet()->getUndoList()->begin(originalVehicle, "transform " + originalVehicle->getTagStr() + " to " + toString(SUMO_TAG_VEHICLE));
@@ -1820,12 +1812,8 @@ GNERouteHandler::transformToTrip(GNEVehicle* originalVehicle) {
         const std::string header = "Problem transforming to vehicle";
         // declare message
         const std::string message = "Vehicle cannot be transformed. Invalid number of edges";
-        // write warning
-        WRITE_DEBUG("Opened FXMessageBox " + header);
         // open message box
         FXMessageBox::warning(originalVehicle->getNet()->getViewNet()->getApp(), MBOX_OK, header.c_str(), "%s", message.c_str());
-        // write warning if netedit is running in testing mode
-        WRITE_DEBUG("Closed FXMessageBox " + header);
     } else {
         // begin undo-redo operation
         net->getViewNet()->getUndoList()->begin(originalVehicle, "transform " + originalVehicle->getTagStr() + " to " + toString(SUMO_TAG_TRIP));
@@ -1885,12 +1873,8 @@ GNERouteHandler::transformToFlow(GNEVehicle* originalVehicle) {
         const std::string header = "Problem transforming to vehicle";
         // declare message
         const std::string message = "Vehicle cannot be transformed. Invalid number of edges";
-        // write warning
-        WRITE_DEBUG("Opened FXMessageBox " + header);
         // open message box
         FXMessageBox::warning(originalVehicle->getNet()->getViewNet()->getApp(), MBOX_OK, header.c_str(), "%s", message.c_str());
-        // write warning if netedit is running in testing mode
-        WRITE_DEBUG("Closed FXMessageBox " + header);
     } else {
         // begin undo-redo operation
         net->getViewNet()->getUndoList()->begin(originalVehicle, "transform " + originalVehicle->getTagStr() + " to " + toString(SUMO_TAG_VEHICLE));
@@ -1937,12 +1921,8 @@ GNERouteHandler::transformToTripJunctions(GNEVehicle* originalVehicle) {
         const std::string header = "Problem transforming to trip over junctions";
         // declare message
         const std::string message = "Vehicle cannot be transformed. Invalid number of junctions";
-        // write warning
-        WRITE_DEBUG("Opened FXMessageBox " + header);
         // open message box
         FXMessageBox::warning(originalVehicle->getNet()->getViewNet()->getApp(), MBOX_OK, header.c_str(), "%s", message.c_str());
-        // write warning if netedit is running in testing mode
-        WRITE_DEBUG("Closed FXMessageBox " + header);
     } else {
         // get pointer to net
         GNENet* net = originalVehicle->getNet();
@@ -1981,12 +1961,8 @@ GNERouteHandler::transformToFlowJunctions(GNEVehicle* originalVehicle) {
         const std::string header = "Problem transforming to flow over junctions";
         // declare message
         const std::string message = "Vehicle cannot be transformed. Invalid number of junctions";
-        // write warning
-        WRITE_DEBUG("Opened FXMessageBox " + header);
         // open message box
         FXMessageBox::warning(originalVehicle->getNet()->getViewNet()->getApp(), MBOX_OK, header.c_str(), "%s", message.c_str());
-        // write warning if netedit is running in testing mode
-        WRITE_DEBUG("Closed FXMessageBox " + header);
     } else {
         // get pointer to net
         GNENet* net = originalVehicle->getNet();
@@ -2034,12 +2010,8 @@ GNERouteHandler::transformToTripTAZs(GNEVehicle* originalVehicle) {
         const std::string header = "Problem transforming to trip over TAZs";
         // declare message
         const std::string message = "Vehicle cannot be transformed. Invalid number of TAZs";
-        // write warning
-        WRITE_DEBUG("Opened FXMessageBox " + header);
         // open message box
         FXMessageBox::warning(originalVehicle->getNet()->getViewNet()->getApp(), MBOX_OK, header.c_str(), "%s", message.c_str());
-        // write warning if netedit is running in testing mode
-        WRITE_DEBUG("Closed FXMessageBox " + header);
     } else {
         // get pointer to net
         GNENet* net = originalVehicle->getNet();
@@ -2078,12 +2050,8 @@ GNERouteHandler::transformToFlowTAZs(GNEVehicle* originalVehicle) {
         const std::string header = "Problem transforming to flow over TAZs";
         // declare message
         const std::string message = "Vehicle cannot be transformed. Invalid number of TAZs";
-        // write warning
-        WRITE_DEBUG("Opened FXMessageBox " + header);
         // open message box
         FXMessageBox::warning(originalVehicle->getNet()->getViewNet()->getApp(), MBOX_OK, header.c_str(), "%s", message.c_str());
-        // write warning if netedit is running in testing mode
-        WRITE_DEBUG("Closed FXMessageBox " + header);
     } else {
         // get pointer to net
         GNENet* net = originalVehicle->getNet();

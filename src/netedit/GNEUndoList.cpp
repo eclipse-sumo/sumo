@@ -138,7 +138,6 @@ GNEUndoList::~GNEUndoList() {}
 
 void
 GNEUndoList::undo() {
-    WRITE_DEBUG("Calling GNEUndoList::undo()");
     GNEChange* change = nullptr;
     if (group) {
         throw ProcessError("GNEUndoList::undo() cannot call undo inside begin-end block");
@@ -163,7 +162,6 @@ GNEUndoList::undo() {
 
 void
 GNEUndoList::redo() {
-    WRITE_DEBUG("Calling GNEUndoList::redo()");
     GNEChange* change = nullptr;
     if (group) {
         throw ProcessError("GNEUndoList::redo() cannot call undo inside begin-end block");
