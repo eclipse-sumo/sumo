@@ -48,7 +48,8 @@ title: ChangeLog
   - Fixed bug where a vehicle steals another vehicles parking spot #15976
   - Fixed bug where parking egress is blocked after lane change #15757
   - Fixed missing XML validation for parking badges #16005
-  - Fixed undefined behavior when using options **--device.rerouting.threads** with **--weights.random-factor** #15994 
+  - Fixed undefined behavior when using options **--device.rerouting.threads** with **--weights.random-factor** #15994
+  - Option **--edgedata-output** now works when setting option **--begin** #16079
 
 - netedit
   - Fixed crash when moving a big selection #15132 (regression in 1.16.0)
@@ -107,6 +108,10 @@ title: ChangeLog
   - Selection mode function 'select parents' now selects incoming and outgoing lane of selected connections #15968
   - Fixed invalid weights loading values of TAZ source/sinks #16037
   - Fixed "freezing" when handling very large TAZ #15844
+  - Fixed bug when saving toolcfg where the tool uses positional arguments #16075
+  - Reloading a demand file now raises warnins rather than errors #16027
+  - Deleting one edge no longer removes crossings from other edges #16017
+  - Fixed selecting TAZ edges with a small selection #16100
   
 - sumo-gui
   - Fixed framerate drop when zoomed in very far #15666
@@ -116,7 +121,8 @@ title: ChangeLog
   - Fixed invalid travel time when computing pedestrian reachability in a non-pedestrian network #15792
   - Fixed invalid travel times when computing pedestrian and bicycle reachability #15793
   - Saving and loading of meso edge scaling scheme is now working #15902
-  - edgedata-file parsing no longer aborts after encountering a single non-numerical attribute #15903 
+  - edgedata-file parsing no longer aborts after encountering a single non-numerical attribute #15903
+  - The rainbow colorscheme is now properly stored in gui settings #16080
 
 - netconvert
   - Fixed invalid extra connections from edge where input specifies "no connections" #15944 (regression in 1.2.0)
@@ -127,23 +133,35 @@ title: ChangeLog
   - Fixed invalid linkState for left turns from the major road at junction type `allway_stop` #15737
   - Fixed invalid tlLogic after processing net with **--keep-edges** #15798
   - No longer building bicyle left turns from a straight-only vehicle lane (starting from a left-turn lane instead) #15943
-  - Fixed invalid handling of negative stop position in ptstop-files #12183 
+  - Fixed invalid handling of negative stop position in ptstop-files #12183
+  - Option **--sidewalks.guess.by-permissions** no longer puts sidewalks onto paths that are shared between pedestrians and bicycles #16060
+  - OSM: loading typemap *osmNetconvertPedestrians.typ.xml* no longer puts sidewalks on both sides of oneway streets (i.e. in the middle of a divided road). Legacy behavior can be restored with option **--osm.oneway-reverse-sidewalk** #16063
+  - OSM: fixed missing vehicle lane where access=yes and busway:right=lane #16061
+  - OSM: fixed missing stops in ptline-output #16101
+  - OSM: fixed missing bus direction at oneway street with `oneway:psv=no` #16103  
 
 - duarouter
   - Fixed crash when using stop with coordinates and option **--mapmatch.junctions** #15740
   - Fixed invalid use of taz information when coordinates are defined for a trip #15768
   - Fixed invalid route in a network with connection permissions but no other permissions #15925
-  - Fixed invalid precision with **--write-costs** #15938 
+  - Fixed invalid precision with **--write-costs** #15938
+  - Fixed crash when loading flows with particular combinaion of IDs #16091
 
 - marouter
   - Fixed invalid route involving vClass-restricted connection #15883
     
+- netgenerate
+  - No longer hangs when setting option **--rand.connectivity 1** #16089
+
 - meso
-  - fixed invalid queue assignment for turning vehicles #16034 (regression in 1.7.0)
+  - Fixed gridlocks in roundabouts #14129 (regression in 1.4.0)
+  - Fixed invalid queue assignment for turning vehicles #16034 (regression in 1.7.0)  
   - Fixed crash when using **--mapmatch.junctions** in a network with internal edges #15741
   - Fixed crash when using **--time-to-teleport.disconnected** #15751
   - Option **--time-to-teleport.disconnected** is now working when connections are missing #15777
-  - Fixed crash when rendering vehicle at parkingArea #15956 
+  - Fixed crash when rendering vehicle at parkingArea #15956
+  - Fixed missing waitingTime in edgeData output #16082
+
 
 - activitygen
   - fixed crash when attribute is not set #15782 
@@ -158,7 +176,9 @@ title: ChangeLog
   - subscribing to complex types now works with the python API #15785
   - Concurrent access to libsumo now works #15967
   - moveToXY now works on parked vehicles #16010
-  - When setting option **--keep-after-arrival**, vehicles that were affected by moveToXY while parking are no longer drawn after arrival. #16009 
+  - When setting option **--keep-after-arrival**, vehicles that were affected by moveToXY while parking are no longer drawn after arrival. #16009
+  - Fixed result of `simulaton.convertRoad` when adjacent lanes have different widths #16105
+  - Fixed missing collision check between cars and remote-controlled pedestrian #16092
  
 - Tools
   - matsim_importPlans.py: no longer writes unsorted trips with option **-vehicles-only** #15743
@@ -169,11 +189,16 @@ title: ChangeLog
   - sumolib: Can now set a new attribute in sumolib.xml element #15991 
   - sumolib.xml: Fixed bug where parse_fast retrieves wrong attribute if one attribute is the end-suffix of another attribute #15901 
   - randomTrips.py: option **--fringe-factor** now works in lefthand networks #15876
-  - randomTrips.py: Options **--random-departpos** and **--random-arrivalpos** now take effect for persons #15946 
+  - randomTrips.py: Options **--random-departpos** and **--random-arrivalpos** now take effect for persons #15946   
   - routeSampler.py: fixed crash when loading negative counts #15908
   - gtfs2pt.py: Import now works when optional 'direction_id' is missing #15736
   - Empty strings can now be passed via tool config file #15499
-  - tracemapper.py No longer creates routes with the same edge repeated over and over #15625 
+  - tracemapper.py No longer creates routes with the same edge repeated over and over #15625
+  - osmWebWizard.py: Dunkirk no longer gets imported with lefthand traffic #16059
+  - Fixed saving of toolconfig for jtcrouter.py,plotFlows.py,signal_POIs_from_xodr.py,tripinfoByTAZ.py and tripinfoDiff.py #16085
+  - osmGet.py: fixed missing public transport stops (also affects osmWebWizard.py) #16106
+
+
     
 ### Enhancements
 
@@ -219,7 +244,9 @@ title: ChangeLog
   - Undo-redo functionality can now optionally be disabled to improve operational speed #15663
   - Undo-redo functionality can now be temporary disabled while loading a file to improve loading speed #15668
   - Improved visibility of short edges #15592
-  - The route for inspected vehicles is now highlighted #15930 
+  - The route for inspected vehicles is now highlighted #15930
+  - Added 62 python tools to the menu #16076
+
  
 - sumo-gui
   - The value of SUMO_HOME is now shown in the *About Dialog* (also for netedit) #15218
@@ -236,10 +263,14 @@ title: ChangeLog
   - Actuated pedestrian crossings are now actuated by pedestrians rather than vehicles #7637
   - Pedestrian crossings created by option **--crossings.guess** are now given priority. The old behavior can be obtained by setting option **--crossings.guess.roundabout-priority false** #15833
   - Option **--plain-output-prefix** now also saves a *.netccfg*-file for rebuilding the network from plain-xml files #12998
-  - Improved geometry of pedestrian crossings when a footpath crosses a road #15975 
+  - Improved geometry of pedestrian crossings when a footpath crosses a road #15975
+  - Removed warning about sharp angles on service roads #16062
+  - OSM: busways are now imported #16090
 
 - meso
   - fcd-output can now be configured to include model attributes *segment, queue, entryTime, eventTime* and *blockTime* #15670
+  - Vehicle attribute `insertionChecks="none"` can now force insertion #16096
+
  
 - duarouter
   - The input file for ALT-landmarks can now be defined with geo-coordinates #15855
@@ -256,8 +287,7 @@ title: ChangeLog
 - Tools
   - matsim_importPlans.py: Added options **-no-bikes** and **--no-rides** for filtering different modes of traffic. #15738
   - sort_routes.py: Added option **--verbose** #15744
-  - osmWebWizard.py: optionally can write output to existing folders #15783
-  - countEdgeUsage.py: Now issues a warning when encountering attributes fromJunction or toJunction #15804
+  - osmWebWizard.py: optionally can write output to existing folders #15783  
   - emissionsMap: Now supports options **--vtype** and **--additional-files** #15812
   - driveways2poly.py: Added new tool for visualizing train driveways #15027
   - dxf2jupedsim.py: now supports projection 'none'
@@ -268,26 +298,31 @@ title: ChangeLog
   - randomTrips.py: Added option **--edge-type-file** for affecting probabilities by edge type #15877
   - randomTrips.py: Added option **--marouter** to write routes which take into account traffic load on the network #15881
   - randomTrips.py: option **--flows** can now be used together with **--pedestrians** or **--persontrips** to create personFlows #12791
-  - randomTrips.py: Added option **--poisson** to generate poisson-distributed flows (with option **--flows**) #13178 
-  - edgeDataDiff.py: Added option **--attributes** to allow comparing files with differing attribute names #15898
+  - randomTrips.py: Added option **--poisson** to generate poisson-distributed flows (with option **--flows**) #13178   
   - routeStats.py: Added option **--edges-file** for counting the number of times per route that a specific edge (i.e. a counting) location was passed) #15900
   - routeSampler.py: Added option **--verbose.timing** to print wall-clock-time performance statistics #15910
   - routeSampler.py: Major increase in processing speed for long routes #15911
   - routeSampler.py: Added option **--depart-distribution** to distribute departures within the counting data intervals #15909
   - routeSampler.py: now warn about duplicate counting data #15997
   - routeSampler.py: now includes GEH in mismatch-output #16000
-  - routeSampler.py: Added option **--geh-scale** to permit custom scaling for GEH value (i.e. to avoid averaging daily counts over 24 hours) #16001
+  - routeSampler.py: Added option **--geh-scale** to permit custom scaling for GEH value (i.e. to avoid averaging daily counts over 24 hours) #16001  
+  - routeSampler.py: Options that set attributse to parse (i.e. **--edgedata-attribute**) now support a list of comma separated attributs (values are added) #16020
   - edgeDataDiff.py: Added option **--geh-scale** to permit custom scaling for GEH value and otherwise scaling data to hourly values automatically #16002
-  - routeSampler.py: Options that set attributse to parse (i.e. **--edgedata-attribute**) now support a list of comma separated attributs (values are added) #16020 
+  - edgeDataDiff.py: Added option **--attributes** to allow comparing files with differing attribute names #15898
   - xml2csv.py: Added option **--keep-attributes** to limit the attributes exported to csv #15915
   - plotXMLAttributes.py: Added options **--split-x** and **--split-y** for plotting attributes with list values #15934
   - sumolib: Geometry helper functions for rotation at offset is now available #15445
   - duaIterate.py: When loading trips with taz or junction-taz, vehicles may change their depart and arrival edge in each iteration #15983
   - filterDistricts.py: New options **--remove-ids** and **--remove-ids-file** allow filtering out explicit edges #16038
+  - countEdgeUsage.py: Now issues a warning when encountering attributes fromJunction or toJunction #15804
   - countEdgeUsage.py: print output on number loaded / filtered routes when option **--verbose** is set #16040
   - countEdgeUsage.py: New option **--subpart.via** allow filtering subparts with gaps (i.e. via edges) #16041
   - netdiff.py: Modified file edges for generated polygons to simplify file filtering in netedit #16042
   - poly2edgedata.py: Added new tool to transform traffic data from polygons (i.e. from geojson) to edgedata (i.e. for routeSampler.py) #16051
+  - edgesInDistrict.py: now supports .xml.gz inputs #16066
+  - edgeDepartDelay.py: New tool for edge-wise analysis of departDelay from tripinfo-output #16021
+  - geoTrip2POI.py: New for visualizing geoTrips #16028
+
 
 ### Miscellaneous
 
