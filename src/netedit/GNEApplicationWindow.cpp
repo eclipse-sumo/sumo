@@ -2231,7 +2231,7 @@ GNEApplicationWindow::onCmdToggleEditOptions(FXObject* sender, FXSelector sel, v
         int numericalKeyPressed = sel - FXSEL(SEL_COMMAND, MID_HOTKEY_ALT_0_TOGGLEEDITOPTION) - 1;
         // check that numericalKeyPressed is valid
         if ((numericalKeyPressed < 0) || (numericalKeyPressed > 10)) {
-            return 1;
+            return 0;
         }
         // declare a vector in which save visible menu commands
         std::vector<MFXCheckableButton*> visibleMenuCommands;
@@ -2241,21 +2241,21 @@ GNEApplicationWindow::onCmdToggleEditOptions(FXObject* sender, FXSelector sel, v
         myViewNet->getDataViewOptions().getVisibleDataMenuCommands(visibleMenuCommands);
         // now check that numericalKeyPressed isn't greater than visible view options
         if (numericalKeyPressed >= (int)visibleMenuCommands.size()) {
-            return 1;
+            return 0;
         }
         // toggle edit options
         if (GNEApplicationWindowHelper::toggleEditOptionsNetwork(myViewNet,
-                visibleMenuCommands.at(numericalKeyPressed), numericalKeyPressed, sender, sel)) {
+                visibleMenuCommands.at(numericalKeyPressed), sender, sel)) {
             return 1;
         } else if (GNEApplicationWindowHelper::toggleEditOptionsDemand(myViewNet,
-                   visibleMenuCommands.at(numericalKeyPressed), numericalKeyPressed, sender, sel)) {
+                   visibleMenuCommands.at(numericalKeyPressed), sender, sel)) {
             return 1;
         } else if (GNEApplicationWindowHelper::toggleEditOptionsData(myViewNet,
-                   visibleMenuCommands.at(numericalKeyPressed), numericalKeyPressed, sender, sel)) {
+                   visibleMenuCommands.at(numericalKeyPressed), sender, sel)) {
             return 1;
         }
     }
-    return 1;
+    return 0;
 }
 
 

@@ -299,7 +299,6 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
             bool ok;
             const std::vector<std::string>& vehIDs = attrs.get<std::vector<std::string> >(SUMO_ATTR_VALUE, nullptr, ok, false);
             std::vector<SUMOVehicle*> vehs;
-            MSVehicleControl& vc = MSNet::getInstance()->getVehicleControl();
             for (const std::string& id : vehIDs) {
                 SUMOVehicle* v = vc.getVehicle(id);
                 // vehicle could be removed due to options

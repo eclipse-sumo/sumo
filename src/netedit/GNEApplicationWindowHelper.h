@@ -1167,15 +1167,15 @@ struct GNEApplicationWindowHelper {
 
     /// @brief toggle edit options Network menu commands (called in GNEApplicationWindow::onCmdToggleEditOptions)
     static bool toggleEditOptionsNetwork(GNEViewNet* viewNet, const MFXCheckableButton* menuCheck,
-                                         const int numericalKeyPressed, FXObject* obj, FXSelector sel);
+                                         FXObject* obj, FXSelector sel);
 
     /// @brief toggle edit options Demand menu commands (called in GNEApplicationWindow::onCmdToggleEditOptions)
     static bool toggleEditOptionsDemand(GNEViewNet* viewNet, const MFXCheckableButton* menuCheck,
-                                        const int numericalKeyPressed, FXObject* obj, FXSelector sel);
+                                        FXObject* obj, FXSelector sel);
 
     /// @brief toggle edit options Data menu commands (called in GNEApplicationWindow::onCmdToggleEditOptions)
     static bool toggleEditOptionsData(GNEViewNet* viewNet, const MFXCheckableButton* menuCheck,
-                                      const int numericalKeyPressed, FXObject* obj, FXSelector sel);
+                                      FXObject* obj, FXSelector sel);
 
     /// @brief check if a string ends with another string
     static bool stringEndsWith(const std::string& str, const std::string& suffix);
