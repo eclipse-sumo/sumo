@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-01-06 11:22+0100\n"
-"PO-Revision-Date: 2025-01-30 12:17+0000\n"
+"PO-Revision-Date: 2025-01-31 12:28+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -4690,55 +4690,68 @@ msgstr ""
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:145
 msgid "Invalid device.stationfinder.rescueAction '%'."
-msgstr ""
+msgstr "Parametro invalido device.stationfinder.rescueAction '%'."
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:161
 msgid ""
 "Vehicle '%' searches for charging stations only in the rescue case due to "
 "search threshold % <= rescue threshold %."
 msgstr ""
+"Il veicolo '%' cerca delle stazioni di ricarica solamente nel caso di "
+"emergenza dovuto alla soglia di ricerca % <= soglia di emergenza %."
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:166
 msgid ""
 "Vehicle '%' won't do opportunistic charging as the threshold % is too close "
 "to the regular one %."
 msgstr ""
+"Il veicolo '%' non caricherà per motivi opportunistici perché il valore "
+"soglia % è troppo vicino a quello regolare %."
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:208
 msgid ""
 "Rerouted vehicle '%' after waiting too long at the previous charging station "
 "at time=%."
 msgstr ""
+"Il veicolo '%' è stato instradato di nuovo alle ore % dopo aver aspettato "
+"troppo a lungo davanti alla previa stazione di ricarica."
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:253
 msgid ""
 "Vehicle '%' wants to stop on lane % at pos % because of low battery charge % "
 "at time=%."
 msgstr ""
+"Il veicolo '%' vuole fermarsi sulla corsia % alla posizione % a causa della "
+"bassa carica della batteria % alle ore %."
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:487
 msgid "Problem with inserting the charging station stop for vehicle %."
 msgstr ""
+"Problema all'inserimento della fermata alla stazione di carica per veicolo %."
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:507
 msgid ""
 "Vehicle '%' wants to charge at time=% but does not find any charging station "
 "nearby."
 msgstr ""
+"Il veicolo '%' vuole caricare alle ore % ma non trova nessuna stazione di "
+"ricarica nei dintorni."
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:579
 msgid ""
 "There is no charging station available to teleport the vehicle '%' to at "
 "time=%. Thus the vehicle will be removed."
 msgstr ""
+"Non c'è nessuna stazione di ricarica disponibile dove teletrasportare il "
+"veicolo '%' alle ore %. Perciò il veicolo verrà rimosso."
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:699
 msgid "The charging rate limit of vehicle '%' is lifted at time=%"
-msgstr ""
+msgstr "Il limite della rata di carga del veicolo '%' è sbloccato alle ore %"
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:701
 msgid "The charging rate of vehicle '%' is limited to % at time=%"
-msgstr ""
+msgstr "La rata di carga del veicolo '%' viene limitato a % alle ore %"
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:765
 msgid "Parameter '%' is not supported for device of type '%'"
