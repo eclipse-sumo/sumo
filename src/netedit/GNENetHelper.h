@@ -848,8 +848,16 @@ struct GNENetHelper {
     class SavingStatus {
 
     public:
+        /// @brief enum used to keep the result of ask about saving elements
+        enum class AskSaving {
+            CONTINUE,   // nothing to save
+            SAVE,       // save elements
+            DISCARD,    // discard saving
+            ABORT,      // abort saving
+        };
+
         /// @brief constructor
-        SavingStatus();
+        SavingStatus(GNENet* net);
 
         /// @name SumoConfig
         /// @{
@@ -977,7 +985,30 @@ struct GNENetHelper {
 
         /// @}
 
+        /// @name function to ask if save elements before close/quit
+        /// @{
+
+        /// @brief warns about unsaved changes in network and gives the user the option to abort
+        AskSaving askSaveNetwork() const;
+
+        /// @brief warns about unsaved changes in additionals and gives the user the option to abort
+        AskSaving askSaveAdditionalElements() const;
+
+        /// @brief warns about unsaved changes in demand elements and gives the user the option to abort
+        AskSaving askSaveDemandElements() const;
+
+        /// @brief warns about unsaved changes in data elements and gives the user the option to abort
+        AskSaving askSaveDataElements() const;
+
+        /// @brief warns about unsaved changes in meanData elements and gives the user the option to abort
+        AskSaving askSaveMeanDataElements() const;
+
+        /// @}
+
     private:
+        /// @brief pointer to net
+        GNENet* myNet;
+
         /// @brief flag for SumoConfigSumoConfig saved
         bool mySumoConfigSaved = true;
 
@@ -1004,6 +1035,9 @@ struct GNENetHelper {
 
         /// @brief flag for meanData elements saved
         bool myMeanDataElementSaved = true;
+
+        /// @brief invalidate default constructor
+        SavingStatus() = delete;
 
         /// @brief Invalidated copy constructor.
         SavingStatus(const SavingStatus&) = delete;

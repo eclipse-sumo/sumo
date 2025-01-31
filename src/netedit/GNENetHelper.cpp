@@ -44,8 +44,10 @@
 #include <netedit/frames/network/GNECreateEdgeFrame.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
+#include <utils/gui/globjects/GUISaveDialog.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/xml/NamespaceIDs.h>
+
 
 #include "GNENetHelper.h"
 
@@ -2745,7 +2747,8 @@ GNENetHelper::AttributeCarriers::updateDemandElementFrames(const GNETagPropertie
 // GNENetHelper::SavingStatus - methods
 // ---------------------------------------------------------------------------
 
-GNENetHelper::SavingStatus::SavingStatus() {
+GNENetHelper::SavingStatus::SavingStatus(GNENet* net) :
+    myNet(net) {
 }
 
 
@@ -2924,6 +2927,121 @@ GNENetHelper::SavingStatus::meanDatasSaved() {
 bool
 GNENetHelper::SavingStatus::isMeanDatasSaved() const {
     return myMeanDataElementSaved;
+}
+
+
+GNENetHelper::SavingStatus::AskSaving
+GNENetHelper::SavingStatus::askSaveNetwork() const {
+    // Check if there are non saved network elements
+    if (myNetworkSaved) {
+        return AskSaving::CONTINUE;
+    } else {
+        // open question box
+        const std::string header = TL("Confirm close Network");
+        const std::string contentsA = TL("You have unsaved changes in the network.");
+        const std::string contentsB = TL("Do you wish to close and discard all changes?");
+        const auto answer = GUISaveDialog::question(myNet->getApp(), header.c_str(), "%s", (contentsA + "\n" + contentsB).c_str());
+        // continue depending of answer
+        if (answer == GUISaveDialog::CLICKED_DISCARD) {
+            return AskSaving::DISCARD;
+        } else if (answer == GUISaveDialog::CLICKED_SAVE) {
+            return AskSaving::SAVE;
+        } else {
+            return AskSaving::ABORT;
+        }
+    }
+}
+
+
+GNENetHelper::SavingStatus::AskSaving
+GNENetHelper::SavingStatus::askSaveAdditionalElements() const {
+    // Check if there are non saved additional elements
+    if (myAdditionalSaved) {
+        return AskSaving::CONTINUE;
+    } else {
+        // open question box
+        const std::string header = TL("Save additional elements before close");
+        const std::string contentsA = TL("You have unsaved additional elements.");
+        const std::string contentsB = TL("Do you wish to close and discard all changes?");
+        const auto answer = GUISaveDialog::question(myNet->getApp(), header.c_str(), "%s", (contentsA + "\n" + contentsB).c_str());
+        // continue depending of answer
+        if (answer == GUISaveDialog::CLICKED_DISCARD) {
+            return AskSaving::DISCARD;
+        } else if (answer == GUISaveDialog::CLICKED_SAVE) {
+            return AskSaving::SAVE;
+        } else {
+            return AskSaving::ABORT;
+        }
+    }
+}
+
+
+GNENetHelper::SavingStatus::AskSaving
+GNENetHelper::SavingStatus::askSaveDemandElements() const {
+    // Check if there are non saved demand elements
+    if (myDemandElementSaved) {
+        return AskSaving::CONTINUE;
+    } else {
+        // open question box
+        const std::string header = TL("Save demand elements before close");
+        const std::string contentsA = TL("You have unsaved demand elements.");
+        const std::string contentsB = TL("Do you wish to close and discard all changes?");
+        const auto answer = GUISaveDialog::question(myNet->getApp(), header.c_str(), "%s", (contentsA + "\n" + contentsB).c_str());
+        // continue depending of answer
+        if (answer == GUISaveDialog::CLICKED_DISCARD) {
+            return AskSaving::DISCARD;
+        } else if (answer == GUISaveDialog::CLICKED_SAVE) {
+            return AskSaving::SAVE;
+        } else {
+            return AskSaving::ABORT;
+        }
+    }
+}
+
+
+GNENetHelper::SavingStatus::AskSaving
+GNENetHelper::SavingStatus::askSaveDataElements() const {
+    // Check if there are non saved data elements
+    if (myDataElementSaved) {
+        return AskSaving::CONTINUE;
+    } else {
+        // open question box
+        const std::string header = TL("Save data elements before close");
+        const std::string contentsA = TL("You have unsaved data elements.");
+        const std::string contentsB = TL("Do you wish to close and discard all changes?");
+        const auto answer = GUISaveDialog::question(myNet->getApp(), header.c_str(), "%s", (contentsA + "\n" + contentsB).c_str());
+        // continue depending of answer
+        if (answer == GUISaveDialog::CLICKED_DISCARD) {
+            return AskSaving::DISCARD;
+        } else if (answer == GUISaveDialog::CLICKED_SAVE) {
+            return AskSaving::SAVE;
+        } else {
+            return AskSaving::ABORT;
+        }
+    }
+}
+
+
+GNENetHelper::SavingStatus::AskSaving
+GNENetHelper::SavingStatus::askSaveMeanDataElements() const {
+    // Check if there are non saved mean data elements
+    if (myMeanDataElementSaved) {
+        return AskSaving::CONTINUE;
+    } else {
+        // open question box
+        const std::string header = TL("Save meanData elements before close");
+        const std::string contentsA = TL("You have unsaved meanData elements.");
+        const std::string contentsB = TL("Do you wish to close and discard all changes?");
+        const auto answer = GUISaveDialog::question(myNet->getApp(), header.c_str(), "%s", (contentsA + "\n" + contentsB).c_str());
+        // continue depending of answer
+        if (answer == GUISaveDialog::CLICKED_DISCARD) {
+            return AskSaving::DISCARD;
+        } else if (answer == GUISaveDialog::CLICKED_SAVE) {
+            return AskSaving::SAVE;
+        } else {
+            return AskSaving::ABORT;
+        }
+    }
 }
 
 // ---------------------------------------------------------------------------

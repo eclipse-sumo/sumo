@@ -648,7 +648,7 @@ GNEApplicationWindow::~GNEApplicationWindow() {
 
 long
 GNEApplicationWindow::onCmdQuit(FXObject*, FXSelector, void*) {
-    if (continueWithUnsavedChanges()) {
+    if (askSaveElements()) {
         storeWindowSizeAndPos();
         getApp()->reg().writeStringEntry("SETTINGS", "basedir", gCurrentFolder.text());
         if (isMaximized()) {
@@ -1116,7 +1116,7 @@ long
 GNEApplicationWindow::onCmdClose(FXObject*, FXSelector, void*) {
     if (myViewNet == nullptr) {
         return 1;
-    } else if (continueWithUnsavedChanges()) {
+    } else if (askSaveElements()) {
         closeAllWindows();
         // add a separator to the log
         myMessageWindow->addSeparator();
@@ -4299,151 +4299,48 @@ GNEApplicationWindow::onCmdSaveMeanDatasAs(FXObject* sender, FXSelector sel, voi
 
 
 bool
-GNEApplicationWindow::continueWithUnsavedChanges() {
-    if (continueWithUnsavedNetworkChanges() &&
-            continueWithUnsavedAdditionalChanges() &&
-            continueWithUnsavedDemandElementChanges() &&
-            continueWithUnsavedDataElementChanges() &&
-            continueWithUnsavedMeanDataElementChanges()) {
+GNEApplicationWindow::askSaveElements() {
+    if (myNet) {
+        const auto saveNetwork = myNet->getSavingStatus()->askSaveNetwork();
+        const auto saveAdditionalElements = myNet->getSavingStatus()->askSaveAdditionalElements();
+        const auto saveDemandElements = myNet->getSavingStatus()->askSaveDemandElements();
+        const auto saveDataElements = myNet->getSavingStatus()->askSaveDataElements();
+        const auto saveMeanDataElements = myNet->getSavingStatus()->askSaveMeanDataElements();
+        // first check if abort saving
+        if ((saveNetwork == GNENetHelper::SavingStatus::AskSaving::ABORT) ||
+                (saveAdditionalElements == GNENetHelper::SavingStatus::AskSaving::ABORT) ||
+                (saveDemandElements == GNENetHelper::SavingStatus::AskSaving::ABORT) ||
+                (saveDataElements == GNENetHelper::SavingStatus::AskSaving::ABORT) ||
+                (saveMeanDataElements == GNENetHelper::SavingStatus::AskSaving::ABORT)) {
+            return false;
+        }
+        // save every type of file
+        if ((saveNetwork == GNENetHelper::SavingStatus::AskSaving::SAVE) &&
+                (onCmdSaveNetwork(nullptr, 0, nullptr) != 1)) {
+            return false;
+        }
+        if ((saveAdditionalElements == GNENetHelper::SavingStatus::AskSaving::SAVE) &&
+                (onCmdSaveAdditionals(nullptr, 0, nullptr) != 1)) {
+            return false;
+        }
+        if ((saveDemandElements == GNENetHelper::SavingStatus::AskSaving::SAVE) &&
+                (onCmdSaveDemandElements(nullptr, 0, nullptr) != 1)) {
+            return false;
+        }
+        if ((saveDataElements == GNENetHelper::SavingStatus::AskSaving::SAVE) &&
+                (onCmdSaveDataElements(nullptr, 0, nullptr) != 1)) {
+            return false;
+        }
+        if ((saveMeanDataElements == GNENetHelper::SavingStatus::AskSaving::SAVE) &&
+                (onCmdSaveMeanDatas(nullptr, 0, nullptr) != 1)) {
+            return false;
+        }
         // clear undo list
         clearUndoList();
+        // all saved, then continue
         return true;
     } else {
-        return false;
-    }
-}
-
-
-bool
-GNEApplicationWindow::continueWithUnsavedNetworkChanges() {
-    if (myNet && !myNet->getSavingStatus()->isNetworkSaved()) {
-        // write warning if netedit is running in testing mode
-        // open question box
-        const std::string header = TL("Confirm close Network");
-        const std::string contentsA = TL("You have unsaved changes in the network.");
-        const std::string contentsB = TL("Do you wish to close and discard all changes?");
-        const auto answer = GUISaveDialog::question(getApp(), header.c_str(), "%s", (contentsA + "\n" + contentsB).c_str());
-        // if user close dialog box, check additionals and demand elements
-        if (answer == GUISaveDialog::CLICKED_DISCARD) {
-            // nothing to save, return true
-            return true;
-        } else if (answer == GUISaveDialog::CLICKED_SAVE) {
-            // return true if was sucessfully saved
-            return (onCmdSaveNetwork(nullptr, 0, nullptr) == 1);
-        } else {
-            // return false to stop closing/reloading
-            return false;
-        }
-    } else {
-        // nothing to save, return true
-        return true;
-    }
-}
-
-
-bool
-GNEApplicationWindow::continueWithUnsavedAdditionalChanges() {
-    // Check if there are non saved additionals
-    if (myNet && !myNet->getSavingStatus()->isAdditionalsSaved()) {
-        // open question box
-        const std::string header = TL("Save additional elements before close");
-        const std::string contentsA = TL("You have unsaved additional elements.");
-        const std::string contentsB = TL("Do you wish to close and discard all changes?");
-        const auto answer = GUISaveDialog::question(getApp(), header.c_str(), "%s", (contentsA + "\n" + contentsB).c_str());
-        // if answer was affirmative, but there was an error during saving additionals, return false to stop closing/reloading
-        if (answer == GUISaveDialog::CLICKED_DISCARD) {
-            // nothing to save, return true
-            return true;
-        } else if (answer == GUISaveDialog::CLICKED_SAVE) {
-            // return true if was sucessfully saved
-            return (onCmdSaveAdditionals(nullptr, 0, nullptr) == 1);
-        } else {
-            // abort saving
-            return false;
-        }
-    } else {
-        // nothing to save, return true
-        return true;
-    }
-}
-
-
-bool
-GNEApplicationWindow::continueWithUnsavedDemandElementChanges() {
-    // Check if there are non saved demand elements
-    if (myNet && !myNet->getSavingStatus()->isDemandElementsSaved()) {
-        // open question box
-        const std::string header = TL("Save demand elements before close");
-        const std::string contentsA = TL("You have unsaved demand elements.");
-        const std::string contentsB = TL("Do you wish to close and discard all changes?");
-        const auto answer = GUISaveDialog::question(getApp(), header.c_str(), "%s", (contentsA + "\n" + contentsB).c_str());
-        // if answer was affirmative, but there was an error during saving demand elements, return false to stop closing/reloading
-        if (answer == GUISaveDialog::CLICKED_DISCARD) {
-            // nothing to save, return true
-            return true;
-        } else if (answer == GUISaveDialog::CLICKED_SAVE) {
-            // return true if was sucessfully saved
-            return (onCmdSaveDemandElements(nullptr, MID_GNE_AUTOMATICFILENAME, nullptr) == 1);
-        } else {
-            // abort saving
-            return false;
-        }
-    } else {
-        // nothing to save, return true
-        return true;
-    }
-}
-
-
-bool
-GNEApplicationWindow::continueWithUnsavedDataElementChanges() {
-    // Check if there are non saved data elements
-    if (myNet && !myNet->getSavingStatus()->isDataElementsSaved()) {
-        // open question box
-        const std::string header = TL("Save data elements before close");
-        const std::string contentsA = TL("You have unsaved data elements.");
-        const std::string contentsB = TL("Do you wish to close and discard all changes?");
-        const auto answer = GUISaveDialog::question(getApp(), header.c_str(), "%s", (contentsA + "\n" + contentsB).c_str());
-        // if answer was affirmative, but there was an error during saving data elements, return false to stop closing/reloading
-        if (answer == GUISaveDialog::CLICKED_DISCARD) {
-            // nothing to save, return true
-            return true;
-        } else if (answer == GUISaveDialog::CLICKED_SAVE) {
-            // return true if was sucessfully saved
-            return (onCmdSaveDataElements(nullptr, MID_GNE_AUTOMATICFILENAME, nullptr) == 1);
-        } else {
-            // abort saving
-            return false;
-        }
-    } else {
-        // nothing to save, return true
-        return true;
-    }
-}
-
-
-bool
-GNEApplicationWindow::continueWithUnsavedMeanDataElementChanges() {
-    // Check if there are non saved data elements
-    if (myNet && !myNet->getSavingStatus()->isMeanDatasSaved()) {
-        // open question box
-        const std::string header = TL("Save meanData elements before close");
-        const std::string contentsA = TL("You have unsaved meanData elements.");
-        const std::string contentsB = TL("Do you wish to close and discard all changes?");
-        const auto answer = GUISaveDialog::question(getApp(), header.c_str(), "%s", (contentsA + "\n" + contentsB).c_str());
-        // if answer was affirmative, but there was an error during saving meanData elements, return false to stop closing/reloading
-        if (answer == GUISaveDialog::CLICKED_DISCARD) {
-            // nothing to save, return true
-            return true;
-        } else if (answer == GUISaveDialog::CLICKED_SAVE) {
-            // return true if was sucessfully saved
-            return (onCmdSaveMeanDatas(nullptr, MID_GNE_AUTOMATICFILENAME, nullptr) == 1);
-        } else {
-            // abort saving
-            return false;
-        }
-    } else {
-        // nothing to save, return true
+        // nothing to do, then continue
         return true;
     }
 }
