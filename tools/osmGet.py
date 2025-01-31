@@ -87,7 +87,6 @@ def readCompressed(options, conn, urlpath, query, roadTypesJSON, getShapes, file
         regvQueryString = '<has-kv k="public_transport" modv="" regv="."/>'
         queryStringNode.append(commonQueryStringNode % (regvQueryString, query))
 
-
     if queryStringNode and getShapes:
         unionQueryString = """
     <union into="nodesBB">
