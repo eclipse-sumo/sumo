@@ -1,6 +1,6 @@
 Warning: Ambiguity in turnarounds computation at junction '1644613975'.
 Warning: Found sharp turn with radius 5.47 at the end of edge '-204836052'.
-Warning: Found angle of 124.67 degrees at edge '-26637317', segment 0.
+Warning: Found angle of 121.61 degrees at edge '-741297440', segment 0.
 Warning: Shape for junction '246767394' has distance 84.10 to its given position.
 Warning: Converting invalid rail_crossing to priority junction '7076971117'.
 Warning: Converting invalid rail_crossing to traffic_light at junction '7465967492'.
@@ -11,8 +11,8 @@ Warning: 51 total messages of type: Ambiguity in turnarounds computation at junc
 Warning: 2 total messages of type: Converting invalid rail_crossing to priority junction '%'.
 Warning: 2 total messages of type: Converting invalid rail_crossing to traffic_light at junction '%'.
 Warning: 2 total messages of type: Edge '%' is not connected to outgoing edges at junction '%'.
-Warning: 30 total messages of type: Found angle of % degrees at edge '%', segment %.
-Warning: 85 total messages of type: Found sharp turn with radius % at the % of edge '%'.
+Warning: 12 total messages of type: Found angle of % degrees at edge '%', segment %.
+Warning: 20 total messages of type: Found sharp turn with radius % at the % of edge '%'.
 Warning: 3 total messages of type: Lane '%' is not connected from any incoming edge at junction '%'.
 Warning: 3 total messages of type: Shape for junction '%' has distance % to its given position.
 Warning: 4 total messages of type: The rail crossing '%' does not have any roads.
