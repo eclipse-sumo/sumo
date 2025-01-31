@@ -96,9 +96,9 @@ ROMARouteHandler::myEndElement(int element) {
                 if (myVehicleParameter->repetitionNumber != std::numeric_limits<int>::max()) {
                     flowSize = myVehicleParameter->repetitionNumber;
                 } else if (myVehicleParameter->poissonRate > 0) {
-                    flowSize = flowDur * myVehicleParameter->poissonRate;
+                    flowSize = (int)(flowDur * myVehicleParameter->poissonRate);
                 } else if (myVehicleParameter->repetitionProbability > 0) {
-                    flowSize = flowDur * myVehicleParameter->repetitionProbability;
+                    flowSize = (int)(flowDur * myVehicleParameter->repetitionProbability);
                 }
                 quota = (int)(flowSize * myScale + 0.5);
                 myNumLoaded += flowSize;
