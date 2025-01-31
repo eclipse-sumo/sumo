@@ -521,31 +521,36 @@ GNEViewNet::updateObjectsInPosition(const Position& pos) {
 
 void
 GNEViewNet::updateObjectsInShape(const PositionVector& shape) {
-    // triangulate shape
-    const auto triangles = Triangle::triangulate(shape);
-    // clear post drawing elements
-    gViewObjectsHandler.reset();
-    // push matrix
-    GLHelper::pushMatrix();
-    // enable draw for object under cursor and rectangle selection
-    myVisualizationSettings->drawForViewObjectsHandler = true;
-    myVisualizationSettings->drawForRectangleSelection = true;
-    // draw all GL elements within the boundares formed by triangles
-    for (const auto& triangle : triangles) {
-        gViewObjectsHandler.setSelectionTriangle(triangle);
-        drawGLElements(triangle.getBoundary());
+    if (shape.size() == 1) {
+        // if our shape has only one ponit, use updateObjectsInPosition
+        updateObjectsInPosition(shape.front());
+    } else if (shape.size() > 1) {
+        // triangulate shape
+        const auto triangles = Triangle::triangulate(shape);
+        // clear post drawing elements
+        gViewObjectsHandler.reset();
+        // push matrix
+        GLHelper::pushMatrix();
+        // enable draw for object under cursor and rectangle selection
+        myVisualizationSettings->drawForViewObjectsHandler = true;
+        myVisualizationSettings->drawForRectangleSelection = true;
+        // draw all GL elements within the boundares formed by triangles
+        for (const auto& triangle : triangles) {
+            gViewObjectsHandler.setSelectionTriangle(triangle);
+            drawGLElements(triangle.getBoundary());
+        }
+        // restore draw for object under cursor
+        myVisualizationSettings->drawForViewObjectsHandler = false;
+        myVisualizationSettings->drawForRectangleSelection = false;
+        // pop matrix
+        GLHelper::popMatrix();
+        // check if update front elements
+        for (const auto& AC : myMarkFrontElements.getACs()) {
+            gViewObjectsHandler.updateFrontObject(AC->getGUIGlObject());
+        }
+        // after draw elements, update objects under cursor
+        myViewObjectsSelector.updateObjects();
     }
-    // restore draw for object under cursor
-    myVisualizationSettings->drawForViewObjectsHandler = false;
-    myVisualizationSettings->drawForRectangleSelection = false;
-    // pop matrix
-    GLHelper::popMatrix();
-    // check if update front elements
-    for (const auto& AC : myMarkFrontElements.getACs()) {
-        gViewObjectsHandler.updateFrontObject(AC->getGUIGlObject());
-    }
-    // after draw elements, update objects under cursor
-    myViewObjectsSelector.updateObjects();
 }
 
 
