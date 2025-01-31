@@ -64,4 +64,4 @@ netedit.saveNetwork(True, referencePosition)
 netedit.saveAdditionalElements(True, referencePosition)
 
 # quit netedit without saving demand
-netedit.quit(neteditProcess, False, False, False, False, True, False)
+netedit.quit(neteditProcess, True, True, True, True, True, True, True, True, True, False)

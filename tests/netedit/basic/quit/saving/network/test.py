@@ -32,8 +32,10 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.createEdgeMode()
 
 # Create two nodes
-netedit.leftClick(referencePosition, netedit.positions.tmp)
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.left)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.right)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.right)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.left)
 
 # go to additional mode
 netedit.additionalMode()
@@ -42,7 +44,7 @@ netedit.additionalMode()
 netedit.changeElement("busStop")
 
 # create busStop in mode "reference left"
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.center, offsetY=20)
 
 # go to demand mode
 netedit.supermodeDemand()
@@ -51,17 +53,25 @@ netedit.supermodeDemand()
 netedit.routeMode()
 
 # create route using three edges
-netedit.leftClick(referencePosition, netedit.positions.tmp)
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.center, offsetY=20)
 
 # press enter to create route
 netedit.typeEnter()
 
-# save additionals
-netedit.saveAdditionalElements(True, referencePosition)
+# Go to data supermode
+netedit.supermodeData()
 
-# save routes
-netedit.saveDemandElements(True, referencePosition)
+# change to edgeData
+netedit.edgeData()
 
-# quit netedit without saving demand
-netedit.quit(neteditProcess, True, False, False, False, False, False)
+# create dataSet
+netedit.createDataSet()
+
+# create data interval
+netedit.createDataInterval()
+
+# create edgeData
+netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.center, offsetY=20)
+
+# quit netedit without saving
+netedit.quit(neteditProcess, True, True, True, False, True, False, True, False, True, False)

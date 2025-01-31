@@ -74,4 +74,4 @@ netedit.createDataInterval()
 netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.center, offsetY=20)
 
 # quit netedit without saving
-netedit.quit(neteditProcess, True, False, True, False, True, True, True, False)
+netedit.quit(neteditProcess, True, True, True, True, True, False, True, True, True, True)
