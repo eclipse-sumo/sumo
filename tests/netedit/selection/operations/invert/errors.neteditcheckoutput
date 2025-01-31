@@ -1,2 +1,4 @@
+Warning: No flow intervals in calibrator 'ca_5'.
+Warning: No flow intervals in calibrator 'ca_6'.
 Error: Source taz 'taz_3' has no outgoing edges for trip 't_2'!
 Quitting (on error).
