@@ -4335,6 +4335,8 @@ GNEApplicationWindow::askSaveElements() {
                 (onCmdSaveMeanDatas(nullptr, 0, nullptr) != 1)) {
             return false;
         }
+        // restore focus in viewNet
+        myViewNet->setFocus();
         // clear undo list
         clearUndoList();
         // all saved, then continue
