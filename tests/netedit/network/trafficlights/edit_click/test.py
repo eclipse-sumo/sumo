@@ -39,11 +39,8 @@ netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.ce
 # create TLS
 netedit.createTLS()
 
-# obtain clicked position
-clickedPosition = [referencePosition[0] + 466, referencePosition[1] + 227]
-
 # click relative to offset
-pyautogui.rightClick(clickedPosition)
+netedit.rightClick(referencePosition, netedit.positions.network.TLS.edit)
 
 # place cursor over first operation
 for _ in range(7):

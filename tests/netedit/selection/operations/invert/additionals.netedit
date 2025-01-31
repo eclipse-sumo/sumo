@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-08-07 15:11:10 by Eclipse SUMO netedit Version v1_20_0+1549-9bd79766fae
+<!-- generated on 2025-01-31 14:29:26 by Eclipse SUMO netedit Version v1_21_0+2158-12882272e49
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,6 +14,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- Calibrators -->
+    <calibrator id="ca_5" lane="-E9_1" pos="1.00"/>
+    <calibrator id="ca_6" lane="E12_1" pos="1.00"/>
     <!-- StoppingPlaces -->
     <busStop id="bs_0" lane="-E1_1" startPos="4.80" endPos="14.80" lines="line1">
         <access lane="-E1_0" pos="19.80"/>
@@ -46,6 +49,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <poly id="po_1" color="red" fill="1" layer="0.00" shape="8.000000,12.000000 8.000000,8.000000 12.000000,8.000000 12.000000,12.000000 8.000000,12.000000"/>
     <poly id="po_2" color="red" fill="1" layer="0.00" shape="8.000000,-8.000000 8.000000,-12.000000 12.000000,-12.000000 12.000000,-8.000000 8.000000,-8.000000"/>
     <poly id="po_3" color="red" fill="1" layer="0.00" shape="-8.000000,-8.000000 -12.000000,-8.000000 -12.000000,-12.000000 -8.000000,-12.000000 -8.000000,-8.000000"/>
+    <poi id="poi_4" color="red" layer="202.00" lane="E0_1" pos="20.80"/>
+    <poi id="poi_5" color="red" layer="202.00" lane="-E0_1" pos="1.80"/>
+    <poi id="poi_6" color="red" layer="202.00" lane="-E1_1" pos="1.80"/>
+    <poi id="poi_7" color="red" layer="202.00" lane="E1_1" pos="20.80"/>
     <!-- TAZs -->
     <taz id="taz_0" shape="-18.00,-14.00 -18.00,-16.00 -8.00,-16.00 -8.00,-14.00 -18.00,-14.00" fill="1" color="green"/>
     <taz id="taz_1" shape="8.00,-14.00 8.00,-16.00 18.00,-16.00 18.00,-14.00 8.00,-14.00" fill="1" color="green"/>

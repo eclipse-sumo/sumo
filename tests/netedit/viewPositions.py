@@ -329,6 +329,13 @@ class network:
             x = 750
             y = 270
 
+    # TLS
+    class TLS:
+
+        class edit:
+            x = 447
+            y = 225
+
 
 class elements:
 
