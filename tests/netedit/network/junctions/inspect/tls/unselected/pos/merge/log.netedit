@@ -1,13 +1,2 @@
 Warning: Intersecting left turns at junction 'JunctionRight' from lane 'E6_1' and lane '-E3_0' (increase junction radius to avoid this).
-Warning: Invalid pedestrian topology: crossing ':JunctionCenter_c0' across [E4] has no target.
-Warning: Invalid pedestrian topology: crossing ':JunctionCenter_c0' across [E4] has no target.
-Warning: Invalid pedestrian topology: crossing ':JunctionCenter_c0' across [E4] has no target.
-Warning: Invalid pedestrian topology: crossing ':JunctionCenter_c0' across [E4] has no target.
-Warning: Invalid pedestrian topology at junction 'JunctionCenter'; crossing ':JunctionCenter_c0' starts and ends at walkingarea ':JunctionCenter_w0'.
 Warning: Intersecting left turns at junction 'JunctionRight' from lane 'E6_1' and lane '-E3_0' (increase junction radius to avoid this).
-Warning: Invalid pedestrian topology at junction 'JunctionCenter'; crossing ':JunctionCenter_c0' starts and ends at walkingarea ':JunctionCenter_w0'.
-Warning: Invalid pedestrian topology: crossing ':JunctionCenter_c0' across [E4] has no target.
-Warning: Intersecting left turns at junction 'JunctionRight' from lane 'E6_1' and lane '-E3_0' (increase junction radius to avoid this).
-Warning: Intersecting left turns at junction 'JunctionRight' from lane 'E6_1' and lane '-E3_0' (increase junction radius to avoid this).
-Warning: Intersecting left turns at junction 'JunctionRight' from lane 'E6_1' and lane '-E3_0' (increase junction radius to avoid this).
-Warning: 10 total messages of type: Invalid pedestrian topology: crossing '%' across [%] has no target.

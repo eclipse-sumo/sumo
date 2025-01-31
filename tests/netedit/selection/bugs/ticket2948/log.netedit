@@ -2,10 +2,10 @@ Warning: The traffic light 'J0' does not control any links; it will not be build
 Warning: Could not build program '0' for traffic light 'J0'
 Warning: The traffic light 'J3' does not control any links; it will not be build.
 Warning: Could not build program '0' for traffic light 'J3'
-Warning: Cannot restore attribute 'selected=true' for computed connection from lane '-E1_0'
+Warning: Cannot restore attribute 'selected=true' for computed connection from lane '-E2_0'
 Warning: Cannot restore attribute 'selected=true' for computed connection from lane 'E0_0'
 Warning: Cannot restore attribute 'selected=true' for computed connection from lane 'E1_0'
-Warning: Cannot restore attribute 'selected=true' for computed connection from lane '-E2_0'
+Warning: Cannot restore attribute 'selected=true' for computed connection from lane '-E1_0'
 Warning: The traffic light 'J0' does not control any links; it will not be build.
 Warning: Could not build program '0' for traffic light 'J0'
 Warning: The traffic light 'J3' does not control any links; it will not be build.
