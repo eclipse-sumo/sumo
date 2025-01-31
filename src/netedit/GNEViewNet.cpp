@@ -5199,8 +5199,12 @@ GNEViewNet::deleteNetworkAttributeCarrier(const GNEAttributeCarrier* AC) {
     } else if (AC->getTagProperty().isAdditionalElement()) {
         // get additional Element (note: could be already removed if is a child, then hardfail=false)
         GNEAdditional* additionalElement = myNet->getAttributeCarriers()->retrieveAdditional(AC->getGUIGlObject(), false);
+        // try to conver to TAZSourceSink (because it requieres their own delete function)
+        GNETAZSourceSink* TAZSourceSink = dynamic_cast<GNETAZSourceSink*>(additionalElement);
         // if exist, remove it
-        if (additionalElement) {
+        if (TAZSourceSink) {
+            myNet->deleteTAZSourceSink(TAZSourceSink, myUndoList);
+        } else if (additionalElement) {
             myNet->deleteAdditional(additionalElement, myUndoList);
         }
     }
