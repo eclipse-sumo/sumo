@@ -36,7 +36,7 @@ DELAY_DRAGDROP = 3
 DELAY_KEY_TAB = 0.2
 DELAY_MOUSE_MOVE = 0.5
 DELAY_MOUSE_CLICK = 1
-DELAY_QUESTION = 1
+DELAY_QUESTION = 2
 DELAY_SAVING = 1
 DELAY_RELOAD = 3
 DELAY_QUIT_NETEDIT = 5
@@ -658,19 +658,20 @@ def setViewport(zoom, x, y, z, r):
 
 def waitQuestion(answer):
     """
-    @brief wait question of Netedit and select a yes/no answer
+    @brief wait question of Netedit and select a yes/no answer (by default yes)
     """
     # wait some second to question dialog
     time.sleep(DELAY_QUESTION)
-    # Answer can be "y" or "n"
-    typeTwoKeys('alt', answer)
+    if (answer == 'n'):
+        typeTab()
+    typeSpace()
 
 
-def reload(NeteditProcess, openNetNonSavedDialog=False, saveNet=False,
-           openAdditionalsNonSavedDialog=False, saveAdditionalElements=False,
-           openDemandNonSavedDialog=False, saveDemandElements=False,
-           openDataNonSavedDialog=False, saveDataElements=False,
-           openMeanDataNonSavedDialog=False, saveMeanDataElements=False):
+def reload(NeteditProcess, openNetDialog=False, saveNet=False,
+           openAdditionalDialog=False, saveAdditionalElements=False,
+           openDemandDialog=False, saveDemandElements=False,
+           openDataDialog=False, saveDataElements=False,
+           openMeanDataDialog=False, saveMeanDataElements=False):
     """
     @brief reload Netedit
     """
@@ -679,47 +680,35 @@ def reload(NeteditProcess, openNetNonSavedDialog=False, saveNet=False,
     # reload using hotkey
     typeTwoKeys('ctrl', 'r')
     # Check if net must be saved
-    if openNetNonSavedDialog:
-        # Wait some seconds
-        time.sleep(DELAY_QUESTION)
+    if openNetDialog:
         if saveNet:
             waitQuestion('s')
-        # wait for log
-            time.sleep(DELAY_RECOMPUTE)
         else:
-            waitQuestion('d')
+            waitQuestion('n')
     # Check if additionals must be saved
-    if openAdditionalsNonSavedDialog:
-        # Wait some seconds
-        time.sleep(DELAY_QUESTION)
+    if openAdditionalDialog:
         if saveAdditionalElements:
             waitQuestion('s')
         else:
-            waitQuestion('d')
+            waitQuestion('n')
     # Check if demand elements must be saved
-    if openDemandNonSavedDialog:
-        # Wait some seconds
-        time.sleep(DELAY_QUESTION)
+    if openDemandDialog:
         if saveDemandElements:
             waitQuestion('s')
         else:
-            waitQuestion('d')
+            waitQuestion('n')
     # Check if data elements must be saved
-    if openDataNonSavedDialog:
-        # Wait some seconds
-        time.sleep(DELAY_QUESTION)
+    if openDataDialog:
         if saveDataElements:
             waitQuestion('s')
         else:
-            waitQuestion('d')
+            waitQuestion('n')
     # Check if meanData elements must be saved
-    if openMeanDataNonSavedDialog:
-        # Wait some seconds
-        time.sleep(DELAY_QUESTION)
+    if openMeanDataDialog:
         if saveMeanDataElements:
             waitQuestion('s')
         else:
-            waitQuestion('d')
+            waitQuestion('n')
     # Wait some seconds
     time.sleep(DELAY_RELOAD)
     # check if Netedit was crashed during reloading
@@ -727,11 +716,11 @@ def reload(NeteditProcess, openNetNonSavedDialog=False, saveNet=False,
         print("TestFunctions: Error reloading Netedit")
 
 
-def quit(NeteditProcess, openNetNonSavedDialog=False, saveNet=False,
-         openAdditionalsNonSavedDialog=False, saveAdditionalElements=False,
-         openDemandNonSavedDialog=False, saveDemandElements=False,
-         openDataNonSavedDialog=False, saveDataElements=False,
-         openMeanDataNonSavedDialog=False, saveMeanDataElements=False):
+def quit(NeteditProcess, openNetDialog=False, saveNet=False,
+         openAdditionalDialog=False, saveAdditionalElements=False,
+         openDemandDialog=False, saveDemandElements=False,
+         openDataDialog=False, saveDataElements=False,
+         openMeanDataDialog=False, saveMeanDataElements=False):
     """
     @brief quit Netedit
     """
@@ -745,47 +734,35 @@ def quit(NeteditProcess, openNetNonSavedDialog=False, saveNet=False,
         # quit using hotkey
         typeTwoKeys('ctrl', 'q')
         # Check if net must be saved
-        if openNetNonSavedDialog:
-            # Wait some seconds
-            time.sleep(DELAY_QUESTION)
+        if openNetDialog:
             if saveNet:
                 waitQuestion('s')
-                # wait for log
-                time.sleep(DELAY_RECOMPUTE)
             else:
-                waitQuestion('d')
+                waitQuestion('n')
         # Check if additionals must be saved
-        if openAdditionalsNonSavedDialog:
-            # Wait some seconds
-            time.sleep(DELAY_QUESTION)
+        if openAdditionalDialog:
             if saveAdditionalElements:
                 waitQuestion('s')
             else:
-                waitQuestion('d')
+                waitQuestion('n')
         # Check if demand elements must be saved
-        if openDemandNonSavedDialog:
-            # Wait some seconds
-            time.sleep(DELAY_QUESTION)
+        if openDemandDialog:
             if saveDemandElements:
                 waitQuestion('s')
             else:
-                waitQuestion('d')
+                waitQuestion('n')
         # Check if data elements must be saved
-        if openDataNonSavedDialog:
-            # Wait some seconds
-            time.sleep(DELAY_QUESTION)
+        if openDataDialog:
             if saveDataElements:
                 waitQuestion('s')
             else:
-                waitQuestion('d')
+                waitQuestion('n')
         # Check if meanData elements must be saved
-        if openMeanDataNonSavedDialog:
-            # Wait some seconds
-            time.sleep(DELAY_QUESTION)
+        if openMeanDataDialog:
             if saveMeanDataElements:
                 waitQuestion('s')
             else:
-                waitQuestion('q')
+                waitQuestion('n')
         # wait some seconds for netedit to quit
         if hasattr(subprocess, "TimeoutExpired"):
             try:

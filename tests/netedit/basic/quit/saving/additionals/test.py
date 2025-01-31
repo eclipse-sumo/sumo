@@ -73,5 +73,11 @@ netedit.createDataInterval()
 # create edgeData
 netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.center, offsetY=20)
 
+# change to edgeData
+netedit.meanData()
+
+# create mean data
+netedit.createMeanData()
+
 # quit netedit without saving
 netedit.quit(neteditProcess, True, False, True, True, True, False, True, False, True, False)
