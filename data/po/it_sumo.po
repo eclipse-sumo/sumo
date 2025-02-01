@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-01-06 11:22+0100\n"
-"PO-Revision-Date: 2025-01-31 12:28+0000\n"
+"PO-Revision-Date: 2025-02-02 15:02+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -5068,16 +5068,18 @@ msgstr ""
 
 #: src/microsim/devices/MSTransportableDevice_Routing.cpp:48
 msgid "The period with which the person shall be rerouted"
-msgstr ""
+msgstr "L'intervallo con il quale la persona deve essere instradata"
 
 #: src/microsim/devices/MSTransportableDevice_Routing.cpp:54
 msgid ""
 "Which part of the person plan is to be replaced (stage, sequence, or trip)"
-msgstr ""
+msgstr "La parte del piano di persona da sostituire (tratto, sequenza o corsa)"
 
 #: src/microsim/engine/VehicleEngineHandler.cpp:157
 msgid "Invalid engine map type. Only \"poly\" is supported for now"
 msgstr ""
+"Tipo di mappatura del motore invalido. Per il momento solamente \"poly\" è "
+"supportato"
 
 #: src/microsim/engine/VehicleEngineHandler.cpp:197
 msgid "Unknown tag '%' while parsing."
@@ -5100,12 +5102,17 @@ msgid ""
 "No valid detector length and start position given. Assuming startPos = 0 and "
 "length = end position"
 msgstr ""
+"Non sono state indicate una lunghezza di rivelatore e la sua posizione "
+"iniziale valide. Si suppone startPos = 0 e length = posizione finale"
 
 #: src/microsim/output/MSE2Collector.cpp:128
 msgid ""
 "No valid detector length and end position given. Assuming endPos = lane "
 "length and length = endPos-startPos"
 msgstr ""
+"Non sono state indicate una lunghezza di rivelatore e la sua posizione "
+"finale valide. Si suppone endPos = lunghezza della corsia e length = endPos-"
+"startPos"
 
 #: src/microsim/output/MSE2Collector.cpp:908
 msgid "Multi-lane e2Detector does not support detecting persons yet"
