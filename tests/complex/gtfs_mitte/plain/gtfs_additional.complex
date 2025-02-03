@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-01-27 07:28:20.714661 by gtfs2pt.py v1_21_0+2034-2ccd653df30
+<!-- generated on 2025-02-03 08:55:17.308151 by gtfs2pt.py v1_21_0+2164-d60de2bb194
 <configuration>
     <gtfs value="data/GTFS_VBB_Mitte_20190713.zip"/>
     <date value="20190713"/>
@@ -665,7 +665,7 @@
         <access friendlyPos="true" lane="375901774#1_0" pos="0.00" length="42.67"/>
         <access friendlyPos="true" lane="375901784_0" pos="0.20" length="44.35"/>
     </busStop>
-    <busStop id="114262208.6" lane="1132164217#5_0" startPos="70.29" endPos="83.28" friendlyPos="true" name="U Stadtmitte/Leipziger Str. (Berlin)">
+    <busStop id="114262208.6" lane="1132163645#9_0" startPos="70.29" endPos="83.28" friendlyPos="true" name="U Stadtmitte/Leipziger Str. (Berlin)">
         <access friendlyPos="true" lane="1072685603#0_0" pos="0.00" length="26.01"/>
         <access friendlyPos="true" lane="1073015932#2_0" pos="169.88" length="27.25"/>
         <access friendlyPos="true" lane="199847265_0" pos="128.44" length="96.28"/>
@@ -682,7 +682,7 @@
         <access friendlyPos="true" lane="272757341#2_0" pos="0.20" length="5.02"/>
         <access friendlyPos="true" lane="272757342#1_0" pos="10.46" length="15.24"/>
     </busStop>
-    <busStop id="114262390.3" lane="-1132164282_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="U Stadtmitte/Leipziger Str. (Berlin)">
+    <busStop id="114262390.3" lane="-1132163645#10_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="U Stadtmitte/Leipziger Str. (Berlin)">
         <access friendlyPos="true" lane="1072685603#0_0" pos="0.00" length="26.01"/>
         <access friendlyPos="true" lane="1073015932#2_0" pos="169.88" length="27.25"/>
         <access friendlyPos="true" lane="199847265_0" pos="128.44" length="96.28"/>
