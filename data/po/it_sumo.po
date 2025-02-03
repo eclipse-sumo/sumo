@@ -783,14 +783,16 @@ msgid "Routing algorithm '%' does not support restriction-params"
 msgstr "L'algoritmo di instradamento '%' non supporta parametri di restrizione"
 
 #: src/duarouter/duarouter_main.cpp:165 src/marouter/marouter_main.cpp:180
+#: src/duarouter/duarouter_main.cpp:166
 msgid "Unknown routing Algorithm '%'!"
 msgstr "Algoritmo di instradamento sconosciuto '%'!"
 
 #: src/duarouter/duarouter_main.cpp:192 src/marouter/marouter_main.cpp:210
+#: src/duarouter/duarouter_main.cpp:193
 msgid "No weight data was loaded for attribute '%'."
 msgstr "I dati di peso non sono stati caricati per l'attributo '%'."
 
-#: src/duarouter/duarouter_main.cpp:229
+#: src/duarouter/duarouter_main.cpp:229 src/duarouter/duarouter_main.cpp:230
 msgid ""
 "Shortest path router and DUE computer for the microscopic, multi-modal "
 "traffic simulation SUMO."
@@ -916,14 +918,14 @@ msgstr ""
 msgid "This system has no OpenGL support. Exiting."
 msgstr "Questo sistema non sostiene OpenGL. Uscita."
 
-#: src/libsumo/Helper.cpp:911
+#: src/libsumo/Helper.cpp:911 src/libsumo/Helper.cpp:910
 #, c-format
 msgid ""
 "Ignoring veh '%' no-opposite subscription filter for geographic range object "
 "collection. Consider using the 'lanes' filter."
 msgstr ""
 
-#: src/libsumo/Helper.cpp:1074
+#: src/libsumo/Helper.cpp:1074 src/libsumo/Helper.cpp:1073
 msgid ""
 "Lanes filter is only feasible for context domain 'vehicle' (current is '%'), "
 "ignoring filter..."
@@ -931,7 +933,7 @@ msgstr ""
 "Il filtro di corsie è applicabile unicamente nel contesto 'vehicle' (quello "
 "attuale è '%'); perciò il filtro viene ignorato..."
 
-#: src/libsumo/Helper.cpp:1171
+#: src/libsumo/Helper.cpp:1171 src/libsumo/Helper.cpp:1170
 msgid ""
 "Turn filter is only feasible for context domain 'vehicle' (current is '%'), "
 "ignoring filter..."
@@ -939,7 +941,7 @@ msgstr ""
 "Il filtro di svolte è fattibile unicamente nel contesto veicolare (mentre il "
 "dominio attuale è '%') e quindi va ignorato.."
 
-#: src/libsumo/Helper.cpp:1236
+#: src/libsumo/Helper.cpp:1236 src/libsumo/Helper.cpp:1235
 msgid ""
 "Field of vision opening angle ('%') should be within interval (0, 360), "
 "ignoring filter..."
@@ -947,18 +949,18 @@ msgstr ""
 "L'angolo del campo di visione ('%') deve essere contenuto nell'intervallo "
 "(0, 360); perciò il filtro viene ignorato..."
 
-#: src/libsumo/Helper.cpp:1348
+#: src/libsumo/Helper.cpp:1348 src/libsumo/Helper.cpp:1347
 msgid ""
 "addSubscriptionFilterLateralDistance could not determine shape of lane '%' "
 "with a lateral shift of %."
 msgstr ""
 
-#: src/libsumo/Helper.cpp:1406
+#: src/libsumo/Helper.cpp:1406 src/libsumo/Helper.cpp:1405
 msgid "Vehicle '%' was removed though being controlled by TraCI"
 msgstr ""
 "Il veicolo '%' è stato rimosso nonostante fosse controllato attraverso TraCI"
 
-#: src/libsumo/Helper.cpp:1415
+#: src/libsumo/Helper.cpp:1415 src/libsumo/Helper.cpp:1414
 msgid "Person '%' was removed though being controlled by TraCI"
 msgstr ""
 "La persona '%' è stata rimossa nonostante fosse controllata attraverso TraCI"
@@ -1243,7 +1245,7 @@ msgstr ""
 "Le gerarchie di contrazione non funzionano con i k cammini minimi (utilizza "
 "un algoritmo di instradamento diverso)!"
 
-#: src/marouter/ROMARouteHandler.cpp:89
+#: src/marouter/ROMARouteHandler.cpp:89 src/marouter/ROMARouteHandler.cpp:87
 msgid "No origin or no destination given, ignoring '%'!"
 msgstr "'%' viene ignorato poiché né origine né destinazione è stata data!"
 
@@ -1339,6 +1341,7 @@ msgstr ""
 "verrà fusionato)."
 
 #: src/mesosim/MEVehicle.cpp:393 src/microsim/MSVehicle.cpp:1703
+#: src/microsim/MSVehicle.cpp:1700
 #, c-format
 msgid ""
 "Vehicle '%' ignores triggered stop on lane '%' due to capacity constraints."
@@ -1347,6 +1350,7 @@ msgstr ""
 "restrizioni di capacità."
 
 #: src/mesosim/MEVehicle.cpp:410 src/microsim/MSVehicle.cpp:1718
+#: src/microsim/MSVehicle.cpp:1715
 #, c-format
 msgid ""
 "Vehicle '%' ignores container triggered stop on lane '%' due to capacity "
@@ -1470,41 +1474,46 @@ msgstr ""
 "L'arco di partenza % del veicolo '%' con % archi nell'itinerario verrà "
 "ignorato"
 
-#: src/microsim/MSBaseVehicle.cpp:1676
+#: src/microsim/MSBaseVehicle.cpp:1676 src/microsim/MSBaseVehicle.cpp:1668
 msgid "Invalid stop index % (has % stops)."
 msgstr "Indice di fermata invalido % (ha % fermate)."
 
 #: src/microsim/MSBaseVehicle.cpp:1756 src/microsim/MSBaseVehicle.cpp:1879
-#: src/microsim/MSBaseVehicle.cpp:1988
+#: src/microsim/MSBaseVehicle.cpp:1988 src/microsim/MSBaseVehicle.cpp:1748
+#: src/microsim/MSBaseVehicle.cpp:1871 src/microsim/MSBaseVehicle.cpp:1980
 msgid "invalid nextStopIndex % for % remaining stops"
 msgstr "nextStopIndex % invalido per % fermate rimaste"
 
-#: src/microsim/MSBaseVehicle.cpp:1760
+#: src/microsim/MSBaseVehicle.cpp:1760 src/microsim/MSBaseVehicle.cpp:1752
 msgid "cannot replace reached stop"
 msgstr "non si può sostituire la fermata alla quale ci si trova attualmente"
 
-#: src/microsim/MSBaseVehicle.cpp:1775
+#: src/microsim/MSBaseVehicle.cpp:1775 src/microsim/MSBaseVehicle.cpp:1767
 msgid "vehicle '%' does not have the right badge to access parkingArea '%'"
 msgstr ""
 "il veicolo '%' non tiene la credenziale adeguata per accedere al parcheggio "
 "'%'"
 
 #: src/microsim/MSBaseVehicle.cpp:1788 src/microsim/MSBaseVehicle.cpp:2000
+#: src/microsim/MSBaseVehicle.cpp:1780 src/microsim/MSBaseVehicle.cpp:1992
 msgid "disallowed stop lane '%'"
 msgstr "corsia della fermata '%' vietata"
 
 #: src/microsim/MSBaseVehicle.cpp:1807 src/microsim/MSBaseVehicle.cpp:1901
-#: src/microsim/MSBaseVehicle.cpp:2028
+#: src/microsim/MSBaseVehicle.cpp:2028 src/microsim/MSBaseVehicle.cpp:1799
+#: src/microsim/MSBaseVehicle.cpp:1893 src/microsim/MSBaseVehicle.cpp:2020
 msgid "no route found from edge '%' to stop edge '%'"
 msgstr ""
 "non è stato trovato nessun'itinerario tra l'arco '%' e l'arco di fermata '%'"
 
 #: src/microsim/MSBaseVehicle.cpp:1816 src/microsim/MSBaseVehicle.cpp:2037
+#: src/microsim/MSBaseVehicle.cpp:1808 src/microsim/MSBaseVehicle.cpp:2029
 msgid "no route found from stop edge '%' to edge '%'"
 msgstr ""
 "non è stato trovato nessun'itinerario tra l'arco di fermata '%' e l'arco '%'"
 
 #: src/microsim/MSBaseVehicle.cpp:1828 src/microsim/MSBaseVehicle.cpp:2051
+#: src/microsim/MSBaseVehicle.cpp:1820 src/microsim/MSBaseVehicle.cpp:2043
 msgid ""
 "Mesoscopic simulation does not allow stopping on internal edge '%' for "
 "vehicle '%'."
@@ -1512,81 +1521,82 @@ msgstr ""
 "La simulazione mesoscopica non permette di fermarsi sull'arco interno '%' "
 "con il veicolo '%'."
 
-#: src/microsim/MSBaseVehicle.cpp:1883
+#: src/microsim/MSBaseVehicle.cpp:1883 src/microsim/MSBaseVehicle.cpp:1875
 msgid "cannot reroute towards reached stop"
 msgstr "non si può trovare un itinerario verso una fermata oltrepassata"
 
-#: src/microsim/MSBaseVehicle.cpp:1964
+#: src/microsim/MSBaseVehicle.cpp:1964 src/microsim/MSBaseVehicle.cpp:1956
 msgid "unable to replace stop with teleporting"
 msgstr "impossibile di sostituire la fermata usando il teletrasporto"
 
-#: src/microsim/MSBaseVehicle.cpp:1992
+#: src/microsim/MSBaseVehicle.cpp:1992 src/microsim/MSBaseVehicle.cpp:1984
 msgid "cannot insert stop before the currently reached stop"
 msgstr ""
 "impossibile di inserire la fermata prima di quella raggiunta attualmente"
 
-#: src/microsim/MSBaseVehicle.cpp:2008
+#: src/microsim/MSBaseVehicle.cpp:2008 src/microsim/MSBaseVehicle.cpp:2000
 msgid "Vehicle '%' does not have the right badge to access parkingArea '%'."
 msgstr ""
 "Il veicolo '%' non possiede la credenziale giusta per accedere al parcheggio "
 "'%'."
 
-#: src/microsim/MSBaseVehicle.cpp:2308
+#: src/microsim/MSBaseVehicle.cpp:2308 src/microsim/MSBaseVehicle.cpp:2300
 #, c-format
 msgid "creating device of type '%' is not supported"
 msgstr "non è supportata la creazione di attrezzi del tipo '%'"
 
 #: src/microsim/MSBaseVehicle.cpp:2321 src/microsim/MSBaseVehicle.cpp:2333
+#: src/microsim/MSBaseVehicle.cpp:2313 src/microsim/MSBaseVehicle.cpp:2325
 #, c-format
 msgid "no device of type '%' exists"
 msgstr "non esiste nessun'attrezzo del tipo '%'"
 
-#: src/microsim/MSBaseVehicle.cpp:2344
+#: src/microsim/MSBaseVehicle.cpp:2344 src/microsim/MSBaseVehicle.cpp:2336
 msgid "Vehicle '%' does not support junctionModel parameter '%'."
 msgstr "Il veicolo '%' non supporta il parametro di modello di incroci '%'."
 
-#: src/microsim/MSBaseVehicle.cpp:2390
+#: src/microsim/MSBaseVehicle.cpp:2390 src/microsim/MSBaseVehicle.cpp:2382
 msgid "could not interpret routing.mode '%'"
 msgstr "non ho potuto analizzare routing.mode '%'"
 
-#: src/microsim/MSBaseVehicle.cpp:2473
+#: src/microsim/MSBaseVehicle.cpp:2473 src/microsim/MSBaseVehicle.cpp:2465
 msgid "Invalid device parameter '%' for vehicle '%'."
 msgstr "Parametro di attrezzo '%' invalido per veicolo '%'."
 
-#: src/microsim/MSBaseVehicle.cpp:2479
+#: src/microsim/MSBaseVehicle.cpp:2479 src/microsim/MSBaseVehicle.cpp:2471
 msgid "Vehicle '%' does not support device parameter '%' (%)."
 msgstr "Il veicolo '%' non supporta il parametro di attrezzo '%' (%)."
 
-#: src/microsim/MSBaseVehicle.cpp:2484
+#: src/microsim/MSBaseVehicle.cpp:2484 src/microsim/MSBaseVehicle.cpp:2476
 #, c-format
 msgid "Mesoscopic vehicle '%' does not support laneChangeModel parameters."
 msgstr ""
 "Il veicolo mesoscopico '%' non supporta parametri del modello di cambi "
 "corsia."
 
-#: src/microsim/MSBaseVehicle.cpp:2491
+#: src/microsim/MSBaseVehicle.cpp:2491 src/microsim/MSBaseVehicle.cpp:2483
 msgid "Vehicle '%' does not support laneChangeModel parameter '%' (%)."
 msgstr ""
 "Il veicolo '%' non supporta il parametro del modello di cambio corsia "
 "'%' (%)."
 
-#: src/microsim/MSBaseVehicle.cpp:2496
+#: src/microsim/MSBaseVehicle.cpp:2496 src/microsim/MSBaseVehicle.cpp:2488
 #, c-format
 msgid "Mesoscopic vehicle '%' does not support carFollowModel parameters."
 msgstr ""
 "Il veicolo mesoscopico '%' non supporta parametri del modello di guida."
 
-#: src/microsim/MSBaseVehicle.cpp:2503
+#: src/microsim/MSBaseVehicle.cpp:2503 src/microsim/MSBaseVehicle.cpp:2495
 msgid "Vehicle '%' does not support carFollowModel parameter '%' (%)."
 msgstr "Il veicolo '%' non supporta il parametro del modello di guida '%' (%)."
 
-#: src/microsim/MSBaseVehicle.cpp:2509
+#: src/microsim/MSBaseVehicle.cpp:2509 src/microsim/MSBaseVehicle.cpp:2501
 msgid "Invalid check for device. Expected format is 'has.DEVICENAME.device'."
 msgstr ""
 "Richiesta invalida per un attrezzo. Si aspetta il formato 'has.DEVICENAME."
 "device'."
 
-#: src/microsim/MSBaseVehicle.cpp:2536
+#: src/microsim/MSBaseVehicle.cpp:2536 src/microsim/MSBaseVehicle.cpp:2528
 msgid "Unsupported parking parameter '%' for vehicle '%'."
 msgstr "Parametro di parcheggio '%' non supportato per veicolo '%'."
 
@@ -3053,104 +3063,104 @@ msgstr ""
 "Il veicolo '%' non sarà in grado di partire con la velocità scelta perché "
 "arriverà presto su una corsia lenta!"
 
-#: src/microsim/MSLane.cpp:2004
+#: src/microsim/MSLane.cpp:2004 src/microsim/MSLane.cpp:2012
 msgid "frontal collision"
 msgstr "collisione frontale"
 
-#: src/microsim/MSLane.cpp:2005
+#: src/microsim/MSLane.cpp:2005 src/microsim/MSLane.cpp:2013
 msgid "junction collision"
 msgstr "collisione sull'incrocio"
 
-#: src/microsim/MSLane.cpp:2005
+#: src/microsim/MSLane.cpp:2005 src/microsim/MSLane.cpp:2013
 msgid "collision"
 msgstr "collisione"
 
-#: src/microsim/MSLane.cpp:2011
+#: src/microsim/MSLane.cpp:2011 src/microsim/MSLane.cpp:2019
 msgid "Vehicle '%'; % with vehicle '%"
 msgstr "Veicolo '%'; % con veicolo '%"
 
-#: src/microsim/MSLane.cpp:2068
+#: src/microsim/MSLane.cpp:2068 src/microsim/MSLane.cpp:2076
 msgid "Teleporting vehicle '%'; % with vehicle '%"
 msgstr "Teletrasporto di veicolo '%', % con veicolo '%"
 
-#: src/microsim/MSLane.cpp:2073
+#: src/microsim/MSLane.cpp:2073 src/microsim/MSLane.cpp:2081
 msgid "Removing % participants: vehicle '%', vehicle '%"
 msgstr "Rimozione di % participanti: veicolo '%', veicolo '%"
 
-#: src/microsim/MSLane.cpp:2086
+#: src/microsim/MSLane.cpp:2086 src/microsim/MSLane.cpp:2094
 msgid "Keeping remote-controlled % participants: vehicle '%', vehicle '%"
 msgstr ""
 "Mantenuti % participanti controllati esternamente: veicolo '%', veicolo '%"
 
-#: src/microsim/MSLane.cpp:2088
+#: src/microsim/MSLane.cpp:2088 src/microsim/MSLane.cpp:2096
 msgid ""
 "Removing % participant: vehicle '%', keeping remote-controlled vehicle '%"
 msgstr ""
 "Il veicolo participante % '%' viene rimosso e mantenuto il veicolo "
 "controllato esternamente '%"
 
-#: src/microsim/MSLane.cpp:2091
+#: src/microsim/MSLane.cpp:2091 src/microsim/MSLane.cpp:2099
 msgid ""
 "Keeping remote-controlled % participant: vehicle '%', removing vehicle '%"
 msgstr ""
 "Il veicolo controllato esternamente % '%' viene rimosso e mantenuto il "
 "veicolo participante '%"
 
-#: src/microsim/MSLane.cpp:2102
+#: src/microsim/MSLane.cpp:2102 src/microsim/MSLane.cpp:2110
 msgid ", latGap="
 msgstr ""
 
-#: src/microsim/MSLane.cpp:2129
+#: src/microsim/MSLane.cpp:2129 src/microsim/MSLane.cpp:2137
 msgid "Vehicle '%'"
 msgstr "Veicolo '%'"
 
-#: src/microsim/MSLane.cpp:2158
+#: src/microsim/MSLane.cpp:2158 src/microsim/MSLane.cpp:2166
 #, c-format
 msgid "Teleporting vehicle '%' after"
 msgstr "Teleporto del veicolo '%' dopo"
 
-#: src/microsim/MSLane.cpp:2163
+#: src/microsim/MSLane.cpp:2163 src/microsim/MSLane.cpp:2171
 #, c-format
 msgid "Removing vehicle '%' after"
 msgstr "Rimozione del veicolo '%' dopo"
 
-#: src/microsim/MSLane.cpp:2167
+#: src/microsim/MSLane.cpp:2167 src/microsim/MSLane.cpp:2175
 #, c-format
 msgid "Keeping remote-controlled vehicle '%' after"
 msgstr "Il veicolo '%' controllato remotamente verrà mantenuto dopo"
 
-#: src/microsim/MSLane.cpp:2180
+#: src/microsim/MSLane.cpp:2180 src/microsim/MSLane.cpp:2188
 msgid " collision with person '%', lane='%', gap=%, time=%, stage=%."
 msgstr ""
 
-#: src/microsim/MSLane.cpp:2183
+#: src/microsim/MSLane.cpp:2183 src/microsim/MSLane.cpp:2191
 msgid " collision with person '%', lane='%', time=%, stage=%."
 msgstr ""
 
-#: src/microsim/MSLane.cpp:2244
+#: src/microsim/MSLane.cpp:2244 src/microsim/MSLane.cpp:2252
 msgid "Removing vehicle '%' after breaking down, lane='%', time=%."
 msgstr ""
 "Il veicolo '%' viene rimosso dopo essere rimasto fermo sulla corsia '%' alle "
 "%."
 
-#: src/microsim/MSLane.cpp:2255
+#: src/microsim/MSLane.cpp:2255 src/microsim/MSLane.cpp:2263
 msgid "Teleporting vehicle '%'; beyond end of lane, target lane='%', time=%."
 msgstr ""
 "Teletrasporto di veicolo '%'; oltre la fine della corsia, corsia di "
 "destinazione='%' alle ore %."
 
-#: src/microsim/MSLane.cpp:2263
+#: src/microsim/MSLane.cpp:2263 src/microsim/MSLane.cpp:2271
 msgid "Removing vehicle '%' after earlier collision, lane='%', time=%."
 msgstr ""
 "Rimozione di veicolo '%' dopo una previa collisione, corsia='%' alle ore %."
 
-#: src/microsim/MSLane.cpp:2268
+#: src/microsim/MSLane.cpp:2268 src/microsim/MSLane.cpp:2276
 msgid "Teleporting vehicle '%' after earlier collision, lane='%', time=%."
 msgstr ""
 "Teletrasporto di veicolo '%' dopo una previa collisione, corsia='%' alle ore "
 "%."
 
-#: src/microsim/MSLane.cpp:2789
+#: src/microsim/MSLane.cpp:2789 src/microsim/MSLane.cpp:2797
 msgid ""
 "Lane '%' is approached multiple times from edge '%'. This may cause "
 "collisions."
@@ -3158,11 +3168,11 @@ msgstr ""
 "La corsia '%' può essere raggiunta da più collegamenti provenienti dallo "
 "stesso arco '%'. Questo può causare collisioni."
 
-#: src/microsim/MSLane.cpp:4410
+#: src/microsim/MSLane.cpp:4410 src/microsim/MSLane.cpp:4418
 msgid "Invalid % '%'."
 msgstr "% '%' invalido."
 
-#: src/microsim/MSLane.cpp:4578
+#: src/microsim/MSLane.cpp:4578 src/microsim/MSLane.cpp:4586
 msgid ""
 "State was saved with more than % threads. Change the number of threads or do "
 "not load RNG state"
@@ -3253,6 +3263,7 @@ msgid "Loading state from '%' failed."
 msgstr ""
 
 #: src/microsim/MSRouteHandler.cpp:111 src/router/RORouteHandler.cpp:111
+#: src/router/RORouteHandler.cpp:106
 msgid "Taz usage was requested but no taz present in % '%'!"
 msgstr ""
 
@@ -3269,6 +3280,7 @@ msgstr ""
 "codice identificativo '%'."
 
 #: src/microsim/MSRouteHandler.cpp:345 src/router/RORouteHandler.cpp:360
+#: src/router/RORouteHandler.cpp:347
 msgid "Ids of internal routes are ignored (vehicle '%')."
 msgstr ""
 "Gli codici identificativi di itinerari interni vengono ignorati (veicolo "
@@ -3304,6 +3316,7 @@ msgstr ""
 "primo arco '%'%"
 
 #: src/microsim/MSRouteHandler.cpp:474 src/router/RORouteHandler.cpp:490
+#: src/router/RORouteHandler.cpp:477
 msgid ""
 "Cannot repeat stops with 'until' in route % because no cycleTime is defined."
 msgstr ""
@@ -3336,6 +3349,7 @@ msgid "Route distribution '%' is empty."
 msgstr "La distribuzione di itinerari '%' è vuota."
 
 #: src/microsim/MSRouteHandler.cpp:635 src/router/RORouteHandler.cpp:647
+#: src/router/RORouteHandler.cpp:590
 msgid ""
 "Vehicle type '%' with vClass=pedestrian should only be used for persons and "
 "not for vehicle '%'."
@@ -3457,7 +3471,8 @@ msgid "Stop edge '%' missing in attribute 'via' for % '%'."
 msgstr ""
 
 #: src/microsim/MSRouteHandler.cpp:1482 src/router/RORouteHandler.cpp:1169
-#: src/router/RORouteHandler.cpp:1288
+#: src/router/RORouteHandler.cpp:1288 src/router/RORouteHandler.cpp:1112
+#: src/router/RORouteHandler.cpp:1231
 msgid ""
 "The attribute departPos is no longer supported for walks, please use the "
 "person attribute, the arrivalPos of the previous step or explicit stops."
@@ -3472,6 +3487,7 @@ msgstr ""
 "fermata indicata '%'."
 
 #: src/microsim/MSRouteHandler.cpp:1514 src/router/RORouteHandler.cpp:1190
+#: src/router/RORouteHandler.cpp:1133
 msgid "No destination edge for %."
 msgstr "Nessun arco di destinazione per %."
 
@@ -3480,16 +3496,18 @@ msgid "Cannot define person stage without person."
 msgstr "Non si può definire un tratto di persona senza una persona."
 
 #: src/microsim/MSRouteHandler.cpp:1547 src/router/RORouteHandler.cpp:1210
+#: src/router/RORouteHandler.cpp:1153
 msgid "Start edge not defined for person '%'."
 msgstr "L'arco di partenza della persona '%' non è stato definito."
 
 #: src/microsim/MSRouteHandler.cpp:1558 src/microsim/MSRouteHandler.cpp:1632
 #: src/router/RORouteHandler.cpp:1221 src/router/RORouteHandler.cpp:1279
+#: src/router/RORouteHandler.cpp:1164 src/router/RORouteHandler.cpp:1222
 msgid "Non-positive walking duration for '%'."
 msgstr "Durata di camminata non positiva per '%'."
 
 #: src/microsim/MSRouteHandler.cpp:1590 src/microsim/MSRouteHandler.cpp:1638
-#: src/router/RORouteHandler.cpp:1283
+#: src/router/RORouteHandler.cpp:1283 src/router/RORouteHandler.cpp:1226
 msgid "Non-positive walking speed for '%'."
 msgstr "Velocità di caminata non positiva per '%'."
 
@@ -3556,20 +3574,20 @@ msgstr ""
 msgid "Unknown lane '%' in loaded state."
 msgstr "Corsia sconosciuta '%' nello stato caricato."
 
-#: src/microsim/MSStateHandler.cpp:412
+#: src/microsim/MSStateHandler.cpp:412 src/microsim/MSStateHandler.cpp:413
 #, c-format
 msgid "Ignoring program '%' for traffic light '%' in loaded state"
 msgstr "Programma '%' del semaforo '%' viene ignorato nello stato caricato"
 
-#: src/microsim/MSStateHandler.cpp:447
+#: src/microsim/MSStateHandler.cpp:447 src/microsim/MSStateHandler.cpp:448
 msgid "Could not load vehicle control state"
 msgstr "Non ho potuto caricare lo stato del controllo di veicoli"
 
-#: src/microsim/MSStateHandler.cpp:456
+#: src/microsim/MSStateHandler.cpp:456 src/microsim/MSStateHandler.cpp:457
 msgid "Removed % vehicles while loading state."
 msgstr "% veicoli rimossi nel caricare lo stato."
 
-#: src/microsim/MSStateHandler.cpp:486
+#: src/microsim/MSStateHandler.cpp:486 src/microsim/MSStateHandler.cpp:487
 #, c-format
 msgid "Could not load vehicle '%' from state"
 msgstr "Non ho potuto caricare il veicolo '%' dallo stato"
@@ -3582,8 +3600,8 @@ msgstr "Regolazione attuata indisponibile nella simulazione mesoscopica."
 msgid ""
 "Lane change model did not provide a reason for changing (state=%, time=%\n"
 msgstr ""
-"Il modello di cambio corsia non ha provveduto una ragione del cambio (stato="
-"%, ora=%\n"
+"Il modello di cambio corsia non ha provveduto una ragione del cambio "
+"(stato=%, ora=%\n"
 
 #: src/microsim/MSVehicle.cpp:771 src/utils/common/UtilExceptions.h:171
 msgid "should not happen"
@@ -3597,46 +3615,47 @@ msgstr ""
 "Mosso veicolo '%'attraverso TraCI da % a % (distanza %) con una velocità "
 "implicita di % (eccedendo la velocità massima di %) alle ore %."
 
-#: src/microsim/MSVehicle.cpp:1735
+#: src/microsim/MSVehicle.cpp:1735 src/microsim/MSVehicle.cpp:1732
 msgid "Vehicle '%' aborts joining after extension of %s at time %."
 msgstr ""
 "Il veicolo '%' rompe unirsi a un'altro veicolo dopo un'estensione di %s alle "
 "ore %."
 
-#: src/microsim/MSVehicle.cpp:1887
+#: src/microsim/MSVehicle.cpp:1887 src/microsim/MSVehicle.cpp:1884
 msgid "Vehicle '%' to split from vehicle '%' is not known. time=%."
 msgstr "Il veicolo '%' da separare dal veicolo '%' è sconosciuto (ore %)."
 
 #: src/microsim/MSVehicle.cpp:2019 src/microsim/MSVehicle.cpp:2026
+#: src/microsim/MSVehicle.cpp:2016 src/microsim/MSVehicle.cpp:2023
 msgid ""
 "Cannot join vehicle '%' to vehicle '%' due to incompatible routes. time=%."
 msgstr ""
 "Il veicolo '%' non può essere unito al veicolo '%' alle ore % dovuto agli "
 "itenerari incompatibili."
 
-#: src/microsim/MSVehicle.cpp:2881
+#: src/microsim/MSVehicle.cpp:2881 src/microsim/MSVehicle.cpp:2878
 msgid "Suspicious right_before_left junction '%'."
 msgstr "Incrocio right_before_left sospetto '%'."
 
-#: src/microsim/MSVehicle.cpp:4647
+#: src/microsim/MSVehicle.cpp:4647 src/microsim/MSVehicle.cpp:4644
 msgid " for unknown reasons"
 msgstr " per motivi sconosciuti"
 
-#: src/microsim/MSVehicle.cpp:4649
+#: src/microsim/MSVehicle.cpp:4649 src/microsim/MSVehicle.cpp:4646
 msgid ""
-"Vehicle '%' performs emergency stop at the end of lane '%'% (decel=%, offset="
-"%), time=%."
+"Vehicle '%' performs emergency stop at the end of lane '%'% (decel=%, "
+"offset=%), time=%."
 msgstr ""
 "Il veicolo '%' effettua una frenata d'urgenza alle fine della corsia '%'% "
 "(decel=%, offset=%) alle ore %."
 
-#: src/microsim/MSVehicle.cpp:4732
+#: src/microsim/MSVehicle.cpp:4732 src/microsim/MSVehicle.cpp:4729
 msgid "Unexpected end of opposite lane for vehicle '%' at lane '%', time=%."
 msgstr ""
 "Fine inaspettata della corsia opposta per veicolo '%' sulla corsia '%' alle "
 "ore %."
 
-#: src/microsim/MSVehicle.cpp:4850
+#: src/microsim/MSVehicle.cpp:4850 src/microsim/MSVehicle.cpp:4847
 msgid ""
 "Vehicle '%' performs emergency braking on lane '%' with decel=%, wished=%, "
 "severity=%, time=%."
@@ -3645,21 +3664,22 @@ msgstr ""
 "decelerazione %, quella desiderata %, severità alle ore %."
 
 #: src/microsim/MSVehicle.cpp:5670 src/microsim/MSVehicle.cpp:5759
+#: src/microsim/MSVehicle.cpp:5744
 msgid "Vehicle '%' skips stop on lane '%' time=%."
 msgstr "Il veicolo '%' salta la fermata sulla corsia '%' ore=%."
 
-#: src/microsim/MSVehicle.cpp:5753
+#: src/microsim/MSVehicle.cpp:5753 src/microsim/MSVehicle.cpp:5738
 #, c-format
 msgid "Vehicle '%' aborts stop."
 msgstr "Il veicolo '%' abbandona la fermata."
 
-#: src/microsim/MSVehicle.cpp:7663
+#: src/microsim/MSVehicle.cpp:7663 src/microsim/MSVehicle.cpp:7648
 msgid "Error: Invalid vehicles in state (may be a meso state)!"
 msgstr ""
 "Errore: Lo stato contiene dei veicoli invalidi (potrebbe trattarsi di uno "
 "stato mesoscopico)!"
 
-#: src/microsim/MSVehicle.cpp:7705
+#: src/microsim/MSVehicle.cpp:7705 src/microsim/MSVehicle.cpp:7690
 msgid "Action steps are out of sync for loaded vehicle '%'."
 msgstr "I passi di azione del veicolo caricato '%' non sono sincronizzati."
 
@@ -3858,18 +3878,24 @@ msgid ""
 "The vehicle '%' cannot be in the range of vehicle '%', leave, and enter it "
 "in one step."
 msgstr ""
+"Il veicolo '%' non può essere nel raggio del veicolo '%', uscirci e entrarci "
+"nello stesso passo di simulazione ."
 
 #: src/microsim/devices/MSDevice_BTreceiver.cpp:421
 #: src/microsim/devices/MSDevice_BTreceiver.cpp:436
 msgid ""
 "btreceiver: Can not update position of vehicle '%' which is not on the road."
 msgstr ""
+"btreceiver: Impossibile di aggiornare la posizione del veicolo '%' che non "
+"si trova in strada."
 
 #: src/microsim/devices/MSDevice_BTsender.cpp:120
 #: src/microsim/devices/MSDevice_BTsender.cpp:134
 msgid ""
 "btsender: Can not update position of vehicle '%' which is not on the road."
 msgstr ""
+"btsender: Impossibile di aggiornare la posizione del veicolo '%' che non si "
+"trova in strada."
 
 #: src/microsim/devices/MSDevice_Battery.cpp:55
 msgid "Track fuel consumption for non-electric vehicles"
@@ -3880,6 +3906,8 @@ msgid ""
 "Battery device in vehicle '%' still uses old parameter '%'. Please update to "
 "'device.%'."
 msgstr ""
+"L'attrezzo batteria del veicolo '%' usa ancora il parametro obsoleto '%'. "
+"Per favore sostituiscilo con 'device.%'."
 
 #: src/microsim/devices/MSDevice_Battery.cpp:126
 #: src/microsim/devices/MSDevice_Battery.cpp:140
@@ -3925,6 +3953,8 @@ msgstr ""
 msgid ""
 "bluelight device is not compatible with mesosim (ignored for vehicle '%')"
 msgstr ""
+"l'attrezzo bluelight non è compatibile con la simulazione mesoscopica "
+"(ignorato per veicolo '%')"
 
 #: src/microsim/devices/MSDevice_DriverState.cpp:59
 msgid "Initial value assigned to the driver's awareness."
@@ -3967,6 +3997,8 @@ msgid ""
 "Base threshold for recognizing changes in the headway (threshold also scales "
 "with distance)."
 msgstr ""
+"Valore di soglia base per rivelare cambi nell'intervallo di tempo (il valore "
+"soglia è graduato con la distanza)."
 
 #: src/microsim/devices/MSDevice_DriverState.cpp:75
 msgid "Minimal admissible value for the driver's awareness."
@@ -3991,6 +4023,8 @@ msgid ""
 "ElecHybrid builder: Vehicle '%' doesn't have a valid value for parameter % "
 "(%)."
 msgstr ""
+"Construttore ElecHybrid: Il veicolo '%' non tiene un valore valido per il "
+"parametro % (%)."
 
 #: src/microsim/devices/MSDevice_ElecHybrid.cpp:358
 #, c-format
@@ -4150,6 +4184,7 @@ msgstr ""
 "velocità tratti da modelli di guida se non sono critici per la sicurezza"
 
 #: src/microsim/devices/MSDevice_GLOSA.cpp:348
+#: src/microsim/devices/MSDevice_GLOSA.cpp:345
 msgid ""
 "Invalid value '%' for parameter 'device.glosa.range' of traffic light '%'"
 msgstr ""
@@ -4617,17 +4652,21 @@ msgstr ""
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:70
 msgid "Search radius in travel time seconds"
-msgstr ""
+msgstr "Raggio di ricerca in secondi di tempo di percorrenza"
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:72
 msgid ""
 "Euclidean search distance in meters (a negative value disables the "
 "restriction)"
 msgstr ""
+"Raggio euclideo di ricerca in metri (un valore negativo disattiva la "
+"restrizione)"
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:74
 msgid "When to trigger a new search if no station has been found"
 msgstr ""
+"Quando una nuova ricerca deve partire nel caso nessuna stazione è stata "
+"trovata"
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:76
 msgid "The maximum charging speed of the vehicle battery"
@@ -4696,15 +4735,17 @@ msgid ""
 "sufficient to complete the current route"
 msgstr ""
 
-#: src/microsim/devices/MSDevice_StationFinder.cpp:137
+#: src/microsim/devices/MSDevice_StationFinder.cpp:135
 msgid "Invalid device.stationfinder.chargingStrategy '%'."
-msgstr ""
+msgstr "Parametro invalido device.stationfinder.chargingStrategy '%'."
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:147
+#: src/microsim/devices/MSDevice_StationFinder.cpp:145
 msgid "Invalid device.stationfinder.rescueAction '%'."
 msgstr "Parametro invalido device.stationfinder.rescueAction '%'."
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:163
+#: src/microsim/devices/MSDevice_StationFinder.cpp:161
 msgid ""
 "Vehicle '%' searches for charging stations only in the rescue case due to "
 "search threshold % <= rescue threshold %."
@@ -4713,6 +4754,7 @@ msgstr ""
 "emergenza dovuto alla soglia di ricerca % <= soglia di emergenza %."
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:168
+#: src/microsim/devices/MSDevice_StationFinder.cpp:166
 msgid ""
 "Vehicle '%' won't do opportunistic charging as the threshold % is too close "
 "to the regular one %."
@@ -4721,6 +4763,7 @@ msgstr ""
 "soglia % è troppo vicino a quello regolare %."
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:211
+#: src/microsim/devices/MSDevice_StationFinder.cpp:208
 msgid ""
 "Rerouted vehicle '%' after waiting too long at the previous charging station "
 "at time=%."
@@ -4729,6 +4772,7 @@ msgstr ""
 "troppo a lungo davanti alla previa stazione di ricarica."
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:256
+#: src/microsim/devices/MSDevice_StationFinder.cpp:253
 msgid ""
 "Vehicle '%' wants to stop on lane % at pos % because of low battery charge % "
 "at time=%."
@@ -4737,11 +4781,13 @@ msgstr ""
 "bassa carica della batteria % alle ore %."
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:491
+#: src/microsim/devices/MSDevice_StationFinder.cpp:487
 msgid "Problem with inserting the charging station stop for vehicle %."
 msgstr ""
 "Problema all'inserimento della fermata alla stazione di carica per veicolo %."
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:511
+#: src/microsim/devices/MSDevice_StationFinder.cpp:507
 msgid ""
 "Vehicle '%' wants to charge at time=% but does not find any charging station "
 "nearby."
@@ -4750,6 +4796,7 @@ msgstr ""
 "ricarica nei dintorni."
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:583
+#: src/microsim/devices/MSDevice_StationFinder.cpp:579
 msgid ""
 "There is no charging station available to teleport the vehicle '%' to at "
 "time=%. Thus the vehicle will be removed."
@@ -4758,22 +4805,27 @@ msgstr ""
 "veicolo '%' alle ore %. Perciò il veicolo verrà rimosso."
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:703
+#: src/microsim/devices/MSDevice_StationFinder.cpp:699
 msgid "The charging rate limit of vehicle '%' is lifted at time=%"
 msgstr "Il limite della rata di carga del veicolo '%' è sbloccato alle ore %"
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:705
+#: src/microsim/devices/MSDevice_StationFinder.cpp:701
 msgid "The charging rate of vehicle '%' is limited to % at time=%"
 msgstr "La rata di carga del veicolo '%' viene limitato a % alle ore %"
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:769
+#: src/microsim/devices/MSDevice_StationFinder.cpp:765
 msgid "Parameter '%' is not supported for device of type '%'"
 msgstr "Il parametro '%' non viene supportato per attrezzi del tipo '%'"
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:779
+#: src/microsim/devices/MSDevice_StationFinder.cpp:775
 msgid "Setting parameter '%' requires a number for device of type '%'"
 msgstr "Il parametro '%' richiede un valore numerico per attrezzi del tipo '%'"
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:794
+#: src/microsim/devices/MSDevice_StationFinder.cpp:790
 msgid "Setting parameter '%' is not supported for device of type '%'"
 msgstr "Il parametro '%' non può essere aggiornato per attrezzi del tipo '%'"
 
@@ -5078,6 +5130,7 @@ msgstr ""
 "ha la stessa priorità"
 
 #: src/microsim/devices/MSRoutingEngine.cpp:412
+#: src/microsim/devices/MSRoutingEngine.cpp:416
 msgid "Unknown routing algorithm '%'!"
 msgstr "Algoritmo di instradamento sconosciuto '%'!"
 
@@ -5143,7 +5196,7 @@ msgstr ""
 
 #: src/microsim/output/MSMeanData.cpp:766
 msgid "Unknown attribute '%' to write in meanData '%'."
-msgstr ""
+msgstr "Attributo sconosciuto '%' da scrivere in meanData '%'."
 
 #: src/microsim/output/MSStopOut.cpp:69
 msgid "Vehicle '%' stops on edge '%', time=% without ending the previous stop."
@@ -5186,11 +5239,13 @@ msgstr ""
 "arrivato alla posizione della fermata propria."
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:149
+#: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:148
 #, c-format
 msgid "Traffic light '%' does not control any links"
 msgstr "Il semaforo '%' non controlla nessun collegamento"
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:239
+#: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:238
 msgid ""
 "Unknown inductionLoop '%' given as custom detector for actuated tlLogic '%', "
 "program '%."
@@ -5199,6 +5254,7 @@ msgstr ""
 "per la logica di semaforo '%' (programma '%')."
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:252
+#: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:251
 msgid ""
 "At actuated tlLogic '%', minDur % is too short for a detector gap of %m."
 msgstr ""
@@ -5206,18 +5262,21 @@ msgstr ""
 "a distanza di %m."
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:433
+#: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:432
 msgid "At actuated tlLogic '%', actuated phase % has no controlling detector."
 msgstr ""
 "Logica di semaforo attuata '%': la fase attuata % no possiede rivelatore "
 "controllante."
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:476
+#: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:475
 msgid "At actuated tlLogic '%', linkIndex % has no controlling detector."
 msgstr ""
 "Logica di semaforo attuata '%': Il collegamento con l'indice % non possiede "
 "un rivelatore controllante."
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:483
+#: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:482
 msgid ""
 "Invalid link '%' given as linkMaxDur parameter for actuated tlLogic '%', "
 "program '%."
@@ -5226,6 +5285,7 @@ msgstr ""
 "logica di semaforo attuata '%' (programma '%')."
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:493
+#: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:492
 msgid ""
 "Invalid link '%' given as linkMinDur parameter for actuated tlLogic '%', "
 "program '%."
@@ -5234,6 +5294,7 @@ msgstr ""
 "logica di semaforo attuata '%' (programma '%')."
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1039
+#: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1038
 msgid ""
 "At actuated tlLogic '%', transition phase % should not have multiple next "
 "phases"
@@ -5242,31 +5303,38 @@ msgstr ""
 "portare a più fasi seguenti"
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1217
+#: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1211
 msgid "Unmatched parentheses in condition %'"
 msgstr "Parentesi non corrisposte in condizione '%'"
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1232
+#: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1226
 msgid "Invalid empty condition '%'"
 msgstr "Condizione vuota '%' invalida"
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1247
+#: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1241
 msgid "Unsupported condition '%'"
 msgstr "Condizione '%' non supportata"
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1310
+#: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1304
 msgid "Division by 0 in condition '%'"
 msgstr "Divisione per 0 in condizione '%'"
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1361
+#: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1355
 #, c-format
 msgid "Modifying global condition '%' is forbidden"
 msgstr "Vietato di modificare la condizione globale '%'"
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1373
+#: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1367
 msgid "Invalid empty expression"
 msgstr "Espressione vuota invalida"
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1481
+#: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1475
 msgid "Error when retrieving conditions '%' for tlLogic '%' (%)"
 msgstr ""
 "Errore mentre si cerca di ritrovare le condizioni '%' per la logica di "
@@ -5358,11 +5426,11 @@ msgstr ""
 
 #: src/microsim/traffic_lights/MSTLLogicControl.cpp:82
 msgid "Mismatching phase size in tls '%', program '%'."
-msgstr ""
+msgstr "Dimensione di fase non coindicente con il semaforo '%', programma '%'."
 
 #: src/microsim/traffic_lights/MSTLLogicControl.cpp:117
 msgid "No initial signal plan loaded for tls '%'."
-msgstr ""
+msgstr "Nessun piano è stato caricato per semaforo '%'."
 
 #: src/microsim/traffic_lights/MSTLLogicControl.cpp:164
 msgid "Could not build an off-state for tls '%'."
@@ -5477,20 +5545,25 @@ msgid "Error while switching to a new journey for person '%': %"
 msgstr "Errore nel cambiare viaggio alla persona '%': %"
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:410
+#: src/microsim/transportables/MSPModel_JuPedSim.cpp:409
 msgid "Error during iteration %: %"
 msgstr "Errore durante la iterazione %: %"
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:575
+#: src/microsim/transportables/MSPModel_JuPedSim.cpp:574
 msgid "Person '%' in vanishing area '%' was removed from the simulation."
 msgstr ""
 "La persona '%' nell'area di sparizione '%' è stata rimossa dalla simulazione."
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:681
+#: src/microsim/transportables/MSPModel_JuPedSim.cpp:680
 msgid "Error while generating geometry for carriages."
 msgstr "Errore nella generazione di geometrie per carrozze."
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:692
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:1166
+#: src/microsim/transportables/MSPModel_JuPedSim.cpp:691
+#: src/microsim/transportables/MSPModel_JuPedSim.cpp:1165
 #, c-format
 msgid ""
 "While generating geometry % connected components were detected, %% of total "
@@ -5500,18 +5573,21 @@ msgstr ""
 "più grande delle componenti copre %% dell'area pedonale totale."
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:746
+#: src/microsim/transportables/MSPModel_JuPedSim.cpp:745
 msgid "Polygon '%' at junction '%' will be skipped as it is just a point."
 msgstr ""
 "Il poligono '%' all'incrocio '%' verrà omesso perché si tratta di un singolo "
 "punto."
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:765
+#: src/microsim/transportables/MSPModel_JuPedSim.cpp:764
 msgid ""
 "Polygon '%' at junction '%' had some equal consecutive points removed: %"
 msgstr ""
 "Alcuni punti identici sono stati rimossi dal poligono '%' all'incrocio '%': %"
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:774
+#: src/microsim/transportables/MSPModel_JuPedSim.cpp:773
 #, c-format
 msgid "Polygon '%' at junction '%' has been dilated as it is just a segment."
 msgstr ""
@@ -5519,11 +5595,13 @@ msgstr ""
 "linea."
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:776
+#: src/microsim/transportables/MSPModel_JuPedSim.cpp:775
 #, c-format
 msgid "Polygon '%' has been dilated as it is just a segment."
 msgstr "Il poligono '%' è stato allargato perché prima era solo una linea."
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:784
+#: src/microsim/transportables/MSPModel_JuPedSim.cpp:783
 #, c-format
 msgid ""
 "Polygon '%' at junction '%' has been replaced by its convex hull as it is "
@@ -5533,12 +5611,14 @@ msgstr ""
 "convesso perché non era un poligono semplice."
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:789
+#: src/microsim/transportables/MSPModel_JuPedSim.cpp:788
 msgid "Polygon '%' at junction '%' will be skipped as it is not simple."
 msgstr ""
 "Il poligono '%' all'incrocio '%' verrà omesso perché non é un poligono "
 "semplice."
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:911
+#: src/microsim/transportables/MSPModel_JuPedSim.cpp:910
 msgid ""
 "Union of walkable areas minus union of obstacles is not a simple polygon."
 msgstr ""
@@ -5546,23 +5626,28 @@ msgstr ""
 "semplice."
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:1046
+#: src/microsim/transportables/MSPModel_JuPedSim.cpp:1045
 msgid "Error while generating geometry: %"
 msgstr "Errore nella generazione della geometria: %"
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:1137
+#: src/microsim/transportables/MSPModel_JuPedSim.cpp:1136
 msgid "Error while adding waiting set for % on '%': %"
 msgstr "Errore aggiungendo un'attività di attesa per % su '%': %"
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:1187
+#: src/microsim/transportables/MSPModel_JuPedSim.cpp:1186
 msgid ""
 "Adapting geometry repulsion default values for jupedsim timestep of 0.02."
 msgstr ""
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:1233
+#: src/microsim/transportables/MSPModel_JuPedSim.cpp:1232
 msgid "Error creating the pedestrian model: %"
 msgstr "Errore nella creazione del modello pedonale: %"
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:1239
+#: src/microsim/transportables/MSPModel_JuPedSim.cpp:1238
 msgid "Error creating the simulation: %"
 msgstr "Errore nella creazione della simulazione: %"
 
@@ -5598,8 +5683,8 @@ msgstr "La persona '%' è bloccata sull'arco '%' alle ore %."
 
 #: src/microsim/transportables/MSStageDriving.cpp:248
 msgid ""
-"Vehicle '%' exceeds personCapacity % when placing triggered person '%', time="
-"%"
+"Vehicle '%' exceeds personCapacity % when placing triggered person '%', "
+"time=%"
 msgstr ""
 
 #: src/microsim/transportables/MSStageDriving.cpp:254
@@ -5781,8 +5866,8 @@ msgstr ""
 
 #: src/microsim/trigger/MSStoppingPlaceRerouter.cpp:497
 msgid ""
-"Invalid distance computation for vehicle '%' from stopping place '%' at time="
-"%."
+"Invalid distance computation for vehicle '%' from stopping place '%' at "
+"time=%."
 msgstr ""
 
 #: src/microsim/trigger/MSStoppingPlaceRerouter.cpp:576
@@ -5794,73 +5879,89 @@ msgid "Invalid value '%' for vType parameter '%'"
 msgstr "Valore invalido '%' del parametro di tipo di veicolo '%'"
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:129
+#: src/microsim/trigger/MSTriggeredRerouter.cpp:126
 msgid "rerouter '%': interval end % is not after begin %."
 msgstr ""
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:139
+#: src/microsim/trigger/MSTriggeredRerouter.cpp:136
 msgid "rerouter '%': destProbReroute has no destination edge id."
 msgstr ""
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:148
+#: src/microsim/trigger/MSTriggeredRerouter.cpp:145
 msgid "rerouter '%': Destination edge '%' is not known."
 msgstr ""
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:158
+#: src/microsim/trigger/MSTriggeredRerouter.cpp:155
 msgid ""
 "rerouter '%': Attribute 'probability' for destination '%' is negative (must "
 "not)."
 msgstr ""
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:169
+#: src/microsim/trigger/MSTriggeredRerouter.cpp:166
 msgid "rerouter '%': Edge '%' to close is not known."
 msgstr ""
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:183
+#: src/microsim/trigger/MSTriggeredRerouter.cpp:180
 msgid "rerouter '%': Lane '%' to close is not known."
 msgstr ""
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:202
+#: src/microsim/trigger/MSTriggeredRerouter.cpp:199
 msgid "rerouter '%': routeProbReroute has no alternative route id."
 msgstr ""
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:206
+#: src/microsim/trigger/MSTriggeredRerouter.cpp:203
 msgid "rerouter '%': Alternative route '%' does not exist."
 msgstr ""
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:216
+#: src/microsim/trigger/MSTriggeredRerouter.cpp:213
 msgid ""
 "rerouter '%': Attribute 'probability' for alternative route '%' is negative "
 "(must not)."
 msgstr ""
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:225
+#: src/microsim/trigger/MSTriggeredRerouter.cpp:222
 msgid "rerouter '%': parkingAreaReroute requires a parkingArea id."
 msgstr ""
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:229
+#: src/microsim/trigger/MSTriggeredRerouter.cpp:226
 msgid "rerouter '%': parkingArea '%' is not known."
 msgstr ""
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:238
+#: src/microsim/trigger/MSTriggeredRerouter.cpp:235
 msgid ""
 "rerouter '%': Attribute 'probability' for parkingArea '%' is negative (must "
 "not)."
 msgstr ""
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:250
+#: src/microsim/trigger/MSTriggeredRerouter.cpp:247
 msgid "rerouter '%': No via edge id given."
 msgstr ""
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:254
+#: src/microsim/trigger/MSTriggeredRerouter.cpp:251
 msgid "rerouter '%': Via Edge '%' is not known."
 msgstr ""
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:263
+#: src/microsim/trigger/MSTriggeredRerouter.cpp:260
 msgid ""
 "rerouter '%': Attribute 'probability' for via '%' is negative (must not)."
 msgstr ""
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:536
+#: src/microsim/trigger/MSTriggeredRerouter.cpp:530
 #, c-format
 msgid ""
 "Cannot keep destination edge '%' for vehicle '%' due to closed edges. "
@@ -5870,6 +5971,7 @@ msgstr ""
 "archi chiusi al traffico. L'itinerario termina qui."
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:813
+#: src/microsim/trigger/MSTriggeredRerouter.cpp:807
 msgid ""
 "ParkingArea '%' is targeted by rerouter '%' but doesn't have its own "
 "rerouter. This may cause parking search to abort."
@@ -5890,6 +5992,7 @@ msgstr ""
 #: src/netbuild/NBAlgorithms.cpp:371 src/netbuild/NBNodeCont.cpp:1800
 #: src/netimport/NIImporter_OpenStreetMap.cpp:432
 #: src/netimport/NIXMLNodesHandler.cpp:360
+#: src/netimport/NIImporter_OpenStreetMap.cpp:431
 msgid "Could not allocate tls '%'."
 msgstr ""
 
@@ -6302,46 +6405,46 @@ msgstr "La corsia '%' ha un limite di velocità di 0."
 msgid "Replacing loaded roundabout '%' with '%'."
 msgstr "Sostuisco la rotatoria caricata '%' con '%'."
 
-#: src/netbuild/NBEdgeCont.cpp:1840
+#: src/netbuild/NBEdgeCont.cpp:1840 src/netbuild/NBEdgeCont.cpp:1838
 msgid "Edge '%' overlaps with edge '%' by %."
 msgstr "L'arco '%' si sovrappone all'arco '%' per %."
 
-#: src/netbuild/NBEdgeCont.cpp:1856
+#: src/netbuild/NBEdgeCont.cpp:1856 src/netbuild/NBEdgeCont.cpp:1854
 #, c-format
 msgid "Edge '%' has a vertical jump of %m."
 msgstr "L'arco '%' contiene un salto verticale de %m."
 
-#: src/netbuild/NBEdgeCont.cpp:1858
+#: src/netbuild/NBEdgeCont.cpp:1858 src/netbuild/NBEdgeCont.cpp:1856
 #, c-format
 msgid "Edge '%' has a grade of %%."
 msgstr "L'arco '%' ha un'inclinazione di %%."
 
-#: src/netbuild/NBEdgeCont.cpp:1868
+#: src/netbuild/NBEdgeCont.cpp:1868 src/netbuild/NBEdgeCont.cpp:1866
 #, c-format
 msgid "Connection '%' has a vertical jump of %m."
 msgstr "Il collegamento '%' ha un salto verticale di %m."
 
-#: src/netbuild/NBEdgeCont.cpp:1870
+#: src/netbuild/NBEdgeCont.cpp:1870 src/netbuild/NBEdgeCont.cpp:1868
 #, c-format
 msgid "Connection '%' has a grade of %%."
 msgstr "Il collegamento '%' ha un'inclinazione di %%."
 
-#: src/netbuild/NBEdgeCont.cpp:1910
+#: src/netbuild/NBEdgeCont.cpp:1910 src/netbuild/NBEdgeCont.cpp:1908
 msgid "Not joining tram edge '%' with % lanes."
 msgstr ""
 
-#: src/netbuild/NBEdgeCont.cpp:1988
+#: src/netbuild/NBEdgeCont.cpp:1988 src/netbuild/NBEdgeCont.cpp:1986
 msgid "Ambiguous tram edges '%' and '%' for lane '%'."
 msgstr ""
 
 #: src/netbuild/NBEdgeCont.cpp:2142 src/netimport/NIImporter_SUMO.cpp:140
-#: src/netimport/NIXMLEdgesHandler.cpp:554
+#: src/netimport/NIXMLEdgesHandler.cpp:554 src/netbuild/NBEdgeCont.cpp:2140
 #, c-format
 msgid "Edge's '%' from-node '%' is not known."
 msgstr ""
 
 #: src/netbuild/NBEdgeCont.cpp:2146 src/netimport/NIImporter_SUMO.cpp:144
-#: src/netimport/NIXMLEdgesHandler.cpp:566
+#: src/netimport/NIXMLEdgesHandler.cpp:566 src/netbuild/NBEdgeCont.cpp:2144
 #, c-format
 msgid "Edge's '%' to-node '%' is not known."
 msgstr ""
@@ -6686,14 +6789,17 @@ msgid "Turn off normalizing node positions"
 msgstr "Disattiva la normalizzazione delle posizioni dei nodi"
 
 #: src/netbuild/NBFrame.cpp:296 src/polyconvert/polyconvert_main.cpp:190
+#: src/polyconvert/polyconvert_main.cpp:186
 msgid "Adds FLOAT to net x-positions"
 msgstr "Aggiunge FLOAT alle coordinate x"
 
 #: src/netbuild/NBFrame.cpp:300 src/polyconvert/polyconvert_main.cpp:194
+#: src/polyconvert/polyconvert_main.cpp:190
 msgid "Adds FLOAT to net y-positions"
 msgstr "Aggiunge FLOAT alle coordinate y"
 
 #: src/netbuild/NBFrame.cpp:303 src/polyconvert/polyconvert_main.cpp:197
+#: src/polyconvert/polyconvert_main.cpp:193
 msgid "Adds FLOAT to net z-positions"
 msgstr "Aggiunge FLOAT alle coordinate z"
 
@@ -7448,7 +7554,7 @@ msgstr ""
 "Il passaggio pedonale invalido '%' all'incrocio '%' con gli archi [%] va "
 "essere omesso perché non ci sono corsie di veicoli che lo incrociano."
 
-#: src/netbuild/NBNode.cpp:3142
+#: src/netbuild/NBNode.cpp:3142 src/netbuild/NBNode.cpp:3140
 msgid ""
 "Discarding invalid crossing '%' at junction '%' with edges [%] (invalid "
 "shape)."
@@ -7456,14 +7562,14 @@ msgstr ""
 "Il passaggio pedonale invalido '%' all'incrocio '%' con gli archi [%] va "
 "essere omesso per causa di forma invalida."
 
-#: src/netbuild/NBNode.cpp:3266
+#: src/netbuild/NBNode.cpp:3266 src/netbuild/NBNode.cpp:3181
 #, c-format
 msgid "Ignoring additional sidewalk lane % on edge '%' for walkingareas."
 msgstr ""
 "La corsia addizionale del marciapiede % su arco '%' va essere ignorata per "
 "causa delle aree pedonali."
 
-#: src/netbuild/NBNode.cpp:3382
+#: src/netbuild/NBNode.cpp:3382 src/netbuild/NBNode.cpp:3297
 msgid ""
 "Invalid pedestrian topology at junction '%'; crossing '%' targets '%' and "
 "'%'."
@@ -7471,7 +7577,7 @@ msgstr ""
 "Topologia per pedoni invalida all'incrocio '%'; il passaggio pedonale "
 "collega '%' a '%'."
 
-#: src/netbuild/NBNode.cpp:3408
+#: src/netbuild/NBNode.cpp:3408 src/netbuild/NBNode.cpp:3323
 msgid ""
 "Invalid pedestrian topology at junction '%'; crossing '%' is targeted by '%' "
 "and '%'."
@@ -7479,7 +7585,7 @@ msgstr ""
 "Topologia per pedoni invalida all'incrocio '%'; il passaggio pedonale "
 "collega '%' a '%'."
 
-#: src/netbuild/NBNode.cpp:3413
+#: src/netbuild/NBNode.cpp:3413 src/netbuild/NBNode.cpp:3328
 msgid ""
 "Invalid pedestrian topology at junction '%'; crossing '%' starts and ends at "
 "walkingarea '%'."
@@ -7487,21 +7593,21 @@ msgstr ""
 "Topologia per pedoni invalida all'incrocio '%'; il passaggio pedonale inizia "
 "e termina alla stessa area pedonale '%'."
 
-#: src/netbuild/NBNode.cpp:3673
+#: src/netbuild/NBNode.cpp:3673 src/netbuild/NBNode.cpp:3588
 msgid "Invalid pedestrian topology: crossing '%' across [%] has no target."
 msgstr ""
 "Topologia per pedoni invalida all'incrocio '%'; il passaggio pedonale '%' "
 "attraverso [%] non ha destinazione."
 
-#: src/netbuild/NBNode.cpp:4012
+#: src/netbuild/NBNode.cpp:4012 src/netbuild/NBNode.cpp:3927
 msgid "Request for unknown crossing '%'"
 msgstr "Richiesta del passaggio pedonale sconosciuto '%'"
 
-#: src/netbuild/NBNode.cpp:4028
+#: src/netbuild/NBNode.cpp:4028 src/netbuild/NBNode.cpp:3943
 msgid "Request for unknown crossing for the given Edges"
 msgstr "Richiesta di un passaggio pedonale sconosciuto per gli archi dati"
 
-#: src/netbuild/NBNode.cpp:4053
+#: src/netbuild/NBNode.cpp:4053 src/netbuild/NBNode.cpp:3968
 msgid "Request for unknown walkingarea '%'."
 msgstr "Richiesta dell'area pedonale sconosciuta '%'."
 
@@ -7838,7 +7944,7 @@ msgid ""
 msgstr ""
 
 #: src/netconvert_main.cpp:124 src/polyconvert/polyconvert_main.cpp:288
-#: src/utils/geom/GeoConvHelper.cpp:92
+#: src/utils/geom/GeoConvHelper.cpp:92 src/polyconvert/polyconvert_main.cpp:279
 msgid "Could not build projection!"
 msgstr "Non ho potuto eseguire la proiezione!"
 
@@ -8200,6 +8306,7 @@ msgstr ""
 
 #: src/netimport/NIFrame.cpp:145 src/od2trips_main.cpp:159
 #: src/polyconvert/polyconvert_main.cpp:203
+#: src/polyconvert/polyconvert_main.cpp:199
 msgid "Continue on broken input"
 msgstr ""
 
@@ -8227,6 +8334,7 @@ msgstr ""
 "oggetti in costruzione"
 
 #: src/netimport/NIFrame.cpp:163 src/polyconvert/polyconvert_main.cpp:209
+#: src/polyconvert/polyconvert_main.cpp:205
 msgid "Remove all z-data"
 msgstr "Rimuovi tutti gli dati z"
 
@@ -8303,39 +8411,39 @@ msgid ""
 "roads)"
 msgstr ""
 
-#: src/netimport/NIFrame.cpp:210
+#: src/netimport/NIFrame.cpp:210 src/netimport/NIFrame.cpp:207
 msgid "Import crossings"
 msgstr "Importa passaggi pedonali"
 
-#: src/netimport/NIFrame.cpp:213
+#: src/netimport/NIFrame.cpp:213 src/netimport/NIFrame.cpp:210
 msgid "Import turning arrows from OSM to help with connection building"
 msgstr "Importa frecce di svolta da OSM per la creazione di collegamenti"
 
-#: src/netimport/NIFrame.cpp:216
+#: src/netimport/NIFrame.cpp:216 src/netimport/NIFrame.cpp:213
 msgid "The default length of a public transport stop in FLOAT m"
 msgstr "La lunghezza standard di una fermata di trasporto pubblico in FLOAT m"
 
-#: src/netimport/NIFrame.cpp:218
+#: src/netimport/NIFrame.cpp:218 src/netimport/NIFrame.cpp:215
 msgid "The default length of a bus stop in FLOAT m"
 msgstr "La lunghezza standard di una fermata di autobus in FLOAT m"
 
-#: src/netimport/NIFrame.cpp:220
+#: src/netimport/NIFrame.cpp:220 src/netimport/NIFrame.cpp:217
 msgid "The default length of a tram stop in FLOAT m"
 msgstr "La lunghezza standard di una fermata tranviaria in FLOAT m"
 
-#: src/netimport/NIFrame.cpp:222
+#: src/netimport/NIFrame.cpp:222 src/netimport/NIFrame.cpp:219
 msgid "The default length of a train stop in FLOAT m"
 msgstr "La lunghezza standard di una fermata ferroviaria in FLOAT m"
 
-#: src/netimport/NIFrame.cpp:225
+#: src/netimport/NIFrame.cpp:225 src/netimport/NIFrame.cpp:222
 msgid "Specify custom rules for importing railway signals"
 msgstr "Specifica regole personalizzate per importare segnali ferroviari"
 
-#: src/netimport/NIFrame.cpp:229
+#: src/netimport/NIFrame.cpp:229 src/netimport/NIFrame.cpp:226
 msgid "Whether additional attributes shall be imported"
 msgstr "Se si devono importare attributi addizionali"
 
-#: src/netimport/NIFrame.cpp:233
+#: src/netimport/NIFrame.cpp:233 src/netimport/NIFrame.cpp:230
 msgid ""
 "List of additional attributes that shall be imported from OSM via osm.all-"
 "attributes (set 'all' to import all)"
@@ -8344,209 +8452,213 @@ msgstr ""
 "attraverso osm.all-attributes (imposta a 'all' per importare tutti gli "
 "attributi)"
 
-#: src/netimport/NIFrame.cpp:236
+#: src/netimport/NIFrame.cpp:236 src/netimport/NIFrame.cpp:233
 msgid ""
 "The speed limit to be set when there is no actual speed limit in reality"
 msgstr "Il limite di velocità da impostare laddove in realtà non ce n'è uno"
 
-#: src/netimport/NIFrame.cpp:240
+#: src/netimport/NIFrame.cpp:240 src/netimport/NIFrame.cpp:237
 msgid "The edge lengths given in the MATSim-file will be kept"
 msgstr "Le lunghezze degli archi verranno mantenute come date nel file MATSIM"
 
-#: src/netimport/NIFrame.cpp:243
+#: src/netimport/NIFrame.cpp:243 src/netimport/NIFrame.cpp:240
 msgid "The lane number will be computed from the capacity"
 msgstr "Il numero di corsie verrà derivato dalla capacità"
 
-#: src/netimport/NIFrame.cpp:249
+#: src/netimport/NIFrame.cpp:249 src/netimport/NIFrame.cpp:246
 msgid "Read edge ids from column STR"
 msgstr "Leggi i codici identificativi degli archi dalla colonna STR"
 
-#: src/netimport/NIFrame.cpp:253
+#: src/netimport/NIFrame.cpp:253 src/netimport/NIFrame.cpp:250
 msgid "Read from-node ids from column STR"
 msgstr "Leggi i codici identificativi dei nodi iniziali dalla colonna STR"
 
-#: src/netimport/NIFrame.cpp:257
+#: src/netimport/NIFrame.cpp:257 src/netimport/NIFrame.cpp:254
 msgid "Read to-node ids from column STR"
 msgstr "Leggi i codici identificativi dei nodi terminali dalla colonna STR"
 
-#: src/netimport/NIFrame.cpp:261
+#: src/netimport/NIFrame.cpp:261 src/netimport/NIFrame.cpp:258
 msgid "Read type ids from column STR"
 msgstr "Leggi i codici identificativi dei tipi dalla colonna STR"
 
-#: src/netimport/NIFrame.cpp:264
+#: src/netimport/NIFrame.cpp:264 src/netimport/NIFrame.cpp:261
 msgid "Read lane number from column STR"
 msgstr "Leggi il numero di corsie dalla colonna STR"
 
-#: src/netimport/NIFrame.cpp:267
+#: src/netimport/NIFrame.cpp:267 src/netimport/NIFrame.cpp:264
 msgid "Read speed from column STR"
 msgstr "Leggi la velocità dalla colonna STR"
 
-#: src/netimport/NIFrame.cpp:270
+#: src/netimport/NIFrame.cpp:270 src/netimport/NIFrame.cpp:267
 msgid "Read custom edge length from column STR"
 msgstr "Leggi la lunghezza personalizzata di un arco dalla colonna STR"
 
-#: src/netimport/NIFrame.cpp:273
+#: src/netimport/NIFrame.cpp:273 src/netimport/NIFrame.cpp:270
 msgid "Read total edge width from column STR"
 msgstr "Leggi la larghezza totale di un arco dalla colonna STR"
 
-#: src/netimport/NIFrame.cpp:276
+#: src/netimport/NIFrame.cpp:276 src/netimport/NIFrame.cpp:273
 msgid "Read (non-unique) name from column STR"
 msgstr "Leggi il nome (non necessariamente unico) dalla colonna STR"
 
-#: src/netimport/NIFrame.cpp:279
+#: src/netimport/NIFrame.cpp:279 src/netimport/NIFrame.cpp:276
 msgid ""
 "Distance threshold for determining whether distinct shapes are connected "
 "(used when from-id and to-id are not available)"
 msgstr ""
 
-#: src/netimport/NIFrame.cpp:282
+#: src/netimport/NIFrame.cpp:282 src/netimport/NIFrame.cpp:279
 msgid "Add the list of field names as edge params"
 msgstr "Aggiungi l'elenco di nomi dei campi come parametri dell'arco"
 
-#: src/netimport/NIFrame.cpp:286
+#: src/netimport/NIFrame.cpp:286 src/netimport/NIFrame.cpp:283
 msgid "Uses edge type defaults on problems"
 msgstr "Usa valori standard tratti dei tipi di arco in caso di problemi"
 
-#: src/netimport/NIFrame.cpp:291
+#: src/netimport/NIFrame.cpp:291 src/netimport/NIFrame.cpp:288
 msgid "Insert edges in both directions"
 msgstr "Inserisci archi per entrambe le direzioni"
 
-#: src/netimport/NIFrame.cpp:295
+#: src/netimport/NIFrame.cpp:295 src/netimport/NIFrame.cpp:292
 msgid "Guess the proper projection"
 msgstr "Indovina la proiezione giusta"
 
 #: src/netimport/NIFrame.cpp:298 src/polyconvert/polyconvert_main.cpp:129
+#: src/netimport/NIFrame.cpp:295 src/polyconvert/polyconvert_main.cpp:125
 msgid "Use traditional axis order (lon, lat)"
 msgstr ""
 
-#: src/netimport/NIFrame.cpp:303
+#: src/netimport/NIFrame.cpp:303 src/netimport/NIFrame.cpp:300
 msgid "Allow more vehicle classes by default"
 msgstr ""
 
-#: src/netimport/NIFrame.cpp:306
+#: src/netimport/NIFrame.cpp:306 src/netimport/NIFrame.cpp:303
 msgid "The edge lengths given in the DLR Navteq-file will be kept"
 msgstr ""
 
-#: src/netimport/NIFrame.cpp:312
+#: src/netimport/NIFrame.cpp:312 src/netimport/NIFrame.cpp:309
 msgid "Structure join offset"
 msgstr ""
 
-#: src/netimport/NIFrame.cpp:315
+#: src/netimport/NIFrame.cpp:315 src/netimport/NIFrame.cpp:312
 msgid "Use FLOAT as default speed"
 msgstr ""
 
-#: src/netimport/NIFrame.cpp:318
+#: src/netimport/NIFrame.cpp:318 src/netimport/NIFrame.cpp:315
 msgid "Factor for edge velocity"
 msgstr ""
 
-#: src/netimport/NIFrame.cpp:321
+#: src/netimport/NIFrame.cpp:321 src/netimport/NIFrame.cpp:318
 msgid "Writes lanes without an explicit speed set"
 msgstr ""
 
 #: src/netimport/NIFrame.cpp:326 src/polyconvert/polyconvert_main.cpp:95
+#: src/netimport/NIFrame.cpp:323
 msgid "Load language mappings from FILE"
 msgstr ""
 
-#: src/netimport/NIFrame.cpp:329
+#: src/netimport/NIFrame.cpp:329 src/netimport/NIFrame.cpp:326
 msgid "Uses priorities from types"
 msgstr "Usa priorità dei tipi"
 
-#: src/netimport/NIFrame.cpp:332
+#: src/netimport/NIFrame.cpp:332 src/netimport/NIFrame.cpp:329
 msgid "Uses lane numbers from types"
 msgstr "Usa numeri di corsie dei tipi"
 
-#: src/netimport/NIFrame.cpp:335
+#: src/netimport/NIFrame.cpp:335 src/netimport/NIFrame.cpp:332
 msgid "Uses speeds from types"
 msgstr "Usa velocità dei tipi"
 
-#: src/netimport/NIFrame.cpp:338
+#: src/netimport/NIFrame.cpp:338 src/netimport/NIFrame.cpp:335
 msgid "Sets connector speed"
 msgstr "Imposta velocità dei collegamenti"
 
-#: src/netimport/NIFrame.cpp:342
+#: src/netimport/NIFrame.cpp:342 src/netimport/NIFrame.cpp:339
 msgid "Sets connector lane number"
 msgstr ""
 
-#: src/netimport/NIFrame.cpp:345
+#: src/netimport/NIFrame.cpp:345 src/netimport/NIFrame.cpp:342
 msgid "Excludes connectors"
 msgstr ""
 
-#: src/netimport/NIFrame.cpp:349
+#: src/netimport/NIFrame.cpp:349 src/netimport/NIFrame.cpp:346
 msgid "Computes the number of lanes from the edges' capacities"
 msgstr ""
 
-#: src/netimport/NIFrame.cpp:352
+#: src/netimport/NIFrame.cpp:352 src/netimport/NIFrame.cpp:349
 msgid "Prints all warnings, some of which are due to VISUM misbehaviour"
 msgstr ""
 
-#: src/netimport/NIFrame.cpp:357
+#: src/netimport/NIFrame.cpp:357 src/netimport/NIFrame.cpp:354
 msgid "The factor for flow to no. lanes conversion"
 msgstr ""
 
-#: src/netimport/NIFrame.cpp:362
+#: src/netimport/NIFrame.cpp:362 src/netimport/NIFrame.cpp:359
 msgid "Imports all lane types"
 msgstr ""
 
-#: src/netimport/NIFrame.cpp:364
+#: src/netimport/NIFrame.cpp:364 src/netimport/NIFrame.cpp:361
 msgid ""
 "The geometry resolution in m when importing curved geometries as line "
 "segments."
 msgstr ""
 
-#: src/netimport/NIFrame.cpp:366
+#: src/netimport/NIFrame.cpp:366 src/netimport/NIFrame.cpp:363
 msgid ""
 "Allow stop lines to be built beyond the start of the junction if the "
 "geometries allow so"
 msgstr ""
 
-#: src/netimport/NIFrame.cpp:368
+#: src/netimport/NIFrame.cpp:368 src/netimport/NIFrame.cpp:365
 msgid ""
 "The minimum lane width for determining start or end of variable-width lanes"
 msgstr ""
 
-#: src/netimport/NIFrame.cpp:370
+#: src/netimport/NIFrame.cpp:370 src/netimport/NIFrame.cpp:367
 msgid "Import internal lane shapes"
 msgstr ""
 
-#: src/netimport/NIFrame.cpp:372
+#: src/netimport/NIFrame.cpp:372 src/netimport/NIFrame.cpp:369
 msgid "Sets edge-id based on road-id and offset in m (legacy)"
 msgstr ""
 
-#: src/netimport/NIFrame.cpp:374
+#: src/netimport/NIFrame.cpp:374 src/netimport/NIFrame.cpp:371
 msgid "Use custom lane shapes to compensate discarded lane types"
 msgstr ""
 
-#: src/netimport/NIFrame.cpp:376
+#: src/netimport/NIFrame.cpp:376 src/netimport/NIFrame.cpp:373
 msgid ""
 "Use the OpenDRIVE controller information for the generated signal program"
 msgstr ""
 
-#: src/netimport/NIFrame.cpp:378
+#: src/netimport/NIFrame.cpp:378 src/netimport/NIFrame.cpp:375
 msgid "Ignore traffic signals which do not control any driving lane"
 msgstr ""
 
-#: src/netimport/NIFrame.cpp:389
+#: src/netimport/NIFrame.cpp:389 src/netimport/NIFrame.cpp:386
 msgid ""
 "Discard all railway signal information loaded from other formats than plain-"
 "xml"
 msgstr ""
 
-#: src/netimport/NIFrame.cpp:410
+#: src/netimport/NIFrame.cpp:410 src/netimport/NIFrame.cpp:407
 msgid ""
 "Cannot import network data without PROJ-Library. Please install package proj "
 "before building sumo"
 msgstr ""
 
 #: src/netimport/NIFrame.cpp:435 src/polyconvert/polyconvert_main.cpp:329
+#: src/netimport/NIFrame.cpp:432 src/polyconvert/polyconvert_main.cpp:320
 msgid "Environment variable SUMO_HOME is not set, using built in type maps."
 msgstr ""
 
-#: src/netimport/NIFrame.cpp:468
+#: src/netimport/NIFrame.cpp:468 src/netimport/NIFrame.cpp:465
 msgid "It is recommended to use option osm.crossings with osm.sidewalks"
 msgstr ""
 
 #: src/netimport/NIImporter_ArcView.cpp:137
 #: src/polyconvert/PCLoaderArcView.cpp:142
+#: src/polyconvert/PCLoaderArcView.cpp:139
 msgid "Could not open shape description '%'."
 msgstr "Non ho potuto aprire la descrizione della forma '%'."
 
@@ -8580,11 +8692,13 @@ msgstr ""
 
 #: src/netimport/NIImporter_ArcView.cpp:260
 #: src/polyconvert/PCLoaderArcView.cpp:95
+#: src/polyconvert/PCLoaderArcView.cpp:90
 msgid "No coordinate system found and coordinates look already projected."
 msgstr ""
 
 #: src/netimport/NIImporter_ArcView.cpp:263
 #: src/polyconvert/PCLoaderArcView.cpp:98
+#: src/polyconvert/PCLoaderArcView.cpp:93
 msgid "Could not find geo coordinate system, assuming WGS84."
 msgstr ""
 
@@ -8630,6 +8744,7 @@ msgstr ""
 
 #: src/netimport/NIImporter_ArcView.cpp:387
 #: src/polyconvert/PCLoaderArcView.cpp:337
+#: src/polyconvert/PCLoaderArcView.cpp:338
 msgid "SUMO was compiled without GDAL support."
 msgstr "SUMO è stato compilato senza supporto GDAL."
 
@@ -8730,6 +8845,7 @@ msgstr ""
 #: src/netimport/NIImporter_OpenDrive.cpp:550
 #: src/netimport/NIImporter_OpenDrive.cpp:608
 #: src/netimport/NIImporter_OpenStreetMap.cpp:845
+#: src/netimport/NIImporter_OpenStreetMap.cpp:836
 msgid "Could not add edge '%'."
 msgstr "Non ho potuto aggiungere l'arco '%'."
 
@@ -9013,49 +9129,60 @@ msgstr ""
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:157
 #: src/polyconvert/PCLoaderOSM.cpp:104
+#: src/netimport/NIImporter_OpenStreetMap.cpp:156
 msgid "Could not open osm-file '%'."
 msgstr ""
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:169
+#: src/netimport/NIImporter_OpenStreetMap.cpp:168
 #, c-format
 msgid "Found and substituted % osm nodes."
 msgstr ""
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:193
+#: src/netimport/NIImporter_OpenStreetMap.cpp:192
 msgid "Removing duplicate edges"
 msgstr ""
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:208
+#: src/netimport/NIImporter_OpenStreetMap.cpp:207
 #, c-format
 msgid "Removed % duplicate osm edges."
 msgstr ""
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:242
+#: src/netimport/NIImporter_OpenStreetMap.cpp:241
 msgid "Discarding way '%' because it has only % node(s)"
 msgstr ""
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:409
+#: src/netimport/NIImporter_OpenStreetMap.cpp:408
 msgid "Could not insert junction '%'."
 msgstr ""
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:476
+#: src/netimport/NIImporter_OpenStreetMap.cpp:475
 msgid ""
 "Discarding edge '%' which connects two identical nodes without geometry."
 msgstr ""
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:627
+#: src/netimport/NIImporter_OpenStreetMap.cpp:626
 msgid "New value for oneway found: %"
 msgstr ""
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:662
+#: src/netimport/NIImporter_OpenStreetMap.cpp:661
 msgid "Skipping edge '%' because it has zero lanes."
 msgstr "L'arco '%' verrà omesso perché non ha corsie."
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:708
+#: src/netimport/NIImporter_OpenStreetMap.cpp:701
 msgid "Skipping edge '%' because it has speed %."
 msgstr "L'arco '%' verrà omesso perché ha il limite di velocità %."
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:832
+#: src/netimport/NIImporter_OpenStreetMap.cpp:823
 msgid ""
 "Forward lanes count for edge '%' ('%') is not matching the number of lanes "
 "defined in width:lanes:forward key ('%'). Using default width values."
@@ -9065,6 +9192,7 @@ msgstr ""
 "larghezza standard verrà usato."
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:885
+#: src/netimport/NIImporter_OpenStreetMap.cpp:876
 msgid ""
 "Backward lanes count for edge '%' ('%') is not matching the number of lanes "
 "defined in width:lanes:backward key ('%'). Using default width values."
@@ -9074,33 +9202,40 @@ msgstr ""
 "larghezza standard verrà usato."
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:898
+#: src/netimport/NIImporter_OpenStreetMap.cpp:889
 msgid "Could not add edge '-%'."
 msgstr "Non ho potuto aggiungere l'arco '-%'."
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:998
+#: src/netimport/NIImporter_OpenStreetMap.cpp:989
 msgid ""
 "Attribute 'id' in the definition of a node is not of type long long int."
 msgstr ""
 "L'attributo 'id' nella definizione del nodo non è del tipo long long int."
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:1004
+#: src/netimport/NIImporter_OpenStreetMap.cpp:995
 msgid "Tag element on wrong XML hierarchy level."
 msgstr ""
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:1064
+#: src/netimport/NIImporter_OpenStreetMap.cpp:1055
 msgid "Value of key '%' is invalid ('%') in node '%'."
 msgstr "Il valore della chiave '%' è invalido ('%') nel nodo '%'."
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:1069
+#: src/netimport/NIImporter_OpenStreetMap.cpp:1060
 msgid "Value of key '%' is not numeric ('%') in node '%'."
 msgstr "Il valore della chiave '%' non è numerico ('%') nel nodo '%'."
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:1216
 #: src/polyconvert/PCLoaderOSM.cpp:578
+#: src/netimport/NIImporter_OpenStreetMap.cpp:1207
 msgid "The referenced geometry information (ref='%') is not known"
 msgstr "La informazione geometrica referenziata (ref='%') è sconosciuta"
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:1471
+#: src/netimport/NIImporter_OpenStreetMap.cpp:1461
 #, c-format
 msgid "Using default lane width for edge '%' as key '%' could not be parsed."
 msgstr ""
@@ -9108,6 +9243,7 @@ msgstr ""
 "'%' non poteva essere analizzata."
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:1474
+#: src/netimport/NIImporter_OpenStreetMap.cpp:1464
 #, c-format
 msgid "Using default lane width for edge '%' as value '%' could not be parsed."
 msgstr ""
@@ -9115,6 +9251,7 @@ msgstr ""
 "'%' non poteva essere analizzato."
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:1480
+#: src/netimport/NIImporter_OpenStreetMap.cpp:1470
 #, c-format
 msgid "Using default width for edge '%' as value '%' could not be parsed."
 msgstr ""
@@ -9122,6 +9259,7 @@ msgstr ""
 "essere analizzato."
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:1516
+#: src/netimport/NIImporter_OpenStreetMap.cpp:1506
 msgid "Using minimum lane number from list (%) for edge '%'."
 msgstr "Uso del numero minimo di corsie dall'elenco (%) per arco '%'."
 
@@ -9131,65 +9269,82 @@ msgstr "Uso del numero minimo di corsie dall'elenco (%) per arco '%'."
 #: src/netimport/NIImporter_OpenStreetMap.cpp:1545
 #: src/netimport/NIImporter_OpenStreetMap.cpp:1571
 #: src/netimport/NIImporter_OpenStreetMap.cpp:1581
+#: src/netimport/NIImporter_OpenStreetMap.cpp:1508
+#: src/netimport/NIImporter_OpenStreetMap.cpp:1512
+#: src/netimport/NIImporter_OpenStreetMap.cpp:1523
+#: src/netimport/NIImporter_OpenStreetMap.cpp:1535
+#: src/netimport/NIImporter_OpenStreetMap.cpp:1561
 msgid "Value of key '%' is not numeric ('%') in edge '%'."
 msgstr "Il valore della chiave '%' non è numerico nell'arco '%'."
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:1578
+#: src/netimport/NIImporter_OpenStreetMap.cpp:1568
 msgid "Ignoring track count % for edge '%'."
 msgstr "Il numero di corsie % dell'arco '%' viene ignorato."
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:1756
+#: src/netimport/NIImporter_OpenStreetMap.cpp:1746
 msgid "Unknown lane use specifier '%' ignored for way '%'"
 msgstr "L'uso sconosciuto % del cammino '%' viene ignorato"
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:1865
+#: src/netimport/NIImporter_OpenStreetMap.cpp:1855
 msgid "No node found for reference '%' in relation '%'."
 msgstr ""
 "Non è stato trovato il nodo con il codice identificativo '%' della relazione "
 "'%'."
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:1929
+#: src/netimport/NIImporter_OpenStreetMap.cpp:1917
 msgid "Found unknown restriction type '%' in relation '%'"
 msgstr ""
 "Il tipo di restrizioni sconosciuto '%' è stato trovato nella relazione '%'"
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:1967
+#: src/netimport/NIImporter_OpenStreetMap.cpp:1955
 msgid "Invalid color value '%' in relation %"
 msgstr "Valore di colore '%' invalido nella relazione %"
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:1985
+#: src/netimport/NIImporter_OpenStreetMap.cpp:1973
 msgid "No way found for reference '%' in relation '%'"
 msgstr ""
 "Non è stato trovato il cammino con il codice identificativo '%' della "
 "relazione '%'"
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:1997
+#: src/netimport/NIImporter_OpenStreetMap.cpp:1985
 msgid "Ignoring restriction relation '%' with unknown type."
 msgstr "La relazione di restrizione '%' con tipo sconosciuto viene ignorato."
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:2001
+#: src/netimport/NIImporter_OpenStreetMap.cpp:1989
 msgid "Ignoring restriction relation '%' with unknown from-way."
 msgstr ""
 "La relazione di restrizione '%' con cammino di origine sconosciuto viene "
 "ignorato."
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:2005
+#: src/netimport/NIImporter_OpenStreetMap.cpp:1993
 msgid "Ignoring restriction relation '%' with unknown to-way."
 msgstr ""
 "La relazione di restrizione '%' con cammino di destinazione sconosciuto "
 "viene ignorato."
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:2009
+#: src/netimport/NIImporter_OpenStreetMap.cpp:1997
 msgid "Ignoring restriction relation '%' with unknown via."
 msgstr ""
 "La relazione di restrizione '%' con punto intermedio sconosciuto viene "
 "ignorato."
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:2013
+#: src/netimport/NIImporter_OpenStreetMap.cpp:2001
 msgid "Ignoring restriction relation '%'."
 msgstr "La relazione di restrizione '%' viene ignorata."
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:2038
+#: src/netimport/NIImporter_OpenStreetMap.cpp:2026
 #, c-format
 msgid ""
 "Platform '%' in relation: '%' is given as polygon, which currently is not "
@@ -9199,6 +9354,7 @@ msgstr ""
 "attualmente."
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:2059
+#: src/netimport/NIImporter_OpenStreetMap.cpp:2047
 #, c-format
 msgid ""
 "Referenced platform: '%' in relation: '%' is corrupt. Probably OSM file is "
@@ -9208,6 +9364,7 @@ msgstr ""
 "OSM è incompleto."
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:2104
+#: src/netimport/NIImporter_OpenStreetMap.cpp:2092
 #, c-format
 msgid "PT line '%' in relation % seems to be split, only keeping first part."
 msgstr ""
@@ -9215,67 +9372,82 @@ msgstr ""
 "più parti perciò si conserva solamente la prima parte."
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:2139
+#: src/netimport/NIImporter_OpenStreetMap.cpp:2127
 msgid ""
 "PT line in relation % with no stops ignored. Probably OSM file is incomplete."
 msgstr ""
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:2145
+#: src/netimport/NIImporter_OpenStreetMap.cpp:2133
 msgid "Ignoring duplicate PT line '%'."
 msgstr ""
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:2160
+#: src/netimport/NIImporter_OpenStreetMap.cpp:2148
 msgid "Via-node '%' was not instantiated"
 msgstr ""
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:2166
+#: src/netimport/NIImporter_OpenStreetMap.cpp:2154
 #, c-format
 msgid "from-edge '%' of restriction relation could not be determined"
 msgstr ""
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:2170
+#: src/netimport/NIImporter_OpenStreetMap.cpp:2158
 #, c-format
 msgid "to-edge '%' of restriction relation could not be determined"
 msgstr ""
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:2200
+#: src/netimport/NIImporter_OpenStreetMap.cpp:2188
 msgid "direction of restriction relation could not be determined%"
 msgstr ""
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:2221
+#: src/netimport/NIImporter_OpenStreetMap.cpp:2209
 #, c-format
 msgid "Ambiguous way reference '%' in restriction relation"
 msgstr ""
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:2473
+#: src/netimport/NIImporter_OpenStreetMap.cpp:2461
 msgid ""
 "Discarding unknown compound '%' in type '%' (first occurrence for edge '%')."
 msgstr ""
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:2479
+#: src/netimport/NIImporter_OpenStreetMap.cpp:2467
 msgid "Discarding unusable type '%' (first occurrence for edge '%')."
 msgstr ""
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:2524
+#: src/netimport/NIImporter_OpenStreetMap.cpp:2512
 msgid "Discarding compound type '%' (first occurrence for edge '%')."
 msgstr ""
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:2539
+#: src/netimport/NIImporter_OpenStreetMap.cpp:2527
 msgid "Adding new type '%' (first occurrence for edge '%')."
 msgstr ""
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:2574
+#: src/netimport/NIImporter_OpenStreetMap.cpp:2562
 msgid "Ambiguous railway kilometrage direction for way '%' (assuming forward)"
 msgstr ""
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:2581
+#: src/netimport/NIImporter_OpenStreetMap.cpp:2569
 msgid "Inconsistent railway kilometrage direction for way '%': % (skipping)"
 msgstr ""
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:2626
+#: src/netimport/NIImporter_OpenStreetMap.cpp:2614
 msgid "Value of railway:position is not numeric ('%') in node '%'."
 msgstr ""
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:2734
+#: src/netimport/NIImporter_OpenStreetMap.cpp:2722
 msgid ""
 "Ignoring turn sign information for % lanes on edge % with % driving lanes"
 msgstr ""
@@ -10756,7 +10928,7 @@ msgstr ""
 msgid "District '%' does not provide any valid sink."
 msgstr ""
 
-#: src/od/ODDistrictCont.cpp:84
+#: src/od/ODDistrictCont.cpp:84 src/od/ODDistrictCont.cpp:72
 #, c-format
 msgid "Could not access network file '%' to load."
 msgstr "Non è stato possibile accedere al file di rete '%' da caricare."
@@ -10910,10 +11082,13 @@ msgstr "non disponibile"
 #: src/polyconvert/PCLoaderDlrNavteq.cpp:208
 #: src/polyconvert/PCLoaderOSM.cpp:240 src/polyconvert/PCLoaderVisum.cpp:343
 #: src/utils/shapes/ShapeHandler.cpp:250
+#: src/polyconvert/PCLoaderArcView.cpp:107
+#: src/utils/shapes/ShapeHandler.cpp:251
 msgid "Unable to project coordinates for polygon '%'."
 msgstr "Incapace di eseguire la proiezione del poligono '%'."
 
 #: src/polyconvert/PCLoaderArcView.cpp:187
+#: src/polyconvert/PCLoaderArcView.cpp:184
 msgid "Missing id under '%'"
 msgstr "Manca il codice identificativo in '%'"
 
@@ -10922,10 +11097,14 @@ msgstr "Manca il codice identificativo in '%'"
 #: src/polyconvert/PCLoaderDlrNavteq.cpp:140
 #: src/polyconvert/PCLoaderOSM.cpp:279 src/polyconvert/PCLoaderVisum.cpp:271
 #: src/polyconvert/PCLoaderVisum.cpp:389 src/utils/shapes/ShapeHandler.cpp:191
+#: src/polyconvert/PCLoaderArcView.cpp:235
+#: src/polyconvert/PCLoaderArcView.cpp:270
+#: src/utils/shapes/ShapeHandler.cpp:192
 msgid "Unable to project coordinates for POI '%'."
 msgstr "Incapace di eseguire la proiezione del punto di interesse '%'."
 
 #: src/polyconvert/PCLoaderArcView.cpp:310
+#: src/polyconvert/PCLoaderArcView.cpp:307
 msgid "Unsupported shape type occurred (id='%')."
 msgstr "Tipo di forma non supportato (codice identificativo '%')."
 
@@ -11059,44 +11238,54 @@ msgid "Reads shapes from geojson FILE"
 msgstr ""
 
 #: src/polyconvert/polyconvert_main.cpp:122
+#: src/polyconvert/polyconvert_main.cpp:118
 msgid "Reads shapes from shapefiles FILE"
 msgstr ""
 
 #: src/polyconvert/polyconvert_main.cpp:126
+#: src/polyconvert/polyconvert_main.cpp:122
 msgid "Guesses the shapefile's projection"
 msgstr "Indovina la proiezione del shapefile"
 
 #: src/polyconvert/polyconvert_main.cpp:134
+#: src/polyconvert/polyconvert_main.cpp:130
 msgid "Defines in which column the id can be found"
 msgstr ""
 
 #: src/polyconvert/polyconvert_main.cpp:138
+#: src/polyconvert/polyconvert_main.cpp:134
 msgid "Defines which columns form the type id (comma separated list)"
 msgstr ""
 
 #: src/polyconvert/polyconvert_main.cpp:141
+#: src/polyconvert/polyconvert_main.cpp:137
 msgid "A running number will be used as id"
 msgstr ""
 
 #: src/polyconvert/polyconvert_main.cpp:144
+#: src/polyconvert/polyconvert_main.cpp:140
 msgid "Extract all additional columns as params"
 msgstr ""
 
 #: src/polyconvert/polyconvert_main.cpp:147
+#: src/polyconvert/polyconvert_main.cpp:143
 msgid ""
 "[auto|true|false]. Forces the 'fill' status to the given value. Default "
 "'auto' tries to determine it from the data type"
 msgstr ""
 
 #: src/polyconvert/polyconvert_main.cpp:152
+#: src/polyconvert/polyconvert_main.cpp:148
 msgid "Reads types from FILE"
 msgstr "Carica tipi da FILE"
 
 #: src/polyconvert/polyconvert_main.cpp:160
+#: src/polyconvert/polyconvert_main.cpp:156
 msgid "Write generated polygons/pois to FILE"
 msgstr "Scrivi poligoni e punti di interesse generati in FILE"
 
 #: src/polyconvert/polyconvert_main.cpp:163
+#: src/polyconvert/polyconvert_main.cpp:159
 msgid "Write generated polygons/pois to a dlr-tdp file with the given prefix"
 msgstr ""
 
@@ -11105,14 +11294,19 @@ msgstr ""
 #: src/polyconvert/polyconvert_main.cpp:176
 #: src/polyconvert/polyconvert_main.cpp:181
 #: src/polyconvert/polyconvert_main.cpp:185
+#: src/polyconvert/polyconvert_main.cpp:165
+#: src/polyconvert/polyconvert_main.cpp:172
+#: src/polyconvert/polyconvert_main.cpp:177
 msgid "Pruning"
 msgstr "Taglio"
 
 #: src/polyconvert/polyconvert_main.cpp:169
+#: src/polyconvert/polyconvert_main.cpp:165
 msgid "Enables pruning on net boundaries"
 msgstr "Attiva taglio lungo il contorno della rete"
 
 #: src/polyconvert/polyconvert_main.cpp:173
+#: src/polyconvert/polyconvert_main.cpp:169
 msgid ""
 "Uses FLOAT,FLOAT,FLOAT,FLOAT as offset definition added to the net boundary. "
 "Positive values grow the boundary on all sides while negative values shrink "
@@ -11123,24 +11317,29 @@ msgstr ""
 "i lati mentre valori negativi lo restringono."
 
 #: src/polyconvert/polyconvert_main.cpp:176
+#: src/polyconvert/polyconvert_main.cpp:172
 msgid "Uses STR as pruning boundary"
 msgstr "Utilizza STR come contorno dove tagliare"
 
 #: src/polyconvert/polyconvert_main.cpp:181
+#: src/polyconvert/polyconvert_main.cpp:177
 msgid "Items in STR will be kept though out of boundary"
 msgstr ""
 "Gli elementi menzionati in STR verranno mantenuti benché si trovino fuori "
 "del contorno"
 
 #: src/polyconvert/polyconvert_main.cpp:185
+#: src/polyconvert/polyconvert_main.cpp:181
 msgid "Items with names in STR[] will be removed"
 msgstr "Gli elementi menzionati in STR[] verranno rimossi"
 
 #: src/polyconvert/polyconvert_main.cpp:200
+#: src/polyconvert/polyconvert_main.cpp:196
 msgid "Imports all attributes as key/value pairs"
 msgstr "Importa tutti gli attributi come paio di chiave e valore"
 
 #: src/polyconvert/polyconvert_main.cpp:206
+#: src/polyconvert/polyconvert_main.cpp:202
 msgid ""
 "Adds FLOAT to the layer value for each poi (i.e. to raise it above polygons)"
 msgstr ""
@@ -11148,38 +11347,47 @@ msgstr ""
 "poligono per esempio)"
 
 #: src/polyconvert/polyconvert_main.cpp:213
+#: src/polyconvert/polyconvert_main.cpp:209
 msgid "Sets STR as default color"
 msgstr "Imposta STR come colore standard"
 
 #: src/polyconvert/polyconvert_main.cpp:216
+#: src/polyconvert/polyconvert_main.cpp:212
 msgid "Sets STR as default prefix"
 msgstr "Imposta STR come prefisso standard"
 
 #: src/polyconvert/polyconvert_main.cpp:219
+#: src/polyconvert/polyconvert_main.cpp:215
 msgid "Sets STR as default type"
 msgstr "Imposta STR come tipo standard"
 
 #: src/polyconvert/polyconvert_main.cpp:222
+#: src/polyconvert/polyconvert_main.cpp:218
 msgid "Fills polygons by default"
 msgstr "Riempi i poligoni per difetto"
 
 #: src/polyconvert/polyconvert_main.cpp:225
+#: src/polyconvert/polyconvert_main.cpp:221
 msgid "Sets STR as default icon"
 msgstr "Imposta STR come icona standard"
 
 #: src/polyconvert/polyconvert_main.cpp:228
+#: src/polyconvert/polyconvert_main.cpp:224
 msgid "Sets FLOAT as default layer"
 msgstr "Imposta FLOAT come livello standard"
 
 #: src/polyconvert/polyconvert_main.cpp:231
+#: src/polyconvert/polyconvert_main.cpp:227
 msgid "Sets default action to discard"
 msgstr ""
 
 #: src/polyconvert/polyconvert_main.cpp:235
+#: src/polyconvert/polyconvert_main.cpp:231
 msgid "Write geo coordinates in output"
 msgstr "Scrivi coordinate geografiche in uscita"
 
 #: src/polyconvert/polyconvert_main.cpp:242
+#: src/polyconvert/polyconvert_main.cpp:238
 msgid ""
 "Importer of polygons and POIs for the microscopic, multi-modal traffic "
 "simulation SUMO."
@@ -11188,6 +11396,7 @@ msgstr ""
 "multimodale del traffico SUMO."
 
 #: src/polyconvert/polyconvert_main.cpp:300
+#: src/polyconvert/polyconvert_main.cpp:291
 msgid "In order to prune the input on the net, you have to supply a network."
 msgstr ""
 "Per poter tagliare l'ingresso sulla rete quest'ultima deve essere "
@@ -11479,7 +11688,7 @@ msgstr "L'accesso invalido dall'arco '%' vietato ai pedoni viene ignorato."
 msgid "Repaired route of vehicle '%'."
 msgstr "L'itinerario del veicolo '%' è stato corretto."
 
-#: src/router/RORouteDef.cpp:227
+#: src/router/RORouteDef.cpp:227 src/router/RORouteDef.cpp:222
 msgid ""
 "There are stop edges which were not part of the original route for vehicle "
 "'%'."
@@ -11487,61 +11696,61 @@ msgstr ""
 "Ci sono archi di fermate che non facevano parte dell'itinerario originale "
 "del veicolo '%'."
 
-#: src/router/RORouteDef.cpp:242
+#: src/router/RORouteDef.cpp:242 src/router/RORouteDef.cpp:237
 msgid "Edge '%' not connected to edge '%' for vehicle '%'."
 msgstr "L'arco '%' è sconnesso dall'arco '%' del veicolo '%'."
 
-#: src/router/RORouteHandler.cpp:234
+#: src/router/RORouteHandler.cpp:234 src/router/RORouteHandler.cpp:221
 msgid "Triggered departure for person '%' requires starting with a ride."
 msgstr ""
 "La partenza generata della persona #%' richiede di iniziare con un passaggio."
 
-#: src/router/RORouteHandler.cpp:236
+#: src/router/RORouteHandler.cpp:236 src/router/RORouteHandler.cpp:223
 msgid ""
 "Triggered departure for container '%' requires starting with a transport."
 msgstr ""
 "La partenza generata del contenitore '%' richiede di iniziare con una "
 "spedizione."
 
-#: src/router/RORouteHandler.cpp:258
+#: src/router/RORouteHandler.cpp:258 src/router/RORouteHandler.cpp:245
 #, c-format
 msgid "Found % outside container element"
 msgstr "Incontrato % fuori di elementi di contenitori"
 
-#: src/router/RORouteHandler.cpp:382
+#: src/router/RORouteHandler.cpp:382 src/router/RORouteHandler.cpp:369
 msgid "No probability for route %, using default."
 msgstr ""
 "Nessuna probabilità indicata per l'itinerario %, allora viene usato il "
 "valore standard."
 
-#: src/router/RORouteHandler.cpp:537
+#: src/router/RORouteHandler.cpp:537 src/router/RORouteHandler.cpp:524
 msgid "Ids of internal route distributions are ignored (vehicle '%')."
 msgstr ""
 "I codici identificativi delle distribuzione di itinerari interne vengono "
 "ignorati (vehicle '%')."
 
-#: src/router/RORouteHandler.cpp:697
+#: src/router/RORouteHandler.cpp:697 src/router/RORouteHandler.cpp:640
 msgid "Discarding person '%' because her plan is empty"
 msgstr "Omissione della persona '%' a causa del suo piano vuoto"
 
-#: src/router/RORouteHandler.cpp:724
+#: src/router/RORouteHandler.cpp:724 src/router/RORouteHandler.cpp:667
 msgid "Discarding personFlow '%' because their plan is empty"
 msgstr "Omissione del flusso di persone '%' a causa del piano vuoto"
 
-#: src/router/RORouteHandler.cpp:732
+#: src/router/RORouteHandler.cpp:732 src/router/RORouteHandler.cpp:675
 #, c-format
 msgid "probabilistic personFlow '%' must specify end time"
 msgstr ""
 
-#: src/router/RORouteHandler.cpp:809
+#: src/router/RORouteHandler.cpp:809 src/router/RORouteHandler.cpp:752
 msgid "Discarding container '%' because its plan is empty"
 msgstr ""
 
-#: src/router/RORouteHandler.cpp:826
+#: src/router/RORouteHandler.cpp:826 src/router/RORouteHandler.cpp:769
 msgid "Discarding containerFlow '%' because its plan is empty"
 msgstr ""
 
-#: src/router/RORouteHandler.cpp:1126
+#: src/router/RORouteHandler.cpp:1126 src/router/RORouteHandler.cpp:1069
 msgid "Triggered departure for container '%' requires a unique lines value."
 msgstr ""
 
@@ -11862,39 +12071,39 @@ msgstr ""
 msgid "Cannot convert geo-positions because the network has no geo-reference"
 msgstr ""
 
-#: src/utils/common/MsgHandler.cpp:170
+#: src/utils/common/MsgHandler.cpp:170 src/utils/common/MsgHandler.cpp:190
 #, c-format
 msgid " done (%ms)."
 msgstr " concluso (%ms)."
 
-#: src/utils/common/MsgHandler.cpp:172
+#: src/utils/common/MsgHandler.cpp:172 src/utils/common/MsgHandler.cpp:192
 msgid " done."
 msgstr " concluso."
 
-#: src/utils/common/MsgHandler.cpp:175
+#: src/utils/common/MsgHandler.cpp:175 src/utils/common/MsgHandler.cpp:195
 msgid " failed."
 msgstr " fallito."
 
-#: src/utils/common/MsgHandler.cpp:264
+#: src/utils/common/MsgHandler.cpp:264 src/utils/common/MsgHandler.cpp:290
 msgid "Could not set locale to '%'."
 msgstr "Non ho potuto impostare il locale a '%'."
 
-#: src/utils/common/MsgHandler.cpp:269
+#: src/utils/common/MsgHandler.cpp:269 src/utils/common/MsgHandler.cpp:295
 msgid ""
 "Environment variable SUMO_HOME is not set, could not find localized messages."
 msgstr ""
 "La variabile d'ambiente SUMO_HOME non è stata impostata e per cui i messaggi "
 "localizzati non sono stati trovati."
 
-#: src/utils/common/MsgHandler.cpp:275
+#: src/utils/common/MsgHandler.cpp:275 src/utils/common/MsgHandler.cpp:301
 msgid "Could not find localized messages."
 msgstr "I messaggi localizzati non sono stati trovati."
 
-#: src/utils/common/MsgHandler.cpp:284
+#: src/utils/common/MsgHandler.cpp:284 src/utils/common/MsgHandler.cpp:310
 msgid "Warning: "
 msgstr "Avvertimento: "
 
-#: src/utils/common/MsgHandler.cpp:285
+#: src/utils/common/MsgHandler.cpp:285 src/utils/common/MsgHandler.cpp:311
 msgid "Error: "
 msgstr "Errore: "
 
@@ -12265,10 +12474,12 @@ msgid "Splitting vector close to end (pos: %, length: %)"
 msgstr ""
 
 #: src/utils/geom/PositionVector.cpp:1536
+#: src/utils/geom/PositionVector.cpp:1528
 msgid "Trying to subtract PositionVectors of different lengths."
 msgstr ""
 
 #: src/utils/geom/PositionVector.cpp:1550
+#: src/utils/geom/PositionVector.cpp:1542
 msgid "Trying to add PositionVectors of different lengths."
 msgstr ""
 
@@ -12311,7 +12522,7 @@ msgid "lon and lat must be be defined together in POIs"
 msgstr ""
 
 #: src/utils/handlers/AdditionalHandler.cpp:1959
-#: src/utils/shapes/ShapeHandler.cpp:127
+#: src/utils/shapes/ShapeHandler.cpp:127 src/utils/shapes/ShapeHandler.cpp:128
 msgid "Invalid icon % for POI '%', using default"
 msgstr ""
 
@@ -12345,18 +12556,22 @@ msgid ""
 msgstr ""
 
 #: src/utils/handlers/CommonHandler.cpp:106
+#: src/utils/handlers/CommonHandler.cpp:95
 msgid "'%' must be defined within the definition of a %."
 msgstr ""
 
 #: src/utils/handlers/CommonHandler.cpp:109
+#: src/utils/handlers/CommonHandler.cpp:98
 msgid "'%' must be defined within the definition of a '%' (found % '%')."
 msgstr ""
 
 #: src/utils/handlers/CommonHandler.cpp:112
+#: src/utils/handlers/CommonHandler.cpp:101
 msgid "'%' must be defined within the definition of a '%' (found %)."
 msgstr ""
 
 #: src/utils/handlers/CommonHandler.cpp:124
+#: src/utils/handlers/CommonHandler.cpp:113
 msgid "Could not build % with ID '%' in netedit; '%' ist not a valid vType ID."
 msgstr ""
 
@@ -12385,11 +12600,13 @@ msgid ""
 msgstr ""
 
 #: src/utils/handlers/CommonHandler.cpp:228
+#: src/utils/handlers/CommonHandler.cpp:124
 msgid ""
 "Could not build % with ID '%' in netedit; Attribute % cannot be negative."
 msgstr ""
 
 #: src/utils/handlers/CommonHandler.cpp:234
+#: src/utils/handlers/CommonHandler.cpp:130
 msgid ""
 "Could not build % with ID '%' in netedit; Attribute % must be greather than "
 "zero."
@@ -12397,34 +12614,45 @@ msgstr ""
 
 #: src/utils/handlers/CommonHandler.cpp:246
 #: src/utils/handlers/CommonHandler.cpp:264
+#: src/utils/handlers/CommonHandler.cpp:142
+#: src/utils/handlers/CommonHandler.cpp:160
 msgid ""
 "Could not build % with ID '%' in netedit; Attribute % cannot be negative (%)."
 msgstr ""
 
 #: src/utils/handlers/CommonHandler.cpp:252
 #: src/utils/handlers/CommonHandler.cpp:270
+#: src/utils/handlers/CommonHandler.cpp:148
+#: src/utils/handlers/CommonHandler.cpp:166
 msgid ""
 "Could not build % with ID '%' in netedit; Attribute % must be greather than "
 "zero (%)."
 msgstr ""
 
 #: src/utils/handlers/CommonHandler.cpp:283
+#: src/utils/handlers/CommonHandler.cpp:179
 msgid "Could not build % with ID '%' in netedit; % is invalid % ()"
 msgstr ""
 
 #: src/utils/handlers/CommonHandler.cpp:291
 #: src/utils/handlers/CommonHandler.cpp:303
 #: src/utils/handlers/CommonHandler.cpp:315
+#: src/utils/handlers/CommonHandler.cpp:187
+#: src/utils/handlers/CommonHandler.cpp:199
+#: src/utils/handlers/CommonHandler.cpp:211
 msgid "Could not build %; ID cannot be empty"
 msgstr ""
 
 #: src/utils/handlers/CommonHandler.cpp:293
 #: src/utils/handlers/CommonHandler.cpp:317
+#: src/utils/handlers/CommonHandler.cpp:189
+#: src/utils/handlers/CommonHandler.cpp:213
 msgid ""
 "Could not build % with ID '%' in netedit; ID contains invalid characters."
 msgstr ""
 
 #: src/utils/handlers/CommonHandler.cpp:305
+#: src/utils/handlers/CommonHandler.cpp:201
 msgid ""
 "Could not build % with ID '%' in netedit; detector ID contains invalid "
 "characters."
@@ -12435,11 +12663,13 @@ msgid "Overwritting % with ID '%'"
 msgstr ""
 
 #: src/utils/handlers/CommonHandler.cpp:332
+#: src/utils/handlers/CommonHandler.cpp:236
 msgid ""
 "Could not build % with ID '%' in netedit; Found another % with the same ID."
 msgstr ""
 
 #: src/utils/handlers/CommonHandler.cpp:346
+#: src/utils/handlers/CommonHandler.cpp:230
 msgid "Could not build % with ID '%' in netedit; Invalid position over lane."
 msgstr ""
 
@@ -12449,26 +12679,31 @@ msgid ""
 msgstr ""
 
 #: src/utils/handlers/CommonHandler.cpp:358
+#: src/utils/handlers/CommonHandler.cpp:242
 msgid "Could not build % with ID '%' in netedit; List of lanes isn't valid."
 msgstr ""
 
 #: src/utils/handlers/CommonHandler.cpp:364
+#: src/utils/handlers/CommonHandler.cpp:248
 msgid ""
 "Could not build % with ID '%' in netedit; Distinct number of distribution "
 "values and probabilities."
 msgstr ""
 
 #: src/utils/handlers/CommonHandler.cpp:370
+#: src/utils/handlers/CommonHandler.cpp:254
 msgid ""
 "Could not build % with ID '%' in netedit; % parent with ID '%' doesn't exist."
 msgstr ""
 
 #: src/utils/handlers/CommonHandler.cpp:376
+#: src/utils/handlers/CommonHandler.cpp:260
 #, c-format
 msgid "Could not build % in netedit; % parent with ID '%' doesn't exist."
 msgstr ""
 
 #: src/utils/handlers/CommonHandler.cpp:382
+#: src/utils/handlers/CommonHandler.cpp:266
 #, c-format
 msgid "Could not build % in netedit; % parent doesn't exist."
 msgstr ""
@@ -12487,25 +12722,32 @@ msgstr ""
 
 #: src/utils/handlers/RouteHandler.cpp:575
 #: src/utils/handlers/RouteHandler.cpp:665
+#: src/utils/handlers/RouteHandler.cpp:545
+#: src/utils/handlers/RouteHandler.cpp:635
 msgid ""
 "Attributes 'from', 'fromJunction' and 'fromTaz' cannot be defined together"
 msgstr ""
 
 #: src/utils/handlers/RouteHandler.cpp:578
 #: src/utils/handlers/RouteHandler.cpp:668
+#: src/utils/handlers/RouteHandler.cpp:548
+#: src/utils/handlers/RouteHandler.cpp:638
 msgid "Attributes 'to', 'toJunction' and 'toTaz' cannot be defined together"
 msgstr ""
 
 #: src/utils/handlers/RouteHandler.cpp:843
+#: src/utils/handlers/RouteHandler.cpp:813
 msgid "Speed and duration attributes cannot be defined together in walks"
 msgstr ""
 
 #: src/utils/handlers/RouteHandler.cpp:962
+#: src/utils/handlers/RouteHandler.cpp:932
 msgid "Speed and duration attributes cannot be defined together in tranships"
 msgstr ""
 
 #: src/utils/handlers/RouteHandler.cpp:1005
 #: src/utils/vehicle/SUMORouteHandler.cpp:205
+#: src/utils/handlers/RouteHandler.cpp:975
 msgid ""
 "Defining car-following parameters in a nested element is deprecated in vType "
 "'%', use attributes instead!"
@@ -12515,18 +12757,23 @@ msgstr ""
 #: src/utils/handlers/RouteHandler.cpp:1015
 #: src/utils/vehicle/SUMORouteHandler.cpp:208
 #: src/utils/vehicle/SUMORouteHandler.cpp:210
+#: src/utils/handlers/RouteHandler.cpp:983
+#: src/utils/handlers/RouteHandler.cpp:985
 msgid "Invalid parsing embedded VType"
 msgstr ""
 
 #: src/utils/handlers/RouteHandler.cpp:1098
+#: src/utils/handlers/RouteHandler.cpp:1068
 msgid "A stop must be defined either with an edge or with an lane, not both"
 msgstr ""
 
 #: src/utils/handlers/RouteHandler.cpp:1113
+#: src/utils/handlers/RouteHandler.cpp:1083
 msgid "A stop must be defined only in a StoppingPlace"
 msgstr ""
 
 #: src/utils/handlers/RouteHandler.cpp:1115
+#: src/utils/handlers/RouteHandler.cpp:1085
 msgid "A stop must be defined in an edge, a lane, or in a StoppingPlace"
 msgstr ""
 
@@ -12826,43 +13073,43 @@ msgid ""
 "characters"
 msgstr ""
 
-#: src/utils/shapes/ShapeHandler.cpp:145
+#: src/utils/shapes/ShapeHandler.cpp:145 src/utils/shapes/ShapeHandler.cpp:146
 msgid "Invalid characters for PoI ID"
 msgstr ""
 
-#: src/utils/shapes/ShapeHandler.cpp:176
+#: src/utils/shapes/ShapeHandler.cpp:176 src/utils/shapes/ShapeHandler.cpp:177
 msgid "Either (x, y), (lon, lat) or (lane, pos) must be specified for PoI '%'."
 msgstr ""
 
-#: src/utils/shapes/ShapeHandler.cpp:179
+#: src/utils/shapes/ShapeHandler.cpp:179 src/utils/shapes/ShapeHandler.cpp:180
 msgid ""
 "(lon, lat) is specified for PoI '%' but no geo-conversion is specified for "
 "the network."
 msgstr ""
 
-#: src/utils/shapes/ShapeHandler.cpp:201
+#: src/utils/shapes/ShapeHandler.cpp:201 src/utils/shapes/ShapeHandler.cpp:202
 #, c-format
 msgid "PoI '%' already exists."
 msgstr ""
 
-#: src/utils/shapes/ShapeHandler.cpp:219
+#: src/utils/shapes/ShapeHandler.cpp:219 src/utils/shapes/ShapeHandler.cpp:220
 msgid "Invalid characters for Poly ID"
 msgstr ""
 
-#: src/utils/shapes/ShapeHandler.cpp:262
+#: src/utils/shapes/ShapeHandler.cpp:262 src/utils/shapes/ShapeHandler.cpp:263
 msgid "Polygon's shape cannot be empty."
 msgstr ""
 
-#: src/utils/shapes/ShapeHandler.cpp:267
+#: src/utils/shapes/ShapeHandler.cpp:267 src/utils/shapes/ShapeHandler.cpp:268
 msgid "Polygon's lineWidth must be greater than 0."
 msgstr ""
 
-#: src/utils/shapes/ShapeHandler.cpp:272
+#: src/utils/shapes/ShapeHandler.cpp:272 src/utils/shapes/ShapeHandler.cpp:273
 #, c-format
 msgid "Polygon '%' already exists."
 msgstr ""
 
-#: src/utils/shapes/ShapeHandler.cpp:289
+#: src/utils/shapes/ShapeHandler.cpp:289 src/utils/shapes/ShapeHandler.cpp:290
 #, c-format
 msgid "Loading of shapes from % failed."
 msgstr ""
@@ -13006,18 +13253,21 @@ msgid ""
 "Value of stop attribute 'trigger' must be 'person', 'container', 'join' or a "
 "boolean"
 msgstr ""
+"Il valore dell'attributo di fermata 'trigger' deve essere uno di 'person', "
+"'container', 'join' oppure di tipo booleano"
 
 #: src/utils/vehicle/SUMOVehicleParserHelper.cpp:269
 msgid "Undefined end for % '%', defaulting to 24hour duration."
-msgstr ""
+msgstr "Fine non definita per % '%', quindi si suppone una durata di 24 ore."
 
 #: src/utils/vehicle/SUMOVehicleParserHelper.cpp:403
 msgid "Invalid % id '%'."
-msgstr ""
+msgstr "Codice identificativo invalido di % '%'."
 
 #: src/utils/vehicle/SUMOVehicleParserHelper.cpp:405
 msgid "Invalid % id '%'. Contains invalid characters."
 msgstr ""
+"Codice identificativo invalido di % '%' perché contiene caratteri invalidi."
 
 #: src/utils/vehicle/SUMOVehicleParserHelper.cpp:996
 msgid "Lane change model 'JE2013' is deprecated. Using default model instead."
@@ -13229,6 +13479,11 @@ msgstr ""
 
 #: src/utils/xml/XMLSubSys.cpp:186
 msgid "Unspecified error occurred while parsing '%'"
+msgstr ""
+
+#: src/utils/handlers/RouteHandler.cpp:474
+msgid ""
+"a route must be defined either within a vehicle/flow or with an ID attribute"
 msgstr ""
 
 #~ msgid ""
