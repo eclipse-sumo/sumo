@@ -5434,7 +5434,7 @@ msgstr "Nessun piano è stato caricato per semaforo '%'."
 
 #: src/microsim/traffic_lights/MSTLLogicControl.cpp:164
 msgid "Could not build an off-state for tls '%'."
-msgstr ""
+msgstr "Non ho potuto creare uno stato di segnali spenti per il semaforo '%'."
 
 #: src/microsim/traffic_lights/MSTLLogicControl.cpp:488
 #, c-format
@@ -5446,6 +5446,8 @@ msgstr ""
 #: src/microsim/traffic_lights/MSTrafficLightLogic.cpp:164
 msgid "Unused states in tlLogic '%', program '%' in phase % after tl-index %"
 msgstr ""
+"Ci sono stati non usati nella logica di semaforo '%', programma '%' nella "
+"fase % dopo l'indice %"
 
 #: src/microsim/traffic_lights/MSTrafficLightLogic.cpp:183
 msgid ""
@@ -5470,6 +5472,8 @@ msgstr ""
 #: src/microsim/traffic_lights/MSTrafficLightLogic.cpp:467
 msgid "Green fraction is only 1% for link % in tlLogic '%', program '%'."
 msgstr ""
+"La frazione di verde amonta a solamente 1% per il collegamento % nella "
+"logica di semaforo '%', programma '%'."
 
 #: src/microsim/traffic_lights/NEMAController.cpp:164
 msgid ""
@@ -6433,21 +6437,21 @@ msgstr "Il collegamento '%' ha un'inclinazione di %%."
 msgid "Not joining tram edge '%' with % lanes."
 msgstr ""
 
-#: src/netbuild/NBEdgeCont.cpp:1988 src/netbuild/NBEdgeCont.cpp:1986
+#: src/netbuild/NBEdgeCont.cpp:1986
 msgid "Ambiguous tram edges '%' and '%' for lane '%'."
-msgstr ""
+msgstr "Archi di tranvie ambigue '%' e '%' per corsia '%'."
 
-#: src/netbuild/NBEdgeCont.cpp:2142 src/netimport/NIImporter_SUMO.cpp:140
-#: src/netimport/NIXMLEdgesHandler.cpp:554 src/netbuild/NBEdgeCont.cpp:2140
+#: src/netbuild/NBEdgeCont.cpp:2140 src/netimport/NIImporter_SUMO.cpp:140
+#: src/netimport/NIXMLEdgesHandler.cpp:554
 #, c-format
 msgid "Edge's '%' from-node '%' is not known."
-msgstr ""
+msgstr "L'arco '%' tiene un nodo iniziale '%' sconosciuto."
 
-#: src/netbuild/NBEdgeCont.cpp:2146 src/netimport/NIImporter_SUMO.cpp:144
-#: src/netimport/NIXMLEdgesHandler.cpp:566 src/netbuild/NBEdgeCont.cpp:2144
+#: src/netbuild/NBEdgeCont.cpp:2144 src/netimport/NIImporter_SUMO.cpp:144
+#: src/netimport/NIXMLEdgesHandler.cpp:566
 #, c-format
 msgid "Edge's '%' to-node '%' is not known."
-msgstr ""
+msgstr "L'arco '%' tiene un nodo terminale '%' sconosciuto."
 
 #: src/netbuild/NBFrame.cpp:52
 msgid "The default number of lanes in an edge"
@@ -6520,7 +6524,7 @@ msgstr "La lunghezza standard per sovrascrivere le lunghezze di collegamenti"
 
 #: src/netbuild/NBFrame.cpp:107
 msgid "Whether/where connections should have an internal junction"
-msgstr ""
+msgstr "Se e dove tutti gli collegamenti devono contenere un incrocio interno"
 
 #: src/netbuild/NBFrame.cpp:110
 msgid ""
