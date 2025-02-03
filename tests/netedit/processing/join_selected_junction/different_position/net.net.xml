@@ -1,18 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-08-08 13:49:39 by Eclipse SUMO netedit Version v1_20_0+1547-9928acb1c8e
-<neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
+<!-- generated on 2025-02-03 14:57:43 by Eclipse SUMO netconvert Version v1_21_0+2283-8c24bb7ce10
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <additional-files value="D:\Netedit_dev\tests\netedit\processing\join_selected_junction\different_position\additionals.add.xml"/>
-        <route-files value="D:\Netedit_dev\tests\netedit\processing\join_selected_junction\different_position\routes.rou.xml"/>
-        <data-files value="D:\Netedit_dev\tests\netedit\processing\join_selected_junction\different_position\datas.dat.xml"/>
-        <sumo-net-file value="D:\Netedit_dev\tests\netedit\processing\join_selected_junction\different_position\net.net.xml"/>
+        <node-files value="D:/SUMO/tests/netedit\processing\join_selected_junction\different_position/net.nod.xml"/>
+        <edge-files value="D:/SUMO/tests/netedit\processing\join_selected_junction\different_position/net.edg.xml"/>
+        <connection-files value="D:/SUMO/tests/netedit\processing\join_selected_junction\different_position/net.con.xml"/>
+        <tllogic-files value="D:/SUMO/tests/netedit\processing\join_selected_junction\different_position/net.tll.xml"/>
     </input>
-
-    <output>
-        <output-file value="D:\Netedit_dev\tests\netedit\processing\join_selected_junction\different_position\net.net.xml"/>
-    </output>
 
     <processing>
         <geometry.min-radius.fix.railways value="false"/>
@@ -22,7 +18,6 @@
     </processing>
 
     <junctions>
-        <no-internal-links value="false"/>
         <no-turnarounds value="true"/>
         <junctions.corner-detail value="5"/>
         <junctions.limit-turn-speed value="5.50"/>
@@ -33,7 +28,7 @@
         <walkingareas value="0"/>
     </pedestrian>
 
-</neteditConfiguration>
+</netconvertConfiguration>
 -->
 
 <net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">

@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-06-28 12:37:04 by Eclipse SUMO netedit Version v1_20_0+0903-50ed8d6b852
-<neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
+<!-- generated on 2025-02-03 14:48:10 by Eclipse SUMO netconvert Version v1_21_0+2283-8c24bb7ce10
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="D:\Netedit_dev\tests\netedit\network\edges\select_vtypes\net.net.xml"/>
+        <sumo-net-file value="D:/SUMO/tests/netedit\network\lanes\select_vtypes\allowed\vip/net.net.xml"/>
     </input>
+
+    <output>
+        <plain-output-prefix value="D:/SUMO/tests/netedit\network\lanes\select_vtypes\allowed\vip/net"/>
+    </output>
 
     <processing>
         <geometry.min-radius.fix.railways value="false"/>
@@ -15,7 +19,6 @@
     </processing>
 
     <junctions>
-        <no-internal-links value="false"/>
         <no-turnarounds value="true"/>
         <junctions.corner-detail value="5"/>
         <junctions.limit-turn-speed value="5.50"/>
@@ -23,15 +26,17 @@
     </junctions>
 
     <pedestrian>
-        <walkingareas value="1"/>
+        <walkingareas value="0"/>
     </pedestrian>
 
-</neteditConfiguration>
+</netconvertConfiguration>
 -->
 
 <nodes version="1.20" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
-    <node id="J38" x="-35.00" y="0.00" type="dead_end"/>
-    <node id="J39" x="35.00" y="0.00" type="dead_end"/>
+    <location netOffset="0.00,0.00" convBoundary="-60.00,-30.00,60.00,30.00" origBoundary="-60.00,-30.00,60.00,30.00" projParameter="!"/>
+
+    <node id="J38" x="-35.00" y="0.00" type="priority"/>
+    <node id="J39" x="35.00" y="0.00" type="priority"/>
     <node id="JunctionExtern0" x="-60.00" y="0.00" type="priority"/>
     <node id="JunctionExtern1" x="60.00" y="0.00" type="priority"/>
 </nodes>

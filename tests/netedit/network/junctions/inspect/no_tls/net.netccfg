@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-01-09 15:32:52 by Eclipse SUMO netconvert Version v1_21_0+1778-fdebe6ae1ee
+<!-- generated on 2025-02-03 14:48:01 by Eclipse SUMO netconvert Version v1_21_0+2283-8c24bb7ce10
 -->
 
 <netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value="D:\SUMO\tests\netedit\network\junctions\inspect\no_tls\net.nod.xml"/>
-        <edge-files value="D:\SUMO\tests\netedit\network\junctions\inspect\no_tls\net.edg.xml"/>
-        <connection-files value="D:\SUMO\tests\netedit\network\junctions\inspect\no_tls\net.con.xml"/>
-        <tllogic-files value="D:\SUMO\tests\netedit\network\junctions\inspect\no_tls\net.tll.xml"/>
+        <node-files value="D:/SUMO/tests/netedit\network\junctions\inspect\no_tls/net.nod.xml"/>
+        <edge-files value="D:/SUMO/tests/netedit\network\junctions\inspect\no_tls/net.edg.xml"/>
+        <connection-files value="D:/SUMO/tests/netedit\network\junctions\inspect\no_tls/net.con.xml"/>
+        <tllogic-files value="D:/SUMO/tests/netedit\network\junctions\inspect\no_tls/net.tll.xml"/>
     </input>
 
     <processing>
@@ -20,7 +20,6 @@
     </processing>
 
     <junctions>
-        <no-internal-links value="false"/>
         <no-turnarounds value="true"/>
         <junctions.corner-detail value="5"/>
         <junctions.limit-turn-speed value="5.50"/>

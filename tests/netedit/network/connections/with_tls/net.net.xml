@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-01-14 11:07:35 by Eclipse SUMO netconvert Version v1_21_0+1838-ad18383a075
+<!-- generated on 2025-02-03 14:57:13 by Eclipse SUMO netconvert Version v1_21_0+2283-8c24bb7ce10
 <netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value="D:\SUMO\tests\netedit\network\connections\with_tls\net.nod.xml"/>
-        <edge-files value="D:\SUMO\tests\netedit\network\connections\with_tls\net.edg.xml"/>
-        <connection-files value="D:\SUMO\tests\netedit\network\connections\with_tls\net.con.xml"/>
-        <tllogic-files value="D:\SUMO\tests\netedit\network\connections\with_tls\net.tll.xml"/>
+        <node-files value="D:/SUMO/tests/netedit\network\connections\with_tls/net.nod.xml"/>
+        <edge-files value="D:/SUMO/tests/netedit\network\connections\with_tls/net.edg.xml"/>
+        <connection-files value="D:/SUMO/tests/netedit\network\connections\with_tls/net.con.xml"/>
+        <tllogic-files value="D:/SUMO/tests/netedit\network\connections\with_tls/net.tll.xml"/>
     </input>
 
     <processing>
@@ -27,10 +27,6 @@
     <pedestrian>
         <walkingareas value="0"/>
     </pedestrian>
-
-    <report>
-        <verbose value="true"/>
-    </report>
 
 </netconvertConfiguration>
 -->

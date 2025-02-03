@@ -1,27 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-08-07 10:44:01 by Eclipse SUMO netedit Version v1_20_0+1538-73d6449ee5a
-This data file and the accompanying materials
-are made available under the terms of the Eclipse Public License v2.0
-which accompanies this distribution, and is available at
-http://www.eclipse.org/legal/epl-v20.html
-This file may also be made available under the following Secondary
-Licenses when the conditions for such availability set forth in the Eclipse
-Public License 2.0 are satisfied: GNU General Public License, version 2
-or later which is available at
-https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
-SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
+<!-- generated on 2025-02-03 14:47:51 by Eclipse SUMO netconvert Version v1_21_0+2283-8c24bb7ce10
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Aug104340.17820\netedit.gui\network\edges\geometry_points\end_points\additionals.add.xml"/>
-        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Aug104340.17820\netedit.gui\network\edges\geometry_points\end_points\routes.rou.xml"/>
-        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Aug104340.17820\netedit.gui\network\edges\geometry_points\end_points\datas.dat.xml"/>
-        <sumo-net-file value="D:\SUMO\tests\netedit\network\edges\geometry_points\net.net.xml"/>
+        <sumo-net-file value="D:/SUMO/tests/netedit\network\edges\geometry_points/net.net.xml"/>
     </input>
 
     <output>
-        <write-license value="true"/>
+        <plain-output-prefix value="D:/SUMO/tests/netedit\network\edges\geometry_points/net"/>
     </output>
 
     <processing>
@@ -32,7 +19,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </processing>
 
     <junctions>
-        <no-internal-links value="false"/>
         <no-turnarounds value="true"/>
         <junctions.corner-detail value="5"/>
         <junctions.limit-turn-speed value="5.50"/>
@@ -40,27 +26,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </junctions>
 
     <pedestrian>
-        <walkingareas value="1"/>
+        <walkingareas value="0"/>
     </pedestrian>
 
-    <netedit>
-        <ignore-supermode-question value="true"/>
-    </netedit>
-
-    <visualisation>
-        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Aug104340.17820\netedit.gui\network\edges\geometry_points\end_points\gui-settings.xml"/>
-        <window-size value="1280, 720"/>
-        <window-pos value="50,50"/>
-        <gui-testing value="true"/>
-        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Aug104340.17820\netedit.gui\network\edges\geometry_points\end_points\guisettingsoutput.xml"/>
-    </visualisation>
-
-    <report>
-        <no-warnings value="true"/>
-        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Aug104340.17820\netedit.gui\network\edges\geometry_points\end_points\log.txt"/>
-    </report>
-
-</neteditConfiguration>
+</netconvertConfiguration>
 -->
 
 <nodes version="1.20" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">

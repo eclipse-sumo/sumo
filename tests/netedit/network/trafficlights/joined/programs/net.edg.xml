@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-09-02 15:38:48 by Eclipse SUMO netedit Version v1_20_0+1829-6a550143aba
-<neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
+<!-- generated on 2025-02-03 14:48:14 by Eclipse SUMO netconvert Version v1_21_0+2283-8c24bb7ce10
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="D:\Netedit_dev\tests\netedit\network\trafficlights\net.net.xml"/>
+        <sumo-net-file value="D:/SUMO/tests/netedit\network\trafficlights\joined\programs/net.net.xml"/>
     </input>
+
+    <output>
+        <plain-output-prefix value="D:/SUMO/tests/netedit\network\trafficlights\joined\programs/net"/>
+    </output>
 
     <processing>
         <geometry.min-radius.fix.railways value="false"/>
@@ -25,7 +29,7 @@
         <walkingareas value="0"/>
     </pedestrian>
 
-</neteditConfiguration>
+</netconvertConfiguration>
 -->
 
 <edges version="1.20" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
@@ -69,6 +73,4 @@
         <lane index="1" disallow="pedestrian"/>
         <lane index="2" disallow="pedestrian"/>
     </edge>
-    <edge id="EdgeExternBot" from="JunctionExtern0" to="JunctionExtern1" priority="-1" numLanes="1" speed="13.89" shape="-60.00,0.00 -45.00,0.00 -45.00,-25.00 -40.00,-30.00 40.00,-30.00 45.00,-25.00 45.00,0.00 60.00,0.00"/>
-    <edge id="EdgeExternTop" from="JunctionExtern1" to="JunctionExtern0" priority="-1" numLanes="1" speed="13.89" shape="60.00,0.00 45.00,0.00 45.00,25.00 40.00,30.00 -40.00,30.00 -45.00,25.00 -45.00,0.00 -60.00,0.00"/>
 </edges>
