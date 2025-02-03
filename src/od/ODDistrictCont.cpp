@@ -50,7 +50,13 @@ ODDistrictCont::getRandomSourceFromDistrict(const std::string& name) const {
     if (district == nullptr) {
         throw InvalidArgument("There is no district '" + name + "'.");
     }
-    return district->getRandomSource();
+    std::string randomSource;
+    try {
+        randomSource = district->getRandomSource();
+    } catch (OutOfBoundsException&) {
+        throw ProcessError(TLF("District '%' does not provide any valid source.", name));
+    }
+    return randomSource;
 }
 
 
@@ -60,7 +66,13 @@ ODDistrictCont::getRandomSinkFromDistrict(const std::string& name) const {
     if (district == nullptr) {
         throw InvalidArgument("There is no district '" + name + "'.");
     }
-    return district->getRandomSink();
+    std::string randomSink;
+    try {
+        randomSink = district->getRandomSink();
+    } catch (OutOfBoundsException&) {
+        throw ProcessError(TLF("District '%' does not provide any valid sink.", name));
+    }
+    return randomSink;
 }
 
 
