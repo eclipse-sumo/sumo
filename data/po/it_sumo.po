@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-01-06 11:22+0100\n"
-"PO-Revision-Date: 2025-02-02 15:02+0000\n"
+"PO-Revision-Date: 2025-02-03 09:10+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -5051,20 +5051,23 @@ msgstr "Non ho potuto trovare la fermata di taxi '%' alle ore=%"
 #: src/microsim/devices/MSRoutingEngine.cpp:98
 msgid "Rerouting is useless if the edge weights do not get updated!"
 msgstr ""
+"L'instradamento è inutile quando i pesi degli archi non vengono aggiornati!"
 
 #: src/microsim/devices/MSRoutingEngine.cpp:150
 msgid "weights.priority-factor cannot be negative."
-msgstr ""
+msgstr "weights.priority-factor non può essere negativo."
 
 #: src/microsim/devices/MSRoutingEngine.cpp:154
 msgid ""
 "Option weights.priority-factor does not take effect because all edges have "
 "the same priority"
 msgstr ""
+"L'opzione weights.priority-factor non produce alcun effetto perché ogni arco "
+"ha la stessa priorità"
 
 #: src/microsim/devices/MSRoutingEngine.cpp:416
 msgid "Unknown routing algorithm '%'!"
-msgstr ""
+msgstr "Algoritmo di instradamento sconosciuto '%'!"
 
 #: src/microsim/devices/MSTransportableDevice_Routing.cpp:48
 msgid "The period with which the person shall be rerouted"
@@ -13043,6 +13046,8 @@ msgid ""
 "Invalid transfer option '%'. Must be one of 'parkingAreas', 'ptStops' and "
 "'allJunctions'"
 msgstr ""
+"Opzione di trasbordo invalida '%'. Deve essere una di 'parkingAreas', "
+"'ptStops' e 'allJunctions'"
 
 #: src/utils/xml/CommonXMLStructure.cpp:252
 msgid ""
@@ -13090,10 +13095,12 @@ msgstr "Valore mancante '%' nell'arco '%'."
 msgid ""
 "The value '%' of attribute '%' should be numeric in edge '%' at time step %."
 msgstr ""
+"Il valore '%' dell'attributo '%' nell'arco '%' deve essere numerico nel "
+"passo di simulazione %."
 
 #: src/utils/xml/SUMOSAXReader.cpp:110 src/utils/xml/SUMOSAXReader.cpp:136
 msgid "Cannot read file '%'!"
-msgstr ""
+msgstr "Non si arriva a leggere il file '%'!"
 
 #: src/utils/xml/SUMOSAXReader.cpp:113 src/utils/xml/SUMOSAXReader.cpp:139
 #, c-format
