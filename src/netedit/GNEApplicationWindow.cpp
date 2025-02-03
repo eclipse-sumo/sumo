@@ -1603,7 +1603,15 @@ void
 GNEApplicationWindow::loadOptionOnStartup() {
     auto& neteditOptions = OptionsCont::getOptions();
     if (neteditOptions.getBool("new")) {
+        // save output file
+        const auto outputFile = neteditOptions.getString("output-file");
+        // create new network reset all options
         createNewNetwork();
+        // check if define output file
+        if (!outputFile.empty()) {
+            neteditOptions.resetWritable();
+            neteditOptions.set("net-file", outputFile);
+        }
     } else {
         // set flag
         myAmLoading = true;
