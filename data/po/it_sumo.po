@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-01-06 11:22+0100\n"
-"PO-Revision-Date: 2025-02-03 09:10+0000\n"
+"PO-Revision-Date: 2025-02-03 09:42+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -5270,7 +5270,7 @@ msgstr ""
 
 #: src/microsim/traffic_lights/MSDriveWay.cpp:973
 msgid "Found circular block after % (% edges, length %)"
-msgstr ""
+msgstr "Un blocco circolare è stato trovato dopo % (% archi, lunghezza di %)"
 
 #: src/microsim/traffic_lights/MSDriveWay.cpp:2003
 msgid "Unknown driveWay '%' with route '%'"
@@ -6245,23 +6245,25 @@ msgstr ""
 
 #: src/netbuild/NBEdgeCont.cpp:885
 msgid "Removing opposite lane '%' for invalid lane '%'."
-msgstr ""
+msgstr "Rimozione della corsia opposta '%' della corsia invalida '%'."
 
 #: src/netbuild/NBEdgeCont.cpp:894
 msgid "Removing unknown opposite lane '%' for edge '%'."
-msgstr ""
+msgstr "Rimozione della corsia opposta sconosciuta '%' per l'arco '%'."
 
 #: src/netbuild/NBEdgeCont.cpp:899
 msgid "Adapting invalid opposite lane '%' for edge '%' to '%'."
-msgstr ""
+msgstr "Adattamento della corsia opposta invalida '%' per l'arco '%' a '%'."
 
 #: src/netbuild/NBEdgeCont.cpp:905
 msgid "Adapting missing opposite lane '%' for edge '%'."
-msgstr ""
+msgstr "Adattamento della corsia opposta mancante '%' per l'arco '%'."
 
 #: src/netbuild/NBEdgeCont.cpp:911
 msgid "Averaging edge lengths for lane '%' (length %) and edge '%' (length %)."
 msgstr ""
+"Mediando le lunghezze di arco per la corsia '%' (lunghezza di %) e l'arco "
+"'%' (lunghezza di %)."
 
 #: src/netbuild/NBEdgeCont.cpp:924
 msgid "Opposite lane '%' does not connect the same nodes as edge '%'!"
