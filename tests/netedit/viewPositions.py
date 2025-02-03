@@ -712,3 +712,46 @@ class elements:
         class TAZRelBot:
             x = 650
             y = 255
+
+
+class bugs:
+
+    class ticket10588:
+        x = 596
+        y = 75
+
+    class ticket10591:
+
+        class lane:
+            x = 596
+            y = 75
+
+        class junction:
+            x = 768
+            y = 9
+
+    class ticket5552:
+
+        class junction1:
+            x = 500
+            y = 175
+
+        class junction2:
+            x = 550
+            y = 175
+
+        class junction3:
+            x = 550
+            y = 230
+
+        class junction4:
+            x = 500
+            y = 290
+
+        class junction5:
+            x = 450
+            y = 290
+
+        class junction6:
+            x = 450
+            y = 230

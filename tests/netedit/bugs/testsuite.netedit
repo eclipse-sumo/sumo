@@ -3,20 +3,8 @@
 # due a call to computesinglenode(...)
 revision24081
 
-# loading a net.xml with prohibitions and deleting edges fails
-ticket1711
-
 # crash on opening lefthand network
 ticket3900
 
 # after recomputing green verge change to bikelanes
 ticket4528
-
-# crash after sequence of undo-redo, recomputings and join junctions
-ticket5552
-
-# Crash after undo lane deletion
-ticket10588
-
- # Crash after undo edge deletion
-ticket10591
