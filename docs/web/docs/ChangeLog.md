@@ -2,7 +2,7 @@
 title: ChangeLog
 ---
 
-## Git Main
+## Version 1.22.0 (04.02.2025)
 
 ### Bugfixes
 
@@ -66,10 +66,10 @@ title: ChangeLog
   - Simplified creation of laneArea detectors on short lanes #15142
   - Vehicles placed in elevated lanes can now be moved #15367
   - Fixed invalid route shown for non-default departLane #15056
-  - Improve geometry of embedded routes #13980 
+  - Improve geometry of embedded routes #13980
   - Fixed Crash when editing options before loading a network #13881
   - Fixed text rendering of small elements when zoomed out #15185
-  - Selectable area of a POI doesn't now corresponds to custom radius #15532 
+  - Selectable area of a POI doesn't now corresponds to custom radius #15532
   - Fixed crash after undo-redo due to distributions #15642
   - Fixed invalid behavior after pressing ESC key in person plan mode #15193
   - Modified default vType is no longer written after being reset #14985
@@ -112,7 +112,7 @@ title: ChangeLog
   - Reloading a demand file now raises warnins rather than errors #16027
   - Deleting one edge no longer removes crossings from other edges #16017
   - Fixed selecting TAZ edges with a small selection #16100
-  
+
 - sumo-gui
   - Fixed framerate drop when zoomed in very far #15666
   - Fixed missing elements in settings dialog when switching to another viewing scheme while the dialog is open #15637
@@ -138,7 +138,7 @@ title: ChangeLog
   - OSM: loading typemap *osmNetconvertPedestrians.typ.xml* no longer puts sidewalks on both sides of oneway streets (i.e. in the middle of a divided road). Legacy behavior can be restored with option **--osm.oneway-reverse-sidewalk** #16063
   - OSM: fixed missing vehicle lane where access=yes and busway:right=lane #16061
   - OSM: fixed missing stops in ptline-output #16101
-  - OSM: fixed missing bus direction at oneway street with `oneway:psv=no` #16103  
+  - OSM: fixed missing bus direction at oneway street with `oneway:psv=no` #16103
 
 - duarouter
   - Fixed crash when using stop with coordinates and option **--mapmatch.junctions** #15740
@@ -149,13 +149,13 @@ title: ChangeLog
 
 - marouter
   - Fixed invalid route involving vClass-restricted connection #15883
-    
+
 - netgenerate
   - No longer hangs when setting option **--rand.connectivity 1** #16089
 
 - meso
   - Fixed gridlocks in roundabouts #14129 (regression in 1.4.0)
-  - Fixed invalid queue assignment for turning vehicles #16034 (regression in 1.7.0)  
+  - Fixed invalid queue assignment for turning vehicles #16034 (regression in 1.7.0)
   - Fixed crash when using **--mapmatch.junctions** in a network with internal edges #15741
   - Fixed crash when using **--time-to-teleport.disconnected** #15751
   - Option **--time-to-teleport.disconnected** is now working when connections are missing #15777
@@ -164,7 +164,7 @@ title: ChangeLog
 
 
 - activitygen
-  - fixed crash when attribute is not set #15782 
+  - fixed crash when attribute is not set #15782
 
 - TraCI
   - Fixed crash when calling `vehicle.getNextLinks` and `lane.getLinks` at junction type `allway_stop` or `priority_stop` #15603 (regression in 1.21.0)
@@ -179,17 +179,17 @@ title: ChangeLog
   - When setting option **--keep-after-arrival**, vehicles that were affected by moveToXY while parking are no longer drawn after arrival. #16009
   - Fixed result of `simulaton.convertRoad` when adjacent lanes have different widths #16105
   - Fixed missing collision check between cars and remote-controlled pedestrian #16092
- 
+
 - Tools
   - matsim_importPlans.py: no longer writes unsorted trips with option **-vehicles-only** #15743
   - generateBidiDistricts.py: Option **--radius** now takes effect regardless of edge length #15758
   - countEdgeUsage.py: Fixed misleading warning message #15790
   - sumolib: Fixed invalid result by `net.getShortestPath(..., ignoreDirection=True)` #15789
   - Sumolib: Fixed crash in function `miscutils.getFlowNumber` #15799
-  - sumolib: Can now set a new attribute in sumolib.xml element #15991 
-  - sumolib.xml: Fixed bug where parse_fast retrieves wrong attribute if one attribute is the end-suffix of another attribute #15901 
+  - sumolib: Can now set a new attribute in sumolib.xml element #15991
+  - sumolib.xml: Fixed bug where parse_fast retrieves wrong attribute if one attribute is the end-suffix of another attribute #15901
   - randomTrips.py: option **--fringe-factor** now works in lefthand networks #15876
-  - randomTrips.py: Options **--random-departpos** and **--random-arrivalpos** now take effect for persons #15946   
+  - randomTrips.py: Options **--random-departpos** and **--random-arrivalpos** now take effect for persons #15946
   - routeSampler.py: fixed crash when loading negative counts #15908
   - gtfs2pt.py: Import now works when optional 'direction_id' is missing #15736
   - Empty strings can now be passed via tool config file #15499
@@ -199,7 +199,7 @@ title: ChangeLog
   - osmGet.py: fixed missing public transport stops (also affects osmWebWizard.py) #16106
 
 
-    
+
 ### Enhancements
 
 - sumo
@@ -210,9 +210,9 @@ title: ChangeLog
   - GLOSA Device now looks several phases into the future and can also take queues into account #15614
   - Added new vType attributes `jmAdvance` and `jmExtraGap` to configure the behavior on junctions for crossing and merging streams of traffic #15654
   - Added new attribute `jmStopLineGapMinor` to set the distance from the stop line at non-prioritized links #15442
-  - vType attriubte `jmStopLineGap` now applies to allway_stop #15448  
+  - vType attriubte `jmStopLineGap` now applies to allway_stop #15448
   - Added new vType attribute `lcStrategicLookahead`  for configuring the lookahead distance when computing strategic best lanes #14718
-  - Added new vType attribute `lcSpeedGainRemainTime` which controls the minimum time a vehicle can drive on the new lane after a tactical lane change (formerly hard-coded to 20s) #12109 
+  - Added new vType attribute `lcSpeedGainRemainTime` which controls the minimum time a vehicle can drive on the new lane after a tactical lane change (formerly hard-coded to 20s) #12109
   - Added new insertion behavior `departLane="best_prob"` to increase throughput on multi-lane roads #15661
   - Stationfinder device now supports state saving and loading #15607
   - Traffic lights now supports the special value `offset="begin"` which lets the logic start in cycle-second 0 regardless of simulation begin time #15248
@@ -227,16 +227,16 @@ title: ChangeLog
   - Option **--pedestrian.jupedsim.wkt** can now be used to export geometry data from JuPedSim #14436
   - railways
     - major rewrite of signal logic #7578
-    - major improvement in railway simulation speed (simulation time reduced by ~50-75% depending on scenario size) #4379 
+    - major improvement in railway simulation speed (simulation time reduced by ~50-75% depending on scenario size) #4379
     - Fixed various deadlocks #7493, #13262, #15474
     - The signal block information that is written by option **--railsignal-block-output** now includes [information about the foe relationships](Simulation/Railways.md#railsignal-block-output) between driveways / blocks #14991
-    - The new option **--railsignal.max-block-length** can be used to customized the threshold for warnings / driveway truncation #15819 
+    - The new option **--railsignal.max-block-length** can be used to customized the threshold for warnings / driveway truncation #15819
     - The new option **--railsignal-vehicle-output** can be used to record entry and exit times of vehicles into signal blocks #14990
-    - The new option **--time-to-teleport.railsignal-deadlock** can be used to detect signal based deadlocks #15561    
+    - The new option **--time-to-teleport.railsignal-deadlock** can be used to detect signal based deadlocks #15561
     - The new optioin **--time-to-teleport.remove-constraint** can be used to resolve detected deadlocks which are caused by a signal constraint by deactivating a responsible constraint #14543
     - The new option **--deadlock-output** can be use to log detected deadlocks and also their method of resolution
     - Logged deadlocks can be loaded as additional file to prevent them in a subsequent simulation #15569
-    - A warning is given for unreasonable combinations of **--time-to-teleport** options #15816 
+    - A warning is given for unreasonable combinations of **--time-to-teleport** options #15816
 
 - netedit
   - Additional output now writes chargingStation after parkingArea elements #15628
@@ -247,7 +247,7 @@ title: ChangeLog
   - The route for inspected vehicles is now highlighted #15930
   - Added 62 python tools to the menu #16076
 
- 
+
 - sumo-gui
   - The value of SUMO_HOME is now shown in the *About Dialog* (also for netedit) #15218
   - The lane parameter dialog provide information on driveway/foes that prevent train insertion #15823
@@ -255,7 +255,7 @@ title: ChangeLog
   - Improved layering of chargingStation and parkingArea #15826
   - Disabled 'secondary shape' controls if no alternative net is loaded #12653
   - edge color legend now shows the used attribute/key #16026
- 
+
 - netconvert
   - Added support for zipped shape files #15623
   - street-sign-output now sets the sign angle corresponding to road geometry #15671
@@ -271,23 +271,23 @@ title: ChangeLog
   - fcd-output can now be configured to include model attributes *segment, queue, entryTime, eventTime* and *blockTime* #15670
   - Vehicle attribute `insertionChecks="none"` can now force insertion #16096
 
- 
+
 - duarouter
   - The input file for ALT-landmarks can now be defined with geo-coordinates #15855
   - Option **--scale** can now be used for scaling traffic #8353
- 
+
 - polyconvert
   - Added option **--geosjon-files** for official geojson support #16055
-     
+
 - TraCI
   - stationfinder device parameters can now be modified at runtime #15622
   - Added `traci.parkingArea.setAcceptedBadges` and `traci.parkingArea.getAcceptedBadges`  #14807
-  - Function `person.appendStage` now supports type `STAGE_TRIP` (`stage.line` is interpreted a `modes` and `stage.intended` as `group`) #15154 
- 
+  - Function `person.appendStage` now supports type `STAGE_TRIP` (`stage.line` is interpreted a `modes` and `stage.intended` as `group`) #15154
+
 - Tools
   - matsim_importPlans.py: Added options **-no-bikes** and **--no-rides** for filtering different modes of traffic. #15738
   - sort_routes.py: Added option **--verbose** #15744
-  - osmWebWizard.py: optionally can write output to existing folders #15783  
+  - osmWebWizard.py: optionally can write output to existing folders #15783
   - emissionsMap: Now supports options **--vtype** and **--additional-files** #15812
   - driveways2poly.py: Added new tool for visualizing train driveways #15027
   - dxf2jupedsim.py: now supports projection 'none'
@@ -298,14 +298,14 @@ title: ChangeLog
   - randomTrips.py: Added option **--edge-type-file** for affecting probabilities by edge type #15877
   - randomTrips.py: Added option **--marouter** to write routes which take into account traffic load on the network #15881
   - randomTrips.py: option **--flows** can now be used together with **--pedestrians** or **--persontrips** to create personFlows #12791
-  - randomTrips.py: Added option **--poisson** to generate poisson-distributed flows (with option **--flows**) #13178   
+  - randomTrips.py: Added option **--poisson** to generate poisson-distributed flows (with option **--flows**) #13178
   - routeStats.py: Added option **--edges-file** for counting the number of times per route that a specific edge (i.e. a counting) location was passed) #15900
   - routeSampler.py: Added option **--verbose.timing** to print wall-clock-time performance statistics #15910
   - routeSampler.py: Major increase in processing speed for long routes #15911
   - routeSampler.py: Added option **--depart-distribution** to distribute departures within the counting data intervals #15909
   - routeSampler.py: now warn about duplicate counting data #15997
   - routeSampler.py: now includes GEH in mismatch-output #16000
-  - routeSampler.py: Added option **--geh-scale** to permit custom scaling for GEH value (i.e. to avoid averaging daily counts over 24 hours) #16001  
+  - routeSampler.py: Added option **--geh-scale** to permit custom scaling for GEH value (i.e. to avoid averaging daily counts over 24 hours) #16001
   - routeSampler.py: Options that set attributse to parse (i.e. **--edgedata-attribute**) now support a list of comma separated attributs (values are added) #16020
   - edgeDataDiff.py: Added option **--geh-scale** to permit custom scaling for GEH value and otherwise scaling data to hourly values automatically #16002
   - edgeDataDiff.py: Added option **--attributes** to allow comparing files with differing attribute names #15898
@@ -327,9 +327,9 @@ title: ChangeLog
 ### Miscellaneous
 
 - Added analysis on the effects of attribute `departLane` on [insertion capacity](Simulation/RoadCapacity.md#insertion_capacity_on_a_2-lane_road).
-- Fixed compatibility issues with Ubuntu 24 affecting geo-projections #15618 
+- Fixed compatibility issues with Ubuntu 24 affecting geo-projections #15618
 - Option **--device.rerouting.railsignal** is now inactive by default #15597
-- If a turning movement has more than one lane and may wait within the intersection, the lanes after the *internal junction* are now joined into the same internal edge #14776 
+- If a turning movement has more than one lane and may wait within the intersection, the lanes after the *internal junction* are now joined into the same internal edge #14776
 
 ## Version 1.21.0 (10.10.2024)
 
