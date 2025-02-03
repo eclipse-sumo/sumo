@@ -175,7 +175,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--visum-file** {{DT_FILE}} | Read VISUM-net from FILE |
 | **--vissim-file** {{DT_FILE}} | Read VISSIM-net from FILE |
 | **--robocup-dir** {{DT_FILE}} | Read RoboCup-net from DIR |
-| **--matsim-files** {{DT_FILE}} | Read MATsim-net from FILE |
+| **--matsim-files** {{DT_FILE}} | Read MATSim-net from FILE |
 | **--itsumo-files** {{DT_FILE}} | Read ITSUMO-net from FILE |
 | **--heightmap.shapefiles** {{DT_FILE}} | Read heightmap from ArcGIS shapefile |
 | **--heightmap.geotiff** {{DT_FILE}} | Read heightmap from GeoTIFF |
@@ -195,7 +195,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--junctions.join-output** {{DT_FILE}} | Writes information about joined junctions to FILE (can be loaded as additional node-file to reproduce joins |
 | **--prefix** {{DT_STR}} | Defines a prefix for edge and junction names |
 | **--amitran-output** {{DT_FILE}} | The generated net will be written to FILE using Amitran format |
-| **--matsim-output** {{DT_FILE}} | The generated net will be written to FILE using MATsim format |
+| **--matsim-output** {{DT_FILE}} | The generated net will be written to FILE using MATSim format |
 | **--opendrive-output** {{DT_FILE}} | The generated net will be written to FILE using OpenDRIVE format |
 | **--dlr-navteq-output** {{DT_FILE}} | The generated net will be written to dlr-navteq files with the given PREFIX |
 | **--dlr-navteq.version** {{DT_STR}} | The dlr-navteq output format version to write; *default:* **6.5** |
@@ -443,6 +443,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--sidewalks.guess.exclude** {{DT_STR_LIST}} | Do not guess sidewalks for the given list of edges |
 | **--crossings.guess** {{DT_BOOL}} | Guess pedestrian crossings based on the presence of sidewalks; *default:* **false** |
 | **--crossings.guess.speed-threshold** {{DT_FLOAT}} | At uncontrolled nodes, do not build crossings across edges with a speed above the threshold; *default:* **13.89** |
+| **--crossings.guess.roundabout-priority** {{DT_BOOL}} | Give priority to guessed crossings at roundabouts; *default:* **true** |
 | **--walkingareas** {{DT_BOOL}} | Always build walking areas even if there are no crossings; *default:* **false** |
 | **--walkingareas.join-dist** {{DT_FLOAT}} | Do not create a walkingarea between sidewalks that are connected by a pedestrian junction within FLOAT; *default:* **15** |
 
@@ -501,7 +502,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--osm.all-attributes** {{DT_BOOL}} | Whether additional attributes shall be imported; *default:* **false** |
 | **--osm.extra-attributes** {{DT_STR_LIST}} | List of additional attributes that shall be imported from OSM via osm.all-attributes (set 'all' to import all); *default:* **all** |
 | **--osm.speedlimit-none** {{DT_FLOAT}} | The speed limit to be set when there is no actual speed limit in reality; *default:* **39.4444** |
-| **--matsim.keep-length** {{DT_BOOL}} | The edge lengths given in the MATSIM-file will be kept; *default:* **false** |
+| **--matsim.keep-length** {{DT_BOOL}} | The edge lengths given in the MATSim-file will be kept; *default:* **false** |
 | **--matsim.lanes-from-capacity** {{DT_BOOL}} | The lane number will be computed from the capacity; *default:* **false** |
 | **--shapefile.street-id** {{DT_STR}} | Read edge ids from column STR |
 | **--shapefile.from-id** {{DT_STR}} | Read from-node ids from column STR |

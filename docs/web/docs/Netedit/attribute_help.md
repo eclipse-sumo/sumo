@@ -23,8 +23,10 @@
 |isBidi|unique boolean|Show if edge is bidirectional *default:* **0**|
 |distance|unique float|Distance *default:* **0.00**|
 |stopOffset|non-negative float|The stop offset as positive value in meters *default:* **0.00**|
-|stopOException|list of discrete vClasses|Specifies, for which vehicle classes the stopOffset does NOT apply.|
+|stopOException|list of vClasses|Specifies, for which vehicle classes the stopOffset does NOT apply.|
 |isRoundabout|unique boolean|Whether this edge is part of a roundabout *default:* **false**|
+|frontElement|boolean|Toggle front element|
+|selected|boolean|Toggle select element|
 
 ## lane
 | Attribute | Type | Description |
@@ -39,17 +41,20 @@
 |acceleration|boolean|Enable or disable lane as acceleration lane *default:* **0**|
 |customShape|list of unique positions|If the shape is given it overrides the computation based on edge shape|
 |opposite|unique string|If given, this defines the opposite direction lane|
-|changeLeft|list of discrete vClasses|Permit changing left only for to the given vehicle classes *default:* **all**|
-|changeRight|list of discrete vClasses|Permit changing right only for to the given vehicle classes *default:* **all**|
+|changeLeft|list of vClasses|Permit changing left only for to the given vehicle classes *default:* **all**|
+|changeRight|list of vClasses|Permit changing right only for to the given vehicle classes *default:* **all**|
 |type|string|Lane type description (optional)|
 |stopOffset|non-negative float|The stop offset as positive value in meters *default:* **0.00**|
-|stopOException|list of discrete vClasses|Specifies, for which vehicle classes the stopOffset does NOT apply.|
+|stopOException|list of vClasses|Specifies, for which vehicle classes the stopOffset does NOT apply.|
+|frontElement|boolean|Toggle front element|
+|selected|boolean|Toggle select element|
 
 ## poly
 | Attribute | Type | Description |
 |-----------|------|-------------|
 |id|unique string|The id of the polygon|
 |shape|list of unique positions|The shape of the polygon|
+|close shape|boolean|Toggle close or open shape|
 |color|color|The RGBA color with which the polygon shall be displayed *default:* **red**|
 |fill|boolean|An information whether the polygon shall be filled *default:* **0**|
 |lineWidth|non-negative float|The default line width for drawing an unfilled polygon *default:* **1**|
@@ -59,6 +64,10 @@
 |imgFile|filename|A bitmap to use for rendering this polygon|
 |relativePath|boolean|Enable or disable use image file as a relative path *default:* **0**|
 |angle|angle[0, 360]|Angle of rendered image in degree *default:* **0.00**|
+|geo|boolean|Enable or disable GEO attributes *default:* **0**|
+|geoShape|list of unique positions|A custom geo shape for this polygon|
+|frontElement|boolean|Toggle front element|
+|selected|boolean|Toggle select element|
 
 ## poi
 | Attribute | Type | Description |
@@ -75,6 +84,8 @@
 |imgFile|filename|A bitmap to use for rendering this POI|
 |relativePath|boolean|Enable or disable use image file as a relative path *default:* **0**|
 |angle|angle[0, 360]|Angle of rendered image in degree *default:* **0.00**|
+|frontElement|boolean|Toggle front element|
+|selected|boolean|Toggle select element|
 |lane|unique string|The name of the lane at which the POI is located at|
 |friendlyPos|boolean|If set, no error will be reported if element is placed behind the lane. Instead, it will be placed 0.1 meters from the lanes end or at position 0.1, if the position was negative and larger than the lanes length after multiplication with - 1 *default:* **0**|
 |posLat|float|The lateral offset on the named lane at which the POI is located at *default:* **0.00**|
@@ -97,6 +108,8 @@
 |tlLayout|discrete string|An optional layout for the traffic light plan|
 |tl|string|An optional id for the traffic light program|
 |isRoundabout|boolean|Whether this junction is part of a roundabout *default:* **false**|
+|frontElement|boolean|Toggle front element|
+|selected|boolean|Toggle select element|
 
 ## busStop
 | Attribute | Type | Description |
@@ -111,6 +124,8 @@
 |personCapacity|non-negative integer|Larger numbers of persons trying to enter will create an upstream jam on the sidewalk *default:* **6**|
 |parkingLength|float|Optional space definition for vehicles that park at this stop *default:* **0.00**|
 |color|color|The RGBA color with which the busStop shall be displayed|
+|frontElement|boolean|Toggle front element|
+|selected|boolean|Toggle select element|
 
 ## trainStop
 | Attribute | Type | Description |
@@ -125,6 +140,8 @@
 |personCapacity|non-negative integer|Larger numbers of persons trying to enter will create an upstream jam on the sidewalk *default:* **6**|
 |parkingLength|float|Optional space definition for vehicles that park at this stop *default:* **0.00**|
 |color|color|The RGBA color with which the trainStop shall be displayed|
+|frontElement|boolean|Toggle front element|
+|selected|boolean|Toggle select element|
 
 ### access
 child element of [busStop](#busstop), [trainStop](#trainstop)
@@ -135,6 +152,9 @@ child element of [busStop](#busstop), [trainStop](#trainstop)
 |pos|unique string|The position on the lane (the lower position on the lane) in meters *default:* **0.00**|
 |length|non-negative float|The walking length of the access in meters *default:* **-1.00**|
 |friendlyPos|boolean|If set, no error will be reported if element is placed behind the lane. Instead, it will be placed 0.1 meters from the lanes end or at position 0.1, if the position was negative and larger than the lanes length after multiplication with - 1 *default:* **0**|
+|frontElement|boolean|Toggle front element|
+|selected|boolean|Toggle select element|
+|parent|string|Change element parent|
 
 ## containerStop
 | Attribute | Type | Description |
@@ -149,6 +169,8 @@ child element of [busStop](#busstop), [trainStop](#trainstop)
 |containerCapacity|non-negative integer|Larger numbers of container trying to enter will create an upstream jam on the sidewalk *default:* **6**|
 |parkingLength|float|Optional space definition for vehicles that park at this stop *default:* **0.00**|
 |color|color|The RGBA color with which the containerStop shall be displayed|
+|frontElement|boolean|Toggle front element|
+|selected|boolean|Toggle select element|
 
 ## chargingStation
 | Attribute | Type | Description |
@@ -166,6 +188,8 @@ child element of [busStop](#busstop), [trainStop](#trainstop)
 |chargeType|discrete string|Battery charging type *default:* **normal**|
 |waitingTime|SUMOTime|Waiting time before start charging *default:* **900.00**|
 |parkingArea|string|Parking area the charging station is located|
+|frontElement|boolean|Toggle front element|
+|selected|boolean|Toggle select element|
 
 ## parkingArea
 | Attribute | Type | Description |
@@ -184,6 +208,8 @@ child element of [busStop](#busstop), [trainStop](#trainstop)
 |length|non-negative float|The length of the road-side parking spaces. By default (endPos - startPos) / roadsideCapacity *default:* **0.00**|
 |angle|angle[0, 360]|The angle of the road-side parking spaces relative to the lane angle, positive means clockwise *default:* **0.00**|
 |lefthand|boolean|Enable or disable lefthand position *default:* **0**|
+|frontElement|boolean|Toggle front element|
+|selected|boolean|Toggle select element|
 
 ### space
 child element of [parkingArea](#parkingarea)
@@ -196,6 +222,9 @@ child element of [parkingArea](#parkingarea)
 |length|string|The length of the road-side parking spaces|
 |angle|string|The angle of the road-side parking spaces relative to the lane angle, positive means clockwise|
 |slope|angle[0, 360]|The slope of the road-side parking spaces *default:* **0.00**|
+|frontElement|boolean|Toggle front element|
+|selected|boolean|Toggle select element|
+|parent|string|Change element parent|
 
 ## inductionLoop
 | Attribute | Type | Description |
@@ -210,6 +239,8 @@ child element of [parkingArea](#parkingarea)
 |nextEdges|list of strings|List of edge ids that must all be part of the future route of the vehicle to qualify for detection|
 |detectPersons|discrete string|Detect persons instead of vehicles (pedestrians or passengers) *default:* **none**|
 |friendlyPos|boolean|If set, no error will be reported if element is placed behind the lane. Instead, it will be placed 0.1 meters from the lanes end or at position 0.1, if the position was negative and larger than the lanes length after multiplication with - 1 *default:* **0**|
+|frontElement|boolean|Toggle front element|
+|selected|boolean|Toggle select element|
 
 ## laneAreaDetector
 | Attribute | Type | Description |
@@ -230,6 +261,8 @@ child element of [parkingArea](#parkingarea)
 |jamThreshold|non-negative float|The maximum distance to the next standing vehicle in order to make this vehicle count as a participant to the jam in m *default:* **10.00**|
 |friendlyPos|boolean|If set, no error will be reported if element is placed behind the lane. Instead, it will be placed 0.1 meters from the lanes end or at position 0.1, if the position was negative and larger than the lanes length after multiplication with - 1 *default:* **0**|
 |show|boolean|Show detector in sumo-gui *default:* **1**|
+|frontElement|boolean|Toggle front element|
+|selected|boolean|Toggle select element|
 |lanes|list of unique strings|The sequence of lane ids in which the detector shall be laid on|
 |endPos|unique float|The end position on the lane the detector shall be laid on in meters|
 
@@ -248,6 +281,8 @@ child element of [parkingArea](#parkingarea)
 |timeThreshold|SUMOTime|The time-based threshold that describes how much time has to pass until a vehicle is recognized as halting) in s *default:* **1.00**|
 |speedThreshold|float|The speed-based threshold that describes how slow a vehicle has to be to be recognized as halting) in m/s *default:* **1.39**|
 |expectArrival|boolean|Whether no warning should be issued when a vehicle arrives within the detector area. *default:* **0**|
+|frontElement|boolean|Toggle front element|
+|selected|boolean|Toggle select element|
 
 ### detEntry
 child element of [entryExitDetector](#entryexitdetector)
@@ -257,6 +292,9 @@ child element of [entryExitDetector](#entryexitdetector)
 |lane|unique string|The id of the lane the detector shall be laid on. The lane must be a part of the network used|
 |pos|unique float|The position on the lane the detector shall be laid on in meters|
 |friendlyPos|boolean|If set, no error will be reported if element is placed behind the lane. Instead, it will be placed 0.1 meters from the lanes end or at position 0.1, if the position was negative and larger than the lanes length after multiplication with - 1 *default:* **0**|
+|frontElement|boolean|Toggle front element|
+|selected|boolean|Toggle select element|
+|parent|string|Change element parent|
 
 ### detExit
 child element of [entryExitDetector](#entryexitdetector)
@@ -266,6 +304,9 @@ child element of [entryExitDetector](#entryexitdetector)
 |lane|unique string|The id of the lane the detector shall be laid on. The lane must be a part of the network used|
 |pos|unique float|The position on the lane the detector shall be laid on in meters|
 |friendlyPos|boolean|If set, no error will be reported if element is placed behind the lane. Instead, it will be placed 0.1 meters from the lanes end or at position 0.1, if the position was negative and larger than the lanes length after multiplication with - 1 *default:* **0**|
+|frontElement|boolean|Toggle front element|
+|selected|boolean|Toggle select element|
+|parent|string|Change element parent|
 
 ## edgeData
 | Attribute | Type | Description |
@@ -321,6 +362,8 @@ child element of [entryExitDetector](#entryexitdetector)
 |nextEdges|list of strings|List of edge ids that must all be part of the future route of the vehicle to qualify for detection|
 |detectPersons|discrete string|Detect persons instead of vehicles (pedestrians or passengers) *default:* **none**|
 |friendlyPos|boolean|If set, no error will be reported if element is placed behind the lane. Instead, it will be placed 0.1 meters from the lanes end or at position 0.1, if the position was negative and larger than the lanes length after multiplication with - 1 *default:* **0**|
+|frontElement|boolean|Toggle front element|
+|selected|boolean|Toggle select element|
 
 ## routeProbe
 | Attribute | Type | Description |
@@ -331,6 +374,9 @@ child element of [entryExitDetector](#entryexitdetector)
 |name|string|Name of route probe|
 |file|filename|The file for generated output|
 |begin|SUMOTime|The time at which to start generating output *default:* **0**|
+|vTypes|list of strings|Space separated list of vehicle type ids to consider (empty to affect all types)|
+|frontElement|boolean|Toggle front element|
+|selected|boolean|Toggle select element|
 
 ## calibrator
 | Attribute | Type | Description |
@@ -344,6 +390,8 @@ child element of [entryExitDetector](#entryexitdetector)
 |output|filename|The output file for writing calibrator information or NULL|
 |jamThreshold|non-negative float|A threshold value to detect and clear unexpected jamming *default:* **0.50**|
 |vTypes|list of strings|space separated list of vehicle type ids to consider (empty to affect all types)|
+|frontElement|boolean|Toggle front element|
+|selected|boolean|Toggle select element|
 |lane|unique string|The id of lane in the simulation network|
 
 ## rerouter
@@ -358,6 +406,16 @@ child element of [entryExitDetector](#entryexitdetector)
 |vTypes|list of strings|The list of vehicle types that shall be affected by this rerouter (empty to affect all types)|
 |off|boolean|Whether the router should be inactive initially (and switched on in the gui) *default:* **0**|
 |optional|boolean|If rerouter is optional *default:* **0**|
+|frontElement|boolean|Toggle front element|
+|selected|boolean|Toggle select element|
+
+### rerouterSymbol
+child element of [rerouterSymbol](#reroutersymbol)
+
+| Attribute | Type | Description |
+|-----------|------|-------------|
+|frontElement|boolean|Toggle front element|
+|selected|boolean|Toggle select element|
 
 ### interval
 child element of [rerouter](#rerouter)
@@ -366,6 +424,8 @@ child element of [rerouter](#rerouter)
 |-----------|------|-------------|
 |begin|unique SUMOTime|Begin *default:* **0**|
 |end|unique SUMOTime|End *default:* **3600**|
+|frontElement|boolean|Toggle front element|
+|selected|boolean|Toggle select element|
 
 ### destProbReroute
 child element of [interval](#interval)
@@ -374,6 +434,8 @@ child element of [interval](#interval)
 |-----------|------|-------------|
 |edge|unique string|Edge ID|
 |probability|float|SUMO Probability *default:* **1.00**|
+|frontElement|boolean|Toggle front element|
+|selected|boolean|Toggle select element|
 
 ### closingReroute
 child element of [interval](#interval)
@@ -383,6 +445,8 @@ child element of [interval](#interval)
 |edge|unique string|Edge ID|
 |allow|list of vClasses|allowed vehicles|
 |disallow|list of vClasses|disallowed vehicles|
+|frontElement|boolean|Toggle front element|
+|selected|boolean|Toggle select element|
 
 ### closingLaneReroute
 child element of [interval](#interval)
@@ -392,6 +456,8 @@ child element of [interval](#interval)
 |lane|unique string|Lane ID|
 |allow|list of vClasses|allowed vehicles|
 |disallow|list of vClasses|disallowed vehicles|
+|frontElement|boolean|Toggle front element|
+|selected|boolean|Toggle select element|
 
 ### routeProbReroute
 child element of [interval](#interval)
@@ -400,6 +466,8 @@ child element of [interval](#interval)
 |-----------|------|-------------|
 |route|unique string|Route|
 |probability|float|SUMO Probability *default:* **1.00**|
+|frontElement|boolean|Toggle front element|
+|selected|boolean|Toggle select element|
 
 ### parkingAreaReroute
 child element of [interval](#interval)
@@ -409,6 +477,8 @@ child element of [interval](#interval)
 |parking|unique string|ParkingArea ID|
 |probability|float|SUMO Probability *default:* **1.00**|
 |visible|boolean|Enable or disable visibility for parking area reroutes *default:* **1**|
+|frontElement|boolean|Toggle front element|
+|selected|boolean|Toggle select element|
 
 ## variableSpeedSign
 | Attribute | Type | Description |
@@ -418,6 +488,16 @@ child element of [interval](#interval)
 |lanes|list of unique strings|List of Variable Speed Sign lanes|
 |name|string|Name of Variable Speed Signal|
 |vTypes|list of strings|Space separated list of vehicle type ids to consider (empty to affect all types)|
+|frontElement|boolean|Toggle front element|
+|selected|boolean|Toggle select element|
+
+### variableSpeedSignSymbol
+child element of [variableSpeedSign](#variablespeedsign)
+
+| Attribute | Type | Description |
+|-----------|------|-------------|
+|frontElement|boolean|Toggle front element|
+|selected|boolean|Toggle select element|
 
 ### step
 child element of [variableSpeedSign](#variablespeedsign)
@@ -426,6 +506,8 @@ child element of [variableSpeedSign](#variablespeedsign)
 |-----------|------|-------------|
 |time|unique SUMOTime|Time|
 |speed|string|Speed *default:* **13.89**|
+|frontElement|boolean|Toggle front element|
+|selected|boolean|Toggle select element|
 
 ## vaporizer
 | Attribute | Type | Description |
@@ -434,6 +516,8 @@ child element of [variableSpeedSign](#variablespeedsign)
 |begin|SUMOTime|Start Time *default:* **0**|
 |end|SUMOTime|End Time *default:* **3600**|
 |name|string|Name of vaporizer|
+|frontElement|boolean|Toggle front element|
+|selected|boolean|Toggle select element|
 
 ## tractionSubstation
 | Attribute | Type | Description |
@@ -442,6 +526,8 @@ child element of [variableSpeedSign](#variablespeedsign)
 |pos|unique position|X-Y position of detector in editor (Only used in netedit) *default:* **0,0**|
 |voltage|non-negative float|Voltage of at connection point for the overhead wire *default:* **600**|
 |currentLimit|non-negative float|Current limit of the feeder line *default:* **400**|
+|frontElement|boolean|Toggle front element|
+|selected|boolean|Toggle select element|
 
 ## overheadWire
 | Attribute | Type | Description |
@@ -453,6 +539,8 @@ child element of [variableSpeedSign](#variablespeedsign)
 |endPos|non-negative unique float|Ending position in the specified lane *default:* **179769313486231570814527423731704356798070567525844996598917476803157260780028538760589558632766878171540458953514382464234321326889464182768467546703537516986049910576551282076245490090389328944075868508455133942304583236903222948165808559332123348274797826204144723168738177180919299881250404026184124858368.00**|
 |friendlyPos|boolean|If set, no error will be reported if element is placed behind the lane. Instead, it will be placed 0.1 meters from the lanes end or at position 0.1, if the position was negative and larger than the lanes length after multiplication with - 1 *default:* **0**|
 |forbiddenInnerLanes|list of strings|Inner lanes, where placing of overhead wire is restricted|
+|frontElement|boolean|Toggle front element|
+|selected|boolean|Toggle select element|
 
 ## overheadWireClamp
 | Attribute | Type | Description |
@@ -462,6 +550,8 @@ child element of [variableSpeedSign](#variablespeedsign)
 |wireClampLaneStart|unique string|ID of the overhead wire segment lane of overheadWireIDStartClamp|
 |wireClampEnd|unique string|ID of the overhead wire segment, to the end of which the overhead wire clamp is connected|
 |wireClampLaneEnd|unique string|ID of the overhead wire segment lane of overheadWireIDEndClamp|
+|frontElement|boolean|Toggle front element|
+|selected|boolean|Toggle select element|
 
 ## trip
 | Attribute | Type | Description |
@@ -485,6 +575,8 @@ child element of [variableSpeedSign](#variablespeedsign)
 |arrivalPosLat|string|The lateral position on the arrival lane at which the vehicle shall arrive *default:* **center**|
 |insertionChecks|string|Insertion checks *default:* **all**|
 |depart|string|The departure time of the (first) trip which is generated using this trip definition *default:* **0.00**|
+|frontElement|boolean|Toggle front element|
+|selected|boolean|Toggle select element|
 |fromJunction|unique string|The name of the junction the trip starts at|
 |toJunction|unique string|The name of the junction the trip ends at|
 |fromTaz|unique string|The name of the TAZ the trip starts at|
@@ -512,6 +604,8 @@ child element of [variableSpeedSign](#variablespeedsign)
 |arrivalPosLat|string|The lateral position on the arrival lane at which the vehicle shall arrive *default:* **center**|
 |insertionChecks|string|Insertion checks *default:* **all**|
 |depart|string|The time step at which the vehicle shall enter the network *default:* **0.00**|
+|frontElement|boolean|Toggle front element|
+|selected|boolean|Toggle select element|
 
 ## flow
 also child element of [calibrator](#calibrator)
@@ -537,10 +631,14 @@ also child element of [calibrator](#calibrator)
 |type|string|The id of the vehicle type to use for this calibrator flow *default:* **DEFAULT_VEHTYPE**|
 |vehsPerHour|string|Number of vehicles per hour, equally spaced *default:* **1800**|
 |speed|string|Vehicle's speed *default:* **15.0**|
+|frontElement|boolean|Toggle front element|
+|selected|boolean|Toggle select element|
 |id|unique string|The ID of the flow|
 |from|unique string|The ID of the edge the flow starts at|
 |to|unique string|The ID of the edge the flow ends at|
 |via|list of unique strings|List of intermediate edge ids which shall be part of the flow|
+|terminate|discrete string|Criterion for flow termination *default:* **end**|
+|spacing|discrete string|Criterion for flow spacing *default:* **vehsPerHour**|
 |number|non-negative integer|probability for emitting a flow each second (not together with vehsPerHour or period) *default:* **1800**|
 |period|string|Insert equally spaced flows at that period (not together with vehsPerHour or probability or poisson) *default:* **2**|
 |probability|string|probability for emitting a flow each second (not together with vehsPerHour or period or poisson) *default:* **0.5**|
@@ -557,7 +655,7 @@ also child element of [calibrator](#calibrator)
 |-----------|------|-------------|
 |id|unique string|type ID|
 |typeDist.|string|Type distribution|
-|vClass|discrete vClass|An abstract vehicle class *default:* **passenger**|
+|vClass|discrete |An abstract vehicle class *default:* **passenger**|
 |color|color|This type's color|
 |length|non-negative float|The vehicle's netto-length (length) [m]|
 |minGap|non-negative float|Empty space after leader [m]|
@@ -588,7 +686,7 @@ also child element of [calibrator](#calibrator)
 |accel|non-negative float|The acceleration ability of vehicles of this type [m/s^2] *default:* **2.60**|
 |decel|non-negative float|The deceleration ability of vehicles of this type [m/s^2] *default:* **4.50**|
 |apparentDecel|non-negative float|The apparent deceleration of the vehicle as used by the standard model [m/s^2] *default:* **4.50**|
-|emergencyDecel|non-negative float|The maximal physically possible deceleration for the vehicle [m/s^2] *default:* **4.50**|
+|emergencyDecel|non-negative float|The maximal physically possible deceleration for the vehicle [m/s^2] *default:* **9.00**|
 |sigma|float|Car-following model parameter *default:* **0.50**|
 |tau|non-negative float|Car-following model parameter *default:* **1.00**|
 |tmp1|string|SKRAUSSX parameter 1|
@@ -672,6 +770,8 @@ also child element of [calibrator](#calibrator)
 |color|color|This route's color|
 |repeat|non-negative integer|The number of times that the edges of this route shall be repeated *default:* **0**|
 |cycleTime|SUMOTime|When defining a repeating route with stops and those stops use the until attribute, the times will be shifted forward by 'cycleTime' on each repeat *default:* **0**|
+|frontElement|boolean|Toggle front element|
+|selected|boolean|Toggle select element|
 
 ## taz
 | Attribute | Type | Description |
@@ -682,6 +782,8 @@ also child element of [calibrator](#calibrator)
 |fill|boolean|An information whether the TAZ shall be filled *default:* **0**|
 |color|color|The RGBA color with which the TAZ shall be displayed *default:* **red**|
 |name|string|Name of POI|
+|frontElement|boolean|Toggle front element|
+|selected|boolean|Toggle select element|
 
 ### tazSource
 child element of [taz](#taz)
@@ -690,6 +792,8 @@ child element of [taz](#taz)
 |-----------|------|-------------|
 |edge|unique string|The id of edge in the simulation network|
 |weight|non-negative float|Depart weight associated to this Edge *default:* **1**|
+|frontElement|boolean|Toggle front element|
+|selected|boolean|Toggle select element|
 
 ### tazSink
 child element of [taz](#taz)
@@ -698,12 +802,16 @@ child element of [taz](#taz)
 |-----------|------|-------------|
 |edge|unique string|The id of edge in the simulation network|
 |weight|non-negative float|Arrival weight associated to this Edge *default:* **1**|
+|frontElement|boolean|Toggle front element|
+|selected|boolean|Toggle select element|
 
 ## edgeRelation
 | Attribute | Type | Description |
 |-----------|------|-------------|
 |from|unique string|The ID of the edge the edgeRel starts at|
 |to|unique string|The ID of the edge the edgeRel ends at|
+|frontElement|boolean|Toggle front element|
+|selected|boolean|Toggle select element|
 
 ### tazRelation
 child element of [dataInterval](#datainterval)
@@ -712,6 +820,8 @@ child element of [dataInterval](#datainterval)
 |-----------|------|-------------|
 |from|unique string|The name of the TAZ the TAZRel starts at|
 |to|unique string|The name of the TAZ the TAZRel ends at|
+|frontElement|boolean|Toggle front element|
+|selected|boolean|Toggle select element|
 
 ### stop
 child element of [route](#route), [trip](#trip), [flow](#flow)
@@ -737,6 +847,8 @@ child element of [route](#route), [trip](#trip), [flow](#flow)
 |onDemand|boolean|Whether the stop may be skipped if no passengers wants to embark or disembark *default:* **0**|
 |jump|SUMOTime|transfer time if there shall be a jump from this stop to the next route edge *default:* **-1**|
 |split|string|Splits the train upon reaching the stop|
+|frontElement|boolean|Toggle front element|
+|selected|boolean|Toggle select element|
 |busStop|list of unique strings|BusStop associated with this stop|
 |trainStop|list of unique strings|TrainStop associated with this stop|
 |containerStop|list of unique strings|ContainerStop associated with this stop|
@@ -764,12 +876,14 @@ child element of [route](#route), [trip](#trip), [flow](#flow)
 |speed|non-negative float|sets custom speed limit for the connection *default:* **-1.00**|
 |length|non-negative float|sets custom length for the connection *default:* **-1.00**|
 |customShape|list of unique positions|sets custom shape for the connection|
-|changeLeft|list of discrete vClasses|Permit changing left only for to the given vehicle classes *default:* **all**|
-|changeRight|list of discrete vClasses|Permit changing right only for to the given vehicle classes *default:* **all**|
+|changeLeft|list of vClasses|Permit changing left only for to the given vehicle classes *default:* **all**|
+|changeRight|list of vClasses|Permit changing right only for to the given vehicle classes *default:* **all**|
 |indirect|boolean|if set to true, vehicles will make a turn in 2 steps *default:* **0**|
 |type|string|set a custom edge type (for applying vClass-specific speed restrictions)|
 |dir|string|turning direction for this connection (computed)|
 |state|string|link state for this connection (computed)|
+|frontElement|boolean|Toggle front element|
+|selected|boolean|Toggle select element|
 
 ## type
 | Attribute | Type | Description |
@@ -813,6 +927,8 @@ child element of [route](#route), [trip](#trip), [flow](#flow)
 |linkIndex|integer|sets the tls-index for this crossing *default:* **-1**|
 |linkIndex2|integer|sets the opposite-direction tls-index for this crossing *default:* **-1**|
 |customShape|list of unique positions|Overrides default shape of pedestrian crossing|
+|frontElement|boolean|Toggle front element|
+|selected|boolean|Toggle select element|
 
 ## walkingArea
 | Attribute | Type | Description |
@@ -821,6 +937,8 @@ child element of [route](#route), [trip](#trip), [flow](#flow)
 |width|non-negative float|The width of the WalkingArea *default:* **2.00**|
 |length|non-negative float|The length of the WalkingArea in meter|
 |shape|list of unique positions|Overrides default shape of pedestrian sidewalk|
+|frontElement|boolean|Toggle front element|
+|selected|boolean|Toggle select element|
 
 ## person
 | Attribute | Type | Description |
@@ -830,6 +948,8 @@ child element of [route](#route), [trip](#trip), [flow](#flow)
 |color|color|This person's color *default:* **yellow**|
 |departPos|string|The position at which the person shall enter the net *default:* **base**|
 |depart|non-negative float|The time step at which the person shall enter the network *default:* **0.00**|
+|frontElement|boolean|Toggle front element|
+|selected|boolean|Toggle select element|
 
 ### personTrip
 child element of [person](#person), [personFlow](#personflow)
@@ -844,16 +964,18 @@ child element of [person](#person), [personFlow](#personflow)
 |lines|list of strings|list of vehicle alternatives to take for the person trip|
 |walkFactor|non-negative float|Walk factor *default:* **0.00**|
 |group|string|id of the travel group. Persons with the same group may share a taxi ride|
+|frontElement|boolean|Toggle front element|
+|selected|boolean|Toggle select element|
 |toTaz|unique string|TAZ end ID|
 |toJunction|unique string|Junction end ID|
-|busStop|unique string|BuStop end ID|
+|busStop|unique string|BusStop end ID|
 |trainStop|unique string|TrainStop end ID|
 |containerStop|unique string|ContainerStop end ID|
 |chargingStation|unique string|ChargingStation end ID|
 |parkingArea|unique string|ParkingArea end ID|
 |fromTaz|unique string|TAZ start ID|
 |fromJunction|unique string|Junction start ID|
-|fromBusStop|unique string|BuStop start ID|
+|fromBusStop|unique string|BusStop start ID|
 |fromTrainStop|unique string|TrainStop start ID|
 |fromContainerStop|unique string|ContainerStop start ID|
 |fromChargingStation|unique string|ChargingStation start ID|
@@ -868,16 +990,18 @@ child element of [person](#person), [personFlow](#personflow)
 |arrivalPos|float|arrival position on the destination edge *default:* **-1**|
 |lines|list of strings|list of vehicle alternatives to take for the ride|
 |group|string|id of the travel group. Persons with the same group may share a taxi ride|
+|frontElement|boolean|Toggle front element|
+|selected|boolean|Toggle select element|
 |toTaz|unique string|TAZ end ID|
 |toJunction|unique string|Junction end ID|
-|busStop|unique string|BuStop end ID|
+|busStop|unique string|BusStop end ID|
 |trainStop|unique string|TrainStop end ID|
 |containerStop|unique string|ContainerStop end ID|
 |chargingStation|unique string|ChargingStation end ID|
 |parkingArea|unique string|ParkingArea end ID|
 |fromTaz|unique string|TAZ start ID|
 |fromJunction|unique string|Junction start ID|
-|fromBusStop|unique string|BuStop start ID|
+|fromBusStop|unique string|BusStop start ID|
 |fromTrainStop|unique string|TrainStop start ID|
 |fromContainerStop|unique string|ContainerStop start ID|
 |fromChargingStation|unique string|ChargingStation start ID|
@@ -892,16 +1016,18 @@ child element of [person](#person), [personFlow](#personflow)
 |arrivalPos|float|arrival position on the destination edge *default:* **-1**|
 |speed|non-negative float|speed of the person for this tranship in m/s (not together with duration) *default:* **1.39**|
 |duration|non-negative SUMOTime|duration of the plan in second (not together with speed) *default:* **0**|
+|frontElement|boolean|Toggle front element|
+|selected|boolean|Toggle select element|
 |toTaz|unique string|TAZ end ID|
 |toJunction|unique string|Junction end ID|
-|busStop|unique string|BuStop end ID|
+|busStop|unique string|BusStop end ID|
 |trainStop|unique string|TrainStop end ID|
 |containerStop|unique string|ContainerStop end ID|
 |chargingStation|unique string|ChargingStation end ID|
 |parkingArea|unique string|ParkingArea end ID|
 |fromTaz|unique string|TAZ start ID|
 |fromJunction|unique string|Junction start ID|
-|fromBusStop|unique string|BuStop start ID|
+|fromBusStop|unique string|BusStop start ID|
 |fromTrainStop|unique string|TrainStop start ID|
 |fromContainerStop|unique string|ContainerStop start ID|
 |fromChargingStation|unique string|ChargingStation start ID|
@@ -916,12 +1042,16 @@ child element of [person](#person), [personFlow](#personflow)
 |color|color|This person's color *default:* **yellow**|
 |departPos|string|The position at which the person shall enter the net *default:* **base**|
 |begin|SUMOTime|First flow departure time *default:* **0**|
+|terminate|discrete string|Criterion for flow termination *default:* **end**|
+|spacing|discrete string|Criterion for flow spacing *default:* **personsPerHour**|
 |end|SUMOTime|End of departure interval *default:* **3600**|
 |number|non-negative integer|probability for emitting a flow each second (not together with vehsPerHour or period) *default:* **1800**|
 |personsPerHour|string|Number of flows per hour, equally spaced (not together with period or probability or poisson) *default:* **1800**|
 |period|string|Insert equally spaced flows at that period (not together with vehsPerHour or probability or poisson) *default:* **2**|
 |probability|string|probability for emitting a flow each second (not together with vehsPerHour or period or poisson) *default:* **0.5**|
 |poisson|string|Insert flow expected vehicles per second with poisson distributed insertion rate (not together with period or vehsPerHour or probability) *default:* **0.5**|
+|frontElement|boolean|Toggle front element|
+|selected|boolean|Toggle select element|
 
 ## dataSet
 | Attribute | Type | Description |
@@ -945,6 +1075,8 @@ child element of [dataSet](#dataset)
 |color|color|This container's color *default:* **yellow**|
 |departPos|string|The position at which the container shall enter the net *default:* **base**|
 |depart|non-negative float|The time step at which the container shall enter the network *default:* **0.00**|
+|frontElement|boolean|Toggle front element|
+|selected|boolean|Toggle select element|
 
 ### transport
 child element of [container](#container), [containerFlow](#containerflow)
@@ -956,16 +1088,18 @@ child element of [container](#container), [containerFlow](#containerflow)
 |arrivalPos|float|arrival position on the destination edge *default:* **-1**|
 |lines|list of strings|list of vehicle alternatives to take for the transport|
 |group|string|id of the travel group. Persons with the same group may share a taxi ride|
+|frontElement|boolean|Toggle front element|
+|selected|boolean|Toggle select element|
 |toTaz|unique string|TAZ end ID|
 |toJunction|unique string|Junction end ID|
-|busStop|unique string|BuStop end ID|
+|busStop|unique string|BusStop end ID|
 |trainStop|unique string|TrainStop end ID|
 |containerStop|unique string|ContainerStop end ID|
 |chargingStation|unique string|ChargingStation end ID|
 |parkingArea|unique string|ParkingArea end ID|
 |fromTaz|unique string|TAZ start ID|
 |fromJunction|unique string|Junction start ID|
-|fromBusStop|unique string|BuStop start ID|
+|fromBusStop|unique string|BusStop start ID|
 |fromTrainStop|unique string|TrainStop start ID|
 |fromContainerStop|unique string|ContainerStop start ID|
 |fromChargingStation|unique string|ChargingStation start ID|
@@ -981,16 +1115,18 @@ child element of [container](#container), [containerFlow](#containerflow)
 |arrivalPos|float|arrival position on the destination edge *default:* **-1**|
 |speed|non-negative float|speed of the person for this tranship in m/s (not together with duration) *default:* **1.39**|
 |duration|non-negative SUMOTime|duration of the plan in second (not together with speed) *default:* **0**|
+|frontElement|boolean|Toggle front element|
+|selected|boolean|Toggle select element|
 |toTaz|unique string|TAZ end ID|
 |toJunction|unique string|Junction end ID|
-|busStop|unique string|BuStop end ID|
+|busStop|unique string|BusStop end ID|
 |trainStop|unique string|TrainStop end ID|
 |containerStop|unique string|ContainerStop end ID|
 |chargingStation|unique string|ChargingStation end ID|
 |parkingArea|unique string|ParkingArea end ID|
 |fromTaz|unique string|TAZ start ID|
 |fromJunction|unique string|Junction start ID|
-|fromBusStop|unique string|BuStop start ID|
+|fromBusStop|unique string|BusStop start ID|
 |fromTrainStop|unique string|TrainStop start ID|
 |fromContainerStop|unique string|ContainerStop start ID|
 |fromChargingStation|unique string|ChargingStation start ID|
@@ -1004,9 +1140,19 @@ child element of [container](#container), [containerFlow](#containerflow)
 |color|color|This container's color *default:* **yellow**|
 |departPos|string|The position at which the container shall enter the net *default:* **base**|
 |begin|SUMOTime|First flow departure time *default:* **0**|
+|terminate|discrete string|Criterion for flow termination *default:* **end**|
+|spacing|discrete string|Criterion for flow spacing *default:* **containersPerHour**|
 |end|SUMOTime|End of departure interval *default:* **3600**|
 |number|non-negative integer|probability for emitting a flow each second (not together with vehsPerHour or period) *default:* **1800**|
 |containersPerHour|string|Number of flows per hour, equally spaced (not together with period or probability or poisson) *default:* **1800**|
 |period|string|Insert equally spaced flows at that period (not together with vehsPerHour or probability or poisson) *default:* **2**|
 |probability|string|probability for emitting a flow each second (not together with vehsPerHour or period or poisson) *default:* **0.5**|
 |poisson|string|Insert flow expected vehicles per second with poisson distributed insertion rate (not together with period or vehsPerHour or probability) *default:* **0.5**|
+|frontElement|boolean|Toggle front element|
+|selected|boolean|Toggle select element|
+
+## internalLane
+| Attribute | Type | Description |
+|-----------|------|-------------|
+|frontElement|boolean|Toggle front element|
+|selected|boolean|Toggle select element|

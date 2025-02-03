@@ -110,7 +110,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--junctions.join-output** {{DT_FILE}} | Writes information about joined junctions to FILE (can be loaded as additional node-file to reproduce joins |
 | **--prefix** {{DT_STR}} | Defines a prefix for edge and junction names |
 | **--amitran-output** {{DT_FILE}} | The generated net will be written to FILE using Amitran format |
-| **--matsim-output** {{DT_FILE}} | The generated net will be written to FILE using MATsim format |
+| **--matsim-output** {{DT_FILE}} | The generated net will be written to FILE using MATSim format |
 | **--opendrive-output** {{DT_FILE}} | The generated net will be written to FILE using OpenDRIVE format |
 | **--dlr-navteq-output** {{DT_FILE}} | The generated net will be written to dlr-navteq files with the given PREFIX |
 | **--dlr-navteq.version** {{DT_STR}} | The dlr-navteq output format version to write; *default:* **6.5** |
@@ -307,6 +307,7 @@ See the [docs](Networks/PlainXML.md) for more info on [junction types](Networks/
 | **--sidewalks.guess.exclude** {{DT_STR_LIST}} | Do not guess sidewalks for the given list of edges |
 | **--crossings.guess** {{DT_BOOL}} | Guess pedestrian crossings based on the presence of sidewalks; *default:* **false** |
 | **--crossings.guess.speed-threshold** {{DT_FLOAT}} | At uncontrolled nodes, do not build crossings across edges with a speed above the threshold; *default:* **13.89** |
+| **--crossings.guess.roundabout-priority** {{DT_BOOL}} | Give priority to guessed crossings at roundabouts; *default:* **true** |
 | **--walkingareas** {{DT_BOOL}} | Always build walking areas even if there are no crossings; *default:* **false** |
 | **--walkingareas.join-dist** {{DT_FLOAT}} | Do not create a walkingarea between sidewalks that are connected by a pedestrian junction within FLOAT; *default:* **15** |
 

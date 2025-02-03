@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-10-09 19:54:01 by Eclipse SUMO jtrrouter Version v1_20_0+2262-4c4b720e23e
+<!-- generated on 2025-02-03 20:56:08 by Eclipse SUMO jtrrouter Version v1_21_0+1830-1621789eca8
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -63,6 +63,7 @@
             <xsd:element name="repair.to" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="mapmatch.distance" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="mapmatch.junctions" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="mapmatch.taz" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="bulk-routing" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="routing-threads" type="intOptionType" minOccurs="0"/>
             <xsd:element name="restriction-params" type="strArrayOptionType" minOccurs="0"/>

@@ -155,6 +155,7 @@ this boundary are discarded in these cases.
 | **--all-attributes** {{DT_BOOL}} | Imports all attributes as key/value pairs; *default:* **false** |
 | **--ignore-errors** {{DT_BOOL}} | Continue on broken input; *default:* **false** |
 | **--poi-layer-offset** {{DT_FLOAT}} | Adds FLOAT to the layer value for each poi (i.e. to raise it above polygons); *default:* **0** |
+| **--flatten** {{DT_BOOL}} | Remove all z-data; *default:* **false** |
 
 ### Building Defaults
 

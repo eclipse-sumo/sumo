@@ -100,6 +100,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--repair.to** {{DT_BOOL}} | Tries to correct an invalid destination edge by using the last usable edge instead; *default:* **false** |
 | **--mapmatch.distance** {{DT_FLOAT}} | Maximum distance when mapping input coordinates (fromXY etc.) to the road network; *default:* **100** |
 | **--mapmatch.junctions** {{DT_BOOL}} | Match positions to junctions instead of edges; *default:* **false** |
+| **--mapmatch.taz** {{DT_BOOL}} | Match positions to taz instead of edges; *default:* **false** |
 | **--bulk-routing** {{DT_BOOL}} | Aggregate routing queries with the same origin; *default:* **false** |
 | **--routing-threads** {{DT_INT}} | The number of parallel execution threads used for routing; *default:* **0** |
 | **--restriction-params** {{DT_STR_LIST}} | Comma separated list of param keys to compare for additional restrictions |
