@@ -112,6 +112,8 @@ title: ChangeLog
   - Reloading a demand file now raises warnins rather than errors #16027
   - Deleting one edge no longer removes crossings from other edges #16017
   - Fixed selecting TAZ edges with a small selection #16100
+  - Command line options **--new -o OUTPUT_FILE** is now working together. #14989
+
 
 - sumo-gui
   - Fixed framerate drop when zoomed in very far #15666
@@ -307,6 +309,7 @@ title: ChangeLog
   - routeSampler.py: now includes GEH in mismatch-output #16000
   - routeSampler.py: Added option **--geh-scale** to permit custom scaling for GEH value (i.e. to avoid averaging daily counts over 24 hours) #16001
   - routeSampler.py: Options that set attributse to parse (i.e. **--edgedata-attribute**) now support a list of comma separated attributs (values are added) #16020
+  - routeSampler.py: Added option **--init-input.remove-overflo** to downsample demand from a given route file where traffic exceeds counts (and keeping as many of the routes as possible) #15971
   - edgeDataDiff.py: Added option **--geh-scale** to permit custom scaling for GEH value and otherwise scaling data to hourly values automatically #16002
   - edgeDataDiff.py: Added option **--attributes** to allow comparing files with differing attribute names #15898
   - xml2csv.py: Added option **--keep-attributes** to limit the attributes exported to csv #15915
@@ -322,6 +325,8 @@ title: ChangeLog
   - edgesInDistrict.py: now supports .xml.gz inputs #16066
   - edgeDepartDelay.py: New tool for edge-wise analysis of departDelay from tripinfo-output #16021
   - geoTrip2POI.py: New for visualizing geoTrips #16028
+  - duaIterate_routeCosts.py: New tool to analyze route choice in a finished duaIterate run in an interactive manner #15912
+
 
 
 ### Miscellaneous
