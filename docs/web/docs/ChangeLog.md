@@ -18,8 +18,7 @@ title: ChangeLog
   - Fixed blocked vehicles at busStop with attribute parkingLength #15644
   - Fixed train collision at rail_crossing #15658
   - Fixed crash when route contains internal edge #15667
-  - Fixed invalid error when using jump after stopping twice on the same edge #15635
-  - Added option **--chargingstations-output.aggregated.write-unfinished** to include still running charging process in charging station output #15677
+  - Fixed invalid error when using jump after stopping twice on the same edge #15635  
   - Fixed invalid value of diagnostic param 'caccVehicleMode' when using carFollowModel *CACC* #15682
   - Fixed invalid speedErr computation for carFollowModel *CACC* #15683
   - Actuated traffic light that use the `next` attribute to skip phases now work correctly if the targeted green phase serves no traffic but leads to a subsequent phase which does #15716
@@ -31,7 +30,7 @@ title: ChangeLog
   - Fixed train collision in network without rail signals #15797
   - Pedestrians no longer walk onto rail_crossing at yellow #15808
   - Fixed collision at pedestrian crossing #15837
-  - Fixed bug wehre a collision between vehicles back and pedestrian on crossing was not detected #15847
+  - Fixed bug where a collision between vehicles back and pedestrian on crossing was not detected #15847
   - Fixed unsafe driving at prioritized crossing #15848
   - Fixed invalid lanechanging state ahead of roundabout which could cause lane changing to fail in dense traffic #15854
   - Fixed lanechanging deadlock involving 3 vehicles #15857
@@ -43,7 +42,7 @@ title: ChangeLog
   - Fixed invalid gap in person movement when a ride without arrivalPos is followed by a stop #8468
   - Vehicles are no longer inserted on used pedestrian crossing #15843
   - Fixed crash when loading state for vehicles with random arrivalPos #13110
-  - Fixed inconsisent arrivalPos when loading state #15961
+  - Fixed inconsistent arrivalPos when loading state #15961
   - Fixed invalid stopping after vehicle teleports beyond stopping place #15972
   - Fixed bug where a vehicle steals another vehicles parking spot #15976
   - Fixed bug where parking egress is blocked after lane change #15757
@@ -69,7 +68,7 @@ title: ChangeLog
   - Improve geometry of embedded routes #13980
   - Fixed Crash when editing options before loading a network #13881
   - Fixed text rendering of small elements when zoomed out #15185
-  - Selectable area of a POI doesn't now corresponds to custom radius #15532
+  - Selectable area of a POI now corresponds to custom radius #15532
   - Fixed crash after undo-redo due to distributions #15642
   - Fixed invalid behavior after pressing ESC key in person plan mode #15193
   - Modified default vType is no longer written after being reset #14985
@@ -147,7 +146,7 @@ title: ChangeLog
   - Fixed invalid use of taz information when coordinates are defined for a trip #15768
   - Fixed invalid route in a network with connection permissions but no other permissions #15925
   - Fixed invalid precision with **--write-costs** #15938
-  - Fixed crash when loading flows with particular combinaion of IDs #16091
+  - Fixed crash when loading flows with particular combination of IDs #16091
 
 - marouter
   - Fixed invalid route involving vClass-restricted connection #15883
@@ -206,6 +205,7 @@ title: ChangeLog
 
 - sumo
   - Added new [stationfinder device](Simulation/Stationfinder.md) which reroutes electric vehicles to a chargingStation depending on it's state of charge #9663, #15871, #15931, #15980
+  - Added option **--chargingstations-output.aggregated.write-unfinished** to include still running charging process in charging station output #15677
   - The new vType attribute `lcContRight` can be used to configure lane choice at a lane split where all lanes have equal strategic value. #15579
   - Added option **--insertion-checks** to set global defaults for vehicle attribute `insertionChecks` #15149
   - Added option **--pedestrian.striping.jamfactor** to configure the speed of jammed pedestrians (default 0.25) #15610
@@ -235,7 +235,7 @@ title: ChangeLog
     - The new option **--railsignal.max-block-length** can be used to customized the threshold for warnings / driveway truncation #15819
     - The new option **--railsignal-vehicle-output** can be used to record entry and exit times of vehicles into signal blocks #14990
     - The new option **--time-to-teleport.railsignal-deadlock** can be used to detect signal based deadlocks #15561
-    - The new optioin **--time-to-teleport.remove-constraint** can be used to resolve detected deadlocks which are caused by a signal constraint by deactivating a responsible constraint #14543
+    - The new option **--time-to-teleport.remove-constraint** can be used to resolve detected deadlocks which are caused by a signal constraint by deactivating a responsible constraint #14543
     - The new option **--deadlock-output** can be use to log detected deadlocks and also their method of resolution
     - Logged deadlocks can be loaded as additional file to prevent them in a subsequent simulation #15569
     - A warning is given for unreasonable combinations of **--time-to-teleport** options #15816
@@ -293,7 +293,7 @@ title: ChangeLog
   - emissionsMap: Now supports options **--vtype** and **--additional-files** #15812
   - driveways2poly.py: Added new tool for visualizing train driveways #15027
   - dxf2jupedsim.py: now supports projection 'none'
-  - scaleTimeline.py: This is a new tool for modifying the ammound of traffic defined in a route file based on a time line #10498
+  - scaleTimeline.py: This is a new tool for modifying the ammount of traffic defined in a route file based on a time line #10498
   - generateLandmarks.py: New tool for generating ALT-landmark input along the network rim #15864
   - cutRoutes.py: now writes standard header #15875
   - randomTrips.py: now includes total weight in weight-output file #15878
@@ -308,8 +308,8 @@ title: ChangeLog
   - routeSampler.py: now warn about duplicate counting data #15997
   - routeSampler.py: now includes GEH in mismatch-output #16000
   - routeSampler.py: Added option **--geh-scale** to permit custom scaling for GEH value (i.e. to avoid averaging daily counts over 24 hours) #16001
-  - routeSampler.py: Options that set attributse to parse (i.e. **--edgedata-attribute**) now support a list of comma separated attributs (values are added) #16020
-  - routeSampler.py: Added option **--init-input.remove-overflo** to downsample demand from a given route file where traffic exceeds counts (and keeping as many of the routes as possible) #15971
+  - routeSampler.py: Options that set attributse to parse (i.e. **--edgedata-attribute**) now support a list of comma separated attributes (values are added) #16020
+  - routeSampler.py: Added option **--init-input.remove-overflow** to downsample demand from a given route file where traffic exceeds counts (and keeping as many of the routes as possible) #15971
   - edgeDataDiff.py: Added option **--geh-scale** to permit custom scaling for GEH value and otherwise scaling data to hourly values automatically #16002
   - edgeDataDiff.py: Added option **--attributes** to allow comparing files with differing attribute names #15898
   - xml2csv.py: Added option **--keep-attributes** to limit the attributes exported to csv #15915
@@ -320,7 +320,7 @@ title: ChangeLog
   - countEdgeUsage.py: Now issues a warning when encountering attributes fromJunction or toJunction #15804
   - countEdgeUsage.py: print output on number loaded / filtered routes when option **--verbose** is set #16040
   - countEdgeUsage.py: New option **--subpart.via** allow filtering subparts with gaps (i.e. via edges) #16041
-  - netdiff.py: Modified file edges for generated polygons to simplify file filtering in netedit #16042
+  - netdiff.py: Modified file extension for generated polygons to simplify file filtering in netedit #16042
   - poly2edgedata.py: Added new tool to transform traffic data from polygons (i.e. from geojson) to edgedata (i.e. for routeSampler.py) #16051
   - edgesInDistrict.py: now supports .xml.gz inputs #16066
   - edgeDepartDelay.py: New tool for edge-wise analysis of departDelay from tripinfo-output #16021
