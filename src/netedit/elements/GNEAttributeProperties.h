@@ -20,12 +20,6 @@
 #pragma once
 #include <config.h>
 
-
-// ===========================================================================
-// included modules
-// ===========================================================================
-#include <config.h>
-
 #include <utils/xml/SUMOSAXAttributes.h>
 
 
@@ -76,9 +70,6 @@ public:
         NETEDIT =           1 << 28,    // Attribute is exclusive of netedit
     };
 
-    /// @brief default constructor
-    GNEAttributeProperties();
-
     /// @brief parameter constructor
     GNEAttributeProperties(const SumoXMLAttr attribute, const int attributeProperty, const std::string& definition, std::string defaultValue = "");
 
@@ -110,7 +101,7 @@ public:
     const std::string& getAttrStr() const;
 
     /// @brief get reference to tagProperty parent
-    const GNETagProperties& getTagPropertyParent() const;
+    const GNETagProperties* getTagPropertyParent() const;
 
     /// @brief get position in list (used in frames for listing attributes with certain sort)
     int getPositionListed() const;
@@ -262,6 +253,15 @@ private:
 
     /// @brief maxium Range
     double myMaximumRange = 0;
+
+    /// @brief invalidate default constructor
+    GNEAttributeProperties() = delete;
+
+    /// @brief Invalidated copy constructor.
+    GNEAttributeProperties(const GNEAttributeProperties&) = delete;
+
+    /// @brief Invalidated assignment operator
+    GNEAttributeProperties& operator=(const GNEAttributeProperties& src) = delete;
 };
 
 /****************************************************************************/

@@ -240,9 +240,9 @@ GNECrossingFrame::CrossingParameters::enableCrossingParameters(bool hasTLS) {
     if (hasTLS) {
         myCrossingPriorityCheckButton->setCheck(TRUE);
     } else {
-        myCrossingPriorityCheckButton->setCheck(GNEAttributeCarrier::parse<bool>(tagProperties.getDefaultValue(SUMO_ATTR_PRIORITY)));
+        myCrossingPriorityCheckButton->setCheck(GNEAttributeCarrier::parse<bool>(tagProperties->getDefaultValue(SUMO_ATTR_PRIORITY)));
     }
-    myCrossingWidth->setText(tagProperties.getDefaultValue(SUMO_ATTR_WIDTH).c_str());
+    myCrossingWidth->setText(tagProperties->getDefaultValue(SUMO_ATTR_WIDTH).c_str());
     myCrossingWidth->setTextColor(FXRGB(0, 0, 0));
 }
 

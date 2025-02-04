@@ -89,7 +89,7 @@ GNELaneAreaDetector::writeAdditional(OutputDevice& device) const {
     device.openTag(SUMO_TAG_LANE_AREA_DETECTOR);
     device.writeAttr(SUMO_ATTR_ID, getID());
     // continue depending of E2 type
-    if (myTagProperty.getTag() == SUMO_TAG_LANE_AREA_DETECTOR) {
+    if (myTagProperty->getTag() == SUMO_TAG_LANE_AREA_DETECTOR) {
         device.writeAttr(SUMO_ATTR_LANE, getParentLanes().front()->getID());
         device.writeAttr(SUMO_ATTR_POSITION, myPositionOverLane);
         device.writeAttr(SUMO_ATTR_LENGTH, toString(myEndPositionOverLane - myPositionOverLane));
@@ -104,16 +104,16 @@ GNELaneAreaDetector::writeAdditional(OutputDevice& device) const {
     if (myTrafficLight.size() > 0) {
         device.writeAttr(SUMO_ATTR_TLID, myTrafficLight);
     }
-    if (getAttribute(SUMO_ATTR_HALTING_TIME_THRESHOLD) != myTagProperty.getDefaultValue(SUMO_ATTR_HALTING_TIME_THRESHOLD)) {
+    if (getAttribute(SUMO_ATTR_HALTING_TIME_THRESHOLD) != myTagProperty->getDefaultValue(SUMO_ATTR_HALTING_TIME_THRESHOLD)) {
         device.writeAttr(SUMO_ATTR_HALTING_TIME_THRESHOLD, mySpeedThreshold);
     }
-    if (getAttribute(SUMO_ATTR_HALTING_SPEED_THRESHOLD) != myTagProperty.getDefaultValue(SUMO_ATTR_HALTING_SPEED_THRESHOLD)) {
+    if (getAttribute(SUMO_ATTR_HALTING_SPEED_THRESHOLD) != myTagProperty->getDefaultValue(SUMO_ATTR_HALTING_SPEED_THRESHOLD)) {
         device.writeAttr(SUMO_ATTR_HALTING_SPEED_THRESHOLD, mySpeedThreshold);
     }
-    if (getAttribute(SUMO_ATTR_JAM_DIST_THRESHOLD) != myTagProperty.getDefaultValue(SUMO_ATTR_JAM_DIST_THRESHOLD)) {
+    if (getAttribute(SUMO_ATTR_JAM_DIST_THRESHOLD) != myTagProperty->getDefaultValue(SUMO_ATTR_JAM_DIST_THRESHOLD)) {
         device.writeAttr(SUMO_ATTR_JAM_DIST_THRESHOLD, mySpeedThreshold);
     }
-    if (getAttribute(SUMO_ATTR_SHOW_DETECTOR) != myTagProperty.getDefaultValue(SUMO_ATTR_SHOW_DETECTOR)) {
+    if (getAttribute(SUMO_ATTR_SHOW_DETECTOR) != myTagProperty->getDefaultValue(SUMO_ATTR_SHOW_DETECTOR)) {
         device.writeAttr(SUMO_ATTR_SHOW_DETECTOR, myShow);
     }
     // write parameters (Always after children to avoid problems with additionals.xsd)
@@ -250,7 +250,7 @@ GNELaneAreaDetector::fixAdditionalProblem() {
 void
 GNELaneAreaDetector::updateGeometry() {
     // check E2 detector
-    if (myTagProperty.getTag() == GNE_TAG_MULTI_LANE_AREA_DETECTOR) {
+    if (myTagProperty->getTag() == GNE_TAG_MULTI_LANE_AREA_DETECTOR) {
         // compute path
         computePathElement();
     } else {
@@ -263,7 +263,7 @@ GNELaneAreaDetector::updateGeometry() {
 void
 GNELaneAreaDetector::drawGL(const GUIVisualizationSettings& s) const {
     // check drawing conditions
-    if ((myTagProperty.getTag() == SUMO_TAG_LANE_AREA_DETECTOR) &&
+    if ((myTagProperty->getTag() == SUMO_TAG_LANE_AREA_DETECTOR) &&
             myNet->getViewNet()->getDataViewOptions().showAdditionals() &&
             !myNet->getViewNet()->selectingDetectorsTLSMode()) {
         // Obtain exaggeration of the draw
@@ -300,7 +300,7 @@ GNELaneAreaDetector::computePathElement() {
 void
 GNELaneAreaDetector::drawLanePartialGL(const GUIVisualizationSettings& s, const GNESegment* segment, const double offsetFront) const {
     // check if E2 can be drawn
-    if (segment->getLane() && (myTagProperty.getTag() == GNE_TAG_MULTI_LANE_AREA_DETECTOR) &&
+    if (segment->getLane() && (myTagProperty->getTag() == GNE_TAG_MULTI_LANE_AREA_DETECTOR) &&
             myNet->getViewNet()->getDataViewOptions().showAdditionals() && !myNet->getViewNet()->selectingDetectorsTLSMode()) {
         const bool movingGeometryPoints = drawMovingGeometryPoints(false);
         // Obtain exaggeration of the draw
@@ -378,7 +378,7 @@ GNELaneAreaDetector::drawLanePartialGL(const GUIVisualizationSettings& s, const 
 void
 GNELaneAreaDetector::drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNESegment* segment, const double offsetFront) const {
     // check if E2 can be drawn
-    if ((myTagProperty.getTag() == GNE_TAG_MULTI_LANE_AREA_DETECTOR) && segment->getPreviousLane() && segment->getNextLane() &&
+    if ((myTagProperty->getTag() == GNE_TAG_MULTI_LANE_AREA_DETECTOR) && segment->getPreviousLane() && segment->getNextLane() &&
             myNet->getViewNet()->getDataViewOptions().showAdditionals() && !myNet->getViewNet()->selectingDetectorsTLSMode()) {
         // Obtain exaggeration of the draw
         const double E2Exaggeration = getExaggeration(s);

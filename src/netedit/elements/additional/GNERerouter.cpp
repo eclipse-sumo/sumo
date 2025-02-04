@@ -93,7 +93,7 @@ GNERerouter::writeAdditional(OutputDevice& device) const {
         }
         // write all rerouter interval
         for (const auto& rerouterInterval : getChildAdditionals()) {
-            if (!rerouterInterval->getTagProperty().isSymbol()) {
+            if (!rerouterInterval->getTagProperty()->isSymbol()) {
                 rerouterInterval->writeAdditional(device);
             }
         }
@@ -183,7 +183,7 @@ GNERerouter::updateCenteringBoundary(const bool updateGrid) {
             for (const auto& rerouterElement : additionalChildren->getChildAdditionals()) {
                 myAdditionalBoundary.add(rerouterElement->getPositionInView());
                 // special case for parking area rerouter
-                if (rerouterElement->getTagProperty().getTag() == SUMO_TAG_PARKING_AREA_REROUTE) {
+                if (rerouterElement->getTagProperty()->getTag() == SUMO_TAG_PARKING_AREA_REROUTE) {
                     myAdditionalBoundary.add(rerouterElement->getParentAdditionals().at(1)->getCenteringBoundary());
                 }
             }
@@ -256,7 +256,7 @@ GNERerouter::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_EDGES: {
             std::vector<std::string> edges;
             for (const auto& rerouterSymbol : getChildAdditionals()) {
-                if (rerouterSymbol->getTagProperty().isSymbol()) {
+                if (rerouterSymbol->getTagProperty()->isSymbol()) {
                     edges.push_back(rerouterSymbol->getAttribute(SUMO_ATTR_EDGE));
                 }
             }

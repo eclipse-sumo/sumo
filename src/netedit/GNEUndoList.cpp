@@ -216,7 +216,7 @@ GNEUndoList::begin(GUIIcon icon, const std::string& description) {
 
 void
 GNEUndoList::begin(const GNEAttributeCarrier* AC, const std::string& description) {
-    begin(AC->getTagProperty().getGUIIcon(), description);
+    begin(AC->getTagProperty()->getGUIIcon(), description);
 }
 
 

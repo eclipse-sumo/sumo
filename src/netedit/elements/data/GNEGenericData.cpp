@@ -81,7 +81,7 @@ GNEGenericData::getDataIntervalParent() const {
 
 void
 GNEGenericData::drawAttribute(const PositionVector& shape) const {
-    if ((myTagProperty.getTag() == GNE_TAG_EDGEREL_SINGLE) && (shape.length() > 0)) {
+    if ((myTagProperty->getTag() == GNE_TAG_EDGEREL_SINGLE) && (shape.length() > 0)) {
         // obtain pointer to edge data frame (only for code legibly)
         const GNEEdgeDataFrame* edgeDataFrame = myDataIntervalParent->getNet()->getViewNet()->getViewParent()->getEdgeDataFrame();
         // check if we have to filter generic data
@@ -194,7 +194,7 @@ GNEGenericData::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     myDataIntervalParent->getNet()->getViewNet()->buildSelectionACPopupEntry(ret, this);
     buildShowParamsPopupEntry(ret);
     // show option to open additional dialog
-    if (myTagProperty.hasDialog()) {
+    if (myTagProperty->hasDialog()) {
         GUIDesigns::buildFXMenuCommand(ret, (TLF("Open % Dialog", getTagStr())).c_str(), getACIcon(), &parent, MID_OPEN_ADDITIONAL_DIALOG);
         new FXMenuSeparator(ret);
     } else {
@@ -209,12 +209,12 @@ GNEGenericData::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& /* p
     // Create table
     GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this);
     // Iterate over attributes
-    for (const auto& tagProperty : myTagProperty) {
+    for (const auto& tagProperty : myTagProperty->getAttributeProperties()) {
         // Add attribute and set it dynamic if aren't unique
-        if (tagProperty.isUnique()) {
-            ret->mkItem(tagProperty.getAttrStr().c_str(), false, getAttribute(tagProperty.getAttr()));
+        if (tagProperty->isUnique()) {
+            ret->mkItem(tagProperty->getAttrStr().c_str(), false, getAttribute(tagProperty->getAttr()));
         } else {
-            ret->mkItem(tagProperty.getAttrStr().c_str(), true, getAttribute(tagProperty.getAttr()));
+            ret->mkItem(tagProperty->getAttrStr().c_str(), true, getAttribute(tagProperty->getAttr()));
         }
     }
     // close building
@@ -284,7 +284,7 @@ GNEGenericData::isVisibleInspectDeleteSelect() const {
     // declare flag
     bool draw = true;
     // check filter by generic data type
-    if ((toolBar.getGenericDataType() != SUMO_TAG_NOTHING) && (toolBar.getGenericDataType() != myTagProperty.getTag())) {
+    if ((toolBar.getGenericDataType() != SUMO_TAG_NOTHING) && (toolBar.getGenericDataType() != myTagProperty->getTag())) {
         draw = false;
     }
     // check filter by data set

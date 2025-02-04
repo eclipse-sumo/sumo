@@ -73,11 +73,11 @@ GNEFixDemandElements::GNEFixDemandElements(GNEViewNet* viewNet, const std::vecto
     std::vector<GNEDemandElement*> invalidRoutes, invalidVehicles, invalidStops, invalidPlans;
     // fill groups
     for (const auto& invalidDemandElement : invalidDemandElements) {
-        if (invalidDemandElement->getTagProperty().isRoute()) {
+        if (invalidDemandElement->getTagProperty()->isRoute()) {
             invalidRoutes.push_back(invalidDemandElement);
-        } else if (invalidDemandElement->getTagProperty().isVehicle()) {
+        } else if (invalidDemandElement->getTagProperty()->isVehicle()) {
             invalidVehicles.push_back(invalidDemandElement);
-        } else if (invalidDemandElement->getTagProperty().isVehicleStop()) {
+        } else if (invalidDemandElement->getTagProperty()->isVehicleStop()) {
             invalidStops.push_back(invalidDemandElement);
         } else {
             invalidPlans.push_back(invalidDemandElement);
@@ -274,7 +274,7 @@ GNEFixDemandElements::FixRouteOptions::fixElements(bool& abortSaving) {
             // iterate over invalid routes to delete it
             for (const auto& invalidRoute : myInvalidElements) {
                 // special case for embedded routes
-                if (invalidRoute->getTagProperty().getTag() == GNE_TAG_ROUTE_EMBEDDED) {
+                if (invalidRoute->getTagProperty()->getTag() == GNE_TAG_ROUTE_EMBEDDED) {
                     myViewNet->getNet()->deleteDemandElement(invalidRoute->getParentDemandElements().front(), myViewNet->getUndoList());
                 } else {
                     myViewNet->getNet()->deleteDemandElement(invalidRoute, myViewNet->getUndoList());

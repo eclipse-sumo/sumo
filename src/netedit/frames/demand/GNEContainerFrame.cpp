@@ -103,7 +103,7 @@ GNEContainerFrame::addContainer(const GNEViewNetHelper::ViewObjectsSelector& vie
         return false;
     }
     // obtain tags (only for improve code legibility)
-    SumoXMLTag containerTag = myContainerTagSelector->getCurrentTemplateAC()->getTagProperty().getTag();
+    SumoXMLTag containerTag = myContainerTagSelector->getCurrentTemplateAC()->getTagProperty()->getTag();
     // first check that current selected container is valid
     if (containerTag == SUMO_TAG_NOTHING) {
         myViewNet->setStatusBarText(TL("Current selected container isn't valid."));
@@ -120,12 +120,12 @@ GNEContainerFrame::addContainer(const GNEViewNetHelper::ViewObjectsSelector& vie
         return false;
     }
     for (GNEAdditional* o : viewObjects.getAdditionals()) {
-        if (o->getTagProperty().isStoppingPlace()) {
+        if (o->getTagProperty()->isStoppingPlace()) {
             return myPlanCreator->addStoppingPlace(o);
         }
     }
     for (GNEDemandElement* o : viewObjects.getDemandElements()) {
-        if (o->getTagProperty().getTag() == SUMO_TAG_ROUTE) {
+        if (o->getTagProperty()->getTag() == SUMO_TAG_ROUTE) {
             return myPlanCreator->addRoute(o);
         }
     }
@@ -178,7 +178,7 @@ GNEContainerFrame::tagSelected() {
         // check if current container type selected is valid
         if (myTypeSelector->getCurrentDemandElement()) {
             // show container attributes depending of myPlanSelector
-            if (myPlanSelector->getCurrentPlanTagProperties().isPlanStopContainer()) {
+            if (myPlanSelector->getCurrentPlanTagProperties()->isPlanStopContainer()) {
                 myContainerAttributes->showAttributesCreatorModule(myContainerTagSelector->getCurrentTemplateAC(), {SUMO_ATTR_DEPARTPOS});
             } else {
                 myContainerAttributes->showAttributesCreatorModule(myContainerTagSelector->getCurrentTemplateAC(), {});
@@ -228,7 +228,7 @@ void
 GNEContainerFrame::demandElementSelected() {
     if (myTypeSelector->getCurrentDemandElement() && myPlanSelector->getCurrentPlanTemplate()) {
         // show container attributes depending of myPlanSelector
-        if (myPlanSelector->getCurrentPlanTagProperties().isPlanStopContainer()) {
+        if (myPlanSelector->getCurrentPlanTagProperties()->isPlanStopContainer()) {
             myContainerAttributes->showAttributesCreatorModule(myContainerTagSelector->getCurrentTemplateAC(), {SUMO_ATTR_DEPARTPOS});
         } else {
             myContainerAttributes->showAttributesCreatorModule(myContainerTagSelector->getCurrentTemplateAC(), {});
@@ -236,7 +236,7 @@ GNEContainerFrame::demandElementSelected() {
         // show container plan tag selector
         myPlanSelector->showPlanSelector();
         // now check if container plan selected is valid
-        if (myPlanSelector->getCurrentPlanTagProperties().getTag() != SUMO_TAG_NOTHING) {
+        if (myPlanSelector->getCurrentPlanTagProperties()->getTag() != SUMO_TAG_NOTHING) {
             // show container plan attributes
             myContainerPlanAttributes->showAttributesCreatorModule(myPlanSelector->getCurrentPlanTemplate(), {});
             // show Netedit attributes module
@@ -268,12 +268,12 @@ GNEContainerFrame::createPath(const bool /*useLastRoute*/) {
     if (!myContainerAttributes->areValuesValid()) {
         myViewNet->setStatusBarText(TL("Invalid container parameters."));
     } else if (!myContainerPlanAttributes->areValuesValid()) {
-        myViewNet->setStatusBarText("Invalid " + myPlanSelector->getCurrentPlanTagProperties().getTagStr() + " parameters.");
+        myViewNet->setStatusBarText("Invalid " + myPlanSelector->getCurrentPlanTagProperties()->getTagStr() + " parameters.");
     } else if (myPlanCreator->planCanBeCreated(myPlanSelector->getCurrentPlanTemplate())) {
         // begin undo-redo operation
         myViewNet->getUndoList()->begin(myContainerTagSelector->getCurrentTemplateAC(), "create " +
-                                        myContainerTagSelector->getCurrentTemplateAC()->getTagProperty().getTagStr() + " and " +
-                                        myPlanSelector->getCurrentPlanTagProperties().getTagStr());
+                                        myContainerTagSelector->getCurrentTemplateAC()->getTagProperty()->getTagStr() + " and " +
+                                        myPlanSelector->getCurrentPlanTagProperties()->getTagStr());
         // create container
         GNEDemandElement* container = buildContainer();
         // check if container and container plan can be created
@@ -308,7 +308,7 @@ GNEContainerFrame::buildContainer() {
     // first container base object
     myContainerBaseObject->clear();
     // obtain container tag (only for improve code legibility)
-    SumoXMLTag containerTag = myContainerTagSelector->getCurrentTemplateAC()->getTagProperty().getTag();
+    SumoXMLTag containerTag = myContainerTagSelector->getCurrentTemplateAC()->getTagProperty()->getTag();
     // set tag
     myContainerBaseObject->setTag(containerTag);
     // get attribute ad values

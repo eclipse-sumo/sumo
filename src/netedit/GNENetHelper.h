@@ -768,7 +768,7 @@ struct GNENetHelper {
         /// @}
 
         /// @brief update demand element frames (called after insert/delete demand element)
-        void updateDemandElementFrames(const GNETagProperties& tagProperty);
+        void updateDemandElementFrames(const GNETagProperties* tagProperty);
 
     private:
         /// @brief pointer to net

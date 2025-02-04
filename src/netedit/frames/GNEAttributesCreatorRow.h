@@ -40,13 +40,13 @@ class GNEAttributesCreatorRow : public FXHorizontalFrame {
 
 public:
     /// @brief constructor
-    GNEAttributesCreatorRow(GNEAttributesCreator* AttributesCreatorParent, const GNEAttributeProperties& attrProperties);
+    GNEAttributesCreatorRow(GNEAttributesCreator* AttributesCreatorParent, const GNEAttributeProperties* attrProperties);
 
     /// @brief destroy GNEAttributesCreatorRow (but don't delete)
     void destroy();
 
     /// @brief return Attr
-    const GNEAttributeProperties& getAttrProperties() const;
+    const GNEAttributeProperties* getAttrProperties() const;
 
     /// @brief return value
     std::string getValue() const;
@@ -105,7 +105,7 @@ private:
     GNEAttributesCreator* myAttributesCreatorParent = nullptr;
 
     /// @brief attribute properties
-    const GNEAttributeProperties myAttrProperties;
+    const GNEAttributeProperties* myAttrProperties;
 
     /// @brief string which indicates the reason due current value is invalid
     std::string myInvalidValue;

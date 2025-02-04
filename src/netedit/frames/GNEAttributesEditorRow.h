@@ -44,7 +44,7 @@ public:
     GNEAttributesEditorRow(GNEAttributesEditor* attributeTable);
 
     /// @brief return true if attribute row was successfully show
-    bool showAttributeRow(const GNEAttributeProperties& attrProperty, const bool forceDisable);
+    bool showAttributeRow(const GNEAttributeProperties* attrProperty, const bool forceDisable);
 
     /// @brief hide attribute row (always return false)
     bool hideAttributeRow();
@@ -89,28 +89,28 @@ protected:
     const std::string getAttributeValue(const bool enabled) const;
 
     /// @brief show attribute toogle enable
-    void showAttributeToggleEnable(const GNEAttributeProperties& attrProperty, const bool value);
+    void showAttributeToggleEnable(const GNEAttributeProperties* attrProperty, const bool value);
 
     /// @brief show attribute reparent
     void showAttributeReparent(const bool enabled);
 
     /// @brief show attribute parent
-    void showAttributeInspectParent(const GNEAttributeProperties& attrProperty, const bool enabled);
+    void showAttributeInspectParent(const GNEAttributeProperties* attrProperty, const bool enabled);
 
     /// @brief show attribute vClass
-    void showAttributeVClass(const GNEAttributeProperties& attrProperty, const bool enabled);
+    void showAttributeVClass(const GNEAttributeProperties* attrProperty, const bool enabled);
 
     /// @brief show attribute color
-    void showAttributeColor(const GNEAttributeProperties& attrProperty, const bool enabled);
+    void showAttributeColor(const GNEAttributeProperties* attrProperty, const bool enabled);
 
     /// @brief show attribute label
-    void showAttributeLabel(const GNEAttributeProperties& attrProperty);
+    void showAttributeLabel(const GNEAttributeProperties* attrProperty);
 
     /// @brief show value for check button
     void showValueCheckButton(const std::string& value, const bool enabled, const bool computed);
 
     /// @brief show value for combo Box
-    void showValueComboBox(const GNEAttributeProperties& attrProperty, const std::string& value, const bool enabled, const bool computed);
+    void showValueComboBox(const GNEAttributeProperties* attrProperty, const std::string& value, const bool enabled, const bool computed);
 
     /// @brief show value for strings
     void showValueString(const std::string& value, const bool enabled, const bool computed);
@@ -119,10 +119,10 @@ protected:
     void showMoveLaneButtons(const std::string& laneID);
 
     /// @brief check if enable or disable all elements depending of current supermode or forceDisable
-    void enableElements(const GNEAttributeProperties& attrProperty, const bool forceDisable);
+    void enableElements(const GNEAttributeProperties* attrProperty, const bool forceDisable);
 
     /// @brief check if the given attribute is enabled
-    bool isAttributeEnabled(const GNEAttributeProperties& attrProperty) const;
+    bool isAttributeEnabled(const GNEAttributeProperties* attrProperty) const;
 
     /// @brief check junction merging
     /// bool mergeJunction(SumoXMLAttr attr, const std::string& newVal) const;

@@ -109,7 +109,7 @@ GNEContainerPlanFrame::addContainerPlanElement(const GNEViewNetHelper::ViewObjec
     }
     // check if we have to select a new container
     if (myContainerSelector->getCurrentDemandElement() == nullptr) {
-        if (viewObjects.getDemandElementFront() && viewObjects.getDemandElementFront()->getTagProperty().isContainer()) {
+        if (viewObjects.getDemandElementFront() && viewObjects.getDemandElementFront()->getTagProperty()->isContainer()) {
             // continue depending of number of demand elements under cursor
             if (viewObjects.getDemandElements().size() > 1) {
                 // Filter containers
@@ -131,10 +131,10 @@ GNEContainerPlanFrame::addContainerPlanElement(const GNEViewNetHelper::ViewObjec
     }
     // continue depending of marked elements
     if (myPlanSelector->markRoutes() && viewObjects.getDemandElementFront() &&
-            (viewObjects.getDemandElementFront()->getTagProperty().getTag() == SUMO_TAG_ROUTE)) {
+            (viewObjects.getDemandElementFront()->getTagProperty()->getTag() == SUMO_TAG_ROUTE)) {
         return myPlanCreator->addRoute(viewObjects.getDemandElementFront());
     } else if (myPlanSelector->markStoppingPlaces() && viewObjects.getAdditionalFront() &&
-               (viewObjects.getAdditionalFront()->getTagProperty().isStoppingPlace())) {
+               (viewObjects.getAdditionalFront()->getTagProperty()->isStoppingPlace())) {
         return myPlanCreator->addStoppingPlace(viewObjects.getAdditionalFront());
     } else if (myPlanSelector->markJunctions() && viewObjects.getJunctionFront()) {
         return myPlanCreator->addJunction(viewObjects.getJunctionFront());
@@ -242,7 +242,7 @@ bool
 GNEContainerPlanFrame::createPath(const bool /*useLastRoute*/) {
     // first check that all attributes are valid
     if (!myContainerPlanAttributes->areValuesValid()) {
-        myViewNet->setStatusBarText("Invalid " + myPlanSelector->getCurrentPlanTagProperties().getTagStr() + " parameters.");
+        myViewNet->setStatusBarText("Invalid " + myPlanSelector->getCurrentPlanTagProperties()->getTagStr() + " parameters.");
         return false;
     } else {
         // check if container plan can be created

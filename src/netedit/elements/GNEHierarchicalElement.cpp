@@ -138,7 +138,7 @@ const GNEHierarchicalContainerParents<GNEAdditional*>
 GNEHierarchicalElement::getParentStoppingPlaces() const {
     GNEHierarchicalContainerParents<GNEAdditional*> stoppingPlaces;
     for (const auto& additional : getParentAdditionals()) {
-        if (additional->getTagProperty().isStoppingPlace()) {
+        if (additional->getTagProperty()->isStoppingPlace()) {
             stoppingPlaces.push_back(additional);
         }
     }
@@ -150,7 +150,7 @@ const GNEHierarchicalContainerParents<GNEAdditional*>
 GNEHierarchicalElement::getParentTAZs() const {
     GNEHierarchicalContainerParents<GNEAdditional*> TAZs;
     for (const auto& additional : getParentAdditionals()) {
-        if (additional->getTagProperty().isTAZElement()) {
+        if (additional->getTagProperty()->isTAZElement()) {
             TAZs.push_back(additional);
         }
     }
@@ -215,7 +215,7 @@ GNEHierarchicalElement::getChildGenericDatas() const {
 std::string
 GNEHierarchicalElement::getNewListOfParents(const GNENetworkElement* currentElement, const GNENetworkElement* newNextElement) const {
     std::vector<std::string> solution;
-    if ((currentElement->getTagProperty().getTag() == SUMO_TAG_EDGE) && (newNextElement->getTagProperty().getTag() == SUMO_TAG_EDGE)) {
+    if ((currentElement->getTagProperty()->getTag() == SUMO_TAG_EDGE) && (newNextElement->getTagProperty()->getTag() == SUMO_TAG_EDGE)) {
         // reserve solution
         solution.reserve(getParentEdges().size());
         // iterate over edges
@@ -227,7 +227,7 @@ GNEHierarchicalElement::getNewListOfParents(const GNENetworkElement* currentElem
                 solution.push_back(newNextElement->getID());
             }
         }
-    } else if ((currentElement->getTagProperty().getTag() == SUMO_TAG_LANE) && (newNextElement->getTagProperty().getTag() == SUMO_TAG_LANE)) {
+    } else if ((currentElement->getTagProperty()->getTag() == SUMO_TAG_LANE) && (newNextElement->getTagProperty()->getTag() == SUMO_TAG_LANE)) {
         // reserve solution
         solution.reserve(getParentLanes().size());
         // iterate over lanes
@@ -255,13 +255,13 @@ GNEHierarchicalElement::checkChildAdditionalsOverlapping() const {
     for (const auto& meanData : getChildAdditionals()) {
         sortedChildren.push_back(std::make_pair(std::make_pair(0., 0.), meanData));
         // set begin/start attribute
-        if (meanData->getTagProperty().hasAttribute(SUMO_ATTR_TIME) && GNEAttributeCarrier::canParse<double>(meanData->getAttribute(SUMO_ATTR_TIME))) {
+        if (meanData->getTagProperty()->hasAttribute(SUMO_ATTR_TIME) && GNEAttributeCarrier::canParse<double>(meanData->getAttribute(SUMO_ATTR_TIME))) {
             sortedChildren.back().first.first = meanData->getAttributeDouble(SUMO_ATTR_TIME);
-        } else if (meanData->getTagProperty().hasAttribute(SUMO_ATTR_BEGIN) && GNEAttributeCarrier::canParse<double>(meanData->getAttribute(SUMO_ATTR_BEGIN))) {
+        } else if (meanData->getTagProperty()->hasAttribute(SUMO_ATTR_BEGIN) && GNEAttributeCarrier::canParse<double>(meanData->getAttribute(SUMO_ATTR_BEGIN))) {
             sortedChildren.back().first.first = meanData->getAttributeDouble(SUMO_ATTR_BEGIN);
         }
         // set end attribute
-        if (meanData->getTagProperty().hasAttribute(SUMO_ATTR_END) && GNEAttributeCarrier::canParse<double>(meanData->getAttribute(SUMO_ATTR_END))) {
+        if (meanData->getTagProperty()->hasAttribute(SUMO_ATTR_END) && GNEAttributeCarrier::canParse<double>(meanData->getAttribute(SUMO_ATTR_END))) {
             sortedChildren.back().first.second = meanData->getAttributeDouble(SUMO_ATTR_END);
         } else {
             sortedChildren.back().first.second = sortedChildren.back().first.first;

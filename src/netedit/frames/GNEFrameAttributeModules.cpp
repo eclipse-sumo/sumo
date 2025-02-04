@@ -239,7 +239,7 @@ void
 GNEFrameAttributeModules::ParametersEditor::showParametersEditor() {
     if (myInspectorFrameParent) {
         const auto& inspectedElements = myInspectorFrameParent->getViewNet()->getInspectedElements();
-        if (inspectedElements.getFirstAC() && inspectedElements.getFirstAC()->getTagProperty().hasParameters()) {
+        if (inspectedElements.getFirstAC() && inspectedElements.getFirstAC()->getTagProperty()->hasParameters()) {
             // refresh ParametersEditor
             refreshParametersEditor();
             // show groupbox
@@ -274,7 +274,7 @@ GNEFrameAttributeModules::ParametersEditor::refreshParametersEditor() {
     if (myInspectorFrameParent) {
         const auto& inspectedElements = myInspectorFrameParent->getViewNet()->getInspectedElements();
         // continue depending of markAC
-        if (inspectedElements.getFirstAC() && inspectedElements.getFirstAC()->getTagProperty().hasParameters()) {
+        if (inspectedElements.getFirstAC() && inspectedElements.getFirstAC()->getTagProperty()->hasParameters()) {
             // check if we're editing a single or a multiple AC
             if (inspectedElements.isInspectingSingleElement()) {
                 // set text field parameters
@@ -340,7 +340,7 @@ GNEFrameAttributeModules::ParametersEditor::onCmdEditParameters(FXObject*, FXSel
     if (myInspectorFrameParent) {
         const auto& inspectedElements = myInspectorFrameParent->getViewNet()->getInspectedElements();
         // continue depending of markAC
-        if (inspectedElements.getFirstAC() && inspectedElements.getFirstAC()->getTagProperty().hasParameters()) {
+        if (inspectedElements.getFirstAC() && inspectedElements.getFirstAC()->getTagProperty()->hasParameters()) {
             if (inspectedElements.isInspectingMultipleElements()) {
                 // open multiple parameters dialog
                 if (GNEMultipleParametersDialog(this).execute()) {
@@ -374,7 +374,7 @@ GNEFrameAttributeModules::ParametersEditor::onCmdSetParameters(FXObject*, FXSele
     if (myInspectorFrameParent) {
         const auto& inspectedElements = myInspectorFrameParent->getViewNet()->getInspectedElements();
         // continue depending of markAC
-        if (inspectedElements.getFirstAC() && inspectedElements.getFirstAC()->getTagProperty().hasParameters()) {
+        if (inspectedElements.getFirstAC() && inspectedElements.getFirstAC()->getTagProperty()->hasParameters()) {
             // check if current given string is valid
             if (inspectedElements.getFirstAC()->isValid(GNE_ATTR_PARAMETERS, myTextFieldParameters->getText().text())) {
                 // parsed parameters ok, then set text field black and continue
@@ -432,13 +432,13 @@ GNEFrameAttributeModules::ParametersEditor::onCmdSetParameters(FXObject*, FXSele
 bool
 GNEFrameAttributeModules::isSupermodeValid(const GNEViewNet* viewNet, const GNEAttributeCarrier* AC) {
     if (viewNet->getEditModes().isCurrentSupermodeNetwork() &&
-            (AC->getTagProperty().isNetworkElement() || AC->getTagProperty().isAdditionalElement())) {
+            (AC->getTagProperty()->isNetworkElement() || AC->getTagProperty()->isAdditionalElement())) {
         return true;
     } else if (viewNet->getEditModes().isCurrentSupermodeDemand() &&
-               AC->getTagProperty().isDemandElement()) {
+               AC->getTagProperty()->isDemandElement()) {
         return true;
     } else if (viewNet->getEditModes().isCurrentSupermodeData() &&
-               (AC->getTagProperty().isDataElement() || AC->getTagProperty().isMeanData())) {
+               (AC->getTagProperty()->isDataElement() || AC->getTagProperty()->isMeanData())) {
         return true;
     } else {
         return false;
@@ -448,11 +448,11 @@ GNEFrameAttributeModules::isSupermodeValid(const GNEViewNet* viewNet, const GNEA
 
 bool
 GNEFrameAttributeModules::isSupermodeValid(const GNEViewNet* viewNet, const GNEAttributeProperties& ACAttr) {
-    if (ACAttr.getTagPropertyParent().isNetworkElement() || ACAttr.getTagPropertyParent().isAdditionalElement()) {
+    if (ACAttr.getTagPropertyParent()->isNetworkElement() || ACAttr.getTagPropertyParent()->isAdditionalElement()) {
         return (viewNet->getEditModes().isCurrentSupermodeNetwork());
-    } else if (ACAttr.getTagPropertyParent().isDemandElement()) {
+    } else if (ACAttr.getTagPropertyParent()->isDemandElement()) {
         return (viewNet->getEditModes().isCurrentSupermodeDemand());
-    } else if (ACAttr.getTagPropertyParent().isDataElement() || ACAttr.getTagPropertyParent().isMeanData()) {
+    } else if (ACAttr.getTagPropertyParent()->isDataElement() || ACAttr.getTagPropertyParent()->isMeanData()) {
         return (viewNet->getEditModes().isCurrentSupermodeData());
     } else {
         return false;

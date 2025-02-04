@@ -103,7 +103,7 @@ GNEPersonFrame::addPerson(const GNEViewNetHelper::ViewObjectsSelector& viewObjec
         return false;
     }
     // obtain tags (only for improve code legibility)
-    SumoXMLTag personTag = myPersonTagSelector->getCurrentTemplateAC()->getTagProperty().getTag();
+    SumoXMLTag personTag = myPersonTagSelector->getCurrentTemplateAC()->getTagProperty()->getTag();
     // first check that current selected person is valid
     if (personTag == SUMO_TAG_NOTHING) {
         myViewNet->setStatusBarText(TL("Current selected person isn't valid."));
@@ -120,12 +120,12 @@ GNEPersonFrame::addPerson(const GNEViewNetHelper::ViewObjectsSelector& viewObjec
         return false;
     }
     for (GNEAdditional* o : viewObjects.getAdditionals()) {
-        if (o->getTagProperty().isStoppingPlace()) {
+        if (o->getTagProperty()->isStoppingPlace()) {
             return myPlanCreator->addStoppingPlace(o);
         }
     }
     for (GNEDemandElement* o : viewObjects.getDemandElements()) {
-        if (o->getTagProperty().getTag() == SUMO_TAG_ROUTE) {
+        if (o->getTagProperty()->getTag() == SUMO_TAG_ROUTE) {
             return myPlanCreator->addRoute(o);
         }
     }
@@ -178,7 +178,7 @@ GNEPersonFrame::tagSelected() {
         // check if current person type selected is valid
         if (myTypeSelector->getCurrentDemandElement()) {
             // show person attributes depending of myPlanSelector
-            if (myPlanSelector->getCurrentPlanTagProperties().isPlanStopPerson()) {
+            if (myPlanSelector->getCurrentPlanTagProperties()->isPlanStopPerson()) {
                 myPersonAttributes->showAttributesCreatorModule(myPersonTagSelector->getCurrentTemplateAC(), {SUMO_ATTR_DEPARTPOS});
             } else {
                 myPersonAttributes->showAttributesCreatorModule(myPersonTagSelector->getCurrentTemplateAC(), {});
@@ -228,7 +228,7 @@ void
 GNEPersonFrame::demandElementSelected() {
     if (myTypeSelector->getCurrentDemandElement() && myPlanSelector->getCurrentPlanTemplate()) {
         // show person attributes depending of myPlanSelector
-        if (myPlanSelector->getCurrentPlanTagProperties().isPlanStopPerson()) {
+        if (myPlanSelector->getCurrentPlanTagProperties()->isPlanStopPerson()) {
             myPersonAttributes->showAttributesCreatorModule(myPersonTagSelector->getCurrentTemplateAC(), {SUMO_ATTR_DEPARTPOS});
         } else {
             myPersonAttributes->showAttributesCreatorModule(myPersonTagSelector->getCurrentTemplateAC(), {});
@@ -236,7 +236,7 @@ GNEPersonFrame::demandElementSelected() {
         // show person plan tag selector
         myPlanSelector->showPlanSelector();
         // now check if person plan selected is valid
-        if (myPlanSelector->getCurrentPlanTagProperties().getTag() != SUMO_TAG_NOTHING) {
+        if (myPlanSelector->getCurrentPlanTagProperties()->getTag() != SUMO_TAG_NOTHING) {
             // show person plan attributes
             myPersonPlanAttributes->showAttributesCreatorModule(myPlanSelector->getCurrentPlanTemplate(), {});
             // show Netedit attributes module
@@ -268,12 +268,12 @@ GNEPersonFrame::createPath(const bool /*useLastRoute*/) {
     if (!myPersonAttributes->areValuesValid()) {
         myViewNet->setStatusBarText(TL("Invalid person parameters."));
     } else if (!myPersonPlanAttributes->areValuesValid()) {
-        myViewNet->setStatusBarText("Invalid " + myPlanSelector->getCurrentPlanTagProperties().getTagStr() + " parameters.");
+        myViewNet->setStatusBarText("Invalid " + myPlanSelector->getCurrentPlanTagProperties()->getTagStr() + " parameters.");
     } else if (myPlanCreator->planCanBeCreated(myPlanSelector->getCurrentPlanTemplate())) {
         // begin undo-redo operation
         myViewNet->getUndoList()->begin(myPersonTagSelector->getCurrentTemplateAC(), "create " +
-                                        myPersonTagSelector->getCurrentTemplateAC()->getTagProperty().getTagStr() + " and " +
-                                        myPlanSelector->getCurrentPlanTagProperties().getTagStr());
+                                        myPersonTagSelector->getCurrentTemplateAC()->getTagProperty()->getTagStr() + " and " +
+                                        myPlanSelector->getCurrentPlanTagProperties()->getTagStr());
         // create person
         GNEDemandElement* person = buildPerson();
         // check if person and person plan can be created
@@ -308,7 +308,7 @@ GNEPersonFrame::buildPerson() {
     // first person base object
     myPersonBaseObject->clear();
     // obtain person tag (only for improve code legibility)
-    SumoXMLTag personTag = myPersonTagSelector->getCurrentTemplateAC()->getTagProperty().getTag();
+    SumoXMLTag personTag = myPersonTagSelector->getCurrentTemplateAC()->getTagProperty()->getTag();
     // set tag
     myPersonBaseObject->setTag(personTag);
     // get attribute ad values

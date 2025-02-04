@@ -209,16 +209,16 @@ GNEDeleteFrame::SubordinatedElements::openWarningDialog(const std::string& type,
     // declare plural depending of "number"
     const std::string plural = (number > 1) ? "s" : "";
     // declare header
-    const std::string header = "Problem deleting " + myAttributeCarrier->getTagProperty().getTagStr() + " '" + myAttributeCarrier->getID() + "'";
+    const std::string header = "Problem deleting " + myAttributeCarrier->getTagProperty()->getTagStr() + " '" + myAttributeCarrier->getID() + "'";
     // declare message
     std::string msg;
     // set message depending of isChild
     if (isChild) {
-        msg = myAttributeCarrier->getTagProperty().getTagStr() + " '" + myAttributeCarrier->getID() +
+        msg = myAttributeCarrier->getTagProperty()->getTagStr() + " '" + myAttributeCarrier->getID() +
               "' cannot be deleted because it has " + toString(number) + " " + type + " element" + plural + ".\n" +
               "To delete it, uncheck 'protect " + type + " elements'.";
     } else {
-        msg = myAttributeCarrier->getTagProperty().getTagStr() + " '" + myAttributeCarrier->getID() +
+        msg = myAttributeCarrier->getTagProperty()->getTagStr() + " '" + myAttributeCarrier->getID() +
               "' cannot be deleted because it is part of " + toString(number) + " " + type + " element" + plural + ".\n" +
               "To delete it, uncheck 'protect " + type + " elements'.";
     }
@@ -447,13 +447,13 @@ GNEDeleteFrame::removeGeometryPoint(const GNEViewNetHelper::ViewObjectsSelector&
     const Position clickedPosition = myViewNet->getPositionInformation();
     // filter elements with geometry points
     for (const auto& AC : viewObjects.getAttributeCarriers()) {
-        if (AC->getTagProperty().getTag() == SUMO_TAG_EDGE) {
+        if (AC->getTagProperty()->getTag() == SUMO_TAG_EDGE) {
             viewObjects.getEdgeFront()->removeGeometryPoint(clickedPosition, myViewNet->getUndoList());
             return true;
-        } else if (AC->getTagProperty().getTag() == SUMO_TAG_POLY) {
+        } else if (AC->getTagProperty()->getTag() == SUMO_TAG_POLY) {
             viewObjects.getPolyFront()->removeGeometryPoint(clickedPosition, myViewNet->getUndoList());
             return true;
-        } else if (AC->getTagProperty().getTag() == SUMO_TAG_TAZ) {
+        } else if (AC->getTagProperty()->getTag() == SUMO_TAG_TAZ) {
             viewObjects.getTAZFront()->removeGeometryPoint(clickedPosition, myViewNet->getUndoList());
             return true;
         }

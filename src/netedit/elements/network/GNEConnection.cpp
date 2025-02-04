@@ -661,7 +661,7 @@ GNEConnection::checkDrawConnection() const {
     }
     // check if we're editing this connection
     const GNENetworkElement* editedNetworkElement = myNet->getViewNet()->getEditNetworkElementShapes().getEditedNetworkElement();
-    if (editedNetworkElement && (editedNetworkElement->getTagProperty().getTag() == SUMO_TAG_CONNECTION)) {
+    if (editedNetworkElement && (editedNetworkElement->getTagProperty()->getTag() == SUMO_TAG_CONNECTION)) {
         if (editedNetworkElement->getAttribute(GNE_ATTR_PARENT) == getAttribute(GNE_ATTR_PARENT)) {
             drawConnection = true;
         }

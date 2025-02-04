@@ -36,12 +36,12 @@ FXIMPLEMENT_ABSTRACT(GNEChange_ToggleAttribute, GNEChange, nullptr, 0)
 // ===========================================================================
 
 GNEChange_ToggleAttribute::GNEChange_ToggleAttribute(GNEAttributeCarrier* ac, const SumoXMLAttr key, const bool value) :
-    GNEChange(ac->getTagProperty().getSupermode(), true, false),
+    GNEChange(ac->getTagProperty()->getSupermode(), true, false),
     myAC(ac),
     myKey(key),
     myOrigValue(ac->isAttributeEnabled(key)),
     myNewValue(value) {
-    myAC->incRef("GNEChange_ToggleAttribute " + myAC->getTagProperty().getTagStr());
+    myAC->incRef("GNEChange_ToggleAttribute " + myAC->getTagProperty()->getTagStr());
 }
 
 
@@ -49,7 +49,7 @@ GNEChange_ToggleAttribute::~GNEChange_ToggleAttribute() {
     // only continue we have undo-redo mode enabled
     if (myAC->getNet()->getViewNet()->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed()) {
         // decrease reference
-        myAC->decRef("GNEChange_ToggleAttribute " + myAC->getTagProperty().getTagStr());
+        myAC->decRef("GNEChange_ToggleAttribute " + myAC->getTagProperty()->getTagStr());
         // remove if is unreferenced
         if (myAC->unreferenced()) {
             // delete AC
@@ -64,15 +64,15 @@ GNEChange_ToggleAttribute::undo() {
     // set original value
     myAC->toggleAttribute(myKey, myOrigValue);
     // check if networkElements, additional or shapes has to be saved
-    if (myAC->getTagProperty().isNetworkElement()) {
+    if (myAC->getTagProperty()->isNetworkElement()) {
         myAC->getNet()->getSavingStatus()->requireSaveNetwork();
-    } else if (myAC->getTagProperty().isAdditionalElement()) {
+    } else if (myAC->getTagProperty()->isAdditionalElement()) {
         myAC->getNet()->getSavingStatus()->requireSaveAdditionals();
-    } else if (myAC->getTagProperty().isDemandElement()) {
+    } else if (myAC->getTagProperty()->isDemandElement()) {
         myAC->getNet()->getSavingStatus()->requireSaveDemandElements();
-    } else if (myAC->getTagProperty().isDataElement()) {
+    } else if (myAC->getTagProperty()->isDataElement()) {
         myAC->getNet()->getSavingStatus()->requireSaveDataElements();
-    } else if (myAC->getTagProperty().isMeanData()) {
+    } else if (myAC->getTagProperty()->isMeanData()) {
         myAC->getNet()->getSavingStatus()->requireSaveMeanDatas();
     }
 }
@@ -83,15 +83,15 @@ GNEChange_ToggleAttribute::redo() {
     // set new attributes
     myAC->toggleAttribute(myKey, myNewValue);
     // check if networkElements, additional or shapes has to be saved
-    if (myAC->getTagProperty().isNetworkElement()) {
+    if (myAC->getTagProperty()->isNetworkElement()) {
         myAC->getNet()->getSavingStatus()->requireSaveNetwork();
-    } else if (myAC->getTagProperty().isAdditionalElement()) {
+    } else if (myAC->getTagProperty()->isAdditionalElement()) {
         myAC->getNet()->getSavingStatus()->requireSaveAdditionals();
-    } else if (myAC->getTagProperty().isDemandElement()) {
+    } else if (myAC->getTagProperty()->isDemandElement()) {
         myAC->getNet()->getSavingStatus()->requireSaveDemandElements();
-    } else if (myAC->getTagProperty().isDataElement()) {
+    } else if (myAC->getTagProperty()->isDataElement()) {
         myAC->getNet()->getSavingStatus()->requireSaveDataElements();
-    } else if (myAC->getTagProperty().isMeanData()) {
+    } else if (myAC->getTagProperty()->isMeanData()) {
         myAC->getNet()->getSavingStatus()->requireSaveMeanDatas();
     }
 }

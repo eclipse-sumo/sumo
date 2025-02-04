@@ -98,7 +98,7 @@ GNEWireFrame::addWire(const GNEViewNetHelper::ViewObjectsSelector& viewObjects) 
     if (!myNeteditAttributes->getNeteditAttributesAndValues(myBaseWire, viewObjects.getLaneFront())) {
         return false;
     }
-    if (tagProperties.getTag() == SUMO_TAG_OVERHEAD_WIRE_SECTION) {
+    if (tagProperties->getTag() == SUMO_TAG_OVERHEAD_WIRE_SECTION) {
         return myConsecutiveLaneSelector->addLane(viewObjects.getLaneFront());
     } else {
         // build wire over view
@@ -116,9 +116,9 @@ GNEWireFrame::getConsecutiveLaneSelector() const {
 bool
 GNEWireFrame::createPath(const bool /* useLastRoute */) {
     // obtain tagproperty (only for improve code legibility)
-    const auto& tagProperty = myWireTagSelector->getCurrentTemplateAC()->getTagProperty();
+    const auto tagProperty = myWireTagSelector->getCurrentTemplateAC()->getTagProperty();
     // first check that current tag is valid (currently only for overhead wires)
-    if (tagProperty.getTag() == SUMO_TAG_OVERHEAD_WIRE_SECTION) {
+    if (tagProperty->getTag() == SUMO_TAG_OVERHEAD_WIRE_SECTION) {
         if (myConsecutiveLaneSelector->getLanePath().size() == 1) {
             WRITE_WARNINGF(TL("A % needs at least two lane positions"), toString(SUMO_TAG_OVERHEAD_WIRE_SECTION));
         } else if (createBaseWireObject(tagProperty)) {
@@ -128,7 +128,7 @@ GNEWireFrame::createPath(const bool /* useLastRoute */) {
             if (myNeteditAttributes->getNeteditAttributesAndValues(myBaseWire, nullptr)) {
                 // Check if ID has to be generated
                 if (!myBaseWire->hasStringAttribute(SUMO_ATTR_ID)) {
-                    myBaseWire->addStringAttribute(SUMO_ATTR_ID, myViewNet->getNet()->getAttributeCarriers()->generateAdditionalID(tagProperty.getTag()));
+                    myBaseWire->addStringAttribute(SUMO_ATTR_ID, myViewNet->getNet()->getAttributeCarriers()->generateAdditionalID(tagProperty->getTag()));
                 }
                 // add lane IDs
                 myBaseWire->addStringListAttribute(SUMO_ATTR_LANES, myConsecutiveLaneSelector->getLaneIDPath());
@@ -169,7 +169,7 @@ GNEWireFrame::tagSelected() {
         // show netedit attributes
         myNeteditAttributes->showNeteditAttributesModule(templateAC);
         // check if we're creating a overhead wire section
-        if (templateAC->getTagProperty().getTag() == SUMO_TAG_OVERHEAD_WIRE_SECTION) {
+        if (templateAC->getTagProperty()->getTag() == SUMO_TAG_OVERHEAD_WIRE_SECTION) {
             myConsecutiveLaneSelector->showConsecutiveLaneSelectorModule();
             mySelectorWireParent->showSelectorParentModule({SUMO_TAG_TRACTION_SUBSTATION});
         } else {
@@ -187,7 +187,7 @@ GNEWireFrame::tagSelected() {
 
 
 bool
-GNEWireFrame::createBaseWireObject(const GNETagProperties& tagProperty) {
+GNEWireFrame::createBaseWireObject(const GNETagProperties* tagProperty) {
     // check if baseWire exist, and if yes, delete it
     if (myBaseWire) {
         // go to base wire root
@@ -202,11 +202,11 @@ GNEWireFrame::createBaseWireObject(const GNETagProperties& tagProperty) {
     // create a base wire object
     myBaseWire = new CommonXMLStructure::SumoBaseObject(nullptr);
     // check if wire is a overheadWIre
-    if (tagProperty.getTag() == SUMO_TAG_OVERHEAD_WIRE_SECTION) {
+    if (tagProperty->getTag() == SUMO_TAG_OVERHEAD_WIRE_SECTION) {
         // get wire under cursor
         const GNEAdditional* wireUnderCursor = myViewNet->getViewObjectsSelector().getAdditionalFront();
         // if user click over a traction substation, mark int in ParentWireSelector
-        if (wireUnderCursor && (wireUnderCursor->getTagProperty().getTag() == SUMO_TAG_TRACTION_SUBSTATION)) {
+        if (wireUnderCursor && (wireUnderCursor->getTagProperty()->getTag() == SUMO_TAG_TRACTION_SUBSTATION)) {
             // update parent wire selected
             mySelectorWireParent->setIDSelected(wireUnderCursor->getID());
         }
@@ -220,32 +220,32 @@ GNEWireFrame::createBaseWireObject(const GNETagProperties& tagProperty) {
         }
     }
     // set baseWire tag
-    myBaseWire->setTag(tagProperty.getTag());
+    myBaseWire->setTag(tagProperty->getTag());
     // BaseWire created, then return true
     return true;
 }
 
 
 bool
-GNEWireFrame::buildWireOverView(const GNETagProperties& tagProperties) {
+GNEWireFrame::buildWireOverView(const GNETagProperties* tagProperty) {
     // disable intervals (temporal)
-    if ((tagProperties.getTag() == SUMO_TAG_INTERVAL) ||
-            (tagProperties.getTag() == SUMO_TAG_DEST_PROB_REROUTE) ||
-            (tagProperties.getTag() == SUMO_TAG_CLOSING_REROUTE) ||
-            (tagProperties.getTag() == SUMO_TAG_CLOSING_LANE_REROUTE) ||
-            (tagProperties.getTag() == SUMO_TAG_ROUTE_PROB_REROUTE) ||
-            (tagProperties.getTag() == SUMO_TAG_PARKING_AREA_REROUTE)) {
+    if ((tagProperty->getTag() == SUMO_TAG_INTERVAL) ||
+            (tagProperty->getTag() == SUMO_TAG_DEST_PROB_REROUTE) ||
+            (tagProperty->getTag() == SUMO_TAG_CLOSING_REROUTE) ||
+            (tagProperty->getTag() == SUMO_TAG_CLOSING_LANE_REROUTE) ||
+            (tagProperty->getTag() == SUMO_TAG_ROUTE_PROB_REROUTE) ||
+            (tagProperty->getTag() == SUMO_TAG_PARKING_AREA_REROUTE)) {
         WRITE_WARNING(TL("Currently unsupported. Create rerouter elements using rerouter dialog"));
         return false;
     }
     // disable intervals (temporal)
-    if (tagProperties.getTag() == SUMO_TAG_STEP) {
+    if (tagProperty->getTag() == SUMO_TAG_STEP) {
         WRITE_WARNING(TL("Currently unsupported. Create VSS steps elements using VSS dialog"));
         return false;
     }
     // Check if ID has to be generated
     if (!myBaseWire->hasStringAttribute(SUMO_ATTR_ID)) {
-        myBaseWire->addStringAttribute(SUMO_ATTR_ID, myViewNet->getNet()->getAttributeCarriers()->generateAdditionalID(tagProperties.getTag()));
+        myBaseWire->addStringAttribute(SUMO_ATTR_ID, myViewNet->getNet()->getAttributeCarriers()->generateAdditionalID(tagProperty->getTag()));
     }
     // Obtain position as the clicked position over view
     const Position viewPos = myViewNet->snapToActiveGrid(myViewNet->getPositionInformation());

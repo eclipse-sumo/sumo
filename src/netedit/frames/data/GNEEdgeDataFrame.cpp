@@ -48,7 +48,7 @@ GNEEdgeDataFrame::addEdgeData(const GNEViewNetHelper::ViewObjectsSelector& viewO
     if (viewObjects.getEdgeFront() && myDataSetSelector->getDataSet() && myIntervalSelector->getDataInterval()) {
         // first check if the given interval there is already a EdgeData for the given ID
         for (const auto& genericData : myIntervalSelector->getDataInterval()->getGenericDataChildren()) {
-            if ((genericData->getTagProperty().getTag() == GNE_TAG_EDGEREL_SINGLE) && (genericData->getParentEdges().front() == viewObjects.getEdgeFront())) {
+            if ((genericData->getTagProperty()->getTag() == GNE_TAG_EDGEREL_SINGLE) && (genericData->getParentEdges().front() == viewObjects.getEdgeFront())) {
                 // write warning
                 WRITE_WARNINGF(TL("There is already a % in edge '%'"), genericData->getTagStr(), viewObjects.getEdgeFront()->getID());
                 // abort edge data creation

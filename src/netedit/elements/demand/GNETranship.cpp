@@ -77,11 +77,11 @@ GNETranship::writeDemandElement(OutputDevice& device) const {
     device.openTag(SUMO_TAG_TRANSHIP);
     writeLocationAttributes(device);
     // speed
-    if ((mySpeed > 0) && (toString(mySpeed) != myTagProperty.getDefaultValue(SUMO_ATTR_SPEED))) {
+    if ((mySpeed > 0) && (toString(mySpeed) != myTagProperty->getDefaultValue(SUMO_ATTR_SPEED))) {
         device.writeAttr(SUMO_ATTR_SPEED, mySpeed);
     }
     // duration
-    if (toString(myDuration) != myTagProperty.getDefaultValue(SUMO_ATTR_DURATION)) {
+    if (toString(myDuration) != myTagProperty->getDefaultValue(SUMO_ATTR_DURATION)) {
         device.writeAttr(SUMO_ATTR_DURATION, time2string(myDuration));
     }
     device.closeTag();
@@ -145,7 +145,7 @@ GNETranship::getCenteringBoundary() const {
 void
 GNETranship::splitEdgeGeometry(const double /*splitPosition*/, const GNENetworkElement* originalElement, const GNENetworkElement* newElement, GNEUndoList* undoList) {
     // only split geometry of TranshipEdges
-    if (myTagProperty.getTag() == GNE_TAG_TRANSHIP_EDGES) {
+    if (myTagProperty->getTag() == GNE_TAG_TRANSHIP_EDGES) {
         // obtain new list of tranship edges
         std::string newTranshipEdges = getNewListOfParents(originalElement, newElement);
         // update tranship edges

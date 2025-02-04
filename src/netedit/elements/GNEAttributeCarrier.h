@@ -210,7 +210,7 @@ public:
      * @param[in] key The attribute key
      */
     bool hasAttribute(SumoXMLAttr key) const {
-        return myTagProperty.hasAttribute(key);
+        return myTagProperty->hasAttribute(key);
     }
 
     /// @brief get PopPup ID (Used in AC Hierarchy)
@@ -265,16 +265,16 @@ public:
     bool isTemplate() const;
 
     /// @brief get tagProperty associated with this Attribute Carrier
-    const GNETagProperties& getTagProperty() const;
+    const GNETagProperties* getTagProperty() const;
 
     /// @brief get tagProperty associated to the given tag
-    static const GNETagProperties& getTagProperty(SumoXMLTag tag);
+    static const GNETagProperties* getTagProperty(SumoXMLTag tag);
 
     /// @brief get tagProperties associated to the given GNETagProperties::TagType (NETWORKELEMENT, ADDITIONALELEMENT, VEHICLE, etc.)
-    static const std::vector<GNETagProperties> getTagPropertiesByType(const int tagPropertyCategory, const bool mergeCommonPlans);
+    static const std::vector<const GNETagProperties*> getTagPropertiesByType(const int tagPropertyCategory, const bool mergeCommonPlans);
 
     /// @brief get tagProperties associated to the given merging tag
-    static const std::vector<GNETagProperties> getTagPropertiesByMergingTag(SumoXMLTag mergingTag);
+    static const std::vector<const GNETagProperties*> getTagPropertiesByMergingTag(SumoXMLTag mergingTag);
 
     /// @brief true if a value of type T can be parsed from string
     template<typename T>
@@ -363,7 +363,7 @@ public:
 
 protected:
     /// @brief reference to tagProperty associated with this attribute carrier
-    const GNETagProperties& myTagProperty;
+    const GNETagProperties* myTagProperty;
 
     /// @brief pointer to net
     GNENet* myNet = nullptr;
@@ -477,70 +477,70 @@ private:
     static void fillContainerStopElements();
 
     /// @brief fill common POI attributes
-    static void fillCommonAttributes(GNETagProperties& tagProperties);
+    static void fillCommonAttributes(GNETagProperties* tagProperties);
 
     /// @brief fill common POI attributes
-    static void fillPOIAttributes(GNETagProperties& tagProperties);
+    static void fillPOIAttributes(GNETagProperties* tagProperties);
 
     /// @brief fill common vehicle attributes (used by vehicles, trips, routeFlows and flows)
-    static void fillCommonVehicleAttributes(GNETagProperties& tagProperties);
+    static void fillCommonVehicleAttributes(GNETagProperties* tagProperties);
 
     /// @brief fill common flow attributes (used by flows, routeFlows and personFlows)
-    static void fillCommonFlowAttributes(GNETagProperties& tagProperties, SumoXMLAttr perHour);
+    static void fillCommonFlowAttributes(GNETagProperties* tagProperties, SumoXMLAttr perHour);
 
     /// @brief fill Car Following Model of Vehicle/Person Types
-    static void fillCarFollowingModelAttributes(GNETagProperties& tagProperties);
+    static void fillCarFollowingModelAttributes(GNETagProperties* tagProperties);
 
     /// @brief fill Junction Model Attributes of Vehicle/Person Types
-    static void fillJunctionModelAttributes(GNETagProperties& tagProperties);
+    static void fillJunctionModelAttributes(GNETagProperties* tagProperties);
 
     /// @brief fill Junction Model Attributes of Vehicle/Person Types
-    static void fillLaneChangingModelAttributes(GNETagProperties& tagProperties);
+    static void fillLaneChangingModelAttributes(GNETagProperties* tagProperties);
 
     /// @brief fill common person attributes (used by person and personFlows)
-    static void fillCommonPersonAttributes(GNETagProperties& tagProperties);
+    static void fillCommonPersonAttributes(GNETagProperties* tagProperties);
 
     /// @brief fill common container attributes (used by container and containerFlows)
-    static void fillCommonContainerAttributes(GNETagProperties& tagProperties);
+    static void fillCommonContainerAttributes(GNETagProperties* tagProperties);
 
     /// @brief fill stop person attributes
-    static void fillCommonStopAttributes(GNETagProperties& tagProperties, const bool waypoint);
+    static void fillCommonStopAttributes(GNETagProperties* tagProperties, const bool waypoint);
 
     /// @brief fill plan from-to attribute
-    static void fillPlanParentAttributes(GNETagProperties& tagProperties);
+    static void fillPlanParentAttributes(GNETagProperties* tagProperties);
 
     /// @brief fill person trip common attributes
-    static void fillPersonTripCommonAttributes(GNETagProperties& tagProperties);
+    static void fillPersonTripCommonAttributes(GNETagProperties* tagProperties);
 
     /// @brief fill walk common attributes
-    static void fillWalkCommonAttributes(GNETagProperties& tagProperties);
+    static void fillWalkCommonAttributes(GNETagProperties* tagProperties);
 
     /// @brief fill ride common attributes
-    static void fillRideCommonAttributes(GNETagProperties& tagProperties);
+    static void fillRideCommonAttributes(GNETagProperties* tagProperties);
 
     /// @brief fill transport common attributes
-    static void fillTransportCommonAttributes(GNETagProperties& tagProperties);
+    static void fillTransportCommonAttributes(GNETagProperties* tagProperties);
 
     /// @brief fill ride common attributes
-    static void fillTranshipCommonAttributes(GNETagProperties& tagProperties);
+    static void fillTranshipCommonAttributes(GNETagProperties* tagProperties);
 
     /// @brief fill plan stop common attributes
-    static void fillPlanStopCommonAttributes(GNETagProperties& tagProperties);
+    static void fillPlanStopCommonAttributes(GNETagProperties* tagProperties);
 
     /// @brief fill Data elements
     static void fillDataElements();
 
     /// @brief fill stop person attributes
-    static void fillCommonMeanDataAttributes(GNETagProperties& tagProperties);
+    static void fillCommonMeanDataAttributes(GNETagProperties* tagProperties);
 
     /// @brief update max number of attributes by type
     static void updateMaxNumberOfAttributes();
 
     /// @brief map with the tags properties
-    static std::map<SumoXMLTag, GNETagProperties> myTagProperties;
+    static std::map<SumoXMLTag, GNETagProperties*> myTagProperties;
 
     /// @brief map with the merged tags properties
-    static std::map<SumoXMLTag, GNETagProperties> myMergedPlanTagProperties;
+    static std::map<SumoXMLTag, GNETagProperties*> myMergedPlanTagProperties;
 
     /// @brief Invalidated copy constructor.
     GNEAttributeCarrier(const GNEAttributeCarrier&) = delete;

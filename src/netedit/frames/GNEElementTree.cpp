@@ -206,10 +206,10 @@ GNEElementTree::onCmdDeleteItem(FXObject*, FXSelector, void*) {
         myFrameParent->getViewNet()->getNet()->deleteAdditional(myClickedAdditional, myFrameParent->getViewNet()->getUndoList());
     } else if (myClickedDemandElement) {
         // check that default VTypes aren't removed
-        if ((myClickedDemandElement->getTagProperty().getTag() == SUMO_TAG_VTYPE) && (GNEAttributeCarrier::parse<bool>(myClickedDemandElement->getAttribute(GNE_ATTR_DEFAULT_VTYPE)))) {
+        if ((myClickedDemandElement->getTagProperty()->getTag() == SUMO_TAG_VTYPE) && (GNEAttributeCarrier::parse<bool>(myClickedDemandElement->getAttribute(GNE_ATTR_DEFAULT_VTYPE)))) {
             WRITE_WARNINGF(TL("Default Vehicle Type '%' cannot be removed"), myClickedDemandElement->getAttribute(SUMO_ATTR_ID));
             return 1;
-        } else if (myClickedDemandElement->getTagProperty().isPlan()) {
+        } else if (myClickedDemandElement->getTagProperty()->isPlan()) {
             // we need to check if we're removing the last person plan of a person.
             auto planParent = myClickedDemandElement->getParentDemandElements().front();
             if (planParent->getChildDemandElements().size() == 1) {
@@ -315,8 +315,8 @@ GNEElementTree::createPopUpMenu(int X, int Y, GNEAttributeCarrier* clickedAC) {
         // create center menu command
         FXMenuCommand* centerMenuCommand = GUIDesigns::buildFXMenuCommand(pane, TL("Center"), GUIIconSubSys::getIcon(GUIIcon::RECENTERVIEW), this, MID_GNE_CENTER);
         // disable Centering for Vehicle Types, data sets and data intervals
-        if (myClickedAC->getTagProperty().isType() || (myClickedAC->getTagProperty().getTag() == SUMO_TAG_DATASET) ||
-                (myClickedAC->getTagProperty().getTag() == SUMO_TAG_DATAINTERVAL)) {
+        if (myClickedAC->getTagProperty()->isType() || (myClickedAC->getTagProperty()->getTag() == SUMO_TAG_DATASET) ||
+                (myClickedAC->getTagProperty()->getTag() == SUMO_TAG_DATAINTERVAL)) {
             centerMenuCommand->disable();
         }
         // create inspect and delete menu commands
@@ -328,14 +328,14 @@ GNEElementTree::createPopUpMenu(int X, int Y, GNEAttributeCarrier* clickedAC) {
             deleteMenuCommand->disable();
         }
         // now check if given AC support manually moving of their item up and down (Currently only for certain demand elements)
-        /* if (myClickedDemandElement && myClickedAC->getTagProperty().canBeSortedManually()) {
+        /* if (myClickedDemandElement && myClickedAC->getTagProperty()->canBeSortedManually()) {
             // insert separator
             new FXMenuSeparator(pane);
             // create both moving menu commands
             FXMenuCommand* moveUpMenuCommand = GUIDesigns::buildFXMenuCommand(pane, "Move up", GUIIconSubSys::getIcon(GUIIcon::ARROW_UP), this, MID_GNE_ACHIERARCHY_MOVEUP);
             FXMenuCommand* moveDownMenuCommand = GUIDesigns::buildFXMenuCommand(pane, "Move down", GUIIconSubSys::getIcon(GUIIcon::ARROW_DOWN), this, MID_GNE_ACHIERARCHY_MOVEDOWN);
             // check if both commands has to be disabled
-            if (myClickedDemandElement->getTagProperty().isPlanStopPerson()) {
+            if (myClickedDemandElement->getTagProperty()->isPlanStopPerson()) {
                 moveUpMenuCommand->setText(TL("Move up (Stops cannot be moved)"));
                 moveDownMenuCommand->setText(TL("Move down (Stops cannot be moved)"));
                 moveUpMenuCommand->disable();
@@ -345,7 +345,7 @@ GNEElementTree::createPopUpMenu(int X, int Y, GNEAttributeCarrier* clickedAC) {
                 if (myClickedDemandElement->getParentDemandElements().front()->getChildDemandElements().front() == myClickedDemandElement) {
                     moveUpMenuCommand->setText(TL("Move up (It's already the first element)"));
                     moveUpMenuCommand->disable();
-                } else if (myClickedDemandElement->getParentDemandElements().front()->getPreviousChildDemandElement(myClickedDemandElement)->getTagProperty().isPlanStopPerson()) {
+                } else if (myClickedDemandElement->getParentDemandElements().front()->getPreviousChildDemandElement(myClickedDemandElement)->getTagProperty()->isPlanStopPerson()) {
                     moveUpMenuCommand->setText(TL("Move up (Previous element is a Stop)"));
                     moveUpMenuCommand->disable();
                 }
@@ -353,7 +353,7 @@ GNEElementTree::createPopUpMenu(int X, int Y, GNEAttributeCarrier* clickedAC) {
                 if (myClickedDemandElement->getParentDemandElements().front()->getChildDemandElements().back() == myClickedDemandElement) {
                     moveDownMenuCommand->setText(TL("Move down (It's already the last element)"));
                     moveDownMenuCommand->disable();
-                } else if (myClickedDemandElement->getParentDemandElements().front()->getNextChildDemandElement(myClickedDemandElement)->getTagProperty().isPlanStopPerson()) {
+                } else if (myClickedDemandElement->getParentDemandElements().front()->getNextChildDemandElement(myClickedDemandElement)->getTagProperty()->isPlanStopPerson()) {
                     moveDownMenuCommand->setText(TL("Move down (Next element is a Stop)"));
                     moveDownMenuCommand->disable();
                 }
@@ -386,9 +386,9 @@ GNEElementTree::showAttributeCarrierParents() {
     // get attributeCarriers
     const auto& attributeCarriers = myFrameParent->getViewNet()->getNet()->getAttributeCarriers();
     // check tags
-    if (myHE->getTagProperty().isNetworkElement()) {
+    if (myHE->getTagProperty()->isNetworkElement()) {
         // check demand element type
-        switch (myHE->getTagProperty().getTag()) {
+        switch (myHE->getTagProperty()->getTag()) {
             case SUMO_TAG_EDGE: {
                 // obtain Edge
                 GNEEdge* edge = attributeCarriers->retrieveEdge(myHE->getID(), false);
@@ -471,7 +471,7 @@ GNEElementTree::showAttributeCarrierParents() {
             default:
                 break;
         }
-    } else if (myHE->getTagProperty().getTag() == GNE_TAG_POILANE) {
+    } else if (myHE->getTagProperty()->getTag() == GNE_TAG_POILANE) {
         // Obtain POILane
         const auto* POILane = attributeCarriers->retrieveAdditional(myHE->getGUIGlObject(), false);
         if (POILane == nullptr) {
@@ -499,7 +499,7 @@ GNEElementTree::showAttributeCarrierParents() {
             // return Lane item
             return laneItem;
         }
-    } else if (myHE->getTagProperty().isAdditionalElement()) {
+    } else if (myHE->getTagProperty()->isAdditionalElement()) {
         // Obtain Additional
         const GNEAdditional* additional = attributeCarriers->retrieveAdditional(myHE->getGUIGlObject(), false);
         if (additional == nullptr) {
@@ -566,7 +566,7 @@ GNEElementTree::showAttributeCarrierParents() {
             // return last inserted list item
             return root;
         }
-    } else if (myHE->getTagProperty().isTAZElement()) {
+    } else if (myHE->getTagProperty()->isTAZElement()) {
         // Obtain TAZElement
         const GNEAdditional* TAZElement = attributeCarriers->retrieveAdditional(myHE->getGUIGlObject(), false);
         if (TAZElement == nullptr) {
@@ -633,7 +633,7 @@ GNEElementTree::showAttributeCarrierParents() {
             // return last inserted list item
             return root;
         }
-    } else if (myHE->getTagProperty().isDemandElement()) {
+    } else if (myHE->getTagProperty()->isDemandElement()) {
         // Obtain DemandElement
         GNEDemandElement* demandElement = attributeCarriers->retrieveDemandElement(myHE->getGUIGlObject(), false);
         if (demandElement == nullptr) {
@@ -700,11 +700,11 @@ GNEElementTree::showAttributeCarrierParents() {
             // return last inserted list item
             return root;
         }
-    } else if (myHE->getTagProperty().isDataElement()) {
+    } else if (myHE->getTagProperty()->isDataElement()) {
         // check if is a GNEDataInterval or a GNEGenericData
-        if (myHE->getTagProperty().getTag() == SUMO_TAG_DATASET) {
+        if (myHE->getTagProperty()->getTag() == SUMO_TAG_DATASET) {
             return nullptr;
-        } else if (myHE->getTagProperty().getTag() == SUMO_TAG_DATAINTERVAL) {
+        } else if (myHE->getTagProperty()->getTag() == SUMO_TAG_DATAINTERVAL) {
             auto dataInterval = attributeCarriers->retrieveDataInterval(myHE, false);
             if (dataInterval == nullptr) {
                 return nullptr;
@@ -756,7 +756,7 @@ GNEElementTree::showAttributeCarrierParents() {
                     // check if we have more than one edge
                     if (dataElement->getParentEdges().size() > 1) {
                         // insert first ege
-                        if (dataElement->getTagProperty().getTag() == SUMO_TAG_EDGEREL) {
+                        if (dataElement->getTagProperty()->getTag() == SUMO_TAG_EDGEREL) {
                             addListItem(dataElement->getParentEdges().front(), nullptr, "from ");
                         } else {
                             addListItem(dataElement->getParentEdges().front());
@@ -767,7 +767,7 @@ GNEElementTree::showAttributeCarrierParents() {
                         }
                     }
                     // insert last ege
-                    if (dataElement->getTagProperty().getTag() == SUMO_TAG_EDGEREL) {
+                    if (dataElement->getTagProperty()->getTag() == SUMO_TAG_EDGEREL) {
                         addListItem(dataElement->getParentEdges().back(), nullptr, "to ");
                     } else {
                         addListItem(dataElement->getParentEdges().back());
@@ -801,9 +801,9 @@ void
 GNEElementTree::showHierarchicalElementChildren(GNEHierarchicalElement* HE, FXTreeItem* itemParent) {
     // get attributeCarriers
     const auto& attributeCarriers = myFrameParent->getViewNet()->getNet()->getAttributeCarriers();
-    if (HE->getTagProperty().isNetworkElement()) {
+    if (HE->getTagProperty()->isNetworkElement()) {
         // Switch gl type of ac
-        switch (HE->getTagProperty().getTag()) {
+        switch (HE->getTagProperty()->getTag()) {
             case SUMO_TAG_JUNCTION: {
                 // retrieve junction
                 GNEJunction* junction = attributeCarriers->retrieveJunction(HE->getID(), false);
@@ -905,7 +905,7 @@ GNEElementTree::showHierarchicalElementChildren(GNEHierarchicalElement* HE, FXTr
             default:
                 break;
         }
-    } else if (HE->getTagProperty().isAdditionalElement() || HE->getTagProperty().isDemandElement()) {
+    } else if (HE->getTagProperty()->isAdditionalElement() || HE->getTagProperty()->isDemandElement()) {
         // insert additional item
         FXTreeItem* treeItem = addListItem(HE, itemParent);
         // insert child edges
@@ -919,15 +919,15 @@ GNEElementTree::showHierarchicalElementChildren(GNEHierarchicalElement* HE, FXTr
         // insert additional symbols
         std::vector<GNEAdditional*> symbols;
         for (const auto& additional : HE->getChildAdditionals()) {
-            if (additional->getTagProperty().isSymbol()) {
+            if (additional->getTagProperty()->isSymbol()) {
                 symbols.push_back(additional);
             }
         }
         if (symbols.size() > 0) {
             // insert intermediate list item
             const auto additionalParent = symbols.front()->getParentAdditionals().front();
-            const std::string symbolType = additionalParent->getTagProperty().hasAttribute(SUMO_ATTR_EDGES) ? TL("Edges") : TL("Lanes");
-            GUIIcon symbolIcon = additionalParent->getTagProperty().hasAttribute(SUMO_ATTR_EDGES) ? GUIIcon::EDGE : GUIIcon::LANE;
+            const std::string symbolType = additionalParent->getTagProperty()->hasAttribute(SUMO_ATTR_EDGES) ? TL("Edges") : TL("Lanes");
+            GUIIcon symbolIcon = additionalParent->getTagProperty()->hasAttribute(SUMO_ATTR_EDGES) ? GUIIcon::EDGE : GUIIcon::LANE;
             FXTreeItem* symbolListItem = addListItem(treeItem, symbolType, GUIIconSubSys::getIcon(symbolIcon), false);
             // insert symbols
             for (const auto& symbol : symbols) {
@@ -936,7 +936,7 @@ GNEElementTree::showHierarchicalElementChildren(GNEHierarchicalElement* HE, FXTr
         }
         // insert additional children
         for (const auto& additional : HE->getChildAdditionals()) {
-            if (!additional->getTagProperty().isSymbol()) {
+            if (!additional->getTagProperty()->isSymbol()) {
                 showHierarchicalElementChildren(additional, treeItem);
             }
         }
@@ -961,11 +961,11 @@ GNEElementTree::showHierarchicalElementChildren(GNEHierarchicalElement* HE, FXTr
                 showHierarchicalElementChildren(genericDatas, dataElements);
             }
         }
-    } else if (HE->getTagProperty().isDataElement()) {
+    } else if (HE->getTagProperty()->isDataElement()) {
         // insert data item
         FXTreeItem* dataElementItem = addListItem(HE, itemParent);
         // insert intervals
-        if (HE->getTagProperty().getTag() == SUMO_TAG_DATASET) {
+        if (HE->getTagProperty()->getTag() == SUMO_TAG_DATASET) {
             GNEDataSet* dataSet = attributeCarriers->retrieveDataSet(HE->getID(), false);
             if (dataSet) {
                 // iterate over intervals
@@ -973,7 +973,7 @@ GNEElementTree::showHierarchicalElementChildren(GNEHierarchicalElement* HE, FXTr
                     showHierarchicalElementChildren(interval.second, dataElementItem);
                 }
             }
-        } else if (HE->getTagProperty().getTag() == SUMO_TAG_DATAINTERVAL) {
+        } else if (HE->getTagProperty()->getTag() == SUMO_TAG_DATAINTERVAL) {
             auto dataInterval = attributeCarriers->retrieveDataInterval(HE, false);
             if (dataInterval) {
                 // iterate over generic datas

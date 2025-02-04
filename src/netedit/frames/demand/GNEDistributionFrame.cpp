@@ -116,7 +116,7 @@ GNEDistributionFrame::DistributionEditor::onCmdCreateDistribution(FXObject*, FXS
         throw ProcessError("Invalid distribution");
     }
     // add it using undoList (to allow undo-redo)
-    undoList->begin(distribution->getTagProperty().getGUIIcon(), "create distribution");
+    undoList->begin(distribution->getTagProperty()->getGUIIcon(), "create distribution");
     undoList->add(new GNEChange_DemandElement(distribution, true), true);
     undoList->end();
     // refresh selector using created distribution
@@ -131,7 +131,7 @@ GNEDistributionFrame::DistributionEditor::onCmdDeleteDistribution(FXObject*, FXS
     auto currentDistribution = myDistributionSelector->getCurrentDistribution();
     if (currentDistribution) {
         // begin undo list operation
-        undoList->begin(currentDistribution->getTagProperty().getGUIIcon(), "delete " + currentDistribution->getTagProperty().getTagStr() + " distribution");
+        undoList->begin(currentDistribution->getTagProperty()->getGUIIcon(), "delete " + currentDistribution->getTagProperty()->getTagStr() + " distribution");
         // remove distribution
         myFrameParent->getViewNet()->getNet()->deleteDemandElement(myDistributionSelector->getCurrentDistribution(), undoList);
         // end undo list operation

@@ -186,7 +186,7 @@ GNERoute::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     myNet->getViewNet()->buildSelectionACPopupEntry(ret, this);
     buildShowParamsPopupEntry(ret);
     // show option to open demand element dialog
-    if (myTagProperty.hasDialog()) {
+    if (myTagProperty->hasDialog()) {
         GUIDesigns::buildFXMenuCommand(ret, "Open " + getTagStr() + " Dialog", getACIcon(), &parent, MID_OPEN_ADDITIONAL_DIALOG);
         new FXMenuSeparator(ret);
     }
@@ -207,7 +207,7 @@ void
 GNERoute::writeDemandElement(OutputDevice& device) const {
     device.openTag(SUMO_TAG_ROUTE);
     // write id only for non-embedded routes
-    if (myTagProperty.getTag() == SUMO_TAG_ROUTE) {
+    if (myTagProperty->getTag() == SUMO_TAG_ROUTE) {
         device.writeAttr(SUMO_ATTR_ID, getID());
     }
     device.writeAttr(SUMO_ATTR_EDGES, parseIDs(getParentEdges()));
@@ -224,10 +224,10 @@ GNERoute::writeDemandElement(OutputDevice& device) const {
         device.writeAttr(SUMO_ATTR_PROB, toString(myProbability));
     }
     // write sorted stops
-    if (myTagProperty.getTag() == SUMO_TAG_ROUTE) {
+    if (myTagProperty->getTag() == SUMO_TAG_ROUTE) {
         // write stops
         for (const auto& demandElement : getChildDemandElements()) {
-            if (demandElement->getTagProperty().isVehicleStop()) {
+            if (demandElement->getTagProperty()->isVehicleStop()) {
                 demandElement->writeDemandElement(device);
             }
         }
@@ -244,7 +244,7 @@ GNERoute::isDemandElementValid() const {
     // get sorted stops and check number
     std::vector<GNEDemandElement*> stops;
     for (const auto& routeChild : getChildDemandElements()) {
-        if (routeChild->getTagProperty().isVehicleStop()) {
+        if (routeChild->getTagProperty()->isVehicleStop()) {
             stops.push_back(routeChild);
         }
     }
@@ -278,7 +278,7 @@ GNERoute::getDemandElementProblem() const {
     // get sorted stops and check number
     std::vector<GNEDemandElement*> stops;
     for (const auto& routeChild : getChildDemandElements()) {
-        if (routeChild->getTagProperty().isVehicleStop()) {
+        if (routeChild->getTagProperty()->isVehicleStop()) {
             stops.push_back(routeChild);
         }
     }
@@ -310,7 +310,7 @@ GNERoute::fixDemandElementProblem() {
 
 SUMOVehicleClass
 GNERoute::getVClass() const {
-    if (myTagProperty.getTag() == GNE_TAG_ROUTE_EMBEDDED) {
+    if (myTagProperty->getTag() == GNE_TAG_ROUTE_EMBEDDED) {
         return getParentDemandElements().at(0)->getVClass();
     } else {
         return myVClass;
@@ -338,7 +338,7 @@ GNERoute::updateGeometry() {
     computePathElement();
     // update child demand elements
     for (const auto& demandElement : getChildDemandElements()) {
-        if (!demandElement->getTagProperty().isVehicleStop()) {
+        if (!demandElement->getTagProperty()->isVehicleStop()) {
             demandElement->updateGeometry();
         }
     }
@@ -399,7 +399,7 @@ GNERoute::drawGL(const GUIVisualizationSettings& /*s*/) const {
 void
 GNERoute::computePathElement() {
     // calculate path depending if is embedded
-    if (myTagProperty.getTag() == GNE_TAG_ROUTE_EMBEDDED) {
+    if (myTagProperty->getTag() == GNE_TAG_ROUTE_EMBEDDED) {
         myNet->getDemandPathManager()->calculateConsecutivePathEdges(this, getVClass(), getParentEdges(),
                 (int)getParentDemandElements().at(0)->getAttributeDouble(SUMO_ATTR_DEPARTLANE),
                 (int)getParentDemandElements().at(0)->getAttributeDouble(SUMO_ATTR_ARRIVALLANE));
@@ -418,13 +418,13 @@ GNERoute::drawLanePartialGL(const GUIVisualizationSettings& s, const GNESegment*
     // check conditions
     if (segment->getLane() && myNet->getViewNet()->getNetworkViewOptions().showDemandElements() && myNet->getViewNet()->getDataViewOptions().showDemandElements() &&
             myNet->getViewNet()->getDemandViewOptions().showNonInspectedDemandElements(this) &&
-            myNet->getDemandPathManager()->getPathDraw()->checkDrawPathGeometry(s, segment->getLane(), myTagProperty.getTag())) {
+            myNet->getDemandPathManager()->getPathDraw()->checkDrawPathGeometry(s, segment->getLane(), myTagProperty->getTag())) {
         // get exaggeration
         const double exaggeration = getExaggeration(s);
         // get detail level
         const auto d = s.getDetailLevel(exaggeration);
         // get embedded route flag
-        const bool embedded = (myTagProperty.getTag() == GNE_TAG_ROUTE_EMBEDDED);
+        const bool embedded = (myTagProperty->getTag() == GNE_TAG_ROUTE_EMBEDDED);
         // get route width
         const double routeWidth = embedded ? s.widthSettings.embeddedRouteWidth : s.widthSettings.routeWidth;
         // calculate startPos
@@ -480,13 +480,13 @@ GNERoute::drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNESegm
     // check conditions
     if (myNet->getViewNet()->getNetworkViewOptions().showDemandElements() && myNet->getViewNet()->getDataViewOptions().showDemandElements() &&
             myNet->getViewNet()->getDemandViewOptions().showNonInspectedDemandElements(this) &&
-            myNet->getDemandPathManager()->getPathDraw()->checkDrawPathGeometry(s, segment, myTagProperty.getTag())) {
+            myNet->getDemandPathManager()->getPathDraw()->checkDrawPathGeometry(s, segment, myTagProperty->getTag())) {
         // Obtain exaggeration of the draw
         const double routeExaggeration = getExaggeration(s);
         // get detail level
         const auto d = s.getDetailLevel(routeExaggeration);
         // get route width
-        const double routeWidth = (myTagProperty.getTag() == GNE_TAG_ROUTE_EMBEDDED) ? s.widthSettings.embeddedRouteWidth : s.widthSettings.routeWidth;
+        const double routeWidth = (myTagProperty->getTag() == GNE_TAG_ROUTE_EMBEDDED) ? s.widthSettings.embeddedRouteWidth : s.widthSettings.routeWidth;
         // check if connection to next lane exist
         const bool connectionExist = segment->getPreviousLane()->getLane2laneConnections().exist(segment->getNextLane());
         // get geometry
@@ -512,7 +512,7 @@ GNERoute::drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNESegm
 
 GNELane*
 GNERoute::getFirstPathLane() const {
-    if (myTagProperty.getTag() == SUMO_TAG_ROUTE) {
+    if (myTagProperty->getTag() == SUMO_TAG_ROUTE) {
         return getParentEdges().front()->getLaneByAllowedVClass(SVC_PASSENGER);
     } else {
         return getParentDemandElements().at(0)->getFirstPathLane();
@@ -522,7 +522,7 @@ GNERoute::getFirstPathLane() const {
 
 GNELane*
 GNERoute::getLastPathLane() const {
-    if (myTagProperty.getTag() == SUMO_TAG_ROUTE) {
+    if (myTagProperty->getTag() == SUMO_TAG_ROUTE) {
         return getParentEdges().back()->getLaneByAllowedVClass(SVC_PASSENGER);
     } else {
         return getParentDemandElements().at(0)->getLastPathLane();
@@ -616,7 +616,7 @@ GNERoute::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* u
             // extract all vehicle childrens
             std::vector<GNEDemandElement*> vehicles;
             for (const auto& childDemandElement : getChildDemandElements()) {
-                if (childDemandElement->getTagProperty().isVehicle()) {
+                if (childDemandElement->getTagProperty()->isVehicle()) {
                     vehicles.push_back(childDemandElement);
                 }
             }
@@ -629,7 +629,7 @@ GNERoute::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* u
                 }
                 GNEChange_Attribute::changeAttribute(this, key, value, undoList);
                 undoList->end();
-            } else if (myTagProperty.getTag() == GNE_TAG_ROUTE_EMBEDDED) {
+            } else if (myTagProperty->getTag() == GNE_TAG_ROUTE_EMBEDDED) {
                 undoList->begin(this, "reset start and end edges");
                 GNEChange_Attribute::changeAttribute(getParentDemandElements().front(), SUMO_ATTR_DEPARTEDGE, "", undoList);
                 GNEChange_Attribute::changeAttribute(getParentDemandElements().front(), SUMO_ATTR_ARRIVALEDGE, "", undoList);
@@ -759,7 +759,7 @@ GNERoute::drawRoutePartialLane(const GUIVisualizationSettings& s, const GUIVisua
                                const GNESegment* segment, const double offsetFront,
                                const GUIGeometry& geometry, const double exaggeration) const {
     // get route width
-    const double routeWidth = (myTagProperty.getTag() == GNE_TAG_ROUTE_EMBEDDED) ? s.widthSettings.embeddedRouteWidth : s.widthSettings.routeWidth;
+    const double routeWidth = (myTagProperty->getTag() == GNE_TAG_ROUTE_EMBEDDED) ? s.widthSettings.embeddedRouteWidth : s.widthSettings.routeWidth;
     // push layer matrix
     GLHelper::pushMatrix();
     // Start with the drawing of the area traslating matrix to origin
@@ -799,7 +799,7 @@ GNERoute::drawRoutePartialJunction(const GUIVisualizationSettings& s, const GUIV
                                    const double offsetFront, const GUIGeometry& geometry, const double exaggeration) const {
     const bool invalid = geometry.getShape().length() == 2;
     // get route width
-    const double routeWidth = (myTagProperty.getTag() == GNE_TAG_ROUTE_EMBEDDED) ? s.widthSettings.embeddedRouteWidth : s.widthSettings.routeWidth;
+    const double routeWidth = (myTagProperty->getTag() == GNE_TAG_ROUTE_EMBEDDED) ? s.widthSettings.embeddedRouteWidth : s.widthSettings.routeWidth;
     // Add a draw matrix
     GLHelper::pushMatrix();
     // Start with the drawing of the area traslating matrix to origin

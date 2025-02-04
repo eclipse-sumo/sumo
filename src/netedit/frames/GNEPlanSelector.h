@@ -50,7 +50,7 @@ public:
     void hidePlanSelector();
 
     /// @brief get current plan tag properties
-    const GNETagProperties& getCurrentPlanTagProperties() const;
+    const GNETagProperties* getCurrentPlanTagProperties() const;
 
     /// @brief get current plan template
     GNEDemandElement* getCurrentPlanTemplate() const;
@@ -114,8 +114,8 @@ private:
     MFXComboBoxIcon* myPlansComboBox;
 
     /// @brief current plan template;
-    std::pair<GNETagProperties, GNEDemandElement*> myCurrentPlanTemplate;
+    std::pair<GNETagProperties*, GNEDemandElement*> myCurrentPlanTemplate;
 
     /// @brief list with demand templates
-    std::vector<std::pair<GNETagProperties, GNEDemandElement*> > myPlanTemplates;
+    std::vector<std::pair<GNETagProperties*, GNEDemandElement*> > myPlanTemplates;
 };

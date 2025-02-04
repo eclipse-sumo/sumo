@@ -148,7 +148,7 @@ GNECalibrator::writeAdditional(OutputDevice& device) const {
     }
     // write calibrator flows
     for (const auto& calibratorFlow : getChildAdditionals()) {
-        if (calibratorFlow->getTagProperty().getTag() == GNE_TAG_CALIBRATOR_FLOW) {
+        if (calibratorFlow->getTagProperty()->getTag() == GNE_TAG_CALIBRATOR_FLOW) {
             calibratorFlow->writeAdditional(device);
         }
     }
@@ -234,7 +234,7 @@ void
 GNECalibrator::splitEdgeGeometry(const double splitPosition, const GNENetworkElement* /*originalElement*/, const GNENetworkElement* newElement, GNEUndoList* undoList) {
     if (splitPosition < myPositionOverLane) {
         // change lane or edge
-        if (newElement->getTagProperty().getTag() == SUMO_TAG_LANE) {
+        if (newElement->getTagProperty()->getTag() == SUMO_TAG_LANE) {
             setAttribute(SUMO_ATTR_LANE, newElement->getID(), undoList);
         } else {
             setAttribute(SUMO_ATTR_EDGE, newElement->getID(), undoList);

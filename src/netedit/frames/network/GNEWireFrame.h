@@ -71,10 +71,10 @@ protected:
 
 private:
     // @brief create baseWireObject
-    bool createBaseWireObject(const GNETagProperties& tagProperty);
+    bool createBaseWireObject(const GNETagProperties* tagProperty);
 
     /// @brief build wire over view
-    bool buildWireOverView(const GNETagProperties& tagValues);
+    bool buildWireOverView(const GNETagProperties* tagProperty);
 
     /// @brief item selector
     GNETagSelector* myWireTagSelector = nullptr;

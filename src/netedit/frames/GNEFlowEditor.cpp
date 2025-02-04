@@ -95,9 +95,9 @@ GNEFlowEditor::showFlowEditor(GNEAttributeCarrier* firstEditedFlow, const std::u
     // check number of flows
     if (myFirstEditedFlow) {
         // update per hour attr
-        if (myFirstEditedFlow->getTagProperty().hasAttribute(SUMO_ATTR_PERSONSPERHOUR)) {
+        if (myFirstEditedFlow->getTagProperty()->hasAttribute(SUMO_ATTR_PERSONSPERHOUR)) {
             myPerHourAttr = SUMO_ATTR_PERSONSPERHOUR;
-        } else if (myFirstEditedFlow->getTagProperty().hasAttribute(SUMO_ATTR_CONTAINERSPERHOUR)) {
+        } else if (myFirstEditedFlow->getTagProperty()->hasAttribute(SUMO_ATTR_CONTAINERSPERHOUR)) {
             myPerHourAttr = SUMO_ATTR_CONTAINERSPERHOUR;
         } else {
             myPerHourAttr = SUMO_ATTR_VEHSPERHOUR;
@@ -408,9 +408,9 @@ GNEFlowEditor::refreshSingleFlow() {
                                 mySpacingFrameComboBox->hide();
             // set label
             myTerminateLabel->setText(toString(SUMO_ATTR_END).c_str());
-            myTerminateLabel->setTipText(myFirstEditedFlow->getTagProperty().getAttributeProperties(SUMO_ATTR_END).getDefinition().c_str());
+            myTerminateLabel->setTipText(myFirstEditedFlow->getTagProperty()->getAttributeProperties(SUMO_ATTR_END)->getDefinition().c_str());
             mySpacingLabel->setText(toString(SUMO_ATTR_NUMBER).c_str());
-            mySpacingLabel->setTipText(myFirstEditedFlow->getTagProperty().getAttributeProperties(SUMO_ATTR_NUMBER).getDefinition().c_str());
+            mySpacingLabel->setTipText(myFirstEditedFlow->getTagProperty()->getAttributeProperties(SUMO_ATTR_NUMBER)->getDefinition().c_str());
             // set text fields
             myTerminateTextField->setText(getFlowAttribute(SUMO_ATTR_END).c_str());
             mySpacingTextField->setText(getFlowAttribute(SUMO_ATTR_NUMBER).c_str());
@@ -427,7 +427,7 @@ GNEFlowEditor::refreshSingleFlow() {
                 // set label
                 myTerminateLabel->setText(toString(SUMO_ATTR_END).c_str());
                 // set definition
-                myTerminateLabel->setTipText(myFirstEditedFlow->getTagProperty().getAttributeProperties(SUMO_ATTR_END).getDefinition().c_str());
+                myTerminateLabel->setTipText(myFirstEditedFlow->getTagProperty()->getAttributeProperties(SUMO_ATTR_END)->getDefinition().c_str());
                 // set text fields
                 myTerminateTextField->setText(getFlowAttribute(SUMO_ATTR_END).c_str());
             } else if (myFirstEditedFlow->isAttributeEnabled(SUMO_ATTR_NUMBER)) {
@@ -436,7 +436,7 @@ GNEFlowEditor::refreshSingleFlow() {
                 // set label
                 myTerminateLabel->setText(toString(SUMO_ATTR_NUMBER).c_str());
                 // set definition
-                myTerminateLabel->setTipText(myFirstEditedFlow->getTagProperty().getAttributeProperties(SUMO_ATTR_NUMBER).getDefinition().c_str());
+                myTerminateLabel->setTipText(myFirstEditedFlow->getTagProperty()->getAttributeProperties(SUMO_ATTR_NUMBER)->getDefinition().c_str());
                 // set text fields
                 myTerminateTextField->setText(getFlowAttribute(SUMO_ATTR_NUMBER).c_str());
             }
@@ -450,7 +450,7 @@ GNEFlowEditor::refreshSingleFlow() {
                                   // set label
                                   mySpacingLabel->setText(toString(myPerHourAttr).c_str());
                 // set tip text
-                mySpacingLabel->setTipText(myFirstEditedFlow->getTagProperty().getAttributeProperties(myPerHourAttr).getDefinition().c_str());
+                mySpacingLabel->setTipText(myFirstEditedFlow->getTagProperty()->getAttributeProperties(myPerHourAttr)->getDefinition().c_str());
                 // set text fields
                 mySpacingTextField->setText(getFlowAttribute(myPerHourAttr).c_str());
             } else if (myFirstEditedFlow->isAttributeEnabled(SUMO_ATTR_PERIOD)) {
@@ -459,7 +459,7 @@ GNEFlowEditor::refreshSingleFlow() {
                 // set label
                 mySpacingLabel->setText(toString(SUMO_ATTR_PERIOD).c_str());
                 // set tip text
-                mySpacingLabel->setTipText(myFirstEditedFlow->getTagProperty().getAttributeProperties(SUMO_ATTR_PERIOD).getDefinition().c_str());
+                mySpacingLabel->setTipText(myFirstEditedFlow->getTagProperty()->getAttributeProperties(SUMO_ATTR_PERIOD)->getDefinition().c_str());
                 // set text fields
                 mySpacingTextField->setText(getFlowAttribute(SUMO_ATTR_PERIOD).c_str());
             } else if (myFirstEditedFlow->isAttributeEnabled(GNE_ATTR_POISSON)) {
@@ -468,7 +468,7 @@ GNEFlowEditor::refreshSingleFlow() {
                 // set label
                 mySpacingLabel->setText(TL("rate"));
                 // set definition
-                mySpacingLabel->setTipText(myFirstEditedFlow->getTagProperty().getAttributeProperties(GNE_ATTR_POISSON).getDefinition().c_str());
+                mySpacingLabel->setTipText(myFirstEditedFlow->getTagProperty()->getAttributeProperties(GNE_ATTR_POISSON)->getDefinition().c_str());
                 // set text fields
                 mySpacingTextField->setText(getFlowAttribute(GNE_ATTR_POISSON).c_str());
             } else if (myFirstEditedFlow->isAttributeEnabled(SUMO_ATTR_PROB)) {
@@ -477,7 +477,7 @@ GNEFlowEditor::refreshSingleFlow() {
                 // set label
                 mySpacingLabel->setText(toString(SUMO_ATTR_PROB).c_str());
                 // set tip text
-                mySpacingLabel->setTipText(myFirstEditedFlow->getTagProperty().getAttributeProperties(SUMO_ATTR_PROB).getDefinition().c_str());
+                mySpacingLabel->setTipText(myFirstEditedFlow->getTagProperty()->getAttributeProperties(SUMO_ATTR_PROB)->getDefinition().c_str());
                 // set text fields
                 mySpacingTextField->setText(getFlowAttribute(SUMO_ATTR_PROB).c_str());
             }

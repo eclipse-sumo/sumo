@@ -53,7 +53,7 @@ GNEChange_MeanData::~GNEChange_MeanData() {
         myMeanData->decRef("GNEChange_MeanData");
         if (myMeanData->unreferenced()) {
             // make sure that MeanData isn't in net before removing
-            if (myMeanData->getNet()->getAttributeCarriers()->retrieveMeanData(myMeanData->getTagProperty().getTag(), myMeanData->getID(), false)) {
+            if (myMeanData->getNet()->getAttributeCarriers()->retrieveMeanData(myMeanData->getTagProperty()->getTag(), myMeanData->getID(), false)) {
                 // delete MeanData from net
                 myMeanData->getNet()->getAttributeCarriers()->deleteMeanData(myMeanData);
             }

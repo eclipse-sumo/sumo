@@ -188,9 +188,9 @@ GNEFrame::openHelpAttributesDialog(const GNEAttributeCarrier* AC) const {
     attributesHelpDialog->setIcon(GUIIconSubSys::getIcon(GUIIcon::MODEINSPECT));
     int sizeColumnDescription = 0;
     int sizeColumnDefinitions = 0;
-    myTable->setVisibleRows((FXint)(AC->getTagProperty().getNumberOfAttributes()));
+    myTable->setVisibleRows((FXint)(AC->getTagProperty()->getNumberOfAttributes()));
     myTable->setVisibleColumns(3);
-    myTable->setTableSize((FXint)(AC->getTagProperty().getNumberOfAttributes()), 3);
+    myTable->setTableSize((FXint)(AC->getTagProperty()->getNumberOfAttributes()), 3);
     myTable->setBackColor(FXRGB(255, 255, 255));
     myTable->setColumnText(0, TL("Attribute"));
     myTable->setColumnText(1, TL("Description"));
@@ -198,22 +198,22 @@ GNEFrame::openHelpAttributesDialog(const GNEAttributeCarrier* AC) const {
     myTable->getRowHeader()->setWidth(0);
     // Iterate over vector of additional parameters
     int itemIndex = 0;
-    for (const auto& tagProperty : AC->getTagProperty()) {
+    for (const auto& attrProperty : AC->getTagProperty()->getAttributeProperties()) {
         // Set attribute
-        FXTableItem* attribute = new FXTableItem(tagProperty.getAttrStr().c_str());
+        FXTableItem* attribute = new FXTableItem(attrProperty->getAttrStr().c_str());
         attribute->setJustify(FXTableItem::CENTER_X);
         myTable->setItem(itemIndex, 0, attribute);
         // Set description of element
         FXTableItem* type = new FXTableItem("");
-        type->setText(tagProperty.getDescription().c_str());
-        sizeColumnDescription = MAX2(sizeColumnDescription, (int)tagProperty.getDescription().size());
+        type->setText(attrProperty->getDescription().c_str());
+        sizeColumnDescription = MAX2(sizeColumnDescription, (int)attrProperty->getDescription().size());
         type->setJustify(FXTableItem::CENTER_X);
         myTable->setItem(itemIndex, 1, type);
         // Set definition
-        FXTableItem* definition = new FXTableItem(tagProperty.getDefinition().c_str());
+        FXTableItem* definition = new FXTableItem(attrProperty->getDefinition().c_str());
         definition->setJustify(FXTableItem::LEFT);
         myTable->setItem(itemIndex, 2, definition);
-        sizeColumnDefinitions = MAX2(sizeColumnDefinitions, (int)tagProperty.getDefinition().size());
+        sizeColumnDefinitions = MAX2(sizeColumnDefinitions, (int)attrProperty->getDefinition().size());
         itemIndex++;
     }
     myTable->fitRowsToContents(0, itemIndex);

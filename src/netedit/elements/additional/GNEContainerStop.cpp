@@ -65,7 +65,7 @@ GNEContainerStop::~GNEContainerStop() {}
 
 void
 GNEContainerStop::writeAdditional(OutputDevice& device) const {
-    device.openTag(getTagProperty().getTag());
+    device.openTag(getTagProperty()->getTag());
     device.writeAttr(SUMO_ATTR_ID, getID());
     if (!myAdditionalName.empty()) {
         device.writeAttr(SUMO_ATTR_NAME, StringUtils::escapeXML(myAdditionalName));
@@ -80,13 +80,13 @@ GNEContainerStop::writeAdditional(OutputDevice& device) const {
     if (myFriendlyPosition) {
         device.writeAttr(SUMO_ATTR_FRIENDLY_POS, "true");
     }
-    if (getAttribute(SUMO_ATTR_LINES) != myTagProperty.getDefaultValue(SUMO_ATTR_LINES)) {
+    if (getAttribute(SUMO_ATTR_LINES) != myTagProperty->getDefaultValue(SUMO_ATTR_LINES)) {
         device.writeAttr(SUMO_ATTR_LINES, toString(myLines));
     }
-    if (getAttribute(SUMO_ATTR_CONTAINER_CAPACITY) != myTagProperty.getDefaultValue(SUMO_ATTR_CONTAINER_CAPACITY)) {
+    if (getAttribute(SUMO_ATTR_CONTAINER_CAPACITY) != myTagProperty->getDefaultValue(SUMO_ATTR_CONTAINER_CAPACITY)) {
         device.writeAttr(SUMO_ATTR_CONTAINER_CAPACITY, myContainerCapacity);
     }
-    if (getAttribute(SUMO_ATTR_PARKING_LENGTH) != myTagProperty.getDefaultValue(SUMO_ATTR_PARKING_LENGTH)) {
+    if (getAttribute(SUMO_ATTR_PARKING_LENGTH) != myTagProperty->getDefaultValue(SUMO_ATTR_PARKING_LENGTH)) {
         device.writeAttr(SUMO_ATTR_PARKING_LENGTH, myParkingLength);
     }
     if (getAttribute(SUMO_ATTR_COLOR).size() > 0) {

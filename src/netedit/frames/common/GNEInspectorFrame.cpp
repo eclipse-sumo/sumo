@@ -80,7 +80,7 @@ GNEInspectorFrame::TemplateEditor::showTemplateEditor() {
     // show template editor only if we're editing an edge in Network mode AND we have at least one inspected edge
     if (myInspectorFrameParent->myViewNet->getEditModes().isCurrentSupermodeNetwork()) {
         for (const auto& AC : myInspectorFrameParent->getViewNet()->getInspectedElements().getACs()) {
-            if (AC->getTagProperty().getTag() == SUMO_TAG_EDGE) {
+            if (AC->getTagProperty()->getTag() == SUMO_TAG_EDGE) {
                 // update buttons and show module
                 updateButtons();
                 show();
@@ -161,7 +161,7 @@ long
 GNEInspectorFrame::TemplateEditor::onCmdSetTemplate(FXObject*, FXSelector, void*) {
     // apply to all selected edges
     for (const auto& AC : myInspectorFrameParent->myViewNet->getInspectedElements().getACs()) {
-        if (AC->getTagProperty().getTag() == SUMO_TAG_EDGE) {
+        if (AC->getTagProperty()->getTag() == SUMO_TAG_EDGE) {
             // set template
             setEdgeTemplate(myInspectorFrameParent->myViewNet->getNet()->getAttributeCarriers()->retrieveEdge(AC->getID()));
             // update buttons
@@ -209,7 +209,7 @@ void
 GNEInspectorFrame::TemplateEditor::updateButtons() {
     const auto& inspectedElements = myInspectorFrameParent->getViewNet()->getInspectedElements();
     // only show set template button if we have exactly one inspected edge
-    if (inspectedElements.isInspectingSingleElement() && (inspectedElements.getFirstAC()->getTagProperty().getTag() == SUMO_TAG_EDGE)) {
+    if (inspectedElements.isInspectingSingleElement() && (inspectedElements.getFirstAC()->getTagProperty()->getTag() == SUMO_TAG_EDGE)) {
         mySetTemplateButton->setText((TLF("Set edge '%' as Template", inspectedElements.getFirstAC()->getID())).c_str());
         mySetTemplateButton->show();
     } else {
@@ -335,7 +335,7 @@ GNEInspectorFrame::inspectElement(GNEAttributeCarrier* AC, GNEAttributeCarrier* 
             // iterate over selected ACs
             for (const auto& selectedAC : selectedACs) {
                 // filter ACs to inspect using Tag as criterion
-                if (selectedAC->getTagProperty().getTag() == AC->getTagProperty().getTag()) {
+                if (selectedAC->getTagProperty()->getTag() == AC->getTagProperty()->getTag()) {
                     itemsToInspect.push_back(selectedAC);
                 }
             }
@@ -385,31 +385,31 @@ GNEInspectorFrame::refreshInspection() {
     if (inspectedElements.isInspectingElements()) {
         // Set header
         std::string headerString;
-        if (inspectedElements.getFirstAC()->getTagProperty().isNetworkElement()) {
+        if (inspectedElements.getFirstAC()->getTagProperty()->isNetworkElement()) {
             headerString = "Net: ";
-        } else if (inspectedElements.getFirstAC()->getTagProperty().isAdditionalElement()) {
+        } else if (inspectedElements.getFirstAC()->getTagProperty()->isAdditionalElement()) {
             headerString = "Additional: ";
-        } else if (inspectedElements.getFirstAC()->getTagProperty().isShapeElement()) {
+        } else if (inspectedElements.getFirstAC()->getTagProperty()->isShapeElement()) {
             headerString = "Shape: ";
-        } else if (inspectedElements.getFirstAC()->getTagProperty().isTAZElement()) {
+        } else if (inspectedElements.getFirstAC()->getTagProperty()->isTAZElement()) {
             headerString = "TAZ: ";
-        } else if (inspectedElements.getFirstAC()->getTagProperty().isWireElement()) {
+        } else if (inspectedElements.getFirstAC()->getTagProperty()->isWireElement()) {
             headerString = "WIRE: ";
-        } else if (inspectedElements.getFirstAC()->getTagProperty().isVehicle()) {
+        } else if (inspectedElements.getFirstAC()->getTagProperty()->isVehicle()) {
             headerString = "Vehicle: ";
-        } else if (inspectedElements.getFirstAC()->getTagProperty().isRoute()) {
+        } else if (inspectedElements.getFirstAC()->getTagProperty()->isRoute()) {
             headerString = "Route: ";
-        } else if (inspectedElements.getFirstAC()->getTagProperty().isPerson()) {
+        } else if (inspectedElements.getFirstAC()->getTagProperty()->isPerson()) {
             headerString = "Person: ";
-        } else if (inspectedElements.getFirstAC()->getTagProperty().isPlanPerson()) {
+        } else if (inspectedElements.getFirstAC()->getTagProperty()->isPlanPerson()) {
             headerString = "PersonPlan: ";
-        } else if (inspectedElements.getFirstAC()->getTagProperty().isContainer()) {
+        } else if (inspectedElements.getFirstAC()->getTagProperty()->isContainer()) {
             headerString = "Container: ";
-        } else if (inspectedElements.getFirstAC()->getTagProperty().isPlanContainer()) {
+        } else if (inspectedElements.getFirstAC()->getTagProperty()->isPlanContainer()) {
             headerString = "ContainerPlan: ";
-        } else if (inspectedElements.getFirstAC()->getTagProperty().isVehicleStop()) {
+        } else if (inspectedElements.getFirstAC()->getTagProperty()->isVehicleStop()) {
             headerString = "Stop: ";
-        } else if (inspectedElements.getFirstAC()->getTagProperty().isDataElement()) {
+        } else if (inspectedElements.getFirstAC()->getTagProperty()->isDataElement()) {
             headerString = "Data: ";
         }
         if (myViewNet->getInspectedElements().isInspectingMultipleElements()) {

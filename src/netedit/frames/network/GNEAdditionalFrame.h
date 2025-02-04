@@ -131,19 +131,19 @@ protected:
 
 private:
     // @brief create baseAdditionalObject
-    bool createBaseAdditionalObject(const GNETagProperties& tagProperty);
+    bool createBaseAdditionalObject(const GNETagProperties* tagProperty);
 
     /// @brief build common additional attributes
-    bool buildAdditionalCommonAttributes(const GNETagProperties& tagValues);
+    bool buildAdditionalCommonAttributes(const GNETagProperties* tagValues);
 
     /// @brief build additional over an edge (parent of lane)
-    bool buildAdditionalOverEdge(GNELane* lane, const GNETagProperties& tagValues);
+    bool buildAdditionalOverEdge(GNELane* lane, const GNETagProperties* tagValues);
 
     /// @brief build additional over a single lane
-    bool buildAdditionalOverLane(GNELane* lane, const GNETagProperties& tagValues);
+    bool buildAdditionalOverLane(GNELane* lane, const GNETagProperties* tagValues);
 
     /// @brief build additional over view
-    bool buildAdditionalOverView(const GNETagProperties& tagValues);
+    bool buildAdditionalOverView(const GNETagProperties* tagValues);
 
     /// @brief item selector
     GNETagSelector* myAdditionalTagSelector = nullptr;

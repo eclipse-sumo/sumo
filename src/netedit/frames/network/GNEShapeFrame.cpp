@@ -270,7 +270,7 @@ GNEShapeFrame::processClick(const Position& clickedPosition, const GNEViewNetHel
     // check if current selected shape is valid
     if (myShapeTagSelector->getCurrentTemplateAC() != nullptr) {
         // get tag
-        SumoXMLTag shapeTag = myShapeTagSelector->getCurrentTemplateAC()->getTagProperty().getTag();
+        SumoXMLTag shapeTag = myShapeTagSelector->getCurrentTemplateAC()->getTagProperty()->getTag();
         // continue depending of tag
         switch (shapeTag) {
             case SUMO_TAG_POI:
@@ -339,7 +339,7 @@ GNEShapeFrame::shapeDrawed() {
         return false;
     } else {
         // get tag
-        SumoXMLTag shapeTag = myShapeTagSelector->getCurrentTemplateAC()->getTagProperty().getTag();
+        SumoXMLTag shapeTag = myShapeTagSelector->getCurrentTemplateAC()->getTagProperty()->getTag();
         // create baseShape object
         createBaseShapeObject(shapeTag);
         // obtain shape attributes and values
@@ -377,7 +377,7 @@ GNEShapeFrame::tagSelected() {
         // show netedit attributes
         myNeteditAttributes->showNeteditAttributesModule(myShapeTagSelector->getCurrentTemplateAC());
         // get shape tag
-        SumoXMLTag shapeTag = myShapeTagSelector->getCurrentTemplateAC()->getTagProperty().getTag();
+        SumoXMLTag shapeTag = myShapeTagSelector->getCurrentTemplateAC()->getTagProperty()->getTag();
         // Check if drawing mode has to be shown
         if ((shapeTag == SUMO_TAG_POLY) || (shapeTag == GNE_TAG_JPS_WALKABLEAREA) || (shapeTag == GNE_TAG_JPS_OBSTACLE)) {
             myDrawingShape->showDrawingShape();

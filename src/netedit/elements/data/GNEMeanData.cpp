@@ -88,7 +88,7 @@ GNEMeanData::~GNEMeanData() {}
 
 void
 GNEMeanData::writeMeanData(OutputDevice& device) const {
-    device.openTag(getTagProperty().getTag());
+    device.openTag(getTagProperty()->getTag());
     // write needed attributes
     device.writeAttr(SUMO_ATTR_ID, getID());
     device.writeAttr(SUMO_ATTR_FILE, myFile);
@@ -102,7 +102,7 @@ GNEMeanData::writeMeanData(OutputDevice& device) const {
     if (myEnd != -1) {
         device.writeAttr(SUMO_ATTR_END, STEPS2TIME(myEnd));
     }
-    if (myExcludeEmpty != myTagProperty.getDefaultValue(SUMO_ATTR_EXCLUDE_EMPTY)) {
+    if (myExcludeEmpty != myTagProperty->getDefaultValue(SUMO_ATTR_EXCLUDE_EMPTY)) {
         device.writeAttr(SUMO_ATTR_EXCLUDE_EMPTY, myExcludeEmpty);
     }
     if (myWithInternal) {
@@ -305,7 +305,7 @@ bool
 GNEMeanData::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            return SUMOXMLDefinitions::isValidNetID(value) && (myNet->getAttributeCarriers()->retrieveMeanData(myTagProperty.getTag(), value, false) == nullptr);
+            return SUMOXMLDefinitions::isValidNetID(value) && (myNet->getAttributeCarriers()->retrieveMeanData(myTagProperty->getTag(), value, false) == nullptr);
         case SUMO_ATTR_FILE:
             return SUMOXMLDefinitions::isValidFilename(value);
         case SUMO_ATTR_PERIOD:

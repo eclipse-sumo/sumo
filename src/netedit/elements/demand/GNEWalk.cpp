@@ -77,11 +77,11 @@ GNEWalk::writeDemandElement(OutputDevice& device) const {
     device.openTag(SUMO_TAG_WALK);
     writeLocationAttributes(device);
     // speed
-    if ((mySpeed > 0) && (toString(mySpeed) != myTagProperty.getDefaultValue(SUMO_ATTR_SPEED))) {
+    if ((mySpeed > 0) && (toString(mySpeed) != myTagProperty->getDefaultValue(SUMO_ATTR_SPEED))) {
         device.writeAttr(SUMO_ATTR_SPEED, mySpeed);
     }
     // duration
-    if (toString(myDuration) != myTagProperty.getDefaultValue(SUMO_ATTR_DURATION)) {
+    if (toString(myDuration) != myTagProperty->getDefaultValue(SUMO_ATTR_DURATION)) {
         device.writeAttr(SUMO_ATTR_DURATION, time2string(myDuration));
     }
     device.closeTag();
@@ -145,7 +145,7 @@ GNEWalk::getCenteringBoundary() const {
 void
 GNEWalk::splitEdgeGeometry(const double /*splitPosition*/, const GNENetworkElement* originalElement, const GNENetworkElement* newElement, GNEUndoList* undoList) {
     // only split geometry of WalkEdges
-    if (myTagProperty.getTag() == GNE_TAG_WALK_EDGES) {
+    if (myTagProperty->getTag() == GNE_TAG_WALK_EDGES) {
         // obtain new list of walk edges
         std::string newWalkEdges = getNewListOfParents(originalElement, newElement);
         // update walk edges

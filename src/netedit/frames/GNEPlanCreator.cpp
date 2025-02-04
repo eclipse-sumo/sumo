@@ -182,19 +182,19 @@ bool
 GNEPlanCreator::planCanBeCreated(const GNEDemandElement* planTemplate) const {
     if (planTemplate == nullptr) {
         return false;
-    } else if (planTemplate->getTagProperty().isPlanPersonTrip()) {
+    } else if (planTemplate->getTagProperty()->isPlanPersonTrip()) {
         return GNEDemandElementPlan::getPersonTripTagIcon(myPlanParameteres).first != SUMO_TAG_NOTHING;
-    } else if (planTemplate->getTagProperty().isPlanWalk()) {
+    } else if (planTemplate->getTagProperty()->isPlanWalk()) {
         return GNEDemandElementPlan::getWalkTagIcon(myPlanParameteres).first != SUMO_TAG_NOTHING;
-    } else if (planTemplate->getTagProperty().isPlanRide()) {
+    } else if (planTemplate->getTagProperty()->isPlanRide()) {
         return GNEDemandElementPlan::getRideTagIcon(myPlanParameteres).first != SUMO_TAG_NOTHING;
-    } else if (planTemplate->getTagProperty().isPlanTransport()) {
+    } else if (planTemplate->getTagProperty()->isPlanTransport()) {
         return GNEDemandElementPlan::getTransportTagIcon(myPlanParameteres).first != SUMO_TAG_NOTHING;
-    } else if (planTemplate->getTagProperty().isPlanTranship()) {
+    } else if (planTemplate->getTagProperty()->isPlanTranship()) {
         return GNEDemandElementPlan::getTranshipTagIcon(myPlanParameteres).first != SUMO_TAG_NOTHING;
-    } else if (planTemplate->getTagProperty().isPlanStopPerson()) {
+    } else if (planTemplate->getTagProperty()->isPlanStopPerson()) {
         return GNEDemandElementPlan::getPersonStopTagIcon(myPlanParameteres).first != SUMO_TAG_NOTHING;
-    } else if (planTemplate->getTagProperty().isPlanStopContainer()) {
+    } else if (planTemplate->getTagProperty()->isPlanStopContainer()) {
         return GNEDemandElementPlan::getContainerStopTagIcon(myPlanParameteres).first != SUMO_TAG_NOTHING;
     } else {
         return false;
@@ -213,9 +213,9 @@ GNEPlanCreator::showPlanCreatorModule(const GNEPlanSelector* planSelector, const
     // set previous plan element
     myPreviousPlanElement = previousPlan;
     // get current plan template
-    const auto& planTagProperties = planSelector->getCurrentPlanTagProperties();
+    const auto& planTagProperty = planSelector->getCurrentPlanTagProperties();
     // continue depending of plan selector template
-    if (planTagProperties.planRoute()) {
+    if (planTagProperty->planRoute()) {
         myPlanParents |= ROUTE;
         // show use last inserted route
         myUseLastRoute->show();
@@ -223,36 +223,36 @@ GNEPlanCreator::showPlanCreatorModule(const GNEPlanSelector* planSelector, const
         // hide use last inserted route
         myUseLastRoute->hide();
     }
-    if (planTagProperties.planEdge()) {
+    if (planTagProperty->planEdge()) {
         myPlanParents |= EDGE;
     }
-    if (planTagProperties.planStoppingPlace()) {
+    if (planTagProperty->planStoppingPlace()) {
         myPlanParents |= STOPPINGPLACE;
     }
-    if (planTagProperties.planConsecutiveEdges()) {
+    if (planTagProperty->planConsecutiveEdges()) {
         myPlanParents |= CONSECUTIVE_EDGES;
         // show creation buttons
         showCreationButtons();
     }
-    if (planTagProperties.planFromEdge() || planTagProperties.planToEdge()) {
+    if (planTagProperty->planFromEdge() || planTagProperty->planToEdge()) {
         myPlanParents |= START_EDGE;
         myPlanParents |= END_EDGE;
         // show creation buttons
         showCreationButtons();
     }
-    if (planTagProperties.planFromJunction() || planTagProperties.planToJunction()) {
+    if (planTagProperty->planFromJunction() || planTagProperty->planToJunction()) {
         myPlanParents |= START_JUNCTION;
         myPlanParents |= END_JUNCTION;
         // show creation buttons
         showCreationButtons();
     }
-    if (planTagProperties.planFromTAZ() || planTagProperties.planToTAZ()) {
+    if (planTagProperty->planFromTAZ() || planTagProperty->planToTAZ()) {
         myPlanParents |= START_TAZ;
         myPlanParents |= END_TAZ;
         // show creation buttons
         showCreationButtons();
     }
-    if (planTagProperties.planFromStoppingPlace() || planTagProperties.planToStoppingPlace()) {
+    if (planTagProperty->planFromStoppingPlace() || planTagProperty->planToStoppingPlace()) {
         myPlanParents |= START_STOPPINGPLACE;
         myPlanParents |= END_STOPPINGPLACE;
         // show creation buttons
@@ -261,21 +261,21 @@ GNEPlanCreator::showPlanCreatorModule(const GNEPlanSelector* planSelector, const
     // update info label (after setting myPlanParents)
     updateInfoLabel();
     // check if add first element
-    if (myPreviousPlanElement && planTagProperties.planFromTo()) {
+    if (myPreviousPlanElement && planTagProperty->planFromTo()) {
         const auto previousTagProperty = myPreviousPlanElement->getTagProperty();
         // add last element of previous plan
-        if (previousTagProperty.planToEdge() || previousTagProperty.planEdge()) {
+        if (previousTagProperty->planToEdge() || previousTagProperty->planEdge()) {
             addFromToEdge(myPreviousPlanElement->getParentEdges().back());
-        } else if (previousTagProperty.planToJunction()) {
+        } else if (previousTagProperty->planToJunction()) {
             addFromToJunction(myPreviousPlanElement->getParentJunctions().back());
-        } else if (previousTagProperty.planToTAZ()) {
+        } else if (previousTagProperty->planToTAZ()) {
             addFromToTAZ(myPreviousPlanElement->getParentTAZs().back());
-        } else if (previousTagProperty.planToStoppingPlace() || previousTagProperty.planStoppingPlace()) {
+        } else if (previousTagProperty->planToStoppingPlace() || previousTagProperty->planStoppingPlace()) {
             addFromToStoppingPlace(myPreviousPlanElement->getParentStoppingPlaces().back());
         }
     }
     // set vClass
-    if (planTagProperties.isPlanRide() || planTagProperties.isPlanContainer()) {
+    if (planTagProperty->isPlanRide() || planTagProperty->isPlanContainer()) {
         myVClass = SVC_PASSENGER;
     } else {
         myVClass = SVC_PEDESTRIAN;
@@ -726,7 +726,7 @@ GNEPlanCreator::addSingleEdge(GNELane* lane) {
 bool
 GNEPlanCreator::addSingleStoppingPlace(GNEAdditional* stoppingPlace) {
     // continue depending of stoppingPlace tag
-    switch (stoppingPlace->getTagProperty().getTag()) {
+    switch (stoppingPlace->getTagProperty()->getTag()) {
         case SUMO_TAG_BUS_STOP:
             myPlanParameteres.toBusStop = stoppingPlace->getID();
             break;
@@ -902,7 +902,7 @@ GNEPlanCreator::addFromToStoppingPlace(GNEAdditional* stoppingPlace) {
     // add stoppingPlace
     if (getNumberOfSelectedElements() == 0) {
         // continue depending of stoppingPlace tag
-        switch (stoppingPlace->getTagProperty().getTag()) {
+        switch (stoppingPlace->getTagProperty()->getTag()) {
             case SUMO_TAG_BUS_STOP:
                 myPlanParameteres.fromBusStop = stoppingPlaceID;
                 break;
@@ -923,7 +923,7 @@ GNEPlanCreator::addFromToStoppingPlace(GNEAdditional* stoppingPlace) {
         }
     } else {
         // continue depending of stoppingPlace tag
-        switch (stoppingPlace->getTagProperty().getTag()) {
+        switch (stoppingPlace->getTagProperty()->getTag()) {
             case SUMO_TAG_BUS_STOP:
                 myPlanParameteres.toBusStop = stoppingPlaceID;
                 break;

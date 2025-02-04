@@ -75,15 +75,15 @@ GNEMultiEntryExitDetector::writeAdditional(OutputDevice& device) const {
     bool exit = false;
     // first check if E3 has at least one entry and one exit
     for (const auto& additionalChild : getChildAdditionals()) {
-        if (additionalChild->getTagProperty().getTag() == SUMO_TAG_DET_ENTRY) {
+        if (additionalChild->getTagProperty()->getTag() == SUMO_TAG_DET_ENTRY) {
             entry = true;
-        } else if (additionalChild->getTagProperty().getTag() == SUMO_TAG_DET_EXIT) {
+        } else if (additionalChild->getTagProperty()->getTag() == SUMO_TAG_DET_EXIT) {
             exit = true;
         }
     }
     // check entry/exits
     if (entry && exit) {
-        device.openTag(getTagProperty().getTag());
+        device.openTag(getTagProperty()->getTag());
         device.writeAttr(SUMO_ATTR_ID, getID());
         if (!myAdditionalName.empty()) {
             device.writeAttr(SUMO_ATTR_NAME, StringUtils::escapeXML(myAdditionalName));
@@ -98,16 +98,16 @@ GNEMultiEntryExitDetector::writeAdditional(OutputDevice& device) const {
         if (myVehicleTypes.size() > 0) {
             device.writeAttr(SUMO_ATTR_VTYPES, myVehicleTypes);
         }
-        if (getAttribute(SUMO_ATTR_HALTING_TIME_THRESHOLD) != myTagProperty.getDefaultValue(SUMO_ATTR_HALTING_TIME_THRESHOLD)) {
+        if (getAttribute(SUMO_ATTR_HALTING_TIME_THRESHOLD) != myTagProperty->getDefaultValue(SUMO_ATTR_HALTING_TIME_THRESHOLD)) {
             device.writeAttr(SUMO_ATTR_HALTING_TIME_THRESHOLD, myTimeThreshold);
         }
-        if (getAttribute(SUMO_ATTR_HALTING_SPEED_THRESHOLD) != myTagProperty.getDefaultValue(SUMO_ATTR_HALTING_SPEED_THRESHOLD)) {
+        if (getAttribute(SUMO_ATTR_HALTING_SPEED_THRESHOLD) != myTagProperty->getDefaultValue(SUMO_ATTR_HALTING_SPEED_THRESHOLD)) {
             device.writeAttr(SUMO_ATTR_HALTING_SPEED_THRESHOLD, mySpeedThreshold);
         }
-        if (getAttribute(SUMO_ATTR_EXPECT_ARRIVAL) != myTagProperty.getDefaultValue(SUMO_ATTR_EXPECT_ARRIVAL)) {
+        if (getAttribute(SUMO_ATTR_EXPECT_ARRIVAL) != myTagProperty->getDefaultValue(SUMO_ATTR_EXPECT_ARRIVAL)) {
             device.writeAttr(SUMO_ATTR_EXPECT_ARRIVAL, myExpectedArrival);
         }
-        if (getAttribute(SUMO_ATTR_OPEN_ENTRY) != myTagProperty.getDefaultValue(SUMO_ATTR_OPEN_ENTRY)) {
+        if (getAttribute(SUMO_ATTR_OPEN_ENTRY) != myTagProperty->getDefaultValue(SUMO_ATTR_OPEN_ENTRY)) {
             device.writeAttr(SUMO_ATTR_OPEN_ENTRY, myExpectedArrival);
         }
         // write all entry/exits
@@ -348,9 +348,9 @@ GNEMultiEntryExitDetector::checkChildAdditionalRestriction() const {
     int numExits = 0;
     // iterate over additional chidls and obtain number of entrys and exits
     for (auto i : getChildAdditionals()) {
-        if (i->getTagProperty().getTag() == SUMO_TAG_DET_ENTRY) {
+        if (i->getTagProperty()->getTag() == SUMO_TAG_DET_ENTRY) {
             numEntrys++;
-        } else if (i->getTagProperty().getTag() == SUMO_TAG_DET_EXIT) {
+        } else if (i->getTagProperty()->getTag() == SUMO_TAG_DET_EXIT) {
             numExits++;
         }
     }

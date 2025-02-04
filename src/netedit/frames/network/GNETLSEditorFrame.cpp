@@ -180,7 +180,7 @@ GNETLSEditorFrame::editTLS(GNEViewNetHelper::ViewObjectsSelector& viewObjects, c
             editJunction(viewObjects.getJunctionFront());
         }
     } else if (viewObjects.getAdditionalFront() && myTLSAttributes->isSetDetectorsToggleButtonEnabled() &&
-               (viewObjects.getAdditionalFront()->getTagProperty().getTag() == SUMO_TAG_INDUCTION_LOOP)) {
+               (viewObjects.getAdditionalFront()->getTagProperty()->getTag() == SUMO_TAG_INDUCTION_LOOP)) {
         myTLSAttributes->toggleE1DetectorSelection(viewObjects.getAdditionalFront());
     } else {
         myViewNet->setStatusBarText(TL("Click over a junction to edit a TLS"));

@@ -109,7 +109,7 @@ GNEPersonPlanFrame::addPersonPlanElement(const GNEViewNetHelper::ViewObjectsSele
     }
     // check if we have to select a new person
     if (myPersonSelector->getCurrentDemandElement() == nullptr) {
-        if (viewObjects.getDemandElementFront() && viewObjects.getDemandElementFront()->getTagProperty().isPerson()) {
+        if (viewObjects.getDemandElementFront() && viewObjects.getDemandElementFront()->getTagProperty()->isPerson()) {
             // continue depending of number of demand elements under cursor
             if (viewObjects.getDemandElements().size() > 1) {
                 // Filter persons
@@ -131,10 +131,10 @@ GNEPersonPlanFrame::addPersonPlanElement(const GNEViewNetHelper::ViewObjectsSele
     }
     // continue depending of marked elements
     if (myPlanSelector->markRoutes() && viewObjects.getDemandElementFront() &&
-            (viewObjects.getDemandElementFront()->getTagProperty().getTag() == SUMO_TAG_ROUTE)) {
+            (viewObjects.getDemandElementFront()->getTagProperty()->getTag() == SUMO_TAG_ROUTE)) {
         return myPlanCreator->addRoute(viewObjects.getDemandElementFront());
     } else if (myPlanSelector->markStoppingPlaces() && viewObjects.getAdditionalFront() &&
-               (viewObjects.getAdditionalFront()->getTagProperty().isStoppingPlace())) {
+               (viewObjects.getAdditionalFront()->getTagProperty()->isStoppingPlace())) {
         return myPlanCreator->addStoppingPlace(viewObjects.getAdditionalFront());
     } else if (myPlanSelector->markJunctions() && viewObjects.getJunctionFront()) {
         return myPlanCreator->addJunction(viewObjects.getJunctionFront());
@@ -242,7 +242,7 @@ bool
 GNEPersonPlanFrame::createPath(const bool /*useLastRoute*/) {
     // first check that all attributes are valid
     if (!myPersonPlanAttributes->areValuesValid()) {
-        myViewNet->setStatusBarText("Invalid " + myPlanSelector->getCurrentPlanTagProperties().getTagStr() + " parameters.");
+        myViewNet->setStatusBarText("Invalid " + myPlanSelector->getCurrentPlanTagProperties()->getTagStr() + " parameters.");
         return false;
     } else {
         // check if person plan can be created

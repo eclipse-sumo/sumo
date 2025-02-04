@@ -72,7 +72,7 @@ GNEParkingArea::~GNEParkingArea() {}
 
 void
 GNEParkingArea::writeAdditional(OutputDevice& device) const {
-    device.openTag(getTagProperty().getTag());
+    device.openTag(getTagProperty()->getTag());
     device.writeAttr(SUMO_ATTR_ID, getID());
     if (!myAdditionalName.empty()) {
         device.writeAttr(SUMO_ATTR_NAME, StringUtils::escapeXML(myAdditionalName));
@@ -87,33 +87,33 @@ GNEParkingArea::writeAdditional(OutputDevice& device) const {
     if (myFriendlyPosition) {
         device.writeAttr(SUMO_ATTR_FRIENDLY_POS, "true");
     }
-    if (getAttribute(SUMO_ATTR_ROADSIDE_CAPACITY) != myTagProperty.getDefaultValue(SUMO_ATTR_ROADSIDE_CAPACITY)) {
+    if (getAttribute(SUMO_ATTR_ROADSIDE_CAPACITY) != myTagProperty->getDefaultValue(SUMO_ATTR_ROADSIDE_CAPACITY)) {
         device.writeAttr(SUMO_ATTR_ROADSIDE_CAPACITY, toString(myRoadSideCapacity));
     }
-    if (getAttribute(SUMO_ATTR_ONROAD) != myTagProperty.getDefaultValue(SUMO_ATTR_ONROAD)) {
+    if (getAttribute(SUMO_ATTR_ONROAD) != myTagProperty->getDefaultValue(SUMO_ATTR_ONROAD)) {
         device.writeAttr(SUMO_ATTR_ONROAD, myOnRoad);
     }
-    if (getAttribute(SUMO_ATTR_WIDTH) != myTagProperty.getDefaultValue(SUMO_ATTR_WIDTH)) {
+    if (getAttribute(SUMO_ATTR_WIDTH) != myTagProperty->getDefaultValue(SUMO_ATTR_WIDTH)) {
         device.writeAttr(SUMO_ATTR_WIDTH, myWidth);
     }
-    if (getAttribute(SUMO_ATTR_LENGTH) != myTagProperty.getDefaultValue(SUMO_ATTR_LENGTH)) {
+    if (getAttribute(SUMO_ATTR_LENGTH) != myTagProperty->getDefaultValue(SUMO_ATTR_LENGTH)) {
         device.writeAttr(SUMO_ATTR_LENGTH, myLength);
     }
-    if (getAttribute(SUMO_ATTR_ANGLE) != myTagProperty.getDefaultValue(SUMO_ATTR_ANGLE)) {
+    if (getAttribute(SUMO_ATTR_ANGLE) != myTagProperty->getDefaultValue(SUMO_ATTR_ANGLE)) {
         device.writeAttr(SUMO_ATTR_ANGLE, myAngle);
     }
-    if (getAttribute(SUMO_ATTR_DEPARTPOS) != myTagProperty.getDefaultValue(SUMO_ATTR_DEPARTPOS)) {
+    if (getAttribute(SUMO_ATTR_DEPARTPOS) != myTagProperty->getDefaultValue(SUMO_ATTR_DEPARTPOS)) {
         device.writeAttr(SUMO_ATTR_DEPARTPOS, myDepartPos);
     }
-    if (getAttribute(SUMO_ATTR_LEFTHAND) != myTagProperty.getDefaultValue(SUMO_ATTR_LEFTHAND)) {
+    if (getAttribute(SUMO_ATTR_LEFTHAND) != myTagProperty->getDefaultValue(SUMO_ATTR_LEFTHAND)) {
         device.writeAttr(SUMO_ATTR_LEFTHAND, myLefthand);
     }
-    if (getAttribute(SUMO_ATTR_ACCEPTED_BADGES) != myTagProperty.getDefaultValue(SUMO_ATTR_ACCEPTED_BADGES)) {
+    if (getAttribute(SUMO_ATTR_ACCEPTED_BADGES) != myTagProperty->getDefaultValue(SUMO_ATTR_ACCEPTED_BADGES)) {
         device.writeAttr(SUMO_ATTR_ACCEPTED_BADGES, toString(myAcceptedBadges));
     }
     // write all parking spaces
     for (const auto& space : getChildAdditionals()) {
-        if (space->getTagProperty().getTag() == SUMO_TAG_PARKING_SPACE) {
+        if (space->getTagProperty()->getTag() == SUMO_TAG_PARKING_SPACE) {
             space->writeAdditional(device);
         }
     }

@@ -279,7 +279,7 @@ GNEPathManager::PathCalculator::consecutiveEdgesConnected(const SUMOVehicleClass
 
 bool
 GNEPathManager::PathCalculator::busStopConnected(const GNEAdditional* busStop, const GNEEdge* edge) const {
-    if (busStop->getTagProperty().getTag() != SUMO_TAG_BUS_STOP) {
+    if (busStop->getTagProperty()->getTag() != SUMO_TAG_BUS_STOP) {
         return false;
     }
     // check if busstop is placed over a pedestrian lane
@@ -298,7 +298,7 @@ GNEPathManager::PathCalculator::busStopConnected(const GNEAdditional* busStop, c
     // check if exist an access between busStop and pedestrian lanes
     for (const auto& access : busStop->getChildAdditionals()) {
         // check that child is an access
-        if (access->getTagProperty().getTag() == SUMO_TAG_ACCESS) {
+        if (access->getTagProperty()->getTag() == SUMO_TAG_ACCESS) {
             for (const auto& lane : pedestrianLanes) {
                 if (access->getParentLanes().front() == lane) {
                     // found, then return true

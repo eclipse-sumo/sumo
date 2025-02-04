@@ -131,7 +131,7 @@ GNERerouterDialog::onCmdClickedInterval(FXObject*, FXSelector, void*) {
     // get rerouter children
     std::vector<GNEAdditional*> rerouterChildren;
     for (const auto& rerouterChild : myEditedAdditional->getChildAdditionals()) {
-        if (!rerouterChild->getTagProperty().isSymbol()) {
+        if (!rerouterChild->getTagProperty()->isSymbol()) {
             rerouterChildren.push_back(rerouterChild);
         }
     }
@@ -165,7 +165,7 @@ GNERerouterDialog::updateIntervalTable() {
     // get rerouter children
     std::vector<GNEAdditional*> rerouterChildren;
     for (const auto& rerouterChild : myEditedAdditional->getChildAdditionals()) {
-        if (!rerouterChild->getTagProperty().isSymbol()) {
+        if (!rerouterChild->getTagProperty()->isSymbol()) {
             rerouterChildren.push_back(rerouterChild);
         }
     }

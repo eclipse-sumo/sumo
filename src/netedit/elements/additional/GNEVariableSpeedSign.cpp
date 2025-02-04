@@ -72,7 +72,7 @@ GNEVariableSpeedSign::writeAdditional(OutputDevice& device) const {
         }
         // write all rerouter interval
         for (const auto& step : getChildAdditionals()) {
-            if (!step->getTagProperty().isSymbol()) {
+            if (!step->getTagProperty()->isSymbol()) {
                 step->writeAdditional(device);
             }
         }
@@ -213,7 +213,7 @@ GNEVariableSpeedSign::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_LANES: {
             std::vector<std::string> lanes;
             for (const auto& VSSSymbol : getChildAdditionals()) {
-                if (VSSSymbol->getTagProperty().isSymbol()) {
+                if (VSSSymbol->getTagProperty()->isSymbol()) {
                     lanes.push_back(VSSSymbol->getAttribute(SUMO_ATTR_LANE));
                 }
             }

@@ -204,7 +204,7 @@ GNEJunction::checkDrawToContour() const {
     // continue depending of current status
     if (inspectedElements.isInspectingSingleElement()) {
         // check if ends in this junction
-        if (inspectedElements.getFirstAC()->getTagProperty().vehicleJunctions() &&
+        if (inspectedElements.getFirstAC()->getTagProperty()->vehicleJunctions() &&
                 (inspectedElements.getFirstAC()->getAttribute(SUMO_ATTR_TO_JUNCTION) == getID())) {
             return true;
         }
@@ -305,7 +305,7 @@ GNEJunction::checkDrawOverContour() const {
                 // get current vehicle template
                 const auto& vehicleTemplate = viewParent->getVehicleFrame()->getVehicleTagSelector()->getCurrentTemplateAC();
                 // check if vehicle can be placed over from-to TAZs
-                if (vehicleTemplate && vehicleTemplate->getTagProperty().vehicleJunctions()) {
+                if (vehicleTemplate && vehicleTemplate->getTagProperty()->vehicleJunctions()) {
                     return (viewObjectsSelector.getAttributeCarrierFront() == viewObjectsSelector.getJunctionFront());
                 }
             }

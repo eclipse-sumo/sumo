@@ -69,8 +69,8 @@ GNEDemandElementSelector::GNEDemandElementSelector(GNEFrame* frameParent, const 
     // fill myDemandElementTags
     for (const auto& tagType : tagTypes) {
         const auto tagProperties = GNEAttributeCarrier::getTagPropertiesByType(tagType, false);
-        for (const auto& tagProperty : tagProperties) {
-            myDemandElementTags.push_back(tagProperty.getTag());
+        for (const auto tagProperty : tagProperties) {
+            myDemandElementTags.push_back(tagProperty->getTag());
         }
     }
     // Create MFXComboBoxIcon
@@ -105,7 +105,7 @@ GNEDemandElementSelector::setDemandElement(GNEDemandElement* demandElement) {
     myCurrentDemandElement = demandElement;
     if (demandElement != nullptr) {
         // check that demandElement tag correspond to a tag of myDemandElementTags
-        if (std::find(myDemandElementTags.begin(), myDemandElementTags.end(), demandElement->getTagProperty().getTag()) != myDemandElementTags.end()) {
+        if (std::find(myDemandElementTags.begin(), myDemandElementTags.end(), demandElement->getTagProperty()->getTag()) != myDemandElementTags.end()) {
             // update text of myDemandElementsComboBox
             myDemandElementsComboBox->setCurrentItem(demandElement->getID().c_str());
         }
@@ -207,7 +207,7 @@ GNEDemandElementSelector::refreshDemandElementSelector() {
             }
             for (const auto& demandElement : sortedElements) {
                 myDemandElementsComboBox->appendIconItem(demandElement.first.c_str(), demandElement.second->getACIcon(),
-                        demandElement.second->getTagProperty().getBackGroundColor());
+                        demandElement.second->getTagProperty()->getBackGroundColor());
             }
         }
     }
@@ -241,8 +241,8 @@ GNEDemandElementSelector::getPreviousPlanElement() const {
     if (myCurrentDemandElement == nullptr) {
         return nullptr;
     }
-    if (!myCurrentDemandElement->getTagProperty().isPerson() &&
-            !myCurrentDemandElement->getTagProperty().isContainer()) {
+    if (!myCurrentDemandElement->getTagProperty()->isPerson() &&
+            !myCurrentDemandElement->getTagProperty()->isContainer()) {
         return nullptr;
     }
     if (myCurrentDemandElement->getChildDemandElements().empty()) {

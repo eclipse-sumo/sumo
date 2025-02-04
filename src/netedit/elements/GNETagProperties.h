@@ -20,16 +20,10 @@
 #pragma once
 #include <config.h>
 
-
-// ===========================================================================
-// included modules
-// ===========================================================================
-
 #include <utils/gui/images/GUIIcons.h>
 #include <netedit/GNEViewNetHelper.h>
 
 #include "GNEAttributeProperties.h"
-
 
 // ===========================================================================
 // class definitions
@@ -146,9 +140,6 @@ public:
         NO_ADDITIONAL_CHILDREN =    1 << 4,     // Element doesn't have additional children
     };
 
-    /// @brief default constructor
-    GNETagProperties();
-
     /// @brief parameter constructor
     GNETagProperties(const SumoXMLTag tag, const int tagType, const int tagProperty, const int tagParents, const int conflicts,
                      const GUIIcon icon, const SumoXMLTag XMLTag, const std::string tooltip, std::vector<SumoXMLTag> parentTags = {},
@@ -170,7 +161,7 @@ public:
     void checkTagIntegrity() const;
 
     /// @brief add attribute (duplicated attributed aren't allowed)
-    void addAttribute(const GNEAttributeProperties& attributeProperty);
+    void addAttribute(GNEAttributeProperties* attributeProperty);
 
     /// @brief get field string (by default tag in string format)
     const std::string& getFieldString() const;
@@ -181,20 +172,17 @@ public:
     /// @brief get background color
     unsigned int getBackGroundColor() const;
 
+    /// @brief get all attribute properties
+    const std::vector<const GNEAttributeProperties*>& getAttributeProperties() const;
+
     /// @brief get attribute propety associated with the given Sumo XML Attribute (throw error if doesn't exist)
-    const GNEAttributeProperties& getAttributeProperties(SumoXMLAttr attr) const;
+    const GNEAttributeProperties* getAttributeProperties(SumoXMLAttr attr) const;
 
     /// @brief get attribute propety by index (throw error if doesn't exist)
-    const GNEAttributeProperties& getAttributeProperties(const int index) const;
-
-    /// @brief get begin of attribute values (used for iterate)
-    std::vector<GNEAttributeProperties>::const_iterator begin() const;
-
-    /// @brief get end of attribute values (used for iterate)
-    std::vector<GNEAttributeProperties>::const_iterator end() const;
+    const GNEAttributeProperties* getAttributeProperties(const int index) const;
 
     /// @brief get attribute value
-    const GNEAttributeProperties& at(int index) const;
+    const GNEAttributeProperties* at(int index) const;
 
     /// @brief get number of attributes
     int getNumberOfAttributes() const;
@@ -516,7 +504,7 @@ private:
     int myConflicts = -1;
 
     /// @brief vector with the attribute values vinculated with this Tag
-    std::vector<GNEAttributeProperties> myAttributeProperties;
+    std::vector<const GNEAttributeProperties*> myAttributeProperties;
 
     /// @brief icon associated to this Tag
     GUIIcon myIcon = GUIIcon::EMPTY;
@@ -535,6 +523,15 @@ private:
 
     /// @brief background color (used in labels and textFields, by default white)
     unsigned int myBackgroundColor = 0;
+
+    /// @brief default constructor
+    GNETagProperties() = delete;
+
+    /// @brief Invalidated copy constructor.
+    GNETagProperties(const GNETagProperties&) = delete;
+
+    /// @brief Invalidated assignment operator
+    GNETagProperties& operator=(const GNETagProperties& src) = delete;
 };
 
 /****************************************************************************/

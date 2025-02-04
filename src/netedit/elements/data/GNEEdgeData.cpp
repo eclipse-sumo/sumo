@@ -65,10 +65,10 @@ GNEEdgeData::setColor(const GUIVisualizationSettings& s) const {
         const std::string filteredAttribute = myNet->getViewNet()->getViewParent()->getEdgeDataFrame()->getAttributeSelector()->getFilteredAttribute();
         // continue if there is a selected data interval and filtered attribute
         if (dataInterval && (filteredAttribute.size() > 0)) {
-            if (dataInterval->getSpecificAttributeColors().at(myTagProperty.getTag()).exist(filteredAttribute)) {
+            if (dataInterval->getSpecificAttributeColors().at(myTagProperty->getTag()).exist(filteredAttribute)) {
                 // obtain minimum and maximum value
-                const double minValue = dataInterval->getSpecificAttributeColors().at(myTagProperty.getTag()).getMinValue(filteredAttribute);
-                const double maxValue = dataInterval->getSpecificAttributeColors().at(myTagProperty.getTag()).getMaxValue(filteredAttribute);
+                const double minValue = dataInterval->getSpecificAttributeColors().at(myTagProperty->getTag()).getMinValue(filteredAttribute);
+                const double maxValue = dataInterval->getSpecificAttributeColors().at(myTagProperty->getTag()).getMaxValue(filteredAttribute);
                 // get value
                 const double value = parse<double>(getParameter(filteredAttribute, "0"));
                 // return color

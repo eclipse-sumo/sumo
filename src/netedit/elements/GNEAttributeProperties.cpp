@@ -22,12 +22,10 @@
 #include "GNETagProperties.h"
 #include "GNEAttributeProperties.h"
 
+
 // ===========================================================================
 // method definitions
 // ===========================================================================
-
-GNEAttributeProperties::GNEAttributeProperties() {}
-
 
 GNEAttributeProperties::GNEAttributeProperties(const SumoXMLAttr attribute, const int attributeProperty, const std::string& definition, std::string defaultValue) :
     myAttribute(attribute),
@@ -180,17 +178,17 @@ GNEAttributeProperties::getAttrStr() const {
 }
 
 
-const GNETagProperties&
+const GNETagProperties*
 GNEAttributeProperties::getTagPropertyParent() const {
-    return *myTagPropertyParent;
+    return myTagPropertyParent;
 }
 
 
 int
 GNEAttributeProperties::getPositionListed() const {
-    for (auto i = myTagPropertyParent->begin(); i != myTagPropertyParent->end(); i++) {
-        if (i->getAttr() == myAttribute) {
-            return (int)(i - myTagPropertyParent->begin());
+    for (auto it = myTagPropertyParent->getAttributeProperties().begin(); it != myTagPropertyParent->getAttributeProperties().end(); it++) {
+        if ((*it)->getAttr() == myAttribute) {
+            return (int)(it - myTagPropertyParent->getAttributeProperties().begin());
         }
     }
     throw ProcessError("Attribute wasn't found in myTagPropertyParent");

@@ -114,7 +114,7 @@ GNESelectorParent::refreshSelectorParentModule() {
             // check type
             const auto tagProperty = GNEAttributeCarrier::getTagProperty(parentTag);
             // additionals
-            if (tagProperty.isAdditionalElement()) {
+            if (tagProperty->isAdditionalElement()) {
                 for (const auto& additional : myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getAdditionals().at(parentTag)) {
                     IDs.insert(additional.second->getID().c_str());
                 }

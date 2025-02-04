@@ -190,7 +190,7 @@ GNEAdditional::checkDrawFromContour() const {
         // check conditions
         if (inspectedAC->hasAttribute(SUMO_ATTR_FROM_TAZ)) {
             return (inspectedAC->getAttribute(SUMO_ATTR_FROM_TAZ) == getID());
-        } else if ((inspectedAC->getTagProperty().getTag() == SUMO_TAG_TAZREL)) {
+        } else if ((inspectedAC->getTagProperty()->getTag() == SUMO_TAG_TAZREL)) {
             return (inspectedAC->getAttribute(SUMO_ATTR_FROM) == getID());
         }
     } else if (modes.isCurrentSupermodeDemand()) {
@@ -251,12 +251,12 @@ GNEAdditional::checkDrawToContour() const {
         // check conditions
         if (inspectedAC->hasAttribute(SUMO_ATTR_TO_TAZ)) {
             return (inspectedAC->getAttribute(SUMO_ATTR_TO_TAZ) == getID());
-        } else if (inspectedAC->getTagProperty().getTag() == SUMO_TAG_TAZREL) {
+        } else if (inspectedAC->getTagProperty()->getTag() == SUMO_TAG_TAZREL) {
             return (inspectedAC->getAttribute(SUMO_ATTR_TO) == getID());
         } else if (inspectedAC->hasAttribute(GNE_ATTR_PARENT)) {
             // check all parent tags
-            const auto& parentTags = inspectedAC->getTagProperty().getParentTags();
-            if (std::find(parentTags.begin(), parentTags.end(), myTagProperty.getTag()) != parentTags.end()) {
+            const auto& parentTags = inspectedAC->getTagProperty()->getParentTags();
+            if (std::find(parentTags.begin(), parentTags.end(), myTagProperty->getTag()) != parentTags.end()) {
                 return (inspectedAC->getAttribute(GNE_ATTR_PARENT) == getID());
             }
         }
@@ -336,15 +336,15 @@ GNEAdditional::checkDrawOverContour() const {
             }
             // continue depending of plan selector
             if (planSelector) {
-                if ((myTagProperty.isStoppingPlace() && planSelector->markStoppingPlaces()) ||
-                        (myTagProperty.isTAZElement() && planSelector->markTAZs())) {
+                if ((myTagProperty->isStoppingPlace() && planSelector->markStoppingPlaces()) ||
+                        (myTagProperty->isTAZElement() && planSelector->markTAZs())) {
                     return true;
                 }
             } else if (modes.demandEditMode == DemandEditMode::DEMAND_VEHICLE) {
                 // get current vehicle template
                 const auto& vehicleTemplate = viewParent->getVehicleFrame()->getVehicleTagSelector()->getCurrentTemplateAC();
                 // check if vehicle can be placed over from-to TAZs
-                if (vehicleTemplate && vehicleTemplate->getTagProperty().vehicleTAZs()) {
+                if (vehicleTemplate && vehicleTemplate->getTagProperty()->vehicleTAZs()) {
                     return true;
                 }
             }
@@ -410,12 +410,12 @@ GNEAdditional::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     buildShowParamsPopupEntry(ret);
     buildPositionCopyEntry(ret, app);
     // show option to open additional dialog
-    if (myTagProperty.hasDialog()) {
+    if (myTagProperty->hasDialog()) {
         GUIDesigns::buildFXMenuCommand(ret, TL("Open ") + getTagStr() + TL(" Dialog"), getACIcon(), &parent, MID_OPEN_ADDITIONAL_DIALOG);
         new FXMenuSeparator(ret);
     }
     // Show position parameters
-    if (myTagProperty.hasAttribute(SUMO_ATTR_LANE) && (myAdditionalGeometry.getShape().size() > 1)) {
+    if (myTagProperty->hasAttribute(SUMO_ATTR_LANE) && (myAdditionalGeometry.getShape().size() > 1)) {
         const GNELane* lane = myNet->getAttributeCarriers()->retrieveLane(getAttribute(SUMO_ATTR_LANE));
         // Show menu command inner position
         const double innerPos = myAdditionalGeometry.getShape().nearest_offset_to_point2D(parent.getPositionInformation());
@@ -425,7 +425,7 @@ GNEAdditional::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
             const double lanePos = lane->getLaneShape().nearest_offset_to_point2D(myAdditionalGeometry.getShape().front());
             GUIDesigns::buildFXMenuCommand(ret, TL("Cursor position over lane: ") + toString(innerPos + lanePos), nullptr, nullptr, 0);
         }
-    } else if (myTagProperty.hasAttribute(SUMO_ATTR_EDGE) && (myAdditionalGeometry.getShape().size() > 1)) {
+    } else if (myTagProperty->hasAttribute(SUMO_ATTR_EDGE) && (myAdditionalGeometry.getShape().size() > 1)) {
         const GNEEdge* edge = myNet->getAttributeCarriers()->retrieveEdge(getAttribute(SUMO_ATTR_EDGE));
         // Show menu command inner position
         const double innerPos = myAdditionalGeometry.getShape().nearest_offset_to_point2D(parent.getPositionInformation());
@@ -448,12 +448,12 @@ GNEAdditional::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
     // Create table
     GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this);
     // Iterate over attributes
-    for (const auto& attributeProperty : myTagProperty) {
+    for (const auto& attributeProperty : myTagProperty->getAttributeProperties()) {
         // Add attribute and set it dynamic if aren't unique
-        if (attributeProperty.isUnique()) {
-            ret->mkItem(attributeProperty.getAttrStr().c_str(), false, getAttribute(attributeProperty.getAttr()));
+        if (attributeProperty->isUnique()) {
+            ret->mkItem(attributeProperty->getAttrStr().c_str(), false, getAttribute(attributeProperty->getAttr()));
         } else {
-            ret->mkItem(attributeProperty.getAttrStr().c_str(), true, getAttribute(attributeProperty.getAttr()));
+            ret->mkItem(attributeProperty->getAttrStr().c_str(), true, getAttribute(attributeProperty->getAttr()));
         }
     }
     // close building
@@ -539,7 +539,7 @@ GNEAdditional::isValidAdditionalID(const std::string& value) const {
     if (!isTemplate() && (value == getID())) {
         return true;
     } else if (SUMOXMLDefinitions::isValidAdditionalID(value)) {
-        return (myNet->getAttributeCarriers()->retrieveAdditional(myTagProperty.getTag(), value, false) == nullptr);
+        return (myNet->getAttributeCarriers()->retrieveAdditional(myTagProperty->getTag(), value, false) == nullptr);
     } else {
         return false;
     }
@@ -563,7 +563,7 @@ GNEAdditional::isValidDetectorID(const std::string& value) const {
     if (!isTemplate() && (value == getID())) {
         return true;
     } else if (SUMOXMLDefinitions::isValidDetectorID(value)) {
-        return (myNet->getAttributeCarriers()->retrieveAdditional(myTagProperty.getTag(), value, false) == nullptr);
+        return (myNet->getAttributeCarriers()->retrieveAdditional(myTagProperty->getTag(), value, false) == nullptr);
     } else {
         return false;
     }
@@ -587,7 +587,7 @@ GNEAdditional::setAdditionalID(const std::string& newID) {
     // update ID
     if (isTemplate()) {
         setMicrosimID(newID);
-    } else if ((myTagProperty.getTag() == SUMO_TAG_VAPORIZER) || !myTagProperty.hasAttribute(SUMO_ATTR_ID)) {
+    } else if ((myTagProperty->getTag() == SUMO_TAG_VAPORIZER) || !myTagProperty->hasAttribute(SUMO_ATTR_ID)) {
         setMicrosimID(newID);
     } else {
         myNet->getAttributeCarriers()->updateAdditionalID(this, newID);
@@ -595,7 +595,7 @@ GNEAdditional::setAdditionalID(const std::string& newID) {
     // change IDs of certain children
     for (const auto& additionalChild : getChildAdditionals()) {
         // get tag
-        const auto tag = additionalChild->getTagProperty().getTag();
+        const auto tag = additionalChild->getTagProperty()->getTag();
         if ((tag == SUMO_TAG_ACCESS) || (tag == SUMO_TAG_PARKING_SPACE) ||
                 (tag == SUMO_TAG_DET_ENTRY) || (tag == SUMO_TAG_DET_EXIT)) {
             additionalChild->setAdditionalID(getID());
@@ -622,7 +622,7 @@ GNEAdditional::drawAdditionalID(const GUIVisualizationSettings& s) const {
         // calculate rotation
         const double rot = (myAdditionalGeometry.getShape().size() == 1) ? myAdditionalGeometry.getShapeRotations().front() : myAdditionalGeometry.getShape().rotationDegreeAtOffset(middlePoint);
         // draw additional ID
-        if (myTagProperty.hasAttribute(SUMO_ATTR_LANE)) {
+        if (myTagProperty->hasAttribute(SUMO_ATTR_LANE)) {
             GLHelper::drawText(getMicrosimID(), pos, GLO_MAX - getType(), s.addName.scaledSize(s.scale), s.addName.color, s.getTextAngle(rot - 90));
         } else {
             GLHelper::drawText(getMicrosimID(), pos, GLO_MAX - getType(), s.addName.scaledSize(s.scale), s.addName.color, 0);
@@ -641,7 +641,7 @@ GNEAdditional::drawAdditionalName(const GUIVisualizationSettings& s) const {
         // calculate rotation
         const double rot = (myAdditionalGeometry.getShape().size() == 1) ? myAdditionalGeometry.getShapeRotations().front() : myAdditionalGeometry.getShape().rotationDegreeAtOffset(middlePoint);
         // draw additional name
-        if (myTagProperty.hasAttribute(SUMO_ATTR_LANE)) {
+        if (myTagProperty->hasAttribute(SUMO_ATTR_LANE)) {
             GLHelper::drawText(myAdditionalName, pos, GLO_MAX - getType(), s.addFullName.scaledSize(s.scale), s.addFullName.color, s.getTextAngle(rot - 90));
         } else {
             GLHelper::drawText(myAdditionalName, pos, GLO_MAX - getType(), s.addFullName.scaledSize(s.scale), s.addFullName.color, 0);
@@ -894,7 +894,7 @@ void
 GNEAdditional::drawDemandElementChildren(const GUIVisualizationSettings& s) const {
     // draw child demand elements
     for (const auto& demandElement : getChildDemandElements()) {
-        if (!demandElement->getTagProperty().isPlacedInRTree()) {
+        if (!demandElement->getTagProperty()->isPlacedInRTree()) {
             demandElement->drawGL(s);
         }
     }
@@ -1112,11 +1112,11 @@ GNEAdditional::drawParentChildLines(const GUIVisualizationSettings& s, const RGB
                                     currentDrawEntire || parentInspected || parent->isAttributeCarrierSelected(), .05);
     }
     // special case for Parking area reroutes
-    if (getTagProperty().getTag() == SUMO_TAG_REROUTER) {
+    if (getTagProperty()->getTag() == SUMO_TAG_REROUTER) {
         // iterate over rerouter elements
         for (const auto& rerouterInterval : getChildAdditionals()) {
             for (const auto& rerouterElement : rerouterInterval->getChildAdditionals()) {
-                if (rerouterElement->getTagProperty().getTag() == SUMO_TAG_PARKING_AREA_REROUTE) {
+                if (rerouterElement->getTagProperty()->getTag() == SUMO_TAG_PARKING_AREA_REROUTE) {
                     // get parking area
                     const auto parkingArea = rerouterElement->getParentAdditionals().at(1);
                     // get inspected flag
@@ -1134,12 +1134,12 @@ GNEAdditional::drawParentChildLines(const GUIVisualizationSettings& s, const RGB
         // get inspected flag
         const bool childInspected = inspectedElements.isACInspected(child);
         // special case for parking zone reroute
-        if (child->getTagProperty().getTag() == SUMO_TAG_PARKING_AREA_REROUTE) {
+        if (child->getTagProperty()->getTag() == SUMO_TAG_PARKING_AREA_REROUTE) {
             // draw child line between parking area and rerouter
             GUIGeometry::drawChildLine(s, getPositionInView(), child->getParentAdditionals().front()->getParentAdditionals().front()->getPositionInView(),
                                        (isAttributeCarrierSelected() || child->isAttributeCarrierSelected()) ? s.additionalSettings.connectionColorSelected : color,
                                        currentDrawEntire || childInspected || child->isAttributeCarrierSelected(), .05);
-        } else if (!onlySymbols || child->getTagProperty().isSymbol()) {
+        } else if (!onlySymbols || child->getTagProperty()->isSymbol()) {
             // draw child line
             GUIGeometry::drawChildLine(s, getPositionInView(), child->getPositionInView(),
                                        (isAttributeCarrierSelected() || child->isAttributeCarrierSelected()) ? s.additionalSettings.connectionColorSelected : color,
@@ -1182,7 +1182,7 @@ GNEAdditional::getDrawPositionIndex() const {
     // filter symbols
     std::vector<GNEAdditional*> children;
     for (const auto& child : getParentAdditionals().front()->getChildAdditionals()) {
-        if (!child->getTagProperty().isSymbol()) {
+        if (!child->getTagProperty()->isSymbol()) {
             children.push_back(child);
         }
     }

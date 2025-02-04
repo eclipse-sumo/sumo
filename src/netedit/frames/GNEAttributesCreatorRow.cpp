@@ -53,7 +53,7 @@ FXIMPLEMENT(GNEAttributesCreatorRow,    FXHorizontalFrame,  RowCreatorMap,  ARRA
 // method definitions
 // ===========================================================================
 
-GNEAttributesCreatorRow::GNEAttributesCreatorRow(GNEAttributesCreator* AttributesCreatorParent, const GNEAttributeProperties& attrProperties) :
+GNEAttributesCreatorRow::GNEAttributesCreatorRow(GNEAttributesCreator* AttributesCreatorParent, const GNEAttributeProperties* attrProperties) :
     FXHorizontalFrame(AttributesCreatorParent->getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame),
     myAttributesCreatorParent(AttributesCreatorParent),
     myAttrProperties(attrProperties) {
@@ -97,7 +97,7 @@ GNEAttributesCreatorRow::destroy() {
 }
 
 
-const GNEAttributeProperties&
+const GNEAttributeProperties*
 GNEAttributesCreatorRow::getAttrProperties() const {
     return myAttrProperties;
 }
@@ -105,9 +105,9 @@ GNEAttributesCreatorRow::getAttrProperties() const {
 
 std::string
 GNEAttributesCreatorRow::getValue() const {
-    if (myAttrProperties.isBool()) {
+    if (myAttrProperties->isBool()) {
         return (myValueCheckButton->getCheck() == 1) ? "1" : "0";
-    } else if (myAttrProperties.isDiscrete()) {
+    } else if (myAttrProperties->isDiscrete()) {
         return myValueComboBox->getText().text();
     } else {
         return myValueTextField->getText().text();
@@ -132,17 +132,17 @@ GNEAttributesCreatorRow::setAttributeCheckButtonCheck(bool value) {
         myEnableAttributeCheckButton->setCheck(value);
         // enable or disable input fields
         if (value) {
-            if (myAttrProperties.isBool()) {
+            if (myAttrProperties->isBool()) {
                 myValueCheckButton->enable();
-            } else if (myAttrProperties.isDiscrete()) {
+            } else if (myAttrProperties->isDiscrete()) {
                 myValueComboBox->enable();
             } else {
                 myValueTextField->enable();
             }
         } else {
-            if (myAttrProperties.isBool()) {
+            if (myAttrProperties->isBool()) {
                 myValueCheckButton->disable();
-            } else if (myAttrProperties.isDiscrete()) {
+            } else if (myAttrProperties->isDiscrete()) {
                 myValueComboBox->disable();
             } else {
                 myValueTextField->disable();
@@ -154,9 +154,9 @@ GNEAttributesCreatorRow::setAttributeCheckButtonCheck(bool value) {
 
 void
 GNEAttributesCreatorRow::enableAttributesCreatorRow() {
-    if (myAttrProperties.isBool()) {
+    if (myAttrProperties->isBool()) {
         return myValueCheckButton->enable();
-    } else if (myAttrProperties.isDiscrete()) {
+    } else if (myAttrProperties->isDiscrete()) {
         myValueComboBox->enable();
     } else {
         return myValueTextField->enable();
@@ -166,9 +166,9 @@ GNEAttributesCreatorRow::enableAttributesCreatorRow() {
 
 void
 GNEAttributesCreatorRow::disableAttributesCreatorRow() {
-    if (myAttrProperties.isBool()) {
+    if (myAttrProperties->isBool()) {
         return myValueCheckButton->disable();
-    } else if (myAttrProperties.isDiscrete()) {
+    } else if (myAttrProperties->isDiscrete()) {
         myValueComboBox->disable();
     } else {
         return myValueTextField->disable();
@@ -180,9 +180,9 @@ bool
 GNEAttributesCreatorRow::isAttributesCreatorRowEnabled() const {
     if (!shown()) {
         return false;
-    } else if (myAttrProperties.isBool()) {
+    } else if (myAttrProperties->isBool()) {
         return myValueCheckButton->isEnabled();
-    } else if (myAttrProperties.isDiscrete()) {
+    } else if (myAttrProperties->isDiscrete()) {
         return myValueComboBox->isEnabled();
     } else {
         return myValueTextField->isEnabled();
@@ -195,10 +195,10 @@ GNEAttributesCreatorRow::refreshRow() {
     // reset invalid value
     myInvalidValue.clear();
     // special case for attribute ID
-    if ((myAttrProperties.getAttr() == SUMO_ATTR_ID) && myAttrProperties.hasAutomaticID()) {
+    if ((myAttrProperties->getAttr() == SUMO_ATTR_ID) && myAttrProperties->hasAutomaticID()) {
         // show label
-        myAttributeLabel->setText(myAttrProperties.getAttrStr().c_str());
-        myAttributeLabel->setTipText(myAttrProperties.getDefinition().c_str());
+        myAttributeLabel->setText(myAttrProperties->getAttrStr().c_str());
+        myAttributeLabel->setTipText(myAttrProperties->getDefinition().c_str());
         myAttributeLabel->show();
         // generate ID
         myValueTextField->setText(generateID().c_str());
@@ -208,35 +208,35 @@ GNEAttributesCreatorRow::refreshRow() {
         myValueTextField->show();
     } else {
         // left
-        if (myAttrProperties.isColor()) {
+        if (myAttrProperties->isColor()) {
             // show color button
             myAttributeColorButton->setTextColor(FXRGB(0, 0, 0));
             myAttributeColorButton->killFocus();
             myAttributeColorButton->show();
-        } else if (myAttrProperties.isSVCPermission() && (myAttrProperties.getAttr() != SUMO_ATTR_DISALLOW)) {
+        } else if (myAttrProperties->isSVCPermission() && (myAttrProperties->getAttr() != SUMO_ATTR_DISALLOW)) {
             // show allow button
             myAttributeAllowButton->setTextColor(FXRGB(0, 0, 0));
             myAttributeAllowButton->killFocus();
             myAttributeAllowButton->show();
-        } else if (myAttrProperties.isActivatable()) {
+        } else if (myAttrProperties->isActivatable()) {
             // show check button
-            myEnableAttributeCheckButton->setText(myAttrProperties.getAttrStr().c_str());
+            myEnableAttributeCheckButton->setText(myAttrProperties->getAttrStr().c_str());
             myEnableAttributeCheckButton->show();
             // enable or disable depending of template AC
-            if (myAttributesCreatorParent->getCurrentTemplateAC()->isAttributeEnabled(myAttrProperties.getAttr())) {
+            if (myAttributesCreatorParent->getCurrentTemplateAC()->isAttributeEnabled(myAttrProperties->getAttr())) {
                 myEnableAttributeCheckButton->setCheck(TRUE);
             } else {
                 myEnableAttributeCheckButton->setCheck(FALSE);
             }
         } else {
             // show label
-            myAttributeLabel->setText(myAttrProperties.getAttrStr().c_str());
-            myAttributeLabel->setTipText(myAttrProperties.getDefinition().c_str());
+            myAttributeLabel->setText(myAttrProperties->getAttrStr().c_str());
+            myAttributeLabel->setTipText(myAttrProperties->getDefinition().c_str());
             myAttributeLabel->show();
         }
         // right
-        if (myAttrProperties.isBool()) {
-            if (GNEAttributeCarrier::parse<bool>(myAttributesCreatorParent->getCurrentTemplateAC()->getAttribute(myAttrProperties.getAttr()))) {
+        if (myAttrProperties->isBool()) {
+            if (GNEAttributeCarrier::parse<bool>(myAttributesCreatorParent->getCurrentTemplateAC()->getAttribute(myAttrProperties->getAttr()))) {
                 myValueCheckButton->setCheck(true);
                 myValueCheckButton->setText("true");
             } else {
@@ -245,31 +245,31 @@ GNEAttributesCreatorRow::refreshRow() {
             }
             myValueCheckButton->show();
             // check if enable or disable
-            if (myAttributesCreatorParent->getCurrentTemplateAC()->isAttributeEnabled(myAttrProperties.getAttr())) {
+            if (myAttributesCreatorParent->getCurrentTemplateAC()->isAttributeEnabled(myAttrProperties->getAttr())) {
                 myValueCheckButton->enable();
             } else {
                 myValueCheckButton->disable();
             }
-        } else if (myAttrProperties.isDiscrete()) {
+        } else if (myAttrProperties->isDiscrete()) {
             // fill textField
             myValueComboBox->clearItems();
             // check if add POI icons
-            if (myAttrProperties.getAttr() == SUMO_ATTR_ICON) {
+            if (myAttrProperties->getAttr() == SUMO_ATTR_ICON) {
                 for (const auto& POIIcon : SUMOXMLDefinitions::POIIcons.getValues()) {
                     myValueComboBox->appendIconItem(SUMOXMLDefinitions::POIIcons.getString(POIIcon).c_str(), POIIcons::getPOIIcon(POIIcon));
                 }
             } else {
-                for (const auto& item : myAttrProperties.getDiscreteValues()) {
+                for (const auto& item : myAttrProperties->getDiscreteValues()) {
                     myValueComboBox->appendIconItem(item.c_str());
                 }
             }
-            auto index = myValueComboBox->findItem(myAttributesCreatorParent->getCurrentTemplateAC()->getAttribute(myAttrProperties.getAttr()).c_str());
+            auto index = myValueComboBox->findItem(myAttributesCreatorParent->getCurrentTemplateAC()->getAttribute(myAttrProperties->getAttr()).c_str());
             if (index < 0) {
                 myValueComboBox->setCurrentItem(0);
             } else {
                 myValueComboBox->setCurrentItem(index);
             }
-            if (myAttrProperties.hasDefaultValue() && (myAttrProperties.getDefaultValue() == myValueComboBox->getText().text())) {
+            if (myAttrProperties->hasDefaultValue() && (myAttrProperties->getDefaultValue() == myValueComboBox->getText().text())) {
                 myValueComboBox->setTextColor(FXRGB(128, 128, 128));
             } else {
                 myValueComboBox->setTextColor(FXRGB(0, 0, 0));
@@ -277,7 +277,7 @@ GNEAttributesCreatorRow::refreshRow() {
             }
             myValueComboBox->show();
             // check if enable or disable
-            if (myAttributesCreatorParent->getCurrentTemplateAC()->isAttributeEnabled(myAttrProperties.getAttr())) {
+            if (myAttributesCreatorParent->getCurrentTemplateAC()->isAttributeEnabled(myAttrProperties->getAttr())) {
                 myValueComboBox->enable();
             } else {
                 myValueComboBox->disable();
@@ -285,8 +285,8 @@ GNEAttributesCreatorRow::refreshRow() {
         } else {
             myValueTextField->setTextColor(FXRGB(0, 0, 0));
             myValueTextField->killFocus();
-            myValueTextField->setText(myAttributesCreatorParent->getCurrentTemplateAC()->getAttribute(myAttrProperties.getAttr()).c_str());
-            if (myAttrProperties.hasDefaultValue() && (myAttrProperties.getDefaultValue() == myValueTextField->getText().text())) {
+            myValueTextField->setText(myAttributesCreatorParent->getCurrentTemplateAC()->getAttribute(myAttrProperties->getAttr()).c_str());
+            if (myAttrProperties->hasDefaultValue() && (myAttrProperties->getDefaultValue() == myValueTextField->getText().text())) {
                 myValueTextField->setTextColor(FXRGB(128, 128, 128));
             } else {
                 myValueTextField->setTextColor(FXRGB(0, 0, 0));
@@ -294,7 +294,7 @@ GNEAttributesCreatorRow::refreshRow() {
             }
             myValueTextField->show();
             // check if enable or disable
-            if (myAttributesCreatorParent->getCurrentTemplateAC()->isAttributeEnabled(myAttrProperties.getAttr())) {
+            if (myAttributesCreatorParent->getCurrentTemplateAC()->isAttributeEnabled(myAttrProperties->getAttr())) {
                 myValueTextField->enable();
             } else {
                 myValueTextField->disable();
@@ -346,7 +346,7 @@ GNEAttributesCreatorRow::onCmdSetAttribute(FXObject* obj, FXSelector, void*) {
             if (myValueCheckButton->shown()) {
                 myValueCheckButton->enable();
             }
-            myAttributesCreatorParent->getCurrentTemplateAC()->toggleAttribute(myAttrProperties.getAttr(), true);
+            myAttributesCreatorParent->getCurrentTemplateAC()->toggleAttribute(myAttrProperties->getAttr(), true);
         } else {
             // disable text field
             if (myValueTextField->shown()) {
@@ -360,23 +360,23 @@ GNEAttributesCreatorRow::onCmdSetAttribute(FXObject* obj, FXSelector, void*) {
             if (myValueCheckButton->shown()) {
                 myValueCheckButton->disable();
             }
-            myAttributesCreatorParent->getCurrentTemplateAC()->toggleAttribute(myAttrProperties.getAttr(), false);
+            myAttributesCreatorParent->getCurrentTemplateAC()->toggleAttribute(myAttrProperties->getAttr(), false);
         }
     } else if (obj == myValueCheckButton) {
         if (myValueCheckButton->getCheck()) {
             myValueCheckButton->setText("true");
-            myAttributesCreatorParent->getCurrentTemplateAC()->setAttribute(myAttrProperties.getAttr(), "true");
+            myAttributesCreatorParent->getCurrentTemplateAC()->setAttribute(myAttrProperties->getAttr(), "true");
         } else {
             myValueCheckButton->setText("false");
-            myAttributesCreatorParent->getCurrentTemplateAC()->setAttribute(myAttrProperties.getAttr(), "false");
+            myAttributesCreatorParent->getCurrentTemplateAC()->setAttribute(myAttrProperties->getAttr(), "false");
         }
     } else if (obj == myValueComboBox) {
         // check if use default value
-        const bool useDefaultValue = (myValueComboBox->getText().empty() && myAttrProperties.hasDefaultValue());
+        const bool useDefaultValue = (myValueComboBox->getText().empty() && myAttrProperties->hasDefaultValue());
         // change color of text field depending of myCurrentValueValid
-        if (myAttributesCreatorParent->getCurrentTemplateAC()->isValid(myAttrProperties.getAttr(), myValueComboBox->getText().text()) || useDefaultValue) {
+        if (myAttributesCreatorParent->getCurrentTemplateAC()->isValid(myAttrProperties->getAttr(), myValueComboBox->getText().text()) || useDefaultValue) {
             // check color depending if is a default value
-            if (useDefaultValue || (myAttrProperties.hasDefaultValue() && (myAttrProperties.getDefaultValue() == myValueComboBox->getText().text()))) {
+            if (useDefaultValue || (myAttrProperties->hasDefaultValue() && (myAttrProperties->getDefaultValue() == myValueComboBox->getText().text()))) {
                 myValueComboBox->setTextColor(FXRGB(128, 128, 128));
             } else {
                 myValueComboBox->setTextColor(FXRGB(0, 0, 0));
@@ -384,14 +384,14 @@ GNEAttributesCreatorRow::onCmdSetAttribute(FXObject* obj, FXSelector, void*) {
             }
             // check if use default value
             if (useDefaultValue) {
-                myAttributesCreatorParent->getCurrentTemplateAC()->setAttribute(myAttrProperties.getAttr(), myAttrProperties.getDefaultValue());
+                myAttributesCreatorParent->getCurrentTemplateAC()->setAttribute(myAttrProperties->getAttr(), myAttrProperties->getDefaultValue());
                 // refresh entire GNEAttributesCreator
                 myAttributesCreatorParent->refreshAttributesCreator();
             } else {
-                myAttributesCreatorParent->getCurrentTemplateAC()->setAttribute(myAttrProperties.getAttr(), myValueComboBox->getText().text());
+                myAttributesCreatorParent->getCurrentTemplateAC()->setAttribute(myAttrProperties->getAttr(), myValueComboBox->getText().text());
             }
             // special case for trigger stops (in the future will be changed)
-            if (myAttributesCreatorParent->getCurrentTemplateAC()->getTagProperty().isVehicleStop() && (myAttrProperties.getAttr() == SUMO_ATTR_TRIGGERED)) {
+            if (myAttributesCreatorParent->getCurrentTemplateAC()->getTagProperty()->isVehicleStop() && (myAttrProperties->getAttr() == SUMO_ATTR_TRIGGERED)) {
                 // refresh entire GNEAttributesCreator
                 myAttributesCreatorParent->refreshAttributesCreator();
             }
@@ -402,11 +402,11 @@ GNEAttributesCreatorRow::onCmdSetAttribute(FXObject* obj, FXSelector, void*) {
         }
     } else if (obj == myValueTextField) {
         // check if use default value
-        const bool useDefaultValue = (myValueTextField->getText().empty() && myAttrProperties.hasDefaultValue());
+        const bool useDefaultValue = (myValueTextField->getText().empty() && myAttrProperties->hasDefaultValue());
         // change color of text field depending of myCurrentValueValid
-        if (myAttributesCreatorParent->getCurrentTemplateAC()->isValid(myAttrProperties.getAttr(), myValueTextField->getText().text()) || useDefaultValue) {
+        if (myAttributesCreatorParent->getCurrentTemplateAC()->isValid(myAttrProperties->getAttr(), myValueTextField->getText().text()) || useDefaultValue) {
             // check color depending if is a default value
-            if (useDefaultValue || (myAttrProperties.hasDefaultValue() && (myAttrProperties.getDefaultValue() == myValueTextField->getText().text()))) {
+            if (useDefaultValue || (myAttrProperties->hasDefaultValue() && (myAttrProperties->getDefaultValue() == myValueTextField->getText().text()))) {
                 myValueTextField->setTextColor(FXRGB(128, 128, 128));
             } else {
                 myValueTextField->setTextColor(FXRGB(0, 0, 0));
@@ -414,11 +414,11 @@ GNEAttributesCreatorRow::onCmdSetAttribute(FXObject* obj, FXSelector, void*) {
             }
             // check if use default value
             if (useDefaultValue) {
-                myAttributesCreatorParent->getCurrentTemplateAC()->setAttribute(myAttrProperties.getAttr(), myAttrProperties.getDefaultValue());
+                myAttributesCreatorParent->getCurrentTemplateAC()->setAttribute(myAttrProperties->getAttr(), myAttrProperties->getDefaultValue());
                 // refresh entire GNEAttributesCreator
                 myAttributesCreatorParent->refreshAttributesCreator();
             } else {
-                myAttributesCreatorParent->getCurrentTemplateAC()->setAttribute(myAttrProperties.getAttr(), myValueTextField->getText().text());
+                myAttributesCreatorParent->getCurrentTemplateAC()->setAttribute(myAttrProperties->getAttr(), myValueTextField->getText().text());
             }
         } else {
             // if value of TextField isn't valid, change their color to Red
@@ -442,7 +442,7 @@ GNEAttributesCreatorRow::onCmdOpenColorDialog(FXObject*, FXSelector, void*) {
     if (GNEAttributeCarrier::canParse<RGBColor>(myValueTextField->getText().text())) {
         colordialog.setRGBA(MFXUtils::getFXColor(GNEAttributeCarrier::parse<RGBColor>(myValueTextField->getText().text())));
     } else {
-        colordialog.setRGBA(MFXUtils::getFXColor(GNEAttributeCarrier::parse<RGBColor>(myAttrProperties.getDefaultValue())));
+        colordialog.setRGBA(MFXUtils::getFXColor(GNEAttributeCarrier::parse<RGBColor>(myAttrProperties->getDefaultValue())));
     }
     // execute dialog to get a new color
     if (colordialog.execute()) {
@@ -459,7 +459,7 @@ GNEAttributesCreatorRow::onCmdOpenAllowDialog(FXObject*, FXSelector, void*) {
     // get allow string
     std::string allow = myValueTextField->getText().text();
     // opena allowDisallow dialog
-    GNEAllowVClassesDialog(myAttributesCreatorParent->getFrameParent()->getViewNet(), myAttrProperties.getAttr(), &allow, &acceptChanges).execute();
+    GNEAllowVClassesDialog(myAttributesCreatorParent->getFrameParent()->getViewNet(), myAttrProperties->getAttr(), &allow, &acceptChanges).execute();
     // continue depending of acceptChanges
     if (acceptChanges) {
         // update text field
@@ -474,10 +474,10 @@ GNEAttributesCreatorRow::generateID() const {
     // get attribute carriers
     const auto& GNEAttributeCarriers = myAttributesCreatorParent->getFrameParent()->getViewNet()->getNet()->getAttributeCarriers();
     // continue depending of type
-    if (myAttrProperties.getTagPropertyParent().isAdditionalElement()) {
-        return GNEAttributeCarriers->generateAdditionalID(myAttrProperties.getTagPropertyParent().getTag());
-    } else if (myAttrProperties.getTagPropertyParent().isDemandElement()) {
-        return GNEAttributeCarriers->generateDemandElementID(myAttrProperties.getTagPropertyParent().getTag());
+    if (myAttrProperties->getTagPropertyParent()->isAdditionalElement()) {
+        return GNEAttributeCarriers->generateAdditionalID(myAttrProperties->getTagPropertyParent()->getTag());
+    } else if (myAttrProperties->getTagPropertyParent()->isDemandElement()) {
+        return GNEAttributeCarriers->generateDemandElementID(myAttrProperties->getTagPropertyParent()->getTag());
     } else {
         return "";
     }
@@ -486,12 +486,12 @@ GNEAttributesCreatorRow::generateID() const {
 
 bool
 GNEAttributesCreatorRow::isValidID() const {
-    if (myAttrProperties.getTagPropertyParent().isAdditionalElement()) {
+    if (myAttrProperties->getTagPropertyParent()->isAdditionalElement()) {
         return (myAttributesCreatorParent->getFrameParent()->getViewNet()->getNet()->getAttributeCarriers()->retrieveAdditional(
-                    myAttrProperties.getTagPropertyParent().getTag(), myValueTextField->getText().text(), false) == nullptr);
-    } else if (myAttrProperties.getTagPropertyParent().isDemandElement()) {
+                    myAttrProperties->getTagPropertyParent()->getTag(), myValueTextField->getText().text(), false) == nullptr);
+    } else if (myAttrProperties->getTagPropertyParent()->isDemandElement()) {
         return (myAttributesCreatorParent->getFrameParent()->getViewNet()->getNet()->getAttributeCarriers()->retrieveAdditional(
-                    myAttrProperties.getTagPropertyParent().getTag(), myValueTextField->getText().text(), false) == nullptr);
+                    myAttrProperties->getTagPropertyParent()->getTag(), myValueTextField->getText().text(), false) == nullptr);
     } else {
         throw ProcessError(TL("Unsupported additional ID"));
     }

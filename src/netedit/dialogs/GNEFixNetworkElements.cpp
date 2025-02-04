@@ -69,9 +69,9 @@ GNEFixNetworkElements::GNEFixNetworkElements(GNEViewNet* viewNet, const std::vec
     std::vector<GNENetworkElement*> invalidEdges, invalidCrossings;
     // fill groups
     for (const auto& invalidNetworkElement : invalidNetworkElements) {
-        if (invalidNetworkElement->getTagProperty().getTag() == SUMO_TAG_EDGE) {
+        if (invalidNetworkElement->getTagProperty()->getTag() == SUMO_TAG_EDGE) {
             invalidEdges.push_back(invalidNetworkElement);
-        } else if (invalidNetworkElement->getTagProperty().getTag() == SUMO_TAG_CROSSING) {
+        } else if (invalidNetworkElement->getTagProperty()->getTag() == SUMO_TAG_CROSSING) {
             invalidCrossings.push_back(invalidNetworkElement);
         }
     }

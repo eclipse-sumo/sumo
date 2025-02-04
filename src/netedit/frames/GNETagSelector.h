@@ -79,7 +79,7 @@ private:
 
     public:
         /// @brief constructor
-        ACTemplate(GNENet* net, const GNETagProperties tagProperty);
+        ACTemplate(GNENet* net, const GNETagProperties* tagProperty);
 
         /// @brief destructor
         ~ACTemplate();

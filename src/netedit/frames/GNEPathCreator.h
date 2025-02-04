@@ -88,7 +88,7 @@ public:
     ~GNEPathCreator();
 
     /// @brief show GNEPathCreator for the given tag
-    void showPathCreatorModule(const GNETagProperties& tagProperty, const bool consecutives);
+    void showPathCreatorModule(const GNETagProperties* tagProperty, const bool consecutives);
 
     /// @brief show GNEPathCreator
     void hidePathCreatorModule();

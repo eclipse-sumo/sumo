@@ -325,7 +325,7 @@ bool
 GNELane::checkDrawFromContour() const {
     const auto& inspectedElements = myNet->getViewNet()->getInspectedElements();
     // check if we're inspecting a connection
-    if (inspectedElements.isInspectingSingleElement() && (inspectedElements.getFirstAC()->getTagProperty().getTag() == SUMO_TAG_CONNECTION) &&
+    if (inspectedElements.isInspectingSingleElement() && (inspectedElements.getFirstAC()->getTagProperty()->getTag() == SUMO_TAG_CONNECTION) &&
             inspectedElements.getFirstAC()->getAttribute(GNE_ATTR_FROM_LANEID) == getID()) {
         return true;
     } else {
@@ -338,7 +338,7 @@ bool
 GNELane::checkDrawToContour() const {
     const auto& inspectedElements = myNet->getViewNet()->getInspectedElements();
     // check if we're inspecting a connection
-    if (inspectedElements.isInspectingSingleElement() && (inspectedElements.getFirstAC()->getTagProperty().getTag() == SUMO_TAG_CONNECTION) &&
+    if (inspectedElements.isInspectingSingleElement() && (inspectedElements.getFirstAC()->getTagProperty()->getTag() == SUMO_TAG_CONNECTION) &&
             inspectedElements.getFirstAC()->getAttribute(GNE_ATTR_TO_LANEID) == getID()) {
         return true;
     } else {
@@ -1105,7 +1105,7 @@ GNELane::drawChildren(const GUIVisualizationSettings& s) const {
     }
     // draw demand element children
     for (const auto& demandElement : getChildDemandElements()) {
-        if (!demandElement->getTagProperty().isPlacedInRTree()) {
+        if (!demandElement->getTagProperty()->isPlacedInRTree()) {
             demandElement->drawGL(s);
         }
     }
@@ -1433,7 +1433,7 @@ GNELane::setLaneColor(const GUIVisualizationSettings& s) const {
     // we need to draw lanes with a special color if we're inspecting a Trip or Flow and this lane belongs to a via's edge.
     if (inspectedElements.getFirstAC() &&
             !inspectedElements.getFirstAC()->isAttributeCarrierSelected() &&
-            inspectedElements.getFirstAC()->getTagProperty().vehicleEdges()) {
+            inspectedElements.getFirstAC()->getTagProperty()->vehicleEdges()) {
         // obtain attribute "via"
         std::vector<std::string> viaEdges = parse<std::vector<std::string> >(inspectedElements.getFirstAC()->getAttribute(SUMO_ATTR_VIA));
         // iterate over viaEdges

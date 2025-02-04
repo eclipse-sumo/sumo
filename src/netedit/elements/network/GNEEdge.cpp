@@ -205,7 +205,7 @@ GNEEdge::checkDrawFromContour() const {
     // continue depending of current status
     if (inspectedElements.isInspectingSingleElement()) {
         // check if starts in this edge
-        if (inspectedElements.getFirstAC()->getTagProperty().vehicleEdges() &&
+        if (inspectedElements.getFirstAC()->getTagProperty()->vehicleEdges() &&
                 inspectedElements.getFirstAC()->hasAttribute(SUMO_ATTR_FROM) &&
                 (inspectedElements.getFirstAC()->getAttribute(SUMO_ATTR_FROM) == getID())) {
             return true;
@@ -260,7 +260,7 @@ GNEEdge::checkDrawToContour() const {
     // continue depending of current status
     if (inspectedElements.isInspectingSingleElement()) {
         // check if starts in this edge
-        if (inspectedElements.getFirstAC()->getTagProperty().vehicleEdges() &&
+        if (inspectedElements.getFirstAC()->getTagProperty()->vehicleEdges() &&
                 inspectedElements.getFirstAC()->hasAttribute(SUMO_ATTR_TO) &&
                 (inspectedElements.getFirstAC()->getAttribute(SUMO_ATTR_TO) == getID())) {
             return true;
@@ -336,13 +336,13 @@ GNEEdge::checkDrawOverContour() const {
             }
             // continue depending of plan selector
             if (planSelector && planSelector->markEdges()) {
-                return (viewObjectsSelector.getAttributeCarrierFront()->getTagProperty().getTag() == SUMO_TAG_LANE);
+                return (viewObjectsSelector.getAttributeCarrierFront()->getTagProperty()->getTag() == SUMO_TAG_LANE);
             } else if (modes.demandEditMode == DemandEditMode::DEMAND_VEHICLE) {
                 // get current vehicle template
                 const auto& vehicleTemplate = viewParent->getVehicleFrame()->getVehicleTagSelector()->getCurrentTemplateAC();
                 // check if vehicle can be placed over from-to TAZs
-                if (vehicleTemplate && vehicleTemplate->getTagProperty().vehicleEdges()) {
-                    return (viewObjectsSelector.getAttributeCarrierFront()->getTagProperty().getTag() == SUMO_TAG_LANE);
+                if (vehicleTemplate && vehicleTemplate->getTagProperty()->vehicleEdges()) {
+                    return (viewObjectsSelector.getAttributeCarrierFront()->getTagProperty()->getTag() == SUMO_TAG_LANE);
                 }
             }
         } else if (modes.isCurrentSupermodeData()) {
@@ -1011,7 +1011,7 @@ int
 GNEEdge::getRouteProbeRelativePosition(GNERouteProbe* routeProbe) const {
     std::vector<GNEAdditional*> routeProbes;
     for (const auto& additional : getChildAdditionals()) {
-        if (additional->getTagProperty().getTag() == routeProbe->getTagProperty().getTag()) {
+        if (additional->getTagProperty()->getTag() == routeProbe->getTagProperty()->getTag()) {
             routeProbes.push_back(additional);
         }
     }
@@ -1045,18 +1045,18 @@ GNEEdge::getGNECrossings() {
 void
 GNEEdge::copyTemplate(const GNEEdgeTemplate* edgeTemplate, GNEUndoList* undoList) {
     // copy edge-specific attributes
-    for (const auto& attProperty : myTagProperty) {
-        if (attProperty.isCopyable() && isValid(attProperty.getAttr(), edgeTemplate->getAttribute(attProperty.getAttr()))) {
-            setAttribute(attProperty.getAttr(), edgeTemplate->getAttribute(attProperty.getAttr()), undoList);
+    for (const auto& attProperty : myTagProperty->getAttributeProperties()) {
+        if (attProperty->isCopyable() && isValid(attProperty->getAttr(), edgeTemplate->getAttribute(attProperty->getAttr()))) {
+            setAttribute(attProperty->getAttr(), edgeTemplate->getAttribute(attProperty->getAttr()), undoList);
         }
     }
     // also copy parameters
     setAttribute(GNE_ATTR_PARAMETERS, edgeTemplate->getAttribute(GNE_ATTR_PARAMETERS), undoList);
     // copy lane attributes as well
     for (int i = 0; i < (int)myLanes.size(); i++) {
-        for (const auto& attProperty : edgeTemplate->getLaneTemplates().at(i)->getTagProperty()) {
-            if (attProperty.isCopyable() && myLanes[i]->isValid(attProperty.getAttr(), edgeTemplate->getLaneTemplates().at(i)->getAttribute(attProperty.getAttr()))) {
-                myLanes[i]->setAttribute(attProperty.getAttr(), edgeTemplate->getLaneTemplates().at(i)->getAttribute(attProperty.getAttr()),  undoList);
+        for (const auto& attProperty : edgeTemplate->getLaneTemplates().at(i)->getTagProperty()->getAttributeProperties()) {
+            if (attProperty->isCopyable() && myLanes[i]->isValid(attProperty->getAttr(), edgeTemplate->getLaneTemplates().at(i)->getAttribute(attProperty->getAttr()))) {
+                myLanes[i]->setAttribute(attProperty->getAttr(), edgeTemplate->getLaneTemplates().at(i)->getAttribute(attProperty->getAttr()),  undoList);
             }
         }
         // also copy parameters
@@ -1068,24 +1068,25 @@ GNEEdge::copyTemplate(const GNEEdgeTemplate* edgeTemplate, GNEUndoList* undoList
 void
 GNEEdge::copyEdgeType(const GNEEdgeType* edgeType, GNEUndoList* undoList) {
     // get tag properties
-    const auto& edgeProperties = getTagProperty(SUMO_TAG_EDGE);
-    const auto& laneProperties = getTagProperty(SUMO_TAG_LANE);
-    const auto& edgeTypeProperties = getTagProperty(SUMO_TAG_TYPE);
-    const auto& laneTypeProperties = getTagProperty(SUMO_TAG_LANETYPE);
+    const auto edgeProperties = getTagProperty(SUMO_TAG_EDGE);
+    const auto laneProperties = getTagProperty(SUMO_TAG_LANE);
+    const auto edgeTypeProperties = getTagProperty(SUMO_TAG_TYPE);
+    const auto laneTypeProperties = getTagProperty(SUMO_TAG_LANETYPE);
     // set type (only for info)
     setAttribute(SUMO_ATTR_TYPE, edgeType->getAttribute(SUMO_ATTR_ID), undoList);
     // copy attributes
-    for (const auto& attrProperty : edgeTypeProperties) {
-        if (attrProperty.isCopyable() && edgeProperties.hasAttribute(attrProperty.getAttr())) {
-            setAttribute(attrProperty.getAttr(), edgeType->getAttribute(attrProperty.getAttr()), undoList);
+    for (const auto& attrProperty : edgeTypeProperties->getAttributeProperties()) {
+        if (attrProperty->isCopyable() && edgeProperties->hasAttribute(attrProperty->getAttr())) {
+            setAttribute(attrProperty->getAttr(), edgeType->getAttribute(attrProperty->getAttr()), undoList);
         }
     }
     setAttribute(GNE_ATTR_PARAMETERS, edgeType->getAttribute(GNE_ATTR_PARAMETERS), undoList);
     // copy lane attributes as well
     for (int i = 0; i < (int)myLanes.size(); i++) {
-        for (const auto& attrProperty : laneTypeProperties) {
-            if (attrProperty.isCopyable() && laneProperties.hasAttribute(attrProperty.getAttr()) && (edgeType->getLaneTypes().at(i)->getAttribute(attrProperty.getAttr()) != laneTypeProperties.getAttributeProperties(attrProperty.getAttr()).getDefaultValue())) {
-                myLanes[i]->setAttribute(attrProperty.getAttr(), edgeType->getLaneTypes().at(i)->getAttribute(attrProperty.getAttr()), undoList);
+        for (const auto& attrProperty : laneTypeProperties->getAttributeProperties()) {
+            if (attrProperty->isCopyable() && laneProperties->hasAttribute(attrProperty->getAttr()) &&
+                    (edgeType->getLaneTypes().at(i)->getAttribute(attrProperty->getAttr()) != laneTypeProperties->getAttributeProperties(attrProperty->getAttr())->getDefaultValue())) {
+                myLanes[i]->setAttribute(attrProperty->getAttr(), edgeType->getLaneTypes().at(i)->getAttribute(attrProperty->getAttr()), undoList);
             }
         }
         if (edgeType->getLaneTypes().at(i)->getAttribute(GNE_ATTR_PARAMETERS).size() > 0) {
@@ -1844,14 +1845,14 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
             myNet->getAttributeCarriers()->updateEdgeID(this, value);
             // enable save demand elements if there are stops
             for (const auto& stop : getChildDemandElements()) {
-                if (stop->getTagProperty().isVehicleStop()) {
+                if (stop->getTagProperty()->isVehicleStop()) {
                     myNet->getSavingStatus()->requireSaveDemandElements();
                 }
             }
             // also for lanes
             for (const auto& lane : myLanes) {
                 for (const auto& stop : lane->getChildDemandElements()) {
-                    if (stop->getTagProperty().isVehicleStop()) {
+                    if (stop->getTagProperty()->isVehicleStop()) {
                         myNet->getSavingStatus()->requireSaveDemandElements();
                     }
                 }
@@ -2483,17 +2484,17 @@ GNEEdge::getVehiclesOverEdgeMap() const {
     std::set<std::pair<double, GNEDemandElement*> > vehicles;
     // first obtain all vehicles of this edge
     for (const auto& edgeChild : getChildDemandElements()) {
-        if (((edgeChild->getTagProperty().getTag() == SUMO_TAG_TRIP) || (edgeChild->getTagProperty().getTag() == SUMO_TAG_FLOW)) &&
+        if (((edgeChild->getTagProperty()->getTag() == SUMO_TAG_TRIP) || (edgeChild->getTagProperty()->getTag() == SUMO_TAG_FLOW)) &&
                 (edgeChild->getParentEdges().front() == this)) {
             vehicles.insert(std::make_pair(edgeChild->getAttributeDouble(SUMO_ATTR_DEPART), edgeChild));
             vehicles.insert(std::make_pair(edgeChild->getAttributeDouble(SUMO_ATTR_DEPART), edgeChild));
-        } else if ((edgeChild->getTagProperty().getTag() == SUMO_TAG_ROUTE) && (edgeChild->getParentEdges().front() == this)) {
+        } else if ((edgeChild->getTagProperty()->getTag() == SUMO_TAG_ROUTE) && (edgeChild->getParentEdges().front() == this)) {
             for (const auto& routeChild : edgeChild->getChildDemandElements()) {
-                if (routeChild->getTagProperty().vehicleRoute()) {
+                if (routeChild->getTagProperty()->vehicleRoute()) {
                     vehicles.insert(std::make_pair(routeChild->getAttributeDouble(SUMO_ATTR_DEPART), routeChild));
                 }
             }
-        } else if ((edgeChild->getTagProperty().getTag() == GNE_TAG_ROUTE_EMBEDDED) && (edgeChild->getParentEdges().front() == this) && (edgeChild->getParentDemandElements().size() > 0)) {
+        } else if ((edgeChild->getTagProperty()->getTag() == GNE_TAG_ROUTE_EMBEDDED) && (edgeChild->getParentEdges().front() == this) && (edgeChild->getParentDemandElements().size() > 0)) {
             vehicles.insert(std::make_pair(edgeChild->getParentDemandElements().front()->getAttributeDouble(SUMO_ATTR_DEPART), edgeChild->getParentDemandElements().front()));
         }
     }
@@ -2525,7 +2526,7 @@ GNEEdge::getPersonsOverEdgeMap() const {
     std::set<std::pair<double, GNEDemandElement*> > persons;
     // first obtain all persons of this edge
     for (const auto& edgeChild : getChildDemandElements()) {
-        if (edgeChild->getTagProperty().isPlanPerson() && (edgeChild->getParentDemandElements().size() > 0)) {
+        if (edgeChild->getTagProperty()->isPlanPerson() && (edgeChild->getParentDemandElements().size() > 0)) {
             persons.insert(std::make_pair(edgeChild->getParentDemandElements().front()->getAttributeDouble(SUMO_ATTR_DEPARTPOS), edgeChild->getParentDemandElements().front()));
         }
     }
@@ -2558,7 +2559,7 @@ GNEEdge::getContainersOverEdgeMap() const {
     std::set<std::pair<double, GNEDemandElement*> > containers;
     // first obtain all containers of this edge
     for (const auto& edgeChild : getChildDemandElements()) {
-        if (edgeChild->getTagProperty().isPlanContainer() && (edgeChild->getParentDemandElements().size() > 0)) {
+        if (edgeChild->getTagProperty()->isPlanContainer() && (edgeChild->getParentDemandElements().size() > 0)) {
             containers.insert(std::make_pair(edgeChild->getParentDemandElements().front()->getAttributeDouble(SUMO_ATTR_DEPARTPOS), edgeChild->getParentDemandElements().front()));
         }
     }
@@ -2849,7 +2850,7 @@ GNEEdge::drawChildrens(const GUIVisualizationSettings& s) const {
     // draw person stops
     if (myNet->getViewNet()->getNetworkViewOptions().showDemandElements() && myNet->getViewNet()->getDataViewOptions().showDemandElements()) {
         for (const auto& stopEdge : getChildDemandElements()) {
-            if ((stopEdge->getTagProperty().getTag() == GNE_TAG_STOPPERSON_EDGE) || (stopEdge->getTagProperty().getTag() == GNE_TAG_STOPCONTAINER_EDGE)) {
+            if ((stopEdge->getTagProperty()->getTag() == GNE_TAG_STOPPERSON_EDGE) || (stopEdge->getTagProperty()->getTag() == GNE_TAG_STOPCONTAINER_EDGE)) {
                 stopEdge->drawGL(s);
             }
         }

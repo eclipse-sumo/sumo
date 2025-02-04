@@ -73,7 +73,7 @@ GNEBusStop::~GNEBusStop() {}
 
 void
 GNEBusStop::writeAdditional(OutputDevice& device) const {
-    device.openTag(getTagProperty().getTag());
+    device.openTag(getTagProperty()->getTag());
     device.writeAttr(SUMO_ATTR_ID, getID());
     if (!myAdditionalName.empty()) {
         device.writeAttr(SUMO_ATTR_NAME, StringUtils::escapeXML(myAdditionalName));
@@ -88,13 +88,13 @@ GNEBusStop::writeAdditional(OutputDevice& device) const {
     if (myFriendlyPosition) {
         device.writeAttr(SUMO_ATTR_FRIENDLY_POS, "true");
     }
-    if (getAttribute(SUMO_ATTR_LINES) != myTagProperty.getDefaultValue(SUMO_ATTR_LINES)) {
+    if (getAttribute(SUMO_ATTR_LINES) != myTagProperty->getDefaultValue(SUMO_ATTR_LINES)) {
         device.writeAttr(SUMO_ATTR_LINES, toString(myLines));
     }
-    if (getAttribute(SUMO_ATTR_PERSON_CAPACITY) != myTagProperty.getDefaultValue(SUMO_ATTR_PERSON_CAPACITY)) {
+    if (getAttribute(SUMO_ATTR_PERSON_CAPACITY) != myTagProperty->getDefaultValue(SUMO_ATTR_PERSON_CAPACITY)) {
         device.writeAttr(SUMO_ATTR_PERSON_CAPACITY, myPersonCapacity);
     }
-    if (getAttribute(SUMO_ATTR_PARKING_LENGTH) != myTagProperty.getDefaultValue(SUMO_ATTR_PARKING_LENGTH)) {
+    if (getAttribute(SUMO_ATTR_PARKING_LENGTH) != myTagProperty->getDefaultValue(SUMO_ATTR_PARKING_LENGTH)) {
         device.writeAttr(SUMO_ATTR_PARKING_LENGTH, myParkingLength);
     }
     if (getAttribute(SUMO_ATTR_COLOR).size() > 0) {
@@ -138,7 +138,7 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
         // check if draw moving geometry points
         const bool movingGeometryPoints = drawMovingGeometryPoints(false);
         // get width
-        const double stopWidth = (myTagProperty.getTag() == SUMO_TAG_BUS_STOP) ? s.stoppingPlaceSettings.busStopWidth : s.stoppingPlaceSettings.trainStopWidth;
+        const double stopWidth = (myTagProperty->getTag() == SUMO_TAG_BUS_STOP) ? s.stoppingPlaceSettings.busStopWidth : s.stoppingPlaceSettings.trainStopWidth;
         // get detail level
         const auto d = s.getDetailLevel(busStopExaggeration);
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
@@ -155,7 +155,7 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
             } else if (myColor != RGBColor::INVISIBLE) {
                 baseColor = myColor;
                 signColor = s.colorSettings.busStopColorSign;
-            } else if (myTagProperty.getTag() == SUMO_TAG_TRAIN_STOP) {
+            } else if (myTagProperty->getTag() == SUMO_TAG_TRAIN_STOP) {
                 baseColor = s.colorSettings.trainStopColor;
                 signColor = s.colorSettings.trainStopColorSign;
             } else {
@@ -175,7 +175,7 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
             // draw lines
             drawLines(d, myLines, baseColor);
             // draw sign
-            drawSign(s, d, busStopExaggeration, baseColor, signColor, (myTagProperty.getTag() == SUMO_TAG_BUS_STOP) ? "H" : "T");
+            drawSign(s, d, busStopExaggeration, baseColor, signColor, (myTagProperty->getTag() == SUMO_TAG_BUS_STOP) ? "H" : "T");
             // draw geometry points
             if (movingGeometryPoints && (myStartPosition != INVALID_DOUBLE)) {
                 drawLeftGeometryPoint(s, d, myAdditionalGeometry.getShape().front(), myAdditionalGeometry.getShapeRotations().front(), baseColor);
@@ -186,7 +186,7 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
             // pop layer matrix
             GLHelper::popMatrix();
             // draw lock icon
-            if (myTagProperty.getTag() == SUMO_TAG_BUS_STOP) {
+            if (myTagProperty->getTag() == SUMO_TAG_BUS_STOP) {
                 GNEViewNetHelper::LockIcon::drawLockIcon(d, this, getType(), myAdditionalGeometry.getShape().getCentroid(), busStopExaggeration, 0.5);
             } else {
                 GNEViewNetHelper::LockIcon::drawLockIcon(d, this, getType(), myAdditionalGeometry.getShape().getCentroid(), busStopExaggeration, 0.25);

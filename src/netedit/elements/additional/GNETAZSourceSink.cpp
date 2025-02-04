@@ -65,7 +65,7 @@ GNETAZSourceSink::getMoveOperation() {
 void
 GNETAZSourceSink::writeAdditional(OutputDevice& device) const {
     // open source/sink tag
-    device.openTag(myTagProperty.getTag());
+    device.openTag(myTagProperty->getTag());
     // write source/sink attributes
     device.writeAttr(SUMO_ATTR_ID, getParentEdges().front()->getID());
     device.writeAttr(SUMO_ATTR_WEIGHT, myDepartWeight);

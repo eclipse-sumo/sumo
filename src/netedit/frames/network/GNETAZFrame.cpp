@@ -279,7 +279,7 @@ GNETAZFrame::CurrentTAZ::refreshTAZEdges() {
 void
 GNETAZFrame::CurrentTAZ::addTAZChild(GNETAZSourceSink* sourceSink) {
     // first make sure that TAZElements is an TAZ Source or Sink
-    if (sourceSink && ((sourceSink->getTagProperty().getTag() == SUMO_TAG_TAZSOURCE) || (sourceSink->getTagProperty().getTag() == SUMO_TAG_TAZSINK))) {
+    if (sourceSink && ((sourceSink->getTagProperty()->getTag() == SUMO_TAG_TAZSOURCE) || (sourceSink->getTagProperty()->getTag() == SUMO_TAG_TAZSINK))) {
         GNEEdge* edge = myTAZFrameParent->myViewNet->getNet()->getAttributeCarriers()->retrieveEdge(sourceSink->getAttribute(SUMO_ATTR_EDGE));
         // first check if TAZEdgeColor has to be created
         bool createTAZEdge = true;
@@ -287,7 +287,7 @@ GNETAZFrame::CurrentTAZ::addTAZChild(GNETAZSourceSink* sourceSink) {
             if (TAZEdgeColor.edge == edge) {
                 createTAZEdge = false;
                 // update TAZ Source or Sink
-                if (sourceSink->getTagProperty().getTag() == SUMO_TAG_TAZSOURCE) {
+                if (sourceSink->getTagProperty()->getTag() == SUMO_TAG_TAZSOURCE) {
                     TAZEdgeColor.source = sourceSink;
                 } else {
                     TAZEdgeColor.sink = sourceSink;
@@ -296,7 +296,7 @@ GNETAZFrame::CurrentTAZ::addTAZChild(GNETAZSourceSink* sourceSink) {
         }
         // check if TAZElements has to be created
         if (createTAZEdge) {
-            if (sourceSink->getTagProperty().getTag() == SUMO_TAG_TAZSOURCE) {
+            if (sourceSink->getTagProperty()->getTag() == SUMO_TAG_TAZSOURCE) {
                 myTAZEdgeColors.push_back(TAZEdgeColor(this, edge, sourceSink, nullptr));
             } else {
                 myTAZEdgeColors.push_back(TAZEdgeColor(this, edge, nullptr, sourceSink));
@@ -802,7 +802,7 @@ GNETAZFrame::TAZChildDefaultParameters::onCmdSetZeroFringeProbabilities(FXObject
     if (myTAZFrameParent->myCurrentTAZ->getTAZ() != nullptr) {
         // iterate over source/sinks
         for (const auto& TAZSourceSink : myTAZFrameParent->myCurrentTAZ->getTAZ()->getChildTAZSourceSinks()) {
-            if (TAZSourceSink->getTagProperty().getTag() == SUMO_TAG_TAZSOURCE) {
+            if (TAZSourceSink->getTagProperty()->getTag() == SUMO_TAG_TAZSOURCE) {
                 // set sink probability to 0 for all edges that have no predecessor
                 if (!TAZSourceSink->getParentEdges().front()->hasSuccessors() &&
                         (TAZSourceSink->getAttributeDouble(SUMO_ATTR_WEIGHT) != 0)) {
@@ -823,7 +823,7 @@ GNETAZFrame::TAZChildDefaultParameters::onCmdSetZeroFringeProbabilities(FXObject
         for (const auto& TAZ : myTAZFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getAdditionals().at(SUMO_TAG_TAZ)) {
             // iterate over source/sinks
             for (const auto& TAZSourceSink : TAZ.second->getChildTAZSourceSinks()) {
-                if (TAZSourceSink->getTagProperty().getTag() == SUMO_TAG_TAZSOURCE) {
+                if (TAZSourceSink->getTagProperty()->getTag() == SUMO_TAG_TAZSOURCE) {
                     // set sink probability to 0 for all edges that have no predecessor
                     if (!TAZSourceSink->getParentEdges().front()->hasSuccessors() &&
                             (TAZSourceSink->getAttributeDouble(SUMO_ATTR_WEIGHT) != 0)) {

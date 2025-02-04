@@ -117,7 +117,7 @@ GNEPOI::getMoveOperation() {
         } else {
             return nullptr;
         }
-    } else if (getTagProperty().getTag() == GNE_TAG_POILANE) {
+    } else if (getTagProperty()->getTag() == GNE_TAG_POILANE) {
         // return move operation for POI placed over lane
         return new GNEMoveOperation(this, getParentLanes().front(), myPosOverLane,
                                     myNet->getViewNet()->getViewParent()->getMoveFrame()->getCommonModeOptions()->getAllowChangeLane());
@@ -338,7 +338,7 @@ GNEPOI::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     buildPositionCopyEntry(ret, app);
     new FXMenuSeparator(ret);
     // specific of  non juPedSim polygons
-    if (!myTagProperty.isJuPedSimElement()) {
+    if (!myTagProperty->isJuPedSimElement()) {
         // continue depending of lane number
         if (getParentLanes().size() > 0) {
             // add option for convert to GNEPOI
@@ -575,7 +575,7 @@ bool
 GNEPOI::isAttributeEnabled(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_POSITION:
-            if (myTagProperty.getTag() == GNE_TAG_POIGEO) {
+            if (myTagProperty->getTag() == GNE_TAG_POIGEO) {
                 return (GeoConvHelper::getFinal().getProjString() != "!");
             } else {
                 return true;
@@ -796,7 +796,7 @@ GNEPOI::setMoveShape(const GNEMoveResult& moveResult) {
     } else if (moveResult.operationType == GNEMoveOperation::OperationType::WIDTH) {
         myShapeWidth = moveResult.shapeToUpdate;
     } else {
-        if (getTagProperty().getTag() == GNE_TAG_POILANE) {
+        if (getTagProperty()->getTag() == GNE_TAG_POILANE) {
             myPosOverLane = moveResult.newFirstPos;
         } else {
             set(moveResult.shapeToUpdate.front());
@@ -820,7 +820,7 @@ GNEPOI::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) 
         undoList->end();
     } else {
         undoList->begin(this, "position of " + getTagStr());
-        if (getTagProperty().getTag() == GNE_TAG_POILANE) {
+        if (getTagProperty()->getTag() == GNE_TAG_POILANE) {
             GNEChange_Attribute::changeAttribute(this, SUMO_ATTR_POSITION, toString(moveResult.newFirstPos), undoList);
         } else {
             GNEChange_Attribute::changeAttribute(this, SUMO_ATTR_POSITION, toString(moveResult.shapeToUpdate.front()), undoList);

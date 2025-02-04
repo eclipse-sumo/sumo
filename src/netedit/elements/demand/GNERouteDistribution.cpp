@@ -42,7 +42,7 @@ GNERouteDistribution::writeDemandElement(OutputDevice& device) const {
     // only save if there is distribution elements to save
     if (!isDistributionEmpty()) {
         // now write attributes
-        device.openTag(getTagProperty().getTag());
+        device.openTag(getTagProperty()->getTag());
         device.writeAttr(SUMO_ATTR_ID, getID());
         device.writeAttr(SUMO_ATTR_ROUTES, getAttributeDistributionKeys());
         device.writeAttr(SUMO_ATTR_PROBS, getAttributeDistributionValues());

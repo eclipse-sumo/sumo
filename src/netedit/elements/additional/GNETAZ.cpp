@@ -169,7 +169,7 @@ GNETAZ::writeAdditional(OutputDevice& device) const {
     // sort all Source/Sinks by ID
     std::map<std::pair<std::string, SumoXMLTag>, GNEAdditional*> sortedSourceSinks;
     for (const auto& sourceSink : getChildTAZSourceSinks()) {
-        sortedSourceSinks[std::make_pair(sourceSink->getAttribute(SUMO_ATTR_EDGE), sourceSink->getTagProperty().getTag())] = sourceSink;
+        sortedSourceSinks[std::make_pair(sourceSink->getAttribute(SUMO_ATTR_EDGE), sourceSink->getTagProperty()->getTag())] = sourceSink;
     }
     // write all TAZ Source/sinks
     for (const auto& sortedSourceSink : sortedSourceSinks) {
@@ -618,7 +618,7 @@ GNETAZ::updateTAZStatistic() {
     int numberOfSinks = 0;
     // iterate over child additional
     for (const auto& TAZSourceSink : getChildTAZSourceSinks()) {
-        if (TAZSourceSink->getTagProperty().getTag() == SUMO_TAG_TAZSOURCE) {
+        if (TAZSourceSink->getTagProperty()->getTag() == SUMO_TAG_TAZSOURCE) {
             const double weight = TAZSourceSink->getAttributeDouble(SUMO_ATTR_WEIGHT);
             // check max Weight
             if ((myMaxWeightSource == INVALID_DOUBLE) || (myMaxWeightSource < weight)) {
@@ -632,7 +632,7 @@ GNETAZ::updateTAZStatistic() {
             myAverageWeightSource += weight;
             // update number of sources
             numberOfSources++;
-        } else if (TAZSourceSink->getTagProperty().getTag() == SUMO_TAG_TAZSINK) {
+        } else if (TAZSourceSink->getTagProperty()->getTag() == SUMO_TAG_TAZSINK) {
             const double weight = TAZSourceSink->getAttributeDouble(SUMO_ATTR_WEIGHT);
             // check max Weight
             if ((myMaxWeightSink == INVALID_DOUBLE) || myMaxWeightSink < weight) {

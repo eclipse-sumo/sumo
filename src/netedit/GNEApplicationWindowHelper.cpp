@@ -1759,61 +1759,61 @@ GNEApplicationWindowHelper::LockMenuCommands::unlockAll() {
 void
 GNEApplicationWindowHelper::LockMenuCommands::editLocking(const GNEAttributeCarrier* AC, const FXbool value) {
     // check elements
-    if (AC->getTagProperty().getTag() == SUMO_TAG_JUNCTION) {
+    if (AC->getTagProperty()->getTag() == SUMO_TAG_JUNCTION) {
         menuCheckLockJunction->setCheck(value);
-    } else if (AC->getTagProperty().getTag() == SUMO_TAG_EDGE) {
+    } else if (AC->getTagProperty()->getTag() == SUMO_TAG_EDGE) {
         menuCheckLockEdges->setCheck(value);
-    } else if (AC->getTagProperty().getTag() == SUMO_TAG_LANE) {
+    } else if (AC->getTagProperty()->getTag() == SUMO_TAG_LANE) {
         menuCheckLockLanes->setCheck(value);
-    } else if (AC->getTagProperty().getTag() == SUMO_TAG_CONNECTION) {
+    } else if (AC->getTagProperty()->getTag() == SUMO_TAG_CONNECTION) {
         menuCheckLockConnections->setCheck(value);
-    } else if (AC->getTagProperty().getTag() == SUMO_TAG_CROSSING) {
+    } else if (AC->getTagProperty()->getTag() == SUMO_TAG_CROSSING) {
         menuCheckLockCrossings->setCheck(value);
-    } else if (AC->getTagProperty().getTag() == SUMO_TAG_WALKINGAREA) {
+    } else if (AC->getTagProperty()->getTag() == SUMO_TAG_WALKINGAREA) {
         menuCheckLockWalkingAreas->setCheck(value);
-    } else if (AC->getTagProperty().isAdditionalElement()) {
+    } else if (AC->getTagProperty()->isAdditionalElement()) {
         menuCheckLockAdditionals->setCheck(value);
-    } else if (AC->getTagProperty().isTAZElement()) {
+    } else if (AC->getTagProperty()->isTAZElement()) {
         menuCheckLockTAZs->setCheck(value);
-    } else if (AC->getTagProperty().isWireElement()) {
+    } else if (AC->getTagProperty()->isWireElement()) {
         menuCheckLockWires->setCheck(value);
-    } else if (AC->getTagProperty().getTag() == SUMO_TAG_POLY) {
+    } else if (AC->getTagProperty()->getTag() == SUMO_TAG_POLY) {
         menuCheckLockPolygons->setCheck(value);
-    } else if (AC->getTagProperty().getTag() == GNE_TAG_JPS_WALKABLEAREA) {
+    } else if (AC->getTagProperty()->getTag() == GNE_TAG_JPS_WALKABLEAREA) {
         menuCheckLockJpsWalkableAreas->setCheck(value);
-    } else if (AC->getTagProperty().getTag() == GNE_TAG_JPS_OBSTACLE) {
+    } else if (AC->getTagProperty()->getTag() == GNE_TAG_JPS_OBSTACLE) {
         menuCheckLockJpsObstacles->setCheck(value);
-    } else if ((AC->getTagProperty().getTag() == SUMO_TAG_POI) ||
-               (AC->getTagProperty().getTag() == GNE_TAG_POILANE) ||
-               (AC->getTagProperty().getTag() == GNE_TAG_POIGEO)) {
+    } else if ((AC->getTagProperty()->getTag() == SUMO_TAG_POI) ||
+               (AC->getTagProperty()->getTag() == GNE_TAG_POILANE) ||
+               (AC->getTagProperty()->getTag() == GNE_TAG_POIGEO)) {
         menuCheckLockPOIs->setCheck(value);
-    } else if (AC->getTagProperty().isRoute()) {
+    } else if (AC->getTagProperty()->isRoute()) {
         menuCheckLockRoutes->setCheck(value);
-    } else if (AC->getTagProperty().isVehicle()) {
+    } else if (AC->getTagProperty()->isVehicle()) {
         menuCheckLockVehicles->setCheck(value);
-    } else if (AC->getTagProperty().isPerson()) {
+    } else if (AC->getTagProperty()->isPerson()) {
         menuCheckLockPersons->setCheck(value);
-    } else if (AC->getTagProperty().isPlanPersonTrip()) {
+    } else if (AC->getTagProperty()->isPlanPersonTrip()) {
         menuCheckLockPersonTrip->setCheck(value);
-    } else if (AC->getTagProperty().isPlanWalk()) {
+    } else if (AC->getTagProperty()->isPlanWalk()) {
         menuCheckLockWalk->setCheck(value);
-    } else if (AC->getTagProperty().isPlanRide()) {
+    } else if (AC->getTagProperty()->isPlanRide()) {
         menuCheckLockRides->setCheck(value);
-    } else if (AC->getTagProperty().isContainer()) {
+    } else if (AC->getTagProperty()->isContainer()) {
         menuCheckLockContainers->setCheck(value);
-    } else if (AC->getTagProperty().isPlanTransport()) {
+    } else if (AC->getTagProperty()->isPlanTransport()) {
         menuCheckLockTransports->setCheck(value);
-    } else if (AC->getTagProperty().isPlanTranship()) {
+    } else if (AC->getTagProperty()->isPlanTranship()) {
         menuCheckLockTranships->setCheck(value);
-    } else if (AC->getTagProperty().isVehicleStop() ||
-               AC->getTagProperty().isPlanStopPerson() ||
-               AC->getTagProperty().isPlanStopContainer()) {
+    } else if (AC->getTagProperty()->isVehicleStop() ||
+               AC->getTagProperty()->isPlanStopPerson() ||
+               AC->getTagProperty()->isPlanStopContainer()) {
         menuCheckLockStops->setCheck(value);
-    } else if (AC->getTagProperty().getTag() == GNE_TAG_EDGEREL_SINGLE) {
+    } else if (AC->getTagProperty()->getTag() == GNE_TAG_EDGEREL_SINGLE) {
         menuCheckLockEdgeDatas->setCheck(value);
-    } else if (AC->getTagProperty().getTag() == SUMO_TAG_EDGEREL) {
+    } else if (AC->getTagProperty()->getTag() == SUMO_TAG_EDGEREL) {
         menuCheckLockEdgeRelDatas->setCheck(value);
-    } else if (AC->getTagProperty().getTag() == SUMO_TAG_TAZREL) {
+    } else if (AC->getTagProperty()->getTag() == SUMO_TAG_TAZREL) {
         menuCheckLockEdgeTAZRels->setCheck(value);
     }
 }

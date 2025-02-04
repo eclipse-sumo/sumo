@@ -321,7 +321,7 @@ GNEViewNet::recalculateBoundaries() {
         for (const auto& GLId : GLIDs) {
             GNEAttributeCarrier* AC = myNet->getAttributeCarriers()->retrieveAttributeCarrier(GLId);
             // Make sure that object exists
-            if (AC && AC->getTagProperty().isPlacedInRTree()) {
+            if (AC && AC->getTagProperty()->isPlacedInRTree()) {
                 ACs.insert(AC);
             }
         }
@@ -2604,9 +2604,9 @@ GNEViewNet::onCmdSimplifyShape(FXObject*, FXSelector, void*) {
             // iterate over shapes
             for (const auto& selectedShape : selectedShapes) {
                 // check if shape is a poly
-                if ((selectedShape->getTagProperty().getTag() == SUMO_TAG_POLY) ||
-                        (selectedShape->getTagProperty().getTag() == GNE_TAG_JPS_WALKABLEAREA) ||
-                        (selectedShape->getTagProperty().getTag() == GNE_TAG_JPS_OBSTACLE)) {
+                if ((selectedShape->getTagProperty()->getTag() == SUMO_TAG_POLY) ||
+                        (selectedShape->getTagProperty()->getTag() == GNE_TAG_JPS_WALKABLEAREA) ||
+                        (selectedShape->getTagProperty()->getTag() == GNE_TAG_JPS_OBSTACLE)) {
                     // simplify shape
                     dynamic_cast<GNEPoly*>(selectedShape)->simplifyShape();
                 }
@@ -2646,9 +2646,9 @@ GNEViewNet::onCmdClosePolygon(FXObject*, FXSelector, void*) {
             // iterate over shapes
             for (const auto& selectedShape : selectedShapes) {
                 // check if shape is a poly
-                if ((selectedShape->getTagProperty().getTag() == SUMO_TAG_POLY) ||
-                        (selectedShape->getTagProperty().getTag() == GNE_TAG_JPS_WALKABLEAREA) ||
-                        (selectedShape->getTagProperty().getTag() == GNE_TAG_JPS_OBSTACLE)) {
+                if ((selectedShape->getTagProperty()->getTag() == SUMO_TAG_POLY) ||
+                        (selectedShape->getTagProperty()->getTag() == GNE_TAG_JPS_WALKABLEAREA) ||
+                        (selectedShape->getTagProperty()->getTag() == GNE_TAG_JPS_OBSTACLE)) {
                     // close polygon
                     dynamic_cast<GNEPoly*>(selectedShape)->closePolygon();
                 }
@@ -2678,9 +2678,9 @@ GNEViewNet::onCmdOpenPolygon(FXObject*, FXSelector, void*) {
             // iterate over shapes
             for (const auto& selectedShape : selectedShapes) {
                 // check if shape is a poly
-                if ((selectedShape->getTagProperty().getTag() == SUMO_TAG_POLY) ||
-                        (selectedShape->getTagProperty().getTag() == GNE_TAG_JPS_WALKABLEAREA) ||
-                        (selectedShape->getTagProperty().getTag() == GNE_TAG_JPS_OBSTACLE)) {
+                if ((selectedShape->getTagProperty()->getTag() == SUMO_TAG_POLY) ||
+                        (selectedShape->getTagProperty()->getTag() == GNE_TAG_JPS_WALKABLEAREA) ||
+                        (selectedShape->getTagProperty()->getTag() == GNE_TAG_JPS_OBSTACLE)) {
                     // open polygon
                     dynamic_cast<GNEPoly*>(selectedShape)->openPolygon();
                 }
@@ -2708,11 +2708,11 @@ GNEViewNet::onCmdSelectPolygonElements(FXObject*, FXSelector, void*) {
         ACsUnderPolygon.reserve(myViewObjectsSelector.getAttributeCarriers().size());
         // iterate over obtained GUIGlIDs
         for (const auto& AC : myViewObjectsSelector.getAttributeCarriers()) {
-            if ((AC->getTagProperty().getTag() == SUMO_TAG_EDGE) && checkSelectEdges()) {
+            if ((AC->getTagProperty()->getTag() == SUMO_TAG_EDGE) && checkSelectEdges()) {
                 ACsUnderPolygon.push_back(AC);
-            } else if ((AC->getTagProperty().getTag() == SUMO_TAG_LANE) && !checkSelectEdges()) {
+            } else if ((AC->getTagProperty()->getTag() == SUMO_TAG_LANE) && !checkSelectEdges()) {
                 ACsUnderPolygon.push_back(AC);
-            } else if (!AC->getTagProperty().isSymbol() && (AC != polygonUnderMouse)) {
+            } else if (!AC->getTagProperty()->isSymbol() && (AC != polygonUnderMouse)) {
                 ACsUnderPolygon.push_back(AC);
             }
         }
@@ -2747,7 +2747,7 @@ GNEViewNet::onCmdTriangulatePolygon(FXObject*, FXSelector, void*) {
         // create every individual triangle
         for (const auto& triangle : triangulation) {
             auto basePolygon = polygonUnderMouse->getSumoBaseObject();
-            basePolygon->addStringAttribute(SUMO_ATTR_ID, myNet->getAttributeCarriers()->generateAdditionalID(polygonUnderMouse->getTagProperty().getTag()));
+            basePolygon->addStringAttribute(SUMO_ATTR_ID, myNet->getAttributeCarriers()->generateAdditionalID(polygonUnderMouse->getTagProperty()->getTag()));
             basePolygon->addPositionVectorAttribute(SUMO_ATTR_SHAPE, triangle.getShape());
             // build shape
             additionalHandler.parseSumoBaseObject(basePolygon);
@@ -2897,7 +2897,7 @@ GNEViewNet::onCmdTransformPOI(FXObject*, FXSelector, void*) {
     GNEPOI* POI = getPOIAtPopupPosition();
     if (POI) {
         // check what type of POI will be transformed
-        if (POI->getTagProperty().getTag() == SUMO_TAG_POI) {
+        if (POI->getTagProperty()->getTag() == SUMO_TAG_POI) {
             // obtain lanes around POI boundary
             std::vector<GUIGlID> GLIDs = getObjectsInBoundary(POI->getCenteringBoundary());
             std::vector<GNELane*> lanes;
@@ -3255,7 +3255,7 @@ GNEViewNet::onCmdOpenAdditionalDialog(FXObject*, FXSelector, void*) {
     // retrieve additional under cursor
     GNEAdditional* addtional = getAdditionalAtPopupPosition();
     // check if additional can open dialog
-    if (addtional && addtional->getTagProperty().hasDialog()) {
+    if (addtional && addtional->getTagProperty()->hasDialog()) {
         addtional->openAdditionalDialog();
     }
     return 1;
@@ -3615,13 +3615,13 @@ GNEViewNet::onCmdClearConnections(FXObject*, FXSelector, void*) {
     GNEJunction* junction = getJunctionAtPopupPosition();
     if (junction != nullptr) {
         // make sure we do not inspect the connection will it is being deleted
-        if (myInspectedElements.getFirstAC() && (myInspectedElements.getFirstAC()->getTagProperty().getTag() == SUMO_TAG_CONNECTION)) {
+        if (myInspectedElements.getFirstAC() && (myInspectedElements.getFirstAC()->getTagProperty()->getTag() == SUMO_TAG_CONNECTION)) {
             myViewParent->getInspectorFrame()->clearInspection();
         }
         // make sure that connections isn't the front attribute
         const auto frontElements = myMarkFrontElements.getACs();
         for (const auto& AC : frontElements) {
-            if (AC->getTagProperty().getTag() == SUMO_TAG_CONNECTION) {
+            if (AC->getTagProperty()->getTag() == SUMO_TAG_CONNECTION) {
                 myMarkFrontElements.unmarkAC(AC);
             }
         }
@@ -3649,13 +3649,13 @@ GNEViewNet::onCmdResetConnections(FXObject*, FXSelector, void*) {
     GNEJunction* junction = getJunctionAtPopupPosition();
     if (junction != nullptr) {
         // make sure we do not inspect the connection will it is being deleted
-        if (myInspectedElements.getFirstAC() && (myInspectedElements.getFirstAC()->getTagProperty().getTag() == SUMO_TAG_CONNECTION)) {
+        if (myInspectedElements.getFirstAC() && (myInspectedElements.getFirstAC()->getTagProperty()->getTag() == SUMO_TAG_CONNECTION)) {
             myViewParent->getInspectorFrame()->clearInspection();
         }
         // make sure that connections isn't the front attribute
         const auto frontElements = myMarkFrontElements.getACs();
         for (const auto& AC : frontElements) {
-            if (AC->getTagProperty().getTag() == SUMO_TAG_CONNECTION) {
+            if (AC->getTagProperty()->getTag() == SUMO_TAG_CONNECTION) {
                 myMarkFrontElements.unmarkAC(AC);
             }
         }
@@ -4040,14 +4040,14 @@ GNEViewNet::onCmdToggleDrawSpreadVehicles(FXObject*, FXSelector sel, void*) {
     for (const auto& vehicle : myNet->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VEHICLE)) {
         if (vehicle.second->getParentEdges().size() > 0) {
             edgesToUpdate.insert(vehicle.second->getParentEdges().front());
-        } else if (vehicle.second->getChildDemandElements().size() > 0 && (vehicle.second->getChildDemandElements().front()->getTagProperty().getTag() == GNE_TAG_ROUTE_EMBEDDED)) {
+        } else if (vehicle.second->getChildDemandElements().size() > 0 && (vehicle.second->getChildDemandElements().front()->getTagProperty()->getTag() == GNE_TAG_ROUTE_EMBEDDED)) {
             edgesToUpdate.insert(vehicle.second->getChildDemandElements().front()->getParentEdges().front());
         }
     }
     for (const auto& routeFlow : myNet->getAttributeCarriers()->getDemandElements().at(GNE_TAG_FLOW_ROUTE)) {
         if (routeFlow.second->getParentEdges().size() > 0) {
             edgesToUpdate.insert(routeFlow.second->getParentEdges().front());
-        } else if (routeFlow.second->getChildDemandElements().size() > 0 && (routeFlow.second->getChildDemandElements().front()->getTagProperty().getTag() == GNE_TAG_ROUTE_EMBEDDED)) {
+        } else if (routeFlow.second->getChildDemandElements().size() > 0 && (routeFlow.second->getChildDemandElements().front()->getTagProperty()->getTag() == GNE_TAG_ROUTE_EMBEDDED)) {
             edgesToUpdate.insert(routeFlow.second->getChildDemandElements().front()->getParentEdges().front());
         }
     }
@@ -4272,7 +4272,7 @@ GNEViewNet::onCmdToggleLockPerson(FXObject*, FXSelector sel, void*) {
     // Toggle menuCheckLockPerson
     if (myDemandViewOptions.menuCheckLockPerson->amChecked() == TRUE) {
         myDemandViewOptions.menuCheckLockPerson->setChecked(FALSE);
-    } else if (myInspectedElements.getFirstAC() && myInspectedElements.getFirstAC()->getTagProperty().isPerson()) {
+    } else if (myInspectedElements.getFirstAC() && myInspectedElements.getFirstAC()->getTagProperty()->isPerson()) {
         myDemandViewOptions.menuCheckLockPerson->setChecked(TRUE);
     }
     myDemandViewOptions.menuCheckLockPerson->update();
@@ -4282,7 +4282,7 @@ GNEViewNet::onCmdToggleLockPerson(FXObject*, FXSelector sel, void*) {
         const GNEDemandElement* personOrPersonPlan = dynamic_cast<const GNEDemandElement*>(myInspectedElements.getFirstAC());
         if (personOrPersonPlan) {
             // lock person depending if casted demand element is either a person or a person plan
-            if (personOrPersonPlan->getTagProperty().isPerson()) {
+            if (personOrPersonPlan->getTagProperty()->isPerson()) {
                 myDemandViewOptions.lockPerson(personOrPersonPlan);
             } else {
                 myDemandViewOptions.lockPerson(personOrPersonPlan->getParentDemandElements().front());
@@ -4326,7 +4326,7 @@ GNEViewNet::onCmdToggleLockContainer(FXObject*, FXSelector sel, void*) {
     // Toggle menuCheckLockContainer
     if (myDemandViewOptions.menuCheckLockContainer->amChecked() == TRUE) {
         myDemandViewOptions.menuCheckLockContainer->setChecked(FALSE);
-    } else if (myInspectedElements.getFirstAC() && myInspectedElements.getFirstAC()->getTagProperty().isContainer()) {
+    } else if (myInspectedElements.getFirstAC() && myInspectedElements.getFirstAC()->getTagProperty()->isContainer()) {
         myDemandViewOptions.menuCheckLockContainer->setChecked(TRUE);
     }
     myDemandViewOptions.menuCheckLockContainer->update();
@@ -4336,7 +4336,7 @@ GNEViewNet::onCmdToggleLockContainer(FXObject*, FXSelector sel, void*) {
         const GNEDemandElement* containerOrContainerPlan = dynamic_cast<const GNEDemandElement*>(myInspectedElements.getFirstAC());
         if (containerOrContainerPlan) {
             // lock container depending if casted demand element is either a container or a container plan
-            if (containerOrContainerPlan->getTagProperty().isContainer()) {
+            if (containerOrContainerPlan->getTagProperty()->isContainer()) {
                 myDemandViewOptions.lockContainer(containerOrContainerPlan);
             } else {
                 myDemandViewOptions.lockContainer(containerOrContainerPlan->getParentDemandElements().front());
@@ -5166,42 +5166,42 @@ GNEViewNet::updateDataModeSpecificControls() {
 
 void
 GNEViewNet::deleteNetworkAttributeCarrier(const GNEAttributeCarrier* AC) {
-    if (AC->getTagProperty().getTag() == SUMO_TAG_JUNCTION) {
+    if (AC->getTagProperty()->getTag() == SUMO_TAG_JUNCTION) {
         // get junction (note: could be already removed if is a child, then hardfail=false)
         GNEJunction* junction = myNet->getAttributeCarriers()->retrieveJunction(AC->getID(), false);
         // if exist, remove it
         if (junction) {
             myNet->deleteJunction(junction, myUndoList);
         }
-    } else if (AC->getTagProperty().getTag() == SUMO_TAG_CROSSING) {
+    } else if (AC->getTagProperty()->getTag() == SUMO_TAG_CROSSING) {
         // get crossing (note: could be already removed if is a child, then hardfail=false)
         GNECrossing* crossing = myNet->getAttributeCarriers()->retrieveCrossing(AC->getGUIGlObject(), false);
         // if exist, remove it
         if (crossing) {
             myNet->deleteCrossing(crossing, myUndoList);
         }
-    } else if (AC->getTagProperty().getTag() == SUMO_TAG_EDGE) {
+    } else if (AC->getTagProperty()->getTag() == SUMO_TAG_EDGE) {
         // get edge (note: could be already removed if is a child, then hardfail=false)
         GNEEdge* edge = myNet->getAttributeCarriers()->retrieveEdge(AC->getID(), false);
         // if exist, remove it
         if (edge) {
             myNet->deleteEdge(edge, myUndoList, false);
         }
-    } else if (AC->getTagProperty().getTag() == SUMO_TAG_LANE) {
+    } else if (AC->getTagProperty()->getTag() == SUMO_TAG_LANE) {
         // get lane (note: could be already removed if is a child, then hardfail=false)
         GNELane* lane = myNet->getAttributeCarriers()->retrieveLane(AC->getGUIGlObject(), false);
         // if exist, remove it
         if (lane) {
             myNet->deleteLane(lane, myUndoList, false);
         }
-    } else if (AC->getTagProperty().getTag() == SUMO_TAG_CONNECTION) {
+    } else if (AC->getTagProperty()->getTag() == SUMO_TAG_CONNECTION) {
         // get connection (note: could be already removed if is a child, then hardfail=false)
         GNEConnection* connection = myNet->getAttributeCarriers()->retrieveConnection(AC->getGUIGlObject(), false);
         // if exist, remove it
         if (connection) {
             myNet->deleteConnection(connection, myUndoList);
         }
-    } else if (AC->getTagProperty().isAdditionalElement()) {
+    } else if (AC->getTagProperty()->isAdditionalElement()) {
         // get additional Element (note: could be already removed if is a child, then hardfail=false)
         GNEAdditional* additionalElement = myNet->getAttributeCarriers()->retrieveAdditional(AC->getGUIGlObject(), false);
         // try to conver to TAZSourceSink (because it requieres their own delete function)
@@ -5229,14 +5229,14 @@ GNEViewNet::deleteDemandAttributeCarrier(const GNEAttributeCarrier* AC) {
 
 void
 GNEViewNet::deleteDataAttributeCarrier(const GNEAttributeCarrier* AC) {
-    if (AC->getTagProperty().getTag() == SUMO_TAG_DATASET) {
+    if (AC->getTagProperty()->getTag() == SUMO_TAG_DATASET) {
         // get data set (note: could be already removed if is a child, then hardfail=false)
         GNEDataSet* dataSet = myNet->getAttributeCarriers()->retrieveDataSet(AC->getID(), false);
         // if exist, remove it
         if (dataSet) {
             myNet->deleteDataSet(dataSet, myUndoList);
         }
-    } else if (AC->getTagProperty().getTag() == SUMO_TAG_DATAINTERVAL) {
+    } else if (AC->getTagProperty()->getTag() == SUMO_TAG_DATAINTERVAL) {
         // get data interval (note: could be already removed if is a child, then hardfail=false)
         GNEDataInterval* dataInterval = myNet->getAttributeCarriers()->retrieveDataInterval(AC, false);
         // if exist, remove it
@@ -5710,7 +5710,7 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
                 // get AC under cursor
                 auto AC = myViewObjectsSelector.getAttributeCarrierFront();
                 // check that AC is an network or additional element
-                if (AC && (AC->getTagProperty().isNetworkElement() || AC->getTagProperty().isAdditionalElement())) {
+                if (AC && (AC->getTagProperty()->isNetworkElement() || AC->getTagProperty()->isAdditionalElement())) {
                     // check if we're moving a set of selected items
                     if (AC->isAttributeCarrierSelected()) {
                         // move selected ACs
@@ -6018,7 +6018,7 @@ GNEViewNet::processLeftButtonPressDemand(void* eventData) {
             // filter additionals (except stoppingPlaces and TAZs)
             myViewObjectsSelector.filterAdditionals(false, false);
             // special case if we're creating person over walk routes
-            if (myViewParent->getPersonFrame()->getPlanSelector()->getCurrentPlanTagProperties().planRoute()) {
+            if (myViewParent->getPersonFrame()->getPlanSelector()->getCurrentPlanTagProperties()->planRoute()) {
                 myViewObjectsSelector.filterDemandElements(false);
             } else {
                 myViewObjectsSelector.filterDemandElements(true);
@@ -6033,7 +6033,7 @@ GNEViewNet::processLeftButtonPressDemand(void* eventData) {
             // filter additionals (except stoppingPlaces and TAZs)
             myViewObjectsSelector.filterAdditionals(false, false);
             // special case if we're creating person over walk routes
-            if (myViewParent->getPersonPlanFrame()->getPlanSelector()->getCurrentPlanTagProperties().planRoute()) {
+            if (myViewParent->getPersonPlanFrame()->getPlanSelector()->getCurrentPlanTagProperties()->planRoute()) {
                 myViewObjectsSelector.filterDemandElements(false);
             } else {
                 myViewObjectsSelector.filterDemandElements(true);
@@ -6113,7 +6113,7 @@ GNEViewNet::processLeftButtonPressData(void* eventData) {
             // filter locked elements
             myViewObjectsSelector.filterLockedElements();
             // process left click in Inspector Frame
-            if (AC && AC->getTagProperty().getTag() == SUMO_TAG_TAZ) {
+            if (AC && AC->getTagProperty()->getTag() == SUMO_TAG_TAZ) {
                 myViewParent->getInspectorFrame()->inspectElement(AC);
             } else {
                 // inspect clicked elements

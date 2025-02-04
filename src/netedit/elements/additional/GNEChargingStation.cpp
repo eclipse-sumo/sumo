@@ -64,7 +64,7 @@ GNEChargingStation::~GNEChargingStation() {}
 
 void
 GNEChargingStation::writeAdditional(OutputDevice& device) const {
-    device.openTag(getTagProperty().getTag());
+    device.openTag(getTagProperty()->getTag());
     device.writeAttr(SUMO_ATTR_ID, getID());
     if (!myAdditionalName.empty()) {
         device.writeAttr(SUMO_ATTR_NAME, StringUtils::escapeXML(myAdditionalName));
@@ -79,25 +79,25 @@ GNEChargingStation::writeAdditional(OutputDevice& device) const {
     if (myFriendlyPosition) {
         device.writeAttr(SUMO_ATTR_FRIENDLY_POS, "true");
     }
-    if (getAttribute(SUMO_ATTR_CHARGINGPOWER) != myTagProperty.getDefaultValue(SUMO_ATTR_CHARGINGPOWER)) {
+    if (getAttribute(SUMO_ATTR_CHARGINGPOWER) != myTagProperty->getDefaultValue(SUMO_ATTR_CHARGINGPOWER)) {
         device.writeAttr(SUMO_ATTR_CHARGINGPOWER, toString(myChargingPower));
     }
-    if (getAttribute(SUMO_ATTR_EFFICIENCY) != myTagProperty.getDefaultValue(SUMO_ATTR_EFFICIENCY)) {
+    if (getAttribute(SUMO_ATTR_EFFICIENCY) != myTagProperty->getDefaultValue(SUMO_ATTR_EFFICIENCY)) {
         device.writeAttr(SUMO_ATTR_EFFICIENCY, myEfficiency);
     }
-    if (getAttribute(SUMO_ATTR_CHARGEINTRANSIT) != myTagProperty.getDefaultValue(SUMO_ATTR_CHARGEINTRANSIT)) {
+    if (getAttribute(SUMO_ATTR_CHARGEINTRANSIT) != myTagProperty->getDefaultValue(SUMO_ATTR_CHARGEINTRANSIT)) {
         device.writeAttr(SUMO_ATTR_CHARGEINTRANSIT, myChargeInTransit);
     }
-    if (getAttribute(SUMO_ATTR_CHARGEDELAY) != myTagProperty.getDefaultValue(SUMO_ATTR_CHARGEDELAY)) {
+    if (getAttribute(SUMO_ATTR_CHARGEDELAY) != myTagProperty->getDefaultValue(SUMO_ATTR_CHARGEDELAY)) {
         device.writeAttr(SUMO_ATTR_CHARGEDELAY, myChargeDelay);
     }
-    if (getAttribute(SUMO_ATTR_CHARGETYPE) != myTagProperty.getDefaultValue(SUMO_ATTR_CHARGETYPE)) {
+    if (getAttribute(SUMO_ATTR_CHARGETYPE) != myTagProperty->getDefaultValue(SUMO_ATTR_CHARGETYPE)) {
         device.writeAttr(SUMO_ATTR_CHARGETYPE, myChargeType);
     }
-    if (string2time(myTagProperty.getDefaultValue(SUMO_ATTR_WAITINGTIME)) != myWaitingTime) {
+    if (string2time(myTagProperty->getDefaultValue(SUMO_ATTR_WAITINGTIME)) != myWaitingTime) {
         device.writeAttr(SUMO_ATTR_WAITINGTIME, time2string(myWaitingTime));
     }
-    if (myTagProperty.getDefaultValue(SUMO_ATTR_PARKING_AREA) != myTagProperty.getDefaultValue(SUMO_ATTR_PARKING_AREA)) {
+    if (myTagProperty->getDefaultValue(SUMO_ATTR_PARKING_AREA) != myTagProperty->getDefaultValue(SUMO_ATTR_PARKING_AREA)) {
         device.writeAttr(SUMO_ATTR_PARKING_AREA, myParkingAreaID);
     }
     // write parameters (Always after children to avoid problems with additionals.xsd)

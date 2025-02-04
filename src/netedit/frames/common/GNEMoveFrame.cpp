@@ -599,7 +599,7 @@ GNEMoveFrame::ShiftShapeGeometry::onCmdShiftShapeGeometry(FXObject*, FXSelector,
     const auto selectedShapes = myMoveFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getSelectedShapes();
     std::vector<GNEAdditional*> polygons, POIs;
     for (const auto& shape : selectedShapes) {
-        if (shape->getTagProperty().getTag() == SUMO_TAG_POLY) {
+        if (shape->getTagProperty()->getTag() == SUMO_TAG_POLY) {
             polygons.push_back(shape);
         } else {
             POIs.push_back(shape);
@@ -619,7 +619,7 @@ GNEMoveFrame::ShiftShapeGeometry::onCmdShiftShapeGeometry(FXObject*, FXSelector,
     // iterate over POIs
     for (const auto& POI : POIs) {
         // currently only for POIs (not for POILanes or POIGEOs
-        if (POI->getTagProperty().hasAttribute(SUMO_ATTR_POSITION)) {
+        if (POI->getTagProperty()->hasAttribute(SUMO_ATTR_POSITION)) {
             // get shape geometry
             Position position = GNEAttributeCarrier::parse<Position>(POI->getAttribute(SUMO_ATTR_POSITION));
             // shift shape geometry

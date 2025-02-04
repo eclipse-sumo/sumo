@@ -110,47 +110,47 @@ void
 GNEAttributesCreator::getAttributesAndValues(CommonXMLStructure::SumoBaseObject* baseObject, bool includeAll) const {
     // get standard parameters
     for (const auto& row : myAttributesCreatorRows) {
-        if (row && row->getAttrProperties().getAttr() != SUMO_ATTR_NOTHING) {
-            const auto& attrProperties = row->getAttrProperties();
+        if (row && row->getAttrProperties()->getAttr() != SUMO_ATTR_NOTHING) {
+            const auto attrProperties = row->getAttrProperties();
             // flag for row enabled
             const bool rowEnabled = row->isAttributesCreatorRowEnabled();
             // flag for default attributes
-            const bool hasDefaultStaticValue = !attrProperties.hasDefaultValue() || (attrProperties.getDefaultValue() != row->getValue());
+            const bool hasDefaultStaticValue = !attrProperties->hasDefaultValue() || (attrProperties->getDefaultValue() != row->getValue());
             // flag for enablitables attributes
-            const bool isFlowDefinitionAttribute = attrProperties.isFlow();
+            const bool isFlowDefinitionAttribute = attrProperties->isFlow();
             // flag for Terminatel attributes
-            const bool isActivatableAttribute = attrProperties.isActivatable() && row->getAttributeCheckButtonCheck();
+            const bool isActivatableAttribute = attrProperties->isActivatable() && row->getAttributeCheckButtonCheck();
             // check if flags configuration allow to include values
             if (rowEnabled && (includeAll || hasDefaultStaticValue || isFlowDefinitionAttribute || isActivatableAttribute)) {
-                // add attribute depending of type
-                if (attrProperties.isInt()) {
-                    const int intValue = GNEAttributeCarrier::canParse<int>(row->getValue()) ? GNEAttributeCarrier::parse<int>(row->getValue()) : GNEAttributeCarrier::parse<int>(attrProperties.getDefaultValue());
-                    baseObject->addIntAttribute(attrProperties.getAttr(), intValue);
-                } else if (attrProperties.isFloat()) {
-                    const double doubleValue = GNEAttributeCarrier::canParse<double>(row->getValue()) ? GNEAttributeCarrier::parse<double>(row->getValue()) : GNEAttributeCarrier::parse<double>(attrProperties.getDefaultValue());
-                    baseObject->addDoubleAttribute(attrProperties.getAttr(), doubleValue);
-                } else if (attrProperties.isBool()) {
-                    const bool boolValue = GNEAttributeCarrier::canParse<bool>(row->getValue()) ? GNEAttributeCarrier::parse<bool>(row->getValue()) : GNEAttributeCarrier::parse<bool>(attrProperties.getDefaultValue());
-                    baseObject->addBoolAttribute(attrProperties.getAttr(), boolValue);
-                } else if (attrProperties.isPosition()) {
-                    const Position positionValue = GNEAttributeCarrier::canParse<Position>(row->getValue()) ? GNEAttributeCarrier::parse<Position>(row->getValue()) : GNEAttributeCarrier::parse<Position>(attrProperties.getDefaultValue());
-                    baseObject->addPositionAttribute(attrProperties.getAttr(), positionValue);
-                } else if (attrProperties.isSUMOTime()) {
-                    const SUMOTime timeValue = GNEAttributeCarrier::canParse<SUMOTime>(row->getValue()) ? GNEAttributeCarrier::parse<SUMOTime>(row->getValue()) : GNEAttributeCarrier::parse<SUMOTime>(attrProperties.getDefaultValue());
-                    baseObject->addTimeAttribute(attrProperties.getAttr(), timeValue);
-                } else if (attrProperties.isColor()) {
-                    const RGBColor colorValue = GNEAttributeCarrier::canParse<RGBColor>(row->getValue()) ? GNEAttributeCarrier::parse<RGBColor>(row->getValue()) : GNEAttributeCarrier::parse<RGBColor>(attrProperties.getDefaultValue());
-                    baseObject->addColorAttribute(attrProperties.getAttr(), colorValue);
-                } else if (attrProperties.isList()) {
-                    if (attrProperties.isPosition()) {
-                        const PositionVector positionVectorValue = GNEAttributeCarrier::canParse<PositionVector>(row->getValue()) ? GNEAttributeCarrier::parse<PositionVector>(row->getValue()) : GNEAttributeCarrier::parse<PositionVector>(attrProperties.getDefaultValue());
-                        baseObject->addPositionVectorAttribute(attrProperties.getAttr(), positionVectorValue);
+                // add attributeProperty depending of type
+                if (attrProperties->isInt()) {
+                    const int intValue = GNEAttributeCarrier::canParse<int>(row->getValue()) ? GNEAttributeCarrier::parse<int>(row->getValue()) : GNEAttributeCarrier::parse<int>(attrProperties->getDefaultValue());
+                    baseObject->addIntAttribute(attrProperties->getAttr(), intValue);
+                } else if (attrProperties->isFloat()) {
+                    const double doubleValue = GNEAttributeCarrier::canParse<double>(row->getValue()) ? GNEAttributeCarrier::parse<double>(row->getValue()) : GNEAttributeCarrier::parse<double>(attrProperties->getDefaultValue());
+                    baseObject->addDoubleAttribute(attrProperties->getAttr(), doubleValue);
+                } else if (attrProperties->isBool()) {
+                    const bool boolValue = GNEAttributeCarrier::canParse<bool>(row->getValue()) ? GNEAttributeCarrier::parse<bool>(row->getValue()) : GNEAttributeCarrier::parse<bool>(attrProperties->getDefaultValue());
+                    baseObject->addBoolAttribute(attrProperties->getAttr(), boolValue);
+                } else if (attrProperties->isPosition()) {
+                    const Position positionValue = GNEAttributeCarrier::canParse<Position>(row->getValue()) ? GNEAttributeCarrier::parse<Position>(row->getValue()) : GNEAttributeCarrier::parse<Position>(attrProperties->getDefaultValue());
+                    baseObject->addPositionAttribute(attrProperties->getAttr(), positionValue);
+                } else if (attrProperties->isSUMOTime()) {
+                    const SUMOTime timeValue = GNEAttributeCarrier::canParse<SUMOTime>(row->getValue()) ? GNEAttributeCarrier::parse<SUMOTime>(row->getValue()) : GNEAttributeCarrier::parse<SUMOTime>(attrProperties->getDefaultValue());
+                    baseObject->addTimeAttribute(attrProperties->getAttr(), timeValue);
+                } else if (attrProperties->isColor()) {
+                    const RGBColor colorValue = GNEAttributeCarrier::canParse<RGBColor>(row->getValue()) ? GNEAttributeCarrier::parse<RGBColor>(row->getValue()) : GNEAttributeCarrier::parse<RGBColor>(attrProperties->getDefaultValue());
+                    baseObject->addColorAttribute(attrProperties->getAttr(), colorValue);
+                } else if (attrProperties->isList()) {
+                    if (attrProperties->isPosition()) {
+                        const PositionVector positionVectorValue = GNEAttributeCarrier::canParse<PositionVector>(row->getValue()) ? GNEAttributeCarrier::parse<PositionVector>(row->getValue()) : GNEAttributeCarrier::parse<PositionVector>(attrProperties->getDefaultValue());
+                        baseObject->addPositionVectorAttribute(attrProperties->getAttr(), positionVectorValue);
                     } else {
-                        const std::vector<std::string> stringVectorValue = GNEAttributeCarrier::canParse<std::vector<std::string> >(row->getValue()) ? GNEAttributeCarrier::parse<std::vector<std::string> >(row->getValue()) : GNEAttributeCarrier::parse<std::vector<std::string> >(attrProperties.getDefaultValue());
-                        baseObject->addStringListAttribute(attrProperties.getAttr(), stringVectorValue);
+                        const std::vector<std::string> stringVectorValue = GNEAttributeCarrier::canParse<std::vector<std::string> >(row->getValue()) ? GNEAttributeCarrier::parse<std::vector<std::string> >(row->getValue()) : GNEAttributeCarrier::parse<std::vector<std::string> >(attrProperties->getDefaultValue());
+                        baseObject->addStringListAttribute(attrProperties->getAttr(), stringVectorValue);
                     }
                 } else {
-                    baseObject->addStringAttribute(attrProperties.getAttr(), row->getValue());
+                    baseObject->addStringAttribute(attrProperties->getAttr(), row->getValue());
                 }
             }
         }
@@ -173,9 +173,9 @@ GNEAttributesCreator::showWarningMessage(std::string extra) const {
     std::string errorMessage;
     // show warning box if input parameters aren't invalid
     if (extra.size() == 0) {
-        errorMessage = TL("Invalid input parameter of ") + myTemplateAC->getTagProperty().getTagStr();
+        errorMessage = TL("Invalid input parameter of ") + myTemplateAC->getTagProperty()->getTagStr();
     } else {
-        errorMessage = TL("Invalid input parameter of ") + myTemplateAC->getTagProperty().getTagStr() + ": " + extra;
+        errorMessage = TL("Invalid input parameter of ") + myTemplateAC->getTagProperty()->getTagStr() + ": " + extra;
     }
     // set message in status bar
     myFrameParent->getViewNet()->setStatusBarText(errorMessage);
@@ -207,9 +207,9 @@ GNEAttributesCreator::disableAttributesCreator() {
 bool
 GNEAttributesCreator::areValuesValid() const {
     // iterate over standar parameters
-    for (const auto& attribute : myTemplateAC->getTagProperty()) {
+    for (const auto& attributeProperty : myTemplateAC->getTagProperty()->getAttributeProperties()) {
         // Return false if error message of attriuve isn't empty
-        if (myAttributesCreatorRows.at(attribute.getPositionListed()) && !myAttributesCreatorRows.at(attribute.getPositionListed())->isAttributeValid()) {
+        if (myAttributesCreatorRows.at(attributeProperty->getPositionListed()) && !myAttributesCreatorRows.at(attributeProperty->getPositionListed())->isAttributeValid()) {
             return false;
         }
     }
@@ -243,48 +243,48 @@ void
 GNEAttributesCreator::refreshRows(const bool createRows) {
     // declare a flag to show Flow editor
     bool showFlowEditor = false;
-    // iterate over tag attributes and create AttributesCreatorRows for every attribute
-    for (const auto& attribute : myTemplateAC->getTagProperty()) {
-        // declare falg to check conditions for show attribute
+    // iterate over tag attributes and create AttributesCreatorRows for every attributeProperty
+    for (const auto& attributeProperty : myTemplateAC->getTagProperty()->getAttributeProperties()) {
+        // declare falg to check conditions for show attributeProperty
         bool showAttribute = true;
         // check that only non-unique attributes (except ID) are created (And depending of includeExtendedAttributes)
-        if (attribute.isUnique() && (attribute.getAttr() != SUMO_ATTR_ID)) {
+        if (attributeProperty->isUnique() && (attributeProperty->getAttr() != SUMO_ATTR_ID)) {
             showAttribute = false;
         }
         // avoid selected and row (temporal, until unification with attributesEditor)
-        if ((attribute.getAttr() == GNE_ATTR_SELECTED) ||
-                (attribute.getAttr() == GNE_ATTR_FRONTELEMENT) ||
-                (attribute.getAttr() == GNE_ATTR_PARENT) ||
-                (attribute.getAttr() == GNE_ATTR_CLOSESHAPE)) {
+        if ((attributeProperty->getAttr() == GNE_ATTR_SELECTED) ||
+                (attributeProperty->getAttr() == GNE_ATTR_FRONTELEMENT) ||
+                (attributeProperty->getAttr() == GNE_ATTR_PARENT) ||
+                (attributeProperty->getAttr() == GNE_ATTR_CLOSESHAPE)) {
             showAttribute = false;
         }
-        // check if attribute must stay hidden
-        if (std::find(myHiddenAttributes.begin(), myHiddenAttributes.end(), attribute.getAttr()) != myHiddenAttributes.end()) {
+        // check if attributeProperty must stay hidden
+        if (std::find(myHiddenAttributes.begin(), myHiddenAttributes.end(), attributeProperty->getAttr()) != myHiddenAttributes.end()) {
             showAttribute = false;
         }
-        // check if attribute is a flow definitionattribute
-        if (attribute.isFlow()) {
+        // check if attributeProperty is a flow definitionattribute
+        if (attributeProperty->isFlow()) {
             showAttribute = false;
             showFlowEditor = true;
         }
         // check special case for vaporizer IDs
-        if ((attribute.getAttr() == SUMO_ATTR_ID) && (attribute.getTagPropertyParent().getTag() == SUMO_TAG_VAPORIZER)) {
+        if ((attributeProperty->getAttr() == SUMO_ATTR_ID) && (attributeProperty->getTagPropertyParent()->getTag() == SUMO_TAG_VAPORIZER)) {
             showAttribute = false;
         }
         // check special case for VType IDs in vehicle and person Frame
-        if ((attribute.getAttr() == SUMO_ATTR_TYPE) && (myFrameParent->getViewNet()->getEditModes().isCurrentSupermodeDemand()) &&
+        if ((attributeProperty->getAttr() == SUMO_ATTR_TYPE) && (myFrameParent->getViewNet()->getEditModes().isCurrentSupermodeDemand()) &&
                 ((myFrameParent->getViewNet()->getEditModes().demandEditMode == DemandEditMode::DEMAND_VEHICLE) ||
                  (myFrameParent->getViewNet()->getEditModes().demandEditMode == DemandEditMode::DEMAND_PERSON) ||
                  (myFrameParent->getViewNet()->getEditModes().demandEditMode == DemandEditMode::DEMAND_CONTAINER))) {
             showAttribute = false;
         }
-        // show attribute depending of showAttribute flag
+        // show attributeProperty depending of showAttribute flag
         if (showAttribute) {
             // check if we have to create a new row
             if (createRows) {
-                myAttributesCreatorRows.at(attribute.getPositionListed()) = new GNEAttributesCreatorRow(this, attribute);
+                myAttributesCreatorRows.at(attributeProperty->getPositionListed()) = new GNEAttributesCreatorRow(this, attributeProperty);
             } else {
-                myAttributesCreatorRows.at(attribute.getPositionListed())->refreshRow();
+                myAttributesCreatorRows.at(attributeProperty->getPositionListed())->refreshRow();
             }
         }
     }

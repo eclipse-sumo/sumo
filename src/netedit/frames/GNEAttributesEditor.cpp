@@ -127,13 +127,13 @@ GNEAttributesEditor::hideAttributesEditor() {
 void
 GNEAttributesEditor::refreshAttributesEditor() {
     if (myEditedACs.size() > 0) {
-        const auto& tagProperty = myEditedACs.front()->getTagProperty();
+        const auto tagProperty = myEditedACs.front()->getTagProperty();
         int itRows = 0;
         bool showButtons = false;
         // check if show netedit attributes (only for single edited ACs)
         if ((myEditorOptions & EditorOptions::NETEDIT_ATTRIBUTES) != 0) {
             // front button
-            if (tagProperty.isDrawable()) {
+            if (tagProperty->isDrawable()) {
                 myFrontButton->show();
                 // disable if we're reparenting
                 if (isReparenting()) {
@@ -148,10 +148,10 @@ GNEAttributesEditor::refreshAttributesEditor() {
             // specific for single edited attributes
             if (myEditedACs.size() == 1) {
                 // edit dialog
-                if (tagProperty.hasDialog()) {
+                if (tagProperty->hasDialog()) {
                     // set text and icon
-                    myOpenDialogButton->setText(TLF("Open % dialog", tagProperty.getTagStr()).c_str());
-                    myOpenDialogButton->setIcon(GUIIconSubSys::getIcon(tagProperty.getGUIIcon()));
+                    myOpenDialogButton->setText(TLF("Open % dialog", tagProperty->getTagStr()).c_str());
+                    myOpenDialogButton->setIcon(GUIIconSubSys::getIcon(tagProperty->getGUIIcon()));
                     // disable if we're reparenting
                     if (isReparenting()) {
                         myOpenDialogButton->disable();
@@ -171,22 +171,22 @@ GNEAttributesEditor::refreshAttributesEditor() {
             showButtons = true;
         } else {
             // Iterate over tag property of first AC and show row for every attribute
-            for (const auto& attrProperty : tagProperty) {
+            for (const auto& attrProperty : tagProperty->getAttributeProperties()) {
                 bool showAttributeRow = true;
                 // check show conditions
-                if (attrProperty.isExtended()) {
+                if (attrProperty->isExtended()) {
                     showAttributeRow = false;
-                } else if (((myEditorOptions & EditorOptions::FLOW_ATTRIBUTES) == 0) && attrProperty.isFlow()) {
+                } else if (((myEditorOptions & EditorOptions::FLOW_ATTRIBUTES) == 0) && attrProperty->isFlow()) {
                     showAttributeRow = false;
-                } else if (((myEditorOptions & EditorOptions::FLOW_ATTRIBUTES) != 0) && !attrProperty.isFlow()) {
+                } else if (((myEditorOptions & EditorOptions::FLOW_ATTRIBUTES) != 0) && !attrProperty->isFlow()) {
                     showAttributeRow = false;
-                } else if (((myEditorOptions & EditorOptions::GEO_ATTRIBUTES) == 0) && attrProperty.isGEO()) {
+                } else if (((myEditorOptions & EditorOptions::GEO_ATTRIBUTES) == 0) && attrProperty->isGEO()) {
                     showAttributeRow = false;
-                } else if (((myEditorOptions & EditorOptions::GEO_ATTRIBUTES) != 0) && !attrProperty.isGEO()) {
+                } else if (((myEditorOptions & EditorOptions::GEO_ATTRIBUTES) != 0) && !attrProperty->isGEO()) {
                     showAttributeRow = false;
-                } else if (((myEditorOptions & EditorOptions::NETEDIT_ATTRIBUTES) == 0) && attrProperty.isNetedit()) {
+                } else if (((myEditorOptions & EditorOptions::NETEDIT_ATTRIBUTES) == 0) && attrProperty->isNetedit()) {
                     showAttributeRow = false;
-                } else if (((myEditorOptions & EditorOptions::NETEDIT_ATTRIBUTES) != 0) && !attrProperty.isNetedit()) {
+                } else if (((myEditorOptions & EditorOptions::NETEDIT_ATTRIBUTES) != 0) && !attrProperty->isNetedit()) {
                     showAttributeRow = false;
                 } else if ((myEditorOptions & EditorOptions::BASIC_ATTRIBUTES) != 0) {
                     showAttributeRow = true;
@@ -233,7 +233,7 @@ GNEAttributesEditor::isReparenting() const {
 
 bool
 GNEAttributesEditor::checkNewParent(const GNEAttributeCarrier* AC) const {
-    return AC->getTagProperty().getTag() == myReparentTag;
+    return AC->getTagProperty()->getTag() == myReparentTag;
 }
 
 
@@ -265,7 +265,7 @@ long
 GNEAttributesEditor::onCmdOpenElementDialog(FXObject*, FXSelector, void*) {
     // check number of inspected elements
     if (myEditedACs.size() == 1) {
-        const auto editedTag = myEditedACs.front()->getTagProperty().getTag();
+        const auto editedTag = myEditedACs.front()->getTagProperty()->getTag();
         // check AC
         if (editedTag == SUMO_TAG_REROUTER) {
             // Open rerouter dialog
@@ -285,7 +285,7 @@ GNEAttributesEditor::onCmdOpenElementDialog(FXObject*, FXSelector, void*) {
 long
 GNEAttributesEditor::onCmdOpenExtendedAttributesDialog(FXObject*, FXSelector, void*) {
     // obtain edited AC (temporal), until unification of
-    const auto demandElement = myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveDemandElement(myEditedACs.front()->getTagProperty().getTag(), myEditedACs.front()->getID(), false);
+    const auto demandElement = myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveDemandElement(myEditedACs.front()->getTagProperty()->getTag(), myEditedACs.front()->getID(), false);
     // open vehicle type dialog
     if (demandElement) {
         GNEVehicleTypeDialog(demandElement, true);  // NOSONAR, constructor returns after dialog has been closed
@@ -307,13 +307,13 @@ GNEAttributesEditor::onCmdAttributesEditorHelp(FXObject*, FXSelector, void*) {
 void
 GNEAttributesEditor::setAttribute(SumoXMLAttr attr, const std::string& value) {
     const auto undoList = myFrameParent->getViewNet()->getUndoList();
-    const auto& tagProperty = myEditedACs.front()->getTagProperty();
+    const auto tagProperty = myEditedACs.front()->getTagProperty();
     // first check if we're editing a single attribute or an ID
     if (myEditedACs.size() > 1) {
-        undoList->begin(tagProperty.getGUIIcon(), TLF("change multiple % attributes", tagProperty.getTagStr()));
+        undoList->begin(tagProperty->getGUIIcon(), TLF("change multiple % attributes", tagProperty->getTagStr()));
     } else if (attr == SUMO_ATTR_ID) {
         // IDs attribute has to be encapsulated because implies multiple changes in different additionals (due references)
-        undoList->begin(tagProperty.getGUIIcon(), TLF("change % attribute", tagProperty.getTagStr()));
+        undoList->begin(tagProperty->getGUIIcon(), TLF("change % attribute", tagProperty->getTagStr()));
     }
     // Set new value of attribute in all edited ACs
     for (const auto& editedAC : myEditedACs) {
@@ -332,10 +332,10 @@ GNEAttributesEditor::setAttribute(SumoXMLAttr attr, const std::string& value) {
 void
 GNEAttributesEditor::toggleEnableAttribute(SumoXMLAttr attr, const bool value) {
     const auto undoList = myFrameParent->getViewNet()->getUndoList();
-    const auto& tagProperty = myEditedACs.front()->getTagProperty();
+    const auto tagProperty = myEditedACs.front()->getTagProperty();
     // first check if we're editing a single attribute
     if (myEditedACs.size() > 1) {
-        undoList->begin(tagProperty.getGUIIcon(), TLF("change multiple % attributes", tagProperty.getTagStr()));
+        undoList->begin(tagProperty->getGUIIcon(), TLF("change multiple % attributes", tagProperty->getTagStr()));
     }
     // Set new value of attribute in all edited ACs
     for (const auto& editedAC : myEditedACs) {
@@ -357,8 +357,8 @@ GNEAttributesEditor::toggleEnableAttribute(SumoXMLAttr attr, const bool value) {
 
 void
 GNEAttributesEditor::enableReparent() {
-    if (myEditedACs.front()->getTagProperty().getParentTags().size() > 0) {
-        myReparentTag = myEditedACs.front()->getTagProperty().getParentTags().front();
+    if (myEditedACs.front()->getTagProperty()->getParentTags().size() > 0) {
+        myReparentTag = myEditedACs.front()->getTagProperty()->getParentTags().front();
         refreshAttributesEditor();
         myFrameParent->getViewNet()->update();
     }

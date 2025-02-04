@@ -58,11 +58,11 @@ GNEDataInterval::updateGenericDataIDs() {
     if (myNet->isUpdateDataEnabled()) {
         // iterate over generic data childrens
         for (const auto& genericData : myGenericDataChildren) {
-            if (genericData->getTagProperty().getTag() == GNE_TAG_EDGEREL_SINGLE) {
+            if (genericData->getTagProperty()->getTag() == GNE_TAG_EDGEREL_SINGLE) {
                 // {dataset}[{begin}m{end}]{edge}
                 genericData->setMicrosimID(myDataSetParent->getID() + "[" + toString(myBegin) + "," + toString(myEnd) + "]" +
                                            genericData->getParentEdges().front()->getID());
-            } else if (genericData->getTagProperty().getTag() == SUMO_TAG_EDGEREL) {
+            } else if (genericData->getTagProperty()->getTag() == SUMO_TAG_EDGEREL) {
                 // {dataset}[{begin}m{end}]{from}->{to}
                 genericData->setMicrosimID(myDataSetParent->getID() + "[" + toString(myBegin) + "," + toString(myEnd) + "]" +
                                            genericData->getParentEdges().front()->getID() + "->" + genericData->getParentEdges().back()->getID());
@@ -87,7 +87,7 @@ GNEDataInterval::updateAttributeColors() {
                     const double value = parse<double>(param.second);
                     // update values in both containers
                     myAllAttributeColors.updateValues(param.first, value);
-                    mySpecificAttributeColors[genericData->getTagProperty().getTag()].updateValues(param.first, value);
+                    mySpecificAttributeColors[genericData->getTagProperty()->getTag()].updateValues(param.first, value);
                 }
             }
         }
@@ -205,7 +205,7 @@ GNEDataInterval::addGenericDataChild(GNEGenericData* genericData) {
         // update generic data IDs
         updateGenericDataIDs();
         // check if add to boundary
-        if (genericData->getTagProperty().isPlacedInRTree()) {
+        if (genericData->getTagProperty()->isPlacedInRTree()) {
             myNet->addGLObjectIntoGrid(genericData);
         }
         // update geometry after insertion if myUpdateGeometryEnabled is enabled
@@ -238,7 +238,7 @@ GNEDataInterval::removeGenericDataChild(GNEGenericData* genericData) {
         // delete path element
         myNet->getDataPathManager()->removePath(genericData);
         // check if remove from RTREE
-        if (genericData->getTagProperty().isPlacedInRTree()) {
+        if (genericData->getTagProperty()->isPlacedInRTree()) {
             myNet->removeGLObjectFromGrid(genericData);
         }
         // remove reference from attributeCarriers
@@ -265,7 +265,7 @@ bool
 GNEDataInterval::edgeRelExists(const GNEEdge* fromEdge, const GNEEdge* toEdge) const {
     // interate over all edgeRels and check edge parents
     for (const auto& genericData : myGenericDataChildren) {
-        if ((genericData->getTagProperty().getTag() == SUMO_TAG_EDGEREL) &&
+        if ((genericData->getTagProperty()->getTag() == SUMO_TAG_EDGEREL) &&
                 (genericData->getParentEdges().front() == fromEdge) &&
                 (genericData->getParentEdges().back() == toEdge)) {
             return true;
@@ -279,7 +279,7 @@ bool
 GNEDataInterval::TAZRelExists(const GNEAdditional* TAZ) const {
     // interate over all TAZRels and check TAZ parents
     for (const auto& genericData : myGenericDataChildren) {
-        if ((genericData->getTagProperty().getTag() == SUMO_TAG_TAZREL) &&
+        if ((genericData->getTagProperty()->getTag() == SUMO_TAG_TAZREL) &&
                 (genericData->getParentAdditionals().size() == 1) &&
                 (genericData->getParentAdditionals().front() == TAZ)) {
             return true;
@@ -293,7 +293,7 @@ bool
 GNEDataInterval::TAZRelExists(const GNEAdditional* fromTAZ, const GNEAdditional* toTAZ) const {
     // interate over all TAZRels and check TAZ parents
     for (const auto& genericData : myGenericDataChildren) {
-        if ((genericData->getTagProperty().getTag() == SUMO_TAG_TAZREL) &&
+        if ((genericData->getTagProperty()->getTag() == SUMO_TAG_TAZREL) &&
                 (genericData->getParentAdditionals().size() == 2) &&
                 (genericData->getParentAdditionals().front() == fromTAZ) &&
                 (genericData->getParentAdditionals().back() == toTAZ)) {

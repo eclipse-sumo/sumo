@@ -2038,18 +2038,18 @@ GNEViewNetHelper::SelectingArea::processBoundarySelection(const Boundary& bounda
     for (const auto& AC : myViewNet->getViewObjectsSelector().getAttributeCarriers()) {
         // isGLObjectLockedcheck also if we're in their correspoindient supermode
         if (!AC->getGUIGlObject()->isGLObjectLocked()) {
-            const auto& tagProperty = AC->getTagProperty();
-            if (tagProperty.isNetworkElement() || tagProperty.isAdditionalElement()) {
+            const auto tagProperty = AC->getTagProperty();
+            if (tagProperty->isNetworkElement() || tagProperty->isAdditionalElement()) {
                 // filter edges and lanes
-                if (((tagProperty.getTag() == SUMO_TAG_EDGE) && !selEdges) ||
-                        ((tagProperty.getTag() == SUMO_TAG_LANE) && selEdges)) {
+                if (((tagProperty->getTag() == SUMO_TAG_EDGE) && !selEdges) ||
+                        ((tagProperty->getTag() == SUMO_TAG_LANE) && selEdges)) {
                     continue;
                 } else {
                     ACsFiltered.push_back(AC);
                 }
-            } else if (tagProperty.isDemandElement()) {
+            } else if (tagProperty->isDemandElement()) {
                 ACsFiltered.push_back(AC);
-            } else if (tagProperty.isGenericData()) {
+            } else if (tagProperty->isGenericData()) {
                 ACsFiltered.push_back(AC);
             }
         }
@@ -2091,7 +2091,7 @@ GNEViewNetHelper::SelectingArea::processBoundarySelection(const Boundary& bounda
         std::vector<GNEEdge*> edgesToSelect;
         // iterate over ACToSelect and extract edges
         for (const auto& AC : ACToSelect) {
-            if (AC->getTagProperty().getTag() == SUMO_TAG_EDGE) {
+            if (AC->getTagProperty()->getTag() == SUMO_TAG_EDGE) {
                 edgesToSelect.push_back(dynamic_cast<GNEEdge*>(AC));
             }
         }
@@ -2123,7 +2123,7 @@ GNEViewNetHelper::SelectingArea::processBoundarySelection(const Boundary& bounda
             AC->setAttribute(GNE_ATTR_SELECTED, "0", myViewNet->myUndoList);
         }
         for (const auto& AC : ACToSelect) {
-            if (AC->getTagProperty().isSelectable()) {
+            if (AC->getTagProperty()->isSelectable()) {
                 AC->setAttribute(GNE_ATTR_SELECTED, "1", myViewNet->myUndoList);
             }
         }
@@ -3109,7 +3109,7 @@ GNEViewNetHelper::DemandViewOptions::showNonInspectedDemandElements(const GNEDem
         if ((menuCheckHideNonInspectedDemandElements->amChecked() == FALSE) || (inspectedElements.getFirstAC() == nullptr)) {
             // if checkbox is disabled or there isn't an inspected element, then return true
             return true;
-        } else if (inspectedElements.getFirstAC() && inspectedElements.getFirstAC()->getTagProperty().isDemandElement()) {
+        } else if (inspectedElements.getFirstAC() && inspectedElements.getFirstAC()->getTagProperty()->isDemandElement()) {
             if (inspectedElements.isACInspected(demandElement)) {
                 // if inspected element correspond to demandElement, return true
                 return true;
@@ -4295,13 +4295,13 @@ GNEViewNetHelper::LockIcon::checkDrawing(const GUIVisualizationSettings::Detail 
     }
     // check supermodes
     if (viewNet->getEditModes().isCurrentSupermodeNetwork() &&
-            !(AC->getTagProperty().isNetworkElement() || AC->getTagProperty().isAdditionalElement())) {
+            !(AC->getTagProperty()->isNetworkElement() || AC->getTagProperty()->isAdditionalElement())) {
         return false;
     }
-    if (viewNet->getEditModes().isCurrentSupermodeDemand() && (!AC->getTagProperty().isDemandElement())) {
+    if (viewNet->getEditModes().isCurrentSupermodeDemand() && (!AC->getTagProperty()->isDemandElement())) {
         return false;
     }
-    if (viewNet->getEditModes().isCurrentSupermodeData() && (!AC->getTagProperty().isDataElement())) {
+    if (viewNet->getEditModes().isCurrentSupermodeData() && (!AC->getTagProperty()->isDataElement())) {
         return false;
     }
     // check if is locked

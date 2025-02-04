@@ -22,13 +22,10 @@
 
 #define MAXATTRIBUTES 128
 
+
 // ===========================================================================
 // method definitions
 // ===========================================================================
-
-GNETagProperties::GNETagProperties() {
-}
-
 
 GNETagProperties::GNETagProperties(const SumoXMLTag tag, const int tagType, const int tagProperty, const int tagParents,
                                    const int conflicts, const GUIIcon icon, const SumoXMLTag XMLTag, const std::string tooltip,
@@ -49,7 +46,11 @@ GNETagProperties::GNETagProperties(const SumoXMLTag tag, const int tagType, cons
 }
 
 
-GNETagProperties::~GNETagProperties() {}
+GNETagProperties::~GNETagProperties() {
+    for (const auto& attrProperties : myAttributeProperties) {
+        delete attrProperties;
+    }
+}
 
 
 SumoXMLTag
@@ -126,16 +127,16 @@ GNETagProperties::checkTagIntegrity() const {
     }
     // check integrity of all attributes
     for (const auto& attributeProperty : myAttributeProperties) {
-        attributeProperty.checkAttributeIntegrity();
+        attributeProperty->checkAttributeIntegrity();
         // check that if attribute is vehicle classes, own a combination of Allow/disallow attribute
-        if (attributeProperty.isSVCPermission()) {
-            if ((attributeProperty.getAttr() != SUMO_ATTR_ALLOW) && (attributeProperty.getAttr() != SUMO_ATTR_DISALLOW) &&
-                    (attributeProperty.getAttr() != SUMO_ATTR_CHANGE_LEFT) && (attributeProperty.getAttr() != SUMO_ATTR_CHANGE_RIGHT) &&
-                    (attributeProperty.getAttr() != GNE_ATTR_STOPOEXCEPTION)) {
+        if (attributeProperty->isSVCPermission()) {
+            if ((attributeProperty->getAttr() != SUMO_ATTR_ALLOW) && (attributeProperty->getAttr() != SUMO_ATTR_DISALLOW) &&
+                    (attributeProperty->getAttr() != SUMO_ATTR_CHANGE_LEFT) && (attributeProperty->getAttr() != SUMO_ATTR_CHANGE_RIGHT) &&
+                    (attributeProperty->getAttr() != GNE_ATTR_STOPOEXCEPTION)) {
                 throw ProcessError(TL("Attributes aren't combinables"));
-            } else if ((attributeProperty.getAttr() == SUMO_ATTR_ALLOW) && !hasAttribute(SUMO_ATTR_DISALLOW)) {
+            } else if ((attributeProperty->getAttr() == SUMO_ATTR_ALLOW) && !hasAttribute(SUMO_ATTR_DISALLOW)) {
                 throw ProcessError(TL("allow need a disallow attribute in the same tag"));
-            } else if ((attributeProperty.getAttr() == SUMO_ATTR_DISALLOW) && !hasAttribute(SUMO_ATTR_ALLOW)) {
+            } else if ((attributeProperty->getAttr() == SUMO_ATTR_DISALLOW) && !hasAttribute(SUMO_ATTR_ALLOW)) {
                 throw ProcessError(TL("disallow need an allow attribute in the same tag"));
             }
         }
@@ -148,11 +149,11 @@ const std::string&
 GNETagProperties::getDefaultValue(SumoXMLAttr attr) const {
     // iterate over attribute properties
     for (const auto& attributeProperty : myAttributeProperties) {
-        if (attributeProperty.getAttr() == attr) {
-            if (!attributeProperty.hasDefaultValue()) {
-                throw ProcessError(TLF("attribute '%' doesn't have a default value", attributeProperty.getAttrStr()));
+        if (attributeProperty->getAttr() == attr) {
+            if (!attributeProperty->hasDefaultValue()) {
+                throw ProcessError(TLF("attribute '%' doesn't have a default value", attributeProperty->getAttrStr()));
             } else {
-                return attributeProperty.getDefaultValue();
+                return attributeProperty->getDefaultValue();
             }
         }
     }
@@ -161,19 +162,19 @@ GNETagProperties::getDefaultValue(SumoXMLAttr attr) const {
 
 
 void
-GNETagProperties::addAttribute(const GNEAttributeProperties& attributeProperty) {
+GNETagProperties::addAttribute(GNEAttributeProperties* attributeProperty) {
     if ((myAttributeProperties.size() + 1) >= MAXATTRIBUTES) {
-        throw ProcessError(TLF("Maximum number of attributes for tag % exceeded", attributeProperty.getAttrStr()));
+        throw ProcessError(TLF("Maximum number of attributes for tag % exceeded", attributeProperty->getAttrStr()));
     } else {
         // Check that attribute wasn't already inserted
         for (const auto& attrProperty : myAttributeProperties) {
-            if (attributeProperty.getAttr() == attrProperty.getAttr()) {
-                throw ProcessError(TLF("Attribute '%' already inserted", attributeProperty.getAttrStr()));
+            if (attributeProperty->getAttr() == attrProperty->getAttr()) {
+                throw ProcessError(TLF("Attribute '%' already inserted", attributeProperty->getAttrStr()));
             }
         }
         // insert AttributeProperties in vector
+        attributeProperty->setTagPropertyParent(this);
         myAttributeProperties.push_back(attributeProperty);
-        myAttributeProperties.back().setTagPropertyParent(this);
     }
 }
 
@@ -196,11 +197,17 @@ GNETagProperties::getBackGroundColor() const {
 }
 
 
-const GNEAttributeProperties&
+const std::vector<const GNEAttributeProperties*>&
+GNETagProperties::getAttributeProperties() const {
+    return myAttributeProperties;
+}
+
+
+const GNEAttributeProperties*
 GNETagProperties::getAttributeProperties(SumoXMLAttr attr) const {
     // iterate over attribute properties
     for (const auto& attributeProperty : myAttributeProperties) {
-        if ((attributeProperty.getAttr() == attr) || (attributeProperty.hasAttrSynonym() && (attributeProperty.getAttrSynonym() == attr))) {
+        if ((attributeProperty->getAttr() == attr) || (attributeProperty->hasAttrSynonym() && (attributeProperty->getAttrSynonym() == attr))) {
             return attributeProperty;
         }
     }
@@ -209,7 +216,7 @@ GNETagProperties::getAttributeProperties(SumoXMLAttr attr) const {
 }
 
 
-const GNEAttributeProperties&
+const GNEAttributeProperties*
 GNETagProperties::getAttributeProperties(const int index) const {
     if (index < 0 || index >= (int)myAttributeProperties.size()) {
         throw ProcessError(TLF("Invalid index '%' used in getAttributeProperties(int)", toString(index)));
@@ -219,19 +226,7 @@ GNETagProperties::getAttributeProperties(const int index) const {
 }
 
 
-std::vector<GNEAttributeProperties>::const_iterator
-GNETagProperties::begin() const {
-    return myAttributeProperties.begin();
-}
-
-
-std::vector<GNEAttributeProperties>::const_iterator
-GNETagProperties::end() const {
-    return myAttributeProperties.end();
-}
-
-
-const GNEAttributeProperties&
+const GNEAttributeProperties*
 GNETagProperties::at(int index) const {
     return myAttributeProperties.at(index);
 }
@@ -265,7 +260,7 @@ bool
 GNETagProperties::hasAttribute(SumoXMLAttr attr) const {
     // iterate over attribute properties
     for (const auto& attributeProperty : myAttributeProperties) {
-        if (attributeProperty.getAttr() == attr) {
+        if (attributeProperty->getAttr() == attr) {
             return true;
         }
     }

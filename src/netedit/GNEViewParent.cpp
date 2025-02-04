@@ -606,8 +606,8 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                 locateTitle = TL("Additional Chooser");
                 for (const auto& additionalTag : viewNet->getNet()->getAttributeCarriers()->getAdditionals()) {
                     // avoid shapes and TAZs
-                    if (!GNEAttributeCarrier::getTagProperty(additionalTag.first).isShapeElement() &&
-                            !GNEAttributeCarrier::getTagProperty(additionalTag.first).isTAZElement()) {
+                    if (!GNEAttributeCarrier::getTagProperty(additionalTag.first)->isShapeElement() &&
+                            !GNEAttributeCarrier::getTagProperty(additionalTag.first)->isTAZElement()) {
                         for (const auto& additional : additionalTag.second) {
                             ACsToLocate.push_back(additional.second);
                         }

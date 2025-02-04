@@ -66,7 +66,7 @@ GNEStopFrame::HelpCreation::updateHelpCreation() {
     std::ostringstream information;
     // set text depending of selected Stop type
     if (myStopFrameParent->myStopTagSelector->getCurrentTemplateAC()) {
-        switch (myStopFrameParent->myStopTagSelector->getCurrentTemplateAC()->getTagProperty().getTag()) {
+        switch (myStopFrameParent->myStopTagSelector->getCurrentTemplateAC()->getTagProperty()->getTag()) {
             case GNE_TAG_STOP_BUSSTOP:
             case GNE_TAG_WAYPOINT_BUSSTOP:
                 information
@@ -194,7 +194,7 @@ GNEStopFrame::addStop(const GNEViewNetHelper::ViewObjectsSelector& viewObjects, 
     // check if we're selecting a new stop parent
     if (mouseButtonKeyPressed.shiftKeyPressed()) {
         if (viewObjects.getDemandElementFront() &&
-                (viewObjects.getDemandElementFront()->getTagProperty().isVehicle() || viewObjects.getDemandElementFront()->getTagProperty().getTag() == SUMO_TAG_ROUTE)) {
+                (viewObjects.getDemandElementFront()->getTagProperty()->isVehicle() || viewObjects.getDemandElementFront()->getTagProperty()->getTag() == SUMO_TAG_ROUTE)) {
             myStopParentSelector->setDemandElement(viewObjects.getDemandElementFront());
             WRITE_WARNINGF(TL("Selected % '%' as stop parent."), viewObjects.getDemandElementFront()->getTagStr(), viewObjects.getDemandElementFront()->getID());
             return true;
@@ -209,13 +209,13 @@ GNEStopFrame::addStop(const GNEViewNetHelper::ViewObjectsSelector& viewObjects, 
             return false;
         }
         // create stop base object
-        getStopParameter(myStopTagSelector->getCurrentTemplateAC()->getTagProperty().getTag(),
+        getStopParameter(myStopTagSelector->getCurrentTemplateAC()->getTagProperty()->getTag(),
                          viewObjects.getLaneFront(), viewObjects.getAdditionalFront());
         if (myStopParentBaseObject->getTag() != SUMO_TAG_NOTHING) {
             myRouteHandler.buildStop(myStopParentBaseObject->getSumoBaseObjectChildren().front(), myPlanParameters,
                                      myStopParentBaseObject->getSumoBaseObjectChildren().front()->getStopParameter());
             // show all trips
-            if (myStopTagSelector->getCurrentTemplateAC()->getTagProperty().isVehicleStop()) {
+            if (myStopTagSelector->getCurrentTemplateAC()->getTagProperty()->isVehicleStop()) {
                 myViewNet->getDemandViewOptions().menuCheckShowAllTrips->setChecked(TRUE);
             } else {
                 myViewNet->getDemandViewOptions().menuCheckShowAllPersonPlans->setChecked(TRUE);
@@ -258,9 +258,9 @@ GNEStopFrame::getStopParameter(const SumoXMLTag stopTag, const GNELane* lane, co
             return false;
         }
     } else if (stoppingPlace) {
-        if (stoppingPlace->getTagProperty().getTag() == SUMO_TAG_BUS_STOP) {
+        if (stoppingPlace->getTagProperty()->getTag() == SUMO_TAG_BUS_STOP) {
             if ((stopTag != GNE_TAG_STOP_BUSSTOP) && (stopTag != GNE_TAG_WAYPOINT_BUSSTOP) && (stopTag != GNE_TAG_STOPPERSON_BUSSTOP)) {
-                WRITE_WARNING("Invalid clicked stopping place to create a stop placed in a " + stoppingPlace->getTagProperty().getTagStr());
+                WRITE_WARNING("Invalid clicked stopping place to create a stop placed in a " + stoppingPlace->getTagProperty()->getTagStr());
                 return false;
             } else {
                 stop.busstop = stoppingPlace->getID();
@@ -271,9 +271,9 @@ GNEStopFrame::getStopParameter(const SumoXMLTag stopTag, const GNELane* lane, co
                 stop.startPos = 0;
                 stop.endPos = 0;
             }
-        } else if (stoppingPlace->getTagProperty().getTag() == SUMO_TAG_TRAIN_STOP) {
+        } else if (stoppingPlace->getTagProperty()->getTag() == SUMO_TAG_TRAIN_STOP) {
             if ((stopTag != GNE_TAG_STOP_TRAINSTOP) && (stopTag != GNE_TAG_WAYPOINT_TRAINSTOP)) {
-                WRITE_WARNING("Invalid clicked stopping place to create a stop placed in a " + stoppingPlace->getTagProperty().getTagStr());
+                WRITE_WARNING("Invalid clicked stopping place to create a stop placed in a " + stoppingPlace->getTagProperty()->getTagStr());
                 return false;
             } else {
                 stop.busstop = stoppingPlace->getID();
@@ -284,9 +284,9 @@ GNEStopFrame::getStopParameter(const SumoXMLTag stopTag, const GNELane* lane, co
                 stop.startPos = 0;
                 stop.endPos = 0;
             }
-        } else if (stoppingPlace->getTagProperty().getTag() == SUMO_TAG_CONTAINER_STOP) {
+        } else if (stoppingPlace->getTagProperty()->getTag() == SUMO_TAG_CONTAINER_STOP) {
             if ((stopTag != GNE_TAG_STOP_CONTAINERSTOP) && (stopTag != GNE_TAG_WAYPOINT_CONTAINERSTOP)) {
-                WRITE_WARNING("Invalid clicked stopping place to create a stop placed in a " + stoppingPlace->getTagProperty().getTagStr());
+                WRITE_WARNING("Invalid clicked stopping place to create a stop placed in a " + stoppingPlace->getTagProperty()->getTagStr());
                 return false;
             } else {
                 stop.containerstop = stoppingPlace->getID();
@@ -297,9 +297,9 @@ GNEStopFrame::getStopParameter(const SumoXMLTag stopTag, const GNELane* lane, co
                 stop.startPos = 0;
                 stop.endPos = 0;
             }
-        } else if (stoppingPlace->getTagProperty().getTag() == SUMO_TAG_CHARGING_STATION) {
+        } else if (stoppingPlace->getTagProperty()->getTag() == SUMO_TAG_CHARGING_STATION) {
             if ((stopTag != GNE_TAG_STOP_CHARGINGSTATION) && (stopTag != GNE_TAG_WAYPOINT_CHARGINGSTATION)) {
-                WRITE_WARNING("Invalid clicked stopping place to create a stop placed in a " + stoppingPlace->getTagProperty().getTagStr());
+                WRITE_WARNING("Invalid clicked stopping place to create a stop placed in a " + stoppingPlace->getTagProperty()->getTagStr());
                 return false;
             } else {
                 stop.chargingStation = stoppingPlace->getID();
@@ -310,9 +310,9 @@ GNEStopFrame::getStopParameter(const SumoXMLTag stopTag, const GNELane* lane, co
                 stop.startPos = 0;
                 stop.endPos = 0;
             }
-        } else if (stoppingPlace->getTagProperty().getTag() == SUMO_TAG_PARKING_AREA) {
+        } else if (stoppingPlace->getTagProperty()->getTag() == SUMO_TAG_PARKING_AREA) {
             if ((stopTag != GNE_TAG_STOP_PARKINGAREA) && (stopTag != GNE_TAG_WAYPOINT_PARKINGAREA)) {
-                WRITE_WARNING("Invalid clicked stopping place to create a stop placed in a " + stoppingPlace->getTagProperty().getTagStr());
+                WRITE_WARNING("Invalid clicked stopping place to create a stop placed in a " + stoppingPlace->getTagProperty()->getTagStr());
                 return false;
             } else {
                 stop.parkingarea = stoppingPlace->getID();
@@ -363,7 +363,7 @@ GNEStopFrame::getStopParameter(const SumoXMLTag stopTag, const GNELane* lane, co
         }
     }
     // same if stoParent is a vehicle/flow with embedded route
-    if (stopParent->getChildDemandElements().size() > 0 && stopParent->getChildDemandElements().front()->getTagProperty().isRoute() && lane) {
+    if (stopParent->getChildDemandElements().size() > 0 && stopParent->getChildDemandElements().front()->getTagProperty()->isRoute() && lane) {
         bool found = false;
         for (const auto& edge : stopParent->getChildDemandElements().front()->getParentEdges()) {
             if (edge == lane->getParentEdge()) {
@@ -376,16 +376,16 @@ GNEStopFrame::getStopParameter(const SumoXMLTag stopTag, const GNELane* lane, co
         }
     }
     // set parent tag and id
-    myStopParentBaseObject->setTag(stopParent->getTagProperty().getTag());
+    myStopParentBaseObject->setTag(stopParent->getTagProperty()->getTag());
     myStopParentBaseObject->addStringAttribute(SUMO_ATTR_ID, stopParent->getID());
     // add route, from and to attributes
-    if (stopParent->getTagProperty().hasAttribute(SUMO_ATTR_ROUTE)) {
+    if (stopParent->getTagProperty()->hasAttribute(SUMO_ATTR_ROUTE)) {
         myStopParentBaseObject->addStringAttribute(SUMO_ATTR_ROUTE, stopParent->getAttribute(SUMO_ATTR_ROUTE));
     }
-    if (stopParent->getTagProperty().hasAttribute(SUMO_ATTR_FROM)) {
+    if (stopParent->getTagProperty()->hasAttribute(SUMO_ATTR_FROM)) {
         myStopParentBaseObject->addStringAttribute(SUMO_ATTR_FROM, stopParent->getAttribute(SUMO_ATTR_FROM));
     }
-    if (stopParent->getTagProperty().hasAttribute(SUMO_ATTR_TO)) {
+    if (stopParent->getTagProperty()->hasAttribute(SUMO_ATTR_TO)) {
         myStopParentBaseObject->addStringAttribute(SUMO_ATTR_TO, stopParent->getAttribute(SUMO_ATTR_TO));
     }
     // create stop object

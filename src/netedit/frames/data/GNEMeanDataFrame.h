@@ -55,7 +55,7 @@ public:
         ~MeanDataTypeSelector();
 
         /// @brief get current MeanData
-        const GNETagProperties& getCurrentMeanData() const;
+        const GNETagProperties* getCurrentMeanData() const;
 
         /// @brief refresh meanData selector
         void refreshMeanDataTypeSelector();
@@ -75,13 +75,10 @@ public:
         GNEMeanDataFrame* myMeanDataFrameParent;
 
         /// @brief CurrentMeanData selected
-        GNETagProperties myCurrentMeanData;
+        const GNETagProperties* myCurrentMeanData = nullptr;
 
         /// @brief comboBox with the list of vTypes
         MFXComboBoxIcon* myTypeComboBox;
-
-        /// @brief invalidMeanData
-        GNETagProperties myInvalidMeanData;
     };
 
     // ===========================================================================

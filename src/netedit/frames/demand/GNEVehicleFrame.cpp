@@ -68,7 +68,7 @@ GNEVehicleFrame::HelpCreation::updateHelpCreation() {
     // create information label
     std::ostringstream information;
     // set text depending of selected vehicle type
-    switch (myVehicleFrameParent->myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty().getTag()) {
+    switch (myVehicleFrameParent->myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty()->getTag()) {
         // vehicles
         case SUMO_TAG_VEHICLE:
             information
@@ -185,7 +185,7 @@ GNEVehicleFrame::addVehicle(const GNEViewNetHelper::ViewObjectsSelector& viewObj
     // begin cleaning vehicle base object
     myVehicleBaseObject->clear();
     // obtain tag (only for improve code legibility)
-    SumoXMLTag vehicleTag = myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty().getTag();
+    SumoXMLTag vehicleTag = myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty()->getTag();
     const bool addEdge = ((vehicleTag == SUMO_TAG_TRIP) || (vehicleTag == GNE_TAG_VEHICLE_WITHROUTE) || (vehicleTag == SUMO_TAG_FLOW) || (vehicleTag == GNE_TAG_FLOW_WITHROUTE));
     const bool addJunction = ((vehicleTag == GNE_TAG_TRIP_JUNCTIONS) || (vehicleTag == GNE_TAG_FLOW_JUNCTIONS));
     const bool addTAZ = ((vehicleTag == GNE_TAG_TRIP_TAZS) || (vehicleTag == GNE_TAG_FLOW_TAZS));
@@ -213,7 +213,7 @@ GNEVehicleFrame::addVehicle(const GNEViewNetHelper::ViewObjectsSelector& viewObj
     // add VType
     myVehicleBaseObject->addStringAttribute(SUMO_ATTR_TYPE, myTypeSelector->getCurrentDemandElement()->getID());
     // set route or edges depending of vehicle type
-    if (myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty().vehicleRoute()) {
+    if (myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty()->vehicleRoute()) {
         return buildVehicleOverRoute(vehicleTag, viewObjects.getDemandElementFront());
     } else if (addEdge && viewObjects.getEdgeFront()) {
         // add clicked edge in GNEPathCreator
@@ -265,7 +265,7 @@ GNEVehicleFrame::tagSelected() {
         // show path creator modul
         myPathCreator->showPathCreatorModule(myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty(), false);
         // check if show path legend
-        if (myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty().vehicleRouteEmbedded()) {
+        if (myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty()->vehicleRouteEmbedded()) {
             myPathLegend->hidePathLegendModule();
         } else {
             myPathLegend->showPathLegendModule();
@@ -310,7 +310,7 @@ GNEVehicleFrame::createPath(const bool useLastRoute) {
     // first check if parameters are valid
     if (myVehicleAttributes->areValuesValid() && myTypeSelector->getCurrentDemandElement()) {
         // obtain tag (only for improve code legibility)
-        SumoXMLTag vehicleTag = myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty().getTag();
+        SumoXMLTag vehicleTag = myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty()->getTag();
         // begin cleaning vehicle base object
         myVehicleBaseObject->clear();
         // Updated myVehicleBaseObject
@@ -562,9 +562,9 @@ GNEVehicleFrame::createPath(const bool useLastRoute) {
 
 bool
 GNEVehicleFrame::buildVehicleOverRoute(SumoXMLTag vehicleTag, GNEDemandElement* route) {
-    if (route && (route->getTagProperty().isRoute())) {
+    if (route && (route->getTagProperty()->isRoute())) {
         // check if departLane is valid
-        if ((route->getTagProperty().getTag() == SUMO_TAG_ROUTE) && myVehicleBaseObject->hasStringAttribute(SUMO_ATTR_DEPARTLANE) &&
+        if ((route->getTagProperty()->getTag() == SUMO_TAG_ROUTE) && myVehicleBaseObject->hasStringAttribute(SUMO_ATTR_DEPARTLANE) &&
                 GNEAttributeCarrier::canParse<int>(myVehicleBaseObject->getStringAttribute(SUMO_ATTR_DEPARTLANE))) {
             const int departLane = GNEAttributeCarrier::parse<int>(myVehicleBaseObject->getStringAttribute(SUMO_ATTR_DEPARTLANE));
             if (departLane >= (int)route->getParentEdges().front()->getLanes().size()) {

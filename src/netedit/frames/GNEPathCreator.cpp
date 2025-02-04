@@ -166,7 +166,7 @@ GNEPathCreator::~GNEPathCreator() {}
 
 
 void
-GNEPathCreator::showPathCreatorModule(const GNETagProperties& tagProperty, const bool consecutives) {
+GNEPathCreator::showPathCreatorModule(const GNETagProperties* tagProperty, const bool consecutives) {
     // declare flag
     bool showPathCreator = true;
     // first abort creation
@@ -192,11 +192,11 @@ GNEPathCreator::showPathCreatorModule(const GNETagProperties& tagProperty, const
         myCreationMode |= NONCONSECUTIVE_EDGES;
     }
     // continue depending of tag
-    if (tagProperty.isRoute() || tagProperty.vehicleRouteEmbedded()) {
+    if (tagProperty->isRoute() || tagProperty->vehicleRouteEmbedded()) {
         myCreationMode |= SHOW_CANDIDATE_EDGES;
         myCreationMode |= START_EDGE;
         myCreationMode |= END_EDGE;
-    } else if (tagProperty.vehicleRoute()) {
+    } else if (tagProperty->vehicleRoute()) {
         myCreationMode |= ROUTE;
         // show use last inserted route
         myUseLastRoute->show();
@@ -209,16 +209,16 @@ GNEPathCreator::showPathCreatorModule(const GNETagProperties& tagProperty, const
         myShiftLabel->hide();
         myControlLabel->hide();
         myBackSpaceLabel->hide();
-    } else if (tagProperty.vehicleEdges() || (tagProperty.getTag() == SUMO_TAG_EDGEREL)) {
+    } else if (tagProperty->vehicleEdges() || (tagProperty->getTag() == SUMO_TAG_EDGEREL)) {
         myCreationMode |= SHOW_CANDIDATE_EDGES;
         myCreationMode |= START_EDGE;
         myCreationMode |= END_EDGE;
-    } else if (tagProperty.vehicleJunctions()) {
+    } else if (tagProperty->vehicleJunctions()) {
         myCreationMode |= SHOW_CANDIDATE_JUNCTIONS;
         myCreationMode |= START_JUNCTION;
         myCreationMode |= END_JUNCTION;
         myCreationMode |= ONLY_FROMTO;
-    } else if (tagProperty.vehicleTAZs()) {
+    } else if (tagProperty->vehicleTAZs()) {
         myCreationMode |= START_TAZ;
         myCreationMode |= END_TAZ;
         myCreationMode |= ONLY_FROMTO;

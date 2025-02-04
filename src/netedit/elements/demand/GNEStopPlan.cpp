@@ -80,7 +80,7 @@ GNEStopPlan::writeDemandElement(OutputDevice& device) const {
     if (isAttributeEnabled(SUMO_ATTR_ACTTYPE) && (myActType.size() > 0)) {
         device.writeAttr(SUMO_ATTR_ACTTYPE, myActType);
     }
-    if (myTagProperty.hasAttribute(SUMO_ATTR_FRIENDLY_POS) && myFriendlyPos) {
+    if (myTagProperty->hasAttribute(SUMO_ATTR_FRIENDLY_POS) && myFriendlyPos) {
         device.writeAttr(SUMO_ATTR_FRIENDLY_POS, myFriendlyPos);
     }
     device.closeTag();
@@ -123,7 +123,7 @@ GNEStopPlan::updateGeometry() {
     PositionVector shape;
     // update geometry depending of parent
     if (getParentAdditionals().size() > 0) {
-        const double stopWidth = (getParentAdditionals().front()->getTagProperty().getTag() == SUMO_TAG_BUS_STOP) ?
+        const double stopWidth = (getParentAdditionals().front()->getTagProperty()->getTag() == SUMO_TAG_BUS_STOP) ?
                                  viewSettings.stoppingPlaceSettings.busStopWidth : viewSettings.stoppingPlaceSettings.trainStopWidth;
         // get busStop shape
         const PositionVector& busStopShape = getParentAdditionals().front()->getAdditionalGeometry().getShape();
@@ -188,8 +188,8 @@ GNEStopPlan::splitEdgeGeometry(const double /*splitPosition*/, const GNENetworkE
 void
 GNEStopPlan::drawGL(const GUIVisualizationSettings& s) const {
     // check if stop can be draw
-    if ((getTagProperty().isPlanStopPerson() && checkDrawPersonPlan()) ||
-            (getTagProperty().isPlanStopContainer() && checkDrawContainerPlan())) {
+    if ((getTagProperty()->isPlanStopPerson() && checkDrawPersonPlan()) ||
+            (getTagProperty()->isPlanStopContainer() && checkDrawContainerPlan())) {
         // Obtain exaggeration of the draw
         const double exaggeration = getExaggeration(s);
         // get detail level

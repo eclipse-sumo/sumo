@@ -49,7 +49,7 @@ myCreationIndex(myNet->getAttributeCarriers()->getStopIndex()) {
         parking = ParkingType::OFFROAD;
     }
     // set waypoint speed
-    myTagProperty.isVehicleWaypoint() ? parametersSet |= STOP_SPEED_SET : parametersSet &= ~STOP_SPEED_SET;
+    myTagProperty->isVehicleWaypoint() ? parametersSet |= STOP_SPEED_SET : parametersSet &= ~STOP_SPEED_SET;
     // set jump
     (jump != -1) ? parametersSet |= STOP_JUMP_SET : parametersSet &= ~STOP_JUMP_SET;
     // set locator sufix
@@ -76,7 +76,7 @@ myCreationIndex(myNet->getAttributeCarriers()->getStopIndex()) {
     (stopParameter.line.size() > 0) ? parametersSet |= STOP_LINE_SET : parametersSet &= ~STOP_LINE_SET;
     stopParameter.onDemand ? parametersSet |= STOP_ONDEMAND_SET : parametersSet &= ~STOP_ONDEMAND_SET;
     // set waypoint speed
-    myTagProperty.isVehicleWaypoint() ? parametersSet |= STOP_SPEED_SET : parametersSet &= ~STOP_SPEED_SET;
+    myTagProperty->isVehicleWaypoint() ? parametersSet |= STOP_SPEED_SET : parametersSet &= ~STOP_SPEED_SET;
     // set jump
     (jump != -1) ? parametersSet |= STOP_JUMP_SET : parametersSet &= ~STOP_JUMP_SET;
     // set locator sufix
@@ -99,7 +99,7 @@ myCreationIndex(myNet->getAttributeCarriers()->getStopIndex()) {
     (stopParameter.line.size() > 0) ? parametersSet |= STOP_LINE_SET : parametersSet &= ~STOP_LINE_SET;
     stopParameter.onDemand ? parametersSet |= STOP_ONDEMAND_SET : parametersSet &= ~STOP_ONDEMAND_SET;
     // set waypoint speed
-    myTagProperty.isVehicleWaypoint() ? parametersSet |= STOP_SPEED_SET : parametersSet &= ~STOP_SPEED_SET;
+    myTagProperty->isVehicleWaypoint() ? parametersSet |= STOP_SPEED_SET : parametersSet &= ~STOP_SPEED_SET;
     // set jump
     (jump != -1) ? parametersSet |= STOP_JUMP_SET : parametersSet &= ~STOP_JUMP_SET;
     // set locator sufix
@@ -111,7 +111,7 @@ GNEStop::~GNEStop() {}
 
 GNEMoveOperation*
 GNEStop::getMoveOperation() {
-    if ((myTagProperty.getTag() == GNE_TAG_STOP_LANE) || (myTagProperty.getTag() == GNE_TAG_WAYPOINT_LANE)) {
+    if ((myTagProperty->getTag() == GNE_TAG_STOP_LANE) || (myTagProperty->getTag() == GNE_TAG_WAYPOINT_LANE)) {
         // get allow change lane
         const bool allowChangeLane = myNet->getViewNet()->getViewParent()->getMoveFrame()->getCommonModeOptions()->getAllowChangeLane();
         // fist check if we're moving only extremes
@@ -160,19 +160,19 @@ void
 GNEStop::writeDemandElement(OutputDevice& device) const {
     device.openTag(SUMO_TAG_STOP);
     if (getParentAdditionals().size() > 0) {
-        if (getParentAdditionals().front()->getTagProperty().getTag() == SUMO_TAG_BUS_STOP) {
+        if (getParentAdditionals().front()->getTagProperty()->getTag() == SUMO_TAG_BUS_STOP) {
             device.writeAttr(SUMO_ATTR_BUS_STOP, getParentAdditionals().front()->getID());
         }
-        if (getParentAdditionals().front()->getTagProperty().getTag() == SUMO_TAG_TRAIN_STOP) {
+        if (getParentAdditionals().front()->getTagProperty()->getTag() == SUMO_TAG_TRAIN_STOP) {
             device.writeAttr(SUMO_ATTR_TRAIN_STOP, getParentAdditionals().front()->getID());
         }
-        if (getParentAdditionals().front()->getTagProperty().getTag() == SUMO_TAG_CONTAINER_STOP) {
+        if (getParentAdditionals().front()->getTagProperty()->getTag() == SUMO_TAG_CONTAINER_STOP) {
             device.writeAttr(SUMO_ATTR_CONTAINER_STOP, getParentAdditionals().front()->getID());
         }
-        if (getParentAdditionals().front()->getTagProperty().getTag() == SUMO_TAG_CHARGING_STATION) {
+        if (getParentAdditionals().front()->getTagProperty()->getTag() == SUMO_TAG_CHARGING_STATION) {
             device.writeAttr(SUMO_ATTR_CHARGING_STATION, getParentAdditionals().front()->getID());
         }
-        if (getParentAdditionals().front()->getTagProperty().getTag() == SUMO_TAG_PARKING_AREA) {
+        if (getParentAdditionals().front()->getTagProperty()->getTag() == SUMO_TAG_PARKING_AREA) {
             device.writeAttr(SUMO_ATTR_PARKING_AREA, getParentAdditionals().front()->getID());
         }
     } else {
@@ -197,7 +197,7 @@ GNEStop::isDemandElementValid() const {
         return Problem::STOP_DOWNSTREAM;
     } else {
         // only Stops placed over lanes can be invalid
-        if (!myTagProperty.hasAttribute(SUMO_ATTR_FRIENDLY_POS)) {
+        if (!myTagProperty->hasAttribute(SUMO_ATTR_FRIENDLY_POS)) {
             return Problem::OK;
         } else if (friendlyPos) {
             // with friendly position enabled position are "always fixed"
@@ -283,7 +283,7 @@ GNEStop::getColor() const {
     const auto inspectedAC = myNet->getViewNet()->getInspectedElements().getFirstAC();
     if (inspectedAC) {
         // check if is a route or a vehicle
-        if ((inspectedAC->getTagProperty().isRoute() || inspectedAC->getTagProperty().isVehicle()) && (inspectedAC != getParentDemandElements().front())) {
+        if ((inspectedAC->getTagProperty()->isRoute() || inspectedAC->getTagProperty()->isVehicle()) && (inspectedAC != getParentDemandElements().front())) {
             return RGBColor::GREY;
         }
     } else if (myNet->getViewNet()->getViewParent()->getStopFrame()->shown()) {
@@ -292,7 +292,7 @@ GNEStop::getColor() const {
         }
     }
     // return default color
-    if (myTagProperty.isVehicleWaypoint()) {
+    if (myTagProperty->isVehicleWaypoint()) {
         return myNet->getViewNet()->getVisualisationSettings().colorSettings.waypointColor;
     } else {
         return myNet->getViewNet()->getVisualisationSettings().colorSettings.stopColor;
@@ -566,7 +566,7 @@ GNEStop::getAttribute(SumoXMLAttr key) const {
             // extract all stops of demandElement parent
             std::vector<GNEDemandElement*> stops;
             for (const auto& parent : getParentDemandElements().front()->getChildDemandElements()) {
-                if (parent->getTagProperty().isVehicleStop()) {
+                if (parent->getTagProperty()->isVehicleStop()) {
                     stops.push_back(parent);
                 }
             }
@@ -615,7 +615,7 @@ GNEStop::getAttributeDouble(SumoXMLAttr key) const {
             // extract all stops of demandElement parent
             std::vector<GNEDemandElement*> stops, filteredStops;
             for (const auto& parent : getParentDemandElements().front()->getChildDemandElements()) {
-                if (parent->getTagProperty().isVehicleStop()) {
+                if (parent->getTagProperty()->isVehicleStop()) {
                     stops.push_back(parent);
                 }
             }
@@ -727,7 +727,7 @@ GNEStop::isValid(SumoXMLAttr key, const std::string& value) {
                 return false;
             }
         case SUMO_ATTR_TRIGGERED: {
-            const auto expectedValues = myTagProperty.getAttributeProperties(key).getDiscreteValues();
+            const auto expectedValues = myTagProperty->getAttributeProperties(key)->getDiscreteValues();
             const auto triggeredValues = parse<std::vector<std::string> >(value);
             for (const auto& triggeredValue : triggeredValues) {
                 if (std::find(expectedValues.begin(), expectedValues.end(), triggeredValue) == expectedValues.end()) {
@@ -767,7 +767,7 @@ GNEStop::isValid(SumoXMLAttr key, const std::string& value) {
             if (value == "opportunistic") {
                 return false; // Currrently deactivated opportunistic in netedit waiting for the implementation in SUMO
             }
-            const auto expectedValues = myTagProperty.getAttributeProperties(key).getDiscreteValues();
+            const auto expectedValues = myTagProperty->getAttributeProperties(key)->getDiscreteValues();
             const auto triggeredValues = parse<std::vector<std::string> >(value);
             for (const auto& triggeredValue : triggeredValues) {
                 if (std::find(expectedValues.begin(), expectedValues.end(), triggeredValue) == expectedValues.end()) {
@@ -908,7 +908,7 @@ GNEStop::isAttributeEnabled(SumoXMLAttr key) const {
             return joinTriggered;
         case SUMO_ATTR_PARKING:
             // for stops/waypoints over parking areas, always enabled
-            if ((myTagProperty.getTag() == GNE_TAG_STOP_PARKINGAREA) || (myTagProperty.getTag() == GNE_TAG_WAYPOINT_PARKINGAREA)) {
+            if ((myTagProperty->getTag() == GNE_TAG_STOP_PARKINGAREA) || (myTagProperty->getTag() == GNE_TAG_WAYPOINT_PARKINGAREA)) {
                 return false;
             } else {
                 return true;
@@ -928,13 +928,13 @@ GNEStop::getPopUpID() const {
 std::string
 GNEStop::getHierarchyName() const {
     if (getParentAdditionals().size() > 0) {
-        if (getParentAdditionals().front()->getTagProperty().getTag() == SUMO_TAG_BUS_STOP) {
+        if (getParentAdditionals().front()->getTagProperty()->getTag() == SUMO_TAG_BUS_STOP) {
             return "BusStop: " + getParentAdditionals().front()->getID();
-        } else if (getParentAdditionals().front()->getTagProperty().getTag() == SUMO_TAG_TRAIN_STOP) {
+        } else if (getParentAdditionals().front()->getTagProperty()->getTag() == SUMO_TAG_TRAIN_STOP) {
             return "TrainStop: " + getParentAdditionals().front()->getID();
-        } else if (getParentAdditionals().front()->getTagProperty().getTag() == SUMO_TAG_CONTAINER_STOP) {
+        } else if (getParentAdditionals().front()->getTagProperty()->getTag() == SUMO_TAG_CONTAINER_STOP) {
             return "containerStop: " + getParentAdditionals().front()->getID();
-        } else if (getParentAdditionals().front()->getTagProperty().getTag() == SUMO_TAG_CHARGING_STATION) {
+        } else if (getParentAdditionals().front()->getTagProperty()->getTag() == SUMO_TAG_CHARGING_STATION) {
             return "chargingStation: " + getParentAdditionals().front()->getID();
         } else {
             return "parkingArea: " + getParentAdditionals().front()->getID();
@@ -988,8 +988,8 @@ GNEStop::canDrawVehicleStop() const {
         return true;
     } else if (myNet->getViewNet()->getDemandViewOptions().showAllTrips()) {
         return true;
-    } else if ((getParentDemandElements().front()->getTagProperty().getTag() == GNE_TAG_VEHICLE_WITHROUTE) ||
-               (getParentDemandElements().front()->getTagProperty().getTag() == GNE_TAG_FLOW_WITHROUTE)) {
+    } else if ((getParentDemandElements().front()->getTagProperty()->getTag() == GNE_TAG_VEHICLE_WITHROUTE) ||
+               (getParentDemandElements().front()->getTagProperty()->getTag() == GNE_TAG_FLOW_WITHROUTE)) {
         if (inspectedElements.isACInspected(getParentDemandElements().front()->getChildDemandElements().front())) {
             return true;
         } else {
@@ -1046,7 +1046,7 @@ GNEStop::drawStopOverLane(const GUIVisualizationSettings& s, const GUIVisualizat
     // draw text depending of detail
     if (d <= GUIVisualizationSettings::Detail::Text) {
         // draw symbol
-        GLHelper::drawText(myTagProperty.isVehicleWaypoint() ? "W" : "S", Position(), .1, 2.8, color, 180);
+        GLHelper::drawText(myTagProperty->isVehicleWaypoint() ? "W" : "S", Position(), .1, 2.8, color, 180);
         // move to subtitle position
         glTranslated(0, 1.4, 0);
         // draw subtitle depending of tag

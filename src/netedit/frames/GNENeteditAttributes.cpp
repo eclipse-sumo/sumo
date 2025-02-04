@@ -96,7 +96,7 @@ GNENeteditAttributes::showNeteditAttributesModule(GNEAttributeCarrier* templateA
     // we assume that frame will not be show
     bool showFrame = false;
     // check if length text field has to be showed
-    if (templateAC->getTagProperty().canMaskStartEndPos()) {
+    if (templateAC->getTagProperty()->canMaskStartEndPos()) {
         myLengthFrame->show();
         myForceLengthFrame->show();
         myReferencePointComboBox->show();
@@ -107,14 +107,14 @@ GNENeteditAttributes::showNeteditAttributesModule(GNEAttributeCarrier* templateA
         myReferencePointComboBox->hide();
     }
     // check if close shape check button has to be show
-    if (templateAC->getTagProperty().canCloseShape()) {
+    if (templateAC->getTagProperty()->canCloseShape()) {
         myCloseShapeFrame->show();
         showFrame = true;
     } else {
         myCloseShapeFrame->hide();
     }
     // check if center camera after creation check button has to be show
-    if (templateAC->getTagProperty().canCenterCameraAfterCreation()) {
+    if (templateAC->getTagProperty()->canCenterCameraAfterCreation()) {
         myCenterViewAfterCreationFrame->show();
         showFrame = true;
     } else {

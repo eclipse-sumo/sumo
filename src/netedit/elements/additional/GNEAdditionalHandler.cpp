@@ -1426,7 +1426,7 @@ GNEAdditionalHandler::buildTAZSource(const CommonXMLStructure::SumoBaseObject* s
         GNEAdditional* existentTAZSource = nullptr;
         // first check if already exist a TAZ Source for the given edge and TAZ
         for (auto it = edge->getChildTAZSourceSinks().begin(); (it != edge->getChildTAZSourceSinks().end()) && !existentTAZSource; it++) {
-            if (((*it)->getTagProperty().getTag() == SUMO_TAG_TAZSOURCE) && ((*it)->getParentAdditionals().front() == TAZ)) {
+            if (((*it)->getTagProperty()->getTag() == SUMO_TAG_TAZSOURCE) && ((*it)->getParentAdditionals().front() == TAZ)) {
                 existentTAZSource = (*it);
             }
         }
@@ -1476,7 +1476,7 @@ GNEAdditionalHandler::buildTAZSink(const CommonXMLStructure::SumoBaseObject* sum
         GNEAdditional* existentTAZSink = nullptr;
         // first check if already exist a TAZ Sink for the given edge and TAZ
         for (auto it = edge->getChildTAZSourceSinks().begin(); (it != edge->getChildTAZSourceSinks().end()) && !existentTAZSink; it++) {
-            if (((*it)->getTagProperty().getTag() == SUMO_TAG_TAZSINK) && ((*it)->getParentAdditionals().front() == TAZ)) {
+            if (((*it)->getTagProperty()->getTag() == SUMO_TAG_TAZSINK) && ((*it)->getParentAdditionals().front() == TAZ)) {
                 existentTAZSink = (*it);
             }
         }
@@ -1844,7 +1844,7 @@ GNEAdditionalHandler::checkOverlappingRerouterIntervals(GNEAdditional* rerouter,
     std::vector<std::pair<SUMOTime, SUMOTime>> sortedIntervals;
     // iterate over child additional
     for (const auto& rerouterChild : rerouter->getChildAdditionals()) {
-        if (!rerouterChild->getTagProperty().isSymbol()) {
+        if (!rerouterChild->getTagProperty()->isSymbol()) {
             sortedIntervals.push_back(std::make_pair((SUMOTime)0., (SUMOTime)0.));
             // set begin and end
             sortedIntervals.back().first = TIME2STEPS(rerouterChild->getAttributeDouble(SUMO_ATTR_BEGIN));
@@ -2110,7 +2110,7 @@ GNEAdditionalHandler::checkElement(const SumoXMLTag tag, GNEAdditional* addition
             return true;
         } else {
             // write warning duplicated additional element
-            return writeWarningDuplicated(tag, additionalElement->getID(), additionalElement->getTagProperty().getTag());
+            return writeWarningDuplicated(tag, additionalElement->getID(), additionalElement->getTagProperty()->getTag());
         }
     } else {
         return true;

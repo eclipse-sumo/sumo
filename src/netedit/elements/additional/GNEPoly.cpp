@@ -113,7 +113,7 @@ GNEPoly::getMoveOperation() {
         return new GNEMoveOperation(this, myShape);
     } else {
         // continue depending of tag
-        switch (getTagProperty().getTag()) {
+        switch (getTagProperty()->getTag()) {
             case GNE_TAG_JPS_WALKABLEAREA:
             case GNE_TAG_JPS_OBSTACLE:
                 // calculate move shape operation maintain shape closed
@@ -267,7 +267,7 @@ GNEPoly::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
         simplifyShape->disable();
     }
     // only allow open/close for non juPedSim polygons
-    if (!myTagProperty.isJuPedSimElement()) {
+    if (!myTagProperty->isJuPedSimElement()) {
         if (myShape.isClosed()) {
             GUIDesigns::buildFXMenuCommand(ret, TL("Open shape"), TL("Open polygon's shape"), nullptr, &parent, MID_GNE_POLYGON_OPEN);
         } else {
@@ -524,7 +524,7 @@ GNEPoly::simplifyShape(bool allowUndo) {
 CommonXMLStructure::SumoBaseObject*
 GNEPoly::getSumoBaseObject() const {
     CommonXMLStructure::SumoBaseObject* polygonBaseObject = new CommonXMLStructure::SumoBaseObject(nullptr);
-    polygonBaseObject->setTag(myTagProperty.getTag());
+    polygonBaseObject->setTag(myTagProperty->getTag());
     // fill attributes
     polygonBaseObject->addStringAttribute(SUMO_ATTR_ID, myID);
     polygonBaseObject->addPositionVectorAttribute(SUMO_ATTR_SHAPE, myShape);
@@ -889,7 +889,7 @@ GNEPoly::drawPolygon(const GUIVisualizationSettings& s, const GUIVisualizationSe
     // check if we're drawing a polygon or a polyline
     if (getFill()) {
         // draw inner polygon
-        GUIPolygon::drawInnerPolygon(s, this, this, myAdditionalGeometry.getShape(), 0, getFill(), myTagProperty.isJuPedSimElement() ? false : drawUsingSelectColor());
+        GUIPolygon::drawInnerPolygon(s, this, this, myAdditionalGeometry.getShape(), 0, getFill(), myTagProperty->isJuPedSimElement() ? false : drawUsingSelectColor());
     } else {
         // push matrix
         GLHelper::pushMatrix();

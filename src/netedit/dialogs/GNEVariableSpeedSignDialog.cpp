@@ -93,7 +93,7 @@ GNEVariableSpeedSignDialog::onCmdEditStep(FXObject*, FXSelector, void*) {
     // get VSS children
     std::vector<GNEAdditional*> VSSChildren;
     for (const auto& VSSChild : myEditedAdditional->getChildAdditionals()) {
-        if (!VSSChild->getTagProperty().isSymbol()) {
+        if (!VSSChild->getTagProperty()->isSymbol()) {
             VSSChildren.push_back(VSSChild);
         }
     }
@@ -129,7 +129,7 @@ GNEVariableSpeedSignDialog::onCmdClickedStep(FXObject*, FXSelector, void*) {
     // get VSS children
     std::vector<GNEAdditional*> VSSChildren;
     for (const auto& VSSChild : myEditedAdditional->getChildAdditionals()) {
-        if (!VSSChild->getTagProperty().isSymbol()) {
+        if (!VSSChild->getTagProperty()->isSymbol()) {
             VSSChildren.push_back(VSSChild);
         }
     }
@@ -197,7 +197,7 @@ GNEVariableSpeedSignDialog::updateTableSteps() {
     // get VSS children
     std::vector<GNEAdditional*> VSSChildren;
     for (const auto& VSSChild : myEditedAdditional->getChildAdditionals()) {
-        if (!VSSChild->getTagProperty().isSymbol()) {
+        if (!VSSChild->getTagProperty()->isSymbol()) {
             VSSChildren.push_back(VSSChild);
         }
     }

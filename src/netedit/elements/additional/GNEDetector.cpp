@@ -73,9 +73,9 @@ GNEDetector::getMoveOperation() {
     // check modes and detector type
     if (!myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() || (myNet->getViewNet()->getEditModes().networkEditMode != NetworkEditMode::NETWORK_MOVE)) {
         return nullptr;
-    } else if (myTagProperty.getTag() == SUMO_TAG_LANE_AREA_DETECTOR) {
+    } else if (myTagProperty->getTag() == SUMO_TAG_LANE_AREA_DETECTOR) {
         return getMoveOperationSingleLane(myPositionOverLane, getAttributeDouble(SUMO_ATTR_ENDPOS));
-    } else if (myTagProperty.getTag() == GNE_TAG_MULTI_LANE_AREA_DETECTOR) {
+    } else if (myTagProperty->getTag() == GNE_TAG_MULTI_LANE_AREA_DETECTOR) {
         return getMoveOperationMultiLane(myPositionOverLane, getAttributeDouble(SUMO_ATTR_ENDPOS));
     } else {
         // return move operation for detectors with single position placed over shape (E1, EntryExits..)
@@ -102,7 +102,7 @@ GNEDetector::checkDrawMoveContour() const {
         // only move the first element
         if (myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == this) {
             // special case for multiple lane area detectors
-            if (myTagProperty.getTag() == GNE_TAG_MULTI_LANE_AREA_DETECTOR) {
+            if (myTagProperty->getTag() == GNE_TAG_MULTI_LANE_AREA_DETECTOR) {
                 auto segment = gViewObjectsHandler.getSelectedSegment(this);
                 if (segment && segment->getJunction()) {
                     return false;
@@ -147,7 +147,7 @@ void
 GNEDetector::splitEdgeGeometry(const double splitPosition, const GNENetworkElement* originalElement,
                                const GNENetworkElement* newElement, GNEUndoList* undoList) {
     // only split geometry of E2 multilane detectors
-    if (myTagProperty.getTag() == GNE_TAG_MULTI_LANE_AREA_DETECTOR) {
+    if (myTagProperty->getTag() == GNE_TAG_MULTI_LANE_AREA_DETECTOR) {
         // obtain new list of E2 lanes
         std::string newE2Lanes = getNewListOfParents(originalElement, newElement);
         // update E2 Lanes

@@ -207,7 +207,7 @@ GNEVariableSpeedSignStep::isValid(SumoXMLAttr key, const std::string& value) {
                 // check that there isn't duplicate times
                 int counter = 0;
                 for (const auto& VSSChild : getParentAdditionals().at(0)->getChildAdditionals()) {
-                    if (!VSSChild->getTagProperty().isSymbol() && VSSChild->getAttributeDouble(SUMO_ATTR_TIME) == newTime) {
+                    if (!VSSChild->getTagProperty()->isSymbol() && VSSChild->getAttributeDouble(SUMO_ATTR_TIME) == newTime) {
                         counter++;
                     }
                 }
