@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2025-02-04 12:45+0100\n"
+"POT-Creation-Date: 2025-02-04 15:47+0100\n"
 "PO-Revision-Date: 2024-12-11 12:10+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
@@ -8229,7 +8229,8 @@ msgstr "Importar aceras"
 
 #: src/netimport/NIFrame.cpp:207
 msgid ""
-"Default to building two sidewals on oneway streets (may affect divided roads)"
+"Default to building two sidewalks on oneway streets (may affect divided "
+"roads)"
 msgstr ""
 
 #: src/netimport/NIFrame.cpp:210

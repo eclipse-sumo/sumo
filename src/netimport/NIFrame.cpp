@@ -204,7 +204,7 @@ NIFrame::fillOptions(OptionsCont& oc, bool forNetedit) {
     oc.addDescription("osm.sidewalks", "Formats", TL("Import sidewalks"));
 
     oc.doRegister("osm.oneway-reverse-sidewalk", new Option_Bool(false));
-    oc.addDescription("osm.oneway-reverse-sidewalk", "Formats", TL("Default to building two sidewals on oneway streets (may affect divided roads)"));
+    oc.addDescription("osm.oneway-reverse-sidewalk", "Formats", TL("Default to building two sidewalks on oneway streets (may affect divided roads)"));
 
     oc.doRegister("osm.crossings", new Option_Bool(false));
     oc.addDescription("osm.crossings", "Formats", TL("Import crossings"));
