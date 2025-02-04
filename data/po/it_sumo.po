@@ -5644,6 +5644,8 @@ msgstr "Errore aggiungendo un'attività di attesa per % su '%': %"
 msgid ""
 "Adapting geometry repulsion default values for jupedsim timestep of 0.02."
 msgstr ""
+"Adattando i valori standard di repulsione geometrica al passo di simulazione "
+"JuPedSim di 0.02."
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:1233
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:1232
@@ -5676,6 +5678,8 @@ msgstr " tra l'arco '%' e l'arco '%'"
 #: src/microsim/transportables/MSPModel_Striping.cpp:1539
 msgid "Person '%' walking from edge '%' to edge '%' has a disconnect%, time=%."
 msgstr ""
+"La persona '%' che cammina dall'arco '%' all'arco '%' incontra un tratto "
+"sconnesso% alle ore %."
 
 #: src/microsim/transportables/MSPModel_Striping.cpp:1842
 msgid "Disconnected walk for person '%'."
@@ -5690,12 +5694,16 @@ msgid ""
 "Vehicle '%' exceeds personCapacity % when placing triggered person '%', "
 "time=%"
 msgstr ""
+"Il veicolo '%' eccede la capacità di persone % nel caricare la persona "
+"generata '%' alle ore %"
 
 #: src/microsim/transportables/MSStageDriving.cpp:254
 msgid ""
 "Vehicle '%' exceeds containerCapacity % when placing triggered container "
 "'%', time=%"
 msgstr ""
+"Il veicolo '%' eccede la capacità di contenitori nel caricare il contenitore "
+"generato '%' alle ore %"
 
 #: src/microsim/transportables/MSStageTrip.cpp:154
 msgid ""
@@ -5708,14 +5716,20 @@ msgstr ""
 #: src/microsim/transportables/MSStageWalking.cpp:95
 msgid "Adjusting departPos for cloned walk with routeDistribution '%'"
 msgstr ""
+"Aggiustando departPos per un cammino clonato con la distribuzione di "
+"itinerari '%'"
 
 #: src/microsim/transportables/MSStageWalking.cpp:99
 msgid "Adjusting arrivalPos for cloned walk with routeDistribution '%'"
 msgstr ""
+"Aggiustando arrivalPos per un cammino clonato con la distribuzione di "
+"itinerari '%'"
 
 #: src/microsim/transportables/MSStageWalking.cpp:103
 msgid "Adjusting departLane for cloned walk with routeDistribution '%'"
 msgstr ""
+"Aggiustando departLane per un cammino clonato con la distribuzione di "
+"itinerari '%'"
 
 #: src/microsim/transportables/MSStageWalking.cpp:279
 msgid ""
@@ -13488,6 +13502,11 @@ msgstr ""
 #: src/utils/handlers/RouteHandler.cpp:474
 msgid ""
 "a route must be defined either within a vehicle/flow or with an ID attribute"
+msgstr ""
+
+#: src/netimport/NIFrame.cpp:207
+msgid ""
+"Default to building two sidewals on oneway streets (may affect divided roads)"
 msgstr ""
 
 #~ msgid ""
