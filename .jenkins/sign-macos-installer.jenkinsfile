@@ -27,7 +27,7 @@ pipeline {
                 cmake --install jupedsim-build --config Release
 
                 # Cloning SUMO
-                git clone -q --filter=tree:0 --branch v1_22_0 https://github.com/eclipse-sumo/sumo.git
+                git clone -q --filter=tree:0 --branch main https://github.com/eclipse-sumo/sumo.git
                 export SUMO_HOME=\${WORKSPACE}/sumo
 
                 # Creating virtual env for Python for the whole process
