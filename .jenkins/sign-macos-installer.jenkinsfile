@@ -19,7 +19,7 @@ pipeline {
                 git config --global advice.detachedHead false
 
                 # Cloning JuPedSim
-                git clone -q --filter=tree:0 --branch master https://github.com/PedestrianDynamics/jupedsim.git
+                git clone -q --filter=tree:0 --branch v1.2.1 https://github.com/PedestrianDynamics/jupedsim.git
 
                 # Building JuPedSim
                 cmake -Wno-dev -D CMAKE_INSTALL_PREFIX=jupedsim-install -D CMAKE_C_COMPILER_LAUNCHER=ccache -D CMAKE_CXX_COMPILER_LAUNCHER=ccache -B jupedsim-build jupedsim
@@ -27,7 +27,7 @@ pipeline {
                 cmake --install jupedsim-build --config Release
 
                 # Cloning SUMO
-                git clone -q --filter=tree:0 --branch main https://github.com/eclipse-sumo/sumo.git
+                git clone -q --filter=tree:0 --branch v1_22_0 https://github.com/eclipse-sumo/sumo.git
                 export SUMO_HOME=\${WORKSPACE}/sumo
 
                 # Creating virtual env for Python for the whole process
