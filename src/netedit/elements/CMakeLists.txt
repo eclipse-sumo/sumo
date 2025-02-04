@@ -22,6 +22,8 @@ set(netedit_elements_SRCS
    GNEPathElement.h
    GNETagProperties.cpp
    GNETagProperties.h
+   GNETagPropertiesDatabase.cpp
+   GNETagPropertiesDatabase.h
    )
 
 add_library(netedit_elements STATIC ${netedit_elements_SRCS})
