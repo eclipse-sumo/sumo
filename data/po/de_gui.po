@@ -2570,7 +2570,7 @@ msgstr "Werkzeuge"
 
 #: src/netedit/GNEApplicationWindow.cpp:1429
 msgid "Assign"
-msgstr ""
+msgstr "Zuweisen"
 
 #: src/netedit/GNEApplicationWindow.cpp:1430
 msgid "Detectors"
@@ -3668,7 +3668,7 @@ msgstr ""
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:907
 msgid "Don't ask for confirmation before merging junction"
-msgstr ""
+msgstr "Beim Zusammenführen von Knotenpunkten nicht um Bestätigung bitten"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:912
 msgid "Show bubbles over junctions shapes"
@@ -5268,7 +5268,7 @@ msgstr "Innerhalb des Polygonumrisses auswählen"
 
 #: src/netedit/GNEViewNet.cpp:2746
 msgid "triangulate polygon"
-msgstr ""
+msgstr "Polygon triangulieren"
 
 #: src/netedit/GNEViewNet.cpp:2782 src/netedit/GNEViewNet.cpp:2812
 #: src/netedit/GNEViewNet.cpp:2827 src/netedit/GNEViewNet.cpp:2844
@@ -11517,6 +11517,8 @@ msgstr "Container-Haltepunkt hinzufügen '"
 #: src/netedit/elements/additional/GNEAdditionalHandler.cpp:306
 msgid "Could not build % with ID '%' in netedit; Invalid charge type '%' ."
 msgstr ""
+"% mit der ID '%' konnte nicht in netedit erstellt werden; Ungültiger Ladetyp "
+"'%'."
 
 #: src/netedit/elements/additional/GNEAdditionalHandler.cpp:313
 msgid "add charging station '"
@@ -11868,11 +11870,11 @@ msgstr "Elemente innerhalb einer Polygongrenze auswählen"
 
 #: src/netedit/elements/additional/GNEPoly.cpp:279
 msgid "Triangulate polygon"
-msgstr ""
+msgstr "Polygon triangulieren"
 
 #: src/netedit/elements/additional/GNEPoly.cpp:279
 msgid "Convert the current polygon in triangles"
-msgstr ""
+msgstr "Das aktuelle Polygon in Dreiecke konvertieren"
 
 #: src/netedit/elements/additional/GNEPoly.cpp:290
 msgid "Remove geometry point"
@@ -12012,6 +12014,8 @@ msgstr "Attribut % existiert nicht."
 #: src/netedit/elements/data/GNEMeanDataHandler.cpp:218
 msgid "Could not build % with ID '%' in netedit; Invalid value '%' for %."
 msgstr ""
+"% mit der ID '%' konnte nicht in netedit erstellt werden; Ungültiger Wert "
+"'%' von %."
 
 #: src/netedit/elements/demand/GNEDemandElement.cpp:874
 msgid "Route length: "
@@ -17787,6 +17791,11 @@ msgstr "(Keine Projektion definiert)"
 #: src/utils/gui/windows/GUISUMOAbstractView.cpp:1736
 msgid "Could not convert coordinates in %."
 msgstr "Konnte Koordinaten nicht in % konvertieren."
+
+#: src/netedit/frames/network/GNETAZFrame.cpp:1734
+#, c-format
+msgid "Creation of % cannot be undo. Continue?"
+msgstr ""
 
 #~ msgid "Ask for confirmation before merging junction"
 #~ msgstr ""
