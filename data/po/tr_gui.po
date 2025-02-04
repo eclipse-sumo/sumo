@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2025-02-04 12:45+0100\n"
+"POT-Creation-Date: 2025-02-04 18:13+0100\n"
 "PO-Revision-Date: 2023-09-28 14:34+0000\n"
 "Last-Translator: Necip Güzel <necipguzel@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/eclipse-sumo/"
@@ -15365,7 +15365,7 @@ msgstr ""
 
 #: src/netedit/frames/network/GNETAZFrame.cpp:1734
 #, c-format
-msgid "Creation of % cannot be undo. Continue?"
+msgid "Creation of % cannot be undone. Continue?"
 msgstr ""
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:123

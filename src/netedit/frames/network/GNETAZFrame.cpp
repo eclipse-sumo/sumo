@@ -1731,7 +1731,7 @@ bool
 GNETAZFrame::askCreateMultipleSourceSinks(const size_t numSourceSinks) const {
     // open question dialog box
     const std::string header = TL("Create multiple sourceSinks");
-    const std::string info = TLF("Creation of % cannot be undo. Continue?", toString(numSourceSinks));
+    const std::string info = TLF("Creation of % cannot be undone. Continue?", toString(numSourceSinks));
     const auto answer = FXMessageBox::question(myViewNet->getApp(), MBOX_YES_NO, "%s", header.c_str(), "%s", info.c_str());
     if (answer != 1) { //1:yes, 2:no, 4:esc
         // abort recompute with volatile options
