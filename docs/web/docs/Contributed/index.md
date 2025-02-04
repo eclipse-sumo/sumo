@@ -87,6 +87,14 @@ The following extensions are managed and supported by other parties.
 
 ## Other
 
+- [PERMIT](https://github.com/susomena/PERMIT)
+
+    A SUMO Simulator for Platooning Maneuvers in Mixed Traffic Scenarios (extends PLEXE)
+
+- [PLEXE](https://plexe.car2x.org/)
+
+  Cooperative driving framework extending SUMO and Veins permitting the realistic simulation of platooning (i.e., automated car-following) systems. It features realistic vehicle dynamics and several cruise control models, permitting the analysis of control systems, large-scale and mixed scenario, as well as networking protocols and cooperative maneuvers.
+
 - [TraCI4Matlab](https://mathworks.com/matlabcentral/fileexchange/44805-traci4matlab)
 
     A Matlab interface for connecting and extending information via [TraCI](../TraCI.md)
