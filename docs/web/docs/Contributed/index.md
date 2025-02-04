@@ -87,6 +87,11 @@ The following extensions are managed and supported by other parties.
 
 ## Other
 
+
+- [PERMIT](https://github.com/susomena/PERMIT)
+
+    A SUMO Simulator for Platooning Maneuvers in Mixed Traffic Scenarios
+  
 - [TraCI4Matlab](https://mathworks.com/matlabcentral/fileexchange/44805-traci4matlab)
 
     A Matlab interface for connecting and extending information via [TraCI](../TraCI.md)
