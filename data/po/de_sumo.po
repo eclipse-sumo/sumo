@@ -3663,8 +3663,8 @@ msgstr " aus unbekannten Gründen"
 
 #: src/microsim/MSVehicle.cpp:4649
 msgid ""
-"Vehicle '%' performs emergency stop at the end of lane '%'% (decel=%, offset="
-"%), time=%."
+"Vehicle '%' performs emergency stop at the end of lane '%'% (decel=%, "
+"offset=%), time=%."
 msgstr ""
 "Fahrzeug '%' führt einen Nothalt am Ende des Fahrstreifens '%'% durch "
 "(Verzögerung=%, Versatz=%), zur Zeit=%."
@@ -3680,8 +3680,8 @@ msgid ""
 "Vehicle '%' performs emergency braking on lane '%' with decel=%, wished=%, "
 "severity=%, time=%."
 msgstr ""
-"Fahrzeug '%' führt eine Notbremsung auf dem Fahrstreifen '%' mit Verzögerung="
-"%, erwünscht=%, Schweregrad=%, zur Zeit=% durch."
+"Fahrzeug '%' führt eine Notbremsung auf dem Fahrstreifen '%' mit "
+"Verzögerung=%, erwünscht=%, Schweregrad=%, zur Zeit=% durch."
 
 #: src/microsim/MSVehicle.cpp:5670 src/microsim/MSVehicle.cpp:5759
 msgid "Vehicle '%' skips stop on lane '%' time=%."
@@ -4793,6 +4793,8 @@ msgid ""
 "Only search for charging stations if the battery charge is not estimated "
 "sufficient to complete the current route"
 msgstr ""
+"Nur nach Ladestationen suchen, falls der Batterieladestand voraussichtlich "
+"nicht für die Route ausreicht"
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:137
 msgid "Invalid device.stationfinder.chargingStrategy '%'."
@@ -5736,8 +5738,8 @@ msgstr "Person '%' klemmt auf der Kante '%', Zeit=%."
 
 #: src/microsim/transportables/MSStageDriving.cpp:248
 msgid ""
-"Vehicle '%' exceeds personCapacity % when placing triggered person '%', time="
-"%"
+"Vehicle '%' exceeds personCapacity % when placing triggered person '%', "
+"time=%"
 msgstr ""
 "Das Fahrzeug '%' wird über die maximale Belegung % hinaus mit der erzeugten "
 "Person '%' beladen (zur Zeit %)"
@@ -5926,8 +5928,8 @@ msgstr ""
 
 #: src/microsim/trigger/MSStoppingPlaceRerouter.cpp:497
 msgid ""
-"Invalid distance computation for vehicle '%' from stopping place '%' at time="
-"%."
+"Invalid distance computation for vehicle '%' from stopping place '%' at "
+"time=%."
 msgstr ""
 "Ungültige Entfernungsberechnung für Fahrzeug '%' ausgehend vom Haltepunkt "
 "'%' zur Zeit %."
@@ -8310,7 +8312,7 @@ msgstr ""
 
 #: src/netgen/NGFrame.cpp:277
 msgid "Option 'rand.connectivity' requires a value below 0.999"
-msgstr ""
+msgstr "Die Option 'rand.connectivity' benötigt einen Wert kleiner 0.999"
 
 #: src/netgen/netgen_main.cpp:90
 msgid ""
@@ -13855,6 +13857,11 @@ msgstr ""
 #: src/utils/xml/XMLSubSys.cpp:186
 msgid "Unspecified error occurred while parsing '%'"
 msgstr "Unbekannter Fehler beim Einlesen von '%' aufgetreten"
+
+#: src/netimport/NIFrame.cpp:207
+msgid ""
+"Default to building two sidewals on oneway streets (may affect divided roads)"
+msgstr ""
 
 #~ msgid ""
 #~ "a route must be defined either within a vehicle/flow or with an ID "
