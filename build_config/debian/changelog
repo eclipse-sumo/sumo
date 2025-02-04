@@ -1,3 +1,9 @@
+sumo (1.22.0-1) jammy; urgency=medium
+
+  * new upstream version
+
+ -- Michael Behrisch <oss@behrisch.de>  Tue, 04 Feb 2025 16:23:23 +0100
+
 sumo (1.21.0-1) jammy; urgency=medium
 
   * new upstream version
