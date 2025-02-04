@@ -110,7 +110,7 @@ class Lane:
 
     """ Lanes from a sumo network """
 
-    def __init__(self, edge, speed, length, width, allow, disallow):
+    def __init__(self, edge, speed, length, width, allow, disallow, acceleration):
         self._edge = edge
         self._speed = speed
         self._length = length
@@ -124,6 +124,7 @@ class Lane:
         self._allowed = get_allowed(allow, disallow)
         self._neigh = None
         self._selected = False
+        self._acceleration = acceleration
         edge.addLane(self)
 
     def getSpeed(self):
@@ -256,6 +257,26 @@ class Lane:
                         _lane.getOutgoing()[0].getViaLaneID() == ""]
         return lanes
 
+
+    def getIncomingConnections(self, onlyDirect=False):
+        """
+        Returns all incoming connections for this lane
+        If onlyDirect is True, then only connections from internal lanes are returned for a normal lane if they exist
+        """
+        candidates = reduce(lambda x, y: x + y, [cons for e, cons in self._edge.getIncoming().items()], [])
+        cons = [c for c in candidates if self == c.getToLane()]
+        if onlyDirect:
+            hasInternal = False
+            for c in cons:
+                if c.getFromLane().getID()[0] == ":":
+                    hasInternal = True
+                    break
+            if hasInternal:
+                return [c for c in cons if c.getFromLane()[0] == ":" and
+                        c.getFromLane().getOutgoing()[0].getViaLaneID() == ""]
+        return cons
+
+
     def getConnection(self, toLane):
         """Returns the connection to the given target lane or None"""
         for conn in self._outgoing:
@@ -289,3 +310,9 @@ class Lane:
 
     def getParams(self):
         return self._params
+
+    def isAccelerationLane(self):
+        return self._acceleration
+
+    def isNormal(self):
+        return self.getID()[0] != ":"

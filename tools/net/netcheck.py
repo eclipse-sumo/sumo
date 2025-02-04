@@ -20,9 +20,12 @@
 # @date    2007-03-20
 
 """
-This script does simple check for the network.
-It tests whether the network is (weakly) connected.
+This script performs checks for the network.
 It needs one parameter, the SUMO net (.net.xml).
+
+- if either option --source or --destination is given, it checks reachability
+- if option --right-of-way is set, it checks for problems with right of way rules
+- by default it tests whether the network is (weakly) connected.
 """
 from __future__ import absolute_import
 from __future__ import print_function
@@ -42,6 +45,9 @@ def parse_args():
                     help="List edges reachable from the source")
     op.add_argument("-d", "--destination", category="input", type=op.edge, default=False,
                     help="List edges which can reach the destination")
+    op.add_argument("-w", "--right-of-way", action="store_true", default=False,
+                    dest="checkRightOfWay",
+                    help="Check for problems with right-of-way rules")
     op.add_argument("-o", "--selection-output", category="output", type=op.file,
                     help="Write output to file(s) as a loadable selection")
     op.add_argument("--ignore-connections", action="store_true", default=False,
@@ -118,6 +124,25 @@ def getReachable(net, source_id, options, useIncoming=False):
         sys.exit(e)
 
 
+def checkRightOfWay(net, options):
+    lanes = []
+    for edge in net.getEdges(False):
+        for lane in edge.getLanes():
+            if lane.isAccelerationLane():
+                for c in lane.getIncomingConnections():
+                    if c.getFromLane().isNormal() and c.getState() != "M":
+                        lanes.append(lane)
+
+    if options.selection_output:
+        with open(options.selection_output, 'w') as f:
+            for lane in lanes:
+                f.write("lane:%s\n" % lane.getID())
+    else:
+        if lanes:
+            print("Found %s acceleration lanes with invalid right-of-way on the incoming connection" % len(lanes))
+        print('\n'.join([l.getID() for l in lanes]))
+
+
 if __name__ == "__main__":
     options = parse_args()
     net = sumolib.net.readNet(options.net,
@@ -127,6 +152,8 @@ if __name__ == "__main__":
         getReachable(net, options.source, options)
     elif options.destination:
         getReachable(net, options.destination, options, True)
+    elif options.checkRightOfWay:
+        checkRightOfWay(net, options)
     else:
         components = getWeaklyConnected(
             net, options.vclass, options.ignore_connections)

@@ -276,8 +276,8 @@ class Net:
                     self.hasWalkingArea = True
         return self._id2edge[id]
 
-    def addLane(self, edge, speed, length, width, allow=None, disallow=None):
-        return lane.Lane(edge, speed, length, width, allow, disallow)
+    def addLane(self, edge, speed, length, width, allow=None, disallow=None, acceleration=False):
+        return lane.Lane(edge, speed, length, width, allow, disallow, acceleration)
 
     def addRoundabout(self, nodes, edges=None):
         r = roundabout.Roundabout(nodes, edges)
@@ -790,7 +790,8 @@ class NetReader(handler.ContentHandler):
                 float(attrs['length']),
                 float(attrs.get('width', 3.2)),
                 attrs.get('allow'),
-                attrs.get('disallow'))
+                attrs.get('disallow'),
+                attrs.get('acceleration') == "1")
             self._currentLane.setShape(convertShape(attrs.get('shape', '')))
         elif name == 'neigh' and self._currentLane is not None:
             self._currentLane.setNeigh(attrs['lane'])
