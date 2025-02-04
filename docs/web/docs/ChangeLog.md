@@ -2,6 +2,11 @@
 title: ChangeLog
 ---
 
+## Git Main
+
+### Bugfixes
+
+
 ## Version 1.22.0 (04.02.2025)
 
 ### Bugfixes
@@ -18,7 +23,7 @@ title: ChangeLog
   - Fixed blocked vehicles at busStop with attribute parkingLength #15644
   - Fixed train collision at rail_crossing #15658
   - Fixed crash when route contains internal edge #15667
-  - Fixed invalid error when using jump after stopping twice on the same edge #15635  
+  - Fixed invalid error when using jump after stopping twice on the same edge #15635
   - Fixed invalid value of diagnostic param 'caccVehicleMode' when using carFollowModel *CACC* #15682
   - Fixed invalid speedErr computation for carFollowModel *CACC* #15683
   - Actuated traffic light that use the `next` attribute to skip phases now work correctly if the targeted green phase serves no traffic but leads to a subsequent phase which does #15716
