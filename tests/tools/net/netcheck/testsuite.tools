@@ -27,3 +27,4 @@ types
 
 # get very weakly connected components (node graph)
 ignore_connections
+check_right_of_way
