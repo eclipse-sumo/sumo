@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-04 15:47+0100\n"
-"PO-Revision-Date: 2025-01-29 11:10+0000\n"
+"PO-Revision-Date: 2025-02-04 15:39+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -10874,6 +10874,8 @@ msgid ""
 "It is strongly advisable to give an explicit position when using radius in "
 "the definition of rerouter '%'."
 msgstr ""
+"Es wird dringlich empfohlen, eine explizite Position für den Radius in der "
+"Rerouter-Definition '%' anzugeben."
 
 #: src/netwrite/NWFrame.cpp:54
 msgid "The generated net will be written to FILE"
@@ -11184,12 +11186,12 @@ msgstr "Ungültige Dauer für den Zeitabschnitt ab %."
 #: src/od/ODDistrictCont.cpp:57
 #, c-format
 msgid "District '%' does not provide any valid source."
-msgstr ""
+msgstr "Der Bezirk '%' verfügt über keine gültige Quelle."
 
 #: src/od/ODDistrictCont.cpp:73
 #, c-format
 msgid "District '%' does not provide any valid sink."
-msgstr ""
+msgstr "Der Bezirk '%' verfügt über kein gültiges Ziel."
 
 #: src/od/ODDistrictCont.cpp:84
 #, c-format
@@ -11497,7 +11499,7 @@ msgstr ""
 
 #: src/polyconvert/polyconvert_main.cpp:115
 msgid "Reads shapes from geojson FILE"
-msgstr ""
+msgstr "Liest geojson-Shapes aus FILE"
 
 #: src/polyconvert/polyconvert_main.cpp:122
 msgid "Reads shapes from shapefiles FILE"
