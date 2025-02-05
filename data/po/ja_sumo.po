@@ -8,178 +8,181 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-04 15:47+0100\n"
-"PO-Revision-Date: 2025-02-04 15:47+0100\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2025-02-05 12:40+0000\n"
+"Last-Translator: Tomosawa Ryo <tomosawa.r.103@ms.saitama-u.ac.jp>\n"
+"Language-Team: Japanese <https://hosted.weblate.org/projects/eclipse-sumo/"
+"applications/ja/>\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CP1252\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 5.10-dev\n"
 
 #: src/activitygen/AGActivityGen.cpp:46
 msgid "Reading input"
-msgstr ""
+msgstr "入力の読み取り"
 
 #: src/activitygen/AGActivityGen.cpp:54
 msgid "Consolidating statistics"
-msgstr ""
+msgstr "統計の統合"
 
 #: src/activitygen/AGActivityGen.cpp:58
 msgid "Building street representation"
-msgstr ""
+msgstr "建物の街路表現"
 
 #: src/activitygen/AGActivityGen.cpp:62
 msgid "Generating work positions"
-msgstr ""
+msgstr "作業位置の生成"
 
 #: src/activitygen/AGActivityGen.cpp:66
 msgid "Building bus lines"
-msgstr ""
+msgstr "バスレーンの作成"
 
 #: src/activitygen/AGActivityGen.cpp:71
 msgid "Generating population"
-msgstr ""
+msgstr "人口を発生させる"
 
 #: src/activitygen/AGActivityGen.cpp:75
 msgid "Allocating schools"
-msgstr ""
+msgstr "学校の割り当て"
 
 #: src/activitygen/AGActivityGen.cpp:79
 msgid "Allocating work places"
-msgstr ""
+msgstr "職場の割り当て"
 
 #: src/activitygen/AGActivityGen.cpp:83
 msgid "Allocating car places"
-msgstr ""
+msgstr "自動車の位置の割り当て"
 
 #: src/activitygen/AGActivityGenHandler.cpp:174
 #: src/activitygen/AGActivityGenHandler.cpp:181
 msgid "Invalid % value of edge % is treated as zero."
-msgstr ""
+msgstr "無効な% value of edge %は0として扱われます。"
 
 #: src/activitygen/AGActivityGenHandler.cpp:186
 #, c-format
 msgid "Edge '%' is not known."
-msgstr ""
+msgstr "区間'%'が未知です。"
 
 #: src/activitygen/AGActivityGenHandler.cpp:345
 msgid "Unknown bus station '%'."
-msgstr ""
+msgstr "未知のバス停'%'です。"
 
 #: src/activitygen/AGFrame.cpp:61
 msgid "Use FILE as SUMO-network to create trips for"
-msgstr ""
+msgstr "トリップを作成するためにSUMO-ネットワークとしてFILEを使用して"
 
 #: src/activitygen/AGFrame.cpp:64
 msgid "Loads the SUMO-statistics FILE"
-msgstr ""
+msgstr "SUMO-statistics FILEをロードします"
 
 #: src/activitygen/AGFrame.cpp:72
 msgid "Write generated trips to FILE"
-msgstr ""
+msgstr "生成されたトリップをファイルに書き出します"
 
 #: src/activitygen/AGFrame.cpp:81
 msgid ""
 "Sets the time of beginning of the simulation during the first day (in "
 "seconds)"
-msgstr ""
+msgstr "初日のシミュレーション開始時刻を設定（秒単位）"
 
 #: src/activitygen/AGFrame.cpp:84
 msgid ""
 "Sets the time of ending of the simulation during the last day (in seconds)"
-msgstr ""
+msgstr "最終日のシミュレーション終了時刻を設定（秒単位）"
 
 #: src/activitygen/AGFrame.cpp:87
 msgid "Sets the duration of the simulation in days"
-msgstr ""
+msgstr "シミュレーションの期間を日数で設定"
 
 #: src/activitygen/activitygen_main.cpp:64 src/router/ROLoader.cpp:111
 msgid "Missing definition of network to load!"
-msgstr ""
+msgstr "ロードするネットワークの定義がありません！"
 
 #: src/activitygen/activitygen_main.cpp:67
 #, c-format
 msgid "The network file '%' could not be accessed."
-msgstr ""
+msgstr "ネットワークファイル'%'にアクセスできません。"
 
 #: src/activitygen/activitygen_main.cpp:69 src/router/ROLoader.cpp:116
 msgid "Loading net"
-msgstr ""
+msgstr "ネットワークの読み込み"
 
 #: src/activitygen/activitygen_main.cpp:79
 #: src/netload/NLEdgeControlBuilder.cpp:227 src/router/ROLoader.cpp:135
 #, c-format
 msgid "Deprecated vehicle classes '%' in input network."
-msgstr ""
+msgstr "入力ネットワーク内の車輌クラス'%'は適用されなくなりました。"
 
 #: src/activitygen/activitygen_main.cpp:89
 msgid ""
 "Generates trips of persons throughout a day for the microscopic, multi-modal "
 "traffic simulation SUMO."
-msgstr ""
+msgstr "ミクロなマルチモーダル交通シミュレーションSUMOのために、1日のパーソントリップ"
+"を生成。"
 
 #: src/activitygen/activitygen_main.cpp:113
 #, c-format
 msgid "Loaded % edges."
-msgstr ""
+msgstr "区間%がロードされました。"
 
 #: src/activitygen/city/AGCity.cpp:415
 msgid "No street that allows passenger vehicles found in this city."
-msgstr ""
+msgstr "乗用車が通行可能な道路が見つかりませんでした。"
 
 #: src/activitygen/city/AGWorkPosition.cpp:127
 msgid "Work position already occupied. Cannot give it to another adult."
-msgstr ""
+msgstr "その役職は埋まっています。他の成人が就くことはできません。"
 
 #: src/dfrouter/RODFDetFlowLoader.cpp:76
 msgid "At least one value lies beyond given time boundaries."
-msgstr ""
+msgstr "1つ以上の値が指定の時間を超えているようです。"
 
 #: src/dfrouter/RODFDetFlowLoader.cpp:104
 msgid "At least one line does not contain the correct number of columns."
-msgstr ""
+msgstr "1つ以上の行が誤った数を含んでいるようです。"
 
 #: src/dfrouter/RODFDetector.cpp:171
 msgid "Missing routes for detector '%'."
-msgstr ""
+msgstr "検出器 '%' のルートがありません。"
 
 #: src/dfrouter/RODFDetector.cpp:305
 #, c-format
 msgid "Detector '%' has no routes!?"
-msgstr ""
+msgstr "検出器'%'のルートが無いだと！？"
 
 #: src/dfrouter/RODFDetectorHandler.cpp:86
 msgid "Could not add detector '%' (probably the id is already used)."
-msgstr ""
+msgstr "検出器'%'を追加できません（おそらくそのidが使用済みと思われます）。"
 
 #: src/dfrouter/RODFFrame.cpp:61
 msgid "Loads the SUMO-network FILE"
-msgstr ""
+msgstr "SUMO-ネットワークファイルのロード"
 
 #: src/dfrouter/RODFFrame.cpp:70
 msgid "Loads detector descriptions from FILE"
-msgstr ""
+msgstr "ファイルから検出器の説明をロード"
 
 #: src/dfrouter/RODFFrame.cpp:75
 msgid "Loads detector flows from FILE(s)"
-msgstr ""
+msgstr "ファイルから検出器フローをロード"
 
 #: src/dfrouter/RODFFrame.cpp:82
 msgid "Saves computed routes to FILE"
-msgstr ""
+msgstr "ファイルに計算済みのルートを保存"
 
 #: src/dfrouter/RODFFrame.cpp:85
 msgid "Forces dfrouter to compute routes for in-between detectors"
-msgstr ""
+msgstr "dfrouterに検出器間のルートを計算させる"
 
 #: src/dfrouter/RODFFrame.cpp:89
 msgid "Saves typed detectors to FILE"
-msgstr ""
+msgstr "型付けされた検出器をファイルに保存する"
 
 #: src/dfrouter/RODFFrame.cpp:92
 msgid "Saves detector positions as pois to FILE"
-msgstr ""
+msgstr "検出器の位置をpoisとしてファイルに保存"
 
 #: src/dfrouter/RODFFrame.cpp:95
 msgid "Saves emitter definitions for source detectors to FILE"
