@@ -1,0 +1,6 @@
+--no-step-log -e 360 --net-file=net2.net.xml
+-r input_routes.rou.xml
+-a input_additional.add.xml
+--duration-log.statistics
+--tripinfo-output tripinfos.xml
+--stop-output stopinfos.xml
