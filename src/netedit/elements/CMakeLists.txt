@@ -14,8 +14,10 @@ set(netedit_elements_SRCS
    GNEGeneralHandler.h
    GNEHierarchicalElement.cpp
    GNEHierarchicalElement.h
-   GNEHierarchicalStructure.cpp
-   GNEHierarchicalStructure.h
+   GNEHierarchicalStructureChildren.cpp
+   GNEHierarchicalStructureChildren.h
+   GNEHierarchicalStructureParents.cpp
+   GNEHierarchicalStructureParents.h
    GNEPathElement.cpp
    GNEPathElement.h
    )
