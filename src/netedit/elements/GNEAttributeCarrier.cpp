@@ -47,7 +47,6 @@ const Parameterised::Map GNEAttributeCarrier::PARAMETERS_EMPTY;
 const std::string GNEAttributeCarrier::True = toString(true);
 const std::string GNEAttributeCarrier::False = toString(false);
 
-
 // ===========================================================================
 // method definitions
 // ===========================================================================
@@ -732,7 +731,7 @@ GNEAttributeCarrier::setCommonAttribute(SumoXMLAttr key, const std::string& valu
 
 
 bool
-GNEAttributeCarrier::isCommonValid(SumoXMLAttr key, const std::string& value) {
+GNEAttributeCarrier::isCommonValid(SumoXMLAttr key, const std::string& value) const {
     switch (key) {
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);

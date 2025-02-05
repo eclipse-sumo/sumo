@@ -19,19 +19,11 @@
 /****************************************************************************/
 
 #include <netedit/GNENet.h>
-#include <netedit/GNEViewNet.h>
-#include <netedit/changes/GNEChange_Attribute.h>
-#include <utils/common/StringTokenizer.h>
-#include <utils/common/ToString.h>
 #include <utils/emissions/PollutantsInterface.h>
-#include <utils/geom/GeomConvHelper.h>
-#include <utils/gui/div/GUIGlobalSelection.h>
-#include <utils/gui/images/VClassIcons.h>
-#include <utils/iodevices/OutputDevice.h>
 #include <utils/options/OptionsCont.h>
-#include <utils/shapes/PointOfInterest.h>
 
 #include "GNETagPropertiesDatabase.h"
+#include "GNETagProperties.h"
 
 // ===========================================================================
 // method definitions
