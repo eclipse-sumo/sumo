@@ -1364,7 +1364,7 @@ NBNode::computeLanes2Lanes() {
                 std::cout << "l2l node=" << getID() << " specialCase f inOff=" << inOffset << " outOff=" << outOffset << " inEnd=" << inEnd << " outEnd=" << outEnd << " reduction=" << reduction << "\n";
             }
 #endif
-            // in case of reduced lane number, let the rightmost lanse end
+            // in case of reduced lane number, let the rightmost lanes end
             inOffset += reduction;
             for (int i = outOffset; i < outEnd; ++i) {
                 in->setConnection(i + inOffset - outOffset, out, i, NBEdge::Lane2LaneInfoType::COMPUTED);
