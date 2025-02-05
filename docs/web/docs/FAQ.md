@@ -439,6 +439,7 @@ and simply type `git pull`.
 
 ### The build process aborts with an error on `src/netedit/templates.h`
 
+   Make sure that environment variable SUMO_HOME points at the base folder of the most recent version rather than some older version of SUMO.
    See https://github.com/eclipse-sumo/sumo/issues/16115
 
 ### Troubleshooting
