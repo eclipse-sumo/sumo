@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-04 15:47+0100\n"
-"PO-Revision-Date: 2025-02-03 09:42+0000\n"
+"PO-Revision-Date: 2025-02-05 12:40+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -4670,7 +4670,7 @@ msgstr ""
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:76
 msgid "The maximum charging speed of the vehicle battery"
-msgstr ""
+msgstr "La rata massima di carica della batteria del veicolo"
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:78
 msgid "Type of energy transfer"
@@ -4722,18 +4722,24 @@ msgid ""
 "Maximum distance in meters from the original stop to be replaced by the "
 "charging stop"
 msgstr ""
+"Distanza massima in metri dalla fermata originale da sostituire con la "
+"fermata per caricare"
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:94
 msgid ""
 "Set a charging strategy to alter time and charging load from the set: [none, "
 "balanced, latest]"
 msgstr ""
+"Imposta una strategia di carica che cambia la durata e la rata di carica tra "
+"questi: [none, balanced, latest]"
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:96
 msgid ""
 "Only search for charging stations if the battery charge is not estimated "
 "sufficient to complete the current route"
 msgstr ""
+"Cerca delle stazioni ricarica solamente se la batteria non è abbastanza "
+"carica per terminare l'itinerario attuale"
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:135
 msgid "Invalid device.stationfinder.chargingStrategy '%'."
@@ -4959,6 +4965,8 @@ msgstr ""
 #: src/microsim/devices/MSDevice_ToC.cpp:129
 msgid "Probability that a dynamically triggered TOR is not answered in time."
 msgstr ""
+"Probabilità che una richiesta di ripresa (TOR) generata dinamicamente non "
+"viene accettata in tempo."
 
 #: src/microsim/devices/MSDevice_ToC.cpp:131
 msgid "If true, the vehicle tries to change to the right during an MRM."
@@ -5006,7 +5014,7 @@ msgstr ""
 
 #: src/microsim/devices/MSDevice_ToC.cpp:149
 msgid "Switches on output by specifying an output filename."
-msgstr ""
+msgstr "Attiva l'uscita specificandone il file."
 
 #: src/microsim/devices/MSDevice_ToC.cpp:158
 msgid "ToC device is not supported by the mesoscopic simulation."
@@ -5188,7 +5196,7 @@ msgstr ""
 
 #: src/microsim/output/MSMeanData.cpp:160
 msgid "Negative vehicle step fraction for '%' on lane '%'."
-msgstr ""
+msgstr "Frazione di passo di simulazione negativa per '%' sulla corsia '%'."
 
 #: src/microsim/output/MSMeanData.cpp:554
 msgid "aggregated meanData output not yet implemented for trackVehicles"
