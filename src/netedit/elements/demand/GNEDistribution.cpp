@@ -17,6 +17,7 @@
 ///
 // abstract distribution used in netedit
 /****************************************************************************/
+
 #include <netedit/GNENet.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <utils/xml/NamespaceIDs.h>

@@ -17,12 +17,12 @@
 ///
 // The Widget for move elements
 /****************************************************************************/
-#include <config.h>
 
-#include <netedit/frames/common/GNEMoveFrame.h>
-#include <netedit/GNEViewNet.h>
-#include <netedit/GNEUndoList.h>
 #include <netedit/GNENet.h>
+#include <netedit/GNETagProperties.h>
+#include <netedit/GNEUndoList.h>
+#include <netedit/GNEViewNet.h>
+#include <netedit/frames/common/GNEMoveFrame.h>
 #include <utils/foxtools/MFXDynamicLabel.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>

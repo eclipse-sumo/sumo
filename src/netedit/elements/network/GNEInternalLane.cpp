@@ -17,7 +17,6 @@
 ///
 // A class for visualizing Inner Lanes (used when editing traffic lights)
 /****************************************************************************/
-#include <config.h>
 
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>

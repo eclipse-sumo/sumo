@@ -17,10 +17,10 @@
 ///
 // Frame for show hierarchical elements
 /****************************************************************************/
-#include <config.h>
 
 #include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNENet.h>
+#include <netedit/GNETagProperties.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
@@ -34,7 +34,6 @@
 #include <utils/gui/windows/GUIAppEnum.h>
 
 #include "GNEElementTree.h"
-
 
 // ===========================================================================
 // FOX callback mapping

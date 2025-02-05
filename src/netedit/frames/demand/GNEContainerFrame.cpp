@@ -17,7 +17,6 @@
 ///
 // The Widget for add Container elements
 /****************************************************************************/
-#include <config.h>
 
 #include <netedit/elements/additional/GNETAZ.h>
 #include <netedit/GNENet.h>

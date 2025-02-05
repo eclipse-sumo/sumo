@@ -17,10 +17,10 @@
 ///
 // Row used in AttributesCreator
 /****************************************************************************/
-#include <config.h>
 
 #include <netedit/frames/GNEFrame.h>
 #include <netedit/GNENet.h>
+#include <netedit/GNETagProperties.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/GNEApplicationWindow.h>
@@ -33,7 +33,6 @@
 
 #include "GNEAttributesCreatorRow.h"
 #include "GNEAttributesCreator.h"
-
 
 // ===========================================================================
 // FOX callback mapping

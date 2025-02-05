@@ -17,21 +17,21 @@
 ///
 // The Widget for modifying traffic lights
 /****************************************************************************/
-#include <config.h>
 
 #include <netbuild/NBLoadedSUMOTLDef.h>
 #include <netbuild/NBOwnTLDef.h>
+#include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNENet.h>
+#include <netedit/GNETagProperties.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
-#include <netedit/GNEApplicationWindow.h>
 #include <netedit/changes/GNEChange_TLS.h>
 #include <netedit/dialogs/GNESingleParametersDialog.h>
-#include <netedit/elements/network/GNEInternalLane.h>
-#include <netedit/elements/network/GNEJunction.h>
 #include <netedit/elements/network/GNEConnection.h>
 #include <netedit/elements/network/GNECrossing.h>
+#include <netedit/elements/network/GNEInternalLane.h>
+#include <netedit/elements/network/GNEJunction.h>
 #include <netedit/frames/GNEOverlappedInspection.h>
 #include <netedit/frames/GNETLSTable.h>
 #include <netimport/NIXMLTrafficLightsHandler.h>
@@ -43,7 +43,6 @@
 #include <utils/xml/XMLSubSys.h>
 
 #include "GNETLSEditorFrame.h"
-
 
 // ===========================================================================
 // FOX callback mapping

@@ -17,6 +17,7 @@
 ///
 // Representation of Stops in netedit
 /****************************************************************************/
+
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>

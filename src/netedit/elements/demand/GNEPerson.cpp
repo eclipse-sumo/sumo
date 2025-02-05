@@ -17,6 +17,7 @@
 ///
 // Representation of persons in netedit
 /****************************************************************************/
+
 #include <microsim/devices/MSDevice_BTreceiver.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
@@ -34,6 +35,7 @@
 // ===========================================================================
 // FOX callback mapping
 // ===========================================================================
+
 FXDEFMAP(GNEPerson::GNEPersonPopupMenu) personPopupMenuMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_PERSON_TRANSFORM,   GNEPerson::GNEPersonPopupMenu::onCmdTransform),
 };

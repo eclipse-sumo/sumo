@@ -54,6 +54,9 @@ public:
     /// @brief get all attribute carriers used in this net
     GNENetHelper::AttributeCarriers* getAttributeCarriers() const;
 
+    /// @brief get tag properties database
+    GNETagPropertiesDatabase* getTagPropertiesDatabase() const;
+
     /// @brief get saving status
     GNENetHelper::SavingStatus* getSavingStatus() const;
 
@@ -506,6 +509,9 @@ protected:
 
     /// @brief AttributeCarriers of net
     GNENetHelper::AttributeCarriers* myAttributeCarriers = nullptr;
+
+    /// @brief Tag properties database
+    GNETagPropertiesDatabase* myTagPropertiesDatabase = nullptr;
 
     /// @brief AttributeCarriers of net
     GNENetHelper::SavingStatus* mySavingStatus;

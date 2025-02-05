@@ -33,11 +33,12 @@
 // class declaration
 // ===========================================================================
 
-class GNEFrame;
-class GNEViewParent;
+class GNEAttributeProperties;
 class GNEFlowEditor;
+class GNEFrame;
 class GNEInspectorFrame;
 class GNETypeFrame;
+class GNEViewParent;
 
 // ===========================================================================
 // class definitions
@@ -186,6 +187,6 @@ public:
     /// @brief return true if AC can be edited in the current supermode
     static bool isSupermodeValid(const GNEViewNet* viewNet, const GNEAttributeCarrier* AC);
 
-    /// @brief return true if give ACAttr can be edited in the current supermode
-    static bool isSupermodeValid(const GNEViewNet* viewNet, const GNEAttributeProperties& ACAttr);
+    /// @brief return true if give attributeProperties can be edited in the current supermode
+    static bool isSupermodeValid(const GNEViewNet* viewNet, const GNEAttributeProperties* attributeProperties);
 };

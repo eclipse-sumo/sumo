@@ -15,10 +15,11 @@
 /// @author  Pablo Alvarez Lopez
 /// @date    Nov 2015
 ///
-//
+// multi entry-exit (E3) detector
 /****************************************************************************/
 
 #include <netedit/GNENet.h>
+#include <netedit/GNETagProperties.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
@@ -26,7 +27,6 @@
 #include <netedit/frames/network/GNETLSEditorFrame.h>
 
 #include "GNEMultiEntryExitDetector.h"
-
 
 // ===========================================================================
 // member method definitions

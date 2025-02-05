@@ -17,7 +17,6 @@
 ///
 // The Widget for modifying selections of network-elements
 /****************************************************************************/
-#include <config.h>
 
 #include <netedit/GNEViewNet.h>
 #include <utils/common/MsgHandler.h>
@@ -27,7 +26,6 @@
 #include "GNEElementSet.h"
 #include "GNEMatchAttribute.h"
 #include "GNEMatchGenericDataAttribute.h"
-
 
 // ===========================================================================
 // FOX callback mapping

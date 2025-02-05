@@ -17,25 +17,24 @@
 ///
 // A class for visualizing connections between lanes
 /****************************************************************************/
-#include <config.h>
 
 #include <netbuild/NBLoadedSUMOTLDef.h>
 #include <netedit/GNENet.h>
+#include <netedit/GNETagProperties.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/changes/GNEChange_TLS.h>
 #include <utils/gui/div/GLHelper.h>
+#include <utils/gui/div/GUIDesigns.h>
+#include <utils/gui/div/GUIGlobalViewObjectsHandler.h>
 #include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/options/OptionsCont.h>
-#include <utils/gui/div/GUIDesigns.h>
-#include <utils/gui/div/GUIGlobalViewObjectsHandler.h>
 
 #include "GNEConnection.h"
 #include "GNEInternalLane.h"
-
 
 // ===========================================================================
 // method definitions

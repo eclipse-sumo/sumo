@@ -17,7 +17,6 @@
 ///
 // The Widget for add TAZRelationData elements
 /****************************************************************************/
-#include <config.h>
 
 #include <netedit/elements/data/GNEDataHandler.h>
 #include <netedit/elements/data/GNEDataInterval.h>
@@ -29,7 +28,6 @@
 #include <utils/gui/windows/GUIAppEnum.h>
 
 #include "GNETAZRelDataFrame.h"
-
 
 // ===========================================================================
 // FOX callback mapping

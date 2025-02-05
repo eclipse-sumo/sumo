@@ -17,9 +17,9 @@
 ///
 //
 /****************************************************************************/
-#include <config.h>
 
 #include <netedit/GNENet.h>
+#include <netedit/GNETagProperties.h>
 #include <netedit/GNESegment.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
@@ -30,7 +30,6 @@
 #include <utils/gui/globjects/GLIncludes.h>
 
 #include "GNEDetector.h"
-
 
 // ===========================================================================
 // member method definitions

@@ -18,7 +18,6 @@
 // A road/street connecting two junctions (netedit-version, adapted from GUIEdge)
 // Basically a container for an NBEdge with drawing and editing capabilities
 /****************************************************************************/
-#include <config.h>
 
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
@@ -53,6 +52,9 @@
 #include "GNEEdgeTemplate.h"
 #include "GNELaneTemplate.h"
 
+// ===========================================================================
+// defines
+// ===========================================================================
 
 //#define DEBUG_SMOOTH_GEOM
 //#define DEBUGCOND(obj) (true)
@@ -62,6 +64,7 @@
 // ===========================================================================
 // static
 // ===========================================================================
+
 const double GNEEdge::SNAP_RADIUS = SUMO_const_halfLaneWidth;
 const double GNEEdge::SNAP_RADIUS_SQUARED = (SUMO_const_halfLaneWidth* SUMO_const_halfLaneWidth);
 

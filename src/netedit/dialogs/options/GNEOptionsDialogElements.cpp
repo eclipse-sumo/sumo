@@ -17,7 +17,6 @@
 ///
 // A Dialog for setting options (see OptionsCont)
 /****************************************************************************/
-#include <config.h>
 
 #include <netedit/GNEApplicationWindow.h>
 #include <utils/common/MsgHandler.h>
@@ -33,6 +32,9 @@
 #include "GNEOptionsDialogElements.h"
 #include "GNEOptionsDialog.h"
 
+// ===========================================================================
+// Defines
+// ===========================================================================
 
 #define MARGIN 4
 #define MINNAMEWIDTH 200

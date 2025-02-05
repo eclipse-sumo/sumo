@@ -17,9 +17,9 @@
 ///
 // A network change in which a busStop is created or deleted
 /****************************************************************************/
-#include <config.h>
 
 #include <netedit/GNENet.h>
+#include <netedit/GNETagProperties.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/GNEApplicationWindow.h>

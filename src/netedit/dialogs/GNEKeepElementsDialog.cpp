@@ -18,12 +18,11 @@
 // Dialog used to ask user if overwrite elements during loading
 /****************************************************************************/
 
+#include <netedit/GNEApplicationWindow.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/gui/div/GUIDesigns.h>
-#include <netedit/GNEApplicationWindow.h>
 
 #include "GNEKeepElementsDialog.h"
-
 
 // ===========================================================================
 // FOX callback mapping

@@ -18,12 +18,6 @@
 // A abstract class for data sets
 /****************************************************************************/
 
-
-// ===========================================================================
-// included modules
-// ===========================================================================
-#include <config.h>
-
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
@@ -33,7 +27,6 @@
 
 #include "GNEDataSet.h"
 #include "GNEDataInterval.h"
-
 
 // ===========================================================================
 // member method definitions

@@ -18,6 +18,8 @@
 // Route distribution used in netedit
 /****************************************************************************/
 
+#include <netedit/GNETagProperties.h>
+
 #include "GNERouteDistribution.h"
 
 // ===========================================================================

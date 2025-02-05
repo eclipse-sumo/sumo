@@ -17,7 +17,6 @@
 ///
 // Template for edges
 /****************************************************************************/
-#include <config.h>
 
 #include <netedit/elements/network/GNEEdge.h>
 

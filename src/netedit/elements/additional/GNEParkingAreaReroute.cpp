@@ -17,13 +17,12 @@
 ///
 //
 /****************************************************************************/
-#include <config.h>
 
+#include <netedit/GNENet.h>
+#include <netedit/GNEUndoList.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 
 #include "GNEParkingAreaReroute.h"
-#include <netedit/GNEUndoList.h>
-#include <netedit/GNENet.h>
 
 // ===========================================================================
 // member method definitions

@@ -18,9 +18,7 @@
 // The Widget for edit route distribution elements
 /****************************************************************************/
 
-
 #include "GNERouteDistributionFrame.h"
-
 
 // ===========================================================================
 // method definitions

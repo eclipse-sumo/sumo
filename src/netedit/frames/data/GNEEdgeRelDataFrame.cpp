@@ -17,7 +17,6 @@
 ///
 // The Widget for add EdgeRelationData elements
 /****************************************************************************/
-#include <config.h>
 
 #include <netedit/elements/data/GNEDataHandler.h>
 #include <netedit/elements/data/GNEDataInterval.h>
@@ -27,7 +26,6 @@
 #include <netedit/GNEApplicationWindow.h>
 
 #include "GNEEdgeRelDataFrame.h"
-
 
 // ===========================================================================
 // method definitions

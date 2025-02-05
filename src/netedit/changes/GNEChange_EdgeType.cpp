@@ -17,7 +17,6 @@
 ///
 // A network change in which a single edgeType is created or deleted
 /****************************************************************************/
-#include <config.h>
 
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
@@ -31,6 +30,7 @@
 // ===========================================================================
 // FOX-declarations
 // ===========================================================================
+
 FXIMPLEMENT_ABSTRACT(GNEChange_EdgeType, GNEChange, nullptr, 0)
 
 // ===========================================================================

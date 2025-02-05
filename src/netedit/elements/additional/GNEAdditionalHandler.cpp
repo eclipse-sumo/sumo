@@ -17,18 +17,18 @@
 ///
 // Builds trigger objects for netedit
 /****************************************************************************/
-#include <config.h>
 
+#include <netedit/GNENet.h>
+#include <netedit/GNETagProperties.h>
+#include <netedit/GNEUndoList.h>
+#include <netedit/GNEViewNet.h>
 #include <netedit/changes/GNEChange_Additional.h>
 #include <netedit/changes/GNEChange_TAZSourceSink.h>
-#include <netedit/GNEViewNet.h>
-#include <netedit/GNEUndoList.h>
-#include <netedit/GNENet.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/xml/NamespaceIDs.h>
 
-#include "GNEAdditionalHandler.h"
 #include "GNEAccess.h"
+#include "GNEAdditionalHandler.h"
 #include "GNEBusStop.h"
 #include "GNECalibrator.h"
 #include "GNECalibratorFlow.h"
@@ -37,11 +37,11 @@
 #include "GNEClosingReroute.h"
 #include "GNEContainerStop.h"
 #include "GNEDestProbReroute.h"
+#include "GNEEntryExitDetector.h"
 #include "GNEInductionLoopDetector.h"
 #include "GNEInstantInductionLoopDetector.h"
 #include "GNELaneAreaDetector.h"
 #include "GNEMultiEntryExitDetector.h"
-#include "GNEEntryExitDetector.h"
 #include "GNEOverheadWire.h"
 #include "GNEPOI.h"
 #include "GNEParkingArea.h"
@@ -60,7 +60,6 @@
 #include "GNEVariableSpeedSign.h"
 #include "GNEVariableSpeedSignStep.h"
 #include "GNEVariableSpeedSignSymbol.h"
-
 
 // ===========================================================================
 // GNEAdditionalHandler method definitions

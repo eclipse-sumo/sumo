@@ -18,12 +18,11 @@
 // Dialog for show undo-list
 /****************************************************************************/
 
-#include <utils/gui/div/GUIDesigns.h>
 #include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNEUndoList.h>
+#include <utils/gui/div/GUIDesigns.h>
 
 #include "GNEUndoListDialog.h"
-
 
 // ===========================================================================
 // FOX callback mapping

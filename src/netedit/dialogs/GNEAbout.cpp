@@ -17,19 +17,17 @@
 ///
 // The "About" - dialog for netedit, (adapted from GUIDialog_AboutSUMO)
 /****************************************************************************/
-#include <config.h>
-
-#ifdef HAVE_VERSION_H
-#include <version.h>
-#endif
 
 #include <utils/common/MsgHandler.h>
 #include <utils/foxtools/MFXLinkLabel.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/div/GUIDesigns.h>
 
-#include "GNEAbout.h"
+#ifdef HAVE_VERSION_H
+#include <version.h>
+#endif
 
+#include "GNEAbout.h"
 
 // ===========================================================================
 // method definitions

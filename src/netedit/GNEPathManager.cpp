@@ -21,12 +21,12 @@
 #include <netbuild/NBNetBuilder.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNESegment.h>
+#include <netedit/GNETagProperties.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/elements/network/GNEConnection.h>
 #include <utils/router/DijkstraRouter.h>
 
 #include "GNEPathManager.h"
-
 
 // ===========================================================================
 // member method definitions

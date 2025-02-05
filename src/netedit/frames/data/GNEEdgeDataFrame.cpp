@@ -17,18 +17,17 @@
 ///
 // The Widget for add edgeData elements
 /****************************************************************************/
-#include <config.h>
 
-#include <netedit/elements/data/GNEDataInterval.h>
-#include <netedit/elements/data/GNEEdgeData.h>
-#include <netedit/elements/data/GNEDataHandler.h>
-#include <netedit/elements/network/GNEEdge.h>
+#include <netedit/GNEApplicationWindow.h>
+#include <netedit/GNETagProperties.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
-#include <netedit/GNEApplicationWindow.h>
+#include <netedit/elements/data/GNEDataHandler.h>
+#include <netedit/elements/data/GNEDataInterval.h>
+#include <netedit/elements/data/GNEEdgeData.h>
+#include <netedit/elements/network/GNEEdge.h>
 
 #include "GNEEdgeDataFrame.h"
-
 
 // ===========================================================================
 // method definitions

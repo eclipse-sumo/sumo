@@ -62,6 +62,7 @@ class GNENet;
 class GNENetworkElement;
 class GNEPOI;
 class GNEPoly;
+class GNETagPropertiesDatabase;
 class GNEUndoList;
 class GNEViewNet;
 class GNEWalkingArea;

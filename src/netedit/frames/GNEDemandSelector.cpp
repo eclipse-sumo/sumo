@@ -17,16 +17,15 @@
 ///
 // Frame for select demand elements
 /****************************************************************************/
-#include <config.h>
 
 #include <netedit/GNENet.h>
+#include <netedit/GNETagProperties.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 
 #include "GNEDemandSelector.h"
-
 
 // ===========================================================================
 // FOX callback mapping

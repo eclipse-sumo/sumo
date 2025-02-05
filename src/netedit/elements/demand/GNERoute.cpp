@@ -37,6 +37,7 @@
 // ===========================================================================
 // FOX callback mapping
 // ===========================================================================
+
 FXDEFMAP(GNERoute::GNERoutePopupMenu) GNERoutePopupMenuMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_GNE_ROUTE_APPLY_DISTANCE,     GNERoute::GNERoutePopupMenu::onCmdApplyDistance),
 };

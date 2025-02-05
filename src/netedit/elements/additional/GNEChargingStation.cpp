@@ -17,10 +17,10 @@
 ///
 // A class for visualizing chargingStation geometry (adapted from GUILaneWrapper)
 /****************************************************************************/
-#include <config.h>
 
 #include <foreign/fontstash/fontstash.h>
 #include <netedit/GNENet.h>
+#include <netedit/GNETagProperties.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/changes/GNEChange_Attribute.h>

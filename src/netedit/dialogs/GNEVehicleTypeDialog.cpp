@@ -19,6 +19,7 @@
 /****************************************************************************/
 
 #include <netedit/GNENet.h>
+#include <netedit/GNETagProperties.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/changes/GNEChange_DemandElement.h>
@@ -31,7 +32,6 @@
 #include <utils/gui/windows/GUIAppEnum.h>
 
 #include "GNEVehicleTypeDialog.h"
-
 
 // ===========================================================================
 // FOX callback mapping

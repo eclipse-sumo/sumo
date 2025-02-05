@@ -17,7 +17,6 @@
 ///
 // A network change in which a busStop is created or deleted
 /****************************************************************************/
-#include <config.h>
 
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
@@ -29,6 +28,7 @@
 // ===========================================================================
 // FOX-declarations
 // ===========================================================================
+
 FXIMPLEMENT_ABSTRACT(GNEChange_TAZSourceSink, GNEChange, nullptr, 0)
 
 // ===========================================================================

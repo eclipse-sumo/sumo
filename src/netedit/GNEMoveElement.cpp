@@ -17,13 +17,13 @@
 ///
 // Class used for move shape elements
 /****************************************************************************/
+
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/frames/common/GNEMoveFrame.h>
 
 #include "GNEMoveElement.h"
-
 
 // ===========================================================================
 // GNEMoveOperation method definitions

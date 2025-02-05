@@ -19,6 +19,7 @@
 /****************************************************************************/
 
 #include <netedit/GNENet.h>
+#include <netedit/GNETagProperties.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
@@ -29,7 +30,6 @@
 #include <utils/gui/div/GUIDesigns.h>
 
 #include "GNEDistributionFrame.h"
-
 
 // ===========================================================================
 // FOX callback mapping

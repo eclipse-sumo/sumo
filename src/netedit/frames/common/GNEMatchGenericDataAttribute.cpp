@@ -17,9 +17,9 @@
 ///
 // The Widget for modifying selections of network-elements
 /****************************************************************************/
-#include <config.h>
 
 #include <netedit/GNENet.h>
+#include <netedit/GNETagProperties.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/elements/data/GNEDataInterval.h>
 #include <utils/common/MsgHandler.h>

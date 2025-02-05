@@ -15,9 +15,11 @@
 /// @author  Pablo Alvarez Lopez
 /// @date    Nov 2015
 ///
-//
+// Calibrator over edge or lane
 /****************************************************************************/
+
 #include <netedit/GNENet.h>
+#include <netedit/GNETagProperties.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/changes/GNEChange_Attribute.h>
@@ -28,7 +30,6 @@
 #include <utils/xml/NamespaceIDs.h>
 
 #include "GNECalibrator.h"
-
 
 // ===========================================================================
 // member method definitions

@@ -17,7 +17,6 @@
 ///
 // A network change in which a single lane is created or deleted
 /****************************************************************************/
-#include <config.h>
 
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
@@ -26,12 +25,11 @@
 
 #include "GNEChange_Lane.h"
 
-
 // ===========================================================================
 // FOX-declarations
 // ===========================================================================
-FXIMPLEMENT_ABSTRACT(GNEChange_Lane, GNEChange, nullptr, 0)
 
+FXIMPLEMENT_ABSTRACT(GNEChange_Lane, GNEChange, nullptr, 0)
 
 // ===========================================================================
 // member method definitions

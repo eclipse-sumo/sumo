@@ -17,7 +17,6 @@
 ///
 // The Widget for add additional elements
 /****************************************************************************/
-#include <config.h>
 
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
@@ -27,7 +26,6 @@
 #include <utils/gui/div/GUIDesigns.h>
 
 #include "GNEAdditionalFrame.h"
-
 
 // ===========================================================================
 // method definitions

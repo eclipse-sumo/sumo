@@ -17,7 +17,6 @@
 ///
 // Frame for select tags
 /****************************************************************************/
-#include <config.h>
 
 #include <netedit/GNEViewNet.h>
 #include <netedit/elements/additional/GNEAccess.h>
@@ -69,7 +68,6 @@
 #include <utils/gui/windows/GUIAppEnum.h>
 
 #include "GNETagSelector.h"
-
 
 // ===========================================================================
 // FOX callback mapping

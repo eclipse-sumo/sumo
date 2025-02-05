@@ -18,12 +18,8 @@
 // A network change in which a mean data set is created or deleted
 /****************************************************************************/
 
-// ===========================================================================
-// included modules
-// ===========================================================================
-#include <config.h>
-
 #include <netedit/GNENet.h>
+#include <netedit/GNETagProperties.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/GNEApplicationWindow.h>

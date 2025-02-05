@@ -17,21 +17,20 @@
 ///
 // The Widget for add Crossing elements
 /****************************************************************************/
-#include <config.h>
 
-#include <utils/foxtools/MFXDynamicLabel.h>
-#include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/div/GUIDesigns.h>
+#include <netedit/GNENet.h>
+#include <netedit/GNETagProperties.h>
+#include <netedit/GNEUndoList.h>
+#include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
 #include <netedit/changes/GNEChange_Crossing.h>
 #include <netedit/elements/network/GNECrossing.h>
 #include <netedit/frames/network/GNECreateEdgeFrame.h>
-#include <netedit/GNENet.h>
-#include <netedit/GNEViewNet.h>
-#include <netedit/GNEViewParent.h>
-#include <netedit/GNEUndoList.h>
+#include <utils/foxtools/MFXDynamicLabel.h>
+#include <utils/gui/div/GUIDesigns.h>
+#include <utils/gui/windows/GUIAppEnum.h>
 
 #include "GNECrossingFrame.h"
-
 
 // ===========================================================================
 // FOX callback mapping

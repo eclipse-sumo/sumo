@@ -17,14 +17,12 @@
 ///
 // Frame for path legends
 /****************************************************************************/
-#include <config.h>
 
 #include <netedit/GNEViewNet.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
 #include <utils/gui/div/GUIDesigns.h>
 
 #include "GNEPlanCreatorLegend.h"
-
 
 // ===========================================================================
 // method definitions

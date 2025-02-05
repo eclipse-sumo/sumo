@@ -17,7 +17,6 @@
 ///
 // A network change in which a single connection is created or deleted
 /****************************************************************************/
-#include <config.h>
 
 #include <netedit/GNENet.h>
 
@@ -26,6 +25,7 @@
 // ===========================================================================
 // FOX-declarations
 // ===========================================================================
+
 FXIMPLEMENT_ABSTRACT(GNEChange_Connection, GNEChange, nullptr, 0)
 
 // ===========================================================================

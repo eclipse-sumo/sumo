@@ -17,7 +17,6 @@
 ///
 // The Widget for add ContainerPlan elements
 /****************************************************************************/
-#include <config.h>
 
 #include <netedit/elements/additional/GNETAZ.h>
 #include <netedit/GNENet.h>
@@ -26,7 +25,6 @@
 #include <netedit/GNEApplicationWindow.h>
 
 #include "GNEContainerPlanFrame.h"
-
 
 // ===========================================================================
 // method definitions

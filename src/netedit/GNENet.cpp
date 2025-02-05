@@ -25,6 +25,7 @@
 //   call compute to save results
 //
 /****************************************************************************/
+
 #include <netbuild/NBAlgorithms.h>
 #include <netbuild/NBNetBuilder.h>
 #include <netedit/changes/GNEChange_Additional.h>
@@ -65,10 +66,10 @@
 
 #include "GNEApplicationWindow.h"
 #include "GNENet.h"
+#include "GNETagPropertiesDatabase.h"
 #include "GNEViewNet.h"
 #include "GNEUndoList.h"
 #include "GNEViewParent.h"
-
 
 // ===========================================================================
 // FOX callback mapping
@@ -91,6 +92,7 @@ GNENet::GNENet(NBNetBuilder* netBuilder) :
     GUIGlObject(GLO_NETWORK, "", nullptr),
     myNetBuilder(netBuilder),
     myAttributeCarriers(new GNENetHelper::AttributeCarriers(this)),
+    myTagPropertiesDatabase(new GNETagPropertiesDatabase(this)),
     mySavingStatus(new GNENetHelper::SavingStatus(this)),
     myNetworkPathManager(new GNEPathManager(this)),
     myDemandPathManager(new GNEPathManager(this)),
@@ -112,8 +114,9 @@ GNENet::~GNENet() {
     delete myNetworkPathManager;
     delete myDemandPathManager;
     delete myDataPathManager;
-    // delete AttributeCarriers
+    // delete attribute carriers
     delete myAttributeCarriers;
+    delete myTagPropertiesDatabase;
     // delete saving status
     delete mySavingStatus;
     delete myNetBuilder;

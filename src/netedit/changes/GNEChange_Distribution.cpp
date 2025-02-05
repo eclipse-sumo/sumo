@@ -17,9 +17,9 @@
 ///
 // A change in which the distribution attribute of some object is modified
 /****************************************************************************/
-#include <config.h>
 
 #include <netedit/GNENet.h>
+#include <netedit/GNETagProperties.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/GNEApplicationWindow.h>

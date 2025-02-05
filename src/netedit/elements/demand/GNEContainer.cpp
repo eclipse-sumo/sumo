@@ -17,6 +17,7 @@
 ///
 // Representation of containers in netedit
 /****************************************************************************/
+
 #include <microsim/devices/MSDevice_BTreceiver.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>

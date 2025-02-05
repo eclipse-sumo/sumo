@@ -48,7 +48,6 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/xml/NamespaceIDs.h>
 
-
 #include "GNENetHelper.h"
 
 // ---------------------------------------------------------------------------

@@ -30,12 +30,13 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
-class GNENet;
-class GNEEdge;
-class GNECrossing;
-class NBTrafficLightDefinition;
 class GNEConnection;
+class GNECrossing;
+class GNEEdge;
 class GNEInternalLane;
+class GNENet;
+class GNEWalkingArea;
+class NBTrafficLightDefinition;
 
 // ===========================================================================
 // class definitions

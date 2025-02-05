@@ -17,8 +17,8 @@
 ///
 // The Widget for modifying selections of network-elements
 /****************************************************************************/
-#include <config.h>
 
+#include <netedit/GNETagProperties.h>
 #include <utils/geom/GeoConvHelper.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>

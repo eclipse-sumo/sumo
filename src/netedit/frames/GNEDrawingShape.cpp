@@ -17,7 +17,6 @@
 ///
 // Frame for draw shapes
 /****************************************************************************/
-#include <config.h>
 
 #include <netedit/frames/common/GNEInspectorFrame.h>
 #include <netedit/GNEViewNet.h>
@@ -26,7 +25,6 @@
 #include <utils/gui/windows/GUIAppEnum.h>
 
 #include "GNEDrawingShape.h"
-
 
 // ===========================================================================
 // FOX callback mapping

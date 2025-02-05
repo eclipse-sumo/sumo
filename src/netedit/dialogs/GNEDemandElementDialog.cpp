@@ -18,13 +18,13 @@
 // A abstract class for editing additional elements
 /****************************************************************************/
 
-#include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/div/GUIDesigns.h>
+#include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNENet.h>
+#include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
-#include <netedit/GNEApplicationWindow.h>
-#include <netedit/GNEUndoList.h>
+#include <utils/gui/div/GUIDesigns.h>
+#include <utils/gui/windows/GUIAppEnum.h>
 
 #include "GNEDemandElementDialog.h"
 

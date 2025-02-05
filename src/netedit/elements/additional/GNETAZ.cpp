@@ -17,7 +17,6 @@
 ///
 //
 /****************************************************************************/
-#include <config.h>
 
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
@@ -33,7 +32,6 @@
 #include <utils/xml/NamespaceIDs.h>
 
 #include "GNETAZ.h"
-
 
 // ===========================================================================
 // static members

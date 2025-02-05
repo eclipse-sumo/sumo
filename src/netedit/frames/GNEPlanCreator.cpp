@@ -17,7 +17,6 @@
 ///
 // Frame for create paths
 /****************************************************************************/
-#include <config.h>
 
 #include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNENet.h>
@@ -32,7 +31,6 @@
 #include <utils/gui/windows/GUIAppEnum.h>
 
 #include "GNEPlanCreator.h"
-
 
 // ===========================================================================
 // FOX callback mapping

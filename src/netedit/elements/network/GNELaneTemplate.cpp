@@ -17,7 +17,6 @@
 ///
 // Template for lanes
 /****************************************************************************/
-#include <config.h>
 
 #include <netedit/elements/network/GNELane.h>
 

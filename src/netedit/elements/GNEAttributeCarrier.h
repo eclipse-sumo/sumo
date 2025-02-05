@@ -23,18 +23,17 @@
 #include <utils/foxtools/fxheader.h>
 #include <netedit/GNEReferenceCounter.h>
 
-#include "GNETagProperties.h"
-
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
-class GNENet;
-class GNEUndoList;
-class GUIGlObject;
+class GNEEdge;
 class GNEHierarchicalElement;
 class GNELane;
-class GNEEdge;
+class GNENet;
+class GNETagProperties;
+class GNEUndoList;
+class GUIGlObject;
 
 // ===========================================================================
 // class definitions
@@ -209,9 +208,7 @@ public:
     /* @brief method for check if the value for certain attribute is set
      * @param[in] key The attribute key
      */
-    bool hasAttribute(SumoXMLAttr key) const {
-        return myTagProperty->hasAttribute(key);
-    }
+    bool hasAttribute(SumoXMLAttr key) const;
 
     /// @brief get PopPup ID (Used in AC Hierarchy)
     virtual std::string getPopUpID() const = 0;

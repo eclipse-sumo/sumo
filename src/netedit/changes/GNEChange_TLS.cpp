@@ -17,7 +17,6 @@
 ///
 // A network change in which a traffic light is created or deleted
 /****************************************************************************/
-#include <config.h>
 
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
@@ -28,18 +27,16 @@
 
 #include "GNEChange_TLS.h"
 
-
 // ===========================================================================
 // FOX-declarations
 // ===========================================================================
+
 FXIMPLEMENT_ABSTRACT(GNEChange_TLS, GNEChange, nullptr, 0)
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
 
-
-/// @brief constructor for creating an edge
 GNEChange_TLS::GNEChange_TLS(GNEJunction* junction, NBTrafficLightDefinition* tlDef, bool forward, bool forceInsert, const std::string tlID) :
     GNEChange(Supermode::NETWORK, forward, false),
     myJunction(junction),

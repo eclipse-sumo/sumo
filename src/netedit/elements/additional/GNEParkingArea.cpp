@@ -17,7 +17,9 @@
 ///
 // A lane area vehicles can park at (GNE version)
 /****************************************************************************/
+
 #include <netedit/GNENet.h>
+#include <netedit/GNETagProperties.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/changes/GNEChange_Attribute.h>
@@ -28,7 +30,6 @@
 #include <utils/gui/div/GUIGlobalViewObjectsHandler.h>
 
 #include "GNEParkingArea.h"
-
 
 // ===========================================================================
 // method definitions

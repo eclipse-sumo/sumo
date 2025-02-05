@@ -18,12 +18,6 @@
 // Builds meanData objects for netedit
 /****************************************************************************/
 
-// ===========================================================================
-// included modules
-// ===========================================================================
-#include <config.h>
-
-
 #include <netedit/changes/GNEChange_MeanData.h>
 #include <netedit/elements/data/GNEMeanData.h>
 #include <netedit/GNEViewNet.h>
@@ -32,7 +26,6 @@
 #include <utils/gui/div/GUIDesigns.h>
 
 #include "GNEMeanDataHandler.h"
-
 
 // ===========================================================================
 // member method definitions

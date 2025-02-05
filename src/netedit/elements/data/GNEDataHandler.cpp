@@ -18,11 +18,6 @@
 // Builds data objects for netedit
 /****************************************************************************/
 
-// ===========================================================================
-// included modules
-// ===========================================================================
-#include <config.h>
-
 #include <netedit/changes/GNEChange_DataSet.h>
 #include <netedit/changes/GNEChange_DataInterval.h>
 #include <netedit/changes/GNEChange_GenericData.h>
@@ -36,7 +31,6 @@
 #include <utils/gui/div/GUIDesigns.h>
 
 #include "GNEDataHandler.h"
-
 
 // ===========================================================================
 // member method definitions

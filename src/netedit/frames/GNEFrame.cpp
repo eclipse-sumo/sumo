@@ -17,8 +17,8 @@
 ///
 // The Widget for add additional elements
 /****************************************************************************/
-#include <config.h>
 
+#include <netedit/GNETagProperties.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/GNEApplicationWindow.h>
@@ -27,6 +27,9 @@
 
 #include "GNEFrame.h"
 
+// ===========================================================================
+// defines
+// ===========================================================================
 
 #define PADDINGFRAME 10 // (5+5)
 #define VERTICALSCROLLBARWIDTH 15

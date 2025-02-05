@@ -18,12 +18,11 @@
 // Class for the window that allows to choose a street, junction or vehicle
 /****************************************************************************/
 
-#include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewParent.h>
+#include <utils/gui/globjects/GUIGlObjectStorage.h>
 
 #include "GNEDialogACChooser.h"
-
 
 // ===========================================================================
 // method definitions

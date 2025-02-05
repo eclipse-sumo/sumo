@@ -15,7 +15,7 @@
 /// @author  Pablo Alvarez Lopez
 /// @date    Nov 2015
 ///
-//
+// Calibrator over edge or lane
 /****************************************************************************/
 #pragma once
 #include <config.h>

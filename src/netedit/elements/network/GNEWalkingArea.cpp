@@ -17,7 +17,6 @@
 ///
 // A class for visualizing and editing WalkingAreas
 /****************************************************************************/
-#include <config.h>
 
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
@@ -31,7 +30,6 @@
 #include <utils/gui/div/GUIGlobalViewObjectsHandler.h>
 
 #include "GNEWalkingArea.h"
-
 
 // ===========================================================================
 // method definitions

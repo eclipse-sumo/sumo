@@ -18,16 +18,16 @@
 // Attribute creator
 /****************************************************************************/
 
-#include <netedit/frames/GNEFrame.h>
+#include <netedit/GNETagProperties.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/dialogs/GNESingleParametersDialog.h>
+#include <netedit/frames/GNEFrame.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 
 #include "GNEAttributesCreator.h"
 #include "GNEAttributesCreatorRow.h"
 #include "GNEFlowEditor.h"
-
 
 // ===========================================================================
 // FOX callback mapping

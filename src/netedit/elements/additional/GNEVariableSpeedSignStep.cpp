@@ -17,13 +17,12 @@
 ///
 //
 /****************************************************************************/
-#include <config.h>
 
-#include <netedit/changes/GNEChange_Attribute.h>
+#include <netedit/GNETagProperties.h>
 #include <netedit/GNEUndoList.h>
+#include <netedit/changes/GNEChange_Attribute.h>
 
 #include "GNEVariableSpeedSignStep.h"
-
 
 // ===========================================================================
 // member method definitions

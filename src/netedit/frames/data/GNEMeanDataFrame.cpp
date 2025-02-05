@@ -17,20 +17,19 @@
 ///
 // The Widget for edit meanData elements
 /****************************************************************************/
-#include <config.h>
 
 #include <netedit/GNENet.h>
-#include <netedit/GNEViewNet.h>
+#include <netedit/GNETagProperties.h>
 #include <netedit/GNEUndoList.h>
+#include <netedit/GNEViewNet.h>
 #include <netedit/changes/GNEChange_MeanData.h>
-#include <netedit/elements/data/GNEMeanData.h>
 #include <netedit/elements/data/GNEDataHandler.h>
 #include <netedit/elements/data/GNEDataInterval.h>
+#include <netedit/elements/data/GNEMeanData.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 
 #include "GNEMeanDataFrame.h"
-
 
 // ===========================================================================
 // FOX callback mapping

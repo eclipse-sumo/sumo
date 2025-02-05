@@ -17,7 +17,6 @@
 ///
 // Frame for select person/container plans
 /****************************************************************************/
-#include <config.h>
 
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNENet.h>
@@ -71,7 +70,6 @@
 #include <utils/gui/windows/GUIAppEnum.h>
 
 #include "GNEPlanSelector.h"
-
 
 // ===========================================================================
 // FOX callback mapping

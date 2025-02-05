@@ -27,6 +27,10 @@
 
 #include "GNEPythonToolDialog.h"
 
+// ===========================================================================
+// Defines
+// ===========================================================================
+
 #define MARGIN 4
 #define MAXNUMCOLUMNS 4
 #define NUMROWSBYCOLUMN 20

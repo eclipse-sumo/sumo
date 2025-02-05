@@ -17,7 +17,6 @@
 ///
 /// A SUMO lane type file assigns default values for certain attributes to types of roads.
 /****************************************************************************/
-#include <config.h>
 
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
@@ -27,7 +26,6 @@
 
 #include "GNELaneType.h"
 #include "GNEEdgeType.h"
-
 
 // ===========================================================================
 // members methods

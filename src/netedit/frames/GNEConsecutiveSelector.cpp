@@ -17,7 +17,6 @@
 ///
 // Consecutive lane selector module
 /****************************************************************************/
-#include <config.h>
 
 #include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNENet.h>
@@ -31,7 +30,6 @@
 
 #include "GNEConsecutiveSelector.h"
 #include "GNEFrame.h"
-
 
 // ===========================================================================
 // FOX callback mapping

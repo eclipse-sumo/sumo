@@ -17,7 +17,6 @@
 ///
 // The Widget for editing wires
 /****************************************************************************/
-#include <config.h>
 
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
@@ -26,7 +25,6 @@
 #include <netedit/elements/additional/GNEAdditionalHandler.h>
 
 #include "GNEWireFrame.h"
-
 
 // ===========================================================================
 // method definitions

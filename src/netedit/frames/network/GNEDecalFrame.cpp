@@ -17,7 +17,6 @@
 ///
 // The Widget for add polygons
 /****************************************************************************/
-#include <config.h>
 
 #include <utils/foxtools/MFXDynamicLabel.h>
 #include <utils/gui/windows/GUIAppEnum.h>
@@ -29,7 +28,6 @@
 #include <netedit/GNEViewNet.h>
 
 #include "GNEDecalFrame.h"
-
 
 // ===========================================================================
 // method definitions

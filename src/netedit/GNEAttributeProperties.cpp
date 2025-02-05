@@ -18,10 +18,10 @@
 // Abstract Base class for tag properties used in GNEAttributeCarrier
 /****************************************************************************/
 
-#include "GNEAttributeCarrier.h"
+#include <netedit/elements/GNEAttributeCarrier.h>
+
 #include "GNETagProperties.h"
 #include "GNEAttributeProperties.h"
-
 
 // ===========================================================================
 // method definitions

@@ -19,6 +19,7 @@
 /****************************************************************************/
 
 #include <netedit/GNENet.h>
+#include <netedit/GNETagProperties.h>
 #include <netedit/GNESegment.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
@@ -30,7 +31,6 @@
 
 #include "GNEEdgeData.h"
 #include "GNEDataInterval.h"
-
 
 // ===========================================================================
 // member method definitions

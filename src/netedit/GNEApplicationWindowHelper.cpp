@@ -18,13 +18,15 @@
 // The main window of Netedit (adapted from GUIApplicationWindow)
 /****************************************************************************/
 
-#include <netedit/tools/GNENetDiffTool.h>
-#include <netedit/dialogs/tools/GNEPythonToolDialog.h>
+#include <regex>
+#include <netedit/GNETagProperties.h>
 #include <netedit/dialogs/tools/GNENetgenerateDialog.h>
-#include <netedit/dialogs/tools/GNERunPythonToolDialog.h>
+#include <netedit/dialogs/tools/GNEPythonToolDialog.h>
 #include <netedit/dialogs/tools/GNERunNetgenerateDialog.h>
+#include <netedit/dialogs/tools/GNERunPythonToolDialog.h>
 #include <netedit/elements/GNEAttributeCarrier.h>
 #include <netedit/templates.h>
+#include <netedit/tools/GNENetDiffTool.h>
 #include <utils/common/FileHelpers.h>
 #include <utils/foxtools/MFXMenuCheckIcon.h>
 #include <utils/gui/div/GUIDesigns.h>
@@ -35,8 +37,6 @@
 #include <xercesc/sax/HandlerBase.hpp>
 #include <xercesc/sax/SAXException.hpp>
 #include <xercesc/sax/SAXParseException.hpp>
-
-#include <regex>
 
 #include "GNEApplicationWindow.h"
 #include "GNEViewNet.h"

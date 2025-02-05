@@ -19,6 +19,7 @@
 /****************************************************************************/
 
 #include <netedit/GNENet.h>
+#include <netedit/GNETagProperties.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <utils/common/StringTokenizer.h>
@@ -32,7 +33,6 @@
 #include <utils/shapes/PointOfInterest.h>
 
 #include "GNEAttributeCarrier.h"
-
 
 // ===========================================================================
 // static members
@@ -216,6 +216,12 @@ bool
 GNEAttributeCarrier::isAttributeComputed(SumoXMLAttr /*key*/) const {
     // by default, all attributes aren't computed
     return false;
+}
+
+
+bool
+GNEAttributeCarrier::hasAttribute(SumoXMLAttr key) const {
+    return myTagProperty->hasAttribute(key);
 }
 
 

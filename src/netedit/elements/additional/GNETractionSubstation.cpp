@@ -17,13 +17,14 @@
 ///
 //
 /****************************************************************************/
+
 #include <netedit/GNENet.h>
+#include <netedit/GNETagProperties.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 
 #include "GNETractionSubstation.h"
-
 
 // ===========================================================================
 // member method definitions

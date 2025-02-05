@@ -17,7 +17,6 @@
 ///
 // A class for visualizing Lane geometry (adapted from GNELaneWrapper)
 /****************************************************************************/
-#include <config.h>
 
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>

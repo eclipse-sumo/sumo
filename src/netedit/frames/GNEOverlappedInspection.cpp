@@ -17,7 +17,6 @@
 ///
 // Frame for overlapped elements
 /****************************************************************************/
-#include <config.h>
 
 #include <netedit/GNEViewNet.h>
 #include <netedit/elements/network/GNELane.h>
@@ -26,7 +25,6 @@
 #include <utils/gui/windows/GUIAppEnum.h>
 
 #include "GNEOverlappedInspection.h"
-
 
 // ===========================================================================
 // FOX callback mapping

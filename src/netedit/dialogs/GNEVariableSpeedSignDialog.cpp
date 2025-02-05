@@ -18,16 +18,16 @@
 // A class for edit phases of Variable Speed Signals
 /****************************************************************************/
 
-#include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/div/GUIDesigns.h>
+#include <netedit/GNENet.h>
+#include <netedit/GNETagProperties.h>
+#include <netedit/GNEUndoList.h>
+#include <netedit/GNEViewNet.h>
 #include <netedit/changes/GNEChange_Additional.h>
 #include <netedit/elements/additional/GNEVariableSpeedSign.h>
-#include <netedit/GNENet.h>
-#include <netedit/GNEViewNet.h>
-#include <netedit/GNEUndoList.h>
+#include <utils/gui/div/GUIDesigns.h>
+#include <utils/gui/windows/GUIAppEnum.h>
 
 #include "GNEVariableSpeedSignDialog.h"
-
 
 // ===========================================================================
 // FOX callback mapping

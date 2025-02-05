@@ -18,9 +18,7 @@
 // The Widget for edit type distribution elements
 /****************************************************************************/
 
-
 #include "GNETypeDistributionFrame.h"
-
 
 // ===========================================================================
 // method definitions

@@ -43,7 +43,7 @@ public:
     GNETagPropertiesDatabase(GNENet* net);
 
     /// @brief destructor
-    ~GNETagPropertiesDatabase() {}
+    ~GNETagPropertiesDatabase();
 
     /// @brief write machine readable attribute help to file
     void writeAttributeHelp();

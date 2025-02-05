@@ -40,6 +40,7 @@
 // ===========================================================================
 // FOX callback mapping
 // ===========================================================================
+
 FXDEFMAP(GNEVehicle::GNESingleVehiclePopupMenu) GNESingleVehiclePopupMenuMap[] = {
     FXMAPFUNCS(SEL_COMMAND,  MID_GNE_VEHICLE_TRANSFORM_TRIP, MID_GNE_VEHICLE_TRANSFORM_FLOW_TAZS, GNEVehicle::GNESingleVehiclePopupMenu::onCmdTransform),
 };

@@ -18,6 +18,7 @@
 // An auxiliar, asbtract class for flow elements (vehicles, person and containers)
 /****************************************************************************/
 
+#include <netedit/GNETagProperties.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/changes/GNEChange_ToggleAttribute.h>

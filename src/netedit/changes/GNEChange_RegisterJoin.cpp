@@ -17,7 +17,6 @@
 ///
 // A network change in which something is changed (for undo/redo)
 /****************************************************************************/
-#include <config.h>
 
 #include <netbuild/NBNodeCont.h>
 #include <netedit/GNENet.h>
@@ -29,6 +28,7 @@
 // ===========================================================================
 // FOX-declarations
 // ===========================================================================
+
 FXIMPLEMENT_ABSTRACT(GNEChange_RegisterJoin, GNEChange, nullptr, 0)
 
 // ===========================================================================

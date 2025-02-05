@@ -18,6 +18,8 @@
 // VehicleType distribution used in netedit
 /****************************************************************************/
 
+#include <netedit/GNETagProperties.h>
+
 #include "GNEVTypeDistribution.h"
 
 // ===========================================================================

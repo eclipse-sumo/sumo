@@ -17,7 +17,6 @@
 ///
 // The Widget for add Vehicles/Flows/Trips/etc. elements
 /****************************************************************************/
-#include <config.h>
 
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>

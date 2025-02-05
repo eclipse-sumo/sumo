@@ -15,7 +15,7 @@
 /// @author  Pablo Alvarez Lopez
 /// @date    Nov 2015
 ///
-//
+// multi entry-exit (E3) detector
 /****************************************************************************/
 #pragma once
 #include <config.h>

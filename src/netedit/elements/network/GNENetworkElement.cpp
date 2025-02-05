@@ -19,6 +19,7 @@
 /****************************************************************************/
 
 #include <netedit/GNENet.h>
+#include <netedit/GNETagProperties.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/frames/common/GNESelectorFrame.h>
@@ -30,7 +31,6 @@
 #include <utils/options/OptionsCont.h>
 
 #include "GNENetworkElement.h"
-
 
 // ===========================================================================
 // method definitions

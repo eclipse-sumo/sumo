@@ -17,11 +17,6 @@
 ///
 // Main for netedit (adapted from guisim_main)
 /****************************************************************************/
-#include <config.h>
-
-#ifdef HAVE_VERSION_H
-#include <version.h>
-#endif
 
 #include <signal.h>
 #include <utils/common/SystemFrame.h>
@@ -33,9 +28,12 @@
 #include <utils/xml/XMLSubSys.h>
 #include <netedit/elements/GNEAttributeCarrier.h>
 
+#ifdef HAVE_VERSION_H
+#include <version.h>
+#endif
+
 #include "GNEApplicationWindow.h"
 #include "GNELoadThread.h"
-
 
 // ===========================================================================
 // main function

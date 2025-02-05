@@ -18,6 +18,7 @@
 // The thread that performs the loading of a Netedit-net (adapted from
 // GUILoadThread)
 /****************************************************************************/
+
 #include <netbuild/NBFrame.h>
 #include <netbuild/NBNetBuilder.h>
 #include <netimport/NIFrame.h>
@@ -34,7 +35,6 @@
 #include "GNEEvent_NetworkLoaded.h"
 #include "GNELoadThread.h"
 #include "GNENet.h"
-
 
 // ===========================================================================
 // member method definitions

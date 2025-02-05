@@ -19,17 +19,17 @@
 // The Widget for modifying network-element attributes (i.e. lane speed)
 /****************************************************************************/
 
+#include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNENet.h>
+#include <netedit/GNETagProperties.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
-#include <netedit/GNEApplicationWindow.h>
 #include <netedit/elements/network/GNEEdgeTemplate.h>
 #include <netedit/frames/network/GNECreateEdgeFrame.h>
 #include <utils/gui/div/GUIDesigns.h>
 
 #include "GNEInspectorFrame.h"
-
 
 // ===========================================================================
 // FOX callback mapping

@@ -17,7 +17,6 @@
 ///
 // NetworkElement selector module
 /****************************************************************************/
-#include <config.h>
 
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
@@ -26,7 +25,6 @@
 
 #include "GNENetworkSelector.h"
 #include "GNEFrame.h"
-
 
 // ===========================================================================
 // FOX callback mapping

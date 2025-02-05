@@ -17,7 +17,6 @@
 ///
 // The Widget for remove network-elements
 /****************************************************************************/
-#include <config.h>
 
 #include <netedit/elements/demand/GNERoute.h>
 #include <netedit/GNENet.h>

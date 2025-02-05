@@ -17,7 +17,6 @@
 ///
 // The Widget for add genericData elements
 /****************************************************************************/
-#include <config.h>
 
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
@@ -30,7 +29,6 @@
 #include <utils/gui/windows/GUIAppEnum.h>
 
 #include "GNEGenericDataFrame.h"
-
 
 // ===========================================================================
 // FOX callback mapping

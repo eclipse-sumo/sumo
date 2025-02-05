@@ -18,7 +18,6 @@
 // A class for visualizing and editing junctions in netedit (adapted from
 // GUIJunctionWrapper)
 /****************************************************************************/
-#include <config.h>
 
 #include <netbuild/NBAlgorithms.h>
 #include <netbuild/NBLoadedSUMOTLDef.h>
@@ -56,7 +55,6 @@
 #include "GNECrossing.h"
 #include "GNEWalkingArea.h"
 #include "GNEInternalLane.h"
-
 
 // ===========================================================================
 // method definitions

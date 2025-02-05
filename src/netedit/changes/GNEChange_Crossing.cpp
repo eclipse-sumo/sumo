@@ -17,7 +17,6 @@
 ///
 // A network change in which a single junction is created or deleted
 /****************************************************************************/
-#include <config.h>
 
 #include <netedit/GNENet.h>
 #include <netedit/elements/network/GNECrossing.h>
@@ -25,10 +24,10 @@
 
 #include "GNEChange_Crossing.h"
 
-
 // ===========================================================================
 // FOX-declarations
 // ===========================================================================
+
 FXIMPLEMENT_ABSTRACT(GNEChange_Crossing, GNEChange, nullptr, 0)
 
 // ===========================================================================

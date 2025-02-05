@@ -17,9 +17,9 @@
 ///
 // The Widget for edit Type elements (vehicle, person and container)
 /****************************************************************************/
-#include <config.h>
 
 #include <netedit/GNENet.h>
+#include <netedit/GNETagProperties.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/changes/GNEChange_DemandElement.h>
@@ -30,7 +30,6 @@
 #include <utils/gui/windows/GUIAppEnum.h>
 
 #include "GNETypeFrame.h"
-
 
 // ===========================================================================
 // FOX callback mapping

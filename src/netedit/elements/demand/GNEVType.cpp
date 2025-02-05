@@ -17,7 +17,9 @@
 ///
 // Definition of Vehicle Types in netedit
 /****************************************************************************/
+
 #include <netedit/GNENet.h>
+#include <netedit/GNETagProperties.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <utils/emissions/PollutantsInterface.h>

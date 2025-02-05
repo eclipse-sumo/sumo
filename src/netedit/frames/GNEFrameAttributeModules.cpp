@@ -17,27 +17,26 @@
 ///
 // Auxiliary class for GNEFrame Modules (only for attributes edition)
 /****************************************************************************/
-#include <config.h>
 
-#include <netedit/dialogs/GNEMultipleParametersDialog.h>
+#include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNENet.h>
+#include <netedit/GNETagProperties.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
-#include <netedit/GNEApplicationWindow.h>
 #include <netedit/dialogs/GNEAllowVClassesDialog.h>
+#include <netedit/dialogs/GNEMultipleParametersDialog.h>
 #include <netedit/dialogs/GNESingleParametersDialog.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
 #include <netedit/frames/demand/GNETypeFrame.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/gui/div/GUIDesigns.h>
-#include <utils/gui/images/VClassIcons.h>
 #include <utils/gui/images/POIIcons.h>
+#include <utils/gui/images/VClassIcons.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 
 #include "GNEFrameAttributeModules.h"
 #include "GNEFlowEditor.h"
-
 
 // ===========================================================================
 // FOX callback mapping
@@ -447,12 +446,12 @@ GNEFrameAttributeModules::isSupermodeValid(const GNEViewNet* viewNet, const GNEA
 
 
 bool
-GNEFrameAttributeModules::isSupermodeValid(const GNEViewNet* viewNet, const GNEAttributeProperties& ACAttr) {
-    if (ACAttr.getTagPropertyParent()->isNetworkElement() || ACAttr.getTagPropertyParent()->isAdditionalElement()) {
+GNEFrameAttributeModules::isSupermodeValid(const GNEViewNet* viewNet, const GNEAttributeProperties* attributeProperties) {
+    if (attributeProperties->getTagPropertyParent()->isNetworkElement() || attributeProperties->getTagPropertyParent()->isAdditionalElement()) {
         return (viewNet->getEditModes().isCurrentSupermodeNetwork());
-    } else if (ACAttr.getTagPropertyParent()->isDemandElement()) {
+    } else if (attributeProperties->getTagPropertyParent()->isDemandElement()) {
         return (viewNet->getEditModes().isCurrentSupermodeDemand());
-    } else if (ACAttr.getTagPropertyParent()->isDataElement() || ACAttr.getTagPropertyParent()->isMeanData()) {
+    } else if (attributeProperties->getTagPropertyParent()->isDataElement() || attributeProperties->getTagPropertyParent()->isMeanData()) {
         return (viewNet->getEditModes().isCurrentSupermodeData());
     } else {
         return false;

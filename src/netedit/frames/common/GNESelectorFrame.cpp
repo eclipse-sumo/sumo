@@ -17,11 +17,12 @@
 ///
 // The Widget for modifying selections of network-elements
 /****************************************************************************/
-#include <config.h>
 
 #include <netedit/GNENet.h>
+#include <netedit/GNETagProperties.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
+#include <netedit/elements/GNEAttributeCarrier.h>
 #include <netedit/elements/network/GNEConnection.h>
 #include <netedit/elements/network/GNECrossing.h>
 #include <netedit/elements/network/GNEWalkingArea.h>
@@ -34,10 +35,10 @@
 #include "GNESelectorFrame.h"
 #include "GNEElementSet.h"
 
-
 // ===========================================================================
 // FOX callback mapping
 // ===========================================================================
+
 FXDEFMAP(GNESelectorFrame::ModificationMode) ModificationModeMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_OPERATION,  GNESelectorFrame::ModificationMode::onCmdSelectModificationMode)
 };

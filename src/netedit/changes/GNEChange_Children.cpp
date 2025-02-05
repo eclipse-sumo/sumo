@@ -17,7 +17,6 @@
 ///
 // A network change used to modify sorting of hierarchical element children
 /****************************************************************************/
-#include <config.h>
 
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
@@ -29,6 +28,7 @@
 // ===========================================================================
 // FOX-declarations
 // ===========================================================================
+
 FXIMPLEMENT_ABSTRACT(GNEChange_Children, GNEChange, nullptr, 0)
 
 // ===========================================================================

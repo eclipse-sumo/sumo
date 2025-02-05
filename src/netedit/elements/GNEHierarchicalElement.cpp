@@ -17,10 +17,9 @@
 ///
 // A abstract class for representation of hierarchical elements
 /****************************************************************************/
-#include <config.h>
 
 #include <netedit/GNENet.h>
-
+#include <netedit/GNETagProperties.h>
 
 #include "GNEHierarchicalElement.h"
 

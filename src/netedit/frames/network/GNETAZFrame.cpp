@@ -17,25 +17,24 @@
 ///
 // The Widget for add TAZ elements
 /****************************************************************************/
-#include <config.h>
 
-#include <utils/foxtools/MFXDynamicLabel.h>
-#include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/div/GUIDesigns.h>
+#include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNENet.h>
+#include <netedit/GNETagProperties.h>
+#include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
-#include <netedit/GNEApplicationWindow.h>
 #include <netedit/changes/GNEChange_TAZSourceSink.h>
+#include <netedit/elements/additional/GNEAdditionalHandler.h>
 #include <netedit/elements/additional/GNETAZ.h>
 #include <netedit/elements/additional/GNETAZSourceSink.h>
-#include <netedit/elements/additional/GNEAdditionalHandler.h>
-#include <netedit/GNEUndoList.h>
-#include <utils/options/OptionsCont.h>
+#include <utils/foxtools/MFXDynamicLabel.h>
 #include <utils/geom/Triangle.h>
+#include <utils/gui/div/GUIDesigns.h>
+#include <utils/gui/windows/GUIAppEnum.h>
+#include <utils/options/OptionsCont.h>
 
 #include "GNETAZFrame.h"
-
 
 // ===========================================================================
 // FOX callback mapping

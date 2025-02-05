@@ -17,9 +17,6 @@
 ///
 // Table used in GNETLSFrame for editing TLS programs
 /****************************************************************************/
-#include <config.h>
-
-#include "GNETLSTable.h"
 
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
@@ -31,6 +28,11 @@
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 
+#include "GNETLSTable.h"
+
+// ===========================================================================
+// Defines
+// ===========================================================================
 
 #define EXTRAMARGIN 1
 #define DEFAULTWIDTH 190

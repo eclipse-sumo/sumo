@@ -17,16 +17,17 @@
 /// @date    Mar 2011
 ///
 /****************************************************************************/
+
+#include <netedit/GNETagProperties.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/changes/GNEChange_Attribute.h>
-#include <netedit/frames/common/GNESelectorFrame.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
+#include <netedit/frames/common/GNESelectorFrame.h>
 #include <utils/gui/div/GUIGlobalViewUpdater.h>
 
 #include "GNEApplicationWindow.h"
 #include "GNEUndoList.h"
-
 
 // ===========================================================================
 // FOX callback mapping

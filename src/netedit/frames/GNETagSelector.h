@@ -20,6 +20,7 @@
 #pragma once
 #include <config.h>
 
+#include <netedit/GNETagProperties.h>
 #include <utils/foxtools/MFXGroupBoxModule.h>
 
 // ===========================================================================

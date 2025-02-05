@@ -17,7 +17,6 @@
 ///
 // A class for visualizing Inner Lanes (used when editing traffic lights)
 /****************************************************************************/
-#include <config.h>
 
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
@@ -31,7 +30,6 @@
 #include <utils/gui/div/GUIGlobalViewObjectsHandler.h>
 
 #include "GNECrossing.h"
-
 
 // ===========================================================================
 // method definitions

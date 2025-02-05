@@ -17,7 +17,6 @@
 ///
 // The Widget for modifying lane-to-lane connections
 /****************************************************************************/
-#include <config.h>
 
 #include <utils/foxtools/MFXDynamicLabel.h>
 #include <utils/gui/windows/GUIAppEnum.h>
@@ -30,7 +29,6 @@
 #include <netedit/elements/network/GNEConnection.h>
 #include <netedit/frames/network/GNEConnectorFrame.h>
 #include <netedit/frames/common/GNESelectorFrame.h>
-
 
 // ===========================================================================
 // FOX callback mapping
