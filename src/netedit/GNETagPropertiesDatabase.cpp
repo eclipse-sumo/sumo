@@ -78,12 +78,12 @@ GNETagPropertiesDatabase::~GNETagPropertiesDatabase() {
 
 GNETagProperties*
 GNETagPropertiesDatabase::getTagProperty(SumoXMLTag tag) const {
-    // check that tag is defined
+    // check that tag is defined in tagProperties or in tagPropertiesSet
     if (myTagProperties.count(tag) == 0) {
-        if (myMergedPlanTagProperties.count(tag) == 0) {
+        if (myTagPropertiesSet.count(tag) == 0) {
             throw ProcessError(TLF("TagProperty for tag '%' not defined", toString(tag)));
         } else {
-            return myMergedPlanTagProperties.at(tag);
+            return myTagPropertiesSet.at(tag);
         }
     } else {
         return myTagProperties.at(tag);
@@ -92,7 +92,7 @@ GNETagPropertiesDatabase::getTagProperty(SumoXMLTag tag) const {
 
 
 const std::vector<const GNETagProperties*>
-GNETagPropertiesDatabase::getTagPropertiesByType(const int tagPropertyCategory, const bool mergeCommonPlans) const {
+GNETagPropertiesDatabase::getTagPropertiesByType(const int tagPropertyCategory, const bool mergePlans) const {
     std::vector<const GNETagProperties*> allowedTags;
     if (tagPropertyCategory & GNETagProperties::TagType::NETWORKELEMENT) {
         // fill networkElements tags
@@ -138,13 +138,13 @@ GNETagPropertiesDatabase::getTagPropertiesByType(const int tagPropertyCategory, 
         // fill demand tags
         for (const auto& tagProperty : myTagProperties) {
             if (tagProperty.second->isDemandElement()) {
-                if (!mergeCommonPlans || !tagProperty.second->isPlan()) {
+                if (!mergePlans || !tagProperty.second->isPlan()) {
                     allowedTags.push_back(tagProperty.second);
                 }
             }
         }
-        if (mergeCommonPlans) {
-            for (const auto& mergedPlanTagProperty : myMergedPlanTagProperties) {
+        if (mergePlans) {
+            for (const auto& mergedPlanTagProperty : myTagPropertiesSet) {
                 allowedTags.push_back(mergedPlanTagProperty.second);
             }
         }
@@ -190,8 +190,8 @@ GNETagPropertiesDatabase::getTagPropertiesByType(const int tagPropertyCategory, 
         }
     }
     if (tagPropertyCategory & GNETagProperties::TagType::PERSONTRIP) {
-        if (mergeCommonPlans) {
-            allowedTags.push_back(myMergedPlanTagProperties.at(SUMO_TAG_PERSONTRIP));
+        if (mergePlans) {
+            allowedTags.push_back(myTagPropertiesSet.at(SUMO_TAG_PERSONTRIP));
         } else {
             // fill demand tags
             for (const auto& tagProperty : myTagProperties) {
@@ -202,8 +202,8 @@ GNETagPropertiesDatabase::getTagPropertiesByType(const int tagPropertyCategory, 
         }
     }
     if (tagPropertyCategory & GNETagProperties::TagType::WALK) {
-        if (mergeCommonPlans) {
-            allowedTags.push_back(myMergedPlanTagProperties.at(SUMO_TAG_WALK));
+        if (mergePlans) {
+            allowedTags.push_back(myTagPropertiesSet.at(SUMO_TAG_WALK));
         } else {
             // fill demand tags
             for (const auto& tagProperty : myTagProperties) {
@@ -214,8 +214,8 @@ GNETagPropertiesDatabase::getTagPropertiesByType(const int tagPropertyCategory, 
         }
     }
     if (tagPropertyCategory & GNETagProperties::TagType::RIDE) {
-        if (mergeCommonPlans) {
-            allowedTags.push_back(myMergedPlanTagProperties.at(SUMO_TAG_RIDE));
+        if (mergePlans) {
+            allowedTags.push_back(myTagPropertiesSet.at(SUMO_TAG_RIDE));
         } else {
             // fill demand tags
             for (const auto& tagProperty : myTagProperties) {
@@ -226,8 +226,8 @@ GNETagPropertiesDatabase::getTagPropertiesByType(const int tagPropertyCategory, 
         }
     }
     if (tagPropertyCategory & GNETagProperties::TagType::STOPPERSON) {
-        if (mergeCommonPlans) {
-            allowedTags.push_back(myMergedPlanTagProperties.at(GNE_TAG_STOPPERSON));
+        if (mergePlans) {
+            allowedTags.push_back(myTagPropertiesSet.at(GNE_TAG_STOPPERSON));
         } else {
             // fill demand tags
             for (const auto& tagProperty : myTagProperties) {
@@ -270,8 +270,8 @@ GNETagPropertiesDatabase::getTagPropertiesByType(const int tagPropertyCategory, 
         }
     }
     if (tagPropertyCategory & GNETagProperties::TagType::TRANSPORT) {
-        if (mergeCommonPlans) {
-            allowedTags.push_back(myMergedPlanTagProperties.at(SUMO_TAG_TRANSPORT));
+        if (mergePlans) {
+            allowedTags.push_back(myTagPropertiesSet.at(SUMO_TAG_TRANSPORT));
         } else {
             // fill demand tags
             for (const auto& tagProperty : myTagProperties) {
@@ -282,8 +282,8 @@ GNETagPropertiesDatabase::getTagPropertiesByType(const int tagPropertyCategory, 
         }
     }
     if (tagPropertyCategory & GNETagProperties::TagType::TRANSHIP) {
-        if (mergeCommonPlans) {
-            allowedTags.push_back(myMergedPlanTagProperties.at(SUMO_TAG_TRANSHIP));
+        if (mergePlans) {
+            allowedTags.push_back(myTagPropertiesSet.at(SUMO_TAG_TRANSHIP));
         } else {
             // fill demand tags
             for (const auto& tagProperty : myTagProperties) {
@@ -294,8 +294,8 @@ GNETagPropertiesDatabase::getTagPropertiesByType(const int tagPropertyCategory, 
         }
     }
     if (tagPropertyCategory & GNETagProperties::TagType::STOPCONTAINER) {
-        if (mergeCommonPlans) {
-            allowedTags.push_back(myMergedPlanTagProperties.at(GNE_TAG_STOPCONTAINER));
+        if (mergePlans) {
+            allowedTags.push_back(myTagPropertiesSet.at(GNE_TAG_STOPCONTAINER));
         } else {
             // fill demand tags
             for (const auto& tagProperty : myTagProperties) {
@@ -310,23 +310,23 @@ GNETagPropertiesDatabase::getTagPropertiesByType(const int tagPropertyCategory, 
 
 
 const std::vector<const GNETagProperties*>
-GNETagPropertiesDatabase::getTagPropertiesByMergingTag(SumoXMLTag mergingTag) const {
+GNETagPropertiesDatabase::getTagPropertiesSet(SumoXMLTag setTag) const {
     std::vector<const GNETagProperties*> result;
     // fill tags
     for (const auto& tagProperty : myTagProperties) {
-        if ((mergingTag == SUMO_TAG_PERSONTRIP) && tagProperty.second->isPlanPerson()) {
+        if ((setTag == SUMO_TAG_PERSONTRIP) && tagProperty.second->isPlanPerson()) {
             result.push_back(tagProperty.second);
-        } else if ((mergingTag == SUMO_TAG_RIDE) && tagProperty.second->isPlanRide()) {
+        } else if ((setTag == SUMO_TAG_RIDE) && tagProperty.second->isPlanRide()) {
             result.push_back(tagProperty.second);
-        } else if ((mergingTag == SUMO_TAG_WALK) && tagProperty.second->isPlanWalk()) {
+        } else if ((setTag == SUMO_TAG_WALK) && tagProperty.second->isPlanWalk()) {
             result.push_back(tagProperty.second);
-        } else if ((mergingTag == GNE_TAG_STOPPERSON) && tagProperty.second->isPlanStopPerson()) {
+        } else if ((setTag == GNE_TAG_STOPPERSON) && tagProperty.second->isPlanStopPerson()) {
             result.push_back(tagProperty.second);
-        } else if ((mergingTag == SUMO_TAG_TRANSPORT) && tagProperty.second->isPlanTransport()) {
+        } else if ((setTag == SUMO_TAG_TRANSPORT) && tagProperty.second->isPlanTransport()) {
             result.push_back(tagProperty.second);
-        } else if ((mergingTag == SUMO_TAG_TRANSHIP) && tagProperty.second->isPlanTranship()) {
+        } else if ((setTag == SUMO_TAG_TRANSHIP) && tagProperty.second->isPlanTranship()) {
             result.push_back(tagProperty.second);
-        } else if ((mergingTag == GNE_TAG_STOPCONTAINER) && tagProperty.second->isPlanStopContainer()) {
+        } else if ((setTag == GNE_TAG_STOPCONTAINER) && tagProperty.second->isPlanStopContainer()) {
             result.push_back(tagProperty.second);
         }
     }
@@ -4186,12 +4186,12 @@ GNETagPropertiesDatabase::fillContainerTransportElements() {
     const unsigned int color = FXRGBA(240, 255, 205, 255);
     const GUIIcon icon = GUIIcon::TRANSPORT_EDGE;
     const SumoXMLTag xmlTag = SUMO_TAG_TRANSPORT;
-    // fill merged tag
-    myMergedPlanTagProperties[xmlTag] = new GNETagProperties(xmlTag, tagType, tagProperty,
+    // fill tag set
+    myTagPropertiesSet[xmlTag] = new GNETagProperties(xmlTag, tagType, tagProperty,
             0,
             conflicts, icon, xmlTag, TL("Container"), parents, color);
     // set values of attributes
-    fillTransportCommonAttributes(myMergedPlanTagProperties[xmlTag]);
+    fillTransportCommonAttributes(myTagPropertiesSet[xmlTag]);
     // from edge
     SumoXMLTag currentTag = GNE_TAG_TRANSPORT_EDGE_EDGE;
     {
@@ -4855,12 +4855,12 @@ GNETagPropertiesDatabase::fillContainerTranshipElements() {
     const unsigned int color = FXRGBA(210, 233, 255, 255);
     const GUIIcon icon = GUIIcon::TRANSHIP_EDGES;
     const SumoXMLTag xmlTag = SUMO_TAG_TRANSHIP;
-    // fill merged tag
-    myMergedPlanTagProperties[xmlTag] = new GNETagProperties(xmlTag, tagType, tagProperty,
+    // fill tag set
+    myTagPropertiesSet[xmlTag] = new GNETagProperties(xmlTag, tagType, tagProperty,
             0,
             conflicts, icon, xmlTag, TL("Tranship"), parents, color);
     // set values of attributes
-    fillTranshipCommonAttributes(myMergedPlanTagProperties[xmlTag]);
+    fillTranshipCommonAttributes(myTagPropertiesSet[xmlTag]);
     // fill tags
     SumoXMLTag currentTag = GNE_TAG_TRANSHIP_EDGES;
     {
@@ -5533,12 +5533,12 @@ GNETagPropertiesDatabase::fillContainerStopElements() {
     const unsigned int color = FXRGBA(255, 213, 213, 255);
     const GUIIcon icon = GUIIcon::STOPELEMENT;
     const SumoXMLTag xmlTag = SUMO_TAG_STOP;
-    // fill merged tag
-    myMergedPlanTagProperties[GNE_TAG_STOPCONTAINER] = new GNETagProperties(GNE_TAG_STOPCONTAINER, tagType, tagProperty,
+    // fill tag set
+    myTagPropertiesSet[GNE_TAG_STOPCONTAINER] = new GNETagProperties(GNE_TAG_STOPCONTAINER, tagType, tagProperty,
             0,
             conflicts, icon, xmlTag, TL("ContainerStop"), parents, color);
     // set values of attributes
-    fillPlanStopCommonAttributes(myMergedPlanTagProperties[GNE_TAG_STOPCONTAINER]);
+    fillPlanStopCommonAttributes(myTagPropertiesSet[GNE_TAG_STOPCONTAINER]);
     // fill tags
     SumoXMLTag currentTag = GNE_TAG_STOPCONTAINER_EDGE;
     {
@@ -5619,12 +5619,12 @@ GNETagPropertiesDatabase::fillPersonPlanTrips() {
     const unsigned int color = FXRGBA(253, 255, 206, 255);
     const GUIIcon icon = GUIIcon::PERSONTRIP_EDGE;
     const SumoXMLTag xmlTag = SUMO_TAG_PERSONTRIP;
-    // fill merged tag
-    myMergedPlanTagProperties[xmlTag] = new GNETagProperties(xmlTag, tagType, tagProperty,
+    // fill tag set
+    myTagPropertiesSet[xmlTag] = new GNETagProperties(xmlTag, tagType, tagProperty,
             0,
             conflicts, icon, xmlTag, TL("PersonTrip"), parents, color);
     // set values of attributes
-    fillPersonTripCommonAttributes(myMergedPlanTagProperties[xmlTag]);
+    fillPersonTripCommonAttributes(myTagPropertiesSet[xmlTag]);
     // from edge
     SumoXMLTag currentTag = GNE_TAG_PERSONTRIP_EDGE_EDGE;
     {
@@ -6287,12 +6287,12 @@ GNETagPropertiesDatabase::fillPersonPlanWalks() {
     const unsigned int color = FXRGBA(240, 255, 205, 255);
     const GUIIcon icon = GUIIcon::WALK_EDGES;
     const SumoXMLTag xmlTag = SUMO_TAG_WALK;
-    // fill merged tag
-    myMergedPlanTagProperties[xmlTag] = new GNETagProperties(xmlTag, tagType, tagProperty,
+    // fill tag set
+    myTagPropertiesSet[xmlTag] = new GNETagProperties(xmlTag, tagType, tagProperty,
             0,
             conflicts, icon, xmlTag, TL("Walk"), parents, color);
     // set values of attributes
-    fillWalkCommonAttributes(myMergedPlanTagProperties[xmlTag]);
+    fillWalkCommonAttributes(myTagPropertiesSet[xmlTag]);
     // fill tags
     SumoXMLTag currentTag = GNE_TAG_WALK_EDGES;
     {
@@ -6976,12 +6976,12 @@ GNETagPropertiesDatabase::fillPersonPlanRides() {
     const unsigned int color = FXRGBA(253, 255, 206, 255);
     const GUIIcon icon = GUIIcon::RIDE_EDGE;
     const SumoXMLTag xmlTag = SUMO_TAG_RIDE;
-    // fill merged tag
-    myMergedPlanTagProperties[xmlTag] = new GNETagProperties(xmlTag, tagType, tagProperty,
+    // fill tag set
+    myTagPropertiesSet[xmlTag] = new GNETagProperties(xmlTag, tagType, tagProperty,
             0,
             conflicts, icon, xmlTag, TL("PersonTrip"), parents, color);
     // set values of attributes
-    fillRideCommonAttributes(myMergedPlanTagProperties[xmlTag]);
+    fillRideCommonAttributes(myTagPropertiesSet[xmlTag]);
     // from edge
     SumoXMLTag currentTag = GNE_TAG_RIDE_EDGE_EDGE;
     {
@@ -7644,11 +7644,11 @@ GNETagPropertiesDatabase::fillPersonStopElements() {
     const GUIIcon icon = GUIIcon::STOPELEMENT;
     const SumoXMLTag xmlTag = SUMO_TAG_STOP;
     // fill merged tag
-    myMergedPlanTagProperties[GNE_TAG_STOPPERSON] = new GNETagProperties(GNE_TAG_STOPPERSON, tagType, tagProperty,
+    myTagPropertiesSet[GNE_TAG_STOPPERSON] = new GNETagProperties(GNE_TAG_STOPPERSON, tagType, tagProperty,
             0,
             conflicts, icon, xmlTag, TL("PersonStop"), parents, color);
     // set values of attributes
-    fillPlanStopCommonAttributes(myMergedPlanTagProperties[GNE_TAG_STOPPERSON]);
+    fillPlanStopCommonAttributes(myTagPropertiesSet[GNE_TAG_STOPPERSON]);
     // fill tags
     SumoXMLTag currentTag = GNE_TAG_STOPPERSON_EDGE;
     {

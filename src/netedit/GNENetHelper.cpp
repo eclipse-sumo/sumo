@@ -274,7 +274,7 @@ GNENetHelper::AttributeCarriers::retrieveAttributeCarriers(SumoXMLTag tag) {
             result.push_back(additional.second);
         }
     } else if ((tag == SUMO_TAG_NOTHING) || (myNet->getTagPropertiesDatabase()->getTagProperty(tag)->isDemandElement())) {
-        auto mergingPlans = myNet->getTagPropertiesDatabase()->getTagPropertiesByMergingTag(tag);
+        auto mergingPlans = myNet->getTagPropertiesDatabase()->getTagPropertiesSet(tag);
         if (mergingPlans.size() > 0) {
             for (const auto& mergingPlan : mergingPlans) {
                 for (const auto& demandElemet : myDemandElements.at(mergingPlan->getTag())) {
