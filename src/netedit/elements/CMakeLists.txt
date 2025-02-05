@@ -6,8 +6,6 @@ add_subdirectory(data)
 set(netedit_elements_SRCS
    GNEAttributeCarrier.cpp
    GNEAttributeCarrier.h
-   GNEAttributeProperties.cpp
-   GNEAttributeProperties.h
    GNECandidateElement.cpp
    GNECandidateElement.h
    GNEContour.cpp
@@ -20,10 +18,6 @@ set(netedit_elements_SRCS
    GNEHierarchicalStructure.h
    GNEPathElement.cpp
    GNEPathElement.h
-   GNETagProperties.cpp
-   GNETagProperties.h
-   GNETagPropertiesDatabase.cpp
-   GNETagPropertiesDatabase.h
    )
 
 add_library(netedit_elements STATIC ${netedit_elements_SRCS})
