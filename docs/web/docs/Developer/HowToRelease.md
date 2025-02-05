@@ -129,14 +129,14 @@ If everything is fine:
 
 - make a new folder in S:\Releases
 - make new sumo.dlr.de-release
-  - copy the folder from S:\Releases to the releases dir `scp -r /media/S/Releases/x.y.z delphi@ts-sim-front-ba.intra.dlr.de:docs/releases`
+  - copy the folder from S:\Releases to the releases dir `scp -r /media/S/Releases/{{Version}} delphi@ts-sim-front-ba.intra.dlr.de:docs/releases`
 - update the eclipse.dev/sumo website
   - modify the version number (Version) and the DOI number (DOI) [in config.yaml](https://github.com/eclipse-sumo/sumo.website/blob/source/config/_default/config.yaml) in the **Default Parameters** section
 - make new sourceforge-release
-  - make a new release within the sumo package (named "version x.y.z")
+  - make a new release within the sumo package (named "version {{Version}}")
   - add files to the release
   - change default download attributes
-- finish the Zenodo version draft, by uploading the release `.tar.gz` source, and publishing it
+- finish the Zenodo version draft, by uploading the `sumo-src-{{Version}}.tar.gz` and publishing it
 - create a new entry in [elib](https://elib.dlr.de/)
   - the easiest way to do it, is by going to [Einträge verwalten](https://elib.dlr.de/cgi/users/home?screen=Items) and clicking on the magnifying-glass-icon for an old release, then going to the "Aktionen" tab and selecting "Als Vorlage verwenden"
   - take a look at the [Eintrag von Forschungssoftware-Publikationen - Tutorial](https://wiki.dlr.de/pages/viewpage.action?pageId=711888423), or the entry for a previous release: https://elib.dlr.de/205320/
@@ -147,10 +147,10 @@ If everything is fine:
 <https://askubuntu.com/questions/642632/how-to-bump-the-version-of-a-package-available-in-another-users-ppa>)
   - this assumes you have the devscripts package as well as all sumo dependencies installed
     - if you try this on Windows Linux Subsystem you will also need to do `sudo update-alternatives --set fakeroot /usr/bin/fakeroot-tcp`
-  - unzip the special source release `sumo_{{Version}}+dfsg1.orig.tar.gz`
+  - unzip the special source release `sumo_{{Version}}.orig.tar.gz`
   - copy the debian dir one level up
   - modify the changelog, using `dch` (enter an email address which has write access to the ppa and a valid gpg key)
-  - run `dpkg-buildpackage -S` in the sumo dir and `dput -f ppa:sumo/stable sumo_{{Version}}+dfsg1_source.changes` one level up
+  - run `dpkg-buildpackage -S` in the sumo dir and `dput -f ppa:sumo/stable sumo_{{Version}}_source.changes` one level up
 - update the [flatpak](https://github.com/flathub/org.eclipse.sumo) (update version number and commit hash)
 - start a pull request against [winget](https://github.com/microsoft/winget-pkgs/tree/master/manifests/e/EclipseFoundation/SUMO)
 - [update the Homebrew Formula](HowToUpdateHomebrewFormula.md)
