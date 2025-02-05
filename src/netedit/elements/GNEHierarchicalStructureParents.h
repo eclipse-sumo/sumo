@@ -21,7 +21,6 @@
 #include <config.h>
 
 #include <vector>
-#include <set>
 
 // ===========================================================================
 // template declarations
@@ -29,12 +28,6 @@
 
 template <typename T>
 using GNEHierarchicalContainerParents = std::vector<T>;
-
-template <typename T>
-using GNEHierarchicalContainerChildren = std::vector<T>;
-
-template <typename T>
-using GNEHierarchicalContainerChildrenSet = std::set<T>;
 
 // ===========================================================================
 // class declarations
@@ -54,14 +47,14 @@ class GNEHierarchicalElement;
 // class definitions
 // ===========================================================================
 
-/// @brief Hierarchical container (used for keep myParent and myChildren
+/// @brief Hierarchical structure used for keep parents
 class GNEHierarchicalStructureParents {
 
 public:
     /// @brief default constructor
     GNEHierarchicalStructureParents();
 
-    /// @brief parameter constructor (only for parents)
+    /// @brief parameter constructor
     GNEHierarchicalStructureParents(
         const std::vector<GNEJunction*>& parentJunctions,
         const std::vector<GNEEdge*>& parentEdges,
@@ -81,14 +74,6 @@ public:
     template<typename T>
     void removeParentElement(T* element);
 
-    /// @brief add child element
-    template<typename T>
-    void addChildElement(T* element);
-
-    /// @brief remove child element
-    template<typename T>
-    void removeChildElement(T* element);
-
     /// @brief get parents
     template<typename T>
     const GNEHierarchicalContainerParents<T>& getParents() const;
@@ -96,22 +81,6 @@ public:
     /// @brief set parents
     template<typename T>
     void setParents(const GNEHierarchicalContainerParents<T>& newParents);
-
-    /// @brief get children
-    template<typename T>
-    const GNEHierarchicalContainerChildren<T>& getChildren() const;
-
-    /// @brief get children set
-    template<typename T>
-    const GNEHierarchicalContainerChildrenSet<T>& getChildrenSet() const;
-
-    /// @brief set children
-    template<typename T>
-    void setChildren(const GNEHierarchicalContainerChildren<T>& newChildren);
-
-    /// @brief set children set
-    template<typename T>
-    void setChildrenSet(const GNEHierarchicalContainerChildrenSet<T>& newChildren);
 
 private:
     /// @brief parents junctions
@@ -134,25 +103,4 @@ private:
 
     /// @brief parents generic datas
     GNEHierarchicalContainerParents<GNEGenericData*> myParentGenericDatas;
-
-    /// @brief children junctions
-    GNEHierarchicalContainerChildren<GNEJunction*> myChildJunctions;
-
-    /// @brief children edges
-    GNEHierarchicalContainerChildren<GNEEdge*> myChildEdges;
-
-    /// @brief children lanes
-    GNEHierarchicalContainerChildren<GNELane*> myChildLanes;
-
-    /// @brief children additional elements
-    GNEHierarchicalContainerChildren<GNEAdditional*> myChildAdditionals;
-
-    /// @brief children TAZSourceSinks elements (set)
-    GNEHierarchicalContainerChildrenSet<GNETAZSourceSink*> myChildSourceSinks;
-
-    /// @brief children demand elements
-    GNEHierarchicalContainerChildren<GNEDemandElement*> myChildDemandElements;
-
-    /// @brief children genericdata elements
-    GNEHierarchicalContainerChildren<GNEGenericData*> myChildGenericDatas;
 };
