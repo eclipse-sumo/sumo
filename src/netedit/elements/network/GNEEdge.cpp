@@ -20,6 +20,7 @@
 /****************************************************************************/
 
 #include <netedit/GNENet.h>
+#include <netedit/GNETagPropertiesDatabase.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
@@ -1071,10 +1072,10 @@ GNEEdge::copyTemplate(const GNEEdgeTemplate* edgeTemplate, GNEUndoList* undoList
 void
 GNEEdge::copyEdgeType(const GNEEdgeType* edgeType, GNEUndoList* undoList) {
     // get tag properties
-    const auto edgeProperties = getTagProperty(SUMO_TAG_EDGE);
-    const auto laneProperties = getTagProperty(SUMO_TAG_LANE);
-    const auto edgeTypeProperties = getTagProperty(SUMO_TAG_TYPE);
-    const auto laneTypeProperties = getTagProperty(SUMO_TAG_LANETYPE);
+    const auto edgeProperties = myNet->getViewNet()->getNet()->getTagPropertiesDatabase()->getTagProperty(SUMO_TAG_EDGE);
+    const auto laneProperties = myNet->getViewNet()->getNet()->getTagPropertiesDatabase()->getTagProperty(SUMO_TAG_LANE);
+    const auto edgeTypeProperties = myNet->getViewNet()->getNet()->getTagPropertiesDatabase()->getTagProperty(SUMO_TAG_TYPE);
+    const auto laneTypeProperties = myNet->getViewNet()->getNet()->getTagPropertiesDatabase()->getTagProperty(SUMO_TAG_LANETYPE);
     // set type (only for info)
     setAttribute(SUMO_ATTR_TYPE, edgeType->getAttribute(SUMO_ATTR_ID), undoList);
     // copy attributes

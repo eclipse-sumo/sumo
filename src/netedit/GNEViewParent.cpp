@@ -56,10 +56,11 @@
 #include <utils/xml/NamespaceIDs.h>
 
 #include "GNEApplicationWindow.h"
-#include "GNEViewNet.h"
+#include "GNETagPropertiesDatabase.h"
 #include "GNENet.h"
-#include "GNEViewParent.h"
 #include "GNEUndoList.h"
+#include "GNEViewNet.h"
+#include "GNEViewParent.h"
 
 // ===========================================================================
 // FOX callback mapping
@@ -604,9 +605,9 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                 chooserLoc = &myACChoosers.ACChooserAdditional;
                 locateTitle = TL("Additional Chooser");
                 for (const auto& additionalTag : viewNet->getNet()->getAttributeCarriers()->getAdditionals()) {
+                    const auto tagProperty = viewNet->getNet()->getTagPropertiesDatabase()->getTagProperty(additionalTag.first);
                     // avoid shapes and TAZs
-                    if (!GNEAttributeCarrier::getTagProperty(additionalTag.first)->isShapeElement() &&
-                            !GNEAttributeCarrier::getTagProperty(additionalTag.first)->isTAZElement()) {
+                    if (!tagProperty->isShapeElement() && !tagProperty->isTAZElement()) {
                         for (const auto& additional : additionalTag.second) {
                             ACsToLocate.push_back(additional.second);
                         }

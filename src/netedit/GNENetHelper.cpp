@@ -20,6 +20,7 @@
 
 #include <netbuild/NBNetBuilder.h>
 #include <netedit/GNENet.h>
+#include <netedit/GNETagPropertiesDatabase.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/elements/data/GNEDataInterval.h>
@@ -58,7 +59,7 @@ GNENetHelper::AttributeCarriers::AttributeCarriers(GNENet* net) :
     myNet(net),
     myStopIndex(0) {
     // fill additionals with tags
-    auto additionalTagProperties = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::TagType::ADDITIONALELEMENT |
+    auto additionalTagProperties = myNet->getTagPropertiesDatabase()->getTagPropertiesByType(GNETagProperties::TagType::ADDITIONALELEMENT |
                                    GNETagProperties::TagType::SHAPE | GNETagProperties::TagType::TAZELEMENT | GNETagProperties::TagType::WIRE, false);
     for (const auto& additionalTagProperty : additionalTagProperties) {
         myAdditionals.insert(std::make_pair(additionalTagProperty->getTag(), std::unordered_map<const GUIGlObject*, GNEAdditional*>()));
@@ -67,24 +68,24 @@ GNENetHelper::AttributeCarriers::AttributeCarriers(GNENet* net) :
         }
     }
     // fill demand elements with tags
-    auto demandElementTagProperties = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::TagType::DEMANDELEMENT, false);
+    auto demandElementTagProperties = myNet->getTagPropertiesDatabase()->getTagPropertiesByType(GNETagProperties::TagType::DEMANDELEMENT, false);
     for (const auto& demandElementTagProperty : demandElementTagProperties) {
         myDemandElements.insert(std::make_pair(demandElementTagProperty->getTag(), std::unordered_map<const GUIGlObject*, GNEDemandElement*>()));
         if (demandElementTagProperty->hasAttribute(SUMO_ATTR_ID)) {
             myDemandElementIDs.insert(std::make_pair(demandElementTagProperty->getTag(), std::map<const std::string, GNEDemandElement*>()));
         }
     }
-    auto stopTagProperties = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::TagType::VEHICLESTOP, false);
+    auto stopTagProperties = myNet->getTagPropertiesDatabase()->getTagPropertiesByType(GNETagProperties::TagType::VEHICLESTOP, false);
     for (const auto& stopTagProperty : stopTagProperties) {
         myDemandElements.insert(std::make_pair(stopTagProperty->getTag(), std::unordered_map<const GUIGlObject*, GNEDemandElement*>()));
     }
     // fill data elements with tags
-    auto genericDataElementTagProperties = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::TagType::GENERICDATA, false);
+    auto genericDataElementTagProperties = myNet->getTagPropertiesDatabase()->getTagPropertiesByType(GNETagProperties::TagType::GENERICDATA, false);
     for (const auto& genericDataElementTagProperty : genericDataElementTagProperties) {
         myGenericDatas.insert(std::make_pair(genericDataElementTagProperty->getTag(), std::unordered_map<const GUIGlObject*, GNEGenericData*>()));
     }
     // fill meanDatas with tags
-    auto meanDataTagProperties = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::TagType::MEANDATA, false);
+    auto meanDataTagProperties = myNet->getTagPropertiesDatabase()->getTagPropertiesByType(GNETagProperties::TagType::MEANDATA, false);
     for (const auto& meanDataTagProperty : meanDataTagProperties) {
         myMeanDatas.insert(std::make_pair(meanDataTagProperty->getTag(), std::map<const std::string, GNEMeanData*>()));
     }
@@ -268,12 +269,12 @@ GNENetHelper::AttributeCarriers::retrieveAttributeCarriers(SumoXMLTag tag) {
         for (const auto& walkingArea : myWalkingAreas) {
             result.push_back(walkingArea.second);
         }
-    } else if ((tag == SUMO_TAG_NOTHING) || (GNEAttributeCarrier::getTagProperty(tag)->isAdditionalElement())) {
+    } else if ((tag == SUMO_TAG_NOTHING) || (myNet->getTagPropertiesDatabase()->getTagProperty(tag)->isAdditionalElement())) {
         for (const auto& additional : myAdditionals.at(tag)) {
             result.push_back(additional.second);
         }
-    } else if ((tag == SUMO_TAG_NOTHING) || (GNEAttributeCarrier::getTagProperty(tag)->isDemandElement())) {
-        auto mergingPlans = GNEAttributeCarrier::getTagPropertiesByMergingTag(tag);
+    } else if ((tag == SUMO_TAG_NOTHING) || (myNet->getTagPropertiesDatabase()->getTagProperty(tag)->isDemandElement())) {
+        auto mergingPlans = myNet->getTagPropertiesDatabase()->getTagPropertiesByMergingTag(tag);
         if (mergingPlans.size() > 0) {
             for (const auto& mergingPlan : mergingPlans) {
                 for (const auto& demandElemet : myDemandElements.at(mergingPlan->getTag())) {
@@ -293,11 +294,11 @@ GNENetHelper::AttributeCarriers::retrieveAttributeCarriers(SumoXMLTag tag) {
         for (const auto& dataInterval : myDataIntervals) {
             result.push_back(dataInterval.second);
         }
-    } else if ((tag == SUMO_TAG_NOTHING) || (GNEAttributeCarrier::getTagProperty(tag)->isGenericData())) {
+    } else if ((tag == SUMO_TAG_NOTHING) || (myNet->getTagPropertiesDatabase()->getTagProperty(tag)->isGenericData())) {
         for (const auto& genericData : myGenericDatas.at(tag)) {
             result.push_back(genericData.second);
         }
-    } else if ((tag == SUMO_TAG_NOTHING) || (GNEAttributeCarrier::getTagProperty(tag)->isMeanData())) {
+    } else if ((tag == SUMO_TAG_NOTHING) || (myNet->getTagPropertiesDatabase()->getTagProperty(tag)->isMeanData())) {
         for (const auto& meanData : myMeanDatas.at(tag)) {
             result.push_back(meanData.second);
         }
@@ -1410,7 +1411,7 @@ GNENetHelper::AttributeCarriers::generateDemandElementID(SumoXMLTag tag) const {
     // obtain option container
     const auto& neteditOptions = OptionsCont::getOptions();
     // get tag property
-    const auto tagProperty = GNEAttributeCarrier::getTagProperty(tag);
+    const auto tagProperty = myNet->getTagPropertiesDatabase()->getTagProperty(tag);
     // get prefix
     std::string prefix;
     if (tag == SUMO_TAG_ROUTE) {

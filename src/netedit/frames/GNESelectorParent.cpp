@@ -20,6 +20,7 @@
 
 #include <netedit/GNENet.h>
 #include <netedit/GNETagProperties.h>
+#include <netedit/GNETagPropertiesDatabase.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
 #include <utils/gui/div/GUIDesigns.h>
@@ -111,7 +112,7 @@ GNESelectorParent::refreshSelectorParentModule() {
         // fill list with IDs
         for (const auto& parentTag : myParentTags) {
             // check type
-            const auto tagProperty = GNEAttributeCarrier::getTagProperty(parentTag);
+            const auto tagProperty = myFrameParent->getViewNet()->getNet()->getTagPropertiesDatabase()->getTagProperty(parentTag);
             // additionals
             if (tagProperty->isAdditionalElement()) {
                 for (const auto& additional : myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getAdditionals().at(parentTag)) {

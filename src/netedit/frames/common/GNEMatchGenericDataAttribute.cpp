@@ -20,6 +20,7 @@
 
 #include <netedit/GNENet.h>
 #include <netedit/GNETagProperties.h>
+#include <netedit/GNETagPropertiesDatabase.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/elements/data/GNEDataInterval.h>
 #include <utils/common/MsgHandler.h>
@@ -132,9 +133,9 @@ GNEMatchGenericDataAttribute::enableMatchGenericDataAttribute() {
         myEnd->setText(toString(myIntervals.begin()->first.second).c_str());
         myEnd->setTextColor(FXRGB(0, 0, 0));
         // get generic datas
-        const auto genericDataTags = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::TagType::GENERICDATA, true);
+        const auto tagPropertiesGenericDatas = myElementSet->getSelectorFrameParent()->getViewNet()->getNet()->getTagPropertiesDatabase()->getTagPropertiesByType(GNETagProperties::TagType::GENERICDATA, true);
         // fill combo box (only with drawable elements)
-        for (const auto& genericDataTag : genericDataTags) {
+        for (const auto& genericDataTag : tagPropertiesGenericDatas) {
             if (genericDataTag->isDrawable()) {
                 myMatchGenericDataTagComboBox->appendIconItem(genericDataTag->getFieldString().c_str(), GUIIconSubSys::getIcon(genericDataTag->getGUIIcon()));
             }
@@ -293,9 +294,9 @@ GNEMatchGenericDataAttribute::onCmdSelectTag(FXObject*, FXSelector, void*) {
     // First check what type of elementes is being selected
     myCurrentTag = SUMO_TAG_NOTHING;
     // get generic data tags
-    const auto listOfTags = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::TagType::GENERICDATA, true);
+    const auto tagPropertiesGenericDatas = myElementSet->getSelectorFrameParent()->getViewNet()->getNet()->getTagPropertiesDatabase()->getTagPropertiesByType(GNETagProperties::TagType::GENERICDATA, true);
     // fill myMatchGenericDataTagComboBox
-    for (const auto& genericDataTag : listOfTags) {
+    for (const auto& genericDataTag : tagPropertiesGenericDatas) {
         if (genericDataTag->isDrawable() && (genericDataTag->getFieldString() == myMatchGenericDataTagComboBox->getText().text())) {
             myCurrentTag = genericDataTag->getTag();
         }

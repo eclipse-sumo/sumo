@@ -20,6 +20,7 @@
 
 #include <netedit/GNENet.h>
 #include <netedit/GNETagProperties.h>
+#include <netedit/GNETagPropertiesDatabase.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/elements/GNEAttributeCarrier.h>
@@ -1142,12 +1143,12 @@ GNESelectorFrame::getMatches(const SumoXMLTag ACTag, const SumoXMLAttr ACAttr, c
     // first retrieve all ACs using ACTag
     const auto allACbyTag = myViewNet->getNet()->getAttributeCarriers()->retrieveAttributeCarriers(ACTag);
     // get Tag value
-    const auto& tagValue = GNEAttributeCarrier::getTagProperty(ACTag);
+    const auto tagProperties = myViewNet->getNet()->getTagPropertiesDatabase()->getTagProperty(ACTag);
     // iterate over all ACs
     for (const auto& AC : allACbyTag) {
         if (expr == "" && compOp == '@') {
             result.push_back(AC);
-        } else if (tagValue->hasAttribute(ACAttr) && tagValue->getAttributeProperties(ACAttr)->isNumerical()) {
+        } else if (tagProperties->hasAttribute(ACAttr) && tagProperties->getAttributeProperties(ACAttr)->isNumerical()) {
             double acVal;
             std::istringstream buf(AC->getAttribute(ACAttr));
             buf >> acVal;

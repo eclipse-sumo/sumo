@@ -18,7 +18,10 @@
 // The Widget for modifying selections of network-elements
 /****************************************************************************/
 
+#include <netedit/GNENet.h>
 #include <netedit/GNETagProperties.h>
+#include <netedit/GNETagPropertiesDatabase.h>
+#include <netedit/GNEViewNet.h>
 #include <utils/geom/GeoConvHelper.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>
@@ -94,28 +97,29 @@ GNEMatchAttribute::disableMatchAttribute() {
 
 void
 GNEMatchAttribute::showMatchAttribute(const GNEElementSet::Type type) {
+    const auto tagPropertiesDatabase = myElementSet->getSelectorFrameParent()->getViewNet()->getNet()->getTagPropertiesDatabase();
     // declare flag for proj
     const bool proj = (GeoConvHelper::getFinal().getProjString() != "!");
     // get tags for the given element set
-    std::vector<const GNETagProperties*> tagPropertiesStrings;
+    std::vector<const GNETagProperties*> tagPropertiesByType;
     if (type == (GNEElementSet::Type::NETWORK)) {
-        tagPropertiesStrings = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::TagType::NETWORKELEMENT, false);
+        tagPropertiesByType = tagPropertiesDatabase->getTagPropertiesByType(GNETagProperties::TagType::NETWORKELEMENT, false);
     } else if (type == GNEElementSet::Type::ADDITIONAL) {
-        tagPropertiesStrings = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::TagType::ADDITIONALELEMENT, false);
+        tagPropertiesByType = tagPropertiesDatabase->getTagPropertiesByType(GNETagProperties::TagType::ADDITIONALELEMENT, false);
     } else if (type == GNEElementSet::Type::SHAPE) {
-        tagPropertiesStrings = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::TagType::SHAPE, false);
+        tagPropertiesByType = tagPropertiesDatabase->getTagPropertiesByType(GNETagProperties::TagType::SHAPE, false);
     } else if (type == GNEElementSet::Type::TAZ) {
-        tagPropertiesStrings = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::TagType::TAZELEMENT, false);
+        tagPropertiesByType = tagPropertiesDatabase->getTagPropertiesByType(GNETagProperties::TagType::TAZELEMENT, false);
     } else if (type == GNEElementSet::Type::DEMAND) {
-        tagPropertiesStrings = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::TagType::DEMANDELEMENT, true);
+        tagPropertiesByType = tagPropertiesDatabase->getTagPropertiesByType(GNETagProperties::TagType::DEMANDELEMENT, true);
     } else if (type == GNEElementSet::Type::GENERICDATA) {
-        tagPropertiesStrings = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::TagType::GENERICDATA, false);
+        tagPropertiesByType = tagPropertiesDatabase->getTagPropertiesByType(GNETagProperties::TagType::GENERICDATA, false);
     } else {
         throw ProcessError(TL("Unknown set"));
     }
     // now filter to allow only drawables and proj
     myTagProperties.clear();
-    for (const auto tagProperty : tagPropertiesStrings) {
+    for (const auto tagProperty : tagPropertiesByType) {
         if (tagProperty->isDrawable() && (!tagProperty->requireProj() || proj)) {
             myTagProperties.push_back(tagProperty);
         }
@@ -161,7 +165,7 @@ long
 GNEMatchAttribute::onCmdSelMBAttribute(FXObject*, FXSelector, void*) {
     // set current selected attributeProperty
     myCurrentAttribute = SUMO_ATTR_NOTHING;
-    for (const auto attributeProperty : GNEAttributeCarrier::getTagProperty(myCurrentTag)->getAttributeProperties()) {
+    for (const auto attributeProperty : myElementSet->getSelectorFrameParent()->getViewNet()->getNet()->getTagPropertiesDatabase()->getTagProperty(myCurrentTag)->getAttributeProperties()) {
         if (attributeProperty->getAttrStr() == myMatchAttrComboBox->getText().text()) {
             myCurrentAttribute = attributeProperty->getAttr();
         }
@@ -184,7 +188,7 @@ long
 GNEMatchAttribute::onCmdSelMBString(FXObject*, FXSelector, void*) {
     // obtain expresion
     std::string expr(myMatchString->getText().text());
-    const auto& tagProperty = GNEAttributeCarrier::getTagProperty(myCurrentTag);
+    const auto tagProperty = myElementSet->getSelectorFrameParent()->getViewNet()->getNet()->getTagPropertiesDatabase()->getTagProperty(myCurrentTag);
     bool valid = true;
     if (expr == "") {
         // the empty expression matches all objects
@@ -315,7 +319,7 @@ GNEMatchAttribute::updateAttribute() {
     // first check if tag is valid
     if (myCurrentTag != SUMO_TAG_NOTHING) {
         // now continue with attributes
-        const auto tagProperty = GNEAttributeCarrier::getTagProperty(myCurrentTag);
+        const auto tagProperty = myElementSet->getSelectorFrameParent()->getViewNet()->getNet()->getTagPropertiesDatabase()->getTagProperty(myCurrentTag);
         // set color and enable items
         myMatchAttrComboBox->enable();
         myMatchAttrComboBox->setTextColor(FXRGB(0, 0, 0));

@@ -20,6 +20,7 @@
 
 #include <netedit/GNENet.h>
 #include <netedit/GNETagProperties.h>
+#include <netedit/GNETagPropertiesDatabase.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
@@ -219,7 +220,7 @@ GNECrossingFrame::CrossingParameters::~CrossingParameters() {
 void
 GNECrossingFrame::CrossingParameters::enableCrossingParameters(bool hasTLS) {
     // obtain Tag Values
-    const auto& tagProperties = GNEAttributeCarrier::getTagProperty(SUMO_TAG_CROSSING);
+    const auto crossingTagProperties = myCrossingFrameParent->getViewNet()->getNet()->getTagPropertiesDatabase()->getTagProperty(SUMO_TAG_CROSSING);
     // Enable all elements of the crossing frames
     myCrossingEdgesLabel->enable();
     myCrossingEdges->enable();
@@ -239,9 +240,9 @@ GNECrossingFrame::CrossingParameters::enableCrossingParameters(bool hasTLS) {
     if (hasTLS) {
         myCrossingPriorityCheckButton->setCheck(TRUE);
     } else {
-        myCrossingPriorityCheckButton->setCheck(GNEAttributeCarrier::parse<bool>(tagProperties->getDefaultValue(SUMO_ATTR_PRIORITY)));
+        myCrossingPriorityCheckButton->setCheck(GNEAttributeCarrier::parse<bool>(crossingTagProperties->getDefaultValue(SUMO_ATTR_PRIORITY)));
     }
-    myCrossingWidth->setText(tagProperties->getDefaultValue(SUMO_ATTR_WIDTH).c_str());
+    myCrossingWidth->setText(crossingTagProperties->getDefaultValue(SUMO_ATTR_WIDTH).c_str());
     myCrossingWidth->setTextColor(FXRGB(0, 0, 0));
 }
 

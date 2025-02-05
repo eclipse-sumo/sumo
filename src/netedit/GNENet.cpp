@@ -2641,7 +2641,7 @@ GNENet::writeRouteProbeComment(OutputDevice& device) const {
 bool
 GNENet::writeCalibratorComment(OutputDevice& device) const {
     for (const auto& additionals : myAttributeCarriers->getAdditionals()) {
-        if (GNEAttributeCarrier::getTagProperty(additionals.first)->isCalibrator() && (additionals.second.size() > 0)) {
+        if (myTagPropertiesDatabase->getTagProperty(additionals.first)->isCalibrator() && (additionals.second.size() > 0)) {
             device << ("    <!-- Calibrators -->\n");
             return true;
         }
@@ -2653,7 +2653,7 @@ GNENet::writeCalibratorComment(OutputDevice& device) const {
 bool
 GNENet::writeStoppingPlaceComment(OutputDevice& device) const {
     for (const auto& additionals : myAttributeCarriers->getAdditionals()) {
-        if (GNEAttributeCarrier::getTagProperty(additionals.first)->isStoppingPlace() && (additionals.second.size() > 0)) {
+        if (myTagPropertiesDatabase->getTagProperty(additionals.first)->isStoppingPlace() && (additionals.second.size() > 0)) {
             device << ("    <!-- StoppingPlaces -->\n");
             return true;
         }
@@ -2665,7 +2665,7 @@ GNENet::writeStoppingPlaceComment(OutputDevice& device) const {
 bool
 GNENet::writeDetectorComment(OutputDevice& device) const {
     for (const auto& additionals : myAttributeCarriers->getAdditionals()) {
-        if (GNEAttributeCarrier::getTagProperty(additionals.first)->isDetector() && (additionals.second.size() > 0)) {
+        if (myTagPropertiesDatabase->getTagProperty(additionals.first)->isDetector() && (additionals.second.size() > 0)) {
             device << ("    <!-- Detectors -->\n");
             return true;
         }
@@ -2677,10 +2677,10 @@ GNENet::writeDetectorComment(OutputDevice& device) const {
 bool
 GNENet::writeOtherAdditionalsComment(OutputDevice& device) const {
     for (const auto& additionals : myAttributeCarriers->getAdditionals()) {
-        if (GNEAttributeCarrier::getTagProperty(additionals.first)->isAdditionalPureElement() &&
-                !GNEAttributeCarrier::getTagProperty(additionals.first)->isStoppingPlace() &&
-                !GNEAttributeCarrier::getTagProperty(additionals.first)->isDetector() &&
-                !GNEAttributeCarrier::getTagProperty(additionals.first)->isCalibrator() &&
+        if (myTagPropertiesDatabase->getTagProperty(additionals.first)->isAdditionalPureElement() &&
+                !myTagPropertiesDatabase->getTagProperty(additionals.first)->isStoppingPlace() &&
+                !myTagPropertiesDatabase->getTagProperty(additionals.first)->isDetector() &&
+                !myTagPropertiesDatabase->getTagProperty(additionals.first)->isCalibrator() &&
                 (additionals.first != SUMO_TAG_ROUTEPROBE) && (additionals.first != SUMO_TAG_ACCESS) &&
                 (additionals.first != SUMO_TAG_PARKING_SPACE) && (additionals.second.size() > 0)) {
             device << ("    <!-- Other additionals -->\n");
@@ -2694,8 +2694,8 @@ GNENet::writeOtherAdditionalsComment(OutputDevice& device) const {
 bool
 GNENet::writeShapesComment(OutputDevice& device) const {
     for (const auto& additionals : myAttributeCarriers->getAdditionals()) {
-        if (GNEAttributeCarrier::getTagProperty(additionals.first)->isShapeElement() &&
-                !GNEAttributeCarrier::getTagProperty(additionals.first)->isJuPedSimElement() &&
+        if (myTagPropertiesDatabase->getTagProperty(additionals.first)->isShapeElement() &&
+                !myTagPropertiesDatabase->getTagProperty(additionals.first)->isJuPedSimElement() &&
                 (additionals.second.size() > 0)) {
             device << ("    <!-- Shapes -->\n");
             return true;
@@ -2708,7 +2708,7 @@ GNENet::writeShapesComment(OutputDevice& device) const {
 bool
 GNENet::writeJuPedSimComment(OutputDevice& device) const {
     for (const auto& additionals : myAttributeCarriers->getAdditionals()) {
-        if (GNEAttributeCarrier::getTagProperty(additionals.first)->isJuPedSimElement() && (additionals.second.size() > 0)) {
+        if (myTagPropertiesDatabase->getTagProperty(additionals.first)->isJuPedSimElement() && (additionals.second.size() > 0)) {
             device << ("    <!-- JuPedSim elements -->\n");
             return true;
         }

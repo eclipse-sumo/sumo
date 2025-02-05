@@ -18,6 +18,8 @@
 // Frame for select tags
 /****************************************************************************/
 
+#include <netedit/GNENet.h>
+#include <netedit/GNETagPropertiesDatabase.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/elements/additional/GNEAccess.h>
 #include <netedit/elements/additional/GNEBusStop.h>
@@ -204,9 +206,9 @@ GNETagSelector::setCurrentTagType(GNETagProperties::TagType tagType, const bool 
     myACTemplates.clear();
     myTagsMatchBox->clearItems();
     // get tag properties
-    const auto tagProperties = GNEAttributeCarrier::getTagPropertiesByType(myTagType, true);
+    const auto tagPropertiesByType = myFrameParent->getViewNet()->getNet()->getTagPropertiesDatabase()->getTagPropertiesByType(myTagType, true);
     // fill myACTemplates and myTagsMatchBox
-    for (const auto tagProperty : tagProperties) {
+    for (const auto tagProperty : tagPropertiesByType) {
         if ((!onlyDrawables || tagProperty->isDrawable()) && (!tagProperty->requireProj() || proj)) {
             myACTemplates.push_back(new ACTemplate(myFrameParent->getViewNet()->getNet(), tagProperty));
             myTagsMatchBox->appendIconItem(tagProperty->getFieldString().c_str(), GUIIconSubSys::getIcon(tagProperty->getGUIIcon()), tagProperty->getBackGroundColor());

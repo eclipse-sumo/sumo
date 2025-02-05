@@ -20,6 +20,7 @@
 
 #include <netedit/GNENet.h>
 #include <netedit/GNETagProperties.h>
+#include <netedit/GNETagPropertiesDatabase.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/changes/GNEChange_DemandElement.h>
@@ -306,7 +307,7 @@ GNETypeFrame::TypeEditor::resetType() {
     // begin reset default vehicle type values
     myTypeFrameParent->getViewNet()->getUndoList()->begin(GUIIcon::VTYPE, TL("reset default vehicle type values"));
     // reset all values of default vehicle type
-    for (const auto& attrProperty : GNEAttributeCarrier::getTagProperty(SUMO_TAG_VTYPE)->getAttributeProperties()) {
+    for (const auto& attrProperty : myTypeFrameParent->getViewNet()->getNet()->getTagPropertiesDatabase()->getTagProperty(SUMO_TAG_VTYPE)->getAttributeProperties()) {
         // change all attributes with "" to reset it (except ID and vClass)
         if ((attrProperty->getAttr() != SUMO_ATTR_ID) && (attrProperty->getAttr() != SUMO_ATTR_VCLASS)) {
             myTypeFrameParent->myTypeSelector->getCurrentType()->setAttribute(attrProperty->getAttr(), "", myTypeFrameParent->myViewNet->getUndoList());

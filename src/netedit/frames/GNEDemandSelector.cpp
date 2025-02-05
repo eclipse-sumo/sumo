@@ -20,6 +20,7 @@
 
 #include <netedit/GNENet.h>
 #include <netedit/GNETagProperties.h>
+#include <netedit/GNETagPropertiesDatabase.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
 #include <utils/gui/div/GUIDesigns.h>
@@ -67,8 +68,8 @@ GNEDemandElementSelector::GNEDemandElementSelector(GNEFrame* frameParent, const 
     mySelectingMultipleElements(false) {
     // fill myDemandElementTags
     for (const auto& tagType : tagTypes) {
-        const auto tagProperties = GNEAttributeCarrier::getTagPropertiesByType(tagType, false);
-        for (const auto tagProperty : tagProperties) {
+        const auto tagPropertiesByType = frameParent->getViewNet()->getNet()->getTagPropertiesDatabase()->getTagPropertiesByType(tagType, false);
+        for (const auto tagProperty : tagPropertiesByType) {
             myDemandElementTags.push_back(tagProperty->getTag());
         }
     }

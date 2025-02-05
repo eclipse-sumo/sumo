@@ -20,6 +20,7 @@
 
 #include <netedit/GNENet.h>
 #include <netedit/GNETagProperties.h>
+#include <netedit/GNETagPropertiesDatabase.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <utils/common/StringTokenizer.h>
@@ -38,8 +39,6 @@
 // static members
 // ===========================================================================
 
-std::map<SumoXMLTag, GNETagProperties*> GNEAttributeCarrier::myTagProperties;
-std::map<SumoXMLTag, GNETagProperties*> GNEAttributeCarrier::myMergedPlanTagProperties;
 const std::string GNEAttributeCarrier::FEATURE_LOADED = "loaded";
 const std::string GNEAttributeCarrier::FEATURE_GUESSED = "guessed";
 const std::string GNEAttributeCarrier::FEATURE_MODIFIED = "modified";
@@ -54,7 +53,7 @@ const std::string GNEAttributeCarrier::False = toString(false);
 // ===========================================================================
 
 GNEAttributeCarrier::GNEAttributeCarrier(const SumoXMLTag tag, GNENet* net) :
-    myTagProperty(getTagProperty(tag)),
+    myTagProperty(net->getTagPropertiesDatabase()->getTagProperty(tag)),
     myNet(net) {
 }
 
@@ -677,267 +676,6 @@ GNEAttributeCarrier::isTemplate() const {
 const GNETagProperties*
 GNEAttributeCarrier::getTagProperty() const {
     return myTagProperty;
-}
-
-// ===========================================================================
-// static methods
-// ===========================================================================
-
-const GNETagProperties*
-GNEAttributeCarrier::getTagProperty(SumoXMLTag tag) {
-    // check that tag is defined
-    if (myTagProperties.count(tag) == 0) {
-        if (myMergedPlanTagProperties.count(tag) == 0) {
-            throw ProcessError(TLF("TagProperty for tag '%' not defined", toString(tag)));
-        } else {
-            return myMergedPlanTagProperties.at(tag);
-        }
-    } else {
-        return myTagProperties.at(tag);
-    }
-}
-
-
-const std::vector<const GNETagProperties*>
-GNEAttributeCarrier::getTagPropertiesByType(const int tagPropertyCategory, const bool mergeCommonPlans) {
-    std::vector<const GNETagProperties*> allowedTags;
-    if (tagPropertyCategory & GNETagProperties::TagType::NETWORKELEMENT) {
-        // fill networkElements tags
-        for (const auto& tagProperty : myTagProperties) {
-            if (tagProperty.second->isNetworkElement()) {
-                allowedTags.push_back(tagProperty.second);
-            }
-        }
-    }
-    if (tagPropertyCategory & GNETagProperties::TagType::ADDITIONALELEMENT) {
-        // fill additional tags (only with pure additionals)
-        for (const auto& tagProperty : myTagProperties) {
-            if (tagProperty.second->isAdditionalPureElement()) {
-                allowedTags.push_back(tagProperty.second);
-            }
-        }
-    }
-    if (tagPropertyCategory & GNETagProperties::TagType::SHAPE) {
-        // fill shape tags
-        for (const auto& tagProperty : myTagProperties) {
-            if (tagProperty.second->isShapeElement()) {
-                allowedTags.push_back(tagProperty.second);
-            }
-        }
-    }
-    if (tagPropertyCategory & GNETagProperties::TagType::TAZELEMENT) {
-        // fill taz tags
-        for (const auto& tagProperty : myTagProperties) {
-            if (tagProperty.second->isTAZElement()) {
-                allowedTags.push_back(tagProperty.second);
-            }
-        }
-    }
-    if (tagPropertyCategory & GNETagProperties::TagType::WIRE) {
-        // fill wire tags
-        for (const auto& tagProperty : myTagProperties) {
-            if (tagProperty.second->isWireElement()) {
-                allowedTags.push_back(tagProperty.second);
-            }
-        }
-    }
-    if (tagPropertyCategory & GNETagProperties::TagType::DEMANDELEMENT) {
-        // fill demand tags
-        for (const auto& tagProperty : myTagProperties) {
-            if (tagProperty.second->isDemandElement()) {
-                if (!mergeCommonPlans || !tagProperty.second->isPlan()) {
-                    allowedTags.push_back(tagProperty.second);
-                }
-            }
-        }
-        if (mergeCommonPlans) {
-            for (const auto& mergedPlanTagProperty : myMergedPlanTagProperties) {
-                allowedTags.push_back(mergedPlanTagProperty.second);
-            }
-        }
-    }
-    if (tagPropertyCategory & GNETagProperties::TagType::ROUTE) {
-        // fill route tags
-        for (const auto& tagProperty : myTagProperties) {
-            if (tagProperty.second->isRoute()) {
-                allowedTags.push_back(tagProperty.second);
-            }
-        }
-    }
-    if (tagPropertyCategory & GNETagProperties::TagType::VEHICLE) {
-        // fill vehicle tags
-        for (const auto& tagProperty : myTagProperties) {
-            if (tagProperty.second->isVehicle()) {
-                allowedTags.push_back(tagProperty.second);
-            }
-        }
-    }
-    if (tagPropertyCategory & GNETagProperties::TagType::VEHICLESTOP) {
-        // fill stop (and waypoints) tags
-        for (const auto& tagProperty : myTagProperties) {
-            if (tagProperty.second->isVehicleStop()) {
-                allowedTags.push_back(tagProperty.second);
-            }
-        }
-    }
-    if (tagPropertyCategory & GNETagProperties::TagType::PERSON) {
-        // fill person tags
-        for (const auto& tagProperty : myTagProperties) {
-            if (tagProperty.second->isPerson()) {
-                allowedTags.push_back(tagProperty.second);
-            }
-        }
-    }
-    if (tagPropertyCategory & GNETagProperties::TagType::PERSONPLAN) {
-        // fill person plan tags
-        for (const auto& tagProperty : myTagProperties) {
-            if (tagProperty.second->isPlanPerson()) {
-                allowedTags.push_back(tagProperty.second);
-            }
-        }
-    }
-    if (tagPropertyCategory & GNETagProperties::TagType::PERSONTRIP) {
-        if (mergeCommonPlans) {
-            allowedTags.push_back(myMergedPlanTagProperties.at(SUMO_TAG_PERSONTRIP));
-        } else {
-            // fill demand tags
-            for (const auto& tagProperty : myTagProperties) {
-                if (tagProperty.second->isPlanPersonTrip()) {
-                    allowedTags.push_back(tagProperty.second);
-                }
-            }
-        }
-    }
-    if (tagPropertyCategory & GNETagProperties::TagType::WALK) {
-        if (mergeCommonPlans) {
-            allowedTags.push_back(myMergedPlanTagProperties.at(SUMO_TAG_WALK));
-        } else {
-            // fill demand tags
-            for (const auto& tagProperty : myTagProperties) {
-                if (tagProperty.second->isPlanWalk()) {
-                    allowedTags.push_back(tagProperty.second);
-                }
-            }
-        }
-    }
-    if (tagPropertyCategory & GNETagProperties::TagType::RIDE) {
-        if (mergeCommonPlans) {
-            allowedTags.push_back(myMergedPlanTagProperties.at(SUMO_TAG_RIDE));
-        } else {
-            // fill demand tags
-            for (const auto& tagProperty : myTagProperties) {
-                if (tagProperty.second->isPlanRide()) {
-                    allowedTags.push_back(tagProperty.second);
-                }
-            }
-        }
-    }
-    if (tagPropertyCategory & GNETagProperties::TagType::STOPPERSON) {
-        if (mergeCommonPlans) {
-            allowedTags.push_back(myMergedPlanTagProperties.at(GNE_TAG_STOPPERSON));
-        } else {
-            // fill demand tags
-            for (const auto& tagProperty : myTagProperties) {
-                if (tagProperty.second->isPlanStopPerson()) {
-                    allowedTags.push_back(tagProperty.second);
-                }
-            }
-        }
-    }
-    if (tagPropertyCategory & GNETagProperties::TagType::GENERICDATA) {
-        // fill generic data tags
-        for (const auto& tagProperty : myTagProperties) {
-            if (tagProperty.second->isGenericData()) {
-                allowedTags.push_back(tagProperty.second);
-            }
-        }
-    }
-    if (tagPropertyCategory & GNETagProperties::TagType::MEANDATA) {
-        // fill generic data tags
-        for (const auto& tagProperty : myTagProperties) {
-            if (tagProperty.second->isMeanData()) {
-                allowedTags.push_back(tagProperty.second);
-            }
-        }
-    }
-    if (tagPropertyCategory & GNETagProperties::TagType::CONTAINER) {
-        // fill container tags
-        for (const auto& tagProperty : myTagProperties) {
-            if (tagProperty.second->isContainer()) {
-                allowedTags.push_back(tagProperty.second);
-            }
-        }
-    }
-    if (tagPropertyCategory & GNETagProperties::TagType::CONTAINERPLAN) {
-        // fill container plan tags
-        for (const auto& tagProperty : myTagProperties) {
-            if (tagProperty.second->isPlanContainer()) {
-                allowedTags.push_back(tagProperty.second);
-            }
-        }
-    }
-    if (tagPropertyCategory & GNETagProperties::TagType::TRANSPORT) {
-        if (mergeCommonPlans) {
-            allowedTags.push_back(myMergedPlanTagProperties.at(SUMO_TAG_TRANSPORT));
-        } else {
-            // fill demand tags
-            for (const auto& tagProperty : myTagProperties) {
-                if (tagProperty.second->isPlanTransport()) {
-                    allowedTags.push_back(tagProperty.second);
-                }
-            }
-        }
-    }
-    if (tagPropertyCategory & GNETagProperties::TagType::TRANSHIP) {
-        if (mergeCommonPlans) {
-            allowedTags.push_back(myMergedPlanTagProperties.at(SUMO_TAG_TRANSHIP));
-        } else {
-            // fill demand tags
-            for (const auto& tagProperty : myTagProperties) {
-                if (tagProperty.second->isPlanTranship()) {
-                    allowedTags.push_back(tagProperty.second);
-                }
-            }
-        }
-    }
-    if (tagPropertyCategory & GNETagProperties::TagType::STOPCONTAINER) {
-        if (mergeCommonPlans) {
-            allowedTags.push_back(myMergedPlanTagProperties.at(GNE_TAG_STOPCONTAINER));
-        } else {
-            // fill demand tags
-            for (const auto& tagProperty : myTagProperties) {
-                if (tagProperty.second->isPlanStopContainer()) {
-                    allowedTags.push_back(tagProperty.second);
-                }
-            }
-        }
-    }
-    return allowedTags;
-}
-
-
-const std::vector<const GNETagProperties*>
-GNEAttributeCarrier::getTagPropertiesByMergingTag(SumoXMLTag mergingTag) {
-    std::vector<const GNETagProperties*> result;
-    // fill tags
-    for (const auto& tagProperty : myTagProperties) {
-        if ((mergingTag == SUMO_TAG_PERSONTRIP) && tagProperty.second->isPlanPerson()) {
-            result.push_back(tagProperty.second);
-        } else if ((mergingTag == SUMO_TAG_RIDE) && tagProperty.second->isPlanRide()) {
-            result.push_back(tagProperty.second);
-        } else if ((mergingTag == SUMO_TAG_WALK) && tagProperty.second->isPlanWalk()) {
-            result.push_back(tagProperty.second);
-        } else if ((mergingTag == GNE_TAG_STOPPERSON) && tagProperty.second->isPlanStopPerson()) {
-            result.push_back(tagProperty.second);
-        } else if ((mergingTag == SUMO_TAG_TRANSPORT) && tagProperty.second->isPlanTransport()) {
-            result.push_back(tagProperty.second);
-        } else if ((mergingTag == SUMO_TAG_TRANSHIP) && tagProperty.second->isPlanTranship()) {
-            result.push_back(tagProperty.second);
-        } else if ((mergingTag == GNE_TAG_STOPCONTAINER) && tagProperty.second->isPlanStopContainer()) {
-            result.push_back(tagProperty.second);
-        }
-    }
-    return result;
 }
 
 // ===========================================================================

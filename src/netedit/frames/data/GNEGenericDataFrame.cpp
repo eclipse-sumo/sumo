@@ -19,6 +19,7 @@
 /****************************************************************************/
 
 #include <netedit/GNENet.h>
+#include <netedit/GNETagPropertiesDatabase.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/GNEApplicationWindow.h>
@@ -569,7 +570,7 @@ GNEGenericDataFrame::show() {
     myDataSetSelector->refreshDataSetSelector(nullptr);
     // check if there is an edge path creator
     if (myPathCreator) {
-        myPathCreator->showPathCreatorModule(GNEAttributeCarrier::getTagProperty(myGenericDataTag), false);
+        myPathCreator->showPathCreatorModule(myViewNet->getNet()->getTagPropertiesDatabase()->getTagProperty(myGenericDataTag), false);
     }
     // show frame
     GNEFrame::show();
@@ -595,7 +596,7 @@ GNEGenericDataFrame::updateFrameAfterUndoRedo() {
     myDataSetSelector->refreshDataSetSelector(nullptr);
     // check if there is an edge path creator
     if (myPathCreator) {
-        myPathCreator->showPathCreatorModule(GNEAttributeCarrier::getTagProperty(myGenericDataTag), false);
+        myPathCreator->showPathCreatorModule(myViewNet->getNet()->getTagPropertiesDatabase()->getTagProperty(myGenericDataTag), false);
     }
 }
 

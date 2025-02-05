@@ -20,6 +20,7 @@
 
 #include <netedit/GNENet.h>
 #include <netedit/GNETagProperties.h>
+#include <netedit/GNETagPropertiesDatabase.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/changes/GNEChange_MeanData.h>
@@ -70,12 +71,12 @@ GNEMeanDataFrame::MeanDataTypeSelector::MeanDataTypeSelector(GNEMeanDataFrame* m
     myTypeComboBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, false, GUIDesignComboBoxVisibleItems,
                                          this, MID_GNE_SET_TYPE, GUIDesignComboBox);
     // add mean data types
-    const auto meanDataTypes = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::MEANDATA, false);
-    for (const auto& meanDataType : meanDataTypes) {
+    const auto tagPropertiesMeanDatas = myMeanDataFrameParent->getViewNet()->getNet()->getTagPropertiesDatabase()->getTagPropertiesByType(GNETagProperties::MEANDATA, false);
+    for (const auto& meanDataType : tagPropertiesMeanDatas) {
         myTypeComboBox->appendIconItem(meanDataType->getTagStr().c_str(), GUIIconSubSys::getIcon(meanDataType->getGUIIcon()));
     }
     // set DEFAULT_VEHTYPE as default VType
-    myCurrentMeanData = meanDataTypes.front();
+    myCurrentMeanData = tagPropertiesMeanDatas.front();
     // MeanDataTypeSelector is always shown
     show();
 }
@@ -95,8 +96,8 @@ GNEMeanDataFrame::MeanDataTypeSelector::refreshMeanDataTypeSelector() {
     // clear items
     myTypeComboBox->clearItems();
     // add mean data types
-    const auto meanDataTypes = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::MEANDATA, false);
-    for (const auto& meanDataType : meanDataTypes) {
+    const auto tagPropertiesMeanDatas = myMeanDataFrameParent->getViewNet()->getNet()->getTagPropertiesDatabase()->getTagPropertiesByType(GNETagProperties::MEANDATA, false);
+    for (const auto& meanDataType : tagPropertiesMeanDatas) {
         myTypeComboBox->appendIconItem(meanDataType->getTagStr().c_str(), GUIIconSubSys::getIcon(meanDataType->getGUIIcon()));
     }
     // make sure that tag is in myTypeMatchBox
@@ -107,7 +108,7 @@ GNEMeanDataFrame::MeanDataTypeSelector::refreshMeanDataTypeSelector() {
             }
         }
     } else {
-        myCurrentMeanData = meanDataTypes.front();
+        myCurrentMeanData = tagPropertiesMeanDatas.front();
     }
     // refresh meanData editor module
     myMeanDataFrameParent->myMeanDataEditor->refreshMeanDataEditorModule();
@@ -120,9 +121,9 @@ GNEMeanDataFrame::MeanDataTypeSelector::refreshMeanDataTypeSelector() {
 long
 GNEMeanDataFrame::MeanDataTypeSelector::onCmdSelectItem(FXObject*, FXSelector, void*) {
     // add mean data types
-    const auto meanDataTypes = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::MEANDATA, false);
+    const auto tagPropertiesMeanDatas = myMeanDataFrameParent->getViewNet()->getNet()->getTagPropertiesDatabase()->getTagPropertiesByType(GNETagProperties::MEANDATA, false);
     // Check if value of myTypeMatchBox correspond of an allowed additional tags
-    for (const auto& meanDataType : meanDataTypes) {
+    for (const auto& meanDataType : tagPropertiesMeanDatas) {
         if (meanDataType->getTagStr() == myTypeComboBox->getText().text()) {
             // set pointer
             myCurrentMeanData = meanDataType;

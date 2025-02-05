@@ -23,8 +23,13 @@
 #include "GNETagProperties.h"
 
 // ===========================================================================
+// class declaration
+// ===========================================================================
+
+// ===========================================================================
 // class definitions
 // ===========================================================================
+
 /**
  * @class GNETagPropertiesDatabase
  *
@@ -38,6 +43,15 @@ public:
 
     /// @brief destructor
     ~GNETagPropertiesDatabase();
+
+    /// @brief get tagProperty associated to the given tag
+    GNETagProperties* getTagProperty(SumoXMLTag tag);
+
+    /// @brief get tagProperties associated to the given GNETagProperties::TagType (NETWORKELEMENT, ADDITIONALELEMENT, VEHICLE, etc.)
+    const std::vector<const GNETagProperties*> getTagPropertiesByType(const int tagPropertyCategory, const bool mergeCommonPlans);
+
+    /// @brief get tagProperties associated to the given merging tag
+    const std::vector<const GNETagProperties*> getTagPropertiesByMergingTag(SumoXMLTag mergingTag);
 
     /// @brief max number of editable (non extended) attributes
     int getMaxNumberOfEditableAttributes() const;

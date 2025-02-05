@@ -264,15 +264,6 @@ public:
     /// @brief get tagProperty associated with this Attribute Carrier
     const GNETagProperties* getTagProperty() const;
 
-    /// @brief get tagProperty associated to the given tag
-    static const GNETagProperties* getTagProperty(SumoXMLTag tag);
-
-    /// @brief get tagProperties associated to the given GNETagProperties::TagType (NETWORKELEMENT, ADDITIONALELEMENT, VEHICLE, etc.)
-    static const std::vector<const GNETagProperties*> getTagPropertiesByType(const int tagPropertyCategory, const bool mergeCommonPlans);
-
-    /// @brief get tagProperties associated to the given merging tag
-    static const std::vector<const GNETagProperties*> getTagPropertiesByMergingTag(SumoXMLTag mergingTag);
-
     /// @brief true if a value of type T can be parsed from string
     template<typename T>
     static bool canParse(const std::string& string) {
@@ -397,12 +388,6 @@ private:
 
     /// @brief reset attributes to their default values without undo-redo (used in GNEFrameAttributeModules)
     void resetAttributes();
-
-    /// @brief map with the tags properties
-    static std::map<SumoXMLTag, GNETagProperties*> myTagProperties;
-
-    /// @brief map with the merged tags properties
-    static std::map<SumoXMLTag, GNETagProperties*> myMergedPlanTagProperties;
 
     /// @brief Invalidated copy constructor.
     GNEAttributeCarrier(const GNEAttributeCarrier&) = delete;
