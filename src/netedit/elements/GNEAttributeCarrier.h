@@ -334,18 +334,6 @@ public:
 
     /// @}
 
-    /// @brief max number of editable (non extended) attributes (needed for attributes editor)
-    static int maxNumberOfEditableAttributes;
-
-    /// @brief max number of geo attributes (needed for geo attributes editor)
-    static int maxNumberOfGeoAttributes;
-
-    /// @brief max number of flow attributes (needed for geo attributes editor)
-    static int maxNumberOfFlowAttributes;
-
-    /// @brief max number of netedit attributes (needed for netedit attributes editor)
-    static int maxNumberOfNeteditAttributes;
-
     /// @brief empty parameter maps (used by ACs without parameters)
     static const Parameterised::Map PARAMETERS_EMPTY;
 

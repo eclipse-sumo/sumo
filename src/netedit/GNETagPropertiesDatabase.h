@@ -39,22 +39,22 @@ public:
     /// @brief destructor
     ~GNETagPropertiesDatabase();
 
+    /// @brief max number of editable (non extended) attributes
+    int getMaxNumberOfEditableAttributes() const;
+
+    /// @brief get max number of geo attributes
+    int getMaxNumberOfGeoAttributes() const;
+
+    /// @brief get max number of flow attributes
+    int getMaxNumberOfFlowAttributes() const;
+
+    /// @brief get max number of netedit attributes
+    int getMaxNumberOfNeteditAttributes() const;
+
     /// @brief write machine readable attribute help to file
     void writeAttributeHelp();
 
-    /// @brief max number of editable (non extended) attributes (needed for attributes editor)
-    int maxNumberOfEditableAttributes;
-
-    /// @brief max number of geo attributes (needed for geo attributes editor)
-    int maxNumberOfGeoAttributes;
-
-    /// @brief max number of flow attributes (needed for geo attributes editor)
-    int maxNumberOfFlowAttributes;
-
-    /// @brief max number of netedit attributes (needed for netedit attributes editor)
-    int maxNumberOfNeteditAttributes;
-
-private:
+protected:
     /// @brief fill network elements
     void fillNetworkElements();
 
@@ -171,6 +171,19 @@ private:
 
     /// @brief update max number of attributes by type
     void updateMaxNumberOfAttributes();
+
+private:
+    /// @brief max number of editable (non extended) attributes (needed for attributes editor)
+    int myMaxNumberOfEditableAttributes = 0;
+
+    /// @brief max number of geo attributes (needed for geo attributes editor)
+    int myMaxNumberOfGeoAttributes = 0;
+
+    /// @brief max number of flow attributes (needed for geo attributes editor)
+    int myMaxNumberOfFlowAttributes = 0;
+
+    /// @brief max number of netedit attributes (needed for netedit attributes editor)
+    int myMaxNumberOfNeteditAttributes = 0;
 
     /// @brief map with the tags properties
     std::map<SumoXMLTag, GNETagProperties*> myTagProperties;

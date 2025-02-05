@@ -129,6 +129,12 @@ GNENet::getAttributeCarriers() const {
 }
 
 
+GNETagPropertiesDatabase*
+GNENet::getTagPropertiesDatabase() const {
+    return myTagPropertiesDatabase;
+}
+
+
 GNENetHelper::SavingStatus*
 GNENet::getSavingStatus() const {
     return mySavingStatus;

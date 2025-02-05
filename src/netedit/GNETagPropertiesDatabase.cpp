@@ -84,6 +84,30 @@ GNETagPropertiesDatabase::~GNETagPropertiesDatabase() {
 }
 
 
+int
+GNETagPropertiesDatabase::getMaxNumberOfEditableAttributes() const {
+    return myMaxNumberOfEditableAttributes;
+}
+
+
+int
+GNETagPropertiesDatabase::getMaxNumberOfGeoAttributes() const {
+    return myMaxNumberOfGeoAttributes;
+}
+
+
+int
+GNETagPropertiesDatabase::getMaxNumberOfFlowAttributes() const {
+    return myMaxNumberOfFlowAttributes;
+}
+
+
+int
+GNETagPropertiesDatabase::getMaxNumberOfNeteditAttributes() const {
+    return myMaxNumberOfNeteditAttributes;
+}
+
+
 void
 GNETagPropertiesDatabase::writeAttributeHelp() {
     // merge "virtual" netedit tags like  '<walk: edge->edge'
@@ -8912,17 +8936,17 @@ GNETagPropertiesDatabase::updateMaxNumberOfAttributes() {
                 editableAttributes++;
             }
         }
-        if (maxNumberOfEditableAttributes < editableAttributes) {
-            maxNumberOfEditableAttributes = editableAttributes;
+        if (myMaxNumberOfEditableAttributes < editableAttributes) {
+            myMaxNumberOfEditableAttributes = editableAttributes;
         }
-        if (maxNumberOfGeoAttributes < geoAttributes) {
-            maxNumberOfGeoAttributes = geoAttributes;
+        if (myMaxNumberOfGeoAttributes < geoAttributes) {
+            myMaxNumberOfGeoAttributes = geoAttributes;
         }
-        if (maxNumberOfFlowAttributes < flowAttributes) {
-            maxNumberOfFlowAttributes = flowAttributes;
+        if (myMaxNumberOfFlowAttributes < flowAttributes) {
+            myMaxNumberOfFlowAttributes = flowAttributes;
         }
-        if (maxNumberOfNeteditAttributes < neteditAttributes) {
-            maxNumberOfNeteditAttributes = neteditAttributes;
+        if (myMaxNumberOfNeteditAttributes < neteditAttributes) {
+            myMaxNumberOfNeteditAttributes = neteditAttributes;
         }
     }
 }

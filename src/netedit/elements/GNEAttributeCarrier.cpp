@@ -40,10 +40,6 @@
 
 std::map<SumoXMLTag, GNETagProperties*> GNEAttributeCarrier::myTagProperties;
 std::map<SumoXMLTag, GNETagProperties*> GNEAttributeCarrier::myMergedPlanTagProperties;
-int GNEAttributeCarrier::maxNumberOfEditableAttributes = 0;
-int GNEAttributeCarrier::maxNumberOfGeoAttributes = 0;
-int GNEAttributeCarrier::maxNumberOfFlowAttributes = 0;
-int GNEAttributeCarrier::maxNumberOfNeteditAttributes = 0;
 const std::string GNEAttributeCarrier::FEATURE_LOADED = "loaded";
 const std::string GNEAttributeCarrier::FEATURE_GUESSED = "guessed";
 const std::string GNEAttributeCarrier::FEATURE_MODIFIED = "modified";
