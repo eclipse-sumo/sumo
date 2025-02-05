@@ -8,14 +8,16 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-05 09:24+0100\n"
-"PO-Revision-Date: 2025-02-05 09:24+0100\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2025-02-05 17:08+0000\n"
+"Last-Translator: Tomosawa Ryo <tomosawa.r.103@ms.saitama-u.ac.jp>\n"
+"Language-Team: Japanese <https://hosted.weblate.org/projects/eclipse-sumo/"
+"sumo-gui-netedit/ja/>\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 5.10-dev\n"
 
 #: src/gui/GUIApplicationWindow.cpp:299 src/gui/GUIApplicationWindow.cpp:302
 #: src/gui/GUIApplicationWindow.cpp:2262 src/gui/GUIApplicationWindow.cpp:2263
@@ -27,93 +29,93 @@ msgstr ""
 #: src/netedit/GNEApplicationWindow.cpp:1585
 #: src/netedit/GNEApplicationWindow.cpp:1586
 msgid "N/A"
-msgstr ""
+msgstr "N/A"
 
 #: src/gui/GUIApplicationWindow.cpp:299
 #: src/netedit/GNEApplicationWindow.cpp:522
 msgid "Original coordinate (before coordinate transformation in netconvert)"
-msgstr ""
+msgstr "元の座標（netconvertでの座標変換前）"
 
 #: src/gui/GUIApplicationWindow.cpp:302
 #: src/netedit/GNEApplicationWindow.cpp:526
 msgid "Network coordinate"
-msgstr ""
+msgstr "ネットワーク座標"
 
 #: src/gui/GUIApplicationWindow.cpp:330
 #: src/netedit/GNEApplicationWindow.cpp:545
 msgid "Ready."
-msgstr ""
+msgstr "準備完了。"
 
 #: src/gui/GUIApplicationWindow.cpp:453
 #: src/netedit/GNEApplicationWindow.cpp:1332
 msgid "&File"
-msgstr ""
+msgstr "&ファイル"
 
 #: src/gui/GUIApplicationWindow.cpp:455
 #: src/netedit/GNEApplicationWindowHelper.cpp:205
 msgid "New Window"
-msgstr ""
+msgstr "新しいウィンドウ"
 
 #: src/gui/GUIApplicationWindow.cpp:455
 msgid "Open a new sumo-gui window."
-msgstr ""
+msgstr "sumo-guiを新しいウィンドウで開きます。"
 
 #: src/gui/GUIApplicationWindow.cpp:459
 msgid "&Open Simulation..."
-msgstr ""
+msgstr "&シミュレーションを開く..."
 
 #: src/gui/GUIApplicationWindow.cpp:459
 msgid "Open a simulation (Configuration file)."
-msgstr ""
+msgstr "シミュレーション（設定ファイル）を開きます。"
 
 #: src/gui/GUIApplicationWindow.cpp:462
 msgid "Open &Network..."
-msgstr ""
+msgstr "&ネットワークを開く..."
 
 #: src/gui/GUIApplicationWindow.cpp:462
 msgid "Open a network."
-msgstr ""
+msgstr "ネットワークを開きます。"
 
 #: src/gui/GUIApplicationWindow.cpp:465
 msgid "Open Shapes "
-msgstr ""
+msgstr "シェープファイルを開く "
 
 #: src/gui/GUIApplicationWindow.cpp:465
 msgid "Load POIs and Polygons for visualization."
-msgstr ""
+msgstr "視覚化のために点とポリゴンをロードします。"
 
 #: src/gui/GUIApplicationWindow.cpp:468
 msgid "Open EdgeData "
-msgstr ""
+msgstr "EdgeDataを開く "
 
 #: src/gui/GUIApplicationWindow.cpp:468
 msgid "Load edge related data for visualization."
-msgstr ""
+msgstr "視覚化のためのエッジ関連データをロードします。"
 
 #: src/gui/GUIApplicationWindow.cpp:471
 #: src/netedit/GNEApplicationWindow.cpp:1023
 msgid "&Reload"
-msgstr ""
+msgstr "&再読み込み"
 
 #: src/gui/GUIApplicationWindow.cpp:471
 msgid "Reloads the simulation / the network."
-msgstr ""
+msgstr "シミュレーションとネットワークを再読み込みします。"
 
 #: src/gui/GUIApplicationWindow.cpp:474
 msgid "Quick-Reload"
-msgstr ""
+msgstr "クイックリロード"
 
 #: src/gui/GUIApplicationWindow.cpp:474
 msgid "Reloads the simulation (but not network)."
-msgstr ""
+msgstr "シミュレーションを再読み込みします（ネットワークを除く）。"
 
 #: src/gui/GUIApplicationWindow.cpp:478
 msgid "Save Configuration"
-msgstr ""
+msgstr "設定を保存"
 
 #: src/gui/GUIApplicationWindow.cpp:478
 msgid "Save current options as a configuration file."
-msgstr ""
+msgstr "現在の設定をファイルに保存します。"
 
 #: src/gui/GUIApplicationWindow.cpp:481
 #: src/netedit/GNEApplicationWindowHelper.cpp:313
@@ -121,310 +123,312 @@ msgstr ""
 #: src/netedit/dialogs/tools/GNERunNetgenerateDialog.cpp:94
 #: src/netedit/dialogs/tools/GNERunPythonToolDialog.cpp:95
 msgid "Close"
-msgstr ""
+msgstr "閉じる"
 
 #: src/gui/GUIApplicationWindow.cpp:481
 msgid "Close the simulation."
-msgstr ""
+msgstr "シミュレーションを閉じます。"
 
 #: src/gui/GUIApplicationWindow.cpp:489
 #: src/netedit/GNEApplicationWindow.cpp:1353
 msgid "&Quit"
-msgstr ""
+msgstr "&終了"
 
 #: src/gui/GUIApplicationWindow.cpp:489
 #: src/netedit/GNEApplicationWindow.cpp:1353
 msgid "Quit the Application."
-msgstr ""
+msgstr "アプリケーションを終了します。"
 
 #: src/gui/GUIApplicationWindow.cpp:498
 #: src/netedit/GNEApplicationWindow.cpp:1368
 msgid "&Edit"
-msgstr ""
+msgstr "&編集"
 
 #: src/gui/GUIApplicationWindow.cpp:500 src/gui/GUIApplicationWindow.cpp:869
 msgid "Edit Selected..."
-msgstr ""
+msgstr "選択した物を編集..."
 
 #: src/gui/GUIApplicationWindow.cpp:500
 msgid "Opens a dialog for editing the list of selected items."
-msgstr ""
+msgstr "選択項目のリストを編集するためのダイアログを開きます。"
 
 #: src/gui/GUIApplicationWindow.cpp:502
 msgid "Select lanes which allow..."
-msgstr ""
+msgstr "特定の車線を選択..."
 
 #: src/gui/GUIApplicationWindow.cpp:503
 msgid "Opens a menu for selecting a vehicle class by which to selected lanes."
-msgstr ""
+msgstr "特定の車線を走る車輌を選択するメニューを開きます。"
 
 #: src/gui/GUIApplicationWindow.cpp:506
 msgid "Set Breakpoint"
-msgstr ""
+msgstr "ブレークポイントを設定"
 
 #: src/gui/GUIApplicationWindow.cpp:506
 msgid "Sets a breakpoint at the current simulation step"
-msgstr ""
+msgstr "今のシミュレーションステップにブレークポイントを設定"
 
 #: src/gui/GUIApplicationWindow.cpp:509
 msgid "Set Breakpoint with offset"
-msgstr ""
+msgstr "オフセット付きのブレークポイントを設定"
 
 #: src/gui/GUIApplicationWindow.cpp:509
 msgid ""
 "Sets a breakpoint at the current simulation step + offset configured in "
 "application settings"
-msgstr ""
+msgstr "現在のシミュレーションステップからアプリで設定したオフセット分移動したところ"
+"にブレークポイントを設定します"
 
 #: src/gui/GUIApplicationWindow.cpp:512
 msgid "Edit Breakpoints"
-msgstr ""
+msgstr "ブレークポイントを編集"
 
 #: src/gui/GUIApplicationWindow.cpp:512
 msgid "Opens a dialog for editing breakpoints."
-msgstr ""
+msgstr "ブレークポイントを編集するためのダイアログを開きます。"
 
 #: src/gui/GUIApplicationWindow.cpp:515
 #: src/netedit/GNEApplicationWindowHelper.cpp:1295
 msgid "Edit Visualisation"
-msgstr ""
+msgstr "表示の編集"
 
 #: src/gui/GUIApplicationWindow.cpp:515
 #: src/netedit/GNEApplicationWindowHelper.cpp:1295
 msgid "Opens a dialog for editing visualization settings."
-msgstr ""
+msgstr "表示設定を編集するためのダイアログを開きます。"
 
 #: src/gui/GUIApplicationWindow.cpp:518
 #: src/netedit/GNEApplicationWindowHelper.cpp:1298
 msgid "Edit Viewport"
-msgstr ""
+msgstr "ビューポートの編集"
 
 #: src/gui/GUIApplicationWindow.cpp:518
 #: src/netedit/GNEApplicationWindowHelper.cpp:1298
 msgid "Opens a dialog for editing viewing area, zoom and rotation."
-msgstr ""
+msgstr "表示範囲、ズーム及び回転の編集をするためのダイアログを開きます。"
 
 #: src/gui/GUIApplicationWindow.cpp:522
 msgid "Load additionals in netedit"
-msgstr ""
+msgstr "neteditから追加ファイルを読み込み"
 
 #: src/gui/GUIApplicationWindow.cpp:522
 msgid "Load additionals in netedit."
-msgstr ""
+msgstr "neteditから追加ファイルを読み込みます。"
 
 #: src/gui/GUIApplicationWindow.cpp:524
 msgid "Load demand in netedit"
-msgstr ""
+msgstr "neteditから需要を読み込み"
 
 #: src/gui/GUIApplicationWindow.cpp:524
 msgid "Load demand in netedit."
-msgstr ""
+msgstr "neteditから需要を読み込みます。"
 
 #: src/gui/GUIApplicationWindow.cpp:527
 msgid "Open in netedit"
-msgstr ""
+msgstr "neteditで開く"
 
 #: src/gui/GUIApplicationWindow.cpp:527
 msgid "Opens current simulation in NETEDIT."
-msgstr ""
+msgstr "NETEDITで現在のシミュレーションを開きます。"
 
 #: src/gui/GUIApplicationWindow.cpp:531
 msgid "&Settings"
-msgstr ""
+msgstr "&設定"
 
 #: src/gui/GUIApplicationWindow.cpp:533
 #: src/gui/dialogs/GUIDialog_AppSettings.cpp:53
 msgid "Application Settings"
-msgstr ""
+msgstr "アプリケーション設定"
 
 #: src/gui/GUIApplicationWindow.cpp:533
 msgid "Open a Dialog for Application Settings editing."
-msgstr ""
+msgstr "アプリケーション設定を編集するためのダイアログを開きます。"
 
 #: src/gui/GUIApplicationWindow.cpp:536
 msgid "Gaming Mode\tCtrl+G\tToggle gaming mode on/off."
-msgstr ""
+msgstr "ゲームモード\tCtrl+G\tゲームモードのオンオフを切り替えます。"
 
 #: src/gui/GUIApplicationWindow.cpp:539
 msgid "Full Screen Mode"
-msgstr ""
+msgstr "全画面モード"
 
 #: src/gui/GUIApplicationWindow.cpp:539
 msgid "Toggle full screen mode on/off."
-msgstr ""
+msgstr "全画面モードのオンオフを切り替えます。"
 
 #: src/gui/GUIApplicationWindow.cpp:543
 #: src/netedit/GNEApplicationWindow.cpp:1404
 msgid "&Locate"
-msgstr ""
+msgstr "&検索"
 
 #: src/gui/GUIApplicationWindow.cpp:545
 #: src/netedit/GNEApplicationWindowHelper.cpp:1341
 #: src/netedit/GNEApplicationWindowHelper.cpp:2006
 msgid "&Junctions"
-msgstr ""
+msgstr "&交差点"
 
 #: src/gui/GUIApplicationWindow.cpp:545
 #: src/netedit/GNEApplicationWindowHelper.cpp:2006
 msgid "Open a dialog for locating a Junction."
-msgstr ""
+msgstr "ジャンクションを選択するためのダイアログを開きます。"
 
 #: src/gui/GUIApplicationWindow.cpp:548
 #: src/netedit/GNEApplicationWindowHelper.cpp:1346
 #: src/netedit/GNEApplicationWindowHelper.cpp:2009
 msgid "&Edges"
-msgstr ""
+msgstr "&区間"
 
 #: src/gui/GUIApplicationWindow.cpp:548
 #: src/netedit/GNEApplicationWindowHelper.cpp:2009
 msgid "Open a dialog for locating an Edge."
-msgstr ""
+msgstr "区間を選択するためのダイアログを開きます。"
 
 #: src/gui/GUIApplicationWindow.cpp:551
 #: src/netedit/GNEApplicationWindowHelper.cpp:1411
 #: src/netedit/GNEApplicationWindowHelper.cpp:2015
 msgid "&Vehicles"
-msgstr ""
+msgstr "&車輌"
 
 #: src/gui/GUIApplicationWindow.cpp:551
 #: src/netedit/GNEApplicationWindowHelper.cpp:2015
 msgid "Open a dialog for locating a Vehicle."
-msgstr ""
+msgstr "車輌を選択するためのダイアログを開きます。"
 
 #: src/gui/GUIApplicationWindow.cpp:554
 #: src/netedit/GNEApplicationWindowHelper.cpp:1416
 #: src/netedit/GNEApplicationWindowHelper.cpp:2018
 msgid "&Persons"
-msgstr ""
+msgstr "&人"
 
 #: src/gui/GUIApplicationWindow.cpp:554
 #: src/netedit/GNEApplicationWindowHelper.cpp:2018
 msgid "Open a dialog for locating a Person."
-msgstr ""
+msgstr "人を選択するためのダイアログを開きます。"
 
 #: src/gui/GUIApplicationWindow.cpp:557
 msgid "&Container"
-msgstr ""
+msgstr "&コンテナ"
 
 #: src/gui/GUIApplicationWindow.cpp:557
 #: src/netedit/GNEApplicationWindowHelper.cpp:2021
 msgid "Open a dialog for locating a Container."
-msgstr ""
+msgstr "コンテナを選択するためのダイアログを開きます。"
 
 #: src/gui/GUIApplicationWindow.cpp:560
 #: src/netedit/GNEApplicationWindowHelper.cpp:2030
 msgid "&TLS"
-msgstr ""
+msgstr "&信号機"
 
 #: src/gui/GUIApplicationWindow.cpp:560
 #: src/netedit/GNEApplicationWindowHelper.cpp:2030
 msgid "Open a dialog for locating a Traffic Light."
-msgstr ""
+msgstr "信号機を選択するためのダイアログを開きます。"
 
 #: src/gui/GUIApplicationWindow.cpp:563
 #: src/netedit/GNEApplicationWindowHelper.cpp:635
 #: src/netedit/GNEApplicationWindowHelper.cpp:2033
 msgid "&Additional"
-msgstr ""
+msgstr "&構造物"
 
 #: src/gui/GUIApplicationWindow.cpp:563
 #: src/netedit/GNEApplicationWindowHelper.cpp:2033
 msgid "Open a dialog for locating an Additional Structure."
-msgstr ""
+msgstr "構造物を選択するためのダイアログを開きます。"
 
 #: src/gui/GUIApplicationWindow.cpp:566
 #: src/netedit/GNEApplicationWindowHelper.cpp:2036
 msgid "P&oI"
-msgstr ""
+msgstr "&点"
 
 #: src/gui/GUIApplicationWindow.cpp:566
 #: src/netedit/GNEApplicationWindowHelper.cpp:2036
 msgid "Open a dialog for locating a Point of Interest."
-msgstr ""
+msgstr "点を選択するためのダイアログを開きます。"
 
 #: src/gui/GUIApplicationWindow.cpp:569
 #: src/netedit/GNEApplicationWindowHelper.cpp:2039
 msgid "Po&lygon"
-msgstr ""
+msgstr "&ポリゴン"
 
 #: src/gui/GUIApplicationWindow.cpp:569
 #: src/netedit/GNEApplicationWindowHelper.cpp:2039
 msgid "Open a dialog for locating a Polygon."
-msgstr ""
+msgstr "ポリゴンを選択するためのダイアログを開きます。"
 
 #: src/gui/GUIApplicationWindow.cpp:572
 msgid "Show Internal Structures"
-msgstr ""
+msgstr "内部構造を表示"
 
 #: src/gui/GUIApplicationWindow.cpp:572
 msgid "Show internal junctions and streets in locator dialog."
-msgstr ""
+msgstr "locatorダイアログに内部交差点とストリートを表示します。"
 
 #: src/gui/GUIApplicationWindow.cpp:573
 msgid "Show Parking Vehicles"
-msgstr ""
+msgstr "駐車中の車輌を表示"
 
 #: src/gui/GUIApplicationWindow.cpp:573
 msgid "Show parking vehicles in locator dialog."
-msgstr ""
+msgstr "locatorダイアログに駐車中の車輌を表示します。"
 
 #: src/gui/GUIApplicationWindow.cpp:575
 msgid "Show vehicles outside the road network"
-msgstr ""
+msgstr "道路ネットワーク外の車輌を表示"
 
 #: src/gui/GUIApplicationWindow.cpp:575
 msgid ""
 "Show vehicles that are teleporting or driving remote-controlled outside the "
 "road network in locator dialog."
-msgstr ""
+msgstr "locatorダイアログに道路ネットワーク外の車輌（ワープ中もしくは自動運転中）を表"
+"示します。"
 
 #: src/gui/GUIApplicationWindow.cpp:580
 msgid "Simulation"
-msgstr ""
+msgstr "シミュレーション"
 
 #: src/gui/GUIApplicationWindow.cpp:582
 #: src/netedit/dialogs/options/GNEOptionsDialog.cpp:374
 #: src/netedit/dialogs/tools/GNENetgenerateDialog.cpp:90
 #: src/netedit/dialogs/tools/GNEPythonToolDialog.cpp:93
 msgid "Run"
-msgstr ""
+msgstr "実行"
 
 #: src/gui/GUIApplicationWindow.cpp:582
 msgid "Start/ Resume the simulation."
-msgstr ""
+msgstr "シミュレーションを開始 / 再開します。"
 
 #: src/gui/GUIApplicationWindow.cpp:585
 msgctxt "Simulation"
 msgid "Stop"
-msgstr ""
+msgstr "停止"
 
 #: src/gui/GUIApplicationWindow.cpp:585
 msgid "Halt the simulation."
-msgstr ""
+msgstr "シミュレーションを停止します。"
 
 #: src/gui/GUIApplicationWindow.cpp:588
 msgid "Step"
-msgstr ""
+msgstr "時間間隔"
 
 #: src/gui/GUIApplicationWindow.cpp:588
 msgid "Perform one simulation step."
-msgstr ""
+msgstr "シミュレーションを1ステップ実行します。"
 
 #: src/gui/GUIApplicationWindow.cpp:591
 msgid "Delay+"
-msgstr ""
+msgstr "遅延+"
 
 #: src/gui/GUIApplicationWindow.cpp:591
 msgid "Increase simulation step delay."
-msgstr ""
+msgstr "シミュレーションステップの遅延を増やします。"
 
 #: src/gui/GUIApplicationWindow.cpp:593
 msgid "Delay-"
-msgstr ""
+msgstr "遅延-"
 
 #: src/gui/GUIApplicationWindow.cpp:593
 msgid "Decrease simulation step delay."
-msgstr ""
+msgstr "シミュレーションステップの遅延を減らします。"
 
 #: src/gui/GUIApplicationWindow.cpp:595
 #: src/netedit/dialogs/GNEMultipleParametersDialog.cpp:289
@@ -435,11 +439,11 @@ msgstr ""
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:2897
 #: src/utils/gui/windows/GUIDialog_EditViewport.cpp:67
 msgid "Save"
-msgstr ""
+msgstr "保存"
 
 #: src/gui/GUIApplicationWindow.cpp:595
 msgid "Save the current simulation state to a file."
-msgstr ""
+msgstr "ファイルに現在のシミュレーションの状態を保存します。"
 
 #: src/gui/GUIApplicationWindow.cpp:598
 #: src/netedit/dialogs/GNEMultipleParametersDialog.cpp:288
@@ -449,296 +453,300 @@ msgstr ""
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:2895
 #: src/utils/gui/windows/GUIDialog_EditViewport.cpp:65
 msgid "Load"
-msgstr ""
+msgstr "読み込み"
 
 #: src/gui/GUIApplicationWindow.cpp:598
 msgid "Load simulation state for the current network from file."
-msgstr ""
+msgstr "現在のネットワークのシミュレーション状態をファイルから読み込む。"
 
 #: src/gui/GUIApplicationWindow.cpp:602
 #: src/netedit/GNEApplicationWindow.cpp:1475
 msgid "&Window"
-msgstr ""
+msgstr "&ウィンドウ"
 
 #: src/gui/GUIApplicationWindow.cpp:603 src/gui/GUIApplicationWindow.cpp:750
 msgid "Open new view"
-msgstr ""
+msgstr "新しいビューを開く"
 
 #: src/gui/GUIApplicationWindow.cpp:603 src/gui/GUIApplicationWindow.cpp:750
 msgid "Open a new microscopic view."
-msgstr ""
+msgstr "新しいミクロのビューを開きます。"
 
 #: src/gui/GUIApplicationWindow.cpp:605 src/gui/GUIApplicationWindow.cpp:753
 msgid "Open new 3D view"
-msgstr ""
+msgstr "新しい3Dビューを開く"
 
 #: src/gui/GUIApplicationWindow.cpp:605 src/gui/GUIApplicationWindow.cpp:753
 msgid "Open a new 3D view."
-msgstr ""
+msgstr "新しい3Dビューを開きます。"
 
 #: src/gui/GUIApplicationWindow.cpp:608
 msgid "Tile &Horizontally"
-msgstr ""
+msgstr "水平方向に整列"
 
 #: src/gui/GUIApplicationWindow.cpp:608
 msgid "Tile the views horizontally."
-msgstr ""
+msgstr "ビューを水平方向に並べます。"
 
 #: src/gui/GUIApplicationWindow.cpp:611
 msgid "Tile &Vertically"
-msgstr ""
+msgstr "垂直方向に整列"
 
 #: src/gui/GUIApplicationWindow.cpp:611
 msgid "Tile the views vertically."
-msgstr ""
+msgstr "ビューを垂直方向に並べます。"
 
 #: src/gui/GUIApplicationWindow.cpp:614
 msgid "Cascade"
-msgstr ""
+msgstr "重ねて表示"
 
 #: src/gui/GUIApplicationWindow.cpp:614
 msgid "Cascade the views."
-msgstr ""
+msgstr "ビューを重ねて表示します。"
 
 #: src/gui/GUIApplicationWindow.cpp:618
 #: src/gui/dialogs/GUIDialog_Breakpoints.cpp:100
 #: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:100
 msgid "&Close"
-msgstr ""
+msgstr "ビューを閉じる"
 
 #: src/gui/GUIApplicationWindow.cpp:618
 msgid "Close the selected view."
-msgstr ""
+msgstr "選択したビューを閉じます。"
 
 #: src/gui/GUIApplicationWindow.cpp:628
 msgid "&Others..."
-msgstr ""
+msgstr "その他..."
 
 #: src/gui/GUIApplicationWindow.cpp:631
 #: src/netedit/GNEApplicationWindowHelper.cpp:2157
 msgid "Show Status Line"
-msgstr ""
+msgstr "ステータスバーを表示"
 
 #: src/gui/GUIApplicationWindow.cpp:631
 msgid "Toggle the Status Bar on/off."
-msgstr ""
+msgstr "ステータスバーのオンオフを切り替えます。"
 
 #: src/gui/GUIApplicationWindow.cpp:632
 #: src/netedit/GNEApplicationWindowHelper.cpp:2160
 msgid "Show Message Window"
-msgstr ""
+msgstr "メッセージウィンドウを表示"
 
 #: src/gui/GUIApplicationWindow.cpp:632
 #: src/netedit/GNEApplicationWindowHelper.cpp:2160
 msgid "Toggle the Message Window on/off."
-msgstr ""
+msgstr "メッセージウィンドウのオンオフを切り替えます。"
 
 #: src/gui/GUIApplicationWindow.cpp:633
 msgid "Show Simulation Time"
-msgstr ""
+msgstr "シミュレーション経過時間の表示"
 
 #: src/gui/GUIApplicationWindow.cpp:633
 msgid "Toggle the Simulation Time on/off."
-msgstr ""
+msgstr "シミュレーション経過時間の表示のオンオフを切り替えます。"
 
 #: src/gui/GUIApplicationWindow.cpp:634
 msgid "Show Simulation Delay"
-msgstr ""
+msgstr "シミュレーション間隔を表示"
 
 #: src/gui/GUIApplicationWindow.cpp:634
 msgid "Toggle the Simulation Delay Entry on/off."
-msgstr ""
+msgstr "シミュレーション間隔の表示のオンオフを切り替えます。"
 
 #: src/gui/GUIApplicationWindow.cpp:639
 #: src/netedit/GNEApplicationWindowHelper.cpp:2164
 msgid "Clear Message Window"
-msgstr ""
+msgstr "メッセージウィンドウをクリア"
 
 #: src/gui/GUIApplicationWindow.cpp:639
 msgid "Clear the message window."
-msgstr ""
+msgstr "メッセージウィンドウをクリアします。"
 
 #: src/gui/GUIApplicationWindow.cpp:646
 #: src/netedit/GNEApplicationWindow.cpp:1481
 msgid "&Help"
-msgstr ""
+msgstr "&ヘルプ"
 
 #: src/gui/GUIApplicationWindow.cpp:648
 msgid "&Online Documentation"
-msgstr ""
+msgstr "&オンラインドキュメント"
 
 #: src/gui/GUIApplicationWindow.cpp:648
 #: src/netedit/GNEApplicationWindowHelper.cpp:2180
 msgid "Open Online documentation."
-msgstr ""
+msgstr "オンラインドキュメントを開きます。"
 
 #: src/gui/GUIApplicationWindow.cpp:651
 msgid "&Changelog"
-msgstr ""
+msgstr "&更新履歴"
 
 #: src/gui/GUIApplicationWindow.cpp:651
 #: src/netedit/GNEApplicationWindowHelper.cpp:2183
 msgid "Open Changelog."
-msgstr ""
+msgstr "更新履歴を開きます。"
 
 #: src/gui/GUIApplicationWindow.cpp:653
 msgid "&Hotkeys"
-msgstr ""
+msgstr "&ショートカットキー"
 
 #: src/gui/GUIApplicationWindow.cpp:653
 #: src/netedit/GNEApplicationWindowHelper.cpp:2185
 msgid "Open Hotkeys."
-msgstr ""
+msgstr "ショートカットキーを開きます。"
 
 #: src/gui/GUIApplicationWindow.cpp:655
 msgid "&Tutorial"
-msgstr ""
+msgstr "&チュートリアル"
 
 #: src/gui/GUIApplicationWindow.cpp:655
 #: src/netedit/GNEApplicationWindowHelper.cpp:2187
 msgid "Open Tutorial."
-msgstr ""
+msgstr "チュートリアルを開きます。"
 
 #: src/gui/GUIApplicationWindow.cpp:657
 msgid "&Feedback"
-msgstr ""
+msgstr "&フィードバック"
 
 #: src/gui/GUIApplicationWindow.cpp:657
 msgid "Open feedback dialog."
-msgstr ""
+msgstr "フィードバックダイアログを開きます。"
 
 #: src/gui/GUIApplicationWindow.cpp:660
 msgid "&About"
-msgstr ""
+msgstr "&バージョン情報"
 
 #: src/gui/GUIApplicationWindow.cpp:660
 msgid "About sumo-gui."
-msgstr ""
+msgstr "sumo-guiについての情報です。"
 
 #: src/gui/GUIApplicationWindow.cpp:675
 msgid "\tOpen simulation\tOpen a simulation (Configuration file)."
-msgstr ""
+msgstr "\tシミュレーションを開く\tシミュレーションファイルを開きます"
+"（設定ファイル）。"
 
 #: src/gui/GUIApplicationWindow.cpp:677
 msgid "\tOpen network\tOpen a network."
-msgstr ""
+msgstr "\tネットワークを開く\tネットワークファイルを開きます。"
 
 #: src/gui/GUIApplicationWindow.cpp:679
 msgid "\tReload\tReloads the simulation / the network."
-msgstr ""
+msgstr "\t再読み込み"
+"\tシミュレーションファイルもしくはネットワークファイルを再読み込みます。"
 
 #: src/gui/GUIApplicationWindow.cpp:688
 msgid "\tRun\tStart/Resume the loaded simulation."
-msgstr ""
+msgstr "\t実行\tロード済みのシミュレーションを開始 / 再開します。"
 
 #: src/gui/GUIApplicationWindow.cpp:690
 msgid "\tStop\tHalt the running simulation."
-msgstr ""
+msgstr "\t停止\t実行中のシミュレーションを停止します。"
 
 #: src/gui/GUIApplicationWindow.cpp:692
 msgid "\tStep\tPerform a single simulation step."
-msgstr ""
+msgstr "\tステップ\tシミュレーションステップを1回実行します。"
 
 #: src/gui/GUIApplicationWindow.cpp:700
 msgid ""
 "Time:\tToggle between time formats\tToggle between seconds and "
 "hour:minute:seconds display."
-msgstr ""
+msgstr "時間:\t時間表示の切り替え\t秒表記と時分秒表記を切り替えます。"
 
 #: src/gui/GUIApplicationWindow.cpp:714
 msgid ""
 "Delay (ms):\tDelay per simulated second\tDelay per simulated second. Click "
 "to toggle between the last two delay values."
-msgstr ""
+msgstr "間隔 (ms):\t1シミュレートあたりの間隔\t1シミュレートあたりの間隔を設定します"
+"。クリックすると、最後の2つの間隔の間で切り替えます。"
 
 #: src/gui/GUIApplicationWindow.cpp:737
 msgid "Scale Traffic:"
-msgstr ""
+msgstr "交通量倍率:"
 
 #: src/gui/GUIApplicationWindow.cpp:738
 msgid ""
 "Scale traffic volume from running flows and from vehicles that are loaded "
 "incrementally from route files."
-msgstr ""
+msgstr "走行中の車輌やルートファイルから段階的に読み込まれる車輌の交通量の倍率を調整"
+"します。"
 
 #: src/gui/GUIApplicationWindow.cpp:763
 msgid "Waiting Time:"
-msgstr ""
+msgstr "待ち時間:"
 
 #: src/gui/GUIApplicationWindow.cpp:763
 msgid "Time spent waiting accumulated for all vehicles"
-msgstr ""
+msgstr "全ての車両の待ち時間の合計"
 
 #: src/gui/GUIApplicationWindow.cpp:774
 msgid "Time Loss:"
-msgstr ""
+msgstr "損失時間:"
 
 #: src/gui/GUIApplicationWindow.cpp:774
 msgid ""
 "Time lost due to being unable to drive with maximum speed for all vehicles"
-msgstr ""
+msgstr "全ての車両の最大速度で走行できなかったことによる損失時間の合計です"
 
 #: src/gui/GUIApplicationWindow.cpp:785
 msgid "Distance (km):"
-msgstr ""
+msgstr "走行距離(km):"
 
 #: src/gui/GUIApplicationWindow.cpp:785
 msgid "Total distance driven by DRT vehicles"
-msgstr ""
+msgstr "デマンド型交通（DRT）の車輌の総走行距離"
 
 #: src/gui/GUIApplicationWindow.cpp:796
 msgid "Emergency Vehicle waiting time:"
-msgstr ""
+msgstr "緊急車両待ち時間:"
 
 #: src/gui/GUIApplicationWindow.cpp:796
 msgid "Time spent waiting accumulated for emergency vehicles"
-msgstr ""
+msgstr "全ての緊急車両の待ち時間の合計"
 
 #: src/gui/GUIApplicationWindow.cpp:821
 #: src/netedit/GNEApplicationWindowHelper.cpp:155
 msgid "Cl&ear Recent Networks"
-msgstr ""
+msgstr "最近開いたネットワークをクリアします"
 
 #: src/gui/GUIApplicationWindow.cpp:822
 #: src/netedit/GNEApplicationWindowHelper.cpp:156
 msgid "No Recent Networks"
-msgstr ""
+msgstr "最近開いたネットワークはありません"
 
 #: src/gui/GUIApplicationWindow.cpp:826
 #: src/netedit/GNEApplicationWindowHelper.cpp:160
 msgid "Recent Networks"
-msgstr ""
+msgstr "最近開いたネットワーク"
 
 #: src/gui/GUIApplicationWindow.cpp:844
 #: src/netedit/GNEApplicationWindowHelper.cpp:178
 msgid "Cl&ear Recent Configs"
-msgstr ""
+msgstr "最近開いたコンフィグをクリア"
 
 #: src/gui/GUIApplicationWindow.cpp:845
 #: src/netedit/GNEApplicationWindowHelper.cpp:179
 msgid "No Recent Configs"
-msgstr ""
+msgstr "最近開いたコンフィグはありません"
 
 #: src/gui/GUIApplicationWindow.cpp:849
 #: src/netedit/GNEApplicationWindowHelper.cpp:183
 msgid "Recent Configs"
-msgstr ""
+msgstr "最近開いたコンフィグ"
 
 #: src/gui/GUIApplicationWindow.cpp:1003 src/gui/GUIApplicationWindow.cpp:1029
 msgid "Running %."
-msgstr ""
+msgstr "実行中%。"
 
 #: src/gui/GUIApplicationWindow.cpp:1039
 msgid "Open Simulation Configuration"
-msgstr ""
+msgstr "シミュレーションの設定を開く"
 
 #: src/gui/GUIApplicationWindow.cpp:1059
 msgid "Open Network"
-msgstr ""
+msgstr "ネットワークを開く"
 
 #: src/gui/GUIApplicationWindow.cpp:1079
 msgid "Open Shapes"
-msgstr ""
+msgstr "シェイプを開く"
 
 #: src/gui/GUIApplicationWindow.cpp:1093 src/gui/GUIApplicationWindow.cpp:1121
 #: src/netedit/GNEApplicationWindow.cpp:4615
@@ -747,209 +755,209 @@ msgstr ""
 #: src/netedit/GNEApplicationWindow.cpp:4762
 #, c-format
 msgid "Loading of % failed."
-msgstr ""
+msgstr "%のロードに失敗しました。"
 
 #: src/gui/GUIApplicationWindow.cpp:1110
 msgid "Open EdgeData"
-msgstr ""
+msgstr "EdgeDataを開く"
 
 #: src/gui/GUIApplicationWindow.cpp:1145
 msgid "Auto-Reloading."
-msgstr ""
+msgstr "自動的に再読み込みします。"
 
 #: src/gui/GUIApplicationWindow.cpp:1145
 msgid "TraCI-Loading."
-msgstr ""
+msgstr "TraCIのロード中。"
 
 #: src/gui/GUIApplicationWindow.cpp:1147
 msgid "Reloading."
-msgstr ""
+msgstr "再読込中。"
 
 #: src/gui/GUIApplicationWindow.cpp:1158
 msgid "Quick-Reloading."
-msgstr ""
+msgstr "クイックリロード中。"
 
 #: src/gui/GUIApplicationWindow.cpp:1168
 #: src/netedit/GNEApplicationWindow.cpp:1095
 msgid "Already loading!"
-msgstr ""
+msgstr "既にロード済みです！"
 
 #: src/gui/GUIApplicationWindow.cpp:1180
 msgid "Save SUMO Configuration"
-msgstr ""
+msgstr "SUMOの設定を保存"
 
 #: src/gui/GUIApplicationWindow.cpp:1195
 msgid "Configuration saved to %."
-msgstr ""
+msgstr "設定を%に保存しました。"
 
 #: src/gui/GUIApplicationWindow.cpp:1197
 msgid "Could not save configuration to %."
-msgstr ""
+msgstr "設定を%に保存できませんでした。"
 
 #: src/gui/GUIApplicationWindow.cpp:1253 src/gui/GUIApplicationWindow.cpp:1279
 #: src/gui/GUIApplicationWindow.cpp:2188
 msgid "No simulation loaded!"
-msgstr ""
+msgstr "シミュレーションがロードされていません！"
 
 #: src/gui/GUIApplicationWindow.cpp:1295
 msgid "Save Simulation State"
-msgstr ""
+msgstr "シミュレーション状態を保存"
 
 #: src/gui/GUIApplicationWindow.cpp:1309
 msgid "Simulation state saved to '%'."
-msgstr ""
+msgstr "シミュレーション状態を'%'に保存しました。"
 
 #: src/gui/GUIApplicationWindow.cpp:1317
 msgid "Load Simulation State"
-msgstr ""
+msgstr "シミュレーション状態をロード"
 
 #: src/gui/GUIApplicationWindow.cpp:1329
 msgid "State loaded from '%'."
-msgstr ""
+msgstr "'%'からシミュレーション状態をロードしました。"
 
 #: src/gui/GUIApplicationWindow.cpp:1331
 msgid "Failed to load state from '%' (%)."
-msgstr ""
+msgstr "'%'からのシミュレーション状態のロードに失敗しました(%)。"
 
 #: src/gui/GUIApplicationWindow.cpp:1478
 msgid "Scale number of vehicles in simulation"
-msgstr ""
+msgstr "シミュレーション内の車輌の数の倍率の調整"
 
 #: src/gui/GUIApplicationWindow.cpp:1495
 msgid "Open sumo config in netedit"
-msgstr ""
+msgstr "netedit内のsumo configを開く"
 
 #: src/gui/GUIApplicationWindow.cpp:1499
 msgid "Open network in netedit"
-msgstr ""
+msgstr "netedit内のネットワークを開く"
 
 #: src/gui/GUIApplicationWindow.cpp:1828
 #, c-format
 msgid "Loading of '%' failed!"
-msgstr ""
+msgstr "'%'のロードに失敗しました！"
 
 #: src/gui/GUIApplicationWindow.cpp:1842
 #, c-format
 msgid "'%' loaded."
-msgstr ""
+msgstr "'%'はロードされました。"
 
 #: src/gui/GUIApplicationWindow.cpp:1945
 msgid "SUMO Interactive Traffic Light"
-msgstr ""
+msgstr "SUMO 相互信号機"
 
 #: src/gui/GUIApplicationWindow.cpp:1947
 msgid "SUMO Interactive Demand-Responsive-Transport"
-msgstr ""
+msgstr "SUMO 相互デマンド型交通（DRT）"
 
 #: src/gui/GUIApplicationWindow.cpp:2075
 msgid "Simulation ended at time: %. (%)"
-msgstr ""
+msgstr "シミュレーションは%に終了しました。(%)"
 
 #: src/gui/GUIApplicationWindow.cpp:2078
 msgid "Simulation ended at time: %."
-msgstr ""
+msgstr "シミュレーションは%に終了しました。"
 
 #: src/gui/GUIApplicationWindow.cpp:2079
 msgid "Reason:"
-msgstr ""
+msgstr "原因:"
 
 #: src/gui/GUIApplicationWindow.cpp:2080
 msgid "Do you want to close all open files and views?"
-msgstr ""
+msgstr "すべての開いているファイルとビューを閉じますか？"
 
 #: src/gui/GUIApplicationWindow.cpp:2081
 msgid "Simulation ended"
-msgstr ""
+msgstr "シミュレーション終了"
 
 #: src/gui/GUIApplicationWindow.cpp:2179
 msgid "Loading '%'."
-msgstr ""
+msgstr "'%'をロードしています。"
 
 #: src/gui/GUIApplicationWindow.cpp:2332 src/gui/GUIApplicationWindow.cpp:2334
 #: src/gui/GUIApplicationWindow.cpp:2335 src/gui/GUIApplicationWindow.cpp:2336
 msgid "seconds"
-msgstr ""
+msgstr "秒"
 
 #: src/gui/GUIApplicationWindow.cpp:2479
 msgid "Set breakpoint at %"
-msgstr ""
+msgstr "%にブレークポイントを設定"
 
 #: src/gui/GUILoadThread.cpp:206
 msgid "Could not load edgedata-files '%'"
-msgstr ""
+msgstr "EdgeData'%'はロードすることができません"
 
 #: src/gui/GUIRunThread.cpp:108 src/gui/GUIRunThread.cpp:114
 msgid "Quitting (on error)."
-msgstr ""
+msgstr "終了しています（エラーのため）。"
 
 #: src/gui/GUIRunThread.cpp:273
 msgid "Simulation started with time: %."
-msgstr ""
+msgstr "シミュレーションは%に開始されます。"
 
 #: src/gui/GUISUMOViewParent.cpp:142 src/netedit/GNEViewParent.cpp:473
 msgid "Save Snapshot"
-msgstr ""
+msgstr "スナップショットを保存"
 
 #: src/gui/GUISUMOViewParent.cpp:167 src/netedit/GNEViewParent.cpp:493
 msgid "No file extension was specified - saving Snapshot as PNG."
-msgstr ""
+msgstr "ファイル拡張子が指定されていません - スナップショットをPNGとして保存します。"
 
 #: src/gui/GUISUMOViewParent.cpp:173 src/netedit/GNEViewParent.cpp:498
 msgid "Saving failed."
-msgstr ""
+msgstr "保存に失敗しました。"
 
 #: src/gui/GUISUMOViewParent.cpp:175 src/netedit/GNEViewParent.cpp:500
 msgid "Snapshot successfully saved!"
-msgstr ""
+msgstr "スナップショットは正しく保存されました！"
 
 #: src/gui/GUISUMOViewParent.cpp:219 src/gui/GUISUMOViewParent.cpp:268
 msgid "Unknown Message ID in onCmdLocate"
-msgstr ""
+msgstr "onCmdLocateで不明なメッセージIDを確認"
 
 #: src/gui/GUISUMOViewParent.cpp:233 src/netedit/GNEViewParent.cpp:526
 msgid "Junction Chooser"
-msgstr ""
+msgstr "交差点の選択"
 
 #: src/gui/GUISUMOViewParent.cpp:237 src/netedit/GNEViewParent.cpp:533
 msgid "Edge Chooser"
-msgstr ""
+msgstr "区間の選択"
 
 #: src/gui/GUISUMOViewParent.cpp:241 src/netedit/GNEViewParent.cpp:547
 #: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:87
 msgid "Vehicle Chooser"
-msgstr ""
+msgstr "車輌の選択"
 
 #: src/gui/GUISUMOViewParent.cpp:245 src/netedit/GNEViewParent.cpp:558
 msgid "Person Chooser"
-msgstr ""
+msgstr "人の選択"
 
 #: src/gui/GUISUMOViewParent.cpp:249 src/netedit/GNEViewParent.cpp:568
 msgid "Container Chooser"
-msgstr ""
+msgstr "コンテナの選択"
 
 #: src/gui/GUISUMOViewParent.cpp:253
 msgid "Traffic Lights Chooser"
-msgstr ""
+msgstr "信号機の選択"
 
 #: src/gui/GUISUMOViewParent.cpp:257
 msgid "Additional Objects Chooser"
-msgstr ""
+msgstr "構造物の選択"
 
 #: src/gui/GUISUMOViewParent.cpp:261 src/netedit/GNEViewParent.cpp:619
 msgid "POI Chooser"
-msgstr ""
+msgstr "点の選択"
 
 #: src/gui/GUISUMOViewParent.cpp:265
 msgid "Polygon Chooser"
-msgstr ""
+msgstr "ポリゴンの選択"
 
 #: src/gui/GUITLLogicPhasesTrackerWindow.cpp:277
 msgid "phase names"
-msgstr ""
+msgstr "段階の名前"
 
 #: src/gui/GUITLLogicPhasesTrackerWindow.cpp:280
 msgid "detectors"
-msgstr ""
+msgstr "車輌検知器"
 
 #: src/gui/GUITLLogicPhasesTrackerWindow.cpp:281
 msgid "conditions"
