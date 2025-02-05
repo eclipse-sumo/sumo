@@ -257,7 +257,6 @@ class Lane:
                         _lane.getOutgoing()[0].getViaLaneID() == ""]
         return lanes
 
-
     def getIncomingConnections(self, onlyDirect=False):
         """
         Returns all incoming connections for this lane
@@ -275,7 +274,6 @@ class Lane:
                 return [c for c in cons if c.getFromLane()[0] == ":" and
                         c.getFromLane().getOutgoing()[0].getViaLaneID() == ""]
         return cons
-
 
     def getConnection(self, toLane):
         """Returns the connection to the given target lane or None"""

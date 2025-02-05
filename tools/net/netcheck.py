@@ -140,7 +140,7 @@ def checkRightOfWay(net, options):
     else:
         if lanes:
             print("Found %s acceleration lanes with invalid right-of-way on the incoming connection" % len(lanes))
-        print('\n'.join([l.getID() for l in lanes]))
+        print('\n'.join([lane.getID() for lane in lanes]))
 
 
 if __name__ == "__main__":
