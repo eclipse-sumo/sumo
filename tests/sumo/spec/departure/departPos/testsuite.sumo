@@ -38,3 +38,7 @@ pos_last_speed_max
 # departPos="last" should take into account stops
 # 
 pos_last_stop
+pos_stop
+
+# departPos="stop" but the departLane differs from the stop lane
+pos_stop_otherLane
