@@ -789,7 +789,7 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
     if (isNEMA) {
         NBTrafficLightLogic* nemaLogic = buildNemaPhases(fromEdges, toEdges, crossings, chosenList, straightStates, leftStates);
         if (nemaLogic == nullptr) {
-            WRITE_WARNINGF(TL("Generating NEMA phases is not support for traffic light '%' with % incoming edges. Using tlType 'actuated' as fallback"), getID(), incoming.size());
+            WRITE_WARNINGF(TL("Generating NEMA phases is not supported for traffic light '%' with % incoming edges. Using tlType 'actuated' as fallback"), getID(), incoming.size());
             logic->setType(TrafficLightType::ACTUATED);
             setType(TrafficLightType::ACTUATED);
         } else {
@@ -912,7 +912,7 @@ NBOwnTLDef::addPedestrianPhases(NBTrafficLightLogic* logic, const SUMOTime green
             // ensure clearing time for pedestrians
             const int pedStates = (int)crossings.size();
             const bool isSimpleActuatedCrossing = logic->getType() == TrafficLightType::ACTUATED
-                && minDur == UNSPECIFIED_DURATION && logic->getPhases().size() == 2;
+                                                  && minDur == UNSPECIFIED_DURATION && logic->getPhases().size() == 2;
             if (isSimpleActuatedCrossing) {
                 // permit green phase to extend when there are no pedestrians
                 logic->setPhaseNext(0, {0, 1});
