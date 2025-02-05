@@ -47,6 +47,7 @@ main(int argc, char** argv) {
     // preload registry from sumo to decide on language
     FXRegistry reg("SUMO GUI", "sumo-gui");
     reg.read();
+    // set language
     gLanguage = reg.readStringEntry("gui", "language", gLanguage.c_str());
     int ret = 0;
     // run netedit with try-catch if we're in debug-mode
@@ -59,6 +60,8 @@ main(int argc, char** argv) {
         GNELoadThread::fillOptions(neteditOptions);
         // set default options
         GNELoadThread::setDefaultOptions(neteditOptions);
+        // create tagPropertiesdatabase
+        GNETagPropertiesDatabase* tagPropertiesDatabase = new GNETagPropertiesDatabase();
         // set arguments called through console
         OptionsIO::setArgs(argc, argv);
         OptionsIO::getOptions(true);
@@ -66,11 +69,7 @@ main(int argc, char** argv) {
             SystemFrame::close();
             return 0;
         } else if (neteditOptions.isSet("attribute-help-output")) {
-            // just create tagPropertiesdatabase, write attribute help and finish
-            GNETagPropertiesDatabase tagPropertiesDatabase;
-            tagPropertiesDatabase.writeAttributeHelp();
-            SystemFrame::close();
-            return 0;
+            tagPropertiesDatabase->writeAttributeHelp();
         } else {
             // Make application
             FXApp application("SUMO netedit", "netedit");
@@ -81,24 +80,27 @@ main(int argc, char** argv) {
                 throw ProcessError(TL("This system has no OpenGL support. Exiting."));
             }
             // build the main window
-            GNEApplicationWindow* window = new GNEApplicationWindow(&application, "*.netc.cfg,*.netccfg");
+            GNEApplicationWindow* netedit = new GNEApplicationWindow(&application, tagPropertiesDatabase, "*.netc.cfg,*.netccfg");
             gLanguage = neteditOptions.getString("language");
             gSchemeStorage.init(&application, true);
-            window->dependentBuild();
+            netedit->dependentBuild();
             // Create app
-            application.addSignal(SIGINT, window, MID_HOTKEY_CTRL_Q_CLOSE);
+            application.addSignal(SIGINT, netedit, MID_HOTKEY_CTRL_Q_CLOSE);
             application.create();
             // Load configuration given on command line
             if (argc > 1) {
                 // Set default options
                 OptionsIO::setArgs(argc, argv);
                 // load options
-                window->loadOptionOnStartup();
+                netedit->loadOptionOnStartup();
             }
             // focus window at startup
-            window->setFocus();
+            netedit->setFocus();
             // Run
             ret = application.run();
+            // delete elements
+            delete tagPropertiesDatabase;
+            delete netedit;
         }
 #ifdef _DEBUG
     } catch (const std::exception& e) {

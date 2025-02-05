@@ -112,7 +112,7 @@ GNESelectorParent::refreshSelectorParentModule() {
         // fill list with IDs
         for (const auto& parentTag : myParentTags) {
             // check type
-            const auto tagProperty = myFrameParent->getViewNet()->getNet()->getTagPropertiesDatabase()->getTagProperty(parentTag);
+            const auto tagProperty = myFrameParent->getViewNet()->getTagPropertiesDatabase()->getTagProperty(parentTag);
             // additionals
             if (tagProperty->isAdditionalElement()) {
                 for (const auto& additional : myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getAdditionals().at(parentTag)) {

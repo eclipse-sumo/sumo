@@ -24,15 +24,6 @@
 
 #include "GNEViewNetHelper.h"
 
-
-// ===========================================================================
-// class declaration
-// ===========================================================================
-class GNEFrame;
-class GNENet;
-class GNEUndoList;
-class GNEViewParent;
-
 // ===========================================================================
 // class definitions
 // ===========================================================================
@@ -93,7 +84,7 @@ public:
     void updateObjectsInPosition(const Position& pos);
 
     /// @brief get objects in the given shape (using triangulation)
-    void updateObjectsInShape(const PositionVector &shape);
+    void updateObjectsInShape(const PositionVector& shape);
 
     /// @brief redraw elements only for calculating boundary
     void redrawPathElementContours();
@@ -541,6 +532,9 @@ public:
 
     /// @brief get the net object
     GNENet* getNet() const;
+
+    /// @brief get tag properties database (Shortcut)
+    GNETagPropertiesDatabase* getTagPropertiesDatabase() const;
 
     /// @brief get the undoList object
     GNEUndoList* getUndoList() const;

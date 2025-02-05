@@ -41,11 +41,12 @@
 class GNEApplicationWindow;
 class GNELoadThread;
 class GNENet;
+class GNENetgenerateDialog;
 class GNEPythonTool;
 class GNEPythonToolDialog;
-class GNENetgenerateDialog;
-class GNERunPythonToolDialog;
 class GNERunNetgenerateDialog;
+class GNERunPythonToolDialog;
+class GNETagPropertiesDatabase;
 class GNEUndoList;
 class GNEUndoListDialog;
 class GNEViewNet;

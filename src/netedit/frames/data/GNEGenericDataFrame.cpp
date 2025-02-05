@@ -570,7 +570,7 @@ GNEGenericDataFrame::show() {
     myDataSetSelector->refreshDataSetSelector(nullptr);
     // check if there is an edge path creator
     if (myPathCreator) {
-        myPathCreator->showPathCreatorModule(myViewNet->getNet()->getTagPropertiesDatabase()->getTagProperty(myGenericDataTag), false);
+        myPathCreator->showPathCreatorModule(myViewNet->getTagPropertiesDatabase()->getTagProperty(myGenericDataTag), false);
     }
     // show frame
     GNEFrame::show();
@@ -596,7 +596,7 @@ GNEGenericDataFrame::updateFrameAfterUndoRedo() {
     myDataSetSelector->refreshDataSetSelector(nullptr);
     // check if there is an edge path creator
     if (myPathCreator) {
-        myPathCreator->showPathCreatorModule(myViewNet->getNet()->getTagPropertiesDatabase()->getTagProperty(myGenericDataTag), false);
+        myPathCreator->showPathCreatorModule(myViewNet->getTagPropertiesDatabase()->getTagProperty(myGenericDataTag), false);
     }
 }
 

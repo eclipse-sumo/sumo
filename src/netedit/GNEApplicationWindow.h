@@ -43,10 +43,11 @@ class GNEApplicationWindow : public GUIMainWindow, public MFXInterThreadEventCli
 public:
 
     /**@brief Constructor
-     * @param[in] a The FOX application
+     * @param[in] app The FOX application
+     * @param[in] tagPropertiesDatabase pointer to tag properties database
      * @param[in] configPattern The pattern used for loading configurations
      */
-    GNEApplicationWindow(FXApp* a, const std::string& configPattern);
+    GNEApplicationWindow(FXApp* app, GNETagPropertiesDatabase* tagPropertiesDatabase, const std::string& configPattern);
 
     /// @brief Destructor
     ~GNEApplicationWindow();
@@ -547,6 +548,9 @@ public:
     /// @brief get default cursor
     FXCursor* getDefaultCursor();
 
+    /// @brief get tag properties database
+    GNETagPropertiesDatabase* getTagPropertiesDatabase() const;
+
     /// @brief get pointer to undoList
     GNEUndoList* getUndoList();
 
@@ -696,6 +700,9 @@ protected:
 
     /// @brief check if had dependent build
     bool myHadDependentBuild = false;
+
+    /// @brief tagProperties database
+    GNETagPropertiesDatabase* myTagPropertiesDatabase = nullptr;
 
     /// @brief we are responsible for the net
     GNENet* myNet = nullptr;

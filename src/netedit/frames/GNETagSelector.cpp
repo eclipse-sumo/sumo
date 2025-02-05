@@ -206,7 +206,7 @@ GNETagSelector::setCurrentTagType(GNETagProperties::TagType tagType, const bool 
     myACTemplates.clear();
     myTagsMatchBox->clearItems();
     // get tag properties
-    const auto tagPropertiesByType = myFrameParent->getViewNet()->getNet()->getTagPropertiesDatabase()->getTagPropertiesByType(myTagType, true);
+    const auto tagPropertiesByType = myFrameParent->getViewNet()->getTagPropertiesDatabase()->getTagPropertiesByType(myTagType, true);
     // fill myACTemplates and myTagsMatchBox
     for (const auto tagProperty : tagPropertiesByType) {
         if ((!onlyDrawables || tagProperty->isDrawable()) && (!tagProperty->requireProj() || proj)) {

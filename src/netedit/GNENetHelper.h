@@ -102,7 +102,7 @@ struct GNENetHelper {
 
     public:
         /// @brief constructor
-        AttributeCarriers(GNENet* net);
+        AttributeCarriers(GNENet* net, GNETagPropertiesDatabase* tagPropertiesDatabase);
 
         /// @brief destructor
         ~AttributeCarriers();

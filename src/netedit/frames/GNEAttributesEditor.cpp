@@ -62,13 +62,13 @@ GNEAttributesEditor::GNEAttributesEditor(GNEFrame* frameParent, const std::strin
     myEditorOptions(editorOptions) {
     // adjust max number of rows
     if ((myEditorOptions & EditorOptions::BASIC_ATTRIBUTES) != 0) {
-        myMaxNumberOfRows = frameParent->getViewNet()->getNet()->getTagPropertiesDatabase()->getMaxNumberOfEditableAttributes();
+        myMaxNumberOfRows = frameParent->getViewNet()->getTagPropertiesDatabase()->getMaxNumberOfEditableAttributes();
     } else if ((myEditorOptions & EditorOptions::FLOW_ATTRIBUTES) != 0) {
-        myMaxNumberOfRows = frameParent->getViewNet()->getNet()->getTagPropertiesDatabase()->getMaxNumberOfFlowAttributes();
+        myMaxNumberOfRows = frameParent->getViewNet()->getTagPropertiesDatabase()->getMaxNumberOfFlowAttributes();
     } else if ((myEditorOptions & EditorOptions::GEO_ATTRIBUTES) != 0) {
-        myMaxNumberOfRows = frameParent->getViewNet()->getNet()->getTagPropertiesDatabase()->getMaxNumberOfGeoAttributes();
+        myMaxNumberOfRows = frameParent->getViewNet()->getTagPropertiesDatabase()->getMaxNumberOfGeoAttributes();
     } else if ((myEditorOptions & EditorOptions::NETEDIT_ATTRIBUTES) != 0) {
-        myMaxNumberOfRows = frameParent->getViewNet()->getNet()->getTagPropertiesDatabase()->getMaxNumberOfNeteditAttributes();
+        myMaxNumberOfRows = frameParent->getViewNet()->getTagPropertiesDatabase()->getMaxNumberOfNeteditAttributes();
         // create netedit editor buttons
         myFrontButton = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Front element"), "", "", GUIIconSubSys::getIcon(GUIIcon::FRONTELEMENT), this, MID_GNE_ATTRIBUTESEDITOR_FRONT, GUIDesignButton);
         myFrontButton->hide();

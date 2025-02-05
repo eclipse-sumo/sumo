@@ -453,8 +453,9 @@ FXIMPLEMENT(GNEApplicationWindow, FXMainWindow, GNEApplicationWindowMap, ARRAYNU
 // GNEApplicationWindow method definitions
 // ===========================================================================
 
-GNEApplicationWindow::GNEApplicationWindow(FXApp* a, const std::string& configPattern) :
-    GUIMainWindow(a),
+GNEApplicationWindow::GNEApplicationWindow(FXApp* app, GNETagPropertiesDatabase* tagPropertiesDatabase, const std::string& configPattern) :
+    GUIMainWindow(app),
+    myTagPropertiesDatabase(tagPropertiesDatabase),
     myUndoList(new GNEUndoList(this)),
     myConfigPattern(configPattern),
     myToolbarsGrip(this),
@@ -473,15 +474,15 @@ GNEApplicationWindow::GNEApplicationWindow(FXApp* a, const std::string& configPa
     myAllowUndoRedo(getApp()->reg().readBoolEntry("NETEDIT", "AllowUndoRedo", true) == TRUE),
     myAllowUndoRedoLoading(getApp()->reg().readBoolEntry("NETEDIT", "AllowUndoRedoLoading", true) == TRUE) {
     // init icons
-    GUIIconSubSys::initIcons(a);
+    GUIIconSubSys::initIcons(app);
     // init Textures
-    GUITextureSubSys::initTextures(a);
+    GUITextureSubSys::initTextures(app);
     // init cursors
-    GUICursorSubSys::initCursors(a);
+    GUICursorSubSys::initCursors(app);
     // create undoList dialog (after initCursors)
     myUndoListDialog = new GNEUndoListDialog(this);
-    a->setTooltipTime(1000000000);
-    a->setTooltipPause(1000000000);
+    app->setTooltipTime(1000000000);
+    app->setTooltipPause(1000000000);
     // set SUMO Options descriptions
     mySumoOptions.setApplicationDescription(TL("A microscopic, multi-modal traffic simulation."));
     mySumoOptions.setApplicationName("sumo", "Eclipse SUMO sumo Version " VERSION_STRING);
@@ -1501,6 +1502,12 @@ GNEApplicationWindow::getCurrentSimTime() const {
 double
 GNEApplicationWindow::getTrackerInterval() const {
     return 1;
+}
+
+
+GNETagPropertiesDatabase*
+GNEApplicationWindow::getTagPropertiesDatabase() const {
+    return myTagPropertiesDatabase;
 }
 
 

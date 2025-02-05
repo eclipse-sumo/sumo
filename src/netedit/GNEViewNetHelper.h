@@ -137,9 +137,13 @@ enum class DataEditMode {
 // class declarations
 // ===========================================================================
 
-// main elements
 class GNEAttributeCarrier;
+class GNEFrame;
+class GNENet;
+class GNETagPropertiesDatabase;
+class GNEUndoList;
 class GNEViewNet;
+class GNEViewParent;
 // network elements
 class GNENetworkElement;
 class GNEJunction;
