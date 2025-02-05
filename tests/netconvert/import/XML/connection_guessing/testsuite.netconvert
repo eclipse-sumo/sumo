@@ -120,4 +120,10 @@ verge_left2
 
 # test for #15943
 turn_lane_bike
+
+# test for #16127
+accel_prohibits_change
+
+# two consecutive edges with acceleration lane
+accel_prohibits_change2
 ramps

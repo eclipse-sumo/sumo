@@ -112,3 +112,9 @@ edgeType
 
 # conflicting (crossed) connections from the same edge to the same target edge
 sameEdge_crossed
+
+# test for #16127
+accel_prohibits_change
+
+# two consecutive edges with acceleration lane
+accel_prohibits_change2
