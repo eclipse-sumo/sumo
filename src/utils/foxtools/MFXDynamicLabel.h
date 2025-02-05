@@ -17,6 +17,8 @@
 ///
 // Text label with dynamic multi-line text (inserts line breaks on the fly)
 /****************************************************************************/
+#pragma once
+#include <config.h>
 
 #include <string>
 
