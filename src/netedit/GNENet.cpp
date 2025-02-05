@@ -92,7 +92,7 @@ GNENet::GNENet(NBNetBuilder* netBuilder) :
     GUIGlObject(GLO_NETWORK, "", nullptr),
     myNetBuilder(netBuilder),
     myAttributeCarriers(new GNENetHelper::AttributeCarriers(this)),
-    myTagPropertiesDatabase(new GNETagPropertiesDatabase(this)),
+    myTagPropertiesDatabase(new GNETagPropertiesDatabase()),
     mySavingStatus(new GNENetHelper::SavingStatus(this)),
     myNetworkPathManager(new GNEPathManager(this)),
     myDemandPathManager(new GNEPathManager(this)),

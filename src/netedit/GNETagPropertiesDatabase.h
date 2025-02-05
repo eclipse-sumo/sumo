@@ -23,24 +23,18 @@
 #include "GNETagProperties.h"
 
 // ===========================================================================
-// class declarations
-// ===========================================================================
-class GNENet;
-
-// ===========================================================================
 // class definitions
 // ===========================================================================
 /**
  * @class GNETagPropertiesDatabase
  *
- * Abstract Base class for gui objects which carry attributes
- * inherits from GNEReferenceCounter for convenience
+ * Database with all information about netedit elements
  */
 class GNETagPropertiesDatabase {
 
 public:
-    /// @brief Constructor
-    GNETagPropertiesDatabase(GNENet* net);
+    /// @brief constructor
+    GNETagPropertiesDatabase();
 
     /// @brief destructor
     ~GNETagPropertiesDatabase();
@@ -59,10 +53,6 @@ public:
 
     /// @brief max number of netedit attributes (needed for netedit attributes editor)
     int maxNumberOfNeteditAttributes;
-
-protected:
-    /// @brief pointer to net
-    GNENet* myNet = nullptr;
 
 private:
     /// @brief fill network elements
@@ -187,9 +177,6 @@ private:
 
     /// @brief map with the merged tags properties
     std::map<SumoXMLTag, GNETagProperties*> myMergedPlanTagProperties;
-
-    /// @brief Invalidated default constructor.
-    GNETagPropertiesDatabase() = delete;
 
     /// @brief Invalidated copy constructor.
     GNETagPropertiesDatabase(const GNETagPropertiesDatabase&) = delete;

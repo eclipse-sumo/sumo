@@ -317,9 +317,6 @@ public:
     /// @brief check if lanes are consecutives
     static bool lanesConsecutives(const std::vector<GNELane*>& lanes);
 
-    /// @brief write machine readable attribute help to file
-    static void writeAttributeHelp();
-
     /// @name Certain attributes and ACs (for example, connections) can be either loaded or guessed. The following static variables are used to remark it.
     /// @{
 
@@ -412,126 +409,6 @@ private:
 
     /// @brief reset attributes to their default values without undo-redo (used in GNEFrameAttributeModules)
     void resetAttributes();
-
-    /// @brief fill Attribute Carriers
-    static void fillAttributeCarriers();
-
-    /// @brief fill network elements
-    static void fillNetworkElements();
-
-    /// @brief fill additional elements
-    static void fillAdditionalElements();
-
-    /// @brief fill shape elements
-    static void fillShapeElements();
-
-    /// @brief fill TAZ elements
-    static void fillTAZElements();
-
-    /// @brief fill Wire elements
-    static void fillWireElements();
-
-    /// @brief fill JuPedSim elements
-    static void fillJuPedSimElements();
-
-    /// @brief fill demand elements
-    static void fillDemandElements();
-
-    /// @brief fill vehicle elements
-    static void fillVehicleElements();
-
-    /// @brief fill stop elements
-    static void fillStopElements();
-
-    /// @brief fill waypoint elements
-    static void fillWaypointElements();
-
-    /// @brief fill person elements
-    static void fillPersonElements();
-
-    /// @brief fill person plan trips
-    static void fillPersonPlanTrips();
-
-    /// @brief fill person plan walks
-    static void fillPersonPlanWalks();
-
-    /// @brief fill person plan rides
-    static void fillPersonPlanRides();
-
-    /// @brief fill person stop elements
-    static void fillPersonStopElements();
-
-    /// @brief fill container elements
-    static void fillContainerElements();
-
-    /// @brief fill container transport elements
-    static void fillContainerTransportElements();
-
-    /// @brief fill container tranship elements
-    static void fillContainerTranshipElements();
-
-    /// @brief fill container stop elements
-    static void fillContainerStopElements();
-
-    /// @brief fill common POI attributes
-    static void fillCommonAttributes(GNETagProperties* tagProperties);
-
-    /// @brief fill common POI attributes
-    static void fillPOIAttributes(GNETagProperties* tagProperties);
-
-    /// @brief fill common vehicle attributes (used by vehicles, trips, routeFlows and flows)
-    static void fillCommonVehicleAttributes(GNETagProperties* tagProperties);
-
-    /// @brief fill common flow attributes (used by flows, routeFlows and personFlows)
-    static void fillCommonFlowAttributes(GNETagProperties* tagProperties, SumoXMLAttr perHour);
-
-    /// @brief fill Car Following Model of Vehicle/Person Types
-    static void fillCarFollowingModelAttributes(GNETagProperties* tagProperties);
-
-    /// @brief fill Junction Model Attributes of Vehicle/Person Types
-    static void fillJunctionModelAttributes(GNETagProperties* tagProperties);
-
-    /// @brief fill Junction Model Attributes of Vehicle/Person Types
-    static void fillLaneChangingModelAttributes(GNETagProperties* tagProperties);
-
-    /// @brief fill common person attributes (used by person and personFlows)
-    static void fillCommonPersonAttributes(GNETagProperties* tagProperties);
-
-    /// @brief fill common container attributes (used by container and containerFlows)
-    static void fillCommonContainerAttributes(GNETagProperties* tagProperties);
-
-    /// @brief fill stop person attributes
-    static void fillCommonStopAttributes(GNETagProperties* tagProperties, const bool waypoint);
-
-    /// @brief fill plan from-to attribute
-    static void fillPlanParentAttributes(GNETagProperties* tagProperties);
-
-    /// @brief fill person trip common attributes
-    static void fillPersonTripCommonAttributes(GNETagProperties* tagProperties);
-
-    /// @brief fill walk common attributes
-    static void fillWalkCommonAttributes(GNETagProperties* tagProperties);
-
-    /// @brief fill ride common attributes
-    static void fillRideCommonAttributes(GNETagProperties* tagProperties);
-
-    /// @brief fill transport common attributes
-    static void fillTransportCommonAttributes(GNETagProperties* tagProperties);
-
-    /// @brief fill ride common attributes
-    static void fillTranshipCommonAttributes(GNETagProperties* tagProperties);
-
-    /// @brief fill plan stop common attributes
-    static void fillPlanStopCommonAttributes(GNETagProperties* tagProperties);
-
-    /// @brief fill Data elements
-    static void fillDataElements();
-
-    /// @brief fill stop person attributes
-    static void fillCommonMeanDataAttributes(GNETagProperties* tagProperties);
-
-    /// @brief update max number of attributes by type
-    static void updateMaxNumberOfAttributes();
 
     /// @brief map with the tags properties
     static std::map<SumoXMLTag, GNETagProperties*> myTagProperties;

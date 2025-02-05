@@ -37,8 +37,7 @@
 // method definitions
 // ===========================================================================
 
-GNETagPropertiesDatabase::GNETagPropertiesDatabase(GNENet* net) :
-    myNet(net) {
+GNETagPropertiesDatabase::GNETagPropertiesDatabase() {
     // fill all groups of ACs
     fillNetworkElements();
     fillAdditionalElements();
@@ -78,6 +77,7 @@ GNETagPropertiesDatabase::GNETagPropertiesDatabase(GNENet* net) :
 
 
 GNETagPropertiesDatabase::~GNETagPropertiesDatabase() {
+    // delete all tag properties (this also delete all attributeProperties)
     for (auto& tagProperties : myTagProperties) {
         delete tagProperties.second;
     }

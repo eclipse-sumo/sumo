@@ -22,11 +22,8 @@
 #include <utils/common/SystemFrame.h>
 #include <utils/foxtools/MsgHandlerSynchronized.h>
 #include <utils/gui/settings/GUICompleteSchemeStorage.h>
-#include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/options/OptionsCont.h>
 #include <utils/options/OptionsIO.h>
 #include <utils/xml/XMLSubSys.h>
-#include <netedit/elements/GNEAttributeCarrier.h>
 
 #ifdef HAVE_VERSION_H
 #include <version.h>
@@ -34,6 +31,7 @@
 
 #include "GNEApplicationWindow.h"
 #include "GNELoadThread.h"
+#include "GNETagPropertiesDatabase.h"
 
 // ===========================================================================
 // main function
@@ -51,10 +49,9 @@ main(int argc, char** argv) {
     reg.read();
     gLanguage = reg.readStringEntry("gui", "language", gLanguage.c_str());
     int ret = 0;
-#ifndef _DEBUG
+    // run netedit with try-catch if we're in debug-mode
+#ifdef _DEBUG
     try {
-#else
-    {
 #endif
         // initialise subsystems
         XMLSubSys::init();
@@ -68,40 +65,42 @@ main(int argc, char** argv) {
         if (neteditOptions.processMetaOptions(false)) {
             SystemFrame::close();
             return 0;
-        }
-        if (neteditOptions.isSet("attribute-help-output")) {
-            GNEAttributeCarrier::writeAttributeHelp();
+        } else if (neteditOptions.isSet("attribute-help-output")) {
+            // just create tagPropertiesdatabase, write attribute help and finish
+            GNETagPropertiesDatabase tagPropertiesDatabase;
+            tagPropertiesDatabase.writeAttributeHelp();
             SystemFrame::close();
             return 0;
+        } else {
+            // Make application
+            FXApp application("SUMO netedit", "netedit");
+            // Open display
+            application.init(argc, argv);
+            int minor, major;
+            if (!FXGLVisual::supported(&application, major, minor)) {
+                throw ProcessError(TL("This system has no OpenGL support. Exiting."));
+            }
+            // build the main window
+            GNEApplicationWindow* window = new GNEApplicationWindow(&application, "*.netc.cfg,*.netccfg");
+            gLanguage = neteditOptions.getString("language");
+            gSchemeStorage.init(&application, true);
+            window->dependentBuild();
+            // Create app
+            application.addSignal(SIGINT, window, MID_HOTKEY_CTRL_Q_CLOSE);
+            application.create();
+            // Load configuration given on command line
+            if (argc > 1) {
+                // Set default options
+                OptionsIO::setArgs(argc, argv);
+                // load options
+                window->loadOptionOnStartup();
+            }
+            // focus window at startup
+            window->setFocus();
+            // Run
+            ret = application.run();
         }
-        // Make application
-        FXApp application("SUMO netedit", "netedit");
-        // Open display
-        application.init(argc, argv);
-        int minor, major;
-        if (!FXGLVisual::supported(&application, major, minor)) {
-            throw ProcessError(TL("This system has no OpenGL support. Exiting."));
-        }
-        // build the main window
-        GNEApplicationWindow* window = new GNEApplicationWindow(&application, "*.netc.cfg,*.netccfg");
-        gLanguage = neteditOptions.getString("language");
-        gSchemeStorage.init(&application, true);
-        window->dependentBuild();
-        // Create app
-        application.addSignal(SIGINT, window, MID_HOTKEY_CTRL_Q_CLOSE);
-        application.create();
-        // Load configuration given on command line
-        if (argc > 1) {
-            // Set default options
-            OptionsIO::setArgs(argc, argv);
-            // load options
-            window->loadOptionOnStartup();
-        }
-        // focus window at startup
-        window->setFocus();
-        // Run
-        ret = application.run();
-#ifndef _DEBUG
+#ifdef _DEBUG
     } catch (const std::exception& e) {
         if (std::string(e.what()) != std::string("")) {
             WRITE_ERROR(e.what());
@@ -111,11 +110,10 @@ main(int argc, char** argv) {
     } catch (...) {
         MsgHandler::getErrorInstance()->inform("Quitting (on unknown error).", false);
         ret = 1;
-#endif
     }
+#endif
     SystemFrame::close();
     return ret;
 }
-
 
 /****************************************************************************/
