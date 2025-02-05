@@ -88,10 +88,11 @@ const std::map<SumoXMLAttr, std::string> GNENet::EMPTY_HEADER;
 // member method definitions
 // ===========================================================================
 
-GNENet::GNENet(NBNetBuilder* netBuilder, GNETagPropertiesDatabase* tagPropertiesDatabase) :
+GNENet::GNENet(NBNetBuilder* netBuilder, const GNETagPropertiesDatabase* tagPropertiesDatabase) :
     GUIGlObject(GLO_NETWORK, "", nullptr),
     myNetBuilder(netBuilder),
-    myAttributeCarriers(new GNENetHelper::AttributeCarriers(this, tagPropertiesDatabase)),
+    myTagPropertiesDatabase(tagPropertiesDatabase),
+    myAttributeCarriers(new GNENetHelper::AttributeCarriers(this)),
     mySavingStatus(new GNENetHelper::SavingStatus(this)),
     myNetworkPathManager(new GNEPathManager(this)),
     myDemandPathManager(new GNEPathManager(this)),
@@ -118,6 +119,12 @@ GNENet::~GNENet() {
     // delete saving status
     delete mySavingStatus;
     delete myNetBuilder;
+}
+
+
+const GNETagPropertiesDatabase*
+GNENet::getTagPropertiesDatabase() const {
+    return myTagPropertiesDatabase;
 }
 
 
@@ -2633,7 +2640,7 @@ GNENet::writeRouteProbeComment(OutputDevice& device) const {
 bool
 GNENet::writeCalibratorComment(OutputDevice& device) const {
     for (const auto& additionals : myAttributeCarriers->getAdditionals()) {
-        if (myViewNet->getTagPropertiesDatabase()->getTagProperty(additionals.first)->isCalibrator() && (additionals.second.size() > 0)) {
+        if (myViewNet->getNet()->getTagPropertiesDatabase()->getTagProperty(additionals.first)->isCalibrator() && (additionals.second.size() > 0)) {
             device << ("    <!-- Calibrators -->\n");
             return true;
         }
@@ -2645,7 +2652,7 @@ GNENet::writeCalibratorComment(OutputDevice& device) const {
 bool
 GNENet::writeStoppingPlaceComment(OutputDevice& device) const {
     for (const auto& additionals : myAttributeCarriers->getAdditionals()) {
-        if (myViewNet->getTagPropertiesDatabase()->getTagProperty(additionals.first)->isStoppingPlace() && (additionals.second.size() > 0)) {
+        if (myViewNet->getNet()->getTagPropertiesDatabase()->getTagProperty(additionals.first)->isStoppingPlace() && (additionals.second.size() > 0)) {
             device << ("    <!-- StoppingPlaces -->\n");
             return true;
         }
@@ -2657,7 +2664,7 @@ GNENet::writeStoppingPlaceComment(OutputDevice& device) const {
 bool
 GNENet::writeDetectorComment(OutputDevice& device) const {
     for (const auto& additionals : myAttributeCarriers->getAdditionals()) {
-        if (myViewNet->getTagPropertiesDatabase()->getTagProperty(additionals.first)->isDetector() && (additionals.second.size() > 0)) {
+        if (myViewNet->getNet()->getTagPropertiesDatabase()->getTagProperty(additionals.first)->isDetector() && (additionals.second.size() > 0)) {
             device << ("    <!-- Detectors -->\n");
             return true;
         }
@@ -2669,10 +2676,10 @@ GNENet::writeDetectorComment(OutputDevice& device) const {
 bool
 GNENet::writeOtherAdditionalsComment(OutputDevice& device) const {
     for (const auto& additionals : myAttributeCarriers->getAdditionals()) {
-        if (myViewNet->getTagPropertiesDatabase()->getTagProperty(additionals.first)->isAdditionalPureElement() &&
-                !myViewNet->getTagPropertiesDatabase()->getTagProperty(additionals.first)->isStoppingPlace() &&
-                !myViewNet->getTagPropertiesDatabase()->getTagProperty(additionals.first)->isDetector() &&
-                !myViewNet->getTagPropertiesDatabase()->getTagProperty(additionals.first)->isCalibrator() &&
+        if (myViewNet->getNet()->getTagPropertiesDatabase()->getTagProperty(additionals.first)->isAdditionalPureElement() &&
+                !myViewNet->getNet()->getTagPropertiesDatabase()->getTagProperty(additionals.first)->isStoppingPlace() &&
+                !myViewNet->getNet()->getTagPropertiesDatabase()->getTagProperty(additionals.first)->isDetector() &&
+                !myViewNet->getNet()->getTagPropertiesDatabase()->getTagProperty(additionals.first)->isCalibrator() &&
                 (additionals.first != SUMO_TAG_ROUTEPROBE) && (additionals.first != SUMO_TAG_ACCESS) &&
                 (additionals.first != SUMO_TAG_PARKING_SPACE) && (additionals.second.size() > 0)) {
             device << ("    <!-- Other additionals -->\n");
@@ -2686,8 +2693,8 @@ GNENet::writeOtherAdditionalsComment(OutputDevice& device) const {
 bool
 GNENet::writeShapesComment(OutputDevice& device) const {
     for (const auto& additionals : myAttributeCarriers->getAdditionals()) {
-        if (myViewNet->getTagPropertiesDatabase()->getTagProperty(additionals.first)->isShapeElement() &&
-                !myViewNet->getTagPropertiesDatabase()->getTagProperty(additionals.first)->isJuPedSimElement() &&
+        if (myViewNet->getNet()->getTagPropertiesDatabase()->getTagProperty(additionals.first)->isShapeElement() &&
+                !myViewNet->getNet()->getTagPropertiesDatabase()->getTagProperty(additionals.first)->isJuPedSimElement() &&
                 (additionals.second.size() > 0)) {
             device << ("    <!-- Shapes -->\n");
             return true;
@@ -2700,7 +2707,7 @@ GNENet::writeShapesComment(OutputDevice& device) const {
 bool
 GNENet::writeJuPedSimComment(OutputDevice& device) const {
     for (const auto& additionals : myAttributeCarriers->getAdditionals()) {
-        if (myViewNet->getTagPropertiesDatabase()->getTagProperty(additionals.first)->isJuPedSimElement() && (additionals.second.size() > 0)) {
+        if (myViewNet->getNet()->getTagPropertiesDatabase()->getTagProperty(additionals.first)->isJuPedSimElement() && (additionals.second.size() > 0)) {
             device << ("    <!-- JuPedSim elements -->\n");
             return true;
         }

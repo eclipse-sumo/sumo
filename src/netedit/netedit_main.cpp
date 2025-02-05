@@ -61,7 +61,7 @@ main(int argc, char** argv) {
         // set default options
         GNELoadThread::setDefaultOptions(neteditOptions);
         // create tagPropertiesdatabase
-        GNETagPropertiesDatabase* tagPropertiesDatabase = new GNETagPropertiesDatabase();
+        const GNETagPropertiesDatabase* tagPropertiesDatabase = new GNETagPropertiesDatabase();
         // set arguments called through console
         OptionsIO::setArgs(argc, argv);
         OptionsIO::getOptions(true);

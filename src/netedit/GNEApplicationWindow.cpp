@@ -453,7 +453,7 @@ FXIMPLEMENT(GNEApplicationWindow, FXMainWindow, GNEApplicationWindowMap, ARRAYNU
 // GNEApplicationWindow method definitions
 // ===========================================================================
 
-GNEApplicationWindow::GNEApplicationWindow(FXApp* app, GNETagPropertiesDatabase* tagPropertiesDatabase, const std::string& configPattern) :
+GNEApplicationWindow::GNEApplicationWindow(FXApp* app, const GNETagPropertiesDatabase* tagPropertiesDatabase, const std::string& configPattern) :
     GUIMainWindow(app),
     myTagPropertiesDatabase(tagPropertiesDatabase),
     myUndoList(new GNEUndoList(this)),
@@ -1505,7 +1505,7 @@ GNEApplicationWindow::getTrackerInterval() const {
 }
 
 
-GNETagPropertiesDatabase*
+const GNETagPropertiesDatabase*
 GNEApplicationWindow::getTagPropertiesDatabase() const {
     return myTagPropertiesDatabase;
 }

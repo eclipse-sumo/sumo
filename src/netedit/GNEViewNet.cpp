@@ -1849,12 +1849,6 @@ GNEViewNet::getNet() const {
 }
 
 
-GNETagPropertiesDatabase*
-GNEViewNet::getTagPropertiesDatabase() const {
-    return myViewParent->getGNEAppWindows()->getTagPropertiesDatabase();
-}
-
-
 GNEUndoList*
 GNEViewNet::getUndoList() const {
     return myUndoList;

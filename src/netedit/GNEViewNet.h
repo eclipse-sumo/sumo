@@ -533,9 +533,6 @@ public:
     /// @brief get the net object
     GNENet* getNet() const;
 
-    /// @brief get tag properties database (Shortcut)
-    GNETagPropertiesDatabase* getTagPropertiesDatabase() const;
-
     /// @brief get the undoList object
     GNEUndoList* getUndoList() const;
 

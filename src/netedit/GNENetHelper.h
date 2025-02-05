@@ -62,7 +62,6 @@ class GNENet;
 class GNENetworkElement;
 class GNEPOI;
 class GNEPoly;
-class GNETagPropertiesDatabase;
 class GNEUndoList;
 class GNEViewNet;
 class GNEWalkingArea;
@@ -102,7 +101,7 @@ struct GNENetHelper {
 
     public:
         /// @brief constructor
-        AttributeCarriers(GNENet* net, GNETagPropertiesDatabase* tagPropertiesDatabase);
+        AttributeCarriers(GNENet* net);
 
         /// @brief destructor
         ~AttributeCarriers();

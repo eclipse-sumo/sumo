@@ -97,7 +97,7 @@ GNEMatchAttribute::disableMatchAttribute() {
 
 void
 GNEMatchAttribute::showMatchAttribute(const GNEElementSet::Type type) {
-    const auto tagPropertiesDatabase = myElementSet->getSelectorFrameParent()->getViewNet()->getTagPropertiesDatabase();
+    const auto tagPropertiesDatabase = myElementSet->getSelectorFrameParent()->getViewNet()->getNet()->getTagPropertiesDatabase();
     // declare flag for proj
     const bool proj = (GeoConvHelper::getFinal().getProjString() != "!");
     // get tags for the given element set
@@ -165,7 +165,7 @@ long
 GNEMatchAttribute::onCmdSelMBAttribute(FXObject*, FXSelector, void*) {
     // set current selected attributeProperty
     myCurrentAttribute = SUMO_ATTR_NOTHING;
-    for (const auto attributeProperty : myElementSet->getSelectorFrameParent()->getViewNet()->getTagPropertiesDatabase()->getTagProperty(myCurrentTag)->getAttributeProperties()) {
+    for (const auto attributeProperty : myElementSet->getSelectorFrameParent()->getViewNet()->getNet()->getTagPropertiesDatabase()->getTagProperty(myCurrentTag)->getAttributeProperties()) {
         if (attributeProperty->getAttrStr() == myMatchAttrComboBox->getText().text()) {
             myCurrentAttribute = attributeProperty->getAttr();
         }
@@ -188,7 +188,7 @@ long
 GNEMatchAttribute::onCmdSelMBString(FXObject*, FXSelector, void*) {
     // obtain expresion
     std::string expr(myMatchString->getText().text());
-    const auto tagProperty = myElementSet->getSelectorFrameParent()->getViewNet()->getTagPropertiesDatabase()->getTagProperty(myCurrentTag);
+    const auto tagProperty = myElementSet->getSelectorFrameParent()->getViewNet()->getNet()->getTagPropertiesDatabase()->getTagProperty(myCurrentTag);
     bool valid = true;
     if (expr == "") {
         // the empty expression matches all objects
@@ -319,7 +319,7 @@ GNEMatchAttribute::updateAttribute() {
     // first check if tag is valid
     if (myCurrentTag != SUMO_TAG_NOTHING) {
         // now continue with attributes
-        const auto tagProperty = myElementSet->getSelectorFrameParent()->getViewNet()->getTagPropertiesDatabase()->getTagProperty(myCurrentTag);
+        const auto tagProperty = myElementSet->getSelectorFrameParent()->getViewNet()->getNet()->getTagPropertiesDatabase()->getTagProperty(myCurrentTag);
         // set color and enable items
         myMatchAttrComboBox->enable();
         myMatchAttrComboBox->setTextColor(FXRGB(0, 0, 0));

@@ -47,7 +47,7 @@ public:
      * @param[in] tagPropertiesDatabase pointer to tag properties database
      * @param[in] configPattern The pattern used for loading configurations
      */
-    GNEApplicationWindow(FXApp* app, GNETagPropertiesDatabase* tagPropertiesDatabase, const std::string& configPattern);
+    GNEApplicationWindow(FXApp* app, const GNETagPropertiesDatabase* tagPropertiesDatabase, const std::string& configPattern);
 
     /// @brief Destructor
     ~GNEApplicationWindow();
@@ -549,7 +549,7 @@ public:
     FXCursor* getDefaultCursor();
 
     /// @brief get tag properties database
-    GNETagPropertiesDatabase* getTagPropertiesDatabase() const;
+    const GNETagPropertiesDatabase* getTagPropertiesDatabase() const;
 
     /// @brief get pointer to undoList
     GNEUndoList* getUndoList();
@@ -702,7 +702,7 @@ protected:
     bool myHadDependentBuild = false;
 
     /// @brief tagProperties database
-    GNETagPropertiesDatabase* myTagPropertiesDatabase = nullptr;
+    const GNETagPropertiesDatabase* myTagPropertiesDatabase = nullptr;
 
     /// @brief we are responsible for the net
     GNENet* myNet = nullptr;

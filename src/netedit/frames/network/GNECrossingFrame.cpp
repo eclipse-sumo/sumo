@@ -220,7 +220,7 @@ GNECrossingFrame::CrossingParameters::~CrossingParameters() {
 void
 GNECrossingFrame::CrossingParameters::enableCrossingParameters(bool hasTLS) {
     // obtain Tag Values
-    const auto crossingTagProperties = myCrossingFrameParent->getViewNet()->getTagPropertiesDatabase()->getTagProperty(SUMO_TAG_CROSSING);
+    const auto crossingTagProperties = myCrossingFrameParent->getViewNet()->getNet()->getTagPropertiesDatabase()->getTagProperty(SUMO_TAG_CROSSING);
     // Enable all elements of the crossing frames
     myCrossingEdgesLabel->enable();
     myCrossingEdges->enable();

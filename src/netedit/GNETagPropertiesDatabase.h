@@ -45,13 +45,13 @@ public:
     ~GNETagPropertiesDatabase();
 
     /// @brief get tagProperty associated to the given tag
-    GNETagProperties* getTagProperty(SumoXMLTag tag);
+    GNETagProperties* getTagProperty(SumoXMLTag tag) const;
 
     /// @brief get tagProperties associated to the given GNETagProperties::TagType (NETWORKELEMENT, ADDITIONALELEMENT, VEHICLE, etc.)
-    const std::vector<const GNETagProperties*> getTagPropertiesByType(const int tagPropertyCategory, const bool mergeCommonPlans);
+    const std::vector<const GNETagProperties*> getTagPropertiesByType(const int tagPropertyCategory, const bool mergeCommonPlans) const;
 
     /// @brief get tagProperties associated to the given merging tag
-    const std::vector<const GNETagProperties*> getTagPropertiesByMergingTag(SumoXMLTag mergingTag);
+    const std::vector<const GNETagProperties*> getTagPropertiesByMergingTag(SumoXMLTag mergingTag) const;
 
     /// @brief max number of editable (non extended) attributes
     int getMaxNumberOfEditableAttributes() const;
@@ -66,7 +66,7 @@ public:
     int getMaxNumberOfNeteditAttributes() const;
 
     /// @brief write machine readable attribute help to file
-    void writeAttributeHelp();
+    void writeAttributeHelp() const;
 
 protected:
     /// @brief fill network elements

@@ -1739,7 +1739,7 @@ GNERouteHandler::transformToRouteFlow(GNEVehicle* originalVehicle, bool createEm
         // first delete vehicle
         net->deleteDemandElement(originalVehicle, net->getViewNet()->getUndoList());
         // change depart
-        if (!originalVehicle->getNet()->getViewNet()->getTagPropertiesDatabase()->getTagProperty(vehicleParameters.tag)->isFlow()) {
+        if (!originalVehicle->getNet()->getViewNet()->getNet()->getTagPropertiesDatabase()->getTagProperty(vehicleParameters.tag)->isFlow()) {
             // get template flow
             const auto templateFlow = net->getViewNet()->getViewParent()->getVehicleFrame()->getVehicleTagSelector()->getTemplateAC(GNE_TAG_FLOW_ROUTE);
             // set flow parameters
@@ -1887,7 +1887,7 @@ GNERouteHandler::transformToFlow(GNEVehicle* originalVehicle) {
             net->deleteDemandElement(route, net->getViewNet()->getUndoList());
         }
         // change depart
-        if (!originalVehicle->getNet()->getViewNet()->getTagPropertiesDatabase()->getTagProperty(vehicleParameters.tag)->isFlow()) {
+        if (!originalVehicle->getNet()->getViewNet()->getNet()->getTagPropertiesDatabase()->getTagProperty(vehicleParameters.tag)->isFlow()) {
             // get template flow
             const auto templateFlow = net->getViewNet()->getViewParent()->getVehicleFrame()->getVehicleTagSelector()->getTemplateAC(GNE_TAG_FLOW_ROUTE);
             // set flow parameters

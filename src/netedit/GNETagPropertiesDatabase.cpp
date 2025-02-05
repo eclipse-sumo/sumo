@@ -77,7 +77,7 @@ GNETagPropertiesDatabase::~GNETagPropertiesDatabase() {
 
 
 GNETagProperties*
-GNETagPropertiesDatabase::getTagProperty(SumoXMLTag tag) {
+GNETagPropertiesDatabase::getTagProperty(SumoXMLTag tag) const {
     // check that tag is defined
     if (myTagProperties.count(tag) == 0) {
         if (myMergedPlanTagProperties.count(tag) == 0) {
@@ -92,7 +92,7 @@ GNETagPropertiesDatabase::getTagProperty(SumoXMLTag tag) {
 
 
 const std::vector<const GNETagProperties*>
-GNETagPropertiesDatabase::getTagPropertiesByType(const int tagPropertyCategory, const bool mergeCommonPlans) {
+GNETagPropertiesDatabase::getTagPropertiesByType(const int tagPropertyCategory, const bool mergeCommonPlans) const {
     std::vector<const GNETagProperties*> allowedTags;
     if (tagPropertyCategory & GNETagProperties::TagType::NETWORKELEMENT) {
         // fill networkElements tags
@@ -310,7 +310,7 @@ GNETagPropertiesDatabase::getTagPropertiesByType(const int tagPropertyCategory, 
 
 
 const std::vector<const GNETagProperties*>
-GNETagPropertiesDatabase::getTagPropertiesByMergingTag(SumoXMLTag mergingTag) {
+GNETagPropertiesDatabase::getTagPropertiesByMergingTag(SumoXMLTag mergingTag) const {
     std::vector<const GNETagProperties*> result;
     // fill tags
     for (const auto& tagProperty : myTagProperties) {
@@ -359,7 +359,7 @@ GNETagPropertiesDatabase::getMaxNumberOfNeteditAttributes() const {
 
 
 void
-GNETagPropertiesDatabase::writeAttributeHelp() {
+GNETagPropertiesDatabase::writeAttributeHelp() const {
     // merge "virtual" netedit tags like  '<walk: edge->edge'
     static std::map<SumoXMLTag, GNETagProperties*> mergedAttributeProperties;
     for (const auto& tagPropertyItem : myTagProperties) {

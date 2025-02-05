@@ -43,10 +43,13 @@ class GNENet : public GUIGlObject {
 
 public:
     /// @brief constructor
-    GNENet(NBNetBuilder* netBuilder, GNETagPropertiesDatabase* tagPropertiesDatabase);
+    GNENet(NBNetBuilder* netBuilder, const GNETagPropertiesDatabase* tagPropertiesDatabase);
 
     /// @brief Destructor
     ~GNENet();
+
+    /// @brief get tag properties database
+    const GNETagPropertiesDatabase* getTagPropertiesDatabase() const;
 
     /// @brief get all attribute carriers used in this net
     GNENetHelper::AttributeCarriers* getAttributeCarriers() const;
@@ -500,6 +503,9 @@ protected:
 
     /// @brief The net to be notified of about changes
     GNEViewNet* myViewNet = nullptr;
+
+    /// @brief pointer to tagProperties database
+    const GNETagPropertiesDatabase* myTagPropertiesDatabase = nullptr;
 
     /// @brief AttributeCarriers of net
     GNENetHelper::AttributeCarriers* myAttributeCarriers = nullptr;
