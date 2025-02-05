@@ -20,10 +20,8 @@
 #pragma once
 #include <config.h>
 
-#include <config.h>
 #include <netbuild/NBEdge.h>
 #include <netedit/frames/GNEFrame.h>
-
 
 // ===========================================================================
 // class definitions
