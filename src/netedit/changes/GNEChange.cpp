@@ -41,8 +41,8 @@ GNEChange::GNEChange(Supermode supermode, bool forward, const bool selectedEleme
 
 GNEChange::GNEChange(Supermode supermode, GNEHierarchicalElement* hierarchicalElement, bool forward, const bool selectedElement) :
     mySupermode(supermode),
-    myParents(hierarchicalElement->getParents()),
     myForward(forward),
+    myParents(hierarchicalElement->getParents()),
     mySelectedElement(selectedElement),
     next(nullptr) {
     // if we're creating the element, clear hierarchical elements (because parent and children will be added in undo-redo)

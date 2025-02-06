@@ -62,14 +62,18 @@ GNEChange_Junction::undo() {
         if (mySelectedElement) {
             myJunction->unselectAttributeCarrier();
         }
-        // add junction to net
+        // delete junction from net
         myJunction->getNet()->getAttributeCarriers()->deleteSingleJunction(myJunction);
+        // remove element from parent and children
+        removeElementFromParentsAndChildren(myJunction);
     } else {
         // select if mySelectedElement is enabled
         if (mySelectedElement) {
             myJunction->selectAttributeCarrier();
         }
-        // delete junction from net
+        // add element in parent and children
+        addElementInParentsAndChildren(myJunction);
+        // insert junction in net
         myJunction->getNet()->getAttributeCarriers()->insertJunction(myJunction);
     }
     // enable save networkElements
@@ -84,6 +88,8 @@ GNEChange_Junction::redo() {
         if (mySelectedElement) {
             myJunction->selectAttributeCarrier();
         }
+        // add element in parent and children
+        addElementInParentsAndChildren(myJunction);
         // add junction into net
         myJunction->getNet()->getAttributeCarriers()->insertJunction(myJunction);
     } else {
@@ -91,8 +97,12 @@ GNEChange_Junction::redo() {
         if (mySelectedElement) {
             myJunction->unselectAttributeCarrier();
         }
+        // add element in parent and children
+        addElementInParentsAndChildren(myJunction);
         // delete junction from net
         myJunction->getNet()->getAttributeCarriers()->deleteSingleJunction(myJunction);
+        // remove element from parent and children
+        removeElementFromParentsAndChildren(myJunction);
     }
     // enable save networkElements
     myJunction->getNet()->getSavingStatus()->requireSaveNetwork();
