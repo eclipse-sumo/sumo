@@ -45,6 +45,7 @@ public:
 
     /// @name inherited from GNEChange
     /// @{
+
     /// @brief get undo Name
     std::string undoName() const;
 
@@ -56,6 +57,7 @@ public:
 
     /// @brief redo action
     void redo();
+
     /// @}
 
 private:

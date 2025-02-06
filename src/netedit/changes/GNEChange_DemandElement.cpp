@@ -68,24 +68,24 @@ GNEChange_DemandElement::undo() {
         }
         // delete demand element from net
         myDemandElement->getNet()->getAttributeCarriers()->deleteDemandElement(myDemandElement, true);
-        // restore container
-        restoreHierarchicalContainers();
+        // remove element from parent and children
+        removeElementFromParentsAndChildren(myDemandElement);
     } else {
         // select if mySelectedElement is enabled
         if (mySelectedElement) {
             myDemandElement->selectAttributeCarrier();
         }
+        // add element in parent and children
+        addElementInParentsAndChildren(myDemandElement);
         // insert demand element into net
         myDemandElement->getNet()->getAttributeCarriers()->insertDemandElement(myDemandElement);
-        // restore container
-        restoreHierarchicalContainers();
     }
     // update vehicle type selector if demand element is a VType and vehicle type Frame is shown
     if ((myDemandElement->getTagProperty()->getTag() == SUMO_TAG_VTYPE) && myDemandElement->getNet()->getViewNet()->getViewParent()->getTypeFrame()->shown()) {
         myDemandElement->getNet()->getViewNet()->getViewParent()->getTypeFrame()->getTypeSelector()->refreshTypeSelector(true);
     }
     // update stack labels
-    const auto parentEdges = myOriginalHierarchicalContainer.getParents<GNEEdge*>();
+    const auto parentEdges = myParents.getParents<GNEEdge*>();
     if (parentEdges.size() > 0) {
         parentEdges.front()->updateVehicleStackLabels();
         parentEdges.front()->updatePersonStackLabels();
@@ -103,10 +103,10 @@ GNEChange_DemandElement::redo() {
         if (mySelectedElement) {
             myDemandElement->selectAttributeCarrier();
         }
+        // add element in parent and children
+        addElementInParentsAndChildren(myDemandElement);
         // insert demand element into net
         myDemandElement->getNet()->getAttributeCarriers()->insertDemandElement(myDemandElement);
-        // add demand element in parents and children
-        addElementInParentsAndChildren(myDemandElement);
     } else {
         // unselect if mySelectedElement is enabled
         if (mySelectedElement) {
@@ -114,7 +114,7 @@ GNEChange_DemandElement::redo() {
         }
         // delete demand element from net
         myDemandElement->getNet()->getAttributeCarriers()->deleteDemandElement(myDemandElement, true);
-        // remove demand element from parents and children
+        // remove element from parent and children
         removeElementFromParentsAndChildren(myDemandElement);
     }
     // update vehicle type selector if demand element is a VType and vehicle type Frame is shown
@@ -122,7 +122,7 @@ GNEChange_DemandElement::redo() {
         myDemandElement->getNet()->getViewNet()->getViewParent()->getTypeFrame()->getTypeSelector()->refreshTypeSelector(true);
     }
     // update stack labels
-    const auto parentEdges = myOriginalHierarchicalContainer.getParents<GNEEdge*>();
+    const auto parentEdges = myParents.getParents<GNEEdge*>();
     if (parentEdges.size() > 0) {
         parentEdges.front()->updateVehicleStackLabels();
         parentEdges.front()->updatePersonStackLabels();

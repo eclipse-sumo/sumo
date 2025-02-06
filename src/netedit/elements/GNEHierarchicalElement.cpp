@@ -53,7 +53,7 @@ GNEHierarchicalElement::getHierarchicalElement() {
 
 
 const GNEHierarchicalStructureParents
-GNEHierarchicalElement::getHierarchicalStructureParents() const {
+GNEHierarchicalElement::getParents() const {
     return myHierarchicalStructureParents;
 }
 

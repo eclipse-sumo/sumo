@@ -84,8 +84,6 @@ GNEChange_Lane::undo() {
             if (mySelectedElement) {
                 myLane->unselectAttributeCarrier();
             }
-            // restore container
-            restoreHierarchicalContainers();
         }
         // remove lane from edge (note: myLane can be nullptr)
         myEdge->removeLane(myLane, false);
@@ -96,8 +94,6 @@ GNEChange_Lane::undo() {
             if (mySelectedElement) {
                 myLane->selectAttributeCarrier();
             }
-            // restore container
-            restoreHierarchicalContainers();
         }
         // add lane and their attributes to edge (lane removal is reverted, no need to recompute connections)
         myEdge->addLane(myLane, myLaneAttrs, false);
@@ -116,8 +112,6 @@ GNEChange_Lane::redo() {
             if (mySelectedElement) {
                 myLane->selectAttributeCarrier();
             }
-            // add lane into parents and children
-            addElementInParentsAndChildren(myLane);
         }
         // add lane and their attributes to edge
         myEdge->addLane(myLane, myLaneAttrs, myRecomputeConnections);
@@ -128,8 +122,6 @@ GNEChange_Lane::redo() {
             if (mySelectedElement) {
                 myLane->unselectAttributeCarrier();
             }
-            // remove lane from parents and children
-            removeElementFromParentsAndChildren(myLane);
         }
         // remove lane from edge
         myEdge->removeLane(myLane, myRecomputeConnections);

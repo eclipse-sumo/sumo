@@ -67,17 +67,17 @@ GNEChange_TAZSourceSink::undo() {
         }
         // delete sourceSink from net
         mySourceSink->getNet()->getAttributeCarriers()->deleteAdditional(mySourceSink);
-        // restore container
-        restoreHierarchicalContainers();
+        // remove element from parent and children
+        removeElementFromParentsAndChildren(mySourceSink);
     } else {
         // select if mySelectedElement is enabled
         if (mySelectedElement) {
             mySourceSink->selectAttributeCarrier();
         }
+        // add element in parent and children
+        addElementInParentsAndChildren(mySourceSink);
         // insert sourceSink into net
         mySourceSink->getNet()->getAttributeCarriers()->insertAdditional(mySourceSink);
-        // restore container
-        restoreHierarchicalContainers();
     }
     // require always save sourceSinks
     mySourceSink->getNet()->getSavingStatus()->requireSaveAdditionals();
@@ -91,10 +91,10 @@ GNEChange_TAZSourceSink::redo() {
         if (mySelectedElement) {
             mySourceSink->selectAttributeCarrier();
         }
+        // add element in parent and children
+        addElementInParentsAndChildren(mySourceSink);
         // insert sourceSink into net
         mySourceSink->getNet()->getAttributeCarriers()->insertAdditional(mySourceSink);
-        // add sourceSink in parent elements
-        addElementInParentsAndChildren(mySourceSink);
     } else {
         // unselect if mySelectedElement is enabled
         if (mySelectedElement) {
@@ -102,7 +102,7 @@ GNEChange_TAZSourceSink::redo() {
         }
         // delete sourceSink from net
         mySourceSink->getNet()->getAttributeCarriers()->deleteAdditional(mySourceSink);
-        // remove sourceSink from parents and children
+        // remove element from parent and children
         removeElementFromParentsAndChildren(mySourceSink);
     }
     // require always save sourceSinks

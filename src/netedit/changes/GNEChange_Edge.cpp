@@ -41,15 +41,6 @@ GNEChange_Edge::GNEChange_Edge(GNEEdge* edge, bool forward):
     GNEChange(Supermode::NETWORK, edge, forward, edge->isAttributeCarrierSelected()),
     myEdge(edge) {
     edge->incRef("GNEChange_Edge");
-    // save all hierarchical elements of edge's lane
-    for (const auto& lane : edge->getLanes()) {
-        myLaneParentAdditionals.push_back(lane->getParentAdditionals());
-        myLaneParentDemandElements.push_back(lane->getParentDemandElements());
-        myLaneParentGenericData.push_back(lane->getParentGenericDatas());
-        myChildLaneAdditionals.push_back(lane->getChildAdditionals());
-        myChildLaneDemandElements.push_back(lane->getChildDemandElements());
-        myChildLaneGenericData.push_back(lane->getChildGenericDatas());
-    }
 }
 
 
@@ -72,23 +63,19 @@ GNEChange_Edge::undo() {
         if (mySelectedElement) {
             myEdge->unselectAttributeCarrier();
         }
-        // restore container
-        restoreHierarchicalContainers();
-        // remove edge lanes from parents and children
-        removeEdgeLanes();
         // delete edge from net
         myEdge->getNet()->getAttributeCarriers()->deleteSingleEdge(myEdge);
+        // remove element from parent and children
+        removeElementFromParentsAndChildren(myEdge);
     } else {
         // select if mySelectedElement is enabled
         if (mySelectedElement) {
             myEdge->selectAttributeCarrier();
         }
+        // add element in parent and children
+        addElementInParentsAndChildren(myEdge);
         // insert edge into net
         myEdge->getNet()->getAttributeCarriers()->insertEdge(myEdge);
-        // restore container
-        restoreHierarchicalContainers();
-        // add edge lanes into parents and children
-        addEdgeLanes();
     }
     // enable save networkElements
     myEdge->getNet()->getSavingStatus()->requireSaveNetwork();
@@ -102,23 +89,19 @@ GNEChange_Edge::redo() {
         if (mySelectedElement) {
             myEdge->selectAttributeCarrier();
         }
+        // add element in parent and children
+        addElementInParentsAndChildren(myEdge);
         // insert edge into net
         myEdge->getNet()->getAttributeCarriers()->insertEdge(myEdge);
-        // add edge into parents and children
-        addElementInParentsAndChildren(myEdge);
-        // add edge lanes into parents and children
-        addEdgeLanes();
     } else {
         // unselect if mySelectedElement is enabled
         if (mySelectedElement) {
             myEdge->unselectAttributeCarrier();
         }
-        // remove edge from parents and children
-        removeElementFromParentsAndChildren(myEdge);
-        // remove edge lanes from parents and children
-        removeEdgeLanes();
         // delete edge from net
         myEdge->getNet()->getAttributeCarriers()->deleteSingleEdge(myEdge);
+        // remove element from parent and children
+        removeElementFromParentsAndChildren(myEdge);
     }
     // enable save networkElements
     myEdge->getNet()->getSavingStatus()->requireSaveNetwork();
@@ -141,62 +124,5 @@ GNEChange_Edge::redoName() const {
         return (TL("Redo create edge '") + myEdge->getID() + "'");
     } else {
         return (TL("Redo delete edge '") + myEdge->getID() + "'");
-    }
-}
-
-
-
-void
-GNEChange_Edge::addEdgeLanes() {
-    // iterate over edge lanes
-    for (int i = 0; i < (int)myEdge->getLanes().size(); i++) {
-        // add lane's edge in parent elements
-        for (const auto& additionalParent : myLaneParentAdditionals.at(i)) {
-            additionalParent->addChildElement(myEdge->getLanes().at(i));
-        }
-        for (const auto& demandParent : myLaneParentDemandElements.at(i)) {
-            demandParent->addChildElement(myEdge->getLanes().at(i));
-        }
-        for (const auto& genericParent : myLaneParentGenericData.at(i)) {
-            genericParent->addChildElement(myEdge->getLanes().at(i));
-        }
-        // add lane's edge in child elements
-        for (const auto& additionalChild : myChildLaneAdditionals.at(i)) {
-            additionalChild->addParentElement(myEdge->getLanes().at(i));
-        }
-        for (const auto& demandChild : myChildLaneDemandElements.at(i)) {
-            demandChild->addParentElement(myEdge->getLanes().at(i));
-        }
-        for (const auto& genericChild : myChildLaneGenericData.at(i)) {
-            genericChild->addParentElement(myEdge->getLanes().at(i));
-        }
-    }
-}
-
-
-void
-GNEChange_Edge::removeEdgeLanes() {
-    // iterate over edge lanes
-    for (int i = 0; i < (int)myEdge->getLanes().size(); i++) {
-        // Remove every lane's edge from parent elements
-        for (const auto& additionalParent : myLaneParentAdditionals.at(i)) {
-            additionalParent->removeChildElement(myEdge->getLanes().at(i));
-        }
-        for (const auto& demandParent : myLaneParentDemandElements.at(i)) {
-            demandParent->removeChildElement(myEdge->getLanes().at(i));
-        }
-        for (const auto& genericParent : myLaneParentGenericData.at(i)) {
-            genericParent->removeChildElement(myEdge->getLanes().at(i));
-        }
-        // Remove every lane's edge from child elements
-        for (const auto& additionalChild : myChildLaneAdditionals.at(i)) {
-            additionalChild->removeParentElement(myEdge->getLanes().at(i));
-        }
-        for (const auto& demandChild : myChildLaneDemandElements.at(i)) {
-            demandChild->removeParentElement(myEdge->getLanes().at(i));
-        }
-        for (const auto& genericChild : myChildLaneGenericData.at(i)) {
-            genericChild->removeParentElement(myEdge->getLanes().at(i));
-        }
     }
 }

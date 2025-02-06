@@ -37,7 +37,7 @@ FXIMPLEMENT_ABSTRACT(GNEChange_MeanData, GNEChange, nullptr, 0)
 // ===========================================================================
 
 GNEChange_MeanData::GNEChange_MeanData(GNEMeanData* meanData, bool forward) :
-    GNEChange(Supermode::DATA, meanData, forward, meanData->isAttributeCarrierSelected()),
+    GNEChange(Supermode::DATA, forward, meanData->isAttributeCarrierSelected()),
     myMeanData(meanData) {
     myMeanData->incRef("GNEChange_MeanData");
 }

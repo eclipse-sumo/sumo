@@ -67,17 +67,17 @@ GNEChange_Additional::undo() {
         }
         // delete additional from net
         myAdditional->getNet()->getAttributeCarriers()->deleteAdditional(myAdditional);
-        // restore container
-        restoreHierarchicalContainers();
+        // remove element from parent and children
+        removeElementFromParentsAndChildren(myAdditional);
     } else {
         // select if mySelectedElement is enabled
         if (mySelectedElement) {
             myAdditional->selectAttributeCarrier();
         }
+        // add element in parent and children
+        addElementInParentsAndChildren(myAdditional);
         // insert additional into net
         myAdditional->getNet()->getAttributeCarriers()->insertAdditional(myAdditional);
-        // restore container
-        restoreHierarchicalContainers();
     }
     // require always save additionals
     myAdditional->getNet()->getSavingStatus()->requireSaveAdditionals();
@@ -91,10 +91,10 @@ GNEChange_Additional::redo() {
         if (mySelectedElement) {
             myAdditional->selectAttributeCarrier();
         }
+        // add element in parent and children
+        addElementInParentsAndChildren(myAdditional);
         // insert additional into net
         myAdditional->getNet()->getAttributeCarriers()->insertAdditional(myAdditional);
-        // add additional in parent elements
-        addElementInParentsAndChildren(myAdditional);
     } else {
         // unselect if mySelectedElement is enabled
         if (mySelectedElement) {
@@ -102,7 +102,7 @@ GNEChange_Additional::redo() {
         }
         // delete additional from net
         myAdditional->getNet()->getAttributeCarriers()->deleteAdditional(myAdditional);
-        // remove additional from parents and children
+        // remove element from parent and children
         removeElementFromParentsAndChildren(myAdditional);
     }
     // require always save additionals
