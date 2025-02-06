@@ -52,17 +52,15 @@ GNEHierarchicalStructureParents::GNEHierarchicalStructureParents(
 }
 
 
-size_t
-GNEHierarchicalStructureParents::getContainerSize() const {
-    return (
-               myParentJunctions.size() +
-               myParentEdges.size() +
-               myParentLanes.size() +
-               myParentAdditionals.size() +
-               myParentTAZSourceSinks.size() +
-               myParentDemandElements.size() +
-               myParentGenericDatas.size()
-           );
+void
+GNEHierarchicalStructureParents::clear() {
+    myParentJunctions.clear();
+    myParentEdges.clear();
+    myParentLanes.clear();
+    myParentAdditionals.clear();
+    myParentTAZSourceSinks.clear();
+    myParentDemandElements.clear();
+    myParentGenericDatas.clear();
 }
 
 

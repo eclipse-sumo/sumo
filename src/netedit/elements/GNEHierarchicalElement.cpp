@@ -52,60 +52,15 @@ GNEHierarchicalElement::getHierarchicalElement() {
 }
 
 
-const GNEHierarchicalStructureParents&
+const GNEHierarchicalStructureParents
 GNEHierarchicalElement::getHierarchicalStructureParents() const {
     return myHierarchicalStructureParents;
 }
 
 
-std::vector<GNEHierarchicalElement*>
-GNEHierarchicalElement::getAllHierarchicalElements() const {
-    // declare result
-    std::vector<GNEHierarchicalElement*> result;
-    // reserve
-    result.reserve(myHierarchicalStructureParents.getContainerSize() + myHierarchicalStructureChildren.getContainerSize());
-    // add parent elements
-    for (const auto& element : getParentJunctions()) {
-        result.push_back(element);
-    }
-    for (const auto& element : getParentEdges()) {
-        result.push_back(element);
-    }
-    for (const auto& element : getParentLanes()) {
-        result.push_back(element);
-    }
-    for (const auto& element : getParentAdditionals()) {
-        result.push_back(element);
-    }
-    for (const auto& element : getParentDemandElements()) {
-        result.push_back(element);
-    }
-    for (const auto& element : getParentGenericDatas()) {
-        result.push_back(element);
-    }
-    // add child elements
-    for (const auto& element : getChildJunctions()) {
-        result.push_back(element);
-    }
-    for (const auto& element : getChildEdges()) {
-        result.push_back(element);
-    }
-    for (const auto& element : getChildLanes()) {
-        result.push_back(element);
-    }
-    for (const auto& element : getChildAdditionals()) {
-        result.push_back(element);
-    }
-    for (const auto& element : getChildTAZSourceSinks()) {
-        result.push_back(element);
-    }
-    for (const auto& element : getChildDemandElements()) {
-        result.push_back(element);
-    }
-    for (const auto& element : getChildGenericDatas()) {
-        result.push_back(element);
-    }
-    return result;
+void
+GNEHierarchicalElement::clear() {
+    myHierarchicalStructureParents.clear();
 }
 
 

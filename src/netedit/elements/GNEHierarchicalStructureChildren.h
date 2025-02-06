@@ -58,9 +58,6 @@ public:
     /// @brief default constructor
     GNEHierarchicalStructureChildren();
 
-    /// @brief get container size
-    size_t getContainerSize() const;
-
     /// @brief add child element
     template<typename T>
     void addChildElement(T* element);

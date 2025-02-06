@@ -36,20 +36,6 @@
 GNEHierarchicalStructureChildren::GNEHierarchicalStructureChildren() {}
 
 
-size_t
-GNEHierarchicalStructureChildren::getContainerSize() const {
-    return (
-               myChildJunctions.size() +
-               myChildEdges.size() +
-               myChildLanes.size() +
-               myChildAdditionals.size() +
-               myChildSourceSinks.size() +
-               myChildDemandElements.size() +
-               myChildGenericDatas.size()
-           );
-}
-
-
 template <> void
 GNEHierarchicalStructureChildren::addChildElement(GNEJunction* junction) {
     myChildJunctions.push_back(junction);

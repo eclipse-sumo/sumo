@@ -74,14 +74,14 @@ public:
     virtual Position getPositionInView() const = 0;
     /// @}
 
-    /// @brief get hierarchical structure with parents
-    const GNEHierarchicalStructureParents& getHierarchicalStructureParents() const;
+    /// @brief extract hierarchical structure parents (used in GNE_Change)
+    const GNEHierarchicalStructureParents getHierarchicalStructureParents() const;
+
+    /// @brief clear hierarchical structure parents (used in GNE_Change)
+    void clear();
 
     /// @name common get functions
     /// @{
-
-    /// @brief get all parents and children
-    std::vector<GNEHierarchicalElement*> getAllHierarchicalElements() const;
 
     /// @brief get parent junctions
     const GNEHierarchicalContainerParents<GNEJunction*>& getParentJunctions() const;
@@ -345,7 +345,4 @@ private:
 
     /// @brief Invalidated copy constructor.
     GNEHierarchicalElement(const GNEHierarchicalElement&) = delete;
-
-    /// @brief Invalidated assignment operator.
-    GNEHierarchicalElement& operator=(const GNEHierarchicalElement&) = delete;
 };

@@ -63,8 +63,8 @@ public:
         const std::vector<GNEDemandElement*>& parentDemandElements,
         const std::vector<GNEGenericData*>& parentGenericDatas);
 
-    /// @brief get container size
-    size_t getContainerSize() const;
+    /// @brief clear container
+    void clear();
 
     /// @brief add parent element
     template<typename T>
