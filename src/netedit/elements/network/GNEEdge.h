@@ -57,9 +57,6 @@ class GNEEdge : public GNENetworkElement, public GNECandidateElement {
     friend class GNEChange_Connection;
 
 public:
-    /// @brief Definition of the lane's vector
-    typedef std::vector<GNELane*> LaneVector;
-
     /// @brief Definition of the connection's vector
     typedef std::vector<GNEConnection*> ConnectionVector;
 
@@ -364,9 +361,6 @@ public:
 protected:
     /// @brief the underlying NBEdge
     NBEdge* myNBEdge;
-
-    /// @brief vector with the lanes of this edge
-    LaneVector myLanes;
 
     /// @brief vector with the connections of this edge
     ConnectionVector myGNEConnections;

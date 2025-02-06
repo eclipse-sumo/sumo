@@ -81,23 +81,13 @@ GNEChange_Lane::undo() {
         // remove lane from edge (note: myLane can be nullptr)
         myEdge->removeLane(myLane, false);
         // special case if lane exist
-        if (myLane) {
-            // unselect if mySelectedElement is enabled
-            if (mySelectedElement) {
-                myLane->unselectAttributeCarrier();
-            }
-            // remove element from parent and children
-            removeElementFromParentsAndChildren(myLane);
+        if (myLane && mySelectedElement) {
+            myLane->unselectAttributeCarrier();
         }
     } else {
         // show extra information for tests
-        if (myLane) {
-            // select if mySelectedElement is enabled
-            if (mySelectedElement) {
-                myLane->selectAttributeCarrier();
-            }
-            // add element in parent and children
-            addElementInParentsAndChildren(myLane);
+        if (myLane && mySelectedElement) {
+            myLane->selectAttributeCarrier();
         }
         // add lane and their attributes to edge (lane removal is reverted, no need to recompute connections)
         myEdge->addLane(myLane, myLaneAttrs, false);
@@ -111,28 +101,18 @@ void
 GNEChange_Lane::redo() {
     if (myForward) {
         // show extra information for tests
-        if (myLane) {
-            // select if mySelectedElement is enabled
-            if (mySelectedElement) {
-                myLane->selectAttributeCarrier();
-            }
-            // add element in parent and children
-            addElementInParentsAndChildren(myLane);
+        if (myLane && mySelectedElement) {
+            myLane->selectAttributeCarrier();
         }
         // add lane and their attributes to edge
         myEdge->addLane(myLane, myLaneAttrs, myRecomputeConnections);
     } else {
+        // special case if lane exist
+        if (myLane && mySelectedElement) {
+            myLane->unselectAttributeCarrier();
+        }
         // remove lane from edge
         myEdge->removeLane(myLane, myRecomputeConnections);
-        // special case if lane exist
-        if (myLane) {
-            // unselect if mySelectedElement is enabled
-            if (mySelectedElement) {
-                myLane->unselectAttributeCarrier();
-            }
-            // remove element from parent and children
-            removeElementFromParentsAndChildren(myLane);
-        }
     }
     // enable save networkElements
     myEdge->getNet()->getSavingStatus()->requireSaveNetwork();
