@@ -8,9 +8,10 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-05 09:24+0100\n"
-"PO-Revision-Date: 2025-01-21 14:41+0000\n"
+"PO-Revision-Date: 2025-02-07 11:03+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
-"Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/sumo-gui-netedit/it/>\n"
+"Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
+"sumo-gui-netedit/it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -2574,7 +2575,7 @@ msgstr "&Utensile"
 
 #: src/netedit/GNEApplicationWindow.cpp:1429
 msgid "Assign"
-msgstr ""
+msgstr "Assegna"
 
 #: src/netedit/GNEApplicationWindow.cpp:1430
 msgid "Detectors"
@@ -2629,7 +2630,7 @@ msgstr "Semaforo"
 
 #: src/netedit/GNEApplicationWindow.cpp:1444
 msgid "Trigger"
-msgstr ""
+msgstr "Generatore"
 
 #: src/netedit/GNEApplicationWindow.cpp:1445
 msgid "Turn-defs"
@@ -3667,7 +3668,7 @@ msgstr "Applica il stato cambiato ad ogni fase del piano semaforico cliccando"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:907
 msgid "Don't ask for confirmation before merging junction"
-msgstr ""
+msgstr "Non chiedere conferma prima di combinare degli incroci"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:912
 msgid "Show bubbles over junctions shapes"
@@ -5268,7 +5269,7 @@ msgstr "seleziona nell'area delimitata dal poligono"
 
 #: src/netedit/GNEViewNet.cpp:2746
 msgid "triangulate polygon"
-msgstr ""
+msgstr "triangola poligono"
 
 #: src/netedit/GNEViewNet.cpp:2782 src/netedit/GNEViewNet.cpp:2812
 #: src/netedit/GNEViewNet.cpp:2827 src/netedit/GNEViewNet.cpp:2844
@@ -9245,7 +9246,7 @@ msgstr "Fermata ferroviaria associata a questa fermata"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:4551
 msgid "StopContainerStop"
-msgstr ""
+msgstr "Fermata ad un fermata di contenitori"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:4556
 msgid "ContainerStop associated with this stop"
@@ -9292,7 +9293,7 @@ msgstr "Fermata di autobus associata a questo punto intermedio"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:4678
 msgid "WaypointTrainStop"
-msgstr ""
+msgstr "Punto intermedio su una fermata ferroviaria"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:4683
 msgid "TrainWaypoint associated with this waypoint"
@@ -9300,7 +9301,7 @@ msgstr ""
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:4697
 msgid "WaypointContainerStop"
-msgstr ""
+msgstr "Punto intermedio su una fermata di contenitori"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:4702
 msgid "ContainerWaypoint associated with this waypoint"
@@ -9308,7 +9309,7 @@ msgstr ""
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:4716
 msgid "WaypointChargingStation"
-msgstr ""
+msgstr "Punto intermedio su una stazione di ricarica"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:4721
 msgid "ChargingStation associated with this waypoint"
@@ -9316,7 +9317,7 @@ msgstr "Stazione di ricarica associata a questo punto intermedio"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:4735
 msgid "WaypointParkingArea"
-msgstr ""
+msgstr "Punto intermedio su un parcheggio"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:4740
 msgid "ParkingArea associated with this waypoint"
@@ -11144,7 +11145,7 @@ msgstr "elenco di veicoli alternativi da prendere per questa corsa"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:9485
 msgid "Walk factor"
-msgstr ""
+msgstr "Fattore di marcia"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:9491
 #: src/netedit/elements/GNEAttributeCarrier.cpp:9527
@@ -11525,6 +11526,8 @@ msgstr "aggiungi fermata di contenitore '"
 #: src/netedit/elements/additional/GNEAdditionalHandler.cpp:306
 msgid "Could not build % with ID '%' in netedit; Invalid charge type '%' ."
 msgstr ""
+"Non ho potuto creare % con l'indice identificativo '%' in netedit; Tipo di "
+"carica invalido '%'."
 
 #: src/netedit/elements/additional/GNEAdditionalHandler.cpp:313
 msgid "add charging station '"
@@ -11806,7 +11809,7 @@ msgstr "le corsie sono sconnesse"
 #: src/netedit/elements/additional/GNEOverheadWire.cpp:149
 #: src/netedit/elements/additional/GNEStoppingPlace.cpp:128
 msgid " and "
-msgstr ""
+msgstr " e "
 
 #: src/netedit/elements/additional/GNEMultiEntryExitDetector.cpp:121
 msgid "' needs at least one entry and one exit"
@@ -11876,11 +11879,11 @@ msgstr "Seleziona elementi contenuti nel profilo del poligono"
 
 #: src/netedit/elements/additional/GNEPoly.cpp:279
 msgid "Triangulate polygon"
-msgstr ""
+msgstr "Triangola poligono"
 
 #: src/netedit/elements/additional/GNEPoly.cpp:279
 msgid "Convert the current polygon in triangles"
-msgstr ""
+msgstr "Converti il poligono attuale in triangoli"
 
 #: src/netedit/elements/additional/GNEPoly.cpp:290
 msgid "Remove geometry point"
@@ -12019,6 +12022,8 @@ msgstr "L'attributo '%' non esiste."
 #: src/netedit/elements/data/GNEMeanDataHandler.cpp:218
 msgid "Could not build % with ID '%' in netedit; Invalid value '%' for %."
 msgstr ""
+"Non ho potuto creare % con l'indice identificativo '%' in netedit; Valore "
+"invalido '%' per %."
 
 #: src/netedit/elements/demand/GNEDemandElement.cpp:874
 msgid "Route length: "
@@ -12060,10 +12065,13 @@ msgstr "Incrocio di arrivo invalido '%' utilizzato in % di % '%'"
 #: src/netedit/elements/demand/GNEPlanParents.cpp:127
 msgid "Invalid from TAZ '%' used in % of % '%'"
 msgstr ""
+"Zona di assegnazione del traffico di origine '%' invalida usata in % di % '%'"
 
 #: src/netedit/elements/demand/GNEPlanParents.cpp:130
 msgid "Invalid to TAZ '%' used in % of % '%'"
 msgstr ""
+"Zona di assegnazione del traffico di destinazione '%' invalida usata in % di "
+"% '%'"
 
 #: src/netedit/elements/demand/GNEPlanParents.cpp:133
 msgid "Invalid from bus stop '%' used in % of % '%'"
@@ -12130,7 +12138,7 @@ msgstr "copia % '%'"
 
 #: src/netedit/elements/demand/GNERouteHandler.cpp:93
 msgid "delete % '%'"
-msgstr ""
+msgstr "rimuovi % '%'"
 
 #: src/netedit/elements/demand/GNERouteHandler.cpp:127
 #: src/netedit/elements/demand/GNERouteHandler.cpp:163
