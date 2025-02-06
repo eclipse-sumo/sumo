@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-05 09:24+0100\n"
-"PO-Revision-Date: 2025-02-05 17:08+0000\n"
+"PO-Revision-Date: 2025-02-06 07:48+0000\n"
 "Last-Translator: Tomosawa Ryo <tomosawa.r.103@ms.saitama-u.ac.jp>\n"
 "Language-Team: Japanese <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/ja/>\n"
@@ -961,11 +961,11 @@ msgstr "車輌検知器"
 
 #: src/gui/GUITLLogicPhasesTrackerWindow.cpp:281
 msgid "conditions"
-msgstr ""
+msgstr "条件"
 
 #: src/gui/GUITLLogicPhasesTrackerWindow.cpp:345
 msgid "Overflow in time computation occurred."
-msgstr ""
+msgstr "時間計算でオーバーフローが発生しました。"
 
 #: src/gui/GUIViewTraffic.cpp:108 src/netedit/GNEViewNet.cpp:365
 msgid "Locate Junctions"
