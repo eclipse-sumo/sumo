@@ -132,11 +132,9 @@ protected:
         for (const auto& additional : myParents.getParents<GNEAdditional*>()) {
             GNEHierarchicalElement::insertChildInAdditional(additional, element);
         }
-        /*
         for (const auto& sourceSink : myParents.getParents<GNETAZSourceSink*>()) {
-            sourceSink->addChildElement(element);
+            GNEHierarchicalElement::insertChildInTAZSourceSink(sourceSink, element);
         }
-        */
         for (const auto& demandElement : myParents.getParents<GNEDemandElement*>()) {
             GNEHierarchicalElement::insertChildInDemandElement(demandElement, element);
         }
@@ -161,11 +159,9 @@ protected:
         for (const auto& additional : myParents.getParents<GNEAdditional*>()) {
             GNEHierarchicalElement::removeChildFromAdditional(additional, element);
         }
-        /*
         for (const auto& sourceSink : myParents.getParents<GNETAZSourceSink*>()) {
-            sourceSink->addChildElement(element);
+            GNEHierarchicalElement::removeChildFromTAZSourceSink(sourceSink, element);
         }
-        */
         for (const auto& demandElement : myParents.getParents<GNEDemandElement*>()) {
             GNEHierarchicalElement::removeChildFromDemandElement(demandElement, element);
         }

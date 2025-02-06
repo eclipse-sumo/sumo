@@ -167,6 +167,13 @@ public:
         parent->myHierarchicalStructureChildren.addChildElement(additional);
     }
 
+    /// @brief insert parent in the given TAZ SourceSink
+    template<typename T>
+    static void insertParentInTAZSourceSink(GNETAZSourceSink* sourceSink, T* parent) {
+        sourceSink->myHierarchicalStructureParents.addParentElement(parent);
+        parent->myHierarchicalStructureChildren.addChildElement(sourceSink);
+    }
+
     /// @brief insert parent in the given demand element
     template<typename T>
     static void insertParentInDemandElement(GNEDemandElement* demandElement, T* parent) {
@@ -209,9 +216,16 @@ public:
 
     /// @brief remove parent from the given additional
     template<typename T>
-    static void removeParentFromAdditional(GNEAdditional* removeitional, T* parent) {
-        removeitional->myHierarchicalStructureParents.removeParentElement(parent);
-        parent->myHierarchicalStructureChildren.removeChildElement(removeitional);
+    static void removeParentFromAdditional(GNEAdditional* additional, T* parent) {
+        additional->myHierarchicalStructureParents.removeParentElement(parent);
+        parent->myHierarchicalStructureChildren.removeChildElement(additional);
+    }
+
+    /// @brief remove parent from the given TAZ SourceSink
+    template<typename T>
+    static void removeParentFromTAZSourceSink(GNETAZSourceSink* sourceSink, T* parent) {
+        sourceSink->myHierarchicalStructureParents.removeParentElement(parent);
+        parent->myHierarchicalStructureChildren.removeChildElement(sourceSink);
     }
 
     /// @brief remove parent from the given demand element
@@ -259,6 +273,13 @@ public:
         child->myHierarchicalStructureParents.addParentElement(additional);
     }
 
+    /// @brief insert child in the given TAZ SourceSink
+    template<typename T>
+    static void insertChildInTAZSourceSink(GNETAZSourceSink* sourceSink, T* child) {
+        sourceSink->myHierarchicalStructureChildren.addChildElement(child);
+        child->myHierarchicalStructureParents.addParentElement(sourceSink);
+    }
+
     /// @brief insert child in the given demand element
     template<typename T>
     static void insertChildInDemandElement(GNEDemandElement* demandElement, T* child) {
@@ -301,9 +322,16 @@ public:
 
     /// @brief remove child from the given additional
     template<typename T>
-    static void removeChildFromAdditional(GNEAdditional* removeitional, T* child) {
-        removeitional->myHierarchicalStructureChildren.removeChildElement(child);
-        child->myHierarchicalStructureParents.removeParentElement(removeitional);
+    static void removeChildFromAdditional(GNEAdditional* additional, T* child) {
+        additional->myHierarchicalStructureChildren.removeChildElement(child);
+        child->myHierarchicalStructureParents.removeParentElement(additional);
+    }
+
+    /// @brief remove child from the given TAZ SourceSink
+    template<typename T>
+    static void removeChildFromTAZSourceSink(GNETAZSourceSink* sourceSink, T* child) {
+        sourceSink->myHierarchicalStructureChildren.removeChildElement(child);
+        child->myHierarchicalStructureParents.removeParentElement(sourceSink);
     }
 
     /// @brief remove child from the given demand element

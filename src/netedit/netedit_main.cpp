@@ -51,7 +51,7 @@ main(int argc, char** argv) {
     gLanguage = reg.readStringEntry("gui", "language", gLanguage.c_str());
     int ret = 0;
     // run netedit with try-catch if we're in debug-mode
-#ifdef _DEBUG
+#ifdef _DEBUG_
     try {
 #endif
         // initialise subsystems
@@ -102,7 +102,7 @@ main(int argc, char** argv) {
             delete tagPropertiesDatabase;
             delete netedit;
         }
-#ifdef _DEBUG
+#ifdef _DEBUG_
     } catch (const std::exception& e) {
         if (std::string(e.what()) != std::string("")) {
             WRITE_ERROR(e.what());
