@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-04 15:47+0100\n"
-"PO-Revision-Date: 2025-02-06 10:18+0000\n"
+"PO-Revision-Date: 2025-02-07 11:03+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -5819,6 +5819,8 @@ msgstr ""
 #: src/microsim/trigger/MSChargingStation.h:69
 msgid "Encountered an unknown charge type. Assuming charge type 'normal'."
 msgstr ""
+"Un tipo di carica sconosciuto è stato incontrato. Si suppone il tipo di "
+"carica 'normal'."
 
 #: src/microsim/trigger/MSLaneSpeedTrigger.cpp:166
 msgid "Invalid or unsorted time entry in vss '%'."
@@ -5844,10 +5846,14 @@ msgid ""
 "Overhead circuit solver requested, but solver support (Eigen) not compiled "
 "in."
 msgstr ""
+"Il risolutore del circuito di catenaria è stato richiesto ma non è stato "
+"compilato per mancanza di supporto (Eigen)."
 
 #: src/microsim/trigger/MSOverheadWire.cpp:579
 msgid "Overhead circuit solver requested, but solver support not compiled in."
 msgstr ""
+"Il risolutore del circuito di catenaria è stato richiesto ma non è stato "
+"compilato."
 
 #: src/microsim/trigger/MSOverheadWire.cpp:690
 #, c-format
@@ -5855,6 +5861,9 @@ msgid ""
 "The requested total power could not be delivered by the overhead wire. Only "
 "% of originally requested power was provided."
 msgstr ""
+"Non è stato possibile provvedere la potenza totale richiesta attraverso la "
+"catenaria. Soltanto % della potenza originalmente richiesta è stato "
+"provveduto."
 
 #: src/microsim/trigger/MSStoppingPlaceRerouter.cpp:171
 #, c-format
@@ -5862,6 +5871,8 @@ msgid ""
 "Stopping place '%' along the way cannot be used by vehicle '%' for unknown "
 "reason"
 msgstr ""
+"Il luogo di fermata '%' lungo l'itinerario non può essere utilizzato dal "
+"veicolo '%' per motivi sconosciuti"
 
 #: src/microsim/trigger/MSStoppingPlaceRerouter.cpp:471
 msgid ""
