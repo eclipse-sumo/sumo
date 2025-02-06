@@ -195,46 +195,4 @@ GNEHierarchicalStructureChildren::getChildren() const {
     return myChildGenericDatas;
 }
 
-
-template<> void
-GNEHierarchicalStructureChildren::setChildren(const GNEHierarchicalContainerChildren<GNEJunction*>& newChildren) {
-    myChildJunctions = newChildren;
-}
-
-
-template<> void
-GNEHierarchicalStructureChildren::setChildren(const GNEHierarchicalContainerChildren<GNEEdge*>& newChildren) {
-    myChildEdges = newChildren;
-}
-
-
-template<> void
-GNEHierarchicalStructureChildren::setChildren(const GNEHierarchicalContainerChildren<GNELane*>& newChildren) {
-    myChildLanes = newChildren;
-}
-
-
-template<> void
-GNEHierarchicalStructureChildren::setChildren(const GNEHierarchicalContainerChildren<GNEAdditional*>& newChildren) {
-    myChildAdditionals = newChildren;
-}
-
-
-template<> void
-GNEHierarchicalStructureChildren::setChildrenSet(const GNEHierarchicalContainerChildrenSet<GNETAZSourceSink*>& newChildren) {
-    myChildSourceSinks = newChildren;
-}
-
-
-template<> void
-GNEHierarchicalStructureChildren::setChildren(const GNEHierarchicalContainerChildren<GNEDemandElement*>& newChildren) {
-    myChildDemandElements = newChildren;
-}
-
-
-template<> void
-GNEHierarchicalStructureChildren::setChildren(const GNEHierarchicalContainerChildren<GNEGenericData*>& newChildren) {
-    myChildGenericDatas = newChildren;
-}
-
 /****************************************************************************/

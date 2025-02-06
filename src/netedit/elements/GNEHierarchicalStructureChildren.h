@@ -74,14 +74,6 @@ public:
     template<typename T>
     const GNEHierarchicalContainerChildrenSet<T>& getChildrenSet() const;
 
-    /// @brief set children
-    template<typename T>
-    void setChildren(const GNEHierarchicalContainerChildren<T>& newChildren);
-
-    /// @brief set children set
-    template<typename T>
-    void setChildrenSet(const GNEHierarchicalContainerChildrenSet<T>& newChildren);
-
 private:
     /// @brief children junctions
     GNEHierarchicalContainerChildren<GNEJunction*> myChildJunctions;
