@@ -8,9 +8,10 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-04 15:47+0100\n"
-"PO-Revision-Date: 2025-02-05 12:40+0000\n"
+"PO-Revision-Date: 2025-02-06 10:18+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
-"Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/applications/it/>\n"
+"Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
+"applications/it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -4729,6 +4730,8 @@ msgid ""
 "Share of stopping time of the next independently planned stop to use for "
 "charging instead"
 msgstr ""
+"Parte della durata della prossima fermata pianificata indipendentemente da "
+"sostituire con una fermata per caricare"
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:92
 msgid ""
@@ -5384,20 +5387,21 @@ msgstr ""
 
 #: src/microsim/traffic_lights/MSSOTLTrafficLightLogic.cpp:169
 msgid "Listing output lanes"
-msgstr ""
+msgstr "Elenco delle corsie di uscita"
 
 #: src/microsim/traffic_lights/MSSOTLTrafficLightLogic.cpp:243
 #: src/microsim/traffic_lights/MSSOTLTrafficLightLogic.cpp:277
 msgid "Unrecognized traffic threshold calculation mode"
-msgstr ""
+msgstr "Modo di calcolo del valore soglia di traffico sconosciuto"
 
 #: src/microsim/traffic_lights/MSSwarmTrafficLightLogic.cpp:57
 msgid "NO VALID POLICY LIST READ"
-msgstr ""
+msgstr "NESSUN ELENCO DI POLITICHE VALIDO"
 
 #: src/microsim/traffic_lights/MSSwarmTrafficLightLogic.cpp:81
 msgid "VEHICLE TYPES WEIGHT only works with phase policy, which is missing"
 msgstr ""
+"VEHICLE TYPES WEIGHT funziona soltanto con la politica di fase (che non c'è)"
 
 #: src/microsim/traffic_lights/MSSwarmTrafficLightLogic.cpp:160
 #, c-format
@@ -5918,14 +5922,18 @@ msgid ""
 "rerouter '%': Attribute 'probability' for alternative route '%' is negative "
 "(must not)."
 msgstr ""
+"rerouter '%': L'attributo 'probability' per l'itinerario alternativo '%' è "
+"negativo (che non è possibile)."
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:225
 msgid "rerouter '%': parkingAreaReroute requires a parkingArea id."
 msgstr ""
+"rerouter '%': parkingAreaReroute richiede un codice identificativo di un "
+"parcheggio."
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:229
 msgid "rerouter '%': parkingArea '%' is not known."
-msgstr ""
+msgstr "rerouter '%': il parcheggio '%' è sconosciuto."
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:238
 msgid ""
@@ -5963,36 +5971,42 @@ msgstr ""
 
 #: src/netbuild/NBAlgorithms.cpp:153
 msgid "Ambiguity in turnarounds computation at junction '%'."
-msgstr ""
+msgstr "Ambiguità nel calcolo delle inversioni a u all'incrocio '%'."
 
 #: src/netbuild/NBAlgorithms.cpp:358
 msgid "Converting invalid rail_crossing to priority junction '%'."
 msgstr ""
+"Conversione di un incrocio rail_crossing invalido a un'incrocio di priorità "
+"'%'."
 
 #: src/netbuild/NBAlgorithms.cpp:362
 msgid "Converting invalid rail_crossing to traffic_light at junction '%'."
 msgstr ""
+"Conversione di un incrocio rail_crossing invalido a un incrocio con semaforo "
+"'%'."
 
 #: src/netbuild/NBAlgorithms.cpp:371 src/netbuild/NBNodeCont.cpp:1800
 #: src/netimport/NIImporter_OpenStreetMap.cpp:432
 #: src/netimport/NIXMLNodesHandler.cpp:360
 msgid "Could not allocate tls '%'."
-msgstr ""
+msgstr "Il semaforo '%' non poteva essere assegnato."
 
 #: src/netbuild/NBAlgorithms_Railway.cpp:171
 msgid ""
 "Added % bidi-edges to ensure that all tracks are usable in both directions."
 msgstr ""
+"% archi bidirezionali sono stati aggiunti per garantire che tutti i binari "
+"si possono usare in entrambe direzioni."
 
 #: src/netbuild/NBAlgorithms_Railway.cpp:173
 #, c-format
 msgid "Ignore % edges because they have the wrong spreadType"
-msgstr ""
+msgstr "% archi vengono ignorati a causa del tipo di distesa sbagliato"
 
 #: src/netbuild/NBAlgorithms_Railway.cpp:198
 #, c-format
 msgid "Bidi-edge '%' prevented by filtering rules."
-msgstr ""
+msgstr "L'arco bidirezionale '%' è stato scartato dalle regole di filtraggio."
 
 #: src/netbuild/NBAlgorithms_Railway.cpp:212
 msgid "Could not add bidi-edge '%'."
@@ -6000,11 +6014,11 @@ msgstr "Non ho potuto aggiungere l'arco bidirezionale '%'."
 
 #: src/netbuild/NBAlgorithms_Railway.cpp:273
 msgid "Railway nodes by number of incoming,outgoing edges:"
-msgstr ""
+msgstr "Nodi ferroviari ordinati per numero di archi entranti/uscenti:"
 
 #: src/netbuild/NBAlgorithms_Railway.cpp:371
 msgid "Found % railway nodes marked as buffer_stop"
-msgstr ""
+msgstr "Trovati % nodi ferroviari segnati come buffer_stop"
 
 #: src/netbuild/NBAlgorithms_Railway.cpp:381
 msgid "Found % bidirectional rail edges"
@@ -6026,19 +6040,21 @@ msgstr "Non ho potuto trovare l'arco bidirezionale per l'arco '%'"
 
 #: src/netbuild/NBAlgorithms_Railway.cpp:640
 msgid "Found % reversible edge sequences between broken rail nodes"
-msgstr ""
+msgstr "Trovate % sequenze di archi reversibili tra nodi ferroviari rotti"
 
 #: src/netbuild/NBAlgorithms_Railway.cpp:672
 msgid "Reversed % sequences (count by length: %)"
-msgstr ""
+msgstr "Trovate % sequenze (numero per lunghezza: %)"
 
 #: src/netbuild/NBAlgorithms_Railway.cpp:693
 msgid "Ignoring buffer stop junction '%' with % edges."
-msgstr ""
+msgstr "L'incrocio buffer_stop '%' con % archi viene ignorato."
 
 #: src/netbuild/NBAlgorithms_Railway.cpp:750
 msgid "Added % edges to connect % buffer stops in both directions."
 msgstr ""
+"% archi sono stati aggiunti per collegare % fermate paraurti in entrambe le "
+"direzioni."
 
 #: src/netbuild/NBAlgorithms_Railway.cpp:831
 msgid ""
