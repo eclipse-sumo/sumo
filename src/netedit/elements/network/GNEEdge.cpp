@@ -2102,19 +2102,29 @@ GNEEdge::setNumLanes(int numLanes, GNEUndoList* undoList) {
 
 void
 GNEEdge::updateFirstParentJunction(const std::string& value) {
-    std::vector<GNEJunction*> parentJunctions = getParentJunctions();
-    parentJunctions[0] = myNet->getAttributeCarriers()->retrieveJunction(value);
-    // replace parent junctions
-    replaceParentElements(this, parentJunctions);
+    std::vector<GNEJunction*> newJunctions = getParentJunctions();
+    newJunctions[0] = myNet->getAttributeCarriers()->retrieveJunction(value);
+    // remove old junctions and set new junctions (this methode changes childrens)
+    while (getParentJunctions().size() > 0) {
+        GNEHierarchicalElement::removeParentFromEdge(this, getParentJunctions().front());
+    }
+    for (const auto& newJunction : newJunctions) {
+        GNEHierarchicalElement::removeParentFromEdge(this, newJunction);
+    }
 }
 
 
 void
 GNEEdge::updateSecondParentJunction(const std::string& value) {
-    std::vector<GNEJunction*> parentJunctions = getParentJunctions();
-    parentJunctions[1] = myNet->getAttributeCarriers()->retrieveJunction(value);
-    // replace parent junctions
-    replaceParentElements(this, parentJunctions);
+    std::vector<GNEJunction*> newJunctions = getParentJunctions();
+    newJunctions[1] = myNet->getAttributeCarriers()->retrieveJunction(value);
+    // remove old junctions and set new junctions (this methode changes childrens)
+    while (getParentJunctions().size() > 0) {
+        GNEHierarchicalElement::removeParentFromEdge(this, getParentJunctions().front());
+    }
+    for (const auto& newJunction : newJunctions) {
+        GNEHierarchicalElement::removeParentFromEdge(this, newJunction);
+    }
 }
 
 

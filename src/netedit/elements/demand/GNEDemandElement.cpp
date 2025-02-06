@@ -549,86 +549,141 @@ GNEDemandElement::drawStackLabel(const int number, const std::string& element, c
 
 void
 GNEDemandElement::replaceDemandParentEdges(const std::string& value) {
-    replaceParentElements(this, parse<std::vector<GNEEdge*> >(getNet(), value));
+    const auto newEdges = parse<std::vector<GNEEdge*> >(getNet(), value);
+    // remove old edges and set new edges (this methode changes childrens)
+    while (getParentEdges().size() > 0) {
+        GNEHierarchicalElement::removeParentFromDemandElement(this, getParentEdges().front());
+    }
+    for (const auto& newEdge : newEdges) {
+        GNEHierarchicalElement::insertParentInDemandElement(this, newEdge);
+    }
 }
 
 
 void
 GNEDemandElement::replaceDemandParentLanes(const std::string& value) {
-    replaceParentElements(this, parse<std::vector<GNELane*> >(getNet(), value));
+    const auto newLanes = parse<std::vector<GNELane*> >(getNet(), value);
+    // remove old lanes and set new lanes (this methode changes childrens)
+    while (getParentLanes().size() > 0) {
+        GNEHierarchicalElement::removeParentFromDemandElement(this, getParentLanes().front());
+    }
+    for (const auto& newLane : newLanes) {
+        GNEHierarchicalElement::insertParentInDemandElement(this, newLane);
+    }
 }
 
 
 void
 GNEDemandElement::replaceFirstParentJunction(const std::string& value) {
-    std::vector<GNEJunction*> parentJunctions = getParentJunctions();
-    parentJunctions[0] = myNet->getAttributeCarriers()->retrieveJunction(value);
-    // replace parent junctions
-    replaceParentElements(this, parentJunctions);
+    std::vector<GNEJunction*> newJunctions = getParentJunctions();
+    newJunctions[0] = myNet->getAttributeCarriers()->retrieveJunction(value);
+    // remove old junctions and set new junctions (this methode changes childrens)
+    while (getParentJunctions().size() > 0) {
+        GNEHierarchicalElement::removeParentFromDemandElement(this, getParentJunctions().front());
+    }
+    for (const auto& newJunction : newJunctions) {
+        GNEHierarchicalElement::insertParentInDemandElement(this, newJunction);
+    }
 }
 
 
 void
 GNEDemandElement::replaceLastParentJunction(const std::string& value) {
-    std::vector<GNEJunction*> parentJunctions = getParentJunctions();
-    parentJunctions[(int)parentJunctions.size() - 1] = myNet->getAttributeCarriers()->retrieveJunction(value);
-    // replace parent junctions
-    replaceParentElements(this, parentJunctions);
+    std::vector<GNEJunction*> newJunctions = getParentJunctions();
+    newJunctions[(int)newJunctions.size() - 1] = myNet->getAttributeCarriers()->retrieveJunction(value);
+    // remove old junctions and set new junctions (this methode changes childrens)
+    while (getParentJunctions().size() > 0) {
+        GNEHierarchicalElement::removeParentFromDemandElement(this, getParentJunctions().front());
+    }
+    for (const auto& newJunction : newJunctions) {
+        GNEHierarchicalElement::insertParentInDemandElement(this, newJunction);
+    }
 }
 
 
 void
 GNEDemandElement::replaceFirstParentEdge(const std::string& value) {
-    std::vector<GNEEdge*> parentEdges = getParentEdges();
-    parentEdges[0] = myNet->getAttributeCarriers()->retrieveEdge(value);
-    // replace parent edges
-    replaceParentElements(this, parentEdges);
+    std::vector<GNEEdge*> newEdges = getParentEdges();
+    newEdges[0] = myNet->getAttributeCarriers()->retrieveEdge(value);
+    // remove old edges and set new edges (this methode changes childrens)
+    while (getParentEdges().size() > 0) {
+        GNEHierarchicalElement::removeParentFromDemandElement(this, getParentEdges().front());
+    }
+    for (const auto& newEdge : newEdges) {
+        GNEHierarchicalElement::insertParentInDemandElement(this, newEdge);
+    }
 }
 
 
 void
 GNEDemandElement::replaceLastParentEdge(const std::string& value) {
-    std::vector<GNEEdge*> parentEdges = getParentEdges();
-    parentEdges[(int)parentEdges.size() - 1] = myNet->getAttributeCarriers()->retrieveEdge(value);
-    // replace parent edges
-    replaceParentElements(this, parentEdges);
+    std::vector<GNEEdge*> newEdges = getParentEdges();
+    newEdges[(int)newEdges.size() - 1] = myNet->getAttributeCarriers()->retrieveEdge(value);
+    // remove old edges and set new edges (this methode changes childrens)
+    while (getParentEdges().size() > 0) {
+        GNEHierarchicalElement::removeParentFromDemandElement(this, getParentEdges().front());
+    }
+    for (const auto& newEdge : newEdges) {
+        GNEHierarchicalElement::insertParentInDemandElement(this, newEdge);
+    }
 }
 
 
 void
 GNEDemandElement::replaceFirstParentAdditional(SumoXMLTag tag, const std::string& value) {
-    std::vector<GNEAdditional*> parentAdditionals = getParentAdditionals();
-    parentAdditionals[0] = myNet->getAttributeCarriers()->retrieveAdditional(tag, value);
-    // replace parent additionals
-    replaceParentElements(this, parentAdditionals);
+    std::vector<GNEAdditional*> newAdditionals = getParentAdditionals();
+    newAdditionals[0] = myNet->getAttributeCarriers()->retrieveAdditional(tag, value);
+    // remove old additionals and set new additionals (this methode changes childrens)
+    while (getParentAdditionals().size() > 0) {
+        GNEHierarchicalElement::removeParentFromDemandElement(this, getParentAdditionals().front());
+    }
+    for (const auto& newAdditional : newAdditionals) {
+        GNEHierarchicalElement::insertParentInDemandElement(this, newAdditional);
+    }
 }
 
 
 void
 GNEDemandElement::replaceLastParentAdditional(SumoXMLTag tag, const std::string& value) {
-    std::vector<GNEAdditional*> parentAdditionals = getParentAdditionals();
-    parentAdditionals[(int)parentAdditionals.size() - 1] = myNet->getAttributeCarriers()->retrieveAdditional(tag, value);
-    // replace parent additionals
-    replaceParentElements(this, parentAdditionals);
+    std::vector<GNEAdditional*> newAdditionals = getParentAdditionals();
+    newAdditionals[(int)newAdditionals.size() - 1] = myNet->getAttributeCarriers()->retrieveAdditional(tag, value);
+    // remove old additionals and set new additionals (this methode changes childrens)
+    while (getParentAdditionals().size() > 0) {
+        GNEHierarchicalElement::removeParentFromDemandElement(this, getParentAdditionals().front());
+    }
+    for (const auto& newAdditional : newAdditionals) {
+        GNEHierarchicalElement::insertParentInDemandElement(this, newAdditional);
+    }
 }
 
 
 void
 GNEDemandElement::replaceDemandElementParent(SumoXMLTag tag, const std::string& value, const int parentIndex) {
-    std::vector<GNEDemandElement*> parentDemandElements = getParentDemandElements();
-    parentDemandElements[parentIndex] = myNet->getAttributeCarriers()->retrieveDemandElement(tag, value);
-    // replace parent demand elements
-    replaceParentElements(this, parentDemandElements);
+    std::vector<GNEDemandElement*> newDemandElements = getParentDemandElements();
+    newDemandElements[parentIndex] = myNet->getAttributeCarriers()->retrieveDemandElement(tag, value);
+    // remove old additionals and set new additionals (this methode changes childrens)
+    while (getParentDemandElements().size() > 0) {
+        GNEHierarchicalElement::removeParentFromDemandElement(this, getParentDemandElements().front());
+    }
+    for (const auto& newDemandElement : newDemandElements) {
+        GNEHierarchicalElement::insertParentInDemandElement(this, newDemandElement);
+    }
 }
 
 
 void
 GNEDemandElement::setVTypeDistributionParent(const std::string& value) {
-    std::vector<GNEDemandElement*> parents;
+    std::vector<GNEDemandElement*> newDemandElements;
     if (value.size() > 0) {
-        parents.push_back(myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE_DISTRIBUTION, value));
+        newDemandElements.push_back(myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE_DISTRIBUTION, value));
     }
-    replaceParentElements(this, parents);
+    // remove old additionals and set new additionals (this methode changes childrens)
+    while (getParentDemandElements().size() > 0) {
+        GNEHierarchicalElement::removeParentFromDemandElement(this, getParentDemandElements().front());
+    }
+    for (const auto& newDemandElement : newDemandElements) {
+        GNEHierarchicalElement::insertParentInDemandElement(this, newDemandElement);
+    }
 }
 
 
