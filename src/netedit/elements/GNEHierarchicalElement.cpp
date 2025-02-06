@@ -39,11 +39,17 @@ GNEHierarchicalElement::GNEHierarchicalElement(GNENet* net, SumoXMLTag tag,
         const std::vector<GNEDemandElement*>& ParentDemandElements,
         const std::vector<GNEGenericData*>& parentGenericDatas) :
     GNEAttributeCarrier(tag, net),
-    myHierarchicalStructureParents(parentJunctions, parentEdges, parentLanes, parentAdditionals, ParentDemandElements, parentGenericDatas), {
+    myHierarchicalStructureParents(parentJunctions, parentEdges, parentLanes, parentAdditionals, ParentDemandElements, parentGenericDatas) {
 }
 
 
 GNEHierarchicalElement::~GNEHierarchicalElement() {}
+
+
+GNEHierarchicalElement*
+GNEHierarchicalElement::getHierarchicalElement() {
+    return this;
+}
 
 
 const GNEHierarchicalStructureParents&
@@ -165,19 +171,19 @@ GNEHierarchicalElement::getParentGenericDatas() const {
 
 const GNEHierarchicalContainerChildren<GNEJunction*>&
 GNEHierarchicalElement::getChildJunctions() const {
-    return myHierarchicalStructureParents.getChildren<GNEJunction*>();
+    return myHierarchicalStructureChildren.getChildren<GNEJunction*>();
 }
 
 
 const GNEHierarchicalContainerChildren<GNEEdge*>&
 GNEHierarchicalElement::getChildEdges() const {
-    return myHierarchicalStructureParents.getChildren<GNEEdge*>();
+    return myHierarchicalStructureChildren.getChildren<GNEEdge*>();
 }
 
 
 const GNEHierarchicalContainerChildren<GNELane*>&
 GNEHierarchicalElement::getChildLanes() const {
-    return myHierarchicalStructureParents.getChildren<GNELane*>();
+    return myHierarchicalStructureChildren.getChildren<GNELane*>();
 }
 
 

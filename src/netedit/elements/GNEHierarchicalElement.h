@@ -23,8 +23,8 @@
 #include <utils/gui/div/GUIGeometry.h>
 #include <netedit/elements/GNEAttributeCarrier.h>
 
-#include "GNEHierarchicalStructure.h"
-
+#include "GNEHierarchicalStructureParents.h"
+#include "GNEHierarchicalStructureChildren.h"
 
 // ===========================================================================
 // class definitions
@@ -63,9 +63,7 @@ public:
     ~GNEHierarchicalElement();
 
     /// @brief get GNEHierarchicalElement associated with this AttributeCarrier
-    GNEHierarchicalElement* getHierarchicalElement() {
-        return this;
-    }
+    GNEHierarchicalElement* getHierarchicalElement();
 
     /// @name Functions related with geometry of element
     /// @{
@@ -76,11 +74,8 @@ public:
     virtual Position getPositionInView() const = 0;
     /// @}
 
-    /// @brief get hierarchicalcontainer with parents and children
-    const GNEHierarchicalStructure& getHierarchicalContainer() const;
-
-    /// @brief restore hierarchical container
-    void restoreHierarchicalContainer(const GNEHierarchicalStructure& container);
+    /// @brief get hierarchical structure with parents
+    const GNEHierarchicalStructureParents& getHierarchicalStructureParents() const;
 
     /// @name common get functions
     /// @{
@@ -210,8 +205,11 @@ protected:
     }
 
 private:
-    /// @brief hierarchical structure with parents and children
-    GNEHierarchicalStructure myHierarchicalStructure;
+    /// @brief hierarchical structure with parents
+    GNEHierarchicalStructureParents myHierarchicalStructureParents;
+
+    /// @brief hierarchical structure with  children
+    GNEHierarchicalStructureChildren myHierarchicalStructureChildren;
 
     /// @brief Invalidated copy constructor.
     GNEHierarchicalElement(const GNEHierarchicalElement&) = delete;
