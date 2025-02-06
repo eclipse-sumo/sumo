@@ -331,9 +331,6 @@ protected:
     GNELane();
 
 private:
-    /// @brief parent edge (GNELanes cannot use hierarchical structures)
-    GNEEdge* myParentEdge;
-
     /// @brief The index of this lane
     int myIndex;
 
