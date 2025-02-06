@@ -24,7 +24,8 @@
 #include <netbuild/NBEdge.h>
 #include <netbuild/NBNode.h>
 #include <netedit/GNEViewNet.h>
-#include <netedit/elements/GNEHierarchicalStructure.h>
+#include <netedit/elements/GNEHierarchicalStructureParents.h>
+#include <netedit/elements/GNEHierarchicalStructureChildren.h>
 #include <netedit/elements/additional/GNETAZSourceSink.h>
 #include <netedit/elements/data/GNEGenericData.h>
 #include <netedit/elements/demand/GNEDemandElement.h>

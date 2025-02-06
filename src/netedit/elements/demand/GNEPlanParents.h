@@ -65,8 +65,8 @@ public:
     bool checkIntegrity(SumoXMLTag planTag, const GNEDemandElement* parent,
                         const CommonXMLStructure::PlanParameters& planParameters) const;
 
-    /// @brief add the given element in the element as child
-    void addChildElements(GNEDemandElement* element);
+    /// @brief add the given demand element in the element as child
+    void addDemandElementChild(GNEDemandElement* element);
 
     /// @brief clear elements
     void clear();

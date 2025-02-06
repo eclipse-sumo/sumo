@@ -130,34 +130,68 @@ public:
 
     /// @}
 
-    /// @name common generic add/remove functions
-    /// @{
-
-    /// @brief add parent element
+    /// @brief add child (only used if we're creating elements without undo-redo)
     template<typename T>
-    void addParentElement(T* element) {
-        myHierarchicalStructure.addParentElement(element);
+    void addChild(T* element) {
+        myHierarchicalStructureChildren.addChildElement(element);
     }
 
-    /// @brief remove parent element
-    template<typename T>
-    void removeParentElement(T* element) {
-        myHierarchicalStructure.removeParentElement(element);
-    }
-
-    /// @brief add child element
-    template<typename T>
-    void addChildElement(T* element) {
-        myHierarchicalStructure.addChildElement(element);
-    }
-
-    /// @brief remove child element
-    template<typename T>
-    void removeChildElement(T* element) {
-        myHierarchicalStructure.removeChildElement(element);
-    }
 
     /// @}
+
+
+
+
+    /// @name insert chilld (and update parent)
+    /// @{
+    /*
+        /// @brief insert junction child element
+        void insertJunctionChild(GNEJunction* junction) {
+            myHierarchicalStructureChildren.addChildElement(junction);
+            junction->myHierarchicalStructureParents.
+        }
+
+        /// @brief insert edge child element
+        void insertEdgeChild(GNEEdge* edge) {
+            myHierarchicalStructureChildren.addChildElement(edge);
+        }
+
+        /// @brief insert lane child element
+        void insertLaneChild(GNELane* lane) {
+            myHierarchicalStructureChildren.addChildElement(lane);
+        }
+
+        /// @brief insert insertitional child element
+        void insertAdditionalChild(GNEAdditional* insertitional) {
+            myHierarchicalStructureChildren.addChildElement(insertitional);
+        }
+
+        /// @brief insert demand element child element
+        void insertDemandElementChild(GNEDemandElement* demandElement) {
+            myHierarchicalStructureChildren.addChildElement(demandElement);
+        }
+
+        /// @brief insert generic data child element
+        void insertGenericDataChild(GNEGenericData* genericData) {
+            myHierarchicalStructureChildren.addChildElement(genericData);
+        }
+    */
+    /// @}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     /// @name specific get functions
     /// @{
