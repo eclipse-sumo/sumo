@@ -174,37 +174,37 @@ GNEPlanParents::checkIntegrity(SumoXMLTag planTag, const GNEDemandElement* paren
 void
 GNEPlanParents::addDemandElementChild(GNEDemandElement* element) {
     if (fromEdge) {
-        fromEdge->addChild(element);
+        fromEdge->addChildElement(element);
     }
     if (toEdge) {
-        toEdge->addChild(element);
+        toEdge->addChildElement(element);
     }
     for (const auto& consecutiveEdge : consecutiveEdges) {
-        consecutiveEdge->addChild(element);
+        consecutiveEdge->addChildElement(element);
     }
     if (fromJunction) {
-        fromJunction->addChild(element);
+        fromJunction->addChildElement(element);
     }
     if (toJunction) {
-        toJunction->addChild(element);
+        toJunction->addChildElement(element);
     }
     if (fromTAZ) {
-        fromTAZ->addChild(element);
+        fromTAZ->addChildElement(element);
     }
     if (toTAZ) {
-        toTAZ->addChild(element);
+        toTAZ->addChildElement(element);
     }
     if (fromStoppingPlace) {
-        fromStoppingPlace->addChild(element);
+        fromStoppingPlace->addChildElement(element);
     }
     if (toStoppingPlace) {
-        toStoppingPlace->addChild(element);
+        toStoppingPlace->addChildElement(element);
     }
     if (fromRoute) {
-        fromRoute->addChild(element);
+        fromRoute->addChildElement(element);
     }
     if (toRoute) {
-        toRoute->addChild(element);
+        toRoute->addChildElement(element);
     }
 }
 

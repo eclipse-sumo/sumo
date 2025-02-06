@@ -228,10 +228,10 @@ protected:
     const bool mySelectedElement;
 
     /// @brief Hierarchical container with parent and children
-    const GNEHierarchicalStructure myOriginalHierarchicalContainer;
+    const GNEHierarchicalStructureParents myOriginalHierarchicalContainer;
 
     /// @brief map with hierarchical container of all parent and children elements
-    std::map<GNEHierarchicalElement*, GNEHierarchicalStructure> myHierarchicalContainers;
+    //std::map<GNEHierarchicalElement*, GNEHierarchicalStructure> myHierarchicalContainers;
 
 private:
     // @brief next GNEChange (can be access by GNEChangeGroup and GNEUndoList)

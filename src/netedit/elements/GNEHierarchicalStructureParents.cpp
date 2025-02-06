@@ -61,8 +61,7 @@ GNEHierarchicalStructureParents::getContainerSize() const {
                myParentAdditionals.size() +
                myParentTAZSourceSinks.size() +
                myParentDemandElements.size() +
-               myParentGenericDatas.size() +
-               myChildJunctions.size()
+               myParentGenericDatas.size()
            );
 }
 

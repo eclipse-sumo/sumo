@@ -119,7 +119,7 @@ GNEAdditionalHandler::buildBusStop(const CommonXMLStructure::SumoBaseObject* sum
                 myNet->getViewNet()->getUndoList()->end();
             } else {
                 myNet->getAttributeCarriers()->insertAdditional(busStop);
-                lane->addChild(busStop);
+                lane->addChildElement(busStop);
                 busStop->incRef("buildBusStop");
             }
             return true;
@@ -164,7 +164,7 @@ GNEAdditionalHandler::buildTrainStop(const CommonXMLStructure::SumoBaseObject* s
                 myNet->getViewNet()->getUndoList()->end();
             } else {
                 myNet->getAttributeCarriers()->insertAdditional(trainStop);
-                lane->addChild(trainStop);
+                lane->addChildElement(trainStop);
                 trainStop->incRef("buildTrainStop");
             }
             return true;
@@ -223,8 +223,8 @@ GNEAdditionalHandler::buildAccess(const CommonXMLStructure::SumoBaseObject* sumo
             myNet->getViewNet()->getUndoList()->end();
         } else {
             myNet->getAttributeCarriers()->insertAdditional(access);
-            lane->addChild(access);
-            busStop->addChild(access);
+            lane->addChildElement(access);
+            busStop->addChildElement(access);
             access->incRef("buildAccess");
         }
         return true;
@@ -267,7 +267,7 @@ GNEAdditionalHandler::buildContainerStop(const CommonXMLStructure::SumoBaseObjec
                 myNet->getViewNet()->getUndoList()->end();
             } else {
                 myNet->getAttributeCarriers()->insertAdditional(containerStop);
-                lane->addChild(containerStop);
+                lane->addChildElement(containerStop);
                 containerStop->incRef("buildContainerStop");
             }
             return true;
@@ -314,7 +314,7 @@ GNEAdditionalHandler::buildChargingStation(const CommonXMLStructure::SumoBaseObj
                 myNet->getViewNet()->getUndoList()->end();
             } else {
                 myNet->getAttributeCarriers()->insertAdditional(chargingStation);
-                lane->addChild(chargingStation);
+                lane->addChildElement(chargingStation);
                 chargingStation->incRef("buildChargingStation");
             }
             return true;
@@ -366,7 +366,7 @@ GNEAdditionalHandler::buildParkingArea(const CommonXMLStructure::SumoBaseObject*
                 myNet->getViewNet()->getUndoList()->end();
             } else {
                 myNet->getAttributeCarriers()->insertAdditional(parkingArea);
-                lane->addChild(parkingArea);
+                lane->addChildElement(parkingArea);
                 parkingArea->incRef("buildParkingArea");
             }
             return true;
@@ -411,7 +411,7 @@ GNEAdditionalHandler::buildParkingSpace(const CommonXMLStructure::SumoBaseObject
                 myNet->getViewNet()->getUndoList()->end();
             } else {
                 myNet->getAttributeCarriers()->insertAdditional(parkingSpace);
-                parkingArea->addChild(parkingSpace);
+                parkingArea->addChildElement(parkingSpace);
                 parkingSpace->incRef("buildParkingSpace");
             }
             // update geometry (due boundaries)
@@ -460,7 +460,7 @@ GNEAdditionalHandler::buildE1Detector(const CommonXMLStructure::SumoBaseObject* 
                 myNet->getViewNet()->getUndoList()->end();
             } else {
                 myNet->getAttributeCarriers()->insertAdditional(detectorE1);
-                lane->addChild(detectorE1);
+                lane->addChildElement(detectorE1);
                 detectorE1->incRef("buildDetectorE1");
             }
             return true;
@@ -523,7 +523,7 @@ GNEAdditionalHandler::buildSingleLaneDetectorE2(const CommonXMLStructure::SumoBa
                     myNet->getViewNet()->getUndoList()->end();
                 } else {
                     myNet->getAttributeCarriers()->insertAdditional(detectorE2);
-                    lane->addChild(detectorE2);
+                    lane->addChildElement(detectorE2);
                     detectorE2->incRef("buildDetectorE2");
                 }
                 return true;
@@ -589,7 +589,7 @@ GNEAdditionalHandler::buildMultiLaneDetectorE2(const CommonXMLStructure::SumoBas
                 } else {
                     myNet->getAttributeCarriers()->insertAdditional(detectorE2);
                     for (const auto& lane : lanes) {
-                        lane->addChild(detectorE2);
+                        lane->addChildElement(detectorE2);
                     }
                     detectorE2->incRef("buildDetectorE2Multilane");
                 }
@@ -667,8 +667,8 @@ GNEAdditionalHandler::buildDetectorEntry(const CommonXMLStructure::SumoBaseObjec
             myNet->getViewNet()->getUndoList()->end();
         } else {
             myNet->getAttributeCarriers()->insertAdditional(entry);
-            lane->addChild(entry);
-            E3->addChild(entry);
+            lane->addChildElement(entry);
+            E3->addChildElement(entry);
             entry->incRef("buildDetectorEntry");
         }
         return true;
@@ -702,8 +702,8 @@ GNEAdditionalHandler::buildDetectorExit(const CommonXMLStructure::SumoBaseObject
             myNet->getViewNet()->getUndoList()->end();
         } else {
             myNet->getAttributeCarriers()->insertAdditional(exit);
-            lane->addChild(exit);
-            E3->addChild(exit);
+            lane->addChildElement(exit);
+            E3->addChildElement(exit);
             exit->incRef("buildDetectorExit");
         }
         return true;
@@ -744,7 +744,7 @@ GNEAdditionalHandler::buildDetectorE1Instant(const CommonXMLStructure::SumoBaseO
                 myNet->getViewNet()->getUndoList()->end();
             } else {
                 myNet->getAttributeCarriers()->insertAdditional(detectorE1Instant);
-                lane->addChild(detectorE1Instant);
+                lane->addChildElement(detectorE1Instant);
                 detectorE1Instant->incRef("buildDetectorE1Instant");
             }
             return true;
@@ -797,9 +797,9 @@ GNEAdditionalHandler::buildLaneCalibrator(const CommonXMLStructure::SumoBaseObje
                 }
             } else {
                 myNet->getAttributeCarriers()->insertAdditional(calibrator);
-                lane->addChild(calibrator);
+                lane->addChildElement(calibrator);
                 if (routeProbe) {
-                    routeProbe->addChild(calibrator);
+                    routeProbe->addChildElement(calibrator);
                 }
                 calibrator->incRef("buildCalibrator");
             }
@@ -852,9 +852,9 @@ GNEAdditionalHandler::buildEdgeCalibrator(const CommonXMLStructure::SumoBaseObje
                 }
             } else {
                 myNet->getAttributeCarriers()->insertAdditional(calibrator);
-                edge->addChild(calibrator);
+                edge->addChildElement(calibrator);
                 if (routeProbe) {
-                    routeProbe->addChild(calibrator);
+                    routeProbe->addChildElement(calibrator);
                 }
                 calibrator->incRef("buildCalibrator");
             }
@@ -889,9 +889,9 @@ GNEAdditionalHandler::buildCalibratorFlow(const CommonXMLStructure::SumoBaseObje
             myNet->getViewNet()->getUndoList()->end();
         } else {
             myNet->getAttributeCarriers()->insertAdditional(flow);
-            calibrator->addChild(flow);
-            route->addChild(flow);
-            vType->addChild(flow);
+            calibrator->addChildElement(flow);
+            route->addChildElement(flow);
+            vType->addChildElement(flow);
             flow->incRef("buildCalibratorFlow");
         }
         return true;
@@ -959,11 +959,11 @@ GNEAdditionalHandler::buildRerouter(const CommonXMLStructure::SumoBaseObject* su
                 rerouter->incRef("buildRerouter");
                 // add symbols into rerouter
                 for (const auto& rerouterSymbol : rerouterSymbols) {
-                    rerouter->addChild(rerouterSymbol);
+                    rerouter->addChildElement(rerouterSymbol);
                 }
                 // add symbols into edges
                 for (int i = 0; i < (int)edges.size(); i++) {
-                    edges.at(i)->addChild(rerouterSymbols.at(i));
+                    edges.at(i)->addChildElement(rerouterSymbols.at(i));
                 }
             }
             return true;
@@ -996,7 +996,7 @@ GNEAdditionalHandler::buildRerouterInterval(const CommonXMLStructure::SumoBaseOb
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(rerouterInterval, true), true);
                 myNet->getViewNet()->getUndoList()->end();
             } else {
-                rerouter->addChild(rerouterInterval);
+                rerouter->addChildElement(rerouterInterval);
                 rerouterInterval->incRef("buildRerouterInterval");
             }
         } else {
@@ -1027,7 +1027,7 @@ GNEAdditionalHandler::buildClosingLaneReroute(const CommonXMLStructure::SumoBase
             myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(closingLaneReroute, true), true);
             myNet->getViewNet()->getUndoList()->end();
         } else {
-            rerouterInterval->addChild(closingLaneReroute);
+            rerouterInterval->addChildElement(closingLaneReroute);
             closingLaneReroute->incRef("buildClosingLaneReroute");
         }
         return true;
@@ -1055,7 +1055,7 @@ GNEAdditionalHandler::buildClosingReroute(const CommonXMLStructure::SumoBaseObje
             myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(closingLaneReroute, true), true);
             myNet->getViewNet()->getUndoList()->end();
         } else {
-            rerouterInterval->addChild(closingLaneReroute);
+            rerouterInterval->addChildElement(closingLaneReroute);
             closingLaneReroute->incRef("buildClosingLaneReroute");
         }
         return true;
@@ -1082,7 +1082,7 @@ GNEAdditionalHandler::buildDestProbReroute(const CommonXMLStructure::SumoBaseObj
             myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(destProbReroute, true), true);
             myNet->getViewNet()->getUndoList()->end();
         } else {
-            rerouterInterval->addChild(destProbReroute);
+            rerouterInterval->addChildElement(destProbReroute);
             destProbReroute->incRef("builDestProbReroute");
         }
         return true;
@@ -1110,7 +1110,7 @@ GNEAdditionalHandler::buildParkingAreaReroute(const CommonXMLStructure::SumoBase
             myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(parkingAreaReroute, true), true);
             myNet->getViewNet()->getUndoList()->end();
         } else {
-            rerouterInterval->addChild(parkingAreaReroute);
+            rerouterInterval->addChildElement(parkingAreaReroute);
             parkingAreaReroute->incRef("builParkingAreaReroute");
         }
         return true;
@@ -1138,7 +1138,7 @@ GNEAdditionalHandler::buildRouteProbReroute(const CommonXMLStructure::SumoBaseOb
             myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(routeProbReroute, true), true);
             myNet->getViewNet()->getUndoList()->end();
         } else {
-            rerouterInterval->addChild(routeProbReroute);
+            rerouterInterval->addChildElement(routeProbReroute);
             routeProbReroute->incRef("buildRouteProbReroute");
         }
         return true;
@@ -1184,7 +1184,7 @@ GNEAdditionalHandler::buildRouteProbe(const CommonXMLStructure::SumoBaseObject* 
                 }
             } else {
                 myNet->getAttributeCarriers()->insertAdditional(routeProbe);
-                edge->addChild(routeProbe);
+                edge->addChildElement(routeProbe);
                 routeProbe->incRef("buildRouteProbe");
             }
             return true;
@@ -1235,11 +1235,11 @@ GNEAdditionalHandler::buildVariableSpeedSign(const CommonXMLStructure::SumoBaseO
                     variableSpeedSign->incRef("buildVariableSpeedSign");
                     // add symbols into VSS
                     for (const auto& VSSSymbol : VSSSymbols) {
-                        variableSpeedSign->addChild(VSSSymbol);
+                        variableSpeedSign->addChildElement(VSSSymbol);
                     }
                     // add symbols into lanes
                     for (int i = 0; i < (int)lanes.size(); i++) {
-                        lanes.at(i)->addChild(VSSSymbols.at(i));
+                        lanes.at(i)->addChildElement(VSSSymbols.at(i));
                     }
                 }
             }
@@ -1267,7 +1267,7 @@ GNEAdditionalHandler::buildVariableSpeedSignStep(const CommonXMLStructure::SumoB
             myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(variableSpeedSignStep, true), true);
             myNet->getViewNet()->getUndoList()->end();
         } else {
-            VSS->addChild(variableSpeedSignStep);
+            VSS->addChildElement(variableSpeedSignStep);
             variableSpeedSignStep->incRef("buildVariableSpeedSignStep");
         }
         return true;
@@ -1312,7 +1312,7 @@ GNEAdditionalHandler::buildVaporizer(const CommonXMLStructure::SumoBaseObject* s
                 }
             } else {
                 myNet->getAttributeCarriers()->insertAdditional(vaporizer);
-                edge->addChild(vaporizer);
+                edge->addChildElement(vaporizer);
                 vaporizer->incRef("buildVaporizer");
             }
             return true;
@@ -1389,14 +1389,14 @@ GNEAdditionalHandler::buildTAZ(const CommonXMLStructure::SumoBaseObject* sumoBas
                     GNETAZSourceSink* TAZSource = new GNETAZSourceSink(SUMO_TAG_TAZSOURCE, TAZ, edge, 1);
                     myNet->getAttributeCarriers()->insertAdditional(TAZSource);
                     TAZSource->incRef("buildTAZ");
-                    TAZ->addChild(TAZSource);
-                    edge->addChild(TAZSource);
+                    TAZ->addChildElement(TAZSource);
+                    edge->addChildElement(TAZSource);
                     // create TAZ Sink
                     GNETAZSourceSink* TAZSink = new GNETAZSourceSink(SUMO_TAG_TAZSINK, TAZ, edge, 1);
                     myNet->getAttributeCarriers()->insertAdditional(TAZSink);
                     TAZSink->incRef("buildTAZ");
-                    TAZ->addChild(TAZSink);
-                    edge->addChild(TAZSink);
+                    TAZ->addChildElement(TAZSink);
+                    edge->addChildElement(TAZSink);
                 }
             }
             // enable updating geometry again and update geometry of TAZ
@@ -1440,8 +1440,8 @@ GNEAdditionalHandler::buildTAZSource(const CommonXMLStructure::SumoBaseObject* s
                 myNet->getViewNet()->getUndoList()->end();
             } else {
                 myNet->getAttributeCarriers()->insertAdditional(TAZSource);
-                TAZ->addChild(TAZSource);
-                edge->addChild(TAZSource);
+                TAZ->addChildElement(TAZSource);
+                edge->addChildElement(TAZSource);
                 TAZSource->incRef("buildTAZSource");
             }
         } else {
@@ -1490,8 +1490,8 @@ GNEAdditionalHandler::buildTAZSink(const CommonXMLStructure::SumoBaseObject* sum
                 myNet->getViewNet()->getUndoList()->end();
             } else {
                 myNet->getAttributeCarriers()->insertAdditional(TAZSink);
-                TAZ->addChild(TAZSink);
-                edge->addChild(TAZSink);
+                TAZ->addChildElement(TAZSink);
+                edge->addChildElement(TAZSink);
                 TAZSink->incRef("buildTAZSink");
             }
         } else {
@@ -1582,7 +1582,7 @@ GNEAdditionalHandler::buildOverheadWire(const CommonXMLStructure::SumoBaseObject
                 } else {
                     myNet->getAttributeCarriers()->insertAdditional(overheadWire);
                     for (const auto& lane : lanes) {
-                        lane->addChild(overheadWire);
+                        lane->addChildElement(overheadWire);
                     }
                     overheadWire->incRef("buildOverheadWire");
                 }
@@ -1717,7 +1717,7 @@ GNEAdditionalHandler::buildPOILane(const CommonXMLStructure::SumoBaseObject* sum
             } else {
                 // insert shape without allowing undo/redo
                 myNet->getAttributeCarriers()->insertAdditional(POILane);
-                lane->addChild(POILane);
+                lane->addChildElement(POILane);
                 POILane->incRef("buildPOILane");
             }
         }

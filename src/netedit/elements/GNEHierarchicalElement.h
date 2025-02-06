@@ -132,66 +132,103 @@ public:
 
     /// @brief add child (only used if we're creating elements without undo-redo)
     template<typename T>
-    void addChild(T* element) {
+    void addChildElement(T* element) {
         myHierarchicalStructureChildren.addChildElement(element);
     }
 
-
-    /// @}
-
-
-
-
-    /// @name insert chilld (and update parent)
+    /// @brief insert parent function (and update their child)
     /// @{
-    /*
-        /// @brief insert junction child element
-        void insertJunctionChild(GNEJunction* junction) {
-            myHierarchicalStructureChildren.addChildElement(junction);
-            junction->myHierarchicalStructureParents.
-        }
 
-        /// @brief insert edge child element
-        void insertEdgeChild(GNEEdge* edge) {
-            myHierarchicalStructureChildren.addChildElement(edge);
-        }
+    /// @brief insert parent in the given junction
+    template<typename T>
+    void insertParentInJunction(GNEJunction* junction, T* parent) {
+        junction->myHierarchicalStructureParents.addParentElement(parent);
+        parent->myHierarchicalStructureChildren.addChildElement(junction);
+    }
 
-        /// @brief insert lane child element
-        void insertLaneChild(GNELane* lane) {
-            myHierarchicalStructureChildren.addChildElement(lane);
-        }
+    /// @brief insert parent in the given edge
+    template<typename T>
+    void insertParentInEdge(GNEEdge* edge, T* parent) {
+        edge->myHierarchicalStructureParents.addParentElement(parent);
+        parent->myHierarchicalStructureChildren.addChildElement(edge);
+    }
 
-        /// @brief insert insertitional child element
-        void insertAdditionalChild(GNEAdditional* insertitional) {
-            myHierarchicalStructureChildren.addChildElement(insertitional);
-        }
+    /// @brief insert parent in the given lane
+    template<typename T>
+    void insertParentInLane(GNELane* lane, T* parent) {
+        lane->myHierarchicalStructureParents.addParentElement(parent);
+        parent->myHierarchicalStructureChildren.addChildElement(lane);
+    }
 
-        /// @brief insert demand element child element
-        void insertDemandElementChild(GNEDemandElement* demandElement) {
-            myHierarchicalStructureChildren.addChildElement(demandElement);
-        }
+    /// @brief insert parent in the given additional
+    template<typename T>
+    void insertParentInAdditional(GNEAdditional* additional, T* parent) {
+        additional->myHierarchicalStructureParents.addParentElement(parent);
+        parent->myHierarchicalStructureChildren.addChildElement(additional);
+    }
 
-        /// @brief insert generic data child element
-        void insertGenericDataChild(GNEGenericData* genericData) {
-            myHierarchicalStructureChildren.addChildElement(genericData);
-        }
-    */
+    /// @brief insert parent in the given demand element
+    template<typename T>
+    void insertParentInDemandElement(GNEDemandElement* demandElement, T* parent) {
+        demandElement->myHierarchicalStructureParents.addParentElement(parent);
+        parent->myHierarchicalStructureChildren.addChildElement(demandElement);
+    }
+
+    /// @brief insert parent in the given genericData
+    template<typename T>
+    void insertParentInGenericData(GNEGenericData* genericData, T* parent) {
+        genericData->myHierarchicalStructureParents.addParentElement(parent);
+        parent->myHierarchicalStructureChildren.addChildElement(genericData);
+    }
+
     /// @}
 
+    /// @brief insert child function (and update their parent)
+    /// @{
 
+    /// @brief insert child in the given junction
+    template<typename T>
+    void insertChildInJunction(GNEJunction* junction, T* child) {
+        junction->myHierarchicalStructureChildren.addChildElement(child);
+        child->myHierarchicalStructureParents.addParentElement(junction);
+    }
 
+    /// @brief insert child in the given edge
+    template<typename T>
+    void insertChildInEdge(GNEEdge* edge, T* child) {
+        edge->myHierarchicalStructureChildren.addChildElement(child);
+        child->myHierarchicalStructureParents.addParentElement(edge);
+    }
 
+    /// @brief insert child in the given lane
+    template<typename T>
+    void insertChildInLane(GNELane* lane, T* child) {
+        lane->myHierarchicalStructureChildren.addChildElement(child);
+        child->myHierarchicalStructureParents.addParentElement(lane);
+    }
 
+    /// @brief insert child in the given additional
+    template<typename T>
+    void insertChildInAdditional(GNEAdditional* additional, T* child) {
+        additional->myHierarchicalStructureChildren.addChildElement(child);
+        child->myHierarchicalStructureParents.addParentElement(additional);
+    }
 
+    /// @brief insert child in the given demand element
+    template<typename T>
+    void insertChildInDemandElement(GNEDemandElement* demandElement, T* child) {
+        demandElement->myHierarchicalStructureChildren.addChildElement(child);
+        child->myHierarchicalStructureParents.addParentElement(demandElement);
+    }
 
+    /// @brief insert child in the given genericData
+    template<typename T>
+    void insertChildInGenericData(GNEGenericData* genericData, T* child) {
+        genericData->myHierarchicalStructureChildren.addChildElement(child);
+        child->myHierarchicalStructureParents.addParentElement(genericData);
+    }
 
-
-
-
-
-
-
-
+    /// @}
 
     /// @name specific get functions
     /// @{

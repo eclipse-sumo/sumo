@@ -215,7 +215,7 @@ GNERouteHandler::buildRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseOb
             } else {
                 myNet->getAttributeCarriers()->insertDemandElement(route);
                 for (const auto& edge : edges) {
-                    edge->addChild(route);
+                    edge->addChildElement(route);
                 }
                 if (routeDistribution) {
                     routeDistribution->addDistributionKey(route, probability);
@@ -293,8 +293,8 @@ GNERouteHandler::buildVehicleOverRoute(const CommonXMLStructure::SumoBaseObject*
             } else {
                 myNet->getAttributeCarriers()->insertDemandElement(vehicle);
                 // set vehicle as child of type and Route
-                type->addChild(vehicle);
-                route->addChild(vehicle);
+                type->addChildElement(vehicle);
+                route->addChildElement(vehicle);
                 vehicle->incRef("buildVehicleOverRoute");
             }
             return true;
@@ -340,10 +340,10 @@ GNERouteHandler::buildVehicleEmbeddedRoute(const CommonXMLStructure::SumoBaseObj
                 } else {
                     myNet->getAttributeCarriers()->insertDemandElement(vehicle);
                     myNet->getAttributeCarriers()->insertDemandElement(route);
-                    type->addChild(vehicle);
-                    vehicle->addChild(route);
+                    type->addChildElement(vehicle);
+                    vehicle->addChildElement(route);
                     for (const auto& edge : edges) {
-                        edge->addChild(route);
+                        edge->addChildElement(route);
                     }
                     vehicle->incRef("buildVehicleEmbeddedRoute");
                     route->incRef("buildVehicleEmbeddedRoute");
@@ -385,8 +385,8 @@ GNERouteHandler::buildFlowOverRoute(const CommonXMLStructure::SumoBaseObject* /*
             } else {
                 myNet->getAttributeCarriers()->insertDemandElement(flow);
                 // set flow as child of type and Route
-                type->addChild(flow);
-                route->addChild(flow);
+                type->addChildElement(flow);
+                route->addChildElement(flow);
                 flow->incRef("buildFlowOverRoute");
             }
             return true;
@@ -432,10 +432,10 @@ GNERouteHandler::buildFlowEmbeddedRoute(const CommonXMLStructure::SumoBaseObject
                 } else {
                     myNet->getAttributeCarriers()->insertDemandElement(vehicle);
                     myNet->getAttributeCarriers()->insertDemandElement(route);
-                    type->addChild(vehicle);
-                    vehicle->addChild(route);
+                    type->addChildElement(vehicle);
+                    vehicle->addChildElement(route);
                     for (const auto& edge : edges) {
-                        edge->addChild(route);
+                        edge->addChildElement(route);
                     }
                     vehicle->incRef("buildFlowEmbeddedRoute");
                     route->incRef("buildFlowEmbeddedRoute");
@@ -487,11 +487,11 @@ GNERouteHandler::buildTrip(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
                 } else {
                     myNet->getAttributeCarriers()->insertDemandElement(trip);
                     // set vehicle as child of type
-                    type->addChild(trip);
+                    type->addChildElement(trip);
                     trip->incRef("buildTrip");
                     // add reference in all edges
-                    fromEdge->addChild(trip);
-                    toEdge->addChild(trip);
+                    fromEdge->addChildElement(trip);
+                    toEdge->addChildElement(trip);
                 }
                 return true;
             }
@@ -534,11 +534,11 @@ GNERouteHandler::buildTripJunctions(const CommonXMLStructure::SumoBaseObject* /*
                 } else {
                     myNet->getAttributeCarriers()->insertDemandElement(flow);
                     // set vehicle as child of type
-                    type->addChild(flow);
+                    type->addChildElement(flow);
                     flow->incRef("buildFlow");
                     // add reference in all junctions
-                    fromJunction->addChild(flow);
-                    toJunction->addChild(flow);
+                    fromJunction->addChildElement(flow);
+                    toJunction->addChildElement(flow);
                 }
                 return true;
             }
@@ -581,11 +581,11 @@ GNERouteHandler::buildTripTAZs(const CommonXMLStructure::SumoBaseObject* /*sumoB
                 } else {
                     myNet->getAttributeCarriers()->insertDemandElement(flow);
                     // set vehicle as child of type
-                    type->addChild(flow);
+                    type->addChildElement(flow);
                     flow->incRef("buildFlow");
                     // add reference in all TAZs
-                    fromTAZ->addChild(flow);
-                    toTAZ->addChild(flow);
+                    fromTAZ->addChildElement(flow);
+                    toTAZ->addChildElement(flow);
                 }
                 return true;
             }
@@ -634,11 +634,11 @@ GNERouteHandler::buildFlow(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
                 } else {
                     myNet->getAttributeCarriers()->insertDemandElement(flow);
                     // set vehicle as child of type
-                    type->addChild(flow);
+                    type->addChildElement(flow);
                     flow->incRef("buildFlow");
                     // add reference in all edges
-                    fromEdge->addChild(flow);
-                    toEdge->addChild(flow);
+                    fromEdge->addChildElement(flow);
+                    toEdge->addChildElement(flow);
                 }
                 return true;
             }
@@ -681,11 +681,11 @@ GNERouteHandler::buildFlowJunctions(const CommonXMLStructure::SumoBaseObject* /*
                 } else {
                     myNet->getAttributeCarriers()->insertDemandElement(flow);
                     // set vehicle as child of type
-                    type->addChild(flow);
+                    type->addChildElement(flow);
                     flow->incRef("buildFlow");
                     // add reference in all junctions
-                    fromJunction->addChild(flow);
-                    toJunction->addChild(flow);
+                    fromJunction->addChildElement(flow);
+                    toJunction->addChildElement(flow);
                 }
                 return true;
             }
@@ -728,11 +728,11 @@ GNERouteHandler::buildFlowTAZs(const CommonXMLStructure::SumoBaseObject* /*sumoB
                 } else {
                     myNet->getAttributeCarriers()->insertDemandElement(flow);
                     // set vehicle as child of type
-                    type->addChild(flow);
+                    type->addChildElement(flow);
                     flow->incRef("buildFlow");
                     // add reference in all TAZs
-                    fromTAZ->addChild(flow);
-                    toTAZ->addChild(flow);
+                    fromTAZ->addChildElement(flow);
+                    toTAZ->addChildElement(flow);
                 }
                 return true;
             }
@@ -764,7 +764,7 @@ GNERouteHandler::buildPerson(const CommonXMLStructure::SumoBaseObject* /*sumoBas
             } else {
                 myNet->getAttributeCarriers()->insertDemandElement(person);
                 // set person as child of type
-                type->addChild(person);
+                type->addChildElement(person);
                 person->incRef("buildPerson");
             }
             // save in parent plan elements
@@ -798,7 +798,7 @@ GNERouteHandler::buildPersonFlow(const CommonXMLStructure::SumoBaseObject* /*sum
             } else {
                 myNet->getAttributeCarriers()->insertDemandElement(personFlow);
                 // set personFlow as child of type
-                type->addChild(personFlow);
+                type->addChildElement(personFlow);
                 personFlow->incRef("buildPersonFlow");
             }
             // save in parent plan elements
@@ -834,7 +834,7 @@ GNERouteHandler::buildPersonTrip(const CommonXMLStructure::SumoBaseObject* sumoB
         } else {
             myNet->getAttributeCarriers()->insertDemandElement(personTrip);
             // set child references
-            personParent->addChild(personTrip);
+            personParent->addChildElement(personTrip);
             planParents.addDemandElementChild(personTrip);
             personTrip->incRef("buildPersonTrip");
         }
@@ -872,7 +872,7 @@ GNERouteHandler::buildWalk(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
         } else {
             myNet->getAttributeCarriers()->insertDemandElement(walk);
             // set child references
-            personParent->addChild(walk);
+            personParent->addChildElement(walk);
             planParents.addDemandElementChild(walk);
             walk->incRef("buildWalk");
         }
@@ -906,7 +906,7 @@ GNERouteHandler::buildRide(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
         } else {
             myNet->getAttributeCarriers()->insertDemandElement(ride);
             // set child references
-            personParent->addChild(ride);
+            personParent->addChildElement(ride);
             planParents.addDemandElementChild(ride);
             ride->incRef("buildRide");
         }
@@ -940,7 +940,7 @@ GNERouteHandler::buildContainer(const CommonXMLStructure::SumoBaseObject* /*sumo
             } else {
                 myNet->getAttributeCarriers()->insertDemandElement(container);
                 // set container as child of type
-                type->addChild(container);
+                type->addChildElement(container);
                 container->incRef("buildContainer");
             }
             // save in parent plan elements
@@ -974,7 +974,7 @@ GNERouteHandler::buildContainerFlow(const CommonXMLStructure::SumoBaseObject* /*
             } else {
                 myNet->getAttributeCarriers()->insertDemandElement(containerFlow);
                 // set containerFlow as child of type
-                type->addChild(containerFlow);
+                type->addChildElement(containerFlow);
                 containerFlow->incRef("buildContainerFlow");
             }
             // save in parent plan elements
@@ -1008,7 +1008,7 @@ GNERouteHandler::buildTransport(const CommonXMLStructure::SumoBaseObject* sumoBa
         } else {
             myNet->getAttributeCarriers()->insertDemandElement(transport);
             // set child references
-            containerParent->addChild(transport);
+            containerParent->addChildElement(transport);
             planParents.addDemandElementChild(transport);
             transport->incRef("buildTransport");
         }
@@ -1047,7 +1047,7 @@ GNERouteHandler::buildTranship(const CommonXMLStructure::SumoBaseObject* sumoBas
         } else {
             myNet->getAttributeCarriers()->insertDemandElement(tranship);
             // set child references
-            containerParent->addChild(tranship);
+            containerParent->addChildElement(tranship);
             planParents.addDemandElementChild(tranship);
             tranship->incRef("buildTranship");
         }
@@ -1083,7 +1083,7 @@ GNERouteHandler::buildPersonStop(const CommonXMLStructure::SumoBaseObject* sumoB
         } else {
             myNet->getAttributeCarriers()->insertDemandElement(stopPlan);
             // set child references
-            personParent->addChild(stopPlan);
+            personParent->addChildElement(stopPlan);
             planParents.addDemandElementChild(stopPlan);
             stopPlan->incRef("buildPersonStop");
         }
@@ -1119,7 +1119,7 @@ GNERouteHandler::buildContainerStop(const CommonXMLStructure::SumoBaseObject* su
         } else {
             myNet->getAttributeCarriers()->insertDemandElement(stopPlan);
             // set child references
-            containerParent->addChild(stopPlan);
+            containerParent->addChildElement(stopPlan);
             planParents.addDemandElementChild(stopPlan);
             stopPlan->incRef("buildContainerStop");
         }
@@ -1256,8 +1256,8 @@ GNERouteHandler::buildStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
                     myNet->getViewNet()->getUndoList()->end();
                 } else {
                     myNet->getAttributeCarriers()->insertDemandElement(stop);
-                    stoppingPlace->addChild(stop);
-                    stopParent->addChild(stop);
+                    stoppingPlace->addChildElement(stop);
+                    stopParent->addChildElement(stop);
                     stop->incRef("buildStoppingPlaceStop");
                 }
                 return true;
@@ -1271,8 +1271,8 @@ GNERouteHandler::buildStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
                     myNet->getViewNet()->getUndoList()->end();
                 } else {
                     myNet->getAttributeCarriers()->insertDemandElement(stop);
-                    lane->addChild(stop);
-                    stopParent->addChild(stop);
+                    lane->addChildElement(stop);
+                    stopParent->addChildElement(stop);
                     stop->incRef("buildLaneStop");
                 }
                 return true;
