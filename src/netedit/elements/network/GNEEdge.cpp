@@ -2133,7 +2133,7 @@ GNEEdge::addLane(GNELane* lane, const NBEdge::Lane& laneAttrs, bool recomputeCon
     myNBEdge->addLane(index, true, recomputeConnections, !recomputeConnections);
     if (lane) {
         // restore a previously deleted lane
-        auto newParentLanes = getChildLanes();
+        GNEHierarchicalContainerChildren<GNELane*> newParentLanes = getChildLanes();
         newParentLanes.insert(newParentLanes.begin() + index, lane);
         while (getChildLanes().size() > 0) {
             removeChildFromEdge(this, getChildLanes().front());
@@ -2205,7 +2205,7 @@ GNEEdge::removeLane(GNELane* lane, bool recomputeConnections) {
     myNBEdge->deleteLane(lane->getIndex(), recomputeConnections, !recomputeConnections);
     lane->decRef("GNEEdge::removeLane");
     // delete lane from edge
-    auto newParentLanes = getChildLanes();
+    GNEHierarchicalContainerChildren<GNELane*> newParentLanes = getChildLanes();
     newParentLanes.erase(newParentLanes.begin() + lane->getIndex());
     while (getChildLanes().size() > 0) {
         removeChildFromEdge(this, getChildLanes().front());
