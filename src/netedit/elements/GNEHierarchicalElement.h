@@ -141,42 +141,42 @@ public:
 
     /// @brief insert parent in the given junction
     template<typename T>
-    void insertParentInJunction(GNEJunction* junction, T* parent) {
+    static void insertParentInJunction(GNEJunction* junction, T* parent) {
         junction->myHierarchicalStructureParents.addParentElement(parent);
         parent->myHierarchicalStructureChildren.addChildElement(junction);
     }
 
     /// @brief insert parent in the given edge
     template<typename T>
-    void insertParentInEdge(GNEEdge* edge, T* parent) {
+    static void insertParentInEdge(GNEEdge* edge, T* parent) {
         edge->myHierarchicalStructureParents.addParentElement(parent);
         parent->myHierarchicalStructureChildren.addChildElement(edge);
     }
 
     /// @brief insert parent in the given lane
     template<typename T>
-    void insertParentInLane(GNELane* lane, T* parent) {
+    static void insertParentInLane(GNELane* lane, T* parent) {
         lane->myHierarchicalStructureParents.addParentElement(parent);
         parent->myHierarchicalStructureChildren.addChildElement(lane);
     }
 
     /// @brief insert parent in the given additional
     template<typename T>
-    void insertParentInAdditional(GNEAdditional* additional, T* parent) {
+    static void insertParentInAdditional(GNEAdditional* additional, T* parent) {
         additional->myHierarchicalStructureParents.addParentElement(parent);
         parent->myHierarchicalStructureChildren.addChildElement(additional);
     }
 
     /// @brief insert parent in the given demand element
     template<typename T>
-    void insertParentInDemandElement(GNEDemandElement* demandElement, T* parent) {
+    static void insertParentInDemandElement(GNEDemandElement* demandElement, T* parent) {
         demandElement->myHierarchicalStructureParents.addParentElement(parent);
         parent->myHierarchicalStructureChildren.addChildElement(demandElement);
     }
 
     /// @brief insert parent in the given genericData
     template<typename T>
-    void insertParentInGenericData(GNEGenericData* genericData, T* parent) {
+    static void insertParentInGenericData(GNEGenericData* genericData, T* parent) {
         genericData->myHierarchicalStructureParents.addParentElement(parent);
         parent->myHierarchicalStructureChildren.addChildElement(genericData);
     }
@@ -188,44 +188,136 @@ public:
 
     /// @brief remove parent from the given junction
     template<typename T>
-    void removeParentFromJunction(GNEJunction* junction, T* parent) {
+    static void removeParentFromJunction(GNEJunction* junction, T* parent) {
         junction->myHierarchicalStructureParents.removeParentElement(parent);
         parent->myHierarchicalStructureChildren.removeChildElement(junction);
     }
 
     /// @brief remove parent from the given edge
     template<typename T>
-    void removeParentFromEdge(GNEEdge* edge, T* parent) {
+    static void removeParentFromEdge(GNEEdge* edge, T* parent) {
         edge->myHierarchicalStructureParents.removeParentElement(parent);
         parent->myHierarchicalStructureChildren.removeChildElement(edge);
     }
 
     /// @brief remove parent from the given lane
     template<typename T>
-    void removeParentFromLane(GNELane* lane, T* parent) {
+    static void removeParentFromLane(GNELane* lane, T* parent) {
         lane->myHierarchicalStructureParents.removeParentElement(parent);
         parent->myHierarchicalStructureChildren.removeChildElement(lane);
     }
 
     /// @brief remove parent from the given additional
     template<typename T>
-    void removeParentFromAdditional(GNEAdditional* removeitional, T* parent) {
+    static void removeParentFromAdditional(GNEAdditional* removeitional, T* parent) {
         removeitional->myHierarchicalStructureParents.removeParentElement(parent);
         parent->myHierarchicalStructureChildren.removeChildElement(removeitional);
     }
 
     /// @brief remove parent from the given demand element
     template<typename T>
-    void removeParentFromDemandElement(GNEDemandElement* demandElement, T* parent) {
+    static void removeParentFromDemandElement(GNEDemandElement* demandElement, T* parent) {
         demandElement->myHierarchicalStructureParents.removeParentElement(parent);
         parent->myHierarchicalStructureChildren.removeChildElement(demandElement);
     }
 
     /// @brief remove parent from the given genericData
     template<typename T>
-    void removeParentFromGenericData(GNEGenericData* genericData, T* parent) {
+    static void removeParentFromGenericData(GNEGenericData* genericData, T* parent) {
         genericData->myHierarchicalStructureParents.removeParentElement(parent);
         parent->myHierarchicalStructureChildren.removeChildElement(genericData);
+    }
+
+    /// @brief insert child element (and update their parent)
+    /// @{
+
+    /// @brief insert child in the given junction
+    template<typename T>
+    static void insertChildInJunction(GNEJunction* junction, T* child) {
+        junction->myHierarchicalStructureParents.addChildElement(child);
+        child->myHierarchicalStructureChildren.addParentElement(junction);
+    }
+
+    /// @brief insert child in the given edge
+    template<typename T>
+    static void insertChildInEdge(GNEEdge* edge, T* child) {
+        edge->myHierarchicalStructureParents.addChildElement(child);
+        child->myHierarchicalStructureChildren.addParentElement(edge);
+    }
+
+    /// @brief insert child in the given lane
+    template<typename T>
+    static void insertChildInLane(GNELane* lane, T* child) {
+        lane->myHierarchicalStructureParents.addChildElement(child);
+        child->myHierarchicalStructureChildren.addParentElement(lane);
+    }
+
+    /// @brief insert child in the given additional
+    template<typename T>
+    static void insertChildInAdditional(GNEAdditional* additional, T* child) {
+        additional->myHierarchicalStructureParents.addChildElement(child);
+        child->myHierarchicalStructureChildren.addParentElement(additional);
+    }
+
+    /// @brief insert child in the given demand element
+    template<typename T>
+    static void insertChildInDemandElement(GNEDemandElement* demandElement, T* child) {
+        demandElement->myHierarchicalStructureParents.addChildElement(child);
+        child->myHierarchicalStructureChildren.addParentElement(demandElement);
+    }
+
+    /// @brief insert child in the given genericData
+    template<typename T>
+    static void insertChildInGenericData(GNEGenericData* genericData, T* child) {
+        genericData->myHierarchicalStructureParents.addChildElement(child);
+        child->myHierarchicalStructureChildren.addParentElement(genericData);
+    }
+
+    /// @}
+
+    /// @brief remove child element (and update their parent)
+    /// @{
+
+    /// @brief remove child from the given junction
+    template<typename T>
+    static void removeChildFromJunction(GNEJunction* junction, T* child) {
+        junction->myHierarchicalStructureChildren.removeChildElement(child);
+        child->myHierarchicalStructureParents.removeParentElement(junction);
+    }
+
+    /// @brief remove child from the given edge
+    template<typename T>
+    static void removeChildFromEdge(GNEEdge* edge, T* child) {
+        edge->myHierarchicalStructureChildren.removeChildElement(child);
+        child->myHierarchicalStructureParents.removeParentElement(edge);
+    }
+
+    /// @brief remove child from the given lane
+    template<typename T>
+    static void removeChildFromLane(GNELane* lane, T* child) {
+        lane->myHierarchicalStructureChildren.removeChildElement(child);
+        child->myHierarchicalStructureParents.removeParentElement(lane);
+    }
+
+    /// @brief remove child from the given additional
+    template<typename T>
+    static void removeChildFromAdditional(GNEAdditional* removeitional, T* child) {
+        removeitional->myHierarchicalStructureChildren.removeChildElement(child);
+        child->myHierarchicalStructureParents.removeParentElement(removeitional);
+    }
+
+    /// @brief remove child from the given demand element
+    template<typename T>
+    static void removeChildFromDemandElement(GNEDemandElement* demandElement, T* child) {
+        demandElement->myHierarchicalStructureChildren.removeChildElement(child);
+        child->myHierarchicalStructureChildren.removeParentElement(demandElement);
+    }
+
+    /// @brief remove child from the given genericData
+    template<typename T>
+    static void removeChildFromGenericData(GNEGenericData* genericData, T* child) {
+        genericData->myHierarchicalStructureChildren.removeChildElement(child);
+        child->myHierarchicalStructureParents.removeParentElement(genericData);
     }
 
     /// @}
@@ -243,37 +335,6 @@ public:
 
     /// @brief check if child demand elements are overlapped
     bool checkChildDemandElementsOverlapping() const;
-
-protected:
-    /// @brief replace parents in the given edited element
-    template<typename T, typename U>
-    void replaceParentElements(T* editedElement, const std::vector<U>& newParents) {
-        // remove edited elements from parents
-        for (const auto& parent : myHierarchicalStructure.getParents<U>()) {
-            parent->removeChildElement(editedElement);
-        }
-        // set new parents
-        myHierarchicalStructure.setParents(newParents);
-        // add edited elements in new parents
-        for (const auto& parent : myHierarchicalStructure.getParents<U>()) {
-            parent->addChildElement(editedElement);
-        }
-    }
-
-    /// @brief replace children in the given edited element
-    template<typename T, typename U>
-    void replaceChildElements(T* editedElement, const GNEHierarchicalContainerChildren<U>& newChildren) {
-        // remove edited elements from children
-        for (const auto& child : myHierarchicalStructure.getChildren<U>()) {
-            child->removeChildElement(editedElement);
-        }
-        // set new children
-        myHierarchicalStructure.setChildren(newChildren);
-        // add edited elements in new children
-        for (const auto& child : myHierarchicalStructure.getChildren<U>()) {
-            child->addChildElement(editedElement);
-        }
-    }
 
 private:
     /// @brief hierarchical structure with parents
