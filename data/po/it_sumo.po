@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-04 15:47+0100\n"
-"PO-Revision-Date: 2025-02-07 11:03+0000\n"
+"PO-Revision-Date: 2025-02-07 12:22+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -5885,6 +5885,8 @@ msgid ""
 "Invalid distance computation for vehicle '%' from stopping place '%' at "
 "time=%."
 msgstr ""
+"Calcolo di distanza invalido per veicolo '%' dal punto di fermata '%' alle "
+"ore %."
 
 #: src/microsim/trigger/MSStoppingPlaceRerouter.cpp:576
 msgid "Invalid value '%' for vehicle parameter '%'"
@@ -5896,29 +5898,33 @@ msgstr "Valore invalido '%' del parametro di tipo di veicolo '%'"
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:129
 msgid "rerouter '%': interval end % is not after begin %."
-msgstr ""
+msgstr "rerouter '%': la fine del periodo % non è dopo l'inizio %."
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:139
 msgid "rerouter '%': destProbReroute has no destination edge id."
 msgstr ""
+"rerouter '%': destProbReroute non tiene il codice identificativo dell'arco "
+"di destinazione."
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:148
 msgid "rerouter '%': Destination edge '%' is not known."
-msgstr ""
+msgstr "rerouter '%': L'arco di destinazione '%' è sconosciuto."
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:158
 msgid ""
 "rerouter '%': Attribute 'probability' for destination '%' is negative (must "
 "not)."
 msgstr ""
+"rerouter '%': L'attributo 'probability' per la destinazione '%' è negativo ("
+"che non è possibile)."
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:169
 msgid "rerouter '%': Edge '%' to close is not known."
-msgstr ""
+msgstr "rerouter '%': L'arco da chiudere '%' è sconosciuto."
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:183
 msgid "rerouter '%': Lane '%' to close is not known."
-msgstr ""
+msgstr "rerouter '%': La corsia da chiudere '%' è sconosciuta."
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:202
 msgid "rerouter '%': routeProbReroute has no alternative route id."
