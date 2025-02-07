@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-04 15:47+0100\n"
-"PO-Revision-Date: 2025-02-07 12:22+0000\n"
+"PO-Revision-Date: 2025-02-07 14:37+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -5929,10 +5929,12 @@ msgstr "rerouter '%': La corsia da chiudere '%' è sconosciuta."
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:202
 msgid "rerouter '%': routeProbReroute has no alternative route id."
 msgstr ""
+"rerouter '%': routeProbReroute non contiene il codice identificativo di un "
+"itinerario alternativo."
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:206
 msgid "rerouter '%': Alternative route '%' does not exist."
-msgstr ""
+msgstr "rerouter '%': L'itinerario alternativo '%' non esiste."
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:216
 msgid ""
@@ -5957,19 +5959,25 @@ msgid ""
 "rerouter '%': Attribute 'probability' for parkingArea '%' is negative (must "
 "not)."
 msgstr ""
+"rerouter '%': L'attributo 'probability' del parcheggio '%' è negativo (che "
+"non è possibile)."
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:250
 msgid "rerouter '%': No via edge id given."
 msgstr ""
+"rerouter '%': Nessun codice identificativo per un arco intermedio è stato "
+"indicato."
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:254
 msgid "rerouter '%': Via Edge '%' is not known."
-msgstr ""
+msgstr "rerouter '%': L'arco intermedio '%' è sconosciuto."
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:263
 msgid ""
 "rerouter '%': Attribute 'probability' for via '%' is negative (must not)."
 msgstr ""
+"rerouter '%': L'attributo 'probability' per l'arco intermedio '%' è negativo "
+"(che non è possibile)."
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:536
 #, c-format
@@ -5985,6 +5993,9 @@ msgid ""
 "ParkingArea '%' is targeted by rerouter '%' but doesn't have its own "
 "rerouter. This may cause parking search to abort."
 msgstr ""
+"Il parcheggio '%' è fra le destinazioni azionate dal rerouter '%' ma non "
+"possiede un rerouter suo. Si rischia quindi di interrompere la ricerca di "
+"parcheggio."
 
 #: src/netbuild/NBAlgorithms.cpp:153
 msgid "Ambiguity in turnarounds computation at junction '%'."
