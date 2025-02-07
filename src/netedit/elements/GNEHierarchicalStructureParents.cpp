@@ -107,81 +107,71 @@ GNEHierarchicalStructureParents::getParents() const {
 
 
 template <> void
-GNEHierarchicalStructureParents::addParentElement(GNEJunction* element, const int index) {
+GNEHierarchicalStructureParents::addParentElement(GNEJunction* parent, const int index) {
     if (index == -1) {
-        myParentJunctions.push_back(element);
+        myParentJunctions.push_back(parent);
     } else {
-        myParentJunctions.insert(myParentJunctions.begin() + index, element);
+        myParentJunctions.insert(myParentJunctions.begin() + index, parent);
     }
 }
 
 
 template <> void
-GNEHierarchicalStructureParents::addParentElement(GNEEdge* element, const int index) {
+GNEHierarchicalStructureParents::addParentElement(GNEEdge* parent, const int index) {
     if (index == -1) {
-        myParentEdges.push_back(element);
+        myParentEdges.push_back(parent);
     } else {
-        myParentEdges.insert(myParentEdges.begin() + index, element);
+        myParentEdges.insert(myParentEdges.begin() + index, parent);
     }
 }
 
 
 template <> void
-GNEHierarchicalStructureParents::addParentElement(GNELane* element, const int index) {
+GNEHierarchicalStructureParents::addParentElement(GNELane* parent, const int index) {
     if (index == -1) {
-        myParentLanes.push_back(element);
+        myParentLanes.push_back(parent);
     } else {
-        myParentLanes.insert(myParentLanes.begin() + index, element);
+        myParentLanes.insert(myParentLanes.begin() + index, parent);
     }
 }
 
 
 template <> void
-GNEHierarchicalStructureParents::addParentElement(GNEAdditional* element, const int index) {
+GNEHierarchicalStructureParents::addParentElement(GNEAdditional* parent, const int index) {
     if (index == -1) {
-        myParentAdditionals.push_back(element);
+        myParentAdditionals.push_back(parent);
     } else {
-        myParentAdditionals.insert(myParentAdditionals.begin() + index, element);
+        myParentAdditionals.insert(myParentAdditionals.begin() + index, parent);
     }
 }
 
 
 template <> void
-GNEHierarchicalStructureParents::addParentElement(GNETAZSourceSink* element, const int index) {
+GNEHierarchicalStructureParents::addParentElement(GNETAZSourceSink* parent, const int index) {
     if (index == -1) {
-        myParentTAZSourceSinks.push_back(element);
+        myParentTAZSourceSinks.push_back(parent);
     } else {
-        myParentTAZSourceSinks.insert(myParentTAZSourceSinks.begin() + index, element);
+        myParentTAZSourceSinks.insert(myParentTAZSourceSinks.begin() + index, parent);
     }
 }
 
 
 template <> void
-GNEHierarchicalStructureParents::addParentElement(GNEDemandElement* element, const int index) {
+GNEHierarchicalStructureParents::addParentElement(GNEDemandElement* parent, const int index) {
     if (index == -1) {
-        myParentDemandElements.push_back(element);
+        myParentDemandElements.push_back(parent);
     } else {
-        myParentDemandElements.insert(myParentDemandElements.begin() + index, element);
+        myParentDemandElements.insert(myParentDemandElements.begin() + index, parent);
     }
 }
 
 
 template <> void
-GNEHierarchicalStructureParents::addParentElement(GNEGenericData* element, const int index) {
+GNEHierarchicalStructureParents::addParentElement(GNEGenericData* parent, const int index) {
     if (index == -1) {
-        myParentGenericDatas.push_back(element);
+        myParentGenericDatas.push_back(parent);
     } else {
-        myParentGenericDatas.insert(myParentGenericDatas.begin() + index, element);
-    }
-}
-
-
-template <> void
-GNEHierarchicalStructureParents::updateParentElement(const int index, GNEJunction* element) {
-    if (index >= 0 && index < (int)myParentJunctions.size()) {
-        myParentJunctions[index] = element;
-    } else {
-        throw ProcessError("Invalid index " + toString(element->getID()) + " updating junction parents");
+        myParentGenericDatas.insert(myParentGenericDatas.begin() + index, parent);
     }
 }
 
@@ -192,7 +182,7 @@ GNEHierarchicalStructureParents::removeParentElement(GNEJunction* junction) {
     if (it != myParentJunctions.end()) {
         myParentJunctions.erase(it);
     } else {
-        throw ProcessError(junction->getTagStr() + " with ID='" + junction->getID() + "' is not a parent element");
+        throw ProcessError(junction->getTagStr() + " with ID='" + junction->getID() + "' is not a parent parent");
     }
 }
 
@@ -203,7 +193,7 @@ GNEHierarchicalStructureParents::removeParentElement(GNEEdge* edge) {
     if (it != myParentEdges.end()) {
         myParentEdges.erase(it);
     } else {
-        throw ProcessError(edge->getTagStr() + " with ID='" + edge->getID() + "' is not a parent element");
+        throw ProcessError(edge->getTagStr() + " with ID='" + edge->getID() + "' is not a parent parent");
     }
 }
 
@@ -214,7 +204,7 @@ GNEHierarchicalStructureParents::removeParentElement(GNELane* lane) {
     if (it != myParentLanes.end()) {
         myParentLanes.erase(it);
     } else {
-        throw ProcessError(lane->getTagStr() + " with ID='" + lane->getID() + "' is not a parent element");
+        throw ProcessError(lane->getTagStr() + " with ID='" + lane->getID() + "' is not a parent parent");
     }
 }
 
@@ -225,7 +215,7 @@ GNEHierarchicalStructureParents::removeParentElement(GNEAdditional* additional) 
     if (it != myParentAdditionals.end()) {
         myParentAdditionals.erase(it);
     } else {
-        throw ProcessError(additional->getTagStr() + " with ID='" + additional->getID() + "' is not a parent element");
+        throw ProcessError(additional->getTagStr() + " with ID='" + additional->getID() + "' is not a parent parent");
     }
 }
 
@@ -236,7 +226,7 @@ GNEHierarchicalStructureParents::removeParentElement(GNETAZSourceSink* TAZSource
     if (it != myParentTAZSourceSinks.end()) {
         myParentTAZSourceSinks.erase(it);
     } else {
-        throw ProcessError(TAZSourceSink->getTagStr() + " with ID='" + TAZSourceSink->getID() + "' is not a parent element");
+        throw ProcessError(TAZSourceSink->getTagStr() + " with ID='" + TAZSourceSink->getID() + "' is not a parent parent");
     }
 }
 
@@ -247,7 +237,7 @@ GNEHierarchicalStructureParents::removeParentElement(GNEDemandElement* demandEle
     if (it != myParentDemandElements.end()) {
         myParentDemandElements.erase(it);
     } else {
-        throw ProcessError(demandElement->getTagStr() + " is not a parent element");
+        throw ProcessError(demandElement->getTagStr() + " is not a parent parent");
     }
 }
 
@@ -258,68 +248,120 @@ GNEHierarchicalStructureParents::removeParentElement(GNEGenericData* genericData
     if (it != myParentGenericDatas.end()) {
         myParentGenericDatas.erase(it);
     } else {
-        throw ProcessError(genericData->getTagStr() + " is not a parent element");
+        throw ProcessError(genericData->getTagStr() + " is not a parent parent");
     }
 }
 
 
 template <> void
-GNEHierarchicalStructureParents::updateParentElement(const int index, GNEEdge* element) {
+GNEHierarchicalStructureParents::updateParentElement(const int index, GNEJunction* newParent) {
+    if (index >= 0 && index < (int)myParentJunctions.size()) {
+        myParentJunctions[index] = newParent;
+    } else {
+        throw ProcessError("Invalid index " + toString(newParent->getID()) + " updating junction parents");
+    }
+}
+
+
+template <> void
+GNEHierarchicalStructureParents::updateParentElement(const int index, GNEEdge* newParent) {
     if (index >= 0 && index < (int)myParentEdges.size()) {
-        myParentEdges[index] = element;
+        myParentEdges[index] = newParent;
     } else {
-        throw ProcessError("Invalid index " + toString(element->getID()) + " updating edge parents");
+        throw ProcessError("Invalid index " + toString(newParent->getID()) + " updating edge parents");
     }
 }
 
 
 template <> void
-GNEHierarchicalStructureParents::updateParentElement(const int index, GNELane* element) {
+GNEHierarchicalStructureParents::updateParentElement(const int index, GNELane* newParent) {
     if (index >= 0 && index < (int)myParentLanes.size()) {
-        myParentLanes[index] = element;
+        myParentLanes[index] = newParent;
     } else {
-        throw ProcessError("Invalid index " + toString(element->getID()) + " updating lane parents");
+        throw ProcessError("Invalid index " + toString(newParent->getID()) + " updating lane parents");
     }
 }
 
 
 template <> void
-GNEHierarchicalStructureParents::updateParentElement(const int index, GNEAdditional* element) {
+GNEHierarchicalStructureParents::updateParentElement(const int index, GNEAdditional* newParent) {
     if (index >= 0 && index < (int)myParentAdditionals.size()) {
-        myParentAdditionals[index] = element;
+        myParentAdditionals[index] = newParent;
     } else {
-        throw ProcessError("Invalid index " + toString(element->getID()) + " updating additional parents");
+        throw ProcessError("Invalid index " + toString(newParent->getID()) + " updating additional parents");
     }
 }
 
 
 template <> void
-GNEHierarchicalStructureParents::updateParentElement(const int index, GNETAZSourceSink* element) {
+GNEHierarchicalStructureParents::updateParentElement(const int index, GNETAZSourceSink* newParent) {
     if (index >= 0 && index < (int)myParentTAZSourceSinks.size()) {
-        myParentTAZSourceSinks[index] = element;
+        myParentTAZSourceSinks[index] = newParent;
     } else {
-        throw ProcessError("Invalid index " + toString(element->getID()) + " updating sourceSink parents");
+        throw ProcessError("Invalid index " + toString(newParent->getID()) + " updating sourceSink parents");
     }
 }
 
 
 template <> void
-GNEHierarchicalStructureParents::updateParentElement(const int index, GNEDemandElement* element) {
+GNEHierarchicalStructureParents::updateParentElement(const int index, GNEDemandElement* newParent) {
     if (index >= 0 && index < (int)myParentDemandElements.size()) {
-        myParentDemandElements[index] = element;
+        myParentDemandElements[index] = newParent;
     } else {
-        throw ProcessError("Invalid index " + toString(element->getID()) + " updating demand element parents");
+        throw ProcessError("Invalid index " + toString(newParent->getID()) + " updating demand parent parents");
     }
 }
 
 
 template <> void
-GNEHierarchicalStructureParents::updateParentElement(const int index, GNEGenericData* element) {
+GNEHierarchicalStructureParents::updateParentElement(const int index, GNEGenericData* newParent) {
     if (index >= 0 && index < (int)myParentGenericDatas.size()) {
-        myParentGenericDatas[index] = element;
+        myParentGenericDatas[index] = newParent;
     } else {
-        throw ProcessError("Invalid index " + toString(element->getID()) + " updating generic data parents");
+        throw ProcessError("Invalid index " + toString(newParent->getID()) + " updating generic data parents");
     }
+}
+
+
+template <> void
+GNEHierarchicalStructureParents::updateParents(const GNEHierarchicalContainerParents<GNEJunction*>& newParents) {
+    myParentJunctions = newParents;
+}
+
+
+template <> void
+GNEHierarchicalStructureParents::updateParents(const GNEHierarchicalContainerParents<GNEEdge*>& newParents) {
+    myParentEdges = newParents;
+}
+
+
+template <> void
+GNEHierarchicalStructureParents::updateParents(const GNEHierarchicalContainerParents<GNELane*>& newParents) {
+    myParentLanes = newParents;
+}
+
+
+template <> void
+GNEHierarchicalStructureParents::updateParents(const GNEHierarchicalContainerParents<GNEAdditional*>& newParents) {
+    myParentAdditionals = newParents;
+}
+
+
+template <> void
+GNEHierarchicalStructureParents::updateParents(const GNEHierarchicalContainerParents<GNETAZSourceSink*>& newParents) {
+    myParentTAZSourceSinks = newParents;
+}
+
+
+template <> void
+GNEHierarchicalStructureParents::updateParents(const GNEHierarchicalContainerParents<GNEDemandElement*>& newParents) {
+    myParentDemandElements = newParents;
+}
+
+
+template <> void
+GNEHierarchicalStructureParents::updateParents(const GNEHierarchicalContainerParents<GNEGenericData*>& newParents) {
+    myParentGenericDatas = newParents;
 }
 
 /****************************************************************************/

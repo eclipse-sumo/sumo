@@ -147,7 +147,7 @@ public:
         parent->myHierarchicalStructureChildren.removeChildElement(element);
     }
 
-    /// @brief update parent element
+    /// @brief update single parent element
     template<typename T, typename U>
     static void updateParent(T* element, const int index, U* newParent) {
         // remove element from old parent
@@ -157,6 +157,21 @@ public:
         element->myHierarchicalStructureParents.updateParentElement(index, newParent);
         // insert child in new parent
         newParent->myHierarchicalStructureChildren.addChildElement(element);
+    }
+
+    /// @brief update all parent elements
+    template<typename T, typename U>
+    static void updateParents(T* element, GNEHierarchicalContainerParents<U*> newParents) {
+        // remove children
+        for (const auto parent : element->getParents()) {
+            parent->myHierarchicalStructureChildren.removeChildElement(element);
+        }
+        // update parents
+        element->myHierarchicalStructureParents.updateParents(newParents);
+        // restore children
+        for (const auto parent : element->getParents()) {
+            parent->myHierarchicalStructureChildren.addChildElement(element);
+        }
     }
 
     /// @brief insert child element
