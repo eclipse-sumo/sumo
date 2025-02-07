@@ -1643,25 +1643,14 @@ GNETAZFrame::shapeDrawed() {
             // TAZ is created without edges
             myBaseTAZ->addStringListAttribute(SUMO_ATTR_EDGES, std::vector<std::string>());
         }
-        const bool allowUndoRedo = (myBaseTAZ->getStringListAttribute(SUMO_ATTR_EDGES).size() < 2000);
-        // due lack of memory, we need to ask if we're creating a lot of sourcesinks
-        if (allowUndoRedo) {
-            // declare additional handler
-            GNEAdditionalHandler additionalHandler(myViewNet->getNet(), myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), false);
-            // build TAZ
-            additionalHandler.parseSumoBaseObject(myBaseTAZ);
-            // TAZ created, then return true
-            return true;
-        } else if (askCreateMultipleSourceSinks(myBaseTAZ->getStringListAttribute(SUMO_ATTR_EDGES).size())) {
-            // declare additional handler
-            GNEAdditionalHandler additionalHandler(myViewNet->getNet(), false, false);
-            // build TAZ
-            additionalHandler.parseSumoBaseObject(myBaseTAZ);
-            // TAZ created, then return true
-            return true;
-        } else {
-            return false;
-        }
+        // declare additional handler
+        GNEAdditionalHandler additionalHandler(myViewNet->getNet(), myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), false);
+        // build TAZ
+        additionalHandler.parseSumoBaseObject(myBaseTAZ);
+        // Write info
+        WRITE_MESSAGE(TLF("Created % sources and sinks", (2 * myBaseTAZ->getStringListAttribute(SUMO_ATTR_EDGES).size())));
+        // TAZ created, then return true
+        return true;
     }
 }
 
@@ -1724,20 +1713,6 @@ GNETAZFrame::dropTAZMembers() {
     }
     // always refresh TAZ Edges after removing TAZSources/Sinks
     myCurrentTAZ->refreshTAZEdges();
-}
-
-bool
-GNETAZFrame::askCreateMultipleSourceSinks(const size_t numSourceSinks) const {
-    // open question dialog box
-    const std::string header = TL("Create multiple sourceSinks");
-    const std::string info = TLF("Creation of % cannot be undone. Continue?", toString(numSourceSinks));
-    const auto answer = FXMessageBox::question(myViewNet->getApp(), MBOX_YES_NO, "%s", header.c_str(), "%s", info.c_str());
-    if (answer != 1) { //1:yes, 2:no, 4:esc
-        // abort recompute with volatile options
-        return false;
-    } else {
-        return true;
-    }
 }
 
 /****************************************************************************/
