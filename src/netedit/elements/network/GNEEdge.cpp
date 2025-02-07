@@ -86,8 +86,9 @@ myConnectionStatus(loaded ? FEATURE_LOADED : FEATURE_GUESSED),
 myUpdateGeometry(true) {
     // Create lanes
     for (int i = 0; i < myNBEdge->getNumLanes(); i++) {
-        insertChildInEdge(this, new GNELane(this, i));
-        getChildLanes().back()->incRef("GNEEdge::GNEEdge");
+        auto lane = new GNELane(this, i);
+        lane->incRef("GNEEdge::GNEEdge");
+        insertChild(this, lane);
     }
     // update Lane geometries
     for (const auto& lane : getChildLanes()) {
@@ -2136,10 +2137,10 @@ GNEEdge::addLane(GNELane* lane, const NBEdge::Lane& laneAttrs, bool recomputeCon
         GNEHierarchicalContainerChildren<GNELane*> newParentLanes = getChildLanes();
         newParentLanes.insert(newParentLanes.begin() + index, lane);
         while (getChildLanes().size() > 0) {
-            removeChildFromEdge(this, getChildLanes().front());
+            removeChild(this, getChildLanes().front());
         }
         for (const auto newParentLane : newParentLanes) {
-            insertChildInEdge(this, newParentLane);
+            insertChild(this, newParentLane);
         }
     } else {
         // create a new lane by copying leftmost lane
@@ -2208,10 +2209,10 @@ GNEEdge::removeLane(GNELane* lane, bool recomputeConnections) {
     GNEHierarchicalContainerChildren<GNELane*> newParentLanes = getChildLanes();
     newParentLanes.erase(newParentLanes.begin() + lane->getIndex());
     while (getChildLanes().size() > 0) {
-        removeChildFromEdge(this, getChildLanes().front());
+        removeChild(this, getChildLanes().front());
     }
     for (const auto newParentLane : newParentLanes) {
-        insertChildInEdge(this, newParentLane);
+        insertChild(this, newParentLane);
     }
     // remove from attributeCarriers
     myNet->getAttributeCarriers()->deleteLane(lane);

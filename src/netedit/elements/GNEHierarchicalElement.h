@@ -78,7 +78,7 @@ public:
     const GNEHierarchicalStructureParents getParents() const;
 
     /// @brief clear hierarchical structure parents (used in GNE_Change)
-    void clear();
+    void clearParents();
 
     /// @name common get functions
     /// @{
@@ -150,113 +150,19 @@ public:
         parent->myHierarchicalStructureChildren.removeChildElement(element);
     }
 
-    /// @brief insert child element (and update their parent)
-    /// @{
-
-    /// @brief insert child in the given junction
-    template<typename T>
-    static void insertChildInJunction(GNEJunction* junction, T* child) {
-        junction->myHierarchicalStructureChildren.addChildElement(child);
-        child->myHierarchicalStructureParents.addParentElement(junction);
+    /// @brief insert child element and update their parent
+    template<typename T, typename U>
+    static void insertChild(T* element, U* child) {
+        element->myHierarchicalStructureChildren.addChildElement(child);
+        child->myHierarchicalStructureParents.addParentElement(element);
     }
-
-    /// @brief insert child in the given edge
-    template<typename T>
-    static void insertChildInEdge(GNEEdge* edge, T* child) {
-        edge->myHierarchicalStructureChildren.addChildElement(child);
-        child->myHierarchicalStructureParents.addParentElement(edge);
-    }
-
-    /// @brief insert child in the given lane
-    template<typename T>
-    static void insertChildInLane(GNELane* lane, T* child) {
-        lane->myHierarchicalStructureChildren.addChildElement(child);
-        child->myHierarchicalStructureParents.addParentElement(lane);
-    }
-
-    /// @brief insert child in the given additional
-    template<typename T>
-    static void insertChildInAdditional(GNEAdditional* additional, T* child) {
-        additional->myHierarchicalStructureChildren.addChildElement(child);
-        child->myHierarchicalStructureParents.addParentElement(additional);
-    }
-
-    /// @brief insert child in the given TAZ SourceSink
-    template<typename T>
-    static void insertChildInTAZSourceSink(GNETAZSourceSink* sourceSink, T* child) {
-        sourceSink->myHierarchicalStructureChildren.addChildElement(child);
-        child->myHierarchicalStructureParents.addParentElement(sourceSink);
-    }
-
-    /// @brief insert child in the given demand element
-    template<typename T>
-    static void insertChildInDemandElement(GNEDemandElement* demandElement, T* child) {
-        demandElement->myHierarchicalStructureChildren.addChildElement(child);
-        child->myHierarchicalStructureParents.addParentElement(demandElement);
-    }
-
-    /// @brief insert child in the given genericData
-    template<typename T>
-    static void insertChildInGenericData(GNEGenericData* genericData, T* child) {
-        genericData->myHierarchicalStructureChildren.addChildElement(child);
-        child->myHierarchicalStructureParents.addParentElement(genericData);
-    }
-
-    /// @}
 
     /// @brief remove child element (and update their parent)
-    /// @{
-
-    /// @brief remove child from the given junction
-    template<typename T>
-    static void removeChildFromJunction(GNEJunction* junction, T* child) {
-        junction->myHierarchicalStructureChildren.removeChildElement(child);
-        child->myHierarchicalStructureParents.removeParentElement(junction);
+    template<typename T, typename U>
+    static void removeChild(T* element, U* child) {
+        element->myHierarchicalStructureChildren.removeChildElement(child);
+        child->myHierarchicalStructureParents.removeParentElement(element);
     }
-
-    /// @brief remove child from the given edge
-    template<typename T>
-    static void removeChildFromEdge(GNEEdge* edge, T* child) {
-        edge->myHierarchicalStructureChildren.removeChildElement(child);
-        child->myHierarchicalStructureParents.removeParentElement(edge);
-    }
-
-    /// @brief remove child from the given lane
-    template<typename T>
-    static void removeChildFromLane(GNELane* lane, T* child) {
-        lane->myHierarchicalStructureChildren.removeChildElement(child);
-        child->myHierarchicalStructureParents.removeParentElement(lane);
-    }
-
-    /// @brief remove child from the given additional
-    template<typename T>
-    static void removeChildFromAdditional(GNEAdditional* additional, T* child) {
-        additional->myHierarchicalStructureChildren.removeChildElement(child);
-        child->myHierarchicalStructureParents.removeParentElement(additional);
-    }
-
-    /// @brief remove child from the given TAZ SourceSink
-    template<typename T>
-    static void removeChildFromTAZSourceSink(GNETAZSourceSink* sourceSink, T* child) {
-        sourceSink->myHierarchicalStructureChildren.removeChildElement(child);
-        child->myHierarchicalStructureParents.removeParentElement(sourceSink);
-    }
-
-    /// @brief remove child from the given demand element
-    template<typename T>
-    static void removeChildFromDemandElement(GNEDemandElement* demandElement, T* child) {
-        demandElement->myHierarchicalStructureChildren.removeChildElement(child);
-        child->myHierarchicalStructureParents.removeParentElement(demandElement);
-    }
-
-    /// @brief remove child from the given genericData
-    template<typename T>
-    static void removeChildFromGenericData(GNEGenericData* genericData, T* child) {
-        genericData->myHierarchicalStructureChildren.removeChildElement(child);
-        child->myHierarchicalStructureParents.removeParentElement(genericData);
-    }
-
-    /// @}
 
     /// @name specific get functions
     /// @{

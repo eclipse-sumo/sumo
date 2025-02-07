@@ -59,7 +59,7 @@ GNEHierarchicalElement::getParents() const {
 
 
 void
-GNEHierarchicalElement::clear() {
+GNEHierarchicalElement::clearParents() {
     myHierarchicalStructureParents.clear();
 }
 

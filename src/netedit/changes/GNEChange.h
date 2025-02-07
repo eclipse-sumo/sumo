@@ -121,25 +121,25 @@ protected:
     void addElementInParentsAndChildren(T* element) {
         // add element in children
         for (const auto& junction : myParents.getParents<GNEJunction*>()) {
-            GNEHierarchicalElement::insertChildInJunction(junction, element);
+            GNEHierarchicalElement::insertChild(junction, element);
         }
         for (const auto& edge : myParents.getParents<GNEEdge*>()) {
-            GNEHierarchicalElement::insertChildInEdge(edge, element);
+            GNEHierarchicalElement::insertChild(edge, element);
         }
         for (const auto& lane : myParents.getParents<GNELane*>()) {
-            GNEHierarchicalElement::insertChildInLane(lane, element);
+            GNEHierarchicalElement::insertChild(lane, element);
         }
         for (const auto& additional : myParents.getParents<GNEAdditional*>()) {
-            GNEHierarchicalElement::insertChildInAdditional(additional, element);
+            GNEHierarchicalElement::insertChild(additional, element);
         }
         for (const auto& sourceSink : myParents.getParents<GNETAZSourceSink*>()) {
-            GNEHierarchicalElement::insertChildInTAZSourceSink(sourceSink, element);
+            GNEHierarchicalElement::insertChild(sourceSink, element);
         }
         for (const auto& demandElement : myParents.getParents<GNEDemandElement*>()) {
-            GNEHierarchicalElement::insertChildInDemandElement(demandElement, element);
+            GNEHierarchicalElement::insertChild(demandElement, element);
         }
         for (const auto& genericData : myParents.getParents<GNEGenericData*>()) {
-            GNEHierarchicalElement::insertChildInGenericData(genericData, element);
+            GNEHierarchicalElement::insertChild(genericData, element);
         }
     }
 
@@ -148,39 +148,39 @@ protected:
     void removeElementFromParentsAndChildren(T* element) {
         // Remove element from parents
         for (const auto& junction : myParents.getParents<GNEJunction*>()) {
-            GNEHierarchicalElement::removeChildFromJunction(junction, element);
+            GNEHierarchicalElement::removeChild(junction, element);
         }
         for (const auto& edge : myParents.getParents<GNEEdge*>()) {
-            GNEHierarchicalElement::removeChildFromEdge(edge, element);
+            GNEHierarchicalElement::removeChild(edge, element);
         }
         for (const auto& lane : myParents.getParents<GNELane*>()) {
-            GNEHierarchicalElement::removeChildFromLane(lane, element);
+            GNEHierarchicalElement::removeChild(lane, element);
         }
         for (const auto& additional : myParents.getParents<GNEAdditional*>()) {
-            GNEHierarchicalElement::removeChildFromAdditional(additional, element);
+            GNEHierarchicalElement::removeChild(additional, element);
         }
         for (const auto& sourceSink : myParents.getParents<GNETAZSourceSink*>()) {
-            GNEHierarchicalElement::removeChildFromTAZSourceSink(sourceSink, element);
+            GNEHierarchicalElement::removeChild(sourceSink, element);
         }
         for (const auto& demandElement : myParents.getParents<GNEDemandElement*>()) {
-            GNEHierarchicalElement::removeChildFromDemandElement(demandElement, element);
+            GNEHierarchicalElement::removeChild(demandElement, element);
         }
         for (const auto& genericData : myParents.getParents<GNEGenericData*>()) {
-            GNEHierarchicalElement::removeChildFromGenericData(genericData, element);
+            GNEHierarchicalElement::removeChild(genericData, element);
         }
     }
 
     /// @brief supermode related with this change
     const Supermode mySupermode;
 
+    /// @brief Hierarchical container with parents
+    const GNEHierarchicalStructureParents myParents;
+
     /// @brief we group antagonistic commands (create junction/delete junction) and keep them apart by this flag
     bool myForward;
 
     /// @brief flag for check if element is selected
     const bool mySelectedElement;
-
-    /// @brief Hierarchical container with parents
-    const GNEHierarchicalStructureParents myParents;
 
 private:
     // @brief next GNEChange (can be access by GNEChangeGroup and GNEUndoList)

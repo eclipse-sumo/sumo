@@ -680,7 +680,7 @@ GNEAdditional::replaceAdditionalChildEdges(const std::string& value) {
     const auto newEdges = parse<std::vector<GNEEdge*> >(getNet(), value);
     // remove old edges and set new edges (this methode changes parents)
     while (getChildEdges().size() > 0) {
-        GNEHierarchicalElement::removeChildFromAdditional(this, getChildEdges().front());
+        GNEHierarchicalElement::removeChild(this, getChildEdges().front());
     }
     for (const auto& newEdge : newEdges) {
         GNEHierarchicalElement::insertParent(this, newEdge);
@@ -693,10 +693,10 @@ GNEAdditional::replaceAdditionalChildLanes(const std::string& value) {
     const auto newLanes = parse<std::vector<GNELane*> >(getNet(), value);
     // remove old lanes and set new lanes (this methode changes parents)
     while (getChildLanes().size() > 0) {
-        GNEHierarchicalElement::removeChildFromAdditional(this, getChildLanes().front());
+        GNEHierarchicalElement::removeChild(this, getChildLanes().front());
     }
     for (const auto& newLane : newLanes) {
-        GNEHierarchicalElement::insertChildInAdditional(this, newLane);
+        GNEHierarchicalElement::insertChild(this, newLane);
     }
 }
 
