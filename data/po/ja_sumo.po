@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-04 15:47+0100\n"
-"PO-Revision-Date: 2025-02-05 17:08+0000\n"
+"PO-Revision-Date: 2025-02-08 05:19+0000\n"
 "Last-Translator: Tomosawa Ryo <tomosawa.r.103@ms.saitama-u.ac.jp>\n"
 "Language-Team: Japanese <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/ja/>\n"
@@ -181,7 +181,7 @@ msgstr "型付けされた検出器をファイルに保存する"
 
 #: src/dfrouter/RODFFrame.cpp:92
 msgid "Saves detector positions as pois to FILE"
-msgstr "検出器の位置をpoisとしてファイルに保存"
+msgstr "検出器の位置を点としてファイルに保存"
 
 #: src/dfrouter/RODFFrame.cpp:95
 msgid "Saves emitter definitions for source detectors to FILE"
