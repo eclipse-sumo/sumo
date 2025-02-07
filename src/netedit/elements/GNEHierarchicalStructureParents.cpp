@@ -63,46 +63,46 @@ GNEHierarchicalStructureParents::clear() {
     myParentGenericDatas.clear();
 }
 
-// getParents functions
+// get functions
 
 template<> const GNEHierarchicalContainerParents<GNEJunction*>&
-GNEHierarchicalStructureParents::getParents() const {
+GNEHierarchicalStructureParents::get() const {
     return myParentJunctions;
 }
 
 
 template<> const GNEHierarchicalContainerParents<GNEEdge*>&
-GNEHierarchicalStructureParents::getParents() const {
+GNEHierarchicalStructureParents::get() const {
     return myParentEdges;
 }
 
 
 template<> const GNEHierarchicalContainerParents<GNELane*>&
-GNEHierarchicalStructureParents::getParents() const {
+GNEHierarchicalStructureParents::get() const {
     return myParentLanes;
 }
 
 
 template<> const GNEHierarchicalContainerParents<GNEAdditional*>&
-GNEHierarchicalStructureParents::getParents() const {
+GNEHierarchicalStructureParents::get() const {
     return myParentAdditionals;
 }
 
 
 template<> const GNEHierarchicalContainerParents<GNETAZSourceSink*>&
-GNEHierarchicalStructureParents::getParents() const {
+GNEHierarchicalStructureParents::get() const {
     return myParentTAZSourceSinks;
 }
 
 
 template<> const GNEHierarchicalContainerParents<GNEDemandElement*>&
-GNEHierarchicalStructureParents::getParents() const {
+GNEHierarchicalStructureParents::get() const {
     return myParentDemandElements;
 }
 
 
 template<> const GNEHierarchicalContainerParents<GNEGenericData*>&
-GNEHierarchicalStructureParents::getParents() const {
+GNEHierarchicalStructureParents::get() const {
     return myParentGenericDatas;
 }
 
@@ -149,81 +149,95 @@ GNEHierarchicalStructureParents::at(const int index) const {
     return myParentGenericDatas.at(index);
 }
 
-// addParentElement functions
+// add functions
 
 template <> void
-GNEHierarchicalStructureParents::addParentElement(GNEJunction* parent, const int index) {
+GNEHierarchicalStructureParents::add(GNEJunction* parent, const int index) {
     if (index == -1) {
         myParentJunctions.push_back(parent);
-    } else {
+    } else if ((index < 0) || (index > (int)myParentJunctions.size())) {
         myParentJunctions.insert(myParentJunctions.begin() + index, parent);
+    } else {
+        throw ProcessError("invalid index in GNEHierarchicalStructureParents::add");
     }
 }
 
 
 template <> void
-GNEHierarchicalStructureParents::addParentElement(GNEEdge* parent, const int index) {
+GNEHierarchicalStructureParents::add(GNEEdge* parent, const int index) {
     if (index == -1) {
         myParentEdges.push_back(parent);
-    } else {
+    } else if ((index < 0) || (index > (int)myParentEdges.size())) {
         myParentEdges.insert(myParentEdges.begin() + index, parent);
+    } else {
+        throw ProcessError("invalid index in GNEHierarchicalStructureParents::add");
     }
 }
 
 
 template <> void
-GNEHierarchicalStructureParents::addParentElement(GNELane* parent, const int index) {
+GNEHierarchicalStructureParents::add(GNELane* parent, const int index) {
     if (index == -1) {
         myParentLanes.push_back(parent);
-    } else {
+    } else if ((index < 0) || (index > (int)myParentLanes.size())) {
         myParentLanes.insert(myParentLanes.begin() + index, parent);
+    } else {
+        throw ProcessError("invalid index in GNEHierarchicalStructureParents::add");
     }
 }
 
 
 template <> void
-GNEHierarchicalStructureParents::addParentElement(GNEAdditional* parent, const int index) {
+GNEHierarchicalStructureParents::add(GNEAdditional* parent, const int index) {
     if (index == -1) {
         myParentAdditionals.push_back(parent);
-    } else {
+    } else if ((index < 0) || (index > (int)myParentAdditionals.size())) {
         myParentAdditionals.insert(myParentAdditionals.begin() + index, parent);
+    } else {
+        throw ProcessError("invalid index in GNEHierarchicalStructureParents::add");
     }
 }
 
 
 template <> void
-GNEHierarchicalStructureParents::addParentElement(GNETAZSourceSink* parent, const int index) {
+GNEHierarchicalStructureParents::add(GNETAZSourceSink* parent, const int index) {
     if (index == -1) {
         myParentTAZSourceSinks.push_back(parent);
-    } else {
+    } else if ((index < 0) || (index > (int)myParentTAZSourceSinks.size())) {
         myParentTAZSourceSinks.insert(myParentTAZSourceSinks.begin() + index, parent);
+    } else {
+        throw ProcessError("invalid index in GNEHierarchicalStructureParents::add");
     }
 }
 
 
 template <> void
-GNEHierarchicalStructureParents::addParentElement(GNEDemandElement* parent, const int index) {
+GNEHierarchicalStructureParents::add(GNEDemandElement* parent, const int index) {
     if (index == -1) {
         myParentDemandElements.push_back(parent);
-    } else {
+    } else if ((index < 0) || (index > (int)myParentDemandElements.size())) {
         myParentDemandElements.insert(myParentDemandElements.begin() + index, parent);
+    } else {
+        throw ProcessError("invalid index in GNEHierarchicalStructureParents::add");
     }
 }
 
 
 template <> void
-GNEHierarchicalStructureParents::addParentElement(GNEGenericData* parent, const int index) {
+GNEHierarchicalStructureParents::add(GNEGenericData* parent, const int index) {
     if (index == -1) {
         myParentGenericDatas.push_back(parent);
-    } else {
+    } else if ((index < 0) || (index > (int)myParentGenericDatas.size())) {
         myParentGenericDatas.insert(myParentGenericDatas.begin() + index, parent);
+    } else {
+        throw ProcessError("invalid index in GNEHierarchicalStructureParents::add");
     }
 }
 
-// removeParentElement functions
+// remove functions
 
 template <> void
-GNEHierarchicalStructureParents::removeParentElement(GNEJunction* junction) {
+GNEHierarchicalStructureParents::remove(GNEJunction* junction) {
     auto it = std::find(myParentJunctions.begin(), myParentJunctions.end(), junction);
     if (it != myParentJunctions.end()) {
         myParentJunctions.erase(it);
@@ -234,7 +248,7 @@ GNEHierarchicalStructureParents::removeParentElement(GNEJunction* junction) {
 
 
 template <> void
-GNEHierarchicalStructureParents::removeParentElement(GNEEdge* edge) {
+GNEHierarchicalStructureParents::remove(GNEEdge* edge) {
     auto it = std::find(myParentEdges.begin(), myParentEdges.end(), edge);
     if (it != myParentEdges.end()) {
         myParentEdges.erase(it);
@@ -245,7 +259,7 @@ GNEHierarchicalStructureParents::removeParentElement(GNEEdge* edge) {
 
 
 template <> void
-GNEHierarchicalStructureParents::removeParentElement(GNELane* lane) {
+GNEHierarchicalStructureParents::remove(GNELane* lane) {
     auto it = std::find(myParentLanes.begin(), myParentLanes.end(), lane);
     if (it != myParentLanes.end()) {
         myParentLanes.erase(it);
@@ -256,7 +270,7 @@ GNEHierarchicalStructureParents::removeParentElement(GNELane* lane) {
 
 
 template <> void
-GNEHierarchicalStructureParents::removeParentElement(GNEAdditional* additional) {
+GNEHierarchicalStructureParents::remove(GNEAdditional* additional) {
     auto it = std::find(myParentAdditionals.begin(), myParentAdditionals.end(), additional);
     if (it != myParentAdditionals.end()) {
         myParentAdditionals.erase(it);
@@ -267,7 +281,7 @@ GNEHierarchicalStructureParents::removeParentElement(GNEAdditional* additional) 
 
 
 template <> void
-GNEHierarchicalStructureParents::removeParentElement(GNETAZSourceSink* TAZSourceSink) {
+GNEHierarchicalStructureParents::remove(GNETAZSourceSink* TAZSourceSink) {
     auto it = std::find(myParentTAZSourceSinks.begin(), myParentTAZSourceSinks.end(), TAZSourceSink);
     if (it != myParentTAZSourceSinks.end()) {
         myParentTAZSourceSinks.erase(it);
@@ -278,7 +292,7 @@ GNEHierarchicalStructureParents::removeParentElement(GNETAZSourceSink* TAZSource
 
 
 template <> void
-GNEHierarchicalStructureParents::removeParentElement(GNEDemandElement* demandElement) {
+GNEHierarchicalStructureParents::remove(GNEDemandElement* demandElement) {
     auto it = std::find(myParentDemandElements.begin(), myParentDemandElements.end(), demandElement);
     if (it != myParentDemandElements.end()) {
         myParentDemandElements.erase(it);
@@ -289,7 +303,7 @@ GNEHierarchicalStructureParents::removeParentElement(GNEDemandElement* demandEle
 
 
 template <> void
-GNEHierarchicalStructureParents::removeParentElement(GNEGenericData* genericData) {
+GNEHierarchicalStructureParents::remove(GNEGenericData* genericData) {
     auto it = std::find(myParentGenericDatas.begin(), myParentGenericDatas.end(), genericData);
     if (it != myParentGenericDatas.end()) {
         myParentGenericDatas.erase(it);
@@ -301,8 +315,8 @@ GNEHierarchicalStructureParents::removeParentElement(GNEGenericData* genericData
 // updateParentElement functions
 
 template <> void
-GNEHierarchicalStructureParents::updateParentElement(const int index, GNEJunction* newParent) {
-    if (index >= 0 && index < (int)myParentJunctions.size()) {
+GNEHierarchicalStructureParents::replaceSingle(const int index, GNEJunction* newParent) {
+    if ((index >= 0) && (index < (int)myParentJunctions.size())) {
         myParentJunctions[index] = newParent;
     } else {
         throw ProcessError("Invalid index " + toString(newParent->getID()) + " updating junction parents");
@@ -311,8 +325,8 @@ GNEHierarchicalStructureParents::updateParentElement(const int index, GNEJunctio
 
 
 template <> void
-GNEHierarchicalStructureParents::updateParentElement(const int index, GNEEdge* newParent) {
-    if (index >= 0 && index < (int)myParentEdges.size()) {
+GNEHierarchicalStructureParents::replaceSingle(const int index, GNEEdge* newParent) {
+    if ((index >= 0) && (index < (int)myParentEdges.size())) {
         myParentEdges[index] = newParent;
     } else {
         throw ProcessError("Invalid index " + toString(newParent->getID()) + " updating edge parents");
@@ -321,8 +335,8 @@ GNEHierarchicalStructureParents::updateParentElement(const int index, GNEEdge* n
 
 
 template <> void
-GNEHierarchicalStructureParents::updateParentElement(const int index, GNELane* newParent) {
-    if (index >= 0 && index < (int)myParentLanes.size()) {
+GNEHierarchicalStructureParents::replaceSingle(const int index, GNELane* newParent) {
+    if ((index >= 0) && (index < (int)myParentLanes.size())) {
         myParentLanes[index] = newParent;
     } else {
         throw ProcessError("Invalid index " + toString(newParent->getID()) + " updating lane parents");
@@ -331,8 +345,8 @@ GNEHierarchicalStructureParents::updateParentElement(const int index, GNELane* n
 
 
 template <> void
-GNEHierarchicalStructureParents::updateParentElement(const int index, GNEAdditional* newParent) {
-    if (index >= 0 && index < (int)myParentAdditionals.size()) {
+GNEHierarchicalStructureParents::replaceSingle(const int index, GNEAdditional* newParent) {
+    if ((index >= 0) && (index < (int)myParentAdditionals.size())) {
         myParentAdditionals[index] = newParent;
     } else {
         throw ProcessError("Invalid index " + toString(newParent->getID()) + " updating additional parents");
@@ -341,8 +355,8 @@ GNEHierarchicalStructureParents::updateParentElement(const int index, GNEAdditio
 
 
 template <> void
-GNEHierarchicalStructureParents::updateParentElement(const int index, GNETAZSourceSink* newParent) {
-    if (index >= 0 && index < (int)myParentTAZSourceSinks.size()) {
+GNEHierarchicalStructureParents::replaceSingle(const int index, GNETAZSourceSink* newParent) {
+    if ((index >= 0) && (index < (int)myParentTAZSourceSinks.size())) {
         myParentTAZSourceSinks[index] = newParent;
     } else {
         throw ProcessError("Invalid index " + toString(newParent->getID()) + " updating sourceSink parents");
@@ -351,8 +365,8 @@ GNEHierarchicalStructureParents::updateParentElement(const int index, GNETAZSour
 
 
 template <> void
-GNEHierarchicalStructureParents::updateParentElement(const int index, GNEDemandElement* newParent) {
-    if (index >= 0 && index < (int)myParentDemandElements.size()) {
+GNEHierarchicalStructureParents::replaceSingle(const int index, GNEDemandElement* newParent) {
+    if ((index >= 0) && (index < (int)myParentDemandElements.size())) {
         myParentDemandElements[index] = newParent;
     } else {
         throw ProcessError("Invalid index " + toString(newParent->getID()) + " updating demand parent parents");
@@ -361,8 +375,8 @@ GNEHierarchicalStructureParents::updateParentElement(const int index, GNEDemandE
 
 
 template <> void
-GNEHierarchicalStructureParents::updateParentElement(const int index, GNEGenericData* newParent) {
-    if (index >= 0 && index < (int)myParentGenericDatas.size()) {
+GNEHierarchicalStructureParents::replaceSingle(const int index, GNEGenericData* newParent) {
+    if ((index >= 0) && (index < (int)myParentGenericDatas.size())) {
         myParentGenericDatas[index] = newParent;
     } else {
         throw ProcessError("Invalid index " + toString(newParent->getID()) + " updating generic data parents");
@@ -372,43 +386,43 @@ GNEHierarchicalStructureParents::updateParentElement(const int index, GNEGeneric
 // updateParents functions
 
 template <> void
-GNEHierarchicalStructureParents::updateParents(const GNEHierarchicalContainerParents<GNEJunction*>& newParents) {
+GNEHierarchicalStructureParents::replaceAll(const GNEHierarchicalContainerParents<GNEJunction*>& newParents) {
     myParentJunctions = newParents;
 }
 
 
 template <> void
-GNEHierarchicalStructureParents::updateParents(const GNEHierarchicalContainerParents<GNEEdge*>& newParents) {
+GNEHierarchicalStructureParents::replaceAll(const GNEHierarchicalContainerParents<GNEEdge*>& newParents) {
     myParentEdges = newParents;
 }
 
 
 template <> void
-GNEHierarchicalStructureParents::updateParents(const GNEHierarchicalContainerParents<GNELane*>& newParents) {
+GNEHierarchicalStructureParents::replaceAll(const GNEHierarchicalContainerParents<GNELane*>& newParents) {
     myParentLanes = newParents;
 }
 
 
 template <> void
-GNEHierarchicalStructureParents::updateParents(const GNEHierarchicalContainerParents<GNEAdditional*>& newParents) {
+GNEHierarchicalStructureParents::replaceAll(const GNEHierarchicalContainerParents<GNEAdditional*>& newParents) {
     myParentAdditionals = newParents;
 }
 
 
 template <> void
-GNEHierarchicalStructureParents::updateParents(const GNEHierarchicalContainerParents<GNETAZSourceSink*>& newParents) {
+GNEHierarchicalStructureParents::replaceAll(const GNEHierarchicalContainerParents<GNETAZSourceSink*>& newParents) {
     myParentTAZSourceSinks = newParents;
 }
 
 
 template <> void
-GNEHierarchicalStructureParents::updateParents(const GNEHierarchicalContainerParents<GNEDemandElement*>& newParents) {
+GNEHierarchicalStructureParents::replaceAll(const GNEHierarchicalContainerParents<GNEDemandElement*>& newParents) {
     myParentDemandElements = newParents;
 }
 
 
 template <> void
-GNEHierarchicalStructureParents::updateParents(const GNEHierarchicalContainerParents<GNEGenericData*>& newParents) {
+GNEHierarchicalStructureParents::replaceAll(const GNEHierarchicalContainerParents<GNEGenericData*>& newParents) {
     myParentGenericDatas = newParents;
 }
 

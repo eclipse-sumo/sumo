@@ -68,7 +68,7 @@ public:
 
     /// @brief get parents
     template<typename T>
-    const GNEHierarchicalContainerParents<T>& getParents() const;
+    const GNEHierarchicalContainerParents<T>& get() const;
 
     /// @brief get parent at the given position
     template<typename T>
@@ -79,22 +79,22 @@ public:
      * @param index position (-1 means push back)
      */
     template<typename T>
-    void addParentElement(T parent, const int index = -1);
+    void add(T parent, const int index = -1);
 
     /// @brief remove parent element
     template<typename T>
-    void removeParentElement(T parent);
+    void remove(T parent);
 
     /**@brief update single parent element
      * @param index position
      * @param parent new parent element to be updated
      */
     template<typename T>
-    void updateParentElement(const int index, T newParent);
+    void replaceSingle(const int index, T newParent);
 
     /// @brief update all parent element
     template<typename T>
-    void updateParents(const GNEHierarchicalContainerParents<T>& newParents);
+    void replaceAll(const GNEHierarchicalContainerParents<T>& newParents);
 
 private:
     /// @brief parents junctions

@@ -60,19 +60,19 @@ public:
 
     /// @brief get children
     template<typename T>
-    const GNEHierarchicalContainerChildren<T>& getChildren() const;
+    const GNEHierarchicalContainerChildren<T>& get() const;
 
     /// @brief add child element
     template<typename T>
-    void addChildElement(T newChild);
+    void add(T child);
 
     /// @brief remove child element
     template<typename T>
-    void removeChildElement(T newChild);
+    void remove(T child);
 
     /// @brief update all children
     template<typename T>
-    void updateChildren(const GNEHierarchicalContainerChildren<T>& newChildren);
+    void replaceAll(const GNEHierarchicalContainerChildren<T>& children);
 
 private:
     /// @brief children junctions

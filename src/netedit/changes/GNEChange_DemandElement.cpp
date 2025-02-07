@@ -85,7 +85,7 @@ GNEChange_DemandElement::undo() {
         myDemandElement->getNet()->getViewNet()->getViewParent()->getTypeFrame()->getTypeSelector()->refreshTypeSelector(true);
     }
     // update stack labels
-    const auto parentEdges = myParents.getParents<GNEEdge*>();
+    const auto parentEdges = myParents.get<GNEEdge*>();
     if (parentEdges.size() > 0) {
         parentEdges.front()->updateVehicleStackLabels();
         parentEdges.front()->updatePersonStackLabels();
@@ -122,7 +122,7 @@ GNEChange_DemandElement::redo() {
         myDemandElement->getNet()->getViewNet()->getViewParent()->getTypeFrame()->getTypeSelector()->refreshTypeSelector(true);
     }
     // update stack labels
-    const auto parentEdges = myParents.getParents<GNEEdge*>();
+    const auto parentEdges = myParents.get<GNEEdge*>();
     if (parentEdges.size() > 0) {
         parentEdges.front()->updateVehicleStackLabels();
         parentEdges.front()->updatePersonStackLabels();

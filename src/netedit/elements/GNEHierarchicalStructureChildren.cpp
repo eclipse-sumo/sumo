@@ -35,210 +35,210 @@
 
 GNEHierarchicalStructureChildren::GNEHierarchicalStructureChildren() {}
 
-// getChildren functions
+// get functions
 
 template<> const GNEHierarchicalContainerChildren<GNEJunction*>&
-GNEHierarchicalStructureChildren::getChildren() const {
+GNEHierarchicalStructureChildren::get() const {
     return myChildJunctions;
 }
 
 
 template<> const GNEHierarchicalContainerChildren<GNEEdge*>&
-GNEHierarchicalStructureChildren::getChildren() const {
+GNEHierarchicalStructureChildren::get() const {
     return myChildEdges;
 }
 
 
 template<> const GNEHierarchicalContainerChildren<GNELane*>&
-GNEHierarchicalStructureChildren::getChildren() const {
+GNEHierarchicalStructureChildren::get() const {
     return myChildLanes;
 }
 
 
 template<> const GNEHierarchicalContainerChildren<GNEAdditional*>&
-GNEHierarchicalStructureChildren::getChildren() const {
+GNEHierarchicalStructureChildren::get() const {
     return myChildAdditionals;
 }
 
 
 template<> const GNEHierarchicalContainerChildren<GNETAZSourceSink*>&
-GNEHierarchicalStructureChildren::getChildren() const {
+GNEHierarchicalStructureChildren::get() const {
     return myChildSourceSinks;
 }
 
 
 template<> const GNEHierarchicalContainerChildren<GNEDemandElement*>&
-GNEHierarchicalStructureChildren::getChildren() const {
+GNEHierarchicalStructureChildren::get() const {
     return myChildDemandElements;
 }
 
 
 template<> const GNEHierarchicalContainerChildren<GNEGenericData*>&
-GNEHierarchicalStructureChildren::getChildren() const {
+GNEHierarchicalStructureChildren::get() const {
     return myChildGenericDatas;
 }
 
-// addChildElement functions
+// add functions
 
 template <> void
-GNEHierarchicalStructureChildren::addChildElement(GNEJunction* junction) {
-    myChildJunctions.push_back(junction);
+GNEHierarchicalStructureChildren::add(GNEJunction* child) {
+    myChildJunctions.push_back(child);
 }
 
 
 template <> void
-GNEHierarchicalStructureChildren::addChildElement(GNEEdge* edge) {
-    myChildEdges.push_back(edge);
+GNEHierarchicalStructureChildren::add(GNEEdge* child) {
+    myChildEdges.push_back(child);
 }
 
 
 template <> void
-GNEHierarchicalStructureChildren::addChildElement(GNELane* lane) {
-    myChildLanes.push_back(lane);
+GNEHierarchicalStructureChildren::add(GNELane* child) {
+    myChildLanes.push_back(child);
 }
 
 
 template <> void
-GNEHierarchicalStructureChildren::addChildElement(GNEAdditional* additional) {
-    myChildAdditionals.push_back(additional);
+GNEHierarchicalStructureChildren::add(GNEAdditional* child) {
+    myChildAdditionals.push_back(child);
 }
 
 
 template <> void
-GNEHierarchicalStructureChildren::addChildElement(GNETAZSourceSink* TAZSourceSink) {
-    myChildSourceSinks.push_back(TAZSourceSink);
+GNEHierarchicalStructureChildren::add(GNETAZSourceSink* child) {
+    myChildSourceSinks.push_back(child);
 }
 
 
 template <> void
-GNEHierarchicalStructureChildren::addChildElement(GNEDemandElement* demandElement) {
-    myChildDemandElements.push_back(demandElement);
+GNEHierarchicalStructureChildren::add(GNEDemandElement* child) {
+    myChildDemandElements.push_back(child);
 }
 
 
 template <> void
-GNEHierarchicalStructureChildren::addChildElement(GNEGenericData* genericData) {
-    myChildGenericDatas.push_back(genericData);
+GNEHierarchicalStructureChildren::add(GNEGenericData* child) {
+    myChildGenericDatas.push_back(child);
 }
 
-// removeChildElement functions
+// remove functions
 
 template <> void
-GNEHierarchicalStructureChildren::removeChildElement(GNEJunction* junction) {
-    auto it = std::find(myChildJunctions.begin(), myChildJunctions.end(), junction);
+GNEHierarchicalStructureChildren::remove(GNEJunction* child) {
+    auto it = std::find(myChildJunctions.begin(), myChildJunctions.end(), child);
     if (it != myChildJunctions.end()) {
         myChildJunctions.erase(it);
     } else {
-        throw ProcessError(junction->getTagStr() + " is not a child element");
+        throw ProcessError(child->getTagStr() + " is not a child element");
     }
 }
 
 
 template <> void
-GNEHierarchicalStructureChildren::removeChildElement(GNEEdge* edge) {
-    auto it = std::find(myChildEdges.begin(), myChildEdges.end(), edge);
+GNEHierarchicalStructureChildren::remove(GNEEdge* child) {
+    auto it = std::find(myChildEdges.begin(), myChildEdges.end(), child);
     if (it != myChildEdges.end()) {
         myChildEdges.erase(it);
     } else {
-        throw ProcessError(edge->getTagStr() + " is not a child element");
+        throw ProcessError(child->getTagStr() + " is not a child element");
     }
 }
 
 
 template <> void
-GNEHierarchicalStructureChildren::removeChildElement(GNELane* lane) {
-    auto it = std::find(myChildLanes.begin(), myChildLanes.end(), lane);
+GNEHierarchicalStructureChildren::remove(GNELane* child) {
+    auto it = std::find(myChildLanes.begin(), myChildLanes.end(), child);
     if (it != myChildLanes.end()) {
         myChildLanes.erase(it);
     } else {
-        throw ProcessError(lane->getTagStr() + " is not a child element");
+        throw ProcessError(child->getTagStr() + " is not a child element");
     }
 }
 
 
 template <> void
-GNEHierarchicalStructureChildren::removeChildElement(GNEAdditional* additional) {
-    auto it = std::find(myChildAdditionals.begin(), myChildAdditionals.end(), additional);
+GNEHierarchicalStructureChildren::remove(GNEAdditional* child) {
+    auto it = std::find(myChildAdditionals.begin(), myChildAdditionals.end(), child);
     if (it != myChildAdditionals.end()) {
         myChildAdditionals.erase(it);
     } else {
-        throw ProcessError(additional->getTagStr() + " is not a child element");
+        throw ProcessError(child->getTagStr() + " is not a child element");
     }
 }
 
 
 template <> void
-GNEHierarchicalStructureChildren::removeChildElement(GNETAZSourceSink* TAZSourceSink) {
-    auto it = std::find(myChildSourceSinks.begin(), myChildSourceSinks.end(), TAZSourceSink);
+GNEHierarchicalStructureChildren::remove(GNETAZSourceSink* child) {
+    auto it = std::find(myChildSourceSinks.begin(), myChildSourceSinks.end(), child);
     if (it != myChildSourceSinks.end()) {
         myChildSourceSinks.erase(it);
     } else {
-        throw ProcessError(TAZSourceSink->getTagStr() + " is not a child element");
+        throw ProcessError(child->getTagStr() + " is not a child element");
     }
 }
 
 template <> void
-GNEHierarchicalStructureChildren::removeChildElement(GNEDemandElement* demandElement) {
-    auto it = std::find(myChildDemandElements.begin(), myChildDemandElements.end(), demandElement);
+GNEHierarchicalStructureChildren::remove(GNEDemandElement* child) {
+    auto it = std::find(myChildDemandElements.begin(), myChildDemandElements.end(), child);
     if (it != myChildDemandElements.end()) {
         myChildDemandElements.erase(it);
     } else {
-        throw ProcessError(demandElement->getTagStr() + " is not a child element");
+        throw ProcessError(child->getTagStr() + " is not a child element");
     }
 }
 
 
 template <> void
-GNEHierarchicalStructureChildren::removeChildElement(GNEGenericData* genericData) {
-    auto it = std::find(myChildGenericDatas.begin(), myChildGenericDatas.end(), genericData);
+GNEHierarchicalStructureChildren::remove(GNEGenericData* child) {
+    auto it = std::find(myChildGenericDatas.begin(), myChildGenericDatas.end(), child);
     if (it != myChildGenericDatas.end()) {
         myChildGenericDatas.erase(it);
     } else {
-        throw ProcessError(genericData->getTagStr() + " is not a child element");
+        throw ProcessError(child->getTagStr() + " is not a child element");
     }
 }
 
-// updateChildren functions
+// replaceAll functions
 
 template <> void
-GNEHierarchicalStructureChildren::updateChildren(const GNEHierarchicalContainerChildren<GNEJunction*>& newChildren) {
-    myChildJunctions = newChildren;
+GNEHierarchicalStructureChildren::replaceAll(const GNEHierarchicalContainerChildren<GNEJunction*>& children) {
+    myChildJunctions = children;
 }
 
 
 template <> void
-GNEHierarchicalStructureChildren::updateChildren(const GNEHierarchicalContainerChildren<GNEEdge*>& newChildren) {
-    myChildEdges = newChildren;
+GNEHierarchicalStructureChildren::replaceAll(const GNEHierarchicalContainerChildren<GNEEdge*>& children) {
+    myChildEdges = children;
 }
 
 
 template <> void
-GNEHierarchicalStructureChildren::updateChildren(const GNEHierarchicalContainerChildren<GNELane*>& newChildren) {
-    myChildLanes = newChildren;
+GNEHierarchicalStructureChildren::replaceAll(const GNEHierarchicalContainerChildren<GNELane*>& children) {
+    myChildLanes = children;
 }
 
 
 template <> void
-GNEHierarchicalStructureChildren::updateChildren(const GNEHierarchicalContainerChildren<GNEAdditional*>& newChildren) {
-    myChildAdditionals = newChildren;
+GNEHierarchicalStructureChildren::replaceAll(const GNEHierarchicalContainerChildren<GNEAdditional*>& children) {
+    myChildAdditionals = children;
 }
 
 
 template <> void
-GNEHierarchicalStructureChildren::updateChildren(const GNEHierarchicalContainerChildren<GNETAZSourceSink*>& newChildren) {
-    myChildSourceSinks = newChildren;
+GNEHierarchicalStructureChildren::replaceAll(const GNEHierarchicalContainerChildren<GNETAZSourceSink*>& children) {
+    myChildSourceSinks = children;
 }
 
 
 template <> void
-GNEHierarchicalStructureChildren::updateChildren(const GNEHierarchicalContainerChildren<GNEDemandElement*>& newChildren) {
-    myChildDemandElements = newChildren;
+GNEHierarchicalStructureChildren::replaceAll(const GNEHierarchicalContainerChildren<GNEDemandElement*>& children) {
+    myChildDemandElements = children;
 }
 
 
 template <> void
-GNEHierarchicalStructureChildren::updateChildren(const GNEHierarchicalContainerChildren<GNEGenericData*>& newChildren) {
-    myChildGenericDatas = newChildren;
+GNEHierarchicalStructureChildren::replaceAll(const GNEHierarchicalContainerChildren<GNEGenericData*>& children) {
+    myChildGenericDatas = children;
 }
 
 /****************************************************************************/
