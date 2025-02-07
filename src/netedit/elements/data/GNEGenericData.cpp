@@ -307,67 +307,47 @@ GNEGenericData::isVisibleInspectDeleteSelect() const {
 
 void
 GNEGenericData::replaceFirstParentEdge(const std::string& value) {
-    std::vector<GNEEdge*> newEdges = getParentEdges();
-    newEdges[0] = myNet->getAttributeCarriers()->retrieveEdge(value);
-    // remove old edges and set new edges (this methode changes childrens)
-    while (getParentEdges().size() > 0) {
-        GNEHierarchicalElement::removeParent(this, getParentEdges().front());
-    }
-    for (const auto& newEdge : newEdges) {
-        GNEHierarchicalElement::removeParent(this, newEdge);
-    }
+    auto newEdge = myNet->getAttributeCarriers()->retrieveEdge(value);
+    GNEHierarchicalElement::updateParent(this, 0, newEdge);
 }
 
 
 void
 GNEGenericData::replaceLastParentEdge(const std::string& value) {
-    std::vector<GNEEdge*> newEdges = getParentEdges();
-    newEdges[(int)newEdges.size() - 1] = myNet->getAttributeCarriers()->retrieveEdge(value);
-    // remove old edges and set new edges (this methode changes childrens)
-    while (getParentEdges().size() > 0) {
-        GNEHierarchicalElement::removeParent(this, getParentEdges().front());
-    }
-    for (const auto& newEdge : newEdges) {
-        GNEHierarchicalElement::removeParent(this, newEdge);
-    }
+    auto newEdge = myNet->getAttributeCarriers()->retrieveEdge(value);
+    GNEHierarchicalElement::updateParent(this, (int)getParentEdges().size() - 1, newEdge);
 }
 
 
 void
 GNEGenericData::replaceParentTAZElement(const int index, const std::string& value) {
-    std::vector<GNEAdditional*> newAdditionalParents = getParentAdditionals();
+    std::vector<GNEAdditional*> newTAZs = getParentAdditionals();
     auto TAZ = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_TAZ, value);
     // continue depending of index and number of TAZs
     if (index == 0) {
-        if (newAdditionalParents.size() == 2) {
-            if (newAdditionalParents.at(1)->getID() == value) {
-                newAdditionalParents = {TAZ};
+        if (newTAZs.size() == 2) {
+            if (newTAZs.at(1)->getID() == value) {
+                newTAZs = {TAZ};
             } else {
-                newAdditionalParents[0] = TAZ;
+                newTAZs[0] = TAZ;
             }
-        } else if (newAdditionalParents.at(0) != TAZ) {
-            newAdditionalParents = {TAZ, newAdditionalParents.at(0)};
+        } else if (newTAZs.at(0) != TAZ) {
+            newTAZs = {TAZ, newTAZs.at(0)};
         }
     } else if (index == 1) {
-        if (newAdditionalParents.size() == 2) {
-            if (newAdditionalParents.at(0)->getID() == value) {
-                newAdditionalParents = {TAZ};
+        if (newTAZs.size() == 2) {
+            if (newTAZs.at(0)->getID() == value) {
+                newTAZs = {TAZ};
             } else {
-                newAdditionalParents[1] = TAZ;
+                newTAZs[1] = TAZ;
             }
-        } else if (newAdditionalParents.at(0) != TAZ) {
-            newAdditionalParents = {newAdditionalParents.at(0), TAZ};
+        } else if (newTAZs.at(0) != TAZ) {
+            newTAZs = {newTAZs.at(0), TAZ};
         }
     } else {
         throw ProcessError(TL("Invalid index"));
     }
-    // remove old additionals and set new additionals (this methode changes childrens)
-    while (getParentAdditionals().size() > 0) {
-        GNEHierarchicalElement::removeParent(this, getParentAdditionals().front());
-    }
-    for (const auto& newAdditionalParent : newAdditionalParents) {
-        GNEHierarchicalElement::removeParent(this, newAdditionalParent);
-    }
+    GNEHierarchicalElement::updateParents(this, newTAZs);
 }
 
 

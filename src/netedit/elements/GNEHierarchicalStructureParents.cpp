@@ -63,6 +63,7 @@ GNEHierarchicalStructureParents::clear() {
     myParentGenericDatas.clear();
 }
 
+// getParents functions
 
 template<> const GNEHierarchicalContainerParents<GNEJunction*>&
 GNEHierarchicalStructureParents::getParents() const {
@@ -105,6 +106,50 @@ GNEHierarchicalStructureParents::getParents() const {
     return myParentGenericDatas;
 }
 
+// at functions
+
+template<> GNEJunction*
+GNEHierarchicalStructureParents::at(const int index) const {
+    return myParentJunctions.at(index);
+}
+
+
+template<> GNEEdge*
+GNEHierarchicalStructureParents::at(const int index) const {
+    return myParentEdges.at(index);
+}
+
+
+template<> GNELane*
+GNEHierarchicalStructureParents::at(const int index) const {
+    return myParentLanes.at(index);
+}
+
+
+template<> GNEAdditional*
+GNEHierarchicalStructureParents::at(const int index) const {
+    return myParentAdditionals.at(index);
+}
+
+
+template<> GNETAZSourceSink*
+GNEHierarchicalStructureParents::at(const int index) const {
+    return myParentTAZSourceSinks.at(index);
+}
+
+
+template<> GNEDemandElement*
+GNEHierarchicalStructureParents::at(const int index) const {
+    return myParentDemandElements.at(index);
+}
+
+
+template<> GNEGenericData*
+GNEHierarchicalStructureParents::at(const int index) const {
+    return myParentGenericDatas.at(index);
+}
+
+// addParentElement functions
 
 template <> void
 GNEHierarchicalStructureParents::addParentElement(GNEJunction* parent, const int index) {
@@ -175,6 +220,7 @@ GNEHierarchicalStructureParents::addParentElement(GNEGenericData* parent, const 
     }
 }
 
+// removeParentElement functions
 
 template <> void
 GNEHierarchicalStructureParents::removeParentElement(GNEJunction* junction) {
@@ -252,6 +298,7 @@ GNEHierarchicalStructureParents::removeParentElement(GNEGenericData* genericData
     }
 }
 
+// updateParentElement functions
 
 template <> void
 GNEHierarchicalStructureParents::updateParentElement(const int index, GNEJunction* newParent) {
@@ -322,6 +369,7 @@ GNEHierarchicalStructureParents::updateParentElement(const int index, GNEGeneric
     }
 }
 
+// updateParents functions
 
 template <> void
 GNEHierarchicalStructureParents::updateParents(const GNEHierarchicalContainerParents<GNEJunction*>& newParents) {

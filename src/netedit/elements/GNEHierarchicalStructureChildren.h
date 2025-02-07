@@ -58,21 +58,21 @@ public:
     /// @brief default constructor
     GNEHierarchicalStructureChildren();
 
-    /// @brief add child element
-    template<typename T>
-    void addChildElement(T* element);
-
-    /// @brief remove child element
-    template<typename T>
-    void removeChildElement(T* element);
-
     /// @brief get children
     template<typename T>
     const GNEHierarchicalContainerChildren<T>& getChildren() const;
 
-    /// @brief get children set
+    /// @brief add child element
     template<typename T>
-    const GNEHierarchicalContainerChildrenSet<T>& getChildrenSet() const;
+    void addChildElement(T newChild);
+
+    /// @brief remove child element
+    template<typename T>
+    void removeChildElement(T newChild);
+
+    /// @brief update all children
+    template<typename T>
+    void updateChildren(const GNEHierarchicalContainerChildren<T>& newChildren);
 
 private:
     /// @brief children junctions
@@ -87,8 +87,8 @@ private:
     /// @brief children additional elements
     GNEHierarchicalContainerChildren<GNEAdditional*> myChildAdditionals;
 
-    /// @brief children TAZSourceSinks elements (set)
-    GNEHierarchicalContainerChildrenSet<GNETAZSourceSink*> myChildSourceSinks;
+    /// @brief children TAZSourceSinks elements
+    GNEHierarchicalContainerChildren<GNETAZSourceSink*> myChildSourceSinks;
 
     /// @brief children demand elements
     GNEHierarchicalContainerChildren<GNEDemandElement*> myChildDemandElements;

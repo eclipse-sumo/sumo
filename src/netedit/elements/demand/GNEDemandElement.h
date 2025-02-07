@@ -379,11 +379,11 @@ protected:
     /// @name replace parent elements
     /// @{
 
-    /// @brief replace demand parent edges
-    void replaceDemandParentEdges(const std::string& value);
+    /// @brief all edges
+    void replaceParentEdges(const std::string& value);
 
-    /// @brief replace demand parent lanes
-    void replaceDemandParentLanes(const std::string& value);
+    /// @brief replace the first parent lane
+    void replaceFirstParentLane(const std::string& value);
 
     /// @brief replace the first parent junction
     void replaceFirstParentJunction(const std::string& value);

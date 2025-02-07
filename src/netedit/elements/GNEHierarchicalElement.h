@@ -120,7 +120,7 @@ public:
     const GNEHierarchicalContainerChildren<GNEAdditional*>& getChildAdditionals() const;
 
     /// @brief return child TAZSourceSinks (Hash)
-    const GNEHierarchicalContainerChildrenSet<GNETAZSourceSink*>& getChildTAZSourceSinks() const;
+    const GNEHierarchicalContainerChildren<GNETAZSourceSink*>& getChildTAZSourceSinks() const;
 
     /// @brief return child demand elements
     const GNEHierarchicalContainerChildren<GNEDemandElement*>& getChildDemandElements() const;
@@ -149,9 +149,9 @@ public:
 
     /// @brief update single parent element
     template<typename T, typename U>
-    static void updateParent(T* element, const int index, U* newParent) {
+    static void updateParent(T element, const int index, U newParent) {
         // remove element from old parent
-        auto oldParent = element->getParents().at(index);
+        auto oldParent = element->myHierarchicalStructureParents.at<U>(index);
         oldParent->myHierarchicalStructureChildren.removeChildElement(element);
         // update parent
         element->myHierarchicalStructureParents.updateParentElement(index, newParent);
@@ -161,31 +161,46 @@ public:
 
     /// @brief update all parent elements
     template<typename T, typename U>
-    static void updateParents(T* element, GNEHierarchicalContainerParents<U*> newParents) {
+    static void updateParents(T element, GNEHierarchicalContainerParents<U> newParents) {
         // remove children
-        for (const auto parent : element->getParents()) {
+        for (const auto parent : element->myHierarchicalStructureParents.getParents<U>()) {
             parent->myHierarchicalStructureChildren.removeChildElement(element);
         }
         // update parents
         element->myHierarchicalStructureParents.updateParents(newParents);
         // restore children
-        for (const auto parent : element->getParents()) {
+        for (const auto parent : element->myHierarchicalStructureParents.getParents<U>()) {
             parent->myHierarchicalStructureChildren.addChildElement(element);
         }
     }
 
     /// @brief insert child element
     template<typename T, typename U>
-    static void insertChild(T* element, U* child) {
+    static void insertChild(T element, U child) {
         element->myHierarchicalStructureChildren.addChildElement(child);
         child->myHierarchicalStructureParents.addParentElement(element);
     }
 
     /// @brief remove child element
     template<typename T, typename U>
-    static void removeChild(T* element, U* child) {
+    static void removeChild(T element, U child) {
         element->myHierarchicalStructureChildren.removeChildElement(child);
         child->myHierarchicalStructureParents.removeParentElement(element);
+    }
+
+    /// @brief update all children elements
+    template<typename T, typename U>
+    static void updateChildren(T element, GNEHierarchicalContainerChildren<U> newChildren) {
+        // remove children
+        for (const auto children : element->myHierarchicalStructureChildren.getChildren<U>()) {
+            children->myHierarchicalStructureParents.removeParentElement(element);
+        }
+        // update children
+        element->myHierarchicalStructureChildren.updateChildren(newChildren);
+        // restore children
+        for (const auto children : element->myHierarchicalStructureChildren.getChildren<U>()) {
+            children->myHierarchicalStructureParents.addParentElement(element);
+        }
     }
 
     /// @}

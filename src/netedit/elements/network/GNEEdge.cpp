@@ -2100,29 +2100,15 @@ GNEEdge::setNumLanes(int numLanes, GNEUndoList* undoList) {
 
 void
 GNEEdge::updateFirstParentJunction(const std::string& value) {
-    std::vector<GNEJunction*> newJunctions = getParentJunctions();
-    newJunctions[0] = myNet->getAttributeCarriers()->retrieveJunction(value);
-    // remove old junctions and set new junctions (this methode changes childrens)
-    while (getParentJunctions().size() > 0) {
-        GNEHierarchicalElement::removeParent(this, getParentJunctions().front());
-    }
-    for (const auto& newJunction : newJunctions) {
-        GNEHierarchicalElement::removeParent(this, newJunction);
-    }
+    auto newJunction = myNet->getAttributeCarriers()->retrieveJunction(value);
+    GNEHierarchicalElement::updateParent(this, 0, newJunction);
 }
 
 
 void
 GNEEdge::updateSecondParentJunction(const std::string& value) {
-    std::vector<GNEJunction*> newJunctions = getParentJunctions();
-    newJunctions[1] = myNet->getAttributeCarriers()->retrieveJunction(value);
-    // remove old junctions and set new junctions (this methode changes childrens)
-    while (getParentJunctions().size() > 0) {
-        GNEHierarchicalElement::removeParent(this, getParentJunctions().front());
-    }
-    for (const auto& newJunction : newJunctions) {
-        GNEHierarchicalElement::removeParent(this, newJunction);
-    }
+    auto newJunction = myNet->getAttributeCarriers()->retrieveJunction(value);
+    GNEHierarchicalElement::updateParent(this, 1, newJunction);
 }
 
 
@@ -2206,14 +2192,7 @@ GNEEdge::removeLane(GNELane* lane, bool recomputeConnections) {
     myNBEdge->deleteLane(lane->getIndex(), recomputeConnections, !recomputeConnections);
     lane->decRef("GNEEdge::removeLane");
     // delete lane from edge
-    GNEHierarchicalContainerChildren<GNELane*> newParentLanes = getChildLanes();
-    newParentLanes.erase(newParentLanes.begin() + lane->getIndex());
-    while (getChildLanes().size() > 0) {
-        removeChild(this, getChildLanes().front());
-    }
-    for (const auto newParentLane : newParentLanes) {
-        insertChild(this, newParentLane);
-    }
+    GNEHierarchicalElement::removeParent(this, lane);
     // remove from attributeCarriers
     myNet->getAttributeCarriers()->deleteLane(lane);
     // Delete lane if is unreferenced

@@ -35,6 +35,50 @@
 
 GNEHierarchicalStructureChildren::GNEHierarchicalStructureChildren() {}
 
+// getChildren functions
+
+template<> const GNEHierarchicalContainerChildren<GNEJunction*>&
+GNEHierarchicalStructureChildren::getChildren() const {
+    return myChildJunctions;
+}
+
+
+template<> const GNEHierarchicalContainerChildren<GNEEdge*>&
+GNEHierarchicalStructureChildren::getChildren() const {
+    return myChildEdges;
+}
+
+
+template<> const GNEHierarchicalContainerChildren<GNELane*>&
+GNEHierarchicalStructureChildren::getChildren() const {
+    return myChildLanes;
+}
+
+
+template<> const GNEHierarchicalContainerChildren<GNEAdditional*>&
+GNEHierarchicalStructureChildren::getChildren() const {
+    return myChildAdditionals;
+}
+
+
+template<> const GNEHierarchicalContainerChildren<GNETAZSourceSink*>&
+GNEHierarchicalStructureChildren::getChildren() const {
+    return myChildSourceSinks;
+}
+
+
+template<> const GNEHierarchicalContainerChildren<GNEDemandElement*>&
+GNEHierarchicalStructureChildren::getChildren() const {
+    return myChildDemandElements;
+}
+
+
+template<> const GNEHierarchicalContainerChildren<GNEGenericData*>&
+GNEHierarchicalStructureChildren::getChildren() const {
+    return myChildGenericDatas;
+}
+
+// addChildElement functions
 
 template <> void
 GNEHierarchicalStructureChildren::addChildElement(GNEJunction* junction) {
@@ -62,7 +106,7 @@ GNEHierarchicalStructureChildren::addChildElement(GNEAdditional* additional) {
 
 template <> void
 GNEHierarchicalStructureChildren::addChildElement(GNETAZSourceSink* TAZSourceSink) {
-    myChildSourceSinks.insert(TAZSourceSink);
+    myChildSourceSinks.push_back(TAZSourceSink);
 }
 
 
@@ -77,6 +121,7 @@ GNEHierarchicalStructureChildren::addChildElement(GNEGenericData* genericData) {
     myChildGenericDatas.push_back(genericData);
 }
 
+// removeChildElement functions
 
 template <> void
 GNEHierarchicalStructureChildren::removeChildElement(GNEJunction* junction) {
@@ -124,7 +169,7 @@ GNEHierarchicalStructureChildren::removeChildElement(GNEAdditional* additional) 
 
 template <> void
 GNEHierarchicalStructureChildren::removeChildElement(GNETAZSourceSink* TAZSourceSink) {
-    auto it = myChildSourceSinks.find(TAZSourceSink);
+    auto it = std::find(myChildSourceSinks.begin(), myChildSourceSinks.end(), TAZSourceSink);
     if (it != myChildSourceSinks.end()) {
         myChildSourceSinks.erase(it);
     } else {
@@ -153,46 +198,47 @@ GNEHierarchicalStructureChildren::removeChildElement(GNEGenericData* genericData
     }
 }
 
+// updateChildren functions
 
-template<> const GNEHierarchicalContainerChildren<GNEJunction*>&
-GNEHierarchicalStructureChildren::getChildren() const {
-    return myChildJunctions;
+template <> void
+GNEHierarchicalStructureChildren::updateChildren(const GNEHierarchicalContainerChildren<GNEJunction*>& newChildren) {
+    myChildJunctions = newChildren;
 }
 
 
-template<> const GNEHierarchicalContainerChildren<GNEEdge*>&
-GNEHierarchicalStructureChildren::getChildren() const {
-    return myChildEdges;
+template <> void
+GNEHierarchicalStructureChildren::updateChildren(const GNEHierarchicalContainerChildren<GNEEdge*>& newChildren) {
+    myChildEdges = newChildren;
 }
 
 
-template<> const GNEHierarchicalContainerChildren<GNELane*>&
-GNEHierarchicalStructureChildren::getChildren() const {
-    return myChildLanes;
+template <> void
+GNEHierarchicalStructureChildren::updateChildren(const GNEHierarchicalContainerChildren<GNELane*>& newChildren) {
+    myChildLanes = newChildren;
 }
 
 
-template<> const GNEHierarchicalContainerChildren<GNEAdditional*>&
-GNEHierarchicalStructureChildren::getChildren() const {
-    return myChildAdditionals;
+template <> void
+GNEHierarchicalStructureChildren::updateChildren(const GNEHierarchicalContainerChildren<GNEAdditional*>& newChildren) {
+    myChildAdditionals = newChildren;
 }
 
 
-template<> const GNEHierarchicalContainerChildrenSet<GNETAZSourceSink*>&
-GNEHierarchicalStructureChildren::getChildrenSet() const {
-    return myChildSourceSinks;
+template <> void
+GNEHierarchicalStructureChildren::updateChildren(const GNEHierarchicalContainerChildren<GNETAZSourceSink*>& newChildren) {
+    myChildSourceSinks = newChildren;
 }
 
 
-template<> const GNEHierarchicalContainerChildren<GNEDemandElement*>&
-GNEHierarchicalStructureChildren::getChildren() const {
-    return myChildDemandElements;
+template <> void
+GNEHierarchicalStructureChildren::updateChildren(const GNEHierarchicalContainerChildren<GNEDemandElement*>& newChildren) {
+    myChildDemandElements = newChildren;
 }
 
 
-template<> const GNEHierarchicalContainerChildren<GNEGenericData*>&
-GNEHierarchicalStructureChildren::getChildren() const {
-    return myChildGenericDatas;
+template <> void
+GNEHierarchicalStructureChildren::updateChildren(const GNEHierarchicalContainerChildren<GNEGenericData*>& newChildren) {
+    myChildGenericDatas = newChildren;
 }
 
 /****************************************************************************/
