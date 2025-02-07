@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-05 09:24+0100\n"
-"PO-Revision-Date: 2025-02-07 11:03+0000\n"
+"PO-Revision-Date: 2025-02-07 12:22+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -2575,7 +2575,7 @@ msgstr "&Herramientas"
 
 #: src/netedit/GNEApplicationWindow.cpp:1429
 msgid "Assign"
-msgstr ""
+msgstr "Asignar"
 
 #: src/netedit/GNEApplicationWindow.cpp:1430
 msgid "Detectors"
@@ -2949,7 +2949,7 @@ msgstr "recarga de meanDatas desde '"
 
 #: src/netedit/GNEApplicationWindow.cpp:4262
 msgid "MeanDatas elements saved in '"
-msgstr ""
+msgstr "Elementos MeanDatas guardados en '"
 
 #: src/netedit/GNEApplicationWindow.cpp:4265
 msgid "Saving MeanData elements aborted"
@@ -3667,7 +3667,7 @@ msgstr ""
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:907
 msgid "Don't ask for confirmation before merging junction"
-msgstr ""
+msgstr "No solicitar confirmación antes de combinar el cruce"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:912
 msgid "Show bubbles over junctions shapes"
@@ -4467,12 +4467,16 @@ msgstr "Ignorar elementos de ruta durante la carga de configuraciones de sumo"
 msgid ""
 "If the lane is shorter than the additional, automatically enable friendlyPos"
 msgstr ""
+"Si el carril es más corto que el adicional, habilitar automáticamente "
+"friendlyPos"
 
 #: src/netedit/GNELoadThread.cpp:334
 msgid ""
 "If enabled, elements will be saved regardless of whether they have been "
 "edited or not"
 msgstr ""
+"Si se activa, los elementos se guardarán independientemente de si se han "
+"editado o no"
 
 #: src/netedit/GNELoadThread.cpp:339
 msgid "Prefix for node naming"
@@ -5270,7 +5274,7 @@ msgstr "seleccionar dentro del area del polígono"
 
 #: src/netedit/GNEViewNet.cpp:2746
 msgid "triangulate polygon"
-msgstr ""
+msgstr "triangular polígono"
 
 #: src/netedit/GNEViewNet.cpp:2782 src/netedit/GNEViewNet.cpp:2812
 #: src/netedit/GNEViewNet.cpp:2827 src/netedit/GNEViewNet.cpp:2844
@@ -6716,19 +6720,19 @@ msgstr "seleccionar pasos peatonales inválidos"
 
 #: src/netedit/dialogs/GNEKeepElementsDialog.cpp:59
 msgid "Keep new"
-msgstr ""
+msgstr "Mantener el nuevo"
 
 #: src/netedit/dialogs/GNEKeepElementsDialog.cpp:59
 msgid "Keep new elements"
-msgstr ""
+msgstr "Mantener elementos nuevos"
 
 #: src/netedit/dialogs/GNEKeepElementsDialog.cpp:60
 msgid "Keep old"
-msgstr ""
+msgstr "Mantener el antiguo"
 
 #: src/netedit/dialogs/GNEKeepElementsDialog.cpp:60
 msgid "Keep old elements"
-msgstr ""
+msgstr "Mantener elementos antiguos"
 
 #: src/netedit/dialogs/GNEKeepElementsDialog.cpp:61
 msgid "Cancel loading of elements"
@@ -10120,7 +10124,7 @@ msgstr ""
 #: src/netedit/elements/GNEAttributeCarrier.cpp:5535
 #: src/netedit/elements/GNEAttributeCarrier.cpp:6973
 msgid "edges"
-msgstr ""
+msgstr "aristas"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:6294
 #: src/netedit/elements/GNEAttributeCarrier.cpp:6303
@@ -11512,7 +11516,7 @@ msgstr "añadir parada para contenedores '"
 
 #: src/netedit/elements/additional/GNEAdditionalHandler.cpp:306
 msgid "Could not build % with ID '%' in netedit; Invalid charge type '%' ."
-msgstr ""
+msgstr "No se pudo crear % con ID '%' en netedit; Tipo de carga no válido '%'."
 
 #: src/netedit/elements/additional/GNEAdditionalHandler.cpp:313
 msgid "add charging station '"
@@ -11860,11 +11864,11 @@ msgstr "Seleccionar elementos dentro del límite del polígono"
 
 #: src/netedit/elements/additional/GNEPoly.cpp:279
 msgid "Triangulate polygon"
-msgstr ""
+msgstr "Triangular polígono"
 
 #: src/netedit/elements/additional/GNEPoly.cpp:279
 msgid "Convert the current polygon in triangles"
-msgstr ""
+msgstr "Convertir el polígono actual en triángulos"
 
 #: src/netedit/elements/additional/GNEPoly.cpp:290
 msgid "Remove geometry point"
@@ -12005,7 +12009,7 @@ msgstr "El atributo '%' no existe."
 
 #: src/netedit/elements/data/GNEMeanDataHandler.cpp:218
 msgid "Could not build % with ID '%' in netedit; Invalid value '%' for %."
-msgstr ""
+msgstr "No se pudo crear % con ID '%' en netedit; Valor no válido '%' para %."
 
 #: src/netedit/elements/demand/GNEDemandElement.cpp:874
 msgid "Route length: "
@@ -12117,7 +12121,7 @@ msgstr "copiar % '%'"
 
 #: src/netedit/elements/demand/GNERouteHandler.cpp:93
 msgid "delete % '%'"
-msgstr ""
+msgstr "eliminar % '%'"
 
 #: src/netedit/elements/demand/GNERouteHandler.cpp:127
 #: src/netedit/elements/demand/GNERouteHandler.cpp:163
@@ -13764,7 +13768,7 @@ msgstr "No se ha establecido una plantilla de arista"
 
 #: src/netedit/frames/common/GNEInspectorFrame.cpp:261
 msgid "GEO attributes"
-msgstr ""
+msgstr "Atributos geográficos"
 
 #: src/netedit/frames/common/GNEMatchAttribute.cpp:47
 msgid "Match Attribute"
@@ -17475,7 +17479,7 @@ msgstr "Número de vértices"
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2237
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2274
 msgid "Custom Layer"
-msgstr ""
+msgstr "Capa personalizada"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2243
 msgid "Show poi id"
