@@ -130,38 +130,55 @@ public:
 
     /// @}
 
-    /// @brief add child (only used if we're creating elements without undo-redo)
-    template<typename T>
-    void addChildElement(T* element) {
-        myHierarchicalStructureChildren.addChildElement(element);
-    }
+    /// @name edit function maintain integrity
+    /// @{
 
-    /// @brief insert parent element and update their child
+    /// @brief insert parent element
     template<typename T, typename U>
-    static void insertParent(T* element, U* parent) {
-        element->myHierarchicalStructureParents.addParentElement(parent);
+    static void insertParent(T* element, U* parent, const int index = -1) {
+        element->myHierarchicalStructureParents.addParentElement(parent, index);
         parent->myHierarchicalStructureChildren.addChildElement(element);
     }
 
-    /// @brief remove parent element and update their child
+    /// @brief remove parent element
     template<typename T, typename U>
     static void removeParent(T* element, U* parent) {
         element->myHierarchicalStructureParents.removeParentElement(parent);
         parent->myHierarchicalStructureChildren.removeChildElement(element);
     }
 
-    /// @brief insert child element and update their parent
+    /// @brief update parent element
+    template<typename T, typename U>
+    static void updateParent(T* element, const int index, U* newParent) {
+        // remove element from old parent
+        auto oldParent = element->getParents().at(index);
+        oldParent->myHierarchicalStructureChildren.removeChildElement(element);
+        // update parent
+        element->myHierarchicalStructureParents.updateParentElement(index, newParent);
+        // insert child in new parent
+        newParent->myHierarchicalStructureChildren.addChildElement(element);
+    }
+
+    /// @brief insert child element
     template<typename T, typename U>
     static void insertChild(T* element, U* child) {
         element->myHierarchicalStructureChildren.addChildElement(child);
         child->myHierarchicalStructureParents.addParentElement(element);
     }
 
-    /// @brief remove child element (and update their parent)
+    /// @brief remove child element
     template<typename T, typename U>
     static void removeChild(T* element, U* child) {
         element->myHierarchicalStructureChildren.removeChildElement(child);
         child->myHierarchicalStructureParents.removeParentElement(element);
+    }
+
+    /// @}
+
+    /// @brief add child without updating parent (ONLY used if we're creating elements without undo-redo)
+    template<typename T>
+    void addChildElement(T* element) {
+        myHierarchicalStructureChildren.addChildElement(element);
     }
 
     /// @name specific get functions
