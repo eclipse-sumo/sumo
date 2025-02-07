@@ -8,15 +8,16 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-05 09:24+0100\n"
-"PO-Revision-Date: 2024-12-03 14:24+0000\n"
-"Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
-"Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/sumo-gui-netedit/es/>\n"
+"PO-Revision-Date: 2025-02-07 11:03+0000\n"
+"Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
+"Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
+"sumo-gui-netedit/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.9-dev\n"
+"X-Generator: Weblate 5.10-dev\n"
 
 #: src/gui/GUIApplicationWindow.cpp:299 src/gui/GUIApplicationWindow.cpp:302
 #: src/gui/GUIApplicationWindow.cpp:2262 src/gui/GUIApplicationWindow.cpp:2263
@@ -17705,7 +17706,7 @@ msgstr "Cambiar el idioma a húngaro. (hu)"
 
 #: src/utils/gui/windows/GUIMainWindow.cpp:361
 msgid "Change language to japanese. (ja)"
-msgstr ""
+msgstr "Cambiar el idioma a japonés. (ja)"
 
 #: src/utils/gui/windows/GUIMainWindow.cpp:375
 msgid "german"
@@ -17741,7 +17742,7 @@ msgstr "húngaro"
 
 #: src/utils/gui/windows/GUIMainWindow.cpp:407
 msgid "japanese"
-msgstr ""
+msgstr "japonés"
 
 #: src/utils/gui/windows/GUIMainWindow.cpp:411
 msgid "english"
