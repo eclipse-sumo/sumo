@@ -322,46 +322,4 @@ GNEHierarchicalStructureParents::getParents() const {
     return myParentGenericDatas;
 }
 
-
-template<> void
-GNEHierarchicalStructureParents::setParents(const GNEHierarchicalContainerParents<GNEJunction*>& newParents) {
-    myParentJunctions = newParents;
-}
-
-
-template<> void
-GNEHierarchicalStructureParents::setParents(const GNEHierarchicalContainerParents<GNEEdge*>& newParents) {
-    myParentEdges = newParents;
-}
-
-
-template<> void
-GNEHierarchicalStructureParents::setParents(const GNEHierarchicalContainerParents<GNELane*>& newParents) {
-    myParentLanes = newParents;
-}
-
-
-template<> void
-GNEHierarchicalStructureParents::setParents(const GNEHierarchicalContainerParents<GNEAdditional*>& newParents) {
-    myParentAdditionals = newParents;
-}
-
-
-template<> void
-GNEHierarchicalStructureParents::setParents(const GNEHierarchicalContainerParents<GNETAZSourceSink*>& newParents) {
-    myParentTAZSourceSinks = newParents;
-}
-
-
-template<> void
-GNEHierarchicalStructureParents::setParents(const GNEHierarchicalContainerParents<GNEDemandElement*>& newParents) {
-    myParentDemandElements = newParents;
-}
-
-
-template<> void
-GNEHierarchicalStructureParents::setParents(const GNEHierarchicalContainerParents<GNEGenericData*>& newParents) {
-    myParentGenericDatas = newParents;
-}
-
 /****************************************************************************/

@@ -88,9 +88,6 @@ public:
     template<typename T>
     const GNEHierarchicalContainerParents<T>& getParents() const;
 
-    /// @brief set parents
-    template<typename T>
-    void setParents(const GNEHierarchicalContainerParents<T>& newParents);
 
 private:
     /// @brief parents junctions
