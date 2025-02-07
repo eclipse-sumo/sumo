@@ -2103,10 +2103,10 @@ GNEEdge::updateFirstParentJunction(const std::string& value) {
     newJunctions[0] = myNet->getAttributeCarriers()->retrieveJunction(value);
     // remove old junctions and set new junctions (this methode changes childrens)
     while (getParentJunctions().size() > 0) {
-        GNEHierarchicalElement::removeParentFromEdge(this, getParentJunctions().front());
+        GNEHierarchicalElement::removeParent(this, getParentJunctions().front());
     }
     for (const auto& newJunction : newJunctions) {
-        GNEHierarchicalElement::removeParentFromEdge(this, newJunction);
+        GNEHierarchicalElement::removeParent(this, newJunction);
     }
 }
 
@@ -2117,10 +2117,10 @@ GNEEdge::updateSecondParentJunction(const std::string& value) {
     newJunctions[1] = myNet->getAttributeCarriers()->retrieveJunction(value);
     // remove old junctions and set new junctions (this methode changes childrens)
     while (getParentJunctions().size() > 0) {
-        GNEHierarchicalElement::removeParentFromEdge(this, getParentJunctions().front());
+        GNEHierarchicalElement::removeParent(this, getParentJunctions().front());
     }
     for (const auto& newJunction : newJunctions) {
-        GNEHierarchicalElement::removeParentFromEdge(this, newJunction);
+        GNEHierarchicalElement::removeParent(this, newJunction);
     }
 }
 

@@ -552,10 +552,10 @@ GNEDemandElement::replaceDemandParentEdges(const std::string& value) {
     const auto newEdges = parse<std::vector<GNEEdge*> >(getNet(), value);
     // remove old edges and set new edges (this methode changes childrens)
     while (getParentEdges().size() > 0) {
-        GNEHierarchicalElement::removeParentFromDemandElement(this, getParentEdges().front());
+        GNEHierarchicalElement::removeParent(this, getParentEdges().front());
     }
     for (const auto& newEdge : newEdges) {
-        GNEHierarchicalElement::insertParentInDemandElement(this, newEdge);
+        GNEHierarchicalElement::insertParent(this, newEdge);
     }
 }
 
@@ -565,10 +565,10 @@ GNEDemandElement::replaceDemandParentLanes(const std::string& value) {
     const auto newLanes = parse<std::vector<GNELane*> >(getNet(), value);
     // remove old lanes and set new lanes (this methode changes childrens)
     while (getParentLanes().size() > 0) {
-        GNEHierarchicalElement::removeParentFromDemandElement(this, getParentLanes().front());
+        GNEHierarchicalElement::removeParent(this, getParentLanes().front());
     }
     for (const auto& newLane : newLanes) {
-        GNEHierarchicalElement::insertParentInDemandElement(this, newLane);
+        GNEHierarchicalElement::insertParent(this, newLane);
     }
 }
 
@@ -579,10 +579,10 @@ GNEDemandElement::replaceFirstParentJunction(const std::string& value) {
     newJunctions[0] = myNet->getAttributeCarriers()->retrieveJunction(value);
     // remove old junctions and set new junctions (this methode changes childrens)
     while (getParentJunctions().size() > 0) {
-        GNEHierarchicalElement::removeParentFromDemandElement(this, getParentJunctions().front());
+        GNEHierarchicalElement::removeParent(this, getParentJunctions().front());
     }
     for (const auto& newJunction : newJunctions) {
-        GNEHierarchicalElement::insertParentInDemandElement(this, newJunction);
+        GNEHierarchicalElement::insertParent(this, newJunction);
     }
 }
 
@@ -593,10 +593,10 @@ GNEDemandElement::replaceLastParentJunction(const std::string& value) {
     newJunctions[(int)newJunctions.size() - 1] = myNet->getAttributeCarriers()->retrieveJunction(value);
     // remove old junctions and set new junctions (this methode changes childrens)
     while (getParentJunctions().size() > 0) {
-        GNEHierarchicalElement::removeParentFromDemandElement(this, getParentJunctions().front());
+        GNEHierarchicalElement::removeParent(this, getParentJunctions().front());
     }
     for (const auto& newJunction : newJunctions) {
-        GNEHierarchicalElement::insertParentInDemandElement(this, newJunction);
+        GNEHierarchicalElement::insertParent(this, newJunction);
     }
 }
 
@@ -607,10 +607,10 @@ GNEDemandElement::replaceFirstParentEdge(const std::string& value) {
     newEdges[0] = myNet->getAttributeCarriers()->retrieveEdge(value);
     // remove old edges and set new edges (this methode changes childrens)
     while (getParentEdges().size() > 0) {
-        GNEHierarchicalElement::removeParentFromDemandElement(this, getParentEdges().front());
+        GNEHierarchicalElement::removeParent(this, getParentEdges().front());
     }
     for (const auto& newEdge : newEdges) {
-        GNEHierarchicalElement::insertParentInDemandElement(this, newEdge);
+        GNEHierarchicalElement::insertParent(this, newEdge);
     }
 }
 
@@ -621,10 +621,10 @@ GNEDemandElement::replaceLastParentEdge(const std::string& value) {
     newEdges[(int)newEdges.size() - 1] = myNet->getAttributeCarriers()->retrieveEdge(value);
     // remove old edges and set new edges (this methode changes childrens)
     while (getParentEdges().size() > 0) {
-        GNEHierarchicalElement::removeParentFromDemandElement(this, getParentEdges().front());
+        GNEHierarchicalElement::removeParent(this, getParentEdges().front());
     }
     for (const auto& newEdge : newEdges) {
-        GNEHierarchicalElement::insertParentInDemandElement(this, newEdge);
+        GNEHierarchicalElement::insertParent(this, newEdge);
     }
 }
 
@@ -635,10 +635,10 @@ GNEDemandElement::replaceFirstParentAdditional(SumoXMLTag tag, const std::string
     newAdditionals[0] = myNet->getAttributeCarriers()->retrieveAdditional(tag, value);
     // remove old additionals and set new additionals (this methode changes childrens)
     while (getParentAdditionals().size() > 0) {
-        GNEHierarchicalElement::removeParentFromDemandElement(this, getParentAdditionals().front());
+        GNEHierarchicalElement::removeParent(this, getParentAdditionals().front());
     }
     for (const auto& newAdditional : newAdditionals) {
-        GNEHierarchicalElement::insertParentInDemandElement(this, newAdditional);
+        GNEHierarchicalElement::insertParent(this, newAdditional);
     }
 }
 
@@ -649,10 +649,10 @@ GNEDemandElement::replaceLastParentAdditional(SumoXMLTag tag, const std::string&
     newAdditionals[(int)newAdditionals.size() - 1] = myNet->getAttributeCarriers()->retrieveAdditional(tag, value);
     // remove old additionals and set new additionals (this methode changes childrens)
     while (getParentAdditionals().size() > 0) {
-        GNEHierarchicalElement::removeParentFromDemandElement(this, getParentAdditionals().front());
+        GNEHierarchicalElement::removeParent(this, getParentAdditionals().front());
     }
     for (const auto& newAdditional : newAdditionals) {
-        GNEHierarchicalElement::insertParentInDemandElement(this, newAdditional);
+        GNEHierarchicalElement::insertParent(this, newAdditional);
     }
 }
 
@@ -663,10 +663,10 @@ GNEDemandElement::replaceDemandElementParent(SumoXMLTag tag, const std::string& 
     newDemandElements[parentIndex] = myNet->getAttributeCarriers()->retrieveDemandElement(tag, value);
     // remove old additionals and set new additionals (this methode changes childrens)
     while (getParentDemandElements().size() > 0) {
-        GNEHierarchicalElement::removeParentFromDemandElement(this, getParentDemandElements().front());
+        GNEHierarchicalElement::removeParent(this, getParentDemandElements().front());
     }
     for (const auto& newDemandElement : newDemandElements) {
-        GNEHierarchicalElement::insertParentInDemandElement(this, newDemandElement);
+        GNEHierarchicalElement::insertParent(this, newDemandElement);
     }
 }
 
@@ -679,10 +679,10 @@ GNEDemandElement::setVTypeDistributionParent(const std::string& value) {
     }
     // remove old additionals and set new additionals (this methode changes childrens)
     while (getParentDemandElements().size() > 0) {
-        GNEHierarchicalElement::removeParentFromDemandElement(this, getParentDemandElements().front());
+        GNEHierarchicalElement::removeParent(this, getParentDemandElements().front());
     }
     for (const auto& newDemandElement : newDemandElements) {
-        GNEHierarchicalElement::insertParentInDemandElement(this, newDemandElement);
+        GNEHierarchicalElement::insertParent(this, newDemandElement);
     }
 }
 

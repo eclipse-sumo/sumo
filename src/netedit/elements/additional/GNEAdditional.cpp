@@ -654,10 +654,10 @@ GNEAdditional::replaceAdditionalParentEdges(const std::string& value) {
     const auto newEdges = parse<std::vector<GNEEdge*> >(getNet(), value);
     // remove old edges and set new edges (this methode changes childrens)
     while (getParentEdges().size() > 0) {
-        GNEHierarchicalElement::removeParentFromAdditional(this, getParentEdges().front());
+        GNEHierarchicalElement::removeParent(this, getParentEdges().front());
     }
     for (const auto& newEdge : newEdges) {
-        GNEHierarchicalElement::insertParentInAdditional(this, newEdge);
+        GNEHierarchicalElement::insertParent(this, newEdge);
     }
 }
 
@@ -667,10 +667,10 @@ GNEAdditional::replaceAdditionalParentLanes(const std::string& value) {
     const auto newLanes = parse<std::vector<GNELane*> >(getNet(), value);
     // remove old lanes and set new lanes (this methode changes childrens)
     while (getParentLanes().size() > 0) {
-        GNEHierarchicalElement::removeParentFromAdditional(this, getParentLanes().front());
+        GNEHierarchicalElement::removeParent(this, getParentLanes().front());
     }
     for (const auto& newLane : newLanes) {
-        GNEHierarchicalElement::insertParentInAdditional(this, newLane);
+        GNEHierarchicalElement::insertParent(this, newLane);
     }
 }
 
@@ -683,7 +683,7 @@ GNEAdditional::replaceAdditionalChildEdges(const std::string& value) {
         GNEHierarchicalElement::removeChildFromAdditional(this, getChildEdges().front());
     }
     for (const auto& newEdge : newEdges) {
-        GNEHierarchicalElement::insertChildInAdditional(this, newEdge);
+        GNEHierarchicalElement::insertParent(this, newEdge);
     }
 }
 
@@ -715,10 +715,10 @@ GNEAdditional::replaceAdditionalParent(SumoXMLTag tag, const std::string& value,
     }
     // remove old additionals and set new additionals (this methode changes childrens)
     while (getParentAdditionals().size() > 0) {
-        GNEHierarchicalElement::removeParentFromAdditional(this, getParentAdditionals().front());
+        GNEHierarchicalElement::removeParent(this, getParentAdditionals().front());
     }
     for (const auto& newParentAdditional : newParentAdditionals) {
-        GNEHierarchicalElement::insertParentInAdditional(this, newParentAdditional);
+        GNEHierarchicalElement::insertParent(this, newParentAdditional);
     }
 }
 
@@ -729,10 +729,10 @@ GNEAdditional::replaceDemandElementParent(SumoXMLTag tag, const std::string& val
     newParentDemandElements[parentIndex] = myNet->getAttributeCarriers()->retrieveDemandElement(tag, value);
     // remove old demand elements and set new demand elements (this methode changes childrens)
     while (getParentDemandElements().size() > 0) {
-        GNEHierarchicalElement::removeParentFromAdditional(this, getParentDemandElements().front());
+        GNEHierarchicalElement::removeParent(this, getParentDemandElements().front());
     }
     for (const auto& newParentDemandElement : newParentDemandElements) {
-        GNEHierarchicalElement::insertParentInAdditional(this, newParentDemandElement);
+        GNEHierarchicalElement::insertParent(this, newParentDemandElement);
     }
 }
 
@@ -743,10 +743,10 @@ GNEAdditional::shiftLaneIndex() {
     const std::vector<GNELane*> newLanes = {getParentLanes().front()->getParentEdge()->getLanes().at(getParentLanes().front()->getIndex() + 1)};
     // remove old lanes and set new lanes (this methode changes childrens)
     while (getParentLanes().size() > 0) {
-        GNEHierarchicalElement::removeParentFromAdditional(this, getParentLanes().front());
+        GNEHierarchicalElement::removeParent(this, getParentLanes().front());
     }
     for (const auto& newLane : newLanes) {
-        GNEHierarchicalElement::insertParentInAdditional(this, newLane);
+        GNEHierarchicalElement::insertParent(this, newLane);
     }
 }
 

@@ -311,10 +311,10 @@ GNEGenericData::replaceFirstParentEdge(const std::string& value) {
     newEdges[0] = myNet->getAttributeCarriers()->retrieveEdge(value);
     // remove old edges and set new edges (this methode changes childrens)
     while (getParentEdges().size() > 0) {
-        GNEHierarchicalElement::removeParentFromGenericData(this, getParentEdges().front());
+        GNEHierarchicalElement::removeParent(this, getParentEdges().front());
     }
     for (const auto& newEdge : newEdges) {
-        GNEHierarchicalElement::removeParentFromGenericData(this, newEdge);
+        GNEHierarchicalElement::removeParent(this, newEdge);
     }
 }
 
@@ -325,10 +325,10 @@ GNEGenericData::replaceLastParentEdge(const std::string& value) {
     newEdges[(int)newEdges.size() - 1] = myNet->getAttributeCarriers()->retrieveEdge(value);
     // remove old edges and set new edges (this methode changes childrens)
     while (getParentEdges().size() > 0) {
-        GNEHierarchicalElement::removeParentFromGenericData(this, getParentEdges().front());
+        GNEHierarchicalElement::removeParent(this, getParentEdges().front());
     }
     for (const auto& newEdge : newEdges) {
-        GNEHierarchicalElement::removeParentFromGenericData(this, newEdge);
+        GNEHierarchicalElement::removeParent(this, newEdge);
     }
 }
 
@@ -363,10 +363,10 @@ GNEGenericData::replaceParentTAZElement(const int index, const std::string& valu
     }
     // remove old additionals and set new additionals (this methode changes childrens)
     while (getParentAdditionals().size() > 0) {
-        GNEHierarchicalElement::removeParentFromGenericData(this, getParentAdditionals().front());
+        GNEHierarchicalElement::removeParent(this, getParentAdditionals().front());
     }
     for (const auto& newAdditionalParent : newAdditionalParents) {
-        GNEHierarchicalElement::removeParentFromGenericData(this, newAdditionalParent);
+        GNEHierarchicalElement::removeParent(this, newAdditionalParent);
     }
 }
 
