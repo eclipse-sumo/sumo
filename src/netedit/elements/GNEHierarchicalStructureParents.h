@@ -66,9 +66,19 @@ public:
     /// @brief clear container
     void clear();
 
-    /// @brief add parent element
+    /**@brief add parent element
+     * @param element parent element to be inserted
+     * @param index position (-1 means push back)
+     */
     template<typename T>
-    void addParentElement(T* element);
+    void addParentElement(T* element, const int index = -1);
+
+    /**@brief update parent element
+     * @param index position
+     * @param element parent element to be updated
+     */
+    template<typename T>
+    void updateParentElement(const int index, T* element);
 
     /// @brief remove parent element
     template<typename T>
