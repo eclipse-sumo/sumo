@@ -151,7 +151,7 @@ public:
     template<typename T, typename U>
     static void updateParent(T element, const int index, U newParent) {
         // remove element from old parent
-        auto oldParent = element->myHierarchicalStructureParents.at<U>(index);
+        auto oldParent = element->myHierarchicalStructureParents.template at<U>(index);
         oldParent->myHierarchicalStructureChildren.remove(element);
         // update parent
         element->myHierarchicalStructureParents.replaceSingle(index, newParent);
@@ -163,13 +163,13 @@ public:
     template<typename T, typename U>
     static void updateParents(T element, GNEHierarchicalContainerParents<U> newParents) {
         // remove children
-        for (const auto parent : element->myHierarchicalStructureParents.get<U>()) {
+        for (const auto parent : element->myHierarchicalStructureParents.template get<U>()) {
             parent->myHierarchicalStructureChildren.remove(element);
         }
         // update parents
         element->myHierarchicalStructureParents.replaceAll(newParents);
         // restore children
-        for (const auto parent : element->myHierarchicalStructureParents.get<U>()) {
+        for (const auto parent : element->myHierarchicalStructureParents.template get<U>()) {
             parent->myHierarchicalStructureChildren.add(element);
         }
     }
