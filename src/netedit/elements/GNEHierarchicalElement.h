@@ -134,24 +134,24 @@ public:
     /// @{
 
     /// @brief insert parent element
-    template<typename T, typename U>
-    static void insertParent(T* element, U* parent, const int index = -1) {
+    template<typename ElementType, typename ParentType>
+    static void insertParent(ElementType* element, ParentType* parent, const int index = -1) {
         element->myHierarchicalStructureParents.add(parent, index);
         parent->myHierarchicalStructureChildren.add(element);
     }
 
     /// @brief remove parent element
-    template<typename T, typename U>
-    static void removeParent(T* element, U* parent) {
+    template<typename ElementType, typename ParentType>
+    static void removeParent(ElementType* element, ParentType* parent) {
         element->myHierarchicalStructureParents.remove(parent);
         parent->myHierarchicalStructureChildren.remove(element);
     }
 
     /// @brief update single parent element
-    template<typename T, typename U>
-    static void updateParent(T element, const int index, U newParent) {
+    template<typename ElementType, typename ParentType>
+    static void updateParent(ElementType element, const int index, ParentType newParent) {
         // remove element from old parent
-        auto oldParent = element->myHierarchicalStructureParents.template at<U>(index);
+        auto oldParent = element->myHierarchicalStructureParents.template at<ParentType>(index);
         oldParent->myHierarchicalStructureChildren.remove(element);
         // update parent
         element->myHierarchicalStructureParents.replaceSingle(index, newParent);
@@ -160,45 +160,45 @@ public:
     }
 
     /// @brief update all parent elements
-    template<typename T, typename U>
-    static void updateParents(T element, GNEHierarchicalContainerParents<U> newParents) {
+    template<typename ElementType, typename ParentType>
+    static void updateParents(ElementType element, GNEHierarchicalContainerParents<ParentType> newParents) {
         // remove children
-        for (const auto parent : element->myHierarchicalStructureParents.template get<U>()) {
+        for (const auto parent : element->myHierarchicalStructureParents.template get<ParentType>()) {
             parent->myHierarchicalStructureChildren.remove(element);
         }
         // update parents
         element->myHierarchicalStructureParents.replaceAll(newParents);
         // restore children
-        for (const auto parent : element->myHierarchicalStructureParents.template get<U>()) {
+        for (const auto parent : element->myHierarchicalStructureParents.template get<ParentType>()) {
             parent->myHierarchicalStructureChildren.add(element);
         }
     }
 
     /// @brief insert child element
-    template<typename T, typename U>
-    static void insertChild(T element, U child) {
+    template<typename ElementType, typename ChildType>
+    static void insertChild(ElementType element, ChildType child) {
         element->myHierarchicalStructureChildren.add(child);
         child->myHierarchicalStructureParents.add(element);
     }
 
     /// @brief remove child element
-    template<typename T, typename U>
-    static void removeChild(T element, U child) {
+    template<typename ElementType, typename ChildType>
+    static void removeChild(ElementType element, ChildType child) {
         element->myHierarchicalStructureChildren.remove(child);
         child->myHierarchicalStructureParents.remove(element);
     }
 
     /// @brief update all children elements
-    template<typename T, typename U>
-    static void updateChildren(T element, GNEHierarchicalContainerChildren<U> newChildren) {
+    template<typename ElementType, typename ChildType>
+    static void updateChildren(ElementType element, GNEHierarchicalContainerChildren<ChildType> newChildren) {
         // remove children
-        for (const auto children : element->myHierarchicalStructureChildren.get<U>()) {
+        for (const auto children : element->myHierarchicalStructureChildren.template get<ChildType>()) {
             children->myHierarchicalStructureParents.remove(element);
         }
         // update children
         element->myHierarchicalStructureChildren.replaceAll(newChildren);
         // restore children
-        for (const auto children : element->myHierarchicalStructureChildren.get<U>()) {
+        for (const auto children : element->myHierarchicalStructureChildren.template get<ChildType>()) {
             children->myHierarchicalStructureParents.add(element);
         }
     }
@@ -206,8 +206,8 @@ public:
     /// @}
 
     /// @brief add child without updating parent (ONLY used if we're creating elements without undo-redo)
-    template<typename T>
-    void addChildElement(T* element) {
+    template<typename ChildType>
+    void addChildElement(ChildType* element) {
         myHierarchicalStructureChildren.add(element);
     }
 

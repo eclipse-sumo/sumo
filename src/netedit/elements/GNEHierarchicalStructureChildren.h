@@ -27,11 +27,11 @@
 // template declarations
 // ===========================================================================
 
-template <typename T>
-using GNEHierarchicalContainerChildren = std::vector<T>;
+template <typename ChildType>
+using GNEHierarchicalContainerChildren = std::vector<ChildType>;
 
-template <typename T>
-using GNEHierarchicalContainerChildrenSet = std::set<T>;
+template <typename ChildType>
+using GNEHierarchicalContainerChildrenSet = std::set<ChildType>;
 
 // ===========================================================================
 // class declarations
@@ -59,20 +59,20 @@ public:
     GNEHierarchicalStructureChildren();
 
     /// @brief get children
-    template<typename T>
-    const GNEHierarchicalContainerChildren<T>& get() const;
+    template<typename ChildType>
+    const GNEHierarchicalContainerChildren<ChildType>& get() const;
 
     /// @brief add child element
-    template<typename T>
-    void add(T child);
+    template<typename ChildType>
+    void add(ChildType child);
 
     /// @brief remove child element
-    template<typename T>
-    void remove(T child);
+    template<typename ChildType>
+    void remove(ChildType child);
 
     /// @brief update all children
-    template<typename T>
-    void replaceAll(const GNEHierarchicalContainerChildren<T>& children);
+    template<typename ChildType>
+    void replaceAll(const GNEHierarchicalContainerChildren<ChildType>& children);
 
 private:
     /// @brief children junctions

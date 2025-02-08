@@ -26,8 +26,8 @@
 // template declarations
 // ===========================================================================
 
-template <typename T>
-using GNEHierarchicalContainerParents = std::vector<T>;
+template <typename ParentType>
+using GNEHierarchicalContainerParents = std::vector<ParentType>;
 
 // ===========================================================================
 // class declarations
@@ -67,34 +67,34 @@ public:
     void clear();
 
     /// @brief get parents
-    template<typename T>
-    const GNEHierarchicalContainerParents<T>& get() const;
+    template<typename ParentType>
+    const GNEHierarchicalContainerParents<ParentType>& get() const;
 
     /// @brief get parent at the given position
-    template<typename T>
-    T at(const int index) const;
+    template<typename ParentType>
+    ParentType at(const int index) const;
 
     /**@brief add parent element
      * @param parent new parent element to be inserted
      * @param index position (-1 means push back)
      */
-    template<typename T>
-    void add(T parent, const int index = -1);
+    template<typename ParentType>
+    void add(ParentType parent, const int index = -1);
 
     /// @brief remove parent element
-    template<typename T>
-    void remove(T parent);
+    template<typename ParentType>
+    void remove(ParentType parent);
 
     /**@brief update single parent element
      * @param index position
      * @param parent new parent element to be updated
      */
-    template<typename T>
-    void replaceSingle(const int index, T newParent);
+    template<typename ParentType>
+    void replaceSingle(const int index, ParentType newParent);
 
     /// @brief update all parent element
-    template<typename T>
-    void replaceAll(const GNEHierarchicalContainerParents<T>& newParents);
+    template<typename ParentType>
+    void replaceAll(const GNEHierarchicalContainerParents<ParentType>& newParents);
 
 private:
     /// @brief parents junctions
