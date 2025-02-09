@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-05 09:24+0100\n"
-"PO-Revision-Date: 2025-02-09 07:53+0000\n"
+"PO-Revision-Date: 2025-02-09 15:14+0000\n"
 "Last-Translator: Tomosawa Ryo <tomosawa.r.103@ms.saitama-u.ac.jp>\n"
 "Language-Team: Japanese <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/ja/>\n"
@@ -969,7 +969,7 @@ msgstr "時間計算でオーバーフローが発生しました。"
 
 #: src/gui/GUIViewTraffic.cpp:108 src/netedit/GNEViewNet.cpp:365
 msgid "Locate Junctions"
-msgstr "交差点を検索"
+msgstr "交差点を表示"
 
 #: src/gui/GUIViewTraffic.cpp:108
 msgid "Locate a junction within the network."
@@ -1009,7 +1009,7 @@ msgstr "ネットワーク内のコンテナを表示します。"
 
 #: src/gui/GUIViewTraffic.cpp:133 src/netedit/GNEViewNet.cpp:404
 msgid "Locate TLS"
-msgstr "信号を表示"
+msgstr "信号機を表示"
 
 #: src/gui/GUIViewTraffic.cpp:133
 msgid "Locate a tls within the network."
@@ -1047,24 +1047,25 @@ msgstr "Eclipse SUMOのsumo-guiについて"
 msgid ""
 "Graphical user interface for the microscopic, multi-modal traffic simulation"
 " SUMO."
-msgstr ""
+msgstr "ミクロ・多モード交通シミュレーションSUMOのためのGUIです。"
 
 #: src/gui/dialogs/GUIDialog_AboutSUMO.cpp:57
 msgid "Includes JuPedSim %.%.%"
-msgstr ""
+msgstr "JuPedSim %.%.%を含む"
 
 #: src/gui/dialogs/GUIDialog_AboutSUMO.cpp:64
 #: src/netedit/dialogs/GNEAbout.cpp:66
 msgid ""
 "This application is based on code provided by the Eclipse SUMO project."
-msgstr ""
+msgstr "このアプリケーションはEclipse SUMO "
+"projectによって提供されたコードに基づいています。"
 
 #: src/gui/dialogs/GUIDialog_AboutSUMO.cpp:65
 #: src/netedit/dialogs/GNEAbout.cpp:67
 msgid ""
 "These core components are available under the conditions of the Eclipse "
 "Public License v2."
-msgstr ""
+msgstr "これらのコアコンポーネントはEPL-2.0の下で利用できます。"
 
 #: src/gui/dialogs/GUIDialog_AboutSUMO.cpp:74
 #: src/gui/dialogs/GUIDialog_Feedback.cpp:58
@@ -1081,31 +1082,31 @@ msgstr ""
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:97
 #: src/netedit/frames/network/GNEProhibitionFrame.cpp:173
 msgid "OK"
-msgstr ""
+msgstr "了解しました"
 
 #: src/gui/dialogs/GUIDialog_AppSettings.cpp:62
 msgid "Quit on Simulation End"
-msgstr ""
+msgstr "シミュレーション終了時に終了"
 
 #: src/gui/dialogs/GUIDialog_AppSettings.cpp:64
 msgid "Autostart Simulation on Load and Reload"
-msgstr ""
+msgstr "シミュレーションのロード・リロード時に自動開始"
 
 #: src/gui/dialogs/GUIDialog_AppSettings.cpp:66
 msgid "Reload Simulation after finish (Demo mode)"
-msgstr ""
+msgstr "終了後にシミュレーションをリロード（Demo mode）"
 
 #: src/gui/dialogs/GUIDialog_AppSettings.cpp:68
 msgid "Locate elements when clicking on messages"
-msgstr ""
+msgstr "メッセージをクリックした際に要素を表示"
 
 #: src/gui/dialogs/GUIDialog_AppSettings.cpp:74
 msgid "Breakpoint offset when clicking on time message"
-msgstr ""
+msgstr "タイムメッセージをクリックした際にブレークポイントをオフセット"
 
 #: src/gui/dialogs/GUIDialog_AppSettings.cpp:98
 msgid "Allow Textures"
-msgstr ""
+msgstr "テクスチャの表示を許可"
 
 #: src/gui/dialogs/GUIDialog_AppSettings.cpp:101
 #: src/netedit/dialogs/GNEAbout.cpp:76
@@ -1113,7 +1114,7 @@ msgstr ""
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1021
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2471
 msgid "&OK"
-msgstr ""
+msgstr "&了解しました"
 
 #: src/gui/dialogs/GUIDialog_AppSettings.cpp:102
 #: src/netedit/dialogs/GNEDemandElementDialog.cpp:66
@@ -1125,36 +1126,36 @@ msgstr ""
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1022
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2472
 msgid "&Cancel"
-msgstr ""
+msgstr "&キャンセル"
 
 #: src/gui/dialogs/GUIDialog_Breakpoints.cpp:69
 msgid "Breakpoints Editor"
-msgstr ""
+msgstr "ブレークポイントエディター"
 
 #: src/gui/dialogs/GUIDialog_Breakpoints.cpp:92
 msgid "&Load"
-msgstr ""
+msgstr "&ロード"
 
 #: src/gui/dialogs/GUIDialog_Breakpoints.cpp:94
 msgid "&Save"
-msgstr ""
+msgstr "&保存"
 
 #: src/gui/dialogs/GUIDialog_Breakpoints.cpp:97
 msgid "Clea&r"
-msgstr ""
+msgstr "&クリア"
 
 #: src/gui/dialogs/GUIDialog_Breakpoints.cpp:129
 #: src/netedit/elements/GNEAttributeCarrier.cpp:2777
 msgid "Time"
-msgstr ""
+msgstr "時刻"
 
 #: src/gui/dialogs/GUIDialog_Breakpoints.cpp:144
 msgid "Load Breakpoints"
-msgstr ""
+msgstr "ブレークポイントをロード"
 
 #: src/gui/dialogs/GUIDialog_Breakpoints.cpp:165
 msgid "Save Breakpoints"
-msgstr ""
+msgstr "ブレークポイントを保存"
 
 #: src/gui/dialogs/GUIDialog_Breakpoints.cpp:175
 #: src/utils/gui/div/GUIDialog_GLChosenEditor.cpp:155
@@ -1163,24 +1164,24 @@ msgstr ""
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1128
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1209
 msgid "Storing failed!"
-msgstr ""
+msgstr "保存に失敗しました！"
 
 #: src/gui/dialogs/GUIDialog_Breakpoints.cpp:244
 #: src/gui/dialogs/GUIDialog_Breakpoints.cpp:247
 msgid "Time format error"
-msgstr ""
+msgstr "時刻形式エラー"
 
 #: src/gui/dialogs/GUIDialog_Feedback.cpp:46
 msgid "- General problem solving"
-msgstr ""
+msgstr "- よくある問題"
 
 #: src/gui/dialogs/GUIDialog_Feedback.cpp:50
 msgid "- Sumo-user mailing list"
-msgstr ""
+msgstr "- 連絡先"
 
 #: src/gui/dialogs/GUIDialog_Feedback.cpp:54
 msgid "- Send us an Email"
-msgstr ""
+msgstr "- メールを送る"
 
 #: src/guisim/Command_Hotkey_InductionLoop.cpp:55
 #: src/guisim/Command_Hotkey_InductionLoop.cpp:59
@@ -1188,90 +1189,90 @@ msgstr ""
 #: src/guisim/Command_Hotkey_TrafficLight.cpp:60
 #, c-format
 msgid "Hotkey '%' is not supported"
-msgstr ""
+msgstr "ショートカットキー'%'はサポートされていません"
 
 #: src/guisim/GUIBaseVehicle.cpp:304
 msgid "GUI-triggered stop not implemented for meso"
-msgstr ""
+msgstr "GUIによる停止はmeso（メソ交通シミュレーション）には実装されていません"
 
 #: src/guisim/GUIBaseVehicle.cpp:353
 msgid "Hide Current Route"
-msgstr ""
+msgstr "現在のルートを非表示"
 
 #: src/guisim/GUIBaseVehicle.cpp:355
 msgid "Show Current Route"
-msgstr ""
+msgstr "現在のルートを表示"
 
 #: src/guisim/GUIBaseVehicle.cpp:358
 msgid "Hide Future Route"
-msgstr ""
+msgstr "今後のルートを非表示"
 
 #: src/guisim/GUIBaseVehicle.cpp:360
 msgid "Show Future Route"
-msgstr ""
+msgstr "今後のルートを表示"
 
 #: src/guisim/GUIBaseVehicle.cpp:363
 msgid "Hide All Routes"
-msgstr ""
+msgstr "すべてのルートを非表示"
 
 #: src/guisim/GUIBaseVehicle.cpp:365
 msgid "Show All Routes"
-msgstr ""
+msgstr "すべてのルートを表示"
 
 #: src/guisim/GUIBaseVehicle.cpp:368 src/guisim/GUIBaseVehicle.cpp:371
 msgid "Draw looped routes"
-msgstr ""
+msgstr "ループ状のルートを描く"
 
 #: src/guisim/GUIBaseVehicle.cpp:375
 msgid "Hide Best Lanes"
-msgstr ""
+msgstr "最適な車線を非表示"
 
 #: src/guisim/GUIBaseVehicle.cpp:377
 msgid "Show Best Lanes"
-msgstr ""
+msgstr "最適な車線を表示"
 
 #: src/guisim/GUIBaseVehicle.cpp:380
 msgid "Hide Link Items"
-msgstr ""
+msgstr "リンク項目を非表示"
 
 #: src/guisim/GUIBaseVehicle.cpp:382
 msgid "Show Link Items"
-msgstr ""
+msgstr "リンク項目を表示"
 
 #: src/guisim/GUIBaseVehicle.cpp:386
 msgid "Start Tracking"
-msgstr ""
+msgstr "トラッキングを開始"
 
 #: src/guisim/GUIBaseVehicle.cpp:388
 msgid "Stop Tracking"
-msgstr ""
+msgstr "トラッキングを終了"
 
 #: src/guisim/GUIBaseVehicle.cpp:390
 msgid "Select Foes"
-msgstr ""
+msgstr "競合の人・貨物を選択"
 
 #: src/guisim/GUIBaseVehicle.cpp:392
 msgid "Select transported"
-msgstr ""
+msgstr "輸送済みの人・貨物を選択"
 
 #: src/guisim/GUIBaseVehicle.cpp:394
 msgid "Abort stop"
-msgstr ""
+msgstr "停止をキャンセル"
 
 #: src/guisim/GUIBaseVehicle.cpp:394
 #: src/netedit/GNEApplicationWindowHelper.cpp:720
 msgid "Stop"
-msgstr ""
+msgstr "停止"
 
 #: src/guisim/GUIBaseVehicle.cpp:395
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1274
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1339
 msgid "Remove"
-msgstr ""
+msgstr "消去"
 
 #: src/guisim/GUIBaseVehicle.cpp:879 src/guisim/GUIVehicle.cpp:628
 msgid "Vehicle parameter '%' key '%' is not a number for vehicle '%'."
-msgstr ""
+msgstr "車両 '%' のパラメータ '%' (キー '%') は数値として解釈できません。"
 
 #: src/guisim/GUIBusStop.cpp:135 src/guisim/GUIChargingStation.cpp:83
 #: src/guisim/GUIE2Collector.cpp:129 src/guisim/GUIE3Collector.cpp:80
@@ -1280,526 +1281,526 @@ msgstr ""
 #: src/netedit/frames/GNEAttributesCreatorRow.cpp:63
 #: src/netedit/frames/GNEAttributesCreatorRow.cpp:65
 msgid "name"
-msgstr ""
+msgstr "名前"
 
 #: src/guisim/GUIBusStop.cpp:136 src/guisim/GUIChargingStation.cpp:84
 #: src/guisim/GUIOverheadWire.cpp:109 src/guisim/GUIParkingArea.cpp:111
 msgid "begin position [m]"
-msgstr ""
+msgstr "開始位置[m]"
 
 #: src/guisim/GUIBusStop.cpp:137 src/guisim/GUIChargingStation.cpp:85
 #: src/guisim/GUIInductLoop.cpp:143 src/guisim/GUIOverheadWire.cpp:110
 #: src/guisim/GUIParkingArea.cpp:112
 msgid "end position [m]"
-msgstr ""
+msgstr "終端位置[m]"
 
 #: src/guisim/GUIBusStop.cpp:138
 msgid "lines"
-msgstr ""
+msgstr "路線"
 
 #: src/guisim/GUIBusStop.cpp:139
 msgid "parking length [m]"
-msgstr ""
+msgstr "駐車場長さ[m]"
 
 #: src/guisim/GUIBusStop.cpp:143 src/guisim/GUIChargingStation.cpp:86
 msgid "stopped vehicles [#]"
-msgstr ""
+msgstr "停止した車輌[#]"
 
 #: src/guisim/GUIBusStop.cpp:144 src/guisim/GUIChargingStation.cpp:87
 msgid "last free pos [m]"
-msgstr ""
+msgstr "最後の空き位置[m]"
 
 #: src/guisim/GUIBusStop.cpp:158
 msgid "waiting for:"
-msgstr ""
+msgstr "待機中："
 
 #: src/guisim/GUICalibrator.cpp:311
 msgid "interval start"
-msgstr ""
+msgstr "インターバル開始"
 
 #: src/guisim/GUICalibrator.cpp:312
 msgid "interval end"
-msgstr ""
+msgstr "インターバル終了"
 
 #: src/guisim/GUICalibrator.cpp:313
 msgid "aspired flow [veh/h]"
-msgstr ""
+msgstr "希望交通流量[veh/h]"
 
 #: src/guisim/GUICalibrator.cpp:314
 msgid "aspired speed"
-msgstr ""
+msgstr "希望速度"
 
 #: src/guisim/GUICalibrator.cpp:315
 msgid "current flow [veh/h]"
-msgstr ""
+msgstr "現在の交通流量[veh/h]"
 
 #: src/guisim/GUICalibrator.cpp:316
 msgid "current speed"
-msgstr ""
+msgstr "現在の速度"
 
 #: src/guisim/GUICalibrator.cpp:317
 msgid "default speed"
-msgstr ""
+msgstr "デフォルトの速度"
 
 #: src/guisim/GUICalibrator.cpp:318
 msgid "required vehicles"
-msgstr ""
+msgstr "要求車輌数"
 
 #: src/guisim/GUICalibrator.cpp:319
 msgid "passed vehicles"
-msgstr ""
+msgstr "通過車両数"
 
 #: src/guisim/GUICalibrator.cpp:320
 msgid "inserted vehicles"
-msgstr ""
+msgstr "挿入車両数"
 
 #: src/guisim/GUICalibrator.cpp:321
 msgid "removed vehicles"
-msgstr ""
+msgstr "除去された車輌数"
 
 #: src/guisim/GUICalibrator.cpp:322
 msgid "cleared in jam"
-msgstr ""
+msgstr "渋滞を抜けた車輌数"
 
 #: src/guisim/GUICalibrator.cpp:329
 msgid "inactive until"
-msgstr ""
+msgstr "まで非アクティブ"
 
 #: src/guisim/GUIChargingStation.cpp:88
 msgid "charging power [W]"
-msgstr ""
+msgstr "充電出力[W]"
 
 #: src/guisim/GUIChargingStation.cpp:89
 msgid "charging efficiency [#]"
-msgstr ""
+msgstr "充電効率[#]"
 
 #: src/guisim/GUIChargingStation.cpp:90
 msgid "charge in transit [true/false]"
-msgstr ""
+msgstr "輸送料金[true/false]"
 
 #: src/guisim/GUIChargingStation.cpp:91
 msgid "charge delay [s]"
-msgstr ""
+msgstr "充電時間[s]"
 
 #: src/guisim/GUIChargingStation.cpp:92
 msgid "charge type"
-msgstr ""
+msgstr "充電の形式"
 
 #: src/guisim/GUIChargingStation.cpp:93 src/guisim/GUIContainer.cpp:175
 #: src/guisim/GUIPerson.cpp:242 src/guisim/GUIVehicle.cpp:134
 msgid "waiting time [s]"
-msgstr ""
+msgstr "待ち時間[s]"
 
 #: src/guisim/GUIContainer.cpp:164 src/guisim/GUIPerson.cpp:229
 msgid "stage"
-msgstr ""
+msgstr "段階"
 
 #: src/guisim/GUIContainer.cpp:166 src/guisim/GUIPerson.cpp:231
 msgid "stage index"
-msgstr ""
+msgstr "段階番号"
 
 #: src/guisim/GUIContainer.cpp:167 src/guisim/GUIPerson.cpp:232
 msgid "start edge [id]"
-msgstr ""
+msgstr "開始区間[id]"
 
 #: src/guisim/GUIContainer.cpp:168 src/guisim/GUIPerson.cpp:233
 msgid "dest edge [id]"
-msgstr ""
+msgstr "目的区間[id]"
 
 #: src/guisim/GUIContainer.cpp:169
 msgid "arrivalPos [m]"
-msgstr ""
+msgstr "到着位置[m]"
 
 #: src/guisim/GUIContainer.cpp:170 src/guisim/GUIPerson.cpp:236
 msgid "edge [id]"
-msgstr ""
+msgstr "区間[id]"
 
 #: src/guisim/GUIContainer.cpp:171 src/guisim/GUIE2Collector.cpp:131
 #: src/guisim/GUIInductLoop.cpp:141 src/guisim/GUIInstantInductLoop.cpp:97
 #: src/guisim/GUIPerson.cpp:238 src/guisim/GUIVehicle.cpp:116
 msgid "position [m]"
-msgstr ""
+msgstr "位置[m]"
 
 #: src/guisim/GUIContainer.cpp:172 src/guisim/GUIInductLoop.cpp:152
 #: src/guisim/GUILaneSpeedTrigger.cpp:306 src/guisim/GUIPerson.cpp:239
 #: src/guisim/GUIVehicle.cpp:120
 msgid "speed [m/s]"
-msgstr ""
+msgstr "速度[m/s]"
 
 #: src/guisim/GUIContainer.cpp:173 src/guisim/GUIPerson.cpp:240
 #: src/guisim/GUIVehicle.cpp:130
 msgid "speed factor"
-msgstr ""
+msgstr "速度係数"
 
 #: src/guisim/GUIContainer.cpp:174 src/guisim/GUIPerson.cpp:241
 #: src/guisim/GUIVehicle.cpp:126
 msgid "angle [degree]"
-msgstr ""
+msgstr "角度[°]"
 
 #: src/guisim/GUIContainer.cpp:176 src/guisim/GUIPerson.cpp:245
 #: src/guisim/GUIVehicle.cpp:146
 msgid "desired depart [s]"
-msgstr ""
+msgstr "予定出発時間[s]"
 
 #: src/guisim/GUIContainer.cpp:186 src/guisim/GUIPerson.cpp:255
 msgid "length"
-msgstr ""
+msgstr "長さ"
 
 #: src/guisim/GUIContainer.cpp:187 src/guisim/GUIPerson.cpp:256
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2176
 msgid "width"
-msgstr ""
+msgstr "幅"
 
 #: src/guisim/GUIContainer.cpp:188 src/guisim/GUIPerson.cpp:257
 msgid "height"
-msgstr ""
+msgstr "高さ"
 
 #: src/guisim/GUIContainer.cpp:189 src/guisim/GUIPerson.cpp:258
 msgid "minGap"
-msgstr ""
+msgstr "最短距離"
 
 #: src/guisim/GUIContainer.cpp:190 src/guisim/GUIPerson.cpp:259
 #: src/guisim/GUIVehicle.cpp:238
 msgid "mass [kg]"
-msgstr ""
+msgstr "質量[kg]"
 
 #: src/guisim/GUIContainer.cpp:191 src/guisim/GUIPerson.cpp:261
 #: src/guisim/GUIVehicle.cpp:242
 msgid "maximum speed [m/s]"
-msgstr ""
+msgstr "最高速度[m/s]"
 
 #: src/guisim/GUIE2Collector.cpp:130 src/guisim/GUIEdge.cpp:185
 #: src/guisim/GUILane.cpp:1054 src/guisim/GUIVehicle.cpp:232
 msgid "length [m]"
-msgstr ""
+msgstr "長さ[m]"
 
 #: src/guisim/GUIE2Collector.cpp:132 src/guisim/GUIInductLoop.cpp:145
 #: src/guisim/GUIInstantInductLoop.cpp:98
 #: src/utils/gui/div/GUIMessageWindow.cpp:72
 msgid "lane"
-msgstr ""
+msgstr "車線"
 
 #: src/guisim/GUIE2Collector.cpp:134 src/guisim/GUIE3Collector.cpp:82
 #: src/guisim/GUIInductLoop.cpp:147 src/guisim/GUIInstantInductLoop.cpp:100
 msgid "vTypes"
-msgstr ""
+msgstr "車輌タイプ（vTypes）"
 
 #: src/guisim/GUIE2Collector.cpp:137 src/guisim/GUIEdge.cpp:194
 msgid "vehicles [#]"
-msgstr ""
+msgstr "車輌[#]"
 
 #: src/guisim/GUIE2Collector.cpp:139 src/guisim/GUIInductLoop.cpp:154
 msgid "occupancy [%]"
-msgstr ""
+msgstr "占有率[%]"
 
 #: src/guisim/GUIE2Collector.cpp:141 src/guisim/GUIE3Collector.cpp:86
 msgid "mean speed [m/s]"
-msgstr ""
+msgstr "平均速度[m/s]"
 
 #: src/guisim/GUIE2Collector.cpp:143
 msgid "mean vehicle length [m]"
-msgstr ""
+msgstr "平均車輌長[m]"
 
 #: src/guisim/GUIE2Collector.cpp:145
 msgid "jam number [#]"
-msgstr ""
+msgstr "渋滞番号[#]"
 
 #: src/guisim/GUIE2Collector.cpp:147
 msgid "max jam length [veh]"
-msgstr ""
+msgstr "最大渋滞長[veh]"
 
 #: src/guisim/GUIE2Collector.cpp:149
 msgid "max jam length [m]"
-msgstr ""
+msgstr "最大渋滞長[m]"
 
 #: src/guisim/GUIE2Collector.cpp:151
 msgid "jam length sum [veh]"
-msgstr ""
+msgstr "累計渋滞長[veh]"
 
 #: src/guisim/GUIE2Collector.cpp:153
 msgid "jam length sum [m]"
-msgstr ""
+msgstr "累計渋滞長[m]"
 
 #: src/guisim/GUIE2Collector.cpp:155
 msgid "started halts [#]"
-msgstr ""
+msgstr "停止した車両の数 [#]"
 
 #: src/guisim/GUIE2Collector.cpp:157
 msgid "interval seen vehicles [#]"
-msgstr ""
+msgstr "区間内の車輌数[#]"
 
 #: src/guisim/GUIE2Collector.cpp:159 src/guisim/GUIInductLoop.cpp:164
 msgid "interval speed [m/s]"
-msgstr ""
+msgstr "区間内の速度[m/s]"
 
 #: src/guisim/GUIE2Collector.cpp:161 src/guisim/GUIInductLoop.cpp:166
 msgid "interval occupancy [%]"
-msgstr ""
+msgstr "区間内の占有率[%]"
 
 #: src/guisim/GUIE2Collector.cpp:163
 msgid "interval max jam length [m]"
-msgstr ""
+msgstr "区間内の最大渋滞長[m]"
 
 #: src/guisim/GUIE2Collector.cpp:165
 msgid "last interval seen vehicles [#]"
-msgstr ""
+msgstr "最終区間内の車輌数[#]"
 
 #: src/guisim/GUIE2Collector.cpp:167 src/guisim/GUIInductLoop.cpp:170
 msgid "last interval speed [m/s]"
-msgstr ""
+msgstr "最終区間内の速度[m/s]"
 
 #: src/guisim/GUIE2Collector.cpp:169 src/guisim/GUIInductLoop.cpp:172
 msgid "last interval occupancy [%]"
-msgstr ""
+msgstr "最終区間内の占有率[%]"
 
 #: src/guisim/GUIE2Collector.cpp:171
 msgid "last interval max jam length [m]"
-msgstr ""
+msgstr "最終区間内の最大渋滞長 [m]"
 
 #: src/guisim/GUIE3Collector.cpp:84
 msgid "vehicles within [#]"
-msgstr ""
+msgstr "[#]内の車輌"
 
 #: src/guisim/GUIE3Collector.cpp:88
 msgid "haltings [#]"
-msgstr ""
+msgstr "停止回数[#]"
 
 #: src/guisim/GUIE3Collector.cpp:90
 msgid "last interval mean travel time [s]"
-msgstr ""
+msgstr "最終区間内の平均移動時間[s]"
 
 #: src/guisim/GUIE3Collector.cpp:92
 msgid "last interval mean haltings [#]"
-msgstr ""
+msgstr "最終区間内の平均停止回数[#]"
 
 #: src/guisim/GUIE3Collector.cpp:94
 msgid "last interval mean time loss [s]"
-msgstr ""
+msgstr "最終区間内の平均損失時間[s]"
 
 #: src/guisim/GUIE3Collector.cpp:96
 msgid "last interval mean vehicle count [#]"
-msgstr ""
+msgstr "最終区間内の平均車両数[#]"
 
 #: src/guisim/GUIEdge.cpp:184
 msgid "max speed [m/s]"
-msgstr ""
+msgstr "最高速度[m/s]"
 
 #: src/guisim/GUIEdge.cpp:186 src/guisim/GUILane.cpp:1056
 msgid "street name"
-msgstr ""
+msgstr "道路名"
 
 #: src/guisim/GUIEdge.cpp:187 src/guisim/GUILane.cpp:1064
 msgid "pending insertions [#]"
-msgstr ""
+msgstr "保留中のネットワーク[#]"
 
 #: src/guisim/GUIEdge.cpp:188
 msgid "mean friction [%]"
-msgstr ""
+msgstr "平均摩擦係数[%]"
 
 #: src/guisim/GUIEdge.cpp:189
 msgid "mean vehicle speed [m/s]"
-msgstr ""
+msgstr "平均車輌速度[m/s]"
 
 #: src/guisim/GUIEdge.cpp:190 src/guisim/GUILane.cpp:1059
 msgid "routing speed [m/s]"
-msgstr ""
+msgstr "走行速度[m/s]"
 
 #: src/guisim/GUIEdge.cpp:191 src/guisim/GUILane.cpp:1061
 msgid "time penalty [s]"
-msgstr ""
+msgstr "タイムペナルティー[s]"
 
 #: src/guisim/GUIEdge.cpp:192 src/guisim/GUILane.cpp:1062
 msgid "brutto occupancy [%]"
-msgstr ""
+msgstr "総占有率[%]"
 
 #: src/guisim/GUIEdge.cpp:193
 msgid "flow [veh/h/lane]"
-msgstr ""
+msgstr "交通流率[veh/h/lane]"
 
 #: src/guisim/GUIEdge.cpp:197
 msgid "segment index"
-msgstr ""
+msgstr "区間番号"
 
 #: src/guisim/GUIEdge.cpp:198
 msgid "segment queues"
-msgstr ""
+msgstr "区間内の渋滞"
 
 #: src/guisim/GUIEdge.cpp:199
 msgid "segment length [m]"
-msgstr ""
+msgstr "区間長[m]"
 
 #: src/guisim/GUIEdge.cpp:200
 msgid "segment allowed speed [m/s]"
-msgstr ""
+msgstr "区間内の許容速度[m/s]"
 
 #: src/guisim/GUIEdge.cpp:201
 msgid "segment jam threshold [%]"
-msgstr ""
+msgstr "区間内の渋滞の閾値 [%]"
 
 #: src/guisim/GUIEdge.cpp:202
 msgid "segment brutto occupancy [%]"
-msgstr ""
+msgstr "区間内の総占有率[%]"
 
 #: src/guisim/GUIEdge.cpp:203
 msgid "segment mean vehicle speed [m/s]"
-msgstr ""
+msgstr "区間内の平均車輌速度[m/s]"
 
 #: src/guisim/GUIEdge.cpp:204
 msgid "segment flow [veh/h/lane]"
-msgstr ""
+msgstr "区間内の流率[veh/h/lane]"
 
 #: src/guisim/GUIEdge.cpp:205
 msgid "segment vehicles [#]"
-msgstr ""
+msgstr "区間内の車輌数[#]"
 
 #: src/guisim/GUIEdge.cpp:206
 msgid "segment leader leave time"
-msgstr ""
+msgstr "区間内の先頭車両の退出時間"
 
 #: src/guisim/GUIEdge.cpp:207
 msgid "segment headway [s]"
-msgstr ""
+msgstr "区間内の平均車両間隔[s]"
 
 #: src/guisim/GUIEdge.cpp:208
 msgid "segment entry block time [s]"
-msgstr ""
+msgstr "区間進入ブロック時間[s]"
 
 #: src/guisim/GUIEdge.cpp:226
 msgid "Type Information:"
-msgstr ""
+msgstr "タイプ情報："
 
 #: src/guisim/GUIEdge.cpp:227
 msgid "type [id]"
-msgstr ""
+msgstr "タイプ[id]"
 
 #: src/guisim/GUIEdge.cpp:228
 msgid "tauff"
-msgstr ""
+msgstr "tauff（非渋滞区間から非渋滞区間への最小車輌間隔）"
 
 #: src/guisim/GUIEdge.cpp:229
 msgid "taufj"
-msgstr ""
+msgstr "taufj（非渋滞区間から渋滞区間への最小車輌間隔）"
 
 #: src/guisim/GUIEdge.cpp:230
 msgid "taujf"
-msgstr ""
+msgstr "taujf（渋滞区間から非渋滞区間への最小車輌間隔）"
 
 #: src/guisim/GUIEdge.cpp:231
 msgid "taujj"
-msgstr ""
+msgstr "taujj（渋滞区間から渋滞区間への最小車輌間隔）"
 
 #: src/guisim/GUIEdge.cpp:232
 msgid "jam threshold"
-msgstr ""
+msgstr "渋滞の閾値"
 
 #: src/guisim/GUIEdge.cpp:233
 msgid "junction control"
-msgstr ""
+msgstr "交差点制御"
 
 #: src/guisim/GUIEdge.cpp:234
 msgid "tls penalty"
-msgstr ""
+msgstr "信号機ペナルティ"
 
 #: src/guisim/GUIEdge.cpp:235
 msgid "tls flow penalty"
-msgstr ""
+msgstr "信号機流量ペナルティ"
 
 #: src/guisim/GUIEdge.cpp:236
 msgid "minor penalty"
-msgstr ""
+msgstr "些細なペナルティ"
 
 #: src/guisim/GUIEdge.cpp:237
 msgid "overtaking"
-msgstr ""
+msgstr "追い越し"
 
 #: src/guisim/GUIInductLoop.cpp:150
 msgid "entered vehicles [-]"
-msgstr ""
+msgstr "進入した車輌数 [-]"
 
 #: src/guisim/GUIInductLoop.cpp:156
 msgid "vehicle length [m]"
-msgstr ""
+msgstr "車輌長[m]"
 
 #: src/guisim/GUIInductLoop.cpp:158
 msgid "empty time [s]"
-msgstr ""
+msgstr "車輌空白時間 [s]"
 
 #: src/guisim/GUIInductLoop.cpp:160
 msgid "occupied time [s]"
-msgstr ""
+msgstr "車輌占有時間[s]"
 
 #: src/guisim/GUIInductLoop.cpp:162
 msgid "interval entered vehicles [#]"
-msgstr ""
+msgstr "区間内への進入車輌数[#]"
 
 #: src/guisim/GUIInductLoop.cpp:168
 msgid "last interval entered vehicles [#]"
-msgstr ""
+msgstr "最終区間内への進入車輌数[#]"
 
 #: src/guisim/GUIJunctionWrapper.cpp:121 src/guisim/GUILane.cpp:1066
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:241
 msgid "type"
-msgstr ""
+msgstr "タイプ"
 
 #: src/guisim/GUILane.cpp:1002
 msgid "Copy edge name to clipboard"
-msgstr ""
+msgstr "区間名をクリップボードにコピー"
 
 #: src/guisim/GUILane.cpp:1010
 msgid "pos: "
-msgstr ""
+msgstr "位置： "
 
 #: src/guisim/GUILane.cpp:1010
 msgid "height: "
-msgstr ""
+msgstr "高さ： "
 
 #: src/guisim/GUILane.cpp:1019
 msgid "Reopen lane"
-msgstr ""
+msgstr "車線を再開放"
 
 #: src/guisim/GUILane.cpp:1020
 msgid "Reopen edge"
-msgstr ""
+msgstr "区間を再開放"
 
 #: src/guisim/GUILane.cpp:1022
 msgid "Reopen lane (override rerouter)"
-msgstr ""
+msgstr "車線を再開放（リルーターを上書き）"
 
 #: src/guisim/GUILane.cpp:1023
 msgid "Reopen edge (override rerouter)"
-msgstr ""
+msgstr "区間を再開放（リルーターを上書き）"
 
 #: src/guisim/GUILane.cpp:1026
 msgid "Close lane"
-msgstr ""
+msgstr "レーンを閉鎖"
 
 #: src/guisim/GUILane.cpp:1027
 msgid "Close edge"
-msgstr ""
+msgstr "区間を閉鎖"
 
 #: src/guisim/GUILane.cpp:1029
 msgid "Add rerouter"
-msgstr ""
+msgstr "リルーターを追加"
 
 #: src/guisim/GUILane.cpp:1034 src/netedit/elements/network/GNELane.cpp:2196
 msgid "Select reachable"
-msgstr ""
+msgstr "到達可能な車線を選択"
 
 #: src/guisim/GUILane.cpp:1047 src/guisim/GUILane.cpp:1051
 msgid "allowed speed [m/s]"
-msgstr ""
+msgstr "許容スピード[m/s]"
 
 #: src/guisim/GUILane.cpp:1055 src/guisim/GUIVehicle.cpp:233
 msgid "width [m]"
-msgstr ""
+msgstr "幅[m]"
 
 #: src/guisim/GUILane.cpp:1057
 msgid "stored travel time [s]"
-msgstr ""
+msgstr "累計旅行時間 [秒]"
 
 #: src/guisim/GUILane.cpp:1058
 msgid "loaded weight"
-msgstr ""
+msgstr "積載重量"
 
 #: src/guisim/GUILane.cpp:1060
 msgid "lane friction coefficient [%]"
