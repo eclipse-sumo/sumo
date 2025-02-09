@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-04 15:47+0100\n"
-"PO-Revision-Date: 2025-02-08 05:19+0000\n"
+"PO-Revision-Date: 2025-02-09 07:53+0000\n"
 "Last-Translator: Tomosawa Ryo <tomosawa.r.103@ms.saitama-u.ac.jp>\n"
 "Language-Team: Japanese <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/ja/>\n"
@@ -2783,7 +2783,7 @@ msgstr ""
 
 #: src/microsim/MSNet.cpp:678
 msgid "Simulation ended at time: %."
-msgstr "シミュレーションは%に終了しました。"
+msgstr "シミュレーションは時刻：%に終了しました。"
 
 #: src/microsim/MSNet.cpp:680
 msgid "Reason: "
