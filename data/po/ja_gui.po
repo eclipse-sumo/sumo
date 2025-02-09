@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-05 09:24+0100\n"
-"PO-Revision-Date: 2025-02-09 04:14+0000\n"
+"PO-Revision-Date: 2025-02-09 07:53+0000\n"
 "Last-Translator: Tomosawa Ryo <tomosawa.r.103@ms.saitama-u.ac.jp>\n"
 "Language-Team: Japanese <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/ja/>\n"
@@ -166,7 +166,7 @@ msgstr "ブレークポイントを設定"
 
 #: src/gui/GUIApplicationWindow.cpp:506
 msgid "Sets a breakpoint at the current simulation step"
-msgstr "今のシミュレーションステップにブレークポイントを設定"
+msgstr "今のシミュレーションステップにブレークポイントを設定します"
 
 #: src/gui/GUIApplicationWindow.cpp:509
 msgid "Set Breakpoint with offset"
@@ -209,19 +209,19 @@ msgstr "表示範囲、ズーム及び回転の編集をするためのダイア
 
 #: src/gui/GUIApplicationWindow.cpp:522
 msgid "Load additionals in netedit"
-msgstr "neteditから追加ファイルを読み込み"
+msgstr "neteditから構造物を読み込み"
 
 #: src/gui/GUIApplicationWindow.cpp:522
 msgid "Load additionals in netedit."
-msgstr "neteditから追加ファイルを読み込みます。"
+msgstr "neteditから構造物を読み込みます。"
 
 #: src/gui/GUIApplicationWindow.cpp:524
 msgid "Load demand in netedit"
-msgstr "neteditから需要を読み込み"
+msgstr "neteditから交通需要を読み込み"
 
 #: src/gui/GUIApplicationWindow.cpp:524
 msgid "Load demand in netedit."
-msgstr "neteditから需要を読み込みます。"
+msgstr "neteditから交通需要を読み込みます。"
 
 #: src/gui/GUIApplicationWindow.cpp:527
 msgid "Open in netedit"
@@ -270,7 +270,7 @@ msgstr "&交差点"
 #: src/gui/GUIApplicationWindow.cpp:545
 #: src/netedit/GNEApplicationWindowHelper.cpp:2006
 msgid "Open a dialog for locating a Junction."
-msgstr "ジャンクションを選択するためのダイアログを開きます。"
+msgstr "交差点を選択するためのダイアログを開きます。"
 
 #: src/gui/GUIApplicationWindow.cpp:548
 #: src/netedit/GNEApplicationWindowHelper.cpp:1346
@@ -408,7 +408,7 @@ msgstr "シミュレーションを停止します。"
 
 #: src/gui/GUIApplicationWindow.cpp:588
 msgid "Step"
-msgstr "時間間隔"
+msgstr "ステップ"
 
 #: src/gui/GUIApplicationWindow.cpp:588
 msgid "Perform one simulation step."
@@ -416,19 +416,19 @@ msgstr "シミュレーションを1ステップ実行します。"
 
 #: src/gui/GUIApplicationWindow.cpp:591
 msgid "Delay+"
-msgstr "遅延+"
+msgstr "間隔+"
 
 #: src/gui/GUIApplicationWindow.cpp:591
 msgid "Increase simulation step delay."
-msgstr "シミュレーションステップの遅延を増やします。"
+msgstr "シミュレーションステップの更新間隔を増やします。"
 
 #: src/gui/GUIApplicationWindow.cpp:593
 msgid "Delay-"
-msgstr "遅延-"
+msgstr "間隔-"
 
 #: src/gui/GUIApplicationWindow.cpp:593
 msgid "Decrease simulation step delay."
-msgstr "シミュレーションステップの遅延を減らします。"
+msgstr "シミュレーションステップの更新間隔を減らします。"
 
 #: src/gui/GUIApplicationWindow.cpp:595
 #: src/netedit/dialogs/GNEMultipleParametersDialog.cpp:289
@@ -457,7 +457,7 @@ msgstr "読み込み"
 
 #: src/gui/GUIApplicationWindow.cpp:598
 msgid "Load simulation state for the current network from file."
-msgstr "現在のネットワークのシミュレーション状態をファイルから読み込む。"
+msgstr "ファイルから現在のシミュレーションの状態を読み込みます。"
 
 #: src/gui/GUIApplicationWindow.cpp:602
 #: src/netedit/GNEApplicationWindow.cpp:1475
@@ -470,7 +470,7 @@ msgstr "新しいビューを開く"
 
 #: src/gui/GUIApplicationWindow.cpp:603 src/gui/GUIApplicationWindow.cpp:750
 msgid "Open a new microscopic view."
-msgstr "新しいミクロのビューを開きます。"
+msgstr "新しいミクロなビューを開きます。"
 
 #: src/gui/GUIApplicationWindow.cpp:605 src/gui/GUIApplicationWindow.cpp:753
 msgid "Open new 3D view"
@@ -508,7 +508,7 @@ msgstr "ビューを重ねて表示します。"
 #: src/gui/dialogs/GUIDialog_Breakpoints.cpp:100
 #: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:100
 msgid "&Close"
-msgstr "ビューを閉じる"
+msgstr "&ビューを閉じる"
 
 #: src/gui/GUIApplicationWindow.cpp:618
 msgid "Close the selected view."
@@ -516,7 +516,7 @@ msgstr "選択したビューを閉じます。"
 
 #: src/gui/GUIApplicationWindow.cpp:628
 msgid "&Others..."
-msgstr "その他..."
+msgstr "&その他..."
 
 #: src/gui/GUIApplicationWindow.cpp:631
 #: src/netedit/GNEApplicationWindowHelper.cpp:2157
@@ -592,7 +592,7 @@ msgstr "&ショートカットキー"
 #: src/gui/GUIApplicationWindow.cpp:653
 #: src/netedit/GNEApplicationWindowHelper.cpp:2185
 msgid "Open Hotkeys."
-msgstr "ショートカットキーを開きます。"
+msgstr "ショートカットキー設定を開きます。"
 
 #: src/gui/GUIApplicationWindow.cpp:655
 msgid "&Tutorial"
@@ -763,7 +763,7 @@ msgstr "EdgeDataを開く"
 
 #: src/gui/GUIApplicationWindow.cpp:1145
 msgid "Auto-Reloading."
-msgstr "自動的に再読み込みします。"
+msgstr "自動的に再読み込み中。"
 
 #: src/gui/GUIApplicationWindow.cpp:1145
 msgid "TraCI-Loading."
@@ -771,7 +771,7 @@ msgstr "TraCIのロード中。"
 
 #: src/gui/GUIApplicationWindow.cpp:1147
 msgid "Reloading."
-msgstr "再読込中。"
+msgstr "再読み込み中。"
 
 #: src/gui/GUIApplicationWindow.cpp:1158
 msgid "Quick-Reloading."
@@ -851,11 +851,11 @@ msgstr "SUMO 相互デマンド型交通（DRT）"
 
 #: src/gui/GUIApplicationWindow.cpp:2075
 msgid "Simulation ended at time: %. (%)"
-msgstr "シミュレーションは%に終了しました。(%)"
+msgstr "シミュレーションは時刻：%に終了しました。(%)"
 
 #: src/gui/GUIApplicationWindow.cpp:2078
 msgid "Simulation ended at time: %."
-msgstr "シミュレーションは%に終了しました。"
+msgstr "シミュレーションは時刻：%に終了しました。"
 
 #: src/gui/GUIApplicationWindow.cpp:2079
 msgid "Reason:"
