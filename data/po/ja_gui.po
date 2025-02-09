@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-05 09:24+0100\n"
-"PO-Revision-Date: 2025-02-06 07:48+0000\n"
+"PO-Revision-Date: 2025-02-09 04:14+0000\n"
 "Last-Translator: Tomosawa Ryo <tomosawa.r.103@ms.saitama-u.ac.jp>\n"
 "Language-Team: Japanese <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/ja/>\n"
@@ -969,79 +969,79 @@ msgstr "時間計算でオーバーフローが発生しました。"
 
 #: src/gui/GUIViewTraffic.cpp:108 src/netedit/GNEViewNet.cpp:365
 msgid "Locate Junctions"
-msgstr ""
+msgstr "交差点を検索"
 
 #: src/gui/GUIViewTraffic.cpp:108
 msgid "Locate a junction within the network."
-msgstr ""
+msgstr "ネットワーク内の交差点を表示します。"
 
 #: src/gui/GUIViewTraffic.cpp:113 src/netedit/GNEViewNet.cpp:369
 msgid "Locate Edges"
-msgstr ""
+msgstr "区間を表示"
 
 #: src/gui/GUIViewTraffic.cpp:113
 msgid "Locate an edge within the network."
-msgstr ""
+msgstr "ネットワーク内の区間を表示します。"
 
 #: src/gui/GUIViewTraffic.cpp:118 src/netedit/GNEViewNet.cpp:377
 msgid "Locate Vehicles"
-msgstr ""
+msgstr "車輌を表示"
 
 #: src/gui/GUIViewTraffic.cpp:118
 msgid "Locate a vehicle within the network."
-msgstr ""
+msgstr "ネットワーク内の車輌を表示します。"
 
 #: src/gui/GUIViewTraffic.cpp:123 src/netedit/GNEViewNet.cpp:381
 msgid "Locate Persons"
-msgstr ""
+msgstr "人を表示"
 
 #: src/gui/GUIViewTraffic.cpp:123
 msgid "Locate a person within the network."
-msgstr ""
+msgstr "ネットワーク内の人を表示します。"
 
 #: src/gui/GUIViewTraffic.cpp:128
 msgid "Locate Container"
-msgstr ""
+msgstr "コンテナを表示"
 
 #: src/gui/GUIViewTraffic.cpp:128
 msgid "Locate a container within the network."
-msgstr ""
+msgstr "ネットワーク内のコンテナを表示します。"
 
 #: src/gui/GUIViewTraffic.cpp:133 src/netedit/GNEViewNet.cpp:404
 msgid "Locate TLS"
-msgstr ""
+msgstr "信号を表示"
 
 #: src/gui/GUIViewTraffic.cpp:133
 msgid "Locate a tls within the network."
-msgstr ""
+msgstr "ネットワーク内の信号機を表示します。"
 
 #: src/gui/GUIViewTraffic.cpp:138 src/netedit/GNEViewNet.cpp:408
 msgid "Locate Additional"
-msgstr ""
+msgstr "構造物を表示"
 
 #: src/gui/GUIViewTraffic.cpp:138
 msgid "Locate an additional structure within the network."
-msgstr ""
+msgstr "ネットワーク内の構造物を表示します。"
 
 #: src/gui/GUIViewTraffic.cpp:143 src/netedit/GNEViewNet.cpp:412
 msgid "Locate PoI"
-msgstr ""
+msgstr "点を表示"
 
 #: src/gui/GUIViewTraffic.cpp:143
 msgid "Locate a PoI within the network."
-msgstr ""
+msgstr "ネットワーク内の点を表示します。"
 
 #: src/gui/GUIViewTraffic.cpp:148 src/netedit/GNEViewNet.cpp:416
 msgid "Locate Polygon"
-msgstr ""
+msgstr "ポリゴンを表示"
 
 #: src/gui/GUIViewTraffic.cpp:148
 msgid "Locate a Polygon within the network."
-msgstr ""
+msgstr "ネットワーク内のポリゴンを表示します。"
 
 #: src/gui/dialogs/GUIDialog_AboutSUMO.cpp:39
 msgid "About Eclipse SUMO sumo-gui"
-msgstr ""
+msgstr "Eclipse SUMOのsumo-guiについて"
 
 #: src/gui/dialogs/GUIDialog_AboutSUMO.cpp:54
 msgid ""
