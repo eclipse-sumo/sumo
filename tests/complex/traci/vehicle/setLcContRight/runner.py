@@ -34,7 +34,7 @@ traci.start([sumoBinary,
              ] + sys.argv[1:])
 
 vehID = "v0"
-traci.vehicle.setParameter(vehID, "laneChangeModel.lcContRight", "0")
+traci.vehicle.setParameter(vehID, "laneChangeModel.lcContRight", "0.0")
 laneID = ""
 while traci.simulation.getMinExpectedNumber() > 0:
     if traci.vehicle.getLaneID(vehID) != laneID:
