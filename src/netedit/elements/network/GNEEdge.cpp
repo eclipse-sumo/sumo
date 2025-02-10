@@ -2193,7 +2193,7 @@ GNEEdge::removeLane(GNELane* lane, bool recomputeConnections) {
     myNBEdge->deleteLane(lane->getIndex(), recomputeConnections, !recomputeConnections);
     lane->decRef("GNEEdge::removeLane");
     // delete lane from edge
-    GNEHierarchicalElement::removeParent(this, lane);
+    GNEHierarchicalElement::removeChild(this, lane);
     // remove from attributeCarriers
     myNet->getAttributeCarriers()->deleteLane(lane);
     // Delete lane if is unreferenced
