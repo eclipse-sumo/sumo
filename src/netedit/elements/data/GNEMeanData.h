@@ -26,10 +26,7 @@
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/**
- * @class GNEMeanData
- * @brief An Element which don't belong to GNENet but has influence in the simulation
- */
+
 class GNEMeanData : public GNEAttributeCarrier, public GNEHierarchicalElement {
 
 public:
@@ -47,9 +44,7 @@ public:
     ~GNEMeanData();
 
     /// @brief get GNEHierarchicalElement associated with this AttributeCarrier
-    GNEHierarchicalElement* getHierarchicalElement() {
-        return this;
-    }
+    GNEHierarchicalElement* getHierarchicalElement();
 
     /**@brief write meanData element into a xml file
      * @param[in] device device in which write parameters of meanData element
