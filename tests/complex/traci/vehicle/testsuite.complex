@@ -109,6 +109,7 @@ setEmissionClass
 
 # test speed response curve on setting speedFactor
 setSpeedFactor_IDM
+setLcContRight
 getFollower
 getLeader
 
