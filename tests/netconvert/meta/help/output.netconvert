@@ -1,4 +1,4 @@
-Eclipse SUMO netconvert Version v1_22_0+0019-6ec163bfe58
+Eclipse SUMO netconvert Version v1_22_0+0087-91b2b3c2d6e
  Copyright (C) 2001-2025 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Network importer / builder for the microscopic, multi-modal traffic simulation
  SUMO.
@@ -436,6 +436,9 @@ Junctions Options:
                                         other (recommended for OSM import)
   --junctions.join-dist FLOAT          Determines the maximal distance for
                                         joining junctions (defaults to 10)
+  --junctions.join.parallel-threshold FLOAT  The angular threshold in degress
+                                        for rejection of parallel edges when
+                                        joining junctions
   --junctions.join-exclude STR[]       Interprets STR[] as list of junctions to
                                         exclude from joining
   --junctions.join-same                Joins junctions that have the same
