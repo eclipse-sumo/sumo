@@ -725,67 +725,67 @@ GNESelectorFrame::SelectionHierarchy::onCmdParents(FXObject* obj, FXSelector, vo
     const auto selectedACs = viewNet->getNet()->getAttributeCarriers()->getSelectedAttributeCarriers(true);
     // check if there is selected ACs
     if ((selectedACs.size() > 0) && (myCurrentSelectedParent != Selection::NOTHING)) {
-        // vector of hierarchical elements to select
-        std::vector<GNEHierarchicalElement*> HEToSelect;
+        // vector of of element to select or unselect
+        std::vector<GNEAttributeCarrier*> editedParents;
         for (const auto& selectedAC : selectedACs) {
             if (selectedAC->getTagProperty()->getTag() == SUMO_TAG_CONNECTION) {
                 const auto connection = viewNet->getNet()->getAttributeCarriers()->retrieveConnection(selectedAC->getGUIGlObject());
-                HEToSelect.push_back(connection->getLaneFrom());
-                HEToSelect.push_back(connection->getLaneTo());
+                editedParents.push_back(connection->getLaneFrom());
+                editedParents.push_back(connection->getLaneTo());
             } else if (selectedAC->getTagProperty()->getTag() == SUMO_TAG_CROSSING) {
                 const auto crossing = viewNet->getNet()->getAttributeCarriers()->retrieveCrossing(selectedAC->getGUIGlObject());
-                HEToSelect.push_back(crossing->getParentJunction());
+                editedParents.push_back(crossing->getParentJunction());
             } else {
                 // get hierarchical element
-                const auto HE = selectedAC->getHierarchicalElement();
+                const auto hierarchicalElement = selectedAC->getHierarchicalElement();
                 // get parent junctions
                 if ((myCurrentSelectedParent == Selection::ALL) || (myCurrentSelectedParent == Selection::JUNCTION)) {
-                    HEToSelect.insert(HEToSelect.end(), HE->getParentJunctions().begin(), HE->getParentJunctions().end());
+                    editedParents.insert(editedParents.end(), hierarchicalElement->getParentJunctions().begin(), hierarchicalElement->getParentJunctions().end());
                 }
                 // get parent edges
                 if ((myCurrentSelectedParent == Selection::ALL) || (myCurrentSelectedParent == Selection::EDGE)) {
                     if (selectedAC->getTagProperty()->getTag() == SUMO_TAG_LANE) {
                         // special case for lanes
-                        HEToSelect.push_back(dynamic_cast<GNELane*>(selectedAC)->getParentEdge());
+                        editedParents.push_back(dynamic_cast<GNELane*>(selectedAC)->getParentEdge());
                     } else {
-                        HEToSelect.insert(HEToSelect.end(), HE->getParentEdges().begin(), HE->getParentEdges().end());
+                        editedParents.insert(editedParents.end(), hierarchicalElement->getParentEdges().begin(), hierarchicalElement->getParentEdges().end());
                     }
                 }
                 // get parent lanes
                 if ((myCurrentSelectedParent == Selection::ALL) || (myCurrentSelectedParent == Selection::LANE)) {
-                    HEToSelect.insert(HEToSelect.end(), HE->getParentLanes().begin(), HE->getParentLanes().end());
+                    editedParents.insert(editedParents.end(), hierarchicalElement->getParentLanes().begin(), hierarchicalElement->getParentLanes().end());
                 }
                 // get parent additional
                 if ((myCurrentSelectedParent == Selection::ALL) || (myCurrentSelectedParent == Selection::ADDITIONAL)) {
-                    HEToSelect.insert(HEToSelect.end(), HE->getParentAdditionals().begin(), HE->getParentAdditionals().end());
+                    editedParents.insert(editedParents.end(), hierarchicalElement->getParentAdditionals().begin(), hierarchicalElement->getParentAdditionals().end());
                 }
                 // get parent wire
                 if ((myCurrentSelectedParent == Selection::ALL) || (myCurrentSelectedParent == Selection::WIRE)) {
-                    HEToSelect.insert(HEToSelect.end(), HE->getParentAdditionals().begin(), HE->getParentAdditionals().end());
+                    editedParents.insert(editedParents.end(), hierarchicalElement->getParentAdditionals().begin(), hierarchicalElement->getParentAdditionals().end());
                 }
                 // get parent demand
                 if ((myCurrentSelectedParent == Selection::ALL) || (myCurrentSelectedParent == Selection::DEMAND)) {
-                    HEToSelect.insert(HEToSelect.end(), HE->getParentDemandElements().begin(), HE->getParentDemandElements().end());
+                    editedParents.insert(editedParents.end(), hierarchicalElement->getParentDemandElements().begin(), hierarchicalElement->getParentDemandElements().end());
                 }
                 // get parent data
                 if ((myCurrentSelectedParent == Selection::ALL) || (myCurrentSelectedParent == Selection::DATA)) {
-                    HEToSelect.insert(HEToSelect.end(), HE->getParentGenericDatas().begin(), HE->getParentGenericDatas().end());
+                    editedParents.insert(editedParents.end(), hierarchicalElement->getParentGenericDatas().begin(), hierarchicalElement->getParentGenericDatas().end());
                 }
             }
         }
         // select HE
-        if (HEToSelect.size() > 0) {
-            if (HEToSelect.size() > 1) {
+        if (editedParents.size() > 0) {
+            if (editedParents.size() > 1) {
                 viewNet->getUndoList()->begin(GUIIcon::SELECT, TL("select parents"));
             }
-            for (const auto& HE : HEToSelect) {
+            for (const auto& HE : editedParents) {
                 if (obj == mySelectParentsButton) {
                     HE->setAttribute(GNE_ATTR_SELECTED, "true", viewNet->getUndoList());
                 } else {
                     HE->setAttribute(GNE_ATTR_SELECTED, "false", viewNet->getUndoList());
                 }
             }
-            if (HEToSelect.size() > 1) {
+            if (editedParents.size() > 1) {
                 viewNet->getUndoList()->end();
             }
         }
@@ -804,21 +804,21 @@ GNESelectorFrame::SelectionHierarchy::onCmdChildren(FXObject* obj, FXSelector, v
     const auto selectedACs = mySelectorFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getSelectedAttributeCarriers(true);
     // check if there is selected ACs
     if ((selectedACs.size() > 0) && (myCurrentSelectedChild != Selection::NOTHING)) {
-        // vector of hierarchical elements to select
-        std::vector<GNEHierarchicalElement*> HEToSelect;
+        // vector of of element to select or unselect
+        std::vector<GNEAttributeCarrier*> editedChildren;
         for (const auto& selectedAC : selectedACs) {
             // get hierarchical element
-            const auto HE = selectedAC->getHierarchicalElement();
+            const auto hierarchicalElement = selectedAC->getHierarchicalElement();
             // junctions
             if ((myCurrentSelectedChild == Selection::ALL) || (myCurrentSelectedChild == Selection::JUNCTION)) {
                 if (selectedAC->getTagProperty()->getTag() == SUMO_TAG_JUNCTION) {
                     // special case for junction
                     const auto junction = dynamic_cast<GNEJunction*>(selectedAC);
                     // insert edges
-                    HEToSelect.insert(HEToSelect.end(), junction->getGNEIncomingEdges().begin(), junction->getGNEIncomingEdges().end());
-                    HEToSelect.insert(HEToSelect.end(), junction->getGNEOutgoingEdges().begin(), junction->getGNEOutgoingEdges().end());
+                    editedChildren.insert(editedChildren.end(), junction->getGNEIncomingEdges().begin(), junction->getGNEIncomingEdges().end());
+                    editedChildren.insert(editedChildren.end(), junction->getGNEOutgoingEdges().begin(), junction->getGNEOutgoingEdges().end());
                 } else {
-                    HEToSelect.insert(HEToSelect.end(), HE->getChildJunctions().begin(), HE->getChildJunctions().end());
+                    editedChildren.insert(editedChildren.end(), hierarchicalElement->getChildJunctions().begin(), hierarchicalElement->getChildJunctions().end());
                 }
             }
             // edges
@@ -827,9 +827,9 @@ GNESelectorFrame::SelectionHierarchy::onCmdChildren(FXObject* obj, FXSelector, v
                     // special case for edges
                     const auto edge = dynamic_cast<GNEEdge*>(selectedAC);
                     // insert lanes
-                    HEToSelect.insert(HEToSelect.end(), edge->getLanes().begin(), edge->getLanes().end());
+                    editedChildren.insert(editedChildren.end(), edge->getLanes().begin(), edge->getLanes().end());
                 } else {
-                    HEToSelect.insert(HEToSelect.end(), HE->getChildEdges().begin(), HE->getChildEdges().end());
+                    editedChildren.insert(editedChildren.end(), hierarchicalElement->getChildEdges().begin(), hierarchicalElement->getChildEdges().end());
                 }
             }
             // connections
@@ -838,14 +838,14 @@ GNESelectorFrame::SelectionHierarchy::onCmdChildren(FXObject* obj, FXSelector, v
                     // case for edges
                     const auto edge = dynamic_cast<GNEEdge*>(selectedAC);
                     // insert connections
-                    HEToSelect.insert(HEToSelect.end(), edge->getGNEConnections().begin(), edge->getGNEConnections().end());
+                    editedChildren.insert(editedChildren.end(), edge->getGNEConnections().begin(), edge->getGNEConnections().end());
                 } else if (selectedAC->getTagProperty()->getTag() == SUMO_TAG_LANE) {
                     // case for lanes
                     const auto lane = dynamic_cast<GNELane*>(selectedAC);
                     // insert connections
                     for (const auto& connection : lane->getParentEdge()->getGNEConnections()) {
                         if (connection->getAttribute(SUMO_ATTR_FROM_LANE) == lane->getAttribute(SUMO_ATTR_INDEX)) {
-                            HEToSelect.push_back(connection);
+                            editedChildren.push_back(connection);
                         }
                     }
                 } else if (selectedAC->getTagProperty()->getTag() == SUMO_TAG_JUNCTION) {
@@ -854,7 +854,7 @@ GNESelectorFrame::SelectionHierarchy::onCmdChildren(FXObject* obj, FXSelector, v
                     // get connections
                     const auto connections = junction->getGNEConnections();
                     // insert connections
-                    HEToSelect.insert(HEToSelect.end(), connections.begin(), connections.end());
+                    editedChildren.insert(editedChildren.end(), connections.begin(), connections.end());
                 }
             }
             // crossings
@@ -863,53 +863,53 @@ GNESelectorFrame::SelectionHierarchy::onCmdChildren(FXObject* obj, FXSelector, v
                     // case for junction
                     const auto junction = dynamic_cast<GNEJunction*>(selectedAC);
                     // insert crossings
-                    HEToSelect.insert(HEToSelect.end(), junction->getGNECrossings().begin(), junction->getGNECrossings().end());
+                    editedChildren.insert(editedChildren.end(), junction->getGNECrossings().begin(), junction->getGNECrossings().end());
                 }
             }
             // lanes
             if ((myCurrentSelectedChild == Selection::ALL) || (myCurrentSelectedChild == Selection::LANE)) {
-                HEToSelect.insert(HEToSelect.end(), HE->getChildLanes().begin(), HE->getChildLanes().end());
+                editedChildren.insert(editedChildren.end(), hierarchicalElement->getChildLanes().begin(), hierarchicalElement->getChildLanes().end());
             }
             // additional
             if ((myCurrentSelectedChild == Selection::ALL) || (myCurrentSelectedChild == Selection::ADDITIONAL)) {
                 // avoid insert symbols
-                for (const auto& additionalChild : HE->getChildAdditionals()) {
+                for (const auto& additionalChild : hierarchicalElement->getChildAdditionals()) {
                     if (!additionalChild->getTagProperty()->isWireElement() && !additionalChild->getTagProperty()->isSymbol()) {
-                        HEToSelect.push_back(additionalChild);
+                        editedChildren.push_back(additionalChild);
                     }
                 }
             }
             // wire
             if ((myCurrentSelectedChild == Selection::ALL) || (myCurrentSelectedChild == Selection::WIRE)) {
                 // avoid insert symbols
-                for (const auto& wireChild : HE->getChildAdditionals()) {
+                for (const auto& wireChild : hierarchicalElement->getChildAdditionals()) {
                     if (wireChild->getTagProperty()->isWireElement() && !wireChild->getTagProperty()->isSymbol()) {
-                        HEToSelect.push_back(wireChild);
+                        editedChildren.push_back(wireChild);
                     }
                 }
             }
             // demand
             if ((myCurrentSelectedChild == Selection::ALL) || (myCurrentSelectedChild == Selection::DEMAND)) {
-                HEToSelect.insert(HEToSelect.end(), HE->getChildDemandElements().begin(), HE->getChildDemandElements().end());
+                editedChildren.insert(editedChildren.end(), hierarchicalElement->getChildDemandElements().begin(), hierarchicalElement->getChildDemandElements().end());
             }
             // data
             if ((myCurrentSelectedChild == Selection::ALL) || (myCurrentSelectedChild == Selection::DATA)) {
-                HEToSelect.insert(HEToSelect.end(), HE->getChildGenericDatas().begin(), HE->getChildGenericDatas().end());
+                editedChildren.insert(editedChildren.end(), hierarchicalElement->getChildGenericDatas().begin(), hierarchicalElement->getChildGenericDatas().end());
             }
         }
         // select HE
-        if (HEToSelect.size() > 0) {
-            if (HEToSelect.size() > 1) {
+        if (editedChildren.size() > 0) {
+            if (editedChildren.size() > 1) {
                 mySelectorFrameParent->getViewNet()->getUndoList()->begin(GUIIcon::SELECT, TL("select children"));
             }
-            for (const auto& HE : HEToSelect) {
+            for (const auto& HE : editedChildren) {
                 if (obj == mySelectChildrenButton) {
                     HE->setAttribute(GNE_ATTR_SELECTED, "true", mySelectorFrameParent->getViewNet()->getUndoList());
                 } else {
                     HE->setAttribute(GNE_ATTR_SELECTED, "false", mySelectorFrameParent->getViewNet()->getUndoList());
                 }
             }
-            if (HEToSelect.size() > 1) {
+            if (editedChildren.size() > 1) {
                 mySelectorFrameParent->getViewNet()->getUndoList()->end();
             }
         }
