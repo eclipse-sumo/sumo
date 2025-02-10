@@ -21,6 +21,7 @@
 #include <config.h>
 
 #include <netedit/elements/GNEAttributeCarrier.h>
+#include <netedit/elements/GNEHierarchicalElement.h>
 #include <utils/common/Parameterised.h>
 
 // ===========================================================================
@@ -34,7 +35,7 @@ class GNEDataInterval;
 // class definitions
 // ===========================================================================
 
-class GNEDataSet : public GNEAttributeCarrier, public Parameterised {
+class GNEDataSet : public GNEAttributeCarrier, public GNEHierarchicalElement, public Parameterised {
 
 public:
     /// @brief attribute colors

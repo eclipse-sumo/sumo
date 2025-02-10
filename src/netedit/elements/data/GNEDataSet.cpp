@@ -19,9 +19,7 @@
 /****************************************************************************/
 
 #include <netedit/GNENet.h>
-#include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
-#include <netedit/GNEUndoList.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
 
@@ -107,7 +105,8 @@ GNEDataSet::AttributeColors::clear() {
 
 GNEDataSet::GNEDataSet(GNENet* net, const std::string dataSetID) :
     GNEAttributeCarrier(SUMO_TAG_DATASET, net),
-    myDataSetID(dataSetID) {
+    GNEHierarchicalElement({}, {}, {}, {}, {}, {}),
+myDataSetID(dataSetID) {
 }
 
 
@@ -116,7 +115,7 @@ GNEDataSet::~GNEDataSet() {}
 
 GNEHierarchicalElement*
 GNEDataSet::getHierarchicalElement() {
-    return nullptr;
+    return this;
 }
 
 
