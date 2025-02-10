@@ -20,25 +20,18 @@
 #pragma once
 #include <config.h>
 
-#include <netedit/elements/GNEHierarchicalElement.h>
-
 #include "GNEDataSet.h"
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
 
-class GNEDataSet;
 class GNEGenericData;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
-/**
- * @class GNEDataInterval
- * @brief An Element which don't belong to GNENet but has influence in the simulation
- */
 class GNEDataInterval : public GNEAttributeCarrier, public GNEHierarchicalElement, public Parameterised {
 
 public:
@@ -53,9 +46,7 @@ public:
     ~GNEDataInterval();
 
     /// @brief get GNEHierarchicalElement associated with this AttributeCarrier
-    GNEHierarchicalElement* getHierarchicalElement() {
-        return this;
-    }
+    GNEHierarchicalElement* getHierarchicalElement();
 
     /// @brief update generic data child IDs
     void updateGenericDataIDs();

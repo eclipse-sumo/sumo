@@ -20,8 +20,6 @@
 
 #include <netedit/GNENet.h>
 #include <netedit/GNETagProperties.h>
-#include <netedit/GNEViewNet.h>
-#include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
@@ -42,6 +40,12 @@ myEnd(end) {
 
 
 GNEDataInterval::~GNEDataInterval() {}
+
+
+GNEHierarchicalElement*
+GNEDataInterval::getHierarchicalElement() {
+    return this;
+}
 
 
 void
