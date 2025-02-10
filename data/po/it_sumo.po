@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-04 15:47+0100\n"
-"PO-Revision-Date: 2025-02-10 08:40+0000\n"
+"PO-Revision-Date: 2025-02-10 10:44+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -6119,11 +6119,15 @@ msgid ""
 "Added % bidi-edges to ensure connectivity of straight tracks at geometry-"
 "like nodes."
 msgstr ""
+"% archi bidirezionali sono stati aggiunti per assicurare il collegamento di "
+"binari dritti nei nodi simili a quelli geometrici."
 
 #: src/netbuild/NBAlgorithms_Railway.cpp:1157
 msgid ""
 "Added % bidi-edges to ensure connectivity of straight tracks at switches."
 msgstr ""
+"% archi bidirezionali sono stati aggiunti per assicurare il collegamento di "
+"binari dritti nei deviatoi."
 
 #: src/netbuild/NBAlgorithms_Railway.cpp:1217
 msgid ""
@@ -6147,7 +6151,7 @@ msgstr "Non ho potuto appianare il corridoio %."
 
 #: src/netbuild/NBAlgorithms_Railway.cpp:1501
 msgid "Moved % rail junctions for straightening % corridors."
-msgstr ""
+msgstr "% incroci ferroviari sono stati spostati per appianare % corridoi."
 
 #: src/netbuild/NBAlgorithms_Ramps.cpp:121
 #, c-format
@@ -6306,16 +6310,20 @@ msgstr "La corsia '%' non è collegata a nessu'arco dell'incrocio '%'."
 #, c-format
 msgid "Ignoring changeLeft prohibition for '%' to avoid dead-end"
 msgstr ""
+"Il divieto del cambio corsia verso sinistra viene ignorato su '%' per "
+"evitare il vicolo cieco"
 
 #: src/netbuild/NBEdge.cpp:3115
 #, c-format
 msgid "Ignoring changeRight prohibition for '%' to avoid dead-end"
 msgstr ""
+"Il divieto del cambio corsia verso destra viene ignorato su '%' per evitare "
+"il vicolo cieco"
 
 #: src/netbuild/NBEdge.cpp:3777
 #, c-format
 msgid "The lane '%' on edge '%' already had a traffic light signal."
-msgstr ""
+msgstr "La corsia '%' sull'arco '%' teneva già un semaforo."
 
 #: src/netbuild/NBEdge.cpp:3783
 msgid "Could not set any signal of the tlLogic '%' (unknown group)."
@@ -6372,24 +6380,25 @@ msgstr ""
 
 #: src/netbuild/NBEdgeCont.cpp:440
 msgid "Attempt to rename edge using existing id '%'"
-msgstr ""
+msgstr "Prova a ribattezzare un arco con il codice idenficativo esistente '%'"
 
 #: src/netbuild/NBEdgeCont.cpp:500 src/netimport/NIXMLEdgesHandler.cpp:499
 #: src/netimport/NIXMLEdgesHandler.cpp:501
 msgid "Error on parsing a split (edge '%')."
-msgstr ""
+msgstr "Errore nell'analisi di una separazione (arco '%')."
 
 #: src/netbuild/NBEdgeCont.cpp:558
 msgid "Split at '%' lies beyond the edge's length (edge '%')."
-msgstr ""
+msgstr "La separazione a '%' si trova oltre la lunghezza dell'arco (arco '%')."
 
 #: src/netbuild/NBEdgeCont.cpp:641
 msgid "Could not insert edge '%' before split of edge '%'."
 msgstr ""
+"Non ho potuto inserire l'arco '%' prima della separazione dell'arco '%'."
 
 #: src/netbuild/NBEdgeCont.cpp:645
 msgid "Could not insert edge '%' after split of edge '%'."
-msgstr ""
+msgstr "Non ho potuto inserire l'arco '%' oltre la separazione dell'arco '%'."
 
 #: src/netbuild/NBEdgeCont.cpp:883
 msgid "Moving opposite lane '%' from invalid lane '%' to lane index %."
@@ -6781,6 +6790,7 @@ msgstr ""
 #: src/netbuild/NBFrame.cpp:257
 msgid "Set edge priority values based on estimated main direction"
 msgstr ""
+"Imposta i valori di priorità di arco secondo la direzione principale valutata"
 
 #: src/netbuild/NBFrame.cpp:260
 msgid "Extend loaded edge priority values based on estimated main direction"
@@ -7000,11 +7010,12 @@ msgstr ""
 
 #: src/netbuild/NBFrame.cpp:677
 msgid "Only keep edges where type is in STR[]"
-msgstr ""
+msgstr "Mantieni unicamente quegli archi con il tipo presente in STR[]"
 
 #: src/netbuild/NBFrame.cpp:680
 msgid "Only keep the INT largest weakly connected components"
 msgstr ""
+"Mantieni unicamente i INT componenti piu grandi tra quelli poco connessi"
 
 #: src/netbuild/NBFrame.cpp:683
 msgid "Remove edges where type is in STR[]"
@@ -7016,7 +7027,7 @@ msgstr "Rimuove archi isolati"
 
 #: src/netbuild/NBFrame.cpp:691
 msgid "Only keep lanes with width in meters > FLOAT"
-msgstr ""
+msgstr "Mantieni unicamente le corsie con una larghezza in metri > FLOAT"
 
 #: src/netbuild/NBFrame.cpp:697
 msgid "All nodes will be unregulated"
@@ -7106,7 +7117,7 @@ msgstr ""
 
 #: src/netbuild/NBFrame.cpp:772
 msgid "'tls.green.time' must be positive"
-msgstr ""
+msgstr "'tls.green.time' deve essere positivo"
 
 #: src/netbuild/NBFrame.cpp:776
 msgid "default.lanenumber must be at least 1"
@@ -7185,7 +7196,7 @@ msgstr "Il tipo di caratteristiche di mappe d'altezza % viene ignorato"
 #: src/netbuild/NBHeightMapper.cpp:276
 msgid "Cannot load shape file since SUMO was compiled without GDAL support."
 msgstr ""
-"Non si può caricare fiel di forme perché SUMO è stato compilato senza "
+"Non si può caricare il file di forme perché SUMO è stato compilato senza "
 "supporto GDAL."
 
 #: src/netbuild/NBHeightMapper.cpp:288
@@ -7194,11 +7205,11 @@ msgstr "Non si può caricare il file GeoTIFF."
 
 #: src/netbuild/NBHeightMapper.cpp:303
 msgid "Could not parse geo information from %."
-msgstr ""
+msgstr "Non ho potuto analizzare l'informazione geografica da %."
 
 #: src/netbuild/NBHeightMapper.cpp:312
 msgid "Unknown color band in %."
-msgstr ""
+msgstr "Gradiente cromatico sconosciuto in %."
 
 #: src/netbuild/NBHeightMapper.cpp:319
 msgid "Failure in reading %."
