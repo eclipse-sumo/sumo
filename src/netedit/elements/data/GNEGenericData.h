@@ -20,22 +20,15 @@
 #pragma once
 #include <config.h>
 
-#include <netbuild/NBEdge.h>
-#include <netbuild/NBVehicle.h>
 #include <netedit/elements/GNEAttributeCarrier.h>
-#include <netedit/elements/GNEHierarchicalElement.h>
 #include <netedit/elements/GNEPathElement.h>
 #include <utils/common/Parameterised.h>
-#include <utils/geom/PositionVector.h>
-#include <utils/gui/div/GUIGeometry.h>
-#include <utils/gui/globjects/GUIGlObject.h>
-#include <utils/router/SUMOAbstractRouter.h>
+#include <netedit/elements/GNEHierarchicalElement.h>
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
 
-class GNEViewNet;
 class GNEDataInterval;
 
 // ===========================================================================
@@ -76,9 +69,7 @@ public:
     virtual bool isGenericDataVisible() const = 0;
 
     /// @brief get GNEHierarchicalElement associated with this AttributeCarrier
-    GNEHierarchicalElement* getHierarchicalElement() {
-        return this;
-    }
+    GNEHierarchicalElement* getHierarchicalElement();
 
     /// @brief get GUIGlObject associated with this AttributeCarrier
     GUIGlObject* getGUIGlObject();

@@ -20,7 +20,6 @@
 
 #include <netedit/GNENet.h>
 #include <netedit/GNETagProperties.h>
-#include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/elements/data/GNEGenericData.h>
 #include <netedit/frames/common/GNESelectorFrame.h>
@@ -28,7 +27,6 @@
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
-#include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 
 #include "GNEDataInterval.h"
@@ -36,10 +34,6 @@
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-
-// ---------------------------------------------------------------------------
-// GNEGenericData - methods
-// ---------------------------------------------------------------------------
 
 GNEGenericData::GNEGenericData(const SumoXMLTag tag, FXIcon* icon, const GUIGlObjectType type, GNEDataInterval* dataIntervalParent,
                                const Parameterised::Map& parameters,
@@ -58,6 +52,12 @@ GNEGenericData::GNEGenericData(const SumoXMLTag tag, FXIcon* icon, const GUIGlOb
 
 
 GNEGenericData::~GNEGenericData() {}
+
+
+GNEHierarchicalElement*
+GNEGenericData::getHierarchicalElement() {
+    return this;
+}
 
 
 GUIGlObject*
