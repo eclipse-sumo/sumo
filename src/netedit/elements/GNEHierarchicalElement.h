@@ -108,6 +108,23 @@ public:
 
     /// @}
 
+    /// @brief edit parent and childrens without maintain integrity (use carefully)
+    /// @{
+
+    /// @brief set parent elements (ONLY use in constructors)
+    template<typename ParentType>
+    static void setParents(const GNEHierarchicalContainerParents<ParentType>& parents) {
+        myHierarchicalStructureParents.replaceAll(parents);
+    }
+
+    /// @brief add child without updating parent (ONLY used if we're creating elements without undo-redo)
+    template<typename ChildType>
+    void addChildElement(ChildType* element) {
+        myHierarchicalStructureChildren.add(element);
+    }
+
+    /// @}
+
     /// @name edit function maintain integrity
     /// @{
 
@@ -182,12 +199,6 @@ public:
     }
 
     /// @}
-
-    /// @brief add child without updating parent (ONLY used if we're creating elements without undo-redo)
-    template<typename ChildType>
-    void addChildElement(ChildType* element) {
-        myHierarchicalStructureChildren.add(element);
-    }
 
     /// @name specific get functions
     /// @{
