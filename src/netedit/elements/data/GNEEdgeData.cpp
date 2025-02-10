@@ -40,9 +40,10 @@
 // GNEEdgeData - methods
 // ---------------------------------------------------------------------------
 
-GNEEdgeData::GNEEdgeData(GNEDataInterval* dataIntervalParent, GNEEdge* edgeParent, const Parameterised::Map& parameters) :
-    GNEGenericData(GNE_TAG_EDGEREL_SINGLE, GUIIconSubSys::getIcon(GUIIcon::EDGEDATA), GLO_EDGEDATA, dataIntervalParent, parameters,
-{}, {edgeParent}, {}, {}, {}, {}) {
+GNEEdgeData::GNEEdgeData(GNEDataInterval* dataIntervalParent, GNEEdge* edge, const Parameterised::Map& parameters) :
+    GNEGenericData(GNE_TAG_EDGEREL_SINGLE, GUIIconSubSys::getIcon(GUIIcon::EDGEDATA), GLO_EDGEDATA, dataIntervalParent, parameters) {
+    // set parents
+    setParent<GNEEdge*>(edge);
 }
 
 

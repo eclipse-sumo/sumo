@@ -32,9 +32,8 @@
 // ===========================================================================
 
 GNEPersonTrip::GNEPersonTrip(SumoXMLTag tag, GNENet* net) :
-    GNEDemandElement("", net, GLO_PERSONTRIP, tag, GUIIconSubSys::getIcon(GUIIcon::PERSONTRIP_EDGE),
-                     GNEPathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}),
-GNEDemandElementPlan(this, -1, -1) {
+    GNEDemandElement("", net, GLO_PERSONTRIP, tag, GUIIconSubSys::getIcon(GUIIcon::PERSONTRIP_EDGE), GNEPathElement::Options::DEMAND_ELEMENT),
+    GNEDemandElementPlan(this, -1, -1) {
     // reset default values
     resetDefaultValues();
 }
@@ -43,16 +42,20 @@ GNEDemandElementPlan(this, -1, -1) {
 GNEPersonTrip::GNEPersonTrip(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* personParent, const GNEPlanParents& planParameters,
                              const double arrivalPosition, const std::vector<std::string>& types, const std::vector<std::string>& modes,
                              const std::vector<std::string>& lines, const double walkFactor, const std::string& group) :
-    GNEDemandElement(personParent, net, GLO_PERSONTRIP, tag, GUIIconSubSys::getIcon(icon),
-                     GNEPathElement::Options::DEMAND_ELEMENT,
-                     planParameters.getJunctions(), planParameters.getEdges(), {},
-planParameters.getAdditionalElements(), planParameters.getDemandElements(personParent), {}),
-GNEDemandElementPlan(this, -1, arrivalPosition),
-myVTypes(types),
-myModes(modes),
-myLines(lines),
-myWalkFactor(walkFactor),
-myGroup(group) {
+    GNEDemandElement(personParent, net, GLO_PERSONTRIP, tag, GUIIconSubSys::getIcon(icon), GNEPathElement::Options::DEMAND_ELEMENT),
+    GNEDemandElementPlan(this, -1, arrivalPosition),
+    myVTypes(types),
+    myModes(modes),
+    myLines(lines),
+    myWalkFactor(walkFactor),
+    myGroup(group) {
+    // set parents
+    setParents<GNEJunction*>(planParameters.getJunctions());
+    setParents<GNEEdge*>(planParameters.getEdges());
+    setParents<GNEAdditional*>(planParameters.getAdditionalElements());
+    setParents<GNEDemandElement*>(planParameters.getDemandElements(personParent));
+    // update centering boundary without updating grid
+    updatePlanCenteringBoundary(false);
 }
 
 

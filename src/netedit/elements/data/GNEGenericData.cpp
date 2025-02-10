@@ -21,7 +21,6 @@
 #include <netedit/GNENet.h>
 #include <netedit/GNETagProperties.h>
 #include <netedit/GNEViewParent.h>
-#include <netedit/elements/data/GNEGenericData.h>
 #include <netedit/frames/common/GNESelectorFrame.h>
 #include <netedit/frames/data/GNEEdgeDataFrame.h>
 #include <utils/gui/div/GLHelper.h>
@@ -30,23 +29,17 @@
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 
 #include "GNEDataInterval.h"
+#include "GNEGenericData.h"
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
 
 GNEGenericData::GNEGenericData(const SumoXMLTag tag, FXIcon* icon, const GUIGlObjectType type, GNEDataInterval* dataIntervalParent,
-                               const Parameterised::Map& parameters,
-                               const std::vector<GNEJunction*>& junctionParents,
-                               const std::vector<GNEEdge*>& edgeParents,
-                               const std::vector<GNELane*>& laneParents,
-                               const std::vector<GNEAdditional*>& additionalParents,
-                               const std::vector<GNEDemandElement*>& demandElementParents,
-                               const std::vector<GNEGenericData*>& genericDataParents) :
+                               const Parameterised::Map& parameters) :
     GNEAttributeCarrier(tag, dataIntervalParent->getNet()),
     GNEPathElement(type, dataIntervalParent->getID(), icon, GNEPathElement::Options::DATA_ELEMENT),
     Parameterised(parameters),
-    GNEHierarchicalElement(junctionParents, edgeParents, laneParents, additionalParents, demandElementParents, genericDataParents),
     myDataIntervalParent(dataIntervalParent) {
 }
 

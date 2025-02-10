@@ -21,9 +21,9 @@
 #include <config.h>
 
 #include <netedit/elements/GNEAttributeCarrier.h>
+#include <netedit/elements/GNEHierarchicalElement.h>
 #include <netedit/elements/GNEPathElement.h>
 #include <utils/common/Parameterised.h>
-#include <netedit/elements/GNEHierarchicalElement.h>
 
 // ===========================================================================
 // class declarations
@@ -46,21 +46,9 @@ public:
      * @param[in] GLType GUIGlObjectType associated to this Generic Data
      * @param[in] dataIntervalParent pointer to data interval parent
      * @param[in] parameters parameters map
-     * @param[in] junctionParents vector of junction parents
-     * @param[in] edgeParents vector of edge parents
-     * @param[in] laneParents vector of lane parents
-     * @param[in] additionalParents vector of additional parents
-     * @param[in] demandElementParents vector of demand element parents
-     * @param[in] genericDataParents vector of generic data parents
      */
     GNEGenericData(const SumoXMLTag tag, FXIcon* icon, const GUIGlObjectType type, GNEDataInterval* dataIntervalParent,
-                   const Parameterised::Map& parameters,
-                   const std::vector<GNEJunction*>& junctionParents,
-                   const std::vector<GNEEdge*>& edgeParents,
-                   const std::vector<GNELane*>& laneParents,
-                   const std::vector<GNEAdditional*>& additionalParents,
-                   const std::vector<GNEDemandElement*>& demandElementParents,
-                   const std::vector<GNEGenericData*>& genericDataParents);
+                   const Parameterised::Map& parameters);
 
     /// @brief Destructor
     virtual ~GNEGenericData();

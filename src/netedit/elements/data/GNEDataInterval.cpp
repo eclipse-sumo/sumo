@@ -32,10 +32,9 @@
 
 GNEDataInterval::GNEDataInterval(GNEDataSet* dataSetParent, const double begin, const double end) :
     GNEAttributeCarrier(SUMO_TAG_DATAINTERVAL, dataSetParent->getNet()),
-    GNEHierarchicalElement({}, {}, {}, {}, {}, {}),
-                       myDataSetParent(dataSetParent),
-                       myBegin(begin),
-myEnd(end) {
+    myDataSetParent(dataSetParent),
+    myBegin(begin),
+    myEnd(end) {
 }
 
 

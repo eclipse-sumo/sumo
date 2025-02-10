@@ -36,22 +36,6 @@
 GNEHierarchicalStructureParents::GNEHierarchicalStructureParents() {}
 
 
-GNEHierarchicalStructureParents::GNEHierarchicalStructureParents(
-    const std::vector<GNEJunction*>& parentJunctions,
-    const std::vector<GNEEdge*>& parentEdges,
-    const std::vector<GNELane*>& parentLanes,
-    const std::vector<GNEAdditional*>& parentAdditionals,
-    const std::vector<GNEDemandElement*>& parentDemandElements,
-    const std::vector<GNEGenericData*>& parentGenericDatas):
-    myParentJunctions(parentJunctions),
-    myParentEdges(parentEdges),
-    myParentLanes(parentLanes),
-    myParentAdditionals(parentAdditionals),
-    myParentDemandElements(parentDemandElements),
-    myParentGenericDatas(parentGenericDatas) {
-}
-
-
 void
 GNEHierarchicalStructureParents::clear() {
     myParentJunctions.clear();

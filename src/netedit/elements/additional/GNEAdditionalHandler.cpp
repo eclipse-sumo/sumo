@@ -215,7 +215,7 @@ GNEAdditionalHandler::buildAccess(const CommonXMLStructure::SumoBaseObject* sumo
         return writeError(TLF("Could not build access in netedit; The lane '%' doesn't support pedestrians", lane->getID()));
     } else {
         // build access
-        GNEAdditional* access = new GNEAccess(busStop, lane, myNet, posDouble, pos, friendlyPos, length, parameters);
+        GNEAdditional* access = new GNEAccess(busStop, lane, posDouble, pos, friendlyPos, length, parameters);
         // insert depending of allowUndoRedo
         if (myAllowUndoRedo) {
             myNet->getViewNet()->getUndoList()->begin(access, TL("add access in '") + busStop->getID() + "'");
@@ -403,7 +403,7 @@ GNEAdditionalHandler::buildParkingSpace(const CommonXMLStructure::SumoBaseObject
             return false;
         } else {
             // build parkingSpace
-            GNEAdditional* parkingSpace = new GNEParkingSpace(myNet, parkingArea, Position(x, y, z), width, length, angle, slope, name, parameters);
+            GNEAdditional* parkingSpace = new GNEParkingSpace(parkingArea, Position(x, y, z), width, length, angle, slope, name, parameters);
             // insert depending of allowUndoRedo
             if (myAllowUndoRedo) {
                 myNet->getViewNet()->getUndoList()->begin(parkingSpace, TL("add parking space in '") + parkingArea->getID() + "'");
@@ -659,7 +659,7 @@ GNEAdditionalHandler::buildDetectorEntry(const CommonXMLStructure::SumoBaseObjec
         // get netedit parameters
         NeteditParameters neteditParameters(sumoBaseObject);
         // build entry instant
-        GNEAdditional* entry = new GNEEntryExitDetector(SUMO_TAG_DET_ENTRY, myNet, E3, lane, pos, friendlyPos, parameters);
+        GNEAdditional* entry = new GNEEntryExitDetector(SUMO_TAG_DET_ENTRY, E3, lane, pos, friendlyPos, parameters);
         // insert depending of allowUndoRedo
         if (myAllowUndoRedo) {
             myNet->getViewNet()->getUndoList()->begin(entry, TL("add entry detector in '") + E3->getID() + "'");
@@ -694,7 +694,7 @@ GNEAdditionalHandler::buildDetectorExit(const CommonXMLStructure::SumoBaseObject
         // get netedit parameters
         NeteditParameters neteditParameters(sumoBaseObject);
         // build exit instant
-        GNEAdditional* exit = new GNEEntryExitDetector(SUMO_TAG_DET_EXIT, myNet, E3, lane, pos, friendlyPos, parameters);
+        GNEAdditional* exit = new GNEEntryExitDetector(SUMO_TAG_DET_EXIT, E3, lane, pos, friendlyPos, parameters);
         // insert depending of allowUndoRedo
         if (myAllowUndoRedo) {
             myNet->getViewNet()->getUndoList()->begin(exit, TL("add exit detector in '") + E3->getID() + "'");

@@ -38,20 +38,9 @@ public:
      * @param[in] id of the element
      * @param[in] type type of GL object
      * @param[in] tag sumo xml tag of the element
-     * @param[in] junctionParents vector of junction parents
-     * @param[in] edgeParents vector of edge parents
-     * @param[in] laneParents vector of lane parents
-     * @param[in] additionalParents vector of additional parents
-     * @param[in] demandElementParents vector of demand element parents
-     * @param[in] genericDataParents vector of generic data parents
+     * @param[in] icon FXIcon related with this network element
      */
-    GNENetworkElement(GNENet* net, const std::string& id, GUIGlObjectType type, SumoXMLTag tag, FXIcon* icon,
-                      const std::vector<GNEJunction*>& junctionParents,
-                      const std::vector<GNEEdge*>& edgeParents,
-                      const std::vector<GNELane*>& laneParents,
-                      const std::vector<GNEAdditional*>& additionalParents,
-                      const std::vector<GNEDemandElement*>& demandElementParents,
-                      const std::vector<GNEGenericData*>& genericDataParents);
+    GNENetworkElement(GNENet* net, const std::string& id, GUIGlObjectType type, SumoXMLTag tag, FXIcon* icon);
 
     /// @brief Destructor
     virtual ~GNENetworkElement();

@@ -160,8 +160,8 @@ GNEContainer::GNESelectedContainersPopupMenu::onCmdTransform(FXObject* obj, FXSe
 
 GNEContainer::GNEContainer(SumoXMLTag tag, GNENet* net) :
     GNEDemandElement("", net, GLO_CONTAINER, tag, GUIIconSubSys::getIcon(GUIIcon::CONTAINER),
-                     GNEPathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}),
-GNEDemandElementFlow(this) {
+                     GNEPathElement::Options::DEMAND_ELEMENT),
+    GNEDemandElementFlow(this) {
     // reset default values
     resetDefaultValues();
     // set end and container per hours as default flow values
@@ -173,8 +173,10 @@ GNEDemandElementFlow(this) {
 GNEContainer::GNEContainer(SumoXMLTag tag, GNENet* net, GNEDemandElement* pType, const SUMOVehicleParameter& containerparameters) :
     GNEDemandElement(containerparameters.id, net, (tag == SUMO_TAG_CONTAINERFLOW) ? GLO_CONTAINERFLOW : GLO_CONTAINER, tag,
                      (tag == SUMO_TAG_CONTAINERFLOW) ? GUIIconSubSys::getIcon(GUIIcon::CONTAINERFLOW) : GUIIconSubSys::getIcon(GUIIcon::CONTAINER),
-                     GNEPathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {pType}, {}),
-GNEDemandElementFlow(this, containerparameters) {
+                     GNEPathElement::Options::DEMAND_ELEMENT),
+    GNEDemandElementFlow(this, containerparameters) {
+    // set parents
+    setParent<GNEDemandElement*>(pType);
     // set manually vtypeID (needed for saving)
     vtypeid = pType->getID();
 }

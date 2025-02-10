@@ -51,42 +51,16 @@ public:
      * @param[in] type GUIGlObjectType of additional
      * @param[in] tag Type of xml tag that define the additional element (SUMO_TAG_BUS_STOP, SUMO_TAG_REROUTER, etc...)
      * @param[in] name Additional name
-     * @param[in] junctionParents vector of junction parents
-     * @param[in] edgeParents vector of edge parents
-     * @param[in] laneParents vector of lane parents
-     * @param[in] additionalParents vector of additional parents
-     * @param[in] demandElementParents vector of demand element parents
-     * @param[in] genericDataParents vector of generic data parents
-     * @param[in] parameters generic parameters
      */
-    GNEAdditional(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, FXIcon* icon, std::string additionalName,
-                  const std::vector<GNEJunction*>& junctionParents,
-                  const std::vector<GNEEdge*>& edgeParents,
-                  const std::vector<GNELane*>& laneParents,
-                  const std::vector<GNEAdditional*>& additionalParents,
-                  const std::vector<GNEDemandElement*>& demandElementParents,
-                  const std::vector<GNEGenericData*>& genericDataParents);
+    GNEAdditional(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, FXIcon* icon, std::string additionalName);
 
     /**@brief Constructor for additional with parents
-     * @param[in] net pointer to GNENet of this additional element belongs
+     * @param[in] additionalParent pointer to additional parent
      * @param[in] type GUIGlObjectType of additional
      * @param[in] tag Type of xml tag that define the additional element (SUMO_TAG_BUS_STOP, SUMO_TAG_REROUTER, etc...)
      * @param[in] name Additional name
-     * @param[in] junctionParents vector of junction parents
-     * @param[in] edgeParents vector of edge parents
-     * @param[in] laneParents vector of lane parents
-     * @param[in] additionalParents vector of additional parents
-     * @param[in] demandElementParents vector of demand element parents
-     * @param[in] genericDataParents vector of generic data parents
-     * @param[in] parameters generic parameters
      */
-    GNEAdditional(GNENet* net, GUIGlObjectType type, SumoXMLTag tag, FXIcon* icon, std::string additionalName,
-                  const std::vector<GNEJunction*>& junctionParents,
-                  const std::vector<GNEEdge*>& edgeParents,
-                  const std::vector<GNELane*>& laneParents,
-                  const std::vector<GNEAdditional*>& additionalParents,
-                  const std::vector<GNEDemandElement*>& demandElementParents,
-                  const std::vector<GNEGenericData*>& genericDataParents);
+    GNEAdditional(GNEAdditional* additionalParent, GUIGlObjectType type, SumoXMLTag tag, FXIcon* icon, std::string additionalName);
 
     /// @brief Destructor
     ~GNEAdditional();

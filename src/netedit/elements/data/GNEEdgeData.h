@@ -39,10 +39,10 @@ class GNEEdgeData : public GNEGenericData {
 public:
     /**@brief Constructor
      * @param[in] dataIntervalParent pointer to data interval parent
-     * @param[in] edgeParent pointer to Edge parent
+     * @param[in] edge pointer to Edge parent
      * @param[in] parameters parameters map
      */
-    GNEEdgeData(GNEDataInterval* dataIntervalParent, GNEEdge* edgeParent, const Parameterised::Map& parameters);
+    GNEEdgeData(GNEDataInterval* dataIntervalParent, GNEEdge* edge, const Parameterised::Map& parameters);
 
     /// @brief Destructor
     ~GNEEdgeData();

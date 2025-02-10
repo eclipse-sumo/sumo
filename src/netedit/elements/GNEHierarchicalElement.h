@@ -34,20 +34,8 @@ public:
     friend class GNEChange_Children;
     friend class GNEDemandElement;
 
-    /**@brief Constructor
-     * @param[in] parentJunctions vector of parent junctions
-     * @param[in] parentEdges vector of parent edges
-     * @param[in] parentLanes vector of parent lanes
-     * @param[in] parentAdditionals vector of parent additionals
-     * @param[in] parentDemandElements vector of parent demand elements
-     * @param[in] parentGenericData vector of parent generic data elements
-     */
-    GNEHierarchicalElement(const std::vector<GNEJunction*>& parentJunctions,
-                           const std::vector<GNEEdge*>& parentEdges,
-                           const std::vector<GNELane*>& parentLanes,
-                           const std::vector<GNEAdditional*>& parentAdditionals,
-                           const std::vector<GNEDemandElement*>& parentDemandElements,
-                           const std::vector<GNEGenericData*>& parentGenericDatas);
+    /// @brief default Constructor
+    GNEHierarchicalElement();
 
     /// @brief Destructor
     ~GNEHierarchicalElement();
@@ -111,9 +99,17 @@ public:
     /// @brief edit parent and childrens without maintain integrity (use carefully)
     /// @{
 
-    /// @brief set parent elements (ONLY use in constructors)
+    /// @brief set single parent element (ONLY use in constructors)
     template<typename ParentType>
-    static void setParents(const GNEHierarchicalContainerParents<ParentType>& parents) {
+    void setParent(ParentType parent) {
+        GNEHierarchicalContainerParents<ParentType> parents;
+        parents.push_back(parent);
+        myHierarchicalStructureParents.replaceAll(parents);
+    }
+
+    /// @brief set multiple parent element (ONLY use in constructors)
+    template<typename ParentType>
+    void setParents(const GNEHierarchicalContainerParents<ParentType>& parents) {
         myHierarchicalStructureParents.replaceAll(parents);
     }
 

@@ -36,11 +36,11 @@
 // ===========================================================================
 
 GNECalibrator::GNECalibrator(SumoXMLTag tag, GNENet* net) :
-    GNEAdditional("", net, GLO_CALIBRATOR, tag, GUIIconSubSys::getIcon(GUIIcon::CALIBRATOR), "", {}, {}, {}, {}, {}, {}),
-              myPositionOverLane(0),
-              myFrequency(0),
-              myJamThreshold(0),
-myCalibratorContours(new std::vector<GNEContour*>()) {
+    GNEAdditional("", net, GLO_CALIBRATOR, tag, GUIIconSubSys::getIcon(GUIIcon::CALIBRATOR), ""),
+    myPositionOverLane(0),
+    myFrequency(0),
+    myJamThreshold(0),
+    myCalibratorContours(new std::vector<GNEContour*>()) {
     // reset default values
     resetDefaultValues();
 }
@@ -48,14 +48,16 @@ myCalibratorContours(new std::vector<GNEContour*>()) {
 
 GNECalibrator::GNECalibrator(const std::string& id, GNENet* net, GNEEdge* edge, double pos, SUMOTime frequency, const std::string& name,
                              const std::string& output, const double jamThreshold, const std::vector<std::string>& vTypes, const Parameterised::Map& parameters) :
-    GNEAdditional(id, net, GLO_CALIBRATOR, SUMO_TAG_CALIBRATOR, GUIIconSubSys::getIcon(GUIIcon::CALIBRATOR), name, {}, {edge}, {}, {}, {}, {}),
-Parameterised(parameters),
-myPositionOverLane(pos),
-myFrequency(frequency),
-myOutput(output),
-myJamThreshold(jamThreshold),
-myVTypes(vTypes),
-myCalibratorContours(new std::vector<GNEContour*>()) {
+    GNEAdditional(id, net, GLO_CALIBRATOR, SUMO_TAG_CALIBRATOR, GUIIconSubSys::getIcon(GUIIcon::CALIBRATOR), name),
+    Parameterised(parameters),
+    myPositionOverLane(pos),
+    myFrequency(frequency),
+    myOutput(output),
+    myJamThreshold(jamThreshold),
+    myVTypes(vTypes),
+    myCalibratorContours(new std::vector<GNEContour*>()) {
+    // set parents
+    setParent<GNEEdge*>(edge);
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -64,14 +66,17 @@ myCalibratorContours(new std::vector<GNEContour*>()) {
 GNECalibrator::GNECalibrator(const std::string& id, GNENet* net, GNEEdge* edge, double pos, SUMOTime frequency, const std::string& name,
                              const std::string& output, GNEAdditional* routeProbe, const double jamThreshold, const std::vector<std::string>& vTypes,
                              const Parameterised::Map& parameters) :
-    GNEAdditional(id, net, GLO_CALIBRATOR, SUMO_TAG_CALIBRATOR, GUIIconSubSys::getIcon(GUIIcon::CALIBRATOR), name, {}, {edge}, {}, {routeProbe}, {}, {}),
-Parameterised(parameters),
-myPositionOverLane(pos),
-myFrequency(frequency),
-myOutput(output),
-myJamThreshold(jamThreshold),
-myVTypes(vTypes),
-myCalibratorContours(new std::vector<GNEContour*>()) {
+    GNEAdditional(id, net, GLO_CALIBRATOR, SUMO_TAG_CALIBRATOR, GUIIconSubSys::getIcon(GUIIcon::CALIBRATOR), name),
+    Parameterised(parameters),
+    myPositionOverLane(pos),
+    myFrequency(frequency),
+    myOutput(output),
+    myJamThreshold(jamThreshold),
+    myVTypes(vTypes),
+    myCalibratorContours(new std::vector<GNEContour*>()) {
+    // set parents
+    setParent<GNEEdge*>(edge);
+    setParent<GNEAdditional*>(routeProbe);
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -79,14 +84,16 @@ myCalibratorContours(new std::vector<GNEContour*>()) {
 
 GNECalibrator::GNECalibrator(const std::string& id, GNENet* net, GNELane* lane, double pos, SUMOTime frequency, const std::string& name,
                              const std::string& output, const double jamThreshold, const std::vector<std::string>& vTypes, const Parameterised::Map& parameters) :
-    GNEAdditional(id, net, GLO_CALIBRATOR, GNE_TAG_CALIBRATOR_LANE, GUIIconSubSys::getIcon(GUIIcon::CALIBRATOR), name, {}, {}, {lane}, {}, {}, {}),
-Parameterised(parameters),
-myPositionOverLane(pos),
-myFrequency(frequency),
-myOutput(output),
-myJamThreshold(jamThreshold),
-myVTypes(vTypes),
-myCalibratorContours(new std::vector<GNEContour*>()) {
+    GNEAdditional(id, net, GLO_CALIBRATOR, GNE_TAG_CALIBRATOR_LANE, GUIIconSubSys::getIcon(GUIIcon::CALIBRATOR), name),
+    Parameterised(parameters),
+    myPositionOverLane(pos),
+    myFrequency(frequency),
+    myOutput(output),
+    myJamThreshold(jamThreshold),
+    myVTypes(vTypes),
+    myCalibratorContours(new std::vector<GNEContour*>()) {
+    // set parents
+    setParent<GNELane*>(lane);
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -95,14 +102,17 @@ myCalibratorContours(new std::vector<GNEContour*>()) {
 GNECalibrator::GNECalibrator(const std::string& id, GNENet* net, GNELane* lane, double pos, SUMOTime frequency, const std::string& name,
                              const std::string& output, GNEAdditional* routeProbe, const double jamThreshold, const std::vector<std::string>& vTypes,
                              const Parameterised::Map& parameters) :
-    GNEAdditional(id, net, GLO_CALIBRATOR, GNE_TAG_CALIBRATOR_LANE, GUIIconSubSys::getIcon(GUIIcon::CALIBRATOR), name, {}, {}, {lane}, {routeProbe}, {}, {}),
-Parameterised(parameters),
-myPositionOverLane(pos),
-myFrequency(frequency),
-myOutput(output),
-myJamThreshold(jamThreshold),
-myVTypes(vTypes),
-myCalibratorContours(new std::vector<GNEContour*>()) {
+    GNEAdditional(id, net, GLO_CALIBRATOR, GNE_TAG_CALIBRATOR_LANE, GUIIconSubSys::getIcon(GUIIcon::CALIBRATOR), name),
+    Parameterised(parameters),
+    myPositionOverLane(pos),
+    myFrequency(frequency),
+    myOutput(output),
+    myJamThreshold(jamThreshold),
+    myVTypes(vTypes),
+    myCalibratorContours(new std::vector<GNEContour*>()) {
+    // set parents
+    setParent<GNELane*>(lane);
+    setParent<GNEAdditional*>(routeProbe);
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }

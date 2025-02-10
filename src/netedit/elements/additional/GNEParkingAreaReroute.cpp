@@ -29,20 +29,20 @@
 // ===========================================================================
 
 GNEParkingAreaReroute::GNEParkingAreaReroute(GNENet* net):
-    GNEAdditional("", net, GLO_REROUTER, SUMO_TAG_PARKING_AREA_REROUTE,
-                  GUIIconSubSys::getIcon(GUIIcon::PARKINGZONEREROUTE), "", {}, {}, {}, {}, {}, {}),
-                            myProbability(0),
-myVisible(0) {
+    GNEAdditional("", net, GLO_REROUTER, SUMO_TAG_PARKING_AREA_REROUTE, GUIIconSubSys::getIcon(GUIIcon::PARKINGZONEREROUTE), ""),
+    myProbability(0),
+    myVisible(0) {
     // reset default values
     resetDefaultValues();
 }
 
 
 GNEParkingAreaReroute::GNEParkingAreaReroute(GNEAdditional* rerouterIntervalParent, GNEAdditional* newParkingArea, double probability, bool visible):
-    GNEAdditional(rerouterIntervalParent->getNet(), GLO_REROUTER, SUMO_TAG_PARKING_AREA_REROUTE,
-                  GUIIconSubSys::getIcon(GUIIcon::PARKINGZONEREROUTE), "", {}, {}, {}, {rerouterIntervalParent, newParkingArea}, {}, {}),
-myProbability(probability),
-myVisible(visible) {
+    GNEAdditional(rerouterIntervalParent, GLO_REROUTER, SUMO_TAG_PARKING_AREA_REROUTE, GUIIconSubSys::getIcon(GUIIcon::PARKINGZONEREROUTE), ""),
+    myProbability(probability),
+    myVisible(visible) {
+    // set parents
+    setParents<GNEAdditional*>({rerouterIntervalParent, newParkingArea});
     // update boundary of rerouter parent
     rerouterIntervalParent->getParentAdditionals().front()->updateCenteringBoundary(true);
 }

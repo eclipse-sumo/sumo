@@ -35,32 +35,60 @@
 // member method definitions
 // ===========================================================================
 
-GNEDetector::GNEDetector(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, FXIcon* icon, const double pos,
-                         const SUMOTime period, const std::vector<GNELane*>& parentLanes, const std::string& filename,
-                         const std::vector<std::string>& vehicleTypes, const std::vector<std::string>& nextEdges,
-                         const std::string& detectPersons, const std::string& name, const bool friendlyPos,
-                         const Parameterised::Map& parameters) :
-    GNEAdditional(id, net, type, tag, icon, name, {}, {}, parentLanes, {}, {}, {}),
-              Parameterised(parameters),
-              myPositionOverLane(pos),
-              myPeriod(period),
-              myFilename(filename),
-              myVehicleTypes(vehicleTypes),
-              myNextEdges(nextEdges),
-              myDetectPersons(detectPersons),
-myFriendlyPosition(friendlyPos) {
+GNEDetector::GNEDetector(GNENet* net, GUIGlObjectType type, SumoXMLTag tag, FXIcon* icon) :
+    GNEAdditional("", net, type, tag, icon, "") {
 }
 
 
-GNEDetector::GNEDetector(GNEAdditional* additionalParent, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, FXIcon* icon,
-                         const double pos, const SUMOTime period, const std::vector<GNELane*>& parentLanes, const std::string& filename,
+GNEDetector::GNEDetector(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, FXIcon* icon, const double pos,
+                         const SUMOTime period, GNELane* lane, const std::string& filename, const std::vector<std::string>& vehicleTypes,
+                         const std::vector<std::string>& nextEdges, const std::string& detectPersons, const std::string& name,
+                         const bool friendlyPos, const Parameterised::Map& parameters) :
+    GNEAdditional(id, net, type, tag, icon, name),
+    Parameterised(parameters),
+    myPositionOverLane(pos),
+    myPeriod(period),
+    myFilename(filename),
+    myVehicleTypes(vehicleTypes),
+    myNextEdges(nextEdges),
+    myDetectPersons(detectPersons),
+    myFriendlyPosition(friendlyPos) {
+    // set parents
+    setParent<GNELane*>(lane);
+}
+
+
+GNEDetector::GNEDetector(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, FXIcon* icon, const double pos,
+                         const SUMOTime period, const std::vector<GNELane*>& lanes, const std::string& filename,
+                         const std::vector<std::string>& vehicleTypes, const std::vector<std::string>& nextEdges,
+                         const std::string& detectPersons, const std::string& name, const bool friendlyPos,
+                         const Parameterised::Map& parameters) :
+    GNEAdditional(id, net, type, tag, icon, name),
+    Parameterised(parameters),
+    myPositionOverLane(pos),
+    myPeriod(period),
+    myFilename(filename),
+    myVehicleTypes(vehicleTypes),
+    myNextEdges(nextEdges),
+    myDetectPersons(detectPersons),
+    myFriendlyPosition(friendlyPos) {
+    // set parents
+    setParents<GNELane*>(lanes);
+}
+
+
+GNEDetector::GNEDetector(GNEAdditional* additionalParent, GUIGlObjectType type, SumoXMLTag tag, FXIcon* icon,
+                         const double pos, const SUMOTime period, GNELane* lane, const std::string& filename,
                          const std::string& name, const bool friendlyPos, const Parameterised::Map& parameters) :
-    GNEAdditional(net, type, tag, icon, name, {}, {}, parentLanes, {additionalParent}, {}, {}),
-Parameterised(parameters),
-myPositionOverLane(pos),
-myPeriod(period),
-myFilename(filename),
-myFriendlyPosition(friendlyPos) {
+    GNEAdditional(additionalParent, type, tag, icon, name),
+    Parameterised(parameters),
+    myPositionOverLane(pos),
+    myPeriod(period),
+    myFilename(filename),
+    myFriendlyPosition(friendlyPos) {
+    // set parents
+    setParent<GNELane*>(lane);
+    setParent<GNEAdditional*>(additionalParent);
 }
 
 

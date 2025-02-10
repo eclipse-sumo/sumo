@@ -43,13 +43,12 @@ public:
      * @param[in] id The storage of gl-ids to get the one for this lane representation from
      * @param[in] busStop GNEBusStop of this Access belongs
      * @param[in] lane GNELane of this Access belongs
-     * @param[in] net pointer to GNENet of this additional element belongs
      * @param[in] pos position of the Access on the lane
      * @param[in] length The length of the Access in meters.
      * @param[in] friendlyPos enable or disable friendly positions
      * @param[in] parameters generic parameters
      */
-    GNEAccess(GNEAdditional* busStop, GNELane* lane, GNENet* net, const double pos, const std::string& specialPos,
+    GNEAccess(GNEAdditional* busStop, GNELane* lane, const double pos, const std::string& specialPos,
               const bool friendlyPos, const double length, const Parameterised::Map& parameters);
 
     /// @brief Destructor
@@ -166,16 +165,16 @@ public:
 
 protected:
     /// @brief position over lane
-    double myPositionOverLane;
+    double myPositionOverLane = 0;
 
     /// @brief position over lane
     std::string mySpecialPosition;
 
     /// @brief Access length
-    double myLength;
+    double myLength = 0;
 
     /// @brief flag to check if friendly position is enabled
-    bool myFriendlyPosition;
+    bool myFriendlyPosition = false;
 
 private:
     /// @brief set attribute after validation

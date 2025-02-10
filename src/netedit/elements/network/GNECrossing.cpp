@@ -36,19 +36,19 @@
 // ===========================================================================
 
 GNECrossing::GNECrossing(GNENet* net) :
-    GNENetworkElement(net, "", GLO_CROSSING, SUMO_TAG_CROSSING, GUIIconSubSys::getIcon(GUIIcon::CROSSING), {}, {}, {}, {}, {}, {}),
-                  myParentJunction(nullptr),
-myTemplateNBCrossing(new NBNode::Crossing(nullptr, {}, 0, false, 0, 0, {})) {
+    GNENetworkElement(net, "", GLO_CROSSING, SUMO_TAG_CROSSING, GUIIconSubSys::getIcon(GUIIcon::CROSSING)),
+    myParentJunction(nullptr),
+    myTemplateNBCrossing(new NBNode::Crossing(nullptr, {}, 0, false, 0, 0, {})) {
     // reset default values
     resetDefaultValues();
 }
 
 GNECrossing::GNECrossing(GNEJunction* parentJunction, std::vector<NBEdge*> crossingEdges) :
     GNENetworkElement(parentJunction->getNet(), parentJunction->getNBNode()->getCrossing(crossingEdges)->id, GLO_CROSSING,
-                      SUMO_TAG_CROSSING, GUIIconSubSys::getIcon(GUIIcon::CROSSING), {}, {}, {}, {}, {}, {}),
-myParentJunction(parentJunction),
-myCrossingEdges(crossingEdges),
-myTemplateNBCrossing(nullptr) {
+                      SUMO_TAG_CROSSING, GUIIconSubSys::getIcon(GUIIcon::CROSSING)),
+    myParentJunction(parentJunction),
+    myCrossingEdges(crossingEdges),
+    myTemplateNBCrossing(nullptr) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }

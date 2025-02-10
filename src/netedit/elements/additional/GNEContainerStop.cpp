@@ -36,13 +36,7 @@
 // ===========================================================================
 
 GNEContainerStop::GNEContainerStop(GNENet* net) :
-    GNEStoppingPlace("", net, GLO_CONTAINER_STOP, SUMO_TAG_CONTAINER_STOP, GUIIconSubSys::getIcon(GUIIcon::CONTAINERSTOP),
-                     nullptr, 0, 0, "", false, Parameterised::Map()),
-    myContainerCapacity(0),
-    myParkingLength(0),
-    myColor(RGBColor::BLACK) {
-    // reset default values
-    resetDefaultValues();
+    GNEStoppingPlace(net, GLO_CONTAINER_STOP, SUMO_TAG_CONTAINER_STOP, GUIIconSubSys::getIcon(GUIIcon::CONTAINERSTOP)) {
 }
 
 

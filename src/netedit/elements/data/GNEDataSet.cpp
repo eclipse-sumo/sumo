@@ -105,8 +105,7 @@ GNEDataSet::AttributeColors::clear() {
 
 GNEDataSet::GNEDataSet(GNENet* net, const std::string dataSetID) :
     GNEAttributeCarrier(SUMO_TAG_DATASET, net),
-    GNEHierarchicalElement({}, {}, {}, {}, {}, {}),
-myDataSetID(dataSetID) {
+    myDataSetID(dataSetID) {
 }
 
 

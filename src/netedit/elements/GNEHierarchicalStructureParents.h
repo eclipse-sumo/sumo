@@ -54,15 +54,6 @@ public:
     /// @brief default constructor
     GNEHierarchicalStructureParents();
 
-    /// @brief parameter constructor
-    GNEHierarchicalStructureParents(
-        const std::vector<GNEJunction*>& parentJunctions,
-        const std::vector<GNEEdge*>& parentEdges,
-        const std::vector<GNELane*>& parentLanes,
-        const std::vector<GNEAdditional*>& parentAdditionals,
-        const std::vector<GNEDemandElement*>& parentDemandElements,
-        const std::vector<GNEGenericData*>& parentGenericDatas);
-
     /// @brief clear container
     void clear();
 

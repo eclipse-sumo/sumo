@@ -30,16 +30,17 @@
 // ===========================================================================
 
 GNERerouterSymbol::GNERerouterSymbol(GNENet* net) :
-    GNEAdditional("", net, GLO_REROUTER, GNE_TAG_REROUTER_SYMBOL, GUIIconSubSys::getIcon(GUIIcon::REROUTER), "",
-{}, {}, {}, {}, {}, {}) {
+    GNEAdditional("", net, GLO_REROUTER, GNE_TAG_REROUTER_SYMBOL, GUIIconSubSys::getIcon(GUIIcon::REROUTER), "") {
     // reset default values
     resetDefaultValues();
 }
 
 
 GNERerouterSymbol::GNERerouterSymbol(GNEAdditional* rerouterParent, GNEEdge* edge) :
-    GNEAdditional(rerouterParent->getNet(), GLO_REROUTER, GNE_TAG_REROUTER_SYMBOL, GUIIconSubSys::getIcon(GUIIcon::REROUTER), "",
-{}, {edge}, {}, {rerouterParent}, {}, {}) {
+    GNEAdditional(rerouterParent, GLO_REROUTER, GNE_TAG_REROUTER_SYMBOL, GUIIconSubSys::getIcon(GUIIcon::REROUTER), "") {
+    // set parents
+    setParent<GNEEdge*>(edge);
+    setParent<GNEAdditional*>(rerouterParent);
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }

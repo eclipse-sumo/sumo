@@ -33,10 +33,9 @@
 // ===========================================================================
 
 GNERouteProbe::GNERouteProbe(GNENet* net) :
-    GNEAdditional("", net, GLO_ROUTEPROBE, SUMO_TAG_ROUTEPROBE,
-                  GUIIconSubSys::getIcon(GUIIcon::ROUTEPROBE), "", {}, {}, {}, {}, {}, {}),
-                            myPeriod(SUMOTime_MAX_PERIOD),
-myBegin(0) {
+    GNEAdditional("", net, GLO_ROUTEPROBE, SUMO_TAG_ROUTEPROBE, GUIIconSubSys::getIcon(GUIIcon::ROUTEPROBE), ""),
+    myPeriod(SUMOTime_MAX_PERIOD),
+    myBegin(0) {
     // reset default values
     resetDefaultValues();
     // update centering boundary without updating grid
@@ -47,13 +46,14 @@ myBegin(0) {
 GNERouteProbe::GNERouteProbe(const std::string& id, GNENet* net, GNEEdge* edge, const SUMOTime period, const std::string& name,
                              const std::string& filename, SUMOTime begin, const std::vector<std::string>& vehicleTypes,
                              const Parameterised::Map& parameters) :
-    GNEAdditional(id, net, GLO_ROUTEPROBE, SUMO_TAG_ROUTEPROBE,
-                  GUIIconSubSys::getIcon(GUIIcon::ROUTEPROBE), name, {}, {edge}, {}, {}, {}, {}),
-Parameterised(parameters),
-myPeriod(period),
-myFilename(filename),
-myBegin(begin),
-myVehicleTypes(vehicleTypes) {
+    GNEAdditional(id, net, GLO_ROUTEPROBE, SUMO_TAG_ROUTEPROBE, GUIIconSubSys::getIcon(GUIIcon::ROUTEPROBE), name),
+    Parameterised(parameters),
+    myPeriod(period),
+    myFilename(filename),
+    myBegin(begin),
+    myVehicleTypes(vehicleTypes) {
+    // set parents
+    setParent<GNEEdge*>(edge);
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }

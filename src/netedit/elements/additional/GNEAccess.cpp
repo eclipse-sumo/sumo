@@ -37,23 +37,26 @@
 // ===========================================================================
 
 GNEAccess::GNEAccess(GNENet* net) :
-    GNEAdditional("", net, GLO_ACCESS, SUMO_TAG_ACCESS, GUIIconSubSys::getIcon(GUIIcon::ACCESS), "", {}, {}, {}, {}, {}, {}),
-              myPositionOverLane(0),
-              myLength(0),
-myFriendlyPosition(false) {
+    GNEAdditional("", net, GLO_ACCESS, SUMO_TAG_ACCESS, GUIIconSubSys::getIcon(GUIIcon::ACCESS), ""),
+    myPositionOverLane(0),
+    myLength(0),
+    myFriendlyPosition(false) {
     // reset default values
     resetDefaultValues();
 }
 
 
-GNEAccess::GNEAccess(GNEAdditional* busStop, GNELane* lane, GNENet* net, const double pos, const std::string& specialPos,
+GNEAccess::GNEAccess(GNEAdditional* busStop, GNELane* lane, const double pos, const std::string& specialPos,
                      const bool friendlyPos, const double length, const Parameterised::Map& parameters) :
-    GNEAdditional(net, GLO_ACCESS, SUMO_TAG_ACCESS, GUIIconSubSys::getIcon(GUIIcon::ACCESS), "", {}, {}, {lane}, {busStop}, {}, {}),
-Parameterised(parameters),
-myPositionOverLane(pos),
-mySpecialPosition(specialPos),
-myLength(length),
-myFriendlyPosition(friendlyPos) {
+    GNEAdditional(busStop, GLO_ACCESS, SUMO_TAG_ACCESS, GUIIconSubSys::getIcon(GUIIcon::ACCESS), ""),
+    Parameterised(parameters),
+    myPositionOverLane(pos),
+    mySpecialPosition(specialPos),
+    myLength(length),
+    myFriendlyPosition(friendlyPos) {
+    // set parents
+    setParent<GNELane*>(lane);
+    setParent<GNEAdditional*>(busStop);
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }

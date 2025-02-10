@@ -32,9 +32,8 @@
 // ===========================================================================
 
 GNETransport::GNETransport(SumoXMLTag tag, GNENet* net) :
-    GNEDemandElement("", net, GLO_TRANSPORT, tag, GUIIconSubSys::getIcon(GUIIcon::TRANSHIP_EDGE),
-                     GNEPathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}),
-GNEDemandElementPlan(this, -1, -1) {
+    GNEDemandElement("", net, GLO_TRANSPORT, tag, GUIIconSubSys::getIcon(GUIIcon::TRANSHIP_EDGE), GNEPathElement::Options::DEMAND_ELEMENT),
+    GNEDemandElementPlan(this, -1, -1) {
     // reset default values
     resetDefaultValues();
 }
@@ -42,13 +41,17 @@ GNEDemandElementPlan(this, -1, -1) {
 
 GNETransport::GNETransport(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* containerParent, const GNEPlanParents& planParameters,
                            const double arrivalPosition, const std::vector<std::string>& lines, const std::string& group) :
-    GNEDemandElement(containerParent, net, GLO_TRANSPORT, tag, GUIIconSubSys::getIcon(icon),
-                     GNEPathElement::Options::DEMAND_ELEMENT,
-                     planParameters.getJunctions(), planParameters.getEdges(), {},
-planParameters.getAdditionalElements(), planParameters.getDemandElements(containerParent), {}),
-GNEDemandElementPlan(this, -1, arrivalPosition),
-myLines(lines),
-myGroup(group) {
+    GNEDemandElement(containerParent, net, GLO_TRANSPORT, tag, GUIIconSubSys::getIcon(icon), GNEPathElement::Options::DEMAND_ELEMENT),
+    GNEDemandElementPlan(this, -1, arrivalPosition),
+    myLines(lines),
+    myGroup(group) {
+    // set parents
+    setParents<GNEJunction*>(planParameters.getJunctions());
+    setParents<GNEEdge*>(planParameters.getEdges());
+    setParents<GNEAdditional*>(planParameters.getAdditionalElements());
+    setParents<GNEDemandElement*>(planParameters.getDemandElements(containerParent));
+    // update centering boundary without updating grid
+    updatePlanCenteringBoundary(false);
 }
 
 

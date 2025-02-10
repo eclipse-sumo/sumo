@@ -64,19 +64,8 @@ public:
      * @param[in] tag Type of xml tag that define the demand element element (SUMO_TAG_ROUTE, SUMO_TAG_VEHICLE, etc...)
      * @param[in] pathOptions path options
      * @param[in] junctionParents vector of junction parents
-     * @param[in] edgeParents vector of edge parents
-     * @param[in] laneParents vector of lane parents
-     * @param[in] additionalParents vector of additional parents
-     * @param[in] demandElementParents vector of demand element parents
-     * @param[in] genericDataParents vector of generic data parents
      */
-    GNEDemandElement(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, FXIcon* icon, const int pathOptions,
-                     const std::vector<GNEJunction*>& junctionParents,
-                     const std::vector<GNEEdge*>& edgeParents,
-                     const std::vector<GNELane*>& laneParents,
-                     const std::vector<GNEAdditional*>& additionalParents,
-                     const std::vector<GNEDemandElement*>& demandElementParents,
-                     const std::vector<GNEGenericData*>& genericDataParents);
+    GNEDemandElement(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, FXIcon* icon, const int pathOptions);
 
     /**@brief Constructor
      * @param[in] demandElementParent pointer to parent demand element pointer (used to generate an ID)
@@ -85,19 +74,8 @@ public:
      * @param[in] tag Type of xml tag that define the demand element element (SUMO_TAG_ROUTE, SUMO_TAG_VEHICLE, etc...)
      * @param[in] pathOptions path options
      * @param[in] junctionParents vector of junction parents
-     * @param[in] edgeParents vector of edge parents
-     * @param[in] laneParents vector of lane parents
-     * @param[in] additionalParents vector of additional parents
-     * @param[in] demandElementParents vector of demand element parents
-     * @param[in] genericDataParents vector of generic data parents
      */
-    GNEDemandElement(GNEDemandElement* demandElementParent, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, FXIcon* icon, const int pathOptions,
-                     const std::vector<GNEJunction*>& junctionParents,
-                     const std::vector<GNEEdge*>& edgeParents,
-                     const std::vector<GNELane*>& laneParents,
-                     const std::vector<GNEAdditional*>& additionalParents,
-                     const std::vector<GNEDemandElement*>& demandElementParents,
-                     const std::vector<GNEGenericData*>& genericDataParents);
+    GNEDemandElement(GNEDemandElement* demandElementParent, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, FXIcon* icon, const int pathOptions);
 
     /// @brief Destructor
     virtual ~GNEDemandElement();

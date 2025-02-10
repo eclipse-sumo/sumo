@@ -34,7 +34,7 @@
 // ===========================================================================
 
 GNEVariableSpeedSign::GNEVariableSpeedSign(GNENet* net) :
-    GNEAdditional("", net, GLO_VSS, SUMO_TAG_VSS, GUIIconSubSys::getIcon(GUIIcon::VARIABLESPEEDSIGN), "", {}, {}, {}, {}, {}, {}) {
+    GNEAdditional("", net, GLO_VSS, SUMO_TAG_VSS, GUIIconSubSys::getIcon(GUIIcon::VARIABLESPEEDSIGN), "") {
     // reset default values
     resetDefaultValues();
 }
@@ -42,10 +42,10 @@ GNEVariableSpeedSign::GNEVariableSpeedSign(GNENet* net) :
 
 GNEVariableSpeedSign::GNEVariableSpeedSign(const std::string& id, GNENet* net, const Position& pos, const std::string& name,
         const std::vector<std::string>& vTypes, const Parameterised::Map& parameters) :
-    GNEAdditional(id, net, GLO_VSS, SUMO_TAG_VSS, GUIIconSubSys::getIcon(GUIIcon::VARIABLESPEEDSIGN), name, {}, {}, {}, {}, {}, {}),
-              Parameterised(parameters),
-              myPosition(pos),
-myVehicleTypes(vTypes) {
+    GNEAdditional(id, net, GLO_VSS, SUMO_TAG_VSS, GUIIconSubSys::getIcon(GUIIcon::VARIABLESPEEDSIGN), name),
+    Parameterised(parameters),
+    myPosition(pos),
+    myVehicleTypes(vTypes) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }

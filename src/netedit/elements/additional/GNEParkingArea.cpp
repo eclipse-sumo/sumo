@@ -36,14 +36,7 @@
 // ===========================================================================
 
 GNEParkingArea::GNEParkingArea(GNENet* net) :
-    GNEStoppingPlace("", net, GLO_PARKING_AREA, SUMO_TAG_PARKING_AREA, GUIIconSubSys::getIcon(GUIIcon::PARKINGAREA),
-                     nullptr, 0, 0, "", false, Parameterised::Map()),
-    myRoadSideCapacity(0),
-    myOnRoad(false),
-    myWidth(0),
-    myLength(0),
-    myAngle(0),
-    myLefthand(false) {
+    GNEStoppingPlace(net, GLO_PARKING_AREA, SUMO_TAG_PARKING_AREA, GUIIconSubSys::getIcon(GUIIcon::PARKINGAREA)) {
     // reset default values
     resetDefaultValues();
 }

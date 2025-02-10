@@ -31,18 +31,11 @@
 // GNEHierarchicalElement - methods
 // ---------------------------------------------------------------------------
 
-GNEHierarchicalElement::GNEHierarchicalElement(
-    const std::vector<GNEJunction*>& parentJunctions,
-    const std::vector<GNEEdge*>& parentEdges,
-    const std::vector<GNELane*>& parentLanes,
-    const std::vector<GNEAdditional*>& parentAdditionals,
-    const std::vector<GNEDemandElement*>& ParentDemandElements,
-    const std::vector<GNEGenericData*>& parentGenericDatas) :
-    myHierarchicalStructureParents(parentJunctions, parentEdges, parentLanes, parentAdditionals, ParentDemandElements, parentGenericDatas) {
-}
+GNEHierarchicalElement::GNEHierarchicalElement() {}
 
 
 GNEHierarchicalElement::~GNEHierarchicalElement() {}
+
 
 const GNEHierarchicalStructureParents
 GNEHierarchicalElement::getParents() const {

@@ -396,10 +396,7 @@ GNEBusStop::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 
 GNEBusStop::GNEBusStop(SumoXMLTag tag, GUIGlObjectType type, GUIIcon icon, GNENet* net) :
-    GNEStoppingPlace("", net, type, tag, GUIIconSubSys::getIcon(icon), nullptr, 0, 0, "", false, Parameterised::Map()),
-    myPersonCapacity(0),
-    myParkingLength(0),
-    myColor(RGBColor::BLACK) {
+    GNEStoppingPlace(net, type, tag, GUIIconSubSys::getIcon(icon)) {
     // reset default values
     resetDefaultValues();
 }

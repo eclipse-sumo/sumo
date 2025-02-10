@@ -38,16 +38,9 @@
 // member method definitions
 // ===========================================================================
 
-GNEDemandElement::GNEDemandElement(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, FXIcon* icon, const int options,
-                                   const std::vector<GNEJunction*>& junctionParents,
-                                   const std::vector<GNEEdge*>& edgeParents,
-                                   const std::vector<GNELane*>& laneParents,
-                                   const std::vector<GNEAdditional*>& additionalParents,
-                                   const std::vector<GNEDemandElement*>& demandElementParents,
-                                   const std::vector<GNEGenericData*>& genericDataParents) :
+GNEDemandElement::GNEDemandElement(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, FXIcon* icon, const int options) :
     GNEAttributeCarrier(tag, net),
     GNEPathElement(type, id, icon, options),
-    GNEHierarchicalElement(junctionParents, edgeParents, laneParents, additionalParents, demandElementParents, genericDataParents),
     GNEDemandElementDistribution(this),
     myStackedLabelNumber(0) {
     // check if is template
@@ -55,16 +48,9 @@ GNEDemandElement::GNEDemandElement(const std::string& id, GNENet* net, GUIGlObje
 }
 
 
-GNEDemandElement::GNEDemandElement(GNEDemandElement* demandElementParent, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, FXIcon* icon, const int options,
-                                   const std::vector<GNEJunction*>& junctionParents,
-                                   const std::vector<GNEEdge*>& edgeParents,
-                                   const std::vector<GNELane*>& laneParents,
-                                   const std::vector<GNEAdditional*>& additionalParents,
-                                   const std::vector<GNEDemandElement*>& demandElementParents,
-                                   const std::vector<GNEGenericData*>& genericDataParents) :
+GNEDemandElement::GNEDemandElement(GNEDemandElement* demandElementParent, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, FXIcon* icon, const int options) :
     GNEAttributeCarrier(tag, net),
     GNEPathElement(type, demandElementParent->getID(), icon, options),
-    GNEHierarchicalElement(junctionParents, edgeParents, laneParents, additionalParents, demandElementParents, genericDataParents),
     GNEDemandElementDistribution(this),
     myStackedLabelNumber(0) {
 }

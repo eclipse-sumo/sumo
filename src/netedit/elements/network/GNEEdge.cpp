@@ -74,21 +74,22 @@ const double GNEEdge::SNAP_RADIUS_SQUARED = (SUMO_const_halfLaneWidth* SUMO_cons
 // ===========================================================================
 
 GNEEdge::GNEEdge(GNENet* net, NBEdge* nbe, bool wasSplit, bool loaded):
-    GNENetworkElement(net, nbe->getID(), GLO_EDGE, SUMO_TAG_EDGE, GUIIconSubSys::getIcon(GUIIcon::EDGE), {
-    net->getAttributeCarriers()->retrieveJunction(nbe->getFromNode()->getID()),
+    GNENetworkElement(net, nbe->getID(), GLO_EDGE, SUMO_TAG_EDGE, GUIIconSubSys::getIcon(GUIIcon::EDGE)),
+    myNBEdge(nbe),
+    myAmResponsible(false),
+    myWasSplit(wasSplit),
+    myConnectionStatus(loaded ? FEATURE_LOADED : FEATURE_GUESSED),
+    myUpdateGeometry(true) {
+    // set parents
+    setParents<GNEJunction*>({
+        net->getAttributeCarriers()->retrieveJunction(nbe->getFromNode()->getID()),
         net->getAttributeCarriers()->retrieveJunction(nbe->getToNode()->getID())
-},
-{}, {}, {}, {}, {}),
-myNBEdge(nbe),
-myAmResponsible(false),
-myWasSplit(wasSplit),
-myConnectionStatus(loaded ? FEATURE_LOADED : FEATURE_GUESSED),
-myUpdateGeometry(true) {
+    });
     // Create lanes
     for (int i = 0; i < myNBEdge->getNumLanes(); i++) {
         auto lane = new GNELane(this, i);
         lane->incRef("GNEEdge::GNEEdge");
-        insertChild(this, lane);
+        addChildElement(lane);
     }
     // update Lane geometries
     for (const auto& lane : getChildLanes()) {

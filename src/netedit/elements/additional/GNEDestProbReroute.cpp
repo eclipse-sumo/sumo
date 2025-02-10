@@ -30,19 +30,20 @@
 
 GNEDestProbReroute::GNEDestProbReroute(GNENet* net):
     GNEAdditional("", net, GLO_REROUTER_DESTPROBREROUTE, SUMO_TAG_DEST_PROB_REROUTE,
-                  GUIIconSubSys::getIcon(GUIIcon::DESTPROBREROUTE), "", {}, {}, {}, {}, {}, {}),
-                            myNewEdgeDestination(nullptr),
-myProbability(0) {
+                  GUIIconSubSys::getIcon(GUIIcon::DESTPROBREROUTE), ""),
+    myNewEdgeDestination(nullptr),
+    myProbability(0) {
     // reset default values
     resetDefaultValues();
 }
 
 
 GNEDestProbReroute::GNEDestProbReroute(GNEAdditional* rerouterIntervalParent, GNEEdge* newEdgeDestination, double probability):
-    GNEAdditional(rerouterIntervalParent->getNet(), GLO_REROUTER_DESTPROBREROUTE, SUMO_TAG_DEST_PROB_REROUTE,
-                  GUIIconSubSys::getIcon(GUIIcon::DESTPROBREROUTE), "", {}, {}, {}, {rerouterIntervalParent}, {}, {}),
-myNewEdgeDestination(newEdgeDestination),
-myProbability(probability) {
+    GNEAdditional(rerouterIntervalParent, GLO_REROUTER_DESTPROBREROUTE, SUMO_TAG_DEST_PROB_REROUTE, GUIIconSubSys::getIcon(GUIIcon::DESTPROBREROUTE), ""),
+    myNewEdgeDestination(newEdgeDestination),
+    myProbability(probability) {
+    // set parents
+    setParent<GNEAdditional*>(rerouterIntervalParent);
     // update boundary of rerouter parent
     rerouterIntervalParent->getParentAdditionals().front()->updateCenteringBoundary(true);
 }

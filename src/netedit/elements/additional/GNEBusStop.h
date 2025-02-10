@@ -132,13 +132,13 @@ protected:
     std::vector<std::string> myLines;
 
     /// @brief maximum number of persons that can wait at this stop
-    int myPersonCapacity;
+    int myPersonCapacity = 0;
 
     /// @brief custom space for vehicles that park at this stop
-    double myParkingLength;
+    double myParkingLength = 0;
 
     /// @brief RGB color
-    RGBColor myColor;
+    RGBColor myColor = RGBColor::BLACK;
 
 private:
     /// @brief set attribute after validation

@@ -30,7 +30,7 @@
 
 GNEDistribution::GNEDistribution(GNENet* net, GUIGlObjectType type, SumoXMLTag elementTag, GUIIcon icon) :
     GNEDemandElement("", net, type, elementTag, GUIIconSubSys::getIcon(icon),
-                     GNEPathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}) {
+                     GNEPathElement::Options::DEMAND_ELEMENT) {
     // reset default values
     resetDefaultValues();
 }
@@ -39,8 +39,8 @@ GNEDistribution::GNEDistribution(GNENet* net, GUIGlObjectType type, SumoXMLTag e
 GNEDistribution::GNEDistribution(GNENet* net, GUIGlObjectType type, SumoXMLTag elementTag, GUIIcon icon,
                                  const std::string& ID, const int deterministic) :
     GNEDemandElement(ID, net, type, elementTag,  GUIIconSubSys::getIcon(icon),
-                     GNEPathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}),
-myDeterministic(deterministic) {
+                     GNEPathElement::Options::DEMAND_ELEMENT),
+    myDeterministic(deterministic) {
 }
 
 

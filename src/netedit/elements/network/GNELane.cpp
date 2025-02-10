@@ -159,26 +159,26 @@ GNELane::DrawingConstants::drawSuperposed() const {
 // ---------------------------------------------------------------------------
 
 GNELane::GNELane(GNEEdge* edge, const int index) :
-    GNENetworkElement(edge->getNet(), edge->getNBEdge()->getLaneID(index), GLO_LANE, SUMO_TAG_LANE,
-                      GUIIconSubSys::getIcon(GUIIcon::LANE), {}, {edge}, {}, {}, {}, {}),
-                                myIndex(index),
-                                myDrawingConstants(new DrawingConstants(this)),
-                                mySpecialColor(nullptr),
-                                mySpecialColorValue(-1),
-myLane2laneConnections(this) {
+    GNENetworkElement(edge->getNet(), edge->getNBEdge()->getLaneID(index), GLO_LANE, SUMO_TAG_LANE, GUIIconSubSys::getIcon(GUIIcon::LANE)),
+    myIndex(index),
+    myDrawingConstants(new DrawingConstants(this)),
+    mySpecialColor(nullptr),
+    mySpecialColorValue(-1),
+    myLane2laneConnections(this) {
+    // set parents
+    setParent<GNEEdge*>(edge);
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
 
 
 GNELane::GNELane() :
-    GNENetworkElement(nullptr, "dummyConstructorGNELane", GLO_LANE, SUMO_TAG_LANE,
-                      GUIIconSubSys::getIcon(GUIIcon::LANE), {}, {}, {}, {}, {}, {}),
-myIndex(-1),
-myDrawingConstants(nullptr),
-mySpecialColor(nullptr),
-mySpecialColorValue(-1),
-myLane2laneConnections(this) {
+    GNENetworkElement(nullptr, "dummyConstructorGNELane", GLO_LANE, SUMO_TAG_LANE, GUIIconSubSys::getIcon(GUIIcon::LANE)),
+    myIndex(-1),
+    myDrawingConstants(nullptr),
+    mySpecialColor(nullptr),
+    mySpecialColorValue(-1),
+    myLane2laneConnections(this) {
 }
 
 

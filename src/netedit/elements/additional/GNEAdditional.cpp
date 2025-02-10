@@ -43,32 +43,18 @@
 // member method definitions
 // ===========================================================================
 
-GNEAdditional::GNEAdditional(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, FXIcon* icon, std::string additionalName,
-                             const std::vector<GNEJunction*>& junctionParents,
-                             const std::vector<GNEEdge*>& edgeParents,
-                             const std::vector<GNELane*>& laneParents,
-                             const std::vector<GNEAdditional*>& additionalParents,
-                             const std::vector<GNEDemandElement*>& demandElementParents,
-                             const std::vector<GNEGenericData*>& genericDataParents) :
+GNEAdditional::GNEAdditional(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, FXIcon* icon, std::string additionalName) :
     GNEAttributeCarrier(tag, net),
     GNEPathElement(type, id, icon, GNEPathElement::Options::ADDITIONAL_ELEMENT),
-    GNEHierarchicalElement(junctionParents, edgeParents, laneParents, additionalParents, demandElementParents, genericDataParents),
     myAdditionalName(additionalName) {
     // check if is template
     myIsTemplate = (id == "");
 }
 
 
-GNEAdditional::GNEAdditional(GNENet* net, GUIGlObjectType type, SumoXMLTag tag, FXIcon* icon, std::string additionalName,
-                             const std::vector<GNEJunction*>& junctionParents,
-                             const std::vector<GNEEdge*>& edgeParents,
-                             const std::vector<GNELane*>& laneParents,
-                             const std::vector<GNEAdditional*>& additionalParents,
-                             const std::vector<GNEDemandElement*>& demandElementParents,
-                             const std::vector<GNEGenericData*>& genericDataParents) :
-    GNEAttributeCarrier(tag, net),
-    GNEPathElement(type, additionalParents.front()->getID(), icon, GNEPathElement::Options::ADDITIONAL_ELEMENT),
-    GNEHierarchicalElement(junctionParents, edgeParents, laneParents, additionalParents, demandElementParents, genericDataParents),
+GNEAdditional::GNEAdditional(GNEAdditional* additionalParent, GUIGlObjectType type, SumoXMLTag tag, FXIcon* icon, std::string additionalName) :
+    GNEAttributeCarrier(tag, additionalParent->getNet()),
+    GNEPathElement(type, additionalParent->getID(), icon, GNEPathElement::Options::ADDITIONAL_ELEMENT),
     myAdditionalName(additionalName) {
 }
 

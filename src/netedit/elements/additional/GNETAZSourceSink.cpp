@@ -34,16 +34,19 @@
 // ===========================================================================
 
 GNETAZSourceSink::GNETAZSourceSink(SumoXMLTag tag, GNENet* net) :
-    GNEAdditional(net, GLO_TAZ, tag, GUIIconSubSys::getIcon(GUIIcon::MODETAZ), "", {}, {}, {}, {}, {}, {}),
-myDepartWeight(0) {
+    GNEAdditional("", net, GLO_TAZ, tag, GUIIconSubSys::getIcon(GUIIcon::MODETAZ), ""),
+    myDepartWeight(0) {
     // reset default values
     resetDefaultValues();
 }
 
 
 GNETAZSourceSink::GNETAZSourceSink(SumoXMLTag sourceSinkTag, GNEAdditional* TAZParent, GNEEdge* edge, double departWeight) :
-    GNEAdditional(TAZParent->getNet(), GLO_TAZ, sourceSinkTag, GUIIconSubSys::getIcon(GUIIcon::MODETAZ), "", {}, {edge}, {}, {TAZParent}, {}, {}),
-myDepartWeight(departWeight) {
+    GNEAdditional(TAZParent, GLO_TAZ, sourceSinkTag, GUIIconSubSys::getIcon(GUIIcon::MODETAZ), ""),
+    myDepartWeight(departWeight) {
+    // set parents
+    setParent<GNEEdge*>(edge);
+    setParent<GNEAdditional*>(TAZParent);
     //check that this is a TAZ Source OR a TAZ Sink
     if ((sourceSinkTag != SUMO_TAG_TAZSOURCE) && (sourceSinkTag != SUMO_TAG_TAZSINK)) {
         throw InvalidArgument("Invalid TAZ Child Tag");

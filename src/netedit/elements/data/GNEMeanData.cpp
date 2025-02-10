@@ -30,8 +30,7 @@
 
 GNEMeanData::GNEMeanData(GNENet* net, SumoXMLTag tag, const std::string& id) :
     GNEAttributeCarrier(tag, net),
-    GNEHierarchicalElement({}, {}, {}, {}, {}, {}),
-myID(id) {
+    myID(id) {
     // reset default values
     resetDefaultValues();
     // set file
@@ -47,24 +46,23 @@ GNEMeanData::GNEMeanData(GNENet* net, SumoXMLTag tag, std::string ID, std::strin
                          std::string excludeEmpty, const bool withInternal, const std::vector<std::string>& detectPersons,
                          const double minSamples, const double maxTravelTime, const std::vector<std::string>& vTypes, const double speedThreshold) :
     GNEAttributeCarrier(tag, net),
-    GNEHierarchicalElement({}, {}, {}, {}, {}, {}),
-myID(ID),
-myFile(file),
-myPeriod(period),
-myBegin(begin),
-myEnd(end),
-myTrackVehicles(trackVehicles),
-myWrittenAttributes(writtenAttributes),
-myAggregate(aggregate),
-myEdges(edges),
-myEdgeFile(edgeFile),
-myExcludeEmpty(excludeEmpty),
-myWithInternal(withInternal),
-myDetectPersons(detectPersons),
-myMinSamples(minSamples),
-myMaxTravelTime(maxTravelTime),
-myVTypes(vTypes),
-mySpeedThreshold(speedThreshold) {
+    myID(ID),
+    myFile(file),
+    myPeriod(period),
+    myBegin(begin),
+    myEnd(end),
+    myTrackVehicles(trackVehicles),
+    myWrittenAttributes(writtenAttributes),
+    myAggregate(aggregate),
+    myEdges(edges),
+    myEdgeFile(edgeFile),
+    myExcludeEmpty(excludeEmpty),
+    myWithInternal(withInternal),
+    myDetectPersons(detectPersons),
+    myMinSamples(minSamples),
+    myMaxTravelTime(maxTravelTime),
+    myVTypes(vTypes),
+    mySpeedThreshold(speedThreshold) {
     // set file
     if (myFile.empty()) {
         myFile = (myID + ".xml");

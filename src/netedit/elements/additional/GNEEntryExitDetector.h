@@ -41,14 +41,13 @@ public:
 
     /**@brief Constructor
      * @param[in] entryExitTag Child Tag (Either SUMO_TAG_DET_ENTRY or SUMO_TAG_DET_EXIT)
-     * @param[in] net pointer to GNENet of this additional element belongs
      * @param[in] parent pointer to GNEMultiEntryExitDetector of this GNEEntryExitDetector belongs
      * @param[in] lane Lane of this detector is placed
      * @param[in] pos position of the detector on the lane
      * @param[in] friendlyPos enable or disable friendly positions
      * @param[in] parameters generic parameters
      */
-    GNEEntryExitDetector(SumoXMLTag entryExitTag, GNENet* net, GNEAdditional* parent, GNELane* lane, const double pos, const bool friendlyPos,
+    GNEEntryExitDetector(SumoXMLTag entryExitTag, GNEAdditional* parent, GNELane* lane, const double pos, const bool friendlyPos,
                          const Parameterised::Map& parameters);
 
     /// @brief destructor

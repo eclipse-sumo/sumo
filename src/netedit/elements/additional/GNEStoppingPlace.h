@@ -31,7 +31,14 @@
 class GNEStoppingPlace : public GNEAdditional, public Parameterised {
 
 public:
-    /**@brief Constructor.
+    /**@brief Default constructor
+     * @param[in] net pointer to GNENet of this additional element belongs
+     * @param[in] type GUIGlObjectType of stoppingPlace
+     * @param[in] tag Type of xml tag that define the StoppingPlace (SUMO_TAG_BUS_STOP, SUMO_TAG_CHARGING_STATION, etc...)
+     */
+    GNEStoppingPlace(GNENet* net, GUIGlObjectType type, SumoXMLTag tag, FXIcon* icon);
+
+    /**@brief Constructor
      * @param[in] id Gl-id of the stopping place (Must be unique)
      * @param[in] net pointer to GNENet of this additional element belongs
      * @param[in] type GUIGlObjectType of stoppingPlace
@@ -149,13 +156,13 @@ public:
 
 protected:
     /// @brief The relative start position this stopping place is located at (-1 means empty)
-    double myStartPosition;
+    double myStartPosition = 0;
 
     /// @brief The  position this stopping place is located at (-1 means empty)
-    double myEndPosition;
+    double myEndPosition = 0;
 
     /// @brief Flag for friendly position
-    bool myFriendlyPosition;
+    bool myFriendlyPosition = false;
 
     /// @brief The position of the sign
     Position mySymbolPosition;

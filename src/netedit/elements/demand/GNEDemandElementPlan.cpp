@@ -940,8 +940,6 @@ GNEDemandElementPlan::GNEDemandElementPlan(GNEDemandElement* planElement, const 
     myDepartPosition(departPosition),
     myArrivalPosition(arrivalPosition),
     myPlanElement(planElement) {
-    // update centering boundary without updating grid
-    updatePlanCenteringBoundary(false);
 }
 
 

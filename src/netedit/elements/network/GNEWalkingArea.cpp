@@ -37,9 +37,9 @@
 
 GNEWalkingArea::GNEWalkingArea(GNEJunction* parentJunction, const std::string& ID) :
     GNENetworkElement(parentJunction->getNet(), ID, GLO_WALKINGAREA, SUMO_TAG_WALKINGAREA,
-                      GUIIconSubSys::getIcon(GUIIcon::WALKINGAREA),  {}, {}, {}, {}, {}, {}),
-                                myParentJunction(parentJunction),
-myTesselation(ID, "", RGBColor::GREY, parentJunction->getNBNode()->getWalkingArea(ID).shape, false, true, 0) {
+                      GUIIconSubSys::getIcon(GUIIcon::WALKINGAREA)),
+    myParentJunction(parentJunction),
+    myTesselation(ID, "", RGBColor::GREY, parentJunction->getNBNode()->getWalkingArea(ID).shape, false, true, 0) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }

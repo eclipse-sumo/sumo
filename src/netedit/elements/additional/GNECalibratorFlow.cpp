@@ -36,8 +36,7 @@
 // ===========================================================================
 
 GNECalibratorFlow::GNECalibratorFlow(GNENet* net) :
-    GNEAdditional("", net, GLO_CALIBRATOR, GNE_TAG_CALIBRATOR_FLOW, GUIIconSubSys::getIcon(GUIIcon::CALIBRATOR), "",
-{}, {}, {}, {}, {}, {}) {
+    GNEAdditional("", net, GLO_CALIBRATOR, GNE_TAG_CALIBRATOR_FLOW, GUIIconSubSys::getIcon(GUIIcon::CALIBRATOR), "") {
     // reset default values
     resetDefaultValues();
     // set VPH and speed enabled
@@ -49,9 +48,10 @@ GNECalibratorFlow::GNECalibratorFlow(GNENet* net) :
 
 
 GNECalibratorFlow::GNECalibratorFlow(GNEAdditional* calibratorParent, GNEDemandElement* vehicleType, GNEDemandElement* route) :
-    GNEAdditional(calibratorParent->getNet(), GLO_CALIBRATOR, GNE_TAG_CALIBRATOR_FLOW, GUIIconSubSys::getIcon(GUIIcon::CALIBRATOR), "",
-{}, {}, {}, {calibratorParent}, {vehicleType, route}, {}),
-SUMOVehicleParameter() {
+    GNEAdditional(calibratorParent, GLO_CALIBRATOR, GNE_TAG_CALIBRATOR_FLOW, GUIIconSubSys::getIcon(GUIIcon::CALIBRATOR), "") {
+    // set parents
+    setParent<GNEAdditional*>(calibratorParent);
+    setParents<GNEDemandElement*>({vehicleType, route});
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
     // reset ID
@@ -61,9 +61,11 @@ SUMOVehicleParameter() {
 
 GNECalibratorFlow::GNECalibratorFlow(GNEAdditional* calibratorParent, GNEDemandElement* vehicleType, GNEDemandElement* route,
                                      const SUMOVehicleParameter& vehicleParameters) :
-    GNEAdditional(calibratorParent->getNet(), GLO_CALIBRATOR, GNE_TAG_CALIBRATOR_FLOW, GUIIconSubSys::getIcon(GUIIcon::CALIBRATOR), "",
-{}, {}, {}, {calibratorParent}, {vehicleType, route}, {}),
-SUMOVehicleParameter(vehicleParameters) {
+    GNEAdditional(calibratorParent, GLO_CALIBRATOR, GNE_TAG_CALIBRATOR_FLOW, GUIIconSubSys::getIcon(GUIIcon::CALIBRATOR), ""),
+    SUMOVehicleParameter(vehicleParameters) {
+    // set parents
+    setParent<GNEAdditional*>(calibratorParent);
+    setParents<GNEDemandElement*>({vehicleType, route});
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
     // reset ID

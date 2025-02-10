@@ -34,12 +34,11 @@
 // ===========================================================================
 
 GNERerouter::GNERerouter(GNENet* net) :
-    GNEAdditional("", net, GLO_REROUTER, SUMO_TAG_REROUTER, GUIIconSubSys::getIcon(GUIIcon::REROUTER), "",
-{}, {}, {}, {}, {}, {}),
-myProbability(0),
-myOff(false),
-myOptional(false),
-myTimeThreshold(0) {
+    GNEAdditional("", net, GLO_REROUTER, SUMO_TAG_REROUTER, GUIIconSubSys::getIcon(GUIIcon::REROUTER), ""),
+    myProbability(0),
+    myOff(false),
+    myOptional(false),
+    myTimeThreshold(0) {
     // reset default values
     resetDefaultValues();
 }
@@ -48,15 +47,14 @@ myTimeThreshold(0) {
 GNERerouter::GNERerouter(const std::string& id, GNENet* net, const Position& pos, const std::string& name,
                          double probability, bool off, bool optional, SUMOTime timeThreshold, const std::vector<std::string>& vTypes,
                          const Parameterised::Map& parameters) :
-    GNEAdditional(id, net, GLO_REROUTER, SUMO_TAG_REROUTER, GUIIconSubSys::getIcon(GUIIcon::REROUTER), name,
-{}, {}, {}, {}, {}, {}),
-Parameterised(parameters),
-myPosition(pos),
-myProbability(probability),
-myOff(off),
-myOptional(optional),
-myTimeThreshold(timeThreshold),
-myVTypes(vTypes) {
+    GNEAdditional(id, net, GLO_REROUTER, SUMO_TAG_REROUTER, GUIIconSubSys::getIcon(GUIIcon::REROUTER), name),
+    Parameterised(parameters),
+    myPosition(pos),
+    myProbability(probability),
+    myOff(off),
+    myOptional(optional),
+    myTimeThreshold(timeThreshold),
+    myVTypes(vTypes) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
