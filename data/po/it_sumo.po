@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-04 15:47+0100\n"
-"PO-Revision-Date: 2025-02-07 14:37+0000\n"
+"PO-Revision-Date: 2025-02-10 08:40+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -4977,21 +4977,29 @@ msgstr ""
 #: src/microsim/devices/MSDevice_ToC.cpp:131
 msgid "If true, the vehicle tries to change to the right during an MRM."
 msgstr ""
+"Se impostato il veicolo prova a cambiare corsia verso destra durante una "
+"manovra di rischio minimo (MRM)."
 
 #: src/microsim/devices/MSDevice_ToC.cpp:133
 msgid ""
 "If set, the vehicle tries to reach the given named stopping place during an "
 "MRM."
 msgstr ""
+"Se impostato il veicolo prova a raggiungere il punto di fermata indicato nel "
+"corso di una manovra di rischio minimo (MRM)."
 
 #: src/microsim/devices/MSDevice_ToC.cpp:135
 msgid "Duration the vehicle stays at the safe spot after an MRM."
 msgstr ""
+"Durata che il veicolo passa nel punto sicuro dopo aver fatto una manovra di "
+"rischio minimo (MRM)."
 
 #: src/microsim/devices/MSDevice_ToC.cpp:137
 msgid ""
 "Maximal acceleration that may be applied during the ToC preparation phase."
 msgstr ""
+"Accelerazione massima da utilizzare durante la fase di preparazione della "
+"transizione di controllo (ToC)."
 
 #: src/microsim/devices/MSDevice_ToC.cpp:139
 msgid "Timegap for ToC preparation phase."
@@ -13360,51 +13368,60 @@ msgstr "File '%' è una cartella!"
 
 #: src/utils/xml/SUMOSAXReader.cpp:156 src/utils/xml/SUMOSAXReader.cpp:165
 msgid "The XML-parser was not initialized."
-msgstr ""
+msgstr "L'analizzatore XML non è stato inizializzato."
 
 #: src/utils/xml/SUMOSAXReader.cpp:196
 msgid "The XML-parser could not be build."
-msgstr ""
+msgstr "L'analizzatore XML non poteva essere creato."
 
 #: src/utils/xml/XMLSubSys.cpp:73
 msgid ""
 "Environment variable SUMO_HOME is not set properly, disabling XML "
 "validation. Set 'auto' or 'always' for web lookups."
 msgstr ""
+"La variabile di ambiente SUMO_HOME non è impostata correttamente, perciò la "
+"validazione XML è disattivata. Usa 'auto' o 'always' per scaricare i dati "
+"necessari da Internet."
 
 #: src/utils/xml/XMLSubSys.cpp:95
 msgid ""
 "Environment variable SUMO_HOME is not set properly, XML validation will fail"
 " or use slow website lookups."
 msgstr ""
+"La variable di ambiente SUMO_HOME non è impostata correttamente, perciò la "
+"validazione XML fallirà o sarà rallentata dallo scaricamento da Internet."
 
 #: src/utils/xml/XMLSubSys.cpp:110
 msgid "Cannot read local schema '%'."
-msgstr ""
+msgstr "Lo schema locale '%' non poteva essere letto."
 
 #: src/utils/xml/XMLSubSys.cpp:158
 msgid ""
 "Disabling XML validation for external file '%'. Use 'auto' or 'always' to "
 "enable."
 msgstr ""
+"La validazione XML è disattivata per il file esterno '%'. Usa 'auto' o "
+"'always' per attivarla."
 
 #: src/utils/xml/XMLSubSys.cpp:180
 msgid "Runtime error: % while parsing '%'"
-msgstr ""
+msgstr "Errore a tempo di esecuzione: % mentre si analizza '%'"
 
 #: src/utils/xml/XMLSubSys.cpp:182
 msgid "Error occurred: % while parsing '%'"
-msgstr ""
+msgstr "Si è prodotto un errore: % mentre si analizza '%'"
 
 #: src/utils/xml/XMLSubSys.cpp:184
 msgid ""
 "SAX error occurred while parsing '%':\n"
 " %"
 msgstr ""
+"Si è prodotto un errore SAX mentre si analizza '%':\n"
+" %"
 
 #: src/utils/xml/XMLSubSys.cpp:186
 msgid "Unspecified error occurred while parsing '%'"
-msgstr ""
+msgstr "Si è prodotto un errore non specificato mentre si analizza '%'"
 
 #~ msgid ""
 #~ "Teleporting vehicle '%'; waited too long, from edge '%':% to edge '%':%, "
