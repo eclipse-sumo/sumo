@@ -20,22 +20,19 @@
 
 #include <netedit/GNENet.h>
 #include <netedit/GNESegment.h>
-#include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/frames/common/GNESelectorFrame.h>
-#include <netedit/frames/demand/GNEVehicleFrame.h>
-#include <netedit/frames/demand/GNEPersonFrame.h>
-#include <netedit/frames/demand/GNEPersonPlanFrame.h>
 #include <netedit/frames/demand/GNEContainerFrame.h>
 #include <netedit/frames/demand/GNEContainerPlanFrame.h>
+#include <netedit/frames/demand/GNEPersonFrame.h>
+#include <netedit/frames/demand/GNEPersonPlanFrame.h>
+#include <netedit/frames/demand/GNEVehicleFrame.h>
 #include <utils/gui/div/GLHelper.h>
+#include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
-#include <utils/gui/div/GUIDesigns.h>
-#include <utils/gui/div/GUIGlobalViewObjectsHandler.h>
 
 #include "GNEDemandElement.h"
-#include "GNERouteHandler.h"
 
 // ===========================================================================
 // member method definitions
@@ -74,6 +71,12 @@ GNEDemandElement::GNEDemandElement(GNEDemandElement* demandElementParent, GNENet
 
 
 GNEDemandElement::~GNEDemandElement() {}
+
+
+GNEHierarchicalElement*
+GNEDemandElement::getHierarchicalElement() {
+    return this;
+}
 
 
 void

@@ -24,11 +24,6 @@
 #include <netedit/elements/GNEAttributeCarrier.h>
 #include <netedit/elements/GNEHierarchicalElement.h>
 #include <netedit/elements/GNEPathElement.h>
-#include <utils/common/Parameterised.h>
-#include <utils/geom/PositionVector.h>
-#include <utils/gui/div/GUIGeometry.h>
-#include <utils/gui/globjects/GUIGlObject.h>
-#include <utils/vehicle/SUMOVehicleParameter.h>
 
 #include "GNEDemandElementDistribution.h"
 
@@ -36,14 +31,7 @@
 // class declarations
 // ===========================================================================
 
-class GNENet;
-class GNEAdditional;
-class GNEDemandElement;
-class GNENetworkElement;
-class GNEGenericData;
-class GNEEdge;
-class GNELane;
-class GNEJunction;
+class SUMOVehicleParameter;
 
 // ===========================================================================
 // class definitions
@@ -115,9 +103,7 @@ public:
     virtual ~GNEDemandElement();
 
     /// @brief get GNEHierarchicalElement associated with this AttributeCarrier
-    GNEHierarchicalElement* getHierarchicalElement() {
-        return this;
-    }
+    GNEHierarchicalElement* getHierarchicalElement();
 
     /**@brief get move operation
      * @note returned GNEMoveOperation can be nullptr
