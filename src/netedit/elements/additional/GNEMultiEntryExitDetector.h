@@ -19,16 +19,13 @@
 /****************************************************************************/
 #pragma once
 #include <config.h>
-#include "GNEAdditional.h"
 
+#include "GNEAdditional.h"
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/**
- * @class GNEMultiEntryExitDetector
- * Class for multy Entry/multy Exits detectors
- */
+
 class GNEMultiEntryExitDetector : public GNEAdditional, public Parameterised {
 
 public:

@@ -20,6 +20,7 @@
 /****************************************************************************/
 #pragma once
 #include <config.h>
+
 #include <utils/shapes/PointOfInterest.h>
 #include <utils/xml/CommonXMLStructure.h>
 
@@ -28,18 +29,13 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
+
 class GNELane;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/**
- * @class GNEPOI
- *
- * In the case the represented junction's shape is empty, the boundary
- *  is computed using the junction's position to which an offset of 1m to each
- *  side is added.
- */
+
 class GNEPOI : public PointOfInterest, public GNEAdditional {
 
 public:

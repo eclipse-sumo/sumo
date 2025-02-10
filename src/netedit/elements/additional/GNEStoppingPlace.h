@@ -19,15 +19,13 @@
 /****************************************************************************/
 #pragma once
 #include <config.h>
+
 #include "GNEAdditional.h"
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/**
- * @class GNEStoppingPlace
- * @briefA abstract class to define common parameters and functions of stopping places
- */
+
 class GNEStoppingPlace : public GNEAdditional, public Parameterised {
 
 public:

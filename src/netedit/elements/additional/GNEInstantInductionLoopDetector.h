@@ -19,16 +19,13 @@
 /****************************************************************************/
 #pragma once
 #include <config.h>
-#include "GNEDetector.h"
 
+#include "GNEDetector.h"
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/**
- * @class GNEInstantInductionLoopDetector
- * Class for detector of type E1
- */
+
 class GNEInstantInductionLoopDetector : public GNEDetector {
 
 public:

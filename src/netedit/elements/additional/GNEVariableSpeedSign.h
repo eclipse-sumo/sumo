@@ -19,6 +19,7 @@
 /****************************************************************************/
 #pragma once
 #include <config.h>
+
 #include "GNEAdditional.h"
 
 // ===========================================================================
@@ -30,10 +31,7 @@ class GNEVariableSpeedSignStep;
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/**
- * @class GNEVariableSpeedSign
- * allows the simulation of variable speed signs
- */
+
 class GNEVariableSpeedSign : public GNEAdditional, public Parameterised {
 
 public:

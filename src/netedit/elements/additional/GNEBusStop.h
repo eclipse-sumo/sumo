@@ -19,17 +19,13 @@
 /****************************************************************************/
 #pragma once
 #include <config.h>
-#include "GNEStoppingPlace.h"
 
+#include "GNEStoppingPlace.h"
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
-/**
- * @class GNEBusStop
- * @brief A lane area vehicles can halt at (netedit-version)
- */
 class GNEBusStop : public GNEStoppingPlace {
 
 public:

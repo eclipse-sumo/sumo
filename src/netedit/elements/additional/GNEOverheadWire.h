@@ -19,16 +19,13 @@
 /****************************************************************************/
 #pragma once
 #include <config.h>
-#include "GNEAdditional.h"
 
+#include "GNEAdditional.h"
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/**
- * @class GNEOverheadWire
- * class for overhead wires
- */
+
 class GNEOverheadWire : public GNEAdditional, public Parameterised {
 
 public:

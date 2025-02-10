@@ -19,6 +19,7 @@
 /****************************************************************************/
 #pragma once
 #include <config.h>
+
 #include "GNEAdditional.h"
 
 // ===========================================================================
@@ -31,10 +32,7 @@ class GNEVariableSpeedSignDialog;
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/**
- * @class GNEVariableSpeedSignStep
- * class used to represent a interval used in variable speed sign
- */
+
 class GNEVariableSpeedSignStep : public GNEAdditional {
 
 public:

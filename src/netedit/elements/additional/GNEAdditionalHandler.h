@@ -23,10 +23,10 @@
 #include <utils/common/SUMOVehicleClass.h>
 #include <utils/handlers/AdditionalHandler.h>
 
-
 // ===========================================================================
 // class declarations
 // ===========================================================================
+
 class GNENet;
 class GNEEdge;
 class GNELane;
@@ -36,8 +36,6 @@ class GNEAdditional;
 // class definitions
 // ===========================================================================
 
-/// @class GNEAdditionalHandler
-/// @brief Builds additional objects for GNENet (busStops, chargingStations, detectors, etc..)
 class GNEAdditionalHandler : public AdditionalHandler {
 
 public:

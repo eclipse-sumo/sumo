@@ -19,6 +19,7 @@
 /****************************************************************************/
 #pragma once
 #include <config.h>
+
 #include "GNEDetector.h"
 
 // ===========================================================================
@@ -29,10 +30,7 @@ class GNEMultiEntryExitDetector;
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/**
- * @class GNEEntryExitDetector
- * Class for detector of type Entry
- */
+
 class GNEEntryExitDetector : public GNEDetector {
 
 public:

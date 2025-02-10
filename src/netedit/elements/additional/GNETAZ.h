@@ -19,6 +19,7 @@
 /****************************************************************************/
 #pragma once
 #include <config.h>
+
 #include <netedit/GNEMoveElement.h>
 #include <utils/gui/globjects/GUIPolygon.h>
 
@@ -27,10 +28,7 @@
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/**
- * @class GNETAZ
- * Class for Traffic Assign Zones (TAZs)
- */
+
 class GNETAZ : public GNEAdditional, public TesselatedPolygon {
 
 public:

@@ -19,16 +19,13 @@
 /****************************************************************************/
 #pragma once
 #include <config.h>
-#include "GNEDetector.h"
 
+#include "GNEDetector.h"
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/**
- * @class GNELaneAreaDetector
- * class for detector of type E2
- */
+
 class GNELaneAreaDetector : public GNEDetector {
 
 public:

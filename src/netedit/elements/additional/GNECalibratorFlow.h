@@ -33,10 +33,7 @@ class GNECalibratorDialog;
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/**
- * @class GNECalibratorFlow
- * flow flow used by GNECalibrators
- */
+
 class GNECalibratorFlow : public GNEAdditional, public SUMOVehicleParameter {
 
 public:

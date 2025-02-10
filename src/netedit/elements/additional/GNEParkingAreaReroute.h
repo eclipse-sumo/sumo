@@ -19,6 +19,7 @@
 /****************************************************************************/
 #pragma once
 #include <config.h>
+
 #include "GNEAdditional.h"
 
 // ===========================================================================
@@ -33,10 +34,7 @@ class GNEParkingArea;
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/**
- * @class GNEParkingAreaReroute
- * forces the rerouter to assign a new route
- */
+
 class GNEParkingAreaReroute : public GNEAdditional {
 
 public:

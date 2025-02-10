@@ -19,15 +19,13 @@
 /****************************************************************************/
 #pragma once
 #include <config.h>
+
 #include "GNEAdditional.h"
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/**
- * @class GNEdetector
- * @briefA abstract class to define common parameters and functions of detectors
- */
+
 class GNEDetector : public GNEAdditional, public Parameterised {
 
 public:

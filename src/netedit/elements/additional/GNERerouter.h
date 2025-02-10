@@ -19,6 +19,7 @@
 /****************************************************************************/
 #pragma once
 #include <config.h>
+
 #include "GNEAdditional.h"
 
 // ===========================================================================
@@ -30,10 +31,7 @@ class GNEEdge;
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/**
- * @class GNERerouter
- * Rerouter changes the route of a vehicle as soon as the vehicle moves onto a specified edge.
- */
+
 class GNERerouter : public GNEAdditional, public Parameterised {
 
 public:

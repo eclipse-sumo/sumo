@@ -19,6 +19,7 @@
 /****************************************************************************/
 #pragma once
 #include <config.h>
+
 #include "GNEAdditional.h"
 
 // ===========================================================================
@@ -31,10 +32,7 @@ class GNERerouterIntervalDialog;
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/**
- * @class GNEClosingReroute
- * the rerouter to close the street (edge)
- */
+
 class GNEClosingReroute : public GNEAdditional {
 
 public:

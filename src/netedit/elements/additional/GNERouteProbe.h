@@ -19,16 +19,13 @@
 /****************************************************************************/
 #pragma once
 #include <config.h>
-#include "GNEAdditional.h"
 
+#include "GNEAdditional.h"
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/**
- * @class GNERouteProbe
- * @brief Representation of a RouteProbe in netedit
- */
+
 class GNERouteProbe : public GNEAdditional, public Parameterised {
 
 public:

@@ -19,6 +19,7 @@
 /****************************************************************************/
 #pragma once
 #include <config.h>
+
 #include "GNEAdditional.h"
 
 // ===========================================================================
@@ -36,10 +37,7 @@ class GNEParkingAreaReroute;
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/**
- * @class GNERerouterInterval
- * class used to represent a interval used in rerouters
- */
+
 class GNERerouterInterval : public GNEAdditional {
 
 public:

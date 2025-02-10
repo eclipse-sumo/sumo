@@ -38,10 +38,6 @@ class GUIGLObjectPopupMenu;
 // class definitions
 // ===========================================================================
 
-/**
- * @class GNEAdditional
- * @brief An Element which don't belong to GNENet but has influence in the simulation
- */
 class GNEAdditional : public GNEAttributeCarrier, public GNEPathElement, public GNEHierarchicalElement, public GNEMoveElement {
 
 public:

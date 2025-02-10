@@ -19,21 +19,19 @@
 /****************************************************************************/
 #pragma once
 #include <config.h>
+
 #include "GNEAdditional.h"
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
+
 class GNEParkingArea;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
-/**
- * @class GNEParkingSpace
- * @brief vehicle space used by GNEParkingAreas
- */
 class GNEParkingSpace : public GNEAdditional, public Parameterised {
 
 public:

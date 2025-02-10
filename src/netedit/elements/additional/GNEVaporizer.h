@@ -22,14 +22,10 @@
 
 #include "GNEAdditional.h"
 
-
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/**
- * @class GNEVaporizer
- * @brief Representation of a vaporizer in netedit
- */
+
 class GNEVaporizer : public GNEAdditional, public Parameterised {
 
 public:

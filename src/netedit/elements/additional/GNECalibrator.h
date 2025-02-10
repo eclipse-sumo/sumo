@@ -19,6 +19,7 @@
 /****************************************************************************/
 #pragma once
 #include <config.h>
+
 #include "GNEAdditional.h"
 
 // ===========================================================================
@@ -32,10 +33,7 @@ class GNERoute;
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/**
- * @class GNECalibrator
- * class for represent Calibrators in netedit
- */
+
 class GNECalibrator : public GNEAdditional, public Parameterised {
 
 public:

@@ -19,8 +19,8 @@
 /****************************************************************************/
 #pragma once
 #include <config.h>
-#include "GNEStoppingPlace.h"
 
+#include "GNEStoppingPlace.h"
 
 // ===========================================================================
 // class definitions

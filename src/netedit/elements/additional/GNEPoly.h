@@ -28,19 +28,14 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
+
 class GeoConvHelper;
 class GNENetworkElement;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/**
- * @class GNEPoly
- *
- * In the case the represented junction's shape is empty, the boundary
- *  is computed using the junction's position to which an offset of 1m to each
- *  side is added.
- */
+
 class GNEPoly : public TesselatedPolygon, public GNEAdditional {
 
 public:
