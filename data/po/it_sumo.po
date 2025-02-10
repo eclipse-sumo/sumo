@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-04 15:47+0100\n"
-"PO-Revision-Date: 2025-02-10 10:44+0000\n"
+"PO-Revision-Date: 2025-02-11 14:01+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -6134,12 +6134,16 @@ msgid ""
 "Cannot extend track direction priority because there are no track edges with"
 " positive priority"
 msgstr ""
+"La priorità della direzione di binari non può essere allargata perché non ci "
+"sono binari con una priorità positiva"
 
 #: src/netbuild/NBAlgorithms_Railway.cpp:1273
 msgid ""
 "Edge '%' was loaded with undefined priority (%) but has unambiguous main "
 "direction (no bidi edge)"
 msgstr ""
+"L'arco '%' è stato caricato con una priorità non definita (%) ma possiede "
+"una direzione principale inequivocabile (non è bidirezionale)"
 
 #: src/netbuild/NBAlgorithms_Railway.cpp:1365
 msgid "Added % rail signals at % stops."
@@ -7264,7 +7268,7 @@ msgstr ""
 
 #: src/netbuild/NBNetBuilder.cpp:94
 msgid "Removing self-loops"
-msgstr ""
+msgstr "Rimozione di archi con nodi inizialei e terminali identici"
 
 #: src/netbuild/NBNetBuilder.cpp:99
 msgid "Finding isolated roads"
@@ -7297,7 +7301,7 @@ msgstr " % archi sono stati rimossi a causa della classe di veicoli."
 #: src/netbuild/NBNetBuilder.cpp:136
 #, c-format
 msgid " Removed % edges because of lane width."
-msgstr ""
+msgstr " % archi sono stati rimossi dovuti alla larghezza di corsia."
 
 #: src/netbuild/NBNetBuilder.cpp:141
 msgid "Processing public transport stops"
