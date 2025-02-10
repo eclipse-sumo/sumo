@@ -60,7 +60,7 @@ FXIMPLEMENT(GNEElementTree,    MFXGroupBoxModule,     HierarchicalElementTreeMap
 GNEElementTree::GNEElementTree(GNEFrame* frameParent) :
     MFXGroupBoxModule(frameParent, TL("Hierarchy")),
     myFrameParent(frameParent),
-    myHE(nullptr),
+    myHierarchicalElement(nullptr),
     myClickedAC(nullptr),
     myClickedJunction(nullptr),
     myClickedEdge(nullptr),
@@ -83,9 +83,9 @@ GNEElementTree::~GNEElementTree() {}
 
 void
 GNEElementTree::showHierarchicalElementTree(GNEAttributeCarrier* AC) {
-    myHE = dynamic_cast<GNEHierarchicalElement*>(AC);
+    myHierarchicalElement = AC;
     // show GNEElementTree and refresh GNEElementTree
-    if (myHE) {
+    if (myHierarchicalElement) {
         // refresh GNEElementTree
         refreshHierarchicalElementTree();
         // show myTreeListDynamic
@@ -99,7 +99,7 @@ GNEElementTree::showHierarchicalElementTree(GNEAttributeCarrier* AC) {
 void
 GNEElementTree::hideHierarchicalElementTree() {
     // set all pointers null
-    myHE = nullptr;
+    myHierarchicalElement = nullptr;
     myClickedAC = nullptr;
     myClickedJunction = nullptr;
     myClickedEdge = nullptr;
@@ -125,8 +125,8 @@ GNEElementTree::refreshHierarchicalElementTree() {
     myTreeItemToACMap.clear();
     myTreeItemsConnections.clear();
     // show children of myHE
-    if (myHE) {
-        showHierarchicalElementChildren(myHE, showAttributeCarrierParents());
+    if (myHierarchicalElement) {
+        showHierarchicalElementChildren(myHierarchicalElement, showAttributeCarrierParents());
     }
 }
 
@@ -134,8 +134,8 @@ GNEElementTree::refreshHierarchicalElementTree() {
 void
 GNEElementTree::removeCurrentEditedAttributeCarrier(const GNEAttributeCarrier* AC) {
     // simply check if AC is the same of myHE
-    if (AC == myHE) {
-        myHE = nullptr;
+    if (AC == myHierarchicalElement) {
+        myHierarchicalElement = nullptr;
     }
 }
 
@@ -182,7 +182,7 @@ GNEElementTree::onCmdCenterItem(FXObject*, FXSelector, void*) {
 
 long
 GNEElementTree::onCmdInspectItem(FXObject*, FXSelector, void*) {
-    myFrameParent->getViewNet()->getViewParent()->getInspectorFrame()->inspectElement(myClickedAC, myHE);
+    myFrameParent->getViewNet()->getViewParent()->getInspectorFrame()->inspectElement(myClickedAC, myHierarchicalElement);
     return 1;
 }
 
@@ -385,12 +385,12 @@ GNEElementTree::showAttributeCarrierParents() {
     // get attributeCarriers
     const auto& attributeCarriers = myFrameParent->getViewNet()->getNet()->getAttributeCarriers();
     // check tags
-    if (myHE->getTagProperty()->isNetworkElement()) {
+    if (myHierarchicalElement->getTagProperty()->isNetworkElement()) {
         // check demand element type
-        switch (myHE->getTagProperty()->getTag()) {
+        switch (myHierarchicalElement->getTagProperty()->getTag()) {
             case SUMO_TAG_EDGE: {
                 // obtain Edge
-                GNEEdge* edge = attributeCarriers->retrieveEdge(myHE->getID(), false);
+                GNEEdge* edge = attributeCarriers->retrieveEdge(myHierarchicalElement->getID(), false);
                 if (edge == nullptr) {
                     return nullptr;
                 } else {
@@ -407,7 +407,7 @@ GNEElementTree::showAttributeCarrierParents() {
             }
             case SUMO_TAG_LANE: {
                 // obtain lane
-                GNELane* lane = attributeCarriers->retrieveLane(myHE->getID(), false);
+                GNELane* lane = attributeCarriers->retrieveLane(myHierarchicalElement->getID(), false);
                 if (lane == nullptr) {
                     return nullptr;
                 } else {
@@ -430,7 +430,7 @@ GNEElementTree::showAttributeCarrierParents() {
             }
             case SUMO_TAG_CROSSING: {
                 // obtain crossing parent junction
-                auto crossing = attributeCarriers->retrieveCrossing(myHE->getGUIGlObject(), false);
+                auto crossing = attributeCarriers->retrieveCrossing(myHierarchicalElement->getGUIGlObject(), false);
                 if (crossing == nullptr) {
                     return nullptr;
                 } else {
@@ -446,7 +446,7 @@ GNEElementTree::showAttributeCarrierParents() {
             }
             case SUMO_TAG_CONNECTION: {
                 // obtain Connection
-                GNEConnection* connection = attributeCarriers->retrieveConnection(myHE->getID(), false);
+                GNEConnection* connection = attributeCarriers->retrieveConnection(myHierarchicalElement->getID(), false);
                 if (connection == nullptr) {
                     return nullptr;
                 } else {
@@ -470,9 +470,9 @@ GNEElementTree::showAttributeCarrierParents() {
             default:
                 break;
         }
-    } else if (myHE->getTagProperty()->getTag() == GNE_TAG_POILANE) {
+    } else if (myHierarchicalElement->getTagProperty()->getTag() == GNE_TAG_POILANE) {
         // Obtain POILane
-        const auto* POILane = attributeCarriers->retrieveAdditional(myHE->getGUIGlObject(), false);
+        const auto* POILane = attributeCarriers->retrieveAdditional(myHierarchicalElement->getGUIGlObject(), false);
         if (POILane == nullptr) {
             return nullptr;
         } else {
@@ -498,9 +498,9 @@ GNEElementTree::showAttributeCarrierParents() {
             // return Lane item
             return laneItem;
         }
-    } else if (myHE->getTagProperty()->isAdditionalElement()) {
+    } else if (myHierarchicalElement->getTagProperty()->isAdditionalElement()) {
         // Obtain Additional
-        const GNEAdditional* additional = attributeCarriers->retrieveAdditional(myHE->getGUIGlObject(), false);
+        const GNEAdditional* additional = attributeCarriers->retrieveAdditional(myHierarchicalElement->getGUIGlObject(), false);
         if (additional == nullptr) {
             return nullptr;
         } else {
@@ -565,9 +565,9 @@ GNEElementTree::showAttributeCarrierParents() {
             // return last inserted list item
             return root;
         }
-    } else if (myHE->getTagProperty()->isTAZElement()) {
+    } else if (myHierarchicalElement->getTagProperty()->isTAZElement()) {
         // Obtain TAZElement
-        const GNEAdditional* TAZElement = attributeCarriers->retrieveAdditional(myHE->getGUIGlObject(), false);
+        const GNEAdditional* TAZElement = attributeCarriers->retrieveAdditional(myHierarchicalElement->getGUIGlObject(), false);
         if (TAZElement == nullptr) {
             return nullptr;
         } else {
@@ -632,9 +632,9 @@ GNEElementTree::showAttributeCarrierParents() {
             // return last inserted list item
             return root;
         }
-    } else if (myHE->getTagProperty()->isDemandElement()) {
+    } else if (myHierarchicalElement->getTagProperty()->isDemandElement()) {
         // Obtain DemandElement
-        GNEDemandElement* demandElement = attributeCarriers->retrieveDemandElement(myHE->getGUIGlObject(), false);
+        GNEDemandElement* demandElement = attributeCarriers->retrieveDemandElement(myHierarchicalElement->getGUIGlObject(), false);
         if (demandElement == nullptr) {
             return nullptr;
         } else {
@@ -699,12 +699,12 @@ GNEElementTree::showAttributeCarrierParents() {
             // return last inserted list item
             return root;
         }
-    } else if (myHE->getTagProperty()->isDataElement()) {
+    } else if (myHierarchicalElement->getTagProperty()->isDataElement()) {
         // check if is a GNEDataInterval or a GNEGenericData
-        if (myHE->getTagProperty()->getTag() == SUMO_TAG_DATASET) {
+        if (myHierarchicalElement->getTagProperty()->getTag() == SUMO_TAG_DATASET) {
             return nullptr;
-        } else if (myHE->getTagProperty()->getTag() == SUMO_TAG_DATAINTERVAL) {
-            auto dataInterval = attributeCarriers->retrieveDataInterval(myHE, false);
+        } else if (myHierarchicalElement->getTagProperty()->getTag() == SUMO_TAG_DATAINTERVAL) {
+            auto dataInterval = attributeCarriers->retrieveDataInterval(myHierarchicalElement, false);
             if (dataInterval == nullptr) {
                 return nullptr;
             } else {
@@ -712,7 +712,7 @@ GNEElementTree::showAttributeCarrierParents() {
             }
         } else {
             // Obtain DataElement
-            GNEGenericData* dataElement = dynamic_cast<GNEGenericData*>(myHE);
+            GNEGenericData* dataElement = dynamic_cast<GNEGenericData*>(myHierarchicalElement);
             if (dataElement == nullptr) {
                 return nullptr;
             } else {
@@ -797,18 +797,18 @@ GNEElementTree::showAttributeCarrierParents() {
 
 
 void
-GNEElementTree::showHierarchicalElementChildren(GNEHierarchicalElement* HE, FXTreeItem* itemParent) {
+GNEElementTree::showHierarchicalElementChildren(GNEAttributeCarrier* hierarchicalElement, FXTreeItem* itemParent) {
     // get attributeCarriers
     const auto& attributeCarriers = myFrameParent->getViewNet()->getNet()->getAttributeCarriers();
-    if (HE->getTagProperty()->isNetworkElement()) {
+    if (hierarchicalElement->getTagProperty()->isNetworkElement()) {
         // Switch gl type of ac
-        switch (HE->getTagProperty()->getTag()) {
+        switch (hierarchicalElement->getTagProperty()->getTag()) {
             case SUMO_TAG_JUNCTION: {
                 // retrieve junction
-                GNEJunction* junction = attributeCarriers->retrieveJunction(HE->getID(), false);
+                GNEJunction* junction = attributeCarriers->retrieveJunction(hierarchicalElement->getID(), false);
                 if (junction) {
                     // insert junction item
-                    FXTreeItem* junctionItem = addListItem(HE, itemParent);
+                    FXTreeItem* junctionItem = addListItem(hierarchicalElement, itemParent);
                     // insert edges
                     for (const auto& edge : junction->getChildEdges()) {
                         showHierarchicalElementChildren(edge, junctionItem);
@@ -822,10 +822,10 @@ GNEElementTree::showHierarchicalElementChildren(GNEHierarchicalElement* HE, FXTr
             }
             case SUMO_TAG_EDGE: {
                 // retrieve edge
-                GNEEdge* edge = attributeCarriers->retrieveEdge(HE->getID(), false);
+                GNEEdge* edge = attributeCarriers->retrieveEdge(hierarchicalElement->getID(), false);
                 if (edge) {
                     // insert edge item
-                    FXTreeItem* edgeItem = addListItem(HE, itemParent);
+                    FXTreeItem* edgeItem = addListItem(hierarchicalElement, itemParent);
                     // insert lanes
                     for (const auto& lane : edge->getLanes()) {
                         showHierarchicalElementChildren(lane, edgeItem);
@@ -860,10 +860,10 @@ GNEElementTree::showHierarchicalElementChildren(GNEHierarchicalElement* HE, FXTr
             }
             case SUMO_TAG_LANE: {
                 // retrieve lane
-                GNELane* lane = attributeCarriers->retrieveLane(HE->getID(), false);
+                GNELane* lane = attributeCarriers->retrieveLane(hierarchicalElement->getID(), false);
                 if (lane) {
                     // insert lane item
-                    FXTreeItem* laneItem = addListItem(HE, itemParent);
+                    FXTreeItem* laneItem = addListItem(hierarchicalElement, itemParent);
                     // insert child additional
                     for (const auto& additional : lane->getChildAdditionals()) {
                         showHierarchicalElementChildren(additional, laneItem);
@@ -898,26 +898,26 @@ GNEElementTree::showHierarchicalElementChildren(GNEHierarchicalElement* HE, FXTr
             case SUMO_TAG_CROSSING:
             case SUMO_TAG_CONNECTION: {
                 // insert connection item
-                addListItem(HE, itemParent);
+                addListItem(hierarchicalElement, itemParent);
                 break;
             }
             default:
                 break;
         }
-    } else if (HE->getTagProperty()->isAdditionalElement() || HE->getTagProperty()->isDemandElement()) {
+    } else if (hierarchicalElement->getTagProperty()->isAdditionalElement() || hierarchicalElement->getTagProperty()->isDemandElement()) {
         // insert additional item
-        FXTreeItem* treeItem = addListItem(HE, itemParent);
+        FXTreeItem* treeItem = addListItem(hierarchicalElement, itemParent);
         // insert child edges
-        for (const auto& edge : HE->getChildEdges()) {
+        for (const auto& edge : hierarchicalElement->getHierarchicalElement()->getChildEdges()) {
             showHierarchicalElementChildren(edge, treeItem);
         }
         // insert child lanes
-        for (const auto& lane : HE->getChildLanes()) {
+        for (const auto& lane : hierarchicalElement->getHierarchicalElement()->getChildLanes()) {
             showHierarchicalElementChildren(lane, treeItem);
         }
         // insert additional symbols
         std::vector<GNEAdditional*> symbols;
-        for (const auto& additional : HE->getChildAdditionals()) {
+        for (const auto& additional : hierarchicalElement->getHierarchicalElement()->getChildAdditionals()) {
             if (additional->getTagProperty()->isSymbol()) {
                 symbols.push_back(additional);
             }
@@ -934,46 +934,46 @@ GNEElementTree::showHierarchicalElementChildren(GNEHierarchicalElement* HE, FXTr
             }
         }
         // insert additional children
-        for (const auto& additional : HE->getChildAdditionals()) {
+        for (const auto& additional : hierarchicalElement->getHierarchicalElement()->getChildAdditionals()) {
             if (!additional->getTagProperty()->isSymbol()) {
                 showHierarchicalElementChildren(additional, treeItem);
             }
         }
         // avoid show a high number of TAZSource SInks
-        if (HE->getChildTAZSourceSinks().size() > 20) {
-            addListItem(treeItem, TLF("SourceSinks (%)", toString(HE->getChildTAZSourceSinks().size())), GUIIconSubSys::getIcon(GUIIcon::TAZ), false);
+        if (hierarchicalElement->getHierarchicalElement()->getChildTAZSourceSinks().size() > 20) {
+            addListItem(treeItem, TLF("SourceSinks (%)", toString(hierarchicalElement->getHierarchicalElement()->getChildTAZSourceSinks().size())), GUIIconSubSys::getIcon(GUIIcon::TAZ), false);
         } else {
             // insert child TAZSourceSink
-            for (const auto& TAZSourceSink : HE->getChildTAZSourceSinks()) {
+            for (const auto& TAZSourceSink : hierarchicalElement->getHierarchicalElement()->getChildTAZSourceSinks()) {
                 showHierarchicalElementChildren(TAZSourceSink, treeItem);
             }
         }
         // insert child demand elements
-        for (const auto& demandElement : HE->getChildDemandElements()) {
+        for (const auto& demandElement : hierarchicalElement->getHierarchicalElement()->getChildDemandElements()) {
             showHierarchicalElementChildren(demandElement, treeItem);
         }
         // insert child data elements
-        if (HE->getChildGenericDatas().size() > 0) {
+        if (hierarchicalElement->getHierarchicalElement()->getChildGenericDatas().size() > 0) {
             // insert intermediate list item
             FXTreeItem* dataElements = addListItem(treeItem, TL("Data elements"), GUIIconSubSys::getIcon(GUIIcon::SUPERMODEDATA), false);
-            for (const auto& genericDatas : HE->getChildGenericDatas()) {
+            for (const auto& genericDatas : hierarchicalElement->getHierarchicalElement()->getChildGenericDatas()) {
                 showHierarchicalElementChildren(genericDatas, dataElements);
             }
         }
-    } else if (HE->getTagProperty()->isDataElement()) {
+    } else if (hierarchicalElement->getTagProperty()->isDataElement()) {
         // insert data item
-        FXTreeItem* dataElementItem = addListItem(HE, itemParent);
+        FXTreeItem* dataElementItem = addListItem(hierarchicalElement, itemParent);
         // insert intervals
-        if (HE->getTagProperty()->getTag() == SUMO_TAG_DATASET) {
-            GNEDataSet* dataSet = attributeCarriers->retrieveDataSet(HE->getID(), false);
+        if (hierarchicalElement->getTagProperty()->getTag() == SUMO_TAG_DATASET) {
+            GNEDataSet* dataSet = attributeCarriers->retrieveDataSet(hierarchicalElement->getID(), false);
             if (dataSet) {
                 // iterate over intervals
                 for (const auto& interval : dataSet->getDataIntervalChildren()) {
                     showHierarchicalElementChildren(interval.second, dataElementItem);
                 }
             }
-        } else if (HE->getTagProperty()->getTag() == SUMO_TAG_DATAINTERVAL) {
-            auto dataInterval = attributeCarriers->retrieveDataInterval(HE, false);
+        } else if (hierarchicalElement->getTagProperty()->getTag() == SUMO_TAG_DATAINTERVAL) {
+            auto dataInterval = attributeCarriers->retrieveDataInterval(hierarchicalElement, false);
             if (dataInterval) {
                 // iterate over generic datas
                 for (const auto& genericData : dataInterval->getGenericDataChildren()) {

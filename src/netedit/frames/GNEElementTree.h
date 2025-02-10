@@ -27,9 +27,10 @@
 // class declaration
 // ===========================================================================
 
-class GNEFrame;
-class GNEDataSet;
 class GNEDataInterval;
+class GNEDataSet;
+class GNEFrame;
+class GNEHierarchicalElement;
 
 // ===========================================================================
 // class definitions
@@ -89,7 +90,7 @@ protected:
     FXTreeItem* showAttributeCarrierParents();
 
     /// @brief show children of given hierarchical element
-    void showHierarchicalElementChildren(GNEHierarchicalElement* HE, FXTreeItem* itemParent);
+    void showHierarchicalElementChildren(GNEAttributeCarrier* hierarchicalElement, FXTreeItem* itemParent);
 
     /// @brief add item into list
     FXTreeItem* addListItem(GNEAttributeCarrier* AC, FXTreeItem* itemParent = nullptr, std::string prefix = "", std::string sufix = "");
@@ -102,7 +103,7 @@ private:
     GNEFrame* myFrameParent;
 
     /// @brief hierarchical element
-    GNEHierarchicalElement* myHE;
+    GNEAttributeCarrier* myHierarchicalElement;
 
     /// @brief pointer to current clicked Attribute Carrier
     GNEAttributeCarrier* myClickedAC;
