@@ -344,6 +344,10 @@ NBFrame::fillOptions(OptionsCont& oc, bool forNetgen) {
     oc.addDescription("junctions.join-dist", "Junctions",
                       "Determines the maximal distance for joining junctions (defaults to 10)");
 
+    oc.doRegister("junctions.join.parallel-threshold", new Option_Float(30));
+    oc.addDescription("junctions.join.parallel-threshold", "Junctions",
+                      "The angular threshold in degress for rejection of parallel edges when joining junctions");
+
     if (!forNetgen) {
         oc.doRegister("junctions.join-exclude", new Option_StringVector());
         oc.addDescription("junctions.join-exclude", "Junctions", TL("Interprets STR[] as list of junctions to exclude from joining"));

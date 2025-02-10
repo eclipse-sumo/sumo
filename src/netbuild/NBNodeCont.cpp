@@ -1467,8 +1467,8 @@ NBNodeCont::feasibleCluster(const NodeSet& cluster, const std::map<const NBNode*
         return false;
     }
     // check for incoming parallel edges
-    const double PARALLEL_THRESHOLD_SAME_NODE = 10;
-    const double PARALLEL_THRESHOLD_DIFF_NODE = 30;
+    const double PARALLEL_THRESHOLD_DIFF_NODE = OptionsCont::getOptions().getFloat("junctions.join.parallel-threshold");
+    const double PARALLEL_THRESHOLD_SAME_NODE = PARALLEL_THRESHOLD_DIFF_NODE / 3;
     bool foundParallel = false;
     for (auto j = finalIncomingAngles.begin(); j != finalIncomingAngles.end() && !foundParallel; ++j) {
         auto k = j;
