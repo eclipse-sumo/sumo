@@ -20,8 +20,14 @@
 #pragma once
 #include <config.h>
 
-#include <netedit/GNEPathManager.h>
 #include <utils/gui/globjects/GUIGlObject.h>
+
+// ===========================================================================
+// class declaration
+// ===========================================================================
+
+class GNELane;
+class GNESegment;
 
 // ===========================================================================
 // class definitions

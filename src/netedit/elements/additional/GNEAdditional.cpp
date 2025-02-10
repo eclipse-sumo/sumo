@@ -21,23 +21,20 @@
 #include <foreign/fontstash/fontstash.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNESegment.h>
-#include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
-#include <netedit/elements/demand/GNEPlanParents.h>
+#include <netedit/frames/common/GNEInspectorFrame.h>
 #include <netedit/frames/common/GNEMoveFrame.h>
 #include <netedit/frames/common/GNESelectorFrame.h>
-#include <netedit/frames/common/GNEInspectorFrame.h>
 #include <netedit/frames/data/GNETAZRelDataFrame.h>
-#include <netedit/frames/demand/GNEVehicleFrame.h>
-#include <netedit/frames/demand/GNEPersonFrame.h>
-#include <netedit/frames/demand/GNEPersonPlanFrame.h>
 #include <netedit/frames/demand/GNEContainerFrame.h>
 #include <netedit/frames/demand/GNEContainerPlanFrame.h>
+#include <netedit/frames/demand/GNEPersonFrame.h>
+#include <netedit/frames/demand/GNEPersonPlanFrame.h>
+#include <netedit/frames/demand/GNEVehicleFrame.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
-#include <utils/gui/div/GUIGlobalViewObjectsHandler.h>
 
 #include "GNEAdditional.h"
 #include "GNETAZ.h"
@@ -77,6 +74,12 @@ GNEAdditional::GNEAdditional(GNENet* net, GUIGlObjectType type, SumoXMLTag tag, 
 
 
 GNEAdditional::~GNEAdditional() {}
+
+
+GNEHierarchicalElement*
+GNEAdditional::getHierarchicalElement() {
+    return this;
+}
 
 
 void

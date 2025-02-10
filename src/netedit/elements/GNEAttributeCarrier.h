@@ -20,14 +20,13 @@
 #pragma once
 #include <config.h>
 
-#include <utils/foxtools/fxheader.h>
 #include <netedit/GNEReferenceCounter.h>
-
+#include <utils/foxtools/fxheader.h>
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
-class GNEEdge;
+
 class GNEHierarchicalElement;
 class GNELane;
 class GNENet;

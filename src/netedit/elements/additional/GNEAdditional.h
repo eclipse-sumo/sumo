@@ -21,22 +21,16 @@
 #include <config.h>
 
 #include <netedit/GNEMoveElement.h>
-#include <netedit/GNEPathManager.h>
 #include <netedit/elements/GNEAttributeCarrier.h>
 #include <netedit/elements/GNEContour.h>
 #include <netedit/elements/GNEHierarchicalElement.h>
 #include <netedit/elements/GNEPathElement.h>
-#include <utils/common/Parameterised.h>
-#include <utils/geom/PositionVector.h>
-#include <utils/gui/div/GUIGeometry.h>
-#include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/gui/images/GUITextureSubSys.h>
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
 
-class GNEViewNet;
 class GNENetworkElement;
 class GUIGLObjectPopupMenu;
 
@@ -98,9 +92,7 @@ public:
     ~GNEAdditional();
 
     /// @brief get GNEHierarchicalElement associated with this AttributeCarrier
-    GNEHierarchicalElement* getHierarchicalElement() {
-        return this;
-    }
+    GNEHierarchicalElement* getHierarchicalElement();
 
     /**@brief get move operation
      * @note returned GNEMoveOperation can be nullptr
