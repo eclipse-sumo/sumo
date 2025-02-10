@@ -20,7 +20,6 @@
 
 #include <netedit/GNENet.h>
 #include <netedit/GNETagProperties.h>
-#include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/frames/common/GNESelectorFrame.h>
 #include <utils/foxtools/MFXMenuHeader.h>
@@ -51,6 +50,12 @@ GNENetworkElement::GNENetworkElement(GNENet* net, const std::string& id, GUIGlOb
 
 
 GNENetworkElement::~GNENetworkElement() {}
+
+
+GNEHierarchicalElement*
+GNENetworkElement::getHierarchicalElement() {
+    return this;
+}
 
 
 GUIGlObject*
