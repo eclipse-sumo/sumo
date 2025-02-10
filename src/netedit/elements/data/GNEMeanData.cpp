@@ -40,7 +40,8 @@
 // ===========================================================================
 
 GNEMeanData::GNEMeanData(GNENet* net, SumoXMLTag tag, const std::string& id) :
-    GNEHierarchicalElement(net, tag, {}, {}, {}, {}, {}, {}),
+    GNEAttributeCarrier(tag, net),
+    GNEHierarchicalElement({}, {}, {}, {}, {}, {}),
 myID(id) {
     // reset default values
     resetDefaultValues();
@@ -56,7 +57,8 @@ GNEMeanData::GNEMeanData(GNENet* net, SumoXMLTag tag, std::string ID, std::strin
                          const bool aggregate, const std::vector<std::string>& edges, const std::string& edgeFile,
                          std::string excludeEmpty, const bool withInternal, const std::vector<std::string>& detectPersons,
                          const double minSamples, const double maxTravelTime, const std::vector<std::string>& vTypes, const double speedThreshold) :
-    GNEHierarchicalElement(net, tag, {}, {}, {}, {}, {}, {}),
+    GNEAttributeCarrier(tag, net),
+    GNEHierarchicalElement({}, {}, {}, {}, {}, {}),
 myID(ID),
 myFile(file),
 myPeriod(period),

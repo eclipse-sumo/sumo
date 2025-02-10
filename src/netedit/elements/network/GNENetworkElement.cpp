@@ -43,8 +43,9 @@ GNENetworkElement::GNENetworkElement(GNENet* net, const std::string& id, GUIGlOb
                                      const std::vector<GNEAdditional*>& additionalParents,
                                      const std::vector<GNEDemandElement*>& demandElementParents,
                                      const std::vector<GNEGenericData*>& genericDataParents) :
+    GNEAttributeCarrier(tag, net),
     GUIGlObject(type, id, icon),
-    GNEHierarchicalElement(net, tag, junctionParents, edgeParents, laneParents, additionalParents, demandElementParents, genericDataParents),
+    GNEHierarchicalElement(junctionParents, edgeParents, laneParents, additionalParents, demandElementParents, genericDataParents),
     myShapeEdited(false) {
 }
 

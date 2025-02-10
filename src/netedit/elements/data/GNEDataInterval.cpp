@@ -32,12 +32,9 @@
 // member method definitions
 // ===========================================================================
 
-// ---------------------------------------------------------------------------
-// GNEDataInterval - methods
-// ---------------------------------------------------------------------------
-
 GNEDataInterval::GNEDataInterval(GNEDataSet* dataSetParent, const double begin, const double end) :
-    GNEHierarchicalElement(dataSetParent->getNet(), SUMO_TAG_DATAINTERVAL, {}, {}, {}, {}, {}, {}),
+    GNEAttributeCarrier(SUMO_TAG_DATAINTERVAL, dataSetParent->getNet()),
+    GNEHierarchicalElement({}, {}, {}, {}, {}, {}),
                        myDataSetParent(dataSetParent),
                        myBegin(begin),
 myEnd(end) {

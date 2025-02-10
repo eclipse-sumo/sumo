@@ -20,8 +20,8 @@
 #pragma once
 #include <config.h>
 
+#include <netedit/elements/GNEAttributeCarrier.h>
 #include <netedit/elements/GNEHierarchicalElement.h>
-
 
 // ===========================================================================
 // class definitions
@@ -30,7 +30,7 @@
  * @class GNEMeanData
  * @brief An Element which don't belong to GNENet but has influence in the simulation
  */
-class GNEMeanData : public GNEHierarchicalElement {
+class GNEMeanData : public GNEAttributeCarrier, public GNEHierarchicalElement {
 
 public:
     /// @brief Default constructor
@@ -45,6 +45,11 @@ public:
 
     /// @brief Destructor
     ~GNEMeanData();
+
+    /// @brief get GNEHierarchicalElement associated with this AttributeCarrier
+    GNEHierarchicalElement* getHierarchicalElement() {
+        return this;
+    }
 
     /**@brief write meanData element into a xml file
      * @param[in] device device in which write parameters of meanData element

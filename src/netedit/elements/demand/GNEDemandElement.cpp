@@ -48,8 +48,9 @@ GNEDemandElement::GNEDemandElement(const std::string& id, GNENet* net, GUIGlObje
                                    const std::vector<GNEAdditional*>& additionalParents,
                                    const std::vector<GNEDemandElement*>& demandElementParents,
                                    const std::vector<GNEGenericData*>& genericDataParents) :
+    GNEAttributeCarrier(tag, net),
     GNEPathElement(type, id, icon, options),
-    GNEHierarchicalElement(net, tag, junctionParents, edgeParents, laneParents, additionalParents, demandElementParents, genericDataParents),
+    GNEHierarchicalElement(junctionParents, edgeParents, laneParents, additionalParents, demandElementParents, genericDataParents),
     GNEDemandElementDistribution(this),
     myStackedLabelNumber(0) {
     // check if is template
@@ -64,8 +65,9 @@ GNEDemandElement::GNEDemandElement(GNEDemandElement* demandElementParent, GNENet
                                    const std::vector<GNEAdditional*>& additionalParents,
                                    const std::vector<GNEDemandElement*>& demandElementParents,
                                    const std::vector<GNEGenericData*>& genericDataParents) :
+    GNEAttributeCarrier(tag, net),
     GNEPathElement(type, demandElementParent->getID(), icon, options),
-    GNEHierarchicalElement(net, tag, junctionParents, edgeParents, laneParents, additionalParents, demandElementParents, genericDataParents),
+    GNEHierarchicalElement(junctionParents, edgeParents, laneParents, additionalParents, demandElementParents, genericDataParents),
     GNEDemandElementDistribution(this),
     myStackedLabelNumber(0) {
 }

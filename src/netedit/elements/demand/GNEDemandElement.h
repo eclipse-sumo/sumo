@@ -21,6 +21,7 @@
 #include <config.h>
 
 #include <netedit/GNEMoveElement.h>
+#include <netedit/elements/GNEAttributeCarrier.h>
 #include <netedit/elements/GNEHierarchicalElement.h>
 #include <netedit/elements/GNEPathElement.h>
 #include <utils/common/Parameterised.h>
@@ -48,7 +49,7 @@ class GNEJunction;
 // class definitions
 // ===========================================================================
 
-class GNEDemandElement : public GNEPathElement, public GNEHierarchicalElement, public GNEMoveElement, public GNEDemandElementDistribution {
+class GNEDemandElement : public GNEAttributeCarrier, public GNEPathElement, public GNEHierarchicalElement, public GNEMoveElement, public GNEDemandElementDistribution {
 
 public:
     /// @brief friend declaration (needed for vTypes)
@@ -112,6 +113,11 @@ public:
 
     /// @brief Destructor
     virtual ~GNEDemandElement();
+
+    /// @brief get GNEHierarchicalElement associated with this AttributeCarrier
+    GNEHierarchicalElement* getHierarchicalElement() {
+        return this;
+    }
 
     /**@brief get move operation
      * @note returned GNEMoveOperation can be nullptr

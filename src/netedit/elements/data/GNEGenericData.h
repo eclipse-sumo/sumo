@@ -22,6 +22,7 @@
 
 #include <netbuild/NBEdge.h>
 #include <netbuild/NBVehicle.h>
+#include <netedit/elements/GNEAttributeCarrier.h>
 #include <netedit/elements/GNEHierarchicalElement.h>
 #include <netedit/elements/GNEPathElement.h>
 #include <utils/common/Parameterised.h>
@@ -37,7 +38,6 @@
 class GNEViewNet;
 class GNEDataInterval;
 
-
 // ===========================================================================
 // class definitions
 // ===========================================================================
@@ -45,7 +45,7 @@ class GNEDataInterval;
  * @class GNEGenericData
  * @brief An Element which don't belong to GNENet but has influence in the simulation
  */
-class GNEGenericData : public GNEPathElement, public Parameterised, public GNEHierarchicalElement {
+class GNEGenericData : public GNEAttributeCarrier, public GNEPathElement, public Parameterised, public GNEHierarchicalElement {
 
 public:
     /**@brief Constructor
@@ -74,6 +74,11 @@ public:
 
     /// @brief check if current generic data is visible
     virtual bool isGenericDataVisible() const = 0;
+
+    /// @brief get GNEHierarchicalElement associated with this AttributeCarrier
+    GNEHierarchicalElement* getHierarchicalElement() {
+        return this;
+    }
 
     /// @brief get GUIGlObject associated with this AttributeCarrier
     GUIGlObject* getGUIGlObject();

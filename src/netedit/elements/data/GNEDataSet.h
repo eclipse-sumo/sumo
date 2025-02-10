@@ -20,12 +20,6 @@
 #pragma once
 #include <config.h>
 
-
-// ===========================================================================
-// included modules
-// ===========================================================================
-#include <config.h>
-
 #include <netedit/elements/GNEAttributeCarrier.h>
 #include <utils/common/Parameterised.h>
 

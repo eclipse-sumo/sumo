@@ -49,9 +49,10 @@ GNEGenericData::GNEGenericData(const SumoXMLTag tag, FXIcon* icon, const GUIGlOb
                                const std::vector<GNEAdditional*>& additionalParents,
                                const std::vector<GNEDemandElement*>& demandElementParents,
                                const std::vector<GNEGenericData*>& genericDataParents) :
+    GNEAttributeCarrier(tag, dataIntervalParent->getNet()),
     GNEPathElement(type, dataIntervalParent->getID(), icon, GNEPathElement::Options::DATA_ELEMENT),
     Parameterised(parameters),
-    GNEHierarchicalElement(dataIntervalParent->getNet(), tag, junctionParents, edgeParents, laneParents, additionalParents, demandElementParents, genericDataParents),
+    GNEHierarchicalElement(junctionParents, edgeParents, laneParents, additionalParents, demandElementParents, genericDataParents),
     myDataIntervalParent(dataIntervalParent) {
 }
 

@@ -82,6 +82,9 @@ public:
     /// @brief check if attribute carrier must be drawn using selecting color.
     bool drawUsingSelectColor() const;
 
+    /// @brief get GNEHierarchicalElement associated with this AttributeCarrier
+    virtual GNEHierarchicalElement* getHierarchicalElement() = 0;
+
     /// @name Function related front elements
     /// @{
 
@@ -98,9 +101,6 @@ public:
     void drawInLayer(const double typeOrLayer, const double extraOffset = 0) const;
 
     /// @}
-
-    /// @brief get GNEHierarchicalElement associated with this AttributeCarrier
-    virtual GNEHierarchicalElement* getHierarchicalElement() = 0;
 
     /// @name Function related with grid (needed for elements that aren't always in grid)
     /// @{

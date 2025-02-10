@@ -22,6 +22,7 @@
 
 #include <netedit/GNEMoveElement.h>
 #include <netedit/GNEPathManager.h>
+#include <netedit/elements/GNEAttributeCarrier.h>
 #include <netedit/elements/GNEContour.h>
 #include <netedit/elements/GNEHierarchicalElement.h>
 #include <netedit/elements/GNEPathElement.h>
@@ -47,7 +48,7 @@ class GUIGLObjectPopupMenu;
  * @class GNEAdditional
  * @brief An Element which don't belong to GNENet but has influence in the simulation
  */
-class GNEAdditional : public GNEPathElement, public GNEHierarchicalElement, public GNEMoveElement {
+class GNEAdditional : public GNEAttributeCarrier, public GNEPathElement, public GNEHierarchicalElement, public GNEMoveElement {
 
 public:
     /**@brief Constructor
@@ -95,6 +96,11 @@ public:
 
     /// @brief Destructor
     ~GNEAdditional();
+
+    /// @brief get GNEHierarchicalElement associated with this AttributeCarrier
+    GNEHierarchicalElement* getHierarchicalElement() {
+        return this;
+    }
 
     /**@brief get move operation
      * @note returned GNEMoveOperation can be nullptr

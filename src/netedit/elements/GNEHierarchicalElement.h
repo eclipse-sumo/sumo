@@ -20,9 +20,6 @@
 #pragma once
 #include <config.h>
 
-#include <utils/gui/div/GUIGeometry.h>
-#include <netedit/elements/GNEAttributeCarrier.h>
-
 #include "GNEHierarchicalStructureParents.h"
 #include "GNEHierarchicalStructureChildren.h"
 
@@ -30,11 +27,7 @@
 // class definitions
 // ===========================================================================
 
-/**
- * @class GNEHierarchicalElements
- * @brief An special type of Attribute carrier that owns hierarchical elements
- */
-class GNEHierarchicalElement : public GNEAttributeCarrier {
+class GNEHierarchicalElement {
 
 public:
     /// @brief declare GNEChange_Children as friend class
@@ -42,8 +35,6 @@ public:
     friend class GNEDemandElement;
 
     /**@brief Constructor
-     * @param[in] tag SUMO Tag assigned to this type of object
-     * @param[in] net GNENet in which this AttributeCarrier is stored
      * @param[in] parentJunctions vector of parent junctions
      * @param[in] parentEdges vector of parent edges
      * @param[in] parentLanes vector of parent lanes
@@ -51,8 +42,7 @@ public:
      * @param[in] parentDemandElements vector of parent demand elements
      * @param[in] parentGenericData vector of parent generic data elements
      */
-    GNEHierarchicalElement(GNENet* net, SumoXMLTag tag,
-                           const std::vector<GNEJunction*>& parentJunctions,
+    GNEHierarchicalElement(const std::vector<GNEJunction*>& parentJunctions,
                            const std::vector<GNEEdge*>& parentEdges,
                            const std::vector<GNELane*>& parentLanes,
                            const std::vector<GNEAdditional*>& parentAdditionals,
@@ -61,18 +51,6 @@ public:
 
     /// @brief Destructor
     ~GNEHierarchicalElement();
-
-    /// @brief get GNEHierarchicalElement associated with this AttributeCarrier
-    GNEHierarchicalElement* getHierarchicalElement();
-
-    /// @name Functions related with geometry of element
-    /// @{
-    /// @brief update pre-computed geometry information
-    virtual void updateGeometry() = 0;
-
-    /// @brief Returns position of hierarchical element in view
-    virtual Position getPositionInView() const = 0;
-    /// @}
 
     /// @brief get parents(used in GNE_Change)
     const GNEHierarchicalStructureParents getParents() const;

@@ -20,12 +20,13 @@
 #pragma once
 #include <config.h>
 
+#include <netedit/GNEMoveElement.h>
+#include <netedit/elements/GNEAttributeCarrier.h>
+#include <netedit/elements/GNEContour.h>
 #include <netedit/elements/GNEHierarchicalElement.h>
+#include <utils/geom/PositionVector.h>
 #include <utils/gui/div/GUIGeometry.h>
 #include <utils/gui/globjects/GUIGlObject.h>
-#include <utils/geom/PositionVector.h>
-#include <netedit/elements/GNEContour.h>
-#include <netedit/GNEMoveElement.h>
 
 
 // ===========================================================================
@@ -39,7 +40,7 @@ class GNEDemandElement;
 // class definitions
 // ===========================================================================
 
-class GNENetworkElement : public GUIGlObject, public GNEHierarchicalElement, public GNEMoveElement {
+class GNENetworkElement : public GNEAttributeCarrier, public GUIGlObject, public GNEHierarchicalElement, public GNEMoveElement {
 
 public:
     /**@brief Constructor.
@@ -64,6 +65,11 @@ public:
 
     /// @brief Destructor
     virtual ~GNENetworkElement();
+
+    /// @brief get GNEHierarchicalElement associated with this AttributeCarrier
+    GNEHierarchicalElement* getHierarchicalElement() {
+        return this;
+    }
 
     /**@brief get move operation
     * @note returned GNEMoveOperation can be nullptr
