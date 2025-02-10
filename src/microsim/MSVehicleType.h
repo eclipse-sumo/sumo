@@ -570,6 +570,10 @@ public:
     /** @brief Set traffic scaling factor
      */
     void setScale(double value);
+
+    /** @brief Set lcContRight (which is the only lc-attribute not used within the laneChange model)
+     */
+    void setLcContRight(const std::string& value);
     /// @}
 
 

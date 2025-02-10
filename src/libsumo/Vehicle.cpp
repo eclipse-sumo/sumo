@@ -2516,10 +2516,15 @@ Vehicle::setParameter(const std::string& vehID, const std::string& key, const st
             throw TraCIException("Meso Vehicle '" + vehID + "' does not support laneChangeModel parameters.");
         }
         const std::string attrName = key.substr(16);
-        try {
-            microVeh->getLaneChangeModel().setParameter(attrName, value);
-        } catch (InvalidArgument& e) {
-            throw TraCIException("Vehicle '" + vehID + "' does not support laneChangeModel parameter '" + key + "' (" + e.what() + ").");
+        if (attrName == toString(SUMO_ATTR_LCA_CONTRIGHT)) {
+            // special case: not used within lcModel
+            veh->getSingularType().setLcContRight(value);
+        } else {
+            try {
+                microVeh->getLaneChangeModel().setParameter(attrName, value);
+            } catch (InvalidArgument& e) {
+                throw TraCIException("Vehicle '" + vehID + "' does not support laneChangeModel parameter '" + key + "' (" + e.what() + ").");
+            }
         }
     } else if (StringUtils::startsWith(key, "carFollowModel.")) {
         if (microVeh == nullptr) {

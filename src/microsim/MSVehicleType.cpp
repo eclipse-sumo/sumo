@@ -180,6 +180,11 @@ MSVehicleType::setScale(double value) {
 }
 
 void
+MSVehicleType::setLcContRight(const std::string& value) {
+    myParameter.lcParameter[SUMO_ATTR_LCA_CONTRIGHT] = value;
+}
+
+void
 MSVehicleType::setDefaultProbability(const double& prob) {
     if (myOriginalType != nullptr && prob < 0) {
         myParameter.defaultProbability = myOriginalType->getDefaultProbability();
