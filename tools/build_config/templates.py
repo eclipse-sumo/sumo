@@ -374,21 +374,8 @@ def generateTemplate(app, appBin):
     return u'const std::string %sTemplate = "%s";\n' % (app, template)
 
 
-def generateToolTemplates(toolDir, toolPaths, verbose, testFailure=False):
-    """
-    @brief generate tool template
-    """
-    print("Obtaining tool templates.")
-    procs = []
+def _collectOutput(procs, toolPaths, failed, verbose, testFailure):
     result = u""
-    for toolPath in toolPaths:
-        toolName = os.path.basename(toolPath)[:-3]
-        if verbose:
-            print("Obtaining '" + toolName + "' tool template.")
-        # obtain template piping stdout using check_output
-        procs.append(subprocess.Popen([sys.executable, join(toolDir, toolPath), "--save-template", "stdout"],
-                                      stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True))
-    failed = []
     for p, toolPath in zip(procs, toolPaths):
         toolName = os.path.basename(toolPath)[:-3]
         d = os.path.dirname(toolPath)
@@ -402,6 +389,33 @@ def generateToolTemplates(toolDir, toolPaths, verbose, testFailure=False):
         else:
             result += formatToolTemplate(stdout)
         result += '),\n'
+    return result
+
+
+def generateToolTemplates(toolDir, toolPaths, verbose, testFailure=False):
+    """
+    @brief generate tool template
+    """
+    print("Obtaining tool templates.")
+    procs = []
+    result = u""
+    failed = []
+    paths = []
+    env = dict(os.environ)
+    if "SUMO_HOME" not in env:
+        env["SUMO_HOME"] = join(dirname(__file__), '..', '..')
+    for toolPath in toolPaths:
+        toolName = os.path.basename(toolPath)[:-3]
+        if verbose:
+            print("Obtaining '" + toolName + "' tool template.")
+        procs.append(subprocess.Popen([sys.executable, join(toolDir, toolPath), "--save-template", "stdout"], env=env,
+                                      stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True))
+        paths.append(toolPath)
+        if len(procs) == 32:
+            result += _collectOutput(procs, paths, failed, verbose, testFailure)
+            procs = []
+            paths = []
+    result += _collectOutput(procs, paths, failed, verbose, testFailure)
     if testFailure:
         return failed
     if failed:
