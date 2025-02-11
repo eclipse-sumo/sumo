@@ -800,186 +800,114 @@ void
 GNEElementTree::showHierarchicalElementChildren(GNEAttributeCarrier* hierarchicalElement, FXTreeItem* itemParent) {
     // get attributeCarriers
     const auto& attributeCarriers = myFrameParent->getViewNet()->getNet()->getAttributeCarriers();
-    if (hierarchicalElement->getTagProperty()->isNetworkElement()) {
-        // Switch gl type of ac
-        switch (hierarchicalElement->getTagProperty()->getTag()) {
-            case SUMO_TAG_JUNCTION: {
-                // retrieve junction
-                GNEJunction* junction = attributeCarriers->retrieveJunction(hierarchicalElement->getID(), false);
-                if (junction) {
-                    // insert junction item
-                    FXTreeItem* junctionItem = addListItem(hierarchicalElement, itemParent);
-                    // insert edges
-                    for (const auto& edge : junction->getChildEdges()) {
-                        showHierarchicalElementChildren(edge, junctionItem);
-                    }
-                    // insert crossings
-                    for (const auto& crossing : junction->getGNECrossings()) {
-                        showHierarchicalElementChildren(crossing, junctionItem);
-                    }
-                }
-                break;
-            }
-            case SUMO_TAG_EDGE: {
-                // retrieve edge
-                GNEEdge* edge = attributeCarriers->retrieveEdge(hierarchicalElement->getID(), false);
-                if (edge) {
-                    // insert edge item
-                    FXTreeItem* edgeItem = addListItem(hierarchicalElement, itemParent);
-                    // insert lanes
-                    for (const auto& lane : edge->getChildLanes()) {
-                        showHierarchicalElementChildren(lane, edgeItem);
-                    }
-                    // insert child additional
-                    for (const auto& additional : edge->getChildAdditionals()) {
-                        showHierarchicalElementChildren(additional, edgeItem);
-                    }
-                    // avoid show a high number of TAZSource SInks
-                    if (edge->getChildTAZSourceSinks().size() > 20) {
-                        addListItem(edgeItem, TLF("SourceSinks (%)", toString(edge->getChildTAZSourceSinks().size())), GUIIconSubSys::getIcon(GUIIcon::TAZ), false);
-                    } else {
-                        // insert child TAZSourceSink
-                        for (const auto& TAZSourceSink : edge->getChildTAZSourceSinks()) {
-                            showHierarchicalElementChildren(TAZSourceSink, edgeItem);
-                        }
-                    }
-                    // insert child demand elements
-                    for (const auto& demandElement : edge->getChildDemandElements()) {
-                        showHierarchicalElementChildren(demandElement, edgeItem);
-                    }
-                    // insert child data elements
-                    if (edge->getChildGenericDatas().size() > 0) {
-                        // insert intermediate list item
-                        FXTreeItem* dataElements = addListItem(edgeItem, TL("Data elements"), GUIIconSubSys::getIcon(GUIIcon::SUPERMODEDATA), false);
-                        for (const auto& genericDatas : edge->getChildGenericDatas()) {
-                            showHierarchicalElementChildren(genericDatas, dataElements);
-                        }
-                    }
-                }
-                break;
-            }
-            case SUMO_TAG_LANE: {
-                // retrieve lane
-                GNELane* lane = attributeCarriers->retrieveLane(hierarchicalElement->getID(), false);
-                if (lane) {
-                    // insert lane item
-                    FXTreeItem* laneItem = addListItem(hierarchicalElement, itemParent);
-                    // insert child additional
-                    for (const auto& additional : lane->getChildAdditionals()) {
-                        showHierarchicalElementChildren(additional, laneItem);
-                    }
-                    // insert demand elements children
-                    for (const auto& demandElement : lane->getChildDemandElements()) {
-                        showHierarchicalElementChildren(demandElement, laneItem);
-                    }
-                    // insert incoming connections of lanes (by default isn't expanded)
-                    if (lane->getGNEIncomingConnections().size() > 0) {
-                        std::vector<GNEConnection*> incomingLaneConnections = lane->getGNEIncomingConnections();
-                        // insert intermediate list item
-                        FXTreeItem* incomingConnections = addListItem(laneItem, TL("Incomings"), incomingLaneConnections.front()->getACIcon(), false);
-                        // insert incoming connections
-                        for (const auto& connection : incomingLaneConnections) {
-                            showHierarchicalElementChildren(connection, incomingConnections);
-                        }
-                    }
-                    // insert outcoming connections of lanes (by default isn't expanded)
-                    if (lane->getGNEOutcomingConnections().size() > 0) {
-                        std::vector<GNEConnection*> outcomingLaneConnections = lane->getGNEOutcomingConnections();
-                        // insert intermediate list item
-                        FXTreeItem* outgoingConnections = addListItem(laneItem, TL("Outgoing"), outcomingLaneConnections.front()->getACIcon(), false);
-                        // insert outcoming connections
-                        for (const auto& connection : outcomingLaneConnections) {
-                            showHierarchicalElementChildren(connection, outgoingConnections);
-                        }
-                    }
-                }
-                break;
-            }
-            case SUMO_TAG_CROSSING:
-            case SUMO_TAG_CONNECTION: {
-                // insert connection item
-                addListItem(hierarchicalElement, itemParent);
-                break;
-            }
-            default:
-                break;
-        }
-    } else if (hierarchicalElement->getTagProperty()->isAdditionalElement() || hierarchicalElement->getTagProperty()->isDemandElement()) {
-        // insert additional item
-        FXTreeItem* treeItem = addListItem(hierarchicalElement, itemParent);
-        // insert child edges
-        for (const auto& edge : hierarchicalElement->getHierarchicalElement()->getChildEdges()) {
-            showHierarchicalElementChildren(edge, treeItem);
-        }
-        // insert child lanes
-        for (const auto& lane : hierarchicalElement->getHierarchicalElement()->getChildLanes()) {
-            showHierarchicalElementChildren(lane, treeItem);
-        }
-        // insert additional symbols
-        std::vector<GNEAdditional*> symbols;
-        for (const auto& additional : hierarchicalElement->getHierarchicalElement()->getChildAdditionals()) {
-            if (additional->getTagProperty()->isSymbol()) {
-                symbols.push_back(additional);
+    // create item
+    FXTreeItem* item = addListItem(hierarchicalElement, itemParent);
+    // junctions
+    for (const auto& junction : hierarchicalElement->getHierarchicalElement()->getChildJunctions()) {
+        showHierarchicalElementChildren(junction, item);
+    }
+    // edges
+    for (const auto& edge : hierarchicalElement->getHierarchicalElement()->getChildEdges()) {
+        showHierarchicalElementChildren(edge, item);
+    }
+    // lanes
+    for (const auto& lane : hierarchicalElement->getHierarchicalElement()->getChildLanes()) {
+        showHierarchicalElementChildren(lane, item);
+    }
+    // crossings
+    if (hierarchicalElement->getTagProperty()->getTag() == SUMO_TAG_JUNCTION) {
+        // retrieve junction
+        GNEJunction* junction = attributeCarriers->retrieveJunction(hierarchicalElement->getID(), false);
+        if (junction) {
+            // insert crossings
+            for (const auto& crossing : junction->getGNECrossings()) {
+                showHierarchicalElementChildren(crossing, item);
             }
         }
-        if (symbols.size() > 0) {
-            // insert intermediate list item
-            const auto additionalParent = symbols.front()->getParentAdditionals().front();
-            const std::string symbolType = additionalParent->getTagProperty()->hasAttribute(SUMO_ATTR_EDGES) ? TL("Edges") : TL("Lanes");
-            GUIIcon symbolIcon = additionalParent->getTagProperty()->hasAttribute(SUMO_ATTR_EDGES) ? GUIIcon::EDGE : GUIIcon::LANE;
-            FXTreeItem* symbolListItem = addListItem(treeItem, symbolType, GUIIconSubSys::getIcon(symbolIcon), false);
-            // insert symbols
-            for (const auto& symbol : symbols) {
-                showHierarchicalElementChildren(symbol, symbolListItem);
-            }
-        }
-        // insert additional children
-        for (const auto& additional : hierarchicalElement->getHierarchicalElement()->getChildAdditionals()) {
-            if (!additional->getTagProperty()->isSymbol()) {
-                showHierarchicalElementChildren(additional, treeItem);
-            }
-        }
-        // avoid show a high number of TAZSource SInks
-        if (hierarchicalElement->getHierarchicalElement()->getChildTAZSourceSinks().size() > 20) {
-            addListItem(treeItem, TLF("SourceSinks (%)", toString(hierarchicalElement->getHierarchicalElement()->getChildTAZSourceSinks().size())), GUIIconSubSys::getIcon(GUIIcon::TAZ), false);
-        } else {
-            // insert child TAZSourceSink
-            for (const auto& TAZSourceSink : hierarchicalElement->getHierarchicalElement()->getChildTAZSourceSinks()) {
-                showHierarchicalElementChildren(TAZSourceSink, treeItem);
-            }
-        }
-        // insert child demand elements
-        for (const auto& demandElement : hierarchicalElement->getHierarchicalElement()->getChildDemandElements()) {
-            showHierarchicalElementChildren(demandElement, treeItem);
-        }
-        // insert child data elements
-        if (hierarchicalElement->getHierarchicalElement()->getChildGenericDatas().size() > 0) {
-            // insert intermediate list item
-            FXTreeItem* dataElements = addListItem(treeItem, TL("Data elements"), GUIIconSubSys::getIcon(GUIIcon::SUPERMODEDATA), false);
-            for (const auto& genericDatas : hierarchicalElement->getHierarchicalElement()->getChildGenericDatas()) {
-                showHierarchicalElementChildren(genericDatas, dataElements);
-            }
-        }
-    } else if (hierarchicalElement->getTagProperty()->isDataElement()) {
-        // insert data item
-        FXTreeItem* dataElementItem = addListItem(hierarchicalElement, itemParent);
-        // insert intervals
-        if (hierarchicalElement->getTagProperty()->getTag() == SUMO_TAG_DATASET) {
-            GNEDataSet* dataSet = attributeCarriers->retrieveDataSet(hierarchicalElement->getID(), false);
-            if (dataSet) {
-                // iterate over intervals
-                for (const auto& interval : dataSet->getDataIntervalChildren()) {
-                    showHierarchicalElementChildren(interval.second, dataElementItem);
+    }
+    // connections
+    if (hierarchicalElement->getTagProperty()->getTag() == SUMO_TAG_LANE) {
+        // retrieve lane
+        GNELane* lane = attributeCarriers->retrieveLane(hierarchicalElement->getID(), false);
+        if (lane) {
+            // insert incoming connections of lanes (by default isn't expanded)
+            if (lane->getGNEIncomingConnections().size() > 0) {
+                std::vector<GNEConnection*> incomingLaneConnections = lane->getGNEIncomingConnections();
+                // insert intermediate list item
+                FXTreeItem* incomingConnections = addListItem(item, TL("Incomings"), incomingLaneConnections.front()->getACIcon(), false);
+                // insert incoming connections
+                for (const auto& connection : incomingLaneConnections) {
+                    showHierarchicalElementChildren(connection, incomingConnections);
                 }
             }
-        } else if (hierarchicalElement->getTagProperty()->getTag() == SUMO_TAG_DATAINTERVAL) {
-            auto dataInterval = attributeCarriers->retrieveDataInterval(hierarchicalElement, false);
-            if (dataInterval) {
-                // iterate over generic datas
-                for (const auto& genericData : dataInterval->getGenericDataChildren()) {
-                    showHierarchicalElementChildren(genericData, dataElementItem);
+            // insert outcoming connections of lanes (by default isn't expanded)
+            if (lane->getGNEOutcomingConnections().size() > 0) {
+                std::vector<GNEConnection*> outcomingLaneConnections = lane->getGNEOutcomingConnections();
+                // insert intermediate list item
+                FXTreeItem* outgoingConnections = addListItem(item, TL("Outgoing"), outcomingLaneConnections.front()->getACIcon(), false);
+                // insert outcoming connections
+                for (const auto& connection : outcomingLaneConnections) {
+                    showHierarchicalElementChildren(connection, outgoingConnections);
                 }
             }
+        }
+    }
+    // additionals
+    for (const auto& additional : hierarchicalElement->getHierarchicalElement()->getChildAdditionals()) {
+        if (!additional->getTagProperty()->isSymbol()) {
+            showHierarchicalElementChildren(additional, item);
+        }
+    }
+    // additionals symbols
+    for (const auto& additional : hierarchicalElement->getHierarchicalElement()->getChildAdditionals()) {
+        if (additional->getTagProperty()->isSymbol()) {
+            showHierarchicalElementChildren(additional, item);
+        }
+    }
+    // TAZ SourceSinks (avoiding show a high number)
+    if (hierarchicalElement->getHierarchicalElement()->getChildTAZSourceSinks().size() > 20) {
+        addListItem(item, TLF("SourceSinks (%)", toString(hierarchicalElement->getHierarchicalElement()->getChildTAZSourceSinks().size())), GUIIconSubSys::getIcon(GUIIcon::TAZ), false);
+    } else {
+        for (const auto& TAZSourceSink : hierarchicalElement->getHierarchicalElement()->getChildTAZSourceSinks()) {
+            showHierarchicalElementChildren(TAZSourceSink, item);
+        }
+    }
+    // insert child demand elements
+    for (const auto& demandElement : hierarchicalElement->getHierarchicalElement()->getChildDemandElements()) {
+        showHierarchicalElementChildren(demandElement, item);
+    }
+    // insert child data elements
+    if (hierarchicalElement->getHierarchicalElement()->getChildGenericDatas().size() > 0) {
+        // insert intermediate list item
+        FXTreeItem* dataElements = addListItem(item, TL("Data elements"), GUIIconSubSys::getIcon(GUIIcon::SUPERMODEDATA), false);
+        for (const auto& genericDatas : hierarchicalElement->getHierarchicalElement()->getChildGenericDatas()) {
+            showHierarchicalElementChildren(genericDatas, dataElements);
+        }
+    }
+    // data sets
+    if (hierarchicalElement->getTagProperty()->getTag() == SUMO_TAG_DATASET) {
+        GNEDataSet* dataSet = attributeCarriers->retrieveDataSet(hierarchicalElement->getID(), false);
+        if (dataSet) {
+            // iterate over intervals
+            for (const auto& interval : dataSet->getDataIntervalChildren()) {
+                showHierarchicalElementChildren(interval.second, item);
+            }
+        }
+    }
+    // data interval
+    if (hierarchicalElement->getTagProperty()->getTag() == SUMO_TAG_DATAINTERVAL) {
+        auto dataInterval = attributeCarriers->retrieveDataInterval(hierarchicalElement, false);
+        if (dataInterval) {
+            // iterate over generic datas
+            for (const auto& genericData : dataInterval->getGenericDataChildren()) {
+                showHierarchicalElementChildren(genericData, item);
+            }
+        }
+    } else if (hierarchicalElement->getHierarchicalElement()->getChildGenericDatas().size() > 0) {
+        // insert intermediate list item
+        FXTreeItem* dataElements = addListItem(item, TL("Data elements"), GUIIconSubSys::getIcon(GUIIcon::SUPERMODEDATA), false);
+        for (const auto& genericDatas : hierarchicalElement->getHierarchicalElement()->getChildGenericDatas()) {
+            showHierarchicalElementChildren(genericDatas, dataElements);
         }
     }
 }
