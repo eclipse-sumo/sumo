@@ -496,7 +496,7 @@ GNEMoveElement::calculateNewLaneChange(const GNEViewNet* viewNet, const GNELane*
     // get cursor position
     const Position cursorPosition = viewNet->getPositionInformation();
     // iterate over edge lanes
-    for (const auto& lane : originalLane->getParentEdge()->getLanes()) {
+    for (const auto& lane : originalLane->getParentEdge()->getChildLanes()) {
         // avoid moveOperation lane
         if (lane != originalLane) {
             // calculate offset over lane shape

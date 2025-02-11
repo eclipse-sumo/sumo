@@ -1280,8 +1280,8 @@ GNEVehicle::getFirstPathLane() const {
     // get departLane index
     const int departLaneIndex = (int)getAttributeDouble(SUMO_ATTR_DEPARTLANE);
     // check departLane index
-    if ((departLaneIndex >= 0) && (departLaneIndex < (int)firstEdge->getLanes().size())) {
-        return firstEdge->getLanes().at(departLaneIndex);
+    if ((departLaneIndex >= 0) && (departLaneIndex < (int)firstEdge->getChildLanes().size())) {
+        return firstEdge->getChildLanes().at(departLaneIndex);
     } else {
         // get first allowed VClass
         return firstEdge->getLaneByAllowedVClass(getVClass());
@@ -1331,8 +1331,8 @@ GNEVehicle::getLastPathLane() const {
     // get arrivalLane index
     const int arrivalLaneIndex = (int)getAttributeDouble(SUMO_ATTR_ARRIVALLANE);
     // check arrivalLane index
-    if ((arrivalLaneIndex >= 0) && (arrivalLaneIndex < (int)lastEdge->getLanes().size())) {
-        return lastEdge->getLanes().at(arrivalLaneIndex);
+    if ((arrivalLaneIndex >= 0) && (arrivalLaneIndex < (int)lastEdge->getChildLanes().size())) {
+        return lastEdge->getChildLanes().at(arrivalLaneIndex);
     } else {
         // get last allowed VClass
         return lastEdge->getLaneByAllowedVClass(getVClass());
@@ -1639,7 +1639,7 @@ GNEVehicle::isValid(SumoXMLAttr key, const std::string& value) {
                 } else if (getParentAdditionals().size() > 0) {
                     return (dummyDepartLane == 0);
                 } else {
-                    return dummyDepartLane < (int)getFirstPathLane()->getParentEdge()->getLanes().size();
+                    return dummyDepartLane < (int)getFirstPathLane()->getParentEdge()->getChildLanes().size();
                 }
             } else {
                 return false;
@@ -1684,7 +1684,7 @@ GNEVehicle::isValid(SumoXMLAttr key, const std::string& value) {
                 } else if (getParentAdditionals().size() > 0) {
                     return (dummyArrivalLane == 0);
                 } else {
-                    return dummyArrivalLane < (int)getLastPathLane()->getParentEdge()->getLanes().size();
+                    return dummyArrivalLane < (int)getLastPathLane()->getParentEdge()->getChildLanes().size();
                 }
             } else {
                 return false;

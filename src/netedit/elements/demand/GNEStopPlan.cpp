@@ -138,8 +138,8 @@ GNEStopPlan::updateGeometry() {
         shape = {shapeA.positionAtOffset2D(stopWidth), shapeB.positionAtOffset2D(stopWidth)};
     } else if (getParentEdges().size() > 0) {
         // get front and back lane
-        const GNELane* frontLane = getParentEdges().front()->getLanes().front();
-        const GNELane* backLane = getParentEdges().front()->getLanes().back();
+        const GNELane* frontLane = getParentEdges().front()->getChildLanes().front();
+        const GNELane* backLane = getParentEdges().front()->getChildLanes().back();
         // calculate front position
         const Position frontPosition = frontLane->getLaneShape().positionAtOffset2D(getAttributeDouble(GNE_ATTR_PLAN_GEOMETRY_ENDPOS),
                                        frontLane->getDrawingConstants()->getDrawingWidth());

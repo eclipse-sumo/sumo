@@ -1111,7 +1111,7 @@ GNEViewNet::addRestrictedLane(GNELane* lane, SUMOVehicleClass vclass, const bool
             } else {
                 myNet->addGreenVergeLane(lane->getParentEdge(), lane->getIndex(), myUndoList);
             }
-        } else if (lane->getParentEdge()->getLanes().size() == 1) {
+        } else if (lane->getParentEdge()->getChildLanes().size() == 1) {
             // guess insertion position if there is only 1 lane
             myNet->addRestrictedLane(vclass, lane->getParentEdge(), -1, myUndoList);
         } else {
@@ -3237,7 +3237,7 @@ GNEViewNet::onCmdLaneReachability(FXObject* menu, FXSelector, void*) {
         // select all lanes with reachability greater than 0
         myUndoList->begin(laneAtPopupPosition, TL("select lane reachability"));
         for (const auto& edge : myNet->getAttributeCarriers()->getEdges()) {
-            for (const auto& lane : edge.second->getLanes()) {
+            for (const auto& lane : edge.second->getChildLanes()) {
                 if (lane->getReachability() >= 0) {
                     lane->setAttribute(GNE_ATTR_SELECTED, "true", myUndoList);
                 }
@@ -5435,7 +5435,7 @@ GNEViewNet::drawTemporalSplitJunction() const {
             !myMouseButtonKeyPressed.altKeyPressed() &&
             (gViewObjectsHandler.markedEdge != nullptr)) {
         // calculate split position
-        const auto lane = gViewObjectsHandler.markedEdge->getLanes().back();
+        const auto lane = gViewObjectsHandler.markedEdge->getChildLanes().back();
         auto shape = lane->getLaneShape();
         // move shape to side
         shape.move2side(lane->getDrawingConstants()->getDrawingWidth() * -1);

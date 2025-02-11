@@ -239,7 +239,7 @@ GNEPlanSelector::updateJunctionColors() {
     }
     // mark junctions that supports pedestrian as candidates
     for (const auto& edge : myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getEdges()) {
-        for (int i = 0; i < (int)edge.second->getLanes().size(); i++) {
+        for (int i = 0; i < (int)edge.second->getChildLanes().size(); i++) {
             if (edge.second->getNBEdge()->getLanes().at(i).permissions & SVC_PEDESTRIAN) {
                 edge.second->getFromJunction()->setPossibleCandidate(true);
                 edge.second->getToJunction()->setPossibleCandidate(true);
@@ -258,7 +258,7 @@ GNEPlanSelector::updateEdgeColors() {
     // mark edges that supports pedestrian as candidates
     for (const auto& edge : myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getEdges()) {
         bool allowPedestrian = false;
-        for (int i = 0; i < (int)edge.second->getLanes().size(); i++) {
+        for (int i = 0; i < (int)edge.second->getChildLanes().size(); i++) {
             if (edge.second->getNBEdge()->getLanes().at(i).permissions & SVC_PEDESTRIAN) {
                 allowPedestrian = true;
             }

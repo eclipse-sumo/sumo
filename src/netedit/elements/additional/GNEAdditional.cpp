@@ -422,7 +422,7 @@ GNEAdditional::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
         GUIDesigns::buildFXMenuCommand(ret, TL("Cursor position over additional shape: ") + toString(innerPos), nullptr, nullptr, 0);
         // If shape isn't empty, show menu command edge position
         if (myAdditionalGeometry.getShape().size() > 0) {
-            const double edgePos = edge->getLanes().at(0)->getLaneShape().nearest_offset_to_point2D(myAdditionalGeometry.getShape().front());
+            const double edgePos = edge->getChildLanes().at(0)->getLaneShape().nearest_offset_to_point2D(myAdditionalGeometry.getShape().front());
             GUIDesigns::buildFXMenuCommand(ret, TL("Mouse position over edge: ") + toString(innerPos + edgePos), nullptr, nullptr, 0);
         }
     } else {
@@ -691,7 +691,7 @@ GNEAdditional::replaceDemandElementParent(SumoXMLTag tag, const std::string& val
 
 void
 GNEAdditional::shiftLaneIndex() {
-    const std::vector<GNELane*> newLanes = {getParentLanes().front()->getParentEdge()->getLanes().at(getParentLanes().front()->getIndex() + 1)};
+    const std::vector<GNELane*> newLanes = {getParentLanes().front()->getParentEdge()->getChildLanes().at(getParentLanes().front()->getIndex() + 1)};
     GNEHierarchicalElement::updateParents(this, newLanes);
 }
 
@@ -702,8 +702,8 @@ GNEAdditional::calculatePerpendicularLine(const double endLaneposition) {
         throw ProcessError(TL("Invalid number of edges"));
     } else {
         // get lanes
-        const GNELane* firstLane = getParentEdges().front()->getLanes().front();
-        const GNELane* lastLane = getParentEdges().front()->getLanes().back();
+        const GNELane* firstLane = getParentEdges().front()->getChildLanes().front();
+        const GNELane* lastLane = getParentEdges().front()->getChildLanes().back();
         // get first and back lane shapes
         PositionVector firstLaneShape = firstLane->getLaneShape();
         PositionVector lastLaneShape = lastLane->getLaneShape();
@@ -1196,7 +1196,7 @@ GNEAdditional::areLaneConsecutives(const std::vector<GNELane*>& lanes) {
         const auto nextLane = lanes.at(laneIt + 1);
         // if there is a connection between "from" lane and "to" lane of connection, change connectionFound to true
         for (const auto& outgoingEdge : lane->getParentEdge()->getToJunction()->getGNEOutgoingEdges()) {
-            for (const auto& outgoingLane : outgoingEdge->getLanes()) {
+            for (const auto& outgoingLane : outgoingEdge->getChildLanes()) {
                 if (outgoingLane == nextLane) {
                     consecutiveFound = true;
                 }

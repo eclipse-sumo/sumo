@@ -445,7 +445,7 @@ GNETLSEditorFrame::handleMultiChange(GNELane* lane, FXObject* obj, FXSelector se
         fromIDs.insert(lane->getMicrosimID());
         // if neither the lane nor its edge are selected, apply changes to the whole edge
         if (!lane->getParentEdge()->isAttributeCarrierSelected() && !lane->isAttributeCarrierSelected()) {
-            for (auto it_lane : lane->getParentEdge()->getLanes()) {
+            for (auto it_lane : lane->getParentEdge()->getChildLanes()) {
                 fromIDs.insert(it_lane->getMicrosimID());
             }
         } else {
@@ -453,7 +453,7 @@ GNETLSEditorFrame::handleMultiChange(GNELane* lane, FXObject* obj, FXSelector se
             if (lane->getParentEdge()->isAttributeCarrierSelected()) {
                 const auto selectedEdge = myViewNet->getNet()->getAttributeCarriers()->getSelectedEdges();
                 for (const auto& edge : selectedEdge) {
-                    for (auto it_lane : edge->getLanes()) {
+                    for (auto it_lane : edge->getChildLanes()) {
                         fromIDs.insert(it_lane->getMicrosimID());
                     }
                 }

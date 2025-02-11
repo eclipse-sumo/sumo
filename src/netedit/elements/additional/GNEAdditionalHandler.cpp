@@ -830,7 +830,7 @@ GNEAdditionalHandler::buildEdgeCalibrator(const CommonXMLStructure::SumoBaseObje
     } else {
         // get netedit parameters
         NeteditParameters neteditParameters(sumoBaseObject);
-        if (!checkLanePosition(pos, 0, edge->getLanes().front()->getParentEdge()->getNBEdge()->getFinalLength(), false)) {
+        if (!checkLanePosition(pos, 0, edge->getChildLanes().front()->getParentEdge()->getNBEdge()->getFinalLength(), false)) {
             return writeErrorInvalidPosition(SUMO_TAG_CALIBRATOR, id);
         } else if (!checkNegative(SUMO_TAG_CALIBRATOR, id, SUMO_ATTR_PERIOD, period, true)) {
             return false;
@@ -929,7 +929,7 @@ GNEAdditionalHandler::buildRerouter(const CommonXMLStructure::SumoBaseObject* su
             // continue depending of position
             if (pos == Position::INVALID) {
                 if (edges.size() > 0) {
-                    PositionVector laneShape = edges.front()->getLanes().front()->getLaneShape();
+                    PositionVector laneShape = edges.front()->getChildLanes().front()->getLaneShape();
                     // move to side
                     laneShape.move2side(3);
                     // create rerouter
@@ -1827,7 +1827,7 @@ bool
 GNEAdditionalHandler::accessCanBeCreated(GNEAdditional* busStopParent, GNEEdge* edge) {
     // check if exist another access for the same busStop in the given edge
     for (const auto& additional : busStopParent->getChildAdditionals()) {
-        for (const auto& lane : edge->getLanes()) {
+        for (const auto& lane : edge->getChildLanes()) {
             if (additional->getAttribute(SUMO_ATTR_LANE) == lane->getID()) {
                 return false;
             }

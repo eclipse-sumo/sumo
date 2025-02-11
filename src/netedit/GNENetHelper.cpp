@@ -175,7 +175,7 @@ GNENetHelper::AttributeCarriers::isNetworkElementAroundTriangle(GNEAttributeCarr
         }
     } else if (AC->getTagProperty()->getTag() == SUMO_TAG_EDGE) {
         // Edge
-        for (const auto& lane : myEdges.at(AC->getID())->getLanes()) {
+        for (const auto& lane : myEdges.at(AC->getID())->getChildLanes()) {
             if (triangle.intersectWithShape(lane->getLaneShape())) {
                 return true;
             }
@@ -740,7 +740,7 @@ GNENetHelper::AttributeCarriers::registerEdge(GNEEdge* edge) {
     myEdges[edge->getMicrosimID()] = edge;
     myNumberOfNetworkElements++;
     // insert all lanes
-    for (const auto& lane : edge->getLanes()) {
+    for (const auto& lane : edge->getChildLanes()) {
         insertLane(lane);
     }
     // Add references into GNEJunctions
@@ -797,7 +797,7 @@ GNENetHelper::AttributeCarriers::updateEdgeID(GNEEdge* edge, const std::string& 
         // add it into myEdges again
         myEdges[edge->getID()] = edge;
         // rename all connections related to this edge
-        for (const auto& lane : edge->getLanes()) {
+        for (const auto& lane : edge->getChildLanes()) {
             lane->updateConnectionIDs();
         }
         // net has to be saved
@@ -825,7 +825,7 @@ GNENetHelper::AttributeCarriers::retrieveLane(const std::string& id, bool hardFa
     if (edge != nullptr) {
         GNELane* lane = nullptr;
         // search  lane in lane's edges
-        for (auto laneIt : edge->getLanes()) {
+        for (auto laneIt : edge->getChildLanes()) {
             if (laneIt->getID() == id) {
                 lane = laneIt;
             }
@@ -839,8 +839,8 @@ GNENetHelper::AttributeCarriers::retrieveLane(const std::string& id, bool hardFa
         } else {
             // check if the recomputing with volatile option has changed the number of lanes (needed for additionals and demand elements)
             if (checkVolatileChange && (myNet->getEdgesAndNumberOfLanes().count(edge_id) == 1) &&
-                    myNet->getEdgesAndNumberOfLanes().at(edge_id) != (int)edge->getLanes().size()) {
-                return edge->getLanes().at(lane->getIndex() + 1);
+                    myNet->getEdgesAndNumberOfLanes().at(edge_id) != (int)edge->getChildLanes().size()) {
+                return edge->getChildLanes().at(lane->getIndex() + 1);
             }
             return lane;
         }
@@ -2374,7 +2374,7 @@ GNENetHelper::AttributeCarriers::deleteSingleEdge(GNEEdge* edge) {
     myEdges.erase(edge->getMicrosimID());
     myNumberOfNetworkElements--;
     // remove all lanes
-    for (const auto& lane : edge->getLanes()) {
+    for (const auto& lane : edge->getChildLanes()) {
         deleteLane(lane);
     }
     // extract edge of district container

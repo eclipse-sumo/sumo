@@ -985,7 +985,7 @@ GNEJunction::removeTLSConnections(std::vector<NBConnection>& connections, GNEUnd
 void
 GNEJunction::replaceIncomingConnections(GNEEdge* which, GNEEdge* by, GNEUndoList* undoList) {
     // remap connections of the edge
-    assert(which->getLanes().size() == by->getLanes().size());
+    assert(which->getChildLanes().size() == by->getChildLanes().size());
     std::vector<NBEdge::Connection> connections = which->getNBEdge()->getConnections();
     for (NBEdge::Connection& c : connections) {
         undoList->add(new GNEChange_Connection(which, c, false, false), true);
@@ -1000,7 +1000,7 @@ GNEJunction::replaceIncomingConnections(GNEEdge* which, GNEEdge* by, GNEUndoList
             std::string newID = tlDef->getID();
             // create replacement before deleting the original because deletion will mess up saving original nodes
             NBLoadedSUMOTLDef* replacementDef = new NBLoadedSUMOTLDef(*tlDef, *tlDef->getLogic());
-            for (int i = 0; i < (int)which->getLanes().size(); ++i) {
+            for (int i = 0; i < (int)which->getChildLanes().size(); ++i) {
                 replacementDef->replaceRemoved(which->getNBEdge(), i, by->getNBEdge(), i, true);
             }
             undoList->add(new GNEChange_TLS(this, tlDef, false), true);

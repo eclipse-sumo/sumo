@@ -195,7 +195,7 @@ void
 GNEPathManager::PathCalculator::calculateReachability(const SUMOVehicleClass vClass, GNEEdge* originEdge) {
     // first reset reachability of all lanes
     for (const auto& edge : originEdge->getNet()->getAttributeCarriers()->getEdges()) {
-        for (const auto& lane : edge.second->getLanes()) {
+        for (const auto& lane : edge.second->getChildLanes()) {
             lane->resetReachability();
         }
     }
@@ -214,7 +214,7 @@ GNEPathManager::PathCalculator::calculateReachability(const SUMOVehicleClass vCl
         GNEEdge* edge = check.front();
         check.erase(check.begin());
         double traveltime = reachableEdges[edge];
-        for (const auto& lane : edge->getLanes()) {
+        for (const auto& lane : edge->getChildLanes()) {
             if ((edge->getNBEdge()->getLaneStruct(lane->getIndex()).permissions & vClass) == vClass) {
                 lane->setReachability(traveltime);
             }
@@ -255,10 +255,10 @@ GNEPathManager::PathCalculator::consecutiveEdgesConnected(const SUMOVehicleClass
         return true;
     } else {
         // iterate over connections of from edge
-        for (const auto& fromLane : from->getLanes()) {
+        for (const auto& fromLane : from->getChildLanes()) {
             for (const auto& fromConnection : from->getGNEConnections()) {
                 // within from loop, iterate ove to lanes
-                for (const auto& toLane : to->getLanes()) {
+                for (const auto& toLane : to->getChildLanes()) {
                     if (fromConnection->getLaneTo() == toLane) {
                         // get lane structs for both lanes
                         const NBEdge::Lane NBFromLane = from->getNBEdge()->getLaneStruct(fromLane->getIndex());
@@ -290,9 +290,9 @@ GNEPathManager::PathCalculator::busStopConnected(const GNEAdditional* busStop, c
     }
     // obtain a list with all edge lanes that supports pedestrians
     std::vector<GNELane*> pedestrianLanes;
-    for (int laneIndex = 0; laneIndex < (int)edge->getLanes().size(); laneIndex++) {
+    for (int laneIndex = 0; laneIndex < (int)edge->getChildLanes().size(); laneIndex++) {
         if ((edge->getNBEdge()->getLaneStruct(laneIndex).permissions & SVC_PEDESTRIAN) != 0) {
-            pedestrianLanes.push_back(edge->getLanes().at(laneIndex));
+            pedestrianLanes.push_back(edge->getChildLanes().at(laneIndex));
         }
     }
     // check if exist an access between busStop and pedestrian lanes
@@ -562,8 +562,8 @@ GNEPathManager::calculateConsecutivePathEdges(GNEPathElement* pathElement, SUMOV
     if (edges.size() > 0) {
         lanes.reserve(edges.size());
         // add first lane
-        if ((firstLaneIndex >= 0) && (firstLaneIndex < (int)edges.front()->getLanes().size())) {
-            lanes.push_back(edges.front()->getLanes().at(firstLaneIndex));
+        if ((firstLaneIndex >= 0) && (firstLaneIndex < (int)edges.front()->getChildLanes().size())) {
+            lanes.push_back(edges.front()->getChildLanes().at(firstLaneIndex));
         } else {
             lanes.push_back(edges.front()->getLaneByAllowedVClass(vClass));
         }
@@ -574,8 +574,8 @@ GNEPathManager::calculateConsecutivePathEdges(GNEPathElement* pathElement, SUMOV
                 lanes.push_back(edges[i]->getLaneByAllowedVClass(vClass));
             }
             // add last lane
-            if ((lastLaneIndex >= 0) && (lastLaneIndex < (int)edges.back()->getLanes().size())) {
-                lanes.push_back(edges.back()->getLanes().at(lastLaneIndex));
+            if ((lastLaneIndex >= 0) && (lastLaneIndex < (int)edges.back()->getChildLanes().size())) {
+                lanes.push_back(edges.back()->getChildLanes().at(lastLaneIndex));
             } else {
                 lanes.push_back(edges.back()->getLaneByAllowedVClass(vClass));
             }

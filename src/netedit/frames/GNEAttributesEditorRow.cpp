@@ -701,7 +701,7 @@ GNEAttributesEditorRow::showMoveLaneButtons(const std::string& laneID) {
     // check lane
     if (lane) {
         // check if disable move up
-        if ((lane->getIndex() + 1) >= (int)lane->getParentEdge()->getLanes().size()) {
+        if ((lane->getIndex() + 1) >= (int)lane->getParentEdge()->getChildLanes().size()) {
             myValueLaneUpButton->disable();
         } else {
             myValueLaneUpButton->enable();

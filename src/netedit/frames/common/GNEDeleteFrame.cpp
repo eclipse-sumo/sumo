@@ -98,7 +98,7 @@ GNEDeleteFrame::SubordinatedElements::SubordinatedElements(const GNEJunction* ju
 GNEDeleteFrame::SubordinatedElements::SubordinatedElements(const GNEEdge* edge) :
     SubordinatedElements(edge, edge->getNet()->getViewNet(), edge) {
     // add the number of subodinated elements of child lanes
-    for (const auto& lane : edge->getLanes()) {
+    for (const auto& lane : edge->getChildLanes()) {
         addValuesFromSubordinatedElements(this, lane);
     }
 }
@@ -493,7 +493,7 @@ GNEDeleteFrame::selectedACsToDelete() const {
                     return true;
                 }
                 // check lanes
-                for (const auto& lane : edge->getLanes()) {
+                for (const auto& lane : edge->getChildLanes()) {
                     if (lane->isAttributeCarrierSelected()) {
                         return true;
                     }

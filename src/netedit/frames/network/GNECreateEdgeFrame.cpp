@@ -887,7 +887,7 @@ GNECreateEdgeFrame::setUseEdgeTemplate() {
 void
 GNECreateEdgeFrame::disablePedestrians(GNEEdge* edge) const {
     // iterate over lanes
-    for (const auto& lane : edge->getLanes()) {
+    for (const auto& lane : edge->getChildLanes()) {
         // avoid sidewalks
         if (lane->getAttribute(SUMO_ATTR_ALLOW) != "pedestrian") {
             // extract disallow list
@@ -907,7 +907,7 @@ void
 GNECreateEdgeFrame::addBikelane(GNEEdge* edge, const std::string& bikelaneWidth) const {
     bool bikelaneFound = false;
     // iterate over lanes
-    for (const auto& lane : edge->getLanes()) {
+    for (const auto& lane : edge->getChildLanes()) {
         // check if there is already a SideWalk
         if (lane->getAttribute(SUMO_ATTR_ALLOW) == "bicycle") {
             bikelaneFound = true;
@@ -915,10 +915,10 @@ GNECreateEdgeFrame::addBikelane(GNEEdge* edge, const std::string& bikelaneWidth)
     }
     // only add if previously there is no bikelanes
     if (!bikelaneFound) {
-        edge->getNet()->getViewNet()->addRestrictedLane(edge->getLanes().at(0), SVC_BICYCLE, false);
+        edge->getNet()->getViewNet()->addRestrictedLane(edge->getChildLanes().at(0), SVC_BICYCLE, false);
         // set width
         if (bikelaneWidth != "default") {
-            edge->getLanes().at(0)->setAttribute(SUMO_ATTR_WIDTH, bikelaneWidth, myViewNet->getUndoList());
+            edge->getChildLanes().at(0)->setAttribute(SUMO_ATTR_WIDTH, bikelaneWidth, myViewNet->getUndoList());
         }
     }
 }
@@ -928,7 +928,7 @@ void
 GNECreateEdgeFrame::addSidewalk(GNEEdge* edge, const std::string& sidewalkWidth) const {
     bool sidewalkFound = false;
     // iterate over lanes
-    for (const auto& lane : edge->getLanes()) {
+    for (const auto& lane : edge->getChildLanes()) {
         // check if there is already a SideWalk
         if (lane->getAttribute(SUMO_ATTR_ALLOW) == "pedestrian") {
             sidewalkFound = true;
@@ -936,10 +936,10 @@ GNECreateEdgeFrame::addSidewalk(GNEEdge* edge, const std::string& sidewalkWidth)
     }
     // only add if previously there is no Sidewalk
     if (!sidewalkFound) {
-        edge->getNet()->getViewNet()->addRestrictedLane(edge->getLanes().at(0), SVC_PEDESTRIAN, false);
+        edge->getNet()->getViewNet()->addRestrictedLane(edge->getChildLanes().at(0), SVC_PEDESTRIAN, false);
         // set width
         if (sidewalkWidth != "default") {
-            edge->getLanes().at(0)->setAttribute(SUMO_ATTR_WIDTH, sidewalkWidth, myViewNet->getUndoList());
+            edge->getChildLanes().at(0)->setAttribute(SUMO_ATTR_WIDTH, sidewalkWidth, myViewNet->getUndoList());
         }
     }
 }

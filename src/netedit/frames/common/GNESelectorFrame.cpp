@@ -497,7 +497,7 @@ GNESelectorFrame::SelectionOperation::processMassiveNetworkElementSelection(cons
             }
             // add lanes
             if (!filterLanes || !selectEdges) {
-                for (const auto& lane : incomingEdge->getLanes()) {
+                for (const auto& lane : incomingEdge->getChildLanes()) {
                     networkACs.insert(lane);
                 }
             }
@@ -827,7 +827,7 @@ GNESelectorFrame::SelectionHierarchy::onCmdChildren(FXObject* obj, FXSelector, v
                     // special case for edges
                     const auto edge = dynamic_cast<GNEEdge*>(selectedAC);
                     // insert lanes
-                    editedChildren.insert(editedChildren.end(), edge->getLanes().begin(), edge->getLanes().end());
+                    editedChildren.insert(editedChildren.end(), edge->getChildLanes().begin(), edge->getChildLanes().end());
                 } else {
                     editedChildren.insert(editedChildren.end(), hierarchicalElement->getChildEdges().begin(), hierarchicalElement->getChildEdges().end());
                 }

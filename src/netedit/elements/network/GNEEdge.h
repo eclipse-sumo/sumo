@@ -279,9 +279,6 @@ public:
     /// @brief returns GLIDs of all lanes
     std::set<GUIGlID> getLaneGlIDs() const;
 
-    /// @brief returns a reference to the lane vector
-    const std::vector<GNELane*>& getLanes() const;
-
     /// @brief returns a reference to the GNEConnection vector
     const std::vector<GNEConnection*>& getGNEConnections() const;
 

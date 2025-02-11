@@ -103,7 +103,7 @@ GNERerouterSymbol::updateGeometry() {
     mySymbolGeometries.clear();
     // iterate over all lanes
     NBEdge* nbe = getParentEdges().front()->getNBEdge();
-    for (const auto& lane : getParentEdges().front()->getLanes()) {
+    for (const auto& lane : getParentEdges().front()->getChildLanes()) {
         if ((nbe->getPermissions(lane->getIndex()) & ~SVC_PEDESTRIAN) == 0) {
             continue;
         }

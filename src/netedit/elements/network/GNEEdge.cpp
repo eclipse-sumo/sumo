@@ -1103,16 +1103,10 @@ GNEEdge::copyEdgeType(const GNEEdgeType* edgeType, GNEUndoList* undoList) {
 std::set<GUIGlID>
 GNEEdge::getLaneGlIDs() const {
     std::set<GUIGlID> result;
-    for (auto i : getChildLanes()) {
-        result.insert(i->getGlID());
+    for (const auto glID : getChildLanes()) {
+        result.insert(glID->getGlID());
     }
     return result;
-}
-
-
-const std::vector<GNELane*>&
-GNEEdge::getLanes() const {
-    return getChildLanes();
 }
 
 
@@ -2292,7 +2286,7 @@ GNEEdge::retrieveGNEConnection(int fromLane, NBEdge* to, int toLane, bool create
     }
     if (createIfNoExist) {
         // create new connection. Will be added to the rTree on first geometry computation
-        GNEConnection* connection = new GNEConnection(getChildLanes()[fromLane], myNet->getAttributeCarriers()->retrieveEdge(to->getID())->getLanes()[toLane]);
+        GNEConnection* connection = new GNEConnection(getChildLanes()[fromLane], myNet->getAttributeCarriers()->retrieveEdge(to->getID())->getChildLanes()[toLane]);
         // add it into network
         myNet->addGLObjectIntoGrid(connection);
         // add it in attributeCarriers
@@ -2839,7 +2833,7 @@ GNEEdge::drawLaneStopOffset(const GUIVisualizationSettings& s, const GUIVisualiz
         // translate to front (note: Special case)
         drawInLayer(layer + 1);
         if (myNBEdge->myEdgeStopOffset.isDefined() && (myNBEdge->myEdgeStopOffset.getPermissions() & SVC_PASSENGER) != 0) {
-            for (const auto& lane : getLanes()) {
+            for (const auto& lane : getChildLanes()) {
                 lane->drawLaneStopOffset(s);
             }
         }

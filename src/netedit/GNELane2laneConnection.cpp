@@ -42,7 +42,7 @@ GNELane2laneConnection::updateLane2laneConnection() {
     myConnectionsMap.clear();
     // iterate over outgoingEdge's lanes
     for (const auto& outgoingEdge : myFromLane->getParentEdge()->getToJunction()->getGNEOutgoingEdges()) {
-        for (const auto& outgoingLane : outgoingEdge->getLanes()) {
+        for (const auto& outgoingLane : outgoingEdge->getChildLanes()) {
             // get NBEdges from and to
             const NBEdge* NBEdgeFrom = myFromLane->getParentEdge()->getNBEdge();
             const NBEdge* NBEdgeTo = outgoingLane->getParentEdge()->getNBEdge();

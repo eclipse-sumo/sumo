@@ -207,14 +207,14 @@ GNECalibrator::updateGeometry() {
                 delete *it;
             }
             myCalibratorContours->clear();
-            for (int i = 1; i < (int)getParentEdges().front()->getLanes().size(); i++) {
+            for (int i = 1; i < (int)getParentEdges().front()->getChildLanes().size(); i++) {
                 myCalibratorContours->push_back(new GNEContour());
             }
         }
         myEdgeCalibratorGeometries.clear();
         // iterate over every lane and upadte geometries
-        for (const auto& lane : getParentEdges().front()->getLanes()) {
-            if (lane == getParentEdges().front()->getLanes().front()) {
+        for (const auto& lane : getParentEdges().front()->getChildLanes()) {
+            if (lane == getParentEdges().front()->getChildLanes().front()) {
                 myAdditionalGeometry.updateGeometry(lane->getLaneShape(), myPositionOverLane, 0);
             } else {
                 // add new calibrator geometry
@@ -262,7 +262,7 @@ GNECalibrator::getParentName() const {
     if (getParentLanes().size() > 0) {
         return getParentLanes().front()->getID();
     } else if (getParentEdges().size() > 0) {
-        return getParentEdges().front()->getLanes().at(0)->getID();
+        return getParentEdges().front()->getChildLanes().at(0)->getID();
     } else {
         throw ProcessError(TL("Both myEdge and myLane aren't defined"));
     }
@@ -426,7 +426,7 @@ GNECalibrator::isValid(SumoXMLAttr key, const std::string& value) {
                     return (newPosition >= 0);
                 }
                 // get shape
-                PositionVector shape = (getParentLanes().size() > 0) ? getParentLanes().front()->getLaneShape() : getParentEdges().front()->getLanes().at(0)->getLaneShape();
+                PositionVector shape = (getParentLanes().size() > 0) ? getParentLanes().front()->getLaneShape() : getParentEdges().front()->getChildLanes().at(0)->getLaneShape();
                 if ((newPosition < 0) || (newPosition > shape.length())) {
                     return false;
                 } else {

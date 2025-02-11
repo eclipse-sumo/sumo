@@ -205,7 +205,7 @@ GNEEdgeData::drawLanePartialGL(const GUIVisualizationSettings& s, const GNESegme
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
         if (!s.drawForViewObjectsHandler) {
             // draw over all edge's lanes
-            for (const auto& laneEdge : segment->getLane()->getParentEdge()->getLanes()) {
+            for (const auto& laneEdge : segment->getLane()->getParentEdge()->getChildLanes()) {
                 // Add a draw matrix
                 GLHelper::pushMatrix();
                 // Start with the drawing of the area translating matrix to origin
@@ -223,7 +223,7 @@ GNEEdgeData::drawLanePartialGL(const GUIVisualizationSettings& s, const GNESegme
                 // draw lock icon
                 GNEViewNetHelper::LockIcon::drawLockIcon(d, this, getType(), getPositionInView(), 1);
                 // draw filtered attribute
-                if (getParentEdges().front()->getLanes().front() == laneEdge) {
+                if (getParentEdges().front()->getChildLanes().front() == laneEdge) {
                     drawFilteredAttribute(s, laneEdge->getLaneShape(),
                                           myNet->getViewNet()->getViewParent()->getEdgeDataFrame()->getAttributeSelector()->getFilteredAttribute(),
                                           myNet->getViewNet()->getViewParent()->getEdgeDataFrame()->getIntervalSelector()->getDataInterval());

@@ -576,8 +576,8 @@ GNEContour::buildContourEdge(const GUIVisualizationSettings& s, const GUIVisuali
     // set left hand flag
     const bool lefthand = OptionsCont::getOptions().getBool("lefthand");
     // obtain lanes
-    const GNELane* topLane = lefthand ? edge->getLanes().front() : edge->getLanes().back();
-    const GNELane* botLane = lefthand ? edge->getLanes().back() : edge->getLanes().front();
+    const GNELane* topLane = lefthand ? edge->getChildLanes().front() : edge->getChildLanes().back();
+    const GNELane* botLane = lefthand ? edge->getChildLanes().back() : edge->getChildLanes().front();
     // create top and bot geometries
     myDottedGeometries->at(0) = GUIDottedGeometry(s, d, topLane->getLaneGeometry().getShape(), false);
     myDottedGeometries->at(2) = GUIDottedGeometry(s, d, botLane->getLaneGeometry().getShape().reverse(), false);

@@ -827,7 +827,7 @@ GNEElementTree::showHierarchicalElementChildren(GNEAttributeCarrier* hierarchica
                     // insert edge item
                     FXTreeItem* edgeItem = addListItem(hierarchicalElement, itemParent);
                     // insert lanes
-                    for (const auto& lane : edge->getLanes()) {
+                    for (const auto& lane : edge->getChildLanes()) {
                         showHierarchicalElementChildren(lane, edgeItem);
                     }
                     // insert child additional

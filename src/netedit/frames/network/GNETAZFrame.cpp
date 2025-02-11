@@ -1364,7 +1364,7 @@ void
 GNETAZFrame::TAZEdgesGraphic::hideTAZEdgesGraphicModule() {
     // iterate over all edges and restore color
     for (const auto& edge : myTAZFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getEdges()) {
-        for (const auto& lane : edge.second->getLanes()) {
+        for (const auto& lane : edge.second->getChildLanes()) {
             lane->setSpecialColor(nullptr);
         }
     }
@@ -1379,7 +1379,7 @@ GNETAZFrame::TAZEdgesGraphic::updateEdgeColors() {
     for (const auto& edge : myTAZFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getEdges()) {
         if (!edge.second->isAttributeCarrierSelected()) {
             // set candidate color (in this case, gray)
-            for (const auto lane : edge.second->getLanes()) {
+            for (const auto lane : edge.second->getChildLanes()) {
                 lane->setSpecialColor(&myEdgeDefaultColor);
             }
         }
@@ -1388,7 +1388,7 @@ GNETAZFrame::TAZEdgesGraphic::updateEdgeColors() {
     for (const auto& TAZEdgeColor : myTAZFrameParent->myCurrentTAZ->getTAZEdges()) {
         if (!TAZEdgeColor.edge->isAttributeCarrierSelected()) {
             // set candidate color (in this case,
-            for (const auto& lane : TAZEdgeColor.edge->getLanes()) {
+            for (const auto& lane : TAZEdgeColor.edge->getChildLanes()) {
                 // check what will be painted (source, sink or both)
                 if (myColorBySourceWeight->getCheck() == TRUE) {
                     lane->setSpecialColor(&scaledColors.at(TAZEdgeColor.sourceColor), TAZEdgeColor.source->getWeight());
@@ -1406,7 +1406,7 @@ GNETAZFrame::TAZEdgesGraphic::updateEdgeColors() {
     for (const auto& selectedEdge : myTAZFrameParent->myTAZSelectionStatistics->getEdgeAndTAZChildrenSelected()) {
         if (!selectedEdge.edge->isAttributeCarrierSelected()) {
             // set candidate selected color
-            for (const auto& lane : selectedEdge.edge->getLanes()) {
+            for (const auto& lane : selectedEdge.edge->getChildLanes()) {
                 lane->setSpecialColor(&myEdgeSelectedColor);
             }
         }

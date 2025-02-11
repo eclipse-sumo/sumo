@@ -439,7 +439,7 @@ void
 GNENet::deleteEdge(GNEEdge* edge, GNEUndoList* undoList, bool recomputeConnections) {
     undoList->begin(GUIIcon::MODEDELETE, TL("delete edge"));
     // iterate over lanes
-    for (const auto& lane : edge->getLanes()) {
+    for (const auto& lane : edge->getChildLanes()) {
         // invalidate lane path elements
         myNetworkPathManager->invalidateLanePath(lane);
         myDemandPathManager->invalidateLanePath(lane);
@@ -519,7 +519,7 @@ GNENet::replaceIncomingEdge(GNEEdge* which, GNEEdge* by, GNEUndoList* undoList) 
     undoList->begin(which, TL("replace edge"));
     GNEChange_Attribute::changeAttribute(by, SUMO_ATTR_TO, which->getAttribute(SUMO_ATTR_TO), undoList);
     // iterate over lane
-    for (const auto& lane : which->getLanes()) {
+    for (const auto& lane : which->getChildLanes()) {
         // replace in additionals
         std::vector<GNEAdditional*> copyOfLaneAdditionals = lane->getChildAdditionals();
         for (const auto& additional : copyOfLaneAdditionals) {
@@ -828,7 +828,7 @@ GNENet::restrictLane(SUMOVehicleClass vclass, GNELane* lane, GNEUndoList* undoLi
     bool addRestriction = true;
     if (vclass == SVC_PEDESTRIAN) {
         GNEEdge* edge = lane->getParentEdge();
-        for (const auto& edgeLane : edge->getLanes()) {
+        for (const auto& edgeLane : edge->getChildLanes()) {
             if (edgeLane->isRestricted(SVC_PEDESTRIAN)) {
                 // prevent adding a 2nd sidewalk
                 addRestriction = false;
@@ -879,13 +879,13 @@ GNENet::restrictLane(SUMOVehicleClass vclass, GNELane* lane, GNEUndoList* undoLi
 bool
 GNENet::addRestrictedLane(SUMOVehicleClass vclass, GNEEdge* edge, int index, GNEUndoList* undoList) {
     // First check that edge don't have a restricted lane of the given vclass
-    for (const auto& lane : edge->getLanes()) {
+    for (const auto& lane : edge->getChildLanes()) {
         if (lane->isRestricted(vclass)) {
             return false;
         }
     }
     // check that index is correct (index == size adds to the left of the leftmost lane)
-    const int numLanes = (int)edge->getLanes().size();
+    const int numLanes = (int)edge->getChildLanes().size();
     if (index > numLanes) {
         return false;
     }
@@ -895,7 +895,7 @@ GNENet::addRestrictedLane(SUMOVehicleClass vclass, GNEEdge* edge, int index, GNE
         // guess index from vclass
         if (vclass == SVC_BICYCLE) {
             // add bikelanes to the left of an existing sidewalk
-            index = edge->getLanes()[0]->isRestricted(SVC_PEDESTRIAN) ? 1 : 0;
+            index = edge->getChildLanes()[0]->isRestricted(SVC_PEDESTRIAN) ? 1 : 0;
         } else if (vclass == SVC_BUS) {
             // add greenVerge to the left of an existing sidewalk or bikeLane
             // add busLane to the left of an existing sidewalk, bikeLane or greenVerge
@@ -906,16 +906,16 @@ GNENet::addRestrictedLane(SUMOVehicleClass vclass, GNEEdge* edge, int index, GNE
         }
     }
     // duplicate selected lane
-    duplicateLane(edge->getLanes().at(MIN2(index, numLanes - 1)), undoList, true);
+    duplicateLane(edge->getChildLanes().at(MIN2(index, numLanes - 1)), undoList, true);
     // transform the created lane
-    return restrictLane(vclass, edge->getLanes().at(index), undoList);
+    return restrictLane(vclass, edge->getChildLanes().at(index), undoList);
 }
 
 
 bool
 GNENet::addGreenVergeLane(GNEEdge* edge, int index, GNEUndoList* undoList) {
     // check that index is correct (index == size adds to the left of the leftmost lane)
-    const int numLanes = (int)edge->getLanes().size();
+    const int numLanes = (int)edge->getChildLanes().size();
     if (index > numLanes) {
         index = numLanes;
     }
@@ -923,16 +923,16 @@ GNENet::addGreenVergeLane(GNEEdge* edge, int index, GNEUndoList* undoList) {
         index = 0;
     }
     // duplicate selected lane
-    duplicateLane(edge->getLanes().at(MIN2(index, numLanes - 1)), undoList, true);
+    duplicateLane(edge->getChildLanes().at(MIN2(index, numLanes - 1)), undoList, true);
     // transform the created lane
-    return restrictLane(SVC_IGNORING, edge->getLanes().at(index), undoList);
+    return restrictLane(SVC_IGNORING, edge->getChildLanes().at(index), undoList);
 }
 
 
 bool
 GNENet::removeRestrictedLane(SUMOVehicleClass vclass, GNEEdge* edge, GNEUndoList* undoList) {
     // iterate over lanes of edge
-    for (const auto& lane : edge->getLanes()) {
+    for (const auto& lane : edge->getChildLanes()) {
         if (lane->isRestricted(vclass)) {
             // Delete lane
             deleteLane(lane, undoList, true);
@@ -955,7 +955,7 @@ GNENet::splitEdge(GNEEdge* edge, const Position& pos, GNEUndoList* undoList, GNE
     const PositionVector& oldEdgeGeometry = edge->getNBEdge()->getGeometry();
     const double edgeSplitPosition = oldEdgeGeometry.nearest_offset_to_point2D(pos, false);
     // obtain lane geometry and split position (needed for adjust additional and demand childs)
-    const PositionVector& oldLaneGeometry = edge->getLanes().front()->getLaneShape();
+    const PositionVector& oldLaneGeometry = edge->getChildLanes().front()->getLaneShape();
     const double laneSplitPosition = oldLaneGeometry.nearest_offset_to_point2D(pos, false);
     // split edge geometry in two new geometries using edgeSplitPosition
     std::pair<PositionVector, PositionVector> newGeoms = oldEdgeGeometry.splitAt(edgeSplitPosition);
@@ -1024,7 +1024,7 @@ GNENet::splitEdge(GNEEdge* edge, const Position& pos, GNEUndoList* undoList, GNE
         secondPart->setAttribute(SUMO_ATTR_LENGTH, toString(relativeLength2 * loadedLength), undoList);
     }
     // reconnect across the split
-    for (int i = 0; i < (int)edge->getLanes().size(); ++i) {
+    for (int i = 0; i < (int)edge->getChildLanes().size(); ++i) {
         undoList->add(new GNEChange_Connection(edge, NBEdge::Connection(i, secondPart->getNBEdge(), i), false, true), true);
     }
     // re-add modified crossings
@@ -1037,9 +1037,9 @@ GNENet::splitEdge(GNEEdge* edge, const Position& pos, GNEUndoList* undoList, GNE
         additional->splitEdgeGeometry(edgeSplitPosition, edge, secondPart, undoList);
     }
     // Split geometry of all child lane additional
-    for (int i = 0; i < (int)edge->getLanes().size(); i++) {
-        for (const auto& additional : edge->getLanes().at(i)->getChildAdditionals()) {
-            additional->splitEdgeGeometry(laneSplitPosition, edge->getLanes().at(i), secondPart->getLanes().at(i), undoList);
+    for (int i = 0; i < (int)edge->getChildLanes().size(); i++) {
+        for (const auto& additional : edge->getChildLanes().at(i)->getChildAdditionals()) {
+            additional->splitEdgeGeometry(laneSplitPosition, edge->getChildLanes().at(i), secondPart->getChildLanes().at(i), undoList);
         }
     }
     // Split geometry of all child demand elements
@@ -1048,9 +1048,9 @@ GNENet::splitEdge(GNEEdge* edge, const Position& pos, GNEUndoList* undoList, GNE
         demandElement->splitEdgeGeometry(edgeSplitPosition, edge, secondPart, undoList);
     }
     // Split geometry of all child lane demand elements
-    for (int i = 0; i < (int)edge->getLanes().size(); i++) {
-        for (const auto& demandElement : edge->getLanes().at(i)->getChildDemandElements()) {
-            demandElement->splitEdgeGeometry(laneSplitPosition, edge->getLanes().at(i), secondPart->getLanes().at(i), undoList);
+    for (int i = 0; i < (int)edge->getChildLanes().size(); i++) {
+        for (const auto& demandElement : edge->getChildLanes().at(i)->getChildDemandElements()) {
+            demandElement->splitEdgeGeometry(laneSplitPosition, edge->getChildLanes().at(i), secondPart->getChildLanes().at(i), undoList);
         }
     }
     // finish undo list
@@ -1069,14 +1069,14 @@ GNENet::splitEdgesBidi(GNEEdge* edge, GNEEdge* oppositeEdge, const Position& pos
     newJunction = newStuff.first;
     // split second edge
     splitEdge(oppositeEdge, pos, undoList, newJunction);
-    if (edge->getLanes().back()->getAttribute(GNE_ATTR_OPPOSITE) != "") {
+    if (edge->getChildLanes().back()->getAttribute(GNE_ATTR_OPPOSITE) != "") {
         // restore opposite lane information
         for (const auto& nbEdge : newJunction->getNBNode()->getEdges()) {
             GNEEdge* e = myAttributeCarriers->retrieveEdge(nbEdge->getID());
             // store old attribute before it's changed by guess opposite
-            e->getLanes().back()->setAttribute(GNE_ATTR_OPPOSITE, "", undoList);
+            e->getChildLanes().back()->setAttribute(GNE_ATTR_OPPOSITE, "", undoList);
             if (nbEdge->guessOpposite(true)) {
-                e->getLanes().back()->setAttribute(GNE_ATTR_OPPOSITE, nbEdge->getLanes().back().oppositeID, undoList);
+                e->getChildLanes().back()->setAttribute(GNE_ATTR_OPPOSITE, nbEdge->getLanes().back().oppositeID, undoList);
             }
         }
     }
@@ -1451,7 +1451,7 @@ GNENet::computeNetwork(GNEApplicationWindow* window, bool force, bool volatileOp
     // save current number of lanes for every edge if recomputing is with volatile options
     if (volatileOptions) {
         for (const auto& edge : myAttributeCarriers->getEdges()) {
-            myEdgesAndNumberOfLanes[edge.second->getID()] = (int)edge.second->getLanes().size();
+            myEdgesAndNumberOfLanes[edge.second->getID()] = (int)edge.second->getChildLanes().size();
         }
     }
     // compute and update
@@ -2057,12 +2057,12 @@ GNENet::splitJunction(GNEJunction* junction, bool reconnect, GNEUndoList* undoLi
                     }
                 } else {
                     newEdge = newEdges[std::make_pair(c.toEdge->getID(), c.toEdge)];
-                    duplicateLane(newEdge->getLanes().back(), undoList, true);
+                    duplicateLane(newEdge->getChildLanes().back(), undoList, true);
                 }
                 if (newEdge) {
                     // copy permissions
-                    newEdge->getLanes().back()->setAttribute(SUMO_ATTR_ALLOW,
-                            in->getLanes()[c.fromLane]-> getAttribute(SUMO_ATTR_ALLOW), undoList);
+                    newEdge->getChildLanes().back()->setAttribute(SUMO_ATTR_ALLOW,
+                            in->getChildLanes()[c.fromLane]-> getAttribute(SUMO_ATTR_ALLOW), undoList);
                 }
             }
         }
@@ -2880,7 +2880,7 @@ GNENet::initJunctionsAndEdges() {
     }
     // recalculate all lane2lane connections
     for (const auto& edge : myAttributeCarriers->getEdges()) {
-        for (const auto& lane : edge.second->getLanes()) {
+        for (const auto& lane : edge.second->getChildLanes()) {
             lane->updateGeometry();
         }
     }

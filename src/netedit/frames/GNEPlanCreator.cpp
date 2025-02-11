@@ -391,13 +391,13 @@ GNEPlanCreator::drawTemporalRoute(const GUIVisualizationSettings& s) const {
             const GNEPlanCreator::PlanPath& path = myPath.at(i);
             // draw line over
             for (int j = 0; j < (int)path.getSubPath().size(); j++) {
-                const GNELane* lane = path.getSubPath().at(j)->getLanes().back();
+                const GNELane* lane = path.getSubPath().at(j)->getChildLanes().back();
                 if (((i == 0) && (j == 0)) || (j > 0)) {
                     GLHelper::drawBoxLines(lane->getLaneShape(), lineWidth);
                 }
                 // draw connection between lanes
                 if ((j + 1) < (int)path.getSubPath().size()) {
-                    const GNELane* nextLane = path.getSubPath().at(j + 1)->getLanes().back();
+                    const GNELane* nextLane = path.getSubPath().at(j + 1)->getChildLanes().back();
                     if (lane->getLane2laneConnections().exist(nextLane)) {
                         GLHelper::drawBoxLines(lane->getLane2laneConnections().getLane2laneGeometry(nextLane).getShape(), lineWidth);
                     } else {
@@ -421,13 +421,13 @@ GNEPlanCreator::drawTemporalRoute(const GUIVisualizationSettings& s) const {
             }
             // draw line over
             for (int j = 0; j < (int)path.getSubPath().size(); j++) {
-                const GNELane* lane = path.getSubPath().at(j)->getLanes().back();
+                const GNELane* lane = path.getSubPath().at(j)->getChildLanes().back();
                 if (((i == 0) && (j == 0)) || (j > 0)) {
                     GLHelper::drawBoxLines(lane->getLaneShape(), lineWidthin);
                 }
                 // draw connection between lanes
                 if ((j + 1) < (int)path.getSubPath().size()) {
-                    const GNELane* nextLane = path.getSubPath().at(j + 1)->getLanes().back();
+                    const GNELane* nextLane = path.getSubPath().at(j + 1)->getChildLanes().back();
                     if (lane->getLane2laneConnections().exist(nextLane)) {
                         GLHelper::drawBoxLines(lane->getLane2laneConnections().getLane2laneGeometry(nextLane).getShape(), lineWidthin);
                     } else {

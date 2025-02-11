@@ -381,7 +381,7 @@ GNEAttributesEditor::moveLaneUp() {
     const auto lane = myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveLane(myEditedACs.front()->getAttribute(SUMO_ATTR_LANE), false);
     if (lane) {
         // set next lane
-        setAttribute(SUMO_ATTR_LANE, lane->getParentEdge()->getLanes().at(lane->getIndex() + 1)->getID());
+        setAttribute(SUMO_ATTR_LANE, lane->getParentEdge()->getChildLanes().at(lane->getIndex() + 1)->getID());
     }
 }
 
@@ -391,7 +391,7 @@ GNEAttributesEditor::moveLaneDown() {
     const auto lane = myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveLane(myEditedACs.front()->getAttribute(SUMO_ATTR_LANE), false);
     if (lane) {
         // set previous lane
-        setAttribute(SUMO_ATTR_LANE, lane->getParentEdge()->getLanes().at(lane->getIndex() - 1)->getID());
+        setAttribute(SUMO_ATTR_LANE, lane->getParentEdge()->getChildLanes().at(lane->getIndex() - 1)->getID());
     }
 }
 

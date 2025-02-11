@@ -566,7 +566,7 @@ GNEVehicleFrame::buildVehicleOverRoute(SumoXMLTag vehicleTag, GNEDemandElement* 
         if ((route->getTagProperty()->getTag() == SUMO_TAG_ROUTE) && myVehicleBaseObject->hasStringAttribute(SUMO_ATTR_DEPARTLANE) &&
                 GNEAttributeCarrier::canParse<int>(myVehicleBaseObject->getStringAttribute(SUMO_ATTR_DEPARTLANE))) {
             const int departLane = GNEAttributeCarrier::parse<int>(myVehicleBaseObject->getStringAttribute(SUMO_ATTR_DEPARTLANE));
-            if (departLane >= (int)route->getParentEdges().front()->getLanes().size()) {
+            if (departLane >= (int)route->getParentEdges().front()->getChildLanes().size()) {
                 myViewNet->setStatusBarText("Invalid " + toString(SUMO_ATTR_DEPARTLANE));
                 return false;
             }

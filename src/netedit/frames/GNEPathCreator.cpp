@@ -599,13 +599,13 @@ GNEPathCreator::drawTemporalRoute(const GUIVisualizationSettings& s) const {
             const GNEPathCreator::Path& path = myPath.at(i);
             // draw line over
             for (int j = 0; j < (int)path.getSubPath().size(); j++) {
-                const GNELane* lane = path.getSubPath().at(j)->getLanes().back();
+                const GNELane* lane = path.getSubPath().at(j)->getChildLanes().back();
                 if (((i == 0) && (j == 0)) || (j > 0)) {
                     GLHelper::drawBoxLines(lane->getLaneShape(), lineWidth);
                 }
                 // draw connection between lanes
                 if ((j + 1) < (int)path.getSubPath().size()) {
-                    const GNELane* nextLane = path.getSubPath().at(j + 1)->getLanes().back();
+                    const GNELane* nextLane = path.getSubPath().at(j + 1)->getChildLanes().back();
                     if (lane->getLane2laneConnections().exist(nextLane)) {
                         GLHelper::drawBoxLines(lane->getLane2laneConnections().getLane2laneGeometry(nextLane).getShape(), lineWidth);
                     } else {
@@ -631,13 +631,13 @@ GNEPathCreator::drawTemporalRoute(const GUIVisualizationSettings& s) const {
             }
             // draw line over
             for (int j = 0; j < (int)path.getSubPath().size(); j++) {
-                const GNELane* lane = path.getSubPath().at(j)->getLanes().back();
+                const GNELane* lane = path.getSubPath().at(j)->getChildLanes().back();
                 if (((i == 0) && (j == 0)) || (j > 0)) {
                     GLHelper::drawBoxLines(lane->getLaneShape(), lineWidthin);
                 }
                 // draw connection between lanes
                 if ((j + 1) < (int)path.getSubPath().size()) {
-                    const GNELane* nextLane = path.getSubPath().at(j + 1)->getLanes().back();
+                    const GNELane* nextLane = path.getSubPath().at(j + 1)->getChildLanes().back();
                     if (lane->getLane2laneConnections().exist(nextLane)) {
                         GLHelper::drawBoxLines(lane->getLane2laneConnections().getLane2laneGeometry(nextLane).getShape(), lineWidthin);
                     } else {
@@ -879,7 +879,7 @@ GNEPathCreator::setSpecialCandidates(GNEEdge* originEdge) {
     myPathManager->getPathCalculator()->calculateReachability(SVC_PEDESTRIAN, originEdge);
     // change flags
     for (const auto& edge : myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getEdges()) {
-        for (const auto& lane : edge.second->getLanes()) {
+        for (const auto& lane : edge.second->getChildLanes()) {
             if (lane->getReachability() > 0) {
                 lane->getParentEdge()->resetCandidateFlags();
                 lane->getParentEdge()->setSpecialCandidate(true);
@@ -894,7 +894,7 @@ GNEPathCreator::setPossibleCandidates(GNEEdge* originEdge, const SUMOVehicleClas
     myPathManager->getPathCalculator()->calculateReachability(vClass, originEdge);
     // change flags
     for (const auto& edge : myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getEdges()) {
-        for (const auto& lane : edge.second->getLanes()) {
+        for (const auto& lane : edge.second->getChildLanes()) {
             if (lane->getReachability() > 0) {
                 lane->getParentEdge()->resetCandidateFlags();
                 lane->getParentEdge()->setPossibleCandidate(true);
