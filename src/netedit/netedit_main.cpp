@@ -32,6 +32,11 @@
 #include "GNEApplicationWindow.h"
 #include "GNELoadThread.h"
 #include "GNETagPropertiesDatabase.h"
+/*
+#ifdef _DEBUG_
+    #define SECUREEXCEPTION
+#endif
+*/
 
 // ===========================================================================
 // main function
@@ -51,7 +56,7 @@ main(int argc, char** argv) {
     gLanguage = reg.readStringEntry("gui", "language", gLanguage.c_str());
     int ret = 0;
     // run netedit with try-catch if we're in debug-mode
-#ifdef _DEBUG_
+#ifdef SECUREEXCEPTION
     try {
 #endif
         // initialise subsystems
@@ -102,7 +107,7 @@ main(int argc, char** argv) {
             delete tagPropertiesDatabase;
             delete netedit;
         }
-#ifdef _DEBUG_
+#ifdef SECUREEXCEPTION
     } catch (const std::exception& e) {
         if (std::string(e.what()) != std::string("")) {
             WRITE_ERROR(e.what());
