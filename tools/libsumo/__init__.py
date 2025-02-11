@@ -209,6 +209,7 @@ def start(cmd, port=None, numRetries=constants.DEFAULT_NUM_RETRIES, label="defau
             # simulationStep shows up as simulation.step
             global _libsumo_step
             _libsumo_step = _stepManager._addTracing(_libsumo_step, "simulation")
+        _stepManager._traceFile.write("import traci\n")
         _stepManager.write("start", repr(cmd))
     return version
 
