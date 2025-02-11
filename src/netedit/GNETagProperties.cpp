@@ -93,11 +93,11 @@ GNETagProperties::checkTagIntegrity() const {
         throw ProcessError(TL("no conflict defined"));
     }
     // check that element must ist at least networkElement, Additional, or shape
-    if (!isNetworkElement() && !isAdditionalElement() && !isDemandElement() && !isDataElement() && !isMeanData() && !isInternalLane()) {
+    if (!isNetworkElement() && !isAdditionalElement() && !isDemandElement() && !isDataElement() && !isMeanData() && !isInternalLane() && !isOtherElement()) {
         throw ProcessError(TL("no basic type property defined"));
     }
     // check that element only is networkElement, Additional, or shape at the same time
-    if ((isNetworkElement() + isAdditionalElement() + isDemandElement() + isDataElement() + isMeanData()) > 1) {
+    if ((isNetworkElement() + isAdditionalElement() + isDemandElement() + isDataElement() + isMeanData() + isOtherElement()) > 1) {
         throw ProcessError(TL("multiple basic type properties defined"));
     }
     // check that element only is shape, TAZ, or wire at the same time
@@ -294,6 +294,12 @@ GNETagProperties::isDemandElement() const {
 bool
 GNETagProperties::isDataElement() const {
     return (myTagType & DATAELEMENT) != 0;
+}
+
+
+bool
+GNETagProperties::isOtherElement() const {
+    return (myTagType & OTHER) != 0;
 }
 
 

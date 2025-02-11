@@ -1387,13 +1387,13 @@ GNEAdditionalHandler::buildTAZ(const CommonXMLStructure::SumoBaseObject* sumoBas
                 for (const auto& edge : edges) {
                     // create TAZ Source
                     GNETAZSourceSink* TAZSource = new GNETAZSourceSink(SUMO_TAG_TAZSOURCE, TAZ, edge, 1);
-                    myNet->getAttributeCarriers()->insertAdditional(TAZSource);
+                    myNet->getAttributeCarriers()->insertTAZSourceSink(TAZSource);
                     TAZSource->incRef("buildTAZ");
                     TAZ->addChildElement(TAZSource);
                     edge->addChildElement(TAZSource);
                     // create TAZ Sink
                     GNETAZSourceSink* TAZSink = new GNETAZSourceSink(SUMO_TAG_TAZSINK, TAZ, edge, 1);
-                    myNet->getAttributeCarriers()->insertAdditional(TAZSink);
+                    myNet->getAttributeCarriers()->insertTAZSourceSink(TAZSink);
                     TAZSink->incRef("buildTAZ");
                     TAZ->addChildElement(TAZSink);
                     edge->addChildElement(TAZSink);
@@ -1422,7 +1422,7 @@ GNEAdditionalHandler::buildTAZSource(const CommonXMLStructure::SumoBaseObject* s
         return writeErrorInvalidParent(SUMO_TAG_SOURCE, edgeID, SUMO_TAG_EDGE, TAZ->getID());
     } else {
         // declare TAZ Source
-        GNEAdditional* existentTAZSource = nullptr;
+        GNETAZSourceSink* existentTAZSource = nullptr;
         // first check if already exist a TAZ Source for the given edge and TAZ
         for (auto it = edge->getChildTAZSourceSinks().begin(); (it != edge->getChildTAZSourceSinks().end()) && !existentTAZSource; it++) {
             if (((*it)->getTagProperty()->getTag() == SUMO_TAG_TAZSOURCE) && ((*it)->getParentAdditionals().front() == TAZ)) {
@@ -1439,7 +1439,7 @@ GNEAdditionalHandler::buildTAZSource(const CommonXMLStructure::SumoBaseObject* s
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_TAZSourceSink(TAZSource, true), true);
                 myNet->getViewNet()->getUndoList()->end();
             } else {
-                myNet->getAttributeCarriers()->insertAdditional(TAZSource);
+                myNet->getAttributeCarriers()->insertTAZSourceSink(TAZSource);
                 TAZ->addChildElement(TAZSource);
                 edge->addChildElement(TAZSource);
                 TAZSource->incRef("buildTAZSource");
@@ -1472,7 +1472,7 @@ GNEAdditionalHandler::buildTAZSink(const CommonXMLStructure::SumoBaseObject* sum
         return writeErrorInvalidParent(SUMO_TAG_SOURCE, edgeID, SUMO_TAG_EDGE, TAZ->getID());
     } else {
         // declare TAZ Sink
-        GNEAdditional* existentTAZSink = nullptr;
+        GNETAZSourceSink* existentTAZSink = nullptr;
         // first check if already exist a TAZ Sink for the given edge and TAZ
         for (auto it = edge->getChildTAZSourceSinks().begin(); (it != edge->getChildTAZSourceSinks().end()) && !existentTAZSink; it++) {
             if (((*it)->getTagProperty()->getTag() == SUMO_TAG_TAZSINK) && ((*it)->getParentAdditionals().front() == TAZ)) {
@@ -1489,7 +1489,7 @@ GNEAdditionalHandler::buildTAZSink(const CommonXMLStructure::SumoBaseObject* sum
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_TAZSourceSink(TAZSink, true), true);
                 myNet->getViewNet()->getUndoList()->end();
             } else {
-                myNet->getAttributeCarriers()->insertAdditional(TAZSink);
+                myNet->getAttributeCarriers()->insertTAZSourceSink(TAZSink);
                 TAZ->addChildElement(TAZSink);
                 edge->addChildElement(TAZSink);
                 TAZSink->incRef("buildTAZSink");

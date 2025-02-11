@@ -48,9 +48,9 @@ GNEChange_TAZSourceSink::~GNEChange_TAZSourceSink() {
         mySourceSink->decRef("GNEChange_TAZSourceSink");
         if (mySourceSink->unreferenced()) {
             // make sure that sourceSink isn't in net before removing
-            if (mySourceSink->getNet()->getAttributeCarriers()->retrieveAdditional(mySourceSink, false)) {
+            if (mySourceSink->getNet()->getAttributeCarriers()->retrieveTAZSourceSink(mySourceSink)) {
                 // delete sourceSink from net
-                mySourceSink->getNet()->getAttributeCarriers()->deleteAdditional(mySourceSink);
+                mySourceSink->getNet()->getAttributeCarriers()->deleteTAZSourceSink(mySourceSink);
             }
             delete mySourceSink;
         }
@@ -66,7 +66,7 @@ GNEChange_TAZSourceSink::undo() {
             mySourceSink->unselectAttributeCarrier();
         }
         // delete sourceSink from net
-        mySourceSink->getNet()->getAttributeCarriers()->deleteAdditional(mySourceSink);
+        mySourceSink->getNet()->getAttributeCarriers()->deleteTAZSourceSink(mySourceSink);
         // remove element from parent and children
         removeElementFromParentsAndChildren(mySourceSink);
     } else {
@@ -77,7 +77,7 @@ GNEChange_TAZSourceSink::undo() {
         // add element in parent and children
         addElementInParentsAndChildren(mySourceSink);
         // insert sourceSink into net
-        mySourceSink->getNet()->getAttributeCarriers()->insertAdditional(mySourceSink);
+        mySourceSink->getNet()->getAttributeCarriers()->insertTAZSourceSink(mySourceSink);
     }
     // require always save sourceSinks
     mySourceSink->getNet()->getSavingStatus()->requireSaveAdditionals();
@@ -94,14 +94,14 @@ GNEChange_TAZSourceSink::redo() {
         // add element in parent and children
         addElementInParentsAndChildren(mySourceSink);
         // insert sourceSink into net
-        mySourceSink->getNet()->getAttributeCarriers()->insertAdditional(mySourceSink);
+        mySourceSink->getNet()->getAttributeCarriers()->insertTAZSourceSink(mySourceSink);
     } else {
         // unselect if mySelectedElement is enabled
         if (mySelectedElement) {
             mySourceSink->unselectAttributeCarrier();
         }
         // delete sourceSink from net
-        mySourceSink->getNet()->getAttributeCarriers()->deleteAdditional(mySourceSink);
+        mySourceSink->getNet()->getAttributeCarriers()->deleteTAZSourceSink(mySourceSink);
         // remove element from parent and children
         removeElementFromParentsAndChildren(mySourceSink);
     }

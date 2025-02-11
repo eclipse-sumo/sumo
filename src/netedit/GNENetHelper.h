@@ -427,14 +427,33 @@ struct GNENetHelper {
         /// @brief get number of selected TAZs
         int getNumberOfSelectedTAZs() const;
 
+        /// @brief get number of selected Wires
+        int getNumberOfSelectedWires() const;
+
+        /// @}
+
+        /// @name function for TAZ sourceSinks
+        /// @{
+        /**@brief Returns the named sourceSink
+         * @param[in] sourceSink The GNETAZSourceSink to retrieve
+         * @param[in] hardFail Whether attempts to retrieve a nonexisting sourceSink should result in an exception
+         */
+        GNETAZSourceSink* retrieveTAZSourceSink(const GNEAttributeCarrier* sourceSink, bool hardFail = true) const;
+
+        /// @brief get sourceSinks
+        const std::unordered_map<SumoXMLTag, std::unordered_map<const GNEAttributeCarrier*, GNETAZSourceSink*> >& getTAZSourceSinks() const;
+
+        /// @brief get number of TAZSourceSinks
+        int getNumberOfTAZSourceSinks() const;
+
+        /// @brief clear sourceSinks
+        void clearTAZSourceSinks();
+
         /// @brief get number of selected TAZSources
         int getNumberOfSelectedTAZSources() const;
 
         /// @brief get number of selected TAZSinks
         int getNumberOfSelectedTAZSinks() const;
-
-        /// @brief get number of selected Wires
-        int getNumberOfSelectedWires() const;
 
         /// @}
 
@@ -712,6 +731,17 @@ struct GNENetHelper {
 
         /// @}
 
+        /// @name TAZ Source Sinks protected functions
+        /// @{
+
+        /// @brief Insert a sourceSink element in container.
+        void insertTAZSourceSink(GNETAZSourceSink* sourceSink);
+
+        /// @brief delete sourceSink element of container
+        void deleteTAZSourceSink(GNETAZSourceSink* sourceSink);
+
+        /// @}
+
         /// @name demand elements protected functions
         /// @{
 
@@ -819,10 +849,13 @@ struct GNENetHelper {
         /// @brief map with the tag and pointer to additional elements of net
         std::unordered_map<SumoXMLTag, std::unordered_map<const GUIGlObject*, GNEAdditional*> > myAdditionals;
 
+        /// @brief map with the tag and pointer to TAZSourceSinks elements of net
+        std::unordered_map<SumoXMLTag, std::unordered_map<const GNEAttributeCarrier*, GNETAZSourceSink*> > myTAZSourceSinks;
+
         /// @brief map with the tag and pointer to demand elements of net, sorted by IDs
         std::unordered_map<SumoXMLTag, std::map<const std::string, GNEDemandElement*> > myDemandElementIDs;
 
-        /// @brief map with the tag and pointer to additional elements of net
+        /// @brief map with the tag and pointer to demand elements elements of net
         std::unordered_map<SumoXMLTag, std::unordered_map<const GUIGlObject*, GNEDemandElement*> > myDemandElements;
 
         /// @brief map with the ID and pointer to all datasets of net

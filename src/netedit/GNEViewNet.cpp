@@ -5200,15 +5200,18 @@ GNEViewNet::deleteNetworkAttributeCarrier(const GNEAttributeCarrier* AC) {
         if (connection) {
             myNet->deleteConnection(connection, myUndoList);
         }
-    } else if (AC->getTagProperty()->isAdditionalElement()) {
-        // get additional Element (note: could be already removed if is a child, then hardfail=false)
-        GNEAdditional* additionalElement = myNet->getAttributeCarriers()->retrieveAdditional(AC->getGUIGlObject(), false);
-        // try to conver to TAZSourceSink (because it requieres their own delete function)
-        GNETAZSourceSink* TAZSourceSink = dynamic_cast<GNETAZSourceSink*>(additionalElement);
+    } else if ((AC->getTagProperty()->getTag() == SUMO_TAG_TAZSOURCE) || (AC->getTagProperty()->getTag() == SUMO_TAG_TAZSINK)) {
+        // get TAZ SourceSink Element (note: could be already removed if is a child, then hardfail=false)
+        GNETAZSourceSink* TAZSourceSink = myNet->getAttributeCarriers()->retrieveTAZSourceSink(AC, false);
         // if exist, remove it
         if (TAZSourceSink) {
             myNet->deleteTAZSourceSink(TAZSourceSink, myUndoList);
-        } else if (additionalElement) {
+        }
+    } else if (AC->getTagProperty()->isAdditionalElement()) {
+        // get additional Element (note: could be already removed if is a child, then hardfail=false)
+        GNEAdditional* additionalElement = myNet->getAttributeCarriers()->retrieveAdditional(AC->getGUIGlObject(), false);
+        // if exist, remove it
+        if (additionalElement) {
             myNet->deleteAdditional(additionalElement, myUndoList);
         }
     }

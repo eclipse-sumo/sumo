@@ -73,6 +73,7 @@ public:
         MEANDATA =          1 << 29, // Mean datas
         // other
         INTERNALLANE =      1 << 30, // Internal Lane
+        OTHER =             1 << 31, // Other type (used for TAZSourceSinks, VTypes, etc.)
     };
 
     /// @brief general tag properties
@@ -219,6 +220,9 @@ public:
 
     /// @brief return true if tag correspond to a data element
     bool isDataElement() const;
+
+    /// @brief return true if tag correspond to a other element (sourceSinks, vTypes, etc.)
+    bool isOtherElement() const;
 
     /// @}
 

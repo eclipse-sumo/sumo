@@ -165,13 +165,13 @@ GNETAZ::writeAdditional(OutputDevice& device) const {
     }
     device.writeAttr(SUMO_ATTR_COLOR, getShapeColor());
     // sort all Source/Sinks by ID
-    std::map<std::pair<std::string, SumoXMLTag>, GNEAdditional*> sortedSourceSinks;
+    std::map<std::pair<std::string, SumoXMLTag>, GNETAZSourceSink*> sortedSourceSinks;
     for (const auto& sourceSink : getChildTAZSourceSinks()) {
         sortedSourceSinks[std::make_pair(sourceSink->getAttribute(SUMO_ATTR_EDGE), sourceSink->getTagProperty()->getTag())] = sourceSink;
     }
     // write all TAZ Source/sinks
     for (const auto& sortedSourceSink : sortedSourceSinks) {
-        sortedSourceSink.second->writeAdditional(device);
+        sortedSourceSink.second->writeTAZSourceSink(device);
     }
     // write params
     writeParams(device);

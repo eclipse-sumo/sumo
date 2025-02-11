@@ -2800,8 +2800,8 @@ GNETagPropertiesDatabase::fillTAZElements() {
     {
         // set values of tag
         myTagProperties[currentTag] = new GNETagProperties(currentTag,
-                GNETagProperties::TagType::ADDITIONALELEMENT | GNETagProperties::TagType::TAZELEMENT,
-                GNETagProperties::TagProperty::CHILD,
+                GNETagProperties::TagType::OTHER,
+                GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
                 GNETagProperties::TagParents::NO_PARENTS,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::TAZEDGE, currentTag, TL("TAZ Source"),
@@ -2823,8 +2823,8 @@ GNETagPropertiesDatabase::fillTAZElements() {
     {
         // set values of tag
         myTagProperties[currentTag] = new GNETagProperties(currentTag,
-                GNETagProperties::TagType::ADDITIONALELEMENT | GNETagProperties::TagType::TAZELEMENT,
-                GNETagProperties::TagProperty::CHILD,
+                GNETagProperties::TagType::OTHER,
+                GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
                 GNETagProperties::TagParents::NO_PARENTS,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::TAZEDGE, currentTag, TL("TAZ Sink"),

@@ -23,6 +23,7 @@
 #include <netedit/GNETagPropertiesDatabase.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
+#include <netedit/elements/additional/GNETAZSourceSink.h>
 #include <netedit/elements/data/GNEDataInterval.h>
 #include <netedit/elements/data/GNEMeanData.h>
 #include <netedit/elements/demand/GNEVType.h>
@@ -67,6 +68,8 @@ GNENetHelper::AttributeCarriers::AttributeCarriers(GNENet* net) :
             myAdditionalIDs.insert(std::make_pair(additionalTagProperty->getTag(), std::map<const std::string, GNEAdditional*>()));
         }
     }
+    myTAZSourceSinks.insert(std::make_pair(SUMO_TAG_TAZSOURCE, std::unordered_map<const GNEAttributeCarrier*, GNETAZSourceSink*>()));
+    myTAZSourceSinks.insert(std::make_pair(SUMO_TAG_TAZSINK, std::unordered_map<const GNEAttributeCarrier*, GNETAZSourceSink*>()));
     // fill demand elements with tags
     auto demandElementTagProperties = myNet->getTagPropertiesDatabase()->getTagPropertiesByType(GNETagProperties::TagType::DEMANDELEMENT, false);
     for (const auto& demandElementTagProperty : demandElementTagProperties) {
@@ -1301,6 +1304,62 @@ GNENetHelper::AttributeCarriers::getNumberOfSelectedTAZs() const {
 
 
 int
+GNENetHelper::AttributeCarriers::getNumberOfSelectedWires() const {
+    int counter = 0;
+    for (const auto& additionalsTags : myAdditionals) {
+        for (const auto& additional : additionalsTags.second) {
+            if (additional.second->isAttributeCarrierSelected() && additional.second->getTagProperty()->isWireElement()) {
+                counter++;
+            }
+        }
+    }
+    return counter;
+}
+
+
+GNETAZSourceSink*
+GNENetHelper::AttributeCarriers::retrieveTAZSourceSink(const GNEAttributeCarrier* sourceSink, bool hardFail) const {
+    // iterate over all demand elements
+    for (const auto& TAZSourceSinkTag : myTAZSourceSinks) {
+        auto it = TAZSourceSinkTag.second.find(sourceSink);
+        if (it != TAZSourceSinkTag.second.end()) {
+            return it->second;
+        }
+    }
+    if (hardFail) {
+        throw ProcessError("Attempted to retrieve non-existant sourceSink (glObject)");
+    } else {
+        return nullptr;
+    }
+}
+
+
+const std::unordered_map<SumoXMLTag, std::unordered_map<const GNEAttributeCarrier*, GNETAZSourceSink*> >&
+GNENetHelper::AttributeCarriers::getTAZSourceSinks() const {
+    return myTAZSourceSinks;
+}
+
+
+int
+GNENetHelper::AttributeCarriers::getNumberOfTAZSourceSinks() const {
+    int counter = 0;
+    for (const auto& sourceSinksTag : myTAZSourceSinks) {
+        counter += (int)sourceSinksTag.second.size();
+    }
+    return counter;
+}
+
+
+void
+GNENetHelper::AttributeCarriers::clearTAZSourceSinks() {
+    // iterate over myTAZSourceSinks and clear all sourceSinks
+    for (auto& sourceSinksTags : myTAZSourceSinks) {
+        sourceSinksTags.second.clear();
+    }
+}
+
+
+int
 GNENetHelper::AttributeCarriers::getNumberOfSelectedTAZSources() const {
     int counter = 0;
     for (const auto& TAZSource : myAdditionals.at(SUMO_TAG_TAZSOURCE)) {
@@ -1318,20 +1377,6 @@ GNENetHelper::AttributeCarriers::getNumberOfSelectedTAZSinks() const {
     for (const auto& TAZSink : myAdditionals.at(SUMO_TAG_TAZSINK)) {
         if (TAZSink.second->isAttributeCarrierSelected()) {
             counter++;
-        }
-    }
-    return counter;
-}
-
-
-int
-GNENetHelper::AttributeCarriers::getNumberOfSelectedWires() const {
-    int counter = 0;
-    for (const auto& additionalsTags : myAdditionals) {
-        for (const auto& additional : additionalsTags.second) {
-            if (additional.second->isAttributeCarrierSelected() && additional.second->getTagProperty()->isWireElement()) {
-                counter++;
-            }
         }
     }
     return counter;
@@ -2534,6 +2579,44 @@ GNENetHelper::AttributeCarriers::deleteAdditional(GNEAdditional* additional) {
         }
         // delete path element
         myNet->getNetworkPathManager()->removePath(additional);
+        // additionals has to be saved
+        myNet->getSavingStatus()->requireSaveAdditionals();
+    }
+}
+
+
+
+
+void
+GNENetHelper::AttributeCarriers::insertTAZSourceSink(GNETAZSourceSink* sourceSink) {
+    const auto sourceSinkTag = sourceSink->getTagProperty()->getTag();
+    if (myTAZSourceSinks.at(sourceSinkTag).count(sourceSink) > 0) {
+        throw ProcessError(sourceSink->getTagStr() + " with ID='" + sourceSink->getID() + "' already exist");
+    } else {
+        myTAZSourceSinks.at(sourceSinkTag)[sourceSink] = sourceSink;
+        myNumberOfNetworkElements++;
+        // additionals has to be saved
+        myNet->getSavingStatus()->requireSaveAdditionals();
+    }
+}
+
+
+void
+GNENetHelper::AttributeCarriers::deleteTAZSourceSink(GNETAZSourceSink* sourceSink) {
+    const auto tag = sourceSink->getTagProperty()->getTag();
+    // find demanElement in additionalTag
+    auto itFind = myTAZSourceSinks.at(tag).find(sourceSink);
+    // check if sourceSink was previously inserted
+    if (itFind == myTAZSourceSinks.at(tag).end()) {
+        throw ProcessError(sourceSink->getTagStr() + " with ID='" + sourceSink->getID() + "' wasn't previously inserted");
+    } else {
+        // remove from both container
+        myTAZSourceSinks.at(tag).erase(itFind);
+        myNumberOfNetworkElements--;
+        // remove it from inspected elements and GNEElementTree
+        myNet->getViewNet()->getInspectedElements().uninspectAC(sourceSink);
+        sourceSink->unmarkForDrawingFront();
+        myNet->getViewNet()->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(sourceSink);
         // additionals has to be saved
         myNet->getSavingStatus()->requireSaveAdditionals();
     }
