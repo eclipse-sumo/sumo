@@ -1,3 +1,4 @@
+import traci
 traci.start(['/scr1/sumo/bin/sumo', '-c', 'sumo.sumocfg'], port=None, label='default')
 traci.simulation.getTime()
 traci.simulationStep()
