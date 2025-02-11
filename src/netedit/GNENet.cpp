@@ -669,7 +669,7 @@ GNENet::deleteCrossing(GNECrossing* crossing, GNEUndoList* undoList) {
     undoList->begin(GUIIcon::MODEDELETE, TL("delete crossing"));
     // remove it using GNEChange_Crossing
     undoList->add(new GNEChange_Crossing(
-                      crossing->getParentJunction(), crossing->getNBCrossing()->edges,
+                      crossing->getParentJunctions().front(), crossing->getNBCrossing()->edges,
                       crossing->getNBCrossing()->width, crossing->getNBCrossing()->priority,
                       crossing->getNBCrossing()->customTLIndex,
                       crossing->getNBCrossing()->customTLIndex2,

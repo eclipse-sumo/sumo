@@ -434,7 +434,7 @@ GNEElementTree::showAttributeCarrierParents() {
                 if (crossing == nullptr) {
                     return nullptr;
                 } else {
-                    GNEJunction* junction = crossing->getParentJunction();
+                    GNEJunction* junction = crossing->getParentJunctions().front();
                     // create junction item
                     FXTreeItem* junctionItem = myTreeListDynamic->appendItem(nullptr, junction->getHierarchyName().c_str(), junction->getACIcon());
                     junctionItem->setExpanded(true);

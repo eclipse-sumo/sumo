@@ -3787,7 +3787,7 @@ GNEViewNet::onCmdEditCrossingShape(FXObject*, FXSelector, void*) {
     GNECrossing* crossing = getCrossingAtPopupPosition();
     if (crossing) {
         // check if network has to be updated
-        if (crossing->getParentJunction()->getNBNode()->getShape().size() == 0) {
+        if (crossing->getParentJunctions().front()->getNBNode()->getShape().size() == 0) {
             // recompute the whole network
             myNet->computeAndUpdate(OptionsCont::getOptions(), false);
         }

@@ -734,7 +734,7 @@ GNESelectorFrame::SelectionHierarchy::onCmdParents(FXObject* obj, FXSelector, vo
                 editedParents.push_back(connection->getLaneTo());
             } else if (selectedAC->getTagProperty()->getTag() == SUMO_TAG_CROSSING) {
                 const auto crossing = viewNet->getNet()->getAttributeCarriers()->retrieveCrossing(selectedAC->getGUIGlObject());
-                editedParents.push_back(crossing->getParentJunction());
+                editedParents.push_back(crossing->getParentJunctions().front());
             } else {
                 // get hierarchical element
                 const auto hierarchicalElement = selectedAC->getHierarchicalElement();
