@@ -378,7 +378,11 @@ To share a traci scenario (i.e. in a bug report) it may be useful to separate th
 For this, the function `traci.start` accepts the optional arguments `traceFile` and `traceGetters`.
 When calling `traci.start([<commands>], traceFile=<LOG_FILE_PATH>)` all traci commands that were sent to sumo will be written to the given LOG_FILE_PATH.
 This allows re-running the scenario without the original runner script.
+
 When option `traceGetters=False` is set, only functions that change the simulation state are included in the log file. Functions that retrieve simulation data are technically not needed to reproduce a scenario but it may be useful to include them if the data retrieval functions are themselves the cause of a bug.
+
+When option `traceGetters="print"` is set, all getter functions will print themselves and their results to standard output when running the log as a python program.
+
 
 !!! caution
     Avoid running the simulation with option **--random** since this will most likely prevent your traceFile from being repeated
