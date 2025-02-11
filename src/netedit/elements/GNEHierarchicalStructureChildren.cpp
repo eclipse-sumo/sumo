@@ -61,12 +61,6 @@ GNEHierarchicalStructureChildren::get() const {
 }
 
 
-template<> const GNEHierarchicalContainerChildren<GNETAZSourceSink*>&
-GNEHierarchicalStructureChildren::get() const {
-    return myChildSourceSinks;
-}
-
-
 template<> const GNEHierarchicalContainerChildren<GNEDemandElement*>&
 GNEHierarchicalStructureChildren::get() const {
     return myChildDemandElements;
@@ -76,6 +70,12 @@ GNEHierarchicalStructureChildren::get() const {
 template<> const GNEHierarchicalContainerChildren<GNEGenericData*>&
 GNEHierarchicalStructureChildren::get() const {
     return myChildGenericDatas;
+}
+
+
+template<> const GNEHierarchicalContainerChildrenSet<GNETAZSourceSink*>&
+GNEHierarchicalStructureChildren::getSet() const {
+    return myChildSourceSinks;
 }
 
 // add functions
@@ -106,7 +106,7 @@ GNEHierarchicalStructureChildren::add(GNEAdditional* child) {
 
 template <> void
 GNEHierarchicalStructureChildren::add(GNETAZSourceSink* child) {
-    myChildSourceSinks.push_back(child);
+    myChildSourceSinks.insert(child);
 }
 
 
@@ -169,7 +169,7 @@ GNEHierarchicalStructureChildren::remove(GNEAdditional* child) {
 
 template <> void
 GNEHierarchicalStructureChildren::remove(GNETAZSourceSink* child) {
-    auto it = std::find(myChildSourceSinks.begin(), myChildSourceSinks.end(), child);
+    auto it = myChildSourceSinks.find(child);
     if (it != myChildSourceSinks.end()) {
         myChildSourceSinks.erase(it);
     } else {
@@ -226,7 +226,10 @@ GNEHierarchicalStructureChildren::replaceAll(const GNEHierarchicalContainerChild
 
 template <> void
 GNEHierarchicalStructureChildren::replaceAll(const GNEHierarchicalContainerChildren<GNETAZSourceSink*>& children) {
-    myChildSourceSinks = children;
+    myChildSourceSinks.clear();
+    for (const auto child : children) {
+        myChildSourceSinks.insert(child);
+    }
 }
 
 

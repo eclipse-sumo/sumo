@@ -62,6 +62,10 @@ public:
     template<typename ChildType>
     const GNEHierarchicalContainerChildren<ChildType>& get() const;
 
+    /// @brief get children (set)
+    template<typename ChildType>
+    const GNEHierarchicalContainerChildrenSet<ChildType>& getSet() const;
+
     /// @brief add child element
     template<typename ChildType>
     void add(ChildType child);
@@ -87,12 +91,12 @@ private:
     /// @brief children additional elements
     GNEHierarchicalContainerChildren<GNEAdditional*> myChildAdditionals;
 
-    /// @brief children TAZSourceSinks elements
-    GNEHierarchicalContainerChildren<GNETAZSourceSink*> myChildSourceSinks;
-
     /// @brief children demand elements
     GNEHierarchicalContainerChildren<GNEDemandElement*> myChildDemandElements;
 
     /// @brief children genericdata elements
     GNEHierarchicalContainerChildren<GNEGenericData*> myChildGenericDatas;
+
+    /// @brief children TAZSourceSinks elements (set)
+    GNEHierarchicalContainerChildrenSet<GNETAZSourceSink*> myChildSourceSinks;
 };

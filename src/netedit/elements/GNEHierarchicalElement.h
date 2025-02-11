@@ -85,14 +85,14 @@ public:
     /// @brief return child additionals
     const GNEHierarchicalContainerChildren<GNEAdditional*>& getChildAdditionals() const;
 
-    /// @brief return child TAZSourceSinks (Hash)
-    const GNEHierarchicalContainerChildren<GNETAZSourceSink*>& getChildTAZSourceSinks() const;
-
     /// @brief return child demand elements
     const GNEHierarchicalContainerChildren<GNEDemandElement*>& getChildDemandElements() const;
 
     /// @brief return child generic data elements
     const GNEHierarchicalContainerChildren<GNEGenericData*>& getChildGenericDatas() const;
+
+    /// @brief return child TAZSourceSinks (Set)
+    const GNEHierarchicalContainerChildrenSet<GNETAZSourceSink*>& getChildTAZSourceSinks() const;
 
     /// @}
 

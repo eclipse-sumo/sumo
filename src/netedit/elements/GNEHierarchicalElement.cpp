@@ -133,12 +133,6 @@ GNEHierarchicalElement::getChildAdditionals() const {
 }
 
 
-const GNEHierarchicalContainerChildren<GNETAZSourceSink*>&
-GNEHierarchicalElement::getChildTAZSourceSinks() const {
-    return myHierarchicalStructureChildren.get<GNETAZSourceSink*>();
-}
-
-
 const GNEHierarchicalContainerChildren<GNEDemandElement*>&
 GNEHierarchicalElement::getChildDemandElements() const {
     return myHierarchicalStructureChildren.get<GNEDemandElement*>();
@@ -148,6 +142,12 @@ GNEHierarchicalElement::getChildDemandElements() const {
 const GNEHierarchicalContainerChildren<GNEGenericData*>&
 GNEHierarchicalElement::getChildGenericDatas() const {
     return myHierarchicalStructureChildren.get<GNEGenericData*>();
+}
+
+
+const GNEHierarchicalContainerChildrenSet<GNETAZSourceSink*>&
+GNEHierarchicalElement::getChildTAZSourceSinks() const {
+    return myHierarchicalStructureChildren.getSet<GNETAZSourceSink*>();
 }
 
 
