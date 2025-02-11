@@ -35,13 +35,12 @@
 // method definitions
 // ===========================================================================
 
-GNEWalkingArea::GNEWalkingArea(GNEJunction* parentJunction, const std::string& ID) :
-    GNENetworkElement(parentJunction->getNet(), ID, GLO_WALKINGAREA, SUMO_TAG_WALKINGAREA,
+GNEWalkingArea::GNEWalkingArea(GNEJunction* junction, const std::string& ID) :
+    GNENetworkElement(junction->getNet(), ID, GLO_WALKINGAREA, SUMO_TAG_WALKINGAREA,
                       GUIIconSubSys::getIcon(GUIIcon::WALKINGAREA)),
-    myParentJunction(parentJunction),
-    myTesselation(ID, "", RGBColor::GREY, parentJunction->getNBNode()->getWalkingArea(ID).shape, false, true, 0) {
-    // update centering boundary without updating grid
-    updateCenteringBoundary(false);
+    myTesselation(ID, "", RGBColor::GREY, junction->getNBNode()->getWalkingArea(ID).shape, false, true, 0) {
+    // set parent
+    setParent<GNEJunction*>(junction);
 }
 
 
@@ -57,7 +56,7 @@ GNEWalkingArea::updateGeometry() {
 
 Position
 GNEWalkingArea::getPositionInView() const {
-    return myParentJunction->getPositionInView();
+    return getParentJunctions().front()->getPositionInView();
 }
 
 
@@ -135,15 +134,9 @@ GNEWalkingArea::removeGeometryPoint(const Position /*clickedPosition*/, GNEUndoL
 }
 
 
-GNEJunction*
-GNEWalkingArea::getParentJunction() const {
-    return myParentJunction;
-}
-
-
 NBNode::WalkingArea&
 GNEWalkingArea::getNBWalkingArea() const {
-    return myParentJunction->getNBNode()->getWalkingArea(getMicrosimID());
+    return getParentJunctions().front()->getNBNode()->getWalkingArea(getMicrosimID());
 }
 
 
@@ -152,13 +145,13 @@ GNEWalkingArea::drawGL(const GUIVisualizationSettings& s) const {
     // declare variables
     const double walkingAreaExaggeration = getExaggeration(s);
     // get walking area shape
-    const auto& walkingAreaShape = myParentJunction->getNBNode()->getWalkingArea(getID()).shape;
+    const auto& walkingAreaShape = getParentJunctions().front()->getNBNode()->getWalkingArea(getID()).shape;
     // only continue if exaggeration is greater than 0 and junction's shape is greater than 4
-    if ((myParentJunction->getNBNode()->getShape().area() > 4) &&
+    if ((getParentJunctions().front()->getNBNode()->getShape().area() > 4) &&
             (walkingAreaShape.size() > 0) && s.drawCrossingsAndWalkingareas) {
         // don't draw this walking area if we're editing their junction parent
         const GNENetworkElement* editedNetworkElement = myNet->getViewNet()->getEditNetworkElementShapes().getEditedNetworkElement();
-        if (!editedNetworkElement || (editedNetworkElement != myParentJunction)) {
+        if (!editedNetworkElement || (editedNetworkElement != getParentJunctions().front())) {
             const auto contourMode = drawInContourMode();
             // get detail level
             const auto d = s.getDetailLevel(walkingAreaExaggeration);
@@ -181,7 +174,7 @@ GNEWalkingArea::drawGL(const GUIVisualizationSettings& s) const {
             }
             // draw dotted contour (except in contour mode) checking if junction parent was inserted with full boundary
             myNetworkElementContour.calculateContourClosedShape(s, d, this, walkingAreaShape, getType(),
-                    walkingAreaExaggeration, myParentJunction, !contourMode);
+                    walkingAreaExaggeration, getParentJunctions().front(), !contourMode);
         }
     }
 }
@@ -428,8 +421,6 @@ void
 GNEWalkingArea::setMoveShape(const GNEMoveResult& moveResult) {
     // set custom shape
     getNBWalkingArea().shape = moveResult.shapeToUpdate;
-    // update geometry
-    updateGeometry();
 }
 
 

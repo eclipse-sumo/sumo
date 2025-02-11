@@ -3811,7 +3811,7 @@ GNEViewNet::onCmdEditWalkingAreaShape(FXObject*, FXSelector, void*) {
     GNEWalkingArea* walkingArea = getWalkingAreaAtPopupPosition();
     if (walkingArea) {
         // check if network has to be updated
-        if (walkingArea->getParentJunction()->getNBNode()->getShape().size() == 0) {
+        if (walkingArea->getParentJunctions().front()->getNBNode()->getShape().size() == 0) {
             // recompute the whole network
             myNet->computeAndUpdate(OptionsCont::getOptions(), false);
             // if grid is enabled, show warning
