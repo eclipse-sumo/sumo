@@ -48,7 +48,7 @@ GNEChange_TAZSourceSink::~GNEChange_TAZSourceSink() {
         mySourceSink->decRef("GNEChange_TAZSourceSink");
         if (mySourceSink->unreferenced()) {
             // make sure that sourceSink isn't in net before removing
-            if (mySourceSink->getNet()->getAttributeCarriers()->retrieveTAZSourceSink(mySourceSink)) {
+            if (mySourceSink->getNet()->getAttributeCarriers()->retrieveTAZSourceSink(mySourceSink, false)) {
                 // delete sourceSink from net
                 mySourceSink->getNet()->getAttributeCarriers()->deleteTAZSourceSink(mySourceSink);
             }
