@@ -95,8 +95,9 @@ When setting option **--save-state.rng**, the state of all random number generat
 # Know Issues
 
 - flows cannot be loaded from a state file alone (the original route file must be loaded as well)
-- The internal state of the laneChangeModel is not saved
+- the internal state of the laneChangeModel is not saved
 - the internal state of the carFollowModel is not saved (not all models have this).
+- the exact position within a parkingArea is [not saved](https://github.com/eclipse-sumo/sumo/issues/16144)
 
 # Older Versions of SUMO
 
