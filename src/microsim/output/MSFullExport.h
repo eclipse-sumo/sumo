@@ -68,6 +68,9 @@ private:
     /// @brief Writes the XML Nodes for the vehicles (e.g. speed, position, emissions)
     static void writeVehicles(OutputDevice& of);
 
+    /// @brief Writes the XML Nodes for the persons (e.g. speed, position)
+    static void writePersons(OutputDevice& of);
+
     /// @brief Writes the XML Nodes for the edges (e.g. traveltime)
     static void writeEdge(OutputDevice& of);
 

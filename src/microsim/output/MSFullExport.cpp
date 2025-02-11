@@ -32,6 +32,8 @@
 #include <microsim/MSNet.h>
 #include <microsim/MSVehicle.h>
 #include <microsim/MSVehicleControl.h>
+#include <microsim/transportables/MSTransportableControl.h>
+#include <microsim/transportables/MSTransportable.h>
 #include <microsim/traffic_lights/MSTLLogicControl.h>
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
 #include "MSFullExport.h"
@@ -43,11 +45,11 @@
 void
 MSFullExport::write(OutputDevice& of, SUMOTime timestep) {
     of.openTag("data") << " timestep=\"" << time2string(timestep) << "\"";
-    //Vehicles
     writeVehicles(of);
-    //Edges
+    if (MSNet::getInstance()->hasPersons()) {
+        writePersons(of);
+    }
     writeEdge(of);
-    //TrafficLights
     writeTLS(of, timestep);
     of.closeTag();
 }
@@ -78,6 +80,34 @@ MSFullExport::writeVehicles(OutputDevice& of) {
             }
             of.writeAttr("pos", veh->getPositionOnLane()).writeAttr("speed", veh->getSpeed());
             of.writeAttr("angle", GeomHelper::naviDegree(veh->getAngle())).writeAttr("x", veh->getPosition().x()).writeAttr("y", veh->getPosition().y());
+            of.closeTag();
+        }
+    }
+    of.closeTag();
+}
+
+void
+MSFullExport::writePersons(OutputDevice& of) {
+    MSTransportableControl& tc = MSNet::getInstance()->getPersonControl();
+    of.openTag("persons");
+    for (auto it = tc.loadedBegin(); it != tc.loadedEnd(); ++it) {
+        const MSTransportable* p = it->second;
+        if (p->getCurrentStageType() != MSStageType::WAITING_FOR_DEPART) {
+            const MSEdge* e = p->getEdge();
+            const SUMOVehicle* v = p->getVehicle();
+            Position pos = p->getPosition();
+            of.openTag(SUMO_TAG_PERSON);
+            of.writeAttr(SUMO_ATTR_ID, p->getID());
+            of.writeAttr(SUMO_ATTR_X, pos.x());
+            of.writeAttr(SUMO_ATTR_Y, pos.y());
+            of.writeAttr(SUMO_ATTR_ANGLE, GeomHelper::naviDegree(p->getAngle()));
+            of.writeAttr(SUMO_ATTR_SPEED, p->getSpeed());
+            of.writeAttr(SUMO_ATTR_POSITION, p->getEdgePos());
+            of.writeAttr(SUMO_ATTR_EDGE, e->getID());
+            of.writeAttr(SUMO_ATTR_SLOPE, e->getLanes()[0]->getShape().slopeDegreeAtOffset(p->getEdgePos()));
+            of.writeAttr(SUMO_ATTR_VEHICLE, v == nullptr ? "" : v->getID());
+            of.writeAttr(SUMO_ATTR_TYPE, p->getVehicleType().getID());
+            of.writeAttr("stage", (int)p->getCurrentStageType());
             of.closeTag();
         }
     }
