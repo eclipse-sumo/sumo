@@ -146,7 +146,9 @@ def start(cmd, port=None, numRetries=tc.DEFAULT_NUM_RETRIES, label="default", ve
         try:
             result = init(sumoPort, numRetries, "localhost", label, sumoProcess, doSwitch, traceFile, traceGetters)
             if traceFile is not None:
-                connection.get(label).write("start", "%s, port=%s, label=%s" % (repr(cmd), repr(port), repr(label)))
+                connection.get(label)._traceFile.write("import traci\n")
+                connection.get(label)._traceFile.write("traci.start(%s, port=%s, label=%s)\n" % (
+                    repr(cmd), repr(port), repr(label)))
             return result
         except TraCIException as e:
             if port is not None:

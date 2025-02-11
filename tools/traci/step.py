@@ -35,6 +35,7 @@ class StepManager:
         self._stepListeners = {}
         self._nextStepListenerID = 0
         self._traceFile = None
+        self._printGetters = False
 
     def manageStepListeners(self, step):
         listenersToRemove = []
@@ -85,6 +86,7 @@ class StepManager:
                 for attrName in dir(domain):
                     if not attrName.startswith("_"):
                         attr = getattr(domain, attrName)
+                        isGetter = attrName.startswith("get")
                         if (callable(attr)
                                 and attrName not in [
                                     "wrapper",
@@ -93,17 +95,18 @@ class StepManager:
                                     "removeStages",
                         ]
                                 and not attrName.endswith('makeWrapper')
-                                and (traceGetters or not attrName.startswith("get"))):
+                                and (traceGetters or not isGetter)):
                             domainName = None
                             if hasattr(domain, "__name__"):
                                 domainName = domain.__name__
                             if hasattr(domain, "_name"):
                                 domainName = domain._name
-                            setattr(domain, attrName, self._addTracing(attr, domainName))
+                            setattr(domain, attrName, self._addTracing(attr, domainName, isGetter))
         self._traceFile = open(traceFile, 'w')
+        self._printGetters = traceGetters == "print"
         return result
 
-    def _addTracing(self, method, domain=None):
+    def _addTracing(self, method, domain=None, isGetter=False):
         if domain:
             name = "%s.%s" % (domain, method.__name__)
         else:
@@ -113,12 +116,15 @@ class StepManager:
         def tracingWrapper(*args, **kwargs):
             if self._traceFile is not None and not self._traceFile.closed:
                 kwargRepr = ["%s=%s" % (n, repr(v)) for n, v in kwargs.items()]
-                self.write(name, ', '.join(list(map(repr, args)) + kwargRepr))
+                self.write(name, ', '.join(list(map(repr, args)) + kwargRepr), isGetter)
             return method(*args, **kwargs)
         return tracingWrapper
 
-    def write(self, method, args=""):
-        self._traceFile.write("traci.%s(%s)\n" % (method, args))
+    def write(self, method, args="", isGetter=False):
+        line = "traci.%s(%s)" % (method, args)
+        if self._printGetters and isGetter:
+            line = "print(\"\"\"%s:\"\"\", %s)" % (line, line)
+        self._traceFile.write("%s\n" % line)
 
     def close(self, write=False):
         if self._traceFile is not None and not self._traceFile.closed:
