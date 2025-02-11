@@ -8,7 +8,7 @@
 // Licenses when the conditions for such availability set forth in the Eclipse
 // Public License 2.0 are satisfied: GNU General Public License, version 2
 // or later which is available at
-// https://www.gnu.org/licenses/oldAttrs-licenses/gpl-2.0-standalone.html
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GNEAttributeCarrier.cpp
