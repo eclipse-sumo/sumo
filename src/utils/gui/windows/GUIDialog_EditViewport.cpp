@@ -54,6 +54,10 @@ FXIMPLEMENT(GUIDialog_EditViewport, FXDialogBox, GUIDialog_EditViewportMap, ARRA
 // method definitions
 // ===========================================================================
 
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4355) // mask warning about "this" in intializers
+#endif
 GUIDialog_EditViewport::GUIDialog_EditViewport(GUISUMOAbstractView* parent, const char* name) :
     FXDialogBox(parent, name, GUIDesignDialogBox, 0, 0, 0, 0, 0, 0, 0, 0),
     GUIPersistentWindowPos(this, "VIEWPORT_DIALOG_SETTINGS", false, 20, 40, 150, 150, 100, 20),
@@ -137,6 +141,9 @@ GUIDialog_EditViewport::GUIDialog_EditViewport(GUISUMOAbstractView* parent, cons
     setIcon(GUIIconSubSys::getIcon(GUIIcon::EDITVIEWPORT));
     loadWindowPos();
 }
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 
 GUIDialog_EditViewport::~GUIDialog_EditViewport() {}
