@@ -17,6 +17,7 @@
 ///
 // The main window of Netedit (adapted from GUIApplicationWindow)
 /****************************************************************************/
+#include <config.h>
 
 #include <regex>
 #include <netedit/GNETagProperties.h>

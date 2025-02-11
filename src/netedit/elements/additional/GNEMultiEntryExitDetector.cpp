@@ -17,6 +17,7 @@
 ///
 // multi entry-exit (E3) detector
 /****************************************************************************/
+#include <config.h>
 
 #include <netedit/GNENet.h>
 #include <netedit/GNETagProperties.h>

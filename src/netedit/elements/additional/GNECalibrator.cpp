@@ -17,6 +17,7 @@
 ///
 // Calibrator over edge or lane
 /****************************************************************************/
+#include <config.h>
 
 #include <netedit/GNENet.h>
 #include <netedit/GNETagProperties.h>

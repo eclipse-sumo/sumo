@@ -17,6 +17,7 @@
 ///
 //
 /****************************************************************************/
+#include <config.h>
 
 #include <netedit/GNETagProperties.h>
 #include <netedit/GNEUndoList.h>

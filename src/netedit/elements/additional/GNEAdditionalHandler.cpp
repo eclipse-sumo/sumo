@@ -17,6 +17,7 @@
 ///
 // Builds trigger objects for netedit
 /****************************************************************************/
+#include <config.h>
 
 #include <netedit/GNENet.h>
 #include <netedit/GNETagProperties.h>
