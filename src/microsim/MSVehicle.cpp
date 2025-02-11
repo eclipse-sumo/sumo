@@ -372,6 +372,7 @@ MSVehicle::Influencer::Influencer() :
     myLatDist(0),
     mySpeedAdaptationStarted(true),
     myConsiderSafeVelocity(true),
+    myConsiderSpeedLimit(true),
     myConsiderMaxAcceleration(true),
     myConsiderMaxDeceleration(true),
     myRespectJunctionPriority(true),
@@ -448,7 +449,8 @@ MSVehicle::Influencer::getSpeedMode() const {
             4 * myConsiderMaxDeceleration +
             8 * myRespectJunctionPriority +
             16 * myEmergencyBrakeRedLight +
-            32 * !myRespectJunctionLeaderPriority // inverted!
+            32 * !myRespectJunctionLeaderPriority + // inverted!
+            64 * !myConsiderSpeedLimit // inverted!
            );
 }
 
@@ -790,6 +792,7 @@ MSVehicle::Influencer::setSpeedMode(int speedMode) {
     myRespectJunctionPriority = ((speedMode & 8) != 0);
     myEmergencyBrakeRedLight = ((speedMode & 16) != 0);
     myRespectJunctionLeaderPriority = ((speedMode & 32) == 0); // inverted!
+    myConsiderSpeedLimit = ((speedMode & 64) == 0); // inverted!
 }
 
 
@@ -2218,7 +2221,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
     }
     //  speed limits are not emergencies (e.g. when the limit changes suddenly due to TraCI or a variableSpeedSignal)
     laneMaxV = MAX2(laneMaxV, vMinComfortable);
-    if (myInfluencer && !myInfluencer->considerSafeVelocity()) {
+    if (myInfluencer && !myInfluencer->considerSpeedLimit()) {
         laneMaxV = std::numeric_limits<double>::max();
     }
     // v is the initial maximum velocity of this vehicle in this step
@@ -2949,7 +2952,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         // get the following lane
         lane = (*link)->getViaLaneOrLane();
         laneMaxV = lane->getVehicleMaxSpeed(this);
-        if (myInfluencer && !myInfluencer->considerSafeVelocity()) {
+        if (myInfluencer && !myInfluencer->considerSpeedLimit()) {
             laneMaxV = std::numeric_limits<double>::max();
         }
         // the link was passed
