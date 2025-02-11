@@ -105,6 +105,13 @@ Route::add(const std::string& routeID, const std::vector<std::string>& edgeIDs) 
 }
 
 
+void
+Route::remove(const std::string& routeID) {
+    MSRoute* r = const_cast<MSRoute*>(getRoute(routeID).get());
+    r->checkRemoval(true);
+}
+
+
 LIBSUMO_SUBSCRIPTION_IMPLEMENTATION(Route, ROUTE)
 
 

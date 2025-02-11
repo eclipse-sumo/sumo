@@ -95,11 +95,11 @@ MSRoute::getLastEdge() const {
 
 
 void
-MSRoute::checkRemoval() const {
+MSRoute::checkRemoval(bool force) const {
 #ifdef HAVE_FOX
     FXMutexLock f(myDictMutex);
 #endif
-    if (!myAmPermanent) {
+    if (!myAmPermanent || force) {
         myDict.erase(getID());
     }
 }

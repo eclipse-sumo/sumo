@@ -50,6 +50,7 @@ public:
     LIBSUMO_SUBSCRIPTION_API
 
     static void add(const std::string& routeID, const std::vector<std::string>& edges);
+    static void remove(const std::string& routeID);
 
 #ifndef LIBTRACI
 #ifndef SWIG

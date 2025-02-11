@@ -89,7 +89,7 @@ public:
     const MSEdge* getLastEdge() const;
 
     /** @brief removes the route from the internal dict if it is not marked as permanent */
-    void checkRemoval() const;
+    void checkRemoval(bool force = false) const;
 
     /** @brief Output the edge ids up to but not including the id of the given edge
      * @param[in] os The stream to write the routes into (binary)

@@ -63,7 +63,12 @@ void
 Route::add(const std::string& routeID, const std::vector<std::string>& edgeIDs) {
     Dom::setStringVector(libsumo::ADD, routeID, edgeIDs);
 }
+
+void
+Route::remove(const std::string& routeID) {
+    tcpip::Storage content;
+    Dom::set(libsumo::REMOVE, routeID, &content);
 }
 
-
+}
 /****************************************************************************/

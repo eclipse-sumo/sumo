@@ -41,3 +41,10 @@ class RouteDomain(Domain):
         Adds a new route with the given id consisting of the given list of edge IDs.
         """
         self._setCmd(tc.ADD, routeID, "l", edges)
+
+    def remove(self, routeID):
+        """remove(string) -> None
+
+        Removes the given route.
+        """
+        self._setCmd(tc.REMOVE, routeID)

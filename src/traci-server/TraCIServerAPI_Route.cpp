@@ -57,7 +57,7 @@ TraCIServerAPI_Route::processSet(TraCIServer& server, tcpip::Storage& inputStora
     std::string warning = ""; // additional description for response
     // variable
     int variable = inputStorage.readUnsignedByte();
-    if (variable != libsumo::ADD && variable != libsumo::VAR_PARAMETER) {
+    if (variable != libsumo::ADD && variable != libsumo::REMOVE && variable != libsumo::VAR_PARAMETER) {
         return server.writeErrorStatusCmd(libsumo::CMD_SET_ROUTE_VARIABLE, "Change Route State: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
     }
     // id
@@ -72,6 +72,10 @@ TraCIServerAPI_Route::processSet(TraCIServer& server, tcpip::Storage& inputStora
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_ROUTE_VARIABLE, "A string list is needed for adding a new route.", outputStorage);
                 }
                 libsumo::Route::add(id, edgeIDs);
+            }
+            break;
+            case libsumo::REMOVE: {
+                libsumo::Route::remove(id);
             }
             break;
             case libsumo::VAR_PARAMETER: {
