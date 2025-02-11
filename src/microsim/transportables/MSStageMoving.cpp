@@ -83,7 +83,7 @@ MSStageMoving::getAngle(SUMOTime now) const {
 }
 
 SUMOTime
-MSStageMoving::getWaitingTime(SUMOTime) const {
+MSStageMoving::getWaitingTime() const {
     return myPState == nullptr ? 0 : myPState->getWaitingTime();
 }
 

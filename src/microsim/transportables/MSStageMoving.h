@@ -79,7 +79,7 @@ public:
     double getAngle(SUMOTime now) const;
 
     /// Returns the time the container spent waiting
-    SUMOTime getWaitingTime(SUMOTime now) const;
+    SUMOTime getWaitingTime() const;
 
     /// Returns the speed of the container
     double getSpeed() const;

@@ -48,9 +48,6 @@ public:
     Position(double x, double y, double z) :
         myX(x), myY(y), myZ(z) { }
 
-    /// @brief Destructor
-    ~Position() { }
-
     /// @brief Returns the x-position
     inline double x() const {
         return myX;

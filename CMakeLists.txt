@@ -120,55 +120,6 @@ if (GNU_COMPILER OR CLANG_COMPILER)
         set(ENABLED_FEATURES "${ENABLED_FEATURES} Coverage")
     endif ()
 elseif (MSVC)
-    # disable warnings (all versions)
-    option(DISABLEWARNING_C5264 "'const' variable is not used" ON)
-    option(DISABLEWARNING_C5267 "definition of implicit operator/constructor/destructor is deprecated" ON)
-    option(DISABLEWARNING_C4355 "'this' : used in base member initializer list" ON)
-    option(DISABLEWARNING_C4266 "'function' : no override available for virtual member function from base 'type'" ON)
-    option(DISABLEWARNING_C4127 "conditional expression is constant" ON)
-    option(DISABLEWARNING_C26495 "'variable' is uninitialized. Always initialize a member variable" ON)
-    # Specific warnings from MSVC15
-    if (MSVC_VERSION LESS 2000)
-        option(DISABLEWARNING_C4619 "there is no warning number xxxx" ON)
-        option(DISABLEWARNING_C4774 "format string expected not string literal" ON)
-        option(DISABLEWARNING_C4571 "structured exceptions (SEH) are no longer caught" ON)
-    endif()
-    # 5264
-    if (DISABLEWARNING_C5264)
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd5264")
-    endif (DISABLEWARNING_C5264)
-    # 5267
-    if (DISABLEWARNING_C5267)
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd5267")
-    endif (DISABLEWARNING_C5267)
-    # 4355
-    if (DISABLEWARNING_C4355)
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4355")
-    endif (DISABLEWARNING_C4355)
-    # 4266
-    if (DISABLEWARNING_C4266)
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4266")
-    endif (DISABLEWARNING_C4266)
-    # 4127
-    if (DISABLEWARNING_C4127)
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4127")
-    endif (DISABLEWARNING_C4127)
-    # 26495
-    if (DISABLEWARNING_C26495)
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd26495")
-    endif (DISABLEWARNING_C26495)
-    # 4619
-    if (DISABLEWARNING_C4619)
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4619")
-    endif (DISABLEWARNING_C4619)
-    # 4774
-    if (DISABLEWARNING_C4774)
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4774")
-    endif (DISABLEWARNING_C4774)
-    # 4571
-    if (DISABLEWARNING_C4571)
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4571")
-    endif (DISABLEWARNING_C4571)
     # enabling /WX is not possible due to warnings in external headers
     if (CMAKE_BUILD_TYPE STREQUAL "Debug")
         # this is a workaround to disable lots of warnings for replacing /W3 with /W4 in VS 2019

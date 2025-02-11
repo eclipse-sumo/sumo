@@ -210,7 +210,7 @@ MSPerson::checkAccess(const MSStage* const prior, const bool waitAtStop) {
 double
 MSPerson::getImpatience() const {
     return MAX2(0., MIN2(1., getVehicleType().getImpatience()
-                         + STEPS2TIME((*myStep)->getWaitingTime(SIMSTEP)) / MSPModel_Striping::MAX_WAIT_TOLERANCE));
+                         + STEPS2TIME((*myStep)->getWaitingTime()) / MSPModel_Striping::MAX_WAIT_TOLERANCE));
 }
 
 const std::string&

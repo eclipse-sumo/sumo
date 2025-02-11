@@ -59,9 +59,6 @@ Boundary::Boundary(double x1, double y1, double z1, double x2, double y2, double
 }
 
 
-Boundary::~Boundary() {}
-
-
 void
 Boundary::reset() {
     myXmin = 10000000000.0;

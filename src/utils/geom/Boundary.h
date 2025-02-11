@@ -47,9 +47,6 @@ public:
     /// @brief Constructor - the boundary will be build using the given values including Z
     Boundary(double x1, double y1, double z1, double x2, double y2, double z2);
 
-    /// @brief Destructor
-    ~Boundary();
-
     /// @brief Resets the boundary
     void reset();
 

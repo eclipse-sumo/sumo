@@ -97,12 +97,6 @@ MSStage::getDirection() const {
 }
 
 
-SUMOTime
-MSStage::getWaitingTime(SUMOTime /* now */) const {
-    return 0;
-}
-
-
 double
 MSStage::getSpeed() const {
     return 0.;

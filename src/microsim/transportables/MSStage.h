@@ -189,9 +189,6 @@ public:
         return nullptr;
     }
 
-    /// @brief the time this transportable spent waiting
-    virtual SUMOTime getWaitingTime(SUMOTime now) const;
-
     /// @brief the speed of the transportable
     virtual double getSpeed() const;
 

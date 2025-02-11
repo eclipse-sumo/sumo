@@ -198,7 +198,7 @@ MSTransportable::getAngle() const {
 
 double
 MSTransportable::getWaitingSeconds() const {
-    return STEPS2TIME((*myStep)->getWaitingTime(MSNet::getInstance()->getCurrentTimeStep()));
+    return STEPS2TIME((*myStep)->getWaitingTime());
 }
 
 double
@@ -626,7 +626,7 @@ MSTransportable::getSlope() const {
 
 SUMOTime
 MSTransportable::getWaitingTime(const bool /* accumulated */) const {
-    return (*myStep)->getWaitingTime(MSNet::getInstance()->getCurrentTimeStep());
+    return (*myStep)->getWaitingTime();
 }
 
 

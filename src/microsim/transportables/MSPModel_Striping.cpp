@@ -2116,7 +2116,7 @@ MSPModel_Striping::PState::walk(const Obstacles& obs, SUMOTime currentTime) {
                   << " xd=" << xDist
                   << " yd=" << yDist
                   << " vMax=" << vMax
-                  << " wTime=" << myStage->getWaitingTime(currentTime)
+                  << " wTime=" << myStage->getWaitingTime()
                   << " jammed=" << myAmJammed
                   << "\n";
         if (DEBUGCOND(*this)) {
@@ -2159,7 +2159,7 @@ MSPModel_Striping::PState::walk(const Obstacles& obs, SUMOTime currentTime) {
 double
 MSPModel_Striping::PState::getImpatience(SUMOTime now) const {
     return MAX2(0., MIN2(1., myPerson->getVehicleType().getImpatience()
-                         + STEPS2TIME(myStage->getWaitingTime(now)) / MAX_WAIT_TOLERANCE));
+                         + STEPS2TIME(myStage->getWaitingTime()) / MAX_WAIT_TOLERANCE));
 }
 
 
