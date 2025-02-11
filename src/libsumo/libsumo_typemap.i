@@ -568,6 +568,7 @@ SUBSCRIBE_HELPER(RouteProbe)
 %}
 %enddef
 #endif
+#if defined(SWIGJAVA) || defined(SWIGPYTHON)
 SELF_NULL_CHECKER(TraCIResult)
 SELF_NULL_CHECKER(TraCIPosition)
 SELF_NULL_CHECKER(TraCIPositionVector)
@@ -592,5 +593,6 @@ SELF_NULL_CHECKER(TraCIReservation)
 SELF_NULL_CHECKER(TraCICollision)
 SELF_NULL_CHECKER(TraCISignalConstraint)
 SELF_NULL_CHECKER(TraCIJunctionFoe)
+#endif
 
 // %feature("compactdefaultargs") libsumo::Simulation::findRoute;
