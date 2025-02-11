@@ -43,13 +43,12 @@
 GNEConnection::GNEConnection(GNELane* from, GNELane* to) :
     GNENetworkElement(from->getNet(), "from" + from->getID() + "to" + to->getID(),
                       GLO_CONNECTION, SUMO_TAG_CONNECTION, GUIIconSubSys::getIcon(GUIIcon::CONNECTION)),
-    myFromLane(from),
-    myToLane(to),
     myLinkState(LINKSTATE_TL_OFF_NOSIGNAL),
     mySpecialColor(nullptr),
     myShapeDeprecated(true) {
-    // update centering boundary without updating grid
-    updateCenteringBoundary(false);
+    // set parents
+    setParents<GNELane*>({from, to});
+    setParents<GNEEdge*>({from->getParentEdge(), to->getParentEdge()});
 }
 
 
@@ -74,8 +73,8 @@ GNEConnection::updateGeometry() {
         // Get shape of from and to lanes
         const NBEdge::Connection& nbCon = getNBEdgeConnection();
         // obtain lane shapes
-        auto laneShapeFrom = myFromLane->getLaneShape();
-        auto laneShapeTo = myToLane->getLaneShape();
+        auto laneShapeFrom = getParentLanes().front()->getLaneShape();
+        auto laneShapeTo = getParentLanes().back()->getLaneShape();
         // Calculate shape of connection depending of the size of Junction shape
         if (nbCon.customShape.size() > 0) {
             myConnectionGeometry.updateGeometry(nbCon.customShape);
@@ -94,8 +93,8 @@ GNEConnection::updateGeometry() {
                 connectionShape.append(nbCon.viaShape);
             }
             myConnectionGeometry.updateGeometry(connectionShape);
-        } else if (myFromLane->getLane2laneConnections().exist(myToLane)) {
-            myConnectionGeometry = myFromLane->getLane2laneConnections().getLane2laneGeometry(myToLane);
+        } else if (getParentLanes().front()->getLane2laneConnections().exist(getParentLanes().back())) {
+            myConnectionGeometry = getParentLanes().front()->getLane2laneConnections().getLane2laneGeometry(getParentLanes().back());
         } else {
             myConnectionGeometry.clearGeometry();
         }
@@ -238,58 +237,58 @@ GNEConnection::removeGeometryPoint(const Position clickedPosition, GNEUndoList* 
 
 GNEEdge*
 GNEConnection::getEdgeFrom() const {
-    return myFromLane->getParentEdge();
+    return getParentEdges().front();
 }
 
 
 GNEEdge*
 GNEConnection::getEdgeTo() const {
-    return myToLane->getParentEdge();
+    return getParentEdges().back();
 }
 
 
 GNELane*
 GNEConnection::getLaneFrom() const {
-    return myFromLane;
+    return getParentLanes().front();
 }
 
 
 GNELane*
 GNEConnection::getLaneTo() const {
-    return myToLane;
+    return getParentLanes().back();
 }
 
 
 int
 GNEConnection::getFromLaneIndex() const {
-    return myFromLane->getIndex();
+    return getParentLanes().front()->getIndex();
 }
 
 
 int
 GNEConnection::getToLaneIndex() const {
-    return myToLane->getIndex();
+    return getParentLanes().back()->getIndex();
 }
 
 
 NBEdge::Connection&
 GNEConnection::getNBEdgeConnection() const {
-    return getEdgeFrom()->getNBEdge()->getConnectionRef(getFromLaneIndex(), getEdgeTo()->getNBEdge(), getToLaneIndex());
+    return getParentEdges().front()->getNBEdge()->getConnectionRef(getFromLaneIndex(), getParentEdges().back()->getNBEdge(), getToLaneIndex());
 }
 
 
 NBConnection
 GNEConnection::getNBConnection() const {
     const NBEdge::Connection& c = getNBEdgeConnection();
-    return NBConnection(getEdgeFrom()->getNBEdge(), getFromLaneIndex(),
-                        getEdgeTo()->getNBEdge(), getToLaneIndex(),
+    return NBConnection(getParentEdges().front()->getNBEdge(), getFromLaneIndex(),
+                        getParentEdges().back()->getNBEdge(), getToLaneIndex(),
                         (int)c.tlLinkIndex, (int)c.tlLinkIndex2);
 }
 
 
 void
 GNEConnection::updateConnectionID() {
-    setNetworkElementID(myFromLane->getID() + " -> " + myToLane->getID());
+    setNetworkElementID(getParentLanes().front()->getID() + " -> " + getParentLanes().back()->getID());
 }
 
 
@@ -308,7 +307,7 @@ GNEConnection::markConnectionGeometryDeprecated() {
 void
 GNEConnection::updateLinkState() {
     const NBEdge::Connection& nbCon = getNBEdgeConnection();
-    myLinkState = getEdgeFrom()->getNBEdge()->getToNode()->getLinkState(getEdgeFrom()->getNBEdge(),
+    myLinkState = getParentEdges().front()->getNBEdge()->getToNode()->getLinkState(getParentEdges().front()->getNBEdge(),
                   nbCon.toEdge,
                   nbCon.fromLane,
                   nbCon.toLane,
@@ -384,7 +383,7 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
         const auto d = s.getDetailLevel(connectionExaggeration);
         // check if draw shape superposed (used in train lanes)
         PositionVector shapeSuperposed = myConnectionGeometry.getShape();
-        if (myFromLane->getDrawingConstants()->drawSuperposed()) {
+        if (getParentLanes().front()->getDrawingConstants()->drawSuperposed()) {
             shapeSuperposed.move2side(0.5);
         }
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
@@ -435,22 +434,22 @@ GNEConnection::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_ID:
             return getMicrosimID();
         case SUMO_ATTR_FROM:
-            return myFromLane->getParentEdge()->getID();
+            return getParentLanes().front()->getParentEdge()->getID();
         case SUMO_ATTR_TO:
-            return myToLane->getParentEdge()->getID();
+            return getParentLanes().back()->getParentEdge()->getID();
         case SUMO_ATTR_FROM_LANE:
-            return myFromLane->getAttribute(SUMO_ATTR_INDEX);
+            return getParentLanes().front()->getAttribute(SUMO_ATTR_INDEX);
         case GNE_ATTR_FROM_LANEID:
-            return myFromLane->getID();
+            return getParentLanes().front()->getID();
         case SUMO_ATTR_TO_LANE:
-            return myToLane->getAttribute(SUMO_ATTR_INDEX);
+            return getParentLanes().back()->getAttribute(SUMO_ATTR_INDEX);
         case GNE_ATTR_TO_LANEID:
-            return myToLane->getID();
+            return getParentLanes().back()->getID();
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_FRONTELEMENT:
             return getCommonAttribute(key);
         case GNE_ATTR_PARENT:
-            return getEdgeFrom()->getToJunction()->getID();
+            return getParentEdges().front()->getToJunction()->getID();
         default:
             break;
     }
@@ -508,11 +507,11 @@ GNEConnection::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_LENGTH:
             return toString(nbCon.customLength);
         case SUMO_ATTR_DIR:
-            return toString(getEdgeFrom()->getNBEdge()->getToNode()->getDirection(
-                                getEdgeFrom()->getNBEdge(), nbCon.toEdge, OptionsCont::getOptions().getBool("lefthand")));
+            return toString(getParentEdges().front()->getNBEdge()->getToNode()->getDirection(
+                                getParentEdges().front()->getNBEdge(), nbCon.toEdge, OptionsCont::getOptions().getBool("lefthand")));
         case SUMO_ATTR_STATE:
-            return toString(getEdgeFrom()->getNBEdge()->getToNode()->getLinkState(
-                                getEdgeFrom()->getNBEdge(), nbCon.toEdge, nbCon.fromLane, nbCon.toLane, nbCon.mayDefinitelyPass, nbCon.tlID));
+            return toString(getParentEdges().front()->getNBEdge()->getToNode()->getLinkState(
+                                getParentEdges().front()->getNBEdge(), nbCon.toEdge, nbCon.fromLane, nbCon.toLane, nbCon.mayDefinitelyPass, nbCon.tlID));
         case SUMO_ATTR_SHAPE:
         case SUMO_ATTR_CUSTOMSHAPE:
             return toString(nbCon.customShape);
@@ -579,8 +578,8 @@ GNEConnection::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
                 int linkIndex2 = -1;
                 if (parse<bool>(value)) {
                     // find straight connection with the same toEdge
-                    std::set<NBTrafficLightDefinition*> defs = getEdgeFrom()->getNBEdge()->getToNode()->getControllingTLS();
-                    NBEdge* from = getEdgeFrom()->getNBEdge();
+                    std::set<NBTrafficLightDefinition*> defs = getParentEdges().front()->getNBEdge()->getToNode()->getControllingTLS();
+                    NBEdge* from = getParentEdges().front()->getNBEdge();
                     for (NBTrafficLightDefinition* tlDef : defs) {
                         for (const NBConnection& c2 : tlDef->getControlledLinks()) {
                             if (c2.getTo() == c.toEdge && c2.getFrom() != from) {
@@ -613,13 +612,13 @@ GNEConnection::changeTLIndex(SumoXMLAttr key, int tlIndex, int tlIndex2, GNEUndo
     // trigger GNEChange_TLS
     undoList->begin(this, "change tls linkIndex for connection");
     // make a copy
-    std::set<NBTrafficLightDefinition*> defs = getEdgeFrom()->getNBEdge()->getToNode()->getControllingTLS();
+    std::set<NBTrafficLightDefinition*> defs = getParentEdges().front()->getNBEdge()->getToNode()->getControllingTLS();
     for (const auto& tlDef : defs) {
         NBLoadedSUMOTLDef* sumoDef = dynamic_cast<NBLoadedSUMOTLDef*>(tlDef);
         NBTrafficLightLogic* tllogic = sumoDef ? sumoDef->getLogic() : tlDef->compute(OptionsCont::getOptions());
         if (tllogic != nullptr) {
             NBLoadedSUMOTLDef* newDef = new NBLoadedSUMOTLDef(*tlDef, *tllogic);
-            newDef->addConnection(getEdgeFrom()->getNBEdge(), getEdgeTo()->getNBEdge(),
+            newDef->addConnection(getParentEdges().front()->getNBEdge(), getParentEdges().back()->getNBEdge(),
                                   getLaneFrom()->getIndex(), getLaneTo()->getIndex(), tlIndex, tlIndex2, false);
             // make a copy
             std::vector<NBNode*> nodes = tlDef->getNodes();
@@ -638,7 +637,7 @@ GNEConnection::changeTLIndex(SumoXMLAttr key, int tlIndex, int tlIndex2, GNEUndo
 
 bool
 GNEConnection::existNBEdgeConnection() const {
-    return getEdgeFrom()->getNBEdge()->getConnectionsFromLane(getFromLaneIndex(), getEdgeTo()->getNBEdge(), getToLaneIndex()).size() > 0;
+    return getParentEdges().front()->getNBEdge()->getConnectionsFromLane(getFromLaneIndex(), getParentEdges().back()->getNBEdge(), getToLaneIndex()).size() > 0;
 }
 
 
@@ -771,7 +770,7 @@ void
 GNEConnection::calculateConnectionContour(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
         const PositionVector& shape, const double exaggeration) const {
     // first check if junction parent was inserted with full boundary
-    if (!gViewObjectsHandler.checkBoundaryParentObject(this, getType(), myFromLane->getParentEdge()->getToJunction())) {
+    if (!gViewObjectsHandler.checkBoundaryParentObject(this, getType(), getParentLanes().front()->getParentEdge()->getToJunction())) {
         // calculate geometry points contour if we're editing shape
         if (myShapeEdited) {
             myNetworkElementContour.calculateContourAllGeometryPoints(s, d, this, shape, getType(), s.neteditSizeSettings.connectionGeometryPointRadius,
@@ -783,7 +782,7 @@ GNEConnection::calculateConnectionContour(const GUIVisualizationSettings& s, con
                                               (myNet->getViewNet()->getEditNetworkElementShapes().getEditedNetworkElement() == this) : true;
             // calculate connection shape contour
             myNetworkElementContour.calculateContourExtrudedShape(s, d, this, shape, getType(), s.connectionSettings.connectionWidth, exaggeration,
-                    true, true, 0, nullptr, myFromLane->getParentEdge()->getToJunction(), addToSelectedObjects);
+                    true, true, 0, nullptr, getParentLanes().front()->getParentEdge()->getToJunction(), addToSelectedObjects);
         }
     }
 }
@@ -816,11 +815,11 @@ GNEConnection::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_TLLINKINDEX2:
             if (isAttributeEnabled(SUMO_ATTR_TLLINKINDEX) &&
                     !getNBEdgeConnection().uncontrolled &&
-                    (getEdgeFrom()->getNBEdge()->getToNode()->getControllingTLS().size() > 0) &&
+                    (getParentEdges().front()->getNBEdge()->getToNode()->getControllingTLS().size() > 0) &&
                     canParse<int>(value) &&
                     (parse<int>(value) >= 0 || parse<int>(value) == -1)) {
                 // obtain Traffic light definition
-                NBTrafficLightDefinition* def = *getEdgeFrom()->getNBEdge()->getToNode()->getControllingTLS().begin();
+                NBTrafficLightDefinition* def = *getParentEdges().front()->getNBEdge()->getToNode()->getControllingTLS().begin();
                 return def->getMaxValidIndex() >= parse<int>(value);
             } else {
                 return false;
@@ -868,8 +867,8 @@ GNEConnection::isAttributeEnabled(SumoXMLAttr key) const {
         case SUMO_ATTR_TLLINKINDEX:
         case SUMO_ATTR_TLLINKINDEX2:
             // get Traffic Light definitions
-            if (getEdgeFrom()->getNBEdge()->getToNode()->isTLControlled()) {
-                NBTrafficLightDefinition* tlDef = *getEdgeFrom()->getNBEdge()->getToNode()->getControllingTLS().begin();
+            if (getParentEdges().front()->getNBEdge()->getToNode()->isTLControlled()) {
+                NBTrafficLightDefinition* tlDef = *getParentEdges().front()->getNBEdge()->getToNode()->getControllingTLS().begin();
                 NBLoadedSUMOTLDef* sumoDef = dynamic_cast<NBLoadedSUMOTLDef*>(tlDef);
                 NBTrafficLightLogic* tllogic = sumoDef != nullptr ? sumoDef->getLogic() : tlDef->compute(OptionsCont::getOptions());
                 if (tllogic != nullptr) {
@@ -908,7 +907,7 @@ GNEConnection::getACParametersMap() const {
 void
 GNEConnection::setAttribute(SumoXMLAttr key, const std::string& value) {
     if (!existNBEdgeConnection()) {
-        WRITE_WARNINGF("Cannot restore attribute '%=%' for computed connection from lane '%'", toString(key), value, myFromLane->getID());
+        WRITE_WARNINGF("Cannot restore attribute '%=%' for computed connection from lane '%'", toString(key), value, getParentLanes().front()->getID());
         return;
     }
     NBEdge::Connection& nbCon = getNBEdgeConnection();
@@ -964,8 +963,6 @@ GNEConnection::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_SHAPE:
         case SUMO_ATTR_CUSTOMSHAPE:
             nbCon.customShape = parse<PositionVector>(value);
-            // update centering boundary
-            updateCenteringBoundary(false);
             break;
         case SUMO_ATTR_TYPE:
             nbCon.edgeType = value;

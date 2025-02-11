@@ -216,12 +216,6 @@ public:
     const Parameterised::Map& getACParametersMap() const;
 
 protected:
-    /// @brief incoming lane of this connection
-    GNELane* myFromLane;
-
-    /// @brief outgoing lane of this connection
-    GNELane* myToLane;
-
     /// @brief Linkstate. @note cached because after 'undo' the connection needs to be drawn while the node logic (NBRequest) has not been recomputed
     LinkState myLinkState;
 
