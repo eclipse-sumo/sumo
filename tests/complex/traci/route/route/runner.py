@@ -58,4 +58,6 @@ except traci.TraCIException:
 print("routes", traci.route.getIDList())
 print("edges", traci.route.getEdges("h2"))
 print("edges", traci.route.getEdges("withTaz"))
+traci.route.remove("h2")
+print("routes after removing h2", traci.route.getIDList())
 traci.close()
