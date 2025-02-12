@@ -735,6 +735,10 @@ MSVehicle::Influencer::influenceChangeDecision(const SUMOTime currentTime, const
             // cancel all lcModel requests
             state &= ~LCA_WANTS_LANECHANGE_OR_STAY;
             state &= ~LCA_URGENT;
+            if (changeRequest == REQUEST_NONE) {
+                // also remove all reasons except TRACI
+                state &= ~LCA_CHANGE_REASONS | LCA_TRACI;
+            }
         } else if (mode == LC_NOCONFLICT && changeRequest != REQUEST_NONE) {
             if (
                 ((state & LCA_LEFT) != 0 && changeRequest != REQUEST_LEFT) ||
