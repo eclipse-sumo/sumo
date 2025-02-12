@@ -728,8 +728,12 @@ GNEAttributesEditorRow::enableElements(const GNEAttributeProperties* attrPropert
     bool enableElements = false;
     if (forceDisable) {
         enableElements = false;
-    } else if (editModes.isCurrentSupermodeNetwork() && (tagProperty->isNetworkElement() || tagProperty->isAdditionalElement())) {
-        enableElements = true;
+    } else if (editModes.isCurrentSupermodeNetwork()) {
+        if (tagProperty->isNetworkElement() || tagProperty->isAdditionalElement()) {
+            enableElements = true;
+        } else if ((tagProperty->getTag() == SUMO_TAG_TAZSOURCE) || (tagProperty->getTag() == SUMO_TAG_TAZSINK)) {
+            enableElements = true;
+        }
     } else if (editModes.isCurrentSupermodeDemand() && tagProperty->isDemandElement()) {
         enableElements = true;
     } else if (editModes.isCurrentSupermodeData() && (tagProperty->isDataElement() || tagProperty->isMeanData())) {
