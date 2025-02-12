@@ -72,6 +72,10 @@ Triangle::intersectWithShape(const PositionVector& shape) const {
 
 bool
 Triangle::intersectWithShape(const PositionVector& shape, const Boundary& shapeBoundary) const {
+    // check if triangle is within shape
+    if (shape.around(myA) || shape.around(myB) || shape.around(myC)) {
+        return true;
+    }
     // check if at leas two corners of the shape boundary are within triangle
     const int cornerA = isPositionWithin(Position(shapeBoundary.xmax(), shapeBoundary.ymax()));
     const int cornerB = isPositionWithin(Position(shapeBoundary.xmin(), shapeBoundary.ymin()));
