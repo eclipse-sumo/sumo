@@ -109,7 +109,7 @@ GUIViewObjectsHandler::checkBoundaryParentObject(const GUIGlObject* GLObject, co
 
 bool
 GUIViewObjectsHandler::checkCircleObject(const GUIVisualizationSettings::Detail d, const GUIGlObject* GLObject,
-        const Position& center, const double radius, const Boundary& circleBoundary, const double layer) {
+        const Position& center, const double radius, const double layer) {
     // first check that object doesn't exist
     if (isObjectSelected(GLObject)) {
         return false;
@@ -121,7 +121,7 @@ GUIViewObjectsHandler::checkCircleObject(const GUIVisualizationSettings::Detail 
             // continue depending of detail level
             if (d <= GUIVisualizationSettings::Detail::PreciseSelection) {
                 // check if triangle intersect with circle
-                if (mySelectionTriangle.intersectWithCircle(center, radius, circleBoundary)) {
+                if (mySelectionTriangle.intersectWithCircle(center, radius)) {
                     return selectObject(GLObject, layer, false, false, nullptr);
                 } else {
                     return false;
@@ -163,7 +163,7 @@ GUIViewObjectsHandler::checkGeometryPoint(const GUIVisualizationSettings::Detail
             Boundary geometryPointBoundary;
             geometryPointBoundary.add(geometryPointPos);
             // check if center is within mySelectionBoundary
-            if (mySelectionTriangle.intersectWithCircle(geometryPointPos, radius, geometryPointBoundary.grow(radius))) {
+            if (mySelectionTriangle.intersectWithCircle(geometryPointPos, radius)) {
                 return selectGeometryPoint(GLObject, index, layer);
             } else {
                 return false;

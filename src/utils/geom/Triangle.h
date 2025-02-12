@@ -66,7 +66,7 @@ public:
     bool intersectWithShape(const PositionVector& shape, const Boundary& shapeBoundary) const;
 
     /// @brief check if the given circle intersect with this triangle
-    bool intersectWithCircle(const Position& center, const double radius, const Boundary& circleBoundary) const;
+    bool intersectWithCircle(const Position& center, const double radius) const;
 
     // @brief triangulate using Ear Clipping algorithm
     static std::vector<Triangle> triangulate(PositionVector shape);

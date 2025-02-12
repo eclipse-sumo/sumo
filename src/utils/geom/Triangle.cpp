@@ -97,12 +97,14 @@ Triangle::intersectWithShape(const PositionVector& shape, const Boundary& shapeB
 
 
 bool
-Triangle::intersectWithCircle(const Position& center, const double radius, const Boundary& circleBoundary) const {
-    return isBoundaryFullWithin(circleBoundary) ||
-           lineIntersectCircle(myA, myB, center, radius) ||
-           lineIntersectCircle(myB, myC, center, radius) ||
-           lineIntersectCircle(myC, myA, center, radius) ||
-           isPositionWithin(center);
+Triangle::intersectWithCircle(const Position& center, const double radius) const {
+    const auto squaredRadius = radius * radius;
+    return ((center.distanceSquaredTo2D(myA) <= squaredRadius) ||
+            (center.distanceSquaredTo2D(myB) <= squaredRadius) ||
+            (center.distanceSquaredTo2D(myC) <= squaredRadius) ||
+            lineIntersectCircle(myA, myB, center, radius) ||
+            lineIntersectCircle(myB, myC, center, radius) ||
+            lineIntersectCircle(myC, myA, center, radius));
 }
 
 
@@ -281,6 +283,5 @@ Triangle::lineIntersectCircle(const Position& posA, const Position& posB, const 
         return false;
     }
 }
-
 
 /****************************************************************************/

@@ -126,7 +126,7 @@ GNEContour::calculateContourCircleShape(const GUIVisualizationSettings& s, const
         // calculate circle shape
         buildContourCircle(s, d, pos, radius, scale);
         // check if position or bondary is within circle shape
-        gViewObjectsHandler.checkCircleObject(d, glObject, pos, (radius * scale), *myContourBoundary, layer);
+        gViewObjectsHandler.checkCircleObject(d, glObject, pos, (radius * scale), layer);
     }
 }
 
