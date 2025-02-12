@@ -944,7 +944,7 @@ Person::moveToXY(const std::string& personID, const std::string& edgeID, const d
         double speed = pos.distanceTo2D(p->getPosition()); // !!!veh->getSpeed();
         found = Helper::moveToXYMap(pos, maxRouteDistance, mayLeaveNetwork, edgeID, angle,
                                     speed, ev, routeIndex, currentLane, p->getEdgePos(), currentLane != nullptr,
-                                    vClass, true,
+                                    vClass, GeomHelper::naviDegree(p->getAngle()), true,
                                     bestDistance, &lane, lanePos, routeOffset, edges);
         if (edges.size() != 0 && ev.size() > 1) {
             // try to rebuild the route
