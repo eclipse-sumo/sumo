@@ -39,7 +39,8 @@ vehID = "v0"
 
 def accelerate(currentSpeed, targetSpeed, duration):
     accel = (targetSpeed - currentSpeed) / duration
-    print("  accelerate from %s m/s to %s m/s over %s seconds with accel %s" % (currentSpeed, targetSpeed, duration, accel))
+    print("  accelerate from %s m/s to %s m/s over %s seconds with accel %s" % (
+        currentSpeed, targetSpeed, duration, accel))
     traci.vehicle.setAcceleration(vehID, accel, duration)
 
 
