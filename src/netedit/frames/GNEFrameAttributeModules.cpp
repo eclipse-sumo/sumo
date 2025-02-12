@@ -430,14 +430,20 @@ GNEFrameAttributeModules::ParametersEditor::onCmdSetParameters(FXObject*, FXSele
 
 bool
 GNEFrameAttributeModules::isSupermodeValid(const GNEViewNet* viewNet, const GNEAttributeCarrier* AC) {
-    if (viewNet->getEditModes().isCurrentSupermodeNetwork() &&
-            (AC->getTagProperty()->isNetworkElement() || AC->getTagProperty()->isAdditionalElement())) {
-        return true;
+    const auto tagProperty = AC->getTagProperty();
+    if (viewNet->getEditModes().isCurrentSupermodeNetwork()) {
+        if (tagProperty->isNetworkElement() || tagProperty->isAdditionalElement()) {
+            return true;
+        } else if ((tagProperty->getTag() == SUMO_TAG_TAZSOURCE) || (tagProperty->getTag() == SUMO_TAG_TAZSINK)) {
+            return true;
+        } else {
+            return false;
+        }
     } else if (viewNet->getEditModes().isCurrentSupermodeDemand() &&
-               AC->getTagProperty()->isDemandElement()) {
+               tagProperty->isDemandElement()) {
         return true;
     } else if (viewNet->getEditModes().isCurrentSupermodeData() &&
-               (AC->getTagProperty()->isDataElement() || AC->getTagProperty()->isMeanData())) {
+               (tagProperty->isDataElement() || tagProperty->isMeanData())) {
         return true;
     } else {
         return false;

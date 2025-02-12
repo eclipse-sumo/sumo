@@ -27,10 +27,10 @@
 // class declaration
 // ===========================================================================
 
+class GNETAZSourceSink;
 class GNEDataInterval;
 class GNEDataSet;
 class GNEFrame;
-class GNEHierarchicalElement;
 
 // ===========================================================================
 // class definitions
@@ -103,40 +103,43 @@ private:
     GNEFrame* myFrameParent;
 
     /// @brief hierarchical element
-    GNEAttributeCarrier* myHierarchicalElement;
+    GNEAttributeCarrier* myHierarchicalElement = nullptr;
 
     /// @brief pointer to current clicked Attribute Carrier
-    GNEAttributeCarrier* myClickedAC;
+    GNEAttributeCarrier* myClickedAC = nullptr;
 
     /// @brief junction (casted from myClickedAC)
-    GNEJunction* myClickedJunction;
+    GNEJunction* myClickedJunction = nullptr;
 
     /// @brief edge (casted from myClickedAC)
-    GNEEdge* myClickedEdge;
+    GNEEdge* myClickedEdge = nullptr;
 
     /// @brief lane (casted from myClickedAC)
-    GNELane* myClickedLane;
+    GNELane* myClickedLane = nullptr;
 
     /// @brief crossing (casted from myClickedAC)
-    GNECrossing* myClickedCrossing;
+    GNECrossing* myClickedCrossing = nullptr;
 
     /// @brief junction (casted from myClickedAC)
-    GNEConnection* myClickedConnection;
+    GNEConnection* myClickedConnection = nullptr;
 
     /// @brief additional (casted from myClickedAC)
-    GNEAdditional* myClickedAdditional;
+    GNEAdditional* myClickedAdditional = nullptr;
+
+    /// @brief sourceSink (casted from myClickedAC)
+    GNETAZSourceSink* myClickedTAZSourceSink = nullptr;
 
     /// @brief demand element (casted from myClickedAC)
-    GNEDemandElement* myClickedDemandElement;
+    GNEDemandElement* myClickedDemandElement = nullptr;
 
     /// @brief data set element (casted from myClickedAC)
-    GNEDataSet* myClickedDataSet;
+    GNEDataSet* myClickedDataSet = nullptr;
 
     /// @brief data interval element (casted from myClickedAC)
-    GNEDataInterval* myClickedDataInterval;
+    GNEDataInterval* myClickedDataInterval = nullptr;
 
     /// @brief generic data element (casted from myClickedAC)
-    GNEGenericData* myClickedGenericData;
+    GNEGenericData* myClickedGenericData = nullptr;
 
     /// @brief tree list dynamic to show the children of the element to erase
     MFXTreeListDynamic* myTreeListDynamic = nullptr;

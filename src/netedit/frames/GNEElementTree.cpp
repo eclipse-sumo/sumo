@@ -59,19 +59,7 @@ FXIMPLEMENT(GNEElementTree,    MFXGroupBoxModule,     HierarchicalElementTreeMap
 
 GNEElementTree::GNEElementTree(GNEFrame* frameParent) :
     MFXGroupBoxModule(frameParent, TL("Hierarchy")),
-    myFrameParent(frameParent),
-    myHierarchicalElement(nullptr),
-    myClickedAC(nullptr),
-    myClickedJunction(nullptr),
-    myClickedEdge(nullptr),
-    myClickedLane(nullptr),
-    myClickedCrossing(nullptr),
-    myClickedConnection(nullptr),
-    myClickedAdditional(nullptr),
-    myClickedDemandElement(nullptr),
-    myClickedDataSet(nullptr),
-    myClickedDataInterval(nullptr),
-    myClickedGenericData(nullptr) {
+    myFrameParent(frameParent) {
     // Create tree list with fixed height
     myTreeListDynamic = new MFXTreeListDynamic(getCollapsableFrame(), this, MID_GNE_ACHIERARCHY_SHOWCHILDMENU, GUIDesignTreeListFixedHeight);
     hide();
@@ -107,6 +95,7 @@ GNEElementTree::hideHierarchicalElementTree() {
     myClickedCrossing = nullptr;
     myClickedConnection = nullptr;
     myClickedAdditional = nullptr;
+    myClickedTAZSourceSink = nullptr;
     myClickedDemandElement = nullptr;
     myClickedDataSet = nullptr;
     myClickedDataInterval = nullptr;
@@ -169,6 +158,9 @@ GNEElementTree::onCmdCenterItem(FXObject*, FXSelector, void*) {
         myFrameParent->getViewNet()->centerTo(myClickedConnection->getGlID(), true, -1);
     } else if (myClickedAdditional) {
         myFrameParent->getViewNet()->centerTo(myClickedAdditional->getGlID(), true, -1);
+    } else if (myClickedTAZSourceSink) {
+        const auto edge = myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveEdge(myClickedTAZSourceSink->getAttribute(SUMO_ATTR_EDGE));
+        myFrameParent->getViewNet()->centerTo(edge->getGlID(), true, -1);
     } else if (myClickedDemandElement) {
         myFrameParent->getViewNet()->centerTo(myClickedDemandElement->getGlID(), true, -1);
     } else if (myClickedGenericData) {
@@ -203,6 +195,8 @@ GNEElementTree::onCmdDeleteItem(FXObject*, FXSelector, void*) {
         myFrameParent->getViewNet()->getNet()->deleteConnection(myClickedConnection, myFrameParent->getViewNet()->getUndoList());
     } else if (myClickedAdditional) {
         myFrameParent->getViewNet()->getNet()->deleteAdditional(myClickedAdditional, myFrameParent->getViewNet()->getUndoList());
+    } else if (myClickedTAZSourceSink) {
+        myFrameParent->getViewNet()->getNet()->deleteTAZSourceSink(myClickedTAZSourceSink, myFrameParent->getViewNet()->getUndoList());
     } else if (myClickedDemandElement) {
         // check that default VTypes aren't removed
         if ((myClickedDemandElement->getTagProperty()->getTag() == SUMO_TAG_VTYPE) && (GNEAttributeCarrier::parse<bool>(myClickedDemandElement->getAttribute(GNE_ATTR_DEFAULT_VTYPE)))) {
@@ -301,6 +295,7 @@ GNEElementTree::createPopUpMenu(int X, int Y, GNEAttributeCarrier* clickedAC) {
         myClickedCrossing = attributeCarriers->retrieveCrossing(clickedAC->getGUIGlObject(), false);
         myClickedConnection = attributeCarriers->retrieveConnection(clickedAC->getGUIGlObject(), false);
         myClickedAdditional = attributeCarriers->retrieveAdditional(clickedAC->getGUIGlObject(), false);
+        myClickedTAZSourceSink = attributeCarriers->retrieveTAZSourceSink(clickedAC, false);
         myClickedDemandElement = attributeCarriers->retrieveDemandElement(clickedAC->getGUIGlObject(), false);
         myClickedDataSet = attributeCarriers->retrieveDataSet(clickedAC->getID(), false);
         myClickedDataInterval = attributeCarriers->retrieveDataInterval(clickedAC, false);
@@ -372,6 +367,7 @@ GNEElementTree::createPopUpMenu(int X, int Y, GNEAttributeCarrier* clickedAC) {
         myClickedCrossing = nullptr;
         myClickedConnection = nullptr;
         myClickedAdditional = nullptr;
+        myClickedTAZSourceSink = nullptr;
         myClickedDemandElement = nullptr;
         myClickedDataSet = nullptr;
         myClickedDataInterval = nullptr;
