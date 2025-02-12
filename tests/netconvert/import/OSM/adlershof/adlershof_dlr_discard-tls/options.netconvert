@@ -1,0 +1,1 @@
+--tls.discard-loaded --no-internal-links --osm-files osm2.xml -v --proj.utm --output.street-names

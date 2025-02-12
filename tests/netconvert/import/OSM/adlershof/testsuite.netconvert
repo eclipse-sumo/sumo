@@ -1,0 +1,29 @@
+# Area around the ITS in Berlin, Adlershof (13.52494,52.42582,13.53625,52.43026)
+adlershof_dlr
+adlershof_dlr_discard-tls
+
+# Area around the ITS in Berlin, Adlershof (13.52494,52.42582,13.53625,52.43026)
+adlershof_orig_names
+
+# limit output to 5 warnings per type
+aggregate_warnings
+
+# add sidewalks to appropriate edges
+adlershof_dlr_sidewalks
+
+# add sidewalks from raw data (rather than from typemap heuristic)
+adlershof_dlr_sidewalks_option
+
+# Area around the ITS in Berlin, Adlershof (13.52494,52.42582,13.53625,52.43026)
+numerical_ids
+
+# Area around the ITS in Berlin, Adlershof (13.52494,52.42582,13.53625,52.43026)
+# adlershof_dlr (automatically commented due to no test directory being found)
+
+# adlershof_dlr_discard-tls (automatically commented due to no test directory being found)
+
+# Area around the ITS in Berlin, Adlershof (13.52494,52.42582,13.53625,52.43026)
+# adlershof_orig_names (automatically commented due to no test directory being found)
+
+# Area around the ITS in Berlin, Adlershof (13.52494,52.42582,13.53625,52.43026)
+# numerical_ids (automatically commented due to no test directory being found)
