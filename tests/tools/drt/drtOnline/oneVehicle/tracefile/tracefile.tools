@@ -1,3 +1,4 @@
+import traci
 traci.start(['/home/behr_mi/sumo/bin/sumo', '-c', 'sim.sumocfg', '--tripinfo-output.write-unfinished', '--routing-algorithm', 'dijkstra'], port=None, label='default')
 traci.simulationStep(10.0)
 traci.vehicle.dispatchTaxi('taxiA', ['0', '0'])
