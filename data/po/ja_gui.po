@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-05 09:24+0100\n"
-"PO-Revision-Date: 2025-02-09 15:14+0000\n"
+"PO-Revision-Date: 2025-02-12 08:06+0000\n"
 "Last-Translator: Tomosawa Ryo <tomosawa.r.103@ms.saitama-u.ac.jp>\n"
 "Language-Team: Japanese <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/ja/>\n"
@@ -90,7 +90,7 @@ msgstr "EdgeDataを開く "
 
 #: src/gui/GUIApplicationWindow.cpp:468
 msgid "Load edge related data for visualization."
-msgstr "視覚化のためのエッジ関連データをロードします。"
+msgstr "視覚化のためのリンク関連データをロードします。"
 
 #: src/gui/GUIApplicationWindow.cpp:471
 #: src/netedit/GNEApplicationWindow.cpp:1023
@@ -276,12 +276,12 @@ msgstr "交差点を選択するためのダイアログを開きます。"
 #: src/netedit/GNEApplicationWindowHelper.cpp:1346
 #: src/netedit/GNEApplicationWindowHelper.cpp:2009
 msgid "&Edges"
-msgstr "&区間"
+msgstr "&リンク"
 
 #: src/gui/GUIApplicationWindow.cpp:548
 #: src/netedit/GNEApplicationWindowHelper.cpp:2009
 msgid "Open a dialog for locating an Edge."
-msgstr "区間を選択するためのダイアログを開きます。"
+msgstr "リンクを選択するためのダイアログを開きます。"
 
 #: src/gui/GUIApplicationWindow.cpp:551
 #: src/netedit/GNEApplicationWindowHelper.cpp:1411
@@ -920,7 +920,7 @@ msgstr "交差点の選択"
 
 #: src/gui/GUISUMOViewParent.cpp:237 src/netedit/GNEViewParent.cpp:533
 msgid "Edge Chooser"
-msgstr "区間の選択"
+msgstr "リンクの選択"
 
 #: src/gui/GUISUMOViewParent.cpp:241 src/netedit/GNEViewParent.cpp:547
 #: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:87
@@ -977,11 +977,11 @@ msgstr "ネットワーク内の交差点を表示します。"
 
 #: src/gui/GUIViewTraffic.cpp:113 src/netedit/GNEViewNet.cpp:369
 msgid "Locate Edges"
-msgstr "区間を表示"
+msgstr "リンクを表示"
 
 #: src/gui/GUIViewTraffic.cpp:113
 msgid "Locate an edge within the network."
-msgstr "ネットワーク内の区間を表示します。"
+msgstr "ネットワーク内のリンクを表示します。"
 
 #: src/gui/GUIViewTraffic.cpp:118 src/netedit/GNEViewNet.cpp:377
 msgid "Locate Vehicles"
@@ -1401,11 +1401,11 @@ msgstr "段階番号"
 
 #: src/guisim/GUIContainer.cpp:167 src/guisim/GUIPerson.cpp:232
 msgid "start edge [id]"
-msgstr "開始区間[id]"
+msgstr "開始リンク[id]"
 
 #: src/guisim/GUIContainer.cpp:168 src/guisim/GUIPerson.cpp:233
 msgid "dest edge [id]"
-msgstr "目的区間[id]"
+msgstr "目的地リンク[id]"
 
 #: src/guisim/GUIContainer.cpp:169
 msgid "arrivalPos [m]"
@@ -1413,7 +1413,7 @@ msgstr "到着位置[m]"
 
 #: src/guisim/GUIContainer.cpp:170 src/guisim/GUIPerson.cpp:236
 msgid "edge [id]"
-msgstr "区間[id]"
+msgstr "リンク[id]"
 
 #: src/guisim/GUIContainer.cpp:171 src/guisim/GUIE2Collector.cpp:131
 #: src/guisim/GUIInductLoop.cpp:141 src/guisim/GUIInstantInductLoop.cpp:97
@@ -1744,7 +1744,7 @@ msgstr "タイプ"
 
 #: src/guisim/GUILane.cpp:1002
 msgid "Copy edge name to clipboard"
-msgstr "区間名をクリップボードにコピー"
+msgstr "リンク名をクリップボードにコピー"
 
 #: src/guisim/GUILane.cpp:1010
 msgid "pos: "
@@ -1760,7 +1760,7 @@ msgstr "車線を再開放"
 
 #: src/guisim/GUILane.cpp:1020
 msgid "Reopen edge"
-msgstr "区間を再開放"
+msgstr "リンクを再開放"
 
 #: src/guisim/GUILane.cpp:1022
 msgid "Reopen lane (override rerouter)"
@@ -1768,7 +1768,7 @@ msgstr "車線を再開放（リルーターを上書き）"
 
 #: src/guisim/GUILane.cpp:1023
 msgid "Reopen edge (override rerouter)"
-msgstr "区間を再開放（リルーターを上書き）"
+msgstr "リンクを再開放（リルーターを上書き）"
 
 #: src/guisim/GUILane.cpp:1026
 msgid "Close lane"
@@ -1776,7 +1776,7 @@ msgstr "レーンを閉鎖"
 
 #: src/guisim/GUILane.cpp:1027
 msgid "Close edge"
-msgstr "区間を閉鎖"
+msgstr "リンクを閉鎖"
 
 #: src/guisim/GUILane.cpp:1029
 msgid "Add rerouter"
@@ -1804,252 +1804,252 @@ msgstr "積載重量"
 
 #: src/guisim/GUILane.cpp:1060
 msgid "lane friction coefficient [%]"
-msgstr ""
+msgstr "車線摩擦効率[%]"
 
 #: src/guisim/GUILane.cpp:1063
 msgid "netto occupancy [%]"
-msgstr ""
+msgstr "実際の占有率[%]"
 
 #: src/guisim/GUILane.cpp:1065
 msgid "edge type"
-msgstr ""
+msgstr "リンクタイプ"
 
 #: src/guisim/GUILane.cpp:1067 src/guisim/GUITrafficLightLogicWrapper.cpp:259
 msgid "priority"
-msgstr ""
+msgstr "優先度"
 
 #: src/guisim/GUILane.cpp:1068
 msgid "distance [km]"
-msgstr ""
+msgstr "距離[km]"
 
 #: src/guisim/GUILane.cpp:1069
 msgid "allowed vehicle class"
-msgstr ""
+msgstr "通行可能な車輛の種類"
 
 #: src/guisim/GUILane.cpp:1070
 msgid "disallowed vehicle class"
-msgstr ""
+msgstr "通行禁止の車輛の種類"
 
 #: src/guisim/GUILane.cpp:1071
 msgid "permission code"
-msgstr ""
+msgstr "許可コード"
 
 #: src/guisim/GUILane.cpp:1072
 msgid "color value"
-msgstr ""
+msgstr "カラーバリュー"
 
 #: src/guisim/GUILane.cpp:1074
 msgid "bidi-lane"
-msgstr ""
+msgstr "双方向道路"
 
 #: src/guisim/GUINet.cpp:327
 msgid "Network size exceeds 1 Lightyear. Please reconsider your inputs.\n"
-msgstr ""
+msgstr "ネットワークのサイズが1光年を超えています。入力を再度ご確認ください。\n"
 
 #: src/guisim/GUINet.cpp:470 src/netedit/GNENet.cpp:178
 msgid "Copy view geo-boundary to clipboard"
-msgstr ""
+msgstr "ビューの地理的境界をクリップボードにコピーします"
 
 #: src/guisim/GUINet.cpp:481
 msgid "loaded vehicles [#]"
-msgstr ""
+msgstr "ロード済みの車輛[#]"
 
 #: src/guisim/GUINet.cpp:483
 msgid "insertion-backlogged vehicles [#]"
-msgstr ""
+msgstr "挿入待ちの車輛数 [#]"
 
 #: src/guisim/GUINet.cpp:485
 msgid "departed vehicles [#]"
-msgstr ""
+msgstr "出発済みの車輛数[#]"
 
 #: src/guisim/GUINet.cpp:487
 msgid "running vehicles [#]"
-msgstr ""
+msgstr "走行中の車輛数[#]"
 
 #: src/guisim/GUINet.cpp:489
 msgid "arrived vehicles [#]"
-msgstr ""
+msgstr "到着した車輛数[#]"
 
 #: src/guisim/GUINet.cpp:491
 msgid "discarded vehicles [#]"
-msgstr ""
+msgstr "廃棄された車輛数[#]"
 
 #: src/guisim/GUINet.cpp:493
 msgid "collisions [#]"
-msgstr ""
+msgstr "衝突回数[#]"
 
 #: src/guisim/GUINet.cpp:495
 msgid "teleports [#]"
-msgstr ""
+msgstr "転送回数[#]"
 
 #: src/guisim/GUINet.cpp:497
 msgid "halting [#]"
-msgstr ""
+msgstr "停止中の車輛数[#]"
 
 #: src/guisim/GUINet.cpp:499
 msgid "stopped [#]"
-msgstr ""
+msgstr "停止済みの車輛数[#]"
 
 #: src/guisim/GUINet.cpp:501
 msgid "avg. speed [m/s]"
-msgstr ""
+msgstr "平均速度[m/s]"
 
 #: src/guisim/GUINet.cpp:503
 msgid "avg. relative speed"
-msgstr ""
+msgstr "平均相対速度"
 
 #: src/guisim/GUINet.cpp:506
 msgid "loaded persons [#]"
-msgstr ""
+msgstr "乗車済みの人数[#]"
 
 #: src/guisim/GUINet.cpp:508
 msgid "running persons [#]"
-msgstr ""
+msgstr "移動中の人数[#]"
 
 #: src/guisim/GUINet.cpp:510
 msgid "jammed persons [#]"
-msgstr ""
+msgstr "渋滞中の人数[#]"
 
 #: src/guisim/GUINet.cpp:513
 msgid "end time [s]"
-msgstr ""
+msgstr "終了時刻[s]"
 
 #: src/guisim/GUINet.cpp:514
 msgid "begin time [s]"
-msgstr ""
+msgstr "開始時刻[s]"
 
 #: src/guisim/GUINet.cpp:517
 msgid "step duration [ms]"
-msgstr ""
+msgstr "ステップの継続時間[ms]"
 
 #: src/guisim/GUINet.cpp:518
 msgid "FPS"
-msgstr ""
+msgstr "FPS"
 
 #: src/guisim/GUINet.cpp:519
 msgid "simulation duration [ms]"
-msgstr ""
+msgstr "シミュレーションの継続時間[ms]"
 
 #: src/guisim/GUINet.cpp:525
 msgid "idle duration [ms]"
-msgstr ""
+msgstr "連続待機時間[ms]"
 
 #: src/guisim/GUINet.cpp:526
 msgid "duration factor"
-msgstr ""
+msgstr "経過時間の倍率"
 
 #: src/guisim/GUINet.cpp:532
 msgid "updates per second"
-msgstr ""
+msgstr "秒間更新回数"
 
 #: src/guisim/GUINet.cpp:533
 msgid "avg. updates per second"
-msgstr ""
+msgstr "平均秒間更新回数"
 
 #: src/guisim/GUINet.cpp:536
 msgid "avg. trip length [m]"
-msgstr ""
+msgstr "トリップにおける平均距離[m]"
 
 #: src/guisim/GUINet.cpp:537
 msgid "avg. trip duration [s]"
-msgstr ""
+msgstr "トリップにおける平均継続時間[s]"
 
 #: src/guisim/GUINet.cpp:538
 msgid "avg. trip waiting time [s]"
-msgstr ""
+msgstr "トリップにおける平均待ち時間[s]"
 
 #: src/guisim/GUINet.cpp:539
 msgid "avg. trip time loss [s]"
-msgstr ""
+msgstr "トリップにおける平均損失時間"
 
 #: src/guisim/GUINet.cpp:540
 msgid "avg. trip depart delay [s]"
-msgstr ""
+msgstr "トリップにおける平均出発遅延"
 
 #: src/guisim/GUINet.cpp:541
 msgid "avg. trip speed [m/s]"
-msgstr ""
+msgstr "トリップにおける平均速度[m/s]"
 
 #: src/guisim/GUINet.cpp:543
 msgid "avg. walk length [m]"
-msgstr ""
+msgstr "平均歩行距離[m]"
 
 #: src/guisim/GUINet.cpp:544
 msgid "avg. walk duration [s]"
-msgstr ""
+msgstr "平均連続歩行時間"
 
 #: src/guisim/GUINet.cpp:545
 msgid "avg. walk time loss [s]"
-msgstr ""
+msgstr "歩行における平均損失時間[s]"
 
 #: src/guisim/GUINet.cpp:548
 msgid "nodes [#]"
-msgstr ""
+msgstr "ノード[#]"
 
 #: src/guisim/GUINet.cpp:549
 msgid "edges [#]"
-msgstr ""
+msgstr "リンク[#]"
 
 #: src/guisim/GUINet.cpp:550
 msgid "total edge length [km]"
-msgstr ""
+msgstr "リンクの総延長[km]"
 
 #: src/guisim/GUINet.cpp:551
 msgid "total lane length [km]"
-msgstr ""
+msgstr "車線の総延長[km]"
 
 #: src/guisim/GUINet.cpp:552
 msgid "network version "
-msgstr ""
+msgstr "ネットワークバージョン "
 
 #: src/guisim/GUINet.cpp:667
 msgid "Trying to set data value for the unknown edge '%'."
-msgstr ""
+msgstr "未知のリンク'%'に対してデータの設定を試みています。"
 
 #: src/guisim/GUINet.cpp:691
 msgid ""
 "Trying to set data value for the unknown relation from edge '%' to edge '%'."
-msgstr ""
+msgstr "リンク'%'からリンク'%'への未知の関係性に対してデータの設定を試みています。"
 
 #: src/guisim/GUINet.cpp:709
 msgid "No data defined after simulation begin time."
-msgstr ""
+msgstr "シミュレーション開始後に定義されたデータはありません。"
 
 #: src/guisim/GUIParkingArea.cpp:113
 msgid "occupancy [#]"
-msgstr ""
+msgstr "占有率[#]"
 
 #: src/guisim/GUIParkingArea.cpp:114
 msgid "capacity [#]"
-msgstr ""
+msgstr "交通容量"
 
 #: src/guisim/GUIParkingArea.cpp:115
 msgid "alternatives [#]"
-msgstr ""
+msgstr "代替手段[#]"
 
 #: src/guisim/GUIParkingArea.cpp:116
 msgid "access badges"
-msgstr ""
+msgstr "通行証"
 
 #: src/guisim/GUIPerson.cpp:234
 msgid "dest stop [id]"
-msgstr ""
+msgstr "目的の停止地点[#]"
 
 #: src/guisim/GUIPerson.cpp:235
 msgid "arrival position [m]"
-msgstr ""
+msgstr "到着位置[m]"
 
 #: src/guisim/GUIPerson.cpp:237 src/guisim/GUIVehicle.cpp:106
 msgid "lane [id]"
-msgstr ""
+msgstr "車線[id}"
 
 #: src/guisim/GUIPerson.cpp:243
 msgid "vehicle [id]"
-msgstr ""
+msgstr "車輛[id]"
 
 #: src/guisim/GUIPerson.cpp:244
 msgid "stop duration [s]"
-msgstr ""
+msgstr "連続停止時間[s]"
 
 #: src/guisim/GUIPerson.cpp:260
 msgid "desired max speed [m/s]"
@@ -2109,7 +2109,7 @@ msgstr ""
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:245
 msgid "duration"
-msgstr ""
+msgstr "継続、連続○○時間"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:246
 msgid "minDur"
@@ -9839,7 +9839,7 @@ msgstr ""
 #: src/netedit/elements/GNEAttributeCarrier.cpp:5535
 #: src/netedit/elements/GNEAttributeCarrier.cpp:6973
 msgid "edges"
-msgstr ""
+msgstr "リンク"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:6294
 #: src/netedit/elements/GNEAttributeCarrier.cpp:6303
