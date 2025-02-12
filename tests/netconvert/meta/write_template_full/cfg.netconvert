@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-02-10 08:48:17 by Eclipse SUMO netconvert Version v1_22_0+0087-91b2b3c2d6e
+<!-- generated on 2025-02-12 17:42:16 by Eclipse SUMO netconvert Version v1_22_0+0186-b0bf0be436b
 -->
 
 <netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -334,6 +334,7 @@
         <osm.all-attributes value="false" synonymes="osm.all-tags" type="BOOL" help="Whether additional attributes shall be imported"/>
         <osm.extra-attributes value="all" synonymes="osm.extra-tags" type="STR[]" help="List of additional attributes that shall be imported from OSM via osm.all-attributes (set &apos;all&apos; to import all)"/>
         <osm.speedlimit-none value="39.4444" type="FLOAT" help="The speed limit to be set when there is no actual speed limit in reality"/>
+        <osm.annotate-defaults value="false" type="BOOL" help="Whether edges shoulds carry information on the usage of typemap defaults"/>
         <matsim.keep-length value="false" type="BOOL" help="The edge lengths given in the MATSim-file will be kept"/>
         <matsim.lanes-from-capacity value="false" type="BOOL" help="The lane number will be computed from the capacity"/>
         <shapefile.street-id value="" synonymes="arcview.street-id" type="STR" help="Read edge ids from column STR"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-02-10 08:48:17 by Eclipse SUMO netconvert Version v1_22_0+0087-91b2b3c2d6e
+<!-- generated on 2025-02-12 17:42:16 by Eclipse SUMO netconvert Version v1_22_0+0186-b0bf0be436b
 -->
 
 <netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -905,6 +905,9 @@
 
         <!-- The speed limit to be set when there is no actual speed limit in reality -->
         <osm.speedlimit-none value="39.4444" type="FLOAT"/>
+
+        <!-- Whether edges shoulds carry information on the usage of typemap defaults -->
+        <osm.annotate-defaults value="false" type="BOOL"/>
 
         <!-- The edge lengths given in the MATSim-file will be kept -->
         <matsim.keep-length value="false" type="BOOL"/>
