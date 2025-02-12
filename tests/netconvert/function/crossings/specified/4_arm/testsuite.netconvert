@@ -125,3 +125,6 @@ complete_fringe
 
 # right turns are separate and need an inside walkingarea
 separate_right_turn_island
+
+# 4 arm junction with crossings on all sides
+straight_contPos
