@@ -1128,7 +1128,7 @@ MSPModel_Striping::moveInDirectionOnLane(Pedestrians& pedestrians, const MSLane*
                 // only check close before junction, @todo we should take deceleration into account here
                 && dist - p.getMinGap() < LOOKAHEAD_SAMEDIR * speed
                 // persons move before vehicles so we subtract DELTA_TO because they cannot rely on vehicles having passed the intersection in the current time step
-                && (!link->opened(currentTime - DELTA_T, speed, speed, passingLength, p.getImpatience(currentTime), speed, 0, 0, nullptr, p.ignoreRed(link), p.getPerson())
+                && (!link->opened(currentTime - DELTA_T, speed, speed, passingLength, p.getImpatience(), speed, 0, 0, nullptr, p.ignoreRed(link), p.getPerson())
                     || p.stopForYellow(link))) {
             // prevent movement passed a closed link
             Obstacles closedLink(stripes, Obstacle(p.getEdgePos(0) + dir * (dist - NUMERICAL_EPS), 0, OBSTACLE_LINKCLOSED, "closedLink_" + link->getViaLaneOrLane()->getID(), 0));
@@ -1179,7 +1179,7 @@ MSPModel_Striping::moveInDirectionOnLane(Pedestrians& pedestrians, const MSLane*
         }
 
         // walk, taking into account all obstacles
-        p.walk(currentObs, currentTime);
+        p.walk(currentObs);
         gDebugFlag1 = false;
         if (!p.isWaitingToEnter() && !p.isJammed()) {
             Obstacle o(p);
@@ -1899,7 +1899,7 @@ MSPModel_Striping::getReserved(int stripes, double factor) {
 }
 
 void
-MSPModel_Striping::PState::walk(const Obstacles& obs, SUMOTime currentTime) {
+MSPModel_Striping::PState::walk(const Obstacles& obs) {
     const int stripes = (int)obs.size();
     const int sMax =  stripes - 1;
     assert(stripes == numStripes(myLane));
@@ -2157,7 +2157,7 @@ MSPModel_Striping::PState::walk(const Obstacles& obs, SUMOTime currentTime) {
 
 
 double
-MSPModel_Striping::PState::getImpatience(SUMOTime now) const {
+MSPModel_Striping::PState::getImpatience() const {
     return MAX2(0., MIN2(1., myPerson->getVehicleType().getImpatience()
                          + STEPS2TIME(myStage->getWaitingTime()) / MAX_WAIT_TOLERANCE));
 }

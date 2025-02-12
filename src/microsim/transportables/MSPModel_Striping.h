@@ -296,10 +296,10 @@ protected:
         bool moveToNextLane(SUMOTime currentTime);
 
         /// @brief perform position update
-        void walk(const Obstacles& obs, SUMOTime currentTime);
+        void walk(const Obstacles& obs);
 
         /// @brief returns the impatience
-        double getImpatience(SUMOTime now) const;
+        double getImpatience() const;
 
         int stripe() const;
         int otherStripe() const;
