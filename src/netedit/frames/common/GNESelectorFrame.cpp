@@ -105,8 +105,6 @@ GNESelectorFrame::SelectionInformation::updateInformationLabel() {
         updateInformationLabel(TL("Additionals"), ACs->getNumberOfSelectedPureAdditionals());
         updateInformationLabel(TL("Wires"), ACs->getNumberOfSelectedWires());
         updateInformationLabel(TL("TAZs"), ACs->getNumberOfSelectedTAZs());
-        updateInformationLabel(TL("TAZSources"), ACs->getNumberOfSelectedTAZSources());
-        updateInformationLabel(TL("TAZSinks"), ACs->getNumberOfSelectedTAZSinks());
         updateInformationLabel(TL("Polygons"), ACs->getNumberOfSelectedPolygons());
         updateInformationLabel(TL("POIs"), ACs->getNumberOfSelectedPOIs());
         updateInformationLabel(TL("JuPedSim elements"),

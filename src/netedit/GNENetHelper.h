@@ -449,12 +449,6 @@ struct GNENetHelper {
         /// @brief clear sourceSinks
         void clearTAZSourceSinks();
 
-        /// @brief get number of selected TAZSources
-        int getNumberOfSelectedTAZSources() const;
-
-        /// @brief get number of selected TAZSinks
-        int getNumberOfSelectedTAZSinks() const;
-
         /// @}
 
         /// @name function for demand elements

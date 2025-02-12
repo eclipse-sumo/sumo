@@ -1227,7 +1227,7 @@ GNENetHelper::AttributeCarriers::getNumberOfSelectedPureAdditionals() const {
            // JuPedSims
            getNumberOfSelectedJpsWalkableAreas() - getNumberOfSelectedJpsObstacles() -
            // TAZ
-           getNumberOfSelectedTAZs() - getNumberOfSelectedTAZSources() - getNumberOfSelectedTAZSinks() -
+           getNumberOfSelectedTAZs() -
            // wires
            getNumberOfSelectedWires();
 }
@@ -1356,30 +1356,6 @@ GNENetHelper::AttributeCarriers::clearTAZSourceSinks() {
     for (auto& sourceSinksTags : myTAZSourceSinks) {
         sourceSinksTags.second.clear();
     }
-}
-
-
-int
-GNENetHelper::AttributeCarriers::getNumberOfSelectedTAZSources() const {
-    int counter = 0;
-    for (const auto& TAZSource : myAdditionals.at(SUMO_TAG_TAZSOURCE)) {
-        if (TAZSource.second->isAttributeCarrierSelected()) {
-            counter++;
-        }
-    }
-    return counter;
-}
-
-
-int
-GNENetHelper::AttributeCarriers::getNumberOfSelectedTAZSinks() const {
-    int counter = 0;
-    for (const auto& TAZSink : myAdditionals.at(SUMO_TAG_TAZSINK)) {
-        if (TAZSink.second->isAttributeCarrierSelected()) {
-            counter++;
-        }
-    }
-    return counter;
 }
 
 
