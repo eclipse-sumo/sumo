@@ -59,11 +59,14 @@ guess_next_edge_keepRoute2
 # move vehicle against eddge direction
 guess_next_edge_keepRoute2_reverse
 
-# moveToXY and opposite direction driving
-ticket5029
-
 # test collision directly after moveToXY (#10952)
 collision
 
 # use vClass when looking up candidate internal edges along the route (#10952)	
 parallel_internal_edges
+
+# moveToXY and opposite direction driving
+ticket5029
+
+# distance from lane center should be less relevant than angle if the vehicle is fully on the lane
+ticket15282
