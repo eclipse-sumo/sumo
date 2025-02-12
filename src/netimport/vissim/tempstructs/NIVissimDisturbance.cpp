@@ -141,7 +141,7 @@ NIVissimDisturbance::addToNode(NBNode* node, NBDistrictCont& dc,
         NIVissimEdge* e1 = NIVissimEdge::dictionary(myEdge.getEdgeID());
         NIVissimEdge* e2 = NIVissimEdge::dictionary(myDisturbance.getEdgeID());
         WRITE_WARNINGF(TL("Ugly split to prohibit '%' by '%'."), toString<int>(e1->getID()), toString<int>(e2->getID()));
-        Position pos = e1->crossesEdgeAtPoint(e2);
+        //Position pos = e1->crossesEdgeAtPoint(e2);
         std::string id1 = toString<int>(e1->getID()) + "x" + toString<int>(e2->getID());
         std::string id2 = toString<int>(e2->getID()) + "x" + toString<int>(e1->getID());
         NBNode* node1 = nc.retrieve(id1);
