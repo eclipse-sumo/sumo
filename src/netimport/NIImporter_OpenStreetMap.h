@@ -324,6 +324,9 @@ private:
     /// @brief import turning signals (turn:lanes) to guide connection building
     bool myImportTurnSigns;
 
+    /// @brief whether edges should carry information on the use of typemap defaults
+    bool myAnnotateDefaults;
+
     /// @brief whether additional way and node attributes shall be imported
     static bool myAllAttributes;
 
