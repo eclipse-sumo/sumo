@@ -124,12 +124,12 @@
     /* Disable destructor is not implicitly called */
     #pragma warning(disable: 4583)
     /* Disable "implicit copy constructor/assignment operator is deprecated because it has a user-provided destructor" */
-    #pragma warning(disable: 5267)
-
-    /* Disable "unsafe" warnings for crt functions in VC++ 2005. */
-    #if _MSC_VER >= 1400
-        #define _CRT_SECURE_NO_WARNINGS
+    #if _MSC_VER >= 1930
+        #pragma warning(disable: 5267)
     #endif
+
+    /* Disable "unsafe" warnings for crt functions. */
+    #define _CRT_SECURE_NO_WARNINGS
 
     /* define WIN32 */
     #ifndef WIN32
