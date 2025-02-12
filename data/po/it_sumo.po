@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-04 15:47+0100\n"
-"PO-Revision-Date: 2025-02-11 14:01+0000\n"
+"PO-Revision-Date: 2025-02-12 12:12+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -6210,15 +6210,15 @@ msgstr ""
 
 #: src/netbuild/NBEdge.cpp:1054
 msgid "Removing sharp angle of % degrees at edge '%', segment %."
-msgstr ""
+msgstr "Rimozione dell'angolo acuto di % gradi nell'arco '%', segmento %."
 
 #: src/netbuild/NBEdge.cpp:1063
 msgid "Found angle of % degrees at edge '%', segment %."
-msgstr ""
+msgstr "Incontrato angolo di % gradi nell'arco '%', segmento %."
 
 #: src/netbuild/NBEdge.cpp:1076
 msgid "Removing sharp turn with radius % at the % of edge '%'."
-msgstr ""
+msgstr "Rimozione della svolta acuta con un raggio % al % dell'arco '%'."
 
 #: src/netbuild/NBEdge.cpp:1077 src/netbuild/NBEdge.cpp:1086
 msgid "start"
@@ -6234,17 +6234,19 @@ msgstr ""
 
 #: src/netbuild/NBEdge.cpp:1224
 msgid "Could not set connection from '%' to '%'."
-msgstr ""
+msgstr "Non ho potuto impostare un collegamento da '%' a '%'."
 
 #: src/netbuild/NBEdge.cpp:1743
 msgid "Connection '%_%->%_%' is only %m short."
-msgstr ""
+msgstr "Il collegamento '%_%->%_%' di soli %m è corto."
 
 #: src/netbuild/NBEdge.cpp:1845
 msgid ""
 "Intersecting left turns at junction '%' from lane '%' and lane '%' (increase"
 " junction radius to avoid this)."
 msgstr ""
+"Svolte a sinistra intersecanti all'incrocio '%' tra le corsie '%' e '%' ("
+"aumenta il raggio d'incrocio per evitarlo)."
 
 #: src/netbuild/NBEdge.cpp:1950
 msgid ""
