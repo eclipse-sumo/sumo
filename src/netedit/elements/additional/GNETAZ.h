@@ -20,7 +20,6 @@
 #pragma once
 #include <config.h>
 
-#include <netedit/GNEMoveElement.h>
 #include <utils/gui/globjects/GUIPolygon.h>
 
 #include "GNEAdditional.h"

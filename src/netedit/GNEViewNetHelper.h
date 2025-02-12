@@ -21,6 +21,7 @@
 #include <config.h>
 
 #include <unordered_set>
+#include <netedit/elements/GNEMoveElement.h>
 #include <utils/foxtools/MFXButtonTooltip.h>
 #include <utils/foxtools/MFXMenuButtonTooltip.h>
 #include <utils/foxtools/MFXCheckableButton.h>
@@ -28,8 +29,6 @@
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/gui/globjects/GUIGlObjectTypes.h>
 #include <utils/gui/div/GUIGlobalViewObjectsHandler.h>
-
-#include "GNEMoveElement.h"
 
 // ===========================================================================
 // enum

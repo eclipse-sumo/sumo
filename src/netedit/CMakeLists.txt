@@ -11,14 +11,13 @@ set(netedit_SRCS
    GNEApplicationWindow.h
    GNEApplicationWindowHelper.cpp
    GNEApplicationWindowHelper.h
+   GNEAttributeProperties.cpp
    GNEAttributeProperties.h
    GNEEvent_NetworkLoaded.h
    GNELane2laneConnection.cpp
    GNELane2laneConnection.h
    GNELoadThread.cpp
    GNELoadThread.h
-   GNEMoveElement.cpp
-   GNEMoveElement.h
    GNENet.cpp
    GNENet.h
    GNENetHelper.cpp
@@ -42,7 +41,6 @@ set(netedit_SRCS
    GNEViewParent.h
    netedit_main.cpp
    templates.h
-   GNEAttributeProperties.cpp
 )
 
 # create netedit executable using the main netedit source code files defined previously in netedit_SRCS

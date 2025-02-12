@@ -20,9 +20,9 @@
 #pragma once
 #include <config.h>
 
-#include <netedit/GNEMoveElement.h>
 #include <netedit/elements/GNEAttributeCarrier.h>
 #include <netedit/elements/GNEHierarchicalElement.h>
+#include <netedit/elements/GNEMoveElement.h>
 #include <netedit/elements/GNEPathElement.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 
