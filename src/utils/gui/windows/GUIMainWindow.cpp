@@ -358,7 +358,7 @@ GUIMainWindow::buildLanguageMenu(FXMenuBar* menuBar) {
                                            GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_TR), this, MID_LANGUAGE_TR);
     GUIDesigns::buildFXMenuCommandShortcut(myLanguageMenu, "Magyar", "", TL("Change language to hungarian. (hu)"),
                                            GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_HU), this, MID_LANGUAGE_HU);
-    GUIDesigns::buildFXMenuCommandShortcut(myLanguageMenu, "Japanese", "", TL("Change language to japanese. (ja)"),
+    GUIDesigns::buildFXMenuCommandShortcut(myLanguageMenu, "日本語", "", TL("Change language to japanese. (ja)"),
                                            GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_JA), this, MID_LANGUAGE_JA);
 }
 
