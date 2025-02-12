@@ -1,8 +1,8 @@
  Retrying in 1 seconds
 t=5.0 laneIndex=0
   R=([], [])
-  C=(['stay', 'sublane'], ['sublane'])
-  L=(['stay', 'sublane'], ['sublane'])
+  C=(['stay', 'sublane'], [])
+  L=(['stay', 'sublane'], [])
 t=6.0 laneIndex=0
   R=([], [])
   C=(['stay', 'sublane'], ['left', 'TraCI', 'urgent', 'sublane'])

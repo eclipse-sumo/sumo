@@ -1,5 +1,5 @@
  Retrying in 1 seconds
-t=5.0 laneIndex=0 posLat=0.0 state(-1)=([], []) state(0)=(['stay', 'sublane'], ['sublane']) state(1)=(['stay', 'sublane'], ['sublane'])
+t=5.0 laneIndex=0 posLat=0.0 state(-1)=([], []) state(0)=(['stay', 'sublane'], []) state(1)=(['stay', 'sublane'], [])
 t=6.0 laneIndex=0 posLat=-0.6 state(-1)=([], []) state(0)=(['right', 'TraCI'], ['right', 'TraCI']) state(1)=(['right', 'TraCI'], ['right', 'TraCI'])
 t=7.0 laneIndex=0 posLat=-0.6 state(-1)=([], []) state(0)=(['left', 'sublane'], []) state(1)=(['left', 'sublane'], [])
 t=8.0 laneIndex=0 posLat=-0.6 state(-1)=([], []) state(0)=(['left', 'sublane'], []) state(1)=(['left', 'sublane'], [])
