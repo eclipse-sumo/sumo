@@ -478,7 +478,7 @@ public:
     bool mustBrakeForCrossing(const NBEdge* const from, const NBEdge* const to, const Crossing& crossing) const;
 
     /// @brief whether a connection to the given edge must brake for a crossing when leaving the intersection
-    bool brakeForCrossingOnExit(const NBEdge* to) const;
+    bool brakeForCrossingOnExit(const NBEdge* to, LinkDirection dir, bool indirect) const;
 
     /// @brief return whether the given laneToLane connection is a right turn which must yield to a bicycle crossings
     static bool rightTurnConflict(const NBEdge* from, const NBEdge* to, int fromLane,
