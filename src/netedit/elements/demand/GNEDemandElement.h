@@ -24,6 +24,7 @@
 #include <netedit/elements/GNEAttributeCarrier.h>
 #include <netedit/elements/GNEHierarchicalElement.h>
 #include <netedit/elements/GNEPathElement.h>
+#include <utils/gui/globjects/GUIGlObject.h>
 
 #include "GNEDemandElementDistribution.h"
 
@@ -37,7 +38,7 @@ class SUMOVehicleParameter;
 // class definitions
 // ===========================================================================
 
-class GNEDemandElement : public GNEAttributeCarrier, public GNEPathElement, public GNEHierarchicalElement, public GNEMoveElement, public GNEDemandElementDistribution {
+class GNEDemandElement : public GNEAttributeCarrier, public GNEHierarchicalElement, public GUIGlObject, public GNEPathElement, public GNEMoveElement, public GNEDemandElementDistribution {
 
 public:
     /// @brief friend declaration (needed for vTypes)

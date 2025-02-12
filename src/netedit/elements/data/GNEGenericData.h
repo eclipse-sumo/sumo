@@ -15,7 +15,7 @@
 /// @author  Pablo Alvarez Lopez
 /// @date    Jan 2020
 ///
-// A abstract class for data sets
+// A abstract class for generic datas
 /****************************************************************************/
 #pragma once
 #include <config.h>
@@ -23,6 +23,7 @@
 #include <netedit/elements/GNEAttributeCarrier.h>
 #include <netedit/elements/GNEHierarchicalElement.h>
 #include <netedit/elements/GNEPathElement.h>
+#include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/common/Parameterised.h>
 
 // ===========================================================================
@@ -34,11 +35,8 @@ class GNEDataInterval;
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/**
- * @class GNEGenericData
- * @brief An Element which don't belong to GNENet but has influence in the simulation
- */
-class GNEGenericData : public GNEAttributeCarrier, public GNEPathElement, public Parameterised, public GNEHierarchicalElement {
+
+class GNEGenericData : public GNEAttributeCarrier, public GNEHierarchicalElement, public GUIGlObject, public GNEPathElement, public Parameterised {
 
 public:
     /**@brief Constructor

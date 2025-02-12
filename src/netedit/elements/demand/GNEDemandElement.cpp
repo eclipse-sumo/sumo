@@ -40,7 +40,8 @@
 
 GNEDemandElement::GNEDemandElement(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, FXIcon* icon, const int options) :
     GNEAttributeCarrier(tag, net),
-    GNEPathElement(type, id, icon, options),
+    GUIGlObject(type, id, icon),
+    GNEPathElement(options),
     GNEDemandElementDistribution(this),
     myStackedLabelNumber(0) {
     // check if is template
@@ -50,7 +51,8 @@ GNEDemandElement::GNEDemandElement(const std::string& id, GNENet* net, GUIGlObje
 
 GNEDemandElement::GNEDemandElement(GNEDemandElement* demandElementParent, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, FXIcon* icon, const int options) :
     GNEAttributeCarrier(tag, net),
-    GNEPathElement(type, demandElementParent->getID(), icon, options),
+    GUIGlObject(type, demandElementParent->getID(), icon),
+    GNEPathElement(options),
     GNEDemandElementDistribution(this),
     myStackedLabelNumber(0) {
 }

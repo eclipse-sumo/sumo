@@ -25,6 +25,7 @@
 #include <netedit/elements/GNEContour.h>
 #include <netedit/elements/GNEHierarchicalElement.h>
 #include <netedit/elements/GNEPathElement.h>
+#include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/gui/images/GUITextureSubSys.h>
 
 // ===========================================================================
@@ -38,7 +39,7 @@ class GUIGLObjectPopupMenu;
 // class definitions
 // ===========================================================================
 
-class GNEAdditional : public GNEAttributeCarrier, public GNEPathElement, public GNEHierarchicalElement, public GNEMoveElement {
+class GNEAdditional : public GNEAttributeCarrier, public GNEHierarchicalElement, public GUIGlObject, public GNEPathElement, public GNEMoveElement {
 
 public:
     /**@brief Constructor

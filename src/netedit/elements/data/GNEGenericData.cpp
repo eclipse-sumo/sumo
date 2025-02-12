@@ -15,7 +15,7 @@
 /// @author  Pablo Alvarez Lopez
 /// @date    Jan 2020
 ///
-// A abstract class for data sets
+// A abstract class for generic datas
 /****************************************************************************/
 
 #include <netedit/GNENet.h>
@@ -38,7 +38,8 @@
 GNEGenericData::GNEGenericData(const SumoXMLTag tag, FXIcon* icon, const GUIGlObjectType type, GNEDataInterval* dataIntervalParent,
                                const Parameterised::Map& parameters) :
     GNEAttributeCarrier(tag, dataIntervalParent->getNet()),
-    GNEPathElement(type, dataIntervalParent->getID(), icon, GNEPathElement::Options::DATA_ELEMENT),
+    GUIGlObject(type, dataIntervalParent->getID(), icon),
+    GNEPathElement(GNEPathElement::Options::DATA_ELEMENT),
     Parameterised(parameters),
     myDataIntervalParent(dataIntervalParent) {
 }

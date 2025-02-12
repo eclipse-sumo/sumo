@@ -20,7 +20,7 @@
 #pragma once
 #include <config.h>
 
-#include <utils/gui/globjects/GUIGlObject.h>
+#include <utils/gui/settings/GUIVisualizationSettings.h>
 
 // ===========================================================================
 // class declaration
@@ -33,7 +33,7 @@ class GNESegment;
 // class definitions
 // ===========================================================================
 
-class GNEPathElement : public GUIGlObject {
+class GNEPathElement {
 
 public:
     enum Options {
@@ -45,7 +45,7 @@ public:
     };
 
     /// @brief constructor
-    GNEPathElement(GUIGlObjectType type, const std::string& microsimID, FXIcon* icon, const int options);
+    GNEPathElement(const int options);
 
     /// @brief destructor
     virtual ~GNEPathElement();
@@ -64,6 +64,9 @@ public:
 
     /// @brief check if pathElement is a route
     bool isRoute() const;
+
+    /// @brief implement in children+
+    /// @{
 
     /// @brief compute pathElement
     virtual void computePathElement() = 0;
@@ -90,6 +93,8 @@ public:
 
     /// @brief get last path lane
     virtual GNELane* getLastPathLane() const = 0;
+
+    /// @}
 
 private:
     /// @brief pathElement option
