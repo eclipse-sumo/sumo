@@ -303,6 +303,11 @@ GNEElementTree::createPopUpMenu(int X, int Y, GNEAttributeCarrier* clickedAC) {
         FXMenuPane* pane = new FXMenuPane(myTreeListDynamic->getFXWindow());
         // set item name and icon
         new MFXMenuHeader(pane, myFrameParent->getViewNet()->getViewParent()->getGUIMainWindow()->getBoldFont(), myClickedAC->getPopUpID().c_str(), myClickedAC->getACIcon());
+        // add extra info for TAZ Source Sinks
+        if (myClickedTAZSourceSink) {
+            new FXMenuSeparator(pane);
+            GUIDesigns::buildFXMenuCommand(pane, TLF("Edge: %", myClickedTAZSourceSink->getParentEdges().front()->getID()), nullptr, nullptr, 0);
+        }
         // insert separator
         new FXMenuSeparator(pane);
         // create center menu command
