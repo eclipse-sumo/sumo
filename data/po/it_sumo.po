@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-04 15:47+0100\n"
-"PO-Revision-Date: 2025-02-12 12:12+0000\n"
+"PO-Revision-Date: 2025-02-12 12:36+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -6253,6 +6253,8 @@ msgid ""
 "Speed of % connection '%' reduced by % due to turning radius of % (length=%,"
 " angle=%)."
 msgstr ""
+"Il limite di velocità dell collegamento % '%' è stato abbassato di % dovuto "
+"al raggio di svolat di % (lunghezza=%, angolo=%)."
 
 #: src/netbuild/NBEdge.cpp:2292
 msgid "In lane '%': lane shape could not be determined (%)."
@@ -6613,16 +6615,20 @@ msgstr ""
 #: src/netbuild/NBFrame.cpp:129
 msgid "Remaps IDs of edges to integers starting at INT"
 msgstr ""
+"Assegna numeri interi ai codici identificativi degli archi con l'inizio da "
+"INT"
 
 #: src/netbuild/NBFrame.cpp:133
 msgid ""
 "Ensures that generated ids do not included any of the typed IDs from FILE "
 "(sumo-gui selection file format)"
 msgstr ""
+"Assicurarsi che i codici identificativi generativi non includono nessuno dei "
+"codici identificativi del FILE (formato di selezione sumo-gui)"
 
 #: src/netbuild/NBFrame.cpp:137
 msgid "Removes vehicle class restrictions from imported edges"
-msgstr ""
+msgstr "Rimuovi le restrizioni di classi di veicoli dagli archi importati"
 
 #: src/netbuild/NBFrame.cpp:141
 msgid "Disables building turnarounds"
@@ -6699,6 +6705,8 @@ msgstr ""
 msgid ""
 "Straighten edge geometries with an angle above max-angle successive segments"
 msgstr ""
+"Appiana le geometrie degli archi con un angolo tra segmenti successivi più "
+"grande di max-angle"
 
 #: src/netbuild/NBFrame.cpp:208
 msgid ""
