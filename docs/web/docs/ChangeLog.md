@@ -6,6 +6,44 @@ title: ChangeLog
 
 ### Bugfixes
 
+- sumo
+  - Fixed invalid waitingTime in personinfo output #16164
+
+- netedit
+  - Fixed invalid connections after using *reset connections* #16127
+
+- netconvert
+  - Fixed invalid link state when straight connection passes a crossing after internal junction #16167
+ 
+- TraCI
+  - Setting vehicle parameter 'lcContRight' is now working #16147
+  - Fixed bug where `traci.vehicle.moveToXY` matched onto the wrong internal lane #15282
+
+### Enhancements
+
+- sumo
+  - departPos=stop now works for any departLane on the stop edge #16133
+  - Pedestrians are now included in full output #16159
+
+- netconvert
+  - Added option **--junctions.join.parallel-threshold DREGREES** to increase user control over joining junctions (with **--junctions.join**) #16140
+
+- sumo-gui
+  - started work on Japanese translation #16129
+
+- od2trips
+  - Added warning when a taz has no source or sinks #16112
+
+- TracI
+  - `vehicle.setSpeedMode` now supports a 7th bit to control adherence to the road speed limit #3811
+  - `traci.start` now supports argument `traceGetters="print"`. When this is set, the generated traceFile will print the outputs of all *get* commands when replayed. #16156
+  - Added function `traci.route.delete` #15452
+
+
+- Tools
+  - netcheck.py: Added option **--right-of-way** to find selected cases of faulty right-of-way rules (currently only on-ramps are check) #16036
+
+
 
 ## Version 1.22.0 (04.02.2025)
 
@@ -50,7 +88,7 @@ title: ChangeLog
   - Fixed inconsistent arrivalPos when loading state #15961
   - Fixed invalid stopping after vehicle teleports beyond stopping place #15972
   - Fixed bug where a vehicle steals another vehicles parking spot #15976
-  - Fixed bug where parking egress is blocked after lane change #15757
+  - Fixed bug where parking egress is blocked after lane change #15757, #10007
   - Fixed missing XML validation for parking badges #16005
   - Fixed undefined behavior when using options **--device.rerouting.threads** with **--weights.random-factor** #15994
   - Option **--edgedata-output** now works when setting option **--begin** #16079
