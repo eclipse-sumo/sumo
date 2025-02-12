@@ -61,19 +61,11 @@ GNEChange_TAZSourceSink::~GNEChange_TAZSourceSink() {
 void
 GNEChange_TAZSourceSink::undo() {
     if (myForward) {
-        // unselect if mySelectedElement is enabled
-        if (mySelectedElement) {
-            mySourceSink->unselectAttributeCarrier();
-        }
         // delete sourceSink from net
         mySourceSink->getNet()->getAttributeCarriers()->deleteTAZSourceSink(mySourceSink);
         // remove element from parent and children
         removeElementFromParentsAndChildren(mySourceSink);
     } else {
-        // select if mySelectedElement is enabled
-        if (mySelectedElement) {
-            mySourceSink->selectAttributeCarrier();
-        }
         // add element in parent and children
         addElementInParentsAndChildren(mySourceSink);
         // insert sourceSink into net
@@ -96,10 +88,6 @@ GNEChange_TAZSourceSink::redo() {
         // insert sourceSink into net
         mySourceSink->getNet()->getAttributeCarriers()->insertTAZSourceSink(mySourceSink);
     } else {
-        // unselect if mySelectedElement is enabled
-        if (mySelectedElement) {
-            mySourceSink->unselectAttributeCarrier();
-        }
         // delete sourceSink from net
         mySourceSink->getNet()->getAttributeCarriers()->deleteTAZSourceSink(mySourceSink);
         // remove element from parent and children

@@ -864,8 +864,16 @@ GNEElementTree::showHierarchicalElementChildren(GNEAttributeCarrier* hierarchica
     if (hierarchicalElement->getHierarchicalElement()->getChildTAZSourceSinks().size() > 20) {
         addListItem(item, TLF("SourceSinks (%)", toString(hierarchicalElement->getHierarchicalElement()->getChildTAZSourceSinks().size())), GUIIconSubSys::getIcon(GUIIcon::TAZ), false);
     } else {
-        for (const auto& TAZSourceSink : hierarchicalElement->getHierarchicalElement()->getChildTAZSourceSinks()) {
-            showHierarchicalElementChildren(TAZSourceSink, item);
+        // show source and sinks separated
+        for (const auto& TAZSource : hierarchicalElement->getHierarchicalElement()->getChildTAZSourceSinks()) {
+            if (TAZSource->getTagProperty()->getTag() == SUMO_TAG_TAZSOURCE) {
+                showHierarchicalElementChildren(TAZSource, item);
+            }
+        }
+        for (const auto& TAZSink : hierarchicalElement->getHierarchicalElement()->getChildTAZSourceSinks()) {
+            if (TAZSink->getTagProperty()->getTag() == SUMO_TAG_TAZSINK) {
+                showHierarchicalElementChildren(TAZSink, item);
+            }
         }
     }
     // insert child demand elements

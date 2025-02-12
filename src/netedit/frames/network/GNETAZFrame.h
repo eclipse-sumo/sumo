@@ -115,8 +115,8 @@ public:
         void refreshTAZEdges();
 
     protected:
-        /// @brief add TAZChild
-        void addTAZChild(GNETAZSourceSink* additional);
+        /// @brief add source sink
+        void addSourceSink(GNETAZSourceSink* additional);
 
     private:
         /// @brief pointer to TAZ Frame
