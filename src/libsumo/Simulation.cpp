@@ -811,7 +811,6 @@ Simulation::getParameter(const std::string& objectID, const std::string& key) {
         }
     } else if (StringUtils::startsWith(key, "net.")) {
         const std::string attrName = key.substr(4);
-        Position b = GeoConvHelper::getFinal().getOffsetBase();
         if (attrName == toString(SUMO_ATTR_NET_OFFSET)) {
             return toString(GeoConvHelper::getFinal().getOffsetBase());
         } else {

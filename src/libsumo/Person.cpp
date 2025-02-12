@@ -904,7 +904,6 @@ Person::moveToXY(const std::string& personID, const std::string& edgeID, const d
             angle += 360.;
         }
     }
-    Position currentPos = p->getPosition();
 #ifdef DEBUG_MOVEXY
     std::cout << std::endl << "begin person " << p->getID() << " lanePos:" << p->getEdgePos() << " edge:" << Named::getIDSecure(p->getEdge()) << "\n";
     std::cout << " want pos:" << pos << " edgeID:" << edgeID <<  " origAngle:" << origAngle << " angle:" << angle << " keepRoute:" << keepRoute << std::endl;
