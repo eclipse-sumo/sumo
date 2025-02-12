@@ -311,6 +311,17 @@ GNEEdge::checkDrawToContour() const {
 
 bool
 GNEEdge::checkDrawRelatedContour() const {
+    const auto& inspectedElements = myNet->getViewNet()->getInspectedElements();
+    // continue depending of inspected elements
+    if (inspectedElements.isInspectingSingleElement() &&
+            inspectedElements.getFirstAC()->getTagProperty()->getTag() == SUMO_TAG_TAZ) {
+        // check if one of the sourceSink child is placed in this edge
+        for (const auto& sourceSink : getChildTAZSourceSinks()) {
+            if (sourceSink->getParentAdditionals().front() == inspectedElements.getFirstAC()) {
+                return true;
+            }
+        }
+    }
     return false;
 }
 

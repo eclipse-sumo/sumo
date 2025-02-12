@@ -159,8 +159,7 @@ GNEElementTree::onCmdCenterItem(FXObject*, FXSelector, void*) {
     } else if (myClickedAdditional) {
         myFrameParent->getViewNet()->centerTo(myClickedAdditional->getGlID(), true, -1);
     } else if (myClickedTAZSourceSink) {
-        const auto edge = myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveEdge(myClickedTAZSourceSink->getAttribute(SUMO_ATTR_EDGE));
-        myFrameParent->getViewNet()->centerTo(edge->getGlID(), true, -1);
+        myFrameParent->getViewNet()->centerTo(myClickedTAZSourceSink->getParentEdges().front()->getGlID(), true, -1);
     } else if (myClickedDemandElement) {
         myFrameParent->getViewNet()->centerTo(myClickedDemandElement->getGlID(), true, -1);
     } else if (myClickedGenericData) {
