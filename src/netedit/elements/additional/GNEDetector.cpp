@@ -253,12 +253,10 @@ GNEDetector::getDetectorAttribute(SumoXMLAttr key) const {
             return toString(myDetectPersons);
         case SUMO_ATTR_FRIENDLY_POS:
             return toString(myFriendlyPosition);
-        case GNE_ATTR_PARAMETERS:
-            return getParametersStr();
         case GNE_ATTR_SHIFTLANEINDEX:
             return "";
         default:
-            return getCommonAttribute(key);
+            return getCommonAttribute(this, key);
     }
 }
 
@@ -287,7 +285,6 @@ GNEDetector::setDetectorAttribute(SumoXMLAttr key, const std::string& value, GNE
         case SUMO_ATTR_NEXT_EDGES:
         case SUMO_ATTR_DETECT_PERSONS:
         case SUMO_ATTR_FRIENDLY_POS:
-        case GNE_ATTR_PARAMETERS:
         case GNE_ATTR_SHIFTLANEINDEX:
             GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
@@ -342,8 +339,6 @@ GNEDetector::isDetectorValid(SumoXMLAttr key, const std::string& value) {
             }
         case SUMO_ATTR_FRIENDLY_POS:
             return canParse<bool>(value);
-        case GNE_ATTR_PARAMETERS:
-            return areParametersValid(value);
         default:
             return isCommonValid(key, value);
     }
@@ -414,14 +409,11 @@ GNEDetector::setDetectorAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_FRIENDLY_POS:
             myFriendlyPosition = parse<bool>(value);
             break;
-        case GNE_ATTR_PARAMETERS:
-            setParametersStr(value);
-            break;
         case GNE_ATTR_SHIFTLANEINDEX:
             shiftLaneIndex();
             break;
         default:
-            setCommonAttribute(key, value);
+            setCommonAttribute(this, key, value);
             break;
     }
 }

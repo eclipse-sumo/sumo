@@ -249,10 +249,8 @@ GNERouteProbe::getAttribute(SumoXMLAttr key) const {
             return time2string(myBegin);
         case SUMO_ATTR_VTYPES:
             return toString(myVehicleTypes);
-        case GNE_ATTR_PARAMETERS:
-            return getParametersStr();
         default:
-            return getCommonAttribute(key);
+            return getCommonAttribute(this, key);
     }
 }
 
@@ -288,7 +286,6 @@ GNERouteProbe::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
         case SUMO_ATTR_FREQUENCY:
         case SUMO_ATTR_BEGIN:
         case SUMO_ATTR_VTYPES:
-        case GNE_ATTR_PARAMETERS:
             GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
         default:
@@ -343,8 +340,6 @@ GNERouteProbe::isValid(SumoXMLAttr key, const std::string& value) {
             } else {
                 return SUMOXMLDefinitions::isValidListOfTypeID(value);
             }
-        case GNE_ATTR_PARAMETERS:
-            return areParametersValid(value);
         default:
             return isCommonValid(key, value);
     }
@@ -381,11 +376,8 @@ GNERouteProbe::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_VTYPES:
             myVehicleTypes = parse<std::vector<std::string> >(value);
             break;
-        case GNE_ATTR_PARAMETERS:
-            setParametersStr(value);
-            break;
         default:
-            setCommonAttribute(key, value);
+            setCommonAttribute(this, key, value);
             break;
     }
 }

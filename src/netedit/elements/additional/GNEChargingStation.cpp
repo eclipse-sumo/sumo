@@ -232,12 +232,10 @@ GNEChargingStation::getAttribute(SumoXMLAttr key) const {
             return time2string(myWaitingTime);
         case SUMO_ATTR_PARKING_AREA:
             return myParkingAreaID;
-        case GNE_ATTR_PARAMETERS:
-            return getParametersStr();
         case GNE_ATTR_SHIFTLANEINDEX:
             return "";
         default:
-            return getCommonAttribute(key);
+            return getCommonAttribute(this, key);
     }
 }
 
@@ -258,7 +256,6 @@ GNEChargingStation::setAttribute(SumoXMLAttr key, const std::string& value, GNEU
         case SUMO_ATTR_CHARGETYPE:
         case SUMO_ATTR_WAITINGTIME:
         case SUMO_ATTR_PARKING_AREA:
-        case GNE_ATTR_PARAMETERS:
         case GNE_ATTR_SHIFTLANEINDEX:
             GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
@@ -320,8 +317,6 @@ GNEChargingStation::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<SUMOTime>(value) && parse<SUMOTime>(value) >= 0;
         case SUMO_ATTR_PARKING_AREA:
             return isValidAdditionalID(value);
-        case GNE_ATTR_PARAMETERS:
-            return areParametersValid(value);
         default:
             return isCommonValid(key, value);
     }
@@ -382,14 +377,11 @@ GNEChargingStation::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_PARKING_AREA:
             myParkingAreaID = value;
             break;
-        case GNE_ATTR_PARAMETERS:
-            setParametersStr(value);
-            break;
         case GNE_ATTR_SHIFTLANEINDEX:
             shiftLaneIndex();
             break;
         default:
-            setCommonAttribute(key, value);
+            setCommonAttribute(this, key, value);
             break;
     }
 }

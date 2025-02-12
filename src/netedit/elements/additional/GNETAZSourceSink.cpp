@@ -174,7 +174,7 @@ GNETAZSourceSink::getAttribute(SumoXMLAttr key) const {
             }
         }
         default:
-            return getCommonAttribute(key);
+            return getCommonAttribute(this, key);
     }
 }
 
@@ -272,7 +272,7 @@ GNETAZSourceSink::setAttribute(SumoXMLAttr key, const std::string& value) {
             myWeight = parse<double>(value);
             break;
         default:
-            setCommonAttribute(key, value);
+            setCommonAttribute(this, key, value);
             break;
     }
 }

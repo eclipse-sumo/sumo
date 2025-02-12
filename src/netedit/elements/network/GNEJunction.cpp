@@ -1363,10 +1363,8 @@ GNEJunction::getAttribute(SumoXMLAttr key) const {
             return SUMOXMLDefinitions::FringeTypeValues.getString(myNBNode->getFringeType());
         case SUMO_ATTR_NAME:
             return myNBNode->getName();
-        case GNE_ATTR_PARAMETERS:
-            return myNBNode->getParametersStr();
         default:
-            return getCommonAttribute(key);
+            return getCommonAttribute(myNBNode, key);
     }
 }
 
@@ -1395,7 +1393,6 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
         case SUMO_ATTR_RIGHT_OF_WAY:
         case SUMO_ATTR_FRINGE:
         case SUMO_ATTR_NAME:
-        case GNE_ATTR_PARAMETERS:
             GNEChange_Attribute::changeAttribute(this, key, value, undoList, true);
             break;
         case SUMO_ATTR_POSITION: {
@@ -1609,8 +1606,6 @@ GNEJunction::isValid(SumoXMLAttr key, const std::string& value) {
             return SUMOXMLDefinitions::FringeTypeValues.hasString(value);
         case SUMO_ATTR_NAME:
             return true;
-        case GNE_ATTR_PARAMETERS:
-            return Parameterised::areParametersValid(value);
         default:
             return isCommonValid(key, value);
     }
@@ -1970,11 +1965,8 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_NAME:
             myNBNode->setName(value);
             break;
-        case GNE_ATTR_PARAMETERS:
-            myNBNode->setParametersStr(value);
-            break;
         default:
-            setCommonAttribute(key, value);
+            setCommonAttribute(myNBNode, key, value);
             break;
     }
     // invalidate demand path calculator

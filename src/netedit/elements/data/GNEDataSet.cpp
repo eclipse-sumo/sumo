@@ -339,7 +339,7 @@ GNEDataSet::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_ID:
             return myDataSetID;
         default:
-            return getCommonAttribute(key);
+            return getCommonAttribute(this, key);
     }
 }
 
@@ -407,7 +407,7 @@ GNEDataSet::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             break;
         default:
-            setCommonAttribute(key, value);
+            setCommonAttribute(this, key, value);
             break;
     }
     // mark interval toolbar for update

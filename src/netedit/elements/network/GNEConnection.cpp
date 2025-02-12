@@ -447,7 +447,7 @@ GNEConnection::getAttribute(SumoXMLAttr key) const {
             return getParentLanes().back()->getID();
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_FRONTELEMENT:
-            return getCommonAttribute(key);
+            return getCommonAttribute(nullptr, key);
         case GNE_ATTR_PARENT:
             return getParentEdges().front()->getToJunction()->getID();
         default:
@@ -515,10 +515,8 @@ GNEConnection::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_SHAPE:
         case SUMO_ATTR_CUSTOMSHAPE:
             return toString(nbCon.customShape);
-        case GNE_ATTR_PARAMETERS:
-            return nbCon.getParametersStr();
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+            return getCommonAttribute(&nbCon, key);
     }
 }
 
@@ -557,8 +555,6 @@ GNEConnection::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
         case SUMO_ATTR_SHAPE:
         case SUMO_ATTR_CUSTOMSHAPE:
         case SUMO_ATTR_TYPE:
-        case GNE_ATTR_PARAMETERS:
-            // no special handling
             GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
         case SUMO_ATTR_TLLINKINDEX:
@@ -845,8 +841,6 @@ GNEConnection::isValid(SumoXMLAttr key, const std::string& value) {
             return false;
         case SUMO_ATTR_DIR:
             return false;
-        case GNE_ATTR_PARAMETERS:
-            return Parameterised::areParametersValid(value);
         default:
             return isCommonValid(key, value);
     }
@@ -967,11 +961,8 @@ GNEConnection::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_TYPE:
             nbCon.edgeType = value;
             break;
-        case GNE_ATTR_PARAMETERS:
-            nbCon.setParametersStr(value);
-            break;
         default:
-            setCommonAttribute(key, value);
+            setCommonAttribute(&nbCon, key, value);
             break;
     }
     // Update Geometry after setting a new attribute (but avoided for certain attributes)

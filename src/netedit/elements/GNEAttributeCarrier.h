@@ -361,7 +361,7 @@ protected:
      * @param[in] key The attribute key
      * @return string with the value associated to key
      */
-    std::string getCommonAttribute(SumoXMLAttr key) const;
+    std::string getCommonAttribute(const Parameterised* parameterised, SumoXMLAttr key) const;
 
     /* @brief method for setting the common attribute and letting the object perform additional changes
      * @param[in] key The attribute key
@@ -377,7 +377,7 @@ protected:
     bool isCommonValid(SumoXMLAttr key, const std::string& value) const;
 
     /// @brief method for setting the common attribute and nothing else (used in GNEChange_Attribute)
-    void setCommonAttribute(SumoXMLAttr key, const std::string& value);
+    void setCommonAttribute(Parameterised* parameterised, SumoXMLAttr key, const std::string& value);
 
     /// @}
 

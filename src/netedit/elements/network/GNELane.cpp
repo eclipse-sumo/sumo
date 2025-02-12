@@ -712,10 +712,8 @@ GNELane::getAttribute(SumoXMLAttr key) const {
             }
         case GNE_ATTR_PARENT:
             return getParentEdges().front()->getID();
-        case GNE_ATTR_PARAMETERS:
-            return getParentEdges().front()->getNBEdge()->getLaneStruct(myIndex).getParametersStr();
         default:
-            return getCommonAttribute(key);
+            return getCommonAttribute(&edge->getLaneStruct(myIndex), key);
     }
 }
 
@@ -769,8 +767,6 @@ GNELane::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
             GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
         case GNE_ATTR_STOPOEXCEPTION:
-        case GNE_ATTR_PARAMETERS:
-            // no special handling
             GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
         default:
@@ -835,8 +831,6 @@ GNELane::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<double>(value) && (parse<double>(value) >= 0);
         case GNE_ATTR_STOPOEXCEPTION:
             return canParseVehicleClasses(value);
-        case GNE_ATTR_PARAMETERS:
-            return Parameterised::areParametersValid(value);
         default:
             return isCommonValid(key, value);
     }
@@ -965,11 +959,8 @@ GNELane::setAttribute(SumoXMLAttr key, const std::string& value) {
         case GNE_ATTR_STOPOEXCEPTION:
             edge->getLaneStruct(myIndex).laneStopOffset.setExceptions(value);
             break;
-        case GNE_ATTR_PARAMETERS:
-            getParentEdges().front()->getNBEdge()->getLaneStruct(myIndex).setParametersStr(value);
-            break;
         default:
-            setCommonAttribute(key, value);
+            setCommonAttribute(&edge->getLaneStruct(myIndex), key, value);
             break;
     }
     // update template

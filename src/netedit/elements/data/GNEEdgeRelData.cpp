@@ -308,10 +308,8 @@ GNEEdgeRelData::getAttribute(SumoXMLAttr key) const {
             return myDataIntervalParent->getAttribute(SUMO_ATTR_BEGIN);
         case SUMO_ATTR_END:
             return myDataIntervalParent->getAttribute(SUMO_ATTR_END);
-        case GNE_ATTR_PARAMETERS:
-            return getParametersStr();
         default:
-            return getCommonAttribute(key);
+            return getCommonAttribute(this, key);
     }
 }
 
@@ -330,7 +328,6 @@ GNEEdgeRelData::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoL
     switch (key) {
         case SUMO_ATTR_FROM:
         case SUMO_ATTR_TO:
-        case GNE_ATTR_PARAMETERS:
             GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
         default:
@@ -349,8 +346,6 @@ GNEEdgeRelData::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_TO:
             return SUMOXMLDefinitions::isValidNetID(value) && (myNet->getAttributeCarriers()->retrieveEdge(value, false) != nullptr) &&
                    (value != getParentEdges().front()->getID());
-        case GNE_ATTR_PARAMETERS:
-            return Parameterised::areAttributesValid(value, true);
         default:
             return isCommonValid(key, value);
     }
@@ -392,13 +387,9 @@ GNEEdgeRelData::setAttribute(SumoXMLAttr key, const std::string& value) {
             replaceLastParentEdge(value);
             break;
         }
-        case GNE_ATTR_PARAMETERS:
-            setParametersStr(value);
-            // update attribute colors
-            myDataIntervalParent->getDataSetParent()->updateAttributeColors();
-            break;
         default:
-            setCommonAttribute(key, value);
+            setCommonAttribute(this, key, value);
+            myDataIntervalParent->getDataSetParent()->updateAttributeColors();
             break;
     }
     // mark interval toolbar for update

@@ -34,7 +34,7 @@ class GNERerouterIntervalDialog;
 // class definitions
 // ===========================================================================
 
-class GNEDestProbReroute : public GNEAdditional {
+class GNEDestProbReroute : public GNEAdditional, public Parameterised {
 
 public:
     /// @brief constructor

@@ -590,10 +590,8 @@ GNEPoly::getAttribute(SumoXMLAttr key) const {
             return getShapeName();
         case GNE_ATTR_CLOSE_SHAPE:
             return toString(myShape.isClosed());
-        case GNE_ATTR_PARAMETERS:
-            return SUMOPolygon::getParametersStr();
         default:
-            return getCommonAttribute(key);
+            return getCommonAttribute(this, key);
     }
 }
 
@@ -631,7 +629,6 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         case SUMO_ATTR_GEO:
         case SUMO_ATTR_NAME:
         case GNE_ATTR_CLOSE_SHAPE:
-        case GNE_ATTR_PARAMETERS:
             GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
         default:
@@ -700,8 +697,6 @@ GNEPoly::isValid(SumoXMLAttr key, const std::string& value) {
             } else {
                 return false;
             }
-        case GNE_ATTR_PARAMETERS:
-            return areParametersValid(value);
         default:
             return isCommonValid(key, value);
     }
@@ -854,11 +849,8 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
             // update centering boundary
             updateCenteringBoundary(true);
             break;
-        case GNE_ATTR_PARAMETERS:
-            SUMOPolygon::setParametersStr(value);
-            break;
         default:
-            setCommonAttribute(key, value);
+            setCommonAttribute(this, key, value);
             break;
     }
 }

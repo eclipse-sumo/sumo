@@ -291,10 +291,8 @@ GNEParkingSpace::getAttribute(SumoXMLAttr key) const {
             } else {
                 return getParentAdditionals().at(0)->getID();
             }
-        case GNE_ATTR_PARAMETERS:
-            return getParametersStr();
         default:
-            return getCommonAttribute(key);
+            return getCommonAttribute(this, key);
     }
 }
 
@@ -333,7 +331,6 @@ GNEParkingSpace::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndo
         case SUMO_ATTR_ANGLE:
         case SUMO_ATTR_SLOPE:
         case GNE_ATTR_PARENT:
-        case GNE_ATTR_PARAMETERS:
             GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
         default:
@@ -360,8 +357,6 @@ GNEParkingSpace::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<double>(value);
         case GNE_ATTR_PARENT:
             return (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_PARKING_AREA, value, false) != nullptr);
-        case GNE_ATTR_PARAMETERS:
-            return areParametersValid(value);
         default:
             return isCommonValid(key, value);
     }
@@ -485,11 +480,8 @@ GNEParkingSpace::setAttribute(SumoXMLAttr key, const std::string& value) {
         case GNE_ATTR_PARENT:
             replaceAdditionalParent(SUMO_TAG_PARKING_AREA, value, 0);
             break;
-        case GNE_ATTR_PARAMETERS:
-            setParametersStr(value);
-            break;
         default:
-            setCommonAttribute(key, value);
+            setCommonAttribute(this, key, value);
             break;
     }
 }

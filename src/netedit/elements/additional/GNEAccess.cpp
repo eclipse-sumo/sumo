@@ -292,12 +292,10 @@ GNEAccess::getAttribute(SumoXMLAttr key) const {
             } else {
                 return getParentAdditionals().at(0)->getID();
             }
-        case GNE_ATTR_PARAMETERS:
-            return getParametersStr();
         case GNE_ATTR_SHIFTLANEINDEX:
             return "";
         default:
-            return getCommonAttribute(key);
+            return getCommonAttribute(this, key);
     }
 }
 
@@ -322,7 +320,6 @@ GNEAccess::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* 
         case SUMO_ATTR_LENGTH:
         case SUMO_ATTR_FRIENDLY_POS:
         case GNE_ATTR_PARENT:
-        case GNE_ATTR_PARAMETERS:
         case GNE_ATTR_SHIFTLANEINDEX:
             GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
@@ -365,8 +362,6 @@ GNEAccess::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<bool>(value);
         case GNE_ATTR_PARENT:
             return (myNet->getAttributeCarriers()->retrieveAdditionals(NamespaceIDs::busStops, value, false) != nullptr);
-        case GNE_ATTR_PARAMETERS:
-            return areParametersValid(value);
         default:
             return isCommonValid(key, value);
     }
@@ -417,14 +412,11 @@ GNEAccess::setAttribute(SumoXMLAttr key, const std::string& value) {
                 replaceAdditionalParent(SUMO_TAG_TRAIN_STOP, value, 0);
             }
             break;
-        case GNE_ATTR_PARAMETERS:
-            setParametersStr(value);
-            break;
         case GNE_ATTR_SHIFTLANEINDEX:
             shiftLaneIndex();
             break;
         default:
-            setCommonAttribute(key, value);
+            setCommonAttribute(this, key, value);
             break;
     }
 }

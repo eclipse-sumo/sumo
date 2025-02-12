@@ -246,10 +246,8 @@ GNEMultiEntryExitDetector::getAttribute(SumoXMLAttr key) const {
             return toString(myOpenEntry);
         case SUMO_ATTR_EXPECT_ARRIVAL:
             return toString(myExpectedArrival);
-        case GNE_ATTR_PARAMETERS:
-            return getParametersStr();
         default:
-            return getCommonAttribute(key);
+            return getCommonAttribute(this, key);
     }
 }
 
@@ -284,7 +282,6 @@ GNEMultiEntryExitDetector::setAttribute(SumoXMLAttr key, const std::string& valu
         case SUMO_ATTR_HALTING_SPEED_THRESHOLD:
         case SUMO_ATTR_OPEN_ENTRY:
         case SUMO_ATTR_EXPECT_ARRIVAL:
-        case GNE_ATTR_PARAMETERS:
             GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
         default:
@@ -335,8 +332,6 @@ GNEMultiEntryExitDetector::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_OPEN_ENTRY:
         case SUMO_ATTR_EXPECT_ARRIVAL:
             return canParse<bool>(value);
-        case GNE_ATTR_PARAMETERS:
-            return areParametersValid(value);
         default:
             return isCommonValid(key, value);
     }
@@ -430,11 +425,8 @@ GNEMultiEntryExitDetector::setAttribute(SumoXMLAttr key, const std::string& valu
         case SUMO_ATTR_EXPECT_ARRIVAL:
             myExpectedArrival = parse<bool>(value);
             break;
-        case GNE_ATTR_PARAMETERS:
-            setParametersStr(value);
-            break;
         default:
-            setCommonAttribute(key, value);
+            setCommonAttribute(this, key, value);
             break;
     }
 }

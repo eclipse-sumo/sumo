@@ -264,12 +264,10 @@ GNEParkingArea::getAttribute(SumoXMLAttr key) const {
             return toString(myAngle);
         case SUMO_ATTR_LEFTHAND:
             return toString(myLefthand);
-        case GNE_ATTR_PARAMETERS:
-            return getParametersStr();
         case GNE_ATTR_SHIFTLANEINDEX:
             return "";
         default:
-            return getCommonAttribute(key);
+            return getCommonAttribute(this, key);
     }
 }
 
@@ -323,7 +321,6 @@ GNEParkingArea::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoL
         case SUMO_ATTR_LENGTH:
         case SUMO_ATTR_ANGLE:
         case SUMO_ATTR_LEFTHAND:
-        case GNE_ATTR_PARAMETERS:
         case GNE_ATTR_SHIFTLANEINDEX:
             GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
@@ -401,8 +398,6 @@ GNEParkingArea::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<double>(value);
         case SUMO_ATTR_LEFTHAND:
             return canParse<bool>(value);
-        case GNE_ATTR_PARAMETERS:
-            return areParametersValid(value);
         default:
             return isCommonValid(key, value);
     }
@@ -506,14 +501,11 @@ GNEParkingArea::setAttribute(SumoXMLAttr key, const std::string& value) {
                 updateGeometry();
             }
             break;
-        case GNE_ATTR_PARAMETERS:
-            setParametersStr(value);
-            break;
         case GNE_ATTR_SHIFTLANEINDEX:
             shiftLaneIndex();
             break;
         default:
-            setCommonAttribute(key, value);
+            setCommonAttribute(this, key, value);
             break;
     }
 }

@@ -35,7 +35,7 @@ class GNERerouterIntervalDialog;
 // ===========================================================================
 
 
-class GNEClosingLaneReroute : public GNEAdditional {
+class GNEClosingLaneReroute : public GNEAdditional, public Parameterised {
 
 public:
     /// @brief parameter constructor

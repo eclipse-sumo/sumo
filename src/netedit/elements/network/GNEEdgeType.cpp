@@ -330,11 +330,8 @@ GNEEdgeType::getAttribute(SumoXMLAttr key) const {
             } else {
                 return "default";
             }
-        // parameters
-        case GNE_ATTR_PARAMETERS:
-            return getParametersStr();
         default:
-            return getCommonAttribute(key);
+            return getCommonAttribute(this, key);
     }
 }
 
@@ -383,8 +380,6 @@ GNEEdgeType::isValid(SumoXMLAttr key, const std::string& value) {
             }
         case SUMO_ATTR_PRIORITY:
             return canParse<int>(value);
-        case GNE_ATTR_PARAMETERS:
-            return Parameterised::areParametersValid(value);
         default:
             return isCommonValid(key, value);
     }
@@ -542,11 +537,8 @@ GNEEdgeType::setAttribute(SumoXMLAttr key, const std::string& value) {
                 priority = parse<int>(value);
             }
             break;
-        case GNE_ATTR_PARAMETERS:
-            setParametersStr(value);
-            break;
         default:
-            setCommonAttribute(key, value);
+            setCommonAttribute(this, key, value);
             break;
     }
     // update edge selector

@@ -275,10 +275,8 @@ GNEEdgeData::getAttribute(SumoXMLAttr key) const {
             return myDataIntervalParent->getAttribute(SUMO_ATTR_BEGIN);
         case SUMO_ATTR_END:
             return myDataIntervalParent->getAttribute(SUMO_ATTR_END);
-        case GNE_ATTR_PARAMETERS:
-            return getParametersStr();
         default:
-            return getCommonAttribute(key);
+            return getCommonAttribute(this, key);
     }
 }
 
@@ -294,25 +292,13 @@ GNEEdgeData::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
     if (value == getAttribute(key)) {
         return; //avoid needless changes, later logic relies on the fact that attributes have changed
     }
-    switch (key) {
-        case GNE_ATTR_PARAMETERS:
-            GNEChange_Attribute::changeAttribute(this, key, value, undoList);
-            break;
-        default:
-            setCommonAttribute(key, value, undoList);
-            break;
-    }
+    setCommonAttribute(key, value, undoList);
 }
 
 
 bool
 GNEEdgeData::isValid(SumoXMLAttr key, const std::string& value) {
-    switch (key) {
-        case GNE_ATTR_PARAMETERS:
-            return Parameterised::areAttributesValid(value, true);
-        default:
-            return isCommonValid(key, value);
-    }
+    return isCommonValid(key, value);
 }
 
 
@@ -340,16 +326,7 @@ GNEEdgeData::getHierarchyName() const {
 
 void
 GNEEdgeData::setAttribute(SumoXMLAttr key, const std::string& value) {
-    switch (key) {
-        case GNE_ATTR_PARAMETERS:
-            setParametersStr(value);
-            // update attribute colors
-            myDataIntervalParent->getDataSetParent()->updateAttributeColors();
-            break;
-        default:
-            setCommonAttribute(key, value);
-            break;
-    }
+    setCommonAttribute(this, key, value);
 }
 
 /****************************************************************************/

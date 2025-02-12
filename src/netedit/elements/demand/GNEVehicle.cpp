@@ -1464,8 +1464,6 @@ GNEVehicle::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_TO_TAZ:
             return getParentAdditionals().back()->getID();
         // other
-        case GNE_ATTR_PARAMETERS:
-            return getParametersStr();
         case GNE_ATTR_FLOWPARAMETERS:
             return toString(parametersSet);
         default:
@@ -1600,8 +1598,6 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList*
         // Specific of from-to taz
         case SUMO_ATTR_FROM_TAZ:
         case SUMO_ATTR_TO_TAZ:
-        // other
-        case GNE_ATTR_PARAMETERS:
             GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
         default:
@@ -1774,9 +1770,6 @@ GNEVehicle::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_FROM_TAZ:
         case SUMO_ATTR_TO_TAZ:
             return (ACs->retrieveAdditional(SUMO_TAG_TAZ, value, false) != nullptr);
-        // other
-        case GNE_ATTR_PARAMETERS:
-            return Parameterised::areParametersValid(value);
         default:
             return isValidFlowAttribute(this, key, value);
     }
@@ -2245,10 +2238,6 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
             updateSpreadStackGeometry = true;
             break;
         }
-        // other
-        case GNE_ATTR_PARAMETERS:
-            setParametersStr(value);
-            break;
         default:
             setFlowAttribute(this, key, value);
             break;

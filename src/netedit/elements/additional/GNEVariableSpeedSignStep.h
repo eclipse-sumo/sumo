@@ -33,7 +33,7 @@ class GNEVariableSpeedSignDialog;
 // class definitions
 // ===========================================================================
 
-class GNEVariableSpeedSignStep : public GNEAdditional {
+class GNEVariableSpeedSignStep : public GNEAdditional, public Parameterised {
 
 public:
     /// @brief default constructor

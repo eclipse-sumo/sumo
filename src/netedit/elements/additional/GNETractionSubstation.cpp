@@ -187,10 +187,8 @@ GNETractionSubstation::getAttribute(SumoXMLAttr key) const {
             return toString(myVoltage);
         case SUMO_ATTR_CURRENTLIMIT:
             return toString(myCurrentLimit);
-        case GNE_ATTR_PARAMETERS:
-            return getParametersStr();
         default:
-            return getCommonAttribute(key);
+            return getCommonAttribute(this, key);
     }
 }
 
@@ -219,7 +217,6 @@ GNETractionSubstation::setAttribute(SumoXMLAttr key, const std::string& value, G
         case SUMO_ATTR_POSITION:
         case SUMO_ATTR_VOLTAGE:
         case SUMO_ATTR_CURRENTLIMIT:
-        case GNE_ATTR_PARAMETERS:
             GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
         default:
@@ -245,8 +242,6 @@ GNETractionSubstation::isValid(SumoXMLAttr key, const std::string& value) {
             } else {
                 return false;
             }
-        case GNE_ATTR_PARAMETERS:
-            return areParametersValid(value);
         default:
             return isCommonValid(key, value);
     }
@@ -290,11 +285,8 @@ GNETractionSubstation::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_CURRENTLIMIT:
             myCurrentLimit = parse<double>(value);
             break;
-        case GNE_ATTR_PARAMETERS:
-            setParametersStr(value);
-            break;
         default:
-            setCommonAttribute(key, value);
+            setCommonAttribute(this, key, value);
             break;
     }
 }

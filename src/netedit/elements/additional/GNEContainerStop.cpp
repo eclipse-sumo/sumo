@@ -219,12 +219,10 @@ GNEContainerStop::getAttribute(SumoXMLAttr key) const {
             } else {
                 return toString(myColor);
             }
-        case GNE_ATTR_PARAMETERS:
-            return getParametersStr();
         case GNE_ATTR_SHIFTLANEINDEX:
             return "";
         default:
-            return getCommonAttribute(key);
+            return getCommonAttribute(this, key);
     }
 }
 
@@ -242,7 +240,6 @@ GNEContainerStop::setAttribute(SumoXMLAttr key, const std::string& value, GNEUnd
         case SUMO_ATTR_CONTAINER_CAPACITY:
         case SUMO_ATTR_PARKING_LENGTH:
         case SUMO_ATTR_COLOR:
-        case GNE_ATTR_PARAMETERS:
         case GNE_ATTR_SHIFTLANEINDEX:
             GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
@@ -296,8 +293,6 @@ GNEContainerStop::isValid(SumoXMLAttr key, const std::string& value) {
             } else {
                 return canParse<RGBColor>(value);
             }
-        case GNE_ATTR_PARAMETERS:
-            return areParametersValid(value);
         default:
             return isCommonValid(key, value);
     }
@@ -353,14 +348,11 @@ GNEContainerStop::setAttribute(SumoXMLAttr key, const std::string& value) {
                 myColor = GNEAttributeCarrier::parse<RGBColor>(value);
             }
             break;
-        case GNE_ATTR_PARAMETERS:
-            setParametersStr(value);
-            break;
         case GNE_ATTR_SHIFTLANEINDEX:
             shiftLaneIndex();
             break;
         default:
-            setCommonAttribute(key, value);
+            setCommonAttribute(this, key, value);
             break;
     }
 }

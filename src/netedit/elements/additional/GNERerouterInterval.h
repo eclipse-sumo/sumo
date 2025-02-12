@@ -38,7 +38,7 @@ class GNEParkingAreaReroute;
 // class definitions
 // ===========================================================================
 
-class GNERerouterInterval : public GNEAdditional {
+class GNERerouterInterval : public GNEAdditional, public Parameterised {
 
 public:
     /// @brief default constructor

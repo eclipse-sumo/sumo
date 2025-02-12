@@ -460,12 +460,10 @@ GNEPOI::getAttribute(SumoXMLAttr key) const {
             return toString(getShapeNaviDegree());
         case SUMO_ATTR_NAME:
             return getShapeName();
-        case GNE_ATTR_PARAMETERS:
-            return PointOfInterest::getParametersStr();
         case GNE_ATTR_SHIFTLANEINDEX:
             return "";
         default:
-            return getCommonAttribute(key);
+            return getCommonAttribute(this, key);
     }
 }
 
@@ -502,7 +500,6 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* und
         case SUMO_ATTR_HEIGHT:
         case SUMO_ATTR_ANGLE:
         case SUMO_ATTR_NAME:
-        case GNE_ATTR_PARAMETERS:
         case GNE_ATTR_SHIFTLANEINDEX:
             GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
@@ -563,8 +560,6 @@ GNEPOI::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<double>(value);
         case SUMO_ATTR_NAME:
             return SUMOXMLDefinitions::isValidAttribute(value);
-        case GNE_ATTR_PARAMETERS:
-            return areParametersValid(value);
         default:
             return isCommonValid(key, value);
     }
@@ -775,15 +770,11 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_NAME:
             setShapeName(value);
             break;
-        case GNE_ATTR_PARAMETERS:
-            PointOfInterest::setParametersStr(value);
-            break;
         case GNE_ATTR_SHIFTLANEINDEX:
             shiftLaneIndex();
             break;
         default:
-            return setCommonAttribute(key, value);
-            break;
+            return setCommonAttribute(this, key, value);
     }
 }
 

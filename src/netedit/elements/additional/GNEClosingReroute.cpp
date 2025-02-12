@@ -159,7 +159,7 @@ GNEClosingReroute::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_PARENT:
             return getParentAdditionals().at(0)->getID();
         default:
-            return getCommonAttribute(key);
+            return getCommonAttribute(this, key);
     }
 }
 
@@ -244,7 +244,7 @@ GNEClosingReroute::setAttribute(SumoXMLAttr key, const std::string& value) {
             myPermissions = invertPermissions(parseVehicleClasses(value));
             break;
         default:
-            setCommonAttribute(key, value);
+            setCommonAttribute(this, key, value);
             break;
     }
 }

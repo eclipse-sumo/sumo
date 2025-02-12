@@ -293,10 +293,8 @@ GNECalibratorFlow::getAttribute(SumoXMLAttr key) const {
             return getInsertionChecks();
         case GNE_ATTR_PARENT:
             return getParentAdditionals().at(0)->getID();
-        case GNE_ATTR_PARAMETERS:
-            return SUMOVehicleParameter::getParametersStr();
         default:
-            return getCommonAttribute(key);
+            return getCommonAttribute(this, key);
     }
 }
 
@@ -365,7 +363,6 @@ GNECalibratorFlow::setAttribute(SumoXMLAttr key, const std::string& value, GNEUn
         case SUMO_ATTR_DEPARTPOS_LAT:
         case SUMO_ATTR_ARRIVALPOS_LAT:
         case SUMO_ATTR_INSERTIONCHECKS:
-        case GNE_ATTR_PARAMETERS:
             GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
         default:
@@ -476,8 +473,6 @@ GNECalibratorFlow::isValid(SumoXMLAttr key, const std::string& value) {
             }
         case SUMO_ATTR_INSERTIONCHECKS:
             return areInsertionChecksValid(value);
-        case GNE_ATTR_PARAMETERS:
-            return areParametersValid(value);
         default:
             return isCommonValid(key, value);
     }
@@ -726,11 +721,8 @@ GNECalibratorFlow::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_INSERTIONCHECKS:
             insertionChecks = parseInsertionChecks(value);
             break;
-        case GNE_ATTR_PARAMETERS:
-            SUMOVehicleParameter::setParametersStr(value);
-            break;
         default:
-            setCommonAttribute(key, value);
+            setCommonAttribute(this, key, value);
             break;
     }
 }

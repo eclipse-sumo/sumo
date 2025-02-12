@@ -360,10 +360,8 @@ GNECrossing::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_SHAPE:
         case SUMO_ATTR_CUSTOMSHAPE:
             return toString(crossing->customShape);
-        case GNE_ATTR_PARAMETERS:
-            return crossing->getParametersStr();
         default:
-            return getCommonAttribute(key);
+            return getCommonAttribute(crossing, key);
     }
 }
 
@@ -395,7 +393,6 @@ GNECrossing::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
         case SUMO_ATTR_TLLINKINDEX2:
         case SUMO_ATTR_SHAPE:
         case SUMO_ATTR_CUSTOMSHAPE:
-        case GNE_ATTR_PARAMETERS:
             GNEChange_Attribute::changeAttribute(this, key, value, undoList, true);
             break;
         default:
@@ -463,8 +460,6 @@ GNECrossing::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_CUSTOMSHAPE:
             // empty shapes are allowed
             return canParse<PositionVector>(value);
-        case GNE_ATTR_PARAMETERS:
-            return Parameterised::areParametersValid(value);
         default:
             return isValid(key, value);
     }
@@ -678,11 +673,8 @@ GNECrossing::setAttribute(SumoXMLAttr key, const std::string& value) {
             // set custom shape
             crossing->customShape = parse<PositionVector>(value);
             break;
-        case GNE_ATTR_PARAMETERS:
-            crossing->setParametersStr(value);
-            break;
         default:
-            setCommonAttribute(key, value);
+            setCommonAttribute(crossing, key, value);
             break;
     }
     // Crossing are a special case and we need ot update geometry of junction instead of crossing

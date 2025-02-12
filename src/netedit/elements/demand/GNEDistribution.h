@@ -27,7 +27,7 @@
 // class definitions
 // ===========================================================================
 
-class GNEDistribution : public GNEDemandElement {
+class GNEDistribution : public GNEDemandElement, public Parameterised {
 
 public:
     /// @brief default constructor

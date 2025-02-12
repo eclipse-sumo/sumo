@@ -35,7 +35,7 @@ class GNEParkingArea;
 // class definitions
 // ===========================================================================
 
-class GNEParkingAreaReroute : public GNEAdditional {
+class GNEParkingAreaReroute : public GNEAdditional, public Parameterised {
 
 public:
     /// @brief constructor

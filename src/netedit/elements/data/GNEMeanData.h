@@ -27,7 +27,7 @@
 // class definitions
 // ===========================================================================
 
-class GNEMeanData : public GNEAttributeCarrier, public GNEHierarchicalElement {
+class GNEMeanData : public GNEAttributeCarrier, public GNEHierarchicalElement, public Parameterised {
 
 public:
     /// @brief Default constructor

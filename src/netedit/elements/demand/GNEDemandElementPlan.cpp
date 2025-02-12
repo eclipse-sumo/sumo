@@ -18,14 +18,14 @@
 // An auxiliar, asbtract class for plan elements
 /****************************************************************************/
 
-#include <utils/gui/windows/GUIAppEnum.h>
-#include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNESegment.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
+#include <netedit/changes/GNEChange_Attribute.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIDesigns.h>
+#include <utils/gui/windows/GUIAppEnum.h>
 
 #include "GNEDemandElementPlan.h"
 #include "GNERoute.h"
@@ -1400,7 +1400,7 @@ GNEDemandElementPlan::getPlanAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_TO_TAZ:
             return myPlanElement->getParentTAZs().back()->getID();
         default:
-            return myPlanElement->getCommonAttribute(key);
+            return myPlanElement->getCommonAttribute(dynamic_cast<Parameterised*>(myPlanElement), key);
     }
 }
 
@@ -1703,7 +1703,7 @@ GNEDemandElementPlan::setPlanAttribute(SumoXMLAttr key, const std::string& value
             recompute = true;
             break;
         default:
-            myPlanElement->setCommonAttribute(key, value);
+            myPlanElement->setCommonAttribute(dynamic_cast<Parameterised*>(myPlanElement), key, value);
             break;
     }
     // check if compute geometry and path

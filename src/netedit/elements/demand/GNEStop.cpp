@@ -584,10 +584,8 @@ GNEStop::getAttribute(SumoXMLAttr key) const {
         }
         case GNE_ATTR_PATHSTOPINDEX:
             return toString(getPathStopIndex());
-        case GNE_ATTR_PARAMETERS:
-            return getParametersStr();
         default:
-            return getCommonAttribute(key);
+            return getCommonAttribute(this, key);
     }
 }
 
@@ -707,7 +705,6 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         case SUMO_ATTR_SPLIT:
         // other
         case GNE_ATTR_PARENT:
-        case GNE_ATTR_PARAMETERS:
             GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
         default:
@@ -854,8 +851,6 @@ GNEStop::isValid(SumoXMLAttr key, const std::string& value) {
         //
         case GNE_ATTR_PARENT:
             return false;
-        case GNE_ATTR_PARAMETERS:
-            return areParametersValid(value);
         default:
             return isCommonValid(key, value);
     }
@@ -1301,11 +1296,8 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value) {
         case GNE_ATTR_PARENT:
             updateGeometry();
             break;
-        case GNE_ATTR_PARAMETERS:
-            setParametersStr(value);
-            break;
         default:
-            setCommonAttribute(key, value);
+            setCommonAttribute(this, key, value);
             break;
     }
 }

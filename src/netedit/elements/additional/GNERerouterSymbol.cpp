@@ -180,7 +180,7 @@ GNERerouterSymbol::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_EDGE:
             return getParentEdges().front()->getID();
         default:
-            return getCommonAttribute(key);
+            return getCommonAttribute(nullptr, key);
     }
 }
 

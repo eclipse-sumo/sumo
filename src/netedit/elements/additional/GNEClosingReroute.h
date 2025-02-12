@@ -33,7 +33,7 @@ class GNERerouterIntervalDialog;
 // class definitions
 // ===========================================================================
 
-class GNEClosingReroute : public GNEAdditional {
+class GNEClosingReroute : public GNEAdditional, public Parameterised {
 
 public:
     /// @brief default constructor

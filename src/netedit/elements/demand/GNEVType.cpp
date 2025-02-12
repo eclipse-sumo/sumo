@@ -480,8 +480,6 @@ GNEVType::getAttribute(SumoXMLAttr key) const {
             } else {
                 return myTagProperty->getDefaultValue(SUMO_ATTR_CARRIAGE_GAP);
             }
-        case GNE_ATTR_PARAMETERS:
-            return getParametersStr();
         // other
         case GNE_ATTR_DEFAULT_VTYPE:
             return toString(myDefaultVehicleType);
@@ -494,7 +492,7 @@ GNEVType::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_VTYPE_DISTRIBUTION:
             return getDistributionParents();
         default:
-            return getCommonAttribute(key);
+            return getCommonAttribute(this, key);
     }
 }
 
@@ -670,7 +668,6 @@ GNEVType::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* u
         case SUMO_ATTR_CARRIAGE_LENGTH:
         case SUMO_ATTR_LOCOMOTIVE_LENGTH:
         case SUMO_ATTR_CARRIAGE_GAP:
-        case GNE_ATTR_PARAMETERS:
             // if we change the original value of a default vehicle Type, change also flag "myDefaultVehicleType"
             if (myDefaultVehicleType) {
                 GNEChange_Attribute::changeAttribute(this, GNE_ATTR_DEFAULT_VTYPE_MODIFIED, "true", undoList, true);
@@ -882,8 +879,6 @@ GNEVType::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<double>(value) && (parse<double>(value) >= -1);
         case SUMO_ATTR_CARRIAGE_GAP:
             return canParse<double>(value) && (parse<double>(value) >= 0);
-        case GNE_ATTR_PARAMETERS:
-            return Parameterised::areParametersValid(value);
         case GNE_ATTR_DEFAULT_VTYPE_MODIFIED:
             if (myDefaultVehicleType) {
                 return canParse<bool>(value);
@@ -1827,14 +1822,11 @@ GNEVType::setAttribute(SumoXMLAttr key, const std::string& value) {
                 SUMOVTypeParameter::unsetParameter(toString(key));
             }
             break;
-        case GNE_ATTR_PARAMETERS:
-            setParametersStr(value);
-            break;
         case GNE_ATTR_DEFAULT_VTYPE_MODIFIED:
             myDefaultVehicleTypeModified = parse<bool>(value);
             break;
         default:
-            setCommonAttribute(key, value);
+            setCommonAttribute(this, key, value);
             break;
     }
     // check if geometry must be marked as deprecated

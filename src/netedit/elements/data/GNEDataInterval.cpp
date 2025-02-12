@@ -308,7 +308,7 @@ GNEDataInterval::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_END:
             return toString(myEnd);
         default:
-            return getCommonAttribute(key);
+            return getCommonAttribute(this, key);
     }
 }
 
@@ -396,7 +396,7 @@ GNEDataInterval::setAttribute(SumoXMLAttr key, const std::string& value) {
             updateGenericDataIDs();
             break;
         default:
-            setCommonAttribute(key, value);
+            setCommonAttribute(this, key, value);
             break;
     }
     // mark interval toolbar for update

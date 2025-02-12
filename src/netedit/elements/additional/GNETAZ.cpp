@@ -447,8 +447,6 @@ GNETAZ::getAttribute(SumoXMLAttr key) const {
             }
             return toString(edgeIDs);
         }
-        case GNE_ATTR_PARAMETERS:
-            return getParametersStr();
         case GNE_ATTR_MIN_SOURCE:
             if (myMinWeightSource == INVALID_DOUBLE) {
                 return "undefined";
@@ -486,7 +484,7 @@ GNETAZ::getAttribute(SumoXMLAttr key) const {
                 return toString(myAverageWeightSink);
             }
         default:
-            return getCommonAttribute(key);
+            return getCommonAttribute(this, key);
     }
 }
 
@@ -544,7 +542,6 @@ GNETAZ::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* und
         case SUMO_ATTR_NAME:
         case SUMO_ATTR_FILL:
         case SUMO_ATTR_EDGES:
-        case GNE_ATTR_PARAMETERS:
             GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
         default:
@@ -583,8 +580,6 @@ GNETAZ::isValid(SumoXMLAttr key, const std::string& value) {
             } else {
                 return SUMOXMLDefinitions::isValidListOfTypeID(value);
             }
-        case GNE_ATTR_PARAMETERS:
-            return areParametersValid(value);
         default:
             return isCommonValid(key, value);
     }
@@ -714,11 +709,8 @@ GNETAZ::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_EDGES:
             break;
-        case GNE_ATTR_PARAMETERS:
-            setParametersStr(value);
-            break;
         default:
-            setCommonAttribute(key, value);
+            setCommonAttribute(this, key, value);
             break;
     }
 }

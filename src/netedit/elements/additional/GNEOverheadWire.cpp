@@ -395,12 +395,10 @@ GNEOverheadWire::getAttribute(SumoXMLAttr key) const {
             return toString(myFriendlyPosition);
         case SUMO_ATTR_OVERHEAD_WIRE_FORBIDDEN:
             return toString(myForbiddenInnerLanes);
-        case GNE_ATTR_PARAMETERS:
-            return getParametersStr();
         case GNE_ATTR_SHIFTLANEINDEX:
             return "";
         default:
-            return getCommonAttribute(key);
+            return getCommonAttribute(this, key);
     }
 }
 
@@ -446,7 +444,6 @@ GNEOverheadWire::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndo
         case SUMO_ATTR_ENDPOS:
         case SUMO_ATTR_FRIENDLY_POS:
         case SUMO_ATTR_OVERHEAD_WIRE_FORBIDDEN:
-        case GNE_ATTR_PARAMETERS:
             GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
         default:
@@ -484,8 +481,6 @@ GNEOverheadWire::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<bool>(value);
         case SUMO_ATTR_OVERHEAD_WIRE_FORBIDDEN:
             return true;
-        case GNE_ATTR_PARAMETERS:
-            return areParametersValid(value);
         default:
             return isCommonValid(key, value);
     }
@@ -540,14 +535,11 @@ GNEOverheadWire::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_OVERHEAD_WIRE_FORBIDDEN:
             myForbiddenInnerLanes = parse<std::vector<std::string> >(value);
             break;
-        case GNE_ATTR_PARAMETERS:
-            setParametersStr(value);
-            break;
         case GNE_ATTR_SHIFTLANEINDEX:
             shiftLaneIndex();
             break;
         default:
-            setCommonAttribute(key, value);
+            setCommonAttribute(this, key, value);
             break;
     }
 }

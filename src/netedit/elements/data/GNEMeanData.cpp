@@ -251,7 +251,7 @@ GNEMeanData::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_AGGREGATE:
             return toString(myAggregate);
         default:
-            return getCommonAttribute(key);
+            return getCommonAttribute(this, key);
     }
 }
 
@@ -447,7 +447,7 @@ GNEMeanData::setAttribute(SumoXMLAttr key, const std::string& value) {
             myAggregate = parse<bool>(value);
             break;
         default:
-            setCommonAttribute(key, value);
+            setCommonAttribute(this, key, value);
             break;
     }
 }

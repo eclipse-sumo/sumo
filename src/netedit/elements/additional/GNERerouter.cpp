@@ -276,10 +276,8 @@ GNERerouter::getAttribute(SumoXMLAttr key) const {
             return toString(myOff);
         case SUMO_ATTR_OPTIONAL:
             return toString(myOptional);
-        case GNE_ATTR_PARAMETERS:
-            return getParametersStr();
         default:
-            return getCommonAttribute(key);
+            return getCommonAttribute(this, key);
     }
 }
 
@@ -320,7 +318,6 @@ GNERerouter::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
         case SUMO_ATTR_VTYPES:
         case SUMO_ATTR_OFF:
         case SUMO_ATTR_OPTIONAL:
-        case GNE_ATTR_PARAMETERS:
             GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
         default:
@@ -355,8 +352,6 @@ GNERerouter::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<bool>(value);
         case SUMO_ATTR_OPTIONAL:
             return canParse<bool>(value);
-        case GNE_ATTR_PARAMETERS:
-            return areParametersValid(value);
         default:
             return isCommonValid(key, value);
     }
@@ -412,11 +407,8 @@ GNERerouter::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_OPTIONAL:
             myOptional = parse<bool>(value);
             break;
-        case GNE_ATTR_PARAMETERS:
-            setParametersStr(value);
-            break;
         default:
-            setCommonAttribute(key, value);
+            setCommonAttribute(this, key, value);
             break;
     }
 }

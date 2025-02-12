@@ -29,7 +29,7 @@
 // class definitions
 // ===========================================================================
 
-class GNETAZSourceSink : public GNEAttributeCarrier, public GNEHierarchicalElement {
+class GNETAZSourceSink : public GNEAttributeCarrier, public GNEHierarchicalElement, public Parameterised {
 
 public:
     /// @brief default Constructor

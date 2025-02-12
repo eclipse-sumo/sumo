@@ -246,7 +246,7 @@ GNEWalkingArea::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_SHAPE:
             return toString(walkingArea.shape);
         default:
-            return getCommonAttribute(key);
+            return getCommonAttribute(nullptr, key);
     }
 }
 
@@ -411,7 +411,7 @@ GNEWalkingArea::setAttribute(SumoXMLAttr key, const std::string& value) {
             walkingArea.hasCustomShape = true;
             break;
         default:
-            setCommonAttribute(key, value);
+            setCommonAttribute(nullptr, key, value);
             break;
     }
 }

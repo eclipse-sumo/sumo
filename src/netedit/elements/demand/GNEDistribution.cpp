@@ -187,7 +187,7 @@ GNEDistribution::getAttribute(SumoXMLAttr key) const {
                 return toString(myDeterministic);
             }
         default:
-            return getCommonAttribute(key);
+            return getCommonAttribute(this, key);
     }
 }
 
@@ -288,7 +288,7 @@ GNEDistribution::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             break;
         default:
-            setCommonAttribute(key, value);
+            setCommonAttribute(this, key, value);
             break;
     }
 }

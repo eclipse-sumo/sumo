@@ -1217,10 +1217,8 @@ GNEEdge::getAttribute(SumoXMLAttr key) const {
             }
         case GNE_ATTR_IS_ROUNDABOUT:
             return myNBEdge->getFromNode()->isRoundabout() && myNBEdge->getToNode()->isRoundabout() ? True : False;
-        case GNE_ATTR_PARAMETERS:
-            return myNBEdge->getParametersStr();
         default:
-            return getCommonAttribute(key);
+            return getCommonAttribute(myNBEdge, key);
     }
 }
 
@@ -1320,7 +1318,6 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         case SUMO_ATTR_DISTANCE:
         case GNE_ATTR_MODIFICATION_STATUS:
         case GNE_ATTR_STOPOEXCEPTION:
-        case GNE_ATTR_PARAMETERS:
             GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
         case GNE_ATTR_STOPOFFSET:
@@ -1479,8 +1476,6 @@ GNEEdge::isValid(SumoXMLAttr key, const std::string& value) {
             }
         case GNE_ATTR_STOPOEXCEPTION:
             return canParseVehicleClasses(value);
-        case GNE_ATTR_PARAMETERS:
-            return Parameterised::areParametersValid(value);
         default:
             return isCommonValid(key, value);
     }
@@ -1993,11 +1988,8 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
         case GNE_ATTR_STOPOEXCEPTION:
             myNBEdge->myEdgeStopOffset.setExceptions(value);
             break;
-        case GNE_ATTR_PARAMETERS:
-            myNBEdge->setParametersStr(value);
-            break;
         default:
-            setCommonAttribute(key, value);
+            setCommonAttribute(myNBEdge, key, value);
             break;
     }
     // get template editor

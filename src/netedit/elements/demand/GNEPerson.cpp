@@ -487,9 +487,6 @@ GNEPerson::getAttribute(SumoXMLAttr key) const {
             } else {
                 return myTagProperty->getDefaultValue(SUMO_ATTR_DEPARTPOS);
             }
-        // Others
-        case GNE_ATTR_PARAMETERS:
-            return getParametersStr();
         default:
             return getFlowAttribute(this, key);
     }
@@ -552,8 +549,6 @@ GNEPerson::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* 
         case SUMO_ATTR_TYPE:
         case SUMO_ATTR_COLOR:
         case SUMO_ATTR_DEPARTPOS:
-        // Other
-        case GNE_ATTR_PARAMETERS:
             GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
         default:
@@ -581,9 +576,6 @@ GNEPerson::isValid(SumoXMLAttr key, const std::string& value) {
             // if error is empty, given value is valid
             return error.empty();
         }
-        // Other
-        case GNE_ATTR_PARAMETERS:
-            return Parameterised::areParametersValid(value);
         default:
             return isValidFlowAttribute(this, key, value);
     }
@@ -699,10 +691,6 @@ GNEPerson::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             // compute person
             updateGeometry();
-            break;
-        // Other
-        case GNE_ATTR_PARAMETERS:
-            setParametersStr(value);
             break;
         default:
             setFlowAttribute(this, key, value);

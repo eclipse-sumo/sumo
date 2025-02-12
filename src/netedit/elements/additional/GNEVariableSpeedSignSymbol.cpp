@@ -152,7 +152,7 @@ GNEVariableSpeedSignSymbol::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_LANE:
             return getParentLanes().front()->getID();
         default:
-            return getCommonAttribute(key);
+            return getCommonAttribute(nullptr, key);
     }
 }
 

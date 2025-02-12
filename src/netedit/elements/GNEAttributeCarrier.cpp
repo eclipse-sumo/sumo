@@ -698,7 +698,7 @@ GNEAttributeCarrier::toggleAttribute(SumoXMLAttr /*key*/, const bool /*value*/) 
 
 
 std::string
-GNEAttributeCarrier::getCommonAttribute(SumoXMLAttr key) const {
+GNEAttributeCarrier::getCommonAttribute(const Parameterised* parameterised, SumoXMLAttr key) const {
     switch (key) {
         case GNE_ATTR_SELECTED:
             if (mySelected) {
@@ -712,6 +712,8 @@ GNEAttributeCarrier::getCommonAttribute(SumoXMLAttr key) const {
             } else {
                 return False;
             }
+        case GNE_ATTR_PARAMETERS:
+            return parameterised->getParametersStr();
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -722,6 +724,7 @@ void
 GNEAttributeCarrier::setCommonAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     switch (key) {
         case GNE_ATTR_SELECTED:
+        case GNE_ATTR_PARAMETERS:
             GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
         default:
@@ -735,6 +738,8 @@ GNEAttributeCarrier::isCommonValid(SumoXMLAttr key, const std::string& value) co
     switch (key) {
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
+        case GNE_ATTR_PARAMETERS:
+            return Parameterised::areParametersValid(value);
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -742,7 +747,7 @@ GNEAttributeCarrier::isCommonValid(SumoXMLAttr key, const std::string& value) co
 
 
 void
-GNEAttributeCarrier::setCommonAttribute(SumoXMLAttr key, const std::string& value) {
+GNEAttributeCarrier::setCommonAttribute(Parameterised* parameterised, SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case GNE_ATTR_SELECTED:
             if (parse<bool>(value)) {
@@ -750,6 +755,9 @@ GNEAttributeCarrier::setCommonAttribute(SumoXMLAttr key, const std::string& valu
             } else {
                 unselectAttributeCarrier();
             }
+            break;
+        case GNE_ATTR_PARAMETERS:
+            parameterised->setParametersStr(value);
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");

@@ -551,12 +551,10 @@ GNERoute::getAttribute(SumoXMLAttr key) const {
             return time2string(myCycleTime);
         case SUMO_ATTR_PROB:
             return toString(myProbability);
-        case GNE_ATTR_PARAMETERS:
-            return getParametersStr();
         case GNE_ATTR_ROUTE_DISTRIBUTION:
             return getDistributionParents();
         default:
-            return getCommonAttribute(key);
+            return getCommonAttribute(this, key);
     }
 }
 
@@ -610,7 +608,6 @@ GNERoute::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* u
         case SUMO_ATTR_REPEAT:
         case SUMO_ATTR_CYCLETIME:
         case SUMO_ATTR_PROB:
-        case GNE_ATTR_PARAMETERS:
             GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
         // special case due depart and arrival edge vehicles
@@ -678,8 +675,6 @@ GNERoute::isValid(SumoXMLAttr key, const std::string& value) {
             }
         case SUMO_ATTR_PROB:
             return canParse<double>(value) && (parse<double>(value) >= 0);
-        case GNE_ATTR_PARAMETERS:
-            return Parameterised::areParametersValid(value);
         default:
             return isCommonValid(key, value);
     }
@@ -857,11 +852,8 @@ GNERoute::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_PROB:
             myProbability = parse<double>(value);
             break;
-        case GNE_ATTR_PARAMETERS:
-            setParametersStr(value);
-            break;
         default:
-            setCommonAttribute(key, value);
+            setCommonAttribute(this, key, value);
             break;
     }
 }
