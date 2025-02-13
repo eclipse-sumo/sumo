@@ -1040,6 +1040,8 @@ enum {
     MID_GNE_ATTRIBUTESEDITOR_DIALOG,
     /// @brief open extended attributes
     MID_GNE_ATTRIBUTESEDITOR_EXTENDED,
+    /// @brief open generic parameters editor
+    MID_GNE_ATTRIBUTESEDITOR_PARAMETERS,
     /// @brief open help dialog
     MID_GNE_ATTRIBUTESEDITOR_HELP,
     /// @brief set attribute (string, bool, etc.) in attributes editor row
