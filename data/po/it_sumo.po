@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-04 15:47+0100\n"
-"PO-Revision-Date: 2025-02-13 08:56+0000\n"
+"PO-Revision-Date: 2025-02-13 09:25+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -7269,18 +7269,20 @@ msgstr "Lettura di % fallita."
 #: src/netbuild/NBHeightMapper.cpp:348
 msgid "Cannot load GeoTIFF file since SUMO was compiled without GDAL support."
 msgstr ""
+"Non si possono caricare file GeoTiFF perché SUMO è stato compilato senza "
+"GDAL."
 
 #: src/netbuild/NBHelpers.cpp:89
 msgid "Could not load names of edges too keep from '%'."
-msgstr ""
+msgstr "Non si potevano caricare i nomi degli archi da mantenere da '%'."
 
 #: src/netbuild/NBHelpers.cpp:107
 msgid "Could not load IDs from '%'."
-msgstr ""
+msgstr "Non si potevano caricare i codici identificativi da '%'."
 
 #: src/netbuild/NBHelpers.cpp:123
 msgid "Invalid lane id '%' (missing '_')."
-msgstr ""
+msgstr "Codice identificativo di corsia invalido (manca '_')."
 
 #: src/netbuild/NBHelpers.cpp:130
 msgid "Invalid lane index '%' for lane '%'."
