@@ -9,3 +9,4 @@ plantuml-markdown
 markdown>=3.3
 mkdocs-redirects>=1.2.1
 mkdocs-unused-files
+mkdocs-publisher
