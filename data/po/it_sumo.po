@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-04 15:47+0100\n"
-"PO-Revision-Date: 2025-02-12 12:36+0000\n"
+"PO-Revision-Date: 2025-02-13 08:56+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -6761,45 +6761,57 @@ msgid ""
 "join adjacent lanes that have the same permissions and which do not admit "
 "lane-changing (sidewalks and disallowed lanes)"
 msgstr ""
+"combina le corsie adiacenti se hanno le stesse autorizzazioni e non "
+"ammettono il cambio corsia (marciapiedi e corsie chiuse)"
 
 #: src/netbuild/NBFrame.cpp:232
 msgid ""
 "Matches stops outside the road network to the referencing pt line when below"
 " the given distance"
 msgstr ""
+"Assegna fermate fuori dalla rete stradale alla linea di trasporto pubblico "
+"referenziata se sotto la distanza indicata"
 
 #: src/netbuild/NBFrame.cpp:236
 msgid "Repair topology of the railway network"
-msgstr ""
+msgstr "Ripara la topologia della rete ferroviaria"
 
 #: src/netbuild/NBFrame.cpp:239
 msgid ""
 "Repair topology of the railway network just enough to let loaded public "
 "transport lines to work"
 msgstr ""
+"Ripara la topologia della rete ferroviaria solamente il necessario per far "
+"funzionare le linee di trasporto pubblico"
 
 #: src/netbuild/NBFrame.cpp:242
 msgid ""
 "Allow bidirectional rail use wherever rails with opposite directions meet at"
 " a straight angle"
 msgstr ""
+"Permetti l'uso bidirezionale di binari ovunque dei binari di direzioni "
+"opposte si incontrano in un angolo dritto"
 
 #: src/netbuild/NBFrame.cpp:245
 msgid "Add turn-around connections at all loaded stops."
-msgstr ""
+msgstr "Aggiungi collegamenti di svolte a u a tutte le fermate caricate."
 
 #: src/netbuild/NBFrame.cpp:248
 msgid ""
 "Penalty factor for adding new bidi edges to connect public transport stops"
 msgstr ""
+"Fattore di pena per aggiungere nuovi archi bidirezionali per collegare "
+"fermate di trasporto pubblico"
 
 #: src/netbuild/NBFrame.cpp:251
 msgid "Make all rails usable in both direction"
-msgstr ""
+msgstr "Fai che tutti i binari siano utilizzabili in emtrambe le direzioni"
 
 #: src/netbuild/NBFrame.cpp:254
 msgid "Make all rails edge ids from FILE usable in both direction"
 msgstr ""
+"Fai che tutti i binari con codici identificativi contenuti in FILE siano "
+"utilizzabili in entrambe le direzioni"
 
 #: src/netbuild/NBFrame.cpp:257
 msgid "Set edge priority values based on estimated main direction"
@@ -6809,32 +6821,42 @@ msgstr ""
 #: src/netbuild/NBFrame.cpp:260
 msgid "Extend loaded edge priority values based on estimated main direction"
 msgstr ""
+"Estendi i valori di priorità degli archi secondo la direzione principale "
+"estimata"
 
 #: src/netbuild/NBFrame.cpp:263
 msgid "Move junctions to straighten a sequence of rail edges"
-msgstr ""
+msgstr "Sposta incroci per appianare una sequenza di archi ferroviari"
 
 #: src/netbuild/NBFrame.cpp:266
 msgid "Guess signals that guard public transport stops"
-msgstr ""
+msgstr "Indovina i segnali che proteggono fermate di trasporto pubblico"
 
 #: src/netbuild/NBFrame.cpp:269
 msgid "The search radius for finding suitable road accesses for rail stops"
 msgstr ""
+"Il raggio di ricerca per incontrare degli accessi stradali adatti per "
+"fermate ferroviarie"
 
 #: src/netbuild/NBFrame.cpp:273
 msgid "The maximum road accesses registered per rail stops"
 msgstr ""
+"Il numero massimo di accessi stradali da registratre per ogni fermata "
+"ferroviaria"
 
 #: src/netbuild/NBFrame.cpp:277
 msgid ""
 "The walking length of the access is computed as air-line distance multiplied"
 " by FLOAT"
 msgstr ""
+"La lunghezza di marcia viene calcolate come distanza di linea d'aria "
+"moltiplicata con FLOAT"
 
 #: src/netbuild/NBFrame.cpp:281
 msgid "Skips automatic generation of stops on the bidi-edge of a loaded stop"
 msgstr ""
+"Ometti la generazione automatica di fermate sull'arco bidirezionale di una "
+"fermata caricata"
 
 #: src/netbuild/NBFrame.cpp:285
 #, c-format
@@ -6982,6 +7004,8 @@ msgid ""
 "Only keep edges in STR[] or those which are kept due to other keep-edges or "
 "remove-edges options"
 msgstr ""
+"Mantieni solamente gli archi contenuti in STR[] oppure quelli toccati da "
+"altre opzioni per mantenere o rimuovere degli archi"
 
 #: src/netbuild/NBFrame.cpp:653
 msgid ""
@@ -6989,16 +7013,21 @@ msgid ""
 "sumo-gui are also supported) or those which are kept due to other keep-edges"
 " or remove-edges options"
 msgstr ""
+"Mantieni solamente gli archi contenuti in FILE (un codice identificativo per "
+"linea, si accettano anche file di selezione sumo-gui) oppure quelli toccati "
+"da altre opzioni per mantenere o rimuovere degli archi"
 
 #: src/netbuild/NBFrame.cpp:656
 msgid ""
 "Remove edges in FILE. (Each id on a single line. Selection files from sumo-"
 "gui are also supported)"
 msgstr ""
+"Rimuovi archi in FILE (un codice identificativo per linea, si accettano "
+"anche file di selezione sumo-gui)"
 
 #: src/netbuild/NBFrame.cpp:660
 msgid "Remove edges after loading, patching and joining"
-msgstr ""
+msgstr "Rimuovi gli archi dopo i processi di caricare, aggiustare e combinare"
 
 #: src/netbuild/NBFrame.cpp:664
 msgid ""
@@ -7006,6 +7035,9 @@ msgid ""
 " CARTESIAN corner coordinates <xmin,ymin,xmax,ymax> or as polygon "
 "<x0,y0,x1,y1,...>)"
 msgstr ""
+"Mantieni solamente gli archi collocati dentro il contorno indicato (dato o "
+"con coordinate cartesiane degli angoli <xmin,ymin,xmax,ymax> o come poligono "
+"<x0,y0,x1,y1,...>)"
 
 #: src/netbuild/NBFrame.cpp:667
 msgid ""
@@ -7013,14 +7045,19 @@ msgid ""
 " GEODETIC corner coordinates <lon-min,lat-min,lon-max,lat-max> or as polygon"
 " <lon0,lat0,lon1,lat1,...>)"
 msgstr ""
+"Mantieni solamente gli archi collacti dentro il contorno indicato (dato o "
+"come coordinate geografiche degli angoli <lon-min,lat-min,lon-max,lat-max> o "
+"come poligono <lon0,lat0,lon1,lat1,...>)"
 
 #: src/netbuild/NBFrame.cpp:671
 msgid "Only keep edges which allow one of the vclasses in STR[]"
 msgstr ""
+"Mantieni solamente gli archi che autorizzano una delle classi di veicoli in "
+"STR[]"
 
 #: src/netbuild/NBFrame.cpp:674
 msgid "Remove edges which allow only vclasses from STR[]"
-msgstr ""
+msgstr "Rimuovi gli archi che autorizzano una delle classi di veicoli in STR[]"
 
 #: src/netbuild/NBFrame.cpp:677
 msgid "Only keep edges where type is in STR[]"
