@@ -251,12 +251,10 @@ FXIMPLEMENT(GNEViewNet, GUISUMOAbstractView, GNEViewNetMap, ARRAYNUMBER(GNEViewN
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-/*
 #ifdef _MSC_VER
 #pragma warning(push)
 #pragma warning(disable: 4355) // mask warning about "this" in initializers
 #endif
-*/
 GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMainWindow& app,
                        GNEViewParent* viewParent, GNENet* net, GNEUndoList* undoList,
                        FXGLVisual* glVis, FXGLCanvas* share) :
@@ -269,6 +267,7 @@ GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMai
     myDemandCheckableButtons(this),
     myDataCheckableButtons(this),
     myNetworkViewOptions(this),
+    myDemandViewOptions(this),
     myDataViewOptions(this),
     myIntervalBar(this),
     myMoveSingleElement(this),
@@ -1195,12 +1194,11 @@ GNEViewNet::removeRestrictedLane(GNELane* lane, SUMOVehicleClass vclass) {
     return 1;
 }
 
-/*
+
 #ifdef _MSC_VER
 #pragma warning(push)
 #pragma warning(disable: 4355) // mask warning about "this" in initializers
 #endif
-*/
 GNEViewNet::GNEViewNet() :
     myViewObjectsSelector(this),
     myEditModes(this),
@@ -1210,6 +1208,7 @@ GNEViewNet::GNEViewNet() :
     myDemandCheckableButtons(this),
     myDataCheckableButtons(this),
     myNetworkViewOptions(this),
+    myDemandViewOptions(this),
     myDataViewOptions(this),
     myIntervalBar(this),
     myMoveSingleElement(this),
@@ -4656,7 +4655,7 @@ GNEViewNet::buildEditModeControls() {
     myNetworkViewOptions.buildNetworkViewOptionsMenuChecks();
 
     // build menu checks of view options Demand
-    myDemandViewOptions.buildDemandViewOptionsMenuChecks(this);
+    myDemandViewOptions.buildDemandViewOptionsMenuChecks();
 
     // build menu checks of view options Data
     myDataViewOptions.buildDataViewOptionsMenuChecks();

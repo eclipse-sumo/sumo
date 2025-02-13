@@ -458,6 +458,18 @@ GNEApplicationWindow::GNEApplicationWindow(FXApp* app, const GNETagPropertiesDat
     myTagPropertiesDatabase(tagPropertiesDatabase),
     myUndoList(new GNEUndoList(this)),
     myConfigPattern(configPattern),
+    myToolbarsGrip(this),
+    myMenuBarFile(this),
+    myFileMenuCommands(this),
+    myModesMenuCommands(this),
+    myEditMenuCommands(this),
+    myLockMenuCommands(this),
+    myProcessingMenuCommands(this),
+    myLocateMenuCommands(this),
+    myToolsMenuCommands(this),
+    myWindowsMenuCommands(this),
+    myHelpMenuCommands(this),
+    mySupermodeCommands(this),
     myTitlePrefix("netedit " VERSION_STRING),
     myAllowUndoRedo(getApp()->reg().readBoolEntry("NETEDIT", "AllowUndoRedo", true) == TRUE),
     myAllowUndoRedoLoading(getApp()->reg().readBoolEntry("NETEDIT", "AllowUndoRedoLoading", true) == TRUE) {
@@ -496,7 +508,7 @@ GNEApplicationWindow::dependentBuild() {
     setTarget(this);
     setSelector(MID_WINDOW);
     // build toolbar menu
-    getToolbarsGrip().buildMenuToolbarsGrip(this);
+    getToolbarsGrip().buildMenuToolbarsGrip();
     // build the thread - io
     myLoadThreadEvent.setTarget(this);
     myLoadThreadEvent.setSelector(ID_LOADTHREAD_EVENT);
@@ -1255,7 +1267,7 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
         setStatusBarText(TL("'") + ec->file + TL("' loaded."));
         setWindowSizeAndPos();
         // build viewparent toolbar grips before creating view parent
-        getToolbarsGrip().buildViewParentToolbarsGrips(this);
+        getToolbarsGrip().buildViewParentToolbarsGrips();
         // initialise netedit View
         GNEViewParent* viewParent = new GNEViewParent(myMDIClient, myMDIMenu, "netedit VIEW", this, nullptr, myNet, myUndoList, nullptr, MDI_TRACKING, 10, 10, 300, 200);
         // create it maximized
@@ -1331,14 +1343,14 @@ GNEApplicationWindow::fillMenuBar() {
     myFileMenuMeanDataElements = new FXMenuPane(this);
     myFileMenuRecentNetworks = new FXMenuPane(this);
     myFileMenuRecentConfigs = new FXMenuPane(this);
-    myFileMenuCommands.buildFileMenuCommands(this, myFileMenu, myFileMenuNeteditConfig, myFileMenuSumoConfig,
+    myFileMenuCommands.buildFileMenuCommands(myFileMenu, myFileMenuNeteditConfig, myFileMenuSumoConfig,
             myFileMenuTLS, myFileMenuEdgeTypes, myFileMenuAdditionals, myFileMenuDemandElements,
             myFileMenuDataElements, myFileMenuMeanDataElements);
     // add separator for recent files
     new FXMenuSeparator(myFileMenu);
     // build recent files
-    myMenuBarFile.buildRecentNetworkFiles(this, myFileMenu, myFileMenuRecentNetworks);
-    myMenuBarFile.buildRecentConfigFiles(this, myFileMenu, myFileMenuRecentConfigs);
+    myMenuBarFile.buildRecentNetworkFiles(myFileMenu, myFileMenuRecentNetworks);
+    myMenuBarFile.buildRecentConfigFiles(myFileMenu, myFileMenuRecentConfigs);
     new FXMenuSeparator(myFileMenu);
     GUIDesigns::buildFXMenuCommandShortcut(myFileMenu,
                                            TL("&Quit"), "Ctrl+Q", TL("Quit the Application."),
@@ -1349,51 +1361,51 @@ GNEApplicationWindow::fillMenuBar() {
     myModesMenuTitle->setTarget(this);
     myModesMenuTitle->setSelector(MID_GNE_MODESMENUTITLE);
     // build Supermode commands and hide it
-    mySupermodeCommands.buildSupermodeCommands(this, myModesMenu);
+    mySupermodeCommands.buildSupermodeCommands(myModesMenu);
     // add separator
     new FXSeparator(myModesMenu);
     // build modes menu commands
-    myModesMenuCommands.buildModesMenuCommands(this, myModesMenu);
+    myModesMenuCommands.buildModesMenuCommands(myModesMenu);
     // build edit menu
     myEditMenu = new FXMenuPane(this);
     GUIDesigns::buildFXMenuTitle(myToolbarsGrip.menu, TL("&Edit"), nullptr, myEditMenu);
     // build edit menu commands
-    myEditMenuCommands.buildUndoRedoMenuCommands(this, myEditMenu);
+    myEditMenuCommands.buildUndoRedoMenuCommands(myEditMenu);
     // build separator
     new FXMenuSeparator(myEditMenu);
     // build view options
-    myEditMenuCommands.networkViewOptions.buildNetworkViewOptionsMenuChecks(this, myEditMenu);
-    myEditMenuCommands.demandViewOptions.buildDemandViewOptionsMenuChecks(this, myEditMenu);
-    myEditMenuCommands.dataViewOptions.buildDataViewOptionsMenuChecks(this, myEditMenu);
+    myEditMenuCommands.networkViewOptions.buildNetworkViewOptionsMenuChecks(myEditMenu);
+    myEditMenuCommands.demandViewOptions.buildDemandViewOptionsMenuChecks(myEditMenu);
+    myEditMenuCommands.dataViewOptions.buildDataViewOptionsMenuChecks(myEditMenu);
     // hide view options
     myEditMenuCommands.networkViewOptions.hideNetworkViewOptionsMenuChecks();
     myEditMenuCommands.demandViewOptions.hideDemandViewOptionsMenuChecks();
     myEditMenuCommands.dataViewOptions.hideDataViewOptionsMenuChecks();
     // build view menu commands
-    myEditMenuCommands.buildViewMenuCommands(this, myEditMenu);
+    myEditMenuCommands.buildViewMenuCommands(myEditMenu);
     // build separator
     new FXMenuSeparator(myEditMenu);
     // build front element menu commands
-    myEditMenuCommands.buildFrontElementMenuCommand(this, myEditMenu);
+    myEditMenuCommands.buildFrontElementMenuCommand(myEditMenu);
     // build separator
     new FXMenuSeparator(myEditMenu);
     // build open in sumo menu commands
-    myEditMenuCommands.buildOpenSUMOMenuCommands(this, myEditMenu);
+    myEditMenuCommands.buildOpenSUMOMenuCommands(myEditMenu);
     // build lock menu
     myLockMenu = new FXMenuPane(this);
     myLockMenuTitle = GUIDesigns::buildFXMenuTitle(myToolbarsGrip.menu, TL("L&ock"), nullptr, myLockMenu);
     myLockMenuTitle->setTarget(this);
     myLockMenuTitle->setSelector(MID_GNE_LOCK_MENUTITLE);
     // build lock menu commands
-    myLockMenuCommands.buildLockMenuCommands(this, myLockMenu);
+    myLockMenuCommands.buildLockMenuCommands(myLockMenu);
     // build processing menu (trigger netbuild computations)
     myProcessingMenu = new FXMenuPane(this);
     GUIDesigns::buildFXMenuTitle(myToolbarsGrip.menu, TL("&Processing"), nullptr, myProcessingMenu);
-    myProcessingMenuCommands.buildProcessingMenuCommands(this, myProcessingMenu);
+    myProcessingMenuCommands.buildProcessingMenuCommands(myProcessingMenu);
     // build locate menu
     myLocatorMenu = new FXMenuPane(this);
     GUIDesigns::buildFXMenuTitle(myToolbarsGrip.menu, TL("&Locate"), nullptr, myLocatorMenu);
-    myLocateMenuCommands.buildLocateMenuCommands(this, myLocatorMenu);
+    myLocateMenuCommands.buildLocateMenuCommands(myLocatorMenu);
     // build tools menu
     myToolsMenu = new FXMenuPane(this);
     myToolsAssignMenu = new FXMenuPane(this);
@@ -1460,17 +1472,17 @@ GNEApplicationWindow::fillMenuBar() {
     myMenuPaneToolMaps["visualization"] = myToolsVisualizationMenu;
     myMenuPaneToolMaps["xml"] = myToolsXML;
     // build tools
-    myToolsMenuCommands.buildTools(this, myToolsMenu, myMenuPaneToolMaps);
+    myToolsMenuCommands.buildTools(myToolsMenu, myMenuPaneToolMaps);
     // build windows menu
     myWindowMenu = new FXMenuPane(this);
     GUIDesigns::buildFXMenuTitle(myToolbarsGrip.menu, TL("&Window"), nullptr, myWindowMenu);
-    myWindowsMenuCommands.buildWindowsMenuCommands(this, myWindowMenu, myStatusbar, myMessageWindow);
+    myWindowsMenuCommands.buildWindowsMenuCommands(myWindowMenu, myStatusbar, myMessageWindow);
     // build language menu
     buildLanguageMenu(myToolbarsGrip.menu);
     // build help menu
     myHelpMenu = new FXMenuPane(this);
     GUIDesigns::buildFXMenuTitle(myToolbarsGrip.menu, TL("&Help"), nullptr, myHelpMenu);
-    myHelpMenuCommands.buildHelpMenuCommands(this, myHelpMenu);
+    myHelpMenuCommands.buildHelpMenuCommands(myHelpMenu);
 }
 
 
@@ -4785,7 +4797,19 @@ GNEApplicationWindow::loadDataElements() {
 // GNEApplicationWindow - protected methods
 // ---------------------------------------------------------------------------
 
-GNEApplicationWindow::GNEApplicationWindow() {
+GNEApplicationWindow::GNEApplicationWindow() :
+    myToolbarsGrip(this),
+    myMenuBarFile(this),
+    myFileMenuCommands(this),
+    myModesMenuCommands(this),
+    myEditMenuCommands(this),
+    myLockMenuCommands(this),
+    myProcessingMenuCommands(this),
+    myLocateMenuCommands(this),
+    myToolsMenuCommands(this),
+    myWindowsMenuCommands(this),
+    myHelpMenuCommands(this),
+    mySupermodeCommands(this) {
 }
 
 
@@ -4813,5 +4837,6 @@ GNEApplicationWindow::onKeyRelease(FXObject* o, FXSelector sel, void* eventData)
     }
     return 0;
 }
+
 
 /****************************************************************************/

@@ -892,10 +892,10 @@ struct GNEViewNetHelper {
     struct DemandViewOptions {
 
         /// @brief default constructor
-        DemandViewOptions();
+        DemandViewOptions(GNEViewNet* viewNet);
 
         /// @brief build menu checks
-        void buildDemandViewOptionsMenuChecks(GNEViewNet* viewNet);
+        void buildDemandViewOptionsMenuChecks();
 
         /// @brief hide all options menu checks
         void hideDemandViewOptionsMenuChecks();
@@ -976,6 +976,9 @@ struct GNEViewNetHelper {
         MFXCheckableButton* menuCheckShowOverlappedRoutes = nullptr;
 
     private:
+        /// @brief pointer to net
+        GNEViewNet* myViewNet;
+
         /// @brief pointer to locked person
         const GNEDemandElement* myLockedPerson = nullptr;
 
