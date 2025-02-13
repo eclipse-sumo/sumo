@@ -105,7 +105,7 @@ MFXDecalsTable::fillTable() {
     // get decals
     const auto decals = myDialogViewSettings->getSUMOAbstractView()->getDecals();
     // create columns
-    std::string columnsType = "ibfsssspscd";
+    std::string columnsType = "ibfppppppcd";
     for (int i = 0; i < (FXint)columnsType.size(); i++) {
         myColumns.push_back(new Column(this, i, columnsType.at(i)));
     }
@@ -119,12 +119,12 @@ MFXDecalsTable::fillTable() {
         auto row = new Row(this);
         // fill cells
         row->getCells().at(2)->getTextField()->setText(decal.filename.c_str());
-        row->getCells().at(3)->getTextField()->setText(toString(decal.centerX).c_str());
-        row->getCells().at(4)->getTextField()->setText(toString(decal.centerY).c_str());
-        row->getCells().at(5)->getTextField()->setText(toString(decal.width).c_str());
-        row->getCells().at(6)->getTextField()->setText(toString(decal.height).c_str());
+        row->getCells().at(3)->getSpinner()->setValue(decal.centerX);
+        row->getCells().at(4)->getSpinner()->setValue(decal.centerY);
+        row->getCells().at(5)->getSpinner()->setValue(decal.width);
+        row->getCells().at(6)->getSpinner()->setValue(decal.height);
         row->getCells().at(7)->getSpinner()->setValue(decal.rot);
-        row->getCells().at(8)->getTextField()->setText(toString(decal.layer).c_str());
+        row->getCells().at(8)->getSpinner()->setValue(decal.layer);
         if (decal.screenRelative) {
             row->getCells().at(9)->getCheckButton()->setCheck(true);
             row->getCells().at(9)->getCheckButton()->setText("true");
@@ -278,16 +278,6 @@ MFXDecalsTable::onCmdEditRowString(FXObject* sender, FXSelector, void*) {
         // continue depending of string
         if (myRows.at(rowIndex)->getCells().at(2)->getTextField() == sender) {
             decals.at(rowIndex).filename = value;
-        } else if (myRows.at(rowIndex)->getCells().at(3)->getTextField() == sender) {
-            decals.at(rowIndex).centerX = StringUtils::toDouble(value);
-        } else if (myRows.at(rowIndex)->getCells().at(4)->getTextField() == sender) {
-            decals.at(rowIndex).centerY = StringUtils::toDouble(value);
-        } else if (myRows.at(rowIndex)->getCells().at(5)->getTextField() == sender) {
-            decals.at(rowIndex).width = StringUtils::toDouble(value);
-        } else if (myRows.at(rowIndex)->getCells().at(6)->getTextField() == sender) {
-            decals.at(rowIndex).height = StringUtils::toDouble(value);
-        } else if (myRows.at(rowIndex)->getCells().at(8)->getTextField() == sender) {
-            decals.at(rowIndex).layer = StringUtils::toDouble(value);
         }
     }
     // update view
@@ -304,8 +294,18 @@ MFXDecalsTable::onCmdEditRowSpinner(FXObject* sender, FXSelector, void*) {
     const auto value = dynamic_cast<FXRealSpinner*>(sender)->getValue();
     // set filename
     for (int rowIndex = 0; rowIndex < (int)myRows.size(); rowIndex++) {
-        if (myRows.at(rowIndex)->getCells().at(7)->getSpinner() == sender) {
+        if (myRows.at(rowIndex)->getCells().at(3)->getSpinner() == sender) {
+            decals.at(rowIndex).centerX = value;
+        } else if (myRows.at(rowIndex)->getCells().at(4)->getSpinner() == sender) {
+            decals.at(rowIndex).centerY = value;
+        } else if (myRows.at(rowIndex)->getCells().at(5)->getSpinner() == sender) {
+            decals.at(rowIndex).width = value;
+        } else if (myRows.at(rowIndex)->getCells().at(6)->getSpinner() == sender) {
+            decals.at(rowIndex).height = value;
+        } else if (myRows.at(rowIndex)->getCells().at(7)->getSpinner() == sender) {
             decals.at(rowIndex).rot = value;
+        } else if (myRows.at(rowIndex)->getCells().at(8)->getSpinner() == sender) {
+            decals.at(rowIndex).layer = value;
         }
     }
     // update view
