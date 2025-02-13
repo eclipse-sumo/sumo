@@ -1046,7 +1046,7 @@ GNENetHelper::AttributeCarriers::retrieveRerouterInterval(const std::string& rer
 }
 
 
-const std::unordered_map<SumoXMLTag, std::unordered_map<const GUIGlObject*, GNEAdditional*> >&
+const std::unordered_map<SumoXMLTag, std::unordered_map<const GUIGlObject*, GNEAdditional*>, std::hash<int> >&
 GNENetHelper::AttributeCarriers::getAdditionals() const {
     return myAdditionals;
 }
@@ -1334,7 +1334,7 @@ GNENetHelper::AttributeCarriers::retrieveTAZSourceSink(const GNEAttributeCarrier
 }
 
 
-const std::unordered_map<SumoXMLTag, std::unordered_map<const GNEAttributeCarrier*, GNETAZSourceSink*> >&
+const std::unordered_map<SumoXMLTag, std::unordered_map<const GNEAttributeCarrier*, GNETAZSourceSink*>, std::hash<int> >&
 GNENetHelper::AttributeCarriers::getTAZSourceSinks() const {
     return myTAZSourceSinks;
 }
@@ -1421,7 +1421,7 @@ GNENetHelper::AttributeCarriers::getSelectedDemandElements() const {
 }
 
 
-const std::unordered_map<SumoXMLTag, std::unordered_map<const GUIGlObject*, GNEDemandElement*> >&
+const std::unordered_map<SumoXMLTag, std::unordered_map<const GUIGlObject*, GNEDemandElement*>, std::hash<int> >&
 GNENetHelper::AttributeCarriers::getDemandElements() const {
     return myDemandElements;
 }
@@ -1995,7 +1995,7 @@ GNENetHelper::AttributeCarriers::getSelectedGenericDatas() const {
 }
 
 
-const std::unordered_map<SumoXMLTag, std::unordered_map<const GUIGlObject*, GNEGenericData*> >&
+const std::unordered_map<SumoXMLTag, std::unordered_map<const GUIGlObject*, GNEGenericData*>, std::hash<int> >&
 GNENetHelper::AttributeCarriers::getGenericDatas() const {
     return myGenericDatas;
 }
@@ -2214,7 +2214,7 @@ GNENetHelper::AttributeCarriers::retrieveMeanData(SumoXMLTag type, const std::st
 }
 
 
-const std::unordered_map<SumoXMLTag, std::map<const std::string, GNEMeanData*> >&
+const std::unordered_map<SumoXMLTag, std::map<const std::string, GNEMeanData*>, std::hash<int> >&
 GNENetHelper::AttributeCarriers::getMeanDatas() const {
     return myMeanDatas;
 }

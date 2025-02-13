@@ -386,7 +386,7 @@ struct GNENetHelper {
         GNEAdditional* retrieveRerouterInterval(const std::string& rerouterID, const SUMOTime begin, const SUMOTime end) const;
 
         /// @brief get additionals
-        const std::unordered_map<SumoXMLTag, std::unordered_map<const GUIGlObject*, GNEAdditional*> >& getAdditionals() const;
+        const std::unordered_map<SumoXMLTag, std::unordered_map<const GUIGlObject*, GNEAdditional*>, std::hash<int> >& getAdditionals() const;
 
         /// @brief get selected additionals
         std::vector<GNEAdditional*> getSelectedAdditionals() const;
@@ -441,7 +441,7 @@ struct GNENetHelper {
         GNETAZSourceSink* retrieveTAZSourceSink(const GNEAttributeCarrier* sourceSink, bool hardFail = true) const;
 
         /// @brief get sourceSinks
-        const std::unordered_map<SumoXMLTag, std::unordered_map<const GNEAttributeCarrier*, GNETAZSourceSink*> >& getTAZSourceSinks() const;
+        const std::unordered_map<SumoXMLTag, std::unordered_map<const GNEAttributeCarrier*, GNETAZSourceSink*>, std::hash<int> >& getTAZSourceSinks() const;
 
         /// @brief get number of TAZSourceSinks
         int getNumberOfTAZSourceSinks() const;
@@ -477,7 +477,7 @@ struct GNENetHelper {
         std::vector<GNEDemandElement*> getSelectedDemandElements() const;
 
         /// @brief get demand elements
-        const std::unordered_map<SumoXMLTag, std::unordered_map<const GUIGlObject*, GNEDemandElement*> >& getDemandElements() const;
+        const std::unordered_map<SumoXMLTag, std::unordered_map<const GUIGlObject*, GNEDemandElement*>, std::hash<int> >& getDemandElements() const;
 
         /// @brief generate demand element id
         std::string generateDemandElementID(SumoXMLTag tag) const;
@@ -573,7 +573,7 @@ struct GNENetHelper {
         std::vector<GNEGenericData*> getSelectedGenericDatas() const;
 
         /// @brief get all generic datas
-        const std::unordered_map<SumoXMLTag, std::unordered_map<const GUIGlObject*, GNEGenericData*> >& getGenericDatas() const;
+        const std::unordered_map<SumoXMLTag, std::unordered_map<const GUIGlObject*, GNEGenericData*>, std::hash<int> >& getGenericDatas() const;
 
         /// @brief retrieve generic datas within the given interval
         std::vector<GNEGenericData*> retrieveGenericDatas(const SumoXMLTag genericDataTag, const double begin, const double end);
@@ -610,7 +610,7 @@ struct GNENetHelper {
         GNEMeanData* retrieveMeanData(SumoXMLTag type, const std::string& id, bool hardFail = true) const;
 
         /// @brief get meanDatas
-        const std::unordered_map<SumoXMLTag, std::map<const std::string, GNEMeanData*> >& getMeanDatas() const;
+        const std::unordered_map<SumoXMLTag, std::map<const std::string, GNEMeanData*>, std::hash<int> >& getMeanDatas() const;
 
         /// @brief get number of meanDatas
         int getNumberOfMeanDatas() const;
@@ -838,19 +838,19 @@ struct GNENetHelper {
         std::unordered_map<const GUIGlObject*, GNEInternalLane*> myInternalLanes;
 
         /// @brief map with the tag and pointer to additional elements of net, sorted by IDs
-        std::unordered_map<SumoXMLTag, std::map<const std::string, GNEAdditional*> > myAdditionalIDs;
+        std::unordered_map<SumoXMLTag, std::map<const std::string, GNEAdditional*>, std::hash<int> > myAdditionalIDs;
 
         /// @brief map with the tag and pointer to additional elements of net
-        std::unordered_map<SumoXMLTag, std::unordered_map<const GUIGlObject*, GNEAdditional*> > myAdditionals;
+        std::unordered_map<SumoXMLTag, std::unordered_map<const GUIGlObject*, GNEAdditional*>, std::hash<int> > myAdditionals;
 
         /// @brief map with the tag and pointer to TAZSourceSinks elements of net
-        std::unordered_map<SumoXMLTag, std::unordered_map<const GNEAttributeCarrier*, GNETAZSourceSink*> > myTAZSourceSinks;
+        std::unordered_map<SumoXMLTag, std::unordered_map<const GNEAttributeCarrier*, GNETAZSourceSink*>, std::hash<int> > myTAZSourceSinks;
 
         /// @brief map with the tag and pointer to demand elements of net, sorted by IDs
-        std::unordered_map<SumoXMLTag, std::map<const std::string, GNEDemandElement*> > myDemandElementIDs;
+        std::unordered_map<SumoXMLTag, std::map<const std::string, GNEDemandElement*>, std::hash<int> > myDemandElementIDs;
 
         /// @brief map with the tag and pointer to demand elements elements of net
-        std::unordered_map<SumoXMLTag, std::unordered_map<const GUIGlObject*, GNEDemandElement*> > myDemandElements;
+        std::unordered_map<SumoXMLTag, std::unordered_map<const GUIGlObject*, GNEDemandElement*>, std::hash<int> > myDemandElements;
 
         /// @brief map with the ID and pointer to all datasets of net
         std::map<const std::string, GNEDataSet*> myDataSets;
@@ -859,10 +859,10 @@ struct GNENetHelper {
         std::unordered_map<const GNEAttributeCarrier*, GNEDataInterval*> myDataIntervals;
 
         /// @brief map with the tag and pointer to all generic datas
-        std::unordered_map<SumoXMLTag, std::unordered_map<const GUIGlObject*, GNEGenericData*> > myGenericDatas;
+        std::unordered_map<SumoXMLTag, std::unordered_map<const GUIGlObject*, GNEGenericData*>, std::hash<int> > myGenericDatas;
 
         /// @brief map with the tag and pointer to meanData elements of net
-        std::unordered_map<SumoXMLTag, std::map<const std::string, GNEMeanData*> > myMeanDatas;
+        std::unordered_map<SumoXMLTag, std::map<const std::string, GNEMeanData*>, std::hash<int> > myMeanDatas;
 
         /// @brief Invalidated copy constructor.
         AttributeCarriers(const AttributeCarriers&) = delete;

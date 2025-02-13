@@ -6,7 +6,7 @@ repos:
     rev: v3.2.0
     hooks:
     -   id: trailing-whitespace
-        exclude: '.*\.rtf|image.*\.tools'
+        exclude: '.*\.patch|.*\.rtf|image.*\.tools'
     -   id: end-of-file-fixer
         exclude: '.*\.rtf'
     -   id: check-yaml

@@ -378,6 +378,7 @@ struct TraCILogic {
 
 
 struct TraCILink {
+    TraCILink() {}
     TraCILink(const std::string& _from, const std::string& _via, const std::string& _to)
         : fromLane(_from), viaLane(_via), toLane(_to) {}
     ~TraCILink() {}
