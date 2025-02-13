@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-13 10:07+0100\n"
-"PO-Revision-Date: 2025-02-13 13:25+0000\n"
+"PO-Revision-Date: 2025-02-13 21:46+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.10-dev\n"
+"X-Generator: Weblate 5.10-rc\n"
 
 #: src/activitygen/AGActivityGen.cpp:46
 msgid "Reading input"
@@ -6186,15 +6186,15 @@ msgstr "Rimozione della svolta acuta con un raggio % al % dell'arco '%'."
 
 #: src/netbuild/NBEdge.cpp:1077 src/netbuild/NBEdge.cpp:1086
 msgid "start"
-msgstr ""
+msgstr "inizio"
 
 #: src/netbuild/NBEdge.cpp:1077 src/netbuild/NBEdge.cpp:1086
 msgid "end"
-msgstr ""
+msgstr "termine"
 
 #: src/netbuild/NBEdge.cpp:1085
 msgid "Found sharp turn with radius % at the % of edge '%'."
-msgstr ""
+msgstr "Incontrato una svolta acuta con un raggio di % al % dell'arco '%'."
 
 #: src/netbuild/NBEdge.cpp:1224
 msgid "Could not set connection from '%' to '%'."
@@ -6222,11 +6222,11 @@ msgstr ""
 
 #: src/netbuild/NBEdge.cpp:2292
 msgid "In lane '%': lane shape could not be determined (%)."
-msgstr ""
+msgstr "Nella corsia '%': la forma di corsia non poteva essere determinata (%)."
 
 #: src/netbuild/NBEdge.cpp:2305
 msgid "In lane '%': Could not build shape (%)."
-msgstr ""
+msgstr "Nella corsia '%': La forma non poteva essere costruita (%)."
 
 #: src/netbuild/NBEdge.cpp:2735
 msgid ""
@@ -6299,18 +6299,26 @@ msgstr "La corsia '%' sull'arco '%' teneva già un semaforo."
 #: src/netbuild/NBEdge.cpp:3784 src/netbuild/NBEdge.cpp:3783
 msgid "Could not set any signal of the tlLogic '%' (unknown group)."
 msgstr ""
+"Nessun segnale della logica di semaforo '%' poteva essere impostato (gruppo "
+"sconosciuto)."
 
 #: src/netbuild/NBEdge.cpp:4273 src/netbuild/NBEdge.cpp:4272
 msgid "Ignoring invalid stopOffset for edge '%' (negative offset)."
 msgstr ""
+"Lo spostamento di linea di arresto invalido dell'arco '%' viene ignorato ("
+"spostamento negativo)."
 
 #: src/netbuild/NBEdge.cpp:4282 src/netbuild/NBEdge.cpp:4281
 msgid "Ignoring invalid stopOffset for lane '%' (negative offset)."
 msgstr ""
+"Lo spostamento di linea d'arresto invalido della corsia '%' viene ignorato ("
+"spostamento negativo)."
 
 #: src/netbuild/NBEdge.cpp:4288 src/netbuild/NBEdge.cpp:4287
 msgid "Ignoring invalid stopOffset for lane '%' (invalid lane index)."
 msgstr ""
+"Lo spostamento di linea d'arresto invalido della corsia '%' viene ignorato ("
+"indice di corsia invalido)."
 
 #: src/netbuild/NBEdge.cpp:4552 src/netbuild/NBEdge.cpp:4551
 #, c-format
