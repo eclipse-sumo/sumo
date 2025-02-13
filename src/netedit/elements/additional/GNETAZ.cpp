@@ -319,7 +319,6 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
         if (s.checkDrawPoly(boundary, isAttributeCarrierSelected())) {
             // Obtain constants
-            const Position mousePosition = myNet->getViewNet()->getPositionInformation();
             const bool drawFill = (myNet->getViewNet()->getEditModes().isCurrentSupermodeData() && myNet->getViewNet()->getDataViewOptions().TAZDrawFill()) ? true : getFill();
             // get colors
             const RGBColor color = GUIPolygon::setColor(s, this, this, drawUsingSelectColor(), -1);

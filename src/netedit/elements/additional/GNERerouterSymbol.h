@@ -32,7 +32,7 @@ class GNEBusStop;
 // class definitions
 // ===========================================================================
 
-class GNERerouterSymbol : public GNEAdditional {
+class GNERerouterSymbol : public GNEAdditional, public Parameterised {
 
 public:
     /// @brief default Constructor

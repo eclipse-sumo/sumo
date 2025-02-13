@@ -315,7 +315,7 @@ GNEWalkingArea::isValid(SumoXMLAttr key, const std::string& value) {
 
 const Parameterised::Map&
 GNEWalkingArea::getACParametersMap() const {
-    return Parameterised::Map();
+    return getParametersMap();
 }
 
 // ===========================================================================

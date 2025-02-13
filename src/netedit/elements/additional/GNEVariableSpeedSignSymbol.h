@@ -32,7 +32,7 @@ class GNEBusStop;
 // class definitions
 // ===========================================================================
 
-class GNEVariableSpeedSignSymbol : public GNEAdditional {
+class GNEVariableSpeedSignSymbol : public GNEAdditional, public Parameterised {
 
 public:
     /// @brief default Constructor
