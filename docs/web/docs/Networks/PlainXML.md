@@ -338,7 +338,7 @@ joinable node clusters works like this:
     outside) are removed
 5.  clusters which are to complex are simplified or filtered out (a warning with an
     explanation is issued for each case)
-    - if a cluster has parallel incoming edges (in the same direction of travel) it is filtered out. The threshold for being considered parallel can be controlled with option **--junctions.join.parallel-threshold** (default 30 degrees).    
+   - if a cluster has parallel incoming edges (in the same direction of travel) it is filtered out. The threshold for being considered parallel can be controlled with option **--junctions.join.parallel-threshold** (default 30 degrees).    
 7.  each cluster is turned into a joined node
 
 ### Specifying and excluding explicit joins
