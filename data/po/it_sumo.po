@@ -7271,18 +7271,20 @@ msgstr "Lettura di % fallita."
 #: src/netbuild/NBHeightMapper.cpp:348
 msgid "Cannot load GeoTIFF file since SUMO was compiled without GDAL support."
 msgstr ""
+"Non si possono caricare file GeoTiFF perché SUMO è stato compilato senza "
+"GDAL."
 
 #: src/netbuild/NBHelpers.cpp:89
-msgid "Could not load names of edges to keep from '%'."
-msgstr ""
+msgid "Could not load names of edges too keep from '%'."
+msgstr "Non si potevano caricare i nomi degli archi da mantenere da '%'."
 
 #: src/netbuild/NBHelpers.cpp:107
 msgid "Could not load IDs from '%'."
-msgstr ""
+msgstr "Non si potevano caricare i codici identificativi da '%'."
 
 #: src/netbuild/NBHelpers.cpp:123
 msgid "Invalid lane id '%' (missing '_')."
-msgstr ""
+msgstr "Codice identificativo di corsia invalido (manca '_')."
 
 #: src/netbuild/NBHelpers.cpp:130
 msgid "Invalid lane index '%' for lane '%'."
