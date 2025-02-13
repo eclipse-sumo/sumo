@@ -106,6 +106,7 @@ Triangle::intersectWithCircle(const Position& center, const double radius) const
     return ((center.distanceSquaredTo2D(myA) <= squaredRadius) ||
             (center.distanceSquaredTo2D(myB) <= squaredRadius) ||
             (center.distanceSquaredTo2D(myC) <= squaredRadius) ||
+            isPositionWithin(center) ||
             lineIntersectCircle(myA, myB, center, radius) ||
             lineIntersectCircle(myB, myC, center, radius) ||
             lineIntersectCircle(myC, myA, center, radius));
