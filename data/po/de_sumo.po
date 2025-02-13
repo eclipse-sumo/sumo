@@ -10,7 +10,8 @@ msgstr ""
 "POT-Creation-Date: 2025-02-13 10:07+0100\n"
 "PO-Revision-Date: 2025-02-04 15:39+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
-"Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/applications/de/>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
+"applications/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -7343,9 +7344,8 @@ msgstr ""
 "kompiliert wurde."
 
 #: src/netbuild/NBHelpers.cpp:89
-msgid "Could not load names of edges to keep from '%'."
-msgstr ""
-"Konnte Namen von Kanten, die von '%' ferngehalten werden sollen nicht laden."
+msgid "Could not load names of edges too keep from '%'."
+msgstr "Konnte Namen von beizubehaltenden Kanten nicht aus '%' laden."
 
 #: src/netbuild/NBHelpers.cpp:107
 msgid "Could not load IDs from '%'."
