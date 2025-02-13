@@ -175,6 +175,6 @@ private:
     /// @brief attributes editor extended
     GNEAttributesEditor* myAttributesEditorExtended = nullptr;
 
-    /// @brief Parameters editor inspector
-    GNEFrameAttributeModules::ParametersEditor* myParametersEditor;
+    /// @brief Generic parameters editor
+    GNEAttributesEditor* myGenericParametersEditor;
 };

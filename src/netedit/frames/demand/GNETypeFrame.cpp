@@ -149,7 +149,7 @@ GNETypeFrame::TypeSelector::refreshTypeSelector(const bool updateModuls) {
         // show modules
         myTypeFrameParent->myTypeAttributesEditor->showAttributesEditor(myCurrentType);
         myTypeFrameParent->myAttributesEditorExtended->showAttributesEditor(myCurrentType);
-        myTypeFrameParent->myParametersEditor->refreshParametersEditor();
+        myTypeFrameParent->myGenericParametersEditor->showAttributesEditor(myCurrentType);
     }
 }
 
@@ -168,7 +168,7 @@ GNETypeFrame::TypeSelector::onCmdSelectItem(FXObject*, FXSelector, void*) {
             // show modules if selected item is valid
             myTypeFrameParent->myTypeAttributesEditor->showAttributesEditor(myCurrentType);
             myTypeFrameParent->myAttributesEditorExtended->showAttributesEditor(myCurrentType);
-            myTypeFrameParent->myParametersEditor->refreshParametersEditor();
+            myTypeFrameParent->myGenericParametersEditor->showAttributesEditor(myCurrentType);
             // update viewNet
             myTypeFrameParent->getViewNet()->updateViewNet();
             return 1;
@@ -386,8 +386,8 @@ GNETypeFrame::GNETypeFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
     // create module for open extended attributes dialog
     myAttributesEditorExtended = new GNEAttributesEditor(this, TL("Extended attributes"), GNEAttributesEditor::EditorOptions::EXTENDED_ATTRIBUTES);
 
-    /// create module for edit parameters
-    myParametersEditor = new GNEFrameAttributeModules::ParametersEditor(this);
+    // Create parameters editor
+    myGenericParametersEditor = new GNEAttributesEditor(this, TL("Parameters"), GNEAttributesEditor::EditorOptions::GENERIC_PARAMETERS);
 
     // set "VTYPE_DEFAULT" as default vehicle Type
     myTypeSelector->setCurrentType(myViewNet->getNet()->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, DEFAULT_VTYPE_ID));

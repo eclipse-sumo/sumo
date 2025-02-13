@@ -260,8 +260,8 @@ GNEInspectorFrame::GNEInspectorFrame(GNEViewParent* viewParent, GNEViewNet* view
     // Create GEO Parameters Editor module
     myGEOAttributesEditor = new GNEAttributesEditor(this, TL("GEO attributes"), GNEAttributesEditor::EditorOptions::GEO_ATTRIBUTES);
 
-    // create parameters Editor module
-    myParametersEditor = new GNEFrameAttributeModules::ParametersEditor(this);
+    // Create parameters editor
+    myGenericParametersEditor = new GNEAttributesEditor(this, TL("Parameters"), GNEAttributesEditor::EditorOptions::GENERIC_PARAMETERS);
 
     // Create Netedit Attributes Editor module
     myNeteditAttributesEditor = new GNEAttributesEditor(this, TL("Netedit attributes"), GNEAttributesEditor::EditorOptions::NETEDIT_ATTRIBUTES);
@@ -377,8 +377,8 @@ GNEInspectorFrame::refreshInspection() {
     myFlowAttributesEditor->showAttributesEditor(inspectedElements.getACs());
     myNeteditAttributesEditor->showAttributesEditor(inspectedElements.getACs());
     myGEOAttributesEditor->showAttributesEditor(inspectedElements.getACs());
+    myGenericParametersEditor->showAttributesEditor(inspectedElements.getACs());
     // Hide other moduls
-    myParametersEditor->hideParametersEditor();
     myTemplateEditor->hideTemplateEditor();
     myHierarchicalElementTree->hideHierarchicalElementTree();
     // If vector of attribute Carriers contain data
@@ -421,9 +421,6 @@ GNEInspectorFrame::refreshInspection() {
         }
         // Set headerString into header label
         getFrameHeaderLabel()->setText(headerString.c_str());
-
-        // show parameters editor
-        myParametersEditor->showParametersEditor();
 
         // If attributes correspond to an Edge and we aren't in demand mode, show template editor
         myTemplateEditor->showTemplateEditor();

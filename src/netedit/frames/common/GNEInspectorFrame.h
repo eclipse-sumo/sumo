@@ -41,9 +41,6 @@ class GNEInspectorFrame : public GNEFrame {
     /// @brief FOX-declaration
     FXDECLARE(GNEInspectorFrame)
 
-    /// @brief declare friend class
-    friend class GNEFrameAttributeModules::ParametersEditor;
-
 public:
     // ===========================================================================
     // class TemplateEditor
@@ -202,8 +199,8 @@ private:
     /// @brief Netedit Attributes editor
     GNEAttributesEditor* myNeteditAttributesEditor;
 
-    /// @brief Parameters editor inspector
-    GNEFrameAttributeModules::ParametersEditor* myParametersEditor;
+    /// @brief Generic parameters editor
+    GNEAttributesEditor* myGenericParametersEditor;
 
     /// @brief Template editor
     TemplateEditor* myTemplateEditor;
