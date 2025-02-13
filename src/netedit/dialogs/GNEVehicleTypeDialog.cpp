@@ -470,7 +470,7 @@ GNEVehicleTypeDialog::VTypeAttributes::VTypeAttributeRow::VTypeAttributeRow(VTyp
             myButton->setIcon(GUIIconSubSys::getIcon(GUIIcon::COLORWHEEL));
         }
     } else if (rowAttrType == ROWTYPE_PARAMETERS) {
-        myButton = GUIDesigns::buildFXButton(this, TL("Edit parameters"), "", "", nullptr, VTypeAttributesParent, MID_GNE_OPEN_PARAMETERS_DIALOG, GUIDesignButtonFixed(150));
+        myButton = GUIDesigns::buildFXButton(this, TL("Edit parameters"), "", "", nullptr, VTypeAttributesParent, MID_GNE_ATTRIBUTESEDITOR_PARAMETERS, GUIDesignButtonFixed(150));
     } else {
         GUIDesigns::buildFXLabel(this, filterAttributeName(attr), "", "", nullptr, GUIDesignLabelThickedFixed(150));
     }

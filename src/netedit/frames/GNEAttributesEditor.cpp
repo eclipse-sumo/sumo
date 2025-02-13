@@ -235,9 +235,9 @@ GNEAttributesEditor::refreshAttributesEditor() {
             hideAttributesEditor();
         } else {
             // check if show help button
-            if ((myEditorOptions & EditorOptions::EXTENDED_ATTRIBUTES) != 0) {
+            if ((myEditorOptions & EditorOptions::GENERIC_PARAMETERS) != 0) {
                 myHelpButton->hide();
-            }else if (itRows > 0) {
+            } else if (itRows > 0) {
                 myHelpButton->show();
             } else {
                 myHelpButton->hide();
