@@ -334,34 +334,11 @@ GNEMatchAttribute::updateAttribute() {
                 attrIndex = i;
             }
         }
-        // Check if are allowed "Parameter"
-        if (tagProperty->hasParameters()) {
-            myMatchAttrComboBox->appendIconItem(toString(GNE_ATTR_PARAMETERS).c_str());
-            if (myCurrentAttribute == GNE_ATTR_PARAMETERS) {
-                attrIndex = (myMatchAttrComboBox->getNumItems() - 1);
-            }
-        }
-        // check if item can close shape
-        if (tagProperty->canCloseShape()) {
-            myMatchAttrComboBox->appendIconItem(toString(GNE_ATTR_CLOSE_SHAPE).c_str());
-            if (myCurrentAttribute == GNE_ATTR_CLOSE_SHAPE) {
-                attrIndex = (myMatchAttrComboBox->getNumItems() - 1);
-            }
-        }
-        // check if item can have parent
-        if (tagProperty->isChild()) {
-            myMatchAttrComboBox->appendIconItem(toString(GNE_ATTR_PARENT).c_str());
-            if (myCurrentAttribute == GNE_ATTR_PARENT) {
-                attrIndex = (myMatchAttrComboBox->getNumItems() - 1);
-            }
-        }
         // check attrIndex
         if (attrIndex == -1) {
             myMatchAttrComboBox->setCurrentItem(0);
             if (tagProperty->getNumberOfAttributes() > 0) {
                 myCurrentAttribute = tagProperty->getAttributeProperties().front()->getAttr();
-            } else {
-                myCurrentAttribute = GNE_ATTR_PARENT;
             }
         } else {
             myMatchAttrComboBox->setCurrentItem(attrIndex);

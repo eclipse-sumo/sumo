@@ -412,8 +412,7 @@ GNETagPropertiesDatabase::writeAttributeHelp() const {
 
 void
 GNETagPropertiesDatabase::fillNetworkElements() {
-    // declare empty GNEAttributeProperties
-    GNEAttributeProperties* attrProperty;
+    GNEAttributeProperties* attrProperty = nullptr;
     // obtain Node Types except SumoXMLNodeType::DEAD_END_DEPRECATED
     const auto& neteditOptions = OptionsCont::getOptions();
     std::vector<std::string> nodeTypes = SUMOXMLDefinitions::NodeTypes.getStrings();
@@ -1071,9 +1070,7 @@ GNETagPropertiesDatabase::fillNetworkElements() {
 
 void
 GNETagPropertiesDatabase::fillAdditionalElements() {
-    // declare empty GNEAttributeProperties
-    GNEAttributeProperties* attrProperty;
-
+    GNEAttributeProperties* attrProperty = nullptr;
     // fill additional elements
     SumoXMLTag currentTag = SUMO_TAG_BUS_STOP;
     {
@@ -2553,9 +2550,7 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
 
 void
 GNETagPropertiesDatabase::fillShapeElements() {
-    // declare empty GNEAttributeProperties
-    GNEAttributeProperties* attrProperty;
-
+    GNEAttributeProperties* attrProperty = nullptr;
     // fill shape ACs
     SumoXMLTag currentTag = SUMO_TAG_POLY;
     {
@@ -2750,9 +2745,7 @@ GNETagPropertiesDatabase::fillShapeElements() {
 
 void
 GNETagPropertiesDatabase::fillTAZElements() {
-    // declare empty GNEAttributeProperties
-    GNEAttributeProperties* attrProperty;
-
+    GNEAttributeProperties* attrProperty = nullptr;
     // fill TAZ ACs
     SumoXMLTag currentTag = SUMO_TAG_TAZ;
     {
@@ -2847,9 +2840,7 @@ GNETagPropertiesDatabase::fillTAZElements() {
 
 void
 GNETagPropertiesDatabase::fillWireElements() {
-    // declare empty GNEAttributeProperties
-    GNEAttributeProperties* attrProperty;
-
+    GNEAttributeProperties* attrProperty = nullptr;
     // fill wire elements
     SumoXMLTag currentTag = SUMO_TAG_TRACTION_SUBSTATION;
     {
@@ -2974,9 +2965,7 @@ GNETagPropertiesDatabase::fillWireElements() {
 
 void
 GNETagPropertiesDatabase::fillJuPedSimElements() {
-    // declare empty GNEAttributeProperties
-    GNEAttributeProperties* attrProperty;
-
+    GNEAttributeProperties* attrProperty = nullptr;
     // fill shape ACs
     SumoXMLTag currentTag = GNE_TAG_JPS_WALKABLEAREA;
     {
@@ -3045,9 +3034,7 @@ GNETagPropertiesDatabase::fillJuPedSimElements() {
 
 void
 GNETagPropertiesDatabase::fillDemandElements() {
-    // declare empty GNEAttributeProperties
-    GNEAttributeProperties* attrProperty;
-
+    GNEAttributeProperties* attrProperty = nullptr;
     // fill demand elements
     SumoXMLTag currentTag = SUMO_TAG_ROUTE;
     {
@@ -3361,9 +3348,7 @@ GNETagPropertiesDatabase::fillDemandElements() {
 
 void
 GNETagPropertiesDatabase::fillVehicleElements() {
-    // declare empty GNEAttributeProperties
-    GNEAttributeProperties* attrProperty;
-
+    GNEAttributeProperties* attrProperty = nullptr;
     // fill vehicle ACs
     SumoXMLTag currentTag = SUMO_TAG_TRIP;
     {
@@ -3795,9 +3780,7 @@ GNETagPropertiesDatabase::fillVehicleElements() {
 
 void
 GNETagPropertiesDatabase::fillStopElements() {
-    // declare empty GNEAttributeProperties
-    GNEAttributeProperties* attrProperty;
-
+    GNEAttributeProperties* attrProperty = nullptr;
     // fill stops ACs
     SumoXMLTag currentTag = GNE_TAG_STOP_LANE;
     {
@@ -3941,9 +3924,7 @@ GNETagPropertiesDatabase::fillStopElements() {
 
 void
 GNETagPropertiesDatabase::fillWaypointElements() {
-    // declare empty GNEAttributeProperties
-    GNEAttributeProperties* attrProperty;
-
+    GNEAttributeProperties* attrProperty = nullptr;
     // fill waypoints ACs
     SumoXMLTag currentTag = GNE_TAG_WAYPOINT_LANE;
     {
@@ -4088,7 +4069,7 @@ GNETagPropertiesDatabase::fillWaypointElements() {
 void
 GNETagPropertiesDatabase::fillPersonElements() {
     // declare empty GNEAttributeProperties
-    GNEAttributeProperties* attrProperty;
+    GNEAttributeProperties* attrProperty = nullptr;
 
     // fill vehicle ACs
     SumoXMLTag currentTag = SUMO_TAG_PERSON;
@@ -4133,9 +4114,7 @@ GNETagPropertiesDatabase::fillPersonElements() {
 
 void
 GNETagPropertiesDatabase::fillContainerElements() {
-    // declare empty GNEAttributeProperties
-    GNEAttributeProperties* attrProperty;
-
+    GNEAttributeProperties* attrProperty = nullptr;
     // fill vehicle ACs
     SumoXMLTag currentTag = SUMO_TAG_CONTAINER;
     {
@@ -7720,31 +7699,40 @@ GNETagPropertiesDatabase::fillPersonStopElements() {
 
 void
 GNETagPropertiesDatabase::fillCommonAttributes(GNETagProperties* tagProperties) {
+    GNEAttributeProperties* commonAttribute = nullptr;
     // if this is a drawable element, add front and select attributes
     if (tagProperties->isDrawable()) {
-        auto frontElementAttrProperty = new GNEAttributeProperties(GNE_ATTR_FRONTELEMENT,
+        commonAttribute = new GNEAttributeProperties(GNE_ATTR_FRONTELEMENT,
                 GNEAttributeProperties::BOOL | GNEAttributeProperties::NETEDIT,
                 TL("Toggle front element"));
-        tagProperties->addAttribute(frontElementAttrProperty);
-        auto selectAttrProperty = new GNEAttributeProperties(GNE_ATTR_SELECTED,
+        tagProperties->addAttribute(commonAttribute);
+        commonAttribute = new GNEAttributeProperties(GNE_ATTR_SELECTED,
                 GNEAttributeProperties::BOOL | GNEAttributeProperties::NETEDIT,
                 TL("Toggle select element"));
-        tagProperties->addAttribute(selectAttrProperty);
+        tagProperties->addAttribute(commonAttribute);
     }
     // check if element can be reparent
     if (tagProperties->canBeReparent()) {
-        auto frontElementAttrProperty = new GNEAttributeProperties(GNE_ATTR_PARENT,
+        commonAttribute = new GNEAttributeProperties(GNE_ATTR_PARENT,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::UPDATEGEOMETRY | GNEAttributeProperties::NETEDIT,
                 TL("Change element parent"));
-        tagProperties->addAttribute(frontElementAttrProperty);
+        tagProperties->addAttribute(commonAttribute);
+    }
+    // check if element has parameters
+    if (tagProperties->hasParameters()) {
+        commonAttribute = new GNEAttributeProperties(GNE_ATTR_PARAMETERS,
+                GNEAttributeProperties::STRING | GNEAttributeProperties::NETEDIT,
+                TL("Generic parameters (Format: key1=value1|key2=value2|..."));
+        tagProperties->addAttribute(commonAttribute);
     }
 }
 
 
 void
 GNETagPropertiesDatabase::fillPOIAttributes(GNETagProperties* tagProperties) {
-
-    GNEAttributeProperties* attrProperty = new GNEAttributeProperties(SUMO_ATTR_COLOR,
+    GNEAttributeProperties* attrProperty = nullptr;
+    // fill POI attributes
+    attrProperty = new GNEAttributeProperties(SUMO_ATTR_COLOR,
             GNEAttributeProperties::STRING | GNEAttributeProperties::COLOR | GNEAttributeProperties::DEFAULTVALUE,
             TL("The color with which the POI shall be displayed"),
             "red");
@@ -7808,9 +7796,8 @@ GNETagPropertiesDatabase::fillPOIAttributes(GNETagProperties* tagProperties) {
 
 void
 GNETagPropertiesDatabase::fillCommonVehicleAttributes(GNETagProperties* tagProperties) {
-    // declare empty GNEAttributeProperties
-    GNEAttributeProperties* attrProperty;
-
+    GNEAttributeProperties* attrProperty = nullptr;
+    // fill vehicle attributes
     attrProperty = new GNEAttributeProperties(SUMO_ATTR_COLOR,
             GNEAttributeProperties::STRING | GNEAttributeProperties::COLOR | GNEAttributeProperties::DEFAULTVALUE,
             TL("This vehicle's color"),
@@ -7892,9 +7879,8 @@ GNETagPropertiesDatabase::fillCommonVehicleAttributes(GNETagProperties* tagPrope
 
 void
 GNETagPropertiesDatabase::fillCommonFlowAttributes(GNETagProperties* tagProperties, SumoXMLAttr perHour) {
-    // declare empty GNEAttributeProperties
-    GNEAttributeProperties* attrProperty;
-
+    GNEAttributeProperties* attrProperty = nullptr;
+    // fill common flow attributes
     attrProperty = new GNEAttributeProperties(SUMO_ATTR_BEGIN,
             GNEAttributeProperties::SUMOTIME | GNEAttributeProperties::DEFAULTVALUE,
             TL("First flow departure time"),
@@ -7960,9 +7946,8 @@ GNETagPropertiesDatabase::fillCommonFlowAttributes(GNETagProperties* tagProperti
 
 void
 GNETagPropertiesDatabase::fillCarFollowingModelAttributes(GNETagProperties* tagProperties) {
-    // declare empty GNEAttributeProperties
-    GNEAttributeProperties* attrProperty;
-
+    GNEAttributeProperties* attrProperty = nullptr;
+    // fill CFM attributes
     attrProperty = new GNEAttributeProperties(SUMO_ATTR_ACCEL,
             GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE,
             TL("The acceleration ability of vehicles of this type [m/s^2]"),
@@ -8242,9 +8227,8 @@ GNETagPropertiesDatabase::fillCarFollowingModelAttributes(GNETagProperties* tagP
 
 void
 GNETagPropertiesDatabase::fillJunctionModelAttributes(GNETagProperties* tagProperties) {
-    // declare empty GNEAttributeProperties
-    GNEAttributeProperties* attrProperty;
-
+    GNEAttributeProperties* attrProperty = nullptr;
+    // fill junction model attributes
     attrProperty = new GNEAttributeProperties(SUMO_ATTR_JM_CROSSING_GAP,
             GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::EXTENDED,
             TL("Minimum distance to pedestrians that are walking towards the conflict point with the ego vehicle."),
@@ -8310,9 +8294,8 @@ GNETagPropertiesDatabase::fillJunctionModelAttributes(GNETagProperties* tagPrope
 
 void
 GNETagPropertiesDatabase::fillLaneChangingModelAttributes(GNETagProperties* tagProperties) {
-    // declare empty GNEAttributeProperties
-    GNEAttributeProperties* attrProperty;
-
+    GNEAttributeProperties* attrProperty = nullptr;
+    // fill lane changing model
     attrProperty = new GNEAttributeProperties(SUMO_ATTR_LCA_STRATEGIC_PARAM,
             GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::EXTENDED,
             TL("The eagerness for performing strategic lane changing. Higher values result in earlier lane-changing."),
@@ -8441,9 +8424,8 @@ GNETagPropertiesDatabase::fillLaneChangingModelAttributes(GNETagProperties* tagP
 
 void
 GNETagPropertiesDatabase::fillCommonPersonAttributes(GNETagProperties* tagProperties) {
-    // declare empty GNEAttributeProperties
-    GNEAttributeProperties* attrProperty;
-
+    GNEAttributeProperties* attrProperty = nullptr;
+    // fill person attributes
     attrProperty = new GNEAttributeProperties(SUMO_ATTR_ID,
             GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::AUTOMATICID,
             TL("The name of the person"));
@@ -8471,9 +8453,8 @@ GNETagPropertiesDatabase::fillCommonPersonAttributes(GNETagProperties* tagProper
 
 void
 GNETagPropertiesDatabase::fillCommonContainerAttributes(GNETagProperties* tagProperties) {
-    // declare empty GNEAttributeProperties
-    GNEAttributeProperties* attrProperty;
-
+    GNEAttributeProperties* attrProperty = nullptr;
+    // fill common container attributes
     attrProperty = new GNEAttributeProperties(SUMO_ATTR_ID,
             GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::AUTOMATICID,
             TL("The name of the container"));
@@ -8501,9 +8482,8 @@ GNETagPropertiesDatabase::fillCommonContainerAttributes(GNETagProperties* tagPro
 
 void
 GNETagPropertiesDatabase::fillCommonStopAttributes(GNETagProperties* tagProperties, const bool waypoint) {
-    // declare empty GNEAttributeProperties
-    GNEAttributeProperties* attrProperty;
-
+    GNEAttributeProperties* attrProperty = nullptr;
+    // fill common stop attributes
     attrProperty = new GNEAttributeProperties(SUMO_ATTR_DURATION,
             GNEAttributeProperties::SUMOTIME | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::ACTIVATABLE | GNEAttributeProperties::DEFAULTVALUE,
             TL("Minimum duration for stopping"),
@@ -8598,9 +8578,8 @@ GNETagPropertiesDatabase::fillCommonStopAttributes(GNETagProperties* tagProperti
 
 void
 GNETagPropertiesDatabase::fillPlanParentAttributes(GNETagProperties* tagProperties) {
-    // declare empty GNEAttributeProperties
-    GNEAttributeProperties* attrProperty;
-
+    GNEAttributeProperties* attrProperty = nullptr;
+    // fill plan parents
     // basic parents
     if (tagProperties->planConsecutiveEdges()) {
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_EDGES,
@@ -8785,9 +8764,8 @@ GNETagPropertiesDatabase::fillPlanParentAttributes(GNETagProperties* tagProperti
 
 void
 GNETagPropertiesDatabase::fillPersonTripCommonAttributes(GNETagProperties* tagProperties) {
-    // declare empty GNEAttributeProperties
-    GNEAttributeProperties* attrProperty;
-
+    GNEAttributeProperties* attrProperty = nullptr;
+    // fill person trip common attributes
     attrProperty = new GNEAttributeProperties(SUMO_ATTR_VTYPES,
             GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUE,
             TL("List of possible vehicle types to take"));
@@ -8818,9 +8796,8 @@ GNETagPropertiesDatabase::fillPersonTripCommonAttributes(GNETagProperties* tagPr
 
 void
 GNETagPropertiesDatabase::fillWalkCommonAttributes(GNETagProperties* tagProperties) {
-    // declare empty GNEAttributeProperties
-    GNEAttributeProperties* attrProperty;
-
+    GNEAttributeProperties* attrProperty = nullptr;
+    // fill walk common attributes
     attrProperty = new GNEAttributeProperties(SUMO_ATTR_SPEED,
             GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE,
             TL("speed of the person for this tranship in m/s (not together with duration)"),
@@ -8837,9 +8814,8 @@ GNETagPropertiesDatabase::fillWalkCommonAttributes(GNETagProperties* tagProperti
 
 void
 GNETagPropertiesDatabase::fillRideCommonAttributes(GNETagProperties* tagProperties) {
-    // declare empty GNEAttributeProperties
-    GNEAttributeProperties* attrProperty;
-
+    GNEAttributeProperties* attrProperty = nullptr;
+    // fill ride common attributes
     attrProperty = new GNEAttributeProperties(SUMO_ATTR_LINES,
             GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUE,
             TL("list of vehicle alternatives to take for the ride"));
@@ -8855,7 +8831,7 @@ GNETagPropertiesDatabase::fillRideCommonAttributes(GNETagProperties* tagProperti
 void
 GNETagPropertiesDatabase::fillTransportCommonAttributes(GNETagProperties* tagProperties) {
     // declare empty GNEAttributeProperties
-    GNEAttributeProperties* attrProperty;
+    GNEAttributeProperties* attrProperty = nullptr;
 
     attrProperty = new GNEAttributeProperties(SUMO_ATTR_LINES,
             GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUE,
@@ -8872,8 +8848,8 @@ GNETagPropertiesDatabase::fillTransportCommonAttributes(GNETagProperties* tagPro
 void
 GNETagPropertiesDatabase::fillTranshipCommonAttributes(GNETagProperties* tagProperties) {
     // declare empty GNEAttributeProperties
-    GNEAttributeProperties* attrProperty;
-
+    GNEAttributeProperties* attrProperty = nullptr;
+    // fill tranship attributes
     attrProperty = new GNEAttributeProperties(SUMO_ATTR_SPEED,
             GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE,
             TL("speed of the person for this tranship in m/s (not together with duration)"),
@@ -8891,8 +8867,8 @@ GNETagPropertiesDatabase::fillTranshipCommonAttributes(GNETagProperties* tagProp
 void
 GNETagPropertiesDatabase::fillPlanStopCommonAttributes(GNETagProperties* tagProperties) {
     // declare empty GNEAttributeProperties
-    GNEAttributeProperties* attrProperty;
-
+    GNEAttributeProperties* attrProperty = nullptr;
+    // fill plan stop common attributes
     attrProperty = new GNEAttributeProperties(SUMO_ATTR_DURATION,
             GNEAttributeProperties::SUMOTIME | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::ACTIVATABLE | GNEAttributeProperties::DEFAULTVALUE,
             TL("Minimum duration for stopping"),
@@ -8927,8 +8903,7 @@ GNETagPropertiesDatabase::fillPlanStopCommonAttributes(GNETagProperties* tagProp
 void
 GNETagPropertiesDatabase::fillDataElements() {
     // declare empty GNEAttributeProperties
-    GNEAttributeProperties* attrProperty;
-
+    GNEAttributeProperties* attrProperty = nullptr;
     // fill data set element
     SumoXMLTag currentTag = SUMO_TAG_DATASET;
     {
@@ -9070,8 +9045,7 @@ GNETagPropertiesDatabase::fillDataElements() {
 
 void
 GNETagPropertiesDatabase::fillCommonMeanDataAttributes(GNETagProperties* tagProperties) {
-    GNEAttributeProperties* attrProperty;
-
+    GNEAttributeProperties* attrProperty = nullptr;
     // fill all meanData attributes
     attrProperty = new GNEAttributeProperties(SUMO_ATTR_ID,
             GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE,
