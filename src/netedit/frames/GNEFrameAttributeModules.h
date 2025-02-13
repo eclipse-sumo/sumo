@@ -121,69 +121,6 @@ public:
         FXButton* myButtonEditParameters = nullptr;
     };
 
-    // ===========================================================================
-    // class ParametersEditor
-    // ===========================================================================
-
-    class ParametersEditor : public MFXGroupBoxModule {
-        /// @brief FOX-declaration
-        FXDECLARE(GNEFrameAttributeModules::ParametersEditor)
-
-    public:
-        /// @brief constructor for inspector frame
-        ParametersEditor(GNEInspectorFrame* inspectorFrameParent);
-
-        /// @brief constructor for type frame
-        ParametersEditor(GNETypeFrame* typeFrameParent);
-
-        /// @brief destructor
-        ~ParametersEditor();
-
-        /// @get viewNet
-        GNEViewNet* getViewNet() const;
-
-        /// @brief show netedit attributes EditorInspector
-        void showParametersEditor();
-
-        /// @brief hide netedit attributes EditorInspector
-        void hideParametersEditor();
-
-        /// @brief refresh netedit attributes
-        void refreshParametersEditor();
-
-        /// @brief get inspector frame parent
-        GNEInspectorFrame* getInspectorFrameParent() const;
-
-        /// @brief get type frame parent
-        GNETypeFrame* getTypeFrameParent() const;
-
-        /// @name FOX-callbacks
-        /// @{
-        /// @brief Called when user clicks over add parameter
-        long onCmdEditParameters(FXObject*, FXSelector, void*);
-
-        /// @brief Called when user udpate the parameter text field
-        long onCmdSetParameters(FXObject*, FXSelector, void*);
-        /// @}
-
-    protected:
-        /// @brief FOX need this
-        FOX_CONSTRUCTOR(ParametersEditor)
-
-    private:
-        /// @brief inspector frame parent
-        GNEInspectorFrame* myInspectorFrameParent = nullptr;
-
-        /// @brief type frame parent
-        GNETypeFrame* myTypeFrameParent = nullptr;
-
-        /// @brief text field for write parameters
-        FXTextField* myTextFieldParameters = nullptr;
-
-        /// @brief button for edit parameters using specific dialog
-        FXButton* myButtonEditParameters = nullptr;
-    };
-
     /// @brief return true if AC can be edited in the current supermode
     static bool isSupermodeValid(const GNEViewNet* viewNet, const GNEAttributeCarrier* AC);
 
