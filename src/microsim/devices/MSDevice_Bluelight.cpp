@@ -292,14 +292,15 @@ MSDevice_Bluelight::notifyMove(SUMOTrafficObject& veh, double /* oldPos */,
                     // emergency vehicles should not react
                     continue;
                 }
-                const double timeToBrake = foe->getSpeed() / 4.5;
+                const double timeToBrake = foe->getSpeed() / SUMOVTypeParameter::getDefaultDecel();
                 if (timeToArrival < TIME2STEPS(timeToBrake + 1)) {
-                    ;
+                    // trigger emergency braking
+                    const double decel = 0.5 * foe->getSpeed() * foe->getSpeed() / avi.dist;
                     std::vector<std::pair<SUMOTime, double> > speedTimeLine;
                     speedTimeLine.push_back(std::make_pair(SIMSTEP, foe->getSpeed()));
-                    speedTimeLine.push_back(std::make_pair(avi.arrivalTime, 0));
+                    speedTimeLine.push_back(std::make_pair(SIMSTEP + TIME2STEPS(foe->getSpeed() / decel), 0));
                     microFoe->getInfluencer().setSpeedTimeLine(speedTimeLine);
-                    //std::cout << SIMTIME << " foe=" << foe->getID() << " dist=" << dist << " timeToBrake= " << timeToBrake << " ttA=" << STEPS2TIME(timeToArrival) << "\n";
+                    //std::cout << SIMTIME << " foe=" << foe->getID() << " timeToBrake=" << timeToBrake << " timeToArrival=" << STEPS2TIME(timeToArrival) << " decel=" << decel << "\n";
                 }
             }
         }
