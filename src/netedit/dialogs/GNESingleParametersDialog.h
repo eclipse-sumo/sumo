@@ -265,34 +265,34 @@ protected:
     FOX_CONSTRUCTOR(GNESingleParametersDialog)
 
     /// @brief pointer to GenericDataAttributes
-    GNEFrameAttributeModules::GenericDataAttributes* myGenericDataAttributes;
+    GNEFrameAttributeModules::GenericDataAttributes* myGenericDataAttributes = nullptr;
 
     /// @brief pointer to attributes editor
-    GNEAttributesEditor* myAttributesEditor;
+    GNEAttributesEditor* myAttributesEditor = nullptr;
 
     /// @brief pointer to VTypeAttributeRow
-    GNEVehicleTypeDialog::VTypeAttributes::VTypeAttributeRow* VTypeAttributeRow;
+    GNEVehicleTypeDialog::VTypeAttributes::VTypeAttributeRow* VTypeAttributeRow = nullptr;
 
     /// @brief pointer to GNEAttributeCarrier
-    GNEAttributeCarrier* myAttributeCarrier;
+    GNEAttributeCarrier* myAttributeCarrier = nullptr;
 
     /// @brief pointer to TLDef
-    NBLoadedSUMOTLDef* myTLDef;
+    NBLoadedSUMOTLDef* myTLDef = nullptr;
 
     /// @brief pointer to parameters values
-    ParametersValues* myParametersValues;
+    ParametersValues* myParametersValues = nullptr;
 
     /// @brief pointer to parameters operations
-    ParametersOperations* myParametersOperations;
+    ParametersOperations* myParametersOperations = nullptr;
 
     /// @brief accept button
-    FXButton* myKeepOldButton;
+    FXButton* myKeepOldButton = nullptr;
 
     /// @brief cancel button
-    FXButton* myCancelButton;
+    FXButton* myCancelButton = nullptr;
 
     /// @brief cancel button
-    FXButton* myResetButton;
+    FXButton* myResetButton = nullptr;
 
 private:
     /// @brief auxiliar constructor

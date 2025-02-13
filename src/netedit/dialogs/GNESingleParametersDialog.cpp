@@ -24,6 +24,8 @@
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewparent.h>
+#include <netedit/GNEApplicationWindow.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/xml/XMLSubSys.h>
@@ -475,11 +477,7 @@ GNESingleParametersDialog::ParametersOperations::GNEParameterHandler::myStartEle
 
 GNESingleParametersDialog::GNESingleParametersDialog(GNEFrameAttributeModules::GenericDataAttributes* genericDataAttributes) :
     FXDialogBox(genericDataAttributes->getFrameParent()->getViewNet()->getApp(), "Edit attributes", GUIDesignDialogBoxExplicitStretchable(400, 300)),
-    myGenericDataAttributes(genericDataAttributes),
-    myAttributesEditor(nullptr),
-    VTypeAttributeRow(nullptr),
-    myAttributeCarrier(nullptr),
-    myTLDef(nullptr) {
+    myGenericDataAttributes(genericDataAttributes) {
     // call auxiliar constructor for elements
     constructor("Attributes");
     // fill myParametersValues
@@ -488,12 +486,8 @@ GNESingleParametersDialog::GNESingleParametersDialog(GNEFrameAttributeModules::G
 
 
 GNESingleParametersDialog::GNESingleParametersDialog(GNEAttributesEditor* attributesEditor) :
-    FXDialogBox(myAttributesEditor->getFrameParent()->getViewNet()->getApp(), "Edit parameters", GUIDesignDialogBoxExplicitStretchable(400, 300)),
-    myGenericDataAttributes(nullptr),
-    myAttributesEditor(attributesEditor),
-    VTypeAttributeRow(nullptr),
-    myAttributeCarrier(nullptr),
-    myTLDef(nullptr) {
+    FXDialogBox(attributesEditor->getFrameParent()->getViewNet()->getViewParent()->getGNEAppWindows()->getApp(), "Edit parameters", GUIDesignDialogBoxExplicitStretchable(400, 300)),
+    myAttributesEditor(attributesEditor) {
     // call auxiliar constructor
     constructor("Parameters");
     // fill myParametersValues
@@ -503,11 +497,7 @@ GNESingleParametersDialog::GNESingleParametersDialog(GNEAttributesEditor* attrib
 
 GNESingleParametersDialog::GNESingleParametersDialog(GNEVehicleTypeDialog::VTypeAttributes::VTypeAttributeRow* VTypeAttributeRow, GNEViewNet* viewNet) :
     FXDialogBox(viewNet->getApp(), "Edit parameters", GUIDesignDialogBoxExplicitStretchable(400, 300)),
-    myGenericDataAttributes(nullptr),
-    myAttributesEditor(nullptr),
-    VTypeAttributeRow(VTypeAttributeRow),
-    myAttributeCarrier(nullptr),
-    myTLDef(nullptr) {
+    VTypeAttributeRow(VTypeAttributeRow) {
     // call auxiliar constructor
     constructor("Parameters");
     // fill myEditedParameters
@@ -517,11 +507,7 @@ GNESingleParametersDialog::GNESingleParametersDialog(GNEVehicleTypeDialog::VType
 
 GNESingleParametersDialog::GNESingleParametersDialog(GNEAttributeCarrier* attributeCarrier) :
     FXDialogBox(attributeCarrier->getNet()->getViewNet()->getApp(), "Edit parameters", GUIDesignDialogBoxExplicitStretchable(400, 300)),
-    myGenericDataAttributes(nullptr),
-    myAttributesEditor(nullptr),
-    VTypeAttributeRow(nullptr),
-    myAttributeCarrier(attributeCarrier),
-    myTLDef(nullptr) {
+    myAttributeCarrier(attributeCarrier) {
     // call auxiliar constructor
     constructor("Parameters");
     // fill myEditedParameters
@@ -531,10 +517,6 @@ GNESingleParametersDialog::GNESingleParametersDialog(GNEAttributeCarrier* attrib
 
 GNESingleParametersDialog::GNESingleParametersDialog(FXApp* app, NBLoadedSUMOTLDef* TLDef) :
     FXDialogBox(app, "Edit parameters", GUIDesignDialogBoxExplicitStretchable(400, 300)),
-    myGenericDataAttributes(nullptr),
-    myAttributesEditor(nullptr),
-    VTypeAttributeRow(nullptr),
-    myAttributeCarrier(nullptr),
     myTLDef(TLDef) {
     // call auxiliar constructor
     constructor("Parameters");
