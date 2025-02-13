@@ -165,7 +165,7 @@ GNERouteProbReroute::getAttributeDouble(SumoXMLAttr key) const {
 
 const Parameterised::Map&
 GNERouteProbReroute::getACParametersMap() const {
-    return PARAMETERS_EMPTY;
+    return getParametersMap();
 }
 
 

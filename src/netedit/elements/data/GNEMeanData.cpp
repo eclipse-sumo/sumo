@@ -365,7 +365,7 @@ GNEMeanData::getHierarchyName() const {
 
 const Parameterised::Map&
 GNEMeanData::getACParametersMap() const {
-    return GNEAttributeCarrier::PARAMETERS_EMPTY;
+    return getParametersMap();
 }
 
 

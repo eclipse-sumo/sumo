@@ -173,7 +173,7 @@ GNEClosingLaneReroute::getAttributeDouble(SumoXMLAttr key) const {
 
 const Parameterised::Map&
 GNEClosingLaneReroute::getACParametersMap() const {
-    return PARAMETERS_EMPTY;
+    return getParametersMap();
 }
 
 

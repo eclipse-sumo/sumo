@@ -201,7 +201,7 @@ GNETractionSubstation::getAttributeDouble(SumoXMLAttr key) const {
 
 const
 Parameterised::Map& GNETractionSubstation::getACParametersMap() const {
-    return PARAMETERS_EMPTY;
+    return getParametersMap();
 }
 
 

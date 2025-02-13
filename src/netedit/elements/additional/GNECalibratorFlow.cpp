@@ -332,7 +332,7 @@ GNECalibratorFlow::getAttributeDouble(SumoXMLAttr key) const {
 
 const Parameterised::Map&
 GNECalibratorFlow::getACParametersMap() const {
-    return PARAMETERS_EMPTY;
+    return getParametersMap();
 }
 
 

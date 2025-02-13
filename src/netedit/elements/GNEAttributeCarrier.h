@@ -324,9 +324,6 @@ public:
 
     /// @}
 
-    /// @brief empty parameter maps (used by ACs without parameters)
-    static const Parameterised::Map PARAMETERS_EMPTY;
-
     /// @brief true value in string format (used for comparing boolean values in getAttribute(...))
     static const std::string True;
 

@@ -193,7 +193,7 @@ GNERerouterSymbol::getAttributeDouble(SumoXMLAttr /*key*/) const {
 
 const Parameterised::Map&
 GNERerouterSymbol::getACParametersMap() const {
-    return PARAMETERS_EMPTY;
+    return Parameterised::Map();
 }
 
 

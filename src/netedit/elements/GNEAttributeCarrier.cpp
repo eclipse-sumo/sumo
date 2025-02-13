@@ -43,7 +43,6 @@ const std::string GNEAttributeCarrier::FEATURE_LOADED = "loaded";
 const std::string GNEAttributeCarrier::FEATURE_GUESSED = "guessed";
 const std::string GNEAttributeCarrier::FEATURE_MODIFIED = "modified";
 const std::string GNEAttributeCarrier::FEATURE_APPROVED = "approved";
-const Parameterised::Map GNEAttributeCarrier::PARAMETERS_EMPTY;
 const std::string GNEAttributeCarrier::True = toString(true);
 const std::string GNEAttributeCarrier::False = toString(false);
 

@@ -205,7 +205,7 @@ GNERerouterInterval::getAttributeDouble(SumoXMLAttr key) const {
 
 const Parameterised::Map&
 GNERerouterInterval::getACParametersMap() const {
-    return PARAMETERS_EMPTY;
+    return getParametersMap();
 }
 
 

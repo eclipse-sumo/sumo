@@ -165,7 +165,7 @@ GNEVariableSpeedSignSymbol::getAttributeDouble(SumoXMLAttr /*key*/) const {
 
 const Parameterised::Map&
 GNEVariableSpeedSignSymbol::getACParametersMap() const {
-    return PARAMETERS_EMPTY;
+    return Parameterised::Map();
 }
 
 
