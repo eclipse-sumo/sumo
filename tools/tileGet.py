@@ -78,14 +78,16 @@ def getZoomWidthHeight(south, west, north, east, maxTileSize):
 
 
 def worker(options, request, filename):
-    # print(request)
-    urllib.urlretrieve(request, filename)
-    if os.stat(filename).st_size < options.min_file_size:
-        raise ValueError("small file")
+    if options.simulate:
+        print(request, filename)
+    else:
+        urllib.urlretrieve(request, filename)
+        if os.stat(filename).st_size < options.min_file_size:
+            raise ValueError("small file")
 
 
 def retrieveOpenStreetMapTiles(options, west, south, east, north, decals, net):
-    zoom = 18
+    zoom = options.maxZoom + 1
     numTiles = options.tiles + 1
     while numTiles > options.tiles:
         zoom -= 1
@@ -177,6 +179,10 @@ def get_options(args=None):
                          help="user agent string to be used when downloading tiles")
     optParser.add_option("-f", "--min-file-size", type=int, default=3000,
                          help="maximum number of tiles the output gets split into")
+    optParser.add_option("--simulate", action="store_true", default=False,
+                         help="print download urls and filenames instead of requesting from tile server")
+    optParser.add_option("-z", "--max-zoom", type=int, default=17, dest="maxZoom",
+                         help="restrict maximum zoom level")
     optParser.add_option("-j", "--parallel-jobs", type=int, default=8,
                          help="Number of parallel jobs to run when downloading tiles. 0 means no parallelism.")
 
