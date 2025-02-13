@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-13 10:07+0100\n"
-"PO-Revision-Date: 2025-02-13 13:20+0000\n"
+"PO-Revision-Date: 2025-02-13 13:25+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -8274,7 +8274,7 @@ msgstr ""
 #: src/netgen/netgen_main.cpp:268
 #, c-format
 msgid "   % nodes generated."
-msgstr ""
+msgstr "   % nodi generati."
 
 #: src/netgen/netgen_main.cpp:269
 #, c-format
