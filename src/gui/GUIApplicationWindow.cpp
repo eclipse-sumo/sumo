@@ -243,7 +243,7 @@ std::mt19937 GUIApplicationWindow::myGamingRNG;
 // ===========================================================================
 #ifdef _MSC_VER
 #pragma warning(push)
-#pragma warning(disable: 4355) // mask warning about "this" in intializers
+#pragma warning(disable: 4355) // mask warning about "this" in initializers
 #endif
 GUIApplicationWindow::GUIApplicationWindow(FXApp* a, const std::string& configPattern) :
     GUIMainWindow(a),

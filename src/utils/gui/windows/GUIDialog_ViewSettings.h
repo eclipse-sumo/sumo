@@ -186,6 +186,7 @@ public:
 
     /// @brief show view settings dialog
     void show();
+    using FXDialogBox::show; // to silence the warning C4266 about a hidden function
 
     /// @brief get GUISUMOAbstractView parent
     GUISUMOAbstractView* getSUMOAbstractView();

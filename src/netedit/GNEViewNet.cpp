@@ -251,6 +251,10 @@ FXIMPLEMENT(GNEViewNet, GUISUMOAbstractView, GNEViewNetMap, ARRAYNUMBER(GNEViewN
 // ===========================================================================
 // member method definitions
 // ===========================================================================
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4355) // mask warning about "this" in initializers
+#endif
 GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMainWindow& app,
                        GNEViewParent* viewParent, GNENet* net, GNEUndoList* undoList,
                        FXGLVisual* glVis, FXGLCanvas* share) :
@@ -299,6 +303,9 @@ GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMai
     myDemandViewOptions.menuCheckToggleDrawJunctionShape->setChecked(hide);
     myDataViewOptions.menuCheckToggleDrawJunctionShape->setChecked(hide);
 }
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 
 GNEViewNet::~GNEViewNet() {
@@ -1188,6 +1195,10 @@ GNEViewNet::removeRestrictedLane(GNELane* lane, SUMOVehicleClass vclass) {
 }
 
 
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4355) // mask warning about "this" in initializers
+#endif
 GNEViewNet::GNEViewNet() :
     myViewObjectsSelector(this),
     myEditModes(this),
@@ -1210,6 +1221,9 @@ GNEViewNet::GNEViewNet() :
     myEditNetworkElementShapes(this),
     myLockManager(this) {
 }
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 
 std::vector<std::string>

@@ -337,6 +337,7 @@ private:
     public:
         PickHandler(GUIOSGView* parent) : myParent(parent), myDrag(false) {};
         bool handle(const osgGA::GUIEventAdapter& ea, osgGA::GUIActionAdapter& aa);
+        using osgGA::GUIEventHandler::handle; // to silence the warning C4266 about a hidden function
     protected:
         ~PickHandler() {};
     private:

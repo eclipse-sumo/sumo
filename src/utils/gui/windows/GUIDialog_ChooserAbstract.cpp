@@ -67,7 +67,7 @@ FXIMPLEMENT(GUIDialog_ChooserAbstract, FXMainWindow, GUIDialog_ChooserAbstractMa
 // ===========================================================================
 #ifdef _MSC_VER
 #pragma warning(push)
-#pragma warning(disable: 4355) // mask warning about "this" in intializers
+#pragma warning(disable: 4355) // mask warning about "this" in initializers
 #endif
 GUIDialog_ChooserAbstract::GUIDialog_ChooserAbstract(GUIGlChildWindow* windowsParent, int messageId,
         FXIcon* icon, const FXString& title, const std::vector<GUIGlID>& ids, GUIGlObjectStorage& /*glStorage*/) :

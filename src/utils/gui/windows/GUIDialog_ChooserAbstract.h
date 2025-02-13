@@ -119,6 +119,7 @@ public:
 
     /// @brief sets the focus after the window is created to work-around bug in libfox
     void show();
+    using FXMainWindow::show; // to silence the warning C4266 about a hidden function
 
     int getMessageId() const {
         return myMessageId;

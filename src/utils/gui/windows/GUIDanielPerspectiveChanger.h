@@ -91,6 +91,7 @@ public:
 
     /** @brief Sets the viewport */
     void setViewport(double zoom, double xPos, double yPos);
+    using GUIPerspectiveChanger::setViewport; // to silence the warning C4266 about a hidden function
 
     /// @brief Alternative method for setting the viewport
     void setViewportFrom(double xPos, double yPos, double zPos);
