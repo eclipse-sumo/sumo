@@ -54,7 +54,7 @@ MSVehicleTransfer::VehicleInformation::operator<(const VehicleInformation& v2) c
 void
 MSVehicleTransfer::add(const SUMOTime t, MSVehicle* veh) {
     const bool jumping = veh->isJumping();
-    const SUMOTime proceed = jumping ? t + veh->getPastStops().back().jump : -1;
+    const SUMOTime proceed = jumping ? MAX2(t + veh->getPastStops().back().jump, veh->getPastStops().back().jumpUntil) : -1;
     if (veh->isParking()) {
         veh->getLaneChangeModel().endLaneChangeManeuver(MSMoveReminder::NOTIFICATION_PARKING);
         MSNet::getInstance()->informVehicleStateListener(veh, MSNet::VehicleState::STARTING_PARKING);

@@ -1165,6 +1165,7 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::attrs[] = {
     { "intended",               SUMO_ATTR_INTENDED },
     { "onDemand",               SUMO_ATTR_ONDEMAND },
     { "jump",                   SUMO_ATTR_JUMP },
+    { "jumpUntil",              SUMO_ATTR_JUMP_UNTIL },
     { "usedEnded",              SUMO_ATTR_USED_ENDED },
     { "collision",              SUMO_ATTR_COLLISION },
     { "value",                  SUMO_ATTR_VALUE },

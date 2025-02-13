@@ -1279,6 +1279,10 @@ Vehicle::getStopParameter(const std::string& vehID, int nextStopIndex, const std
             return pars.ended < 0 ? "-1" : time2string(pars.ended);
         } else if (param == toString(SUMO_ATTR_ONDEMAND)) {
             return toString(pars.onDemand);
+        } else if (param == toString(SUMO_ATTR_JUMP)) {
+            return pars.jump < 0 ? "-1" : time2string(pars.jump);
+        } else if (param == toString(SUMO_ATTR_JUMP_UNTIL)) {
+            return pars.jumpUntil < 0 ? "-1" : time2string(pars.jumpUntil);
         } else {
             throw ProcessError(TLF("Unsupported parameter '%'", param));
         }
@@ -1414,6 +1418,9 @@ Vehicle::setStopParameter(const std::string& vehID, int nextStopIndex,
         } else if (param == toString(SUMO_ATTR_JUMP)) {
             pars.jump = string2time(value);
             pars.parametersSet |= STOP_JUMP_SET;
+        } else if (param == toString(SUMO_ATTR_JUMP_UNTIL)) {
+            pars.jumpUntil = string2time(value);
+            pars.parametersSet |= STOP_JUMP_UNTIL_SET;
         } else {
             throw ProcessError(TLF("Unsupported parameter '%'", param));
         }

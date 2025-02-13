@@ -1088,6 +1088,9 @@ RouteHandler::parseStopParameters(SUMOVehicleParameter::Stop& stop, const SUMOSA
     if (attrs.hasAttribute(SUMO_ATTR_JUMP)) {
         stop.parametersSet |= STOP_JUMP_SET;
     }
+    if (attrs.hasAttribute(SUMO_ATTR_JUMP_UNTIL)) {
+        stop.parametersSet |= STOP_JUMP_UNTIL_SET;
+    }
     // get parameters
     bool ok = true;
     // edge/lane
@@ -1211,6 +1214,7 @@ RouteHandler::parseStopParameters(SUMOVehicleParameter::Stop& stop, const SUMOSA
     stop.actType = attrs.getOpt<std::string>(SUMO_ATTR_ACTTYPE, nullptr, ok, "");
     stop.onDemand = attrs.getOpt<bool>(SUMO_ATTR_ONDEMAND, nullptr, ok, false);
     stop.jump = attrs.getOptSUMOTimeReporting(SUMO_ATTR_JUMP, nullptr, ok, -1);
+    stop.jumpUntil = attrs.getOptSUMOTimeReporting(SUMO_ATTR_JUMP_UNTIL, nullptr, ok, -1);
     return true;
 }
 
