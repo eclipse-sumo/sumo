@@ -50,7 +50,8 @@ public:
         EXTENDED_ATTRIBUTES = 1 << 1,
         FLOW_ATTRIBUTES     = 1 << 2,
         GEO_ATTRIBUTES      = 1 << 3,
-        NETEDIT_ATTRIBUTES  = 1 << 4
+        NETEDIT_ATTRIBUTES  = 1 << 4,
+        GENERIC_PARAMETERS  = 1 << 5
     };
 
     /// @brief constructor
@@ -92,11 +93,14 @@ public:
     /// @brief called when user press the "Mark as front element" button
     long onCmdMarkAsFront(FXObject*, FXSelector, void*);
 
-    /// @brief called when user press the "Open element dialog" button
+    /// @brief called when user press the "Element dialog" button
     long onCmdOpenElementDialog(FXObject*, FXSelector, void*);
 
-    /// @brief called when user press the "Open extended attributes" button
+    /// @brief called when user press the "Extended attributes" button
     long onCmdOpenExtendedAttributesDialog(FXObject*, FXSelector, void*);
+
+    /// @brief called when user press the "Edit parameters" button
+    long onCmdOpenEditParametersDialog(FXObject*, FXSelector, void*);
 
     /// @brief called when user press the help button
     long onCmdAttributesEditorHelp(FXObject*, FXSelector, void*);
@@ -145,6 +149,9 @@ private:
 
     /// @brief pointer to open extended attributes button
     FXButton* myOpenExtendedAttributesButton = nullptr;
+
+    /// @brief pointer to open generic parameters editor button
+    FXButton* myOpenGenericParametersEditorButton = nullptr;
 
     /// @brief current edited ACs
     std::vector<GNEAttributeCarrier*> myEditedACs;

@@ -106,6 +106,9 @@ protected:
     /// @brief show attribute label
     void showAttributeLabel(const GNEAttributeProperties* attrProperty);
 
+    /// @brief hide all attribute elements
+    void hideAllAttributeElements();
+
     /// @brief show value for check button
     void showValueCheckButton(const std::string& value, const bool enabled, const bool computed);
 

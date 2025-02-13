@@ -43,10 +43,11 @@
 // ===========================================================================
 
 FXDEFMAP(GNEAttributesEditor) GNEAttributeTableMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ATTRIBUTESEDITOR_FRONT,     GNEAttributesEditor::onCmdMarkAsFront),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ATTRIBUTESEDITOR_DIALOG,    GNEAttributesEditor::onCmdOpenElementDialog),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ATTRIBUTESEDITOR_EXTENDED,  GNEAttributesEditor::onCmdOpenExtendedAttributesDialog),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ATTRIBUTESEDITOR_HELP,      GNEAttributesEditor::onCmdAttributesEditorHelp)
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ATTRIBUTESEDITOR_FRONT,         GNEAttributesEditor::onCmdMarkAsFront),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ATTRIBUTESEDITOR_DIALOG,        GNEAttributesEditor::onCmdOpenElementDialog),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ATTRIBUTESEDITOR_EXTENDED,      GNEAttributesEditor::onCmdOpenExtendedAttributesDialog),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ATTRIBUTESEDITOR_PARAMETERS,    GNEAttributesEditor::onCmdOpenEditParametersDialog),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ATTRIBUTESEDITOR_HELP,          GNEAttributesEditor::onCmdAttributesEditorHelp)
 };
 
 // Object implementation
@@ -78,6 +79,8 @@ GNEAttributesEditor::GNEAttributesEditor(GNEFrame* frameParent, const std::strin
         // create extended attributes
         myOpenExtendedAttributesButton = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Edit extended attributes"), "", "", nullptr, this, MID_GNE_ATTRIBUTESEDITOR_EXTENDED, GUIDesignButton);
         myOpenExtendedAttributesButton->hide();
+    } else if ((myEditorOptions & EditorOptions::GENERIC_PARAMETERS) != 0) {
+        myMaxNumberOfRows = 1;
     } else {
         throw ProcessError("Invalid editor option");
     }
@@ -85,6 +88,12 @@ GNEAttributesEditor::GNEAttributesEditor(GNEFrame* frameParent, const std::strin
     myAttributesEditorRows.resize(myMaxNumberOfRows);
     for (int i = 0; i < myMaxNumberOfRows; i++) {
         myAttributesEditorRows[i] = new GNEAttributesEditorRow(this);
+    }
+    // create generic parameters editor button
+    if ((myEditorOptions & EditorOptions::GENERIC_PARAMETERS) != 0) {
+        // create generic attributes editor button
+        myOpenGenericParametersEditorButton = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Edit parameters"), "", "", nullptr, this, MID_GNE_ATTRIBUTESEDITOR_PARAMETERS, GUIDesignButton);
+        myOpenGenericParametersEditorButton->hide();
     }
     // Create help button
     myHelpButton = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Help"), "", "", nullptr, this, MID_GNE_ATTRIBUTESEDITOR_HELP, GUIDesignButtonRectangular);
@@ -167,6 +176,8 @@ GNEAttributesEditor::refreshAttributesEditor() {
                 }
 
             }
+        } else if ((myEditorOptions & EditorOptions::GENERIC_PARAMETERS) != 0) {
+            myOpenGenericParametersEditorButton->show();
         }
         if ((myEditorOptions & EditorOptions::EXTENDED_ATTRIBUTES) != 0) {
             myOpenExtendedAttributesButton->show();
@@ -189,6 +200,10 @@ GNEAttributesEditor::refreshAttributesEditor() {
                 } else if (((myEditorOptions & EditorOptions::NETEDIT_ATTRIBUTES) == 0) && attrProperty->isNetedit()) {
                     showAttributeRow = false;
                 } else if (((myEditorOptions & EditorOptions::NETEDIT_ATTRIBUTES) != 0) && !attrProperty->isNetedit()) {
+                    showAttributeRow = false;
+                } else if (((myEditorOptions & EditorOptions::GENERIC_PARAMETERS) == 0) && (attrProperty->getAttr() == GNE_ATTR_PARAMETERS)) {
+                    showAttributeRow = false;
+                } else if (((myEditorOptions & EditorOptions::GENERIC_PARAMETERS) != 0) && (attrProperty->getAttr() != GNE_ATTR_PARAMETERS)) {
                     showAttributeRow = false;
                 } else if ((myEditorOptions & EditorOptions::BASIC_ATTRIBUTES) != 0) {
                     showAttributeRow = true;
@@ -214,7 +229,9 @@ GNEAttributesEditor::refreshAttributesEditor() {
             hideAttributesEditor();
         } else {
             // check if show help button
-            if (itRows > 0) {
+            if ((myEditorOptions & EditorOptions::EXTENDED_ATTRIBUTES) != 0) {
+                myHelpButton->hide();
+            }else if (itRows > 0) {
                 myHelpButton->show();
             } else {
                 myHelpButton->hide();
@@ -291,6 +308,15 @@ GNEAttributesEditor::onCmdOpenExtendedAttributesDialog(FXObject*, FXSelector, vo
     // open vehicle type dialog
     if (demandElement) {
         GNEVehicleTypeDialog(demandElement, true);  // NOSONAR, constructor returns after dialog has been closed
+        refreshAttributesEditor();
+    }
+    return 1;
+}
+
+
+long
+GNEAttributesEditor::onCmdOpenEditParametersDialog(FXObject*, FXSelector, void*) {
+    if (GNESingleParametersDialog(this).execute()) {
         refreshAttributesEditor();
     }
     return 1;

@@ -191,6 +191,8 @@ GNEAttributesEditorRow::showAttributeRow(const GNEAttributeProperties* attrPrope
         showAttributeVClass(attrProperty, attributeEnabled);
     } else if (myAttribute == SUMO_ATTR_COLOR) {
         showAttributeColor(attrProperty, attributeEnabled);
+    } else if (myAttribute == GNE_ATTR_PARAMETERS) {
+        hideAllAttributeElements();
     } else {
         showAttributeLabel(attrProperty);
     }
@@ -517,6 +519,18 @@ GNEAttributesEditorRow::showAttributeLabel(const GNEAttributeProperties* attrPro
     myAttributeLabel->setText(attrProperty->getAttrStr().c_str());
     myAttributeLabel->show();
     // hide other elements
+    myAttributeToggleEnableCheckButton->hide();
+    myAttributeReparentButton->hide();
+    myAttributeInspectParentButton->hide();
+    myAttributeVClassButton->hide();
+    myAttributeColorButton->hide();
+}
+
+
+void
+GNEAttributesEditorRow::hideAllAttributeElements() {
+    // hide other elements
+    myAttributeLabel->hide();
     myAttributeToggleEnableCheckButton->hide();
     myAttributeReparentButton->hide();
     myAttributeInspectParentButton->hide();
