@@ -134,7 +134,7 @@ GNEViewParent::GNEViewParent(FXMDIClient* p, FXMDIMenu* mdimenu, const FXString&
     GNEViewNet* viewNet = new GNEViewNet(tmp, myViewArea, *myGUIMainWindowParent, this, net, undoList, myGUIMainWindowParent->getGLVisual(), share);
 
     // show toolbar grips
-    myGNEAppWindows->getToolbarsGrip().buildMenuToolbarsGrip();
+    myGNEAppWindows->getToolbarsGrip().buildMenuToolbarsGrip(myGNEAppWindows);
 
     // Set pointer myView with the created view net
     myView = viewNet;
@@ -164,7 +164,7 @@ GNEViewParent::GNEViewParent(FXMDIClient* p, FXMDIMenu* mdimenu, const FXString&
 
 GNEViewParent::~GNEViewParent() {
     // delete toolbar grips
-    myGNEAppWindows->getToolbarsGrip().destroyParentToolbarsGrips();
+    myGNEAppWindows->getToolbarsGrip().destroyParentToolbarsGrips(myGNEAppWindows);
     // Remove child before remove
     myGUIMainWindowParent->removeGLChild(this);
 }

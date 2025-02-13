@@ -63,16 +63,16 @@ struct GNEApplicationWindowHelper {
     struct ToolbarsGrip {
 
         /// @brief constructor
-        ToolbarsGrip(GNEApplicationWindow* GNEApp);
+        ToolbarsGrip();
 
         /// @brief build menu toolbar grips
-        void buildMenuToolbarsGrip();
+        void buildMenuToolbarsGrip(GNEApplicationWindow* GNEApp);
 
         /// @brief build toolbars grips
-        void buildViewParentToolbarsGrips();
+        void buildViewParentToolbarsGrips(GNEApplicationWindow* GNEApp);
 
         /// @brief build toolbars grips
-        void destroyParentToolbarsGrips();
+        void destroyParentToolbarsGrips(GNEApplicationWindow* GNEApp);
 
         /// @brief The application menu bar (for file, edit, processing...)
         FXMenuBar* menu = nullptr;
@@ -96,9 +96,6 @@ struct GNEApplicationWindowHelper {
         FXMenuBar* intervalBar = nullptr;
 
     private:
-        /// @brief pointer to current GNEApplicationWindow
-        GNEApplicationWindow* myGNEApp;
-
         /// @brief menu bar drag (for file, edit, processing...)
         FXToolBarShell* myPythonToolBarShellMenu = nullptr;
 
@@ -131,13 +128,13 @@ struct GNEApplicationWindowHelper {
     struct MenuBarFile {
 
         /// @brief constructor
-        MenuBarFile(GNEApplicationWindow* GNEApp);
+        MenuBarFile();
 
         /// @brief build recent network
-        void buildRecentNetworkFiles(FXMenuPane* fileMenu, FXMenuPane* fileMenuRecentNetworkFiles);
+        void buildRecentNetworkFiles(GNEApplicationWindow* GNEApp, FXMenuPane* fileMenu, FXMenuPane* fileMenuRecentNetworkFiles);
 
         /// @brief build recent config
-        void buildRecentConfigFiles(FXMenuPane* fileMenu, FXMenuPane* fileMenuRecentConfigFiles);
+        void buildRecentConfigFiles(GNEApplicationWindow* GNEApp, FXMenuPane* fileMenu, FXMenuPane* fileMenuRecentConfigFiles);
 
         /// @brief List of recent networks
         MFXRecentNetworks myRecentNetworks;
@@ -146,9 +143,6 @@ struct GNEApplicationWindowHelper {
         MFXRecentNetworks myRecentConfigs;
 
     private:
-        /// @brief pointer to current GNEApplicationWindow
-        GNEApplicationWindow* myGNEApp;
-
         /// @brief Invalidated copy constructor.
         MenuBarFile(const MenuBarFile&) = delete;
 
@@ -160,13 +154,13 @@ struct GNEApplicationWindowHelper {
     struct FileMenuCommands {
 
         /// @brief constructor
-        FileMenuCommands(GNEApplicationWindow* GNEApp);
+        FileMenuCommands();
 
         /// @brief build menu commands
-        void buildFileMenuCommands(FXMenuPane* fileMenu, FXMenuPane* fileMenuNEEDITConfig, FXMenuPane* fileMenuSumoConfig,
-                                   FXMenuPane* fileMenuTLS, FXMenuPane* fileMenuEdgeTypes, FXMenuPane* fileMenuAdditionals,
-                                   FXMenuPane* fileMenuDemandElements, FXMenuPane* fileMenuDataElements,
-                                   FXMenuPane* fileMenuMeanDataElements);
+        void buildFileMenuCommands(GNEApplicationWindow* GNEApp, FXMenuPane* fileMenu, FXMenuPane* fileMenuNEEDITConfig,
+                                   FXMenuPane* fileMenuSumoConfig, FXMenuPane* fileMenuTLS, FXMenuPane* fileMenuEdgeTypes,
+                                   FXMenuPane* fileMenuAdditionals, FXMenuPane* fileMenuDemandElements,
+                                   FXMenuPane* fileMenuDataElements, FXMenuPane* fileMenuMeanDataElements);
 
         /// @brief enable menu cascades
         void enableMenuCascades();
@@ -185,31 +179,28 @@ struct GNEApplicationWindowHelper {
 
     private:
         /// @brief build netedit config section
-        void buildNeteditConfigSection(FXMenuPane* menuPane);
+        void buildNeteditConfigSection(GNEApplicationWindow* GNEApp, FXMenuPane* menuPane);
 
         /// @brief build SUMO Config section
-        void buildSumoConfigSection(FXMenuPane* menuPane);
+        void buildSumoConfigSection(GNEApplicationWindow* GNEApp, FXMenuPane* menuPane);
 
         /// @brief build traffic light section
-        void buildTrafficLightSection(FXMenuPane* menuPane);
+        void buildTrafficLightSection(GNEApplicationWindow* GNEApp, FXMenuPane* menuPane);
 
         /// @brief build edge type section
-        void buildEdgeTypeSection(FXMenuPane* menuPane);
+        void buildEdgeTypeSection(GNEApplicationWindow* GNEApp, FXMenuPane* menuPane);
 
         /// @brief build additional section
-        void buildAdditionalSection(FXMenuPane* menuPane);
+        void buildAdditionalSection(GNEApplicationWindow* GNEApp, FXMenuPane* menuPane);
 
         /// @brief build demand section
-        void buildDemandSection(FXMenuPane* menuPane);
+        void buildDemandSection(GNEApplicationWindow* GNEApp, FXMenuPane* menuPane);
 
         /// @brief build data section
-        void buildDataSection(FXMenuPane* menuPane);
+        void buildDataSection(GNEApplicationWindow* GNEApp, FXMenuPane* menuPane);
 
         /// @brief build meanData section
-        void buildMeanDataSection(FXMenuPane* menuPane);
-
-        /// @brief pointer to current GNEApplicationWindow
-        GNEApplicationWindow* myGNEApp = nullptr;
+        void buildMeanDataSection(GNEApplicationWindow* GNEApp, FXMenuPane* menuPane);
 
         /// @brief FXMenuCascade for neteditConfig
         FXMenuCascade* myNeteditConfigMenuCascade = nullptr;
@@ -249,10 +240,13 @@ struct GNEApplicationWindowHelper {
         struct CommonMenuCommands {
 
             /// @brief constructor
+            CommonMenuCommands();
+
+            /// @brief constructor
             CommonMenuCommands(const ModesMenuCommands* modesMenuCommandsParent);
 
             /// @brief build menu commands
-            void buildCommonMenuCommands(FXMenuPane* modesMenu);
+            void buildCommonMenuCommands(GNEApplicationWindow* GNEApp, FXMenuPane* modesMenu);
 
             /// @brief menu command for delete mode
             FXMenuCommand* deleteMode = nullptr;
@@ -278,10 +272,13 @@ struct GNEApplicationWindowHelper {
         struct NetworkMenuCommands {
 
             /// @brief constructor
+            NetworkMenuCommands();
+
+            /// @brief constructor
             NetworkMenuCommands(const ModesMenuCommands* modesMenuCommandsParent);
 
             /// @brief build menu commands
-            void buildNetworkMenuCommands(FXMenuPane* modesMenu);
+            void buildNetworkMenuCommands(GNEApplicationWindow* GNEApp, FXMenuPane* modesMenu);
 
             /// @brief show all menu commands
             void showNetworkMenuCommands();
@@ -337,10 +334,13 @@ struct GNEApplicationWindowHelper {
         struct DemandMenuCommands {
 
             /// @brief constructor
+            DemandMenuCommands();
+
+            /// @brief constructor
             DemandMenuCommands(const ModesMenuCommands* modesMenuCommandsParent);
 
             /// @brief build menu commands
-            void buildDemandMenuCommands(FXMenuPane* modesMenu);
+            void buildDemandMenuCommands(GNEApplicationWindow* GNEApp, FXMenuPane* modesMenu);
 
             /// @brief show all menu commands
             void showDemandMenuCommands();
@@ -396,10 +396,13 @@ struct GNEApplicationWindowHelper {
         struct DataMenuCommands {
 
             /// @brief constructor
+            DataMenuCommands();
+
+            /// @brief constructor
             DataMenuCommands(const ModesMenuCommands* modesMenuCommandsParent);
 
             /// @brief build menu commands
-            void buildDataMenuCommands(FXMenuPane* modesMenu);
+            void buildDataMenuCommands(GNEApplicationWindow* GNEApp, FXMenuPane* modesMenu);
 
             /// @brief show all menu commands
             void showDataMenuCommands();
@@ -431,10 +434,10 @@ struct GNEApplicationWindowHelper {
         };
 
         /// @brief constructor
-        ModesMenuCommands(GNEApplicationWindow* GNEApp);
+        ModesMenuCommands();
 
         /// @brief build modes menu commands
-        void buildModesMenuCommands(FXMenuPane* modesMenu);
+        void buildModesMenuCommands(GNEApplicationWindow* GNEApp, FXMenuPane* modesMenu);
 
         /// @brief set default view
         void setDefaultView(Supermode supermode);
@@ -455,9 +458,6 @@ struct GNEApplicationWindowHelper {
         DataMenuCommands dataMenuCommands;
 
     private:
-        /// @brief pointer to current GNEApplicationWindow
-        GNEApplicationWindow* myGNEApp;
-
         /// @brief Invalidated copy constructor.
         ModesMenuCommands(const ModesMenuCommands&) = delete;
 
@@ -471,11 +471,11 @@ struct GNEApplicationWindowHelper {
         /// @brief struct used to group all variables related to view options in supermode Network
         struct NetworkViewOptions {
 
-            /// @brief default constructor
-            NetworkViewOptions(GNEApplicationWindow* GNEApp);
+            /// @brief constructor
+            NetworkViewOptions();
 
             /// @brief build menu checks
-            void buildNetworkViewOptionsMenuChecks(FXMenuPane* editMenu);
+            void buildNetworkViewOptionsMenuChecks(GNEApplicationWindow* GNEApp, FXMenuPane* editMenu);
 
             /// @brief hide all options menu checks
             void hideNetworkViewOptionsMenuChecks();
@@ -535,9 +535,6 @@ struct GNEApplicationWindowHelper {
             FXMenuSeparator* separator;
 
         private:
-            /// @brief pointer to current GNEApplicationWindow
-            GNEApplicationWindow* myGNEApp;
-
             /// @brief Invalidated copy constructor.
             NetworkViewOptions(const NetworkViewOptions&) = delete;
 
@@ -548,11 +545,11 @@ struct GNEApplicationWindowHelper {
         /// @brief struct used to group all variables related to view options in supermode Demand
         struct DemandViewOptions {
 
-            /// @brief default constructor
-            DemandViewOptions(GNEApplicationWindow* GNEApp);
+            /// @brief constructor
+            DemandViewOptions();
 
             /// @brief build menu checks
-            void buildDemandViewOptionsMenuChecks(FXMenuPane* editMenu);
+            void buildDemandViewOptionsMenuChecks(GNEApplicationWindow* GNEApp, FXMenuPane* editMenu);
 
             /// @brief hide all options menu checks
             void hideDemandViewOptionsMenuChecks();
@@ -597,9 +594,6 @@ struct GNEApplicationWindowHelper {
             FXMenuSeparator* separator;
 
         private:
-            /// @brief pointer to current GNEApplicationWindow
-            GNEApplicationWindow* myGNEApp;
-
             /// @brief Invalidated copy constructor.
             DemandViewOptions(const DemandViewOptions&) = delete;
 
@@ -610,11 +604,11 @@ struct GNEApplicationWindowHelper {
         /// @brief struct used to group all variables related to view options in supermode Data
         struct DataViewOptions {
 
-            /// @brief default constructor
-            DataViewOptions(GNEApplicationWindow* GNEApp);
+            /// @brief constructor
+            DataViewOptions();
 
             /// @brief build menu checks
-            void buildDataViewOptionsMenuChecks(FXMenuPane* editMenu);
+            void buildDataViewOptionsMenuChecks(GNEApplicationWindow* GNEApp, FXMenuPane* editMenu);
 
             /// @brief hide all options menu checks
             void hideDataViewOptionsMenuChecks();
@@ -650,9 +644,6 @@ struct GNEApplicationWindowHelper {
             FXMenuSeparator* separator = nullptr;
 
         private:
-            /// @brief pointer to current GNEApplicationWindow
-            GNEApplicationWindow* myGNEApp;
-
             /// @brief Invalidated copy constructor.
             DataViewOptions(const DataViewOptions&) = delete;
 
@@ -661,19 +652,19 @@ struct GNEApplicationWindowHelper {
         };
 
         /// @brief constructor
-        EditMenuCommands(GNEApplicationWindow* GNEApp);
+        EditMenuCommands();
 
         /// @brief build undo-redo menu commands
-        void buildUndoRedoMenuCommands(FXMenuPane* editMenu);
+        void buildUndoRedoMenuCommands(GNEApplicationWindow* GNEApp, FXMenuPane* editMenu);
 
         /// @brief build view menu commands
-        void buildViewMenuCommands(FXMenuPane* editMenu);
+        void buildViewMenuCommands(GNEApplicationWindow* GNEApp, FXMenuPane* editMenu);
 
         /// @brief build front element commands
-        void buildFrontElementMenuCommand(FXMenuPane* editMenu);
+        void buildFrontElementMenuCommand(GNEApplicationWindow* GNEApp, FXMenuPane* editMenu);
 
         /// @brief build open sumo menu commands
-        void buildOpenSUMOMenuCommands(FXMenuPane* editMenu);
+        void buildOpenSUMOMenuCommands(GNEApplicationWindow* GNEApp, FXMenuPane* editMenu);
 
         /// @brief FXMenuCommand for undo last change
         FXMenuCommand* undoLastChange = nullptr;
@@ -715,9 +706,6 @@ struct GNEApplicationWindowHelper {
         FXMenuCommand* openInSUMOGUI = nullptr;
 
     private:
-        /// @brief pointer to current GNEApplicationWindow
-        GNEApplicationWindow* myGNEApp;
-
         /// @brief Invalidated copy constructor.
         EditMenuCommands(const EditMenuCommands&) = delete;
 
@@ -729,10 +717,10 @@ struct GNEApplicationWindowHelper {
     struct LockMenuCommands {
 
         /// @brief constructor
-        LockMenuCommands(GNEApplicationWindow* GNEApp);
+        LockMenuCommands();
 
         /// @brief build menu commands
-        void buildLockMenuCommands(FXMenuPane* editMenu);
+        void buildLockMenuCommands(GNEApplicationWindow* GNEApp, FXMenuPane* editMenu);
 
         /// @brief remove hotkeys
         void removeHotkeys();
@@ -862,9 +850,6 @@ struct GNEApplicationWindowHelper {
         FXHotKey parseHotKey(const FXwchar character);
 
     private:
-        /// @brief pointer to current GNEApplicationWindow
-        GNEApplicationWindow* myGNEApp;
-
         /// @brief Invalidated copy constructor.
         LockMenuCommands(const LockMenuCommands&) = delete;
 
@@ -876,10 +861,10 @@ struct GNEApplicationWindowHelper {
     struct ProcessingMenuCommands {
 
         /// @brief constructor
-        ProcessingMenuCommands(GNEApplicationWindow* GNEApp);
+        ProcessingMenuCommands();
 
         /// @brief build menu commands
-        void buildProcessingMenuCommands(FXMenuPane* processingMenu);
+        void buildProcessingMenuCommands(GNEApplicationWindow* GNEApp, FXMenuPane* processingMenu);
 
         /// @brief show network processing menu commands
         void showNetworkProcessingMenuCommands();
@@ -954,9 +939,6 @@ struct GNEApplicationWindowHelper {
         FXMenuCommand* optionMenus = nullptr;
 
     private:
-        /// @brief pointer to current GNEApplicationWindow
-        GNEApplicationWindow* myGNEApp;
-
         /// @brief separator for optionsMenu
         FXMenuSeparator* myOptionsSeparator = nullptr;
 
@@ -973,16 +955,13 @@ struct GNEApplicationWindowHelper {
     /// @brief struct for locate menu commands
     struct LocateMenuCommands {
 
-        /// @brief constructor
-        LocateMenuCommands(GNEApplicationWindow* GNEApp);
+        /// @brief default constructor
+        LocateMenuCommands();
 
         /// @brief build menu commands
-        void buildLocateMenuCommands(FXMenuPane* locateMenu);
+        void buildLocateMenuCommands(GNEApplicationWindow* GNEApp, FXMenuPane* locateMenu);
 
     private:
-        /// @brief pointer to current GNEApplicationWindow
-        GNEApplicationWindow* myGNEApp;
-
         /// @brief Invalidated copy constructor.
         LocateMenuCommands(const LocateMenuCommands&) = delete;
 
@@ -993,14 +972,14 @@ struct GNEApplicationWindowHelper {
     /// @brief struct for locate menu commands
     struct ToolsMenuCommands {
 
-        /// @brief constructor
-        ToolsMenuCommands(GNEApplicationWindow* GNEApp);
+        /// @brief default constructor
+        ToolsMenuCommands();
 
         /// @brief destructor
         ~ToolsMenuCommands();
 
         /// @brief build tools (and menu commands)
-        void buildTools(FXMenuPane* toolsMenu, const std::map<std::string, FXMenuPane*>& menuPaneToolMaps);
+        void buildTools(GNEApplicationWindow* GNEApp, FXMenuPane* toolsMenu, const std::map<std::string, FXMenuPane*>& menuPaneToolMaps);
 
         /// @brief show tool
         long showTool(FXObject* menuCommand) const;
@@ -1033,9 +1012,6 @@ struct GNEApplicationWindowHelper {
         /// @brief run netgenerate dialog
         GNERunNetgenerateDialog* myRunNetgenerateDialog = nullptr;
 
-        /// @brief pointer to current GNEApplicationWindow
-        GNEApplicationWindow* myGNEApp;
-
         /// @brief Invalidated copy constructor.
         ToolsMenuCommands(const ToolsMenuCommands&) = delete;
 
@@ -1046,16 +1022,13 @@ struct GNEApplicationWindowHelper {
     /// @brief struct for windows menu commands
     struct WindowsMenuCommands {
 
-        /// @brief constructor
-        WindowsMenuCommands(GNEApplicationWindow* GNEApp);
+        /// @brief default constructor
+        WindowsMenuCommands();
 
         /// @brief build menu commands
-        void buildWindowsMenuCommands(FXMenuPane* windowsMenu, FXStatusBar* statusbar, GUIMessageWindow* messageWindow);
+        void buildWindowsMenuCommands(GNEApplicationWindow* GNEApp, FXMenuPane* windowsMenu, FXStatusBar* statusbar, GUIMessageWindow* messageWindow);
 
     private:
-        /// @brief pointer to current GNEApplicationWindow
-        GNEApplicationWindow* myGNEApp;
-
         /// @brief Invalidated copy constructor.
         WindowsMenuCommands(const WindowsMenuCommands&) = delete;
 
@@ -1066,16 +1039,13 @@ struct GNEApplicationWindowHelper {
     /// @brief struct for help menu commands
     struct HelpMenuCommands {
 
-        /// @brief constructor
-        HelpMenuCommands(GNEApplicationWindow* GNEApp);
+        /// @brief default constructor
+        HelpMenuCommands();
 
         /// @brief build menu commands
-        void buildHelpMenuCommands(FXMenuPane* helpMenu);
+        void buildHelpMenuCommands(GNEApplicationWindow* GNEApp, FXMenuPane* helpMenu);
 
     private:
-        /// @brief pointer to current GNEApplicationWindow
-        GNEApplicationWindow* myGNEApp;
-
         /// @brief Invalidated copy constructor.
         HelpMenuCommands(const HelpMenuCommands&) = delete;
 
@@ -1086,11 +1056,11 @@ struct GNEApplicationWindowHelper {
     /// @brief struct for supermode commands
     struct SupermodeCommands {
 
-        /// @brief constructor
-        SupermodeCommands(GNEApplicationWindow* GNEApp);
+        /// @brief default constructor
+        SupermodeCommands();
 
         /// @brief build menu commands
-        void buildSupermodeCommands(FXMenuPane* editMenu);
+        void buildSupermodeCommands(GNEApplicationWindow* GNEApp, FXMenuPane* editMenu);
 
         /// @brief show all menu commands
         void showSupermodeCommands();
@@ -1111,9 +1081,6 @@ struct GNEApplicationWindowHelper {
         FXMenuCommand* dataMode = nullptr;
 
     private:
-        /// @brief pointer to current GNEApplicationWindow
-        GNEApplicationWindow* myGNEApp;
-
         /// @brief Invalidated copy constructor.
         SupermodeCommands(const SupermodeCommands&) = delete;
 

@@ -2947,92 +2947,90 @@ GNEViewNetHelper::NetworkViewOptions::editingElevation() const {
 // GNEViewNetHelper::DemandViewOptions - methods
 // ---------------------------------------------------------------------------
 
-GNEViewNetHelper::DemandViewOptions::DemandViewOptions(GNEViewNet* viewNet) :
-    myViewNet(viewNet) {
-}
+GNEViewNetHelper::DemandViewOptions::DemandViewOptions() {}
 
 
 void
-GNEViewNetHelper::DemandViewOptions::buildDemandViewOptionsMenuChecks() {
+GNEViewNetHelper::DemandViewOptions::buildDemandViewOptionsMenuChecks(GNEViewNet* viewNet) {
     // get grip modes
-    auto gripModes = myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().modes;
+    auto gripModes = viewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().modes;
     // get tooltip menu
-    auto tooltipMenu = myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu();
+    auto tooltipMenu = viewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu();
     // create menu checks
     menuCheckToggleGrid = new MFXCheckableButton(false, gripModes, tooltipMenu,
             (std::string("\t") + TL("Show grid") + std::string("\t") + TL("Show grid and restrict movement to the grid - define grid size in visualization options. (Ctrl+G)")),
             GUIIconSubSys::getIcon(GUIIcon::COMMONMODE_CHECKBOX_TOGGLEGRID),
-            myViewNet, MID_GNE_DEMANDVIEWOPTIONS_SHOWGRID, GUIDesignMFXCheckableButtonSquare);
+            viewNet, MID_GNE_DEMANDVIEWOPTIONS_SHOWGRID, GUIDesignMFXCheckableButtonSquare);
     menuCheckToggleGrid->setChecked(false);
     menuCheckToggleGrid->create();
 
     menuCheckToggleDrawJunctionShape = new MFXCheckableButton(false, gripModes, tooltipMenu,
             (std::string("\t") + TL("Hide junction shape") + std::string("\t") + TL("Toggle hiding junction shape. (Ctrl+J)")),
             GUIIconSubSys::getIcon(GUIIcon::COMMONMODE_CHECKBOX_TOGGLEDRAWJUNCTIONSHAPE),
-            myViewNet, MID_GNE_DEMANDVIEWOPTIONS_TOGGLEDRAWJUNCTIONSHAPE, GUIDesignMFXCheckableButtonSquare);
+            viewNet, MID_GNE_DEMANDVIEWOPTIONS_TOGGLEDRAWJUNCTIONSHAPE, GUIDesignMFXCheckableButtonSquare);
     menuCheckToggleDrawJunctionShape->setChecked(false);
     menuCheckToggleDrawJunctionShape->create();
 
     menuCheckDrawSpreadVehicles = new MFXCheckableButton(false, gripModes, tooltipMenu,
             (std::string("\t") + TL("Draw vehicles spread/depart position") + std::string("\t") + TL("Draw vehicles spread in lane or in depart position.")),
             GUIIconSubSys::getIcon(GUIIcon::COMMONMODE_CHECKBOX_SPREADVEHICLE),
-            myViewNet, MID_GNE_DEMANDVIEWOPTIONS_DRAWSPREADVEHICLES, GUIDesignMFXCheckableButtonSquare);
+            viewNet, MID_GNE_DEMANDVIEWOPTIONS_DRAWSPREADVEHICLES, GUIDesignMFXCheckableButtonSquare);
     menuCheckDrawSpreadVehicles->setChecked(false);
     menuCheckDrawSpreadVehicles->create();
 
     menuCheckHideShapes = new MFXCheckableButton(false, gripModes, tooltipMenu,
             (std::string("\t") + TL("Show shapes") + std::string("\t") + TL("Toggle show shapes (Polygons and POIs).")),
             GUIIconSubSys::getIcon(GUIIcon::DEMANDMODE_CHECKBOX_HIDESHAPES),
-            myViewNet, MID_GNE_DEMANDVIEWOPTIONS_HIDESHAPES, GUIDesignMFXCheckableButtonSquare);
+            viewNet, MID_GNE_DEMANDVIEWOPTIONS_HIDESHAPES, GUIDesignMFXCheckableButtonSquare);
     menuCheckHideShapes->setChecked(false);
     menuCheckHideShapes->create();
 
     menuCheckShowAllTrips = new MFXCheckableButton(false, gripModes, tooltipMenu,
             (std::string("\t") + TL("Show all trips") + std::string("\t") + TL("Toggle show all trips (requires updated demand - F5).")),
             GUIIconSubSys::getIcon(GUIIcon::DEMANDMODE_CHECKBOX_SHOWTRIPS),
-            myViewNet, MID_GNE_DEMANDVIEWOPTIONS_SHOWTRIPS, GUIDesignMFXCheckableButtonSquare);
+            viewNet, MID_GNE_DEMANDVIEWOPTIONS_SHOWTRIPS, GUIDesignMFXCheckableButtonSquare);
     menuCheckShowAllTrips->setChecked(false);
     menuCheckShowAllTrips->create();
 
     menuCheckShowAllPersonPlans = new MFXCheckableButton(false, gripModes, tooltipMenu,
             (std::string("\t") + TL("Show all person plans") + std::string("\t") + TL("Toggle show all person plans.")),
             GUIIconSubSys::getIcon(GUIIcon::DEMANDMODE_CHECKBOX_SHOWPERSONPLANS),
-            myViewNet, MID_GNE_DEMANDVIEWOPTIONS_SHOWALLPERSONPLANS, GUIDesignMFXCheckableButtonSquare);
+            viewNet, MID_GNE_DEMANDVIEWOPTIONS_SHOWALLPERSONPLANS, GUIDesignMFXCheckableButtonSquare);
     menuCheckShowAllPersonPlans->setChecked(false);
     menuCheckShowAllPersonPlans->create();
 
     menuCheckLockPerson = new MFXCheckableButton(false, gripModes, tooltipMenu,
             (std::string("\t") + TL("Lock selected person") + std::string("\t") + TL("Toggle lock selected person.")),
             GUIIconSubSys::getIcon(GUIIcon::DEMANDMODE_CHECKBOX_LOCKPERSON),
-            myViewNet, MID_GNE_DEMANDVIEWOPTIONS_LOCKPERSON, GUIDesignMFXCheckableButtonSquare);
+            viewNet, MID_GNE_DEMANDVIEWOPTIONS_LOCKPERSON, GUIDesignMFXCheckableButtonSquare);
     menuCheckLockPerson->setChecked(false);
     menuCheckLockPerson->create();
 
     menuCheckShowAllContainerPlans = new MFXCheckableButton(false, gripModes, tooltipMenu,
             (std::string("\t") + TL("Show all containers plans") + std::string("\t") + TL("Toggle show all container plans.")),
             GUIIconSubSys::getIcon(GUIIcon::DEMANDMODE_CHECKBOX_SHOWCONTAINERPLANS),
-            myViewNet, MID_GNE_DEMANDVIEWOPTIONS_SHOWALLCONTAINERPLANS, GUIDesignMFXCheckableButtonSquare);
+            viewNet, MID_GNE_DEMANDVIEWOPTIONS_SHOWALLCONTAINERPLANS, GUIDesignMFXCheckableButtonSquare);
     menuCheckShowAllContainerPlans->setChecked(false);
     menuCheckShowAllContainerPlans->create();
 
     menuCheckLockContainer = new MFXCheckableButton(false, gripModes, tooltipMenu,
             (std::string("\t") + TL("Lock selected container") + std::string("\t") + TL("Toggle lock selected container.")),
             GUIIconSubSys::getIcon(GUIIcon::DEMANDMODE_CHECKBOX_LOCKCONTAINER),
-            myViewNet, MID_GNE_DEMANDVIEWOPTIONS_LOCKCONTAINER, GUIDesignMFXCheckableButtonSquare);
+            viewNet, MID_GNE_DEMANDVIEWOPTIONS_LOCKCONTAINER, GUIDesignMFXCheckableButtonSquare);
     menuCheckLockContainer->setChecked(false);
     menuCheckLockContainer->create();
 
     menuCheckHideNonInspectedDemandElements = new MFXCheckableButton(false, gripModes, tooltipMenu,
             (std::string("\t") + TL("Show non-inspected demand elements") + std::string("\t") + TL("Toggle show non-inspected demand elements.")),
             GUIIconSubSys::getIcon(GUIIcon::DEMANDMODE_CHECKBOX_HIDENONINSPECTEDDEMANDELEMENTS),
-            myViewNet, MID_GNE_DEMANDVIEWOPTIONS_HIDENONINSPECTED, GUIDesignMFXCheckableButtonSquare);
+            viewNet, MID_GNE_DEMANDVIEWOPTIONS_HIDENONINSPECTED, GUIDesignMFXCheckableButtonSquare);
     menuCheckHideNonInspectedDemandElements->setChecked(false);
     menuCheckHideNonInspectedDemandElements->create();
 
     menuCheckShowOverlappedRoutes = new MFXCheckableButton(false, gripModes, tooltipMenu,
             (std::string("\t") + TL("Show number of overlapped routes") + std::string("\t") + TL("Toggle show number of overlapped routes.")),
             GUIIconSubSys::getIcon(GUIIcon::DEMANDMODE_CHECKBOX_SHOWOVERLAPPEDROUTES),
-            myViewNet, MID_GNE_DEMANDVIEWOPTIONS_SHOWOVERLAPPEDROUTES, GUIDesignMFXCheckableButtonSquare);
+            viewNet, MID_GNE_DEMANDVIEWOPTIONS_SHOWOVERLAPPEDROUTES, GUIDesignMFXCheckableButtonSquare);
     menuCheckShowOverlappedRoutes->setChecked(false);
     menuCheckShowOverlappedRoutes->create();
 
@@ -3105,7 +3103,7 @@ GNEViewNetHelper::DemandViewOptions::drawSpreadVehicles() const {
 bool
 GNEViewNetHelper::DemandViewOptions::showNonInspectedDemandElements(const GNEDemandElement* demandElement) const {
     if (menuCheckHideNonInspectedDemandElements->shown()) {
-        const auto& inspectedElements = myViewNet->getInspectedElements();
+        const auto& inspectedElements = demandElement->getNet()->getViewNet()->getInspectedElements();
         // check conditions
         if ((menuCheckHideNonInspectedDemandElements->amChecked() == FALSE) || (inspectedElements.getFirstAC() == nullptr)) {
             // if checkbox is disabled or there isn't an inspected element, then return true
