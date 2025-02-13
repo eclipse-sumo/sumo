@@ -138,7 +138,7 @@ GUIOSGView::GUIOSGView(
     GUINet& net, FXGLVisual* glVis,
     FXGLCanvas* share) :
     GUISUMOAbstractView(p, app, parent, net.getVisualisationSpeedUp(), glVis, share),
-    myTracked(0), myCameraManipulator(new GUIOSGManipulator(this)), myLastUpdate(-1),
+    myTracked(0), myLastUpdate(-1),
     myOSGNormalizedCursorX(0.), myOSGNormalizedCursorY(0.) {
     if (myChanger != nullptr) {
         delete (myChanger);
@@ -147,6 +147,7 @@ GUIOSGView::GUIOSGView(
     int h = getHeight();
     myAdapter = new FXOSGAdapter(this, new FXCursor(parent->getApp(), CURSOR_CROSS));
     myViewer = new osgViewer::Viewer();
+    myCameraManipulator = new GUIOSGManipulator(this);
     myChanger = new GUIOSGPerspectiveChanger(*this, *myGrid);
     const char* sumoPath = getenv("SUMO_HOME");
     if (sumoPath != 0) {

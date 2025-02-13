@@ -63,6 +63,7 @@ public:
 
     /// @brief overload show function to focus always in OK Button
     void show();
+    using FXDialogBox::show; // to silence the warning C4266 about a hidden function
 
     /// @name FOX-callbacks
     /// @{

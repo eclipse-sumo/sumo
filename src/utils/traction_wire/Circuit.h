@@ -30,7 +30,7 @@
 #ifdef HAVE_EIGEN
 #ifdef _MSC_VER
 #pragma warning(push)
-#pragma warning(disable: 4464 5031)
+#pragma warning(disable: 4127 4464 5031)
 #endif
 // avoid warnings in clang
 #ifdef __clang__

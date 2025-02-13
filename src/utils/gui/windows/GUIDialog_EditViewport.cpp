@@ -56,7 +56,7 @@ FXIMPLEMENT(GUIDialog_EditViewport, FXDialogBox, GUIDialog_EditViewportMap, ARRA
 
 #ifdef _MSC_VER
 #pragma warning(push)
-#pragma warning(disable: 4355) // mask warning about "this" in intializers
+#pragma warning(disable: 4355) // mask warning about "this" in initializers
 #endif
 GUIDialog_EditViewport::GUIDialog_EditViewport(GUISUMOAbstractView* parent, const char* name) :
     FXDialogBox(parent, name, GUIDesignDialogBox, 0, 0, 0, 0, 0, 0, 0, 0),

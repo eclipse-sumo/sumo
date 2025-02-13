@@ -53,6 +53,7 @@ public:
 
     /// @brief sets the focus after the window is created
     void show();
+    using FXMainWindow::show; // to silence the warning C4266 about a hidden function
 
     /// @name FOX-callbacks
     /// @{

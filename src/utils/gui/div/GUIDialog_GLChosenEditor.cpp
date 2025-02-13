@@ -57,7 +57,7 @@ FXIMPLEMENT(GUIDialog_GLChosenEditor, FXMainWindow, GUIDialog_GLChosenEditorMap,
 // ===========================================================================
 #ifdef _MSC_VER
 #pragma warning(push)
-#pragma warning(disable: 4355) // mask warning about "this" in intializers
+#pragma warning(disable: 4355) // mask warning about "this" in initializers
 #endif
 GUIDialog_GLChosenEditor::GUIDialog_GLChosenEditor(GUIMainWindow* parent, GUISelectedStorage* str) :
     FXMainWindow(parent->getApp(), "List of Selected Items", GUIIconSubSys::getIcon(GUIIcon::APP_SELECTOR), nullptr, GUIDesignChooserDialog),
