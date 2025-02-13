@@ -298,6 +298,7 @@ class Builder(object):
                 "-t", "100",
                 "-d", "background_images",
                 "-l", "-300",
+                "-a", "Mozilla/5.0 (X11; Linux x86_64) osmWebWizard.py/1.0 (+https://github.com/eclipse-sumo/sumo)",
             ]
             try:
                 os.chdir(self.tmp)

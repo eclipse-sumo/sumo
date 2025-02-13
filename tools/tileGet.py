@@ -183,7 +183,7 @@ def get_options(args=None):
                          help="print download urls and filenames instead of requesting from tile server")
     optParser.add_option("-z", "--max-zoom", type=int, default=17, dest="maxZoom",
                          help="restrict maximum zoom level")
-    optParser.add_option("-j", "--parallel-jobs", type=int, default=8,
+    optParser.add_option("-j", "--parallel-jobs", type=int, default=0,
                          help="Number of parallel jobs to run when downloading tiles. 0 means no parallelism.")
 
     URL_SHORTCUTS = {
