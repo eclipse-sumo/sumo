@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-13 10:07+0100\n"
-"PO-Revision-Date: 2025-02-13 08:56+0000\n"
+"PO-Revision-Date: 2025-02-13 13:20+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -7937,15 +7937,18 @@ msgstr ""
 #, c-format
 msgid "Ignoring parking area on edge '%' due to invalid permissions."
 msgstr ""
+"Il parcheggio sull'arco '%' viene ignorato dovuto alle autorizzazioni "
+"invalidi."
 
 #: src/netbuild/NBParking.cpp:51
 #, c-format
 msgid "Ignoring parking area on edge '%' due to insufficient space."
 msgstr ""
+"Il parcheggio sull'arco '%' viene ignorato dovuto allo spazio insufficiente."
 
 #: src/netbuild/NBParking.cpp:71
 msgid "Could not find edge for parkingArea '%'."
-msgstr ""
+msgstr "L'arco del parcheggio '%' non è stato trovato."
 
 #: src/netbuild/NBTrafficLightDefinition.cpp:117
 #, c-format
@@ -7980,11 +7983,11 @@ msgstr "Nell'aggiungere una fase: carattere illegale '%' nello stato"
 #: src/netbuild/NBTrafficLightLogic.cpp:235
 #, c-format
 msgid "Non-static traffic light '%' does not define variable phase length."
-msgstr ""
+msgstr "Il semaforo non statico '%' non definisce una durata di fase variabile."
 
 #: src/netbuild/NBTrafficLightLogicCont.cpp:243
 msgid "Could not build program '%' for traffic light '%'"
-msgstr ""
+msgstr "Il programma '%' del semaforo '%' non poteva essere creato"
 
 #: src/netbuild/NBTrafficLightLogicCont.cpp:384
 msgid "Guessing signalID for link index % at traffic light '%'."
