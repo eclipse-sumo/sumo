@@ -20,15 +20,16 @@
 #pragma once
 #include <config.h>
 
+#include <netedit/frames/GNEFrameAttributeModules.h>
 #include <utils/common/SUMOVehicleClass.h>
 #include <utils/xml/SUMOSAXHandler.h>
-#include <netedit/frames/GNEFrameAttributeModules.h>
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
 class GNEAttributeCarrier;
+class GNEAttributesEditor;
 class GNEViewNet;
 
 // ===========================================================================
@@ -253,7 +254,7 @@ public:
     };
 
     /// @brief Constructor for parameter editor inspector
-    GNEMultipleParametersDialog(GNEFrameAttributeModules::ParametersEditor* parametersEditorInspector);
+    GNEMultipleParametersDialog(GNEAttributesEditor* attributesEditor);
 
     /// @brief destructor
     ~GNEMultipleParametersDialog();
@@ -274,8 +275,8 @@ protected:
     /// @brief FOX need this
     FOX_CONSTRUCTOR(GNEMultipleParametersDialog)
 
-    /// @brief pointer to ParametersEditor
-    GNEFrameAttributeModules::ParametersEditor* myParametersEditor;
+    /// @brief pointer to attributes editor
+    GNEAttributesEditor* myAttributesEditor;
 
     /// @brief pointer to parameters values
     ParametersValues* myParametersValues;

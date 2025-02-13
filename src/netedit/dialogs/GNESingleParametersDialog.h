@@ -20,18 +20,19 @@
 #pragma once
 #include <config.h>
 
-#include <utils/common/SUMOVehicleClass.h>
-#include <utils/xml/SUMOSAXHandler.h>
 #include <netedit/frames/GNEFrameAttributeModules.h>
 #include <netedit/dialogs/GNEVehicleTypeDialog.h>
+#include <utils/common/SUMOVehicleClass.h>
+#include <utils/xml/SUMOSAXHandler.h>
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
 class GNEAttributeCarrier;
-class NBLoadedSUMOTLDef;
+class GNEAttributesEditor;
 class GNEViewNet;
+class NBLoadedSUMOTLDef;
 
 // ===========================================================================
 // class definitions
@@ -232,8 +233,8 @@ public:
     /// @brief Constructor for generic data attributes
     GNESingleParametersDialog(GNEFrameAttributeModules::GenericDataAttributes* genericDataAttributes);
 
-    /// @brief Constructor for parameter editor
-    GNESingleParametersDialog(GNEFrameAttributeModules::ParametersEditor* parametersEditor);
+    /// @brief Constructor for attributes editor
+    GNESingleParametersDialog(GNEAttributesEditor* attributesEditor);
 
     /// @brief Constructor for Vehicle Type Row (Vehicle Type Dialog)
     GNESingleParametersDialog(GNEVehicleTypeDialog::VTypeAttributes::VTypeAttributeRow* VTypeAttributeRow, GNEViewNet* viewNet);
@@ -266,8 +267,8 @@ protected:
     /// @brief pointer to GenericDataAttributes
     GNEFrameAttributeModules::GenericDataAttributes* myGenericDataAttributes;
 
-    /// @brief pointer to ParametersEditor
-    GNEFrameAttributeModules::ParametersEditor* myParametersEditor;
+    /// @brief pointer to attributes editor
+    GNEAttributesEditor* myAttributesEditor;
 
     /// @brief pointer to VTypeAttributeRow
     GNEVehicleTypeDialog::VTypeAttributes::VTypeAttributeRow* VTypeAttributeRow;

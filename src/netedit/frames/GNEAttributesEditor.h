@@ -60,6 +60,9 @@ public:
     /// @brief pointer to GNEFrame parent
     GNEFrame* getFrameParent() const;
 
+    /// @brief get edited attribute carriers
+    const std::vector<GNEAttributeCarrier*> &getEditedAttributeCarriers() const;
+
     /// @brief edit attributes of the given AC (usually the edited template AC)
     void showAttributesEditor(GNEAttributeCarrier* AC);
 

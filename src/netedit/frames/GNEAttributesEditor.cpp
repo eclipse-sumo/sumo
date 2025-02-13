@@ -106,6 +106,12 @@ GNEAttributesEditor::getFrameParent() const {
 }
 
 
+const std::vector<GNEAttributeCarrier*>&
+GNEAttributesEditor::getEditedAttributeCarriers() const {
+    return myEditedACs;
+}
+
+
 void
 GNEAttributesEditor::showAttributesEditor(GNEAttributeCarrier* AC) {
     myEditedACs.clear();
