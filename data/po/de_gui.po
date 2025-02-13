@@ -8,9 +8,10 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-13 10:07+0100\n"
-"PO-Revision-Date: 2025-01-20 13:51+0000\n"
+"PO-Revision-Date: 2025-02-13 13:20+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
-"Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/sumo-gui-netedit/de/>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
+"sumo-gui-netedit/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -2625,7 +2626,7 @@ msgstr "LSA"
 
 #: src/netedit/GNEApplicationWindow.cpp:1447
 msgid "Trigger"
-msgstr ""
+msgstr "Auslöser"
 
 #: src/netedit/GNEApplicationWindow.cpp:1448
 msgid "Turn-defs"
@@ -13009,7 +13010,7 @@ msgstr "Standardfahrzeugtyp '%' kann nicht entfernt werden"
 
 #: src/netedit/frames/GNEElementTree.cpp:309
 msgid "Edge: %"
-msgstr ""
+msgstr "Kante: %"
 
 #: src/netedit/frames/GNEElementTree.cpp:314
 #: src/netedit/frames/GNENeteditAttributes.cpp:56
@@ -15590,7 +15591,7 @@ msgstr "Verkehrsumlegungszonen-Shape benötigt mindestens drei Punkte"
 #: src/netedit/frames/network/GNETAZFrame.cpp:1648
 #, c-format
 msgid "Created % sources and sinks"
-msgstr ""
+msgstr "% Quellen und Ziele erstellt"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:122
 msgid "Edit Traffic Light"
