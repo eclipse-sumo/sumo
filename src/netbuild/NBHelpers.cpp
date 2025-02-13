@@ -86,7 +86,7 @@ void
 NBHelpers::loadEdgesFromFile(const std::string& file, std::set<std::string>& into) {
     std::ifstream strm(file.c_str());
     if (!strm.good()) {
-        throw ProcessError(TLF("Could not load names of edges too keep from '%'.", file));
+        throw ProcessError(TLF("Could not load names of edges to keep from '%'.", file));
     }
     while (strm.good()) {
         std::string name;

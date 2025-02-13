@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2025-02-04 15:47+0100\n"
+"POT-Creation-Date: 2025-02-13 10:07+0100\n"
 "PO-Revision-Date: 2024-12-11 12:11+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/eclipse-sumo/applications/tr/>\n"
@@ -959,7 +959,7 @@ msgstr ""
 "'%' kişisi için kalkış saati=% geçmişte; bunun yerine geçerli saat=% "
 "kullanılmalıdır."
 
-#: src/libsumo/Person.cpp:994 src/libsumo/Vehicle.cpp:1790
+#: src/libsumo/Person.cpp:993 src/libsumo/Vehicle.cpp:1790
 msgid "Could not determine position on lane '%' at lateral position %."
 msgstr "Yanal konum %'de şerit '%' üzerindeki konum belirlenemedi."
 
@@ -1033,7 +1033,7 @@ msgstr ""
 msgid "Invalid route replacement for vehicle '%'. %"
 msgstr "Araç '%' İçin Geçersiz Rota Değişimi. %"
 
-#: src/libsumo/Vehicle.cpp:2723
+#: src/libsumo/Vehicle.cpp:2728
 msgid ""
 "Ignoring lane change subscription filter with non-neighboring lane offset "
 "direction=%."
@@ -1313,7 +1313,7 @@ msgstr ""
 "'%' Aracının '%' Segmentinde Birden Fazla Durağı Var, Zaman=% (stop-output "
 "Birleştirilecek)."
 
-#: src/mesosim/MEVehicle.cpp:393 src/microsim/MSVehicle.cpp:1703
+#: src/mesosim/MEVehicle.cpp:393 src/microsim/MSVehicle.cpp:1711
 #, c-format
 msgid ""
 "Vehicle '%' ignores triggered stop on lane '%' due to capacity constraints."
@@ -1321,7 +1321,7 @@ msgstr ""
 "Araç '%', kapasite kısıtlamaları nedeniyle '%' şeridinde tetiklenen durmayı "
 "göz ardı eder."
 
-#: src/mesosim/MEVehicle.cpp:410 src/microsim/MSVehicle.cpp:1718
+#: src/mesosim/MEVehicle.cpp:410 src/microsim/MSVehicle.cpp:1726
 #, c-format
 msgid ""
 "Vehicle '%' ignores container triggered stop on lane '%' due to capacity "
@@ -3453,18 +3453,18 @@ msgstr "'%' aracı durumdan yüklenemedi"
 msgid "No gap control available for meso."
 msgstr "Bölgesel Ölçek İçin Aralık Kontrolü Yok."
 
-#: src/microsim/MSVehicle.cpp:730
+#: src/microsim/MSVehicle.cpp:733
 msgid ""
 "Lane change model did not provide a reason for changing (state=%, time=%\n"
 msgstr ""
 "Şerit değiştirme modeli değiştirme için bir neden sağlamadı (durum=%, "
 "zaman=%\n"
 
-#: src/microsim/MSVehicle.cpp:771 src/utils/common/UtilExceptions.h:171
+#: src/microsim/MSVehicle.cpp:778 src/utils/common/UtilExceptions.h:171
 msgid "should not happen"
 msgstr "olmamalı"
 
-#: src/microsim/MSVehicle.cpp:971
+#: src/microsim/MSVehicle.cpp:979
 msgid ""
 "Vehicle '%' moved by TraCI from % to % (dist %) with implied speed of % "
 "(exceeding maximum speed %). time=%."
@@ -3472,31 +3472,31 @@ msgstr ""
 "Araç '%', TraCI Tarafından %'den %'ye (Mesafe %) % Örtük Hızla Taşındı (% "
 "Maksimum Hızı Aşıyor). Zaman=%."
 
-#: src/microsim/MSVehicle.cpp:1735
+#: src/microsim/MSVehicle.cpp:1743
 msgid "Vehicle '%' aborts joining after extension of %s at time %."
 msgstr ""
 "Araç '%', %s süresinin uzatılmasından sonra birleşmeyi % zamanında iptal "
 "ediyor."
 
-#: src/microsim/MSVehicle.cpp:1887
+#: src/microsim/MSVehicle.cpp:1895
 msgid "Vehicle '%' to split from vehicle '%' is not known. time=%."
 msgstr "'%' Aracının '%' Aracından Ayrılacağı Bilinmiyor. Zaman=%."
 
-#: src/microsim/MSVehicle.cpp:2019 src/microsim/MSVehicle.cpp:2026
+#: src/microsim/MSVehicle.cpp:2027 src/microsim/MSVehicle.cpp:2034
 msgid ""
 "Cannot join vehicle '%' to vehicle '%' due to incompatible routes. time=%."
 msgstr ""
 "Uyumsuz rotalar nedeniyle araç '%' ile araç '%' birleştirilemiyor. time=%."
 
-#: src/microsim/MSVehicle.cpp:2881
+#: src/microsim/MSVehicle.cpp:2889
 msgid "Suspicious right_before_left junction '%'."
 msgstr "Şüpheli right_before_left junction '%'."
 
-#: src/microsim/MSVehicle.cpp:4647
+#: src/microsim/MSVehicle.cpp:4655
 msgid " for unknown reasons"
 msgstr " Bilinmeyen Nedenlerle"
 
-#: src/microsim/MSVehicle.cpp:4649
+#: src/microsim/MSVehicle.cpp:4657
 msgid ""
 "Vehicle '%' performs emergency stop at the end of lane '%'% (decel=%, "
 "offset=%), time=%."
@@ -3504,11 +3504,11 @@ msgstr ""
 "Araç '%', Şerit '%'% (Negatif İvme=%, Öteleme=%) Sonunda Acil Durdurma "
 "Gerçekleştirir, süre=% ."
 
-#: src/microsim/MSVehicle.cpp:4732
+#: src/microsim/MSVehicle.cpp:4740
 msgid "Unexpected end of opposite lane for vehicle '%' at lane '%', time=%."
 msgstr "'%' Aracı İçin Karşı Şeridin '%' Şeridinde Beklenmeyen Son, Zaman=%."
 
-#: src/microsim/MSVehicle.cpp:4850
+#: src/microsim/MSVehicle.cpp:4858
 msgid ""
 "Vehicle '%' performs emergency braking on lane '%' with decel=%, wished=%, "
 "severity=%, time=%."
@@ -3516,20 +3516,20 @@ msgstr ""
 "'%' Araç '%' şeridinde Negatif İvme=%, Arzu Edilen=%, Şiddet=%, Zaman=% ile "
 "Acil Frenleme Geçrkleştirir."
 
-#: src/microsim/MSVehicle.cpp:5670 src/microsim/MSVehicle.cpp:5759
+#: src/microsim/MSVehicle.cpp:5678 src/microsim/MSVehicle.cpp:5767
 msgid "Vehicle '%' skips stop on lane '%' time=%."
 msgstr "Araç '%', '%' şeridinde durmayı atlar zaman=%."
 
-#: src/microsim/MSVehicle.cpp:5753
+#: src/microsim/MSVehicle.cpp:5761
 #, c-format
 msgid "Vehicle '%' aborts stop."
 msgstr "Araç '%' durmayı iptal eder."
 
-#: src/microsim/MSVehicle.cpp:7663
+#: src/microsim/MSVehicle.cpp:7671
 msgid "Error: Invalid vehicles in state (may be a meso state)!"
 msgstr "Hata oluştu: Durumda geçersiz araçlar (bir mezo durum olabilir)!"
 
-#: src/microsim/MSVehicle.cpp:7705
+#: src/microsim/MSVehicle.cpp:7713
 msgid "Action steps are out of sync for loaded vehicle '%'."
 msgstr "Yüklü araç '%' için eylem adımları senkronize değil."
 
@@ -3541,14 +3541,14 @@ msgstr "Araç '%' bekleme %'sini iptal etti."
 msgid "Vehicle '%' ends teleporting on edge '%', time=%."
 msgstr "Araç '%', '%' Kesiminde Işınlanmayı Bitirir, Zaman=%."
 
-#: src/microsim/MSVehicleType.cpp:324
+#: src/microsim/MSVehicleType.cpp:329
 #, c-format
 msgid ""
 "The vType '%' has a 'mass' attribute and a 'vehicleMass' parameter. The "
 "'mass' attribute will take precedence."
 msgstr ""
 
-#: src/microsim/MSVehicleType.cpp:326
+#: src/microsim/MSVehicleType.cpp:331
 #, c-format
 msgid ""
 "The vType '%' has a 'vehicleMass' parameter, which is deprecated. Please use"
@@ -3556,7 +3556,7 @@ msgid ""
 "needed."
 msgstr ""
 
-#: src/microsim/MSVehicleType.cpp:338
+#: src/microsim/MSVehicleType.cpp:343
 msgid ""
 "Value of 'emergencyDecel' (%) should be higher than 'decel' (%) for vType "
 "'%'."
@@ -3564,7 +3564,7 @@ msgstr ""
 "'acilYavaşlama' (%) değeri vTürü '%' için 'yavaşlama' (%) değerinden yüksek "
 "olmalıdır."
 
-#: src/microsim/MSVehicleType.cpp:341
+#: src/microsim/MSVehicleType.cpp:346
 msgid ""
 "Value of 'emergencyDecel' (%) is lower than 'apparentDecel' (%) for vType "
 "'%' may cause collisions."
@@ -3572,7 +3572,7 @@ msgstr ""
 "'acilYavaşlama' (%) değerinin vTipi '%' için 'görünenYavaşlama' (%) "
 "değerinden düşük olması çarpışmalara neden olabilir."
 
-#: src/microsim/MSVehicleType.cpp:463
+#: src/microsim/MSVehicleType.cpp:468
 #, c-format
 msgid ""
 "Value of tau=% in vehicle type '%' lower than simulation step size may cause"
@@ -3581,7 +3581,7 @@ msgstr ""
 "'%' Araç Tipinde tau=% Değeri, Simülasyon Adım Boyutundan Daha Düşük "
 "Çarpışmalara Neden Olabilir."
 
-#: src/microsim/MSVehicleType.cpp:469
+#: src/microsim/MSVehicleType.cpp:474
 #, c-format
 msgid ""
 "Vehicle class '%' of vType '%' is set as ignored by option --meso-ignore-"
@@ -3593,7 +3593,7 @@ msgstr ""
 " Ayarlandı. Bölgesel Simülasyon İçin --meso-lane-queue for multi-modal "
 "Seçeneğini Ayarlayın"
 
-#: src/microsim/MSVehicleType.cpp:479
+#: src/microsim/MSVehicleType.cpp:484
 msgid ""
 "The battery device is active for vType '%' but no emission class is set. The"
 " emission class Energy/unknown will be used, please consider setting an "
@@ -5672,7 +5672,7 @@ msgstr ""
 "(Trafik Işığı) Türüne Dönüştürülüyor."
 
 #: src/netbuild/NBAlgorithms.cpp:371 src/netbuild/NBNodeCont.cpp:1800
-#: src/netimport/NIImporter_OpenStreetMap.cpp:432
+#: src/netimport/NIImporter_OpenStreetMap.cpp:433
 #: src/netimport/NIXMLNodesHandler.cpp:360
 msgid "Could not allocate tls '%'."
 msgstr "tls '%' Tahsis Edilemedi."
@@ -5971,45 +5971,45 @@ msgstr "Çıkmazdan kaçınmak için '%' için 'sol değiştir' yasağını yok 
 msgid "Ignoring changeRight prohibition for '%' to avoid dead-end"
 msgstr "Çıkmazdan kaçınmak için '%' için sağaDeğiştir yasağını yok sayma"
 
-#: src/netbuild/NBEdge.cpp:3777
+#: src/netbuild/NBEdge.cpp:3778
 #, c-format
 msgid "The lane '%' on edge '%' already had a traffic light signal."
 msgstr "'%' Kesimindeki '%' Şeridi Zaten Bir Trafik Işığı Sinyaline Sahip."
 
-#: src/netbuild/NBEdge.cpp:3783
+#: src/netbuild/NBEdge.cpp:3784
 msgid "Could not set any signal of the tlLogic '%' (unknown group)."
 msgstr "tlLogic '%' İçin Herhangi Bir Sinyal Ayarlanamadı (Bilinmeyen Grup)."
 
-#: src/netbuild/NBEdge.cpp:4272
+#: src/netbuild/NBEdge.cpp:4273
 msgid "Ignoring invalid stopOffset for edge '%' (negative offset)."
 msgstr "Kesim '%' İçin Geçersiz stopOffset Yok Sayılıyor (Negatif Öteleme)."
 
-#: src/netbuild/NBEdge.cpp:4281
+#: src/netbuild/NBEdge.cpp:4282
 msgid "Ignoring invalid stopOffset for lane '%' (negative offset)."
 msgstr "Şerit '%' İçin Geçersiz stopOffset Yok Sayılıyor (Negatif Öteleme)."
 
-#: src/netbuild/NBEdge.cpp:4287
+#: src/netbuild/NBEdge.cpp:4288
 msgid "Ignoring invalid stopOffset for lane '%' (invalid lane index)."
 msgstr ""
 "Şerit '%' İçin Geçersiz stopOffset Yok Sayılıyor (Geçersiz Şerit Kimliği)."
 
-#: src/netbuild/NBEdge.cpp:4551
+#: src/netbuild/NBEdge.cpp:4552
 #, c-format
 msgid "Edge % allows pedestrians on all lanes"
 msgstr "Kesim % tüm şeritlerde yayalara izin verir"
 
-#: src/netbuild/NBEdge.cpp:4609
+#: src/netbuild/NBEdge.cpp:4610
 #, c-format
 msgid "Edge '%' already has a dedicated lane for %s. Not adding another one."
 msgstr ""
 "Kesim '%' Zaten % İçin Ayrılmış Bir Şeride Sahip. Bir Tane Daha Eklenmiyor."
 
-#: src/netbuild/NBEdge.cpp:4649
+#: src/netbuild/NBEdge.cpp:4650
 #, c-format
 msgid "Edge '%' doesn't have a dedicated lane for %s. Cannot be restored."
 msgstr "Kesim '%', % İçin Ayrılmış Bir Şeride Sahip Değil. Geri yüklenemez."
 
-#: src/netbuild/NBEdge.cpp:4697
+#: src/netbuild/NBEdge.cpp:4698
 msgid "Could not avoid overlapping shape at node '%' for edge '%'."
 msgstr "'%' Kesimi İçin '%' Düğümünde Şeklin Çakışması Önlenemedi."
 
@@ -6554,33 +6554,33 @@ msgstr ""
 msgid "Assumes left-hand traffic on the network"
 msgstr "Ağ üzerinde soldan gelen trafiği varsayar"
 
-#: src/netbuild/NBFrame.cpp:349
+#: src/netbuild/NBFrame.cpp:353
 msgid "Interprets STR[] as list of junctions to exclude from joining"
 msgstr ""
 "STR[]'yi birleştirmeden hariç tutulacak kavşakların listesi olarak yorumlar"
 
-#: src/netbuild/NBFrame.cpp:361
+#: src/netbuild/NBFrame.cpp:365
 msgid "Modifies all edge speeds by adding FLOAT"
 msgstr "FLOAT ekleyerek tüm kesim hızlarını değiştirir"
 
-#: src/netbuild/NBFrame.cpp:364
+#: src/netbuild/NBFrame.cpp:368
 msgid "Modifies all edge speeds by multiplying by FLOAT"
 msgstr "Tüm kesim hızlarını FLOAT ile çarparak değiştirir"
 
-#: src/netbuild/NBFrame.cpp:367
+#: src/netbuild/NBFrame.cpp:371
 msgid "Modifies all edge speeds to at least FLOAT"
 msgstr "Tüm kesim hızlarını en az FLOAT olarak değiştirir"
 
-#: src/netbuild/NBFrame.cpp:375
+#: src/netbuild/NBFrame.cpp:379
 msgid "Generate INT intermediate points to smooth out intersection corners"
 msgstr "Kesişme köşelerini düzeltmek için INT ara noktaları oluşturun"
 
-#: src/netbuild/NBFrame.cpp:378
+#: src/netbuild/NBFrame.cpp:382
 msgid ""
 "Generate INT intermediate points to smooth out lanes within the intersection"
 msgstr "Kavşak içindeki şeritleri düzeltmek için INT ara noktaları oluşturun"
 
-#: src/netbuild/NBFrame.cpp:381
+#: src/netbuild/NBFrame.cpp:385
 msgid ""
 "Generate longer intersections to allow for smooth s-curves when the number "
 "of lanes changes"
@@ -6588,15 +6588,15 @@ msgstr ""
 "Şerit sayısı değiştiğinde düzgün s-eğrilerine izin vermek için daha uzun "
 "kavşaklar oluşturun"
 
-#: src/netbuild/NBFrame.cpp:428
+#: src/netbuild/NBFrame.cpp:432
 msgid "Forces rectangular cuts between lanes and intersections"
 msgstr "Şeritler ve kavşaklar arasında dikdörtgen kesimleri zorlar"
 
-#: src/netbuild/NBFrame.cpp:491
+#: src/netbuild/NBFrame.cpp:495
 msgid "Always build walking areas even if there are no crossings"
 msgstr "Geçit olmasa bile her zaman yürüyüş alanları inşa edin"
 
-#: src/netbuild/NBFrame.cpp:494
+#: src/netbuild/NBFrame.cpp:498
 msgid ""
 "Do not create a walkingarea between sidewalks that are connected by a "
 "pedestrian junction within FLOAT"
@@ -6604,21 +6604,21 @@ msgstr ""
 "FLOAT içinde bir yaya kavşağı ile birbirine bağlanan kaldırımlar arasında "
 "bir yürüme alanı oluşturmayın"
 
-#: src/netbuild/NBFrame.cpp:533
+#: src/netbuild/NBFrame.cpp:537
 msgid "Interprets STR[] as list of tls ids to exclude from joining"
 msgstr ""
 "STR[]'yi birleştirmeden hariç tutulacak tls kimliklerinin listesi olarak "
 "yorumlar"
 
-#: src/netbuild/NBFrame.cpp:642
+#: src/netbuild/NBFrame.cpp:646
 msgid "Only keep edges with speed in meters/second > FLOAT"
 msgstr "Yalnızca hızı metre/saniye > FLOAT olan kenarları tutun"
 
-#: src/netbuild/NBFrame.cpp:646
+#: src/netbuild/NBFrame.cpp:650
 msgid "Remove edges in STR[]"
 msgstr "STR[] içindeki kenarları kaldırın"
 
-#: src/netbuild/NBFrame.cpp:650
+#: src/netbuild/NBFrame.cpp:654
 msgid ""
 "Only keep edges in STR[] or those which are kept due to other keep-edges or "
 "remove-edges options"
@@ -6626,7 +6626,7 @@ msgstr ""
 "Yalnızca STR[] içindeki kesimleri veya diğer kesimleri tut veya kesimleri "
 "kaldır seçenekleri nedeniyle tutulan kesimleri tutun"
 
-#: src/netbuild/NBFrame.cpp:653
+#: src/netbuild/NBFrame.cpp:657
 msgid ""
 "Only keep edges in FILE (Each id on a single line. Selection files from "
 "sumo-gui are also supported) or those which are kept due to other keep-edges"
@@ -6636,7 +6636,7 @@ msgstr ""
 "dosyaları da desteklenir) veya diğer kesimleri tut veya kesimleri kaldır "
 "seçenekleri nedeniyle tutulan kesimleri tutun"
 
-#: src/netbuild/NBFrame.cpp:656
+#: src/netbuild/NBFrame.cpp:660
 msgid ""
 "Remove edges in FILE. (Each id on a single line. Selection files from sumo-"
 "gui are also supported)"
@@ -6644,11 +6644,11 @@ msgstr ""
 "DOSYA'daki kesimleri kaldırın. (Her id tek bir satırda. sumo-gui'den seçim "
 "dosyaları da desteklenir)"
 
-#: src/netbuild/NBFrame.cpp:660
+#: src/netbuild/NBFrame.cpp:664
 msgid "Remove edges after loading, patching and joining"
 msgstr ""
 
-#: src/netbuild/NBFrame.cpp:664
+#: src/netbuild/NBFrame.cpp:668
 msgid ""
 "Only keep edges which are located within the given boundary (given either as"
 " CARTESIAN corner coordinates <xmin,ymin,xmax,ymax> or as polygon "
@@ -6657,7 +6657,7 @@ msgstr ""
 "Yalnızca verilen sınır içinde bulunan kesimleri tutun (<xmin,ymin,xmax,ymax>"
 " KARTEZYEN köşe koordinatları veya <x0,y0,x1,y1,...> poligon olarak verilir)"
 
-#: src/netbuild/NBFrame.cpp:667
+#: src/netbuild/NBFrame.cpp:671
 msgid ""
 "Only keep edges which are located within the given boundary (given either as"
 " GEODETIC corner coordinates <lon-min,lat-min,lon-max,lat-max> or as polygon"
@@ -6667,52 +6667,52 @@ msgstr ""
 "koordinatları <en-min,boy-min,en-max,boy-max> olarak veya poligon "
 "<en0,boy0,en1,boy1,...> olarak verilir)"
 
-#: src/netbuild/NBFrame.cpp:671
+#: src/netbuild/NBFrame.cpp:675
 msgid "Only keep edges which allow one of the vclasses in STR[]"
 msgstr ""
 "Yalnızca STR[] içindeki vc sınıflarından birine izin veren kenarları tutun"
 
-#: src/netbuild/NBFrame.cpp:674
+#: src/netbuild/NBFrame.cpp:678
 msgid "Remove edges which allow only vclasses from STR[]"
 msgstr "STR[]'den yalnızca vc sınıflarına izin veren kenarları kaldırın"
 
-#: src/netbuild/NBFrame.cpp:677
+#: src/netbuild/NBFrame.cpp:681
 msgid "Only keep edges where type is in STR[]"
 msgstr "Yalnızca türün STR[] içinde olduğu kenarları tutun"
 
-#: src/netbuild/NBFrame.cpp:680
+#: src/netbuild/NBFrame.cpp:684
 msgid "Only keep the INT largest weakly connected components"
 msgstr "Yalnızca INT en büyük zayıf bağlantılı bileşenleri saklayın"
 
-#: src/netbuild/NBFrame.cpp:683
+#: src/netbuild/NBFrame.cpp:687
 msgid "Remove edges where type is in STR[]"
 msgstr "Türün STR[] içinde olduğu kenarları kaldırın"
 
-#: src/netbuild/NBFrame.cpp:687
+#: src/netbuild/NBFrame.cpp:691
 msgid "Removes isolated edges"
 msgstr "Yalıtılmış kenarları kaldırır"
 
-#: src/netbuild/NBFrame.cpp:691
+#: src/netbuild/NBFrame.cpp:695
 msgid "Only keep lanes with width in meters > FLOAT"
 msgstr ""
 
-#: src/netbuild/NBFrame.cpp:697
+#: src/netbuild/NBFrame.cpp:701
 msgid "All nodes will be unregulated"
 msgstr "Tüm düğümler düzenlenmemiş olacaktır"
 
-#: src/netbuild/NBFrame.cpp:702
+#: src/netbuild/NBFrame.cpp:706
 msgid "Do not regulate nodes in STR[]"
 msgstr "STR[] içindeki düğümleri düzenlemeyin"
 
-#: src/netbuild/NBFrame.cpp:706
+#: src/netbuild/NBFrame.cpp:710
 msgid "Do not regulate district nodes"
 msgstr "Bölge düğümlerini düzenlemeyin"
 
-#: src/netbuild/NBFrame.cpp:712
+#: src/netbuild/NBFrame.cpp:716
 msgid "Enable ramp-guessing"
 msgstr "Rampa tahminini etkinleştirin"
 
-#: src/netbuild/NBFrame.cpp:715
+#: src/netbuild/NBFrame.cpp:719
 msgid ""
 "Guess on-ramps and mark acceleration lanes if they exist but do not add new "
 "lanes"
@@ -6720,40 +6720,40 @@ msgstr ""
 "Rampaları tahmin edin ve varsa hızlanma şeritlerini işaretleyin ancak yeni "
 "şerit eklemeyin"
 
-#: src/netbuild/NBFrame.cpp:719
+#: src/netbuild/NBFrame.cpp:723
 msgid "Treat edges with speed > FLOAT as no ramps"
 msgstr "Hızı > FLOAT olan kenarlara rampa yokmuş gibi davranın"
 
-#: src/netbuild/NBFrame.cpp:723
+#: src/netbuild/NBFrame.cpp:727
 msgid "Treat edges with speed < FLOAT as no highways"
 msgstr "Hızı < FLOAT olan kesimleri otoyol yok olarak değerlendirin"
 
-#: src/netbuild/NBFrame.cpp:727
+#: src/netbuild/NBFrame.cpp:731
 msgid "Use FLOAT as ramp-length"
 msgstr "Rampa uzunluğu olarak FLOAT kullanın"
 
-#: src/netbuild/NBFrame.cpp:731
+#: src/netbuild/NBFrame.cpp:735
 msgid "Use FLOAT as minimum ramp-length"
 msgstr "Minimum rampa uzunluğu olarak FLOAT kullanın"
 
-#: src/netbuild/NBFrame.cpp:735
+#: src/netbuild/NBFrame.cpp:739
 msgid "Tries to handle the given edges as ramps"
 msgstr "Verilen kesimleri rampa olarak ele almaya çalışır"
 
-#: src/netbuild/NBFrame.cpp:738
+#: src/netbuild/NBFrame.cpp:742
 msgid "Do not consider the given edges as ramps"
 msgstr "Verilen kesimleri rampa olarak düşünmeyin"
 
-#: src/netbuild/NBFrame.cpp:742
+#: src/netbuild/NBFrame.cpp:746
 msgid "Avoids edge splitting"
 msgstr "Kesim kenarlarının ayrılmasını önler"
 
-#: src/netbuild/NBFrame.cpp:752
+#: src/netbuild/NBFrame.cpp:756
 #, c-format
 msgid "unsupported value '%' for option '--tls.default-type'"
 msgstr "'--tls. varsayılan-türü' seçeneği için desteklenmeyen değer '%'"
 
-#: src/netbuild/NBFrame.cpp:756
+#: src/netbuild/NBFrame.cpp:760
 msgid ""
 "only one of the options 'keep-edges.in-boundary' or 'keep-edges.in-geo-"
 "boundary' may be given"
@@ -6761,7 +6761,7 @@ msgstr ""
 "'keep-edges.in-boundary' veya 'keep-edges.in-geo-boundary' Seçeneklerinden "
 "Yalnızca Biri Verilebilir"
 
-#: src/netbuild/NBFrame.cpp:760
+#: src/netbuild/NBFrame.cpp:764
 msgid ""
 "only one of the options 'no-internal-links' or 'crossings.guess' may be "
 "given"
@@ -6769,40 +6769,40 @@ msgstr ""
 "'no-internal-links' veya 'crossings.guess' Seçeneklerinden Yalnızca Biri "
 "Verilebilir"
 
-#: src/netbuild/NBFrame.cpp:764
+#: src/netbuild/NBFrame.cpp:768
 msgid ""
 "only one of the options 'no-internal-links' or 'walkareas' may be given"
 msgstr ""
 "'no-internal-links' veya 'walkareas' Seçeneklerinden Yalnızca Biri "
 "Verilebilir"
 
-#: src/netbuild/NBFrame.cpp:768
+#: src/netbuild/NBFrame.cpp:772
 msgid ""
 "only one of the options 'tls.green.time' or 'tls.cycle.time' may be given"
 msgstr ""
 "'tls.green.time' veya 'tls.cycle.time' Seçeneklerinden Yalnızca Biri "
 "Verilebilir"
 
-#: src/netbuild/NBFrame.cpp:772
+#: src/netbuild/NBFrame.cpp:776
 msgid "'tls.green.time' must be positive"
 msgstr ""
 
-#: src/netbuild/NBFrame.cpp:776
+#: src/netbuild/NBFrame.cpp:780
 msgid "default.lanenumber must be at least 1"
 msgstr "default.lanenumber En Az 1 Olmalı"
 
-#: src/netbuild/NBFrame.cpp:784
+#: src/netbuild/NBFrame.cpp:788
 msgid ""
 "only one of the options 'default.disallow' or 'default.allow' may be given"
 msgstr ""
 "'default.disallow' veya 'default.allow' Seçeneklerinden Yalnızca Biri "
 "Verilebilir"
 
-#: src/netbuild/NBFrame.cpp:788
+#: src/netbuild/NBFrame.cpp:792
 msgid "junctions.internal-link-detail must >= 2"
 msgstr "junctions.internal-link-detail >=2 Olmalıdır"
 
-#: src/netbuild/NBFrame.cpp:793
+#: src/netbuild/NBFrame.cpp:797
 msgid ""
 "Option 'junctions.scurve-stretch' requires internal lanes to work. Option '"
 "--no-internal-links' will be disabled."
@@ -6810,7 +6810,7 @@ msgstr ""
 "'junctions.scurve-stretch' Seçeneği Dahili Şeritlerin Çalışmasını "
 "Gerektirir. '--no-internal-links' Seçeneği Devre Dışı Bırakılacak."
 
-#: src/netbuild/NBFrame.cpp:800
+#: src/netbuild/NBFrame.cpp:804
 msgid ""
 "option 'default.junctions.radius' is smaller than option 'junctions.small-"
 "radius'"
@@ -6818,19 +6818,19 @@ msgstr ""
 "'default.junctions.radius' Seçeneği, 'junctions.small-radius' Seçeneğinden "
 "Daha Küçük"
 
-#: src/netbuild/NBFrame.cpp:808
+#: src/netbuild/NBFrame.cpp:812
 msgid "tls.layout must be 'opposites', 'incoming' or 'alternateOneWay'"
 msgstr "tls.layout 'opposites', 'incoming' veya 'alternateOneWay' Olmalıdır."
 
-#: src/netbuild/NBFrame.cpp:813
+#: src/netbuild/NBFrame.cpp:817
 msgid "default.right-of-way must be one of '%'"
 msgstr "varsayılan.yol hakkı '%' değerlerinden biri olmalıdır"
 
-#: src/netbuild/NBFrame.cpp:817
+#: src/netbuild/NBFrame.cpp:821
 msgid "roundabouts.visibility-distance must be positive or -1"
 msgstr "roundabouts.visibility-distance -1 veya Pozitif Olmalıdır."
 
-#: src/netbuild/NBFrame.cpp:833
+#: src/netbuild/NBFrame.cpp:837
 msgid "Unknown value for default.spreadtype '%'."
 msgstr "Varsayılan. yayılım türü '%' için bilinmeyen değer."
 
@@ -6884,7 +6884,7 @@ msgstr ""
 "SUMO, GDAL Desteği Olmadan Derlendiğinden GeoTIFF Dosyası Yüklenemiyor."
 
 #: src/netbuild/NBHelpers.cpp:89
-msgid "Could not load names of edges too keep from '%'."
+msgid "Could not load names of edges to keep from '%'."
 msgstr "Kesimlerin adları '%' den çok uzakta kalacak şekilde yüklenemedi."
 
 #: src/netbuild/NBHelpers.cpp:107
@@ -7245,7 +7245,7 @@ msgstr "'%' Kavşağı İçin: Şekil Hesaplanamadı."
 msgid "Something went wrong during the building of a connection..."
 msgstr "Bağlantı Oluşturulması Sırasında Bir Şeyler Ters Gitti..."
 
-#: src/netbuild/NBNode.cpp:2955
+#: src/netbuild/NBNode.cpp:2957
 msgid ""
 "Discarding invalid crossing '%' at junction '%' with edges [%] (no "
 "walkingarea found)."
@@ -7253,7 +7253,7 @@ msgstr ""
 "[%] Kesimlerle '%' Kavşağında Geçersiz Geçit '%' Atılıyor (Yürüme Alanı "
 "Bulunamadı)."
 
-#: src/netbuild/NBNode.cpp:3121
+#: src/netbuild/NBNode.cpp:3123
 msgid ""
 "Discarding invalid crossing '%' at junction '%' with edges [%] (no vehicle "
 "lanes to cross)."
@@ -7261,26 +7261,26 @@ msgstr ""
 "[%] Kesimlerle '%' Kavşağında Geçersiz Geçit '%' Atılıyor (Geçilecek Araç "
 "Şeridi Yok)."
 
-#: src/netbuild/NBNode.cpp:3142
+#: src/netbuild/NBNode.cpp:3144
 msgid ""
 "Discarding invalid crossing '%' at junction '%' with edges [%] (invalid "
 "shape)."
 msgstr ""
 "[%] Kesimlerle '%' Kavşağında Geçersiz Geçit '%' Atılıyor (Geçersiz Şekil)."
 
-#: src/netbuild/NBNode.cpp:3266
+#: src/netbuild/NBNode.cpp:3268
 #, c-format
 msgid "Ignoring additional sidewalk lane % on edge '%' for walkingareas."
 msgstr ""
 
-#: src/netbuild/NBNode.cpp:3382
+#: src/netbuild/NBNode.cpp:3384
 msgid ""
 "Invalid pedestrian topology at junction '%'; crossing '%' targets '%' and "
 "'%'."
 msgstr ""
 "'%' Kavşağında Geçersiz Yaya Yapısı; '%' Geçidi '%' ve '%' Hedefliyor."
 
-#: src/netbuild/NBNode.cpp:3408
+#: src/netbuild/NBNode.cpp:3410
 msgid ""
 "Invalid pedestrian topology at junction '%'; crossing '%' is targeted by '%'"
 " and '%'."
@@ -7288,7 +7288,7 @@ msgstr ""
 "'%' Kavşağında Geçersiz Yaya Yapısı; '%' Geçidi '%' ve '%' Tarafından "
 "Hedefleniyor."
 
-#: src/netbuild/NBNode.cpp:3413
+#: src/netbuild/NBNode.cpp:3415
 msgid ""
 "Invalid pedestrian topology at junction '%'; crossing '%' starts and ends at"
 " walkingarea '%'."
@@ -7296,21 +7296,21 @@ msgstr ""
 "'%' Kavşağında Geçersiz Yaya Yapısı; '%' Geçidi walkingarea '%' Konumunda "
 "Başlayıp Bitiyor."
 
-#: src/netbuild/NBNode.cpp:3673
+#: src/netbuild/NBNode.cpp:3675
 msgid "Invalid pedestrian topology: crossing '%' across [%] has no target."
 msgstr ""
 "'%' Kavşağında Geçersiz Yaya Yapısı; '%' Geçidi [%] Üzerinde Hedefe Sahip "
 "Değil."
 
-#: src/netbuild/NBNode.cpp:4012
+#: src/netbuild/NBNode.cpp:4014
 msgid "Request for unknown crossing '%'"
 msgstr "Bilinmeyen '%' geçişi için talep"
 
-#: src/netbuild/NBNode.cpp:4028
+#: src/netbuild/NBNode.cpp:4030
 msgid "Request for unknown crossing for the given Edges"
 msgstr "Verilen kesimler için bilinmeyen geçiş talebi"
 
-#: src/netbuild/NBNode.cpp:4053
+#: src/netbuild/NBNode.cpp:4055
 msgid "Request for unknown walkingarea '%'."
 msgstr ""
 
@@ -8174,51 +8174,56 @@ msgid ""
 "The speed limit to be set when there is no actual speed limit in reality"
 msgstr "Gerçekte hız sınırı olmadığında belirlenecek hız sınırı"
 
-#: src/netimport/NIFrame.cpp:240
+#: src/netimport/NIFrame.cpp:239
+msgid ""
+"Whether edges shoulds carry information on the usage of typemap defaults"
+msgstr ""
+
+#: src/netimport/NIFrame.cpp:243
 msgid "The edge lengths given in the MATSim-file will be kept"
 msgstr "MATSIM dosyasında verilen kenar uzunlukları korunacaktır"
 
-#: src/netimport/NIFrame.cpp:243
+#: src/netimport/NIFrame.cpp:246
 msgid "The lane number will be computed from the capacity"
 msgstr "Şerit numarası kapasiteden hesaplanacaktır"
 
-#: src/netimport/NIFrame.cpp:249
+#: src/netimport/NIFrame.cpp:252
 msgid "Read edge ids from column STR"
 msgstr "STR sütunundan kesim id'lerini okuyun"
 
-#: src/netimport/NIFrame.cpp:253
+#: src/netimport/NIFrame.cpp:256
 msgid "Read from-node ids from column STR"
 msgstr "STR sütunundan düğüm id'lerini okuma"
 
-#: src/netimport/NIFrame.cpp:257
+#: src/netimport/NIFrame.cpp:260
 msgid "Read to-node ids from column STR"
 msgstr "STR sütunundan düğüm id'lerini okuyun"
 
-#: src/netimport/NIFrame.cpp:261
+#: src/netimport/NIFrame.cpp:264
 msgid "Read type ids from column STR"
 msgstr "STR sütunundan tür id'lerini okuma"
 
-#: src/netimport/NIFrame.cpp:264
+#: src/netimport/NIFrame.cpp:267
 msgid "Read lane number from column STR"
 msgstr "STR sütunundan şerit numarasını okuyun"
 
-#: src/netimport/NIFrame.cpp:267
+#: src/netimport/NIFrame.cpp:270
 msgid "Read speed from column STR"
 msgstr "STR sütunundan okuma hızı"
 
-#: src/netimport/NIFrame.cpp:270
+#: src/netimport/NIFrame.cpp:273
 msgid "Read custom edge length from column STR"
 msgstr "STR sütunundan özel kenar uzunluğunu okuyun"
 
-#: src/netimport/NIFrame.cpp:273
+#: src/netimport/NIFrame.cpp:276
 msgid "Read total edge width from column STR"
 msgstr "STR sütunundan toplam kenar genişliğini okuyun"
 
-#: src/netimport/NIFrame.cpp:276
+#: src/netimport/NIFrame.cpp:279
 msgid "Read (non-unique) name from column STR"
 msgstr "STR sütunundan (benzersiz olmayan) adı oku"
 
-#: src/netimport/NIFrame.cpp:279
+#: src/netimport/NIFrame.cpp:282
 msgid ""
 "Distance threshold for determining whether distinct shapes are connected "
 "(used when from-id and to-id are not available)"
@@ -8226,96 +8231,96 @@ msgstr ""
 "Farklı şekillerin bağlı olup olmadığını belirlemek için mesafe eşiği ( "
 "kimden-id ve id-id mevcut olmadığında kullanılır)"
 
-#: src/netimport/NIFrame.cpp:282
+#: src/netimport/NIFrame.cpp:285
 msgid "Add the list of field names as edge params"
 msgstr "Alan adları listesini kenar parametreleri olarak ekleyin"
 
-#: src/netimport/NIFrame.cpp:286
+#: src/netimport/NIFrame.cpp:289
 msgid "Uses edge type defaults on problems"
 msgstr "Problemlerde kesim tipi varsayılanlarını kullanır"
 
-#: src/netimport/NIFrame.cpp:291
+#: src/netimport/NIFrame.cpp:294
 msgid "Insert edges in both directions"
 msgstr "Kesimleri her iki yönde de yerleştirin"
 
-#: src/netimport/NIFrame.cpp:295
+#: src/netimport/NIFrame.cpp:298
 msgid "Guess the proper projection"
 msgstr "Doğru projeksiyonu tahmin edin"
 
-#: src/netimport/NIFrame.cpp:298 src/polyconvert/polyconvert_main.cpp:129
+#: src/netimport/NIFrame.cpp:301 src/polyconvert/polyconvert_main.cpp:129
 msgid "Use traditional axis order (lon, lat)"
 msgstr "Geleneksel eksen sıralamasını kullanın ( enlem, boylam)"
 
-#: src/netimport/NIFrame.cpp:303
+#: src/netimport/NIFrame.cpp:306
 msgid "Allow more vehicle classes by default"
 msgstr "Varsayılan olarak daha fazla araç sınıfına izin verin"
 
-#: src/netimport/NIFrame.cpp:306
+#: src/netimport/NIFrame.cpp:309
 msgid "The edge lengths given in the DLR Navteq-file will be kept"
 msgstr "DLR Navteq dosyasında verilen kenar uzunlukları korunacaktır"
 
-#: src/netimport/NIFrame.cpp:312
+#: src/netimport/NIFrame.cpp:315
 msgid "Structure join offset"
 msgstr "Yapı birleştirme ofseti"
 
-#: src/netimport/NIFrame.cpp:315
+#: src/netimport/NIFrame.cpp:318
 msgid "Use FLOAT as default speed"
 msgstr "Varsayılan hız olarak FLOAT kullanın"
 
-#: src/netimport/NIFrame.cpp:318
+#: src/netimport/NIFrame.cpp:321
 msgid "Factor for edge velocity"
 msgstr "Kesim hızı için faktör"
 
-#: src/netimport/NIFrame.cpp:321
+#: src/netimport/NIFrame.cpp:324
 msgid "Writes lanes without an explicit speed set"
 msgstr "Açık bir hız ayarı olmadan şeritleri yazar"
 
-#: src/netimport/NIFrame.cpp:326 src/polyconvert/polyconvert_main.cpp:95
+#: src/netimport/NIFrame.cpp:329 src/polyconvert/polyconvert_main.cpp:95
 msgid "Load language mappings from FILE"
 msgstr "Dil eşlemelerini DOSYA'dan yükle"
 
-#: src/netimport/NIFrame.cpp:329
+#: src/netimport/NIFrame.cpp:332
 msgid "Uses priorities from types"
 msgstr "Türlerden öncelikleri kullanır"
 
-#: src/netimport/NIFrame.cpp:332
+#: src/netimport/NIFrame.cpp:335
 msgid "Uses lane numbers from types"
 msgstr "Tiplerden şerit numaralarını kullanır"
 
-#: src/netimport/NIFrame.cpp:335
+#: src/netimport/NIFrame.cpp:338
 msgid "Uses speeds from types"
 msgstr "Tiplerden gelen hızları kullanır"
 
-#: src/netimport/NIFrame.cpp:338
+#: src/netimport/NIFrame.cpp:341
 msgid "Sets connector speed"
 msgstr "Konektör hızını ayarlar"
 
-#: src/netimport/NIFrame.cpp:342
+#: src/netimport/NIFrame.cpp:345
 msgid "Sets connector lane number"
 msgstr "Konektör şerit numarasını ayarlar"
 
-#: src/netimport/NIFrame.cpp:345
+#: src/netimport/NIFrame.cpp:348
 msgid "Excludes connectors"
 msgstr "Konektörler hariç"
 
-#: src/netimport/NIFrame.cpp:349
+#: src/netimport/NIFrame.cpp:352
 msgid "Computes the number of lanes from the edges' capacities"
 msgstr "Kesimlerin kapasitelerinden şerit sayısını hesaplar"
 
-#: src/netimport/NIFrame.cpp:352
+#: src/netimport/NIFrame.cpp:355
 msgid "Prints all warnings, some of which are due to VISUM misbehaviour"
 msgstr ""
 "Bazıları VISUM yanlış davranışlarından kaynaklanan tüm uyarıları yazdırır"
 
-#: src/netimport/NIFrame.cpp:357
+#: src/netimport/NIFrame.cpp:360
 msgid "The factor for flow to no. lanes conversion"
 msgstr "Akışın şerit sayısına dönüştürülmesi için faktör"
 
-#: src/netimport/NIFrame.cpp:362
+#: src/netimport/NIFrame.cpp:365
 msgid "Imports all lane types"
 msgstr "Tüm şerit tiplerini içe aktarır"
 
-#: src/netimport/NIFrame.cpp:364
+#: src/netimport/NIFrame.cpp:367
 msgid ""
 "The geometry resolution in m when importing curved geometries as line "
 "segments."
@@ -8323,7 +8328,7 @@ msgstr ""
 "Eğri geometrileri çizgi parçaları olarak içe aktarırken m cinsinden geometri"
 " çözünürlüğü."
 
-#: src/netimport/NIFrame.cpp:366
+#: src/netimport/NIFrame.cpp:369
 msgid ""
 "Allow stop lines to be built beyond the start of the junction if the "
 "geometries allow so"
@@ -8331,39 +8336,39 @@ msgstr ""
 "Geometriler izin veriyorsa, durak çizgilerinin kavşak başlangıcının ötesine "
 "inşa edilmesine izin verin"
 
-#: src/netimport/NIFrame.cpp:368
+#: src/netimport/NIFrame.cpp:371
 msgid ""
 "The minimum lane width for determining start or end of variable-width lanes"
 msgstr ""
 "Değişken genişlikli şeritlerin başlangıcını veya sonunu belirlemek için "
 "minimum şerit genişliği"
 
-#: src/netimport/NIFrame.cpp:370
+#: src/netimport/NIFrame.cpp:373
 msgid "Import internal lane shapes"
 msgstr "Dahili şerit şekillerini içe aktarma"
 
-#: src/netimport/NIFrame.cpp:372
+#: src/netimport/NIFrame.cpp:375
 msgid "Sets edge-id based on road-id and offset in m (legacy)"
 msgstr "Kesim id'sini yol-id'sine ve m cinsinden ofsete göre ayarlar (eski)"
 
-#: src/netimport/NIFrame.cpp:374
+#: src/netimport/NIFrame.cpp:377
 msgid "Use custom lane shapes to compensate discarded lane types"
 msgstr ""
 "Atılan şerit tiplerini telafi etmek için özel şerit şekillerini kullanın"
 
-#: src/netimport/NIFrame.cpp:376
+#: src/netimport/NIFrame.cpp:379
 msgid ""
 "Use the OpenDRIVE controller information for the generated signal program"
 msgstr ""
 "Oluşturulan sinyal programı için OpenDRIVE kontrolör bilgilerini kullanın"
 
-#: src/netimport/NIFrame.cpp:378
+#: src/netimport/NIFrame.cpp:381
 msgid "Ignore traffic signals which do not control any driving lane"
 msgstr ""
 "Herhangi bir sürüş şeridini kontrol etmeyen trafik sinyallerini dikkate "
 "almayın"
 
-#: src/netimport/NIFrame.cpp:389
+#: src/netimport/NIFrame.cpp:392
 msgid ""
 "Discard all railway signal information loaded from other formats than plain-"
 "xml"
@@ -8371,7 +8376,7 @@ msgstr ""
 "plain-xml dışındaki diğer formatlardan yüklenen tüm demiryolu sinyal "
 "bilgilerini atın"
 
-#: src/netimport/NIFrame.cpp:410
+#: src/netimport/NIFrame.cpp:413
 msgid ""
 "Cannot import network data without PROJ-Library. Please install package proj"
 " before building sumo"
@@ -8379,12 +8384,12 @@ msgstr ""
 "Ağ Verileri PROJ-Library Olmadan İçe Aktarılamaz. Lütfen sumo Oluşturmadan "
 "Önce proj Paketini Kurun"
 
-#: src/netimport/NIFrame.cpp:435 src/polyconvert/polyconvert_main.cpp:329
+#: src/netimport/NIFrame.cpp:438 src/polyconvert/polyconvert_main.cpp:329
 msgid "Environment variable SUMO_HOME is not set, using built in type maps."
 msgstr ""
 "SUMO_HOME Ortam Değişkeni Ayarlanmadı, Yerleşik Tip Haritaları Kullanılıyor."
 
-#: src/netimport/NIFrame.cpp:468
+#: src/netimport/NIFrame.cpp:471
 msgid "It is recommended to use option osm.crossings with osm.sidewalks"
 msgstr "osm.crossings Seçeneğinin osm.sidewalks ile Kullanılması Önerilir"
 
@@ -8574,7 +8579,7 @@ msgstr "'%' bağlantısının şerit sayısı için sayısal olmayan değer."
 #: src/netimport/NIImporter_DlrNavteq.cpp:420
 #: src/netimport/NIImporter_OpenDrive.cpp:550
 #: src/netimport/NIImporter_OpenDrive.cpp:608
-#: src/netimport/NIImporter_OpenStreetMap.cpp:845
+#: src/netimport/NIImporter_OpenStreetMap.cpp:855
 msgid "Could not add edge '%'."
 msgstr "'%' kenarı eklenemedi."
 
@@ -8875,53 +8880,53 @@ msgstr "'%' yolu için geometri tanımında uyumsuz parantez"
 msgid "Double geometry information for road '%'"
 msgstr "'%' yol için çift geometri bilgisi"
 
-#: src/netimport/NIImporter_OpenStreetMap.cpp:157
+#: src/netimport/NIImporter_OpenStreetMap.cpp:158
 #: src/polyconvert/PCLoaderOSM.cpp:104
 msgid "Could not open osm-file '%'."
 msgstr "Osm dosyası '%' açılamadı."
 
-#: src/netimport/NIImporter_OpenStreetMap.cpp:169
+#: src/netimport/NIImporter_OpenStreetMap.cpp:170
 #, c-format
 msgid "Found and substituted % osm nodes."
 msgstr "Bulunan ve değiştirilen % osm düğümleri."
 
-#: src/netimport/NIImporter_OpenStreetMap.cpp:193
+#: src/netimport/NIImporter_OpenStreetMap.cpp:194
 msgid "Removing duplicate edges"
 msgstr "Yinelenen kenarları kaldırma"
 
-#: src/netimport/NIImporter_OpenStreetMap.cpp:208
+#: src/netimport/NIImporter_OpenStreetMap.cpp:209
 #, c-format
 msgid "Removed % duplicate osm edges."
 msgstr "Yinelenen % osm kenarları kaldırıldı."
 
-#: src/netimport/NIImporter_OpenStreetMap.cpp:242
+#: src/netimport/NIImporter_OpenStreetMap.cpp:243
 msgid "Discarding way '%' because it has only % node(s)"
 msgstr "Yalnızca % Düğüm(ler)e Sahip Olduğu İçin '%' Yolu Çıkartılıyor"
 
-#: src/netimport/NIImporter_OpenStreetMap.cpp:409
+#: src/netimport/NIImporter_OpenStreetMap.cpp:410
 msgid "Could not insert junction '%'."
 msgstr "'%' kavşağı eklenemedi."
 
-#: src/netimport/NIImporter_OpenStreetMap.cpp:476
+#: src/netimport/NIImporter_OpenStreetMap.cpp:477
 msgid ""
 "Discarding edge '%' which connects two identical nodes without geometry."
 msgstr ""
 "İki Özdeş Düğümü Geometri Olmadan Birbirine Bağlayan '%' Kesimi "
 "Çıkartılıyor."
 
-#: src/netimport/NIImporter_OpenStreetMap.cpp:627
+#: src/netimport/NIImporter_OpenStreetMap.cpp:629
 msgid "New value for oneway found: %"
 msgstr "Bulunan Tek Yön İçin Yeni Değer: %"
 
-#: src/netimport/NIImporter_OpenStreetMap.cpp:662
+#: src/netimport/NIImporter_OpenStreetMap.cpp:664
 msgid "Skipping edge '%' because it has zero lanes."
 msgstr "'%' Kesimi Geçiliyor Çünkü Herhangi Bir Şeride Sahip Değil."
 
-#: src/netimport/NIImporter_OpenStreetMap.cpp:708
+#: src/netimport/NIImporter_OpenStreetMap.cpp:715
 msgid "Skipping edge '%' because it has speed %."
 msgstr "'%' Kesimi Geçiliyor Çünkü Hızı %."
 
-#: src/netimport/NIImporter_OpenStreetMap.cpp:832
+#: src/netimport/NIImporter_OpenStreetMap.cpp:842
 msgid ""
 "Forward lanes count for edge '%' ('%') is not matching the number of lanes "
 "defined in width:lanes:forward key ('%'). Using default width values."
@@ -8930,7 +8935,7 @@ msgstr ""
 "('%') Tanımlanan Şerit Sayısıyla Eşleşmiyor. Varsayılan Genişlik Değerleri "
 "Kullanılıyor."
 
-#: src/netimport/NIImporter_OpenStreetMap.cpp:885
+#: src/netimport/NIImporter_OpenStreetMap.cpp:895
 msgid ""
 "Backward lanes count for edge '%' ('%') is not matching the number of lanes "
 "defined in width:lanes:backward key ('%'). Using default width values."
@@ -8939,40 +8944,40 @@ msgstr ""
 "('%') Tanımlanan Şerit Sayısıyla Eşleşmiyor. Varsayılan Genişlik Değerleri "
 "Kullanılıyor."
 
-#: src/netimport/NIImporter_OpenStreetMap.cpp:898
+#: src/netimport/NIImporter_OpenStreetMap.cpp:908
 msgid "Could not add edge '-%'."
 msgstr "'-%' kenarı eklenemedi."
 
-#: src/netimport/NIImporter_OpenStreetMap.cpp:998
+#: src/netimport/NIImporter_OpenStreetMap.cpp:1008
 msgid ""
 "Attribute 'id' in the definition of a node is not of type long long int."
 msgstr "Bir Düğümün Tanımındaki 'id' Özniteliği, long long int Türünde Değil."
 
-#: src/netimport/NIImporter_OpenStreetMap.cpp:1004
+#: src/netimport/NIImporter_OpenStreetMap.cpp:1014
 msgid "Tag element on wrong XML hierarchy level."
 msgstr "Öğeyi Yanlış XML Hiyerarşisi Düzeyinde Etiketleyin."
 
-#: src/netimport/NIImporter_OpenStreetMap.cpp:1064
+#: src/netimport/NIImporter_OpenStreetMap.cpp:1074
 msgid "Value of key '%' is invalid ('%') in node '%'."
 msgstr "'%' Anahtarının Değeri, '%' Düğümünde Geçersiz (%')."
 
-#: src/netimport/NIImporter_OpenStreetMap.cpp:1069
+#: src/netimport/NIImporter_OpenStreetMap.cpp:1079
 msgid "Value of key '%' is not numeric ('%') in node '%'."
 msgstr "'%' Anahtarının Değeri, '%' Düğümünde Sayısal ('%') Değil."
 
-#: src/netimport/NIImporter_OpenStreetMap.cpp:1216
+#: src/netimport/NIImporter_OpenStreetMap.cpp:1226
 #: src/polyconvert/PCLoaderOSM.cpp:578
 msgid "The referenced geometry information (ref='%') is not known"
 msgstr "Başvurulan Geometri Bilgisi (ref='%') Bilinmiyor"
 
-#: src/netimport/NIImporter_OpenStreetMap.cpp:1471
+#: src/netimport/NIImporter_OpenStreetMap.cpp:1481
 #, c-format
 msgid "Using default lane width for edge '%' as key '%' could not be parsed."
 msgstr ""
 "'%' Kesimi İçin '%' Anahtarı Olarak Varsayılan Şerit Genişliğinin "
 "Kullanılması Ayrıştırılamadı."
 
-#: src/netimport/NIImporter_OpenStreetMap.cpp:1474
+#: src/netimport/NIImporter_OpenStreetMap.cpp:1484
 #, c-format
 msgid ""
 "Using default lane width for edge '%' as value '%' could not be parsed."
@@ -8980,69 +8985,69 @@ msgstr ""
 "'%' Kesimi İçin '%' Değeri Olarak Varsayılan Şerit Genişliğinin Kullanılması"
 " Ayrıştırılamadı."
 
-#: src/netimport/NIImporter_OpenStreetMap.cpp:1480
+#: src/netimport/NIImporter_OpenStreetMap.cpp:1490
 #, c-format
 msgid "Using default width for edge '%' as value '%' could not be parsed."
 msgstr ""
 
-#: src/netimport/NIImporter_OpenStreetMap.cpp:1516
+#: src/netimport/NIImporter_OpenStreetMap.cpp:1526
 msgid "Using minimum lane number from list (%) for edge '%'."
 msgstr "'%' Kesimi İçin Listeden (%) Minimum Şerit Numarası Kullanılıyor."
 
-#: src/netimport/NIImporter_OpenStreetMap.cpp:1518
-#: src/netimport/NIImporter_OpenStreetMap.cpp:1522
-#: src/netimport/NIImporter_OpenStreetMap.cpp:1533
-#: src/netimport/NIImporter_OpenStreetMap.cpp:1545
-#: src/netimport/NIImporter_OpenStreetMap.cpp:1571
+#: src/netimport/NIImporter_OpenStreetMap.cpp:1528
+#: src/netimport/NIImporter_OpenStreetMap.cpp:1532
+#: src/netimport/NIImporter_OpenStreetMap.cpp:1543
+#: src/netimport/NIImporter_OpenStreetMap.cpp:1555
 #: src/netimport/NIImporter_OpenStreetMap.cpp:1581
+#: src/netimport/NIImporter_OpenStreetMap.cpp:1591
 msgid "Value of key '%' is not numeric ('%') in edge '%'."
 msgstr "'%' Anahtarının Değeri, '%' Kesiminde Sayısal ('%') Değil."
 
-#: src/netimport/NIImporter_OpenStreetMap.cpp:1578
+#: src/netimport/NIImporter_OpenStreetMap.cpp:1588
 msgid "Ignoring track count % for edge '%'."
 msgstr "'%' Kesimi İçin İz Sayısı % Yok Sayılıyor."
 
-#: src/netimport/NIImporter_OpenStreetMap.cpp:1756
+#: src/netimport/NIImporter_OpenStreetMap.cpp:1766
 msgid "Unknown lane use specifier '%' ignored for way '%'"
 msgstr "Bilinmeyen şerit kullanım belirteci '%', '%' yolu için yok sayıldı"
 
-#: src/netimport/NIImporter_OpenStreetMap.cpp:1865
+#: src/netimport/NIImporter_OpenStreetMap.cpp:1875
 msgid "No node found for reference '%' in relation '%'."
 msgstr "'%' İlişkisinde '%' Referansı İçin Düğüm Bulunamadı."
 
-#: src/netimport/NIImporter_OpenStreetMap.cpp:1929
+#: src/netimport/NIImporter_OpenStreetMap.cpp:1939
 msgid "Found unknown restriction type '%' in relation '%'"
 msgstr "'%' İlişkisinde Bilinmeyen Kısıtlama Türü '%' Bulundu"
 
-#: src/netimport/NIImporter_OpenStreetMap.cpp:1967
+#: src/netimport/NIImporter_OpenStreetMap.cpp:1977
 msgid "Invalid color value '%' in relation %"
 msgstr "% İlişkisinde Geçersiz Renk Değeri '%'"
 
-#: src/netimport/NIImporter_OpenStreetMap.cpp:1985
+#: src/netimport/NIImporter_OpenStreetMap.cpp:1995
 msgid "No way found for reference '%' in relation '%'"
 msgstr "'%' Referansı İçin '%' İlişkisinde Hiçbir Yol Bulunamadı"
 
-#: src/netimport/NIImporter_OpenStreetMap.cpp:1997
+#: src/netimport/NIImporter_OpenStreetMap.cpp:2007
 msgid "Ignoring restriction relation '%' with unknown type."
 msgstr "Bilinmeyen Türde Kısıtlama İlişkisi '%' Yok Sayılıyor."
 
-#: src/netimport/NIImporter_OpenStreetMap.cpp:2001
+#: src/netimport/NIImporter_OpenStreetMap.cpp:2011
 msgid "Ignoring restriction relation '%' with unknown from-way."
 msgstr "'%' Kısıtlama İlişkisi Bilinmeyen Giriş Yönü ile Yok Sayılıyor."
 
-#: src/netimport/NIImporter_OpenStreetMap.cpp:2005
+#: src/netimport/NIImporter_OpenStreetMap.cpp:2015
 msgid "Ignoring restriction relation '%' with unknown to-way."
 msgstr "'%' Kısıtlama İlişkisi Bilinmeyen Çıkış Yönü ile Yok Sayılıyor."
 
-#: src/netimport/NIImporter_OpenStreetMap.cpp:2009
+#: src/netimport/NIImporter_OpenStreetMap.cpp:2019
 msgid "Ignoring restriction relation '%' with unknown via."
 msgstr "'%' Kısıtlama İlişkisi Bilinmeyen Kanal Yön ile Yok Sayılıyor."
 
-#: src/netimport/NIImporter_OpenStreetMap.cpp:2013
+#: src/netimport/NIImporter_OpenStreetMap.cpp:2023
 msgid "Ignoring restriction relation '%'."
 msgstr "'%' Kısıtlama İlişkisi Yok Sayılıyor."
 
-#: src/netimport/NIImporter_OpenStreetMap.cpp:2038
+#: src/netimport/NIImporter_OpenStreetMap.cpp:2048
 #, c-format
 msgid ""
 "Platform '%' in relation: '%' is given as polygon, which currently is not "
@@ -9051,7 +9056,7 @@ msgstr ""
 "'%' İlişkideki '%' Platform '%' Şu Anda Desteklenmeyen Çokgen Olarak "
 "Verilmiştir."
 
-#: src/netimport/NIImporter_OpenStreetMap.cpp:2059
+#: src/netimport/NIImporter_OpenStreetMap.cpp:2069
 #, c-format
 msgid ""
 "Referenced platform: '%' in relation: '%' is corrupt. Probably OSM file is "
@@ -9059,84 +9064,84 @@ msgid ""
 msgstr ""
 "'%' İlişkideki Başvurulan Platform '%' Bozuk. Muhtemelen OSM Dosyası Eksik."
 
-#: src/netimport/NIImporter_OpenStreetMap.cpp:2104
+#: src/netimport/NIImporter_OpenStreetMap.cpp:2114
 #, c-format
 msgid "PT line '%' in relation % seems to be split, only keeping first part."
 msgstr ""
 "% İlişkideki TT Hattı '%' Bölünmüş Görünüyor. Sadece İlk Kısım Tutuluyor."
 
-#: src/netimport/NIImporter_OpenStreetMap.cpp:2139
+#: src/netimport/NIImporter_OpenStreetMap.cpp:2149
 msgid ""
 "PT line in relation % with no stops ignored. Probably OSM file is "
 "incomplete."
 msgstr ""
 "% İlişkideki Duraksız TT Hattı Yok Sayılıyor. Muhtemelen OSM Dosyası Eksik."
 
-#: src/netimport/NIImporter_OpenStreetMap.cpp:2145
+#: src/netimport/NIImporter_OpenStreetMap.cpp:2155
 msgid "Ignoring duplicate PT line '%'."
 msgstr "Yinelenen TT Hattı '%' Yok Sayılıyor."
 
-#: src/netimport/NIImporter_OpenStreetMap.cpp:2160
+#: src/netimport/NIImporter_OpenStreetMap.cpp:2170
 msgid "Via-node '%' was not instantiated"
 msgstr "Kanal Düğüm '%' Somutlaştırılamadı"
 
-#: src/netimport/NIImporter_OpenStreetMap.cpp:2166
+#: src/netimport/NIImporter_OpenStreetMap.cpp:2176
 #, c-format
 msgid "from-edge '%' of restriction relation could not be determined"
 msgstr "Sınırlama İlişkisinin Giriş Kesimi '%' Belirlenemedi"
 
-#: src/netimport/NIImporter_OpenStreetMap.cpp:2170
+#: src/netimport/NIImporter_OpenStreetMap.cpp:2180
 #, c-format
 msgid "to-edge '%' of restriction relation could not be determined"
 msgstr "Sınırlama İlişkisinin Çıkış Kesimi '%' Belirlenemedi"
 
-#: src/netimport/NIImporter_OpenStreetMap.cpp:2200
+#: src/netimport/NIImporter_OpenStreetMap.cpp:2210
 msgid "direction of restriction relation could not be determined%"
 msgstr "Kısıtlama İlişkisinin Yönü Belirlenemedi %"
 
-#: src/netimport/NIImporter_OpenStreetMap.cpp:2221
+#: src/netimport/NIImporter_OpenStreetMap.cpp:2231
 #, c-format
 msgid "Ambiguous way reference '%' in restriction relation"
 msgstr "Kısıtlama İlişkisinde Belirsiz Yol Referansı '%'"
 
-#: src/netimport/NIImporter_OpenStreetMap.cpp:2473
+#: src/netimport/NIImporter_OpenStreetMap.cpp:2482
 msgid ""
 "Discarding unknown compound '%' in type '%' (first occurrence for edge '%')."
 msgstr ""
 "'%' Tipindeki Bilinmeyen Bileşik '%' Çıkarılıyor ('%' Kesimi İçin İlk "
 "Oluşum)."
 
-#: src/netimport/NIImporter_OpenStreetMap.cpp:2479
+#: src/netimport/NIImporter_OpenStreetMap.cpp:2488
 msgid "Discarding unusable type '%' (first occurrence for edge '%')."
 msgstr ""
 "'%' Tipindeki Kullanılamayan Bileşik '%' Çıkarılıyor ('%' Kesimi İçin İlk "
 "Oluşum)."
 
-#: src/netimport/NIImporter_OpenStreetMap.cpp:2524
+#: src/netimport/NIImporter_OpenStreetMap.cpp:2533
 msgid "Discarding compound type '%' (first occurrence for edge '%')."
 msgstr ""
 "'%' Tipindeki Bütünleşik Bileşik '%' Çıkarılıyor ('%' Kesimi İçin İlk "
 "Oluşum)."
 
-#: src/netimport/NIImporter_OpenStreetMap.cpp:2539
+#: src/netimport/NIImporter_OpenStreetMap.cpp:2548
 msgid "Adding new type '%' (first occurrence for edge '%')."
 msgstr "Yeni '%' tipi ekleniyor ('%' kenarı için ilk oluşum)."
 
-#: src/netimport/NIImporter_OpenStreetMap.cpp:2574
+#: src/netimport/NIImporter_OpenStreetMap.cpp:2583
 msgid "Ambiguous railway kilometrage direction for way '%' (assuming forward)"
 msgstr ""
 "'%' Yolu İçin Belirsiz Demiryolu Kilometraj Yönü (İleriye Doğru "
 "Varsayılarak)"
 
-#: src/netimport/NIImporter_OpenStreetMap.cpp:2581
+#: src/netimport/NIImporter_OpenStreetMap.cpp:2590
 msgid "Inconsistent railway kilometrage direction for way '%': % (skipping)"
 msgstr "'%' Yolu İçin Tutarsız Demiryolu Kilometraj Yönü: % (Geçiliyor)"
 
-#: src/netimport/NIImporter_OpenStreetMap.cpp:2626
+#: src/netimport/NIImporter_OpenStreetMap.cpp:2635
 msgid "Value of railway:position is not numeric ('%') in node '%'."
 msgstr "'%' Düğümünde railway:position Değeri Sayısal Değil (%')."
 
-#: src/netimport/NIImporter_OpenStreetMap.cpp:2734
+#: src/netimport/NIImporter_OpenStreetMap.cpp:2743
 msgid ""
 "Ignoring turn sign information for % lanes on edge % with % driving lanes"
 msgstr ""
