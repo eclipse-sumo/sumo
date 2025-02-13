@@ -7721,7 +7721,7 @@ GNETagPropertiesDatabase::fillCommonAttributes(GNETagProperties* tagProperties) 
     // check if element has parameters
     if (tagProperties->hasParameters()) {
         commonAttribute = new GNEAttributeProperties(GNE_ATTR_PARAMETERS,
-                GNEAttributeProperties::STRING | GNEAttributeProperties::NETEDIT,
+                GNEAttributeProperties::STRING,
                 TL("Generic parameters (Format: key1=value1|key2=value2|..."));
         tagProperties->addAttribute(commonAttribute);
     }
