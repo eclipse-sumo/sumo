@@ -502,7 +502,8 @@ MSVehicle::Influencer::influenceSpeed(SUMOTime currentTime, double speed, double
             mySpeedAdaptationStarted = true;
         }
         currentTime += DELTA_T;
-        const double td = STEPS2TIME(currentTime - mySpeedTimeLine[0].first) / STEPS2TIME(mySpeedTimeLine[1].first + DELTA_T - mySpeedTimeLine[0].first);
+        const double td = STEPS2TIME(currentTime - mySpeedTimeLine[0].first) / STEPS2TIME(mySpeedTimeLine[1].first - mySpeedTimeLine[0].first);
+
         speed = mySpeedTimeLine[0].second - (mySpeedTimeLine[0].second - mySpeedTimeLine[1].second) * td;
         if (myConsiderSafeVelocity) {
             speed = MIN2(speed, vSafe);
