@@ -25,6 +25,7 @@ It needs one parameter, the SUMO net (.net.xml).
 
 - if either option --source or --destination is given, it checks reachability
 - if option --right-of-way is set, it checks for problems with right of way rules
+- if option --short-tls-edges is set, a selection file for short edges (< 15m) incoming to a traffic light is written (see #16014)
 - by default it tests whether the network is (weakly) connected.
 """
 from __future__ import absolute_import
@@ -47,6 +48,9 @@ def parse_args():
                     help="List edges which can reach the destination")
     op.add_argument("-w", "--right-of-way", action="store_true", default=False,
                     dest="checkRightOfWay",
+                    help="Check for problems with right-of-way rules")
+    op.add_argument("--short-tls-edges", action="store_true", default=False,
+                    dest="shortTlsEdges",
                     help="Check for problems with right-of-way rules")
     op.add_argument("-o", "--selection-output", category="output", type=op.file,
                     help="Write output to file(s) as a loadable selection")
@@ -143,6 +147,24 @@ def checkRightOfWay(net, options):
         print('\n'.join([lane.getID() for lane in lanes]))
 
 
+SHORT_EDGE = 15
+def checkShortTLSEdges(net, options):
+    short = []
+    for edge in net.getEdges(False):
+        if edge.getLength() < SHORT_EDGE and edge.getToNode().getType() == "traffic_light":
+            short.append(edge);
+
+    if options.selection_output:
+        with open(options.selection_output, 'w') as f:
+            for e in short:
+                f.write("edge:%s\n" % e.getID())
+    else:
+        print('\n'.join([e.getID() for e in short]))
+    if short:
+        print("Found %s edges with length below %sm ahead of traffic lights" % (
+            len(short), SHORT_EDGE))
+
+
 if __name__ == "__main__":
     options = parse_args()
     net = sumolib.net.readNet(options.net,
@@ -154,6 +176,8 @@ if __name__ == "__main__":
         getReachable(net, options.destination, options, True)
     elif options.checkRightOfWay:
         checkRightOfWay(net, options)
+    elif options.shortTlsEdges:
+        checkShortTLSEdges(net, options)
     else:
         components = getWeaklyConnected(
             net, options.vclass, options.ignore_connections)
