@@ -1,8 +1,8 @@
 diff --git a/src/netedit/GNENetHelper.cpp b/src/netedit/GNENetHelper.cpp
-index 8d7a093a784..92ae5cbad27 100644
+index facba0a0e90..64321f2d490 100644
 --- a/src/netedit/GNENetHelper.cpp
 +++ b/src/netedit/GNENetHelper.cpp
-@@ -1046,7 +1046,7 @@ GNENetHelper::AttributeCarriers::retrieveRerouterInterval(const std::string& rer
+@@ -1043,7 +1043,7 @@ GNENetHelper::AttributeCarriers::retrieveRerouterInterval(const std::string& rer
  }
  
  
@@ -11,16 +11,7 @@ index 8d7a093a784..92ae5cbad27 100644
  GNENetHelper::AttributeCarriers::getAdditionals() const {
      return myAdditionals;
  }
-@@ -1334,7 +1334,7 @@ GNENetHelper::AttributeCarriers::retrieveTAZSourceSink(const GNEAttributeCarrier
- }
- 
- 
--const std::unordered_map<SumoXMLTag, std::unordered_map<const GNEAttributeCarrier*, GNETAZSourceSink*> >&
-+const std::unordered_map<SumoXMLTag, std::unordered_map<const GNEAttributeCarrier*, GNETAZSourceSink*>, std::hash<int> >&
- GNENetHelper::AttributeCarriers::getTAZSourceSinks() const {
-     return myTAZSourceSinks;
- }
-@@ -1421,7 +1421,7 @@ GNENetHelper::AttributeCarriers::getSelectedDemandElements() const {
+@@ -1400,7 +1400,7 @@ GNENetHelper::AttributeCarriers::getSelectedDemandElements() const {
  }
  
  
@@ -29,7 +20,7 @@ index 8d7a093a784..92ae5cbad27 100644
  GNENetHelper::AttributeCarriers::getDemandElements() const {
      return myDemandElements;
  }
-@@ -1995,7 +1995,7 @@ GNENetHelper::AttributeCarriers::getSelectedGenericDatas() const {
+@@ -1974,7 +1974,7 @@ GNENetHelper::AttributeCarriers::getSelectedGenericDatas() const {
  }
  
  
@@ -38,7 +29,7 @@ index 8d7a093a784..92ae5cbad27 100644
  GNENetHelper::AttributeCarriers::getGenericDatas() const {
      return myGenericDatas;
  }
-@@ -2214,7 +2214,7 @@ GNENetHelper::AttributeCarriers::retrieveMeanData(SumoXMLTag type, const std::st
+@@ -2193,7 +2193,7 @@ GNENetHelper::AttributeCarriers::retrieveMeanData(SumoXMLTag type, const std::st
  }
  
  
@@ -48,7 +39,7 @@ index 8d7a093a784..92ae5cbad27 100644
      return myMeanDatas;
  }
 diff --git a/src/netedit/GNENetHelper.h b/src/netedit/GNENetHelper.h
-index ff4a0a876c6..86b8822fdcc 100644
+index 846336565be..a0d996d4240 100644
 --- a/src/netedit/GNENetHelper.h
 +++ b/src/netedit/GNENetHelper.h
 @@ -386,7 +386,7 @@ struct GNENetHelper {
@@ -60,16 +51,7 @@ index ff4a0a876c6..86b8822fdcc 100644
  
          /// @brief get selected additionals
          std::vector<GNEAdditional*> getSelectedAdditionals() const;
-@@ -441,7 +441,7 @@ struct GNENetHelper {
-         GNETAZSourceSink* retrieveTAZSourceSink(const GNEAttributeCarrier* sourceSink, bool hardFail = true) const;
- 
-         /// @brief get sourceSinks
--        const std::unordered_map<SumoXMLTag, std::unordered_map<const GNEAttributeCarrier*, GNETAZSourceSink*> >& getTAZSourceSinks() const;
-+        const std::unordered_map<SumoXMLTag, std::unordered_map<const GNEAttributeCarrier*, GNETAZSourceSink*>, std::hash<int> >& getTAZSourceSinks() const;
- 
-         /// @brief get number of TAZSourceSinks
-         int getNumberOfTAZSourceSinks() const;
-@@ -477,7 +477,7 @@ struct GNENetHelper {
+@@ -464,7 +464,7 @@ struct GNENetHelper {
          std::vector<GNEDemandElement*> getSelectedDemandElements() const;
  
          /// @brief get demand elements
@@ -78,7 +60,7 @@ index ff4a0a876c6..86b8822fdcc 100644
  
          /// @brief generate demand element id
          std::string generateDemandElementID(SumoXMLTag tag) const;
-@@ -573,7 +573,7 @@ struct GNENetHelper {
+@@ -560,7 +560,7 @@ struct GNENetHelper {
          std::vector<GNEGenericData*> getSelectedGenericDatas() const;
  
          /// @brief get all generic datas
@@ -87,7 +69,7 @@ index ff4a0a876c6..86b8822fdcc 100644
  
          /// @brief retrieve generic datas within the given interval
          std::vector<GNEGenericData*> retrieveGenericDatas(const SumoXMLTag genericDataTag, const double begin, const double end);
-@@ -610,7 +610,7 @@ struct GNENetHelper {
+@@ -597,7 +597,7 @@ struct GNENetHelper {
          GNEMeanData* retrieveMeanData(SumoXMLTag type, const std::string& id, bool hardFail = true) const;
  
          /// @brief get meanDatas
@@ -96,7 +78,7 @@ index ff4a0a876c6..86b8822fdcc 100644
  
          /// @brief get number of meanDatas
          int getNumberOfMeanDatas() const;
-@@ -838,19 +838,19 @@ struct GNENetHelper {
+@@ -814,16 +814,16 @@ struct GNENetHelper {
          std::unordered_map<const GUIGlObject*, GNEInternalLane*> myInternalLanes;
  
          /// @brief map with the tag and pointer to additional elements of net, sorted by IDs
@@ -107,21 +89,17 @@ index ff4a0a876c6..86b8822fdcc 100644
 -        std::unordered_map<SumoXMLTag, std::unordered_map<const GUIGlObject*, GNEAdditional*> > myAdditionals;
 +        std::unordered_map<SumoXMLTag, std::unordered_map<const GUIGlObject*, GNEAdditional*>, std::hash<int> > myAdditionals;
  
-         /// @brief map with the tag and pointer to TAZSourceSinks elements of net
--        std::unordered_map<SumoXMLTag, std::unordered_map<const GNEAttributeCarrier*, GNETAZSourceSink*> > myTAZSourceSinks;
-+        std::unordered_map<SumoXMLTag, std::unordered_map<const GNEAttributeCarrier*, GNETAZSourceSink*>, std::hash<int> > myTAZSourceSinks;
- 
          /// @brief map with the tag and pointer to demand elements of net, sorted by IDs
 -        std::unordered_map<SumoXMLTag, std::map<const std::string, GNEDemandElement*> > myDemandElementIDs;
 +        std::unordered_map<SumoXMLTag, std::map<const std::string, GNEDemandElement*>, std::hash<int> > myDemandElementIDs;
  
-         /// @brief map with the tag and pointer to demand elements elements of net
+         /// @brief map with the tag and pointer to additional elements of net
 -        std::unordered_map<SumoXMLTag, std::unordered_map<const GUIGlObject*, GNEDemandElement*> > myDemandElements;
 +        std::unordered_map<SumoXMLTag, std::unordered_map<const GUIGlObject*, GNEDemandElement*>, std::hash<int> > myDemandElements;
  
          /// @brief map with the ID and pointer to all datasets of net
          std::map<const std::string, GNEDataSet*> myDataSets;
-@@ -859,10 +859,10 @@ struct GNENetHelper {
+@@ -832,10 +832,10 @@ struct GNENetHelper {
          std::unordered_map<const GNEAttributeCarrier*, GNEDataInterval*> myDataIntervals;
  
          /// @brief map with the tag and pointer to all generic datas
