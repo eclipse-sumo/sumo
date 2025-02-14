@@ -1139,7 +1139,7 @@ ToC device infos for vehicle 'ToC_veh'
 time 226.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 0.25
-  currentSpeed = 15.861894386814908
+  currentSpeed = 16.856
   state = RECOVERING
 Requested ToC of veh0 at t=227.0 (until t=249.5)
 time 227.0
