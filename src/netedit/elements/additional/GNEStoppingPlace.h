@@ -46,11 +46,12 @@ public:
      * @param[in] endPos End position of the StoppingPlace
      * @param[in] name Name of stoppingPlace
      * @param[in] friendlyPos enable or disable friendly position
+     * @param[in] color stoppingPlace color
      * @param[in] parameters generic parameters
      */
     GNEStoppingPlace(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, FXIcon* icon, GNELane* lane,
                      const double startPos, const double endPos, const std::string& name, bool friendlyPosition,
-                     const Parameterised::Map& parameters);
+                     const RGBColor& color, const Parameterised::Map& parameters);
 
     /// @brief Destructor
     ~GNEStoppingPlace();
@@ -162,6 +163,9 @@ protected:
     /// @brief Flag for friendly position
     bool myFriendlyPosition = false;
 
+    /// @brief RGB color
+    RGBColor myColor = RGBColor::INVISIBLE;
+
     /// @brief The position of the sign
     Position mySymbolPosition;
 
@@ -170,6 +174,10 @@ protected:
 
     /// @name Functions related with stoppingPlace attributes
     /// @{
+
+    /// @brief write common stoppingPlace attributes
+    void writeStoppingPlaceAttributes(OutputDevice& device) const;
+
     /* @brief method for getting the stoppingPlace attribute of an XML key
      * @param[in] key The attribute key
      * @return string with the value associated to key

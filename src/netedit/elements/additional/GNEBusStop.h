@@ -133,9 +133,6 @@ protected:
     /// @brief custom space for vehicles that park at this stop
     double myParkingLength = 0;
 
-    /// @brief RGB color
-    RGBColor myColor = RGBColor::BLACK;
-
 private:
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);

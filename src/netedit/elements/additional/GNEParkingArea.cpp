@@ -17,18 +17,13 @@
 ///
 // A lane area vehicles can park at (GNE version)
 /****************************************************************************/
-#include <config.h>
 
 #include <netedit/GNENet.h>
 #include <netedit/GNETagProperties.h>
-#include <netedit/GNEUndoList.h>
-#include <netedit/GNEViewNet.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/options/OptionsCont.h>
-#include <utils/gui/globjects/GLIncludes.h>
 #include <utils/vehicle/SUMORouteHandler.h>
-#include <utils/gui/div/GUIGlobalViewObjectsHandler.h>
 
 #include "GNEParkingArea.h"
 
@@ -48,7 +43,7 @@ GNEParkingArea::GNEParkingArea(const std::string& id, GNELane* lane, GNENet* net
                                const bool friendlyPosition, const int roadSideCapacity, const bool onRoad, const double width,
                                const double length, const double angle, const bool lefthand, const Parameterised::Map& parameters) :
     GNEStoppingPlace(id, net, GLO_PARKING_AREA, SUMO_TAG_PARKING_AREA, GUIIconSubSys::getIcon(GUIIcon::PARKINGAREA),
-                     lane, startPos, endPos, name, friendlyPosition, parameters),
+                     lane, startPos, endPos, name, friendlyPosition, RGBColor::INVISIBLE, parameters),
     myDepartPos(departPos),
     myRoadSideCapacity(roadSideCapacity),
     myOnRoad(onRoad),
@@ -68,20 +63,9 @@ GNEParkingArea::~GNEParkingArea() {}
 void
 GNEParkingArea::writeAdditional(OutputDevice& device) const {
     device.openTag(getTagProperty()->getTag());
-    device.writeAttr(SUMO_ATTR_ID, getID());
-    if (!myAdditionalName.empty()) {
-        device.writeAttr(SUMO_ATTR_NAME, StringUtils::escapeXML(myAdditionalName));
-    }
-    device.writeAttr(SUMO_ATTR_LANE, getParentLanes().front()->getID());
-    if (myStartPosition != INVALID_DOUBLE) {
-        device.writeAttr(SUMO_ATTR_STARTPOS, myStartPosition);
-    }
-    if (myEndPosition != INVALID_DOUBLE) {
-        device.writeAttr(SUMO_ATTR_ENDPOS, myEndPosition);
-    }
-    if (myFriendlyPosition) {
-        device.writeAttr(SUMO_ATTR_FRIENDLY_POS, "true");
-    }
+    // write common attributes
+    writeStoppingPlaceAttributes(device);
+    // write specific attributes
     if (getAttribute(SUMO_ATTR_ROADSIDE_CAPACITY) != myTagProperty->getDefaultValue(SUMO_ATTR_ROADSIDE_CAPACITY)) {
         device.writeAttr(SUMO_ATTR_ROADSIDE_CAPACITY, toString(myRoadSideCapacity));
     }

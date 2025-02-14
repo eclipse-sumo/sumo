@@ -28,8 +28,11 @@
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/frames/common/GNEMoveFrame.h>
 #include <utils/gui/div/GLHelper.h>
+#include <utils/gui/div/GUIGlobalViewObjectsHandler.h>
 #include <utils/gui/globjects/GLIncludes.h>
 #include <utils/options/OptionsCont.h>
+#include <utils/vehicle/SUMORouteHandler.h>
+#include <utils/xml/NamespaceIDs.h>
 
 #include "GNEStoppingPlace.h"
 #include "GNEAdditionalHandler.h"
@@ -44,13 +47,14 @@ GNEStoppingPlace::GNEStoppingPlace(GNENet* net, GUIGlObjectType type, SumoXMLTag
 
 
 GNEStoppingPlace::GNEStoppingPlace(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, FXIcon* icon,
-                                   GNELane* lane, const double startPos, const double endPos, const std::string& name, bool friendlyPosition,
-                                   const Parameterised::Map& parameters) :
+                                   GNELane* lane, const double startPos, const double endPos, const std::string& name,
+                                   bool friendlyPosition, const RGBColor& color, const Parameterised::Map& parameters) :
     GNEAdditional(id, net, type, tag, icon, name),
     Parameterised(parameters),
     myStartPosition(startPos),
     myEndPosition(endPos),
-    myFriendlyPosition(friendlyPosition) {
+    myFriendlyPosition(friendlyPosition),
+    myColor(color) {
     // set parents
     setParent<GNELane*>(lane);
 }
@@ -231,23 +235,65 @@ GNEStoppingPlace::getParentName() const {
 }
 
 
+void
+GNEStoppingPlace::writeStoppingPlaceAttributes(OutputDevice& device) const {
+    // id
+    device.writeAttr(SUMO_ATTR_ID, getID());
+    // name (if defined)
+    if (!myAdditionalName.empty()) {
+        device.writeAttr(SUMO_ATTR_NAME, StringUtils::escapeXML(myAdditionalName));
+    }
+    // lane
+    device.writeAttr(SUMO_ATTR_LANE, getParentLanes().front()->getID());
+    // start and end positions
+    if (myStartPosition != INVALID_DOUBLE) {
+        device.writeAttr(SUMO_ATTR_STARTPOS, myStartPosition);
+    }
+    if (myEndPosition != INVALID_DOUBLE) {
+        device.writeAttr(SUMO_ATTR_ENDPOS, myEndPosition);
+    }
+    // friendly position (only if true)
+    if (myFriendlyPosition) {
+        device.writeAttr(SUMO_ATTR_FRIENDLY_POS, "true");
+    }
+    // color (if defined)
+    if (getAttribute(SUMO_ATTR_COLOR).size() > 0) {
+        device.writeAttr(SUMO_ATTR_COLOR, myColor);
+    }
+}
+
+
 std::string
 GNEStoppingPlace::getStoppingPlaceAttribute(const Parameterised* parameterised, SumoXMLAttr key) const {
     switch (key) {
-        case GNE_ATTR_SELECTED:
-            if (mySelected) {
-                return True;
+        case SUMO_ATTR_ID:
+            return getMicrosimID();
+        case SUMO_ATTR_LANE:
+            return getParentLanes().front()->getID();
+        case SUMO_ATTR_STARTPOS:
+            if (myStartPosition != INVALID_DOUBLE) {
+                return toString(myStartPosition);
             } else {
-                return False;
+                return "";
             }
-        case GNE_ATTR_FRONTELEMENT:
-            if (myDrawInFront) {
-                return True;
+        case SUMO_ATTR_ENDPOS:
+            if (myEndPosition != INVALID_DOUBLE) {
+                return toString(myEndPosition);
             } else {
-                return False;
+                return "";
             }
-        case GNE_ATTR_PARAMETERS:
-            return parameterised->getParametersStr();
+        case SUMO_ATTR_NAME:
+            return myAdditionalName;
+        case SUMO_ATTR_FRIENDLY_POS:
+            return toString(myFriendlyPosition);
+        case SUMO_ATTR_COLOR:
+            if (myColor == RGBColor::INVISIBLE) {
+                return "";
+            } else {
+                return toString(myColor);
+            }
+        case GNE_ATTR_SHIFTLANEINDEX:
+            return "";
         default:
             return getCommonAttribute(parameterised, key);
     }
@@ -257,8 +303,14 @@ GNEStoppingPlace::getStoppingPlaceAttribute(const Parameterised* parameterised, 
 void
 GNEStoppingPlace::setStoppingPlaceAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     switch (key) {
-        case GNE_ATTR_SELECTED:
-        case GNE_ATTR_PARAMETERS:
+        case SUMO_ATTR_ID:
+        case SUMO_ATTR_LANE:
+        case SUMO_ATTR_STARTPOS:
+        case SUMO_ATTR_ENDPOS:
+        case SUMO_ATTR_NAME:
+        case SUMO_ATTR_FRIENDLY_POS:
+        case SUMO_ATTR_COLOR:
+        case GNE_ATTR_SHIFTLANEINDEX:
             GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
         default:
@@ -271,10 +323,42 @@ GNEStoppingPlace::setStoppingPlaceAttribute(SumoXMLAttr key, const std::string& 
 bool
 GNEStoppingPlace::isStoppingPlaceValid(SumoXMLAttr key, const std::string& value) const {
     switch (key) {
-        case GNE_ATTR_SELECTED:
+        case SUMO_ATTR_ID:
+            return isValidAdditionalID(NamespaceIDs::busStops, value);
+        case SUMO_ATTR_LANE:
+            if (myNet->getAttributeCarriers()->retrieveLane(value, false) != nullptr) {
+                return true;
+            } else {
+                return false;
+            }
+        case SUMO_ATTR_STARTPOS:
+            if (value.empty()) {
+                return true;
+            } else if (canParse<double>(value)) {
+                return SUMORouteHandler::isStopPosValid(parse<double>(value), getAttributeDouble(SUMO_ATTR_ENDPOS), getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength(), POSITION_EPS, myFriendlyPosition);
+            } else {
+                return false;
+            }
+        case SUMO_ATTR_ENDPOS:
+            if (value.empty()) {
+                return true;
+            } else if (canParse<double>(value)) {
+                return SUMORouteHandler::isStopPosValid(getAttributeDouble(SUMO_ATTR_STARTPOS), parse<double>(value), getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength(), POSITION_EPS, myFriendlyPosition);
+            } else {
+                return false;
+            }
+        case SUMO_ATTR_NAME:
+            return SUMOXMLDefinitions::isValidAttribute(value);
+        case SUMO_ATTR_FRIENDLY_POS:
             return canParse<bool>(value);
-        case GNE_ATTR_PARAMETERS:
-            return Parameterised::areParametersValid(value);
+        case SUMO_ATTR_COLOR:
+            if (value.empty()) {
+                return true;
+            } else {
+                return canParse<RGBColor>(value);
+            }
+        case GNE_ATTR_SHIFTLANEINDEX:
+            return true;
         default:
             return isCommonValid(key, value);
     }
@@ -284,15 +368,42 @@ GNEStoppingPlace::isStoppingPlaceValid(SumoXMLAttr key, const std::string& value
 void
 GNEStoppingPlace::setStoppingPlaceAttribute(Parameterised* parameterised, SumoXMLAttr key, const std::string& value) {
     switch (key) {
-        case GNE_ATTR_SELECTED:
-            if (parse<bool>(value)) {
-                selectAttributeCarrier();
+        case SUMO_ATTR_ID:
+            // update microsimID
+            setAdditionalID(value);
+            break;
+        case SUMO_ATTR_LANE:
+            replaceAdditionalParentLanes(value);
+            break;
+        case SUMO_ATTR_STARTPOS:
+            if (value == "") {
+                myStartPosition = INVALID_DOUBLE;
             } else {
-                unselectAttributeCarrier();
+                myStartPosition = parse<double>(value);
             }
             break;
-        case GNE_ATTR_PARAMETERS:
-            parameterised->setParametersStr(value);
+        case SUMO_ATTR_ENDPOS:
+            if (value == "") {
+                myEndPosition = INVALID_DOUBLE;
+            } else {
+                myEndPosition = parse<double>(value);
+            }
+            break;
+        case SUMO_ATTR_NAME:
+            myAdditionalName = value;
+            break;
+        case SUMO_ATTR_FRIENDLY_POS:
+            myFriendlyPosition = parse<bool>(value);
+            break;
+        case SUMO_ATTR_COLOR:
+            if (value.empty()) {
+                myColor = RGBColor::INVISIBLE;
+            } else {
+                myColor = GNEAttributeCarrier::parse<RGBColor>(value);
+            }
+            break;
+        case GNE_ATTR_SHIFTLANEINDEX:
+            shiftLaneIndex();
             break;
         default:
             setCommonAttribute(parameterised, key, value);
