@@ -168,6 +168,32 @@ protected:
     /// @brief circle contour
     GNEContour mySymbolContour;
 
+    /// @name Functions related with stoppingPlace attributes
+    /// @{
+    /* @brief method for getting the stoppingPlace attribute of an XML key
+     * @param[in] key The attribute key
+     * @return string with the value associated to key
+     */
+    std::string getStoppingPlaceAttribute(const Parameterised* parameterised, SumoXMLAttr key) const;
+
+    /* @brief method for setting the stoppingPlace attribute and letting the object perform additional changes
+     * @param[in] key The attribute key
+     * @param[in] value The new value
+     * @param[in] undoList The undoList on which to register changes
+     */
+    void setStoppingPlaceAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList);
+
+    /* @brief method for check if new value for certain stoppingPlace attribute is valid
+     * @param[in] key The attribute key
+     * @param[in] value The new value
+     */
+    bool isStoppingPlaceValid(SumoXMLAttr key, const std::string& value) const;
+
+    /// @brief method for setting the stoppingPlace attribute and nothing else (used in GNEChange_Attribute)
+    void setStoppingPlaceAttribute(Parameterised* parameterised, SumoXMLAttr key, const std::string& value);
+
+    /// @}
+
     /// @brief set geometry common to all stopping places
     void setStoppingPlaceGeometry(double movingToSide);
 

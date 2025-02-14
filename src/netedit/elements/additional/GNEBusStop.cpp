@@ -250,7 +250,7 @@ GNEBusStop::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_SHIFTLANEINDEX:
             return "";
         default:
-            return getCommonAttribute(this, key);
+            return getStoppingPlaceAttribute(this, key);
     }
 }
 
@@ -272,7 +272,7 @@ GNEBusStop::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList*
             GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
         default:
-            setCommonAttribute(key, value, undoList);
+            setStoppingPlaceAttribute(key, value, undoList);
             break;
     }
 }
@@ -322,7 +322,7 @@ GNEBusStop::isValid(SumoXMLAttr key, const std::string& value) {
                 return canParse<RGBColor>(value);
             }
         default:
-            return isCommonValid(key, value);
+            return isStoppingPlaceValid(key, value);
     }
 }
 
@@ -380,7 +380,7 @@ GNEBusStop::setAttribute(SumoXMLAttr key, const std::string& value) {
             shiftLaneIndex();
             break;
         default:
-            setCommonAttribute(this, key, value);
+            setStoppingPlaceAttribute(this, key, value);
             break;
     }
 }

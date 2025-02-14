@@ -25,6 +25,7 @@
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
+#include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/frames/common/GNEMoveFrame.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/globjects/GLIncludes.h>
@@ -227,6 +228,76 @@ GNEStoppingPlace::splitEdgeGeometry(const double splitPosition, const GNENetwork
 std::string
 GNEStoppingPlace::getParentName() const {
     return getParentLanes().front()->getID();
+}
+
+
+std::string
+GNEStoppingPlace::getStoppingPlaceAttribute(const Parameterised* parameterised, SumoXMLAttr key) const {
+    switch (key) {
+        case GNE_ATTR_SELECTED:
+            if (mySelected) {
+                return True;
+            } else {
+                return False;
+            }
+        case GNE_ATTR_FRONTELEMENT:
+            if (myDrawInFront) {
+                return True;
+            } else {
+                return False;
+            }
+        case GNE_ATTR_PARAMETERS:
+            return parameterised->getParametersStr();
+        default:
+            return getCommonAttribute(parameterised, key);
+    }
+}
+
+
+void
+GNEStoppingPlace::setStoppingPlaceAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
+    switch (key) {
+        case GNE_ATTR_SELECTED:
+        case GNE_ATTR_PARAMETERS:
+            GNEChange_Attribute::changeAttribute(this, key, value, undoList);
+            break;
+        default:
+            setCommonAttribute(key, value, undoList);
+            break;
+    }
+}
+
+
+bool
+GNEStoppingPlace::isStoppingPlaceValid(SumoXMLAttr key, const std::string& value) const {
+    switch (key) {
+        case GNE_ATTR_SELECTED:
+            return canParse<bool>(value);
+        case GNE_ATTR_PARAMETERS:
+            return Parameterised::areParametersValid(value);
+        default:
+            return isCommonValid(key, value);
+    }
+}
+
+
+void
+GNEStoppingPlace::setStoppingPlaceAttribute(Parameterised* parameterised, SumoXMLAttr key, const std::string& value) {
+    switch (key) {
+        case GNE_ATTR_SELECTED:
+            if (parse<bool>(value)) {
+                selectAttributeCarrier();
+            } else {
+                unselectAttributeCarrier();
+            }
+            break;
+        case GNE_ATTR_PARAMETERS:
+            parameterised->setParametersStr(value);
+            break;
+        default:
+            setCommonAttribute(parameterised, key, value);
+            break;
+    }
 }
 
 
