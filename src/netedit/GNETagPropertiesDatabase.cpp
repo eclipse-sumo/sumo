@@ -1292,14 +1292,6 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
                 "0");
         myTagProperties[currentTag]->addAttribute(attrProperty);
 
-        attrProperty = new GNEAttributeProperties(SUMO_ATTR_FRIENDLY_POS,
-                GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
-                TL("If set, no error will be reported if element is placed behind the lane.") + std::string("\n") +
-                TL("Instead, it will be placed 0.1 meters from the lanes end or at position 0.1,") + std::string("\n") +
-                TL("if the position was negative and larger than the lanes length after multiplication with - 1"),
-                "0");
-        myTagProperties[currentTag]->addAttribute(attrProperty);
-
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_WIDTH,
                 GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY,
                 TL("The width of the road-side parking spaces"),
