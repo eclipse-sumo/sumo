@@ -44,18 +44,24 @@ class GNEAttributesEditor : public MFXGroupBoxModule {
 
 public:
 
-    /// @brief Options for filter attributes
-    enum EditorOptions {
-        BASIC_ATTRIBUTES    = 1 << 0,
-        EXTENDED_ATTRIBUTES = 1 << 1,
-        FLOW_ATTRIBUTES     = 1 << 2,
-        GEO_ATTRIBUTES      = 1 << 3,
-        NETEDIT_ATTRIBUTES  = 1 << 4,
-        GENERIC_PARAMETERS  = 1 << 5
+    /// @brief Editor type
+    enum class EditorType {
+        CREATOR,    // used in create elements frames
+        EDITOR      // used in edit frames (inspector, vType..)
+    };
+
+    /// @brief Attribute types
+    enum class AttributeType {
+        BASIC,      // basic attributes
+        EXTENDED,   // extended attributes (used in vType)
+        FLOW,       // flow attributes
+        GEO,        // GEO attributes (lon and lat)
+        NETEDIT,    // Netedit attributes (front, select...)
+        PARAMETERS, // Generic parameters
     };
 
     /// @brief constructor
-    GNEAttributesEditor(GNEFrame* frameParent, const std::string attributesEditorName, const int editorOptions);
+    GNEAttributesEditor(GNEFrame* frameParent, const std::string attributesEditorName, EditorType editorType, AttributeType attributeType);
 
     /// @brief pointer to GNEFrame parent
     GNEFrame* getFrameParent() const;
@@ -165,9 +171,18 @@ private:
     /// @brief check if we're reparent
     SumoXMLTag myReparentTag = SUMO_TAG_NOTHING;
 
-    /// @brief variable use for packing attribute editor options
-    int myEditorOptions = 0;
+    /// @brief variable use for packing editorType type options
+    const EditorType myEditorType = EditorType::EDITOR;
+
+    /// @brief variable use for packing attribute type options
+    const AttributeType myAttributeType = AttributeType::BASIC;
 
     /// @brief maximum number of rows used in this attributes editor
     int myMaxNumberOfRows = 0;
+
+    /// @brief Invalidated copy constructor.
+    GNEAttributesEditor(GNEAttributesEditor*) = delete;
+
+    /// @brief Invalidated assignment operator.
+    GNEAttributesEditor& operator=(GNEAttributesEditor*) = delete;
 };

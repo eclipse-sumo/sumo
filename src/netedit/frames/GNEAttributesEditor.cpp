@@ -57,29 +57,30 @@ FXIMPLEMENT(GNEAttributesEditor,  MFXGroupBoxModule,  GNEAttributeTableMap,   AR
 // method definitions
 // ===========================================================================
 
-GNEAttributesEditor::GNEAttributesEditor(GNEFrame* frameParent, const std::string attributesEditorName, const int editorOptions) :
+GNEAttributesEditor::GNEAttributesEditor(GNEFrame* frameParent, const std::string attributesEditorName, EditorType editorType, AttributeType attributeType) :
     MFXGroupBoxModule(frameParent, attributesEditorName.c_str()),
     myFrameParent(frameParent),
-    myEditorOptions(editorOptions) {
+    myEditorType(editorType),
+    myAttributeType(attributeType) {
     // adjust max number of rows
-    if ((myEditorOptions & EditorOptions::BASIC_ATTRIBUTES) != 0) {
+    if (myAttributeType == AttributeType::BASIC) {
         myMaxNumberOfRows = frameParent->getViewNet()->getNet()->getTagPropertiesDatabase()->getMaxNumberOfEditableAttributes();
-    } else if ((myEditorOptions & EditorOptions::FLOW_ATTRIBUTES) != 0) {
+    } else if (myAttributeType == AttributeType::FLOW) {
         myMaxNumberOfRows = frameParent->getViewNet()->getNet()->getTagPropertiesDatabase()->getMaxNumberOfFlowAttributes();
-    } else if ((myEditorOptions & EditorOptions::GEO_ATTRIBUTES) != 0) {
+    } else if (myAttributeType == AttributeType::GEO) {
         myMaxNumberOfRows = frameParent->getViewNet()->getNet()->getTagPropertiesDatabase()->getMaxNumberOfGeoAttributes();
-    } else if ((myEditorOptions & EditorOptions::NETEDIT_ATTRIBUTES) != 0) {
+    } else if (myAttributeType == AttributeType::NETEDIT) {
         myMaxNumberOfRows = frameParent->getViewNet()->getNet()->getTagPropertiesDatabase()->getMaxNumberOfNeteditAttributes();
         // create netedit editor buttons
         myFrontButton = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Front element"), "", "", GUIIconSubSys::getIcon(GUIIcon::FRONTELEMENT), this, MID_GNE_ATTRIBUTESEDITOR_FRONT, GUIDesignButton);
         myFrontButton->hide();
         myOpenDialogButton = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Open element dialog"), "", "", nullptr, this, MID_GNE_ATTRIBUTESEDITOR_DIALOG, GUIDesignButton);
         myOpenDialogButton->hide();
-    } else if ((myEditorOptions & EditorOptions::EXTENDED_ATTRIBUTES) != 0) {
+    } else if (myAttributeType == AttributeType::EXTENDED) {
         // create extended attributes
         myOpenExtendedAttributesButton = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Edit extended attributes"), "", "", nullptr, this, MID_GNE_ATTRIBUTESEDITOR_EXTENDED, GUIDesignButton);
         myOpenExtendedAttributesButton->hide();
-    } else if ((myEditorOptions & EditorOptions::GENERIC_PARAMETERS) != 0) {
+    } else if (myAttributeType == AttributeType::PARAMETERS) {
         myMaxNumberOfRows = 1;
     } else {
         throw ProcessError("Invalid editor option");
@@ -90,7 +91,7 @@ GNEAttributesEditor::GNEAttributesEditor(GNEFrame* frameParent, const std::strin
         myAttributesEditorRows[i] = new GNEAttributesEditorRow(this);
     }
     // create generic parameters editor button
-    if ((myEditorOptions & EditorOptions::GENERIC_PARAMETERS) != 0) {
+    if (myAttributeType == AttributeType::PARAMETERS) {
         // create generic attributes editor button
         myOpenGenericParametersEditorButton = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Edit parameters"), "", "", nullptr, this, MID_GNE_ATTRIBUTESEDITOR_PARAMETERS, GUIDesignButton);
         myOpenGenericParametersEditorButton->hide();
@@ -148,7 +149,7 @@ GNEAttributesEditor::refreshAttributesEditor() {
         int itRows = 0;
         bool showButtons = false;
         // check if show netedit attributes (only for single edited ACs)
-        if ((myEditorOptions & EditorOptions::NETEDIT_ATTRIBUTES) != 0) {
+        if (myAttributeType == AttributeType::NETEDIT) {
             // front button
             if (tagProperty->isDrawable()) {
                 myFrontButton->show();
@@ -182,10 +183,10 @@ GNEAttributesEditor::refreshAttributesEditor() {
                 }
 
             }
-        } else if ((myEditorOptions & EditorOptions::GENERIC_PARAMETERS) != 0) {
+        } else if (myAttributeType == AttributeType::PARAMETERS) {
             myOpenGenericParametersEditorButton->show();
         }
-        if ((myEditorOptions & EditorOptions::EXTENDED_ATTRIBUTES) != 0) {
+        if (myAttributeType == AttributeType::EXTENDED) {
             myOpenExtendedAttributesButton->show();
             showButtons = true;
         } else {
@@ -195,23 +196,23 @@ GNEAttributesEditor::refreshAttributesEditor() {
                 // check show conditions
                 if (attrProperty->isExtended()) {
                     showAttributeRow = false;
-                } else if (((myEditorOptions & EditorOptions::FLOW_ATTRIBUTES) == 0) && attrProperty->isFlow()) {
+                } else if ((myAttributeType != AttributeType::FLOW) && attrProperty->isFlow()) {
                     showAttributeRow = false;
-                } else if (((myEditorOptions & EditorOptions::FLOW_ATTRIBUTES) != 0) && !attrProperty->isFlow()) {
+                } else if ((myAttributeType == AttributeType::FLOW) && !attrProperty->isFlow()) {
                     showAttributeRow = false;
-                } else if (((myEditorOptions & EditorOptions::GEO_ATTRIBUTES) == 0) && attrProperty->isGEO()) {
+                } else if ((myAttributeType != AttributeType::GEO) && attrProperty->isGEO()) {
                     showAttributeRow = false;
-                } else if (((myEditorOptions & EditorOptions::GEO_ATTRIBUTES) != 0) && !attrProperty->isGEO()) {
+                } else if ((myAttributeType == AttributeType::GEO) && !attrProperty->isGEO()) {
                     showAttributeRow = false;
-                } else if (((myEditorOptions & EditorOptions::NETEDIT_ATTRIBUTES) == 0) && attrProperty->isNetedit()) {
+                } else if ((myAttributeType != AttributeType::NETEDIT) && attrProperty->isNetedit()) {
                     showAttributeRow = false;
-                } else if (((myEditorOptions & EditorOptions::NETEDIT_ATTRIBUTES) != 0) && !attrProperty->isNetedit()) {
+                } else if ((myAttributeType == AttributeType::NETEDIT) && !attrProperty->isNetedit()) {
                     showAttributeRow = false;
-                } else if (((myEditorOptions & EditorOptions::GENERIC_PARAMETERS) == 0) && (attrProperty->getAttr() == GNE_ATTR_PARAMETERS)) {
+                } else if ((myAttributeType != AttributeType::PARAMETERS)&& (attrProperty->getAttr() == GNE_ATTR_PARAMETERS)) {
                     showAttributeRow = false;
-                } else if (((myEditorOptions & EditorOptions::GENERIC_PARAMETERS) != 0) && (attrProperty->getAttr() != GNE_ATTR_PARAMETERS)) {
+                } else if ((myAttributeType == AttributeType::PARAMETERS) && (attrProperty->getAttr() != GNE_ATTR_PARAMETERS)) {
                     showAttributeRow = false;
-                } else if ((myEditorOptions & EditorOptions::BASIC_ATTRIBUTES) != 0) {
+                } else if (myAttributeType == AttributeType::BASIC) {
                     showAttributeRow = true;
                 }
                 if (showAttributeRow) {
@@ -235,7 +236,7 @@ GNEAttributesEditor::refreshAttributesEditor() {
             hideAttributesEditor();
         } else {
             // check if show help button
-            if ((myEditorOptions & EditorOptions::GENERIC_PARAMETERS) != 0) {
+            if (myAttributeType == AttributeType::PARAMETERS) {
                 myHelpButton->hide();
             } else if (itRows > 0) {
                 myHelpButton->show();
