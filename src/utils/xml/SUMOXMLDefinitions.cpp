@@ -1376,6 +1376,7 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::attrs[] = {
     { "tazCentroid",                        GNE_ATTR_TAZ_CENTROID },
     { "terminate",                          GNE_ATTR_FLOW_TERMINATE },
     { "spacing",                            GNE_ATTR_FLOW_SPACING },
+    { "referencePos",                       GNE_ATTR_REFERENCEPOS },
     // mapped to additional elements on writing
     { "fromBusStop",                        GNE_ATTR_FROM_BUSSTOP },
     { "fromTrainStop",                      GNE_ATTR_FROM_TRAINSTOP },
@@ -1667,6 +1668,12 @@ StringBijection<ExcludeEmpty>::Entry SUMOXMLDefinitions::excludeEmptyValues[] = 
     {"defaults",    ExcludeEmpty::DEFAULTS} //< must be the last one
 };
 
+StringBijection<ReferencePosition>::Entry SUMOXMLDefinitions::referencePositionValues[] = {
+    {"left",    ReferencePosition::LEFT},
+    {"right",   ReferencePosition::RIGHT},
+    {"center",  ReferencePosition::CENTER} //< must be the last one
+};
+
 SequentialStringBijection SUMOXMLDefinitions::Tags(
     SUMOXMLDefinitions::tags, SUMO_TAG_NOTHING);
 
@@ -1729,6 +1736,9 @@ StringBijection<POIIcon> SUMOXMLDefinitions::POIIcons(
 
 StringBijection<ExcludeEmpty> SUMOXMLDefinitions::ExcludeEmptys(
     SUMOXMLDefinitions::excludeEmptyValues, ExcludeEmpty::DEFAULTS, false);
+
+StringBijection<ReferencePosition> SUMOXMLDefinitions::ReferencePositions(
+    SUMOXMLDefinitions::referencePositionValues, ReferencePosition::CENTER, false);
 
 std::string
 SUMOXMLDefinitions::getJunctionIDFromInternalEdge(const std::string internalEdge) {

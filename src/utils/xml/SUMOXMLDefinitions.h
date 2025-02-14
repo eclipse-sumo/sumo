@@ -1840,6 +1840,8 @@ enum SumoXMLAttr {
     GNE_ATTR_FLOW_TERMINATE,
     /// @brief flow spacing
     GNE_ATTR_FLOW_SPACING,
+    /// @brief reference position (used creating stoppingPlaces)
+    GNE_ATTR_REFERENCEPOS,
     // virtual attributes for easier UI
     GNE_ATTR_FROM_BUSSTOP,
     GNE_ATTR_FROM_TRAINSTOP,
@@ -2255,6 +2257,13 @@ enum class ExcludeEmpty {
     DEFAULTS,
 };
 
+/// @brief Reference position
+enum class ReferencePosition {
+    LEFT,
+    RIGHT,
+    CENTER,
+};
+
 // @}
 
 /**
@@ -2335,6 +2344,9 @@ public:
 
     /// @brief exclude empty values
     static StringBijection<ExcludeEmpty> ExcludeEmptys;
+
+    /// @brief reference positions (used creating certain elements in netedit) 
+    static StringBijection<ReferencePosition> ReferencePositions;
 
     /// @}
 
@@ -2452,6 +2464,9 @@ private:
 
     /// @brief Exclude empty values
     static StringBijection<ExcludeEmpty>::Entry excludeEmptyValues[];
+
+    /// @brief Reference position values
+    static StringBijection<ReferencePosition>::Entry referencePositionValues[];
 
     /// @}
 
