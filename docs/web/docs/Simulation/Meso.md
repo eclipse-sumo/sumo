@@ -166,6 +166,10 @@ expected waiting time for random arrival within the cycle
 travelTimePenalty = p * (redTime * redTime + redTime) / (2 * cycleTime)
 ```
 
+!!! caution
+    When edges ahead of a traffic light are shorter than 15m and unrealistic reduction in traffic flow will result from the use of this option and a warning will be given.
+    To identify affected edges in netedit, the tool `net/netcheck.py net.net.xml --short-tls-edges --selection-output selection.txt` can be used.
+
 ### TLS-Flow-Penalty
 When setting **--meso-tls-flow-penalty** {{DT_FLOAT}}: to a value \> 0 (default is 0), a headway penalty is applied
  which serves to reduce the maximum flow across a tls-controlled intersection (In contrast to actual junction control, they flow is spread evenly across the phase cycle rather than being concentrated during the green phases).
