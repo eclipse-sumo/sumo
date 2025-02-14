@@ -1842,6 +1842,10 @@ enum SumoXMLAttr {
     GNE_ATTR_FLOW_SPACING,
     /// @brief reference position (used creating stoppingPlaces)
     GNE_ATTR_REFERENCEPOS,
+    /// @brief size (used in stopping places)
+    GNE_ATTR_SIZE,
+    /// @brief size (used in stopping places)
+    GNE_ATTR_FORCESIZE,
     // virtual attributes for easier UI
     GNE_ATTR_FROM_BUSSTOP,
     GNE_ATTR_FROM_TRAINSTOP,

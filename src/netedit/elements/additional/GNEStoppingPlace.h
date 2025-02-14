@@ -100,6 +100,7 @@ public:
 
     /// @brief split geometry
     void splitEdgeGeometry(const double splitPosition, const GNENetworkElement* originalElement, const GNENetworkElement* newElement, GNEUndoList* undoList);
+    
     /// @}
 
     /// @name inherited from GNEAdditional
@@ -113,6 +114,7 @@ public:
      * @see GUIGlObject::drawGL
      */
     virtual void drawGL(const GUIVisualizationSettings& s) const = 0;
+
     /// @}
 
     /// @name inherited from GNEAttributeCarrier
@@ -146,11 +148,17 @@ public:
      */
     virtual bool isValid(SumoXMLAttr key, const std::string& value) = 0;
 
+    /* @brief method for check if the value for certain attribute is set
+     * @param[in] key The attribute key
+     */
+    bool isAttributeEnabled(SumoXMLAttr key) const;
+
     /// @brief get PopPup ID (Used in AC Hierarchy)
     std::string getPopUpID() const;
 
     /// @brief get Hierarchy Name (Used in AC Hierarchy)
     std::string getHierarchyName() const;
+
     /// @}
 
 protected:
@@ -165,6 +173,12 @@ protected:
 
     /// @brief RGB color
     RGBColor myColor = RGBColor::INVISIBLE;
+
+    /// @brief force size
+    bool myForceSize = false;
+
+    /// @brief reference position
+    ReferencePosition myReferencePosition = ReferencePosition::CENTER;
 
     /// @brief The position of the sign
     Position mySymbolPosition;
@@ -232,6 +246,9 @@ private:
 
     /// @brief commit move shape
     void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList);
+
+    /// @brief adjust lenght
+    void adjustLenght(const double length, GNEUndoList* undoList);
 
     /// @brief Invalidate set new position in the view
     void setPosition(const Position& pos) = delete;

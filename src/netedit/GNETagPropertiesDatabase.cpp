@@ -1273,8 +1273,13 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
                 {}, FXRGBA(240, 255, 205, 255));
         // set common attributes
         fillCommonStoppingPlaceAttributes(myTagProperties[currentTag], false);
-
+        
         // set specific attributes
+        attrProperty = new GNEAttributeProperties(SUMO_ATTR_DEPARTPOS,
+                GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY,
+                TL("Lane position in that vehicle must depart when leaves parkingArea"));
+        myTagProperties[currentTag]->addAttribute(attrProperty);
+
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_ACCEPTED_BADGES,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUE,
                 TL("Accepted badges to access this parkingArea"));
@@ -7600,6 +7605,24 @@ GNETagPropertiesDatabase::fillCommonStoppingPlaceAttributes(GNETagProperties* ta
                 TLF("The RGBA color with which the % shall be displayed", tagProperties->getTagStr()));
         tagProperties->addAttribute(attrProperty);
     }
+
+    // netedit attributes
+    attrProperty = new GNEAttributeProperties(GNE_ATTR_SIZE,
+            GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::UPDATEGEOMETRY | GNEAttributeProperties::NETEDIT,
+            TLF("Length of %", tagProperties->getTagStr()));
+    tagProperties->addAttribute(attrProperty);
+
+    attrProperty = new GNEAttributeProperties(GNE_ATTR_FORCESIZE,
+            GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::NETEDIT | GNEAttributeProperties::EXTENDED,
+            TL("Force size during creation"),
+            GNEAttributeCarrier::False);
+    tagProperties->addAttribute(attrProperty);
+
+    attrProperty = new GNEAttributeProperties(GNE_ATTR_REFERENCEPOS,
+            GNEAttributeProperties::STRING | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::NETEDIT | GNEAttributeProperties::EXTENDED,
+            TLF("Reference position used for creating %", tagProperties->getTagStr()));
+    attrProperty->setDiscreteValues(SUMOXMLDefinitions::ReferencePositions.getStrings());
+    tagProperties->addAttribute(attrProperty);
 }
 
 
