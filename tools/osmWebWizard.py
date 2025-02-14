@@ -425,6 +425,20 @@ class Builder(object):
 
         if self.routenames:
             opts += ["-r", ",".join(self.getRelative(self.routenames))]
+            
+            # extra output if the scenario contains traffic
+            opts += ["--tripinfo-output", "tripinfos.xml"]
+            opts += ["--statistic-output", "stats.xml"]
+
+            self.filename("outadd", "output.add.xml", False)
+            with open(self.files["outadd"], 'w') as fadd:
+                sumolib.writeXMLHeader(fadd, "$Id$", "additional")
+                fadd.write('   <edgeData id="wizard_example" period="3600" file="edgeData.xml"/>\n')
+                fadd.write("</additional>\n")
+            self.additionalFiles.append(self.files["outadd"])
+
+        if self.data["publicTransport"]:
+            opts += ["--stop-output", "stopinfos.xml"]
 
         if len(self.additionalFiles) > 0:
             opts += ["-a", ",".join(self.getRelative(self.additionalFiles))]
