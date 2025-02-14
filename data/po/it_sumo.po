@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-13 10:07+0100\n"
-"PO-Revision-Date: 2025-02-14 13:12+0000\n"
+"PO-Revision-Date: 2025-02-14 16:43+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -8295,7 +8295,7 @@ msgstr "   % nodi generati."
 #: src/netgen/netgen_main.cpp:269
 #, c-format
 msgid "   % edges generated."
-msgstr ""
+msgstr "   % archi generati."
 
 #: src/netgen/netgen_main.cpp:274
 msgid " Removed % traffic lights at geometry-like nodes"
@@ -8336,11 +8336,11 @@ msgstr "Carica linee di trasporto pubblico da FILE"
 
 #: src/netimport/NIFrame.cpp:90
 msgid "Reads polygons from FILE for embedding in network where applicable"
-msgstr ""
+msgstr "Leggi poligoni da FILE per collocarli nella rete se possibile"
 
 #: src/netimport/NIFrame.cpp:97
 msgid "Read shapefiles (ArcView, Tiger, ...) from files starting with 'FILE'"
-msgstr ""
+msgstr "Leggi file shape (ArcView, Tiger, ...) da file che iniziano con 'FILE'"
 
 #: src/netimport/NIFrame.cpp:102
 msgid ""
@@ -8386,11 +8386,11 @@ msgstr ""
 #: src/netimport/NIFrame.cpp:145 src/od2trips_main.cpp:159
 #: src/polyconvert/polyconvert_main.cpp:203
 msgid "Continue on broken input"
-msgstr ""
+msgstr "Continua con ingresso invalido"
 
 #: src/netimport/NIFrame.cpp:148
 msgid "Continue on invalid connections"
-msgstr ""
+msgstr "Continua con collegamenti invalidi"
 
 #: src/netimport/NIFrame.cpp:151
 msgid "Show errors in connections at parsing"
