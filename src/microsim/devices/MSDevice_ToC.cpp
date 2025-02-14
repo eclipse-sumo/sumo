@@ -734,11 +734,13 @@ MSDevice_ToC::MRMExecutionStep(SUMOTime t) {
 #endif
 
     // Induce slowdown with MRMDecel
-    std::vector<std::pair<SUMOTime, double> > speedTimeLine;
-    const double nextSpeed = MAX2(0., currentSpeed - ACCEL2SPEED(myMRMDecel));
-    speedTimeLine.push_back(std::make_pair(t - DELTA_T, currentSpeed));
-    speedTimeLine.push_back(std::make_pair(t, nextSpeed));
-    myHolderMS->getInfluencer().setSpeedTimeLine(speedTimeLine);
+    if (currentSpeed > SPEED_EPS) {
+        std::vector<std::pair<SUMOTime, double> > speedTimeLine;
+        const double nextSpeed = MAX2(0., currentSpeed - ACCEL2SPEED(myMRMDecel));
+        speedTimeLine.push_back(std::make_pair(t, currentSpeed));
+        speedTimeLine.push_back(std::make_pair(t + DELTA_T, nextSpeed));
+        myHolderMS->getInfluencer().setSpeedTimeLine(speedTimeLine);
+    }
 
     if (myMRMKeepRight) {
         // Try to change to the right
