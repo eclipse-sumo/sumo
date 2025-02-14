@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-13 10:07+0100\n"
-"PO-Revision-Date: 2025-02-13 21:46+0000\n"
+"PO-Revision-Date: 2025-02-14 13:12+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.10-rc\n"
+"X-Generator: Weblate 5.10\n"
 
 #: src/activitygen/AGActivityGen.cpp:46
 msgid "Reading input"
@@ -6355,6 +6355,8 @@ msgstr "Contorno invalido: coordinata malformata"
 msgid ""
 "Cannot prune edges using a geo-boundary because no projection has been loaded"
 msgstr ""
+"Non si possono tagliare gli archi con un contorno geografico perché nessuna "
+"proiezione è stata caricata"
 
 #: src/netbuild/NBEdgeCont.cpp:440
 msgid "Attempt to rename edge using existing id '%'"
@@ -6381,6 +6383,8 @@ msgstr "Non ho potuto inserire l'arco '%' oltre la separazione dell'arco '%'."
 #: src/netbuild/NBEdgeCont.cpp:883
 msgid "Moving opposite lane '%' from invalid lane '%' to lane index %."
 msgstr ""
+"Spostamento della corsia opposta '%' dalla corsia invalida '%' all'indice di "
+"corsia %."
 
 #: src/netbuild/NBEdgeCont.cpp:885
 msgid "Removing opposite lane '%' for invalid lane '%'."
@@ -6412,6 +6416,8 @@ msgstr ""
 #: src/netbuild/NBEdgeCont.cpp:940
 msgid "Invalid endOffset % at lane '%' with length % (startOffset %)."
 msgstr ""
+"Spostamento finale invalido % della corsia '%' con la lunghezza di % ("
+"spostamento iniziale %)."
 
 #: src/netbuild/NBEdgeCont.cpp:943
 msgid ""
@@ -6455,7 +6461,7 @@ msgstr "Il collegamento '%' ha un'inclinazione di %%."
 
 #: src/netbuild/NBEdgeCont.cpp:1910
 msgid "Not joining tram edge '%' with % lanes."
-msgstr ""
+msgstr "L'arco tranviario '%' con % corsie non viene combinato con altri archi."
 
 #: src/netbuild/NBEdgeCont.cpp:1988
 msgid "Ambiguous tram edges '%' and '%' for lane '%'."
@@ -6576,10 +6582,12 @@ msgid ""
 "Remaps alphanumerical IDs of nodes and edges to ensure that all IDs are "
 "integers"
 msgstr ""
+"Riassegna codici identificativi di nodi e archi per assicurarsi che tutti i "
+"codici identificativi siano numeri interi"
 
 #: src/netbuild/NBFrame.cpp:126
 msgid "Remaps IDs of nodes to integers starting at INT"
-msgstr ""
+msgstr "Assegna numeri interi ai codici identificativi dei nodi partendo da INT"
 
 #: src/netbuild/NBFrame.cpp:129
 msgid "Remaps IDs of edges to integers starting at INT"
