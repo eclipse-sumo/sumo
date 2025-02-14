@@ -167,7 +167,7 @@ travelTimePenalty = p * (redTime * redTime + redTime) / (2 * cycleTime)
 ```
 
 !!! caution
-    When edges ahead of a traffic light are shorter than 15m and unrealistic reduction in traffic flow will result from the use of this option and a warning will be given.
+    When edges ahead of a traffic light are shorter than 15m an [unrealistic reduction in traffic flow](https://github.com/eclipse-sumo/sumo/issues/16014) will result from the use of this option and a warning will be given.
     To identify affected edges in netedit, the tool `net/netcheck.py net.net.xml --short-tls-edges --selection-output selection.txt` can be used.
 
 ### TLS-Flow-Penalty
