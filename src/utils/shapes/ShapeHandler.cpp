@@ -142,7 +142,7 @@ ShapeHandler::addPOI(const SUMOSAXAttributes& attrs, const bool ignorePruning, c
     const double height = attrs.getOpt<double>(SUMO_ATTR_HEIGHT, id.c_str(), ok, Shape::DEFAULT_IMG_HEIGHT);
     // check if ID is valid
     if (!SUMOXMLDefinitions::isValidTypeID(id)) {
-        WRITE_WARNING(TL("Invalid characters for PoI ID"));
+        WRITE_WARNINGF(TL("Invalid characters for PoI ID '%'"), id);
         ok = false;
     }
     // continue
@@ -216,7 +216,7 @@ ShapeHandler::addPoly(const SUMOSAXAttributes& attrs, const bool ignorePruning, 
     const std::string id = myPrefix + attrs.get<std::string>(SUMO_ATTR_ID, nullptr, ok);
     // check if ID is valid
     if (!SUMOXMLDefinitions::isValidTypeID(id)) {
-        WRITE_WARNING(TL("Invalid characters for Poly ID"));
+        WRITE_WARNINGF(TL("Invalid characters for Poly ID '%'"), id);
         ok = false;
     }
     // get the id, report an error if not given or empty...
