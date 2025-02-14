@@ -126,11 +126,14 @@ protected:
     /// @brief fill container stop elements
     void fillContainerStopElements();
 
-    /// @brief fill common POI attributes
+    /// @brief fill common attributes
     void fillCommonAttributes(GNETagProperties* tagProperties);
 
+    /// @brief fill common stoppingPlace attributes
+    void fillCommonStoppingPlaceAttributes(GNETagProperties* tagProperties, const bool includeColor);
+
     /// @brief fill common POI attributes
-    void fillPOIAttributes(GNETagProperties* tagProperties);
+    void fillCommonPOIAttributes(GNETagProperties* tagProperties);
 
     /// @brief fill common vehicle attributes (used by vehicles, trips, routeFlows and flows)
     void fillCommonVehicleAttributes(GNETagProperties* tagProperties);

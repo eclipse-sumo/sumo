@@ -1082,40 +1082,10 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
                 GNETagProperties::Conflicts::POS_LANE_START | GNETagProperties::Conflicts::POS_LANE_END,
                 GUIIcon::BUSSTOP, currentTag, TL("BusStop"),
                 {}, FXRGBA(240, 255, 205, 255));
-        // set values of attributes
-        attrProperty = new GNEAttributeProperties(SUMO_ATTR_ID,
-                GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::AUTOMATICID,
-                TL("The id of bus stop"));
-        myTagProperties[currentTag]->addAttribute(attrProperty);
+        // set common attributes
+        fillCommonStoppingPlaceAttributes(myTagProperties[currentTag], true);
 
-        attrProperty = new GNEAttributeProperties(SUMO_ATTR_LANE,
-                GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                TL("The name of the lane the bus stop shall be located at"));
-        myTagProperties[currentTag]->addAttribute(attrProperty);
-
-        attrProperty = new GNEAttributeProperties(SUMO_ATTR_STARTPOS,
-                GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                TL("The begin position on the lane (the lower position on the lane) in meters"));
-
-        myTagProperties[currentTag]->addAttribute(attrProperty);
-        attrProperty = new GNEAttributeProperties(SUMO_ATTR_ENDPOS,
-                GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                TL("The end position on the lane (the higher position on the lane) in meters, must be larger than startPos by more than 0.1m"));
-        myTagProperties[currentTag]->addAttribute(attrProperty);
-
-        attrProperty = new GNEAttributeProperties(SUMO_ATTR_NAME,
-                GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE,
-                TL("Name of busStop"));
-        myTagProperties[currentTag]->addAttribute(attrProperty);
-
-        attrProperty = new GNEAttributeProperties(SUMO_ATTR_FRIENDLY_POS,
-                GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
-                TL("If set, no error will be reported if element is placed behind the lane.") + std::string("\n") +
-                TL("Instead, it will be placed 0.1 meters from the lanes end or at position 0.1") + std::string("\n") +
-                TL("if the position was negative and larger than the lanes length after multiplication with - 1"),
-                "0");
-        myTagProperties[currentTag]->addAttribute(attrProperty);
-
+        // set specific attributes
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_LINES,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUE,
                 TL("Meant to be the names of the bus lines that stop at this bus stop. This is only used for visualization purposes"));
@@ -1132,12 +1102,6 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
                 TL("Optional space definition for vehicles that park at this stop"),
                 "0.00");
         myTagProperties[currentTag]->addAttribute(attrProperty);
-
-        attrProperty = new GNEAttributeProperties(SUMO_ATTR_COLOR,
-                GNEAttributeProperties::STRING | GNEAttributeProperties::COLOR | GNEAttributeProperties::DEFAULTVALUE,
-                TL("The RGBA color with which the busStop shall be displayed"));
-        myTagProperties[currentTag]->addAttribute(attrProperty);
-
     }
     currentTag = SUMO_TAG_TRAIN_STOP;
     {
@@ -1149,40 +1113,10 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
                 GNETagProperties::Conflicts::POS_LANE_START | GNETagProperties::Conflicts::POS_LANE_END,
                 GUIIcon::TRAINSTOP, currentTag, TL("TrainStop"),
                 {}, FXRGBA(240, 255, 205, 255));
-        // set values of attributes
-        attrProperty = new GNEAttributeProperties(SUMO_ATTR_ID,
-                GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::AUTOMATICID,
-                TL("The id of train stop"));
-        myTagProperties[currentTag]->addAttribute(attrProperty);
+        // set common attributes
+        fillCommonStoppingPlaceAttributes(myTagProperties[currentTag], true);
 
-        attrProperty = new GNEAttributeProperties(SUMO_ATTR_LANE,
-                GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                TL("The name of the lane the train stop shall be located at"));
-        myTagProperties[currentTag]->addAttribute(attrProperty);
-
-        attrProperty = new GNEAttributeProperties(SUMO_ATTR_STARTPOS,
-                GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                TL("The begin position on the lane (the lower position on the lane) in meters"));
-
-        myTagProperties[currentTag]->addAttribute(attrProperty);
-        attrProperty = new GNEAttributeProperties(SUMO_ATTR_ENDPOS,
-                GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                TL("The end position on the lane (the higher position on the lane) in meters, must be larger than startPos by more than 0.1m"));
-        myTagProperties[currentTag]->addAttribute(attrProperty);
-
-        attrProperty = new GNEAttributeProperties(SUMO_ATTR_NAME,
-                GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE,
-                TL("Name of trainStop"));
-        myTagProperties[currentTag]->addAttribute(attrProperty);
-
-        attrProperty = new GNEAttributeProperties(SUMO_ATTR_FRIENDLY_POS,
-                GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
-                TL("If set, no error will be reported if element is placed behind the lane.") + std::string("\n") +
-                TL("Instead, it will be placed 0.1 meters from the lanes end or at position 0.1,") + std::string("\n") +
-                TL("if the position was negative and larger than the lanes length after multiplication with - 1"),
-                "0");
-        myTagProperties[currentTag]->addAttribute(attrProperty);
-
+        // set specific attributes
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_LINES,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUE,
                 TL("Meant to be the names of the train lines that stop at this train stop. This is only used for visualization purposes"));
@@ -1198,11 +1132,6 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
                 GNEAttributeProperties::FLOAT | GNEAttributeProperties::DEFAULTVALUE,
                 TL("Optional space definition for vehicles that park at this stop"),
                 "0.00");
-        myTagProperties[currentTag]->addAttribute(attrProperty);
-
-        attrProperty = new GNEAttributeProperties(SUMO_ATTR_COLOR,
-                GNEAttributeProperties::STRING | GNEAttributeProperties::COLOR | GNEAttributeProperties::DEFAULTVALUE,
-                TL("The RGBA color with which the trainStop shall be displayed"));
         myTagProperties[currentTag]->addAttribute(attrProperty);
 
     }
@@ -1253,40 +1182,10 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
                 GNETagProperties::Conflicts::POS_LANE_START | GNETagProperties::Conflicts::POS_LANE_END,
                 GUIIcon::CONTAINERSTOP, currentTag, TL("ContainerStop"),
                 {}, FXRGBA(240, 255, 205, 255));
-        // set values of attributes
-        attrProperty = new GNEAttributeProperties(SUMO_ATTR_ID,
-                GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::AUTOMATICID,
-                TL("The id of container stop"));
-        myTagProperties[currentTag]->addAttribute(attrProperty);
+                // set common attributes
+        fillCommonStoppingPlaceAttributes(myTagProperties[currentTag], true);
 
-        attrProperty = new GNEAttributeProperties(SUMO_ATTR_LANE,
-                GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                TL("The name of the lane the container stop shall be located at"));
-        myTagProperties[currentTag]->addAttribute(attrProperty);
-
-        attrProperty = new GNEAttributeProperties(SUMO_ATTR_STARTPOS,
-                GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                TL("The begin position on the lane (the lower position on the lane) in meters"));
-        myTagProperties[currentTag]->addAttribute(attrProperty);
-
-        attrProperty = new GNEAttributeProperties(SUMO_ATTR_ENDPOS,
-                GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                TL("The end position on the lane (the higher position on the lane) in meters, must be larger than startPos by more than 0.1m"));
-        myTagProperties[currentTag]->addAttribute(attrProperty);
-
-        attrProperty = new GNEAttributeProperties(SUMO_ATTR_NAME,
-                GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE,
-                TL("Name of containerStop"));
-        myTagProperties[currentTag]->addAttribute(attrProperty);
-
-        attrProperty = new GNEAttributeProperties(SUMO_ATTR_FRIENDLY_POS,
-                GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
-                TL("If set, no error will be reported if element is placed behind the lane.") + std::string("\n") +
-                TL("Instead, it will be placed 0.1 meters from the lanes end or at position 0.1,") + std::string("\n") +
-                TL("if the position was negative and larger than the lanes length after multiplication with - 1"),
-                "0");
-        myTagProperties[currentTag]->addAttribute(attrProperty);
-
+        // set specific attributes
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_LINES,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUE,
                 TL("meant to be the names of the bus lines that stop at this container stop. This is only used for visualization purposes"));
@@ -1303,11 +1202,6 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
                 TL("Optional space definition for vehicles that park at this stop"),
                 "0.00");
         myTagProperties[currentTag]->addAttribute(attrProperty);
-
-        attrProperty = new GNEAttributeProperties(SUMO_ATTR_COLOR,
-                GNEAttributeProperties::STRING | GNEAttributeProperties::COLOR | GNEAttributeProperties::DEFAULTVALUE,
-                TL("The RGBA color with which the containerStop shall be displayed"));
-        myTagProperties[currentTag]->addAttribute(attrProperty);
     }
     currentTag = SUMO_TAG_CHARGING_STATION;
     {
@@ -1319,40 +1213,10 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
                 GNETagProperties::Conflicts::POS_LANE_START | GNETagProperties::Conflicts::POS_LANE_END,
                 GUIIcon::CHARGINGSTATION, currentTag, TL("ChargingStation"),
                 {}, FXRGBA(240, 255, 205, 255));
-        // set values of attributes
-        attrProperty = new GNEAttributeProperties(SUMO_ATTR_ID,
-                GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::AUTOMATICID,
-                TL("The id of charging station"));
-        myTagProperties[currentTag]->addAttribute(attrProperty);
+                // set common attributes
+        fillCommonStoppingPlaceAttributes(myTagProperties[currentTag], false);
 
-        attrProperty = new GNEAttributeProperties(SUMO_ATTR_LANE,
-                GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                TL("Lane of the charging station location"));
-        myTagProperties[currentTag]->addAttribute(attrProperty);
-
-        attrProperty = new GNEAttributeProperties(SUMO_ATTR_STARTPOS,
-                GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                TL("Begin position in the specified lane"));
-        myTagProperties[currentTag]->addAttribute(attrProperty);
-
-        attrProperty = new GNEAttributeProperties(SUMO_ATTR_ENDPOS,
-                GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                TL("End position in the specified lane"));
-        myTagProperties[currentTag]->addAttribute(attrProperty);
-
-        attrProperty = new GNEAttributeProperties(SUMO_ATTR_NAME,
-                GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE,
-                TL("Name of chargingStation"));
-        myTagProperties[currentTag]->addAttribute(attrProperty);
-
-        attrProperty = new GNEAttributeProperties(SUMO_ATTR_FRIENDLY_POS,
-                GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
-                TL("If set, no error will be reported if element is placed behind the lane.") + std::string("\n") +
-                TL("Instead, it will be placed 0.1 meters from the lanes end or at position 0.1,") + std::string("\n") +
-                TL("if the position was negative and larger than the lanes length after multiplication with - 1"),
-                "0");
-        myTagProperties[currentTag]->addAttribute(attrProperty);
-
+        // set specific attributes
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_CHARGINGPOWER,
                 GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE,
                 TL("Charging power in W"),
@@ -1407,37 +1271,10 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
                 GNETagProperties::Conflicts::POS_LANE_START | GNETagProperties::Conflicts::POS_LANE_END,
                 GUIIcon::PARKINGAREA, currentTag, TL("ParkingArea"),
                 {}, FXRGBA(240, 255, 205, 255));
-        // set values of attributes
-        attrProperty = new GNEAttributeProperties(SUMO_ATTR_ID,
-                GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::AUTOMATICID,
-                TL("The id of ParkingArea"));
-        myTagProperties[currentTag]->addAttribute(attrProperty);
+        // set common attributes
+        fillCommonStoppingPlaceAttributes(myTagProperties[currentTag], false);
 
-        attrProperty = new GNEAttributeProperties(SUMO_ATTR_LANE,
-                GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                TL("The name of the lane the Parking Area shall be located at"));
-        myTagProperties[currentTag]->addAttribute(attrProperty);
-
-        attrProperty = new GNEAttributeProperties(SUMO_ATTR_STARTPOS,
-                GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                TL("The begin position on the lane (the lower position on the lane) in meters"));
-        myTagProperties[currentTag]->addAttribute(attrProperty);
-
-        attrProperty = new GNEAttributeProperties(SUMO_ATTR_ENDPOS,
-                GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                TL("The end position on the lane (the higher position on the lane) in meters, must be larger than startPos by more than 0.1m"));
-        myTagProperties[currentTag]->addAttribute(attrProperty);
-
-        attrProperty = new GNEAttributeProperties(SUMO_ATTR_DEPARTPOS,
-                GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                TL("Lane position in that vehicle must depart when leaves parkingArea"));
-        myTagProperties[currentTag]->addAttribute(attrProperty);
-
-        attrProperty = new GNEAttributeProperties(SUMO_ATTR_NAME,
-                GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE,
-                TL("Name of parkingArea"));
-        myTagProperties[currentTag]->addAttribute(attrProperty);
-
+        // set specific attributes
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_ACCEPTED_BADGES,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUE,
                 TL("Accepted badges to access this parkingArea"));
@@ -2665,7 +2502,7 @@ GNETagPropertiesDatabase::fillShapeElements() {
         myTagProperties[currentTag]->addAttribute(attrProperty);
 
         // fill Poi attributes
-        fillPOIAttributes(myTagProperties[currentTag]);
+        fillCommonPOIAttributes(myTagProperties[currentTag]);
     }
     currentTag = GNE_TAG_POILANE;
     {
@@ -2708,7 +2545,7 @@ GNETagPropertiesDatabase::fillShapeElements() {
         myTagProperties[currentTag]->addAttribute(attrProperty);
 
         // fill Poi attributes
-        fillPOIAttributes(myTagProperties[currentTag]);
+        fillCommonPOIAttributes(myTagProperties[currentTag]);
     }
     currentTag = GNE_TAG_POIGEO;
     {
@@ -2738,7 +2575,7 @@ GNETagPropertiesDatabase::fillShapeElements() {
         myTagProperties[currentTag]->addAttribute(attrProperty);
 
         // fill Poi attributes
-        fillPOIAttributes(myTagProperties[currentTag]);
+        fillCommonPOIAttributes(myTagProperties[currentTag]);
     }
 }
 
@@ -7729,7 +7566,53 @@ GNETagPropertiesDatabase::fillCommonAttributes(GNETagProperties* tagProperties) 
 
 
 void
-GNETagPropertiesDatabase::fillPOIAttributes(GNETagProperties* tagProperties) {
+GNETagPropertiesDatabase::fillCommonStoppingPlaceAttributes(GNETagProperties* tagProperties, const bool includeColor) {
+    GNEAttributeProperties* attrProperty = nullptr;
+    // set values of attributes
+    attrProperty = new GNEAttributeProperties(SUMO_ATTR_ID,
+            GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::AUTOMATICID,
+            TLF("The id of %", tagProperties->getTagStr()));
+    tagProperties->addAttribute(attrProperty);
+
+    attrProperty = new GNEAttributeProperties(SUMO_ATTR_LANE,
+            GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
+            TLF("The name of the lane the % shall be located at", tagProperties->getTagStr()));
+    tagProperties->addAttribute(attrProperty);
+
+    attrProperty = new GNEAttributeProperties(SUMO_ATTR_STARTPOS,
+            GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY,
+            TL("The begin position on the lane (the lower position on the lane) in meters"));
+    tagProperties->addAttribute(attrProperty);
+
+    attrProperty = new GNEAttributeProperties(SUMO_ATTR_ENDPOS,
+            GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY,
+            TL("The end position on the lane (the higher position on the lane) in meters, must be larger than startPos by more than 0.1m"));
+    tagProperties->addAttribute(attrProperty);
+
+    attrProperty = new GNEAttributeProperties(SUMO_ATTR_FRIENDLY_POS,
+            GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
+            TL("If set, no error will be reported if element is placed behind the lane.") + std::string("\n") +
+            TL("Instead, it will be placed 0.1 meters from the lanes end or at position 0.1") + std::string("\n") +
+            TL("if the position was negative and larger than the lanes length after multiplication with - 1"),
+            "0");
+    tagProperties->addAttribute(attrProperty);
+
+    attrProperty = new GNEAttributeProperties(SUMO_ATTR_NAME,
+            GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE,
+            TLF("Name of %", tagProperties->getTagStr()));
+    tagProperties->addAttribute(attrProperty);
+
+    if (includeColor) {
+        attrProperty = new GNEAttributeProperties(SUMO_ATTR_COLOR,
+                GNEAttributeProperties::STRING | GNEAttributeProperties::COLOR | GNEAttributeProperties::DEFAULTVALUE,
+                TLF("The RGBA color with which the % shall be displayed", tagProperties->getTagStr()));
+        tagProperties->addAttribute(attrProperty);
+    }
+}
+
+
+void
+GNETagPropertiesDatabase::fillCommonPOIAttributes(GNETagProperties* tagProperties) {
     GNEAttributeProperties* attrProperty = nullptr;
     // fill POI attributes
     attrProperty = new GNEAttributeProperties(SUMO_ATTR_COLOR,
