@@ -63,11 +63,14 @@ repositories include a nightly build as well (called ***sumo-git***).
 - [openSUSE Leap 15.3 repository](https://download.opensuse.org/repositories/science:/dlr/15.3/)
 - [openSUSE Leap 15.4 repository](https://download.opensuse.org/repositories/science:/dlr/15.4/)
 - [openSUSE Leap 15.5 repository](https://download.opensuse.org/repositories/science:/dlr/15.5/)
+- [openSUSE Leap 15.6 repository](https://download.opensuse.org/repositories/science:/dlr/15.6/)
 - [openSUSE Tumbleweed repository](https://download.opensuse.org/repositories/science:/dlr/openSUSE_Tumbleweed/)
 - [Fedora 36 repository](https://download.opensuse.org/repositories/science:/dlr/Fedora_36/)
 - [Fedora 37 repository](https://download.opensuse.org/repositories/science:/dlr/Fedora_37/)
 - [Fedora 38 repository](https://download.opensuse.org/repositories/science:/dlr/Fedora_38/)
 - [Fedora 39 repository](https://download.opensuse.org/repositories/science:/dlr/Fedora_39/)
+- [Fedora 40 repository](https://download.opensuse.org/repositories/science:/dlr/Fedora_40/)
+- [Fedora 41 repository](https://download.opensuse.org/repositories/science:/dlr/Fedora_41/)
 - [Fedora Rawhide repository](https://download.opensuse.org/repositories/science:/dlr/Fedora_Rawhide/)
 - [CentOS 7 repository](https://download.opensuse.org/repositories/science:/dlr/CentOS_7/)
 
@@ -98,17 +101,15 @@ Ubuntu, Debian and Arch users please see the community repositories above.
 
 ## macOS
 
-You can read the Homebrew-based installation guide [here](Installing/index.md#macos) or follow the Build instructions [here](Installing/MacOS_Build.md).
+The recommended way to install SUMO is to use the provided pkg file:
+<ul>
+<li><a class="no-arrow-link" href="https://sumo.dlr.de/releases/{{Version}}/sumo-{{Version}}.pkg">sumo-{{Version}}.pkg</a><?php getInfo("sumo-{{Version}}.pkg","r",false);?></li>
+</ul>
 
-"Bottles" are available for installing with
-[Homebrew](https://brew.sh/). They are built for the three most recent
-macOS versions (currently Monterey, Ventura and Sonoma) and are built
-from source with minimal requirements (fox, proj, xerces-c). If you need
-optional libraries, you can specify these on the brew command line and
-brew will compile SUMO from source. For details, see the [Formula's
-README](https://github.com/DLR-TS/homebrew-sumo/blob/main/README.md).
+### Homebrew
 
-### Application launchers
+You can also read the Homebrew-based installation guide [here](Installing/index.md#macos) or follow the [build instructions](Installing/MacOS_Build.md).
+The usage of the homebrew bottles is discouraged.
 
 In order to have a more native feel on macOS, we provide some application launchers (icons / shortcuts). These launchers ***work with all versions of SUMO and do not need to be updated***.
 
