@@ -50,8 +50,8 @@ public:
      */
     FlippedEdge(const E* originalEdge) :
         ReversedEdge<E, V>(originalEdge),
-        myFromJunction(this->getOriginalEdge()->getToJunction()->getFlippedRoutingNode()),
-        myToJunction(this->getOriginalEdge()->getFromJunction()->getFlippedRoutingNode())
+        myFromJunction(originalEdge->getToJunction()->getFlippedRoutingNode()),
+        myToJunction(originalEdge->getFromJunction()->getFlippedRoutingNode())
     {}
 
     /// @brief Destructor
@@ -59,14 +59,17 @@ public:
 
     /// @brief Initialize the flipped edge
     void init();
+
     /// @brief Returns the from-junction
     const FlippedNode<E, N, V>* getFromJunction() const {
         return myFromJunction;
     }
+
     /// @brief Returns the to-junction
     const FlippedNode<E, N, V>* getToJunction() const {
         return myToJunction;
     }
+
     /** @brief Returns the time for travelling on the given edge with the given vehicle at the given time
      * @param[in] edge The edge
      * @param[in] veh The vehicle
@@ -76,6 +79,7 @@ public:
     static double getTravelTimeStatic(const FlippedEdge<E, N, V>* const edge, const V* const veh, double time) {
         return edge->getOriginalEdge()->getTravelTime(veh, time);
     }
+
     /** @brief Returns the randomized time for travelling on the given edge with the given vehicle at the given time
      * @param[in] edge The edge
      * @param[in] veh The vehicle
@@ -122,6 +126,7 @@ public:
     const FlippedEdge<E, N, V>* getBidiEdge() const {
         return this->getOriginalEdge()->getBidiEdge()->getFlippedRoutingEdge();
     }
+
     /** @brief Returns the distance to another flipped edge
      * param[in] other The other flipped edge
      * param[in] doBoundaryEstimate The boolean flag indicating whether the distance is estimated using both boundaries or not
@@ -130,6 +135,7 @@ public:
     double getDistanceTo(const FlippedEdge<E, N, V>* other, const bool doBoundaryEstimate = false) const {
         return this->getOriginalEdge()->getDistanceTo(other->getOriginalEdge(), doBoundaryEstimate);
     }
+
     /** @brief Returns the minimum travel time
      * @param[in] veh The vehicle
      * @return The minimum travel time
@@ -137,24 +143,28 @@ public:
     double getMinimumTravelTime(const V* const veh) const {
         return this->getOriginalEdge()->getMinimumTravelTime(veh);
     }
+
     /** @brief Returns the time penalty
      * @return The time penalty
      */
     double getTimePenalty() const {
         return this->getOriginalEdge()->getTimePenalty();
     }
+
     /** @brief Returns a boolean flag indicating whether this edge has loaded travel times or not
      * @return true iff this edge has loaded travel times
      */
     bool hasLoadedTravelTimes() const {
         return this->getOriginalEdge()->hasLoadedTravelTimes();
     }
+
     /** @brief Returns the speed allowed on this edge
      * @return The speed allowed on this edge
      */
     double getSpeedLimit() const {
         return this->getOriginalEdge()->getSpeedLimit();
     }
+
     /** @brief Returns a lower bound on shape.length() / myLength
      * @note The bound is sufficient for the astar air-distance heuristic
      * @return A lower bound on shape.length() / myLength
@@ -162,6 +172,7 @@ public:
     double getLengthGeometryFactor() const {
         return this->getOriginalEdge()->getLengthGeometryFactor();
     }
+
     /** @brief Returns the edge priority (road class)
      * @return The edge priority (road class)
      */

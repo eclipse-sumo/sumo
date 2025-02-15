@@ -53,6 +53,7 @@ public:
 
     /// @brief show window
     void show();
+    using FXTopWindow::show; // to silence the warning C4266 about a hidden function
 
     /// @brief hide window
     void hide();
