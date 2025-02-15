@@ -25,7 +25,8 @@ It needs one parameter, the SUMO net (.net.xml).
 
 - if either option --source or --destination is given, it checks reachability
 - if option --right-of-way is set, it checks for problems with right of way rules
-- if option --short-tls-edges is set, a selection file for short edges (< 15m) incoming to a traffic light is written (see #16014)
+- if option --short-tls-edges is set, a selection file for short edges (< 15m)
+  incoming to a traffic light is written (see #16014)
 - by default it tests whether the network is (weakly) connected.
 """
 from __future__ import absolute_import
@@ -147,12 +148,12 @@ def checkRightOfWay(net, options):
         print('\n'.join([lane.getID() for lane in lanes]))
 
 
-SHORT_EDGE = 15
 def checkShortTLSEdges(net, options):
+    SHORT_EDGE = 15
     short = []
     for edge in net.getEdges(False):
         if edge.getLength() < SHORT_EDGE and edge.getToNode().getType() == "traffic_light":
-            short.append(edge);
+            short.append(edge)
 
     if options.selection_output:
         with open(options.selection_output, 'w') as f:

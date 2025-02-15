@@ -425,7 +425,7 @@ class Builder(object):
 
         if self.routenames:
             opts += ["-r", ",".join(self.getRelative(self.routenames))]
-            
+
             # extra output if the scenario contains traffic
             opts += ["--tripinfo-output", "tripinfos.xml"]
             opts += ["--statistic-output", "stats.xml"]
