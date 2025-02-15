@@ -1105,25 +1105,25 @@ lane change wish right False
 lane change wish left False
 recovering from exception after asking for unknown device
 recovering from exception after asking for unknown device parameter
-elVeh speed="-1073741824.0" consumed="0.00" charged="0.00" totalConsumed="0.00" totalRegenerated="0.00" cap="49999.50" maxCap="40000.00" station="NULL" mass=1024.00 emissionClass=Energy/default electricityConsumption=-1073741824.0
+elVeh speed="-1073741824.0" consumed="0.00" charged="0.00" totalConsumed="0.00" totalRegenerated="0.00" cap="49999.50" maxCap="40000.00" station="NULL" emissionClass=Energy/default electricityConsumption=-1073741824.0
 [(57, (-1073741824.0, -1073741824.0, -1073741824.0)), (66, (-1073741824.0, -1073741824.0))]
-elVeh speed="-1073741824.0" consumed="0.00" charged="0.00" totalConsumed="0.00" totalRegenerated="0.00" cap="49999.50" maxCap="40000.00" station="NULL" mass=1024.00 emissionClass=Energy/default electricityConsumption=-1073741824.0
+elVeh speed="-1073741824.0" consumed="0.00" charged="0.00" totalConsumed="0.00" totalRegenerated="0.00" cap="49999.50" maxCap="40000.00" station="NULL" emissionClass=Energy/default electricityConsumption=-1073741824.0
 [(57, (-1073741824.0, -1073741824.0, -1073741824.0)), (66, (-1073741824.0, -1073741824.0))]
-elVeh speed="-1073741824.0" consumed="0.00" charged="0.00" totalConsumed="0.00" totalRegenerated="0.00" cap="49999.50" maxCap="40000.00" station="NULL" mass=1024.00 emissionClass=Energy/default electricityConsumption=-1073741824.0
+elVeh speed="-1073741824.0" consumed="0.00" charged="0.00" totalConsumed="0.00" totalRegenerated="0.00" cap="49999.50" maxCap="40000.00" station="NULL" emissionClass=Energy/default electricityConsumption=-1073741824.0
 [(57, (-1073741824.0, -1073741824.0, -1073741824.0)), (66, (-1073741824.0, -1073741824.0))]
-elVeh speed="-1073741824.0" consumed="0.00" charged="0.00" totalConsumed="0.00" totalRegenerated="0.00" cap="49999.50" maxCap="40000.00" station="NULL" mass=1024.00 emissionClass=Energy/default electricityConsumption=-1073741824.0
+elVeh speed="-1073741824.0" consumed="0.00" charged="0.00" totalConsumed="0.00" totalRegenerated="0.00" cap="49999.50" maxCap="40000.00" station="NULL" emissionClass=Energy/default electricityConsumption=-1073741824.0
 [(57, (-1073741824.0, -1073741824.0, -1073741824.0)), (66, (-1073741824.0, -1073741824.0))]
-elVeh speed="-1073741824.0" consumed="0.00" charged="0.00" totalConsumed="0.00" totalRegenerated="0.00" cap="49999.50" maxCap="40000.00" station="NULL" mass=1024.00 emissionClass=Energy/default electricityConsumption=-1073741824.0
+elVeh speed="-1073741824.0" consumed="0.00" charged="0.00" totalConsumed="0.00" totalRegenerated="0.00" cap="49999.50" maxCap="40000.00" station="NULL" emissionClass=Energy/default electricityConsumption=-1073741824.0
 [(57, (-1073741824.0, -1073741824.0, -1073741824.0)), (66, (-1073741824.0, -1073741824.0))]
-elVeh speed="4.419225398172208" consumed="0.00" charged="0.00" totalConsumed="0.00" totalRegenerated="0.00" cap="49999.50" maxCap="40000.00" station="NULL" mass=1024.00 emissionClass=Energy/default electricityConsumption=0.1675348194687093
+elVeh speed="4.419225398172208" consumed="0.00" charged="0.00" totalConsumed="0.00" totalRegenerated="0.00" cap="49999.50" maxCap="40000.00" station="NULL" emissionClass=Energy/default electricityConsumption=0.26654350478983824
 [(57, (1000.0, 501.65, 0.0)), (66, (1000.0, 501.65))]
-elVeh speed="4.419225398172208" consumed="0.00" charged="0.00" totalConsumed="0.00" totalRegenerated="0.00" cap="49999.50" maxCap="40000.00" station="NULL" mass=1024.00 emissionClass=Energy/default electricityConsumption=0.1675348194687093
+elVeh speed="4.419225398172208" consumed="0.00" charged="0.00" totalConsumed="0.00" totalRegenerated="0.00" cap="49999.50" maxCap="40000.00" station="NULL" emissionClass=Energy/default electricityConsumption=0.26654350478983824
 [(57, (1000.0, 501.65, 0.0)), (66, (1000.0, 501.65))]
-elVeh speed="4.419225398172208" consumed="0.00" charged="0.00" totalConsumed="0.00" totalRegenerated="0.00" cap="49999.50" maxCap="40000.00" station="NULL" mass=1024.00 emissionClass=Energy/default electricityConsumption=0.1675348194687093
+elVeh speed="4.419225398172208" consumed="0.00" charged="0.00" totalConsumed="0.00" totalRegenerated="0.00" cap="49999.50" maxCap="40000.00" station="NULL" emissionClass=Energy/default electricityConsumption=0.26654350478983824
 [(57, (1000.0, 501.65, 0.0)), (66, (1000.0, 501.65))]
-elVeh speed="4.419225398172208" consumed="0.00" charged="0.00" totalConsumed="0.00" totalRegenerated="0.00" cap="49999.50" maxCap="40000.00" station="NULL" mass=1024.00 emissionClass=Energy/default electricityConsumption=0.1675348194687093
+elVeh speed="4.419225398172208" consumed="0.00" charged="0.00" totalConsumed="0.00" totalRegenerated="0.00" cap="49999.50" maxCap="40000.00" station="NULL" emissionClass=Energy/default electricityConsumption=0.26654350478983824
 [(57, (1000.0, 501.65, 0.0)), (66, (1000.0, 501.65))]
-elVeh speed="4.419225398172208" consumed="0.00" charged="0.00" totalConsumed="0.00" totalRegenerated="0.00" cap="49999.50" maxCap="40000.00" station="NULL" mass=1024.00 emissionClass=Energy/default electricityConsumption=0.1675348194687093
+elVeh speed="4.419225398172208" consumed="0.00" charged="0.00" totalConsumed="0.00" totalRegenerated="0.00" cap="49999.50" maxCap="40000.00" station="NULL" emissionClass=Energy/default electricityConsumption=0.26654350478983824
 [(57, (1000.0, 501.65, 0.0)), (66, (1000.0, 501.65))]
 waitingTime=0.0 dynamicImpatience=0.0
 triptest route: ('3si', '4si')

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-08-30 11:00:53 by Eclipse SUMO sumo Version v1_20_0+1806-8df1be3ddd9
+<!-- generated on 2025-02-15 16:52:49 by Eclipse SUMO sumo Version v1_22_0+0250-bcae56543c3
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -27,7 +27,7 @@
     </report>
 
     <traci_server>
-        <remote-port value="38221"/>
+        <remote-port value="46529"/>
     </traci_server>
 
     <mesoscopic>
@@ -50,10 +50,6 @@
             <route edges="2fi 2si 4o 4fi"/>
         </routeDistribution>
         <stop lane="2fi_0" startPos="49.90" endPos="50.00" duration="1.00" parking="1"/>
-    </vehicle>
-
-    <vehicle id="failVeh" depart="128.00" departPos="0.00" arrival="161.00">
-        <route edges="3fi disconnected"/>
     </vehicle>
 
 </routes>
