@@ -32,16 +32,7 @@ The community maintains several repositories notably at the
 [open build service](https://build.opensuse.org/project/show/science:dlr).
 For a detailed list of repositories see below.
 
-Furthermore there are a debian and an ubuntu
-launchpad project as well as an archlinux package:
-
-- <https://salsa.debian.org/science-team/sumo.git>
-- <https://launchpad.net/~sumo>
-- <https://aur.archlinux.org/packages/sumo/>
-
-There is also a [flatpak](https://flathub.org/apps/org.eclipse.sumo) available for SUMO.
-
-To add the most recent sumo to your ubuntu you will need to do:
+To add the most recent sumo to your ubuntu from the launchpad repository you will need to do:
 
 ```
 sudo add-apt-repository ppa:sumo/stable
@@ -50,6 +41,8 @@ sudo apt-get install sumo sumo-tools sumo-doc
 ```
 
 ### Repositories
+
+The build service provides [instructions on installation](https://software.opensuse.org//download.html?project=science%3Adlr&package=sumo) for every distribution.
 
 If the repositories do
 not contain the libraries (like proj and gdal) they are either part of
@@ -73,6 +66,20 @@ repositories include a nightly build as well (called ***sumo-git***).
 - [Fedora 41 repository](https://download.opensuse.org/repositories/science:/dlr/Fedora_41/)
 - [Fedora Rawhide repository](https://download.opensuse.org/repositories/science:/dlr/Fedora_Rawhide/)
 - [CentOS 7 repository](https://download.opensuse.org/repositories/science:/dlr/CentOS_7/)
+- [xUbuntu 16.04 repository](https://download.opensuse.org/repositories/science:/dlr/xUbuntu_16.04/)
+- [xUbuntu 18.04 repository](https://download.opensuse.org/repositories/science:/dlr/xUbuntu_18.04/)
+- [xUbuntu 20.04 repository](https://download.opensuse.org/repositories/science:/dlr/xUbuntu_20.04/)
+- [xUbuntu 22.04 repository](https://download.opensuse.org/repositories/science:/dlr/xUbuntu_22.04/)
+- [xUbuntu 24.04 repository](https://download.opensuse.org/repositories/science:/dlr/xUbuntu_24.04/)
+
+Furthermore there are a debian and an ubuntu
+launchpad project as well as an archlinux package:
+
+- <https://salsa.debian.org/science-team/sumo.git>
+- <https://launchpad.net/~sumo>
+- <https://aur.archlinux.org/packages/sumo/>
+
+There is also a [flatpak](https://flathub.org/apps/org.eclipse.sumo) available for SUMO.
 
 ### Examples
 
@@ -82,22 +89,10 @@ yum-config-manager --add-repo=https://download.opensuse.org/repositories/science
 yum install -y --nogpgcheck epel-release
 yum install -y --nogpgcheck sumo-{{Version}}
 ```
-and like this, for zypper on openSUSE Leap 15.3:
-```
-zypper ar https://download.opensuse.org/repositories/science:/dlr/15.3/ science:dlr
-zypper in sumo={{Version}}
-```
-I you leave out the version number it will install the latest nightly build.
+Please be aware, that all build service repos contain the latest nightly build
+and the current release, so make sure you specify the version if you do not want the latest build.
 
-Direct installation without adding the repository can be done in CentOS 8 like this:
-```
-sudo yum --nogpgcheck --repofrompath=centos,https://download.opensuse.org/repositories/science:/dlr/CentOS_8 install sumo
-```
-More instructions on how to install from open build service are
-[here for the main project](https://software.opensuse.org//download.html?project=science%3Adlr&package=sumo)
-and [here for the playground](https://software.opensuse.org//download.html?project=home%3Abehrisch&package=sumo).
-
-Ubuntu, Debian and Arch users please see the community repositories above.
+To find out which versions are available on ubuntu use `apt show sumo -a`.
 
 ## macOS
 
