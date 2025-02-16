@@ -5,10 +5,11 @@ title: Installing
 # Windows
 
 There are four different binary packages for Windows depending on the
-platform (32 vs. 64 bit) you have and what you want to do with SUMO. If
+license and feature set (GPL, including video encoding and 3D GUI or EPL without)
+you choose and what you want to do with SUMO. If
 you want to install it locally and have administrator rights on your
-machine you should download and execute one of the installers
-(preferably 64 bit). If you need a "portable" version or do not have
+machine you should download and execute one of the installers.
+If you need a "portable" version or do not have
 admin rights, use the correct zip, extract it into a desired folder
 using [7Zip](https://www.7-zip.org/),
 [Winzip](https://www.winzip.com/win/de/prod_down.html), or a similar tool. Every
@@ -79,7 +80,12 @@ Send bug reports regarding SUMO packaged as Flatpak [here](https://github.com/fl
 
 # macOS
 
-SUMO can be easily installed on macOS by using [Homebrew](https://brew.sh). If you did not already install homebrew, you can do so by invoking the following command in a macOS Terminal:
+SUMO can be easily installed on macOS by using the provided package file:
+
+- [sumo-{{Version}}.pkg](https://sumo.dlr.de/releases/{{Version}}/sumo-{{Version}}.pkg)
+
+[Homebrew](https://brew.sh) is no longer considered a good alternative but may still be used.
+If you did not already install homebrew, you can do so by invoking the following command in a macOS Terminal:
 ```
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
@@ -120,7 +126,7 @@ Additionally, SUMO provides native **macOS application bundles** for its graphic
 brew install --cask sumo-gui
 ```
 
-In case this process fails, it can also be manually achieved by copying these application bundles from `$SUMO_HOME/build/osx/sumo-gui`, `$SUMO_HOME/build/osx/netedit` and `$SUMO_HOME/build/osx/osm-web-wizard` to the `/Applications` folder. Another alternative is to download the application launchers from [here](../Downloads.md#application_launchers).
+In case this process fails, it can also be manually achieved by copying these application bundles from `$SUMO_HOME/build/osx/sumo-gui`, `$SUMO_HOME/build/osx/netedit` and `$SUMO_HOME/build/osx/osm-web-wizard` to the `/Applications` folder. Another alternative is to download the [application launchers](../Downloads.md#homebrew).
 
 These application bundles determine the location of your SUMO installation by evaluating your `$SUMO_HOME` variable setting and start the programs accordingly. Multiple SUMO installations may be used by changing the `$SUMO_HOME` variable.
 
