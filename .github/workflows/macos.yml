@@ -73,14 +73,12 @@ jobs:
 
     - name: Building Examples and Tests
       run: |
-        export DYLD_FALLBACK_LIBRARY_PATH=$PWD/jupedsim-install/lib:$DYLD_FALLBACK_LIBRARY_PATH
         cd sumo/cmake-build
         make CTEST_OUTPUT_ON_FAILURE=1 examples test
 
     - name: Running texttest
       run: |
         brew install texttest
-        export DYLD_FALLBACK_LIBRARY_PATH=$PWD/jupedsim-install/lib:$DYLD_FALLBACK_LIBRARY_PATH
         sumo/tests/runTests.sh -b ci -v ci -ts meta
 
     - name: Uploading artifacts (SUMO binaries and FMU)
@@ -89,17 +87,17 @@ jobs:
         name: ${{ matrix.os }}-binaries
         path: sumo/bin
 
-    - name: Creating macOS installer dmg
+    - name: Creating macOS installer pkg
       if: matrix.os != 'macos-13'
       run: |
-        cd sumo
         python3 -m venv dmgenv
         dmgenv/bin/python3 -m pip install dmgbuild delocate
-        dmgenv/bin/python3 tools/build_config/buildMacOSInstaller.py ./cmake-build --verbose
+        dmgenv/bin/python3 sumo/tools/build_config/buildMacOSInstaller.py --create-framework-dir --build-dir sumo/cmake-build
+        dmgenv/bin/python3 sumo/tools/build_config/buildMacOSInstaller.py --create-framework-pkg
 
-    - name: Uploading macOS installer dmg
+    - name: Uploading macOS installer pkg
       if: matrix.os != 'macos-13'
       uses: actions/upload-artifact@v4
       with:
         name: ${{ matrix.os }}-installer-unsigned
-        path: sumo/sumo-*.dmg
+        path: framework-pkg/*.pkg
