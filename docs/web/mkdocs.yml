@@ -49,7 +49,7 @@ plugins:
   - pub-debugger:
       console_log:
         enabled: true
-        log_level: ERROR
+        log_level: WARNING
   - redirects:
       redirect_maps:
           "ChangeLog/index.md" : "ChangeLog.md"
