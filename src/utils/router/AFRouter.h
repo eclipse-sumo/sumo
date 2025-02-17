@@ -67,6 +67,9 @@
 #define AFRO_DEBUG_LEVEL_0
 #endif
 
+/// @brief The maximum number of levels in the k-d tree partition
+constexpr auto AFRO_MAX_NUMBER_OF_PARTITION_LEVELS = 5; //or 4 or 8
+
 // ===========================================================================
 // class definitions
 // ===========================================================================
@@ -137,7 +140,6 @@ public:
 
     /** @brief Constructor
      * @param[in] edges The edges
-     * @param[in] partition A partition of the router's network wrt a k-d tree subdivision scheme
      * @param[in] unbuildIsWarning The flag indicating whether network unbuilds should issue warnings or errors
      * @param[in] operation The operation for a forward graph
      * @param[in] flippedOperation The operation for a backward graph with flipped edges
@@ -148,7 +150,6 @@ public:
      * @param[in] haveRestrictions The boolean flag indicating whether edge restrictions need to be considered or not
      */
     AFRouter(const std::vector<E*>& edges,
-             const KDTreePartition<E, N, V>* partition,
              bool unbuildIsWarning,
              typename SUMOAbstractRouter<E, V>::Operation operation, typename SUMOAbstractRouter<FlippedEdge<E, N, V>, V>::Operation flippedOperation,
              SUMOTime weightPeriod, const std::shared_ptr<const LookupTable> lookup = nullptr,
@@ -156,13 +157,12 @@ public:
              const bool havePermissions = false, const bool haveRestrictions = false) :
         SUMOAbstractRouter<E, V>("arcFlagRouter", unbuildIsWarning, operation, nullptr, havePermissions, haveRestrictions),
         myFlagInfos(nullptr),
-        myPartition(partition),
+        myPartition(nullptr),
         myLookupTable(lookup),
         myMaxSpeed(NUMERICAL_EPS),
         myWeightPeriod(weightPeriod),
         myValidUntil(0),
-        myBuilder(new AFBuilder<E, N, V>(myPartition->getNumberOfLevels(), edges, unbuildIsWarning,
-                                         flippedOperation, flippedLookup, havePermissions, haveRestrictions)),
+        myBuilder(nullptr),
         myType("arcFlagRouter"),
         myQueryVisits(0),
         myNumQueries(0),
@@ -174,6 +174,10 @@ public:
 #endif
         myLastSettledEdgeCell(nullptr),
         myTargetEdgeCellLevel0(nullptr) {
+        myPartition = new KDTreePartition<E, N, V>(AFRO_MAX_NUMBER_OF_PARTITION_LEVELS, edges, this->myHavePermissions,
+                this->myHaveRestrictions);
+        myBuilder = new AFBuilder<E, N, V>(AFRO_MAX_NUMBER_OF_PARTITION_LEVELS, edges, unbuildIsWarning,
+                                           flippedOperation, flippedLookup, this->myHavePermissions, this->myHaveRestrictions);
         for (const E* const edge : edges) {
             this->myEdgeInfos.push_back(typename SUMOAbstractRouter<E, V>::EdgeInfo(edge));
             myMaxSpeed = MAX2(myMaxSpeed, edge->getSpeedLimit() * MAX2(1.0, edge->getLengthGeometryFactor()));
@@ -181,8 +185,8 @@ public:
     }
 
     /** @brief "Normal" cloning constructor for uninitialized or time-dependent instances
+     * @param[in] edgeInfos The vector of edge information
      * @param[in] edges The edges
-     * @param[in] partition A partition of the router's network wrt a k-d tree subdivision scheme
      * @param[in] unbuildIsWarning The flag indicating whether network unbuilds should issue warnings or errors
      * @param[in] operation The operation for a forward graph
      * @param[in] flippedOperation The operation for a backward graph with flipped edges
@@ -194,7 +198,6 @@ public:
      */
     AFRouter(const std::vector<typename SUMOAbstractRouter<E, V>::EdgeInfo>& edgeInfos,
              const std::vector<E*>& edges,
-             const KDTreePartition<E, N, V>* partition,
              bool unbuildIsWarning,
              typename SUMOAbstractRouter<E, V>::Operation operation,
              typename SUMOAbstractRouter<FlippedEdge<E, N, V>, V>::Operation flippedOperation,
@@ -203,13 +206,12 @@ public:
              const bool havePermissions = false, const bool haveRestrictions = false) :
         SUMOAbstractRouter<E, V>("arcFlagRouter", unbuildIsWarning, operation, nullptr, havePermissions, haveRestrictions),
         myFlagInfos(nullptr),
-        myPartition(partition),
+        myPartition(nullptr),
         myLookupTable(lookup),
         myMaxSpeed(NUMERICAL_EPS),
         myWeightPeriod(weightPeriod),
         myValidUntil(0),
-        myBuilder(new AFBuilder<E, N, V>(myPartition->getNumberOfLevels(), edges, unbuildIsWarning,
-                                         flippedOperation, flippedLookup, havePermissions, haveRestrictions)),
+        myBuilder(nullptr),
         myType("arcFlagRouter"),
         myQueryVisits(0),
         myNumQueries(0),
@@ -221,6 +223,10 @@ public:
 #endif
         myLastSettledEdgeCell(nullptr),
         myTargetEdgeCellLevel0(nullptr) {
+        myPartition = new KDTreePartition<E, N, V>(AFRO_MAX_NUMBER_OF_PARTITION_LEVELS, edges, this->myHavePermissions,
+                this->myHaveRestrictions);
+        myBuilder = new AFBuilder<E, N, V>(AFRO_MAX_NUMBER_OF_PARTITION_LEVELS, edges, unbuildIsWarning,
+                                           flippedOperation, flippedLookup, this->myHavePermissions, this->myHaveRestrictions);
         for (const auto& edgeInfo : edgeInfos) {
             this->myEdgeInfos.push_back(typename SUMOAbstractRouter<E, V>::EdgeInfo(edgeInfo.edge));
             myMaxSpeed = MAX2(myMaxSpeed, edgeInfo.edge->getSpeedLimit() * edgeInfo.edge->getLengthGeometryFactor());
@@ -229,7 +235,6 @@ public:
 
     /** @brief Special cloning constructor, only for time-independent instances which never rebuild arc infos
      * @param[in] edgeInfos The vector of edge information
-     * @param[in] partition A partition of the router's network wrt a k-d tree subdivision scheme
      * @param[in] unbuildIsWarning The flag indicating whether network unbuilds should issue warnings or errors
      * @param[in] operation The operation for a forward graph
      * @param[in] flagInfos The vector of arc flag information
@@ -238,14 +243,13 @@ public:
      * @param[in] haveRestrictions The boolean flag indicating whether edge restrictions need to be considered
      */
     AFRouter(const std::vector<typename SUMOAbstractRouter<E, V>::EdgeInfo>& edgeInfos,
-             const KDTreePartition<E, N, V>* partition,
              bool unbuildIsWarning, typename SUMOAbstractRouter<E, V>::Operation operation,
              std::vector<FlagInfo*>* flagInfos,
              const std::shared_ptr<const LookupTable> lookup = nullptr,
              const bool havePermissions = false, const bool haveRestrictions = false) :
         SUMOAbstractRouter<E, V>("arcFlagRouterClone", unbuildIsWarning, operation, nullptr, havePermissions, haveRestrictions),
         myFlagInfos(flagInfos),
-        myPartition(partition),
+        myPartition(nullptr),
         myLookupTable(lookup),
         myMaxSpeed(NUMERICAL_EPS),
         myWeightPeriod(SUMOTime_MAX),
@@ -271,6 +275,7 @@ public:
     /// @brief Destructor
     virtual ~AFRouter() {
         delete myBuilder;
+        delete myPartition;
     }
 
     /// @brief Cloning method
@@ -279,12 +284,13 @@ public:
         // (i.e., I have been created with a maximum weight period)
         if (myWeightPeriod == SUMOTime_MAX && myFlagInfos != nullptr) {
             // we only need the arc infos once:
-            return new AFRouter(this->myEdgeInfos, myPartition, this->myErrorMsgHandler == MsgHandler::getWarningInstance(),
+            return new AFRouter(this->myEdgeInfos, this->myErrorMsgHandler == MsgHandler::getWarningInstance(),
                                 this->myOperation, myFlagInfos, myLookupTable, this->myHavePermissions, this->myHaveRestrictions);
         }
         // I am not a clone: I am either uninitialized, or initialized but time-dependent:
         // create another such guy (also flagged as a non-clone)
-        return new AFRouter(this->myEdgeInfos, myBuilder->getEdges(), myPartition,
+        assert(myBuilder != nullptr);
+        return new AFRouter(this->myEdgeInfos, myBuilder->getEdges(),
                             this->myErrorMsgHandler == MsgHandler::getWarningInstance(),
                             this->myOperation, myBuilder->getArcFlagBuild()->getFlippedOperation(),
                             myWeightPeriod, myLookupTable, myBuilder->getArcFlagBuild()->getFlippedLookup(),
@@ -353,13 +359,18 @@ public:
         if (myValidUntil == 0) {
             myValidUntil = myWeightPeriod;
         }
-        assert(myBuilder);
+        assert(myBuilder != nullptr);
 #ifdef AFRO_DEBUG_LEVEL_0
         long long int firstCallStart = 0;
         long long int firstCallTime = 0;
         firstCallStart = SysUtils::getCurrentMillis();
         std::cout << "Calling arc flag router for the first time during current weight period (arc flags build). This might take a while... " << std::endl;
 #endif
+        // reset forward partition wrt vehicle
+        delete myPartition;
+        myPartition = new KDTreePartition<E, N, V>(AFRO_MAX_NUMBER_OF_PARTITION_LEVELS, myBuilder->getEdges(), this->myHavePermissions,
+                this->myHaveRestrictions);
+        myPartition->init(vehicle);
         myFlagInfos = &(myBuilder->build(myValidUntil - myWeightPeriod, vehicle));
 #ifdef AFRO_DEBUG_LEVEL_0
         firstCallTime = (SysUtils::getCurrentMillis() - firstCallStart);
@@ -404,7 +415,6 @@ public:
             }
             return false;
         }
-
         if (msTime >= myValidUntil) {
             assert(myBuilder != nullptr); // only time independent clones do not have a builder
             while (msTime >= myValidUntil) {
@@ -412,8 +422,6 @@ public:
             }
             reset(vehicle);
         }
-        // rewind routing start time to building time (this can only be a gross approximation
-        // of time-dependent routing)
         msTime = myValidUntil - myWeightPeriod;
 
         double length = 0.; // dummy for the via edge cost update
@@ -477,6 +485,7 @@ public:
                 myFlagContextStartTime = SysUtils::getCurrentMillis();
 #endif
                 std::tuple<int, int, bool> flagContext = this->flagContext(follower.first, to);
+                // kept to make comparisons possible
                 //std::tuple<int, int, bool> flagContext = this->flagContextNaive(follower.first, to);
 #ifdef AFRO_DEBUG_LEVEL_2
                 myFlagContextTimeSum += (SysUtils::getCurrentMillis() - myFlagContextStartTime);
@@ -561,7 +570,7 @@ protected:
     /// @brief Edge infos containing the associated edge and its arc flags
     std::vector<FlagInfo*>* myFlagInfos;
     /// @brief The partition
-    const KDTreePartition<E, N, V>* myPartition;
+    KDTreePartition<E, N, V>* myPartition;
     /// @brief The comparator for edge information
     EdgeInfoComparator myComparator;
     /// @brief The lookup table for travel time heuristics

@@ -91,7 +91,6 @@ public:
     /** @brief Constructor
      * @param[in] flippedEdges The flipped (aka reversed / backward) edges
      * @param[in] flippedPartition The k-d tree partition of the backward graph with flipped edges
-     * @param[in] numberOfLevels The number of levels
      * @param[in] unbuildIsWarning The flag indicating whether network unbuilds should issue warnings or errors
      * @param[in] flippedOperation The operation for a backward graph with flipped edges
      * @param[in] flippedLookup The lookup table for a backward graph with flipped edges
@@ -102,14 +101,14 @@ public:
     AFBuild(
         const std::vector<FlippedEdge<E, N, V>*>& flippedEdges,
         const KDTreePartition<FlippedEdge<E, N, V>, FlippedNode<E, N, V>, V>* const flippedPartition,
-        int numberOfLevels, bool unbuildIsWarning,
+        bool unbuildIsWarning,
         typename SUMOAbstractRouter<FlippedEdge<E, N, V>, V>::Operation flippedOperation,
         const std::shared_ptr<const FlippedLookupTable> flippedLookup = nullptr,
         const bool havePermissions = false, const bool haveRestrictions = false,
         const std::vector<FlippedEdge<E, N, V>*>* toProhibit = nullptr) :
         myFlippedEdges(flippedEdges),
         myFlippedPartition(flippedPartition),
-        myNumberOfLevels(numberOfLevels),
+        myNumberOfLevels(-1),
         myErrorMsgHandler(unbuildIsWarning ? MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance()),
         myFlippedOperation(flippedOperation),
         myFlippedLookupTable(flippedLookup),
@@ -144,7 +143,7 @@ public:
      * @param[in] vehicle The vehicle
      * @param[in] flagInfos The arc flag informations
      */
-    void init(SUMOTime time, const V* const vehicle, std::vector<FlagInfo*>& flagInfos);
+    void init(SUMOTime msTime, const V* const vehicle, std::vector<FlagInfo*>& flagInfos);
     /** @brief Set the flipped partition
      * param[in] flippedPartition The flipped partition
      */
@@ -156,6 +155,9 @@ public:
      * @return The SHARC level number corresponding to the given partition level number
      */
     int partitionLevel2SHARCLevel(int partitionLevel) {
+        if (myNumberOfLevels < 0) {
+            throw std::runtime_error("The (actual) number of levels is uninitialized, call AFBuild::init() before.");
+        }
         return AFRouter<E, N, V>::partitionLevel2SHARCLevel(partitionLevel, myNumberOfLevels);
     }
     /** @brief Converts a SHARC level number to a partition level number
@@ -163,6 +165,9 @@ public:
      * @return The partition level number corresponding to the given SHARC level number
      */
     int sHARCLevel2PartitionLevel(int sHARCLevel) {
+        if (myNumberOfLevels < 0) {
+            throw std::runtime_error("The (actual) number of levels is uninitialized, call AFBuild::init() before.");
+        }
         return AFRouter<E, N, V>::sHARCLevel2PartitionLevel(sHARCLevel, myNumberOfLevels);
     }
 
@@ -199,7 +204,7 @@ protected:
     /// @brief The partition for the backward graph with flipped edges
     const KDTreePartition<FlippedEdge<E, N, V>, FlippedNode<E, N, V>, V>* myFlippedPartition;
     /// @brief The number of levels
-    const int myNumberOfLevels;
+    int myNumberOfLevels;
     /// @brief The handler for routing errors
     MsgHandler* const myErrorMsgHandler;
     /// @brief The object's operation to perform on a backward graph with flipped edges
@@ -255,6 +260,11 @@ void AFBuild<E, N, V>::init(SUMOTime msTime, const V* const vehicle, std::vector
         }
     }
     int sHARCLevel;
+    assert(myFlippedPartition != nullptr);
+    myNumberOfLevels = myFlippedPartition->getNumberOfLevels();
+    if (myNumberOfLevels < 0) {
+        throw std::runtime_error("The (actual) number of levels is uninitialized, call myFlippedPartition->init() before.");
+    }
     for (sHARCLevel = 0; sHARCLevel < myNumberOfLevels - 1; sHARCLevel++) {
 #ifdef AFBU_DEBUG_LEVEL_0
         std::cout << "Starting computation of flags of level " << sHARCLevel << " (levels run from 0 to "
@@ -401,7 +411,7 @@ void AFBuild<E, N, V>::computeArcFlags(SUMOTime msTime, const int sHARCLevel, co
 #endif
     // initialization of arc flag vectors
     initBoundaryEdges(boundaryEdges);
-#ifdef AFBU_DEBUG_LEVEL_1
+#ifdef AFBU_DEBUG_LEVEL_0
     long long int startTime = SysUtils::getCurrentMillis();
 #endif
     std::map<const FlippedEdge<E, N, V>*, std::vector<const FlippedEdge<E, N, V>*>> incomingEdgesOfOutgoingBoundaryEdges;
@@ -412,7 +422,8 @@ void AFBuild<E, N, V>::computeArcFlags(SUMOTime msTime, const int sHARCLevel, co
     int index = 0; // boundary node index
     for (const FlippedNode<E, N, V>* boundaryNode : boundaryNodes) {
         myNode2EdgeRouter->reset(vehicle);
-        if (myNode2EdgeRouter->computeNode2Edges(boundaryNode, boundaryEdges, vehicle, msTime)) {
+        // last param = true -> mute output of node2edge router
+        if (myNode2EdgeRouter->computeNode2Edges(boundaryNode, boundaryEdges, vehicle, msTime, true)) {
 #ifdef AFBU_DEBUG_LEVEL_2
             std::cout << "Node-to-edge router succeeded." << std::endl;
 #endif

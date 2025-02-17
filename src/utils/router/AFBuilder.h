@@ -54,7 +54,7 @@ public:
     typedef AbstractLookupTable<FlippedEdge<E, N, V>, V> FlippedLookupTable;
 
     /** @brief Constructor
-     * @param[in] numberOfLevels The number of levels
+     * @param[in] maxNumberOfLevels The number of levels
      * @param[in] edges The container with all edges of the network
      * @param[in] unbuildIsWarning The flag indicating whether network unbuilds should issue warnings or errors
      * @param[in] flippedOperation The operation for a backward graph with flipped edges
@@ -63,15 +63,17 @@ public:
      * @param[in] haveRestrictions The flag indicating whether edges have restrictions which must be respected
      * @param[in] toProhibit The list of explicitly prohibited edges
      */
-    AFBuilder(int numberOfLevels, const std::vector<E*>& edges, bool unbuildIsWarning,
+    AFBuilder(int maxNumberOfLevels, const std::vector<E*>& edges, bool unbuildIsWarning,
               typename SUMOAbstractRouter<FlippedEdge<E, N, V>, V>::Operation flippedOperation,
               const std::shared_ptr<const FlippedLookupTable> flippedLookup = nullptr,
               const bool havePermissions = false, const bool haveRestrictions = false,
               const std::vector<FlippedEdge<E, N, V>*>* toProhibit = nullptr) :
         myEdges(edges),
-        myNumberOfLevels(numberOfLevels),
-        myNumberOfArcFlags(2 * (myNumberOfLevels - 1)),
-#ifdef AFBL_DEBUG_LEVEL_0
+        myMaxNumberOfLevels(maxNumberOfLevels),
+#ifdef AFBL_DEBUG_LEVEL_2
+        myNumberOfArcFlags(-1),
+#endif
+#ifdef AFBL_DEBUG_LEVEL_2
         myArcFlagsFileName("arcflags.csv"),
 #endif
         myAmClean(true) {
@@ -91,12 +93,12 @@ public:
 #ifdef AFBL_DEBUG_LEVEL_0
         std::cout << "Flipped edges / nodes are ready." << std::endl;
 #endif
-        myFlippedPartition = new KDTreePartition<FlippedEdge<E, N, V>, FlippedNode<E, N, V>, V>(myNumberOfLevels,
+        myFlippedPartition = new KDTreePartition<FlippedEdge<E, N, V>, FlippedNode<E, N, V>, V>(myMaxNumberOfLevels,
                 myFlippedEdges, havePermissions, haveRestrictions);
 #ifdef AFBL_DEBUG_LEVEL_0
         std::cout << "Instantiating arc flag build..." << std::endl;
 #endif
-        myArcFlagBuild = new AFBuild<E, N, V>(myFlippedEdges, myFlippedPartition, numberOfLevels, unbuildIsWarning,
+        myArcFlagBuild = new AFBuild<E, N, V>(myFlippedEdges, myFlippedPartition, unbuildIsWarning,
                                               flippedOperation, flippedLookup, havePermissions, haveRestrictions, toProhibit);
 
 #ifdef AFBL_DEBUG_LEVEL_0
@@ -128,11 +130,14 @@ public:
      * @return The partition level number
      */
     int sHARCLevel2PartitionLevel(int sHARCLevel) {
+        if (myNumberOfLevels < 0) {
+            throw std::runtime_error("The (actual) number of levels is uninitialized, call AFBuilder::build() before.");
+        }
         return AFRouter<E, N, V>::sHARCLevel2PartitionLevel(sHARCLevel, myNumberOfLevels);
     }
 
 protected:
-#ifdef AFBL_DEBUG_LEVEL_0
+#ifdef AFBL_DEBUG_LEVEL_2
     /** @brief Loads already precomputed arc flags from a CSV file (for testing purposes)
      * @param[in] fileName The name of the CSV file
      */
@@ -160,11 +165,13 @@ protected:
     std::vector<FlagInfo*> myFlagInfos;
     /// @brief The arc flag build
     AFBuild<E, N, V>* myArcFlagBuild;
-    /// @brief The number of levels of the k-d tree partition of the network
+    /// @brief The maximum number of levels of the k-d tree partition of the network
+    int myMaxNumberOfLevels;
+    /// @brief The (actual) number of levels of the initialized k-d tree partition of the network
     int myNumberOfLevels;
+#ifdef AFBL_DEBUG_LEVEL_2
     /// @brief The number of arc flags per each edge
     int myNumberOfArcFlags;
-#ifdef AFBL_DEBUG_LEVEL_0
     /// @brief The name of the arc flags file.
     // @note This is a CSV file for convenience/testing purposes
     const std::string myArcFlagsFileName;
@@ -201,12 +208,16 @@ std::vector<typename AFInfo<E>::FlagInfo*>& AFBuilder<E, N, V>::build(SUMOTime m
     assert(myFlippedPartition);
     if (myFlippedPartition->isClean()) {
         myFlippedPartition->init(vehicle);
+        myNumberOfLevels = myFlippedPartition->getNumberOfLevels();
+#ifdef AFBL_DEBUG_LEVEL_2
+        myNumberOfArcFlags = 2 * (myNumberOfLevels - 1);
+#endif
         myArcFlagBuild->setFlippedPartition(myFlippedPartition);
     } else {
         myFlippedPartition->reset(vehicle);
     }
     assert(myArcFlagBuild);
-#ifdef AFBL_DEBUG_LEVEL_0
+#ifdef AFBL_DEBUG_LEVEL_2
     bool fileExists = this->fileExists(myArcFlagsFileName);
     if (fileExists && myAmClean) {
         std::cout << "Loading arc flags from file " << myArcFlagsFileName << std::endl;
@@ -215,13 +226,13 @@ std::vector<typename AFInfo<E>::FlagInfo*>& AFBuilder<E, N, V>::build(SUMOTime m
     } else {
 #endif
         myArcFlagBuild->init(msTime, vehicle, myFlagInfos);
-#ifdef AFBL_DEBUG_LEVEL_0
+#ifdef AFBL_DEBUG_LEVEL_2
     }
 #endif
     delete myFlippedPartition;
     myFlippedPartition = nullptr;
 
-#ifdef AFBL_DEBUG_LEVEL_0
+#ifdef AFBL_DEBUG_LEVEL_2
     if (!fileExists) {
         std::cout << "Saving arc flags..." << std::endl;
         // save flag vectors in a CSV file (one column, flag vectors in the order of edges)
@@ -233,9 +244,10 @@ std::vector<typename AFInfo<E>::FlagInfo*>& AFBuilder<E, N, V>::build(SUMOTime m
     return myFlagInfos;
 }
 
-#ifdef AFBL_DEBUG_LEVEL_0
+#ifdef AFBL_DEBUG_LEVEL_2
 template<class E, class N, class V>
 void AFBuilder<E, N, V>::saveFlagsToCsv(const std::string fileName) {
+    assert(myNumberOfArcFlags > 0);
     std::ofstream csvFile(fileName);
     for (FlagInfo* flagInfo : myFlagInfos) {
         if ((flagInfo->arcFlags).empty()) {
