@@ -33,37 +33,31 @@ import traci.constants as tc  # noqa
 sumoBinary = sumolib.checkBinary('sumo')
 traci.start([sumoBinary,
              "-n", "input_net4.net.xml",
-             "-r", "input_routes.rou.xml",
+             "-a", "input_routes.rou.xml",
              "--no-step-log",
              "--vehroute-output", "vehroutes.xml",
              "--tripinfo-output", "tripinfos.xml",
-             "--stop-output", "stops.xml",
-             "--device.taxi.dispatch-algorithm", "traci",
              ] + sys.argv[1:])
 
-def get_reservation_ids():
-    return [r.id for r in reservations]
 
-traci.simulationStep()
-fleet = traci.vehicle.getTaxiFleet(0)
-print("taxiFleet", fleet)
-reservations = traci.person.getTaxiReservations(0)
-print("reservations", reservations)
+while traci.simulation.getMinExpectedNumber() > 0:
 
-reservation_ids = get_reservation_ids()
-a, b, c = reservation_ids
-# plan the following stops
-# pickup a
-# dropoff a
-# redispatch to extend the route with
-# pickup b
-# pickup c, dropoff b
-# dropoff c
-traci.vehicle.dispatchTaxi(fleet[0], [a])
+    print("%s all=%s empty=%s pickup=%s dropoff=%s pickup+dropoff=%s" % (
+        traci.simulation.getTime(),
+        traci.vehicle.getTaxiFleet(-1),
+        traci.vehicle.getTaxiFleet(0),
+        traci.vehicle.getTaxiFleet(1),
+        traci.vehicle.getTaxiFleet(2),
+        traci.vehicle.getTaxiFleet(3),))
 
-while a in get_reservation_ids() and traci.simulation.getTime() < 150:
-    if traci.simulation.getTime() == 20:
-        traci.vehicle.dispatchTaxi(fleet[0], [a])
+    if traci.simulation.getDepartedNumber() > 0:
+        reservations = traci.person.getTaxiReservations(0)
+        fleet = traci.vehicle.getTaxiFleet(0)
+        if reservations and fleet:
+            try:
+                traci.vehicle.dispatchTaxi(fleet[0], [reservations[0].id])
+            except traci.TraCIException:
+                pass
+
     traci.simulationStep()
-    print(traci.simulation.getTime(), get_reservation_ids(), "ids:", traci.person.getIDList())
 traci.close()

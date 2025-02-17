@@ -1,5 +1,8 @@
 getTaxiFleet
 
+# check interaction if taxi algorithm isn't "traci"
+defaultAlgorithm
+
 # dispatch a taxi to service a single customer
 basic
 
