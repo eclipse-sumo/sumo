@@ -48,18 +48,13 @@ traci.simulationStep()
 
 traci.simulationStep()
 traci.person.remove(traci.person.getIDList()[0])
-print(traci.vehicle.getLoadedIDList())
-print(traci.simulation.getMinExpectedNumber())
 while traci.simulation.getMinExpectedNumber() > 0 and traci.simulation.getTime() < 100:
-    print(trac.simulation.getTime())
-    print("%s reservations %s" % (
-        traci.simulation.getTime(),
-        traci.person.getTaxiReservations(0)))
-    if traci.simulation.getDepartedNumber() > 0:
+    traci.simulationStep()
+    res = traci.person.getTaxiReservations(0)
+    print("%s reservations %s" % ( traci.simulation.getTime(), res))
+    if traci.simulation.getDepartedNumber() > 0 and res:
         fleet = traci.vehicle.getTaxiFleet(0)
-        res = traci.person.getTaxiReservations(0)
         print("taxiFleet", fleet)
         print("reservations", res)
-        traci.simulationStep()
         traci.vehicle.dispatchTaxi(fleet[0], [res[0].id])
 traci.close()
