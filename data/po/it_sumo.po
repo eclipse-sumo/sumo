@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-13 10:07+0100\n"
-"PO-Revision-Date: 2025-02-17 08:02+0000\n"
+"PO-Revision-Date: 2025-02-17 08:29+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -7270,6 +7270,8 @@ msgstr ""
 #: src/netbuild/NBLoadedSUMOTLDef.cpp:912
 msgid "Unused state in tlLogic '%', program '%' at tl-index %"
 msgstr ""
+"Stato inutilizzato nella logica di semaforo '%', programma '%' nell'indice "
+"semaforico %"
 
 #: src/netbuild/NBLoadedTLDef.cpp:83
 msgid ""
@@ -7279,11 +7281,12 @@ msgstr ""
 
 #: src/netbuild/NBLoadedTLDef.cpp:300
 msgid "During computation of traffic light '%'."
-msgstr ""
+msgstr "Durante il calcolo del semaforo '%'."
 
 #: src/netbuild/NBLoadedTLDef.cpp:514
 msgid "Could not set signal on connection (signal: %, group: %)"
 msgstr ""
+"Non ho potuto assegnare il segnale al collegamento (segnale: %, gruppo: %)"
 
 #: src/netbuild/NBLoadedTLDef.cpp:612
 msgid "myNeedsContRelation was not properly initialized\n"
@@ -7418,7 +7421,7 @@ msgstr "Assegnamento dei nodi ai semafori"
 
 #: src/netbuild/NBNetBuilder.cpp:378
 msgid "Guessing and setting on-/off-ramps"
-msgstr ""
+msgstr "Indovinando e impostando le rampe di accesso e di uscita"
 
 #: src/netbuild/NBNetBuilder.cpp:396
 msgid "Guessed % bike lanes."
@@ -7432,7 +7435,7 @@ msgstr "Indovinati % marciapiedi."
 #: src/netbuild/NBNetBuilder.cpp:417
 #, c-format
 msgid "Remapped % edge IDs and % node IDs."
-msgstr ""
+msgstr "% codici identificativi di archi e % di nodi sono stati riassegnati."
 
 #: src/netbuild/NBNetBuilder.cpp:433
 msgid "Sorting nodes' edges"
@@ -7745,16 +7748,16 @@ msgstr ""
 
 #: src/netbuild/NBNodeCont.cpp:1770
 msgid "Could not join junctions %."
-msgstr ""
+msgstr "Gli incroci % non potevano essere combinati in uno solo."
 
 #: src/netbuild/NBNodeCont.cpp:2027
 msgid "Ambiguous traffic light type for node cluster '%', setting to '%'."
-msgstr ""
+msgstr "Tipo semaforico ambiguo dell'insieme di nodi '%', va impostato a '%'."
 
 #: src/netbuild/NBNodeCont.cpp:2123
 #, c-format
 msgid " The junction '%' to set as not-controlled is not known."
-msgstr ""
+msgstr " L'incrocio '%' da impostare come non controllato è sconosciuto."
 
 #: src/netbuild/NBNodeCont.cpp:2292
 msgid "Could not build joined tls '%'."
@@ -8235,6 +8238,8 @@ msgid ""
 "traffic_light_right_on_red|priority_stop|allway_stop|...] Determines "
 "junction type (see wiki/Networks/PlainXML#Node_types)"
 msgstr ""
+"[traffic_light|priority|right_before_left|left_before_right|traffic_light_right_on_red|priority_stop|allway_stop|...]"
+" Determina il tipo d'incrocio (vedi wiki/Networks/PlainXML#Node_types)"
 
 #: src/netgen/netgen_main.cpp:120
 msgid "Spider networks need at least 3 arms."
@@ -8271,6 +8276,8 @@ msgid ""
 "The distance between nodes should be at least % for the given lanenumber, "
 "lanewidth and junction radius"
 msgstr ""
+"La distanza tra nodi deve essere di almeno % per il numero di corsie, la "
+"larghezza di corsia e il raggio di incrocio indicato"
 
 #: src/netgen/netgen_main.cpp:191 src/netgen/netgen_main.cpp:196
 #, c-format
@@ -8284,10 +8291,12 @@ msgid ""
 "Synthetic network generator for the microscopic, multi-modal traffic "
 "simulation SUMO."
 msgstr ""
+"Generatore di reti sintetici per la simulazione del traffico microscopica e "
+"multimodale SUMO."
 
 #: src/netgen/netgen_main.cpp:267
 msgid " Generation done;"
-msgstr ""
+msgstr " Generazione completata;"
 
 #: src/netgen/netgen_main.cpp:268
 #, c-format
