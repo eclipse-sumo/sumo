@@ -296,7 +296,9 @@ GNEStoppingPlace::getStoppingPlaceAttribute(const Parameterised* parameterised, 
         case GNE_ATTR_SHIFTLANEINDEX:
             return "";
         case GNE_ATTR_SIZE:
-            if ((myStartPosition != INVALID_DOUBLE) && (myEndPosition != INVALID_DOUBLE)) {
+            if (isTemplate()) {
+                return toString(mySize);
+            } else if ((myStartPosition != INVALID_DOUBLE) && (myEndPosition != INVALID_DOUBLE)) {
                 return toString(myEndPosition - myStartPosition);
             } else if (myStartPosition != INVALID_DOUBLE) {
                 return toString(getParentLanes().front()->getLaneShapeLength() - myStartPosition);
@@ -309,7 +311,7 @@ GNEStoppingPlace::getStoppingPlaceAttribute(const Parameterised* parameterised, 
             }
         case GNE_ATTR_FORCESIZE:
             return toString(myForceSize);
-        case GNE_ATTR_REFERENCEPOS:
+        case GNE_ATTR_REFERENCE:
             return SUMOXMLDefinitions::ReferencePositions.getString(myReferencePosition);
         default:
             return getCommonAttribute(parameterised, key);
@@ -329,7 +331,7 @@ GNEStoppingPlace::setStoppingPlaceAttribute(SumoXMLAttr key, const std::string& 
         case SUMO_ATTR_COLOR:
         // special attributes used during creation or edition
         case GNE_ATTR_SHIFTLANEINDEX:
-        case GNE_ATTR_REFERENCEPOS:
+        case GNE_ATTR_REFERENCE:
         case GNE_ATTR_FORCESIZE:
             GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
@@ -391,7 +393,7 @@ GNEStoppingPlace::isStoppingPlaceValid(SumoXMLAttr key, const std::string& value
             }
         case GNE_ATTR_FORCESIZE:
             return canParse<bool>(value);
-        case GNE_ATTR_REFERENCEPOS:
+        case GNE_ATTR_REFERENCE:
             return SUMOXMLDefinitions::ReferencePositions.hasString(value);
         default:
             return isCommonValid(key, value);
@@ -440,10 +442,17 @@ GNEStoppingPlace::setStoppingPlaceAttribute(Parameterised* parameterised, SumoXM
         case GNE_ATTR_SHIFTLANEINDEX:
             shiftLaneIndex();
             break;
+        case GNE_ATTR_SIZE:
+            if (value.empty()) {
+                mySize = 10;
+            } else {
+                mySize = parse<double>(value); 
+            }
+            break;
         case GNE_ATTR_FORCESIZE:
             myForceSize = parse<bool>(value);
             break;
-        case GNE_ATTR_REFERENCEPOS:
+        case GNE_ATTR_REFERENCE:
             myReferencePosition = SUMOXMLDefinitions::ReferencePositions.get(value);
             break; 
         default:
@@ -506,10 +515,18 @@ GNEStoppingPlace::getACParametersMap() const {
 bool
 GNEStoppingPlace::isAttributeEnabled(SumoXMLAttr key) const {
     switch (key) {
-        case GNE_ATTR_REFERENCEPOS:
-            return (myStartPosition != INVALID_DOUBLE) && (myEndPosition != INVALID_DOUBLE);
+        case GNE_ATTR_REFERENCE:
+            if (isTemplate()) {
+                return true;
+            } else {
+                return (myStartPosition != INVALID_DOUBLE) && (myEndPosition != INVALID_DOUBLE);
+            }
         case GNE_ATTR_SIZE:
-            return (myStartPosition != INVALID_DOUBLE) || (myEndPosition != INVALID_DOUBLE);
+            if (isTemplate()) {
+                return true;
+            } else {
+                return (myStartPosition != INVALID_DOUBLE) || (myEndPosition != INVALID_DOUBLE);
+            }
         default:
             return true;
     }

@@ -1376,7 +1376,7 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::attrs[] = {
     { "tazCentroid",                        GNE_ATTR_TAZ_CENTROID },
     { "terminate",                          GNE_ATTR_FLOW_TERMINATE },
     { "spacing",                            GNE_ATTR_FLOW_SPACING },
-    { "referencePos",                       GNE_ATTR_REFERENCEPOS },
+    { "reference",                          GNE_ATTR_REFERENCE },
     { "size",                               GNE_ATTR_SIZE },
     { "force size",                         GNE_ATTR_FORCESIZE },
     { "laneLength",                         GNE_ATTR_LANELENGTH },

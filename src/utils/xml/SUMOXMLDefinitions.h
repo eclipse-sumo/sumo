@@ -1841,7 +1841,7 @@ enum SumoXMLAttr {
     /// @brief flow spacing
     GNE_ATTR_FLOW_SPACING,
     /// @brief reference position (used creating stoppingPlaces)
-    GNE_ATTR_REFERENCEPOS,
+    GNE_ATTR_REFERENCE,
     /// @brief size (used in stopping places)
     GNE_ATTR_SIZE,
     /// @brief size (used in stopping places)

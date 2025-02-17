@@ -174,7 +174,10 @@ protected:
     /// @brief RGB color
     RGBColor myColor = RGBColor::INVISIBLE;
 
-    /// @brief force size
+    /// @brief size (only use in templates)
+    double mySize = 10;
+
+    /// @brief force size (only used in templates
     bool myForceSize = false;
 
     /// @brief reference position
