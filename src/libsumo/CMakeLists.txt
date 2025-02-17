@@ -154,6 +154,7 @@ if(SWIG_FOUND)
 
     if(ENABLE_CS_BINDINGS)
         set(CMAKE_SWIG_FLAGS "") # reset from Java
+        set(CMAKE_SWIG_FLAGS -namespace Eclipse.Sumo.Libsumo)
         if (FOX_FOUND)
             set(CMAKE_SWIG_FLAGS ${CMAKE_SWIG_FLAGS} -DHAVE_LIBSUMOGUI)
         endif()
