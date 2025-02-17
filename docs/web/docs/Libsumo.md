@@ -186,3 +186,23 @@ just as in Python by adding the `py.` prefix.
 py.libsumo.start(["sumo", "-c", "test.sumocfg"])
 py.libsumo.simulationStep()
 ```
+
+## C#
+
+### Example Code (Program.cs)
+Make sure you have added the swig generated C# bindings to your solution, as well as the compiled libsumocs.dll if not present in your Sumo installation folder.
+
+```c#
+using Eclipse.Sumo.Libsumo;
+
+internal class Program 
+{
+    static void Main(String[] args) {
+        Simulation.start(new StringVector(new String[] {"sumo", "-c", "test.sumocfg"}));
+        for (int i = 0; i < 5; i++) {
+            Simulation.step();
+        }
+        Simulation.close();
+    }
+}
+```
