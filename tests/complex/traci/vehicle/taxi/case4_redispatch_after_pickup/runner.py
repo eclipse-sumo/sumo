@@ -42,7 +42,7 @@ traci.start([sumoBinary,
              ] + sys.argv[1:])
 
 def get_reservation_ids():
-    return [r.id for r in reservations]
+    return [r.id for r in traci.person.getTaxiReservations(0)]
 
 traci.simulationStep()
 fleet = traci.vehicle.getTaxiFleet(0)
