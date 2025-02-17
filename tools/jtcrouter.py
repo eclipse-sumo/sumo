@@ -43,6 +43,7 @@ def get_options(args=None):
     parser = ArgumentParser(description="Route by turn counts")
     parser.add_argument("-n", "--net-file", dest="net", help="Input net file")
     parser.add_argument("-t", "--turn-file", dest="turnFile", help="Input turn-count file")
+    parser.add_argument("--additional-files", dest="addFiles", help="Input additional files to pass to jtrrouter")
     parser.add_argument("-o", "--output-file", dest="out", default="out.rou.xml",
                         help="Output route file")
     parser.add_argument("--turn-output", dest="turnOutput", default="turns.tmp.xml",
@@ -149,6 +150,9 @@ def main(options):
             '--route-files', options.flowOutput,
             '--accept-all-destinations',
             '-o', options.out]
+    if options.addFiles:
+        args += ['--additional-files', options.addFiles,
+                '--vtype-output', 'NUL']
     if not options.fringe_flows:
         args += ['-S']
         if options.discountSources:
