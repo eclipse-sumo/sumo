@@ -326,7 +326,7 @@ GNEAttributesEditorRow::fillSumoBaseObject(CommonXMLStructure::SumoBaseObject* b
     } else if (myAttrProperty->isList()) {
         baseObjet->addStringListAttribute(attribute, GNEAttributeCarrier::parse<std::vector<std::string> >(myValueTextField->getText().text()));
     } else {
-        baseObjet->addColorAttribute(attribute, myValueTextField->getText().text());
+        baseObjet->addStringAttribute(attribute, myValueTextField->getText().text());
     }
     // all ok, then return nothing
     return SUMO_ATTR_NOTHING;
