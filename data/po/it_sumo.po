@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-13 10:07+0100\n"
-"PO-Revision-Date: 2025-02-17 08:29+0000\n"
+"PO-Revision-Date: 2025-02-17 18:49+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.10\n"
+"X-Generator: Weblate 5.10.1-dev\n"
 
 #: src/activitygen/AGActivityGen.cpp:46
 msgid "Reading input"
@@ -8619,15 +8619,15 @@ msgstr "Indovina la proiezione giusta"
 #: src/netimport/NIFrame.cpp:301 src/polyconvert/polyconvert_main.cpp:129
 #: src/netimport/NIFrame.cpp:298
 msgid "Use traditional axis order (lon, lat)"
-msgstr ""
+msgstr "Usa l'ordine di assi tradizionale (lon, lat)"
 
 #: src/netimport/NIFrame.cpp:306 src/netimport/NIFrame.cpp:303
 msgid "Allow more vehicle classes by default"
-msgstr ""
+msgstr "Autorizza più classi di veicoli per difetto"
 
 #: src/netimport/NIFrame.cpp:309 src/netimport/NIFrame.cpp:306
 msgid "The edge lengths given in the DLR Navteq-file will be kept"
-msgstr ""
+msgstr "Le lunghezze degli arci tratti dal file DLR Navteq verranno mantenute"
 
 #: src/netimport/NIFrame.cpp:315 src/netimport/NIFrame.cpp:312
 msgid "Structure join offset"
@@ -8676,25 +8676,29 @@ msgstr ""
 
 #: src/netimport/NIFrame.cpp:352 src/netimport/NIFrame.cpp:349
 msgid "Computes the number of lanes from the edges' capacities"
-msgstr ""
+msgstr "Calcola il numero di corsie dalla capacitè dell'arco"
 
 #: src/netimport/NIFrame.cpp:355 src/netimport/NIFrame.cpp:352
 msgid "Prints all warnings, some of which are due to VISUM misbehaviour"
 msgstr ""
+"Emetti tutti gli avvisi (alcuni di essi sono dovuti a un comportamento "
+"sbagliato di VISUM)"
 
 #: src/netimport/NIFrame.cpp:360 src/netimport/NIFrame.cpp:357
 msgid "The factor for flow to no. lanes conversion"
-msgstr ""
+msgstr "Il fattore per la conversione tra flusso e numero di corsie"
 
 #: src/netimport/NIFrame.cpp:365 src/netimport/NIFrame.cpp:362
 msgid "Imports all lane types"
-msgstr ""
+msgstr "Importa tutti gli tipi di corsie"
 
 #: src/netimport/NIFrame.cpp:367 src/netimport/NIFrame.cpp:364
 msgid ""
 "The geometry resolution in m when importing curved geometries as line "
 "segments."
 msgstr ""
+"la risoluzione geometrica in metri per importare geometrie curve come "
+"segmenti lineari."
 
 #: src/netimport/NIFrame.cpp:369 src/netimport/NIFrame.cpp:366
 msgid ""
@@ -8776,21 +8780,29 @@ msgid ""
 "Required field '%' or '%' is missing (add fields or set option --shapefile."
 "use-defaults-on-failure)."
 msgstr ""
+"Manca il campo obbligatorio '%' o '%' (aggiungi campi o imposta l'opzione "
+"--shapefile.use-defaults-on-failure)."
 
 #: src/netimport/NIImporter_ArcView.cpp:248
 msgid ""
 "Road geometry must be of type 'linestring' or 'linestring25D' (found '%')"
 msgstr ""
+"La geometria della via deve essere del tipo 'linestring' o 'linestring25D' ("
+"incontrato '%')"
 
 #: src/netimport/NIImporter_ArcView.cpp:260
 #: src/polyconvert/PCLoaderArcView.cpp:95
 msgid "No coordinate system found and coordinates look already projected."
 msgstr ""
+"Nessun sistema di coordinate è stato incontrato e le coordinate sembrano già "
+"essere proiettate."
 
 #: src/netimport/NIImporter_ArcView.cpp:263
 #: src/polyconvert/PCLoaderArcView.cpp:98
 msgid "Could not find geo coordinate system, assuming WGS84."
 msgstr ""
+"Non ho incontrato nessun sistema di coordinate, perciò si suppone che sia "
+"WGS84."
 
 #: src/netimport/NIImporter_ArcView.cpp:276
 #: src/netimport/NIImporter_OpenDrive.cpp:1568
@@ -8798,7 +8810,7 @@ msgstr ""
 #: src/netimport/vissim/tempstructs/NIVissimAbstractEdge.cpp:44
 #: src/polyconvert/PCLoaderVisum.cpp:171
 msgid "Unable to project coordinates for edge '%'."
-msgstr ""
+msgstr "Incapace di proiettare le coordinate dell'arco '%'."
 
 #: src/netimport/NIImporter_ArcView.cpp:289
 #: src/netimport/NIImporter_ArcView.cpp:303
