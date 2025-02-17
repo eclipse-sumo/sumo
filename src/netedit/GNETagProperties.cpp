@@ -104,10 +104,6 @@ GNETagProperties::checkTagIntegrity() const {
     if ((isShapeElement() + isTAZElement() + isWireElement()) > 1) {
         throw ProcessError(TL("element can be either shape or TAZ or wire element at the same time"));
     }
-    // if element can mask the start and end position, check that both attributes exist
-    if (canMaskStartEndPos() && (!hasAttribute(SUMO_ATTR_STARTPOS) || !hasAttribute(SUMO_ATTR_ENDPOS))) {
-        throw ProcessError(TL("If attributes mask the start and end position, both attributes have to be defined"));
-    }
     // check that master tag is valid
     if (isChild() && myParentTags.empty()) {
         throw FormatException("Parent tags cannot be empty");
@@ -755,12 +751,6 @@ GNETagProperties::isPlacedInRTree() const {
 bool
 GNETagProperties::canBeReparent() const {
     return (myTagProperty & REPARENT) != 0;
-}
-
-
-bool
-GNETagProperties::canMaskStartEndPos() const {
-    return (myTagProperty & MASKSTARTENDPOS) != 0;
 }
 
 

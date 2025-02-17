@@ -1077,7 +1077,7 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
         // set values of tag
         myTagProperties[currentTag] = new GNETagProperties(currentTag,
                 GNETagProperties::TagType::ADDITIONALELEMENT | GNETagProperties::TagType::STOPPINGPLACE,
-                GNETagProperties::TagProperty::MASKSTARTENDPOS,
+                0,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GNETagProperties::Conflicts::POS_LANE_START | GNETagProperties::Conflicts::POS_LANE_END,
                 GUIIcon::BUSSTOP, currentTag, TL("BusStop"),
@@ -1108,7 +1108,7 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
         // set values of tag
         myTagProperties[currentTag] = new GNETagProperties(currentTag,
                 GNETagProperties::TagType::ADDITIONALELEMENT | GNETagProperties::TagType::STOPPINGPLACE,
-                GNETagProperties::TagProperty::MASKSTARTENDPOS,
+                0,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GNETagProperties::Conflicts::POS_LANE_START | GNETagProperties::Conflicts::POS_LANE_END,
                 GUIIcon::TRAINSTOP, currentTag, TL("TrainStop"),
@@ -1177,7 +1177,7 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
         // set values of tag
         myTagProperties[currentTag] = new GNETagProperties(currentTag,
                 GNETagProperties::TagType::ADDITIONALELEMENT | GNETagProperties::TagType::STOPPINGPLACE,
-                GNETagProperties::TagProperty::MASKSTARTENDPOS,
+                0,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GNETagProperties::Conflicts::POS_LANE_START | GNETagProperties::Conflicts::POS_LANE_END,
                 GUIIcon::CONTAINERSTOP, currentTag, TL("ContainerStop"),
@@ -1208,7 +1208,7 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
         // set values of tag
         myTagProperties[currentTag] = new GNETagProperties(currentTag,
                 GNETagProperties::TagType::ADDITIONALELEMENT | GNETagProperties::TagType::STOPPINGPLACE,
-                GNETagProperties::TagProperty::MASKSTARTENDPOS,
+                0,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GNETagProperties::Conflicts::POS_LANE_START | GNETagProperties::Conflicts::POS_LANE_END,
                 GUIIcon::CHARGINGSTATION, currentTag, TL("ChargingStation"),
@@ -1266,7 +1266,7 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
         // set values of tag
         myTagProperties[currentTag] = new GNETagProperties(currentTag,
                 GNETagProperties::TagType::ADDITIONALELEMENT | GNETagProperties::TagType::STOPPINGPLACE,
-                GNETagProperties::TagProperty::MASKSTARTENDPOS,
+                0,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GNETagProperties::Conflicts::POS_LANE_START | GNETagProperties::Conflicts::POS_LANE_END,
                 GUIIcon::PARKINGAREA, currentTag, TL("ParkingArea"),
@@ -3621,7 +3621,7 @@ GNETagPropertiesDatabase::fillStopElements() {
         // set values of tag
         myTagProperties[currentTag] = new GNETagProperties(currentTag,
                 GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::VEHICLESTOP,
-                GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::MASKSTARTENDPOS,
+                GNETagProperties::TagProperty::CHILD,
                 GNETagProperties::TagParents::NO_PARENTS,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::STOPELEMENT, SUMO_TAG_STOP, TL("StopLane"),
@@ -3657,6 +3657,24 @@ GNETagPropertiesDatabase::fillStopElements() {
 
         // fill common stop attributes
         fillCommonStopAttributes(myTagProperties[currentTag], false);
+
+        // netedit attributes
+        attrProperty = new GNEAttributeProperties(GNE_ATTR_SIZE,
+                GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::UPDATEGEOMETRY | GNEAttributeProperties::NETEDIT,
+                TLF("Length of %", myTagProperties[currentTag]->getTagStr()));
+        myTagProperties[currentTag]->addAttribute(attrProperty);
+
+        attrProperty = new GNEAttributeProperties(GNE_ATTR_FORCESIZE,
+                GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::NETEDIT | GNEAttributeProperties::EXTENDED,
+                TL("Force size during creation"),
+                GNEAttributeCarrier::False);
+        myTagProperties[currentTag]->addAttribute(attrProperty);
+
+        attrProperty = new GNEAttributeProperties(GNE_ATTR_REFERENCEPOS,
+                GNEAttributeProperties::STRING | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::NETEDIT | GNEAttributeProperties::EXTENDED,
+                TLF("Reference position used for creating %", myTagProperties[currentTag]->getTagStr()));
+        attrProperty->setDiscreteValues(SUMOXMLDefinitions::ReferencePositions.getStrings());
+        myTagProperties[currentTag]->addAttribute(attrProperty);
     }
     currentTag = GNE_TAG_STOP_BUSSTOP;
     {
@@ -3765,7 +3783,7 @@ GNETagPropertiesDatabase::fillWaypointElements() {
         // set values of tag
         myTagProperties[currentTag] = new GNETagProperties(currentTag,
                 GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::VEHICLESTOP | GNETagProperties::TagType::VEHICLEWAYPOINT,
-                GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::MASKSTARTENDPOS,
+                GNETagProperties::TagProperty::CHILD,
                 GNETagProperties::TagParents::NO_PARENTS,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::WAYPOINT, SUMO_TAG_STOP, TL("WaypointLane"),
@@ -3801,6 +3819,24 @@ GNETagPropertiesDatabase::fillWaypointElements() {
 
         // fill common waypoint (stop) attributes
         fillCommonStopAttributes(myTagProperties[currentTag], true);
+
+        // netedit attributes
+        attrProperty = new GNEAttributeProperties(GNE_ATTR_SIZE,
+                GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::UPDATEGEOMETRY | GNEAttributeProperties::NETEDIT,
+                TLF("Length of %", myTagProperties[currentTag]->getTagStr()));
+        myTagProperties[currentTag]->addAttribute(attrProperty);
+
+        attrProperty = new GNEAttributeProperties(GNE_ATTR_FORCESIZE,
+                GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::NETEDIT | GNEAttributeProperties::EXTENDED,
+                TL("Force size during creation"),
+                GNEAttributeCarrier::False);
+        myTagProperties[currentTag]->addAttribute(attrProperty);
+
+        attrProperty = new GNEAttributeProperties(GNE_ATTR_REFERENCEPOS,
+                GNEAttributeProperties::STRING | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::NETEDIT | GNEAttributeProperties::EXTENDED,
+                TLF("Reference position used for creating %", myTagProperties[currentTag]->getTagStr()));
+        attrProperty->setDiscreteValues(SUMOXMLDefinitions::ReferencePositions.getStrings());
+        myTagProperties[currentTag]->addAttribute(attrProperty);
     }
     currentTag = GNE_TAG_WAYPOINT_BUSSTOP;
     {

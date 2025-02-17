@@ -95,7 +95,7 @@ GNENeteditAttributes::showNeteditAttributesModule(GNEAttributeCarrier* templateA
     // we assume that frame will not be show
     bool showFrame = false;
     // check if length text field has to be showed
-    if (templateAC->getTagProperty()->canMaskStartEndPos()) {
+    if (false) {
         myLengthFrame->show();
         myForceLengthFrame->show();
         myReferencePointComboBox->show();
