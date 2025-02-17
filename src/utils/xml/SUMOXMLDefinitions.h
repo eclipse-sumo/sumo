@@ -1846,6 +1846,8 @@ enum SumoXMLAttr {
     GNE_ATTR_SIZE,
     /// @brief size (used in stopping places)
     GNE_ATTR_FORCESIZE,
+    /// @brief size (used in stopping places)
+    GNE_ATTR_LANELENGTH,
     // virtual attributes for easier UI
     GNE_ATTR_FROM_BUSSTOP,
     GNE_ATTR_FROM_TRAINSTOP,

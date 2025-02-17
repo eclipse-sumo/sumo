@@ -1379,6 +1379,7 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::attrs[] = {
     { "referencePos",                       GNE_ATTR_REFERENCEPOS },
     { "size",                               GNE_ATTR_SIZE },
     { "force size",                         GNE_ATTR_FORCESIZE },
+    { "laneLength",                         GNE_ATTR_LANELENGTH },
     // mapped to additional elements on writing
     { "fromBusStop",                        GNE_ATTR_FROM_BUSSTOP },
     { "fromTrainStop",                      GNE_ATTR_FROM_TRAINSTOP },
