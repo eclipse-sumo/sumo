@@ -27,11 +27,13 @@
 // method definitions
 // ===========================================================================
 
-GNEAttributeProperties::GNEAttributeProperties(const SumoXMLAttr attribute, const int attributeProperty, const std::string& definition, std::string defaultValue) :
+GNEAttributeProperties::GNEAttributeProperties(const SumoXMLAttr attribute, const int attributeProperty, const int editProperty,
+                                               const std::string& definition, std::string defaultValue) :
     myAttribute(attribute),
     myTagPropertyParent(nullptr),
     myAttrStr(toString(attribute)),
     myAttributeProperty(attributeProperty),
+    myEditProperty(editProperty),
     myDefinition(definition),
     myDefaultValue(defaultValue),
     myDefaultActivated(false),
@@ -439,12 +441,6 @@ GNEAttributeProperties::isDiscrete() const {
 
 
 bool
-GNEAttributeProperties::isExtended() const {
-    return (myAttributeProperty & EXTENDED) != 0;
-}
-
-
-bool
 GNEAttributeProperties::requireUpdateGeometry() const {
     return (myAttributeProperty & UPDATEGEOMETRY) != 0;
 }
@@ -481,13 +477,31 @@ GNEAttributeProperties::isAlwaysEnabled() const {
 
 
 bool
-GNEAttributeProperties::isGEO() const {
-    return (myAttributeProperty & GEO) != 0;
+GNEAttributeProperties::isExtended() const {
+    return (myEditProperty & EXTENDED) != 0;
 }
 
 bool
+GNEAttributeProperties::isGEO() const {
+    return (myEditProperty & GEO) != 0;
+}
+
+
+bool
 GNEAttributeProperties::isNetedit() const {
-    return (myAttributeProperty & NETEDIT) != 0;
+    return (myEditProperty & NETEDIT) != 0;
+}
+
+
+bool
+GNEAttributeProperties::isCreateMode() const {
+    return (myEditProperty & CREATEMODE) != 0;
+}
+
+
+bool
+GNEAttributeProperties::isEditMode() const {
+    return (myEditProperty & EDITMODE) != 0;
 }
 
 /****************************************************************************/

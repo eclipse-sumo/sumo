@@ -37,41 +37,47 @@ class GNEAttributeProperties {
 
 public:
 
-    /// @brief struct with the tag Properties
+    /// @brief struct with the attribute Properties
     enum AttrProperty {
-        INT =               1 << 0,     // Attribute is an integer (Including Zero)
-        FLOAT =             1 << 1,     // Attribute is a float
-        SUMOTIME =          1 << 2,     // Attribute is a SUMOTime
-        BOOL =              1 << 3,     // Attribute is boolean (0/1, true/false)
-        STRING =            1 << 4,     // Attribute is a string
-        POSITION =          1 << 5,     // Attribute is a position defined by doubles (x,y or x,y,z)
-        COLOR =             1 << 6,     // Attribute is a color defined by a specifically word (Red, green) or by a special format (XXX,YYY,ZZZ)
-        VTYPE =             1 << 7,     // Attribute corresponds to a Vtype or VTypeDistribution
-        VCLASS =            1 << 8,     // Attribute is a VClass (passenger, bus, motorcicle...)
-        POSITIVE =          1 << 9,     // Attribute is positive (Including Zero)
-        UNIQUE =            1 << 10,    // Attribute is unique (cannot be edited in a selection of similar elements (ID, Position...)
-        FILENAME =          1 << 11,    // Attribute is a filename (string that cannot contains certain characters)
-        DISCRETE =          1 << 12,    // Attribute is discrete (only certain values are allowed)
-        PROBABILITY =       1 << 13,    // Attribute is probability (only allowed values between 0 and 1, including both)
-        ANGLE =             1 << 14,    // Attribute is an angle (only takes values between 0 and 360, including both, another value will be automatically reduced
-        LIST =              1 << 15,    // Attribute is a list of other elements separated by spaces
-        SECUENCIAL =        1 << 16,    // Attribute is a special sequence of elements (for example: secuencial lanes in Multi Lane E2 detectors)
-        DEFAULTVALUE =      1 << 17,    // Attribute owns a static default value
-        SYNONYM =           1 << 18,    // Attribute will be written with a different name in der XML
-        RANGE =             1 << 19,    // Attribute only accept a range of elements (example: Probability [0,1])
-        EXTENDED =          1 << 20,    // Attribute is extended (in Frame will not be shown, but is editable in a Dialog, see VType attributes)
+        INT =               1 << 1,     // Attribute is an integer (Including Zero)
+        FLOAT =             1 << 2,     // Attribute is a float
+        SUMOTIME =          1 << 3,     // Attribute is a SUMOTime
+        BOOL =              1 << 4,     // Attribute is boolean (0/1, true/false)
+        STRING =            1 << 5,     // Attribute is a string
+        POSITION =          1 << 6,     // Attribute is a position defined by doubles (x,y or x,y,z)
+        COLOR =             1 << 7,     // Attribute is a color defined by a specifically word (Red, green) or by a special format (XXX,YYY,ZZZ)
+        VTYPE =             1 << 8,     // Attribute corresponds to a Vtype or VTypeDistribution
+        VCLASS =            1 << 9,     // Attribute is a VClass (passenger, bus, motorcicle...)
+        POSITIVE =          1 << 10,     // Attribute is positive (Including Zero)
+        UNIQUE =            1 << 11,    // Attribute is unique (cannot be edited in a selection of similar elements (ID, Position...)
+        FILENAME =          1 << 12,    // Attribute is a filename (string that cannot contains certain characters)
+        DISCRETE =          1 << 13,    // Attribute is discrete (only certain values are allowed)
+        PROBABILITY =       1 << 14,    // Attribute is probability (only allowed values between 0 and 1, including both)
+        ANGLE =             1 << 15,    // Attribute is an angle (only takes values between 0 and 360, including both, another value will be automatically reduced
+        LIST =              1 << 16,    // Attribute is a list of other elements separated by spaces
+        SECUENCIAL =        1 << 17,    // Attribute is a special sequence of elements (for example: secuencial lanes in Multi Lane E2 detectors)
+        DEFAULTVALUE =      1 << 18,    // Attribute owns a static default value
+        SYNONYM =           1 << 19,    // Attribute will be written with a different name in der XML
+        RANGE =             1 << 20,    // Attribute only accept a range of elements (example: Probability [0,1])
         UPDATEGEOMETRY =    1 << 21,    // Attribute require update geometry at the end of function setAttribute(...)
         ACTIVATABLE =       1 << 22,    // Attribute can be switch on/off using a checkbox in frame
         FLOW =              1 << 23,    // Attribute is part of a flow definition (Number, vehsPerHour...)
         AUTOMATICID =       1 << 24,    // Attribute id can generate their own ID (used by additionals, vehicles, etc...)
         COPYABLE =          1 << 25,    // Attribute can be copied over other element with the same tagProperty (used for edge/lane templates)
         ALWAYSENABLED =     1 << 26,    // Attribute cannot be disabled
-        GEO =               1 << 27,    // Attribute is of type GEO
-        NETEDIT =           1 << 28,    // Attribute is exclusive of netedit
+    };
+
+    /// @brief struct with the attribute Properties
+    enum EditProperty {
+        CREATEMODE =    1 << 1,    // Attribute can be modified in create mode
+        EDITMODE =      1 << 2,    // Attribute can be modified in edit mode
+        NETEDIT =       1 << 3,    // Attribute is exclusive of netedit
+        EXTENDED =      1 << 4,    // Attribute is extended (in Frame will not be shown, but is editable in a Dialog, see VType attributes)
+        GEO =           1 << 5,    // Attribute is of type GEO
     };
 
     /// @brief parameter constructor
-    GNEAttributeProperties(const SumoXMLAttr attribute, const int attributeProperty, const std::string& definition, std::string defaultValue = "");
+    GNEAttributeProperties(const SumoXMLAttr attribute, const int attributeProperty, const int editProperty, const std::string& definition, std::string defaultValue = "");
 
     /// @brief destructor
     ~GNEAttributeProperties();
@@ -193,9 +199,6 @@ public:
     /// @brief return true if attribute is discrete
     bool isDiscrete() const;
 
-    /// @brief return true if attribute is extended
-    bool isExtended() const;
-
     /// @brief return true if attribute requires a update geometry in setAttribute(...)
     bool requireUpdateGeometry() const;
 
@@ -214,11 +217,20 @@ public:
     /// @brief return true if attribute is always enabled
     bool isAlwaysEnabled() const;
 
+    /// @brief return true if attribute is extended
+    bool isExtended() const;
+
     /// @brief return true if attribute is GEO
     bool isGEO() const;
 
     /// @brief return true if attribute is exclusive of netedit
     bool isNetedit() const;
+
+    /// @brief return true if attribute can be modified in create mode
+    bool isCreateMode() const;
+
+    /// @brief return true if attribute can be modified in edit mode
+    bool isEditMode() const;
 
 private:
     /// @brief XML Attribute
@@ -230,8 +242,11 @@ private:
     /// @brief string with the Attribute in text format (to avoid unnecesaries toStrings(...) calls)
     std::string myAttrStr;
 
-    /// @brief Property of attribute
-    int myAttributeProperty = STRING;
+    /// @brief attribute properties
+    int myAttributeProperty = 0;
+
+    /// @brief edit properties
+    int myEditProperty = 0;
 
     /// @brief text with a definition of attribute
     std::string myDefinition;
