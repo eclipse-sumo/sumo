@@ -62,6 +62,13 @@ void
 GNEAttributeProperties::checkAttributeIntegrity() const {
     // check integrity only in debug mode
 #ifdef DEBUG
+    // check that there are properties
+    if (myAttributeProperty == 0) {
+        throw FormatException("Attr properties cannot be empty");
+    }
+    if (myEditProperty == 0) {
+        throw FormatException("Attr edition properties cannot be empty");
+    }
     // check that default values can be parsed (only in debug mode)
     if (hasDefaultValue()) {
         if (isInt() && !GNEAttributeCarrier::canParse<int>(myDefaultValue)) {

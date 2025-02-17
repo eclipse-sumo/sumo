@@ -3245,8 +3245,8 @@ GNETagPropertiesDatabase::fillDemandElements() {
         myTagProperties[currentTag]->addAttribute(attrProperty);
 
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_PROB,
-                GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::EXTENDED,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE,
+                GNEAttributeProperties::EDITMODE,
                 TL("The probability when being added to a distribution without an explicit probability"),
                 "1.0");
         myTagProperties[currentTag]->addAttribute(attrProperty);
@@ -8016,12 +8016,12 @@ GNETagPropertiesDatabase::fillCommonAttributes(GNETagProperties* tagProperties) 
     if (tagProperties->isDrawable()) {
         commonAttribute = new GNEAttributeProperties(GNE_ATTR_FRONTELEMENT,
                 GNEAttributeProperties::BOOL,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE | GNEAttributeProperties::NETEDIT,
+                GNEAttributeProperties::EDITMODE | GNEAttributeProperties::NETEDIT,
                 TL("Toggle front element"));
         tagProperties->addAttribute(commonAttribute);
         commonAttribute = new GNEAttributeProperties(GNE_ATTR_SELECTED,
                 GNEAttributeProperties::BOOL,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE | GNEAttributeProperties::NETEDIT,
+                GNEAttributeProperties::EDITMODE | GNEAttributeProperties::NETEDIT,
                 TL("Toggle select element"));
         tagProperties->addAttribute(commonAttribute);
     }
@@ -8029,7 +8029,7 @@ GNETagPropertiesDatabase::fillCommonAttributes(GNETagProperties* tagProperties) 
     if (tagProperties->canBeReparent()) {
         commonAttribute = new GNEAttributeProperties(GNE_ATTR_PARENT,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::UPDATEGEOMETRY,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE | GNEAttributeProperties::NETEDIT,
+                GNEAttributeProperties::EDITMODE | GNEAttributeProperties::NETEDIT,
                 TL("Change element parent"));
         tagProperties->addAttribute(commonAttribute);
     }
@@ -8056,19 +8056,19 @@ GNETagPropertiesDatabase::fillCommonStoppingPlaceAttributes(GNETagProperties* ta
 
     attrProperty = new GNEAttributeProperties(SUMO_ATTR_LANE,
             GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
-            GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+            GNEAttributeProperties::EDITMODE,
             TLF("The name of the lane the % shall be located at", tagProperties->getTagStr()));
     tagProperties->addAttribute(attrProperty);
 
     attrProperty = new GNEAttributeProperties(SUMO_ATTR_STARTPOS,
             GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY,
-            GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+            GNEAttributeProperties::EDITMODE,
             TL("The begin position on the lane (the lower position on the lane) in meters"));
     tagProperties->addAttribute(attrProperty);
 
     attrProperty = new GNEAttributeProperties(SUMO_ATTR_ENDPOS,
             GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY,
-            GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+            GNEAttributeProperties::EDITMODE,
             TL("The end position on the lane (the higher position on the lane) in meters, must be larger than startPos by more than 0.1m"));
     tagProperties->addAttribute(attrProperty);
 
@@ -8104,7 +8104,7 @@ GNETagPropertiesDatabase::fillCommonStoppingPlaceAttributes(GNETagProperties* ta
 
     attrProperty = new GNEAttributeProperties(GNE_ATTR_FORCESIZE,
             GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
-            GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE | GNEAttributeProperties::NETEDIT,
+            GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::NETEDIT,
             TL("Force size during creation"),
             GNEAttributeCarrier::False);
     tagProperties->addAttribute(attrProperty);
