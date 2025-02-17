@@ -138,10 +138,6 @@ Person::getTaxiReservations(int onlyNew) {
     std::vector<TraCIReservation> result;
     MSDispatch* dispatcher = MSDevice_Taxi::getDispatchAlgorithm();
     if (dispatcher != nullptr) {
-        MSDispatch_TraCI* traciDispatcher = dynamic_cast<MSDispatch_TraCI*>(dispatcher);
-        if (traciDispatcher == nullptr) {
-            throw TraCIException("device.taxi.dispatch-algorithm 'traci' has not been loaded");
-        }
         for (Reservation* res : dispatcher->getReservations()) {
             if (filterReservation(onlyNew, res, result)) {
                 if (res->state == Reservation::NEW) {

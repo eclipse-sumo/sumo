@@ -74,6 +74,7 @@ void
 MSDispatch_TraCI::fulfilledReservation(const Reservation* res) {
     myReservationLookup.remove(res->id, res);
     MSDispatch::fulfilledReservation(res);
+    myHasServableReservations = myReservationLookup.size() > 0;
 }
 
 void

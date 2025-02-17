@@ -47,6 +47,7 @@
 #include <microsim/MSStoppingPlace.h>
 #include <microsim/MSParkingArea.h>
 #include <microsim/devices/MSRoutingEngine.h>
+#include <microsim/devices/MSDevice_Taxi.h>
 #include <microsim/trigger/MSChargingStation.h>
 #include <microsim/trigger/MSOverheadWire.h>
 #include <microsim/devices/MSDevice_Tripinfo.h>
@@ -504,7 +505,8 @@ Simulation::getMinExpectedNumber() {
     return (net->getVehicleControl().getActiveVehicleCount()
             + net->getInsertionControl().getPendingFlowCount()
             + (net->hasPersons() ? net->getPersonControl().getActiveCount() : 0)
-            + (net->hasContainers() ? net->getContainerControl().getActiveCount() : 0));
+            + (net->hasContainers() ? net->getContainerControl().getActiveCount() : 0)
+            + (MSDevice_Taxi::hasServableReservations() ? 1 : 0));
 }
 
 
