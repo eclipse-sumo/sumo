@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-13 10:07+0100\n"
-"PO-Revision-Date: 2025-02-14 16:43+0000\n"
+"PO-Revision-Date: 2025-02-17 08:02+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -7264,6 +7264,8 @@ msgstr "Indice di corsia invalido '%' per corsia '%'."
 #, c-format
 msgid "Could not patch tlLogic '%' for changed crossings"
 msgstr ""
+"Non ho potuto alterare la logica di semaforo '%' dopo aver modificato dei "
+"passaggi pedonali"
 
 #: src/netbuild/NBLoadedSUMOTLDef.cpp:912
 msgid "Unused state in tlLogic '%', program '%' at tl-index %"
