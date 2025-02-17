@@ -155,7 +155,7 @@ This Documentation is continuously updated and always refers to the latest devel
 # Additional Tools
 
 In addition to the [main applications (sumo, sumo-gui, netedit, netconvert, etc.)](SUMO_at_a_Glance.md#included_applications), there are
-over 150 additional tools. They cover topics from traffic network
+over 250 additional tools. They cover topics from traffic network
 analysis, demand generation, demand modification to output analysis.
 Most of them are written in [python](https://www.python.org/). All tools
 can be found in the SUMO-distribution under {{SUMO}}/tools.
