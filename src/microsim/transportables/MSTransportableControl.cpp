@@ -392,6 +392,7 @@ MSTransportableControl::abortWaitingForVehicle(MSTransportable* t) {
                 (*it2)->setAbortWaiting(-1);
             }
             waiting.erase(it2);
+            myWaitingForVehicleNumber--;
         }
     }
 }
