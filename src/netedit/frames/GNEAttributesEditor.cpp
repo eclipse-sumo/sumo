@@ -361,20 +361,28 @@ void
 GNEAttributesEditor::setAttribute(SumoXMLAttr attr, const std::string& value) {
     const auto undoList = myFrameParent->getViewNet()->getUndoList();
     const auto tagProperty = myEditedACs.front()->getTagProperty();
-    // first check if we're editing a single attribute or an ID
-    if (myEditedACs.size() > 1) {
-        undoList->begin(tagProperty->getGUIIcon(), TLF("change multiple % attributes", tagProperty->getTagStr()));
-    } else if (attr == SUMO_ATTR_ID) {
-        // IDs attribute has to be encapsulated because implies multiple changes in different additionals (due references)
-        undoList->begin(tagProperty->getGUIIcon(), TLF("change % attribute", tagProperty->getTagStr()));
-    }
-    // Set new value of attribute in all edited ACs
-    for (const auto& editedAC : myEditedACs) {
-        editedAC->setAttribute(attr, value, undoList);
-    }
-    // finish change multiple attributes or ID Attributes
-    if ((myEditedACs.size() > 1) || (attr == SUMO_ATTR_ID)) {
-        undoList->end();
+    // continue depending if we're creating or inspecting
+    if (myEditorType == EditorType::CREATOR) {
+        // Set new value of attribute in all edited ACs without undo-redo
+        for (const auto& editedAC : myEditedACs) {
+            editedAC->setAttribute(attr, value);
+        }
+    } else if (myEditorType == EditorType::EDITOR) {
+        // first check if we're editing a single attribute or an ID
+        if (myEditedACs.size() > 1) {
+            undoList->begin(tagProperty->getGUIIcon(), TLF("change multiple % attributes", tagProperty->getTagStr()));
+        } else if (attr == SUMO_ATTR_ID) {
+            // IDs attribute has to be encapsulated because implies multiple changes in different additionals (due references)
+            undoList->begin(tagProperty->getGUIIcon(), TLF("change % attribute", tagProperty->getTagStr()));
+        }
+        // Set new value of attribute in all edited ACs
+        for (const auto& editedAC : myEditedACs) {
+            editedAC->setAttribute(attr, value, undoList);
+        }
+        // finish change multiple attributes or ID Attributes
+        if ((myEditedACs.size() > 1) || (attr == SUMO_ATTR_ID)) {
+            undoList->end();
+        }
     }
     refreshAttributesEditor();
     // update frame parent (needed to update other attribute tables)
@@ -466,7 +474,7 @@ GNEAttributesEditor::fillStartEndAttributes(CommonXMLStructure::SumoBaseObject* 
                 endPos = size;
             }
         }
-        if (endPos < laneLength) {
+        if (endPos > laneLength) {
             endPos = laneLength;
             if (forceSize) {
                 startPos = laneLength - size;

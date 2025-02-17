@@ -4092,7 +4092,7 @@ GNETagPropertiesDatabase::fillStopElements() {
                 GNEAttributeCarrier::False);
         myTagProperties[currentTag]->addAttribute(attrProperty);
 
-        attrProperty = new GNEAttributeProperties(GNE_ATTR_REFERENCEPOS,
+        attrProperty = new GNEAttributeProperties(GNE_ATTR_REFERENCE,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::NETEDIT,
                 TLF("Reference position used for creating %", myTagProperties[currentTag]->getTagStr()));
         attrProperty->setDiscreteValues(SUMOXMLDefinitions::ReferencePositions.getStrings());
@@ -4266,7 +4266,7 @@ GNETagPropertiesDatabase::fillWaypointElements() {
                 GNEAttributeCarrier::False);
         myTagProperties[currentTag]->addAttribute(attrProperty);
 
-        attrProperty = new GNEAttributeProperties(GNE_ATTR_REFERENCEPOS,
+        attrProperty = new GNEAttributeProperties(GNE_ATTR_REFERENCE,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::NETEDIT,
                 TLF("Reference position used for creating %", myTagProperties[currentTag]->getTagStr()));
         attrProperty->setDiscreteValues(SUMOXMLDefinitions::ReferencePositions.getStrings());
@@ -8097,9 +8097,10 @@ GNETagPropertiesDatabase::fillCommonStoppingPlaceAttributes(GNETagProperties* ta
 
     // netedit attributes
     attrProperty = new GNEAttributeProperties(GNE_ATTR_SIZE,
-            GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::UPDATEGEOMETRY,
+            GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::UPDATEGEOMETRY | GNEAttributeProperties::DEFAULTVALUE,
             GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE | GNEAttributeProperties::NETEDIT,
-            TLF("Length of %", tagProperties->getTagStr()));
+            TLF("Length of %", tagProperties->getTagStr()),
+            "10");
     tagProperties->addAttribute(attrProperty);
 
     attrProperty = new GNEAttributeProperties(GNE_ATTR_FORCESIZE,
@@ -8109,7 +8110,7 @@ GNETagPropertiesDatabase::fillCommonStoppingPlaceAttributes(GNETagProperties* ta
             GNEAttributeCarrier::False);
     tagProperties->addAttribute(attrProperty);
 
-    attrProperty = new GNEAttributeProperties(GNE_ATTR_REFERENCEPOS,
+    attrProperty = new GNEAttributeProperties(GNE_ATTR_REFERENCE,
             GNEAttributeProperties::STRING | GNEAttributeProperties::DISCRETE,
             GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE | GNEAttributeProperties::NETEDIT,
             TLF("Reference position used for creating %", tagProperties->getTagStr()));

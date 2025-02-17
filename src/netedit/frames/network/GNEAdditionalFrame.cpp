@@ -211,7 +211,6 @@ GNEAdditionalFrame::addAdditional(const GNEViewNetHelper::ViewObjectsSelector& v
     }
     // obtain attributes and values
     myAdditionalAttributes->getAttributesAndValues(myBaseAdditional, true);
-    myNeteditAttributesEditor->fillSumoBaseObject(myBaseAdditional);
     // If consecutive Lane Selector is enabled, it means that either we're selecting lanes or we're finished or we'rent started
     if (tagProperties->hasAttribute(SUMO_ATTR_EDGE) || (tagProperties->getTag() == SUMO_TAG_VAPORIZER)) {
         return buildAdditionalOverEdge(viewObjects.getLaneFront(), tagProperties);
@@ -469,6 +468,8 @@ GNEAdditionalFrame::buildAdditionalOverEdge(GNELane* lane, const GNETagPropertie
     if (!buildAdditionalCommonAttributes(tagProperties)) {
         return false;
     }
+    // parse netedit attributes
+    myNeteditAttributesEditor->fillSumoBaseObject(myBaseAdditional);
     // show warning dialogbox and stop check if input parameters are valid
     if (!myAdditionalAttributes->areValuesValid()) {
         myAdditionalAttributes->showWarningMessage();
@@ -494,7 +495,7 @@ bool
 GNEAdditionalFrame::buildAdditionalOverLane(GNELane* lane, const GNETagProperties* tagProperties) {
     // check that lane exist
     if (lane != nullptr) {
-        // Get attribute lanes
+        // add lane attributes
         myBaseAdditional->addStringAttribute(SUMO_ATTR_LANE, lane->getID());
         myBaseAdditional->addDoubleAttribute(GNE_ATTR_LANELENGTH, lane->getLaneShapeLength());
         // Check if ID has to be generated
@@ -516,6 +517,8 @@ GNEAdditionalFrame::buildAdditionalOverLane(GNELane* lane, const GNETagPropertie
     if (!buildAdditionalCommonAttributes(tagProperties)) {
         return false;
     }
+    // parse netedit attributes
+    myNeteditAttributesEditor->fillSumoBaseObject(myBaseAdditional);
     // show warning dialogbox and stop check if input parameters are valid
     if (!myAdditionalAttributes->areValuesValid()) {
         myAdditionalAttributes->showWarningMessage();
@@ -574,6 +577,8 @@ GNEAdditionalFrame::buildAdditionalOverView(const GNETagProperties* tagPropertie
     if (!buildAdditionalCommonAttributes(tagProperties)) {
         return false;
     }
+    // parse netedit attributes
+    myNeteditAttributesEditor->fillSumoBaseObject(myBaseAdditional);
     // special case for VSS Steps
     if (myBaseAdditional->getTag() == SUMO_TAG_STEP) {
         // get VSS parent
