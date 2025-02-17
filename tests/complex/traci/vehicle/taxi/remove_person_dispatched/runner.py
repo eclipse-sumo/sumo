@@ -46,34 +46,17 @@ traci.start([sumoBinary,
 traci.simulationStep()
 
 
-def dispatch():
-    fleet = traci.vehicle.getTaxiFleet(0)
-    taxiID = fleet[0]
-    print("taxiFleet", fleet)
-    reservations = traci.person.getTaxiReservations(0)
-    print("reservations", reservations)
+traci.simulationStep()
+fleet = traci.vehicle.getTaxiFleet(0)
+res = traci.person.getTaxiReservations(0)
+print("taxiFleet", fleet)
+print("reservations", res)
+traci.vehicle.dispatchTaxi(fleet[0], [res[0].id])
+traci.simulationStep()
+traci.person.remove(res[0].persons[0])
 
-    reservation_ids = [r.id for r in reservations]
-    b, c = reservation_ids
-    # plan the following stops
-    # (a was removed)
-    # pickup b
-    # pickup c, dropoff b
-    # dropoff c
-    traci.vehicle.dispatchTaxi(taxiID, [b, c, b, c])
-    print("currentCustomers", traci.vehicle.getParameter(taxiID, "device.taxi.currentCustomers"))
-
-
-print("%s reservations %s" % (
-    traci.simulation.getTime(),
-    traci.person.getTaxiReservations(0)))
-traci.person.removeStages("a")
-while traci.simulation.getMinExpectedNumber() > 0 or traci.simulation.getTime() < 400:
-    traci.simulationStep()
-    if traci.simulation.getDepartedNumber() > 0:
-        print("%s reservations %s" % (
-            traci.simulation.getTime(),
-            traci.person.getTaxiReservations(0)))
-        dispatch()
-print("ended at", traci.simulation.getTime())
+while traci.simulation.getMinExpectedNumber() > 0 and traci.simulation.getTime() < 100:
+    print("%s reservations %s" % (
+        traci.simulation.getTime(),
+        traci.person.getTaxiReservations(0)))
 traci.close()
