@@ -2,7 +2,7 @@
 title: macOS Build
 ---
 
-This document describes how to install and build SUMO on macOS from its source code. If you don't want to **extend** SUMO, but just **use** it, you may want to simply follow the [installation instructions for macOS](index.md#macos) instead.
+This document describes how to install and build SUMO on macOS from its source code. If you don't want to **extend** SUMO, but just **use** it, you may want to simply download the installer [here](../Downloads.md#macos) instead.
 
 You may use one of two ways to build and install SUMO on macOS: **Homebrew** (recommended) and **MacPorts**.
 

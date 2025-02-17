@@ -102,15 +102,27 @@ To find out which versions are available on ubuntu use `apt show sumo -a`.
 
 ## macOS
 
-The recommended way to install SUMO is to use the provided pkg file:
+SUMO can be easily installed on macOS by using the provided package file:
+
 <ul>
-<li><a class="no-arrow-link" href="https://sumo.dlr.de/releases/{{Version}}/sumo-{{Version}}.pkg">sumo-{{Version}}.pkg</a><?php getInfo("sumo-{{Version}}.pkg","r",false);?></li>
+<li>pkg installer: <a class="no-arrow-link" href="https://sumo.dlr.de/releases/{{Version}}/sumo-{{Version}}.pkg">sumo-{{Version}}.pkg</a><?php getInfo("sumo-{{Version}}.pkg","r",false);?></li>
+<li>dmg containing the installer and uninstaller: <a class="no-arrow-link" href="https://sumo.dlr.de/releases/{{Version}}/sumo-{{Version}}.dmg">sumo-{{Version}}.dmg</a><?php getInfo("sumo-{{Version}}.dmg","r",false);?></li>
 </ul>
+
+Make sure to have Python and XQuartz installed on your Mac.
+
+You can also build SUMO by following these instructions [here](Installing/MacOS_Build.md).
+
 
 ### Homebrew
 
 You can also read the Homebrew-based installation guide [here](Installing/index.md#macos) or follow the [build instructions](Installing/MacOS_Build.md).
 The usage of the homebrew bottles is discouraged.
+
+!!! caution "Important notice"
+    We no longer maintain the installation via Homebrew. It may be used to install older versions, but support is not provided. Please use the installer or build SUMO yourself.
+
+***If you used the installer, this step is not needed!***
 
 In order to have a more native feel on macOS, we provide some application launchers (icons / shortcuts). These launchers ***work with all versions of SUMO and do not need to be updated***.
 
