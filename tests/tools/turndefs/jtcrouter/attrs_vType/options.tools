@@ -1,0 +1,4 @@
+-n net.net.xml -t input_turns.xml -o out.rou.xml --discount-sources
+--prefix foo
+--attributes 'color="blue" type="car"'
+--additional-files input_additional.add.xml
