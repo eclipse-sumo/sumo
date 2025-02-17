@@ -82,7 +82,7 @@ public:
     void refreshAttributesEditor();
 
     /// @brief fill sumo Base object
-    SumoXMLAttr fillSumoBaseObject(CommonXMLStructure::SumoBaseObject* baseObjet) const;
+    SumoXMLAttr fillSumoBaseObject(CommonXMLStructure::SumoBaseObject* baseObject) const;
 
     /// @name Functions related with selecting parents
     /// @{
@@ -145,6 +145,9 @@ protected:
     void moveLaneDown();
 
     /// @}
+
+    /// @brief fill start end attributes
+    void fillStartEndAttributes(CommonXMLStructure::SumoBaseObject* baseObject) const;
 
 private:
     /// @brief pointer to GNEFrame parent

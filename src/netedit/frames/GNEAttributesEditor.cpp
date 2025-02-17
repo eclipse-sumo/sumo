@@ -252,14 +252,18 @@ GNEAttributesEditor::refreshAttributesEditor() {
 
 
 SumoXMLAttr
-GNEAttributesEditor::fillSumoBaseObject(CommonXMLStructure::SumoBaseObject* baseObjet) const {
-    // iterate over every attribute and stop if there was an error (
+GNEAttributesEditor::fillSumoBaseObject(CommonXMLStructure::SumoBaseObject* baseObject) const {
+    // iterate over every attribute row and stop if there was an error
     for (const auto &row : myAttributesEditorRows) {
-        const auto fillResult = row->fillSumoBaseObject(baseObjet);
-        if (fillResult != SUMO_ATTR_NOTHING) {
-            return fillResult;
+        if (row->isAttributeRowShown()) {
+            const auto fillResult = row->fillSumoBaseObject(baseObject);
+            if (fillResult != SUMO_ATTR_NOTHING) {
+                return fillResult;
+            }
         }
     }
+    // handle special case for elemnt with start-end position over lanes
+    fillStartEndAttributes(baseObject);
     // all ok, then return nothing
     return SUMO_ATTR_NOTHING;
 }
@@ -439,6 +443,44 @@ GNEAttributesEditor::moveLaneDown() {
     if (lane) {
         // set previous lane
         setAttribute(SUMO_ATTR_LANE, lane->getParentEdge()->getChildLanes().at(lane->getIndex() - 1)->getID());
+    }
+}
+
+
+void
+GNEAttributesEditor::fillStartEndAttributes(CommonXMLStructure::SumoBaseObject* baseObject) const {
+    if (baseObject->hasDoubleAttribute(SUMO_ATTR_POSITION) && baseObject->hasDoubleAttribute(GNE_ATTR_SIZE) && 
+        baseObject->hasDoubleAttribute(GNE_ATTR_LANELENGTH) && baseObject->hasBoolAttribute(GNE_ATTR_FORCESIZE)) {
+        // extract parameters
+        const double centerPosition = baseObject->getDoubleAttribute(SUMO_ATTR_POSITION);
+        const double size = baseObject->getDoubleAttribute(GNE_ATTR_SIZE);
+        const double laneLength = baseObject->getDoubleAttribute(GNE_ATTR_LANELENGTH);
+        const bool forceSize = baseObject->getBoolAttribute(GNE_ATTR_FORCESIZE);
+        // we fill startPos and endPos using the existent parameters
+        double startPos = centerPosition - (size * 0.5);
+        double endPos = centerPosition + (size * 0.5);
+        // adjust values
+        if (startPos < 0) {
+            startPos = 0;
+            if (forceSize) {
+                endPos = size;
+            }
+        }
+        if (endPos < laneLength) {
+            endPos = laneLength;
+            if (forceSize) {
+                startPos = laneLength - size;
+            }
+        }
+        if (startPos < 0) {
+            startPos = 0;
+        } 
+        if (endPos > laneLength) {
+            endPos = laneLength;
+        }
+        // add it in baseObject
+        baseObject->addDoubleAttribute(SUMO_ATTR_STARTPOS, startPos);
+        baseObject->addDoubleAttribute(SUMO_ATTR_ENDPOS, endPos);
     }
 }
 

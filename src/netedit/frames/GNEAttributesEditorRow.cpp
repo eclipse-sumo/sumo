@@ -285,7 +285,7 @@ GNEAttributesEditorRow::fillSumoBaseObject(CommonXMLStructure::SumoBaseObject* b
             const auto doubleValue = GNEAttributeCarrier::parse<double>(myValueTextField->getText().text());
             if (myAttrProperty->isPositive() && (doubleValue < 0)) {
                 return attribute;
-            } else if (myAttrProperty->isFloat() && ((doubleValue < 0) || (doubleValue > 1))) {
+            } else if (myAttrProperty->isProbability() && ((doubleValue < 0) || (doubleValue > 1))) {
                 return attribute;
             } else {
                 baseObjet->addDoubleAttribute(attribute, doubleValue);
