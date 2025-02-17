@@ -40,8 +40,8 @@ GNEWireFrame::GNEWireFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
     // Create wire parameters
     myWireAttributes = new GNEAttributesCreator(this);
 
-    // Create Netedit parameter
-    myNeteditAttributes = new GNENeteditAttributes(this);
+    // Create Netedit attribute editor
+    myNeteditAttributesEditor = new GNEAttributesEditor(this, TL("Netedit attributes"), GNEAttributesEditor::EditorType::CREATOR, GNEAttributesEditor::AttributeType::NETEDIT);
 
     // Create selector parent
     mySelectorWireParent = new GNESelectorParent(this);
@@ -92,10 +92,7 @@ GNEWireFrame::addWire(const GNEViewNetHelper::ViewObjectsSelector& viewObjects) 
     }
     // obtain attributes and values
     myWireAttributes->getAttributesAndValues(myBaseWire, true);
-    // fill netedit attributes
-    if (!myNeteditAttributes->getNeteditAttributesAndValues(myBaseWire, viewObjects.getLaneFront())) {
-        return false;
-    }
+    myNeteditAttributesEditor->fillSumoBaseObject(myBaseWire);
     if (tagProperties->getTag() == SUMO_TAG_OVERHEAD_WIRE_SECTION) {
         return myConsecutiveLaneSelector->addLane(viewObjects.getLaneFront());
     } else {
@@ -122,33 +119,31 @@ GNEWireFrame::createPath(const bool /* useLastRoute */) {
         } else if (createBaseWireObject(tagProperty)) {
             // get attributes and values
             myWireAttributes->getAttributesAndValues(myBaseWire, true);
-            // fill netedit attributes
-            if (myNeteditAttributes->getNeteditAttributesAndValues(myBaseWire, nullptr)) {
-                // Check if ID has to be generated
-                if (!myBaseWire->hasStringAttribute(SUMO_ATTR_ID)) {
-                    myBaseWire->addStringAttribute(SUMO_ATTR_ID, myViewNet->getNet()->getAttributeCarriers()->generateAdditionalID(tagProperty->getTag()));
-                }
-                // add lane IDs
-                myBaseWire->addStringListAttribute(SUMO_ATTR_LANES, myConsecutiveLaneSelector->getLaneIDPath());
-                // set positions
-                myBaseWire->addDoubleAttribute(SUMO_ATTR_STARTPOS, myConsecutiveLaneSelector->getLanePath().front().second);
-                myBaseWire->addDoubleAttribute(SUMO_ATTR_ENDPOS, myConsecutiveLaneSelector->getLanePath().back().second);
-                // show warning dialogbox and stop check if input parameters are valid
-                if (!myWireAttributes->areValuesValid()) {
-                    myWireAttributes->showWarningMessage();
-                } else {
-                    // declare additional handler
-                    GNEAdditionalHandler additionalHandler(myViewNet->getNet(), myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), false);
-                    // build additional
-                    additionalHandler.parseSumoBaseObject(myBaseWire);
-                    // Refresh wire Parent Selector (For additionals that have a limited number of children)
-                    mySelectorWireParent->refreshSelectorParentModule();
-                    // abort overhead wire creation
-                    myConsecutiveLaneSelector->abortPathCreation();
-                    // refresh additional attributes
-                    myWireAttributes->refreshAttributesCreator();
-                    return true;
-                }
+            myNeteditAttributesEditor->fillSumoBaseObject(myBaseWire);
+            // Check if ID has to be generated
+            if (!myBaseWire->hasStringAttribute(SUMO_ATTR_ID)) {
+                myBaseWire->addStringAttribute(SUMO_ATTR_ID, myViewNet->getNet()->getAttributeCarriers()->generateAdditionalID(tagProperty->getTag()));
+            }
+            // add lane IDs
+            myBaseWire->addStringListAttribute(SUMO_ATTR_LANES, myConsecutiveLaneSelector->getLaneIDPath());
+            // set positions
+            myBaseWire->addDoubleAttribute(SUMO_ATTR_STARTPOS, myConsecutiveLaneSelector->getLanePath().front().second);
+            myBaseWire->addDoubleAttribute(SUMO_ATTR_ENDPOS, myConsecutiveLaneSelector->getLanePath().back().second);
+            // show warning dialogbox and stop check if input parameters are valid
+            if (!myWireAttributes->areValuesValid()) {
+                myWireAttributes->showWarningMessage();
+            } else {
+                // declare additional handler
+                GNEAdditionalHandler additionalHandler(myViewNet->getNet(), myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), false);
+                // build additional
+                additionalHandler.parseSumoBaseObject(myBaseWire);
+                // Refresh wire Parent Selector (For additionals that have a limited number of children)
+                mySelectorWireParent->refreshSelectorParentModule();
+                // abort overhead wire creation
+                myConsecutiveLaneSelector->abortPathCreation();
+                // refresh additional attributes
+                myWireAttributes->refreshAttributesCreator();
+                return true;
             }
         }
     }
@@ -165,7 +160,7 @@ GNEWireFrame::tagSelected() {
         // show wire attributes module
         myWireAttributes->showAttributesCreatorModule(templateAC, {});
         // show netedit attributes
-        myNeteditAttributes->showNeteditAttributesModule(templateAC);
+        myNeteditAttributesEditor->showAttributesEditor(templateAC);
         // check if we're creating a overhead wire section
         if (templateAC->getTagProperty()->getTag() == SUMO_TAG_OVERHEAD_WIRE_SECTION) {
             myConsecutiveLaneSelector->showConsecutiveLaneSelectorModule();
@@ -177,7 +172,7 @@ GNEWireFrame::tagSelected() {
     } else {
         // hide all modules if wire isn't valid
         myWireAttributes->hideAttributesCreatorModule();
-        myNeteditAttributes->hideNeteditAttributesModule();
+        myNeteditAttributesEditor->hideAttributesEditor();
         myConsecutiveLaneSelector->hideConsecutiveLaneSelectorModule();
         mySelectorWireParent->hideSelectorParentModule();
     }

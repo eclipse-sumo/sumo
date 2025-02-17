@@ -24,12 +24,10 @@
 #include <netedit/frames/GNEAttributesCreator.h>
 #include <netedit/frames/GNEDemandSelector.h>
 #include <netedit/frames/GNEFrame.h>
-#include <netedit/frames/GNENeteditAttributes.h>
 #include <netedit/frames/GNEPlanCreator.h>
 #include <netedit/frames/GNEPlanCreatorLegend.h>
 #include <netedit/frames/GNETagSelector.h>
 #include <netedit/frames/GNEPlanSelector.h>
-
 
 // ===========================================================================
 // class definitions
@@ -105,8 +103,8 @@ private:
     /// @brief internal container plan attributes
     GNEAttributesCreator* myContainerPlanAttributes;
 
-    /// @brief Netedit parameter
-    GNENeteditAttributes* myNeteditAttributes;
+    /// @brief Netedit attributes editor
+    GNEAttributesEditor* myNeteditAttributesEditor = nullptr;
 
     /// @brief plan creator
     GNEPlanCreator* myPlanCreator;

@@ -197,7 +197,7 @@ private:
     GNEAttributesEditor* myGEOAttributesEditor;
 
     /// @brief Netedit Attributes editor
-    GNEAttributesEditor* myNeteditAttributesEditor;
+    GNEAttributesEditor* myNeteditAttributesEditor = nullptr;
 
     /// @brief Generic parameters editor
     GNEAttributesEditor* myGenericParametersEditor;

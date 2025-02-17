@@ -57,8 +57,8 @@ GNEContainerFrame::GNEContainerFrame(GNEViewParent* viewParent, GNEViewNet* view
     // create container plan attributes
     myContainerPlanAttributes = new GNEAttributesCreator(this);
 
-    // Create Netedit parameter
-    myNeteditAttributes = new GNENeteditAttributes(this);
+    // Create Netedit attribute editor
+    myNeteditAttributesEditor = new GNEAttributesEditor(this, TL("Netedit attributes"), GNEAttributesEditor::EditorType::CREATOR, GNEAttributesEditor::AttributeType::NETEDIT);
 
     // create GNEPlanCreator Module
     myPlanCreator = new GNEPlanCreator(this, viewNet->getNet()->getDemandPathManager());
@@ -189,7 +189,7 @@ GNEContainerFrame::tagSelected() {
                 // show container plan attributes
                 myContainerPlanAttributes->showAttributesCreatorModule(myPlanSelector->getCurrentPlanTemplate(), {});
                 // show Netedit attributes module
-                myNeteditAttributes->showNeteditAttributesModule(myPlanSelector->getCurrentPlanTemplate());
+                myNeteditAttributesEditor->showAttributesEditor(myPlanSelector->getCurrentPlanTemplate());
                 // show edge path creator module
                 myPlanCreator->showPlanCreatorModule(myPlanSelector, nullptr);
                 // show path legend
@@ -197,7 +197,7 @@ GNEContainerFrame::tagSelected() {
             } else {
                 // hide modules
                 myContainerPlanAttributes->hideAttributesCreatorModule();
-                myNeteditAttributes->hideNeteditAttributesModule();
+                myNeteditAttributesEditor->hideAttributesEditor();
                 myPlanCreator->hidePathCreatorModule();
                 myPlanCreatorLegend->hidePlanCreatorLegend();
             }
@@ -206,7 +206,7 @@ GNEContainerFrame::tagSelected() {
             myPlanSelector->hidePlanSelector();
             myContainerAttributes->hideAttributesCreatorModule();
             myContainerPlanAttributes->hideAttributesCreatorModule();
-            myNeteditAttributes->hideNeteditAttributesModule();
+            myNeteditAttributesEditor->hideAttributesEditor();
             myPlanCreator->hidePathCreatorModule();
             myPlanCreatorLegend->hidePlanCreatorLegend();
         }
@@ -216,7 +216,7 @@ GNEContainerFrame::tagSelected() {
         myPlanSelector->hidePlanSelector();
         myContainerAttributes->hideAttributesCreatorModule();
         myContainerPlanAttributes->hideAttributesCreatorModule();
-        myNeteditAttributes->hideNeteditAttributesModule();
+        myNeteditAttributesEditor->hideAttributesEditor();
         myPlanCreator->hidePathCreatorModule();
         myPlanCreatorLegend->hidePlanCreatorLegend();
     }
@@ -239,7 +239,7 @@ GNEContainerFrame::demandElementSelected() {
             // show container plan attributes
             myContainerPlanAttributes->showAttributesCreatorModule(myPlanSelector->getCurrentPlanTemplate(), {});
             // show Netedit attributes module
-            myNeteditAttributes->showNeteditAttributesModule(myPlanSelector->getCurrentPlanTemplate());
+            myNeteditAttributesEditor->showAttributesEditor(myPlanSelector->getCurrentPlanTemplate());
             // show edge path creator module
             myPlanCreator->showPlanCreatorModule(myPlanSelector, nullptr);
             // show legend
@@ -247,7 +247,7 @@ GNEContainerFrame::demandElementSelected() {
         } else {
             // hide modules
             myContainerPlanAttributes->hideAttributesCreatorModule();
-            myNeteditAttributes->hideNeteditAttributesModule();
+            myNeteditAttributesEditor->hideAttributesEditor();
             myPlanCreator->hidePathCreatorModule();
         }
     } else {
@@ -255,7 +255,7 @@ GNEContainerFrame::demandElementSelected() {
         myPlanSelector->hidePlanSelector();
         myContainerAttributes->hideAttributesCreatorModule();
         myContainerPlanAttributes->hideAttributesCreatorModule();
-        myNeteditAttributes->hideNeteditAttributesModule();
+        myNeteditAttributesEditor->hideAttributesEditor();
         myPlanCreator->hidePathCreatorModule();
     }
 }

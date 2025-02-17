@@ -25,8 +25,6 @@
 #include <netedit/frames/GNEConsecutiveSelector.h>
 #include <netedit/frames/GNESelectorParent.h>
 #include <netedit/frames/GNETagSelector.h>
-#include <netedit/frames/GNENeteditAttributes.h>
-
 
 // ===========================================================================
 // class definitions
@@ -82,8 +80,8 @@ private:
     /// @brief internal wire attributes
     GNEAttributesCreator* myWireAttributes = nullptr;
 
-    /// @brief Netedit parameter
-    GNENeteditAttributes* myNeteditAttributes = nullptr;
+    /// @brief Netedit attributes editor
+    GNEAttributesEditor* myNeteditAttributesEditor = nullptr;
 
     /// @brief Select wire parent
     GNESelectorParent* mySelectorWireParent = nullptr;

@@ -24,8 +24,6 @@
 #include <netedit/frames/GNEAttributesCreator.h>
 #include <netedit/frames/GNETagSelector.h>
 #include <netedit/frames/GNEDrawingShape.h>
-#include <netedit/frames/GNENeteditAttributes.h>
-
 
 // ===========================================================================
 // class definitions
@@ -160,8 +158,8 @@ private:
     /// @brief shape internal attributes
     GNEAttributesCreator* myShapeAttributes;
 
-    /// @brief Netedit parameter
-    GNENeteditAttributes* myNeteditAttributes;
+    /// @brief Netedit attributes editor
+    GNEAttributesEditor* myNeteditAttributesEditor = nullptr;
 
     /// @brief Drawing shape
     GNEDrawingShape* myDrawingShape;

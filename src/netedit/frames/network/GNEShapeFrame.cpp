@@ -184,7 +184,7 @@ GNEShapeFrame::GEOPOICreator::onCmdCreateGEOPOI(FXObject*, FXSelector, void*) {
             // obtain shape attributes and values
             myShapeFrameParent->myShapeAttributes->getAttributesAndValues(myShapeFrameParent->myBaseShape, true);
             // obtain netedit attributes and values
-            myShapeFrameParent->myNeteditAttributes->getNeteditAttributesAndValues(myShapeFrameParent->myBaseShape, nullptr);
+            myShapeFrameParent->myNeteditAttributesEditor->fillSumoBaseObject(myShapeFrameParent->myBaseShape);
             // Check if ID has to be generated
             if (!myShapeFrameParent->myBaseShape->hasStringAttribute(SUMO_ATTR_ID)) {
                 myShapeFrameParent->myBaseShape->addStringAttribute(SUMO_ATTR_ID, myShapeFrameParent->myViewNet->getNet()->getAttributeCarriers()->generateAdditionalID(SUMO_TAG_POI));
@@ -234,8 +234,8 @@ GNEShapeFrame::GNEShapeFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
     // Create shape parameters
     myShapeAttributes = new GNEAttributesCreator(this);
 
-    // Create Netedit parameter
-    myNeteditAttributes = new GNENeteditAttributes(this);
+    // Create Netedit attribute editor
+    myNeteditAttributesEditor = new GNEAttributesEditor(this, TL("Netedit attributes"), GNEAttributesEditor::EditorType::CREATOR, GNEAttributesEditor::AttributeType::NETEDIT);
 
     // Create drawing controls
     myDrawingShape = new GNEDrawingShape(this);
@@ -343,8 +343,7 @@ GNEShapeFrame::shapeDrawed() {
         createBaseShapeObject(shapeTag);
         // obtain shape attributes and values
         myShapeAttributes->getAttributesAndValues(myBaseShape, true);
-        // obtain netedit attributes and values
-        myNeteditAttributes->getNeteditAttributesAndValues(myBaseShape, nullptr);
+        myNeteditAttributesEditor->fillSumoBaseObject(myBaseShape);
         // Check if ID has to be generated
         if (!myBaseShape->hasStringAttribute(SUMO_ATTR_ID)) {
             myBaseShape->addStringAttribute(SUMO_ATTR_ID, myViewNet->getNet()->getAttributeCarriers()->generateAdditionalID(shapeTag));
@@ -374,7 +373,7 @@ GNEShapeFrame::tagSelected() {
         // if there are parameters, show and Recalc groupBox
         myShapeAttributes->showAttributesCreatorModule(myShapeTagSelector->getCurrentTemplateAC(), {});
         // show netedit attributes
-        myNeteditAttributes->showNeteditAttributesModule(myShapeTagSelector->getCurrentTemplateAC());
+        myNeteditAttributesEditor->showAttributesEditor(myShapeTagSelector->getCurrentTemplateAC());
         // get shape tag
         SumoXMLTag shapeTag = myShapeTagSelector->getCurrentTemplateAC()->getTagProperty()->getTag();
         // Check if drawing mode has to be shown
@@ -392,7 +391,7 @@ GNEShapeFrame::tagSelected() {
     } else {
         // hide all widgets
         myShapeAttributes->hideAttributesCreatorModule();
-        myNeteditAttributes->hideNeteditAttributesModule();
+        myNeteditAttributesEditor->hideAttributesEditor();
         myDrawingShape->hideDrawingShape();
         myGEOPOICreator->hideGEOPOICreatorModule();
     }
@@ -437,8 +436,7 @@ GNEShapeFrame::processClickPOI(SumoXMLTag POITag, const Position& clickedPositio
     createBaseShapeObject(POITag);
     // obtain shape attributes and values
     myShapeAttributes->getAttributesAndValues(myBaseShape, true);
-    // obtain netedit attributes and values
-    myNeteditAttributes->getNeteditAttributesAndValues(myBaseShape, viewObjects.getLaneFront());
+    myNeteditAttributesEditor->fillSumoBaseObject(myBaseShape);
     // Check if ID has to be generated
     if (!myBaseShape->hasStringAttribute(SUMO_ATTR_ID)) {
         myBaseShape->addStringAttribute(SUMO_ATTR_ID, myViewNet->getNet()->getAttributeCarriers()->generateAdditionalID(POITag));
@@ -468,8 +466,7 @@ GNEShapeFrame::processClickPOIGeo(const Position& clickedPosition, const GNEView
     createBaseShapeObject(SUMO_TAG_POI);
     // obtain shape attributes and values
     myShapeAttributes->getAttributesAndValues(myBaseShape, true);
-    // obtain netedit attributes and values
-    myNeteditAttributes->getNeteditAttributesAndValues(myBaseShape, viewObjects.getLaneFront());
+    myNeteditAttributesEditor->fillSumoBaseObject(myBaseShape);
     // Check if ID has to be generated
     if (!myBaseShape->hasStringAttribute(SUMO_ATTR_ID)) {
         myBaseShape->addStringAttribute(SUMO_ATTR_ID, myViewNet->getNet()->getAttributeCarriers()->generateAdditionalID(SUMO_TAG_POI));
@@ -508,7 +505,7 @@ GNEShapeFrame::processClickPOILanes(const GNEViewNetHelper::ViewObjectsSelector&
     // obtain shape attributes and values
     myShapeAttributes->getAttributesAndValues(myBaseShape, true);
     // obtain netedit attributes and values
-    myNeteditAttributes->getNeteditAttributesAndValues(myBaseShape, viewObjects.getLaneFront());
+    myNeteditAttributesEditor->fillSumoBaseObject(myBaseShape);
     // Check if ID has to be generated
     if (!myBaseShape->hasStringAttribute(SUMO_ATTR_ID)) {
         myBaseShape->addStringAttribute(SUMO_ATTR_ID, myViewNet->getNet()->getAttributeCarriers()->generateAdditionalID(SUMO_TAG_POI));

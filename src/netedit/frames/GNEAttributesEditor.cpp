@@ -251,6 +251,20 @@ GNEAttributesEditor::refreshAttributesEditor() {
 }
 
 
+SumoXMLAttr
+GNEAttributesEditor::fillSumoBaseObject(CommonXMLStructure::SumoBaseObject* baseObjet) const {
+    // iterate over every attribute and stop if there was an error (
+    for (const auto &row : myAttributesEditorRows) {
+        const auto fillResult = row->fillSumoBaseObject(baseObjet);
+        if (fillResult != SUMO_ATTR_NOTHING) {
+            return fillResult;
+        }
+    }
+    // all ok, then return nothing
+    return SUMO_ATTR_NOTHING;
+}
+
+
 bool
 GNEAttributesEditor::isReparenting() const {
     return myReparentTag != SUMO_TAG_NOTHING;

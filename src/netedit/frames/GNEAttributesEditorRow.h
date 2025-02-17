@@ -52,6 +52,9 @@ public:
     /// @brief check if current attribute row is shown
     bool isAttributeRowShown() const;
 
+    /// @brief fill sumo Base object
+    SumoXMLAttr fillSumoBaseObject(CommonXMLStructure::SumoBaseObject* baseObjet) const;
+
     /// @name FOX-callbacks
     /// @{
 
@@ -134,8 +137,8 @@ private:
     /// @brief pointer to attribute table parent
     GNEAttributesEditor* myAttributeTable;
 
-    /// @brief edited attribute
-    SumoXMLAttr myAttribute = SUMO_ATTR_NOTHING;
+    /// @brief edited attribute property
+    const GNEAttributeProperties* myAttrProperty = nullptr;
 
     /// @brief pointer to attribute label
     MFXLabelTooltip* myAttributeLabel = nullptr;

@@ -23,11 +23,9 @@
 #include <netedit/frames/GNEAttributesCreator.h>
 #include <netedit/frames/GNEConsecutiveSelector.h>
 #include <netedit/frames/GNEFrame.h>
-#include <netedit/frames/GNENeteditAttributes.h>
 #include <netedit/frames/GNENetworkSelector.h>
 #include <netedit/frames/GNESelectorParent.h>
 #include <netedit/frames/GNETagSelector.h>
-
 
 // ===========================================================================
 // class definitions
@@ -117,7 +115,7 @@ public:
     GNEConsecutiveSelector* getConsecutiveLaneSelector() const;
 
     /// @brief get Netedit parameter
-    GNENeteditAttributes* getNeteditAttributes() const;
+    GNEAttributesEditor* getNeteditAttributesEditor() const;
 
     /// @brief create path
     bool createPath(const bool useLastRoute);
@@ -151,8 +149,8 @@ private:
     /// @brief internal additional attributes
     GNEAttributesCreator* myAdditionalAttributes = nullptr;
 
-    /// @brief Netedit parameter
-    GNENeteditAttributes* myNeteditAttributes = nullptr;
+    /// @brief Netedit attributes editor
+    GNEAttributesEditor* myNeteditAttributesEditor = nullptr;
 
     /// @brief Module for select a single parent additional
     GNESelectorParent* mySelectorAdditionalParent = nullptr;

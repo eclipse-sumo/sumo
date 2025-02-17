@@ -57,8 +57,8 @@ GNEPersonFrame::GNEPersonFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
     // create person plan attributes
     myPersonPlanAttributes = new GNEAttributesCreator(this);
 
-    // Create Netedit parameter
-    myNeteditAttributes = new GNENeteditAttributes(this);
+    // Create Netedit attribute editor
+    myNeteditAttributesEditor = new GNEAttributesEditor(this, TL("Netedit attributes"), GNEAttributesEditor::EditorType::CREATOR, GNEAttributesEditor::AttributeType::NETEDIT);
 
     // create GNEPlanCreator Module
     myPlanCreator = new GNEPlanCreator(this, viewNet->getNet()->getDemandPathManager());
@@ -189,7 +189,7 @@ GNEPersonFrame::tagSelected() {
                 // show person plan attributes
                 myPersonPlanAttributes->showAttributesCreatorModule(myPlanSelector->getCurrentPlanTemplate(), {});
                 // show Netedit attributes module
-                myNeteditAttributes->showNeteditAttributesModule(myPlanSelector->getCurrentPlanTemplate());
+                myNeteditAttributesEditor->showAttributesEditor(myPlanSelector->getCurrentPlanTemplate());
                 // show edge path creator module
                 myPlanCreator->showPlanCreatorModule(myPlanSelector, nullptr);
                 // show path legend
@@ -197,7 +197,7 @@ GNEPersonFrame::tagSelected() {
             } else {
                 // hide modules
                 myPersonPlanAttributes->hideAttributesCreatorModule();
-                myNeteditAttributes->hideNeteditAttributesModule();
+                myNeteditAttributesEditor->hideAttributesEditor();
                 myPlanCreator->hidePathCreatorModule();
                 myPlanCreatorLegend->hidePlanCreatorLegend();
             }
@@ -206,7 +206,7 @@ GNEPersonFrame::tagSelected() {
             myPlanSelector->hidePlanSelector();
             myPersonAttributes->hideAttributesCreatorModule();
             myPersonPlanAttributes->hideAttributesCreatorModule();
-            myNeteditAttributes->hideNeteditAttributesModule();
+            myNeteditAttributesEditor->hideAttributesEditor();
             myPlanCreator->hidePathCreatorModule();
             myPlanCreatorLegend->hidePlanCreatorLegend();
         }
@@ -216,7 +216,7 @@ GNEPersonFrame::tagSelected() {
         myPlanSelector->hidePlanSelector();
         myPersonAttributes->hideAttributesCreatorModule();
         myPersonPlanAttributes->hideAttributesCreatorModule();
-        myNeteditAttributes->hideNeteditAttributesModule();
+        myNeteditAttributesEditor->hideAttributesEditor();
         myPlanCreator->hidePathCreatorModule();
         myPlanCreatorLegend->hidePlanCreatorLegend();
     }
@@ -239,7 +239,7 @@ GNEPersonFrame::demandElementSelected() {
             // show person plan attributes
             myPersonPlanAttributes->showAttributesCreatorModule(myPlanSelector->getCurrentPlanTemplate(), {});
             // show Netedit attributes module
-            myNeteditAttributes->showNeteditAttributesModule(myPlanSelector->getCurrentPlanTemplate());
+            myNeteditAttributesEditor->showAttributesEditor(myPlanSelector->getCurrentPlanTemplate());
             // show edge path creator module
             myPlanCreator->showPlanCreatorModule(myPlanSelector, nullptr);
             // show legend
@@ -247,7 +247,7 @@ GNEPersonFrame::demandElementSelected() {
         } else {
             // hide modules
             myPersonPlanAttributes->hideAttributesCreatorModule();
-            myNeteditAttributes->hideNeteditAttributesModule();
+            myNeteditAttributesEditor->hideAttributesEditor();
             myPlanCreator->hidePathCreatorModule();
         }
     } else {
@@ -255,7 +255,7 @@ GNEPersonFrame::demandElementSelected() {
         myPlanSelector->hidePlanSelector();
         myPersonAttributes->hideAttributesCreatorModule();
         myPersonPlanAttributes->hideAttributesCreatorModule();
-        myNeteditAttributes->hideNeteditAttributesModule();
+        myNeteditAttributesEditor->hideAttributesEditor();
         myPlanCreator->hidePathCreatorModule();
     }
 }

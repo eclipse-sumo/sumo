@@ -81,6 +81,9 @@ public:
     /// @brief refresh attribute editor
     void refreshAttributesEditor();
 
+    /// @brief fill sumo Base object
+    SumoXMLAttr fillSumoBaseObject(CommonXMLStructure::SumoBaseObject* baseObjet) const;
+
     /// @name Functions related with selecting parents
     /// @{
     /// @brief check if we're selecting a parent clicking over view

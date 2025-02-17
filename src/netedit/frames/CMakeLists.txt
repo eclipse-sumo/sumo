@@ -34,8 +34,6 @@ set(netedit_frames_SRCS
    GNEAttributesCreatorRow.cpp
    GNEFlowEditor.h
    GNEFlowEditor.cpp
-   GNENeteditAttributes.h
-   GNENeteditAttributes.cpp
    GNETLSTable.h
    GNETLSTable.cpp
    GNEPlanSelector.h

@@ -5570,7 +5570,99 @@ GNEViewNet::drawTemporalJunctionTLSLines() const {
 void
 GNEViewNet::drawNeteditAttributesReferences() {
     if (myEditModes.isCurrentSupermodeNetwork() && (myEditModes.networkEditMode == NetworkEditMode::NETWORK_ADDITIONAL)) {
-        myViewParent->getAdditionalFrame()->getNeteditAttributes()->drawLaneReference(gViewObjectsHandler.markedLane);
+/*
+        myViewParent->getAdditionalFrame()->getNeteditAttributesEditor()->drawLaneReference(gViewObjectsHandler.markedLane);
+        // get element length
+        const double elementLength = getElementLength();
+        // check lane
+        if (lane && shown() && myReferencePointComboBox->shown() && (myReferencePoint != ReferencePoint::INVALID) &&
+                (elementLength != INVALID_DOUBLE)) {
+            // Obtain position of the mouse over lane (limited over grid)
+            const double mousePosOverLane = lane->getLaneShape().nearest_offset_to_point2D(myFrameParent->getViewNet()->snapToActiveGrid(myFrameParent->getViewNet()->getPositionInformation())) / lane->getLengthGeometryFactor();
+            // continue depending of mouse pos over lane
+            if (mousePosOverLane >= 0) {
+                // set start and end position
+                const double startPos = setStartPosition(mousePosOverLane, elementLength);
+                const double endPos = setEndPosition(mousePosOverLane, elementLength, lane->getLaneShape().length2D());
+                // get lane geometry
+                const auto laneShape = lane->getLaneGeometry().getShape();
+                // difference between start-end position and elementLength
+                const auto lengthDifference = (endPos - startPos) - elementLength;
+                // set color
+                RGBColor segmentColor;
+                // check if force length
+                if (myForceLengthFrame->shown() && (myForceLengthCheckButton->getCheck() == TRUE) && abs(lengthDifference) >= 0.1) {
+                    segmentColor = RGBColor::RED;
+                } else {
+                    segmentColor = RGBColor::ORANGE;
+                }
+                // declare geometries
+                GUIGeometry geometry;
+                // trim geomtry
+                geometry.updateGeometry(laneShape,
+                                        (startPos == INVALID_DOUBLE) ? -1 : startPos,
+                                        Position::INVALID,
+                                        (endPos == INVALID_DOUBLE) ? -1 : endPos,
+                                        Position::INVALID);
+                // push layer matrix
+                GLHelper::pushMatrix();
+                // translate to temporal shape layer
+                glTranslated(0, 0, GLO_TEMPORALSHAPE);
+                // set color
+                GLHelper::setColor(segmentColor);
+                // draw temporal edge
+                GUIGeometry::drawGeometry(lane->getDrawingConstants()->getDetail(), geometry, 0.45);
+                // check if draw starPos
+                if (startPos != INVALID_DOUBLE) {
+                    // cut start pos
+                    geometry.updateGeometry(laneShape, startPos, Position::INVALID, startPos + 0.5, Position::INVALID);
+                    // draw startPos
+                    GUIGeometry::drawGeometry(lane->getDrawingConstants()->getDetail(), geometry, 1);
+                } else {
+                    // push circle matrix
+                    GLHelper::pushMatrix();
+                    // translate to test layer, but under magenta square
+                    glTranslated(laneShape.front().x(), laneShape.front().y(), 0);
+                    // draw circle
+                    GLHelper::drawFilledCircle(0.8, 8);
+                    // pop circle matrix
+                    GLHelper::popMatrix();
+                }
+                // check if draw endPos
+                if (endPos != INVALID_DOUBLE) {
+                    // cut endPos
+                    geometry.updateGeometry(laneShape, endPos - 0.5, Position::INVALID, endPos, Position::INVALID);
+                    // draw endPos
+                    GUIGeometry::drawGeometry(lane->getDrawingConstants()->getDetail(), geometry, 1);
+                } else {
+                    // push circle matrix
+                    GLHelper::pushMatrix();
+                    // translate to test layer, but under magenta square
+                    glTranslated(laneShape.back().x(), laneShape.back().y(), 0);
+                    // draw circle
+                    GLHelper::drawFilledCircle(0.8, 8);
+                    // pop circle matrix
+                    GLHelper::popMatrix();
+                }
+                // set color
+                GLHelper::setColor(segmentColor.changedBrightness(-32));
+                // translate to front
+                glTranslated(0, 0, 2);
+                // check if draw at end, or over circle
+                if (endPos == INVALID_DOUBLE) {
+                    // cut endPos
+                    geometry.updateGeometry(laneShape, laneShape.length() - 0.5, Position::INVALID, laneShape.length(), Position::INVALID);
+                    // draw triangle at end
+                    GLHelper::drawTriangleAtEnd(geometry.getShape().front(), geometry.getShape().back(), (double) 0.45, (double) 0.3, 0.3);
+                } else {
+                    // draw triangle at end
+                    GLHelper::drawTriangleAtEnd(geometry.getShape().front(), geometry.getShape().back(), (double) 0.45, (double) 0.3, -0.1);
+                }
+                // pop layer matrix
+                GLHelper::popMatrix();
+            }
+        }
+*/
     }
 }
 
