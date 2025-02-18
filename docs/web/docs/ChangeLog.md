@@ -18,15 +18,23 @@ title: ChangeLog
 - TraCI
   - Setting vehicle parameter 'lcContRight' is now working #16147
   - Fixed bug where `traci.vehicle.moveToXY` matched onto the wrong internal lane #15282
+  - Fixed bug where `vehicle.slowDown` require and additional simulation step to reach the taget speed and `vehicle.setAcceleration` was achieving the wrong acceleration #7361
+  - Fixed invalid active person count after person removal #16192
+  - `person.removeStage` now works for a taxi-driving stage if the taxi is already en route to pick-up #11620
+
 
 ### Enhancements
 
 - sumo
-  - departPos=stop now works for any departLane on the stop edge #16133
+  - `departPos=stop` now works for any departLane on the stop edge #16133
   - Pedestrians are now included in full output #16159
+  - Added stop attribute `jumpUntil` to set a minimum time for the end of a jump #16153
+
 
 - netconvert
-  - Added option **--junctions.join.parallel-threshold DREGREES** to increase user control over joining junctions (with **--junctions.join**) #16140
+  - Added option **--junctions.join.parallel-threshold DEGREES** to increase user control over joining junctions (with **--junctions.join**) #16140
+  - Added option **--osm.annotate-defaults** to document whether speed and lane number were based on OSM data or typemap default values #16094
+
 
 - sumo-gui
   - started work on Japanese translation #16129
@@ -38,10 +46,13 @@ title: ChangeLog
   - `vehicle.setSpeedMode` now supports a 7th bit to control adherence to the road speed limit #3811
   - `traci.start` now supports argument `traceGetters="print"`. When this is set, the generated traceFile will print the outputs of all *get* commands when replayed. #16156
   - Added function `traci.route.delete` #15452
+  - `simulation.getMinExpectedNumber` now takes into account pending taxi reservations #16187
 
 
 - Tools
   - netcheck.py: Added option **--right-of-way** to find selected cases of faulty right-of-way rules (currently only on-ramps are check) #16036
+  - jtcrouter.py: Added option **--additional-files** which are passed to [jtrrouter.md] #16191
+
 
 
 
