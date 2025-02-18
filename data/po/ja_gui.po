@@ -8,15 +8,16 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-13 10:07+0100\n"
-"PO-Revision-Date: 2025-02-12 08:06+0000\n"
+"PO-Revision-Date: 2025-02-18 03:00+0000\n"
 "Last-Translator: Tomosawa Ryo <tomosawa.r.103@ms.saitama-u.ac.jp>\n"
-"Language-Team: Japanese <https://hosted.weblate.org/projects/eclipse-sumo/sumo-gui-netedit/ja/>\n"
+"Language-Team: Japanese <https://hosted.weblate.org/projects/eclipse-sumo/"
+"sumo-gui-netedit/ja/>\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.10-dev\n"
+"X-Generator: Weblate 5.10.1-dev\n"
 
 #: src/gui/GUIApplicationWindow.cpp:308 src/gui/GUIApplicationWindow.cpp:311
 #: src/gui/GUIApplicationWindow.cpp:2271 src/gui/GUIApplicationWindow.cpp:2272
@@ -2045,19 +2046,20 @@ msgstr "連続停止時間[s]"
 
 #: src/guisim/GUIPerson.cpp:260
 msgid "desired max speed [m/s]"
-msgstr ""
+msgstr "予定最高速度[m/s]"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:174
 msgid "Switch to '%'"
-msgstr ""
+msgstr "'%'に切り替え"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:182
 msgid "Switch off"
-msgstr ""
+msgstr "スイッチオフ"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:184
+#, fuzzy
 msgid "Track Phases"
-msgstr ""
+msgstr "フェーズを追跡"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:185
 msgid "Show Phases"
