@@ -444,7 +444,7 @@ GNETagPropertiesDatabase::fillNetworkElements() {
 
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_POSITION,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::POSITION | GNEAttributeProperties::UPDATEGEOMETRY, // virtual attribute from the combination of the actually attributes SUMO_ATTR_X, SUMO_ATTR_Y
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("The x-y-z position of the node on the plane in meters"));
         myTagProperties[currentTag]->addAttribute(attrProperty);
 
@@ -457,7 +457,7 @@ GNETagPropertiesDatabase::fillNetworkElements() {
 
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_SHAPE,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::POSITION | GNEAttributeProperties::LIST | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("A custom shape for that node"));
         myTagProperties[currentTag]->addAttribute(attrProperty);
 
@@ -712,7 +712,7 @@ GNETagPropertiesDatabase::fillNetworkElements() {
 
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_SHAPE,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::POSITION | GNEAttributeProperties::LIST | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("If the shape is given it should start and end with the positions of the from-node and to-node"));
         myTagProperties[currentTag]->addAttribute(attrProperty);
 
@@ -990,7 +990,7 @@ GNETagPropertiesDatabase::fillNetworkElements() {
 
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_SHAPE,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::POSITION | GNEAttributeProperties::LIST | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("Overrides default shape of pedestrian sidewalk"));
         myTagProperties[currentTag]->addAttribute(attrProperty);
 
@@ -1251,13 +1251,13 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
         // set values of attributes
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_LANE,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("The name of the lane the stop access shall be located at"));
         myTagProperties[currentTag]->addAttribute(attrProperty);
 
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_POSITION,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("The position on the lane (the lower position on the lane) in meters"),
                 "0.00");
         myTagProperties[currentTag]->addAttribute(attrProperty);
@@ -1460,7 +1460,7 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
         // set values of attributes
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_POSITION,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::POSITION | GNEAttributeProperties::UPDATEGEOMETRY, // virtual attribute from the combination of the actually attributes SUMO_ATTR_X, SUMO_ATTR_Y
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("The x-y-z position of the node on the plane in meters"));
         myTagProperties[currentTag]->addAttribute(attrProperty);
 
@@ -1515,13 +1515,13 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
 
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_LANE,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("The id of the lane the detector shall be laid on. The lane must be a part of the network used"));
         myTagProperties[currentTag]->addAttribute(attrProperty);
 
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_POSITION,
                 GNEAttributeProperties::FLOAT | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("The position on the lane the detector shall be laid on in meters. The position must be a value between -1*lane's length and the lane's length"));
         myTagProperties[currentTag]->addAttribute(attrProperty);
 
@@ -1592,13 +1592,13 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
 
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_LANE,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("The id of the lane the detector shall be laid on. The lane must be a part of the network used"));
         myTagProperties[currentTag]->addAttribute(attrProperty);
 
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_POSITION,
                 GNEAttributeProperties::FLOAT | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("The position on the lane the detector shall be laid on in meters"));
         myTagProperties[currentTag]->addAttribute(attrProperty);
 
@@ -1710,19 +1710,19 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
 
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_LANES,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::SECUENCIAL | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("The sequence of lane ids in which the detector shall be laid on"));
         myTagProperties[currentTag]->addAttribute(attrProperty);
 
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_POSITION,
                 GNEAttributeProperties::FLOAT | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("The position on the lane the detector shall be laid on in meters"));
         myTagProperties[currentTag]->addAttribute(attrProperty);
 
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_ENDPOS,
                 GNEAttributeProperties::FLOAT | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("The end position on the lane the detector shall be laid on in meters"));
         myTagProperties[currentTag]->addAttribute(attrProperty);
 
@@ -1827,7 +1827,7 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
 
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_POSITION,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::POSITION | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("X-Y position of detector in editor (Only used in netedit)"),
                 "0,0"); // virtual attribute from the combination of the actually attributes SUMO_ATTR_X, SUMO_ATTR_Y
         myTagProperties[currentTag]->addAttribute(attrProperty);
@@ -1911,14 +1911,14 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
         {SUMO_TAG_ENTRY_EXIT_DETECTOR}, FXRGBA(210, 233, 255, 255));
         // set values of attributes
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_LANE,
-                GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE,
+                GNEAttributeProperties::EDITMODE,
                 GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
                 TL("The id of the lane the detector shall be laid on. The lane must be a part of the network used"));
         myTagProperties[currentTag]->addAttribute(attrProperty);
 
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_POSITION,
                 GNEAttributeProperties::FLOAT | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("The position on the lane the detector shall be laid on in meters"));
         myTagProperties[currentTag]->addAttribute(attrProperty);
 
@@ -1945,13 +1945,13 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
         // set values of attributes
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_LANE,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("The id of the lane the detector shall be laid on. The lane must be a part of the network used"));
         myTagProperties[currentTag]->addAttribute(attrProperty);
 
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_POSITION,
                 GNEAttributeProperties::FLOAT | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("The position on the lane the detector shall be laid on in meters"));
         myTagProperties[currentTag]->addAttribute(attrProperty);
 
@@ -1984,13 +1984,13 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
 
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_LANE,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("The id of the lane the detector shall be laid on. The lane must be a part of the network used"));
         myTagProperties[currentTag]->addAttribute(attrProperty);
 
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_POSITION,
                 GNEAttributeProperties::FLOAT | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("The position on the lane the detector shall be laid on in meters. The position must be a value between -1*lane's length and the lane's length"));
         myTagProperties[currentTag]->addAttribute(attrProperty);
 
@@ -2109,7 +2109,7 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
 
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_POSITION,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::POSITION | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("X-Y position of detector in editor (Only used in netedit)"),
                 "0,0"); // virtual attribute from the combination of the actually attributes SUMO_ATTR_X, SUMO_ATTR_Y
         myTagProperties[currentTag]->addAttribute(attrProperty);
@@ -2192,7 +2192,7 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
 
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_POSITION,
                 GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("The position of the calibrator on the specified lane"),
                 "0.00");
         myTagProperties[currentTag]->addAttribute(attrProperty);
@@ -2254,13 +2254,13 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
 
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_LANE,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("The id of lane in the simulation network"));
         myTagProperties[currentTag]->addAttribute(attrProperty);
 
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_POSITION,
                 GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("The position of the calibrator on the specified lane"),
                 "0.00");
         myTagProperties[currentTag]->addAttribute(attrProperty);
@@ -2385,7 +2385,7 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
 
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_POSITION,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::POSITION | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("X,Y position in editor (Only used in netedit)"),
                 "0,0"); // virtual attribute from the combination of the actually attributes SUMO_ATTR_X, SUMO_ATTR_Y
         myTagProperties[currentTag]->addAttribute(attrProperty);
@@ -2509,7 +2509,7 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
         // set values of attributes
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_LANE,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::SYNONYM | GNEAttributeProperties::UPDATEGEOMETRY,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("Lane ID"));
         attrProperty->setSynonym(SUMO_ATTR_ID);
         myTagProperties[currentTag]->addAttribute(attrProperty);
@@ -2671,7 +2671,7 @@ GNETagPropertiesDatabase::fillShapeElements() {
 
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_SHAPE,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::POSITION | GNEAttributeProperties::LIST | GNEAttributeProperties::UNIQUE,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("The shape of the polygon"));
         myTagProperties[currentTag]->addAttribute(attrProperty);
 
@@ -2776,7 +2776,7 @@ GNETagPropertiesDatabase::fillShapeElements() {
 
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_POSITION,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::POSITION | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY, // virtual attribute from the combination of the actually attributes SUMO_ATTR_X, SUMO_ATTR_Y
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("The position in view"));
         myTagProperties[currentTag]->addAttribute(attrProperty);
 
@@ -2802,13 +2802,13 @@ GNETagPropertiesDatabase::fillShapeElements() {
 
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_LANE,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("The name of the lane at which the POI is located at"));
         myTagProperties[currentTag]->addAttribute(attrProperty);
 
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_POSITION,
                 GNEAttributeProperties::FLOAT | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("The position on the named lane or in the net in meters at which the POI is located at"));
         myTagProperties[currentTag]->addAttribute(attrProperty);
 
@@ -2889,7 +2889,7 @@ GNETagPropertiesDatabase::fillTAZElements() {
 
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_SHAPE,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::POSITION | GNEAttributeProperties::LIST | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("The shape of the TAZ"));
         myTagProperties[currentTag]->addAttribute(attrProperty);
 
@@ -2994,7 +2994,7 @@ GNETagPropertiesDatabase::fillWireElements() {
 
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_POSITION,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::POSITION | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("X-Y position of detector in editor (Only used in netedit)"),
                 "0,0"); // virtual attribute from the combination of the actually attributes SUMO_ATTR_X, SUMO_ATTR_Y
         myTagProperties[currentTag]->addAttribute(attrProperty);
@@ -3043,14 +3043,14 @@ GNETagPropertiesDatabase::fillWireElements() {
 
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_STARTPOS,
                 GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::DEFAULTVALUE,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("Starting position in the specified lane"),
                 "0.0");
         myTagProperties[currentTag]->addAttribute(attrProperty);
 
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_ENDPOS,
                 GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::DEFAULTVALUE,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("Ending position in the specified lane"),
                 toString(INVALID_DOUBLE));
         myTagProperties[currentTag]->addAttribute(attrProperty);
@@ -3136,7 +3136,7 @@ GNETagPropertiesDatabase::fillJuPedSimElements() {
 
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_SHAPE,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::POSITION | GNEAttributeProperties::LIST | GNEAttributeProperties::UNIQUE,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("The shape of the walkable area"));
         myTagProperties[currentTag]->addAttribute(attrProperty);
 
@@ -3171,7 +3171,7 @@ GNETagPropertiesDatabase::fillJuPedSimElements() {
 
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_SHAPE,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::POSITION | GNEAttributeProperties::LIST | GNEAttributeProperties::UNIQUE,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("The shape of the obstacle"));
         myTagProperties[currentTag]->addAttribute(attrProperty);
 
@@ -4045,19 +4045,19 @@ GNETagPropertiesDatabase::fillStopElements() {
         // set values of attributes
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_LANE,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("The name of the lane the stop shall be located at"));
         myTagProperties[currentTag]->addAttribute(attrProperty);
 
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_STARTPOS,
                 GNEAttributeProperties::FLOAT | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("The begin position on the lane (the lower position on the lane) in meters"));
         myTagProperties[currentTag]->addAttribute(attrProperty);
 
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_ENDPOS,
                 GNEAttributeProperties::FLOAT | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("The end position on the lane (the higher position on the lane) in meters, must be larger than startPos by more than 0.1m"));
         myTagProperties[currentTag]->addAttribute(attrProperty);
 
@@ -4219,19 +4219,19 @@ GNETagPropertiesDatabase::fillWaypointElements() {
         // set values of attributes
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_LANE,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("The name of the lane the waypoint shall be located at"));
         myTagProperties[currentTag]->addAttribute(attrProperty);
 
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_STARTPOS,
                 GNEAttributeProperties::FLOAT | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("The begin position on the lane (the lower position on the lane) in meters"));
         myTagProperties[currentTag]->addAttribute(attrProperty);
 
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_ENDPOS,
                 GNEAttributeProperties::FLOAT | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("The end position on the lane (the higher position on the lane) in meters, must be larger than startPos by more than 0.1m"));
         myTagProperties[currentTag]->addAttribute(attrProperty);
 
