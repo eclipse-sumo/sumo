@@ -2621,7 +2621,7 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
         // set values of attributes
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_ID,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY | GNEAttributeProperties::AUTOMATICID,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("Edge in which vaporizer is placed"));
         myTagProperties[currentTag]->addAttribute(attrProperty);
 
