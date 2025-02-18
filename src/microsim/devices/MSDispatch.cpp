@@ -156,13 +156,37 @@ MSDispatch::removeReservation(MSTransportable* person,
                 res->persons.erase(person);
                 if (res->persons.empty()) {
                     removedID = res->id;
-                    fulfilledReservation(res);
                     it->second.erase(itRes);
+                    // cleans up MSDispatch_Greedy
+                    fulfilledReservation(res);
+                    if (it->second.empty()) {
+                        myGroupReservations.erase(it);
+                    }
                 }
                 break;
             }
         }
+    } else {
+        auto it2 = myRunningReservations.find(group);
+        if (it2 != myRunningReservations.end()) {
+            for (auto item : it2->second) {
+                const Reservation* res = item.first;
+                if (res->persons.count(person) != 0
+                        && res->from == from
+                        && res->to == to
+                        && res->fromPos == fromPos
+                        && res->toPos == toPos) {
+                    MSDevice_Taxi* taxi = item.second;
+                    taxi->cancelCustomer(person);
+                    if (res->persons.empty()) {
+                        removedID = res->id;
+                    }
+                    break;
+                }
+            }
+        }
     }
+    myHasServableReservations = myGroupReservations.size() > 0;
 #ifdef DEBUG_RESERVATION
     if (DEBUG_COND2(person)) std::cout << SIMTIME
                                            << " removeReservation p=" << person->getID()
@@ -170,6 +194,7 @@ MSDispatch::removeReservation(MSTransportable* person,
                                            << " to=" << to->getID() << " toPos=" << toPos
                                            << " group=" << group
                                            << " removedID=" << removedID
+                                           << " hasServable=" << myHasServableReservations
                                            << "\n";
 #endif
     return removedID;
@@ -269,6 +294,9 @@ MSDispatch::servedReservation(const Reservation* res, MSDevice_Taxi* taxi) {
 void
 MSDispatch::fulfilledReservation(const Reservation* res) {
     myRunningReservations[res->group].erase(res);
+    if (myRunningReservations[res->group].empty()) {
+        myRunningReservations.erase(res->group);
+    }
     delete res;
 }
 
