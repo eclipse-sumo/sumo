@@ -458,15 +458,24 @@ GNEAttributesEditor::moveLaneDown() {
 void
 GNEAttributesEditor::fillStartEndAttributes(CommonXMLStructure::SumoBaseObject* baseObject) const {
     if (baseObject->hasDoubleAttribute(SUMO_ATTR_POSITION) && baseObject->hasDoubleAttribute(GNE_ATTR_SIZE) && 
-        baseObject->hasDoubleAttribute(GNE_ATTR_LANELENGTH) && baseObject->hasBoolAttribute(GNE_ATTR_FORCESIZE)) {
+        baseObject->hasDoubleAttribute(GNE_ATTR_LANELENGTH) && baseObject->hasBoolAttribute(GNE_ATTR_FORCESIZE) &&
+        baseObject->hasStringAttribute(GNE_ATTR_REFERENCE)) {
         // extract parameters
         const double centerPosition = baseObject->getDoubleAttribute(SUMO_ATTR_POSITION);
         const double size = baseObject->getDoubleAttribute(GNE_ATTR_SIZE);
         const double laneLength = baseObject->getDoubleAttribute(GNE_ATTR_LANELENGTH);
         const bool forceSize = baseObject->getBoolAttribute(GNE_ATTR_FORCESIZE);
+        const auto reference = baseObject->getStringAttribute(GNE_ATTR_REFERENCE);
         // we fill startPos and endPos using the existent parameters
         double startPos = centerPosition - (size * 0.5);
         double endPos = centerPosition + (size * 0.5);
+        if (reference == SUMOXMLDefinitions::ReferencePositions.getString(ReferencePosition::LEFT)) {
+            startPos = centerPosition - size;
+            endPos = centerPosition;
+        } else if (reference == SUMOXMLDefinitions::ReferencePositions.getString(ReferencePosition::RIGHT)) {
+            startPos = centerPosition;
+            endPos = centerPosition + size;
+        }
         // adjust values
         if (startPos < 0) {
             startPos = 0;
