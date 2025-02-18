@@ -29,6 +29,7 @@
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/gui/globjects/GUIGlObjectTypes.h>
 #include <utils/gui/div/GUIGlobalViewObjectsHandler.h>
+#include <utils/xml/CommonXMLStructure.h>
 
 // ===========================================================================
 // enum
@@ -337,6 +338,9 @@ struct GNEViewNetHelper {
 
         /// @brief update merging junctions
         void updateMergingJunctions();
+
+        /// @brief fill the given SUMO base object with the current single objects
+        void fillSumoBaseObject(CommonXMLStructure::SumoBaseObject* baseObjet) const;
 
         /// @brief filter all elements except the given GLO type
         void filterAllExcept(GUIGlObjectType exception);

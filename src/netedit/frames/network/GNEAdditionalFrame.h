@@ -128,8 +128,11 @@ protected:
     void tagSelected();
 
 private:
-    // @brief create baseAdditionalObject
-    bool createBaseAdditionalObject(const GNETagProperties* tagProperty);
+    // @brief reste base additional object
+    void resetBaseAdditionalObject();
+
+    // @brief init baseAdditionalObject
+    bool initBaseAdditionalObject(const GNETagProperties* tagProperty, const GNEViewNetHelper::ViewObjectsSelector& viewObjects);
 
     /// @brief build common additional attributes
     bool buildAdditionalCommonAttributes(const GNETagProperties* tagValues);

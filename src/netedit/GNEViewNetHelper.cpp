@@ -389,6 +389,41 @@ GNEViewNetHelper::ViewObjectsSelector::updateMergingJunctions() {
 
 
 void
+GNEViewNetHelper::ViewObjectsSelector::fillSumoBaseObject(CommonXMLStructure::SumoBaseObject* baseObjet) const {
+    if (myViewObjects.junctions.size() > 0) {
+        baseObjet->addParentID(SUMO_TAG_JUNCTION, myViewObjects.junctions.front()->getID());
+    }
+    if (myViewObjects.edges.size() > 0) {
+        baseObjet->addParentID(SUMO_TAG_EDGE, myViewObjects.edges.front()->getID());
+    }
+    if (myViewObjects.lanes.size() > 0) {
+        baseObjet->addParentID(SUMO_TAG_LANE, myViewObjects.lanes.front()->getID());
+    }
+    if (myViewObjects.crossings.size() > 0) {
+        baseObjet->addParentID(SUMO_TAG_CROSSING, myViewObjects.crossings.front()->getID());
+    }
+    if (myViewObjects.connections.size() > 0) {
+        baseObjet->addParentID(SUMO_TAG_CONNECTION, myViewObjects.connections.front()->getID());
+    }
+    if (myViewObjects.walkingAreas.size() > 0) {
+        baseObjet->addParentID(SUMO_TAG_WALKINGAREA, myViewObjects.walkingAreas.front()->getID());
+    }
+    if (myViewObjects.lanes.size() > 0) {
+        baseObjet->addParentID(SUMO_TAG_LANE, myViewObjects.lanes.front()->getID());
+    }
+    if (myViewObjects.additionals.size() > 0) {
+        baseObjet->addParentID(myViewObjects.additionals.front()->getTagProperty()->getTag(), myViewObjects.additionals.front()->getID());
+    }
+    if (myViewObjects.demandElements.size() > 0) {
+        baseObjet->addParentID(myViewObjects.demandElements.front()->getTagProperty()->getTag(), myViewObjects.demandElements.front()->getID());
+    }
+    if (myViewObjects.genericDatas.size() > 0) {
+        baseObjet->addParentID(myViewObjects.genericDatas.front()->getTagProperty()->getTag(), myViewObjects.genericDatas.front()->getID());
+    }
+}
+
+
+void
 GNEViewNetHelper::ViewObjectsSelector::filterAllExcept(GUIGlObjectType exception) {
     // get all elements to filter
     std::vector<const GUIGlObject*> glElements;

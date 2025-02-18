@@ -208,8 +208,10 @@ GNEAdditionalFrame::addAdditional(const GNEViewNetHelper::ViewObjectsSelector& v
     }
     // obtain tagproperty (only for improve code legibility)
     const auto& tagProperties = myAdditionalTagSelector->getCurrentTemplateAC()->getTagProperty();
+    // reset base additional
+    resetBaseAdditionalObject();
     // create base additional
-    if (!createBaseAdditionalObject(tagProperties)) {
+    if (!initBaseAdditionalObject(tagProperties, viewObjects)) {
         return false;
     }
     // obtain attributes and values
@@ -260,7 +262,9 @@ GNEAdditionalFrame::createPath(const bool /* useLastRoute */) {
         // now check number of lanes
         if (myConsecutiveLaneSelector->getLanePath().size() < 2) {
             WRITE_WARNING(TL("E2 multilane detectors need at least two consecutive lanes"));
-        } else if (createBaseAdditionalObject(tagProperty)) {
+        } else {
+            // reset base object
+            resetBaseAdditionalObject();
             // get attributes and values
             myAdditionalAttributesEditor->fillSumoBaseObject(myBaseAdditional);
             myNeteditAttributesEditor->fillSumoBaseObject(myBaseAdditional);
@@ -349,8 +353,8 @@ GNEAdditionalFrame::tagSelected() {
 }
 
 
-bool
-GNEAdditionalFrame::createBaseAdditionalObject(const GNETagProperties* tagProperty) {
+void
+GNEAdditionalFrame::resetBaseAdditionalObject() {
     // check if baseAdditional exist, and if yes, delete it
     if (myBaseAdditional) {
         // go to base additional root
@@ -362,40 +366,49 @@ GNEAdditionalFrame::createBaseAdditionalObject(const GNETagProperties* tagProper
         // reset baseAdditional
         myBaseAdditional = nullptr;
     }
+    // create an new base additional
+    myBaseAdditional = new CommonXMLStructure::SumoBaseObject(nullptr);
+}
+
+
+bool
+GNEAdditionalFrame::initBaseAdditionalObject(const GNETagProperties* tagProperty, const GNEViewNetHelper::ViewObjectsSelector& viewObjects) {
     // declare tag for base additional
-    SumoXMLTag baseAdditionalTag = tagProperty->getTag();
-    // check if baseAdditionalTag has to be updated
+    auto baseAdditionalTag = tagProperty->getTag();
+    // check if tag has to be updated
     if (baseAdditionalTag == GNE_TAG_MULTI_LANE_AREA_DETECTOR) {
         baseAdditionalTag = SUMO_TAG_LANE_AREA_DETECTOR;
     } else if (baseAdditionalTag == GNE_TAG_CALIBRATOR_FLOW) {
         baseAdditionalTag = SUMO_TAG_FLOW;
     }
-    // check if additional is child
+    // update view objects parents
+    viewObjects.fillSumoBaseObject(myBaseAdditional);
+    // check if additional is child of other element
     if (tagProperty->isChild()) {
-        // get additional under cursor
-        const GNEAdditional* additionalUnderCursor = myViewNet->getViewObjectsSelector().getAdditionalFront();
-        // if user click over an additional element parent, mark int in ParentAdditionalSelector
-        if (additionalUnderCursor && (additionalUnderCursor->getTagProperty()->getTag() == tagProperty->getParentTags().front())) {
-            // update parent additional selected
-            mySelectorAdditionalParent->setIDSelected(additionalUnderCursor->getID());
+        // check if we clicked over a parent
+        SumoXMLTag parentTag = SUMO_TAG_NOTHING;
+        for (const auto &tag : tagProperty->getParentTags()) {
+            if (myBaseAdditional->hasParentID(tag)) {
+                parentTag = tag;
+            }
         }
-        // stop if currently there isn't a valid selected parent
+        // update selector additional parent
+        if (parentTag != SUMO_TAG_NOTHING) {
+            // update parent additional selected
+            mySelectorAdditionalParent->setIDSelected(myBaseAdditional->getParentID(parentTag));
+        }
+        // continue depending of parents
         if (mySelectorAdditionalParent->getIdSelected().empty()) {
-            WRITE_WARNING(TLF("A % must be selected before insertion of %.", toString(tagProperty->getParentTags().front()), myAdditionalTagSelector->getCurrentTemplateAC()->getTagProperty()->getTagStr()));
+            WRITE_WARNING(TLF("A % must be selected before insertion of %.", toString(tagProperty->getParentTags().front()), tagProperty->getTagStr()));
             return false;
         } else {
-            // create baseAdditional parent
-            myBaseAdditional = new CommonXMLStructure::SumoBaseObject(nullptr);
-            // set parent tag
+            // set parent tag // POSSIBLE ERROR WITH ACCESS AND BUSSTOPS!
             myBaseAdditional->setTag(tagProperty->getParentTags().front());
             // add ID
             myBaseAdditional->addStringAttribute(SUMO_ATTR_ID, mySelectorAdditionalParent->getIdSelected());
-            // create baseAdditional again as child of current myBaseAdditional
+            // create base additional again as child of current base additional
             myBaseAdditional = new CommonXMLStructure::SumoBaseObject(myBaseAdditional);
         }
-    } else {
-        // just create a base additional
-        myBaseAdditional = new CommonXMLStructure::SumoBaseObject(nullptr);
     }
     // set baseAdditional tag
     myBaseAdditional->setTag(baseAdditionalTag);
