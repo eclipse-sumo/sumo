@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -20,12 +20,12 @@
 #include <config.h>
 #include "AFROTest.h"
 
-/// @brief The number of levels in the k-d tree partition
-constexpr auto NUMBER_OF_LEVELS = 5; //or 4 or 8
+/// @brief The maximum number of levels in the k-d tree partition
+constexpr auto MAX_NUMBER_OF_LEVELS = 5; //or 4 or 8
 /// @brief The number of start edges of the route queries
-constexpr auto NUMBER_OF_START_EDGES = 32; // 32 -> 32^2 = 1024 test routes
+constexpr auto MAX_NUMBER_OF_START_EDGES = 32; // 32 -> 32^2 = maximal 1024 test routes
 /// @brief The number of end edges of the route queries
-constexpr auto NUMBER_OF_END_EDGES = NUMBER_OF_START_EDGES;
+constexpr auto MAX_NUMBER_OF_END_EDGES = MAX_NUMBER_OF_START_EDGES;
 
 //#define ATST_DEBUG_LEVEL_0
 
@@ -49,14 +49,15 @@ AFROTest::test(const ROVehicle* const vehicle, bool unbuildIsWarning, typename S
     long long int kDPartitionBuildStart = 0;
     long long int kDPartitionBuildTime = 0;
     kDPartitionBuildStart = SysUtils::getCurrentMillis();
-    KDTreePartition<ROEdge, RONode, ROVehicle>* partition = new KDTreePartition<ROEdge, RONode, ROVehicle>(NUMBER_OF_LEVELS, edges, havePermissions, haveRestrictions);
+    KDTreePartition<ROEdge, RONode, ROVehicle>* partition = new KDTreePartition<ROEdge, RONode, ROVehicle>(MAX_NUMBER_OF_LEVELS, edges, havePermissions, haveRestrictions);
     partition->init(vehicle);
     kDPartitionBuildTime = (SysUtils::getCurrentMillis() - kDPartitionBuildStart);
     std::cout << "Time spent for k-d partition build: " << elapsedMs2string(kDPartitionBuildTime) << std::endl;
     std::cout << "Forward k-d tree partition ready." << std::endl;
     AFRouter<ROEdge, RONode, ROVehicle>* arcFlagRouter = new AFRouter<ROEdge, RONode, ROVehicle>(edges,
-            partition, unbuildIsWarning, operation, flippedOperation, weightPeriod, lookup, flippedLookup, havePermissions,
+            unbuildIsWarning, operation, flippedOperation, weightPeriod, lookup, flippedLookup, havePermissions,
             haveRestrictions);
+    std::cout << "AFRouter instantiated." << std::endl;
     CHRouter<ROEdge, ROVehicle>* cHRouter = new CHRouter<ROEdge, ROVehicle>(
         edges, unbuildIsWarning, operation, /*SVC_IGNORING*/vehicle->getVClass(), weightPeriod, havePermissions, haveRestrictions);
     AStarRouter<ROEdge, ROVehicle>* aStar = new AStarRouter<ROEdge, ROVehicle>(edges, unbuildIsWarning, operation, lookup,
@@ -190,7 +191,7 @@ AFROTest::testRoutes(const Cell* cell1, const Cell* cell2, const ROVehicle* cons
     }
     std::unordered_set<const ROEdge*> someCell1InsideEdges;
     auto iter = cell1InsideEdges->begin();
-    std::advance(iter, MIN2(cell1InsideEdges->size(), static_cast<size_t>(NUMBER_OF_START_EDGES)));
+    std::advance(iter, MIN2(cell1InsideEdges->size(), static_cast<size_t>(MAX_NUMBER_OF_START_EDGES)));
     someCell1InsideEdges.insert(cell1InsideEdges->begin(), iter);
     delete cell1InsideEdges;
     std::unordered_set<const ROEdge*>* cell2InsideEdges = cell2->edgeSet(vehicle);
@@ -204,7 +205,7 @@ AFROTest::testRoutes(const Cell* cell1, const Cell* cell2, const ROVehicle* cons
     }
     std::unordered_set<const ROEdge*> someCell2InsideEdges;
     auto iter2 = cell2InsideEdges->begin();
-    std::advance(iter2, MIN2(cell2InsideEdges->size(), static_cast<size_t>(NUMBER_OF_END_EDGES)));
+    std::advance(iter2, MIN2(cell2InsideEdges->size(), static_cast<size_t>(MAX_NUMBER_OF_END_EDGES)));
     someCell2InsideEdges.insert(cell2InsideEdges->begin(), iter2);
     delete cell2InsideEdges;
 
@@ -408,5 +409,6 @@ AFROTest::testQuery(const ROEdge* edge1, const ROEdge* edge2, const ROVehicle* c
         }
     }
 }
+
 
 /****************************************************************************/
