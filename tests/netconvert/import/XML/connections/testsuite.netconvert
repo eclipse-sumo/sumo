@@ -79,6 +79,9 @@ visibility
 # custom speed
 speed
 
+# custom speed
+speed_guessMoreLanes
+
 # custom connection length
 length
 
