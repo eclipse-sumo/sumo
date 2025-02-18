@@ -528,6 +528,22 @@ GNEAttributesEditorRow::GNEAttributesEditorRow() :
 const std::string
 GNEAttributesEditorRow::getAttributeValue(const bool enabled) const {
     const auto attribute = myAttrProperty->getAttr();
+    // if we're in creator mode, generate ID
+    if ((attribute == SUMO_ATTR_ID) && (myAttributeTable->myEditorType == GNEAttributesEditor::EditorType::CREATOR)) {
+        const auto &ACs = myAttributeTable->getFrameParent()->getViewNet()->getNet()->getAttributeCarriers();
+        const auto tag = myAttrProperty->getTagPropertyParent()->getTag();
+        if (myAttrProperty->getTagPropertyParent()->isAdditionalElement()) {
+            return ACs->generateAdditionalID(tag);
+        } else if (myAttrProperty->getTagPropertyParent()->isDemandElement()) {
+            return ACs->generateDemandElementID(tag);
+        } else if (myAttrProperty->getTagPropertyParent()->isMeanData()) {
+            return ACs->generateMeanDataID(tag);
+        } else if (tag == SUMO_TAG_TYPE) {
+            return ACs->generateEdgeTypeID();
+        } else if (tag == SUMO_TAG_DATASET) {
+            return ACs->generateDataSetID("");
+        }
+    }
     if (enabled) {
         // Declare a set of occurring values and insert attribute's values of item (note: We use a set to avoid repeated values)
         std::set<std::string> values;

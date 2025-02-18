@@ -244,7 +244,7 @@ GNEAdditionalFrame::addAdditional(const GNEViewNetHelper::ViewObjectsSelector& v
     if (!buildAdditionalCommonAttributes(tagProperties)) {
         return false;
     }
-    // parse netedit attributes (after lanes)
+    // parse netedit attributes (after setting lanes)
     myNeteditAttributesEditor->fillSumoBaseObject(myBaseAdditional);
     // declare additional handler
     GNEAdditionalHandler additionalHandler(myViewNet->getNet(), myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), false);
@@ -255,6 +255,9 @@ GNEAdditionalFrame::addAdditional(const GNEViewNetHelper::ViewObjectsSelector& v
     // clear selected edges and lanes
     myEdgesSelector->onCmdClearSelection(nullptr, 0, nullptr);
     myLanesSelector->onCmdClearSelection(nullptr, 0, nullptr);
+    // refresh attributes editors (needed for IDs)
+    myAdditionalAttributesEditor->refreshAttributesEditor();
+    myNeteditAttributesEditor->refreshAttributesEditor();
     return true;
 }
 
@@ -298,10 +301,6 @@ GNEAdditionalFrame::createPath(const bool /* useLastRoute */) {
             // get attributes and values
             myAdditionalAttributesEditor->fillSumoBaseObject(myBaseAdditional);
             myNeteditAttributesEditor->fillSumoBaseObject(myBaseAdditional);
-            // Check if ID has to be generated
-            if (tagProperty->hasAttribute(SUMO_ATTR_ID)) {
-                myBaseAdditional->addStringAttribute(SUMO_ATTR_ID, myViewNet->getNet()->getAttributeCarriers()->generateAdditionalID(tagProperty->getTag()));
-            }
             // add lane IDs
             myBaseAdditional->addStringListAttribute(SUMO_ATTR_LANES, myConsecutiveLaneSelector->getLaneIDPath());
             // set positions
