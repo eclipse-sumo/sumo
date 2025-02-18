@@ -147,7 +147,7 @@ MSDispatch_RouteExtension::dispatch(MSDevice_Taxi* taxi, std::vector<Reservation
         taxi->dispatch(*res);
     }
     for (const Reservation* r : toRemove) {
-        servedReservation(r); // deleting r
+        servedReservation(r, taxi); // deleting r
     }
     resIt = reservations.erase(resIt);
     return (int)toRemove.size();

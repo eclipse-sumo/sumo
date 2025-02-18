@@ -99,7 +99,7 @@ MSDispatch_TraCI::interpretDispatch(MSDevice_Taxi* taxi, const std::vector<std::
     // in case of ride sharing the same reservation may occur multiple times
     std::set<const Reservation*> unique(reservations.begin(), reservations.end());
     for (const Reservation* res : unique) {
-        servedReservation(res);
+        servedReservation(res, taxi);
     }
 }
 
@@ -108,7 +108,7 @@ std::string
 MSDispatch_TraCI::splitReservation(std::string resID, std::vector<std::string> personIDs) {
     if (myReservationLookup.hasString(resID)) {
         Reservation* res = const_cast<Reservation*>(myReservationLookup.get(resID));
-        if (myRunningReservations.count(res) != 0) {
+        if (myRunningReservations.count(res->group) != 0 && myRunningReservations[res->group].count(res) != 0) {
             throw InvalidArgument("Cannot split reservation '" + resID + "' after dispatch");
         }
         std::set<std::string> allPersons;

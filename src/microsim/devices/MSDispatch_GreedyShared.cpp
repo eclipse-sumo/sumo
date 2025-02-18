@@ -143,11 +143,11 @@ MSDispatch_GreedyShared::dispatch(MSDevice_Taxi* taxi, std::vector<Reservation*>
                                                << " absLoss2=" << absLoss2 << " relLoss2=" << relLoss2
                                                << "\n";
 #endif
-        servedReservation(res2); // deleting res2
+        servedReservation(res2, taxi); // deleting res2
     } else {
         taxi->dispatch(*res);
     }
-    servedReservation(res); // deleting res
+    servedReservation(res, taxi); // deleting res
     resIt = reservations.erase(resIt);
     return shareCase == 0 ? 1 : 2;
 }

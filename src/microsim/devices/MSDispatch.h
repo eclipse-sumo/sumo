@@ -191,13 +191,13 @@ public:
     bool myHasServableReservations = false;
 
 protected:
-    void servedReservation(const Reservation* res);
+    void servedReservation(const Reservation* res, MSDevice_Taxi* taxi);
 
     /// @brief whether the given taxi has sufficient capacity to serve the reservation
     int remainingCapacity(const MSDevice_Taxi* taxi, const Reservation* res);
 
     // reservations that are currently being served (could still be used during re-dispatch)
-    std::set<const Reservation*> myRunningReservations;
+    std::map<std::string, std::map<const Reservation*, MSDevice_Taxi*> > myRunningReservations;
 
     /// @brief optional file output for dispatch information
     OutputDevice* myOutput;

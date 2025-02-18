@@ -116,7 +116,7 @@ MSDispatch_Greedy::dispatch(MSDevice_Taxi* taxi, std::vector<Reservation*>::iter
     }
 #endif
     taxi->dispatch(**resIt);
-    servedReservation(*resIt); // deleting res
+    servedReservation(*resIt, taxi); // deleting res
     resIt = reservations.erase(resIt);
     return 1;
 }

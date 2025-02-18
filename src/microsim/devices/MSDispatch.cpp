@@ -146,7 +146,6 @@ MSDispatch::removeReservation(MSTransportable* person,
     std::string removedID = "";
     auto it = myGroupReservations.find(group);
     if (it != myGroupReservations.end()) {
-        // try to add to existing reservation
         for (auto itRes = it->second.begin(); itRes != it->second.end(); itRes++) {
             Reservation* res = *itRes;
             if (res->persons.count(person) != 0
@@ -234,13 +233,20 @@ MSDispatch::getReservations() {
 
 std::vector<const Reservation*>
 MSDispatch::getRunningReservations() {
-    return std::vector<const Reservation*>(myRunningReservations.begin(), myRunningReservations.end());
+    std::vector<const Reservation*> result;
+    for (auto item : myRunningReservations) {
+        for (auto item2 : item.second) {
+            result.push_back(item2.first);
+        }
+    }
+    return result;
 }
 
 
 void
-MSDispatch::servedReservation(const Reservation* res) {
-    if (myRunningReservations.count(res)) {
+MSDispatch::servedReservation(const Reservation* res, MSDevice_Taxi* taxi) {
+    auto itR = myRunningReservations.find(res->group);
+    if (itR != myRunningReservations.end() && itR->second.count(res) != 0) {
         return; // was redispatch
     }
     auto it = myGroupReservations.find(res->group);
@@ -251,7 +257,7 @@ MSDispatch::servedReservation(const Reservation* res) {
     if (it2 == it->second.end()) {
         throw ProcessError(TL("Inconsistent group reservations (2)."));
     }
-    myRunningReservations.insert(*it2);
+    myRunningReservations[res->group][res] = taxi;
     const_cast<Reservation*>(*it2)->state = Reservation::ASSIGNED;
     it->second.erase(it2);
     if (it->second.empty()) {
@@ -262,7 +268,7 @@ MSDispatch::servedReservation(const Reservation* res) {
 
 void
 MSDispatch::fulfilledReservation(const Reservation* res) {
-    myRunningReservations.erase(res);
+    myRunningReservations[res->group].erase(res);
     delete res;
 }
 
