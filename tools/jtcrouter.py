@@ -152,7 +152,7 @@ def main(options):
             '-o', options.out]
     if options.addFiles:
         args += ['--additional-files', options.addFiles,
-                '--vtype-output', 'NUL']
+                 '--vtype-output', 'NUL']
     if not options.fringe_flows:
         args += ['-S']
         if options.discountSources:

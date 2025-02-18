@@ -30,6 +30,10 @@ import sumolib  # noqa
 import traci.constants as tc  # noqa
 
 
+def get_reservation_ids():
+    return [r.id for r in traci.person.getTaxiReservations(0)]
+
+
 sumoBinary = sumolib.checkBinary('sumo')
 traci.start([sumoBinary,
              "-n", "input_net4.net.xml",
@@ -41,8 +45,6 @@ traci.start([sumoBinary,
              "--device.taxi.dispatch-algorithm", "traci",
              ] + sys.argv[1:])
 
-def get_reservation_ids():
-    return [r.id for r in traci.person.getTaxiReservations(0)]
 
 traci.simulationStep()
 fleet = traci.vehicle.getTaxiFleet(0)

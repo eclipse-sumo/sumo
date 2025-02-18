@@ -51,7 +51,7 @@ traci.person.remove(traci.person.getIDList()[0])
 while traci.simulation.getMinExpectedNumber() > 0 and traci.simulation.getTime() < 100:
     traci.simulationStep()
     res = traci.person.getTaxiReservations(0)
-    print("%s reservations %s" % ( traci.simulation.getTime(), res))
+    print("%s reservations %s" % (traci.simulation.getTime(), res))
     if traci.simulation.getDepartedNumber() > 0 and res:
         fleet = traci.vehicle.getTaxiFleet(0)
         print("taxiFleet", fleet)
