@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-13 10:07+0100\n"
-"PO-Revision-Date: 2025-02-18 03:00+0000\n"
+"PO-Revision-Date: 2025-02-18 09:35+0000\n"
 "Last-Translator: Tomosawa Ryo <tomosawa.r.103@ms.saitama-u.ac.jp>\n"
 "Language-Team: Japanese <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/ja/>\n"
@@ -82,7 +82,7 @@ msgstr "シェープファイルを開く "
 
 #: src/gui/GUIApplicationWindow.cpp:474
 msgid "Load POIs and Polygons for visualization."
-msgstr "視覚化のために点とポリゴンをロードします。"
+msgstr "点とポリゴンをロードして表示します。"
 
 #: src/gui/GUIApplicationWindow.cpp:477
 msgid "Open EdgeData "
@@ -90,7 +90,7 @@ msgstr "EdgeDataを開く "
 
 #: src/gui/GUIApplicationWindow.cpp:477
 msgid "Load edge related data for visualization."
-msgstr "視覚化のためのリンク関連データをロードします。"
+msgstr "リンク関連データをロードして表示します。"
 
 #: src/gui/GUIApplicationWindow.cpp:480
 #: src/netedit/GNEApplicationWindow.cpp:1026
@@ -2045,14 +2045,17 @@ msgid "stop duration [s]"
 msgstr "連続停止時間[s]"
 
 #: src/guisim/GUIPerson.cpp:260
+#, fuzzy
 msgid "desired max speed [m/s]"
 msgstr "予定最高速度[m/s]"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:174
+#, fuzzy
 msgid "Switch to '%'"
 msgstr "'%'に切り替え"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:182
+#, fuzzy
 msgid "Switch off"
 msgstr "スイッチオフ"
 
@@ -2062,682 +2065,707 @@ msgid "Track Phases"
 msgstr "フェーズを追跡"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:185
+#, fuzzy
 msgid "Show Phases"
-msgstr ""
+msgstr "フェーズの表示"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:188
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:192
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:196
+#, fuzzy
 msgid "Hide Detectors"
-msgstr ""
+msgstr "検知器を非表示"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:188
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:192
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:196
+#, fuzzy
 msgid "Show Detectors"
-msgstr ""
+msgstr "検知器を表示"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:202
+#, fuzzy
 msgid "Phase: %"
-msgstr ""
+msgstr "現示フェーズ: %"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:205
+#, fuzzy
 msgid "Phase name: %"
-msgstr ""
+msgstr "現示フェーズ名: %"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:240
+#, fuzzy
 msgid "tlLogic [id]"
-msgstr ""
+msgstr "tlLogic[id]"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:242
+#, fuzzy
 msgid "program"
-msgstr ""
+msgstr "信号プログラム"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:243
+#, fuzzy
 msgid "phase"
-msgstr ""
+msgstr "現示フェーズ"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:244
+#, fuzzy
 msgid "phase name"
-msgstr ""
+msgstr "現示フェーズ名"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:245
+#, fuzzy
 msgid "duration"
-msgstr "継続、連続○○時間"
+msgstr "継続時間"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:246
+#, fuzzy
 msgid "minDur"
-msgstr ""
+msgstr "最小信号表示時間"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:247
+#, fuzzy
 msgid "maxDur"
-msgstr ""
+msgstr "最大信号表示時間"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:248
+#, fuzzy
 msgid "running duration"
-msgstr ""
+msgstr "継続表示時間"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:249
+#, fuzzy
 msgid "earliestEnd"
-msgstr ""
+msgstr "最短終了時間"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:250
+#, fuzzy
 msgid "latestEnd"
-msgstr ""
+msgstr "最長終了時間"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:251
+#, fuzzy
 msgid "time in cycle"
-msgstr ""
+msgstr "サイクル経過時間"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:252
+#, fuzzy
 msgid "cycle time"
-msgstr ""
+msgstr "サイクル長"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:255
+#, fuzzy
 msgid "req driveway"
-msgstr ""
+msgstr "要求された走行経路"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:256
+#, fuzzy
 msgid "blocking"
-msgstr ""
+msgstr "ブロック中"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:257
+#, fuzzy
 msgid "blocking driveways"
-msgstr ""
+msgstr "走行経路のブロック"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:258
+#, fuzzy
 msgid "rival"
-msgstr ""
+msgstr "ライバル"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:260
+#, fuzzy
 msgid "constraint"
-msgstr ""
+msgstr "制約条件"
 
 #: src/guisim/GUIVehicle.cpp:108
+#, fuzzy
 msgid "shadow lane [id]"
-msgstr ""
+msgstr "踏み込み車線[id]"
 
 #: src/guisim/GUIVehicle.cpp:111
 msgid "target lane [id]"
-msgstr ""
+msgstr "目標車線[id]"
 
 #: src/guisim/GUIVehicle.cpp:114
 msgid "back lanes [id,..]"
-msgstr ""
+msgstr "退出車線[id,..]"
 
 #: src/guisim/GUIVehicle.cpp:118
 msgid "lateral offset [m]"
-msgstr ""
+msgstr "横方向のオフセット[m]"
 
 #: src/guisim/GUIVehicle.cpp:122
 msgid "lateral speed [m/s]"
-msgstr ""
+msgstr "横方向の速度[m/s]"
 
 #: src/guisim/GUIVehicle.cpp:124
 msgid "acceleration [m/s^2]"
-msgstr ""
+msgstr "加速度[m/s^2]"
 
 #: src/guisim/GUIVehicle.cpp:128
+#, fuzzy
 msgid "slope [degree]"
-msgstr ""
+msgstr "斜度[度]"
 
 #: src/guisim/GUIVehicle.cpp:132
 msgid "time gap on lane [s]"
-msgstr ""
+msgstr "車線上の時間間隔[s]"
 
 #: src/guisim/GUIVehicle.cpp:136
 #, c-format
 msgid "waiting time (accumulated, % s) [s]"
-msgstr ""
+msgstr "待ち時間（累計:% s）[s]"
 
 #: src/guisim/GUIVehicle.cpp:138
 msgid "time since startup [s]"
-msgstr ""
+msgstr "開始からの時間[s]"
 
 #: src/guisim/GUIVehicle.cpp:140
 msgid "time loss [s]"
-msgstr ""
+msgstr "損失時間[s]"
 
 #: src/guisim/GUIVehicle.cpp:142
 msgid "impatience"
-msgstr ""
+msgstr "イライラ度"
 
 #: src/guisim/GUIVehicle.cpp:144
 msgid "last lane change [s]"
-msgstr ""
+msgstr "最後の車線変更[s]"
 
 #: src/guisim/GUIVehicle.cpp:147
 msgid "depart delay [s]"
-msgstr ""
+msgstr "出発遅延[s]"
 
 #: src/guisim/GUIVehicle.cpp:148
 msgid "odometer [m]"
-msgstr ""
+msgstr "オドメーター（走行距離計）[m]"
 
 #: src/guisim/GUIVehicle.cpp:151
 msgid "remaining [#]"
-msgstr ""
+msgstr "残存車輛数[#]"
 
 #: src/guisim/GUIVehicle.cpp:154
 msgid "insertion period [s]"
-msgstr ""
+msgstr "挿入間隔[s]"
 
 #: src/guisim/GUIVehicle.cpp:157
 msgid "insertion probability"
-msgstr ""
+msgstr "挿入確率"
 
 #: src/guisim/GUIVehicle.cpp:160 src/mesogui/GUIMEVehicle.cpp:91
 msgid "poisson rate"
-msgstr ""
+msgstr "ポアソン分布"
 
 #: src/guisim/GUIVehicle.cpp:162
 msgid "stop info"
-msgstr ""
+msgstr "停止地点情報"
 
 #: src/guisim/GUIVehicle.cpp:163
 msgid "line"
-msgstr ""
+msgstr "路線"
 
 #: src/guisim/GUIVehicle.cpp:164
 msgid "CO2 [mg/s]"
-msgstr ""
+msgstr "CO2 [mg/s]"
 
 #: src/guisim/GUIVehicle.cpp:166
 msgid "CO [mg/s]"
-msgstr ""
+msgstr "CO [mg/s]"
 
 #: src/guisim/GUIVehicle.cpp:168
 msgid "HC [mg/s]"
-msgstr ""
+msgstr "HC [mg/s]"
 
 #: src/guisim/GUIVehicle.cpp:170
 msgid "NOx [mg/s]"
-msgstr ""
+msgstr "NOx [mg/s]"
 
 #: src/guisim/GUIVehicle.cpp:172
 msgid "PMx [mg/s]"
-msgstr ""
+msgstr "PMx [mg/s]"
 
 #: src/guisim/GUIVehicle.cpp:174
 msgid "fuel [mg/s]"
-msgstr ""
+msgstr "燃料消費速度 [mg/s]"
 
 #: src/guisim/GUIVehicle.cpp:176
 msgid "electricity [Wh/s]"
-msgstr ""
+msgstr "消費電力 [Wh/s]"
 
 #: src/guisim/GUIVehicle.cpp:178
 msgid "noise (Harmonoise) [dB]"
-msgstr ""
+msgstr "騒音（和音）[dB]"
 
 #: src/guisim/GUIVehicle.cpp:180
 msgid "devices"
-msgstr ""
+msgstr "機器"
 
 #: src/guisim/GUIVehicle.cpp:181
 msgid "persons"
-msgstr ""
+msgstr "人"
 
 #: src/guisim/GUIVehicle.cpp:183
 msgid "containers"
-msgstr ""
+msgstr "コンテナ"
 
 #: src/guisim/GUIVehicle.cpp:185
 msgid "lcState right"
-msgstr ""
+msgstr "右車線変更ステータス"
 
 #: src/guisim/GUIVehicle.cpp:186
 msgid "lcState left"
-msgstr ""
+msgstr "左車線変更ステータス"
 
 #: src/guisim/GUIVehicle.cpp:187
 msgid "parking badges"
-msgstr ""
+msgstr "停車証"
 
 #: src/guisim/GUIVehicle.cpp:190
 msgid "lcState center"
-msgstr ""
+msgstr "中央車線変更ステータス"
 
 #: src/guisim/GUIVehicle.cpp:191
 msgid "right side on edge [m]"
-msgstr ""
+msgstr "リンクの右側[m]"
 
 #: src/guisim/GUIVehicle.cpp:192
 msgid "left side on edge [m]"
-msgstr ""
+msgstr "リンクの左側[m]"
 
 #: src/guisim/GUIVehicle.cpp:193
 msgid "rightmost edge sublane [#]"
-msgstr ""
+msgstr "最も右側の車線[#]"
 
 #: src/guisim/GUIVehicle.cpp:194
 msgid "leftmost edge sublane [#]"
-msgstr ""
+msgstr "最も左側の車線[#]"
 
 #: src/guisim/GUIVehicle.cpp:195
 msgid "lane change maneuver distance [m]"
-msgstr ""
+msgstr "車線変更の範囲[m]"
 
 #: src/guisim/GUIVehicle.cpp:198
 msgid "driveways"
-msgstr ""
+msgstr "ドライブウェイ"
 
 #: src/guisim/GUIVehicle.cpp:201
 msgid "present state of charge [Wh]"
-msgstr ""
+msgstr "現在のバッテリー残量[Wh]"
 
 #: src/guisim/GUIVehicle.cpp:205
 msgid "relative state of charge (SoC) [-]"
-msgstr ""
+msgstr "相対的なバッテリー残量[Wh]"
 
 #: src/guisim/GUIVehicle.cpp:207
 msgid "current timestep charge [Wh]"
-msgstr ""
+msgstr "現在のタイムステップのバッテリー残量"
 
 #: src/guisim/GUIVehicle.cpp:209
 msgid "maximum charge rate [W]"
-msgstr ""
+msgstr "最大充電速度[W]"
 
 #: src/guisim/GUIVehicle.cpp:213
 msgid "present electric current [A]"
-msgstr ""
+msgstr "現在の電流[A]"
 
 #: src/guisim/GUIVehicle.cpp:218
 msgid "speed mode"
-msgstr ""
+msgstr "スピードモード"
 
 #: src/guisim/GUIVehicle.cpp:221
 msgid "lane change mode"
-msgstr ""
+msgstr "車線変更モード"
 
 #: src/guisim/GUIVehicle.cpp:234
 msgid "height [m]"
-msgstr ""
+msgstr "高さ[m]"
 
 #: src/guisim/GUIVehicle.cpp:235
 msgid "minGap [m]"
-msgstr ""
+msgstr "最小間隔[m]"
 
 #: src/guisim/GUIVehicle.cpp:236
 msgid "vehicle class"
-msgstr ""
+msgstr "車輛の種類"
 
 #: src/guisim/GUIVehicle.cpp:237
 msgid "emission class"
-msgstr ""
+msgstr "排出の種類"
 
 #: src/guisim/GUIVehicle.cpp:239
 msgid "car-following model"
-msgstr ""
+msgstr "車輛追従モデル"
 
 #: src/guisim/GUIVehicle.cpp:240
 msgid "lane-change model"
-msgstr ""
+msgstr "車線変更モデル"
 
 #: src/guisim/GUIVehicle.cpp:241
 msgid "guiShape"
-msgstr ""
+msgstr "GUI形状"
 
 #: src/guisim/GUIVehicle.cpp:243
 msgid "desired maximum speed [m/s]"
-msgstr ""
+msgstr "希望最高速度[m/s]"
 
 #: src/guisim/GUIVehicle.cpp:244
 msgid "maximum acceleration [m/s^2]"
-msgstr ""
+msgstr "最大加速度[m/s^2]"
 
 #: src/guisim/GUIVehicle.cpp:245
 msgid "maximum deceleration [m/s^2]"
-msgstr ""
+msgstr "最小加速度[m/s^2]"
 
 #: src/guisim/GUIVehicle.cpp:246
 msgid "emergency deceleration [m/s^2]"
-msgstr ""
+msgstr "緊急減速度[m/s^2]"
 
 #: src/guisim/GUIVehicle.cpp:247
 msgid "apparent deceleration [m/s^2]"
-msgstr ""
+msgstr "見かけの減速度[m/s^2]"
 
 #: src/guisim/GUIVehicle.cpp:248
 msgid "imperfection (sigma)"
-msgstr ""
+msgstr "欠陥(sigma)"
 
 #: src/guisim/GUIVehicle.cpp:249
 msgid "desired headway (tau) [s]"
-msgstr ""
+msgstr "希望車輛間隔(tau) [s]"
 
 #: src/guisim/GUIVehicle.cpp:250
 msgid "speedfactor"
-msgstr ""
+msgstr "速度係数"
 
 #: src/guisim/GUIVehicle.cpp:252
 msgid "action step length [s]"
-msgstr ""
+msgstr "アクションステップ幅[s]"
 
 #: src/guisim/GUIVehicle.cpp:254
 msgid "person capacity"
-msgstr ""
+msgstr "乗車人員"
 
 #: src/guisim/GUIVehicle.cpp:255
 msgid "boarding time [s]"
-msgstr ""
+msgstr "乗車時間[s]"
 
 #: src/guisim/GUIVehicle.cpp:256
 msgid "container capacity"
-msgstr ""
+msgstr "コンテナ容量"
 
 #: src/guisim/GUIVehicle.cpp:257
 msgid "loading time [s]"
-msgstr ""
+msgstr "積み込み時間[s]"
 
 #: src/guisim/GUIVehicle.cpp:259
 msgid "minGapLat [m]"
-msgstr ""
+msgstr "横方向の最小間隔[m]"
 
 #: src/guisim/GUIVehicle.cpp:260 src/guisim/GUIVehicle.cpp:263
 msgid "maxSpeedLat [m/s]"
-msgstr ""
+msgstr "横方向の最高速度[m/s]"
 
 #: src/guisim/GUIVehicle.cpp:261
 msgid "latAlignment"
-msgstr ""
+msgstr "横方向の配置"
 
 #: src/guisim/GUIVehicle.cpp:272
 msgid "manoeuver Angle vs Times"
-msgstr ""
+msgstr "時間に対する操作角度"
 
 #: src/guisim_main.cpp:57
 msgid "GUI version of the microscopic, multi-modal traffic simulation SUMO."
-msgstr ""
+msgstr "ミクロ・多モード交通シミュレーションSUMOのGUI版です。"
 
 #: src/guisim_main.cpp:81 src/netedit/netedit_main.cpp:85
 msgid "This system has no OpenGL support. Exiting."
-msgstr ""
+msgstr "このシステムはOpenGLをサポートしていません。終了します。"
 
 #: src/netedit/GNEApplicationWindow.cpp:487
 msgid "A microscopic, multi-modal traffic simulation."
-msgstr ""
+msgstr "ミクロ・多モード交通シミュレーションです。"
 
 #: src/netedit/GNEApplicationWindow.cpp:520
 msgid "Recomputing"
-msgstr ""
+msgstr "再計算中"
 
 #: src/netedit/GNEApplicationWindow.cpp:521
 msgid "Recomputing is needed"
-msgstr ""
+msgstr "再計算が必要です"
 
 #: src/netedit/GNEApplicationWindow.cpp:533
 msgid "Test coordinate"
-msgstr ""
+msgstr "テスト座標"
 
 #: src/netedit/GNEApplicationWindow.cpp:847
 #: src/netedit/GNEApplicationWindow.cpp:867
 msgid "loading TLS Programs from '"
-msgstr ""
+msgstr "信号機プログラムをローディング中 '"
 
 #: src/netedit/GNEApplicationWindow.cpp:909
 msgid "Loaded edge types from '"
-msgstr ""
+msgstr "リンクタイプをロードしました '"
 
 #: src/netedit/GNEApplicationWindow.cpp:911
 #: src/netedit/GNEApplicationWindow.cpp:944
 msgid "load edgeTypes"
-msgstr ""
+msgstr "リンクタイプをロード"
 
 #: src/netedit/GNEApplicationWindow.cpp:942
 msgid "Reloaded edge types from '"
-msgstr ""
+msgstr "リンクタイプをリロードしました '"
 
 #: src/netedit/GNEApplicationWindow.cpp:999
 msgid "Reloading netedit config file '"
-msgstr ""
+msgstr "neteditコンフィグファイルをリロードしています '"
 
 #: src/netedit/GNEApplicationWindow.cpp:1003
 msgid "Reloading sumo config file '"
-msgstr ""
+msgstr "sumoのコンフィグファイルをリロードしています '"
 
 #: src/netedit/GNEApplicationWindow.cpp:1007
 #: src/netedit/GNEApplicationWindow.cpp:1068
 msgid "Reloading network file '"
-msgstr ""
+msgstr "ネットワークファイルをリロードしています '"
 
 #: src/netedit/GNEApplicationWindow.cpp:1023
 msgid "&Reload Netedit config"
-msgstr ""
+msgstr "&Neteditコンフィグをリロード"
 
 #: src/netedit/GNEApplicationWindow.cpp:1024
 msgid "&Reload Sumo config"
-msgstr ""
+msgstr "&Sumoコンフィグをリロード"
 
 #: src/netedit/GNEApplicationWindow.cpp:1025
 msgid "&Reload Network"
-msgstr ""
+msgstr "&ネットワークをリロード"
 
 #: src/netedit/GNEApplicationWindow.cpp:1262
 msgid "Loading of '"
-msgstr ""
+msgstr "ローディング中 '"
 
 #: src/netedit/GNEApplicationWindow.cpp:1267
 msgid "'"
-msgstr ""
+msgstr "'"
 
 #: src/netedit/GNEApplicationWindow.cpp:1267
 msgid "' loaded."
-msgstr ""
+msgstr "' をロードしました。"
 
 #: src/netedit/GNEApplicationWindow.cpp:1360
 msgid "&Modes"
-msgstr ""
+msgstr "&モード"
 
 #: src/netedit/GNEApplicationWindow.cpp:1396
 msgid "L&ock"
-msgstr ""
+msgstr "&ロック"
 
 #: src/netedit/GNEApplicationWindow.cpp:1403
 msgid "&Processing"
-msgstr ""
+msgstr "&処理中"
 
 #: src/netedit/GNEApplicationWindow.cpp:1430
 msgid "&Tools"
-msgstr ""
+msgstr "&ツール"
 
 #: src/netedit/GNEApplicationWindow.cpp:1432
 msgid "Assign"
-msgstr ""
+msgstr "割り当て"
 
 #: src/netedit/GNEApplicationWindow.cpp:1433
 msgid "Detectors"
-msgstr ""
+msgstr "車輛検知器"
 
 #: src/netedit/GNEApplicationWindow.cpp:1434
 msgid "Districts"
-msgstr ""
+msgstr "地区"
 
 #: src/netedit/GNEApplicationWindow.cpp:1435
 msgid "DRT"
-msgstr ""
+msgstr "デマンド型交通（DRT）"
 
 #: src/netedit/GNEApplicationWindow.cpp:1437
 msgid "CityBrain"
-msgstr ""
+msgstr "シティブレイン"
 
 #: src/netedit/GNEApplicationWindow.cpp:1438
 msgid "GTFS"
-msgstr ""
+msgstr "GTFS"
 
 #: src/netedit/GNEApplicationWindow.cpp:1439
 msgid "Vissim"
-msgstr ""
+msgstr "Vissim"
 
 #: src/netedit/GNEApplicationWindow.cpp:1440
 msgid "Visum"
-msgstr ""
+msgstr "Visum"
 
 #: src/netedit/GNEApplicationWindow.cpp:1441
 msgid "Import"
-msgstr ""
+msgstr "インポート"
 
 #: src/netedit/GNEApplicationWindow.cpp:1442
 msgid "Net"
-msgstr ""
+msgstr "道路網"
 
 #: src/netedit/GNEApplicationWindow.cpp:1443
 msgid "Output"
-msgstr ""
+msgstr "出力"
 
 #: src/netedit/GNEApplicationWindow.cpp:1444
 #: src/netedit/GNEApplicationWindowHelper.cpp:705
 #: src/netedit/GNETagPropertiesDatabase.cpp:2505
 #: src/netedit/GNETagPropertiesDatabase.cpp:3047
 msgid "Route"
-msgstr ""
+msgstr "ルート"
 
 #: src/netedit/GNEApplicationWindow.cpp:1446
 msgid "TLS"
-msgstr ""
+msgstr "信号機"
 
 #: src/netedit/GNEApplicationWindow.cpp:1447
 msgid "Trigger"
-msgstr ""
+msgstr "トリガー"
 
 #: src/netedit/GNEApplicationWindow.cpp:1448
 msgid "Turn-defs"
-msgstr ""
+msgstr "右左折の定義"
 
 #: src/netedit/GNEApplicationWindow.cpp:1449
 msgid "Visualization"
-msgstr ""
+msgstr "表示"
 
 #: src/netedit/GNEApplicationWindow.cpp:1450
 msgid "XML"
-msgstr ""
+msgstr "XML"
 
 #: src/netedit/GNEApplicationWindow.cpp:1546
 msgid "Network computed"
-msgstr ""
+msgstr "ネットワーク計算済み"
 
 #: src/netedit/GNEApplicationWindow.cpp:1550
 msgid "Press F5"
-msgstr ""
+msgstr "F5キーを押下"
 
 #: src/netedit/GNEApplicationWindow.cpp:1551
 msgid "Network requires recomputing"
-msgstr ""
+msgstr "ネットワークの再計算が必要"
 
 #: src/netedit/GNEApplicationWindow.cpp:1628
 msgid "Loading console arguments"
-msgstr ""
+msgstr "コンソール引数を読み込み中"
 
 #: src/netedit/GNEApplicationWindow.cpp:1656
 msgid "Creating new network."
-msgstr ""
+msgstr "新しいネットワークを作成中です。"
 
 #: src/netedit/GNEApplicationWindow.cpp:1667
 msgid "Trying to load an empty network"
-msgstr ""
+msgstr "空のネットワークの読み込みを試行中"
 
 #: src/netedit/GNEApplicationWindow.cpp:1683
 msgid "Loading network file '"
-msgstr ""
+msgstr "ネットワークファイルをローディング中 '"
 
 #: src/netedit/GNEApplicationWindow.cpp:1695
 msgid "Trying to load an empty configuration"
-msgstr ""
+msgstr "空の構成の読み込みを試行中"
 
 #: src/netedit/GNEApplicationWindow.cpp:1711
 msgid "Loading configuration file '"
-msgstr ""
+msgstr "設定ファイルを読み込み中 '"
 
 #: src/netedit/GNEApplicationWindow.cpp:1741
 msgid "Select Import Options"
-msgstr ""
+msgstr "インポートオプションを選択"
 
 #: src/netedit/GNEApplicationWindow.cpp:1747
 msgid "Loading OSM file '"
-msgstr ""
+msgstr "OSMファイルを読み込み中 '"
 
 #: src/netedit/GNEApplicationWindow.cpp:1765
 msgid "Recompute with volatile options"
-msgstr ""
+msgstr "変更可能なオプションも含めて再計算"
 
 #: src/netedit/GNEApplicationWindow.cpp:1766
 msgid ""
 "Changes produced in the net due a recomputing with volatile options cannot "
 "be undone. Continue?"
-msgstr ""
+msgstr "変更可能なオプションを含めた再計算によるネットワークの変更は元に戻せません。"
+"続行しますか？"
 
 #: src/netedit/GNEApplicationWindow.cpp:1978
 #: src/netedit/GNEApplicationWindow.cpp:2038
 msgid "Running "
-msgstr ""
+msgstr "実行中 "
 
 #: src/netedit/GNEApplicationWindow.cpp:2001
 msgid "Loading network '"
-msgstr ""
+msgstr "ネットワークをローディング中 '"
 
 #: src/netedit/GNEApplicationWindow.cpp:2001
 #: src/netedit/GNEApplicationWindow.cpp:2010
 msgid "' in SUMO-GUI"
-msgstr ""
+msgstr "SUMO-GUIの '"
 
 #: src/netedit/GNEApplicationWindow.cpp:2010
 msgid "Loading sumo config '"
-msgstr ""
+msgstr "sumoコンフィグを読み込み中 '"
 
 #: src/netedit/GNEApplicationWindow.cpp:2357
 msgid "Netedit options"
-msgstr ""
+msgstr "Netedit オプション"
 
 #: src/netedit/GNEApplicationWindow.cpp:2374
 #: src/netedit/GNEApplicationWindowHelper.cpp:1888
 msgid "Sumo options"
-msgstr ""
+msgstr "Sumo オプション"
 
 #: src/netedit/GNEApplicationWindow.cpp:2391
 msgid "Netgenerate options"
-msgstr ""
+msgstr "Netgenerate オプション"
 
 #: src/netedit/GNEApplicationWindow.cpp:2407
 #: src/netedit/GNEApplicationWindowHelper.cpp:1276
 #: src/netedit/GNEUndoList.cpp:475 src/netedit/GNEViewParent.cpp:107
 #: src/netedit/changes/GNEChangeGroup.cpp:94
 msgid "Undo"
-msgstr ""
+msgstr "元に戻す"
 
 #: src/netedit/GNEApplicationWindow.cpp:2438
 #: src/netedit/GNEApplicationWindowHelper.cpp:1279
 #: src/netedit/GNEUndoList.cpp:526 src/netedit/GNEViewParent.cpp:110
 #: src/netedit/changes/GNEChangeGroup.cpp:100
 msgid "Redo"
-msgstr ""
+msgstr "やり直す"
 
 #: src/netedit/GNEApplicationWindow.cpp:3164
 msgid "Saving Network failed!"
-msgstr ""
+msgstr "ネットワークの保存に失敗しました！"
 
 #: src/netedit/GNEApplicationWindow.cpp:3168
 msgid "Network saved in '"
-msgstr ""
+msgstr "ネットワークを ' に保存しました"
 
 #: src/netedit/GNEApplicationWindow.cpp:3174
 msgid "Could not save network in '"
-msgstr ""
+msgstr "ネットワークを ' に保存できません"
 
 #: src/netedit/GNEApplicationWindow.cpp:3228
 msgid "Plain XML saved with prefix '"
-msgstr ""
+msgstr "プレーンXMLをprefix ' で保存しました"
 
 #: src/netedit/GNEApplicationWindow.cpp:3231
 msgid "Saving plain xml failed!"
-msgstr ""
+msgstr "プレーンXMLの保存に失敗しました！"
 
 #: src/netedit/GNEApplicationWindow.cpp:3252
 msgid "Joined junctions saved to '"
-msgstr ""
+msgstr "結合された交差点が ' に保存されました"
 
 #: src/netedit/GNEApplicationWindow.cpp:3255
 msgid "Saving joined junctions failed!"
-msgstr ""
+msgstr "結合された交差点の保存に失敗しました！"
 
 #: src/netedit/GNEApplicationWindow.cpp:3282
 #: src/netedit/GNEApplicationWindow.cpp:3286
@@ -2745,15 +2773,15 @@ msgstr ""
 #: src/netedit/GNEApplicationWindow.cpp:3294
 #: src/netedit/GNEApplicationWindow.cpp:3298
 msgid "Saving of Netedit configuration aborted"
-msgstr ""
+msgstr "Neteditの構成の保存を中止しました"
 
 #: src/netedit/GNEApplicationWindow.cpp:3307
 msgid "Netedit configuration saved in '"
-msgstr ""
+msgstr "Neteditの構成が ' に保存されました"
 
 #: src/netedit/GNEApplicationWindow.cpp:3313
 msgid "Could not save netedit configuration in '"
-msgstr ""
+msgstr "neteditの構成を ' に保存できませんでした"
 
 #: src/netedit/GNEApplicationWindow.cpp:3384
 #: src/netedit/GNEApplicationWindow.cpp:3388
@@ -2761,144 +2789,144 @@ msgstr ""
 #: src/netedit/GNEApplicationWindow.cpp:3396
 #: src/netedit/GNEApplicationWindow.cpp:3400
 msgid "Saving of SUMO configuration aborted"
-msgstr ""
+msgstr "SUMOの構成の保存を中止しました"
 
 #: src/netedit/GNEApplicationWindow.cpp:3415
 msgid "SUMO configuration saved in '"
-msgstr ""
+msgstr "SUMOの構成が ' に保存されました"
 
 #: src/netedit/GNEApplicationWindow.cpp:3423
 msgid "Could not save SUMO configuration in '"
-msgstr ""
+msgstr "SUMOの構成を ' に保存できませんでした"
 
 #: src/netedit/GNEApplicationWindow.cpp:3477
 msgid "TLS Programs saved in '"
-msgstr ""
+msgstr "信号機のプログラムを ' に保存しました"
 
 #: src/netedit/GNEApplicationWindow.cpp:3480
 msgid "Saving TLS Programs failed!"
-msgstr ""
+msgstr "信号機のプログラムの保存に失敗しました！"
 
 #: src/netedit/GNEApplicationWindow.cpp:3521
 msgid "EdgeType saved in '"
-msgstr ""
+msgstr "リンクタイプを ' に保存しました"
 
 #: src/netedit/GNEApplicationWindow.cpp:3524
 msgid "Saving edgeTypes failed!"
-msgstr ""
+msgstr "リンクタイプの保存に失敗しました！"
 
 #: src/netedit/GNEApplicationWindow.cpp:3628
 msgid "load additionals from '"
-msgstr ""
+msgstr "構造物を ' から読み込み"
 
 #: src/netedit/GNEApplicationWindow.cpp:3632 src/netedit/GNENet.cpp:1467
 msgid "Loading of additional file failed: "
-msgstr ""
+msgstr "構造物の読み込みに失敗しました: "
 
 #: src/netedit/GNEApplicationWindow.cpp:3638 src/netedit/GNENet.cpp:1469
 msgid "Loading of additional file successfully: "
-msgstr ""
+msgstr "構造物の読み込みに成功: "
 
 #: src/netedit/GNEApplicationWindow.cpp:3667
 msgid "reloading additionals from '"
-msgstr ""
+msgstr "構造物を ' からリロード中"
 
 #: src/netedit/GNEApplicationWindow.cpp:3672
 msgid "Reloading of additional file failed: "
-msgstr ""
+msgstr "構造物のリロードに失敗: "
 
 #: src/netedit/GNEApplicationWindow.cpp:3724
 msgid "Additionals saved in '"
-msgstr ""
+msgstr "構造物を ' に保存しました"
 
 #: src/netedit/GNEApplicationWindow.cpp:3727
 msgid "Saving additional aborted"
-msgstr ""
+msgstr "構造物の保存を中止しました"
 
 #: src/netedit/GNEApplicationWindow.cpp:3732
 msgid "Saving additionals failed!"
-msgstr ""
+msgstr "構造物の保存に失敗しました！"
 
 #: src/netedit/GNEApplicationWindow.cpp:3784
 msgid "JuPedSim elements saved in '"
-msgstr ""
+msgstr "JuPedSimエレメントを ' に保存しました"
 
 #: src/netedit/GNEApplicationWindow.cpp:3787
 msgid "Saving JuPedSim aborted"
-msgstr ""
+msgstr "JuPedSimの保存を中止しました"
 
 #: src/netedit/GNEApplicationWindow.cpp:3793
 msgid "Saving JuPedSim elements failed!"
-msgstr ""
+msgstr "JuPedSimエレメントの保存に失敗しました！"
 
 #: src/netedit/GNEApplicationWindow.cpp:3830
 #: src/netedit/GNEApplicationWindow.cpp:4664
 #: src/netedit/GNEApplicationWindow.cpp:4671
 msgid "loading demand elements from '"
-msgstr ""
+msgstr "交通需要エレメントを ' から読み込み中"
 
 #: src/netedit/GNEApplicationWindow.cpp:3834 src/netedit/GNENet.cpp:1478
 msgid "Loading of route file failed: "
-msgstr ""
+msgstr "ルートファイルの読み込みに失敗しました: "
 
 #: src/netedit/GNEApplicationWindow.cpp:3840 src/netedit/GNENet.cpp:1480
 msgid "Loading of route file successfully: "
-msgstr ""
+msgstr "ルートファイルの読み込みが完了しました: "
 
 #: src/netedit/GNEApplicationWindow.cpp:3869
 msgid "reloading demand elements from '%'"
-msgstr ""
+msgstr "交通需要エレメントを'%'からリロード中"
 
 #: src/netedit/GNEApplicationWindow.cpp:3874
 msgid "Reloading of route file failed: "
-msgstr ""
+msgstr "ルートファイルのリロードに失敗: "
 
 #: src/netedit/GNEApplicationWindow.cpp:3924
 msgid "Demand elements saved in '"
-msgstr ""
+msgstr "交通需要エレメントを ' に保存しました"
 
 #: src/netedit/GNEApplicationWindow.cpp:3927
 #: src/netedit/GNEApplicationWindow.cpp:4104
 msgid "Saving demand elements aborted"
-msgstr ""
+msgstr "交通需要エレメントの保存を中止"
 
 #: src/netedit/GNEApplicationWindow.cpp:3932
 #: src/netedit/GNEApplicationWindow.cpp:4279
 msgid "Saving demand elements failed!"
-msgstr ""
+msgstr "交通需要エレメントの保存に失敗しました！"
 
 #: src/netedit/GNEApplicationWindow.cpp:4003
 #: src/netedit/GNEApplicationWindow.cpp:4759
 msgid "loading data elements from '"
-msgstr ""
+msgstr "データ要素を ' から読み込み中"
 
 #: src/netedit/GNEApplicationWindow.cpp:4007 src/netedit/GNENet.cpp:1489
 msgid "Loading of data file failed: "
-msgstr ""
+msgstr "データファイルの読み込みに失敗しました: "
 
 #: src/netedit/GNEApplicationWindow.cpp:4013 src/netedit/GNENet.cpp:1491
 msgid "Loading of data file successfully: "
-msgstr ""
+msgstr "データファイルの読み込みが完了しました: "
 
 #: src/netedit/GNEApplicationWindow.cpp:4046
 msgid "reloading data elements from '"
-msgstr ""
+msgstr "' からデータ要素をリロード中"
 
 #: src/netedit/GNEApplicationWindow.cpp:4051
 msgid "Reloading of data file failed: "
-msgstr ""
+msgstr "データファイルのリロードに失敗しました: "
 
 #: src/netedit/GNEApplicationWindow.cpp:4101
 msgid "Data elements saved in '"
-msgstr ""
+msgstr "データ要素を ' に保存しました"
 
 #: src/netedit/GNEApplicationWindow.cpp:4109
 msgid "Saving data elements failed!"
-msgstr ""
+msgstr "データ要素の保存に失敗しました！"
 
 #: src/netedit/GNEApplicationWindow.cpp:4177
 msgid "load meanDatas from '"
-msgstr ""
+msgstr "' からMeanDataを読み込み"
 
 #: src/netedit/GNEApplicationWindow.cpp:4181 src/netedit/GNENet.cpp:1500
 msgid "Loading of meandata file failed: "
@@ -2919,7 +2947,7 @@ msgstr ""
 
 #: src/netedit/GNEApplicationWindow.cpp:4274
 msgid "Saving MeanData elements aborted"
-msgstr ""
+msgstr "MeanDataエレメントの保存を中止しました"
 
 #: src/netedit/GNEApplicationWindow.cpp:4610
 msgid "loading additional elements from '"
@@ -10972,12 +11000,12 @@ msgstr ""
 #: src/netedit/dialogs/tools/GNERunNetgenerateDialog.cpp:86
 #: src/netedit/dialogs/tools/GNERunPythonToolDialog.cpp:87
 msgid "Abort"
-msgstr ""
+msgstr "中止"
 
 #: src/netedit/dialogs/tools/GNERunNetgenerateDialog.cpp:86
 #: src/netedit/dialogs/tools/GNERunPythonToolDialog.cpp:87
 msgid "abort running"
-msgstr ""
+msgstr "実行を中止"
 
 #: src/netedit/dialogs/tools/GNERunNetgenerateDialog.cpp:88
 #: src/netedit/dialogs/tools/GNERunPythonToolDialog.cpp:89
@@ -12428,7 +12456,7 @@ msgstr ""
 
 #: src/netedit/frames/GNEConsecutiveSelector.cpp:62
 msgid "Abort path creation"
-msgstr ""
+msgstr "パスの作成を中止"
 
 #: src/netedit/frames/GNEConsecutiveSelector.cpp:65
 msgid "Remove last lane"
@@ -12444,7 +12472,7 @@ msgstr ""
 
 #: src/netedit/frames/GNEConsecutiveSelector.cpp:71
 msgid "-ESC: Abort path creation"
-msgstr ""
+msgstr "-ESC: パスの作成を中止"
 
 #: src/netedit/frames/GNEConsecutiveSelector.cpp:132
 msgid "Invalid lane"
@@ -12489,7 +12517,7 @@ msgstr ""
 
 #: src/netedit/frames/GNEDrawingShape.cpp:54
 msgid "Abort drawing"
-msgstr ""
+msgstr "描画を中止"
 
 #: src/netedit/frames/GNEDrawingShape.cpp:58
 msgid "'Start drawing' or ENTER to create a shape."
@@ -12501,7 +12529,7 @@ msgstr ""
 
 #: src/netedit/frames/GNEDrawingShape.cpp:60
 msgid "'Abort drawing' or ESC to abort shape creation."
-msgstr ""
+msgstr "シェイプの作成を中止するにはESCキーを押すか'描画を中止'を選択してください。"
 
 #: src/netedit/frames/GNEDrawingShape.cpp:61
 msgid "'Shift + Click' to remove the last inserted point."
@@ -12867,7 +12895,7 @@ msgstr ""
 #: src/netedit/frames/GNEPathCreator.cpp:141
 #: src/netedit/frames/GNEPlanCreator.cpp:166
 msgid "Abort route creation"
-msgstr ""
+msgstr "ルートの作成を中止"
 
 #: src/netedit/frames/GNEPathCreator.cpp:144
 msgid "Remove last edge"
@@ -15057,7 +15085,7 @@ msgstr ""
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:523
 msgid "Unsaved modifications. Abort or Save"
-msgstr ""
+msgstr "変更が保存されていません。中止するか保存するかを選択してください"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:543
 msgid "Traffic light Attributes"
@@ -15667,7 +15695,7 @@ msgstr ""
 
 #: src/utils/gui/globjects/GUISaveDialog.cpp:89
 msgid "&Abort"
-msgstr ""
+msgstr "&中止"
 
 #: src/utils/gui/globjects/GUIShapeContainer.cpp:58
 msgid "Replacing POI '%'"
