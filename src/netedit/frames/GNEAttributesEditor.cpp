@@ -254,6 +254,24 @@ GNEAttributesEditor::refreshAttributesEditor() {
 }
 
 
+bool
+GNEAttributesEditor::checkAttributes(const bool showWarning) {
+    // iterate over standar parameters
+    for (const auto& row : myAttributesEditorRows) {
+        if (!row->isValueValid())
+            if (showWarning) {
+                const std::string errorMessage = TLF("Invalid value % of attribute %", row->getCurrentValue(), row->getAttrProperty()->getAttrStr());
+                // show warning
+                WRITE_WARNING(errorMessage);
+                // set message in status bar
+                myFrameParent->getViewNet()->setStatusBarText(errorMessage);
+                return false;
+            }
+    }
+    return true;
+}
+
+
 SumoXMLAttr
 GNEAttributesEditor::fillSumoBaseObject(CommonXMLStructure::SumoBaseObject* baseObject) const {
     // iterate over every attribute row and stop if there was an error

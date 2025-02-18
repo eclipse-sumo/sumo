@@ -81,6 +81,9 @@ public:
     /// @brief refresh attribute editor
     void refreshAttributesEditor();
 
+    /// @brief check if current edited attributes are valid
+    bool checkAttributes(const bool showWarning);
+
     /// @brief fill sumo Base object
     SumoXMLAttr fillSumoBaseObject(CommonXMLStructure::SumoBaseObject* baseObject) const;
 

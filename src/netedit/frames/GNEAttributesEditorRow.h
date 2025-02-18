@@ -49,6 +49,15 @@ public:
     /// @brief hide attribute row (always return false)
     bool hideAttributeRow();
 
+    /// @brief get attribute property
+    const GNEAttributeProperties* getAttrProperty() const;
+
+    /// @brief get current value in string format
+    std::string getCurrentValue() const;
+
+    /// @brief check if current attribute row is valid
+    bool isValueValid() const;
+
     /// @brief check if current attribute row is shown
     bool isAttributeRowShown() const;
 

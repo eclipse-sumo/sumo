@@ -229,6 +229,42 @@ GNEAttributesEditorRow::hideAttributeRow() {
 }
 
 
+const GNEAttributeProperties*
+GNEAttributesEditorRow::getAttrProperty() const {
+    return myAttrProperty;
+}
+
+
+std::string
+GNEAttributesEditorRow::getCurrentValue() const {
+    if (myValueCheckButton->shown()) {
+        return (myValueCheckButton->getCheck() == TRUE)? "true" : "false";
+    } else if (myValueComboBox->shown()) {
+        return myValueComboBox->getText().text();
+    } else if (myValueTextField->shown()) {
+        return myValueTextField->getText().text();
+    } else {
+        return "";
+    }
+}
+
+
+bool
+GNEAttributesEditorRow::isValueValid() const {
+    if (myValueCheckButton->shown()) {
+        return true;
+    } else if (myValueComboBox->shown()) {
+        return (myValueComboBox->getTextColor() != TEXTCOLOR_RED) &&
+               (myValueComboBox->getBackColor() != TEXTCOLOR_BACKGROUND_RED);
+    } else if (myValueTextField->shown()) {
+        return (myValueTextField->getTextColor() != TEXTCOLOR_RED) &&
+               (myValueTextField->getBackColor() != TEXTCOLOR_BACKGROUND_RED);
+    } else {
+        return true;
+    }
+}
+
+
 bool
 GNEAttributesEditorRow::isAttributeRowShown() const {
     return shown();

@@ -146,8 +146,8 @@ private:
     /// @brief item selector
     GNETagSelector* myAdditionalTagSelector = nullptr;
 
-    /// @brief internal additional attributes
-    GNEAttributesCreator* myAdditionalAttributes = nullptr;
+    /// @brief additional attributes editor
+    GNEAttributesEditor* myAdditionalAttributesEditor = nullptr;
 
     /// @brief Netedit attributes editor
     GNEAttributesEditor* myNeteditAttributesEditor = nullptr;
