@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-13 10:07+0100\n"
-"PO-Revision-Date: 2025-02-17 18:49+0000\n"
+"PO-Revision-Date: 2025-02-18 09:34+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -7914,31 +7914,39 @@ msgstr ""
 msgid ""
 "Could not determine vehicle class for public transport line of type '%'."
 msgstr ""
+"Non ho potuto determinare la classe di veicolo per la linea di trasportzo "
+"pubblico del tipo '%'."
 
 #: src/netbuild/NBPTLineCont.cpp:567
 msgid "Could not determine direction for line '%' at stop '%'."
 msgstr ""
+"Non ho potuto determinare la direzione per la linea '%' alla fermata '%'."
 
 #: src/netbuild/NBPTStopCont.cpp:110
 msgid ""
 "Could not find corresponding edge or compatible lane for pt stop '%' (%). "
 "Thus, it will be removed!"
 msgstr ""
+"Non ho potuto trovare l'arco corrispondente o la corsia compatibile per la "
+"fermata di trasporto pubblico '%' (%). Quindi la fermata verrà rimossa!"
 
 #: src/netbuild/NBPTStopCont.cpp:136
 msgid ""
 "Could not create reverse-direction stop for superposed edge '%' (origStop "
 "'%'). Stop id '%' already in use by stop on edge '%'."
 msgstr ""
+"La fermata in direzione opposta dell'arco '%' sovrapposto non poteva essere "
+"creata (fermata originale '%'). Il codice identificativo di fermata '%' è "
+"già in uso sull'arco '%'."
 
 #: src/netbuild/NBPTStopCont.cpp:170
 #, c-format
 msgid "Added % stops for superposed rail edges."
-msgstr ""
+msgstr "% fermate sono state aggiunte per archi ferroviari sovrapposti."
 
 #: src/netbuild/NBPTStopCont.cpp:272
 msgid "Could not determine cross product for edge '%'."
-msgstr ""
+msgstr "Non ho potuto determinare il prodotto vettoriale per l'arco '%'."
 
 #: src/netbuild/NBPTStopCont.cpp:326
 msgid "Removing pt stop '%' on non existing edge '%'."
