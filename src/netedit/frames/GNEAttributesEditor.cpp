@@ -77,9 +77,8 @@ GNEAttributesEditor::GNEAttributesEditor(GNEFrame* frameParent, const std::strin
         myOpenDialogButton = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Open element dialog"), "", "", nullptr, this, MID_GNE_ATTRIBUTESEDITOR_DIALOG, GUIDesignButton);
         myOpenDialogButton->hide();
     } else if (myAttributeType == AttributeType::EXTENDED) {
-        // create extended attributes
+        // create extended attributes (always shown)
         myOpenExtendedAttributesButton = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Edit extended attributes"), "", "", nullptr, this, MID_GNE_ATTRIBUTESEDITOR_EXTENDED, GUIDesignButton);
-        myOpenExtendedAttributesButton->hide();
     } else if (myAttributeType == AttributeType::PARAMETERS) {
         myMaxNumberOfRows = 1;
     } else {
@@ -92,9 +91,8 @@ GNEAttributesEditor::GNEAttributesEditor(GNEFrame* frameParent, const std::strin
     }
     // create generic parameters editor button
     if (myAttributeType == AttributeType::PARAMETERS) {
-        // create generic attributes editor button
+        // create generic attributes editor button (always shown)
         myOpenGenericParametersEditorButton = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Edit parameters"), "", "", nullptr, this, MID_GNE_ATTRIBUTESEDITOR_PARAMETERS, GUIDesignButton);
-        myOpenGenericParametersEditorButton->hide();
     }
     // Create help button
     myHelpButton = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Help"), "", "", nullptr, this, MID_GNE_ATTRIBUTESEDITOR_HELP, GUIDesignButtonRectangular);
@@ -148,8 +146,8 @@ GNEAttributesEditor::refreshAttributesEditor() {
         const auto tagProperty = myEditedACs.front()->getTagProperty();
         int itRows = 0;
         bool showButtons = false;
-        // check if show netedit attributes (only for single edited ACs)
-        if (myAttributeType == AttributeType::NETEDIT) {
+        // check if show netedit attributes (only in edit mode)
+        if (myAttributeType == AttributeType::NETEDIT && (myEditorType == EditorType::EDITOR)) {
             // front button
             if (tagProperty->isDrawable()) {
                 myFrontButton->show();
@@ -183,9 +181,8 @@ GNEAttributesEditor::refreshAttributesEditor() {
                 }
 
             }
-        } else if (myAttributeType == AttributeType::PARAMETERS) {
-            myOpenGenericParametersEditorButton->show();
         }
+        // check if show either extended button or rows 
         if (myAttributeType == AttributeType::EXTENDED) {
             myOpenExtendedAttributesButton->show();
             showButtons = true;
@@ -196,6 +193,12 @@ GNEAttributesEditor::refreshAttributesEditor() {
                 // check show conditions
                 if (attrProperty->isExtended()) {
                     showAttributeRow = false;
+                // filter editor type
+                } else if ((myEditorType == EditorType::CREATOR) && !attrProperty->isCreateMode()) {
+                    showAttributeRow = false;
+                } else if ((myEditorType == EditorType::EDITOR) && !attrProperty->isEditMode()) {
+                    showAttributeRow = false;
+                // filter types
                 } else if ((myAttributeType != AttributeType::FLOW) && attrProperty->isFlow()) {
                     showAttributeRow = false;
                 } else if ((myAttributeType == AttributeType::FLOW) && !attrProperty->isFlow()) {

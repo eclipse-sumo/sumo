@@ -8021,7 +8021,7 @@ GNETagPropertiesDatabase::fillCommonAttributes(GNETagProperties* tagProperties) 
         tagProperties->addAttribute(commonAttribute);
         commonAttribute = new GNEAttributeProperties(GNE_ATTR_SELECTED,
                 GNEAttributeProperties::BOOL,
-                GNEAttributeProperties::EDITMODE | GNEAttributeProperties::NETEDIT,
+                GNEAttributeProperties::NETEDIT,
                 TL("Toggle select element"));
         tagProperties->addAttribute(commonAttribute);
     }

@@ -160,7 +160,7 @@ GNEAttributesEditorRow::showAttributeRow(const GNEAttributeProperties* attrPrope
         return hideAttributeRow();
     }
     // front element has their own button, and doesn't use the UndoList
-    if ((attribute == GNE_ATTR_FRONTELEMENT) || (attribute == GNE_ATTR_SELECTED)) {
+    if (attribute == GNE_ATTR_FRONTELEMENT) {
         return hideAttributeRow();
     }
     // if we have a disabled flow attribute, don't show row
