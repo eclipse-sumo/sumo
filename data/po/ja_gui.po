@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-13 10:07+0100\n"
-"PO-Revision-Date: 2025-02-18 09:35+0000\n"
+"PO-Revision-Date: 2025-02-18 12:08+0000\n"
 "Last-Translator: Tomosawa Ryo <tomosawa.r.103@ms.saitama-u.ac.jp>\n"
 "Language-Team: Japanese <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/ja/>\n"
@@ -2930,20 +2930,20 @@ msgstr "' からMeanDataを読み込み"
 
 #: src/netedit/GNEApplicationWindow.cpp:4181 src/netedit/GNENet.cpp:1500
 msgid "Loading of meandata file failed: "
-msgstr ""
+msgstr "meanDataファイルの読み込みに失敗しました: "
 
 #: src/netedit/GNEApplicationWindow.cpp:4187
 #: src/netedit/GNEApplicationWindow.cpp:4221 src/netedit/GNENet.cpp:1502
 msgid "Loading of meandata file successfully: "
-msgstr ""
+msgstr "MeanDataファイルの読み込みが完了しました: "
 
 #: src/netedit/GNEApplicationWindow.cpp:4216
 msgid "reloading meanDatas from '"
-msgstr ""
+msgstr "' からMeanDataをリロード中"
 
 #: src/netedit/GNEApplicationWindow.cpp:4271
 msgid "MeanDatas elements saved in '"
-msgstr ""
+msgstr "MeanDataエレメントを ' に保存しました"
 
 #: src/netedit/GNEApplicationWindow.cpp:4274
 msgid "Saving MeanData elements aborted"
@@ -2951,172 +2951,172 @@ msgstr "MeanDataエレメントの保存を中止しました"
 
 #: src/netedit/GNEApplicationWindow.cpp:4610
 msgid "loading additional elements from '"
-msgstr ""
+msgstr "' から構造物エレメントを読み込み中"
 
 #: src/netedit/GNEApplicationWindow.cpp:4617
 msgid "loading additionals from '"
-msgstr ""
+msgstr "' から構造物を読み込み中"
 
 #: src/netedit/GNEApplicationWindow.cpp:4712
 msgid "loading meanDatas from '"
-msgstr ""
+msgstr "' からMeanDataを読み込み中"
 
 #: src/netedit/GNEApplicationWindow.cpp:4719
 msgid "loading meandatas from '"
-msgstr ""
+msgstr "' からMeanDataを読み込み中"
 
 #: src/netedit/GNEApplicationWindow.cpp:4766
 msgid "Loading data elements from '"
-msgstr ""
+msgstr "' からデータ要素を読み込み中"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:136
 msgid "nets"
-msgstr ""
+msgstr "道路網"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:137
 msgid "configs"
-msgstr ""
+msgstr "コンフィグ"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:202
 msgid "New Network"
-msgstr ""
+msgstr "新しいネットワーク"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:202
 msgid "Create a new network."
-msgstr ""
+msgstr "新しいネットワークを作成します。"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:206
 msgid "Open a new netedit window."
-msgstr ""
+msgstr "新しいneteditのウィンドウを開きます。"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:210
 msgid "Generate Network"
-msgstr ""
+msgstr "ネットワークを作成"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:210
 msgid "Create network using netgenerate."
-msgstr ""
+msgstr "netgenerateを用いて新しいネットワークを作成します。"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:217
 msgid "Load Netedit config..."
-msgstr ""
+msgstr "Neteditコンフィグを読み込む…"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:217
 msgid "Load a netedit configuration file."
-msgstr ""
+msgstr "Neteditの設定ファイルを読み込みます。"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:221
 msgid "Load Sumo config..."
-msgstr ""
+msgstr "Sumoコンフィグを読み込む…"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:221
 msgid "Load a SUMO configuration file."
-msgstr ""
+msgstr "SUMOの設定ファイルを読み込みます。"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:228
 msgid "Open Network..."
-msgstr ""
+msgstr "ネットワークを開く…"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:228
 msgid "Open a SUMO network."
-msgstr ""
+msgstr "SUMOネットワークを開きます。"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:232
 msgid "Open Netconvert Configuration..."
-msgstr ""
+msgstr "Netconvertの設定を開く…"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:232
 msgid "Open a configuration file with NETCONVERT options."
-msgstr ""
+msgstr "NETCONVERTオプションを含む設定ファイルを開きます。"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:236
 msgid "Import Foreign Network..."
-msgstr ""
+msgstr "外部のネットワークをインポート…"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:236
 msgid "Import a foreign network such as OSM."
-msgstr ""
+msgstr "OSM等の外部ネットワークをインポートします。"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:243
 msgid "Save Network"
-msgstr ""
+msgstr "ネットワークを保存"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:243
 msgid "Save the network."
-msgstr ""
+msgstr "ネットワークを保存します。"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:247
 msgid "Save Network As..."
-msgstr ""
+msgstr "名前を付けて保存…"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:247
 msgid "Save the network to another file."
-msgstr ""
+msgstr "別のファイルとしてネットワークを保存します。"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:251
 msgid "Save Plain XML..."
-msgstr ""
+msgstr "プレーンXMLを保存…"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:251
 msgid "Save a plain XML representation of the network."
-msgstr ""
+msgstr "ネットワークのプレーンXML表現を保存します。"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:255
 msgid "Save Joined Junctions..."
-msgstr ""
+msgstr "結合した交差点を保存…"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:255
 msgid "Save log of joined junctions (allows reproduction of joins)."
-msgstr ""
+msgstr "結合された交差点のログを保存します（結合の再現が可能になります）。"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:262
 msgid "Reload"
-msgstr ""
+msgstr "リロード"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:262
 #: src/netedit/GNEApplicationWindowHelper.cpp:266
 msgid "Reload the network."
-msgstr ""
+msgstr "ネットワークをリロードします。"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:266
 msgid "Reload Network"
-msgstr ""
+msgstr "ネットワークをリロード"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:273
 msgid "Netedit Config"
-msgstr ""
+msgstr "Neteditコンフィグ"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:277
 msgid "Sumo Config"
-msgstr ""
+msgstr "Sumoコンフィグ"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:281
 msgid "Traffic Lights"
-msgstr ""
+msgstr "信号機"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:285
 msgid "Edge Types"
-msgstr ""
+msgstr "リンクのタイプ"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:289
 msgid "Additionals and Shapes"
-msgstr ""
+msgstr "構造物とシェイプ"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:293
 msgid "Demand Elements"
-msgstr ""
+msgstr "交通需要エレメント"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:297
 msgid "Data Elements"
-msgstr ""
+msgstr "データ要素"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:301
 msgid "MeanData Elements"
-msgstr ""
+msgstr "MeanDataエレメント"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:306
 msgid "Allow undoing element loading"
-msgstr ""
+msgstr "エレメントの読み込みを元に戻すことを許可"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:306
 msgid ""
