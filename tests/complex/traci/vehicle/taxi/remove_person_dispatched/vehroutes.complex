@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-06-08 13:18:12 by Eclipse SUMO sumo Version v1_17_0+0835-aca5534
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<!-- generated on 2025-02-18 15:48:51 by Eclipse SUMO sumo Version v1_22_0+0289-cae9d3b9241
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="input_net4.net.xml"/>
@@ -24,35 +24,25 @@
     </taxi_device>
 
     <traci_server>
-        <remote-port value="45728"/>
+        <remote-port value="49831"/>
     </traci_server>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <person id="a" depart="0.00" arrival="1.00">
-        <ride from="A1B1" to="A1B1" lines="taxi"/>
-        <stop lane="A1B1_0" endPos="0.00" duration="0.00" until="0.00" actType="last stage removed"/>
+    <person id="a" depart="0.00" arrival="3.00">
+        <ride from="D2D3" to="D2D3" lines="taxi"/>
     </person>
 
-    <person id="b" depart="0.00" arrival="343.00">
-        <ride from="B1C1" to="C1D1" arrivalPos="50.00" lines="taxi"/>
-    </person>
-
-    <person id="c" depart="0.00" departPos="50.00" arrival="486.00">
-        <ride from="C1D1" to="D2D3" arrivalPos="92.10" lines="taxi"/>
-    </person>
-
-    <vehicle id="taxi_0" type="taxi" depart="300.00">
+    <vehicle id="taxi_0" type="taxi" depart="0.00">
         <routeDistribution>
-            <route replacedOnEdge="A0A1" reason="taxi:prepare_dispatch" replacedAtTime="301.00" probability="0" edges="A0A1"/>
-            <route replacedOnEdge="A0A1" reason="taxi:dispatch" replacedAtTime="301.00" probability="0" edges="A0A1 B1C1 C1D1 D2D3"/>
-            <route edges="A0A1 A1B1 B1C1 C1D1 D1D2 D2D3"/>
+            <route replacedOnEdge="A0A1" reason="taxi:prepare_dispatch" replacedAtTime="2.00" probability="0" edges="A0A1"/>
+            <route replacedOnEdge="A0A1" reason="taxi:dispatch" replacedAtTime="2.00" probability="0" edges="A0A1 D2D3 C1D1"/>
+            <route replacedOnEdge="A0A1" reason="taxi:prepare_dispatch" replacedAtTime="3.00" probability="0" edges="A0A1 A1B1 B1B2 B2C2 C2D2 D2D3 D3C3 C3C2 C2C1 C1D1"/>
+            <route edges="A0A1"/>
         </routeDistribution>
-        <stop lane="B1C1_0" permitted="b" actType="pickup b (1)"/>
-        <stop lane="C1D1_0" permitted="c" actType="pickup c (2),dropOff b (1)"/>
-        <stop lane="D2D3_0" actType="dropOff c (2)"/>
+        <stop lane="A0A1_0" actType="idling"/>
     </vehicle>
 
 </routes>
