@@ -361,6 +361,8 @@ GNEAttributesEditorRow::fillSumoBaseObject(CommonXMLStructure::SumoBaseObject* b
         }
     } else if (myAttrProperty->isList()) {
         baseObjet->addStringListAttribute(attribute, GNEAttributeCarrier::parse<std::vector<std::string> >(myValueTextField->getText().text()));
+    } else if (attribute == GNE_ATTR_PARAMETERS) {
+        baseObjet->addParameters(myValueTextField->getText().text());
     } else {
         baseObjet->addStringAttribute(attribute, myValueTextField->getText().text());
     }
@@ -531,16 +533,16 @@ GNEAttributesEditorRow::getAttributeValue(const bool enabled) const {
     // if we're in creator mode, generate ID
     if ((attribute == SUMO_ATTR_ID) && (myAttributeTable->myEditorType == GNEAttributesEditor::EditorType::CREATOR)) {
         const auto &ACs = myAttributeTable->getFrameParent()->getViewNet()->getNet()->getAttributeCarriers();
-        const auto tag = myAttrProperty->getTagPropertyParent()->getTag();
+        const auto parentTag = myAttrProperty->getTagPropertyParent()->getTag();
         if (myAttrProperty->getTagPropertyParent()->isAdditionalElement()) {
-            return ACs->generateAdditionalID(tag);
+            return ACs->generateAdditionalID(parentTag);
         } else if (myAttrProperty->getTagPropertyParent()->isDemandElement()) {
-            return ACs->generateDemandElementID(tag);
+            return ACs->generateDemandElementID(parentTag);
         } else if (myAttrProperty->getTagPropertyParent()->isMeanData()) {
-            return ACs->generateMeanDataID(tag);
-        } else if (tag == SUMO_TAG_TYPE) {
+            return ACs->generateMeanDataID(parentTag);
+        } else if (parentTag == SUMO_TAG_TYPE) {
             return ACs->generateEdgeTypeID();
-        } else if (tag == SUMO_TAG_DATASET) {
+        } else if (parentTag == SUMO_TAG_DATASET) {
             return ACs->generateDataSetID("");
         }
     }

@@ -705,6 +705,16 @@ CommonXMLStructure::SumoBaseObject::addParentID(const SumoXMLTag tag, const std:
 
 
 void
+CommonXMLStructure::SumoBaseObject::addParameters(const std::string& value) {
+    const auto parameters = StringTokenizer(value, '|').getVector();
+    for (const auto &parameter : parameters) {
+        const auto keyValue = StringTokenizer(parameter, '=').getVector();
+        addParameter(keyValue[0], keyValue[1]);
+    }
+}
+
+
+void
 CommonXMLStructure::SumoBaseObject::addParameter(const std::string& key, const std::string& value) {
     // check if we have to insert in vType, vehicle or stop parameters
     if (myDefinedVehicleTypeParameter) {

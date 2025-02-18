@@ -296,6 +296,9 @@ public:
         /// @brief add PositionVector attribute into current SumoBaseObject node
         void addPositionVectorAttribute(const SumoXMLAttr attr, const PositionVector& value);
 
+        /// @brief add parameters into current SumoBaseObject node (format: key=value1|key2=value2|....)
+        void addParameters(const std::string& value);
+
         /// @brief add parameter into current SumoBaseObject node
         void addParameter(const std::string& key, const std::string& value);
 

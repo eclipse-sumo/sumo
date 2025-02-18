@@ -137,10 +137,19 @@ GNEAdditionalFrame::GNEAdditionalFrame(GNEViewParent* viewParent, GNEViewNet* vi
     myAdditionalTagSelector = new GNETagSelector(this, GNETagProperties::TagType::ADDITIONALELEMENT, SUMO_TAG_BUS_STOP);
 
     // Create additional parameters
-    myAdditionalAttributesEditor = new GNEAttributesEditor(this, TL("Internal attributes"), GNEAttributesEditor::EditorType::CREATOR, GNEAttributesEditor::AttributeType::BASIC);
+    myAdditionalAttributesEditor = new GNEAttributesEditor(this, TL("Internal attributes"),
+                                                           GNEAttributesEditor::EditorType::CREATOR,
+                                                           GNEAttributesEditor::AttributeType::BASIC);
 
     // Create Netedit attribute editor
-    myNeteditAttributesEditor = new GNEAttributesEditor(this, TL("Netedit attributes"), GNEAttributesEditor::EditorType::CREATOR, GNEAttributesEditor::AttributeType::NETEDIT);
+    myNeteditAttributesEditor = new GNEAttributesEditor(this, TL("Netedit attributes"),
+                                                        GNEAttributesEditor::EditorType::CREATOR,
+                                                        GNEAttributesEditor::AttributeType::NETEDIT);
+
+    // Create parameters editor
+    myGenericParametersEditor = new GNEAttributesEditor(this, TL("Parameters"),
+                                                        GNEAttributesEditor::EditorType::CREATOR,
+                                                        GNEAttributesEditor::AttributeType::PARAMETERS);
 
     // Create selector parent
     mySelectorAdditionalParent = new GNESelectorParent(this);
@@ -225,11 +234,9 @@ GNEAdditionalFrame::addAdditional(const GNEViewNetHelper::ViewObjectsSelector& v
         return false;
     }
     // check if additional attributes are valid
-    if (!myAdditionalAttributesEditor->checkAttributes(true)) {
-        return false;
-    }
-    // check if netedit attributes are valid
-    if (!myAdditionalAttributesEditor->checkAttributes(true)) {
+    if (!myAdditionalAttributesEditor->checkAttributes(true) ||
+        !myNeteditAttributesEditor->checkAttributes(true) ||
+        !myGenericParametersEditor->checkAttributes(true)) {
         return false;
     }
     // reset base additional
@@ -246,6 +253,8 @@ GNEAdditionalFrame::addAdditional(const GNEViewNetHelper::ViewObjectsSelector& v
     }
     // parse netedit attributes (after setting lanes)
     myNeteditAttributesEditor->fillSumoBaseObject(myBaseAdditional);
+    // parse parameters
+    myGenericParametersEditor->fillSumoBaseObject(myBaseAdditional);
     // declare additional handler
     GNEAdditionalHandler additionalHandler(myViewNet->getNet(), myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), false);
     // build additional
@@ -257,6 +266,7 @@ GNEAdditionalFrame::addAdditional(const GNEViewNetHelper::ViewObjectsSelector& v
     myLanesSelector->onCmdClearSelection(nullptr, 0, nullptr);
     // refresh attributes editors (needed for IDs)
     myAdditionalAttributesEditor->refreshAttributesEditor();
+    myNeteditAttributesEditor->refreshAttributesEditor();
     myNeteditAttributesEditor->refreshAttributesEditor();
     return true;
 }
@@ -301,6 +311,7 @@ GNEAdditionalFrame::createPath(const bool /* useLastRoute */) {
             // get attributes and values
             myAdditionalAttributesEditor->fillSumoBaseObject(myBaseAdditional);
             myNeteditAttributesEditor->fillSumoBaseObject(myBaseAdditional);
+            myGenericParametersEditor->fillSumoBaseObject(myBaseAdditional);
             // add lane IDs
             myBaseAdditional->addStringListAttribute(SUMO_ATTR_LANES, myConsecutiveLaneSelector->getLaneIDPath());
             // set positions
@@ -332,10 +343,10 @@ GNEAdditionalFrame::tagSelected() {
     // get template AC
     const auto templateAC = myAdditionalTagSelector->getCurrentTemplateAC();
     if (templateAC) {
-        // show additional attributes module
+        // show parameters
         myAdditionalAttributesEditor->showAttributesEditor(templateAC);
-        // show netedit attributes
         myNeteditAttributesEditor->showAttributesEditor(templateAC);
+        myGenericParametersEditor->showAttributesEditor(templateAC);
         // Show myAdditionalFrameParent if we're adding an slave element
         if (templateAC->getTagProperty()->isChild()) {
             mySelectorAdditionalParent->showSelectorParentModule(templateAC->getTagProperty()->getParentTags());
@@ -372,6 +383,7 @@ GNEAdditionalFrame::tagSelected() {
         // hide all modules if additional isn't valid
         myAdditionalAttributesEditor->hideAttributesEditor();
         myNeteditAttributesEditor->hideAttributesEditor();
+        myGenericParametersEditor->hideAttributesEditor();
         mySelectorAdditionalParent->hideSelectorParentModule();
         myEdgesSelector->hideNetworkElementsSelector();
         myLanesSelector->hideNetworkElementsSelector();

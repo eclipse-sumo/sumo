@@ -146,6 +146,9 @@ private:
     /// @brief Netedit attributes editor
     GNEAttributesEditor* myNeteditAttributesEditor = nullptr;
 
+    /// @brief Generic parameters editor
+    GNEAttributesEditor* myGenericParametersEditor;
+
     /// @brief Module for select a single parent additional
     GNESelectorParent* mySelectorAdditionalParent = nullptr;
 
