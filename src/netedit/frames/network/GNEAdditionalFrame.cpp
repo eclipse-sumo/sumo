@@ -188,6 +188,8 @@ GNEAdditionalFrame::addAdditional(const GNEViewNetHelper::ViewObjectsSelector& v
         myViewNet->setStatusBarText(TL("Current selected additional isn't valid."));
         return false;
     }
+    // obtain tagproperty (only for improve code legibility)
+    const auto& tagProperties = myAdditionalTagSelector->getCurrentTemplateAC()->getTagProperty();
     // check if add or remove edge
     if (myEdgesSelector->isShown() && viewObjects.getEdgeFront()) {
         myEdgesSelector->toggleSelectedElement(viewObjects.getEdgeFront());
@@ -198,6 +200,30 @@ GNEAdditionalFrame::addAdditional(const GNEViewNetHelper::ViewObjectsSelector& v
         myLanesSelector->toggleSelectedElement(viewObjects.getLaneFront());
         return true;
     }
+    // check if add a lane in consecutive lane selector
+    if (tagProperties->getTag() == GNE_TAG_MULTI_LANE_AREA_DETECTOR) {
+        return myConsecutiveLaneSelector->addLane(viewObjects.getLaneFront());
+    }
+    // disable rerouter elements (temporal)
+    if ((tagProperties->getTag() == SUMO_TAG_INTERVAL) ||
+            (tagProperties->getTag() == SUMO_TAG_DEST_PROB_REROUTE) ||
+            (tagProperties->getTag() == SUMO_TAG_CLOSING_REROUTE) ||
+            (tagProperties->getTag() == SUMO_TAG_CLOSING_LANE_REROUTE) ||
+            (tagProperties->getTag() == SUMO_TAG_ROUTE_PROB_REROUTE) ||
+            (tagProperties->getTag() == SUMO_TAG_PARKING_AREA_REROUTE)) {
+        WRITE_WARNING(TL("Currently unsupported. Create rerouter elements using rerouter dialog"));
+        return false;
+    }
+    // disable steps (temporal)
+    if (tagProperties->getTag() == SUMO_TAG_STEP) {
+        WRITE_WARNING(TL("Currently unsupported. Create VSS steps using VSS dialog"));
+        return false;
+    }
+    // disable flows (temporal)
+    if (tagProperties->getTag() == GNE_TAG_CALIBRATOR_FLOW) {
+        WRITE_WARNING(TL("Currently unsupported. Create calibratorFlows using calibrator dialog"));
+        return false;
+    }
     // check if additional attributes are valid
     if (!myAdditionalAttributesEditor->checkAttributes(true)) {
         return false;
@@ -206,26 +232,30 @@ GNEAdditionalFrame::addAdditional(const GNEViewNetHelper::ViewObjectsSelector& v
     if (!myAdditionalAttributesEditor->checkAttributes(true)) {
         return false;
     }
-    // obtain tagproperty (only for improve code legibility)
-    const auto& tagProperties = myAdditionalTagSelector->getCurrentTemplateAC()->getTagProperty();
     // reset base additional
     resetBaseAdditionalObject();
-    // create base additional
+    // init base additional object
     if (!initBaseAdditionalObject(tagProperties, viewObjects)) {
         return false;
     }
-    // obtain attributes and values
+    // add basic attributes and values
     myAdditionalAttributesEditor->fillSumoBaseObject(myBaseAdditional);
-    // If consecutive Lane Selector is enabled, it means that either we're selecting lanes or we're finished or we'rent started
-    if (tagProperties->hasAttribute(SUMO_ATTR_EDGE) || (tagProperties->getTag() == SUMO_TAG_VAPORIZER)) {
-        return buildAdditionalOverEdge(viewObjects.getLaneFront(), tagProperties);
-    } else if (tagProperties->hasAttribute(SUMO_ATTR_LANE)) {
-        return buildAdditionalOverLane(viewObjects.getLaneFront(), tagProperties);
-    } else if (tagProperties->getTag() == GNE_TAG_MULTI_LANE_AREA_DETECTOR) {
-        return myConsecutiveLaneSelector->addLane(viewObjects.getLaneFront());
-    } else {
-        return buildAdditionalOverView(tagProperties);
+    // parse common attributes
+    if (!buildAdditionalCommonAttributes(tagProperties)) {
+        return false;
     }
+    // parse netedit attributes (after lanes)
+    myNeteditAttributesEditor->fillSumoBaseObject(myBaseAdditional);
+    // declare additional handler
+    GNEAdditionalHandler additionalHandler(myViewNet->getNet(), myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), false);
+    // build additional
+    additionalHandler.parseSumoBaseObject(myBaseAdditional);
+    // Refresh additional Parent Selector (For additionals that have a limited number of children)
+    mySelectorAdditionalParent->refreshSelectorParentModule();
+    // clear selected edges and lanes
+    myEdgesSelector->onCmdClearSelection(nullptr, 0, nullptr);
+    myLanesSelector->onCmdClearSelection(nullptr, 0, nullptr);
+    return true;
 }
 
 
@@ -387,9 +417,9 @@ GNEAdditionalFrame::initBaseAdditionalObject(const GNETagProperties* tagProperty
     if (tagProperty->isChild()) {
         // check if we clicked over a parent
         SumoXMLTag parentTag = SUMO_TAG_NOTHING;
-        for (const auto &tag : tagProperty->getParentTags()) {
-            if (myBaseAdditional->hasParentID(tag)) {
-                parentTag = tag;
+        for (const auto &pTag : tagProperty->getParentTags()) {
+            if (myBaseAdditional->hasParentID(pTag)) {
+                parentTag = pTag;
             }
         }
         // update selector additional parent
@@ -412,6 +442,44 @@ GNEAdditionalFrame::initBaseAdditionalObject(const GNETagProperties* tagProperty
     }
     // set baseAdditional tag
     myBaseAdditional->setTag(baseAdditionalTag);
+    // Obtain position as the clicked position over view
+    const Position viewPosSnapped = myViewNet->snapToActiveGrid(myViewNet->getPositionInformation());
+    // add position and X-Y-Z attributes
+    myBaseAdditional->addPositionAttribute(SUMO_ATTR_POSITION, viewPosSnapped);
+    myBaseAdditional->addDoubleAttribute(SUMO_ATTR_X, viewPosSnapped.x());
+    myBaseAdditional->addDoubleAttribute(SUMO_ATTR_Y, viewPosSnapped.y());
+    myBaseAdditional->addDoubleAttribute(SUMO_ATTR_Z, viewPosSnapped.z());
+    // check if add edge attributes
+    if (tagProperty->hasAttribute(SUMO_ATTR_EDGE)) {
+        if (viewObjects.getEdgeFront() == nullptr) {
+            return false;
+        } else {
+            myBaseAdditional->addStringAttribute(SUMO_ATTR_EDGE, viewObjects.getEdgeFront()->getID());
+            // Obtain position of the mouse over lane (limited over grid)
+            const auto firstLane = viewObjects.getEdgeFront()->getChildLanes().front();
+            const double mousePositionOverLane = firstLane->getLaneShape().nearest_offset_to_point2D(myBaseAdditional->getPositionAttribute(SUMO_ATTR_POSITION) / firstLane->getLengthGeometryFactor());
+            myBaseAdditional->addDoubleAttribute(SUMO_ATTR_POSITION, mousePositionOverLane);
+        }
+    } else if (tagProperty->getTag() == SUMO_TAG_VAPORIZER) {
+        // special case for vaporizers
+        if (viewObjects.getEdgeFront() == nullptr) {
+            return false;
+        } else {
+            myBaseAdditional->addStringAttribute(SUMO_ATTR_ID, viewObjects.getEdgeFront()->getID());
+        }
+    }
+    // check if add lane attributes
+    if (tagProperty->hasAttribute(SUMO_ATTR_LANE)) {
+        if (viewObjects.getLaneFront() == nullptr) {
+            return false;
+        } else {
+            myBaseAdditional->addStringAttribute(SUMO_ATTR_LANE, viewObjects.getLaneFront()->getID());
+            myBaseAdditional->addDoubleAttribute(GNE_ATTR_LANELENGTH, viewObjects.getLaneFront()->getLaneShapeLength());
+            // Obtain position of the mouse over lane (limited over grid)
+            const double mousePositionOverLane = viewObjects.getLaneFront()->getLaneShape().nearest_offset_to_point2D(myBaseAdditional->getPositionAttribute(SUMO_ATTR_POSITION) / viewObjects.getLaneFront()->getLengthGeometryFactor());
+            myBaseAdditional->addDoubleAttribute(SUMO_ATTR_POSITION, mousePositionOverLane);
+        }
+    }
     // BaseAdditional created, then return true
     return true;
 }
@@ -419,22 +487,6 @@ GNEAdditionalFrame::initBaseAdditionalObject(const GNETagProperties* tagProperty
 
 bool
 GNEAdditionalFrame::buildAdditionalCommonAttributes(const GNETagProperties* tagProperties) {
-    // If additional has a interval defined by a begin or end, check that is valid
-    if (tagProperties->hasAttribute(SUMO_ATTR_STARTTIME) && tagProperties->hasAttribute(SUMO_ATTR_END)) {
-        const double begin = myBaseAdditional->getDoubleAttribute(SUMO_ATTR_STARTTIME);
-        const double end = myBaseAdditional->getDoubleAttribute(SUMO_ATTR_END);
-        if (begin > end) {
-            WRITE_WARNING(TLF("Attribute % cannot be greater than attribute %", toString(SUMO_ATTR_END), toString(SUMO_ATTR_STARTTIME)));
-            return false;
-        }
-    }
-    // If additional own the attribute SUMO_ATTR_FILE but was't defined, will defined as <ID>.xml
-    if (tagProperties->hasAttribute(SUMO_ATTR_FILE) && myBaseAdditional->getStringAttribute(SUMO_ATTR_FILE).empty()) {
-        if ((myAdditionalTagSelector->getCurrentTemplateAC()->getTagProperty()->getTag() != SUMO_TAG_CALIBRATOR) && (myAdditionalTagSelector->getCurrentTemplateAC()->getTagProperty()->getTag() != SUMO_TAG_REROUTER)) {
-            // SUMO_ATTR_FILE is optional for calibrators and rerouters (fails to load in sumo when given and the file does not exist)
-            myBaseAdditional->addStringAttribute(SUMO_ATTR_FILE, myBaseAdditional->getStringAttribute(SUMO_ATTR_ID) + ".xml");
-        }
-    }
     // check edge children
     if (tagProperties->hasAttribute(SUMO_ATTR_EDGES) && (!myBaseAdditional->hasStringListAttribute(SUMO_ATTR_EDGES) || myBaseAdditional->getStringListAttribute(SUMO_ATTR_EDGES).empty())) {
         // obtain edge IDs
@@ -457,167 +509,6 @@ GNEAdditionalFrame::buildAdditionalCommonAttributes(const GNETagProperties* tagP
     }
     // all ok, continue building additional
     return true;
-}
-
-
-bool
-GNEAdditionalFrame::buildAdditionalOverEdge(GNELane* lane, const GNETagProperties* tagProperties) {
-    // check that lane exist
-    if (lane) {
-        // Get attribute lane's edge
-        myBaseAdditional->addStringAttribute(SUMO_ATTR_EDGE, lane->getParentEdge()->getID());
-        // Check if ID has to be generated
-        if (tagProperties->getTag() == SUMO_TAG_VAPORIZER) {
-            myBaseAdditional->addStringAttribute(SUMO_ATTR_ID, lane->getParentEdge()->getID());
-        } else if (tagProperties->hasAttribute(SUMO_ATTR_ID) && !myBaseAdditional->hasStringAttribute(SUMO_ATTR_ID)) {
-            myBaseAdditional->addStringAttribute(SUMO_ATTR_ID, myViewNet->getNet()->getAttributeCarriers()->generateAdditionalID(tagProperties->getTag()));
-        }
-    } else {
-        return false;
-    }
-    // parse common attributes
-    if (!buildAdditionalCommonAttributes(tagProperties)) {
-        return false;
-    }
-    // parse netedit attributes
-    myNeteditAttributesEditor->fillSumoBaseObject(myBaseAdditional);
-    // show warning dialogbox and stop check if input parameters are valid
-    if (myAdditionalAttributesEditor->checkAttributes(true)) {
-        // declare additional handler
-        GNEAdditionalHandler additionalHandler(myViewNet->getNet(), myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), false);
-        // build additional
-        additionalHandler.parseSumoBaseObject(myBaseAdditional);
-        // Refresh additional Parent Selector (For additionals that have a limited number of children)
-        mySelectorAdditionalParent->refreshSelectorParentModule();
-        // clear selected edges and lanes
-        myEdgesSelector->onCmdClearSelection(nullptr, 0, nullptr);
-        myLanesSelector->onCmdClearSelection(nullptr, 0, nullptr);
-        return true;
-    } else {
-        return false;
-    }
-}
-
-
-bool
-GNEAdditionalFrame::buildAdditionalOverLane(GNELane* lane, const GNETagProperties* tagProperties) {
-    // check that lane exist
-    if (lane != nullptr) {
-        // add lane attributes
-        myBaseAdditional->addStringAttribute(SUMO_ATTR_LANE, lane->getID());
-        myBaseAdditional->addDoubleAttribute(GNE_ATTR_LANELENGTH, lane->getLaneShapeLength());
-        // Check if ID has to be generated
-        if (tagProperties->hasAttribute(SUMO_ATTR_ID) && !myBaseAdditional->hasStringAttribute(SUMO_ATTR_ID)) {
-            myBaseAdditional->addStringAttribute(SUMO_ATTR_ID, myViewNet->getNet()->getAttributeCarriers()->generateAdditionalID(tagProperties->getTag()));
-        }
-    } else {
-        return false;
-    }
-    // Obtain position of the mouse over lane (limited over grid)
-    const double mousePositionOverLane = lane->getLaneShape().nearest_offset_to_point2D(myViewNet->snapToActiveGrid(myViewNet->getPositionInformation())) / lane->getLengthGeometryFactor();
-    // set attribute position as mouse position over lane
-    if (myBaseAdditional->getTag() == SUMO_TAG_ACCESS) {
-        myBaseAdditional->addStringAttribute(SUMO_ATTR_POSITION, toString(mousePositionOverLane));
-    } else {
-        myBaseAdditional->addDoubleAttribute(SUMO_ATTR_POSITION, mousePositionOverLane);
-    }
-    // parse common attributes
-    if (!buildAdditionalCommonAttributes(tagProperties)) {
-        return false;
-    }
-    // parse netedit attributes
-    myNeteditAttributesEditor->fillSumoBaseObject(myBaseAdditional);
-    // show warning dialogbox and stop check if input parameters are valid
-    if (myAdditionalAttributesEditor->checkAttributes(true)) {
-        // declare additional handler
-        GNEAdditionalHandler additionalHandler(myViewNet->getNet(), myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), false);
-        // build additional
-        additionalHandler.parseSumoBaseObject(myBaseAdditional);
-        // Refresh additional Parent Selector (For additionals that have a limited number of children)
-        mySelectorAdditionalParent->refreshSelectorParentModule();
-        // clear selected edges and lanes
-        myEdgesSelector->onCmdClearSelection(nullptr, 0, nullptr);
-        myLanesSelector->onCmdClearSelection(nullptr, 0, nullptr);
-        return true;
-    } else {
-        return false;
-    }
-}
-
-
-bool
-GNEAdditionalFrame::buildAdditionalOverView(const GNETagProperties* tagProperties) {
-    // disable intervals (temporal)
-    if ((tagProperties->getTag() == SUMO_TAG_INTERVAL) ||
-            (tagProperties->getTag() == SUMO_TAG_DEST_PROB_REROUTE) ||
-            (tagProperties->getTag() == SUMO_TAG_CLOSING_REROUTE) ||
-            (tagProperties->getTag() == SUMO_TAG_CLOSING_LANE_REROUTE) ||
-            (tagProperties->getTag() == SUMO_TAG_ROUTE_PROB_REROUTE) ||
-            (tagProperties->getTag() == SUMO_TAG_PARKING_AREA_REROUTE)) {
-        WRITE_WARNING(TL("Currently unsupported. Create rerouter elements using rerouter dialog"));
-        return false;
-    }
-    // disable steps (temporal)
-    if (tagProperties->getTag() == SUMO_TAG_STEP) {
-        WRITE_WARNING(TL("Currently unsupported. Create VSS steps using VSS dialog"));
-        return false;
-    }
-    // disable flows (temporal)
-    if (tagProperties->getTag() == GNE_TAG_CALIBRATOR_FLOW) {
-        WRITE_WARNING(TL("Currently unsupported. Create calibratorFlows using calibrator dialog"));
-        return false;
-    }
-    // Check if ID has to be generated
-    if (tagProperties->hasAttribute(SUMO_ATTR_ID)) {
-        myBaseAdditional->addStringAttribute(SUMO_ATTR_ID, myViewNet->getNet()->getAttributeCarriers()->generateAdditionalID(tagProperties->getTag()));
-    }
-    // Obtain position as the clicked position over view
-    const Position viewPos = myViewNet->snapToActiveGrid(myViewNet->getPositionInformation());
-    // add position and X-Y-Z attributes
-    myBaseAdditional->addPositionAttribute(SUMO_ATTR_POSITION, viewPos);
-    myBaseAdditional->addDoubleAttribute(SUMO_ATTR_X, viewPos.x());
-    myBaseAdditional->addDoubleAttribute(SUMO_ATTR_Y, viewPos.y());
-    myBaseAdditional->addDoubleAttribute(SUMO_ATTR_Z, viewPos.z());
-    // parse common attributes
-    if (!buildAdditionalCommonAttributes(tagProperties)) {
-        return false;
-    }
-    // parse netedit attributes
-    myNeteditAttributesEditor->fillSumoBaseObject(myBaseAdditional);
-    // special case for VSS Steps
-    if (myBaseAdditional->getTag() == SUMO_TAG_STEP) {
-        // get VSS parent
-        const auto VSSParent = myViewNet->getNet()->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_VSS,
-                               myBaseAdditional->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID));
-        // get last step
-        GNEAdditional* step = nullptr;
-        for (const auto& additionalChild : VSSParent->getChildAdditionals()) {
-            if (!additionalChild->getTagProperty()->isSymbol()) {
-                step = additionalChild;
-            }
-        }
-        // set time
-        if (step) {
-            myBaseAdditional->addTimeAttribute(SUMO_ATTR_TIME, string2time(step->getAttribute(SUMO_ATTR_TIME)) + TIME2STEPS(900));
-        } else {
-            myBaseAdditional->addTimeAttribute(SUMO_ATTR_TIME, 0);
-        }
-    }
-    // show warning dialogbox and stop check if input parameters are valid
-    if (!myAdditionalAttributesEditor->checkAttributes(true)) {
-        // declare additional handler
-        GNEAdditionalHandler additionalHandler(myViewNet->getNet(), myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), false);
-        // build additional
-        additionalHandler.parseSumoBaseObject(myBaseAdditional);
-        // Refresh additional Parent Selector (For additionals that have a limited number of children)
-        mySelectorAdditionalParent->refreshSelectorParentModule();
-        // clear selected edges and lanes
-        myEdgesSelector->onCmdClearSelection(nullptr, 0, nullptr);
-        myLanesSelector->onCmdClearSelection(nullptr, 0, nullptr);
-        return true;
-    } else {
-        return false;
-    }
 }
 
 /****************************************************************************/
