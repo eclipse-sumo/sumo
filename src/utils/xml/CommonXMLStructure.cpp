@@ -299,6 +299,7 @@ CommonXMLStructure::SumoBaseObject::clear() {
     myStringListAttributes.clear();
     myDoubleListAttributes.clear();
     myPositionVectorAttributes.clear();
+    myParentIDs.clear();
     myParameters.clear();
     mySumoBaseObjectChildren.clear();
     // reset flags
@@ -505,6 +506,16 @@ CommonXMLStructure::SumoBaseObject::getPositionVectorAttribute(const SumoXMLAttr
     }
 }
 
+const std::string&
+CommonXMLStructure::SumoBaseObject::getParentID(const SumoXMLTag tag) const {
+    if (hasParentID(tag)) {
+        return myParentIDs.at(tag);
+    } else {
+        WRITE_ERRORF(TL("Trying to get undefined parent '%' in SUMOBaseObject '%'"), toString(tag), toString(myTag));
+        throw ProcessError();
+    }
+}
+
 
 SUMOVehicleClass
 CommonXMLStructure::SumoBaseObject::getVClass() const {
@@ -621,6 +632,12 @@ CommonXMLStructure::SumoBaseObject::hasPositionVectorAttribute(const SumoXMLAttr
 }
 
 
+bool
+CommonXMLStructure::SumoBaseObject::hasParentID(const SumoXMLTag tag) const {
+    return myParentIDs.count(tag) > 0;
+}
+
+
 void
 CommonXMLStructure::SumoBaseObject::addStringAttribute(const SumoXMLAttr attr, const std::string& value) {
     myStringAttributes[attr] = value;
@@ -678,6 +695,12 @@ CommonXMLStructure::SumoBaseObject::addDoubleListAttribute(const SumoXMLAttr att
 void
 CommonXMLStructure::SumoBaseObject::addPositionVectorAttribute(const SumoXMLAttr attr, const PositionVector& value) {
     myPositionVectorAttributes[attr] = value;
+}
+
+
+void
+CommonXMLStructure::SumoBaseObject::addParentID(const SumoXMLTag tag, const std::string& ID) {
+    myParentIDs[tag] = ID;
 }
 
 
