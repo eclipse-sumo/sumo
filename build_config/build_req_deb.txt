@@ -1,11 +1,13 @@
 astyle
 ccache
 cmake
+default-jdk
 doxygen
 g++
 gettext
 git
 graphviz
+help2man
 hugo
 libeigen3-dev
 libfmt-dev
