@@ -167,8 +167,10 @@ public:
     }
 
     /// change origin for parking area rerouting
-    void setOrigin(const MSEdge* origin) {
+    void setOrigin(const MSEdge* origin, MSStoppingPlace* originStop, double departPos) {
         myOrigin = origin;
+        myOriginStop = originStop;
+        myWaitingPos = departPos;
     }
 
     /// @brief checks whether the person may exit at the current vehicle position

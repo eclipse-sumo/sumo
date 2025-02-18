@@ -211,6 +211,12 @@ public:
 
     void setDestination(const MSEdge* newDestination, MSStoppingPlace* newDestStop);
 
+    virtual void setOrigin(const MSEdge* origin, MSStoppingPlace* originStop, double departPos) {
+        UNUSED_PARAMETER(origin);
+        UNUSED_PARAMETER(originStop);
+        UNUSED_PARAMETER(departPos);
+    }
+
     /// @brief get travel distance in this stage
     virtual double getDistance() const = 0;
 

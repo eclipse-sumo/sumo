@@ -338,6 +338,8 @@ MSTransportable::removeStage(int next, bool stayInSim) {
         if (myStep + 1 == myPlan->end() && stayInSim) {
             // stay in the simulation until the start of simStep to allow appending new stages (at the correct position)
             appendStage(new MSStageWaiting(getEdge(), nullptr, 0, 0, getEdgePos(), "last stage removed", false));
+        } else if (myStep + 1 != myPlan->end()) {
+            (*(myStep + 1))->setOrigin(getEdge(), getEdge() == getFromEdge() ? (*myStep)->getOriginStop() : nullptr, getEdgePos());
         }
         (*myStep)->abort(this);
         if (!proceed(MSNet::getInstance(), SIMSTEP)) {
@@ -537,7 +539,7 @@ MSTransportable::rerouteParkingArea(MSStoppingPlace* orig, MSStoppingPlace* repl
         // if the next step is a walk, adapt the route
         MSStage* nextStage = *(myStep + 1);
         if (nextStage->getStageType() == MSStageType::TRIP) {
-            dynamic_cast<MSStageTrip*>(nextStage)->setOrigin(stage->getDestination());
+            dynamic_cast<MSStageTrip*>(nextStage)->setOrigin(stage->getDestination(), stage->getDestinationStop(), stage->getArrivalPos());
 #ifdef DEBUG_PARKING
             std::cout << " set subsequent trip origin\n";
 #endif
@@ -566,7 +568,7 @@ MSTransportable::rerouteParkingArea(MSStoppingPlace* orig, MSStoppingPlace* repl
             if (futureStage->getStageType() == MSStageType::DRIVING) {
                 MSStageDriving* const ds = static_cast<MSStageDriving*>(futureStage);
                 // ride origin is set implicitly from the walk destination
-                ds->setOrigin(nullptr);
+                ds->setOrigin(nullptr, nullptr, -1);
                 if (ds->getLines() == stage->getLines()
                         && prevStage->getDestination() == &orig->getLane().getEdge()) {
                     if (prevStage->getStageType() == MSStageType::TRIP) {

@@ -570,6 +570,7 @@ MSStageDriving::abort(MSTransportable* t) {
         // jumping out of a moving vehicle!
         myVehicle->removeTransportable(t);
         myDestination = myVehicle->getLane() == nullptr ? myVehicle->getEdge() : &myVehicle->getLane()->getEdge();
+        myArrivalPos = myVehicle->getPositionOnLane();
         // myVehicleDistance and myTimeLoss are updated in subsequent call to setArrived
     } else {
         MSTransportableControl& tc = (t->isPerson() ?
@@ -579,6 +580,7 @@ MSStageDriving::abort(MSTransportable* t) {
         MSDevice_Taxi::removeReservation(t, getLines(), myWaitingEdge, myWaitingPos, myDestination, getArrivalPos(), myGroup);
         myDestination = myWaitingEdge;
         myDestinationStop = myOriginStop;
+        myArrivalPos = myWaitingPos;
     }
 }
 

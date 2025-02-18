@@ -88,8 +88,10 @@ public:
     const std::string setArrived(MSNet* net, MSTransportable* transportable, SUMOTime now, const bool vehicleArrived);
 
     /// change origin for parking area rerouting
-    void setOrigin(const MSEdge* origin) {
+    void setOrigin(const MSEdge* origin, MSStoppingPlace* originStop, double departPos) {
         myOrigin = origin;
+        myOriginStop = originStop;
+        myDepartPos = departPos;
     }
 
     /// proceeds to the next step
