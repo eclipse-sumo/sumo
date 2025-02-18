@@ -8105,7 +8105,7 @@ GNETagPropertiesDatabase::fillCommonStoppingPlaceAttributes(GNETagProperties* ta
 
     attrProperty = new GNEAttributeProperties(GNE_ATTR_FORCESIZE,
             GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
-            GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::NETEDIT,
+            GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE | GNEAttributeProperties::NETEDIT,
             TL("Force size during creation"),
             GNEAttributeCarrier::False);
     tagProperties->addAttribute(attrProperty);
