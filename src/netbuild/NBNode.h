@@ -338,7 +338,7 @@ public:
     }
 
     /// @brief causes the traffic light to be computed anew
-    void invalidateTLS(NBTrafficLightLogicCont& tlCont, bool removedConnections, bool addedConnections);
+    void invalidateTLS(NBTrafficLightLogicCont& tlCont, bool addedConnections, bool removedConnections);
 
     /// @brief patches loaded signal plans by modifying lane indices above threshold by the given offset
     void shiftTLConnectionLaneIndex(NBEdge* edge, int offset, int threshold = -1);
@@ -847,6 +847,9 @@ public:
     /// @brief return list of unique endpoint coordinates of all edges at this node
     std::vector<std::pair<Position, std::string> > getEndPoints() const;
 
+    /// @brief ensure connectivity for all vClasses
+    void recheckVClassConnections(NBEdge* currentOutgoing);
+
 private:
     /// @brief sets the priorites in case of a priority junction
     void setPriorityJunctionPriorities();
@@ -880,9 +883,6 @@ private:
                          const std::set<const NBEdge*, ComparatorIdLess>& sub);
 
     NBEdge* getNextCompatibleOutgoing(const NBEdge* incoming, SVCPermissions vehPerm, EdgeVector::const_iterator start, bool clockwise) const;
-
-    /// @brief ensure connectivity for all vClasses
-    void recheckVClassConnections(NBEdge* currentOutgoing);
 
     /// @brief get the reduction in driving lanes at this junction
     void getReduction(const NBEdge* in, const NBEdge* out, int& inOffset, int& inEnd, int& outOffset, int& outEnd, int& reduction) const;

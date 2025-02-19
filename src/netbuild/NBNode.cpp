@@ -423,13 +423,13 @@ NBNode::removeTrafficLights(bool setAsPriority) {
 
 
 void
-NBNode::invalidateTLS(NBTrafficLightLogicCont& tlCont, bool removedConnections, bool addedConnections) {
+NBNode::invalidateTLS(NBTrafficLightLogicCont& tlCont, bool addedConnections, bool removedConnections) {
     if (isTLControlled()) {
         std::set<NBTrafficLightDefinition*> oldDefs(myTrafficLights);
         for (std::set<NBTrafficLightDefinition*>::iterator it = oldDefs.begin(); it != oldDefs.end(); ++it) {
             NBTrafficLightDefinition* orig = *it;
             if (dynamic_cast<NBLoadedSUMOTLDef*>(orig) != nullptr) {
-                dynamic_cast<NBLoadedSUMOTLDef*>(orig)->registerModifications(removedConnections, addedConnections);
+                dynamic_cast<NBLoadedSUMOTLDef*>(orig)->registerModifications(addedConnections, removedConnections);
             } else if (dynamic_cast<NBOwnTLDef*>(orig) == nullptr) {
                 NBTrafficLightDefinition* newDef = new NBOwnTLDef(orig->getID(), orig->getOffset(), orig->getType());
                 const std::vector<NBNode*>& nodes = orig->getNodes();
