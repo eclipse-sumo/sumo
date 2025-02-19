@@ -62,6 +62,16 @@ jobs:
       with:
         key: ${{ github.job }}-${{ matrix.python_version }}-${{ matrix.os }}
 
+    - name: Building helper wheels
+      if: matrix.python_version == '3.12'
+      run: |
+        cd tools
+        python3 -m pip install build
+        python3 build_config/version.py build_config/setup-sumolib.py ./setup.py
+        python3 -m build --wheel -o ../dist
+        python3 build_config/version.py build_config/setup-traci.py ./setup.py
+        python3 -m build --wheel -o ../dist
+
     - name: Building SUMO / Libsumo wheels
       run: |
         python3 -m pip install --upgrade pip
@@ -134,15 +144,6 @@ jobs:
       run: |
         tests/runTests.sh -b ci -v ci -ts meta
         python3 -m pip uninstall -y eclipse-sumo
-
-    - name: Building helper wheels
-      run: |
-        cd tools
-        python3 -m pip install build
-        python3 build_config/version.py build_config/setup-sumolib.py ./setup.py
-        python3 -m build --wheel
-        python3 build_config/version.py build_config/setup-traci.py ./setup.py
-        python3 -m build --wheel
 
     # - name: Running libsumo tests
     #   run: |
