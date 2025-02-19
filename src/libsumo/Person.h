@@ -59,6 +59,8 @@ public:
     static double getAngle(const std::string& personID);
     static double getSlope(const std::string& personID);
     static double getLanePosition(const std::string& personID);
+    static double getWalkingDistance(const std::string& personID, const std::string& edgeID, double pos, int laneIndex = 0);
+    static double getWalkingDistance2D(const std::string& personID, double x, double y);
 
     static std::vector<libsumo::TraCIReservation> getTaxiReservations(int onlyNew = 0);
     static std::string splitTaxiReservation(std::string reservationID, const std::vector<std::string>& personIDs);

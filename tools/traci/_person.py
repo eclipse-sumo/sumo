@@ -155,6 +155,25 @@ class PersonDomain(VTypeDomain):
         """
         return self._getUniversal(tc.VAR_LANEPOSITION, personID)
 
+    def getWalkingDistance(self, personID, edgeID, pos, laneIndex=0):
+        """getWalkingDistance(string, string, double, integer) -> double
+
+        For a person in walking stage and an edge along the remaining route of
+        personID, return the distance from the current position
+        to the given edge and position along the walk.
+        Otherwise, raise a TraCIException
+        """
+        return self._getUniversal(tc.DISTANCE_REQUEST, personID, "tru", 2,
+                                  (edgeID, pos, laneIndex), tc.REQUEST_DRIVINGDIST)
+
+    def getWalkingDistance2D(self, personID, x, y):
+        """getWalkingDistance2D(string, double, double) -> integer
+
+        Return the distance to the given network position along the walk (see getWalkingDistance)
+        """
+        return self._getUniversal(tc.DISTANCE_REQUEST, personID, "tou", 2, (x, y), tc.REQUEST_DRIVINGDIST)
+
+
     def getWaitingTime(self, personID):
         """getWaitingTime(string) -> double
         The waiting time of a person is defined as the time (in seconds) spent with a

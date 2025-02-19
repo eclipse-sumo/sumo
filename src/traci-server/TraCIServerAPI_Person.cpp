@@ -109,6 +109,48 @@ TraCIServerAPI_Person::processGet(TraCIServer& server, tcpip::Storage& inputStor
                     server.getWrapperStorage().writeString(splitID);
                     break;
                 }
+                case libsumo::DISTANCE_REQUEST: {
+                    if (inputStorage.readUnsignedByte() != libsumo::TYPE_COMPOUND) {
+                        return server.writeErrorStatusCmd(libsumo::CMD_GET_VEHICLE_VARIABLE, "Retrieval of distance requires a compound object.", outputStorage);
+                    }
+                    if (inputStorage.readInt() != 2) {
+                        return server.writeErrorStatusCmd(libsumo::CMD_GET_VEHICLE_VARIABLE, "Retrieval of distance requires position and distance type as parameter.", outputStorage);
+                    }
+                    // read position
+                    int posType = inputStorage.readUnsignedByte();
+                    switch (posType) {
+                        case libsumo::POSITION_ROADMAP:
+                            try {
+                                const std::string roadID = inputStorage.readString();
+                                const double edgePos = inputStorage.readDouble();
+                                const int laneIndex = inputStorage.readUnsignedByte();
+                                server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_DOUBLE);
+                                server.getWrapperStorage().writeDouble(libsumo::Person::getWalkingDistance(id, roadID, edgePos, laneIndex));
+                                break;
+                            } catch (libsumo::TraCIException& e) {
+                                return server.writeErrorStatusCmd(libsumo::CMD_GET_PERSON_VARIABLE, e.what(), outputStorage);
+                            }
+                        case libsumo::POSITION_2D:
+                        case libsumo::POSITION_3D: {
+                            const double p1x = inputStorage.readDouble();
+                            const double p1y = inputStorage.readDouble();
+                            if (posType == libsumo::POSITION_3D) {
+                                inputStorage.readDouble();        // z value is ignored
+                            }
+                            server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_DOUBLE);
+                            server.getWrapperStorage().writeDouble(libsumo::Person::getWalkingDistance2D(id, p1x, p1y));
+                            break;
+                        }
+                        default:
+                            return server.writeErrorStatusCmd(libsumo::CMD_GET_PERSON_VARIABLE, "Unknown position format used for distance request", outputStorage);
+                    }
+                    // read distance type
+                    int distType = inputStorage.readUnsignedByte();
+                    if (distType != libsumo::REQUEST_DRIVINGDIST) {
+                        return server.writeErrorStatusCmd(libsumo::CMD_GET_PERSON_VARIABLE, "Only road distance is supported for person.", outputStorage);
+                    }
+                    break;
+                }
                 default:
                     return server.writeErrorStatusCmd(libsumo::CMD_GET_PERSON_VARIABLE, "Get Person Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
             }

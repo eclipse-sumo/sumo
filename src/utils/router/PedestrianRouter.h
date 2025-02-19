@@ -82,7 +82,7 @@ public:
     /** @brief Builds the route between the given edges using the minimum effort at the given time
         The definition of the effort depends on the wished routing scheme */
     double compute(const E* from, const E* to, double departPos, double arrivalPos, double speed,
-                   SUMOTime msTime, const N* onlyNode, std::vector<const E*>& into, bool allEdges = false) {
+                   SUMOTime msTime, const N* onlyNode, std::vector<const E*>& into, bool allEdges = false) const {
         if (getSidewalk<E, L>(from) == 0) {
             WRITE_WARNINGF(TL("Departure edge '%' does not allow pedestrians."), from->getID());
             return false;
@@ -135,11 +135,74 @@ public:
         myInternalRouter->prohibit(toProhibitPE);
     }
 
+    double recomputeWalkCosts(const std::vector<const E*>& edges, double speed, double fromPos, double toPos, SUMOTime msTime, double& length) const {
+        // edges are normal edges so we need to reconstruct paths across intersection
+        if (edges.size() == 0) {
+            length = 0;
+            return 0;
+        } else if (edges.size() == 1) {
+            length = fabs(toPos - fromPos);
+            return length / speed;
+        } else {
+            double cost = 0;
+            int last = (int)edges.size() - 1;
+            for (int i = 0; i < last; i++) {
+                std::vector<const E*> into;
+                const E* from = edges[i];
+                const E* to = edges[i + 1];
+                const double fp = (i == 0 ? fromPos : from->getLength() / 2);
+                const double tp = (i == (last - 1) ? toPos : to->getLength() / 2);
+                const N* node = getCommonNode(from, to);
+                if (i == 0) {
+                    if (node == from->getToJunction()) {
+                        length += from->getLength() - fromPos;
+                    } else {
+                        length += fromPos;
+                    }
+                } else  {
+                    length += from->getLength();
+                }
+                if (i == (last - 1)) {
+                    if (node == to->getFromJunction()) {
+                        length += toPos;
+                    } else {
+                        length += to->getLength() - toPos;
+                    }
+                }
+                double time = this->compute(from, to, fp, tp, speed, msTime, node, into, true);
+                if (time >= 0) {
+                    cost += time;
+                    for (const E* edge : into) {
+                        if (edge->isCrossing()) {
+                            length += edge->getLength();
+                        } else if (edge->isWalkingArea()) {
+                            // this is wrong because the length is path-dependent
+                            length += edge->getLength();
+                        }
+                    }
+                } else {
+                    throw ProcessError("Could not compute cost between edge '" + from->getID() + "' and edge '" + to->getID() + "'.");
+                }
+            }
+            return cost;
+        }
+    }
+
+
 private:
     const bool myAmClone;
     _InternalRouter* myInternalRouter;
     _IntermodalNetwork* myPedNet;
 
+    const N* getCommonNode(const E* from, const E* to) const {
+        if (from->getToJunction() == to->getFromJunction() || from->getToJunction() == to->getToJunction()) {
+            return from->getToJunction();
+        } else if (from->getFromJunction() == to->getFromJunction() || from->getFromJunction() == to->getToJunction()) {
+            return from->getFromJunction();
+        } else {
+            return nullptr;
+        }
+    }
 
 private:
     /// @brief Invalidated assignment operator
