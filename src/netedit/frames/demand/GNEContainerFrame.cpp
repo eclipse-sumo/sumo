@@ -176,12 +176,8 @@ GNEContainerFrame::tagSelected() {
         myTypeSelector->showDemandElementSelector();
         // check if current container type selected is valid
         if (myTypeSelector->getCurrentDemandElement()) {
-            // show container attributes depending of myPlanSelector
-            if (myPlanSelector->getCurrentPlanTagProperties()->isPlanStopContainer()) {
-                myContainerAttributesEditor->showAttributesEditor(myContainerTagSelector->getCurrentTemplateAC());
-            } else {
-                myContainerAttributesEditor->showAttributesEditor(myContainerTagSelector->getCurrentTemplateAC());
-            }
+            // show container attributes
+            myContainerAttributesEditor->showAttributesEditor(myContainerTagSelector->getCurrentTemplateAC());
             // show container plan tag selector
             myPlanSelector->showPlanSelector();
             // check current plan template
@@ -226,12 +222,8 @@ GNEContainerFrame::tagSelected() {
 void
 GNEContainerFrame::demandElementSelected() {
     if (myTypeSelector->getCurrentDemandElement() && myPlanSelector->getCurrentPlanTemplate()) {
-        // show container attributes depending of myPlanSelector
-        if (myPlanSelector->getCurrentPlanTagProperties()->isPlanStopContainer()) {
-            myContainerAttributesEditor->showAttributesEditor(myContainerTagSelector->getCurrentTemplateAC());
-        } else {
-            myContainerAttributesEditor->showAttributesEditor(myContainerTagSelector->getCurrentTemplateAC());
-        }
+        // show container attributes
+        myContainerAttributesEditor->showAttributesEditor(myContainerTagSelector->getCurrentTemplateAC());
         // show container plan tag selector
         myPlanSelector->showPlanSelector();
         // now check if container plan selected is valid
@@ -294,8 +286,8 @@ GNEContainerFrame::createPath(const bool /*useLastRoute*/) {
             // abort container creation
             myViewNet->getUndoList()->abortAllChangeGroups();
         }
+        return false;
     }
-    return false;
 }
 
 // ---------------------------------------------------------------------------

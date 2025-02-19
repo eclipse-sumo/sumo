@@ -21,7 +21,6 @@
 #include <config.h>
 
 #include <netedit/elements/demand/GNERouteHandler.h>
-#include <netedit/frames/GNEAttributesCreator.h>
 #include <netedit/frames/GNEDemandSelector.h>
 #include <netedit/frames/GNEElementTree.h>
 #include <netedit/frames/GNEFrame.h>
@@ -98,7 +97,7 @@ private:
     GNEPlanSelector* myPlanSelector;
 
     /// @brief internal vehicle attributes
-    GNEAttributesCreator* myContainerPlanAttributes;
+    GNEAttributesEditor* myContainerPlanAttributesEditor;
 
     /// @brief plan Creator
     GNEPlanCreator* myPlanCreator;
