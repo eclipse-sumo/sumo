@@ -21,7 +21,11 @@
 #include <config.h>
 
 #include <vector>
+#include <map>
+#include <unordered_set>
 #include <utils/foxtools/MFXGroupBoxModule.h>
+#include <utils/xml/SUMOXMLDefinitions.h>
+#include <utils/xml/CommonXMLStructure.h>
 
 // ===========================================================================
 // class declaration
@@ -156,6 +160,9 @@ protected:
     void fillStartEndAttributes(CommonXMLStructure::SumoBaseObject* baseObject) const;
 
 private:
+    /// @brief typedef used for pack attributes editor row
+    typedef std::map<AttributeType, std::vector<GNEAttributesEditorRow*> > AttributesEditorRows;
+
     /// @brief pointer to GNEFrame parent
     GNEFrame* myFrameParent;
 
@@ -177,7 +184,10 @@ private:
     /// @brief current edited ACs
     std::vector<GNEAttributeCarrier*> myEditedACs;
 
-    /// @brief list of attributes editor rows
+    /// @brief singleton with attributes editor rows
+    static AttributesEditorRows mySingletonAttributesEditorRows;
+
+    /// @brief singleton with attributes editor rows
     std::vector<GNEAttributesEditorRow*> myAttributesEditorRows;
 
     /// @brief check if we're reparent
@@ -191,6 +201,9 @@ private:
 
     /// @brief maximum number of rows used in this attributes editor
     int myMaxNumberOfRows = 0;
+
+    /// @brief build rows
+    static void buildRows(GNEAttributesEditor* editorParent);
 
     /// @brief Invalidated copy constructor.
     GNEAttributesEditor(GNEAttributesEditor*) = delete;

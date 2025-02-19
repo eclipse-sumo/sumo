@@ -39,6 +39,12 @@
 #include "GNEAttributesEditorRow.h"
 
 // ===========================================================================
+// static members
+// ===========================================================================
+
+GNEAttributesEditor::AttributesEditorRows GNEAttributesEditor::mySingletonAttributesEditorRows = {};
+
+// ===========================================================================
 // FOX callback mapping
 // ===========================================================================
 
@@ -62,35 +68,21 @@ GNEAttributesEditor::GNEAttributesEditor(GNEFrame* frameParent, const std::strin
     myFrameParent(frameParent),
     myEditorType(editorType),
     myAttributeType(attributeType) {
-    // adjust max number of rows
-    if (myAttributeType == AttributeType::BASIC) {
-        myMaxNumberOfRows = frameParent->getViewNet()->getNet()->getTagPropertiesDatabase()->getMaxNumberOfEditableAttributes();
-    } else if (myAttributeType == AttributeType::FLOW) {
-        myMaxNumberOfRows = frameParent->getViewNet()->getNet()->getTagPropertiesDatabase()->getMaxNumberOfFlowAttributes();
-    } else if (myAttributeType == AttributeType::GEO) {
-        myMaxNumberOfRows = frameParent->getViewNet()->getNet()->getTagPropertiesDatabase()->getMaxNumberOfGeoAttributes();
-    } else if (myAttributeType == AttributeType::NETEDIT) {
-        myMaxNumberOfRows = frameParent->getViewNet()->getNet()->getTagPropertiesDatabase()->getMaxNumberOfNeteditAttributes();
+    // create netedit especific buttons (before row)
+    if (attributeType == AttributeType::NETEDIT) {
         // create netedit editor buttons
         myFrontButton = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Front element"), "", "", GUIIconSubSys::getIcon(GUIIcon::FRONTELEMENT), this, MID_GNE_ATTRIBUTESEDITOR_FRONT, GUIDesignButton);
         myFrontButton->hide();
         myOpenDialogButton = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Open element dialog"), "", "", nullptr, this, MID_GNE_ATTRIBUTESEDITOR_DIALOG, GUIDesignButton);
         myOpenDialogButton->hide();
-    } else if (myAttributeType == AttributeType::EXTENDED) {
+    }
+    // build rows
+    buildRows(this);
+    // create specific buttons for extended and parameteres
+    if (myAttributeType == AttributeType::EXTENDED) {
         // create extended attributes (always shown)
         myOpenExtendedAttributesButton = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Edit extended attributes"), "", "", nullptr, this, MID_GNE_ATTRIBUTESEDITOR_EXTENDED, GUIDesignButton);
     } else if (myAttributeType == AttributeType::PARAMETERS) {
-        myMaxNumberOfRows = 1;
-    } else {
-        throw ProcessError("Invalid editor option");
-    }
-    // resize myAttributesEditorRows and fill it with attribute rows
-    myAttributesEditorRows.resize(myMaxNumberOfRows);
-    for (int i = 0; i < myMaxNumberOfRows; i++) {
-        myAttributesEditorRows[i] = new GNEAttributesEditorRow(this);
-    }
-    // create generic parameters editor button
-    if (myAttributeType == AttributeType::PARAMETERS) {
         // create generic attributes editor button (always shown)
         myOpenGenericParametersEditorButton = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Edit parameters"), "", "", nullptr, this, MID_GNE_ATTRIBUTESEDITOR_PARAMETERS, GUIDesignButton);
     }
@@ -225,7 +217,7 @@ GNEAttributesEditor::refreshAttributesEditor() {
                             itRows++;
                         }
                     } else {
-                        throw ProcessError("Invalid maximum number of rows");
+                        //throw ProcessError("Invalid maximum number of rows");
                     }
                 }
             }
@@ -526,6 +518,40 @@ GNEAttributesEditor::fillStartEndAttributes(CommonXMLStructure::SumoBaseObject* 
         // add it in baseObject
         baseObject->addDoubleAttribute(SUMO_ATTR_STARTPOS, startPos);
         baseObject->addDoubleAttribute(SUMO_ATTR_ENDPOS, endPos);
+    }
+}
+
+
+void
+GNEAttributesEditor::buildRows(GNEAttributesEditor* editorParent) {
+    // only build one time
+    if (mySingletonAttributesEditorRows.empty()) {
+        const auto tagPropertiesDatabase = editorParent->getFrameParent()->getViewNet()->getNet()->getTagPropertiesDatabase();
+        // declare vector of types with rows
+        const std::vector<AttributeType> types = {AttributeType::BASIC, AttributeType::FLOW, AttributeType::GEO, AttributeType::NETEDIT, AttributeType::PARAMETERS};
+        // iterate over all types and create their correspond rows
+        for (const auto type : types) {
+            int maxNumberOfRows = 0;
+            // adjust max number of rows
+            if (type == AttributeType::BASIC) {
+                maxNumberOfRows = tagPropertiesDatabase->getMaxNumberOfEditableAttributes();
+            } else if (type == AttributeType::FLOW) {
+                maxNumberOfRows = tagPropertiesDatabase->getMaxNumberOfFlowAttributes();
+            } else if (type == AttributeType::GEO) {
+                maxNumberOfRows = tagPropertiesDatabase->getMaxNumberOfGeoAttributes();
+            } else if (type == AttributeType::NETEDIT) {
+                maxNumberOfRows = tagPropertiesDatabase->getMaxNumberOfNeteditAttributes();
+            } else if (type == AttributeType::PARAMETERS) {
+                maxNumberOfRows = 1;
+            } else {
+                throw ProcessError("Invalid editor option");
+            }
+            // resize myAttributesEditorRows and fill it with attribute rows
+            mySingletonAttributesEditorRows[type].resize(maxNumberOfRows);
+            for (int i = 0; i < (int)mySingletonAttributesEditorRows[type].size(); i++) {
+                mySingletonAttributesEditorRows[type][i] = new GNEAttributesEditorRow(editorParent);
+            }
+        }
     }
 }
 
