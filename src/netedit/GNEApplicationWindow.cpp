@@ -2125,13 +2125,13 @@ GNEApplicationWindow::onCmdToggleTimeFormat(FXObject*, FXSelector, void*) {
         myViewNet->getTimeFormat().switchTimeFormat();
         // refresh flow frames
         if (myViewNet->getViewParent()->getVehicleFrame()->shown()) {
-            myViewNet->getViewParent()->getVehicleFrame()->getVehicleAttributes()->refreshAttributesCreator();
+            myViewNet->getViewParent()->getVehicleFrame()->getVehicleAttributes()->refreshAttributesEditor();
         }
         if (myViewNet->getViewParent()->getPersonFrame()->shown()) {
-            myViewNet->getViewParent()->getPersonFrame()->getPersonAttributes()->refreshAttributesCreator();
+            myViewNet->getViewParent()->getPersonFrame()->getPersonAttributes()->refreshAttributesEditor();
         }
         if (myViewNet->getViewParent()->getContainerFrame()->shown()) {
-            myViewNet->getViewParent()->getContainerFrame()->getContainerAttributes()->refreshAttributesCreator();
+            myViewNet->getViewParent()->getContainerFrame()->getContainerAttributes()->refreshAttributesEditor();
         }
         // refresh inspector frame
         if (myViewNet->getViewParent()->getInspectorFrame()->shown()) {

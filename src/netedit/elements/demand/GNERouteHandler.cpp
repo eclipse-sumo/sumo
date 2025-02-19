@@ -1288,7 +1288,7 @@ GNERouteHandler::buildStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
 
 bool
 GNERouteHandler::buildPersonPlan(const GNEDemandElement* planTemplate, GNEDemandElement* personParent,
-                                 GNEAttributesCreator* personPlanAttributes, GNEPlanCreator* planCreator,
+                                 GNEAttributesEditor* personPlanAttributesEditor, GNEPlanCreator* planCreator,
                                  const bool centerAfterCreation) {
     // first check if person is valid
     if (personParent == nullptr) {
@@ -1301,7 +1301,7 @@ GNERouteHandler::buildPersonPlan(const GNEDemandElement* planTemplate, GNEDemand
     // declare personPlan object
     CommonXMLStructure::SumoBaseObject* personPlanObject = new CommonXMLStructure::SumoBaseObject(myPlanObject);
     // get person plan attributes
-    personPlanAttributes->getAttributesAndValues(personPlanObject, true);
+    personPlanAttributesEditor->fillSumoBaseObject(personPlanObject);
     // get attributes
     const std::vector<std::string> types = personPlanObject->hasStringListAttribute(SUMO_ATTR_VTYPES) ? personPlanObject->getStringListAttribute(SUMO_ATTR_VTYPES) :
                                            personPlanObject->hasStringAttribute(SUMO_ATTR_VTYPES) ? GNEAttributeCarrier::parse<std::vector<std::string> >(personPlanObject->getStringAttribute(SUMO_ATTR_VTYPES)) :
@@ -1365,7 +1365,7 @@ GNERouteHandler::buildPersonPlan(const GNEDemandElement* planTemplate, GNEDemand
 
 bool
 GNERouteHandler::buildContainerPlan(const GNEDemandElement* planTemplate, GNEDemandElement* containerParent,
-                                    GNEAttributesCreator* containerPlanAttributes, GNEPlanCreator* planCreator,
+                                    GNEAttributesEditor* containerPlanAttributesEditor, GNEPlanCreator* planCreator,
                                     const bool centerAfterCreation) {
     // first check if container is valid
     if (containerParent == nullptr) {
@@ -1378,7 +1378,7 @@ GNERouteHandler::buildContainerPlan(const GNEDemandElement* planTemplate, GNEDem
     // declare containerPlan object
     CommonXMLStructure::SumoBaseObject* containerPlanObject = new CommonXMLStructure::SumoBaseObject(myPlanObject);
     // get container plan attributes
-    containerPlanAttributes->getAttributesAndValues(containerPlanObject, true);
+    containerPlanAttributesEditor->fillSumoBaseObject(containerPlanObject);
     // get attributes
     const double speed = containerPlanObject->hasDoubleAttribute(SUMO_ATTR_SPEED) ? containerPlanObject->getDoubleAttribute(SUMO_ATTR_SPEED) :
                          containerPlanObject->hasStringAttribute(SUMO_ATTR_SPEED) ? GNEAttributeCarrier::parse<double>(containerPlanObject->getStringAttribute(SUMO_ATTR_SPEED)) :

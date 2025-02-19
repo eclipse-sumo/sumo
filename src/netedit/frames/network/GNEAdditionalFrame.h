@@ -20,7 +20,6 @@
 #pragma once
 #include <config.h>
 
-#include <netedit/frames/GNEAttributesCreator.h>
 #include <netedit/frames/GNEConsecutiveSelector.h>
 #include <netedit/frames/GNEFrame.h>
 #include <netedit/frames/GNENetworkSelector.h>
