@@ -57,6 +57,7 @@ public:
     /// @brief Attribute types
     enum class AttributeType {
         BASIC,      // basic attributes
+        SECONDARY,  // basic secondary attributes (used if in the same frame we have already a BASIC editor)
         EXTENDED,   // extended attributes (used in vType)
         FLOW,       // flow attributes
         GEO,        // GEO attributes (lon and lat)
@@ -198,9 +199,6 @@ private:
 
     /// @brief variable use for packing attribute type options
     const AttributeType myAttributeType = AttributeType::BASIC;
-
-    /// @brief maximum number of rows used in this attributes editor
-    int myMaxNumberOfRows = 0;
 
     /// @brief build rows
     static void buildRows(GNEAttributesEditor* editorParent);

@@ -127,9 +127,13 @@ GNEAttributesEditorRow::GNEAttributesEditorRow(GNEAttributesEditor* attributeTab
 
 
 bool
-GNEAttributesEditorRow::showAttributeRow(const GNEAttributeProperties* attrProperty, const bool forceDisable) {
+GNEAttributesEditorRow::showAttributeRow(GNEAttributesEditor* attributeTable, const GNEAttributeProperties* attrProperty, const bool forceDisable) {
+    // update parent table
+    myAttributeTable = attributeTable;
     if (myAttributeTable->myEditedACs.empty()) {
         return false;
+    } else {
+        reparent(myAttributeTable->getCollapsableFrame());
     }
     myAttrProperty = attrProperty;
     const auto attribute = myAttrProperty->getAttr();

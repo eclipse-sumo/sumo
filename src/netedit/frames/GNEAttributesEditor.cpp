@@ -105,18 +105,26 @@ GNEAttributesEditor::getEditedAttributeCarriers() const {
 
 void
 GNEAttributesEditor::showAttributesEditor(GNEAttributeCarrier* AC) {
+    // clean previous rows and ACs
     myEditedACs.clear();
+    myAttributesEditorRows.clear();
+    // set new ACs and Rows
     myEditedACs.push_back(AC);
+    myAttributesEditorRows = mySingletonAttributesEditorRows[myAttributeType];
     refreshAttributesEditor();
 }
 
 
 void
 GNEAttributesEditor::showAttributesEditor(const std::unordered_set<GNEAttributeCarrier*>& ACs) {
+    // clean previous rows and ACs
     myEditedACs.clear();
+    myAttributesEditorRows.clear();
+    // set new ACs and rows
     for (const auto& AC : ACs) {
         myEditedACs.push_back(AC);
     }
+    myAttributesEditorRows = mySingletonAttributesEditorRows[myAttributeType];
     refreshAttributesEditor();
 }
 
@@ -124,6 +132,7 @@ GNEAttributesEditor::showAttributesEditor(const std::unordered_set<GNEAttributeC
 void
 GNEAttributesEditor::hideAttributesEditor() {
     myEditedACs.clear();
+    myAttributesEditorRows.clear();
     // hide all rows before hidding table
     for (const auto& row : myAttributesEditorRows) {
         row->hideAttributeRow();
@@ -211,9 +220,9 @@ GNEAttributesEditor::refreshAttributesEditor() {
                     showAttributeRow = true;
                 }
                 if (showAttributeRow) {
-                    if (itRows < myMaxNumberOfRows) {
+                    if (itRows < (int)myAttributesEditorRows.size()) {
                         // only update if row was show successfully
-                        if (myAttributesEditorRows[itRows]->showAttributeRow(attrProperty, isReparenting())) {
+                        if (myAttributesEditorRows[itRows]->showAttributeRow(this, attrProperty, isReparenting())) {
                             itRows++;
                         }
                     } else {
@@ -223,7 +232,7 @@ GNEAttributesEditor::refreshAttributesEditor() {
             }
         }
         // hide rest of rows before showing table
-        for (int i = itRows; i < myMaxNumberOfRows; i++) {
+        for (int i = itRows; i < (int)myAttributesEditorRows.size(); i++) {
             myAttributesEditorRows[i]->hideAttributeRow();
         }
         // only show if at least one row or button was shown
@@ -528,12 +537,12 @@ GNEAttributesEditor::buildRows(GNEAttributesEditor* editorParent) {
     if (mySingletonAttributesEditorRows.empty()) {
         const auto tagPropertiesDatabase = editorParent->getFrameParent()->getViewNet()->getNet()->getTagPropertiesDatabase();
         // declare vector of types with rows
-        const std::vector<AttributeType> types = {AttributeType::BASIC, AttributeType::FLOW, AttributeType::GEO, AttributeType::NETEDIT, AttributeType::PARAMETERS};
+        const std::vector<AttributeType> types = {AttributeType::BASIC, AttributeType::SECONDARY, AttributeType::FLOW, AttributeType::GEO, AttributeType::NETEDIT, AttributeType::PARAMETERS};
         // iterate over all types and create their correspond rows
         for (const auto type : types) {
             int maxNumberOfRows = 0;
-            // adjust max number of rows
-            if (type == AttributeType::BASIC) {
+            // get max number of rows
+            if ((type == AttributeType::BASIC) || (type == AttributeType::SECONDARY)) {
                 maxNumberOfRows = tagPropertiesDatabase->getMaxNumberOfEditableAttributes();
             } else if (type == AttributeType::FLOW) {
                 maxNumberOfRows = tagPropertiesDatabase->getMaxNumberOfFlowAttributes();

@@ -672,7 +672,7 @@ GNECreateEdgeFrame::GNECreateEdgeFrame(GNEViewParent* viewParent, GNEViewNet* vi
     // lane type selector
     myLaneTypeSelector = new LaneTypeSelector(this);
     // Create laneType parameters
-    myLaneTypeAttributesEditor = new GNEAttributesEditor(this, TL("Lane attributes"), GNEAttributesEditor::EditorType::CREATOR, GNEAttributesEditor::AttributeType::BASIC);
+    myLaneTypeAttributesEditor = new GNEAttributesEditor(this, TL("Lane attributes"), GNEAttributesEditor::EditorType::CREATOR, GNEAttributesEditor::AttributeType::SECONDARY);
     // create edge selector legend
     myLegend = new Legend(this);
 }

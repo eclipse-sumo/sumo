@@ -44,7 +44,7 @@ public:
     GNEAttributesEditorRow(GNEAttributesEditor* attributeTable);
 
     /// @brief return true if attribute row was successfully show
-    bool showAttributeRow(const GNEAttributeProperties* attrProperty, const bool forceDisable);
+    bool showAttributeRow(GNEAttributesEditor* attributeTable, const GNEAttributeProperties* attrProperty, const bool forceDisable);
 
     /// @brief hide attribute row (always return false)
     bool hideAttributeRow();

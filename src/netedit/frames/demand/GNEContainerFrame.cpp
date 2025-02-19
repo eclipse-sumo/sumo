@@ -55,7 +55,7 @@ GNEContainerFrame::GNEContainerFrame(GNEViewParent* viewParent, GNEViewNet* view
     myPlanSelector = new GNEPlanSelector(this, SUMO_TAG_CONTAINER);
 
     // create container plan attributes editor
-    myContainerPlanAttributesEditor = new GNEAttributesEditor(this, TL("Internal plan attributes"), GNEAttributesEditor::EditorType::CREATOR, GNEAttributesEditor::AttributeType::BASIC);
+    myContainerPlanAttributesEditor = new GNEAttributesEditor(this, TL("Internal plan attributes"), GNEAttributesEditor::EditorType::CREATOR, GNEAttributesEditor::AttributeType::SECONDARY);
 
     // Create Netedit attribute editor
     myNeteditAttributesEditor = new GNEAttributesEditor(this, TL("Netedit attributes"), GNEAttributesEditor::EditorType::CREATOR, GNEAttributesEditor::AttributeType::NETEDIT);

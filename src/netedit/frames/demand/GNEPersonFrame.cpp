@@ -55,7 +55,7 @@ GNEPersonFrame::GNEPersonFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
     myPlanSelector = new GNEPlanSelector(this, SUMO_TAG_PERSON);
 
     // create person plan attributes
-    myPersonPlanAttributesEditor = new GNEAttributesEditor(this, TL("Internal plan attributes"), GNEAttributesEditor::EditorType::CREATOR, GNEAttributesEditor::AttributeType::BASIC);
+    myPersonPlanAttributesEditor = new GNEAttributesEditor(this, TL("Internal plan attributes"), GNEAttributesEditor::EditorType::CREATOR, GNEAttributesEditor::AttributeType::SECONDARY);
 
     // Create Netedit attribute editor
     myNeteditAttributesEditor = new GNEAttributesEditor(this, TL("Netedit attributes"), GNEAttributesEditor::EditorType::CREATOR, GNEAttributesEditor::AttributeType::NETEDIT);
