@@ -45,3 +45,4 @@ setSpeedFactor
 
 # see #15527
 setSpeedFactor2
+getWalkingDistance
