@@ -3140,12 +3140,6 @@ GNETagPropertiesDatabase::fillJuPedSimElements() {
                 TL("The shape of the walkable area"));
         myTagProperties[currentTag]->addAttribute(attrProperty);
 
-        attrProperty = new GNEAttributeProperties(GNE_ATTR_CLOSESHAPE,
-                GNEAttributeProperties::BOOL,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE | GNEAttributeProperties::NETEDIT,
-                TL("Toggle close or open walkable area shape"));
-        myTagProperties[currentTag]->addAttribute(attrProperty);
-
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_NAME,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE,
                 GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
@@ -3173,12 +3167,6 @@ GNETagPropertiesDatabase::fillJuPedSimElements() {
                 GNEAttributeProperties::STRING | GNEAttributeProperties::POSITION | GNEAttributeProperties::LIST | GNEAttributeProperties::UNIQUE,
                 GNEAttributeProperties::EDITMODE,
                 TL("The shape of the obstacle"));
-        myTagProperties[currentTag]->addAttribute(attrProperty);
-
-        attrProperty = new GNEAttributeProperties(GNE_ATTR_CLOSESHAPE,
-                GNEAttributeProperties::BOOL,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE | GNEAttributeProperties::NETEDIT,
-                TL("Toggle close or open obstacle shape"));
         myTagProperties[currentTag]->addAttribute(attrProperty);
 
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_NAME,
