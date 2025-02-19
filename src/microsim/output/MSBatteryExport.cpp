@@ -90,8 +90,8 @@ MSBatteryExport::write(OutputDevice& of, SUMOTime timestep, int precision) {
                 of.writeAttr(SUMO_ATTR_ACCELERATION, veh->getAcceleration());
 
                 Position pos = veh->getPosition();
-                of.writeAttr(SUMO_ATTR_X, veh->getPosition().x());
-                of.writeAttr(SUMO_ATTR_Y, veh->getPosition().y());
+                of.writeAttr(SUMO_ATTR_X, pos.x());
+                of.writeAttr(SUMO_ATTR_Y, pos.y());
 
                 // Write Lane ID / edge ID
                 if (MSGlobals::gUseMesoSim) {
