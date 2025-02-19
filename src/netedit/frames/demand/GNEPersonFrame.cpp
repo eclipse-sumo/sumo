@@ -304,10 +304,6 @@ GNEPersonFrame::buildPerson() {
     myPersonBaseObject->setTag(personTag);
     // get attribute ad values
     myPersonAttributesEditor->fillSumoBaseObject(myPersonBaseObject);
-    // Check if ID has to be generated
-    if (!myPersonBaseObject->hasStringAttribute(SUMO_ATTR_ID)) {
-        myPersonBaseObject->addStringAttribute(SUMO_ATTR_ID, myViewNet->getNet()->getAttributeCarriers()->generateDemandElementID(personTag));
-    }
     // add pType parameter
     myPersonBaseObject->addStringAttribute(SUMO_ATTR_TYPE, myTypeSelector->getCurrentDemandElement()->getID());
     // check if we're creating a person or personFlow

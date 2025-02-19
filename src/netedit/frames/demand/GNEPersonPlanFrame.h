@@ -21,7 +21,6 @@
 #include <config.h>
 
 #include <netedit/elements/demand/GNERouteHandler.h>
-#include <netedit/frames/GNEAttributesCreator.h>
 #include <netedit/frames/GNEDemandSelector.h>
 #include <netedit/frames/GNEElementTree.h>
 #include <netedit/frames/GNEFrame.h>
@@ -40,7 +39,6 @@
 class GNEPersonPlanFrame : public GNEFrame {
 
 public:
-
     /**@brief Constructor
      * @brief viewParent GNEViewParent in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNEFrame
@@ -98,7 +96,7 @@ private:
     GNEPlanSelector* myPlanSelector;
 
     /// @brief internal vehicle attributes
-    GNEAttributesCreator* myPersonPlanAttributes;
+    GNEAttributesEditor* myPersonPlanAttributesEditor;
 
     /// @brief plan Creator
     GNEPlanCreator* myPlanCreator;

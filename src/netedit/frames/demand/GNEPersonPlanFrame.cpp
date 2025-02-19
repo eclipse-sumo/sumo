@@ -45,7 +45,7 @@ GNEPersonPlanFrame::GNEPersonPlanFrame(GNEViewParent* viewParent, GNEViewNet* vi
     myPlanSelector = new GNEPlanSelector(this, SUMO_TAG_PERSON);
 
     // Create person parameters
-    myPersonPlanAttributes = new GNEAttributesCreator(this);
+    myPersonPlanAttributesEditor = new GNEAttributesEditor(this, TL("Internal attributes"), GNEAttributesEditor::EditorType::CREATOR, GNEAttributesEditor::AttributeType::BASIC);
 
     // create plan creator Module
     myPlanCreator = new GNEPlanCreator(this, viewNet->getNet()->getDemandPathManager());
@@ -76,7 +76,7 @@ GNEPersonPlanFrame::show() {
         // hide all modules
         myPersonSelector->hideDemandElementSelector();
         myPlanSelector->hidePlanSelector();
-        myPersonPlanAttributes->hideAttributesCreatorModule();
+        myPersonPlanAttributesEditor->hideAttributesEditor();
         myPlanCreator->hidePathCreatorModule();
         myPersonHierarchy->hideHierarchicalElementTree();
         myPlanCreatorLegend->hidePlanCreatorLegend();
@@ -184,7 +184,7 @@ GNEPersonPlanFrame::tagSelected() {
     // first check if person is valid
     if (myPlanSelector->getCurrentPlanTemplate()) {
         // show person attributes
-        myPersonPlanAttributes->showAttributesCreatorModule(myPlanSelector->getCurrentPlanTemplate(), {});
+        myPersonPlanAttributesEditor->showAttributesEditor(myPlanSelector->getCurrentPlanTemplate());
         // set path creator mode depending if previousEdge exist
         if (myPersonSelector) {
             // show path creator mode
@@ -201,7 +201,7 @@ GNEPersonPlanFrame::tagSelected() {
         }
     } else {
         // hide modules if tag selected isn't valid
-        myPersonPlanAttributes->hideAttributesCreatorModule();
+        myPersonPlanAttributesEditor->hideAttributesEditor();
         myPlanCreator->hidePathCreatorModule();
         myPersonHierarchy->hideHierarchicalElementTree();
         myPlanCreatorLegend->hidePlanCreatorLegend();
@@ -220,7 +220,7 @@ GNEPersonPlanFrame::demandElementSelected() {
             // call tag selected
             tagSelected();
         } else {
-            myPersonPlanAttributes->hideAttributesCreatorModule();
+            myPersonPlanAttributesEditor->hideAttributesEditor();
             myPlanCreator->hidePathCreatorModule();
             myPersonHierarchy->hideHierarchicalElementTree();
             myPlanCreatorLegend->hidePlanCreatorLegend();
@@ -228,7 +228,7 @@ GNEPersonPlanFrame::demandElementSelected() {
     } else {
         // hide modules if person selected isn't valid
         myPlanSelector->hidePlanSelector();
-        myPersonPlanAttributes->hideAttributesCreatorModule();
+        myPersonPlanAttributesEditor->hideAttributesEditor();
         myPlanCreator->hidePathCreatorModule();
         myPersonHierarchy->hideHierarchicalElementTree();
         myPlanCreatorLegend->hidePlanCreatorLegend();
@@ -239,13 +239,12 @@ GNEPersonPlanFrame::demandElementSelected() {
 bool
 GNEPersonPlanFrame::createPath(const bool /*useLastRoute*/) {
     // first check that all attributes are valid
-    if (!myPersonPlanAttributes->areValuesValid()) {
-        myViewNet->setStatusBarText("Invalid " + myPlanSelector->getCurrentPlanTagProperties()->getTagStr() + " parameters.");
+    if (!myPersonPlanAttributesEditor->checkAttributes(true)) {
         return false;
     } else {
         // check if person plan can be created
         if (myRouteHandler.buildPersonPlan(myPlanSelector->getCurrentPlanTemplate(), myPersonSelector->getCurrentDemandElement(),
-                                           myPersonPlanAttributes, myPlanCreator, false)) {
+                                           myPersonPlanAttributesEditor, myPlanCreator, false)) {
             // refresh GNEElementTree
             myPersonHierarchy->refreshHierarchicalElementTree();
             // abort path creation
@@ -253,7 +252,7 @@ GNEPersonPlanFrame::createPath(const bool /*useLastRoute*/) {
             // refresh using tagSelected
             tagSelected();
             // refresh personPlan attributes
-            myPersonPlanAttributes->refreshAttributesCreator();
+            myPersonPlanAttributesEditor->refreshAttributesEditor();
             // enable show all person plans
             myViewNet->getDemandViewOptions().menuCheckShowAllPersonPlans->setChecked(TRUE);
             return true;
