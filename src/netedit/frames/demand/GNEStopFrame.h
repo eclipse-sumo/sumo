@@ -22,7 +22,6 @@
 
 #include <netedit/elements/demand/GNERouteHandler.h>
 #include <netedit/frames/GNEFrame.h>
-#include <netedit/frames/GNEAttributesCreator.h>
 #include <netedit/frames/GNEDemandSelector.h>
 #include <netedit/frames/GNETagSelector.h>
 #include <utils/foxtools/MFXDynamicLabel.h>
@@ -118,7 +117,7 @@ private:
     GNETagSelector* myStopTagSelector;
 
     /// @brief internal Stop attributes
-    GNEAttributesCreator* myStopAttributes;
+    GNEAttributesEditor* myStopAttributesEditor;
 
     /// @brief Netedit attributes editor
     GNEAttributesEditor* myNeteditAttributesEditor = nullptr;
