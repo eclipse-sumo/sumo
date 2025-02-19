@@ -2340,7 +2340,7 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
         // optional attributes (at least one must be defined)
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_TYPE,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::ACTIVATABLE | GNEAttributeProperties::VTYPE,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("The id of the vehicle type to use for this calibrator flow"),
                 DEFAULT_VTYPE_ID);
         myTagProperties[currentTag]->addAttribute(attrProperty);
@@ -3558,7 +3558,7 @@ GNETagPropertiesDatabase::fillVehicleElements() {
 
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_TYPE,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY | GNEAttributeProperties::VTYPE,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("The id of the vehicle type to use for this trip"),
                 DEFAULT_VTYPE_ID);
         myTagProperties[currentTag]->addAttribute(attrProperty);
@@ -3611,7 +3611,7 @@ GNETagPropertiesDatabase::fillVehicleElements() {
 
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_TYPE,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY | GNEAttributeProperties::VTYPE,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("The id of the vehicle type to use for this trip"),
                 DEFAULT_VTYPE_ID);
         myTagProperties[currentTag]->addAttribute(attrProperty);
@@ -3658,7 +3658,7 @@ GNETagPropertiesDatabase::fillVehicleElements() {
 
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_TYPE,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY | GNEAttributeProperties::VTYPE,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("The id of the vehicle type to use for this trip"),
                 DEFAULT_VTYPE_ID);
         myTagProperties[currentTag]->addAttribute(attrProperty);
@@ -3705,7 +3705,7 @@ GNETagPropertiesDatabase::fillVehicleElements() {
 
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_TYPE,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY | GNEAttributeProperties::VTYPE,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("The id of the vehicle type to use for this vehicle"),
                 DEFAULT_VTYPE_ID);
         myTagProperties[currentTag]->addAttribute(attrProperty);
@@ -3758,7 +3758,7 @@ GNETagPropertiesDatabase::fillVehicleElements() {
 
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_TYPE,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY | GNEAttributeProperties::VTYPE,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("The id of the vehicle type to use for this vehicle"),
                 DEFAULT_VTYPE_ID);
         myTagProperties[currentTag]->addAttribute(attrProperty);
@@ -3805,7 +3805,7 @@ GNETagPropertiesDatabase::fillVehicleElements() {
 
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_TYPE,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY | GNEAttributeProperties::VTYPE,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("The id of the flow type to use for this flow"),
                 DEFAULT_VTYPE_ID);
         myTagProperties[currentTag]->addAttribute(attrProperty);
@@ -3854,7 +3854,7 @@ GNETagPropertiesDatabase::fillVehicleElements() {
 
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_TYPE,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY | GNEAttributeProperties::VTYPE,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("The id of the flow type to use for this flow"),
                 DEFAULT_VTYPE_ID);
         myTagProperties[currentTag]->addAttribute(attrProperty);
@@ -3897,7 +3897,7 @@ GNETagPropertiesDatabase::fillVehicleElements() {
 
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_TYPE,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY | GNEAttributeProperties::VTYPE,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("The id of the flow type to use for this flow"),
                 DEFAULT_VTYPE_ID);
         myTagProperties[currentTag]->addAttribute(attrProperty);
@@ -3940,7 +3940,7 @@ GNETagPropertiesDatabase::fillVehicleElements() {
 
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_TYPE,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY | GNEAttributeProperties::VTYPE,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("The id of the flow type to use for this flow"),
                 DEFAULT_VTYPE_ID);
         myTagProperties[currentTag]->addAttribute(attrProperty);
@@ -3989,7 +3989,7 @@ GNETagPropertiesDatabase::fillVehicleElements() {
 
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_TYPE,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY | GNEAttributeProperties::VTYPE,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("The id of the flow type to use for this flow"),
                 DEFAULT_VTYPE_ID);
         myTagProperties[currentTag]->addAttribute(attrProperty);
@@ -8921,7 +8921,7 @@ GNETagPropertiesDatabase::fillCommonPersonAttributes(GNETagProperties* tagProper
 
     attrProperty = new GNEAttributeProperties(SUMO_ATTR_TYPE,
             GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY | GNEAttributeProperties::VTYPE,
-            GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+            GNEAttributeProperties::EDITMODE,
             TL("The id of the person type to use for this person"),
             DEFAULT_VTYPE_ID);
     tagProperties->addAttribute(attrProperty);
@@ -9094,7 +9094,7 @@ GNETagPropertiesDatabase::fillPlanParentAttributes(GNETagProperties* tagProperti
     if (tagProperties->planConsecutiveEdges()) {
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_EDGES,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("list of consecutive edges"));
         tagProperties->addAttribute(attrProperty);
 
@@ -9108,7 +9108,7 @@ GNETagPropertiesDatabase::fillPlanParentAttributes(GNETagProperties* tagProperti
     if (tagProperties->planRoute()) {
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_ROUTE,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("Route ID"));
         tagProperties->addAttribute(attrProperty);
 
@@ -9123,48 +9123,48 @@ GNETagPropertiesDatabase::fillPlanParentAttributes(GNETagProperties* tagProperti
 
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_EDGE,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("Edge ID"));
         tagProperties->addAttribute(attrProperty);
 
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_ENDPOS,
                 GNEAttributeProperties::FLOAT | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("The end position on the lane (the higher position on the lane) in meters, must be larger than startPos by more than 0.1m"));
         tagProperties->addAttribute(attrProperty);
     }
     if (tagProperties->planBusStop()) {
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_BUS_STOP,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("Bus stop ID"));
         tagProperties->addAttribute(attrProperty);
     }
     if (tagProperties->planTrainStop()) {
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_TRAIN_STOP,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("Train stop ID"));
         tagProperties->addAttribute(attrProperty);
     }
     if (tagProperties->planContainerStop()) {
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_CONTAINER_STOP,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("Container stop ID"));
         tagProperties->addAttribute(attrProperty);
     }
     if (tagProperties->planChargingStation()) {
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_CHARGING_STATION,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("Charging station ID"));
         tagProperties->addAttribute(attrProperty);
     }
     if (tagProperties->planParkingArea()) {
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_PARKING_AREA,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("Parking area ID"));
         tagProperties->addAttribute(attrProperty);
     }
@@ -9172,56 +9172,56 @@ GNETagPropertiesDatabase::fillPlanParentAttributes(GNETagProperties* tagProperti
     if (tagProperties->planFromEdge()) {
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_FROM,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("Edge start ID"));
         tagProperties->addAttribute(attrProperty);
     }
     if (tagProperties->planFromTAZ()) {
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_FROM_TAZ,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("TAZ start ID"));
         tagProperties->addAttribute(attrProperty);
     }
     if (tagProperties->planFromJunction()) {
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_FROM_JUNCTION,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("Junction start ID"));
         tagProperties->addAttribute(attrProperty);
     }
     if (tagProperties->planFromBusStop()) {
         attrProperty = new GNEAttributeProperties(GNE_ATTR_FROM_BUSSTOP,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("BusStop start ID"));
         tagProperties->addAttribute(attrProperty);
     }
     if (tagProperties->planFromTrainStop()) {
         attrProperty = new GNEAttributeProperties(GNE_ATTR_FROM_TRAINSTOP,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("TrainStop start ID"));
         tagProperties->addAttribute(attrProperty);
     }
     if (tagProperties->planFromContainerStop()) {
         attrProperty = new GNEAttributeProperties(GNE_ATTR_FROM_CONTAINERSTOP,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("ContainerStop start ID"));
         tagProperties->addAttribute(attrProperty);
     }
     if (tagProperties->planFromChargingStation()) {
         attrProperty = new GNEAttributeProperties(GNE_ATTR_FROM_CHARGINGSTATION,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("ChargingStation start ID"));
         tagProperties->addAttribute(attrProperty);
     }
     if (tagProperties->planFromParkingArea()) {
         attrProperty = new GNEAttributeProperties(GNE_ATTR_FROM_CHARGINGSTATION,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("ParkingArea start ID"));
         tagProperties->addAttribute(attrProperty);
     }
@@ -9229,7 +9229,7 @@ GNETagPropertiesDatabase::fillPlanParentAttributes(GNETagProperties* tagProperti
     if (tagProperties->planToEdge()) {
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_TO,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("Edge end ID"));
         tagProperties->addAttribute(attrProperty);
         // departPos only for tranships
@@ -9252,49 +9252,49 @@ GNETagPropertiesDatabase::fillPlanParentAttributes(GNETagProperties* tagProperti
     if (tagProperties->planToTAZ()) {
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_TO_TAZ,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("TAZ end ID"));
         tagProperties->addAttribute(attrProperty);
     }
     if (tagProperties->planToJunction()) {
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_TO_JUNCTION,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("Junction end ID"));
         tagProperties->addAttribute(attrProperty);
     }
     if (tagProperties->planToBusStop()) {
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_BUS_STOP,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("BusStop end ID"));
         tagProperties->addAttribute(attrProperty);
     }
     if (tagProperties->planToTrainStop()) {
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_TRAIN_STOP,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("TrainStop end ID"));
         tagProperties->addAttribute(attrProperty);
     }
     if (tagProperties->planToContainerStop()) {
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_CONTAINER_STOP,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("ContainerStop end ID"));
         tagProperties->addAttribute(attrProperty);
     }
     if (tagProperties->planToChargingStation()) {
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_CHARGING_STATION,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("ChargingStation end ID"));
         tagProperties->addAttribute(attrProperty);
     }
     if (tagProperties->planToParkingArea()) {
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_PARKING_AREA,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("ParkingArea end ID"));
         tagProperties->addAttribute(attrProperty);
     }
