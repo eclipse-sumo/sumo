@@ -1712,10 +1712,21 @@ NBEdgeCont::guessSpecialLanes(SUMOVehicleClass svc, double width, double minSpee
             edge->addRestrictedLane(width, svc);
             lanesCreated += 1;
             if (svc != SVC_PEDESTRIAN) {
-                edge->invalidateConnections(true);
-                edge->getFromNode()->invalidateOutgoingConnections(true);
-                edge->getFromNode()->invalidateTLS(tlc, true, true);
-                edge->getToNode()->invalidateTLS(tlc, true, true);
+                if (edge->getStep() == NBEdge::EdgeBuildingStep::LANES2LANES_USER) {
+                    // preserve existing connections and only add new ones
+                    edge->declareConnectionsAsLoaded(NBEdge::EdgeBuildingStep::LANES2LANES_DONE);
+                    edge->getFromNode()->recheckVClassConnections(edge);
+                    for (NBEdge* to : edge->getToNode()->getOutgoingEdges()) {
+                        edge->getToNode()->recheckVClassConnections(to);
+                    }
+                    // patching TLS is not feasible because existing states may
+                    // change from 'G' to 'g' when bike lanes are added (i.e. right-turns)
+                } else {
+                    edge->invalidateConnections(true);
+                    edge->getFromNode()->invalidateOutgoingConnections(true);
+                }
+                edge->getFromNode()->invalidateTLS(tlc, true, false);
+                edge->getToNode()->invalidateTLS(tlc, true, false);
             }
         }
     }
