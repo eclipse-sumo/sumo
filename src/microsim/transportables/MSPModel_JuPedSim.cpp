@@ -1114,10 +1114,8 @@ MSPModel_JuPedSim::addWaitingSet(const MSLane* const crossing, const bool entry)
         moved.move2side(latOff);
         pv.push_back(moved.positionAtOffset(lonOffset));
         moved.move2side(-2. * latOff);
-        const Position wPosOff2 = moved.positionAtOffset(lonOffset);
         pv.push_back(moved.positionAtOffset(lonOffset));
     }
-    Position center = Position::INVALID;
     if (entry && crossing->getIncomingLanes().size() == 1 && crossing->getIncomingLanes().front().lane->isWalkingArea()) {
         pv.push_back(crossing->getIncomingLanes().front().lane->getShape().getCentroid());
     }
