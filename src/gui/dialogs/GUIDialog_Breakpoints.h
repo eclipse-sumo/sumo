@@ -38,7 +38,7 @@
  *  time steps where the simulation halts.
  * @todo Use a LineReader instead of >> while reading
  */
-class GUIDialog_Breakpoints : public FXMainWindow, public GUIPersistentWindowPos {
+class GUIDialog_Breakpoints : public FXMainWindow {
     // FOX-declarations
     FXDECLARE(GUIDialog_Breakpoints)
 
@@ -107,4 +107,7 @@ private:
 
     /// @brief simulation begin
     SUMOTime mySimBegin;
+
+    /// @brief persisting the position on close
+    std::unique_ptr<GUIPersistentWindowPos> myPersistentPos;
 };
