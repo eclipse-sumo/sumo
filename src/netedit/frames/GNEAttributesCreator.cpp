@@ -255,7 +255,7 @@ GNEAttributesCreator::refreshRows(const bool createRows) {
         if ((attributeProperty->getAttr() == GNE_ATTR_SELECTED) ||
                 (attributeProperty->getAttr() == GNE_ATTR_FRONTELEMENT) ||
                 (attributeProperty->getAttr() == GNE_ATTR_PARENT) ||
-                (attributeProperty->getAttr() == GNE_ATTR_CLOSESHAPE)) {
+                (attributeProperty->getAttr() == GNE_ATTR_CLOSE_SHAPE)) {
             showAttribute = false;
         }
         // check if attributeProperty must stay hidden

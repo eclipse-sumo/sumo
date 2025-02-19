@@ -2657,7 +2657,7 @@ GNETagPropertiesDatabase::fillShapeElements() {
         // set values of tag
         myTagProperties[currentTag] = new GNETagProperties(currentTag,
                 GNETagProperties::TagType::ADDITIONALELEMENT | GNETagProperties::TagType::SHAPE,
-                GNETagProperties::TagProperty::RTREE | GNETagProperties::TagProperty::CLOSESHAPE | GNETagProperties::TagProperty::GEOSHAPE,
+                GNETagProperties::TagProperty::RTREE | GNETagProperties::TagProperty::GEOSHAPE,
                 GNETagProperties::TagParents::NO_PARENTS,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::POLY, currentTag, TL("Polygon"),
@@ -2673,12 +2673,6 @@ GNETagPropertiesDatabase::fillShapeElements() {
                 GNEAttributeProperties::STRING | GNEAttributeProperties::POSITION | GNEAttributeProperties::LIST | GNEAttributeProperties::UNIQUE,
                 GNEAttributeProperties::EDITMODE,
                 TL("The shape of the polygon"));
-        myTagProperties[currentTag]->addAttribute(attrProperty);
-
-        attrProperty = new GNEAttributeProperties(GNE_ATTR_CLOSESHAPE,
-                GNEAttributeProperties::BOOL,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE | GNEAttributeProperties::NETEDIT,
-                TL("Toggle close or open shape"));
         myTagProperties[currentTag]->addAttribute(attrProperty);
 
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_COLOR,
@@ -2756,6 +2750,11 @@ GNETagPropertiesDatabase::fillShapeElements() {
                 TL("A custom geo shape for this polygon"));
         myTagProperties[currentTag]->addAttribute(attrProperty);
 
+        attrProperty = new GNEAttributeProperties(GNE_ATTR_CLOSE_SHAPE,
+                GNEAttributeProperties::BOOL,
+                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE | GNEAttributeProperties::NETEDIT,
+                TL("Toggle close or open shape"));
+        myTagProperties[currentTag]->addAttribute(attrProperty);
     }
     currentTag = SUMO_TAG_POI;
     {

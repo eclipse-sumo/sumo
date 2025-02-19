@@ -234,6 +234,9 @@ protected:
     /// @brief Latitude of Polygon
     PositionVector myGeoShape;
 
+    /// @brief flag to indicate if polygon is closed
+    bool myClosedShape;
+
     /// @brief flag to indicate if polygon is simplified
     bool mySimplifiedShape;
 

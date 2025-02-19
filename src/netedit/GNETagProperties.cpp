@@ -712,12 +712,6 @@ GNETagProperties::isSelectable() const {
 
 
 bool
-GNETagProperties::canCloseShape() const {
-    return (myTagProperty & CLOSESHAPE) != 0;
-}
-
-
-bool
 GNETagProperties::hasGEOShape() const {
     return (myTagProperty & GEOSHAPE) != 0;
 }

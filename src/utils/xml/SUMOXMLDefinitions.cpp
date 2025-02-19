@@ -1352,7 +1352,7 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::attrs[] = {
     { "shapeStart",                         GNE_ATTR_SHAPE_START },
     { "shapeEnd",                           GNE_ATTR_SHAPE_END },
     { "isBidi",                             GNE_ATTR_BIDIR },
-    { "closedShape",                        GNE_ATTR_CLOSE_SHAPE },
+    { "close shape",                        GNE_ATTR_CLOSE_SHAPE },
     { "parent",                             GNE_ATTR_PARENT },
     { "dataSet",                            GNE_ATTR_DATASET },
     { "genericParameter",                   GNE_ATTR_PARAMETERS },
@@ -1388,7 +1388,6 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::attrs[] = {
     { "fromParkingArea",                    GNE_ATTR_FROM_PARKINGAREA },
     { "fromRoute",                          GNE_ATTR_FROM_ROUTE },
     { "isRoundabout",                       GNE_ATTR_IS_ROUNDABOUT },
-    { "close shape",                        GNE_ATTR_CLOSESHAPE },
     { "frontElement",                       GNE_ATTR_FRONTELEMENT },
 
     { "carriageLength",     SUMO_ATTR_CARRIAGE_LENGTH },
