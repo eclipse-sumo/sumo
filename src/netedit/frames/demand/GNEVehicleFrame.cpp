@@ -133,7 +133,7 @@ GNEVehicleFrame::GNEVehicleFrame(GNEViewParent* viewParent, GNEViewNet* viewNet)
     myTypeSelector = new GNEDemandElementSelector(this, SUMO_TAG_VTYPE, GNETagProperties::TagType::VEHICLE);
 
     // Create vehicle parameters
-    myVehicleAttributes = new GNEAttributesCreator(this);
+    myVehicleAttributesEditor = new GNEAttributesEditor(this, TL("Internal attributes"), GNEAttributesEditor::EditorType::CREATOR, GNEAttributesEditor::AttributeType::BASIC);
 
     // create GNEPathCreator Module
     myPathCreator = new GNEPathCreator(this, viewNet->getNet()->getDemandPathManager());
@@ -199,16 +199,11 @@ GNEVehicleFrame::addVehicle(const GNEViewNetHelper::ViewObjectsSelector& viewObj
         return false;
     }
     // now check if parameters are valid
-    if (!myVehicleAttributes->areValuesValid()) {
-        myVehicleAttributes->showWarningMessage();
+    if (!myVehicleAttributesEditor->checkAttributes(true)) {
         return false;
     }
     // get vehicle attributes
-    myVehicleAttributes->getAttributesAndValues(myVehicleBaseObject, false);
-    // Check if ID has to be generated
-    if (!myVehicleBaseObject->hasStringAttribute(SUMO_ATTR_ID)) {
-        myVehicleBaseObject->addStringAttribute(SUMO_ATTR_ID, myViewNet->getNet()->getAttributeCarriers()->generateDemandElementID(vehicleTag));
-    }
+    myVehicleAttributesEditor->fillSumoBaseObject(myVehicleBaseObject);
     // add VType
     myVehicleBaseObject->addStringAttribute(SUMO_ATTR_TYPE, myTypeSelector->getCurrentDemandElement()->getID());
     // set route or edges depending of vehicle type
@@ -247,9 +242,9 @@ GNEVehicleFrame::getPathCreator() const {
 }
 
 
-GNEAttributesCreator*
+GNEAttributesEditor*
 GNEVehicleFrame::getVehicleAttributes() const {
-    return myVehicleAttributes;
+    return myVehicleAttributesEditor;
 }
 
 // ===========================================================================
@@ -272,7 +267,7 @@ GNEVehicleFrame::tagSelected() {
     } else {
         // hide all moduls if tag isn't valid
         myTypeSelector->hideDemandElementSelector();
-        myVehicleAttributes->hideAttributesCreatorModule();
+        myVehicleAttributesEditor->hideAttributesEditor();
         myPathCreator->hidePathCreatorModule();
         myHelpCreation->hideHelpCreation();
         myPathLegend->hidePathLegendModule();
@@ -284,7 +279,7 @@ void
 GNEVehicleFrame::demandElementSelected() {
     if (myTypeSelector->getCurrentDemandElement()) {
         // show vehicle attributes modul
-        myVehicleAttributes->showAttributesCreatorModule(myVehicleTagSelector->getCurrentTemplateAC(), {});
+        myVehicleAttributesEditor->showAttributesEditor(myVehicleTagSelector->getCurrentTemplateAC());
         // clear colors
         myPathCreator->clearJunctionColors();
         myPathCreator->clearEdgeColors();
@@ -296,7 +291,7 @@ GNEVehicleFrame::demandElementSelected() {
         myHelpCreation->showHelpCreation();
     } else {
         // hide all moduls if selected item isn't valid
-        myVehicleAttributes->hideAttributesCreatorModule();
+        myVehicleAttributesEditor->hideAttributesEditor();
         myPathCreator->hidePathCreatorModule();
         myPathLegend->hidePathLegendModule();
         myHelpCreation->hideHelpCreation();
@@ -307,17 +302,13 @@ GNEVehicleFrame::demandElementSelected() {
 bool
 GNEVehicleFrame::createPath(const bool useLastRoute) {
     // first check if parameters are valid
-    if (myVehicleAttributes->areValuesValid() && myTypeSelector->getCurrentDemandElement()) {
+    if (myVehicleAttributesEditor->checkAttributes(true) && myTypeSelector->getCurrentDemandElement()) {
         // obtain tag (only for improve code legibility)
         SumoXMLTag vehicleTag = myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty()->getTag();
         // begin cleaning vehicle base object
         myVehicleBaseObject->clear();
         // Updated myVehicleBaseObject
-        myVehicleAttributes->getAttributesAndValues(myVehicleBaseObject, false);
-        // Check if ID has to be generated
-        if (!myVehicleBaseObject->hasStringAttribute(SUMO_ATTR_ID)) {
-            myVehicleBaseObject->addStringAttribute(SUMO_ATTR_ID, myViewNet->getNet()->getAttributeCarriers()->generateDemandElementID(vehicleTag));
-        }
+        myVehicleAttributesEditor->fillSumoBaseObject(myVehicleBaseObject);
         // add VType
         myVehicleBaseObject->addStringAttribute(SUMO_ATTR_TYPE, myTypeSelector->getCurrentDemandElement()->getID());
         // check if use last route
@@ -551,7 +542,7 @@ GNEVehicleFrame::createPath(const bool useLastRoute) {
             // abort path creation
             myPathCreator->abortPathCreation();
             // refresh myVehicleAttributes
-            myVehicleAttributes->refreshAttributesCreator();
+            myVehicleAttributesEditor->refreshAttributesEditor();
             return true;
         }
     }
@@ -634,7 +625,7 @@ GNEVehicleFrame::buildVehicleOverRoute(SumoXMLTag vehicleTag, GNEDemandElement* 
             myViewNet->centerTo(vehicle->getPositionInView(), false);
         }
         // refresh myVehicleAttributes
-        myVehicleAttributes->refreshAttributesCreator();
+        myVehicleAttributesEditor->refreshAttributesEditor();
         // all ok, then return true;
         return true;
     } else {

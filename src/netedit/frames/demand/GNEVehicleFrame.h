@@ -22,7 +22,6 @@
 
 #include <netedit/frames/GNEFrame.h>
 #include <netedit/elements/demand/GNERouteHandler.h>
-#include <netedit/frames/GNEAttributesCreator.h>
 #include <netedit/frames/GNETagSelector.h>
 #include <netedit/frames/GNEDemandSelector.h>
 #include <netedit/frames/GNEPathLegendModule.h>
@@ -105,7 +104,7 @@ public:
     GNEPathCreator* getPathCreator() const;
 
     /// @brief get attributes creator
-    GNEAttributesCreator* getVehicleAttributes() const;
+    GNEAttributesEditor* getVehicleAttributes() const;
 
 protected:
     /// @brief Tag selected in GNETagSelector
@@ -134,7 +133,7 @@ private:
     GNEDemandElementSelector* myTypeSelector;
 
     /// @brief internal vehicle attributes
-    GNEAttributesCreator* myVehicleAttributes;
+    GNEAttributesEditor* myVehicleAttributesEditor;
 
     /// @brief edge path creator (used for trips and flows)
     GNEPathCreator* myPathCreator;
