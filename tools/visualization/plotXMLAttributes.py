@@ -113,6 +113,10 @@ def getOptions(args=None):
                          help="clamp y values to range A:B or half-range A: / :B")
     optParser.add_option("--invert-yaxis", dest="invertYAxis", action="store_true",
                          default=False, help="Invert the Y-Axis")
+    optParser.add_option("--xstr", action="store_true",
+                         default=False, help="Interpret x-data as string")
+    optParser.add_option("--ystr", action="store_true",
+                         default=False, help="Interpret y-data as string")
     optParser.add_option("--scatterplot", action="store_true", category="visualization",
                          default=False, help="Draw a scatterplot instead of lines")
     optParser.add_option("--barplot", action="store_true", category="visualization",
@@ -625,6 +629,9 @@ def main(options):
     usableIDs = 0
     idFromSplitAttrs = ',' in options.xattr or ',' in options.yattr
 
+    interpretx = (lambda x: x) if options.xstr else interpretValue
+    interprety = (lambda x: x) if options.ystr else interpretValue
+
     for fileIndex, datafile in enumerate(options.files):
         totalIDs = 0
         filteredIDs = 0
@@ -648,8 +655,8 @@ def main(options):
                 suffix = shortFileNames[fileIndex]
                 if len(suffix) > 0:
                     dataID = str(dataID) + "#" + suffix
-            x = interpretValue(x)
-            y = interpretValue(y)
+            x = interpretx(x)
+            y = interprety(y)
             if options.xattr == FILE_ATTR:
                 x = titleFileNames[fileIndex]
             if options.yattr == FILE_ATTR:
