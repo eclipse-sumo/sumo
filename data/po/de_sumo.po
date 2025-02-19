@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-13 10:07+0100\n"
-"PO-Revision-Date: 2025-02-04 15:39+0000\n"
+"PO-Revision-Date: 2025-02-19 12:45+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.10-dev\n"
+"X-Generator: Weblate 5.10.1-dev\n"
 
 #: src/activitygen/AGActivityGen.cpp:46
 msgid "Reading input"
@@ -13667,7 +13667,7 @@ msgstr ""
 
 #: src/utils/vehicle/SUMORouteHandler.cpp:555
 msgid "Invalid 'index' for stop%."
-msgstr "Ungültiger 'index' des halts%."
+msgstr "Ungültiger 'index' des Halts%."
 
 #: src/utils/vehicle/SUMOTrafficObject.cpp:45
 msgid "Missing parameter '%' for % '%'."
