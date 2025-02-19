@@ -49,6 +49,9 @@ public:
     /// @brief hide attribute row (always return false)
     bool hideAttributeRow();
 
+    /// @brief disable
+    void disable();
+
     /// @brief get attribute property
     const GNEAttributeProperties* getAttrProperty() const;
 
@@ -138,9 +141,6 @@ protected:
 
     /// @brief check if the given attribute is enabled
     bool isAttributeEnabled(const GNEAttributeProperties* attrProperty) const;
-
-    /// @brief check junction merging
-    /// bool mergeJunction(SumoXMLAttr attr, const std::string& newVal) const;
 
 private:
     /// @brief pointer to attribute table parent

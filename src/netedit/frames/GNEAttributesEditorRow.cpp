@@ -229,6 +229,22 @@ GNEAttributesEditorRow::hideAttributeRow() {
 }
 
 
+void
+GNEAttributesEditorRow::disable() {
+    // disable all elements
+    myAttributeToggleEnableCheckButton->disable();
+    myAttributeReparentButton->disable();
+    myAttributeInspectParentButton->disable();
+    myAttributeVClassButton->disable();
+    myAttributeColorButton->disable();
+    myValueTextField->disable();
+    myValueComboBox->disable();
+    myValueCheckButton->disable();
+    myValueLaneUpButton->disable();
+    myValueLaneDownButton->disable();
+}
+
+
 const GNEAttributeProperties*
 GNEAttributesEditorRow::getAttrProperty() const {
     return myAttrProperty;
@@ -686,7 +702,6 @@ GNEAttributesEditorRow::showAttributeLabel(const GNEAttributeProperties* attrPro
 
 void
 GNEAttributesEditorRow::hideAllAttributeElements() {
-    // hide other elements
     myAttributeLabel->hide();
     myAttributeToggleEnableCheckButton->hide();
     myAttributeReparentButton->hide();

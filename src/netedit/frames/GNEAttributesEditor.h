@@ -81,6 +81,9 @@ public:
     /// @brief refresh attribute editor
     void refreshAttributesEditor();
 
+    /// @brief disable attribute editor
+    void disableAttributesEditor();
+
     /// @brief check if current edited attributes are valid
     bool checkAttributes(const bool showWarning);
 

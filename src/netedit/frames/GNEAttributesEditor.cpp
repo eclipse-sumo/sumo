@@ -254,9 +254,16 @@ GNEAttributesEditor::refreshAttributesEditor() {
 }
 
 
+void
+GNEAttributesEditor::disableAttributesEditor() {
+    for (const auto& row : myAttributesEditorRows) {
+        row->disable();
+    }
+}
+
+
 bool
 GNEAttributesEditor::checkAttributes(const bool showWarning) {
-    // iterate over standar parameters
     for (const auto& row : myAttributesEditorRows) {
         if (!row->isValueValid())
             if (showWarning) {
