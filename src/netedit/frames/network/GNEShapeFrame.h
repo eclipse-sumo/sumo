@@ -155,8 +155,8 @@ private:
     /// @brief shape tag selector
     GNETagSelector* myShapeTagSelector;
 
-    /// @brief shape internal attributes
-    GNEAttributesCreator* myShapeAttributes;
+    /// @brief shape attributes editor
+    GNEAttributesEditor* myShapeAttributesEditor = nullptr;
 
     /// @brief Netedit attributes editor
     GNEAttributesEditor* myNeteditAttributesEditor = nullptr;
