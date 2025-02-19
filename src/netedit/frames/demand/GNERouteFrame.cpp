@@ -108,7 +108,7 @@ GNERouteFrame::RouteModeSelector::areParametersValid() {
         // check if create routes consecutively
         const bool consecutiveEdges = (myCurrentRouteMode == RouteMode::CONSECUTIVE_EDGES);
         // show route attributes modul
-        myRouteFrameParent->myRouteAttributes->showAttributesCreatorModule(myRouteTemplate, {});
+        myRouteFrameParent->myRouteAttributesEditor->showAttributesEditor(myRouteTemplate);
         // show path creator
         myRouteFrameParent->myPathCreator->showPathCreatorModule(myRouteTemplate->getTagProperty(), consecutiveEdges);
         // update edge colors
@@ -117,7 +117,7 @@ GNERouteFrame::RouteModeSelector::areParametersValid() {
         myRouteFrameParent->myPathLegend->showPathLegendModule();
     } else {
         // hide all moduls if route mode isnt' valid
-        myRouteFrameParent->myRouteAttributes->hideAttributesCreatorModule();
+        myRouteFrameParent->myRouteAttributesEditor->hideAttributesEditor();
         myRouteFrameParent->myPathCreator->hidePathCreatorModule();
         myRouteFrameParent->myPathLegend->hidePathLegendModule();
         // reset all flags
@@ -190,7 +190,7 @@ GNERouteFrame::GNERouteFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
     myRouteModeSelector = new RouteModeSelector(this);
 
     // Create route parameters
-    myRouteAttributes = new GNEAttributesCreator(this);
+    myRouteAttributesEditor = new GNEAttributesEditor(this, TL("Internal attributes"), GNEAttributesEditor::EditorType::CREATOR, GNEAttributesEditor::AttributeType::BASIC);
 
     // create consecutive edges module
     myPathCreator = new GNEPathCreator(this, viewNet->getNet()->getDemandPathManager());
@@ -248,18 +248,15 @@ GNERouteFrame::getPathCreator() const {
 bool
 GNERouteFrame::createPath(const bool /*useLastRoute*/) {
     // check that route attributes are valid
-    if (!myRouteAttributes->areValuesValid()) {
-        myRouteAttributes->showWarningMessage();
+    if (!myRouteAttributesEditor->checkAttributes(true)) {
+        return false;
     } else if (myPathCreator->getSelectedEdges().size() > 0) {
         // clear base object
         myRouteBaseObject->clear();
         // set tag
         myRouteBaseObject->setTag(SUMO_TAG_ROUTE);
         // obtain attributes
-        myRouteAttributes->getAttributesAndValues(myRouteBaseObject, true);
-        if (!myRouteBaseObject->hasStringAttribute(SUMO_ATTR_ID)) {
-            myRouteBaseObject->addStringAttribute(SUMO_ATTR_ID, myViewNet->getNet()->getAttributeCarriers()->generateDemandElementID(SUMO_TAG_ROUTE));
-        }
+        myRouteAttributesEditor->fillSumoBaseObject(myRouteBaseObject);
         // add probability (needed for distributions)
         myRouteBaseObject->addDoubleAttribute(SUMO_ATTR_PROB, 1.0);
         // declare edge vector
@@ -281,7 +278,7 @@ GNERouteFrame::createPath(const bool /*useLastRoute*/) {
         // abort path creation
         myPathCreator->abortPathCreation();
         // refresh route attributes
-        myRouteAttributes->refreshAttributesCreator();
+        myRouteAttributesEditor->refreshAttributesEditor();
         // get new route
         auto newRoute = myViewNet->getNet()->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_ROUTE, myRouteBaseObject->getStringAttribute(SUMO_ATTR_ID));
         // compute path route

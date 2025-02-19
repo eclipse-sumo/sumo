@@ -150,8 +150,8 @@ private:
     /// @brief route mode selector
     RouteModeSelector* myRouteModeSelector;
 
-    /// @brief internal route attributes
-    GNEAttributesCreator* myRouteAttributes;
+    /// @brief internal route attributes editor
+    GNEAttributesEditor* myRouteAttributesEditor;
 
     /// @brief path creator modul
     GNEPathCreator* myPathCreator;
