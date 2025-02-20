@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-04-02 14:11:34 by Eclipse SUMO netconvert Version v1_19_0+1620-8aaf8f08ffd
+<!-- generated on 2025-02-20 16:13:03 by Eclipse SUMO netconvert Version v1_22_0+0332-698bf2cd8fa
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <osm-files value="osm.xml"/>
@@ -43,7 +43,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <xml-validation value="never"/>
     </report>
 
-</configuration>
+</netconvertConfiguration>
 -->
 
 <net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
@@ -295,9 +295,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <edge id="175925599" from="1864873561" to="534411910" priority="3" type="highway.residential" spreadType="center">
         <lane id="175925599_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="9.51" shape="348.10,412.01 351.92,407.40"/>
     </edge>
-    <edge id="175925600#0" from="1863231610" to="1882685598" priority="17" type="highway.service|railway.tram" spreadType="center" shape="247.49,548.05 243.47,553.17 241.25,556.22">
-        <lane id="175925600#0_0" index="0" allow="pedestrian" speed="13.89" length="11.47" width="2.00" shape="247.80,550.24 244.75,554.13 242.63,557.04"/>
-        <lane id="175925600#0_1" index="1" allow="bus delivery bicycle tram" speed="13.89" length="11.47" shape="245.76,548.63 242.67,552.57 240.53,555.51"/>
+    <edge id="175925600#0" from="1863231610" to="1882685598" priority="17" type="highway.service|railway.tram" spreadType="center" shape="247.49,548.05 243.47,553.17 241.62,555.48 241.25,556.22">
+        <lane id="175925600#0_0" index="0" allow="pedestrian" speed="13.89" length="11.60" width="2.00" shape="247.80,550.24 244.72,554.16 242.98,556.34 242.68,556.93"/>
+        <lane id="175925600#0_1" index="1" allow="bus delivery bicycle tram" speed="13.89" length="11.60" shape="245.76,548.63 242.68,552.55 240.77,554.94 240.35,555.78"/>
     </edge>
     <edge id="175925600#1" from="1882685598" to="1863231629" priority="17" type="highway.service|railway.tram" spreadType="center" shape="241.21,556.29 239.94,558.42 238.60,561.55 237.24,565.39 236.60,569.09">
         <lane id="175925600#1_0" index="0" allow="pedestrian" speed="13.89" length="14.84" width="2.00" shape="242.58,557.12 241.37,559.15 240.09,562.13 239.79,562.98"/>
@@ -736,7 +736,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <junction id="1882685597" type="priority" x="237.88" y="553.69" incLanes="175769905#3_0 175769905#3_1" intLanes="" shape="239.33,554.39 234.88,551.69 234.75,551.91 239.16,554.67">
         <request index="0" response="0" foes="0"/>
     </junction>
-    <junction id="1882685598" type="priority" x="240.35" y="555.78" incLanes="175925600#0_0 175925600#0_1" intLanes="" shape="243.44,557.63 239.24,554.57 239.14,554.71 239.07,554.81 239.03,554.87">
+    <junction id="1882685598" type="priority" x="240.35" y="555.78" incLanes="175925600#0_0 175925600#0_1" intLanes="" shape="243.61,557.32 238.95,555.01 243.41,557.68">
         <request index="0" response="0" foes="0"/>
     </junction>
     <junction id="1882685599" type="priority" x="228.80" y="561.47" incLanes="32935326#0_0 32935326#0_1 175769919#3_0 175769919#3_1" intLanes="" shape="228.74,566.05 233.38,561.64 232.81,560.75 232.74,560.30 232.81,559.86 233.02,559.41 233.37,558.96 229.58,555.40 227.53,555.39 222.83,559.72 222.90,562.49 226.68,566.05 227.37,565.57 227.71,565.51 228.05,565.57 228.40,565.75">
