@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-13 10:07+0100\n"
-"PO-Revision-Date: 2025-02-19 12:45+0000\n"
+"PO-Revision-Date: 2025-02-20 17:51+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -8653,16 +8653,16 @@ msgstr ""
 
 #: src/netimport/NIFrame.cpp:321 src/netimport/NIFrame.cpp:318
 msgid "Factor for edge velocity"
-msgstr ""
+msgstr "Fattore per il limite di velocità dell'arco"
 
 #: src/netimport/NIFrame.cpp:324 src/netimport/NIFrame.cpp:321
 msgid "Writes lanes without an explicit speed set"
-msgstr ""
+msgstr "Scrivi corsie senza un limite di velocità esplicito"
 
 #: src/netimport/NIFrame.cpp:329 src/polyconvert/polyconvert_main.cpp:95
 #: src/netimport/NIFrame.cpp:326
 msgid "Load language mappings from FILE"
-msgstr ""
+msgstr "Carica assegnazioni di lingue da FILE"
 
 #: src/netimport/NIFrame.cpp:332 src/netimport/NIFrame.cpp:329
 msgid "Uses priorities from types"
@@ -8682,11 +8682,11 @@ msgstr "Imposta velocità dei collegamenti"
 
 #: src/netimport/NIFrame.cpp:345 src/netimport/NIFrame.cpp:342
 msgid "Sets connector lane number"
-msgstr ""
+msgstr "Imposta il numero di corsie di collegamenti"
 
 #: src/netimport/NIFrame.cpp:348 src/netimport/NIFrame.cpp:345
 msgid "Excludes connectors"
-msgstr ""
+msgstr "Esclude collegamenti"
 
 #: src/netimport/NIFrame.cpp:352 src/netimport/NIFrame.cpp:349
 msgid "Computes the number of lanes from the edges' capacities"
@@ -8719,19 +8719,25 @@ msgid ""
 "Allow stop lines to be built beyond the start of the junction if the "
 "geometries allow so"
 msgstr ""
+"Permetti di piazzare linee d'arresto a valle dell'inizio dell'incrocio se la "
+"geometria lo permette"
 
 #: src/netimport/NIFrame.cpp:371 src/netimport/NIFrame.cpp:368
 msgid ""
 "The minimum lane width for determining start or end of variable-width lanes"
 msgstr ""
+"La larghezza minima di corsia per determinare l'inizio o il termine di "
+"corsia a larghezza variable"
 
 #: src/netimport/NIFrame.cpp:373 src/netimport/NIFrame.cpp:370
 msgid "Import internal lane shapes"
-msgstr ""
+msgstr "Importa forme delle corsie interne"
 
 #: src/netimport/NIFrame.cpp:375 src/netimport/NIFrame.cpp:372
 msgid "Sets edge-id based on road-id and offset in m (legacy)"
 msgstr ""
+"Imposta il codice identifcativo dell'arco basandosi su road-id e lo "
+"spostamento in m (legato)"
 
 #: src/netimport/NIFrame.cpp:377 src/netimport/NIFrame.cpp:374
 msgid "Use custom lane shapes to compensate discarded lane types"
