@@ -6,6 +6,7 @@ pipeline {
     }
     environment {
         PATH = "${env.PATH}:/opt/homebrew/bin"
+        GITHUB_TOKEN = credentials('github-bot-token')
     }
     stages {
         stage('Clean Workspace') {
@@ -352,11 +353,7 @@ pipeline {
                 unstash 'notarized'
                 script {
                     def commitHash = sh(script: "cd sumo && git rev-parse HEAD", returnStdout: true).trim()
-                    echo commitHash
-
                     def branchName = sh(script: "cd sumo && git rev-parse --abbrev-ref HEAD", returnStdout: true).trim()
-                    echo branchName
-
                     def githubRepo = "eclipse-sumo/sumo"
                     def workflowId = "macos.yml"
                     def githubToken = credentials('github-bot-token')
@@ -365,7 +362,10 @@ pipeline {
 
                     // Fetch latest workflow runs from GitHub API
                     def apiUrl = "https://api.github.com/repos/${githubRepo}/actions/workflows/${workflowId}/runs?branch=${branchName}&per_page=5"
-                    def jsonResponse = sh(script: "curl -s -H \"Authorization: token ${githubToken}\" \"${apiUrl}\"", returnStdout: true).trim()
+                    def jsonResponse = sh(
+                        script: 'curl -s -H "Authorization: Bearer ' + GITHUB_TOKEN + '" "' + apiUrl + '"',
+                        returnStdout: true
+                    ).trim()
 
                     echo "Showing jsonResponse"
                     echo jsonResponse
