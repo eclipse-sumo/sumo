@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-02-20 14:32:46 by Eclipse SUMO netedit Version v1_22_0+0321-11d8a44837b
+<neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net.netconvert"/>
+    </input>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="0"/>
+    </pedestrian>
+
+</neteditConfiguration>
+-->
+
+<edges version="1.20" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="CN" from="C" to="N" priority="3" numLanes="1" speed="13.89" allow="bus tram"/>
+    <edge id="CW" from="C" to="W" priority="2" numLanes="1" speed="33.33" allow="tram"/>
+    <edge id="EC" from="E" to="C" priority="2" numLanes="1" speed="33.33" allow="tram"/>
+    <edge id="SC" from="S" to="C" priority="3" numLanes="1" speed="13.89" allow="bus tram"/>
+</edges>
