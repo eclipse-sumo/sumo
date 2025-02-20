@@ -9743,11 +9743,12 @@ GNETagPropertiesDatabase::updateMaxNumberOfAttributesEditorRows() {
                 if (attributeProperty->isChild() && attributeProperty->isCreateMode()) {
                     // child attributes are relevant only in create mode
                     childAttributes++;
-                } else if (attributeProperty->isGEO()) {
+                } 
+                if (attributeProperty->isGEO()) {
                     geoAttributes++;
                 } else if (attributeProperty->isFlow()) {
                     flowAttributes++;
-                } else if (attributeProperty->isNetedit()) {
+                }  if (attributeProperty->isNetedit()) {
                     neteditAttributes++;
                 } else if (!attributeProperty->isExtended()) {
                     editableAttributes++;
