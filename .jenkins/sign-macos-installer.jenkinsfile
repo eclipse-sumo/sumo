@@ -367,9 +367,6 @@ pipeline {
                         returnStdout: true
                     ).trim()
 
-                    echo "Showing jsonResponse"
-                    echo jsonResponse
-
                     // Parse JSON response using JsonSlurper
                     def json = new JsonSlurper().parseText(jsonResponse)
                     def workflowRuns = json.workflow_runs
