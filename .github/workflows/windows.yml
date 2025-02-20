@@ -32,6 +32,8 @@ jobs:
       with:
         path: sumo
         fetch-depth: 0
+        # to work around actions/checkout#1467
+        ref: ${{ github.ref }}
 
     - name: Cloning SUMO Libraries
       uses: actions/checkout@v4
@@ -39,14 +41,13 @@ jobs:
         repository: DLR-TS/SUMOLibraries
         path: sumolibraries
 
-    - name: "Set up compiler cache"
-      uses: actions/cache@v4
+    - name: ccache
+      # do a clean build once a day
+      if: github.event_name != 'schedule'
+      uses: hendrikmuhs/ccache-action@v1.2
       with:
-        path: C:\Users\runneradmin\AppData\Local\Mozilla\sccache\cache
-        key: ${{ matrix.build_type }}-${{ github.head_ref }}-${{ github.run_number }}
-        restore-keys: |
-          ${{ matrix.build_type }}-${{ github.head_ref }}-
-          ${{ matrix.build_type }}-
+        key: ${{ matrix.build_type }}
+        variant: sccache
 
     # required for CMake to find Ninja
     - name: "Set up MSVC Developer Command Prompt"

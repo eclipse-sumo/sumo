@@ -32,6 +32,26 @@ jobs:
         ref: ${{ matrix.jps_version }}
         path: jupedsim
 
+    - name: Cloning SUMO
+      # this does not a full clone to speed up the build, version number will be incorrect
+      uses: actions/checkout@v4
+      with:
+        path: sumo
+
+    - name: Cloning SUMO Libraries
+      uses: actions/checkout@v4
+      with:
+        repository: DLR-TS/SUMOLibraries
+        path: sumolibraries
+
+    - name: ccache
+      # do a clean build once a day
+      if: github.event_name != 'schedule'
+      uses: hendrikmuhs/ccache-action@v1.2
+      with:
+        key: ${{ matrix.build_config }}-${{ matrix.jps_version }}
+        variant: sccache
+
     - name: Building jupedsim
       run: |
         cmake -B jupedsim-build-${{ matrix.build_config }} -DCMAKE_INSTALL_PREFIX=jupedsim-install-${{ matrix.build_config }} jupedsim
@@ -43,18 +63,6 @@ jobs:
       with:
         name: jupedsim-${{ matrix.jps_version }}-${{ matrix.build_config }}
         path: jupedsim-install-${{ matrix.build_config }}
-
-    - name: Cloning SUMO
-      uses: actions/checkout@v4
-      with:
-        path: sumo
-        fetch-depth: 0
-
-    - name: Cloning SUMO Libraries
-      uses: actions/checkout@v4
-      with:
-        repository: DLR-TS/SUMOLibraries
-        path: sumolibraries
 
     - name: Configuring and building SUMO
       run: |
