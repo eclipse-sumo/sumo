@@ -233,7 +233,7 @@ calls = [
                 nameBase = os.path.basename(target)
             if "." in variant:
                 nameBase += variant.split(".")[-1]
-            isNetdiff = False
+            loadAllNets = False
             for a in appOptions:
                 if "netdiff.py" in a or "remap_additionals.py" in a:
                     loadAllNets = True
