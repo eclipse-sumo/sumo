@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-02-20 10:34:27.766093 by remap_additionals.py v1_22_0+0322-04da4e3afd3
+<configuration>
+    <orig-net value="net.net.xml"/>
+    <target-net value="net2.net.xml"/>
+    <additional-file value="input_additional.add.xml"/>
+    <output-file value="out.add.xml"/>
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <busStop endPos="18.292651192568712" id="bs_0" lane="0_0" startPos="8.292651192568712"/>
+    <busStop endPos="67.81000000000002" id="bs_1" lane="0_0" startPos="57.81000000000002"/>
+    <!--busStop endPos="61.98" id="bs_2" lane="D2D3_0" startPos="51.98"/-->
+    <access lane="22_0" pos="10.800317047353031"/>
+    <access lane="12_0" pos="0.0"/>
+    <busStop endPos="51.7" id="bs_3" lane="14_0" startPos="0.0">
+        <access />
+        <access />
+    </busStop>
+    <parkingArea angle="45.00" endPos="64.82000549628327" id="pa_0" lane="5_0" length="6.00" roadsideCapacity="5" startPos="34.82000549628327"/>
+    <parkingArea angle="90.00" endPos="30.73602160656221" id="pa_1" lane="9_0" length="6.00" startPos="20.736021606562197" width="2.00">
+        <space />
+        <space />
+        <space />
+        <space />
+    </parkingArea>
+    <inductionLoop file="NUL" id="e1_0" lane="16_0" period="300.00" pos="47.849999999999994"/>
+    <laneAreaDetector file="NUL" id="e2_0" lane="26_0" length="10.00" period="300.00" pos="0.0"/>
+</additional>
