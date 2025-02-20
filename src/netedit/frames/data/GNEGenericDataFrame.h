@@ -241,9 +241,6 @@ public:
     /// @brief get GNEPathCreator modul
     GNEPathCreator* getPathCreator() const;
 
-    /// @bried get element type of this data frame
-    GNEGenericData* getTemplateGenericData() const;
-
     /// @brief show Frame
     void show();
 

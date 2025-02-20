@@ -490,7 +490,10 @@ GNEGenericDataFrame::AttributeSelector::refreshAttributeSelector() {
             }
         }
     }
-    //XX
+    // show parameters
+    if (myGenericDataFrameParent->myTemplateGenericData) {
+        myGenericDataFrameParent->myGenericDataAttributesEditor->showAttributesEditor(myGenericDataFrameParent->myTemplateGenericData);
+    }
     // recalc frame
     recalc();
     // update view net
@@ -558,12 +561,6 @@ GNEGenericDataFrame::getAttributeSelector() const {
 GNEPathCreator*
 GNEGenericDataFrame::getPathCreator() const {
     return myPathCreator;
-}
-
-
-GNEGenericData*
-GNEGenericDataFrame::getTemplateGenericData() const {
-    return myTemplateGenericData;
 }
 
 
