@@ -18,6 +18,8 @@
 // The Widget for edit type distribution elements
 /****************************************************************************/
 
+#include <utils/gui/images/GUIIconSubSys.h>
+
 #include "GNETypeDistributionFrame.h"
 
 // ===========================================================================

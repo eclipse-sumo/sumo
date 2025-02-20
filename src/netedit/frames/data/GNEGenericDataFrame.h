@@ -23,13 +23,13 @@
 #include <netedit/frames/GNEFrame.h>
 #include <netedit/frames/GNEPathCreator.h>
 
-
 // ===========================================================================
 // class declaration
 // ===========================================================================
+
+class GNEAttributesEditor;
 class GNEDataInterval;
 class GNEDataSet;
-
 
 // ===========================================================================
 // class definitions
@@ -272,19 +272,19 @@ protected:
     virtual bool createPath(const bool useLastRoute);
 
     /// @brief dataSet selector modul
-    DataSetSelector* myDataSetSelector;
+    DataSetSelector* myDataSetSelector = nullptr;
 
     /// @brief interval selector modul
-    IntervalSelector* myIntervalSelector;
+    IntervalSelector* myIntervalSelector = nullptr;
 
     /// @brief attribute selector modul
-    AttributeSelector* myAttributeSelector;
+    AttributeSelector* myAttributeSelector = nullptr;
 
     /// @brief parameters editor creator
-    GNEFrameAttributeModules::GenericDataAttributes* myGenericDataAttributes;
+    GNEAttributesEditor* myGenericDataAttributesEditor = nullptr;
 
     /// @brief edge path creator (used for Walks, rides and trips)
-    GNEPathCreator* myPathCreator;
+    GNEPathCreator* myPathCreator = nullptr;
 
     /// @brief generic data tag
     SumoXMLTag myGenericDataTag;

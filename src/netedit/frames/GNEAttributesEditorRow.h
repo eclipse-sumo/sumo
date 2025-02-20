@@ -20,16 +20,15 @@
 #pragma once
 #include <config.h>
 
-#include <netedit/elements/GNEAttributeCarrier.h>
-
 #include "GNEAttributesEditor.h"
 
 // ===========================================================================
 // class declaration
 // ===========================================================================
 
-class GNEAttributesEditor;
 class GNEAttributeCarrier;
+class MFXLabelTooltip;
+class MFXTextFieldTooltip;
 
 // ===========================================================================
 // class definitions

@@ -54,7 +54,7 @@ GNEEdgeRelDataFrame::addEdgeRelationData(const GNEViewNetHelper::ViewObjectsSele
 bool
 GNEEdgeRelDataFrame::createPath(const bool /*useLastRoute*/) {
     // first check that we have at least two edges and parameters are valid
-    if ((myPathCreator->getSelectedEdges().size() > 1) && (myGenericDataAttributes->areAttributesValid())) {
+    if ((myPathCreator->getSelectedEdges().size() > 1) && (myGenericDataAttributesEditor->checkAttributes(true))) {
         GNEDataHandler dataHandler(myViewNet->getNet(), "", myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), false);
         // create data interval object and fill it
         CommonXMLStructure::SumoBaseObject* dataIntervalObject = new CommonXMLStructure::SumoBaseObject(nullptr);
@@ -62,11 +62,14 @@ GNEEdgeRelDataFrame::createPath(const bool /*useLastRoute*/) {
         dataIntervalObject->addDoubleAttribute(SUMO_ATTR_BEGIN, myIntervalSelector->getDataInterval()->getAttributeDouble(SUMO_ATTR_BEGIN));
         dataIntervalObject->addDoubleAttribute(SUMO_ATTR_END, myIntervalSelector->getDataInterval()->getAttributeDouble(SUMO_ATTR_END));
         CommonXMLStructure::SumoBaseObject* edgeRelationData = new CommonXMLStructure::SumoBaseObject(dataIntervalObject);
+        // obtain parameters
+        myGenericDataAttributesEditor->fillSumoBaseObject(edgeRelationData);
         // create EdgeRelationData
         dataHandler.buildEdgeRelationData(edgeRelationData, myPathCreator->getSelectedEdges().front()->getID(),
-                                          myPathCreator->getSelectedEdges().back()->getID(), myGenericDataAttributes->getParametersMap());
+                                          myPathCreator->getSelectedEdges().back()->getID(), edgeRelationData->getParameters());
         // abort path creation
         myPathCreator->abortPathCreation();
+        // delete data interval object (and child)
         delete dataIntervalObject;
         return true;
     } else {

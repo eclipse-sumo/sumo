@@ -27,10 +27,19 @@
 // class declaration
 // ===========================================================================
 
-class GNETAZSourceSink;
+class GNEAdditional;
+class GNEConnection;
+class GNECrossing;
 class GNEDataInterval;
 class GNEDataSet;
+class GNEDataSet;
+class GNEDemandElement;
+class GNEEdge;
 class GNEFrame;
+class GNEGenericData;
+class GNEJunction;
+class GNELane;
+class GNETAZSourceSink;
 
 // ===========================================================================
 // class definitions
@@ -97,6 +106,9 @@ protected:
 
     /// @brief add item into list
     FXTreeItem* addListItem(FXTreeItem* itemParent, const std::string& text, FXIcon* icon, bool expanded);
+
+    /// @brief check if current supermode is valid for select/remove the given AC
+    bool isSupermodeValid(const GNEAttributeCarrier* AC) const;
 
 private:
     /// @brief frame Parent

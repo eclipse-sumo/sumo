@@ -603,11 +603,6 @@ GNEGenericDataFrame::updateFrameAfterUndoRedo() {
 
 GNEGenericDataFrame::GNEGenericDataFrame(GNEViewParent* viewParent, GNEViewNet* viewNet, SumoXMLTag tag, const bool pathCreator) :
     GNEFrame(viewParent, viewNet, toString(tag)),
-    myDataSetSelector(nullptr),
-    myIntervalSelector(nullptr),
-    myAttributeSelector(nullptr),
-    myGenericDataAttributes(nullptr),
-    myPathCreator(nullptr),
     myGenericDataTag(tag) {
     // create DataSetSelector
     myDataSetSelector = new DataSetSelector(this);
@@ -616,7 +611,9 @@ GNEGenericDataFrame::GNEGenericDataFrame(GNEViewParent* viewParent, GNEViewNet* 
     // create AttributeSelector module
     myAttributeSelector = new AttributeSelector(this, tag);
     // create parameter editor module
-    myGenericDataAttributes = new GNEFrameAttributeModules::GenericDataAttributes(this);
+    myGenericDataAttributesEditor = new GNEAttributesEditor(this, TL("Parameters"),
+            GNEAttributesEditor::EditorType::CREATOR,
+            GNEAttributesEditor::AttributeType::PARAMETERS);
     // create GNEPathCreator module
     if (pathCreator) {
         myPathCreator = new GNEPathCreator(this, viewNet->getNet()->getDataPathManager());

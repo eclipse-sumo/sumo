@@ -25,6 +25,8 @@
 #include <netedit/GNEViewParent.h>
 #include <netedit/dialogs/GNEAllowVClassesDialog.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
+#include <utils/foxtools/MFXLabelTooltip.h>
+#include <utils/foxtools/MFXTextFieldTooltip.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/images/POIIcons.h>
 #include <utils/gui/images/VClassIcons.h>

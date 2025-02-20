@@ -26,8 +26,10 @@
 // class declarations
 // ===========================================================================
 
+class GNEDemandElement;
 class GNEVehicle;
 class GNEVTypeDistributionsDialog;
+class MFXComboBoxIcon;
 
 // ===========================================================================
 // class definitions

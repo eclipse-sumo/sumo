@@ -20,6 +20,7 @@
 #pragma once
 #include <config.h>
 
+#include <netedit/GNEViewNetHelper.h>
 #include <utils/foxtools/MFXGroupBoxModule.h>
 #include <utils/geom/Position.h>
 

@@ -20,8 +20,14 @@
 #pragma once
 #include <config.h>
 
-#include "GNEFrameAttributeModules.h"
 #include <netedit/frames/GNEAttributesEditor.h>
+
+// ===========================================================================
+// class declaration
+// ===========================================================================
+
+class GNEViewParent;
+class GNEViewNet;
 
 // ===========================================================================
 // class definitions

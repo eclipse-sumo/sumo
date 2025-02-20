@@ -48,7 +48,6 @@ class GNEAttributeCarrier : public GNEReferenceCounter {
     /// @brief declare friend class
     friend class GNEChange_Attribute;
     friend class GNEChange_ToggleAttribute;
-    friend class GNEFrameAttributeModules;
     friend class GNEAttributesCreatorRow;
     friend class GNEAttributesEditor;
     friend class GNEFlowEditor;
@@ -383,7 +382,7 @@ private:
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
     virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;
 
-    /// @brief reset attributes to their default values without undo-redo (used in GNEFrameAttributeModules)
+    /// @brief reset attributes to their default values without undo-redo
     void resetAttributes();
 
     /// @brief Invalidated copy constructor.

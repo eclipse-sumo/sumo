@@ -23,16 +23,18 @@
 #include <netedit/frames/GNEFrame.h>
 #include <netbuild/NBTrafficLightLogic.h>
 
-
 // ===========================================================================
 // class declarations
 // ===========================================================================
-class NBTrafficLightDefinition;
+
+class GNEInternalLane;
+class GNEOverlappedInspection;
+class GNETLSTable;
+class MFXTextFieldTooltip;
+class MFXToggleButtonTooltip;
 class NBLoadedSUMOTLDef;
 class NBOwnTLDef;
-class GNEInternalLane;
-class GNETLSTable;
-class GNEOverlappedInspection;
+class NBTrafficLightDefinition;
 
 // ===========================================================================
 // class definitions

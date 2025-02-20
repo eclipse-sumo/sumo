@@ -18,6 +18,8 @@
 // The Widget for edit route distribution elements
 /****************************************************************************/
 
+#include <utils/gui/images/GUIIconSubSys.h>
+
 #include "GNERouteDistributionFrame.h"
 
 // ===========================================================================

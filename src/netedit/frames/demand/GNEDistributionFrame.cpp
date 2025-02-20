@@ -18,15 +18,16 @@
 // The Widget for edit distribution elements
 /****************************************************************************/
 
+#include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNETagProperties.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
-#include <netedit/GNEApplicationWindow.h>
 #include <netedit/changes/GNEChange_DemandElement.h>
-#include <netedit/elements/demand/GNEVTypeDistribution.h>
 #include <netedit/elements/demand/GNERouteDistribution.h>
+#include <netedit/elements/demand/GNEVTypeDistribution.h>
+#include <utils/foxtools/MFXTextFieldTooltip.h>
 #include <utils/gui/div/GUIDesigns.h>
 
 #include "GNEDistributionFrame.h"

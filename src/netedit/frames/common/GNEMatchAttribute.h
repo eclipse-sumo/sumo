@@ -27,6 +27,12 @@
 // class definitions
 // ===========================================================================
 
+class GNETagProperties;
+
+// ===========================================================================
+// class definitions
+// ===========================================================================
+
 class GNEMatchAttribute : public MFXGroupBoxModule {
     /// @brief FOX-declaration
     FXDECLARE(GNEMatchAttribute)

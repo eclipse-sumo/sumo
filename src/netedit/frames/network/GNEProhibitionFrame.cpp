@@ -18,14 +18,15 @@
 // The Widget for editing connection prohibits
 /****************************************************************************/
 
-#include <utils/gui/div/GUIDesigns.h>
-#include <netedit/elements/network/GNELane.h>
+#include <netedit/GNEApplicationWindow.h>
+#include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
 #include <netedit/elements/network/GNEConnection.h>
 #include <netedit/elements/network/GNEEdge.h>
 #include <netedit/elements/network/GNEJunction.h>
-#include <netedit/GNEViewNet.h>
-#include <netedit/GNEViewParent.h>
-#include <netedit/GNEApplicationWindow.h>
+#include <netedit/elements/network/GNELane.h>
+#include <utils/foxtools/MFXLabelTooltip.h>
+#include <utils/gui/div/GUIDesigns.h>
 
 #include "GNEProhibitionFrame.h"
 

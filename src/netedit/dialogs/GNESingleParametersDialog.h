@@ -20,7 +20,6 @@
 #pragma once
 #include <config.h>
 
-#include <netedit/frames/GNEFrameAttributeModules.h>
 #include <netedit/dialogs/GNEVehicleTypeDialog.h>
 #include <utils/common/SUMOVehicleClass.h>
 #include <utils/xml/SUMOSAXHandler.h>
@@ -230,9 +229,6 @@ public:
         FXButton* myHelpButton;
     };
 
-    /// @brief Constructor for generic data attributes
-    GNESingleParametersDialog(GNEFrameAttributeModules::GenericDataAttributes* genericDataAttributes);
-
     /// @brief Constructor for attributes editor
     GNESingleParametersDialog(GNEAttributesEditor* attributesEditor);
 
@@ -263,9 +259,6 @@ public:
 protected:
     /// @brief FOX need this
     FOX_CONSTRUCTOR(GNESingleParametersDialog)
-
-    /// @brief pointer to GenericDataAttributes
-    GNEFrameAttributeModules::GenericDataAttributes* myGenericDataAttributes = nullptr;
 
     /// @brief pointer to attributes editor
     GNEAttributesEditor* myAttributesEditor = nullptr;

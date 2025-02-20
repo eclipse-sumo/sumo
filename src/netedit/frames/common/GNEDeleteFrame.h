@@ -20,15 +20,19 @@
 #pragma once
 #include <config.h>
 
+#include <netedit/GNEViewNetHelper.h>
 #include <netedit/frames/GNEFrame.h>
+
+// ===========================================================================
+// class declaration
+// ===========================================================================
+
+class GNEHierarchicalElement;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/**
- * @class GNEDeleteFrame
- * The Widget for deleting elements
- */
+
 class GNEDeleteFrame : public GNEFrame {
 
 public:

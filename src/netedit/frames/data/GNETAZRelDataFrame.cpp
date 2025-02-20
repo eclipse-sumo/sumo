@@ -179,7 +179,7 @@ GNETAZRelDataFrame::buildTAZRelationData() {
             WRITE_WARNINGF(TL("There is already a % defined in TAZ'%'."), toString(SUMO_TAG_TAZREL), myFirstTAZ->getID());
         } else if ((myFirstTAZ != mySecondTAZ) && myIntervalSelector->getDataInterval()->TAZRelExists(myFirstTAZ, mySecondTAZ)) {
             WRITE_WARNINGF(TL("There is already a % defined between TAZ'%' and '%'."), toString(SUMO_TAG_TAZREL), myFirstTAZ->getID(), mySecondTAZ->getID());
-        } else if (myGenericDataAttributes->areAttributesValid()) {
+        } else if (myGenericDataAttributesEditor->checkAttributes(true)) {
             // declare data handler
             GNEDataHandler dataHandler(myViewNet->getNet(), "", myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), false);
             // build data interval object and fill it
@@ -189,8 +189,11 @@ GNETAZRelDataFrame::buildTAZRelationData() {
             dataIntervalObject->addDoubleAttribute(SUMO_ATTR_END, myIntervalSelector->getDataInterval()->getAttributeDouble(SUMO_ATTR_END));
             // create TAZRelData
             CommonXMLStructure::SumoBaseObject* TAZRelData = new CommonXMLStructure::SumoBaseObject(dataIntervalObject);
-            // finally create TAZRelationData
-            dataHandler.buildTAZRelationData(TAZRelData, myFirstTAZ->getID(), mySecondTAZ->getID(), myGenericDataAttributes->getParametersMap());
+            // obtain parameters
+            myGenericDataAttributesEditor->fillSumoBaseObject(TAZRelData);
+            // create TAZRelationData
+            dataHandler.buildTAZRelationData(TAZRelData, myFirstTAZ->getID(), mySecondTAZ->getID(), TAZRelData->getParameters());
+            // delete data interval object (and child)
             delete dataIntervalObject;
             // reset both TAZs
             myFirstTAZ = nullptr;

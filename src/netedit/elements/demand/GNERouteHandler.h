@@ -21,7 +21,6 @@
 #include <config.h>
 
 #include <netedit/GNENetHelper.h>
-#include <netedit/frames/GNEFrameAttributeModules.h>
 #include <netedit/frames/GNEPathCreator.h>
 #include <netedit/frames/GNEPlanCreator.h>
 #include <utils/common/SUMOVehicleClass.h>

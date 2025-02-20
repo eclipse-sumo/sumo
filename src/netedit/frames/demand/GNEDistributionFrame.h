@@ -21,8 +21,15 @@
 #include <config.h>
 
 #include <netedit/frames/GNEFrame.h>
-#include <netedit/frames/GNEFrameAttributeModules.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
+
+// ===========================================================================
+// class definitions
+// ===========================================================================
+
+class GNEDemandElement;
+class MFXComboBoxIcon;
+class MFXTextFieldTooltip;
 
 // ===========================================================================
 // class definitions

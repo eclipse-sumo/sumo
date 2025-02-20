@@ -475,16 +475,6 @@ GNESingleParametersDialog::ParametersOperations::GNEParameterHandler::myStartEle
 // GNESingleParametersDialog - methods
 // ---------------------------------------------------------------------------
 
-GNESingleParametersDialog::GNESingleParametersDialog(GNEFrameAttributeModules::GenericDataAttributes* genericDataAttributes) :
-    FXDialogBox(genericDataAttributes->getFrameParent()->getViewNet()->getApp(), "Edit attributes", GUIDesignDialogBoxExplicitStretchable(400, 300)),
-    myGenericDataAttributes(genericDataAttributes) {
-    // call auxiliar constructor for elements
-    constructor("Attributes");
-    // fill myParametersValues
-    myParametersValues->setParameters(genericDataAttributes->getParameters());
-}
-
-
 GNESingleParametersDialog::GNESingleParametersDialog(GNEAttributesEditor* attributesEditor) :
     FXDialogBox(attributesEditor->getFrameParent()->getViewNet()->getViewParent()->getGNEAppWindows()->getApp(), "Edit parameters", GUIDesignDialogBoxExplicitStretchable(400, 300)),
     myAttributesEditor(attributesEditor) {
@@ -566,10 +556,7 @@ GNESingleParametersDialog::onCmdAccept(FXObject*, FXSelector, void*) {
         }
     }
     // set parameters in Parameters editor parents
-    if (myGenericDataAttributes) {
-        // set parameter in editor creator
-        myGenericDataAttributes->setParameters(parameters);
-    } else if (myAttributesEditor) {
+    if (myAttributesEditor) {
         auto editedAC = myAttributesEditor->getEditedAttributeCarriers().front();
         // set parameter in AC using undoList
         myAttributesEditor->getFrameParent()->getViewNet()->getUndoList()->begin(editedAC, "change parameters");
@@ -606,9 +593,7 @@ GNESingleParametersDialog::onCmdCancel(FXObject*, FXSelector, void*) {
 long
 GNESingleParametersDialog::onCmdReset(FXObject*, FXSelector, void*) {
     // restore original parameters
-    if (myGenericDataAttributes) {
-        myParametersValues->setParameters(myGenericDataAttributes->getParameters());
-    } else if (myAttributesEditor) {
+    if (myAttributesEditor) {
         myParametersValues->setParameters(myAttributesEditor->getEditedAttributeCarriers().front()->getACParameters<std::vector<std::pair<std::string, std::string> > >());
     } else if (VTypeAttributeRow) {
         myParametersValues->setParameters(VTypeAttributeRow->getParametersVectorStr());

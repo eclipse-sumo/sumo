@@ -55,7 +55,8 @@ GNEEdgeDataFrame::addEdgeData(const GNEViewNetHelper::ViewObjectsSelector& viewO
             }
         }
         // check if parameters are valid
-        if (myGenericDataAttributes->areAttributesValid()) {
+        if (myGenericDataAttributesEditor->checkAttributes(true)) {
+            GNEDataHandler dataHandler(myViewNet->getNet(), "", myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), false);
             // create interval base object
             CommonXMLStructure::SumoBaseObject* intervalBaseObject = new CommonXMLStructure::SumoBaseObject(nullptr);
             intervalBaseObject->addStringAttribute(SUMO_ATTR_ID, myIntervalSelector->getDataInterval()->getID());
@@ -63,12 +64,12 @@ GNEEdgeDataFrame::addEdgeData(const GNEViewNetHelper::ViewObjectsSelector& viewO
             intervalBaseObject->addDoubleAttribute(SUMO_ATTR_END, myIntervalSelector->getDataInterval()->getAttributeDouble(SUMO_ATTR_END));
             // create genericData base object
             CommonXMLStructure::SumoBaseObject* genericDataBaseObject = new CommonXMLStructure::SumoBaseObject(intervalBaseObject);
-            // finally create edgeData
-            GNEDataHandler dataHandler(myViewNet->getNet(), "", myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), false);
-            dataHandler.buildEdgeData(genericDataBaseObject, viewObjects.getEdgeFront()->getID(), myGenericDataAttributes->getParametersMap());
-            // delete intervalBaseObject (and genericDataBaseObject)
+            // obtain parameters
+            myGenericDataAttributesEditor->fillSumoBaseObject(genericDataBaseObject);
+            // create edgeData
+            dataHandler.buildEdgeData(genericDataBaseObject, viewObjects.getEdgeFront()->getID(), genericDataBaseObject->getParameters());
+            // delete data interval object (and child)
             delete intervalBaseObject;
-            // edgeData created, then return true
             return true;
         } else {
             return false;
