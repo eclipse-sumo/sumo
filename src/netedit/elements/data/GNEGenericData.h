@@ -31,6 +31,7 @@
 // ===========================================================================
 
 class GNEDataInterval;
+class GNENet;
 
 // ===========================================================================
 // class definitions
@@ -39,6 +40,9 @@ class GNEDataInterval;
 class GNEGenericData : public GNEAttributeCarrier, public GNEHierarchicalElement, public GUIGlObject, public GNEPathElement, public Parameterised {
 
 public:
+    /// @brief default Constructor
+    GNEGenericData(SumoXMLTag tag, FXIcon* icon, const GUIGlObjectType type, GNENet* net);
+
     /**@brief Constructor
      * @param[in] tag generic data Tag (edgeData, laneData, etc.)
      * @param[in] GLType GUIGlObjectType associated to this Generic Data

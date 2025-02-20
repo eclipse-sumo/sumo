@@ -35,6 +35,14 @@
 // member method definitions
 // ===========================================================================
 
+GNEGenericData::GNEGenericData(SumoXMLTag tag, FXIcon* icon, const GUIGlObjectType type, GNENet* net) :
+    GNEAttributeCarrier(tag, net),
+    GUIGlObject(type, "", icon),
+    GNEPathElement(GNEPathElement::Options::DATA_ELEMENT),
+    myDataIntervalParent(nullptr) {
+}
+
+
 GNEGenericData::GNEGenericData(const SumoXMLTag tag, FXIcon* icon, const GUIGlObjectType type, GNEDataInterval* dataIntervalParent,
                                const Parameterised::Map& parameters) :
     GNEAttributeCarrier(tag, dataIntervalParent->getNet()),

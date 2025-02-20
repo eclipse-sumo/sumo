@@ -36,6 +36,11 @@
 // member method definitions
 // ===========================================================================
 
+GNEEdgeRelData::GNEEdgeRelData(GNENet* net) :
+    GNEGenericData(SUMO_TAG_EDGEREL, GUIIconSubSys::getIcon(GUIIcon::EDGERELDATA), GLO_EDGERELDATA, net) {
+}
+
+
 GNEEdgeRelData::GNEEdgeRelData(GNEDataInterval* dataIntervalParent, GNEEdge* fromEdge, GNEEdge* toEdge,
                                const Parameterised::Map& parameters) :
     GNEGenericData(SUMO_TAG_EDGEREL, GUIIconSubSys::getIcon(GUIIcon::EDGERELDATA), GLO_EDGERELDATA, dataIntervalParent, parameters) {

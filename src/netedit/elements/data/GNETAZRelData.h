@@ -20,10 +20,6 @@
 #pragma once
 #include <config.h>
 
-// ===========================================================================
-// included modules
-// ===========================================================================
-
 #include <netedit/elements/GNEContour.h>
 
 #include "GNEGenericData.h"
@@ -38,6 +34,9 @@
 class GNETAZRelData : public GNEGenericData {
 
 public:
+    /// @brief default Constructor
+    GNETAZRelData(GNENet* net);
+
     /**@brief Constructor for two TAZs
      * @param[in] dataIntervalParent pointer to data interval parent
      * @param[in] fromTAZ pointer to from TAZ

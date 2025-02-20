@@ -20,12 +20,7 @@
 #pragma once
 #include <config.h>
 
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include "GNEGenericData.h"
-
 
 // ===========================================================================
 // class definitions
@@ -37,6 +32,9 @@
 class GNEEdgeRelData : public GNEGenericData {
 
 public:
+    /// @brief default Constructor
+    GNEEdgeRelData(GNENet* net);
+
     /**@brief Constructor
      * @param[in] dataIntervalParent pointer to data interval parent
      * @param[in] fromEdge pointer to from edge

@@ -242,7 +242,7 @@ public:
     GNEPathCreator* getPathCreator() const;
 
     /// @bried get element type of this data frame
-    SumoXMLTag getTag() const;
+    GNEGenericData* getTemplateGenericData() const;
 
     /// @brief show Frame
     void show();
@@ -286,8 +286,8 @@ protected:
     /// @brief edge path creator (used for Walks, rides and trips)
     GNEPathCreator* myPathCreator = nullptr;
 
-    /// @brief generic data tag
-    SumoXMLTag myGenericDataTag;
+    /// @brief template generic data
+    GNEGenericData* myTemplateGenericData = nullptr;
 
 private:
     /// @brief Invalidated copy constructor.
