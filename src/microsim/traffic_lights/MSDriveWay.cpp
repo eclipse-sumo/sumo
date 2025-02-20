@@ -966,7 +966,7 @@ MSDriveWay::buildRoute(const MSLink* origin,
         toLane = nullptr;
         for (const MSLink* const link : links) {
             if ((next != end && &link->getLane()->getEdge() == *next)
-                    && isRailway(link->getViaLaneOrLane()->getPermissions())) {
+                    && isRailwayOrShared(link->getViaLaneOrLane()->getPermissions())) {
                 toLane = link->getViaLaneOrLane();
                 if (link->getTLLogic() != nullptr && link->getTLIndex() >= 0) {
                     if (link == origin) {
@@ -1118,7 +1118,7 @@ MSDriveWay::checkCrossingFlanks(MSLink* dwLink, const LaneVisitedMap& visited, s
         }
         for (MSLane* inLane : in->getLanes()) {
             const MSLane* inBidi = inLane->getBidiLane();
-            if (isRailway(inLane->getPermissions()) && visited.count(inLane) == 0 && (inBidi == nullptr || visited.count(inBidi) == 0)) {
+            if (isRailwayOrShared(inLane->getPermissions()) && visited.count(inLane) == 0 && (inBidi == nullptr || visited.count(inBidi) == 0)) {
                 for (MSLink* link : inLane->getLinkCont()) {
                     if (link->getIndex() >= 0 && logic->getFoesFor(dwLink->getIndex()).test(link->getIndex())
                             && visited.count(link->getLane()) == 0) {

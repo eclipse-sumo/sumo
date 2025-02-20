@@ -220,7 +220,8 @@ enum SUMOVehicleClass : int64_t {
     /// @brief public transport
     SVC_PUBLIC_CLASSES = SVC_BUS | SVC_RAIL_CLASSES | SVC_CABLE_CAR | SVC_AIRCRAFT,
     /// @brief classes which (normally) do not drive on normal roads
-    SVC_NON_ROAD = SVC_RAIL_CLASSES | SVC_SHIP | SVC_AIRCRAFT | SVC_DRONE | SVC_CONTAINER,
+    SVC_NON_ROAD_RAIL = SVC_SHIP | SVC_AIRCRAFT | SVC_DRONE | SVC_CONTAINER,
+    SVC_NON_ROAD = SVC_RAIL_CLASSES | SVC_NON_ROAD_RAIL,
     SVC_VULNERABLE = SVC_PEDESTRIAN | SVC_WHEELCHAIR | SVC_BICYCLE | SVC_SCOOTER,
     /// @brief classes which drive on roads
     SVC_ROAD_MOTOR_CLASSES = (SVC_PASSENGER | SVC_HOV | SVC_TAXI | SVC_BUS | SVC_COACH | SVC_DELIVERY |
@@ -397,11 +398,17 @@ extern SUMOVehicleShape getVehicleShapeID(const std::string& name);
 /// @brief Checks whether the given string contains only known vehicle shape
 extern bool canParseVehicleShape(const std::string& shape);
 
-/** @brief Returns whether an edge with the given permissions is a railway edge
+/** @brief Returns whether an edge with the given permissions is a (exclusive) railway edge
  * @param[in] permissions The permissions of the edge
  * @return Whether the edge is a railway edge
  */
 extern bool isRailway(SVCPermissions permissions);
+
+/** @brief Returns whether an edge with the given permissions is a railway edge or a shared road/rail edge
+ * @param[in] permissions The permissions of the edge
+ * @return Whether the edge is a (non-exclusive) railway edge
+ */
+extern bool isRailwayOrShared(SVCPermissions permissions);
 
 /** @brief Returns whether an edge with the given permissions is a tram edge
  * @param[in] permissions The permissions of the edge

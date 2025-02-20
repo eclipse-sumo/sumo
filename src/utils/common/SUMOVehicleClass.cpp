@@ -506,6 +506,11 @@ bool isRailway(SVCPermissions permissions) {
     return (permissions & SVC_RAIL_CLASSES) != 0 && (permissions & ~(SVC_RAIL_CLASSES | SVC_TAXI)) == 0;
 }
 
+bool isRailwayOrShared(SVCPermissions permissions) {
+    // basically check that it isn't SVC_ALL
+    return (permissions & SVC_RAIL_CLASSES) != 0 && (permissions & SVC_NON_ROAD_RAIL) == 0;
+}
+
 bool isTram(SVCPermissions permissions) {
     return (permissions & SVC_RAIL_CLASSES) == SVC_TRAM && (permissions & SVC_PASSENGER) == 0;
 }
