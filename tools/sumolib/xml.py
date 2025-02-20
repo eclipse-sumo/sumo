@@ -314,7 +314,7 @@ def parse(xmlfile, element_names=None, element_attrs=None, attr_conversions=None
     xmlfile, close_source = _check_file_like(xmlfile)
     try:
         level = -1
-        for event, parsenode in ET.iterparse(xmlfile, events = ('start', 'end'), **kwargs):
+        for event, parsenode in ET.iterparse(xmlfile, events=('start', 'end'), **kwargs):
             if event == 'start':
                 level += 1
             else:

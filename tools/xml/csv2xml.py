@@ -57,7 +57,8 @@ def get_options():
                        help="convert the given csv-file into the specified format")
     group.add_argument("-x", "--xsd",
                        help="xsd schema to use")
-    group.add_argument("--flat", action="store_true", default=False, help="use csv header as flat structure instead of a schema")
+    group.add_argument("--flat", action="store_true", default=False,
+                       help="use csv header as flat structure instead of a schema")
     options = optParser.parse_args()
     if not options.output:
         options.output = os.path.splitext(options.source)[0] + ".xml"

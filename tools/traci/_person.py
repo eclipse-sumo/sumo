@@ -173,7 +173,6 @@ class PersonDomain(VTypeDomain):
         """
         return self._getUniversal(tc.DISTANCE_REQUEST, personID, "tou", 2, (x, y), tc.REQUEST_DRIVINGDIST)
 
-
     def getWaitingTime(self, personID):
         """getWaitingTime(string) -> double
         The waiting time of a person is defined as the time (in seconds) spent with a

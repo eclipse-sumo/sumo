@@ -34,7 +34,8 @@ def get_options(args=None):
                     help="SUMO network for loading infrastructure", metavar="FILE")
     ap.add_argument("--target-net", dest="targetNet", required=True, category="input", type=ap.net_file,
                     help="SUMO network for writing infrastructure", metavar="FILE")
-    ap.add_argument("-a", "--additional-file", dest="additional", required=True, category="input", type=ap.additional_file,
+    ap.add_argument("-a", "--additional-file", dest="additional", required=True, category="input",
+                    type=ap.additional_file,
                     help="File for reading infrastructure", metavar="FILE")
     ap.add_argument("-o", "--output-file", dest="output", required=True, category="output", type=ap.additional_file,
                     help="File for writing infrastructure", metavar="FILE")
@@ -50,7 +51,7 @@ def get_options(args=None):
     return options
 
 
-def remap_lane(options, laneID, pos = None):
+def remap_lane(options, laneID, pos=None):
     lane = options.net.getLane(laneID)
     lane2 = None
     edge = lane.getEdge()
@@ -66,8 +67,7 @@ def remap_lane(options, laneID, pos = None):
     return lane2, pos2
 
 
-
-def remap_edge(options, edgeID, pos = None):
+def remap_edge(options, edgeID, pos=None):
     edge = options.net.getEdge(edgeID)
     shape = edge.getShape()
     shapelen = gh.polyLength(shape)
@@ -122,7 +122,7 @@ def remap_edge(options, edgeID, pos = None):
     if pos is not None:
         edge2shapelen = gh.polyLength(edge2.getShape())
         pos2 = gh.polygonOffsetWithMinimumDistanceToPoint((x2, y2), edge2.getShape())
-        pos2 = pos2 / edge2shapelen * edge2.getLength() 
+        pos2 = pos2 / edge2shapelen * edge2.getLength()
 
     return edge2, pos2
 
@@ -152,13 +152,13 @@ def main(options):
             return options.net2.convertLonLat2XY(lon, lat)
         options.remap_xy = remap_xy
     else:
-        options.remap_xy = lambda x:x
+        options.remap_xy = lambda x: x
 
     IDS = {
-            'edge' : remap_edge,
-            'lane' : remap_lane,
+            'edge': remap_edge,
+            'lane': remap_lane,
             # 'edges' : remap_edges,
-            #'lanes' : remap_lanes,
+            # 'lanes' : remap_lanes,
             }
 
     with open(options.output, 'w') as fout:
@@ -181,7 +181,7 @@ def main(options):
                     else:
                         print("Could not map %s on %s '%s'" % (
                             obj.name, attr, getattr(obj, attr)),
-                            file=sys.stderr) 
+                            file=sys.stderr)
                         fout.write("    <!--" + obj.toXML()[1:-2] + "-->\n")
         fout.write("</additional>\n")
 
