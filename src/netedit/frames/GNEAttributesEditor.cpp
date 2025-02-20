@@ -541,14 +541,16 @@ GNEAttributesEditor::buildRows(GNEAttributesEditor* editorParent) {
         for (const auto type : types) {
             int maxNumberOfRows = 0;
             // get max number of rows
-            if ((type == AttributeType::BASIC) || (type == AttributeType::CHILD)) {
-                maxNumberOfRows = tagPropertiesDatabase->getMaxNumberOfEditableAttributes();
+            if (type == AttributeType::BASIC) {
+                maxNumberOfRows = tagPropertiesDatabase->getMaxNumberOfEditableAttributeRows();
+            } else if (type == AttributeType::CHILD) {
+                maxNumberOfRows = tagPropertiesDatabase->getMaxNumberOfChildAttributeRows();
             } else if (type == AttributeType::FLOW) {
-                maxNumberOfRows = tagPropertiesDatabase->getMaxNumberOfFlowAttributes();
+                maxNumberOfRows = tagPropertiesDatabase->getMaxNumberOfFlowAttributeRows();
             } else if (type == AttributeType::GEO) {
-                maxNumberOfRows = tagPropertiesDatabase->getMaxNumberOfGeoAttributes();
+                maxNumberOfRows = tagPropertiesDatabase->getMaxNumberOfGeoAttributeRows();
             } else if (type == AttributeType::NETEDIT) {
-                maxNumberOfRows = tagPropertiesDatabase->getMaxNumberOfNeteditAttributes();
+                maxNumberOfRows = tagPropertiesDatabase->getMaxNumberOfNeteditAttributesRows();
             } else if (type == AttributeType::PARAMETERS) {
                 maxNumberOfRows = 1;
             } else {

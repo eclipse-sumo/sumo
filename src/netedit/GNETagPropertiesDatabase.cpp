@@ -60,7 +60,7 @@ GNETagPropertiesDatabase::GNETagPropertiesDatabase() {
         fillCommonAttributes(tagProperties.second);
     }
     // update max number of editable attributes
-    updateMaxNumberOfAttributes();
+    updateMaxNumberOfAttributesEditorRows();
     // check integrity of all Tags (function checkTagIntegrity() throws an exception if there is an inconsistency)
     for (const auto& tagProperties : myTagProperties) {
         tagProperties.second->checkTagIntegrity();
@@ -335,32 +335,32 @@ GNETagPropertiesDatabase::getTagPropertiesSet(SumoXMLTag setTag) const {
 
 
 int
-GNETagPropertiesDatabase::getMaxNumberOfEditableAttributes() const {
-    return myMaxNumberOfEditableAttributes;
+GNETagPropertiesDatabase::getMaxNumberOfEditableAttributeRows() const {
+    return myMaxNumberOfEditableAttributeRows;
 }
 
 
 int
-GNETagPropertiesDatabase::getMaxNumberOfChildAttributes() const {
-    return myMaxNumberOfChildAttributes;
+GNETagPropertiesDatabase::getMaxNumberOfChildAttributeRows() const {
+    return myMaxNumberOfChildAttributeRows;
 }
 
 
 int
-GNETagPropertiesDatabase::getMaxNumberOfGeoAttributes() const {
-    return myMaxNumberOfGeoAttributes;
+GNETagPropertiesDatabase::getMaxNumberOfGeoAttributeRows() const {
+    return myMaxNumberOfGeoAttributeRows;
 }
 
 
 int
-GNETagPropertiesDatabase::getMaxNumberOfFlowAttributes() const {
-    return myMaxNumberOfFlowAttributes;
+GNETagPropertiesDatabase::getMaxNumberOfFlowAttributeRows() const {
+    return myMaxNumberOfFlowAttributeRows;
 }
 
 
 int
-GNETagPropertiesDatabase::getMaxNumberOfNeteditAttributes() const {
-    return myMaxNumberOfNeteditAttributes;
+GNETagPropertiesDatabase::getMaxNumberOfNeteditAttributesRows() const {
+    return myMaxNumberOfNeteditAttributeRows;
 }
 
 
@@ -9731,7 +9731,7 @@ GNETagPropertiesDatabase::fillCommonMeanDataAttributes(GNETagProperties* tagProp
 
 
 void
-GNETagPropertiesDatabase::updateMaxNumberOfAttributes() {
+GNETagPropertiesDatabase::updateMaxNumberOfAttributesEditorRows() {
     for (const auto& tagPropertyItem : myTagProperties) {
         int editableAttributes = 0;
         int childAttributes = 0;
@@ -9739,32 +9739,35 @@ GNETagPropertiesDatabase::updateMaxNumberOfAttributes() {
         int flowAttributes = 0;
         int neteditAttributes = 0;
         for (const auto& attributeProperty : tagPropertyItem.second->getAttributeProperties()) {
-            if (attributeProperty->isChild()) {
-                childAttributes++;
-            } else if (attributeProperty->isGEO()) {
-                geoAttributes++;
-            } else if (attributeProperty->isFlow()) {
-                flowAttributes++;
-            } else if (attributeProperty->isNetedit()) {
-                neteditAttributes++;
-            } else if (!attributeProperty->isExtended()) {
-                editableAttributes++;
+            if (attributeProperty->isCreateMode() || attributeProperty->isEditMode()) {
+                if (attributeProperty->isChild() && attributeProperty->isCreateMode()) {
+                    // child attributes are relevant only in create mode
+                    childAttributes++;
+                } else if (attributeProperty->isGEO()) {
+                    geoAttributes++;
+                } else if (attributeProperty->isFlow()) {
+                    flowAttributes++;
+                } else if (attributeProperty->isNetedit()) {
+                    neteditAttributes++;
+                } else if (!attributeProperty->isExtended()) {
+                    editableAttributes++;
+                }
             }
         }
-        if (myMaxNumberOfEditableAttributes < editableAttributes) {
-            myMaxNumberOfEditableAttributes = editableAttributes;
+        if (myMaxNumberOfEditableAttributeRows < editableAttributes) {
+            myMaxNumberOfEditableAttributeRows = editableAttributes;
         }
-        if (myMaxNumberOfChildAttributes < childAttributes) {
-            myMaxNumberOfChildAttributes = childAttributes;
+        if (myMaxNumberOfChildAttributeRows < childAttributes) {
+            myMaxNumberOfChildAttributeRows = childAttributes;
         }
-        if (myMaxNumberOfGeoAttributes < geoAttributes) {
-            myMaxNumberOfGeoAttributes = geoAttributes;
+        if (myMaxNumberOfGeoAttributeRows < geoAttributes) {
+            myMaxNumberOfGeoAttributeRows = geoAttributes;
         }
-        if (myMaxNumberOfFlowAttributes < flowAttributes) {
-            myMaxNumberOfFlowAttributes = flowAttributes;
+        if (myMaxNumberOfFlowAttributeRows < flowAttributes) {
+            myMaxNumberOfFlowAttributeRows = flowAttributes;
         }
-        if (myMaxNumberOfNeteditAttributes < neteditAttributes) {
-            myMaxNumberOfNeteditAttributes = neteditAttributes;
+        if (myMaxNumberOfNeteditAttributeRows < neteditAttributes) {
+            myMaxNumberOfNeteditAttributeRows = neteditAttributes;
         }
     }
 }
