@@ -167,9 +167,6 @@ private:
     /// @brief pointer to GNEFrame parent
     GNEFrame* myFrameParent;
 
-    /// @brief button for help
-    FXButton* myHelpButton;
-
     /// @brief pointer to front button
     FXButton* myFrontButton = nullptr;
 
@@ -182,11 +179,14 @@ private:
     /// @brief pointer to open generic parameters editor button
     FXButton* myOpenGenericParametersEditorButton = nullptr;
 
-    /// @brief current edited ACs
-    std::vector<GNEAttributeCarrier*> myEditedACs;
+    /// @brief button for help
+    FXButton* myHelpButton;
 
     /// @brief singleton with attributes editor rows
     static AttributesEditorRows mySingletonAttributesEditorRows;
+
+    /// @brief current edited ACs
+    std::vector<GNEAttributeCarrier*> myEditedACs;
 
     /// @brief singleton with attributes editor rows
     std::vector<GNEAttributesEditorRow*> myAttributesEditorRows;

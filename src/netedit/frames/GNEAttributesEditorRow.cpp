@@ -123,6 +123,8 @@ GNEAttributesEditorRow::GNEAttributesEditorRow(GNEAttributesEditor* attributeTab
     // set tip texts
     myValueLaneDownButton->setTipText(TL("Move element down one lane"));
     myValueLaneDownButton->setHelpText(TL("Move element down one lane"));
+    // start hidden
+    hide();
 }
 
 

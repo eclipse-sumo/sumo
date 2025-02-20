@@ -145,8 +145,8 @@ void
 GNEAttributesEditor::refreshAttributesEditor() {
     if (myEditedACs.size() > 0) {
         const auto tagProperty = myEditedACs.front()->getTagProperty();
-        int itRows = 0;
         bool showButtons = false;
+        int itRows = 0;
         // check if show netedit attributes (only in edit mode)
         if (myAttributeType == AttributeType::NETEDIT && (myEditorType == EditorType::EDITOR)) {
             // front button
@@ -183,9 +183,16 @@ GNEAttributesEditor::refreshAttributesEditor() {
 
             }
         }
-        // check if show either extended button or rows 
+        // continue depending of attribute type
         if (myAttributeType == AttributeType::EXTENDED) {
-            myOpenExtendedAttributesButton->show();
+            // only show extended attributes button (already created)
+            showButtons = true;
+        } else if (myAttributeType == AttributeType::PARAMETERS) {
+            // only show parameters row
+            myAttributesEditorRows[itRows]->showAttributeRow(this, tagProperty->getAttributeProperties(GNE_ATTR_PARAMETERS), isReparenting());
+            // set parameters button at the end
+            myOpenGenericParametersEditorButton->reparent(this);
+            // only show open parameters editor
             showButtons = true;
         } else {
             // Iterate over tag property of first AC and show row for every attribute
@@ -196,6 +203,9 @@ GNEAttributesEditor::refreshAttributesEditor() {
                     showAttributeRow = false;
                 }
                 // filter editor type
+                if ((myEditorType != EditorType::CREATOR) && (myEditorType != EditorType::EDITOR)) {
+                    showAttributeRow = false;
+                } 
                 if ((myEditorType == EditorType::CREATOR) && !attrProperty->isCreateMode()) {
                     showAttributeRow = false;
                 } 
@@ -215,7 +225,7 @@ GNEAttributesEditor::refreshAttributesEditor() {
                 if ((myAttributeType == AttributeType::NETEDIT) && !attrProperty->isNetedit()) {
                     showAttributeRow = false;
                 }
-                if ((myAttributeType == AttributeType::PARAMETERS) && (attrProperty->getAttr() != GNE_ATTR_PARAMETERS)) {
+                if (attrProperty->getAttr() == GNE_ATTR_PARAMETERS) {
                     showAttributeRow = false;
                 }
                 if (showAttributeRow) {
@@ -225,23 +235,22 @@ GNEAttributesEditor::refreshAttributesEditor() {
                             itRows++;
                         }
                     } else {
-                        //throw ProcessError("Invalid maximum number of rows");
+                        throw ProcessError("Invalid maximum number of rows");
                     }
                 }
             }
-        }
-        // hide rest of rows before showing table
-        for (int i = itRows; i < (int)myAttributesEditorRows.size(); i++) {
-            myAttributesEditorRows[i]->hideAttributeRow();
+            // hide rest of rows before showing table
+            for (int i = itRows; i < (int)myAttributesEditorRows.size(); i++) {
+                myAttributesEditorRows[i]->hideAttributeRow();
+            }
         }
         // only show if at least one row or button was shown
         if ((itRows == 0) && !showButtons) {
             hideAttributesEditor();
         } else {
-            // check if show help button
-            if (myAttributeType == AttributeType::PARAMETERS) {
-                myHelpButton->hide();
-            } else if (itRows > 0) {
+             if (itRows > 0) {
+                // reparent before show to put it at the end of the list
+                myHelpButton->reparent(this);
                 myHelpButton->show();
             } else {
                 myHelpButton->hide();
