@@ -341,25 +341,7 @@ pipeline {
                         mkdir notarized
                         curl -s -o notarized/\$file https://cbi.eclipse.org/macos/xcrun/${uuid}/download
                     """
-
-                    stash name: 'notarized', includes: 'notarized/sumo*.pkg'
                 }
-            }
-        }
-        stage('Building DMG') {
-            steps {
-                unstash 'notarized'
-                sh """
-                  # Determine the name of the dmg file based on the sumo*.pkg file
-                  file="\$(ls installer/sumo*.pkg)"
-                  file=\$(basename "\$file")
-                  dmg_file="\${file%.pkg}.dmg"
-
-                  # Create the dmg file
-                  env/bin/python3 sumo/tools/build_config/buildMacOSInstaller.py --create-installer-dmg \
-                      --installer-pkg-file notarized/sumo*.pkg \
-                      --installer-dmg-file notarized/\${dmg_file}
-                """
             }
         }
     }
