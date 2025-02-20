@@ -154,10 +154,14 @@ GNELane::DrawingConstants::drawSuperposed() const {
     return myDrawSuperposed;
 }
 
+
 // ---------------------------------------------------------------------------
 // GNELane - methods
 // ---------------------------------------------------------------------------
-
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4355) // mask warning about "this" in initializers
+#endif
 GNELane::GNELane(GNEEdge* edge, const int index) :
     GNENetworkElement(edge->getNet(), edge->getNBEdge()->getLaneID(index), GLO_LANE, SUMO_TAG_LANE, GUIIconSubSys::getIcon(GUIIcon::LANE)),
     myIndex(index),
@@ -180,6 +184,9 @@ GNELane::GNELane() :
     mySpecialColorValue(-1),
     myLane2laneConnections(this) {
 }
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 
 GNELane::~GNELane() {

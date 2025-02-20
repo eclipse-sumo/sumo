@@ -71,25 +71,27 @@
 
 #define SPEEDMODE_DEFAULT 31
 #define LANECHANGEMODE_DEFAULT 1621
-
 //#define DEBUG_FOES
 
+
 // ===========================================================================
-// FOX callback mapping
+// member method definitions
 // ===========================================================================
-
-// Object implementation
-
-
 /* -------------------------------------------------------------------------
  * GUIVehicle - methods
  * ----------------------------------------------------------------------- */
-
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4355) // mask warning about "this" in initializers
+#endif
 GUIVehicle::GUIVehicle(SUMOVehicleParameter* pars, ConstMSRoutePtr route,
                        MSVehicleType* type, const double speedFactor) :
     MSVehicle(pars, route, type, speedFactor),
     GUIBaseVehicle((MSBaseVehicle&) * this) {
 }
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 
 GUIVehicle::~GUIVehicle() {

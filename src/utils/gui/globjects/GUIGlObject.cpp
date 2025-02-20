@@ -158,10 +158,14 @@ StringBijection<GUIGlObjectType> GUIGlObject::TypeNames(GUIGlObjectTypeNamesInit
 const GUIGlID GUIGlObject::INVALID_ID = 0;
 const double GUIGlObject::INVALID_PRIORITY(-std::numeric_limits<double>::max());
 
+
 // ===========================================================================
 // method definitions
 // ===========================================================================
-
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4355) // mask warning about "this" in initializers
+#endif
 GUIGlObject::GUIGlObject(GUIGlObjectType type, const std::string& microsimID, FXIcon* icon) :
     myGlID(GUIGlObjectStorage::gIDStorage.registerObject(this)),
     myGLObjectType(type),
@@ -172,6 +176,9 @@ GUIGlObject::GUIGlObject(GUIGlObjectType type, const std::string& microsimID, FX
     myFullName = createFullName();
     GUIGlObjectStorage::gIDStorage.changeName(this, myFullName);
 }
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 
 GUIGlObject::~GUIGlObject() {

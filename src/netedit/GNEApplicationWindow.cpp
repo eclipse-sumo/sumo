@@ -452,7 +452,10 @@ FXIMPLEMENT(GNEApplicationWindow, FXMainWindow, GNEApplicationWindowMap, ARRAYNU
 // ===========================================================================
 // GNEApplicationWindow method definitions
 // ===========================================================================
-
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4355) // mask warning about "this" in initializers
+#endif
 GNEApplicationWindow::GNEApplicationWindow(FXApp* app, const GNETagPropertiesDatabase* tagPropertiesDatabase, const std::string& configPattern) :
     GUIMainWindow(app),
     myTagPropertiesDatabase(tagPropertiesDatabase),
@@ -495,6 +498,10 @@ GNEApplicationWindow::GNEApplicationWindow(FXApp* app, const GNETagPropertiesDat
     TemplateHandler::parseTemplate(myNetgenerateOptions, netgenerateTemplate);
     TemplateHandler::parseTemplate(myOriginalNetgenerateOptions, netgenerateTemplate);
 }
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
+
 
 void
 GNEApplicationWindow::dependentBuild() {
@@ -4793,10 +4800,14 @@ GNEApplicationWindow::loadDataElements() {
     }
 }
 
+
 // ---------------------------------------------------------------------------
 // GNEApplicationWindow - protected methods
 // ---------------------------------------------------------------------------
-
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4355) // mask warning about "this" in initializers
+#endif
 GNEApplicationWindow::GNEApplicationWindow() :
     myToolbarsGrip(this),
     myMenuBarFile(this),
@@ -4811,6 +4822,9 @@ GNEApplicationWindow::GNEApplicationWindow() :
     myHelpMenuCommands(this),
     mySupermodeCommands(this) {
 }
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 
 long

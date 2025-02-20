@@ -34,10 +34,14 @@
 
 #include "GNEDemandElement.h"
 
+
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4355) // mask warning about "this" in initializers
+#endif
 GNEDemandElement::GNEDemandElement(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, FXIcon* icon, const int options) :
     GNEAttributeCarrier(tag, net),
     GUIGlObject(type, id, icon),
@@ -56,6 +60,9 @@ GNEDemandElement::GNEDemandElement(GNEDemandElement* demandElementParent, GNENet
     GNEDemandElementDistribution(this),
     myStackedLabelNumber(0) {
 }
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 
 GNEDemandElement::~GNEDemandElement() {}

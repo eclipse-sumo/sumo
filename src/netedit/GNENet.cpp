@@ -81,14 +81,17 @@ FXIMPLEMENT_ABSTRACT(GNENetHelper::GNEChange_ReplaceEdgeInTLS, GNEChange, nullpt
 // ===========================================================================
 // static members
 // ===========================================================================
-
 const double GNENet::Z_INITIALIZED = 1;
 const std::map<SumoXMLAttr, std::string> GNENet::EMPTY_HEADER;
+
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4355) // mask warning about "this" in initializers
+#endif
 GNENet::GNENet(NBNetBuilder* netBuilder, const GNETagPropertiesDatabase* tagPropertiesDatabase) :
     GUIGlObject(GLO_NETWORK, "", nullptr),
     myNetBuilder(netBuilder),
@@ -108,6 +111,9 @@ GNENet::GNENet(NBNetBuilder* netBuilder, const GNETagPropertiesDatabase* tagProp
     }
 
 }
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 
 GNENet::~GNENet() {

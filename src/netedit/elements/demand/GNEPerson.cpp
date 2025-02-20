@@ -155,10 +155,14 @@ GNEPerson::GNESelectedPersonsPopupMenu::onCmdTransform(FXObject* obj, FXSelector
     return 1;
 }
 
+
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4355) // mask warning about "this" in initializers
+#endif
 GNEPerson::GNEPerson(SumoXMLTag tag, GNENet* net) :
     GNEDemandElement("", net, GLO_PERSON, tag, GUIIconSubSys::getIcon(GUIIcon::PERSON),
                      GNEPathElement::Options::DEMAND_ELEMENT),
@@ -181,6 +185,9 @@ GNEPerson::GNEPerson(SumoXMLTag tag, GNENet* net, GNEDemandElement* pType, const
     // set manually vtypeID (needed for saving)
     vtypeid = pType->getID();
 }
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 
 GNEPerson::~GNEPerson() {}

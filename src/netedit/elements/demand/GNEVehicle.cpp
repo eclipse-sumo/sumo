@@ -433,10 +433,14 @@ GNEVehicle::GNESelectedVehiclesPopupMenu::onCmdTransform(FXObject* obj, FXSelect
     return 1;
 }
 
+
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4355) // mask warning about "this" in initializers
+#endif
 GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net) :
     GNEDemandElement("", net, GLO_VEHICLE, tag, GUIIconSubSys::getIcon(GUIIcon::VEHICLE), GNEPathElement::Options::DEMAND_ELEMENT),
     GNEDemandElementFlow(this) {
@@ -552,6 +556,9 @@ GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net, GNEDemandElement* vehicleTyp
     fromTaz = fromTAZ->getID();
     toTaz = toTAZ->getID();
 }
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 
 GNEVehicle::~GNEVehicle() {}

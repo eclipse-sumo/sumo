@@ -244,6 +244,10 @@ MSLane::AnyVehicleIterator::nextIsMyVehicles() const {
 // ===========================================================================
 // member method definitions
 // ===========================================================================
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4355) // mask warning about "this" in initializers
+#endif
 MSLane::MSLane(const std::string& id, double maxSpeed, double friction, double length, MSEdge* const edge,
                int numericalID, const PositionVector& shape, double width,
                SVCPermissions permissions,
@@ -292,6 +296,9 @@ MSLane::MSLane(const std::string& id, double maxSpeed, double friction, double l
         myOutlineShape = new PositionVector(outlineShape);
     }
 }
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 
 MSLane::~MSLane() {
