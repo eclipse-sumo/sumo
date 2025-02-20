@@ -31,6 +31,7 @@ jobs:
       with:
         path: sumo
         fetch-depth: 0
+        filter: tree:0
         # to work around actions/checkout#1467
         ref: ${{ github.ref }}
 
