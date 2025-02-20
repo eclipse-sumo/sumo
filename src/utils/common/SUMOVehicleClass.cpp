@@ -511,7 +511,7 @@ bool isTram(SVCPermissions permissions) {
 }
 
 bool isBikepath(SVCPermissions permissions) {
-    return (permissions & SVC_BICYCLE) == SVC_BICYCLE && (permissions & SVC_PASSENGER) == 0;
+    return (permissions & SVC_BICYCLE) == SVC_BICYCLE && (permissions & SVC_ROAD_MOTOR_CLASSES) == 0;
 }
 
 
