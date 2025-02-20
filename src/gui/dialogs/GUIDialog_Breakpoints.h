@@ -23,6 +23,7 @@
 
 #include <string>
 #include <vector>
+#include <memory>
 #include <utils/foxtools/fxheader.h>
 #include <utils/gui/div/GUIPersistentWindowPos.h>
 
