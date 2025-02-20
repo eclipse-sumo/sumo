@@ -352,7 +352,7 @@ pipeline {
                 unstash 'notarized'
                 script {
                     def commitHash = sh(script: "cd sumo && git rev-parse HEAD", returnStdout: true).trim()
-                    def branchName = sh(script: "de sumo && git rev-parse --abbrev-ref HEAD", returnStdout: true).trim()
+                    def branchName = sh(script: "cd sumo && git rev-parse --abbrev-ref HEAD", returnStdout: true).trim()
                     def githubRepo = "eclipse-sumo/sumo"
                     def workflowId = "macos.yml"
                     def githubToken = credentials('github-bot-token')
