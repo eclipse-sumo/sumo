@@ -341,6 +341,36 @@ pipeline {
                         mkdir notarized
                         curl -s -o notarized/\$file https://cbi.eclipse.org/macos/xcrun/${uuid}/download
                     """
+
+                    stash name: 'notarized', includes: 'notarized/sumo*.pkg'
+                }
+            }
+        }
+
+        stage('Uploading notarized artifacts to GitHub') {
+            steps {
+                unstash 'notarized'
+                script {
+                    def commitHash = sh(script: "cd sumo && git rev-parse HEAD", returnStdout: true).trim()
+                    def githubRepo = "eclipse-sumo/sumo"
+                    def workflowId = "macos.yml"
+                    def githubToken = credentials('github-bot-token')
+
+                    echo "Locating workflow run for commit: ${commitHash}"
+
+                    // Find the GitHub workflow run ID for the commit
+                    def runIdResponse = sh(script: """
+                        curl -s -H "Authorization: token ${githubToken}" \
+                            "https://api.github.com/repos/${githubRepo}/actions/workflows/${workflowId}/runs?per_page=5" | \
+                        jq -r ".workflow_runs[] | select(.head_sha==\\"${commitHash}\\") | .id" | head -n 1
+                    """, returnStdout: true).trim()
+
+                    if (!runIdResponse || runIdResponse == "null") {
+                        error "No matching workflow run found for commit: ${commitHash}"
+                    }
+
+                    def runId = runIdResponse
+                    echo "Found workflow run ID: ${runId}"
                 }
             }
         }
