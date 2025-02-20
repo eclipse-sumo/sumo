@@ -63,6 +63,7 @@ The SUMO User Conference is an annual event organized by the German Aerospace Ce
 * [Importing GTFS](GTFS.md) - Importing public transport schedules from public sources using the General Transit Feed Specification
 * [Port](port.md) - Creating a scenario that simulates the port logistics of an arbitrary port from [OpenStreetMap](https://www.openstreetmap.org/)
 * [Containerized SUMO](Containerized_SUMO.md) - Using SUMO to run a simulation inside a docker container
+* [Containerized SUMO with GUI](Containerized_SUMO_GUI.md) - Running the SUMO GUI from inside a container
 
 # TraCI Tutorials
 These tutorials use the [Python-TraCI Library](../TraCI/Interfacing_TraCI_from_Python.md) for interfacing a python script with a running [sumo](../sumo.md) simulation.

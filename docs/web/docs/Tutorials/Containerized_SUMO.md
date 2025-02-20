@@ -9,7 +9,8 @@ This tutorial shows how to use SUMO to run simulations inside a docker container
 This tutorial demonstrates how to use SUMO for running simulations without installing the software on your local machine.
 
 It is also possible to run the GUI applications from the docker container.
-The way to do this is highly dependent on your individual setup, so we will not provide the required configuration or commands.
+The way to do this is highly dependent on your individual setup.
+We try [in a dedicated tutorial](Containerized_SUMO_GUI.md) to give advice on how to do this.
 
 ## Getting the docker image
 
