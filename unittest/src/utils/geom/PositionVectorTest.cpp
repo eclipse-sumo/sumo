@@ -183,6 +183,8 @@ TEST_F(PositionVectorTest, test_method_getPolygonCenter) {
     EXPECT_DOUBLE_EQ(2, pos.x());
     EXPECT_DOUBLE_EQ(1.6, pos.y());
     Position pos2 = vectorLine->getPolygonCenter();
+    EXPECT_DOUBLE_EQ(1, pos2.x());
+    EXPECT_DOUBLE_EQ(1, pos2.y());
 }
 
 
