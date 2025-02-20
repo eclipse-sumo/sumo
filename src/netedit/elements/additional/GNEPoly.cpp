@@ -81,8 +81,8 @@ GNEPoly::GNEPoly(SumoXMLTag tag, GNENet* net, const std::string& id, const Posit
     TesselatedPolygon(id, getJuPedSimType(tag), getJuPedSimColor(tag), shape, geo, getJuPedSimFill(tag), 1,
                       getJuPedSimLayer(tag), 0, "", false, name, parameters),
     GNEAdditional(id, net, getJuPedSimGLO(tag), tag, getJuPedSimIcon(tag), ""),
-    mySimplifiedShape(false),
-    myClosedShape(shape.isClosed()) {
+    myClosedShape(shape.isClosed()),
+    mySimplifiedShape(false) {
     // set GEO shape
     myGeoShape = myShape;
     if (geo) {

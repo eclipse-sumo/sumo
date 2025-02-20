@@ -142,10 +142,10 @@ protected:
     bool processClickPolygons(const Position& clickedPosition, bool& updateTemporalShape);
 
     /// @brief process click for POIs over view
-    bool processClickPOI(SumoXMLTag POITag, const Position& clickedPosition, const GNEViewNetHelper::ViewObjectsSelector& viewObjects);
+    bool processClickPOI(SumoXMLTag POITag, const Position& clickedPosition);
 
     /// @brief process click for POIGeo
-    bool processClickPOIGeo(const Position& clickedPosition, const GNEViewNetHelper::ViewObjectsSelector& viewObjects);
+    bool processClickPOIGeo(const Position& clickedPosition);
 
     /// @brief process click for POILanes
     bool processClickPOILanes(const GNEViewNetHelper::ViewObjectsSelector& viewObjects);

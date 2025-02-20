@@ -269,9 +269,9 @@ GNEShapeFrame::processClick(const Position& clickedPosition, const GNEViewNetHel
         // continue depending of tag
         switch (shapeTag) {
             case SUMO_TAG_POI:
-                return processClickPOI(shapeTag, clickedPosition, viewObjects);
+                return processClickPOI(shapeTag, clickedPosition);
             case GNE_TAG_POIGEO:
-                return processClickPOIGeo(clickedPosition, viewObjects);
+                return processClickPOIGeo(clickedPosition);
             case GNE_TAG_POILANE:
                 return processClickPOILanes(viewObjects);
             case SUMO_TAG_POLY:
@@ -417,7 +417,7 @@ GNEShapeFrame::processClickPolygons(const Position& clickedPosition, bool& updat
 
 
 bool
-GNEShapeFrame::processClickPOI(SumoXMLTag POITag, const Position& clickedPosition, const GNEViewNetHelper::ViewObjectsSelector& viewObjects) {
+GNEShapeFrame::processClickPOI(SumoXMLTag POITag, const Position& clickedPosition) {
     // show warning dialogbox and stop if input parameters are invalid
     if (!myShapeAttributesEditor->checkAttributes(true)) {
         return false;
@@ -443,7 +443,7 @@ GNEShapeFrame::processClickPOI(SumoXMLTag POITag, const Position& clickedPositio
 
 
 bool
-GNEShapeFrame::processClickPOIGeo(const Position& clickedPosition, const GNEViewNetHelper::ViewObjectsSelector& viewObjects) {
+GNEShapeFrame::processClickPOIGeo(const Position& clickedPosition) {
     // show warning dialogbox and stop if input parameters are invalid
     if (!myShapeAttributesEditor->checkAttributes(true)) {
         return false;
