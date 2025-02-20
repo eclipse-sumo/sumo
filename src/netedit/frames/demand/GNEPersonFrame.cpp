@@ -285,7 +285,9 @@ GNEPersonFrame::createPath(const bool /*useLastRoute*/) {
         } else {
             // abort person creation
             myViewNet->getUndoList()->abortAllChangeGroups();
+            return false;
         }
+    } else {
         return false;
     }
 }

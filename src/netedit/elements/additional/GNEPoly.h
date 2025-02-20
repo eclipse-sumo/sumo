@@ -235,10 +235,10 @@ protected:
     PositionVector myGeoShape;
 
     /// @brief flag to indicate if polygon is closed
-    bool myClosedShape;
+    bool myClosedShape = false;
 
     /// @brief flag to indicate if polygon is simplified
-    bool mySimplifiedShape;
+    bool mySimplifiedShape = false;
 
 private:
     /// @brief set attribute after validation

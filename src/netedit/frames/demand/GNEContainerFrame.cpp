@@ -285,7 +285,9 @@ GNEContainerFrame::createPath(const bool /*useLastRoute*/) {
         } else {
             // abort container creation
             myViewNet->getUndoList()->abortAllChangeGroups();
+            return false;
         }
+    } else {
         return false;
     }
 }
