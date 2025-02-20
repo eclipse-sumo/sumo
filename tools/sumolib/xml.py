@@ -279,7 +279,7 @@ def _check_file_like(xmlfile):
 
 
 def parse(xmlfile, element_names=None, element_attrs=None, attr_conversions=None,
-          heterogeneous=True, warn=False, ignoreXmlns=False):
+          heterogeneous=True, warn=False, ignoreXmlns=False, outputLevel=1):
     """
     Parses the given element_names from xmlfile and yield compound objects for
     their xml subtrees (no extra objects are returned if element_names appear in
@@ -313,14 +313,19 @@ def parse(xmlfile, element_names=None, element_attrs=None, attr_conversions=None
     kwargs = {'parser': ET.XMLParser(target=ET.TreeBuilder(insert_comments=True))} if supports_comments() else {}
     xmlfile, close_source = _check_file_like(xmlfile)
     try:
-        for _, parsenode in ET.iterparse(xmlfile, **kwargs):
-            tag = _handle_namespace(parsenode.tag, ignoreXmlns)
-            if element_names is None or tag in element_names:
-                yield _get_compound_object(parsenode, element_types,
-                                           tag, element_attrs,
-                                           attr_conversions, heterogeneous, warn,
-                                           ignoreXmlns)
-                parsenode.clear()
+        level = -1
+        for event, parsenode in ET.iterparse(xmlfile, events = ('start', 'end'), **kwargs):
+            if event == 'start':
+                level += 1
+            else:
+                tag = _handle_namespace(parsenode.tag, ignoreXmlns)
+                if (element_names is None and level == outputLevel) or (element_names and tag in element_names):
+                    yield _get_compound_object(parsenode, element_types,
+                                               tag, element_attrs,
+                                               attr_conversions, heterogeneous, warn,
+                                               ignoreXmlns)
+                    parsenode.clear()
+                level -= 1
     finally:
         if close_source:
             xmlfile.close()
