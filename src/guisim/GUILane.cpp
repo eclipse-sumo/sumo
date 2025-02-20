@@ -1318,11 +1318,7 @@ GUILane::getColorValue(const GUIVisualizationSettings& s, int activeScheme) cons
             if (myEdge->isTazConnector()) {
                 return 9;
             } else if (isRailway(myPermissions)) {
-                if ((myPermissions & SVC_BUS) != 0) {
-                    return 6;
-                } else {
-                    return 5;
-                }
+                return 5;
             } else if ((myPermissions & SVC_PASSENGER) != 0) {
                 if ((myPermissions & (SVC_RAIL_CLASSES & ~SVC_RAIL_FAST)) != 0 && (myPermissions & SVC_SHIP) == 0) {
                     return 6;
@@ -1330,7 +1326,11 @@ GUILane::getColorValue(const GUIVisualizationSettings& s, int activeScheme) cons
                     return 0;
                 }
             } else {
-                return 7;
+                if ((myPermissions & SVC_RAIL_CLASSES) != 0 && (myPermissions & SVC_SHIP) == 0) {
+                    return 6;
+                } else {
+                    return 7;
+                }
             }
         case 1:
             return isLaneOrEdgeSelected();
