@@ -22,6 +22,9 @@ routing
 # tests for train reversal
 reversal
 
+# tests for shared tram/car lane
+tram_road
+
 # Two trains approaching conflicting block simultaneously causing a head-on conflict
 headonconflict
 
