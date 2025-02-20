@@ -358,19 +358,19 @@ pipeline {
 
                     echo "Locating workflow run for commit: ${commitHash}"
 
-                    // Find the GitHub workflow run ID for the commit
+                    // Workflow-Run-ID ermitteln (ohne jq, macOS kompatibel)
                     def runIdResponse = sh(script: """
                         curl -s -H "Authorization: token ${githubToken}" \
                             "https://api.github.com/repos/${githubRepo}/actions/workflows/${workflowId}/runs?per_page=5" | \
-                        jq -r ".workflow_runs[] | select(.head_sha==\\"${commitHash}\\") | .id" | head -n 1
-                    """, returnStdout: true).trim()
+                            grep '"id":' | sed 's/[^0-9]*\\([0-9][0-9]*\\).*/\\1/' | head -n 1
+                        """, returnStdout: true).trim()
 
                     if (!runIdResponse || runIdResponse == "null") {
-                        error "No matching workflow run found for commit: ${commitHash}"
+                        error "Could not find a workflow run for commit: ${commitHash}."
                     }
 
                     def runId = runIdResponse
-                    echo "Found workflow run ID: ${runId}"
+                    echo "Identified workflow run id: ${runId}"
                 }
             }
         }
