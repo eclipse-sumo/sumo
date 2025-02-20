@@ -571,7 +571,9 @@ GNEAttributesEditor::buildRows(GNEAttributesEditor* editorParent) {
                 mySingletonAttributesEditorRows[type][i] = new GNEAttributesEditorRow(editorParent);
             }
         }
+        
     }
+
 }
 
 /****************************************************************************/
