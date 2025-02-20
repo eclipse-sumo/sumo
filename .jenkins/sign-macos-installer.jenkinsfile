@@ -352,25 +352,30 @@ pipeline {
                 unstash 'notarized'
                 script {
                     def commitHash = sh(script: "cd sumo && git rev-parse HEAD", returnStdout: true).trim()
+                    def branchName = sh(script: "de sumo && git rev-parse --abbrev-ref HEAD", returnStdout: true).trim()
                     def githubRepo = "eclipse-sumo/sumo"
                     def workflowId = "macos.yml"
                     def githubToken = credentials('github-bot-token')
 
-                    echo "Locating workflow run for commit: ${commitHash}"
+                    echo "Searching for GitHub Actions workflow run for commit: ${commitHash} on branch: ${branchName}"
 
-                    // Workflow-Run-ID ermitteln (ohne jq, macOS kompatibel)
-                    def runIdResponse = sh(script: """
-                        curl -s -H "Authorization: token ${githubToken}" \
-                            "https://api.github.com/repos/${githubRepo}/actions/workflows/${workflowId}/runs?per_page=5" | \
-                            grep '"id":' | sed 's/[^0-9]*\\([0-9][0-9]*\\).*/\\1/' | head -n 1
-                        """, returnStdout: true).trim()
+                    // Fetch latest workflow runs from GitHub API
+                    def apiUrl = "https://api.github.com/repos/${githubRepo}/actions/workflows/${workflowId}/runs?branch=${branchName}&per_page=5"
+                    def jsonResponse = sh(script: "curl -s -H \"Authorization: token ${githubToken}\" \"${apiUrl}\"", returnStdout: true).trim()
 
-                    if (!runIdResponse || runIdResponse == "null") {
-                        error "Could not find a workflow run for commit: ${commitHash}."
+                    // Parse JSON response using JsonSlurper
+                    def json = new JsonSlurper().parseText(jsonResponse)
+                    def workflowRuns = json.workflow_runs
+
+                    // Find the workflow run with the correct commit hash
+                    def matchedRun = workflowRuns.find { it.head_sha == commitHash }
+
+                    if (!matchedRun) {
+                        error "No matching workflow run found for commit: ${commitHash}."
                     }
 
-                    def runId = runIdResponse
-                    echo "Identified workflow run id: ${runId}"
+                    def runId = matchedRun.id
+                    echo "Found Workflow Run ID: ${runId}"
                 }
             }
         }
