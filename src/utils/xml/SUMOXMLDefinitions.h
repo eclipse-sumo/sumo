@@ -2350,7 +2350,7 @@ public:
     /// @brief exclude empty values
     static StringBijection<ExcludeEmpty> ExcludeEmptys;
 
-    /// @brief reference positions (used creating certain elements in netedit) 
+    /// @brief reference positions (used creating certain elements in netedit)
     static StringBijection<ReferencePosition> ReferencePositions;
 
     /// @}

@@ -1295,7 +1295,7 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
                 GNETagProperties::Conflicts::POS_LANE_START | GNETagProperties::Conflicts::POS_LANE_END,
                 GUIIcon::CONTAINERSTOP, currentTag, TL("ContainerStop"),
                 {}, FXRGBA(240, 255, 205, 255));
-                // set common attributes
+        // set common attributes
         fillCommonStoppingPlaceAttributes(myTagProperties[currentTag], true);
 
         // set specific attributes
@@ -1329,7 +1329,7 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
                 GNETagProperties::Conflicts::POS_LANE_START | GNETagProperties::Conflicts::POS_LANE_END,
                 GUIIcon::CHARGINGSTATION, currentTag, TL("ChargingStation"),
                 {}, FXRGBA(240, 255, 205, 255));
-                // set common attributes
+        // set common attributes
         fillCommonStoppingPlaceAttributes(myTagProperties[currentTag], false);
 
         // set specific attributes
@@ -1396,7 +1396,7 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
                 {}, FXRGBA(240, 255, 205, 255));
         // set common attributes
         fillCommonStoppingPlaceAttributes(myTagProperties[currentTag], false);
-        
+
         // set specific attributes
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_DEPARTPOS,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY,
@@ -4071,26 +4071,26 @@ GNETagPropertiesDatabase::fillStopElements() {
 
         // fill common stop attributes
         fillCommonStopAttributes(myTagProperties[currentTag], false);
-    /*
-        // netedit attributes
-        attrProperty = new GNEAttributeProperties(GNE_ATTR_SIZE,
-                GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::UPDATEGEOMETRY | GNEAttributeProperties::NETEDIT,
-                TLF("Length of %", myTagProperties[currentTag]->getTagStr()));
-        myTagProperties[currentTag]->addAttribute(attrProperty);
+        /*
+            // netedit attributes
+            attrProperty = new GNEAttributeProperties(GNE_ATTR_SIZE,
+                    GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::UPDATEGEOMETRY | GNEAttributeProperties::NETEDIT,
+                    TLF("Length of %", myTagProperties[currentTag]->getTagStr()));
+            myTagProperties[currentTag]->addAttribute(attrProperty);
 
-        attrProperty = new GNEAttributeProperties(GNE_ATTR_FORCESIZE,
-                GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::NETEDIT,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
-                TL("Force size during creation"),
-                GNEAttributeCarrier::False);
-        myTagProperties[currentTag]->addAttribute(attrProperty);
+            attrProperty = new GNEAttributeProperties(GNE_ATTR_FORCESIZE,
+                    GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::NETEDIT,
+                    GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                    TL("Force size during creation"),
+                    GNEAttributeCarrier::False);
+            myTagProperties[currentTag]->addAttribute(attrProperty);
 
-        attrProperty = new GNEAttributeProperties(GNE_ATTR_REFERENCE,
-                GNEAttributeProperties::STRING | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::NETEDIT,
-                TLF("Reference position used for creating %", myTagProperties[currentTag]->getTagStr()));
-        attrProperty->setDiscreteValues(SUMOXMLDefinitions::ReferencePositions.getStrings());
-        myTagProperties[currentTag]->addAttribute(attrProperty);
-    */
+            attrProperty = new GNEAttributeProperties(GNE_ATTR_REFERENCE,
+                    GNEAttributeProperties::STRING | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::NETEDIT,
+                    TLF("Reference position used for creating %", myTagProperties[currentTag]->getTagStr()));
+            attrProperty->setDiscreteValues(SUMOXMLDefinitions::ReferencePositions.getStrings());
+            myTagProperties[currentTag]->addAttribute(attrProperty);
+        */
     }
     currentTag = GNE_TAG_STOP_BUSSTOP;
     {
@@ -4245,26 +4245,26 @@ GNETagPropertiesDatabase::fillWaypointElements() {
 
         // fill common waypoint (stop) attributes
         fillCommonStopAttributes(myTagProperties[currentTag], true);
-    /*
-        // netedit attributes
-        attrProperty = new GNEAttributeProperties(GNE_ATTR_SIZE,
-                GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::UPDATEGEOMETRY | GNEAttributeProperties::NETEDIT,
-                TLF("Length of %", myTagProperties[currentTag]->getTagStr()));
-        myTagProperties[currentTag]->addAttribute(attrProperty);
+        /*
+            // netedit attributes
+            attrProperty = new GNEAttributeProperties(GNE_ATTR_SIZE,
+                    GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::UPDATEGEOMETRY | GNEAttributeProperties::NETEDIT,
+                    TLF("Length of %", myTagProperties[currentTag]->getTagStr()));
+            myTagProperties[currentTag]->addAttribute(attrProperty);
 
-        attrProperty = new GNEAttributeProperties(GNE_ATTR_FORCESIZE,
-                GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::NETEDIT,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
-                TL("Force size during creation"),
-                GNEAttributeCarrier::False);
-        myTagProperties[currentTag]->addAttribute(attrProperty);
+            attrProperty = new GNEAttributeProperties(GNE_ATTR_FORCESIZE,
+                    GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::NETEDIT,
+                    GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                    TL("Force size during creation"),
+                    GNEAttributeCarrier::False);
+            myTagProperties[currentTag]->addAttribute(attrProperty);
 
-        attrProperty = new GNEAttributeProperties(GNE_ATTR_REFERENCE,
-                GNEAttributeProperties::STRING | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::NETEDIT,
-                TLF("Reference position used for creating %", myTagProperties[currentTag]->getTagStr()));
-        attrProperty->setDiscreteValues(SUMOXMLDefinitions::ReferencePositions.getStrings());
-        myTagProperties[currentTag]->addAttribute(attrProperty);
-    */
+            attrProperty = new GNEAttributeProperties(GNE_ATTR_REFERENCE,
+                    GNEAttributeProperties::STRING | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::NETEDIT,
+                    TLF("Reference position used for creating %", myTagProperties[currentTag]->getTagStr()));
+            attrProperty->setDiscreteValues(SUMOXMLDefinitions::ReferencePositions.getStrings());
+            myTagProperties[currentTag]->addAttribute(attrProperty);
+        */
     }
     currentTag = GNE_TAG_WAYPOINT_BUSSTOP;
     {
@@ -9244,7 +9244,7 @@ GNETagPropertiesDatabase::fillPlanParentAttributes(GNETagProperties* tagProperti
             attrProperty = new GNEAttributeProperties(SUMO_ATTR_DEPARTPOS,
                     GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE,
                     GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE | GNEAttributeProperties::CHILD,
-                TL("The position at which the tranship shall enter the net"),
+                    TL("The position at which the tranship shall enter the net"),
                     "0");
             tagProperties->addAttribute(attrProperty);
         }
@@ -9743,12 +9743,13 @@ GNETagPropertiesDatabase::updateMaxNumberOfAttributesEditorRows() {
                 if (attributeProperty->isChild() && attributeProperty->isCreateMode()) {
                     // child attributes are relevant only in create mode
                     childAttributes++;
-                } 
+                }
                 if (attributeProperty->isGEO()) {
                     geoAttributes++;
                 } else if (attributeProperty->isFlow()) {
                     flowAttributes++;
-                }  if (attributeProperty->isNetedit()) {
+                }
+                if (attributeProperty->isNetedit()) {
                     neteditAttributes++;
                 } else if (!attributeProperty->isExtended()) {
                     editableAttributes++;

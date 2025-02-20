@@ -42,7 +42,7 @@
 
 GNEPoly::GNEPoly(SumoXMLTag tag, GNENet* net) :
     TesselatedPolygon("", "", RGBColor::BLACK, {}, false, false, 0, 0, 0, "", false, "", Parameterised::Map()),
-    GNEAdditional("", net, GLO_POLYGON, tag, GUIIconSubSys::getIcon(GUIIcon::POLY), "") {
+GNEAdditional("", net, GLO_POLYGON, tag, GUIIconSubSys::getIcon(GUIIcon::POLY), "") {
     // reset default values
     resetDefaultValues();
 }
@@ -812,7 +812,7 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
                 if (myClosedShape) {
                     myShape.closePolygon();
                     myGeoShape.closePolygon();
-                
+
                 } else {
                     myShape.openPolygon();
                     myGeoShape.openPolygon();

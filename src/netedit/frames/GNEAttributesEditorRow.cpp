@@ -260,7 +260,7 @@ GNEAttributesEditorRow::getAttrProperty() const {
 std::string
 GNEAttributesEditorRow::getCurrentValue() const {
     if (myValueCheckButton->shown()) {
-        return (myValueCheckButton->getCheck() == TRUE)? "true" : "false";
+        return (myValueCheckButton->getCheck() == TRUE) ? "true" : "false";
     } else if (myValueComboBox->shown()) {
         return myValueComboBox->getText().text();
     } else if (myValueTextField->shown()) {
@@ -300,7 +300,7 @@ GNEAttributesEditorRow::fillSumoBaseObject(CommonXMLStructure::SumoBaseObject* b
         baseObjet->addBoolAttribute(attribute, myValueCheckButton->getCheck() == TRUE);
     } else if (myAttrProperty->isDiscrete()) {
         if ((myValueComboBox->getTextColor() == TEXTCOLOR_RED) ||
-            (myValueComboBox->getBackColor() == TEXTCOLOR_BACKGROUND_RED)) {
+                (myValueComboBox->getBackColor() == TEXTCOLOR_BACKGROUND_RED)) {
             return attribute;
         } else {
             baseObjet->addStringAttribute(attribute, myValueComboBox->getText().text());
@@ -341,7 +341,7 @@ GNEAttributesEditorRow::fillSumoBaseObject(CommonXMLStructure::SumoBaseObject* b
                 return attribute;
             }
         } else if (GNEAttributeCarrier::canParse<double>(myValueTextField->getText().text())) {
-                const auto doubleValue = GNEAttributeCarrier::parse<double>(myValueTextField->getText().text());
+            const auto doubleValue = GNEAttributeCarrier::parse<double>(myValueTextField->getText().text());
             if (myAttrProperty->isPositive() && (doubleValue < 0)) {
                 return attribute;
             } else if (myAttrProperty->isProbability() && ((doubleValue < 0) || (doubleValue > 1))) {
@@ -563,7 +563,7 @@ GNEAttributesEditorRow::getAttributeValue(const bool enabled) const {
     const auto attribute = myAttrProperty->getAttr();
     // if we're in creator mode, generate ID
     if ((attribute == SUMO_ATTR_ID) && (myAttributeTable->myEditorType == GNEAttributesEditor::EditorType::CREATOR)) {
-        const auto &ACs = myAttributeTable->getFrameParent()->getViewNet()->getNet()->getAttributeCarriers();
+        const auto& ACs = myAttributeTable->getFrameParent()->getViewNet()->getNet()->getAttributeCarriers();
         const auto parentTag = myAttrProperty->getTagPropertyParent()->getTag();
         if (myAttrProperty->getTagPropertyParent()->isAdditionalElement()) {
             return ACs->generateAdditionalID(parentTag);

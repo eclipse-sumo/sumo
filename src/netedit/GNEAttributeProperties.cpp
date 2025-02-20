@@ -28,7 +28,7 @@
 // ===========================================================================
 
 GNEAttributeProperties::GNEAttributeProperties(const SumoXMLAttr attribute, const int attributeProperty, const int editProperty,
-                                               const std::string& definition, std::string defaultValue) :
+        const std::string& definition, std::string defaultValue) :
     myAttribute(attribute),
     myTagPropertyParent(nullptr),
     myAttrStr(toString(attribute)),
@@ -489,7 +489,7 @@ GNEAttributeProperties::isExtended() const {
 }
 
 
-bool 
+bool
 GNEAttributeProperties::isChild() const {
     return (myEditProperty & CHILD) != 0;
 }

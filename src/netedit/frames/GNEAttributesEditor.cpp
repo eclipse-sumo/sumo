@@ -205,10 +205,10 @@ GNEAttributesEditor::refreshAttributesEditor() {
                 // filter editor type
                 if ((myEditorType != EditorType::CREATOR) && (myEditorType != EditorType::EDITOR)) {
                     showAttributeRow = false;
-                } 
+                }
                 if ((myEditorType == EditorType::CREATOR) && !attrProperty->isCreateMode()) {
                     showAttributeRow = false;
-                } 
+                }
                 if ((myEditorType == EditorType::EDITOR) && !attrProperty->isEditMode()) {
                     showAttributeRow = false;
                 }
@@ -248,7 +248,7 @@ GNEAttributesEditor::refreshAttributesEditor() {
         if ((itRows == 0) && !showButtons) {
             hideAttributesEditor();
         } else {
-             if (itRows > 0) {
+            if (itRows > 0) {
                 // reparent before show to put it at the end of the list
                 myHelpButton->reparent(this);
                 myHelpButton->show();
@@ -291,7 +291,7 @@ GNEAttributesEditor::checkAttributes(const bool showWarning) {
 SumoXMLAttr
 GNEAttributesEditor::fillSumoBaseObject(CommonXMLStructure::SumoBaseObject* baseObject) const {
     // iterate over every attribute row and stop if there was an error
-    for (const auto &row : myAttributesEditorRows) {
+    for (const auto& row : myAttributesEditorRows) {
         if (row->isAttributeRowShown()) {
             const auto fillResult = row->fillSumoBaseObject(baseObject);
             if (fillResult != SUMO_ATTR_NOTHING) {
@@ -494,9 +494,9 @@ GNEAttributesEditor::moveLaneDown() {
 
 void
 GNEAttributesEditor::fillStartEndAttributes(CommonXMLStructure::SumoBaseObject* baseObject) const {
-    if (baseObject->hasDoubleAttribute(SUMO_ATTR_POSITION) && baseObject->hasDoubleAttribute(GNE_ATTR_SIZE) && 
-        baseObject->hasDoubleAttribute(GNE_ATTR_LANELENGTH) && baseObject->hasBoolAttribute(GNE_ATTR_FORCESIZE) &&
-        baseObject->hasStringAttribute(GNE_ATTR_REFERENCE)) {
+    if (baseObject->hasDoubleAttribute(SUMO_ATTR_POSITION) && baseObject->hasDoubleAttribute(GNE_ATTR_SIZE) &&
+            baseObject->hasDoubleAttribute(GNE_ATTR_LANELENGTH) && baseObject->hasBoolAttribute(GNE_ATTR_FORCESIZE) &&
+            baseObject->hasStringAttribute(GNE_ATTR_REFERENCE)) {
         // extract parameters
         const double centerPosition = baseObject->getDoubleAttribute(SUMO_ATTR_POSITION);
         const double size = baseObject->getDoubleAttribute(GNE_ATTR_SIZE);
@@ -528,7 +528,7 @@ GNEAttributesEditor::fillStartEndAttributes(CommonXMLStructure::SumoBaseObject* 
         }
         if (startPos < 0) {
             startPos = 0;
-        } 
+        }
         if (endPos > laneLength) {
             endPos = laneLength;
         }
@@ -571,7 +571,7 @@ GNEAttributesEditor::buildRows(GNEAttributesEditor* editorParent) {
                 mySingletonAttributesEditorRows[type][i] = new GNEAttributesEditorRow(editorParent);
             }
         }
-        
+
     }
 
 }

@@ -304,7 +304,7 @@ GNEStoppingPlace::getStoppingPlaceAttribute(const Parameterised* parameterised, 
                 return toString(getParentLanes().front()->getLaneShapeLength() - myStartPosition);
             } else if (myEndPosition != INVALID_DOUBLE) {
                 return toString(myEndPosition);
-            } else if (getParentLanes().size() > 0){
+            } else if (getParentLanes().size() > 0) {
                 return toString(getParentLanes().front()->getLaneShapeLength());
             } else {
                 return "10";
@@ -446,7 +446,7 @@ GNEStoppingPlace::setStoppingPlaceAttribute(Parameterised* parameterised, SumoXM
             if (value.empty()) {
                 mySize = 10;
             } else {
-                mySize = parse<double>(value); 
+                mySize = parse<double>(value);
             }
             break;
         case GNE_ATTR_FORCESIZE:
@@ -454,7 +454,7 @@ GNEStoppingPlace::setStoppingPlaceAttribute(Parameterised* parameterised, SumoXM
             break;
         case GNE_ATTR_REFERENCE:
             myReferencePosition = SUMOXMLDefinitions::ReferencePositions.get(value);
-            break; 
+            break;
         default:
             setCommonAttribute(parameterised, key, value);
             break;

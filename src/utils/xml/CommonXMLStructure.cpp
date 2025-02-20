@@ -707,7 +707,7 @@ CommonXMLStructure::SumoBaseObject::addParentID(const SumoXMLTag tag, const std:
 void
 CommonXMLStructure::SumoBaseObject::addParameters(const std::string& value) {
     const auto parameters = StringTokenizer(value, '|').getVector();
-    for (const auto &parameter : parameters) {
+    for (const auto& parameter : parameters) {
         const auto keyValue = StringTokenizer(parameter, '=').getVector();
         addParameter(keyValue[0], keyValue[1]);
     }

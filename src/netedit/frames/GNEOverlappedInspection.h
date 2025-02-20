@@ -45,7 +45,7 @@ public:
     ~GNEOverlappedInspection();
 
     /// @brief show overlapped inspection
-    void showOverlappedInspection(GNEViewNetHelper::ViewObjectsSelector& viewObjects, const Position &clickedPosition, const bool shiftKeyPressed);
+    void showOverlappedInspection(GNEViewNetHelper::ViewObjectsSelector& viewObjects, const Position& clickedPosition, const bool shiftKeyPressed);
 
     /// @brief show template editor
     void refreshOverlappedInspection();
