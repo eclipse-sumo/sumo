@@ -18,16 +18,17 @@
 // Builds demand objects for netedit
 /****************************************************************************/
 
+#include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNETagPropertiesDatabase.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
-#include <netedit/GNEApplicationWindow.h>
 #include <netedit/changes/GNEChange_DemandElement.h>
-#include <netedit/frames/demand/GNEVehicleFrame.h>
-#include <netedit/frames/common/GNEInspectorFrame.h>
 #include <netedit/elements/additional/GNETAZ.h>
+#include <netedit/frames/GNEAttributesEditor.h>
+#include <netedit/frames/common/GNEInspectorFrame.h>
+#include <netedit/frames/demand/GNEVehicleFrame.h>
 #include <utils/common/StringTokenizer.h>
 
 #include "GNEContainer.h"
@@ -38,13 +39,13 @@
 #include "GNERouteDistribution.h"
 #include "GNERouteHandler.h"
 #include "GNEStop.h"
+#include "GNEStopPlan.h"
 #include "GNETranship.h"
 #include "GNETransport.h"
-#include "GNEVehicle.h"
 #include "GNEVType.h"
 #include "GNEVTypeDistribution.h"
+#include "GNEVehicle.h"
 #include "GNEWalk.h"
-#include "GNEStopPlan.h"
 
 // ===========================================================================
 // static definitions

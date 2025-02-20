@@ -20,30 +20,30 @@
 #pragma once
 #include <config.h>
 
+#include <netedit/GNENetHelper.h>
 #include <netedit/frames/GNEFrameAttributeModules.h>
 #include <netedit/frames/GNEPathCreator.h>
 #include <netedit/frames/GNEPlanCreator.h>
-#include <netedit/GNENetHelper.h>
 #include <utils/common/SUMOVehicleClass.h>
+#include <utils/handlers/RouteHandler.h>
 #include <utils/vehicle/SUMORouteHandler.h>
 #include <utils/xml/SUMOSAXAttributes.h>
 #include <utils/xml/SUMOSAXHandler.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
-#include <utils/handlers/RouteHandler.h>
-
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
 
-class GNEViewNet;
-class GNEEdge;
-class GNETAZ;
-class GNEDemandElement;
-class GNEVehicle;
-class GNEPerson;
+class GNEAttributesEditor;
 class GNEContainer;
+class GNEDemandElement;
+class GNEEdge;
+class GNEPerson;
+class GNETAZ;
 class GNEUndoList;
+class GNEVehicle;
+class GNEViewNet;
 
 // ===========================================================================
 // class definitions
