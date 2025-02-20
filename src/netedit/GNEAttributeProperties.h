@@ -71,6 +71,7 @@ public:
     enum EditProperty {
         CREATEMODE =    1 << 1,    // Attribute can be modified in create mode
         EDITMODE =      1 << 2,    // Attribute can be modified in edit mode
+        CHILD =         1 << 3,    // Attribute is a child of other element (used if we have two attributes editor in the same frame)
         NETEDIT =       1 << 3,    // Attribute is exclusive of netedit
         EXTENDED =      1 << 4,    // Attribute is extended (in Frame will not be shown, but is editable in a Dialog, see VType attributes)
         GEO =           1 << 5,    // Attribute is of type GEO
@@ -219,6 +220,9 @@ public:
 
     /// @brief return true if attribute is extended
     bool isExtended() const;
+
+    /// @brief return true if attribute is Child (only used in the context of Attribute editor)
+    bool isChild() const;
 
     /// @brief return true if attribute is GEO
     bool isGEO() const;

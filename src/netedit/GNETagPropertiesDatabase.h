@@ -56,6 +56,9 @@ public:
     /// @brief max number of editable (non extended) attributes
     int getMaxNumberOfEditableAttributes() const;
 
+    /// @brief max number of child attributes
+    int getMaxNumberOfChildAttributes() const;
+
     /// @brief get max number of geo attributes
     int getMaxNumberOfGeoAttributes() const;
 
@@ -192,6 +195,9 @@ protected:
 private:
     /// @brief max number of editable (non extended) attributes (needed for attributes editor)
     int myMaxNumberOfEditableAttributes = 0;
+
+    /// @brief max number of child attributes (needed for attributes editor)
+    int myMaxNumberOfChildAttributes = 0;
 
     /// @brief max number of geo attributes (needed for geo attributes editor)
     int myMaxNumberOfGeoAttributes = 0;

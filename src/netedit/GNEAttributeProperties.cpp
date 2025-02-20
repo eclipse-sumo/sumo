@@ -488,6 +488,13 @@ GNEAttributeProperties::isExtended() const {
     return (myEditProperty & EXTENDED) != 0;
 }
 
+
+bool 
+GNEAttributeProperties::isChild() const {
+    return (myEditProperty & CHILD) != 0;
+}
+
+
 bool
 GNEAttributeProperties::isGEO() const {
     return (myEditProperty & GEO) != 0;

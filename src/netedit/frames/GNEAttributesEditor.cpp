@@ -194,30 +194,29 @@ GNEAttributesEditor::refreshAttributesEditor() {
                 // check show conditions
                 if (attrProperty->isExtended()) {
                     showAttributeRow = false;
+                }
                 // filter editor type
-                } else if ((myEditorType == EditorType::CREATOR) && !attrProperty->isCreateMode()) {
+                if ((myEditorType == EditorType::CREATOR) && !attrProperty->isCreateMode()) {
                     showAttributeRow = false;
-                } else if ((myEditorType == EditorType::EDITOR) && !attrProperty->isEditMode()) {
+                } 
+                if ((myEditorType == EditorType::EDITOR) && !attrProperty->isEditMode()) {
                     showAttributeRow = false;
+                }
                 // filter types
-                } else if ((myAttributeType != AttributeType::FLOW) && attrProperty->isFlow()) {
+                if ((myAttributeType == AttributeType::CHILD) && !attrProperty->isChild()) {
                     showAttributeRow = false;
-                } else if ((myAttributeType == AttributeType::FLOW) && !attrProperty->isFlow()) {
+                }
+                if ((myAttributeType == AttributeType::FLOW) && !attrProperty->isFlow()) {
                     showAttributeRow = false;
-                } else if ((myAttributeType != AttributeType::GEO) && attrProperty->isGEO()) {
+                }
+                if ((myAttributeType == AttributeType::GEO) && !attrProperty->isGEO()) {
                     showAttributeRow = false;
-                } else if ((myAttributeType == AttributeType::GEO) && !attrProperty->isGEO()) {
+                }
+                if ((myAttributeType == AttributeType::NETEDIT) && !attrProperty->isNetedit()) {
                     showAttributeRow = false;
-                } else if ((myAttributeType != AttributeType::NETEDIT) && attrProperty->isNetedit()) {
+                }
+                if ((myAttributeType == AttributeType::PARAMETERS) && (attrProperty->getAttr() != GNE_ATTR_PARAMETERS)) {
                     showAttributeRow = false;
-                } else if ((myAttributeType == AttributeType::NETEDIT) && !attrProperty->isNetedit()) {
-                    showAttributeRow = false;
-                } else if ((myAttributeType != AttributeType::PARAMETERS)&& (attrProperty->getAttr() == GNE_ATTR_PARAMETERS)) {
-                    showAttributeRow = false;
-                } else if ((myAttributeType == AttributeType::PARAMETERS) && (attrProperty->getAttr() != GNE_ATTR_PARAMETERS)) {
-                    showAttributeRow = false;
-                } else if (myAttributeType == AttributeType::BASIC) {
-                    showAttributeRow = true;
                 }
                 if (showAttributeRow) {
                     if (itRows < (int)myAttributesEditorRows.size()) {
@@ -537,12 +536,12 @@ GNEAttributesEditor::buildRows(GNEAttributesEditor* editorParent) {
     if (mySingletonAttributesEditorRows.empty()) {
         const auto tagPropertiesDatabase = editorParent->getFrameParent()->getViewNet()->getNet()->getTagPropertiesDatabase();
         // declare vector of types with rows
-        const std::vector<AttributeType> types = {AttributeType::BASIC, AttributeType::SECONDARY, AttributeType::FLOW, AttributeType::GEO, AttributeType::NETEDIT, AttributeType::PARAMETERS};
+        const std::vector<AttributeType> types = {AttributeType::BASIC, AttributeType::CHILD, AttributeType::FLOW, AttributeType::GEO, AttributeType::NETEDIT, AttributeType::PARAMETERS};
         // iterate over all types and create their correspond rows
         for (const auto type : types) {
             int maxNumberOfRows = 0;
             // get max number of rows
-            if ((type == AttributeType::BASIC) || (type == AttributeType::SECONDARY)) {
+            if ((type == AttributeType::BASIC) || (type == AttributeType::CHILD)) {
                 maxNumberOfRows = tagPropertiesDatabase->getMaxNumberOfEditableAttributes();
             } else if (type == AttributeType::FLOW) {
                 maxNumberOfRows = tagPropertiesDatabase->getMaxNumberOfFlowAttributes();
