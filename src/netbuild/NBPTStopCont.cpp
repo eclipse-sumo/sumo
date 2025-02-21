@@ -385,7 +385,7 @@ NBPTStopCont::alignIdSigns() {
     for (auto& i : stops) {
         std::shared_ptr<NBPTStop> s = i.second;
         const std::string& stopId = s->getID();
-        if (s->getEdgeId() == "") {
+        if (s->getEdgeId() == "" || s->wasLoaded()) {
             continue;
         }
         const char edgeSign = s->getEdgeId().at(0);

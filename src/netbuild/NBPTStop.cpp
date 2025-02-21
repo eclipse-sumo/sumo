@@ -217,7 +217,7 @@ NBPTStop::findLaneAndComputeBusStopExtent(const NBEdge* edge) {
             double offset = shape.nearest_offset_to_point2D(getPosition(), false);
             const double edgeLength = edge->getFinalLength();
             offset *= edgeLength / shape.length2D();
-            if (myGivenStartPos >= 0) {
+            if (wasLoaded()) {
                 myStartPos = myGivenStartPos;
                 myEndPos = myStartPos + myPTStopLength;
             } else {
