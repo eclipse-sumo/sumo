@@ -711,6 +711,11 @@ GNEAttributeCarrier::getCommonAttribute(const Parameterised* parameterised, Sumo
             } else {
                 return False;
             }
+        case GNE_ATTR_ADDITIONAL_FILE:
+        case GNE_ATTR_DEMAND_FILE:
+        case GNE_ATTR_DATA_FILE:
+        case GNE_ATTR_MEANDATA_FILE:
+            return myWrittingFilename;
         case GNE_ATTR_PARAMETERS:
             return parameterised->getParametersStr();
         default:
@@ -723,6 +728,10 @@ void
 GNEAttributeCarrier::setCommonAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     switch (key) {
         case GNE_ATTR_SELECTED:
+        case GNE_ATTR_ADDITIONAL_FILE:
+        case GNE_ATTR_DEMAND_FILE:
+        case GNE_ATTR_DATA_FILE:
+        case GNE_ATTR_MEANDATA_FILE:
         case GNE_ATTR_PARAMETERS:
             GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
@@ -737,6 +746,11 @@ GNEAttributeCarrier::isCommonValid(SumoXMLAttr key, const std::string& value) co
     switch (key) {
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
+        case GNE_ATTR_ADDITIONAL_FILE:
+        case GNE_ATTR_DEMAND_FILE:
+        case GNE_ATTR_DATA_FILE:
+        case GNE_ATTR_MEANDATA_FILE:
+            return SUMOXMLDefinitions::isValidFilename(value);
         case GNE_ATTR_PARAMETERS:
             return Parameterised::areParametersValid(value);
         default:
@@ -755,6 +769,11 @@ GNEAttributeCarrier::setCommonAttribute(Parameterised* parameterised, SumoXMLAtt
                 unselectAttributeCarrier();
             }
             break;
+        case GNE_ATTR_ADDITIONAL_FILE:
+        case GNE_ATTR_DEMAND_FILE:
+        case GNE_ATTR_DATA_FILE:
+        case GNE_ATTR_MEANDATA_FILE:
+            myWrittingFilename = value;
         case GNE_ATTR_PARAMETERS:
             parameterised->setParametersStr(value);
             break;

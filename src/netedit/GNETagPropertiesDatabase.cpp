@@ -7749,6 +7749,34 @@ GNETagPropertiesDatabase::fillPersonStopElements() {
 void
 GNETagPropertiesDatabase::fillCommonAttributes(GNETagProperties* tagProperties) {
     GNEAttributeProperties* commonAttribute = nullptr;
+    // fill file attributes
+    if (!tagProperties->isChild() && !tagProperties->isSymbol()) {
+        if (tagProperties->isAdditionalElement()) {
+            commonAttribute = new GNEAttributeProperties(GNE_ATTR_ADDITIONAL_FILE,
+                    GNEAttributeProperties::STRING | GNEAttributeProperties::FILENAME | GNEAttributeProperties::DEFAULTVALUE,
+                    GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE | GNEAttributeProperties::NETEDIT,
+                    TL("The path to the additional file"));
+            tagProperties->addAttribute(commonAttribute);
+        } else if (tagProperties->isDemandElement()) {
+            commonAttribute = new GNEAttributeProperties(GNE_ATTR_DEMAND_FILE,
+                    GNEAttributeProperties::STRING | GNEAttributeProperties::FILENAME | GNEAttributeProperties::DEFAULTVALUE,
+                    GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE | GNEAttributeProperties::NETEDIT,
+                    TL("The path to the route file"));
+            tagProperties->addAttribute(commonAttribute);
+        } else if (tagProperties->isDataElement()) {
+            commonAttribute = new GNEAttributeProperties(GNE_ATTR_DATA_FILE,
+                    GNEAttributeProperties::STRING | GNEAttributeProperties::FILENAME | GNEAttributeProperties::DEFAULTVALUE,
+                    GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE | GNEAttributeProperties::NETEDIT,
+                    TL("The path to the data file"));
+            tagProperties->addAttribute(commonAttribute);
+        } else if (tagProperties->isMeanData()) {
+            commonAttribute = new GNEAttributeProperties(GNE_ATTR_MEANDATA_FILE,
+                    GNEAttributeProperties::STRING | GNEAttributeProperties::FILENAME | GNEAttributeProperties::DEFAULTVALUE,
+                    GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE | GNEAttributeProperties::NETEDIT,
+                    TL("The path to the data file"));
+            tagProperties->addAttribute(commonAttribute);
+        }
+    }
     // if this is a drawable element, add front and select attributes
     if (tagProperties->isDrawable()) {
         commonAttribute = new GNEAttributeProperties(GNE_ATTR_FRONTELEMENT,

@@ -349,6 +349,9 @@ protected:
     /// @brief whether the current object is a template object (not drawn in the view)
     bool myIsTemplate = false;
 
+    /// @brief writting filename
+    std::string myWrittingFilename;
+
     /// @brief method for enable or disable the attribute and nothing else (used in GNEChange_ToggleAttribute)
     virtual void toggleAttribute(SumoXMLAttr key, const bool value);
 
