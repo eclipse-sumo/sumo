@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-13 10:07+0100\n"
-"PO-Revision-Date: 2025-02-20 17:51+0000\n"
+"PO-Revision-Date: 2025-02-21 17:40+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -13097,35 +13097,42 @@ msgstr ""
 #: src/utils/router/IntermodalRouter.h:227
 #: src/utils/router/PedestrianRouter.h:126
 msgid "Do not use this method"
-msgstr ""
+msgstr "Non utilizzare questo metodo"
 
 #: src/utils/router/PedestrianRouter.h:87
 #, c-format
 msgid "Departure edge '%' does not allow pedestrians."
-msgstr ""
+msgstr "Pedoni non sono autorizzati sull'arco di partenza '%'."
 
 #: src/utils/router/PedestrianRouter.h:91
 #, c-format
 msgid "Destination edge '%' does not allow pedestrians."
-msgstr ""
+msgstr "Pedoni non sono autorizzati sull'arco di destinazione '%'."
 
 #: src/utils/shapes/ShapeHandler.cpp:85
 msgid "Error parsing key from shape generic parameter. Key cannot be empty"
 msgstr ""
+"Errore analizzando la chiave del parametro generico di una forma. La chiave "
+"non può rimanere vuota"
 
 #: src/utils/shapes/ShapeHandler.cpp:87
 msgid ""
 "Error parsing key from shape generic parameter. Key contains invalid "
 "characters"
 msgstr ""
+"Errore analizzando la chiave di parametro generico di una forma. La chiave "
+"contiene di caratteri invalidi"
 
 #: src/utils/shapes/ShapeHandler.cpp:145
 msgid "Invalid characters for PoI ID"
 msgstr ""
+"Caratteri invalidi per un codice identificativo di un punto di interesse"
 
 #: src/utils/shapes/ShapeHandler.cpp:176
 msgid "Either (x, y), (lon, lat) or (lane, pos) must be specified for PoI '%'."
 msgstr ""
+"O (x,y), (lon, lat) oppure (corsia, posizione) devono essere specificate per "
+"il punto di interesse '%'."
 
 #: src/utils/shapes/ShapeHandler.cpp:179
 msgid ""
@@ -13136,24 +13143,24 @@ msgstr ""
 #: src/utils/shapes/ShapeHandler.cpp:201
 #, c-format
 msgid "PoI '%' already exists."
-msgstr ""
+msgstr "Il punto di interesse '%' esiste già."
 
 #: src/utils/shapes/ShapeHandler.cpp:219
 msgid "Invalid characters for Poly ID"
-msgstr ""
+msgstr "Caratteri invalidi per un codice identificativo di poligono"
 
 #: src/utils/shapes/ShapeHandler.cpp:262
 msgid "Polygon's shape cannot be empty."
-msgstr ""
+msgstr "La forma del poligono non può essere lasciata vuota."
 
 #: src/utils/shapes/ShapeHandler.cpp:267
 msgid "Polygon's lineWidth must be greater than 0."
-msgstr ""
+msgstr "La larghezza della linea del poligono deve essere maggiore di 0."
 
 #: src/utils/shapes/ShapeHandler.cpp:272
 #, c-format
 msgid "Polygon '%' already exists."
-msgstr ""
+msgstr "Il poligono '%' esiste già."
 
 #: src/utils/shapes/ShapeHandler.cpp:289
 #, c-format
