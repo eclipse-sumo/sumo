@@ -2,7 +2,7 @@
 # spec file for package sumo
 #
 # Copyright (c) 2022 SUSE LLC
-# Copyright (c) 2001-2023 DLR (http://www.dlr.de/) and contributors
+# Copyright (c) 2001-2025 DLR (http://www.dlr.de/) and contributors
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -150,6 +150,8 @@ cd cmake-build
 %files
 %defattr(-,root,root)
 %{_bindir}/*
+%{_libdir}/libsumocs.so
+%{_libdir}/libtracics.so
 %{_datadir}/sumo
 %doc AUTHORS README.md ChangeLog CONTRIBUTING.md NOTICE.md docs/pydoc docs/userdoc docs/examples docs/tutorial
 %if 0%{?suse_version} < 1500
