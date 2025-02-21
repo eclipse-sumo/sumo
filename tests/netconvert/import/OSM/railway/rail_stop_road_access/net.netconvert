@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-02-21 16:15:30 by Eclipse SUMO netconvert Version v1_22_0+0441-086a4a97432
+<!-- generated on 2025-02-21 17:00:55 by Eclipse SUMO netconvert Version v1_22_0+0447-871de66322c
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -8466,8 +8466,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <junction id="1728846608" type="priority" x="219.56" y="2780.32" incLanes="176023646#1_0" intLanes=":1728846608_0_0" shape="221.28,2778.79 217.91,2778.90 217.94,2779.88 217.94,2780.22 217.93,2780.56 217.90,2780.98 217.86,2781.54 221.05,2781.78">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="1728846611" type="zipper" x="215.42" y="2801.32" incLanes="178942866#2_0 143847359#0_0" intLanes=":1728846611_0_0 :1728846611_1_0" shape="213.67,2802.84 217.12,2802.61 217.05,2801.37 217.05,2800.93 217.07,2800.50 217.15,2799.26 213.50,2799.97 213.71,2801.02 213.75,2801.40 213.75,2801.77 213.72,2802.23">
-        <request index="0" response="10" foes="10" cont="0"/>
+    <junction id="1728846611" type="priority" x="215.42" y="2801.32" incLanes="178942866#2_0 143847359#0_0" intLanes=":1728846611_0_0 :1728846611_1_0" shape="213.67,2802.84 217.12,2802.61 217.05,2801.37 217.05,2800.93 217.07,2800.50 217.15,2799.26 213.50,2799.97 213.71,2801.02 213.75,2801.40 213.75,2801.77 213.72,2802.23">
+        <request index="0" response="00" foes="10" cont="0"/>
         <request index="1" response="01" foes="01" cont="0"/>
     </junction>
     <junction id="1852994584" type="right_before_left" x="1274.54" y="2822.01" incLanes="-43891842#1_0 43891842#0_0 174644662#1_0" intLanes=":1852994584_0_0 :1852994584_1_0 :1852994584_2_0 :1852994584_3_0 :1852994584_4_0 :1852994584_5_0 :1852994584_6_0 :1852994584_7_0 :1852994584_8_0" shape="1271.62,2826.90 1278.00,2826.54 1277.49,2817.18 1271.10,2817.52 1270.97,2818.36 1270.77,2818.66 1270.48,2818.89 1270.10,2819.04 1269.62,2819.11 1270.03,2825.50 1270.87,2825.61 1271.18,2825.80 1271.40,2826.08 1271.55,2826.45">
@@ -11653,7 +11653,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <connection from="178942866#0" to="160913391" fromLane="0" toLane="0" via=":254830798_0_0" dir="s" state="M"/>
     <connection from="178942866#0" to="178942866#1" fromLane="0" toLane="0" via=":254830798_1_0" dir="s" state="M"/>
     <connection from="178942866#1" to="178942866#2" fromLane="0" toLane="0" via=":1892996704_1_0" dir="s" state="Z"/>
-    <connection from="178942866#2" to="178942866#3" fromLane="0" toLane="0" via=":1728846611_0_0" dir="s" state="m"/>
+    <connection from="178942866#2" to="178942866#3" fromLane="0" toLane="0" keepClear="0" via=":1728846611_0_0" dir="s" state="M"/>
     <connection from="178942866#3" to="176023646#3" fromLane="0" toLane="0" via=":4156353775_1_0" dir="s" state="Z"/>
     <connection from="178942871" to="178942866#2" fromLane="0" toLane="0" via=":1892996704_0_0" dir="s" state="Z"/>
     <connection from="185867069" to="26708288#1" fromLane="1" toLane="1" via=":1965563751_0_0" dir="r" state="m"/>
