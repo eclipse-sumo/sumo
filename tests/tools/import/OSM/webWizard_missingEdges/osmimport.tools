@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-04-30 18:09:59 by Eclipse SUMO netconvert Version v1_19_0+2011-624920fe92d
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<!-- generated on 2025-02-21 09:12:36 by Eclipse SUMO netconvert Version v1_22_0+0413-ab9d88a2622
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <type-files value="${SUMO_HOME}/data/typemap/osmNetconvert.typ.xml,${SUMO_HOME}/data/typemap/osmNetconvertUrbanDe.typ.xml,${SUMO_HOME}/data/typemap/osmNetconvertPedestrians.typ.xml,${SUMO_HOME}/data/typemap/osmNetconvertShips.typ.xml,${SUMO_HOME}/data/typemap/osmNetconvertBicycle.typ.xml,${SUMO_HOME}/data/typemap/osmNetconvertAerialway.typ.xml"/>
-        <osm-files value="/home/erdm_ja/.texttest/tmp/tools.30Apr180957.259025/tools/import/OSM/webWizard_missingEdges/osm_bbox.osm.xml"/>
+        <osm-files value="/home/erdm_ja/.texttest/tmp/tools.21Feb091235.3655597/tools/import/OSM/webWizard_missingEdges/osm_bbox.osm.xml"/>
     </input>
 
     <output>
@@ -54,7 +54,7 @@
         <osm.sidewalks value="true"/>
     </formats>
 
-</configuration>
+</netconvertConfiguration>
 -->
 
 <net version="1.20" junctionCornerDetail="5" walkingareas="true" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
@@ -151,10 +151,10 @@
         <lane id=":260124407_11_0" index="0" allow="pedestrian delivery bicycle" speed="3.65" length="3.23" shape="609.80,917.35 609.52,918.20 608.67,918.48 607.26,918.20"/>
     </edge>
     <edge id=":260124407_6" function="internal">
-        <lane id=":260124407_6_0" index="0" allow="pedestrian bicycle" speed="5.75" length="5.66" width="1.00" shape="607.80,923.44 608.35,921.93 608.44,920.55 608.08,919.31 607.26,918.20"/>
+        <lane id=":260124407_6_0" index="0" allow="pedestrian bicycle" speed="5.75" length="5.66" shape="607.80,923.44 608.35,921.93 608.44,920.55 608.08,919.31 607.26,918.20"/>
     </edge>
     <edge id=":260124407_7" function="internal">
-        <lane id=":260124407_7_0" index="0" allow="pedestrian bicycle" speed="5.59" length="8.39" width="1.00" shape="607.80,923.44 609.32,920.94 610.86,919.54 612.43,919.23 614.03,920.02"/>
+        <lane id=":260124407_7_0" index="0" allow="pedestrian bicycle" speed="5.59" length="8.39" shape="607.80,923.44 609.32,920.94 610.86,919.54 612.43,919.23 614.03,920.02"/>
     </edge>
     <edge id=":260124407_8" function="internal">
         <lane id=":260124407_8_0" index="0" allow="pedestrian motorcycle moped bicycle" speed="2.04" length="1.46" width="1.00" shape="607.80,923.44 608.19,923.21 608.47,923.21 608.64,923.43 608.70,923.88"/>
