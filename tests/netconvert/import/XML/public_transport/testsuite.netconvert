@@ -19,3 +19,6 @@ negative_stop_pos
 
 # see #16220
 preserve_stopIDs
+
+# see #16220
+preserve_stopIDs2
