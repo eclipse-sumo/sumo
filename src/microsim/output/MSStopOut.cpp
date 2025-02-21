@@ -63,14 +63,27 @@ MSStopOut::~MSStopOut() {}
 
 
 void
+MSStopOut::stopBlocked(const SUMOVehicle* veh, SUMOTime time) {
+    assert(veh != nullptr);
+    if (myStopped.count(veh) == 0) {
+        myStopped.emplace(veh, StopInfo(-time, -1, -1));
+    }
+}
+
+
+void
 MSStopOut::stopStarted(const SUMOVehicle* veh, int numPersons, int numContainers, SUMOTime time) {
     assert(veh != nullptr);
-    if (myStopped.count(veh) != 0) {
-        WRITE_WARNINGF(TL("Vehicle '%' stops on edge '%', time=% without ending the previous stop."),
-                       veh->getID(), veh->getEdge()->getID(), time2string(time));
+    if (myStopped.count(veh) == 0) {
+        myStopped.emplace(veh, StopInfo(0, numPersons, numContainers));
+    } else {
+        MSStopOut::StopInfo& info = myStopped.find(veh)->second;
+        info.blockTime += time;
+        info.initialNumPersons = numPersons;
+        info.initialNumContainers = numContainers;
     }
-    myStopped.emplace(veh, StopInfo(numPersons, numContainers));
 }
+
 
 void
 MSStopOut::loadedPersons(const SUMOVehicle* veh, int n) {
@@ -85,6 +98,7 @@ MSStopOut::loadedPersons(const SUMOVehicle* veh, int n) {
     }
 }
 
+
 void
 MSStopOut::unloadedPersons(const SUMOVehicle* veh, int n) {
     if (myStopped.count(veh) == 0) {
@@ -94,6 +108,7 @@ MSStopOut::unloadedPersons(const SUMOVehicle* veh, int n) {
         myStopped.find(veh)->second.unloadedPersons += n;
     }
 }
+
 
 void
 MSStopOut::loadedContainers(const SUMOVehicle* veh, int n) {
@@ -108,6 +123,7 @@ MSStopOut::loadedContainers(const SUMOVehicle* veh, int n) {
     }
 }
 
+
 void
 MSStopOut::unloadedContainers(const SUMOVehicle* veh, int n) {
     if (myStopped.count(veh) == 0) {
@@ -117,6 +133,7 @@ MSStopOut::unloadedContainers(const SUMOVehicle* veh, int n) {
         myStopped.find(veh)->second.unloadedContainers += n;
     }
 }
+
 
 void
 MSStopOut::stopEnded(const SUMOVehicle* veh, const SUMOVehicleParameter::Stop& stop, const std::string& laneOrEdgeID, bool simEnd) {
@@ -186,9 +203,11 @@ MSStopOut::stopEnded(const SUMOVehicle* veh, const SUMOVehicleParameter::Stop& s
     myDevice.writeAttr("initialContainers", si.initialNumContainers);
     myDevice.writeAttr("loadedContainers", si.loadedContainers);
     myDevice.writeAttr("unloadedContainers", si.unloadedContainers);
+    myDevice.writeAttr("blockedDuration", time2string(si.blockTime));
     myDevice.closeTag();
     myStopped.erase(veh);
 }
+
 
 void
 MSStopOut::generateOutputForUnfinished() {
@@ -202,5 +221,6 @@ MSStopOut::generateOutputForUnfinished() {
         stopEnded(veh, *stop, laneOrEdgeID, true);
     }
 }
+
 
 /****************************************************************************/

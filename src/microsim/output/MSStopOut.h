@@ -67,6 +67,7 @@ public:
     /// @brief Destructor.
     virtual ~MSStopOut();
 
+    void stopBlocked(const SUMOVehicle* veh, SUMOTime time);
     void stopStarted(const SUMOVehicle* veh, int numPersons, int numContainers, SUMOTime time);
 
     void loadedPersons(const SUMOVehicle* veh, int n);
@@ -83,7 +84,8 @@ public:
 private:
     struct StopInfo {
 
-        StopInfo(int numPersons, int numContainers) :
+        StopInfo(SUMOTime now, int numPersons, int numContainers) :
+            blockTime(now),
             initialNumPersons(numPersons),
             loadedPersons(0),
             unloadedPersons(0),
@@ -92,6 +94,7 @@ private:
             unloadedContainers(0) {
         }
 
+        SUMOTime blockTime;
         int initialNumPersons;
         int loadedPersons;
         int unloadedPersons;

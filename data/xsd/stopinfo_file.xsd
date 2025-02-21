@@ -37,6 +37,7 @@
             <xsd:attribute name="line" use="optional" type="xsd:string"/>
             <xsd:attribute name="split" use="optional" type="xsd:string"/>
             <xsd:attribute name="usedEnded" use="optional" type="boolType"/>
+            <xsd:attribute name="blockedDuration" use="optional" type="timeType"/>
         </xsd:complexType>
     </xsd:element>
 

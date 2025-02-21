@@ -1831,8 +1831,11 @@ MSVehicle::processNextStop(double currentVelocity) {
                           << "\n";
             }
 #endif
-            if (myState.pos() >= reachedThreshold && fitsOnStoppingPlace && currentVelocity <= stop.getSpeed() + SUMO_const_haltingSpeed && myLane == stop.lane
-                    && (!MSGlobals::gModelParkingManoeuver || myManoeuvre.entryManoeuvreIsComplete(this))) {
+            const bool posReached = myState.pos() >= reachedThreshold && currentVelocity <= stop.getSpeed() + SUMO_const_haltingSpeed && myLane == stop.lane;
+            if (posReached && !fitsOnStoppingPlace && MSStopOut::active()) {
+                MSStopOut::getInstance()->stopBlocked(this, time);
+            }
+            if (fitsOnStoppingPlace && posReached && (!MSGlobals::gModelParkingManoeuver || myManoeuvre.entryManoeuvreIsComplete(this))) {
                 // ok, we may stop (have reached the stop)  and either we are not modelling maneuvering or have completed entry
                 stop.reached = true;
                 if (!stop.startedFromState) {
