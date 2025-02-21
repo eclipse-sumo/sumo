@@ -668,11 +668,12 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
                 GLHelper::pushMatrix();
                 // translate to front
                 drawInLayer(GLO_JUNCTION);
-                // draw junction as shape
-                drawJunctionAsShape(s, d, junctionExaggeration);
-                // draw junction as bubble
                 if (drawBubble) {
+                    // draw junction as bubble
                     drawJunctionAsBubble(s, d, junctionExaggeration);
+                } else {
+                    // draw junction as shape
+                    drawJunctionAsShape(s, d, junctionExaggeration);
                 }
                 // draw TLS
                 drawTLSIcon(s);
@@ -691,13 +692,14 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
                     myNetworkElementContour.drawDottedContourGeometryPoints(s, d, this, myNBNode->getShape(), s.neteditSizeSettings.junctionGeometryPointRadius,
                             junctionExaggeration, s.dottedContourSettings.segmentWidthSmall);
                 } else {
-                    // draw dotted contour for shape
-                    if (junctionShapeArea >= 4) {
-                        myNetworkElementContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
-                    }
-                    // draw dotted contour for bubble
                     if (drawBubble) {
+                        // draw dotted contour for bubble
                         myCircleContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
+                    } else {
+                        // draw dotted contour for shape
+                        if (junctionShapeArea >= 4) {
+                            myNetworkElementContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
+                        }
                     }
                 }
             }
