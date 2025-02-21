@@ -3146,7 +3146,9 @@ NBEdge::recheckLanes() {
         }
     }
 #endif
-    myStep = EdgeBuildingStep::LANES2LANES_DONE;
+    if (myStep != EdgeBuildingStep::LANES2LANES_USER) {
+        myStep = EdgeBuildingStep::LANES2LANES_DONE;
+    }
     return true;
 }
 
