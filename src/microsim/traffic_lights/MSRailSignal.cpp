@@ -86,7 +86,6 @@ MSRailSignal::MSRailSignal(MSTLLogicControl& tlcontrol,
     myDriveWayIndex(0) {
     myDefaultCycleTime = DELTA_T;
     myMovingBlock = OptionsCont::getOptions().getBool("railsignal-moving-block");
-    MSRailSignalControl::getInstance().addSignal(this);
     mySwitchCommand->deschedule(this);
 }
 
@@ -105,6 +104,7 @@ MSRailSignal::init(NLDetectorBuilder&) {
     updateCurrentPhase();
     setTrafficLightSignals(MSNet::getInstance()->getCurrentTimeStep());
     myNumLinks = (int)myLinks.size();
+    MSRailSignalControl::getInstance().addSignal(this);
 }
 
 

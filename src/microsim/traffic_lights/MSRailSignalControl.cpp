@@ -39,6 +39,7 @@
 // static value definitions
 // ===========================================================================
 MSRailSignalControl* MSRailSignalControl::myInstance(nullptr);
+SVCPermissions MSRailSignalControl::mySignalizedClasses(SVC_RAIL | SVC_RAIL_FAST | SVC_RAIL_ELECTRIC | SVC_RAIL_URBAN);
 
 // ===========================================================================
 // method definitions
@@ -95,6 +96,11 @@ MSRailSignalControl::vehicleStateChanged(const SUMOVehicle* const vehicle, MSNet
 void
 MSRailSignalControl::addSignal(MSRailSignal* signal) {
     mySignals.push_back(signal);
+    for (const auto& links : signal->getLinks()) {
+        for (const MSLink* link : links) {
+            mySignalizedClasses |= link->getPermissions();
+        }
+    }
 }
 
 

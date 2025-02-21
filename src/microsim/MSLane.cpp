@@ -864,7 +864,8 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
     double dist = cfModel.brakeGap(speed) + aVehicle->getVehicleType().getMinGap();
     const bool isRail = aVehicle->isRail();
     if (isRail && insertionChecks != (int)InsertionCheck::NONE
-            && aVehicle->getParameter().departProcedure != DepartDefinition::SPLIT) {
+            && aVehicle->getParameter().departProcedure != DepartDefinition::SPLIT
+            && MSRailSignalControl::isSignalized(aVehicle->getVClass())) {
         const MSDriveWay* dw = MSDriveWay::getDepartureDriveway(aVehicle);
         MSEdgeVector occupied;
         if (dw->foeDriveWayOccupied(false, aVehicle, occupied)) {
