@@ -466,12 +466,6 @@ GNEAttributeProperties::isFlow() const {
 
 
 bool
-GNEAttributeProperties::hasAutomaticID() const {
-    return (myAttributeProperty & AUTOMATICID) != 0;
-}
-
-
-bool
 GNEAttributeProperties::isCopyable() const {
     return (myAttributeProperty & COPYABLE) != 0;
 }

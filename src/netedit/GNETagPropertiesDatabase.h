@@ -189,6 +189,20 @@ protected:
     /// @brief fill stop person attributes
     void fillCommonMeanDataAttributes(GNETagProperties* tagProperties);
 
+    /// @name specific attributes
+    /// @{
+
+    /// @brief fill ID attribute
+    void fillIDAttribute(GNETagProperties* tagProperties);
+
+    /// @brief fill name attribute
+    void fillNameAttribute(GNETagProperties* tagProperties);
+
+    /// @brief fill file attribute
+    void fillFileAttribute(GNETagProperties* tagProperties);
+
+    /// @}
+
     /// @brief update max number of attributes by type
     void updateMaxNumberOfAttributesEditorRows();
 
