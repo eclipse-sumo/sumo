@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-09-19 08:49:45 by Eclipse SUMO sumo Version v1_20_0+2048-31af531e001
+<!-- generated on 2025-02-21 15:47:51 by Eclipse SUMO sumo Version v1_22_0+0441-086a4a97432
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -28,5 +28,5 @@
 -->
 
 <stops xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/stopinfo_file.xsd">
-    <stopinfo id="v_0" type="DEFAULT_VEHTYPE" lane="E0_0" pos="95.69" parking="1" started="40.00" ended="45.00" parkingArea="pa_0" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
+    <stopinfo id="v_0" type="DEFAULT_VEHTYPE" lane="E0_0" pos="95.69" parking="1" started="40.00" ended="45.00" parkingArea="pa_0" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
 </stops>

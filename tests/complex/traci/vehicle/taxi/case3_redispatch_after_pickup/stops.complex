@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-03-22 17:18:13 by Eclipse SUMO sumo Version v1_16_0+1570-ec89ba0
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<!-- generated on 2025-02-21 15:47:34 by Eclipse SUMO sumo Version v1_22_0+0441-086a4a97432
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="input_net4.net.xml"/>
@@ -23,14 +23,14 @@
     </taxi_device>
 
     <traci_server>
-        <remote-port value="35557"/>
+        <remote-port value="40523"/>
     </traci_server>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <stops xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/stopinfo_file.xsd">
-    <stopinfo id="taxi_0" type="taxi" lane="A1B1_0" pos="4.97" parking="1" started="13.00" ended="14.00" initialPersons="0" loadedPersons="1" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
-    <stopinfo id="taxi_0" type="taxi" lane="B1C1_0" pos="5.00" parking="1" started="27.00" ended="28.00" initialPersons="1" loadedPersons="1" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
-    <stopinfo id="taxi_0" type="taxi" lane="C1D1_0" pos="50.00" parking="1" started="49.00" ended="109.00" initialPersons="2" loadedPersons="1" unloadedPersons="1" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
+    <stopinfo id="taxi_0" type="taxi" lane="A1B1_0" pos="4.97" parking="1" started="13.00" ended="14.00" initialPersons="0" loadedPersons="1" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
+    <stopinfo id="taxi_0" type="taxi" lane="B1C1_0" pos="5.00" parking="1" started="27.00" ended="28.00" initialPersons="1" loadedPersons="1" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
+    <stopinfo id="taxi_0" type="taxi" lane="C1D1_0" pos="50.00" parking="1" started="49.00" ended="109.00" initialPersons="2" loadedPersons="1" unloadedPersons="1" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
 </stops>
