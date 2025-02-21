@@ -2012,8 +2012,12 @@ MSLink::getZipperSpeed(const MSVehicle* ego, const double dist, double vSafe,
         assert(false);
         return vSafe;
     } else if (myFoeLinks.size() > 1) {
+        std::vector<int> foeIndices;
+        for (const MSLink* foeLink : myFoeLinks) {
+            foeIndices.push_back(foeLink->getIndex());
+        }
         throw ProcessError("Zipper junctions with more than two conflicting lanes are not supported (at junction '"
-                           + myJunction->getID() + "')");
+                           + myJunction->getID() + "' link " + toString(getIndex()) + " has foes " + toString(foeIndices) + ")");
     }
     const double brakeGap = ego->getCarFollowModel().brakeGap(ego->getSpeed(), ego->getCarFollowModel().getMaxDecel(), TS);
     if (dist > MAX2(myFoeVisibilityDistance, brakeGap)) {
