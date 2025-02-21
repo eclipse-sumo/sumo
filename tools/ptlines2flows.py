@@ -518,7 +518,7 @@ def createRoutes(options, trpMap, stopNames):
         if not options.novtypes:
             writeTypes(foutflows, options.vtypeprefix, None)
 
-        for routeID, routeStr in routes:
+        for routeID, routeStr in sorted(routes):
             foutflows.write(routeStr)
 
         for vehID, flowID, lineRef, type, begin in flows:
