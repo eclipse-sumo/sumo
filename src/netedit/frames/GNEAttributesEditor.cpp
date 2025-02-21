@@ -188,12 +188,14 @@ GNEAttributesEditor::refreshAttributesEditor() {
             // only show extended attributes button (already created)
             showButtons = true;
         } else if (myAttributeType == AttributeType::PARAMETERS) {
-            // only show parameters row
-            myAttributesEditorRows[itRows]->showAttributeRow(this, tagProperty->getAttributeProperties(GNE_ATTR_PARAMETERS), isReparenting());
-            // set parameters button at the end
-            myOpenGenericParametersEditorButton->reparent(this);
-            // only show open parameters editor
-            showButtons = true;
+            if (tagProperty->hasParameters()) {
+                // only show parameters row
+                myAttributesEditorRows[itRows]->showAttributeRow(this, tagProperty->getAttributeProperties(GNE_ATTR_PARAMETERS), isReparenting());
+                // set parameters button at the end
+                myOpenGenericParametersEditorButton->reparent(this);
+                // only show open parameters editor
+                showButtons = true;
+            }
         } else {
             // Iterate over tag property of first AC and show row for every attribute
             for (const auto& attrProperty : tagProperty->getAttributeProperties()) {
