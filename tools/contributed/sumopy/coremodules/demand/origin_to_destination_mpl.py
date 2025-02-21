@@ -33,7 +33,7 @@ from agilepy.lib_base.processes import Process
 
 class OdPlots(PlotoptionsMixin, Process):
     def __init__(self, ident, demand, logger=None, **kwargs):
-        print 'OdPlots.__init__'
+        print('OdPlots.__init__')
         self._init_common(ident,
                           parent=demand,
                           name='OD plots',
@@ -70,7 +70,7 @@ class OdPlots(PlotoptionsMixin, Process):
             intervalchoices[str(int(time_start/60.0))+'min-'+str(int(time_end/60.0)) +
                             'min'] = (int(time_start), int(time_end))
 
-        self.intervals = attrsman.add(cm.ListConf('intervals', intervalchoices.values(),
+        self.intervals = attrsman.add(cm.ListConf('intervals', list(intervalchoices.values()),
                                                   groupnames=['options'],
                                                   choices=intervalchoices,
                                                   name='Intervals',
@@ -155,7 +155,7 @@ class OdPlots(PlotoptionsMixin, Process):
         self.add_save_options(**kwargs)
 
     def show(self):
-        print 'OdPlots.show'
+        print('OdPlots.show')
         # if self.axis  is None:
         scenario = self.parent.get_scenario()
         zones = scenario.landuse.zones
@@ -192,7 +192,7 @@ class OdPlots(PlotoptionsMixin, Process):
                 outflows[id_zone_orig] += n_trips
                 inflows[id_zone_dest] += n_trips
                 od = (id_zone_orig, id_zone_dest)
-                if odflows.has_key(od):
+                if od in odflows:
                     odflows[od] += n_trips
                 else:
                     odflows[od] = n_trips
@@ -201,7 +201,7 @@ class OdPlots(PlotoptionsMixin, Process):
             balance[id_zone] = inflows[id_zone] - outflows[id_zone]
             totals[id_zone] = inflows[id_zone] + outflows[id_zone]
             # debug
-            print ' id_zone', id_zone, 'in', inflows[id_zone], 'out', outflows[id_zone], 'balance', balance[id_zone], 'totals', totals[id_zone]
+            print(' id_zone', id_zone, 'in', inflows[id_zone], 'out', outflows[id_zone], 'balance', balance[id_zone], 'totals', totals[id_zone])
 
         unit = self.unit_mapscale
         mapscale = self.get_attrsman().get_config('unit_mapscale').mapscales[unit]
@@ -211,21 +211,21 @@ class OdPlots(PlotoptionsMixin, Process):
 
         #self.zonefillmode  = ['zone color','flows in - flows out','flows in + flows out','flows in','flows out'],
         if self.zonefillmode == 'flows in - flows out':
-            ids_zone = balance.keys()
-            values = balance.values()
+            ids_zone = list(balance.keys())
+            values = list(balance.values())
         elif self.zonefillmode == 'flows in + flows out':
-            ids_zone = totals.keys()
-            values = totals.values()
+            ids_zone = list(totals.keys())
+            values = list(totals.values())
         elif self.zonefillmode == 'flows in':
-            ids_zone = inflows.keys()
-            values = inflows.values()
+            ids_zone = list(inflows.keys())
+            values = list(inflows.values())
         elif self.zonefillmode == 'flows out':
-            ids_zone = outflows.keys()
-            values = outflows.values()
+            ids_zone = list(outflows.keys())
+            values = list(outflows.values())
         else:
             # dummy
-            ids_zone = balance.keys()
-            values = balance.values()
+            ids_zone = list(balance.keys())
+            values = list(balance.values())
         ppatches = []
         for id_zone, shape, value in zip(ids_zone, zones.shapes[ids_zone], values):
 
@@ -268,7 +268,7 @@ class OdPlots(PlotoptionsMixin, Process):
             else:
                 cmap = mpl.cm.jet
             patchcollection = PatchCollection(ppatches, cmap=cmap, alpha=self.alpha_zones)
-            print '  values', values
+            print('  values', values)
             patchcollection.set_array(np.array(values, dtype=np.float32))
 
             ax.add_collection(patchcollection)
@@ -284,11 +284,11 @@ class OdPlots(PlotoptionsMixin, Process):
                 ax.add_patch(patch)
 
         if self.is_show_flows:
-            values_raw = np.array(odflows.values(), dtype=np.float32)
+            values_raw = np.array(list(odflows.values()), dtype=np.float32)
             widthcoeff = self.width_flows_max/np.max(values_raw)
 
             apatches = []
-            for od, flow in odflows.iteritems():
+            for od, flow in odflows.items():
                 id_zone_orig, id_zone_dest = od
                 x1, y1 = zones.coords[id_zone_orig][:2]
                 x2, y2 = zones.coords[id_zone_dest][:2]
@@ -298,7 +298,7 @@ class OdPlots(PlotoptionsMixin, Process):
                 #    text = str(int(flow))
                 # else:
                 #    text = ''
-                print '  x1, y1', x1, y1, 'x2, y2', x2, y2
+                print('  x1, y1', x1, y1, 'x2, y2', x2, y2)
                 if id_zone_orig != id_zone_dest:
                     patch = FancyArrow(x1*mapscale, y1*mapscale, (x2-x1)*mapscale, (y2-y1)*mapscale,
                                        width=width,
