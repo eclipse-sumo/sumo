@@ -1,4 +1,4 @@
-Eclipse SUMO netconvert Version v1_22_0+0186-b0bf0be436b
+Eclipse SUMO netconvert Version v1_22_0+0440-9af1eda2b59
  Copyright (C) 2001-2025 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Network importer / builder for the microscopic, multi-modal traffic simulation
  SUMO.
@@ -561,6 +561,8 @@ Railway Options:
                                         of rail edges
   --railway.signal.guess.by-stops      Guess signals that guard public
                                         transport stops
+  --railway.signal.permit-unsignalized STR[]  List rail classes that may run
+                                        without rail signals
   --railway.access-distance FLOAT      The search radius for finding suitable
                                         road accesses for rail stops
   --railway.max-accesses INT           The maximum road accesses registered per

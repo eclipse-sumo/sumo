@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-02-29 13:56:13 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
+<!-- generated on 2025-02-21 15:02:34 by Eclipse SUMO netconvert Version v1_22_0+0440-9af1eda2b59
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <node-files value="input_plain.nod.xml"/>
@@ -28,7 +28,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <ignore-errors.edge-type value="true"/>
     </report>
 
-</configuration>
+</netconvertConfiguration>
 -->
 
 <net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
@@ -148,17 +148,17 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </junction>
 
     <connection from="101694131#0" to="101699679#1" fromLane="0" toLane="0" via=":cluster_4673135617_4673135618_4673135619_588181295_0_0" dir="s" state="M"/>
-    <connection from="101694131#0" to="153522302#1" fromLane="0" toLane="0" via=":cluster_4673135617_4673135618_4673135619_588181295_1_0" dir="L" state="M"/>
+    <connection from="101694131#0" to="153522302#1" fromLane="0" toLane="0" via=":cluster_4673135617_4673135618_4673135619_588181295_1_0" dir="L" state="m"/>
     <connection from="101694131#0" to="101694131#1" fromLane="0" toLane="0" via=":cluster_4673135617_4673135618_4673135619_588181295_2_0" dir="l" state="M"/>
-    <connection from="101699679#0" to="101699679#1" fromLane="0" toLane="0" via=":cluster_4673135617_4673135618_4673135619_588181295_3_0" dir="s" state="M"/>
-    <connection from="101699679#0" to="153522302#1" fromLane="0" toLane="0" via=":cluster_4673135617_4673135618_4673135619_588181295_4_0" dir="L" state="M"/>
-    <connection from="101699679#0" to="101694131#1" fromLane="0" toLane="0" via=":cluster_4673135617_4673135618_4673135619_588181295_5_0" dir="l" state="M"/>
+    <connection from="101699679#0" to="101699679#1" fromLane="0" toLane="0" via=":cluster_4673135617_4673135618_4673135619_588181295_3_0" dir="s" state="m"/>
+    <connection from="101699679#0" to="153522302#1" fromLane="0" toLane="0" via=":cluster_4673135617_4673135618_4673135619_588181295_4_0" dir="L" state="m"/>
+    <connection from="101699679#0" to="101694131#1" fromLane="0" toLane="0" via=":cluster_4673135617_4673135618_4673135619_588181295_5_0" dir="l" state="m"/>
     <connection from="101699692#1" to="153522302#0" fromLane="0" toLane="0" via=":1661927181_0_0" dir="s" state="M"/>
     <connection from="101699692#1" to="101699679#0" fromLane="0" toLane="0" via=":1661927181_1_0" dir="s" state="M"/>
     <connection from="101699692#1" to="101694131#0" fromLane="0" toLane="0" via=":1661927181_2_0" dir="s" state="M"/>
-    <connection from="153522302#0" to="101699679#1" fromLane="0" toLane="0" via=":cluster_4673135617_4673135618_4673135619_588181295_6_0" dir="s" state="M"/>
-    <connection from="153522302#0" to="153522302#1" fromLane="0" toLane="0" via=":cluster_4673135617_4673135618_4673135619_588181295_7_0" dir="L" state="M"/>
-    <connection from="153522302#0" to="101694131#1" fromLane="0" toLane="0" via=":cluster_4673135617_4673135618_4673135619_588181295_8_0" dir="l" state="M"/>
+    <connection from="153522302#0" to="101699679#1" fromLane="0" toLane="0" via=":cluster_4673135617_4673135618_4673135619_588181295_6_0" dir="s" state="m"/>
+    <connection from="153522302#0" to="153522302#1" fromLane="0" toLane="0" via=":cluster_4673135617_4673135618_4673135619_588181295_7_0" dir="L" state="m"/>
+    <connection from="153522302#0" to="101694131#1" fromLane="0" toLane="0" via=":cluster_4673135617_4673135618_4673135619_588181295_8_0" dir="l" state="m"/>
     <connection from="46140393" to="101699692#1" fromLane="0" toLane="0" via=":4673135620_0_0" dir="s" state="M"/>
 
     <connection from=":1661927181_0" to="153522302#0" fromLane="0" toLane="0" dir="s" state="M"/>

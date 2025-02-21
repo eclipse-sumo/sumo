@@ -1,13 +1,13 @@
 Parsing types from '/scr1/sumo/data/typemap/osmNetconvert.typ.xml' ... done.
 Parsing types from '/scr1/sumo/data/typemap/osmNetconvertBicycle.typ.xml' ... done.
-Parsing nodes from osm-file 'osm.xml.gz' ... done (1ms).
+Parsing nodes from osm-file 'osm.xml.gz' ... done (2ms).
 Parsing edges from osm-file 'osm.xml.gz' ...
- done (3ms).
+ done (20ms).
 Removing duplicate edges ... done.
 Adding new type 'cycleway.track|highway.tertiary' (first occurrence for edge '10597569').
 Adding new type 'cycleway.lane|cycleway.track|highway.secondary' (first occurrence for edge '93203448').
 Parsing relations from osm-file 'osm.xml.gz' ...
- done (52ms).
+ done (81ms).
  Import done:
    61 nodes loaded.
    42 types loaded.
@@ -31,8 +31,8 @@ Computing turning directions ...
 Assigning nodes to traffic lights ... done (0ms).
 Removing sharp turn with radius 2.18 at the start of edge '236529400'.
 Sorting nodes' edges ... done (0ms).
-Computing node shapes ... done (16ms).
-Computing edge shapes ... done (1ms).
+Computing node shapes ... done (1ms).
+Computing edge shapes ... done (8ms).
 Computing node types ... done (0ms).
 Computing priorities ... done (0ms).
 Computing approached edges ... done (0ms).
@@ -41,24 +41,25 @@ Computing approaching lanes ... done (0ms).
 Dividing of lanes on approached lanes ... done (0ms).
 Processing turnarounds ... done (0ms).
 Rechecking of lane endings ...
- done (0ms).
+ done (1ms).
 Computing traffic light control information ... done (0ms).
 Computing node logics ... done (0ms).
 Computing traffic light logics ... done (0ms).
  8 traffic light(s) computed.
-Find accesses for pt rail stops ... done (4ms).
+Find accesses for pt rail stops ... done (0ms).
 -----------------------------------------------------
 Summary:
  Node type statistics:
   Unregulated junctions       : 0
   Dead-end junctions          : 14
-  Priority junctions          : 21
+  Priority junctions          : 16
   Right-before-left junctions : 0
   Traffic light junctions      : 8
+  Zipper-merge junctions      : 5
  Network boundaries:
   Original boundary  : 13.51,52.46,13.52,52.46
   Applied offset     : -398939.91,-5813454.64
   Converted boundary : 0.00,0.00,207.75,105.63
 -----------------------------------------------------
-Writing network ... done (8ms).
+Writing network ... done (5ms).
 Success.
