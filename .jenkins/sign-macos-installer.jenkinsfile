@@ -352,11 +352,13 @@ pipeline {
             steps {
                 unstash 'notarized'
                 script {
+                    def githubToken = credentials('github-bot-token')
+                    def githubRepo = "eclipse-sumo/sumo"
                     def commitHash = sh(script: "cd sumo && git rev-parse HEAD", returnStdout: true).trim()
                     def branchName = sh(script: "cd sumo && git rev-parse --abbrev-ref HEAD", returnStdout: true).trim()
-                    def githubRepo = "eclipse-sumo/sumo"
                     def workflowId = "macos.yml"
-                    def githubToken = credentials('github-bot-token')
+                    def filePath = "notarized/sumo*.pkg"
+                    def artifactName = "sumo-macOS-installer.zip"
 
                     echo "Searching for GitHub Actions workflow run for commit: ${commitHash} on branch: ${branchName}"
 
@@ -380,6 +382,22 @@ pipeline {
 
                     def runId = matchedRun.id
                     echo "Found Workflow Run ID: ${runId}"
+
+                    // Get the exact file name
+                    def fileName = sh(script: "ls ${filePath}", returnStdout: true).trim()
+
+                    // GitHub accepts only zipped uploads
+                    sh "zip -j artifact.zip ${fileName}"
+
+                    // Upload the artifact using curl
+                    echo "Uploading file: ${fileName} as a zip archive to GitHub"
+                    def uploadUrl = "https://uploads.github.com/repos/${githubRepo}/actions/runs/${runId}/artifacts"
+                    def uploadResponse = sh(
+                        script: 'curl -s -X POST -H "Authorization: Bearer ' + GITHUB_TOKEN + '" -H "Content-Type: application/zip" -H "Accept: application/vnd.github.v3+json" --data-binary @artifact.zip "' + uploadUrl + '?name=' + artifactName + '"',
+                        returnStdout: true
+                    ).trim()
+
+                    echo "Upload response: ${uploadResponse}"
                 }
             }
         }
