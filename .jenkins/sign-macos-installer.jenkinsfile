@@ -393,14 +393,7 @@ pipeline {
                     echo "Uploading file: ${fileName} as a zip archive to GitHub"
                     def uploadUrl = "https://uploads.github.com/repos/${githubRepo}/actions/runs/${runId}/artifacts"
                     def uploadResponse = sh(
-                        script: '''
-                            curl -s -X POST \
-                            -H "Authorization: Bearer ${GITHUB_TOKEN}" \
-                            -H "Accept: application/vnd.github.v3+json" \
-                            -F "name=${artifactName}" \
-                            -F "data=@artifact.zip" \
-                            "${uploadUrl}"
-                        ''',
+                        script: 'curl -s -X POST -H "Authorization: Bearer ' + GITHUB_TOKEN + '" -H "Accept: application/vnd.github.v3+json" -F "name=' + artifactName + '" -F "data=@artifact.zip" "' + uploadUrl + '"',
                         returnStdout: true
                     ).trim()
                     echo "Upload response: ${uploadResponse}"
