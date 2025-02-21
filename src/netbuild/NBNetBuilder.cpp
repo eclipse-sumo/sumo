@@ -470,6 +470,7 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
     // CONNECTIONS COMPUTATION
     //
     before = PROGRESS_BEGIN_TIME_MESSAGE(TL("Computing node types"));
+    NBNode::initRailSignalClasses(myNodeCont);
     NBNodeTypeComputer::computeNodeTypes(myNodeCont, myTLLCont);
     PROGRESS_TIME_MESSAGE(before);
     //

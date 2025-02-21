@@ -850,6 +850,9 @@ public:
     /// @brief ensure connectivity for all vClasses
     void recheckVClassConnections(NBEdge* currentOutgoing);
 
+    /// @brief initialize signalized rail classes
+    static void initRailSignalClasses(const NBNodeCont& nc);
+
 private:
     /// @brief sets the priorites in case of a priority junction
     void setPriorityJunctionPriorities();
@@ -907,6 +910,9 @@ private:
 
     /// @brief compute offset for centering path-across-street crossings
     void patchOffset_pathAcrossStreet(double& offset);
+
+    /// @brief whether the given rail connections at this node may run in unsignalized (right-of-way) mode
+    bool unsignalizedOperation() const;
 
 private:
     /// @brief The position the node lies at
@@ -982,6 +988,12 @@ private:
 
     /// @brief whether the node type was guessed rather than loaded
     bool myTypeWasGuessed;
+
+    /// @brief all vehicle classes for which rail signals exist
+    static SVCPermissions myHaveRailSignalClasses;
+
+    /// @brief all rail classes for which operation without rail signals is permitted
+    static SVCPermissions myPermitUnsignalizedClasses;
 
 private:
     /// @brief invalidated copy constructor

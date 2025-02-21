@@ -294,8 +294,13 @@ NBNodeTypeComputer::computeNodeTypes(NBNodeCont& nc, NBTrafficLightLogicCont& tl
             continue;
         }
         if (isRailwayNode(n)) {
-            // priority instead of unregulated to ensure that collisions can be detected
-            n->myType = SumoXMLNodeType::PRIORITY;
+            if (n->unsignalizedOperation()) {
+                // avoid slowing down when there are no conflicts
+                n->myType = SumoXMLNodeType::ZIPPER;
+            } else {
+                // priority instead of unregulated to ensure that collisions can be detected
+                n->myType = SumoXMLNodeType::PRIORITY;
+            }
             continue;
         }
         // determine the type

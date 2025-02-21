@@ -265,6 +265,9 @@ NBFrame::fillOptions(OptionsCont& oc, bool forNetgen) {
         oc.doRegister("railway.signal.guess.by-stops", new Option_Bool(false));
         oc.addDescription("railway.signal.guess.by-stops", "Railway", TL("Guess signals that guard public transport stops"));
 
+        oc.doRegister("railway.signal.permit-unsignalized", new Option_StringVector({"tram", "cable_car"}));
+        oc.addDescription("railway.signal.permit-unsignalized", "Railway", TL("List rail classes that may run without rail signals"));
+
         oc.doRegister("railway.access-distance", new Option_Float(150.f));
         oc.addDescription("railway.access-distance", "Railway", TL("The search radius for finding suitable road accesses for rail stops"));
         oc.addSynonyme("railway.access-distance", "osm.stop-output.footway-access-distance", true);

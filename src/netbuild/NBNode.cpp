@@ -93,6 +93,9 @@ const int NBNode::AVOID_INTERSECTING_LEFT_TURNS(8);
 const int NBNode::SCURVE_IGNORE(16);
 const int NBNode::INDIRECT_LEFT(32);
 
+SVCPermissions NBNode::myHaveRailSignalClasses;
+SVCPermissions NBNode::myPermitUnsignalizedClasses;
+
 // ===========================================================================
 // method definitions
 // ===========================================================================
@@ -2522,7 +2525,7 @@ NBNode::getLinkState(const NBEdge* incoming, const NBEdge* outgoing, int fromLan
             // legacy mode
             && (!incoming->isInsideTLS() || getDirection(incoming, outgoing) != LinkDirection::STRAIGHT)
             // avoid linkstate minor at pure railway nodes
-            && !NBNodeTypeComputer::isRailwayNode(this)) {
+            && (!NBNodeTypeComputer::isRailwayNode(this) || unsignalizedOperation())) {
         return myType == SumoXMLNodeType::PRIORITY_STOP && incoming->getJunctionPriority(this) == NBEdge::JunctionPriority::MINOR_ROAD ? LINKSTATE_STOP : LINKSTATE_MINOR; // minor road
     }
     // traffic lights are not regarded here
@@ -2543,6 +2546,33 @@ NBNode::zipperConflict(const NBEdge* incoming, const NBEdge* outgoing, int fromL
         }
     }
     return false;
+}
+
+
+bool
+NBNode::unsignalizedOperation() const {
+    SVCPermissions railClasses = 0;
+    for (NBEdge* e : myIncomingEdges) {
+        railClasses |= (e->getPermissions() & SVC_RAIL_CLASSES);
+    }
+    assert(railClasses != 0);
+    return ((railClasses & myPermitUnsignalizedClasses) == railClasses
+            && (railClasses & myHaveRailSignalClasses) == 0);
+}
+
+
+void
+NBNode::initRailSignalClasses(const NBNodeCont& nc) {
+    myPermitUnsignalizedClasses = parseVehicleClasses(OptionsCont::getOptions().getStringVector("railway.signal.permit-unsignalized"));
+    myHaveRailSignalClasses = 0;
+    for (auto it : nc) {
+        const NBNode* n = it.second;
+        if (n->getType() == SumoXMLNodeType::RAIL_SIGNAL) {
+            for (const NBEdge* in : n->getIncomingEdges()) {
+                myHaveRailSignalClasses |= in->getPermissions();
+            }
+        }
+    }
 }
 
 
