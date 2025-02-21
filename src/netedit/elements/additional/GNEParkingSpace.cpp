@@ -35,7 +35,7 @@
 // ===========================================================================
 
 GNEParkingSpace::GNEParkingSpace(GNENet* net) :
-    GNEAdditional("", net, GLO_PARKING_SPACE, SUMO_TAG_PARKING_SPACE, GUIIconSubSys::getIcon(GUIIcon::PARKINGSPACE), ""),
+    GNEAdditional("", net, GLO_PARKING_SPACE, SUMO_TAG_PARKING_SPACE, GUIIcon::PARKINGSPACE, ""),
     mySlope(0) {
     // reset default values
     resetDefaultValues();
@@ -45,7 +45,7 @@ GNEParkingSpace::GNEParkingSpace(GNENet* net) :
 GNEParkingSpace::GNEParkingSpace(GNEAdditional* parkingAreaParent, const Position& pos,
                                  const std::string& width, const std::string& length, const std::string& angle, double slope,
                                  const std::string& name, const Parameterised::Map& parameters) :
-    GNEAdditional(parkingAreaParent, GLO_PARKING_SPACE, SUMO_TAG_PARKING_SPACE, GUIIconSubSys::getIcon(GUIIcon::PARKINGSPACE), name),
+    GNEAdditional(parkingAreaParent, GLO_PARKING_SPACE, SUMO_TAG_PARKING_SPACE, GUIIcon::PARKINGSPACE, name),
     Parameterised(parameters),
     myPosition(pos),
     myWidth(width),

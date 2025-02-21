@@ -34,7 +34,7 @@
 // ===========================================================================
 
 GNEWalk::GNEWalk(SumoXMLTag tag, GNENet* net) :
-    GNEDemandElement("", net, GLO_WALK, tag, GUIIconSubSys::getIcon(GUIIcon::WALK_EDGE), GNEPathElement::Options::DEMAND_ELEMENT),
+    GNEDemandElement("", net, GLO_WALK, tag, GUIIcon::WALK_EDGE, GNEPathElement::Options::DEMAND_ELEMENT),
     GNEDemandElementPlan(this, -1, -1) {
     // reset default values
     resetDefaultValues();
@@ -43,7 +43,7 @@ GNEWalk::GNEWalk(SumoXMLTag tag, GNENet* net) :
 
 GNEWalk::GNEWalk(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* personParent, const GNEPlanParents& planParameters,
                  const double arrivalPosition, const double speed, const SUMOTime duration) :
-    GNEDemandElement(personParent, net, GLO_WALK, tag, GUIIconSubSys::getIcon(icon), GNEPathElement::Options::DEMAND_ELEMENT),
+    GNEDemandElement(personParent, net, GLO_WALK, tag, icon, GNEPathElement::Options::DEMAND_ELEMENT),
     GNEDemandElementPlan(this, -1, arrivalPosition),
     mySpeed(speed),
     myDuration(duration) {

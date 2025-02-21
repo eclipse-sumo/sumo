@@ -76,7 +76,7 @@ GNERoute::GNERoutePopupMenu::onCmdApplyDistance(FXObject*, FXSelector, void*) {
 // ===========================================================================
 
 GNERoute::GNERoute(SumoXMLTag tag, GNENet* net) :
-    GNEDemandElement("", net, GLO_ROUTE, tag, GUIIconSubSys::getIcon(GUIIcon::ROUTE),
+    GNEDemandElement("", net, GLO_ROUTE, tag, GUIIcon::ROUTE,
                      GNEPathElement::Options::DEMAND_ELEMENT | GNEPathElement::Options::ROUTE),
     myColor(RGBColor::YELLOW),
     myRepeat(0),
@@ -90,7 +90,7 @@ GNERoute::GNERoute(SumoXMLTag tag, GNENet* net) :
 
 GNERoute::GNERoute(GNENet* net) :
     GNEDemandElement(net->getAttributeCarriers()->generateDemandElementID(SUMO_TAG_ROUTE), net, GLO_ROUTE, SUMO_TAG_ROUTE,
-                     GUIIconSubSys::getIcon(GUIIcon::ROUTE), GNEPathElement::Options::DEMAND_ELEMENT | GNEPathElement::Options::ROUTE),
+                     GUIIcon::ROUTE, GNEPathElement::Options::DEMAND_ELEMENT | GNEPathElement::Options::ROUTE),
     myColor(RGBColor::YELLOW),
     myRepeat(0),
     myCycleTime(0),
@@ -102,7 +102,7 @@ GNERoute::GNERoute(GNENet* net) :
 
 
 GNERoute::GNERoute(GNENet* net, const std::string& id, const GNEDemandElement* originalRoute) :
-    GNEDemandElement(id, net, GLO_ROUTE, SUMO_TAG_ROUTE, GUIIconSubSys::getIcon(GUIIcon::ROUTE),
+    GNEDemandElement(id, net, GLO_ROUTE, SUMO_TAG_ROUTE, GUIIcon::ROUTE,
                      GNEPathElement::Options::DEMAND_ELEMENT | GNEPathElement::Options::ROUTE),
     Parameterised(originalRoute->getACParametersMap()),
     myRepeat(parse<int>(originalRoute->getAttribute(SUMO_ATTR_REPEAT))),
@@ -116,7 +116,7 @@ GNERoute::GNERoute(GNENet* net, const std::string& id, const GNEDemandElement* o
 
 
 GNERoute::GNERoute(GNENet* net, GNEVehicle* vehicleParent, const GNEDemandElement* originalRoute) :
-    GNEDemandElement(vehicleParent, net, GLO_ROUTE_EMBEDDED, GNE_TAG_ROUTE_EMBEDDED, GUIIconSubSys::getIcon(GUIIcon::ROUTE),
+    GNEDemandElement(vehicleParent, net, GLO_ROUTE_EMBEDDED, GNE_TAG_ROUTE_EMBEDDED, GUIIcon::ROUTE,
                      GNEPathElement::Options::DEMAND_ELEMENT | GNEPathElement::Options::ROUTE),
     Parameterised(originalRoute->getACParametersMap()),
     myRepeat(parse<int>(originalRoute->getAttribute(SUMO_ATTR_REPEAT))),
@@ -133,7 +133,7 @@ GNERoute::GNERoute(GNENet* net, GNEVehicle* vehicleParent, const GNEDemandElemen
 GNERoute::GNERoute(GNENet* net, const std::string& id, SUMOVehicleClass vClass, const std::vector<GNEEdge*>& edges,
                    const RGBColor& color, const int repeat, const SUMOTime cycleTime, const double probability,
                    const Parameterised::Map& parameters) :
-    GNEDemandElement(id, net, GLO_ROUTE, SUMO_TAG_ROUTE, GUIIconSubSys::getIcon(GUIIcon::ROUTE),
+    GNEDemandElement(id, net, GLO_ROUTE, SUMO_TAG_ROUTE, GUIIcon::ROUTE,
                      GNEPathElement::Options::DEMAND_ELEMENT | GNEPathElement::Options::ROUTE),
     Parameterised(parameters),
     myColor(color),
@@ -149,7 +149,7 @@ GNERoute::GNERoute(GNENet* net, const std::string& id, SUMOVehicleClass vClass, 
 GNERoute::GNERoute(GNENet* net, GNEDemandElement* vehicleParent, const std::vector<GNEEdge*>& edges,
                    const RGBColor& color, const int repeat, const SUMOTime cycleTime, const double probability,
                    const Parameterised::Map& parameters) :
-    GNEDemandElement(vehicleParent, net, GLO_ROUTE_EMBEDDED, GNE_TAG_ROUTE_EMBEDDED, GUIIconSubSys::getIcon(GUIIcon::ROUTE),
+    GNEDemandElement(vehicleParent, net, GLO_ROUTE_EMBEDDED, GNE_TAG_ROUTE_EMBEDDED, GUIIcon::ROUTE,
                      GNEPathElement::Options::DEMAND_ELEMENT | GNEPathElement::Options::ROUTE),
     Parameterised(parameters),
     myColor(color),

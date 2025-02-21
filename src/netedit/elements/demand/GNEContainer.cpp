@@ -158,12 +158,9 @@ GNEContainer::GNESelectedContainersPopupMenu::onCmdTransform(FXObject* obj, FXSe
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-#ifdef _MSC_VER
-#pragma warning(push)
-#pragma warning(disable: 4355) // mask warning about "this" in initializers
-#endif
+
 GNEContainer::GNEContainer(SumoXMLTag tag, GNENet* net) :
-    GNEDemandElement("", net, GLO_CONTAINER, tag, GUIIconSubSys::getIcon(GUIIcon::CONTAINER),
+    GNEDemandElement("", net, GLO_CONTAINER, tag, GUIIcon::CONTAINER,
                      GNEPathElement::Options::DEMAND_ELEMENT),
     GNEDemandElementFlow(this) {
     // reset default values
@@ -176,7 +173,7 @@ GNEContainer::GNEContainer(SumoXMLTag tag, GNENet* net) :
 
 GNEContainer::GNEContainer(SumoXMLTag tag, GNENet* net, GNEDemandElement* pType, const SUMOVehicleParameter& containerparameters) :
     GNEDemandElement(containerparameters.id, net, (tag == SUMO_TAG_CONTAINERFLOW) ? GLO_CONTAINERFLOW : GLO_CONTAINER, tag,
-                     (tag == SUMO_TAG_CONTAINERFLOW) ? GUIIconSubSys::getIcon(GUIIcon::CONTAINERFLOW) : GUIIconSubSys::getIcon(GUIIcon::CONTAINER),
+                     (tag == SUMO_TAG_CONTAINERFLOW) ? GUIIcon::CONTAINERFLOW : GUIIcon::CONTAINER,
                      GNEPathElement::Options::DEMAND_ELEMENT),
     GNEDemandElementFlow(this, containerparameters) {
     // set parents
@@ -184,9 +181,6 @@ GNEContainer::GNEContainer(SumoXMLTag tag, GNENet* net, GNEDemandElement* pType,
     // set manually vtypeID (needed for saving)
     vtypeid = pType->getID();
 }
-#ifdef _MSC_VER
-#pragma warning(pop)
-#endif
 
 
 GNEContainer::~GNEContainer() {}

@@ -155,17 +155,12 @@ GNEPerson::GNESelectedPersonsPopupMenu::onCmdTransform(FXObject* obj, FXSelector
     return 1;
 }
 
-
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-#ifdef _MSC_VER
-#pragma warning(push)
-#pragma warning(disable: 4355) // mask warning about "this" in initializers
-#endif
+
 GNEPerson::GNEPerson(SumoXMLTag tag, GNENet* net) :
-    GNEDemandElement("", net, GLO_PERSON, tag, GUIIconSubSys::getIcon(GUIIcon::PERSON),
-                     GNEPathElement::Options::DEMAND_ELEMENT),
+    GNEDemandElement("", net, GLO_PERSON, tag, GUIIcon::PERSON, GNEPathElement::Options::DEMAND_ELEMENT),
     GNEDemandElementFlow(this) {
     // reset default values
     resetDefaultValues();
@@ -177,17 +172,13 @@ GNEPerson::GNEPerson(SumoXMLTag tag, GNENet* net) :
 
 GNEPerson::GNEPerson(SumoXMLTag tag, GNENet* net, GNEDemandElement* pType, const SUMOVehicleParameter& personparameters) :
     GNEDemandElement(personparameters.id, net, (tag == SUMO_TAG_PERSONFLOW) ? GLO_PERSONFLOW : GLO_PERSON, tag,
-                     (tag == SUMO_TAG_PERSONFLOW) ? GUIIconSubSys::getIcon(GUIIcon::PERSONFLOW) : GUIIconSubSys::getIcon(GUIIcon::PERSON),
-                     GNEPathElement::Options::DEMAND_ELEMENT),
+                     (tag == SUMO_TAG_PERSONFLOW) ? GUIIcon::PERSONFLOW : GUIIcon::PERSON, GNEPathElement::Options::DEMAND_ELEMENT),
     GNEDemandElementFlow(this, personparameters) {
     // set parents
     setParent<GNEDemandElement*>(pType);
     // set manually vtypeID (needed for saving)
     vtypeid = pType->getID();
 }
-#ifdef _MSC_VER
-#pragma warning(pop)
-#endif
 
 
 GNEPerson::~GNEPerson() {}

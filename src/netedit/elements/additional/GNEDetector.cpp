@@ -36,12 +36,12 @@
 // member method definitions
 // ===========================================================================
 
-GNEDetector::GNEDetector(GNENet* net, GUIGlObjectType type, SumoXMLTag tag, FXIcon* icon) :
+GNEDetector::GNEDetector(GNENet* net, GUIGlObjectType type, SumoXMLTag tag, GUIIcon icon) :
     GNEAdditional("", net, type, tag, icon, "") {
 }
 
 
-GNEDetector::GNEDetector(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, FXIcon* icon, const double pos,
+GNEDetector::GNEDetector(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, GUIIcon icon, const double pos,
                          const SUMOTime period, GNELane* lane, const std::string& filename, const std::vector<std::string>& vehicleTypes,
                          const std::vector<std::string>& nextEdges, const std::string& detectPersons, const std::string& name,
                          const bool friendlyPos, const Parameterised::Map& parameters) :
@@ -59,7 +59,7 @@ GNEDetector::GNEDetector(const std::string& id, GNENet* net, GUIGlObjectType typ
 }
 
 
-GNEDetector::GNEDetector(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, FXIcon* icon, const double pos,
+GNEDetector::GNEDetector(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, GUIIcon icon, const double pos,
                          const SUMOTime period, const std::vector<GNELane*>& lanes, const std::string& filename,
                          const std::vector<std::string>& vehicleTypes, const std::vector<std::string>& nextEdges,
                          const std::string& detectPersons, const std::string& name, const bool friendlyPos,
@@ -78,7 +78,7 @@ GNEDetector::GNEDetector(const std::string& id, GNENet* net, GUIGlObjectType typ
 }
 
 
-GNEDetector::GNEDetector(GNEAdditional* additionalParent, GUIGlObjectType type, SumoXMLTag tag, FXIcon* icon,
+GNEDetector::GNEDetector(GNEAdditional* additionalParent, GUIGlObjectType type, SumoXMLTag tag, GUIIcon icon,
                          const double pos, const SUMOTime period, GNELane* lane, const std::string& filename,
                          const std::string& name, const bool friendlyPos, const Parameterised::Map& parameters) :
     GNEAdditional(additionalParent, type, tag, icon, name),

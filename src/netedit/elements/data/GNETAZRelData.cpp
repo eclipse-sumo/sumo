@@ -38,14 +38,14 @@
 // ===========================================================================
 
 GNETAZRelData::GNETAZRelData(GNENet* net) :
-    GNEGenericData(SUMO_TAG_TAZREL, GUIIconSubSys::getIcon(GUIIcon::EDGERELDATA), GLO_TAZRELDATA, net),
+    GNEGenericData(SUMO_TAG_TAZREL, GUIIcon::EDGERELDATA, GLO_TAZRELDATA, net),
     myLastWidth(0) {
 }
 
 
 GNETAZRelData::GNETAZRelData(GNEDataInterval* dataIntervalParent, GNEAdditional* fromTAZ, GNEAdditional* toTAZ,
                              const Parameterised::Map& parameters) :
-    GNEGenericData(SUMO_TAG_TAZREL, GUIIconSubSys::getIcon(GUIIcon::EDGERELDATA), GLO_TAZRELDATA, dataIntervalParent, parameters),
+    GNEGenericData(SUMO_TAG_TAZREL, GUIIcon::EDGERELDATA, GLO_TAZRELDATA, dataIntervalParent, parameters),
     myLastWidth(0) {
     // set parents
     setParents<GNEAdditional*>({fromTAZ, toTAZ});
@@ -54,7 +54,7 @@ GNETAZRelData::GNETAZRelData(GNEDataInterval* dataIntervalParent, GNEAdditional*
 
 GNETAZRelData::GNETAZRelData(GNEDataInterval* dataIntervalParent, GNEAdditional* TAZ,
                              const Parameterised::Map& parameters) :
-    GNEGenericData(SUMO_TAG_TAZREL, GUIIconSubSys::getIcon(GUIIcon::EDGERELDATA), GLO_TAZRELDATA, dataIntervalParent, parameters),
+    GNEGenericData(SUMO_TAG_TAZREL, GUIIcon::EDGERELDATA, GLO_TAZRELDATA, dataIntervalParent, parameters),
     myLastWidth(0) {
     // set parents
     setParent<GNEAdditional*>(TAZ);

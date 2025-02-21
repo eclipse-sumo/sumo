@@ -42,9 +42,9 @@
 #pragma warning(push)
 #pragma warning(disable: 4355) // mask warning about "this" in initializers
 #endif
-GNEDemandElement::GNEDemandElement(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, FXIcon* icon, const int options) :
+GNEDemandElement::GNEDemandElement(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, GUIIcon icon, const int options) :
     GNEAttributeCarrier(tag, net),
-    GUIGlObject(type, id, icon),
+    GUIGlObject(type, id, GUIIconSubSys::getIcon(icon)),
     GNEPathElement(options),
     GNEDemandElementDistribution(this),
     myStackedLabelNumber(0) {
@@ -53,9 +53,9 @@ GNEDemandElement::GNEDemandElement(const std::string& id, GNENet* net, GUIGlObje
 }
 
 
-GNEDemandElement::GNEDemandElement(GNEDemandElement* demandElementParent, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, FXIcon* icon, const int options) :
+GNEDemandElement::GNEDemandElement(GNEDemandElement* demandElementParent, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, GUIIcon icon, const int options) :
     GNEAttributeCarrier(tag, net),
-    GUIGlObject(type, demandElementParent->getID(), icon),
+    GUIGlObject(type, demandElementParent->getID(), GUIIconSubSys::getIcon(icon)),
     GNEPathElement(options),
     GNEDemandElementDistribution(this),
     myStackedLabelNumber(0) {

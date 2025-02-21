@@ -37,7 +37,7 @@
 // ===========================================================================
 
 GNEInductionLoopDetector::GNEInductionLoopDetector(GNENet* net) :
-    GNEDetector(net, GLO_E1DETECTOR, SUMO_TAG_INDUCTION_LOOP, GUIIconSubSys::getIcon(GUIIcon::E1)) {
+    GNEDetector(net, GLO_E1DETECTOR, SUMO_TAG_INDUCTION_LOOP, GUIIcon::E1) {
     // reset default values
     resetDefaultValues();
 }
@@ -47,7 +47,7 @@ GNEInductionLoopDetector::GNEInductionLoopDetector(const std::string& id, GNELan
         const SUMOTime freq, const std::string& filename, const std::vector<std::string>& vehicleTypes,
         const std::vector<std::string>& nextEdges, const std::string& detectPersons, const std::string& name,
         const bool friendlyPos, const Parameterised::Map& parameters) :
-    GNEDetector(id, net, GLO_E1DETECTOR, SUMO_TAG_INDUCTION_LOOP, GUIIconSubSys::getIcon(GUIIcon::E1), pos, freq, lane,
+    GNEDetector(id, net, GLO_E1DETECTOR, SUMO_TAG_INDUCTION_LOOP, GUIIcon::E1, pos, freq, lane,
                 filename, vehicleTypes, nextEdges, detectPersons, name, friendlyPos, parameters) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);

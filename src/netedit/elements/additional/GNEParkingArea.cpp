@@ -32,7 +32,7 @@
 // ===========================================================================
 
 GNEParkingArea::GNEParkingArea(GNENet* net) :
-    GNEStoppingPlace(net, GLO_PARKING_AREA, SUMO_TAG_PARKING_AREA, GUIIconSubSys::getIcon(GUIIcon::PARKINGAREA)) {
+    GNEStoppingPlace(net, GLO_PARKING_AREA, SUMO_TAG_PARKING_AREA, GUIIcon::PARKINGAREA) {
     // reset default values
     resetDefaultValues();
 }
@@ -42,7 +42,7 @@ GNEParkingArea::GNEParkingArea(const std::string& id, GNELane* lane, GNENet* net
                                const std::string& departPos, const std::string& name, const std::vector<std::string>& badges,
                                const bool friendlyPosition, const int roadSideCapacity, const bool onRoad, const double width,
                                const double length, const double angle, const bool lefthand, const Parameterised::Map& parameters) :
-    GNEStoppingPlace(id, net, GLO_PARKING_AREA, SUMO_TAG_PARKING_AREA, GUIIconSubSys::getIcon(GUIIcon::PARKINGAREA),
+    GNEStoppingPlace(id, net, GLO_PARKING_AREA, SUMO_TAG_PARKING_AREA, GUIIcon::PARKINGAREA,
                      lane, startPos, endPos, name, friendlyPosition, RGBColor::INVISIBLE, parameters),
     myDepartPos(departPos),
     myRoadSideCapacity(roadSideCapacity),

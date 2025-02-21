@@ -31,7 +31,7 @@
 
 GNEClosingReroute::GNEClosingReroute(GNENet* net) :
     GNEAdditional("", net, GLO_REROUTER_CLOSINGREROUTE, SUMO_TAG_CLOSING_REROUTE,
-                  GUIIconSubSys::getIcon(GUIIcon::CLOSINGREROUTE), ""),
+                  GUIIcon::CLOSINGREROUTE, ""),
     myClosedEdge(nullptr),
     myPermissions(0) {
     // reset default values
@@ -40,7 +40,7 @@ GNEClosingReroute::GNEClosingReroute(GNENet* net) :
 
 
 GNEClosingReroute::GNEClosingReroute(GNEAdditional* rerouterIntervalParent, GNEEdge* closedEdge, SVCPermissions permissions) :
-    GNEAdditional(rerouterIntervalParent, GLO_REROUTER_CLOSINGREROUTE, SUMO_TAG_CLOSING_REROUTE, GUIIconSubSys::getIcon(GUIIcon::CLOSINGREROUTE), ""),
+    GNEAdditional(rerouterIntervalParent, GLO_REROUTER_CLOSINGREROUTE, SUMO_TAG_CLOSING_REROUTE, GUIIcon::CLOSINGREROUTE, ""),
     myClosedEdge(closedEdge),
     myPermissions(permissions) {
     // set parents

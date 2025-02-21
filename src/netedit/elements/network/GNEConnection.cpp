@@ -41,8 +41,7 @@
 // ===========================================================================
 
 GNEConnection::GNEConnection(GNELane* from, GNELane* to) :
-    GNENetworkElement(from->getNet(), "from" + from->getID() + "to" + to->getID(),
-                      GLO_CONNECTION, SUMO_TAG_CONNECTION, GUIIconSubSys::getIcon(GUIIcon::CONNECTION)),
+    GNENetworkElement(from->getNet(), "from" + from->getID() + "to" + to->getID(), GLO_CONNECTION, SUMO_TAG_CONNECTION, GUIIcon::CONNECTION),
     myLinkState(LINKSTATE_TL_OFF_NOSIGNAL),
     mySpecialColor(nullptr),
     myShapeDeprecated(true) {

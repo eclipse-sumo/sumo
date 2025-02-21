@@ -38,9 +38,9 @@ public:
      * @param[in] id of the element
      * @param[in] type type of GL object
      * @param[in] tag sumo xml tag of the element
-     * @param[in] icon FXIcon related with this network element
+     * @param[in] icon GUIIcon related with this network element
      */
-    GNENetworkElement(GNENet* net, const std::string& id, GUIGlObjectType type, SumoXMLTag tag, FXIcon* icon);
+    GNENetworkElement(GNENet* net, const std::string& id, GUIGlObjectType type, SumoXMLTag tag, GUIIcon icon);
 
     /// @brief Destructor
     virtual ~GNENetworkElement();

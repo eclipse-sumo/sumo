@@ -31,7 +31,7 @@
 // ===========================================================================
 
 GNEChargingStation::GNEChargingStation(GNENet* net) :
-    GNEStoppingPlace(net, GLO_CHARGING_STATION, SUMO_TAG_CHARGING_STATION, GUIIconSubSys::getIcon(GUIIcon::CHARGINGSTATION)) {
+    GNEStoppingPlace(net, GLO_CHARGING_STATION, SUMO_TAG_CHARGING_STATION, GUIIcon::CHARGINGSTATION) {
     // reset default values
     resetDefaultValues();
 }
@@ -40,7 +40,7 @@ GNEChargingStation::GNEChargingStation(GNENet* net) :
 GNEChargingStation::GNEChargingStation(const std::string& id, GNELane* lane, GNENet* net, const double startPos, const double endPos,
                                        const std::string& name, double chargingPower, double efficiency, bool chargeInTransit, SUMOTime chargeDelay,
                                        const std::string& chargeType, const SUMOTime waitingTime, bool friendlyPosition, const Parameterised::Map& parameters) :
-    GNEStoppingPlace(id, net, GLO_CHARGING_STATION, SUMO_TAG_CHARGING_STATION, GUIIconSubSys::getIcon(GUIIcon::CHARGINGSTATION),
+    GNEStoppingPlace(id, net, GLO_CHARGING_STATION, SUMO_TAG_CHARGING_STATION, GUIIcon::CHARGINGSTATION,
                      lane, startPos, endPos, name, friendlyPosition, RGBColor::INVISIBLE, parameters),
     myChargingPower(chargingPower),
     myEfficiency(efficiency),

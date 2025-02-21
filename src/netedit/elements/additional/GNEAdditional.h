@@ -49,7 +49,7 @@ public:
      * @param[in] tag Type of xml tag that define the additional element (SUMO_TAG_BUS_STOP, SUMO_TAG_REROUTER, etc...)
      * @param[in] name Additional name
      */
-    GNEAdditional(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, FXIcon* icon, std::string additionalName);
+    GNEAdditional(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, GUIIcon icon, std::string additionalName);
 
     /**@brief Constructor for additional with parents
      * @param[in] additionalParent pointer to additional parent
@@ -57,7 +57,7 @@ public:
      * @param[in] tag Type of xml tag that define the additional element (SUMO_TAG_BUS_STOP, SUMO_TAG_REROUTER, etc...)
      * @param[in] name Additional name
      */
-    GNEAdditional(GNEAdditional* additionalParent, GUIGlObjectType type, SumoXMLTag tag, FXIcon* icon, std::string additionalName);
+    GNEAdditional(GNEAdditional* additionalParent, GUIGlObjectType type, SumoXMLTag tag, GUIIcon icon, std::string additionalName);
 
     /// @brief Destructor
     ~GNEAdditional();
@@ -423,7 +423,7 @@ protected:
     static GUIGlObjectType getJuPedSimGLO(SumoXMLTag tag);
 
     /// @brief get JuPedSim icon
-    static FXIcon* getJuPedSimIcon(SumoXMLTag tag);
+    static GUIIcon getJuPedSimIcon(SumoXMLTag tag);
 
     /// @}
 

@@ -31,7 +31,7 @@
 
 GNEDestProbReroute::GNEDestProbReroute(GNENet* net):
     GNEAdditional("", net, GLO_REROUTER_DESTPROBREROUTE, SUMO_TAG_DEST_PROB_REROUTE,
-                  GUIIconSubSys::getIcon(GUIIcon::DESTPROBREROUTE), ""),
+                  GUIIcon::DESTPROBREROUTE, ""),
     myNewEdgeDestination(nullptr),
     myProbability(0) {
     // reset default values
@@ -40,7 +40,7 @@ GNEDestProbReroute::GNEDestProbReroute(GNENet* net):
 
 
 GNEDestProbReroute::GNEDestProbReroute(GNEAdditional* rerouterIntervalParent, GNEEdge* newEdgeDestination, double probability):
-    GNEAdditional(rerouterIntervalParent, GLO_REROUTER_DESTPROBREROUTE, SUMO_TAG_DEST_PROB_REROUTE, GUIIconSubSys::getIcon(GUIIcon::DESTPROBREROUTE), ""),
+    GNEAdditional(rerouterIntervalParent, GLO_REROUTER_DESTPROBREROUTE, SUMO_TAG_DEST_PROB_REROUTE, GUIIcon::DESTPROBREROUTE, ""),
     myNewEdgeDestination(newEdgeDestination),
     myProbability(probability) {
     // set parents

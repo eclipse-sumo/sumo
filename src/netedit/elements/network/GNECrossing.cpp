@@ -36,7 +36,7 @@
 // ===========================================================================
 
 GNECrossing::GNECrossing(GNENet* net) :
-    GNENetworkElement(net, "", GLO_CROSSING, SUMO_TAG_CROSSING, GUIIconSubSys::getIcon(GUIIcon::CROSSING)),
+    GNENetworkElement(net, "", GLO_CROSSING, SUMO_TAG_CROSSING, GUIIcon::CROSSING),
     myTemplateNBCrossing(new NBNode::Crossing(nullptr, {}, 0, false, 0, 0, {})) {
     // reset default values
     resetDefaultValues();
@@ -44,8 +44,7 @@ GNECrossing::GNECrossing(GNENet* net) :
 
 
 GNECrossing::GNECrossing(GNEJunction* junction, std::vector<NBEdge*> crossingEdges) :
-    GNENetworkElement(junction->getNet(), junction->getNBNode()->getCrossing(crossingEdges)->id, GLO_CROSSING,
-                      SUMO_TAG_CROSSING, GUIIconSubSys::getIcon(GUIIcon::CROSSING)),
+    GNENetworkElement(junction->getNet(), junction->getNBNode()->getCrossing(crossingEdges)->id, GLO_CROSSING, SUMO_TAG_CROSSING, GUIIcon::CROSSING),
     myCrossingEdges(crossingEdges),
     myTemplateNBCrossing(nullptr) {
     // set parent

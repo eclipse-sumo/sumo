@@ -37,7 +37,7 @@
 // ===========================================================================
 
 GNECalibratorFlow::GNECalibratorFlow(GNENet* net) :
-    GNEAdditional("", net, GLO_CALIBRATOR, GNE_TAG_CALIBRATOR_FLOW, GUIIconSubSys::getIcon(GUIIcon::CALIBRATOR), "") {
+    GNEAdditional("", net, GLO_CALIBRATOR, GNE_TAG_CALIBRATOR_FLOW, GUIIcon::CALIBRATOR, "") {
     // reset default values
     resetDefaultValues();
     // set VPH and speed enabled
@@ -49,7 +49,7 @@ GNECalibratorFlow::GNECalibratorFlow(GNENet* net) :
 
 
 GNECalibratorFlow::GNECalibratorFlow(GNEAdditional* calibratorParent, GNEDemandElement* vehicleType, GNEDemandElement* route) :
-    GNEAdditional(calibratorParent, GLO_CALIBRATOR, GNE_TAG_CALIBRATOR_FLOW, GUIIconSubSys::getIcon(GUIIcon::CALIBRATOR), "") {
+    GNEAdditional(calibratorParent, GLO_CALIBRATOR, GNE_TAG_CALIBRATOR_FLOW, GUIIcon::CALIBRATOR, "") {
     // set parents
     setParent<GNEAdditional*>(calibratorParent);
     setParents<GNEDemandElement*>({vehicleType, route});
@@ -62,7 +62,7 @@ GNECalibratorFlow::GNECalibratorFlow(GNEAdditional* calibratorParent, GNEDemandE
 
 GNECalibratorFlow::GNECalibratorFlow(GNEAdditional* calibratorParent, GNEDemandElement* vehicleType, GNEDemandElement* route,
                                      const SUMOVehicleParameter& vehicleParameters) :
-    GNEAdditional(calibratorParent, GLO_CALIBRATOR, GNE_TAG_CALIBRATOR_FLOW, GUIIconSubSys::getIcon(GUIIcon::CALIBRATOR), ""),
+    GNEAdditional(calibratorParent, GLO_CALIBRATOR, GNE_TAG_CALIBRATOR_FLOW, GUIIcon::CALIBRATOR, ""),
     SUMOVehicleParameter(vehicleParameters) {
     // set parents
     setParent<GNEAdditional*>(calibratorParent);

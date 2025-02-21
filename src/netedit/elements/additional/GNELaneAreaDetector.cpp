@@ -42,7 +42,7 @@
 // ===========================================================================
 
 GNELaneAreaDetector::GNELaneAreaDetector(SumoXMLTag tag, GNENet* net) :
-    GNEDetector(net, GLO_E2DETECTOR, tag, GUIIconSubSys::getIcon(GUIIcon::E2)) {
+    GNEDetector(net, GLO_E2DETECTOR, tag, GUIIcon::E2) {
     // reset default values
     resetDefaultValues();
 }
@@ -52,8 +52,8 @@ GNELaneAreaDetector::GNELaneAreaDetector(const std::string& id, GNELane* lane, G
         const std::string& trafficLight, const std::string& filename, const std::vector<std::string>& vehicleTypes,
         const std::vector<std::string>& nextEdges, const std::string& detectPersons, const std::string& name, const SUMOTime timeThreshold,
         double speedThreshold, const double jamThreshold, const bool friendlyPos, const bool show, const Parameterised::Map& parameters) :
-    GNEDetector(id, net, GLO_E2DETECTOR, SUMO_TAG_LANE_AREA_DETECTOR, GUIIconSubSys::getIcon(GUIIcon::E2),
-                pos, freq, lane, filename, vehicleTypes, nextEdges, detectPersons, name, friendlyPos, parameters),
+    GNEDetector(id, net, GLO_E2DETECTOR, SUMO_TAG_LANE_AREA_DETECTOR, GUIIcon::E2, pos, freq, lane, filename, vehicleTypes, nextEdges,
+                detectPersons, name, friendlyPos, parameters),
     myEndPositionOverLane(pos + length),
     myTimeThreshold(timeThreshold),
     mySpeedThreshold(speedThreshold),
@@ -67,8 +67,8 @@ GNELaneAreaDetector::GNELaneAreaDetector(const std::string& id, std::vector<GNEL
         const std::string& trafficLight, const std::string& filename, const std::vector<std::string>& vehicleTypes,
         const std::vector<std::string>& nextEdges, const std::string& detectPersons, const std::string& name, const SUMOTime timeThreshold,
         double speedThreshold, const double jamThreshold, const bool friendlyPos, const bool show, const Parameterised::Map& parameters) :
-    GNEDetector(id, net, GLO_E2DETECTOR, GNE_TAG_MULTI_LANE_AREA_DETECTOR, GUIIconSubSys::getIcon(GUIIcon::E2),
-                pos, freq, lanes, filename, vehicleTypes, nextEdges, detectPersons, name, friendlyPos, parameters),
+    GNEDetector(id, net, GLO_E2DETECTOR, GNE_TAG_MULTI_LANE_AREA_DETECTOR, GUIIcon::E2, pos, freq, lanes, filename, vehicleTypes, nextEdges,
+                detectPersons, name, friendlyPos, parameters),
     myEndPositionOverLane(endPos),
     myTimeThreshold(timeThreshold),
     mySpeedThreshold(speedThreshold),

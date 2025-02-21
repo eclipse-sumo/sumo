@@ -44,9 +44,9 @@
 // member method definitions
 // ===========================================================================
 
-GNEAdditional::GNEAdditional(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, FXIcon* icon, std::string additionalName) :
+GNEAdditional::GNEAdditional(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, GUIIcon icon, std::string additionalName) :
     GNEAttributeCarrier(tag, net),
-    GUIGlObject(type, id, icon),
+    GUIGlObject(type, id, GUIIconSubSys::getIcon(icon)),
     GNEPathElement(GNEPathElement::Options::ADDITIONAL_ELEMENT),
     myAdditionalName(additionalName) {
     // check if is template
@@ -54,9 +54,9 @@ GNEAdditional::GNEAdditional(const std::string& id, GNENet* net, GUIGlObjectType
 }
 
 
-GNEAdditional::GNEAdditional(GNEAdditional* additionalParent, GUIGlObjectType type, SumoXMLTag tag, FXIcon* icon, std::string additionalName) :
+GNEAdditional::GNEAdditional(GNEAdditional* additionalParent, GUIGlObjectType type, SumoXMLTag tag, GUIIcon icon, std::string additionalName) :
     GNEAttributeCarrier(tag, additionalParent->getNet()),
-    GUIGlObject(type, additionalParent->getID(), icon),
+    GUIGlObject(type, additionalParent->getID(), GUIIconSubSys::getIcon(icon)),
     GNEPathElement(GNEPathElement::Options::ADDITIONAL_ELEMENT),
     myAdditionalName(additionalName) {
 }
@@ -1027,14 +1027,14 @@ GNEAdditional::getJuPedSimGLO(SumoXMLTag tag) {
 }
 
 
-FXIcon*
+GUIIcon
 GNEAdditional::getJuPedSimIcon(SumoXMLTag tag) {
     // continue depending of tag
     switch (tag) {
         case GNE_TAG_JPS_WALKABLEAREA:
-            return GUIIconSubSys::getIcon(GUIIcon::JPS_WALKABLEAREA);
+            return GUIIcon::JPS_WALKABLEAREA;
         case GNE_TAG_JPS_OBSTACLE:
-            return GUIIconSubSys::getIcon(GUIIcon::JPS_OBSTACLE);
+            return GUIIcon::JPS_OBSTACLE;
         default:
             throw InvalidArgument("Invalid JuPedSim tag");
     }

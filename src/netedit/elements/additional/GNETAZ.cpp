@@ -37,16 +37,16 @@
 // ===========================================================================
 // static members
 // ===========================================================================
+
 const double GNETAZ::myHintSize = 0.8;
 const double GNETAZ::myHintSizeSquared = 0.64;
-
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
 
 GNETAZ::GNETAZ(GNENet* net) :
-    GNEAdditional("", net, GLO_TAZ, SUMO_TAG_TAZ, GUIIconSubSys::getIcon(GUIIcon::TAZ), ""),
+    GNEAdditional("", net, GLO_TAZ, SUMO_TAG_TAZ, GUIIcon::TAZ, ""),
     TesselatedPolygon("", "", RGBColor::BLACK, {}, false, false, 1, Shape::DEFAULT_LAYER, Shape::DEFAULT_ANGLE, Shape::DEFAULT_IMG_FILE, Shape::DEFAULT_RELATIVEPATH, ""),
                   myMaxWeightSource(0),
                   myMinWeightSource(0),
@@ -61,7 +61,7 @@ myAverageWeightSink(0) {
 
 GNETAZ::GNETAZ(const std::string& id, GNENet* net, const PositionVector& shape, const Position& center, const bool fill,
                const RGBColor& color, const std::string& name, const Parameterised::Map& parameters) :
-    GNEAdditional(id, net, GLO_TAZ, SUMO_TAG_TAZ, GUIIconSubSys::getIcon(GUIIcon::TAZ), ""),
+    GNEAdditional(id, net, GLO_TAZ, SUMO_TAG_TAZ, GUIIcon::TAZ, ""),
     TesselatedPolygon(id, "", color, shape, false, fill, 1, Shape::DEFAULT_LAYER, Shape::DEFAULT_ANGLE, Shape::DEFAULT_IMG_FILE, Shape::DEFAULT_RELATIVEPATH, name, parameters),
     myTAZCenter(center),
     myMaxWeightSource(0),

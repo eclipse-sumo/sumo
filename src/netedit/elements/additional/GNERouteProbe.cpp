@@ -34,7 +34,7 @@
 // ===========================================================================
 
 GNERouteProbe::GNERouteProbe(GNENet* net) :
-    GNEAdditional("", net, GLO_ROUTEPROBE, SUMO_TAG_ROUTEPROBE, GUIIconSubSys::getIcon(GUIIcon::ROUTEPROBE), ""),
+    GNEAdditional("", net, GLO_ROUTEPROBE, SUMO_TAG_ROUTEPROBE, GUIIcon::ROUTEPROBE, ""),
     myPeriod(SUMOTime_MAX_PERIOD),
     myBegin(0) {
     // reset default values
@@ -47,7 +47,7 @@ GNERouteProbe::GNERouteProbe(GNENet* net) :
 GNERouteProbe::GNERouteProbe(const std::string& id, GNENet* net, GNEEdge* edge, const SUMOTime period, const std::string& name,
                              const std::string& filename, SUMOTime begin, const std::vector<std::string>& vehicleTypes,
                              const Parameterised::Map& parameters) :
-    GNEAdditional(id, net, GLO_ROUTEPROBE, SUMO_TAG_ROUTEPROBE, GUIIconSubSys::getIcon(GUIIcon::ROUTEPROBE), name),
+    GNEAdditional(id, net, GLO_ROUTEPROBE, SUMO_TAG_ROUTEPROBE, GUIIcon::ROUTEPROBE, name),
     Parameterised(parameters),
     myPeriod(period),
     myFilename(filename),

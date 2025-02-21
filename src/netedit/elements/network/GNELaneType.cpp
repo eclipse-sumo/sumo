@@ -32,13 +32,13 @@
 // ===========================================================================
 
 GNELaneType::GNELaneType(GNEEdgeType* edgeTypeParent) :
-    GNENetworkElement(edgeTypeParent->getNet(), "", GLO_LANETYPE, SUMO_TAG_LANETYPE, GUIIconSubSys::getIcon(GUIIcon::LANETYPE)),
+    GNENetworkElement(edgeTypeParent->getNet(), "", GLO_LANETYPE, SUMO_TAG_LANETYPE, GUIIcon::LANETYPE),
     myEdgeTypeParent(edgeTypeParent) {
 }
 
 
 GNELaneType::GNELaneType(GNEEdgeType* edgeTypeParent, const NBTypeCont::LaneTypeDefinition& laneType) :
-    GNENetworkElement(edgeTypeParent->getNet(), "", GLO_LANETYPE, SUMO_TAG_LANETYPE, GUIIconSubSys::getIcon(GUIIcon::LANETYPE)),
+    GNENetworkElement(edgeTypeParent->getNet(), "", GLO_LANETYPE, SUMO_TAG_LANETYPE, GUIIcon::LANETYPE),
     NBTypeCont::LaneTypeDefinition(laneType),
     myEdgeTypeParent(edgeTypeParent) {
 }

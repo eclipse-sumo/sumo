@@ -38,7 +38,7 @@
 // ===========================================================================
 
 GNEOverheadWire::GNEOverheadWire(GNENet* net) :
-    GNEAdditional("", net, GLO_OVERHEAD_WIRE_SEGMENT, SUMO_TAG_OVERHEAD_WIRE_SECTION, GUIIconSubSys::getIcon(GUIIcon::OVERHEADWIRE), ""),
+    GNEAdditional("", net, GLO_OVERHEAD_WIRE_SEGMENT, SUMO_TAG_OVERHEAD_WIRE_SECTION, GUIIcon::OVERHEADWIRE, ""),
     myStartPos(0),
     myEndPos(0),
     myFriendlyPosition(false) {
@@ -50,7 +50,7 @@ GNEOverheadWire::GNEOverheadWire(GNENet* net) :
 GNEOverheadWire::GNEOverheadWire(const std::string& id, std::vector<GNELane*> lanes, GNEAdditional* substation, GNENet* net,
                                  const double startPos, const double endPos, const bool friendlyPos, const std::vector<std::string>& forbiddenInnerLanes,
                                  const Parameterised::Map& parameters) :
-    GNEAdditional(id, net, GLO_OVERHEAD_WIRE_SEGMENT, SUMO_TAG_OVERHEAD_WIRE_SECTION, GUIIconSubSys::getIcon(GUIIcon::OVERHEADWIRE), ""),
+    GNEAdditional(id, net, GLO_OVERHEAD_WIRE_SEGMENT, SUMO_TAG_OVERHEAD_WIRE_SECTION, GUIIcon::OVERHEADWIRE, ""),
     Parameterised(parameters),
     myStartPos(startPos),
     myEndPos(endPos),

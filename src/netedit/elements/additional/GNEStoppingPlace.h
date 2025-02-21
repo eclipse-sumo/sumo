@@ -34,7 +34,7 @@ public:
      * @param[in] type GUIGlObjectType of stoppingPlace
      * @param[in] tag Type of xml tag that define the StoppingPlace (SUMO_TAG_BUS_STOP, SUMO_TAG_CHARGING_STATION, etc...)
      */
-    GNEStoppingPlace(GNENet* net, GUIGlObjectType type, SumoXMLTag tag, FXIcon* icon);
+    GNEStoppingPlace(GNENet* net, GUIGlObjectType type, SumoXMLTag tag, GUIIcon icon);
 
     /**@brief Constructor
      * @param[in] id Gl-id of the stopping place (Must be unique)
@@ -49,7 +49,7 @@ public:
      * @param[in] color stoppingPlace color
      * @param[in] parameters generic parameters
      */
-    GNEStoppingPlace(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, FXIcon* icon, GNELane* lane,
+    GNEStoppingPlace(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, GUIIcon icon, GNELane* lane,
                      const double startPos, const double endPos, const std::string& name, bool friendlyPosition,
                      const RGBColor& color, const Parameterised::Map& parameters);
 

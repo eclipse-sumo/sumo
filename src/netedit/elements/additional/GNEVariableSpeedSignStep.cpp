@@ -30,7 +30,7 @@
 // ===========================================================================
 
 GNEVariableSpeedSignStep::GNEVariableSpeedSignStep(GNENet* net) :
-    GNEAdditional("", net, GLO_VSS_STEP, SUMO_TAG_STEP, GUIIconSubSys::getIcon(GUIIcon::VSSSTEP), ""),
+    GNEAdditional("", net, GLO_VSS_STEP, SUMO_TAG_STEP, GUIIcon::VSSSTEP, ""),
     myTime(0) {
     // reset default values
     resetDefaultValues();
@@ -38,7 +38,7 @@ GNEVariableSpeedSignStep::GNEVariableSpeedSignStep(GNENet* net) :
 
 
 GNEVariableSpeedSignStep::GNEVariableSpeedSignStep(GNEAdditional* variableSpeedSignParent, SUMOTime time, const std::string& speed) :
-    GNEAdditional(variableSpeedSignParent, GLO_VSS_STEP, SUMO_TAG_STEP, GUIIconSubSys::getIcon(GUIIcon::VSSSTEP), ""),
+    GNEAdditional(variableSpeedSignParent, GLO_VSS_STEP, SUMO_TAG_STEP, GUIIcon::VSSSTEP, ""),
     myTime(time),
     mySpeed(speed) {
     // set parents

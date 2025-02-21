@@ -261,7 +261,7 @@ GNEBusStop::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 
 GNEBusStop::GNEBusStop(SumoXMLTag tag, GUIGlObjectType type, GUIIcon icon, GNENet* net) :
-    GNEStoppingPlace(net, type, tag, GUIIconSubSys::getIcon(icon)) {
+    GNEStoppingPlace(net, type, tag, icon) {
     // reset default values
     resetDefaultValues();
 }
@@ -270,7 +270,7 @@ GNEBusStop::GNEBusStop(SumoXMLTag tag, GUIGlObjectType type, GUIIcon icon, GNENe
 GNEBusStop::GNEBusStop(SumoXMLTag tag, GUIGlObjectType type, GUIIcon icon, const std::string& id, GNELane* lane, GNENet* net,
                        const double startPos, const double endPos, const std::string& name, const std::vector<std::string>& lines,
                        int personCapacity, double parkingLength, const RGBColor& color, bool friendlyPosition, const Parameterised::Map& parameters) :
-    GNEStoppingPlace(id, net, type, tag, GUIIconSubSys::getIcon(icon), lane, startPos, endPos, name, friendlyPosition, color, parameters),
+    GNEStoppingPlace(id, net, type, tag, icon, lane, startPos, endPos, name, friendlyPosition, color, parameters),
     myLines(lines),
     myPersonCapacity(personCapacity),
     myParkingLength(parkingLength) {

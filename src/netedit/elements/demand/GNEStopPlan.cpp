@@ -39,7 +39,7 @@
 #pragma warning(disable: 4355) // mask warning about "this" in initializers
 #endif
 GNEStopPlan::GNEStopPlan(SumoXMLTag tag, GNENet* net) :
-    GNEDemandElement("", net, GLO_STOP_PLAN, tag, GUIIconSubSys::getIcon(GUIIcon::STOP), GNEPathElement::Options::DEMAND_ELEMENT),
+    GNEDemandElement("", net, GLO_STOP_PLAN, tag, GUIIcon::STOP, GNEPathElement::Options::DEMAND_ELEMENT),
     GNEDemandElementPlan(this, -1, -1) {
     // reset default values
     resetDefaultValues();
@@ -48,7 +48,7 @@ GNEStopPlan::GNEStopPlan(SumoXMLTag tag, GNENet* net) :
 
 GNEStopPlan::GNEStopPlan(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* personParent, const GNEPlanParents& planParameters,
                          const double endPos, const SUMOTime duration, const SUMOTime until, const std::string& actType, bool friendlyPos, const int parameterSet) :
-    GNEDemandElement(personParent, net, GLO_STOP_PLAN, tag, GUIIconSubSys::getIcon(icon), GNEPathElement::Options::DEMAND_ELEMENT),
+    GNEDemandElement(personParent, net, GLO_STOP_PLAN, tag, icon, GNEPathElement::Options::DEMAND_ELEMENT),
     GNEDemandElementPlan(this, -1, endPos),
     myDuration(duration),
     myUntil(until),

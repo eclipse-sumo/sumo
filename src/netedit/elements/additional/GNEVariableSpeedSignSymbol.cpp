@@ -31,14 +31,14 @@
 // ===========================================================================
 
 GNEVariableSpeedSignSymbol::GNEVariableSpeedSignSymbol(GNENet* net) :
-    GNEAdditional("", net, GLO_VSS, GNE_TAG_VSS_SYMBOL, GUIIconSubSys::getIcon(GUIIcon::VARIABLESPEEDSIGN), "") {
+    GNEAdditional("", net, GLO_VSS, GNE_TAG_VSS_SYMBOL, GUIIcon::VARIABLESPEEDSIGN, "") {
     // reset default values
     resetDefaultValues();
 }
 
 
 GNEVariableSpeedSignSymbol::GNEVariableSpeedSignSymbol(GNEAdditional* VSSParent, GNELane* lane) :
-    GNEAdditional(VSSParent, GLO_VSS, GNE_TAG_VSS_SYMBOL, GUIIconSubSys::getIcon(GUIIcon::VARIABLESPEEDSIGN), "") {
+    GNEAdditional(VSSParent, GLO_VSS, GNE_TAG_VSS_SYMBOL, GUIIcon::VARIABLESPEEDSIGN, "") {
     // set parents
     setParent<GNELane*>(lane);
     setParent<GNEAdditional*>(VSSParent);

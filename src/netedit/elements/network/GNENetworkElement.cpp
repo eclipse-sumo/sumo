@@ -35,9 +35,9 @@
 // method definitions
 // ===========================================================================
 
-GNENetworkElement::GNENetworkElement(GNENet* net, const std::string& id, GUIGlObjectType type, SumoXMLTag tag, FXIcon* icon) :
+GNENetworkElement::GNENetworkElement(GNENet* net, const std::string& id, GUIGlObjectType type, SumoXMLTag tag, GUIIcon icon) :
     GNEAttributeCarrier(tag, net),
-    GUIGlObject(type, id, icon),
+    GUIGlObject(type, id, GUIIconSubSys::getIcon(icon)),
     myShapeEdited(false) {
 }
 

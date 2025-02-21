@@ -36,7 +36,7 @@
 #pragma warning(disable: 4355) // mask warning about "this" in initializers
 #endif
 GNETransport::GNETransport(SumoXMLTag tag, GNENet* net) :
-    GNEDemandElement("", net, GLO_TRANSPORT, tag, GUIIconSubSys::getIcon(GUIIcon::TRANSHIP_EDGE), GNEPathElement::Options::DEMAND_ELEMENT),
+    GNEDemandElement("", net, GLO_TRANSPORT, tag, GUIIcon::TRANSHIP_EDGE, GNEPathElement::Options::DEMAND_ELEMENT),
     GNEDemandElementPlan(this, -1, -1) {
     // reset default values
     resetDefaultValues();
@@ -45,7 +45,7 @@ GNETransport::GNETransport(SumoXMLTag tag, GNENet* net) :
 
 GNETransport::GNETransport(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* containerParent, const GNEPlanParents& planParameters,
                            const double arrivalPosition, const std::vector<std::string>& lines, const std::string& group) :
-    GNEDemandElement(containerParent, net, GLO_TRANSPORT, tag, GUIIconSubSys::getIcon(icon), GNEPathElement::Options::DEMAND_ELEMENT),
+    GNEDemandElement(containerParent, net, GLO_TRANSPORT, tag, icon, GNEPathElement::Options::DEMAND_ELEMENT),
     GNEDemandElementPlan(this, -1, arrivalPosition),
     myLines(lines),
     myGroup(group) {

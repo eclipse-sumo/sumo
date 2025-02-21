@@ -32,7 +32,7 @@
 
 GNERouteProbReroute::GNERouteProbReroute(GNENet* net) :
     GNEAdditional("", net, GLO_REROUTER_ROUTEPROBREROUTE, SUMO_TAG_ROUTE_PROB_REROUTE,
-                  GUIIconSubSys::getIcon(GUIIcon::ROUTEPROBREROUTE), ""),
+                  GUIIcon::ROUTEPROBREROUTE, ""),
     myProbability(0) {
     // reset default values
     resetDefaultValues();
@@ -41,7 +41,7 @@ GNERouteProbReroute::GNERouteProbReroute(GNENet* net) :
 
 GNERouteProbReroute::GNERouteProbReroute(GNEAdditional* rerouterIntervalParent, GNEDemandElement* route, double probability) :
     GNEAdditional(rerouterIntervalParent, GLO_REROUTER_ROUTEPROBREROUTE, SUMO_TAG_ROUTE_PROB_REROUTE,
-                  GUIIconSubSys::getIcon(GUIIcon::ROUTEPROBREROUTE), ""),
+                  GUIIcon::ROUTEPROBREROUTE, ""),
     myProbability(probability) {
     // set parents
     setParent<GNEAdditional*>(rerouterIntervalParent);
