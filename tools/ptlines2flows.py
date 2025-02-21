@@ -521,7 +521,7 @@ def createRoutes(options, trpMap, stopNames):
         for routeID, routeStr in sorted(routes):
             foutflows.write(routeStr)
 
-        for vehID, flowID, lineRef, type, begin in flows:
+        for vehID, flowID, lineRef, type, begin in sorted(flows):
             ptline = trpMap[vehID]
             number = None
             if flowID in routeDurations:
