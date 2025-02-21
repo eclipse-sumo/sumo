@@ -294,8 +294,10 @@ NBNodeTypeComputer::computeNodeTypes(NBNodeCont& nc, NBTrafficLightLogicCont& tl
             continue;
         }
         if (isRailwayNode(n)) {
-            if (n->unsignalizedOperation()) {
-                // avoid slowing down when there are no conflicts
+            if (n->unsignalizedOperation()
+                    && (int)n->getIncomingEdges().size() == 2
+                    && (int)n->getOutgoingEdges().size() == 1) {
+                // avoid slowing down when there are no foe vehicles
                 n->myType = SumoXMLNodeType::ZIPPER;
             } else {
                 // priority instead of unregulated to ensure that collisions can be detected
