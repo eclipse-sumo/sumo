@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-13 10:07+0100\n"
-"PO-Revision-Date: 2025-02-18 12:08+0000\n"
+"PO-Revision-Date: 2025-02-21 10:55+0000\n"
 "Last-Translator: Tomosawa Ryo <tomosawa.r.103@ms.saitama-u.ac.jp>\n"
 "Language-Team: Japanese <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/ja/>\n"
@@ -2060,36 +2060,30 @@ msgid "Switch off"
 msgstr "スイッチオフ"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:184
-#, fuzzy
 msgid "Track Phases"
 msgstr "フェーズを追跡"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:185
-#, fuzzy
 msgid "Show Phases"
 msgstr "フェーズの表示"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:188
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:192
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:196
-#, fuzzy
 msgid "Hide Detectors"
-msgstr "検知器を非表示"
+msgstr "車輛検知器を非表示"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:188
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:192
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:196
-#, fuzzy
 msgid "Show Detectors"
-msgstr "検知器を表示"
+msgstr "車輛検知器を表示"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:202
-#, fuzzy
 msgid "Phase: %"
 msgstr "現示フェーズ: %"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:205
-#, fuzzy
 msgid "Phase name: %"
 msgstr "現示フェーズ名: %"
 
@@ -2114,7 +2108,6 @@ msgid "phase name"
 msgstr "現示フェーズ名"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:245
-#, fuzzy
 msgid "duration"
 msgstr "継続時間"
 
@@ -2181,7 +2174,7 @@ msgstr "制約条件"
 #: src/guisim/GUIVehicle.cpp:108
 #, fuzzy
 msgid "shadow lane [id]"
-msgstr "踏み込み車線[id]"
+msgstr "進入車線[id]"
 
 #: src/guisim/GUIVehicle.cpp:111
 msgid "target lane [id]"
@@ -2509,7 +2502,7 @@ msgstr "リンクタイプをロードしました '"
 #: src/netedit/GNEApplicationWindow.cpp:911
 #: src/netedit/GNEApplicationWindow.cpp:944
 msgid "load edgeTypes"
-msgstr "リンクタイプをロード"
+msgstr "EdgeTypeをロード"
 
 #: src/netedit/GNEApplicationWindow.cpp:942
 msgid "Reloaded edge types from '"
@@ -2809,11 +2802,11 @@ msgstr "信号機のプログラムの保存に失敗しました！"
 
 #: src/netedit/GNEApplicationWindow.cpp:3521
 msgid "EdgeType saved in '"
-msgstr "リンクタイプを ' に保存しました"
+msgstr "EdgeTypeを ' に保存しました"
 
 #: src/netedit/GNEApplicationWindow.cpp:3524
 msgid "Saving edgeTypes failed!"
-msgstr "リンクタイプの保存に失敗しました！"
+msgstr "EdgeTypeの保存に失敗しました！"
 
 #: src/netedit/GNEApplicationWindow.cpp:3628
 msgid "load additionals from '"
@@ -3116,471 +3109,472 @@ msgstr "MeanDataエレメント"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:306
 msgid "Allow undoing element loading"
-msgstr "エレメントの読み込みを元に戻すことを許可"
+msgstr "エレメントの読み込みを元に戻せるようにします"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:306
 msgid ""
 "Allow to undo loading of elements (Slow if a lot of elements are loaded)"
-msgstr ""
+msgstr "要素の読み込みを元に戻せるようにします（大量の要素を読み込む場合は動作が遅く"
+"なる可能性があります）"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:314
 msgid "Close the network."
-msgstr ""
+msgstr "ネットワークを閉じます。"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:364
 #: src/netedit/GNEViewNetHelper.cpp:2236
 msgid "Save Netedit Config"
-msgstr ""
+msgstr "neteditの設定を保存"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:364
 msgid "Save netedit configuration file."
-msgstr ""
+msgstr "neteditの設定ファイルを保存します。"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:368
 msgid "Save Netedit Config As..."
-msgstr ""
+msgstr "Neteditの設定に名前を付けて保存…"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:368
 msgid "Save netedit configuration in a new file."
-msgstr ""
+msgstr "Neteditの設定を新しいファイルに保存します。"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:374
 msgid "Reload Netedit Config"
-msgstr ""
+msgstr "Neteditの設定をリロード"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:374
 msgid "Reload netedit configuration."
-msgstr ""
+msgstr "Neteditの設定をリロードします。"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:382
 #: src/netedit/GNEViewNetHelper.cpp:2241
 msgid "Save Sumo Config"
-msgstr ""
+msgstr "Sumoの設定を保存"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:382
 msgid "Save sumo configuration file."
-msgstr ""
+msgstr "Sumoの設定ファイルを保存します。"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:386
 msgid "Save Sumo Config As..."
-msgstr ""
+msgstr "Sumoの設定に名前を付けて保存…"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:386
 msgid "Save sumo configuration in a new file."
-msgstr ""
+msgstr "Sumoの設定を新しいファイルに保存します。"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:392
 msgid "Reload Sumo Config"
-msgstr ""
+msgstr "Sumoの設定をリロード"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:392
 msgid "Reload sumo configuration."
-msgstr ""
+msgstr "Sumoの設定をリロードします。"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:400
 msgid "Load TLS Programs..."
-msgstr ""
+msgstr "信号機のプログラムをロード…"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:400
 msgid "Load programs for traffic lights in the current net."
-msgstr ""
+msgstr "道路網に信号機のプログラムをロードします。"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:406
 msgid "Save TLS Programs"
-msgstr ""
+msgstr "信号機のプログラムを保存"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:406
 msgid "Save all traffic light programs of the current network."
-msgstr ""
+msgstr "現在の道路網における全信号機のプログラムを保存します。"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:410
 msgid "Save TLS Programs As..."
-msgstr ""
+msgstr "信号機のプログラムに名前を付けて保存…"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:410
 msgid ""
 "Save all traffic light programs of the current network to another file."
-msgstr ""
+msgstr "現在のネットワークの全信号機のプログラムに名前を付けて保存します。"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:416
 msgid "Reload TLS Programs"
-msgstr ""
+msgstr "信号機のプログラムをリロード"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:416
 msgid "Reload TLS Programs."
-msgstr ""
+msgstr "信号機のプログラムをリロードします。"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:424
 msgid "Load Edge Types..."
-msgstr ""
+msgstr "リンクタイプをロード…"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:424
 msgid "Load edge types in the current net."
-msgstr ""
+msgstr "Edge Typeを現在の道路網にロードします。"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:430
 msgid "Save Edge Types"
-msgstr ""
+msgstr "Edge Typeを保存"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:430
 msgid "Save edge types of the current net."
-msgstr ""
+msgstr "現在の道路網のEdge Typeを保存します。"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:434
 msgid "Save Edge Types As..."
-msgstr ""
+msgstr "Edge Typeに名前を付けて保存…"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:434
 msgid "Save edge types of the current net to another file."
-msgstr ""
+msgstr "現在の道路網のEdge Typeに名前を付けて保存します。"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:440
 msgid "Reload edge types"
-msgstr ""
+msgstr "Edge Typeのリロード"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:440
 msgid "Reload edge types."
-msgstr ""
+msgstr "Edge Typeをリロードします。"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:448
 msgid "Load Additionals..."
-msgstr ""
+msgstr "構造物をロード…"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:448
 msgid "Load additionals and shapes."
-msgstr ""
+msgstr "構造物やシェイプをロードします。"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:454
 msgid "Save Additionals"
-msgstr ""
+msgstr "構造物を保存"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:454
 msgid "Save additionals and shapes."
-msgstr ""
+msgstr "構造物やシェイプを保存します。"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:458
 msgid "Save Additionals As..."
-msgstr ""
+msgstr "構造物に名前を付けて保存…"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:458
 msgid "Save additional elements to another file."
-msgstr ""
+msgstr "構造物エレメントに名前を付けて保存します。"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:462
 msgid "Save JuPedSim Elements As..."
-msgstr ""
+msgstr "JuPedSimのエレメントに名前を付けて保存…"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:462
 msgid "Save JuPedSim elements in a separated file."
-msgstr ""
+msgstr "JuPedSimのエレメントに名前を付けて保存します。"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:468
 msgid "Reload Additionals"
-msgstr ""
+msgstr "構造物をリロード"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:468
 msgid "Reload additionals."
-msgstr ""
+msgstr "構造物をリロードします。"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:476
 msgid "Load Demand Elements..."
-msgstr ""
+msgstr "交通需要エレメントをロード…"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:476
 msgid "Load demand elements."
-msgstr ""
+msgstr "交通需要エレメントをロードします。"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:482
 msgid "Save Demand Elements"
-msgstr ""
+msgstr "交通需要エレメントを保存"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:482
 msgid "Save demand elements."
-msgstr ""
+msgstr "交通需要エレメントを保存します。"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:486
 msgid "Save Demand Elements As..."
-msgstr ""
+msgstr "交通需要エレメントに名前を付けて保存…"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:486
 msgid "Save demand elements to another file."
-msgstr ""
+msgstr "交通需要エレメントに名前を付けて保存します。"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:492
 msgid "Reload Demand Elements"
-msgstr ""
+msgstr "交通需要エレメントをリロード"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:492
 msgid "Reload demand elements."
-msgstr ""
+msgstr "交通需要エレメントをリロードします。"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:500
 msgid "Load Data Elements..."
-msgstr ""
+msgstr "データエレメントをロード…"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:500
 msgid "Load data elements."
-msgstr ""
+msgstr "データエレメントをロードします。"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:506
 msgid "Save Data Elements"
-msgstr ""
+msgstr "データエレメントを保存"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:506
 msgid "Save data elements."
-msgstr ""
+msgstr "データエレメントを保存します。"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:510
 msgid "Save Data Elements As..."
-msgstr ""
+msgstr "データエレメントに名前を付けて保存…"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:510
 msgid "Save data elements to another file."
-msgstr ""
+msgstr "データエレメントに名前を付けて保存します。"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:516
 msgid "Reload Data Elements"
-msgstr ""
+msgstr "データエレメントをリロード"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:516
 msgid "Reload data elements."
-msgstr ""
+msgstr "データエレメントをリロードします。"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:524
 msgid "Load MeanDatas..."
-msgstr ""
+msgstr "MeanDataをロード…"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:524
 msgid "Load meanDatas and shapes."
-msgstr ""
+msgstr "MeanDataとシェイプをロードします。"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:530
 msgid "Save MeanDatas"
-msgstr ""
+msgstr "MeanDataを保存"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:530
 msgid "Save meanDatas and shapes."
-msgstr ""
+msgstr "MeanDataとシェイプを保存します。"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:534
 msgid "Save MeanDatas As..."
-msgstr ""
+msgstr "MeanDataに名前を付けて保存…"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:534
 msgid "Save meanData elements to another file."
-msgstr ""
+msgstr "MeanDataエレメントに名前を付けて保存します。"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:540
 msgid "Reload MeanDatas"
-msgstr ""
+msgstr "MeanDataをリロード"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:540
 msgid "Reload meanDatas."
-msgstr ""
+msgstr "MeanDataをリロードします。"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:557
 msgid "&Inspect"
-msgstr ""
+msgstr "&検証"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:557
 msgid "Inspect elements and change their attributes."
-msgstr ""
+msgstr "エレメントの検証とそれらの属性の変更を行います。"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:560
 msgid "&Delete"
-msgstr ""
+msgstr "&消去"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:560
 msgid "Delete elements."
-msgstr ""
+msgstr "エレメントを消去します。"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:563
 msgid "&Select"
-msgstr ""
+msgstr "&選択"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:563
 msgid "Select elements."
-msgstr ""
+msgstr "エレメントを選択します。"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:612
 #: src/netedit/GNEApplicationWindowHelper.cpp:702
 msgid "&Move"
-msgstr ""
+msgstr "&移動"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:612
 #: src/netedit/GNEApplicationWindowHelper.cpp:702
 msgid "Move elements."
-msgstr ""
+msgstr "エレメントを移動します。"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:616
 msgid "&Edge"
-msgstr ""
+msgstr "&リンク"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:616
 msgid "Create junction and edges."
-msgstr ""
+msgstr "交差点とリンクを作成します。"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:620
 msgid "&Traffic light"
-msgstr ""
+msgstr "&信号機"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:620
 msgid "Modes traffic lights over junctions."
-msgstr ""
+msgstr "交差点上の信号機のモードです。"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:624
 msgid "&Connection"
-msgstr ""
+msgstr "&コネクション"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:624
 msgid "Modes connections between lanes."
-msgstr ""
+msgstr "車線同士の接続のモードです。"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:628
 msgid "Pro&hibition"
-msgstr ""
+msgstr "禁則事項"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:628
 msgid "Modes connection prohibitions."
-msgstr ""
+msgstr "接続の禁則事項のモードです。"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:632
 msgid "C&rossing"
-msgstr ""
+msgstr "横断歩道"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:632
 msgid "Create crossings between edges."
-msgstr ""
+msgstr "リンク間の横断歩道を作成します。"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:636
 msgid "Create additional elements."
-msgstr ""
+msgstr "構造物エレメントを作成します。"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:640
 msgid "&Wire"
-msgstr ""
+msgstr "&電線"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:640
 msgid "Create wires."
-msgstr ""
+msgstr "電線を作成します。"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:644
 msgid "TA&Z"
-msgstr ""
+msgstr "TA&Z"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:644
 msgid "Create Traffic Assignment Zones."
-msgstr ""
+msgstr "TAZを作成します。"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:648
 msgid "&POI-Poly"
-msgstr ""
+msgstr "&点-ポリゴン"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:648
 msgid "Create Points-Of-Interest and polygons."
-msgstr ""
+msgstr "点およびポリゴンを作成します。"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:652
 msgid "Deca&ls"
-msgstr ""
+msgstr "&デカール"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:652
 msgid "Create decals."
-msgstr ""
+msgstr "デカールを作成します。"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:705
 msgid "Create Routes."
-msgstr ""
+msgstr "ルートを作成します。"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:708
 #: src/netedit/GNETagPropertiesDatabase.cpp:3057
 msgid "Route distribution"
-msgstr ""
+msgstr "配送ルート"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:708
 msgid "Create and edit route distributions."
-msgstr ""
+msgstr "配送ルートの作成と編集を行います。"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:712
 #: src/netedit/elements/demand/GNEVehicle.cpp:122
 msgid "Vehicle"
-msgstr ""
+msgstr "車輛"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:712
 msgid "Create vehicles."
-msgstr ""
+msgstr "車輛を作成します。"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:715
 msgid "Type"
-msgstr ""
+msgstr "タイプ"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:715
 msgid "Create types (vehicles, person and containers)."
-msgstr ""
+msgstr "タイプ（車輛・人・コンテナ）を作成します。"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:718
 msgid "TypeDistribution"
-msgstr ""
+msgstr "タイプ分布"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:718
 msgid "Create and edit type distributions."
-msgstr ""
+msgstr "タイプ分布の作成と編集を行います。"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:721
 msgid "Create stops."
-msgstr ""
+msgstr "停止地点を作成。"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:724
 #: src/netedit/GNETagPropertiesDatabase.cpp:4083
 msgid "Person"
-msgstr ""
+msgstr "人"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:724
 msgid "Create persons."
-msgstr ""
+msgstr "人を作成します。"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:727
 msgid "Person plan"
-msgstr ""
+msgstr "人のプラン"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:727
 msgid "Create person plans."
-msgstr ""
+msgstr "人のプランを作成します。"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:730
 #: src/netedit/GNETagPropertiesDatabase.cpp:4127
 #: src/netedit/GNETagPropertiesDatabase.cpp:4171
 #: src/netedit/frames/GNETagSelector.cpp:182
 msgid "Container"
-msgstr ""
+msgstr "コンテナ"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:730
 msgid "Create containers."
-msgstr ""
+msgstr "コンテナを作成します。"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:733
 msgid "Container plan"
-msgstr ""
+msgstr "コンテナプラン"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:733
 msgid "Create container plans."
-msgstr ""
+msgstr "コンテナプランを作成します。"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:768
 msgid "&EdgeData"
-msgstr ""
+msgstr "&EdgeData"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:768
 msgid "Create edgeData elements."
-msgstr ""
+msgstr "EdgeDataエレメントを作成します。"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:771
 msgid "Edge&Relation"
-msgstr ""
+msgstr "&リンクとリレイション"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:771
 msgid "Create edgeRelation elements."
-msgstr ""
+msgstr "リンクとリレイションのエレメントを作成します。"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:774
 msgid "TA&ZRelation"
@@ -4262,16 +4256,16 @@ msgstr ""
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:2606
 msgid "Save EdgeType file as"
-msgstr ""
+msgstr "EdgeTypeに名前を付けて保存"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:2607
 #: src/netedit/GNEApplicationWindowHelper.cpp:2612
 msgid "EdgeType files (*.typ.xml)"
-msgstr ""
+msgstr "EdgeTypeファイル (*.typ.xml)"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:2611
 msgid "Open EdgeType file"
-msgstr ""
+msgstr "EdgeTypeファイルを開く"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:2622
 msgid "Save Additionals file as"
@@ -4416,7 +4410,7 @@ msgstr ""
 
 #: src/netedit/GNELoadThread.cpp:310
 msgid "File in which edgeTypes must be saved"
-msgstr ""
+msgstr "EdgeTypeを保存するファイル"
 
 #: src/netedit/GNELoadThread.cpp:316
 msgid "Start netedit with a new network"
@@ -5061,7 +5055,7 @@ msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:524
 msgid "EdgeType"
-msgstr ""
+msgstr "EdgeType"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:528
 msgid "The id of the edge"
@@ -10044,19 +10038,19 @@ msgstr ""
 
 #: src/netedit/changes/GNEChange_EdgeType.cpp:105
 msgid "Undo create edgeType '"
-msgstr ""
+msgstr "EdgeType の作成を元に戻す '"
 
 #: src/netedit/changes/GNEChange_EdgeType.cpp:107
 msgid "Undo delete edgeType '"
-msgstr ""
+msgstr "EdgeTypeの削除を元に戻す '"
 
 #: src/netedit/changes/GNEChange_EdgeType.cpp:115
 msgid "Redo create edgeType '"
-msgstr ""
+msgstr "EdgeTypeの作成をやり直す '"
 
 #: src/netedit/changes/GNEChange_EdgeType.cpp:117
 msgid "Redo delete edgeType '"
-msgstr ""
+msgstr "EdgeTypeの削除をやり直す '"
 
 #: src/netedit/changes/GNEChange_Junction.cpp:115
 msgid "Undo create junction '"
@@ -14446,7 +14440,7 @@ msgstr ""
 
 #: src/netedit/frames/network/GNECreateEdgeFrame.cpp:90
 msgid "Use edgeType/template"
-msgstr ""
+msgstr "EdgeType/templateを使用"
 
 #: src/netedit/frames/network/GNECreateEdgeFrame.cpp:98
 #: src/netedit/frames/network/GNECreateEdgeFrame.cpp:464
@@ -14469,7 +14463,7 @@ msgstr ""
 
 #: src/netedit/frames/network/GNECreateEdgeFrame.cpp:104
 msgid "Create edgeType from template"
-msgstr ""
+msgstr "EdgeTypeをテンプレートから作成"
 
 #: src/netedit/frames/network/GNECreateEdgeFrame.cpp:343
 #: src/netedit/frames/network/GNECreateEdgeFrame.cpp:392
@@ -14544,7 +14538,8 @@ msgstr ""
 msgid ""
 "Select either default edgeType or short edge or a custom edgeType or "
 "template"
-msgstr ""
+msgstr "デフォルトのEdgeType、短いリンク、カスタムEdgeType、またはテンプレートのいず"
+"れかを選択"
 
 #: src/netedit/frames/network/GNECreateEdgeFrame.cpp:692
 msgid "Invalid edge attributes"
@@ -15283,7 +15278,7 @@ msgstr ""
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:1919
 msgid "Phases"
-msgstr ""
+msgstr "フェーズ"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:1930
 msgid "Clean States"
