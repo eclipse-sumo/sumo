@@ -350,57 +350,8 @@ pipeline {
 
         stage('Uploading notarized artifacts to GitHub') {
             steps {
+                // Make sure to have the notarized files in our workspace on the macOS node
                 unstash 'notarized'
-                script {
-                    def githubToken = credentials('github-bot-token')
-                    def githubRepo = "eclipse-sumo/sumo"
-                    def commitHash = sh(script: "cd sumo && git rev-parse HEAD", returnStdout: true).trim()
-                    def branchName = sh(script: "cd sumo && git rev-parse --abbrev-ref HEAD", returnStdout: true).trim()
-                    def workflowId = "macos.yml"
-                    def filePath = "notarized/sumo*.pkg"
-                    def artifactName = "sumo-macOS-installer.zip"
-
-                    echo "Searching for GitHub Actions workflow run for commit: ${commitHash} on branch: ${branchName}"
-
-                    // Fetch latest workflow runs from GitHub API
-                    def apiUrl = "https://api.github.com/repos/${githubRepo}/actions/workflows/${workflowId}/runs?branch=${branchName}&per_page=5"
-                    def jsonResponse = sh(
-                        script: 'curl -s -H "Authorization: Bearer ' + GITHUB_TOKEN + '" "' + apiUrl + '"',
-                        returnStdout: true
-                    ).trim()
-
-                    // Parse JSON response using JsonSlurper
-                    def json = new JsonSlurper().parseText(jsonResponse)
-                    def workflowRuns = json.workflow_runs
-
-                    // Find the workflow run with the correct commit hash
-                    def matchedRun = workflowRuns.find { it.head_sha == commitHash }
-
-                    if (!matchedRun) {
-                        error "No matching workflow run found for commit: ${commitHash}."
-                    }
-
-                    def runId = matchedRun.id
-                    echo "Found Workflow Run ID: ${runId}"
-
-                    // Get the exact file name
-                    def fileName = sh(script: "ls ${filePath}", returnStdout: true).trim()
-
-                    // GitHub accepts only zipped uploads
-                    sh "zip -j artifact.zip ${fileName}"
-
-                    // Get file size in bytes
-                    def fileSize = sh(script: "stat -f %z artifact.zip", returnStdout: true).trim()
-
-                    // Upload the artifact using curl
-                    echo "Uploading file: ${fileName} as a zip archive to GitHub"
-                    def uploadUrl = "https://uploads.github.com/repos/${githubRepo}/actions/runs/${runId}/artifacts"
-                    def uploadResponse = sh(
-                        script: 'curl -s -X POST -H "Content-Length: ' + fileSize + '" -H "Authorization: Bearer ' + GITHUB_TOKEN + '" -H "Accept: application/vnd.github.v3+json" -F "name=' + artifactName + '" -F "data=@artifact.zip" "' + uploadUrl + '"',
-                        returnStdout: true
-                    ).trim()
-                    echo "Upload response: ${uploadResponse}"
-                }
             }
         }
     }
