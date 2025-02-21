@@ -32,7 +32,10 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4355) // mask warning about "this" in initializers
+#endif
 GNEWalk::GNEWalk(SumoXMLTag tag, GNENet* net) :
     GNEDemandElement("", net, GLO_WALK, tag, GUIIcon::WALK_EDGE, GNEPathElement::Options::DEMAND_ELEMENT),
     GNEDemandElementPlan(this, -1, -1) {
@@ -55,7 +58,9 @@ GNEWalk::GNEWalk(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* pe
     // update centering boundary without updating grid
     updatePlanCenteringBoundary(false);
 }
-
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 GNEWalk::~GNEWalk() {}
 

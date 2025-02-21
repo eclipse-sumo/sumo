@@ -158,7 +158,10 @@ GNEContainer::GNESelectedContainersPopupMenu::onCmdTransform(FXObject* obj, FXSe
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4355) // mask warning about "this" in initializers
+#endif
 GNEContainer::GNEContainer(SumoXMLTag tag, GNENet* net) :
     GNEDemandElement("", net, GLO_CONTAINER, tag, GUIIcon::CONTAINER,
                      GNEPathElement::Options::DEMAND_ELEMENT),
@@ -181,7 +184,9 @@ GNEContainer::GNEContainer(SumoXMLTag tag, GNENet* net, GNEDemandElement* pType,
     // set manually vtypeID (needed for saving)
     vtypeid = pType->getID();
 }
-
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 GNEContainer::~GNEContainer() {}
 

@@ -34,7 +34,10 @@
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4355) // mask warning about "this" in initializers
+#endif
 GNEStop::GNEStop(SumoXMLTag tag, GNENet* net) :
     GNEDemandElement("", net, GLO_STOP, tag, GUIIcon::STOP, GNEPathElement::Options::DEMAND_ELEMENT),
     GNEDemandElementPlan(this, -1, -1),
@@ -110,7 +113,9 @@ GNEStop::GNEStop(SumoXMLTag tag, GNENet* net, GNEDemandElement* stopParent, GNEL
     // set locator sufix
     setStopMicrosimID();
 }
-
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 GNEStop::~GNEStop() {}
 

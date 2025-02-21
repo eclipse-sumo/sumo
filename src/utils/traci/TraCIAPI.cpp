@@ -30,7 +30,10 @@
 // ---------------------------------------------------------------------------
 // TraCIAPI-methods
 // ---------------------------------------------------------------------------
-
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4355) // mask warning about "this" in initializers
+#endif
 TraCIAPI::TraCIAPI() :
     edge(*this), gui(*this), inductionloop(*this),
     junction(*this), lane(*this), lanearea(*this), multientryexit(*this),
@@ -57,7 +60,9 @@ TraCIAPI::TraCIAPI() :
     myDomains[libsumo::RESPONSE_SUBSCRIBE_VEHICLE_VARIABLE] = &vehicle;
     myDomains[libsumo::RESPONSE_SUBSCRIBE_VEHICLETYPE_VARIABLE] = &vehicletype;
 }
-
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 TraCIAPI::~TraCIAPI() {
     delete mySocket;
