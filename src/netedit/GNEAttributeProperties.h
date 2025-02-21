@@ -214,23 +214,31 @@ public:
     /// @brief return true if attribute is always enabled
     bool isAlwaysEnabled() const;
 
+    /// @name edit modes
+    /// @{
+
+    /// @brief return true if attribute is basic
+    bool isEditTypeBasic() const;
+
     /// @brief return true if attribute is extended
-    bool isExtended() const;
+    bool isEditTypeExtended() const;
 
     /// @brief return true if attribute is Child (only used in the context of Attribute editor)
-    bool isChild() const;
+    bool isEditTypeChild() const;
 
     /// @brief return true if attribute is GEO
-    bool isGEO() const;
+    bool isEditTypeGEO() const;
 
     /// @brief return true if attribute is exclusive of netedit
-    bool isNetedit() const;
+    bool isEditTypeNetedit() const;
 
     /// @brief return true if attribute can be modified in create mode
-    bool isCreateMode() const;
+    bool isEditTypeCreate() const;
 
     /// @brief return true if attribute can be modified in edit mode
-    bool isEditMode() const;
+    bool isEditTypeEdit() const;
+
+    /// @}
 
 private:
     /// @brief XML Attribute

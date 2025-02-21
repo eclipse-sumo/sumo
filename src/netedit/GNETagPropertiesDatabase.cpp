@@ -9494,31 +9494,33 @@ GNETagPropertiesDatabase::fillFileAttribute(GNETagProperties* tagProperties) {
 void
 GNETagPropertiesDatabase::updateMaxNumberOfAttributesEditorRows() {
     for (const auto& tagPropertyItem : myTagProperties) {
-        int editableAttributes = 0;
+        int basicEditableAttributes = 0;
         int childAttributes = 0;
         int geoAttributes = 0;
         int flowAttributes = 0;
         int neteditAttributes = 0;
         for (const auto& attributeProperty : tagPropertyItem.second->getAttributeProperties()) {
-            if (attributeProperty->isCreateMode() || attributeProperty->isEditMode()) {
-                if (attributeProperty->isChild() && attributeProperty->isCreateMode()) {
+            if (attributeProperty->isEditTypeCreate() || attributeProperty->isEditTypeEdit()) {
+                if (attributeProperty->isEditTypeBasic()) {
+                    basicEditableAttributes++;
+                }
+                if (attributeProperty->isEditTypeChild() && attributeProperty->isEditTypeCreate()) {
                     // child attributes are relevant only in create mode
                     childAttributes++;
                 }
-                if (attributeProperty->isGEO()) {
+                if (attributeProperty->isEditTypeGEO()) {
                     geoAttributes++;
-                } else if (attributeProperty->isFlow()) {
+                }
+                if (attributeProperty->isFlow()) {
                     flowAttributes++;
                 }
-                if (attributeProperty->isNetedit()) {
+                if (attributeProperty->isEditTypeNetedit()) {
                     neteditAttributes++;
-                } else if (!attributeProperty->isExtended()) {
-                    editableAttributes++;
                 }
             }
         }
-        if (myMaxNumberOfEditableAttributeRows < editableAttributes) {
-            myMaxNumberOfEditableAttributeRows = editableAttributes;
+        if (myMaxNumberOfEditableAttributeRows < basicEditableAttributes) {
+            myMaxNumberOfEditableAttributeRows = basicEditableAttributes;
         }
         if (myMaxNumberOfChildAttributeRows < childAttributes) {
             myMaxNumberOfChildAttributeRows = childAttributes;

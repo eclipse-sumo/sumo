@@ -197,44 +197,45 @@ GNEAttributesEditor::refreshAttributesEditor() {
         } else {
             // Iterate over tag property of first AC and show row for every attribute
             for (const auto& attrProperty : tagProperty->getAttributeProperties()) {
-                bool showAttributeRow = true;
-                // check show conditions
-                if (attrProperty->isExtended()) {
-                    showAttributeRow = false;
-                }
                 // filter editor type
-                if ((myEditorType != EditorType::CREATOR) && (myEditorType != EditorType::EDITOR)) {
-                    showAttributeRow = false;
+                bool validEditorType = false;
+                if ((myEditorType == EditorType::CREATOR) && attrProperty->isEditTypeCreate()) {
+                    validEditorType = true;
                 }
-                if ((myEditorType == EditorType::CREATOR) && !attrProperty->isCreateMode()) {
-                    showAttributeRow = false;
-                }
-                if ((myEditorType == EditorType::EDITOR) && !attrProperty->isEditMode()) {
-                    showAttributeRow = false;
+                if ((myEditorType == EditorType::EDITOR) && attrProperty->isEditTypeEdit()) {
+                    validEditorType = true;
                 }
                 // filter types
-                if ((myAttributeType == AttributeType::CHILD) && !attrProperty->isChild()) {
-                    showAttributeRow = false;
+                bool validAttributeType = true;
+                if ((myAttributeType == AttributeType::BASIC) && !attrProperty->isEditTypeBasic()) {
+                    validAttributeType = false;
+                }
+                if ((myAttributeType == AttributeType::CHILD) && !attrProperty->isEditTypeChild()) {
+                    validAttributeType = false;
                 }
                 if ((myAttributeType == AttributeType::FLOW) && !attrProperty->isFlow()) {
-                    showAttributeRow = false;
+                    validAttributeType = false;
                 }
-                if ((myAttributeType == AttributeType::GEO) && !attrProperty->isGEO()) {
-                    showAttributeRow = false;
+                if ((myAttributeType == AttributeType::GEO) && !attrProperty->isEditTypeGEO()) {
+                    validAttributeType = false;
                 }
-                if ((myAttributeType == AttributeType::NETEDIT) && !attrProperty->isNetedit()) {
-                    showAttributeRow = false;
+                if ((myAttributeType == AttributeType::NETEDIT) && !attrProperty->isEditTypeNetedit()) {
+                    validAttributeType = false;
+                }
+                if (attrProperty->isEditTypeExtended()) {
+                    validAttributeType = false;
                 }
                 if (attrProperty->getAttr() == GNE_ATTR_PARAMETERS) {
-                    showAttributeRow = false;
+                    validAttributeType = false;
                 }
-                if (showAttributeRow) {
+                if (validEditorType && validAttributeType) {
                     if (itRows < (int)myAttributesEditorRows.size()) {
                         // only update if row was show successfully
                         if (myAttributesEditorRows[itRows]->showAttributeRow(this, attrProperty, isReparenting())) {
                             itRows++;
                         }
                     } else {
+                        std::cout << attrProperty->getAttrStr() << std::endl;
                         throw ProcessError("Invalid maximum number of rows");
                     }
                 }

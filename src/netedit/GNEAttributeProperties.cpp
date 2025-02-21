@@ -478,37 +478,43 @@ GNEAttributeProperties::isAlwaysEnabled() const {
 
 
 bool
-GNEAttributeProperties::isExtended() const {
+GNEAttributeProperties::isEditTypeBasic() const {
+    return !isEditTypeExtended() && !isEditTypeChild() && !isEditTypeGEO() && !isEditTypeNetedit();
+}
+
+
+bool
+GNEAttributeProperties::isEditTypeExtended() const {
     return (myEditProperty & EXTENDED) != 0;
 }
 
 
 bool
-GNEAttributeProperties::isChild() const {
+GNEAttributeProperties::isEditTypeChild() const {
     return (myEditProperty & CHILD) != 0;
 }
 
 
 bool
-GNEAttributeProperties::isGEO() const {
+GNEAttributeProperties::isEditTypeGEO() const {
     return (myEditProperty & GEO) != 0;
 }
 
 
 bool
-GNEAttributeProperties::isNetedit() const {
+GNEAttributeProperties::isEditTypeNetedit() const {
     return (myEditProperty & NETEDIT) != 0;
 }
 
 
 bool
-GNEAttributeProperties::isCreateMode() const {
+GNEAttributeProperties::isEditTypeCreate() const {
     return (myEditProperty & CREATEMODE) != 0;
 }
 
 
 bool
-GNEAttributeProperties::isEditMode() const {
+GNEAttributeProperties::isEditTypeEdit() const {
     return (myEditProperty & EDITMODE) != 0;
 }
 
