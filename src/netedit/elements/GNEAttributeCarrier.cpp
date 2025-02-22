@@ -774,6 +774,7 @@ GNEAttributeCarrier::setCommonAttribute(Parameterised* parameterised, SumoXMLAtt
         case GNE_ATTR_DATA_FILE:
         case GNE_ATTR_MEANDATA_FILE:
             myWrittingFilename = value;
+            break;
         case GNE_ATTR_PARAMETERS:
             parameterised->setParametersStr(value);
             break;
