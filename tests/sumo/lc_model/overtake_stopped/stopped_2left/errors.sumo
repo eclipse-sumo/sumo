@@ -1,6 +1,0 @@
-Warning: Teleporting vehicle 'v.0'; waited too long (blocked), lane='beg_2', time=387.00.
-Warning: Vehicle 'v.0' teleports beyond arrival edge 'beg', time=387.00.
-Warning: Teleporting vehicle 'v.4'; waited too long (blocked), lane='beg_2', time=691.00.
-Warning: Vehicle 'v.4' teleports beyond arrival edge 'beg', time=691.00.
-Warning: Teleporting vehicle 'v.8'; waited too long (blocked), lane='beg_2', time=996.00.
-Warning: Vehicle 'v.8' teleports beyond arrival edge 'beg', time=996.00.
