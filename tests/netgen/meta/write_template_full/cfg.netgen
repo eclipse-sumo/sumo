@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-02-10 08:48:18 by Eclipse SUMO netgenerate Version v1_22_0+0087-91b2b3c2d6e
+<!-- generated on 2025-02-24 08:10:40 by Eclipse SUMO netgenerate Version v1_22_0+0449-9311ec3459f
 -->
 
 <netgenerateConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
@@ -181,6 +181,7 @@
         <tls.ungroup-signals value="false" type="BOOL" help="Assign a distinct tls link index to every connection"/>
         <tls.rebuild value="false" type="BOOL" help="rebuild all traffic light plans in the network"/>
         <tls.discard-simple value="false" type="BOOL" help="Does not instantiate traffic lights at geometry-like nodes"/>
+        <railway.signal.permit-unsignalized value="tram,cable_car" type="STR[]" help="List rail classes that may run without rail signals"/>
     </tls_building>
 
     <edge_removal>

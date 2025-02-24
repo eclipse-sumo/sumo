@@ -1,4 +1,4 @@
-Eclipse SUMO netgenerate Version v1_22_0+0087-91b2b3c2d6e
+Eclipse SUMO netgenerate Version v1_22_0+0449-9311ec3459f
  Copyright (C) 2001-2025 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Synthetic network generator for the microscopic, multi-modal traffic simulation
  SUMO.
@@ -322,6 +322,8 @@ TLS Building Options:
                                         network
   --tls.discard-simple                 Does not instantiate traffic lights at
                                         geometry-like nodes
+  --railway.signal.permit-unsignalized STR[]  List rail classes that may run
+                                        without rail signals
 
 Edge Removal Options:
   --keep-edges.min-speed FLOAT         Only keep edges with speed in
