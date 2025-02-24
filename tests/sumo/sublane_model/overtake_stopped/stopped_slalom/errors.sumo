@@ -1,0 +1,2 @@
+Warning: Teleporting vehicle 'v.0'; waited too long (blocked), lane='beg_1', time=312.00.
+Warning: Vehicle 'v.0' teleports beyond arrival edge 'beg', time=312.00.

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-02-24 11:56:04 by Eclipse SUMO sumo Version v1_22_0+0465-e1039b2b80b
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="motorway.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+    </output>
+
+    <processing>
+        <lateral-resolution value="0.8"/>
+        <max-depart-delay value="1"/>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.statistics value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</sumoConfiguration>
+-->
+
+<meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
+    <interval begin="0.00" end="574.00" id="laneData">
+        <edge id="beg">
+            <lane id="beg_0" sampledSeconds="10191.47" traveltime="107.62" overlapTraveltime="107.84" density="5.93" laneDensity="5.93" occupancy="2.96" waitingTime="173.00" timeLoss="2227.49" speed="27.83" speedRelative="0.77" departed="76" arrived="141" entered="0" left="0" laneChangedFrom="87" laneChangedTo="152"/>
+            <lane id="beg_1" sampledSeconds="8074.21" traveltime="115.79" overlapTraveltime="115.99" density="4.70" laneDensity="4.70" occupancy="2.35" waitingTime="763.00" timeLoss="2339.31" speed="25.87" speedRelative="0.72" departed="88" arrived="76" entered="0" left="0" laneChangedFrom="204" laneChangedTo="192"/>
+            <lane id="beg_2" sampledSeconds="4391.21" traveltime="142.03" overlapTraveltime="142.24" density="2.55" laneDensity="2.55" occupancy="1.28" waitingTime="338.00" timeLoss="1377.18" speed="21.10" speedRelative="0.59" departed="71" arrived="18" entered="0" left="0" laneChangedFrom="105" laneChangedTo="52"/>
+        </edge>
+    </interval>
+</meandata>

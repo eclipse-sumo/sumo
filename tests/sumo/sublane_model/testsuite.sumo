@@ -34,6 +34,9 @@ width_transition
 # test vehicles moving in opposite directions on the same edge
 bidiEdge
 
+# Copy of overtake_stopped
+overtake_stopped
+
 # vehicle behavior on a single edge with 2 lanes (default alignment)
 1edge_2lanes
 depart_random_last
