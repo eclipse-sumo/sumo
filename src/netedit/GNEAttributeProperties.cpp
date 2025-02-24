@@ -102,6 +102,10 @@ GNEAttributeProperties::checkAttributeIntegrity() const {
     if (hasAttrSynonym() && (myAttrSynonym == SUMO_ATTR_NOTHING)) {
         throw FormatException("synonym attribute cannot be nothing");
     }
+    // check that synonym attribute isn't nothing
+    if ((isFilenameOpen() || isFilenameSave()) && myFilenameExtensions.empty()) {
+        throw FormatException("Filenames requieres at leas one extension");
+    }
     // check that ranges are valid
     if (hasAttrRange()) {
         if (myMinimumRange == myMaximumRange) {
@@ -126,6 +130,16 @@ GNEAttributeProperties::setDiscreteValues(const std::vector<std::string>& discre
         myDiscreteValues = discreteValues;
     } else {
         throw FormatException("AttributeProperty doesn't support discrete values");
+    }
+}
+
+
+void
+GNEAttributeProperties::setFilenameExtensions(const std::vector<std::string>& extensions) {
+    if (isFilenameOpen() || isFilenameSave()) {
+        myFilenameExtensions = extensions;
+    } else {
+        throw FormatException("AttributeProperty doesn't support extensions values");
     }
 }
 
@@ -229,56 +243,60 @@ GNEAttributeProperties::getDescription() const {
     std::string plural;
     std::string last;
     // pre type
-    if ((myAttributeProperty & LIST) != 0) {
+    if (isList()) {
         pre += "list of ";
-        if ((myAttributeProperty & VCLASS) != 0) {
+        if (isVClass()) {
             plural = "es";
         } else {
             plural = "s";
         }
     }
-    if ((myAttributeProperty & POSITIVE) != 0) {
+    if (isPositive()) {
         pre += "non-negative ";
     }
-    if ((myAttributeProperty & DISCRETE) != 0) {
+    if (isDiscrete()) {
         pre += "discrete ";
     }
-    if ((myAttributeProperty & UNIQUE) != 0) {
+    if (isUnique()) {
         pre += "unique ";
     }
     // type
-    if ((myAttributeProperty & INT) != 0) {
+    if (isInt()) {
         type = "integer";
     }
-    if ((myAttributeProperty & FLOAT) != 0) {
+    if (isFloat()) {
         type = "float";
     }
-    if ((myAttributeProperty & SUMOTIME) != 0) {
+    if (isSUMOTime()) {
         type = "SUMOTime";
     }
-    if ((myAttributeProperty & BOOL) != 0) {
+    if (isBool()) {
         type = "boolean";
     }
-    if ((myAttributeProperty & STRING) != 0) {
+    if (isString()) {
         type = "string";
     }
-    if ((myAttributeProperty & POSITION) != 0) {
+    if (isPosition()) {
         type = "position";
     }
-    if ((myAttributeProperty & COLOR) != 0) {
+    if (isColor()) {
         type = "color";
     }
-    if ((myAttributeProperty & VCLASS) != 0) {
+    if (isVClass()) {
         type = "vClass";
     }
-    if ((myAttributeProperty & FILENAME) != 0) {
+    if (isFilenameOpen()) {
+        type = "filename";
+        last = "(Existent)";
+    }
+    if (isFilenameSave()) {
         type = "filename";
     }
-    if ((myAttributeProperty & PROBABILITY) != 0) {
+    if (isProbability()) {
         type = "probability";
         last = "[0, 1]";
     }
-    if ((myAttributeProperty & ANGLE) != 0) {
+    if (isAngle()) {
         type = "angle";
         last = "[0, 360]";
     }
@@ -382,6 +400,12 @@ GNEAttributeProperties::isProbability() const {
 
 
 bool
+GNEAttributeProperties::isAngle() const {
+    return (myAttributeProperty & ANGLE) != 0;
+}
+
+
+bool
 GNEAttributeProperties::isNumerical() const {
     return (myAttributeProperty & (INT | FLOAT | SUMOTIME)) != 0;
 }
@@ -406,8 +430,14 @@ GNEAttributeProperties::isVType() const {
 
 
 bool
-GNEAttributeProperties::isFilename() const {
-    return (myAttributeProperty & FILENAME) != 0;
+GNEAttributeProperties::isFilenameOpen() const {
+    return (myAttributeProperty & FILENAMEOPEN) != 0;
+}
+
+
+bool
+GNEAttributeProperties::isFilenameOpen() const {
+    return (myAttributeProperty & FILENAMESAVE) != 0;
 }
 
 

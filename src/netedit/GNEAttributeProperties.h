@@ -48,22 +48,23 @@ public:
         COLOR =             1 << 7,     // Attribute is a color defined by a specifically word (Red, green) or by a special format (XXX,YYY,ZZZ)
         VTYPE =             1 << 8,     // Attribute corresponds to a Vtype or VTypeDistribution
         VCLASS =            1 << 9,     // Attribute is a VClass (passenger, bus, motorcicle...)
-        POSITIVE =          1 << 10,     // Attribute is positive (Including Zero)
+        POSITIVE =          1 << 10,    // Attribute is positive (Including Zero)
         UNIQUE =            1 << 11,    // Attribute is unique (cannot be edited in a selection of similar elements (ID, Position...)
-        FILENAME =          1 << 12,    // Attribute is a filename (string that cannot contains certain characters)
-        DISCRETE =          1 << 13,    // Attribute is discrete (only certain values are allowed)
-        PROBABILITY =       1 << 14,    // Attribute is probability (only allowed values between 0 and 1, including both)
-        ANGLE =             1 << 15,    // Attribute is an angle (only takes values between 0 and 360, including both, another value will be automatically reduced
-        LIST =              1 << 16,    // Attribute is a list of other elements separated by spaces
-        SECUENCIAL =        1 << 17,    // Attribute is a special sequence of elements (for example: secuencial lanes in Multi Lane E2 detectors)
-        DEFAULTVALUE =      1 << 18,    // Attribute owns a static default value
-        SYNONYM =           1 << 19,    // Attribute will be written with a different name in der XML
-        RANGE =             1 << 20,    // Attribute only accept a range of elements (example: Probability [0,1])
-        UPDATEGEOMETRY =    1 << 21,    // Attribute require update geometry at the end of function setAttribute(...)
-        ACTIVATABLE =       1 << 22,    // Attribute can be switch on/off using a checkbox in frame
-        FLOW =              1 << 23,    // Attribute is part of a flow definition (Number, vehsPerHour...)
-        COPYABLE =          1 << 24,    // Attribute can be copied over other element with the same tagProperty (used for edge/lane templates)
-        ALWAYSENABLED =     1 << 25,    // Attribute cannot be disabled
+        FILENAMEOPEN =      1 << 12,    // Attribute is a filename that opens an existent file
+        FILENAMESAVE =      1 << 13,    // Attribute is a filename that can create a new file
+        DISCRETE =          1 << 14,    // Attribute is discrete (only certain values are allowed)
+        PROBABILITY =       1 << 15,    // Attribute is probability (only allowed values between 0 and 1, including both)
+        ANGLE =             1 << 16,    // Attribute is an angle (only takes values between 0 and 360, including both, another value will be automatically reduced
+        LIST =              1 << 17,    // Attribute is a list of other elements separated by spaces
+        SECUENCIAL =        1 << 18,    // Attribute is a special sequence of elements (for example: secuencial lanes in Multi Lane E2 detectors)
+        DEFAULTVALUE =      1 << 19,    // Attribute owns a static default value
+        SYNONYM =           1 << 20,    // Attribute will be written with a different name in der XML
+        RANGE =             1 << 21,    // Attribute only accept a range of elements (example: Probability [0,1])
+        UPDATEGEOMETRY =    1 << 22,    // Attribute require update geometry at the end of function setAttribute(...)
+        ACTIVATABLE =       1 << 23,    // Attribute can be switch on/off using a checkbox in frame
+        FLOW =              1 << 24,    // Attribute is part of a flow definition (Number, vehsPerHour...)
+        COPYABLE =          1 << 25,    // Attribute can be copied over other element with the same tagProperty (used for edge/lane templates)
+        ALWAYSENABLED =     1 << 26,    // Attribute cannot be disabled
     };
 
     /// @brief struct with the attribute Properties
@@ -87,6 +88,9 @@ public:
 
     /// @brief set discrete values
     void setDiscreteValues(const std::vector<std::string>& discreteValues);
+
+    /// @brief set discrete values
+    void setFilenameExtensions(const std::vector<std::string>& extensions);
 
     /// @brief set default activated value
     void setDefaultActivated(const bool value);
@@ -166,6 +170,9 @@ public:
     /// @brief return true if attribute is a probability
     bool isProbability() const;
 
+    /// @brief return true if attribute is an angle
+    bool isAngle() const;
+
     /// @brief return true if attribute is numerical (int or float)
     bool isNumerical() const;
 
@@ -178,8 +185,11 @@ public:
     /// @brief return true if attribute is a VType or vTypeDistribution
     bool isVType() const;
 
-    /// @brief return true if attribute is a filename
-    bool isFilename() const;
+    /// @brief return true if attribute is a filename open
+    bool isFilenameOpen() const;
+
+    /// @brief return true if attribute is a filename save
+    bool isFilenameSave() const;
 
     /// @brief return true if attribute is a VehicleClass
     bool isVClass() const;
@@ -267,6 +277,9 @@ private:
 
     /// @brief discrete values that can take this Attribute (by default empty)
     std::vector<std::string> myDiscreteValues;
+
+    /// @brief filename extensions used in open dialogs (by default empty)
+    std::vector<std::string> myFilenameExtensions;
 
     /// @brief Attribute written in XML (If is SUMO_ATTR_NOTHING), original Attribute will be written)
     SumoXMLAttr myAttrSynonym = SUMO_ATTR_NOTHING;
