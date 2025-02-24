@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-13 10:07+0100\n"
-"PO-Revision-Date: 2025-02-21 17:40+0000\n"
+"PO-Revision-Date: 2025-02-24 12:45+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -8772,6 +8772,7 @@ msgstr ""
 #: src/netimport/NIFrame.cpp:471 src/netimport/NIFrame.cpp:468
 msgid "It is recommended to use option osm.crossings with osm.sidewalks"
 msgstr ""
+"Si raccomanda di usare l'opzione osm.crossings insieme con osm.sidewalks"
 
 #: src/netimport/NIImporter_ArcView.cpp:137
 #: src/polyconvert/PCLoaderArcView.cpp:142
@@ -8927,7 +8928,7 @@ msgstr "Valore non numerico per la coordinata y nel nodo %."
 #: src/netimport/NIImporter_DlrNavteq.cpp:230
 #: src/netimport/NIImporter_VISUM.cpp:321
 msgid "Unable to project coordinates for node %."
-msgstr ""
+msgstr "Le coordinate del nodo % non potevano essere proiettate."
 
 #: src/netimport/NIImporter_DlrNavteq.cpp:240
 #: src/netimport/NIImporter_DlrNavteq.cpp:242
@@ -8936,31 +8937,31 @@ msgstr ""
 #: src/netimport/NIImporter_OpenDrive.cpp:486
 #: src/netimport/NIImporter_OpenDrive.cpp:1429
 msgid "Could not add node '%'."
-msgstr ""
+msgstr "Non ho potuto aggiungere il nodo '%'."
 
 #: src/netimport/NIImporter_DlrNavteq.cpp:299
 msgid "Missing version string in file '%'."
-msgstr ""
+msgstr "La catena di versione manca nel file '%'."
 
 #: src/netimport/NIImporter_DlrNavteq.cpp:309
 msgid "Non-numerical value for form_of_way of link '%'."
-msgstr ""
+msgstr "Valore non numerico di form_of_way per il collegamento '%'."
 
 #: src/netimport/NIImporter_DlrNavteq.cpp:316
 msgid "Non-numerical value for brunnel_type of link '%'."
-msgstr ""
+msgstr "Valore non numerico di brunnel_type per il collegamento '%'."
 
 #: src/netimport/NIImporter_DlrNavteq.cpp:329
 msgid "Non-numerical value for street_type of link '%'."
-msgstr ""
+msgstr "Valore non numerico di street_type per il collegamento '%'."
 
 #: src/netimport/NIImporter_DlrNavteq.cpp:351
 msgid "Non-numerical value for the SPEED_RESTRICTION of link '%'."
-msgstr ""
+msgstr "Valore non numerico di SPEED_RESTRICTION per il collegamento '%'."
 
 #: src/netimport/NIImporter_DlrNavteq.cpp:366
 msgid "Non-numerical value for the number of lanes of link '%'."
-msgstr ""
+msgstr "Valore non numerico del numero di corsie per il collegamento '%'."
 
 #: src/netimport/NIImporter_DlrNavteq.cpp:420
 #: src/netimport/NIImporter_OpenDrive.cpp:550
@@ -9016,28 +9017,32 @@ msgstr ""
 
 #: src/netimport/NIImporter_DlrNavteq.cpp:821
 msgid "Could not set loaded connection from '%' to '%'."
-msgstr ""
+msgstr "Non ho potuto impostare il collegamento caricato da '%' a '%'."
 
 #: src/netimport/NIImporter_ITSUMO.cpp:117
 msgid "Could not open itsumo-file '%'."
-msgstr ""
+msgstr "Non ho potuto aprire il file itsumo '%'."
 
 #: src/netimport/NIImporter_ITSUMO.cpp:217
 #: src/netimport/NIImporter_MATSim.cpp:182
 msgid "Could not add edge '%'. Probably declared twice."
 msgstr ""
+"Non ho potuto aggiungere l'arco '%'. Probabilmente è stato dichiarato più "
+"volte."
 
 #: src/netimport/NIImporter_ITSUMO.cpp:232
 #: src/netimport/NIImporter_MATSim.cpp:143
 #: src/netimport/NIImporter_VISUM.cpp:703
 #: src/netimport/NIXMLNodesHandler.cpp:149
 msgid "Unable to project coordinates for node '%'."
-msgstr ""
+msgstr "Le coordinate del nodo '%' non potevano essere proiettate."
 
 #: src/netimport/NIImporter_ITSUMO.cpp:237
 #: src/netimport/NIImporter_MATSim.cpp:148
 msgid "Could not add node '%'. Probably declared twice."
 msgstr ""
+"Non ho potuto aggiungere il nodo '%'. Probabilmente è stato dichiarato più "
+"volte."
 
 #: src/netimport/NIImporter_ITSUMO.cpp:240
 msgid "Not numeric position information for node '%'."
