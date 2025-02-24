@@ -508,43 +508,49 @@ GNEAttributeProperties::isAlwaysEnabled() const {
 
 
 bool
-GNEAttributeProperties::isEditTypeBasic() const {
-    return !isEditTypeExtended() && !isEditTypeChild() && !isEditTypeGEO() && !isEditTypeNetedit();
+GNEAttributeProperties::isBasicEditor() const {
+    return !isExtendedEditor() && !isChildEditor() && !isGeoEditor() && !isFlowEditor() && !isNeteditEditor();
 }
 
 
 bool
-GNEAttributeProperties::isEditTypeExtended() const {
-    return (myEditProperty & EXTENDED) != 0;
+GNEAttributeProperties::isExtendedEditor() const {
+    return (myEditProperty & EXTENDEDEDITOR) != 0;
 }
 
 
 bool
-GNEAttributeProperties::isEditTypeChild() const {
-    return (myEditProperty & CHILD) != 0;
+GNEAttributeProperties::isChildEditor() const {
+    return (myEditProperty & CHILDEDITOR) != 0;
 }
 
 
 bool
-GNEAttributeProperties::isEditTypeGEO() const {
-    return (myEditProperty & GEO) != 0;
+GNEAttributeProperties::isGeoEditor() const {
+    return (myEditProperty & GEOEDITOR) != 0;
 }
 
 
 bool
-GNEAttributeProperties::isEditTypeNetedit() const {
-    return (myEditProperty & NETEDIT) != 0;
+GNEAttributeProperties::isFlowEditor() const {
+    return (myEditProperty & FLOWEDITOR) != 0;
 }
 
 
 bool
-GNEAttributeProperties::isEditTypeCreate() const {
+GNEAttributeProperties::isNeteditEditor() const {
+    return (myEditProperty & NETEDITEDITOR) != 0;
+}
+
+
+bool
+GNEAttributeProperties::isCreateMode() const {
     return (myEditProperty & CREATEMODE) != 0;
 }
 
 
 bool
-GNEAttributeProperties::isEditTypeEdit() const {
+GNEAttributeProperties::isEditMode() const {
     return (myEditProperty & EDITMODE) != 0;
 }
 

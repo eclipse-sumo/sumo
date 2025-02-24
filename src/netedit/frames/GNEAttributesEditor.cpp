@@ -201,30 +201,30 @@ GNEAttributesEditor::refreshAttributesEditor() {
             for (const auto& attrProperty : tagProperty->getAttributeProperties()) {
                 // filter editor type
                 bool validEditorType = false;
-                if ((myEditorType == EditorType::CREATOR) && attrProperty->isEditTypeCreate()) {
+                if ((myEditorType == EditorType::CREATOR) && attrProperty->isCreateMode()) {
                     validEditorType = true;
                 }
-                if ((myEditorType == EditorType::EDITOR) && attrProperty->isEditTypeEdit()) {
+                if ((myEditorType == EditorType::EDITOR) && attrProperty->isEditMode()) {
                     validEditorType = true;
                 }
                 // filter types
                 bool validAttributeType = true;
-                if ((myAttributeType == AttributeType::BASIC) && !attrProperty->isEditTypeBasic()) {
+                if ((myAttributeType == AttributeType::BASIC) && !attrProperty->isBasicEditor()) {
                     validAttributeType = false;
                 }
-                if ((myAttributeType == AttributeType::CHILD) && !attrProperty->isEditTypeChild()) {
+                if ((myAttributeType == AttributeType::CHILD) && !attrProperty->isChildEditor()) {
                     validAttributeType = false;
                 }
-                if ((myAttributeType == AttributeType::FLOW) && !attrProperty->isFlow()) {
+                if ((myAttributeType == AttributeType::FLOW) && !attrProperty->isFlowEditor()) {
                     validAttributeType = false;
                 }
-                if ((myAttributeType == AttributeType::GEO) && !attrProperty->isEditTypeGEO()) {
+                if ((myAttributeType == AttributeType::GEO) && !attrProperty->isGeoEditor()) {
                     validAttributeType = false;
                 }
-                if ((myAttributeType == AttributeType::NETEDIT) && !attrProperty->isEditTypeNetedit()) {
+                if ((myAttributeType == AttributeType::NETEDIT) && !attrProperty->isNeteditEditor()) {
                     validAttributeType = false;
                 }
-                if (attrProperty->isEditTypeExtended()) {
+                if (attrProperty->isExtendedEditor()) {
                     validAttributeType = false;
                 }
                 if (attrProperty->getAttr() == GNE_ATTR_PARAMETERS) {

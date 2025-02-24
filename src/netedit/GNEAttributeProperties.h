@@ -69,12 +69,13 @@ public:
 
     /// @brief struct with the attribute Properties
     enum EditProperty {
-        CREATEMODE =    1 << 1,    // Attribute can be modified in create mode
-        EDITMODE =      1 << 2,    // Attribute can be modified in edit mode
-        CHILD =         1 << 3,    // Attribute is a child of other element (used if we have two attributes editor in the same frame)
-        NETEDIT =       1 << 3,    // Attribute is exclusive of netedit
-        EXTENDED =      1 << 4,    // Attribute is extended (in Frame will not be shown, but is editable in a Dialog, see VType attributes)
-        GEO =           1 << 5,    // Attribute is of type GEO
+        CREATEMODE =        1 << 1,    // Attribute can be modified in create mode
+        EDITMODE =          1 << 2,    // Attribute can be modified in edit mode
+        CHILDEDITOR =       1 << 3,    // Attribute can be edited only in child editor (used if we have two attributes editor in the same frame)
+        NETEDITEDITOR =     1 << 4,    // Attribute can be edited only in netedit editor
+        EXTENDEDEDITOR =    1 << 5,    // Attribute cannot be edited in editor, but is editable in extended Dialog
+        GEOEDITOR =         1 << 6,    // Attribute can be edited only in geo editor
+        FLOWEDITOR =        1 << 7,    // Attribute can be edited only in flow editor
     };
 
     /// @brief parameter constructor
@@ -227,26 +228,29 @@ public:
     /// @name edit modes
     /// @{
 
-    /// @brief return true if attribute is basic
-    bool isEditTypeBasic() const;
+    /// @brief return true if this attribute can be edited in basic editor
+    bool isBasicEditor() const;
 
-    /// @brief return true if attribute is extended
-    bool isEditTypeExtended() const;
+    /// @brief return true if this attribute cannot be edited in editor
+    bool isExtendedEditor() const;
 
-    /// @brief return true if attribute is Child (only used in the context of Attribute editor)
-    bool isEditTypeChild() const;
+    /// @brief return true if this attribute can be edited only in child editor
+    bool isChildEditor() const;
 
-    /// @brief return true if attribute is GEO
-    bool isEditTypeGEO() const;
+    /// @brief return true if this attribute can be edited only in GEO editor
+    bool isGeoEditor() const;
 
-    /// @brief return true if attribute is exclusive of netedit
-    bool isEditTypeNetedit() const;
+    /// @brief return true if this attribute can be edited only in flow editor
+    bool isFlowEditor() const;
+
+    /// @brief return true if this attribute can be edited only in netedit editor
+    bool isNeteditEditor() const;
 
     /// @brief return true if attribute can be modified in create mode
-    bool isEditTypeCreate() const;
+    bool isCreateMode() const;
 
     /// @brief return true if attribute can be modified in edit mode
-    bool isEditTypeEdit() const;
+    bool isEditMode() const;
 
     /// @}
 
