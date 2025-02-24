@@ -50,8 +50,8 @@ public:
         VCLASS =            1 << 9,     // Attribute is a VClass (passenger, bus, motorcicle...)
         POSITIVE =          1 << 10,    // Attribute is positive (Including Zero)
         UNIQUE =            1 << 11,    // Attribute is unique (cannot be edited in a selection of similar elements (ID, Position...)
-        FILENAMEOPEN =      1 << 12,    // Attribute is a filename that opens an existent file
-        FILENAMESAVE =      1 << 13,    // Attribute is a filename that can create a new file
+        FILEOPEN =          1 << 12,    // Attribute is a filename that opens an existent file
+        FILESAVE =          1 << 13,    // Attribute is a filename that can create a new file
         DISCRETE =          1 << 14,    // Attribute is discrete (only certain values are allowed)
         PROBABILITY =       1 << 15,    // Attribute is probability (only allowed values between 0 and 1, including both)
         ANGLE =             1 << 16,    // Attribute is an angle (only takes values between 0 and 360, including both, another value will be automatically reduced
@@ -186,10 +186,10 @@ public:
     bool isVType() const;
 
     /// @brief return true if attribute is a filename open
-    bool isFilenameOpen() const;
+    bool isFileOpen() const;
 
     /// @brief return true if attribute is a filename save
-    bool isFilenameSave() const;
+    bool isFileSave() const;
 
     /// @brief return true if attribute is a VehicleClass
     bool isVClass() const;

@@ -2103,7 +2103,7 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
         myTagProperties[currentTag]->addAttribute(attrProperty);
 
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_OUTPUT,
-                GNEAttributeProperties::STRING | GNEAttributeProperties::FILENAME | GNEAttributeProperties::DEFAULTVALUE,
+                GNEAttributeProperties::STRING | GNEAttributeProperties::FILESAVE | GNEAttributeProperties::DEFAULTVALUE,
                 GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
                 TL("The output file for writing calibrator information or NULL"));
         myTagProperties[currentTag]->addAttribute(attrProperty);
@@ -2162,11 +2162,7 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
                 TL("The id of the routeProbe element from which to determine the route distribution for generated vehicles"));
         myTagProperties[currentTag]->addAttribute(attrProperty);
 
-        attrProperty = new GNEAttributeProperties(SUMO_ATTR_OUTPUT,
-                GNEAttributeProperties::STRING | GNEAttributeProperties::FILENAME | GNEAttributeProperties::DEFAULTVALUE,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
-                TL("The output file for writing calibrator information or NULL"));
-        myTagProperties[currentTag]->addAttribute(attrProperty);
+        fillOutputAttribute(myTagProperties[currentTag]);
 
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_JAM_DIST_THRESHOLD,
                 GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE,
@@ -2570,12 +2566,7 @@ GNETagPropertiesDatabase::fillShapeElements() {
 
         fillNameAttribute(myTagProperties[currentTag]);
 
-        attrProperty = new GNEAttributeProperties(SUMO_ATTR_IMGFILE,
-                GNEAttributeProperties::STRING | GNEAttributeProperties::FILENAME | GNEAttributeProperties::DEFAULTVALUE,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
-                TL("A bitmap to use for rendering this polygon"),
-                toString(Shape::DEFAULT_IMG_FILE));
-        myTagProperties[currentTag]->addAttribute(attrProperty);
+        fillImgFileAttribute(myTagProperties[currentTag]);
 
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_RELATIVEPATH,
                 GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
@@ -3190,11 +3181,7 @@ GNETagPropertiesDatabase::fillDemandElements() {
                 TL("The parking badges assigned to the vehicle"));
         myTagProperties[currentTag]->addAttribute(attrProperty);
 
-        attrProperty = new GNEAttributeProperties(SUMO_ATTR_IMGFILE,
-                GNEAttributeProperties::STRING | GNEAttributeProperties::FILENAME | GNEAttributeProperties::DEFAULTVALUE,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE | GNEAttributeProperties::EXTENDED,
-                TL("Image file for rendering vehicles of this type (should be grayscale to allow functional coloring)"));
-        myTagProperties[currentTag]->addAttribute(attrProperty);
+        fillImgFileAttribute(myTagProperties[currentTag]);
 
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_LANE_CHANGE_MODEL,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::DEFAULTVALUE,
@@ -7753,25 +7740,25 @@ GNETagPropertiesDatabase::fillCommonAttributes(GNETagProperties* tagProperties) 
     if (!tagProperties->isChild() && !tagProperties->isSymbol()) {
         if (tagProperties->isAdditionalElement()) {
             commonAttribute = new GNEAttributeProperties(GNE_ATTR_ADDITIONAL_FILE,
-                    GNEAttributeProperties::STRING | GNEAttributeProperties::FILENAME | GNEAttributeProperties::DEFAULTVALUE,
+                    GNEAttributeProperties::STRING | GNEAttributeProperties::FILESAVE | GNEAttributeProperties::DEFAULTVALUE,
                     GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE | GNEAttributeProperties::NETEDIT,
                     TL("The path to the additional file"));
             tagProperties->addAttribute(commonAttribute);
         } else if (tagProperties->isDemandElement()) {
             commonAttribute = new GNEAttributeProperties(GNE_ATTR_DEMAND_FILE,
-                    GNEAttributeProperties::STRING | GNEAttributeProperties::FILENAME | GNEAttributeProperties::DEFAULTVALUE,
+                    GNEAttributeProperties::STRING | GNEAttributeProperties::FILESAVE | GNEAttributeProperties::DEFAULTVALUE,
                     GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE | GNEAttributeProperties::NETEDIT,
                     TL("The path to the route file"));
             tagProperties->addAttribute(commonAttribute);
         } else if (tagProperties->isDataElement()) {
             commonAttribute = new GNEAttributeProperties(GNE_ATTR_DATA_FILE,
-                    GNEAttributeProperties::STRING | GNEAttributeProperties::FILENAME | GNEAttributeProperties::DEFAULTVALUE,
+                    GNEAttributeProperties::STRING | GNEAttributeProperties::FILESAVE | GNEAttributeProperties::DEFAULTVALUE,
                     GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE | GNEAttributeProperties::NETEDIT,
                     TL("The path to the data file"));
             tagProperties->addAttribute(commonAttribute);
         } else if (tagProperties->isMeanData()) {
             commonAttribute = new GNEAttributeProperties(GNE_ATTR_MEANDATA_FILE,
-                    GNEAttributeProperties::STRING | GNEAttributeProperties::FILENAME | GNEAttributeProperties::DEFAULTVALUE,
+                    GNEAttributeProperties::STRING | GNEAttributeProperties::FILESAVE | GNEAttributeProperties::DEFAULTVALUE,
                     GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE | GNEAttributeProperties::NETEDIT,
                     TL("The path to the data file"));
             tagProperties->addAttribute(commonAttribute);
@@ -7925,12 +7912,7 @@ GNETagPropertiesDatabase::fillCommonPOIAttributes(GNETagProperties* tagPropertie
             toString(Shape::DEFAULT_IMG_HEIGHT));
     tagProperties->addAttribute(attrProperty);
 
-    attrProperty = new GNEAttributeProperties(SUMO_ATTR_IMGFILE,
-            GNEAttributeProperties::STRING | GNEAttributeProperties::FILENAME | GNEAttributeProperties::DEFAULTVALUE,
-            GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
-            TL("A bitmap to use for rendering this POI"),
-            toString(Shape::DEFAULT_IMG_FILE));
-    tagProperties->addAttribute(attrProperty);
+    fillImgFileAttribute(tagProperties);
 
     attrProperty = new GNEAttributeProperties(SUMO_ATTR_RELATIVEPATH,
             GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
@@ -9448,7 +9430,7 @@ GNETagPropertiesDatabase::fillCommonMeanDataAttributes(GNETagProperties* tagProp
     tagProperties->addAttribute(attrProperty);
 
     attrProperty = new GNEAttributeProperties(SUMO_ATTR_EDGESFILE,
-            GNEAttributeProperties::STRING | GNEAttributeProperties::FILENAME | GNEAttributeProperties::DEFAULTVALUE,
+            GNEAttributeProperties::STRING | GNEAttributeProperties::FILEOPEN | GNEAttributeProperties::DEFAULTVALUE,
             GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
             TL("Restrict output to the given list of edges given in file"));
     tagProperties->addAttribute(attrProperty);
@@ -9484,9 +9466,29 @@ GNETagPropertiesDatabase::fillNameAttribute(GNETagProperties* tagProperties) {
 void
 GNETagPropertiesDatabase::fillFileAttribute(GNETagProperties* tagProperties) {
     GNEAttributeProperties* attrProperty = new GNEAttributeProperties(SUMO_ATTR_FILE,
-            GNEAttributeProperties::STRING | GNEAttributeProperties::FILENAME | GNEAttributeProperties::DEFAULTVALUE,
+            GNEAttributeProperties::STRING | GNEAttributeProperties::FILESAVE | GNEAttributeProperties::DEFAULTVALUE,
             GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
             TL("The path to the output file"));
+    tagProperties->addAttribute(attrProperty);
+}
+
+
+void
+GNETagPropertiesDatabase::fillOutputAttribute(GNETagProperties* tagProperties) {
+    GNEAttributeProperties* attrProperty = new GNEAttributeProperties(SUMO_ATTR_FILE,
+            GNEAttributeProperties::STRING | GNEAttributeProperties::FILESAVE | GNEAttributeProperties::DEFAULTVALUE,
+            GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+            TL("The path to the output file"));
+    tagProperties->addAttribute(attrProperty);
+}
+
+
+void
+GNETagPropertiesDatabase::fillImgFileAttribute(GNETagProperties* tagProperties) {
+    GNEAttributeProperties* attrProperty = new GNEAttributeProperties(SUMO_ATTR_IMGFILE,
+            GNEAttributeProperties::STRING | GNEAttributeProperties::FILEOPEN | GNEAttributeProperties::DEFAULTVALUE,
+            GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+            TLF("A bitmap to use for rendering this %", tagProperties->getTagStr()));
     tagProperties->addAttribute(attrProperty);
 }
 

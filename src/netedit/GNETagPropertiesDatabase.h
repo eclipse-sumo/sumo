@@ -201,6 +201,12 @@ protected:
     /// @brief fill file attribute
     void fillFileAttribute(GNETagProperties* tagProperties);
 
+    /// @brief fill output attribute
+    void fillOutputAttribute(GNETagProperties* tagProperties);
+
+    /// @brief fill imgFile attribute
+    void fillImgFileAttribute(GNETagProperties* tagProperties);
+
     /// @}
 
     /// @brief update max number of attributes by type

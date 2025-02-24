@@ -103,8 +103,8 @@ GNEAttributeProperties::checkAttributeIntegrity() const {
         throw FormatException("synonym attribute cannot be nothing");
     }
     // check that synonym attribute isn't nothing
-    if ((isFilenameOpen() || isFilenameSave()) && myFilenameExtensions.empty()) {
-        throw FormatException("Filenames requieres at leas one extension");
+    if ((isFileOpen() || isFileSave()) && myFilenameExtensions.empty()) {
+        throw FormatException("Files requieres at least one extension");
     }
     // check that ranges are valid
     if (hasAttrRange()) {
@@ -136,7 +136,7 @@ GNEAttributeProperties::setDiscreteValues(const std::vector<std::string>& discre
 
 void
 GNEAttributeProperties::setFilenameExtensions(const std::vector<std::string>& extensions) {
-    if (isFilenameOpen() || isFilenameSave()) {
+    if (isFileOpen() || isFileSave()) {
         myFilenameExtensions = extensions;
     } else {
         throw FormatException("AttributeProperty doesn't support extensions values");
@@ -285,11 +285,11 @@ GNEAttributeProperties::getDescription() const {
     if (isVClass()) {
         type = "vClass";
     }
-    if (isFilenameOpen()) {
+    if (isFileOpen()) {
         type = "filename";
         last = "(Existent)";
     }
-    if (isFilenameSave()) {
+    if (isFileSave()) {
         type = "filename";
     }
     if (isProbability()) {
@@ -430,14 +430,14 @@ GNEAttributeProperties::isVType() const {
 
 
 bool
-GNEAttributeProperties::isFilenameOpen() const {
-    return (myAttributeProperty & FILENAMEOPEN) != 0;
+GNEAttributeProperties::isFileOpen() const {
+    return (myAttributeProperty & FILEOPEN) != 0;
 }
 
 
 bool
-GNEAttributeProperties::isFilenameOpen() const {
-    return (myAttributeProperty & FILENAMESAVE) != 0;
+GNEAttributeProperties::isFileSave() const {
+    return (myAttributeProperty & FILESAVE) != 0;
 }
 
 
