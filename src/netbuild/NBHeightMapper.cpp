@@ -92,7 +92,7 @@ NBHeightMapper::getZ(const Position& geo) const {
         const Boundary& boundary = item.boundary;
         int16_t* raster = item.raster;
         double result = -1e6;
-        if (boundary.around(geo)) {
+        if (boundary.around2D(geo)) {
             const int xSize = item.xSize;
             const double normX = (geo.x() - boundary.xmin()) / mySizeOfPixel.x();
             const double normY = (geo.y() - boundary.ymax()) / mySizeOfPixel.y();
