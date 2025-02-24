@@ -2563,10 +2563,7 @@ NBNode::unsignalizedOperation() const {
 
 void
 NBNode::initRailSignalClasses(const NBNodeCont& nc) {
-    myPermitUnsignalizedClasses = SVC_TRAM | SVC_CABLE_CAR;
-    if (OptionsCont::getOptions().exists("railway.signal.permit-unsignalized")) {
-        myPermitUnsignalizedClasses = parseVehicleClasses(OptionsCont::getOptions().getStringVector("railway.signal.permit-unsignalized"));
-    }
+    myPermitUnsignalizedClasses = parseVehicleClasses(OptionsCont::getOptions().getStringVector("railway.signal.permit-unsignalized"));
     myHaveRailSignalClasses = 0;
     for (auto it : nc) {
         const NBNode* n = it.second;
