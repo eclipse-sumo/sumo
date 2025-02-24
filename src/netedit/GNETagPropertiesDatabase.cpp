@@ -650,13 +650,13 @@ GNETagPropertiesDatabase::fillNetworkElements() {
 
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_FROM,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("The name of a node within the nodes-file the edge shall start at"));
         myTagProperties[currentTag]->addAttribute(attrProperty);
 
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_TO,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("The name of a node within the nodes-file the edge shall end at"));
         myTagProperties[currentTag]->addAttribute(attrProperty);
 
@@ -985,25 +985,25 @@ GNETagPropertiesDatabase::fillNetworkElements() {
         // set values of attributes
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_FROM,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("The ID of the edge the vehicles leave"));
         myTagProperties[currentTag]->addAttribute(attrProperty);
 
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_TO,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("The ID of the edge the vehicles may reach when leaving 'from'"));
         myTagProperties[currentTag]->addAttribute(attrProperty);
 
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_FROM_LANE,
                 GNEAttributeProperties::INT | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("the lane index of the incoming lane (numbers starting with 0)"));
         myTagProperties[currentTag]->addAttribute(attrProperty);
 
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_TO_LANE,
                 GNEAttributeProperties::INT | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("the lane index of the outgoing lane (numbers starting with 0)"));
         myTagProperties[currentTag]->addAttribute(attrProperty);
 
@@ -3351,19 +3351,19 @@ GNETagPropertiesDatabase::fillVehicleElements() {
 
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_FROM,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("The ID of the edge the trip starts at"));
         myTagProperties[currentTag]->addAttribute(attrProperty);
 
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_TO,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("The ID of the edge the trip ends at"));
         myTagProperties[currentTag]->addAttribute(attrProperty);
 
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_VIA,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY | GNEAttributeProperties::LIST,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("List of intermediate edge ids which shall be part of the trip"));
         myTagProperties[currentTag]->addAttribute(attrProperty);
 
@@ -3400,13 +3400,13 @@ GNETagPropertiesDatabase::fillVehicleElements() {
 
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_FROM_JUNCTION,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("The name of the junction the trip starts at"));
         myTagProperties[currentTag]->addAttribute(attrProperty);
 
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_TO_JUNCTION,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("The name of the junction the trip ends at"));
         myTagProperties[currentTag]->addAttribute(attrProperty);
 
@@ -3443,13 +3443,13 @@ GNETagPropertiesDatabase::fillVehicleElements() {
 
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_FROM_TAZ,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("The name of the TAZ the trip starts at"));
         myTagProperties[currentTag]->addAttribute(attrProperty);
 
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_TO_TAZ,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("The name of the TAZ the trip ends at"));
         myTagProperties[currentTag]->addAttribute(attrProperty);
 
@@ -3578,19 +3578,19 @@ GNETagPropertiesDatabase::fillVehicleElements() {
 
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_FROM,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("The ID of the edge the flow starts at"));
         myTagProperties[currentTag]->addAttribute(attrProperty);
 
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_TO,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("The ID of the edge the flow ends at"));
         myTagProperties[currentTag]->addAttribute(attrProperty);
 
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_VIA,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY | GNEAttributeProperties::LIST,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("List of intermediate edge ids which shall be part of the flow"));
         myTagProperties[currentTag]->addAttribute(attrProperty);
 
@@ -3623,13 +3623,13 @@ GNETagPropertiesDatabase::fillVehicleElements() {
 
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_FROM_JUNCTION,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("The name of the junction the flow starts at"));
         myTagProperties[currentTag]->addAttribute(attrProperty);
 
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_TO_JUNCTION,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("The name of the junction the flow ends at"));
         myTagProperties[currentTag]->addAttribute(attrProperty);
 
@@ -3662,13 +3662,13 @@ GNETagPropertiesDatabase::fillVehicleElements() {
 
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_FROM_TAZ,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("The name of the TAZ the flow starts at"));
         myTagProperties[currentTag]->addAttribute(attrProperty);
 
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_TO_TAZ,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("The name of the TAZ the flow ends at"));
         myTagProperties[currentTag]->addAttribute(attrProperty);
 
@@ -9290,13 +9290,13 @@ GNETagPropertiesDatabase::fillDataElements() {
         // set values of attributes
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_FROM,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("The ID of the edge the edgeRel starts at"));
         myTagProperties[currentTag]->addAttribute(attrProperty);
 
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_TO,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("The ID of the edge the edgeRel ends at"));
         myTagProperties[currentTag]->addAttribute(attrProperty);
     }
@@ -9314,13 +9314,13 @@ GNETagPropertiesDatabase::fillDataElements() {
         // set values of attributes
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_FROM,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("The name of the TAZ the TAZRel starts at"));
         myTagProperties[currentTag]->addAttribute(attrProperty);
 
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_TO,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("The name of the TAZ the TAZRel ends at"));
         myTagProperties[currentTag]->addAttribute(attrProperty);
     }
