@@ -50,9 +50,10 @@ const std::string GNEAttributeCarrier::False = toString(false);
 // method definitions
 // ===========================================================================
 
-GNEAttributeCarrier::GNEAttributeCarrier(const SumoXMLTag tag, GNENet* net) :
+GNEAttributeCarrier::GNEAttributeCarrier(const SumoXMLTag tag, GNENet* net, const std::string& filename) :
     myTagProperty(net->getTagPropertiesDatabase()->getTagProperty(tag)),
-    myNet(net) {
+    myNet(net),
+    myFilename(filename) {
 }
 
 
@@ -68,6 +69,12 @@ GNEAttributeCarrier::getID() const {
 GNENet*
 GNEAttributeCarrier::getNet() const {
     return myNet;
+}
+
+
+const std::string&
+GNEAttributeCarrier::getFilename() const {
+    return myFilename;
 }
 
 
@@ -715,7 +722,7 @@ GNEAttributeCarrier::getCommonAttribute(const Parameterised* parameterised, Sumo
         case GNE_ATTR_DEMAND_FILE:
         case GNE_ATTR_DATA_FILE:
         case GNE_ATTR_MEANDATA_FILE:
-            return myWrittingFilename;
+            return myFilename;
         case GNE_ATTR_PARAMETERS:
             return parameterised->getParametersStr();
         default:
@@ -773,7 +780,7 @@ GNEAttributeCarrier::setCommonAttribute(Parameterised* parameterised, SumoXMLAtt
         case GNE_ATTR_DEMAND_FILE:
         case GNE_ATTR_DATA_FILE:
         case GNE_ATTR_MEANDATA_FILE:
-            myWrittingFilename = value;
+            myFilename = value;
             break;
         case GNE_ATTR_PARAMETERS:
             parameterised->setParametersStr(value);

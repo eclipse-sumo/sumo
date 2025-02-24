@@ -32,18 +32,14 @@
 // ===========================================================================
 
 GNERerouterInterval::GNERerouterInterval(GNENet* net) :
-    GNEAdditional("", net, GLO_REROUTER_INTERVAL, SUMO_TAG_INTERVAL, GUIIcon::REROUTERINTERVAL, ""),
-    myBegin(0),
-    myEnd(0) {
+    GNEAdditional("", net, GLO_REROUTER_INTERVAL, SUMO_TAG_INTERVAL, GUIIcon::REROUTERINTERVAL, "", "") {
     // reset default values
     resetDefaultValues();
 }
 
 
 GNERerouterInterval::GNERerouterInterval(GNERerouterDialog* rerouterDialog) :
-    GNEAdditional(rerouterDialog->getEditedAdditional(), GLO_REROUTER_INTERVAL, SUMO_TAG_INTERVAL, GUIIcon::REROUTERINTERVAL, ""),
-    myBegin(0),
-    myEnd(0) {
+    GNEAdditional(rerouterDialog->getEditedAdditional(), GLO_REROUTER_INTERVAL, SUMO_TAG_INTERVAL, GUIIcon::REROUTERINTERVAL, "") {
     // set parents
     setParent<GNEAdditional*>(rerouterDialog->getEditedAdditional());
     // reset default values

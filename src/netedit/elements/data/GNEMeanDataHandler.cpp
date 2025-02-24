@@ -27,6 +27,8 @@
 
 #include "GNEMeanDataHandler.h"
 
+#define TEMPORAL_FILENAME std::string()
+
 // ===========================================================================
 // member method definitions
 // ===========================================================================
@@ -79,7 +81,7 @@ GNEMeanDataHandler::buildEdgeMeanData(const CommonXMLStructure::SumoBaseObject* 
     } else if (!checkExcludeEmpty(SUMO_TAG_MEANDATA_EDGE, id, excludeEmpty)) {
         return false;
     } else if ((edges.size() == edgeIDs.size()) && (attributes.size() == writtenAttributes.size())) {
-        GNEMeanData* edgeMeanData = new GNEMeanData(myNet, SUMO_TAG_MEANDATA_EDGE, id, file, period, begin, end,
+        GNEMeanData* edgeMeanData = new GNEMeanData(SUMO_TAG_MEANDATA_EDGE, id, myNet, TEMPORAL_FILENAME, file, period, begin, end,
                 trackVehicles, attributes,  aggregate, edgeIDs, edgeFile, excludeEmpty,  withInternal,
                 detectPersons, minSamples, maxTravelTime, vTypes, speedThreshold);
         if (myAllowUndoRedo) {
@@ -128,7 +130,7 @@ GNEMeanDataHandler::buildLaneMeanData(const CommonXMLStructure::SumoBaseObject* 
     } else if (!checkExcludeEmpty(SUMO_TAG_MEANDATA_EDGE, id, excludeEmpty)) {
         return false;
     } else if ((edges.size() == edgeIDs.size()) && (attributes.size() == writtenAttributes.size())) {
-        GNEMeanData* edgeMeanData = new GNEMeanData(myNet, SUMO_TAG_MEANDATA_LANE, id, file, period, begin, end,
+        GNEMeanData* edgeMeanData = new GNEMeanData(SUMO_TAG_MEANDATA_LANE, id, myNet, TEMPORAL_FILENAME, file, period, begin, end,
                 trackVehicles, attributes,  aggregate, edgeIDs, edgeFile, excludeEmpty,  withInternal,
                 detectPersons, minSamples, maxTravelTime, vTypes, speedThreshold);
         if (myAllowUndoRedo) {

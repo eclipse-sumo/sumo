@@ -42,14 +42,15 @@
 // ===========================================================================
 
 GNEStoppingPlace::GNEStoppingPlace(GNENet* net, GUIGlObjectType type, SumoXMLTag tag, GUIIcon icon) :
-    GNEAdditional("", net, type, tag, icon, "") {
+    GNEAdditional("", net, type, tag, icon, "", "") {
 }
 
 
-GNEStoppingPlace::GNEStoppingPlace(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, GUIIcon icon,
-                                   GNELane* lane, const double startPos, const double endPos, const std::string& name,
-                                   bool friendlyPosition, const RGBColor& color, const Parameterised::Map& parameters) :
-    GNEAdditional(id, net, type, tag, icon, name),
+GNEStoppingPlace::GNEStoppingPlace(const std::string& id, GNENet* net, const std::string& filename, GUIGlObjectType type,
+                                   SumoXMLTag tag, GUIIcon icon, GNELane* lane, const double startPos, const double endPos,
+                                   const std::string& name, bool friendlyPosition, const RGBColor& color,
+                                   const Parameterised::Map& parameters) :
+    GNEAdditional(id, net, type, tag, icon, name, filename),
     Parameterised(parameters),
     myStartPosition(startPos),
     myEndPosition(endPos),

@@ -57,8 +57,9 @@ public:
     /**@brief Constructor
      * @param[in] tag SUMO Tag assigned to this type of object
      * @param[in] net GNENet in which this AttributeCarrier is stored
+     * @param[in] filename file in which this AttributeCarrier is stored
      */
-    GNEAttributeCarrier(const SumoXMLTag tag, GNENet* net);
+    GNEAttributeCarrier(const SumoXMLTag tag, GNENet* net, const std::string& filename);
 
     /// @brief Destructor
     virtual ~GNEAttributeCarrier();
@@ -68,6 +69,9 @@ public:
 
     /// @brief get pointer to net
     GNENet* getNet() const;
+
+    /// @brief get filename in which save this AC
+    const std::string& getFilename() const;
 
     /// @brief select attribute carrier using GUIGlobalSelection
     void selectAttributeCarrier();
@@ -349,8 +353,8 @@ protected:
     /// @brief whether the current object is a template object (not drawn in the view)
     bool myIsTemplate = false;
 
-    /// @brief writting filename
-    std::string myWrittingFilename;
+    /// @brief filename in which save this AC
+    std::string myFilename;
 
     /// @brief method for enable or disable the attribute and nothing else (used in GNEChange_ToggleAttribute)
     virtual void toggleAttribute(SumoXMLAttr key, const bool value);

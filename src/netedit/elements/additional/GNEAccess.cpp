@@ -38,7 +38,7 @@
 // ===========================================================================
 
 GNEAccess::GNEAccess(GNENet* net) :
-    GNEAdditional("", net, GLO_ACCESS, SUMO_TAG_ACCESS, GUIIcon::ACCESS, ""),
+    GNEAdditional("", net, GLO_ACCESS, SUMO_TAG_ACCESS, GUIIcon::ACCESS, "", ""),
     myPositionOverLane(0),
     myLength(0),
     myFriendlyPosition(false) {

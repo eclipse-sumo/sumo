@@ -32,8 +32,7 @@
 // ===========================================================================
 
 GNEVType::GNEVType(GNENet* net) :
-    GNEDemandElement("", net, GLO_VTYPE, SUMO_TAG_VTYPE, GUIIcon::VTYPE,
-                     GNEPathElement::Options::DEMAND_ELEMENT),
+    GNEDemandElement("", net, GLO_VTYPE, SUMO_TAG_VTYPE, GUIIcon::VTYPE, "", GNEPathElement::Options::DEMAND_ELEMENT),
     SUMOVTypeParameter(""),
     myDefaultVehicleType(true),
     myDefaultVehicleTypeModified(false) {
@@ -44,9 +43,8 @@ GNEVType::GNEVType(GNENet* net) :
 }
 
 
-GNEVType::GNEVType(GNENet* net, const std::string& vTypeID, const SUMOVehicleClass& defaultVClass) :
-    GNEDemandElement(vTypeID, net, GLO_VTYPE, SUMO_TAG_VTYPE, GUIIcon::VTYPE,
-                     GNEPathElement::Options::DEMAND_ELEMENT),
+GNEVType::GNEVType(const std::string& vTypeID, GNENet* net, const SUMOVehicleClass& defaultVClass) :
+    GNEDemandElement(vTypeID, net, GLO_VTYPE, SUMO_TAG_VTYPE, GUIIcon::VTYPE, "", GNEPathElement::Options::DEMAND_ELEMENT),
     SUMOVTypeParameter(vTypeID),
     myDefaultVehicleType(true),
     myDefaultVehicleTypeModified(false) {
@@ -57,8 +55,20 @@ GNEVType::GNEVType(GNENet* net, const std::string& vTypeID, const SUMOVehicleCla
 }
 
 
-GNEVType::GNEVType(GNENet* net, const SUMOVTypeParameter& vTypeParameter) :
-    GNEDemandElement(vTypeParameter.id, net, GLO_VTYPE, SUMO_TAG_VTYPE, GUIIcon::VTYPE,
+GNEVType::GNEVType(const std::string& vTypeID, GNENet* net, const std::string& filename) :
+    GNEDemandElement(vTypeID, net, GLO_VTYPE, SUMO_TAG_VTYPE, GUIIcon::VTYPE, "", GNEPathElement::Options::DEMAND_ELEMENT),
+    SUMOVTypeParameter(vTypeID),
+    myDefaultVehicleType(false),
+    myDefaultVehicleTypeModified(false) {
+    // set default vehicle class
+    vehicleClass = SVC_PASSENGER;
+    // init Rail Visualization Parameters
+    initRailVisualizationParameters();
+}
+
+
+GNEVType::GNEVType(GNENet* net, const std::string& filename, const SUMOVTypeParameter& vTypeParameter) :
+    GNEDemandElement(vTypeParameter.id, net, GLO_VTYPE, SUMO_TAG_VTYPE, GUIIcon::VTYPE, filename,
                      GNEPathElement::Options::DEMAND_ELEMENT),
     SUMOVTypeParameter(vTypeParameter),
     myDefaultVehicleType(false),
@@ -68,14 +78,14 @@ GNEVType::GNEVType(GNENet* net, const SUMOVTypeParameter& vTypeParameter) :
 }
 
 
-GNEVType::GNEVType(GNENet* net, const std::string& vTypeID, GNEVType* vTypeOriginal) :
-    GNEDemandElement(vTypeID, net, GLO_VTYPE, vTypeOriginal->getTagProperty()->getTag(), GUIIcon::VTYPE,
+GNEVType::GNEVType(const std::string& newVTypeID, GNENet* net, GNEVType* vTypeOriginal) :
+    GNEDemandElement(newVTypeID, net, GLO_VTYPE, vTypeOriginal->getTagProperty()->getTag(), GUIIcon::VTYPE, vTypeOriginal->getFilename(),
                      GNEPathElement::Options::DEMAND_ELEMENT),
     SUMOVTypeParameter(*vTypeOriginal),
     myDefaultVehicleType(false),
     myDefaultVehicleTypeModified(false) {
     // change manually the ID (to avoid to use the ID of vTypeOriginal)
-    id = vTypeID;
+    id = newVTypeID;
     // init Rail Visualization Parameters
     initRailVisualizationParameters();
 }

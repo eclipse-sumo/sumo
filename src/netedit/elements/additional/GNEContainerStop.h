@@ -33,9 +33,10 @@ public:
     GNEContainerStop(GNENet* net);
 
     /**@brief Constructor
-     * @param[in] id The storage of gl-ids to get the one for this lane representation from
-     * @param[in] lane Lane of this StoppingPlace belongs
+     * @param[in] id containerStop ID
      * @param[in] net pointer to GNENet of this additional element belongs
+     * @param[in] filename file in which this element is stored
+     * @param[in] lane Lane of this StoppingPlace belongs
      * @param[in] startPos Start position of the StoppingPlace
      * @param[in] endPos End position of the StoppingPlace
      * @param[in] name Name of busStop
@@ -46,7 +47,7 @@ public:
      * @param[in] friendlyPos enable or disable friendly position
      * @param[in] parameters generic parameters
      */
-    GNEContainerStop(const std::string& id, GNELane* lane, GNENet* net, const double startPos, const double endPos,
+    GNEContainerStop(const std::string& id, GNENet* net, const std::string& filename, GNELane* lane, const double startPos, const double endPos,
                      const std::string& name, const std::vector<std::string>& lines, int containerCapacity, double parkingLength,
                      const RGBColor& color, bool friendlyPosition, const Parameterised::Map& parameters);
 

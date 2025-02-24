@@ -42,8 +42,9 @@
 #pragma warning(push)
 #pragma warning(disable: 4355) // mask warning about "this" in initializers
 #endif
-GNEDemandElement::GNEDemandElement(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, GUIIcon icon, const int options) :
-    GNEAttributeCarrier(tag, net),
+GNEDemandElement::GNEDemandElement(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, GUIIcon icon,
+                                   const std::string& filename, const int options) :
+    GNEAttributeCarrier(tag, net, ""),
     GUIGlObject(type, id, GUIIconSubSys::getIcon(icon)),
     GNEPathElement(options),
     GNEDemandElementDistribution(this),
@@ -53,8 +54,9 @@ GNEDemandElement::GNEDemandElement(const std::string& id, GNENet* net, GUIGlObje
 }
 
 
-GNEDemandElement::GNEDemandElement(GNEDemandElement* demandElementParent, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, GUIIcon icon, const int options) :
-    GNEAttributeCarrier(tag, net),
+GNEDemandElement::GNEDemandElement(GNEDemandElement* demandElementParent, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, GUIIcon icon,
+                                   const int options) :
+    GNEAttributeCarrier(tag, net, demandElementParent->getFilename()),
     GUIGlObject(type, demandElementParent->getID(), GUIIconSubSys::getIcon(icon)),
     GNEPathElement(options),
     GNEDemandElementDistribution(this),
@@ -63,7 +65,6 @@ GNEDemandElement::GNEDemandElement(GNEDemandElement* demandElementParent, GNENet
 #ifdef _MSC_VER
 #pragma warning(pop)
 #endif
-
 
 GNEDemandElement::~GNEDemandElement() {}
 

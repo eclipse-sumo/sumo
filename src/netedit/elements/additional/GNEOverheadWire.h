@@ -33,8 +33,9 @@ public:
     GNEOverheadWire(GNENet* net);
 
     /**@brief Constructor for Multi-Lane detectors
-     * @param[in] net pointer to GNENet of this additional element belongs
-     * @param[in] id Overhead wire ID
+     * @param[in] id The name of the overhead wire
+     * @param[in] net net in which this polygon is placed
+     * @param[in] filename file in which this element is stored
      * @param[in] lanes vector of lanes Lane of this OverheadWire belongs
      * @param[in] lane Lane over which the segment is placed
      * @param[in] substationId Substation to which the circuit is connected
@@ -45,7 +46,7 @@ public:
      * @param[in] forbiddenInnerLanes Inner lanes, where placing of overhead wire is restricted
      * @param[in] parameters generic parameters
      */
-    GNEOverheadWire(const std::string& id, std::vector<GNELane*> lanes, GNEAdditional* substation, GNENet* net,
+    GNEOverheadWire(const std::string& id, GNENet* net, const std::string& filename, std::vector<GNELane*> lanes, GNEAdditional* substation,
                     const double startPos, const double endPos, const bool friendlyPos,
                     const std::vector<std::string>& forbiddenInnerLanes, const Parameterised::Map& parameters);
 

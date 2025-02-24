@@ -72,14 +72,15 @@ public:
     GNERoute(GNENet* net);
 
     /// @brief default constructor (used in copy vehicles)
-    GNERoute(GNENet* net, const std::string& id, const GNEDemandElement* originalRoute);
+    GNERoute(const std::string& id, GNENet* net, const GNEDemandElement* originalRoute);
 
     /// @brief default  constructor (used in copy embedded vehicles)
     GNERoute(GNENet* net, GNEVehicle* vehicleParent, const GNEDemandElement* originalRoute);
 
     /**@brief parameter constructor
-     * @param[in] viewNet view in which this Route is placed
      * @param[in] id route ID
+     * @param[in] net net in which this Route is placed
+     * @param[in] filename file in which this element is stored
      * @param[in] vClass vehicle class
      * @param[in] edges route edges
      * @param[in] color route color
@@ -88,11 +89,11 @@ public:
      * @param[in] probability used in routeDistributions
      * @param[in] parameters generic parameters
      */
-    GNERoute(GNENet* net, const std::string& id, SUMOVehicleClass vClass, const std::vector<GNEEdge*>& edges, const RGBColor& color,
-             const int repeat, const SUMOTime cycleTime, const double probability, const Parameterised::Map& parameters);
+    GNERoute(const std::string& id, GNENet* net, const std::string& filename, SUMOVehicleClass vClass, const std::vector<GNEEdge*>& edges,
+             const RGBColor& color, const int repeat, const SUMOTime cycleTime, const double probability, const Parameterised::Map& parameters);
 
     /**@brief parameter constructor for embedded routes
-     * @param[in] viewNet view in which this Route is placed
+     * @param[in] net net in which this Route is placed
      * @param[in] vehicleParent vehicle parent of this embedded route
      * @param[in] edges route edges
      * @param[in] color route color
@@ -269,19 +270,19 @@ public:
 
 protected:
     /// @brief route color
-    RGBColor myColor;
+    RGBColor myColor = RGBColor::YELLOW;
 
     /// @brief repeat
-    int myRepeat;
+    int myRepeat = 0;
 
     /// @brief cycleTime
-    SUMOTime myCycleTime;
+    SUMOTime myCycleTime = 0;
 
     /// @brief probability
-    double myProbability;
+    double myProbability = 1.0;
 
     /// @brief SUMOVehicleClass (Only used for drawing)
-    SUMOVehicleClass myVClass;
+    SUMOVehicleClass myVClass = SVC_PASSENGER;
 
 private:
     /// @brief draw route partial lane

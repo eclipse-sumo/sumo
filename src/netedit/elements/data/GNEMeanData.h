@@ -31,13 +31,13 @@ class GNEMeanData : public GNEAttributeCarrier, public GNEHierarchicalElement, p
 
 public:
     /// @brief Default constructor
-    GNEMeanData(GNENet* net, SumoXMLTag tag, const std::string& id);
+    GNEMeanData(SumoXMLTag tag, std::string ID, GNENet* net, const std::string& filename);
 
     /// @brief Parameter constructor
-    GNEMeanData(GNENet* net, SumoXMLTag tag, std::string ID, std::string file, SUMOTime period,
-                SUMOTime begin, SUMOTime end, const bool trackVehicles, const std::vector<SumoXMLAttr>& writtenAttributes,
+    GNEMeanData(SumoXMLTag tag, std::string ID, GNENet* net, const std::string& filename, const std::string& file, const SUMOTime period,
+                const SUMOTime begin, const SUMOTime end, const bool trackVehicles, const std::vector<SumoXMLAttr>& writtenAttributes,
                 const bool aggregate, const std::vector<std::string>& edges, const std::string& edgeFile,
-                std::string excludeEmpty, const bool withInternal, const std::vector<std::string>& detectPersons,
+                const std::string& excludeEmpty, const bool withInternal, const std::vector<std::string>& detectPersons,
                 const double minSamples, const double maxTravelTime, const std::vector<std::string>& vTypes, const double speedThreshold);
 
     /// @brief Destructor

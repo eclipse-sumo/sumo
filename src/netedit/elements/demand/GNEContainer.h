@@ -105,7 +105,7 @@ public:
     GNEContainer(SumoXMLTag tag, GNENet* net);
 
     /// @brief constructor for containers
-    GNEContainer(SumoXMLTag tag, GNENet* net, GNEDemandElement* pType, const SUMOVehicleParameter& containerparameters);
+    GNEContainer(SumoXMLTag tag, GNENet* net, const std::string& filename, GNEDemandElement* pType, const SUMOVehicleParameter& containerparameters);
 
     /// @brief destructor
     ~GNEContainer();

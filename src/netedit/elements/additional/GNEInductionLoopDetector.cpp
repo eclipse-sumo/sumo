@@ -43,12 +43,12 @@ GNEInductionLoopDetector::GNEInductionLoopDetector(GNENet* net) :
 }
 
 
-GNEInductionLoopDetector::GNEInductionLoopDetector(const std::string& id, GNELane* lane, GNENet* net, const double pos,
-        const SUMOTime freq, const std::string& filename, const std::vector<std::string>& vehicleTypes,
-        const std::vector<std::string>& nextEdges, const std::string& detectPersons, const std::string& name,
-        const bool friendlyPos, const Parameterised::Map& parameters) :
-    GNEDetector(id, net, GLO_E1DETECTOR, SUMO_TAG_INDUCTION_LOOP, GUIIcon::E1, pos, freq, lane,
-                filename, vehicleTypes, nextEdges, detectPersons, name, friendlyPos, parameters) {
+GNEInductionLoopDetector::GNEInductionLoopDetector(const std::string& id, GNENet* net, const std::string& filename, GNELane* lane,
+        const double pos, const SUMOTime freq, const std::string& outputFilename, const std::vector<std::string>& vehicleTypes,
+        const std::vector<std::string>& nextEdges, const std::string& detectPersons, const std::string& name, const bool friendlyPos,
+        const Parameterised::Map& parameters) :
+    GNEDetector(id, net, filename, GLO_E1DETECTOR, SUMO_TAG_INDUCTION_LOOP, GUIIcon::E1, pos, freq, lane,
+                outputFilename, vehicleTypes, nextEdges, detectPersons, name, friendlyPos, parameters) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }

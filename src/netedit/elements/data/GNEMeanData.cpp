@@ -28,9 +28,9 @@
 // member method definitions
 // ===========================================================================
 
-GNEMeanData::GNEMeanData(GNENet* net, SumoXMLTag tag, const std::string& id) :
-    GNEAttributeCarrier(tag, net),
-    myID(id) {
+GNEMeanData::GNEMeanData(SumoXMLTag tag, std::string ID, GNENet* net, const std::string& filename) :
+    GNEAttributeCarrier(tag, net, filename),
+    myID(ID) {
     // reset default values
     resetDefaultValues();
     // set file
@@ -40,12 +40,12 @@ GNEMeanData::GNEMeanData(GNENet* net, SumoXMLTag tag, const std::string& id) :
 }
 
 
-GNEMeanData::GNEMeanData(GNENet* net, SumoXMLTag tag, std::string ID, std::string file, SUMOTime period,
-                         SUMOTime begin, SUMOTime end, const bool trackVehicles, const std::vector<SumoXMLAttr>& writtenAttributes,
+GNEMeanData::GNEMeanData(SumoXMLTag tag, std::string ID, GNENet* net, const std::string& filename, const std::string& file, const SUMOTime period,
+                         const SUMOTime begin, const SUMOTime end, const bool trackVehicles, const std::vector<SumoXMLAttr>& writtenAttributes,
                          const bool aggregate, const std::vector<std::string>& edges, const std::string& edgeFile,
-                         std::string excludeEmpty, const bool withInternal, const std::vector<std::string>& detectPersons,
+                         const std::string& excludeEmpty, const bool withInternal, const std::vector<std::string>& detectPersons,
                          const double minSamples, const double maxTravelTime, const std::vector<std::string>& vTypes, const double speedThreshold) :
-    GNEAttributeCarrier(tag, net),
+    GNEAttributeCarrier(tag, net, filename),
     myID(ID),
     myFile(file),
     myPeriod(period),

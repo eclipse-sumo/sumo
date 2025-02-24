@@ -34,7 +34,7 @@
 // ===========================================================================
 
 GNERouteProbe::GNERouteProbe(GNENet* net) :
-    GNEAdditional("", net, GLO_ROUTEPROBE, SUMO_TAG_ROUTEPROBE, GUIIcon::ROUTEPROBE, ""),
+    GNEAdditional("", net, GLO_ROUTEPROBE, SUMO_TAG_ROUTEPROBE, GUIIcon::ROUTEPROBE, "", ""),
     myPeriod(SUMOTime_MAX_PERIOD),
     myBegin(0) {
     // reset default values
@@ -44,13 +44,13 @@ GNERouteProbe::GNERouteProbe(GNENet* net) :
 }
 
 
-GNERouteProbe::GNERouteProbe(const std::string& id, GNENet* net, GNEEdge* edge, const SUMOTime period, const std::string& name,
-                             const std::string& filename, SUMOTime begin, const std::vector<std::string>& vehicleTypes,
+GNERouteProbe::GNERouteProbe(const std::string& id, GNENet* net, const std::string& filename, GNEEdge* edge, const SUMOTime period, const std::string& name,
+                             const std::string& outputFilename, SUMOTime begin, const std::vector<std::string>& vehicleTypes,
                              const Parameterised::Map& parameters) :
-    GNEAdditional(id, net, GLO_ROUTEPROBE, SUMO_TAG_ROUTEPROBE, GUIIcon::ROUTEPROBE, name),
+    GNEAdditional(id, net, GLO_ROUTEPROBE, SUMO_TAG_ROUTEPROBE, GUIIcon::ROUTEPROBE, name, filename),
     Parameterised(parameters),
     myPeriod(period),
-    myFilename(filename),
+    myOutputFilename(filename),
     myBegin(begin),
     myVehicleTypes(vehicleTypes) {
     // set parents
@@ -75,8 +75,8 @@ GNERouteProbe::writeAdditional(OutputDevice& device) const {
         device.writeAttr(SUMO_ATTR_PERIOD, time2string(myPeriod));
     }
     device.writeAttr(SUMO_ATTR_EDGE, getParentEdges().front()->getID());
-    if (!myFilename.empty()) {
-        device.writeAttr(SUMO_ATTR_FILE, myFilename);
+    if (!myOutputFilename.empty()) {
+        device.writeAttr(SUMO_ATTR_FILE, myOutputFilename);
     }
     if (!myAdditionalName.empty()) {
         device.writeAttr(SUMO_ATTR_NAME, myAdditionalName);
@@ -237,7 +237,7 @@ GNERouteProbe::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_NAME:
             return myAdditionalName;
         case SUMO_ATTR_FILE:
-            return myFilename;
+            return myOutputFilename;
         case SUMO_ATTR_PERIOD:
         case SUMO_ATTR_FREQUENCY:
             if (myPeriod == SUMOTime_MAX_PERIOD) {
@@ -360,7 +360,7 @@ GNERouteProbe::setAttribute(SumoXMLAttr key, const std::string& value) {
             myAdditionalName = value;
             break;
         case SUMO_ATTR_FILE:
-            myFilename = value;
+            myOutputFilename = value;
             break;
         case SUMO_ATTR_PERIOD:
         case SUMO_ATTR_FREQUENCY:

@@ -42,17 +42,17 @@
 
 GNEPoly::GNEPoly(SumoXMLTag tag, GNENet* net) :
     TesselatedPolygon("", "", RGBColor::BLACK, {}, false, false, 0, 0, 0, "", false, "", Parameterised::Map()),
-GNEAdditional("", net, GLO_POLYGON, tag, GUIIcon::POLY, "") {
+GNEAdditional("", net, GLO_POLYGON, tag, GUIIcon::POLY, "", "") {
     // reset default values
     resetDefaultValues();
 }
 
 
-GNEPoly::GNEPoly(GNENet* net, const std::string& id, const std::string& type, const PositionVector& shape, bool geo, bool fill, double lineWidth,
-                 const RGBColor& color, double layer, double angle, const std::string& imgFile, bool relativePath, const std::string& name,
-                 const Parameterised::Map& parameters) :
+GNEPoly::GNEPoly(const std::string& id, GNENet* net, const std::string& filename, const std::string& type, const PositionVector& shape,
+                 bool geo, bool fill, double lineWidth, const RGBColor& color, double layer, double angle, const std::string& imgFile,
+                 bool relativePath, const std::string& name, const Parameterised::Map& parameters) :
     TesselatedPolygon(id, type, color, shape, geo, fill, lineWidth, layer, angle, imgFile, relativePath, name, parameters),
-    GNEAdditional(id, net, GLO_POLYGON, SUMO_TAG_POLY, GUIIcon::POLY, ""),
+    GNEAdditional(id, net, GLO_POLYGON, SUMO_TAG_POLY, GUIIcon::POLY, "", filename),
     myClosedShape(shape.isClosed()) {
     // check if imgFile is valid
     if (!imgFile.empty() && GUITexturesHelper::getTextureID(imgFile) == -1) {
@@ -76,11 +76,11 @@ GNEPoly::GNEPoly(GNENet* net, const std::string& id, const std::string& type, co
 }
 
 
-GNEPoly::GNEPoly(SumoXMLTag tag, GNENet* net, const std::string& id, const PositionVector& shape, bool geo, const std::string& name,
-                 const Parameterised::Map& parameters) :
+GNEPoly::GNEPoly(SumoXMLTag tag, const std::string& id, GNENet* net, const std::string& filename, const PositionVector& shape,
+                 bool geo, const std::string& name, const Parameterised::Map& parameters) :
     TesselatedPolygon(id, getJuPedSimType(tag), getJuPedSimColor(tag), shape, geo, getJuPedSimFill(tag), 1,
                       getJuPedSimLayer(tag), 0, "", false, name, parameters),
-    GNEAdditional(id, net, getJuPedSimGLO(tag), tag, getJuPedSimIcon(tag), ""),
+    GNEAdditional(id, net, getJuPedSimGLO(tag), tag, getJuPedSimIcon(tag), "", filename),
     myClosedShape(shape.isClosed()),
     mySimplifiedShape(false) {
     // set GEO shape

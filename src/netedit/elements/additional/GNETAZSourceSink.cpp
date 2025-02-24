@@ -35,15 +35,15 @@
 // ===========================================================================
 
 GNETAZSourceSink::GNETAZSourceSink(SumoXMLTag sourceSinkTag, GNENet* net) :
-    GNEAttributeCarrier(sourceSinkTag, net),
+    GNEAttributeCarrier(sourceSinkTag, net, ""),
     myWeight(0) {
     // reset default values
     resetDefaultValues();
 }
 
 
-GNETAZSourceSink::GNETAZSourceSink(SumoXMLTag sourceSinkTag, GNEAdditional* TAZParent, GNEEdge* edge, double departWeight) :
-    GNEAttributeCarrier(sourceSinkTag, TAZParent->getNet()),
+GNETAZSourceSink::GNETAZSourceSink(SumoXMLTag sourceSinkTag, GNEAdditional* TAZParent, GNEEdge* edge, const double departWeight) :
+    GNEAttributeCarrier(sourceSinkTag, TAZParent->getNet(), TAZParent->getFilename()),
     myWeight(departWeight) {
     // set parents
     setParent<GNEEdge*>(edge);

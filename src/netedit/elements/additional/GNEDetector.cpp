@@ -37,19 +37,19 @@
 // ===========================================================================
 
 GNEDetector::GNEDetector(GNENet* net, GUIGlObjectType type, SumoXMLTag tag, GUIIcon icon) :
-    GNEAdditional("", net, type, tag, icon, "") {
+    GNEAdditional("", net, type, tag, icon, "", "") {
 }
 
 
-GNEDetector::GNEDetector(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, GUIIcon icon, const double pos,
-                         const SUMOTime period, GNELane* lane, const std::string& filename, const std::vector<std::string>& vehicleTypes,
-                         const std::vector<std::string>& nextEdges, const std::string& detectPersons, const std::string& name,
-                         const bool friendlyPos, const Parameterised::Map& parameters) :
-    GNEAdditional(id, net, type, tag, icon, name),
+GNEDetector::GNEDetector(const std::string& id, GNENet* net, const std::string& filename, GUIGlObjectType type, SumoXMLTag tag, GUIIcon icon,
+                         const double pos, const SUMOTime period, GNELane* lane, const std::string& outputFilename,
+                         const std::vector<std::string>& vehicleTypes, const std::vector<std::string>& nextEdges,
+                         const std::string& detectPersons, const std::string& name, const bool friendlyPos, const Parameterised::Map& parameters) :
+    GNEAdditional(id, net, type, tag, icon, name, filename),
     Parameterised(parameters),
     myPositionOverLane(pos),
     myPeriod(period),
-    myFilename(filename),
+    myOutputFilename(outputFilename),
     myVehicleTypes(vehicleTypes),
     myNextEdges(nextEdges),
     myDetectPersons(detectPersons),
@@ -59,16 +59,15 @@ GNEDetector::GNEDetector(const std::string& id, GNENet* net, GUIGlObjectType typ
 }
 
 
-GNEDetector::GNEDetector(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, GUIIcon icon, const double pos,
-                         const SUMOTime period, const std::vector<GNELane*>& lanes, const std::string& filename,
-                         const std::vector<std::string>& vehicleTypes, const std::vector<std::string>& nextEdges,
-                         const std::string& detectPersons, const std::string& name, const bool friendlyPos,
-                         const Parameterised::Map& parameters) :
-    GNEAdditional(id, net, type, tag, icon, name),
+GNEDetector::GNEDetector(const std::string& id, GNENet* net, const std::string& filename, GUIGlObjectType type, SumoXMLTag tag, GUIIcon icon,
+                         const double pos, const SUMOTime period, const std::vector<GNELane*>& lanes, const std::string& outputFilename,
+                         const std::vector<std::string>& vehicleTypes, const std::vector<std::string>& nextEdges, const std::string& detectPersons,
+                         const std::string& name, const bool friendlyPos, const Parameterised::Map& parameters) :
+    GNEAdditional(id, net, type, tag, icon, name, filename),
     Parameterised(parameters),
     myPositionOverLane(pos),
     myPeriod(period),
-    myFilename(filename),
+    myOutputFilename(outputFilename),
     myVehicleTypes(vehicleTypes),
     myNextEdges(nextEdges),
     myDetectPersons(detectPersons),
@@ -79,13 +78,13 @@ GNEDetector::GNEDetector(const std::string& id, GNENet* net, GUIGlObjectType typ
 
 
 GNEDetector::GNEDetector(GNEAdditional* additionalParent, GUIGlObjectType type, SumoXMLTag tag, GUIIcon icon,
-                         const double pos, const SUMOTime period, GNELane* lane, const std::string& filename,
+                         const double pos, const SUMOTime period, GNELane* lane, const std::string& outputFilename,
                          const std::string& name, const bool friendlyPos, const Parameterised::Map& parameters) :
     GNEAdditional(additionalParent, type, tag, icon, name),
     Parameterised(parameters),
     myPositionOverLane(pos),
     myPeriod(period),
-    myFilename(filename),
+    myOutputFilename(outputFilename),
     myFriendlyPosition(friendlyPos) {
     // set parents
     setParent<GNELane*>(lane);
@@ -244,7 +243,7 @@ GNEDetector::getDetectorAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_NAME:
             return myAdditionalName;
         case SUMO_ATTR_FILE:
-            return myFilename;
+            return myOutputFilename;
         case SUMO_ATTR_VTYPES:
             return toString(myVehicleTypes);
         case SUMO_ATTR_NEXT_EDGES:
@@ -353,8 +352,8 @@ GNEDetector::writeDetectorValues(OutputDevice& device) const {
     if (myAdditionalName.size() > 0) {
         device.writeAttr(SUMO_ATTR_NAME, StringUtils::escapeXML(myAdditionalName));
     }
-    if (myFilename.size() > 0) {
-        device.writeAttr(SUMO_ATTR_FILE, myFilename);
+    if (myOutputFilename.size() > 0) {
+        device.writeAttr(SUMO_ATTR_FILE, myOutputFilename);
     }
     if (myVehicleTypes.size() > 0) {
         device.writeAttr(SUMO_ATTR_VTYPES, myVehicleTypes);
@@ -392,7 +391,7 @@ GNEDetector::setDetectorAttribute(SumoXMLAttr key, const std::string& value) {
             }
             break;
         case SUMO_ATTR_FILE:
-            myFilename = value;
+            myOutputFilename = value;
             break;
         case SUMO_ATTR_NAME:
             myAdditionalName = value;

@@ -30,8 +30,7 @@
 // ===========================================================================
 
 GNEDestProbReroute::GNEDestProbReroute(GNENet* net):
-    GNEAdditional("", net, GLO_REROUTER_DESTPROBREROUTE, SUMO_TAG_DEST_PROB_REROUTE,
-                  GUIIcon::DESTPROBREROUTE, ""),
+    GNEAdditional("", net, GLO_REROUTER_DESTPROBREROUTE, SUMO_TAG_DEST_PROB_REROUTE, GUIIcon::DESTPROBREROUTE, "", ""),
     myNewEdgeDestination(nullptr),
     myProbability(0) {
     // reset default values

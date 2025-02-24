@@ -40,6 +40,7 @@ public:
     /**@brief GNETAZ Constructor
      * @param[in] id The storage of gl-ids to get the one for this lane representation from
      * @param[in] net pointer to GNENet of this additional element belongs
+     * @param[in] filename file in which this element is stored
      * @param[in] shape TAZ shape
      * @param[in] center TAZ center
      * @param[in] fill flag for fill TAZ shape
@@ -47,8 +48,8 @@ public:
      * @param[in] name TAZ's name
      * @param[in] parameters generic parameters
      */
-    GNETAZ(const std::string& id, GNENet* net, const PositionVector& shape, const Position& TAZ, const bool fill,
-           const RGBColor& color, const std::string& name, const Parameterised::Map& parameters);
+    GNETAZ(const std::string& id, GNENet* net, const std::string& filename, const PositionVector& shape, const Position& TAZ,
+           const bool fill, const RGBColor& color, const std::string& name, const Parameterised::Map& parameters);
 
     /// @brief GNETAZ Destructor
     ~GNETAZ();
@@ -203,22 +204,22 @@ private:
     static const double myHintSizeSquared;
 
     /// @brief Max source weight
-    double myMaxWeightSource;
+    double myMaxWeightSource = 0;
 
     /// @brief Min source weight
-    double myMinWeightSource;
+    double myMinWeightSource = 0;
 
     /// @brief Average source weight
-    double myAverageWeightSource;
+    double myAverageWeightSource = 0;
 
     /// @brief Max Sink weight
-    double myMaxWeightSink;
+    double myMaxWeightSink = 0;
 
     /// @brief Min Sink weight
-    double myMinWeightSink;
+    double myMinWeightSink = 0;
 
     /// @brief Average Sink weight
-    double myAverageWeightSink;
+    double myAverageWeightSink = 0;
 
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);

@@ -34,7 +34,7 @@ public:
     GNERouteDistribution(GNENet* net);
 
     /// @brief parameter constructor
-    GNERouteDistribution(GNENet* net, const std::string& ID);
+    GNERouteDistribution(const std::string& ID, GNENet* net, const std::string& filename);
 
     /// @brief destructor
     ~GNERouteDistribution();

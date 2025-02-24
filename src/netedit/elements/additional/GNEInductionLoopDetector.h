@@ -34,8 +34,9 @@ public:
 
     /**@brief Constructor
      * @param[in] id The storage of gl-ids to get the one for this lane representation from
-     * @param[in] lane Lane of this StoppingPlace belongs
      * @param[in] net pointer to GNENet of this additional element belongs
+     * @param[in] filename file in which this element is stored
+     * @param[in] lane Lane of this StoppingPlace belongs
      * @param[in] pos position of the detector on the lane
      * @param[in] freq the aggregation period the values the detector collects shall be summed up.
      * @param[in] filename The path to the output file.
@@ -47,9 +48,9 @@ public:
      * @param[in] show detector in sumo-gui
      * @param[in] parameters generic parameters
      */
-    GNEInductionLoopDetector(const std::string& id, GNELane* lane, GNENet* net, const double pos, const SUMOTime freq, const std::string& filename,
-                             const std::vector<std::string>& vehicleTypes, const std::vector<std::string>& nextEdges, const std::string& detectPersons,
-                             const std::string& name, const bool friendlyPos, const Parameterised::Map& parameters);
+    GNEInductionLoopDetector(const std::string& id, GNENet* net, const std::string& filename, GNELane* lane, const double pos, const SUMOTime freq,
+                             const std::string& outputFilename, const std::vector<std::string>& vehicleTypes, const std::vector<std::string>& nextEdges,
+                             const std::string& detectPersons, const std::string& name, const bool friendlyPos, const Parameterised::Map& parameters);
 
     /// @brief Destructor
     ~GNEInductionLoopDetector();

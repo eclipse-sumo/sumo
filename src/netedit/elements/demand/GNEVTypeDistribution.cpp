@@ -31,8 +31,8 @@ GNEVTypeDistribution::GNEVTypeDistribution(GNENet* net) :
 }
 
 
-GNEVTypeDistribution::GNEVTypeDistribution(GNENet* net, const std::string& ID, const int deterministic) :
-    GNEDistribution(net, GLO_VTYPE, SUMO_TAG_VTYPE_DISTRIBUTION, GUIIcon::VTYPEDISTRIBUTION, ID, deterministic) {
+GNEVTypeDistribution::GNEVTypeDistribution(const std::string& ID, GNENet* net, const std::string& filename, const int deterministic) :
+    GNEDistribution(ID, net, filename, GLO_VTYPE, SUMO_TAG_VTYPE_DISTRIBUTION, GUIIcon::VTYPEDISTRIBUTION, deterministic) {
 }
 
 

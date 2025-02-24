@@ -76,33 +76,22 @@ GNERoute::GNERoutePopupMenu::onCmdApplyDistance(FXObject*, FXSelector, void*) {
 // ===========================================================================
 
 GNERoute::GNERoute(SumoXMLTag tag, GNENet* net) :
-    GNEDemandElement("", net, GLO_ROUTE, tag, GUIIcon::ROUTE,
-                     GNEPathElement::Options::DEMAND_ELEMENT | GNEPathElement::Options::ROUTE),
-    myColor(RGBColor::YELLOW),
-    myRepeat(0),
-    myCycleTime(0),
-    myProbability(1.0),
-    myVClass(SVC_PASSENGER) {
+    GNEDemandElement("", net, GLO_ROUTE, tag, GUIIcon::ROUTE, "", GNEPathElement::Options::DEMAND_ELEMENT | GNEPathElement::Options::ROUTE) {
     // reset default values
     resetDefaultValues();
 }
 
 
 GNERoute::GNERoute(GNENet* net) :
-    GNEDemandElement(net->getAttributeCarriers()->generateDemandElementID(SUMO_TAG_ROUTE), net, GLO_ROUTE, SUMO_TAG_ROUTE,
-                     GUIIcon::ROUTE, GNEPathElement::Options::DEMAND_ELEMENT | GNEPathElement::Options::ROUTE),
-    myColor(RGBColor::YELLOW),
-    myRepeat(0),
-    myCycleTime(0),
-    myProbability(1.0),
-    myVClass(SVC_PASSENGER) {
+    GNEDemandElement(net->getAttributeCarriers()->generateDemandElementID(SUMO_TAG_ROUTE), net, GLO_ROUTE, SUMO_TAG_ROUTE, GUIIcon::ROUTE, "",
+                     GNEPathElement::Options::DEMAND_ELEMENT | GNEPathElement::Options::ROUTE) {
     // reset default values
     resetDefaultValues();
 }
 
 
-GNERoute::GNERoute(GNENet* net, const std::string& id, const GNEDemandElement* originalRoute) :
-    GNEDemandElement(id, net, GLO_ROUTE, SUMO_TAG_ROUTE, GUIIcon::ROUTE,
+GNERoute::GNERoute(const std::string& id, GNENet* net, const GNEDemandElement* originalRoute) :
+    GNEDemandElement(id, net, GLO_ROUTE, SUMO_TAG_ROUTE, GUIIcon::ROUTE, originalRoute->getFilename(),
                      GNEPathElement::Options::DEMAND_ELEMENT | GNEPathElement::Options::ROUTE),
     Parameterised(originalRoute->getACParametersMap()),
     myRepeat(parse<int>(originalRoute->getAttribute(SUMO_ATTR_REPEAT))),
@@ -130,10 +119,10 @@ GNERoute::GNERoute(GNENet* net, GNEVehicle* vehicleParent, const GNEDemandElemen
 }
 
 
-GNERoute::GNERoute(GNENet* net, const std::string& id, SUMOVehicleClass vClass, const std::vector<GNEEdge*>& edges,
+GNERoute::GNERoute(const std::string& id, GNENet* net, const std::string& filename, SUMOVehicleClass vClass, const std::vector<GNEEdge*>& edges,
                    const RGBColor& color, const int repeat, const SUMOTime cycleTime, const double probability,
                    const Parameterised::Map& parameters) :
-    GNEDemandElement(id, net, GLO_ROUTE, SUMO_TAG_ROUTE, GUIIcon::ROUTE,
+    GNEDemandElement(id, net, GLO_ROUTE, SUMO_TAG_ROUTE, GUIIcon::ROUTE, filename,
                      GNEPathElement::Options::DEMAND_ELEMENT | GNEPathElement::Options::ROUTE),
     Parameterised(parameters),
     myColor(color),
@@ -738,7 +727,7 @@ GNERoute::copyRoute(const GNERoute* originalRoute) {
     // generate new route ID
     const std::string newRouteID = net->getAttributeCarriers()->generateDemandElementID(SUMO_TAG_ROUTE);
     // create new route
-    GNERoute* newRoute = new GNERoute(net, newRouteID, originalRoute);
+    GNERoute* newRoute = new GNERoute(newRouteID, net, originalRoute);
     // add new route using undo-list
     undoList->begin(originalRoute, TLF("copy % '%'", originalRoute->getTagStr(), newRouteID));
     net->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(newRoute, true), true);

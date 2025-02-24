@@ -28,7 +28,7 @@
 // ===========================================================================
 
 GNEEdgeTemplate::GNEEdgeTemplate(const GNEEdge* edge) :
-    GNEAttributeCarrier(SUMO_TAG_EDGE, edge->getNet()),
+    GNEAttributeCarrier(SUMO_TAG_EDGE, edge->getNet(), ""),
     myEdge(edge) {
     // update lane templates
     updateLaneTemplates();

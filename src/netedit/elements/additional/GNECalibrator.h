@@ -43,6 +43,7 @@ public:
     /**@brief Constructor using edge
      * @param[in] id The storage of gl-ids to get the one for this lane representation from
      * @param[in] net pointer to GNENet of this additional element belongs
+     * @param[in] filename file in which this element is stored
      * @param[in] edge Edge of this calibrator belongs
      * @param[in] pos position of the calibrator on the edge (Currently not used)
      * @param[in] frequency the aggregation interval in which to calibrate the flows
@@ -52,12 +53,13 @@ public:
      * @param[in] vTypes space separated list of vehicle type ids to consider
      * @param[in] parameters generic parameters
      */
-    GNECalibrator(const std::string& id, GNENet* net, GNEEdge* edge, double pos, SUMOTime frequency, const std::string& name, const std::string& output,
-                  const double jamThreshold, const std::vector<std::string>& vTypes, const Parameterised::Map& parameters);
+    GNECalibrator(const std::string& id, GNENet* net, const std::string& filename, GNEEdge* edge, double pos, SUMOTime frequency, const std::string& name,
+                  const std::string& output, const double jamThreshold, const std::vector<std::string>& vTypes, const Parameterised::Map& parameters);
 
     /**@brief Constructor using edge and routeProbe
      * @param[in] id The storage of gl-ids to get the one for this lane representation from
      * @param[in] net pointer to GNENet of this additional element belongs
+     * @param[in] filename file in which this element is stored
      * @param[in] edge Edge of this calibrator belongs
      * @param[in] pos position of the calibrator on the edge (Currently not used)
      * @param[in] frequency the aggregation interval in which to calibrate the flows
@@ -68,12 +70,13 @@ public:
      * @param[in] vTypes space separated list of vehicle type ids to consider
      * @param[in] parameters generic parameters
      */
-    GNECalibrator(const std::string& id, GNENet* net, GNEEdge* edge, double pos, SUMOTime frequency, const std::string& name, const std::string& output,
-                  GNEAdditional* routeProbe, const double jamThreshold, const std::vector<std::string>& vTypes, const Parameterised::Map& parameters);
+    GNECalibrator(const std::string& id, GNENet* net, const std::string& filename, GNEEdge* edge, double pos, SUMOTime frequency, const std::string& name,
+                  const std::string& output, GNEAdditional* routeProbe, const double jamThreshold, const std::vector<std::string>& vTypes, const Parameterised::Map& parameters);
 
     /**@brief Constructor using lane
      * @param[in] id The storage of gl-ids to get the one for this lane representation from
      * @param[in] net pointer to GNENet of this additional element belongs
+     * @param[in] filename file in which this element is stored
      * @param[in] lane Lane of this calibrator belongs
      * @param[in] pos position of the calibrator on the edge (Currently not used)
      * @param[in] frequency the aggregation interval in which to calibrate the flows
@@ -83,12 +86,13 @@ public:
      * @param[in] vTypes space separated list of vehicle type ids to consider
      * @param[in] parameters generic parameters
      */
-    GNECalibrator(const std::string& id, GNENet* net, GNELane* lane, double pos, SUMOTime frequency, const std::string& name, const std::string& output,
-                  const double jamThreshold, const std::vector<std::string>& vTypes, const Parameterised::Map& parameters);
+    GNECalibrator(const std::string& id, GNENet* net, const std::string& filename, GNELane* lane, double pos, SUMOTime frequency, const std::string& name,
+                  const std::string& output, const double jamThreshold, const std::vector<std::string>& vTypes, const Parameterised::Map& parameters);
 
     /**@brief Constructor using lane and routeProbe
      * @param[in] id The storage of gl-ids to get the one for this lane representation from
      * @param[in] net pointer to GNENet of this additional element belongs
+     * @param[in] filename file in which this element is stored
      * @param[in] lane Lane of this calibrator belongs
      * @param[in] pos position of the calibrator on the edge (Currently not used)
      * @param[in] frequency the aggregation interval in which to calibrate the flows
@@ -99,8 +103,8 @@ public:
      * @param[in] vTypes space separated list of vehicle type ids to consider
      * @param[in] parameters generic parameters
      */
-    GNECalibrator(const std::string& id, GNENet* net, GNELane* lane, double pos, SUMOTime frequency, const std::string& name, const std::string& output,
-                  GNEAdditional* routeProbe, const double jamThreshold, const std::vector<std::string>& vTypes, const Parameterised::Map& parameters);
+    GNECalibrator(const std::string& id, GNENet* net, const std::string& filename, GNELane* lane, double pos, SUMOTime frequency, const std::string& name,
+                  const std::string& output, GNEAdditional* routeProbe, const double jamThreshold, const std::vector<std::string>& vTypes, const Parameterised::Map& parameters);
 
     /// @brief Destructor
     ~GNECalibrator();

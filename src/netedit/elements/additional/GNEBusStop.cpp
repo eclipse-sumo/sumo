@@ -43,21 +43,21 @@ GNEBusStop::buildTrainStop(GNENet* net) {
 
 
 GNEBusStop*
-GNEBusStop::buildBusStop(const std::string& id, GNELane* lane, GNENet* net,
+GNEBusStop::buildBusStop(const std::string& id, GNENet* net, const std::string& filename, GNELane* lane,
                          const double startPos, const double endPos, const std::string& name, const std::vector<std::string>& lines,
                          int personCapacity, double parkingLength, const RGBColor& color, bool friendlyPosition,
                          const Parameterised::Map& parameters) {
-    return new GNEBusStop(SUMO_TAG_BUS_STOP, GLO_BUS_STOP, GUIIcon::BUSSTOP, id, lane, net, startPos, endPos, name, lines,
+    return new GNEBusStop(SUMO_TAG_BUS_STOP, GLO_BUS_STOP, GUIIcon::BUSSTOP, id, net, filename, lane, startPos, endPos, name, lines,
                           personCapacity, parkingLength, color, friendlyPosition, parameters);
 }
 
 
 GNEBusStop*
-GNEBusStop::buildTrainStop(const std::string& id, GNELane* lane, GNENet* net,
+GNEBusStop::buildTrainStop(const std::string& id, GNENet* net, const std::string& filename, GNELane* lane,
                            const double startPos, const double endPos, const std::string& name, const std::vector<std::string>& lines,
                            int personCapacity, double parkingLength, const RGBColor& color, bool friendlyPosition,
                            const Parameterised::Map& parameters) {
-    return new GNEBusStop(SUMO_TAG_TRAIN_STOP, GLO_TRAIN_STOP, GUIIcon::TRAINSTOP, id, lane, net, startPos, endPos, name, lines,
+    return new GNEBusStop(SUMO_TAG_TRAIN_STOP, GLO_TRAIN_STOP, GUIIcon::TRAINSTOP, id, net, filename, lane, startPos, endPos, name, lines,
                           personCapacity, parkingLength, color, friendlyPosition, parameters);
 }
 
@@ -267,10 +267,12 @@ GNEBusStop::GNEBusStop(SumoXMLTag tag, GUIGlObjectType type, GUIIcon icon, GNENe
 }
 
 
-GNEBusStop::GNEBusStop(SumoXMLTag tag, GUIGlObjectType type, GUIIcon icon, const std::string& id, GNELane* lane, GNENet* net,
-                       const double startPos, const double endPos, const std::string& name, const std::vector<std::string>& lines,
-                       int personCapacity, double parkingLength, const RGBColor& color, bool friendlyPosition, const Parameterised::Map& parameters) :
-    GNEStoppingPlace(id, net, type, tag, icon, lane, startPos, endPos, name, friendlyPosition, color, parameters),
+GNEBusStop::GNEBusStop(SumoXMLTag tag, GUIGlObjectType type, GUIIcon icon, const std::string& id, GNENet* net,
+                       const std::string& filename, GNELane* lane, const double startPos, const double endPos,
+                       const std::string& name, const std::vector<std::string>& lines, int personCapacity,
+                       double parkingLength, const RGBColor& color, bool friendlyPosition,
+                       const Parameterised::Map& parameters) :
+    GNEStoppingPlace(id, net, filename, type, tag, icon, lane, startPos, endPos, name, friendlyPosition, color, parameters),
     myLines(lines),
     myPersonCapacity(personCapacity),
     myParkingLength(parkingLength) {

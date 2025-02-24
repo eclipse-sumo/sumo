@@ -160,10 +160,10 @@ public:
 
 protected:
     /// @brief begin timeStep
-    SUMOTime myBegin;
+    SUMOTime myBegin = 0;
 
     /// @brief end timeStep
-    SUMOTime myEnd;
+    SUMOTime myEnd = 0;
 
 private:
     /// @brief set attribute after validation

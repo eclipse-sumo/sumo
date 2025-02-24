@@ -32,6 +32,8 @@
 
 #include "GNEMeanDataFrame.h"
 
+#define TEMPORAL_FILENAME std::string()
+
 // ===========================================================================
 // FOX callback mapping
 // ===========================================================================
@@ -207,8 +209,8 @@ GNEMeanDataFrame::MeanDataEditor::onCmdCreateMeanData(FXObject*, FXSelector, voi
     // obtain a new valid MeanData ID
     const std::string typeID = myMeanDataFrameParent->myViewNet->getNet()->getAttributeCarriers()->generateMeanDataID(meanDataTag);
     // create new meanData
-    GNEMeanData* meanData = new GNEMeanData(myMeanDataFrameParent->myViewNet->getNet(),
-                                            myMeanDataFrameParent->myMeanDataTypeSelector->getCurrentMeanData()->getTag(), typeID);
+    GNEMeanData* meanData = new GNEMeanData(myMeanDataFrameParent->myMeanDataTypeSelector->getCurrentMeanData()->getTag(), typeID,
+                                            myMeanDataFrameParent->myViewNet->getNet(), TEMPORAL_FILENAME);
     // add it using undoList (to allow undo-redo)
     myMeanDataFrameParent->myViewNet->getUndoList()->begin(meanData, "create meanData");
     myMeanDataFrameParent->myViewNet->getUndoList()->add(new GNEChange_MeanData(meanData, true), true);
@@ -245,8 +247,8 @@ GNEMeanDataFrame::MeanDataEditor::onCmdCopyMeanData(FXObject*, FXSelector, void*
     // check that meanData exist
     if (meanData) {
         // create a new MeanData based on the current selected meanData
-        GNEMeanData* meanDataCopy = new GNEMeanData(myMeanDataFrameParent->myViewNet->getNet(),
-                myMeanDataFrameParent->myMeanDataTypeSelector->getCurrentMeanData()->getTag(), typeID);
+        GNEMeanData* meanDataCopy = new GNEMeanData(meanData->getTagProperty()->getTag(), typeID, myMeanDataFrameParent->myViewNet->getNet(),
+                meanData->getFilename());
         // begin undo list operation
         myMeanDataFrameParent->myViewNet->getUndoList()->begin(meanDataCopy, "copy meanData");
         // add it using undoList (to allow undo-redo)
@@ -431,8 +433,8 @@ GNEMeanDataFrame::GNEMeanDataFrame(GNEViewParent* viewParent, GNEViewNet* viewNe
     myMeanDataSelector = new MeanDataSelector(this);
     // build meanData attributes editor
     myMeanDataAttributesEditor = new GNEAttributesEditor(this, TL("Attributes"),
-                                                         GNEAttributesEditor::EditorType::EDITOR,
-                                                         GNEAttributesEditor::AttributeType::BASIC);
+            GNEAttributesEditor::EditorType::EDITOR,
+            GNEAttributesEditor::AttributeType::BASIC);
 }
 
 

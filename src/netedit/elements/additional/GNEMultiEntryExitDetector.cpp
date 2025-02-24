@@ -34,20 +34,20 @@
 // ===========================================================================
 
 GNEMultiEntryExitDetector::GNEMultiEntryExitDetector(GNENet* net) :
-    GNEAdditional("", net, GLO_E3DETECTOR, SUMO_TAG_ENTRY_EXIT_DETECTOR, GUIIcon::E3ENTRY, "") {
+    GNEAdditional("", net, GLO_E3DETECTOR, SUMO_TAG_ENTRY_EXIT_DETECTOR, GUIIcon::E3ENTRY, "", "") {
     // reset default values
     resetDefaultValues();
 }
 
 
-GNEMultiEntryExitDetector::GNEMultiEntryExitDetector(const std::string& id, GNENet* net, const Position pos, const SUMOTime freq, const std::string& filename,
-        const std::vector<std::string>& vehicleTypes, const std::vector<std::string>& nextEdges, const std::string& detectPersons, const std::string& name,
-        const SUMOTime timeThreshold, const double speedThreshold, const bool openEntry, const bool expectedArrival, const Parameterised::Map& parameters) :
-    GNEAdditional(id, net, GLO_E3DETECTOR, SUMO_TAG_ENTRY_EXIT_DETECTOR, GUIIcon::E3EXIT, name),
+GNEMultiEntryExitDetector::GNEMultiEntryExitDetector(const std::string& id, GNENet* net, const std::string& filename, const Position pos, const SUMOTime freq,
+        const std::string& outputFilename, const std::vector<std::string>& vehicleTypes, const std::vector<std::string>& nextEdges, const std::string& detectPersons,
+        const std::string& name, const SUMOTime timeThreshold, const double speedThreshold, const bool openEntry, const bool expectedArrival, const Parameterised::Map& parameters) :
+    GNEAdditional(id, net, GLO_E3DETECTOR, SUMO_TAG_ENTRY_EXIT_DETECTOR, GUIIcon::E3EXIT, name, filename),
     Parameterised(parameters),
     myPosition(pos),
     myPeriod(freq),
-    myFilename(filename),
+    myOutputFilename(outputFilename),
     myVehicleTypes(vehicleTypes),
     myNextEdges(nextEdges),
     myDetectPersons(detectPersons),
@@ -93,8 +93,8 @@ GNEMultiEntryExitDetector::writeAdditional(OutputDevice& device) const {
         if (getAttribute(SUMO_ATTR_PERIOD).size() > 0) {
             device.writeAttr(SUMO_ATTR_PERIOD, time2string(myPeriod));
         }
-        if (myFilename.size() > 0) {
-            device.writeAttr(SUMO_ATTR_FILE, myFilename);
+        if (myOutputFilename.size() > 0) {
+            device.writeAttr(SUMO_ATTR_FILE, myOutputFilename);
         }
         if (myVehicleTypes.size() > 0) {
             device.writeAttr(SUMO_ATTR_VTYPES, myVehicleTypes);
@@ -231,7 +231,7 @@ GNEMultiEntryExitDetector::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_NAME:
             return myAdditionalName;
         case SUMO_ATTR_FILE:
-            return myFilename;
+            return myOutputFilename;
         case SUMO_ATTR_VTYPES:
             return toString(myVehicleTypes);
         case SUMO_ATTR_NEXT_EDGES:
@@ -402,7 +402,7 @@ GNEMultiEntryExitDetector::setAttribute(SumoXMLAttr key, const std::string& valu
             myAdditionalName = value;
             break;
         case SUMO_ATTR_FILE:
-            myFilename = value;
+            myOutputFilename = value;
             break;
         case SUMO_ATTR_VTYPES:
             myVehicleTypes = parse<std::vector<std::string> >(value);

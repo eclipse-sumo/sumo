@@ -32,6 +32,8 @@
 
 #include "GNEDistributionFrame.h"
 
+#define TEMPORAL_FILENAME std::string()
+
 // ===========================================================================
 // FOX callback mapping
 // ===========================================================================
@@ -110,9 +112,9 @@ GNEDistributionFrame::DistributionEditor::onCmdCreateDistribution(FXObject*, FXS
     // create new distribution
     GNEDemandElement* distribution = nullptr;
     if (myDistributionTag == SUMO_TAG_VTYPE_DISTRIBUTION) {
-        distribution = new GNEVTypeDistribution(myFrameParent->getViewNet()->getNet(), distributionID, -1);
+        distribution = new GNEVTypeDistribution(distributionID, myFrameParent->getViewNet()->getNet(), TEMPORAL_FILENAME, -1);
     } else if (myDistributionTag == SUMO_TAG_ROUTE_DISTRIBUTION) {
-        distribution = new GNERouteDistribution(myFrameParent->getViewNet()->getNet(), distributionID);
+        distribution = new GNERouteDistribution(distributionID, myFrameParent->getViewNet()->getNet(), TEMPORAL_FILENAME);
     } else {
         throw ProcessError("Invalid distribution");
     }

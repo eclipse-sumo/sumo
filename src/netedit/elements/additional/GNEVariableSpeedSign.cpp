@@ -35,15 +35,16 @@
 // ===========================================================================
 
 GNEVariableSpeedSign::GNEVariableSpeedSign(GNENet* net) :
-    GNEAdditional("", net, GLO_VSS, SUMO_TAG_VSS, GUIIcon::VARIABLESPEEDSIGN, "") {
+    GNEAdditional("", net, GLO_VSS, SUMO_TAG_VSS, GUIIcon::VARIABLESPEEDSIGN, "", "") {
     // reset default values
     resetDefaultValues();
 }
 
 
-GNEVariableSpeedSign::GNEVariableSpeedSign(const std::string& id, GNENet* net, const Position& pos, const std::string& name,
-        const std::vector<std::string>& vTypes, const Parameterised::Map& parameters) :
-    GNEAdditional(id, net, GLO_VSS, SUMO_TAG_VSS, GUIIcon::VARIABLESPEEDSIGN, name),
+GNEVariableSpeedSign::GNEVariableSpeedSign(const std::string& id, GNENet* net, const std::string& filename,
+        const Position& pos, const std::string& name, const std::vector<std::string>& vTypes,
+        const Parameterised::Map& parameters) :
+    GNEAdditional(id, net, GLO_VSS, SUMO_TAG_VSS, GUIIcon::VARIABLESPEEDSIGN, name, filename),
     Parameterised(parameters),
     myPosition(pos),
     myVehicleTypes(vTypes) {

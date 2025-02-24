@@ -46,8 +46,9 @@ public:
     GNEPOI(SumoXMLTag tag, GNENet* net);
 
     /**@brief Constructor
-     * @param[in] net net in which this polygon is placed
      * @param[in] id The name of the POI
+     * @param[in] net net in which this polygon is placed
+     * @param[in] filename file in which this element is stored
      * @param[in] type The (abstract) type of the POI
      * @param[in] color The color of the POI
      * @param[in] lon The position X or Lon of the POI
@@ -63,14 +64,15 @@ public:
      * @param[in] name POI's name
      * @param[in] parameters generic parameters
      */
-    GNEPOI(GNENet* net, const std::string& id, const std::string& type, const RGBColor& color, const double xLon,
+    GNEPOI(const std::string& id, GNENet* net, const std::string& filename, const std::string& type, const RGBColor& color, const double xLon,
            const double yLat, const bool geo, const std::string& icon, const double layer, const double angle,
            const std::string& imgFile, const bool relativePath, const double width, const double height,
            const std::string& name, const Parameterised::Map& parameters);
 
     /**@brief Constructor
-     * @param[in] net net in which this polygon is placed
      * @param[in] id The name of the POI
+     * @param[in] net net in which this polygon is placed
+     * @param[in] filename file in which this element is stored
      * @param[in] type The (abstract) type of the POI
      * @param[in] color The color of the POI
      * @param[in] icon the POI icon
@@ -86,7 +88,7 @@ public:
      * @param[in] name POI's name
      * @param[in] parameters generic parameters
      */
-    GNEPOI(GNENet* net, const std::string& id, const std::string& type, const RGBColor& color, GNELane* lane,
+    GNEPOI(const std::string& id, GNENet* net, const std::string& filename, const std::string& type, const RGBColor& color, GNELane* lane,
            const double posOverLane, const bool friendlyPos, const double posLat, const std::string& icon,
            const double layer, const double angle, const std::string& imgFile, const bool relativePath,
            const double width, const double height, const std::string& name, const Parameterised::Map& parameters);

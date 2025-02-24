@@ -31,7 +31,7 @@
 // ===========================================================================
 
 GNEVariableSpeedSignSymbol::GNEVariableSpeedSignSymbol(GNENet* net) :
-    GNEAdditional("", net, GLO_VSS, GNE_TAG_VSS_SYMBOL, GUIIcon::VARIABLESPEEDSIGN, "") {
+    GNEAdditional("", net, GLO_VSS, GNE_TAG_VSS_SYMBOL, GUIIcon::VARIABLESPEEDSIGN, "", "") {
     // reset default values
     resetDefaultValues();
 }

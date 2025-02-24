@@ -32,6 +32,8 @@
 
 #include "GNEDataHandler.h"
 
+#define TEMPORAL_FILENAME std::string()
+
 // ===========================================================================
 // member method definitions
 // ===========================================================================
@@ -62,7 +64,7 @@ GNEDataHandler::buildDataSet(const std::string& id) {
     } else if (!checkDuplicatedDataSet(id)) {
         return false;
     } else {
-        GNEDataSet* dataSet = new GNEDataSet(myNet, id);
+        GNEDataSet* dataSet = new GNEDataSet(id, myNet, TEMPORAL_FILENAME);
         if (myAllowUndoRedo) {
             myNet->getViewNet()->getUndoList()->begin(dataSet, TL("add data set"));
             myNet->getViewNet()->getUndoList()->add(new GNEChange_DataSet(dataSet, true), true);
@@ -85,7 +87,7 @@ GNEDataHandler::buildDataInterval(const CommonXMLStructure::SumoBaseObject* /* s
     // first check if dataSet exist
     if (dataSet == nullptr) {
         // create dataset AND data interval
-        dataSet = new GNEDataSet(myNet, dataSetID);
+        dataSet = new GNEDataSet(dataSetID, myNet, TEMPORAL_FILENAME);
         GNEDataInterval* dataInterval = new GNEDataInterval(dataSet, begin, end);
         if (myAllowUndoRedo) {
             myNet->getViewNet()->getUndoList()->begin(dataInterval, TL("add data set and data interval"));

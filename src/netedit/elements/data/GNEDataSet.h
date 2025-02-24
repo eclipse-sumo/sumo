@@ -73,8 +73,10 @@ public:
 
     /**@brief Constructor
      * @param[in] net pointer to GNEViewNet of this data element element belongs
+     * @param[in] dataSetID data set ID
+     * @param[in] filename file in which this dataSet is stored
      */
-    GNEDataSet(GNENet* net, const std::string dataSetID);
+    GNEDataSet(const std::string& dataSetID, GNENet* net, const std::string& filename);
 
     /// @brief Destructor
     ~GNEDataSet();

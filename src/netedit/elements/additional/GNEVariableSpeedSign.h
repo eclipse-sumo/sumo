@@ -39,15 +39,17 @@ public:
     GNEVariableSpeedSign(GNENet* net);
 
     /**@brief Constructor
-     * @param[in] id The storage of gl-ids to get the one for this lane representation from
-     * @param[in] net pointer to GNENet of this additional element belongs
+     * @param[in] id The name of the variable speed sign
+     * @param[in] net net in which this polygon is placed
+     * @param[in] filename file in which this element is stored
      * @param[in] pos position (center) of the variable speed sign in the map
      * @param[in] name VSS name
      * @param[in] parameters generic parameters
      * @param[in] vTypes list of vehicle types to be affected
      */
-    GNEVariableSpeedSign(const std::string& id, GNENet* net, const Position& pos, const std::string& name,
-                         const std::vector<std::string>& vTypes, const Parameterised::Map& parameters);
+    GNEVariableSpeedSign(const std::string& id, GNENet* net, const std::string& filename, const Position& pos,
+                         const std::string& name, const std::vector<std::string>& vTypes,
+                         const Parameterised::Map& parameters);
 
     /// @brief Destructor
     ~GNEVariableSpeedSign();

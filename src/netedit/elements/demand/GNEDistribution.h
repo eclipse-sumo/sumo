@@ -34,8 +34,8 @@ public:
     GNEDistribution(GNENet* net, GUIGlObjectType type, SumoXMLTag elementTag, GUIIcon icon);
 
     /// @brief parameter constructor
-    GNEDistribution(GNENet* net, GUIGlObjectType type, SumoXMLTag elementTag, GUIIcon icon,
-                    const std::string& ID, const int deterministic);
+    GNEDistribution(const std::string& ID, GNENet* net, const std::string& filename, GUIGlObjectType type, SumoXMLTag elementTag,
+                    GUIIcon icon, const int deterministic);
 
     /// @brief destructor
     ~GNEDistribution();

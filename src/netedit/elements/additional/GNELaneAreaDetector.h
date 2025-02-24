@@ -34,8 +34,9 @@ public:
 
     /**@brief Constructor for Single-Lane E2 detectors
      * @param[in] id The storage of gl-ids to get the one for this lane representation from
-     * @param[in] lane Lane of this StoppingPlace belongs
      * @param[in] net pointer to GNENet of this additional element belongs
+     * @param[in] filename file in which this element is stored
+     * @param[in] lane Lane of this StoppingPlace belongs
      * @param[in] pos position of the detector on the lane
      * @param[in] length The length of the detector in meters.
      * @param[in] freq the aggregation period the values the detector collects shall be summed up.
@@ -52,16 +53,17 @@ public:
      * @param[in] show detector in sumo-gui
      * @param[in] parameters generic parameters
      */
-    GNELaneAreaDetector(const std::string& id, GNELane* lane, GNENet* net, const double pos, const double length, const SUMOTime freq,
-                        const std::string& trafficLight, const std::string& filename, const std::vector<std::string>& vehicleTypes,
+    GNELaneAreaDetector(const std::string& id, GNENet* net, const std::string& filename, GNELane* lane, const double pos, const double length,
+                        const SUMOTime freq, const std::string& trafficLight, const std::string& outputFilename, const std::vector<std::string>& vehicleTypes,
                         const std::vector<std::string>& nextEdges, const std::string& detectPersons, const std::string& name,
                         const SUMOTime timeThreshold, double speedThreshold, const double jamThreshold, const bool friendlyPos,
                         const bool show, const Parameterised::Map& parameters);
 
     /**@brief Constructor for Multi-Lane detectors
      * @param[in] id The storage of gl-ids to get the one for this lane representation from
-     * @param[in] lanes vector of lanes Lane of this StoppingPlace belongs
      * @param[in] net pointer to GNENet of this additional element belongs
+     * @param[in] filename file in which this element is stored
+     * @param[in] lanes vector of lanes Lane of this StoppingPlace belongs
      * @param[in] pos position of the detector on the first lane
      * @param[in] endPos position of the detector on the last lane
      * @param[in] freq the aggregation period the values the detector collects shall be summed up.
@@ -78,8 +80,8 @@ public:
      * @param[in] show detector in sumo-gui
      * @param[in] parameters generic parameters
      */
-    GNELaneAreaDetector(const std::string& id, std::vector<GNELane*> lanes, GNENet* net, double pos, double endPos, const SUMOTime freq,
-                        const std::string& trafficLight, const std::string& filename, const std::vector<std::string>& vehicleTypes,
+    GNELaneAreaDetector(const std::string& id, GNENet* net, const std::string& filename, std::vector<GNELane*> lanes, double pos, double endPos,
+                        const SUMOTime freq, const std::string& trafficLight, const std::string& outputFilename, const std::vector<std::string>& vehicleTypes,
                         const std::vector<std::string>& nextEdges, const std::string& detectPersons, const std::string& name,
                         const SUMOTime timeThreshold, double speedThreshold, const double jamThreshold, const bool friendlyPos,
                         const bool show, const Parameterised::Map& parameters);

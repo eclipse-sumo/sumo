@@ -32,6 +32,8 @@
 
 #include "GNETypeFrame.h"
 
+#define TEMPORAL_FILENAME std::string()
+
 // ===========================================================================
 // FOX callback mapping
 // ===========================================================================
@@ -256,7 +258,7 @@ GNETypeFrame::TypeEditor::onCmdCreateType(FXObject*, FXSelector, void*) {
     // obtain a new valid Type ID
     const std::string typeID = myTypeFrameParent->myViewNet->getNet()->getAttributeCarriers()->generateDemandElementID(SUMO_TAG_VTYPE);
     // create new vehicle type
-    GNEDemandElement* type = new GNEVType(myTypeFrameParent->myViewNet->getNet(), typeID);
+    GNEDemandElement* type = new GNEVType(typeID, myTypeFrameParent->myViewNet->getNet(), TEMPORAL_FILENAME);
     // add it using undoList (to allow undo-redo)
     myTypeFrameParent->myViewNet->getUndoList()->begin(type, TL("create vehicle type"));
     myTypeFrameParent->myViewNet->getUndoList()->add(new GNEChange_DemandElement(type, true), true);
@@ -288,7 +290,7 @@ GNETypeFrame::TypeEditor::onCmdCopyType(FXObject*, FXSelector, void*) {
     // check that vType exist
     if (vType) {
         // create a new Type based on the current selected vehicle type
-        GNEDemandElement* typeCopy = new GNEVType(myTypeFrameParent->myViewNet->getNet(), typeID, vType);
+        GNEDemandElement* typeCopy = new GNEVType(typeID, myTypeFrameParent->myViewNet->getNet(), vType);
         // begin undo list operation
         myTypeFrameParent->myViewNet->getUndoList()->begin(typeCopy, TL("copy vehicle type"));
         // add it using undoList (to allow undo-redo)

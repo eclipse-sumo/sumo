@@ -36,7 +36,7 @@
 // ===========================================================================
 
 GNEGenericData::GNEGenericData(SumoXMLTag tag, GUIIcon icon, const GUIGlObjectType type, GNENet* net) :
-    GNEAttributeCarrier(tag, net),
+    GNEAttributeCarrier(tag, net, ""),
     GUIGlObject(type, "", GUIIconSubSys::getIcon(icon)),
     GNEPathElement(GNEPathElement::Options::DATA_ELEMENT),
     myDataIntervalParent(nullptr) {
@@ -45,7 +45,7 @@ GNEGenericData::GNEGenericData(SumoXMLTag tag, GUIIcon icon, const GUIGlObjectTy
 
 GNEGenericData::GNEGenericData(const SumoXMLTag tag, GUIIcon icon, const GUIGlObjectType type, GNEDataInterval* dataIntervalParent,
                                const Parameterised::Map& parameters) :
-    GNEAttributeCarrier(tag, dataIntervalParent->getNet()),
+    GNEAttributeCarrier(tag, dataIntervalParent->getNet(), dataIntervalParent->getFilename()),
     GUIGlObject(type, dataIntervalParent->getID(), GUIIconSubSys::getIcon(icon)),
     GNEPathElement(GNEPathElement::Options::DATA_ELEMENT),
     Parameterised(parameters),

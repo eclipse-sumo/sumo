@@ -36,9 +36,10 @@ public:
     static GNEBusStop* buildTrainStop(GNENet* net);
 
     /**@brief parameter constructor for bus stops
-     * @param[in] id The storage of gl-ids to get the one for this lane representation from
-     * @param[in] lane Lane of this StoppingPlace belongs
+     * @param[in] id busStop ID
      * @param[in] net pointer to GNENet of this additional element belongs
+     * @param[in] filename file in which this element is stored
+     * @param[in] lane Lane of this StoppingPlace belongs
      * @param[in] startPos Start position of the StoppingPlace
      * @param[in] endPos End position of the StoppingPlace
      * @param[in] name Name of busStop
@@ -49,15 +50,16 @@ public:
      * @param[in] friendlyPos enable or disable friendly position
      * @param[in] parameters generic parameters
      */
-    static GNEBusStop* buildBusStop(const std::string& id, GNELane* lane, GNENet* net,
+    static GNEBusStop* buildBusStop(const std::string& id, GNENet* net, const std::string& filename, GNELane* lane,
                                     const double startPos, const double endPos, const std::string& name, const std::vector<std::string>& lines,
                                     int personCapacity, double parkingLength, const RGBColor& color, bool friendlyPosition,
                                     const Parameterised::Map& parameters);
 
     /**@brief parameter constructor for train stops
-     * @param[in] id The storage of gl-ids to get the one for this lane representation from
-     * @param[in] lane Lane of this StoppingPlace belongs
+     * @param[in] id trainStop ID
      * @param[in] net pointer to GNENet of this additional element belongs
+     * @param[in] filename file in which this element is stored
+     * @param[in] lane Lane of this StoppingPlace belongs
      * @param[in] startPos Start position of the StoppingPlace
      * @param[in] endPos End position of the StoppingPlace
      * @param[in] name Name of busStop
@@ -68,7 +70,7 @@ public:
      * @param[in] friendlyPos enable or disable friendly position
      * @param[in] parameters generic parameters
      */
-    static GNEBusStop* buildTrainStop(const std::string& id, GNELane* lane, GNENet* net,
+    static GNEBusStop* buildTrainStop(const std::string& id, GNENet* net, const std::string& filename, GNELane* lane,
                                       const double startPos, const double endPos, const std::string& name, const std::vector<std::string>& lines,
                                       int personCapacity, double parkingLength, const RGBColor& color, bool friendlyPosition,
                                       const Parameterised::Map& parameters);
@@ -144,9 +146,10 @@ private:
      * @param[in] tag busStop or trainStop tag
      * @param[in] type busStop or trainStop GLO type
      * @param[in] icon busStop or trainStop icon
-     * @param[in] id The storage of gl-ids to get the one for this lane representation from
-     * @param[in] lane Lane of this StoppingPlace belongs
+     * @param[in] id busStop ID
      * @param[in] net pointer to GNENet of this additional element belongs
+     * @param[in] filename file in which this element is stored
+     * @param[in] lane Lane of this StoppingPlace belongs
      * @param[in] startPos Start position of the StoppingPlace
      * @param[in] endPos End position of the StoppingPlace
      * @param[in] name Name of busStop
@@ -157,9 +160,10 @@ private:
      * @param[in] friendlyPos enable or disable friendly position
      * @param[in] parameters generic parameters
      */
-    GNEBusStop(SumoXMLTag tag, GUIGlObjectType type, GUIIcon icon, const std::string& id, GNELane* lane, GNENet* net,
-               const double startPos, const double endPos, const std::string& name, const std::vector<std::string>& lines,
-               int personCapacity, double parkingLength, const RGBColor& color, bool friendlyPosition,
+    GNEBusStop(SumoXMLTag tag, GUIGlObjectType type, GUIIcon icon, const std::string& id, GNENet* net,
+               const std::string& filename, GNELane* lane, const double startPos, const double endPos,
+               const std::string& name, const std::vector<std::string>& lines, int personCapacity,
+               double parkingLength, const RGBColor& color, bool friendlyPosition,
                const Parameterised::Map& parameters);
 
     /// @brief Invalidated copy constructor.
