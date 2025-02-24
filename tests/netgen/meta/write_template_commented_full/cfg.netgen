@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-02-24 08:10:40 by Eclipse SUMO netgenerate Version v1_22_0+0449-9311ec3459f
+<!-- generated on 2025-02-24 08:20:22 by Eclipse SUMO netgenerate Version v1_22_0+0456-7818e10d3bc
 -->
 
 <netgenerateConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
@@ -102,22 +102,22 @@
         <!-- Probability for roads to continue at each node -->
         <rand.connectivity value="0.95" synonymes="connectivity rand-connectivity" type="FLOAT"/>
 
-        <!-- Probability for a node having exactly 1 neighbor -->
+        <!-- Probability for a node having at most 1 neighbor -->
         <rand.neighbor-dist1 value="0" synonymes="dist1 rand-neighbor-dist1" type="FLOAT"/>
 
-        <!-- Probability for a node having exactly 2 neighbors -->
+        <!-- Probability for a node having at most 2 neighbors -->
         <rand.neighbor-dist2 value="0" synonymes="dist2 rand-neighbor-dist2" type="FLOAT"/>
 
-        <!-- Probability for a node having exactly 3 neighbors -->
+        <!-- Probability for a node having at most 3 neighbors -->
         <rand.neighbor-dist3 value="10" synonymes="dist3 rand-neighbor-dist3" type="FLOAT"/>
 
-        <!-- Probability for a node having exactly 4 neighbors -->
+        <!-- Probability for a node having at most 4 neighbors -->
         <rand.neighbor-dist4 value="10" synonymes="dist4 rand-neighbor-dist4" type="FLOAT"/>
 
-        <!-- Probability for a node having exactly 5 neighbors -->
+        <!-- Probability for a node having at most 5 neighbors -->
         <rand.neighbor-dist5 value="2" synonymes="dist5 rand-neighbor-dist5" type="FLOAT"/>
 
-        <!-- Probability for a node having exactly 6 neighbors -->
+        <!-- Probability for a node having at most 6 neighbors -->
         <rand.neighbor-dist6 value="1" synonymes="dist6 rand-neighbor-dist6" type="FLOAT"/>
 
         <!-- Place nodes on a regular grid with spacing rand.min-distance -->

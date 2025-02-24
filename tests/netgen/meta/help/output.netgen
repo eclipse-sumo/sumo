@@ -1,4 +1,4 @@
-Eclipse SUMO netgenerate Version v1_22_0+0449-9311ec3459f
+Eclipse SUMO netgenerate Version v1_22_0+0456-7818e10d3bc
  Copyright (C) 2001-2025 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Synthetic network generator for the microscopic, multi-modal traffic simulation
  SUMO.
@@ -64,17 +64,17 @@ Random Network Options:
                                         node
   --rand.connectivity FLOAT            Probability for roads to continue at
                                         each node
-  --rand.neighbor-dist1 FLOAT          Probability for a node having exactly 1
+  --rand.neighbor-dist1 FLOAT          Probability for a node having at most 1
                                         neighbor
-  --rand.neighbor-dist2 FLOAT          Probability for a node having exactly 2
+  --rand.neighbor-dist2 FLOAT          Probability for a node having at most 2
                                         neighbors
-  --rand.neighbor-dist3 FLOAT          Probability for a node having exactly 3
+  --rand.neighbor-dist3 FLOAT          Probability for a node having at most 3
                                         neighbors
-  --rand.neighbor-dist4 FLOAT          Probability for a node having exactly 4
+  --rand.neighbor-dist4 FLOAT          Probability for a node having at most 4
                                         neighbors
-  --rand.neighbor-dist5 FLOAT          Probability for a node having exactly 5
+  --rand.neighbor-dist5 FLOAT          Probability for a node having at most 5
                                         neighbors
-  --rand.neighbor-dist6 FLOAT          Probability for a node having exactly 6
+  --rand.neighbor-dist6 FLOAT          Probability for a node having at most 6
                                         neighbors
   --rand.grid                          Place nodes on a regular grid with
                                         spacing rand.min-distance
