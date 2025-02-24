@@ -32,7 +32,7 @@
 // ===========================================================================
 
 GNETractionSubstation::GNETractionSubstation(GNENet* net) :
-    GNEAdditional("", net, GLO_TRACTIONSUBSTATION, SUMO_TAG_TRACTION_SUBSTATION, GUIIcon::TRACTION_SUBSTATION, "", ""),
+    GNEAdditional("", net, "", GLO_TRACTIONSUBSTATION, SUMO_TAG_TRACTION_SUBSTATION, GUIIcon::TRACTION_SUBSTATION, ""),
     myVoltage(0),
     myCurrentLimit(0) {
     // reset default values
@@ -42,7 +42,7 @@ GNETractionSubstation::GNETractionSubstation(GNENet* net) :
 
 GNETractionSubstation::GNETractionSubstation(const std::string& id, GNENet* net, const std::string& filename, const Position& pos,
         const double voltage, const double currentLimit, const Parameterised::Map& parameters) :
-    GNEAdditional(id, net, GLO_TRACTIONSUBSTATION, SUMO_TAG_TRACTION_SUBSTATION, GUIIcon::TRACTION_SUBSTATION, "", filename),
+    GNEAdditional(id, net, filename, GLO_TRACTIONSUBSTATION, SUMO_TAG_TRACTION_SUBSTATION, GUIIcon::TRACTION_SUBSTATION, ""),
     Parameterised(parameters),
     myPosition(pos),
     myVoltage(voltage),

@@ -37,7 +37,7 @@
 #pragma warning(disable: 4355) // mask warning about "this" in initializers
 #endif
 GNEWalk::GNEWalk(SumoXMLTag tag, GNENet* net) :
-    GNEDemandElement("", net, GLO_WALK, tag, GUIIcon::WALK_EDGE, "", GNEPathElement::Options::DEMAND_ELEMENT),
+    GNEDemandElement("", net, "", GLO_WALK, tag, GUIIcon::WALK_EDGE, GNEPathElement::Options::DEMAND_ELEMENT),
     GNEDemandElementPlan(this, -1, -1) {
     // reset default values
     resetDefaultValues();

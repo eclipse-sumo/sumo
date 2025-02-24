@@ -32,7 +32,7 @@
 // ===========================================================================
 
 GNERerouterInterval::GNERerouterInterval(GNENet* net) :
-    GNEAdditional("", net, GLO_REROUTER_INTERVAL, SUMO_TAG_INTERVAL, GUIIcon::REROUTERINTERVAL, "", "") {
+    GNEAdditional("", net, "", GLO_REROUTER_INTERVAL, SUMO_TAG_INTERVAL, GUIIcon::REROUTERINTERVAL, "") {
     // reset default values
     resetDefaultValues();
 }

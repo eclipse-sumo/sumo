@@ -30,7 +30,7 @@
 // ===========================================================================
 
 GNEVariableSpeedSignStep::GNEVariableSpeedSignStep(GNENet* net) :
-    GNEAdditional("", net, GLO_VSS_STEP, SUMO_TAG_STEP, GUIIcon::VSSSTEP, "", ""),
+    GNEAdditional("", net, "", GLO_VSS_STEP, SUMO_TAG_STEP, GUIIcon::VSSSTEP, ""),
     myTime(0) {
     // reset default values
     resetDefaultValues();

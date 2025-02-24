@@ -44,8 +44,8 @@
 // member method definitions
 // ===========================================================================
 
-GNEAdditional::GNEAdditional(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, GUIIcon icon,
-                             const std::string& additionalName, const std::string& filename) :
+GNEAdditional::GNEAdditional(const std::string& id, GNENet* net, const std::string& filename, GUIGlObjectType type,
+                             SumoXMLTag tag, GUIIcon icon, const std::string& additionalName) :
     GNEAttributeCarrier(tag, net, filename),
     GUIGlObject(type, id, GUIIconSubSys::getIcon(icon)),
     GNEPathElement(GNEPathElement::Options::ADDITIONAL_ELEMENT),

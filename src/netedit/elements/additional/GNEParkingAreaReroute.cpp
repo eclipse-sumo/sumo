@@ -30,7 +30,7 @@
 // ===========================================================================
 
 GNEParkingAreaReroute::GNEParkingAreaReroute(GNENet* net):
-    GNEAdditional("", net, GLO_REROUTER, SUMO_TAG_PARKING_AREA_REROUTE, GUIIcon::PARKINGZONEREROUTE, "", ""),
+    GNEAdditional("", net, "", GLO_REROUTER, SUMO_TAG_PARKING_AREA_REROUTE, GUIIcon::PARKINGZONEREROUTE, ""),
     myProbability(0),
     myVisible(0) {
     // reset default values

@@ -163,7 +163,7 @@ GNEContainer::GNESelectedContainersPopupMenu::onCmdTransform(FXObject* obj, FXSe
 #pragma warning(disable: 4355) // mask warning about "this" in initializers
 #endif
 GNEContainer::GNEContainer(SumoXMLTag tag, GNENet* net) :
-    GNEDemandElement("", net, GLO_CONTAINER, tag, GUIIcon::CONTAINER, "", GNEPathElement::Options::DEMAND_ELEMENT),
+    GNEDemandElement("", net, "", GLO_CONTAINER, tag, GUIIcon::CONTAINER, GNEPathElement::Options::DEMAND_ELEMENT),
     GNEDemandElementFlow(this) {
     // reset default values
     resetDefaultValues();
@@ -174,9 +174,8 @@ GNEContainer::GNEContainer(SumoXMLTag tag, GNENet* net) :
 
 
 GNEContainer::GNEContainer(SumoXMLTag tag, GNENet* net, const std::string& filename, GNEDemandElement* pType, const SUMOVehicleParameter& containerparameters) :
-    GNEDemandElement(containerparameters.id, net, (tag == SUMO_TAG_CONTAINERFLOW) ? GLO_CONTAINERFLOW : GLO_CONTAINER, tag,
-                     (tag == SUMO_TAG_CONTAINERFLOW) ? GUIIcon::CONTAINERFLOW : GUIIcon::CONTAINER, filename,
-                     GNEPathElement::Options::DEMAND_ELEMENT),
+    GNEDemandElement(containerparameters.id, net, filename, (tag == SUMO_TAG_CONTAINERFLOW) ? GLO_CONTAINERFLOW : GLO_CONTAINER, tag,
+                     (tag == SUMO_TAG_CONTAINERFLOW) ? GUIIcon::CONTAINERFLOW : GUIIcon::CONTAINER, GNEPathElement::Options::DEMAND_ELEMENT),
     GNEDemandElementFlow(this, containerparameters) {
     // set parents
     setParent<GNEDemandElement*>(pType);

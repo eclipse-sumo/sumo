@@ -36,7 +36,7 @@
 #pragma warning(disable: 4355) // mask warning about "this" in initializers
 #endif
 GNETransport::GNETransport(SumoXMLTag tag, GNENet* net) :
-    GNEDemandElement("", net, GLO_TRANSPORT, tag, GUIIcon::TRANSHIP_EDGE, "", GNEPathElement::Options::DEMAND_ELEMENT),
+    GNEDemandElement("", net, "", GLO_TRANSPORT, tag, GUIIcon::TRANSHIP_EDGE, GNEPathElement::Options::DEMAND_ELEMENT),
     GNEDemandElementPlan(this, -1, -1) {
     // reset default values
     resetDefaultValues();

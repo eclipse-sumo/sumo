@@ -39,7 +39,7 @@
 #pragma warning(disable: 4355) // mask warning about "this" in initializers
 #endif
 GNEStop::GNEStop(SumoXMLTag tag, GNENet* net) :
-    GNEDemandElement("", net, GLO_STOP, tag, GUIIcon::STOP, "", GNEPathElement::Options::DEMAND_ELEMENT),
+    GNEDemandElement("", net, "", GLO_STOP, tag, GUIIcon::STOP, GNEPathElement::Options::DEMAND_ELEMENT),
     GNEDemandElementPlan(this, -1, -1),
     myCreationIndex(myNet->getAttributeCarriers()->getStopIndex()) {
     // reset default values

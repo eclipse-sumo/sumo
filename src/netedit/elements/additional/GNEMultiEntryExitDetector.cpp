@@ -34,7 +34,7 @@
 // ===========================================================================
 
 GNEMultiEntryExitDetector::GNEMultiEntryExitDetector(GNENet* net) :
-    GNEAdditional("", net, GLO_E3DETECTOR, SUMO_TAG_ENTRY_EXIT_DETECTOR, GUIIcon::E3ENTRY, "", "") {
+    GNEAdditional("", net, "", GLO_E3DETECTOR, SUMO_TAG_ENTRY_EXIT_DETECTOR, GUIIcon::E3ENTRY, "") {
     // reset default values
     resetDefaultValues();
 }
@@ -43,7 +43,7 @@ GNEMultiEntryExitDetector::GNEMultiEntryExitDetector(GNENet* net) :
 GNEMultiEntryExitDetector::GNEMultiEntryExitDetector(const std::string& id, GNENet* net, const std::string& filename, const Position pos, const SUMOTime freq,
         const std::string& outputFilename, const std::vector<std::string>& vehicleTypes, const std::vector<std::string>& nextEdges, const std::string& detectPersons,
         const std::string& name, const SUMOTime timeThreshold, const double speedThreshold, const bool openEntry, const bool expectedArrival, const Parameterised::Map& parameters) :
-    GNEAdditional(id, net, GLO_E3DETECTOR, SUMO_TAG_ENTRY_EXIT_DETECTOR, GUIIcon::E3EXIT, name, filename),
+    GNEAdditional(id, net, filename, GLO_E3DETECTOR, SUMO_TAG_ENTRY_EXIT_DETECTOR, GUIIcon::E3EXIT, name),
     Parameterised(parameters),
     myPosition(pos),
     myPeriod(freq),

@@ -47,7 +47,7 @@
 GNEPOI::GNEPOI(SumoXMLTag tag, GNENet* net) :
     PointOfInterest("", "", RGBColor::BLACK, Position(0, 0), false, "", 0, false, 0, SUMOXMLDefinitions::POIIcons.getString(POIIcon::NONE),
                     0, 0, "", false, 0, 0, "", Parameterised::Map()),
-    GNEAdditional("", net, GLO_POI, tag, GUIIcon::POI, "", "") {
+    GNEAdditional("", net, "", GLO_POI, tag, GUIIcon::POI, "") {
     // reset default values
     resetDefaultValues();
 }
@@ -57,7 +57,7 @@ GNEPOI::GNEPOI(const std::string& id, GNENet* net, const std::string& filename, 
                const bool geo, const std::string& icon, const double layer, const double angle, const std::string& imgFile,
                const bool relativePath, const double width, const double height, const std::string& name, const Parameterised::Map& parameters) :
     PointOfInterest(id, type, color, Position(xLon, yLat), geo, "", 0, false, 0, icon, layer, angle, imgFile, relativePath, width, height, name, parameters),
-    GNEAdditional(id, net, GLO_POI, geo ? GNE_TAG_POIGEO : SUMO_TAG_POI, geo ? GUIIcon::POIGEO : GUIIcon::POI, "", filename) {
+    GNEAdditional(id, net, filename, GLO_POI, geo ? GNE_TAG_POIGEO : SUMO_TAG_POI, geo ? GUIIcon::POIGEO : GUIIcon::POI, "") {
     // update position depending of GEO
     if (geo) {
         Position cartesian(x(), y());
@@ -76,7 +76,7 @@ GNEPOI::GNEPOI(const std::string& id, GNENet* net, const std::string& filename, 
                const std::string& imgFile, const bool relativePath, const double width, const double height,
                const std::string& name, const Parameterised::Map& parameters) :
     PointOfInterest(id, type, color, Position(), false, lane->getID(), posOverLane, friendlyPos, posLat, icon, layer, angle, imgFile, relativePath, width, height, name, parameters),
-    GNEAdditional(id, net, GLO_POI, GNE_TAG_POILANE, GUIIcon::POILANE, "", filename) {
+    GNEAdditional(id, net, filename, GLO_POI, GNE_TAG_POILANE, GUIIcon::POILANE, "") {
     // set parents
     setParent<GNELane*>(lane);
     // update geometry (needed for adjust myShapeWidth and myShapeHeight)

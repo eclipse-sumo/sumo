@@ -32,7 +32,7 @@
 // ===========================================================================
 
 GNEVType::GNEVType(GNENet* net) :
-    GNEDemandElement("", net, GLO_VTYPE, SUMO_TAG_VTYPE, GUIIcon::VTYPE, "", GNEPathElement::Options::DEMAND_ELEMENT),
+    GNEDemandElement("", net, "", GLO_VTYPE, SUMO_TAG_VTYPE, GUIIcon::VTYPE, GNEPathElement::Options::DEMAND_ELEMENT),
     SUMOVTypeParameter(""),
     myDefaultVehicleType(true),
     myDefaultVehicleTypeModified(false) {
@@ -44,7 +44,7 @@ GNEVType::GNEVType(GNENet* net) :
 
 
 GNEVType::GNEVType(const std::string& vTypeID, GNENet* net, const SUMOVehicleClass& defaultVClass) :
-    GNEDemandElement(vTypeID, net, GLO_VTYPE, SUMO_TAG_VTYPE, GUIIcon::VTYPE, "", GNEPathElement::Options::DEMAND_ELEMENT),
+    GNEDemandElement(vTypeID, net, "", GLO_VTYPE, SUMO_TAG_VTYPE, GUIIcon::VTYPE, GNEPathElement::Options::DEMAND_ELEMENT),
     SUMOVTypeParameter(vTypeID),
     myDefaultVehicleType(true),
     myDefaultVehicleTypeModified(false) {
@@ -56,7 +56,7 @@ GNEVType::GNEVType(const std::string& vTypeID, GNENet* net, const SUMOVehicleCla
 
 
 GNEVType::GNEVType(const std::string& vTypeID, GNENet* net, const std::string& filename) :
-    GNEDemandElement(vTypeID, net, GLO_VTYPE, SUMO_TAG_VTYPE, GUIIcon::VTYPE, "", GNEPathElement::Options::DEMAND_ELEMENT),
+    GNEDemandElement(vTypeID, net, filename, GLO_VTYPE, SUMO_TAG_VTYPE, GUIIcon::VTYPE, GNEPathElement::Options::DEMAND_ELEMENT),
     SUMOVTypeParameter(vTypeID),
     myDefaultVehicleType(false),
     myDefaultVehicleTypeModified(false) {
@@ -68,7 +68,7 @@ GNEVType::GNEVType(const std::string& vTypeID, GNENet* net, const std::string& f
 
 
 GNEVType::GNEVType(GNENet* net, const std::string& filename, const SUMOVTypeParameter& vTypeParameter) :
-    GNEDemandElement(vTypeParameter.id, net, GLO_VTYPE, SUMO_TAG_VTYPE, GUIIcon::VTYPE, filename,
+    GNEDemandElement(vTypeParameter.id, net, filename, GLO_VTYPE, SUMO_TAG_VTYPE, GUIIcon::VTYPE,
                      GNEPathElement::Options::DEMAND_ELEMENT),
     SUMOVTypeParameter(vTypeParameter),
     myDefaultVehicleType(false),
@@ -79,7 +79,7 @@ GNEVType::GNEVType(GNENet* net, const std::string& filename, const SUMOVTypePara
 
 
 GNEVType::GNEVType(const std::string& newVTypeID, GNENet* net, GNEVType* vTypeOriginal) :
-    GNEDemandElement(newVTypeID, net, GLO_VTYPE, vTypeOriginal->getTagProperty()->getTag(), GUIIcon::VTYPE, vTypeOriginal->getFilename(),
+    GNEDemandElement(newVTypeID, net, vTypeOriginal->getFilename(), GLO_VTYPE, vTypeOriginal->getTagProperty()->getTag(), GUIIcon::VTYPE,
                      GNEPathElement::Options::DEMAND_ELEMENT),
     SUMOVTypeParameter(*vTypeOriginal),
     myDefaultVehicleType(false),
