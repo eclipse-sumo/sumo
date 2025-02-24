@@ -1680,6 +1680,42 @@ StringBijection<ReferencePosition>::Entry SUMOXMLDefinitions::referencePositionV
     {"center",  ReferencePosition::CENTER} //< must be the last one
 };
 
+StringBijection<ImageExtension>::Entry SUMOXMLDefinitions::imageExtensionValues[] = {
+    {TL("Image files (*.jpg, *.png, *.bmp)"),   ImageExtension::IMG},
+    {TL("All files (*)"),                       ImageExtension::ALL} //< must be the last one
+};
+
+StringBijection<OutputFileExtension>::Entry SUMOXMLDefinitions::outputFileExtensionValues[] = {
+    {TL("XML files (*.xml)"),   OutputFileExtension::TXT},
+    {TL("Txt files (*.txt)"),   OutputFileExtension::TXT},
+    {TL("All files (*)"),       OutputFileExtension::ALL} //< must be the last one
+};
+
+StringBijection<AdditionalFileExtension>::Entry SUMOXMLDefinitions::additionalFileExtensionValues[] = {
+    {TL("Additional files (*.add.xml)"),    AdditionalFileExtension::ADD_XML},
+    {TL("XML files (*.xml)"),               AdditionalFileExtension::XML},
+    {TL("All files (*)"),                   AdditionalFileExtension::ALL} //< must be the last one
+};
+
+StringBijection<RouteFileExtension>::Entry SUMOXMLDefinitions::routeFileExtensionsValues[] = {
+    {TL("Route files (*.rou.xml)"), RouteFileExtension::ROU_XML},
+    {TL("XML files (*.xml)"),       RouteFileExtension::XML},
+    {TL("All files (*)"),           RouteFileExtension::ALL} //< must be the last one
+};
+
+StringBijection<DataFileExtension>::Entry SUMOXMLDefinitions::dataFileExtensionsValues[] = {
+    {TL("Data files (*.dat.xml)"),  DataFileExtension::DAT_XML},
+    {TL("XML files (*.xml)"),       DataFileExtension::XML},
+    {TL("All files (*)"),           DataFileExtension::ALL} //< must be the last one
+};
+
+StringBijection<MeanDataFileExtension>::Entry SUMOXMLDefinitions::meanDataFileExtensionsValues[] = {
+    {TL("Mean data files (*.med.add.xml)"), MeanDataFileExtension::MED_ADD_XML},
+    {TL("Additional files (*.add.xml)"),    MeanDataFileExtension::ADD},
+    {TL("XML files (*.xml)"),               MeanDataFileExtension::XML},
+    {TL("All files (*)"),                   MeanDataFileExtension::ALL} //< must be the last one
+};
+
 SequentialStringBijection SUMOXMLDefinitions::Tags(
     SUMOXMLDefinitions::tags, SUMO_TAG_NOTHING);
 
@@ -1745,6 +1781,24 @@ StringBijection<ExcludeEmpty> SUMOXMLDefinitions::ExcludeEmptys(
 
 StringBijection<ReferencePosition> SUMOXMLDefinitions::ReferencePositions(
     SUMOXMLDefinitions::referencePositionValues, ReferencePosition::CENTER, false);
+
+StringBijection<ImageExtension> SUMOXMLDefinitions::ImageExtensions(
+    SUMOXMLDefinitions::imageExtensionValues, ImageExtension::ALL, false);
+
+StringBijection<OutputFileExtension> SUMOXMLDefinitions::OutputFileExtensions(
+    SUMOXMLDefinitions::outputFileExtensionValues, OutputFileExtension::ALL, false);
+
+StringBijection<AdditionalFileExtension> SUMOXMLDefinitions::AdditionalFileExtensions(
+    SUMOXMLDefinitions::additionalFileExtensionValues, AdditionalFileExtension::ALL, false);
+
+StringBijection<RouteFileExtension> SUMOXMLDefinitions::RouteFileExtensions(
+    SUMOXMLDefinitions::routeFileExtensionsValues, RouteFileExtension::ALL, false);
+
+StringBijection<DataFileExtension> SUMOXMLDefinitions::DataFileExtensions(
+    SUMOXMLDefinitions::dataFileExtensionsValues, DataFileExtension::ALL, false);
+
+StringBijection<MeanDataFileExtension> SUMOXMLDefinitions::MeanDataFileExtensions(
+    SUMOXMLDefinitions::meanDataFileExtensionsValues, MeanDataFileExtension::ALL, false);
 
 std::string
 SUMOXMLDefinitions::getJunctionIDFromInternalEdge(const std::string internalEdge) {

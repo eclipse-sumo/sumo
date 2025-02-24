@@ -2277,6 +2277,48 @@ enum class ReferencePosition {
     CENTER,
 };
 
+/// @brief image extension
+enum class ImageExtension {
+    IMG,
+    ALL,
+};
+
+/// @brief output file extension
+enum class OutputFileExtension {
+    XML,
+    TXT,
+    ALL,
+};
+
+/// @brief additional file extension
+enum class AdditionalFileExtension {
+    ADD_XML,
+    XML,
+    ALL,
+};
+
+/// @brief route file extension
+enum class RouteFileExtension {
+    ROU_XML,
+    XML,
+    ALL,
+};
+
+/// @brief data file extension
+enum class DataFileExtension {
+    DAT_XML,
+    XML,
+    ALL,
+};
+
+/// @brief mean data file extension
+enum class MeanDataFileExtension {
+    MED_ADD_XML,
+    ADD,
+    XML,
+    ALL,
+};
+
 // @}
 
 /**
@@ -2360,6 +2402,24 @@ public:
 
     /// @brief reference positions (used creating certain elements in netedit)
     static StringBijection<ReferencePosition> ReferencePositions;
+
+    /// @brief image extensions
+    static StringBijection<ImageExtension> ImageExtensions;
+
+    /// @brief output file extensions
+    static StringBijection<OutputFileExtension> OutputFileExtensions;
+
+    /// @brief additional file extensions
+    static StringBijection<AdditionalFileExtension> AdditionalFileExtensions;
+
+    /// @brief route file extensions
+    static StringBijection<RouteFileExtension> RouteFileExtensions;
+
+    /// @brief data file extensions
+    static StringBijection<DataFileExtension> DataFileExtensions;
+
+    /// @brief mean data file extensions
+    static StringBijection<MeanDataFileExtension> MeanDataFileExtensions;
 
     /// @}
 
@@ -2480,6 +2540,24 @@ private:
 
     /// @brief Reference position values
     static StringBijection<ReferencePosition>::Entry referencePositionValues[];
+
+    /// @brief image extension values
+    static StringBijection<ImageExtension>::Entry imageExtensionValues[];
+
+    /// @brief output file extension values
+    static StringBijection<OutputFileExtension>::Entry outputFileExtensionValues[];
+
+    /// @brief additional file extension values
+    static StringBijection<AdditionalFileExtension>::Entry additionalFileExtensionValues[];
+
+    /// @brief route file extension values
+    static StringBijection<RouteFileExtension>::Entry routeFileExtensionsValues[];
+
+    /// @brief data file extension values
+    static StringBijection<DataFileExtension>::Entry dataFileExtensionsValues[];
+
+    /// @brief mean data file extension values
+    static StringBijection<MeanDataFileExtension>::Entry meanDataFileExtensionsValues[];
 
     /// @}
 
