@@ -1393,7 +1393,8 @@ MSLCM_LC2013::_wantsChange(
                 && myStrategicParam >= 0
                 && (neighLead.first == 0 || !neighLead.first->isStopped()
                     // neighboring stopped vehicle leaves enough space to overtake leader
-                    || neighLead.second > overtakeDist)) {
+                    || neighLead.second > overtakeDist
+                    || hasFreeLane(laneOffset, neighLead))) {
             // avoid becoming stuck behind a stopped leader
             currentDist = myVehicle.getPositionOnLane() + leader.second;
 #ifdef DEBUG_WANTS_CHANGE
@@ -2083,6 +2084,27 @@ MSLCM_LC2013::saveBlockerLength(double length, double foeLeftSpace) {
         return false;
     }
 }
+
+
+bool
+MSLCM_LC2013::hasFreeLane(int laneOffset, const std::pair<MSVehicle*, double>& neighLeadStopped) const {
+    int dir = (laneOffset > 0 ? 1 : -1);
+    const MSLane* neigh = myVehicle.getLane()->getParallelLane(laneOffset);
+    if (dir > 0 && !neigh->allowsChangingLeft(myVehicle.getVClass())) {
+        return false;
+    } else if (dir < 0 && !neigh->allowsChangingRight(myVehicle.getVClass())) {
+        return false;
+    }
+    int nextOffset = laneOffset + dir;
+    const MSLane* next = myVehicle.getLane()->getParallelLane(nextOffset);
+    if (next == nullptr || !next->allowsVehicleClass(myVehicle.getVClass())) {
+        return false;
+    }
+    const double overtakeDist = neighLeadStopped.second + neighLeadStopped.first->getVehicleType().getLengthWithGap() + myVehicle.getLength() + POSITION_EPS;
+    std::pair<MSVehicle* const, double> nextLead = next->getLeader(&myVehicle, myVehicle.getPositionOnLane(), myVehicle.getBestLanesContinuation(next), overtakeDist);
+    return nextLead.first == nullptr || nextLead.second >= overtakeDist || hasFreeLane(nextOffset, nextLead);
+}
+
 
 std::string
 MSLCM_LC2013::getParameter(const std::string& key) const {

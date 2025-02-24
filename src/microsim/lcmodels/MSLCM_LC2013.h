@@ -193,6 +193,9 @@ protected:
         return dist / abs(laneOffset) > lookForwardDist;
     }
 
+    /// @brief whether there is a lane beyond laneOffset that can be used to overtake the stopped leader on the neighboring lane
+    bool hasFreeLane(int laneOffset, const std::pair<MSVehicle*, double>& neighLeadStopped) const;
+
 protected:
 
     /// @brief information regarding save velocity (unused) and state flags of the ego vehicle
