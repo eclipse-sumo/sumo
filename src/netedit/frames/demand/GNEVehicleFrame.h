@@ -135,6 +135,12 @@ private:
     /// @brief internal vehicle attributes
     GNEAttributesEditor* myVehicleAttributesEditor;
 
+    /// @brief internal vehicle attributes
+    GNEAttributesEditor* myFlowAttributesEditor;
+
+    /// @brief internal vehicle attributes
+    GNEAttributesEditor* myNeteditAttributesEditor;
+
     /// @brief edge path creator (used for trips and flows)
     GNEPathCreator* myPathCreator;
 

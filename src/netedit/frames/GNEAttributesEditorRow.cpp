@@ -300,6 +300,7 @@ GNEAttributesEditorRow::fillSumoBaseObject(CommonXMLStructure::SumoBaseObject* b
     const auto attribute = myAttrProperty->getAttr();
     // due vehicles uses SUMOVehicleParserHelper::parseVehicleAttributes, we need to introduce this exception
     if (myAttrProperty->getTagPropertyParent()->isVehicle() &&
+            !myAttrProperty->isFlow() &&
             myAttrProperty->hasDefaultValue() &&
             (myAttrProperty->getDefaultValue() == getCurrentValue())) {
         return attribute;
