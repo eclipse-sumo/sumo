@@ -92,6 +92,9 @@ fillOptions() {
 
     oc.doRegister("tls.discard-simple", new Option_Bool(false));
     oc.addDescription("tls.discard-simple", "TLS Building", "Does not instantiate traffic lights at geometry-like nodes");
+
+    oc.doRegister("railway.signal.permit-unsignalized", new Option_StringVector({"tram", "cable_car"}));
+    oc.addDescription("railway.signal.permit-unsignalized", "TLS Building", TL("List rail classes that may run without rail signals"));
 }
 
 
