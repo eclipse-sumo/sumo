@@ -303,7 +303,7 @@ GNEAttributesEditorRow::fillSumoBaseObject(CommonXMLStructure::SumoBaseObject* b
             !myAttrProperty->isFlow() &&
             myAttrProperty->hasDefaultValue() &&
             (myAttrProperty->getDefaultValue() == getCurrentValue())) {
-        return attribute;
+        return SUMO_ATTR_NOTHING;
     }
     // continue depending of type
     if (myAttrProperty->isBool()) {
