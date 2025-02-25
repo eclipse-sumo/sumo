@@ -41,20 +41,11 @@ public:
 
 
 protected:
-    /// @name Methods that override/implement OutputDevice-methods
-    /// @{
-
-    /** @brief Returns the associated ostream
-     * @return cerr
-     */
-    std::ostream& getOStream();
-
-
     /** @brief Called after every write access.
      *
      * Calls flush on stderr.
      */
-    virtual void postWriteHook();
+    virtual void postWriteHook() override;
     /// @}
 
 
@@ -67,11 +58,10 @@ private:
 
     /// @brief Destructor
     ~OutputDevice_CERR();
-
+    
 
 private:
     /// @brief my singular instance
     static OutputDevice* myInstance;
-
 
 };
