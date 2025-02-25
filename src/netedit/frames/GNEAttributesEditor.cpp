@@ -30,7 +30,7 @@ GNEAttributesEditor::GNEAttributesEditor(GNEFrame* frameParent, GNEAttributesEdi
     myFlowAttributesEditor = new GNEAttributesEditorType(frameParent, TL("Flow attributes"), editorType, GNEAttributesEditorType::AttributeType::FLOW);
     myGeoAttributesEditor = new GNEAttributesEditorType(frameParent, TL("Geo attributes"), editorType, GNEAttributesEditorType::AttributeType::GEO);
     myParametersAttributesEditor = new GNEAttributesEditorType(frameParent, TL("Parameters"), editorType, GNEAttributesEditorType::AttributeType::PARAMETERS);
-    myNetditAttributesEditor = new GNEAttributesEditorType(frameParent, TL("Netedit attributes"), editorType, GNEAttributesEditorType::AttributeType::NETEDIT);
+    myNeteditAttributesEditor = new GNEAttributesEditorType(frameParent, TL("Netedit attributes"), editorType, GNEAttributesEditorType::AttributeType::NETEDIT);
 }
 
 
@@ -41,7 +41,7 @@ GNEAttributesEditor::showAttributesEditor(GNEAttributeCarrier* AC, const bool pr
     myFlowAttributesEditor->showAttributesEditor(AC, primaryAttributeEditor);
     myGeoAttributesEditor->showAttributesEditor(AC, primaryAttributeEditor);
     myParametersAttributesEditor->showAttributesEditor(AC, primaryAttributeEditor);
-    myNetditAttributesEditor->showAttributesEditor(AC, primaryAttributeEditor);
+    myNeteditAttributesEditor->showAttributesEditor(AC, primaryAttributeEditor);
 }
 
 
@@ -52,7 +52,7 @@ GNEAttributesEditor::showAttributesEditor(const std::unordered_set<GNEAttributeC
     myFlowAttributesEditor->showAttributesEditor(ACs, primaryAttributeEditor);
     myGeoAttributesEditor->showAttributesEditor(ACs, primaryAttributeEditor);
     myParametersAttributesEditor->showAttributesEditor(ACs, primaryAttributeEditor);
-    myNetditAttributesEditor->showAttributesEditor(ACs, primaryAttributeEditor);
+    myNeteditAttributesEditor->showAttributesEditor(ACs, primaryAttributeEditor);
 }
 
 
@@ -63,7 +63,7 @@ GNEAttributesEditor::hideAttributesEditor() {
     myFlowAttributesEditor->hideAttributesEditor();
     myGeoAttributesEditor->hideAttributesEditor();
     myParametersAttributesEditor->hideAttributesEditor();
-    myNetditAttributesEditor->hideAttributesEditor();
+    myNeteditAttributesEditor->hideAttributesEditor();
 }
 
 
@@ -74,7 +74,7 @@ GNEAttributesEditor::refreshAttributesEditor() {
     myFlowAttributesEditor->refreshAttributesEditor();
     myGeoAttributesEditor->refreshAttributesEditor();
     myParametersAttributesEditor->refreshAttributesEditor();
-    myNetditAttributesEditor->refreshAttributesEditor();
+    myNeteditAttributesEditor->refreshAttributesEditor();
 }
 
 
@@ -85,7 +85,7 @@ GNEAttributesEditor::disableAttributesEditor() {
     myFlowAttributesEditor->disableAttributesEditor();
     myGeoAttributesEditor->disableAttributesEditor();
     myParametersAttributesEditor->disableAttributesEditor();
-    myNetditAttributesEditor->disableAttributesEditor();
+    myNeteditAttributesEditor->disableAttributesEditor();
 }
 
 
@@ -101,7 +101,7 @@ GNEAttributesEditor::checkAttributes(const bool showWarning) {
         return false;
     } else if (!myParametersAttributesEditor->checkAttributes(showWarning)) {
         return false;
-    } else if (!myNetditAttributesEditor->checkAttributes(showWarning)) {
+    } else if (!myNeteditAttributesEditor->checkAttributes(showWarning)) {
         return false;
     } else {
         return true;
@@ -132,11 +132,35 @@ GNEAttributesEditor::fillSumoBaseObject(CommonXMLStructure::SumoBaseObject* base
     if (fillResult == SUMO_ATTR_NOTHING) {
         return fillResult;
     }
-    fillResult = myNetditAttributesEditor->fillSumoBaseObject(baseObject);
+    fillResult = myNeteditAttributesEditor->fillSumoBaseObject(baseObject);
     if (fillResult == SUMO_ATTR_NOTHING) {
         return fillResult;
     }
     return fillResult;
+}
+
+
+bool
+GNEAttributesEditor::isReparenting() const {
+    return myNeteditAttributesEditor->isReparenting();
+}
+
+
+bool
+GNEAttributesEditor::checkNewParent(const GNEAttributeCarrier* AC) const {
+    return myNeteditAttributesEditor->checkNewParent(AC);
+}
+
+
+void
+GNEAttributesEditor::setNewParent(const GNEAttributeCarrier* AC) {
+    myNeteditAttributesEditor->setNewParent(AC);
+}
+
+
+void
+GNEAttributesEditor::abortReparenting() {
+    myNeteditAttributesEditor->abortReparenting();
 }
 
 /****************************************************************************/

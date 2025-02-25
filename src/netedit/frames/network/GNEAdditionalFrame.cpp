@@ -275,9 +275,9 @@ GNEAdditionalFrame::getConsecutiveLaneSelector() const {
 }
 
 
-GNEAttributesEditorType*
-GNEAdditionalFrame::getNeteditAttributesEditor() const {
-    return myAdditionalAttributesEditor->myNetditAttributesEditor;
+GNEAttributesEditor*
+GNEAdditionalFrame::getAttributesEditor() const {
+    return myAdditionalAttributesEditor;
 }
 
 

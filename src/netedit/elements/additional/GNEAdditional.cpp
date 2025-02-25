@@ -240,7 +240,7 @@ GNEAdditional::checkDrawToContour() const {
     const auto& viewParent = myNet->getViewNet()->getViewParent();
     const auto& inspectedElements = myNet->getViewNet()->getInspectedElements();
     // check conditions
-    if (myNet->getViewNet()->getViewParent()->getInspectorFrame()->getAttributesEditor()->myNetditAttributesEditor->isReparenting()) {
+    if (myNet->getViewNet()->getViewParent()->getInspectorFrame()->getAttributesEditor()->isReparenting()) {
         return false;
     } else if (inspectedElements.isInspectingSingleElement()) {
         const auto inspectedAC = inspectedElements.getFirstAC();
@@ -302,7 +302,7 @@ GNEAdditional::checkDrawToContour() const {
 
 bool
 GNEAdditional::checkDrawRelatedContour() const {
-    const auto& neteditAttributesEditor = myNet->getViewNet()->getViewParent()->getInspectorFrame()->getAttributesEditor()->myNetditAttributesEditor;
+    const auto& neteditAttributesEditor = myNet->getViewNet()->getViewParent()->getInspectorFrame()->getAttributesEditor();
     if (neteditAttributesEditor->isReparenting()) {
         return neteditAttributesEditor->checkNewParent(this);
     } else {

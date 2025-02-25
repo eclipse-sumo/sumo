@@ -272,7 +272,7 @@ void
 GNEInspectorFrame::show() {
     refreshInspection();
     // stop reparenting
-    myAttributesEditor->myNetditAttributesEditor->abortReparenting();
+    myAttributesEditor->abortReparenting();
     // show
     GNEFrame::show();
 }

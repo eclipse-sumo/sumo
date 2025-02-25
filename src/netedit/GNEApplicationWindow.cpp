@@ -2060,9 +2060,9 @@ GNEApplicationWindow::onCmdAbort(FXObject*, FXSelector, void*) {
             myViewNet->getViewParent()->getTAZFrame()->getTAZSelectionStatisticsModule()->clearSelectedEdges();
         } else if (myViewNet->getViewParent()->getInspectorFrame()->shown()) {
             // check if stop select parent
-            if (myViewNet->getViewParent()->getInspectorFrame()->getAttributesEditor()->myNetditAttributesEditor->isReparenting()) {
+            if (myViewNet->getViewParent()->getInspectorFrame()->getAttributesEditor()->isReparenting()) {
                 // and stop select paretn
-                myViewNet->getViewParent()->getInspectorFrame()->getAttributesEditor()->myNetditAttributesEditor->abortReparenting();
+                myViewNet->getViewParent()->getInspectorFrame()->getAttributesEditor()->abortReparenting();
             } else {
                 // clear inspected elements
                 myViewNet->getViewParent()->getInspectorFrame()->clearInspection();

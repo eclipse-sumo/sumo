@@ -53,7 +53,23 @@ public:
     /// @brief fill sumo Base object
     SumoXMLAttr fillSumoBaseObject(CommonXMLStructure::SumoBaseObject* baseObject) const;
 
-public:
+    /// @name Functions related with selecting parents (only affect the Netedit Attributes editor)
+    /// @{
+    /// @brief check if we're selecting a parent clicking over view
+    bool isReparenting() const;
+
+    /// @brief check if the given AC can be a new parent
+    bool checkNewParent(const GNEAttributeCarrier* AC) const;
+
+    /// @brief set new parent
+    void setNewParent(const GNEAttributeCarrier* AC);
+
+    /// @brief abort selecting parent
+    void abortReparenting();
+
+    /// @}
+
+protected:
     /// @brief basic attributes editor
     GNEAttributesEditorType* myBasicAttributesEditor = nullptr;
 
@@ -70,7 +86,7 @@ public:
     GNEAttributesEditorType* myParametersAttributesEditor = nullptr;
 
     /// @brief netedit attributes editor
-    GNEAttributesEditorType* myNetditAttributesEditor = nullptr;
+    GNEAttributesEditorType* myNeteditAttributesEditor = nullptr;
 
 private:
     /// @brief Invalidated copy constructor.
