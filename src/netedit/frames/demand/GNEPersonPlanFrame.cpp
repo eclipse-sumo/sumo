@@ -189,7 +189,7 @@ GNEPersonPlanFrame::tagSelected() {
     // first check if person is valid
     if (myPlanSelector->getCurrentPlanTemplate()) {
         // show person attributes
-        myPersonPlanAttributesEditor->showAttributesEditor(myPlanSelector->getCurrentPlanTemplate());
+        myPersonPlanAttributesEditor->showAttributesEditor(myPlanSelector->getCurrentPlanTemplate(), true);
         // set path creator mode depending if previousEdge exist
         if (myPersonSelector) {
             // show path creator mode

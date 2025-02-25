@@ -492,7 +492,7 @@ GNEGenericDataFrame::AttributeSelector::refreshAttributeSelector() {
     }
     // show parameters
     if (myGenericDataFrameParent->myTemplateGenericData) {
-        myGenericDataFrameParent->myGenericDataAttributesEditor->showAttributesEditor(myGenericDataFrameParent->myTemplateGenericData);
+        myGenericDataFrameParent->myGenericDataAttributesEditor->showAttributesEditor(myGenericDataFrameParent->myTemplateGenericData, true);
     }
     // recalc frame
     recalc();

@@ -219,9 +219,6 @@ GNEAttributesEditorType::refreshAttributesEditor() {
                 if ((myAttributeType == AttributeType::BASIC) && !attrProperty->isBasicEditor()) {
                     validAttributeType = false;
                 }
-                if ((myAttributeType == AttributeType::CHILD) && !attrProperty->isChildEditor()) {
-                    validAttributeType = false;
-                }
                 if ((myAttributeType == AttributeType::FLOW) && !attrProperty->isFlowEditor()) {
                     validAttributeType = false;
                 }
@@ -552,15 +549,13 @@ GNEAttributesEditorType::buildRows(GNEAttributesEditorType* editorParent) {
     if (myFirstSingletonAttributesEditorRows.empty()) {
         const auto tagPropertiesDatabase = editorParent->getFrameParent()->getViewNet()->getNet()->getTagPropertiesDatabase();
         // declare vector of types with rows
-        const std::vector<AttributeType> types = {AttributeType::BASIC, AttributeType::CHILD, AttributeType::FLOW, AttributeType::GEO, AttributeType::NETEDIT, AttributeType::PARAMETERS};
+        const std::vector<AttributeType> types = {AttributeType::BASIC, AttributeType::FLOW, AttributeType::GEO, AttributeType::NETEDIT, AttributeType::PARAMETERS};
         // iterate over all types and create their correspond rows
         for (const auto type : types) {
             int maxNumberOfRows = 0;
             // get max number of rows
             if (type == AttributeType::BASIC) {
                 maxNumberOfRows = tagPropertiesDatabase->getMaxNumberOfEditableAttributeRows();
-            } else if (type == AttributeType::CHILD) {
-                maxNumberOfRows = tagPropertiesDatabase->getMaxNumberOfChildAttributeRows();
             } else if (type == AttributeType::FLOW) {
                 maxNumberOfRows = tagPropertiesDatabase->getMaxNumberOfFlowAttributeRows();
             } else if (type == AttributeType::GEO) {

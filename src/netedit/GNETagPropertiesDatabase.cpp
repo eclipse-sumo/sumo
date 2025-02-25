@@ -341,12 +341,6 @@ GNETagPropertiesDatabase::getMaxNumberOfEditableAttributeRows() const {
 
 
 int
-GNETagPropertiesDatabase::getMaxNumberOfChildAttributeRows() const {
-    return myMaxNumberOfChildAttributeRows;
-}
-
-
-int
 GNETagPropertiesDatabase::getMaxNumberOfGeoAttributeRows() const {
     return myMaxNumberOfGeoAttributeRows;
 }
@@ -611,27 +605,27 @@ GNETagPropertiesDatabase::fillNetworkElements() {
         // set values of attributes
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_SPEED,
                 GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::COPYABLE,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE | GNEAttributeProperties::CHILDEDITOR,
+                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
                 TL("The maximum speed allowed on the lane in m/s"),
                 toString(neteditOptions.getFloat("default.speed")));
         myTagProperties[currentTag]->addAttribute(attrProperty);
 
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_ALLOW,
                 GNEAttributeProperties::VCLASS | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::COPYABLE,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE | GNEAttributeProperties::CHILDEDITOR,
+                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
                 TL("Explicitly allows the given vehicle classes (not given will be not allowed)"),
                 "all");
         myTagProperties[currentTag]->addAttribute(attrProperty);
 
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_DISALLOW,
                 GNEAttributeProperties::VCLASS | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::COPYABLE,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE | GNEAttributeProperties::CHILDEDITOR,
+                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
                 TL("Explicitly disallows the given vehicle classes (not given will be allowed)"));
         myTagProperties[currentTag]->addAttribute(attrProperty);
 
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_WIDTH,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY | GNEAttributeProperties::COPYABLE,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE | GNEAttributeProperties::CHILDEDITOR,
+                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
                 TL("Lane width for all lanes of this type in meters (used for visualization)"),
                 "default");
         myTagProperties[currentTag]->addAttribute(attrProperty);
@@ -8845,7 +8839,7 @@ GNETagPropertiesDatabase::fillPlanParentAttributes(GNETagProperties* tagProperti
 
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_ARRIVALPOS,
                 GNEAttributeProperties::FLOAT | GNEAttributeProperties::DEFAULTVALUE,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE | GNEAttributeProperties::CHILDEDITOR,
+                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
                 TL("Arrival position on the last edge"),
                 "-1");
         tagProperties->addAttribute(attrProperty);
@@ -8859,7 +8853,7 @@ GNETagPropertiesDatabase::fillPlanParentAttributes(GNETagProperties* tagProperti
 
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_ARRIVALPOS,
                 GNEAttributeProperties::FLOAT | GNEAttributeProperties::DEFAULTVALUE,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE | GNEAttributeProperties::CHILDEDITOR,
+                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
                 TL("Arrival position on the destination edge"),
                 "-1");
         tagProperties->addAttribute(attrProperty);
@@ -8982,14 +8976,14 @@ GNETagPropertiesDatabase::fillPlanParentAttributes(GNETagProperties* tagProperti
             // depart pos
             attrProperty = new GNEAttributeProperties(SUMO_ATTR_DEPARTPOS,
                     GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE,
-                    GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE | GNEAttributeProperties::CHILDEDITOR,
+                    GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
                     TL("The position at which the tranship shall enter the net"),
                     "0");
             tagProperties->addAttribute(attrProperty);
         }
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_ARRIVALPOS,
                 GNEAttributeProperties::FLOAT | GNEAttributeProperties::DEFAULTVALUE,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE | GNEAttributeProperties::CHILDEDITOR,
+                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
                 TL("arrival position on the destination edge"),
                 "-1");
         tagProperties->addAttribute(attrProperty);
@@ -9052,32 +9046,32 @@ GNETagPropertiesDatabase::fillPersonTripCommonAttributes(GNETagProperties* tagPr
     // fill person trip common attributes
     attrProperty = new GNEAttributeProperties(SUMO_ATTR_VTYPES,
             GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUE,
-            GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE | GNEAttributeProperties::CHILDEDITOR,
+            GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
             TL("List of possible vehicle types to take"));
     tagProperties->addAttribute(attrProperty);
 
     attrProperty = new GNEAttributeProperties(SUMO_ATTR_MODES,
             GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUE,
-            GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE | GNEAttributeProperties::CHILDEDITOR,
+            GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
             TL("List of possible traffic modes. Walking is always possible regardless of this value"));
     tagProperties->addAttribute(attrProperty);
 
     attrProperty = new GNEAttributeProperties(SUMO_ATTR_LINES,
             GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUE,
-            GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE | GNEAttributeProperties::CHILDEDITOR,
+            GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
             TL("list of vehicle alternatives to take for the person trip"));
     tagProperties->addAttribute(attrProperty);
 
     attrProperty = new GNEAttributeProperties(SUMO_ATTR_WALKFACTOR,
             GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE,
-            GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE | GNEAttributeProperties::CHILDEDITOR,
+            GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
             TL("Walk factor"),
             "0.00");
     tagProperties->addAttribute(attrProperty);
 
     attrProperty = new GNEAttributeProperties(SUMO_ATTR_GROUP,
             GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE,
-            GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE | GNEAttributeProperties::CHILDEDITOR,
+            GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
             TL("id of the travel group. Persons with the same group may share a taxi ride"));
     tagProperties->addAttribute(attrProperty);
 }
@@ -9089,14 +9083,14 @@ GNETagPropertiesDatabase::fillWalkCommonAttributes(GNETagProperties* tagProperti
     // fill walk common attributes
     attrProperty = new GNEAttributeProperties(SUMO_ATTR_SPEED,
             GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE,
-            GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE | GNEAttributeProperties::CHILDEDITOR,
+            GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
             TL("speed of the person for this tranship in m/s (not together with duration)"),
             "1.39");
     tagProperties->addAttribute(attrProperty);
 
     attrProperty = new GNEAttributeProperties(SUMO_ATTR_DURATION,
             GNEAttributeProperties::SUMOTIME | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE,
-            GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE | GNEAttributeProperties::CHILDEDITOR,
+            GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
             TL("duration of the plan in second (not together with speed)"),
             "0");
     tagProperties->addAttribute(attrProperty);
@@ -9109,13 +9103,13 @@ GNETagPropertiesDatabase::fillRideCommonAttributes(GNETagProperties* tagProperti
     // fill ride common attributes
     attrProperty = new GNEAttributeProperties(SUMO_ATTR_LINES,
             GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUE,
-            GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE | GNEAttributeProperties::CHILDEDITOR,
+            GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
             TL("list of vehicle alternatives to take for the ride"));
     tagProperties->addAttribute(attrProperty);
 
     attrProperty = new GNEAttributeProperties(SUMO_ATTR_GROUP,
             GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE,
-            GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE | GNEAttributeProperties::CHILDEDITOR,
+            GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
             TL("id of the travel group. Persons with the same group may share a taxi ride"));
     tagProperties->addAttribute(attrProperty);
 }
@@ -9128,13 +9122,13 @@ GNETagPropertiesDatabase::fillTransportCommonAttributes(GNETagProperties* tagPro
 
     attrProperty = new GNEAttributeProperties(SUMO_ATTR_LINES,
             GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUE,
-            GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE | GNEAttributeProperties::CHILDEDITOR,
+            GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
             TL("list of vehicle alternatives to take for the transport"));
     tagProperties->addAttribute(attrProperty);
 
     attrProperty = new GNEAttributeProperties(SUMO_ATTR_GROUP,
             GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE,
-            GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE | GNEAttributeProperties::CHILDEDITOR,
+            GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
             TL("id of the travel group. Persons with the same group may share a taxi ride"));
     tagProperties->addAttribute(attrProperty);
 }
@@ -9147,14 +9141,14 @@ GNETagPropertiesDatabase::fillTranshipCommonAttributes(GNETagProperties* tagProp
     // fill tranship attributes
     attrProperty = new GNEAttributeProperties(SUMO_ATTR_SPEED,
             GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE,
-            GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE | GNEAttributeProperties::CHILDEDITOR,
+            GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
             TL("speed of the person for this tranship in m/s (not together with duration)"),
             "1.39");
     tagProperties->addAttribute(attrProperty);
 
     attrProperty = new GNEAttributeProperties(SUMO_ATTR_DURATION,
             GNEAttributeProperties::SUMOTIME | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE,
-            GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE | GNEAttributeProperties::CHILDEDITOR,
+            GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
             TL("duration of the plan in second (not together with speed)"),
             "0");
     tagProperties->addAttribute(attrProperty);
@@ -9168,7 +9162,7 @@ GNETagPropertiesDatabase::fillPlanStopCommonAttributes(GNETagProperties* tagProp
     // fill plan stop common attributes
     attrProperty = new GNEAttributeProperties(SUMO_ATTR_DURATION,
             GNEAttributeProperties::SUMOTIME | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::ACTIVATABLE | GNEAttributeProperties::DEFAULTVALUE,
-            GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE | GNEAttributeProperties::CHILDEDITOR,
+            GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
             TL("Minimum duration for stopping"),
             "60");
     attrProperty->setDefaultActivated(true);
@@ -9176,14 +9170,14 @@ GNETagPropertiesDatabase::fillPlanStopCommonAttributes(GNETagProperties* tagProp
 
     attrProperty = new GNEAttributeProperties(SUMO_ATTR_UNTIL,
             GNEAttributeProperties::SUMOTIME | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::ACTIVATABLE | GNEAttributeProperties::DEFAULTVALUE,
-            GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE | GNEAttributeProperties::CHILDEDITOR,
+            GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
             TL("The time step at which the route continues"),
             "0.00");
     tagProperties->addAttribute(attrProperty);
 
     attrProperty = new GNEAttributeProperties(SUMO_ATTR_ACTTYPE,
             GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE,
-            GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE | GNEAttributeProperties::CHILDEDITOR,
+            GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
             TL("Activity displayed for stopped person in GUI and output files "));
     tagProperties->addAttribute(attrProperty);
 
@@ -9191,7 +9185,7 @@ GNETagPropertiesDatabase::fillPlanStopCommonAttributes(GNETagProperties* tagProp
     if (tagProperties->hasAttribute(SUMO_ATTR_EDGE)) {
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_FRIENDLY_POS,
                 GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE | GNEAttributeProperties::CHILDEDITOR,
+                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
                 TL("If set, no error will be reported if element is placed behind the lane.") + std::string("\n") +
                 TL("Instead, it will be placed 0.1 meters from the lanes end or at position 0.1,") + std::string("\n") +
                 TL("if the position was negative and larger than the lanes length after multiplication with - 1"),
@@ -9506,7 +9500,6 @@ void
 GNETagPropertiesDatabase::updateMaxNumberOfAttributesEditorRows() {
     for (const auto& tagPropertyItem : myTagProperties) {
         int basicEditableAttributes = 0;
-        int childAttributes = 0;
         int geoAttributes = 0;
         int flowAttributes = 0;
         int neteditAttributes = 0;
@@ -9514,10 +9507,6 @@ GNETagPropertiesDatabase::updateMaxNumberOfAttributesEditorRows() {
             if (attributeProperty->isCreateMode() || attributeProperty->isEditMode()) {
                 if (attributeProperty->isBasicEditor()) {
                     basicEditableAttributes++;
-                }
-                if (attributeProperty->isChildEditor() && attributeProperty->isCreateMode()) {
-                    // child attributes are relevant only in create mode
-                    childAttributes++;
                 }
                 if (attributeProperty->isGeoEditor()) {
                     geoAttributes++;
@@ -9532,9 +9521,6 @@ GNETagPropertiesDatabase::updateMaxNumberOfAttributesEditorRows() {
         }
         if (myMaxNumberOfEditableAttributeRows < basicEditableAttributes) {
             myMaxNumberOfEditableAttributeRows = basicEditableAttributes;
-        }
-        if (myMaxNumberOfChildAttributeRows < childAttributes) {
-            myMaxNumberOfChildAttributeRows = childAttributes;
         }
         if (myMaxNumberOfGeoAttributeRows < geoAttributes) {
             myMaxNumberOfGeoAttributeRows = geoAttributes;

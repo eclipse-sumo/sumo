@@ -108,7 +108,7 @@ GNERouteFrame::RouteModeSelector::areParametersValid() {
         // check if create routes consecutively
         const bool consecutiveEdges = (myCurrentRouteMode == RouteMode::CONSECUTIVE_EDGES);
         // show route attributes modul
-        myRouteFrameParent->myRouteAttributesEditor->showAttributesEditor(myRouteTemplate);
+        myRouteFrameParent->myRouteAttributesEditor->showAttributesEditor(myRouteTemplate, true);
         // show path creator
         myRouteFrameParent->myPathCreator->showPathCreatorModule(myRouteTemplate->getTagProperty(), consecutiveEdges);
         // update edge colors

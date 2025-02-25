@@ -344,9 +344,9 @@ GNEAdditionalFrame::tagSelected() {
     const auto templateAC = myAdditionalTagSelector->getCurrentTemplateAC();
     if (templateAC) {
         // show parameters
-        myAdditionalAttributesEditor->showAttributesEditor(templateAC);
-        myNeteditAttributesEditor->showAttributesEditor(templateAC);
-        myGenericParametersEditor->showAttributesEditor(templateAC);
+        myAdditionalAttributesEditor->showAttributesEditor(templateAC, true);
+        myNeteditAttributesEditor->showAttributesEditor(templateAC, true);
+        myGenericParametersEditor->showAttributesEditor(templateAC, true);
         // Show myAdditionalFrameParent if we're adding an slave element
         if (templateAC->getTagProperty()->isChild()) {
             mySelectorAdditionalParent->showSelectorParentModule(templateAC->getTagProperty()->getParentTags());

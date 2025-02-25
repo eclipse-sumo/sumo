@@ -141,7 +141,7 @@ GNECreateEdgeFrame::EdgeTypeSelector::refreshEdgeTypeSelector() {
         myAddEdgeTypeButton->disable();
         myDeleteEdgeTypeButton->disable();
         // show default edgeType attributes
-        myCreateEdgeFrameParent->myEdgeTypeAttributesEditor->showAttributesEditor(myDefaultEdgeType);
+        myCreateEdgeFrameParent->myEdgeTypeAttributesEditor->showAttributesEditor(myDefaultEdgeType, true);
         // show lane attributes
         myCreateEdgeFrameParent->myLaneTypeSelector->showLaneTypeSelector();
     } else if (myCreateCustomEdgeType->getCheck()) {
@@ -168,7 +168,7 @@ GNECreateEdgeFrame::EdgeTypeSelector::refreshEdgeTypeSelector() {
             // disable delete edge type button (because templates cannot be deleted)
             myDeleteEdgeTypeButton->disable();
             // show edgeType attributes and disable
-            myCreateEdgeFrameParent->myEdgeTypeAttributesEditor->showAttributesEditor(templateEditor->getEdgeTemplate());
+            myCreateEdgeFrameParent->myEdgeTypeAttributesEditor->showAttributesEditor(templateEditor->getEdgeTemplate(), true);
             myCreateEdgeFrameParent->myEdgeTypeAttributesEditor->disableAttributesEditor();
             // show lane attributes (will be automatic disabled)
             myCreateEdgeFrameParent->myLaneTypeSelector->showLaneTypeSelector();
@@ -182,7 +182,7 @@ GNECreateEdgeFrame::EdgeTypeSelector::refreshEdgeTypeSelector() {
             // check if exist
             if (myEdgeTypeSelected) {
                 // show edgeType attributes
-                myCreateEdgeFrameParent->myEdgeTypeAttributesEditor->showAttributesEditor(myEdgeTypeSelected);
+                myCreateEdgeFrameParent->myEdgeTypeAttributesEditor->showAttributesEditor(myEdgeTypeSelected, true);
                 // show lane attributes
                 myCreateEdgeFrameParent->myLaneTypeSelector->showLaneTypeSelector();
             } else {
@@ -412,7 +412,7 @@ GNECreateEdgeFrame::EdgeTypeSelector::onUpdCheckButtons(FXObject*, FXSelector, v
         myNoPedestriansCheckButton->enable();
     }
     // show default edgeType attributes again (for refresh sidewalk and bike widths)
-    myCreateEdgeFrameParent->myEdgeTypeAttributesEditor->showAttributesEditor(myDefaultEdgeType);
+    myCreateEdgeFrameParent->myEdgeTypeAttributesEditor->showAttributesEditor(myDefaultEdgeType, true);
     return 1;
 }
 
@@ -507,7 +507,7 @@ GNECreateEdgeFrame::LaneTypeSelector::refreshLaneTypeSelector() {
         // update comboBox
         updateComboBox();
         // show laneTypeAttributes
-        myCreateEdgeFrameParent->myLaneTypeAttributesEditor->showAttributesEditor(edgeTemplate->getLaneTemplates().at(myLaneIndex));
+        myCreateEdgeFrameParent->myLaneTypeAttributesEditor->showAttributesEditor(edgeTemplate->getLaneTemplates().at(myLaneIndex), false);
         // disable laneAttributes (because is a template)
         myCreateEdgeFrameParent->myLaneTypeAttributesEditor->disableAttributesEditor();
         // disable add and remove buttons
@@ -523,7 +523,7 @@ GNECreateEdgeFrame::LaneTypeSelector::refreshLaneTypeSelector() {
         // update comboBox
         updateComboBox();
         // show laneTypeAttributes
-        myCreateEdgeFrameParent->myLaneTypeAttributesEditor->showAttributesEditor(edgeType->getLaneTypes().at(myLaneIndex));
+        myCreateEdgeFrameParent->myLaneTypeAttributesEditor->showAttributesEditor(edgeType->getLaneTypes().at(myLaneIndex), false);
         // enable add and remove buttons
         myAddLaneTypeButton->enable();
         // check if enable or disable remove lane button
@@ -672,7 +672,7 @@ GNECreateEdgeFrame::GNECreateEdgeFrame(GNEViewParent* viewParent, GNEViewNet* vi
     // lane type selector
     myLaneTypeSelector = new LaneTypeSelector(this);
     // Create laneType parameters
-    myLaneTypeAttributesEditor = new GNEAttributesEditorType(this, TL("Lane attributes"), GNEAttributesEditorType::EditorType::CREATOR, GNEAttributesEditorType::AttributeType::CHILD);
+    myLaneTypeAttributesEditor = new GNEAttributesEditorType(this, TL("Lane attributes"), GNEAttributesEditorType::EditorType::CREATOR, GNEAttributesEditorType::AttributeType::BASIC);
     // create edge selector legend
     myLegend = new Legend(this);
 }

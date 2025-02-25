@@ -565,7 +565,7 @@ void
 GNEStopFrame::tagSelected() {
     if (myStopTagSelector->getCurrentTemplateAC()) {
         // show Stop type selector module
-        myAttributesEditor->showAttributesEditor(myStopTagSelector->getCurrentTemplateAC());
+        myAttributesEditor->showAttributesEditor(myStopTagSelector->getCurrentTemplateAC(), true);
         myHelpCreation->showHelpCreation();
         // reset last position
         myViewNet->resetLastClickedPosition();
@@ -584,7 +584,7 @@ GNEStopFrame::demandElementSelected() {
         myStopTagSelector->showTagSelector();
         if (myStopTagSelector->getCurrentTemplateAC()) {
             // show modules
-            myAttributesEditor->showAttributesEditor(myStopTagSelector->getCurrentTemplateAC());
+            myAttributesEditor->showAttributesEditor(myStopTagSelector->getCurrentTemplateAC(), true);
             myHelpCreation->showHelpCreation();
         } else {
             myAttributesEditor->hideAttributesEditor();

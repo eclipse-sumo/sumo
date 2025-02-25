@@ -193,7 +193,7 @@ GNEContainerPlanFrame::tagSelected() {
     // first check if container is valid
     if (myPlanSelector->getCurrentPlanTemplate()) {
         // show container attributes
-        myContainerPlanAttributesEditor->showAttributesEditor(myPlanSelector->getCurrentPlanTemplate());
+        myContainerPlanAttributesEditor->showAttributesEditor(myPlanSelector->getCurrentPlanTemplate(), true);
         // set path creator mode depending if previousEdge exist
         if (myContainerSelector) {
             // show path creator mode

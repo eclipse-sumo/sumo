@@ -371,7 +371,7 @@ GNEMeanDataFrame::MeanDataSelector::refreshMeanDataSelector(bool afterChangingID
     // check if show attribute editor
     if (!afterChangingID) {
         if (myCurrentMeanData) {
-            myMeanDataFrameParent->myMeanDataAttributesEditor->showAttributesEditor(myCurrentMeanData);
+            myMeanDataFrameParent->myMeanDataAttributesEditor->showAttributesEditor(myCurrentMeanData, true);
         } else {
             myMeanDataFrameParent->myMeanDataAttributesEditor->hideAttributesEditor();
         }
@@ -401,7 +401,7 @@ GNEMeanDataFrame::MeanDataSelector::onCmdSelectItem(FXObject*, FXSelector, void*
             // refresh meanData editor module
             myMeanDataFrameParent->myMeanDataEditor->refreshMeanDataEditorModule();
             // show modules if selected item is valid
-            myMeanDataFrameParent->myMeanDataAttributesEditor->showAttributesEditor(myCurrentMeanData);
+            myMeanDataFrameParent->myMeanDataAttributesEditor->showAttributesEditor(myCurrentMeanData, true);
             // update viewNet
             myMeanDataFrameParent->getViewNet()->updateViewNet();
             return 1;

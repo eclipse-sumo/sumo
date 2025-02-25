@@ -149,9 +149,9 @@ GNETypeFrame::TypeSelector::refreshTypeSelector(const bool updateModuls) {
         // refresh vehicle type editor module
         myTypeFrameParent->myTypeEditor->refreshTypeEditorModule();
         // show modules
-        myTypeFrameParent->myTypeAttributesEditor->showAttributesEditor(myCurrentType);
-        myTypeFrameParent->myAttributesEditorExtended->showAttributesEditor(myCurrentType);
-        myTypeFrameParent->myGenericParametersEditor->showAttributesEditor(myCurrentType);
+        myTypeFrameParent->myTypeAttributesEditor->showAttributesEditor(myCurrentType, true);
+        myTypeFrameParent->myAttributesEditorExtended->showAttributesEditor(myCurrentType, true);
+        myTypeFrameParent->myGenericParametersEditor->showAttributesEditor(myCurrentType, true);
     }
 }
 
@@ -168,9 +168,9 @@ GNETypeFrame::TypeSelector::onCmdSelectItem(FXObject*, FXSelector, void*) {
             // refresh vehicle type editor module
             myTypeFrameParent->myTypeEditor->refreshTypeEditorModule();
             // show modules if selected item is valid
-            myTypeFrameParent->myTypeAttributesEditor->showAttributesEditor(myCurrentType);
-            myTypeFrameParent->myAttributesEditorExtended->showAttributesEditor(myCurrentType);
-            myTypeFrameParent->myGenericParametersEditor->showAttributesEditor(myCurrentType);
+            myTypeFrameParent->myTypeAttributesEditor->showAttributesEditor(myCurrentType, true);
+            myTypeFrameParent->myAttributesEditorExtended->showAttributesEditor(myCurrentType, true);
+            myTypeFrameParent->myGenericParametersEditor->showAttributesEditor(myCurrentType, true);
             // update viewNet
             myTypeFrameParent->getViewNet()->updateViewNet();
             return 1;
@@ -410,8 +410,8 @@ GNETypeFrame::show() {
     // refresh vehicle type and Attribute Editor
     myTypeSelector->refreshTypeSelector(true);
     // show modules
-    myTypeAttributesEditor->showAttributesEditor(myTypeSelector->getCurrentType());
-    myAttributesEditorExtended->showAttributesEditor(myTypeSelector->getCurrentType());
+    myTypeAttributesEditor->showAttributesEditor(myTypeSelector->getCurrentType(), true);
+    myAttributesEditorExtended->showAttributesEditor(myTypeSelector->getCurrentType(), true);
     // show frame
     GNEFrame::show();
 }

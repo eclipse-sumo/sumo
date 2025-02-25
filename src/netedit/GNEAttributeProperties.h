@@ -71,11 +71,10 @@ public:
     enum EditProperty {
         CREATEMODE =        1 << 1,    // Attribute can be modified in create mode
         EDITMODE =          1 << 2,    // Attribute can be modified in edit mode
-        CHILDEDITOR =       1 << 3,    // Attribute can be edited only in child editor (used if we have two attributes editor in the same frame)
-        NETEDITEDITOR =     1 << 4,    // Attribute can be edited only in netedit editor
-        EXTENDEDEDITOR =    1 << 5,    // Attribute cannot be edited in editor, but is editable in extended Dialog
-        GEOEDITOR =         1 << 6,    // Attribute can be edited only in geo editor
-        FLOWEDITOR =        1 << 7,    // Attribute can be edited only in flow editor
+        NETEDITEDITOR =     1 << 3,    // Attribute can be edited only in netedit editor
+        EXTENDEDEDITOR =    1 << 4,    // Attribute cannot be edited in editor, but is editable in extended Dialog
+        GEOEDITOR =         1 << 5,    // Attribute can be edited only in geo editor
+        FLOWEDITOR =        1 << 6,    // Attribute can be edited only in flow editor
     };
 
     /// @brief parameter constructor
@@ -233,9 +232,6 @@ public:
 
     /// @brief return true if this attribute cannot be edited in editor
     bool isExtendedEditor() const;
-
-    /// @brief return true if this attribute can be edited only in child editor
-    bool isChildEditor() const;
 
     /// @brief return true if this attribute can be edited only in GEO editor
     bool isGeoEditor() const;

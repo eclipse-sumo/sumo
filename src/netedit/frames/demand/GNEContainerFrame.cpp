@@ -177,13 +177,13 @@ GNEContainerFrame::tagSelected() {
         // check if current container type selected is valid
         if (myTypeSelector->getCurrentDemandElement()) {
             // show container attributes
-            myContainerAttributesEditor->showAttributesEditor(myContainerTagSelector->getCurrentTemplateAC());
+            myContainerAttributesEditor->showAttributesEditor(myContainerTagSelector->getCurrentTemplateAC(), true);
             // show container plan tag selector
             myPlanSelector->showPlanSelector();
             // check current plan template
             if (myPlanSelector->getCurrentPlanTemplate()) {
                 // show container plan attributes
-                myContainerPlanAttributesEditor->showAttributesEditor(myPlanSelector->getCurrentPlanTemplate());
+                myContainerPlanAttributesEditor->showAttributesEditor(myPlanSelector->getCurrentPlanTemplate(), false);
                 // show edge path creator module
                 myPlanCreator->showPlanCreatorModule(myPlanSelector, nullptr);
                 // show path legend
@@ -219,13 +219,13 @@ void
 GNEContainerFrame::demandElementSelected() {
     if (myTypeSelector->getCurrentDemandElement() && myPlanSelector->getCurrentPlanTemplate()) {
         // show container attributes
-        myContainerAttributesEditor->showAttributesEditor(myContainerTagSelector->getCurrentTemplateAC());
+        myContainerAttributesEditor->showAttributesEditor(myContainerTagSelector->getCurrentTemplateAC(), true);
         // show container plan tag selector
         myPlanSelector->showPlanSelector();
         // now check if container plan selected is valid
         if (myPlanSelector->getCurrentPlanTagProperties()->getTag() != SUMO_TAG_NOTHING) {
             // show container plan attributes
-            myContainerPlanAttributesEditor->showAttributesEditor(myPlanSelector->getCurrentPlanTemplate());
+            myContainerPlanAttributesEditor->showAttributesEditor(myPlanSelector->getCurrentPlanTemplate(), false);
             // show edge path creator module
             myPlanCreator->showPlanCreatorModule(myPlanSelector, nullptr);
             // show legend

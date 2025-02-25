@@ -509,19 +509,13 @@ GNEAttributeProperties::isAlwaysEnabled() const {
 
 bool
 GNEAttributeProperties::isBasicEditor() const {
-    return !isExtendedEditor() && !isChildEditor() && !isGeoEditor() && !isFlowEditor() && !isNeteditEditor();
+    return !isExtendedEditor() && !isGeoEditor() && !isFlowEditor() && !isNeteditEditor();
 }
 
 
 bool
 GNEAttributeProperties::isExtendedEditor() const {
     return (myEditProperty & EXTENDEDEDITOR) != 0;
-}
-
-
-bool
-GNEAttributeProperties::isChildEditor() const {
-    return (myEditProperty & CHILDEDITOR) != 0;
 }
 
 

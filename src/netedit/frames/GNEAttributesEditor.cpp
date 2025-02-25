@@ -26,7 +26,6 @@
 
 GNEAttributesEditor::GNEAttributesEditor(GNEFrame* frameParent, GNEAttributesEditorType::EditorType editorType) {
     myBasicAttributesEditor = new GNEAttributesEditorType(frameParent, TL("Internal attributes"), editorType, GNEAttributesEditorType::AttributeType::BASIC);
-    myChildAttributesEditor = new GNEAttributesEditorType(frameParent, TL("Child attributes"), editorType, GNEAttributesEditorType::AttributeType::CHILD);
     myExtendedAttributesEditor = new GNEAttributesEditorType(frameParent, TL("Extended attributes"), editorType, GNEAttributesEditorType::AttributeType::EXTENDED);
     myFlowAttributesEditor = new GNEAttributesEditorType(frameParent, TL("Flow attributes"), editorType, GNEAttributesEditorType::AttributeType::FLOW);
     myGeoAttributesEditor = new GNEAttributesEditorType(frameParent, TL("Geo attributes"), editorType, GNEAttributesEditorType::AttributeType::GEO);
@@ -36,33 +35,30 @@ GNEAttributesEditor::GNEAttributesEditor(GNEFrame* frameParent, GNEAttributesEdi
 
 
 void
-GNEAttributesEditor::showAttributesEditor(GNEAttributeCarrier* AC) {
-    myBasicAttributesEditor->showAttributesEditor(AC);
-    myChildAttributesEditor->showAttributesEditor(AC);
-    myExtendedAttributesEditor->showAttributesEditor(AC);
-    myFlowAttributesEditor->showAttributesEditor(AC);
-    myGeoAttributesEditor->showAttributesEditor(AC);
-    myParametersAttributesEditor->showAttributesEditor(AC);
-    myNetditAttributesEditor->showAttributesEditor(AC);
+GNEAttributesEditor::showAttributesEditor(GNEAttributeCarrier* AC, const bool primaryAttributeEditor) {
+    myBasicAttributesEditor->showAttributesEditor(AC, primaryAttributeEditor);
+    myExtendedAttributesEditor->showAttributesEditor(AC, primaryAttributeEditor);
+    myFlowAttributesEditor->showAttributesEditor(AC, primaryAttributeEditor);
+    myGeoAttributesEditor->showAttributesEditor(AC, primaryAttributeEditor);
+    myParametersAttributesEditor->showAttributesEditor(AC, primaryAttributeEditor);
+    myNetditAttributesEditor->showAttributesEditor(AC, primaryAttributeEditor);
 }
 
 
 void
-GNEAttributesEditor::showAttributesEditor(const std::unordered_set<GNEAttributeCarrier*>& ACs) {
-    myBasicAttributesEditor->showAttributesEditor(ACs);
-    myChildAttributesEditor->showAttributesEditor(ACs);
-    myExtendedAttributesEditor->showAttributesEditor(ACs);
-    myFlowAttributesEditor->showAttributesEditor(ACs);
-    myGeoAttributesEditor->showAttributesEditor(ACs);
-    myParametersAttributesEditor->showAttributesEditor(ACs);
-    myNetditAttributesEditor->showAttributesEditor(ACs);
+GNEAttributesEditor::showAttributesEditor(const std::unordered_set<GNEAttributeCarrier*>& ACs, const bool primaryAttributeEditor) {
+    myBasicAttributesEditor->showAttributesEditor(ACs, primaryAttributeEditor);
+    myExtendedAttributesEditor->showAttributesEditor(ACs, primaryAttributeEditor);
+    myFlowAttributesEditor->showAttributesEditor(ACs, primaryAttributeEditor);
+    myGeoAttributesEditor->showAttributesEditor(ACs, primaryAttributeEditor);
+    myParametersAttributesEditor->showAttributesEditor(ACs, primaryAttributeEditor);
+    myNetditAttributesEditor->showAttributesEditor(ACs, primaryAttributeEditor);
 }
 
 
 void
 GNEAttributesEditor::hideAttributesEditor() {
     myBasicAttributesEditor->hideAttributesEditor();
-    myChildAttributesEditor->hideAttributesEditor();
     myExtendedAttributesEditor->hideAttributesEditor();
     myFlowAttributesEditor->hideAttributesEditor();
     myGeoAttributesEditor->hideAttributesEditor();
@@ -74,7 +70,6 @@ GNEAttributesEditor::hideAttributesEditor() {
 void
 GNEAttributesEditor::refreshAttributesEditor() {
     myBasicAttributesEditor->refreshAttributesEditor();
-    myChildAttributesEditor->refreshAttributesEditor();
     myExtendedAttributesEditor->refreshAttributesEditor();
     myFlowAttributesEditor->refreshAttributesEditor();
     myGeoAttributesEditor->refreshAttributesEditor();
@@ -86,7 +81,6 @@ GNEAttributesEditor::refreshAttributesEditor() {
 void
 GNEAttributesEditor::disableAttributesEditor() {
     myBasicAttributesEditor->disableAttributesEditor();
-    myChildAttributesEditor->disableAttributesEditor();
     myExtendedAttributesEditor->disableAttributesEditor();
     myFlowAttributesEditor->disableAttributesEditor();
     myGeoAttributesEditor->disableAttributesEditor();
@@ -98,8 +92,6 @@ GNEAttributesEditor::disableAttributesEditor() {
 bool
 GNEAttributesEditor::checkAttributes(const bool showWarning) {
     if (!myBasicAttributesEditor->checkAttributes(showWarning)) {
-        return false;
-    } else if (!myChildAttributesEditor->checkAttributes(showWarning)) {
         return false;
     } else if (!myExtendedAttributesEditor->checkAttributes(showWarning)) {
         return false;
@@ -121,10 +113,6 @@ SumoXMLAttr
 GNEAttributesEditor::fillSumoBaseObject(CommonXMLStructure::SumoBaseObject* baseObject) const {
     SumoXMLAttr fillResult = SUMO_ATTR_DEFAULT;
     fillResult = myBasicAttributesEditor->fillSumoBaseObject(baseObject);
-    if (fillResult == SUMO_ATTR_NOTHING) {
-        return fillResult;
-    }
-    fillResult = myChildAttributesEditor->fillSumoBaseObject(baseObject);
     if (fillResult == SUMO_ATTR_NOTHING) {
         return fillResult;
     }

@@ -363,8 +363,8 @@ void
 GNEShapeFrame::tagSelected() {
     if (myShapeTagSelector->getCurrentTemplateAC()) {
         // show editors
-        myShapeAttributesEditor->showAttributesEditor(myShapeTagSelector->getCurrentTemplateAC());
-        myNeteditAttributesEditor->showAttributesEditor(myShapeTagSelector->getCurrentTemplateAC());
+        myShapeAttributesEditor->showAttributesEditor(myShapeTagSelector->getCurrentTemplateAC(), true);
+        myNeteditAttributesEditor->showAttributesEditor(myShapeTagSelector->getCurrentTemplateAC(), true);
         // get shape tag
         SumoXMLTag shapeTag = myShapeTagSelector->getCurrentTemplateAC()->getTagProperty()->getTag();
         // Check if drawing mode has to be shown

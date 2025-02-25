@@ -280,7 +280,7 @@ void
 GNEVehicleFrame::demandElementSelected() {
     if (myTypeSelector->getCurrentDemandElement()) {
         // show vehicle attributes modul
-        myVehicleAttributesEditor->showAttributesEditor(myVehicleTagSelector->getCurrentTemplateAC());
+        myVehicleAttributesEditor->showAttributesEditor(myVehicleTagSelector->getCurrentTemplateAC(), true);
         // clear colors
         myPathCreator->clearJunctionColors();
         myPathCreator->clearEdgeColors();

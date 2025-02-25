@@ -178,13 +178,13 @@ GNEPersonFrame::tagSelected() {
         // check if current person type selected is valid
         if (myTypeSelector->getCurrentDemandElement()) {
             // show person attributes depending of myPlanSelector
-            myPersonAttributesEditor->showAttributesEditor(myPersonTagSelector->getCurrentTemplateAC());
+            myPersonAttributesEditor->showAttributesEditor(myPersonTagSelector->getCurrentTemplateAC(), true);
             // show person plan tag selector
             myPlanSelector->showPlanSelector();
             // check current plan template
             if (myPlanSelector->getCurrentPlanTemplate()) {
                 // show person plan attributes
-                myPersonPlanAttributesEditor->showAttributesEditor(myPlanSelector->getCurrentPlanTemplate());
+                myPersonPlanAttributesEditor->showAttributesEditor(myPlanSelector->getCurrentPlanTemplate(), false);
                 // show edge path creator module
                 myPlanCreator->showPlanCreatorModule(myPlanSelector, nullptr);
                 // show path legend
@@ -219,13 +219,13 @@ void
 GNEPersonFrame::demandElementSelected() {
     if (myTypeSelector->getCurrentDemandElement() && myPlanSelector->getCurrentPlanTemplate()) {
         // show person attributes
-        myPersonAttributesEditor->showAttributesEditor(myPersonTagSelector->getCurrentTemplateAC());
+        myPersonAttributesEditor->showAttributesEditor(myPersonTagSelector->getCurrentTemplateAC(), true);
         // show person plan tag selector
         myPlanSelector->showPlanSelector();
         // now check if person plan selected is valid
         if (myPlanSelector->getCurrentPlanTagProperties()->getTag() != SUMO_TAG_NOTHING) {
             // show person plan attributes
-            myPersonPlanAttributesEditor->showAttributesEditor(myPlanSelector->getCurrentPlanTemplate());
+            myPersonPlanAttributesEditor->showAttributesEditor(myPlanSelector->getCurrentPlanTemplate(), false);
             // show edge path creator module
             myPlanCreator->showPlanCreatorModule(myPlanSelector, nullptr);
             // show legend

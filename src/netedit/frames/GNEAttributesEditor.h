@@ -33,10 +33,10 @@ public:
     GNEAttributesEditor(GNEFrame* frameParent, GNEAttributesEditorType::EditorType editorType);
 
     /// @brief edit attributes of the given AC (usually the edited template AC)
-    void showAttributesEditor(GNEAttributeCarrier* AC);
+    void showAttributesEditor(GNEAttributeCarrier* AC, const bool primaryAttributeEditor);
 
     /// @brief edit attributes of the given hash of ACs (usually the inspected ACs)
-    void showAttributesEditor(const std::unordered_set<GNEAttributeCarrier*>& ACs);
+    void showAttributesEditor(const std::unordered_set<GNEAttributeCarrier*>& ACs, const bool primaryAttributeEditor);
 
     /// @brief hide attribute editor
     void hideAttributesEditor();
@@ -56,9 +56,6 @@ public:
 protected:
     /// @brief basic attributes editor
     GNEAttributesEditorType* myBasicAttributesEditor = nullptr;
-
-    /// @brief child attributes editor
-    GNEAttributesEditorType* myChildAttributesEditor = nullptr;
 
     /// @brief extended attributes editor
     GNEAttributesEditorType* myExtendedAttributesEditor = nullptr;

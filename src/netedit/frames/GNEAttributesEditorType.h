@@ -57,7 +57,6 @@ public:
     /// @brief Attribute types
     enum class AttributeType {
         BASIC,      // basic attributes
-        CHILD,      // child attributes (used if in the same frame we have already a BASIC editor)
         EXTENDED,   // extended attributes (used in vType)
         FLOW,       // flow attributes
         GEO,        // GEO attributes (lon and lat)
@@ -75,10 +74,10 @@ public:
     const std::vector<GNEAttributeCarrier*>& getEditedAttributeCarriers() const;
 
     /// @brief edit attributes of the given AC (usually the edited template AC)
-    void showAttributesEditor(GNEAttributeCarrier* AC, const bool primaryAttributeEditor = true);
+    void showAttributesEditor(GNEAttributeCarrier* AC, const bool primaryAttributeEditor);
 
     /// @brief edit attributes of the given hash of ACs (usually the inspected ACs)
-    void showAttributesEditor(const std::unordered_set<GNEAttributeCarrier*>& ACs, const bool primaryAttributeEditor = true);
+    void showAttributesEditor(const std::unordered_set<GNEAttributeCarrier*>& ACs, const bool primaryAttributeEditor);
 
     /// @brief hide attribute editor
     void hideAttributesEditor();

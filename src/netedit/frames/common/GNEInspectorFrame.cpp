@@ -383,11 +383,11 @@ GNEInspectorFrame::refreshInspection() {
         myBackButton->hide();
     }
     // Show all attribute editors (will be automatically hidden if there are no elements to inspect)
-    myAttributesEditor->showAttributesEditor(inspectedElements.getACs());
-    myFlowAttributesEditor->showAttributesEditor(inspectedElements.getACs());
-    myNeteditAttributesEditor->showAttributesEditor(inspectedElements.getACs());
-    myGEOAttributesEditor->showAttributesEditor(inspectedElements.getACs());
-    myGenericParametersEditor->showAttributesEditor(inspectedElements.getACs());
+    myAttributesEditor->showAttributesEditor(inspectedElements.getACs(), true);
+    myFlowAttributesEditor->showAttributesEditor(inspectedElements.getACs(), true);
+    myNeteditAttributesEditor->showAttributesEditor(inspectedElements.getACs(), true);
+    myGEOAttributesEditor->showAttributesEditor(inspectedElements.getACs(), true);
+    myGenericParametersEditor->showAttributesEditor(inspectedElements.getACs(), true);
     // Hide other moduls
     myTemplateEditor->hideTemplateEditor();
     myHierarchicalElementTree->hideHierarchicalElementTree();

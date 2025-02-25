@@ -221,7 +221,7 @@ GNEDistributionFrame::DistributionSelector::refreshDistributionSelector() {
     // continue depending of myCurrentDistribution
     if (myCurrentDistribution) {
         // show modules
-        myAttributesEditor->showAttributesEditor(myCurrentDistribution);
+        myAttributesEditor->showAttributesEditor(myCurrentDistribution, true);
         myDistributionValuesEditor->showDistributionValuesEditor();
     } else {
         // hide modules
@@ -243,7 +243,7 @@ GNEDistributionFrame::DistributionSelector::onCmdSelectDistribution(FXObject*, F
             // set color of myTypeMatchBox to black (valid)
             myDistributionsComboBox->setTextColor(FXRGB(0, 0, 0));
             // show modules
-            myAttributesEditor->showAttributesEditor(distribution.second);
+            myAttributesEditor->showAttributesEditor(distribution.second, true);
             myDistributionValuesEditor->showDistributionValuesEditor();
             // update viewNet
             viewNet->updateViewNet();
