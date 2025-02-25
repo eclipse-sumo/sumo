@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-13 10:07+0100\n"
-"PO-Revision-Date: 2025-02-24 12:45+0000\n"
+"PO-Revision-Date: 2025-02-25 10:03+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.10.1-dev\n"
+"X-Generator: Weblate 5.10.2-dev\n"
 
 #: src/activitygen/AGActivityGen.cpp:46
 msgid "Reading input"
@@ -8742,32 +8742,44 @@ msgstr ""
 #: src/netimport/NIFrame.cpp:377 src/netimport/NIFrame.cpp:374
 msgid "Use custom lane shapes to compensate discarded lane types"
 msgstr ""
+"Utilizza forme di corsie personalizzate per compensare i tipi di corsie "
+"scordati"
 
 #: src/netimport/NIFrame.cpp:379 src/netimport/NIFrame.cpp:376
 msgid ""
 "Use the OpenDRIVE controller information for the generated signal program"
 msgstr ""
+"Utilizza l'informazione di centralina da OpenDRIVE per il programma "
+"semaforico generato"
 
 #: src/netimport/NIFrame.cpp:381 src/netimport/NIFrame.cpp:378
 msgid "Ignore traffic signals which do not control any driving lane"
 msgstr ""
+"Ignora i segnali di traffico che non controllano nessuna corsia di "
+"circolazione"
 
 #: src/netimport/NIFrame.cpp:392 src/netimport/NIFrame.cpp:389
 msgid ""
 "Discard all railway signal information loaded from other formats than plain-"
 "xml"
 msgstr ""
+"Scordarsi di tutte le informazione sui segnali ferroviari provenienti da "
+"formati non plain-xml"
 
 #: src/netimport/NIFrame.cpp:413 src/netimport/NIFrame.cpp:410
 msgid ""
 "Cannot import network data without PROJ-Library. Please install package proj "
 "before building sumo"
 msgstr ""
+"La rete non può essere importata senza la libreria PROJ. Installla il "
+"pachhetto proj prima di compilare sumo"
 
 #: src/netimport/NIFrame.cpp:438 src/polyconvert/polyconvert_main.cpp:329
 #: src/netimport/NIFrame.cpp:435
 msgid "Environment variable SUMO_HOME is not set, using built in type maps."
 msgstr ""
+"La variabile d'ambiente SUMO_HOME non è stata impostata, perciò vengono "
+"usati le mappe integrate di tipi."
 
 #: src/netimport/NIFrame.cpp:471 src/netimport/NIFrame.cpp:468
 msgid "It is recommended to use option osm.crossings with osm.sidewalks"
