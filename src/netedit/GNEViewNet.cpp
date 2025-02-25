@@ -59,6 +59,8 @@
 #include <netedit/frames/network/GNETAZFrame.h>
 #include <netedit/frames/network/GNETLSEditorFrame.h>
 #include <netedit/frames/network/GNEWireFrame.h>
+#include <netedit/frames/GNEAttributesEditor.h>
+#include <netedit/frames/GNENetworkSelector.h>
 #include <utils/foxtools/MFXMenuCheckIcon.h>
 #include <utils/gui/cursors/GUICursorSubSys.h>
 #include <utils/gui/div/GLHelper.h>
@@ -5711,8 +5713,8 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
             // now filter locked elements
             myViewObjectsSelector.filterLockedElements();
             // check if we're selecting a new parent for the current inspected element
-            if (myViewParent->getInspectorFrame()->getNeteditAttributesEditor()->isReparenting()) {
-                myViewParent->getInspectorFrame()->getNeteditAttributesEditor()->setNewParent(myViewObjectsSelector.getAttributeCarrierFront());
+            if (myViewParent->getInspectorFrame()->getAttributesEditor()->myNetditAttributesEditor->isReparenting()) {
+                myViewParent->getInspectorFrame()->getAttributesEditor()->myNetditAttributesEditor->setNewParent(myViewObjectsSelector.getAttributeCarrierFront());
             } else {
                 // inspect clicked elements
                 myViewParent->getInspectorFrame()->inspectClickedElements(myViewObjectsSelector, getPositionInformation(), myMouseButtonKeyPressed.shiftKeyPressed());

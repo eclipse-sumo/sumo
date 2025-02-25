@@ -32,6 +32,7 @@
 #include <netedit/frames/demand/GNEPersonFrame.h>
 #include <netedit/frames/demand/GNEPersonPlanFrame.h>
 #include <netedit/frames/demand/GNEVehicleFrame.h>
+#include <netedit/frames/GNEAttributesEditor.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
@@ -239,7 +240,7 @@ GNEAdditional::checkDrawToContour() const {
     const auto& viewParent = myNet->getViewNet()->getViewParent();
     const auto& inspectedElements = myNet->getViewNet()->getInspectedElements();
     // check conditions
-    if (myNet->getViewNet()->getViewParent()->getInspectorFrame()->getNeteditAttributesEditor()->isReparenting()) {
+    if (myNet->getViewNet()->getViewParent()->getInspectorFrame()->getAttributesEditor()->myNetditAttributesEditor->isReparenting()) {
         return false;
     } else if (inspectedElements.isInspectingSingleElement()) {
         const auto inspectedAC = inspectedElements.getFirstAC();
@@ -301,7 +302,7 @@ GNEAdditional::checkDrawToContour() const {
 
 bool
 GNEAdditional::checkDrawRelatedContour() const {
-    const auto& neteditAttributesEditor = myNet->getViewNet()->getViewParent()->getInspectorFrame()->getNeteditAttributesEditor();
+    const auto& neteditAttributesEditor = myNet->getViewNet()->getViewParent()->getInspectorFrame()->getAttributesEditor()->myNetditAttributesEditor;
     if (neteditAttributesEditor->isReparenting()) {
         return neteditAttributesEditor->checkNewParent(this);
     } else {

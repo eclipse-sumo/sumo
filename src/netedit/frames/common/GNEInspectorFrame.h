@@ -22,21 +22,21 @@
 #include <config.h>
 
 #include <netedit/frames/GNEFrame.h>
-#include <netedit/frames/GNEOverlappedInspection.h>
-#include <netedit/frames/GNEElementTree.h>
+#include <netedit/GNEViewNetHelper.h>
 
 // ===========================================================================
 // class declaration
 // ===========================================================================
+
+class GNEAttributesEditor;
 class GNEEdgeTemplate;
+class GNEElementTree;
+class GNEOverlappedInspection;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/**
- * @class GNEInspectorFrame
- * The Widget for modifying network-element attributes (i.e. lane speed)
- */
+
 class GNEInspectorFrame : public GNEFrame {
     /// @brief FOX-declaration
     FXDECLARE(GNEInspectorFrame)
@@ -152,10 +152,7 @@ public:
     void refreshInspection();
 
     /// @brief get AttributesEditor
-    GNEAttributesEditorType* getAttributesEditor() const;
-
-    /// @brief get Netedit Attributes editor
-    GNEAttributesEditorType* getNeteditAttributesEditor() const;
+    GNEAttributesEditor* getAttributesEditor() const;
 
     /// @brief get template editor
     TemplateEditor* getTemplateEditor() const;
@@ -185,31 +182,19 @@ protected:
 
 private:
     /// @brief Overlapped Inspection
-    GNEOverlappedInspection* myOverlappedInspection;
+    GNEOverlappedInspection* myOverlappedInspection = nullptr;
 
     /// @brief Attributes editor
-    GNEAttributesEditorType* myAttributesEditor;
-
-    /// @brief Flow attributes editor
-    GNEAttributesEditorType* myFlowAttributesEditor;
-
-    /// @brief GEO Attributes editor
-    GNEAttributesEditorType* myGEOAttributesEditor;
-
-    /// @brief Netedit Attributes editor
-    GNEAttributesEditorType* myNeteditAttributesEditor = nullptr;
-
-    /// @brief Generic parameters editor
-    GNEAttributesEditorType* myGenericParametersEditor;
+    GNEAttributesEditor* myAttributesEditor = nullptr;
 
     /// @brief Template editor
-    TemplateEditor* myTemplateEditor;
+    TemplateEditor* myTemplateEditor = nullptr;
 
     /// @brief Attribute Carrier Hierarchy
-    GNEElementTree* myHierarchicalElementTree;
+    GNEElementTree* myHierarchicalElementTree = nullptr;
 
     /// @brief Back Button
-    FXButton* myBackButton;
+    FXButton* myBackButton = nullptr;
 
     /// @brief Pointer to previous element inspected
     GNEAttributeCarrier* myPreviousInspectedAC = nullptr;

@@ -24,6 +24,9 @@
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/elements/additional/GNEAdditionalHandler.h>
+#include <netedit/frames/GNEAttributesEditor.h>
+#include <netedit/frames/GNEDrawingShape.h>
+#include <netedit/frames/GNETagSelector.h>
 #include <utils/foxtools/MFXDynamicLabel.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/div/GUIUserIO.h>
@@ -183,7 +186,6 @@ GNEShapeFrame::GEOPOICreator::onCmdCreateGEOPOI(FXObject*, FXSelector, void*) {
             myShapeFrameParent->createBaseShapeObject(SUMO_TAG_POI);
             // obtain shape attributes and values
             myShapeFrameParent->myShapeAttributesEditor->fillSumoBaseObject(myShapeFrameParent->myBaseShape);
-            myShapeFrameParent->myNeteditAttributesEditor->fillSumoBaseObject(myShapeFrameParent->myBaseShape);
             // force GEO attribute to true and obtain position
             myShapeFrameParent->myBaseShape->addBoolAttribute(SUMO_ATTR_GEO, true);
             Position geoPos = GNEAttributeCarrier::parse<Position>(geoPosStr);
@@ -210,7 +212,6 @@ GNEShapeFrame::GEOPOICreator::onCmdCreateGEOPOI(FXObject*, FXSelector, void*) {
         }
         // refresh shape attributes
         myShapeFrameParent->myShapeAttributesEditor->refreshAttributesEditor();
-        myShapeFrameParent->myNeteditAttributesEditor->refreshAttributesEditor();
     }
     return 1;
 }
@@ -228,10 +229,7 @@ GNEShapeFrame::GNEShapeFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
     myShapeTagSelector = new GNETagSelector(this, GNETagProperties::TagType::SHAPE, SUMO_TAG_POLY);
 
     // Create shape parameters
-    myShapeAttributesEditor = new GNEAttributesEditorType(this, TL("Internal attributes"), GNEAttributesEditorType::EditorType::CREATOR, GNEAttributesEditorType::AttributeType::BASIC);
-
-    // Create Netedit attribute editor
-    myNeteditAttributesEditor = new GNEAttributesEditorType(this, TL("Netedit attributes"), GNEAttributesEditorType::EditorType::CREATOR, GNEAttributesEditorType::AttributeType::NETEDIT);
+    myShapeAttributesEditor = new GNEAttributesEditor(this, GNEAttributesEditorType::EditorType::CREATOR);
 
     // Create drawing controls
     myDrawingShape = new GNEDrawingShape(this);
@@ -338,7 +336,6 @@ GNEShapeFrame::shapeDrawed() {
         createBaseShapeObject(shapeTag);
         // obtain shape attributes and values
         myShapeAttributesEditor->fillSumoBaseObject(myBaseShape);
-        myNeteditAttributesEditor->fillSumoBaseObject(myBaseShape);
         // obtain shape and check if has to be closed
         PositionVector temporalShape = myDrawingShape->getTemporalShape();
         if ((myBaseShape->hasBoolAttribute(GNE_ATTR_CLOSE_SHAPE) && myBaseShape->getBoolAttribute(GNE_ATTR_CLOSE_SHAPE)) ||
@@ -352,7 +349,6 @@ GNEShapeFrame::shapeDrawed() {
         addShape();
         // refresh shape attributes
         myShapeAttributesEditor->refreshAttributesEditor();
-        myNeteditAttributesEditor->refreshAttributesEditor();
         // shape added, then return true;
         return true;
     }
@@ -364,7 +360,6 @@ GNEShapeFrame::tagSelected() {
     if (myShapeTagSelector->getCurrentTemplateAC()) {
         // show editors
         myShapeAttributesEditor->showAttributesEditor(myShapeTagSelector->getCurrentTemplateAC(), true);
-        myNeteditAttributesEditor->showAttributesEditor(myShapeTagSelector->getCurrentTemplateAC(), true);
         // get shape tag
         SumoXMLTag shapeTag = myShapeTagSelector->getCurrentTemplateAC()->getTagProperty()->getTag();
         // Check if drawing mode has to be shown
@@ -382,7 +377,6 @@ GNEShapeFrame::tagSelected() {
     } else {
         // hide all widgets
         myShapeAttributesEditor->hideAttributesEditor();
-        myNeteditAttributesEditor->hideAttributesEditor();
         myDrawingShape->hideDrawingShape();
         myGEOPOICreator->hideGEOPOICreatorModule();
     }
@@ -426,7 +420,6 @@ GNEShapeFrame::processClickPOI(SumoXMLTag POITag, const Position& clickedPositio
     createBaseShapeObject(POITag);
     // obtain shape attributes and values
     myShapeAttributesEditor->fillSumoBaseObject(myBaseShape);
-    myNeteditAttributesEditor->fillSumoBaseObject(myBaseShape);
     // add X-Y
     myBaseShape->addDoubleAttribute(SUMO_ATTR_X, clickedPosition.x());
     myBaseShape->addDoubleAttribute(SUMO_ATTR_Y, clickedPosition.y());
@@ -436,7 +429,6 @@ GNEShapeFrame::processClickPOI(SumoXMLTag POITag, const Position& clickedPositio
     addShape();
     // refresh shape attributes
     myShapeAttributesEditor->refreshAttributesEditor();
-    myNeteditAttributesEditor->refreshAttributesEditor();
     // shape added, then return true
     return true;
 }
@@ -452,7 +444,6 @@ GNEShapeFrame::processClickPOIGeo(const Position& clickedPosition) {
     createBaseShapeObject(SUMO_TAG_POI);
     // obtain shape attributes and values
     myShapeAttributesEditor->fillSumoBaseObject(myBaseShape);
-    myNeteditAttributesEditor->fillSumoBaseObject(myBaseShape);
     // convert position to cartesian
     Position GEOPos = clickedPosition;
     GeoConvHelper::getFinal().cartesian2geo(GEOPos);
@@ -465,7 +456,6 @@ GNEShapeFrame::processClickPOIGeo(const Position& clickedPosition) {
     addShape();
     // refresh shape attributes
     myShapeAttributesEditor->refreshAttributesEditor();
-    myNeteditAttributesEditor->refreshAttributesEditor();
     // shape added, then return true
     return true;
 }
@@ -486,8 +476,6 @@ GNEShapeFrame::processClickPOILanes(const GNEViewNetHelper::ViewObjectsSelector&
     createBaseShapeObject(SUMO_TAG_POI);
     // obtain shape attributes and values
     myShapeAttributesEditor->fillSumoBaseObject(myBaseShape);
-    // obtain netedit attributes and values
-    myNeteditAttributesEditor->fillSumoBaseObject(myBaseShape);
     // obtain Lane
     myBaseShape->addStringAttribute(SUMO_ATTR_LANE, viewObjects.getLaneFront()->getID());
     // obtain position over lane
@@ -496,7 +484,6 @@ GNEShapeFrame::processClickPOILanes(const GNEViewNetHelper::ViewObjectsSelector&
     addShape();
     // refresh shape attributes
     myShapeAttributesEditor->refreshAttributesEditor();
-    myNeteditAttributesEditor->refreshAttributesEditor();
     // shape added, then return true
     return true;
 }

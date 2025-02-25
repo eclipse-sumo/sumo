@@ -26,6 +26,9 @@
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/elements/network/GNEEdgeTemplate.h>
+#include <netedit/frames/GNEAttributesEditor.h>
+#include <netedit/frames/GNEElementTree.h>
+#include <netedit/frames/GNEOverlappedInspection.h>
 #include <netedit/frames/network/GNECreateEdgeFrame.h>
 #include <utils/gui/div/GUIDesigns.h>
 
@@ -252,29 +255,7 @@ GNEInspectorFrame::GNEInspectorFrame(GNEViewParent* viewParent, GNEViewNet* view
     myOverlappedInspection = new GNEOverlappedInspection(this, false);
 
     // Create Attributes Editor module
-    myAttributesEditor = new GNEAttributesEditorType(this, TL("Attributes"),
-            GNEAttributesEditorType::EditorType::EDITOR,
-            GNEAttributesEditorType::AttributeType::BASIC);
-
-    // Create Flow Attributes Editor module
-    myFlowAttributesEditor = new GNEAttributesEditorType(this, TL("Flow attributes"),
-            GNEAttributesEditorType::EditorType::EDITOR,
-            GNEAttributesEditorType::AttributeType::FLOW);
-
-    // Create GEO Parameters Editor module
-    myGEOAttributesEditor = new GNEAttributesEditorType(this, TL("GEO attributes"),
-            GNEAttributesEditorType::EditorType::EDITOR,
-            GNEAttributesEditorType::AttributeType::GEO);
-
-    // Create parameters editor
-    myGenericParametersEditor = new GNEAttributesEditorType(this, TL("Parameters"),
-            GNEAttributesEditorType::EditorType::EDITOR,
-            GNEAttributesEditorType::AttributeType::PARAMETERS);
-
-    // Create Netedit Attributes Editor module
-    myNeteditAttributesEditor = new GNEAttributesEditorType(this, TL("Netedit attributes"),
-            GNEAttributesEditorType::EditorType::EDITOR,
-            GNEAttributesEditorType::AttributeType::NETEDIT);
+    myAttributesEditor = new GNEAttributesEditor(this, GNEAttributesEditorType::EditorType::EDITOR);
 
     // Create Template editor module
     myTemplateEditor = new TemplateEditor(this);
@@ -290,8 +271,8 @@ GNEInspectorFrame::~GNEInspectorFrame() {}
 void
 GNEInspectorFrame::show() {
     refreshInspection();
-    // stop select new element
-    myNeteditAttributesEditor->abortReparenting();
+    // stop reparenting
+    myAttributesEditor->myNetditAttributesEditor->abortReparenting();
     // show
     GNEFrame::show();
 }
@@ -384,10 +365,6 @@ GNEInspectorFrame::refreshInspection() {
     }
     // Show all attribute editors (will be automatically hidden if there are no elements to inspect)
     myAttributesEditor->showAttributesEditor(inspectedElements.getACs(), true);
-    myFlowAttributesEditor->showAttributesEditor(inspectedElements.getACs(), true);
-    myNeteditAttributesEditor->showAttributesEditor(inspectedElements.getACs(), true);
-    myGEOAttributesEditor->showAttributesEditor(inspectedElements.getACs(), true);
-    myGenericParametersEditor->showAttributesEditor(inspectedElements.getACs(), true);
     // Hide other moduls
     myTemplateEditor->hideTemplateEditor();
     myHierarchicalElementTree->hideHierarchicalElementTree();
@@ -450,15 +427,9 @@ GNEInspectorFrame::refreshInspection() {
 }
 
 
-GNEAttributesEditorType*
+GNEAttributesEditor*
 GNEInspectorFrame::getAttributesEditor() const {
     return myAttributesEditor;
-}
-
-
-GNEAttributesEditorType*
-GNEInspectorFrame::getNeteditAttributesEditor() const {
-    return myNeteditAttributesEditor;
 }
 
 

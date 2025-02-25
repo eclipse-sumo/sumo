@@ -21,16 +21,19 @@
 #include <config.h>
 
 #include <netedit/frames/GNEFrame.h>
-#include <netedit/frames/GNETagSelector.h>
-#include <netedit/frames/GNEDrawingShape.h>
+
+// ===========================================================================
+// class declaration
+// ===========================================================================
+
+class GNEAttributesEditor;
+class GNETagSelector;
+class GNEDrawingShape;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/**
-* @class GNEShapeFrame
-* The Widget for setting internal attributes of shape elements
-*/
+
 class GNEShapeFrame : public GNEFrame {
 
 public:
@@ -155,14 +158,11 @@ private:
     GNETagSelector* myShapeTagSelector;
 
     /// @brief shape attributes editor
-    GNEAttributesEditorType* myShapeAttributesEditor = nullptr;
-
-    /// @brief Netedit attributes editor
-    GNEAttributesEditorType* myNeteditAttributesEditor = nullptr;
+    GNEAttributesEditor* myShapeAttributesEditor = nullptr;
 
     /// @brief Drawing shape
-    GNEDrawingShape* myDrawingShape;
+    GNEDrawingShape* myDrawingShape = nullptr;
 
     /// @brief GEOPOICreator
-    GEOPOICreator* myGEOPOICreator;
+    GEOPOICreator* myGEOPOICreator = nullptr;
 };

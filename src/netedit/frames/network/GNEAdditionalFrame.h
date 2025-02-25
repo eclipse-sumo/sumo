@@ -20,19 +20,22 @@
 #pragma once
 #include <config.h>
 
-#include <netedit/frames/GNEConsecutiveSelector.h>
 #include <netedit/frames/GNEFrame.h>
-#include <netedit/frames/GNENetworkSelector.h>
-#include <netedit/frames/GNESelectorParent.h>
-#include <netedit/frames/GNETagSelector.h>
+
+// ===========================================================================
+// class declaration
+// ===========================================================================
+
+class GNEAttributesEditor;
+class GNEConsecutiveSelector;
+class GNENetworkSelector;
+class GNESelectorParent;
+class GNETagSelector;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/**
- * @class GNEAdditionalFrame
- * The Widget for setting internal attributes of additional elements
- */
+
 class GNEAdditionalFrame : public GNEFrame {
 
 public:
@@ -140,13 +143,7 @@ private:
     GNETagSelector* myAdditionalTagSelector = nullptr;
 
     /// @brief additional attributes editor
-    GNEAttributesEditorType* myAdditionalAttributesEditor = nullptr;
-
-    /// @brief Netedit attributes editor
-    GNEAttributesEditorType* myNeteditAttributesEditor = nullptr;
-
-    /// @brief Generic parameters editor
-    GNEAttributesEditorType* myGenericParametersEditor = nullptr;
+    GNEAttributesEditor* myAdditionalAttributesEditor = nullptr;
 
     /// @brief Module for select a single parent additional
     GNESelectorParent* mySelectorAdditionalParent = nullptr;
