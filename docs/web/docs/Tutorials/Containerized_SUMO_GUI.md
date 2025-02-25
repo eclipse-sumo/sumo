@@ -1,13 +1,13 @@
 ---
-title: Containerized SUMO
+title: Containerized SUMO GUI
 ---
 
 This tutorial shows how to run the SUMO GUI from inside a docker container.
 
 !!! caution
-SUMO can only be run from a Container using the X Window System.
-If you are on Linux, make sure your Desktop Environment supports X11.
-If you are on Windows, you need a separate X-Server (e.g. [VcXsrv](https://sourceforge.net/projects/vcxsrv)).
+    SUMO can only be run from a Container using the X Window System.   
+    If you are on Linux, make sure your Desktop Environment supports X11.   
+    If you are on Windows, you need a separate X-Server (e.g. [VcXsrv](https://sourceforge.net/projects/vcxsrv)).
 
 ## Introduction
 
@@ -88,7 +88,7 @@ E.g. by typing `netedit` or `sumo-gui`.
 
 ## Creating and Running the Simulation
 
-Follow the steps from [Hello_SUMO](Hello_SUMO.md) using this GUI and save the resulting files in `/sumo-projs`, so they are saved in a persistent location.
+Follow the steps from [Hello SUMO](Hello_SUMO.md) using this GUI and save the resulting files in `/sumo-projs`, so they are saved in a persistent location.
 
 ## Further Reading
 
