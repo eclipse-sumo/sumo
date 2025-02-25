@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-13 10:07+0100\n"
-"PO-Revision-Date: 2025-02-25 10:03+0000\n"
+"PO-Revision-Date: 2025-02-25 23:44+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -8139,22 +8139,28 @@ msgid ""
 "The length of streets attached at the boundary; 0 means no streets are "
 "attached"
 msgstr ""
+"La lunghezza delle vie anesse al contorno; 0 vuol dire che non ci sono vie "
+"annesse"
 
 #: src/netgen/NGFrame.cpp:117
 msgid ""
 "The length of streets attached at the boundary in x direction; 0 means no "
 "streets are attached"
 msgstr ""
+"La lunghezza delle vie annesse al contorno in direzione di x; 0 vuol dire "
+"che non ci sono vie annesse"
 
 #: src/netgen/NGFrame.cpp:119
 msgid ""
 "The length of streets attached at the boundary in y direction; 0 means no "
 "streets are attached"
 msgstr ""
+"La lunghezza delle vie annesse al contorno in direzione di y; 0 vuol dire "
+"che non ci sono vie annesse"
 
 #: src/netgen/NGFrame.cpp:124
 msgid "Forces NETGEN to build a spider-net-like network"
-msgstr ""
+msgstr "Forza NETGEN a creare una rete a forma di ragnatela"
 
 #: src/netgen/NGFrame.cpp:129
 msgid "The number of axes within the net"
@@ -8244,7 +8250,7 @@ msgstr ""
 
 #: src/netgen/NGFrame.cpp:277
 msgid "Option 'rand.connectivity' requires a value below 0.999"
-msgstr ""
+msgstr "L'opzione 'rand.connectivity' richiede un valore sotto 0.999"
 
 #: src/netgen/netgen_main.cpp:90
 msgid ""
@@ -8283,6 +8289,8 @@ msgid ""
 "The number of nodes must be positive and at least 2 in one direction if "
 "there are no attachments."
 msgstr ""
+"Il numero di nodi deve essere positivo e di almeno 2 in una direzione se non "
+"ci sono annessioni."
 
 #: src/netgen/netgen_main.cpp:185
 #, c-format
@@ -8299,6 +8307,8 @@ msgid ""
 "The length of attached streets should be at least % for the given "
 "lanenumber, lanewidth and junction radius"
 msgstr ""
+"La lunghezza delle vie annesse deve essere di almeno % per il numero di "
+"corsie, la larghezza di corsia e il raggio di incrocio indicati"
 
 #: src/netgen/netgen_main.cpp:231
 msgid ""
