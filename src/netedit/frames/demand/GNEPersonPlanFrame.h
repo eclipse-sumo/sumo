@@ -21,14 +21,17 @@
 #include <config.h>
 
 #include <netedit/elements/demand/GNERouteHandler.h>
-#include <netedit/frames/GNEDemandSelector.h>
-#include <netedit/frames/GNEElementTree.h>
 #include <netedit/frames/GNEFrame.h>
-#include <netedit/frames/GNEPlanCreatorLegend.h>
-#include <netedit/frames/GNETagSelector.h>
-#include <netedit/frames/GNEPlanSelector.h>
-#include <netedit/frames/GNEPlanCreator.h>
 
+// ===========================================================================
+// class declaration
+// ===========================================================================
+
+class GNEAttributesEditor;
+class GNEDemandElementSelector;
+class GNEElementTree;
+class GNEPlanCreator;
+class GNEPlanSelector;
 
 // ===========================================================================
 // class definitions
@@ -95,11 +98,8 @@ private:
     /// @brief personPlan selector
     GNEPlanSelector* myPlanSelector = nullptr;
 
-    /// @brief internal vehicle attributes
-    GNEAttributesEditorType* myPersonPlanAttributesEditor = nullptr;
-
-    /// @brief netedit attributes
-    GNEAttributesEditorType* myNeteditAttributesEditor = nullptr;
+    /// @brief person plan attributes editor
+    GNEAttributesEditor* myPersonPlanAttributesEditor = nullptr;
 
     /// @brief plan Creator
     GNEPlanCreator* myPlanCreator = nullptr;

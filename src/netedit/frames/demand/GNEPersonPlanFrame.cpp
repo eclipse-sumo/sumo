@@ -18,21 +18,26 @@
 // The Widget for add PersonPlan elements
 /****************************************************************************/
 
-#include <netedit/elements/additional/GNETAZ.h>
+#include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
-#include <netedit/GNEApplicationWindow.h>
+#include <netedit/elements/additional/GNETAZ.h>
+#include <netedit/elements/demand/GNERouteHandler.h>
+#include <netedit/frames/GNEAttributesEditor.h>
+#include <netedit/frames/GNEDemandSelector.h>
+#include <netedit/frames/GNEElementTree.h>
+#include <netedit/frames/GNEFrame.h>
+#include <netedit/frames/GNEPlanCreator.h>
+#include <netedit/frames/GNEPlanCreatorLegend.h>
+#include <netedit/frames/GNEPlanSelector.h>
+#include <netedit/frames/GNETagSelector.h>
 
 #include "GNEPersonPlanFrame.h"
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
-
-// ---------------------------------------------------------------------------
-// GNEPersonPlanFrame - methods
-// ---------------------------------------------------------------------------
 
 GNEPersonPlanFrame::GNEPersonPlanFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
     GNEFrame(viewParent, viewNet, TL("PersonPlans")),
@@ -45,7 +50,7 @@ GNEPersonPlanFrame::GNEPersonPlanFrame(GNEViewParent* viewParent, GNEViewNet* vi
     myPlanSelector = new GNEPlanSelector(this, SUMO_TAG_PERSON);
 
     // Create person parameters
-    myPersonPlanAttributesEditor = new GNEAttributesEditorType(this, TL("Internal attributes"), GNEAttributesEditorType::EditorType::CREATOR, GNEAttributesEditorType::AttributeType::BASIC);
+    myPersonPlanAttributesEditor = new GNEAttributesEditor(this, GNEAttributesEditorType::EditorType::CREATOR);
 
     // create plan creator Module
     myPlanCreator = new GNEPlanCreator(this, viewNet->getNet()->getDemandPathManager());
