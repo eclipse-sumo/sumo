@@ -143,10 +143,10 @@ GNEAttributesEditorType::hideAttributesEditor() {
 
 void
 GNEAttributesEditorType::refreshAttributesEditor() {
+    bool showButtons = false;
+    int rowIndex = 0;
     if (myEditedACs.size() > 0) {
         const auto tagProperty = myEditedACs.front()->getTagProperty();
-        bool showButtons = false;
-        int itRows = 0;
         // check if show netedit attributes (only in edit mode)
         if (myAttributeType == AttributeType::NETEDIT && (myEditorType == EditorType::EDITOR)) {
             // front button
@@ -163,34 +163,32 @@ GNEAttributesEditorType::refreshAttributesEditor() {
                 myFrontButton->hide();
             }
             // specific for single edited attributes
-            if (myEditedACs.size() == 1) {
-                // edit dialog
-                if (tagProperty->hasDialog()) {
-                    // set text and icon
-                    myOpenDialogButton->setText(TLF("Open % dialog", tagProperty->getTagStr()).c_str());
-                    myOpenDialogButton->setIcon(GUIIconSubSys::getIcon(tagProperty->getGUIIcon()));
-                    // disable if we're reparenting
-                    if (isReparenting()) {
-                        myOpenDialogButton->disable();
-                    } else {
-                        myOpenDialogButton->enable();
-                    }
-                    myOpenDialogButton->show();
-                    showButtons = true;
+            if ((myEditedACs.size() == 1) && tagProperty->hasDialog()) {
+                // udpate and show edit dialog
+                myOpenDialogButton->setText(TLF("Open % dialog", tagProperty->getTagStr()).c_str());
+                myOpenDialogButton->setIcon(GUIIconSubSys::getIcon(tagProperty->getGUIIcon()));
+                myOpenDialogButton->show();
+                // disable if we're reparenting
+                if (isReparenting()) {
+                    myOpenDialogButton->disable();
                 } else {
-                    myOpenDialogButton->hide();
+                    myOpenDialogButton->enable();
                 }
-
+                showButtons = true;
+            } else {
+                myOpenDialogButton->hide();
             }
         }
         // continue depending of attribute type
         if (myAttributeType == AttributeType::EXTENDED) {
             // only show extended attributes button (already created)
-            showButtons = true;
+            if (tagProperty->hasExtendedAttributes()) {
+                showButtons = true;
+            }
         } else if (myAttributeType == AttributeType::PARAMETERS) {
             if (tagProperty->hasParameters()) {
                 // only show parameters row
-                myAttributesEditorRows[itRows]->showAttributeRow(this, tagProperty->getAttributeProperties(GNE_ATTR_PARAMETERS), isReparenting());
+                myAttributesEditorRows[rowIndex]->showAttributeRow(this, tagProperty->getAttributeProperties(GNE_ATTR_PARAMETERS), isReparenting());
                 // set parameters button at the end
                 myOpenGenericParametersEditorButton->reparent(this);
                 // only show open parameters editor
@@ -231,37 +229,34 @@ GNEAttributesEditorType::refreshAttributesEditor() {
                     validAttributeType = false;
                 }
                 if (validEditorType && validAttributeType) {
-                    if (itRows < (int)myAttributesEditorRows.size()) {
+                    if (rowIndex < (int)myAttributesEditorRows.size()) {
                         // only update if row was show successfully
-                        if (myAttributesEditorRows[itRows]->showAttributeRow(this, attrProperty, isReparenting())) {
-                            itRows++;
+                        if (myAttributesEditorRows[rowIndex]->showAttributeRow(this, attrProperty, isReparenting())) {
+                            rowIndex++;
                         }
                     } else {
-                        std::cout << attrProperty->getAttrStr() << std::endl;
                         throw ProcessError("Invalid maximum number of rows");
                     }
                 }
             }
             // hide rest of rows before showing table
-            for (int i = itRows; i < (int)myAttributesEditorRows.size(); i++) {
+            for (int i = rowIndex; i < (int)myAttributesEditorRows.size(); i++) {
                 myAttributesEditorRows[i]->hideAttributeRow();
             }
         }
-        // only show if at least one row or button was shown
-        if ((itRows == 0) && !showButtons) {
-            hideAttributesEditor();
-        } else {
-            if (itRows > 0) {
-                // reparent before show to put it at the end of the list
-                myHelpButton->reparent(this);
-                myHelpButton->show();
-            } else {
-                myHelpButton->hide();
-            }
-            show();
-        }
-    } else {
+    }
+    // check if show row
+    if ((rowIndex == 0) && !showButtons) {
         hideAttributesEditor();
+    } else {
+        if (rowIndex > 0) {
+            // reparent before show to put it at the end of the list
+            myHelpButton->reparent(this);
+            myHelpButton->show();
+        } else {
+            myHelpButton->hide();
+        }
+        show();
     }
 }
 

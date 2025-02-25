@@ -72,6 +72,9 @@ protected:
     /// @brief parameteres attributes editor
     GNEAttributesEditorType* myParametersAttributesEditor = nullptr;
 
+    /// @brief netedit attributes editor
+    GNEAttributesEditorType* myNetditAttributesEditor = nullptr;
+
 private:
     /// @brief Invalidated copy constructor.
     GNEAttributesEditor(GNEAttributesEditor*) = delete;
