@@ -8699,7 +8699,7 @@ GNETagPropertiesDatabase::fillCommonContainerAttributes(GNETagProperties* tagPro
 
     attrProperty = new GNEAttributeProperties(SUMO_ATTR_TYPE,
             GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY | GNEAttributeProperties::VTYPE,
-            GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+            GNEAttributeProperties::EDITMODE,
             TL("The id of the container type to use for this container"),
             DEFAULT_CONTAINERTYPE_ID);
     tagProperties->addAttribute(attrProperty);
