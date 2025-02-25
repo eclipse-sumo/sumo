@@ -75,10 +75,10 @@ public:
     const std::vector<GNEAttributeCarrier*>& getEditedAttributeCarriers() const;
 
     /// @brief edit attributes of the given AC (usually the edited template AC)
-    void showAttributesEditor(GNEAttributeCarrier* AC);
+    void showAttributesEditor(GNEAttributeCarrier* AC, const bool primaryAttributeEditor = true);
 
     /// @brief edit attributes of the given hash of ACs (usually the inspected ACs)
-    void showAttributesEditor(const std::unordered_set<GNEAttributeCarrier*>& ACs);
+    void showAttributesEditor(const std::unordered_set<GNEAttributeCarrier*>& ACs, const bool primaryAttributeEditor = true);
 
     /// @brief hide attribute editor
     void hideAttributesEditor();
@@ -182,8 +182,11 @@ private:
     /// @brief button for help
     FXButton* myHelpButton;
 
-    /// @brief singleton with attributes editor rows
-    static AttributesEditorRows mySingletonAttributesEditorRows;
+    /// @brief first singleton with attributes editor rows
+    static AttributesEditorRows myFirstSingletonAttributesEditorRows;
+
+    /// @brief second singleton with attributes editor rows
+    static AttributesEditorRows mySecondSingletonAttributesEditorRows;
 
     /// @brief current edited ACs
     std::vector<GNEAttributeCarrier*> myEditedACs;

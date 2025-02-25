@@ -42,7 +42,8 @@
 // static members
 // ===========================================================================
 
-GNEAttributesEditorType::AttributesEditorRows GNEAttributesEditorType::mySingletonAttributesEditorRows = {};
+GNEAttributesEditorType::AttributesEditorRows GNEAttributesEditorType::myFirstSingletonAttributesEditorRows = {};
+GNEAttributesEditorType::AttributesEditorRows GNEAttributesEditorType::mySecondSingletonAttributesEditorRows = {};
 
 // ===========================================================================
 // FOX callback mapping
@@ -104,19 +105,23 @@ GNEAttributesEditorType::getEditedAttributeCarriers() const {
 
 
 void
-GNEAttributesEditorType::showAttributesEditor(GNEAttributeCarrier* AC) {
+GNEAttributesEditorType::showAttributesEditor(GNEAttributeCarrier* AC, const bool primaryAttributeEditor) {
     // clean previous rows and ACs
     myEditedACs.clear();
     myAttributesEditorRows.clear();
     // set new ACs and Rows
     myEditedACs.push_back(AC);
-    myAttributesEditorRows = mySingletonAttributesEditorRows[myAttributeType];
+    if (primaryAttributeEditor) {
+        myAttributesEditorRows = myFirstSingletonAttributesEditorRows[myAttributeType];
+    } else {
+        myAttributesEditorRows = mySecondSingletonAttributesEditorRows[myAttributeType];
+    }
     refreshAttributesEditor();
 }
 
 
 void
-GNEAttributesEditorType::showAttributesEditor(const std::unordered_set<GNEAttributeCarrier*>& ACs) {
+GNEAttributesEditorType::showAttributesEditor(const std::unordered_set<GNEAttributeCarrier*>& ACs, const bool primaryAttributeEditor) {
     // clean previous rows and ACs
     myEditedACs.clear();
     myAttributesEditorRows.clear();
@@ -124,7 +129,11 @@ GNEAttributesEditorType::showAttributesEditor(const std::unordered_set<GNEAttrib
     for (const auto& AC : ACs) {
         myEditedACs.push_back(AC);
     }
-    myAttributesEditorRows = mySingletonAttributesEditorRows[myAttributeType];
+    if (primaryAttributeEditor) {
+        myAttributesEditorRows = myFirstSingletonAttributesEditorRows[myAttributeType];
+    } else {
+        myAttributesEditorRows = mySecondSingletonAttributesEditorRows[myAttributeType];
+    }
     refreshAttributesEditor();
 }
 
@@ -540,7 +549,7 @@ GNEAttributesEditorType::fillStartEndAttributes(CommonXMLStructure::SumoBaseObje
 void
 GNEAttributesEditorType::buildRows(GNEAttributesEditorType* editorParent) {
     // only build one time
-    if (mySingletonAttributesEditorRows.empty()) {
+    if (myFirstSingletonAttributesEditorRows.empty()) {
         const auto tagPropertiesDatabase = editorParent->getFrameParent()->getViewNet()->getNet()->getTagPropertiesDatabase();
         // declare vector of types with rows
         const std::vector<AttributeType> types = {AttributeType::BASIC, AttributeType::CHILD, AttributeType::FLOW, AttributeType::GEO, AttributeType::NETEDIT, AttributeType::PARAMETERS};
@@ -564,9 +573,11 @@ GNEAttributesEditorType::buildRows(GNEAttributesEditorType* editorParent) {
                 throw ProcessError("Invalid editor option");
             }
             // resize myAttributesEditorRows and fill it with attribute rows
-            mySingletonAttributesEditorRows[type].resize(maxNumberOfRows);
-            for (int i = 0; i < (int)mySingletonAttributesEditorRows[type].size(); i++) {
-                mySingletonAttributesEditorRows[type][i] = new GNEAttributesEditorRow(editorParent);
+            myFirstSingletonAttributesEditorRows[type].resize(maxNumberOfRows);
+            mySecondSingletonAttributesEditorRows[type].resize(maxNumberOfRows);
+            for (int i = 0; i < (int)myFirstSingletonAttributesEditorRows[type].size(); i++) {
+                myFirstSingletonAttributesEditorRows[type][i] = new GNEAttributesEditorRow(editorParent);
+                mySecondSingletonAttributesEditorRows[type][i] = new GNEAttributesEditorRow(editorParent);
             }
         }
 
