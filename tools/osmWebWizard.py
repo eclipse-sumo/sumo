@@ -15,6 +15,7 @@
 # @author  Jakob Stigloher
 # @author  Jakob Erdmann
 # @author  Michael Behrisch
+# @author  Mirko Barthauer
 # @date    2014-14-10
 
 from __future__ import absolute_import
@@ -477,7 +478,7 @@ class Builder(object):
                 files += ["poly"]
 
             # translate the pseudo file names to real file names
-            files = map(lambda name: self.files[name], files)
+            files = list(map(lambda name: self.files[name], files))
 
             if self.data["vehicles"]:
                 files += self.routenames
