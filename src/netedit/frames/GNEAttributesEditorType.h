@@ -67,6 +67,9 @@ public:
     /// @brief constructor
     GNEAttributesEditorType(GNEFrame* frameParent, const std::string attributesEditorName, EditorType editorType, AttributeType attributeType);
 
+    /// @brief constructor
+    ~GNEAttributesEditorType();
+
     /// @brief pointer to GNEFrame parent
     GNEFrame* getFrameParent() const;
 

@@ -92,6 +92,13 @@ GNEAttributesEditorType::GNEAttributesEditorType(GNEFrame* frameParent, const st
 }
 
 
+GNEAttributesEditorType::~GNEAttributesEditorType() {
+    // drow singletons (important if we're reloading)
+    myFirstSingletonAttributesEditorRows.clear();
+    mySecondSingletonAttributesEditorRows.clear();
+}
+
+
 GNEFrame*
 GNEAttributesEditorType::getFrameParent() const {
     return myFrameParent;
