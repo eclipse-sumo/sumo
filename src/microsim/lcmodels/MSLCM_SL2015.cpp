@@ -2816,8 +2816,15 @@ MSLCM_SL2015::checkStrategicChange(int ret,
     if (laneOffset != 0 && changeToBest && bestLaneOffset == curr.bestLaneOffset
             && currentDistDisallows(usableDist, bestLaneOffset, laDist)) {
         /// @brief we urgently need to change lanes to follow our route
-        latDist = latLaneDist;
-        ret |= LCA_STRATEGIC | LCA_URGENT;
+        if (!mustOvertakeStopped(neighLane, neighLeaders, leaders, forwardPos, neighDist, right, latLaneDist, currentDist, latDist)) {
+            latDist = latLaneDist;
+            ret |= LCA_STRATEGIC | LCA_URGENT;
+#ifdef DEBUG_STRATEGIC_CHANGE
+            if (gDebugFlag2) {
+                std::cout << SIMTIME << " mustChangeToBest\n";
+            }
+#endif
+        }
     } else {
         // VARIANT_20 (noOvertakeRight)
         if (left && avoidOvertakeRight() && neighLeaders.hasVehicles()) {
