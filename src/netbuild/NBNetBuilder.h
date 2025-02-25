@@ -260,6 +260,12 @@ private:
     /// @brief mirror the network along the X-axis
     void mirrorX();
 
+    /// @brief check if the node is valid according to GEOS
+    /// @link https://libgeos.org/doxygen/geos__c_8h.html#ae65e55acad28e2b55d793730dd1d4e06
+    /// @param node a pointer to the NBNode instance to be validated
+    /// @return whether the node is valid or not
+    bool isValid(const PositionVector& shape) const;
+
 private:
     /// @brief invalidated copy constructor
     NBNetBuilder(const NBNetBuilder& s);
