@@ -20,28 +20,19 @@
 
 #include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNENet.h>
-#include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/elements/additional/GNETAZ.h>
 #include <netedit/elements/demand/GNERouteHandler.h>
 #include <netedit/frames/GNEAttributesEditor.h>
 #include <netedit/frames/GNEDemandSelector.h>
 #include <netedit/frames/GNEElementTree.h>
-#include <netedit/frames/GNEFrame.h>
-#include <netedit/frames/GNEPlanCreator.h>
 #include <netedit/frames/GNEPlanCreatorLegend.h>
-#include <netedit/frames/GNEPlanSelector.h>
-#include <netedit/frames/GNETagSelector.h>
 
 #include "GNEContainerPlanFrame.h"
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
-
-// ---------------------------------------------------------------------------
-// GNEContainerPlanFrame - methods
-// ---------------------------------------------------------------------------
 
 GNEContainerPlanFrame::GNEContainerPlanFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
     GNEFrame(viewParent, viewNet, TL("ContainerPlans")),

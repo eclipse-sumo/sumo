@@ -23,7 +23,6 @@
 #include <netedit/GNENet.h>
 #include <netedit/GNETagProperties.h>
 #include <netedit/GNEUndoList.h>
-#include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/elements/network/GNEEdgeTemplate.h>
 #include <netedit/frames/GNEAttributesEditor.h>

@@ -22,10 +22,7 @@
 #include <netedit/GNETagProperties.h>
 #include <netedit/GNETagPropertiesDatabase.h>
 #include <netedit/GNEUndoList.h>
-#include <netedit/GNEViewNet.h>
 #include <netedit/changes/GNEChange_DemandElement.h>
-#include <netedit/dialogs/GNEVTypeDistributionsDialog.h>
-#include <netedit/dialogs/GNEVehicleTypeDialog.h>
 #include <netedit/elements/demand/GNEVType.h>
 #include <netedit/frames/GNEAttributesEditor.h>
 #include <utils/gui/div/GUIDesigns.h>

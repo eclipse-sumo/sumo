@@ -19,7 +19,6 @@
 /****************************************************************************/
 
 #include <netedit/GNENet.h>
-#include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/GNEApplicationWindow.h>
 #include <netedit/elements/additional/GNETAZ.h>

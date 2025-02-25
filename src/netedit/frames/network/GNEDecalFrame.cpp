@@ -18,24 +18,12 @@
 // The Widget for add polygons
 /****************************************************************************/
 
-#include <utils/foxtools/MFXDynamicLabel.h>
-#include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/div/GUIDesigns.h>
-#include <utils/gui/div/GUIUserIO.h>
-#include <netedit/elements/additional/GNEAdditionalHandler.h>
-#include <netedit/GNEViewParent.h>
-#include <netedit/GNENet.h>
-#include <netedit/GNEViewNet.h>
 
 #include "GNEDecalFrame.h"
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
-
-// ---------------------------------------------------------------------------
-// GNEDecalFrame - methods
-// ---------------------------------------------------------------------------
 
 GNEDecalFrame::GNEDecalFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
     GNEFrame(viewParent, viewNet, TL("Decals")) {

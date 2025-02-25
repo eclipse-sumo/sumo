@@ -20,8 +20,6 @@
 
 #include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNENet.h>
-#include <netedit/GNETagPropertiesDatabase.h>
-#include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/elements/data/GNEDataHandler.h>
 #include <netedit/elements/data/GNEDataInterval.h>
@@ -30,9 +28,7 @@
 #include <netedit/elements/data/GNETAZRelData.h>
 #include <netedit/frames/GNEAttributesEditor.h>
 #include <netedit/frames/GNEPathCreator.h>
-#include <utils/common/MsgHandler.h>
 #include <utils/gui/div/GUIDesigns.h>
-#include <utils/gui/windows/GUIAppEnum.h>
 
 #include "GNEGenericDataFrame.h"
 

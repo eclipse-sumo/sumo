@@ -21,9 +21,7 @@
 #include <netedit/GNENet.h>
 #include <netedit/GNETagProperties.h>
 #include <netedit/GNETagPropertiesDatabase.h>
-#include <netedit/GNEViewNet.h>
 #include <netedit/elements/data/GNEDataInterval.h>
-#include <utils/common/MsgHandler.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 

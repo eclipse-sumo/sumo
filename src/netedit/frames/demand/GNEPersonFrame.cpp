@@ -21,17 +21,12 @@
 #include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
-#include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/elements/additional/GNETAZ.h>
 #include <netedit/elements/demand/GNERouteHandler.h>
 #include <netedit/frames/GNEAttributesEditor.h>
 #include <netedit/frames/GNEDemandSelector.h>
-#include <netedit/frames/GNEFrame.h>
-#include <netedit/frames/GNEPlanCreator.h>
 #include <netedit/frames/GNEPlanCreatorLegend.h>
-#include <netedit/frames/GNEPlanSelector.h>
-#include <netedit/frames/GNETagSelector.h>
 #include <utils/vehicle/SUMOVehicleParserHelper.h>
 #include <utils/xml/SUMOSAXAttributesImpl_Cached.h>
 

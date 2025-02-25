@@ -20,8 +20,6 @@
 
 #include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNENet.h>
-#include <netedit/GNETagProperties.h>
-#include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/elements/additional/GNEAdditionalHandler.h>
 #include <netedit/frames/GNEAttributesEditor.h>
@@ -30,7 +28,6 @@
 #include <utils/foxtools/MFXDynamicLabel.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/div/GUIUserIO.h>
-#include <utils/gui/windows/GUIAppEnum.h>
 
 #include "GNEShapeFrame.h"
 
