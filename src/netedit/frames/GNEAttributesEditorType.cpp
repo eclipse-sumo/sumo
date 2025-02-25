@@ -76,6 +76,8 @@ GNEAttributesEditorType::GNEAttributesEditorType(GNEFrame* frameParent, const st
         myFrontButton->hide();
         myOpenDialogButton = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Open element dialog"), "", "", nullptr, this, MID_GNE_ATTRIBUTESEDITOR_DIALOG, GUIDesignButton);
         myOpenDialogButton->hide();
+        // Create help button
+        myHelpButton = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Help"), "", "", nullptr, this, MID_GNE_ATTRIBUTESEDITOR_HELP, GUIDesignButtonRectangular);
     }
     // build rows
     buildRows(this);
@@ -87,8 +89,6 @@ GNEAttributesEditorType::GNEAttributesEditorType(GNEFrame* frameParent, const st
         // create generic attributes editor button (always shown)
         myOpenGenericParametersEditorButton = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Edit parameters"), "", "", nullptr, this, MID_GNE_ATTRIBUTESEDITOR_PARAMETERS, GUIDesignButton);
     }
-    // Create help button
-    myHelpButton = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Help"), "", "", nullptr, this, MID_GNE_ATTRIBUTESEDITOR_HELP, GUIDesignButtonRectangular);
 }
 
 
@@ -262,12 +262,9 @@ GNEAttributesEditorType::refreshAttributesEditor() {
     if ((rowIndex == 0) && !showButtons) {
         hideAttributesEditor();
     } else {
-        if (rowIndex > 0) {
-            // reparent before show to put it at the end of the list
+        if (myHelpButton) {
             myHelpButton->reparent(this);
             myHelpButton->show();
-        } else {
-            myHelpButton->hide();
         }
         show();
     }
@@ -284,8 +281,9 @@ GNEAttributesEditorType::disableAttributesEditor() {
 
 bool
 GNEAttributesEditorType::checkAttributes(const bool showWarning) {
+    // iterate over all rows and check if values are valid
     for (const auto& row : myAttributesEditorRows) {
-        if (!row->isValueValid())
+        if (!row->isValueValid()) {
             if (showWarning) {
                 const std::string errorMessage = TLF("Invalid value % of attribute %", row->getCurrentValue(), row->getAttrProperty()->getAttrStr());
                 // show warning
@@ -294,6 +292,7 @@ GNEAttributesEditorType::checkAttributes(const bool showWarning) {
                 myFrameParent->getViewNet()->setStatusBarText(errorMessage);
                 return false;
             }
+        }
     }
     return true;
 }

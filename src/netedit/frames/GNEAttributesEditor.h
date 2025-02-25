@@ -82,11 +82,11 @@ protected:
     /// @brief geo attributes editor
     GNEAttributesEditorType* myGeoAttributesEditor = nullptr;
 
-    /// @brief netedit attributes editor
-    GNEAttributesEditorType* myNeteditAttributesEditor = nullptr;
-
     /// @brief parameteres attributes editor
     GNEAttributesEditorType* myParametersAttributesEditor = nullptr;
+
+    /// @brief netedit attributes editor
+    GNEAttributesEditorType* myNeteditAttributesEditor = nullptr;
 
 private:
     /// @brief Invalidated copy constructor.

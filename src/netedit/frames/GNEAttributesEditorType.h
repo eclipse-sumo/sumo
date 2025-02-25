@@ -182,7 +182,7 @@ private:
     FXButton* myOpenGenericParametersEditorButton = nullptr;
 
     /// @brief button for help
-    FXButton* myHelpButton;
+    FXButton* myHelpButton = nullptr;
 
     /// @brief first singleton with attributes editor rows
     static AttributesEditorRows myFirstSingletonAttributesEditorRows;

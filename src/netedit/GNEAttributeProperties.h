@@ -125,6 +125,9 @@ public:
     /// @brief get default active value
     bool getDefaultActivated() const;
 
+    /// @brief return category (based on EditProperty)
+    std::string getCategory() const;
+
     /// @brief return a description of attribute
     std::string getDescription() const;
 

@@ -29,8 +29,8 @@ GNEAttributesEditor::GNEAttributesEditor(GNEFrame* frameParent, GNEAttributesEdi
     myExtendedAttributesEditor = new GNEAttributesEditorType(frameParent, TL("Extended attributes"), editorType, GNEAttributesEditorType::AttributeType::EXTENDED);
     myFlowAttributesEditor = new GNEAttributesEditorType(frameParent, TL("Flow attributes"), editorType, GNEAttributesEditorType::AttributeType::FLOW);
     myGeoAttributesEditor = new GNEAttributesEditorType(frameParent, TL("Geo attributes"), editorType, GNEAttributesEditorType::AttributeType::GEO);
-    myNeteditAttributesEditor = new GNEAttributesEditorType(frameParent, TL("Netedit attributes"), editorType, GNEAttributesEditorType::AttributeType::NETEDIT);
     myParametersAttributesEditor = new GNEAttributesEditorType(frameParent, TL("Parameters"), editorType, GNEAttributesEditorType::AttributeType::PARAMETERS);
+    myNeteditAttributesEditor = new GNEAttributesEditorType(frameParent, TL("Netedit attributes"), editorType, GNEAttributesEditorType::AttributeType::NETEDIT);
 }
 
 
@@ -40,8 +40,8 @@ GNEAttributesEditor::showAttributesEditor(GNEAttributeCarrier* AC, const bool pr
     myExtendedAttributesEditor->showAttributesEditor(AC, primaryAttributeEditor);
     myFlowAttributesEditor->showAttributesEditor(AC, primaryAttributeEditor);
     myGeoAttributesEditor->showAttributesEditor(AC, primaryAttributeEditor);
-    myNeteditAttributesEditor->showAttributesEditor(AC, primaryAttributeEditor);
     myParametersAttributesEditor->showAttributesEditor(AC, primaryAttributeEditor);
+    myNeteditAttributesEditor->showAttributesEditor(AC, primaryAttributeEditor);
 }
 
 
@@ -51,8 +51,8 @@ GNEAttributesEditor::showAttributesEditor(const std::unordered_set<GNEAttributeC
     myExtendedAttributesEditor->showAttributesEditor(ACs, primaryAttributeEditor);
     myFlowAttributesEditor->showAttributesEditor(ACs, primaryAttributeEditor);
     myGeoAttributesEditor->showAttributesEditor(ACs, primaryAttributeEditor);
-    myNeteditAttributesEditor->showAttributesEditor(ACs, primaryAttributeEditor);
     myParametersAttributesEditor->showAttributesEditor(ACs, primaryAttributeEditor);
+    myNeteditAttributesEditor->showAttributesEditor(ACs, primaryAttributeEditor);
 }
 
 
@@ -62,8 +62,8 @@ GNEAttributesEditor::hideAttributesEditor() {
     myExtendedAttributesEditor->hideAttributesEditor();
     myFlowAttributesEditor->hideAttributesEditor();
     myGeoAttributesEditor->hideAttributesEditor();
-    myNeteditAttributesEditor->hideAttributesEditor();
     myParametersAttributesEditor->hideAttributesEditor();
+    myNeteditAttributesEditor->hideAttributesEditor();
 }
 
 
@@ -73,8 +73,8 @@ GNEAttributesEditor::refreshAttributesEditor() {
     myExtendedAttributesEditor->refreshAttributesEditor();
     myFlowAttributesEditor->refreshAttributesEditor();
     myGeoAttributesEditor->refreshAttributesEditor();
-    myNeteditAttributesEditor->refreshAttributesEditor();
     myParametersAttributesEditor->refreshAttributesEditor();
+    myNeteditAttributesEditor->refreshAttributesEditor();
 }
 
 
@@ -84,8 +84,8 @@ GNEAttributesEditor::disableAttributesEditor() {
     myExtendedAttributesEditor->disableAttributesEditor();
     myFlowAttributesEditor->disableAttributesEditor();
     myGeoAttributesEditor->disableAttributesEditor();
-    myNeteditAttributesEditor->disableAttributesEditor();
     myParametersAttributesEditor->disableAttributesEditor();
+    myNeteditAttributesEditor->disableAttributesEditor();
 }
 
 
@@ -99,9 +99,9 @@ GNEAttributesEditor::checkAttributes(const bool showWarning) {
         return false;
     } else if (!myGeoAttributesEditor->checkAttributes(showWarning)) {
         return false;
-    } else if (!myNeteditAttributesEditor->checkAttributes(showWarning)) {
-        return false;
     } else if (!myParametersAttributesEditor->checkAttributes(showWarning)) {
+        return false;
+    } else if (!myNeteditAttributesEditor->checkAttributes(showWarning)) {
         return false;
     } else {
         return true;
@@ -128,11 +128,11 @@ GNEAttributesEditor::fillSumoBaseObject(CommonXMLStructure::SumoBaseObject* base
     if (fillResult != SUMO_ATTR_NOTHING) {
         return fillResult;
     }
-    fillResult = myNeteditAttributesEditor->fillSumoBaseObject(baseObject);
+    fillResult = myParametersAttributesEditor->fillSumoBaseObject(baseObject);
     if (fillResult != SUMO_ATTR_NOTHING) {
         return fillResult;
     }
-    fillResult = myParametersAttributesEditor->fillSumoBaseObject(baseObject);
+    fillResult = myNeteditAttributesEditor->fillSumoBaseObject(baseObject);
     if (fillResult != SUMO_ATTR_NOTHING) {
         return fillResult;
     }

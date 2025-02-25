@@ -237,6 +237,22 @@ GNEAttributeProperties::getDefaultActivated() const {
 
 
 std::string
+GNEAttributeProperties::getCategory() const {
+    if (isExtendedEditor()) {
+        return TL("Extended");
+    } else if (isGeoEditor()) {
+        return TL("GEO");
+    } else if (isFlowEditor()) {
+        return TL("Flow");
+    } else if (isNeteditEditor()) {
+        return TL("Netedit");
+    } else {
+        return TL("Internal");
+    }
+}
+
+
+std::string
 GNEAttributeProperties::getDescription() const {
     std::string pre;
     std::string type;
@@ -244,7 +260,7 @@ GNEAttributeProperties::getDescription() const {
     std::string last;
     // pre type
     if (isList()) {
-        pre += "list of ";
+        pre += TL("list of ");
         if (isVClass()) {
             plural = "es";
         } else {
@@ -252,53 +268,53 @@ GNEAttributeProperties::getDescription() const {
         }
     }
     if (isPositive()) {
-        pre += "non-negative ";
+        pre += TL("non-negative ");
     }
     if (isDiscrete()) {
-        pre += "discrete ";
+        pre += TL("discrete ");
     }
     if (isUnique()) {
-        pre += "unique ";
+        pre += TL("unique ");
     }
     // type
     if (isInt()) {
-        type = "integer";
+        type = TL("integer");
     }
     if (isFloat()) {
-        type = "float";
+        type = TL("float");
     }
     if (isSUMOTime()) {
-        type = "SUMOTime";
+        type = TL("SUMOTime");
     }
     if (isBool()) {
-        type = "boolean";
+        type = TL("boolean");
     }
     if (isString()) {
-        type = "string";
+        type = TL("string");
     }
     if (isPosition()) {
-        type = "position";
+        type = TL("position");
     }
     if (isColor()) {
-        type = "color";
+        type = TL("color");
     }
     if (isVClass()) {
-        type = "vClass";
+        type = TL("vClass");
     }
     if (isFileOpen()) {
-        type = "filename";
-        last = "(Existent)";
+        type = TL("filename");
+        last = TL("(Existent)");
     }
     if (isFileSave()) {
-        type = "filename";
+        type = TL("filename");
     }
     if (isProbability()) {
-        type = "probability";
-        last = "[0, 1]";
+        type = TL("probability");
+        last = TL("[0, 1]");
     }
     if (isAngle()) {
-        type = "angle";
-        last = "[0, 360]";
+        type = TL("angle");
+        last = TL("[0, 360]");
     }
     return pre + type + plural + last;
 }
