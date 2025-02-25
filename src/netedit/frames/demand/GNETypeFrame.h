@@ -174,9 +174,12 @@ private:
     /// @brief editorinternal vehicle type attributes
     GNEAttributesEditor* myTypeAttributesEditor = nullptr;
 
-    /// @brief attributes editor extended
-    GNEAttributesEditor* myAttributesEditorExtended = nullptr;
+    /// @brief netedit attributes
+    GNEAttributesEditor* myNeteditAttributesEditor = nullptr;
 
     /// @brief Generic parameters editor
-    GNEAttributesEditor* myGenericParametersEditor;
+    GNEAttributesEditor* myGenericParametersEditor = nullptr;
+
+    /// @brief attributes editor extended
+    GNEAttributesEditor* myAttributesEditorExtended = nullptr;
 };

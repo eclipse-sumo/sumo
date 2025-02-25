@@ -105,23 +105,23 @@ private:
     GNERouteHandler myRouteHandler;
 
     /// @brief stop parent base object
-    CommonXMLStructure::SumoBaseObject* myStopParentBaseObject;
+    CommonXMLStructure::SumoBaseObject* myStopParentBaseObject = nullptr;
 
     /// @brief plan parameters
     CommonXMLStructure::PlanParameters myPlanParameters;
 
     /// @brief Stop parent selectors
-    GNEDemandElementSelector* myStopParentSelector;
+    GNEDemandElementSelector* myStopParentSelector = nullptr;
 
     /// @brief stop tag selector selector (used to select diffent kind of Stops)
-    GNETagSelector* myStopTagSelector;
+    GNETagSelector* myStopTagSelector = nullptr;
 
     /// @brief internal Stop attributes
-    GNEAttributesEditor* myStopAttributesEditor;
+    GNEAttributesEditor* myStopAttributesEditor = nullptr;
 
     /// @brief Netedit attributes editor
     GNEAttributesEditor* myNeteditAttributesEditor = nullptr;
 
     /// @brief Help creation
-    HelpCreation* myHelpCreation;
+    HelpCreation* myHelpCreation = nullptr;
 };

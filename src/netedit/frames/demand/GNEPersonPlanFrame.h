@@ -90,20 +90,23 @@ private:
     GNERouteHandler myRouteHandler;
 
     /// @brief Person selectors
-    GNEDemandElementSelector* myPersonSelector;
+    GNEDemandElementSelector* myPersonSelector = nullptr;
 
     /// @brief personPlan selector
-    GNEPlanSelector* myPlanSelector;
+    GNEPlanSelector* myPlanSelector = nullptr;
 
     /// @brief internal vehicle attributes
-    GNEAttributesEditor* myPersonPlanAttributesEditor;
+    GNEAttributesEditor* myPersonPlanAttributesEditor = nullptr;
+
+    /// @brief netedit attributes
+    GNEAttributesEditor* myNeteditAttributesEditor = nullptr;
 
     /// @brief plan Creator
-    GNEPlanCreator* myPlanCreator;
+    GNEPlanCreator* myPlanCreator = nullptr;
 
     /// @brief Person Hierarchy
-    GNEElementTree* myPersonHierarchy;
+    GNEElementTree* myPersonHierarchy = nullptr;
 
     /// @brief plan creator legend
-    GNEPlanCreatorLegend* myPlanCreatorLegend;
+    GNEPlanCreatorLegend* myPlanCreatorLegend = nullptr;
 };

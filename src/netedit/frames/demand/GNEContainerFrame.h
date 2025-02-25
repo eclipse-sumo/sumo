@@ -85,31 +85,34 @@ private:
     GNERouteHandler myRouteHandler;
 
     /// @brief container base object
-    CommonXMLStructure::SumoBaseObject* myContainerBaseObject;
+    CommonXMLStructure::SumoBaseObject* myContainerBaseObject = nullptr;
 
     /// @brief container tag selector (used to select diffent kind of containers)
-    GNETagSelector* myContainerTagSelector;
+    GNETagSelector* myContainerTagSelector = nullptr;
 
     /// @brief Container Type selectors
-    GNEDemandElementSelector* myTypeSelector;
+    GNEDemandElementSelector* myTypeSelector = nullptr;
 
     /// @brief containerPlan selector
-    GNEPlanSelector* myPlanSelector;
+    GNEPlanSelector* myPlanSelector = nullptr;
 
     /// @brief internal vehicle attributes
-    GNEAttributesEditor* myContainerAttributesEditor;
+    GNEAttributesEditor* myContainerAttributesEditor = nullptr;
 
     /// @brief internal container plan attributes
-    GNEAttributesEditor* myContainerPlanAttributesEditor;
+    GNEAttributesEditor* myContainerPlanAttributesEditor = nullptr;
 
-    /// @brief Netedit attributes editor
+    /// @brief flow attributes
+    GNEAttributesEditor* myFlowAttributesEditor = nullptr;
+
+    /// @brief netedit attributes
     GNEAttributesEditor* myNeteditAttributesEditor = nullptr;
 
     /// @brief plan creator
-    GNEPlanCreator* myPlanCreator;
+    GNEPlanCreator* myPlanCreator = nullptr;
 
     /// @brief plan creator legend
-    GNEPlanCreatorLegend* myPlanCreatorLegend;
+    GNEPlanCreatorLegend* myPlanCreatorLegend = nullptr;
 
     /// @brief build container and return it (note: function includes a call to begin(...), but NOT a call to end(...))
     GNEDemandElement* buildContainer();

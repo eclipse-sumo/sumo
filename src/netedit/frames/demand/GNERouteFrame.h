@@ -145,17 +145,23 @@ private:
     GNERouteHandler myRouteHandler;
 
     /// @brief route base object
-    CommonXMLStructure::SumoBaseObject* myRouteBaseObject;
+    CommonXMLStructure::SumoBaseObject* myRouteBaseObject = nullptr;
 
     /// @brief route mode selector
-    RouteModeSelector* myRouteModeSelector;
+    RouteModeSelector* myRouteModeSelector = nullptr;
 
     /// @brief internal route attributes editor
-    GNEAttributesEditor* myRouteAttributesEditor;
+    GNEAttributesEditor* myRouteAttributesEditor = nullptr;
+
+    /// @brief netedit attributes
+    GNEAttributesEditor* myNeteditAttributesEditor = nullptr;
+
+    /// @brief Generic parameters editor
+    GNEAttributesEditor* myGenericParametersEditor = nullptr;
 
     /// @brief path creator modul
-    GNEPathCreator* myPathCreator;
+    GNEPathCreator* myPathCreator = nullptr;
 
     /// @brief path legend modul
-    GNEPathLegendModule* myPathLegend;
+    GNEPathLegendModule* myPathLegend = nullptr;
 };

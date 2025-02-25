@@ -124,29 +124,32 @@ private:
     GNERouteHandler myRouteHandler;
 
     /// @brief vehicle base object
-    CommonXMLStructure::SumoBaseObject* myVehicleBaseObject;
+    CommonXMLStructure::SumoBaseObject* myVehicleBaseObject = nullptr;
 
     /// @brief vehicle tag selector (used to select diffent kind of vehicles)
-    GNETagSelector* myVehicleTagSelector;
+    GNETagSelector* myVehicleTagSelector = nullptr;
 
     /// @brief Vehicle Type selectors
-    GNEDemandElementSelector* myTypeSelector;
+    GNEDemandElementSelector* myTypeSelector = nullptr;
 
     /// @brief internal vehicle attributes
-    GNEAttributesEditor* myVehicleAttributesEditor;
+    GNEAttributesEditor* myVehicleAttributesEditor = nullptr;
 
-    /// @brief internal vehicle attributes
-    GNEAttributesEditor* myFlowAttributesEditor;
+    /// @brief flow attributes
+    GNEAttributesEditor* myFlowAttributesEditor = nullptr;
 
-    /// @brief internal vehicle attributes
-    GNEAttributesEditor* myNeteditAttributesEditor;
+    /// @brief netedit attributes
+    GNEAttributesEditor* myNeteditAttributesEditor = nullptr;
+
+    /// @brief Generic parameters editor
+    GNEAttributesEditor* myGenericParametersEditor = nullptr;
 
     /// @brief edge path creator (used for trips and flows)
-    GNEPathCreator* myPathCreator;
+    GNEPathCreator* myPathCreator = nullptr;
 
     /// @brief Help creation
-    HelpCreation* myHelpCreation;
+    HelpCreation* myHelpCreation = nullptr;
 
     /// @brief path legend modul
-    GNEPathLegendModule* myPathLegend;
+    GNEPathLegendModule* myPathLegend = nullptr;
 };

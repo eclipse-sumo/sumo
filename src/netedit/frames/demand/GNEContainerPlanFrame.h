@@ -91,19 +91,22 @@ private:
     GNERouteHandler myRouteHandler;
 
     /// @brief Container selectors
-    GNEDemandElementSelector* myContainerSelector;
+    GNEDemandElementSelector* myContainerSelector = nullptr;
 
     /// @brief containerPlan selector
-    GNEPlanSelector* myPlanSelector;
+    GNEPlanSelector* myPlanSelector = nullptr;
 
     /// @brief internal vehicle attributes
-    GNEAttributesEditor* myContainerPlanAttributesEditor;
+    GNEAttributesEditor* myContainerPlanAttributesEditor = nullptr;
+
+    /// @brief netedit attributes
+    GNEAttributesEditor* myNeteditAttributesEditor = nullptr;
 
     /// @brief plan Creator
-    GNEPlanCreator* myPlanCreator;
+    GNEPlanCreator* myPlanCreator = nullptr;
 
     /// @brief Container Hierarchy
-    GNEElementTree* myContainerHierarchy;
+    GNEElementTree* myContainerHierarchy = nullptr;
 
     /// @brief plan creator legend
     GNEPlanCreatorLegend* myPlanCreatorLegend;
