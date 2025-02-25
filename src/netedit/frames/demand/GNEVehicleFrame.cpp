@@ -23,6 +23,7 @@
 #include <netedit/GNEViewParent.h>
 #include <netedit/GNEApplicationWindow.h>
 #include <netedit/elements/additional/GNETAZ.h>
+#include <netedit/frames/GNEAttributesEditor.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/vehicle/SUMOVehicleParserHelper.h>
 #include <utils/xml/SUMOSAXAttributesImpl_Cached.h>
@@ -132,14 +133,8 @@ GNEVehicleFrame::GNEVehicleFrame(GNEViewParent* viewParent, GNEViewNet* viewNet)
     // Create vehicle type selector and set DEFAULT_VTYPE_ID as default element
     myTypeSelector = new GNEDemandElementSelector(this, SUMO_TAG_VTYPE, GNETagProperties::TagType::VEHICLE);
 
-    // Create vehicle parameters
-    myVehicleAttributesEditor = new GNEAttributesEditorType(this, TL("Internal attributes"), GNEAttributesEditorType::EditorType::CREATOR, GNEAttributesEditorType::AttributeType::BASIC);
-
-    // Create flow parameters
-    myFlowAttributesEditor = new GNEAttributesEditorType(this, TL("Flow attributes"), GNEAttributesEditorType::EditorType::CREATOR, GNEAttributesEditorType::AttributeType::FLOW);
-
-    // Create netedit parameters
-    myNeteditAttributesEditor = new GNEAttributesEditorType(this, TL("Netedit attributes"), GNEAttributesEditorType::EditorType::CREATOR, GNEAttributesEditorType::AttributeType::NETEDIT);
+    // Create attributes editor
+    myVehicleAttributesEditor = new GNEAttributesEditor(this, GNEAttributesEditorType::EditorType::CREATOR);
 
     // create GNEPathCreator Module
     myPathCreator = new GNEPathCreator(this, viewNet->getNet()->getDemandPathManager());
@@ -208,16 +203,8 @@ GNEVehicleFrame::addVehicle(const GNEViewNetHelper::ViewObjectsSelector& viewObj
     if (!myVehicleAttributesEditor->checkAttributes(true)) {
         return false;
     }
-    if (!myFlowAttributesEditor->checkAttributes(true)) {
-        return false;
-    }
-    if (!myNeteditAttributesEditor->checkAttributes(true)) {
-        return false;
-    }
     // get vehicle attributes
     myVehicleAttributesEditor->fillSumoBaseObject(myVehicleBaseObject);
-    myFlowAttributesEditor->fillSumoBaseObject(myVehicleBaseObject);
-    myNeteditAttributesEditor->fillSumoBaseObject(myVehicleBaseObject);
     // add VType
     myVehicleBaseObject->addStringAttribute(SUMO_ATTR_TYPE, myTypeSelector->getCurrentDemandElement()->getID());
     // set route or edges depending of vehicle type
@@ -256,8 +243,8 @@ GNEVehicleFrame::getPathCreator() const {
 }
 
 
-GNEAttributesEditorType*
-GNEVehicleFrame::getVehicleAttributes() const {
+GNEAttributesEditor*
+GNEVehicleFrame::getVehicleAttributesEditor() const {
     return myVehicleAttributesEditor;
 }
 
@@ -282,8 +269,6 @@ GNEVehicleFrame::tagSelected() {
         // hide all moduls if tag isn't valid
         myTypeSelector->hideDemandElementSelector();
         myVehicleAttributesEditor->hideAttributesEditor();
-        myFlowAttributesEditor->hideAttributesEditor();
-        myNeteditAttributesEditor->hideAttributesEditor();
         myPathCreator->hidePathCreatorModule();
         myHelpCreation->hideHelpCreation();
         myPathLegend->hidePathLegendModule();
@@ -296,8 +281,6 @@ GNEVehicleFrame::demandElementSelected() {
     if (myTypeSelector->getCurrentDemandElement()) {
         // show vehicle attributes modul
         myVehicleAttributesEditor->showAttributesEditor(myVehicleTagSelector->getCurrentTemplateAC());
-        myFlowAttributesEditor->showAttributesEditor(myVehicleTagSelector->getCurrentTemplateAC());
-        myNeteditAttributesEditor->showAttributesEditor(myVehicleTagSelector->getCurrentTemplateAC());
         // clear colors
         myPathCreator->clearJunctionColors();
         myPathCreator->clearEdgeColors();
@@ -310,8 +293,6 @@ GNEVehicleFrame::demandElementSelected() {
     } else {
         // hide all moduls if selected item isn't valid
         myVehicleAttributesEditor->hideAttributesEditor();
-        myFlowAttributesEditor->hideAttributesEditor();
-        myNeteditAttributesEditor->hideAttributesEditor();
         myPathCreator->hidePathCreatorModule();
         myPathLegend->hidePathLegendModule();
         myHelpCreation->hideHelpCreation();
@@ -322,18 +303,13 @@ GNEVehicleFrame::demandElementSelected() {
 bool
 GNEVehicleFrame::createPath(const bool useLastRoute) {
     // first check if parameters are valid
-    if (myVehicleAttributesEditor->checkAttributes(true) &&
-            myFlowAttributesEditor->checkAttributes(true) &&
-            myNeteditAttributesEditor->checkAttributes(true) &&
-            myTypeSelector->getCurrentDemandElement()) {
+    if (myVehicleAttributesEditor->checkAttributes(true) && myTypeSelector->getCurrentDemandElement()) {
         // obtain tag (only for improve code legibility)
         SumoXMLTag vehicleTag = myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty()->getTag();
         // begin cleaning vehicle base object
         myVehicleBaseObject->clear();
         // Updated myVehicleBaseObject
         myVehicleAttributesEditor->fillSumoBaseObject(myVehicleBaseObject);
-        myFlowAttributesEditor->fillSumoBaseObject(myVehicleBaseObject);
-        myNeteditAttributesEditor->fillSumoBaseObject(myVehicleBaseObject);
         // add VType
         myVehicleBaseObject->addStringAttribute(SUMO_ATTR_TYPE, myTypeSelector->getCurrentDemandElement()->getID());
         // check if use last route
@@ -566,10 +542,8 @@ GNEVehicleFrame::createPath(const bool useLastRoute) {
             }
             // abort path creation
             myPathCreator->abortPathCreation();
-            // refresh myVehicleAttributes
+            // refresh attributes editor
             myVehicleAttributesEditor->refreshAttributesEditor();
-            myFlowAttributesEditor->refreshAttributesEditor();
-            myNeteditAttributesEditor->refreshAttributesEditor();
             return true;
         }
     }
@@ -651,10 +625,8 @@ GNEVehicleFrame::buildVehicleOverRoute(SumoXMLTag vehicleTag, GNEDemandElement* 
         if (vehicle && !myViewNet->getVisibleBoundary().around(vehicle->getPositionInView())) {
             myViewNet->centerTo(vehicle->getPositionInView(), false);
         }
-        // refresh myVehicleAttributes
+        // refresh attributes editor
         myVehicleAttributesEditor->refreshAttributesEditor();
-        myFlowAttributesEditor->refreshAttributesEditor();
-        myNeteditAttributesEditor->refreshAttributesEditor();
         // all ok, then return true;
         return true;
     } else {

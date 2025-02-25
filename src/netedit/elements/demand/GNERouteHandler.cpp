@@ -26,7 +26,7 @@
 #include <netedit/GNEViewParent.h>
 #include <netedit/changes/GNEChange_DemandElement.h>
 #include <netedit/elements/additional/GNETAZ.h>
-#include <netedit/frames/GNEAttributesEditorType.h>
+#include <netedit/frames/GNEAttributesEditor.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
 #include <netedit/frames/demand/GNEVehicleFrame.h>
 #include <utils/common/StringTokenizer.h>
@@ -1291,7 +1291,7 @@ GNERouteHandler::buildStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
 
 bool
 GNERouteHandler::buildPersonPlan(const GNEDemandElement* planTemplate, GNEDemandElement* personParent,
-                                 GNEAttributesEditorType* personPlanAttributesEditor, GNEPlanCreator* planCreator,
+                                 GNEAttributesEditor* personPlanAttributesEditor, GNEPlanCreator* planCreator,
                                  const bool centerAfterCreation) {
     // first check if person is valid
     if (personParent == nullptr) {
@@ -1368,7 +1368,7 @@ GNERouteHandler::buildPersonPlan(const GNEDemandElement* planTemplate, GNEDemand
 
 bool
 GNERouteHandler::buildContainerPlan(const GNEDemandElement* planTemplate, GNEDemandElement* containerParent,
-                                    GNEAttributesEditorType* containerPlanAttributesEditor, GNEPlanCreator* planCreator,
+                                    GNEAttributesEditor* containerPlanAttributesEditor, GNEPlanCreator* planCreator,
                                     const bool centerAfterCreation) {
     // first check if container is valid
     if (containerParent == nullptr) {

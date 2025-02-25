@@ -21,19 +21,22 @@
 #include <config.h>
 
 #include <netedit/elements/demand/GNERouteHandler.h>
-#include <netedit/frames/GNEDemandSelector.h>
 #include <netedit/frames/GNEFrame.h>
-#include <netedit/frames/GNEPlanCreator.h>
-#include <netedit/frames/GNEPlanCreatorLegend.h>
-#include <netedit/frames/GNETagSelector.h>
-#include <netedit/frames/GNEPlanSelector.h>
+
+// ===========================================================================
+// class declaration
+// ===========================================================================
+
+class GNEAttributesEditor;
+class GNEDemandElementSelector;
+class GNEPlanCreator;
+class GNEPlanCreatorLegend;
+class GNEPlanSelector;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/**
- * @class GNEPersonFrame
- */
+
 class GNEPersonFrame : public GNEFrame {
 
 public:
@@ -68,7 +71,7 @@ public:
     GNEPlanSelector* getPlanSelector() const;
 
     /// @brief get attributes creator
-    GNEAttributesEditorType* getPersonAttributes() const;
+    GNEAttributesEditor* getPersonAttributesEditor() const;
 
 protected:
     /// @brief Tag selected in GNETagSelector
@@ -96,20 +99,11 @@ private:
     /// @brief personPlan selector
     GNEPlanSelector* myPlanSelector = nullptr;
 
-    /// @brief internal vehicle attributes
-    GNEAttributesEditorType* myPersonAttributesEditor = nullptr;
+    /// @brief person attributes editor
+    GNEAttributesEditor* myPersonAttributesEditor = nullptr;
 
-    /// @brief internal person plan attributes
-    GNEAttributesEditorType* myPersonPlanAttributesEditor = nullptr;
-
-    /// @brief flow attributes
-    GNEAttributesEditorType* myFlowAttributesEditor = nullptr;
-
-    /// @brief netedit attributes
-    GNEAttributesEditorType* myNeteditAttributesEditor = nullptr;
-
-    /// @brief Generic parameters editor
-    GNEAttributesEditorType* myGenericParametersEditor = nullptr;
+    /// @brief person plan attributes editor
+    GNEAttributesEditor* myPersonPlanAttributesEditor = nullptr;
 
     /// @brief plan creator
     GNEPlanCreator* myPlanCreator = nullptr;

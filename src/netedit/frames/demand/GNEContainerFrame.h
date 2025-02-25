@@ -21,12 +21,18 @@
 #include <config.h>
 
 #include <netedit/elements/demand/GNERouteHandler.h>
-#include <netedit/frames/GNEDemandSelector.h>
 #include <netedit/frames/GNEFrame.h>
-#include <netedit/frames/GNEPlanCreator.h>
-#include <netedit/frames/GNEPlanCreatorLegend.h>
-#include <netedit/frames/GNETagSelector.h>
-#include <netedit/frames/GNEPlanSelector.h>
+
+// ===========================================================================
+// class declaration
+// ===========================================================================
+
+class GNEAttributesEditor;
+class GNEDemandElementSelector;
+class GNEPlanCreator;
+class GNEPlanCreatorLegend;
+class GNEPlanSelector;
+class GNETagSelector;
 
 // ===========================================================================
 // class definitions
@@ -67,8 +73,8 @@ public:
     /// @brief get containerPlan selector
     GNEPlanSelector* getPlanSelector() const;
 
-    /// @brief get attributes creator
-    GNEAttributesEditorType* getContainerAttributes() const;
+    /// @brief get attributes editor
+    GNEAttributesEditor* getContainerAttributesEditor() const;
 
 protected:
     /// @brief Tag selected in GNETagSelector
@@ -96,17 +102,11 @@ private:
     /// @brief containerPlan selector
     GNEPlanSelector* myPlanSelector = nullptr;
 
-    /// @brief internal vehicle attributes
-    GNEAttributesEditorType* myContainerAttributesEditor = nullptr;
+    /// @brief attributes editor
+    GNEAttributesEditor* myContainerAttributesEditor = nullptr;
 
-    /// @brief internal container plan attributes
-    GNEAttributesEditorType* myContainerPlanAttributesEditor = nullptr;
-
-    /// @brief flow attributes
-    GNEAttributesEditorType* myFlowAttributesEditor = nullptr;
-
-    /// @brief netedit attributes
-    GNEAttributesEditorType* myNeteditAttributesEditor = nullptr;
+    /// @brief plan attributes editor
+    GNEAttributesEditor* myContainerPlanAttributesEditor = nullptr;
 
     /// @brief plan creator
     GNEPlanCreator* myPlanCreator = nullptr;

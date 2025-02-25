@@ -31,6 +31,7 @@
 // ===========================================================================
 
 class MFXDynamicLabel;
+class GNEAttributesEditor;
 
 // ===========================================================================
 // class definitions
@@ -104,7 +105,7 @@ public:
     GNEPathCreator* getPathCreator() const;
 
     /// @brief get attributes creator
-    GNEAttributesEditorType* getVehicleAttributes() const;
+    GNEAttributesEditor* getVehicleAttributesEditor() const;
 
 protected:
     /// @brief Tag selected in GNETagSelector
@@ -132,17 +133,8 @@ private:
     /// @brief Vehicle Type selectors
     GNEDemandElementSelector* myTypeSelector = nullptr;
 
-    /// @brief internal vehicle attributes
-    GNEAttributesEditorType* myVehicleAttributesEditor = nullptr;
-
-    /// @brief flow attributes
-    GNEAttributesEditorType* myFlowAttributesEditor = nullptr;
-
-    /// @brief netedit attributes
-    GNEAttributesEditorType* myNeteditAttributesEditor = nullptr;
-
-    /// @brief Generic parameters editor
-    GNEAttributesEditorType* myGenericParametersEditor = nullptr;
+    /// @brief attributes editor
+    GNEAttributesEditor* myVehicleAttributesEditor = nullptr;
 
     /// @brief edge path creator (used for trips and flows)
     GNEPathCreator* myPathCreator = nullptr;

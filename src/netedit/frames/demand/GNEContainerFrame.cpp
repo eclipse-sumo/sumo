@@ -18,12 +18,19 @@
 // The Widget for add Container elements
 /****************************************************************************/
 
-#include <netedit/elements/additional/GNETAZ.h>
+#include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
-#include <netedit/GNEApplicationWindow.h>
+#include <netedit/elements/additional/GNETAZ.h>
+#include <netedit/elements/demand/GNERouteHandler.h>
+#include <netedit/frames/GNEAttributesEditor.h>
+#include <netedit/frames/GNEDemandSelector.h>
+#include <netedit/frames/GNEPlanCreator.h>
+#include <netedit/frames/GNEPlanCreatorLegend.h>
+#include <netedit/frames/GNEPlanSelector.h>
+#include <netedit/frames/GNETagSelector.h>
 #include <utils/vehicle/SUMOVehicleParserHelper.h>
 #include <utils/xml/SUMOSAXAttributesImpl_Cached.h>
 
@@ -32,10 +39,6 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-
-// ---------------------------------------------------------------------------
-// GNEContainerFrame - methods
-// ---------------------------------------------------------------------------
 
 GNEContainerFrame::GNEContainerFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
     GNEFrame(viewParent, viewNet, TL("Containers")),
@@ -48,17 +51,14 @@ GNEContainerFrame::GNEContainerFrame(GNEViewParent* viewParent, GNEViewNet* view
     // create container types selector module and set DEFAULT_PEDTYPE_ID as default element
     myTypeSelector = new GNEDemandElementSelector(this, SUMO_TAG_VTYPE, GNETagProperties::TagType::CONTAINER);
 
-    // create container attributes editor
-    myContainerAttributesEditor = new GNEAttributesEditorType(this, TL("Internal attributes"), GNEAttributesEditorType::EditorType::CREATOR, GNEAttributesEditorType::AttributeType::BASIC);
+    // Create attributes editor
+    myContainerAttributesEditor = new GNEAttributesEditor(this, GNEAttributesEditorType::EditorType::CREATOR);
 
     // create plan selector module for container plans
     myPlanSelector = new GNEPlanSelector(this, SUMO_TAG_CONTAINER);
 
-    // create container plan attributes editor
-    myContainerPlanAttributesEditor = new GNEAttributesEditorType(this, TL("Internal plan attributes"), GNEAttributesEditorType::EditorType::CREATOR, GNEAttributesEditorType::AttributeType::CHILD);
-
-    // Create Netedit attribute editor
-    myNeteditAttributesEditor = new GNEAttributesEditorType(this, TL("Netedit attributes"), GNEAttributesEditorType::EditorType::CREATOR, GNEAttributesEditorType::AttributeType::NETEDIT);
+    // Create attributes editor
+    myContainerPlanAttributesEditor = new GNEAttributesEditor(this, GNEAttributesEditorType::EditorType::CREATOR);
 
     // create GNEPlanCreator Module
     myPlanCreator = new GNEPlanCreator(this, viewNet->getNet()->getDemandPathManager());
@@ -159,8 +159,8 @@ GNEContainerFrame::getPlanSelector() const {
 }
 
 
-GNEAttributesEditorType*
-GNEContainerFrame::getContainerAttributes() const {
+GNEAttributesEditor*
+GNEContainerFrame::getContainerAttributesEditor() const {
     return myContainerAttributesEditor;
 }
 
@@ -184,16 +184,14 @@ GNEContainerFrame::tagSelected() {
             if (myPlanSelector->getCurrentPlanTemplate()) {
                 // show container plan attributes
                 myContainerPlanAttributesEditor->showAttributesEditor(myPlanSelector->getCurrentPlanTemplate());
-                // show Netedit attributes module
-                myNeteditAttributesEditor->showAttributesEditor(myPlanSelector->getCurrentPlanTemplate());
                 // show edge path creator module
                 myPlanCreator->showPlanCreatorModule(myPlanSelector, nullptr);
                 // show path legend
                 myPlanCreatorLegend->showPlanCreatorLegend();
             } else {
                 // hide modules
+                myContainerAttributesEditor->hideAttributesEditor();
                 myContainerPlanAttributesEditor->hideAttributesEditor();
-                myNeteditAttributesEditor->hideAttributesEditor();
                 myPlanCreator->hidePathCreatorModule();
                 myPlanCreatorLegend->hidePlanCreatorLegend();
             }
@@ -202,7 +200,6 @@ GNEContainerFrame::tagSelected() {
             myPlanSelector->hidePlanSelector();
             myContainerAttributesEditor->hideAttributesEditor();
             myContainerPlanAttributesEditor->hideAttributesEditor();
-            myNeteditAttributesEditor->hideAttributesEditor();
             myPlanCreator->hidePathCreatorModule();
             myPlanCreatorLegend->hidePlanCreatorLegend();
         }
@@ -212,7 +209,6 @@ GNEContainerFrame::tagSelected() {
         myPlanSelector->hidePlanSelector();
         myContainerAttributesEditor->hideAttributesEditor();
         myContainerPlanAttributesEditor->hideAttributesEditor();
-        myNeteditAttributesEditor->hideAttributesEditor();
         myPlanCreator->hidePathCreatorModule();
         myPlanCreatorLegend->hidePlanCreatorLegend();
     }
@@ -230,8 +226,6 @@ GNEContainerFrame::demandElementSelected() {
         if (myPlanSelector->getCurrentPlanTagProperties()->getTag() != SUMO_TAG_NOTHING) {
             // show container plan attributes
             myContainerPlanAttributesEditor->showAttributesEditor(myPlanSelector->getCurrentPlanTemplate());
-            // show Netedit attributes module
-            myNeteditAttributesEditor->showAttributesEditor(myPlanSelector->getCurrentPlanTemplate());
             // show edge path creator module
             myPlanCreator->showPlanCreatorModule(myPlanSelector, nullptr);
             // show legend
@@ -239,7 +233,7 @@ GNEContainerFrame::demandElementSelected() {
         } else {
             // hide modules
             myContainerAttributesEditor->hideAttributesEditor();
-            myNeteditAttributesEditor->hideAttributesEditor();
+            myContainerPlanAttributesEditor->hideAttributesEditor();
             myPlanCreator->hidePathCreatorModule();
         }
     } else {
@@ -247,7 +241,6 @@ GNEContainerFrame::demandElementSelected() {
         myPlanSelector->hidePlanSelector();
         myContainerAttributesEditor->hideAttributesEditor();
         myContainerPlanAttributesEditor->hideAttributesEditor();
-        myNeteditAttributesEditor->hideAttributesEditor();
         myPlanCreator->hidePathCreatorModule();
     }
 }
@@ -256,9 +249,7 @@ GNEContainerFrame::demandElementSelected() {
 bool
 GNEContainerFrame::createPath(const bool /*useLastRoute*/) {
     // first check that all attributes are valid
-    if (!myContainerAttributesEditor->checkAttributes(true)) {
-        return false;
-    } else if (!myContainerPlanAttributesEditor->checkAttributes(true)) {
+    if (!myContainerAttributesEditor->checkAttributes(true) || !myContainerPlanAttributesEditor->checkAttributes(true)) {
         return false;
     } else if (myPlanCreator->planCanBeCreated(myPlanSelector->getCurrentPlanTemplate())) {
         // begin undo-redo operation

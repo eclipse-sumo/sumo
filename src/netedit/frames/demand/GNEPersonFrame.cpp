@@ -18,12 +18,20 @@
 // The Widget for add Person elements
 /****************************************************************************/
 
-#include <netedit/elements/additional/GNETAZ.h>
+#include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
-#include <netedit/GNEApplicationWindow.h>
+#include <netedit/elements/additional/GNETAZ.h>
+#include <netedit/elements/demand/GNERouteHandler.h>
+#include <netedit/frames/GNEAttributesEditor.h>
+#include <netedit/frames/GNEDemandSelector.h>
+#include <netedit/frames/GNEFrame.h>
+#include <netedit/frames/GNEPlanCreator.h>
+#include <netedit/frames/GNEPlanCreatorLegend.h>
+#include <netedit/frames/GNEPlanSelector.h>
+#include <netedit/frames/GNETagSelector.h>
 #include <utils/vehicle/SUMOVehicleParserHelper.h>
 #include <utils/xml/SUMOSAXAttributesImpl_Cached.h>
 
@@ -32,10 +40,6 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-
-// ---------------------------------------------------------------------------
-// GNEPersonFrame - methods
-// ---------------------------------------------------------------------------
 
 GNEPersonFrame::GNEPersonFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
     GNEFrame(viewParent, viewNet, TL("Persons")),
@@ -49,16 +53,13 @@ GNEPersonFrame::GNEPersonFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
     myTypeSelector = new GNEDemandElementSelector(this, SUMO_TAG_VTYPE, GNETagProperties::TagType::PERSON);
 
     // create person attributes
-    myPersonAttributesEditor = new GNEAttributesEditorType(this, TL("Internal attributes"), GNEAttributesEditorType::EditorType::CREATOR, GNEAttributesEditorType::AttributeType::BASIC);
+    myPersonAttributesEditor = new GNEAttributesEditor(this, GNEAttributesEditorType::EditorType::CREATOR);
 
     // create plan selector module for person plans
     myPlanSelector = new GNEPlanSelector(this, SUMO_TAG_PERSON);
 
     // create person plan attributes
-    myPersonPlanAttributesEditor = new GNEAttributesEditorType(this, TL("Internal plan attributes"), GNEAttributesEditorType::EditorType::CREATOR, GNEAttributesEditorType::AttributeType::CHILD);
-
-    // Create Netedit attribute editor
-    myNeteditAttributesEditor = new GNEAttributesEditorType(this, TL("Netedit attributes"), GNEAttributesEditorType::EditorType::CREATOR, GNEAttributesEditorType::AttributeType::NETEDIT);
+    myPersonPlanAttributesEditor = new GNEAttributesEditor(this, GNEAttributesEditorType::EditorType::CREATOR);
 
     // create GNEPlanCreator Module
     myPlanCreator = new GNEPlanCreator(this, viewNet->getNet()->getDemandPathManager());
@@ -159,8 +160,8 @@ GNEPersonFrame::getPlanSelector() const {
 }
 
 
-GNEAttributesEditorType*
-GNEPersonFrame::getPersonAttributes() const {
+GNEAttributesEditor*
+GNEPersonFrame::getPersonAttributesEditor() const {
     return myPersonAttributesEditor;
 }
 
@@ -184,8 +185,6 @@ GNEPersonFrame::tagSelected() {
             if (myPlanSelector->getCurrentPlanTemplate()) {
                 // show person plan attributes
                 myPersonPlanAttributesEditor->showAttributesEditor(myPlanSelector->getCurrentPlanTemplate());
-                // show Netedit attributes module
-                myNeteditAttributesEditor->showAttributesEditor(myPlanSelector->getCurrentPlanTemplate());
                 // show edge path creator module
                 myPlanCreator->showPlanCreatorModule(myPlanSelector, nullptr);
                 // show path legend
@@ -193,7 +192,6 @@ GNEPersonFrame::tagSelected() {
             } else {
                 // hide modules
                 myPersonPlanAttributesEditor->hideAttributesEditor();
-                myNeteditAttributesEditor->hideAttributesEditor();
                 myPlanCreator->hidePathCreatorModule();
                 myPlanCreatorLegend->hidePlanCreatorLegend();
             }
@@ -202,7 +200,6 @@ GNEPersonFrame::tagSelected() {
             myPlanSelector->hidePlanSelector();
             myPersonPlanAttributesEditor->hideAttributesEditor();
             myPersonPlanAttributesEditor->hideAttributesEditor();
-            myNeteditAttributesEditor->hideAttributesEditor();
             myPlanCreator->hidePathCreatorModule();
             myPlanCreatorLegend->hidePlanCreatorLegend();
         }
@@ -212,7 +209,6 @@ GNEPersonFrame::tagSelected() {
         myPlanSelector->hidePlanSelector();
         myPersonPlanAttributesEditor->hideAttributesEditor();
         myPersonPlanAttributesEditor->hideAttributesEditor();
-        myNeteditAttributesEditor->hideAttributesEditor();
         myPlanCreator->hidePathCreatorModule();
         myPlanCreatorLegend->hidePlanCreatorLegend();
     }
@@ -230,8 +226,6 @@ GNEPersonFrame::demandElementSelected() {
         if (myPlanSelector->getCurrentPlanTagProperties()->getTag() != SUMO_TAG_NOTHING) {
             // show person plan attributes
             myPersonPlanAttributesEditor->showAttributesEditor(myPlanSelector->getCurrentPlanTemplate());
-            // show Netedit attributes module
-            myNeteditAttributesEditor->showAttributesEditor(myPlanSelector->getCurrentPlanTemplate());
             // show edge path creator module
             myPlanCreator->showPlanCreatorModule(myPlanSelector, nullptr);
             // show legend
@@ -239,7 +233,6 @@ GNEPersonFrame::demandElementSelected() {
         } else {
             // hide modules
             myPersonPlanAttributesEditor->hideAttributesEditor();
-            myNeteditAttributesEditor->hideAttributesEditor();
             myPlanCreator->hidePathCreatorModule();
         }
     } else {
@@ -247,7 +240,6 @@ GNEPersonFrame::demandElementSelected() {
         myPlanSelector->hidePlanSelector();
         myPersonPlanAttributesEditor->hideAttributesEditor();
         myPersonPlanAttributesEditor->hideAttributesEditor();
-        myNeteditAttributesEditor->hideAttributesEditor();
         myPlanCreator->hidePathCreatorModule();
     }
 }
@@ -256,9 +248,7 @@ GNEPersonFrame::demandElementSelected() {
 bool
 GNEPersonFrame::createPath(const bool /*useLastRoute*/) {
     // first check that all attributes are valid
-    if (!myPersonPlanAttributesEditor->checkAttributes(true)) {
-        return false;
-    } else if (!myPersonPlanAttributesEditor->checkAttributes(true)) {
+    if (!myPersonPlanAttributesEditor->checkAttributes(true) || !myPersonPlanAttributesEditor->checkAttributes(true)) {
         return false;
     } else if (myPlanCreator->planCanBeCreated(myPlanSelector->getCurrentPlanTemplate())) {
         // begin undo-redo operation

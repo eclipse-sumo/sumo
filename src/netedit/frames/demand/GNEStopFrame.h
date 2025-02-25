@@ -116,11 +116,8 @@ private:
     /// @brief stop tag selector selector (used to select diffent kind of Stops)
     GNETagSelector* myStopTagSelector = nullptr;
 
-    /// @brief internal Stop attributes
-    GNEAttributesEditorType* myStopAttributesEditor = nullptr;
-
-    /// @brief Netedit attributes editor
-    GNEAttributesEditorType* myNeteditAttributesEditor = nullptr;
+    /// @brief attributes editor
+    GNEAttributesEditor* myAttributesEditor = nullptr;
 
     /// @brief Help creation
     HelpCreation* myHelpCreation = nullptr;

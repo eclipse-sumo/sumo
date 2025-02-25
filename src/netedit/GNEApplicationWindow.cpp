@@ -32,6 +32,7 @@
 #include <netedit/elements/network/GNECrossing.h>
 #include <netedit/elements/network/GNEEdgeType.h>
 #include <netedit/elements/network/GNELaneType.h>
+#include <netedit/frames/GNEAttributesEditor.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
 #include <netedit/frames/common/GNESelectorFrame.h>
 #include <netedit/frames/network/GNECreateEdgeFrame.h>
@@ -2132,13 +2133,13 @@ GNEApplicationWindow::onCmdToggleTimeFormat(FXObject*, FXSelector, void*) {
         myViewNet->getTimeFormat().switchTimeFormat();
         // refresh flow frames
         if (myViewNet->getViewParent()->getVehicleFrame()->shown()) {
-            myViewNet->getViewParent()->getVehicleFrame()->getVehicleAttributes()->refreshAttributesEditor();
+            myViewNet->getViewParent()->getVehicleFrame()->getVehicleAttributesEditor()->refreshAttributesEditor();
         }
         if (myViewNet->getViewParent()->getPersonFrame()->shown()) {
-            myViewNet->getViewParent()->getPersonFrame()->getPersonAttributes()->refreshAttributesEditor();
+            myViewNet->getViewParent()->getPersonFrame()->getPersonAttributesEditor()->refreshAttributesEditor();
         }
         if (myViewNet->getViewParent()->getContainerFrame()->shown()) {
-            myViewNet->getViewParent()->getContainerFrame()->getContainerAttributes()->refreshAttributesEditor();
+            myViewNet->getViewParent()->getContainerFrame()->getContainerAttributesEditor()->refreshAttributesEditor();
         }
         // refresh inspector frame
         if (myViewNet->getViewParent()->getInspectorFrame()->shown()) {
