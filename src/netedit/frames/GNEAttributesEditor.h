@@ -28,6 +28,7 @@
 
 class GNEAttributesEditor {
 
+public:
     /// @brief constructor
     GNEAttributesEditor(GNEFrame* frameParent, GNEAttributesEditorType::EditorType editorType);
 
@@ -53,10 +54,25 @@ class GNEAttributesEditor {
     SumoXMLAttr fillSumoBaseObject(CommonXMLStructure::SumoBaseObject* baseObject) const;
 
 protected:
+    /// @brief basic attributes editor
+    GNEAttributesEditorType* myBasicAttributesEditor = nullptr;
 
+    /// @brief child attributes editor
+    GNEAttributesEditorType* myChildAttributesEditor = nullptr;
+
+    /// @brief extended attributes editor
+    GNEAttributesEditorType* myExtendedAttributesEditor = nullptr;
+
+    /// @brief flow attributes editor
+    GNEAttributesEditorType* myFlowAttributesEditor = nullptr;
+
+    /// @brief geo attributes editor
+    GNEAttributesEditorType* myGeoAttributesEditor = nullptr;
+
+    /// @brief parameteres attributes editor
+    GNEAttributesEditorType* myParametersAttributesEditor = nullptr;
 
 private:
-
     /// @brief Invalidated copy constructor.
     GNEAttributesEditor(GNEAttributesEditor*) = delete;
 

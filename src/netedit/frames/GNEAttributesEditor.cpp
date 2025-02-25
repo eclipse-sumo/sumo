@@ -25,51 +25,118 @@
 // ===========================================================================
 
 GNEAttributesEditor::GNEAttributesEditor(GNEFrame* frameParent, GNEAttributesEditorType::EditorType editorType) {
-
+    myBasicAttributesEditor = new GNEAttributesEditorType(frameParent, TL("Internal plan attributes"), editorType, GNEAttributesEditorType::AttributeType::CHILD);
+    myChildAttributesEditor = new GNEAttributesEditorType(frameParent, TL("Internal plan attributes"), editorType, GNEAttributesEditorType::AttributeType::CHILD);
+    myExtendedAttributesEditor = new GNEAttributesEditorType(frameParent, TL("Internal plan attributes"), editorType, GNEAttributesEditorType::AttributeType::CHILD);
+    myFlowAttributesEditor = new GNEAttributesEditorType(frameParent, TL("Internal plan attributes"), editorType, GNEAttributesEditorType::AttributeType::CHILD);
+    myGeoAttributesEditor = new GNEAttributesEditorType(frameParent, TL("Internal plan attributes"), editorType, GNEAttributesEditorType::AttributeType::CHILD);
+    myParametersAttributesEditor = new GNEAttributesEditorType(frameParent, TL("Internal plan attributes"), editorType, GNEAttributesEditorType::AttributeType::CHILD);
 }
 
 
 void
 GNEAttributesEditor::showAttributesEditor(GNEAttributeCarrier* AC) {
-
+    myBasicAttributesEditor->showAttributesEditor(AC);
+    myChildAttributesEditor->showAttributesEditor(AC);
+    myExtendedAttributesEditor->showAttributesEditor(AC);
+    myFlowAttributesEditor->showAttributesEditor(AC);
+    myGeoAttributesEditor->showAttributesEditor(AC);
+    myParametersAttributesEditor->showAttributesEditor(AC);
 }
 
 
 void
 GNEAttributesEditor::showAttributesEditor(const std::unordered_set<GNEAttributeCarrier*>& ACs) {
-
+    myBasicAttributesEditor->showAttributesEditor(ACs);
+    myChildAttributesEditor->showAttributesEditor(ACs);
+    myExtendedAttributesEditor->showAttributesEditor(ACs);
+    myFlowAttributesEditor->showAttributesEditor(ACs);
+    myGeoAttributesEditor->showAttributesEditor(ACs);
+    myParametersAttributesEditor->showAttributesEditor(ACs);
 }
 
 
 void
 GNEAttributesEditor::hideAttributesEditor() {
-
+    myBasicAttributesEditor->hideAttributesEditor();
+    myChildAttributesEditor->hideAttributesEditor();
+    myExtendedAttributesEditor->hideAttributesEditor();
+    myFlowAttributesEditor->hideAttributesEditor();
+    myGeoAttributesEditor->hideAttributesEditor();
+    myParametersAttributesEditor->hideAttributesEditor();
 }
 
 
 void
 GNEAttributesEditor::refreshAttributesEditor() {
-
+    myBasicAttributesEditor->refreshAttributesEditor();
+    myChildAttributesEditor->refreshAttributesEditor();
+    myExtendedAttributesEditor->refreshAttributesEditor();
+    myFlowAttributesEditor->refreshAttributesEditor();
+    myGeoAttributesEditor->refreshAttributesEditor();
+    myParametersAttributesEditor->refreshAttributesEditor();
 }
 
 
 void
 GNEAttributesEditor::disableAttributesEditor() {
-
+    myBasicAttributesEditor->disableAttributesEditor();
+    myChildAttributesEditor->disableAttributesEditor();
+    myExtendedAttributesEditor->disableAttributesEditor();
+    myFlowAttributesEditor->disableAttributesEditor();
+    myGeoAttributesEditor->disableAttributesEditor();
+    myParametersAttributesEditor->disableAttributesEditor();
 }
 
 
 bool
 GNEAttributesEditor::checkAttributes(const bool showWarning) {
-
-    return true;
+    if (!myBasicAttributesEditor->checkAttributes(showWarning)) {
+        return false;
+    } else if (!myChildAttributesEditor->checkAttributes(showWarning)) {
+        return false;
+    } else if (!myExtendedAttributesEditor->checkAttributes(showWarning)) {
+        return false;
+    } else if (!myFlowAttributesEditor->checkAttributes(showWarning)) {
+        return false;
+    } else if (!myGeoAttributesEditor->checkAttributes(showWarning)) {
+        return false;
+    } else if (!myParametersAttributesEditor->checkAttributes(showWarning)) {
+        return false;
+    } else {
+        return true;
+    }
 }
 
 
 SumoXMLAttr
 GNEAttributesEditor::fillSumoBaseObject(CommonXMLStructure::SumoBaseObject* baseObject) const {
-
-    return SUMO_ATTR_NOTHING;
+    SumoXMLAttr fillResult = SUMO_ATTR_DEFAULT;
+    fillResult = myBasicAttributesEditor->fillSumoBaseObject(baseObject);
+    if (fillResult == SUMO_ATTR_NOTHING) {
+        return fillResult;
+    }
+    fillResult = myChildAttributesEditor->fillSumoBaseObject(baseObject);
+    if (fillResult == SUMO_ATTR_NOTHING) {
+        return fillResult;
+    }
+    fillResult = myExtendedAttributesEditor->fillSumoBaseObject(baseObject);
+    if (fillResult == SUMO_ATTR_NOTHING) {
+        return fillResult;
+    }
+    fillResult = myFlowAttributesEditor->fillSumoBaseObject(baseObject);
+    if (fillResult == SUMO_ATTR_NOTHING) {
+        return fillResult;
+    }
+    fillResult = myGeoAttributesEditor->fillSumoBaseObject(baseObject);
+    if (fillResult == SUMO_ATTR_NOTHING) {
+        return fillResult;
+    }
+    fillResult = myParametersAttributesEditor->fillSumoBaseObject(baseObject);
+    if (fillResult == SUMO_ATTR_NOTHING) {
+        return fillResult;
+    }
+    return fillResult;
 }
 
 /****************************************************************************/
