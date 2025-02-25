@@ -53,7 +53,7 @@ public:
     /// @brief fill sumo Base object
     SumoXMLAttr fillSumoBaseObject(CommonXMLStructure::SumoBaseObject* baseObject) const;
 
-protected:
+public:
     /// @brief basic attributes editor
     GNEAttributesEditorType* myBasicAttributesEditor = nullptr;
 

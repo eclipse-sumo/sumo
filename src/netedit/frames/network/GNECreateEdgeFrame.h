@@ -27,14 +27,12 @@
 // ===========================================================================
 
 class GNEEdgeType;
+class GNEAttributesEditor;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/**
- * @class GNECreateEdgeFrame
- * The Widget for create edges
- */
+
 class GNECreateEdgeFrame : public GNEFrame {
 
 public:
@@ -276,13 +274,13 @@ public:
     EdgeTypeSelector* getEdgeTypeSelector() const;
 
     /// @brief get edgeType attributes
-    GNEAttributesEditorType* getEdgeTypeAttributes() const;
+    GNEAttributesEditor* getEdgeTypeAttributes() const;
 
     /// @brief get lane type selector
     LaneTypeSelector* getLaneTypeSelector();
 
     /// @brief get laneType attributes
-    GNEAttributesEditorType* getLaneTypeAttributes() const;
+    GNEAttributesEditor* getLaneTypeAttributes() const;
 
     /// @brief set default to using edge template
     void setUseEdgeTemplate();
@@ -292,13 +290,13 @@ protected:
     EdgeTypeSelector* myEdgeTypeSelector = nullptr;
 
     /// @brief internal edgeType attributes
-    GNEAttributesEditorType* myEdgeTypeAttributesEditor = nullptr;
+    GNEAttributesEditor* myEdgeTypeAttributesEditor = nullptr;
 
     /// @brief lane type selector
     GNECreateEdgeFrame::LaneTypeSelector* myLaneTypeSelector = nullptr;
 
     /// @brief internal laneType attributes
-    GNEAttributesEditorType* myLaneTypeAttributesEditor = nullptr;
+    GNEAttributesEditor* myLaneTypeAttributesEditor = nullptr;
 
     /// @brief Legend
     GNECreateEdgeFrame::Legend* myLegend = nullptr;

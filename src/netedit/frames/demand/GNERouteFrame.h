@@ -21,23 +21,19 @@
 #include <config.h>
 
 #include <netedit/elements/demand/GNERouteHandler.h>
-#include <netedit/frames/GNEFrame.h>
-#include <netedit/frames/GNEPathLegendModule.h>
-
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
+class GNEAttributesEditor;
+class GNEPathLegendModule;
 class GNERoute;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/**
- * @class GNERouteFrame
- * The Widget for create route elements
- */
+
 class GNERouteFrame : public GNEFrame {
 
 public:
@@ -151,13 +147,7 @@ private:
     RouteModeSelector* myRouteModeSelector = nullptr;
 
     /// @brief internal route attributes editor
-    GNEAttributesEditorType* myRouteAttributesEditor = nullptr;
-
-    /// @brief netedit attributes
-    GNEAttributesEditorType* myNeteditAttributesEditor = nullptr;
-
-    /// @brief Generic parameters editor
-    GNEAttributesEditorType* myGenericParametersEditor = nullptr;
+    GNEAttributesEditor* myRouteAttributesEditor = nullptr;
 
     /// @brief path creator modul
     GNEPathCreator* myPathCreator = nullptr;

@@ -18,21 +18,24 @@
 // The Widget for add genericData elements
 /****************************************************************************/
 
+#include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNETagPropertiesDatabase.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
-#include <netedit/GNEApplicationWindow.h>
 #include <netedit/elements/data/GNEDataHandler.h>
 #include <netedit/elements/data/GNEDataInterval.h>
 #include <netedit/elements/data/GNEEdgeData.h>
 #include <netedit/elements/data/GNEEdgeRelData.h>
 #include <netedit/elements/data/GNETAZRelData.h>
+#include <netedit/frames/GNEAttributesEditor.h>
+#include <netedit/frames/GNEPathCreator.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 
 #include "GNEGenericDataFrame.h"
+
 // ===========================================================================
 // FOX callback mapping
 // ===========================================================================
@@ -42,7 +45,6 @@ FXDEFMAP(GNEGenericDataFrame::DataSetSelector) DataSetSelectorMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_GNE_DATASET_NEW,         GNEGenericDataFrame::DataSetSelector::onCmdSetNewDataSetID),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_DATASET_SELECTED,    GNEGenericDataFrame::DataSetSelector::onCmdSelectDataSet),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_SELECT,              GNEGenericDataFrame::DataSetSelector::onCmdSelectCheckButton)
-
 };
 
 FXDEFMAP(GNEGenericDataFrame::IntervalSelector) IntervalSelectorMap[] = {
@@ -610,9 +612,7 @@ GNEGenericDataFrame::GNEGenericDataFrame(GNEViewParent* viewParent, GNEViewNet* 
     // create AttributeSelector module
     myAttributeSelector = new AttributeSelector(this, tag);
     // create parameter editor module
-    myGenericDataAttributesEditor = new GNEAttributesEditorType(this, TL("Parameters"),
-            GNEAttributesEditorType::EditorType::CREATOR,
-            GNEAttributesEditorType::AttributeType::PARAMETERS);
+    myGenericDataAttributesEditor = new GNEAttributesEditor(this, GNEAttributesEditorType::EditorType::CREATOR);
     // create GNEPathCreator module
     if (pathCreator) {
         myPathCreator = new GNEPathCreator(this, viewNet->getNet()->getDataPathManager());

@@ -21,23 +21,21 @@
 #include <config.h>
 
 #include <netedit/frames/GNEFrame.h>
-#include <netedit/frames/GNEPathCreator.h>
 
 // ===========================================================================
 // class declaration
 // ===========================================================================
 
+class GNEAttributesEditor;
 class GNEAttributesEditorType;
 class GNEDataInterval;
 class GNEDataSet;
+class GNEPathCreator;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/**
- * @class GNEGenericDataFrame
- * The Widget for setting internal attributes of additional elements
- */
+
 class GNEGenericDataFrame : public GNEFrame {
 
 public:
@@ -278,7 +276,7 @@ protected:
     AttributeSelector* myAttributeSelector = nullptr;
 
     /// @brief parameters editor creator
-    GNEAttributesEditorType* myGenericDataAttributesEditor = nullptr;
+    GNEAttributesEditor* myGenericDataAttributesEditor = nullptr;
 
     /// @brief edge path creator (used for Walks, rides and trips)
     GNEPathCreator* myPathCreator = nullptr;

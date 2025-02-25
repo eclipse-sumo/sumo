@@ -27,6 +27,7 @@
 // class definitions
 // ===========================================================================
 
+class GNEAttributesEditor;
 class GNEDemandElement;
 class MFXComboBoxIcon;
 class MFXTextFieldTooltip;
@@ -157,7 +158,7 @@ public:
         DistributionEditor* myDistributionEditor = nullptr;
 
         /// @brief attributes editor
-        GNEAttributesEditorType* myAttributesEditor = nullptr;
+        GNEAttributesEditor* myAttributesEditor = nullptr;
 
         /// @brief distribution values editor
         DistributionValuesEditor* myDistributionValuesEditor = nullptr;
@@ -250,7 +251,7 @@ public:
         /// @brief constructor
         DistributionValuesEditor(GNEFrame* frameParent, DistributionEditor* distributionEditor,
                                  DistributionSelector* distributionSelector,
-                                 GNEAttributesEditorType* attributesEditor,
+                                 GNEAttributesEditor* attributesEditor,
                                  SumoXMLTag distributionValueTag);
 
         /// @brief show attributes of multiple ACs
@@ -297,7 +298,7 @@ public:
         DistributionSelector* myDistributionSelector;
 
         /// @brief attributes editor
-        GNEAttributesEditorType* myAttributesEditor;
+        GNEAttributesEditor* myAttributesEditor;
 
         /// @brief distribution value tag
         SumoXMLTag myDistributionValueTag;

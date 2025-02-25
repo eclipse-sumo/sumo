@@ -26,6 +26,7 @@
 #include <netedit/elements/data/GNEDataInterval.h>
 #include <netedit/elements/data/GNEEdgeData.h>
 #include <netedit/elements/network/GNEEdge.h>
+#include <netedit/frames/GNEAttributesEditor.h>
 
 #include "GNEEdgeDataFrame.h"
 

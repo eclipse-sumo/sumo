@@ -24,9 +24,10 @@
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/changes/GNEChange_DemandElement.h>
-#include <netedit/elements/demand/GNEVType.h>
-#include <netedit/dialogs/GNEVehicleTypeDialog.h>
 #include <netedit/dialogs/GNEVTypeDistributionsDialog.h>
+#include <netedit/dialogs/GNEVehicleTypeDialog.h>
+#include <netedit/elements/demand/GNEVType.h>
+#include <netedit/frames/GNEAttributesEditor.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 
@@ -150,8 +151,6 @@ GNETypeFrame::TypeSelector::refreshTypeSelector(const bool updateModuls) {
         myTypeFrameParent->myTypeEditor->refreshTypeEditorModule();
         // show modules
         myTypeFrameParent->myTypeAttributesEditor->showAttributesEditor(myCurrentType, true);
-        myTypeFrameParent->myAttributesEditorExtended->showAttributesEditor(myCurrentType, true);
-        myTypeFrameParent->myGenericParametersEditor->showAttributesEditor(myCurrentType, true);
     }
 }
 
@@ -169,8 +168,6 @@ GNETypeFrame::TypeSelector::onCmdSelectItem(FXObject*, FXSelector, void*) {
             myTypeFrameParent->myTypeEditor->refreshTypeEditorModule();
             // show modules if selected item is valid
             myTypeFrameParent->myTypeAttributesEditor->showAttributesEditor(myCurrentType, true);
-            myTypeFrameParent->myAttributesEditorExtended->showAttributesEditor(myCurrentType, true);
-            myTypeFrameParent->myGenericParametersEditor->showAttributesEditor(myCurrentType, true);
             // update viewNet
             myTypeFrameParent->getViewNet()->updateViewNet();
             return 1;
@@ -181,7 +178,6 @@ GNETypeFrame::TypeSelector::onCmdSelectItem(FXObject*, FXSelector, void*) {
     myTypeFrameParent->myTypeEditor->refreshTypeEditorModule();
     // hide all modules if selected item isn't valid
     myTypeFrameParent->myTypeAttributesEditor->hideAttributesEditor();
-    myTypeFrameParent->myAttributesEditorExtended->hideAttributesEditor();
     // set color of myTypeMatchBox to red (invalid)
     myTypeComboBox->setTextColor(FXRGB(255, 0, 0));
     // update viewNet
@@ -383,19 +379,7 @@ GNETypeFrame::GNETypeFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
     myTypeSelector = new TypeSelector(this);
 
     // Create vehicle type attributes editor
-    myTypeAttributesEditor = new GNEAttributesEditorType(this, TL("Attributes"),
-            GNEAttributesEditorType::EditorType::EDITOR,
-            GNEAttributesEditorType::AttributeType::BASIC);
-
-    // create module for open extended attributes dialog
-    myAttributesEditorExtended = new GNEAttributesEditorType(this, TL("Extended attributes"),
-            GNEAttributesEditorType::EditorType::EDITOR,
-            GNEAttributesEditorType::AttributeType::EXTENDED);
-
-    // Create parameters editor
-    myGenericParametersEditor = new GNEAttributesEditorType(this, TL("Parameters"),
-            GNEAttributesEditorType::EditorType::EDITOR,
-            GNEAttributesEditorType::AttributeType::PARAMETERS);
+    myTypeAttributesEditor = new GNEAttributesEditor(this, GNEAttributesEditorType::EditorType::EDITOR);
 
     // set "VTYPE_DEFAULT" as default vehicle Type
     myTypeSelector->setCurrentType(myViewNet->getNet()->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, DEFAULT_VTYPE_ID));
@@ -411,7 +395,6 @@ GNETypeFrame::show() {
     myTypeSelector->refreshTypeSelector(true);
     // show modules
     myTypeAttributesEditor->showAttributesEditor(myTypeSelector->getCurrentType(), true);
-    myAttributesEditorExtended->showAttributesEditor(myTypeSelector->getCurrentType(), true);
     // show frame
     GNEFrame::show();
 }

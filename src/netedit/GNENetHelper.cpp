@@ -44,6 +44,7 @@
 #include <netedit/frames/demand/GNETypeFrame.h>
 #include <netedit/frames/demand/GNEVehicleFrame.h>
 #include <netedit/frames/network/GNECreateEdgeFrame.h>
+#include <netedit/frames/GNEElementTree.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/gui/globjects/GUISaveDialog.h>

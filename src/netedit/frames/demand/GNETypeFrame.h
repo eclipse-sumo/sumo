@@ -26,17 +26,16 @@
 // class declarations
 // ===========================================================================
 
+class GNEAttributesEditor;
 class GNEDemandElement;
-class GNEVehicle;
 class GNEVTypeDistributionsDialog;
+class GNEVehicle;
 class MFXComboBoxIcon;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/**
- * @class GNETypeFrame
- */
+
 class GNETypeFrame : public GNEFrame {
 
 public:
@@ -172,14 +171,5 @@ private:
     TypeEditor* myTypeEditor;
 
     /// @brief editorinternal vehicle type attributes
-    GNEAttributesEditorType* myTypeAttributesEditor = nullptr;
-
-    /// @brief netedit attributes
-    GNEAttributesEditorType* myNeteditAttributesEditor = nullptr;
-
-    /// @brief Generic parameters editor
-    GNEAttributesEditorType* myGenericParametersEditor = nullptr;
-
-    /// @brief attributes editor extended
-    GNEAttributesEditorType* myAttributesEditorExtended = nullptr;
+    GNEAttributesEditor* myTypeAttributesEditor = nullptr;
 };

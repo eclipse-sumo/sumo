@@ -18,11 +18,15 @@
 // The Widget for editing wires
 /****************************************************************************/
 
+#include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
-#include <netedit/GNEApplicationWindow.h>
 #include <netedit/elements/additional/GNEAdditionalHandler.h>
+#include <netedit/frames/GNEAttributesEditor.h>
+#include <netedit/frames/GNEConsecutiveSelector.h>
+#include <netedit/frames/GNESelectorParent.h>
+#include <netedit/frames/GNETagSelector.h>
 
 #include "GNEWireFrame.h"
 
@@ -38,10 +42,7 @@ GNEWireFrame::GNEWireFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
     myWireTagSelector = new GNETagSelector(this, GNETagProperties::TagType::WIRE, SUMO_TAG_TRACTION_SUBSTATION);
 
     // Create wire parameters
-    myWireAttributesEditor = new GNEAttributesEditorType(this, TL("Internal attributes"), GNEAttributesEditorType::EditorType::CREATOR, GNEAttributesEditorType::AttributeType::BASIC);
-
-    // Create Netedit attribute editor
-    myNeteditAttributesEditor = new GNEAttributesEditorType(this, TL("Netedit attributes"), GNEAttributesEditorType::EditorType::CREATOR, GNEAttributesEditorType::AttributeType::NETEDIT);
+    myWireAttributesEditor = new GNEAttributesEditor(this, GNEAttributesEditorType::EditorType::CREATOR);
 
     // Create selector parent
     mySelectorWireParent = new GNESelectorParent(this);
@@ -91,7 +92,6 @@ GNEWireFrame::addWire(const GNEViewNetHelper::ViewObjectsSelector& viewObjects) 
     }
     // obtain attributes and values
     myWireAttributesEditor->fillSumoBaseObject(myBaseWire);
-    myNeteditAttributesEditor->fillSumoBaseObject(myBaseWire);
     if (tagProperties->getTag() == SUMO_TAG_OVERHEAD_WIRE_SECTION) {
         return myConsecutiveLaneSelector->addLane(viewObjects.getLaneFront());
     } else {
@@ -118,7 +118,6 @@ GNEWireFrame::createPath(const bool /* useLastRoute */) {
         } else if (createBaseWireObject(tagProperty)) {
             // get attributes and values
             myWireAttributesEditor->fillSumoBaseObject(myBaseWire);
-            myNeteditAttributesEditor->fillSumoBaseObject(myBaseWire);
             // Check if ID has to be generated
             if (!myBaseWire->hasStringAttribute(SUMO_ATTR_ID)) {
                 myBaseWire->addStringAttribute(SUMO_ATTR_ID, myViewNet->getNet()->getAttributeCarriers()->generateAdditionalID(tagProperty->getTag()));
@@ -156,8 +155,6 @@ GNEWireFrame::tagSelected() {
     if (templateAC) {
         // show wire attributes module
         myWireAttributesEditor->showAttributesEditor(templateAC, true);
-        // show netedit attributes
-        myNeteditAttributesEditor->showAttributesEditor(templateAC, true);
         // check if we're creating a overhead wire section
         if (templateAC->getTagProperty()->getTag() == SUMO_TAG_OVERHEAD_WIRE_SECTION) {
             myConsecutiveLaneSelector->showConsecutiveLaneSelectorModule();
@@ -169,7 +166,6 @@ GNEWireFrame::tagSelected() {
     } else {
         // hide all modules if wire isn't valid
         myWireAttributesEditor->hideAttributesEditor();
-        myNeteditAttributesEditor->hideAttributesEditor();
         myConsecutiveLaneSelector->hideConsecutiveLaneSelectorModule();
         mySelectorWireParent->hideSelectorParentModule();
     }

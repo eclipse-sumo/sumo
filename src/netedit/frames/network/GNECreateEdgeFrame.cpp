@@ -18,17 +18,18 @@
 // The Widget for create edges (and junctions)
 /****************************************************************************/
 
-#include <netedit/frames/common/GNEInspectorFrame.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/changes/GNEChange_EdgeType.h>
 #include <netedit/dialogs/GNESingleParametersDialog.h>
-#include <netedit/elements/network/GNEEdgeType.h>
-#include <netedit/elements/network/GNELaneType.h>
 #include <netedit/elements/network/GNEEdgeTemplate.h>
+#include <netedit/elements/network/GNEEdgeType.h>
 #include <netedit/elements/network/GNELaneTemplate.h>
+#include <netedit/elements/network/GNELaneType.h>
+#include <netedit/frames/GNEAttributesEditor.h>
+#include <netedit/frames/common/GNEInspectorFrame.h>
 #include <utils/foxtools/MFXDynamicLabel.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>
@@ -668,11 +669,11 @@ GNECreateEdgeFrame::GNECreateEdgeFrame(GNEViewParent* viewParent, GNEViewNet* vi
     // create custom edge selector
     myEdgeTypeSelector = new EdgeTypeSelector(this);
     // Create edgeType parameters
-    myEdgeTypeAttributesEditor = new GNEAttributesEditorType(this, TL("Edge attributes"), GNEAttributesEditorType::EditorType::CREATOR, GNEAttributesEditorType::AttributeType::BASIC);
+    myEdgeTypeAttributesEditor = new GNEAttributesEditor(this, GNEAttributesEditorType::EditorType::CREATOR);
     // lane type selector
     myLaneTypeSelector = new LaneTypeSelector(this);
     // Create laneType parameters
-    myLaneTypeAttributesEditor = new GNEAttributesEditorType(this, TL("Lane attributes"), GNEAttributesEditorType::EditorType::CREATOR, GNEAttributesEditorType::AttributeType::BASIC);
+    myLaneTypeAttributesEditor = new GNEAttributesEditor(this, GNEAttributesEditorType::EditorType::CREATOR);
     // create edge selector legend
     myLegend = new Legend(this);
 }
@@ -855,7 +856,7 @@ GNECreateEdgeFrame::getEdgeTypeSelector() const {
 }
 
 
-GNEAttributesEditorType*
+GNEAttributesEditor*
 GNECreateEdgeFrame::getEdgeTypeAttributes() const {
     return myEdgeTypeAttributesEditor;
 }
@@ -867,7 +868,7 @@ GNECreateEdgeFrame::getLaneTypeSelector() {
 }
 
 
-GNEAttributesEditorType*
+GNEAttributesEditor*
 GNECreateEdgeFrame::getLaneTypeAttributes() const {
     return myLaneTypeAttributesEditor;
 }

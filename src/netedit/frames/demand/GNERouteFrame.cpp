@@ -18,11 +18,14 @@
 // The Widget for remove network-elements
 /****************************************************************************/
 
-#include <netedit/elements/demand/GNERoute.h>
+#include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
-#include <netedit/GNEApplicationWindow.h>
+#include <netedit/elements/demand/GNERoute.h>
+#include <netedit/frames/GNEAttributesEditor.h>
+#include <netedit/frames/GNEFrame.h>
+#include <netedit/frames/GNEPathLegendModule.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 
@@ -190,7 +193,7 @@ GNERouteFrame::GNERouteFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
     myRouteModeSelector = new RouteModeSelector(this);
 
     // Create route parameters
-    myRouteAttributesEditor = new GNEAttributesEditorType(this, TL("Internal attributes"), GNEAttributesEditorType::EditorType::CREATOR, GNEAttributesEditorType::AttributeType::BASIC);
+    myRouteAttributesEditor = new GNEAttributesEditor(this, GNEAttributesEditorType::EditorType::CREATOR);
 
     // create consecutive edges module
     myPathCreator = new GNEPathCreator(this, viewNet->getNet()->getDemandPathManager());

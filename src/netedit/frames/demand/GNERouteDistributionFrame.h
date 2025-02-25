@@ -22,13 +22,10 @@
 
 #include "GNEDistributionFrame.h"
 
-
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/**
- * @class GNERouteDistributionFrame
- */
+
 class GNERouteDistributionFrame : public GNEFrame {
 
 public:
@@ -59,7 +56,7 @@ private:
     GNEDistributionFrame::DistributionSelector* myDistributionSelector = nullptr;
 
     /// @brief distribution attributes editor
-    GNEAttributesEditorType* myAttributesEditor = nullptr;
+    GNEAttributesEditor* myAttributesEditor = nullptr;
 
     /// @brief editor for distribution values
     GNEDistributionFrame::DistributionValuesEditor* myDistributionValuesEditor = nullptr;

@@ -18,12 +18,13 @@
 // The Widget for add TAZRelationData elements
 /****************************************************************************/
 
-#include <netedit/elements/data/GNEDataHandler.h>
-#include <netedit/elements/data/GNEDataInterval.h>
-#include <netedit/elements/additional/GNETAZ.h>
+#include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
-#include <netedit/GNEApplicationWindow.h>
+#include <netedit/elements/additional/GNETAZ.h>
+#include <netedit/elements/data/GNEDataHandler.h>
+#include <netedit/elements/data/GNEDataInterval.h>
+#include <netedit/frames/GNEAttributesEditor.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 

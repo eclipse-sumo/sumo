@@ -21,17 +21,20 @@
 #include <config.h>
 
 #include <netedit/frames/GNEFrame.h>
-#include <netedit/frames/GNEConsecutiveSelector.h>
-#include <netedit/frames/GNESelectorParent.h>
-#include <netedit/frames/GNETagSelector.h>
+
+// ===========================================================================
+// class declaration
+// ===========================================================================
+
+class GNETagSelector;
+class GNEAttributesEditor;
+class GNESelectorParent;
+class GNEConsecutiveSelector;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/**
- * @class GNEWireFrame
- * The Widget for editing connection foes
- */
+
 class GNEWireFrame : public GNEFrame {
 
 public:
@@ -77,16 +80,13 @@ private:
     GNETagSelector* myWireTagSelector = nullptr;
 
     /// @brief internal wire attributes
-    GNEAttributesEditorType* myWireAttributesEditor = nullptr;
-
-    /// @brief Netedit attributes editor
-    GNEAttributesEditorType* myNeteditAttributesEditor = nullptr;
+    GNEAttributesEditor* myWireAttributesEditor = nullptr;
 
     /// @brief Select wire parent
     GNESelectorParent* mySelectorWireParent = nullptr;
 
     /// @brief Module for select consecutive lanes
-    GNEConsecutiveSelector* myConsecutiveLaneSelector;
+    GNEConsecutiveSelector* myConsecutiveLaneSelector = nullptr;
 
     /// @brief Warn about experimental state
     bool myWarnedExperimental = false;

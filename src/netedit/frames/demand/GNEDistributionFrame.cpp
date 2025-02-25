@@ -27,6 +27,7 @@
 #include <netedit/changes/GNEChange_DemandElement.h>
 #include <netedit/elements/demand/GNERouteDistribution.h>
 #include <netedit/elements/demand/GNEVTypeDistribution.h>
+#include <netedit/frames/GNEAttributesEditor.h>
 #include <utils/foxtools/MFXTextFieldTooltip.h>
 #include <utils/gui/div/GUIDesigns.h>
 
@@ -470,7 +471,7 @@ GNEDistributionFrame::DistributionRow::isValidNewKey() const {
 // ---------------------------------------------------------------------------
 
 GNEDistributionFrame::DistributionValuesEditor::DistributionValuesEditor(GNEFrame* frameParent, DistributionEditor* distributionEditor,
-        DistributionSelector* distributionSelector, GNEAttributesEditorType* attributesEditor, SumoXMLTag distributionValueTag) :
+        DistributionSelector* distributionSelector, GNEAttributesEditor* attributesEditor, SumoXMLTag distributionValueTag) :
     MFXGroupBoxModule(frameParent, TL("Distribution values")),
     myFrameParent(frameParent),
     myDistributionEditor(distributionEditor),

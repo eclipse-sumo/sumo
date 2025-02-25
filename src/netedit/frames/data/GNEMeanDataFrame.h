@@ -22,20 +22,17 @@
 
 #include <netedit/frames/GNEFrame.h>
 
-
 // ===========================================================================
 // class declaration
 // ===========================================================================
 
 class GNEMeanData;
+class GNEAttributesEditor;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/**
- * @class GNEMeanDataFrame
- * The Widget for setting internal attributes of additional elements
- */
+
 class GNEMeanDataFrame : public GNEFrame {
 
 public:
@@ -220,7 +217,7 @@ protected:
     MeanDataSelector* myMeanDataSelector = nullptr;
 
     /// @brief meanData attributes editor
-    GNEAttributesEditorType* myMeanDataAttributesEditor = nullptr;
+    GNEAttributesEditor* myMeanDataAttributesEditor = nullptr;
 
 private:
     /// @brief Invalidated copy constructor.
