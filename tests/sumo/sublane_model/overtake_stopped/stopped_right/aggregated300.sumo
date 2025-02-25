@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-02-24 11:56:04 by Eclipse SUMO sumo Version v1_22_0+0465-e1039b2b80b
+<!-- generated on 2025-02-25 15:35:29 by Eclipse SUMO sumo Version v1_22_0+0482-1a6656b69b7
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -39,10 +39,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
-    <interval begin="0.00" end="634.00" id="laneData">
+    <interval begin="0.00" end="599.00" id="laneData">
         <edge id="beg2">
-            <lane id="beg2_0" sampledSeconds="13126.04" traveltime="169.82" overlapTraveltime="169.92" density="6.92" laneDensity="6.92" occupancy="3.46" waitingTime="1539.00" timeLoss="6129.79" speed="17.64" speedRelative="0.49" departed="98" arrived="105" entered="0" left="0" laneChangedFrom="120" laneChangedTo="127"/>
-            <lane id="beg2_1" sampledSeconds="11501.66" traveltime="220.82" overlapTraveltime="220.98" density="6.06" laneDensity="6.06" occupancy="3.03" waitingTime="1187.00" timeLoss="7253.51" speed="13.56" speedRelative="0.38" departed="57" arrived="50" entered="0" left="0" laneChangedFrom="127" laneChangedTo="120"/>
+            <lane id="beg2_0" sampledSeconds="6048.28" traveltime="96.40" overlapTraveltime="96.54" density="3.37" laneDensity="3.37" occupancy="1.69" waitingTime="10.00" timeLoss="258.59" speed="31.05" speedRelative="0.86" departed="98" arrived="101" entered="0" left="0" laneChangedFrom="100" laneChangedTo="103"/>
+            <lane id="beg2_1" sampledSeconds="6044.65" traveltime="90.58" overlapTraveltime="90.72" density="3.37" laneDensity="3.37" occupancy="1.69" waitingTime="10.00" timeLoss="591.23" speed="33.04" speedRelative="0.92" departed="57" arrived="54" entered="0" left="0" laneChangedFrom="103" laneChangedTo="100"/>
         </edge>
     </interval>
 </meandata>
