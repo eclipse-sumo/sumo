@@ -568,16 +568,7 @@ SUBSCRIBE_HELPER(RouteProbe)
 %}
 %enddef
 #endif
-#ifdef SWIGCSHARP
-%define SELF_NULL_CHECKER(traci_class)
-%typemap(check) libsumo::traci_class *self %{
-  if (!$1) {
-    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "NULL", "self");
-    return $null;
-  }
-%}
-%enddef
-#endif
+#if defined(SWIGJAVA) || defined(SWIGPYTHON)
 SELF_NULL_CHECKER(TraCIResult)
 SELF_NULL_CHECKER(TraCIPosition)
 SELF_NULL_CHECKER(TraCIPositionVector)
@@ -602,5 +593,6 @@ SELF_NULL_CHECKER(TraCIReservation)
 SELF_NULL_CHECKER(TraCICollision)
 SELF_NULL_CHECKER(TraCISignalConstraint)
 SELF_NULL_CHECKER(TraCIJunctionFoe)
+#endif
 
 // %feature("compactdefaultargs") libsumo::Simulation::findRoute;
