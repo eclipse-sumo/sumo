@@ -36,6 +36,8 @@ set(netedit_frames_SRCS
    GNEPlanCreator.cpp
    GNEPlanCreatorLegend.h
    GNEPlanCreatorLegend.cpp
+   GNEAttributesEditor.h
+   GNEAttributesEditor.cpp
    GNEAttributesEditorRow.h
    GNEAttributesEditorRow.cpp
    GNEAttributesEditorType.h
