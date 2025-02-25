@@ -2776,7 +2776,7 @@ MSLCM_SL2015::checkStrategicChange(int ret,
                                    const MSVehicle::LaneQ& best,
                                    int bestLaneOffset,
                                    bool changeToBest,
-                                   double currentDist,
+                                   double& currentDist,
                                    double neighDist,
                                    double laDist,
                                    double roundaboutBonus,
@@ -2824,6 +2824,12 @@ MSLCM_SL2015::checkStrategicChange(int ret,
                 std::cout << SIMTIME << " mustChangeToBest\n";
             }
 #endif
+        } else {
+#ifdef DEBUG_STRATEGIC_CHANGE
+            if (gDebugFlag2) {
+                std::cout << " veh=" << myVehicle.getID() << " avoidStoppedNeigh\n";
+            }
+#endif
         }
     } else {
         // VARIANT_20 (noOvertakeRight)
@@ -2856,6 +2862,11 @@ MSLCM_SL2015::checkStrategicChange(int ret,
         // handling reaction to stopped for opposite direction driving NYI
         const bool noOpposites = &myVehicle.getLane()->getEdge() == &neighLane.getEdge();
         if (laneOffset != 0 && myStrategicParam >= 0 && noOpposites && mustOvertakeStopped(neighLane, leaders, neighLeaders, forwardPos, neighDist, right, latLaneDist, currentDist, latDist)) {
+#ifdef DEBUG_STRATEGIC_CHANGE
+            if (gDebugFlag2) {
+                std::cout << " veh=" << myVehicle.getID() << " mustOvertakeStopped\n";
+            }
+#endif
             if (latDist == 0) {
                 ret |= LCA_STAY | LCA_STRATEGIC;
             } else {
@@ -3008,11 +3019,13 @@ MSLCM_SL2015::mustOvertakeStopped(const MSLane& neighLane, const MSLeaderDistanc
                 ) {
                     // avoid becoming stuck behind a stopped leader
                     currentDist = myVehicle.getPositionOnLane() + leader.second;
+                    myLeftSpace = currentDist - posOnLane;
                     latDist = latLaneDist;
                     mustOvertake = true;
-#ifdef DEBUG_WANTS_CHANGE
+#ifdef DEBUG_STRATEGIC_CHANGE
                     if (DEBUG_COND) {
                         std::cout << " veh=" << myVehicle.getID() << " overtake stopped leader=" << leader.first->getID()
+                                  << " newCurrentDist=" << currentDist
                                   << " overtakeDist=" << overtakeDist
                                   << " remaining=" << MIN2(neighDist, currentDist) - posOnLane
                                   << "\n";

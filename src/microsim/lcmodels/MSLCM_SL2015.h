@@ -282,7 +282,7 @@ protected:
                              const MSVehicle::LaneQ& best,
                              int bestLaneOffset,
                              bool changeToBest,
-                             double currentDist,
+                             double& currentDist,
                              double neighDist,
                              double laDist,
                              double roundaboutBonus,
