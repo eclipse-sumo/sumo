@@ -475,7 +475,7 @@ GNESingleParametersDialog::ParametersOperations::GNEParameterHandler::myStartEle
 // GNESingleParametersDialog - methods
 // ---------------------------------------------------------------------------
 
-GNESingleParametersDialog::GNESingleParametersDialog(GNEAttributesEditor* attributesEditor) :
+GNESingleParametersDialog::GNESingleParametersDialog(GNEAttributesEditorType* attributesEditor) :
     FXDialogBox(attributesEditor->getFrameParent()->getViewNet()->getViewParent()->getGNEAppWindows()->getApp(), "Edit parameters", GUIDesignDialogBoxExplicitStretchable(400, 300)),
     myAttributesEditor(attributesEditor) {
     // call auxiliar constructor

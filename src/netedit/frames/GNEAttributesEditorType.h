@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEAttributesEditor.h
+/// @file    GNEAttributesEditorType.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Nov 2024
 ///
@@ -36,12 +36,12 @@ class GNEAttributeCarrier;
 class GNEAttributesEditorRow;
 
 // ===========================================================================
-// class GNEAttributesEditor
+// class GNEAttributesEditorType
 // ===========================================================================
 
-class GNEAttributesEditor : public MFXGroupBoxModule {
+class GNEAttributesEditorType : public MFXGroupBoxModule {
     /// @brief FOX-declaration
-    FXDECLARE(GNEAttributesEditor)
+    FXDECLARE(GNEAttributesEditorType)
 
     /// @brief declare friend class
     friend class GNEAttributesEditorRow;
@@ -66,7 +66,7 @@ public:
     };
 
     /// @brief constructor
-    GNEAttributesEditor(GNEFrame* frameParent, const std::string attributesEditorName, EditorType editorType, AttributeType attributeType);
+    GNEAttributesEditorType(GNEFrame* frameParent, const std::string attributesEditorName, EditorType editorType, AttributeType attributeType);
 
     /// @brief pointer to GNEFrame parent
     GNEFrame* getFrameParent() const;
@@ -132,7 +132,7 @@ public:
 
 protected:
     /// @brief fox need this
-    FOX_CONSTRUCTOR(GNEAttributesEditor)
+    FOX_CONSTRUCTOR(GNEAttributesEditorType)
 
     /// @name functions called from GNEAttributesEditorRow
     /// @{
@@ -201,11 +201,11 @@ private:
     const AttributeType myAttributeType = AttributeType::BASIC;
 
     /// @brief build rows
-    static void buildRows(GNEAttributesEditor* editorParent);
+    static void buildRows(GNEAttributesEditorType* editorParent);
 
     /// @brief Invalidated copy constructor.
-    GNEAttributesEditor(GNEAttributesEditor*) = delete;
+    GNEAttributesEditorType(GNEAttributesEditorType*) = delete;
 
     /// @brief Invalidated assignment operator.
-    GNEAttributesEditor& operator=(GNEAttributesEditor*) = delete;
+    GNEAttributesEditorType& operator=(GNEAttributesEditorType*) = delete;
 };

@@ -15,12 +15,12 @@
 /// @author  Pablo Alvarez Lopez
 /// @date    Nov 2024
 ///
-// Row used for edit attributes in GNEAttributesEditor
+// Row used for edit attributes in GNEAttributesEditorType
 /****************************************************************************/
 #pragma once
 #include <config.h>
 
-#include "GNEAttributesEditor.h"
+#include "GNEAttributesEditorType.h"
 
 // ===========================================================================
 // class declaration
@@ -40,10 +40,10 @@ class GNEAttributesEditorRow : protected FXHorizontalFrame {
 
 public:
     /// @brief constructor
-    GNEAttributesEditorRow(GNEAttributesEditor* attributeTable);
+    GNEAttributesEditorRow(GNEAttributesEditorType* attributeTable);
 
     /// @brief return true if attribute row was successfully show
-    bool showAttributeRow(GNEAttributesEditor* attributeTable, const GNEAttributeProperties* attrProperty, const bool forceDisable);
+    bool showAttributeRow(GNEAttributesEditorType* attributeTable, const GNEAttributeProperties* attrProperty, const bool forceDisable);
 
     /// @brief hide attribute row (always return false)
     bool hideAttributeRow();
@@ -143,7 +143,7 @@ protected:
 
 private:
     /// @brief pointer to attribute table parent
-    GNEAttributesEditor* myAttributeTable;
+    GNEAttributesEditorType* myAttributeTable;
 
     /// @brief edited attribute property
     const GNEAttributeProperties* myAttrProperty = nullptr;

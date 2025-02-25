@@ -68,7 +68,7 @@ public:
     GNEPlanSelector* getPlanSelector() const;
 
     /// @brief get attributes creator
-    GNEAttributesEditor* getContainerAttributes() const;
+    GNEAttributesEditorType* getContainerAttributes() const;
 
 protected:
     /// @brief Tag selected in GNETagSelector
@@ -97,16 +97,16 @@ private:
     GNEPlanSelector* myPlanSelector = nullptr;
 
     /// @brief internal vehicle attributes
-    GNEAttributesEditor* myContainerAttributesEditor = nullptr;
+    GNEAttributesEditorType* myContainerAttributesEditor = nullptr;
 
     /// @brief internal container plan attributes
-    GNEAttributesEditor* myContainerPlanAttributesEditor = nullptr;
+    GNEAttributesEditorType* myContainerPlanAttributesEditor = nullptr;
 
     /// @brief flow attributes
-    GNEAttributesEditor* myFlowAttributesEditor = nullptr;
+    GNEAttributesEditorType* myFlowAttributesEditor = nullptr;
 
     /// @brief netedit attributes
-    GNEAttributesEditor* myNeteditAttributesEditor = nullptr;
+    GNEAttributesEditorType* myNeteditAttributesEditor = nullptr;
 
     /// @brief plan creator
     GNEPlanCreator* myPlanCreator = nullptr;

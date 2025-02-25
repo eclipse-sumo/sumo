@@ -49,16 +49,16 @@ GNEPersonFrame::GNEPersonFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
     myTypeSelector = new GNEDemandElementSelector(this, SUMO_TAG_VTYPE, GNETagProperties::TagType::PERSON);
 
     // create person attributes
-    myPersonAttributesEditor = new GNEAttributesEditor(this, TL("Internal attributes"), GNEAttributesEditor::EditorType::CREATOR, GNEAttributesEditor::AttributeType::BASIC);
+    myPersonAttributesEditor = new GNEAttributesEditorType(this, TL("Internal attributes"), GNEAttributesEditorType::EditorType::CREATOR, GNEAttributesEditorType::AttributeType::BASIC);
 
     // create plan selector module for person plans
     myPlanSelector = new GNEPlanSelector(this, SUMO_TAG_PERSON);
 
     // create person plan attributes
-    myPersonPlanAttributesEditor = new GNEAttributesEditor(this, TL("Internal plan attributes"), GNEAttributesEditor::EditorType::CREATOR, GNEAttributesEditor::AttributeType::CHILD);
+    myPersonPlanAttributesEditor = new GNEAttributesEditorType(this, TL("Internal plan attributes"), GNEAttributesEditorType::EditorType::CREATOR, GNEAttributesEditorType::AttributeType::CHILD);
 
     // Create Netedit attribute editor
-    myNeteditAttributesEditor = new GNEAttributesEditor(this, TL("Netedit attributes"), GNEAttributesEditor::EditorType::CREATOR, GNEAttributesEditor::AttributeType::NETEDIT);
+    myNeteditAttributesEditor = new GNEAttributesEditorType(this, TL("Netedit attributes"), GNEAttributesEditorType::EditorType::CREATOR, GNEAttributesEditorType::AttributeType::NETEDIT);
 
     // create GNEPlanCreator Module
     myPlanCreator = new GNEPlanCreator(this, viewNet->getNet()->getDemandPathManager());
@@ -159,7 +159,7 @@ GNEPersonFrame::getPlanSelector() const {
 }
 
 
-GNEAttributesEditor*
+GNEAttributesEditorType*
 GNEPersonFrame::getPersonAttributes() const {
     return myPersonAttributesEditor;
 }

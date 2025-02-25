@@ -104,7 +104,7 @@ public:
     GNEPathCreator* getPathCreator() const;
 
     /// @brief get attributes creator
-    GNEAttributesEditor* getVehicleAttributes() const;
+    GNEAttributesEditorType* getVehicleAttributes() const;
 
 protected:
     /// @brief Tag selected in GNETagSelector
@@ -133,16 +133,16 @@ private:
     GNEDemandElementSelector* myTypeSelector = nullptr;
 
     /// @brief internal vehicle attributes
-    GNEAttributesEditor* myVehicleAttributesEditor = nullptr;
+    GNEAttributesEditorType* myVehicleAttributesEditor = nullptr;
 
     /// @brief flow attributes
-    GNEAttributesEditor* myFlowAttributesEditor = nullptr;
+    GNEAttributesEditorType* myFlowAttributesEditor = nullptr;
 
     /// @brief netedit attributes
-    GNEAttributesEditor* myNeteditAttributesEditor = nullptr;
+    GNEAttributesEditorType* myNeteditAttributesEditor = nullptr;
 
     /// @brief Generic parameters editor
-    GNEAttributesEditor* myGenericParametersEditor = nullptr;
+    GNEAttributesEditorType* myGenericParametersEditor = nullptr;
 
     /// @brief edge path creator (used for trips and flows)
     GNEPathCreator* myPathCreator = nullptr;

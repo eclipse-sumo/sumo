@@ -137,19 +137,19 @@ GNEAdditionalFrame::GNEAdditionalFrame(GNEViewParent* viewParent, GNEViewNet* vi
     myAdditionalTagSelector = new GNETagSelector(this, GNETagProperties::TagType::ADDITIONALELEMENT, SUMO_TAG_BUS_STOP);
 
     // Create additional parameters
-    myAdditionalAttributesEditor = new GNEAttributesEditor(this, TL("Internal attributes"),
-                                                           GNEAttributesEditor::EditorType::CREATOR,
-                                                           GNEAttributesEditor::AttributeType::BASIC);
+    myAdditionalAttributesEditor = new GNEAttributesEditorType(this, TL("Internal attributes"),
+            GNEAttributesEditorType::EditorType::CREATOR,
+            GNEAttributesEditorType::AttributeType::BASIC);
 
     // Create Netedit attribute editor
-    myNeteditAttributesEditor = new GNEAttributesEditor(this, TL("Netedit attributes"),
-                                                        GNEAttributesEditor::EditorType::CREATOR,
-                                                        GNEAttributesEditor::AttributeType::NETEDIT);
+    myNeteditAttributesEditor = new GNEAttributesEditorType(this, TL("Netedit attributes"),
+            GNEAttributesEditorType::EditorType::CREATOR,
+            GNEAttributesEditorType::AttributeType::NETEDIT);
 
     // Create parameters editor
-    myGenericParametersEditor = new GNEAttributesEditor(this, TL("Parameters"),
-                                                        GNEAttributesEditor::EditorType::CREATOR,
-                                                        GNEAttributesEditor::AttributeType::PARAMETERS);
+    myGenericParametersEditor = new GNEAttributesEditorType(this, TL("Parameters"),
+            GNEAttributesEditorType::EditorType::CREATOR,
+            GNEAttributesEditorType::AttributeType::PARAMETERS);
 
     // Create selector parent
     mySelectorAdditionalParent = new GNESelectorParent(this);
@@ -235,8 +235,8 @@ GNEAdditionalFrame::addAdditional(const GNEViewNetHelper::ViewObjectsSelector& v
     }
     // check if additional attributes are valid
     if (!myAdditionalAttributesEditor->checkAttributes(true) ||
-        !myNeteditAttributesEditor->checkAttributes(true) ||
-        !myGenericParametersEditor->checkAttributes(true)) {
+            !myNeteditAttributesEditor->checkAttributes(true) ||
+            !myGenericParametersEditor->checkAttributes(true)) {
         return false;
     }
     // reset base additional
@@ -290,7 +290,7 @@ GNEAdditionalFrame::getConsecutiveLaneSelector() const {
 }
 
 
-GNEAttributesEditor*
+GNEAttributesEditorType*
 GNEAdditionalFrame::getNeteditAttributesEditor() const {
     return myNeteditAttributesEditor;
 }
@@ -428,7 +428,7 @@ GNEAdditionalFrame::initBaseAdditionalObject(const GNETagProperties* tagProperty
     if (tagProperty->isChild()) {
         // check if we clicked over a parent
         SumoXMLTag parentTag = SUMO_TAG_NOTHING;
-        for (const auto &pTag : tagProperty->getParentTags()) {
+        for (const auto& pTag : tagProperty->getParentTags()) {
             if (myBaseAdditional->hasParentID(pTag)) {
                 parentTag = pTag;
             }

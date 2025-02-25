@@ -383,19 +383,19 @@ GNETypeFrame::GNETypeFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
     myTypeSelector = new TypeSelector(this);
 
     // Create vehicle type attributes editor
-    myTypeAttributesEditor = new GNEAttributesEditor(this, TL("Attributes"),
-            GNEAttributesEditor::EditorType::EDITOR,
-            GNEAttributesEditor::AttributeType::BASIC);
+    myTypeAttributesEditor = new GNEAttributesEditorType(this, TL("Attributes"),
+            GNEAttributesEditorType::EditorType::EDITOR,
+            GNEAttributesEditorType::AttributeType::BASIC);
 
     // create module for open extended attributes dialog
-    myAttributesEditorExtended = new GNEAttributesEditor(this, TL("Extended attributes"),
-            GNEAttributesEditor::EditorType::EDITOR,
-            GNEAttributesEditor::AttributeType::EXTENDED);
+    myAttributesEditorExtended = new GNEAttributesEditorType(this, TL("Extended attributes"),
+            GNEAttributesEditorType::EditorType::EDITOR,
+            GNEAttributesEditorType::AttributeType::EXTENDED);
 
     // Create parameters editor
-    myGenericParametersEditor = new GNEAttributesEditor(this, TL("Parameters"),
-            GNEAttributesEditor::EditorType::EDITOR,
-            GNEAttributesEditor::AttributeType::PARAMETERS);
+    myGenericParametersEditor = new GNEAttributesEditorType(this, TL("Parameters"),
+            GNEAttributesEditorType::EditorType::EDITOR,
+            GNEAttributesEditorType::AttributeType::PARAMETERS);
 
     // set "VTYPE_DEFAULT" as default vehicle Type
     myTypeSelector->setCurrentType(myViewNet->getNet()->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, DEFAULT_VTYPE_ID));

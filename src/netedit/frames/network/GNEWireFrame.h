@@ -77,10 +77,10 @@ private:
     GNETagSelector* myWireTagSelector = nullptr;
 
     /// @brief internal wire attributes
-    GNEAttributesEditor* myWireAttributesEditor = nullptr;
+    GNEAttributesEditorType* myWireAttributesEditor = nullptr;
 
     /// @brief Netedit attributes editor
-    GNEAttributesEditor* myNeteditAttributesEditor = nullptr;
+    GNEAttributesEditorType* myNeteditAttributesEditor = nullptr;
 
     /// @brief Select wire parent
     GNESelectorParent* mySelectorWireParent = nullptr;

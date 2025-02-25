@@ -151,13 +151,13 @@ private:
     RouteModeSelector* myRouteModeSelector = nullptr;
 
     /// @brief internal route attributes editor
-    GNEAttributesEditor* myRouteAttributesEditor = nullptr;
+    GNEAttributesEditorType* myRouteAttributesEditor = nullptr;
 
     /// @brief netedit attributes
-    GNEAttributesEditor* myNeteditAttributesEditor = nullptr;
+    GNEAttributesEditorType* myNeteditAttributesEditor = nullptr;
 
     /// @brief Generic parameters editor
-    GNEAttributesEditor* myGenericParametersEditor = nullptr;
+    GNEAttributesEditorType* myGenericParametersEditor = nullptr;
 
     /// @brief path creator modul
     GNEPathCreator* myPathCreator = nullptr;

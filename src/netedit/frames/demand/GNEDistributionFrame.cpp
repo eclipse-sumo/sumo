@@ -470,7 +470,7 @@ GNEDistributionFrame::DistributionRow::isValidNewKey() const {
 // ---------------------------------------------------------------------------
 
 GNEDistributionFrame::DistributionValuesEditor::DistributionValuesEditor(GNEFrame* frameParent, DistributionEditor* distributionEditor,
-        DistributionSelector* distributionSelector, GNEAttributesEditor* attributesEditor, SumoXMLTag distributionValueTag) :
+        DistributionSelector* distributionSelector, GNEAttributesEditorType* attributesEditor, SumoXMLTag distributionValueTag) :
     MFXGroupBoxModule(frameParent, TL("Distribution values")),
     myFrameParent(frameParent),
     myDistributionEditor(distributionEditor),

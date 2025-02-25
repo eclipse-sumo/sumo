@@ -1029,7 +1029,7 @@ enum {
     MID_GNE_UNPROTECT_ALL,
     /// @}
 
-    /// @name GNEAttributesEditor messages
+    /// @name GNEAttributesEditorType messages
     /// @{
 
     /// @brief mark element as front

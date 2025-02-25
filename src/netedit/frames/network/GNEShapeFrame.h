@@ -155,10 +155,10 @@ private:
     GNETagSelector* myShapeTagSelector;
 
     /// @brief shape attributes editor
-    GNEAttributesEditor* myShapeAttributesEditor = nullptr;
+    GNEAttributesEditorType* myShapeAttributesEditor = nullptr;
 
     /// @brief Netedit attributes editor
-    GNEAttributesEditor* myNeteditAttributesEditor = nullptr;
+    GNEAttributesEditorType* myNeteditAttributesEditor = nullptr;
 
     /// @brief Drawing shape
     GNEDrawingShape* myDrawingShape;

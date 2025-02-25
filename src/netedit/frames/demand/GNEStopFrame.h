@@ -117,10 +117,10 @@ private:
     GNETagSelector* myStopTagSelector = nullptr;
 
     /// @brief internal Stop attributes
-    GNEAttributesEditor* myStopAttributesEditor = nullptr;
+    GNEAttributesEditorType* myStopAttributesEditor = nullptr;
 
     /// @brief Netedit attributes editor
-    GNEAttributesEditor* myNeteditAttributesEditor = nullptr;
+    GNEAttributesEditorType* myNeteditAttributesEditor = nullptr;
 
     /// @brief Help creation
     HelpCreation* myHelpCreation = nullptr;

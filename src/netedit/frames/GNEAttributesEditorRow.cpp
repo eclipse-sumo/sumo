@@ -15,7 +15,7 @@
 /// @author  Pablo Alvarez Lopez
 /// @date    Nov 2024
 ///
-// Row used for edit attributes in GNEAttributesEditor
+// Row used for edit attributes in GNEAttributesEditorType
 /****************************************************************************/
 
 #include <netedit/GNEApplicationWindow.h>
@@ -65,7 +65,7 @@ FXIMPLEMENT(GNEAttributesEditorRow, FXHorizontalFrame, GNEAttributeRowMap, ARRAY
 // method definitions
 // ===========================================================================
 
-GNEAttributesEditorRow::GNEAttributesEditorRow(GNEAttributesEditor* attributeTable) :
+GNEAttributesEditorRow::GNEAttributesEditorRow(GNEAttributesEditorType* attributeTable) :
     FXHorizontalFrame(attributeTable->getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame),
     myAttributeTable(attributeTable) {
     // get static tooltip menu
@@ -131,7 +131,7 @@ GNEAttributesEditorRow::GNEAttributesEditorRow(GNEAttributesEditor* attributeTab
 
 
 bool
-GNEAttributesEditorRow::showAttributeRow(GNEAttributesEditor* attributeTable, const GNEAttributeProperties* attrProperty, const bool forceDisable) {
+GNEAttributesEditorRow::showAttributeRow(GNEAttributesEditorType* attributeTable, const GNEAttributeProperties* attrProperty, const bool forceDisable) {
     // update parent table
     myAttributeTable = attributeTable;
     if (myAttributeTable->myEditedACs.empty()) {
@@ -572,7 +572,7 @@ const std::string
 GNEAttributesEditorRow::getAttributeValue(const bool enabled) const {
     const auto attribute = myAttrProperty->getAttr();
     // if we're in creator mode, generate ID
-    if ((attribute == SUMO_ATTR_ID) && (myAttributeTable->myEditorType == GNEAttributesEditor::EditorType::CREATOR)) {
+    if ((attribute == SUMO_ATTR_ID) && (myAttributeTable->myEditorType == GNEAttributesEditorType::EditorType::CREATOR)) {
         const auto& ACs = myAttributeTable->getFrameParent()->getViewNet()->getNet()->getAttributeCarriers();
         const auto parentTag = myAttrProperty->getTagPropertyParent()->getTag();
         if (myAttrProperty->getTagPropertyParent()->isAdditionalElement()) {

@@ -59,7 +59,7 @@ private:
     GNEDistributionFrame::DistributionSelector* myDistributionSelector = nullptr;
 
     /// @brief distribution attributes editor
-    GNEAttributesEditor* myAttributesEditor = nullptr;
+    GNEAttributesEditorType* myAttributesEditor = nullptr;
 
     /// @brief editor for distribution values
     GNEDistributionFrame::DistributionValuesEditor* myDistributionValuesEditor = nullptr;

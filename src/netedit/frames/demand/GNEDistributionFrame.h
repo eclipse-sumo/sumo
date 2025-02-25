@@ -157,7 +157,7 @@ public:
         DistributionEditor* myDistributionEditor = nullptr;
 
         /// @brief attributes editor
-        GNEAttributesEditor* myAttributesEditor = nullptr;
+        GNEAttributesEditorType* myAttributesEditor = nullptr;
 
         /// @brief distribution values editor
         DistributionValuesEditor* myDistributionValuesEditor = nullptr;
@@ -250,7 +250,7 @@ public:
         /// @brief constructor
         DistributionValuesEditor(GNEFrame* frameParent, DistributionEditor* distributionEditor,
                                  DistributionSelector* distributionSelector,
-                                 GNEAttributesEditor* attributesEditor,
+                                 GNEAttributesEditorType* attributesEditor,
                                  SumoXMLTag distributionValueTag);
 
         /// @brief show attributes of multiple ACs
@@ -297,7 +297,7 @@ public:
         DistributionSelector* myDistributionSelector;
 
         /// @brief attributes editor
-        GNEAttributesEditor* myAttributesEditor;
+        GNEAttributesEditorType* myAttributesEditor;
 
         /// @brief distribution value tag
         SumoXMLTag myDistributionValueTag;

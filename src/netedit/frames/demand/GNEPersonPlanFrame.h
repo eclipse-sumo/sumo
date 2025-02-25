@@ -96,10 +96,10 @@ private:
     GNEPlanSelector* myPlanSelector = nullptr;
 
     /// @brief internal vehicle attributes
-    GNEAttributesEditor* myPersonPlanAttributesEditor = nullptr;
+    GNEAttributesEditorType* myPersonPlanAttributesEditor = nullptr;
 
     /// @brief netedit attributes
-    GNEAttributesEditor* myNeteditAttributesEditor = nullptr;
+    GNEAttributesEditorType* myNeteditAttributesEditor = nullptr;
 
     /// @brief plan Creator
     GNEPlanCreator* myPlanCreator = nullptr;

@@ -34,7 +34,7 @@
 // class declarations
 // ===========================================================================
 
-class GNEAttributesEditor;
+class GNEAttributesEditorType;
 class GNEContainer;
 class GNEDemandElement;
 class GNEEdge;
@@ -169,11 +169,11 @@ public:
                    const SUMOVehicleParameter::Stop& stopParameters);
 
     /// @brief build person plan
-    bool buildPersonPlan(const GNEDemandElement* planTemplate, GNEDemandElement* personParent, GNEAttributesEditor* personPlanAttributesEditor,
+    bool buildPersonPlan(const GNEDemandElement* planTemplate, GNEDemandElement* personParent, GNEAttributesEditorType* personPlanAttributesEditor,
                          GNEPlanCreator* planCreator, const bool centerAfterCreation);
 
     /// @brief build container plan
-    bool buildContainerPlan(const GNEDemandElement* planTemplate, GNEDemandElement* containerParent, GNEAttributesEditor* containerPlanAttributesEditor,
+    bool buildContainerPlan(const GNEDemandElement* planTemplate, GNEDemandElement* containerParent, GNEAttributesEditorType* containerPlanAttributesEditor,
                             GNEPlanCreator* planCreator, const bool centerAfterCreation);
 
     /// @}

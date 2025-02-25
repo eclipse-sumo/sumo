@@ -252,29 +252,29 @@ GNEInspectorFrame::GNEInspectorFrame(GNEViewParent* viewParent, GNEViewNet* view
     myOverlappedInspection = new GNEOverlappedInspection(this, false);
 
     // Create Attributes Editor module
-    myAttributesEditor = new GNEAttributesEditor(this, TL("Attributes"),
-            GNEAttributesEditor::EditorType::EDITOR,
-            GNEAttributesEditor::AttributeType::BASIC);
+    myAttributesEditor = new GNEAttributesEditorType(this, TL("Attributes"),
+            GNEAttributesEditorType::EditorType::EDITOR,
+            GNEAttributesEditorType::AttributeType::BASIC);
 
     // Create Flow Attributes Editor module
-    myFlowAttributesEditor = new GNEAttributesEditor(this, TL("Flow attributes"),
-            GNEAttributesEditor::EditorType::EDITOR,
-            GNEAttributesEditor::AttributeType::FLOW);
+    myFlowAttributesEditor = new GNEAttributesEditorType(this, TL("Flow attributes"),
+            GNEAttributesEditorType::EditorType::EDITOR,
+            GNEAttributesEditorType::AttributeType::FLOW);
 
     // Create GEO Parameters Editor module
-    myGEOAttributesEditor = new GNEAttributesEditor(this, TL("GEO attributes"),
-            GNEAttributesEditor::EditorType::EDITOR,
-            GNEAttributesEditor::AttributeType::GEO);
+    myGEOAttributesEditor = new GNEAttributesEditorType(this, TL("GEO attributes"),
+            GNEAttributesEditorType::EditorType::EDITOR,
+            GNEAttributesEditorType::AttributeType::GEO);
 
     // Create parameters editor
-    myGenericParametersEditor = new GNEAttributesEditor(this, TL("Parameters"),
-            GNEAttributesEditor::EditorType::EDITOR,
-            GNEAttributesEditor::AttributeType::PARAMETERS);
+    myGenericParametersEditor = new GNEAttributesEditorType(this, TL("Parameters"),
+            GNEAttributesEditorType::EditorType::EDITOR,
+            GNEAttributesEditorType::AttributeType::PARAMETERS);
 
     // Create Netedit Attributes Editor module
-    myNeteditAttributesEditor = new GNEAttributesEditor(this, TL("Netedit attributes"),
-            GNEAttributesEditor::EditorType::EDITOR,
-            GNEAttributesEditor::AttributeType::NETEDIT);
+    myNeteditAttributesEditor = new GNEAttributesEditorType(this, TL("Netedit attributes"),
+            GNEAttributesEditorType::EditorType::EDITOR,
+            GNEAttributesEditorType::AttributeType::NETEDIT);
 
     // Create Template editor module
     myTemplateEditor = new TemplateEditor(this);
@@ -450,13 +450,13 @@ GNEInspectorFrame::refreshInspection() {
 }
 
 
-GNEAttributesEditor*
+GNEAttributesEditorType*
 GNEInspectorFrame::getAttributesEditor() const {
     return myAttributesEditor;
 }
 
 
-GNEAttributesEditor*
+GNEAttributesEditorType*
 GNEInspectorFrame::getNeteditAttributesEditor() const {
     return myNeteditAttributesEditor;
 }

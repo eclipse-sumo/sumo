@@ -28,7 +28,7 @@
 // ===========================================================================
 
 class GNEAttributeCarrier;
-class GNEAttributesEditor;
+class GNEAttributesEditorType;
 class GNEViewNet;
 
 // ===========================================================================
@@ -253,7 +253,7 @@ public:
     };
 
     /// @brief Constructor for parameter editor inspector
-    GNEMultipleParametersDialog(GNEAttributesEditor* attributesEditor);
+    GNEMultipleParametersDialog(GNEAttributesEditorType* attributesEditor);
 
     /// @brief destructor
     ~GNEMultipleParametersDialog();
@@ -275,7 +275,7 @@ protected:
     FOX_CONSTRUCTOR(GNEMultipleParametersDialog)
 
     /// @brief pointer to attributes editor
-    GNEAttributesEditor* myAttributesEditor;
+    GNEAttributesEditorType* myAttributesEditor;
 
     /// @brief pointer to parameters values
     ParametersValues* myParametersValues;

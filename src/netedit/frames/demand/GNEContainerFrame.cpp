@@ -49,16 +49,16 @@ GNEContainerFrame::GNEContainerFrame(GNEViewParent* viewParent, GNEViewNet* view
     myTypeSelector = new GNEDemandElementSelector(this, SUMO_TAG_VTYPE, GNETagProperties::TagType::CONTAINER);
 
     // create container attributes editor
-    myContainerAttributesEditor = new GNEAttributesEditor(this, TL("Internal attributes"), GNEAttributesEditor::EditorType::CREATOR, GNEAttributesEditor::AttributeType::BASIC);
+    myContainerAttributesEditor = new GNEAttributesEditorType(this, TL("Internal attributes"), GNEAttributesEditorType::EditorType::CREATOR, GNEAttributesEditorType::AttributeType::BASIC);
 
     // create plan selector module for container plans
     myPlanSelector = new GNEPlanSelector(this, SUMO_TAG_CONTAINER);
 
     // create container plan attributes editor
-    myContainerPlanAttributesEditor = new GNEAttributesEditor(this, TL("Internal plan attributes"), GNEAttributesEditor::EditorType::CREATOR, GNEAttributesEditor::AttributeType::CHILD);
+    myContainerPlanAttributesEditor = new GNEAttributesEditorType(this, TL("Internal plan attributes"), GNEAttributesEditorType::EditorType::CREATOR, GNEAttributesEditorType::AttributeType::CHILD);
 
     // Create Netedit attribute editor
-    myNeteditAttributesEditor = new GNEAttributesEditor(this, TL("Netedit attributes"), GNEAttributesEditor::EditorType::CREATOR, GNEAttributesEditor::AttributeType::NETEDIT);
+    myNeteditAttributesEditor = new GNEAttributesEditorType(this, TL("Netedit attributes"), GNEAttributesEditorType::EditorType::CREATOR, GNEAttributesEditorType::AttributeType::NETEDIT);
 
     // create GNEPlanCreator Module
     myPlanCreator = new GNEPlanCreator(this, viewNet->getNet()->getDemandPathManager());
@@ -159,7 +159,7 @@ GNEContainerFrame::getPlanSelector() const {
 }
 
 
-GNEAttributesEditor*
+GNEAttributesEditorType*
 GNEContainerFrame::getContainerAttributes() const {
     return myContainerAttributesEditor;
 }

@@ -29,7 +29,7 @@
 // ===========================================================================
 
 class GNEAttributeCarrier;
-class GNEAttributesEditor;
+class GNEAttributesEditorType;
 class GNEViewNet;
 class NBLoadedSUMOTLDef;
 
@@ -230,7 +230,7 @@ public:
     };
 
     /// @brief Constructor for attributes editor
-    GNESingleParametersDialog(GNEAttributesEditor* attributesEditor);
+    GNESingleParametersDialog(GNEAttributesEditorType* attributesEditor);
 
     /// @brief Constructor for Vehicle Type Row (Vehicle Type Dialog)
     GNESingleParametersDialog(GNEVehicleTypeDialog::VTypeAttributes::VTypeAttributeRow* VTypeAttributeRow, GNEViewNet* viewNet);
@@ -261,7 +261,7 @@ protected:
     FOX_CONSTRUCTOR(GNESingleParametersDialog)
 
     /// @brief pointer to attributes editor
-    GNEAttributesEditor* myAttributesEditor = nullptr;
+    GNEAttributesEditorType* myAttributesEditor = nullptr;
 
     /// @brief pointer to VTypeAttributeRow
     GNEVehicleTypeDialog::VTypeAttributes::VTypeAttributeRow* VTypeAttributeRow = nullptr;

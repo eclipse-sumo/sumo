@@ -20,7 +20,7 @@
 #pragma once
 #include <config.h>
 
-#include <netedit/frames/GNEAttributesEditor.h>
+#include <netedit/frames/GNEAttributesEditorType.h>
 
 // ===========================================================================
 // class declaration

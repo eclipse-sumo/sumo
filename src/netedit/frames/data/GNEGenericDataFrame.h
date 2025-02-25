@@ -27,7 +27,7 @@
 // class declaration
 // ===========================================================================
 
-class GNEAttributesEditor;
+class GNEAttributesEditorType;
 class GNEDataInterval;
 class GNEDataSet;
 
@@ -278,7 +278,7 @@ protected:
     AttributeSelector* myAttributeSelector = nullptr;
 
     /// @brief parameters editor creator
-    GNEAttributesEditor* myGenericDataAttributesEditor = nullptr;
+    GNEAttributesEditorType* myGenericDataAttributesEditor = nullptr;
 
     /// @brief edge path creator (used for Walks, rides and trips)
     GNEPathCreator* myPathCreator = nullptr;

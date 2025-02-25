@@ -49,7 +49,7 @@ class GNEAttributeCarrier : public GNEReferenceCounter {
     friend class GNEChange_Attribute;
     friend class GNEChange_ToggleAttribute;
     friend class GNEAttributesCreatorRow;
-    friend class GNEAttributesEditor;
+    friend class GNEAttributesEditorType;
     friend class GNEFlowEditor;
 
 public:

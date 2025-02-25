@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEAttributesEditor.cpp
+/// @file    GNEAttributesEditorType.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Nov 2024
 ///
@@ -35,35 +35,35 @@
 #include <netedit/frames/common/GNEInspectorFrame.h>
 #include <utils/gui/div/GUIDesigns.h>
 
-#include "GNEAttributesEditor.h"
+#include "GNEAttributesEditorType.h"
 #include "GNEAttributesEditorRow.h"
 
 // ===========================================================================
 // static members
 // ===========================================================================
 
-GNEAttributesEditor::AttributesEditorRows GNEAttributesEditor::mySingletonAttributesEditorRows = {};
+GNEAttributesEditorType::AttributesEditorRows GNEAttributesEditorType::mySingletonAttributesEditorRows = {};
 
 // ===========================================================================
 // FOX callback mapping
 // ===========================================================================
 
-FXDEFMAP(GNEAttributesEditor) GNEAttributeTableMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ATTRIBUTESEDITOR_FRONT,         GNEAttributesEditor::onCmdMarkAsFront),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ATTRIBUTESEDITOR_DIALOG,        GNEAttributesEditor::onCmdOpenElementDialog),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ATTRIBUTESEDITOR_EXTENDED,      GNEAttributesEditor::onCmdOpenExtendedAttributesDialog),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ATTRIBUTESEDITOR_PARAMETERS,    GNEAttributesEditor::onCmdOpenEditParametersDialog),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ATTRIBUTESEDITOR_HELP,          GNEAttributesEditor::onCmdAttributesEditorHelp)
+FXDEFMAP(GNEAttributesEditorType) GNEAttributeTableMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ATTRIBUTESEDITOR_FRONT,         GNEAttributesEditorType::onCmdMarkAsFront),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ATTRIBUTESEDITOR_DIALOG,        GNEAttributesEditorType::onCmdOpenElementDialog),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ATTRIBUTESEDITOR_EXTENDED,      GNEAttributesEditorType::onCmdOpenExtendedAttributesDialog),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ATTRIBUTESEDITOR_PARAMETERS,    GNEAttributesEditorType::onCmdOpenEditParametersDialog),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ATTRIBUTESEDITOR_HELP,          GNEAttributesEditorType::onCmdAttributesEditorHelp)
 };
 
 // Object implementation
-FXIMPLEMENT(GNEAttributesEditor,  MFXGroupBoxModule,  GNEAttributeTableMap,   ARRAYNUMBER(GNEAttributeTableMap))
+FXIMPLEMENT(GNEAttributesEditorType,  MFXGroupBoxModule,  GNEAttributeTableMap,   ARRAYNUMBER(GNEAttributeTableMap))
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
 
-GNEAttributesEditor::GNEAttributesEditor(GNEFrame* frameParent, const std::string attributesEditorName, EditorType editorType, AttributeType attributeType) :
+GNEAttributesEditorType::GNEAttributesEditorType(GNEFrame* frameParent, const std::string attributesEditorName, EditorType editorType, AttributeType attributeType) :
     MFXGroupBoxModule(frameParent, attributesEditorName.c_str()),
     myFrameParent(frameParent),
     myEditorType(editorType),
@@ -92,19 +92,19 @@ GNEAttributesEditor::GNEAttributesEditor(GNEFrame* frameParent, const std::strin
 
 
 GNEFrame*
-GNEAttributesEditor::getFrameParent() const {
+GNEAttributesEditorType::getFrameParent() const {
     return myFrameParent;
 }
 
 
 const std::vector<GNEAttributeCarrier*>&
-GNEAttributesEditor::getEditedAttributeCarriers() const {
+GNEAttributesEditorType::getEditedAttributeCarriers() const {
     return myEditedACs;
 }
 
 
 void
-GNEAttributesEditor::showAttributesEditor(GNEAttributeCarrier* AC) {
+GNEAttributesEditorType::showAttributesEditor(GNEAttributeCarrier* AC) {
     // clean previous rows and ACs
     myEditedACs.clear();
     myAttributesEditorRows.clear();
@@ -116,7 +116,7 @@ GNEAttributesEditor::showAttributesEditor(GNEAttributeCarrier* AC) {
 
 
 void
-GNEAttributesEditor::showAttributesEditor(const std::unordered_set<GNEAttributeCarrier*>& ACs) {
+GNEAttributesEditorType::showAttributesEditor(const std::unordered_set<GNEAttributeCarrier*>& ACs) {
     // clean previous rows and ACs
     myEditedACs.clear();
     myAttributesEditorRows.clear();
@@ -130,7 +130,7 @@ GNEAttributesEditor::showAttributesEditor(const std::unordered_set<GNEAttributeC
 
 
 void
-GNEAttributesEditor::hideAttributesEditor() {
+GNEAttributesEditorType::hideAttributesEditor() {
     myEditedACs.clear();
     myAttributesEditorRows.clear();
     // hide all rows before hidding table
@@ -142,7 +142,7 @@ GNEAttributesEditor::hideAttributesEditor() {
 
 
 void
-GNEAttributesEditor::refreshAttributesEditor() {
+GNEAttributesEditorType::refreshAttributesEditor() {
     if (myEditedACs.size() > 0) {
         const auto tagProperty = myEditedACs.front()->getTagProperty();
         bool showButtons = false;
@@ -267,7 +267,7 @@ GNEAttributesEditor::refreshAttributesEditor() {
 
 
 void
-GNEAttributesEditor::disableAttributesEditor() {
+GNEAttributesEditorType::disableAttributesEditor() {
     for (const auto& row : myAttributesEditorRows) {
         row->disable();
     }
@@ -275,7 +275,7 @@ GNEAttributesEditor::disableAttributesEditor() {
 
 
 bool
-GNEAttributesEditor::checkAttributes(const bool showWarning) {
+GNEAttributesEditorType::checkAttributes(const bool showWarning) {
     for (const auto& row : myAttributesEditorRows) {
         if (!row->isValueValid())
             if (showWarning) {
@@ -292,7 +292,7 @@ GNEAttributesEditor::checkAttributes(const bool showWarning) {
 
 
 SumoXMLAttr
-GNEAttributesEditor::fillSumoBaseObject(CommonXMLStructure::SumoBaseObject* baseObject) const {
+GNEAttributesEditorType::fillSumoBaseObject(CommonXMLStructure::SumoBaseObject* baseObject) const {
     // iterate over every attribute row and stop if there was an error
     for (const auto& row : myAttributesEditorRows) {
         if (row->isAttributeRowShown()) {
@@ -310,33 +310,33 @@ GNEAttributesEditor::fillSumoBaseObject(CommonXMLStructure::SumoBaseObject* base
 
 
 bool
-GNEAttributesEditor::isReparenting() const {
+GNEAttributesEditorType::isReparenting() const {
     return myReparentTag != SUMO_TAG_NOTHING;
 }
 
 
 bool
-GNEAttributesEditor::checkNewParent(const GNEAttributeCarrier* AC) const {
+GNEAttributesEditorType::checkNewParent(const GNEAttributeCarrier* AC) const {
     return AC->getTagProperty()->getTag() == myReparentTag;
 }
 
 
 void
-GNEAttributesEditor::setNewParent(const GNEAttributeCarrier* AC) {
+GNEAttributesEditorType::setNewParent(const GNEAttributeCarrier* AC) {
     myEditedACs.front()->setAttribute(GNE_ATTR_PARENT, AC->getID(), myFrameParent->getViewNet()->getUndoList());
     abortReparenting();
 }
 
 
 void
-GNEAttributesEditor::abortReparenting() {
+GNEAttributesEditorType::abortReparenting() {
     myReparentTag = SUMO_TAG_NOTHING;
     refreshAttributesEditor();
 }
 
 
 long
-GNEAttributesEditor::onCmdMarkAsFront(FXObject*, FXSelector, void*) {
+GNEAttributesEditorType::onCmdMarkAsFront(FXObject*, FXSelector, void*) {
     // front all edited ACs
     for (auto& AC : myEditedACs) {
         AC->markForDrawingFront();
@@ -346,7 +346,7 @@ GNEAttributesEditor::onCmdMarkAsFront(FXObject*, FXSelector, void*) {
 
 
 long
-GNEAttributesEditor::onCmdOpenElementDialog(FXObject*, FXSelector, void*) {
+GNEAttributesEditorType::onCmdOpenElementDialog(FXObject*, FXSelector, void*) {
     // check number of inspected elements
     if (myEditedACs.size() == 1) {
         const auto editedTag = myEditedACs.front()->getTagProperty()->getTag();
@@ -367,7 +367,7 @@ GNEAttributesEditor::onCmdOpenElementDialog(FXObject*, FXSelector, void*) {
 
 
 long
-GNEAttributesEditor::onCmdOpenExtendedAttributesDialog(FXObject*, FXSelector, void*) {
+GNEAttributesEditorType::onCmdOpenExtendedAttributesDialog(FXObject*, FXSelector, void*) {
     // obtain edited AC (temporal), until unification of
     const auto demandElement = myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveDemandElement(myEditedACs.front()->getTagProperty()->getTag(), myEditedACs.front()->getID(), false);
     // open vehicle type dialog
@@ -380,7 +380,7 @@ GNEAttributesEditor::onCmdOpenExtendedAttributesDialog(FXObject*, FXSelector, vo
 
 
 long
-GNEAttributesEditor::onCmdOpenEditParametersDialog(FXObject*, FXSelector, void*) {
+GNEAttributesEditorType::onCmdOpenEditParametersDialog(FXObject*, FXSelector, void*) {
     if (GNESingleParametersDialog(this).execute()) {
         refreshAttributesEditor();
     }
@@ -389,7 +389,7 @@ GNEAttributesEditor::onCmdOpenEditParametersDialog(FXObject*, FXSelector, void*)
 
 
 long
-GNEAttributesEditor::onCmdAttributesEditorHelp(FXObject*, FXSelector, void*) {
+GNEAttributesEditorType::onCmdAttributesEditorHelp(FXObject*, FXSelector, void*) {
     if (myEditedACs.size() > 0) {
         myFrameParent->openHelpAttributesDialog(myEditedACs.front());
     }
@@ -398,7 +398,7 @@ GNEAttributesEditor::onCmdAttributesEditorHelp(FXObject*, FXSelector, void*) {
 
 
 void
-GNEAttributesEditor::setAttribute(SumoXMLAttr attr, const std::string& value) {
+GNEAttributesEditorType::setAttribute(SumoXMLAttr attr, const std::string& value) {
     const auto undoList = myFrameParent->getViewNet()->getUndoList();
     const auto tagProperty = myEditedACs.front()->getTagProperty();
     // continue depending if we're creating or inspecting
@@ -431,7 +431,7 @@ GNEAttributesEditor::setAttribute(SumoXMLAttr attr, const std::string& value) {
 
 
 void
-GNEAttributesEditor::toggleEnableAttribute(SumoXMLAttr attr, const bool value) {
+GNEAttributesEditorType::toggleEnableAttribute(SumoXMLAttr attr, const bool value) {
     const auto undoList = myFrameParent->getViewNet()->getUndoList();
     const auto tagProperty = myEditedACs.front()->getTagProperty();
     // first check if we're editing a single attribute
@@ -457,7 +457,7 @@ GNEAttributesEditor::toggleEnableAttribute(SumoXMLAttr attr, const bool value) {
 
 
 void
-GNEAttributesEditor::enableReparent() {
+GNEAttributesEditorType::enableReparent() {
     if (myEditedACs.front()->getTagProperty()->getParentTags().size() > 0) {
         myReparentTag = myEditedACs.front()->getTagProperty()->getParentTags().front();
         refreshAttributesEditor();
@@ -467,7 +467,7 @@ GNEAttributesEditor::enableReparent() {
 
 
 void
-GNEAttributesEditor::inspectParent() {
+GNEAttributesEditorType::inspectParent() {
     const auto type = myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, myEditedACs.front()->getAttribute(SUMO_ATTR_TYPE), false);
     if (type) {
         myFrameParent->getViewNet()->getViewParent()->getInspectorFrame()->inspectElement(type, myEditedACs.front());
@@ -476,7 +476,7 @@ GNEAttributesEditor::inspectParent() {
 
 
 void
-GNEAttributesEditor::moveLaneUp() {
+GNEAttributesEditorType::moveLaneUp() {
     const auto lane = myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveLane(myEditedACs.front()->getAttribute(SUMO_ATTR_LANE), false);
     if (lane) {
         // set next lane
@@ -486,7 +486,7 @@ GNEAttributesEditor::moveLaneUp() {
 
 
 void
-GNEAttributesEditor::moveLaneDown() {
+GNEAttributesEditorType::moveLaneDown() {
     const auto lane = myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveLane(myEditedACs.front()->getAttribute(SUMO_ATTR_LANE), false);
     if (lane) {
         // set previous lane
@@ -496,7 +496,7 @@ GNEAttributesEditor::moveLaneDown() {
 
 
 void
-GNEAttributesEditor::fillStartEndAttributes(CommonXMLStructure::SumoBaseObject* baseObject) const {
+GNEAttributesEditorType::fillStartEndAttributes(CommonXMLStructure::SumoBaseObject* baseObject) const {
     if (baseObject->hasDoubleAttribute(SUMO_ATTR_POSITION) && baseObject->hasDoubleAttribute(GNE_ATTR_SIZE) &&
             baseObject->hasDoubleAttribute(GNE_ATTR_LANELENGTH) && baseObject->hasBoolAttribute(GNE_ATTR_FORCESIZE) &&
             baseObject->hasStringAttribute(GNE_ATTR_REFERENCE)) {
@@ -543,7 +543,7 @@ GNEAttributesEditor::fillStartEndAttributes(CommonXMLStructure::SumoBaseObject* 
 
 
 void
-GNEAttributesEditor::buildRows(GNEAttributesEditor* editorParent) {
+GNEAttributesEditorType::buildRows(GNEAttributesEditorType* editorParent) {
     // only build one time
     if (mySingletonAttributesEditorRows.empty()) {
         const auto tagPropertiesDatabase = editorParent->getFrameParent()->getViewNet()->getNet()->getTagPropertiesDatabase();

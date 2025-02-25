@@ -610,9 +610,9 @@ GNEGenericDataFrame::GNEGenericDataFrame(GNEViewParent* viewParent, GNEViewNet* 
     // create AttributeSelector module
     myAttributeSelector = new AttributeSelector(this, tag);
     // create parameter editor module
-    myGenericDataAttributesEditor = new GNEAttributesEditor(this, TL("Parameters"),
-            GNEAttributesEditor::EditorType::CREATOR,
-            GNEAttributesEditor::AttributeType::PARAMETERS);
+    myGenericDataAttributesEditor = new GNEAttributesEditorType(this, TL("Parameters"),
+            GNEAttributesEditorType::EditorType::CREATOR,
+            GNEAttributesEditorType::AttributeType::PARAMETERS);
     // create GNEPathCreator module
     if (pathCreator) {
         myPathCreator = new GNEPathCreator(this, viewNet->getNet()->getDataPathManager());

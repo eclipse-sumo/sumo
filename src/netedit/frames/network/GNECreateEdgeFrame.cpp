@@ -668,11 +668,11 @@ GNECreateEdgeFrame::GNECreateEdgeFrame(GNEViewParent* viewParent, GNEViewNet* vi
     // create custom edge selector
     myEdgeTypeSelector = new EdgeTypeSelector(this);
     // Create edgeType parameters
-    myEdgeTypeAttributesEditor = new GNEAttributesEditor(this, TL("Edge attributes"), GNEAttributesEditor::EditorType::CREATOR, GNEAttributesEditor::AttributeType::BASIC);
+    myEdgeTypeAttributesEditor = new GNEAttributesEditorType(this, TL("Edge attributes"), GNEAttributesEditorType::EditorType::CREATOR, GNEAttributesEditorType::AttributeType::BASIC);
     // lane type selector
     myLaneTypeSelector = new LaneTypeSelector(this);
     // Create laneType parameters
-    myLaneTypeAttributesEditor = new GNEAttributesEditor(this, TL("Lane attributes"), GNEAttributesEditor::EditorType::CREATOR, GNEAttributesEditor::AttributeType::CHILD);
+    myLaneTypeAttributesEditor = new GNEAttributesEditorType(this, TL("Lane attributes"), GNEAttributesEditorType::EditorType::CREATOR, GNEAttributesEditorType::AttributeType::CHILD);
     // create edge selector legend
     myLegend = new Legend(this);
 }
@@ -855,7 +855,7 @@ GNECreateEdgeFrame::getEdgeTypeSelector() const {
 }
 
 
-GNEAttributesEditor*
+GNEAttributesEditorType*
 GNECreateEdgeFrame::getEdgeTypeAttributes() const {
     return myEdgeTypeAttributesEditor;
 }
@@ -867,7 +867,7 @@ GNECreateEdgeFrame::getLaneTypeSelector() {
 }
 
 
-GNEAttributesEditor*
+GNEAttributesEditorType*
 GNECreateEdgeFrame::getLaneTypeAttributes() const {
     return myLaneTypeAttributesEditor;
 }

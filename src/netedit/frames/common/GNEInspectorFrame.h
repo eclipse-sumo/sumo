@@ -152,10 +152,10 @@ public:
     void refreshInspection();
 
     /// @brief get AttributesEditor
-    GNEAttributesEditor* getAttributesEditor() const;
+    GNEAttributesEditorType* getAttributesEditor() const;
 
     /// @brief get Netedit Attributes editor
-    GNEAttributesEditor* getNeteditAttributesEditor() const;
+    GNEAttributesEditorType* getNeteditAttributesEditor() const;
 
     /// @brief get template editor
     TemplateEditor* getTemplateEditor() const;
@@ -188,19 +188,19 @@ private:
     GNEOverlappedInspection* myOverlappedInspection;
 
     /// @brief Attributes editor
-    GNEAttributesEditor* myAttributesEditor;
+    GNEAttributesEditorType* myAttributesEditor;
 
     /// @brief Flow attributes editor
-    GNEAttributesEditor* myFlowAttributesEditor;
+    GNEAttributesEditorType* myFlowAttributesEditor;
 
     /// @brief GEO Attributes editor
-    GNEAttributesEditor* myGEOAttributesEditor;
+    GNEAttributesEditorType* myGEOAttributesEditor;
 
     /// @brief Netedit Attributes editor
-    GNEAttributesEditor* myNeteditAttributesEditor = nullptr;
+    GNEAttributesEditorType* myNeteditAttributesEditor = nullptr;
 
     /// @brief Generic parameters editor
-    GNEAttributesEditor* myGenericParametersEditor;
+    GNEAttributesEditorType* myGenericParametersEditor;
 
     /// @brief Template editor
     TemplateEditor* myTemplateEditor;

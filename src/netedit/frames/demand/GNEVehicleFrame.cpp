@@ -133,13 +133,13 @@ GNEVehicleFrame::GNEVehicleFrame(GNEViewParent* viewParent, GNEViewNet* viewNet)
     myTypeSelector = new GNEDemandElementSelector(this, SUMO_TAG_VTYPE, GNETagProperties::TagType::VEHICLE);
 
     // Create vehicle parameters
-    myVehicleAttributesEditor = new GNEAttributesEditor(this, TL("Internal attributes"), GNEAttributesEditor::EditorType::CREATOR, GNEAttributesEditor::AttributeType::BASIC);
+    myVehicleAttributesEditor = new GNEAttributesEditorType(this, TL("Internal attributes"), GNEAttributesEditorType::EditorType::CREATOR, GNEAttributesEditorType::AttributeType::BASIC);
 
     // Create flow parameters
-    myFlowAttributesEditor = new GNEAttributesEditor(this, TL("Flow attributes"), GNEAttributesEditor::EditorType::CREATOR, GNEAttributesEditor::AttributeType::FLOW);
+    myFlowAttributesEditor = new GNEAttributesEditorType(this, TL("Flow attributes"), GNEAttributesEditorType::EditorType::CREATOR, GNEAttributesEditorType::AttributeType::FLOW);
 
     // Create netedit parameters
-    myNeteditAttributesEditor = new GNEAttributesEditor(this, TL("Netedit attributes"), GNEAttributesEditor::EditorType::CREATOR, GNEAttributesEditor::AttributeType::NETEDIT);
+    myNeteditAttributesEditor = new GNEAttributesEditorType(this, TL("Netedit attributes"), GNEAttributesEditorType::EditorType::CREATOR, GNEAttributesEditorType::AttributeType::NETEDIT);
 
     // create GNEPathCreator Module
     myPathCreator = new GNEPathCreator(this, viewNet->getNet()->getDemandPathManager());
@@ -256,7 +256,7 @@ GNEVehicleFrame::getPathCreator() const {
 }
 
 
-GNEAttributesEditor*
+GNEAttributesEditorType*
 GNEVehicleFrame::getVehicleAttributes() const {
     return myVehicleAttributesEditor;
 }

@@ -114,7 +114,7 @@ public:
     GNEConsecutiveSelector* getConsecutiveLaneSelector() const;
 
     /// @brief get Netedit parameter
-    GNEAttributesEditor* getNeteditAttributesEditor() const;
+    GNEAttributesEditorType* getNeteditAttributesEditor() const;
 
     /// @brief create path
     bool createPath(const bool useLastRoute);
@@ -140,13 +140,13 @@ private:
     GNETagSelector* myAdditionalTagSelector = nullptr;
 
     /// @brief additional attributes editor
-    GNEAttributesEditor* myAdditionalAttributesEditor = nullptr;
+    GNEAttributesEditorType* myAdditionalAttributesEditor = nullptr;
 
     /// @brief Netedit attributes editor
-    GNEAttributesEditor* myNeteditAttributesEditor = nullptr;
+    GNEAttributesEditorType* myNeteditAttributesEditor = nullptr;
 
     /// @brief Generic parameters editor
-    GNEAttributesEditor* myGenericParametersEditor = nullptr;
+    GNEAttributesEditorType* myGenericParametersEditor = nullptr;
 
     /// @brief Module for select a single parent additional
     GNESelectorParent* mySelectorAdditionalParent = nullptr;
