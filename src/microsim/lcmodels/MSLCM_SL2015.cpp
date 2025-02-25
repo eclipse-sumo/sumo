@@ -3000,7 +3000,8 @@ MSLCM_SL2015::mustOvertakeStopped(bool checkCurrent, const MSLane& neighLane, co
     int rightmost;
     int leftmost;
     const bool curHasStopped = leaders.hasStoppedVehicle();
-    const MSLane* neighBeyond = neighLane.getParallelLane(latLaneDist < 0 ? -1 : 1);
+    const int dir = latLaneDist < 0 ? -1 : 1;
+    const MSLane* neighBeyond = neighLane.getParallelLane(dir);
     const bool hasLaneBeyond = checkCurrent && neighBeyond != nullptr && neighBeyond->allowsVehicleClass(myVehicle.getVClass());
     if (curHasStopped) {
         leaders.getSubLanes(&myVehicle, 0, rightmost, leftmost);
@@ -3008,11 +3009,20 @@ MSLCM_SL2015::mustOvertakeStopped(bool checkCurrent, const MSLane& neighLane, co
             const CLeaderDist& leader = leaders[i];
             if (leader.first != 0 && leader.first->isStopped() && leader.second < REACT_TO_STOPPED_DISTANCE) {
                 const double overtakeDist = leader.second + myVehicle.getVehicleType().getLength() + leader.first->getVehicleType().getLengthWithGap();
+                const double remaining = MIN2(neighDist, currentDist) - posOnLane;
+#ifdef DEBUG_STRATEGIC_CHANGE
+                if (DEBUG_COND) {
+                    std::cout << "  overtakeDist=" << overtakeDist << " remaining=" << remaining
+                        << " minDistToStopped=" << neighLead.getMinDistToStopped()
+                        << " hasLaneBeyond=" << hasLaneBeyond
+                        << "\n";
+                }
+#endif
                 if (// current destination leaves enough space to overtake the leader
-                    MIN2(neighDist, currentDist) - posOnLane > overtakeDist
+                    remaining > overtakeDist
                     // maybe do not overtake on the right at high speed
                     && (!checkCurrent || !checkOverTakeRight || !right)
-                    && (!neighLead.hasStoppedVehicle() || hasLaneBeyond)
+                    && (!neighLead.hasStoppedVehicle() || neighLead.getMinDistToStopped() > overtakeDist /*|| (hasLaneBeyond && hasFreeLaneBeyond(neighBeyond, dir))*/)
                     //&& (neighLead.first == 0 || !neighLead.first->isStopped()
                     //    // neighboring stopped vehicle leaves enough space to overtake leader
                     //    || neighLead.second > overtakeDist))
@@ -3027,7 +3037,7 @@ MSLCM_SL2015::mustOvertakeStopped(bool checkCurrent, const MSLane& neighLane, co
                         std::cout << " veh=" << myVehicle.getID() << " overtake stopped leader=" << leader.first->getID()
                                   << " newCurrentDist=" << currentDist
                                   << " overtakeDist=" << overtakeDist
-                                  << " remaining=" << MIN2(neighDist, currentDist) - posOnLane
+                                  << " remaining=" << remaining
                                   << "\n";
                     }
 #endif

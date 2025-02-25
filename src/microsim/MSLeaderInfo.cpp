@@ -203,6 +203,7 @@ MSLeaderInfo::hasStoppedVehicle() const {
     return false;
 }
 
+
 void
 MSLeaderInfo::removeOpposite(const MSLane* lane) {
     for (int i = 0; i < (int)myVehicles.size(); ++i) {
@@ -384,6 +385,22 @@ MSLeaderDistanceInfo::moveSamePosTo(const MSVehicle* ego, MSLeaderDistanceInfo& 
         }
     }
 }
+
+
+double
+MSLeaderDistanceInfo::getMinDistToStopped() const {
+    double result = std::numeric_limits<double>::max();
+    if (!myHasVehicles) {
+        return result;
+    }
+    for (int i = 0; i < (int)myVehicles.size(); ++i) {
+        if (myVehicles[i] != 0 && myVehicles[i]->isStopped()) {
+            result = MIN2(result, myDistances[i]);
+        }
+    }
+    return result;
+}
+
 
 // ===========================================================================
 // MSCriticalFollowerDistanceInfo member method definitions

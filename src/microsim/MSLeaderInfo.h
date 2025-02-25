@@ -196,6 +196,10 @@ public:
 
     void moveSamePosTo(const MSVehicle* ego, MSLeaderDistanceInfo& other);
 
+    /// @brief return minimum distance to a stopped vehicle or max double
+    double getMinDistToStopped() const;
+
+
 protected:
 
     std::vector<double> myDistances;
