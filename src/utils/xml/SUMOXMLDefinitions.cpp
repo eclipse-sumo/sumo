@@ -1738,9 +1738,14 @@ StringBijection<ImageVideoFileExtension>::Entry SUMOXMLDefinitions::imageVideoFi
 };
 
 StringBijection<OutputFileExtension>::Entry SUMOXMLDefinitions::outputFileExtensionValues[] = {
-    {TL("XML files (*.xml)"),   OutputFileExtension::TXT},
+    {TL("XML files (*.xml)"),   OutputFileExtension::XML},
     {TL("Txt files (*.txt)"),   OutputFileExtension::TXT},
     {TL("All files (*)"),       OutputFileExtension::ALL} //< must be the last one
+};
+
+StringBijection<ViewSettingsFileExtension>::Entry SUMOXMLDefinitions::viewSettingsFileExtensionValues[] = {
+    {TL("View settings files (*.xml, *.xml.gz)"),   ViewSettingsFileExtension::XML},
+    {TL("All files (*)"),                           ViewSettingsFileExtension::ALL} //< must be the last one
 };
 
 StringBijection<SumoConfigFileExtension>::Entry SUMOXMLDefinitions::sumoConfigFileExtensionValues[] = {
@@ -1896,6 +1901,9 @@ StringBijection<ImageVideoFileExtension> SUMOXMLDefinitions::ImageVideoFileExten
 
 StringBijection<OutputFileExtension> SUMOXMLDefinitions::OutputFileExtensions(
     SUMOXMLDefinitions::outputFileExtensionValues, OutputFileExtension::ALL, false);
+
+StringBijection<ViewSettingsFileExtension> SUMOXMLDefinitions::ViewSettingsFileExtensions(
+    SUMOXMLDefinitions::viewSettingsFileExtensionValues, ViewSettingsFileExtension::ALL, false);
 
 StringBijection<SumoConfigFileExtension> SUMOXMLDefinitions::SumoConfigFileExtensions(
     SUMOXMLDefinitions::sumoConfigFileExtensionValues, SumoConfigFileExtension::ALL, false);

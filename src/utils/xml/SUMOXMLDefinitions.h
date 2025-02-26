@@ -2346,6 +2346,12 @@ enum class OutputFileExtension {
     ALL,
 };
 
+/// @brief view settings file extension
+enum class ViewSettingsFileExtension {
+    XML,
+    ALL,
+};
+
 /// @brief sumo file extension
 enum class SumoConfigFileExtension {
     SUMOCONF,
@@ -2529,6 +2535,9 @@ public:
 
     /// @brief output file extensions
     static StringBijection<OutputFileExtension> OutputFileExtensions;
+
+    /// @brief view settings file extensions
+    static StringBijection<ViewSettingsFileExtension> ViewSettingsFileExtensions;
 
     /// @brief sumo config file extensions
     static StringBijection<SumoConfigFileExtension> SumoConfigFileExtensions;
@@ -2715,7 +2724,10 @@ private:
 
     /// @brief output file extension values
     static StringBijection<OutputFileExtension>::Entry outputFileExtensionValues[];
-    
+
+    /// @brief view settings file extension values
+    static StringBijection<ViewSettingsFileExtension>::Entry viewSettingsFileExtensionValues[];
+
     /// @brief sumo config file extension values
     static StringBijection<SumoConfigFileExtension>::Entry sumoConfigFileExtensionValues[];
 

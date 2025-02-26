@@ -1154,7 +1154,7 @@ GUIDialog_ViewSettings::onCmdImportSetting(FXObject*, FXSelector, void* /*data*/
     FXFileDialog opendialog(this, TL("Import view settings"));
     opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::OPEN));
     opendialog.setSelectMode(SELECTFILE_ANY);
-    opendialog.setPatternList("*.xml,*.xml.gz");
+    opendialog.setPatternList(SUMOXMLDefinitions::getExtensions(SUMOXMLDefinitions::ViewSettingsFileExtensions).c_str());
     if (gCurrentFolder.length() != 0) {
         opendialog.setDirectory(gCurrentFolder);
     }
@@ -1171,7 +1171,7 @@ GUIDialog_ViewSettings::onCmdLoadDecal(FXObject*, FXSelector, void* /*data*/) {
     FXFileDialog opendialog(this, TL("Load Decals"));
     opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::EMPTY));
     opendialog.setSelectMode(SELECTFILE_ANY);
-    opendialog.setPatternList("*.xml,*.xml.gz");
+    opendialog.setPatternList(SUMOXMLDefinitions::getExtensions(SUMOXMLDefinitions::ViewSettingsFileExtensions).c_str());
     if (gCurrentFolder.length() != 0) {
         opendialog.setDirectory(gCurrentFolder);
     }
@@ -1188,7 +1188,7 @@ GUIDialog_ViewSettings::onCmdLoadXMLDecals(FXObject*, FXSelector, void* /*data*/
     FXFileDialog opendialog(this, TL("Load Decals"));
     opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::EMPTY));
     opendialog.setSelectMode(SELECTFILE_ANY);
-    opendialog.setPatternList("*.xml,*.xml.gz");
+    opendialog.setPatternList(SUMOXMLDefinitions::getExtensions(SUMOXMLDefinitions::ViewSettingsFileExtensions).c_str());
     if (gCurrentFolder.length() != 0) {
         opendialog.setDirectory(gCurrentFolder);
     }

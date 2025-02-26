@@ -695,7 +695,7 @@ GNEVehicleTypeDialog::VTypeAttributes::VTypeAttributeRow::openImageFileDialog() 
     FXFileDialog opendialog(this, TL("Open Image"));
     opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::VTYPE));
     opendialog.setSelectMode(SELECTFILE_EXISTING);
-    opendialog.setPatternList("All files (*)");
+    opendialog.setPatternList(SUMOXMLDefinitions::getExtensions(SUMOXMLDefinitions::ImageFileExtensions).c_str());
     if (gCurrentFolder.length() != 0) {
         opendialog.setDirectory(gCurrentFolder);
     }
