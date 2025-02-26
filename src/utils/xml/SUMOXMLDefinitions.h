@@ -2333,7 +2333,6 @@ enum class OSMFileExtension {
 /// @brief net file extension
 enum class NetFileExtension {
     NET_XML,
-    NET_XML_GZ,
     XML,
     ALL,
 };
