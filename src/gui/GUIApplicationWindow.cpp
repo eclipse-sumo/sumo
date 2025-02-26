@@ -1068,7 +1068,7 @@ GUIApplicationWindow::onCmdOpenNetwork(FXObject*, FXSelector, void*) {
     FXFileDialog opendialog(this, TL("Open Network"));
     opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::OPEN_NET));
     opendialog.setSelectMode(SELECTFILE_EXISTING);
-    opendialog.setPatternList("SUMO nets (*.net.xml,*.net.xml.gz)\nAll files (*)");
+    opendialog.setPatternList(SUMOXMLDefinitions::getExtensions(SUMOXMLDefinitions::NetFileExtensions).c_str());
     if (gCurrentFolder.length() != 0) {
         opendialog.setDirectory(gCurrentFolder);
     }
@@ -1088,7 +1088,7 @@ GUIApplicationWindow::onCmdOpenShapes(FXObject*, FXSelector, void*) {
     FXFileDialog opendialog(this, TL("Open Shapes"));
     opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::OPEN_SHAPES));
     opendialog.setSelectMode(SELECTFILE_EXISTING);
-    opendialog.setPatternList("Additional files (*.xml,*.xml.gz)\nAll files (*)");
+    opendialog.setPatternList(SUMOXMLDefinitions::getExtensions(SUMOXMLDefinitions::AdditionalFileExtensions).c_str());
     if (gCurrentFolder.length() != 0) {
         opendialog.setDirectory(gCurrentFolder);
     }
@@ -1189,7 +1189,7 @@ GUIApplicationWindow::onCmdSaveConfig(FXObject*, FXSelector, void*) {
     FXFileDialog opendialog(this, TL("Save SUMO Configuration"));
     opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::SAVE));
     opendialog.setSelectMode(SELECTFILE_ANY);
-    opendialog.setPatternList("Config (*.sumocfg)");
+    opendialog.setPatternList(SUMOXMLDefinitions::getExtensions(SUMOXMLDefinitions::SumoConfigFileExtensions).c_str());
     if (gCurrentFolder.length() != 0) {
         opendialog.setDirectory(gCurrentFolder);
     }

@@ -2347,21 +2347,21 @@ enum class OutputFileExtension {
 };
 
 /// @brief sumo file extension
-enum class SumoFileExtension {
+enum class SumoConfigFileExtension {
     SUMOCONF,
     XML,
     ALL,
 };
 
 /// @brief netedit file extension
-enum class NeteditFileExtension {
+enum class NeteditConfigFileExtension {
     NETECFG,
     XML,
     ALL,
 };
 
 /// @brief netconvert file extension
-enum class NetconvertFileExtension {
+enum class NetconvertConfigFileExtension {
     NETCCFG,
     XML,
     ALL,
@@ -2530,14 +2530,14 @@ public:
     /// @brief output file extensions
     static StringBijection<OutputFileExtension> OutputFileExtensions;
 
-    /// @brief sumo file extensions
-    static StringBijection<SumoFileExtension> SumoFileExtensions;
+    /// @brief sumo config file extensions
+    static StringBijection<SumoConfigFileExtension> SumoConfigFileExtensions;
 
-    /// @brief netedit file extensions
-    static StringBijection<NeteditFileExtension> NeteditFileExtensions;
+    /// @brief netedit config file extensions
+    static StringBijection<NeteditConfigFileExtension> NeteditConfigFileExtensions;
 
-    /// @brief netconvert file extensions
-    static StringBijection<NetconvertFileExtension> NetconvertFileExtensions;
+    /// @brief netconvert config file extensions
+    static StringBijection<NetconvertConfigFileExtension> NetconvertConfigFileExtensions;
 
     /// @brief OSM file extensions
     static StringBijection<OSMFileExtension> OSMFileExtensions;
@@ -2716,14 +2716,14 @@ private:
     /// @brief output file extension values
     static StringBijection<OutputFileExtension>::Entry outputFileExtensionValues[];
     
-    /// @brief sumo file extension values
-    static StringBijection<SumoFileExtension>::Entry sumoFileExtensionValues[];
+    /// @brief sumo config file extension values
+    static StringBijection<SumoConfigFileExtension>::Entry sumoConfigFileExtensionValues[];
 
-    /// @brief netedit file extension values
-    static StringBijection<NeteditFileExtension>::Entry neteditFileExtensionValues[];
+    /// @brief netedit config file extension values
+    static StringBijection<NeteditConfigFileExtension>::Entry neteditConfigFileExtensionValues[];
     
-    /// @brief netconvert file extension values
-    static StringBijection<NetconvertFileExtension>::Entry netconvertFileExtensionValues[];
+    /// @brief netconvert config file extension values
+    static StringBijection<NetconvertConfigFileExtension>::Entry netconvertConfigFileExtensionValues[];
 
     /// @brief OSM file extension values
     static StringBijection<OSMFileExtension>::Entry osmFileExtensionValues[];

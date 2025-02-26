@@ -2518,7 +2518,7 @@ GNEApplicationWindowHelper::openNetworkFileDialog(FXWindow* window, bool save, b
 std::string
 GNEApplicationWindowHelper::openNetconvertFileDialog(FXWindow* window) {
     return openFileDialog(window, TL("Open NetConvert file"), GUIIcon::OPEN_NET,
-                          SUMOXMLDefinitions::NetconvertFileExtensions.getStrings(), false);
+                          SUMOXMLDefinitions::NetconvertConfigFileExtensions.getStrings(), false);
 }
 
 
@@ -2554,10 +2554,10 @@ std::string
 GNEApplicationWindowHelper::openNeteditConfigFileDialog(FXWindow* window, bool save) {
     if (save) {
         return openFileDialog(window, TL("Save netedit Config file as"), GUIIcon::SAVE_NETEDITCONFIG,
-                              SUMOXMLDefinitions::NeteditFileExtensions.getStrings(), save);
+                              SUMOXMLDefinitions::NeteditConfigFileExtensions.getStrings(), save);
     } else {
         return openFileDialog(window, TL("Open netedit Config file"), GUIIcon::OPEN_NETEDITCONFIG,
-                              SUMOXMLDefinitions::NeteditFileExtensions.getStrings(), save);
+                              SUMOXMLDefinitions::NeteditConfigFileExtensions.getStrings(), save);
     }
 }
 
@@ -2566,10 +2566,10 @@ std::string
 GNEApplicationWindowHelper::openSumoConfigFileDialog(FXWindow* window, bool save, bool multi) {
     if (save) {
         return openFileDialog(window, TL("Save SUMO Config file as"), GUIIcon::SAVE_SUMOCONFIG,
-                              SUMOXMLDefinitions::SumoFileExtensions.getStrings(), save, multi);
+                              SUMOXMLDefinitions::SumoConfigFileExtensions.getStrings(), save, multi);
     } else {
         return openFileDialog(window, TL("Open SUMO Config file"), GUIIcon::OPEN_SUMOCONFIG,
-                              SUMOXMLDefinitions::SumoFileExtensions.getStrings(), save, multi);
+                              SUMOXMLDefinitions::SumoConfigFileExtensions.getStrings(), save, multi);
     }
 }
 

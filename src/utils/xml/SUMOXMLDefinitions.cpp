@@ -1641,7 +1641,6 @@ StringBijection<LaneChangeAction>::Entry SUMOXMLDefinitions::laneChangeActionVal
     { "amBBS",       LCA_AMBACKBLOCKER_STANDING },
     { "MR",          LCA_MRIGHT },
     { "ML",          LCA_MLEFT },
-
     { "unknown",     LCA_UNKNOWN } //< must be the last one
 };
 
@@ -1744,22 +1743,22 @@ StringBijection<OutputFileExtension>::Entry SUMOXMLDefinitions::outputFileExtens
     {TL("All files (*)"),       OutputFileExtension::ALL} //< must be the last one
 };
 
-StringBijection<SumoFileExtension>::Entry SUMOXMLDefinitions::sumoFileExtensionValues[] = {
-    {TL("SUMO config files (*.sumocfg))"),  SumoFileExtension::SUMOCONF},
-    {TL("XML files (*.xml)"),               SumoFileExtension::XML},
-    {TL("All files (*)"),                   SumoFileExtension::ALL} //< must be the last one
+StringBijection<SumoConfigFileExtension>::Entry SUMOXMLDefinitions::sumoConfigFileExtensionValues[] = {
+    {TL("Sumo config files (*.sumocfg))"),  SumoConfigFileExtension::SUMOCONF},
+    {TL("XML files (*.xml)"),               SumoConfigFileExtension::XML},
+    {TL("All files (*)"),                   SumoConfigFileExtension::ALL} //< must be the last one
 };
 
-StringBijection<NeteditFileExtension>::Entry SUMOXMLDefinitions::neteditFileExtensionValues[] = {
-    {TL("Netedit config files (*.netecfg)"),    NeteditFileExtension::NETECFG},
-    {TL("XML files (*.xml)"),                   NeteditFileExtension::XML},
-    {TL("All files (*)"),                       NeteditFileExtension::ALL} //< must be the last one
+StringBijection<NeteditConfigFileExtension>::Entry SUMOXMLDefinitions::neteditConfigFileExtensionValues[] = {
+    {TL("Netedit config files (*.netecfg)"),    NeteditConfigFileExtension::NETECFG},
+    {TL("XML files (*.xml)"),                   NeteditConfigFileExtension::XML},
+    {TL("All files (*)"),                       NeteditConfigFileExtension::ALL} //< must be the last one
 };
 
-StringBijection<NetconvertFileExtension>::Entry SUMOXMLDefinitions::netconvertFileExtensionValues[] = {
-    {TL("Netconvert files (*.netccfg)"),    NetconvertFileExtension::NETCCFG},
-    {TL("XML files (*.xml)"),               NetconvertFileExtension::XML},
-    {TL("All files (*)"),                   NetconvertFileExtension::ALL} //< must be the last one
+StringBijection<NetconvertConfigFileExtension>::Entry SUMOXMLDefinitions::netconvertConfigFileExtensionValues[] = {
+    {TL("Netconvert config files (*.netccfg)"), NetconvertConfigFileExtension::NETCCFG},
+    {TL("XML files (*.xml)"),                   NetconvertConfigFileExtension::XML},
+    {TL("All files (*)"),                       NetconvertConfigFileExtension::ALL} //< must be the last one
 };
 
 StringBijection<OSMFileExtension>::Entry SUMOXMLDefinitions::osmFileExtensionValues[] = {
@@ -1898,14 +1897,14 @@ StringBijection<ImageVideoFileExtension> SUMOXMLDefinitions::ImageVideoFileExten
 StringBijection<OutputFileExtension> SUMOXMLDefinitions::OutputFileExtensions(
     SUMOXMLDefinitions::outputFileExtensionValues, OutputFileExtension::ALL, false);
 
-StringBijection<SumoFileExtension> SUMOXMLDefinitions::SumoFileExtensions(
-    SUMOXMLDefinitions::sumoFileExtensionValues, SumoFileExtension::ALL, false);
+StringBijection<SumoConfigFileExtension> SUMOXMLDefinitions::SumoConfigFileExtensions(
+    SUMOXMLDefinitions::sumoConfigFileExtensionValues, SumoConfigFileExtension::ALL, false);
 
-StringBijection<NeteditFileExtension> SUMOXMLDefinitions::NeteditFileExtensions(
-    SUMOXMLDefinitions::neteditFileExtensionValues, NeteditFileExtension::ALL, false);
+StringBijection<NeteditConfigFileExtension> SUMOXMLDefinitions::NeteditConfigFileExtensions(
+    SUMOXMLDefinitions::neteditConfigFileExtensionValues, NeteditConfigFileExtension::ALL, false);
 
-StringBijection<NetconvertFileExtension> SUMOXMLDefinitions::NetconvertFileExtensions(
-    SUMOXMLDefinitions::netconvertFileExtensionValues, NetconvertFileExtension::ALL, false);
+StringBijection<NetconvertConfigFileExtension> SUMOXMLDefinitions::NetconvertConfigFileExtensions(
+    SUMOXMLDefinitions::netconvertConfigFileExtensionValues, NetconvertConfigFileExtension::ALL, false);
 
 StringBijection<OSMFileExtension> SUMOXMLDefinitions::OSMFileExtensions(
     SUMOXMLDefinitions::osmFileExtensionValues, OSMFileExtension::ALL, false);
