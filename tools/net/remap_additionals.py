@@ -39,7 +39,7 @@ def get_options(args=None):
                     help="File for reading infrastructure", metavar="FILE")
     ap.add_argument("-o", "--output-file", dest="output", required=True, category="output", type=ap.additional_file,
                     help="File for writing infrastructure", metavar="FILE")
-    ap.add_argument("-r", "--radius", type=float, default=20,
+    ap.add_argument("--radius", type=float, default=20,
                     help="radius for finding candidate edges")
     ap.add_argument("--shapecut", type=float, default=40,
                     help="Shorten polygon and edge shapes to FLOAT to increase robustness of angular comparison")
