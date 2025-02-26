@@ -7,13 +7,21 @@ title: ChangeLog
 ### Bugfixes
 
 - sumo
+  - Fixed crash when using rail signal on shared lane #16219 (regression in 1.22.0)
   - Fixed invalid waitingTime in personinfo output #16164
+  - Fixed failure to overtake two parallel stopped leaders #16232
+  - Fixed invalid error when departing with fixed speed and large offset from best lane #16244
 
 - netedit
   - Fixed invalid connections after using *reset connections* #16127
 
 - netconvert
   - Fixed invalid link state when straight connection passes a crossing after internal junction #16167
+  - Option **--bikelanes.guess** no longer impacts loaded connection attributes #16196
+  - Fixed invalid right of way rules / junction type when shared tram lanes crosses another tram line #16215
+  - Fixed bug where stops loaded with option **--ptstop-files** were renamed #16220
+  - failure to map elevation to a network with z-data #16235
+
  
 - TraCI
   - Setting vehicle parameter 'lcContRight' is now working #16147
@@ -29,12 +37,13 @@ title: ChangeLog
   - `departPos=stop` now works for any departLane on the stop edge #16133
   - Pedestrians are now included in full output #16159
   - Added stop attribute `jumpUntil` to set a minimum time for the end of a jump #16153
+  - Tram insertion automatically uses moving-block mode when there are no rail signals for tram in the network #16208
 
 
 - netconvert
   - Added option **--junctions.join.parallel-threshold DEGREES** to increase user control over joining junctions (with **--junctions.join**) #16140
   - Added option **--osm.annotate-defaults** to document whether speed and lane number were based on OSM data or typemap default values #16094
-
+  - Trams now use safe and efficient zipper merging where possible when no tram rail signals are defined. Option ** --railway.signal.permit-unsignalized** can be used to configure other vClasses that are subject to this behavior #16216
 
 - sumo-gui
   - started work on Japanese translation #16129
@@ -47,11 +56,19 @@ title: ChangeLog
   - `traci.start` now supports argument `traceGetters="print"`. When this is set, the generated traceFile will print the outputs of all *get* commands when replayed. #16156
   - Added function `traci.route.delete` #15452
   - `simulation.getMinExpectedNumber` now takes into account pending taxi reservations #16187
+  - Addedd function `person.getWalkingDistance` #16197
 
 
 - Tools
   - netcheck.py: Added option **--right-of-way** to find selected cases of faulty right-of-way rules (currently only on-ramps are check) #16036
   - jtcrouter.py: Added option **--additional-files** which are passed to [jtrrouter.md] #16191
+  - csv2xml.py: Added option **--flat** to convert arbitrary csv files without a schema #16204
+  - plotXMLAttributes.py: Added option **--xstr** and **--ystr** to force data interpretation as category #16205
+  - sumolib: function xml.parse is now useful when loading nested elements and not providing argument `element_names`. The new attribute `outputLevel` (default 1) controls which elements to retrieve #16211
+  - remap_additionals.py: convert infrastructure from one network to another network (which may differ in geometry, lanes and edge splits) #16206
+  - ptlines2flows.py: now sorts written routes and flows by id #16222
+
+
 
 
 
