@@ -245,13 +245,12 @@ std::mt19937 GUIApplicationWindow::myGamingRNG;
 #pragma warning(push)
 #pragma warning(disable: 4355) // mask warning about "this" in initializers
 #endif
-GUIApplicationWindow::GUIApplicationWindow(FXApp* a, const std::string& configPattern) :
+GUIApplicationWindow::GUIApplicationWindow(FXApp* a) :
     GUIMainWindow(a),
     myFileMenuRecentNetworks(new FXMenuPane(this)),
     myFileMenuRecentConfigs(new FXMenuPane(this)),
     myRecentNetworks(a, "networks"),
     myRecentConfigs(a, "configs"),
-    myConfigPattern(configPattern),
     myLastStepEventMillis(SysUtils::getCurrentMillis() - MIN_DRAW_DELAY) {
     // init icons
     GUIIconSubSys::initIcons(a);
@@ -1048,7 +1047,7 @@ GUIApplicationWindow::onCmdOpenConfiguration(FXObject*, FXSelector, void*) {
     FXFileDialog opendialog(this, TL("Open Simulation Configuration"));
     opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::OPEN_SUMOCONFIG));
     opendialog.setSelectMode(SELECTFILE_EXISTING);
-    opendialog.setPatternList(myConfigPattern.c_str());
+    opendialog.setPatternList(SUMOXMLDefinitions::getExtensions(SUMOXMLDefinitions::SumoConfigFileExtensions).c_str());
     if (gCurrentFolder.length() != 0) {
         opendialog.setDirectory(gCurrentFolder);
     }

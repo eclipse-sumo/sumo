@@ -62,11 +62,8 @@ class GUIApplicationWindow : public GUIMainWindow, public MFXInterThreadEventCli
     FXDECLARE(GUIApplicationWindow)
 
 public:
-    /** @brief Constructor
-     * @param[in] a The FOX application
-     * @param[in] configPattern The pattern used for loading configurations
-     */
-    GUIApplicationWindow(FXApp* a, const std::string& configPattern);
+    /// @brief Constructor
+    GUIApplicationWindow(FXApp* a);
 
     /// @brief Destructor
     virtual ~GUIApplicationWindow();
@@ -493,9 +490,6 @@ protected:
 
     /// @brief List of recent configs
     MFXRecentNetworks myRecentConfigs;
-
-    /// @brief Input file pattern
-    std::string myConfigPattern;
 
     /// @brief flag to mark if GUIApplicationWIndow has depend build
     bool hadDependentBuild = false;
