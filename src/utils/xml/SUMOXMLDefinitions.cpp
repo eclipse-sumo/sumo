@@ -1680,15 +1680,74 @@ StringBijection<ReferencePosition>::Entry SUMOXMLDefinitions::referencePositionV
     {"center",  ReferencePosition::CENTER} //< must be the last one
 };
 
-StringBijection<ImageExtension>::Entry SUMOXMLDefinitions::imageExtensionValues[] = {
-    {TL("Image files (*.jpg, *.png, *.bmp)"),   ImageExtension::IMG},
-    {TL("All files (*)"),                       ImageExtension::ALL} //< must be the last one
+StringBijection<XMLFileExtension>::Entry SUMOXMLDefinitions::XMLFileExtensionValues[] = {
+    {TL("XML files (*.xml)"),   XMLFileExtension::XML},
+    {TL("All files (*)"),       XMLFileExtension::ALL} //< must be the last one
+};
+
+StringBijection<TXTFileExtension>::Entry SUMOXMLDefinitions::TXTFileExtensionValues[] = {
+    {TL("TXT files (*.txt)"),   TXTFileExtension::TXT},
+    {TL("All files (*)"),       TXTFileExtension::ALL} //< must be the last one
+};
+
+StringBijection<ImageFileExtension>::Entry SUMOXMLDefinitions::imageFileExtensionValues[] = {
+    {TL("Image files (*.jpg, *.png, *.bmp)"),   ImageFileExtension::IMG},
+    {TL("All files (*)"),                       ImageFileExtension::ALL} //< must be the last one
 };
 
 StringBijection<OutputFileExtension>::Entry SUMOXMLDefinitions::outputFileExtensionValues[] = {
     {TL("XML files (*.xml)"),   OutputFileExtension::TXT},
     {TL("Txt files (*.txt)"),   OutputFileExtension::TXT},
     {TL("All files (*)"),       OutputFileExtension::ALL} //< must be the last one
+};
+
+StringBijection<SumoFileExtension>::Entry SUMOXMLDefinitions::sumoFileExtensionValues[] = {
+    {TL("SUMO Config files (*.sumocfg))"),  SumoFileExtension::SUMOCONF},
+    {TL("XML files (*.xml)"),               SumoFileExtension::XML},
+    {TL("All files (*)"),                   SumoFileExtension::ALL} //< must be the last one
+};
+
+StringBijection<NeteditFileExtension>::Entry SUMOXMLDefinitions::neteditFileExtensionValues[] = {
+    {TL("Netedit Config files (*.netecfg)"),    NeteditFileExtension::NETECFG},
+    {TL("XML files (*.xml)"),                   NeteditFileExtension::XML},
+    {TL("All files (*)"),                       NeteditFileExtension::ALL} //< must be the last one
+};
+
+StringBijection<NetconvertFileExtension>::Entry SUMOXMLDefinitions::netconvertFileExtensionValues[] = {
+    {TL("Netconvert files (*.netccfg)"),    NetconvertFileExtension::NETCCFG},
+    {TL("XML files (*.xml)"),               NetconvertFileExtension::XML},
+    {TL("All files (*)"),                   NetconvertFileExtension::ALL} //< must be the last one
+};
+
+StringBijection<OSMFileExtension>::Entry SUMOXMLDefinitions::osmFileExtensionValues[] = {
+    {TL("OSM net files (*.osm)"),   OSMFileExtension::OSM},
+    {TL("XML files (*.xml)"),       OSMFileExtension::XML},
+    {TL("All files (*)"),           OSMFileExtension::ALL} //< must be the last one
+};
+
+StringBijection<NetFileExtension>::Entry SUMOXMLDefinitions::netFileExtensionValues[] = {
+    {TL("SUMO Network files (*.net.xml)"),              NetFileExtension::NET_XML},
+    {TL("SUMO Network files zipped (*.net.xml.gz)"),    NetFileExtension::NET_XML_GZ},
+    {TL("XML files (*.xml)"),                           NetFileExtension::XML},
+    {TL("All files (*)"),                               NetFileExtension::ALL} //< must be the last one
+};
+
+StringBijection<TLSFileExtension>::Entry SUMOXMLDefinitions::TLSFileExtensionValues[] = {
+    {TL("TLS files (*.ttl.xml)"),   TLSFileExtension::TTL_XML},
+    {TL("XML files (*.xml)"),       TLSFileExtension::XML},
+    {TL("All files (*)"),           TLSFileExtension::ALL} //< must be the last one
+};
+
+StringBijection<JunctionFileExtension>::Entry SUMOXMLDefinitions::junctionFileExtensionValues[] = {
+    {TL("Junction files (*.nod.xml)"),  JunctionFileExtension::NOD_XML},
+    {TL("XML files (*.xml)"),           JunctionFileExtension::XML},
+    {TL("All files (*)"),               JunctionFileExtension::ALL} //< must be the last one
+};
+
+StringBijection<EdgeTypeFileExtension>::Entry SUMOXMLDefinitions::edgeTypeFileExtensionValues[] = {
+    {TL("EdgeType files (*.ttl.xml)"),  EdgeTypeFileExtension::TYP_XML},
+    {TL("XML files (*.xml)"),           EdgeTypeFileExtension::XML},
+    {TL("All files (*)"),               EdgeTypeFileExtension::ALL} //< must be the last one
 };
 
 StringBijection<AdditionalFileExtension>::Entry SUMOXMLDefinitions::additionalFileExtensionValues[] = {
@@ -1782,11 +1841,41 @@ StringBijection<ExcludeEmpty> SUMOXMLDefinitions::ExcludeEmptys(
 StringBijection<ReferencePosition> SUMOXMLDefinitions::ReferencePositions(
     SUMOXMLDefinitions::referencePositionValues, ReferencePosition::CENTER, false);
 
-StringBijection<ImageExtension> SUMOXMLDefinitions::ImageExtensions(
-    SUMOXMLDefinitions::imageExtensionValues, ImageExtension::ALL, false);
+StringBijection<XMLFileExtension> SUMOXMLDefinitions::XMLFileExtensions(
+    SUMOXMLDefinitions::XMLFileExtensionValues, XMLFileExtension::ALL, false);
+
+StringBijection<TXTFileExtension> SUMOXMLDefinitions::TXTFileExtensions(
+    SUMOXMLDefinitions::TXTFileExtensionValues, TXTFileExtension::ALL, false);
+
+StringBijection<ImageFileExtension> SUMOXMLDefinitions::ImageFileExtensions(
+    SUMOXMLDefinitions::imageFileExtensionValues, ImageFileExtension::ALL, false);
 
 StringBijection<OutputFileExtension> SUMOXMLDefinitions::OutputFileExtensions(
     SUMOXMLDefinitions::outputFileExtensionValues, OutputFileExtension::ALL, false);
+
+StringBijection<SumoFileExtension> SUMOXMLDefinitions::SumoFileExtensions(
+    SUMOXMLDefinitions::sumoFileExtensionValues, SumoFileExtension::ALL, false);
+
+StringBijection<NeteditFileExtension> SUMOXMLDefinitions::NeteditFileExtensions(
+    SUMOXMLDefinitions::neteditFileExtensionValues, NeteditFileExtension::ALL, false);
+
+StringBijection<NetconvertFileExtension> SUMOXMLDefinitions::NetconvertFileExtensions(
+    SUMOXMLDefinitions::netconvertFileExtensionValues, NetconvertFileExtension::ALL, false);
+
+StringBijection<OSMFileExtension> SUMOXMLDefinitions::OSMFileExtensions(
+    SUMOXMLDefinitions::osmFileExtensionValues, OSMFileExtension::ALL, false);
+
+StringBijection<NetFileExtension> SUMOXMLDefinitions::NetFileExtensions(
+    SUMOXMLDefinitions::netFileExtensionValues, NetFileExtension::ALL, false);
+
+StringBijection<TLSFileExtension> SUMOXMLDefinitions::TLSFileExtensions(
+    SUMOXMLDefinitions::TLSFileExtensionValues, TLSFileExtension::ALL, false);
+
+StringBijection<JunctionFileExtension> SUMOXMLDefinitions::JunctionFileExtensions(
+    SUMOXMLDefinitions::junctionFileExtensionValues, JunctionFileExtension::ALL, false);
+
+StringBijection<EdgeTypeFileExtension> SUMOXMLDefinitions::EdgeTypeFileExtensions(
+    SUMOXMLDefinitions::edgeTypeFileExtensionValues, EdgeTypeFileExtension::ALL, false);
 
 StringBijection<AdditionalFileExtension> SUMOXMLDefinitions::AdditionalFileExtensions(
     SUMOXMLDefinitions::additionalFileExtensionValues, AdditionalFileExtension::ALL, false);

@@ -532,7 +532,7 @@ struct GNEApplicationWindowHelper {
             MFXMenuCheckIcon* menuCheckAutoOppositeEdge = nullptr;
 
             /// @brief separator
-            FXMenuSeparator* separator;
+            FXMenuSeparator* separator = nullptr;
 
         private:
             /// @brief pointer to current GNEApplicationWindow
@@ -594,7 +594,7 @@ struct GNEApplicationWindowHelper {
             MFXMenuCheckIcon* menuCheckLockContainer = nullptr;
 
             /// @brief separator
-            FXMenuSeparator* separator;
+            FXMenuSeparator* separator = nullptr;
 
         private:
             /// @brief pointer to current GNEApplicationWindow
@@ -1231,7 +1231,8 @@ struct GNEApplicationWindowHelper {
 
 private:
     /// @brief open filename dialog
-    static std::string openFileDialog(FXWindow* window, const std::string title, GUIIcon icon, const std::string patternList, bool save, bool multi = false);
+    static std::string openFileDialog(FXWindow* window, const std::string title, GUIIcon icon,
+                                      const std::vector<std::string> &extensions, bool save, bool multi = false);
 
     /// @brief Invalidated copy constructor.
     GNEApplicationWindowHelper(const GNEApplicationWindowHelper&) = delete;

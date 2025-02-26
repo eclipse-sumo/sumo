@@ -2277,8 +2277,20 @@ enum class ReferencePosition {
     CENTER,
 };
 
+/// @brief XML extension
+enum class XMLFileExtension {
+    XML,
+    ALL,
+};
+
+/// @brief TXT extension
+enum class TXTFileExtension {
+    TXT,
+    ALL,
+};
+
 /// @brief image extension
-enum class ImageExtension {
+enum class ImageFileExtension {
     IMG,
     ALL,
 };
@@ -2287,6 +2299,63 @@ enum class ImageExtension {
 enum class OutputFileExtension {
     XML,
     TXT,
+    ALL,
+};
+
+/// @brief sumo file extension
+enum class SumoFileExtension {
+    SUMOCONF,
+    XML,
+    ALL,
+};
+
+/// @brief netedit file extension
+enum class NeteditFileExtension {
+    NETECFG,
+    XML,
+    ALL,
+};
+
+/// @brief netconvert file extension
+enum class NetconvertFileExtension {
+    NETCCFG,
+    XML,
+    ALL,
+};
+
+/// @brief OSM file extension
+enum class OSMFileExtension {
+    OSM,
+    XML,
+    ALL,
+};
+
+/// @brief net file extension
+enum class NetFileExtension {
+    NET_XML,
+    NET_XML_GZ,
+    XML,
+    ALL,
+};
+
+/// @brief TLS file extension
+enum class TLSFileExtension {
+    TTL_XML,
+    XML,
+    ALL,
+};
+
+/// @brief Junction file extension
+enum class JunctionFileExtension {
+    NOD_XML,
+    XML,
+    ALL,
+};
+
+/// @brief Edge type file extension
+enum class EdgeTypeFileExtension {
+    TYP_XML,
+    XML,
     ALL,
 };
 
@@ -2403,11 +2472,41 @@ public:
     /// @brief reference positions (used creating certain elements in netedit)
     static StringBijection<ReferencePosition> ReferencePositions;
 
-    /// @brief image extensions
-    static StringBijection<ImageExtension> ImageExtensions;
+    /// @brief XML file Extensions
+    static StringBijection<XMLFileExtension> XMLFileExtensions;
+
+    /// @brief TXT file Extensions
+    static StringBijection<TXTFileExtension> TXTFileExtensions;
+
+    /// @brief image file extensions
+    static StringBijection<ImageFileExtension> ImageFileExtensions;
 
     /// @brief output file extensions
     static StringBijection<OutputFileExtension> OutputFileExtensions;
+
+    /// @brief sumo file extensions
+    static StringBijection<SumoFileExtension> SumoFileExtensions;
+
+    /// @brief netedit file extensions
+    static StringBijection<NeteditFileExtension> NeteditFileExtensions;
+
+    /// @brief netconvert file extensions
+    static StringBijection<NetconvertFileExtension> NetconvertFileExtensions;
+
+    /// @brief OSM file extensions
+    static StringBijection<OSMFileExtension> OSMFileExtensions;
+
+    /// @brief net file extensions
+    static StringBijection<NetFileExtension> NetFileExtensions;
+
+    /// @brief TLS file extensions
+    static StringBijection<TLSFileExtension> TLSFileExtensions;
+
+    /// @brief juntion file extensions
+    static StringBijection<JunctionFileExtension> JunctionFileExtensions;
+
+    /// @brief edge file extensions
+    static StringBijection<EdgeTypeFileExtension> EdgeTypeFileExtensions;
 
     /// @brief additional file extensions
     static StringBijection<AdditionalFileExtension> AdditionalFileExtensions;
@@ -2472,7 +2571,22 @@ public:
 
     /// @brief return lane index when given the lane ID
     static int getIndexFromLane(const std::string laneID);
+
     /// @}
+
+    /// @brief get extensions in a format compatible with fx dialogs
+    template <typename T>
+    static std::string getExtensions(StringBijection<T> extensions) {
+        std::string result;
+        const auto extensionStrings = extensions.getStrings();
+        if (extensionStrings.size() > 0) {
+            for (const auto &extension : extensionStrings) {
+                result.append(extension + "\n");
+            }
+            result.pop_back();
+        }
+        return result;
+    }
 
     /// @brief all allowed characters for phase state
     static const std::string ALLOWED_TLS_LINKSTATES;
@@ -2541,11 +2655,41 @@ private:
     /// @brief Reference position values
     static StringBijection<ReferencePosition>::Entry referencePositionValues[];
 
-    /// @brief image extension values
-    static StringBijection<ImageExtension>::Entry imageExtensionValues[];
+     /// @brief XML file extension values
+    static StringBijection<XMLFileExtension>::Entry XMLFileExtensionValues[];
+
+    /// @brief TXT file extension values
+    static StringBijection<TXTFileExtension>::Entry TXTFileExtensionValues[];
+
+    /// @brief image file extension values
+    static StringBijection<ImageFileExtension>::Entry imageFileExtensionValues[];
 
     /// @brief output file extension values
     static StringBijection<OutputFileExtension>::Entry outputFileExtensionValues[];
+    
+    /// @brief sumo file extension values
+    static StringBijection<SumoFileExtension>::Entry sumoFileExtensionValues[];
+
+    /// @brief netedit file extension values
+    static StringBijection<NeteditFileExtension>::Entry neteditFileExtensionValues[];
+    
+    /// @brief netconvert file extension values
+    static StringBijection<NetconvertFileExtension>::Entry netconvertFileExtensionValues[];
+
+    /// @brief OSM file extension values
+    static StringBijection<OSMFileExtension>::Entry osmFileExtensionValues[];
+
+    /// @brief net file extension values
+    static StringBijection<NetFileExtension>::Entry netFileExtensionValues[];
+
+    /// @brief TLS file extension values
+    static StringBijection<TLSFileExtension>::Entry TLSFileExtensionValues[];
+
+    /// @brief junction file extension values
+    static StringBijection<JunctionFileExtension>::Entry junctionFileExtensionValues[];
+
+    /// @brief edge file extension values
+    static StringBijection<EdgeTypeFileExtension>::Entry edgeTypeFileExtensionValues[];
 
     /// @brief additional file extension values
     static StringBijection<AdditionalFileExtension>::Entry additionalFileExtensionValues[];

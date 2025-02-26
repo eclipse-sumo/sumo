@@ -2495,12 +2495,10 @@ std::string
 GNEApplicationWindowHelper::openFileDialog(FXWindow* window, bool save, bool multi) {
     if (save) {
         return openFileDialog(window, TL("Save file as"), GUIIcon::SAVE,
-                              TL("XML files (*.xml)") + std::string("\n") +
-                              TL("All files (*)"), save, multi);
+                              SUMOXMLDefinitions::XMLFileExtensions.getStrings(), save, multi);
     } else {
         return openFileDialog(window, TL("Open file"), GUIIcon::OPEN_SUMOCONFIG,
-                              TL("XML files (*.xml)") + std::string("\n") +
-                              TL("All files (*)"), save, multi);
+                              SUMOXMLDefinitions::XMLFileExtensions.getStrings(), save, multi);
     }
 }
 
@@ -2509,14 +2507,10 @@ std::string
 GNEApplicationWindowHelper::openNetworkFileDialog(FXWindow* window, bool save, bool multi) {
     if (save) {
         return openFileDialog(window, TL("Save Network file as"), GUIIcon::SAVE_NETWORKELEMENTS,
-                              TL("SUMO Network files (*.net.xml)") + std::string("\n") +
-                              TL("SUMO Network files zipped (*.net.xml.gz)") + std::string("\n") +
-                              TL("XML files (*.xml)\nAll files (*)"), save, multi);
+                              SUMOXMLDefinitions::NetFileExtensions.getStrings(), save, multi);
     } else {
         return openFileDialog(window, TL("Open Network file"), GUIIcon::OPEN_NET,
-                              TL("SUMO Network files (*.net.xml,*.net.xml.gz)") + std::string("\n") +
-                              TL("XML files (*.xml)") + std::string("\n") +
-                              TL("All files (*)"), save, multi);
+                              SUMOXMLDefinitions::NetFileExtensions.getStrings(), save, multi);
     }
 }
 
@@ -2524,41 +2518,35 @@ GNEApplicationWindowHelper::openNetworkFileDialog(FXWindow* window, bool save, b
 std::string
 GNEApplicationWindowHelper::openNetconvertFileDialog(FXWindow* window) {
     return openFileDialog(window, TL("Open NetConvert file"), GUIIcon::OPEN_NET,
-                          TL("Netconvert files (*.netccfg)") + std::string("\n") +
-                          TL("XML files (*.xml)") + std::string("\n") +
-                          TL("All files (*)"), false);
+                          SUMOXMLDefinitions::NetconvertFileExtensions.getStrings(), false);
 }
 
 
 std::string
 GNEApplicationWindowHelper::savePlainXMLFileDialog(FXWindow* window) {
     return openFileDialog(window, TL("Save plain XML as"), GUIIcon::SAVE,
-                          TL("XML files (*.xml)") + std::string("\n") +
-                          TL("All files (*)"), true);
+                          SUMOXMLDefinitions::XMLFileExtensions.getStrings(), true);
 }
 
 
 std::string
 GNEApplicationWindowHelper::saveJoinedJunctionsFileDialog(FXWindow* window) {
     return openFileDialog(window, TL("Save joined Junctions as"), GUIIcon::SAVE,
-                          TL("Junction files (*.nod.xml)") + std::string("\n") +
-                          TL("XML files (*.xml)") + std::string("\n") +
-                          TL("All files (*)"), true);
+                          SUMOXMLDefinitions::JunctionFileExtensions.getStrings(), true);
 }
 
 
 std::string
 GNEApplicationWindowHelper::saveToolLog(FXWindow* window) {
     return openFileDialog(window, TL("Save tool log"), GUIIcon::SAVE,
-                          TL("Text file (*.txt)") + std::string("\n") +
-                          TL("All files (*)"), true);
+                          SUMOXMLDefinitions::TXTFileExtensions.getStrings(), true);
 }
 
 
 std::string
 GNEApplicationWindowHelper::openOSMFileDialog(FXWindow* window) {
     return openFileDialog(window, TL("Open OSM file"), GUIIcon::OPEN_NET,
-                          TL("OSM net (*.osm.xml,*.osm)"), false);
+                          SUMOXMLDefinitions::OSMFileExtensions.getStrings(), false);
 }
 
 
@@ -2566,13 +2554,10 @@ std::string
 GNEApplicationWindowHelper::openNeteditConfigFileDialog(FXWindow* window, bool save) {
     if (save) {
         return openFileDialog(window, TL("Save netedit Config file as"), GUIIcon::SAVE_NETEDITCONFIG,
-                              TL("Netedit Config files (*.netecfg)") + std::string("\n") +
-                              TL("All files (*)"), save);
+                              SUMOXMLDefinitions::NeteditFileExtensions.getStrings(), save);
     } else {
         return openFileDialog(window, TL("Open netedit Config file"), GUIIcon::OPEN_NETEDITCONFIG,
-                              TL("Netedit Config files (*.netecfg)") + std::string("\n") +
-                              TL("Netedit Config files (*.neteditcfg)") + std::string("\n") +   // neteditcfg deprecated
-                              TL("All files (*)"), save);
+                              SUMOXMLDefinitions::NeteditFileExtensions.getStrings(), save);
     }
 }
 
@@ -2581,12 +2566,10 @@ std::string
 GNEApplicationWindowHelper::openSumoConfigFileDialog(FXWindow* window, bool save, bool multi) {
     if (save) {
         return openFileDialog(window, TL("Save SUMO Config file as"), GUIIcon::SAVE_SUMOCONFIG,
-                              TL("SUMO Config files (*.sumocfg)") + std::string("\n") +
-                              TL("All files (*)"), save, multi);
+                              SUMOXMLDefinitions::SumoFileExtensions.getStrings(), save, multi);
     } else {
         return openFileDialog(window, TL("Open SUMO Config file"), GUIIcon::OPEN_SUMOCONFIG,
-                              TL("SUMO Config files (*.sumocfg)") + std::string("\n") +
-                              TL("All files (*)"), save, multi);
+                              SUMOXMLDefinitions::SumoFileExtensions.getStrings(), save, multi);
     }
 }
 
@@ -2595,14 +2578,10 @@ std::string
 GNEApplicationWindowHelper::openTLSFileDialog(FXWindow* window, bool save) {
     if (save) {
         return openFileDialog(window, TL("Save TLS file as"), GUIIcon::SAVE_NETWORKELEMENTS,
-                              TL("TLS files (*.tll.xml)") + std::string("\n") +
-                              TL("XML files (*.xml)") + std::string("\n") +
-                              TL("All files (*)"), save);
+                              SUMOXMLDefinitions::TLSFileExtensions.getStrings(), save);
     } else {
         return openFileDialog(window, TL("Open TLS file"), GUIIcon::OPEN_TLSPROGRAMS,
-                              TL("TLS files (*.tll.xml)") + std::string("\n") +
-                              TL("XML files (*.xml)") + std::string("\n") +
-                              TL("All files (*)"), save);
+                              SUMOXMLDefinitions::TLSFileExtensions.getStrings(), save);
     }
 }
 
@@ -2611,14 +2590,10 @@ std::string
 GNEApplicationWindowHelper::openEdgeTypeFileDialog(FXWindow* window, bool save) {
     if (save) {
         return openFileDialog(window, TL("Save EdgeType file as"), GUIIcon::SAVE_NETWORKELEMENTS,
-                              TL("EdgeType files (*.typ.xml)") + std::string("\n") +
-                              TL("XML files (*.xml)") + std::string("\n") +
-                              TL("All files (*)"), save);
+                              SUMOXMLDefinitions::EdgeTypeFileExtensions.getStrings(), save);
     } else {
         return openFileDialog(window, TL("Open EdgeType file"), GUIIcon::OPEN_NET,
-                              TL("EdgeType files (*.typ.xml)") + std::string("\n") +
-                              TL("XML files (*.xml)") + std::string("\n") +
-                              TL("All files (*)"), save);
+                              SUMOXMLDefinitions::EdgeTypeFileExtensions.getStrings(), save);
     }
 }
 
@@ -2627,14 +2602,10 @@ std::string
 GNEApplicationWindowHelper::openAdditionalFileDialog(FXWindow* window, bool save, bool multi) {
     if (save) {
         return openFileDialog(window, TL("Save Additionals file as"), GUIIcon::SAVE_ADDITIONALELEMENTS,
-                              TL("Additional files (*.add.xml)") + std::string("\n") +
-                              TL("XML files (*.xml)") + std::string("\n") +
-                              TL("All files (*)"), save, multi);
+                              SUMOXMLDefinitions::AdditionalFileExtensions.getStrings(), save, multi);
     } else {
         return openFileDialog(window, TL("Open Additionals file"), GUIIcon::MODEADDITIONAL,
-                              TL("Additional files (*.add.xml)") + std::string("\n") +
-                              TL("XML files (*.xml)") + std::string("\n") +
-                              TL("All files (*)"), save, multi);
+                              SUMOXMLDefinitions::AdditionalFileExtensions.getStrings(), save, multi);
     }
 }
 
@@ -2643,14 +2614,10 @@ std::string
 GNEApplicationWindowHelper::openRouteFileDialog(FXWindow* window, bool save, bool multi) {
     if (save) {
         return openFileDialog(window, TL("Save Route file as"), GUIIcon::SAVE_DEMANDELEMENTS,
-                              TL("Route files (*.rou.xml)") + std::string("\n") +
-                              TL("XML files (*.xml)") + std::string("\n") +
-                              TL("All files (*)"), save, multi);
+                              SUMOXMLDefinitions::RouteFileExtensions.getStrings(), save, multi);
     } else {
         return openFileDialog(window, TL("Open Route file"), GUIIcon::SUPERMODEDEMAND,
-                              TL("Route files (*.rou.xml)") + std::string("\n") +
-                              TL("XML files (*.xml)") + std::string("\n") +
-                              TL("All files (*)"), save, multi);
+                              SUMOXMLDefinitions::RouteFileExtensions.getStrings(), save, multi);
     }
 }
 
@@ -2659,14 +2626,10 @@ std::string
 GNEApplicationWindowHelper::openDataFileDialog(FXWindow* window, bool save, bool multi) {
     if (save) {
         return openFileDialog(window, TL("Save Data file as"), GUIIcon::SAVE_DATAELEMENTS,
-                              TL("Data files (*.dat.xml)") + std::string("\n") +
-                              TL("XML files (*.xml)") + std::string("\n") +
-                              TL("All files (*)"), save, multi);
+                              SUMOXMLDefinitions::DataFileExtensions.getStrings(), save, multi);
     } else {
         return openFileDialog(window, TL("Open Data file"), GUIIcon::SUPERMODEDATA,
-                              TL("Data files (*.dat.xml)") + std::string("\n") +
-                              TL("XML files (*.xml)") + std::string("\n") +
-                              TL("All files (*)"), save, multi);
+                              SUMOXMLDefinitions::DataFileExtensions.getStrings(), save, multi);
     }
 }
 
@@ -2675,14 +2638,10 @@ std::string
 GNEApplicationWindowHelper::openMeanDataDialog(FXWindow* window, bool save, bool multi) {
     if (save) {
         return openFileDialog(window, TL("Save MeanData file as"), GUIIcon::SAVE_MEANDATAELEMENTS,
-                              TL("Meandata files (*.add.xml)") + std::string("\n") +
-                              TL("XML files (*.xml)") + std::string("\n") +
-                              TL("All files (*)"), save, multi);
+                              SUMOXMLDefinitions::MeanDataFileExtensions.getStrings(), save, multi);
     } else {
         return openFileDialog(window, TL("Open MeanData file"), GUIIcon::MODEMEANDATA,
-                              TL("Meandata files (*.add.xml)") + std::string("\n") +
-                              TL("XML files (*.xml)") + std::string("\n") +
-                              TL("All files (*)"), save, multi);
+                              SUMOXMLDefinitions::MeanDataFileExtensions.getStrings(), save, multi);
     }
 }
 
@@ -2691,19 +2650,25 @@ std::string
 GNEApplicationWindowHelper::openOptionFileDialog(FXWindow* window, bool save) {
     if (save) {
         return openFileDialog(window, TL("Save options file as"), GUIIcon::SAVE,
-                              TL("XML files (*.xml)") + std::string("\n") +
-                              TL("All files (*)"), save);
+                              SUMOXMLDefinitions::XMLFileExtensions.getStrings(), save);
     } else {
         return openFileDialog(window, TL("Open options file"), GUIIcon::OPEN,
-                              TL("XML files (*.xml)") + std::string("\n") +
-                              TL("All files (*)"), save);
+                              SUMOXMLDefinitions::XMLFileExtensions.getStrings(), save);
     }
 }
 
 
 std::string
 GNEApplicationWindowHelper::openFileDialog(FXWindow* window, const std::string title,
-        GUIIcon icon, const std::string patternList, bool save, bool multi) {
+        GUIIcon icon, const std::vector<std::string> &extensions, bool save, bool multi) {
+    // parse extensions in a format compatible with fx dialogs
+    std::string patternList;
+    if (extensions.size() > 0) {
+        for (const auto &extension : extensions) {
+            patternList.append(extension + "\n");
+        }
+        patternList.pop_back();
+    }
     // configure open dialog
     FXFileDialog opendialog(window, title.c_str());
     // check if allow to create a new file, or select only existent files

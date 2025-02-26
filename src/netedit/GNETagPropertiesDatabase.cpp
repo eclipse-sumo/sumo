@@ -9491,7 +9491,7 @@ GNETagPropertiesDatabase::fillImgFileAttribute(GNETagProperties* tagProperties) 
             GNEAttributeProperties::STRING | GNEAttributeProperties::FILEOPEN | GNEAttributeProperties::DEFAULTVALUE,
             GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
             TLF("A bitmap to use for rendering this %", tagProperties->getTagStr()));
-    attrProperty->setFilenameExtensions(SUMOXMLDefinitions::ImageExtensions.getStrings());
+    attrProperty->setFilenameExtensions(SUMOXMLDefinitions::ImageFileExtensions.getStrings());
     tagProperties->addAttribute(attrProperty);
 }
 
