@@ -3010,6 +3010,7 @@ MSLCM_SL2015::mustOvertakeStopped(bool checkCurrent, const MSLane& neighLane, co
     const int dir = latLaneDist < 0 ? -1 : 1;
     const MSLane* neighBeyond = neighLane.getParallelLane(dir);
     const bool hasLaneBeyond = checkCurrent && neighBeyond != nullptr && neighBeyond->allowsVehicleClass(myVehicle.getVClass());
+    UNUSED_PARAMETER(hasLaneBeyond);
     if (curHasStopped) {
         leaders.getSubLanes(&myVehicle, 0, rightmost, leftmost);
         for (int i = rightmost; i <= leftmost; i++) {
