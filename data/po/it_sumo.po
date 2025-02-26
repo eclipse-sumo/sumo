@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-13 10:07+0100\n"
-"PO-Revision-Date: 2025-02-26 14:24+0000\n"
+"PO-Revision-Date: 2025-02-26 21:31+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -3944,47 +3944,56 @@ msgstr ""
 
 #: src/microsim/devices/MSDevice_DriverState.cpp:59
 msgid "Initial value assigned to the driver's awareness."
-msgstr ""
+msgstr "Valore iniziale da assegnare alla facoltà percettiva del conducente."
 
 #: src/microsim/devices/MSDevice_DriverState.cpp:61
 msgid "Time scale for the error process."
-msgstr ""
+msgstr "Graduazione di tempo per il processo di errore."
 
 #: src/microsim/devices/MSDevice_DriverState.cpp:63
 msgid "Noise intensity driving the error process."
-msgstr ""
+msgstr "Intensità di distorsione che controlla il processo di errore."
 
 #: src/microsim/devices/MSDevice_DriverState.cpp:65
 msgid ""
 "General scaling coefficient for applying the error to the perceived speed "
 "difference (error also scales with distance)."
 msgstr ""
+"Coefficiente generale di graduazione per applicare l'errore alla differenza "
+"di velocità percepita (l'errore viene graduato anche con la distanza)."
 
 #: src/microsim/devices/MSDevice_DriverState.cpp:67
 msgid ""
 "General scaling coefficient for applying the error to the perceived distance "
 "(error also scales with distance)."
 msgstr ""
+"Coefficiente generale di graduazione per applicare l'errore alla distanza "
+"percepita (l'errore viene graduato anche con la distanza)."
 
 #: src/microsim/devices/MSDevice_DriverState.cpp:69
 msgid ""
 "General scaling coefficient for applying the error to the vehicle's own "
 "speed when driving without a leader (error also scales with own speed)."
 msgstr ""
+"Coefficiente generale di graduazione per applicare l'errore alla velocità "
+"del veicolo stesso quando va senza veicolo anteriore (l'errore viene "
+"graduato anche con la propria velocità)."
 
 #: src/microsim/devices/MSDevice_DriverState.cpp:71
 msgid ""
 "Base threshold for recognizing changes in the speed difference (threshold "
 "also scales with distance)."
 msgstr ""
+"Valore di soglia base per rivelare cambiamenti nella differenza di velocità ("
+"il valore soglia viene gradudato anche con la distanza)."
 
 #: src/microsim/devices/MSDevice_DriverState.cpp:73
 msgid ""
 "Base threshold for recognizing changes in the headway (threshold also scales "
 "with distance)."
 msgstr ""
-"Valore di soglia base per rivelare cambi nell'intervallo di tempo (il valore "
-"soglia è graduato con la distanza)."
+"Valore di soglia base per rivelare cambiamenti nell'intervallo di tempo (il "
+"valore soglia è graduato con la distanza)."
 
 #: src/microsim/devices/MSDevice_DriverState.cpp:75
 msgid "Minimal admissible value for the driver's awareness."
@@ -8659,7 +8668,7 @@ msgstr ""
 
 #: src/netimport/NIFrame.cpp:318 src/netimport/NIFrame.cpp:315
 msgid "Use FLOAT as default speed"
-msgstr ""
+msgstr "Usa FLOAT come limite di velocità standard"
 
 #: src/netimport/NIFrame.cpp:321 src/netimport/NIFrame.cpp:318
 msgid "Factor for edge velocity"
@@ -9241,11 +9250,11 @@ msgstr ""
 
 #: src/netimport/NIImporter_OpenDrive.cpp:2406
 msgid "Ignoring invalid pRange value '%' for road '%'."
-msgstr ""
+msgstr "Il valore invalido di pRange '%' per l'arco '%' viene ignorato."
 
 #: src/netimport/NIImporter_OpenDrive.cpp:2485
 msgid "Ignoring missing signal '%' in controller '%'."
-msgstr ""
+msgstr "Il segnale mancante '%' nella centraline '%' viene ignorato."
 
 #: src/netimport/NIImporter_OpenDrive.cpp:2523
 #: src/netimport/NIImporter_OpenDrive.cpp:2728
@@ -9255,7 +9264,7 @@ msgstr ""
 
 #: src/netimport/NIImporter_OpenDrive.cpp:2618
 msgid "Ignoring object without id at edge '%'."
-msgstr ""
+msgstr "Un oggetto senza codice identificativo sull'arco '%' viene ignorato."
 
 #: src/netimport/NIImporter_OpenDrive.cpp:2636
 msgid "Repeat without object at edge '%'."
@@ -9276,7 +9285,7 @@ msgstr ""
 
 #: src/netimport/NIImporter_OpenDrive.cpp:2822
 msgid "Double geometry information for road '%'"
-msgstr ""
+msgstr "Informazione geometrica raddoppiata per la via '%'"
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:158
 #: src/polyconvert/PCLoaderOSM.cpp:104
@@ -9527,6 +9536,8 @@ msgstr ""
 msgid ""
 "PT line in relation % with no stops ignored. Probably OSM file is incomplete."
 msgstr ""
+"La linea di trasporto pubblico senza fermate nella relazione % viene "
+"ignorata. Probabilmente il file OSM è incompleto."
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:2155
 #: src/netimport/NIImporter_OpenStreetMap.cpp:2145
@@ -9586,16 +9597,20 @@ msgstr ""
 #: src/netimport/NIImporter_OpenStreetMap.cpp:2574
 msgid "Ambiguous railway kilometrage direction for way '%' (assuming forward)"
 msgstr ""
+"Direzione ambigua del chilometraggio ferroviario per cammino '%' (si suppone "
+"sia in avanti)"
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:2590
 #: src/netimport/NIImporter_OpenStreetMap.cpp:2581
 msgid "Inconsistent railway kilometrage direction for way '%': % (skipping)"
 msgstr ""
+"Direzione di chilometraggio ferroviario inconsistente per cammino '%': % "
+"(omesso)"
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:2635
 #: src/netimport/NIImporter_OpenStreetMap.cpp:2626
 msgid "Value of railway:position is not numeric ('%') in node '%'."
-msgstr ""
+msgstr "Il valore di railway:position non è numerico ('%') nel nodo '%'."
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:2743
 #: src/netimport/NIImporter_OpenStreetMap.cpp:2734
