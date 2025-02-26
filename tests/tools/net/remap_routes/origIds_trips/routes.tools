@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-02-26 18:52:54.994347 by remap_routes.py v1_22_0+0526-e2924ab534d
+<configuration>
+    <target-net value="net2.net.xml"/>
+    <route-file value="input_trips.trips.xml"/>
+    <output-file value="out.rou.xml"/>
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="passenger" sigma="0" speedDev="0" vClass="passenger"/>
+    <trip depart="0.00" from="15" id="0" to="0" type="passenger"/>
+    <trip depart="1.00" from="6" id="1" to="5" type="passenger"/>
+    <trip depart="2.00" from="17" id="2" to="16" type="passenger"/>
+    <trip depart="3.00" from="21" id="3" to="2" type="passenger"/>
+    <trip depart="4.00" from="10" id="4" to="0" type="passenger"/>
+    <trip depart="5.00" from="5" id="5" to="12" type="passenger"/>
+    <trip depart="6.00" from="0" id="6" to="4" type="passenger"/>
+    <trip depart="7.00" from="15" id="7" to="13" type="passenger"/>
+    <trip depart="8.00" from="5" id="8" to="14" type="passenger"/>
+    <trip depart="9.00" from="19" id="9" to="0" type="passenger"/>
+</routes>
