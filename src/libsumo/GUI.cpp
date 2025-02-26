@@ -333,7 +333,7 @@ GUI::start(const std::vector<std::string>& cmd) {
         }
 
         // build the main window
-        myWindow = new GUIApplicationWindow(myApp, "*.sumo.cfg,*.sumocfg");
+        myWindow = new GUIApplicationWindow(myApp);
         gSchemeStorage.init(myApp);
         myWindow->dependentBuild(true);
         myApp->create();

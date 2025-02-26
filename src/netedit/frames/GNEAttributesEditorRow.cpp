@@ -25,6 +25,7 @@
 #include <netedit/GNEViewParent.h>
 #include <netedit/dialogs/GNEAllowVClassesDialog.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
+#include <utils/common/Translation.h>
 #include <utils/foxtools/MFXLabelTooltip.h>
 #include <utils/foxtools/MFXTextFieldTooltip.h>
 #include <utils/gui/div/GUIDesigns.h>
@@ -633,7 +634,7 @@ void
 GNEAttributesEditorRow::showAttributeInspectParent(const GNEAttributeProperties* attrProperty, const bool enabled) {
     // update attribute button
     myAttributeButton->setText(attrProperty->getAttrStr().c_str());
-    myAttributeButton->setHelpText(TL("Inspect % parent", attrProperty->getAttrStr()));
+    myAttributeButton->setHelpText(TLF("Inspect % parent", attrProperty->getAttrStr()).c_str());
     myAttributeButton->setTipText(myAttributeButton->getHelpText());
     myAttributeButton->setIcon(GUIIconSubSys::getIcon(attrProperty->getTagPropertyParent()->getGUIIcon()));
     myAttributeButton->setSelector(MID_GNE_ATTRIBUTESEDITORROW_INSPECTPARENT);
