@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-13 10:07+0100\n"
-"PO-Revision-Date: 2025-02-19 12:45+0000\n"
+"PO-Revision-Date: 2025-02-26 14:24+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.10.1-dev\n"
+"X-Generator: Weblate 5.10.2-dev\n"
 
 #: src/activitygen/AGActivityGen.cpp:46
 msgid "Reading input"
@@ -9189,7 +9189,7 @@ msgstr "Kante % wird ignoriert, da ohne Fahrstreifen."
 #: src/netimport/NIImporter_MATSim.cpp:292
 msgid "Could not add intermediate node to split loop edge '%'."
 msgstr ""
-"Es konnte kein Zwischenknoten zur geteilten Schleifenkante '%' hinzugefügt "
+"Es konnte kein Zwischenknoten zum Trennen der Schleifenkante '%' hinzugefügt "
 "werden."
 
 #: src/netimport/NIImporter_OpenDrive.cpp:222
@@ -10024,12 +10024,12 @@ msgstr " Beide Knoten sind gleich"
 #: src/netimport/NIImporter_VISUM.cpp:1542
 #: src/polyconvert/PCLoaderVisum.cpp:435
 msgid "Could not load VISUM language map from '%'."
-msgstr "VISUM-Sprachkarte von '%' konnte nicht geladen werden."
+msgstr "VISUM-Wörterbuch von '%' konnte nicht geladen werden."
 
 #: src/netimport/NIImporter_VISUM.cpp:1554
 #, c-format
 msgid "Unknown entry '%' in VISUM language map"
-msgstr "Unbekannter Eintrag '%' in der VISUM Sprachkarte"
+msgstr "Unbekannter Eintrag '%' im VISUM-Wörterbuch"
 
 #: src/netimport/NILoader.cpp:103
 msgid " Removed % traffic lights before loading plain-XML"
