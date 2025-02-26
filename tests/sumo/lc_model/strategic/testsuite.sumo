@@ -9,3 +9,6 @@ internal_lanes
 
 # all lanes are equally suitable from a strategic viewpoint. lane choice should not be biased.
 arbitrary
+
+# test interaction of speed adaption with large bestlane-offset and insertion checks.
+insertion
