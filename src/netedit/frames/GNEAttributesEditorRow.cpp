@@ -77,29 +77,9 @@ GNEAttributesEditorRow::GNEAttributesEditorRow(GNEAttributesEditorType* attribut
     myAttributeToggleEnableCheckButton = new FXCheckButton(this, "Enable/Disable attribute checkBox", this,
             MID_GNE_ATTRIBUTESEDITORROW_TOGGLEENABLEATTRIBUTE, GUIDesignCheckButtonAttribute);
     myAttributeToggleEnableCheckButton->hide();
-    // create left button for reparent
-    myAttributeReparentButton = new MFXButtonTooltip(this, tooltipMenu, "Reparent", nullptr, this,
-            MID_GNE_ATTRIBUTESEDITORROW_REPARENT, GUIDesignButtonAttribute);
-    myAttributeReparentButton->setHelpText(TL("Change parent of this element"));
-    myAttributeReparentButton->hide();
-    // create left button for inspect parent
-    myAttributeInspectParentButton = new MFXButtonTooltip(this, tooltipMenu, "Inspect parent button", nullptr, this,
-            MID_GNE_ATTRIBUTESEDITORROW_INSPECTPARENT, GUIDesignButtonAttribute);
-    myAttributeInspectParentButton->hide();
-    // create lef button for edit allow/disallow vClasses
-    myAttributeVClassButton = new MFXButtonTooltip(this, tooltipMenu, "Edit vClass button", nullptr, this,
-            MID_GNE_ATTRIBUTESEDITORROW_OPENALLOWDIALLOG, GUIDesignButtonAttribute);
-    myAttributeVClassButton->hide();
-    // set tip text for edit vClasses button
-    myAttributeVClassButton->setTipText(TL("Open dialog for editing vClasses"));
-    myAttributeVClassButton->setHelpText(TL("Open dialog for editing vClasses"));
-    // create lef attribute for edit color
-    myAttributeColorButton = new MFXButtonTooltip(this, tooltipMenu, "color button", GUIIconSubSys::getIcon(GUIIcon::COLORWHEEL), this,
-            MID_GNE_ATTRIBUTESEDITORROW_OPENCOLORDIALOG, GUIDesignButtonAttribute);
-    myAttributeColorButton->hide();
-    // set tip text for color button
-    myAttributeColorButton->setTipText(TL("Open dialog for editing color"));
-    myAttributeColorButton->setHelpText(TL("Open dialog for editing color"));
+    // create left button parent
+    myAttributeButton = new MFXButtonTooltip(this, tooltipMenu, "button", nullptr, this,
+        MID_GNE_ATTRIBUTESEDITORROW_REPARENT, GUIDesignButtonAttribute);
     // create right text field for string attributes
     myValueTextField = new MFXTextFieldTooltip(this, tooltipMenu, GUIDesignTextFieldNCol, this,
             MID_GNE_ATTRIBUTESEDITORROW_SETATTRIBUTE, GUIDesignTextField);
@@ -241,10 +221,7 @@ void
 GNEAttributesEditorRow::disable() {
     // disable all elements
     myAttributeToggleEnableCheckButton->disable();
-    myAttributeReparentButton->disable();
-    myAttributeInspectParentButton->disable();
-    myAttributeVClassButton->disable();
-    myAttributeColorButton->disable();
+    myAttributeButton->disable();
     myValueTextField->disable();
     myValueComboBox->disable();
     myValueCheckButton->disable();
@@ -620,86 +597,87 @@ GNEAttributesEditorRow::showAttributeToggleEnable(const GNEAttributeProperties* 
     myAttributeToggleEnableCheckButton->show();
     // hide other elements
     myAttributeLabel->hide();
-    myAttributeReparentButton->hide();
-    myAttributeInspectParentButton->hide();
-    myAttributeVClassButton->hide();
-    myAttributeColorButton->hide();
+    myAttributeButton->hide();
 }
 
 
 void
 GNEAttributesEditorRow::showAttributeReparent(const bool enabled) {
+    // update attribute button
+    myAttributeButton->setText(TL("Reparent"));
+    myAttributeButton->setHelpText(TL("Change parent of this element"));
+    myAttributeButton->setTipText(myAttributeButton->getHelpText());
+    myAttributeButton->setIcon(nullptr);
+    myAttributeButton->setSelector(MID_GNE_ATTRIBUTESEDITORROW_REPARENT);
     if (enabled) {
-        myAttributeReparentButton->enable();
+        myAttributeButton->enable();
     } else {
-        myAttributeReparentButton->disable();
+        myAttributeButton->disable();
     }
-    myAttributeReparentButton->show();
+    myAttributeButton->show();
     // hide other elements
-    myAttributeInspectParentButton->hide();
     myAttributeLabel->hide();
     myAttributeToggleEnableCheckButton->hide();
-    myAttributeVClassButton->hide();
-    myAttributeColorButton->hide();
 }
 
 
 void
 GNEAttributesEditorRow::showAttributeInspectParent(const GNEAttributeProperties* attrProperty, const bool enabled) {
-    // set icon and text
-    myAttributeInspectParentButton->setIcon(GUIIconSubSys::getIcon(attrProperty->getTagPropertyParent()->getGUIIcon()));
-    myAttributeInspectParentButton->setText(attrProperty->getAttrStr().c_str());
+    // update attribute button
+    myAttributeButton->setText(attrProperty->getAttrStr().c_str());
+    myAttributeButton->setHelpText(TL("Inspect % parent", attrProperty->getAttrStr()));
+    myAttributeButton->setTipText(myAttributeButton->getHelpText());
+    myAttributeButton->setIcon(GUIIconSubSys::getIcon(attrProperty->getTagPropertyParent()->getGUIIcon()));
+    myAttributeButton->setSelector(MID_GNE_ATTRIBUTESEDITORROW_INSPECTPARENT);
     if (enabled) {
-        myAttributeInspectParentButton->enable();
+        myAttributeButton->enable();
     } else {
-        myAttributeInspectParentButton->disable();
-    }
-    myAttributeInspectParentButton->show();
+        myAttributeButton->disable();
+    }    
+    myAttributeButton->show();
     // hide other elements
-    myAttributeReparentButton->hide();
     myAttributeLabel->hide();
     myAttributeToggleEnableCheckButton->hide();
-    myAttributeVClassButton->hide();
-    myAttributeColorButton->hide();
 }
 
 
 void
-GNEAttributesEditorRow::showAttributeVClass(const GNEAttributeProperties* attrProperty,
-        const bool enabled) {
-    // set icon and text
-    myAttributeVClassButton->setText(attrProperty->getAttrStr().c_str());
+GNEAttributesEditorRow::showAttributeVClass(const GNEAttributeProperties* attrProperty, const bool enabled) {
+    // update attribute button
+    myAttributeButton->setText(attrProperty->getAttrStr().c_str());
+    myAttributeButton->setHelpText(TL("Open dialog for editing vClasses"));
+    myAttributeButton->setTipText(myAttributeButton->getHelpText());
+    myAttributeButton->setIcon(nullptr);
+    myAttributeButton->setSelector(MID_GNE_ATTRIBUTESEDITORROW_OPENALLOWDIALLOG);
     if (enabled) {
-        myAttributeVClassButton->enable();
+        myAttributeButton->enable();
     } else {
-        myAttributeVClassButton->disable();
+        myAttributeButton->disable();
     }
-    myAttributeVClassButton->show();
+    myAttributeButton->show();
     // hide other elements
     myAttributeLabel->hide();
     myAttributeToggleEnableCheckButton->hide();
-    myAttributeReparentButton->hide();
-    myAttributeInspectParentButton->hide();
-    myAttributeColorButton->hide();
 }
 
 
 void
-GNEAttributesEditorRow::showAttributeColor(const GNEAttributeProperties* attrProperty,
-        const bool enabled) {
-    myAttributeColorButton->setText(attrProperty->getAttrStr().c_str());
-    myAttributeColorButton->show();
+GNEAttributesEditorRow::showAttributeColor(const GNEAttributeProperties* attrProperty, const bool enabled) {
+    // update attribute button
+    myAttributeButton->setText(attrProperty->getAttrStr().c_str());
+    myAttributeButton->setHelpText(TL("Open dialog for editing color"));
+    myAttributeButton->setTipText(myAttributeButton->getHelpText());
+    myAttributeButton->setIcon(GUIIconSubSys::getIcon(GUIIcon::COLORWHEEL));
+    myAttributeButton->setSelector(MID_GNE_ATTRIBUTESEDITORROW_OPENCOLORDIALOG);
     if (enabled) {
-        myAttributeColorButton->enable();
+        myAttributeButton->enable();
     } else {
-        myAttributeColorButton->disable();
+        myAttributeButton->disable();
     }
+    myAttributeButton->show();
     // hide other elements
     myAttributeLabel->hide();
     myAttributeToggleEnableCheckButton->hide();
-    myAttributeReparentButton->hide();
-    myAttributeInspectParentButton->hide();
-    myAttributeVClassButton->hide();
 }
 
 
@@ -709,10 +687,7 @@ GNEAttributesEditorRow::showAttributeLabel(const GNEAttributeProperties* attrPro
     myAttributeLabel->show();
     // hide other elements
     myAttributeToggleEnableCheckButton->hide();
-    myAttributeReparentButton->hide();
-    myAttributeInspectParentButton->hide();
-    myAttributeVClassButton->hide();
-    myAttributeColorButton->hide();
+    myAttributeButton->hide();
 }
 
 
@@ -720,10 +695,7 @@ void
 GNEAttributesEditorRow::hideAllAttributeElements() {
     myAttributeLabel->hide();
     myAttributeToggleEnableCheckButton->hide();
-    myAttributeReparentButton->hide();
-    myAttributeInspectParentButton->hide();
-    myAttributeVClassButton->hide();
-    myAttributeColorButton->hide();
+    myAttributeButton->hide();
 }
 
 
@@ -943,10 +915,7 @@ GNEAttributesEditorRow::enableElements(const GNEAttributeProperties* attrPropert
     }
     if (!enableElements) {
         myAttributeToggleEnableCheckButton->disable();
-        myAttributeReparentButton->disable();
-        myAttributeInspectParentButton->disable();
-        myAttributeVClassButton->disable();
-        myAttributeColorButton->disable();
+        myAttributeButton->disable();
         myValueTextField->disable();
         myValueComboBox->disable();
         myValueCheckButton->disable();

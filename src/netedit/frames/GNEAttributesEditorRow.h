@@ -154,17 +154,8 @@ private:
     /// @brief pointer to attribute menu check
     FXCheckButton* myAttributeToggleEnableCheckButton = nullptr;
 
-    /// @brief pointer to attribute reparent button
-    MFXButtonTooltip* myAttributeReparentButton = nullptr;
-
-    /// @brief pointer to attribute inspect parent button
-    MFXButtonTooltip* myAttributeInspectParentButton = nullptr;
-
-    /// @brief pointer to attribute vClass button
-    MFXButtonTooltip* myAttributeVClassButton = nullptr;
-
-    /// @brief pointer to attribute color button
-    MFXButtonTooltip* myAttributeColorButton = nullptr;
+    /// @brief pointer to button that can be used for files, color, parent, vclass or inspect
+    MFXButtonTooltip* myAttributeButton = nullptr;
 
     /// @brief pointer to text field for modify values
     MFXTextFieldTooltip* myValueTextField = nullptr;
