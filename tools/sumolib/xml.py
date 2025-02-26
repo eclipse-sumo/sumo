@@ -130,15 +130,18 @@ def compound_object(element_name, attrnames, warn=False, sort=True):
             return default
 
         def setAttribute(self, name, value):
-            if name not in self._original_fields:
-                if isinstance(self._original_fields, tuple):
-                    tempList = list(self._original_fields)
-                    tempList.append(name)
-                    self._original_fields = tuple(tempList)
-                else:
-                    self._original_fields.append(name)
-                self._fields.append(_prefix_keyword(name, warn))
-            self.__dict__[_prefix_keyword(name, warn)] = value
+            if name in self._fields:
+                self.__dict__[name] = value
+            else:
+                if name not in self._original_fields:
+                    if isinstance(self._original_fields, tuple):
+                        tempList = list(self._original_fields)
+                        tempList.append(name)
+                        self._original_fields = tuple(tempList)
+                    else:
+                        self._original_fields.append(name)
+                    self._fields.append(_prefix_keyword(name, warn))
+                self.__dict__[_prefix_keyword(name, warn)] = value
 
         def hasChild(self, name):
             return name in self._child_dict

@@ -1,0 +1,162 @@
+#!/usr/bin/env python
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2009-2025 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License 2.0 which is available at
+# https://www.eclipse.org/legal/epl-2.0/
+# This Source Code may also be made available under the following Secondary
+# Licenses when the conditions for such availability set forth in the Eclipse
+# Public License 2.0 are satisfied: GNU General Public License, version 2
+# or later which is available at
+# https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+
+# @file    remap_routes.py
+# @author  Jakob Erdmann
+# @date    2025-02-26
+
+from __future__ import print_function
+from __future__ import absolute_import
+import os
+import sys
+from collections import defaultdict
+from math import fabs, degrees
+
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+import sumolib  # noqa
+from sumolib.xml import parse  # noqa
+
+
+def get_options(args=None):
+    ap = sumolib.options.ArgumentParser(description="Remap infrastructure from one network to another")
+    # ap.add_argument("--orig-net", dest="origNet", required=False, category="input", type=ap.net_file,
+    #                 help="SUMO network for loading infrastructure", metavar="FILE")
+    ap.add_argument("--target-net", dest="targetNet", required=True, category="input", type=ap.net_file,
+                    help="SUMO network for writing infrastructure", metavar="FILE")
+    ap.add_argument("-r", "--route-file", dest="routes", required=True, category="input",
+                    type=ap.route_file,
+                    help="File for reading routes", metavar="FILE")
+    ap.add_argument("-o", "--output-file", dest="output", required=True, category="output", type=ap.additional_file,
+                    help="File for writing infrastructure", metavar="FILE")
+    # ap.add_argument("--radius", type=float, default=20,
+    #                 help="radius for finding candidate edges")
+    # ap.add_argument("--shapecut", type=float, default=40,
+    #                 help="Shorten polygon and edge shapes to FLOAT to increase robustness of angular comparison")
+    # ap.add_argument("--angle-tolerance", type=float, default=20, dest="atol",
+    #                 help="Match polygons and edges if their angle differs by no more than DEGRESS")
+    ap.add_argument("-v", "--verbose", action="store_true", dest="verbose",
+                    default=False, help="tell me what you are doing")
+    options = ap.parse_args()
+    return options
+
+
+MISSING = defaultdict(lambda : 0)
+MISSING_JUNCTIONS = defaultdict(lambda : 0)
+
+def get_mapper(lookup_attr, missing):
+    def mapper(options, origID):
+        newID = getattr(options, lookup_attr).get(origID)
+        if not newID:
+            missing[origID] += 1
+        return newID
+    return mapper
+
+remap_edge = get_mapper('lookup', MISSING)
+remap_junction = get_mapper('junction_lookup', MISSING_JUNCTIONS)
+
+def remap_lane(options, origID):
+    origEdge, index = origID.rsplit("_", 1)
+    newEdge = remap_edge(options, origEdge)
+    if newEdge:
+        return "%s_%s" % (newEdge, index)
+    else:
+        return None
+
+def remap_edges(options, origIDs):
+    newEdges = [remap_edge(options, e) for e in origIDs.split()]
+    if None in newEdges:
+        return None
+    else:
+        return ' '.join(newEdges)
+
+IDS = {
+        'edge': remap_edge,
+        'attr_from': remap_edge,
+        'to': remap_edge,
+        'edges' : remap_edges,
+        'via' : remap_edges,
+        'fromJunction': remap_junction,
+        'toJunction': remap_junction,
+        'lane': remap_lane,
+        }
+
+def remap(options, obj):
+    success = True
+    for attr, mapper in IDS.items():
+        if obj.hasAttribute(attr):
+            id1 = getattr(obj, attr)
+            id2 = mapper(options, id1)
+            if id2:
+                obj.setAttribute(attr, id2)
+            else:
+                print("Could not map %s attribute %s '%s'" % (
+                    obj.name, attr, id1),
+                    file=sys.stderr)
+                success = False
+
+    for child in obj.getChildList():
+        success &= remap(options, child)
+    return success
+
+
+def addOrigId(lookup, origId, obj):
+    if origId is not None:
+        if " " in origId:
+            print("multi-part origId not supported (%s '%s' origId '%s')" % (
+                obj.name, obj.getID(), origId), file=sys.stderr)
+        else:
+            lookup[origId] = obj.getID()
+
+def build_lookup(net):
+    lookup = {}
+    for edge in net.getEdges():
+        lane = edge.getLanes()[0]
+        origId = lane.getParam("origId")
+        addOrigId(lookup, origId, edge)
+    return lookup
+
+
+def build_junction_lookup(net):
+    lookup = {}
+    for node in net.getNodes():
+        origId = node.getParam("origId")
+        addOrigId(lookup, origId, node)
+    return lookup
+
+
+def main(options):
+    if options.verbose:
+        print("Reading target-net '%s'" % options.targetNet)
+    options.net2 = sumolib.net.readNet(options.targetNet)
+    options.lookup = build_lookup(options.net2)
+    options.junction_lookup = build_junction_lookup(options.net2)
+
+    with open(options.output, 'w') as fout:
+        sumolib.writeXMLHeader(fout, "$Id$", "routes", options=options)
+        for obj in parse(options.routes):
+            if remap(options, obj):
+                fout.write(obj.toXML(initialIndent=" " * 4))
+            else:
+                fout.write("    <!--" + obj.toXML()[1:-2] + "-->\n")
+        fout.write("</routes>\n")
+
+    if MISSING:
+        print("Could not map %s edges (%s total occurences)" % (
+            len(MISSING), sum(MISSING.values())), file=sys.stderr)
+        vk = sorted([(v, k) for k, v in MISSING.items()], reverse=True)
+        print("Most frequent missing edges:")
+        print("\n".join(["%s %s" % (k, v) for (v, k) in vk]))
+
+
+if __name__ == "__main__":
+    main(get_options())
