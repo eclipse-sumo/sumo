@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-13 10:07+0100\n"
-"PO-Revision-Date: 2025-02-26 08:53+0000\n"
+"PO-Revision-Date: 2025-02-26 14:24+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -7294,7 +7294,7 @@ msgstr ""
 
 #: src/netbuild/NBNetBuilder.cpp:94
 msgid "Removing self-loops"
-msgstr "Rimozione di archi con nodi inizialei e terminali identici"
+msgstr "Rimozione di archi con nodi iniziali e terminali identici"
 
 #: src/netbuild/NBNetBuilder.cpp:99
 msgid "Finding isolated roads"
@@ -9112,33 +9112,34 @@ msgstr "Non ho potuto trovare il nodo terminale dell'arco '%'."
 
 #: src/netimport/NIImporter_MATSim.cpp:281
 msgid "Ignoring edge % which has no lanes."
-msgstr ""
+msgstr "L'arco % senza corsie è ignorato."
 
 #: src/netimport/NIImporter_MATSim.cpp:292
 msgid "Could not add intermediate node to split loop edge '%'."
 msgstr ""
+"Non ho potuto aggiungere il nodo intermedio per separare l'arco ciclico '%'."
 
 #: src/netimport/NIImporter_OpenDrive.cpp:222
 msgid "Could not find signal reference '%'."
-msgstr ""
+msgstr "Non ho incontrato la referenza del segnale '%'."
 
 #: src/netimport/NIImporter_OpenDrive.cpp:286
 #: src/netimport/NIImporter_OpenDrive.cpp:324
 msgid "Could not build node '%'."
-msgstr ""
+msgstr "Non ho potuto costruire il nodo '%'."
 
 #: src/netimport/NIImporter_OpenDrive.cpp:423
 msgid "Ignoring road '%' without geometry."
-msgstr ""
+msgstr "La via '%' senza geometria viene ignorata."
 
 #: src/netimport/NIImporter_OpenDrive.cpp:447
 msgid "Could not apply laneOffsets for edge '%'"
-msgstr ""
+msgstr "I spostamenti di corsie non potevano essere applicati all'arco '%'"
 
 #: src/netimport/NIImporter_OpenDrive.cpp:638
 #, c-format
 msgid "Edge '%' has no lanes."
-msgstr ""
+msgstr "L'arco '%' non tiene corsie."
 
 #: src/netimport/NIImporter_OpenDrive.cpp:679
 #, c-format
@@ -9228,13 +9229,15 @@ msgstr ""
 
 #: src/netimport/NIImporter_OpenDrive.cpp:1818
 msgid "Could not compute spiral geometry for edge '%' (%)."
-msgstr ""
+msgstr "Non ho potuto calcolare la geometria a elica per l'arco '%' (%)."
 
 #: src/netimport/NIImporter_OpenDrive.cpp:2090
 msgid ""
 "Will discard access settings as both denied and allowed classes have been "
 "specified."
 msgstr ""
+"L'autorizazzione verrà scartata perché sia classi vietate che autorizzate "
+"sono state specificate."
 
 #: src/netimport/NIImporter_OpenDrive.cpp:2406
 msgid "Ignoring invalid pRange value '%' for road '%'."
@@ -9279,34 +9282,34 @@ msgstr ""
 #: src/polyconvert/PCLoaderOSM.cpp:104
 #: src/netimport/NIImporter_OpenStreetMap.cpp:157
 msgid "Could not open osm-file '%'."
-msgstr ""
+msgstr "Non ho potuto aprire il file OSM '%'."
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:170
 #: src/netimport/NIImporter_OpenStreetMap.cpp:169
 #, c-format
 msgid "Found and substituted % osm nodes."
-msgstr ""
+msgstr "% nodi OSM sono stati incontrati e sostituiti."
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:194
 #: src/netimport/NIImporter_OpenStreetMap.cpp:193
 msgid "Removing duplicate edges"
-msgstr ""
+msgstr "Rimozione degli archi doppi"
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:209
 #: src/netimport/NIImporter_OpenStreetMap.cpp:208
 #, c-format
 msgid "Removed % duplicate osm edges."
-msgstr ""
+msgstr "% archi OSM doppi sono stati rimossi."
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:243
 #: src/netimport/NIImporter_OpenStreetMap.cpp:242
 msgid "Discarding way '%' because it has only % node(s)"
-msgstr ""
+msgstr "Il cammino '%' viene omesso perché tiene solamente % nodi"
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:410
 #: src/netimport/NIImporter_OpenStreetMap.cpp:409
 msgid "Could not insert junction '%'."
-msgstr ""
+msgstr "Non ho potuto inserire l'incrocio '%'."
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:477
 #: src/netimport/NIImporter_OpenStreetMap.cpp:476
@@ -9528,12 +9531,12 @@ msgstr ""
 #: src/netimport/NIImporter_OpenStreetMap.cpp:2155
 #: src/netimport/NIImporter_OpenStreetMap.cpp:2145
 msgid "Ignoring duplicate PT line '%'."
-msgstr ""
+msgstr "La linea di trasporto pubblico '%' doppia viene ignorata."
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:2170
 #: src/netimport/NIImporter_OpenStreetMap.cpp:2160
 msgid "Via-node '%' was not instantiated"
-msgstr ""
+msgstr "Il nodo intermedio '%' non è stato inizializzato"
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:2176
 #: src/netimport/NIImporter_OpenStreetMap.cpp:2166
@@ -9602,7 +9605,7 @@ msgstr ""
 
 #: src/netimport/NIImporter_SUMO.cpp:120
 msgid "Could not open sumo-net-file '%'."
-msgstr ""
+msgstr "Non ho potuto aprire il file di rete SUMO '%'."
 
 #: src/netimport/NIImporter_SUMO.cpp:148
 #, c-format
@@ -9716,16 +9719,16 @@ msgstr ""
 #: src/netimport/NIImporter_SUMO.cpp:1043
 #: src/netimport/NIImporter_SUMO.cpp:1047
 msgid "Unknown edge prohibition '%'"
-msgstr ""
+msgstr "Dievito di corsia sconosciuto '%'"
 
 #: src/netimport/NIImporter_VISUM.cpp:205
 msgid "Can not open visum-file '%'."
-msgstr ""
+msgstr "Non posso aprire il file VISUM '%'."
 
 #: src/netimport/NIImporter_VISUM.cpp:247
 #, c-format
 msgid "Too short value line in % occurred."
-msgstr ""
+msgstr "C'è stata una linea di valori troppo corta in %."
 
 #: src/netimport/NIImporter_VISUM.cpp:249
 msgid "A value in % should be numeric but is not (id='%')."
@@ -9814,15 +9817,15 @@ msgstr "Il nodo non poteva essere inserito!"
 #: src/netimport/NIImporter_VISUM.cpp:917
 #, c-format
 msgid "Could not find TLS '%' for setting the signal group."
-msgstr ""
+msgstr "Il semaforo '%' per impostare il gruppo di segnali non è stato trovato."
 
 #: src/netimport/NIImporter_VISUM.cpp:930
 msgid "Ignoring SIGNALGRUPPEZUFSABBIEGER because LsaNr is not known"
-msgstr ""
+msgstr "Ignora SIGNALGRUPPEZUFSABBIEGER perché LsaNr è sconosciuto"
 
 #: src/netimport/NIImporter_VISUM.cpp:987
 msgid "Unknown edge in TEILFLAECHENELEMENT"
-msgstr ""
+msgstr "Arco sconosciuto in TEILFLAECHENELEMENT"
 
 #: src/netimport/NIImporter_VISUM.cpp:1007
 msgid "Unknown are for area part '%'."
@@ -9914,16 +9917,16 @@ msgstr ""
 #: src/netimport/NIImporter_VISUM.cpp:1542
 #: src/polyconvert/PCLoaderVisum.cpp:435
 msgid "Could not load VISUM language map from '%'."
-msgstr ""
+msgstr "Non ho potuto caricare il dizionario per VISUM da '%'."
 
 #: src/netimport/NIImporter_VISUM.cpp:1554
 #, c-format
 msgid "Unknown entry '%' in VISUM language map"
-msgstr ""
+msgstr "Voce sconosciuta '%' nel dizionario VISUM"
 
 #: src/netimport/NILoader.cpp:103
 msgid " Removed % traffic lights before loading plain-XML"
-msgstr ""
+msgstr " % semafori sono stati rimossi prima di caricare il file plain-XML"
 
 #: src/netimport/NILoader.cpp:112
 msgid "No nodes loaded."
