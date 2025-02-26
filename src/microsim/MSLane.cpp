@@ -1304,19 +1304,21 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
         std::stringstream msg;
         msg << "too many lane changes required on lane '" << myID << "'";
         // we need to take into acount one extra actionStep of delay due to #3665
-        double distToStop = MAX2(0.0, aVehicle->getBestLaneDist() - pos - extraReservation - speed * aVehicle->getActionStepLengthSecs());
-        double stopSpeed = cfModel.stopSpeed(aVehicle, speed, distToStop, MSCFModel::CalcReason::FUTURE);
+        double distToStop = aVehicle->getBestLaneDist() - pos - extraReservation - speed * aVehicle->getActionStepLengthSecs();
+        if (distToStop >= 0) {
+            double stopSpeed = cfModel.stopSpeed(aVehicle, speed, distToStop, MSCFModel::CalcReason::FUTURE);
 #ifdef DEBUG_INSERTION
-        if (DEBUG_COND2(aVehicle) || DEBUG_COND) {
-            std::cout << "\nIS_INSERTION_SUCCESS\n"
-                      << SIMTIME << " veh=" << aVehicle->getID() << " bestLaneOffset=" << bestLaneOffset << " bestLaneDist=" << aVehicle->getBestLaneDist() << " extraReservation=" << extraReservation
-                      << " distToStop=" << distToStop << " v=" << speed << " v2=" << stopSpeed << "\n";
-        }
+            if (DEBUG_COND2(aVehicle) || DEBUG_COND) {
+                std::cout << "\nIS_INSERTION_SUCCESS\n"
+                    << SIMTIME << " veh=" << aVehicle->getID() << " bestLaneOffset=" << bestLaneOffset << " bestLaneDist=" << aVehicle->getBestLaneDist() << " extraReservation=" << extraReservation
+                    << " distToStop=" << distToStop << " v=" << speed << " v2=" << stopSpeed << "\n";
+            }
 #endif
-        if (checkFailure(aVehicle, speed, distToStop, MAX2(0.0, stopSpeed),
-                         patchSpeed, msg.str(), InsertionCheck::LANECHANGE)) {
-            // we may not drive with the given velocity - we cannot reserve enough space for lane changing
-            return false;
+            if (checkFailure(aVehicle, speed, distToStop, MAX2(0.0, stopSpeed),
+                        patchSpeed, msg.str(), InsertionCheck::LANECHANGE)) {
+                // we may not drive with the given velocity - we cannot reserve enough space for lane changing
+                return false;
+            }
         }
     }
     // enter
