@@ -1748,6 +1748,12 @@ StringBijection<ViewSettingsFileExtension>::Entry SUMOXMLDefinitions::viewSettin
     {TL("All files (*)"),                           ViewSettingsFileExtension::ALL} //< must be the last one
 };
 
+StringBijection<StateFileExtension>::Entry SUMOXMLDefinitions::stateFileExtensionValues[] = {
+    {TL("State GZipped XML files (*.xml.gz)"),  StateFileExtension::XML_GZ},
+    {TL("XML files (*.xml)"),                   StateFileExtension::XML},
+    {TL("All files (*)"),                       StateFileExtension::ALL} //< must be the last one
+};
+
 StringBijection<SumoConfigFileExtension>::Entry SUMOXMLDefinitions::sumoConfigFileExtensionValues[] = {
     {TL("Sumo config files (*.sumocfg))"),  SumoConfigFileExtension::SUMOCONF},
     {TL("XML files (*.xml)"),               SumoConfigFileExtension::XML},
@@ -1904,6 +1910,9 @@ StringBijection<OutputFileExtension> SUMOXMLDefinitions::OutputFileExtensions(
 
 StringBijection<ViewSettingsFileExtension> SUMOXMLDefinitions::ViewSettingsFileExtensions(
     SUMOXMLDefinitions::viewSettingsFileExtensionValues, ViewSettingsFileExtension::ALL, false);
+
+StringBijection<StateFileExtension> SUMOXMLDefinitions::StateFileExtensions(
+    SUMOXMLDefinitions::stateFileExtensionValues, StateFileExtension::ALL, false);
 
 StringBijection<SumoConfigFileExtension> SUMOXMLDefinitions::SumoConfigFileExtensions(
     SUMOXMLDefinitions::sumoConfigFileExtensionValues, SumoConfigFileExtension::ALL, false);

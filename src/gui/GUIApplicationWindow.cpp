@@ -1303,7 +1303,7 @@ GUIApplicationWindow::onCmdSaveState(FXObject*, FXSelector, void*) {
     FXFileDialog opendialog(this, TL("Save Simulation State"));
     opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::SAVE));
     opendialog.setSelectMode(SELECTFILE_ANY);
-    opendialog.setPatternList("GZipped State (*.xml.gz)\nXML State (*.xml)");
+    opendialog.setPatternList(SUMOXMLDefinitions::getExtensions(SUMOXMLDefinitions::StateFileExtensions).c_str());
     if (gCurrentFolder.length() != 0) {
         opendialog.setDirectory(gCurrentFolder);
     }
@@ -1325,7 +1325,7 @@ GUIApplicationWindow::onCmdLoadState(FXObject*, FXSelector, void*) {
     FXFileDialog opendialog(this, TL("Load Simulation State"));
     opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::OPEN));
     opendialog.setSelectMode(SELECTFILE_ANY);
-    opendialog.setPatternList("GZipped State (*.xml.gz)\nXML State (*.xml)");
+    opendialog.setPatternList(SUMOXMLDefinitions::getExtensions(SUMOXMLDefinitions::StateFileExtensions).c_str());
     if (gCurrentFolder.length() != 0) {
         opendialog.setDirectory(gCurrentFolder);
     }
