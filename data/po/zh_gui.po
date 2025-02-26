@@ -8,15 +8,16 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-13 10:07+0100\n"
-"PO-Revision-Date: 2024-09-02 03:09+0000\n"
-"Last-Translator: Yiyang Chen <chenyy553@mail2.sysu.edu.cn>\n"
-"Language-Team: Chinese (Simplified Han script) <https://hosted.weblate.org/projects/eclipse-sumo/sumo-gui-netedit/zh_Hans/>\n"
+"PO-Revision-Date: 2025-02-26 08:53+0000\n"
+"Last-Translator: TransTony <wt20010624@163.com>\n"
+"Language-Team: Chinese (Simplified Han script) <https://hosted.weblate.org/"
+"projects/eclipse-sumo/sumo-gui-netedit/zh_Hans/>\n"
 "Language: zh\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.8-dev\n"
+"X-Generator: Weblate 5.10.2-dev\n"
 
 #: src/gui/GUIApplicationWindow.cpp:308 src/gui/GUIApplicationWindow.cpp:311
 #: src/gui/GUIApplicationWindow.cpp:2271 src/gui/GUIApplicationWindow.cpp:2272
@@ -2133,7 +2134,7 @@ msgstr "周期时长"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:255
 msgid "req driveway"
-msgstr ""
+msgstr "最接近的车辆请求的车道"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:256
 msgid "blocking"
@@ -2141,7 +2142,7 @@ msgstr "被阻塞的车辆"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:257
 msgid "blocking driveways"
-msgstr ""
+msgstr "阻塞当前请求车道的其他冲突车道"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:258
 msgid "rival"
@@ -2318,7 +2319,7 @@ msgstr "换道机动距离 [m]"
 
 #: src/guisim/GUIVehicle.cpp:198
 msgid "driveways"
-msgstr ""
+msgstr "该车辆当前占据的车道"
 
 #: src/guisim/GUIVehicle.cpp:201
 msgid "present state of charge [Wh]"
@@ -2743,7 +2744,7 @@ msgstr "存储整合路口失败！"
 #: src/netedit/GNEApplicationWindow.cpp:3294
 #: src/netedit/GNEApplicationWindow.cpp:3298
 msgid "Saving of Netedit configuration aborted"
-msgstr ""
+msgstr "Netedit 配置保存已中止"
 
 #: src/netedit/GNEApplicationWindow.cpp:3307
 msgid "Netedit configuration saved in '"
@@ -2759,7 +2760,7 @@ msgstr "无法将netedit的设定档案存储于 '"
 #: src/netedit/GNEApplicationWindow.cpp:3396
 #: src/netedit/GNEApplicationWindow.cpp:3400
 msgid "Saving of SUMO configuration aborted"
-msgstr ""
+msgstr "SUMO 配置保存已中止"
 
 #: src/netedit/GNEApplicationWindow.cpp:3415
 msgid "SUMO configuration saved in '"
@@ -3086,7 +3087,7 @@ msgstr "MeanData要素"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:306
 msgid "Allow undoing element loading"
-msgstr ""
+msgstr "允许撤销元素加载"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:306
 msgid ""
@@ -4419,7 +4420,7 @@ msgstr ""
 msgid ""
 "If enabled, elements will be saved regardless of whether they have been "
 "edited or not"
-msgstr ""
+msgstr "如果启用，元素将被保存，无论它们是否已被编辑"
 
 #: src/netedit/GNELoadThread.cpp:339
 msgid "Prefix for node naming"
@@ -4894,27 +4895,27 @@ msgstr "取消在交通信号内的替换"
 
 #: src/netedit/GNETagProperties.cpp:84
 msgid "no tag type defined"
-msgstr ""
+msgstr "未定义标签类型"
 
 #: src/netedit/GNETagProperties.cpp:87
 msgid "no tag property defined"
-msgstr ""
+msgstr "未定义标签属性"
 
 #: src/netedit/GNETagProperties.cpp:90
 msgid "no tag parent defined"
-msgstr ""
+msgstr "未定义标签父级"
 
 #: src/netedit/GNETagProperties.cpp:93
 msgid "no conflict defined"
-msgstr ""
+msgstr "未定义冲突"
 
 #: src/netedit/GNETagProperties.cpp:97
 msgid "no basic type property defined"
-msgstr ""
+msgstr "未定义基本类型属性"
 
 #: src/netedit/GNETagProperties.cpp:101
 msgid "multiple basic type properties defined"
-msgstr ""
+msgstr "定义了多个基本类型属性"
 
 #: src/netedit/GNETagProperties.cpp:105
 msgid "element can be either shape or TAZ or wire element at the same time"
@@ -4966,7 +4967,7 @@ msgstr "属性'%'不存在"
 #: src/netedit/GNETagProperties.cpp:221
 #, c-format
 msgid "Invalid index '%' used in getAttributeProperties(int)"
-msgstr ""
+msgstr "在 getAttributeProperties(int) 中使用了无效的索引 '%'"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:84
 #, c-format
@@ -5030,7 +5031,7 @@ msgstr "交通信号方案的可自选识别名 (id)"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:513
 msgid "Whether this junction is part of a roundabout"
-msgstr ""
+msgstr "此交叉口是否是环形交叉口的一部分"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:524
 msgid "EdgeType"
@@ -5179,7 +5180,7 @@ msgstr "指定停靠点偏移量( stopOffset)不适用的车辆类别。"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:746
 msgid "Whether this edge is part of a roundabout"
-msgstr ""
+msgstr "此边是否是环形交叉口的一部分"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:757
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:66
@@ -5232,7 +5233,7 @@ msgstr "车道类型说明(可自选(optional))"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:850
 msgid "Crossing"
-msgstr ""
+msgstr "路口"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:854
 msgid "Crossing ID"
@@ -5376,7 +5377,7 @@ msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1083
 msgid "BusStop"
-msgstr ""
+msgstr "公交车站"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1088
 msgid "The id of bus stop"
@@ -5485,7 +5486,7 @@ msgstr "显示公交车站的RGBA颜色"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1150
 msgid "TrainStop"
-msgstr ""
+msgstr "火车站"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1155
 msgid "The id of train stop"
@@ -5586,7 +5587,7 @@ msgstr "显示集装箱停靠站(containerStop)的RGBA顏色"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1320
 msgid "ChargingStation"
-msgstr ""
+msgstr "充电站"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1325
 msgid "The id of charging station"
@@ -5630,19 +5631,19 @@ msgstr "车辆到达/停在充电站后，能量传输（充电）开始之前�
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1383
 msgid "Battery charging type"
-msgstr ""
+msgstr "电池充电类型"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1390
 msgid "Waiting time before start charging"
-msgstr ""
+msgstr "开始充电前的等待时间"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1396
 msgid "Parking area the charging station is located"
-msgstr ""
+msgstr "充电站所在的停车区域"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1408
 msgid "ParkingArea"
-msgstr ""
+msgstr "停车场"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1413
 msgid "The id of ParkingArea"
@@ -5662,7 +5663,7 @@ msgstr "停车场名称"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1443
 msgid "Accepted badges to access this parkingArea"
-msgstr ""
+msgstr "可进入此停车区域的通行权限"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1448
 msgid " The number of parking spaces for road-side parking"
@@ -5697,7 +5698,7 @@ msgstr "启用或禁用左侧位置"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1499
 msgid "ParkingSpace"
-msgstr ""
+msgstr "停车位"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1509
 msgid "Name of parking space"
@@ -5713,7 +5714,7 @@ msgstr "路边停车位的坡度"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1542
 msgid "E1 InductionLoop"
-msgstr ""
+msgstr "E1 感应线圈检测器"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1547
 msgid "The id of E1"
@@ -5773,7 +5774,7 @@ msgstr "要考虑的车辆类型ID的空格分隔清单"
 msgid ""
 "List of edge ids that must all be part of the future route of the vehicle to"
 " qualify for detection"
-msgstr ""
+msgstr "车辆未来路径中必须全部包含的路段 ID 列表（作为检测条件）"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1588
 #: src/netedit/GNETagPropertiesDatabase.cpp:1666
