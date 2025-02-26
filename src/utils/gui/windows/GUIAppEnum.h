@@ -1047,9 +1047,11 @@ enum {
     /// @brief toogle enable attribute in attributes editor row
     MID_GNE_ATTRIBUTESEDITORROW_TOGGLEENABLEATTRIBUTE,
     /// @brief open color dialog in attributes editor row
-    MID_GNE_ATTRIBUTESEDITORROW_OPENCOLORDIALOG,
+    MID_GNE_ATTRIBUTESEDITORROW_OPENDIALOG_COLOR,
     /// @brief open allow dialog in attributes editor row
-    MID_GNE_ATTRIBUTESEDITORROW_OPENALLOWDIALLOG,
+    MID_GNE_ATTRIBUTESEDITORROW_OPENDIALOG_ALLOW,
+    /// @brief open file dialog in attributes editor row
+    MID_GNE_ATTRIBUTESEDITORROW_OPENDIALOG_FILE,
     /// @brief reparent
     MID_GNE_ATTRIBUTESEDITORROW_REPARENT,
     /// @brief inspect parent

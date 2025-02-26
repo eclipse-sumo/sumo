@@ -81,6 +81,9 @@ public:
     /// @brief called when user press "open allow" dialog
     long onCmdOpenAllowDialog(FXObject*, FXSelector, void*);
 
+    /// @brief called when user press "open file" dialog
+    long onCmdOpenFileDialog(FXObject*, FXSelector, void*);
+
     /// @brief called when user press reparent button
     long onCmdReparent(FXObject*, FXSelector, void*);
 
@@ -105,17 +108,20 @@ protected:
     /// @brief show attribute toogle enable
     void showAttributeToggleEnable(const GNEAttributeProperties* attrProperty, const bool value);
 
-    /// @brief show attribute reparent
+    /// @brief show attribute button reparent
     void showAttributeReparent(const bool enabled);
 
-    /// @brief show attribute parent
+    /// @brief show attribute button inspect parent
     void showAttributeInspectParent(const GNEAttributeProperties* attrProperty, const bool enabled);
 
-    /// @brief show attribute vClass
+    /// @brief show attribute button vClass
     void showAttributeVClass(const GNEAttributeProperties* attrProperty, const bool enabled);
 
-    /// @brief show attribute color
+    /// @brief show attribute button color
     void showAttributeColor(const GNEAttributeProperties* attrProperty, const bool enabled);
+
+    /// @brief show attribute button file
+    void showAttributeFile(const GNEAttributeProperties* attrProperty, const bool enabled);
 
     /// @brief show attribute label
     void showAttributeLabel(const GNEAttributeProperties* attrProperty);

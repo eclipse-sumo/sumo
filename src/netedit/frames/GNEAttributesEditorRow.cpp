@@ -40,8 +40,9 @@
 FXDEFMAP(GNEAttributesEditorRow) GNEAttributeRowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_ATTRIBUTESEDITORROW_SETATTRIBUTE,           GNEAttributesEditorRow::onCmdSetAttribute),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_ATTRIBUTESEDITORROW_TOGGLEENABLEATTRIBUTE,  GNEAttributesEditorRow::onCmdToggleEnableAttribute),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ATTRIBUTESEDITORROW_OPENCOLORDIALOG,        GNEAttributesEditorRow::onCmdOpenColorDialog),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ATTRIBUTESEDITORROW_OPENALLOWDIALLOG,       GNEAttributesEditorRow::onCmdOpenAllowDialog),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ATTRIBUTESEDITORROW_OPENDIALOG_COLOR,       GNEAttributesEditorRow::onCmdOpenColorDialog),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ATTRIBUTESEDITORROW_OPENDIALOG_ALLOW,       GNEAttributesEditorRow::onCmdOpenAllowDialog),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ATTRIBUTESEDITORROW_OPENDIALOG_FILE,        GNEAttributesEditorRow::onCmdOpenFileDialog),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_ATTRIBUTESEDITORROW_REPARENT,               GNEAttributesEditorRow::onCmdReparent),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_ATTRIBUTESEDITORROW_INSPECTPARENT,          GNEAttributesEditorRow::onCmdInspectParent),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_ATTRIBUTESEDITORROW_MOVELANEUP,             GNEAttributesEditorRow::onCmdMoveLaneUp),
@@ -427,6 +428,13 @@ GNEAttributesEditorRow::onCmdOpenAllowDialog(FXObject*, FXSelector, void*) {
 
 
 long
+GNEAttributesEditorRow::onCmdOpenFileDialog(FXObject*, FXSelector, void*) {
+
+    return 1;
+}
+
+
+long
 GNEAttributesEditorRow::onCmdReparent(FXObject*, FXSelector, void*) {
     myAttributeTable->enableReparent();
     return 1;
@@ -648,7 +656,7 @@ GNEAttributesEditorRow::showAttributeVClass(const GNEAttributeProperties* attrPr
     myAttributeButton->setHelpText(TL("Open dialog for editing vClasses"));
     myAttributeButton->setTipText(myAttributeButton->getHelpText());
     myAttributeButton->setIcon(nullptr);
-    myAttributeButton->setSelector(MID_GNE_ATTRIBUTESEDITORROW_OPENALLOWDIALLOG);
+    myAttributeButton->setSelector(MID_GNE_ATTRIBUTESEDITORROW_OPENDIALOG_ALLOW);
     if (enabled) {
         myAttributeButton->enable();
     } else {
@@ -668,7 +676,27 @@ GNEAttributesEditorRow::showAttributeColor(const GNEAttributeProperties* attrPro
     myAttributeButton->setHelpText(TL("Open dialog for editing color"));
     myAttributeButton->setTipText(myAttributeButton->getHelpText());
     myAttributeButton->setIcon(GUIIconSubSys::getIcon(GUIIcon::COLORWHEEL));
-    myAttributeButton->setSelector(MID_GNE_ATTRIBUTESEDITORROW_OPENCOLORDIALOG);
+    myAttributeButton->setSelector(MID_GNE_ATTRIBUTESEDITORROW_OPENDIALOG_COLOR);
+    if (enabled) {
+        myAttributeButton->enable();
+    } else {
+        myAttributeButton->disable();
+    }
+    myAttributeButton->show();
+    // hide other elements
+    myAttributeLabel->hide();
+    myAttributeToggleEnableCheckButton->hide();
+}
+
+
+void
+GNEAttributesEditorRow::showAttributeFile(const GNEAttributeProperties* attrProperty, const bool enabled) {
+    // update attribute button
+    myAttributeButton->setText(attrProperty->getAttrStr().c_str());
+    myAttributeButton->setHelpText(TL("Open dialog for select color"));
+    myAttributeButton->setTipText(myAttributeButton->getHelpText());
+    myAttributeButton->setIcon(GUIIconSubSys::getIcon(GUIIcon::OPEN));
+    myAttributeButton->setSelector(MID_GNE_ATTRIBUTESEDITORROW_OPENDIALOG_COLOR);
     if (enabled) {
         myAttributeButton->enable();
     } else {
