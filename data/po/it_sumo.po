@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-13 10:07+0100\n"
-"PO-Revision-Date: 2025-02-25 23:44+0000\n"
+"PO-Revision-Date: 2025-02-26 08:53+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -9068,47 +9068,47 @@ msgstr ""
 
 #: src/netimport/NIImporter_ITSUMO.cpp:240
 msgid "Not numeric position information for node '%'."
-msgstr ""
+msgstr "Informazione non numerica sulla posizione del nodo '%'."
 
 #: src/netimport/NIImporter_ITSUMO.cpp:242
 msgid "Missing data in node '%'."
-msgstr ""
+msgstr "Dati mancanti nel nodo '%'."
 
 #: src/netimport/NIImporter_ITSUMO.cpp:260
 msgid "Missing node in laneset '%'."
-msgstr ""
+msgstr "Nodo mancante nell'insieme di corsie '%'."
 
 #: src/netimport/NIImporter_ITSUMO.cpp:263
 msgid "Found laneset-id '%' twice."
-msgstr ""
+msgstr "Codice identificativo dell'insieme di corsie '%' incontrato due volte."
 
 #: src/netimport/NIImporter_ITSUMO.cpp:277
 msgid "Not numeric value in laneset '%'."
-msgstr ""
+msgstr "Valore non numerico nell'insieme di corsie '%'."
 
 #: src/netimport/NIImporter_ITSUMO.cpp:279
 msgid "Missing data in laneset '%'."
-msgstr ""
+msgstr "Dati mancanti nell'insieme di corsie '%'."
 
 #: src/netimport/NIImporter_ITSUMO.cpp:290
 msgid "Not numeric value in lane '%'."
-msgstr ""
+msgstr "Valore non numerico nella corsia '%'."
 
 #: src/netimport/NIImporter_ITSUMO.cpp:292
 msgid "Missing data in lane '%'."
-msgstr ""
+msgstr "Dati mancanti nella corsie '%'."
 
 #: src/netimport/NIImporter_MATSim.cpp:237
 msgid "Bogus capacity period format; requires 'hh:mm:ss'."
-msgstr ""
+msgstr "Formato errato dell'intervallo di capacità; si richiede 'hh:mm:ss'."
 
 #: src/netimport/NIImporter_MATSim.cpp:269
 msgid "Could not find from-node for edge '%'."
-msgstr ""
+msgstr "Non ho potuto trovare il nodo iniziale dell'arco '%'."
 
 #: src/netimport/NIImporter_MATSim.cpp:272
 msgid "Could not find to-node for edge '%'."
-msgstr ""
+msgstr "Non ho potuto trovare il nodo terminale dell'arco '%'."
 
 #: src/netimport/NIImporter_MATSim.cpp:281
 msgid "Ignoring edge % which has no lanes."
