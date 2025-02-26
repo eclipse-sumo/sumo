@@ -1,6 +1,9 @@
 # test reading trips with geo-coordinates
 geoTrips
 
+# test reading trips with geo-coordinates that lie within junctions
+geoTrips_internal
+
 # test reading trips with geo-coordinates
 geoTrips_lonLat
 
