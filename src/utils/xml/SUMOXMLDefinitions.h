@@ -2292,6 +2292,50 @@ enum class TXTFileExtension {
 /// @brief image extension
 enum class ImageFileExtension {
     IMG,
+    GIF,
+    BMP,
+    XPM,
+    PCX,
+    ICO,
+    RGB,
+    XBM,
+    TGA,
+    PNG,
+    JPG,
+    TIF,
+    PS,
+    EPS,
+    PDF,
+    SVG,
+    TEX,
+    PGF,
+    ALL,
+};
+
+/// @brief image and video extension
+enum class ImageVideoFileExtension {
+    IMG,
+    VIDEO,
+    H264,
+    HEVC,
+    MP4,
+    GIF,
+    BMP,
+    XPM,
+    PCX,
+    ICO,
+    RGB,
+    XBM,
+    TGA,
+    PNG,
+    JPG,
+    TIF,
+    PS,
+    EPS,
+    PDF,
+    SVG,
+    TEX,
+    PGF,
     ALL,
 };
 
@@ -2480,6 +2524,9 @@ public:
     /// @brief image file extensions
     static StringBijection<ImageFileExtension> ImageFileExtensions;
 
+    /// @brief image and videofile extensions
+    static StringBijection<ImageVideoFileExtension> ImageVideoFileExtensions;
+
     /// @brief output file extensions
     static StringBijection<OutputFileExtension> OutputFileExtensions;
 
@@ -2662,6 +2709,9 @@ private:
 
     /// @brief image file extension values
     static StringBijection<ImageFileExtension>::Entry imageFileExtensionValues[];
+
+    /// @brief image and video file extension values
+    static StringBijection<ImageVideoFileExtension>::Entry imageVideoFileExtensionValues[];
 
     /// @brief output file extension values
     static StringBijection<OutputFileExtension>::Entry outputFileExtensionValues[];

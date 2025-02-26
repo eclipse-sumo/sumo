@@ -1681,8 +1681,8 @@ StringBijection<ReferencePosition>::Entry SUMOXMLDefinitions::referencePositionV
 };
 
 StringBijection<XMLFileExtension>::Entry SUMOXMLDefinitions::XMLFileExtensionValues[] = {
-    {TL("XML files (*.xml)"),   XMLFileExtension::XML},
-    {TL("All files (*)"),       XMLFileExtension::ALL} //< must be the last one
+    {TL("XML files (*.xml, *.xml.gz)"), XMLFileExtension::XML},
+    {TL("All files (*)"),               XMLFileExtension::ALL} //< must be the last one
 };
 
 StringBijection<TXTFileExtension>::Entry SUMOXMLDefinitions::TXTFileExtensionValues[] = {
@@ -1691,8 +1691,51 @@ StringBijection<TXTFileExtension>::Entry SUMOXMLDefinitions::TXTFileExtensionVal
 };
 
 StringBijection<ImageFileExtension>::Entry SUMOXMLDefinitions::imageFileExtensionValues[] = {
-    {TL("Image files (*.jpg, *.png, *.bmp)"),   ImageFileExtension::IMG},
-    {TL("All files (*)"),                       ImageFileExtension::ALL} //< must be the last one
+    {TL("All Image Files (*.gif,*.bmp,*.xpm,*.pcx,*.ico,*.rgb,*.xbm,*.tga,*.png,*.jpg,*.jpeg,*.tif,*.tiff,*.ps,*.eps,*.pdf,*.svg,*.tex,*.pgf)"),    ImageFileExtension::IMG},
+    {TL("GIF Image (*.gif)"),                                                                                                                       ImageFileExtension::GIF},
+    {TL("BMP Image (*.bmp)"),                                                                                                                       ImageFileExtension::BMP},
+    {TL("XPM Image (*.xpm)"),                                                                                                                       ImageFileExtension::XPM},
+    {TL("PCX Image (*.pcx)"),                                                                                                                       ImageFileExtension::PCX},
+    {TL("ICO Image (*.ico)"),                                                                                                                       ImageFileExtension::ICO},
+    {TL("RGB Image (*.rgb)"),                                                                                                                       ImageFileExtension::RGB},
+    {TL("XBM Image (*.xbm)"),                                                                                                                       ImageFileExtension::XBM},
+    {TL("TARGA Image (*.tga)"),                                                                                                                     ImageFileExtension::TGA},
+    {TL("PNG Image  (*.png)"),                                                                                                                      ImageFileExtension::PNG},
+    {TL("JPEG Image (*.jpg,*.jpeg)"),                                                                                                               ImageFileExtension::JPG},
+    {TL("TIFF Image (*.tif,*.tiff)"),                                                                                                               ImageFileExtension::TIF},
+    {TL("Postscript (*.ps)"),                                                                                                                       ImageFileExtension::PS},
+    {TL("Encapsulated Postscript (*.eps)"),                                                                                                         ImageFileExtension::EPS},
+    {TL("Portable Document Format (*.pdf)"),                                                                                                        ImageFileExtension::PDF},
+    {TL("Scalable Vector Graphics (*.svg)"),                                                                                                        ImageFileExtension::SVG},
+    {TL("LATEX text strings (*.tex)"),                                                                                                              ImageFileExtension::TEX},
+    {TL("Portable LaTeX Graphics (*.pgf)"),                                                                                                         ImageFileExtension::PGF},
+    {TL("All Files (*)"),                                                                                                                           ImageFileExtension::ALL} //< must be the last one
+};
+
+StringBijection<ImageVideoFileExtension>::Entry SUMOXMLDefinitions::imageVideoFileExtensionValues[] = {
+    {TL("All Image and Video Files (*.gif,*.bmp,*.xpm,*.pcx,*.ico,*.rgb,*.xbm,*.tga,*.png,*.jpg,*.jpeg,*.tif,*.tiff,*.ps,*.eps,*.pdf,*.svg,*.tex,*.pgf,*.h264,*.hevc,*.mp4)"),  ImageVideoFileExtension::IMG},
+    {TL("All Video Files (*.h264,*.hevc,*.mp4)"),                                                                                                                               ImageVideoFileExtension::VIDEO},
+    {TL("G264 Video (*.h264)"),                                                                                                                                                 ImageVideoFileExtension::H264},
+    {TL("HEVC Video (*.hevc)"),                                                                                                                                                 ImageVideoFileExtension::HEVC},
+    {TL("MP4 Video (*.mp4)"),                                                                                                                                                   ImageVideoFileExtension::MP4},
+    {TL("GIF Image (*.gif)"),                                                                                                                                                   ImageVideoFileExtension::GIF},
+    {TL("BMP Image (*.bmp)"),                                                                                                                                                   ImageVideoFileExtension::BMP},
+    {TL("XPM Image (*.xpm)"),                                                                                                                                                   ImageVideoFileExtension::XPM},
+    {TL("PCX Image (*.pcx)"),                                                                                                                                                   ImageVideoFileExtension::PCX},
+    {TL("ICO Image (*.ico)"),                                                                                                                                                   ImageVideoFileExtension::ICO},
+    {TL("RGB Image (*.rgb)"),                                                                                                                                                   ImageVideoFileExtension::RGB},
+    {TL("XBM Image (*.xbm)"),                                                                                                                                                   ImageVideoFileExtension::XBM},
+    {TL("TARGA Image (*.tga)"),                                                                                                                                                 ImageVideoFileExtension::TGA},
+    {TL("PNG Image  (*.png)"),                                                                                                                                                  ImageVideoFileExtension::PNG},
+    {TL("JPEG Image (*.jpg,*.jpeg)"),                                                                                                                                           ImageVideoFileExtension::JPG},
+    {TL("TIFF Image (*.tif,*.tiff)"),                                                                                                                                           ImageVideoFileExtension::TIF},
+    {TL("Postscript (*.ps)"),                                                                                                                                                   ImageVideoFileExtension::PS},
+    {TL("Encapsulated Postscript (*.eps)"),                                                                                                                                     ImageVideoFileExtension::EPS},
+    {TL("Portable Document Format (*.pdf)"),                                                                                                                                    ImageVideoFileExtension::PDF},
+    {TL("Scalable Vector Graphics (*.svg)"),                                                                                                                                    ImageVideoFileExtension::SVG},
+    {TL("LATEX text strings (*.tex)"),                                                                                                                                          ImageVideoFileExtension::TEX},
+    {TL("Portable LaTeX Graphics (*.pgf)"),                                                                                                                                     ImageVideoFileExtension::PGF},
+    {TL("All Files (*)"),                                                                                                                                                       ImageVideoFileExtension::ALL} //< must be the last one
 };
 
 StringBijection<OutputFileExtension>::Entry SUMOXMLDefinitions::outputFileExtensionValues[] = {
@@ -1848,6 +1891,9 @@ StringBijection<TXTFileExtension> SUMOXMLDefinitions::TXTFileExtensions(
 
 StringBijection<ImageFileExtension> SUMOXMLDefinitions::ImageFileExtensions(
     SUMOXMLDefinitions::imageFileExtensionValues, ImageFileExtension::ALL, false);
+
+StringBijection<ImageVideoFileExtension> SUMOXMLDefinitions::ImageVideoFileExtensions(
+    SUMOXMLDefinitions::imageVideoFileExtensionValues, ImageVideoFileExtension::ALL, false);
 
 StringBijection<OutputFileExtension> SUMOXMLDefinitions::OutputFileExtensions(
     SUMOXMLDefinitions::outputFileExtensionValues, OutputFileExtension::ALL, false);
