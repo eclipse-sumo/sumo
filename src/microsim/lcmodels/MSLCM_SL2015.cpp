@@ -1204,6 +1204,7 @@ MSLCM_SL2015::_wantsChangeSublane(
                   << "\n   neighBlockers=" << neighBlockers.toString()
                   << "\n   changeToBest=" << changeToBest
                   << " latLaneDist=" << latLaneDist
+                  << " alts=" << toString((LaneChangeAction)alternatives)
                   << "\n   expectedSpeeds=" << toString(myExpectedSublaneSpeeds)
                   << std::endl;
     }
@@ -1578,7 +1579,11 @@ MSLCM_SL2015::_wantsChangeSublane(
             int j = i;
             while (vMin > 0 && j < (int)sublaneSides.size() && sublaneSides[j] < sublaneSides[i] + vehWidth) {
                 vMin = MIN2(vMin, myExpectedSublaneSpeeds[j]);
-                //std::cout << "     j=" << j << " vMin=" << vMin << " sublaneSides[j]=" << sublaneSides[j] << " leftVehSide=" << leftVehSide << " rightVehSide=" << rightVehSide << "\n";
+#ifdef DEBUG_WANTSCHANGE
+                    if (gDebugFlag2) {
+                        //std::cout << "     j=" << j << " vMin=" << vMin << " sublaneSides[j]=" << sublaneSides[j] << " leftVehSide=" << leftVehSide << " rightVehSide=" << rightVehSide << "\n";
+                    }
+#endif
                 ++j;
             }
             // check whether the vehicle is between lanes
@@ -1600,7 +1605,7 @@ MSLCM_SL2015::_wantsChangeSublane(
                     latDist = currentLatDist;
 #ifdef DEBUG_WANTSCHANGE
                     if (gDebugFlag2) {
-                        std::cout << "      i=" << i << " newLatDist=" << latDist << " relGain=" << relativeGain << "\n";
+                        std::cout << "      i=" << i << " vMin=" << vMin << " newLatDist=" << latDist << " relGain=" << relativeGain << "\n";
                     }
 #endif
                 }
@@ -1685,6 +1690,8 @@ MSLCM_SL2015::_wantsChangeSublane(
                                    << " maxGain=" << maxGain
                                    << " maxGainRight=" << maxGainRight
                                    << " maxGainLeft=" << maxGainLeft
+                                   << " probRight=" << mySpeedGainProbabilityRight
+                                   << " probLeft=" << mySpeedGainProbabilityLeft
                                    << " latDist=" << latDist
                                    << " latDistNice=" << latDistNice
                                    << " sublaneCompact=" << sublaneCompact
