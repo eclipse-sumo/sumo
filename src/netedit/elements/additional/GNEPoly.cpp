@@ -41,7 +41,7 @@
 // ===========================================================================
 
 GNEPoly::GNEPoly(SumoXMLTag tag, GNENet* net) :
-    TesselatedPolygon("", "", RGBColor::BLACK, {}, false, false, 0, 0, 0, "", false, "", Parameterised::Map()),
+    TesselatedPolygon("", "", RGBColor::BLACK, {}, false, false, 0, 0, 0, "", "", Parameterised::Map()),
 GNEAdditional("", net, "", GLO_POLYGON, tag, GUIIcon::POLY, "") {
     // reset default values
     resetDefaultValues();
@@ -50,8 +50,8 @@ GNEAdditional("", net, "", GLO_POLYGON, tag, GUIIcon::POLY, "") {
 
 GNEPoly::GNEPoly(const std::string& id, GNENet* net, const std::string& filename, const std::string& type, const PositionVector& shape,
                  bool geo, bool fill, double lineWidth, const RGBColor& color, double layer, double angle, const std::string& imgFile,
-                 bool relativePath, const std::string& name, const Parameterised::Map& parameters) :
-    TesselatedPolygon(id, type, color, shape, geo, fill, lineWidth, layer, angle, imgFile, relativePath, name, parameters),
+                 const std::string& name, const Parameterised::Map& parameters) :
+    TesselatedPolygon(id, type, color, shape, geo, fill, lineWidth, layer, angle, imgFile, name, parameters),
     GNEAdditional(id, net, filename, GLO_POLYGON, SUMO_TAG_POLY, GUIIcon::POLY, ""),
     myClosedShape(shape.isClosed()) {
     // check if imgFile is valid
@@ -79,7 +79,7 @@ GNEPoly::GNEPoly(const std::string& id, GNENet* net, const std::string& filename
 GNEPoly::GNEPoly(SumoXMLTag tag, const std::string& id, GNENet* net, const std::string& filename, const PositionVector& shape,
                  bool geo, const std::string& name, const Parameterised::Map& parameters) :
     TesselatedPolygon(id, getJuPedSimType(tag), getJuPedSimColor(tag), shape, geo, getJuPedSimFill(tag), 1,
-                      getJuPedSimLayer(tag), 0, "", false, name, parameters),
+                      getJuPedSimLayer(tag), 0, "", name, parameters),
     GNEAdditional(id, net, filename, getJuPedSimGLO(tag), tag, getJuPedSimIcon(tag), ""),
     myClosedShape(shape.isClosed()),
     mySimplifiedShape(false) {
@@ -536,7 +536,6 @@ GNEPoly::getSumoBaseObject() const {
     polygonBaseObject->addStringAttribute(SUMO_ATTR_IMGFILE, getShapeImgFile());
     polygonBaseObject->addDoubleAttribute(SUMO_ATTR_ANGLE, getShapeNaviDegree());
     polygonBaseObject->addStringAttribute(SUMO_ATTR_NAME, getShapeName());
-    polygonBaseObject->addBoolAttribute(SUMO_ATTR_RELATIVEPATH, getShapeRelativePath());
     return polygonBaseObject;
 }
 
@@ -574,8 +573,6 @@ GNEPoly::getAttribute(SumoXMLAttr key) const {
             return getShapeType();
         case SUMO_ATTR_IMGFILE:
             return getShapeImgFile();
-        case SUMO_ATTR_RELATIVEPATH:
-            return toString(getShapeRelativePath());
         case SUMO_ATTR_ANGLE:
             return toString(getShapeNaviDegree());
         case SUMO_ATTR_GEO:
@@ -617,7 +614,6 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         case SUMO_ATTR_LAYER:
         case SUMO_ATTR_TYPE:
         case SUMO_ATTR_IMGFILE:
-        case SUMO_ATTR_RELATIVEPATH:
         case SUMO_ATTR_ANGLE:
         case SUMO_ATTR_GEO:
         case SUMO_ATTR_NAME:
@@ -665,8 +661,6 @@ GNEPoly::isValid(SumoXMLAttr key, const std::string& value) {
                 // check that image can be loaded
                 return GUITexturesHelper::getTextureID(value) != -1;
             }
-        case SUMO_ATTR_RELATIVEPATH:
-            return canParse<bool>(value);
         case SUMO_ATTR_ANGLE:
             return canParse<double>(value);
         case SUMO_ATTR_GEO:
@@ -791,9 +785,6 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
             setShapeImgFile(value);
             // all textures must be refresh
             GUITexturesHelper::clearTextures();
-            break;
-        case SUMO_ATTR_RELATIVEPATH:
-            setShapeRelativePath(parse<bool>(value));
             break;
         case SUMO_ATTR_ANGLE:
             setShapeNaviDegree(parse<double>(value));

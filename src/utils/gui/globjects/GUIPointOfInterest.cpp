@@ -38,8 +38,8 @@
 GUIPointOfInterest::GUIPointOfInterest(const std::string& id, const std::string& type, const RGBColor& color, const Position& pos,
                                        bool geo, const std::string& lane, double posOverLane, bool friendlyPos, double posLat,
                                        const std::string& icon, double layer, double angle, const std::string& imgFile,
-                                       bool relativePath, double width, double height) :
-    PointOfInterest(id, type, color, pos, geo, lane, posOverLane, friendlyPos, posLat, icon, layer, angle, imgFile, relativePath, width, height),
+                                       double width, double height) :
+    PointOfInterest(id, type, color, pos, geo, lane, posOverLane, friendlyPos, posLat, icon, layer, angle, imgFile, width, height),
     GUIGlObject_AbstractAdd(GLO_POI, id,
                             (lane.size() > 0) ? GUIIconSubSys::getIcon(GUIIcon::POILANE) : geo ? GUIIconSubSys::getIcon(GUIIcon::POIGEO) : GUIIconSubSys::getIcon(GUIIcon::POI)) {
 }

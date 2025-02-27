@@ -46,7 +46,7 @@
 
 GNEPOI::GNEPOI(SumoXMLTag tag, GNENet* net) :
     PointOfInterest("", "", RGBColor::BLACK, Position(0, 0), false, "", 0, false, 0, SUMOXMLDefinitions::POIIcons.getString(POIIcon::NONE),
-                    0, 0, "", false, 0, 0, "", Parameterised::Map()),
+                    0, 0, "", 0, 0, "", Parameterised::Map()),
     GNEAdditional("", net, "", GLO_POI, tag, GUIIcon::POI, "") {
     // reset default values
     resetDefaultValues();
@@ -54,9 +54,9 @@ GNEPOI::GNEPOI(SumoXMLTag tag, GNENet* net) :
 
 
 GNEPOI::GNEPOI(const std::string& id, GNENet* net, const std::string& filename, const std::string& type, const RGBColor& color, const double xLon, const double yLat,
-               const bool geo, const std::string& icon, const double layer, const double angle, const std::string& imgFile,
-               const bool relativePath, const double width, const double height, const std::string& name, const Parameterised::Map& parameters) :
-    PointOfInterest(id, type, color, Position(xLon, yLat), geo, "", 0, false, 0, icon, layer, angle, imgFile, relativePath, width, height, name, parameters),
+               const bool geo, const std::string& icon, const double layer, const double angle, const std::string& imgFile, const double width, const double height,
+               const std::string& name, const Parameterised::Map& parameters) :
+    PointOfInterest(id, type, color, Position(xLon, yLat), geo, "", 0, false, 0, icon, layer, angle, imgFile, width, height, name, parameters),
     GNEAdditional(id, net, filename, GLO_POI, geo ? GNE_TAG_POIGEO : SUMO_TAG_POI, geo ? GUIIcon::POIGEO : GUIIcon::POI, "") {
     // update position depending of GEO
     if (geo) {
@@ -72,10 +72,9 @@ GNEPOI::GNEPOI(const std::string& id, GNENet* net, const std::string& filename, 
 
 
 GNEPOI::GNEPOI(const std::string& id, GNENet* net, const std::string& filename, const std::string& type, const RGBColor& color, GNELane* lane, const double posOverLane,
-               const bool friendlyPos, const double posLat, const std::string& icon, const double layer, const double angle,
-               const std::string& imgFile, const bool relativePath, const double width, const double height,
-               const std::string& name, const Parameterised::Map& parameters) :
-    PointOfInterest(id, type, color, Position(), false, lane->getID(), posOverLane, friendlyPos, posLat, icon, layer, angle, imgFile, relativePath, width, height, name, parameters),
+               const bool friendlyPos, const double posLat, const std::string& icon, const double layer, const double angle, const std::string& imgFile, const double width,
+               const double height, const std::string& name, const Parameterised::Map& parameters) :
+    PointOfInterest(id, type, color, Position(), false, lane->getID(), posOverLane, friendlyPos, posLat, icon, layer, angle, imgFile, width, height, name, parameters),
     GNEAdditional(id, net, filename, GLO_POI, GNE_TAG_POILANE, GUIIcon::POILANE, "") {
     // set parents
     setParent<GNELane*>(lane);
@@ -155,7 +154,6 @@ GNEPOI::getSumoBaseObject() const {
     POIBaseObject->addDoubleAttribute(SUMO_ATTR_HEIGHT, getHeight());
     POIBaseObject->addDoubleAttribute(SUMO_ATTR_ANGLE, getShapeNaviDegree());
     POIBaseObject->addStringAttribute(SUMO_ATTR_NAME, getShapeName());
-    POIBaseObject->addBoolAttribute(SUMO_ATTR_RELATIVEPATH, getShapeRelativePath());
     return POIBaseObject;
 }
 
@@ -450,8 +448,6 @@ GNEPOI::getAttribute(SumoXMLAttr key) const {
             }
         case SUMO_ATTR_IMGFILE:
             return getShapeImgFile();
-        case SUMO_ATTR_RELATIVEPATH:
-            return toString(getShapeRelativePath());
         case SUMO_ATTR_WIDTH:
             return toString(getWidth());
         case SUMO_ATTR_HEIGHT:
@@ -495,7 +491,6 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* und
         case SUMO_ATTR_ICON:
         case SUMO_ATTR_LAYER:
         case SUMO_ATTR_IMGFILE:
-        case SUMO_ATTR_RELATIVEPATH:
         case SUMO_ATTR_WIDTH:
         case SUMO_ATTR_HEIGHT:
         case SUMO_ATTR_ANGLE:
@@ -550,8 +545,6 @@ GNEPOI::isValid(SumoXMLAttr key, const std::string& value) {
                 // check that image can be loaded
                 return GUITexturesHelper::getTextureID(value) != -1;
             }
-        case SUMO_ATTR_RELATIVEPATH:
-            return canParse<bool>(value);
         case SUMO_ATTR_WIDTH:
             return canParse<double>(value) && (parse<double>(value) > 0);
         case SUMO_ATTR_HEIGHT:
@@ -742,9 +735,6 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
             if (getID().size() > 0) {
                 myNet->addGLObjectIntoGrid(this);
             }
-            break;
-        case SUMO_ATTR_RELATIVEPATH:
-            setShapeRelativePath(parse<bool>(value));
             break;
         case SUMO_ATTR_WIDTH:
             // set new width

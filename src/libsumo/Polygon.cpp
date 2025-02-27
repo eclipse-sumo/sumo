@@ -123,7 +123,7 @@ Polygon::add(const std::string& polygonID, const TraCIPositionVector& shape, con
     ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
     PositionVector pShape = Helper::makePositionVector(shape);
     RGBColor col = Helper::makeRGBColor(color);
-    if (!shapeCont.addPolygon(polygonID, polygonType, col, (double)layer, Shape::DEFAULT_ANGLE, Shape::DEFAULT_IMG_FILE, Shape::DEFAULT_RELATIVEPATH, pShape, false, fill, lineWidth)) {
+    if (!shapeCont.addPolygon(polygonID, polygonType, col, (double)layer, Shape::DEFAULT_ANGLE, Shape::DEFAULT_IMG_FILE, pShape, false, fill, lineWidth)) {
         throw TraCIException("Could not add polygon '" + polygonID + "'");
     }
     if (myTree != nullptr) {

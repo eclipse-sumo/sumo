@@ -980,7 +980,7 @@ void
 MSPModel_JuPedSim::preparePolygonForDrawing(const GEOSGeometry* polygon, const std::string& polygonId, const RGBColor& color) {
     const GEOSGeometry* exterior = GEOSGetExteriorRing(polygon);
     bool added = myShapeContainer.addPolygon(polygonId, std::string("jupedsim.pedestrian_network"), color, 10.0, 0.0,
-                 std::string(), false, convertToSUMOPoints(exterior), false, true, 1.0);
+                 std::string(), convertToSUMOPoints(exterior), false, true, 1.0);
     if (added) {
         std::vector<PositionVector> holes;
         int nbrInteriorRings = GEOSGetNumInteriorRings(polygon);

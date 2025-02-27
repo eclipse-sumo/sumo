@@ -1187,7 +1187,6 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::attrs[] = {
     { "guiShape",               SUMO_ATTR_GUISHAPE },
     { "osgFile",                SUMO_ATTR_OSGFILE },
     { "imgFile",                SUMO_ATTR_IMGFILE },
-    { "relativePath",           SUMO_ATTR_RELATIVEPATH },
     { "emissionClass",          SUMO_ATTR_EMISSIONCLASS },
     { "mass",                   SUMO_ATTR_MASS },
     { "impatience",             SUMO_ATTR_IMPATIENCE },

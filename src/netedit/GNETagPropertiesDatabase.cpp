@@ -2563,13 +2563,6 @@ GNETagPropertiesDatabase::fillShapeElements() {
 
         fillImgFileAttribute(myTagProperties[currentTag]);
 
-        attrProperty = new GNEAttributeProperties(SUMO_ATTR_RELATIVEPATH,
-                GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
-                TL("Enable or disable use image file as a relative path"),
-                toString(Shape::DEFAULT_RELATIVEPATH));
-        myTagProperties[currentTag]->addAttribute(attrProperty);
-
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_ANGLE,
                 GNEAttributeProperties::FLOAT | GNEAttributeProperties::ANGLE | GNEAttributeProperties::DEFAULTVALUE,
                 GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
@@ -2581,7 +2574,7 @@ GNETagPropertiesDatabase::fillShapeElements() {
                 GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
                 GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE | GNEAttributeProperties::GEOEDITOR,
                 TL("Enable or disable GEO attributes"),
-                toString(Shape::DEFAULT_RELATIVEPATH));
+                GNEAttributeCarrier::False);
         myTagProperties[currentTag]->addAttribute(attrProperty);
 
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_GEOSHAPE,
@@ -7792,6 +7785,14 @@ GNETagPropertiesDatabase::fillCommonAttributes(GNETagProperties* tagProperties) 
                 TL("Generic parameters (Format: key1=value1|key2=value2|..."));
         tagProperties->addAttribute(commonAttribute);
     }
+    /*
+    attrProperty = new GNEAttributeProperties(relativePath,
+            GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
+            GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+            TL("Enable or disable use image file as a relative path"),
+            toString(Shape::DEFAULT_RELATIVEPATH));
+    myTagProperties[currentTag]->addAttribute(attrProperty);
+    */
 }
 
 
@@ -7912,13 +7913,6 @@ GNETagPropertiesDatabase::fillCommonPOIAttributes(GNETagProperties* tagPropertie
     tagProperties->addAttribute(attrProperty);
 
     fillImgFileAttribute(tagProperties);
-
-    attrProperty = new GNEAttributeProperties(SUMO_ATTR_RELATIVEPATH,
-            GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
-            GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
-            TL("Enable or disable use image file as a relative path"),
-            toString(Shape::DEFAULT_RELATIVEPATH));
-    tagProperties->addAttribute(attrProperty);
 
     attrProperty = new GNEAttributeProperties(SUMO_ATTR_ANGLE,
             GNEAttributeProperties::FLOAT | GNEAttributeProperties::ANGLE | GNEAttributeProperties::DEFAULTVALUE,

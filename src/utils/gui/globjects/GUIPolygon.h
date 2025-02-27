@@ -44,14 +44,13 @@ class TesselatedPolygon : public SUMOPolygon {
 
 public:
 
-    /** @brief Constructor
+    /**@brief Constructor
      * @param[in] id The name of the polygon
      * @param[in] type The (abstract) type of the polygon
      * @param[in] color The color of the polygon
      * @param[in] layer The layer of the polygon
      * @param[in] angle The rotation of the polygon
      * @param[in] imgFile The raster image of the polygon
-     * @param[in] relativePath set image file as relative path
      * @param[in] shape The shape of the polygon
      * @param[in] geo specify if shape was loaded as GEO
      * @param[in] fill Whether the polygon shall be filled
@@ -59,9 +58,8 @@ public:
      */
     TesselatedPolygon(const std::string& id, const std::string& type, const RGBColor& color, const PositionVector& shape,
                       bool geo, bool fill, double lineWidth, double layer = 0, double angle = 0, const std::string& imgFile = "",
-                      bool relativePath = false, const std::string& name = DEFAULT_NAME,
-                      const Parameterised::Map& parameters = DEFAULT_PARAMETERS):
-        SUMOPolygon(id, type, color, shape, geo, fill, lineWidth, layer, angle, imgFile, relativePath, name, parameters)
+                      const std::string& name = DEFAULT_NAME, const Parameterised::Map& parameters = DEFAULT_PARAMETERS):
+        SUMOPolygon(id, type, color, shape, geo, fill, lineWidth, layer, angle, imgFile, name, parameters)
     {}
 
     /// @brief Destructor
@@ -88,7 +86,6 @@ public:
      * @param[in] layer The layer of the polygon
      * @param[in] angle The rotation of the polygon
      * @param[in] imgFile The raster image of the polygon
-     * @param[in] relativePath set image file as relative path
      * @param[in] shape The shape of the polygon
      * @param[in] geo specify if shape was loaded as GEO
      * @param[in] fill Whether the polygon shall be filled
@@ -96,7 +93,7 @@ public:
      */
     GUIPolygon(const std::string& id, const std::string& type, const RGBColor& color, const PositionVector& shape,
                bool geo, bool fill, double lineWidth, double layer = 0, double angle = 0, const std::string& imgFile = "",
-               bool relativePath = false, const std::string& name = DEFAULT_NAME);
+               const std::string& name = DEFAULT_NAME);
 
     /// @brief Destructor
     ~GUIPolygon();

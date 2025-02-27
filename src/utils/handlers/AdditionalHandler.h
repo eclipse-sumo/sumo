@@ -520,7 +520,6 @@ public:
      * @param[in] layer The layer of the polygon
      * @param[in] angle The rotation of the polygon
      * @param[in] imgFile The raster image of the polygon
-     * @param[in] relativePath set image file as relative path
      * @param[in] shape The shape of the polygon
      * @param[in] geo specify if shape was loaded as GEO coordinate
      * @param[in] fill Whether the polygon shall be filled
@@ -529,9 +528,8 @@ public:
      * @param[in] parameters generic parameters
      */
     virtual bool buildPolygon(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& type,
-                              const RGBColor& color, const double layer, const double angle, const std::string& imgFile, const bool relativePath,
-                              const PositionVector& shape, const bool geo, const bool fill, const double lineWidth, const std::string& name,
-                              const Parameterised::Map& parameters) = 0;
+                              const RGBColor& color, const double layer, const double angle, const std::string& imgFile, const PositionVector& shape,
+                              const bool geo, const bool fill, const double lineWidth, const std::string& name, const Parameterised::Map& parameters) = 0;
 
     /**@brief Builds a POI using the given values
      * @param[in] sumoBaseObject sumo base object used for build
@@ -544,7 +542,6 @@ public:
      * @param[in] layer The layer of the POI
      * @param[in] angle The rotation of the POI
      * @param[in] imgFile The raster image of the POI
-     * @param[in] relativePath set image file as relative path
      * @param[in] width The width of the POI image
      * @param[in] height The height of the POI image
      * @param[in] name POI name
@@ -552,8 +549,8 @@ public:
      */
     virtual bool buildPOI(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& type,
                           const RGBColor& color, const double x, const double y, const std::string& icon, const double layer,
-                          const double angle, const std::string& imgFile, bool relativePath, const double width, const double height,
-                          const std::string& name, const Parameterised::Map& parameters) = 0;
+                          const double angle, const std::string& imgFile, const double width, const double height, const std::string& name,
+                          const Parameterised::Map& parameters) = 0;
 
     /**@brief Builds a POI over lane using the given values
      * @param[in] sumoBaseObject sumo base object used for build
@@ -568,7 +565,6 @@ public:
      * @param[in] layer The layer of the POI
      * @param[in] angle The rotation of the POI
      * @param[in] imgFile The raster image of the POI
-     * @param[in] relativePath set image file as relative path
      * @param[in] width The width of the POI image
      * @param[in] height The height of the POI image
      * @param[in] name POI name
@@ -576,8 +572,8 @@ public:
      */
     virtual bool buildPOILane(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& type, const RGBColor& color,
                               const std::string& laneID, const double posOverLane, const bool friendlyPosition, const double posLat, const std::string& icon,
-                              const double layer, const double angle, const std::string& imgFile, const bool relativePath, const double width, const double height,
-                              const std::string& name, const Parameterised::Map& parameters) = 0;
+                              const double layer, const double angle, const std::string& imgFile, const double width, const double height, const std::string& name,
+                              const Parameterised::Map& parameters) = 0;
 
     /**@brief Builds a POI in GEO coordinaten using the given values
      * @param[in] sumoBaseObject sumo base object used for build
@@ -590,7 +586,6 @@ public:
      * @param[in] layer The layer of the POI
      * @param[in] angle The rotation of the POI
      * @param[in] imgFile The raster image of the POI
-     * @param[in] relativePath set image file as relative path
      * @param[in] width The width of the POI image
      * @param[in] height The height of the POI image
      * @param[in] name POI name
@@ -598,8 +593,8 @@ public:
      */
     virtual bool buildPOIGeo(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& type,
                              const RGBColor& color, const double lon, const double lat, const std::string& icon, const double layer,
-                             const double angle, const std::string& imgFile, bool relativePath, const double width, const double height,
-                             const std::string& name, const Parameterised::Map& parameters) = 0;
+                             const double angle, const std::string& imgFile, const double width, const double height, const std::string& name,
+                             const Parameterised::Map& parameters) = 0;
 
     /**@brief Builds a JuPedSim walkable area using the given values
      * @param[in] sumoBaseObject sumo base object used for build

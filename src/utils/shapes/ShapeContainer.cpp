@@ -34,9 +34,9 @@
 #include <utils/common/ToString.h>
 #include <utils/common/StdDefs.h>
 #include <utils/common/ParametrisedWrappingCommand.h>
+
 #include "PolygonDynamics.h"
 #include "ShapeContainer.h"
-
 
 // Debug defines
 //#define DEBUG_DYNAMIC_SHAPES
@@ -44,7 +44,9 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
+
 ShapeContainer::ShapeContainer() {}
+
 
 ShapeContainer::~ShapeContainer() {
     for (auto& p : myPolygonUpdateCommands) {
@@ -59,13 +61,12 @@ ShapeContainer::~ShapeContainer() {
 
 }
 
+
 bool
-ShapeContainer::addPolygon(const std::string& id, const std::string& type,
-                           const RGBColor& color, double layer,
-                           double angle, const std::string& imgFile, bool relativePath,
-                           const PositionVector& shape, bool geo, bool fill, double lineWidth, bool ignorePruning,
-                           const std::string& name) {
-    return add(new SUMOPolygon(id, type, color, shape, geo, fill, lineWidth, layer, angle, imgFile, relativePath, name), ignorePruning);
+ShapeContainer::addPolygon(const std::string& id, const std::string& type, const RGBColor& color,
+                           double layer, double angle, const std::string& imgFile, const PositionVector& shape,
+                           bool geo, bool fill, double lineWidth, bool ignorePruning, const std::string& name) {
+    return add(new SUMOPolygon(id, type, color, shape, geo, fill, lineWidth, layer, angle, imgFile, name), ignorePruning);
 }
 
 
@@ -144,8 +145,8 @@ ShapeContainer::removePolygonDynamics(const std::string& polyID) {
 bool
 ShapeContainer::addPOI(const std::string& id, const std::string& type, const RGBColor& color, const Position& pos, bool geo,
                        const std::string& lane, double posOverLane, bool friendlyPos, double posLat, const std::string& icon, double layer,
-                       double angle, const std::string& imgFile, bool relativePath, double width, double height, bool ignorePruning) {
-    return add(new PointOfInterest(id, type, color, pos, geo, lane, posOverLane, friendlyPos, posLat, icon, layer, angle, imgFile, relativePath, width, height), ignorePruning);
+                       double angle, const std::string& imgFile, double width, double height, bool ignorePruning) {
+    return add(new PointOfInterest(id, type, color, pos, geo, lane, posOverLane, friendlyPos, posLat, icon, layer, angle, imgFile, width, height), ignorePruning);
 }
 
 

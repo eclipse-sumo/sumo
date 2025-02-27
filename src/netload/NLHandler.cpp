@@ -1651,7 +1651,7 @@ NLHandler::addDistrict(const SUMOSAXAttributes& attrs) {
             PositionVector shape = attrs.get<PositionVector>(SUMO_ATTR_SHAPE, myCurrentDistrictID.c_str(), ok);
             const bool fill = attrs.getOpt<bool>(SUMO_ATTR_FILL, myCurrentDistrictID.c_str(), ok, false);
             if (shape.size() != 0) {
-                if (!myNet.getShapeContainer().addPolygon(myCurrentDistrictID, "taz", color, 0, 0, "", false, shape, false, fill, 1.0, false, name)) {
+                if (!myNet.getShapeContainer().addPolygon(myCurrentDistrictID, "taz", color, 0, 0, "", shape, false, fill, 1.0, false, name)) {
                     WRITE_WARNINGF(TL("Skipping visualization of taz '%', polygon already exists."), myCurrentDistrictID);
                 } else {
                     myLastParameterised.push_back(myNet.getShapeContainer().getPolygons().get(myCurrentDistrictID));

@@ -31,9 +31,9 @@
 
 PointOfInterest::PointOfInterest(const std::string& id, const std::string& type, const RGBColor& color, const Position& pos,
                                  bool geo, const std::string& lane, double posOverLane, bool friendlyPos, double posLat,
-                                 const std::string& icon, double layer, double angle, const std::string& imgFile, bool relativePath,
-                                 double width, double height, const std::string& name, const Parameterised::Map& parameters) :
-    Shape(id, type, color, layer, angle, imgFile, name, relativePath),
+                                 const std::string& icon, double layer, double angle, const std::string& imgFile, double width,
+                                 double height, const std::string& name, const Parameterised::Map& parameters) :
+    Shape(id, type, color, layer, angle, imgFile, name),
     Position(pos),
     Parameterised(parameters),
     myGeo(geo),
@@ -155,14 +155,7 @@ PointOfInterest::writeXML(OutputDevice& out, const bool geo, const double zOffse
         out.writeAttr(SUMO_ATTR_ANGLE, getShapeNaviDegree());
     }
     if (getShapeImgFile() != Shape::DEFAULT_IMG_FILE) {
-        if (getShapeRelativePath()) {
-            // write only the file name, without file path
-            std::string file = getShapeImgFile();
-            file.erase(0, FileHelpers::getFilePath(getShapeImgFile()).size());
-            out.writeAttr(SUMO_ATTR_IMGFILE, file);
-        } else {
-            out.writeAttr(SUMO_ATTR_IMGFILE, getShapeImgFile());
-        }
+        out.writeAttr(SUMO_ATTR_IMGFILE, getShapeImgFile());
     }
     if (getWidth() != Shape::DEFAULT_IMG_WIDTH) {
         out.writeAttr(SUMO_ATTR_WIDTH, getWidth());

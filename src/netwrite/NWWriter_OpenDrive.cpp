@@ -139,7 +139,7 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
             crosswalk_shape.append(rightside);
             auto crosswalkId = cw->id;
             nb.getShapeCont().addPolygon(crosswalkId, "crosswalk", RGBColor::DEFAULT_COLOR, 0,
-                                         Shape::DEFAULT_ANGLE, Shape::DEFAULT_IMG_FILE, Shape::DEFAULT_RELATIVEPATH,
+                                         Shape::DEFAULT_ANGLE, Shape::DEFAULT_IMG_FILE,
                                          crosswalk_shape, false, true, 1, false, crosswalkId);
             SUMOPolygon* cwp = nb.getShapeCont().getPolygons().get(crosswalkId);
             cwp->setParameter("length", toString(cw->width));

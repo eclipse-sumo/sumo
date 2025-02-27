@@ -44,10 +44,10 @@ GUIShapeContainer::~GUIShapeContainer() {}
 bool
 GUIShapeContainer::addPOI(const std::string& id, const std::string& type, const RGBColor& color, const Position& pos, bool geo,
                           const std::string& lane, double posOverLane, bool friendlyPos, double posLat, const std::string& icon,
-                          double layer, double angle, const std::string& imgFile, bool relativePath, double width, double height,
+                          double layer, double angle, const std::string& imgFile, double width, double height,
                           bool /* ignorePruning */) {
     GUIPointOfInterest* p = new GUIPointOfInterest(id, type, color, pos, geo, lane, posOverLane, friendlyPos, posLat, icon,
-            layer, angle, imgFile, relativePath, width, height);
+            layer, angle, imgFile, width, height);
     FXMutexLock locker(myLock);
     if (!myPOIs.add(id, p)) {
         if (myAllowReplacement) {
@@ -67,12 +67,10 @@ GUIShapeContainer::addPOI(const std::string& id, const std::string& type, const 
 
 
 bool
-GUIShapeContainer::addPolygon(const std::string& id, const std::string& type,
-                              const RGBColor& color, double layer,
-                              double angle, const std::string& imgFile, bool relativePath,
-                              const PositionVector& shape, bool geo, bool fill, double lineWidth, bool /* ignorePruning */,
-                              const std::string& name) {
-    GUIPolygon* p = new GUIPolygon(id, type, color, shape, geo, fill, lineWidth, layer, angle, imgFile, relativePath, name);
+GUIShapeContainer::addPolygon(const std::string& id, const std::string& type, const RGBColor& color, double layer,
+                              double angle, const std::string& imgFile, const PositionVector& shape, bool geo, bool fill,
+                              double lineWidth, bool /* ignorePruning */, const std::string& name) {
+    GUIPolygon* p = new GUIPolygon(id, type, color, shape, geo, fill, lineWidth, layer, angle, imgFile, name);
     FXMutexLock locker(myLock);
     if (!myPolygons.add(id, p)) {
         if (myAllowReplacement) {

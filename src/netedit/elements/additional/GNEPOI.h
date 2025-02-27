@@ -58,16 +58,14 @@ public:
      * @param[in] layer The layer of the POI
      * @param[in] angle The rotation of the POI
      * @param[in] imgFile The raster image of the shape
-     * @param[in] relativePath set image file as relative path
      * @param[in] width The width of the POI image
      * @param[in] height The height of the POI image
      * @param[in] name POI's name
      * @param[in] parameters generic parameters
      */
     GNEPOI(const std::string& id, GNENet* net, const std::string& filename, const std::string& type, const RGBColor& color, const double xLon,
-           const double yLat, const bool geo, const std::string& icon, const double layer, const double angle,
-           const std::string& imgFile, const bool relativePath, const double width, const double height,
-           const std::string& name, const Parameterised::Map& parameters);
+           const double yLat, const bool geo, const std::string& icon, const double layer, const double angle, const std::string& imgFile,
+           const double width, const double height, const std::string& name, const Parameterised::Map& parameters);
 
     /**@brief Constructor
      * @param[in] id The name of the POI
@@ -79,7 +77,6 @@ public:
      * @param[in] layer The layer of the POI
      * @param[in] angle The rotation of the POI
      * @param[in] imgFile The raster image of the shape
-     * @param[in] relativePath set image file as relative path
      * @param[in] lane lane in which this POILane is placed
      * @param[in] posOverLane Position over lane in which this POILane is placed
      * @param[in] posLat Lateral position over lane
@@ -89,9 +86,8 @@ public:
      * @param[in] parameters generic parameters
      */
     GNEPOI(const std::string& id, GNENet* net, const std::string& filename, const std::string& type, const RGBColor& color, GNELane* lane,
-           const double posOverLane, const bool friendlyPos, const double posLat, const std::string& icon,
-           const double layer, const double angle, const std::string& imgFile, const bool relativePath,
-           const double width, const double height, const std::string& name, const Parameterised::Map& parameters);
+           const double posOverLane, const bool friendlyPos, const double posLat, const std::string& icon, const double layer, const double angle,
+           const std::string& imgFile, const double width, const double height, const std::string& name, const Parameterised::Map& parameters);
 
     /// @brief Destructor
     ~GNEPOI();

@@ -56,7 +56,6 @@ public:
      * @param[in] layer The layer of the polygon
      * @param[in] angle The rotation of the polygon
      * @param[in] imgFile The raster image of the polygon
-     * @param[in] relativePath set image file as relative path
      * @param[in] fill Whether the polygon shall be filled
      * @param[in] lineWidth Line width when drawing unfilled polygon
      * @param[in] name Poly's name
@@ -64,7 +63,7 @@ public:
      */
     GNEPoly(const std::string& id, GNENet* net, const std::string& filename, const std::string& type, const PositionVector& shape,
             bool geo, bool fill, double lineWidth, const RGBColor& color, double layer, double angle, const std::string& imgFile,
-            bool relativePath, const std::string& name, const Parameterised::Map& parameters);
+            const std::string& name, const Parameterised::Map& parameters);
 
     /** @brief Constructor for JuPedSim elements
      * @param[in] id The name of the polygon

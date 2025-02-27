@@ -32,7 +32,6 @@ const double Shape::DEFAULT_LINEWIDTH = 1;
 const double Shape::DEFAULT_LAYER_POI = (double)GLO_POI;
 const double Shape::DEFAULT_ANGLE = 0;
 const std::string Shape::DEFAULT_IMG_FILE = "";
-const bool Shape::DEFAULT_RELATIVEPATH = false;
 const double Shape::DEFAULT_IMG_WIDTH = 2.6;
 const double Shape::DEFAULT_IMG_HEIGHT = 1;
 const std::string Shape::DEFAULT_NAME = "";
@@ -41,16 +40,16 @@ const Parameterised::Map Shape::DEFAULT_PARAMETERS = Parameterised::Map();
 // ===========================================================================
 // member definitions
 // ===========================================================================
+
 Shape::Shape(const std::string& id, const std::string& type, const RGBColor& color, double layer,
-             double angle, const std::string& imgFile, const std::string& name, bool relativePath) :
+             double angle, const std::string& imgFile, const std::string& name) :
     Named(id),
     myType(type),
     myColor(color),
     myLayer(layer),
     myNaviDegreeAngle(angle),
     myImgFile(imgFile),
-    myName(name),
-    myRelativePath(relativePath) {
+    myName(name) {
 }
 
 

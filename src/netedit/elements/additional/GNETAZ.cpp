@@ -47,7 +47,7 @@ const double GNETAZ::myHintSizeSquared = 0.64;
 
 GNETAZ::GNETAZ(GNENet* net) :
     GNEAdditional("", net, "", GLO_TAZ, SUMO_TAG_TAZ, GUIIcon::TAZ, ""),
-    TesselatedPolygon("", "", RGBColor::BLACK, {}, false, false, 1, Shape::DEFAULT_LAYER, Shape::DEFAULT_ANGLE, Shape::DEFAULT_IMG_FILE, Shape::DEFAULT_RELATIVEPATH, "") {
+    TesselatedPolygon("", "", RGBColor::BLACK, {}, false, false, 1, Shape::DEFAULT_LAYER, Shape::DEFAULT_ANGLE, Shape::DEFAULT_IMG_FILE, "") {
     // reset default values
     resetDefaultValues();
 }
@@ -56,7 +56,7 @@ GNETAZ::GNETAZ(GNENet* net) :
 GNETAZ::GNETAZ(const std::string& id, GNENet* net, const std::string& filename, const PositionVector& shape, const Position& center, const bool fill,
                const RGBColor& color, const std::string& name, const Parameterised::Map& parameters) :
     GNEAdditional(id, net, filename, GLO_TAZ, SUMO_TAG_TAZ, GUIIcon::TAZ, ""),
-    TesselatedPolygon(id, "", color, shape, false, fill, 1, Shape::DEFAULT_LAYER, Shape::DEFAULT_ANGLE, Shape::DEFAULT_IMG_FILE, Shape::DEFAULT_RELATIVEPATH, name, parameters),
+    TesselatedPolygon(id, "", color, shape, false, fill, 1, Shape::DEFAULT_LAYER, Shape::DEFAULT_ANGLE, Shape::DEFAULT_IMG_FILE, name, parameters),
     myTAZCenter(center) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);

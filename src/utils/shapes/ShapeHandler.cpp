@@ -133,7 +133,6 @@ ShapeHandler::addPOI(const SUMOSAXAttributes& attrs, const bool ignorePruning, c
     const double angle = attrs.getOpt<double>(SUMO_ATTR_ANGLE, id.c_str(), ok, Shape::DEFAULT_ANGLE);
     std::string imgFile = attrs.getOpt<std::string>(SUMO_ATTR_IMGFILE, id.c_str(), ok, Shape::DEFAULT_IMG_FILE);
     const RGBColor color = attrs.hasAttribute(SUMO_ATTR_COLOR) ? attrs.get<RGBColor>(SUMO_ATTR_COLOR, id.c_str(), ok) : (imgFile != "" ? RGBColor::WHITE : myDefaultColor);
-    bool relativePath = attrs.getOpt<bool>(SUMO_ATTR_RELATIVEPATH, id.c_str(), ok, Shape::DEFAULT_RELATIVEPATH);
     // If the image file is set, change the default POI color to white.
     if (imgFile != "" && !FileHelpers::isAbsolute(imgFile)) {
         imgFile = FileHelpers::getConfigurationRelative(getFileName(), imgFile);
@@ -197,7 +196,7 @@ ShapeHandler::addPOI(const SUMOSAXAttributes& attrs, const bool ignorePruning, c
             pos.setz(z);
         }
         if (!myShapeContainer.addPOI(id, type, color, pos, useGeo, laneID, lanePos, friendlyPos, lanePosLat, icon,
-                                     layer, angle, imgFile, relativePath, width, height, ignorePruning)) {
+                                     layer, angle, imgFile, width, height, ignorePruning)) {
             WRITE_ERRORF(TL("PoI '%' already exists."), id);
         }
         myLastParameterised = myShapeContainer.getPOIs().get(id);
@@ -253,7 +252,6 @@ ShapeHandler::addPoly(const SUMOSAXAttributes& attrs, const bool ignorePruning, 
         }
         const double angle = attrs.getOpt<double>(SUMO_ATTR_ANGLE, id.c_str(), ok, Shape::DEFAULT_ANGLE);
         std::string imgFile = attrs.getOpt<std::string>(SUMO_ATTR_IMGFILE, id.c_str(), ok, Shape::DEFAULT_IMG_FILE);
-        bool relativePath = attrs.getOpt<bool>(SUMO_ATTR_RELATIVEPATH, id.c_str(), ok, Shape::DEFAULT_RELATIVEPATH);
         if (imgFile != "" && !FileHelpers::isAbsolute(imgFile)) {
             imgFile = FileHelpers::getConfigurationRelative(getFileName(), imgFile);
         }
@@ -268,7 +266,7 @@ ShapeHandler::addPoly(const SUMOSAXAttributes& attrs, const bool ignorePruning, 
             return;
         }
         // create polygon, or show an error if polygon already exists
-        if (!myShapeContainer.addPolygon(id, type, color, layer, angle, imgFile, relativePath, shape, geo, fill, lineWidth, ignorePruning)) {
+        if (!myShapeContainer.addPolygon(id, type, color, layer, angle, imgFile, shape, geo, fill, lineWidth, ignorePruning)) {
             WRITE_ERRORF(TL("Polygon '%' already exists."), id);
         }
         myLastParameterised = myShapeContainer.getPolygons().get(id);

@@ -160,8 +160,7 @@ POI::add(const std::string& poiID, double x, double y, const TraCIColor& color, 
     ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
     bool ok = shapeCont.addPOI(poiID, poiType, Helper::makeRGBColor(color),
                                Position(x, y), false, "", 0, false, 0, icon, layer,
-                               angle, imgFile, Shape::DEFAULT_RELATIVEPATH,
-                               width, height);
+                               angle, imgFile, width, height);
     if (ok && myTree != nullptr) {
         PointOfInterest* p = shapeCont.getPOIs().get(poiID);
         const float cmin[2] = {(float)p->x(), (float)p->y()};

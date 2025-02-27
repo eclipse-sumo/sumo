@@ -701,7 +701,6 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
                              obj->getDoubleAttribute(SUMO_ATTR_LAYER),
                              obj->getDoubleAttribute(SUMO_ATTR_ANGLE),
                              obj->getStringAttribute(SUMO_ATTR_IMGFILE),
-                             obj->getBoolAttribute(SUMO_ATTR_RELATIVEPATH),
                              obj->getPositionVectorAttribute(SUMO_ATTR_SHAPE),
                              obj->getBoolAttribute(SUMO_ATTR_GEO),
                              obj->getBoolAttribute(SUMO_ATTR_FILL),
@@ -726,7 +725,6 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
                              obj->getDoubleAttribute(SUMO_ATTR_LAYER),
                              obj->getDoubleAttribute(SUMO_ATTR_ANGLE),
                              obj->getStringAttribute(SUMO_ATTR_IMGFILE),
-                             obj->getBoolAttribute(SUMO_ATTR_RELATIVEPATH),
                              obj->getDoubleAttribute(SUMO_ATTR_WIDTH),
                              obj->getDoubleAttribute(SUMO_ATTR_HEIGHT),
                              obj->getStringAttribute(SUMO_ATTR_NAME),
@@ -747,7 +745,6 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
                                  obj->getDoubleAttribute(SUMO_ATTR_LAYER),
                                  obj->getDoubleAttribute(SUMO_ATTR_ANGLE),
                                  obj->getStringAttribute(SUMO_ATTR_IMGFILE),
-                                 obj->getBoolAttribute(SUMO_ATTR_RELATIVEPATH),
                                  obj->getDoubleAttribute(SUMO_ATTR_WIDTH),
                                  obj->getDoubleAttribute(SUMO_ATTR_HEIGHT),
                                  obj->getStringAttribute(SUMO_ATTR_NAME),
@@ -766,7 +763,6 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
                                 obj->getDoubleAttribute(SUMO_ATTR_LAYER),
                                 obj->getDoubleAttribute(SUMO_ATTR_ANGLE),
                                 obj->getStringAttribute(SUMO_ATTR_IMGFILE),
-                                obj->getBoolAttribute(SUMO_ATTR_RELATIVEPATH),
                                 obj->getDoubleAttribute(SUMO_ATTR_WIDTH),
                                 obj->getDoubleAttribute(SUMO_ATTR_HEIGHT),
                                 obj->getStringAttribute(SUMO_ATTR_NAME),
@@ -1886,7 +1882,6 @@ AdditionalHandler::parsePolyAttributes(const SUMOSAXAttributes& attrs) {
     const std::string imgFile = attrs.getOpt<std::string>(SUMO_ATTR_IMGFILE, id.c_str(), parsedOk, Shape::DEFAULT_IMG_FILE);
     const double angle = attrs.getOpt<double>(SUMO_ATTR_ANGLE, id.c_str(), parsedOk, Shape::DEFAULT_ANGLE);
     const std::string name = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), parsedOk, "");
-    const bool relativePath = attrs.getOpt<bool>(SUMO_ATTR_RELATIVEPATH, id.c_str(), parsedOk, Shape::DEFAULT_RELATIVEPATH);
     // continue if flag is ok
     if (parsedOk) {
         // set tag
@@ -1903,7 +1898,6 @@ AdditionalHandler::parsePolyAttributes(const SUMOSAXAttributes& attrs) {
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_IMGFILE, imgFile);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_ANGLE, angle);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_NAME, name);
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addBoolAttribute(SUMO_ATTR_RELATIVEPATH, relativePath);
     } else {
         myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_NOTHING);
     }
@@ -1953,7 +1947,6 @@ AdditionalHandler::parsePOIAttributes(const SUMOSAXAttributes& attrs) {
     const double height = attrs.getOpt<double>(SUMO_ATTR_HEIGHT, id.c_str(), parsedOk, Shape::DEFAULT_IMG_HEIGHT);
     const double angle = attrs.getOpt<double>(SUMO_ATTR_ANGLE, id.c_str(), parsedOk, Shape::DEFAULT_ANGLE);
     const std::string name = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), parsedOk, "");
-    const bool relativePath = attrs.getOpt<bool>(SUMO_ATTR_RELATIVEPATH, id.c_str(), parsedOk, Shape::DEFAULT_RELATIVEPATH);
     // check icon
     if (!SUMOXMLDefinitions::POIIcons.hasString(icon)) {
         WRITE_WARNING(TLF("Invalid icon % for POI '%', using default", icon, id));
@@ -1987,7 +1980,6 @@ AdditionalHandler::parsePOIAttributes(const SUMOSAXAttributes& attrs) {
         myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_HEIGHT, height);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_ANGLE, angle);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_NAME, name);
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addBoolAttribute(SUMO_ATTR_RELATIVEPATH, relativePath);
     } else {
         myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_NOTHING);
     }
