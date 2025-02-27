@@ -19,6 +19,7 @@ copy_test_path:input_trips.trips.xml
 copy_test_path:input_trips.trips_foo.xml
 copy_test_path:input_trips.trips_bar.xml
 copy_test_path:input_routes.rou.xml
+copy_test_path:input_routes.rou.xml.gz
 copy_test_path:input_routes2.rou.xml
 copy_test_path:input_flows.flows.xml
 copy_test_path:input_turns.xml
