@@ -4095,7 +4095,7 @@ GNEApplicationWindow::onCmdSaveDataElements(FXObject* sender, FXSelector sel, vo
     }
     // check if we have to set the output filename
     if ((sel == MID_GNE_AUTOMATICFILENAME) && neteditOptions.getString("data-files").empty()) {
-        neteditOptions.set("data-files", *(static_cast<std::string*>(ptr)) + ".dat.xml");
+        neteditOptions.set("data-files", *(static_cast<std::string*>(ptr)) + ".xml");
     }
     // check if we have to open save as dialog
     if (neteditOptions.getString("data-files").empty()) {
