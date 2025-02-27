@@ -36,7 +36,6 @@
  * checkDuplicates is set to false in the constructor or the insert function or if
  * the addAlias function is used.
  */
-
 template< class T  >
 class StringBijection {
 
@@ -46,6 +45,7 @@ public:
 #pragma warning(push)
 #pragma warning(disable:4510 4512 4610) // no default constructor and no assignment operator; conflicts with initializer
 #endif
+    /// @brief bijection entry
     struct Entry {
         const char* str;
         const T key;
@@ -54,10 +54,10 @@ public:
 #pragma warning(pop)
 #endif
 
-
+    /// @brief default constructor
     StringBijection() {}
 
-
+    /// @brief parameter constructor
     StringBijection(Entry entries[], T terminatorKey, bool checkDuplicates = true) {
         int i = 0;
         do {
@@ -65,7 +65,7 @@ public:
         } while (entries[i++].key != terminatorKey);
     }
 
-
+    /// @brief insert string and their associated key
     void insert(const std::string str, const T key, bool checkDuplicates = true) {
         if (checkDuplicates) {
             if (has(key)) {
@@ -80,18 +80,18 @@ public:
         myT2String[key] = str;
     }
 
-
+    /// @brief add alias to the given key
     void addAlias(const std::string str, const T key) {
         myString2T[str] = key;
     }
 
-
+    /// @brief remove string
     void remove(const std::string str, const T key) {
         myString2T.erase(str);
         myT2String.erase(key);
     }
 
-
+    /// @brief get key
     T get(const std::string& str) const {
         if (hasString(str)) {
             return myString2T.find(str)->second;
@@ -100,7 +100,7 @@ public:
         }
     }
 
-
+    /// @brief get string
     const std::string& getString(const T key) const {
         if (has(key)) {
             return myT2String.find(key)->second;
@@ -110,22 +110,22 @@ public:
         }
     }
 
-
+    /// @brief check if the given string exist
     bool hasString(const std::string& str) const {
         return myString2T.count(str) != 0;
     }
 
-
+    /// @brief check if the given key exist
     bool has(const T key) const {
         return myT2String.count(key) != 0;
     }
 
-
+    /// @brief get number of key-attributes
     int size() const {
         return (int)myString2T.size();
     }
 
-
+    /// @brief get all strings
     std::vector<std::string> getStrings() const {
         std::vector<std::string> result;
         for (auto item : myT2String) {
@@ -134,7 +134,7 @@ public:
         return result;
     }
 
-
+    /// @brief get all keys
     std::vector<T> getValues() const {
         std::vector<T> result;
         for (auto item : myT2String) {
@@ -143,7 +143,7 @@ public:
         return result;
     }
 
-
+    /// @brief add the given list of keys
     void addKeysInto(std::vector<T>& list) const {
         typename std::map<T, std::string>::const_iterator it; // learn something new every day
         for (it = myT2String.begin(); it != myT2String.end(); it++) {
@@ -151,9 +151,22 @@ public:
         }
     }
 
+    /// @brief get multiline string (all strings concatenated and separated by '\n')
+    std::string getMultilineString() const {
+        std::string result;
+        if (myT2String.size() > 0) {
+            for (auto item : myT2String) {
+                result.append(item.second + "\n");
+            }
+            result.pop_back();
+        }
+        return result;
+    }
 
 private:
+    /// @brief map with the keys vinculated with strings
     std::map<std::string, T> myString2T;
-    std::map<T, std::string> myT2String;
 
+    /// @brief map with the strings vinculated with keys
+    std::map<T, std::string> myT2String;
 };
