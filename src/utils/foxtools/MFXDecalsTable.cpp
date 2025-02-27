@@ -342,7 +342,7 @@ MFXDecalsTable::onCmdOpenDecal(FXObject* sender, FXSelector, void*) {
     opendialog.setSelectMode(SELECTFILE_EXISTING);
     // set icon and pattern list
     opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::OPEN));
-    opendialog.setPatternList(TL("All files (*)"));
+    opendialog.setPatternList(SUMOXMLDefinitions::getExtensions(SUMOXMLDefinitions::ImageFileExtensions).c_str());
     // set current folder
     if (gCurrentFolder.length() != 0) {
         opendialog.setDirectory(gCurrentFolder);
