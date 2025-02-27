@@ -1815,9 +1815,8 @@ StringBijection<RouteFileExtension>::Entry SUMOXMLDefinitions::routeFileExtensio
 };
 
 StringBijection<EdgeDataFileExtension>::Entry SUMOXMLDefinitions::edgeDataFileExtensionsValues[] = {
-    {TL("Data files (*.dat.xml, *.dat.xml.gz)"),    EdgeDataFileExtension::DAT_XML},
-    {TL("XML files (*.xml, *.xml.gz)"),             EdgeDataFileExtension::XML},
-    {TL("All files (*)"),                           EdgeDataFileExtension::ALL} //< must be the last one
+    {TL("Edge data files (*.xml, *.xml.gz)"),   EdgeDataFileExtension::XML},
+    {TL("All files (*)"),                       EdgeDataFileExtension::ALL} //< must be the last one
 };
 
 StringBijection<MeanDataFileExtension>::Entry SUMOXMLDefinitions::meanDataFileExtensionsValues[] = {

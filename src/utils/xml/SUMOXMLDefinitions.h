@@ -2431,7 +2431,6 @@ enum class RouteFileExtension {
 
 /// @brief edge data file extension
 enum class EdgeDataFileExtension {
-    DAT_XML,
     XML,
     ALL,
 };
