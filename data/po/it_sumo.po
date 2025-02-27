@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-13 10:07+0100\n"
-"PO-Revision-Date: 2025-02-26 21:31+0000\n"
+"PO-Revision-Date: 2025-02-27 14:17+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -7743,13 +7743,13 @@ msgstr ""
 
 #: src/netbuild/NBNodeCont.cpp:760
 msgid "unknown junction '%' while joining."
-msgstr ""
+msgstr "incrocio sconosciuto '%' nel processo di combinazione."
 
 #: src/netbuild/NBNodeCont.cpp:818 src/netbuild/NBNodeCont.cpp:859
 #: src/netbuild/NBNodeCont.cpp:866 src/netbuild/NBNodeCont.cpp:871
 #: src/netbuild/NBNodeCont.cpp:878
 msgid "Not joining junctions % (%)."
-msgstr ""
+msgstr "Gli incroci % (%) non vengono combinati."
 
 #: src/netbuild/NBNodeCont.cpp:838 src/netbuild/NBNodeCont.cpp:852
 msgid "Reducing junction cluster % (%)."
@@ -7786,8 +7786,9 @@ msgstr ""
 "Non è possibile creare una logica di semaforo due volte per l'incrocio '%'."
 
 #: src/netbuild/NBNodeCont.cpp:2559 src/netbuild/NBNodeCont.cpp:2651
+#, fuzzy
 msgid "-----------------------------------------------------"
-msgstr ""
+msgstr "-----------------------------------------------------"
 
 #: src/netbuild/NBNodeCont.cpp:2560
 msgid "Summary:"
@@ -7817,6 +7818,8 @@ msgid ""
 "Minor green from edge '%' to edge '%' exceeds %m/s. Maybe a left-turn lane "
 "is missing."
 msgstr ""
+"Il verde minore dall'arco '%' all'arco '%' eccede %m/s. Può darsi che manca "
+"una svolta a sinistra."
 
 #: src/netbuild/NBOwnTLDef.cpp:792
 msgid ""
@@ -9025,26 +9028,30 @@ msgstr "Non ho potuto analizzare la data AAAA-MM-GG '%'"
 
 #: src/netimport/NIImporter_DlrNavteq.cpp:747
 msgid "Ignoring temporary prohibited manoeuvre (%)."
-msgstr ""
+msgstr "La manovra proibita temporaneamente viene ignorata (%)."
 
 #: src/netimport/NIImporter_DlrNavteq.cpp:756
 #: src/netimport/NIImporter_DlrNavteq.cpp:801
 msgid "Ignoring prohibition from unknown start edge '%'."
-msgstr ""
+msgstr "Il divieto dell'arco di partenza sconosciuto '%' viene ignorato."
 
 #: src/netimport/NIImporter_DlrNavteq.cpp:761
 #: src/netimport/NIImporter_DlrNavteq.cpp:806
 msgid "Ignoring prohibition from unknown end edge '%'."
-msgstr ""
+msgstr "Il divieto dell'arco di arrivo sconosciuto '%' viene ignorato."
 
 #: src/netimport/NIImporter_DlrNavteq.cpp:811
 msgid ""
 "Ignoring invalid lane index '%' in connection from edge '%' with % lanes."
 msgstr ""
+"L'indice di corsia invalido '%' in un collegamento uscendo dall'arco '%' con "
+"% corsie viene ignorato."
 
 #: src/netimport/NIImporter_DlrNavteq.cpp:816
 msgid "Ignoring invalid lane index '%' in connection to edge '%' with % lanes"
 msgstr ""
+"L'indice di corsia invalido '%' in un collegamento uscendo dall'arco '%' con "
+"% corsie viene ignorato"
 
 #: src/netimport/NIImporter_DlrNavteq.cpp:821
 msgid "Could not set loaded connection from '%' to '%'."
@@ -10243,23 +10250,26 @@ msgstr ""
 #: src/netimport/NIXMLTrafficLightsHandler.cpp:114
 msgid "Definition of tlLogic '%' was not finished."
 msgstr ""
+"La definizione della logica semaforica (tlLogic) '%' non è stata completata."
 
 #: src/netimport/NIXMLTrafficLightsHandler.cpp:140
 #: src/netimport/NIXMLTrafficLightsHandler.cpp:158
 msgid "Cannot load traffic light program for unknown id '%', programID '%'."
 msgstr ""
+"Non si può caricare il programma semaforico per il codice identificativo "
+"sconosciuto '%', codice identificativo del programm '%'."
 
 #: src/netimport/NIXMLTrafficLightsHandler.cpp:331
 msgid "Invalid lane index '%' for edge '%'."
-msgstr ""
+msgstr "Indice di corsia invalido '%' per l'arco '%'."
 
 #: src/netimport/NIXMLTypesHandler.cpp:85
 msgid "Invalid lane spread type '%'. Using default 'right'"
-msgstr ""
+msgstr "Tipo di distesa invalido '%'. Invece si usa lo standard 'right'"
 
 #: src/netimport/NIXMLTypesHandler.cpp:114
 msgid "Invalid lane index % for edge type '%' with % lanes"
-msgstr ""
+msgstr "Indice di corsia % invalido per il tipo di arco '%' con % corsie"
 
 #: src/netimport/vissim/NIImporter_Vissim.cpp:887
 msgid "Could not open vissim-file '%'."
