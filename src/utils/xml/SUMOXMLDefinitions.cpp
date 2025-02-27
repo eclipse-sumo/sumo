@@ -1689,6 +1689,11 @@ StringBijection<TXTFileExtension>::Entry SUMOXMLDefinitions::TXTFileExtensionVal
     {TL("All files (*)"),       TXTFileExtension::ALL} //< must be the last one
 };
 
+StringBijection<OSGFileExtension>::Entry SUMOXMLDefinitions::OSGFileExtensionValues[] = {
+    {TL("OSG files (*.osg)"),   OSGFileExtension::OSG},
+    {TL("All files (*)"),       OSGFileExtension::ALL} //< must be the last one
+};
+
 StringBijection<ImageFileExtension>::Entry SUMOXMLDefinitions::imageFileExtensionValues[] = {
     {TL("All Image Files (*.gif,*.bmp,*.xpm,*.pcx,*.ico,*.rgb,*.xbm,*.tga,*.png,*.jpg,*.jpeg,*.tif,*.tiff,*.ps,*.eps,*.pdf,*.svg,*.tex,*.pgf)"),    ImageFileExtension::IMG},
     {TL("GIF Image (*.gif)"),                                                                                                                       ImageFileExtension::GIF},
@@ -1897,6 +1902,9 @@ StringBijection<XMLFileExtension> SUMOXMLDefinitions::XMLFileExtensions(
 
 StringBijection<TXTFileExtension> SUMOXMLDefinitions::TXTFileExtensions(
     SUMOXMLDefinitions::TXTFileExtensionValues, TXTFileExtension::ALL, false);
+
+StringBijection<OSGFileExtension> SUMOXMLDefinitions::OSGFileExtensions(
+    SUMOXMLDefinitions::OSGFileExtensionValues, OSGFileExtension::ALL, false);
 
 StringBijection<ImageFileExtension> SUMOXMLDefinitions::ImageFileExtensions(
     SUMOXMLDefinitions::imageFileExtensionValues, ImageFileExtension::ALL, false);

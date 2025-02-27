@@ -2289,6 +2289,12 @@ enum class TXTFileExtension {
     ALL,
 };
 
+/// @brief OSG extension
+enum class OSGFileExtension {
+    OSG,
+    ALL,
+};
+
 /// @brief image extension
 enum class ImageFileExtension {
     IMG,
@@ -2533,6 +2539,9 @@ public:
     /// @brief TXT file Extensions
     static StringBijection<TXTFileExtension> TXTFileExtensions;
 
+    /// @brief OSG file Extensions
+    static StringBijection<OSGFileExtension> OSGFileExtensions;
+
     /// @brief image file extensions
     static StringBijection<ImageFileExtension> ImageFileExtensions;
 
@@ -2724,6 +2733,9 @@ private:
 
     /// @brief TXT file extension values
     static StringBijection<TXTFileExtension>::Entry TXTFileExtensionValues[];
+
+    /// @brief OSG file extension values
+    static StringBijection<OSGFileExtension>::Entry OSGFileExtensionValues[];
 
     /// @brief image file extension values
     static StringBijection<ImageFileExtension>::Entry imageFileExtensionValues[];
