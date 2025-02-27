@@ -9212,7 +9212,6 @@ GNETagPropertiesDatabase::fillDataElements() {
 
         // set values of attributes
         fillIDAttribute(myTagProperties[currentTag]);
-
     }
     // fill data interval element
     currentTag = SUMO_TAG_DATAINTERVAL;
@@ -9254,9 +9253,6 @@ GNETagPropertiesDatabase::fillDataElements() {
                 GNETagProperties::TagParents::NO_PARENTS,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::EDGEDATA, SUMO_TAG_EDGE, TL("EdgeRelationSingle"));
-
-        // set values of attributes
-        fillIDAttribute(myTagProperties[currentTag]);
     }
     currentTag = SUMO_TAG_EDGEREL;
     {
@@ -9317,7 +9313,6 @@ GNETagPropertiesDatabase::fillDataElements() {
 
         // set values of attributes
         fillCommonMeanDataAttributes(myTagProperties[currentTag]);
-
     }
     currentTag = SUMO_TAG_MEANDATA_LANE;
     {
