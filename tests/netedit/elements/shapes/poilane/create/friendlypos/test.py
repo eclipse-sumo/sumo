@@ -34,7 +34,7 @@ netedit.shapeMode()
 # go to shape mode
 netedit.changeElement("poiLane")
 
-# change save relative path
+# change save friendlyPos path
 netedit.changeDefaultBoolValue(netedit.attrs.poiLane.create.friendlyPos)
 
 # create poi

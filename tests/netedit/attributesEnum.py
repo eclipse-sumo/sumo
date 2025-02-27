@@ -1370,7 +1370,6 @@ class poi:
         width = 13
         height = 14
         imgFile = 15
-        relativePath = 16
         angle = 17
 
     class inspect:
@@ -1385,7 +1384,6 @@ class poi:
         width = 10
         height = 11
         imgFile = 12
-        relativePath = 13
         angle = 14
         parameters = 17
 
@@ -1399,7 +1397,6 @@ class poi:
         width = 8
         height = 9
         imgFile = 10
-        relativePath = 11
         angle = 12
         parameters = 15
 
@@ -1418,7 +1415,6 @@ class poiGeo:
         width = 13
         height = 14
         imgFile = 15
-        relativePath = 16
         angle = 17
         lonLat = 22
 
@@ -1433,7 +1429,6 @@ class poiGeo:
         width = 9
         height = 10
         imgFile = 11
-        relativePath = 12
         angle = 13
         lon = 16
         lat = 17
@@ -1449,7 +1444,6 @@ class poiGeo:
         width = 8
         height = 9
         imgFile = 10
-        relativePath = 11
         angle = 12
         parameters = 15
 
@@ -1470,7 +1464,6 @@ class poiLane:
         width = 15
         height = 16
         imgFile = 17
-        relativePath = 18
         angle = 16
 
     class inspect:
@@ -1489,7 +1482,6 @@ class poiLane:
         width = 14
         height = 15
         imgFile = 16
-        relativePath = 17
         angle = 18
         parameters = 21
 
@@ -1505,7 +1497,6 @@ class poiLane:
         width = 10
         height = 11
         imgFile = 12
-        relativePath = 13
         angle = 14
         parameters = 17
 

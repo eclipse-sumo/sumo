@@ -40,7 +40,7 @@ netedit.inspectMode()
 # inspect first POILane
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 
-# Change boolean parameter relative path
+# Change boolean parameter friendlyPos path
 netedit.modifyAttribute(netedit.attrs.poiLane.inspectSelection.friendlyPos, "true", True)
 
 # Check undos and redos
