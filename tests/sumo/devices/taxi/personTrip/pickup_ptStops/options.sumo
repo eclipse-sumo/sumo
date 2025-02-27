@@ -3,3 +3,4 @@
 -r input_routes.rou.xml
 --vehroute-output vehroutes.xml
 --persontrip.transfer.walk-taxi ptStops
+--stop-output stopinfos.xml
