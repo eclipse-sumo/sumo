@@ -394,7 +394,7 @@ GNEEdgeRelData::setAttribute(SumoXMLAttr key, const std::string& value) {
         }
         default:
             setCommonAttribute(this, key, value);
-            if (isTemplate()) {
+            if (!isTemplate()) {
                 myDataIntervalParent->getDataSetParent()->updateAttributeColors();
             }
             break;

@@ -328,7 +328,7 @@ GNEEdgeData::getHierarchyName() const {
 void
 GNEEdgeData::setAttribute(SumoXMLAttr key, const std::string& value) {
     setCommonAttribute(this, key, value);
-    if (isTemplate()) {
+    if (!isTemplate()) {
         myDataIntervalParent->getDataSetParent()->updateAttributeColors();
     }
     // mark interval toolbar for update
