@@ -1232,7 +1232,7 @@ struct GNEApplicationWindowHelper {
 private:
     /// @brief open filename dialog
     static std::string openFileDialog(FXWindow* window, const std::string title, GUIIcon icon,
-                                      const std::vector<std::string> &extensions, bool save, bool multi = false);
+                                      const std::string& extensions, bool save, bool multi = false);
 
     /// @brief Invalidated copy constructor.
     GNEApplicationWindowHelper(const GNEApplicationWindowHelper&) = delete;

@@ -1047,7 +1047,7 @@ GUIApplicationWindow::onCmdOpenConfiguration(FXObject*, FXSelector, void*) {
     FXFileDialog opendialog(this, TL("Open Simulation Configuration"));
     opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::OPEN_SUMOCONFIG));
     opendialog.setSelectMode(SELECTFILE_EXISTING);
-    opendialog.setPatternList(SUMOXMLDefinitions::getExtensions(SUMOXMLDefinitions::SumoConfigFileExtensions).c_str());
+    opendialog.setPatternList(SUMOXMLDefinitions::SumoConfigFileExtensions.getMultilineString().c_str());
     if (gCurrentFolder.length() != 0) {
         opendialog.setDirectory(gCurrentFolder);
     }
@@ -1067,7 +1067,7 @@ GUIApplicationWindow::onCmdOpenNetwork(FXObject*, FXSelector, void*) {
     FXFileDialog opendialog(this, TL("Open Network"));
     opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::OPEN_NET));
     opendialog.setSelectMode(SELECTFILE_EXISTING);
-    opendialog.setPatternList(SUMOXMLDefinitions::getExtensions(SUMOXMLDefinitions::NetFileExtensions).c_str());
+    opendialog.setPatternList(SUMOXMLDefinitions::NetFileExtensions.getMultilineString().c_str());
     if (gCurrentFolder.length() != 0) {
         opendialog.setDirectory(gCurrentFolder);
     }
@@ -1087,7 +1087,7 @@ GUIApplicationWindow::onCmdOpenShapes(FXObject*, FXSelector, void*) {
     FXFileDialog opendialog(this, TL("Open Shapes"));
     opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::OPEN_SHAPES));
     opendialog.setSelectMode(SELECTFILE_EXISTING);
-    opendialog.setPatternList(SUMOXMLDefinitions::getExtensions(SUMOXMLDefinitions::AdditionalFileExtensions).c_str());
+    opendialog.setPatternList(SUMOXMLDefinitions::AdditionalFileExtensions.getMultilineString().c_str());
     if (gCurrentFolder.length() != 0) {
         opendialog.setDirectory(gCurrentFolder);
     }
@@ -1118,7 +1118,7 @@ GUIApplicationWindow::onCmdOpenEdgeData(FXObject*, FXSelector, void*) {
     FXFileDialog opendialog(this, TL("Open EdgeData"));
     opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::OPEN_NET));
     opendialog.setSelectMode(SELECTFILE_EXISTING);
-    opendialog.setPatternList(SUMOXMLDefinitions::getExtensions(SUMOXMLDefinitions::EdgeDataFileExtensions).c_str());
+    opendialog.setPatternList(SUMOXMLDefinitions::EdgeDataFileExtensions.getMultilineString().c_str());
     if (gCurrentFolder.length() != 0) {
         opendialog.setDirectory(gCurrentFolder);
     }
@@ -1188,7 +1188,7 @@ GUIApplicationWindow::onCmdSaveConfig(FXObject*, FXSelector, void*) {
     FXFileDialog opendialog(this, TL("Save SUMO Configuration"));
     opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::SAVE));
     opendialog.setSelectMode(SELECTFILE_ANY);
-    opendialog.setPatternList(SUMOXMLDefinitions::getExtensions(SUMOXMLDefinitions::SumoConfigFileExtensions).c_str());
+    opendialog.setPatternList(SUMOXMLDefinitions::SumoConfigFileExtensions.getMultilineString().c_str());
     if (gCurrentFolder.length() != 0) {
         opendialog.setDirectory(gCurrentFolder);
     }
@@ -1303,7 +1303,7 @@ GUIApplicationWindow::onCmdSaveState(FXObject*, FXSelector, void*) {
     FXFileDialog opendialog(this, TL("Save Simulation State"));
     opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::SAVE));
     opendialog.setSelectMode(SELECTFILE_ANY);
-    opendialog.setPatternList(SUMOXMLDefinitions::getExtensions(SUMOXMLDefinitions::StateFileExtensions).c_str());
+    opendialog.setPatternList(SUMOXMLDefinitions::StateFileExtensions.getMultilineString().c_str());
     if (gCurrentFolder.length() != 0) {
         opendialog.setDirectory(gCurrentFolder);
     }
@@ -1325,7 +1325,7 @@ GUIApplicationWindow::onCmdLoadState(FXObject*, FXSelector, void*) {
     FXFileDialog opendialog(this, TL("Load Simulation State"));
     opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::OPEN));
     opendialog.setSelectMode(SELECTFILE_ANY);
-    opendialog.setPatternList(SUMOXMLDefinitions::getExtensions(SUMOXMLDefinitions::StateFileExtensions).c_str());
+    opendialog.setPatternList(SUMOXMLDefinitions::StateFileExtensions.getMultilineString().c_str());
     if (gCurrentFolder.length() != 0) {
         opendialog.setDirectory(gCurrentFolder);
     }

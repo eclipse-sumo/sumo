@@ -143,9 +143,9 @@ GUISUMOViewParent::onCmdMakeSnapshot(FXObject* sender, FXSelector, void*) {
         opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::CAMERA));
         opendialog.setSelectMode(SELECTFILE_ANY);
 #ifdef HAVE_FFMPEG
-        opendialog.setPatternList(SUMOXMLDefinitions::getExtensions(SUMOXMLDefinitions::ImageVideoFileExtensions).c_str());
+        opendialog.setPatternList(SUMOXMLDefinitions::ImageVideoFileExtensions.getMultilineString().c_str());
 #else
-        opendialog.setPatternList(SUMOXMLDefinitions::getExtensions(SUMOXMLDefinitions::ImageFileExtensions).c_str());
+        opendialog.setPatternList(SUMOXMLDefinitions::ImageFileExtensions.getMultilineString().c_str());
 #endif
         if (gCurrentFolder.length() != 0) {
             opendialog.setDirectory(gCurrentFolder);

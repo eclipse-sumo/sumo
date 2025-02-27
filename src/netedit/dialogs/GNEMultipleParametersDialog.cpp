@@ -299,7 +299,7 @@ GNEMultipleParametersDialog::ParametersOperations::onCmdLoadParameters(FXObject*
     FXFileDialog opendialog(this, TL("Open Parameter Template"));
     opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::GREENVEHICLE));
     opendialog.setSelectMode(SELECTFILE_EXISTING);
-    opendialog.setPatternList(SUMOXMLDefinitions::getExtensions(SUMOXMLDefinitions::XMLFileExtensions).c_str());
+    opendialog.setPatternList(SUMOXMLDefinitions::XMLFileExtensions.getMultilineString().c_str());
     if (gCurrentFolder.length() != 0) {
         opendialog.setDirectory(gCurrentFolder);
     }

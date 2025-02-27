@@ -144,7 +144,7 @@ GUIDialog_Breakpoints::onCmdLoad(FXObject*, FXSelector, void*) {
     FXFileDialog opendialog(this, TL("Load Breakpoints"));
     opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::EMPTY));
     opendialog.setSelectMode(SELECTFILE_ANY);
-    opendialog.setPatternList(SUMOXMLDefinitions::getExtensions(SUMOXMLDefinitions::TXTFileExtensions).c_str());
+    opendialog.setPatternList(SUMOXMLDefinitions::TXTFileExtensions.getMultilineString().c_str());
     if (gCurrentFolder.length() != 0) {
         opendialog.setDirectory(gCurrentFolder);
     }

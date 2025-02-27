@@ -2647,20 +2647,6 @@ public:
 
     /// @}
 
-    /// @brief get extensions in a format compatible with fx dialogs
-    template <typename T>
-    static std::string getExtensions(StringBijection<T> extensions) {
-        std::string result;
-        const auto extensionStrings = extensions.getStrings();
-        if (extensionStrings.size() > 0) {
-            for (const auto& extension : extensionStrings) {
-                result.append(extension + "\n");
-            }
-            result.pop_back();
-        }
-        return result;
-    }
-
     /// @brief all allowed characters for phase state
     static const std::string ALLOWED_TLS_LINKSTATES;
 

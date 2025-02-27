@@ -473,7 +473,7 @@ GNEViewParent::onCmdMakeSnapshot(FXObject*, FXSelector, void*) {
     FXFileDialog opendialog(this, TL("Save Snapshot"));
     opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::CAMERA));
     opendialog.setSelectMode(SELECTFILE_ANY);
-    opendialog.setPatternList(SUMOXMLDefinitions::getExtensions(SUMOXMLDefinitions::ImageFileExtensions).c_str());
+    opendialog.setPatternList(SUMOXMLDefinitions::ImageFileExtensions.getMultilineString().c_str());
     if (gCurrentFolder.length() != 0) {
         opendialog.setDirectory(gCurrentFolder);
     }

@@ -695,7 +695,7 @@ GNEVehicleTypeDialog::VTypeAttributes::VTypeAttributeRow::openImageFileDialog() 
     FXFileDialog opendialog(this, TL("Open Image"));
     opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::VTYPE));
     opendialog.setSelectMode(SELECTFILE_EXISTING);
-    opendialog.setPatternList(SUMOXMLDefinitions::getExtensions(SUMOXMLDefinitions::ImageFileExtensions).c_str());
+    opendialog.setPatternList(SUMOXMLDefinitions::ImageFileExtensions.getMultilineString().c_str());
     if (gCurrentFolder.length() != 0) {
         opendialog.setDirectory(gCurrentFolder);
     }
@@ -722,7 +722,7 @@ GNEVehicleTypeDialog::VTypeAttributes::VTypeAttributeRow::openOSGFileDialog() {
     FXFileDialog opendialog(this, TL("Open OSG File"));
     opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::VTYPE));
     opendialog.setSelectMode(SELECTFILE_EXISTING);
-    opendialog.setPatternList(SUMOXMLDefinitions::getExtensions(SUMOXMLDefinitions::OSGFileExtensions).c_str());
+    opendialog.setPatternList(SUMOXMLDefinitions::OSGFileExtensions.getMultilineString().c_str());
     if (gCurrentFolder.length() != 0) {
         opendialog.setDirectory(gCurrentFolder);
     }
