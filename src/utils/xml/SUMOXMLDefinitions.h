@@ -2429,8 +2429,8 @@ enum class RouteFileExtension {
     ALL,
 };
 
-/// @brief data file extension
-enum class DataFileExtension {
+/// @brief edge data file extension
+enum class EdgeDataFileExtension {
     DAT_XML,
     XML,
     ALL,
@@ -2579,8 +2579,8 @@ public:
     /// @brief route file extensions
     static StringBijection<RouteFileExtension> RouteFileExtensions;
 
-    /// @brief data file extensions
-    static StringBijection<DataFileExtension> DataFileExtensions;
+    /// @brief edgedata file extensions
+    static StringBijection<EdgeDataFileExtension> EdgeDataFileExtensions;
 
     /// @brief mean data file extensions
     static StringBijection<MeanDataFileExtension> MeanDataFileExtensions;
@@ -2645,7 +2645,7 @@ public:
         std::string result;
         const auto extensionStrings = extensions.getStrings();
         if (extensionStrings.size() > 0) {
-            for (const auto &extension : extensionStrings) {
+            for (const auto& extension : extensionStrings) {
                 result.append(extension + "\n");
             }
             result.pop_back();
@@ -2720,7 +2720,7 @@ private:
     /// @brief Reference position values
     static StringBijection<ReferencePosition>::Entry referencePositionValues[];
 
-     /// @brief XML file extension values
+    /// @brief XML file extension values
     static StringBijection<XMLFileExtension>::Entry XMLFileExtensionValues[];
 
     /// @brief TXT file extension values
@@ -2737,16 +2737,16 @@ private:
 
     /// @brief view settings file extension values
     static StringBijection<ViewSettingsFileExtension>::Entry viewSettingsFileExtensionValues[];
-    
+
     /// @brief state file extension values
     static StringBijection<StateFileExtension>::Entry stateFileExtensionValues[];
-    
+
     /// @brief sumo config file extension values
     static StringBijection<SumoConfigFileExtension>::Entry sumoConfigFileExtensionValues[];
 
     /// @brief netedit config file extension values
     static StringBijection<NeteditConfigFileExtension>::Entry neteditConfigFileExtensionValues[];
-    
+
     /// @brief netconvert config file extension values
     static StringBijection<NetconvertConfigFileExtension>::Entry netconvertConfigFileExtensionValues[];
 
@@ -2771,8 +2771,8 @@ private:
     /// @brief route file extension values
     static StringBijection<RouteFileExtension>::Entry routeFileExtensionsValues[];
 
-    /// @brief data file extension values
-    static StringBijection<DataFileExtension>::Entry dataFileExtensionsValues[];
+    /// @brief edge data file extension values
+    static StringBijection<EdgeDataFileExtension>::Entry edgeDataFileExtensionsValues[];
 
     /// @brief mean data file extension values
     static StringBijection<MeanDataFileExtension>::Entry meanDataFileExtensionsValues[];

@@ -1814,10 +1814,10 @@ StringBijection<RouteFileExtension>::Entry SUMOXMLDefinitions::routeFileExtensio
     {TL("All files (*)"),                           RouteFileExtension::ALL} //< must be the last one
 };
 
-StringBijection<DataFileExtension>::Entry SUMOXMLDefinitions::dataFileExtensionsValues[] = {
-    {TL("Data files (*.dat.xml, *.dat.xml.gz)"),    DataFileExtension::DAT_XML},
-    {TL("XML files (*.xml, *.xml.gz)"),             DataFileExtension::XML},
-    {TL("All files (*)"),                           DataFileExtension::ALL} //< must be the last one
+StringBijection<EdgeDataFileExtension>::Entry SUMOXMLDefinitions::edgeDataFileExtensionsValues[] = {
+    {TL("Data files (*.dat.xml, *.dat.xml.gz)"),    EdgeDataFileExtension::DAT_XML},
+    {TL("XML files (*.xml, *.xml.gz)"),             EdgeDataFileExtension::XML},
+    {TL("All files (*)"),                           EdgeDataFileExtension::ALL} //< must be the last one
 };
 
 StringBijection<MeanDataFileExtension>::Entry SUMOXMLDefinitions::meanDataFileExtensionsValues[] = {
@@ -1944,8 +1944,8 @@ StringBijection<AdditionalFileExtension> SUMOXMLDefinitions::AdditionalFileExten
 StringBijection<RouteFileExtension> SUMOXMLDefinitions::RouteFileExtensions(
     SUMOXMLDefinitions::routeFileExtensionsValues, RouteFileExtension::ALL, false);
 
-StringBijection<DataFileExtension> SUMOXMLDefinitions::DataFileExtensions(
-    SUMOXMLDefinitions::dataFileExtensionsValues, DataFileExtension::ALL, false);
+StringBijection<EdgeDataFileExtension> SUMOXMLDefinitions::EdgeDataFileExtensions(
+    SUMOXMLDefinitions::edgeDataFileExtensionsValues, EdgeDataFileExtension::ALL, false);
 
 StringBijection<MeanDataFileExtension> SUMOXMLDefinitions::MeanDataFileExtensions(
     SUMOXMLDefinitions::meanDataFileExtensionsValues, MeanDataFileExtension::ALL, false);

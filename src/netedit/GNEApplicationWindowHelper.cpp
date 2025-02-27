@@ -2626,10 +2626,10 @@ std::string
 GNEApplicationWindowHelper::openDataFileDialog(FXWindow* window, bool save, bool multi) {
     if (save) {
         return openFileDialog(window, TL("Save Data file as"), GUIIcon::SAVE_DATAELEMENTS,
-                              SUMOXMLDefinitions::DataFileExtensions.getStrings(), save, multi);
+                              SUMOXMLDefinitions::EdgeDataFileExtensions.getStrings(), save, multi);
     } else {
         return openFileDialog(window, TL("Open Data file"), GUIIcon::SUPERMODEDATA,
-                              SUMOXMLDefinitions::DataFileExtensions.getStrings(), save, multi);
+                              SUMOXMLDefinitions::EdgeDataFileExtensions.getStrings(), save, multi);
     }
 }
 
@@ -2660,11 +2660,11 @@ GNEApplicationWindowHelper::openOptionFileDialog(FXWindow* window, bool save) {
 
 std::string
 GNEApplicationWindowHelper::openFileDialog(FXWindow* window, const std::string title,
-        GUIIcon icon, const std::vector<std::string> &extensions, bool save, bool multi) {
+        GUIIcon icon, const std::vector<std::string>& extensions, bool save, bool multi) {
     // parse extensions in a format compatible with fx dialogs
     std::string patternList;
     if (extensions.size() > 0) {
-        for (const auto &extension : extensions) {
+        for (const auto& extension : extensions) {
             patternList.append(extension + "\n");
         }
         patternList.pop_back();

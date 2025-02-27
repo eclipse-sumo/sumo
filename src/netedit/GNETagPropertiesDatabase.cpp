@@ -7752,7 +7752,7 @@ GNETagPropertiesDatabase::fillCommonAttributes(GNETagProperties* tagProperties) 
                     GNEAttributeProperties::STRING | GNEAttributeProperties::FILESAVE | GNEAttributeProperties::DEFAULTVALUE,
                     GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE | GNEAttributeProperties::NETEDITEDITOR,
                     TL("The path to the data file"));
-            commonAttribute->setFilenameExtensions(SUMOXMLDefinitions::DataFileExtensions.getStrings());
+            commonAttribute->setFilenameExtensions(SUMOXMLDefinitions::EdgeDataFileExtensions.getStrings());
             tagProperties->addAttribute(commonAttribute);
         } else if (tagProperties->isMeanData()) {
             commonAttribute = new GNEAttributeProperties(GNE_ATTR_MEANDATA_FILE,
