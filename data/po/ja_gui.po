@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-13 10:07+0100\n"
-"PO-Revision-Date: 2025-02-21 10:55+0000\n"
+"PO-Revision-Date: 2025-02-27 06:33+0000\n"
 "Last-Translator: Tomosawa Ryo <tomosawa.r.103@ms.saitama-u.ac.jp>\n"
 "Language-Team: Japanese <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/ja/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.10.1-dev\n"
+"X-Generator: Weblate 5.10.2-dev\n"
 
 #: src/gui/GUIApplicationWindow.cpp:308 src/gui/GUIApplicationWindow.cpp:311
 #: src/gui/GUIApplicationWindow.cpp:2271 src/gui/GUIApplicationWindow.cpp:2272
@@ -2045,17 +2045,14 @@ msgid "stop duration [s]"
 msgstr "連続停止時間[s]"
 
 #: src/guisim/GUIPerson.cpp:260
-#, fuzzy
 msgid "desired max speed [m/s]"
 msgstr "予定最高速度[m/s]"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:174
-#, fuzzy
 msgid "Switch to '%'"
 msgstr "'%'に切り替え"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:182
-#, fuzzy
 msgid "Switch off"
 msgstr "スイッチオフ"
 
@@ -2088,22 +2085,18 @@ msgid "Phase name: %"
 msgstr "現示フェーズ名: %"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:240
-#, fuzzy
 msgid "tlLogic [id]"
 msgstr "tlLogic[id]"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:242
-#, fuzzy
 msgid "program"
 msgstr "信号プログラム"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:243
-#, fuzzy
 msgid "phase"
 msgstr "現示フェーズ"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:244
-#, fuzzy
 msgid "phase name"
 msgstr "現示フェーズ名"
 
@@ -2112,67 +2105,54 @@ msgid "duration"
 msgstr "継続時間"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:246
-#, fuzzy
 msgid "minDur"
 msgstr "最小信号表示時間"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:247
-#, fuzzy
 msgid "maxDur"
 msgstr "最大信号表示時間"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:248
-#, fuzzy
 msgid "running duration"
 msgstr "継続表示時間"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:249
-#, fuzzy
 msgid "earliestEnd"
 msgstr "最短終了時間"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:250
-#, fuzzy
 msgid "latestEnd"
 msgstr "最長終了時間"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:251
-#, fuzzy
 msgid "time in cycle"
 msgstr "サイクル経過時間"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:252
-#, fuzzy
 msgid "cycle time"
 msgstr "サイクル長"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:255
-#, fuzzy
 msgid "req driveway"
 msgstr "要求された走行経路"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:256
-#, fuzzy
 msgid "blocking"
 msgstr "ブロック中"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:257
-#, fuzzy
 msgid "blocking driveways"
 msgstr "走行経路のブロック"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:258
-#, fuzzy
 msgid "rival"
 msgstr "ライバル"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:260
-#, fuzzy
 msgid "constraint"
 msgstr "制約条件"
 
 #: src/guisim/GUIVehicle.cpp:108
-#, fuzzy
 msgid "shadow lane [id]"
 msgstr "進入車線[id]"
 
@@ -2197,9 +2177,8 @@ msgid "acceleration [m/s^2]"
 msgstr "加速度[m/s^2]"
 
 #: src/guisim/GUIVehicle.cpp:128
-#, fuzzy
 msgid "slope [degree]"
-msgstr "斜度[度]"
+msgstr "斜度[degree]"
 
 #: src/guisim/GUIVehicle.cpp:132
 msgid "time gap on lane [s]"
@@ -3570,33 +3549,33 @@ msgstr "EdgeDataエレメントを作成します。"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:771
 msgid "Edge&Relation"
-msgstr "&リンクとリレイション"
+msgstr "Edge&Relation"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:771
 msgid "Create edgeRelation elements."
-msgstr "リンクとリレイションのエレメントを作成します。"
+msgstr "Edge Relationのエレメントを作成します。"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:774
 msgid "TA&ZRelation"
-msgstr ""
+msgstr "TA&Zエリア内交通"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:774
 msgid "Create TAZRelation elements."
-msgstr ""
+msgstr "TAZエリア内交通のエレメントを作成します。"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:777
 msgid "&MeanData"
-msgstr ""
+msgstr "&MeanData"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:777
 msgid "Create MeanData edge/lanes."
-msgstr ""
+msgstr "MeanDataのリンク/車線を作成します。"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:853
 #: src/netedit/GNEApplicationWindowHelper.cpp:1038
 #: src/netedit/GNEViewNetHelper.cpp:2679 src/netedit/GNEViewNetHelper.cpp:2963
 msgid "Show grid"
-msgstr ""
+msgstr "グリッドを表示"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:858
 #: src/netedit/GNEApplicationWindowHelper.cpp:1043
@@ -3604,275 +3583,275 @@ msgstr ""
 #: src/netedit/GNEViewNetHelper.cpp:2686 src/netedit/GNEViewNetHelper.cpp:2970
 #: src/netedit/GNEViewNetHelper.cpp:3242
 msgid "Hide junction shape"
-msgstr ""
+msgstr "交差点のシェイプを隠す"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:863
 msgid "Draw vehicles spread in lane or in depart position"
-msgstr ""
+msgstr "車輛を車線に分散配置もしくは出発位置に配置"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:868
 #: src/netedit/GNEApplicationWindowHelper.cpp:1184
 #: src/netedit/GNEViewNetHelper.cpp:2700 src/netedit/GNEViewNetHelper.cpp:3261
 msgid "Show demand elements"
-msgstr ""
+msgstr "交通需要エレメントを表示"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:873
 msgid "Clicking should target lanes"
-msgstr ""
+msgstr "ターゲットの車線を選択"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:878
 #: src/netedit/GNEViewNetHelper.cpp:2713
 msgid "Show connections over junctions"
-msgstr ""
+msgstr "交差点上の接続を表示"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:883
 #: src/netedit/GNEViewNetHelper.cpp:2720
 msgid "Hide connections"
-msgstr ""
+msgstr "接続を非表示"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:888
 msgid "Show sub-additional elements"
-msgstr ""
+msgstr "サブ構造物のエレメントを表示"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:893
 #: src/netedit/GNEViewNetHelper.cpp:2734
 msgid "Show TAZ elements"
-msgstr ""
+msgstr "TAZエリアのエレメントを表示"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:898
 msgid "Selecting multiple edges automatically select their junctions"
-msgstr ""
+msgstr "複数のエッジを選択時に、それに対応する交差点も自動的に選択"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:903
 msgid "Clicking should apply state changes to all phases of TLS plan"
-msgstr ""
+msgstr "クリックで信号機のすべてのフェーズに変更を適用"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:908
 msgid "Don't ask for confirmation before merging junction"
-msgstr ""
+msgstr "交差点のマージの際に確認メッセージを表示しない"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:913
 msgid "Show bubbles over junctions shapes"
-msgstr ""
+msgstr "交差点のシェイプ上にバブルを表示"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:918
 msgid "Apply mouse movement to elevation"
-msgstr ""
+msgstr "マウスの動きで高さを変更する"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:923
 msgid "Create consecutive edges"
-msgstr ""
+msgstr "連続したリンクを作成"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:928
 msgid "Create an edge in the opposite direction"
-msgstr ""
+msgstr "反対方向にリンクを作成"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1048
 #: src/netedit/GNEViewNetHelper.cpp:2977
 msgid "Draw vehicles spread/depart position"
-msgstr ""
+msgstr "分散位置/出発位置に車輛を表示"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1053
 #: src/netedit/GNEApplicationWindowHelper.cpp:1179
 #: src/netedit/GNEViewNetHelper.cpp:2984 src/netedit/GNEViewNetHelper.cpp:3255
 msgid "Show shapes"
-msgstr ""
+msgstr "シェイプを表示"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1058
 #: src/netedit/GNEViewNetHelper.cpp:2991
 msgid "Show all trips"
-msgstr ""
+msgstr "すべてのトリップを表示"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1063
 #: src/netedit/GNEViewNetHelper.cpp:2998
 msgid "Show all person plans"
-msgstr ""
+msgstr "すべての人の移動プランを表示"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1068
 #: src/netedit/GNEViewNetHelper.cpp:3005
 msgid "Lock selected person"
-msgstr ""
+msgstr "選択した人をロック"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1073
 msgid "Show all container plans"
-msgstr ""
+msgstr "すべてのコンテナの移動プランを表示"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1078
 #: src/netedit/GNEViewNetHelper.cpp:3019
 msgid "Lock selected container"
-msgstr ""
+msgstr "選択したコンテナをロック"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1083
 #: src/netedit/GNEViewNetHelper.cpp:3026
 msgid "Show non-inspected demand elements"
-msgstr ""
+msgstr "未確認の交通需要エレメントを表示"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1088
 #: src/netedit/GNEViewNetHelper.cpp:3033
 msgid "Show number of overlapped routes"
-msgstr ""
+msgstr "重複したルートの数を表示"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1174
 #: src/netedit/GNEViewNetHelper.cpp:3249
 msgid "Show additionals"
-msgstr ""
+msgstr "構造物を表示"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1189
 msgid "Draw TAZRel from center"
-msgstr ""
+msgstr "中心からTAZエリア内交通を描画"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1194
 msgid "Draw TAZ fill"
-msgstr ""
+msgstr "TAZエリアを塗りつぶして描画する"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1199
 msgid "Only draw TAZRel from"
-msgstr ""
+msgstr "TAZエリア内交通の出発点のみを描画"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1204
 msgid "Only draw TAZRel to"
-msgstr ""
+msgstr "TAZエリア内交通の到着点のみを描画"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1276
 msgid "Undo the last change."
-msgstr ""
+msgstr "最後の変更を元に戻します。"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1279
 msgid "Redo the last change."
-msgstr ""
+msgstr "最後の変更をやり直します。"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1282
 msgid "Show undo/redo history"
-msgstr ""
+msgstr "ヒストリーを表示"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1282
 msgid "Open undo/redo history dialog."
-msgstr ""
+msgstr "ヒストリーを開きます。"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1286
 msgid "Allow undo-redo"
-msgstr ""
+msgstr "変更を許可"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1308
 msgid "Clear front element"
-msgstr ""
+msgstr "最前面のエレメントをクリア"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1308
 msgid "Clear current front element"
-msgstr ""
+msgstr "現在の前面のエレメントをクリア"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1317
 msgid "Load additionals in sumo-gui"
-msgstr ""
+msgstr "sumo-gui内の構造物をロード"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1317
 msgid "Load additionals in sumo-gui."
-msgstr ""
+msgstr "sumo-gui内の構造物をロードします。"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1321
 msgid "Load demand in sumo-gui"
-msgstr ""
+msgstr "sumo-gui内の交通需要をロード"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1321
 msgid "Load demand in sumo-gui."
-msgstr ""
+msgstr "sumo-gui内の交通需要をロードします。"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1325
 msgid "Open in sumo-gui"
-msgstr ""
+msgstr "sumo-guiで開く"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1325
 msgid "Opens the sumo-gui application with the current network."
-msgstr ""
+msgstr "現在のネットワークをsumo-guiで開きます。"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1352
 msgid "&Lanes"
-msgstr ""
+msgstr "&車線"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1357
 msgid "&Connections"
-msgstr ""
+msgstr "&接続"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1362
 msgid "C&rossings"
-msgstr ""
+msgstr "&横断歩道"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1367
 msgid "Walkin&gAreas"
-msgstr ""
+msgstr "&歩行者エリア"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1372
 msgid "&Additionals"
-msgstr ""
+msgstr "&構造物"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1377
 msgid "&TAZs"
-msgstr ""
+msgstr "&TAZエリア"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1382
 msgid "&Wires"
-msgstr ""
+msgstr "&電線"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1387
 msgid "&Polygons"
-msgstr ""
+msgstr "&ポリゴン"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1392
 msgid "P&OIs"
-msgstr ""
+msgstr "&点"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1397
 msgid "WalkableAreas"
-msgstr ""
+msgstr "ウォーカブルエリア"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1402
 msgid "Obstacles"
-msgstr ""
+msgstr "障害物"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1407
 msgid "&Routes"
-msgstr ""
+msgstr "&ルート"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1422
 msgid "Person&Trips"
-msgstr ""
+msgstr "パーソントリップ"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1427
 msgid "&Walks"
-msgstr ""
+msgstr "&徒歩"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1432
 msgid "Ri&des"
-msgstr ""
+msgstr "&乗り物"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1437
 #: src/netedit/GNEApplicationWindowHelper.cpp:2022
 msgid "&Containers"
-msgstr ""
+msgstr "&コンテナ"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1442
 msgid "Tra&nsports"
-msgstr ""
+msgstr "&運送"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1447
 msgid "Trans&hips"
-msgstr ""
+msgstr "&乗換"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1452
 msgid "Stop&s"
-msgstr ""
+msgstr "&停止地点"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1457
 msgid "&EdgeDatas"
-msgstr ""
+msgstr "&EdgeData"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1462
 msgid "E&dgeRelDatas"
-msgstr ""
+msgstr "&リンク間交通データ"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1467
 msgid "Edge&TAZRel"
-msgstr ""
+msgstr "TAZエリア内交通にリンクを割り当て"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1475
 msgid "Lock selected elements"
@@ -8776,7 +8755,7 @@ msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:9002
 msgid "TAZRelation"
-msgstr ""
+msgstr "TAZエリア内交通"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:9008
 msgid "The name of the TAZ the TAZRel starts at"
@@ -13653,7 +13632,7 @@ msgstr ""
 
 #: src/netedit/frames/common/GNESelectorFrame.cpp:126
 msgid "EdgeRelDatas"
-msgstr ""
+msgstr "リンク交通データ"
 
 #: src/netedit/frames/common/GNESelectorFrame.cpp:127
 msgid "EdgeTAZRel"
@@ -13891,7 +13870,7 @@ msgstr ""
 
 #: src/netedit/frames/data/GNEMeanDataFrame.cpp:425
 msgid "MeanData"
-msgstr ""
+msgstr "MeanData"
 
 #: src/netedit/frames/data/GNETAZRelDataFrame.cpp:54
 msgid "Confirm TAZRelation"
