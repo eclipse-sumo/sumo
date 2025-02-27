@@ -80,6 +80,7 @@ public:
     /// @brief Destructor
     ~GUIBusStop();
 
+    void finishedLoading();
 
     /// @brief adds an access point to this stop
     bool addAccess(MSLane* const lane, const double startPos, const double endPos, double length, const MSStoppingPlace::AccessExit exit);
@@ -168,5 +169,5 @@ private:
     /// @brief The coordinates of access points
     PositionVector myAccessCoords;
 
-
+    RGBColor myEmptyColor;
 };

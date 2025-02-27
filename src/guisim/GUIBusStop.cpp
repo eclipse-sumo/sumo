@@ -58,7 +58,9 @@ GUIBusStop::GUIBusStop(const std::string& id, SumoXMLTag element, const std::vec
                        double frompos, double topos, const std::string name, int personCapacity,
                        double parkingLength, const RGBColor& color) :
     MSStoppingPlace(id, element, lines, lane, frompos, topos, name, personCapacity, parkingLength, color),
-    GUIGlObject_AbstractAdd(GLO_BUS_STOP, id, GUIIconSubSys::getIcon(GUIIcon::BUSSTOP)) {
+    GUIGlObject_AbstractAdd(GLO_BUS_STOP, id, GUIIconSubSys::getIcon(GUIIcon::BUSSTOP)),
+    myEmptyColor(RGBColor::INVISIBLE)
+{
     // see MSVehicleControl defContainerType
     myWidth = MAX2(1.0, ceil((double)personCapacity / getTransportablesAbreast()) * myTransportableDepth);
     initShape(myFGShape, myFGShapeRotations, myFGShapeLengths, myFGSignPos, myFGSignRot);
@@ -98,6 +100,18 @@ GUIBusStop::initShape(PositionVector& fgShape,
         fgSignRot = fgShape.rotationDegreeAtOffset(double((fgShape.length() / 2.)));
         const double rotSign = MSGlobals::gLefthand ? -1 : 1;
         fgSignRot -= 90 * rotSign;
+    }
+}
+
+
+void
+GUIBusStop::finishedLoading() {
+    if (hasParameter("emptyColor")) {
+        try {
+            myEmptyColor = RGBColor::parseColor(getParameter("emptyColor"));
+        } catch (ProcessError& e) {
+            WRITE_WARNINGF("Could not parse color '%' (%)", getParameter("emptyColor"), e.what());
+        }
     }
 }
 
@@ -184,6 +198,9 @@ GUIBusStop::drawGL(const GUIVisualizationSettings& s) const {
     // set color
     if (getColor() != RGBColor::INVISIBLE) {
         color = getColor();
+    }
+    if (myEmptyColor != RGBColor::INVISIBLE && myEndPositions.empty() && myWaitingTransportables.empty()) {
+        color = myEmptyColor;
     }
     const bool s2 = s.secondaryShape;
     const Position& signPos = s2 ? myFGSignPos2 : myFGSignPos;

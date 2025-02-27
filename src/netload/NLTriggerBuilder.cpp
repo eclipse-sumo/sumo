@@ -869,6 +869,7 @@ NLTriggerBuilder::endParkingArea() {
 void
 NLTriggerBuilder::endStoppingPlace() {
     if (myCurrentStop != nullptr) {
+        myCurrentStop->finishedLoading();
         myCurrentStop = nullptr;
     } else {
         throw InvalidArgument("Could not end a stopping place that is not opened.");
