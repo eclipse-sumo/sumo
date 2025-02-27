@@ -211,7 +211,7 @@ GNEPythonToolDialogElements::FileNameArgument::reset() {
 long
 GNEPythonToolDialogElements::FileNameArgument::onCmdOpenFilename(FXObject*, FXSelector, void*) {
     // get file
-    const auto file = GNEApplicationWindowHelper::openFileDialog(this, (myOption->getSubTopic() == "output"), myOption->getListSeparator() != "");
+    const auto file = GNEApplicationWindowHelper::openXMLFileDialog(this, (myOption->getSubTopic() == "output"), myOption->getListSeparator() != "");
     // check that file is valid
     if (file.size() > 0) {
         myFilenameTextField->setText(file.c_str(), TRUE);

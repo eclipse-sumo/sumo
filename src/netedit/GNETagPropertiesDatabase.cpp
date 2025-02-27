@@ -2100,7 +2100,7 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
                 GNEAttributeProperties::STRING | GNEAttributeProperties::FILESAVE | GNEAttributeProperties::DEFAULTVALUE,
                 GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
                 TL("The output file for writing calibrator information or NULL"));
-        attrProperty->setFilenameExtensions(SUMOXMLDefinitions::OutputFileExtensions.getStrings());
+        attrProperty->setFilenameExtensions(SUMOXMLDefinitions::OutputFileExtensions.getMultilineString());
         myTagProperties[currentTag]->addAttribute(attrProperty);
 
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_JAM_DIST_THRESHOLD,
@@ -7738,28 +7738,28 @@ GNETagPropertiesDatabase::fillCommonAttributes(GNETagProperties* tagProperties) 
                     GNEAttributeProperties::STRING | GNEAttributeProperties::FILESAVE | GNEAttributeProperties::DEFAULTVALUE,
                     GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE | GNEAttributeProperties::NETEDITEDITOR,
                     TL("The path to the additional file"));
-            commonAttribute->setFilenameExtensions(SUMOXMLDefinitions::AdditionalFileExtensions.getStrings());
+            commonAttribute->setFilenameExtensions(SUMOXMLDefinitions::AdditionalFileExtensions.getMultilineString());
             tagProperties->addAttribute(commonAttribute);
         } else if (tagProperties->isDemandElement()) {
             commonAttribute = new GNEAttributeProperties(GNE_ATTR_DEMAND_FILE,
                     GNEAttributeProperties::STRING | GNEAttributeProperties::FILESAVE | GNEAttributeProperties::DEFAULTVALUE,
                     GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE | GNEAttributeProperties::NETEDITEDITOR,
                     TL("The path to the route file"));
-            commonAttribute->setFilenameExtensions(SUMOXMLDefinitions::RouteFileExtensions.getStrings());
+            commonAttribute->setFilenameExtensions(SUMOXMLDefinitions::RouteFileExtensions.getMultilineString());
             tagProperties->addAttribute(commonAttribute);
         } else if (tagProperties->isDataElement()) {
             commonAttribute = new GNEAttributeProperties(GNE_ATTR_DATA_FILE,
                     GNEAttributeProperties::STRING | GNEAttributeProperties::FILESAVE | GNEAttributeProperties::DEFAULTVALUE,
                     GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE | GNEAttributeProperties::NETEDITEDITOR,
                     TL("The path to the data file"));
-            commonAttribute->setFilenameExtensions(SUMOXMLDefinitions::EdgeDataFileExtensions.getStrings());
+            commonAttribute->setFilenameExtensions(SUMOXMLDefinitions::EdgeDataFileExtensions.getMultilineString());
             tagProperties->addAttribute(commonAttribute);
         } else if (tagProperties->isMeanData()) {
             commonAttribute = new GNEAttributeProperties(GNE_ATTR_MEANDATA_FILE,
                     GNEAttributeProperties::STRING | GNEAttributeProperties::FILESAVE | GNEAttributeProperties::DEFAULTVALUE,
                     GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE | GNEAttributeProperties::NETEDITEDITOR,
                     TL("The path to the data file"));
-            commonAttribute->setFilenameExtensions(SUMOXMLDefinitions::MeanDataFileExtensions.getStrings());
+            commonAttribute->setFilenameExtensions(SUMOXMLDefinitions::MeanDataFileExtensions.getMultilineString());
             tagProperties->addAttribute(commonAttribute);
         }
     }
@@ -9427,7 +9427,7 @@ GNETagPropertiesDatabase::fillCommonMeanDataAttributes(GNETagProperties* tagProp
             GNEAttributeProperties::STRING | GNEAttributeProperties::FILEOPEN | GNEAttributeProperties::DEFAULTVALUE,
             GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
             TL("Restrict output to the given list of edges given in file"));
-    attrProperty->setFilenameExtensions(SUMOXMLDefinitions::OutputFileExtensions.getStrings());
+    attrProperty->setFilenameExtensions(SUMOXMLDefinitions::OutputFileExtensions.getMultilineString());
     tagProperties->addAttribute(attrProperty);
 
     attrProperty = new GNEAttributeProperties(SUMO_ATTR_AGGREGATE,
@@ -9464,7 +9464,7 @@ GNETagPropertiesDatabase::fillFileAttribute(GNETagProperties* tagProperties) {
             GNEAttributeProperties::STRING | GNEAttributeProperties::FILESAVE | GNEAttributeProperties::DEFAULTVALUE,
             GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
             TL("The path to the output file"));
-    attrProperty->setFilenameExtensions(SUMOXMLDefinitions::OutputFileExtensions.getStrings());
+    attrProperty->setFilenameExtensions(SUMOXMLDefinitions::OutputFileExtensions.getMultilineString());
     tagProperties->addAttribute(attrProperty);
 }
 
@@ -9475,7 +9475,7 @@ GNETagPropertiesDatabase::fillOutputAttribute(GNETagProperties* tagProperties) {
             GNEAttributeProperties::STRING | GNEAttributeProperties::FILESAVE | GNEAttributeProperties::DEFAULTVALUE,
             GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
             TL("The path to the output file"));
-    attrProperty->setFilenameExtensions(SUMOXMLDefinitions::OutputFileExtensions.getStrings());
+    attrProperty->setFilenameExtensions(SUMOXMLDefinitions::OutputFileExtensions.getMultilineString());
     tagProperties->addAttribute(attrProperty);
 }
 
@@ -9486,7 +9486,7 @@ GNETagPropertiesDatabase::fillImgFileAttribute(GNETagProperties* tagProperties) 
             GNEAttributeProperties::STRING | GNEAttributeProperties::FILEOPEN | GNEAttributeProperties::DEFAULTVALUE,
             GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
             TLF("A bitmap to use for rendering this %", tagProperties->getTagStr()));
-    attrProperty->setFilenameExtensions(SUMOXMLDefinitions::ImageFileExtensions.getStrings());
+    attrProperty->setFilenameExtensions(SUMOXMLDefinitions::ImageFileExtensions.getMultilineString());
     tagProperties->addAttribute(attrProperty);
 }
 

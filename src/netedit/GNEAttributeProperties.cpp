@@ -135,7 +135,7 @@ GNEAttributeProperties::setDiscreteValues(const std::vector<std::string>& discre
 
 
 void
-GNEAttributeProperties::setFilenameExtensions(const std::vector<std::string>& extensions) {
+GNEAttributeProperties::setFilenameExtensions(const std::string& extensions) {
     if (isFileOpen() || isFileSave()) {
         myFilenameExtensions = extensions;
     } else {
@@ -323,6 +323,12 @@ GNEAttributeProperties::getDescription() const {
 const std::vector<std::string>&
 GNEAttributeProperties::getDiscreteValues() const {
     return myDiscreteValues;
+}
+
+
+const std::string&
+GNEAttributeProperties::getFilenameExtensions() const {
+    return myFilenameExtensions;
 }
 
 

@@ -81,7 +81,7 @@ GNEAttributesEditorRow::GNEAttributesEditorRow(GNEAttributesEditorType* attribut
     myAttributeToggleEnableCheckButton->hide();
     // create left button parent
     myAttributeButton = new MFXButtonTooltip(this, tooltipMenu, "button", nullptr, this,
-        MID_GNE_ATTRIBUTESEDITORROW_REPARENT, GUIDesignButtonAttribute);
+            MID_GNE_ATTRIBUTESEDITORROW_REPARENT, GUIDesignButtonAttribute);
     // create right text field for string attributes
     myValueTextField = new MFXTextFieldTooltip(this, tooltipMenu, GUIDesignTextFieldNCol, this,
             MID_GNE_ATTRIBUTESEDITORROW_SETATTRIBUTE, GUIDesignTextField);
@@ -174,6 +174,8 @@ GNEAttributesEditorRow::showAttributeRow(GNEAttributesEditorType* attributeTable
     // show elements depending of attribute properties
     if (attrProperty->isActivatable()) {
         showAttributeToggleEnable(attrProperty, attributeEnabled);
+    } else if (attrProperty->isFileOpen() || attrProperty->isFileSave()) {
+        showAttributeFile(attrProperty, attributeEnabled);
     } else if (attribute == GNE_ATTR_PARENT) {
         showAttributeReparent(attributeEnabled);
     } else if ((attribute == SUMO_ATTR_TYPE) && tagPropertyParent->hasTypeParent()) {
@@ -430,7 +432,19 @@ GNEAttributesEditorRow::onCmdOpenAllowDialog(FXObject*, FXSelector, void*) {
 
 long
 GNEAttributesEditorRow::onCmdOpenFileDialog(FXObject*, FXSelector, void*) {
-
+    // set title depending if we're loading or saving
+    const std::string title = myAttrProperty->isFileSave() ?
+                              TLF("Select existent o create new file for % attribute", myAttrProperty->getAttrStr()) :
+                              TLF("Select existent file for % attribute", myAttrProperty->getAttrStr());
+    // open dialog
+    const std::string value = GNEApplicationWindowHelper::openFileDialog(
+                                  myAttributeTable->getFrameParent()->getViewNet()->getViewParent()->getGNEAppWindows(),
+                                  title, myAttrProperty->getTagPropertyParent()->getGUIIcon(),
+                                  myAttrProperty->getFilenameExtensions(), myAttrProperty->isFileSave());
+    // update text field
+    if (value.size() > 0) {
+        myValueTextField->setText(value.c_str(), TRUE);
+    }
     return 1;
 }
 
@@ -642,7 +656,7 @@ GNEAttributesEditorRow::showAttributeInspectParent(const GNEAttributeProperties*
         myAttributeButton->enable();
     } else {
         myAttributeButton->disable();
-    }    
+    }
     myAttributeButton->show();
     // hide other elements
     myAttributeLabel->hide();
@@ -694,10 +708,14 @@ void
 GNEAttributesEditorRow::showAttributeFile(const GNEAttributeProperties* attrProperty, const bool enabled) {
     // update attribute button
     myAttributeButton->setText(attrProperty->getAttrStr().c_str());
-    myAttributeButton->setHelpText(TL("Open dialog for select color"));
+    if (attrProperty->isFileOpen()) {
+        myAttributeButton->setHelpText(TL("Open dialog for select an existent file"));
+    } else {
+        myAttributeButton->setHelpText(TL("Open dialog for select or create an existent file"));
+    }
     myAttributeButton->setTipText(myAttributeButton->getHelpText());
     myAttributeButton->setIcon(GUIIconSubSys::getIcon(GUIIcon::OPEN));
-    myAttributeButton->setSelector(MID_GNE_ATTRIBUTESEDITORROW_OPENDIALOG_COLOR);
+    myAttributeButton->setSelector(MID_GNE_ATTRIBUTESEDITORROW_OPENDIALOG_FILE);
     if (enabled) {
         myAttributeButton->enable();
     } else {

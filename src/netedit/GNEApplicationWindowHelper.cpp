@@ -2492,7 +2492,7 @@ GNEApplicationWindowHelper::stringEndsWith(const std::string& str, const std::st
 
 
 std::string
-GNEApplicationWindowHelper::openFileDialog(FXWindow* window, bool save, bool multi) {
+GNEApplicationWindowHelper::openXMLFileDialog(FXWindow* window, bool save, bool multi) {
     if (save) {
         return openFileDialog(window, TL("Save file as"), GUIIcon::SAVE,
                               SUMOXMLDefinitions::XMLFileExtensions.getMultilineString(), save, multi);

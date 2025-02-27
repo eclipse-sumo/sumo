@@ -1181,8 +1181,8 @@ struct GNEApplicationWindowHelper {
     /// @brief check if a string ends with another string
     static bool stringEndsWith(const std::string& str, const std::string& suffix);
 
-    /// @brief open general file dialog
-    static std::string openFileDialog(FXWindow* window, bool save, bool multi);
+    /// @brief open xml file dialog
+    static std::string openXMLFileDialog(FXWindow* window, bool save, bool multi);
 
     /// @brief open netconvert file dialog
     static std::string openNetworkFileDialog(FXWindow* window, bool save, bool multi = false);
@@ -1229,11 +1229,10 @@ struct GNEApplicationWindowHelper {
     /// @brief open option dialog
     static std::string openOptionFileDialog(FXWindow* window, bool save);
 
-private:
-    /// @brief open filename dialog
+    /// @brief open filename dialog (general)
     static std::string openFileDialog(FXWindow* window, const std::string title, GUIIcon icon,
                                       const std::string& extensions, bool save, bool multi = false);
-
+private:
     /// @brief Invalidated copy constructor.
     GNEApplicationWindowHelper(const GNEApplicationWindowHelper&) = delete;
 
