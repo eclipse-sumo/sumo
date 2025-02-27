@@ -114,7 +114,7 @@ public:
      * @return The name of the file to write
      */
     static FXString getFilename2Write(FXWindow* parent,
-                                      const FXString& header, const FXString& extension,
+                                      const FXString& header, const FXString& extensions,
                                       FXIcon* icon, FXString& currentFolder);
 
 

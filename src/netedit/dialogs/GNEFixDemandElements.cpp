@@ -198,8 +198,8 @@ GNEFixDemandElements::FixOptions::setInvalidElements(const std::vector<GNEDemand
 
 bool
 GNEFixDemandElements::FixOptions::saveContents() const {
-    const FXString file = MFXUtils::getFilename2Write(myTable,
-                          TL("Save list of conflicted items"), ".txt",
+    const FXString file = MFXUtils::getFilename2Write(myTable, TL("Save list of conflicted items"),
+                          SUMOXMLDefinitions::TXTFileExtensions.getMultilineString().c_str(),
                           GUIIconSubSys::getIcon(GUIIcon::SAVE), gCurrentFolder);
     if (file == "") {
         return false;

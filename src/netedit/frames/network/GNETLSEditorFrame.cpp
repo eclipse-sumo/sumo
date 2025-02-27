@@ -2976,10 +2976,9 @@ GNETLSEditorFrame::TLSFile::onCmdLoadTLSProgram(FXObject*, FXSelector, void*) {
 
 long
 GNETLSEditorFrame::TLSFile::onCmdSaveTLSProgram(FXObject*, FXSelector, void*) {
-    FXString file = MFXUtils::getFilename2Write(this,
-                    TL("Save TLS Program as"), ".xml",
-                    GUIIconSubSys::getIcon(GUIIcon::MODETLS),
-                    gCurrentFolder);
+    FXString file = MFXUtils::getFilename2Write(this, TL("Save TLS Program as"),
+                    SUMOXMLDefinitions::XMLFileExtensions.getMultilineString().c_str(),
+                    GUIIconSubSys::getIcon(GUIIcon::MODETLS), gCurrentFolder);
     // check file
     if (file != "") {
         // add xml extension

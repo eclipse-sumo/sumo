@@ -186,7 +186,8 @@ GNEFixNetworkElements::FixOptions::setInvalidElements(const std::vector<GNENetwo
 bool
 GNEFixNetworkElements::FixOptions::saveContents() const {
     const FXString file = MFXUtils::getFilename2Write(myTable,
-                          TL("Save list of conflicted items"), ".txt",
+                          TL("Save list of conflicted items"),
+                          SUMOXMLDefinitions::TXTFileExtensions.getMultilineString().c_str(),
                           GUIIconSubSys::getIcon(GUIIcon::SAVE), gCurrentFolder);
     if (file == "") {
         return false;

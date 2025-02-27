@@ -162,7 +162,9 @@ GUIDialog_Breakpoints::onCmdLoad(FXObject*, FXSelector, void*) {
 
 long
 GUIDialog_Breakpoints::onCmdSave(FXObject*, FXSelector, void*) {
-    FXString file = MFXUtils::getFilename2Write(this, TL("Save Breakpoints"), ".txt", GUIIconSubSys::getIcon(GUIIcon::EMPTY), gCurrentFolder);
+    FXString file = MFXUtils::getFilename2Write(this, TL("Save Breakpoints"),
+                    SUMOXMLDefinitions::TXTFileExtensions.getMultilineString().c_str(),
+                    GUIIconSubSys::getIcon(GUIIcon::EMPTY), gCurrentFolder);
     if (file == "") {
         return 1;
     }

@@ -79,21 +79,20 @@ MFXUtils::assureExtension(const FXString& filename, const FXString& defaultExten
 
 
 FXString
-MFXUtils::getFilename2Write(FXWindow* parent,
-                            const FXString& header, const FXString& extension,
+MFXUtils::getFilename2Write(FXWindow* parent, const FXString& header, const FXString& extensions,
                             FXIcon* icon, FXString& currentFolder) {
     // get the new file name
     FXFileDialog opendialog(parent, header);
     opendialog.setIcon(icon);
     opendialog.setSelectMode(SELECTFILE_ANY);
-    opendialog.setPatternList("*" + extension);
+    opendialog.setPatternList(extensions);
     if (currentFolder.length() != 0) {
         opendialog.setDirectory(currentFolder);
     }
     if (!opendialog.execute()) {
         return "";
     }
-    FXString file = assureExtension(opendialog.getFilename(), extension.after('.')).text();
+    FXString file = assureExtension(opendialog.getFilename(), extensions.after('.')).text();
     if (!userPermitsOverwritingWhenFileExists(parent, file)) {
         return "";
     }

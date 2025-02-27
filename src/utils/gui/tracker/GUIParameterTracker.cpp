@@ -215,7 +215,9 @@ GUIParameterTracker::onCmdChangeAggregation(FXObject*, FXSelector, void*) {
 
 long
 GUIParameterTracker::onCmdSave(FXObject*, FXSelector, void*) {
-    FXString file = MFXUtils::getFilename2Write(this, TL("Save Data"), ".csv", GUIIconSubSys::getIcon(GUIIcon::EMPTY), gCurrentFolder);
+    FXString file = MFXUtils::getFilename2Write(this, TL("Save Data"),
+                    SUMOXMLDefinitions::CSVFileExtensions.getMultilineString().c_str(),
+                    GUIIconSubSys::getIcon(GUIIcon::EMPTY), gCurrentFolder);
     if (file == "") {
         return 1;
     }

@@ -338,8 +338,8 @@ GNESelectorFrame::SelectionOperation::onCmdLoad(FXObject*, FXSelector, void*) {
 
 long
 GNESelectorFrame::SelectionOperation::onCmdSave(FXObject*, FXSelector, void*) {
-    FXString file = MFXUtils::getFilename2Write(this,
-                    TL("Save List of selected Items"), ".txt",
+    FXString file = MFXUtils::getFilename2Write(this, TL("Save List of selected Items"),
+                    SUMOXMLDefinitions::TXTFileExtensions.getMultilineString().c_str(),
                     GUIIconSubSys::getIcon(GUIIcon::SAVE), gCurrentFolder);
     if (file == "") {
         return 1;

@@ -323,7 +323,8 @@ long
 GNESingleParametersDialog::ParametersOperations::onCmdSaveParameters(FXObject*, FXSelector, void*) {
     // obtain file to save parameters
     FXString file = MFXUtils::getFilename2Write(this,
-                    TL("Save Parameter Template file"), ".xml",
+                    TL("Save Parameter Template file"),
+                    SUMOXMLDefinitions::XMLFileExtensions.getMultilineString().c_str(),
                     GUIIconSubSys::getIcon(GUIIcon::GREENVEHICLE),
                     gCurrentFolder);
     if (file == "") {
