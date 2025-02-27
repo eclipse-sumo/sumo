@@ -4,3 +4,4 @@
 --vehroute-output vehroutes.xml
 --persontrip.transfer.taxi-walk ptStops
 --stop-output stopinfos.xml
+--device.taxi.idle-algorithm randomCircling
