@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-13 10:07+0100\n"
-"PO-Revision-Date: 2025-02-27 14:17+0000\n"
+"PO-Revision-Date: 2025-02-28 15:02+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.10.2-dev\n"
+"X-Generator: Weblate 5.10.3-dev\n"
 
 #: src/activitygen/AGActivityGen.cpp:46
 msgid "Reading input"
@@ -566,7 +566,7 @@ msgstr "Uscita dei rivelatori di convalida"
 
 #: src/dfrouter/dfrouter_main.cpp:228
 msgid "Writing highway end rerouter"
-msgstr ""
+msgstr "Scrittura del rerouter di fine autostrada"
 
 #: src/dfrouter/dfrouter_main.cpp:248
 msgid "Builds vehicle routes for SUMO using detector values."
@@ -655,28 +655,28 @@ msgstr ""
 
 #: src/duarouter/RODUAFrame.cpp:124 src/marouter/ROMAFrame.cpp:206
 msgid "Use FLOAT as Gawron's beta"
-msgstr ""
+msgstr "Usa FLOAT come beta di Gawron"
 
 #: src/duarouter/RODUAFrame.cpp:128 src/marouter/ROMAFrame.cpp:210
 msgid "Use FLOAT as Gawron's a"
-msgstr ""
+msgstr "Usa FLOAT come a di Gawron"
 
 #: src/duarouter/RODUAFrame.cpp:131 src/jtrrouter/ROJTRFrame.cpp:62
 #: src/marouter/ROMAFrame.cpp:213
 msgid "Write exit times (weights) for each edge"
-msgstr ""
+msgstr "Scrivi tempi d'uscita (pesi) per ogni arco"
 
 #: src/duarouter/RODUAFrame.cpp:134 src/microsim/MSFrame.cpp:257
 msgid "Include total route length in the output"
-msgstr ""
+msgstr "Includi la lunghezza totale degli itinerari in uscita"
 
 #: src/duarouter/RODUAFrame.cpp:137 src/marouter/ROMAFrame.cpp:216
 msgid "Save routes with near zero probability"
-msgstr ""
+msgstr "Salva itinerari con una probabilità quasi nulla"
 
 #: src/duarouter/RODUAFrame.cpp:140 src/marouter/ROMAFrame.cpp:219
 msgid "Only reuse routes from input, do not calculate new ones"
-msgstr ""
+msgstr "Riutilizzi solamente gli itinerari dell'ingresso, non calcolarne altri"
 
 #: src/duarouter/RODUAFrame.cpp:143
 msgid "The probability of keeping the old route"
@@ -3228,15 +3228,15 @@ msgstr ""
 
 #: src/microsim/MSNet.cpp:950
 msgid "Too many teleports."
-msgstr ""
+msgstr "Troppi teletrasporti."
 
 #: src/microsim/MSNet.cpp:952
 msgid "TraCI issued load command."
-msgstr ""
+msgstr "TraCI ha emesso un commando di carica."
 
 #: src/microsim/MSNet.cpp:954
 msgid "Unknown reason."
-msgstr ""
+msgstr "Motivo sconosciuto."
 
 #: src/microsim/MSNet.cpp:1515
 msgid ""
@@ -3258,6 +3258,8 @@ msgstr ""
 #: src/microsim/MSRouteHandler.cpp:111 src/router/RORouteHandler.cpp:111
 msgid "Taz usage was requested but no taz present in % '%'!"
 msgstr ""
+"L'utilizzo di zone di assegnazione del traffico è stato richiesto ma non ce "
+"ne sono in % '%'!"
 
 #: src/microsim/MSRouteHandler.cpp:320
 #, c-format
@@ -3447,17 +3449,19 @@ msgstr "Posizione iniziale o terminale invalida per la fermata su %'%."
 
 #: src/microsim/MSRouteHandler.cpp:1414
 msgid "Disconnected plan for % '%' (%!=%)."
-msgstr ""
+msgstr "Piano sconnesso per % '%' (%!=%)."
 
 #: src/microsim/MSRouteHandler.cpp:1425
 msgid ""
 "Disconnected plan for % '%' (stop range %-% does not cover previous arrival "
 "position %)."
 msgstr ""
+"Piano sconnesso per % '%' (il settore di fermata %-% non copre la previa "
+"posizione di arrivo %)."
 
 #: src/microsim/MSRouteHandler.cpp:1461
 msgid "Stop edge '%' missing in attribute 'via' for % '%'."
-msgstr ""
+msgstr "L'arco di fermata '%' manca nell'attributo 'via' di % '%'."
 
 #: src/microsim/MSRouteHandler.cpp:1482 src/router/RORouteHandler.cpp:1169
 #: src/router/RORouteHandler.cpp:1288
@@ -8635,6 +8639,9 @@ msgid ""
 "Distance threshold for determining whether distinct shapes are connected "
 "(used when from-id and to-id are not available)"
 msgstr ""
+"Valore soglia della distanza tra forme distinte per determinare se queste "
+"sono connesse (utilizzato quando il codice identificativo di partenza e "
+"quello di arrivo non sono disponibili)"
 
 #: src/netimport/NIFrame.cpp:285 src/netimport/NIFrame.cpp:282
 msgid "Add the list of field names as edge params"
