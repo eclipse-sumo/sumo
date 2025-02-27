@@ -40,6 +40,8 @@ GNEGenericData::GNEGenericData(SumoXMLTag tag, GUIIcon icon, const GUIGlObjectTy
     GUIGlObject(type, "", GUIIconSubSys::getIcon(icon)),
     GNEPathElement(GNEPathElement::Options::DATA_ELEMENT),
     myDataIntervalParent(nullptr) {
+    // mark this generic data as template
+    myIsTemplate = true;
 }
 
 
