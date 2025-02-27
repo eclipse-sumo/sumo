@@ -89,7 +89,7 @@ attributes are used:
 
 The regular lanes of the road network are divided into sublanes with a
 minimum width of the given resolution (**--lateral-resolution**). If the lane width is not a
-multiple of the given value, the leftmost sublane has a reduced with.
+multiple of the given value, the leftmost sublane will have a reduced width.
 The default lane-width of SUMO is 3.2m so a lateral resolution of 0.8
 will created exactly 4 sublanes of that width per lane. A resolution of
 1.0 will create three sublanes of 1.0m width and one more lane of 0.2m
