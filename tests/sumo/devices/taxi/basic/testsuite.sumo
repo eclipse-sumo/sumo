@@ -12,3 +12,6 @@ late_taxi
 
 # use a transport definition to call a taxi
 1container
+
+# use a ride definition to call a taxi
+1person_ptStops
