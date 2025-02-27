@@ -125,6 +125,12 @@ algorithms are available
 !!! note
     User-contributed dispatch algorithms are welcome.
 
+The period in which the dispatch algorithm runs can be controlled with option **--device.taxi.dispatch-period**. The default is 60s.
+
+## Algorithm-Output
+
+Option **--device.taxi.dispatch-algorithm.output FILE** is can be set to receive extra outputs from algorithms (i.e. for ride sharing metrics).
+
 # Taxi Behavior
 
 By default, taxis will remain in the simulation until all persons have left. To make them leave the simulation at an earlier time, the end time can be defined using a generic parameter in their ```vType``` or ```vehicle```-definition:
