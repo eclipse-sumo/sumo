@@ -1685,13 +1685,18 @@ StringBijection<XMLFileExtension>::Entry SUMOXMLDefinitions::XMLFileExtensionVal
 };
 
 StringBijection<TXTFileExtension>::Entry SUMOXMLDefinitions::TXTFileExtensionValues[] = {
-    {TL("TXT files (*.txt)"),   TXTFileExtension::TXT},
-    {TL("All files (*)"),       TXTFileExtension::ALL} //< must be the last one
+    {TL("Plain text files (*.txt)"),    TXTFileExtension::TXT},
+    {TL("All files (*)"),               TXTFileExtension::ALL} //< must be the last one
+};
+
+StringBijection<CSVFileExtension>::Entry SUMOXMLDefinitions::CSVFileExtensionValues[] = {
+    {TL("CSV files (*.txt)"),   CSVFileExtension::CSV},
+    {TL("All files (*)"),       CSVFileExtension::ALL} //< must be the last one
 };
 
 StringBijection<OSGFileExtension>::Entry SUMOXMLDefinitions::OSGFileExtensionValues[] = {
-    {TL("OSG files (*.osg)"),   OSGFileExtension::OSG},
-    {TL("All files (*)"),       OSGFileExtension::ALL} //< must be the last one
+    {TL("Open scene graph  files (*.osg)"), OSGFileExtension::OSG},
+    {TL("All files (*)"),                   OSGFileExtension::ALL} //< must be the last one
 };
 
 StringBijection<ImageFileExtension>::Entry SUMOXMLDefinitions::imageFileExtensionValues[] = {
@@ -1704,7 +1709,7 @@ StringBijection<ImageFileExtension>::Entry SUMOXMLDefinitions::imageFileExtensio
     {TL("RGB Image (*.rgb)"),                                                                                                                       ImageFileExtension::RGB},
     {TL("XBM Image (*.xbm)"),                                                                                                                       ImageFileExtension::XBM},
     {TL("TARGA Image (*.tga)"),                                                                                                                     ImageFileExtension::TGA},
-    {TL("PNG Image (*.png)"),                                                                                                                      ImageFileExtension::PNG},
+    {TL("PNG Image (*.png)"),                                                                                                                       ImageFileExtension::PNG},
     {TL("JPEG Image (*.jpg,*.jpeg)"),                                                                                                               ImageFileExtension::JPG},
     {TL("TIFF Image (*.tif,*.tiff)"),                                                                                                               ImageFileExtension::TIF},
     {TL("Postscript (*.ps)"),                                                                                                                       ImageFileExtension::PS},
@@ -1730,7 +1735,7 @@ StringBijection<ImageVideoFileExtension>::Entry SUMOXMLDefinitions::imageVideoFi
     {TL("RGB Image (*.rgb)"),                                                                                                                                                   ImageVideoFileExtension::RGB},
     {TL("XBM Image (*.xbm)"),                                                                                                                                                   ImageVideoFileExtension::XBM},
     {TL("TARGA Image (*.tga)"),                                                                                                                                                 ImageVideoFileExtension::TGA},
-    {TL("PNG Image (*.png)"),                                                                                                                                                  ImageVideoFileExtension::PNG},
+    {TL("PNG Image (*.png)"),                                                                                                                                                   ImageVideoFileExtension::PNG},
     {TL("JPEG Image (*.jpg,*.jpeg)"),                                                                                                                                           ImageVideoFileExtension::JPG},
     {TL("TIFF Image (*.tif,*.tiff)"),                                                                                                                                           ImageVideoFileExtension::TIF},
     {TL("Postscript (*.ps)"),                                                                                                                                                   ImageVideoFileExtension::PS},
@@ -1743,9 +1748,9 @@ StringBijection<ImageVideoFileExtension>::Entry SUMOXMLDefinitions::imageVideoFi
 };
 
 StringBijection<OutputFileExtension>::Entry SUMOXMLDefinitions::outputFileExtensionValues[] = {
-    {TL("XML files (*.xml)"),   OutputFileExtension::XML},
-    {TL("Txt files (*.txt)"),   OutputFileExtension::TXT},
-    {TL("All files (*)"),       OutputFileExtension::ALL} //< must be the last one
+    {TL("XML files (*.xml)"),           OutputFileExtension::XML},
+    {TL("Plain text files (*.txt)"),    OutputFileExtension::TXT},
+    {TL("All files (*)"),               OutputFileExtension::ALL} //< must be the last one
 };
 
 StringBijection<ViewSettingsFileExtension>::Entry SUMOXMLDefinitions::viewSettingsFileExtensionValues[] = {
@@ -1902,6 +1907,9 @@ StringBijection<XMLFileExtension> SUMOXMLDefinitions::XMLFileExtensions(
 
 StringBijection<TXTFileExtension> SUMOXMLDefinitions::TXTFileExtensions(
     SUMOXMLDefinitions::TXTFileExtensionValues, TXTFileExtension::ALL, false);
+
+StringBijection<CSVFileExtension> SUMOXMLDefinitions::CSVFileExtensions(
+    SUMOXMLDefinitions::CSVFileExtensionValues, CSVFileExtension::ALL, false);
 
 StringBijection<OSGFileExtension> SUMOXMLDefinitions::OSGFileExtensions(
     SUMOXMLDefinitions::OSGFileExtensionValues, OSGFileExtension::ALL, false);
