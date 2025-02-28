@@ -21,3 +21,6 @@ ticket15080
 
 # rail taxi simulation (driving a taxi on rails to work around #9812)
 ticket15907
+
+# stop fails to end
+ticket16271
