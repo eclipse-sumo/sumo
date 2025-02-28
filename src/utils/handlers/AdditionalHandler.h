@@ -29,8 +29,10 @@
 class AdditionalHandler : public CommonHandler {
 
 public:
-    /// @brief Constructor
-    AdditionalHandler();
+    /**@brief Constructor
+     * @param[in] filename Name of the parsed file
+     */
+    AdditionalHandler(const std::string& filename);
 
     /// @brief Destructor
     virtual ~AdditionalHandler();
@@ -738,6 +740,9 @@ private:
 
     /// @brief check detect persons
     bool checkDetectPersons(const SumoXMLTag currentTag, const std::string& id, const std::string& detectPersons);
+
+    /// @brief invalidate default onstructor
+    AdditionalHandler() = delete;
 
     /// @brief invalidate copy constructor
     AdditionalHandler(const AdditionalHandler& s) = delete;

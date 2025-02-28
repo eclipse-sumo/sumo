@@ -30,7 +30,8 @@
 // method definitions
 // ===========================================================================
 
-MeanDataHandler::MeanDataHandler() {
+MeanDataHandler::MeanDataHandler(const std::string& filename) :
+    CommonHandler(filename) {
 }
 
 

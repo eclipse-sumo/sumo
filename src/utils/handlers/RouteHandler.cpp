@@ -37,7 +37,7 @@
 // ===========================================================================
 
 RouteHandler::RouteHandler(const std::string& filename, const bool hardFail) :
-    myFilename(filename),
+    CommonHandler(filename),
     myHardFail(hardFail),
     myFlowBeginDefault(string2time(OptionsCont::getOptions().getString("begin"))),
     myFlowEndDefault(string2time(OptionsCont::getOptions().getString("end"))) {

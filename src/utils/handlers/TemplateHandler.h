@@ -118,6 +118,9 @@ private:
     /// @brief invalid double in string format
     static const std::string INVALID_DOUBLE_STR;
 
+    /// @brief invalidate default onstructor
+    TemplateHandler() = delete;
+
     /// @brief invalid copy constructor
     TemplateHandler(const TemplateHandler& s) = delete;
 

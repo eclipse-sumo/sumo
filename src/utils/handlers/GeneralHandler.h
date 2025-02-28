@@ -70,7 +70,11 @@ private:
      * @todo Refactor/describe
      */
     void myEndElement(int element);
+
     /// @}
+
+    /// @brief invalidate default onstructor
+    GeneralHandler() = delete;
 
     /// @brief invalidate copy constructor
     GeneralHandler(const GeneralHandler& s) = delete;

@@ -36,10 +36,10 @@
 class DataHandler : public CommonHandler, private SUMOSAXHandler {
 
 public:
-    /** @brief Constructor
-     * @param[in] file Name of the parsed file
+    /**@brief Constructor
+     * @param[in] filename Name of the parsed file
      */
-    DataHandler(const std::string& file);
+    DataHandler(const std::string& filename);
 
     /// @brief Destructor
     ~DataHandler();
@@ -134,6 +134,9 @@ private:
 
     /// @brief check parents
     void checkParent(const SumoXMLTag currentTag, const SumoXMLTag parentTag, bool& ok);
+
+    /// @brief invalidate default onstructor
+    DataHandler() = delete;
 
     /// @brief invalidate copy constructor
     DataHandler(const DataHandler& s) = delete;

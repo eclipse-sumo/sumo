@@ -30,8 +30,9 @@
 // method definitions
 // ===========================================================================
 
-DataHandler::DataHandler(const std::string& file) :
-    SUMOSAXHandler(file) {
+DataHandler::DataHandler(const std::string& filename) :
+    CommonHandler(filename),
+    SUMOSAXHandler(filename) {
 }
 
 

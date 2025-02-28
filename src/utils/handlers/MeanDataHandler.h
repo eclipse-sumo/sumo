@@ -37,7 +37,7 @@ class MeanDataHandler : public CommonHandler {
 
 public:
     /// @brief Constructor
-    MeanDataHandler();
+    MeanDataHandler(const std::string& filename);
 
     /// @brief Destructor
     virtual ~MeanDataHandler();
@@ -84,6 +84,9 @@ private:
     void parseLaneMeanData(const SUMOSAXAttributes& attrs);
 
     /// @}
+
+    /// @brief invalidate default onstructor
+    MeanDataHandler() = delete;
 
     /// @brief invalidate copy constructor
     MeanDataHandler(const MeanDataHandler& s) = delete;

@@ -149,9 +149,6 @@ public:
     /// @}
 
 private:
-    /// @brief filename (needed for parsing vTypes)
-    const std::string myFilename;
-
     /// @brief enable or disable hardFail (stop parsing if parameter aren't correct)
     const bool myHardFail;
 
@@ -242,6 +239,9 @@ private:
     bool isOverFromToTAZs(const CommonXMLStructure::SumoBaseObject* sumoBaseObject) const;
 
     /// @}
+
+    /// @brief invalidate default onstructor
+    RouteHandler() = delete;
 
     /// @brief invalidate copy constructor
     RouteHandler(const RouteHandler& s) = delete;

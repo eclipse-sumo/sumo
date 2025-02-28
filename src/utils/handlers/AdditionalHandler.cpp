@@ -34,7 +34,9 @@
 // method definitions
 // ===========================================================================
 
-AdditionalHandler::AdditionalHandler() {}
+AdditionalHandler::AdditionalHandler(const std::string& filename) :
+    CommonHandler(filename) {
+}
 
 
 AdditionalHandler::~AdditionalHandler() {}

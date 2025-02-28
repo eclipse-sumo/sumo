@@ -30,7 +30,8 @@
 // method definitions
 // ===========================================================================
 
-CommonHandler::CommonHandler() {
+CommonHandler::CommonHandler(const std::string& filename) :
+    myFilename(filename) {
 }
 
 
