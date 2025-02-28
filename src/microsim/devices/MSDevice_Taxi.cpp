@@ -339,10 +339,10 @@ MSDevice_Taxi::dispatchShared(std::vector<const Reservation*> reservations) {
                 stop.triggered = false;
                 stop.containerTriggered = false;
                 stop.joinTriggered = false;
-                // prevent unauthorized/premature entry
-                const_cast<SUMOVehicleParameter::Stop&>(stop.pars).permitted.insert("");
                 myHolder.unregisterWaiting();
             }
+            // prevent unauthorized/premature entry
+            const_cast<SUMOVehicleParameter::Stop&>(stop.pars).permitted.insert("");
             while (myHolder.getStops().size() > 1) {
                 myHolder.abortNextStop(1);
             }
