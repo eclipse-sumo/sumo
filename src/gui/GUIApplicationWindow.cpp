@@ -1195,8 +1195,7 @@ GUIApplicationWindow::onCmdSaveConfig(FXObject*, FXSelector, void*) {
     if (!opendialog.execute() || !MFXUtils::userPermitsOverwritingWhenFileExists(this, opendialog.getFilename())) {
         return 1;
     }
-    std::string file = MFXUtils::assureExtension(opendialog.getFilename(),
-                       opendialog.getPatternText(opendialog.getCurrentPattern()).after('.').before(')')).text();
+    const std::string file = MFXUtils::assureExtension(opendialog).text();
     std::ofstream out(StringUtils::transcodeToLocal(file));
     if (out.good()) {
         OptionsCont::getOptions().writeConfiguration(out, true, false, false, file, true);
@@ -1310,9 +1309,7 @@ GUIApplicationWindow::onCmdSaveState(FXObject*, FXSelector, void*) {
     if (!opendialog.execute() || !MFXUtils::userPermitsOverwritingWhenFileExists(this, opendialog.getFilename())) {
         return 1;
     }
-
-    const std::string file = MFXUtils::assureExtension(opendialog.getFilename(),
-                             opendialog.getPatternText(opendialog.getCurrentPattern()).after('.').before(')')).text();
+    const std::string file = MFXUtils::assureExtension(opendialog).text();
     MSStateHandler::saveState(file, MSNet::getInstance()->getCurrentTimeStep(), false);
     setStatusBarText(TLF("Simulation state saved to '%'.", file));
     return 1;

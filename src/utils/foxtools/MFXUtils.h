@@ -89,12 +89,16 @@ public:
      *  extension is appended to the file name/path. Otherwise the
      *  file name/path remains as is.
      * The so obtained correct file name is returned.
-     * @param[in] filename The filename to evaluate
-     * @param[in] defaultExtension The default extension to use
+     * @param[in] openDialog the opened dialog
      * @return The corrected filename (with extension if no one was given
      */
-    static FXString assureExtension(const FXString& filename, const FXString& defaultExtension);
+    static FXString assureExtension(const FXFileDialog& openDialog);
 
+    /**@brief parse extensions
+     * @param[in] patternText the patternText used in dialog
+     * @return a vector with extensions
+     */
+    static std::vector<FXString> parseExtensions(FXString patternText);
 
     /** @brief Returns the file name to write
      *
@@ -108,13 +112,12 @@ public:
      *
      * @param[in] parent The window needed to display dialogs
      * @param[in] header Title of the save-dialog
-     * @param[in] extension The extension the file should have (must be in the form '.xxx'
+     * @param[in] extension The extension the file should have
      * @param[in] icon The icon the dialog should have
      * @param[in] currentFolder The string into which the information about the current folder shall be saved
      * @return The name of the file to write
      */
-    static FXString getFilename2Write(FXWindow* parent,
-                                      const FXString& header, const FXString& extensions,
+    static FXString getFilename2Write(FXWindow* parent, const FXString& header, const FXString& extensions,
                                       FXIcon* icon, FXString& currentFolder);
 
 

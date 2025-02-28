@@ -20,8 +20,9 @@
 #include <config.h>
 
 #include <utils/common/RGBColor.h>
-#include "MFXUtils.h"
+#include <utils/common/StringTokenizer.h>
 
+#include "MFXUtils.h"
 
 // ===========================================================================
 // method definitions
@@ -66,15 +67,48 @@ MFXUtils::getTitleText(const FXString& appname, FXString filename) {
 
 
 FXString
-MFXUtils::assureExtension(const FXString& filename, const FXString& defaultExtension) {
-    FXString ext = FXPath::extension(filename);
-    if (ext == "") {
-        if (filename.rfind('.') == filename.length() - 1) {
-            return filename + defaultExtension;
+MFXUtils::assureExtension(const FXFileDialog& openDialog) {
+    const auto extensions = parseExtensions(openDialog.getPatternText(openDialog.getCurrentPattern()));
+    const auto filename = openDialog.getFilename();
+    // iterate over all extension to check if is the same extension
+    for (const auto& extension : extensions) {
+        if (extension.length() < filename.length()) {
+            bool sameExtension = true;
+            for (auto i = 0; i < extension.length(); i++) {
+                if (filename[i + filename.length() - extension.length()] != extension[i]) {
+                    sameExtension = false;
+                }
+            }
+            if (sameExtension) {
+                return filename;
+            }
         }
-        return filename + "." + defaultExtension;
     }
-    return filename;
+    // in this point, we have to give an extension (if exist)
+    if (extensions.size() > 0) {
+        return filename + "." + extensions.front();
+    } else {
+        return filename;
+    }
+}
+
+
+std::vector<FXString>
+MFXUtils::parseExtensions(FXString patternText) {
+    std::vector<FXString> extensions;
+    // first take elementes between parentheses
+    patternText = patternText.after('(');
+    patternText = patternText.before(')');
+    // check files extension
+    if (patternText != "*") {
+        // split extensions
+        const auto extensionsStr = StringTokenizer(patternText.text(), ", ").getVector();
+        for (const auto& extensionStr : extensionsStr) {
+            FXString extension = extensionStr.c_str();
+            extensions.push_back(extension.after('.'));
+        }
+    }
+    return extensions;
 }
 
 
@@ -92,12 +126,12 @@ MFXUtils::getFilename2Write(FXWindow* parent, const FXString& header, const FXSt
     if (!opendialog.execute()) {
         return "";
     }
-    FXString file = assureExtension(opendialog.getFilename(), extensions.after('.')).text();
-    if (!userPermitsOverwritingWhenFileExists(parent, file)) {
+    const auto filename = assureExtension(opendialog);
+    if (!userPermitsOverwritingWhenFileExists(parent, filename)) {
         return "";
     }
     currentFolder = opendialog.getDirectory();
-    return file;
+    return filename;
 }
 
 

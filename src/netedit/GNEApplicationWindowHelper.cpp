@@ -2689,8 +2689,7 @@ GNEApplicationWindowHelper::openFileDialog(FXWindow* window, const std::string t
                 // udpate current folder
                 gCurrentFolder = opendialog.getDirectory();
                 // assureExtension
-                return MFXUtils::assureExtension(opendialog.getFilename(),
-                                                 opendialog.getPatternText(opendialog.getCurrentPattern()).after('.').before(')')).text();
+                return MFXUtils::assureExtension(opendialog).text();
             } else {
                 // return empty file
                 return "";
