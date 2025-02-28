@@ -55,6 +55,7 @@
 #include <microsim/traffic_lights/MSRailSignalControl.h>
 #include <microsim/traffic_lights/MSDriveWay.h>
 #include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
+#include <microsim/devices/MSDevice_Taxi.h>
 #include <mesosim/MELoop.h>
 #include "MSNet.h"
 #include "MSVehicleType.h"
@@ -2306,7 +2307,9 @@ MSLane::executeMovements(const SUMOTime t) {
                                        && firstNotStopped->succEdge(1) != nullptr
                                        && firstNotStopped->getEdge()->allowedLanes(*firstNotStopped->succEdge(1), firstNotStopped->getVClass()) == nullptr);
 
-            const bool r1 = ttt > 0 && firstNotStopped->getWaitingTime() > ttt && !disconnected;
+            const bool r1 = ttt > 0 && firstNotStopped->getWaitingTime() > ttt && !disconnected
+                            // never teleport a taxi on the last edge of it's route (where it would exit the simulation)
+                            && (firstNotStopped->getDevice(typeid(MSDevice_Taxi)) == nullptr || firstNotStopped->getRoutePosition() < firstNotStopped->getArrivalPosition());
             const bool r2 = !r1 && MSGlobals::gTimeToGridlockHighways > 0
                             && firstNotStopped->getWaitingTime() > MSGlobals::gTimeToGridlockHighways
                             && getSpeedLimit() > MSGlobals::gGridlockHighwaysSpeed && wrongLane
