@@ -68,6 +68,7 @@ public:
     virtual ~MSStopOut();
 
     void stopBlocked(const SUMOVehicle* veh, SUMOTime time);
+    void stopNotStarted(const SUMOVehicle* veh);
     void stopStarted(const SUMOVehicle* veh, int numPersons, int numContainers, SUMOTime time);
 
     void loadedPersons(const SUMOVehicle* veh, int n);

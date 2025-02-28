@@ -72,6 +72,13 @@ MSStopOut::stopBlocked(const SUMOVehicle* veh, SUMOTime time) {
 
 
 void
+MSStopOut::stopNotStarted(const SUMOVehicle* veh) {
+    assert(veh != nullptr);
+    myStopped.erase(veh);
+}
+
+
+void
 MSStopOut::stopStarted(const SUMOVehicle* veh, int numPersons, int numContainers, SUMOTime time) {
     assert(veh != nullptr);
     if (myStopped.count(veh) == 0) {

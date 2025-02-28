@@ -5769,6 +5769,10 @@ MSVehicle::leaveLane(const MSMoveReminder::Notification reason, const MSLane* ap
             if (myStops.front().getSpeed() <= 0) {
                 WRITE_WARNINGF(TL("Vehicle '%' skips stop on lane '%' time=%."), getID(), myStops.front().lane->getID(),
                                time2string(MSNet::getInstance()->getCurrentTimeStep()))
+                    if (MSStopOut::active()) {
+                        // clean up if stopBlocked was called
+                        MSStopOut::getInstance()->stopNotStarted(this);
+                    }
                 myStops.pop_front();
             } else {
                 MSStop& stop = myStops.front();
