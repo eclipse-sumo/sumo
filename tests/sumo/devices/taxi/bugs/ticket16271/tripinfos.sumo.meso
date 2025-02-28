@@ -46,9 +46,15 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 </sumoConfiguration>
 -->
 
-<stops xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/stopinfo_file.xsd">
-    <stopinfo id="trip_0" type="taxi" edge="D1E1" pos="190.40" parking="1" started="13.71" ended="15.00" busStop="B" initialPersons="0" loadedPersons="1" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
-    <stopinfo id="trip_0" type="taxi" edge="B1C1" pos="95.20" parking="1" started="90.10" ended="151.00" busStop="A" initialPersons="1" loadedPersons="0" unloadedPersons="1" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
-    <stopinfo id="trip_0" type="taxi" edge="B1C1" pos="95.20" parking="1" started="150.10" ended="152.00" busStop="A" initialPersons="0" loadedPersons="1" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
-    <stopinfo id="blocker" type="DEFAULT_VEHTYPE" edge="B1C1" pos="95.20" parking="0" started="106.85" ended="214.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
-</stops>
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <personinfo id="p0" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="91.00" waitingTime="14.00" timeLoss="0.00" traveltime="77.00">
+        <stop duration="0.00" arrival="0.00" arrivalPos="220.98" actType="waiting"/>
+        <ride waitingTime="14.00" vehicle="trip_0" depart="14.00" arrival="91.00" arrivalPos="95.20" duration="77.00" routeLength="1047.20" timeLoss="0.00"/>
+    </personinfo>
+    <tripinfo id="blocker" depart="100.00" departLane="B1C1_1" departPos="0.00" departSpeed="13.89" departDelay="0.00" arrival="221.00" arrivalLane="B1C1_1" arrivalPos="285.60" arrivalSpeed="13.89" duration="121.00" routeLength="285.60" waitingTime="0.00" waitingCount="0" stopTime="100.00" timeLoss="100.00" rerouteNo="0" devices="tripinfo_blocker routing_blocker" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <personinfo id="p1" depart="110.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="231.00" waitingTime="41.00" timeLoss="0.44" traveltime="190.00">
+        <stop duration="0.00" arrival="110.00" arrivalPos="92.23" actType="waiting"/>
+        <ride waitingTime="41.00" vehicle="trip_0" depart="151.00" arrival="250.00" arrivalPos="95.20" duration="99.00" routeLength="571.20" timeLoss="0.00"/>
+        <walk depart="250.00" departPos="95.20" arrival="341.00" arrivalPos="220.98" duration="91.00" routeLength="125.78" timeLoss="0.44" maxSpeed="1.39"/>
+    </personinfo>
+</tripinfos>
