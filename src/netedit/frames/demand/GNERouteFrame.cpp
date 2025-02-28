@@ -24,6 +24,7 @@
 #include <netedit/elements/demand/GNERoute.h>
 #include <netedit/frames/GNEAttributesEditor.h>
 #include <netedit/frames/GNEFrame.h>
+#include <netedit/frames/GNEPathCreator.h>
 #include <netedit/frames/GNEPathLegendModule.h>
 #include <utils/gui/div/GUIDesigns.h>
 

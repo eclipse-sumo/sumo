@@ -28,8 +28,6 @@
 
 class GNEAttributesEditor;
 class GNEDemandElement;
-class GNEVTypeDistributionsDialog;
-class GNEVehicle;
 class MFXComboBoxIcon;
 
 // ===========================================================================

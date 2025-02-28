@@ -20,7 +20,6 @@
 #pragma once
 #include <config.h>
 
-#include <netedit/elements/demand/GNERouteHandler.h>
 #include <netedit/frames/GNEFrame.h>
 
 // ===========================================================================
@@ -32,6 +31,7 @@ class GNEDemandElementSelector;
 class GNEPlanCreator;
 class GNEPlanCreatorLegend;
 class GNEPlanSelector;
+class GNETagSelector;
 
 // ===========================================================================
 // class definitions

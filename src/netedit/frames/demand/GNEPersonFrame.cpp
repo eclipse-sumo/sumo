@@ -26,6 +26,7 @@
 #include <netedit/elements/demand/GNERouteHandler.h>
 #include <netedit/frames/GNEAttributesEditor.h>
 #include <netedit/frames/GNEDemandSelector.h>
+#include <netedit/frames/GNEPlanCreator.h>
 #include <netedit/frames/GNEPlanCreatorLegend.h>
 #include <utils/vehicle/SUMOVehicleParserHelper.h>
 #include <utils/xml/SUMOSAXAttributesImpl_Cached.h>

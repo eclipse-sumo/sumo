@@ -28,6 +28,7 @@
 
 #include <netbuild/NBAlgorithms.h>
 #include <netbuild/NBNetBuilder.h>
+#include <netedit/GNETagProperties.h>
 #include <netedit/changes/GNEChange_Additional.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/changes/GNEChange_Connection.h>

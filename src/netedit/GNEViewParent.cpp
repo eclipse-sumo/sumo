@@ -21,6 +21,7 @@
 // structures than to write everything from scratch.
 /****************************************************************************/
 
+#include <netedit/GNETagProperties.h>
 #include <netedit/dialogs/GNEDialogACChooser.h>
 #include <netedit/elements/network/GNEWalkingArea.h>
 #include <netedit/frames/common/GNEDeleteFrame.h>

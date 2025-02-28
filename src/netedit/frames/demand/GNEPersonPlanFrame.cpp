@@ -26,6 +26,7 @@
 #include <netedit/frames/GNEAttributesEditor.h>
 #include <netedit/frames/GNEDemandSelector.h>
 #include <netedit/frames/GNEElementTree.h>
+#include <netedit/frames/GNEPlanCreator.h>
 #include <netedit/frames/GNEPlanCreatorLegend.h>
 
 #include "GNEPersonPlanFrame.h"

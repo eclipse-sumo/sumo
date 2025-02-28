@@ -21,10 +21,6 @@
 #include <config.h>
 
 #include <netedit/frames/GNEFrame.h>
-#include <netedit/elements/demand/GNERouteHandler.h>
-#include <netedit/frames/GNETagSelector.h>
-#include <netedit/frames/GNEDemandSelector.h>
-#include <netedit/frames/GNEPathLegendModule.h>
 
 // ===========================================================================
 // class declaration
@@ -32,13 +28,15 @@
 
 class MFXDynamicLabel;
 class GNEAttributesEditor;
+class GNEDemandElementSelector;
+class GNETagSelector;
+class GNEPathLegendModule;
+class GNEPathCreator;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/**
- * @class GNEVehicleFrame
- */
+
 class GNEVehicleFrame : public GNEFrame {
 
 public:

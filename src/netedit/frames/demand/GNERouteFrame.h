@@ -20,7 +20,7 @@
 #pragma once
 #include <config.h>
 
-#include <netedit/elements/demand/GNERouteHandler.h>
+#include <netedit/frames/GNEFrame.h>
 
 // ===========================================================================
 // class definitions
@@ -29,6 +29,7 @@
 class GNEAttributesEditor;
 class GNEPathLegendModule;
 class GNERoute;
+class GNEPathCreator;
 
 // ===========================================================================
 // class definitions

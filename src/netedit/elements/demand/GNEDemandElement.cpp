@@ -20,7 +20,10 @@
 
 #include <netedit/GNENet.h>
 #include <netedit/GNESegment.h>
+#include <netedit/GNETagProperties.h>
 #include <netedit/GNEViewParent.h>
+#include <netedit/frames/GNEPathCreator.h>
+#include <netedit/frames/GNEPlanSelector.h>
 #include <netedit/frames/common/GNESelectorFrame.h>
 #include <netedit/frames/demand/GNEContainerFrame.h>
 #include <netedit/frames/demand/GNEContainerPlanFrame.h>
@@ -33,7 +36,7 @@
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 
 #include "GNEDemandElement.h"
-
+#include "GNERouteHandler.h"
 
 // ===========================================================================
 // member method definitions

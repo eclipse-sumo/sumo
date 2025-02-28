@@ -20,15 +20,7 @@
 #pragma once
 #include <config.h>
 
-#include <netedit/GNENetHelper.h>
-#include <netedit/frames/GNEPathCreator.h>
-#include <netedit/frames/GNEPlanCreator.h>
-#include <utils/common/SUMOVehicleClass.h>
 #include <utils/handlers/RouteHandler.h>
-#include <utils/vehicle/SUMORouteHandler.h>
-#include <utils/xml/SUMOSAXAttributes.h>
-#include <utils/xml/SUMOSAXHandler.h>
-#include <utils/xml/SUMOXMLDefinitions.h>
 
 // ===========================================================================
 // class declarations
@@ -38,7 +30,9 @@ class GNEAttributesEditor;
 class GNEContainer;
 class GNEDemandElement;
 class GNEEdge;
+class GNEJunction;
 class GNEPerson;
+class GNEPlanCreator;
 class GNETAZ;
 class GNEUndoList;
 class GNEVehicle;
