@@ -1,4 +1,1 @@
-Warning: Teleporting vehicle 'taxi'; waited too long (blocked), lane='A0B0_1', time=410.00.
-Warning: Vehicle 'taxi' teleports beyond arrival edge 'A0B0', time=410.00.
-Warning: Vehicle 'taxi' skips stop on lane 'A0B0_1' time=410.00.
-Warning: Person 'p1' aborted waiting for taxi at edge 'A1B1'.
+Warning: Vehicle 'taxi' aborted waiting for a person that will never come.
