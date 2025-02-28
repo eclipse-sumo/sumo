@@ -20,7 +20,6 @@ from __future__ import absolute_import
 import os
 import sys
 from collections import defaultdict
-from math import fabs, degrees
 
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 import sumolib  # noqa
@@ -50,8 +49,9 @@ def get_options(args=None):
     return options
 
 
-MISSING = defaultdict(lambda : 0)
-MISSING_JUNCTIONS = defaultdict(lambda : 0)
+MISSING = defaultdict(lambda: 0)
+MISSING_JUNCTIONS = defaultdict(lambda: 0)
+
 
 def get_mapper(lookup_attr, missing):
     def mapper(options, origID):
@@ -61,8 +61,10 @@ def get_mapper(lookup_attr, missing):
         return newID
     return mapper
 
+
 remap_edge = get_mapper('lookup', MISSING)
 remap_junction = get_mapper('junction_lookup', MISSING_JUNCTIONS)
+
 
 def remap_lane(options, origID):
     origEdge, index = origID.rsplit("_", 1)
@@ -72,6 +74,7 @@ def remap_lane(options, origID):
     else:
         return None
 
+
 def remap_edges(options, origIDs):
     newEdges = [remap_edge(options, e) for e in origIDs.split()]
     if None in newEdges:
@@ -79,16 +82,18 @@ def remap_edges(options, origIDs):
     else:
         return ' '.join(newEdges)
 
+
 IDS = {
-        'edge': remap_edge,
-        'attr_from': remap_edge,
-        'to': remap_edge,
-        'edges' : remap_edges,
-        'via' : remap_edges,
-        'fromJunction': remap_junction,
-        'toJunction': remap_junction,
-        'lane': remap_lane,
-        }
+    'edge': remap_edge,
+    'attr_from': remap_edge,
+    'to': remap_edge,
+    'edges': remap_edges,
+    'via': remap_edges,
+    'fromJunction': remap_junction,
+    'toJunction': remap_junction,
+    'lane': remap_lane,
+}
+
 
 def remap(options, obj):
     success = True
@@ -116,6 +121,7 @@ def addOrigId(lookup, origId, obj):
                 obj.name, obj.getID(), origId), file=sys.stderr)
         else:
             lookup[origId] = obj.getID()
+
 
 def build_lookup(net):
     lookup = {}
