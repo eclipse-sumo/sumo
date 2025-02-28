@@ -38,7 +38,6 @@
 
 GNEPersonFrame::GNEPersonFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
     GNEFrame(viewParent, viewNet, TL("Persons")),
-    myRouteHandler("", viewNet->getNet(), myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), false),
     myPersonBaseObject(new CommonXMLStructure::SumoBaseObject(nullptr)) {
 
     // create tag Selector module for persons
@@ -252,9 +251,12 @@ GNEPersonFrame::createPath(const bool /*useLastRoute*/) {
                                         myPlanSelector->getCurrentPlanTagProperties()->getTagStr());
         // create person
         GNEDemandElement* person = buildPerson();
+        // declare route handler
+        GNERouteHandler routeHandler(myViewNet->getNet(), person->getAttribute(GNE_ATTR_DEMAND_FILE),
+                                     myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), false);
         // check if person and person plan can be created
-        if (myRouteHandler.buildPersonPlan(myPlanSelector->getCurrentPlanTemplate(),
-                                           person, myPersonPlanAttributesEditor, myPlanCreator, true)) {
+        if (routeHandler.buildPersonPlan(myPlanSelector->getCurrentPlanTemplate(),
+                                         person, myPersonPlanAttributesEditor, myPlanCreator, true)) {
             // end undo-redo operation
             myViewNet->getUndoList()->end();
             // abort path creation
@@ -293,6 +295,9 @@ GNEPersonFrame::buildPerson() {
     myPersonAttributesEditor->fillSumoBaseObject(myPersonBaseObject);
     // add pType parameter
     myPersonBaseObject->addStringAttribute(SUMO_ATTR_TYPE, myTypeSelector->getCurrentDemandElement()->getID());
+    // declare route handler
+    GNERouteHandler routeHandler(myViewNet->getNet(), myPersonBaseObject->getStringAttribute(GNE_ATTR_DEMAND_FILE),
+                                 myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), false);
     // check if we're creating a person or personFlow
     if (personTag == SUMO_TAG_PERSON) {
         // Add parameter departure
@@ -307,7 +312,7 @@ GNEPersonFrame::buildPerson() {
         if (personParameters) {
             myPersonBaseObject->setVehicleParameter(personParameters);
             // parse vehicle
-            myRouteHandler.parseSumoBaseObject(myPersonBaseObject);
+            routeHandler.parseSumoBaseObject(myPersonBaseObject);
             // delete personParameters
             delete personParameters;
         }
@@ -328,7 +333,7 @@ GNEPersonFrame::buildPerson() {
         if (personFlowParameters) {
             myPersonBaseObject->setVehicleParameter(personFlowParameters);
             // parse vehicle
-            myRouteHandler.parseSumoBaseObject(myPersonBaseObject);
+            routeHandler.parseSumoBaseObject(myPersonBaseObject);
             // delete personParameters
             delete personFlowParameters;
         }

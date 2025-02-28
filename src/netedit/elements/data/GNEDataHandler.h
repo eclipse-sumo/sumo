@@ -32,7 +32,6 @@ class GNENet;
 // class definitions
 // ===========================================================================
 
-/// @class GNEDataHandler
 class GNEDataHandler : public DataHandler {
 
 public:
@@ -107,6 +106,9 @@ protected:
     bool checkDuplicatedDataSet(const std::string& id);
 
 private:
+    /// @brief invalidate default constructor
+    GNEDataHandler() = delete;
+
     /// @brief invalidate copy constructor
     GNEDataHandler(const GNEDataHandler& s) = delete;
 

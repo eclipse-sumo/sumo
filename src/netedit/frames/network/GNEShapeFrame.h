@@ -138,9 +138,6 @@ protected:
     /// @brief Tag selected in GNETagSelector
     void tagSelected();
 
-    /// @brief add shape (using base shape)
-    void addShape();
-
     /// @brief process click for Polygons
     bool processClickPolygons(const Position& clickedPosition, bool& updateTemporalShape);
 

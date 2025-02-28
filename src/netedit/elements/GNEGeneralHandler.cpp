@@ -28,9 +28,9 @@
 
 GNEGeneralHandler::GNEGeneralHandler(GNENet* net, const std::string& file, const bool allowUndoRedo, const bool overwrite) :
     GeneralHandler(file),
-    myAdditionalHandler(net, allowUndoRedo, overwrite),
-    myDemandHandler(file, net, allowUndoRedo, overwrite),
-    myMeanDataHandler(net, allowUndoRedo, overwrite) {
+    myAdditionalHandler(net, file, allowUndoRedo, overwrite),
+    myDemandHandler(net, file, allowUndoRedo, overwrite),
+    myMeanDataHandler(net, file, allowUndoRedo, overwrite) {
 }
 
 

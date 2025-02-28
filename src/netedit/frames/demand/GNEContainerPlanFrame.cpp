@@ -35,8 +35,7 @@
 // ===========================================================================
 
 GNEContainerPlanFrame::GNEContainerPlanFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
-    GNEFrame(viewParent, viewNet, TL("ContainerPlans")),
-    myRouteHandler("", viewNet->getNet(), myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), false) {
+    GNEFrame(viewParent, viewNet, TL("ContainerPlans")) {
 
     // create container types selector module
     myContainerSelector = new GNEDemandElementSelector(this, {GNETagProperties::TagType::CONTAINER});
@@ -242,9 +241,12 @@ GNEContainerPlanFrame::createPath(const bool /*useLastRoute*/) {
     if (!myContainerPlanAttributesEditor->checkAttributes(true)) {
         return false;
     } else {
+        // declare route handler
+        GNERouteHandler routeHandler(myViewNet->getNet(), myContainerSelector->getCurrentDemandElement()->getAttribute(GNE_ATTR_DEMAND_FILE),
+                                     myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), false);
         // check if container plan can be created
-        if (myRouteHandler.buildContainerPlan(myPlanSelector->getCurrentPlanTemplate(), myContainerSelector->getCurrentDemandElement(),
-                                              myContainerPlanAttributesEditor, myPlanCreator, false)) {
+        if (routeHandler.buildContainerPlan(myPlanSelector->getCurrentPlanTemplate(), myContainerSelector->getCurrentDemandElement(),
+                                            myContainerPlanAttributesEditor, myPlanCreator, false)) {
             // refresh GNEElementTree
             myContainerHierarchy->refreshHierarchicalElementTree();
             // abort path creation

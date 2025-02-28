@@ -195,8 +195,11 @@ GNEShapeFrame::GEOPOICreator::onCmdCreateGEOPOI(FXObject*, FXSelector, void*) {
             myShapeFrameParent->myBaseShape->addDoubleAttribute(SUMO_ATTR_LAT, geoPos.y());
             // set GEO Position as true
             myShapeFrameParent->myBaseShape->addBoolAttribute(SUMO_ATTR_GEO, true);
-            // add shape
-            myShapeFrameParent->addShape();
+            // declare additional handler
+            GNEAdditionalHandler additionalHandler(myShapeFrameParent->myViewNet->getNet(), myShapeFrameParent->myBaseShape->getStringAttribute(GNE_ATTR_ADDITIONAL_FILE),
+                                                   myShapeFrameParent->myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), false);
+            // build shape
+            additionalHandler.parseSumoBaseObject(myShapeFrameParent->myBaseShape);
             // check if view has to be centered over created GEO POI
             if (myCenterViewAfterCreationCheckButton->getCheck() == TRUE) {
                 // create a boundary over given GEO Position and center view over it
@@ -342,8 +345,11 @@ GNEShapeFrame::shapeDrawed() {
         myBaseShape->addPositionVectorAttribute(SUMO_ATTR_SHAPE, temporalShape);
         // obtain geo (by default false)
         myBaseShape->addBoolAttribute(SUMO_ATTR_GEO, false);
-        // add shape
-        addShape();
+        // declare additional handler
+        GNEAdditionalHandler additionalHandler(myViewNet->getNet(), myBaseShape->getStringAttribute(GNE_ATTR_ADDITIONAL_FILE),
+                                               myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), false);
+        // build shape
+        additionalHandler.parseSumoBaseObject(myBaseShape);
         // refresh shape attributes
         myShapeAttributesEditor->refreshAttributesEditor();
         // shape added, then return true;
@@ -380,15 +386,6 @@ GNEShapeFrame::tagSelected() {
 }
 
 
-void
-GNEShapeFrame::addShape() {
-    // declare additional handler
-    GNEAdditionalHandler additionalHandler(myViewNet->getNet(), myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), false);
-    // build shape
-    additionalHandler.parseSumoBaseObject(myBaseShape);
-}
-
-
 bool
 GNEShapeFrame::processClickPolygons(const Position& clickedPosition, bool& updateTemporalShape) {
     if (myDrawingShape->isDrawing()) {
@@ -422,8 +419,11 @@ GNEShapeFrame::processClickPOI(SumoXMLTag POITag, const Position& clickedPositio
     myBaseShape->addDoubleAttribute(SUMO_ATTR_Y, clickedPosition.y());
     // set GEO Position as false (because we have created POI clicking over View
     myBaseShape->addBoolAttribute(SUMO_ATTR_GEO, false);
-    // add shape
-    addShape();
+    // declare additional handler
+    GNEAdditionalHandler additionalHandler(myViewNet->getNet(), myBaseShape->getStringAttribute(GNE_ATTR_ADDITIONAL_FILE),
+                                           myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), false);
+    // build shape
+    additionalHandler.parseSumoBaseObject(myBaseShape);
     // refresh shape attributes
     myShapeAttributesEditor->refreshAttributesEditor();
     // shape added, then return true
@@ -449,8 +449,11 @@ GNEShapeFrame::processClickPOIGeo(const Position& clickedPosition) {
     myBaseShape->addDoubleAttribute(SUMO_ATTR_LAT, GEOPos.y());
     // set GEO Position as false (because we have created POI clicking over View
     myBaseShape->addBoolAttribute(SUMO_ATTR_GEO, true);
-    // add shape
-    addShape();
+    // declare additional handler
+    GNEAdditionalHandler additionalHandler(myViewNet->getNet(), myBaseShape->getStringAttribute(GNE_ATTR_ADDITIONAL_FILE),
+                                           myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), false);
+    // build shape
+    additionalHandler.parseSumoBaseObject(myBaseShape);
     // refresh shape attributes
     myShapeAttributesEditor->refreshAttributesEditor();
     // shape added, then return true
@@ -477,8 +480,11 @@ GNEShapeFrame::processClickPOILanes(const GNEViewNetHelper::ViewObjectsSelector&
     myBaseShape->addStringAttribute(SUMO_ATTR_LANE, viewObjects.getLaneFront()->getID());
     // obtain position over lane
     myBaseShape->addDoubleAttribute(SUMO_ATTR_POSITION, viewObjects.getLaneFront()->getLaneShape().nearest_offset_to_point2D(myViewNet->snapToActiveGrid(myViewNet->getPositionInformation())) / viewObjects.getLaneFront()->getLengthGeometryFactor());
-    // add shape
-    addShape();
+    // declare additional handler
+    GNEAdditionalHandler additionalHandler(myViewNet->getNet(), myBaseShape->getStringAttribute(GNE_ATTR_ADDITIONAL_FILE),
+                                           myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), false);
+    // build shape
+    additionalHandler.parseSumoBaseObject(myBaseShape);
     // refresh shape attributes
     myShapeAttributesEditor->refreshAttributesEditor();
     // shape added, then return true

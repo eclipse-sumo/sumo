@@ -37,7 +37,7 @@ class GNEMeanDataHandler : public MeanDataHandler {
 
 public:
     /// @brief Constructor
-    GNEMeanDataHandler(GNENet* net, const bool allowUndoRedo, const bool overwrite);
+    GNEMeanDataHandler(GNENet* net, const std::string& filename, const bool allowUndoRedo, const bool overwrite);
 
     /// @brief Destructor
     virtual ~GNEMeanDataHandler();
@@ -88,6 +88,9 @@ protected:
     bool checkExcludeEmpty(const SumoXMLTag tag, const std::string& id, const std::string& excludeEmpty);
 
 private:
+    /// @brief invalidate default onstructor
+    GNEMeanDataHandler() = delete;
+
     /// @brief invalidate copy constructor
     GNEMeanDataHandler(const GNEMeanDataHandler& s) = delete;
 

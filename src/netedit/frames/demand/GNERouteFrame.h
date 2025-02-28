@@ -137,9 +137,6 @@ protected:
     bool createPath(const bool useLastRoute);
 
 private:
-    /// @brief route handler
-    GNERouteHandler myRouteHandler;
-
     /// @brief route base object
     CommonXMLStructure::SumoBaseObject* myRouteBaseObject = nullptr;
 

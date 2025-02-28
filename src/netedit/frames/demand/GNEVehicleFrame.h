@@ -121,9 +121,6 @@ protected:
     bool buildVehicleOverRoute(SumoXMLTag vehicleTag, GNEDemandElement* route);
 
 private:
-    /// @brief route handler
-    GNERouteHandler myRouteHandler;
-
     /// @brief vehicle base object
     CommonXMLStructure::SumoBaseObject* myVehicleBaseObject = nullptr;
 

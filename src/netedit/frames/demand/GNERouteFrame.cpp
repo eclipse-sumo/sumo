@@ -184,7 +184,6 @@ GNERouteFrame::RouteModeSelector::onCmdSelectVClass(FXObject*, FXSelector, void*
 
 GNERouteFrame::GNERouteFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
     GNEFrame(viewParent, viewNet, TL("Routes")),
-    myRouteHandler("", myViewNet->getNet(), myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), false),
     myRouteBaseObject(new CommonXMLStructure::SumoBaseObject(nullptr)) {
 
     // create route mode Selector module
@@ -274,8 +273,11 @@ GNERouteFrame::createPath(const bool /*useLastRoute*/) {
         }
         // set edges in route base object
         myRouteBaseObject->addStringListAttribute(SUMO_ATTR_EDGES, edges);
+        // declare route handler
+        GNERouteHandler routeHandler(myViewNet->getNet(), myRouteBaseObject->getStringAttribute(GNE_ATTR_DEMAND_FILE),
+                                     myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), false);
         // create route
-        myRouteHandler.parseSumoBaseObject(myRouteBaseObject);
+        routeHandler.parseSumoBaseObject(myRouteBaseObject);
         // abort path creation
         myPathCreator->abortPathCreation();
         // refresh route attributes

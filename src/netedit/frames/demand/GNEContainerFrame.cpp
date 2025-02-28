@@ -38,7 +38,6 @@
 
 GNEContainerFrame::GNEContainerFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
     GNEFrame(viewParent, viewNet, TL("Containers")),
-    myRouteHandler("", viewNet->getNet(), myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), false),
     myContainerBaseObject(new CommonXMLStructure::SumoBaseObject(nullptr)) {
 
     // create tag Selector module for containers
@@ -254,9 +253,12 @@ GNEContainerFrame::createPath(const bool /*useLastRoute*/) {
                                         myPlanSelector->getCurrentPlanTagProperties()->getTagStr());
         // create container
         GNEDemandElement* container = buildContainer();
+        // declare route handler
+        GNERouteHandler routeHandler(myViewNet->getNet(), container->getAttribute(GNE_ATTR_DEMAND_FILE),
+                                     myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), false);
         // check if container and container plan can be created
-        if (myRouteHandler.buildContainerPlan(myPlanSelector->getCurrentPlanTemplate(),
-                                              container, myContainerPlanAttributesEditor, myPlanCreator, true)) {
+        if (routeHandler.buildContainerPlan(myPlanSelector->getCurrentPlanTemplate(),
+                                            container, myContainerPlanAttributesEditor, myPlanCreator, true)) {
             // end undo-redo operation
             myViewNet->getUndoList()->end();
             // abort path creation
@@ -295,6 +297,9 @@ GNEContainerFrame::buildContainer() {
     myContainerAttributesEditor->fillSumoBaseObject(myContainerBaseObject);
     // add pType parameter
     myContainerBaseObject->addStringAttribute(SUMO_ATTR_TYPE, myTypeSelector->getCurrentDemandElement()->getID());
+    // declare route handler
+    GNERouteHandler routeHandler(myViewNet->getNet(), myContainerBaseObject->getStringAttribute(GNE_ATTR_DEMAND_FILE),
+                                 myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), false);
     // check if we're creating a container or containerFlow
     if (containerTag == SUMO_TAG_CONTAINER) {
         // Add parameter departure
@@ -309,7 +314,7 @@ GNEContainerFrame::buildContainer() {
         if (containerParameters) {
             myContainerBaseObject->setVehicleParameter(containerParameters);
             // parse vehicle
-            myRouteHandler.parseSumoBaseObject(myContainerBaseObject);
+            routeHandler.parseSumoBaseObject(myContainerBaseObject);
             // delete containerParameters
             delete containerParameters;
         }
@@ -330,7 +335,7 @@ GNEContainerFrame::buildContainer() {
         if (containerFlowParameters) {
             myContainerBaseObject->setVehicleParameter(containerFlowParameters);
             // parse vehicle
-            myRouteHandler.parseSumoBaseObject(myContainerBaseObject);
+            routeHandler.parseSumoBaseObject(myContainerBaseObject);
             // delete containerParameters
             delete containerFlowParameters;
         }

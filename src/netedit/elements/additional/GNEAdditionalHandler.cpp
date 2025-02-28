@@ -68,7 +68,8 @@
 // GNEAdditionalHandler method definitions
 // ===========================================================================
 
-GNEAdditionalHandler::GNEAdditionalHandler(GNENet* net, const bool allowUndoRedo, const bool overwrite) :
+GNEAdditionalHandler::GNEAdditionalHandler(GNENet* net, const std::string& filename, const bool allowUndoRedo, const bool overwrite) :
+    AdditionalHandler(filename),
     myNet(net),
     myAllowUndoRedo(allowUndoRedo),
     myOverwrite(overwrite) {
@@ -2116,13 +2117,6 @@ GNEAdditionalHandler::checkElement(const SumoXMLTag tag, GNEAdditional* addition
     } else {
         return true;
     }
-}
-
-
-GNEAdditionalHandler::GNEAdditionalHandler() :
-    myNet(nullptr),
-    myAllowUndoRedo(false),
-    myOverwrite(false) {
 }
 
 // ===========================================================================

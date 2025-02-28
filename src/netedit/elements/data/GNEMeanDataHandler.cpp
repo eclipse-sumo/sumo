@@ -33,7 +33,8 @@
 // member method definitions
 // ===========================================================================
 
-GNEMeanDataHandler::GNEMeanDataHandler(GNENet* net, const bool allowUndoRedo, const bool overwrite) :
+GNEMeanDataHandler::GNEMeanDataHandler(GNENet* net, const std::string& filename, const bool allowUndoRedo, const bool overwrite) :
+    MeanDataHandler(filename),
     myNet(net),
     myAllowUndoRedo(allowUndoRedo),
     myOverwrite(overwrite) {

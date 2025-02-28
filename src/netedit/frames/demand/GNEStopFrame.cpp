@@ -118,7 +118,6 @@ GNEStopFrame::HelpCreation::updateHelpCreation() {
 
 GNEStopFrame::GNEStopFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
     GNEFrame(viewParent, viewNet, TL("Stops")),
-    myRouteHandler("", viewNet->getNet(), myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), false),
     myStopParentBaseObject(new CommonXMLStructure::SumoBaseObject(nullptr)) {
 
     // Create Stop parent selector
@@ -207,8 +206,12 @@ GNEStopFrame::addStop(const GNEViewNetHelper::ViewObjectsSelector& viewObjects, 
         getStopParameter(myStopTagSelector->getCurrentTemplateAC()->getTagProperty()->getTag(),
                          viewObjects.getLaneFront(), viewObjects.getAdditionalFront());
         if (myStopParentBaseObject->getTag() != SUMO_TAG_NOTHING) {
-            myRouteHandler.buildStop(myStopParentBaseObject->getSumoBaseObjectChildren().front(), myPlanParameters,
-                                     myStopParentBaseObject->getSumoBaseObjectChildren().front()->getStopParameter());
+            // declare route handler
+            GNERouteHandler routeHandler(myViewNet->getNet(), myStopParentBaseObject->getStringAttribute(GNE_ATTR_DEMAND_FILE),
+                                         myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), false);
+            // build stop
+            routeHandler.buildStop(myStopParentBaseObject->getSumoBaseObjectChildren().front(), myPlanParameters,
+                                   myStopParentBaseObject->getSumoBaseObjectChildren().front()->getStopParameter());
             // show all trips
             if (myStopTagSelector->getCurrentTemplateAC()->getTagProperty()->isVehicleStop()) {
                 myViewNet->getDemandViewOptions().menuCheckShowAllTrips->setChecked(TRUE);

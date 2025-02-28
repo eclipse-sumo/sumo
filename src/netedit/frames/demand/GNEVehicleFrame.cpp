@@ -123,7 +123,6 @@ GNEVehicleFrame::HelpCreation::updateHelpCreation() {
 
 GNEVehicleFrame::GNEVehicleFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
     GNEFrame(viewParent, viewNet, TL("Vehicles")),
-    myRouteHandler("", viewNet->getNet(), myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), false),
     myVehicleBaseObject(new CommonXMLStructure::SumoBaseObject(nullptr)) {
 
     // Create item Selector module for vehicles
@@ -305,6 +304,9 @@ GNEVehicleFrame::createPath(const bool useLastRoute) {
         myVehicleAttributesEditor->fillSumoBaseObject(myVehicleBaseObject);
         // add VType
         myVehicleBaseObject->addStringAttribute(SUMO_ATTR_TYPE, myTypeSelector->getCurrentDemandElement()->getID());
+        // declare route handler
+        GNERouteHandler routeHandler(myViewNet->getNet(), myVehicleBaseObject->getStringAttribute(GNE_ATTR_DEMAND_FILE),
+                                     myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), false);
         // check if use last route
         if (useLastRoute) {
             // build vehicle using last route
@@ -335,7 +337,7 @@ GNEVehicleFrame::createPath(const bool useLastRoute) {
                     myVehicleBaseObject->addStringAttribute(SUMO_ATTR_TO, myPathCreator->getSelectedEdges().back()->getID());
                     myVehicleBaseObject->addStringListAttribute(SUMO_ATTR_VIA, viaEdges);
                     // parse vehicle
-                    myRouteHandler.parseSumoBaseObject(myVehicleBaseObject);
+                    routeHandler.parseSumoBaseObject(myVehicleBaseObject);
                     // delete tripParameters and base object
                     delete tripParameters;
                 }
@@ -372,7 +374,7 @@ GNEVehicleFrame::createPath(const bool useLastRoute) {
                     embeddedRouteObject->addTimeAttribute(SUMO_ATTR_CYCLETIME, 0);
                     embeddedRouteObject->addDoubleAttribute(SUMO_ATTR_PROB, 1.0);
                     // parse route
-                    myRouteHandler.parseSumoBaseObject(myVehicleBaseObject);
+                    routeHandler.parseSumoBaseObject(myVehicleBaseObject);
                     // delete vehicleParamters
                     delete vehicleParameters;
                 }
@@ -399,7 +401,7 @@ GNEVehicleFrame::createPath(const bool useLastRoute) {
                     myVehicleBaseObject->addStringAttribute(SUMO_ATTR_TO, myPathCreator->getSelectedEdges().back()->getID());
                     myVehicleBaseObject->addStringListAttribute(SUMO_ATTR_VIA, viaEdges);
                     // parse vehicle
-                    myRouteHandler.parseSumoBaseObject(myVehicleBaseObject);
+                    routeHandler.parseSumoBaseObject(myVehicleBaseObject);
                     // delete flowParameters and base object
                     delete flowParameters;
                 }
@@ -440,7 +442,7 @@ GNEVehicleFrame::createPath(const bool useLastRoute) {
                     embeddedRouteObject->addTimeAttribute(SUMO_ATTR_CYCLETIME, 0);
                     embeddedRouteObject->addDoubleAttribute(SUMO_ATTR_PROB, 1.0);
                     // parse route
-                    myRouteHandler.parseSumoBaseObject(myVehicleBaseObject);
+                    routeHandler.parseSumoBaseObject(myVehicleBaseObject);
                     // delete vehicleParamters
                     delete flowParameters;
                 }
@@ -462,7 +464,7 @@ GNEVehicleFrame::createPath(const bool useLastRoute) {
                     myVehicleBaseObject->addStringAttribute(SUMO_ATTR_FROM_JUNCTION, myPathCreator->getSelectedJunctions().front()->getID());
                     myVehicleBaseObject->addStringAttribute(SUMO_ATTR_TO_JUNCTION, myPathCreator->getSelectedJunctions().back()->getID());
                     // parse vehicle
-                    myRouteHandler.parseSumoBaseObject(myVehicleBaseObject);
+                    routeHandler.parseSumoBaseObject(myVehicleBaseObject);
                     // delete tripParameters and base object
                     delete tripParameters;
                 }
@@ -484,7 +486,7 @@ GNEVehicleFrame::createPath(const bool useLastRoute) {
                     myVehicleBaseObject->addStringAttribute(SUMO_ATTR_FROM_TAZ, myPathCreator->getSelectedTAZs().front()->getID());
                     myVehicleBaseObject->addStringAttribute(SUMO_ATTR_TO_TAZ, myPathCreator->getSelectedTAZs().back()->getID());
                     // parse vehicle
-                    myRouteHandler.parseSumoBaseObject(myVehicleBaseObject);
+                    routeHandler.parseSumoBaseObject(myVehicleBaseObject);
                     // delete tripParameters and base object
                     delete tripParameters;
                 }
@@ -510,7 +512,7 @@ GNEVehicleFrame::createPath(const bool useLastRoute) {
                     myVehicleBaseObject->addStringAttribute(SUMO_ATTR_FROM_JUNCTION, myPathCreator->getSelectedJunctions().front()->getID());
                     myVehicleBaseObject->addStringAttribute(SUMO_ATTR_TO_JUNCTION, myPathCreator->getSelectedJunctions().back()->getID());
                     // parse vehicle
-                    myRouteHandler.parseSumoBaseObject(myVehicleBaseObject);
+                    routeHandler.parseSumoBaseObject(myVehicleBaseObject);
                     // delete flowParameters and base object
                     delete flowParameters;
                 }
@@ -536,7 +538,7 @@ GNEVehicleFrame::createPath(const bool useLastRoute) {
                     myVehicleBaseObject->addStringAttribute(SUMO_ATTR_FROM_TAZ, myPathCreator->getSelectedTAZs().front()->getID());
                     myVehicleBaseObject->addStringAttribute(SUMO_ATTR_TO_TAZ, myPathCreator->getSelectedTAZs().back()->getID());
                     // parse vehicle
-                    myRouteHandler.parseSumoBaseObject(myVehicleBaseObject);
+                    routeHandler.parseSumoBaseObject(myVehicleBaseObject);
                     // delete flowParameters and base object
                     delete flowParameters;
                 }
@@ -561,6 +563,9 @@ GNEVehicleFrame::buildVehicleOverRoute(SumoXMLTag vehicleTag, GNEDemandElement* 
         }
         // get vehicle attributes
         myVehicleAttributesEditor->fillSumoBaseObject(myVehicleBaseObject);
+        // declare route handler
+        GNERouteHandler routeHandler(myViewNet->getNet(), myVehicleBaseObject->getStringAttribute(GNE_ATTR_DEMAND_FILE),
+                                     myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), false);
         // check if departLane is valid
         if ((route->getTagProperty()->getTag() == SUMO_TAG_ROUTE) && myVehicleBaseObject->hasStringAttribute(SUMO_ATTR_DEPARTLANE) &&
                 GNEAttributeCarrier::canParse<int>(myVehicleBaseObject->getStringAttribute(SUMO_ATTR_DEPARTLANE))) {
@@ -596,7 +601,7 @@ GNEVehicleFrame::buildVehicleOverRoute(SumoXMLTag vehicleTag, GNEDemandElement* 
                 vehicleParameters->routeid = route->getID();
                 myVehicleBaseObject->setVehicleParameter(vehicleParameters);
                 // parse vehicle
-                myRouteHandler.parseSumoBaseObject(myVehicleBaseObject);
+                routeHandler.parseSumoBaseObject(myVehicleBaseObject);
                 // delete vehicleParameters and sumoBaseObject
                 delete vehicleParameters;
             }
@@ -624,7 +629,7 @@ GNEVehicleFrame::buildVehicleOverRoute(SumoXMLTag vehicleTag, GNEDemandElement* 
                 routeFlowParameters->routeid = route->getID();
                 myVehicleBaseObject->setVehicleParameter(routeFlowParameters);
                 // parse flow
-                myRouteHandler.parseSumoBaseObject(myVehicleBaseObject);
+                routeHandler.parseSumoBaseObject(myVehicleBaseObject);
                 // delete vehicleParameters and sumoBaseObject
                 delete routeFlowParameters;
             }

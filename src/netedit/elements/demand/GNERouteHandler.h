@@ -48,13 +48,11 @@ class GNEViewNet;
 // class definitions
 // ===========================================================================
 
-/// @class GNERouteHandler
-/// @brief Builds trigger objects for GNENet (busStops, chargingStations, detectors, etc..)
 class GNERouteHandler : public RouteHandler {
 
 public:
     /// @brief Constructor
-    GNERouteHandler(const std::string& file, GNENet* net, const bool allowUndoRedo, const bool overwrite);
+    GNERouteHandler(GNENet* net, const std::string& file, const bool allowUndoRedo, const bool overwrite);
 
     /// @brief Destructor
     virtual ~GNERouteHandler();
@@ -317,4 +315,13 @@ private:
 
     /// @brief container tags
     static const std::vector<SumoXMLTag> myContainerTags;
+
+    /// @brief invalidate default onstructor
+    GNERouteHandler() = delete;
+
+    /// @brief invalidate copy constructor
+    GNERouteHandler(const GNERouteHandler& s) = delete;
+
+    /// @brief invalidate assignment operator
+    GNERouteHandler& operator=(const GNERouteHandler& s) = delete;
 };

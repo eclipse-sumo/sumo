@@ -35,8 +35,7 @@
 // ===========================================================================
 
 GNEPersonPlanFrame::GNEPersonPlanFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
-    GNEFrame(viewParent, viewNet, TL("PersonPlans")),
-    myRouteHandler("", viewNet->getNet(), myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), false) {
+    GNEFrame(viewParent, viewNet, TL("PersonPlans")) {
 
     // create person types selector module
     myPersonSelector = new GNEDemandElementSelector(this, {GNETagProperties::TagType::PERSON});
@@ -242,9 +241,12 @@ GNEPersonPlanFrame::createPath(const bool /*useLastRoute*/) {
     if (!myPersonPlanAttributesEditor->checkAttributes(true)) {
         return false;
     } else {
+        // declare route handler
+        GNERouteHandler routeHandler(myViewNet->getNet(), myPersonSelector->getCurrentDemandElement()->getAttribute(GNE_ATTR_DEMAND_FILE),
+                                     myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), false);
         // check if person plan can be created
-        if (myRouteHandler.buildPersonPlan(myPlanSelector->getCurrentPlanTemplate(), myPersonSelector->getCurrentDemandElement(),
-                                           myPersonPlanAttributesEditor, myPlanCreator, false)) {
+        if (routeHandler.buildPersonPlan(myPlanSelector->getCurrentPlanTemplate(), myPersonSelector->getCurrentDemandElement(),
+                                         myPersonPlanAttributesEditor, myPlanCreator, false)) {
             // refresh GNEElementTree
             myPersonHierarchy->refreshHierarchicalElementTree();
             // abort path creation

@@ -101,9 +101,6 @@ protected:
     void demandElementSelected();
 
 private:
-    /// @brief route handler
-    GNERouteHandler myRouteHandler;
-
     /// @brief stop parent base object
     CommonXMLStructure::SumoBaseObject* myStopParentBaseObject = nullptr;
 
