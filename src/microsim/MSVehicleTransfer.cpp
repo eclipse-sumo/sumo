@@ -30,6 +30,7 @@
 #include "MSVehicle.h"
 #include "MSParkingArea.h"
 #include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
+#include <microsim/devices/MSDevice_Taxi.h>
 #include "MSVehicleControl.h"
 #include "MSInsertionControl.h"
 #include "MSVehicleTransfer.h"
@@ -185,10 +186,15 @@ MSVehicleTransfer::checkInsertions(SUMOTime time) {
                     desc.myProceedTime = time + TIME2STEPS(e->getCurrentTravelTime(TeleportMinSpeed));
                 } else if (desc.myProceedTime < time) {
                     if (desc.myVeh->succEdge(1) == nullptr) {
-                        WRITE_WARNINGF(TL("Vehicle '%' teleports beyond arrival edge '%', time=%."), desc.myVeh->getID(), e->getID(), time2string(time));
-                        desc.myVeh->leaveLane(MSMoveReminder::NOTIFICATION_TELEPORT_ARRIVED);
-                        MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(desc.myVeh);
-                        i = vehInfos.erase(i);
+                        if (desc.myVeh->getDevice(typeid(MSDevice_Taxi)) != nullptr) {
+                            // never teleport a taxi beyond the end of it's route
+                            desc.myProceedTime = time + TIME2STEPS(e->getCurrentTravelTime(TeleportMinSpeed));
+                        } else {
+                            WRITE_WARNINGF(TL("Vehicle '%' teleports beyond arrival edge '%', time=%."), desc.myVeh->getID(), e->getID(), time2string(time));
+                            desc.myVeh->leaveLane(MSMoveReminder::NOTIFICATION_TELEPORT_ARRIVED);
+                            MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(desc.myVeh);
+                            i = vehInfos.erase(i);
+                        }
                         continue;
                     }
                     // let the vehicle move to the next edge

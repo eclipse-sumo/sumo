@@ -2309,7 +2309,7 @@ MSLane::executeMovements(const SUMOTime t) {
 
             const bool r1 = ttt > 0 && firstNotStopped->getWaitingTime() > ttt && !disconnected
                             // never teleport a taxi on the last edge of it's route (where it would exit the simulation)
-                            && (firstNotStopped->getDevice(typeid(MSDevice_Taxi)) == nullptr || firstNotStopped->getRoutePosition() < firstNotStopped->getArrivalPosition());
+                            && (firstNotStopped->getDevice(typeid(MSDevice_Taxi)) == nullptr || firstNotStopped->getRoutePosition() < (firstNotStopped->getRoute().size() - 1));
             const bool r2 = !r1 && MSGlobals::gTimeToGridlockHighways > 0
                             && firstNotStopped->getWaitingTime() > MSGlobals::gTimeToGridlockHighways
                             && getSpeedLimit() > MSGlobals::gGridlockHighwaysSpeed && wrongLane
