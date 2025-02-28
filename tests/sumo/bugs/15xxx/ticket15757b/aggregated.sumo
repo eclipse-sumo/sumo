@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-01-07 00:03:39 by Eclipse SUMO sumo Version v1_21_0+1695-777ee0932d1
+<!-- generated on 2025-02-28 12:01:38 by Eclipse SUMO sumo Version v1_22_0+0580-601ed0b1c21
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -38,8 +38,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
-    <interval begin="0.00" end="7402.00" id="DEFAULT_EDGEDATA">
-        <edge id="E0" sampledSeconds="140078.24" traveltime="1830.36" overlapTraveltime="1855.27" density="94.62" laneDensity="47.31" occupancy="32.95" waitingTime="127381.00" timeLoss="138800.78" speed="0.11" speedRelative="0.01" departed="0" arrived="76" entered="229" left="153" laneChangedFrom="36" laneChangedTo="36" teleported="1"/>
-        <edge id="E1" sampledSeconds="79180.14" traveltime="934.72" overlapTraveltime="1028.31" density="106.97" laneDensity="53.49" occupancy="34.88" waitingTime="73247.00" timeLoss="78586.42" speed="0.10" speedRelative="0.01" departed="77" arrived="0" entered="0" left="77" laneChangedFrom="18" laneChangedTo="18"/>
+    <interval begin="0.00" end="7522.00" id="DEFAULT_EDGEDATA">
+        <edge id="E0" sampledSeconds="141304.72" traveltime="1834.65" overlapTraveltime="1858.01" density="93.93" laneDensity="46.96" occupancy="32.67" waitingTime="128130.00" timeLoss="140017.03" speed="0.11" speedRelative="0.01" departed="0" arrived="77" entered="231" left="154" laneChangedFrom="33" laneChangedTo="33"/>
+        <edge id="E1" sampledSeconds="78268.55" traveltime="916.42" overlapTraveltime="1016.47" density="104.05" laneDensity="52.03" occupancy="33.76" waitingTime="72626.15" timeLoss="77674.83" speed="0.11" speedRelative="0.01" departed="77" arrived="0" entered="0" left="77" laneChangedFrom="25" laneChangedTo="25"/>
     </interval>
 </meandata>
