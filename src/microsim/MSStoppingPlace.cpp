@@ -111,9 +111,6 @@ MSStoppingPlace::getLastFreePos(const SUMOVehicle& forVehicle, double /*brakePos
             // be a blocker because it stops on the road)
             pos = MIN2(pos, myLastParking->getPositionOnLane() - myLastParking->getLength() - vehGap - NUMERICAL_EPS);
         }
-        if (forVehicle.getLane() == &myLane && forVehicle.getPositionOnLane() < myEndPos && forVehicle.getPositionOnLane() > myBegPos && forVehicle.getSpeed() <= SUMO_const_haltingSpeed) {
-            return forVehicle.getPositionOnLane();
-        }
         if (!fits(pos, forVehicle)) {
             // try to find a place ahead of the waiting vehicles
             const double vehLength = forVehicle.getVehicleType().getLength() * myParkingFactor;
