@@ -93,8 +93,6 @@ jobs:
     - name: Setting up SonarQube
       if: matrix.build_type == 'full' && github.event_name == 'schedule' && matrix.compiler == 'gcc'
       uses: warchant/setup-sonar-scanner@v8
-      with:
-        version: 7.0.2.4839
 
     - name: Building SUMO with SonarQube wrapper
       if: matrix.build_type == 'full' && github.event_name == 'schedule' && matrix.compiler == 'gcc'
