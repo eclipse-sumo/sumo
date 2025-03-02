@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-13 10:07+0100\n"
-"PO-Revision-Date: 2025-02-28 15:02+0000\n"
+"PO-Revision-Date: 2025-03-02 23:55+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -3253,7 +3253,7 @@ msgstr "Caricamento fallito di %."
 #: src/microsim/MSNet.cpp:1686
 #, c-format
 msgid "Loading state from '%' failed."
-msgstr ""
+msgstr "Il caricamento dello stato da '%' è fallito."
 
 #: src/microsim/MSRouteHandler.cpp:111 src/router/RORouteHandler.cpp:111
 msgid "Taz usage was requested but no taz present in % '%'!"
@@ -9193,17 +9193,17 @@ msgstr ""
 
 #: src/netimport/NIImporter_OpenDrive.cpp:814
 msgid "Ambiguous start of connection."
-msgstr ""
+msgstr "Inizio ambiguo del collegamento."
 
 #: src/netimport/NIImporter_OpenDrive.cpp:831
 msgid "Ambiguous end of connection."
-msgstr ""
+msgstr "Termine ambiguo del collegamento."
 
 #: src/netimport/NIImporter_OpenDrive.cpp:844
 #: src/netimport/NIImporter_OpenDrive.cpp:859
 #: src/netimport/NIImporter_OpenDrive.cpp:906
 msgid "Could not find edge '%' for signal '%'."
-msgstr ""
+msgstr "Non ho incontrato l'arco '%' per il segnale '%'."
 
 #: src/netimport/NIImporter_OpenDrive.cpp:880
 msgid ""
