@@ -829,7 +829,7 @@ GUIViewTraffic::initModernOpenGL() {
         const std::vector<std::pair<GLint, unsigned int>> attributeDefinitions = { {GL_FLOAT, 3}, {GL_BYTE, 4} };
         myRenderer->addConfiguration("Standard", "FaceColorShader", GLHelper::computeVertexAttributeSize(attributeDefinitions));
         myRenderer->activateConfiguration("Standard");
-        myRenderer->getVAO()->setGeometryType(GL_LINES);
+        myRenderer->getVAO()->setGeometryType((GLenum)GL_LINES);
         myRenderer->setVertexAttributes(attributeDefinitions);
         myRenderer->deactivateCurrentConfiguration();
     }

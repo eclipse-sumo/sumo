@@ -20,6 +20,7 @@
 #pragma once
 #include <config.h>
 
+#include <vector>
 #ifndef __glew_h__
 #include <GL/glew.h>
 #endif
@@ -30,29 +31,35 @@
 class GLVertexArrayObject {
 
 public:
-    GLVertexArrayObject();
-
+    GLVertexArrayObject(unsigned int vertexSize, unsigned int itemSize);
     ~GLVertexArrayObject();
+    GLVertexArrayObject(const GLVertexArrayObject& copy);
 
     GLuint getID() const;
     GLuint getVertexBufferID() const;
     GLuint getIndexBufferID() const;
+    GLenum getGeometryType() const;
     unsigned long long getVertexSize() const;
     unsigned long long getIndexSize() const;
 
+    void setGeometryType(GLenum type);
     void setItemSize(const unsigned long long vertexCount, const unsigned long long indexCount);
+    bool addVertexData(std::vector<GLBufferStruct>& data);
+    bool setVertexData(std::vector<GLBufferStruct>& data);
+    void drawGL() const;
     void bind() const;
     void unbind() const;
 
 private:
-    void resizeBuffers();
+    void resizeBuffers(int newVertexSize, int newIndexSize);
 
 private:
     GLuint myID;
     GLuint myVertexBufferID;
     GLuint myIndexBufferID;
-    GLuint myShaderID;
-    unsigned long long myVertexSize;
-    unsigned long long myIndexSize;
-
+    GLenum myGeometryType;
+    unsigned int myItemSize;
+    unsigned long long myVertexBufferSize;
+    unsigned long long myIndexBufferSize;
+    unsigned long long myVertexInputSize;
 };
