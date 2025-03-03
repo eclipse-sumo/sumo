@@ -2806,6 +2806,44 @@ GNENetHelper::AttributeCarriers::updateDemandElementFrames(const GNETagPropertie
 }
 
 // ---------------------------------------------------------------------------
+// GNENetHelper::SavingFilesHandler - methods
+// ---------------------------------------------------------------------------
+
+GNENetHelper::SavingFilesHandler::SavingFilesHandler(GNENet* net) :
+    myNet(net) {
+}
+
+
+const std::set<std::string>&
+GNENetHelper::SavingFilesHandler::getEdgeTypeSavingFiles() const {
+    return myEdgeTypeSavingFiles;
+}
+
+
+const std::set<std::string>&
+GNENetHelper::SavingFilesHandler::getAdditionalSavingFiles() const {
+    return myEdgeTypeSavingFiles;
+}
+
+
+const std::set<std::string>&
+GNENetHelper::SavingFilesHandler::getDemandElementSavingFiles() const {
+    return myDemandElementSavingFiles;
+}
+
+
+const std::set<std::string>&
+GNENetHelper::SavingFilesHandler::getDataElementSavingFiles() const {
+    return myDataElementSavingFiles;
+}
+
+
+const std::set<std::string>&
+GNENetHelper::SavingFilesHandler::getMeanDataElementSavingFiles() const {
+    return myMeanDataElementSavingFiles;
+}
+
+// ---------------------------------------------------------------------------
 // GNENetHelper::SavingStatus - methods
 // ---------------------------------------------------------------------------
 

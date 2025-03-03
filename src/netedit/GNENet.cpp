@@ -98,6 +98,7 @@ GNENet::GNENet(NBNetBuilder* netBuilder, const GNETagPropertiesDatabase* tagProp
     myNetBuilder(netBuilder),
     myTagPropertiesDatabase(tagPropertiesDatabase),
     myAttributeCarriers(new GNENetHelper::AttributeCarriers(this)),
+    mySavingFilesHandler(new GNENetHelper::SavingFilesHandler(this)),
     mySavingStatus(new GNENetHelper::SavingStatus(this)),
     myNetworkPathManager(new GNEPathManager(this)),
     myDemandPathManager(new GNEPathManager(this)),

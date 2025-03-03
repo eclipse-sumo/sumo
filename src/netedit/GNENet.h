@@ -507,20 +507,23 @@ protected:
     /// @brief pointer to tagProperties database
     const GNETagPropertiesDatabase* myTagPropertiesDatabase = nullptr;
 
-    /// @brief AttributeCarriers of net
+    /// @brief attributeCarriers module
     GNENetHelper::AttributeCarriers* myAttributeCarriers = nullptr;
 
-    /// @brief AttributeCarriers of net
-    GNENetHelper::SavingStatus* mySavingStatus;
+    /// @brief saving files handler module
+    GNENetHelper::SavingFilesHandler* mySavingFilesHandler = nullptr;
+
+    /// @brief saving status module
+    GNENetHelper::SavingStatus* mySavingStatus = nullptr;
 
     /// @brief Network path manager
-    GNEPathManager* myNetworkPathManager;
+    GNEPathManager* myNetworkPathManager = nullptr;
 
     /// @brief Demand path manager
-    GNEPathManager* myDemandPathManager;
+    GNEPathManager* myDemandPathManager = nullptr;
 
     /// @brief Data path manager
-    GNEPathManager* myDataPathManager;
+    GNEPathManager* myDataPathManager = nullptr;
 
     /// @name counters for junction/edge IDs
     // @{
@@ -630,6 +633,9 @@ private:
 
     /// @brief marker for whether the z-boundary is initialized
     static const double Z_INITIALIZED;
+
+    /// @brief Invalidated default constructor.
+    GNENet() = delete;
 
     /// @brief Invalidated copy constructor.
     GNENet(const GNENet&) = delete;

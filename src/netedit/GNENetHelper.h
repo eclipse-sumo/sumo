@@ -21,8 +21,6 @@
 #pragma once
 #include <config.h>
 
-#include <unordered_map>
-#include <utils/foxtools/fxheader.h>
 #include <foreign/rtree/SUMORTree.h>
 #include <netbuild/NBEdge.h>
 #include <netbuild/NBTrafficLightLogicCont.h>
@@ -30,9 +28,10 @@
 #include <netedit/changes/GNEChange.h>
 #include <utils/common/IDSupplier.h>
 #include <utils/common/SUMOVehicleClass.h>
+#include <utils/foxtools/fxheader.h>
 #include <utils/geom/Boundary.h>
-#include <utils/geom/Triangle.h>
 #include <utils/geom/PositionVector.h>
+#include <utils/geom/Triangle.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/gui/globjects/GUIShapeContainer.h>
 #include <utils/gui/settings/GUIVisualizationSettings.h>
@@ -864,11 +863,65 @@ struct GNENetHelper {
         /// @brief map with the tag and pointer to meanData elements of net
         std::unordered_map<SumoXMLTag, std::map<const std::string, GNEMeanData*>, std::hash<int> > myMeanDatas;
 
+        /// @brief Invalidated default constructor.
+        AttributeCarriers() = delete;
+
         /// @brief Invalidated copy constructor.
         AttributeCarriers(const AttributeCarriers&) = delete;
 
         /// @brief Invalidated assignment operator.
         AttributeCarriers& operator=(const AttributeCarriers&) = delete;
+    };
+
+    /// @brief modul for handling saving files
+    class SavingFilesHandler {
+
+    public:
+        /// @brief constructor
+        SavingFilesHandler(GNENet* net);
+
+        /// @brief get set with edge type elements saving files
+        const std::set<std::string>& getEdgeTypeSavingFiles() const;
+
+        /// @brief get set with additional elements saving files
+        const std::set<std::string>& getAdditionalSavingFiles() const;
+
+        /// @brief get set with demand elements saving files
+        const std::set<std::string>& getDemandElementSavingFiles() const;
+
+        /// @brief set with data elements saving files
+        const std::set<std::string>& getDataElementSavingFiles() const;
+
+        /// @brief set with mean data elements saving files
+        const std::set<std::string>& getMeanDataElementSavingFiles() const;
+
+    private:
+        /// @brief pointer to net
+        GNENet* myNet;
+
+        /// @brief set with edge type elements saving files
+        std::set<std::string> myEdgeTypeSavingFiles;
+
+        /// @brief set with additional elements saving files
+        std::set<std::string> myAdditionalSavingFiles;
+
+        /// @brief set with demand elements saving files
+        std::set<std::string> myDemandElementSavingFiles;
+
+        /// @brief set with data elements saving files
+        std::set<std::string> myDataElementSavingFiles;
+
+        /// @brief set with mean data elements saving files
+        std::set<std::string> myMeanDataElementSavingFiles;
+
+        /// @brief Invalidated default constructor.
+        SavingFilesHandler() = delete;
+
+        /// @brief Invalidated copy constructor.
+        SavingFilesHandler(const SavingFilesHandler&) = delete;
+
+        /// @brief Invalidated assignment operator.
+        SavingFilesHandler& operator=(const SavingFilesHandler&) = delete;
     };
 
     /// @brief modul for Saving status
