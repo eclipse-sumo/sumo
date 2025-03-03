@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-13 10:07+0100\n"
-"PO-Revision-Date: 2025-03-03 08:32+0000\n"
+"PO-Revision-Date: 2025-03-03 08:46+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -2674,28 +2674,33 @@ msgstr ""
 #: src/tools/emissionsMap_main.cpp:158
 msgid "Return fuel consumption values in (legacy) unit l instead of mg"
 msgstr ""
+"Ritorna i valori di consumazione di carburante in litri (obsoleto) invece di "
+"mg"
 
 #: src/microsim/MSFrame.cpp:687 src/router/ROFrame.cpp:90
 #: src/tools/emissionsDrivingCycle_main.cpp:135
 #: src/tools/emissionsMap_main.cpp:161
 msgid "Determines where to load PHEMlight definitions from"
-msgstr ""
+msgstr "Determina da dove caricare le definizioni PHEMlight"
 
 #: src/microsim/MSFrame.cpp:690 src/router/ROFrame.cpp:93
 #: src/tools/emissionsDrivingCycle_main.cpp:138
 #: src/tools/emissionsMap_main.cpp:164
 msgid "Enable fleet age modelling with the given reference year in PHEMlight5"
 msgstr ""
+"Attiva il modello di invecchiamento della flotta di vetture in PHEMlight5 "
+"con l'anno di referenza indicato"
 
 #: src/microsim/MSFrame.cpp:693 src/router/ROFrame.cpp:96
 #: src/tools/emissionsDrivingCycle_main.cpp:141
 #: src/tools/emissionsMap_main.cpp:167
 msgid "Set ambient temperature to correct NOx emissions in PHEMlight5"
 msgstr ""
+"Imposta la temperatura ambiente per correggere le emissioni NOx in PHEMlight5"
 
 #: src/microsim/MSFrame.cpp:702
 msgid "Disable performance reports for individual simulation steps"
-msgstr ""
+msgstr "Disattiva i rapporti di prestazione per ogni passo di simulazione"
 
 #: src/microsim/MSFrame.cpp:705
 msgid "Enable statistics on vehicle trips"
