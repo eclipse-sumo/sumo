@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-13 10:07+0100\n"
-"PO-Revision-Date: 2025-03-03 11:42+0000\n"
+"PO-Revision-Date: 2025-03-03 14:29+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -3231,11 +3231,11 @@ msgstr ""
 
 #: src/microsim/MSNet.cpp:946
 msgid "An error occurred (see log)."
-msgstr ""
+msgstr "C'è stato un errore (vedi protocollo)."
 
 #: src/microsim/MSNet.cpp:948
 msgid "Interrupted."
-msgstr ""
+msgstr "Interrotto."
 
 #: src/microsim/MSNet.cpp:950
 msgid "Too many teleports."
@@ -3253,6 +3253,8 @@ msgstr "Motivo sconosciuto."
 msgid ""
 "TraCI and Triggers cannot use routing algorithm '%'. using 'astar' instead."
 msgstr ""
+"TraCI e gli generatori non possono usare l'algoritmo di instradamento '%'. "
+"Invece si usa 'astar'."
 
 #: src/microsim/MSNet.cpp:1666 src/netload/NLBuilder.cpp:440
 #: src/router/ROLoader.cpp:237 src/tools/emissionsDrivingCycle_main.cpp:221
@@ -3900,7 +3902,7 @@ msgstr ""
 
 #: src/microsim/devices/MSDevice_Battery.cpp:55
 msgid "Track fuel consumption for non-electric vehicles"
-msgstr ""
+msgstr "Segui la consumazione di carburante per veicoli non elettrici"
 
 #: src/microsim/devices/MSDevice_Battery.cpp:90
 msgid ""
@@ -4068,7 +4070,7 @@ msgstr ""
 
 #: src/microsim/devices/MSDevice_Emissions.cpp:55
 msgid "Recording period for emission-output"
-msgstr ""
+msgstr "Intervallo di registrazione per l'uscita di emissioni (emission-output)"
 
 #: src/microsim/devices/MSDevice_Emissions.cpp:97
 #, c-format
@@ -4128,19 +4130,21 @@ msgstr "File FCD da leggere"
 
 #: src/microsim/devices/MSDevice_FCDReplay.cpp:216
 msgid "Unknown edge '%' in fcd replay file for person '%'."
-msgstr ""
+msgstr "Arco sconosciuto '%' nel file di riproduzione FCD per la persona '%'."
 
 #: src/microsim/devices/MSDevice_FCDReplay.cpp:216
 msgid "Unknown lane '%' in fcd replay file for vehicle '%'."
-msgstr ""
+msgstr "Corsia sconosciuta '%' nel file di riproduzione FCD per il veicolo '%'."
 
 #: src/microsim/devices/MSDevice_FCDReplay.cpp:356
 msgid "No edge in fcd replay file for person '%' at time %."
 msgstr ""
+"Non c'è l'arco per la persona '%' nel file di riproduzione FCD alle ore %."
 
 #: src/microsim/devices/MSDevice_FCDReplay.cpp:358
 msgid "No lane in fcd replay file for vehicle '%' at time %."
 msgstr ""
+"Non c'è la corsia er il veicolo '%' nel file di riproduzione FCD alle ore %."
 
 #: src/microsim/devices/MSDevice_Friction.cpp:48
 msgid ""
