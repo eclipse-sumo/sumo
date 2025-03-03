@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-13 10:07+0100\n"
-"PO-Revision-Date: 2025-03-02 23:55+0000\n"
+"PO-Revision-Date: 2025-03-03 08:32+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -1007,13 +1007,15 @@ msgstr "Parametro '%' non supportato"
 
 #: src/libsumo/Vehicle.cpp:1363
 msgid "Waypoint (speed = %) at index % does not support triggers"
-msgstr ""
+msgstr "Il punto intermedio (velocità = %) all'indice % non supporta generatori"
 
 #: src/libsumo/Vehicle.cpp:1401
 msgid ""
 "Triggered stop at index % cannot be changed into a waypoint by setting speed "
 "to %"
 msgstr ""
+"La fermata generata all'indice % non può essere mutata in un punto "
+"intermedio impostando la velocità a %"
 
 #: src/libsumo/Vehicle.cpp:1524
 #, c-format
