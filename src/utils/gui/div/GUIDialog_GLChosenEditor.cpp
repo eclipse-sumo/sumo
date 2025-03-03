@@ -152,7 +152,7 @@ GUIDialog_GLChosenEditor::onCmdLoad(FXObject*, FXSelector, void*) {
 long
 GUIDialog_GLChosenEditor::onCmdSave(FXObject*, FXSelector, void*) {
     FXString file = MFXUtils::getFilename2Write(this, TL("Save List of selected Items"),
-                    SUMOXMLDefinitions::TXTFileExtensionValues.getMultilineString().c_str(),
+                    SUMOXMLDefinitions::TXTFileExtensions.getMultilineString().c_str(),
                     GUIIconSubSys::getIcon(GUIIcon::SAVE), gCurrentFolder);
     if (file == "") {
         return 1;
