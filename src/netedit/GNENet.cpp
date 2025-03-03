@@ -2241,14 +2241,14 @@ GNENet::saveAdditionals() {
 
 
 bool
-GNENet::saveJuPedSimElements(const std::string& file) {
+GNENet::saveJuPedSimElements(const std::unordered_set<const GNEAttributeCarrier*>& ACs, const std::string& file) {
     OutputDevice& device = OutputDevice::getDevice(file);
     // open header
     device.writeXMLHeader("additional", "additional_file.xsd", EMPTY_HEADER, false);
     // juPedSim elements
-    writeJuPedSimComment(device);
-    writeAdditionalByType(device, {GNE_TAG_JPS_WALKABLEAREA});
-    writeAdditionalByType(device, {GNE_TAG_JPS_OBSTACLE});
+    writeJuPedSimComment(ACs, device);
+    writeAdditionalByType(ACs, device, {GNE_TAG_JPS_WALKABLEAREA});
+    writeAdditionalByType(ACs, device, {GNE_TAG_JPS_OBSTACLE});
     // close device
     device.close();
     // set focus again in net
@@ -2368,45 +2368,45 @@ GNENet::saveAdditionalsConfirmed() {
         writeRouteDistributions(device, true);
         writeRoutes(device, true);
         // routeProbes
-        writeRouteProbeComment(device);
-        writeAdditionalByType(device, {SUMO_TAG_ROUTEPROBE});
+        writeRouteProbeComment(additionalSavingFile.ACs, device);
+        writeAdditionalByType(additionalSavingFile.ACs, device, {SUMO_TAG_ROUTEPROBE});
         // calibrator
-        writeCalibratorComment(device);
-        writeAdditionalByType(device, {SUMO_TAG_CALIBRATOR, GNE_TAG_CALIBRATOR_LANE});
+        writeCalibratorComment(additionalSavingFile.ACs, device);
+        writeAdditionalByType(additionalSavingFile.ACs, device, {SUMO_TAG_CALIBRATOR, GNE_TAG_CALIBRATOR_LANE});
         // stoppingPlaces
-        writeStoppingPlaceComment(device);
-        writeAdditionalByType(device, {SUMO_TAG_BUS_STOP});
-        writeAdditionalByType(device, {SUMO_TAG_TRAIN_STOP});
-        writeAdditionalByType(device, {SUMO_TAG_CONTAINER_STOP});
-        writeAdditionalByType(device, {SUMO_TAG_PARKING_AREA});
-        writeAdditionalByType(device, {SUMO_TAG_CHARGING_STATION});
+        writeStoppingPlaceComment(additionalSavingFile.ACs, device);
+        writeAdditionalByType(additionalSavingFile.ACs, device, {SUMO_TAG_BUS_STOP});
+        writeAdditionalByType(additionalSavingFile.ACs, device, {SUMO_TAG_TRAIN_STOP});
+        writeAdditionalByType(additionalSavingFile.ACs, device, {SUMO_TAG_CONTAINER_STOP});
+        writeAdditionalByType(additionalSavingFile.ACs, device, {SUMO_TAG_PARKING_AREA});
+        writeAdditionalByType(additionalSavingFile.ACs, device, {SUMO_TAG_CHARGING_STATION});
         // detectors
-        writeDetectorComment(device);
-        writeAdditionalByType(device, {SUMO_TAG_INDUCTION_LOOP});
-        writeAdditionalByType(device, {SUMO_TAG_INSTANT_INDUCTION_LOOP});
-        writeAdditionalByType(device, {SUMO_TAG_LANE_AREA_DETECTOR, GNE_TAG_MULTI_LANE_AREA_DETECTOR});
-        writeAdditionalByType(device, {SUMO_TAG_ENTRY_EXIT_DETECTOR});
+        writeDetectorComment(additionalSavingFile.ACs, device);
+        writeAdditionalByType(additionalSavingFile.ACs, device, {SUMO_TAG_INDUCTION_LOOP});
+        writeAdditionalByType(additionalSavingFile.ACs, device, {SUMO_TAG_INSTANT_INDUCTION_LOOP});
+        writeAdditionalByType(additionalSavingFile.ACs, device, {SUMO_TAG_LANE_AREA_DETECTOR, GNE_TAG_MULTI_LANE_AREA_DETECTOR});
+        writeAdditionalByType(additionalSavingFile.ACs, device, {SUMO_TAG_ENTRY_EXIT_DETECTOR});
         // Other additionals
-        writeOtherAdditionalsComment(device);
-        writeAdditionalByType(device, {SUMO_TAG_REROUTER});
-        writeAdditionalByType(device, {SUMO_TAG_VSS});
-        writeAdditionalByType(device, {SUMO_TAG_VAPORIZER});
+        writeOtherAdditionalsComment(additionalSavingFile.ACs, device);
+        writeAdditionalByType(additionalSavingFile.ACs, device, {SUMO_TAG_REROUTER});
+        writeAdditionalByType(additionalSavingFile.ACs, device, {SUMO_TAG_VSS});
+        writeAdditionalByType(additionalSavingFile.ACs, device, {SUMO_TAG_VAPORIZER});
         // shapes
-        writeShapesComment(device);
-        writeAdditionalByType(device, {SUMO_TAG_POLY});
-        writeAdditionalByType(device, {SUMO_TAG_POI, GNE_TAG_POILANE, GNE_TAG_POIGEO});
+        writeShapesComment(additionalSavingFile.ACs, device);
+        writeAdditionalByType(additionalSavingFile.ACs, device, {SUMO_TAG_POLY});
+        writeAdditionalByType(additionalSavingFile.ACs, device, {SUMO_TAG_POI, GNE_TAG_POILANE, GNE_TAG_POIGEO});
         // TAZs
-        writeTAZComment(device);
-        writeAdditionalByType(device, {SUMO_TAG_TAZ});
+        writeTAZComment(additionalSavingFile.ACs, device);
+        writeAdditionalByType(additionalSavingFile.ACs, device, {SUMO_TAG_TAZ});
         // Wire element
-        writeWireComment(device);
-        writeAdditionalByType(device, {SUMO_TAG_TRACTION_SUBSTATION});
-        writeAdditionalByType(device, {SUMO_TAG_OVERHEAD_WIRE_SECTION});
-        writeAdditionalByType(device, {SUMO_TAG_OVERHEAD_WIRE_CLAMP});
+        writeWireComment(additionalSavingFile.ACs, device);
+        writeAdditionalByType(additionalSavingFile.ACs, device, {SUMO_TAG_TRACTION_SUBSTATION});
+        writeAdditionalByType(additionalSavingFile.ACs, device, {SUMO_TAG_OVERHEAD_WIRE_SECTION});
+        writeAdditionalByType(additionalSavingFile.ACs, device, {SUMO_TAG_OVERHEAD_WIRE_CLAMP});
         // juPedSim elements
-        writeJuPedSimComment(device);
-        writeAdditionalByType(device, {GNE_TAG_JPS_WALKABLEAREA});
-        writeAdditionalByType(device, {GNE_TAG_JPS_OBSTACLE});
+        writeJuPedSimComment(additionalSavingFile.ACs, device);
+        writeAdditionalByType(additionalSavingFile.ACs, device, {GNE_TAG_JPS_WALKABLEAREA});
+        writeAdditionalByType(additionalSavingFile.ACs, device, {GNE_TAG_JPS_OBSTACLE});
         // close device
         device.close();
     }
@@ -2501,7 +2501,8 @@ GNENet::saveMeanDatasConfirmed() {
 
 
 void
-GNENet::writeAdditionalByType(OutputDevice& device, const std::vector<SumoXMLTag> tags) const {
+GNENet::writeAdditionalByType(const std::unordered_set<const GNEAttributeCarrier*>& ACs, OutputDevice& device,
+                              const std::vector<SumoXMLTag> tags) const {
     std::map<std::string, GNEAdditional*> sortedAdditionals;
     for (const auto& tag : tags) {
         for (const auto& additional : myAttributeCarriers->getAdditionals().at(tag)) {
@@ -2513,7 +2514,9 @@ GNENet::writeAdditionalByType(OutputDevice& device, const std::vector<SumoXMLTag
         }
     }
     for (const auto& additional : sortedAdditionals) {
-        additional.second->writeAdditional(device);
+        if (ACs.count(additional.second) > 0) {
+            additional.second->writeAdditional(device);
+        }
     }
 }
 
@@ -2651,20 +2654,134 @@ GNENet::writeRouteComment(OutputDevice& device, const bool additionalFile) const
 
 
 bool
-GNENet::writeRouteProbeComment(OutputDevice& device) const {
+GNENet::writeRouteProbeComment(const std::unordered_set<const GNEAttributeCarrier*>& ACs, OutputDevice& device) const {
     if (myAttributeCarriers->getAdditionals().at(SUMO_TAG_ROUTEPROBE).size() > 0) {
-        device << ("    <!-- RouteProbes -->\n");
-        return true;
+        for (const auto& AC : myAttributeCarriers->getAdditionals().at(SUMO_TAG_ROUTEPROBE)) {
+            if (ACs.count(AC.second) > 0) {
+                device << ("    <!-- RouteProbes -->\n");
+                return true;
+            }
+        }
     }
     return false;
 }
 
 
 bool
-GNENet::writeCalibratorComment(OutputDevice& device) const {
-    for (const auto& additionals : myAttributeCarriers->getAdditionals()) {
-        if (myViewNet->getNet()->getTagPropertiesDatabase()->getTagProperty(additionals.first)->isCalibrator() && (additionals.second.size() > 0)) {
-            device << ("    <!-- Calibrators -->\n");
+GNENet::writeCalibratorComment(const std::unordered_set<const GNEAttributeCarrier*>& ACs, OutputDevice& device) const {
+    for (const auto& additionalTag : myAttributeCarriers->getAdditionals()) {
+        if (myViewNet->getNet()->getTagPropertiesDatabase()->getTagProperty(additionalTag.first)->isCalibrator()) {
+            // check that additional is in ACs
+            for (const auto& additional : additionalTag.second) {
+                if (ACs.count(additional.second) > 0) {
+                    device << ("    <!-- Calibrators -->\n");
+                    return true;
+                }
+            }
+        }
+    }
+    return false;
+}
+
+
+bool
+GNENet::writeStoppingPlaceComment(const std::unordered_set<const GNEAttributeCarrier*>& ACs, OutputDevice& device) const {
+    for (const auto& additionalTag : myAttributeCarriers->getAdditionals()) {
+        if (myViewNet->getNet()->getTagPropertiesDatabase()->getTagProperty(additionalTag.first)->isStoppingPlace()) {
+            // check that additional is in ACs
+            for (const auto& additional : additionalTag.second) {
+                if (ACs.count(additional.second) > 0) {
+                    device << ("    <!-- StoppingPlaces -->\n");
+                    return true;
+                }
+            }
+        }
+    }
+    return false;
+}
+
+
+bool
+GNENet::writeDetectorComment(const std::unordered_set<const GNEAttributeCarrier*>& ACs, OutputDevice& device) const {
+    for (const auto& additionalTag : myAttributeCarriers->getAdditionals()) {
+        if (myViewNet->getNet()->getTagPropertiesDatabase()->getTagProperty(additionalTag.first)->isDetector()) {
+            // check that additional is in ACs
+            for (const auto& additional : additionalTag.second) {
+                if (ACs.count(additional.second) > 0) {
+                    device << ("    <!-- Detectors -->\n");
+                    return true;
+                }
+            }
+        }
+    }
+    return false;
+}
+
+
+bool
+GNENet::writeOtherAdditionalsComment(const std::unordered_set<const GNEAttributeCarrier*>& ACs, OutputDevice& device) const {
+    for (const auto& additionalTag : myAttributeCarriers->getAdditionals()) {
+        if (myViewNet->getNet()->getTagPropertiesDatabase()->getTagProperty(additionalTag.first)->isAdditionalPureElement() &&
+                !myViewNet->getNet()->getTagPropertiesDatabase()->getTagProperty(additionalTag.first)->isStoppingPlace() &&
+                !myViewNet->getNet()->getTagPropertiesDatabase()->getTagProperty(additionalTag.first)->isDetector() &&
+                !myViewNet->getNet()->getTagPropertiesDatabase()->getTagProperty(additionalTag.first)->isCalibrator() &&
+                (additionalTag.first != SUMO_TAG_ROUTEPROBE) &&
+                (additionalTag.first != SUMO_TAG_ACCESS) &&
+                (additionalTag.first != SUMO_TAG_PARKING_SPACE)) {
+            // check that additional is in ACs
+            for (const auto& additional : additionalTag.second) {
+                if (ACs.count(additional.second) > 0) {
+                    device << ("    <!-- Other additionals -->\n");
+                    return true;
+                }
+            }
+        }
+    }
+    return false;
+}
+
+
+bool
+GNENet::writeShapesComment(const std::unordered_set<const GNEAttributeCarrier*>& ACs, OutputDevice& device) const {
+    for (const auto& additionalTag : myAttributeCarriers->getAdditionals()) {
+        if (myViewNet->getNet()->getTagPropertiesDatabase()->getTagProperty(additionalTag.first)->isShapeElement() &&
+                !myViewNet->getNet()->getTagPropertiesDatabase()->getTagProperty(additionalTag.first)->isJuPedSimElement()) {
+            // check that additional is in ACs
+            for (const auto& additional : additionalTag.second) {
+                if (ACs.count(additional.second) > 0) {
+                    device << ("    <!-- Shapes -->\n");
+                    return true;
+                }
+            }
+        }
+    }
+    return false;
+}
+
+
+bool
+GNENet::writeJuPedSimComment(const std::unordered_set<const GNEAttributeCarrier*>& ACs, OutputDevice& device) const {
+    for (const auto& additionalTag : myAttributeCarriers->getAdditionals()) {
+        if (myViewNet->getNet()->getTagPropertiesDatabase()->getTagProperty(additionalTag.first)->isJuPedSimElement()) {
+            // check that additional is in ACs
+            for (const auto& additional : additionalTag.second) {
+                if (ACs.count(additional.second) > 0) {
+                    device << ("    <!-- JuPedSim elements -->\n");
+                    return true;
+                }
+            }
+        }
+    }
+    return false;
+}
+
+
+bool
+GNENet::writeTAZComment(const std::unordered_set<const GNEAttributeCarrier*>& ACs, OutputDevice& device) const {
+    // check that additional is in ACs
+    for (const auto& additional : myAttributeCarriers->getAdditionals().at(SUMO_TAG_TAZ)) {
+        if (ACs.count(additional.second) > 0) {
+            device << ("    <!-- TAZs -->\n");
             return true;
         }
     }
@@ -2673,87 +2790,13 @@ GNENet::writeCalibratorComment(OutputDevice& device) const {
 
 
 bool
-GNENet::writeStoppingPlaceComment(OutputDevice& device) const {
-    for (const auto& additionals : myAttributeCarriers->getAdditionals()) {
-        if (myViewNet->getNet()->getTagPropertiesDatabase()->getTagProperty(additionals.first)->isStoppingPlace() && (additionals.second.size() > 0)) {
-            device << ("    <!-- StoppingPlaces -->\n");
+GNENet::writeWireComment(const std::unordered_set<const GNEAttributeCarrier*>& ACs, OutputDevice& device) const {
+    // check that additional is in ACs
+    for (const auto& additional : myAttributeCarriers->getAdditionals().at(SUMO_TAG_TRACTION_SUBSTATION)) {
+        if (ACs.count(additional.second) > 0) {
+            device << ("    <!-- Wires -->\n");
             return true;
         }
-    }
-    return false;
-}
-
-
-bool
-GNENet::writeDetectorComment(OutputDevice& device) const {
-    for (const auto& additionals : myAttributeCarriers->getAdditionals()) {
-        if (myViewNet->getNet()->getTagPropertiesDatabase()->getTagProperty(additionals.first)->isDetector() && (additionals.second.size() > 0)) {
-            device << ("    <!-- Detectors -->\n");
-            return true;
-        }
-    }
-    return false;
-}
-
-
-bool
-GNENet::writeOtherAdditionalsComment(OutputDevice& device) const {
-    for (const auto& additionals : myAttributeCarriers->getAdditionals()) {
-        if (myViewNet->getNet()->getTagPropertiesDatabase()->getTagProperty(additionals.first)->isAdditionalPureElement() &&
-                !myViewNet->getNet()->getTagPropertiesDatabase()->getTagProperty(additionals.first)->isStoppingPlace() &&
-                !myViewNet->getNet()->getTagPropertiesDatabase()->getTagProperty(additionals.first)->isDetector() &&
-                !myViewNet->getNet()->getTagPropertiesDatabase()->getTagProperty(additionals.first)->isCalibrator() &&
-                (additionals.first != SUMO_TAG_ROUTEPROBE) && (additionals.first != SUMO_TAG_ACCESS) &&
-                (additionals.first != SUMO_TAG_PARKING_SPACE) && (additionals.second.size() > 0)) {
-            device << ("    <!-- Other additionals -->\n");
-            return true;
-        }
-    }
-    return false;
-}
-
-
-bool
-GNENet::writeShapesComment(OutputDevice& device) const {
-    for (const auto& additionals : myAttributeCarriers->getAdditionals()) {
-        if (myViewNet->getNet()->getTagPropertiesDatabase()->getTagProperty(additionals.first)->isShapeElement() &&
-                !myViewNet->getNet()->getTagPropertiesDatabase()->getTagProperty(additionals.first)->isJuPedSimElement() &&
-                (additionals.second.size() > 0)) {
-            device << ("    <!-- Shapes -->\n");
-            return true;
-        }
-    }
-    return false;
-}
-
-
-bool
-GNENet::writeJuPedSimComment(OutputDevice& device) const {
-    for (const auto& additionals : myAttributeCarriers->getAdditionals()) {
-        if (myViewNet->getNet()->getTagPropertiesDatabase()->getTagProperty(additionals.first)->isJuPedSimElement() && (additionals.second.size() > 0)) {
-            device << ("    <!-- JuPedSim elements -->\n");
-            return true;
-        }
-    }
-    return false;
-}
-
-
-bool
-GNENet::writeTAZComment(OutputDevice& device) const {
-    if (myAttributeCarriers->getAdditionals().at(SUMO_TAG_TAZ).size() > 0) {
-        device << ("    <!-- TAZs -->\n");
-        return true;
-    }
-    return false;
-}
-
-
-bool
-GNENet::writeWireComment(OutputDevice& device) const {
-    if (myAttributeCarriers->getAdditionals().at(SUMO_TAG_TRACTION_SUBSTATION).size() > 0) {
-        device << ("    <!-- Wires -->\n");
-        return true;
     }
     return false;
 }

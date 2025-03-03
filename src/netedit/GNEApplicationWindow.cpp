@@ -21,6 +21,8 @@
 
 #include <gui/dialogs/GUIDialog_Feedback.h>
 #include <netbuild/NBFrame.h>
+#include <netedit/GNETagProperties.h>
+#include <netedit/GNETagPropertiesDatabase.h>
 #include <netedit/changes/GNEChange_EdgeType.h>
 #include <netedit/dialogs/GNEAbout.h>
 #include <netedit/dialogs/GNEFixNetworkElements.h>
@@ -3780,8 +3782,17 @@ GNEApplicationWindow::onCmdSaveJuPedSimElementsAs(FXObject*, FXSelector, void*) 
     // check that file is valid
     if (!juPedSimFile.empty()) {
         try {
+            // get all jupedsims
+            std::unordered_set<const GNEAttributeCarrier*> juPedSimElements;
+            for (const auto& additionalTag : myNet->getAttributeCarriers()->getAdditionals()) {
+                if (myTagPropertiesDatabase->getTagProperty(additionalTag.first)->isJuPedSimElement()) {
+                    for (const auto& additional : additionalTag.second) {
+                        juPedSimElements.insert(additional.second);
+                    }
+                }
+            }
             // save additionals
-            const bool savingResult = myNet->saveJuPedSimElements(juPedSimFile);
+            const bool savingResult = myNet->saveJuPedSimElements(juPedSimElements, juPedSimFile);
             // set focus again in viewNet
             myViewNet->setFocus();
             // show info

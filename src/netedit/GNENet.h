@@ -438,7 +438,7 @@ public:
     bool saveAdditionals();
 
     /// @brief save JuPedSim elements
-    bool saveJuPedSimElements(const std::string& file);
+    bool saveJuPedSimElements(const std::unordered_set<const GNEAttributeCarrier*>& ACs, const std::string& file);
 
     /// @brief save demand element elements of the network
     bool saveDemandElements();
@@ -566,7 +566,8 @@ private:
     void saveMeanDatasConfirmed();
 
     /// @brief write additional element by type and sorted by ID
-    void writeAdditionalByType(OutputDevice& device, const std::vector<SumoXMLTag> tags) const;
+    void writeAdditionalByType(const std::unordered_set<const GNEAttributeCarrier*>& ACs, OutputDevice& device,
+                               const std::vector<SumoXMLTag> tags) const;
 
     /// @brief write demand element by type and sorted by ID
     void writeDemandByType(OutputDevice& device, SumoXMLTag tag) const;
@@ -593,31 +594,31 @@ private:
     bool writeRouteComment(OutputDevice& device, const bool additionalFile) const;
 
     /// @brief write routeProbe comment
-    bool writeRouteProbeComment(OutputDevice& device) const;
+    bool writeRouteProbeComment(const std::unordered_set<const GNEAttributeCarrier*>& ACs, OutputDevice& device) const;
 
     /// @brief write calibrator comment
-    bool writeCalibratorComment(OutputDevice& device) const;
+    bool writeCalibratorComment(const std::unordered_set<const GNEAttributeCarrier*>& ACs, OutputDevice& device) const;
 
     /// @brief write stoppingPlace comment
-    bool writeStoppingPlaceComment(OutputDevice& device) const;
+    bool writeStoppingPlaceComment(const std::unordered_set<const GNEAttributeCarrier*>& ACs, OutputDevice& device) const;
 
     /// @brief write detector comment
-    bool writeDetectorComment(OutputDevice& device) const;
+    bool writeDetectorComment(const std::unordered_set<const GNEAttributeCarrier*>& ACs, OutputDevice& device) const;
 
     /// @brief write other additional comment
-    bool writeOtherAdditionalsComment(OutputDevice& device) const;
+    bool writeOtherAdditionalsComment(const std::unordered_set<const GNEAttributeCarrier*>& ACs, OutputDevice& device) const;
 
     /// @brief write shape comment
-    bool writeShapesComment(OutputDevice& device) const;
+    bool writeShapesComment(const std::unordered_set<const GNEAttributeCarrier*>& ACs, OutputDevice& device) const;
 
     /// @brief write JuPedSim comment
-    bool writeJuPedSimComment(OutputDevice& device) const;
+    bool writeJuPedSimComment(const std::unordered_set<const GNEAttributeCarrier*>& ACs, OutputDevice& device) const;
 
     /// @brief write TAZ comment
-    bool writeTAZComment(OutputDevice& device) const;
+    bool writeTAZComment(const std::unordered_set<const GNEAttributeCarrier*>& ACs, OutputDevice& device) const;
 
     /// @brief write Wire comment
-    bool writeWireComment(OutputDevice& device) const;
+    bool writeWireComment(const std::unordered_set<const GNEAttributeCarrier*>& ACs, OutputDevice& device) const;
 
     /// @brief write meanDataEdge comment
     bool writeMeanDataEdgeComment(OutputDevice& device) const;

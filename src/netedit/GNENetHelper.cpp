@@ -3044,7 +3044,7 @@ std::string
 GNENetHelper::SavingFilesHandler::parsingSavingFiles(const GNENetHelper::SavingFilesHandler::SavingFile& defaultSavingFile,
         const std::vector<GNENetHelper::SavingFilesHandler::SavingFile>& savingFiles) const {
     std::string savingFileNames;
-    for (auto& it = savingFiles.begin(); it != savingFiles.end(); it++) {
+    for (auto it = savingFiles.begin(); it != savingFiles.end(); it++) {
         savingFileNames.append(it->filename);
         if ((it + 1) != savingFiles.end()) {
             savingFileNames.push_back(';');
@@ -3058,7 +3058,7 @@ GNENetHelper::SavingFilesHandler::parsingSavingFiles(const GNENetHelper::SavingF
     } else if (savingFileNames.size() > 0) {
         return savingFileNames;
     } else {
-        "";
+        return "";
     }
 }
 
