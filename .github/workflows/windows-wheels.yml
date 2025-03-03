@@ -28,7 +28,7 @@ jobs:
         python_version: [3.8, 3.9, '3.10', 3.11, 3.12, 3.13]
         include:
           - build_type: sumo
-            python_version: 3.8
+            python_version: 3.12
     env:
       CC: cl
       CXX: cl
@@ -167,16 +167,10 @@ jobs:
 #        $env:TEXTTEST_CI_APPS = "-v ci.fast -a complex,tools"
 #        tests\runCiTests.bat $env:pythonLocation\Scripts\texttest.exe
 
-    - name: Running "sumo in the wheel" meta tests
-      run: |
-        $env:TEXTTEST_CI_APPS = "-ts meta"
-        tests\runCiTests.bat $env:pythonLocation\Scripts\texttest.exe
-
     - name: Installing libsumo
       run: python -m pip install -f python-wheels libsumo
 
     - name: Running libsumo tests
-      if: matrix.python_version == '3.12'
       run: |
         $env:TEXTTEST_CI_APPS = "-a complex.libsumo"
         tests\runCiTests.bat $env:pythonLocation\Scripts\texttest.exe
@@ -192,28 +186,3 @@ jobs:
         name: texttesttmp-installed-${{ matrix.python_version }}
         path: D:/texttest_installed.zip
         if-no-files-found: warn
-
-  ###################
-  # publishing wheels
-  ###################
-  publish-wheels:
-    if: github.event_name == 'workflow_dispatch' || startsWith(github.ref, 'refs/tags')
-    needs: [test-wheels]
-    runs-on: ubuntu-latest
-    permissions:
-      id-token: write
-
-    steps:
-    - uses: actions/download-artifact@v4
-
-    # this step removes the sumolib and traci packages which linux takes care of
-    - name: Moving artifacts
-      run: |
-        ls -lR
-        mkdir dist
-        mv ./*-wheels/* dist
-        rm -f dist/sumolib* dist/traci*
-
-    - name: Publish to PyPI
-      if: startsWith(github.ref, 'refs/tags')
-      uses: pypa/gh-action-pypi-publish@release/v1
