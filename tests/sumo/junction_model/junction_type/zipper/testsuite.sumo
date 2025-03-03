@@ -21,6 +21,9 @@ variations_dense
 # input longer flow to test different configurations
 variations_dense_adaptDist_50
 
+# input longer flow to test different configurations (high density)
+variations_jam
+
 # input longer flow to test different configurations
 variations_subsecond
 variations_subsecond_IDM
