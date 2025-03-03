@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-13 10:07+0100\n"
-"PO-Revision-Date: 2025-03-03 08:46+0000\n"
+"PO-Revision-Date: 2025-03-03 11:42+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -3008,6 +3008,8 @@ msgid ""
 "Integration method was set to 'ballistic', since a default action step "
 "length was specified."
 msgstr ""
+"Il metodo di integrazione è stato impostato come 'ballistic' perché la "
+"durata standard del passo di azione è stata specificata."
 
 #: src/microsim/MSInsertionControl.cpp:284 src/router/RONet.cpp:481
 #, c-format
@@ -3132,6 +3134,8 @@ msgstr "Il veicolo '%' controllato remotamente verrà mantenuto dopo"
 #: src/microsim/MSLane.cpp:2180
 msgid " collision with person '%', lane='%', gap=%, time=%, stage=%."
 msgstr ""
+" collisione con persona '%', corsia='%', franco longitudinale=%, ore=%, "
+"tratto=%."
 
 #: src/microsim/MSLane.cpp:2183
 msgid " collision with person '%', lane='%', time=%, stage=%."
