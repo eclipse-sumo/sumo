@@ -3614,7 +3614,7 @@ GNEApplicationWindow::onCmdOpenAdditionals(FXObject*, FXSelector, void*) {
         // declare overwrite flag
         bool overwriteElements = false;
         // check if open question dialog box
-        if (additionalFile == neteditOptions.getString("additional-files")) {
+        if (myNet->getSavingFilesHandler()->existAdditionalSavingFile(additionalFile)) {
             // open overwrite dialog
             GNEKeepElementsDialog keepElementsDialog(this, "additional");
             // continue depending of result
@@ -3639,9 +3639,6 @@ GNEApplicationWindow::onCmdOpenAdditionals(FXObject*, FXSelector, void*) {
             // write error
             WRITE_ERROR(TL("Loading of additional file failed: ") + additionalFile);
         } else {
-            // change value of "additional-files"
-            neteditOptions.resetWritable();
-            neteditOptions.set("additional-files", additionalFile);
             // write info
             WRITE_MESSAGE(TL("Loading of additional file successfully: ") + additionalFile);
             // enable save if there is errors loading additionals
@@ -3665,24 +3662,25 @@ GNEApplicationWindow::onCmdOpenAdditionals(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdReloadAdditionals(FXObject*, FXSelector, void*) {
-    // get additionalFile
-    const std::string additionalFile = OptionsCont::getOptions().getString("additional-files");
-    // disable validation for additionals
-    XMLSubSys::setValidation("never", "auto", "auto");
-    // Create general handler
-    GNEGeneralHandler generalHandler(myNet, additionalFile, myAllowUndoRedoLoading ? myAllowUndoRedo : false, true);
-    // begin undoList operation
-    myUndoList->begin(Supermode::DEMAND, GUIIcon::SUPERMODENETWORK, TL("reloading additionals from '") + additionalFile + "'");
-    // clear additionals
-    myNet->clearAdditionalElements(myUndoList);
-    // Run parser
-    if (!generalHandler.parse()) {
-        WRITE_ERROR(TL("Reloading of additional file failed: ") + additionalFile);
+    const auto additionalSavingFiles = myViewNet->getNet()->getSavingFilesHandler()->getAdditionalSavingFiles();
+    for (const auto& savingFile : additionalSavingFiles) {
+        // disable validation for additionals
+        XMLSubSys::setValidation("never", "auto", "auto");
+        // Create general handler
+        GNEGeneralHandler generalHandler(myNet, savingFile.filename, myAllowUndoRedoLoading ? myAllowUndoRedo : false, true);
+        // begin undoList operation
+        myUndoList->begin(Supermode::DEMAND, GUIIcon::SUPERMODENETWORK, TL("reloading additionals from '") + savingFile.filename + "'");
+        // clear additionals
+        myNet->clearAdditionalElements(myUndoList);
+        // Run parser
+        if (!generalHandler.parse()) {
+            WRITE_ERROR(TL("Reloading of additional file failed: ") + savingFile.filename);
+        }
+        // end undoList operation
+        myUndoList->end();
+        // restore validation for additionals
+        XMLSubSys::setValidation("auto", "auto", "auto");
     }
-    // end undoList operation
-    myUndoList->end();
-    // restore validation for additionals
-    XMLSubSys::setValidation("auto", "auto", "auto");
     // check if clear undoList
     if (!myAllowUndoRedoLoading) {
         myUndoList->clear();
@@ -3694,8 +3692,9 @@ GNEApplicationWindow::onCmdReloadAdditionals(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onUpdReloadAdditionals(FXObject* sender, FXSelector, void*) {
-    // check if file exist
-    if (myViewNet && OptionsCont::getOptions().getString("additional-files").empty()) {
+    if (myViewNet == nullptr) {
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+    } else if (myViewNet->getNet()->getSavingFilesHandler()->isAdditionalSavingFileDefined()) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
@@ -3705,6 +3704,7 @@ GNEApplicationWindow::onUpdReloadAdditionals(FXObject* sender, FXSelector, void*
 
 long
 GNEApplicationWindow::onCmdSaveAdditionals(FXObject* sender, FXSelector sel, void* ptr) {
+    const auto savingFileHandler = myViewNet->getNet()->getSavingFilesHandler();
     // get option container
     auto& neteditOptions = OptionsCont::getOptions();
     if (myNet->getSavingStatus()->isAdditionalsSaved() && !neteditOptions.getBool("force-saving")) {
@@ -3712,11 +3712,11 @@ GNEApplicationWindow::onCmdSaveAdditionals(FXObject* sender, FXSelector sel, voi
         return 1;
     }
     // check if we have to set the output filename
-    if ((sel == MID_GNE_AUTOMATICFILENAME) && neteditOptions.getString("additional-files").empty()) {
-        neteditOptions.set("additional-files", *(static_cast<std::string*>(ptr)) + ".add.xml");
+    if ((sel == MID_GNE_AUTOMATICFILENAME) && savingFileHandler->isAdditionalSavingFileDefined()) {
+        savingFileHandler->updateEmptyFileAdditionalElement(*(static_cast<std::string*>(ptr)) + ".add.xml");
     }
     // check if we have to open save as dialog
-    if (neteditOptions.getString("additional-files").empty()) {
+    if (savingFileHandler->isDefaultAdditionalSavingFileDefined()) {
         // choose file to save
         return onCmdSaveAdditionalsAs(sender, sel, ptr);
     } else {
@@ -3729,7 +3729,7 @@ GNEApplicationWindow::onCmdSaveAdditionals(FXObject* sender, FXSelector sel, voi
             const bool savingResult = myNet->saveAdditionals();
             // show info
             if (savingResult) {
-                WRITE_MESSAGE(TL("Additionals saved in '") + neteditOptions.getString("additional-files") + "'");
+                WRITE_MESSAGE(TL("Additionals saved"));
                 return 1;
             } else {
                 WRITE_MESSAGE(TL("Saving additional aborted"));
@@ -3760,10 +3760,7 @@ GNEApplicationWindow::onCmdSaveAdditionalsAs(FXObject*, FXSelector, void*) {
     const auto additionalFile = GNEApplicationWindowHelper::openAdditionalFileDialog(this, true);
     // check that file is valid
     if (!additionalFile.empty()) {
-        // reset writtable flag
-        neteditOptions.resetWritable();
-        // change value of "additional-files"
-        neteditOptions.set("additional-files", additionalFile);
+        myViewNet->getNet()->getSavingFilesHandler()->updateEmptyFileAdditionalElement(additionalFile);
         // enable save additionals
         myNet->getSavingStatus()->requireSaveAdditionals();
         // save additionals

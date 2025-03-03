@@ -2287,8 +2287,6 @@ GNEApplicationWindowHelper::GNESumoConfigHandler::loadSumoConfig() {
     // set loaded files in netedit options
     neteditOptions.set("sumocfg-file", myFile);
     neteditOptions.set("net-file", mySumoOptions.getString("net-file"));
-    neteditOptions.set("additional-files", mySumoOptions.getString("additional-files"));
-    neteditOptions.set("route-files", mySumoOptions.getString("route-files"));
     // check if we need to define the configuration file
     if (neteditOptions.getString("configuration-file").empty()) {
         const auto newConfiguration = StringUtils::replace(neteditOptions.getString("configuration-file"), ".sumocfg", ".netecfg");

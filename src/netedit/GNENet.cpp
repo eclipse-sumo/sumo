@@ -59,6 +59,7 @@
 #include <netwrite/NWFrame.h>
 #include <netwrite/NWWriter_SUMO.h>
 #include <netwrite/NWWriter_XML.h>
+#include <utils/common/StringTokenizer.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
@@ -1473,14 +1474,17 @@ GNENet::computeNetwork(GNEApplicationWindow* window, bool force, bool volatileOp
     computeAndUpdate(neteditOptions, volatileOptions);
     // load additionals if was recomputed with volatile options
     if (volatileOptions && OptionsCont::getOptions().getString("additional-files").size() > 0) {
-        // Create additional handler
-        GNEGeneralHandler generalHandler(this, OptionsCont::getOptions().getString("additional-files"),
-                                         myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), true);
-        // Run parser
-        if (!generalHandler.parse()) {
-            WRITE_ERROR(TL("Loading of additional file failed: ") + OptionsCont::getOptions().getString("additional-files"));
-        } else {
-            WRITE_MESSAGE(TL("Loading of additional file successfully: ") + OptionsCont::getOptions().getString("additional-files"));
+        // split and load every file individually
+        const auto additionalFiles = StringTokenizer(OptionsCont::getOptions().getString("additional-files"), ";").getVector();
+        for (const auto& file : additionalFiles) {
+            // Create additional handler
+            GNEGeneralHandler generalHandler(this, file, myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), true);
+            // Run parser
+            if (!generalHandler.parse()) {
+                WRITE_ERROR(TL("Loading of additional file failed: ") + file);
+            } else {
+                WRITE_MESSAGE(TL("Loading of additional file successfully: ") + file);
+            }
         }
     }
     // load demand elements if was recomputed with volatile options
@@ -2349,59 +2353,63 @@ void
 GNENet::saveAdditionalsConfirmed() {
     // Start saving additionals
     getApp()->beginWaitCursor();
-    OutputDevice& device = OutputDevice::getDevice(OptionsCont::getOptions().getString("additional-files"));
-    // open header
-    device.writeXMLHeader("additional", "additional_file.xsd", EMPTY_HEADER, false);
-    // write vTypes with additional childrens (due calibrators)
-    writeVTypeComment(device, true);
-    writeVTypeDistributions(device, true);
-    writeVTypes(device, true);
-    // write routes with additional children (due route prob reroutes)
-    writeRouteComment(device, true);
-    writeRouteDistributions(device, true);
-    writeRoutes(device, true);
-    // routeProbes
-    writeRouteProbeComment(device);
-    writeAdditionalByType(device, {SUMO_TAG_ROUTEPROBE});
-    // calibrator
-    writeCalibratorComment(device);
-    writeAdditionalByType(device, {SUMO_TAG_CALIBRATOR, GNE_TAG_CALIBRATOR_LANE});
-    // stoppingPlaces
-    writeStoppingPlaceComment(device);
-    writeAdditionalByType(device, {SUMO_TAG_BUS_STOP});
-    writeAdditionalByType(device, {SUMO_TAG_TRAIN_STOP});
-    writeAdditionalByType(device, {SUMO_TAG_CONTAINER_STOP});
-    writeAdditionalByType(device, {SUMO_TAG_PARKING_AREA});
-    writeAdditionalByType(device, {SUMO_TAG_CHARGING_STATION});
-    // detectors
-    writeDetectorComment(device);
-    writeAdditionalByType(device, {SUMO_TAG_INDUCTION_LOOP});
-    writeAdditionalByType(device, {SUMO_TAG_INSTANT_INDUCTION_LOOP});
-    writeAdditionalByType(device, {SUMO_TAG_LANE_AREA_DETECTOR, GNE_TAG_MULTI_LANE_AREA_DETECTOR});
-    writeAdditionalByType(device, {SUMO_TAG_ENTRY_EXIT_DETECTOR});
-    // Other additionals
-    writeOtherAdditionalsComment(device);
-    writeAdditionalByType(device, {SUMO_TAG_REROUTER});
-    writeAdditionalByType(device, {SUMO_TAG_VSS});
-    writeAdditionalByType(device, {SUMO_TAG_VAPORIZER});
-    // shapes
-    writeShapesComment(device);
-    writeAdditionalByType(device, {SUMO_TAG_POLY});
-    writeAdditionalByType(device, {SUMO_TAG_POI, GNE_TAG_POILANE, GNE_TAG_POIGEO});
-    // TAZs
-    writeTAZComment(device);
-    writeAdditionalByType(device, {SUMO_TAG_TAZ});
-    // Wire element
-    writeWireComment(device);
-    writeAdditionalByType(device, {SUMO_TAG_TRACTION_SUBSTATION});
-    writeAdditionalByType(device, {SUMO_TAG_OVERHEAD_WIRE_SECTION});
-    writeAdditionalByType(device, {SUMO_TAG_OVERHEAD_WIRE_CLAMP});
-    // juPedSim elements
-    writeJuPedSimComment(device);
-    writeAdditionalByType(device, {GNE_TAG_JPS_WALKABLEAREA});
-    writeAdditionalByType(device, {GNE_TAG_JPS_OBSTACLE});
-    // close device
-    device.close();
+    // iterate over every saving file (including default)
+    const auto additionalSavingFiles = mySavingFilesHandler->getAdditionalSavingFiles();
+    for (const auto& additionalSavingFile : additionalSavingFiles) {
+        OutputDevice& device = OutputDevice::getDevice(additionalSavingFile.filename);
+        // open header
+        device.writeXMLHeader("additional", "additional_file.xsd", EMPTY_HEADER, false);
+        // write vTypes with additional childrens (due calibrators)
+        writeVTypeComment(device, true);
+        writeVTypeDistributions(device, true);
+        writeVTypes(device, true);
+        // write routes with additional children (due route prob reroutes)
+        writeRouteComment(device, true);
+        writeRouteDistributions(device, true);
+        writeRoutes(device, true);
+        // routeProbes
+        writeRouteProbeComment(device);
+        writeAdditionalByType(device, {SUMO_TAG_ROUTEPROBE});
+        // calibrator
+        writeCalibratorComment(device);
+        writeAdditionalByType(device, {SUMO_TAG_CALIBRATOR, GNE_TAG_CALIBRATOR_LANE});
+        // stoppingPlaces
+        writeStoppingPlaceComment(device);
+        writeAdditionalByType(device, {SUMO_TAG_BUS_STOP});
+        writeAdditionalByType(device, {SUMO_TAG_TRAIN_STOP});
+        writeAdditionalByType(device, {SUMO_TAG_CONTAINER_STOP});
+        writeAdditionalByType(device, {SUMO_TAG_PARKING_AREA});
+        writeAdditionalByType(device, {SUMO_TAG_CHARGING_STATION});
+        // detectors
+        writeDetectorComment(device);
+        writeAdditionalByType(device, {SUMO_TAG_INDUCTION_LOOP});
+        writeAdditionalByType(device, {SUMO_TAG_INSTANT_INDUCTION_LOOP});
+        writeAdditionalByType(device, {SUMO_TAG_LANE_AREA_DETECTOR, GNE_TAG_MULTI_LANE_AREA_DETECTOR});
+        writeAdditionalByType(device, {SUMO_TAG_ENTRY_EXIT_DETECTOR});
+        // Other additionals
+        writeOtherAdditionalsComment(device);
+        writeAdditionalByType(device, {SUMO_TAG_REROUTER});
+        writeAdditionalByType(device, {SUMO_TAG_VSS});
+        writeAdditionalByType(device, {SUMO_TAG_VAPORIZER});
+        // shapes
+        writeShapesComment(device);
+        writeAdditionalByType(device, {SUMO_TAG_POLY});
+        writeAdditionalByType(device, {SUMO_TAG_POI, GNE_TAG_POILANE, GNE_TAG_POIGEO});
+        // TAZs
+        writeTAZComment(device);
+        writeAdditionalByType(device, {SUMO_TAG_TAZ});
+        // Wire element
+        writeWireComment(device);
+        writeAdditionalByType(device, {SUMO_TAG_TRACTION_SUBSTATION});
+        writeAdditionalByType(device, {SUMO_TAG_OVERHEAD_WIRE_SECTION});
+        writeAdditionalByType(device, {SUMO_TAG_OVERHEAD_WIRE_CLAMP});
+        // juPedSim elements
+        writeJuPedSimComment(device);
+        writeAdditionalByType(device, {GNE_TAG_JPS_WALKABLEAREA});
+        writeAdditionalByType(device, {GNE_TAG_JPS_OBSTACLE});
+        // close device
+        device.close();
+    }
     // mark additionals as saved
     mySavingStatus->additionalsSaved();
     // end saving additionals
