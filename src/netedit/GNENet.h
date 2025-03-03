@@ -54,6 +54,9 @@ public:
     /// @brief get all attribute carriers used in this net
     GNENetHelper::AttributeCarriers* getAttributeCarriers() const;
 
+    /// @brief get saving files handler
+    GNENetHelper::SavingFilesHandler* getSavingFilesHandler() const;
+
     /// @brief get saving status
     GNENetHelper::SavingStatus* getSavingStatus() const;
 

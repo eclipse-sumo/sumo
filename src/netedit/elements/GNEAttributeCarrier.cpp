@@ -777,10 +777,24 @@ GNEAttributeCarrier::setCommonAttribute(Parameterised* parameterised, SumoXMLAtt
             }
             break;
         case GNE_ATTR_ADDITIONAL_FILE:
-        case GNE_ATTR_DEMAND_FILE:
-        case GNE_ATTR_DATA_FILE:
-        case GNE_ATTR_MEANDATA_FILE:
+            myNet->getSavingFilesHandler()->removeAdditionalElement(this);
             myFilename = value;
+            myNet->getSavingFilesHandler()->addAdditionalElement(this);
+            break;
+        case GNE_ATTR_DEMAND_FILE:
+            myNet->getSavingFilesHandler()->removeDemandElement(this);
+            myFilename = value;
+            myNet->getSavingFilesHandler()->addDemandElement(this);
+            break;
+        case GNE_ATTR_DATA_FILE:
+            myNet->getSavingFilesHandler()->removeDataElement(this);
+            myFilename = value;
+            myNet->getSavingFilesHandler()->addDataElement(this);
+            break;
+        case GNE_ATTR_MEANDATA_FILE:
+            myNet->getSavingFilesHandler()->removeMeanDataElement(this);
+            myFilename = value;
+            myNet->getSavingFilesHandler()->addMeanDataElement(this);
             break;
         case GNE_ATTR_PARAMETERS:
             parameterised->setParametersStr(value);

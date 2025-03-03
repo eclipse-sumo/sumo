@@ -143,6 +143,12 @@ GNENet::getAttributeCarriers() const {
 }
 
 
+GNENetHelper::SavingFilesHandler*
+GNENet::getSavingFilesHandler() const {
+    return mySavingFilesHandler;
+}
+
+
 GNENetHelper::SavingStatus*
 GNENet::getSavingStatus() const {
     return mySavingStatus;

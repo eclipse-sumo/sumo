@@ -877,42 +877,139 @@ struct GNENetHelper {
     class SavingFilesHandler {
 
     public:
+        /// @brief struct for saving file
+        struct SavingFile {
+
+            /// @brief default
+            SavingFile() {}
+
+            /// @brief parameter constructor
+            SavingFile(const GNEAttributeCarrier* AC) :
+                filename(AC->getFilename()) {
+                ACs.insert(AC);
+            }
+
+            /// @ filename
+            std::string filename;
+
+            /// @ ACs
+            std::unordered_set<const GNEAttributeCarrier*> ACs;
+        };
+
         /// @brief constructor
         SavingFilesHandler(GNENet* net);
 
-        /// @brief get set with edge type elements saving files
-        const std::set<std::string>& getEdgeTypeSavingFiles() const;
+        /// @brief update netedit config
+        void updateNeteditConfig();
 
-        /// @brief get set with additional elements saving files
-        const std::set<std::string>& getAdditionalSavingFiles() const;
+        /// @brief additional elements
+        /// @{
+
+        /// @brief add additional element
+        void addAdditionalElement(const GNEAttributeCarrier* additionalElement);
+
+        /// @brief remove additional element
+        void removeAdditionalElement(const GNEAttributeCarrier* additionalElement);
+
+        /// @brief get vector with additional elements saving files (starting with default)
+        const std::vector<SavingFile> getAdditionalSavingFiles() const;
+
+        /// @brief check if at least one additional file is defined
+        bool isAdditionalSavingFileDefined() const;
+
+        /// @brief check if default additional saving file is empty
+        bool isDefaultAdditionalSavingFileDefined() const;
+
+        /// @brief check if the given additional filename exist
+        bool existAdditionalSavingFile(const std::string& file) const;
+
+        /// @brief update empty file additional elements
+        void updateEmptyFileAdditionalElement(const std::string& newFilename);
+
+        /// @}
+
+        /// @brief demand elements
+        /// @{
+
+        /// @brief add demand element
+        void addDemandElement(const GNEAttributeCarrier* demandElement);
+
+        /// @brief remove demand element
+        void removeDemandElement(const GNEAttributeCarrier* demandElement);
 
         /// @brief get set with demand elements saving files
-        const std::set<std::string>& getDemandElementSavingFiles() const;
+        const std::vector<SavingFile>& getDemandElementSavingFiles() const;
+
+        /// @brief update empty file demand elements
+        void updateEmptyFileDemandElement(const std::string& newFilename);
+
+        /// @}
+
+        /// @brief data elements
+        /// @{
+
+        /// @brief add data element
+        void addDataElement(const GNEAttributeCarrier* dataElement);
+
+        /// @brief remove data element
+        void removeDataElement(const GNEAttributeCarrier* dataElement);
 
         /// @brief set with data elements saving files
-        const std::set<std::string>& getDataElementSavingFiles() const;
+        const std::vector<SavingFile>& getDataElementSavingFiles() const;
+
+        /// @brief update empty file data elements
+        void updateEmptyFileDataElement(const std::string& newFilename);
+
+        /// @}
+
+        /// @brief mean data elements
+        /// @{
+
+        /// @brief add mean data element
+        void addMeanDataElement(const GNEAttributeCarrier* dataElement);
+
+        /// @brief remove mean data element
+        void removeMeanDataElement(const GNEAttributeCarrier* dataElement);
 
         /// @brief set with mean data elements saving files
-        const std::set<std::string>& getMeanDataElementSavingFiles() const;
+        const std::vector<SavingFile>& getMeanDataElementSavingFiles() const;
+
+        /// @brief update empty file mean dataelements
+        void updateEmptyFileMeanDataElement(const std::string& newFilename);
+
+        /// @}
 
     private:
         /// @brief pointer to net
         GNENet* myNet;
 
-        /// @brief set with edge type elements saving files
-        std::set<std::string> myEdgeTypeSavingFiles;
+        /// @brief default additional element saving file
+        SavingFile myAdditionalElementsDefaultSavingFile;
 
-        /// @brief set with additional elements saving files
-        std::set<std::string> myAdditionalSavingFiles;
+        /// @brief vector with additional elements saving files
+        std::vector<SavingFile> myAdditionalElementsSavingFiles;
 
-        /// @brief set with demand elements saving files
-        std::set<std::string> myDemandElementSavingFiles;
+        /// @brief default demand element saving file
+        SavingFile myDemandElementsDefaultSavingFile;
 
-        /// @brief set with data elements saving files
-        std::set<std::string> myDataElementSavingFiles;
+        /// @brief vector with demand elements saving files
+        std::vector<SavingFile> myDemandElementSavingFiles;
 
-        /// @brief set with mean data elements saving files
-        std::set<std::string> myMeanDataElementSavingFiles;
+        /// @brief default data element saving file
+        SavingFile myDataElementsDefaultSavingFile;
+
+        /// @brief vector with data elements saving files
+        std::vector<SavingFile> myDataElementSavingFiles;
+
+        /// @brief default mean data element saving file
+        SavingFile myMeanDataElementsDefaultSavingFile;
+
+        /// @brief vector with mean data elements saving files
+        std::vector<SavingFile> myMeanDataElementSavingFiles;
+
+        /// @brief parsing std::vector<SavingFile>
+        std::string parsingSavingFiles(const SavingFile& defaultSavingFile,
+                                       const std::vector<SavingFile>& savingFiles) const;
 
         /// @brief Invalidated default constructor.
         SavingFilesHandler() = delete;
