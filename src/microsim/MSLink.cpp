@@ -70,7 +70,7 @@
 
 const SUMOTime MSLink::myLookaheadTime = TIME2STEPS(1);
 // additional caution is needed when approaching a zipper link
-const SUMOTime MSLink::myLookaheadTimeZipper = TIME2STEPS(4);
+const SUMOTime MSLink::myLookaheadTimeZipper = TIME2STEPS(16);
 std::set<std::pair<MSLink*, MSLink*> > MSLink::myRecheck;
 const double MSLink::NO_INTERSECTION(10000);
 
@@ -2019,7 +2019,7 @@ MSLink::getZipperSpeed(const MSVehicle* ego, const double dist, double vSafe,
         throw ProcessError("Zipper junctions with more than two conflicting lanes are not supported (at junction '"
                            + myJunction->getID() + "' link " + toString(getIndex()) + " has foes " + toString(foeIndices) + ")");
     }
-    const double brakeGap = ego->getCarFollowModel().brakeGap(ego->getSpeed(), ego->getCarFollowModel().getMaxDecel(), TS);
+    const double brakeGap = ego->getCarFollowModel().brakeGap(vSafe, ego->getCarFollowModel().getMaxDecel(), TS);
     if (dist > MAX2(myFoeVisibilityDistance, brakeGap)) {
 #ifdef DEBUG_ZIPPER
         const SUMOTime now = MSNet::getInstance()->getCurrentTimeStep();
@@ -2092,27 +2092,24 @@ MSLink::getZipperSpeed(const MSVehicle* ego, const double dist, double vSafe,
 
         const double vMax = ego->getLane()->getVehicleMaxSpeed(ego);
         const double vAccel = ego->getCarFollowModel().estimateSpeedAfterDistance(dist, ego->getSpeed(), ego->getCarFollowModel().getMaxAccel());
-        const double vDecel = ego->getCarFollowModel().estimateSpeedAfterDistance(dist, ego->getSpeed(), ego->getCarFollowModel().getMaxDecel());
+        const double vDecel = ego->getCarFollowModel().estimateSpeedAfterDistance(dist, ego->getSpeed(), -ego->getCarFollowModel().getMaxDecel());
         const double vEnd = MIN3(vMax, vAccel, MAX2(uEnd, vDecel));
         const double vAvg = (ego->getSpeed() + vEnd) / 2;
         const double te0 = dist / MAX2(NUMERICAL_EPS, vAvg);
         const double te = MAX2(1.0, ceil((te0) / TS) * TS);
 
+        const double tTarget = tf + ego->getCarFollowModel().getHeadwayTime();
+        const double a = ego->getCarFollowModel().avoidArrivalAccel(dist, tTarget, vSafe, ego->getCarFollowModel().getMaxDecel());
+
         const double gap = dist - foe->getVehicleType().getLength() - ego->getVehicleType().getMinGap() - foeDist;
-        const double safeGap = ego->getCarFollowModel().getSecureGap(ego, foe, vEnd, uEnd, foe->getCarFollowModel().getMaxDecel());
-        // round t to next step size
-        // increase gap to safeGap by the time foe reaches link
-        // gap + u*t - (t * v + a * t^2 / 2) = safeGap
-        const double deltaGap = gap + tf * uAvg - safeGap - vAvg * tf;
-        const double a = 2 * deltaGap / (tf * tf);
-        const double vSafeGap = ego->getSpeed() + ACCEL2SPEED(a);
         const double vFollow = ego->getCarFollowModel().followSpeed(
                                    ego, ego->getSpeed(), gap, avi.speed, foe->getCarFollowModel().getMaxDecel(), foe);
+        const double vSafeGap = MAX2(vFollow, ego->getSpeed() + ACCEL2SPEED(a));
 
         // scale behavior based on ego time to link (te)
         const double w = MIN2(1.0, te / 10);
         const double maxDecel = w * ego->getCarFollowModel().getMaxDecel() + (1 - w) * ego->getCarFollowModel().getEmergencyDecel();
-        const double vZipper = MAX3(vFollow, ego->getSpeed() - ACCEL2SPEED(maxDecel), w * vSafeGap + (1 - w) * vFollow);
+        const double vZipper = MAX3(vFollow, ego->getSpeed() - ACCEL2SPEED(maxDecel), vSafeGap);
 
         vSafe = MIN2(vSafe, vZipper);
 #ifdef DEBUG_ZIPPER
@@ -2126,11 +2123,9 @@ MSLink::getZipperSpeed(const MSVehicle* ego, const double dist, double vSafe,
                                              << " uEnd=" << uEnd
                                              << " uAvg=" << uAvg
                                              << " gap=" << gap
-                                             << " safeGap=" << safeGap
                                              << "\n      "
                                              << " tf=" << tf
                                              << " te=" << te
-                                             << " dg=" << deltaGap
                                              << " aSafeGap=" << a
                                              << " vMax=" << vMax
                                              << " vAccel=" << vAccel
