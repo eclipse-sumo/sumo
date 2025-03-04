@@ -125,6 +125,7 @@ class Lane:
         self._neigh = None
         self._selected = False
         self._acceleration = acceleration
+        self._lengthGeometryFactor = 1
         edge.addLane(self)
 
     def getSpeed(self):
@@ -148,6 +149,9 @@ class Lane:
 
         self._shape3D = shape
         self._shape = [(x, y) for x, y, z in shape]
+        shapeLength = sumolib.geomhelper.polyLength(self.getShape())
+        if shapeLength > 0:
+            self._lengthGeometryFactor = self.getLength() / shapeLength
 
     def getShape(self, includeJunctions=False):
         """Returns the shape of the lane in 2d.
@@ -213,7 +217,8 @@ class Lane:
         return (xmin, ymin, xmax, ymax)
 
     def getClosestLanePosAndDist(self, point, perpendicular=False):
-        return sumolib.geomhelper.polygonOffsetAndDistanceToPoint(point, self.getShape(), perpendicular)
+        shapePos, dist = sumolib.geomhelper.polygonOffsetAndDistanceToPoint(point, self.getShape(), perpendicular)
+        return shapePos * self._lengthGeometryFactor, dist
 
     def getIndex(self):
         return self._edge._lanes.index(self)
