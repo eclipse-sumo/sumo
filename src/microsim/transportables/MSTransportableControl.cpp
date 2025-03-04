@@ -169,7 +169,9 @@ MSTransportableControl::erase(MSTransportable* transportable) {
     }
     const std::map<std::string, MSTransportable*>::iterator i = myTransportables.find(transportable->getID());
     if (i != myTransportables.end()) {
-        myRunningNumber--;
+        if (i->second->hasDeparted()) {
+            myRunningNumber--;
+        }
         myEndedNumber++;
         MSNet::getInstance()->informTransportableStateListener(transportable,
                 transportable->isPerson() ? MSNet::TransportableState::PERSON_ARRIVED : MSNet::TransportableState::CONTAINER_ARRIVED);
