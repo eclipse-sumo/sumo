@@ -3608,7 +3608,6 @@ GNEApplicationWindow::onUpdSaveEdgeTypesAs(FXObject* sender, FXSelector, void*) 
 
 long
 GNEApplicationWindow::onCmdOpenAdditionals(FXObject*, FXSelector, void*) {
-    auto& neteditOptions = OptionsCont::getOptions();
     // get file
     const auto additionalFile = GNEApplicationWindowHelper::openAdditionalFileDialog(this, false);
     // check file
@@ -3675,7 +3674,7 @@ GNEApplicationWindow::onCmdReloadAdditionals(FXObject*, FXSelector, void*) {
         myNet->clearAdditionalElements(myUndoList);
         // Run parser
         if (!generalHandler.parse()) {
-            WRITE_ERROR(TL("Reloading of additional file '%' failed.", savingFile.filename));
+            WRITE_ERROR(TLF("Reloading of additional file '%' failed.", savingFile));
         }
         // end undoList operation
         myUndoList->end();

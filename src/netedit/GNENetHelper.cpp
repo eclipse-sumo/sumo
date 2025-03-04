@@ -2901,7 +2901,7 @@ GNENetHelper::SavingFilesHandler::getAdditionalsByFilenames() {
         }
     }
     // clear empty saving files
-    for (auto& it = myAdditionalElementsSavingFiles.begin(); it != myAdditionalElementsSavingFiles.end(); it++) {
+    for (auto it = myAdditionalElementsSavingFiles.begin(); it != myAdditionalElementsSavingFiles.end(); it++) {
         if (it->empty() || (additionalsbyFilenames.find(*it) == additionalsbyFilenames.end())) {
             it = myAdditionalElementsSavingFiles.erase(it);
         }
