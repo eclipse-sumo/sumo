@@ -73,6 +73,9 @@ public:
     /// @brief get filename in which save this AC
     const std::string& getFilename() const;
 
+    /// @brief change defaultFilename (only used in SavingFilesHandler)
+    void changeDefaultFilename(const std::string& file);
+
     /// @brief select attribute carrier using GUIGlobalSelection
     void selectAttributeCarrier();
 

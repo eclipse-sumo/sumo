@@ -3664,19 +3664,18 @@ GNEApplicationWindow::onCmdOpenAdditionals(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdReloadAdditionals(FXObject*, FXSelector, void*) {
-    const auto additionalSavingFiles = myViewNet->getNet()->getSavingFilesHandler()->getAdditionalSavingFiles();
-    for (const auto& savingFile : additionalSavingFiles) {
+    for (const auto& savingFile : myViewNet->getNet()->getSavingFilesHandler()->getAdditionalSavingFiles()) {
         // disable validation for additionals
         XMLSubSys::setValidation("never", "auto", "auto");
         // Create general handler
-        GNEGeneralHandler generalHandler(myNet, savingFile.filename, myAllowUndoRedoLoading ? myAllowUndoRedo : false, true);
+        GNEGeneralHandler generalHandler(myNet, savingFile, myAllowUndoRedoLoading ? myAllowUndoRedo : false, true);
         // begin undoList operation
-        myUndoList->begin(Supermode::DEMAND, GUIIcon::SUPERMODENETWORK, TL("reloading additionals from '") + savingFile.filename + "'");
+        myUndoList->begin(Supermode::DEMAND, GUIIcon::SUPERMODENETWORK, TL("reloading additionals"));
         // clear additionals
         myNet->clearAdditionalElements(myUndoList);
         // Run parser
         if (!generalHandler.parse()) {
-            WRITE_ERROR(TL("Reloading of additional file failed: ") + savingFile.filename);
+            WRITE_ERROR(TL("Reloading of additional file '%' failed.", savingFile.filename));
         }
         // end undoList operation
         myUndoList->end();
@@ -3696,7 +3695,7 @@ long
 GNEApplicationWindow::onUpdReloadAdditionals(FXObject* sender, FXSelector, void*) {
     if (myViewNet == nullptr) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
-    } else if (myViewNet->getNet()->getSavingFilesHandler()->isAdditionalSavingFileDefined()) {
+    } else if (myViewNet->getNet()->getSavingFilesHandler()->getAdditionalSavingFiles().empty()) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
@@ -3714,11 +3713,11 @@ GNEApplicationWindow::onCmdSaveAdditionals(FXObject* sender, FXSelector sel, voi
         return 1;
     }
     // check if we have to set the output filename
-    if ((sel == MID_GNE_AUTOMATICFILENAME) && savingFileHandler->isAdditionalSavingFileDefined()) {
-        savingFileHandler->updateEmptyFileAdditionalElement(*(static_cast<std::string*>(ptr)) + ".add.xml");
+    if ((sel == MID_GNE_AUTOMATICFILENAME) && savingFileHandler->getAdditionalSavingFiles().empty()) {
+        savingFileHandler->updateAdditionalEmptyFilenames(*(static_cast<std::string*>(ptr)) + ".add.xml");
     }
     // check if we have to open save as dialog
-    if (savingFileHandler->isDefaultAdditionalSavingFileDefined()) {
+    if (savingFileHandler->getAdditionalSavingFiles().empty()) {
         // choose file to save
         return onCmdSaveAdditionalsAs(sender, sel, ptr);
     } else {
@@ -3762,7 +3761,7 @@ GNEApplicationWindow::onCmdSaveAdditionalsAs(FXObject*, FXSelector, void*) {
     const auto additionalFile = GNEApplicationWindowHelper::openAdditionalFileDialog(this, true);
     // check that file is valid
     if (!additionalFile.empty()) {
-        myViewNet->getNet()->getSavingFilesHandler()->updateEmptyFileAdditionalElement(additionalFile);
+        myViewNet->getNet()->getSavingFilesHandler()->updateAdditionalEmptyFilenames(additionalFile);
         // enable save additionals
         myNet->getSavingStatus()->requireSaveAdditionals();
         // save additionals

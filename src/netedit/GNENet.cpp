@@ -2354,9 +2354,9 @@ GNENet::saveAdditionalsConfirmed() {
     // Start saving additionals
     getApp()->beginWaitCursor();
     // iterate over every saving file (including default)
-    const auto additionalSavingFiles = mySavingFilesHandler->getAdditionalSavingFiles();
-    for (const auto& additionalSavingFile : additionalSavingFiles) {
-        OutputDevice& device = OutputDevice::getDevice(additionalSavingFile.filename);
+    const auto additionalsByFilenames = mySavingFilesHandler->getAdditionalsByFilenames();
+    for (const auto& additionalsByFilename : additionalsByFilenames) {
+        OutputDevice& device = OutputDevice::getDevice(additionalsByFilename.first);
         // open header
         device.writeXMLHeader("additional", "additional_file.xsd", EMPTY_HEADER, false);
         // write vTypes with additional childrens (due calibrators)
@@ -2368,45 +2368,45 @@ GNENet::saveAdditionalsConfirmed() {
         writeRouteDistributions(device, true);
         writeRoutes(device, true);
         // routeProbes
-        writeRouteProbeComment(additionalSavingFile.ACs, device);
-        writeAdditionalByType(additionalSavingFile.ACs, device, {SUMO_TAG_ROUTEPROBE});
+        writeRouteProbeComment(additionalsByFilename.second, device);
+        writeAdditionalByType(additionalsByFilename.second, device, {SUMO_TAG_ROUTEPROBE});
         // calibrator
-        writeCalibratorComment(additionalSavingFile.ACs, device);
-        writeAdditionalByType(additionalSavingFile.ACs, device, {SUMO_TAG_CALIBRATOR, GNE_TAG_CALIBRATOR_LANE});
+        writeCalibratorComment(additionalsByFilename.second, device);
+        writeAdditionalByType(additionalsByFilename.second, device, {SUMO_TAG_CALIBRATOR, GNE_TAG_CALIBRATOR_LANE});
         // stoppingPlaces
-        writeStoppingPlaceComment(additionalSavingFile.ACs, device);
-        writeAdditionalByType(additionalSavingFile.ACs, device, {SUMO_TAG_BUS_STOP});
-        writeAdditionalByType(additionalSavingFile.ACs, device, {SUMO_TAG_TRAIN_STOP});
-        writeAdditionalByType(additionalSavingFile.ACs, device, {SUMO_TAG_CONTAINER_STOP});
-        writeAdditionalByType(additionalSavingFile.ACs, device, {SUMO_TAG_PARKING_AREA});
-        writeAdditionalByType(additionalSavingFile.ACs, device, {SUMO_TAG_CHARGING_STATION});
+        writeStoppingPlaceComment(additionalsByFilename.second, device);
+        writeAdditionalByType(additionalsByFilename.second, device, {SUMO_TAG_BUS_STOP});
+        writeAdditionalByType(additionalsByFilename.second, device, {SUMO_TAG_TRAIN_STOP});
+        writeAdditionalByType(additionalsByFilename.second, device, {SUMO_TAG_CONTAINER_STOP});
+        writeAdditionalByType(additionalsByFilename.second, device, {SUMO_TAG_PARKING_AREA});
+        writeAdditionalByType(additionalsByFilename.second, device, {SUMO_TAG_CHARGING_STATION});
         // detectors
-        writeDetectorComment(additionalSavingFile.ACs, device);
-        writeAdditionalByType(additionalSavingFile.ACs, device, {SUMO_TAG_INDUCTION_LOOP});
-        writeAdditionalByType(additionalSavingFile.ACs, device, {SUMO_TAG_INSTANT_INDUCTION_LOOP});
-        writeAdditionalByType(additionalSavingFile.ACs, device, {SUMO_TAG_LANE_AREA_DETECTOR, GNE_TAG_MULTI_LANE_AREA_DETECTOR});
-        writeAdditionalByType(additionalSavingFile.ACs, device, {SUMO_TAG_ENTRY_EXIT_DETECTOR});
+        writeDetectorComment(additionalsByFilename.second, device);
+        writeAdditionalByType(additionalsByFilename.second, device, {SUMO_TAG_INDUCTION_LOOP});
+        writeAdditionalByType(additionalsByFilename.second, device, {SUMO_TAG_INSTANT_INDUCTION_LOOP});
+        writeAdditionalByType(additionalsByFilename.second, device, {SUMO_TAG_LANE_AREA_DETECTOR, GNE_TAG_MULTI_LANE_AREA_DETECTOR});
+        writeAdditionalByType(additionalsByFilename.second, device, {SUMO_TAG_ENTRY_EXIT_DETECTOR});
         // Other additionals
-        writeOtherAdditionalsComment(additionalSavingFile.ACs, device);
-        writeAdditionalByType(additionalSavingFile.ACs, device, {SUMO_TAG_REROUTER});
-        writeAdditionalByType(additionalSavingFile.ACs, device, {SUMO_TAG_VSS});
-        writeAdditionalByType(additionalSavingFile.ACs, device, {SUMO_TAG_VAPORIZER});
+        writeOtherAdditionalsComment(additionalsByFilename.second, device);
+        writeAdditionalByType(additionalsByFilename.second, device, {SUMO_TAG_REROUTER});
+        writeAdditionalByType(additionalsByFilename.second, device, {SUMO_TAG_VSS});
+        writeAdditionalByType(additionalsByFilename.second, device, {SUMO_TAG_VAPORIZER});
         // shapes
-        writeShapesComment(additionalSavingFile.ACs, device);
-        writeAdditionalByType(additionalSavingFile.ACs, device, {SUMO_TAG_POLY});
-        writeAdditionalByType(additionalSavingFile.ACs, device, {SUMO_TAG_POI, GNE_TAG_POILANE, GNE_TAG_POIGEO});
+        writeShapesComment(additionalsByFilename.second, device);
+        writeAdditionalByType(additionalsByFilename.second, device, {SUMO_TAG_POLY});
+        writeAdditionalByType(additionalsByFilename.second, device, {SUMO_TAG_POI, GNE_TAG_POILANE, GNE_TAG_POIGEO});
         // TAZs
-        writeTAZComment(additionalSavingFile.ACs, device);
-        writeAdditionalByType(additionalSavingFile.ACs, device, {SUMO_TAG_TAZ});
+        writeTAZComment(additionalsByFilename.second, device);
+        writeAdditionalByType(additionalsByFilename.second, device, {SUMO_TAG_TAZ});
         // Wire element
-        writeWireComment(additionalSavingFile.ACs, device);
-        writeAdditionalByType(additionalSavingFile.ACs, device, {SUMO_TAG_TRACTION_SUBSTATION});
-        writeAdditionalByType(additionalSavingFile.ACs, device, {SUMO_TAG_OVERHEAD_WIRE_SECTION});
-        writeAdditionalByType(additionalSavingFile.ACs, device, {SUMO_TAG_OVERHEAD_WIRE_CLAMP});
+        writeWireComment(additionalsByFilename.second, device);
+        writeAdditionalByType(additionalsByFilename.second, device, {SUMO_TAG_TRACTION_SUBSTATION});
+        writeAdditionalByType(additionalsByFilename.second, device, {SUMO_TAG_OVERHEAD_WIRE_SECTION});
+        writeAdditionalByType(additionalsByFilename.second, device, {SUMO_TAG_OVERHEAD_WIRE_CLAMP});
         // juPedSim elements
-        writeJuPedSimComment(additionalSavingFile.ACs, device);
-        writeAdditionalByType(additionalSavingFile.ACs, device, {GNE_TAG_JPS_WALKABLEAREA});
-        writeAdditionalByType(additionalSavingFile.ACs, device, {GNE_TAG_JPS_OBSTACLE});
+        writeJuPedSimComment(additionalsByFilename.second, device);
+        writeAdditionalByType(additionalsByFilename.second, device, {GNE_TAG_JPS_WALKABLEAREA});
+        writeAdditionalByType(additionalsByFilename.second, device, {GNE_TAG_JPS_OBSTACLE});
         // close device
         device.close();
     }

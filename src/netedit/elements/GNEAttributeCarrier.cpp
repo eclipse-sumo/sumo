@@ -79,6 +79,14 @@ GNEAttributeCarrier::getFilename() const {
 
 
 void
+GNEAttributeCarrier::changeDefaultFilename(const std::string& file) {
+    if (myFilename.empty()) {
+        myFilename = file;
+    }
+}
+
+
+void
 GNEAttributeCarrier::selectAttributeCarrier() {
     auto glObject = getGUIGlObject();
     if (glObject && myTagProperty->isSelectable()) {
@@ -777,32 +785,20 @@ GNEAttributeCarrier::setCommonAttribute(Parameterised* parameterised, SumoXMLAtt
             }
             break;
         case GNE_ATTR_ADDITIONAL_FILE:
-            if (!isTemplate()) {
-                myNet->getSavingFilesHandler()->removeAdditionalElement(this);
-                myFilename = value;
-                myNet->getSavingFilesHandler()->addAdditionalElement(this);
-            }
+            myFilename = value;
+            myNet->getSavingFilesHandler()->updateAdditionalSavingFiles(this);
             break;
         case GNE_ATTR_DEMAND_FILE:
-            if (!isTemplate()) {
-                myNet->getSavingFilesHandler()->removeDemandElement(this);
-                myFilename = value;
-                myNet->getSavingFilesHandler()->addDemandElement(this);
-            }
+            myFilename = value;
+            //myNet->getSavingFilesHandler()->addDemandElement(this);
             break;
         case GNE_ATTR_DATA_FILE:
-            if (!isTemplate()) {
-                myNet->getSavingFilesHandler()->removeDataElement(this);
-                myFilename = value;
-                myNet->getSavingFilesHandler()->addDataElement(this);
-            }
+            myFilename = value;
+            //myNet->getSavingFilesHandler()->addDataElement(this);
             break;
         case GNE_ATTR_MEANDATA_FILE:
-            if (!isTemplate()) {
-                myNet->getSavingFilesHandler()->removeMeanDataElement(this);
-                myFilename = value;
-                myNet->getSavingFilesHandler()->addMeanDataElement(this);
-            }
+            myFilename = value;
+            //myNet->getSavingFilesHandler()->addMeanDataElement(this);
             break;
         case GNE_ATTR_PARAMETERS:
             parameterised->setParametersStr(value);
