@@ -3615,7 +3615,7 @@ GNEApplicationWindow::onCmdOpenAdditionals(FXObject*, FXSelector, void*) {
         // declare overwrite flag
         bool overwriteElements = false;
         // check if open question dialog box
-        if (myNet->getSavingFilesHandler()->existAdditionalSavingFile(additionalFile)) {
+        if (myNet->getSavingFilesHandler()->existAdditionalFilename(additionalFile)) {
             // open overwrite dialog
             GNEKeepElementsDialog keepElementsDialog(this, "additional");
             // continue depending of result
@@ -3663,7 +3663,7 @@ GNEApplicationWindow::onCmdOpenAdditionals(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdReloadAdditionals(FXObject*, FXSelector, void*) {
-    for (const auto& savingFile : myViewNet->getNet()->getSavingFilesHandler()->getAdditionalSavingFiles()) {
+    for (const auto& savingFile : myViewNet->getNet()->getSavingFilesHandler()->getAdditionalFilenames()) {
         // disable validation for additionals
         XMLSubSys::setValidation("never", "auto", "auto");
         // Create general handler
@@ -3694,7 +3694,7 @@ long
 GNEApplicationWindow::onUpdReloadAdditionals(FXObject* sender, FXSelector, void*) {
     if (myViewNet == nullptr) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
-    } else if (myViewNet->getNet()->getSavingFilesHandler()->getAdditionalSavingFiles().empty()) {
+    } else if (myViewNet->getNet()->getSavingFilesHandler()->getAdditionalFilenames().empty()) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
@@ -3712,11 +3712,11 @@ GNEApplicationWindow::onCmdSaveAdditionals(FXObject* sender, FXSelector sel, voi
         return 1;
     }
     // check if we have to set the output filename
-    if ((sel == MID_GNE_AUTOMATICFILENAME) && savingFileHandler->getAdditionalSavingFiles().empty()) {
+    if ((sel == MID_GNE_AUTOMATICFILENAME) && savingFileHandler->getAdditionalFilenames().empty()) {
         savingFileHandler->updateAdditionalEmptyFilenames(*(static_cast<std::string*>(ptr)) + ".add.xml");
     }
     // check if we have to open save as dialog
-    if (savingFileHandler->getAdditionalSavingFiles().empty()) {
+    if (savingFileHandler->getAdditionalFilenames().empty()) {
         // choose file to save
         return onCmdSaveAdditionalsAs(sender, sel, ptr);
     } else {

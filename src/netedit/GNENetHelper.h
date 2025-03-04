@@ -877,8 +877,8 @@ struct GNENetHelper {
     class SavingFilesHandler {
 
     public:
-        /// @brief typedef used for group elements by filename
-        typedef std::map<std::string, std::unordered_set<const GNEAttributeCarrier*> > ACsbyFilenames;
+        /// @brief typedef used for group ACs by filename
+        typedef std::map<std::string, std::unordered_set<const GNEAttributeCarrier*> > ACsbyFilename;
 
         /// @brief constructor
         SavingFilesHandler(GNENet* net);
@@ -892,20 +892,80 @@ struct GNENetHelper {
         /// @brief additional elements
         /// @{
 
-        /// @brief add additional element
-        void updateAdditionalSavingFiles(const GNEAttributeCarrier* additionalElement);
+        /// @brief add additional filename
+        void addAdditionalFilename(const GNEAttributeCarrier* additionalElement);
 
-        /// @brief update additional elements with empty saving file
+        /// @brief update additional elements with empty filenames with the given file
         void updateAdditionalEmptyFilenames(const std::string& file);
 
         /// @brief get vector with additional elements saving files (starting with default)
-        const std::set<std::string>& getAdditionalSavingFiles() const;
+        const std::set<std::string>& getAdditionalFilenames() const;
 
-        /// @brief get additionals sorted by filenames (and clear unused filenames)
-        ACsbyFilenames getAdditionalsByFilenames();
+        /// @brief get additionals sorted by filenames (and also clear unused filenames)
+        ACsbyFilename getAdditionalsByFilename();
 
-        /// @brief check if the given additional file exist
-        bool existAdditionalSavingFile(const std::string& file) const;
+        /// @brief check if the given additional file was already registered
+        bool existAdditionalFilename(const std::string& file) const;
+
+        /// @}
+
+        /// @brief demand elements
+        /// @{
+
+        /// @brief add demand filename
+        void addDemandFilename(const GNEAttributeCarrier* demandElement);
+
+        /// @brief update demand elements with empty filenames with the given file
+        void updateDemandEmptyFilenames(const std::string& file);
+
+        /// @brief get vector with demand elements saving files (starting with default)
+        const std::set<std::string>& getDemandFilenames() const;
+
+        /// @brief get demands sorted by filenames (and also clear unused filenames)
+        ACsbyFilename getDemandsByFilename();
+
+        /// @brief check if the given demand file was already registered
+        bool existDemandFilename(const std::string& file) const;
+
+        /// @}
+
+        /// @brief data elements
+        /// @{
+
+        /// @brief add data filename
+        void addDataFilename(const GNEAttributeCarrier* dataElement);
+
+        /// @brief update data elements with empty filenames with the given file
+        void updateDataEmptyFilenames(const std::string& file);
+
+        /// @brief get vector with data elements saving files (starting with default)
+        const std::set<std::string>& getDataFilenames() const;
+
+        /// @brief get datas sorted by filenames (and also clear unused filenames)
+        ACsbyFilename getDatasByFilename();
+
+        /// @brief check if the given data file was already registered
+        bool existDataFilename(const std::string& file) const;
+
+        /// @}
+
+        /// @brief meanData elements
+        /// @{
+
+        /// @brief add meanData filename
+        void addMeanDataFilename(const GNEAttributeCarrier* meanDataElement);
+
+        /// @brief update meanData elements with empty filenames with the given file
+        void updateMeanDataEmptyFilenames(const std::string& file);
+
+        /// @brief get vector with meanData elements saving files (starting with default)
+        const std::set<std::string>& getMeanDataFilenames() const;
+
+        /// @brief get meanDatas sorted by filenames (and also clear unused filenames)
+        ACsbyFilename getMeanDatasByFilename();
+
+        /// @brief check if the given meanData file was already registered
+        bool existMeanDataFilename(const std::string& file) const;
 
         /// @}
 
@@ -920,13 +980,13 @@ struct GNENetHelper {
         std::set<std::string> myAdditionalElementsSavingFiles;
 
         /// @brief vector with demand elements saving files
-        std::set<std::string> myDemandElementSavingFiles;
+        std::set<std::string> myDemandElementsSavingFiles;
 
         /// @brief vector with data elements saving files
-        std::set<std::string> myDataElementSavingFiles;
+        std::set<std::string> myDataElementsSavingFiles;
 
         /// @brief vector with mean data elements saving files
-        std::set<std::string> myMeanDataElementSavingFiles;
+        std::set<std::string> myMeanDataElementsSavingFiles;
 
         /// @brief parsing saving files
         std::string parsingSavingFiles(const std::set<std::string>& savingFiles) const;

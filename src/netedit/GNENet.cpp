@@ -2354,7 +2354,7 @@ GNENet::saveAdditionalsConfirmed() {
     // Start saving additionals
     getApp()->beginWaitCursor();
     // iterate over every saving file (including default)
-    const auto additionalsByFilenames = mySavingFilesHandler->getAdditionalsByFilenames();
+    const auto additionalsByFilenames = mySavingFilesHandler->getAdditionalsByFilename();
     for (const auto& additionalsByFilename : additionalsByFilenames) {
         OutputDevice& device = OutputDevice::getDevice(additionalsByFilename.first);
         // open header

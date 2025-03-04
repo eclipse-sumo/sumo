@@ -2827,9 +2827,9 @@ GNENetHelper::SavingFilesHandler::updateNeteditConfig() {
     auto& neteditOptions = OptionsCont::getOptions();
     // get files
     const auto additionalFiles = parsingSavingFiles(myAdditionalElementsSavingFiles);
-    const auto demandElementFiles = parsingSavingFiles(myDemandElementSavingFiles);
-    const auto dataElementFiles = parsingSavingFiles(myDataElementSavingFiles);
-    const auto meanDataElementFiles = parsingSavingFiles(myMeanDataElementSavingFiles);
+    const auto demandElementFiles = parsingSavingFiles(myDemandElementsSavingFiles);
+    const auto dataElementFiles = parsingSavingFiles(myDataElementsSavingFiles);
+    const auto meanDataElementFiles = parsingSavingFiles(myMeanDataElementsSavingFiles);
     // additionals
     neteditOptions.resetWritable();
     if (additionalFiles.size() > 0) {
@@ -2862,7 +2862,7 @@ GNENetHelper::SavingFilesHandler::updateNeteditConfig() {
 
 
 void
-GNENetHelper::SavingFilesHandler::updateAdditionalSavingFiles(const GNEAttributeCarrier* additionalElement) {
+GNENetHelper::SavingFilesHandler::addAdditionalFilename(const GNEAttributeCarrier* additionalElement) {
     if (additionalElement->getFilename().size() > 0) {
         myAdditionalElementsSavingFiles.insert(additionalElement->getFilename());
     }
@@ -2887,14 +2887,14 @@ GNENetHelper::SavingFilesHandler::updateAdditionalEmptyFilenames(const std::stri
 
 
 const std::set<std::string>&
-GNENetHelper::SavingFilesHandler::getAdditionalSavingFiles() const {
+GNENetHelper::SavingFilesHandler::getAdditionalFilenames() const {
     return myAdditionalElementsSavingFiles;
 }
 
 
-GNENetHelper::SavingFilesHandler::ACsbyFilenames
-GNENetHelper::SavingFilesHandler::getAdditionalsByFilenames() {
-    ACsbyFilenames additionalsbyFilenames;
+GNENetHelper::SavingFilesHandler::ACsbyFilename
+GNENetHelper::SavingFilesHandler::getAdditionalsByFilename() {
+    ACsbyFilename additionalsbyFilenames;
     for (const auto& additionalTag : myNet->getAttributeCarriers()->getAdditionals()) {
         for (const auto& additional : additionalTag.second) {
             additionalsbyFilenames[additional.second->getFilename()].insert(additional.second);
@@ -2911,9 +2911,166 @@ GNENetHelper::SavingFilesHandler::getAdditionalsByFilenames() {
 
 
 bool
-GNENetHelper::SavingFilesHandler::existAdditionalSavingFile(const std::string& file) const {
+GNENetHelper::SavingFilesHandler::existAdditionalFilename(const std::string& file) const {
     return myAdditionalElementsSavingFiles.find(file) != myAdditionalElementsSavingFiles.end();
 }
+
+
+void
+GNENetHelper::SavingFilesHandler::addDemandFilename(const GNEAttributeCarrier* demandElement) {
+    if (demandElement->getFilename().size() > 0) {
+        myDemandElementsSavingFiles.insert(demandElement->getFilename());
+    }
+}
+
+
+void
+GNENetHelper::SavingFilesHandler::updateDemandEmptyFilenames(const std::string& file) {
+    for (const auto& demandTag : myNet->getAttributeCarriers()->getDemandElements()) {
+        for (const auto& demand : demandTag.second) {
+            demand.second->changeDefaultFilename(file);
+        }
+    }
+    // update all templates
+    for (auto& templateAC : myTemplateACs) {
+        if (templateAC->getTagProperty()->isDemandElement() && templateAC->getFilename().empty()) {
+            templateAC->changeDefaultFilename(file);
+        }
+    }
+    myDemandElementsSavingFiles.insert(file);
+}
+
+
+const std::set<std::string>&
+GNENetHelper::SavingFilesHandler::getDemandFilenames() const {
+    return myDemandElementsSavingFiles;
+}
+
+
+GNENetHelper::SavingFilesHandler::ACsbyFilename
+GNENetHelper::SavingFilesHandler::getDemandsByFilename() {
+    ACsbyFilename demandsbyFilenames;
+    for (const auto& demandTag : myNet->getAttributeCarriers()->getDemandElements()) {
+        for (const auto& demand : demandTag.second) {
+            demandsbyFilenames[demand.second->getFilename()].insert(demand.second);
+        }
+    }
+    // clear empty saving files
+    for (auto it = myDemandElementsSavingFiles.begin(); it != myDemandElementsSavingFiles.end(); it++) {
+        if (it->empty() || (demandsbyFilenames.find(*it) == demandsbyFilenames.end())) {
+            it = myDemandElementsSavingFiles.erase(it);
+        }
+    }
+    return demandsbyFilenames;
+}
+
+
+bool
+GNENetHelper::SavingFilesHandler::existDemandFilename(const std::string& file) const {
+    return myDemandElementsSavingFiles.find(file) != myDemandElementsSavingFiles.end();
+}
+
+
+void
+GNENetHelper::SavingFilesHandler::addDataFilename(const GNEAttributeCarrier* dataElement) {
+    if (dataElement->getFilename().size() > 0) {
+        myDataElementsSavingFiles.insert(dataElement->getFilename());
+    }
+}
+
+
+void
+GNENetHelper::SavingFilesHandler::updateDataEmptyFilenames(const std::string& file) {
+    for (const auto& dataSet : myNet->getAttributeCarriers()->getDataSets()) {
+        dataSet.second->changeDefaultFilename(file);
+    }
+    myDataElementsSavingFiles.insert(file);
+}
+
+
+const std::set<std::string>&
+GNENetHelper::SavingFilesHandler::getDataFilenames() const {
+    return myDataElementsSavingFiles;
+}
+
+
+GNENetHelper::SavingFilesHandler::ACsbyFilename
+GNENetHelper::SavingFilesHandler::getDatasByFilename() {
+    ACsbyFilename datasbyFilenames;
+    for (const auto& dataSet : myNet->getAttributeCarriers()->getDataSets()) {
+        datasbyFilenames[dataSet.second->getFilename()].insert(dataSet.second);
+    }
+    // clear empty saving files
+    for (auto it = myDataElementsSavingFiles.begin(); it != myDataElementsSavingFiles.end(); it++) {
+        if (it->empty() || (datasbyFilenames.find(*it) == datasbyFilenames.end())) {
+            it = myDataElementsSavingFiles.erase(it);
+        }
+    }
+    return datasbyFilenames;
+}
+
+
+bool
+GNENetHelper::SavingFilesHandler::existDataFilename(const std::string& file) const {
+    return myDataElementsSavingFiles.find(file) != myDataElementsSavingFiles.end();
+}
+
+
+void
+GNENetHelper::SavingFilesHandler::addMeanDataFilename(const GNEAttributeCarrier* meanDataElement) {
+    if (meanDataElement->getFilename().size() > 0) {
+        myMeanDataElementsSavingFiles.insert(meanDataElement->getFilename());
+    }
+}
+
+
+void
+GNENetHelper::SavingFilesHandler::updateMeanDataEmptyFilenames(const std::string& file) {
+    for (const auto& meanDataTag : myNet->getAttributeCarriers()->getMeanDatas()) {
+        for (const auto& meanData : meanDataTag.second) {
+            meanData.second->changeDefaultFilename(file);
+        }
+    }
+    // update all templates
+    for (auto& templateAC : myTemplateACs) {
+        if (templateAC->getTagProperty()->isMeanData() && templateAC->getFilename().empty()) {
+            templateAC->changeDefaultFilename(file);
+        }
+    }
+    myMeanDataElementsSavingFiles.insert(file);
+}
+
+
+const std::set<std::string>&
+GNENetHelper::SavingFilesHandler::getMeanDataFilenames() const {
+    return myMeanDataElementsSavingFiles;
+}
+
+
+GNENetHelper::SavingFilesHandler::ACsbyFilename
+GNENetHelper::SavingFilesHandler::getMeanDatasByFilename() {
+    ACsbyFilename meanDatasbyFilenames;
+    for (const auto& meanDataTag : myNet->getAttributeCarriers()->getMeanDatas()) {
+        for (const auto& meanData : meanDataTag.second) {
+            meanDatasbyFilenames[meanData.second->getFilename()].insert(meanData.second);
+        }
+    }
+    // clear empty saving files
+    for (auto it = myMeanDataElementsSavingFiles.begin(); it != myMeanDataElementsSavingFiles.end(); it++) {
+        if (it->empty() || (meanDatasbyFilenames.find(*it) == meanDatasbyFilenames.end())) {
+            it = myMeanDataElementsSavingFiles.erase(it);
+        }
+    }
+    return meanDatasbyFilenames;
+}
+
+
+bool
+GNENetHelper::SavingFilesHandler::existMeanDataFilename(const std::string& file) const {
+    return myMeanDataElementsSavingFiles.find(file) != myMeanDataElementsSavingFiles.end();
+}
+
+
 
 
 std::string
