@@ -621,6 +621,7 @@ Simulation::findRoute(const std::string& from, const std::string& to, const std:
         std::string msg;
         if (!vehicle->hasValidRouteStart(msg)) {
             MSNet::getInstance()->getVehicleControl().deleteVehicle(vehicle, true);
+            MSNet::getInstance()->getVehicleControl().discountRoutingVehicle();
             throw TraCIException("Invalid departure edge for vehicle type '" + type->getID() + "' (" + msg + ")");
         }
         // we need to fix the speed factor here for deterministic results
@@ -639,6 +640,7 @@ Simulation::findRoute(const std::string& from, const std::string& to, const std:
     result.travelTime = result.cost = router.recomputeCosts(edges, vehicle, dep, &result.length);
     if (vehicle != nullptr) {
         MSNet::getInstance()->getVehicleControl().deleteVehicle(vehicle, true);
+        MSNet::getInstance()->getVehicleControl().discountRoutingVehicle();
     }
     return result;
 }
@@ -773,6 +775,7 @@ Simulation::findIntermodalRoute(const std::string& from, const std::string& to,
         }
         if (vehicle != nullptr) {
             vehControl.deleteVehicle(vehicle, true);
+            vehControl.discountRoutingVehicle();
         }
     }
     return result;

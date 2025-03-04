@@ -534,6 +534,11 @@ public:
         myEndedVehNo += n;
     }
 
+    void discountRoutingVehicle() {
+        myLoadedVehNo--;
+        myEndedVehNo--;
+        myDiscarded--;
+    }
 
     /** @brief informes about all waiting vehicles (deletion in destructor)
      */

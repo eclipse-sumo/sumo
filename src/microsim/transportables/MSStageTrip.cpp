@@ -198,6 +198,7 @@ MSStageTrip::reroute(const SUMOTime time, MSTransportableRouter& router, MSTrans
         }
         if (vehicle != nullptr) {
             vehControl.deleteVehicle(vehicle, true);
+            vehControl.discountRoutingVehicle();
         }
     }
     if (minCost != std::numeric_limits<double>::max()) {
@@ -295,6 +296,7 @@ MSStageTrip::reroute(const SUMOTime time, MSTransportableRouter& router, MSTrans
         setCosts(minCost);
         if (minVehicle != nullptr && (isTaxi || !carUsed)) {
             vehControl.deleteVehicle(minVehicle, true);
+            vehControl.discountRoutingVehicle();
         }
     } else {
         // append stage so the GUI won't crash due to inconsistent state
