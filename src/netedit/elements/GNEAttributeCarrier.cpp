@@ -58,6 +58,28 @@ GNEAttributeCarrier::GNEAttributeCarrier(const SumoXMLTag tag, GNENet* net, cons
     // check if add this AC to saving file handler
     if (isTemplate) {
         net->getSavingFilesHandler()->addTemplate(this);
+    } else if (myFilename.size() > 0) {
+        // add filename to saving files handler
+        if (myTagProperty->isAdditionalElement()) {
+            net->getSavingFilesHandler()->addAdditionalFilename(this);
+        } else if (myTagProperty->isDemandElement()) {
+            net->getSavingFilesHandler()->addDemandFilename(this);
+        } else if (myTagProperty->isDataElement()) {
+            net->getSavingFilesHandler()->addDataFilename(this);
+        } else if (myTagProperty->isMeanData()) {
+            net->getSavingFilesHandler()->addMeanDataFilename(this);
+        }
+    } else {
+        // always avoid empty files
+        if (myTagProperty->isAdditionalElement() && (net->getSavingFilesHandler()->getAdditionalFilenames().size() > 0)) {
+            myFilename = net->getSavingFilesHandler()->getAdditionalFilenames().front();
+        } else if (myTagProperty->isDemandElement() && (net->getSavingFilesHandler()->getDemandFilenames().size() > 0)) {
+            myFilename = net->getSavingFilesHandler()->getDemandFilenames().front();
+        } else if (myTagProperty->isDataElement() && (net->getSavingFilesHandler()->getDataFilenames().size() > 0)) {
+            myFilename = net->getSavingFilesHandler()->getDataFilenames().front();
+        } else if (myTagProperty->isMeanData() && (net->getSavingFilesHandler()->getMeanDataFilenames().size() > 0)) {
+            myFilename = net->getSavingFilesHandler()->getMeanDataFilenames().front();
+        }
     }
 }
 
@@ -791,19 +813,47 @@ GNEAttributeCarrier::setCommonAttribute(Parameterised* parameterised, SumoXMLAtt
             break;
         case GNE_ATTR_ADDITIONAL_FILE:
             myFilename = value;
-            myNet->getSavingFilesHandler()->addAdditionalFilename(this);
+            if (value.empty()) {
+                // try to avoid empty files
+                if (myNet->getSavingFilesHandler()->getAdditionalFilenames().size() > 0) {
+                    myFilename = myNet->getSavingFilesHandler()->getAdditionalFilenames().front();
+                }
+            } else {
+                myNet->getSavingFilesHandler()->addAdditionalFilename(this);
+            }
             break;
         case GNE_ATTR_DEMAND_FILE:
             myFilename = value;
-            myNet->getSavingFilesHandler()->addDemandFilename(this);
+            if (value.empty()) {
+                // try to avoid empty files
+                if (myNet->getSavingFilesHandler()->getDemandFilenames().size() > 0) {
+                    myFilename = myNet->getSavingFilesHandler()->getDemandFilenames().front();
+                }
+            } else {
+                myNet->getSavingFilesHandler()->addDemandFilename(this);
+            }
             break;
         case GNE_ATTR_DATA_FILE:
             myFilename = value;
-            myNet->getSavingFilesHandler()->addDataFilename(this);
+            if (value.empty()) {
+                // try to avoid empty files
+                if (myNet->getSavingFilesHandler()->getDataFilenames().size() > 0) {
+                    myFilename = myNet->getSavingFilesHandler()->getDataFilenames().front();
+                }
+            } else {
+                myNet->getSavingFilesHandler()->addDataFilename(this);
+            }
             break;
         case GNE_ATTR_MEANDATA_FILE:
             myFilename = value;
-            myNet->getSavingFilesHandler()->addMeanDataFilename(this);
+            if (value.empty()) {
+                // try to avoid empty files
+                if (myNet->getSavingFilesHandler()->getMeanDataFilenames().size() > 0) {
+                    myFilename = myNet->getSavingFilesHandler()->getMeanDataFilenames().front();
+                }
+            } else {
+                myNet->getSavingFilesHandler()->addMeanDataFilename(this);
+            }
             break;
         case GNE_ATTR_PARAMETERS:
             parameterised->setParametersStr(value);
