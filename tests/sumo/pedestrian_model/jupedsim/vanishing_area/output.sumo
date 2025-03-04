@@ -1,10 +1,10 @@
-Loading net-file from 'net.net.xml' ... done (3ms).
-Loading additional-files from 'input_additional.add.xml' ... done (1ms).
+Loading net-file from 'net.net.xml' ... done (0ms).
+Loading additional-files from 'input_additional.add.xml' ... done (0ms).
 Loading route-files incrementally from 'input_routes.rou.xml'
 Loading done.
 Generating initial JuPedSim geometry for pedestrian network ...
  done.
-Simulation version v1_20_0+0821-7931dbe8026 started with time: 0.00.
+Simulation version v1_22_0+0622-88ee74de37b started with time: 0.00.
 Person 'pf_2.0' in vanishing area 'jupedsim.vanishing_area_1' was removed from the simulation.
 Person 'pf_3.0' in vanishing area 'jupedsim.vanishing_area_1' was removed from the simulation.
 Person 'pf_2.1' in vanishing area 'jupedsim.vanishing_area_1' was removed from the simulation.
@@ -60,14 +60,14 @@ Person 'pf_2.26' in vanishing area 'jupedsim.vanishing_area_1' was removed from 
 Simulation ended at time: 100.00.
 Reason: The final simulation step has been reached.
 Performance:
- Duration: 14.90s
- Real time factor: 6.71366
+ Duration: 9.61s
+ Real time factor: 10.4058
  UPS: 0.000000
- UPS-Persons: 1054.380665
+ UPS-Persons: 1634.235172
 Vehicles:
  Inserted: 0
  Running: 0
  Waiting: 0
 Persons:
- Inserted: 12000
+ Inserted: 332 (Loaded: 12000)
  Running: 280
