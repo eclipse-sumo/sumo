@@ -899,7 +899,7 @@ struct GNENetHelper {
         void updateAdditionalEmptyFilenames(const std::string& file);
 
         /// @brief get vector with additional elements saving files (starting with default)
-        const std::set<std::string>& getAdditionalFilenames() const;
+        const std::vector<std::string>& getAdditionalFilenames() const;
 
         /// @brief get additionals sorted by filenames (and also clear unused filenames)
         ACsbyFilename getAdditionalsByFilename();
@@ -919,7 +919,7 @@ struct GNENetHelper {
         void updateDemandEmptyFilenames(const std::string& file);
 
         /// @brief get vector with demand elements saving files (starting with default)
-        const std::set<std::string>& getDemandFilenames() const;
+        const std::vector<std::string>& getDemandFilenames() const;
 
         /// @brief get demands sorted by filenames (and also clear unused filenames)
         ACsbyFilename getDemandsByFilename();
@@ -939,7 +939,7 @@ struct GNENetHelper {
         void updateDataEmptyFilenames(const std::string& file);
 
         /// @brief get vector with data elements saving files (starting with default)
-        const std::set<std::string>& getDataFilenames() const;
+        const std::vector<std::string>& getDataFilenames() const;
 
         /// @brief get datas sorted by filenames (and also clear unused filenames)
         ACsbyFilename getDatasByFilename();
@@ -959,7 +959,7 @@ struct GNENetHelper {
         void updateMeanDataEmptyFilenames(const std::string& file);
 
         /// @brief get vector with meanData elements saving files (starting with default)
-        const std::set<std::string>& getMeanDataFilenames() const;
+        const std::vector<std::string>& getMeanDataFilenames() const;
 
         /// @brief get meanDatas sorted by filenames (and also clear unused filenames)
         ACsbyFilename getMeanDatasByFilename();
@@ -977,19 +977,19 @@ struct GNENetHelper {
         std::vector<GNEAttributeCarrier*> myTemplateACs;
 
         /// @brief vector with additional elements saving files
-        std::set<std::string> myAdditionalElementsSavingFiles;
+        std::vector<std::string> myAdditionalElementsSavingFiles;
 
         /// @brief vector with demand elements saving files
-        std::set<std::string> myDemandElementsSavingFiles;
+        std::vector<std::string> myDemandElementsSavingFiles;
 
         /// @brief vector with data elements saving files
-        std::set<std::string> myDataElementsSavingFiles;
+        std::vector<std::string> myDataElementsSavingFiles;
 
         /// @brief vector with mean data elements saving files
-        std::set<std::string> myMeanDataElementsSavingFiles;
+        std::vector<std::string> myMeanDataElementsSavingFiles;
 
         /// @brief parsing saving files
-        std::string parsingSavingFiles(const std::set<std::string>& savingFiles) const;
+        std::string parsingSavingFiles(const std::vector<std::string>& savingFiles) const;
 
         /// @brief Invalidated default constructor.
         SavingFilesHandler() = delete;
