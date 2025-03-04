@@ -443,11 +443,9 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs, S
     // parse line information
     if (attrs.hasAttribute(SUMO_ATTR_LINE)) {
         bool ok = true;
-        ret->line = attrs.get<std::string>(SUMO_ATTR_LINE, ret->id.c_str(), ok);
-        if (ok) {
-            ret->parametersSet |= VEHPARS_LINE_SET; // !!! needed?
-        } else {
-            handleVehicleError(true, ret);
+        ret->line = attrs.getString(SUMO_ATTR_LINE, &ok);
+        if (ret->line.size() > 0) {
+            ret->parametersSet |= VEHPARS_LINE_SET;
         }
     }
     // parse zone information
