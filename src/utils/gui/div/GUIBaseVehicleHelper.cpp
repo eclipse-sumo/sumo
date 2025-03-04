@@ -370,7 +370,7 @@ GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(const GUIVisualizationSetting
 
         case SUMOVehicleShape::E_VEHICLE:
             drawPoly(vehiclePoly_EVehicleBody, 4);
-            glColor3d(0, 0, 0);
+            GLHelper::setColor(darker);
             drawPoly(vehiclePoly_EVehicleFrontGlass, 4.5);
             glTranslated(0, 0, .048);
             GLHelper::setColor(current);
