@@ -883,7 +883,8 @@ MSCFModel::maximumSafeStopSpeedBallistic(double gap, double decel, double curren
     const double tau = headway == 0 ? TS : headway;
     const double v0 = MAX2(0., currentSpeed);
     // We first consider the case that a stop has to take place within time tau
-    if (v0 * tau >= 2 * g) {
+    // (the distance driven when deceleration from v0 to 0 in tau is v0 * tau / 2)
+    if (g <= v0 * tau * 0.5) {
         if (g == 0.) {
             if (v0 > 0.) {
                 // indicate to brake as hard as possible
@@ -900,7 +901,9 @@ MSCFModel::maximumSafeStopSpeedBallistic(double gap, double decel, double curren
     }
 
     // The last case corresponds to a situation, where the vehicle may go with a positive
-    // speed v1 = v0 + tau*a after time tau.
+    // speed v1 = v0 + tau*a after time tau. (v1 is the maximum possible speed
+    // for this and unconstrained by current speed or acceleration limits)
+    //
     // The distance covered until time tau is given as
     // G1 = tau*(v0+v1)/2
     // The distance covered between time tau and the stopping moment at time tau+v1/b is
