@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-13 10:07+0100\n"
-"PO-Revision-Date: 2025-03-03 14:29+0000\n"
+"PO-Revision-Date: 2025-03-05 10:01+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -4150,12 +4150,16 @@ msgstr ""
 msgid ""
 "The measurement noise parameter which can be applied to the friction device"
 msgstr ""
+"Il parametro di distorsione della misura da applicare all'attrezzo di "
+"frizione"
 
 #: src/microsim/devices/MSDevice_Friction.cpp:50
 msgid ""
 "The measurement offset parameter which can be applied to the friction device "
 "-> e.g. to force false measurements"
 msgstr ""
+"Il parametro di spostamento della misura da applicare all'attrezzo di "
+"frizione -> per esempio per forzare misure sbagliate"
 
 #: src/microsim/devices/MSDevice_GLOSA.cpp:51
 msgid "The communication range to the traffic light"
@@ -4293,6 +4297,8 @@ msgstr "L'instradamento parallelo é possibile unicamente se compilato con Fox."
 #: src/microsim/devices/MSDevice_Routing.cpp:127
 msgid "Adapting number of routing threads to number of simulation threads."
 msgstr ""
+"Adattamento del numero di thread per l'instradamento al numero di thread "
+"della simulazione."
 
 #: src/microsim/devices/MSDevice_SSM.cpp:238
 msgid ""
@@ -4658,10 +4664,12 @@ msgid ""
 "Scale battery need with this factor to account for unexpected traffic "
 "situations"
 msgstr ""
+"Gradua il bisogno di batteria con questo fattore per tenere conto di "
+"situazioni di traffico inaspettate"
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:68
 msgid "Battery percentage to go into rescue mode"
-msgstr ""
+msgstr "Percentuale di batteria per entrare nel modo di salvataggio"
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:70
 msgid "Search radius in travel time seconds"
@@ -5445,6 +5453,8 @@ msgid ""
 "The computed factor sum in WAUT '%' at time '%' equals zero;\n"
 " assuming an error in WAUT definition."
 msgstr ""
+"La somma dei fattori in WAUT '%' alle ore '%' equivale a zero;\n"
+" si suppone un errore nella definizione WAUT."
 
 #: src/microsim/traffic_lights/MSTrafficLightLogic.cpp:164
 msgid "Unused states in tlLogic '%', program '%' in phase % after tl-index %"
@@ -9620,7 +9630,7 @@ msgstr ""
 #: src/netimport/NIImporter_OpenStreetMap.cpp:2548
 #: src/netimport/NIImporter_OpenStreetMap.cpp:2539
 msgid "Adding new type '%' (first occurrence for edge '%')."
-msgstr ""
+msgstr "Aggiunta del nuovo tipo '%' (prima apparizione per l'arco '%')."
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:2583
 #: src/netimport/NIImporter_OpenStreetMap.cpp:2574
@@ -9646,6 +9656,8 @@ msgstr "Il valore di railway:position non è numerico ('%') nel nodo '%'."
 msgid ""
 "Ignoring turn sign information for % lanes on edge % with % driving lanes"
 msgstr ""
+"L'informazione al riguardo dei segni di svolta viene ignorata per % corsie "
+"dell'arco % con % corsie"
 
 #: src/netimport/NIImporter_SUMO.cpp:120
 msgid "Could not open sumo-net-file '%'."
@@ -9676,7 +9688,7 @@ msgstr "Il semaforo '%' è sconosciuto."
 #: src/netimport/NIImporter_SUMO.cpp:294 src/netimport/NIImporter_SUMO.cpp:296
 #, c-format
 msgid "Edge '%' in prohibition was not built."
-msgstr ""
+msgstr "L'arco '%' del divieto non è stato costruito."
 
 #: src/netimport/NIImporter_SUMO.cpp:353
 #, c-format
@@ -9703,7 +9715,7 @@ msgstr "Non ho potuto aggiungere il programma '%' del semaforo '%'"
 
 #: src/netimport/NIImporter_SUMO.cpp:626
 msgid "Unknown spreadType '%' for edge '%'."
-msgstr ""
+msgstr "Tipo di distesa sconosciuto '%' per l'arco '%'."
 
 #: src/netimport/NIImporter_SUMO.cpp:639
 #, c-format
@@ -9910,14 +9922,17 @@ msgstr ""
 #: src/netimport/NIImporter_VISUM.cpp:1162
 msgid "Ignoring stopping place '%' without edge id"
 msgstr ""
+"Il punto di fermata '%' senza codice identificativo di arco viene ignorato"
 
 #: src/netimport/NIImporter_VISUM.cpp:1164
 msgid "Ignoring stopping place '%' without node information"
-msgstr ""
+msgstr "Il punto di fermata '%' senza informazione di nodo viene ignorato"
 
 #: src/netimport/NIImporter_VISUM.cpp:1168
 msgid "Ignoring stopping place '%' with invalid edge reference '%'"
 msgstr ""
+"Il punto di fermata '%' con il riferimento invalido a un arco '%' viene "
+"ignorato"
 
 #: src/netimport/NIImporter_VISUM.cpp:1174
 msgid ""
@@ -10174,7 +10189,7 @@ msgstr "Il nodo terminale dell'arco '%' non è stato definito."
 
 #: src/netimport/NIXMLEdgesHandler.cpp:616
 msgid "Ignoring unknown spreadType '%' for edge '%'."
-msgstr ""
+msgstr "Il tipo di distesa sconosciuto '%' per l'arco '%' viene ignorato."
 
 #: src/netimport/NIXMLEdgesHandler.cpp:674
 #, c-format
