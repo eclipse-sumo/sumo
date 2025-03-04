@@ -3287,6 +3287,8 @@ GNEApplicationWindow::onCmdSaveNeteditConfig(FXObject*, FXSelector, void*) {
         const auto filePath = FileHelpers::getFilePath(neteditConfigFile);
         // get patter file
         auto patterFile = StringUtils::replace(neteditConfigFile, ".netecfg", "");
+        // update netedit config
+        myNet->getSavingFilesHandler()->updateNeteditConfig();
         // save all elements giving automatic names based on patter if their file isn't defined
         if (onCmdSaveNetwork(nullptr, MID_GNE_AUTOMATICFILENAME, &patterFile) != 1) {
             WRITE_MESSAGE(TL("Saving of Netedit configuration aborted"));
@@ -3389,6 +3391,8 @@ GNEApplicationWindow::onCmdSaveSumoConfig(FXObject* sender, FXSelector sel, void
         const auto sumoConfigFile = neteditOptions.getString("sumocfg-file");
         // get config file without extension
         auto patterFile = StringUtils::replace(sumoConfigFile, ".sumocfg", "");
+        // update netedit config
+        myNet->getSavingFilesHandler()->updateNeteditConfig();
         // save all elements giving automatic names based on patter in their file isn't defined
         if (onCmdSaveNetwork(nullptr, MID_GNE_AUTOMATICFILENAME, &patterFile) != 1) {
             WRITE_MESSAGE(TL("Saving of SUMO configuration aborted"));

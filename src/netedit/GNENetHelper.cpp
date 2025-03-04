@@ -2839,22 +2839,22 @@ GNENetHelper::SavingFilesHandler::updateNeteditConfig() {
     }
     // route files
     neteditOptions.resetWritable();
-    if (additionalFiles.size() > 0) {
-        neteditOptions.set("route-files", additionalFiles);
+    if (demandElementFiles.size() > 0) {
+        neteditOptions.set("route-files", demandElementFiles);
     } else {
         neteditOptions.resetDefault("route-files");
     }
     // data files
     neteditOptions.resetWritable();
-    if (additionalFiles.size() > 0) {
-        neteditOptions.set("data-files", additionalFiles);
+    if (dataElementFiles.size() > 0) {
+        neteditOptions.set("data-files", dataElementFiles);
     } else {
         neteditOptions.resetDefault("data-files");
     }
     // meanData files
     neteditOptions.resetWritable();
-    if (additionalFiles.size() > 0) {
-        neteditOptions.set("meandata-files", additionalFiles);
+    if (meanDataElementFiles.size() > 0) {
+        neteditOptions.set("meandata-files", meanDataElementFiles);
     } else {
         neteditOptions.resetDefault("meandata-files");
     }
@@ -2901,9 +2901,12 @@ GNENetHelper::SavingFilesHandler::getAdditionalsByFilename() {
         }
     }
     // clear empty saving files
-    for (auto it = myAdditionalElementsSavingFiles.begin(); it != myAdditionalElementsSavingFiles.end(); it++) {
+    auto it = myAdditionalElementsSavingFiles.begin();
+    while (it != myAdditionalElementsSavingFiles.end()) {
         if (it->empty() || (additionalsbyFilenames.find(*it) == additionalsbyFilenames.end())) {
             it = myAdditionalElementsSavingFiles.erase(it);
+        } else {
+            it++;
         }
     }
     return additionalsbyFilenames;
@@ -2956,9 +2959,12 @@ GNENetHelper::SavingFilesHandler::getDemandsByFilename() {
         }
     }
     // clear empty saving files
-    for (auto it = myDemandElementsSavingFiles.begin(); it != myDemandElementsSavingFiles.end(); it++) {
+    auto it = myDemandElementsSavingFiles.begin();
+    while (it != myDemandElementsSavingFiles.end()) {
         if (it->empty() || (demandsbyFilenames.find(*it) == demandsbyFilenames.end())) {
             it = myDemandElementsSavingFiles.erase(it);
+        } else {
+            it++;
         }
     }
     return demandsbyFilenames;
@@ -3001,9 +3007,12 @@ GNENetHelper::SavingFilesHandler::getDatasByFilename() {
         datasbyFilenames[dataSet.second->getFilename()].insert(dataSet.second);
     }
     // clear empty saving files
-    for (auto it = myDataElementsSavingFiles.begin(); it != myDataElementsSavingFiles.end(); it++) {
+    auto it = myDataElementsSavingFiles.begin();
+    while (it != myDataElementsSavingFiles.end()) {
         if (it->empty() || (datasbyFilenames.find(*it) == datasbyFilenames.end())) {
             it = myDataElementsSavingFiles.erase(it);
+        } else {
+            it++;
         }
     }
     return datasbyFilenames;
@@ -3056,9 +3065,12 @@ GNENetHelper::SavingFilesHandler::getMeanDatasByFilename() {
         }
     }
     // clear empty saving files
-    for (auto it = myMeanDataElementsSavingFiles.begin(); it != myMeanDataElementsSavingFiles.end(); it++) {
+    auto it = myMeanDataElementsSavingFiles.begin();
+    while (it != myMeanDataElementsSavingFiles.end()) {
         if (it->empty() || (meanDatasbyFilenames.find(*it) == meanDatasbyFilenames.end())) {
             it = myMeanDataElementsSavingFiles.erase(it);
+        } else {
+            it++;
         }
     }
     return meanDatasbyFilenames;
