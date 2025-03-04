@@ -12,6 +12,9 @@ net_roundabout
 
 # parsing a network and accessing objects
 net_intermodal
+
+# test functions when shape length and lane length differ (#16269)
+net_customLength
 sumolib3d
 
 # unit tests for functions in init
