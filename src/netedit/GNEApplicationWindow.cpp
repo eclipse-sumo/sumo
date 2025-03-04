@@ -3799,7 +3799,7 @@ GNEApplicationWindow::onCmdSaveJuPedSimElementsAs(FXObject*, FXSelector, void*) 
             myViewNet->setFocus();
             // show info
             if (savingResult) {
-                WRITE_MESSAGE(TL("JuPedSim elements saved in '") + juPedSimFile + "'");
+                WRITE_MESSAGE(TL("JuPedSim elements saved"));
                 return 1;
             } else {
                 WRITE_MESSAGE(TL("Saving JuPedSim aborted"));
@@ -3906,8 +3906,9 @@ GNEApplicationWindow::onCmdReloadDemandElements(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onUpdReloadDemandElements(FXObject* sender, FXSelector, void*) {
-    // check if file exist
-    if (myViewNet && OptionsCont::getOptions().getString("route-files").empty()) {
+    if (myViewNet == nullptr) {
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+    } else if (myViewNet->getNet()->getSavingFilesHandler()->getDemandFilenames().empty()) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
@@ -3917,6 +3918,7 @@ GNEApplicationWindow::onUpdReloadDemandElements(FXObject* sender, FXSelector, vo
 
 long
 GNEApplicationWindow::onCmdSaveDemandElements(FXObject* sender, FXSelector sel, void* ptr) {
+    const auto savingFileHandler = myViewNet->getNet()->getSavingFilesHandler();
     // get option container
     auto& neteditOptions = OptionsCont::getOptions();
     // check saving conditions
@@ -3925,11 +3927,12 @@ GNEApplicationWindow::onCmdSaveDemandElements(FXObject* sender, FXSelector sel, 
         return 1;
     }
     // check if we have to set the output filename
-    if ((sel == MID_GNE_AUTOMATICFILENAME) && neteditOptions.getString("route-files").empty()) {
-        neteditOptions.set("route-files", *(static_cast<std::string*>(ptr)) + ".rou.xml");
+    if ((sel == MID_GNE_AUTOMATICFILENAME) && savingFileHandler->getDemandFilenames().empty()) {
+        savingFileHandler->updateDemandEmptyFilenames(*(static_cast<std::string*>(ptr)) + ".rou.xml");
     }
     // check if we have to open save as dialog
-    if (neteditOptions.getString("route-files").empty()) {
+    if (savingFileHandler->getDemandFilenames().empty()) {
+        // choose file to save
         return onCmdSaveDemandElementsAs(sender, sel, ptr);
     } else {
         // always recompute before saving
@@ -3939,7 +3942,7 @@ GNEApplicationWindow::onCmdSaveDemandElements(FXObject* sender, FXSelector sel, 
             const bool savingResult = myNet->saveDemandElements();
             // show info
             if (savingResult) {
-                WRITE_MESSAGE(TL("Demand elements saved in '") + neteditOptions.getString("route-files") + "'");
+                WRITE_MESSAGE(TL("Demand elements saved"));
                 return 1;
             } else {
                 WRITE_MESSAGE(TL("Saving demand elements aborted"));
@@ -4085,8 +4088,9 @@ GNEApplicationWindow::onCmdReloadDataElements(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onUpdReloadDataElements(FXObject* sender, FXSelector, void*) {
-    // check if file exist
-    if (myViewNet && OptionsCont::getOptions().getString("data-files").empty()) {
+    if (myViewNet == nullptr) {
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+    } else if (myViewNet->getNet()->getSavingFilesHandler()->getDataFilenames().empty()) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
@@ -4096,6 +4100,7 @@ GNEApplicationWindow::onUpdReloadDataElements(FXObject* sender, FXSelector, void
 
 long
 GNEApplicationWindow::onCmdSaveDataElements(FXObject* sender, FXSelector sel, void* ptr) {
+    const auto savingFileHandler = myViewNet->getNet()->getSavingFilesHandler();
     // get option container
     auto& neteditOptions = OptionsCont::getOptions();
     // check saving conditions
@@ -4104,11 +4109,11 @@ GNEApplicationWindow::onCmdSaveDataElements(FXObject* sender, FXSelector sel, vo
         return 1;
     }
     // check if we have to set the output filename
-    if ((sel == MID_GNE_AUTOMATICFILENAME) && neteditOptions.getString("data-files").empty()) {
-        neteditOptions.set("data-files", *(static_cast<std::string*>(ptr)) + ".xml");
+    if ((sel == MID_GNE_AUTOMATICFILENAME) && savingFileHandler->getDataFilenames().empty()) {
+        savingFileHandler->updateDataEmptyFilenames(*(static_cast<std::string*>(ptr)) + ".xml");
     }
     // check if we have to open save as dialog
-    if (neteditOptions.getString("data-files").empty()) {
+    if (savingFileHandler->getDataFilenames().empty()) {
         return onCmdSaveDataElementsAs(sender, sel, ptr);
     } else {
         try {
@@ -4116,7 +4121,7 @@ GNEApplicationWindow::onCmdSaveDataElements(FXObject* sender, FXSelector sel, vo
             const bool savingResult = myNet->saveDataElements();
             // show info
             if (savingResult) {
-                WRITE_MESSAGE(TL("Data elements saved in '") + neteditOptions.getString("data-files") + "'");
+                WRITE_MESSAGE(TL("Data elements saved"));
                 return 1;
             } else {
                 WRITE_MESSAGE(TL("Saving demand elements aborted"));
@@ -4253,8 +4258,9 @@ GNEApplicationWindow::onCmdReloadMeanDatas(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onUpdReloadMeanDatas(FXObject* sender, FXSelector, void*) {
-    // check if file exist
-    if (myViewNet && OptionsCont::getOptions().getString("meandata-files").empty()) {
+    if (myViewNet == nullptr) {
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+    } else if (myViewNet->getNet()->getSavingFilesHandler()->getMeanDataFilenames().empty()) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
@@ -4264,6 +4270,7 @@ GNEApplicationWindow::onUpdReloadMeanDatas(FXObject* sender, FXSelector, void*) 
 
 long
 GNEApplicationWindow::onCmdSaveMeanDatas(FXObject* sender, FXSelector sel, void* ptr) {
+    const auto savingFileHandler = myViewNet->getNet()->getSavingFilesHandler();
     // get option container
     auto& neteditOptions = OptionsCont::getOptions();
     // check saving conditions
@@ -4272,11 +4279,11 @@ GNEApplicationWindow::onCmdSaveMeanDatas(FXObject* sender, FXSelector sel, void*
         return 1;
     }
     // check if we have to set the output filename
-    if ((sel == MID_GNE_AUTOMATICFILENAME) && neteditOptions.getString("meandata-files").empty()) {
-        neteditOptions.set("meandata-files", *(static_cast<std::string*>(ptr)) + ".med.add.xml");
+    if ((sel == MID_GNE_AUTOMATICFILENAME) && savingFileHandler->getMeanDataFilenames().empty()) {
+        savingFileHandler->updateMeanDataEmptyFilenames(*(static_cast<std::string*>(ptr)) + "med.add.xml");
     }
     // check if we have to open save as dialog
-    if (neteditOptions.getString("meandata-files").empty()) {
+    if (savingFileHandler->getMeanDataFilenames().empty()) {
         return onCmdSaveMeanDatasAs(sender, sel, ptr);
     } else {
         try {
@@ -4286,7 +4293,7 @@ GNEApplicationWindow::onCmdSaveMeanDatas(FXObject* sender, FXSelector sel, void*
             const bool savingResult = myNet->saveMeanDatas();
             // show info
             if (savingResult) {
-                WRITE_MESSAGE(TL("MeanDatas elements saved in '") + neteditOptions.getString("meandata-files") + "'");
+                WRITE_MESSAGE(TL("MeanDatas elements saved"));
                 return 1;
             } else {
                 WRITE_MESSAGE(TL("Saving MeanData elements aborted"));

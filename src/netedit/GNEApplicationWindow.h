@@ -781,10 +781,10 @@ private:
     const FXString myTitlePrefix;
 
     /// @brief allow undo-redo (read from registry)
-    bool myAllowUndoRedo;
+    bool myAllowUndoRedo = true;
 
     /// @brief allow undo-redo loading (read from registry)
-    bool myAllowUndoRedoLoading;
+    bool myAllowUndoRedoLoading = true;
 
     /// @brief The menu used for the MDI-windows
     FXMDIMenu* myMDIMenu = nullptr;
