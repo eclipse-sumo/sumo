@@ -570,28 +570,28 @@ private:
                                const std::vector<SumoXMLTag> tags) const;
 
     /// @brief write demand element by type and sorted by ID
-    void writeDemandByType(OutputDevice& device, SumoXMLTag tag) const;
+    void writeDemandByType(OutputDevice& device, const std::unordered_set<const GNEAttributeCarrier*>& ACs, SumoXMLTag tag) const;
 
     /// @brief write route distributions sorted by ID
-    void writeRouteDistributions(OutputDevice& device, const bool additionalFile) const;
+    void writeRouteDistributions(OutputDevice& device, const std::unordered_set<const GNEAttributeCarrier*>& ACs, const bool additionalFile) const;
 
     /// @brief write route sorted by ID
-    void writeRoutes(OutputDevice& device, const bool additionalFile) const;
+    void writeRoutes(OutputDevice& device, const std::unordered_set<const GNEAttributeCarrier*>& ACs, const bool additionalFile) const;
 
     /// @brief write vTypeDistributions sorted by ID
-    void writeVTypeDistributions(OutputDevice& device, const bool additionalFile) const;
+    void writeVTypeDistributions(OutputDevice& device, const std::unordered_set<const GNEAttributeCarrier*>& ACs, const bool additionalFile) const;
 
     /// @brief write vTypes sorted by ID
-    void writeVTypes(OutputDevice& device, const bool additionalFile) const;
+    void writeVTypes(OutputDevice& device, const std::unordered_set<const GNEAttributeCarrier*>& ACs, const bool additionalFile) const;
 
     /// @brief write meanData element by type and sorted by ID
-    void writeMeanDatas(OutputDevice& device, SumoXMLTag tag) const;
+    void writeMeanDatas(OutputDevice& device, const std::unordered_set<const GNEAttributeCarrier*>& ACs, SumoXMLTag tag) const;
 
     /// @brief write vType comment
-    bool writeVTypeComment(OutputDevice& device, const bool additionalFile) const;
+    bool writeVTypeComment(OutputDevice& device, const std::unordered_set<const GNEAttributeCarrier*>& ACs, const bool additionalFile) const;
 
     /// @brief write route comment
-    bool writeRouteComment(OutputDevice& device, const bool additionalFile) const;
+    bool writeRouteComment(OutputDevice& device, const std::unordered_set<const GNEAttributeCarrier*>& ACs, const bool additionalFile) const;
 
     /// @brief write routeProbe comment
     bool writeRouteProbeComment(OutputDevice& device, const std::unordered_set<const GNEAttributeCarrier*>& ACs) const;
