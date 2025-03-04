@@ -47,19 +47,17 @@
 #endif
 GNEDemandElement::GNEDemandElement(const std::string& id, GNENet* net, const std::string& filename, GUIGlObjectType type, SumoXMLTag tag,
                                    GUIIcon icon, const int pathOptions) :
-    GNEAttributeCarrier(tag, net, filename),
+    GNEAttributeCarrier(tag, net, filename, id.empty()),
     GUIGlObject(type, id, GUIIconSubSys::getIcon(icon)),
     GNEPathElement(pathOptions),
     GNEDemandElementDistribution(this),
     myStackedLabelNumber(0) {
-    // check if is template
-    myIsTemplate = id.empty();
 }
 
 
 GNEDemandElement::GNEDemandElement(GNEDemandElement* demandElementParent, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, GUIIcon icon,
                                    const int options) :
-    GNEAttributeCarrier(tag, net, demandElementParent->getFilename()),
+    GNEAttributeCarrier(tag, net, demandElementParent->getFilename(), false),
     GUIGlObject(type, demandElementParent->getID(), GUIIconSubSys::getIcon(icon)),
     GNEPathElement(options),
     GNEDemandElementDistribution(this),

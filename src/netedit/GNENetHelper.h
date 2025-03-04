@@ -883,6 +883,9 @@ struct GNENetHelper {
         /// @brief constructor
         SavingFilesHandler(GNENet* net);
 
+        /// @brief add template
+        void addTemplate(GNEAttributeCarrier* templateAC);
+
         /// @brief update netedit config
         void updateNeteditConfig();
 
@@ -909,6 +912,9 @@ struct GNENetHelper {
     private:
         /// @brief pointer to net
         GNENet* myNet;
+
+        /// @brief vector with attribute carrier templates
+        std::vector<GNEAttributeCarrier*> myTemplateACs;
 
         /// @brief vector with additional elements saving files
         std::set<std::string> myAdditionalElementsSavingFiles;

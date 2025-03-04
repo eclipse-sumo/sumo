@@ -32,7 +32,7 @@
 // ===========================================================================
 
 GNEDataInterval::GNEDataInterval(GNEDataSet* dataSetParent, const double begin, const double end) :
-    GNEAttributeCarrier(SUMO_TAG_DATAINTERVAL, dataSetParent->getNet(), dataSetParent->getFilename()),
+    GNEAttributeCarrier(SUMO_TAG_DATAINTERVAL, dataSetParent->getNet(), dataSetParent->getFilename(), false),
     myDataSetParent(dataSetParent),
     myBegin(begin),
     myEnd(end) {

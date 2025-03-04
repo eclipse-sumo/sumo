@@ -58,8 +58,9 @@ public:
      * @param[in] tag SUMO Tag assigned to this type of object
      * @param[in] net GNENet in which this AttributeCarrier is stored
      * @param[in] filename file in which this AttributeCarrier is stored
+     * @param[in] isTemplate flag to mark this AttributeCarrier as template
      */
-    GNEAttributeCarrier(const SumoXMLTag tag, GNENet* net, const std::string& filename);
+    GNEAttributeCarrier(const SumoXMLTag tag, GNENet* net, const std::string& filename, const bool isTemplate);
 
     /// @brief Destructor
     virtual ~GNEAttributeCarrier();
@@ -353,11 +354,11 @@ protected:
     /// @brief boolean to check if this AC is in grid
     bool myInGrid = false;
 
-    /// @brief whether the current object is a template object (not drawn in the view)
-    bool myIsTemplate = false;
-
     /// @brief filename in which save this AC
     std::string myFilename;
+
+    /// @brief whether the current object is a template object (used for edit attributes)
+    const bool myIsTemplate = false;
 
     /// @brief method for enable or disable the attribute and nothing else (used in GNEChange_ToggleAttribute)
     virtual void toggleAttribute(SumoXMLAttr key, const bool value);

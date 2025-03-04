@@ -50,10 +50,15 @@ const std::string GNEAttributeCarrier::False = toString(false);
 // method definitions
 // ===========================================================================
 
-GNEAttributeCarrier::GNEAttributeCarrier(const SumoXMLTag tag, GNENet* net, const std::string& filename) :
+GNEAttributeCarrier::GNEAttributeCarrier(const SumoXMLTag tag, GNENet* net, const std::string& filename, const bool isTemplate) :
     myTagProperty(net->getTagPropertiesDatabase()->getTagProperty(tag)),
     myNet(net),
-    myFilename(filename) {
+    myFilename(filename),
+    myIsTemplate(isTemplate) {
+    // check if add this AC to saving file handler
+    if (isTemplate) {
+        net->getSavingFilesHandler()->addTemplate(this);
+    }
 }
 
 

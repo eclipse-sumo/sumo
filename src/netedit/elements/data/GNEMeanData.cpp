@@ -29,23 +29,19 @@
 // ===========================================================================
 
 GNEMeanData::GNEMeanData(SumoXMLTag tag, std::string ID, GNENet* net, const std::string& filename) :
-    GNEAttributeCarrier(tag, net, filename),
+    GNEAttributeCarrier(tag, net, filename, true),
     myID(ID) {
     // reset default values
     resetDefaultValues();
-    // set file
-    if (myFile.empty()) {
-        myFile = (myID + ".xml");
-    }
 }
 
 
 GNEMeanData::GNEMeanData(SumoXMLTag tag, std::string ID, GNENet* net, const std::string& filename, const std::string& file, const SUMOTime period,
                          const SUMOTime begin, const SUMOTime end, const bool trackVehicles, const std::vector<SumoXMLAttr>& writtenAttributes,
-                         const bool aggregate, const std::vector<std::string>& edges, const std::string& edgeFile,
-                         const std::string& excludeEmpty, const bool withInternal, const std::vector<std::string>& detectPersons,
-                         const double minSamples, const double maxTravelTime, const std::vector<std::string>& vTypes, const double speedThreshold) :
-    GNEAttributeCarrier(tag, net, filename),
+                         const bool aggregate, const std::vector<std::string>& edges, const std::string& edgeFile, const std::string& excludeEmpty,
+                         const bool withInternal, const std::vector<std::string>& detectPersons, const double minSamples, const double maxTravelTime,
+                         const std::vector<std::string>& vTypes, const double speedThreshold) :
+    GNEAttributeCarrier(tag, net, filename, false),
     myID(ID),
     myFile(file),
     myPeriod(period),

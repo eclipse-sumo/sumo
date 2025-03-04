@@ -105,7 +105,7 @@ GNEDataSet::AttributeColors::clear() {
 // ---------------------------------------------------------------------------
 
 GNEDataSet::GNEDataSet(const std::string& dataSetID, GNENet* net, const std::string& filename) :
-    GNEAttributeCarrier(SUMO_TAG_DATASET, net, filename),
+    GNEAttributeCarrier(SUMO_TAG_DATASET, net, filename, false),
     myDataSetID(dataSetID) {
 }
 

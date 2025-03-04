@@ -50,18 +50,16 @@
 
 GNEAdditional::GNEAdditional(const std::string& id, GNENet* net, const std::string& filename, GUIGlObjectType type,
                              SumoXMLTag tag, GUIIcon icon, const std::string& additionalName) :
-    GNEAttributeCarrier(tag, net, filename),
+    GNEAttributeCarrier(tag, net, filename, id.empty()),
     GUIGlObject(type, id, GUIIconSubSys::getIcon(icon)),
     GNEPathElement(GNEPathElement::Options::ADDITIONAL_ELEMENT),
     myAdditionalName(additionalName) {
-    // check if is template
-    myIsTemplate = (id == "");
 }
 
 
 GNEAdditional::GNEAdditional(GNEAdditional* additionalParent, GUIGlObjectType type, SumoXMLTag tag, GUIIcon icon,
                              const std::string& additionalName) :
-    GNEAttributeCarrier(tag, additionalParent->getNet(), additionalParent->getFilename()),
+    GNEAttributeCarrier(tag, additionalParent->getNet(), additionalParent->getFilename(), false),
     GUIGlObject(type, additionalParent->getID(), GUIIconSubSys::getIcon(icon)),
     GNEPathElement(GNEPathElement::Options::ADDITIONAL_ELEMENT),
     myAdditionalName(additionalName) {

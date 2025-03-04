@@ -2817,6 +2817,12 @@ GNENetHelper::SavingFilesHandler::SavingFilesHandler(GNENet* net) :
 
 
 void
+GNENetHelper::SavingFilesHandler::addTemplate(GNEAttributeCarrier* templateAC) {
+    myTemplateACs.push_back(templateAC);
+}
+
+
+void
 GNENetHelper::SavingFilesHandler::updateNeteditConfig() {
     auto& neteditOptions = OptionsCont::getOptions();
     // get files
@@ -2868,6 +2874,12 @@ GNENetHelper::SavingFilesHandler::updateAdditionalEmptyFilenames(const std::stri
     for (const auto& additionalTag : myNet->getAttributeCarriers()->getAdditionals()) {
         for (const auto& additional : additionalTag.second) {
             additional.second->changeDefaultFilename(file);
+        }
+    }
+    // update all templates
+    for (auto& templateAC : myTemplateACs) {
+        if (templateAC->getTagProperty()->isAdditionalElement() && templateAC->getFilename().empty()) {
+            templateAC->changeDefaultFilename(file);
         }
     }
     myAdditionalElementsSavingFiles.insert(file);
