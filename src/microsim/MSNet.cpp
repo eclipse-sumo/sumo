@@ -491,8 +491,10 @@ MSNet::generateStatistics(const SUMOTime start, const long now) {
             msg << " Emergency Braking: " << myVehicleControl->getEmergencyBrakingCount() << "\n";
         }
         if (myPersonControl != nullptr && myPersonControl->getLoadedNumber() > 0) {
+            const std::string discardNotice = ((myPersonControl->getLoadedNumber() != myPersonControl->getDepartedNumber()) ?
+                                           " (Loaded: " + toString(myPersonControl->getLoadedNumber()) + ")" : "");
             msg << "Persons:\n"
-                << " Inserted: " << myPersonControl->getLoadedNumber() << "\n"
+                << " Inserted: " << myPersonControl->getDepartedNumber() << discardNotice << "\n"
                 << " Running: " << myPersonControl->getRunningNumber() << "\n";
             if (myPersonControl->getJammedNumber() > 0) {
                 msg << " Jammed: " << myPersonControl->getJammedNumber() << "\n";
@@ -509,8 +511,10 @@ MSNet::generateStatistics(const SUMOTime start, const long now) {
             }
         }
         if (myContainerControl != nullptr && myContainerControl->getLoadedNumber() > 0) {
+            const std::string discardNotice = ((myContainerControl->getLoadedNumber() != myContainerControl->getDepartedNumber()) ?
+                                           " (Loaded: " + toString(myContainerControl->getLoadedNumber()) + ")" : "");
             msg << "Containers:\n"
-                << " Inserted: " << myContainerControl->getLoadedNumber() << "\n"
+                << " Inserted: " << myContainerControl->getDepartedNumber() << "\n"
                 << " Running: " << myContainerControl->getRunningNumber() << "\n";
             if (myContainerControl->getJammedNumber() > 0) {
                 msg << " Jammed: " << myContainerControl->getJammedNumber() << "\n";
