@@ -618,11 +618,11 @@ public:
     /// @brief load demand elements
     void loadDemandElements();
 
-    /// @brief load meanData elements
-    void loadMeanDataElements();
-
     /// @brief load data elements
     void loadDataElements();
+
+    /// @brief load meanData elements
+    void loadMeanDataElements();
 
 protected:
     /// @brief FOX needs this for static members

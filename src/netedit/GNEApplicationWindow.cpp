@@ -4613,9 +4613,8 @@ GNEApplicationWindow::loadAdditionalElements() {
         neteditOptions.resetWritable();
         neteditOptions.set("ignore.additionalelements", "false");
     } else if (myNet && (additionalFiles.size() > 0)) {
-        // use first file as output
-        neteditOptions.resetWritable();
-        neteditOptions.set("additional-files", additionalFiles.front());
+        // disable validation for additionals
+        XMLSubSys::setValidation("never", "auto", "auto");
         // begin undolist
         myUndoList->begin(Supermode::NETWORK, GUIIcon::SUPERMODENETWORK, TL("loading additional elements from '") + toString(additionalFiles) + "'");
         // use this flag for mark all elements as saved after loading, if it was sucessfully
@@ -4625,10 +4624,10 @@ GNEApplicationWindow::loadAdditionalElements() {
             // check if ignore missing imputs
             if (FileHelpers::isReadable(file) || !neteditOptions.getBool("ignore-missing-inputs")) {
                 WRITE_MESSAGE(TL("loading additionals from '") + file + "'");
+                // add file in saving file handler
+                myNet->getSavingFilesHandler()->updateAdditionalEmptyFilenames(file);
                 // declare general handler
                 GNEGeneralHandler handler(myNet, file, myAllowUndoRedoLoading ? myAllowUndoRedo : false, false);
-                // disable validation for additionals
-                XMLSubSys::setValidation("never", "auto", "auto");
                 // Run parser
                 if (!handler.parse()) {
                     WRITE_ERRORF(TL("Loading of % failed."), file);
@@ -4636,15 +4635,15 @@ GNEApplicationWindow::loadAdditionalElements() {
                 setSaved &= !handler.isErrorCreatingElement();
                 // set additionals in SumoConfig
                 setInputInSumoOptions(false, false);
-                // disable validation for additionals
-                XMLSubSys::setValidation("auto", "auto", "auto");
             }
-        }
-        if (setSaved) {
-            myNet->getSavingStatus()->additionalsSaved();
         }
         // end undo list
         myUndoList->end();
+        // disable validation for additionals
+        XMLSubSys::setValidation("auto", "auto", "auto");
+        if (setSaved) {
+            myNet->getSavingStatus()->additionalsSaved();
+        }
         // check if clear undoList
         if (!myAllowUndoRedoLoading) {
             myUndoList->clear();
@@ -4667,6 +4666,8 @@ GNEApplicationWindow::loadDemandElements() {
         neteditOptions.resetWritable();
         neteditOptions.set("ignore.routeelements", "false");
     } else if (myNet && (demandFiles.size() > 0)) {
+        // disable validation for additionals
+        XMLSubSys::setValidation("never", "auto", "auto");
         // begin undolist
         myUndoList->begin(Supermode::DEMAND, GUIIcon::SUPERMODEDEMAND, TL("loading demand elements from '") + toString(demandFiles) + "'");
         // use this flag for mark all elements as saved after loading, if it was sucessfully
@@ -4676,10 +4677,10 @@ GNEApplicationWindow::loadDemandElements() {
             // check if ignore missing imputs
             if (FileHelpers::isReadable(file) || !neteditOptions.getBool("ignore-missing-inputs")) {
                 WRITE_MESSAGE(TL("loading demand elements from '") + file + "'");
+                // add file in saving file handler
+                myNet->getSavingFilesHandler()->updateDemandEmptyFilenames(file);
                 // declare general handler
                 GNEGeneralHandler handler(myNet, file, myAllowUndoRedoLoading ? myAllowUndoRedo : false, false);
-                // disable validation for additionals
-                XMLSubSys::setValidation("never", "auto", "auto");
                 // Run parser
                 if (!handler.parse()) {
                     WRITE_ERRORF(TL("Loading of % failed."), file);
@@ -4687,62 +4688,14 @@ GNEApplicationWindow::loadDemandElements() {
                 setSaved &= !handler.isErrorCreatingElement();
                 // set additionals in SumoConfig
                 setInputInSumoOptions(false, false);
-                // disable validation for additionals
-                XMLSubSys::setValidation("auto", "auto", "auto");
             }
         }
         // end undo list
         myUndoList->end();
+        // disable validation for additionals
+        XMLSubSys::setValidation("auto", "auto", "auto");
         if (setSaved) {
             myNet->getSavingStatus()->demandElementsSaved();
-        }
-        // check if clear undoList
-        if (!myAllowUndoRedoLoading) {
-            myUndoList->clear();
-        }
-    }
-}
-
-
-void
-GNEApplicationWindow::loadMeanDataElements() {
-    // get option container
-    auto& neteditOptions = OptionsCont::getOptions();
-    // get meanData files
-    const auto meanDataFiles = neteditOptions.getStringVector("meandata-files");
-    // continue depending of network and additional files
-    if (myNet && (meanDataFiles.size() > 0)) {
-        // use first file as output
-        neteditOptions.resetWritable();
-        neteditOptions.set("meandata-files", meanDataFiles.front());
-        // begin undolist
-        myUndoList->begin(Supermode::DATA, GUIIcon::MODEMEANDATA, TL("loading meanDatas from '") + toString(meanDataFiles) + "'");
-        // use this flag for mark all elements as saved after loading, if it was sucessfully
-        bool setSaved = meanDataFiles.size() == 1;
-        // iterate over every meanData file
-        for (const auto& file : meanDataFiles) {
-            // check if ignore missing imputs
-            if (FileHelpers::isReadable(file) || !neteditOptions.getBool("ignore-missing-inputs")) {
-                WRITE_MESSAGE(TL("loading meandatas from '") + file + "'");
-                // declare general handler
-                GNEGeneralHandler handler(myNet, file, myAllowUndoRedoLoading ? myAllowUndoRedo : false, false);
-                // disable validation for additionals
-                XMLSubSys::setValidation("never", "auto", "auto");
-                // Run parser
-                if (!handler.parse()) {
-                    WRITE_ERRORF(TL("Loading of % failed."), file);
-                }
-                setSaved &= !handler.isErrorCreatingElement();
-                // set additionals in sumo options
-                setInputInSumoOptions(false, false);
-                // disable validation for additionals
-                XMLSubSys::setValidation("auto", "auto", "auto");
-            }
-        }
-        // end undo list
-        myUndoList->end();
-        if (setSaved) {
-            myNet->getSavingStatus()->meanDatasSaved();
         }
         // check if clear undoList
         if (!myAllowUndoRedoLoading) {
@@ -4758,36 +4711,35 @@ GNEApplicationWindow::loadDataElements() {
     auto& neteditOptions = OptionsCont::getOptions();
     // get data files
     const auto dataFiles = neteditOptions.getStringVector("data-files");
-    // continue depending of network and data files
     if (myNet && (dataFiles.size() > 0)) {
-        // disable update data
-        myViewNet->getNet()->disableUpdateData();
+        // disable validation for additionals
+        XMLSubSys::setValidation("never", "auto", "auto");
         // begin undolist
-        myUndoList->begin(Supermode::DATA, GUIIcon::SUPERMODEDATA, TL("loading data elements from '") + toString(dataFiles) + "'");
+        myUndoList->begin(Supermode::DEMAND, GUIIcon::SUPERMODEDEMAND, TL("loading data elements from '") + toString(dataFiles) + "'");
         // use this flag for mark all elements as saved after loading, if it was sucessfully
         bool setSaved = dataFiles.size() == 1;
         // iterate over every data file
         for (const auto& file : dataFiles) {
             // check if ignore missing imputs
             if (FileHelpers::isReadable(file) || !neteditOptions.getBool("ignore-missing-inputs")) {
-                WRITE_MESSAGE(TL("Loading data elements from '") + file + "'");
-                GNEDataHandler dataHandler(myNet, file, myAllowUndoRedoLoading ? myAllowUndoRedo : false, false);
-                // disable validation for data elements
-                XMLSubSys::setValidation("never", "auto", "auto");
-                if (!dataHandler.parse()) {
+                WRITE_MESSAGE(TL("loading data elements from '") + file + "'");
+                // add file in saving file handler
+                myNet->getSavingFilesHandler()->updateDataEmptyFilenames(file);
+                // declare general handler
+                GNEDataHandler handler(myNet, file, myAllowUndoRedoLoading ? myAllowUndoRedo : false, false);
+                // Run parser
+                if (!handler.parse()) {
                     WRITE_ERRORF(TL("Loading of % failed."), file);
                 }
-                setSaved &= !dataHandler.isErrorCreatingElement();
-                // set first dataElementsFiles as default file
-                neteditOptions.resetWritable();
-                neteditOptions.set("data-files", file);
-                // disable validation for data elements
-                XMLSubSys::setValidation("auto", "auto", "auto");
-
+                setSaved &= !handler.isErrorCreatingElement();
+                // set additionals in SumoConfig
+                setInputInSumoOptions(false, false);
             }
         }
-        // end undolist
+        // end undo list
         myUndoList->end();
+        // disable validation for additionals
+        XMLSubSys::setValidation("auto", "auto", "auto");
         if (setSaved) {
             myNet->getSavingStatus()->dataElementsSaved();
         }
@@ -4795,11 +4747,54 @@ GNEApplicationWindow::loadDataElements() {
         if (!myAllowUndoRedoLoading) {
             myUndoList->clear();
         }
-        // enable update data
-        myViewNet->getNet()->enableUpdateData();
     }
 }
 
+
+void
+GNEApplicationWindow::loadMeanDataElements() {
+    // get option container
+    auto& neteditOptions = OptionsCont::getOptions();
+    // get meanData files
+    const auto meanDataFiles = neteditOptions.getStringVector("meandata-files");
+    if (myNet && (meanDataFiles.size() > 0)) {
+        // disable validation for additionals
+        XMLSubSys::setValidation("never", "auto", "auto");
+        // begin undolist
+        myUndoList->begin(Supermode::DEMAND, GUIIcon::SUPERMODEDEMAND, TL("loading meanData elements from '") + toString(meanDataFiles) + "'");
+        // use this flag for mark all elements as saved after loading, if it was sucessfully
+        bool setSaved = meanDataFiles.size() == 1;
+        // iterate over every meanData file
+        for (const auto& file : meanDataFiles) {
+            // check if ignore missing imputs
+            if (FileHelpers::isReadable(file) || !neteditOptions.getBool("ignore-missing-inputs")) {
+                WRITE_MESSAGE(TL("loading meanData elements from '") + file + "'");
+                // add file in saving file handler
+                myNet->getSavingFilesHandler()->updateMeanDataEmptyFilenames(file);
+                // declare general handler
+                GNEGeneralHandler handler(myNet, file, myAllowUndoRedoLoading ? myAllowUndoRedo : false, false);
+                // Run parser
+                if (!handler.parse()) {
+                    WRITE_ERRORF(TL("Loading of % failed."), file);
+                }
+                setSaved &= !handler.isErrorCreatingElement();
+                // set additionals in SumoConfig
+                setInputInSumoOptions(false, false);
+            }
+        }
+        // end undo list
+        myUndoList->end();
+        // disable validation for additionals
+        XMLSubSys::setValidation("auto", "auto", "auto");
+        if (setSaved) {
+            myNet->getSavingStatus()->meanDatasSaved();
+        }
+        // check if clear undoList
+        if (!myAllowUndoRedoLoading) {
+            myUndoList->clear();
+        }
+    }
+}
 
 // ---------------------------------------------------------------------------
 // GNEApplicationWindow - protected methods
