@@ -2864,6 +2864,9 @@ GNENetHelper::SavingFilesHandler::updateNeteditConfig() {
 void
 GNENetHelper::SavingFilesHandler::addAdditionalFilename(const GNEAttributeCarrier* additionalElement) {
     if ((additionalElement->getFilename().size() > 0) && !existAdditionalFilename(additionalElement->getFilename())) {
+        if (myAdditionalElementsSavingFiles.empty()) {
+            updateAdditionalEmptyFilenames(additionalElement->getFilename());
+        }
         myAdditionalElementsSavingFiles.push_back(additionalElement->getFilename());
     }
 }
@@ -2926,6 +2929,9 @@ GNENetHelper::SavingFilesHandler::existAdditionalFilename(const std::string& fil
 void
 GNENetHelper::SavingFilesHandler::addDemandFilename(const GNEAttributeCarrier* demandElement) {
     if ((demandElement->getFilename().size() > 0) && !existDemandFilename(demandElement->getFilename())) {
+        if (myDemandElementsSavingFiles.empty()) {
+            updateDemandEmptyFilenames(demandElement->getFilename());
+        }
         myDemandElementsSavingFiles.push_back(demandElement->getFilename());
     }
 }
@@ -2988,6 +2994,9 @@ GNENetHelper::SavingFilesHandler::existDemandFilename(const std::string& file) c
 void
 GNENetHelper::SavingFilesHandler::addDataFilename(const GNEAttributeCarrier* dataElement) {
     if ((dataElement->getFilename().size() > 0) && !existDataFilename(dataElement->getFilename())) {
+        if (myDataElementsSavingFiles.empty()) {
+            updateDataEmptyFilenames(dataElement->getFilename());
+        }
         myDataElementsSavingFiles.push_back(dataElement->getFilename());
     }
 }
@@ -3042,6 +3051,9 @@ GNENetHelper::SavingFilesHandler::existDataFilename(const std::string& file) con
 void
 GNENetHelper::SavingFilesHandler::addMeanDataFilename(const GNEAttributeCarrier* meanDataElement) {
     if ((meanDataElement->getFilename().size() > 0) && !existMeanDataFilename(meanDataElement->getFilename())) {
+        if (myMeanDataElementsSavingFiles.empty()) {
+            updateMeanDataEmptyFilenames(meanDataElement->getFilename());
+        }
         myMeanDataElementsSavingFiles.push_back(meanDataElement->getFilename());
     }
 }
