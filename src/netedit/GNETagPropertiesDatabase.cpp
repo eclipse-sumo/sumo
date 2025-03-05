@@ -1831,8 +1831,8 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
         {SUMO_TAG_ENTRY_EXIT_DETECTOR}, FXRGBA(210, 233, 255, 255));
         // set values of attributes
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_LANE,
+                GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
                 GNEAttributeProperties::EDITMODE,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
                 TL("The id of the lane the detector shall be laid on. The lane must be a part of the network used"));
         myTagProperties[currentTag]->addAttribute(attrProperty);
 
@@ -3824,7 +3824,7 @@ GNETagPropertiesDatabase::fillStopElements() {
         // set values of attributes
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_BUS_STOP,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("BusStop associated with this stop"));
         myTagProperties[currentTag]->addAttribute(attrProperty);
 
@@ -3844,7 +3844,7 @@ GNETagPropertiesDatabase::fillStopElements() {
         // set values of attributes
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_TRAIN_STOP,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("TrainStop associated with this stop"));
         myTagProperties[currentTag]->addAttribute(attrProperty);
 
@@ -3864,7 +3864,7 @@ GNETagPropertiesDatabase::fillStopElements() {
         // set values of attributes
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_CONTAINER_STOP,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("ContainerStop associated with this stop"));
         myTagProperties[currentTag]->addAttribute(attrProperty);
 
@@ -3884,7 +3884,7 @@ GNETagPropertiesDatabase::fillStopElements() {
         // set values of attributes
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_CHARGING_STATION,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("ChargingStation associated with this stop"));
         myTagProperties[currentTag]->addAttribute(attrProperty);
 
@@ -3904,7 +3904,7 @@ GNETagPropertiesDatabase::fillStopElements() {
         // set values of attributes
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_PARKING_AREA,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("ParkingArea associated with this stop"));
         myTagProperties[currentTag]->addAttribute(attrProperty);
 
@@ -3998,7 +3998,7 @@ GNETagPropertiesDatabase::fillWaypointElements() {
         // set values of attributes
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_BUS_STOP,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("BusWaypoint associated with this waypoint"));
         myTagProperties[currentTag]->addAttribute(attrProperty);
 
@@ -4018,7 +4018,7 @@ GNETagPropertiesDatabase::fillWaypointElements() {
         // set values of attributes
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_TRAIN_STOP,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("TrainWaypoint associated with this waypoint"));
         myTagProperties[currentTag]->addAttribute(attrProperty);
 
@@ -4038,7 +4038,7 @@ GNETagPropertiesDatabase::fillWaypointElements() {
         // set values of attributes
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_CONTAINER_STOP,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("ContainerWaypoint associated with this waypoint"));
         myTagProperties[currentTag]->addAttribute(attrProperty);
 
@@ -4058,7 +4058,7 @@ GNETagPropertiesDatabase::fillWaypointElements() {
         // set values of attributes
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_CHARGING_STATION,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("ChargingStation associated with this waypoint"));
         myTagProperties[currentTag]->addAttribute(attrProperty);
 
@@ -4078,7 +4078,7 @@ GNETagPropertiesDatabase::fillWaypointElements() {
         // set values of attributes
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_PARKING_AREA,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                GNEAttributeProperties::EDITMODE,
                 TL("ParkingArea associated with this waypoint"));
         myTagProperties[currentTag]->addAttribute(attrProperty);
 
