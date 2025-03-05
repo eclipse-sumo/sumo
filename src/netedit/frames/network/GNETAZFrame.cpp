@@ -1636,7 +1636,9 @@ GNETAZFrame::shapeDrawed() {
             myBaseTAZ->addStringListAttribute(SUMO_ATTR_EDGES, std::vector<std::string>());
         }
         // declare additional handler
-        GNEAdditionalHandler additionalHandler(myViewNet->getNet(), myBaseTAZ->getStringAttribute(GNE_ATTR_ADDITIONAL_FILE), myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), false);
+        GNEAdditionalHandler additionalHandler(myViewNet->getNet(), myBaseTAZ->hasStringAttribute(GNE_ATTR_ADDITIONAL_FILE)?
+                                               myBaseTAZ->getStringAttribute(GNE_ATTR_ADDITIONAL_FILE) : "",
+                                               myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), false);
         // build TAZ
         additionalHandler.parseSumoBaseObject(myBaseTAZ);
         // Write info

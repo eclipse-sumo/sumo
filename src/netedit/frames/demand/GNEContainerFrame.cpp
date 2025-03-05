@@ -299,7 +299,7 @@ GNEContainerFrame::buildContainer() {
     // add pType parameter
     myContainerBaseObject->addStringAttribute(SUMO_ATTR_TYPE, myTypeSelector->getCurrentDemandElement()->getID());
     // declare route handler
-    GNERouteHandler routeHandler(myViewNet->getNet(), myContainerBaseObject->getStringAttribute(GNE_ATTR_DEMAND_FILE),
+    GNERouteHandler routeHandler(myViewNet->getNet(), myContainerBaseObject->hasStringAttribute(GNE_ATTR_DEMAND_FILE)? myContainerBaseObject->getStringAttribute(GNE_ATTR_DEMAND_FILE) : "",
                                  myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), false);
     // check if we're creating a container or containerFlow
     if (containerTag == SUMO_TAG_CONTAINER) {

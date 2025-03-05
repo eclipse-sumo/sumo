@@ -297,7 +297,8 @@ GNEPersonFrame::buildPerson() {
     // add pType parameter
     myPersonBaseObject->addStringAttribute(SUMO_ATTR_TYPE, myTypeSelector->getCurrentDemandElement()->getID());
     // declare route handler
-    GNERouteHandler routeHandler(myViewNet->getNet(), myPersonBaseObject->getStringAttribute(GNE_ATTR_DEMAND_FILE),
+    GNERouteHandler routeHandler(myViewNet->getNet(), myPersonBaseObject->hasStringAttribute(GNE_ATTR_DEMAND_FILE)?
+                                 myPersonBaseObject->getStringAttribute(GNE_ATTR_DEMAND_FILE) : "",
                                  myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), false);
     // check if we're creating a person or personFlow
     if (personTag == SUMO_TAG_PERSON) {

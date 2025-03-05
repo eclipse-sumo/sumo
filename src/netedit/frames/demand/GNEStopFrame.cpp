@@ -211,7 +211,8 @@ GNEStopFrame::addStop(const GNEViewNetHelper::ViewObjectsSelector& viewObjects, 
                          viewObjects.getLaneFront(), viewObjects.getAdditionalFront());
         if (myStopParentBaseObject->getTag() != SUMO_TAG_NOTHING) {
             // declare route handler
-            GNERouteHandler routeHandler(myViewNet->getNet(), myStopParentBaseObject->getStringAttribute(GNE_ATTR_DEMAND_FILE),
+            GNERouteHandler routeHandler(myViewNet->getNet(), myStopParentBaseObject->hasStringAttribute(GNE_ATTR_DEMAND_FILE)?
+                                         myStopParentBaseObject->getStringAttribute(GNE_ATTR_DEMAND_FILE) : "",
                                          myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), false);
             // build stop
             routeHandler.buildStop(myStopParentBaseObject->getSumoBaseObjectChildren().front(), myPlanParameters,
