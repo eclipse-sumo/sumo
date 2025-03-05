@@ -279,6 +279,13 @@ GNEAttributesEditorRow::isAttributeRowShown() const {
 SumoXMLAttr
 GNEAttributesEditorRow::fillSumoBaseObject(CommonXMLStructure::SumoBaseObject* baseObjet) const {
     const auto attribute = myAttrProperty->getAttr();
+    // due vehicles uses SUMOVehicleParserHelper::parseVehicleAttributes, we need to introduce this exception
+    if (myAttrProperty->getTagPropertyParent()->isVehicle() &&
+            !myAttrProperty->isFlow() &&
+            myAttrProperty->hasDefaultValue() &&
+            (myAttrProperty->getDefaultValue() == getCurrentValue())) {
+        return SUMO_ATTR_NOTHING;
+    }
     // continue depending of type
     if (myAttrProperty->isBool()) {
         baseObjet->addBoolAttribute(attribute, myValueCheckButton->getCheck() == TRUE);
