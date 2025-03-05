@@ -36,11 +36,10 @@ def printSorted(d):
 net = sumolib.net.readNet(sys.argv[1])
 
 for edge in net.getEdges():
-    fromXY = edge.getFromNode().getCoord() 
+    fromXY = edge.getFromNode().getCoord()
     toXY = edge.getToNode().getCoord()
     mid = (fromXY[0] + toXY[0]) / 2, (fromXY[1] + toXY[1]) / 2
     for lane in edge.getLanes():
         print("%s mid=%s halfLength=%s getClosestLanePosAndDist=%s" % (
             lane.getID(), mid, lane.getLength() / 2,
             lane.getClosestLanePosAndDist(mid)))
-
