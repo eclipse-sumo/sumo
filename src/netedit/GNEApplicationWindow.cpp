@@ -3667,24 +3667,26 @@ GNEApplicationWindow::onCmdOpenAdditionals(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdReloadAdditionals(FXObject*, FXSelector, void*) {
+    // disable validation for additionals
+    XMLSubSys::setValidation("never", "auto", "auto");
+    // begin undoList operation
+    myUndoList->begin(Supermode::DEMAND, GUIIcon::SUPERMODENETWORK, TL("reloading additionals"));
+    // clear additionals
+    myNet->clearAdditionalElements(myUndoList);
+    // iterate over all additional files
     for (const auto& savingFile : myViewNet->getNet()->getSavingFilesHandler()->getAdditionalFilenames()) {
-        // disable validation for additionals
-        XMLSubSys::setValidation("never", "auto", "auto");
         // Create general handler
         GNEGeneralHandler generalHandler(myNet, savingFile, myAllowUndoRedoLoading ? myAllowUndoRedo : false, true);
-        // begin undoList operation
-        myUndoList->begin(Supermode::DEMAND, GUIIcon::SUPERMODENETWORK, TL("reloading additionals"));
-        // clear additionals
-        myNet->clearAdditionalElements(myUndoList);
         // Run parser
         if (!generalHandler.parse()) {
             WRITE_ERROR(TLF("Reloading of additional file '%' failed.", savingFile));
         }
-        // end undoList operation
-        myUndoList->end();
-        // restore validation for additionals
-        XMLSubSys::setValidation("auto", "auto", "auto");
+
     }
+    // end undoList operation
+    myUndoList->end();
+    // restore validation for additionals
+    XMLSubSys::setValidation("auto", "auto", "auto");
     // check if clear undoList
     if (!myAllowUndoRedoLoading) {
         myUndoList->clear();
@@ -3749,7 +3751,7 @@ GNEApplicationWindow::onCmdSaveAdditionals(FXObject* sender, FXSelector sel, voi
 
 
 long
-GNEApplicationWindow::onCmdSaveAdditionalsAs(FXObject*, FXSelector, void*) {
+GNEApplicationWindow::onCmdSaveAdditionalsAs(FXObject* sender, FXSelector sel, void* ptr) {
     // get option container
     auto& neteditOptions = OptionsCont::getOptions();
     // declare current folder
@@ -3768,7 +3770,7 @@ GNEApplicationWindow::onCmdSaveAdditionalsAs(FXObject*, FXSelector, void*) {
         // enable save additionals
         myNet->getSavingStatus()->requireSaveAdditionals();
         // save additionals
-        return onCmdSaveAdditionals(nullptr, 0, nullptr);
+        return onCmdSaveAdditionals(sender, sel, ptr);
     } else {
         return 0;
     }
@@ -3817,8 +3819,6 @@ GNEApplicationWindow::onCmdSaveJuPedSimElementsAs(FXObject*, FXSelector, void*) 
 
 long
 GNEApplicationWindow::onCmdOpenDemandElements(FXObject*, FXSelector, void*) {
-    // get option container
-    auto& neteditOptions = OptionsCont::getOptions();
     // get file
     const auto routeFile = GNEApplicationWindowHelper::openRouteFileDialog(this, false);
     // check file
@@ -3826,7 +3826,7 @@ GNEApplicationWindow::onCmdOpenDemandElements(FXObject*, FXSelector, void*) {
         // declare overwrite flag
         bool overwriteElements = false;
         // check if open question dialog box
-        if (routeFile == neteditOptions.getString("route-files")) {
+        if (myNet->getSavingFilesHandler()->existDemandFilename(routeFile)) {
             // open overwrite dialog
             GNEKeepElementsDialog keepElementsDialog(this, "route");
             // continue depending of result
@@ -3851,9 +3851,6 @@ GNEApplicationWindow::onCmdOpenDemandElements(FXObject*, FXSelector, void*) {
             // write error
             WRITE_ERROR(TL("Loading of route file failed: ") + routeFile);
         } else {
-            // change value of "route-files"
-            neteditOptions.resetWritable();
-            neteditOptions.set("route-files", routeFile);
             // show info
             WRITE_MESSAGE(TL("Loading of route file successfully: ") + routeFile);
             // enable demand elements if there is an error creating element
@@ -3877,19 +3874,20 @@ GNEApplicationWindow::onCmdOpenDemandElements(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdReloadDemandElements(FXObject*, FXSelector, void*) {
-    // get file
-    const std::string routeFile = OptionsCont::getOptions().getString("route-files");
     // disable validation for additionals
     XMLSubSys::setValidation("never", "auto", "auto");
-    // Create handler
-    GNEGeneralHandler handler(myNet, routeFile, myAllowUndoRedoLoading ? myAllowUndoRedo : false, true);
     // begin undoList operation
-    myUndoList->begin(Supermode::DEMAND, GUIIcon::SUPERMODEDEMAND, TLF("reloading demand elements from '%'", routeFile));
+    myUndoList->begin(Supermode::DEMAND, GUIIcon::SUPERMODEDEMAND, TL("reloading demand elements"));
     // clear demand elements
     myNet->clearDemandElements(myUndoList);
-    // Run parser for additionals
-    if (!handler.parse()) {
-        WRITE_ERROR(TL("Reloading of route file failed: ") + routeFile);
+    // iterate over all demand elements
+    for (const auto &demandFileName : myNet->getSavingFilesHandler()->getDemandFilenames()) {
+        // Create handler
+        GNEGeneralHandler handler(myNet, demandFileName, myAllowUndoRedoLoading ? myAllowUndoRedo : false, true);
+        // Run parser for additionals
+        if (!handler.parse()) {
+            WRITE_ERROR(TLF("Reloading of route file '%'failed.", demandFileName));
+        }
     }
     // end undoList operation and update view
     myUndoList->end();
@@ -3973,10 +3971,8 @@ GNEApplicationWindow::onCmdSaveDemandElementsAs(FXObject* sender, FXSelector sel
     const auto routeFile = GNEApplicationWindowHelper::openRouteFileDialog(this, true);
     // check that file is correct
     if (!routeFile.empty()) {
-        // reset writtable flag
-        neteditOptions.resetWritable();
-        // change value of "route-files"
-        neteditOptions.set("route-files", routeFile);
+        // update demand empty filenames
+        myNet->getSavingFilesHandler()->updateDemandEmptyFilenames(routeFile);
         // requiere save demand elements
         myNet->getSavingStatus()->requireSaveDemandElements();
         // set focus again in viewNet
@@ -3991,8 +3987,6 @@ GNEApplicationWindow::onCmdSaveDemandElementsAs(FXObject* sender, FXSelector sel
 
 long
 GNEApplicationWindow::onCmdOpenDataElements(FXObject*, FXSelector, void*) {
-    // get option container
-    auto& neteditOptions = OptionsCont::getOptions();
     // get file
     const auto dataFile = GNEApplicationWindowHelper::openDataFileDialog(this, false);
     // check file
@@ -4000,7 +3994,7 @@ GNEApplicationWindow::onCmdOpenDataElements(FXObject*, FXSelector, void*) {
         // declare overwrite flag
         bool overwriteElements = false;
         // check if open question dialog box
-        if (dataFile == neteditOptions.getString("data-files")) {
+        if (myNet->getSavingFilesHandler()->existDataFilename(dataFile)) {
             // open overwrite dialog
             GNEKeepElementsDialog keepElementsDialog(this, "data");
             // continue depending of result
@@ -4027,9 +4021,6 @@ GNEApplicationWindow::onCmdOpenDataElements(FXObject*, FXSelector, void*) {
             // write error
             WRITE_ERROR(TL("Loading of data file failed: ") + dataFile);
         } else {
-            // change value of "data-files"
-            neteditOptions.resetWritable();
-            neteditOptions.set("data-files", dataFile);
             // show info
             WRITE_MESSAGE(TL("Loading of data file successfully: ") + dataFile);
             // enable demand elements if there is an error creating element
@@ -4055,21 +4046,22 @@ GNEApplicationWindow::onCmdOpenDataElements(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdReloadDataElements(FXObject*, FXSelector, void*) {
-    // get file
-    const std::string dataFile = OptionsCont::getOptions().getString("data-files");
     // disable update data
     myViewNet->getNet()->disableUpdateData();
     // disable validation for additionals
     XMLSubSys::setValidation("never", "auto", "auto");
-    // Create additional handler
-    GNEDataHandler dataHandler(myNet, dataFile, myAllowUndoRedoLoading ? myAllowUndoRedo : false, false);
     // begin undoList operation
-    myUndoList->begin(Supermode::DATA, GUIIcon::SUPERMODEDATA, TL("reloading data elements from '") + dataFile + "'");
+    myUndoList->begin(Supermode::DATA, GUIIcon::SUPERMODEDATA, TL("reloading data elements"));
     // clear data elements
     myNet->clearDataElements(myUndoList);
-    // Run data parser
-    if (!dataHandler.parse()) {
-        WRITE_ERROR(TL("Reloading of data file failed: ") + dataFile);
+    // iterate over all data elements
+    for (const auto& savingFile : myViewNet->getNet()->getSavingFilesHandler()->getDataFilenames()) {
+        // Create additional handler
+        GNEDataHandler dataHandler(myNet, savingFile, myAllowUndoRedoLoading ? myAllowUndoRedo : false, false);
+        // Run data parser
+        if (!dataHandler.parse()) {
+            WRITE_ERROR(TL("Reloading of data file failed: ") + savingFile);
+        }
     }
     // restore validation for data
     XMLSubSys::setValidation("auto", "auto", "auto");
@@ -4152,10 +4144,8 @@ GNEApplicationWindow::onCmdSaveDataElementsAs(FXObject* sender, FXSelector sel, 
     const auto dataFile = GNEApplicationWindowHelper::openDataFileDialog(this, true);
     // check that file is correct
     if (!dataFile.empty()) {
-        // reset writtable flag
-        neteditOptions.resetWritable();
-        // change value of "data-files"
-        neteditOptions.set("data-files", dataFile);
+        // update demand empty filenames
+        myNet->getSavingFilesHandler()->updateDataEmptyFilenames(dataFile);
         // mark data elements as unsaved
         myNet->getSavingStatus()->requireSaveDataElements();
         // set focus again in viewNet
@@ -4170,7 +4160,6 @@ GNEApplicationWindow::onCmdSaveDataElementsAs(FXObject* sender, FXSelector sel, 
 
 long
 GNEApplicationWindow::onCmdOpenMeanDatas(FXObject*, FXSelector, void*) {
-    auto& neteditOptions = OptionsCont::getOptions();
     // get file
     const auto meanDataFile = GNEApplicationWindowHelper::openMeanDataDialog(this, false);
     // check file
@@ -4178,7 +4167,7 @@ GNEApplicationWindow::onCmdOpenMeanDatas(FXObject*, FXSelector, void*) {
         // declare overwrite flag
         bool overwriteElements = false;
         // check if open question dialog box
-        if (meanDataFile == neteditOptions.getString("meandata-files")) {
+        if (myNet->getSavingFilesHandler()->existMeanDataFilename(meanDataFile)) {
             // open overwrite dialog
             GNEKeepElementsDialog keepElementsDialog(this, "meanData");
             // continue depending of result
@@ -4203,9 +4192,6 @@ GNEApplicationWindow::onCmdOpenMeanDatas(FXObject*, FXSelector, void*) {
             // write error
             WRITE_ERROR(TL("Loading of meandata file failed: ") + meanDataFile);
         } else {
-            // change value of "meandata-files"
-            neteditOptions.resetWritable();
-            neteditOptions.set("meandata-files", meanDataFile);
             // show info
             WRITE_MESSAGE(TL("Loading of meandata file successfully: ") + meanDataFile);
             // enable demand elements if there is an error creating element
@@ -4229,19 +4215,20 @@ GNEApplicationWindow::onCmdOpenMeanDatas(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdReloadMeanDatas(FXObject*, FXSelector, void*) {
-    // get file
-    const std::string meanDataFile = OptionsCont::getOptions().getString("meandata-files");
     // disable validation for meanDatas
     XMLSubSys::setValidation("never", "auto", "auto");
-    // Create general handler
-    GNEGeneralHandler generalHandler(myNet, meanDataFile, myAllowUndoRedoLoading ? myAllowUndoRedo : false, true);
     // begin undoList operation
-    myUndoList->begin(Supermode::DEMAND, GUIIcon::SUPERMODENETWORK, TL("reloading meanDatas from '") + meanDataFile + "'");
+    myUndoList->begin(Supermode::DEMAND, GUIIcon::SUPERMODENETWORK, TL("reloading meanDatas"));
     // clear meanDatas
     myNet->clearMeanDataElements(myUndoList);
-    // Run parser
-    if (!generalHandler.parse()) {
-        WRITE_MESSAGE(TL("Loading of meandata file successfully: ") + meanDataFile);
+    // iterate over all data elements
+    for (const auto& savingFile : myViewNet->getNet()->getSavingFilesHandler()->getDataFilenames()) {
+        // Create general handler
+        GNEGeneralHandler generalHandler(myNet, savingFile, myAllowUndoRedoLoading ? myAllowUndoRedo : false, true);
+        // Run parser
+        if (!generalHandler.parse()) {
+            WRITE_MESSAGE(TL("Loading of meandata file successfully: ") + savingFile);
+        }
     }
     // end undoList operation and update view
     myUndoList->end();
@@ -4324,10 +4311,8 @@ GNEApplicationWindow::onCmdSaveMeanDatasAs(FXObject* sender, FXSelector sel, voi
     const auto meanDataFile = GNEApplicationWindowHelper::openMeanDataDialog(this, true);
     // check that file is valid
     if (!meanDataFile.empty()) {
-        // reset writtable flag
-        neteditOptions.resetWritable();
-        // change value of "meandata-files"
-        neteditOptions.set("meandata-files", meanDataFile);
+        // update demand empty filenames
+        myNet->getSavingFilesHandler()->updateMeanDataEmptyFilenames(meanDataFile);
         // mark mean datas as unsaved
         myNet->getSavingStatus()->requireSaveMeanDatas();
         // set focus again in viewNet
@@ -4682,9 +4667,6 @@ GNEApplicationWindow::loadDemandElements() {
         neteditOptions.resetWritable();
         neteditOptions.set("ignore.routeelements", "false");
     } else if (myNet && (demandFiles.size() > 0)) {
-        // use first file as output
-        neteditOptions.resetWritable();
-        neteditOptions.set("route-files", demandFiles.front());
         // begin undolist
         myUndoList->begin(Supermode::DEMAND, GUIIcon::SUPERMODEDEMAND, TL("loading demand elements from '") + toString(demandFiles) + "'");
         // use this flag for mark all elements as saved after loading, if it was sucessfully

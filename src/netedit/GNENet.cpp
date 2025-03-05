@@ -2133,8 +2133,17 @@ GNENet::clearDemandElements(GNEUndoList* undoList) {
     undoList->begin(GUIIcon::MODEDELETE, TL("clear demand elements"));
     // clear demand elements
     for (const auto& demandElementsMap : myAttributeCarriers->getDemandElements()) {
-        while (demandElementsMap.second.size() > 0) {
-            deleteDemandElement(demandElementsMap.second.begin()->second, undoList);
+        if (demandElementsMap.first != SUMO_TAG_VTYPE) {
+            while (demandElementsMap.second.size() > 0) {
+                deleteDemandElement(demandElementsMap.second.begin()->second, undoList);
+            }
+        }
+    }
+    // special case for vTypes
+    const std::unordered_map<const GUIGlObject*, GNEDemandElement*> types = myAttributeCarriers->getDemandElements().at(SUMO_TAG_VTYPE);
+    for (const auto &type : types) {
+        if (type.second->getAttribute(GNE_ATTR_DEFAULT_VTYPE) == GNEAttributeCarrier::False) {
+            deleteDemandElement(type.second, undoList);
         }
     }
     undoList->end();
