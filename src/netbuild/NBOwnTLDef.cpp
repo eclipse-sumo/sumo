@@ -840,9 +840,8 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
         const std::string nextState = allPhases[(i + 1) % phaseCount].state;
         bool updatedState = false;
         for (int i1 = 0; i1 < stateSize; ++i1) {
-            if (currState[i1] == 'y' && (nextState[i1] == 'g' || nextState[i1] == 'G') && (prevState[i1] == 'g' || prevState[i1] == 'G')) {
-                LinkState ls = (nextState[i1] == prevState[i1]) ? (LinkState)prevState[i1] : (LinkState)'g';
-                logic->setPhaseState(i, i1, ls);
+            if (currState[i1] == 'y' && (nextState[i1] == prevState[i1] || nextState[i1] == 'G') && (prevState[i1] == 'g' || prevState[i1] == 'G')) {
+                logic->setPhaseState(i, i1, (LinkState)prevState[i1]);
                 updatedState = true;
             }
         }
