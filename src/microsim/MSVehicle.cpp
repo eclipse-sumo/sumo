@@ -6113,7 +6113,9 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
             }
         }
         for (int i = requireChangeToLeftForbidden; i >= 0; i--) {
-            last[i].length = 0;
+            if (last[i].bestLaneOffset > 0) {
+                last[i].length = 0;
+            }
         }
 #ifdef DEBUG_BESTLANES
         if (DEBUG_COND) {
