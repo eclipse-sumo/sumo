@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-01-10 12:06:12.470514 by routeSampler.py v1_21_0+1797-4b725da1d37
+<!-- generated on 2025-03-05 10:16:52.528883 by routeSampler.py v1_22_0+0650-d108669826e
 <configuration>
     <route-files value="input_routes.rou.xml"/>
     <turn-files value="input_turns.xml"/>
@@ -26,7 +26,7 @@
     <route id="14" edges="-15 -15.180.00 15 15.180.00"/> <!-- 1 -->
     <route id="15" edges="-15.180.00 11 11.80.00 23 23.80.00 31 31.80.00 64 64.80.00 120"/> <!-- 1 -->
     <route id="17" edges="-152.80.00 -131 -131.180.00 131"> <!-- 2 -->
-        <stop duration="10" edge="75"/>
+        <stop edge="75" duration="10"/>
     </route>
     <route id="18" edges="-27 -27.80.00 -3 -3.180.00 15 15.180.00 -144 -144.121.42 144 144.121.42"/> <!-- 2 -->
     <route id="19" edges="-27.80.00 27 27.80.00 45 -68 -43 -43.80.00"/> <!-- 1 -->
