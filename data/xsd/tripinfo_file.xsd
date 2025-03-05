@@ -111,7 +111,7 @@
                 <xsd:element minOccurs="0" ref="access"/>
             </xsd:choice>
             <xsd:attribute name="id" use="required" type="xsd:string"/>
-            <xsd:attribute name="depart" use="required" type="nonNegativeFloatType"/>
+            <xsd:attribute name="depart" use="required" type="timeTypeWithErrorValue"/>
             <xsd:attribute name="type" use="required" type="xsd:string"/>
             <xsd:attribute name="speedFactor" type="positiveFloatType"/>
             <xsd:attribute name="duration" type="timeTypeWithErrorValue"/>
@@ -129,7 +129,7 @@
                 <xsd:element minOccurs="0" ref="tranship"/>
             </xsd:choice>
             <xsd:attribute name="id" use="required" type="xsd:string"/>
-            <xsd:attribute name="depart" use="required" type="nonNegativeFloatType"/>
+            <xsd:attribute name="depart" use="required" type="timeTypeWithErrorValue"/>
             <xsd:attribute name="type" use="required" type="xsd:string"/>
             <xsd:attribute name="duration" type="timeTypeWithErrorValue"/>
             <xsd:attribute name="waitingTime" type="timeTypeWithErrorValue"/>
@@ -162,7 +162,7 @@
 
     <xsd:element name="walk">
         <xsd:complexType>
-            <xsd:attribute name="depart" use="required" type="nonNegativeFloatType"/>
+            <xsd:attribute name="depart" use="required" type="timeTypeWithErrorValue"/>
             <xsd:attribute name="departPos" use="required" type="nonNegativeFloatType"/>
             <xsd:attribute name="arrival" use="required" type="timeTypeWithErrorValue"/>
             <xsd:attribute name="arrivalPos" use="required" type="nonNegativeFloatTypeWithErrorValue"/>
