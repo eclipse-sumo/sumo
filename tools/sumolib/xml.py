@@ -97,7 +97,7 @@ def _prefix_keyword(name, warn=False):
     return result
 
 
-def compound_object(element_name, attrnames, warn=False, sort=True):
+def compound_object(element_name, attrnames, warn=False, sort=False):
     """return a class which delegates bracket access to an internal dict.
        Missing attributes are delegated to the child dict for convenience.
        @note: Care must be taken when child nodes and attributes have the same names"""
