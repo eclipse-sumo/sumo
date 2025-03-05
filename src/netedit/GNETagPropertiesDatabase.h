@@ -195,6 +195,15 @@ protected:
     /// @brief fill name attribute
     void fillNameAttribute(GNETagProperties* tagProperties);
 
+    /// @brief fill lane attribute
+    void fillLaneAttribute(GNETagProperties* tagProperties, const bool synonymID);
+
+    /// @brief fill friendlyPos attribute
+    void fillFriendlyPosAttribute(GNETagProperties* tagProperties);
+
+    /// @brief fill vTypes attribute
+    void fillVTypesAttribute(GNETagProperties* tagProperties);
+
     /// @brief fill file attribute
     void fillFileAttribute(GNETagProperties* tagProperties);
 
