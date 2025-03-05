@@ -680,15 +680,19 @@ class additionals:
 class busStop:
     class create:
         id = 5
-        name = 6
-        friendlyPos = 7
-        lines = 8
-        personCapacity = 9
-        parkingLength = 10
-        colorButton = 11
-        color = 12
-        references = 16
-        length = 18
+        friendlyPos = 6
+        name = 7
+        colorButton = 8
+        color = 9
+        lines = 10
+        personCapacity = 11
+        parkingLength = 12
+        parameters = 14
+        size = 17
+        forceSize = 18
+        references = 19
+        fileButton = 21
+        file = 22
 
     class inspect:
         id = 1
