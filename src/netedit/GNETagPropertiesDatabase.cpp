@@ -9270,14 +9270,20 @@ GNETagPropertiesDatabase::fillNameAttribute(GNETagProperties* tagProperties) {
 
 void
 GNETagPropertiesDatabase::fillLaneAttribute(GNETagProperties* tagProperties, const bool synonymID) {
-    GNEAttributeProperties* attrProperty = new GNEAttributeProperties(SUMO_ATTR_LANE,
+    if (synonymID) {
+        GNEAttributeProperties* attrProperty = new GNEAttributeProperties(SUMO_ATTR_LANE,
+            GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::SYNONYM | GNEAttributeProperties::UPDATEGEOMETRY,
+            GNEAttributeProperties::EDITMODE,
+            TLF("The name of the lane the % shall be located at", tagProperties->getTagStr()));
+        attrProperty->setSynonym(SUMO_ATTR_ID);
+        tagProperties->addAttribute(attrProperty);
+    } else {
+        GNEAttributeProperties* attrProperty = new GNEAttributeProperties(SUMO_ATTR_LANE,
             GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
             GNEAttributeProperties::EDITMODE,
             TLF("The name of the lane the % shall be located at", tagProperties->getTagStr()));
-    if (synonymID) {
-        attrProperty->setSynonym(SUMO_ATTR_ID);
+        tagProperties->addAttribute(attrProperty);
     }
-    tagProperties->addAttribute(attrProperty);
 }
 
 
