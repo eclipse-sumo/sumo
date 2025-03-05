@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-02-29 13:56:09 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
+<!-- generated on 2025-03-05 16:12:10 by Eclipse SUMO netconvert Version v1_22_0+0665-ba2a511bcfc
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <node-files value="input_plain.nod.xml"/>
@@ -45,7 +45,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <ignore-errors.edge-type value="true"/>
     </report>
 
-</configuration>
+</netconvertConfiguration>
 -->
 
 <net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
@@ -475,7 +475,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </tlLogic>
     <tlLogic id="joinedG_1139052687_257163520_cluster_1139455558_1140137806_1140137809_1140137960_1140138004_1140138013_1140138101_257163521" type="static" programID="0" offset="0">
         <phase duration="18" state="GGGGrrGGGrrrrrGGGGrrr"/>
-        <phase duration="3"  state="yyyyrrGGgrrrrrGGGGrrr"/>
+        <phase duration="3"  state="yyyyrrGGyrrrrrGGGGrrr"/>
         <phase duration="20" state="rrrrGGGGgGGrrrGGGGrrr"/>
         <phase duration="3"  state="rrrrGGGGgyyrrrGyyyrrr"/>
         <phase duration="20" state="rrrrGGGGGrrGGGGrrrrrr"/>
@@ -487,13 +487,13 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <phase duration="42" state="GGGGGGggGGrr"/>
         <phase duration="3"  state="yyyGGGggyyrr"/>
         <phase duration="42" state="rrrGGGGGrrGG"/>
-        <phase duration="3"  state="rrrGGGggrryy"/>
+        <phase duration="3"  state="rrrGGGyyrryy"/>
     </tlLogic>
     <tlLogic id="joinedG_205335646_4377397121_4377397122_cluster_205335636_205335647" type="static" programID="0" offset="0">
         <phase duration="36" state="GGGrrrGGGgrrrrGGGGgrrrr"/>
         <phase duration="4"  state="GGGrrryyygrrrryyyygrrrr"/>
         <phase duration="6"  state="GGGrrrrrrGrrrrrrrrGrrrr"/>
-        <phase duration="4"  state="GGgrrrrrryrrrrrrrryrrrr"/>
+        <phase duration="4"  state="GGyrrrrrryrrrrrrrryrrrr"/>
         <phase duration="36" state="GGgGGGrrrrGGGgrrrrrGGGg"/>
         <phase duration="4"  state="GGgyyyrrrryyyyrrrrryyyy"/>
     </tlLogic>

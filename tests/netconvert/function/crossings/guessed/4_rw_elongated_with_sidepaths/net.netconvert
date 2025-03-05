@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-06-27 14:13:04 by Eclipse SUMO netconvert Version v1_20_0+0884-42872f29db1
+<!-- generated on 2025-03-05 16:12:14 by Eclipse SUMO netconvert Version v1_22_0+0665-ba2a511bcfc
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -399,7 +399,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <phase duration="4"  state="yyyyyyrrryrrrrrryGrrrr"/>
         <phase duration="31" state="rrrrrrrrrrgGGGrrrGGGGG" minDur="7" maxDur="50"/>
         <phase duration="5"  state="rrrrrrrrrrgGGGrrrGrrrr"/>
-        <phase duration="4"  state="rrrrrrrrrryyyyrrrgrrrr"/>
+        <phase duration="4"  state="rrrrrrrrrryyyyrrryrrrr"/>
     </tlLogic>
 
     <junction id="10211110904" type="priority" x="147.37" y="151.80" incLanes="1116425704#1_0 25944409_0 -1185319465_0" intLanes=":10211110904_0_0 :10211110904_1_0" shape="146.96,154.30 148.90,153.81 142.09,153.61 144.66,156.68 151.67,150.40 148.87,147.54 146.19,146.80 144.70,148.13">
