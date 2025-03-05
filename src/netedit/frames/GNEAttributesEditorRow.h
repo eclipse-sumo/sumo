@@ -64,7 +64,7 @@ public:
     bool isAttributeRowShown() const;
 
     /// @brief fill sumo Base object
-    SumoXMLAttr fillSumoBaseObject(CommonXMLStructure::SumoBaseObject* baseObjet) const;
+    SumoXMLAttr fillSumoBaseObject(CommonXMLStructure::SumoBaseObject* baseObject, const bool insertDefaultValues) const;
 
     /// @name FOX-callbacks
     /// @{

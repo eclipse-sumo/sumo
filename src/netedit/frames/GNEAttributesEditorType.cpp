@@ -299,11 +299,11 @@ GNEAttributesEditorType::checkAttributes(const bool showWarning) {
 
 
 SumoXMLAttr
-GNEAttributesEditorType::fillSumoBaseObject(CommonXMLStructure::SumoBaseObject* baseObject) const {
+GNEAttributesEditorType::fillSumoBaseObject(CommonXMLStructure::SumoBaseObject* baseObject, const bool insertDefaultValues) const {
     // iterate over every attribute row and stop if there was an error
     for (const auto& row : myAttributesEditorRows) {
         if (row->isAttributeRowShown()) {
-            const auto fillResult = row->fillSumoBaseObject(baseObject);
+            const auto fillResult = row->fillSumoBaseObject(baseObject, insertDefaultValues);
             if (fillResult != SUMO_ATTR_NOTHING) {
                 return fillResult;
             }

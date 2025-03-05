@@ -20,6 +20,9 @@
 
 #include "GNEAttributesEditor.h"
 
+#include <netedit/elements/GNEAttributeCarrier.h>
+#include <netedit/GNETagProperties.h>
+
 // ===========================================================================
 // method definitions
 // ===========================================================================
@@ -111,28 +114,39 @@ GNEAttributesEditor::checkAttributes(const bool showWarning) {
 
 SumoXMLAttr
 GNEAttributesEditor::fillSumoBaseObject(CommonXMLStructure::SumoBaseObject* baseObject) const {
+    // check if edited AC is a vehicle (needed to avoid empty attributes in SUMOVehicleParser
+    bool useSUMOVehicleparser = false;
+    if (myBasicAttributesEditor->getEditedAttributeCarriers().size() > 0) {
+        if (myBasicAttributesEditor->getEditedAttributeCarriers().front()->getTagProperty()->isVehicle()) {
+            useSUMOVehicleparser = true;
+        } else if (myBasicAttributesEditor->getEditedAttributeCarriers().front()->getTagProperty()->isPerson()) {
+            useSUMOVehicleparser = true;
+        } else if (myBasicAttributesEditor->getEditedAttributeCarriers().front()->getTagProperty()->isContainer()) {
+            useSUMOVehicleparser = true;
+        }
+    }
     SumoXMLAttr fillResult = SUMO_ATTR_DEFAULT;
-    fillResult = myBasicAttributesEditor->fillSumoBaseObject(baseObject);
+    fillResult = myBasicAttributesEditor->fillSumoBaseObject(baseObject, !useSUMOVehicleparser);
     if (fillResult != SUMO_ATTR_NOTHING) {
         return fillResult;
     }
-    fillResult = myExtendedAttributesEditor->fillSumoBaseObject(baseObject);
+    fillResult = myExtendedAttributesEditor->fillSumoBaseObject(baseObject, true);
     if (fillResult != SUMO_ATTR_NOTHING) {
         return fillResult;
     }
-    fillResult = myFlowAttributesEditor->fillSumoBaseObject(baseObject);
+    fillResult = myFlowAttributesEditor->fillSumoBaseObject(baseObject, true);
     if (fillResult != SUMO_ATTR_NOTHING) {
         return fillResult;
     }
-    fillResult = myGeoAttributesEditor->fillSumoBaseObject(baseObject);
+    fillResult = myGeoAttributesEditor->fillSumoBaseObject(baseObject, true);
     if (fillResult != SUMO_ATTR_NOTHING) {
         return fillResult;
     }
-    fillResult = myParametersAttributesEditor->fillSumoBaseObject(baseObject);
+    fillResult = myParametersAttributesEditor->fillSumoBaseObject(baseObject, true);
     if (fillResult != SUMO_ATTR_NOTHING) {
         return fillResult;
     }
-    fillResult = myNeteditAttributesEditor->fillSumoBaseObject(baseObject);
+    fillResult = myNeteditAttributesEditor->fillSumoBaseObject(baseObject, true);
     if (fillResult != SUMO_ATTR_NOTHING) {
         return fillResult;
     }

@@ -277,24 +277,21 @@ GNEAttributesEditorRow::isAttributeRowShown() const {
 
 
 SumoXMLAttr
-GNEAttributesEditorRow::fillSumoBaseObject(CommonXMLStructure::SumoBaseObject* baseObjet) const {
+GNEAttributesEditorRow::fillSumoBaseObject(CommonXMLStructure::SumoBaseObject* baseObject, const bool insertDefaultValues) const {
     const auto attribute = myAttrProperty->getAttr();
-    // due vehicles uses SUMOVehicleParserHelper::parseVehicleAttributes, we need to introduce this exception
-    if (myAttrProperty->getTagPropertyParent()->isVehicle() &&
-            !myAttrProperty->isFlow() &&
-            myAttrProperty->hasDefaultValue() &&
-            (myAttrProperty->getDefaultValue() == getCurrentValue())) {
+    // first check if insert default values
+    if (!insertDefaultValues && isValueValid() && (myAttrProperty->getDefaultValue() == getCurrentValue())) {
         return SUMO_ATTR_NOTHING;
     }
     // continue depending of type
     if (myAttrProperty->isBool()) {
-        baseObjet->addBoolAttribute(attribute, myValueCheckButton->getCheck() == TRUE);
+        baseObject->addBoolAttribute(attribute, myValueCheckButton->getCheck() == TRUE);
     } else if (myAttrProperty->isDiscrete()) {
         if ((myValueComboBox->getTextColor() == TEXTCOLOR_RED) ||
                 (myValueComboBox->getBackColor() == TEXTCOLOR_BACKGROUND_RED)) {
             return attribute;
         } else {
-            baseObjet->addStringAttribute(attribute, myValueComboBox->getText().text());
+            baseObject->addStringAttribute(attribute, myValueComboBox->getText().text());
         }
     } else if ((myValueTextField->getTextColor() == TEXTCOLOR_RED) ||
                (myValueTextField->getBackColor() == TEXTCOLOR_BACKGROUND_RED)) {
@@ -306,11 +303,11 @@ GNEAttributesEditorRow::fillSumoBaseObject(CommonXMLStructure::SumoBaseObject* b
             if (myAttrProperty->isPositive() && (intValue < 0)) {
                 return attribute;
             } else {
-                baseObjet->addIntAttribute(attribute, intValue);
+                baseObject->addIntAttribute(attribute, intValue);
             }
         } else if (myAttrProperty->hasDefaultValue() && (myValueTextField->getText() == "default")) {
             // used for default cases
-            baseObjet->addIntAttribute(attribute, GNEAttributeCarrier::parse<int>(myAttrProperty->getDefaultValue()));
+            baseObject->addIntAttribute(attribute, GNEAttributeCarrier::parse<int>(myAttrProperty->getDefaultValue()));
         } else {
             return attribute;
         }
@@ -327,7 +324,7 @@ GNEAttributesEditorRow::fillSumoBaseObject(CommonXMLStructure::SumoBaseObject* b
                         return attribute;
                     }
                 }
-                baseObjet->addDoubleListAttribute(attribute, doubleListValue);
+                baseObject->addDoubleListAttribute(attribute, doubleListValue);
             } else {
                 return attribute;
             }
@@ -338,11 +335,11 @@ GNEAttributesEditorRow::fillSumoBaseObject(CommonXMLStructure::SumoBaseObject* b
             } else if (myAttrProperty->isProbability() && ((doubleValue < 0) || (doubleValue > 1))) {
                 return attribute;
             } else {
-                baseObjet->addDoubleAttribute(attribute, doubleValue);
+                baseObject->addDoubleAttribute(attribute, doubleValue);
             }
         } else if (myAttrProperty->hasDefaultValue() && (myValueTextField->getText() == "default")) {
             // used for default cases (for example, shape layers)
-            baseObjet->addDoubleAttribute(attribute, GNEAttributeCarrier::parse<double>(myAttrProperty->getDefaultValue()));
+            baseObject->addDoubleAttribute(attribute, GNEAttributeCarrier::parse<double>(myAttrProperty->getDefaultValue()));
         } else {
             return attribute;
         }
@@ -353,11 +350,11 @@ GNEAttributesEditorRow::fillSumoBaseObject(CommonXMLStructure::SumoBaseObject* b
             if (timeValue < 0) {
                 return attribute;
             } else {
-                baseObjet->addTimeAttribute(attribute, timeValue);
+                baseObject->addTimeAttribute(attribute, timeValue);
             }
         } else if (myAttrProperty->hasDefaultValue() && (myValueTextField->getText() == "default")) {
             // used for default cases
-            baseObjet->addTimeAttribute(attribute, GNEAttributeCarrier::parse<SUMOTime>(myAttrProperty->getDefaultValue()));
+            baseObject->addTimeAttribute(attribute, GNEAttributeCarrier::parse<SUMOTime>(myAttrProperty->getDefaultValue()));
         } else {
             return attribute;
         }
@@ -365,28 +362,28 @@ GNEAttributesEditorRow::fillSumoBaseObject(CommonXMLStructure::SumoBaseObject* b
         // position value
         if (myAttrProperty->isList()) {
             if (GNEAttributeCarrier::canParse<PositionVector>(myValueTextField->getText().text())) {
-                baseObjet->addPositionVectorAttribute(attribute, GNEAttributeCarrier::parse<PositionVector>(myValueTextField->getText().text()));
+                baseObject->addPositionVectorAttribute(attribute, GNEAttributeCarrier::parse<PositionVector>(myValueTextField->getText().text()));
             } else {
                 return attribute;
             }
         } else if (GNEAttributeCarrier::canParse<Position>(myValueTextField->getText().text())) {
-            baseObjet->addPositionAttribute(attribute, GNEAttributeCarrier::parse<Position>(myValueTextField->getText().text()));
+            baseObject->addPositionAttribute(attribute, GNEAttributeCarrier::parse<Position>(myValueTextField->getText().text()));
         } else {
             return attribute;
         }
     } else if (myAttrProperty->isColor()) {
         // color value
         if (GNEAttributeCarrier::canParse<RGBColor>(myValueTextField->getText().text())) {
-            baseObjet->addColorAttribute(attribute, GNEAttributeCarrier::parse<RGBColor>(myValueTextField->getText().text()));
+            baseObject->addColorAttribute(attribute, GNEAttributeCarrier::parse<RGBColor>(myValueTextField->getText().text()));
         } else {
             return attribute;
         }
     } else if (myAttrProperty->isList()) {
-        baseObjet->addStringListAttribute(attribute, GNEAttributeCarrier::parse<std::vector<std::string> >(myValueTextField->getText().text()));
+        baseObject->addStringListAttribute(attribute, GNEAttributeCarrier::parse<std::vector<std::string> >(myValueTextField->getText().text()));
     } else if (attribute == GNE_ATTR_PARAMETERS) {
-        baseObjet->addParameters(myValueTextField->getText().text());
+        baseObject->addParameters(myValueTextField->getText().text());
     } else {
-        baseObjet->addStringAttribute(attribute, myValueTextField->getText().text());
+        baseObject->addStringAttribute(attribute, myValueTextField->getText().text());
     }
     // all ok, then return nothing
     return SUMO_ATTR_NOTHING;

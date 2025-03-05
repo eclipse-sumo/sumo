@@ -95,7 +95,7 @@ public:
     bool checkAttributes(const bool showWarning);
 
     /// @brief fill sumo Base object
-    SumoXMLAttr fillSumoBaseObject(CommonXMLStructure::SumoBaseObject* baseObject) const;
+    SumoXMLAttr fillSumoBaseObject(CommonXMLStructure::SumoBaseObject* baseObject, const bool insertDefaultValues) const;
 
     /// @name Functions related with selecting parents
     /// @{
