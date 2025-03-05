@@ -7,11 +7,19 @@ title: ChangeLog
 ### Bugfixes
 
 - sumo
+  - Fixed invalid stop position at busStop when a vehicle became blocked while the stop was occupied #16270 (regression in 1.6.0)
   - Fixed crash when using rail signal on shared lane #16219 (regression in 1.22.0)
   - Fixed invalid waitingTime in personinfo output #16164
   - Fixed failure to overtake two parallel stopped leaders #16232
   - Fixed invalid error when departing with fixed speed and large offset from best lane #16244
-
+  - Taxi no longer disappear via teleporting in a jam. They will never teleport while they are on their final drop-off edge. #16268
+  - Fixed bug where taxi fails to drive after picking up passenger #16271
+  - Verbose output now accounts for discarded persons #16261
+  - Verbose output now prints correct number of running persons when setting option **--tripinfo-output.write-unfinished** #16281
+  - The number of loaded vehicles is no longer impacted by temporary vehicles used during intermodal routing #16259
+  - Fixed oscillating speed during zipper merging #16146
+  - Fixed invalid bestLaneOffset when an edge has usable lanes divided by forbidden lanes. This could result in invalid departure errors #16287
+ 
 - netedit
   - Fixed invalid connections after using *reset connections* #16127
 
@@ -30,6 +38,9 @@ title: ChangeLog
   - Fixed invalid active person count after person removal #16192
   - `person.removeStage` now works for a taxi-driving stage if the taxi is already en route to pick-up #11620
 
+- Tools
+  - `sumolib.net.lane.getClosestLanePosAndDist` now gives correct results when lane length differs from shape length #16269
+
 
 ### Enhancements
 
@@ -38,7 +49,7 @@ title: ChangeLog
   - Pedestrians are now included in full output #16159
   - Added stop attribute `jumpUntil` to set a minimum time for the end of a jump #16153
   - Tram insertion automatically uses moving-block mode when there are no rail signals for tram in the network #16208
-
+  - Taxis that transfer passengers at a busStop now register at that stop. This shops up in **--stop-output**. #16263
 
 - netconvert
   - Added option **--junctions.join.parallel-threshold DEGREES** to increase user control over joining junctions (with **--junctions.join**) #16140
@@ -47,6 +58,9 @@ title: ChangeLog
 
 - sumo-gui
   - started work on Japanese translation #16129
+  - busStops now support param `emptyColor` to distinguish [virtual stopping places](Simulation/Public_Transport.md#virtual_stops) from normal busStops. #16260
+  - Improved visibility of guishape `evehicle` (The large black part now takes on a darker version of the vehicle color) #16262
+
 
 - od2trips
   - Added warning when a taz has no source or sinks #16112
@@ -64,12 +78,16 @@ title: ChangeLog
   - jtcrouter.py: Added option **--additional-files** which are passed to [jtrrouter.md] #16191
   - csv2xml.py: Added option **--flat** to convert arbitrary csv files without a schema #16204
   - plotXMLAttributes.py: Added option **--xstr** and **--ystr** to force data interpretation as category #16205
-  - sumolib: function xml.parse is now useful when loading nested elements and not providing argument `element_names`. The new attribute `outputLevel` (default 1) controls which elements to retrieve #16211
-  - remap_additionals.py: convert infrastructure from one network to another network (which may differ in geometry, lanes and edge splits) #16206
+  - sumolib: function `xml.parse` is now useful when loading nested elements and not providing argument `element_names`. The new attribute `outputLevel` (default 1) controls which elements to retrieve #16211
+  - sumolib: Objects loaded with function `xml.parse` now preserve their attribute order when serialized with `toXML` #16254
+  - [remap_additionals.py](Tools/Net.md#remap_additionalspy): convert infrastructure from one network to another network (which may differ in geometry, lanes and edge splits) #16206
+  - [remap_routes.py](Tools/Net.md#remap_routespy): convert route files from one network to another #16252
   - ptlines2flows.py: now sorts written routes and flows by id #16222
 
 
+### Miscellaneous
 
+- In netedit, the default extension of edge data files is now *.xml, instead of *.dat.xml #16257
 
 
 
