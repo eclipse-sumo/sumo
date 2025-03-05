@@ -66,6 +66,19 @@ subsequent walk of the exiting passengers will be randomly chosen among the door
 The door positions themselves cannot be defined but they are derived from the number of carriages
 and the number of doors per carriage of the vehicle, see [carriage definition](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#carriages).
 
+## Virtual Stops
+
+While it is possible to [stop anywhere](#stopping_without_defining_a_bus_stop), it may be useful to define busStops that are visible as infrastructure but only when in use.
+This makes it possible to define a limited list of potential stopping locations for use with [on-demand public transport](Taxi.md) and [intermodal routing](../IntermodalRouting.md#switching_between_modes). To distinguish "real" busStops from "virtual" busStops the [generic parameter](GenericParameters.md) `emptyColor` can be set:
+
+```
+    <busStop id="example" lane="E0_0" startPos="50" endPos="60" color="255,145,4">
+        <param key="emptyColor" value="1,1,1,0"/>
+    </busStop>
+```
+
+The busStop will take on the `emptyColor` if it has neither waiting persons nor stopping vehicles. If the fourth value of the color definition (the *alpha*-channel) is set to *0*, the busStop will be invisible when empty.
+
 # Letting Vehicles stop at a bus stop
 
 Vehicles must be informed that they must stop at a bus stop. The
