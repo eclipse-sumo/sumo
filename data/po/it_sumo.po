@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-13 10:07+0100\n"
-"PO-Revision-Date: 2025-03-05 10:33+0000\n"
+"PO-Revision-Date: 2025-03-05 17:31+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -10165,27 +10165,31 @@ msgstr "L'indice di corsie è maggiore del numero di corsie (arco '%')."
 
 #: src/netimport/NIXMLEdgesHandler.cpp:447
 msgid "Unable to project coordinates for lane '%'."
-msgstr ""
+msgstr "Le coordinate della corsia '%' non possono essere proiettate."
 
 #: src/netimport/NIXMLEdgesHandler.cpp:472
 msgid "Ignoring 'split' because it cannot be assigned to an edge"
 msgstr ""
+"Il commando di separazione ('split') viene ignorato perché non può essere "
+"assegnato a un arco"
 
 #: src/netimport/NIXMLEdgesHandler.cpp:481
 msgid "Edge '%' has a split at invalid position %."
-msgstr ""
+msgstr "L'arco '%' deve essere separato alla posizione invalida %."
 
 #: src/netimport/NIXMLEdgesHandler.cpp:486
 msgid "Edge '%' has already a split at position %."
-msgstr ""
+msgstr "L'arco '%' deve già essere separato alla posizione %."
 
 #: src/netimport/NIXMLEdgesHandler.cpp:520
 msgid "Invalid split node id for edge '%' (from- and to-node are forbidden)"
 msgstr ""
+"Codice identificativo di nodo di separazione invalido per l'arco '%' (gli "
+"nodi di inizio e termine non sono permessi)"
 
 #: src/netimport/NIXMLEdgesHandler.cpp:558
 msgid "The from-node is not given for edge '%'."
-msgstr ""
+msgstr "Il nodo iniziale dell'arco '%' non è stato indicato."
 
 #: src/netimport/NIXMLEdgesHandler.cpp:570
 msgid "The to-node is not given for edge '%'."
@@ -10259,10 +10263,12 @@ msgstr "Non è stato trovato l'arco per l'accesso alla fermata '%'"
 #: src/netimport/NIXMLPTHandler.cpp:240
 msgid "Duplicate ptLine id occurred ('%'); assuming overwriting is wished."
 msgstr ""
+"Si è prodotto un codice identificativo di una linea di trasporto pubblico "
+"raddoppiato ('%'); Si suppone di poter sovrascivere."
 
 #: src/netimport/NIXMLPTHandler.cpp:281
 msgid "Found route outside line definition"
-msgstr ""
+msgstr "Un itinerario è stato incontrato fuori della definizione di linea"
 
 #: src/netimport/NIXMLPTHandler.cpp:291 src/netimport/NIXMLPTHandler.cpp:311
 #, c-format
