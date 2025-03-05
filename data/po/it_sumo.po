@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-13 10:07+0100\n"
-"PO-Revision-Date: 2025-03-05 10:01+0000\n"
+"PO-Revision-Date: 2025-03-05 10:33+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -9938,40 +9938,44 @@ msgstr ""
 msgid ""
 "Could not find edge with from-node '%' and base id '%' for stopping place '%'"
 msgstr ""
+"Non ho trovato l'arco con il nodo iniziale '%' e il codice identificativo "
+"base '%' per il punto di fermata '%'"
 
 #: src/netimport/NIImporter_VISUM.cpp:1179
 msgid "Unexpected from-node '%' for edge '%' of stopping place '%'"
-msgstr ""
+msgstr "Nodo iniziale inaspettato '%' per l'arco '%' del punto di fermata '%'"
 
 #: src/netimport/NIImporter_VISUM.cpp:1185
 msgid ""
 "Could not find edge with to-node '%' and base id '%' for stopping place '%'"
 msgstr ""
+"Non ho trovato l'arco con il nodo terminale '%' e il codice identificativo "
+"base '%' per il punto di fermata '%'"
 
 #: src/netimport/NIImporter_VISUM.cpp:1190
 msgid "Unexpected to-node '%' for edge '%' of stopping place '%'"
-msgstr ""
+msgstr "Nodo terminale inaspettato '%' per l'arco '%' del punto di fermata '%'"
 
 #: src/netimport/NIImporter_VISUM.cpp:1274
 #, c-format
 msgid "The node '%' is not known."
-msgstr ""
+msgstr "Il nodo '%' è sconosciuto."
 
 #: src/netimport/NIImporter_VISUM.cpp:1511
 msgid "Could not build connector node '%'."
-msgstr ""
+msgstr "Non ho potuto costruire il nodo di connessione '%'."
 
 #: src/netimport/NIImporter_VISUM.cpp:1521
 msgid " The from-node was not found within the net"
-msgstr ""
+msgstr " Il nodo iniziale non è stato trovato nella rete"
 
 #: src/netimport/NIImporter_VISUM.cpp:1524
 msgid " The to-node was not found within the net"
-msgstr ""
+msgstr " Il nodo terminale non è stato trovato nella rete"
 
 #: src/netimport/NIImporter_VISUM.cpp:1527
 msgid " Both nodes are the same"
-msgstr ""
+msgstr " Entrambi i nodi sono uguali"
 
 #: src/netimport/NIImporter_VISUM.cpp:1542
 #: src/polyconvert/PCLoaderVisum.cpp:435
