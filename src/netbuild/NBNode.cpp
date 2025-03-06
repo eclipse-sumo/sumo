@@ -107,7 +107,8 @@ NBNode::ApproachingDivider::ApproachingDivider(
     myApproaching(approaching),
     myCurrentOutgoing(currentOutgoing),
     myNumStraight(0),
-    myIsBikeEdge(currentOutgoing->getPermissions() == SVC_BICYCLE) {
+    myIsBikeEdge(currentOutgoing->getPermissions() == SVC_BICYCLE)
+{
     // collect lanes which are expliclity targeted
     std::set<int> approachedLanes;
     for (const NBEdge* const approachingEdge : myApproaching) {
@@ -126,11 +127,12 @@ NBNode::ApproachingDivider::ApproachingDivider(
     // if the lane is targeted by an explicitly set connection we need
     // to make it available anyway
     for (int i = 0; i < currentOutgoing->getNumLanes(); ++i) {
-        if ((currentOutgoing->getPermissions(i) == SVC_PEDESTRIAN
+        const SVCPermissions lp = currentOutgoing->getPermissions(i);
+        if ((lp == SVC_PEDESTRIAN
                 // don't consider bicycle lanes as targets unless the target
                 // edge is exclusively for bicycles
-                || (currentOutgoing->getPermissions(i) == SVC_BICYCLE && !myIsBikeEdge)
-                || isForbidden(currentOutgoing->getPermissions(i)))
+                || (lp == SVC_BICYCLE && !myIsBikeEdge)
+                || isForbidden(lp))
                 && approachedLanes.count(i) == 0) {
             continue;
         }
