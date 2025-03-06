@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-13 10:07+0100\n"
-"PO-Revision-Date: 2025-03-06 14:32+0000\n"
+"PO-Revision-Date: 2025-03-06 14:46+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -10341,7 +10341,7 @@ msgstr "NIVissimConnectionCluster: Come accedere alla posizione di un arco?"
 #: src/netimport/vissim/tempstructs/NIVissimDistrictConnection.cpp:205
 #, c-format
 msgid "Could not build district '%' - edge '%' is missing."
-msgstr ""
+msgstr "Non ho potuto costruire il distretto '%' - manca l'arco '%'."
 
 #: src/netimport/vissim/tempstructs/NIVissimDistrictConnection.cpp:360
 msgid ""
@@ -10433,15 +10433,15 @@ msgstr ""
 
 #: src/netimport/vissim/tempstructs/NIVissimTL.cpp:383
 msgid "The signal group '%' could not be assigned to tl '%'."
-msgstr ""
+msgstr "Il gruppo di segnali '%' non poteva essere assegnato al semaforo '%'."
 
 #: src/netimport/vissim/tempstructs/NIVissimTL.cpp:392
 msgid "The signal '%' could not be assigned to tl '%'."
-msgstr ""
+msgstr "Il segnale '%' non poteva essere assegnato al semaforo '%'."
 
 #: src/netimport/vissim/tempstructs/NIVissimTL.cpp:399
 msgid "Could not set % of % traffic lights."
-msgstr ""
+msgstr "% di % semafori non potevano essere impostati."
 
 #: src/netimport/vissim/tempstructs/NIVissimTL.cpp:402
 #, c-format
