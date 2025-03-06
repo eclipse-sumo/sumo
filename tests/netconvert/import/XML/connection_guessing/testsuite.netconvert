@@ -112,6 +112,9 @@ bus_bay_bikelanes2
 # test for #13087
 bus_switch_lane
 
+# test for #16291
+bus_only_preferred
+
 # test for #15161
 verge_left
 
