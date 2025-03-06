@@ -183,7 +183,7 @@ IDS = {
         'lanes' : remap_lanes,
         }
 
-def remap(options, obj):
+def remap(options, obj, level=1):
     success = True
     for attr, mapper in IDS.items():
         if obj.hasAttribute(attr):
@@ -202,9 +202,12 @@ def remap(options, obj):
                 print("Could not map %s on %s '%s'" % (
                     obj.name, attr, getattr(obj, attr)),
                     file=sys.stderr)
-                success = False
+                if level == 1:
+                    success = False
+                else:
+                    obj.setCommented()
     for child in obj.getChildList():
-        success &= remap(options, child)
+        success &= remap(options, child, level + 1)
     return success
 
 

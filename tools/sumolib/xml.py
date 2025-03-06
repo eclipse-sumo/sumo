@@ -112,6 +112,7 @@ def compound_object(element_name, attrnames, warn=False, sort=False):
             self.name = element_name
             self._text = text
             self._child_list = child_list if child_list else []
+            self._commented = False
 
         def getAttributes(self):
             return [(k, getattr(self, k)) for k in self._fields]
@@ -192,6 +193,9 @@ def compound_object(element_name, attrnames, warn=False, sort=False):
                     return [c.getText() for c in children]
             return []
 
+        def setCommented(self, commented=True):
+            self._commented = commented
+
         def __getattr__(self, name):
             if name[:2] != "__":
                 return self._child_dict.get(name, None)
@@ -236,15 +240,20 @@ def compound_object(element_name, attrnames, warn=False, sort=False):
                     return initialIndent + "<!-- %s -->\n" % self._text
                 else:
                     return ""
+            commentStart = ""
+            commentEnd = ""
+            if self._commented:
+                commentStart = "!--"
+                commentEnd = "--"
             if not self._child_dict and self._text is None:
-                return initialIndent + "<%s %s/>\n" % (self.name, " ".join(fields))
+                return initialIndent + "<%s%s %s/%s>\n" % (commentStart, self.name, " ".join(fields), commentEnd)
             else:
                 s = initialIndent + "<%s %s>\n" % (self.name, " ".join(fields))
                 for c in self._child_list:
                     s += c.toXML(initialIndent + indent, withComments=withComments)
                 if self._text is not None and self._text.strip():
                     s += self._text.strip(" ")
-                return s + "%s</%s>\n" % (initialIndent, self.name)
+                return s + "%s</%s%s>\n" % (initialIndent, self.name, commentEnd)
 
         def __repr__(self):
             return str(self)
