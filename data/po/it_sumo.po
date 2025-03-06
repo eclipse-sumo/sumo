@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-13 10:07+0100\n"
-"PO-Revision-Date: 2025-03-06 12:54+0000\n"
+"PO-Revision-Date: 2025-03-06 14:32+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -10332,11 +10332,11 @@ msgstr "l numeri di corsie non coincidono per il collegamento '%'."
 
 #: src/netimport/vissim/tempstructs/NIVissimConnectionCluster.cpp:496
 msgid "NIVissimConnectionCluster: More than a single node"
-msgstr ""
+msgstr "NIVissimConnectionCluster: Più di un nodo"
 
 #: src/netimport/vissim/tempstructs/NIVissimConnectionCluster.cpp:662
 msgid "NIVissimConnectionCluster: how to get an edge's position?"
-msgstr ""
+msgstr "NIVissimConnectionCluster: Come accedere alla posizione di un arco?"
 
 #: src/netimport/vissim/tempstructs/NIVissimDistrictConnection.cpp:205
 #, c-format
@@ -10412,16 +10412,18 @@ msgstr ""
 
 #: src/netimport/vissim/tempstructs/NIVissimEdge.cpp:532
 msgid "What about distribution '%'"
-msgstr ""
+msgstr "Che passa con la distribuzione '%'"
 
 #: src/netimport/vissim/tempstructs/NIVissimTL.cpp:138
 #, c-format
 msgid "Could not set tls signal at edge '%' - the edge was not built."
 msgstr ""
+"Non ho potuto assegnare il segnale semaforico all'arco '%' - l'arco non è "
+"stato costruito."
 
 #: src/netimport/vissim/tempstructs/NIVissimTL.cpp:152
 msgid "Edge '%': Lanes were not assigned."
-msgstr ""
+msgstr "Arco '%': Le corsie non sono state assegnate."
 
 #: src/netimport/vissim/tempstructs/NIVissimTL.cpp:375
 msgid ""
@@ -10873,6 +10875,8 @@ msgid ""
 "It is strongly advisable to give an explicit position when using radius in "
 "the definition of rerouter '%'."
 msgstr ""
+"Si raccomanda fortemente di indicare una posizione esplicita nella "
+"definizione del rerouter '%' quando si usa il raggio."
 
 #: src/netwrite/NWFrame.cpp:54
 msgid "The generated net will be written to FILE"
