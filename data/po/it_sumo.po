@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-13 10:07+0100\n"
-"PO-Revision-Date: 2025-03-05 17:31+0000\n"
+"PO-Revision-Date: 2025-03-06 08:03+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -11079,13 +11079,15 @@ msgstr "Scrivi corse tra incroci"
 
 #: src/od2trips_main.cpp:129 src/router/ROFrame.cpp:116
 msgid "Defines the begin time; Previous trips will be discarded"
-msgstr ""
+msgstr "Definisce l'ora di inizio; Corse previe verranno scartate"
 
 #: src/od2trips_main.cpp:132 src/router/ROFrame.cpp:119
 msgid ""
 "Defines the end time; Later trips will be discarded; Defaults to the maximum "
 "time that SUMO can represent"
 msgstr ""
+"Definisce l'ora terminale; Corse posteriori verranno scartate; Il valore "
+"standard è il massimo tempo representabile in SUMO"
 
 #: src/od2trips_main.cpp:140
 msgid "Spreads trips uniformly over each time period"
