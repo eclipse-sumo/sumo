@@ -17,8 +17,11 @@ speed_in_kmh
 # tests whether import of shapes is functioning
 shapes
 
-# tests whether connections are processed
+# tests whether loaded connections are processed
 connections
+
+# tests whether connections are guessed correctly when not loaded
+connection_guessing
 
 # tests whether lane expansions work
 lane_expansion
@@ -64,7 +67,6 @@ junctionLogic
 
 # tests for roundabouts specified via xml
 roundabout
-connection_guessing
 
 # test load public transport related files
 public_transport
