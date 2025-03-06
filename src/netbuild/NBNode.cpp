@@ -111,6 +111,7 @@ NBNode::ApproachingDivider::ApproachingDivider(
 {
     // collect lanes which are expliclity targeted
     std::set<int> approachedLanes;
+    bool hasIncomingBusLane = false;
     for (const NBEdge* const approachingEdge : myApproaching) {
         for (const NBEdge::Connection& con : approachingEdge->getConnections()) {
             if (con.toEdge == myCurrentOutgoing) {
@@ -121,6 +122,7 @@ NBNode::ApproachingDivider::ApproachingDivider(
         if (myDirections.back() == LinkDirection::STRAIGHT) {
             myNumStraight++;
         }
+        hasIncomingBusLane |= (approachingEdge->getSpecialLane(SVC_BUS) != -1);
     }
     // compute the indices of lanes that should be targeted (excluding pedestrian
     // lanes that will be connected from walkingAreas and forbidden lanes)
@@ -132,6 +134,7 @@ NBNode::ApproachingDivider::ApproachingDivider(
                 // don't consider bicycle lanes as targets unless the target
                 // edge is exclusively for bicycles
                 || (lp == SVC_BICYCLE && !myIsBikeEdge)
+                || (lp == SVC_BUS && hasIncomingBusLane)
                 || isForbidden(lp))
                 && approachedLanes.count(i) == 0) {
             continue;
@@ -1557,14 +1560,15 @@ NBNode::recheckVClassConnections(NBEdge* currentOutgoing) {
 #endif
             }
         }
-        // prevent dead-end bicycle lanes (they were excluded by the ApproachingDivider)
-        // and the bicycle mode might already be satisfied by other lanes
+        // prevent dead-end bus and bicycle lanes (they were excluded by the ApproachingDivider)
+        // and the bus/bicycle class might already be satisfied by other lanes
+        recheckSpecialConnections(incoming, currentOutgoing, SVC_BUS);
         recheckSpecialConnections(incoming, currentOutgoing, SVC_BICYCLE);
     }
 }
 
 
-void 
+void
 NBNode::recheckSpecialConnections(NBEdge* incoming, NBEdge* currentOutgoing, SVCPermissions svcSpecial) {
     // assume that left-turns and turn-arounds are better satisfied from lanes to the left
     const int specialTarget = currentOutgoing->getSpecialLane(svcSpecial);
@@ -1581,12 +1585,16 @@ NBNode::recheckSpecialConnections(NBEdge* incoming, NBEdge* currentOutgoing, SVC
                     incoming->setConnection(i, currentOutgoing, specialTarget, NBEdge::Lane2LaneInfoType::COMPUTED);
 #ifdef DEBUG_CONNECTION_GUESSING
                     if (DEBUGCOND) {
-                        std::cout << "  extra bike connection from=" << incoming->getLaneID(i) << " (bikelane) to=" << currentOutgoing->getLaneID(specialTarget)  << "\n";
+                        std::cout << "  extra " << getVehicleClassNames(svcSpecial) << " connection from=" << incoming->getLaneID(i) << " (dedicated) to=" << currentOutgoing->getLaneID(specialTarget)  << "\n";
                     }
 #endif
                     builtConnection = true;
                 } else {
-                    // use any lane that allows bicycles
+                    // do not create turns that create a conflict with neighboring lanes
+                    if (avoidConfict(incoming, currentOutgoing, svcSpecial, dir, i)) {
+                        continue;
+                    }
+                    // use any lane that allows the special class
                     for (int i2 = 0; i2 < (int)currentOutgoing->getNumLanes(); i2++) {
                         if ((currentOutgoing->getPermissions(i2) & svcSpecial) != 0) {
                             // possibly a double-connection
@@ -1595,7 +1603,7 @@ NBNode::recheckSpecialConnections(NBEdge* incoming, NBEdge* currentOutgoing, SVC
                             incoming->setConnection(i, currentOutgoing, i2, NBEdge::Lane2LaneInfoType::COMPUTED, allowDouble);
 #ifdef DEBUG_CONNECTION_GUESSING
                             if (DEBUGCOND) {
-                                std::cout << "  extra bike connection from=" << incoming->getLaneID(i) << " to=" << currentOutgoing->getLaneID(i2)  << "\n";
+                                std::cout << "  extra " << getVehicleClassNames(svcSpecial) << " connection from=" << incoming->getLaneID(i) << " to=" << currentOutgoing->getLaneID(i2)  << "\n";
                             }
 #endif
                             builtConnection = true;
@@ -1620,7 +1628,7 @@ NBNode::recheckSpecialConnections(NBEdge* incoming, NBEdge* currentOutgoing, SVC
                     incoming->setConnection(i, currentOutgoing, specialTarget, NBEdge::Lane2LaneInfoType::COMPUTED);
 #ifdef DEBUG_CONNECTION_GUESSING
                     if (DEBUGCOND) {
-                        std::cout << "  extra bike connection from=" << incoming->getLaneID(i) << " (final) to=" << currentOutgoing->getLaneID(specialTarget)  << "\n";
+                        std::cout << "  extra " << getVehicleClassNames(svcSpecial) << " connection from=" << incoming->getLaneID(i) << " (final) to=" << currentOutgoing->getLaneID(specialTarget)  << "\n";
                     }
 #endif
                     break;
@@ -1628,6 +1636,39 @@ NBNode::recheckSpecialConnections(NBEdge* incoming, NBEdge* currentOutgoing, SVC
             }
         }
     }
+}
+
+
+bool 
+NBNode::avoidConfict(NBEdge* incoming, NBEdge* currentOutgoing, SVCPermissions svcSpecial, LinkDirection dir, int i) {
+    for (const auto& c : incoming->getConnections()) {
+        if (incoming->getPermissions(c.fromLane) == svcSpecial && c.toEdge == currentOutgoing) {
+            return true;
+        }
+    }
+    if (dir == LinkDirection::RIGHT || dir == LinkDirection::PARTRIGHT) {
+        for (const auto& c : incoming->getConnections()) {
+            if (c.fromLane < i && (c.toEdge != currentOutgoing || incoming->getPermissions(c.fromLane) == svcSpecial)) {
+                return true;
+            }
+        }
+    } else if (dir == LinkDirection::RIGHT || dir == LinkDirection::PARTRIGHT) {
+        for (const auto& c : incoming->getConnections()) {
+            if (c.fromLane > i && (c.toEdge != currentOutgoing || incoming->getPermissions(c.fromLane) == svcSpecial)) {
+                return true;
+            }
+        }
+    } else if (svcSpecial != SVC_BICYCLE && dir == LinkDirection::STRAIGHT) {
+        for (const auto& c : incoming->getConnections()) {
+            const LinkDirection dir2 = getDirection(incoming, c.toEdge);
+            if (c.fromLane < i && (dir2 == LinkDirection::LEFT || dir2 == LinkDirection::PARTLEFT)) {
+                return true;
+            } else if (c.fromLane > i && (dir2 == LinkDirection::RIGHT || dir2 == LinkDirection::PARTRIGHT)) {
+                return true;
+            }
+        }
+    }
+    return false;
 }
 
 

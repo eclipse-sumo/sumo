@@ -850,9 +850,6 @@ public:
     /// @brief ensure connectivity for all vClasses
     void recheckVClassConnections(NBEdge* currentOutgoing);
 
-    /// @brief ensure connectivity for all special vClass
-    void recheckSpecialConnections(NBEdge* incoming, NBEdge* currentOutgoing, SVCPermissions svcSpecial); 
-
     /// @brief initialize signalized rail classes
     static void initRailSignalClasses(const NBNodeCont& nc);
 
@@ -916,6 +913,12 @@ private:
 
     /// @brief whether the given rail connections at this node may run in unsignalized (right-of-way) mode
     bool unsignalizedOperation() const;
+
+    /// @brief ensure connectivity for all special vClass
+    void recheckSpecialConnections(NBEdge* incoming, NBEdge* currentOutgoing, SVCPermissions svcSpecial);
+
+    /// @brief helper function for recheckSpecialConnections
+    bool avoidConfict(NBEdge* incoming, NBEdge* currentOutgoing, SVCPermissions svcSpecial, LinkDirection dir, int i);
 
 private:
     /// @brief The position the node lies at
