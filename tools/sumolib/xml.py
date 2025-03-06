@@ -199,6 +199,9 @@ def compound_object(element_name, attrnames, warn=False, sort=False):
                 for c in self._child_list:
                     c.setCommented(False, True)
 
+        def isCommented(self):
+            return self._commented
+
         def __getattr__(self, name):
             if name[:2] != "__":
                 return self._child_dict.get(name, None)

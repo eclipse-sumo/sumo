@@ -183,6 +183,7 @@ IDS = {
         'lanes' : remap_lanes,
         }
 
+
 def remap(options, obj, level=1):
     success = True
     for attr, mapper in IDS.items():
@@ -208,7 +209,31 @@ def remap(options, obj, level=1):
                     obj.setCommented()
     for child in obj.getChildList():
         success &= remap(options, child, level + 1)
+    patchSpecialCases(options, obj, level)
     return success
+
+
+def patchSpecialCases(options, obj, level):
+    if level == 1:
+        accessLanes = set()
+        for child in obj.getChildList():
+            if child.name == "access" and not child.isCommented():
+                if child.lane in accessLanes:
+                    print("Disabling duplicate access on lane %s" % child.lane, file=sys.stderr)
+                    child.setCommented()
+                else:
+                    lane = options.net2.getLane(child.lane)
+                    if not lane.allows("pedestrian"):
+                        found = False
+                        for cand in lane.getEdge().getLanes():
+                            if cand.allows("pedestrian"):
+                                child.lane = cand.getID()
+                                found = True
+                                break
+                        if not found:
+                            print("Disabling access on non-pedestrian lane %s" % child.lane, file=sys.stderr)
+                            child.setCommented()
+                    accessLanes.add(child.lane)
 
 
 def main(options):
