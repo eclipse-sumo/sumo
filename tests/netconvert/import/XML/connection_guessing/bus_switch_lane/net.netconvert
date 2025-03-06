@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-02-29 13:56:02 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
+<!-- generated on 2025-03-06 10:45:47 by Eclipse SUMO netconvert Version v1_22_0+0677-d7f7b014039
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <node-files value="input_plain.nod.xml"/>
@@ -32,7 +32,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <xml-validation value="never"/>
     </report>
 
-</configuration>
+</netconvertConfiguration>
 -->
 
 <net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
@@ -52,18 +52,16 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </edge>
 
     <junction id="C" type="priority" x="100.00" y="100.00" incLanes="WC_0 WC_1" intLanes="" shape="104.00,100.00 104.00,93.60 101.78,93.16 101.00,92.60 100.44,91.82 100.11,90.82 100.00,89.60 96.80,89.60 96.36,91.82 95.80,92.60 95.02,93.16 94.02,93.49 92.80,93.60 92.80,100.00">
-        <request index="0" response="0000" foes="0000"/>
-        <request index="1" response="0000" foes="0000"/>
-        <request index="2" response="0000" foes="1000"/>
-        <request index="3" response="0100" foes="0100"/>
+        <request index="0" response="000" foes="000"/>
+        <request index="1" response="000" foes="100"/>
+        <request index="2" response="010" foes="010"/>
     </junction>
     <junction id="E" type="dead_end" x="200.00" y="100.00" incLanes="CE_0 CE_1" intLanes="" shape="200.00,93.60 200.00,100.00"/>
     <junction id="S" type="dead_end" x="100.00" y="0.00" incLanes="CS_0" intLanes="" shape="96.80,0.00 100.00,0.00"/>
     <junction id="W" type="dead_end" x="0.00" y="100.00" incLanes="" intLanes="" shape="0.00,100.00 0.00,93.60"/>
 
     <connection from="WC" to="CS" fromLane="0" toLane="0" dir="r" state="M"/>
-    <connection from="WC" to="CE" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="WC" to="CE" fromLane="0" toLane="1" dir="s" state="M"/>
-    <connection from="WC" to="CE" fromLane="1" toLane="1" dir="s" state="m"/>
+    <connection from="WC" to="CE" fromLane="1" toLane="0" dir="s" state="m"/>
 
 </net>
