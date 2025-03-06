@@ -285,7 +285,7 @@ GNEAttributesEditorType::checkAttributes(const bool showWarning) {
     for (const auto& row : myAttributesEditorRows) {
         if (!row->isValueValid()) {
             if (showWarning) {
-                const std::string errorMessage = TLF("Invalid value % of attribute %", row->getCurrentValue(), row->getAttrProperty()->getAttrStr());
+                const std::string errorMessage = TLF("Invalid value '%' in attribute %", row->getCurrentValue(), row->getAttrProperty()->getAttrStr());
                 // show warning
                 WRITE_WARNING(errorMessage);
                 // set message in status bar
