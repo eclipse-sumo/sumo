@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-03-06 16:00:17.939386 by remap_additionals.py v1_22_0+0691-698e776aad3
+<!-- generated on 2025-03-06 16:20:49.853355 by remap_additionals.py v1_22_0+0693-add122ad1be
 <configuration>
     <orig-net value="net.net.xml"/>
     <target-net value="net2.net.xml"/>
@@ -15,7 +15,7 @@
         <access lane="C3B3_0" pos="49.72" friendlyPos="True"/>
     </busStop-->
     <busStop id="bs_3" lane="27_1" startPos="17.766369571902302" endPos="69.4663695719023" friendlyPos="True">
-        <access lane="36_1" pos="9.660790048034704" friendlyPos="True"/>
+        <access lane="36_0" pos="9.660790048034704" friendlyPos="True"/>
         <!--access lane="C3C2_0" pos="50.20" friendlyPos="True"/-->
     </busStop>
 </additional>
