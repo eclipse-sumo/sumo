@@ -255,11 +255,19 @@ def createTrips(options):
         toEdge = None
         vias = []
         if line.route is not None:
-            edges = line.route[0].edges.split()
+            net = getNet(options)
+            missing = []
+            for e in line.route[0].edges.split():
+                if net.hasEdge(e):
+                    edges.append(e)
+                else:
+                    missing.append(e)
+            if missing and options.verbose:
+                print("Removed %s missing edges from OSM route for line '%s'" % (len(missing), line.id))
+
         if options.osmRoutes and len(edges) == 0 and options.verbose:
             print("Cannot use OSM route for line '%s' (no edges given)" % line.id)
         elif options.osmRoutes and len(edges) > 0:
-            edges = line.route[0].edges.split()
             fromEdge = edges[0]
             toEdge = edges[-1]
             if len(edges) > 2:
