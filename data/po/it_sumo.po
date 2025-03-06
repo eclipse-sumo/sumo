@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-13 10:07+0100\n"
-"PO-Revision-Date: 2025-03-06 08:03+0000\n"
+"PO-Revision-Date: 2025-03-06 08:31+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -10507,10 +10507,13 @@ msgid ""
 "Network contains internal links which are ignored. Vehicles will 'jump' "
 "across junctions and thus underestimate route lengths and travel times."
 msgstr ""
+"La rete contiene collegament interni che vengono ignorati. I veicoli "
+"'salteranno' attraverso gli incroci e quindi osserverano lunghezze di "
+"itinerari e tempi di percorrenza sottovalutati."
 
 #: src/netload/NLBuilder.cpp:164
 msgid "State was written at a different time=% than the begin time %!"
-msgstr ""
+msgstr "Lo stato è stato scritto a un'ora differente=% dell'ora iniziale %!"
 
 #: src/netload/NLBuilder.cpp:198 src/router/RONet.cpp:223
 #, c-format
@@ -11111,7 +11114,7 @@ msgstr ""
 
 #: src/od2trips_main.cpp:197
 msgid "No input specified."
-msgstr ""
+msgstr "Nessun ingresso è stato specificato."
 
 #: src/od2trips_main.cpp:201
 msgid "No trip table output file (-o) or flow-output is specified."
@@ -11126,10 +11129,14 @@ msgid ""
 "Importer of O/D-matrices for the microscopic, multi-modal traffic simulation "
 "SUMO."
 msgstr ""
+"Importatore di matrici O/D per la simulazione del traffico microscopica e "
+"multimodale SUMO."
 
 #: src/od2trips_main.cpp:270
 msgid "You must supply a TAZ, network or districts file ('-n')."
 msgstr ""
+"Si deve provvedere sia una zona di assegnazione del traffico, una rete o un "
+"file di distretti ('-n')."
 
 #: src/od2trips_main.cpp:276
 msgid "No districts loaded."
@@ -11146,12 +11153,12 @@ msgstr ""
 #: src/od/ODDistrictCont.cpp:57
 #, c-format
 msgid "District '%' does not provide any valid source."
-msgstr ""
+msgstr "Il distretto '%' non fornisce una sorgente valida."
 
 #: src/od/ODDistrictCont.cpp:73
 #, c-format
 msgid "District '%' does not provide any valid sink."
-msgstr ""
+msgstr "Il distretto '%' non fornisce uno scarico valido."
 
 #: src/od/ODDistrictCont.cpp:84
 #, c-format
