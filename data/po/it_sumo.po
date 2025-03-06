@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-13 10:07+0100\n"
-"PO-Revision-Date: 2025-03-06 14:46+0000\n"
+"PO-Revision-Date: 2025-03-06 15:02+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -10446,12 +10446,12 @@ msgstr "% di % semafori non potevano essere impostati."
 #: src/netimport/vissim/tempstructs/NIVissimTL.cpp:402
 #, c-format
 msgid "Could not set % of % groups."
-msgstr ""
+msgstr "% di % gruppi non potevano essere impostati."
 
 #: src/netimport/vissim/tempstructs/NIVissimTL.cpp:405
 #, c-format
 msgid "Could not set % of % signals."
-msgstr ""
+msgstr "% di % segnali non potevano essere impostati."
 
 #: src/netimport/vissim/typeloader/NIVissimSingleTypeParser_Lichtsignalanlagendefinition.cpp:84
 #: src/netimport/vissim/typeloader/NIVissimSingleTypeParser_Signalgruppendefinition.cpp:93
@@ -11018,13 +11018,16 @@ msgstr ""
 
 #: src/netwrite/NWWriter_OpenDrive.cpp:313
 msgid "Could not compute smooth shape for edge '%'."
-msgstr ""
+msgstr "Non ho potuto appianare la forma dell'arco '%'."
 
 #: src/netwrite/NWWriter_OpenDrive.cpp:456
 msgid ""
 "Could not compute smooth shape from lane '%' to lane '%'. Use option "
 "'junctions.scurve-stretch' or increase radius of junction '%' to fix this."
 msgstr ""
+"Non ho potuto appianare la forma tra la corsia '%' e la corsia '%'. Usa "
+"l'opzione 'junctions.scurve-stretch' oppure ingrandisci il raggio "
+"dell'incrocio per risolverlo."
 
 #: src/netwrite/NWWriter_OpenDrive.cpp:963
 msgid ""
