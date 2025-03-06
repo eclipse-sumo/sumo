@@ -51,23 +51,61 @@ def get_options(args=None):
     return options
 
 
-def remap_lane(options, laneID, pos=None):
+def make_consecutive(net, laneIDs):
+    lanes = [net.getLane(laneID) for laneID in laneIDs]
+    lanes2 = []
+    for i, lane in enumerate(lanes[:-1]):
+        lanes2.append(lane)
+        lane2 = lanes[i + 1]
+        nTo = lane.getEdge().getToNode()
+        nFrom = lane2.getEdge().getFromNode()
+        if nTo != nFrom:
+            path, cost = net.getShortestPath(lane.getEdge(), lane2.getEdge())
+            if path:
+                for edge in path[1:-1]:
+                    index = min(edge.getLaneNumber() - 1, lane.getIndex())
+                    lanes2.append(edge.getLanes()[index])
+    lanes2.append(lanes[-1])
+
+    return [lane.getID() for lane in lanes2]
+
+
+def remap_lanes(options, obj, laneIDs, pos=None):
+    laneIDs_positions2 = [remap_lane(options, obj, laneID, pos) for laneID in laneIDs.split()]
+    laneIDs2 = [l for l,pos in laneIDs_positions2]
+    if obj.name in ["e2Detector","laneAreaDetector"]:
+        laneIDs2 = make_consecutive(options.net2, laneIDs2)
+    pos2 = laneIDs_positions2[0][1]
+
+    return ' '.join(laneIDs2), pos2
+
+
+def remap_edges(options, obj, edgeIDs, pos=None):
+    edgeIDs_positions2 = [remap_edge(options, obj, edgeID, pos) for edgeID in edgeIDs.split()]
+    edgeIDs2 = [e for e,pos in edgeIDs_positions2]
+    pos2 = edgeIDs_positions2[0][1]
+    return ' '.join(edgeIDs2), pos2
+
+
+def remap_lane(options, obj, laneID, pos=None):
     lane = options.net.getLane(laneID)
     lane2 = None
     edge = lane.getEdge()
-    edge2, pos2 = remap_edge(options, edge.getID(), pos)
+    edge2, pos2 = remap_edge(options, obj, edge.getID(), pos)
     if edge2:
         cands = [c for c in edge.getLanes() if c.getPermissions() == lane.getPermissions()]
         candIndex = cands.index(lane)
 
         cands2 = [c for c in edge2.getLanes() if c.getPermissions() == lane.getPermissions()]
+        if not cands2 and lane.allows("passenger"):
+            cands2 = [c for c in edge2.getLanes() if c.allows("passenger")]
         if not cands2:
             cands2 = edge2.getLanes()
         lane2 = cands2[min(candIndex, len(cands2) - 1)].getID()
     return lane2, pos2
 
 
-def remap_edge(options, edgeID, pos=None):
+def remap_edge(options, obj, edgeID, pos=None):
     edge = options.net.getEdge(edgeID)
     shape = edge.getShape()
     shapelen = gh.polyLength(shape)
@@ -138,6 +176,38 @@ def getPosAttrs(obj):
     return result
 
 
+IDS = {
+        'edge': remap_edge,
+        'lane': remap_lane,
+        'edges' : remap_edges,
+        'lanes' : remap_lanes,
+        }
+
+def remap(options, obj):
+    success = True
+    for attr, mapper in IDS.items():
+        if obj.hasAttribute(attr):
+            posAttrs = getPosAttrs(obj)
+            if len(posAttrs) == 0:
+                pos = None
+            else:
+                pos = posAttrs[0][1]
+                obj.setAttribute("friendlyPos", True)
+            id2, pos2 = mapper(options, obj, getattr(obj, attr), pos)
+            if id2:
+                obj.setAttribute(attr, id2)
+                for posAttr, posOrig in posAttrs:
+                    obj.setAttribute(posAttr, pos2 + posOrig - pos)
+            else:
+                print("Could not map %s on %s '%s'" % (
+                    obj.name, attr, getattr(obj, attr)),
+                    file=sys.stderr)
+                success = False
+    for child in obj.getChildList():
+        success &= remap(options, child)
+    return success
+
+
 def main(options):
     if options.verbose:
         print("Reading orig-net '%s'" % options.origNet)
@@ -154,35 +224,13 @@ def main(options):
     else:
         options.remap_xy = lambda x: x
 
-    IDS = {
-            'edge': remap_edge,
-            'lane': remap_lane,
-            # 'edges' : remap_edges,
-            # 'lanes' : remap_lanes,
-            }
-
     with open(options.output, 'w') as fout:
         sumolib.writeXMLHeader(fout, "$Id$", "additional", options=options)
         for obj in parse(options.additional):
-            for attr, mapper in IDS.items():
-                if obj.hasAttribute(attr):
-                    posAttrs = getPosAttrs(obj)
-                    if len(posAttrs) == 0:
-                        pos = None
-                    else:
-                        pos = posAttrs[0][1]
-                        obj.friendlyPos = True
-                    id2, pos2 = mapper(options, getattr(obj, attr), pos)
-                    if id2:
-                        obj.setAttribute(attr, id2)
-                        for posAttr, posOrig in posAttrs:
-                            obj.setAttribute(posAttr, pos2 + posOrig - pos)
-                        fout.write(obj.toXML(initialIndent=" " * 4))
-                    else:
-                        print("Could not map %s on %s '%s'" % (
-                            obj.name, attr, getattr(obj, attr)),
-                            file=sys.stderr)
-                        fout.write("    <!--" + obj.toXML()[1:-2] + "-->\n")
+            if remap(options, obj):
+                fout.write(obj.toXML(initialIndent=" " * 4))
+            else:
+                fout.write("    <!--" + obj.toXML()[1:-2] + "-->\n")
         fout.write("</additional>\n")
 
 
