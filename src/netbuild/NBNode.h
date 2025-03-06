@@ -850,6 +850,9 @@ public:
     /// @brief ensure connectivity for all vClasses
     void recheckVClassConnections(NBEdge* currentOutgoing);
 
+    /// @brief ensure connectivity for all special vClass
+    void recheckSpecialConnections(NBEdge* incoming, NBEdge* currentOutgoing, SVCPermissions svcSpecial); 
+
     /// @brief initialize signalized rail classes
     static void initRailSignalClasses(const NBNodeCont& nc);
 
