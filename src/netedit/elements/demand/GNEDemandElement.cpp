@@ -411,7 +411,9 @@ GNEDemandElement::isValidDemandElementID(const std::string& value) const {
 
 bool
 GNEDemandElement::isValidDemandElementID(const std::vector<SumoXMLTag>& tags, const std::string& value) const {
-    if (value == getID()) {
+    if (isTemplate() && value.empty()) {
+        return true;
+    } else if (!isTemplate() && (value == getID())) {
         return true;
     } else if (SUMOXMLDefinitions::isValidVehicleID(value)) {
         return (myNet->getAttributeCarriers()->retrieveDemandElements(tags, value, false) == nullptr);

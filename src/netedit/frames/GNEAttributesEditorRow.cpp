@@ -496,7 +496,7 @@ GNEAttributesEditorRow::onCmdSetAttribute(FXObject* obj, FXSelector, void*) {
         if (editedAC->isValid(attribute, newValue)) {
             myValueComboBox->setTextColor(TEXTCOLOR_BLACK);
             myValueComboBox->setBackColor(TEXTCOLOR_BACKGROUND_WHITE);
-            myValueTextField->killFocus();
+            myValueComboBox->killFocus();
             myAttributeTable->setAttribute(attribute, newValue);
         } else {
             // edit colors
@@ -538,9 +538,11 @@ GNEAttributesEditorRow::onCmdSetAttribute(FXObject* obj, FXSelector, void*) {
         // check if the new textField value is valid
         if (editedAC->isValid(attribute, newValue)) {
             myValueTextField->setTextColor(TEXTCOLOR_BLACK);
-            myValueComboBox->setBackColor(TEXTCOLOR_BACKGROUND_WHITE);
+            myValueTextField->setBackColor(TEXTCOLOR_BACKGROUND_WHITE);
             myValueTextField->killFocus();
-            myAttributeTable->setAttribute(attribute, newValue);
+            if (newValue.empty() || (attribute != SUMO_ATTR_ID)) {
+                myAttributeTable->setAttribute(attribute, newValue);
+            }
         } else {
             // edit colors
             myValueTextField->setTextColor(TEXTCOLOR_RED);

@@ -545,7 +545,9 @@ GNEAdditional::isValidAdditionalID(const std::string& value) const {
 
 bool
 GNEAdditional::isValidAdditionalID(const std::vector<SumoXMLTag>& tags, const std::string& value) const {
-    if (!isTemplate() && (value == getID())) {
+    if (isTemplate() && value.empty()) {
+        return true;
+    } else if (!isTemplate() && (value == getID())) {
         return true;
     } else if (SUMOXMLDefinitions::isValidAdditionalID(value)) {
         return (myNet->getAttributeCarriers()->retrieveAdditionals(tags, value, false) == nullptr);
@@ -557,7 +559,9 @@ GNEAdditional::isValidAdditionalID(const std::vector<SumoXMLTag>& tags, const st
 
 bool
 GNEAdditional::isValidDetectorID(const std::string& value) const {
-    if (!isTemplate() && (value == getID())) {
+    if (isTemplate() && value.empty()) {
+        return true;
+    } else if (!isTemplate() && (value == getID())) {
         return true;
     } else if (SUMOXMLDefinitions::isValidDetectorID(value)) {
         return (myNet->getAttributeCarriers()->retrieveAdditional(myTagProperty->getTag(), value, false) == nullptr);
