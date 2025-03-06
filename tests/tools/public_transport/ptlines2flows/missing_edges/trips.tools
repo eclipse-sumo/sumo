@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-03-06 16:28:43.429617 by $Id: ptlines2flows.py v1_3_1+0313-ccb31df3eb jakob.erdmann@dlr.de 2019-09-02 13:26:32 +0200 $ v1_22_0+0699-69744bf86ed
+<!-- generated on 2025-03-06 16:38:45.320060 by $Id: ptlines2flows.py v1_3_1+0313-ccb31df3eb jakob.erdmann@dlr.de 2019-09-02 13:26:32 +0200 $ v1_22_0+0700-80ceca0352d
 <configuration>
     <net-file value="net.net.xml"/>
     <ptlines-file value="ptlines.xml"/>
@@ -22,7 +22,7 @@
     <vType id="share_taxi" vClass="taxi" speedFactor="0.95"/>
     <vType id="aerialway" vClass="cable_car" length="2.5" width="2" personCapacity="4"/>
     <vType id="ferry" vClass="ship"/>
-    <trip id="0_bus_104:0" type="bus" depart="0" departLane="best" from="dummy" to="dummy3" via="110450334#1 110450334#2 338412122 dummy2 391493949 391493947 391493950#0 391493950#1 391493952#0 391493952#1 391493952#2 391493954#0 391493954#1 391493954#2 391493954#3">
+    <trip id="0_bus_104:0" type="bus" depart="0" departLane="best" from="110450334#1" to="391493954#3" via="110450334#2 338412122 391493949 391493947 391493950#0 391493950#1 391493952#0 391493952#1 391493952#2 391493954#0 391493954#1 391493954#2">
         <stop busStop="3959807221" duration="30"/>  <!-- Kolonnenbrücke -->
         <stop busStop="3959807200" duration="30"/>  <!-- Dudenstraße/Katzbachstraße -->
     </trip>
