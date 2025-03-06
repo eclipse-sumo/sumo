@@ -515,7 +515,8 @@ GNETagPropertiesDatabase::fillNetworkElements() {
         attrProperty = new GNEAttributeProperties(GNE_ATTR_IS_ROUNDABOUT,
                 GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
                 GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
-                TL("Whether this junction is part of a roundabout"), "false");
+                TL("Whether this junction is part of a roundabout"),
+                GNEAttributeCarrier::False);
         myTagProperties[currentTag]->addAttribute(attrProperty);
     }
     currentTag = SUMO_TAG_TYPE;
@@ -776,7 +777,8 @@ GNETagPropertiesDatabase::fillNetworkElements() {
         attrProperty = new GNEAttributeProperties(GNE_ATTR_IS_ROUNDABOUT,
                 GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UNIQUE, // cannot be edited
                 GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
-                TL("Whether this edge is part of a roundabout"), "false");
+                TL("Whether this edge is part of a roundabout"),
+                GNEAttributeCarrier::False);
         myTagProperties[currentTag]->addAttribute(attrProperty);
     }
     currentTag = SUMO_TAG_LANE;
@@ -1230,15 +1232,14 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
                 "0.00");
         myTagProperties[currentTag]->addAttribute(attrProperty);
 
+        fillFriendlyPosAttribute(myTagProperties[currentTag]);
+
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_LENGTH,
                 GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE,
                 GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
                 TL("The walking length of the access in meters"),
                 "-1.00");
         myTagProperties[currentTag]->addAttribute(attrProperty);
-
-        fillFriendlyPosAttribute(myTagProperties[currentTag]);
-
     }
     currentTag = SUMO_TAG_CONTAINER_STOP;
     {
@@ -1519,7 +1520,7 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
         fillLaneAttribute(myTagProperties[currentTag], false);
 
         attrProperty = new GNEAttributeProperties(SUMO_ATTR_POSITION,
-                GNEAttributeProperties::FLOAT | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
+                GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
                 GNEAttributeProperties::EDITMODE,
                 TL("The position on the lane the detector shall be laid on in meters"));
         myTagProperties[currentTag]->addAttribute(attrProperty);
@@ -9272,16 +9273,16 @@ void
 GNETagPropertiesDatabase::fillLaneAttribute(GNETagProperties* tagProperties, const bool synonymID) {
     if (synonymID) {
         GNEAttributeProperties* attrProperty = new GNEAttributeProperties(SUMO_ATTR_LANE,
-            GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::SYNONYM | GNEAttributeProperties::UPDATEGEOMETRY,
-            GNEAttributeProperties::EDITMODE,
-            TLF("The name of the lane the % shall be located at", tagProperties->getTagStr()));
+                GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::SYNONYM | GNEAttributeProperties::UPDATEGEOMETRY,
+                GNEAttributeProperties::EDITMODE,
+                TLF("The name of the lane the % shall be located at", tagProperties->getTagStr()));
         attrProperty->setSynonym(SUMO_ATTR_ID);
         tagProperties->addAttribute(attrProperty);
     } else {
         GNEAttributeProperties* attrProperty = new GNEAttributeProperties(SUMO_ATTR_LANE,
-            GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
-            GNEAttributeProperties::EDITMODE,
-            TLF("The name of the lane the % shall be located at", tagProperties->getTagStr()));
+                GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
+                GNEAttributeProperties::EDITMODE,
+                TLF("The name of the lane the % shall be located at", tagProperties->getTagStr()));
         tagProperties->addAttribute(attrProperty);
     }
 }
@@ -9295,7 +9296,7 @@ GNETagPropertiesDatabase::fillFriendlyPosAttribute(GNETagProperties* tagProperti
             TL("If set, no error will be reported if element is placed behind the lane.") + std::string("\n") +
             TL("Instead, it will be placed 0.1 meters from the lanes end or at position 0.1,") + std::string("\n") +
             TL("if the position was negative and larger than the lanes length after multiplication with - 1"),
-            "0");
+            GNEAttributeCarrier::False);
     tagProperties->addAttribute(attrProperty);
 }
 

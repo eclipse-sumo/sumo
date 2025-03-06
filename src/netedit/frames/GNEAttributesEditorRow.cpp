@@ -279,8 +279,10 @@ GNEAttributesEditorRow::isAttributeRowShown() const {
 SumoXMLAttr
 GNEAttributesEditorRow::fillSumoBaseObject(CommonXMLStructure::SumoBaseObject* baseObject, const bool insertDefaultValues) const {
     const auto attribute = myAttrProperty->getAttr();
+    // check if this is the default value
+    const bool usingDefaultValue = isValueValid() && (myAttrProperty->getDefaultValue() == getCurrentValue());
     // first check if insert default values
-    if (!insertDefaultValues && isValueValid() && (myAttrProperty->getDefaultValue() == getCurrentValue())) {
+    if (!insertDefaultValues && usingDefaultValue) {
         return SUMO_ATTR_NOTHING;
     }
     // continue depending of type
@@ -330,9 +332,10 @@ GNEAttributesEditorRow::fillSumoBaseObject(CommonXMLStructure::SumoBaseObject* b
             }
         } else if (GNEAttributeCarrier::canParse<double>(myValueTextField->getText().text())) {
             const auto doubleValue = GNEAttributeCarrier::parse<double>(myValueTextField->getText().text());
-            if (myAttrProperty->isPositive() && (doubleValue < 0)) {
+            // check using default value for certain default values (for example, lenght = -1)
+            if (!usingDefaultValue && myAttrProperty->isPositive() && (doubleValue < 0)) {
                 return attribute;
-            } else if (myAttrProperty->isProbability() && ((doubleValue < 0) || (doubleValue > 1))) {
+            } else if (!usingDefaultValue && myAttrProperty->isProbability() && ((doubleValue < 0) || (doubleValue > 1))) {
                 return attribute;
             } else {
                 baseObject->addDoubleAttribute(attribute, doubleValue);

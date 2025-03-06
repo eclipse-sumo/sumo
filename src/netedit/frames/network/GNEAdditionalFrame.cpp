@@ -242,7 +242,7 @@ GNEAdditionalFrame::addAdditional(const GNEViewNetHelper::ViewObjectsSelector& v
     // add basic attributes and values
     myAdditionalAttributesEditor->fillSumoBaseObject(myBaseAdditional);
     // declare additional handler
-    GNEAdditionalHandler additionalHandler(myViewNet->getNet(), myBaseAdditional->hasStringAttribute(GNE_ATTR_ADDITIONAL_FILE)?
+    GNEAdditionalHandler additionalHandler(myViewNet->getNet(), myBaseAdditional->hasStringAttribute(GNE_ATTR_ADDITIONAL_FILE) ?
                                            myBaseAdditional->getStringAttribute(GNE_ATTR_ADDITIONAL_FILE) : "",
                                            myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), false);
     // build additional
@@ -306,7 +306,7 @@ GNEAdditionalFrame::createPath(const bool /* useLastRoute */) {
                 // show warning dialogbox and stop check if input parameters are valid
                 if (myAdditionalAttributesEditor->checkAttributes(true)) {
                     // declare additional handler
-                    GNEAdditionalHandler additionalHandler(myViewNet->getNet(), myBaseAdditional->hasStringAttribute(GNE_ATTR_ADDITIONAL_FILE)?
+                    GNEAdditionalHandler additionalHandler(myViewNet->getNet(), myBaseAdditional->hasStringAttribute(GNE_ATTR_ADDITIONAL_FILE) ?
                                                            myBaseAdditional->getStringAttribute(GNE_ATTR_ADDITIONAL_FILE) : "",
                                                            myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), false);
                     // build additional
@@ -470,7 +470,12 @@ GNEAdditionalFrame::initBaseAdditionalObject(const GNETagProperties* tagProperty
             myBaseAdditional->addDoubleAttribute(GNE_ATTR_LANELENGTH, viewObjects.getLaneFront()->getLaneShapeLength());
             // Obtain position of the mouse over lane (limited over grid)
             const double mousePositionOverLane = viewObjects.getLaneFront()->getLaneShape().nearest_offset_to_point2D(myBaseAdditional->getPositionAttribute(SUMO_ATTR_POSITION) / viewObjects.getLaneFront()->getLengthGeometryFactor());
-            myBaseAdditional->addDoubleAttribute(SUMO_ATTR_POSITION, mousePositionOverLane);
+            // special case for access
+            if (tagProperty->getTag() == SUMO_TAG_ACCESS) {
+                myBaseAdditional->addStringAttribute(SUMO_ATTR_POSITION, toString(mousePositionOverLane));
+            } else {
+                myBaseAdditional->addDoubleAttribute(SUMO_ATTR_POSITION, mousePositionOverLane);
+            }
         }
     }
     // BaseAdditional created, then return true
