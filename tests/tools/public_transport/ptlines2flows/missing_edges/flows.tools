@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-03-06 16:28:43.493262 by ptlines2flows.py v1_22_0+0699-69744bf86ed
+<configuration>
+    <net-file value="net.net.xml"/>
+    <ptlines-file value="ptlines.xml"/>
+    <ptstops-file value="input_additional.add.xml"/>
+    <output-file value="out.flows.xml"/>
+    <use-osm-routes value="True"/>
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="bus" vClass="bus"/>
+    <vType id="tram" vClass="tram"/>
+    <vType id="train" vClass="rail"/>
+    <vType id="subway" vClass="subway"/>
+    <vType id="light_rail" vClass="rail_urban"/>
+    <vType id="monorail" vClass="rail_urban"/>
+    <vType id="trolleybus" vClass="bus"/>
+    <vType id="minibus" vClass="bus"/>
+    <vType id="share_taxi" vClass="taxi"/>
+    <vType id="aerialway" vClass="cable_car" length="2.5" width="2" personCapacity="4"/>
+    <vType id="ferry" vClass="ship"/>
+</routes>
