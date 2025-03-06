@@ -230,10 +230,9 @@ def main(options):
     with open(options.output, 'w') as fout:
         sumolib.writeXMLHeader(fout, "$Id$", "additional", options=options)
         for obj in parse(options.additional):
-            if remap(options, obj):
-                fout.write(obj.toXML(initialIndent=" " * 4))
-            else:
-                fout.write("    <!--" + obj.toXML()[1:-2] + "-->\n")
+            if not remap(options, obj):
+                obj.setCommented()
+            fout.write(obj.toXML(initialIndent=" " * 4))
         fout.write("</additional>\n")
 
 

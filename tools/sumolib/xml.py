@@ -193,8 +193,11 @@ def compound_object(element_name, attrnames, warn=False, sort=False):
                     return [c.getText() for c in children]
             return []
 
-        def setCommented(self, commented=True):
+        def setCommented(self, commented=True, recurse=False):
             self._commented = commented
+            if commented or recurse:
+                for c in self._child_list:
+                    c.setCommented(False, True)
 
         def __getattr__(self, name):
             if name[:2] != "__":
@@ -248,7 +251,7 @@ def compound_object(element_name, attrnames, warn=False, sort=False):
             if not self._child_dict and self._text is None:
                 return initialIndent + "<%s%s %s/%s>\n" % (commentStart, self.name, " ".join(fields), commentEnd)
             else:
-                s = initialIndent + "<%s %s>\n" % (self.name, " ".join(fields))
+                s = initialIndent + "<%s%s %s>\n" % (commentStart, self.name, " ".join(fields))
                 for c in self._child_list:
                     s += c.toXML(initialIndent + indent, withComments=withComments)
                 if self._text is not None and self._text.strip():
