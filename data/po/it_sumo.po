@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-13 10:07+0100\n"
-"PO-Revision-Date: 2025-03-06 08:31+0000\n"
+"PO-Revision-Date: 2025-03-06 12:54+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -10320,15 +10320,15 @@ msgstr "Indice di corsia % invalido per il tipo di arco '%' con % corsie"
 
 #: src/netimport/vissim/NIImporter_Vissim.cpp:887
 msgid "Could not open vissim-file '%'."
-msgstr ""
+msgstr "Non ho potuto aprire il file VISSIM '%'."
 
 #: src/netimport/vissim/tempstructs/NIVissimConnection.cpp:241
 msgid "Could not build connection between '%' and '%'."
-msgstr ""
+msgstr "Non ho potuto costruire il collegamento tra '%' e '%'."
 
 #: src/netimport/vissim/tempstructs/NIVissimConnection.cpp:248
 msgid "Lane sizes differ for connection '%'."
-msgstr ""
+msgstr "l numeri di corsie non coincidono per il collegamento '%'."
 
 #: src/netimport/vissim/tempstructs/NIVissimConnectionCluster.cpp:496
 msgid "NIVissimConnectionCluster: More than a single node"
@@ -10459,7 +10459,7 @@ msgstr ""
 
 #: src/netimport/vissim/typeloader/NIVissimSingleTypeParser_Signalgeberdefinition.cpp:73
 msgid "Omitting unknown traffic light."
-msgstr ""
+msgstr "Un semaforo sconosciuto viene ignorato."
 
 #: src/netimport/vissim/typeloader/NIVissimSingleTypeParser_Signalgruppendefinition.cpp:142
 #: src/netimport/vissim/typeloader/NIVissimSingleTypeParser_Signalgruppendefinition.cpp:170
@@ -10653,11 +10653,11 @@ msgstr ""
 
 #: src/netload/NLHandler.cpp:1069
 msgid "Ignoring deprecated argument 'cont' for E2 detector '%'"
-msgstr ""
+msgstr "L'attributo obsoleto 'cont' del rivelatore E2 '%' viene ignorato"
 
 #: src/netload/NLHandler.cpp:1085
 msgid "Invalid person mode '%' in E2 detector definition '%'"
-msgstr ""
+msgstr "Modo di persona invalido '%' nella definizione del rivelatore E2 '%'"
 
 #: src/netload/NLHandler.cpp:1099
 msgid ""
@@ -10682,18 +10682,20 @@ msgstr ""
 msgid ""
 "Ignoring argument 'period' for E2Detector '%' since argument 'tl' was given."
 msgstr ""
+"L'attributo 'period' del rivelatore E2 '%' viene ignorato perché 'tl' è "
+"stato indicato."
 
 #: src/netload/NLHandler.cpp:1271
 msgid "Invalid person mode '%' in E3 detector definition '%'"
-msgstr ""
+msgstr "Modo di persona invalido '%' nella definizione del rivelatore E3 '%'"
 
 #: src/netload/NLHandler.cpp:1350
 msgid "Invalid person mode '%' in edgeData definition '%'"
-msgstr ""
+msgstr "Modo di persona invalido '%' nella definizione edgeData '%'"
 
 #: src/netload/NLHandler.cpp:1374
 msgid "Unknown edge '%' in edgeData definition '%'"
-msgstr ""
+msgstr "Arco sconosciuto '%' nella definizione edgeData '%'"
 
 #: src/netload/NLHandler.cpp:1381
 msgid ""
