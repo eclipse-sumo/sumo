@@ -2852,6 +2852,11 @@ NBEdge::applyTurnSigns() {
             std::vector<LinkDirection> taxi = decodeTurnSigns(turnSigns, TURN_SIGN_SHIFT_TAXI);
             std::vector<LinkDirection> bike = decodeTurnSigns(turnSigns, TURN_SIGN_SHIFT_BICYCLE);
             //std::cout << "  allSigns=" << allSigns << " turnSigns=" << turnSigns << " bus=" << bus.size() << "\n";
+            SVCPermissions fromP = getPermissions(i);
+            if ((fromP & SVC_PASSENGER) != 0) {
+                // if the source permits passenger traffic, the target should too
+                fromP = SVC_PASSENGER;
+            }
             for (LinkDirection dir : decodeTurnSigns(allSigns)) {
                 SVCPermissions perm = 0;
                 updateTurnPermissions(perm, dir, SVCAll, all);
@@ -2866,11 +2871,6 @@ NBEdge::applyTurnSigns() {
                 if (to != nullptr) {
                     if (toLaneIndex.count(to) == 0) {
                         // initialize to rightmost feasible lane
-                        SVCPermissions fromP = getPermissions(i);
-                        if ((fromP & SVC_PASSENGER) != 0) {
-                            // if the source permits passenger traffic, the target should too
-                            fromP = SVC_PASSENGER;
-                        }
                         int toLane = toLaneMap[to][0];
                         while ((to->getPermissions(toLane) & fromP) == 0 && (toLane + 1 < to->getNumLanes())) {
                             toLane++;
@@ -2889,14 +2889,22 @@ NBEdge::applyTurnSigns() {
 #endif
                         toLaneIndex[to] = toLane;
                     }
+#ifdef DEBUG_TURNSIGNS
+                    //std::cout << "  set fromLane=" << i << " to=" << to->getID() << " toLane=" << toLaneIndex[to] << "\n";
+#endif
                     setConnection(i, to, toLaneIndex[to], Lane2LaneInfoType::VALIDATED, true,
                                   false, KEEPCLEAR_UNSPECIFIED, UNSPECIFIED_CONTPOS,
                                   UNSPECIFIED_VISIBILITY_DISTANCE, UNSPECIFIED_SPEED, UNSPECIFIED_FRICTION,
                                   myDefaultConnectionLength, PositionVector::EMPTY,
                                   UNSPECIFIED_CONNECTION_UNCONTROLLED,
                                   perm);
-                    if (toLaneIndex[to] < to->getNumLanes() - 1) {
+                    if (toLaneIndex[to] < to->getNumLanes() - 1
+                            && (to->getPermissions(toLaneIndex[to] + 1) & fromP) != 0) {
                         toLaneIndex[to]++;
+                    } else if (toLaneIndex[to] < to->getNumLanes() - 2
+                            && (to->getPermissions(toLaneIndex[to] + 2) & fromP) != 0){
+                        // skip forbidden lane
+                        toLaneIndex[to] += 2;
                     }
                 }
             }
