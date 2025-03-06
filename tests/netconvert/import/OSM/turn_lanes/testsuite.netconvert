@@ -15,3 +15,6 @@ turn-lanes_lefthand
 
 # one target for the turn-lanes isn't accessible to passenger traffic (by default typemap rules)
 service_target
+
+# see #13586
+turn-lanes2_avoid_bus
