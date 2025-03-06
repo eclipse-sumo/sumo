@@ -74,6 +74,8 @@ netas:netAs.net.xml
 
 additionals:additionals.add.xml
 additionalsas:additionalsAs.add.xml
+additionalssecondfile:additional.secondFile.add.xml
+additionalsthirdFilefile:additional.thirdFile.add.xml
 
 routes:routes.rou.xml
 routesas:routesAs.rou.xml

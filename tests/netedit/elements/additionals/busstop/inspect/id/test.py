@@ -34,9 +34,6 @@ netedit.additionalMode()
 # select busStop
 netedit.changeElement("busStop")
 
-# change reference to center
-netedit.changeDefaultValue(netedit.attrs.busStop.create.references, "Center")
-
 # create busStop 1 in mode "Center"
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 

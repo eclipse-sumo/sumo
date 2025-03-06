@@ -688,11 +688,12 @@ class busStop:
         personCapacity = 11
         parkingLength = 12
         parameters = 14
+        parametersButton = 15
         size = 17
         forceSize = 18
-        references = 19
-        fileButton = 21
-        file = 22
+        reference = 19
+        additionalFileButton = 21
+        additionalFile = 22
 
     class inspect:
         id = 1
@@ -700,24 +701,39 @@ class busStop:
         moveLane = 3
         startPos = 4
         endPos = 5
-        name = 6
-        friendlyPos = 7
-        lines = 8
-        personCapacity = 9
-        parkingLength = 10
-        colorButton = 11
-        color = 12
-        parameters = 15
+        friendlyPos = 6
+        name = 7
+        colorButton = 8
+        color = 9
+        lines = 10
+        personCapacity = 11
+        parkingLength = 12
+        parameters = 14
+        parametersButton = 15
+        frontButton = 17
+        size = 18
+        forceSize = 19
+        reference = 20
+        additionalFileButton = 22
+        additionalFile = 23
 
     class inspectSelection:
-        name = 1
-        friendlyPos = 2
-        lines = 3
-        personCapacity = 4
-        parkingLength = 5
-        colorButton = 6
-        color = 7
-        parameters = 10
+        friendlyPos = 1
+        name = 2
+        colorButton = 3
+        color = 4
+        lines = 5
+        personCapacity = 6
+        parkingLength = 7
+        parameters = 9
+        parametersButton = 10
+        frontButton = 12
+        size = 13
+        forceSize = 14
+        reference = 15
+        additionalFileButton = 17
+        additionalFile = 18
+
 
 # trainStop
 
@@ -725,15 +741,20 @@ class busStop:
 class trainStop:
     class create:
         id = 5
-        name = 6
-        friendlyPos = 7
-        lines = 8
-        personCapacity = 9
-        parkingLength = 10
-        colorButton = 11
-        color = 12
-        references = 16
-        length = 18
+        friendlyPos = 6
+        name = 7
+        colorButton = 8
+        color = 9
+        lines = 10
+        personCapacity = 11
+        parkingLength = 12
+        parameters = 14
+        parametersButton = 15
+        size = 17
+        forceSize = 18
+        reference = 19
+        additionalFileButton = 21
+        additionalFile = 22
 
     class inspect:
         id = 1
@@ -741,24 +762,38 @@ class trainStop:
         moveLane = 3
         startPos = 4
         endPos = 5
-        name = 6
-        friendlyPos = 7
-        lines = 8
-        personCapacity = 9
-        parkingLength = 10
-        colorButton = 11
-        color = 12
-        parameters = 15
+        friendlyPos = 6
+        name = 7
+        colorButton = 8
+        color = 9
+        lines = 10
+        personCapacity = 11
+        parkingLength = 12
+        parameters = 14
+        parametersButton = 15
+        frontButton = 17
+        size = 18
+        forceSize = 19
+        reference = 20
+        additionalFileButton = 22
+        additionalFile = 23
 
     class inspectSelection:
-        name = 1
-        friendlyPos = 2
-        lines = 3
-        personCapacity = 4
-        parkingLength = 5
-        colorButton = 6
-        color = 7
-        parameters = 10
+        friendlyPos = 1
+        name = 2
+        colorButton = 3
+        color = 4
+        lines = 5
+        personCapacity = 6
+        parkingLength = 7
+        parameters = 9
+        parametersButton = 10
+        frontButton = 12
+        size = 13
+        forceSize = 14
+        reference = 15
+        additionalFileButton = 17
+        additionalFile = 18
 
 # containerStop
 
@@ -766,15 +801,20 @@ class trainStop:
 class containerStop:
     class create:
         id = 5
-        name = 6
-        friendlyPos = 7
-        lines = 8
-        containerCapacity = 9
-        parkingLength = 10
-        colorButton = 11
-        color = 12
-        references = 16
-        length = 18
+        friendlyPos = 6
+        name = 7
+        colorButton = 8
+        color = 9
+        lines = 10
+        containerCapacity = 11
+        parkingLength = 12
+        parameters = 14
+        parametersButton = 15
+        size = 17
+        forceSize = 18
+        reference = 19
+        additionalFileButton = 21
+        additionalFile = 22
 
     class inspect:
         id = 1
@@ -782,24 +822,40 @@ class containerStop:
         moveLane = 3
         startPos = 4
         endPos = 5
-        name = 6
-        friendlyPos = 7
-        lines = 8
-        containerCapacity = 9
-        parkingLength = 10
-        colorButton = 11
-        color = 12
-        parameters = 15
+        friendlyPos = 6
+        name = 7
+        colorButton = 8
+        color = 9
+        lines = 10
+        containerCapacity = 11
+        parkingLength = 12
+        parameters = 14
+        parametersButton = 15
+        frontButton = 17
+        size = 18
+        forceSize = 19
+        reference = 20
+        additionalFileButton = 22
+        additionalFile = 23
 
     class inspectSelection:
-        name = 1
-        friendlyPos = 2
-        lines = 3
-        containerCapacity = 4
-        parkingLength = 5
-        colorButton = 6
-        color = 7
-        parameters = 10
+        friendlyPos = 1
+        name = 2
+        colorButton = 3
+        color = 4
+        lines = 5
+        containerCapacity = 6
+        parkingLength = 7
+        parameters = 9
+        parametersButton = 10
+        frontButton = 12
+        size = 13
+        forceSize = 14
+        reference = 15
+        additionalFileButton = 17
+        additionalFile = 18
+
+# until here
 
 # chargingStation
 
@@ -816,7 +872,7 @@ class chargingStation:
         chargeType = 12
         waitingTime = 14
         parkingArea = 15
-        references = 19
+        reference = 19
         length = 21
 
     class inspect:
@@ -884,7 +940,7 @@ class parkingArea:
         length = 13
         angle = 14
         lefthand = 15
-        references = 19
+        reference = 19
         referencesLength = 21
 
     class inspect:

@@ -1429,7 +1429,7 @@ def inspectMode():
     time.sleep(DELAY_CHANGEMODE)
 
 
-def modifyAttribute(attributeNumber, value, overlapped):
+def modifyAttribute(attributeIndex, value, overlapped):
     """
     @brief modify attribute of type int/float/string
     """
@@ -1437,10 +1437,10 @@ def modifyAttribute(attributeNumber, value, overlapped):
     focusOnFrame()
     # jump to attribute depending if it's a overlapped element
     if overlapped:
-        for _ in range(attributeNumber + 1 + attrs.editElements.overlapped):
+        for _ in range(attributeIndex + 1 + attrs.editElements.overlapped):
             typeTab()
     else:
-        for _ in range(attributeNumber + 1):
+        for _ in range(attributeIndex + 1):
             typeTab()
     # paste the new value
     pasteIntoTextField(value)
@@ -1448,7 +1448,7 @@ def modifyAttribute(attributeNumber, value, overlapped):
     typeEnter()
 
 
-def modifyBoolAttribute(attributeNumber, overlapped):
+def modifyBoolAttribute(attributeIndex, overlapped):
     """
     @brief modify boolean attribute
     """
@@ -1456,16 +1456,16 @@ def modifyBoolAttribute(attributeNumber, overlapped):
     focusOnFrame()
     # jump to attribute depending if it's a overlapped element
     if overlapped:
-        for _ in range(attributeNumber + 1 + attrs.editElements.overlapped):
+        for _ in range(attributeIndex + 1 + attrs.editElements.overlapped):
             typeTab()
     else:
-        for _ in range(attributeNumber + 1):
+        for _ in range(attributeIndex + 1):
             typeTab()
     # type SPACE to change value
     typeSpace()
 
 
-def modifyColorAttribute(attributeNumber, color, overlapped):
+def modifyColorAttribute(attributeIndex, color, overlapped):
     """
     @brief modify color using dialog
     """
@@ -1473,10 +1473,10 @@ def modifyColorAttribute(attributeNumber, color, overlapped):
     focusOnFrame()
     # jump to attribute depending if it's a overlapped element
     if overlapped:
-        for _ in range(attributeNumber + 1 + attrs.editElements.overlapped):
+        for _ in range(attributeIndex + 1 + attrs.editElements.overlapped):
             typeTab()
     else:
-        for _ in range(attributeNumber + 1):
+        for _ in range(attributeIndex + 1):
             typeTab()
     typeSpace()
     # go to list of colors TextField
@@ -1530,6 +1530,38 @@ def modifyAttributeVClassDialog(attribute, vClass, overlapped, disallowAll=True,
         typeSpace()
 
 
+def modifyAdditionalFileDialog(attributeIndex, overlapped, waitTime=2):
+    """
+    @brief modify default additional file using dialog
+    """
+    # focus current frame
+    focusOnFrame()
+    # jump to attribute depending if it's a overlapped element
+    if overlapped:
+        for _ in range(attributeIndex + 1 + attrs.editElements.overlapped):
+            typeTab()
+    else:
+        for _ in range(attributeIndex + 1):
+            typeTab()
+    # Change current value
+    typeSpace()
+    # wait for saving
+    time.sleep(waitTime)
+    # jump to filename TextField
+    typeTwoKeys('alt', 'f')
+    pasteIntoTextField(_TEXTTEST_SANDBOX)
+    typeEnter()
+    pasteIntoTextField("additional.secondFile.add.xml")
+    typeEnter()
+
+
+def modifyAdditionalFile(attributeIndex, overlapped):
+    """
+    @brief modify default additional file
+    """
+    modifyAttribute(attributeIndex, _TEXTTEST_SANDBOX + "/additional.thirdFile.add.xml", overlapped)
+
+
 def checkUndoRedo(referencePosition, offsetX=0, offsetY=0):
     """
     @brief Check undo-redo
@@ -1540,58 +1572,58 @@ def checkUndoRedo(referencePosition, offsetX=0, offsetY=0):
     redo(referencePosition, 9, offsetY)
 
 
-def checkParameters(referencePosition, attributeNumber, overlapped, offsetX=0, offsetY=0):
+def checkParameters(referencePosition, attributeIndex, overlapped, offsetX=0, offsetY=0):
     """
     @brief Check generic parameters
     """
     # Change generic parameters with an invalid value (dummy)
-    modifyAttribute(attributeNumber, "dummyGenericParameters", overlapped)
+    modifyAttribute(attributeIndex, "dummyGenericParameters", overlapped)
     # Change generic parameters with an invalid value (invalid format)
-    modifyAttribute(attributeNumber, "key1|key2|key3", overlapped)
+    modifyAttribute(attributeIndex, "key1|key2|key3", overlapped)
     # Change generic parameters with a valid value
-    modifyAttribute(attributeNumber, "key1=value1|key2=value2|key3=value3", overlapped)
+    modifyAttribute(attributeIndex, "key1=value1|key2=value2|key3=value3", overlapped)
     # Change generic parameters with a valid value (empty values)
-    modifyAttribute(attributeNumber, "key1=|key2=|key3=", overlapped)
+    modifyAttribute(attributeIndex, "key1=|key2=|key3=", overlapped)
     # Change generic parameters with a valid value (clear parameters)
-    modifyAttribute(attributeNumber, "", overlapped)
+    modifyAttribute(attributeIndex, "", overlapped)
     # Change generic parameters with an valid value (duplicated keys)
-    modifyAttribute(attributeNumber, "key1duplicated=value1|key1duplicated=value2|key3=value3", overlapped)
+    modifyAttribute(attributeIndex, "key1duplicated=value1|key1duplicated=value2|key3=value3", overlapped)
     # Change generic parameters with a valid value (duplicated values)
-    modifyAttribute(attributeNumber, "key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated", overlapped)
+    modifyAttribute(attributeIndex, "key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated", overlapped)
     # Change generic parameters with an invalid value (invalid key characters)
-    modifyAttribute(attributeNumber, "keyInvalid.;%>%$$=value1|key2=value2|key3=value3", overlapped)
+    modifyAttribute(attributeIndex, "keyInvalid.;%>%$$=value1|key2=value2|key3=value3", overlapped)
     # Change generic parameters with a invalid value (invalid value characters)
-    modifyAttribute(attributeNumber, "key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3", overlapped)
+    modifyAttribute(attributeIndex, "key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3", overlapped)
     # Change generic parameters with a valid value
-    modifyAttribute(attributeNumber, "keyFinal1=value1|keyFinal2=value2|keyFinal3=value3", overlapped)
+    modifyAttribute(attributeIndex, "keyFinal1=value1|keyFinal2=value2|keyFinal3=value3", overlapped)
     # Check undoRedo
     checkUndoRedo(referencePosition, offsetX, offsetY)
 
 
-def checkDoubleParameters(referencePosition, attributeNumber, overlapped, offsetX=0, offsetY=0):
+def checkDoubleParameters(referencePosition, attributeIndex, overlapped, offsetX=0, offsetY=0):
     """
     @brief Check generic parameters
     """
     # Change generic parameters with an invalid value (dummy)
-    modifyAttribute(attributeNumber, "dummyGenericParameters", overlapped)
+    modifyAttribute(attributeIndex, "dummyGenericParameters", overlapped)
     # Change generic parameters with an invalid value (invalid format)
-    modifyAttribute(attributeNumber, "key1|key2|key3", overlapped)
+    modifyAttribute(attributeIndex, "key1|key2|key3", overlapped)
     # Change generic parameters with a valid value
-    modifyAttribute(attributeNumber, "key1=1|key2=2|key3=3", overlapped)
+    modifyAttribute(attributeIndex, "key1=1|key2=2|key3=3", overlapped)
     # Change generic parameters with a valid value (empty values)
-    modifyAttribute(attributeNumber, "key1=|key2=|key3=", overlapped)
+    modifyAttribute(attributeIndex, "key1=|key2=|key3=", overlapped)
     # Change generic parameters with a valid value (clear parameters)
-    modifyAttribute(attributeNumber, "", overlapped)
+    modifyAttribute(attributeIndex, "", overlapped)
     # Change generic parameters with an valid value (duplicated keys)
-    modifyAttribute(attributeNumber, "key1duplicated=1|key1duplicated=2|key3=3", overlapped)
+    modifyAttribute(attributeIndex, "key1duplicated=1|key1duplicated=2|key3=3", overlapped)
     # Change generic parameters with a valid value (duplicated values)
-    modifyAttribute(attributeNumber, "key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated", overlapped)
+    modifyAttribute(attributeIndex, "key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated", overlapped)
     # Change generic parameters with an invalid value (invalid key characters)
-    modifyAttribute(attributeNumber, "keyInvalid.;%>%$$=1|key2=2|key3=3", overlapped)
+    modifyAttribute(attributeIndex, "keyInvalid.;%>%$$=1|key2=2|key3=3", overlapped)
     # Change generic parameters with a invalid value (invalid value characters)
-    modifyAttribute(attributeNumber, "key1=valueInvalid%;%$<>$$%|key2=2|key3=3", overlapped)
+    modifyAttribute(attributeIndex, "key1=valueInvalid%;%$<>$$%|key2=2|key3=3", overlapped)
     # Change generic parameters with a valid value
-    modifyAttribute(attributeNumber, "keyFinal1=1|keyFinal2=2|keyFinal3=3", overlapped)
+    modifyAttribute(attributeIndex, "keyFinal1=1|keyFinal2=2|keyFinal3=3", overlapped)
     # Check undoRedo
     checkUndoRedo(referencePosition, offsetX, offsetY)
 
@@ -1843,14 +1875,14 @@ def changeElement(element):
     typeEnter()
 
 
-def changeDefaultValue(numTabs, value):
+def changeDefaultValue(attributeIndex, value):
     """
     @brief modify default int/double/string value of an additional, shape, vehicle...
     """
     # focus current frame
     focusOnFrame()
     # go to value TextField
-    for _ in range(numTabs):
+    for _ in range(attributeIndex):
         typeTab()
     # paste new value
     pasteIntoTextField(value)
@@ -1858,23 +1890,25 @@ def changeDefaultValue(numTabs, value):
     typeEnter()
 
 
-def changeDefaultBoolValue(numTabs):
-
+def changeDefaultBoolValue(attributeIndex):
+    """
+    @brief modify default bool value of an additional, shape, vehicle...
+    """
     # focus current frame
     focusOnFrame()
     # place cursor in check Box position
-    for _ in range(numTabs):
+    for _ in range(attributeIndex):
         typeTab()
     # Change current value
     typeSpace()
 
 
-def changeDefaultAllowDisallowValue(numTabs):
+def changeDefaultAllowDisallowValue(attributeIndex):
     """
     @brief modify allow/disallow values
     """
     # open dialog
-    changeDefaultBoolValue(numTabs)
+    changeDefaultBoolValue(attributeIndex)
     # select vtypes
     for _ in range(2):
         typeTab()
@@ -1897,14 +1931,41 @@ def changeDefaultAllowDisallowValue(numTabs):
     typeSpace()
 
 
-def selectAdditionalChild(numTabs, childNumber):
+def changeAdditionalFileDialog(attributeIndex, waitTime=2):
+    """
+    @brief modify default additional file using dialog
+    """
+    # focus current frame
+    focusOnFrame()
+    for _ in range(attributeIndex):
+        typeTab()
+    # Change current value
+    typeSpace()
+    # wait for saving
+    time.sleep(waitTime)
+    # jump to filename TextField
+    typeTwoKeys('alt', 'f')
+    pasteIntoTextField(_TEXTTEST_SANDBOX)
+    typeEnter()
+    pasteIntoTextField("additional.secondFile.add.xml")
+    typeEnter()
+
+
+def changeAdditionalFile(attributeIndex):
+    """
+    @brief modify default additional file
+    """
+    changeDefaultValue(attributeIndex, _TEXTTEST_SANDBOX + "/additional.thirdFile.add.xml")
+
+
+def selectAdditionalChild(attributeIndex, childNumber):
     """
     @brief select child of additional
     """
     # focus current frame
     focusOnFrame()
     # place cursor in the list of childs
-    for _ in range(numTabs + 1):
+    for _ in range(attributeIndex + 1):
         typeTab()
     # select child
     for _ in range(childNumber):
@@ -2330,14 +2391,14 @@ def closeVTypeDialog():
     typeTwoKeys('alt', 'a')
 
 
-def modifyVTypeAttribute(attributeNumber, value):
+def modifyVTypeAttribute(attributeIndex, value):
     """
     @brief modify VType attribute of type int/float/string
     """
     # focus dialog
     typeTwoKeys('alt', 'f')
     # jump to attribute
-    for _ in range(attributeNumber):
+    for _ in range(attributeIndex):
         typeTab()
     # paste the new value
     pasteIntoTextField(value)
@@ -2984,14 +3045,14 @@ def createLineShape(referencePosition, position, sizex, sizey, close):
     typeEnter()
 
 
-def changeColorUsingDialog(numTabs, color):
+def changeColorUsingDialog(attributeIndex, color):
     """
     @brief modify default color using dialog
     """
     # focus current frame
     focusOnFrame()
     # go to length TextField
-    for _ in range(numTabs):
+    for _ in range(attributeIndex):
         typeTab()
     typeSpace()
     # go to list of colors TextField
