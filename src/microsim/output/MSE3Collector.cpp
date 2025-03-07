@@ -65,7 +65,7 @@ MSE3Collector::MSE3EntryReminder::notifyEnter(SUMOTrafficObject& veh, Notificati
 #ifdef DEBUG_E3_NOTIFY_ENTER
     if (DEBUG_COND(myCollector) && DEBUG_COND_VEH(veh)) {
         std::cout << SIMTIME
-                  << " MSE3EntryReminder::notifyEnter() (" << getDescription() << "on lane '" << myLane->getID() << "')"
+                  << " MSE3EntryReminder::notifyEnter() (" << getDescription() << " on lane '" << myLane->getID() << "')"
                   << " vehicle '" << veh.getID() << "'"
                   << " enteredLane=" << enteredLane->getID()
                   << " reason=" << reason
@@ -101,7 +101,7 @@ MSE3Collector::MSE3EntryReminder::notifyMove(SUMOTrafficObject& veh, double oldP
 #ifdef DEBUG_E3_NOTIFY_MOVE
     if (DEBUG_COND(myCollector) && DEBUG_COND_VEH(veh)) {
         std::cout << SIMTIME
-                  << " MSE3EntryReminder::notifyMove() (" << getDescription() << "on lane '" << myLane->getID() << "')"
+                  << " MSE3EntryReminder::notifyMove() (" << getDescription() << " on lane '" << myLane->getID() << "')"
                   << " vehicle '" << veh.getID() << "'"
                   << " entered. oldPos=" << oldPos << " newPos=" << newPos << " newSpeed=" << newSpeed
                   << " myPosition=" << myPosition
@@ -146,7 +146,7 @@ MSE3Collector::MSE3EntryReminder::notifyLeave(SUMOTrafficObject& veh, double, MS
 #ifdef DEBUG_E3_NOTIFY_LEAVE
     if (DEBUG_COND(myCollector) && DEBUG_COND_VEH(veh)) {
         std::cout << SIMTIME
-                  << " MSE3EntryReminder::notifyLeave() (" << getDescription() << "on lane '" << myLane->getID() << "')"
+                  << " MSE3EntryReminder::notifyLeave() (" << getDescription() << " on lane '" << myLane->getID() << "')"
                   << " vehicle '" << veh.getID() << "'"
                   << " reason=" << reason
                   << "\n";
@@ -181,7 +181,7 @@ MSE3Collector::MSE3LeaveReminder::notifyEnter(SUMOTrafficObject& veh, Notificati
 #ifdef DEBUG_E3_NOTIFY_ENTER
     if (DEBUG_COND(myCollector) && DEBUG_COND_VEH(veh)) {
         std::cout << SIMTIME
-                  << " MSE3LeaveReminder::notifyEnter() (" << getDescription() << "on lane '" << myLane->getID() << "')"
+                  << " MSE3LeaveReminder::notifyEnter() (" << getDescription() << " on lane '" << myLane->getID() << "')"
                   << " vehicle '" << veh.getID() << "'"
                   << " enteredLane=" << enteredLane->getID()
                   << " reason=" << reason
@@ -264,7 +264,7 @@ MSE3Collector::MSE3LeaveReminder::notifyLeave(SUMOTrafficObject&  veh, double /*
 #ifdef DEBUG_E3_NOTIFY_LEAVE
     if (DEBUG_COND(myCollector) && DEBUG_COND_VEH(veh)) {
         std::cout << SIMTIME
-                  << " MSE3LeaveReminder::notifyLeave() (" << getDescription() << "on lane '" << myLane->getID() << "')"
+                  << " MSE3LeaveReminder::notifyLeave() (" << getDescription() << " on lane '" << myLane->getID() << "')"
                   << " vehicle '" << veh.getID() << "'"
                   << " reason=" << reason
                   << "\n";
