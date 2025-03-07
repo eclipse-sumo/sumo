@@ -267,7 +267,7 @@ def dotProduct(a, b):
 def orthoIntersection(a, b):
     c = add(a, b)
     quot = dotProduct(c, a)
-    if quot != 0:
+    if abs(quot) > 0.001:
         return mul(mul(c, dotProduct(a, a)), 1 / quot)
     else:
         return None
@@ -308,6 +308,7 @@ def line2boundary(shape, width):
     """
     left = move2side(shape, width / 2)
     right = move2side(shape, -width / 2)
+
     return left + list(reversed(right)) + [left[0]]
 
 
@@ -340,7 +341,7 @@ def move2side(shape, amount):
                 a = sideOffset(fromPos, pos, -amount)
                 b = sideOffset(pos, toPos, -amount)
                 c = orthoIntersection(a, b)
-                if orthoIntersection is not None:
+                if c is not None:
                     pos2 = add(pos, c)
                 else:
                     extend = norm(sub(pos, fromPos))
