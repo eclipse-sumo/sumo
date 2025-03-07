@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-13 10:07+0100\n"
-"PO-Revision-Date: 2025-03-06 15:02+0000\n"
+"PO-Revision-Date: 2025-03-07 11:16+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -10457,7 +10457,7 @@ msgstr "% di % segnali non potevano essere impostati."
 #: src/netimport/vissim/typeloader/NIVissimSingleTypeParser_Signalgruppendefinition.cpp:93
 #, c-format
 msgid "Unsupported LSA-Type '%' occurred."
-msgstr ""
+msgstr "Il tipo di semaforo '%' non è supportato."
 
 #: src/netimport/vissim/typeloader/NIVissimSingleTypeParser_Signalgeberdefinition.cpp:73
 msgid "Omitting unknown traffic light."
@@ -10568,6 +10568,8 @@ msgid ""
 "LaneData requested for mesoscopic simulation but --meso-lane-queue is not "
 "active. Falling back to edgeData."
 msgstr ""
+"LaneData è stato richiesto nella simulazione mesoscopica ma --meso-lane-"
+"queue non è attivo. Per questo si usa edgeData al suo posto."
 
 #: src/netload/NLDetectorBuilder.cpp:529
 msgid ""
@@ -10704,6 +10706,8 @@ msgid ""
 "LaneData '%' requested for mesoscopic simulation but --meso-lane-queue is "
 "not active. Falling back to edgeData."
 msgstr ""
+"LaneData '%' è stato richiesto nella simulazione mesoscopica ma --meso-lane-"
+"queue non è attivo. Per questo si usa edgeData al suo posto."
 
 #: src/netload/NLHandler.cpp:1428
 #, c-format
