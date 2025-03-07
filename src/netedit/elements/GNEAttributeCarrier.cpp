@@ -771,7 +771,19 @@ GNEAttributeCarrier::setCommonAttribute(SumoXMLAttr key, const std::string& valu
     switch (key) {
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_ADDITIONAL_FILE:
+            GNEChange_Attribute::changeAttribute(this, key, value, undoList);
+            // update filenames of all demand childrens
+            for (auto additionalChild : getHierarchicalElement()->getChildAdditionals()) {
+                additionalChild->setAttribute(key, myFilename, undoList);
+            }
+            break;
         case GNE_ATTR_DEMAND_FILE:
+            GNEChange_Attribute::changeAttribute(this, key, value, undoList);
+            // update filenames of all demand childrens
+            for (auto demandChild : getHierarchicalElement()->getChildDemandElements()) {
+                demandChild->setAttribute(key, myFilename, undoList);
+            }
+            break;
         case GNE_ATTR_DATA_FILE:
         case GNE_ATTR_MEANDATA_FILE:
         case GNE_ATTR_PARAMETERS:
