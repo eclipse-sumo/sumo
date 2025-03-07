@@ -310,7 +310,7 @@ GNEVehicleFrame::createPath(const bool useLastRoute) {
         // add VType
         myVehicleBaseObject->addStringAttribute(SUMO_ATTR_TYPE, myTypeSelector->getCurrentDemandElement()->getID());
         // declare route handler
-        GNERouteHandler routeHandler(myViewNet->getNet(), myVehicleBaseObject->hasStringAttribute(GNE_ATTR_DEMAND_FILE)?
+        GNERouteHandler routeHandler(myViewNet->getNet(), myVehicleBaseObject->hasStringAttribute(GNE_ATTR_DEMAND_FILE) ?
                                      myVehicleBaseObject->getStringAttribute(GNE_ATTR_DEMAND_FILE) : "",
                                      myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), false);
         // check if use last route
@@ -392,8 +392,8 @@ GNEVehicleFrame::createPath(const bool useLastRoute) {
                     myVehicleBaseObject->addStringAttribute(SUMO_ATTR_BEGIN, "0");
                 }
                 // adjust poisson value
-                if (myVehicleBaseObject->hasTimeAttribute(GNE_ATTR_POISSON)) {
-                    myVehicleBaseObject->addStringAttribute(SUMO_ATTR_PERIOD, "exp(" + time2string(myVehicleBaseObject->getTimeAttribute(GNE_ATTR_POISSON), false) + ")");
+                if (myVehicleBaseObject->hasStringAttribute(GNE_ATTR_POISSON)) {
+                    myVehicleBaseObject->addStringAttribute(SUMO_ATTR_PERIOD, "exp(" + myVehicleBaseObject->getStringAttribute(GNE_ATTR_POISSON) + ")");
                 }
                 // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
                 SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(myVehicleBaseObject->getAllAttributes(), getPredefinedTagsMML(), toString(vehicleTag));
@@ -419,8 +419,8 @@ GNEVehicleFrame::createPath(const bool useLastRoute) {
                     myVehicleBaseObject->addStringAttribute(SUMO_ATTR_BEGIN, "0");
                 }
                 // adjust poisson value
-                if (myVehicleBaseObject->hasTimeAttribute(GNE_ATTR_POISSON)) {
-                    myVehicleBaseObject->addStringAttribute(SUMO_ATTR_PERIOD, "exp(" + time2string(myVehicleBaseObject->getTimeAttribute(GNE_ATTR_POISSON), false) + ")");
+                if (myVehicleBaseObject->hasStringAttribute(GNE_ATTR_POISSON)) {
+                    myVehicleBaseObject->addStringAttribute(SUMO_ATTR_PERIOD, "exp(" + myVehicleBaseObject->getStringAttribute(GNE_ATTR_POISSON) + ")");
                 }
                 // get route edges
                 std::vector<std::string> routeEdges;
@@ -504,8 +504,8 @@ GNEVehicleFrame::createPath(const bool useLastRoute) {
                     myVehicleBaseObject->addStringAttribute(SUMO_ATTR_BEGIN, "0");
                 }
                 // adjust poisson value
-                if (myVehicleBaseObject->hasTimeAttribute(GNE_ATTR_POISSON)) {
-                    myVehicleBaseObject->addStringAttribute(SUMO_ATTR_PERIOD, "exp(" + time2string(myVehicleBaseObject->getTimeAttribute(GNE_ATTR_POISSON), false) + ")");
+                if (myVehicleBaseObject->hasStringAttribute(GNE_ATTR_POISSON)) {
+                    myVehicleBaseObject->addStringAttribute(SUMO_ATTR_PERIOD, "exp(" + myVehicleBaseObject->getStringAttribute(GNE_ATTR_POISSON) + ")");
                 }
                 // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
                 SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(myVehicleBaseObject->getAllAttributes(), getPredefinedTagsMML(), toString(vehicleTag));
@@ -530,8 +530,8 @@ GNEVehicleFrame::createPath(const bool useLastRoute) {
                     myVehicleBaseObject->addStringAttribute(SUMO_ATTR_BEGIN, "0");
                 }
                 // adjust poisson value
-                if (myVehicleBaseObject->hasTimeAttribute(GNE_ATTR_POISSON)) {
-                    myVehicleBaseObject->addStringAttribute(SUMO_ATTR_PERIOD, "exp(" + time2string(myVehicleBaseObject->getTimeAttribute(GNE_ATTR_POISSON), false) + ")");
+                if (myVehicleBaseObject->hasStringAttribute(GNE_ATTR_POISSON)) {
+                    myVehicleBaseObject->addStringAttribute(SUMO_ATTR_PERIOD, "exp(" + myVehicleBaseObject->getStringAttribute(GNE_ATTR_POISSON) + ")");
                 }
                 // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
                 SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(myVehicleBaseObject->getAllAttributes(), getPredefinedTagsMML(), toString(vehicleTag));
@@ -570,7 +570,7 @@ GNEVehicleFrame::buildVehicleOverRoute(SumoXMLTag vehicleTag, GNEDemandElement* 
         // get vehicle attributes
         myVehicleAttributesEditor->fillSumoBaseObject(myVehicleBaseObject);
         // declare route handler
-        GNERouteHandler routeHandler(myViewNet->getNet(), myVehicleBaseObject->hasStringAttribute(GNE_ATTR_DEMAND_FILE)?
+        GNERouteHandler routeHandler(myViewNet->getNet(), myVehicleBaseObject->hasStringAttribute(GNE_ATTR_DEMAND_FILE) ?
                                      myVehicleBaseObject->getStringAttribute(GNE_ATTR_DEMAND_FILE) : "",
                                      myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), false);
         // check if departLane is valid
@@ -623,8 +623,8 @@ GNEVehicleFrame::buildVehicleOverRoute(SumoXMLTag vehicleTag, GNEDemandElement* 
                 myVehicleBaseObject->addStringAttribute(SUMO_ATTR_END, "3600");
             }
             // adjust poisson value
-            if (myVehicleBaseObject->hasTimeAttribute(GNE_ATTR_POISSON)) {
-                myVehicleBaseObject->addStringAttribute(SUMO_ATTR_PERIOD, "exp(" + time2string(myVehicleBaseObject->getTimeAttribute(GNE_ATTR_POISSON), false) + ")");
+            if (myVehicleBaseObject->hasStringAttribute(GNE_ATTR_POISSON)) {
+                myVehicleBaseObject->addStringAttribute(SUMO_ATTR_PERIOD, "exp(" + myVehicleBaseObject->getStringAttribute(GNE_ATTR_POISSON) + ")");
             }
             // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
             SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(myVehicleBaseObject->getAllAttributes(), getPredefinedTagsMML(), toString(vehicleTag));
