@@ -692,7 +692,9 @@ MSRouteHandler::closeVehicle() {
             myVehicleParameter = nullptr;
             if (!MSGlobals::gCheckRoutes) {
                 WRITE_WARNING(e.what());
-                vehControl.fixVehicleCounts();
+                vehControl.deleteVehicle(vehicle, true);
+                myVehicleParameter = nullptr;
+                vehicle = nullptr;
                 return;
             } else {
                 throw;
