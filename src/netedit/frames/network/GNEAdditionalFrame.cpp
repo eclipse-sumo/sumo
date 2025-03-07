@@ -450,7 +450,7 @@ GNEAdditionalFrame::initBaseAdditionalObject(const GNETagProperties* tagProperty
             myBaseAdditional->addStringAttribute(SUMO_ATTR_EDGE, viewObjects.getEdgeFront()->getID());
             // Obtain position of the mouse over lane (limited over grid)
             const auto firstLane = viewObjects.getEdgeFront()->getChildLanes().front();
-            const double mousePositionOverLane = firstLane->getLaneShape().nearest_offset_to_point2D(myBaseAdditional->getPositionAttribute(SUMO_ATTR_POSITION) / firstLane->getLengthGeometryFactor());
+            const double mousePositionOverLane = firstLane->getLaneShape().nearest_offset_to_point2D(viewPosSnapped) / firstLane->getLengthGeometryFactor();
             myBaseAdditional->addDoubleAttribute(SUMO_ATTR_POSITION, mousePositionOverLane);
         }
     } else if (tagProperty->getTag() == SUMO_TAG_VAPORIZER) {
@@ -469,7 +469,7 @@ GNEAdditionalFrame::initBaseAdditionalObject(const GNETagProperties* tagProperty
             myBaseAdditional->addStringAttribute(SUMO_ATTR_LANE, viewObjects.getLaneFront()->getID());
             myBaseAdditional->addDoubleAttribute(GNE_ATTR_LANELENGTH, viewObjects.getLaneFront()->getLaneShapeLength());
             // Obtain position of the mouse over lane (limited over grid)
-            const double mousePositionOverLane = viewObjects.getLaneFront()->getLaneShape().nearest_offset_to_point2D(myBaseAdditional->getPositionAttribute(SUMO_ATTR_POSITION) / viewObjects.getLaneFront()->getLengthGeometryFactor());
+            const double mousePositionOverLane = viewObjects.getLaneFront()->getLaneShape().nearest_offset_to_point2D(viewPosSnapped) / viewObjects.getLaneFront()->getLengthGeometryFactor();
             // special case for access
             if (tagProperty->getTag() == SUMO_TAG_ACCESS) {
                 myBaseAdditional->addStringAttribute(SUMO_ATTR_POSITION, toString(mousePositionOverLane));
