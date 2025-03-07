@@ -105,6 +105,18 @@ GNEAttributesEditorType::getFrameParent() const {
 }
 
 
+bool
+GNEAttributesEditorType::isEditorTypeCreator() const {
+    return myEditorType == EditorType::CREATOR;
+}
+
+
+bool
+GNEAttributesEditorType::isEditorTypeEditor() const {
+    return myEditorType == EditorType::EDITOR;
+}
+
+
 const std::vector<GNEAttributeCarrier*>&
 GNEAttributesEditorType::getEditedAttributeCarriers() const {
     return myEditedACs;
@@ -164,7 +176,7 @@ GNEAttributesEditorType::refreshAttributesEditor() {
     if (myEditedACs.size() > 0) {
         const auto tagProperty = myEditedACs.front()->getTagProperty();
         // check if show netedit attributes (only in edit mode)
-        if (myAttributeType == AttributeType::NETEDIT && (myEditorType == EditorType::EDITOR)) {
+        if (myAttributeType == AttributeType::NETEDIT && isEditorTypeEditor()) {
             // front button
             if (tagProperty->isDrawable()) {
                 myFrontButton->show();
@@ -215,10 +227,10 @@ GNEAttributesEditorType::refreshAttributesEditor() {
             for (const auto& attrProperty : tagProperty->getAttributeProperties()) {
                 // filter editor type
                 bool validEditorType = false;
-                if ((myEditorType == EditorType::CREATOR) && attrProperty->isCreateMode()) {
+                if (isEditorTypeCreator() && attrProperty->isCreateMode()) {
                     validEditorType = true;
                 }
-                if ((myEditorType == EditorType::EDITOR) && attrProperty->isEditMode()) {
+                if (isEditorTypeEditor() && attrProperty->isEditMode()) {
                     validEditorType = true;
                 }
                 // filter types
@@ -409,12 +421,12 @@ GNEAttributesEditorType::setAttribute(SumoXMLAttr attr, const std::string& value
     const auto undoList = myFrameParent->getViewNet()->getUndoList();
     const auto tagProperty = myEditedACs.front()->getTagProperty();
     // continue depending if we're creating or inspecting
-    if (myEditorType == EditorType::CREATOR) {
+    if (isEditorTypeCreator()) {
         // Set new value of attribute in all edited ACs without undo-redo
         for (const auto& editedAC : myEditedACs) {
             editedAC->setAttribute(attr, value);
         }
-    } else if (myEditorType == EditorType::EDITOR) {
+    } else if (isEditorTypeEditor()) {
         // first check if we're editing a single attribute or an ID
         if (myEditedACs.size() > 1) {
             undoList->begin(tagProperty->getGUIIcon(), TLF("change multiple % attributes", tagProperty->getTagStr()));

@@ -534,7 +534,6 @@ GNEAttributesEditorRow::onCmdSetAttribute(FXObject* obj, FXSelector, void*) {
             if ((doubleValue - (int)doubleValue) == 0) {
                 myValueTextField->setText(toString((int)doubleValue).c_str(), FALSE);
             }
-
         }
         // after apply all filters, obtain value
         const std::string newValue = myValueTextField->getText().text();
@@ -543,7 +542,7 @@ GNEAttributesEditorRow::onCmdSetAttribute(FXObject* obj, FXSelector, void*) {
             myValueTextField->setTextColor(TEXTCOLOR_BLACK);
             myValueTextField->setBackColor(TEXTCOLOR_BACKGROUND_WHITE);
             myValueTextField->killFocus();
-            if (newValue.empty() || (attribute != SUMO_ATTR_ID)) {
+            if (myAttributeTable->isEditorTypeEditor() || newValue.empty() || (attribute != SUMO_ATTR_ID)) {
                 myAttributeTable->setAttribute(attribute, newValue);
             }
         } else {

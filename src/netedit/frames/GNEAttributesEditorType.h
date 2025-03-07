@@ -73,6 +73,12 @@ public:
     /// @brief pointer to GNEFrame parent
     GNEFrame* getFrameParent() const;
 
+    /// @brief check if this is an attribute editor of type "creator"
+    bool isEditorTypeCreator() const;
+
+    /// @brief check if this is an attribute editor of type "editor"
+    bool isEditorTypeEditor() const;
+
     /// @brief get edited attribute carriers
     const std::vector<GNEAttributeCarrier*>& getEditedAttributeCarriers() const;
 
