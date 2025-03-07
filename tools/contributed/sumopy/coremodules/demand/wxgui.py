@@ -28,13 +28,13 @@ from agilepy.lib_wx.processdialog import ProcessDialog
 from coremodules.network import routing
 from coremodules.scenario.scenario import load_scenario
 
-import demand
-import turnflows
-import origin_to_destination_wxgui as odgui
-import turnflows_wxgui as turnflowsgui
-import virtualpop_wxgui as virtualpopgui
-import detectorflows_wxgui as detectorflowsgui
-import publictransportservices_wxgui as pt
+from . import demand
+from . import turnflows
+from . import origin_to_destination_wxgui as odgui
+from . import turnflows_wxgui as turnflowsgui
+from . import virtualpop_wxgui as virtualpopgui
+from . import detectorflows_wxgui as detectorflowsgui
+from . import publictransportservices_wxgui as pt
 
 
 class TripDrawings(Polygons):
