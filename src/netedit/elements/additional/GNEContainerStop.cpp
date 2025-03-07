@@ -281,7 +281,7 @@ GNEContainerStop::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_LINES:
             return canParse<std::vector<std::string> >(value);
         case SUMO_ATTR_CONTAINER_CAPACITY:
-            return canParse<int>(value) && (parse<int>(value) > 0 || parse<int>(value) == -1);
+            return canParse<int>(value) && (parse<int>(value) >= 0);
         case SUMO_ATTR_PARKING_LENGTH:
             return canParse<double>(value) && (parse<double>(value) >= 0);
         case SUMO_ATTR_COLOR:
