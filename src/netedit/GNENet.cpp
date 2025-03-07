@@ -2141,7 +2141,7 @@ GNENet::clearDemandElements(GNEUndoList* undoList) {
     }
     // special case for vTypes
     const std::unordered_map<const GUIGlObject*, GNEDemandElement*> types = myAttributeCarriers->getDemandElements().at(SUMO_TAG_VTYPE);
-    for (const auto &type : types) {
+    for (const auto& type : types) {
         if (type.second->getAttribute(GNE_ATTR_DEFAULT_VTYPE) == GNEAttributeCarrier::False) {
             deleteDemandElement(type.second, undoList);
         }
@@ -2740,7 +2740,7 @@ bool
 GNENet::writeDetectorComment(OutputDevice& device, const std::unordered_set<const GNEAttributeCarrier*>& ACs) const {
     for (const auto& AC : ACs) {
         if (AC->getTagProperty()->isDetector()) {
-            device << ("    <!-- StoppingPlaces -->\n");
+            device << ("    <!-- Detectors -->\n");
             return true;
         }
     }
