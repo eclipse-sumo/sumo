@@ -34,14 +34,11 @@ netedit.additionalMode()
 # select trainStop
 netedit.changeElement("trainStop")
 
-# change reference to center
-netedit.changeDefaultValue(netedit.attrs.trainStop.create.references, "Center")
-
 # create trainStop 1 in mode "Center"
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 
 # create trainStop 2 in mode "Center"
-netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter0)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge5)
 
 # go to inspect mode
 netedit.inspectMode()
@@ -50,7 +47,7 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.trainStop)
 
 # Change parameter id with a non valid value (Duplicated ID)
-netedit.modifyAttribute(netedit.attrs.trainStop.inspect.id, "bs_1", True)
+netedit.modifyAttribute(netedit.attrs.trainStop.inspect.id, "ts_1", True)
 
 # Change parameter id with a non valid value (Invalid ID)
 netedit.modifyAttribute(netedit.attrs.trainStop.inspect.id, "Id with spaces", True)

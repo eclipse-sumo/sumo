@@ -31,29 +31,29 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 # go to additional mode
 netedit.additionalMode()
 
-# select containerStop
+# select trainStop
 netedit.changeElement("containerStop")
 
-# create containerStop in mode "Reference Left"
+# create trainStop in mode "Reference Left"
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
+
+# set invalid ID (duplicated
+netedit.changeDefaultValue(netedit.attrs.trainStop.create.id, ";;;;;;;;;;;;;;;;")
+
+# create trainStop in mode "Reference Left"
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
+
+# set invalid ID (duplicated
+netedit.changeDefaultValue(netedit.attrs.trainStop.create.id, "ct_0")
+
+# create trainStop in mode "Reference Left"
+netedit.leftClick(referencePosition, netedit.positions.elements.edge1)
+
+# set invalid ID (duplicated
+netedit.changeDefaultValue(netedit.attrs.trainStop.create.id, "custom_ID")
+
+# create trainStop in mode "Reference Left"
 netedit.leftClick(referencePosition, netedit.positions.elements.edge3)
-
-# set invalid ID (duplicated
-netedit.changeDefaultValue(netedit.attrs.containerStop.create.id, ";;;;;;;;;;;;;;;;")
-
-# create containerStop in mode "Reference Left"
-netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
-
-# set invalid ID (duplicated
-netedit.changeDefaultValue(netedit.attrs.containerStop.create.id, "ct_0")
-
-# create containerStop in mode "Reference Left"
-netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
-
-# set invalid ID (duplicated
-netedit.changeDefaultValue(netedit.attrs.containerStop.create.id, "custom_ID")
-
-# create containerStop in mode "Reference Left"
-netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

@@ -34,9 +34,6 @@ netedit.additionalMode()
 # select containerStop
 netedit.changeElement("containerStop")
 
-# change reference to center
-netedit.changeDefaultValue(netedit.attrs.containerStop.create.references, "Center")
-
 # create containerStop in mode "Center"
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 
@@ -47,7 +44,7 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.containerStop)
 
 # Change parameter name with a valid value
-netedit.modifyAttribute(netedit.attrs.containerStop.inspect.name, "Container Stop Name", True)
+netedit.modifyAttribute(netedit.attrs.containerStop.inspect.name, "Bus Stop Name", True)
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

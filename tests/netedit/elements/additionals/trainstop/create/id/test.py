@@ -31,7 +31,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 # go to additional mode
 netedit.additionalMode()
 
-# select trainStop
+# select busStop
 netedit.changeElement("busStop")
 
 # create trainStop in mode "Reference Left"
@@ -50,7 +50,7 @@ netedit.changeDefaultValue(netedit.attrs.trainStop.create.id, ";;;;;;;;;;;;;;;;"
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 
 # set invalid ID (duplicated
-netedit.changeDefaultValue(netedit.attrs.trainStop.create.id, "bs_0")
+netedit.changeDefaultValue(netedit.attrs.trainStop.create.id, "ts_0")
 
 # create trainStop in mode "Reference Left"
 netedit.leftClick(referencePosition, netedit.positions.elements.edge1)

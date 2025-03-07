@@ -34,14 +34,11 @@ netedit.additionalMode()
 # select containerStop
 netedit.changeElement("containerStop")
 
-# change reference to center
-netedit.changeDefaultValue(netedit.attrs.containerStop.create.references, "Center")
-
 # create containerStop 1 in mode "Center"
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 
 # create containerStop 2 in mode "Center"
-netedit.leftClick(referencePosition, netedit.positions.elements.edge4)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge5)
 
 # go to inspect mode
 netedit.inspectMode()

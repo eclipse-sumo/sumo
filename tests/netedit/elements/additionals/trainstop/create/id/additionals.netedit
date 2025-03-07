@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-16 13:18:52 by Eclipse SUMO netedit Version v1_20_0+1225-269cd592538
+<!-- generated on 2025-03-07 09:11:11 by Eclipse SUMO netedit Version v1_22_0+0703-2df138bce97
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -15,7 +15,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- StoppingPlaces -->
-    <busStop id="bs_0" lane="EdgeCenter0_1" startPos="23.07" endPos="33.07"/>
-    <trainStop id="custom_ID" lane="Edge3_1" startPos="27.11" endPos="37.11"/>
-    <trainStop id="ts_0" lane="EdgeCenter1_1" startPos="21.71" endPos="31.71"/>
+    <trainStop id="ts_0" lane="EdgeCenter1_1" startPos="16.71" endPos="26.71"/>
+    <trainStop id="custom_ID" lane="Edge3_1" startPos="28.36" endPos="38.36"/>
+    <trainStop id="ts_0" lane="EdgeCenter0_1" startPos="5.57" endPos="15.57"/>
 </additional>

@@ -37,10 +37,10 @@ netedit.selectionInvert()
 # go to inspect mode
 netedit.inspectMode()
 
-# inspect containerstops
+# inspect busstops
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.containerStop)
 
-# Set container capacity
+# Set person capacity
 netedit.modifyAttribute(netedit.attrs.containerStop.inspectSelection.containerCapacity, "50", True)
 
 # Check undo redo
