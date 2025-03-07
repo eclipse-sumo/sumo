@@ -143,7 +143,7 @@ public:
         return myVehicleTypes;
     }
 
-    inline bool detectPersons() const {
+    inline bool detectsPersons() const {
         return myDetectPersons != 0;
     }
 

@@ -58,7 +58,7 @@ MSDetectorFileOutput::MSDetectorFileOutput(const std::string& id,
 
 bool
 MSDetectorFileOutput::vehicleApplies(const SUMOTrafficObject& veh) const {
-    if (veh.isVehicle() == detectPersons()) {
+    if (veh.isVehicle() == detectsPersons()) {
         return false;
     }
     if (!myVehicleTypes.empty() && myVehicleTypes.count(veh.getVehicleType().getOriginalID()) == 0) {

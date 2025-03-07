@@ -446,7 +446,7 @@ MSMeanData::init() {
         // use all edges by default
         for (MSEdge* const edge : MSNet::getInstance()->getEdgeControl().getEdges()) {
             if ((myDumpInternal || !edge->isInternal()) &&
-                    ((detectPersons() && myDumpInternal) || (!edge->isCrossing() && !edge->isWalkingArea()))) {
+                    ((detectsPersons() && myDumpInternal) || (!edge->isCrossing() && !edge->isWalkingArea()))) {
                 myEdges.push_back(edge);
             }
         }
