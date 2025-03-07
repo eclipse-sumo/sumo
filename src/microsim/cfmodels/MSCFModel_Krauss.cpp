@@ -115,14 +115,13 @@ MSCFModel_Krauss::followSpeed(const MSVehicle* const veh, double speed, double g
     //gDebugFlag1 = DEBUG_COND; // enable for DEBUG_EMERGENCYDECEL
     const double vsafe = maximumSafeFollowSpeed(gap, speed, predSpeed, predMaxDecel);
     //gDebugFlag1 = false;
-    const double vmin = minNextSpeedEmergency(speed);
     const double vmax = maxNextSpeed(speed, veh);
     if (MSGlobals::gSemiImplicitEulerUpdate) {
         return MIN2(vsafe, vmax);
     } else {
         // ballistic
         // XXX: the euler variant can break as strong as it wishes immediately! The ballistic cannot, refs. #2575.
-        return MAX2(MIN2(vsafe, vmax), vmin);
+        return MAX2(MIN2(vsafe, vmax), minNextSpeedEmergency(speed));
     }
 }
 
