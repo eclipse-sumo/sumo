@@ -33,6 +33,8 @@
 
 GNEContainerStop::GNEContainerStop(GNENet* net) :
     GNEStoppingPlace(net, GLO_CONTAINER_STOP, SUMO_TAG_CONTAINER_STOP, GUIIcon::CONTAINERSTOP) {
+    // reset default values
+    resetDefaultValues();
 }
 
 
