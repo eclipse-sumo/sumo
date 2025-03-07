@@ -118,11 +118,17 @@ MSE3Collector::MSE3EntryReminder::notifyMove(SUMOTrafficObject& veh, double oldP
             // was behind the detector already in the last step
 #ifdef DEBUG_E3_NOTIFY_MOVE
             if (DEBUG_COND(myCollector) && DEBUG_COND_VEH(veh)) {
-                std::cout << "    already behind\n";
+                std::cout << "    already behind, isPerson=" << veh.isPerson() << "\n";
             }
 #endif
             return false;
         } else {
+            if (veh.isVehicle() && &veh.getLane()->getEdge() == &myLane->getEdge() && veh.getLane() != myLane) {
+#ifdef DEBUG_E3_NOTIFY_ENTER
+                std::cout << veh.getID() << " is on the wrong lane\n";
+#endif
+                return true;
+            }
             // entered in this step
             const double oldSpeed = veh.getPreviousSpeed();
             const double entryTime = STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep());
