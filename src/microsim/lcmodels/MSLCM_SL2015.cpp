@@ -3058,7 +3058,7 @@ MSLCM_SL2015::mustOvertakeStopped(bool checkCurrent, const MSLane& neighLane, co
         // #todo fix this if the neigh lane has a different width
         const double offset = (latLaneDist < 0 ? -1 : 1) * myVehicle.getLane()->getWidth();
         neighLead.getSubLanes(&myVehicle, offset, rightmost, leftmost);
-        for (int i = 0; i < neighLead.numSublanes(); i++) {
+        for (int i = 0; i < leaders.numSublanes(); i++) {
             const CLeaderDist& leader = leaders[i];
             if (leader.first != 0 && leader.first->isStopped() && leader.second < REACT_TO_STOPPED_DISTANCE) {
                 mustOvertake = true;
