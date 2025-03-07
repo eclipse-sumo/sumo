@@ -4,7 +4,7 @@ TestFunctions: 'reference.png' found. Position: 304 - 168
 trainStop
 TestFunctions: Clicked over position 649 - 389
 TestFunctions: Clicked over position 819 - 581
-TestFunctions: Clicked over position 648 - 372
+TestFunctions: Clicked over position 647 - 372
 ts_1
 Id with spaces
 correctID

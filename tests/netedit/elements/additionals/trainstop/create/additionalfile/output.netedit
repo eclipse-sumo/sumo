@@ -3,10 +3,10 @@ Finding reference
 TestFunctions: 'reference.png' found. Position: 304 - 168
 trainStop
 TestFunctions: Clicked over position 649 - 389
-C:\Users\alva_pa\.texttest\tmp\netedit.gui.06Mar100733.17564\netedit.gui\elements\additionals\busstop\create\additionalfile
+/home/palcraft/.texttest/tmp/netedit.gui.07Mar134531.5187/netedit.gui/elements/additionals/trainstop/create/additionalfile
 additional.secondFile.add.xml
 TestFunctions: Clicked over position 636 - 416
-C:\Users\alva_pa\.texttest\tmp\netedit.gui.06Mar100733.17564\netedit.gui\elements\additionals\busstop\create\additionalfile/additional.thirdFile.add.xml
+/home/palcraft/.texttest/tmp/netedit.gui.07Mar134531.5187/netedit.gui/elements/additionals/trainstop/create/additionalfile/additional.thirdFile.add.xml
 TestFunctions: Clicked over position 798 - 194
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Clicked over position 304 - 168
