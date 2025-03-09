@@ -89,7 +89,7 @@
 
 //#define DEBUG_COND (myVehicle.getID() == "disabled")
 #define DEBUG_COND (myVehicle.isSelected())
-//#define DEBUG_COND (false)
+//#define DEBUG_COND (true)
 
 // ===========================================================================
 // member method definitions
@@ -111,7 +111,7 @@ MSLCM_LC2013::MSLCM_LC2013(MSVehicle& v) :
     myAssertive(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_ASSERTIVE, 1)),
     mySpeedGainLookahead(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_SPEEDGAIN_LOOKAHEAD, 0)),
     mySpeedGainRemainTime(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_SPEEDGAIN_REMAIN_TIME, 20)),
-    mySpeedGainUrgency(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_SPEEDGAIN_URGENCY, 100)),
+    mySpeedGainUrgency(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_SPEEDGAIN_URGENCY, 50)),
     myRoundaboutBonus(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_COOPERATIVE_ROUNDABOUT, myCooperativeParam)),
     myCooperativeSpeed(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_COOPERATIVE_SPEED, myCooperativeParam)),
     myKeepRightAcceptanceTime(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_KEEPRIGHT_ACCEPTANCE_TIME, -1)),
@@ -1666,6 +1666,14 @@ MSLCM_LC2013::_wantsChange(
 #endif
         req = ret | lca | LCA_COOPERATIVE | LCA_URGENT ;//| LCA_CHANGE_TO_HELP;
         if (!cancelRequest(req, laneOffset)) {
+            if ((blocked & LCA_BLOCKED_BY_LEFT_FOLLOWER) && !right && mySpeedGainProbability > mySpeedGainUrgency) {
+                MSVehicle* nv = neighFollow.first;
+                const bool hasBidiNeighFollower = neighLane.getBidiLane() != nullptr && MSLCHelper::isBidiFollower(&myVehicle, nv);
+                if (nv != nullptr && !hasBidiNeighFollower) {
+                    const double helpSpeed = MAX2(nv->getCarFollowModel().minNextSpeed(nv->getSpeed(), nv), myVehicle.getSpeed() - 1);
+                    msgPass.informNeighFollower(new Info(helpSpeed, myLca | LCA_AMBLOCKINGFOLLOWER), &myVehicle);
+                }
+            }
             return ret | req;
         }
     }
@@ -1824,7 +1832,7 @@ MSLCM_LC2013::_wantsChange(
                 && neighDist / MAX2(.1, myVehicle.getSpeed()) > mySpeedGainRemainTime) { //./MAX2( .1, myVehicle.getSpeed())) { // -.1
             req = ret | lca | LCA_SPEEDGAIN;
             if (abs(mySpeedGainProbability) > mySpeedGainUrgency) {
-                ret |= LCA_URGENT;
+                req |= LCA_URGENT;
             }
             if (!cancelRequest(req, laneOffset)) {
                 return ret | req;
@@ -1874,9 +1882,17 @@ MSLCM_LC2013::_wantsChange(
                 && neighDist / MAX2(.1, myVehicle.getSpeed()) > mySpeedGainRemainTime) { // .1
             req = ret | lca | LCA_SPEEDGAIN;
             if (abs(mySpeedGainProbability) > mySpeedGainUrgency) {
-                ret |= LCA_URGENT;
+                req |= LCA_URGENT;
             }
             if (!cancelRequest(req, laneOffset)) {
+                if ((req & LCA_URGENT) && (blocked & LCA_BLOCKED_BY_LEFT_FOLLOWER)) {
+                    MSVehicle* nv = neighFollow.first;
+                    const bool hasBidiNeighFollower = neighLane.getBidiLane() != nullptr && MSLCHelper::isBidiFollower(&myVehicle, nv);
+                    if (nv != nullptr && !hasBidiNeighFollower) {
+                        const double helpSpeed = MAX2(nv->getCarFollowModel().minNextSpeed(nv->getSpeed(), nv), myVehicle.getSpeed() - 1);
+                        msgPass.informNeighFollower(new Info(helpSpeed, myLca | LCA_AMBLOCKINGFOLLOWER), &myVehicle);
+                    }
+                }
                 return ret | req;
             }
         }
