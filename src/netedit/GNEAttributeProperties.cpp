@@ -53,6 +53,8 @@ GNEAttributeProperties::GNEAttributeProperties(GNETagProperties* tagProperties, 
     myDefaultValue(defaultValue) {
     // check build conditions (only in debug mode)
     checkBuildConstraints();
+    // parse default values
+    parseDefaultValues(defaultValue);
     // add attribute in tag properties vector
     tagProperties->myAttributeProperties.push_back(this);
 }
@@ -66,9 +68,11 @@ GNEAttributeProperties::GNEAttributeProperties(GNETagProperties* tagProperties, 
     myAttributeProperty(attributeProperty),
     myEditProperty(editProperty),
     myDefinition(definition),
-    myDefaultValue(defaultValue) {
+    myDefaultValue(defaultValueMask) {
     // check build conditions (only in debug mode)
     checkBuildConstraints();
+    // parse default values
+    parseDefaultValues(defaultValue);
     // add attribute in tag properties vector
     tagProperties->myAttributeProperties.push_back(this);
 }
@@ -643,6 +647,28 @@ GNEAttributeProperties::checkBuildConstraints() const {
         }
     }
 #endif // DEBUG
+}
+
+
+void
+GNEAttributeProperties::parseDefaultValues(const std::string& defaultValue) {
+    // in every case parse default value back (to avoid problems during comparations)
+    if (isInt()) {
+        myDefaultIntValue = GNEAttributeCarrier::parse<int>(defaultValue);
+        myDefaultValue = toString(myDefaultIntValue);
+    } else if (isFloat()) {
+        myDefaultDoubleValue = GNEAttributeCarrier::parse<double>(defaultValue);
+        myDefaultValue = toString(myDefaultDoubleValue);
+    } else if (isSUMOTime()) {
+        myDefaultTimeValue = GNEAttributeCarrier::parse<SUMOTime>(defaultValue);
+        myDefaultValue = toString(myDefaultTimeValue);
+    } else if (isBool()) {
+        myDefaultBoolValue = GNEAttributeCarrier::parse<bool>(defaultValue);
+        myDefaultValue = toString(myDefaultBoolValue);
+    } else if (isBool()) {
+        myDefaultColorValue = GNEAttributeCarrier::parse<RGBColor>(defaultValue);
+        myDefaultValue = toString(myDefaultColorValue);
+    }
 }
 
 /****************************************************************************/

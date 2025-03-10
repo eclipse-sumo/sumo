@@ -262,13 +262,21 @@ GNEAttributeCarrier::hasAttribute(SumoXMLAttr key) const {
 
 template<> int
 GNEAttributeCarrier::parse(const std::string& string) {
-    return StringUtils::toInt(string);
+    if (string == "INVALID_INT") {
+        return INVALID_INT;
+    } else {
+        return StringUtils::toInt(string);
+    }
 }
 
 
 template<> double
 GNEAttributeCarrier::parse(const std::string& string) {
-    return StringUtils::toDouble(string);
+    if (string == "INVALID_DOUBLE") {
+        return INVALID_DOUBLE;
+    } else {
+        return StringUtils::toDouble(string);
+    }
 }
 
 
