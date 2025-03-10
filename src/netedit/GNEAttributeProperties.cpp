@@ -50,7 +50,7 @@ GNEAttributeProperties::GNEAttributeProperties(GNETagProperties* tagProperties, 
     myAttributeProperty(attributeProperty),
     myEditProperty(editProperty),
     myDefinition(definition),
-    myDefaultValue(defaultValue) {
+    myDefaultStringValue(defaultValue) {
     // check build conditions (only in debug mode)
     checkBuildConstraints();
     // parse default values
@@ -68,7 +68,7 @@ GNEAttributeProperties::GNEAttributeProperties(GNETagProperties* tagProperties, 
     myAttributeProperty(attributeProperty),
     myEditProperty(editProperty),
     myDefinition(definition),
-    myDefaultValue(defaultValueMask) {
+    myDefaultStringValue(defaultValueMask) {
     // check build conditions (only in debug mode)
     checkBuildConstraints();
     // parse default values
@@ -94,22 +94,22 @@ GNEAttributeProperties::checkAttributeIntegrity() const {
     }
     // check that default values can be parsed (only in debug mode)
     if (hasDefaultValue()) {
-        if (isInt() && !GNEAttributeCarrier::canParse<int>(myDefaultValue)) {
+        if (isInt() && !GNEAttributeCarrier::canParse<int>(myDefaultStringValue)) {
             throw FormatException("Default value cannot be parsed to int");
         }
-        if (isFloat() && !GNEAttributeCarrier::canParse<double>(myDefaultValue)) {
+        if (isFloat() && !GNEAttributeCarrier::canParse<double>(myDefaultStringValue)) {
             throw FormatException("Default value cannot be parsed to float");
         }
-        if (isSUMOTime() && !GNEAttributeCarrier::canParse<SUMOTime>(myDefaultValue)) {
+        if (isSUMOTime() && !GNEAttributeCarrier::canParse<SUMOTime>(myDefaultStringValue)) {
             throw FormatException("Default value cannot be parsed to SUMOTime");
         }
-        if (isBool() && !GNEAttributeCarrier::canParse<bool>(myDefaultValue)) {
+        if (isBool() && !GNEAttributeCarrier::canParse<bool>(myDefaultStringValue)) {
             throw FormatException("Default value cannot be parsed to bool");
         }
-        if (isPosition() && (myDefaultValue.size() > 0) && !GNEAttributeCarrier::canParse<Position>(myDefaultValue)) {
+        if (isPosition() && (myDefaultStringValue.size() > 0) && !GNEAttributeCarrier::canParse<Position>(myDefaultStringValue)) {
             throw FormatException("Default value cannot be parsed to position");
         }
-        if (isColor() && !GNEAttributeCarrier::canParse<RGBColor>(myDefaultValue)) {
+        if (isColor() && !GNEAttributeCarrier::canParse<RGBColor>(myDefaultStringValue)) {
             throw FormatException("Default value cannot be parsed to color");
         }
     }
@@ -248,8 +248,8 @@ GNEAttributeProperties::getDefinition() const {
 
 
 const std::string&
-GNEAttributeProperties::getDefaultValue() const {
-    return myDefaultValue;
+GNEAttributeProperties::getDefaultStringValue() const {
+    return myDefaultStringValue;
 }
 
 
@@ -277,7 +277,7 @@ GNEAttributeProperties::getDefaultBoolValue() const {
 }
 
 
-RGBColor
+const RGBColor&
 GNEAttributeProperties::getDefaultColorValue() const {
     return myDefaultColorValue;
 }
@@ -633,7 +633,7 @@ GNEAttributeProperties::checkBuildConstraints() const {
         throw FormatException("Missing definition for AttributeProperty '" + toString(myAttribute) + "'");
     }
     // if default value isn't empty, but attribute doesn't support default values, throw exception.
-    if (!myDefaultValue.empty() && !(myAttributeProperty & DEFAULTVALUE)) {
+    if (!myDefaultStringValue.empty() && !(myAttributeProperty & DEFAULTVALUE)) {
         throw FormatException("AttributeProperty for '" + toString(myAttribute) + "' doesn't support default values");
     }
     // Attributes cannot be flowdefinition and enabilitablet at the same time
@@ -655,19 +655,19 @@ GNEAttributeProperties::parseDefaultValues(const std::string& defaultValue) {
     // in every case parse default value back (to avoid problems during comparations)
     if (isInt()) {
         myDefaultIntValue = GNEAttributeCarrier::parse<int>(defaultValue);
-        myDefaultValue = toString(myDefaultIntValue);
+        myDefaultStringValue = toString(myDefaultIntValue);
     } else if (isFloat()) {
         myDefaultDoubleValue = GNEAttributeCarrier::parse<double>(defaultValue);
-        myDefaultValue = toString(myDefaultDoubleValue);
+        myDefaultStringValue = toString(myDefaultDoubleValue);
     } else if (isSUMOTime()) {
         myDefaultTimeValue = GNEAttributeCarrier::parse<SUMOTime>(defaultValue);
-        myDefaultValue = toString(myDefaultTimeValue);
+        myDefaultStringValue = time2string(myDefaultTimeValue);
     } else if (isBool()) {
         myDefaultBoolValue = GNEAttributeCarrier::parse<bool>(defaultValue);
-        myDefaultValue = toString(myDefaultBoolValue);
+        myDefaultStringValue = toString(myDefaultBoolValue);
     } else if (isBool()) {
         myDefaultColorValue = GNEAttributeCarrier::parse<RGBColor>(defaultValue);
-        myDefaultValue = toString(myDefaultColorValue);
+        myDefaultStringValue = toString(myDefaultColorValue);
     }
 }
 

@@ -99,16 +99,16 @@ GNEMultiEntryExitDetector::writeAdditional(OutputDevice& device) const {
         if (myVehicleTypes.size() > 0) {
             device.writeAttr(SUMO_ATTR_VTYPES, myVehicleTypes);
         }
-        if (getAttribute(SUMO_ATTR_HALTING_TIME_THRESHOLD) != myTagProperty->getDefaultValue(SUMO_ATTR_HALTING_TIME_THRESHOLD)) {
-            device.writeAttr(SUMO_ATTR_HALTING_TIME_THRESHOLD, myTimeThreshold);
+        if (myTimeThreshold != myTagProperty->getDefaultTimeValue(SUMO_ATTR_HALTING_TIME_THRESHOLD)) {
+            device.writeAttr(SUMO_ATTR_HALTING_TIME_THRESHOLD, time2string(myTimeThreshold));
         }
-        if (getAttribute(SUMO_ATTR_HALTING_SPEED_THRESHOLD) != myTagProperty->getDefaultValue(SUMO_ATTR_HALTING_SPEED_THRESHOLD)) {
+        if (mySpeedThreshold != myTagProperty->getDefaultDoubleValue(SUMO_ATTR_HALTING_SPEED_THRESHOLD)) {
             device.writeAttr(SUMO_ATTR_HALTING_SPEED_THRESHOLD, mySpeedThreshold);
         }
-        if (getAttribute(SUMO_ATTR_EXPECT_ARRIVAL) != myTagProperty->getDefaultValue(SUMO_ATTR_EXPECT_ARRIVAL)) {
+        if (myExpectedArrival != myTagProperty->getDefaultBoolValue(SUMO_ATTR_EXPECT_ARRIVAL)) {
             device.writeAttr(SUMO_ATTR_EXPECT_ARRIVAL, myExpectedArrival);
         }
-        if (getAttribute(SUMO_ATTR_OPEN_ENTRY) != myTagProperty->getDefaultValue(SUMO_ATTR_OPEN_ENTRY)) {
+        if (myExpectedArrival != myTagProperty->getDefaultBoolValue(SUMO_ATTR_OPEN_ENTRY)) {
             device.writeAttr(SUMO_ATTR_OPEN_ENTRY, myExpectedArrival);
         }
         // write all entry/exits

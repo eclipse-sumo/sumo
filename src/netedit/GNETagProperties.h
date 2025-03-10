@@ -187,7 +187,22 @@ public:
     int getNumberOfAttributes() const;
 
     /// @brief return the default value of the attribute of an element
-    const std::string& getDefaultValue(SumoXMLAttr attr) const;
+    const std::string& getDefaultStringValue(SumoXMLAttr attr) const;
+
+    /// @brief get default int value
+    int getDefaultIntValue(SumoXMLAttr attr) const;
+
+    /// @brief get default double value
+    double getDefaultDoubleValue(SumoXMLAttr attr) const;
+
+    /// @brief get default time value
+    SUMOTime getDefaultTimeValue(SumoXMLAttr attr) const;
+
+    /// @brief get default bool value
+    bool getDefaultBoolValue(SumoXMLAttr attr) const;
+
+    /// @brief get default bool value
+    const RGBColor& getDefaultColorValue(SumoXMLAttr attr) const;
 
     /// @brief get GUI icon associated to this Tag
     GUIIcon getGUIIcon() const;

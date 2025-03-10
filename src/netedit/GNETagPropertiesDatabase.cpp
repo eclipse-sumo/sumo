@@ -402,7 +402,7 @@ GNETagPropertiesDatabase::writeAttributeHelp() const {
                 << attr->getDescription() << "|"
                 << StringUtils::replace(attr->getDefinition(), "\n", " ");
             if (attr->hasDefaultValue()) {
-                dev << " *default:* **" << attr->getDefaultValue() << "**";
+                dev << " *default:* **" << attr->getDefaultStringValue() << "**";
             }
             dev << "|\n";
         }

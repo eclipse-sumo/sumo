@@ -483,13 +483,13 @@ GNEPerson::getAttribute(SumoXMLAttr key) const {
             if (wasSet(VEHPARS_COLOR_SET)) {
                 return toString(color);
             } else {
-                return myTagProperty->getDefaultValue(SUMO_ATTR_COLOR);
+                return myTagProperty->getDefaultStringValue(SUMO_ATTR_COLOR);
             }
         case SUMO_ATTR_DEPARTPOS:
             if (wasSet(VEHPARS_DEPARTPOS_SET)) {
                 return getDepartPos();
             } else {
-                return myTagProperty->getDefaultValue(SUMO_ATTR_DEPARTPOS);
+                return myTagProperty->getDefaultStringValue(SUMO_ATTR_DEPARTPOS);
             }
         default:
             return getFlowAttribute(this, key);
@@ -671,25 +671,25 @@ GNEPerson::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             break;
         case SUMO_ATTR_COLOR:
-            if (!value.empty() && (value != myTagProperty->getDefaultValue(key))) {
+            if (!value.empty() && (value != myTagProperty->getDefaultStringValue(key))) {
                 color = parse<RGBColor>(value);
                 // mark parameter as set
                 parametersSet |= VEHPARS_COLOR_SET;
             } else {
                 // set default value
-                color = parse<RGBColor>(myTagProperty->getDefaultValue(key));
+                color = parse<RGBColor>(myTagProperty->getDefaultStringValue(key));
                 // unset parameter
                 parametersSet &= ~VEHPARS_COLOR_SET;
             }
             break;
         case SUMO_ATTR_DEPARTPOS:
-            if (!value.empty() && (value != myTagProperty->getDefaultValue(key))) {
+            if (!value.empty() && (value != myTagProperty->getDefaultStringValue(key))) {
                 parseDepartPos(value, toString(SUMO_TAG_PERSON), id, departPos, departPosProcedure, error);
                 // mark parameter as set
                 parametersSet |= VEHPARS_DEPARTPOS_SET;
             } else {
                 // set default value
-                parseDepartPos(myTagProperty->getDefaultValue(key), toString(SUMO_TAG_PERSON), id, departPos, departPosProcedure, error);
+                parseDepartPos(myTagProperty->getDefaultStringValue(key), toString(SUMO_TAG_PERSON), id, departPos, departPosProcedure, error);
                 // unset parameter
                 parametersSet &= ~VEHPARS_DEPARTPOS_SET;
             }

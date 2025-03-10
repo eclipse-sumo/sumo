@@ -129,7 +129,7 @@ public:
     const std::string& getDefinition() const;
 
     /// @brief get default value in string format
-    const std::string& getDefaultValue() const;
+    const std::string& getDefaultStringValue() const;
 
     /// @brief get default int value
     int getDefaultIntValue() const;
@@ -144,7 +144,7 @@ public:
     bool getDefaultBoolValue() const;
 
     /// @brief get default bool value
-    RGBColor getDefaultColorValue() const;
+    const RGBColor& getDefaultColorValue() const;
 
     /// @brief get default active value
     bool getDefaultActivated() const;
@@ -300,7 +300,7 @@ private:
     std::string myDefinition;
 
     /// @brief default string value
-    std::string myDefaultValue;
+    std::string myDefaultStringValue;
 
     /// @brief default int value
     int myDefaultIntValue = 0;

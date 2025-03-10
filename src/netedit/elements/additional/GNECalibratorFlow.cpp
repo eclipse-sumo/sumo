@@ -211,7 +211,7 @@ GNECalibratorFlow::getAttribute(SumoXMLAttr key) const {
             if (wasSet(VEHPARS_COLOR_SET)) {
                 return toString(color);
             } else {
-                return myTagProperty->getDefaultValue(SUMO_ATTR_COLOR);
+                return myTagProperty->getDefaultStringValue(SUMO_ATTR_COLOR);
             }
         case SUMO_ATTR_BEGIN:
             return time2string(depart);
@@ -221,55 +221,55 @@ GNECalibratorFlow::getAttribute(SumoXMLAttr key) const {
             if (wasSet(VEHPARS_DEPARTLANE_SET)) {
                 return getDepartLane();
             } else {
-                return myTagProperty->getDefaultValue(SUMO_ATTR_DEPARTLANE);
+                return myTagProperty->getDefaultStringValue(SUMO_ATTR_DEPARTLANE);
             }
         case SUMO_ATTR_DEPARTPOS:
             if (wasSet(VEHPARS_DEPARTPOS_SET)) {
                 return getDepartPos();
             } else {
-                return myTagProperty->getDefaultValue(SUMO_ATTR_DEPARTPOS);
+                return myTagProperty->getDefaultStringValue(SUMO_ATTR_DEPARTPOS);
             }
         case SUMO_ATTR_DEPARTSPEED:
             if (wasSet(VEHPARS_DEPARTSPEED_SET)) {
                 return getDepartSpeed();
             } else {
-                return myTagProperty->getDefaultValue(SUMO_ATTR_DEPARTSPEED);
+                return myTagProperty->getDefaultStringValue(SUMO_ATTR_DEPARTSPEED);
             }
         case SUMO_ATTR_ARRIVALLANE:
             if (wasSet(VEHPARS_ARRIVALLANE_SET)) {
                 return getArrivalLane();
             } else {
-                return myTagProperty->getDefaultValue(SUMO_ATTR_ARRIVALLANE);
+                return myTagProperty->getDefaultStringValue(SUMO_ATTR_ARRIVALLANE);
             }
         case SUMO_ATTR_ARRIVALPOS:
             if (wasSet(VEHPARS_ARRIVALPOS_SET)) {
                 return getArrivalPos();
             } else {
-                return myTagProperty->getDefaultValue(SUMO_ATTR_ARRIVALPOS);
+                return myTagProperty->getDefaultStringValue(SUMO_ATTR_ARRIVALPOS);
             }
         case SUMO_ATTR_ARRIVALSPEED:
             if (wasSet(VEHPARS_ARRIVALSPEED_SET)) {
                 return getArrivalSpeed();
             } else {
-                return myTagProperty->getDefaultValue(SUMO_ATTR_ARRIVALSPEED);
+                return myTagProperty->getDefaultStringValue(SUMO_ATTR_ARRIVALSPEED);
             }
         case SUMO_ATTR_LINE:
             if (wasSet(VEHPARS_LINE_SET)) {
                 return line;
             } else {
-                return myTagProperty->getDefaultValue(SUMO_ATTR_LINE);
+                return myTagProperty->getDefaultStringValue(SUMO_ATTR_LINE);
             }
         case SUMO_ATTR_PERSON_NUMBER:
             if (wasSet(VEHPARS_PERSON_NUMBER_SET)) {
                 return toString(personNumber);
             } else {
-                return myTagProperty->getDefaultValue(SUMO_ATTR_PERSON_NUMBER);
+                return myTagProperty->getDefaultStringValue(SUMO_ATTR_PERSON_NUMBER);
             }
         case SUMO_ATTR_CONTAINER_NUMBER:
             if (wasSet(VEHPARS_CONTAINER_NUMBER_SET)) {
                 return toString(containerNumber);
             } else {
-                return myTagProperty->getDefaultValue(SUMO_ATTR_CONTAINER_NUMBER);
+                return myTagProperty->getDefaultStringValue(SUMO_ATTR_CONTAINER_NUMBER);
             }
         case SUMO_ATTR_REROUTE:
             if (wasSet(VEHPARS_CONTAINER_NUMBER_SET)) {
@@ -281,13 +281,13 @@ GNECalibratorFlow::getAttribute(SumoXMLAttr key) const {
             if (wasSet(VEHPARS_DEPARTPOSLAT_SET)) {
                 return getDepartPosLat();
             } else {
-                return myTagProperty->getDefaultValue(SUMO_ATTR_DEPARTPOS_LAT);
+                return myTagProperty->getDefaultStringValue(SUMO_ATTR_DEPARTPOS_LAT);
             }
         case SUMO_ATTR_ARRIVALPOS_LAT:
             if (wasSet(VEHPARS_ARRIVALPOSLAT_SET)) {
                 return getArrivalPosLat();
             } else {
-                return myTagProperty->getDefaultValue(SUMO_ATTR_ARRIVALPOS_LAT);
+                return myTagProperty->getDefaultStringValue(SUMO_ATTR_ARRIVALPOS_LAT);
             }
         case SUMO_ATTR_INSERTIONCHECKS:
             return getInsertionChecks();
@@ -551,13 +551,13 @@ GNECalibratorFlow::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             break;
         case SUMO_ATTR_COLOR:
-            if (!value.empty() && (value != myTagProperty->getDefaultValue(key))) {
+            if (!value.empty() && (value != myTagProperty->getDefaultStringValue(key))) {
                 color = parse<RGBColor>(value);
                 // mark parameter as set
                 parametersSet |= VEHPARS_COLOR_SET;
             } else {
                 // set default value
-                color = parse<RGBColor>(myTagProperty->getDefaultValue(key));
+                color = myTagProperty->getDefaultColorValue(key);
                 // unset parameter
                 parametersSet &= ~VEHPARS_COLOR_SET;
             }
@@ -569,25 +569,25 @@ GNECalibratorFlow::setAttribute(SumoXMLAttr key, const std::string& value) {
             repetitionEnd = string2time(value);
             break;
         case SUMO_ATTR_DEPARTLANE:
-            if (!value.empty() && (value != myTagProperty->getDefaultValue(key))) {
+            if (!value.empty() && (value != myTagProperty->getDefaultStringValue(key))) {
                 parseDepartLane(value, myTagProperty->getTagStr(), id, departLane, departLaneProcedure, error);
                 // mark parameter as set
                 parametersSet |= VEHPARS_DEPARTLANE_SET;
             } else {
                 // set default value
-                parseDepartLane(myTagProperty->getDefaultValue(key), myTagProperty->getTagStr(), id, departLane, departLaneProcedure, error);
+                parseDepartLane(myTagProperty->getDefaultStringValue(key), myTagProperty->getTagStr(), id, departLane, departLaneProcedure, error);
                 // unset parameter
                 parametersSet &= ~VEHPARS_DEPARTLANE_SET;
             }
             break;
         case SUMO_ATTR_DEPARTPOS:
-            if (!value.empty() && (value != myTagProperty->getDefaultValue(key))) {
+            if (!value.empty() && (value != myTagProperty->getDefaultStringValue(key))) {
                 parseDepartPos(value, myTagProperty->getTagStr(), id, departPos, departPosProcedure, error);
                 // mark parameter as set
                 parametersSet |= VEHPARS_DEPARTPOS_SET;
             } else {
                 // set default value
-                parseDepartPos(myTagProperty->getDefaultValue(key), myTagProperty->getTagStr(), id, departPos, departPosProcedure, error);
+                parseDepartPos(myTagProperty->getDefaultStringValue(key), myTagProperty->getTagStr(), id, departPos, departPosProcedure, error);
                 // unset parameter
                 parametersSet &= ~VEHPARS_DEPARTPOS_SET;
             }
@@ -597,37 +597,37 @@ GNECalibratorFlow::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             break;
         case SUMO_ATTR_DEPARTSPEED:
-            if (!value.empty() && (value != myTagProperty->getDefaultValue(key))) {
+            if (!value.empty() && (value != myTagProperty->getDefaultStringValue(key))) {
                 parseDepartSpeed(value, myTagProperty->getTagStr(), id, departSpeed, departSpeedProcedure, error);
                 // mark parameter as set
                 parametersSet |= VEHPARS_DEPARTSPEED_SET;
             } else {
                 // set default value
-                parseDepartSpeed(myTagProperty->getDefaultValue(key), myTagProperty->getTagStr(), id, departSpeed, departSpeedProcedure, error);
+                parseDepartSpeed(myTagProperty->getDefaultStringValue(key), myTagProperty->getTagStr(), id, departSpeed, departSpeedProcedure, error);
                 // unset parameter
                 parametersSet &= ~VEHPARS_DEPARTSPEED_SET;
             }
             break;
         case SUMO_ATTR_ARRIVALLANE:
-            if (!value.empty() && (value != myTagProperty->getDefaultValue(key))) {
+            if (!value.empty() && (value != myTagProperty->getDefaultStringValue(key))) {
                 parseArrivalLane(value, myTagProperty->getTagStr(), id, arrivalLane, arrivalLaneProcedure, error);
                 // mark parameter as set
                 parametersSet |= VEHPARS_ARRIVALLANE_SET;
             } else {
                 // set default value
-                parseArrivalLane(myTagProperty->getDefaultValue(key), myTagProperty->getTagStr(), id, arrivalLane, arrivalLaneProcedure, error);
+                parseArrivalLane(myTagProperty->getDefaultStringValue(key), myTagProperty->getTagStr(), id, arrivalLane, arrivalLaneProcedure, error);
                 // unset parameter
                 parametersSet &= ~VEHPARS_ARRIVALLANE_SET;
             }
             break;
         case SUMO_ATTR_ARRIVALPOS:
-            if (!value.empty() && (value != myTagProperty->getDefaultValue(key))) {
+            if (!value.empty() && (value != myTagProperty->getDefaultStringValue(key))) {
                 parseArrivalPos(value, myTagProperty->getTagStr(), id, arrivalPos, arrivalPosProcedure, error);
                 // mark parameter as set
                 parametersSet |= VEHPARS_ARRIVALPOS_SET;
             } else {
                 // set default value
-                parseArrivalPos(myTagProperty->getDefaultValue(key), myTagProperty->getTagStr(), id, arrivalPos, arrivalPosProcedure, error);
+                parseArrivalPos(myTagProperty->getDefaultStringValue(key), myTagProperty->getTagStr(), id, arrivalPos, arrivalPosProcedure, error);
                 // unset parameter
                 parametersSet &= ~VEHPARS_ARRIVALPOS_SET;
             }
@@ -637,55 +637,55 @@ GNECalibratorFlow::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             break;
         case SUMO_ATTR_ARRIVALSPEED:
-            if (!value.empty() && (value != myTagProperty->getDefaultValue(key))) {
+            if (!value.empty() && (value != myTagProperty->getDefaultStringValue(key))) {
                 parseArrivalSpeed(value, myTagProperty->getTagStr(), id, arrivalSpeed, arrivalSpeedProcedure, error);
                 // mark parameter as set
                 parametersSet |= VEHPARS_ARRIVALSPEED_SET;
             } else {
                 // set default value
-                parseArrivalSpeed(myTagProperty->getDefaultValue(key), myTagProperty->getTagStr(), id, arrivalSpeed, arrivalSpeedProcedure, error);
+                parseArrivalSpeed(myTagProperty->getDefaultStringValue(key), myTagProperty->getTagStr(), id, arrivalSpeed, arrivalSpeedProcedure, error);
                 // unset parameter
                 parametersSet &= ~VEHPARS_ARRIVALSPEED_SET;
             }
             break;
         case SUMO_ATTR_LINE:
-            if (!value.empty() && (value != myTagProperty->getDefaultValue(key))) {
+            if (!value.empty() && (value != myTagProperty->getDefaultStringValue(key))) {
                 line = value;
                 // mark parameter as set
                 parametersSet |= VEHPARS_LINE_SET;
             } else {
                 // set default value
-                line = myTagProperty->getDefaultValue(key);
+                line = myTagProperty->getDefaultStringValue(key);
                 // unset parameter
                 parametersSet &= ~VEHPARS_LINE_SET;
             }
             break;
         case SUMO_ATTR_PERSON_NUMBER:
-            if (!value.empty() && (value != myTagProperty->getDefaultValue(key))) {
+            if (!value.empty() && (value != myTagProperty->getDefaultStringValue(key))) {
                 personNumber = parse<int>(value);
                 // mark parameter as set
                 parametersSet |= VEHPARS_PERSON_NUMBER_SET;
             } else {
                 // set default value
-                personNumber = parse<int>(myTagProperty->getDefaultValue(key));
+                personNumber = myTagProperty->getDefaultIntValue(key);
                 // unset parameter
                 parametersSet &= ~VEHPARS_PERSON_NUMBER_SET;
             }
             break;
         case SUMO_ATTR_CONTAINER_NUMBER:
-            if (!value.empty() && (value != myTagProperty->getDefaultValue(key))) {
+            if (!value.empty() && (value != myTagProperty->getDefaultStringValue(key))) {
                 containerNumber = parse<int>(value);
                 // mark parameter as set
                 parametersSet |= VEHPARS_CONTAINER_NUMBER_SET;
             } else {
                 // set default value
-                containerNumber = parse<int>(myTagProperty->getDefaultValue(key));
+                containerNumber = myTagProperty->getDefaultIntValue(key);
                 // unset parameter
                 parametersSet &= ~VEHPARS_CONTAINER_NUMBER_SET;
             }
             break;
         case SUMO_ATTR_REROUTE:
-            if (!value.empty() && (value != myTagProperty->getDefaultValue(key))) {
+            if (!value.empty() && (value != myTagProperty->getDefaultStringValue(key))) {
                 // mark parameter as set
                 parametersSet |= VEHPARS_ROUTE_SET;
             } else {
@@ -694,25 +694,25 @@ GNECalibratorFlow::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             break;
         case SUMO_ATTR_DEPARTPOS_LAT:
-            if (!value.empty() && (value != myTagProperty->getDefaultValue(key))) {
+            if (!value.empty() && (value != myTagProperty->getDefaultStringValue(key))) {
                 parseDepartPosLat(value, myTagProperty->getTagStr(), id, departPosLat, departPosLatProcedure, error);
                 // mark parameter as set
                 parametersSet |= VEHPARS_DEPARTPOSLAT_SET;
             } else {
                 // set default value
-                parseDepartPosLat(myTagProperty->getDefaultValue(key), myTagProperty->getTagStr(), id, departPosLat, departPosLatProcedure, error);
+                parseDepartPosLat(myTagProperty->getDefaultStringValue(key), myTagProperty->getTagStr(), id, departPosLat, departPosLatProcedure, error);
                 // unset parameter
                 parametersSet &= ~VEHPARS_DEPARTPOSLAT_SET;
             }
             break;
         case SUMO_ATTR_ARRIVALPOS_LAT:
-            if (!value.empty() && (value != myTagProperty->getDefaultValue(key))) {
+            if (!value.empty() && (value != myTagProperty->getDefaultStringValue(key))) {
                 parseArrivalPosLat(value, myTagProperty->getTagStr(), id, arrivalPosLat, arrivalPosLatProcedure, error);
                 // mark parameter as set
                 parametersSet |= VEHPARS_ARRIVALPOSLAT_SET;
             } else {
                 // set default value
-                parseArrivalPosLat(myTagProperty->getDefaultValue(key), myTagProperty->getTagStr(), id, arrivalPosLat, arrivalPosLatProcedure, error);
+                parseArrivalPosLat(myTagProperty->getDefaultStringValue(key), myTagProperty->getTagStr(), id, arrivalPosLat, arrivalPosLatProcedure, error);
                 // unset parameter
                 parametersSet &= ~VEHPARS_ARRIVALPOSLAT_SET;
             }

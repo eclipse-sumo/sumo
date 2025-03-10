@@ -91,7 +91,7 @@ GNEMeanData::writeMeanData(OutputDevice& device) const {
     if (myEnd != -1) {
         device.writeAttr(SUMO_ATTR_END, STEPS2TIME(myEnd));
     }
-    if (myExcludeEmpty != myTagProperty->getDefaultValue(SUMO_ATTR_EXCLUDE_EMPTY)) {
+    if (myExcludeEmpty != myTagProperty->getDefaultStringValue(SUMO_ATTR_EXCLUDE_EMPTY)) {
         device.writeAttr(SUMO_ATTR_EXCLUDE_EMPTY, myExcludeEmpty);
     }
     if (myWithInternal) {

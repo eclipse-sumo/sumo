@@ -479,21 +479,21 @@ GNEDemandElementFlow::setDefaultFlowAttributes(GNEDemandElement* flowElement) {
     if (flowElement->getTagProperty()->isFlow()) {
         // end
         if ((parametersSet & VEHPARS_END_SET) == 0) {
-            setFlowAttribute(flowElement, SUMO_ATTR_END, flowElement->getTagProperty()->getDefaultValue(SUMO_ATTR_END));
+            setFlowAttribute(flowElement, SUMO_ATTR_END, flowElement->getTagProperty()->getDefaultStringValue(SUMO_ATTR_END));
         }
         // number
         if ((parametersSet & VEHPARS_NUMBER_SET) == 0) {
-            setFlowAttribute(flowElement, SUMO_ATTR_NUMBER, flowElement->getTagProperty()->getDefaultValue(SUMO_ATTR_NUMBER));
+            setFlowAttribute(flowElement, SUMO_ATTR_NUMBER, flowElement->getTagProperty()->getDefaultStringValue(SUMO_ATTR_NUMBER));
         }
         // vehicles/person/container per hour
         if (((parametersSet & VEHPARS_PERIOD_SET) == 0) &&
                 ((parametersSet & VEHPARS_POISSON_SET) == 0) &&
                 ((parametersSet & VEHPARS_VPH_SET) == 0)) {
-            setFlowAttribute(flowElement, SUMO_ATTR_PERIOD, flowElement->getTagProperty()->getDefaultValue(SUMO_ATTR_PERIOD));
+            setFlowAttribute(flowElement, SUMO_ATTR_PERIOD, flowElement->getTagProperty()->getDefaultStringValue(SUMO_ATTR_PERIOD));
         }
         // probability
         if ((parametersSet & VEHPARS_PROB_SET) == 0) {
-            setFlowAttribute(flowElement, SUMO_ATTR_PROB, flowElement->getTagProperty()->getDefaultValue(SUMO_ATTR_PROB));
+            setFlowAttribute(flowElement, SUMO_ATTR_PROB, flowElement->getTagProperty()->getDefaultStringValue(SUMO_ATTR_PROB));
         }
         // poisson
         if (repetitionOffset < 0) {

@@ -1101,7 +1101,7 @@ GNEEdge::copyEdgeType(const GNEEdgeType* edgeType, GNEUndoList* undoList) {
     for (int i = 0; i < (int)getChildLanes().size(); i++) {
         for (const auto& attrProperty : laneTypeProperties->getAttributeProperties()) {
             if (attrProperty->isCopyable() && laneProperties->hasAttribute(attrProperty->getAttr()) &&
-                    (edgeType->getLaneTypes().at(i)->getAttribute(attrProperty->getAttr()) != laneTypeProperties->getAttributeProperties(attrProperty->getAttr())->getDefaultValue())) {
+                    (edgeType->getLaneTypes().at(i)->getAttribute(attrProperty->getAttr()) != laneTypeProperties->getAttributeProperties(attrProperty->getAttr())->getDefaultStringValue())) {
                 getChildLanes()[i]->setAttribute(attrProperty->getAttr(), edgeType->getLaneTypes().at(i)->getAttribute(attrProperty->getAttr()), undoList);
             }
         }

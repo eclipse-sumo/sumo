@@ -231,7 +231,7 @@ GNEVType::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_SIGMA:
         case SUMO_ATTR_TAU:
             // this CFM has default values
-            return getCFParamString(key, myTagProperty->getDefaultValue(key));
+            return getCFParamString(key, myTagProperty->getDefaultStringValue(key));
         // JM Attributes
         case SUMO_ATTR_JM_CROSSING_GAP:
         case SUMO_ATTR_JM_IGNORE_KEEPCLEAR_TIME:
@@ -243,12 +243,12 @@ GNEVType::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_JM_SIGMA_MINOR:
         case SUMO_ATTR_JM_TIMEGAP_MINOR:
             // this JM has default values
-            return getJMParamString(key, myTagProperty->getDefaultValue(key));
+            return getJMParamString(key, myTagProperty->getDefaultStringValue(key));
         case SUMO_ATTR_IMPATIENCE:
             if (wasSet(VTYPEPARS_IMPATIENCE_SET)) {
                 return toString(impatience);
             } else {
-                return myTagProperty->getDefaultValue(SUMO_ATTR_IMPATIENCE);
+                return myTagProperty->getDefaultStringValue(SUMO_ATTR_IMPATIENCE);
             }
         // LCM Attributes
         case SUMO_ATTR_LCA_STRATEGIC_PARAM:
@@ -272,7 +272,7 @@ GNEVType::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_LCA_KEEPRIGHT_ACCEPTANCE_TIME:
         case SUMO_ATTR_LCA_OVERTAKE_DELTASPEED_FACTOR:
             /* case SUMO_ATTR_LCA_EXPERIMENTAL1: */
-            return getLCParamString(key, myTagProperty->getDefaultValue(key));
+            return getLCParamString(key, myTagProperty->getDefaultStringValue(key));
         //
         case SUMO_ATTR_CF_EIDM_USEVEHDYNAMICS:
         case SUMO_ATTR_CF_EIDM_MAX_VEH_PREVIEW:
@@ -298,7 +298,7 @@ GNEVType::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_CF_W99_CC7:
         case SUMO_ATTR_CF_W99_CC8:
         case SUMO_ATTR_CF_W99_CC9:
-            return getCFParamString(key, myTagProperty->getDefaultValue(key));
+            return getCFParamString(key, myTagProperty->getDefaultStringValue(key));
         case SUMO_ATTR_COLLISION_MINGAP_FACTOR:
         case SUMO_ATTR_TMP1:
         case SUMO_ATTR_TMP2:
@@ -382,7 +382,7 @@ GNEVType::getAttribute(SumoXMLAttr key) const {
             if (myDefaultVehicleType || wasSet(VTYPEPARS_VEHICLECLASS_SET)) {
                 return toString(vehicleClass);
             } else {
-                return myTagProperty->getDefaultValue(SUMO_ATTR_VCLASS);
+                return myTagProperty->getDefaultStringValue(SUMO_ATTR_VCLASS);
             }
         case SUMO_ATTR_EMISSIONCLASS:
             if (wasSet(VTYPEPARS_EMISSIONCLASS_SET)) {
@@ -412,31 +412,31 @@ GNEVType::getAttribute(SumoXMLAttr key) const {
             if (wasSet(VTYPEPARS_IMGFILE_SET)) {
                 return imgFile;
             } else {
-                return myTagProperty->getDefaultValue(SUMO_ATTR_IMGFILE);
+                return myTagProperty->getDefaultStringValue(SUMO_ATTR_IMGFILE);
             }
         case SUMO_ATTR_LANE_CHANGE_MODEL:
             if (wasSet(VTYPEPARS_LANE_CHANGE_MODEL_SET)) {
                 return SUMOXMLDefinitions::LaneChangeModels.getString(lcModel);
             } else {
-                return myTagProperty->getDefaultValue(SUMO_ATTR_LANE_CHANGE_MODEL);
+                return myTagProperty->getDefaultStringValue(SUMO_ATTR_LANE_CHANGE_MODEL);
             }
         case SUMO_ATTR_CAR_FOLLOW_MODEL:
             if (wasSet(VTYPEPARS_CAR_FOLLOW_MODEL)) {
                 return SUMOXMLDefinitions::CarFollowModels.getString(cfModel);
             } else {
-                return myTagProperty->getDefaultValue(SUMO_ATTR_CAR_FOLLOW_MODEL);
+                return myTagProperty->getDefaultStringValue(SUMO_ATTR_CAR_FOLLOW_MODEL);
             }
         case SUMO_ATTR_BOARDING_DURATION:
             if (wasSet(VTYPEPARS_BOARDING_DURATION)) {
                 return time2string(boardingDuration);
             } else {
-                return myTagProperty->getDefaultValue(SUMO_ATTR_BOARDING_DURATION);
+                return myTagProperty->getDefaultStringValue(SUMO_ATTR_BOARDING_DURATION);
             }
         case SUMO_ATTR_LOADING_DURATION:
             if (wasSet(VTYPEPARS_LOADING_DURATION)) {
                 return time2string(loadingDuration);
             } else {
-                return myTagProperty->getDefaultValue(SUMO_ATTR_LOADING_DURATION);
+                return myTagProperty->getDefaultStringValue(SUMO_ATTR_LOADING_DURATION);
             }
         case SUMO_ATTR_LATALIGNMENT:
             if (wasSet(VTYPEPARS_LATALIGNMENT_SET)) {
@@ -452,25 +452,25 @@ GNEVType::getAttribute(SumoXMLAttr key) const {
             if (wasSet(VTYPEPARS_MINGAP_LAT_SET)) {
                 return toString(minGapLat);
             } else {
-                return myTagProperty->getDefaultValue(SUMO_ATTR_MINGAP_LAT);
+                return myTagProperty->getDefaultStringValue(SUMO_ATTR_MINGAP_LAT);
             }
         case SUMO_ATTR_MAXSPEED_LAT:
             if (wasSet(VTYPEPARS_MAXSPEED_LAT_SET)) {
                 return toString(maxSpeedLat);
             } else {
-                return myTagProperty->getDefaultValue(SUMO_ATTR_MAXSPEED_LAT);
+                return myTagProperty->getDefaultStringValue(SUMO_ATTR_MAXSPEED_LAT);
             }
         case SUMO_ATTR_ACTIONSTEPLENGTH:
             if (wasSet(VTYPEPARS_ACTIONSTEPLENGTH_SET)) {
                 return toString(actionStepLength);
             } else {
-                return myTagProperty->getDefaultValue(SUMO_ATTR_ACTIONSTEPLENGTH);
+                return myTagProperty->getDefaultStringValue(SUMO_ATTR_ACTIONSTEPLENGTH);
             }
         case SUMO_ATTR_PROB:
             if (wasSet(VTYPEPARS_PROBABILITY_SET)) {
                 return toString(defaultProbability);
             } else {
-                return myTagProperty->getDefaultValue(SUMO_ATTR_PROB);
+                return myTagProperty->getDefaultStringValue(SUMO_ATTR_PROB);
             }
         case SUMO_ATTR_CARRIAGE_LENGTH:
             if (wasSet(VTYPEPARS_CARRIAGE_LENGTH_SET)) {
@@ -488,7 +488,7 @@ GNEVType::getAttribute(SumoXMLAttr key) const {
             if (wasSet(VTYPEPARS_CARRIAGE_GAP_SET)) {
                 return toString(carriageGap);
             } else {
-                return myTagProperty->getDefaultValue(SUMO_ATTR_CARRIAGE_GAP);
+                return myTagProperty->getDefaultStringValue(SUMO_ATTR_CARRIAGE_GAP);
             }
         // other
         case GNE_ATTR_DEFAULT_VTYPE:
@@ -546,7 +546,7 @@ GNEVType::getAttributeDouble(SumoXMLAttr key) const {
             if (wasSet(VTYPEPARS_PROBABILITY_SET)) {
                 return defaultProbability;
             } else {
-                return parse<double>(myTagProperty->getDefaultValue(SUMO_ATTR_PROB));
+                return parse<double>(myTagProperty->getDefaultStringValue(SUMO_ATTR_PROB));
             }
         default:
             throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
@@ -1384,7 +1384,7 @@ GNEVType::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_CF_W99_CC8:
         case SUMO_ATTR_CF_W99_CC9:
             // empty or default values means that value isn't set
-            if (value.empty() || (canParse<double>(value) && (parse<double>(value) == parse<double>(myTagProperty->getDefaultValue(key))))) {
+            if (value.empty() || (canParse<double>(value) && (parse<double>(value) == myTagProperty->getDefaultDoubleValue(key)))) {
                 const auto it = cfParameter.find(key);
                 if (it != cfParameter.end()) {
                     cfParameter.erase(it);
@@ -1414,13 +1414,13 @@ GNEVType::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             break;
         case SUMO_ATTR_IMPATIENCE:
-            if (!value.empty() && (value != myTagProperty->getDefaultValue(key))) {
+            if (!value.empty() && (value != myTagProperty->getDefaultStringValue(key))) {
                 impatience = parse<double>(value);
                 // mark parameter as set
                 parametersSet |= VTYPEPARS_IMPATIENCE_SET;
             } else {
                 // set default value
-                impatience = parse<double>(myTagProperty->getDefaultValue(key));
+                impatience = parse<double>(myTagProperty->getDefaultStringValue(key));
                 // unset parameter
                 parametersSet &= ~VTYPEPARS_IMPATIENCE_SET;
             }
@@ -1540,7 +1540,7 @@ GNEVType::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             break;
         case SUMO_ATTR_COLOR:
-            if (!value.empty() && (value != myTagProperty->getDefaultValue(key))) {
+            if (!value.empty() && (value != myTagProperty->getDefaultStringValue(key))) {
                 color = parse<RGBColor>(value);
                 // mark parameter as set
                 parametersSet |= VTYPEPARS_COLOR_SET;
@@ -1550,13 +1550,13 @@ GNEVType::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             break;
         case SUMO_ATTR_VCLASS:
-            if (!value.empty() && (value != myTagProperty->getDefaultValue(key))) {
+            if (!value.empty() && (value != myTagProperty->getDefaultStringValue(key))) {
                 vehicleClass = getVehicleClassID(value);
                 // mark parameter as set
                 parametersSet |= VTYPEPARS_VEHICLECLASS_SET;
             } else {
                 // set default value
-                vehicleClass = getVehicleClassID(myTagProperty->getDefaultValue(key));
+                vehicleClass = getVehicleClassID(myTagProperty->getDefaultStringValue(key));
                 // unset parameter
                 parametersSet &= ~VTYPEPARS_VEHICLECLASS_SET;
             }
@@ -1629,37 +1629,37 @@ GNEVType::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             break;
         case SUMO_ATTR_IMGFILE:
-            if (!value.empty() && (value != myTagProperty->getDefaultValue(key))) {
+            if (!value.empty() && (value != myTagProperty->getDefaultStringValue(key))) {
                 imgFile = value;
                 // mark parameter as set
                 parametersSet |= VTYPEPARS_IMGFILE_SET;
             } else {
                 // set default value
-                imgFile = myTagProperty->getDefaultValue(key);
+                imgFile = myTagProperty->getDefaultStringValue(key);
                 // unset parameter
                 parametersSet &= ~VTYPEPARS_IMGFILE_SET;
             }
             break;
         case SUMO_ATTR_LANE_CHANGE_MODEL:
-            if (!value.empty() && (value != myTagProperty->getDefaultValue(key))) {
+            if (!value.empty() && (value != myTagProperty->getDefaultStringValue(key))) {
                 lcModel = SUMOXMLDefinitions::LaneChangeModels.get(value);
                 // mark parameter as set
                 parametersSet |= VTYPEPARS_LANE_CHANGE_MODEL_SET;
             } else {
                 // set default value
-                lcModel = SUMOXMLDefinitions::LaneChangeModels.get(myTagProperty->getDefaultValue(key));
+                lcModel = SUMOXMLDefinitions::LaneChangeModels.get(myTagProperty->getDefaultStringValue(key));
                 // unset parameter
                 parametersSet &= ~VTYPEPARS_LANE_CHANGE_MODEL_SET;
             }
             break;
         case SUMO_ATTR_CAR_FOLLOW_MODEL:
-            if (!value.empty() && (value != myTagProperty->getDefaultValue(key))) {
+            if (!value.empty() && (value != myTagProperty->getDefaultStringValue(key))) {
                 cfModel = SUMOXMLDefinitions::CarFollowModels.get(value);
                 // mark parameter as set
                 parametersSet |= VTYPEPARS_CAR_FOLLOW_MODEL;
             } else {
                 // set default value
-                cfModel = SUMOXMLDefinitions::CarFollowModels.get(myTagProperty->getDefaultValue(key));
+                cfModel = SUMOXMLDefinitions::CarFollowModels.get(myTagProperty->getDefaultStringValue(key));
                 // unset parameter
                 parametersSet &= ~VTYPEPARS_CAR_FOLLOW_MODEL;
             }
@@ -1689,25 +1689,25 @@ GNEVType::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             break;
         case SUMO_ATTR_BOARDING_DURATION:
-            if (!value.empty() && (value != myTagProperty->getDefaultValue(key))) {
+            if (!value.empty() && (value != myTagProperty->getDefaultStringValue(key))) {
                 boardingDuration = string2time(value);
                 // mark parameter as set
                 parametersSet |= VTYPEPARS_BOARDING_DURATION;
             } else {
                 // set default value
-                boardingDuration = string2time(myTagProperty->getDefaultValue(key));
+                boardingDuration = string2time(myTagProperty->getDefaultStringValue(key));
                 // unset parameter
                 parametersSet &= ~VTYPEPARS_BOARDING_DURATION;
             }
             break;
         case SUMO_ATTR_LOADING_DURATION:
-            if (!value.empty() && (value != myTagProperty->getDefaultValue(key))) {
+            if (!value.empty() && (value != myTagProperty->getDefaultStringValue(key))) {
                 loadingDuration = string2time(value);
                 // mark parameter as set
                 parametersSet |= VTYPEPARS_LOADING_DURATION;
             } else {
                 // set default value
-                loadingDuration = string2time(myTagProperty->getDefaultValue(key));
+                loadingDuration = string2time(myTagProperty->getDefaultStringValue(key));
                 // unset parameter
                 parametersSet &= ~VTYPEPARS_LOADING_DURATION;
             }
@@ -1725,49 +1725,49 @@ GNEVType::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             break;
         case SUMO_ATTR_MINGAP_LAT:
-            if (!value.empty() && (value != myTagProperty->getDefaultValue(key))) {
+            if (!value.empty() && (value != myTagProperty->getDefaultStringValue(key))) {
                 minGapLat = parse<double>(value);
                 // mark parameter as set
                 parametersSet |= VTYPEPARS_MINGAP_LAT_SET;
             } else {
                 // set default value
-                minGapLat = parse<double>(myTagProperty->getDefaultValue(key));
+                minGapLat = myTagProperty->getDefaultDoubleValue(key);
                 // unset parameter
                 parametersSet &= ~VTYPEPARS_MINGAP_LAT_SET;
             }
             break;
         case SUMO_ATTR_MAXSPEED_LAT:
-            if (!value.empty() && (value != myTagProperty->getDefaultValue(key))) {
+            if (!value.empty() && (value != myTagProperty->getDefaultStringValue(key))) {
                 maxSpeedLat = parse<double>(value);
                 // mark parameter as set
                 parametersSet |= VTYPEPARS_MAXSPEED_LAT_SET;
             } else {
                 // set default value
-                maxSpeedLat = parse<double>(myTagProperty->getDefaultValue(key));
+                maxSpeedLat = myTagProperty->getDefaultDoubleValue(key);
                 // unset parameter
                 parametersSet &= ~VTYPEPARS_MAXSPEED_LAT_SET;
             }
             break;
         case SUMO_ATTR_ACTIONSTEPLENGTH:
-            if (!value.empty() && (value != myTagProperty->getDefaultValue(key))) {
+            if (!value.empty() && (value != myTagProperty->getDefaultStringValue(key))) {
                 actionStepLength = string2time(value);
                 // mark parameter as set
                 parametersSet |= VTYPEPARS_ACTIONSTEPLENGTH_SET;
             } else {
                 // set default value
-                actionStepLength = string2time(myTagProperty->getDefaultValue(key));
+                actionStepLength = myTagProperty->getDefaultTimeValue(key);
                 // unset parameter
                 parametersSet &= ~VTYPEPARS_ACTIONSTEPLENGTH_SET;
             }
             break;
         case SUMO_ATTR_PROB:
-            if (!value.empty() && (value != myTagProperty->getDefaultValue(key))) {
+            if (!value.empty() && (value != myTagProperty->getDefaultStringValue(key))) {
                 defaultProbability = parse<double>(value);
                 // mark parameter as set
                 parametersSet |= VTYPEPARS_PROBABILITY_SET;
             } else {
                 // set default value
-                defaultProbability = parse<double>(myTagProperty->getDefaultValue(key));
+                defaultProbability = myTagProperty->getDefaultDoubleValue(key);
                 // unset parameter
                 parametersSet &= ~VTYPEPARS_PROBABILITY_SET;
             }
@@ -1817,7 +1817,7 @@ GNEVType::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             break;
         case SUMO_ATTR_CARRIAGE_GAP:
-            if (!value.empty() && (value != myTagProperty->getDefaultValue(key))) {
+            if (!value.empty() && (value != myTagProperty->getDefaultStringValue(key))) {
                 carriageGap = parse<double>(value);
                 // mark parameter as set
                 parametersSet |= VTYPEPARS_CARRIAGE_GAP_SET;
@@ -1825,7 +1825,7 @@ GNEVType::setAttribute(SumoXMLAttr key, const std::string& value) {
                 SUMOVTypeParameter::setParameter(toString(key), value);
             } else {
                 // set default value
-                carriageGap = parse<double>(myTagProperty->getDefaultValue(key));
+                carriageGap = myTagProperty->getDefaultDoubleValue(key);
                 // unset parameter
                 parametersSet &= ~VTYPEPARS_CARRIAGE_GAP_SET;
                 // remove from params (needed for writting in XML)

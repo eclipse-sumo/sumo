@@ -218,7 +218,7 @@ void
 GNEAttributeCarrier::resetDefaultValues() {
     for (const auto& attrProperty : myTagProperty->getAttributeProperties()) {
         if (attrProperty->hasDefaultValue()) {
-            setAttribute(attrProperty->getAttr(), attrProperty->getDefaultValue());
+            setAttribute(attrProperty->getAttr(), attrProperty->getDefaultStringValue());
             if (attrProperty->isActivatable()) {
                 toggleAttribute(attrProperty->getAttr(), attrProperty->getDefaultActivated());
             }
@@ -734,7 +734,7 @@ void
 GNEAttributeCarrier::resetAttributes() {
     for (const auto& attrProperty : myTagProperty->getAttributeProperties()) {
         if (attrProperty->hasDefaultValue()) {
-            setAttribute(attrProperty->getAttr(), attrProperty->getDefaultValue());
+            setAttribute(attrProperty->getAttr(), attrProperty->getDefaultStringValue());
         }
     }
 }

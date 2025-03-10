@@ -71,13 +71,13 @@ GNEBusStop::writeAdditional(OutputDevice& device) const {
     // write common attributes
     writeStoppingPlaceAttributes(device);
     // write specific attributes
-    if (getAttribute(SUMO_ATTR_LINES) != myTagProperty->getDefaultValue(SUMO_ATTR_LINES)) {
+    if (getAttribute(SUMO_ATTR_LINES) != myTagProperty->getDefaultStringValue(SUMO_ATTR_LINES)) {
         device.writeAttr(SUMO_ATTR_LINES, toString(myLines));
     }
-    if (getAttribute(SUMO_ATTR_PERSON_CAPACITY) != myTagProperty->getDefaultValue(SUMO_ATTR_PERSON_CAPACITY)) {
+    if (myPersonCapacity != myTagProperty->getDefaultIntValue(SUMO_ATTR_PERSON_CAPACITY)) {
         device.writeAttr(SUMO_ATTR_PERSON_CAPACITY, myPersonCapacity);
     }
-    if (getAttribute(SUMO_ATTR_PARKING_LENGTH) != myTagProperty->getDefaultValue(SUMO_ATTR_PARKING_LENGTH)) {
+    if (myParkingLength != myTagProperty->getDefaultDoubleValue(SUMO_ATTR_PARKING_LENGTH)) {
         device.writeAttr(SUMO_ATTR_PARKING_LENGTH, myParkingLength);
     }
     // write all access

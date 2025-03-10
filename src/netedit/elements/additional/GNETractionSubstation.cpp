@@ -61,10 +61,10 @@ GNETractionSubstation::writeAdditional(OutputDevice& device) const {
     device.openTag(SUMO_TAG_TRACTION_SUBSTATION);
     device.writeAttr(SUMO_ATTR_ID, getID());
     device.writeAttr(SUMO_ATTR_POSITION, myPosition);
-    if (getAttribute(SUMO_ATTR_VOLTAGE) != myTagProperty->getDefaultValue(SUMO_ATTR_VOLTAGE)) {
+    if (myVoltage != myTagProperty->getDefaultDoubleValue(SUMO_ATTR_VOLTAGE)) {
         device.writeAttr(SUMO_ATTR_VOLTAGE, myVoltage);
     }
-    if (getAttribute(SUMO_ATTR_CURRENTLIMIT) != myTagProperty->getDefaultValue(SUMO_ATTR_CURRENTLIMIT)) {
+    if (myCurrentLimit != myTagProperty->getDefaultDoubleValue(SUMO_ATTR_CURRENTLIMIT)) {
         device.writeAttr(SUMO_ATTR_CURRENTLIMIT, myCurrentLimit);
     }
     // write parameters
