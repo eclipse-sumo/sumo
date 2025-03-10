@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-13 10:07+0100\n"
-"PO-Revision-Date: 2025-03-10 13:17+0000\n"
+"PO-Revision-Date: 2025-03-10 18:18+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -10797,11 +10797,11 @@ msgstr "% archi della rete primaria non sono presenti nella rete alternativa"
 
 #: src/netload/NLTriggerBuilder.cpp:74
 msgid "Vaporizers are deprecated. Use rerouters instead."
-msgstr ""
+msgstr "I vaporizer non si usano più. Invece usa rerouter."
 
 #: src/netload/NLTriggerBuilder.cpp:83
 msgid "Unknown edge ('%') referenced in a vaporizer."
-msgstr ""
+msgstr "Arco sconosciuto ('%') referenziato in un vaporizer."
 
 #: src/netload/NLTriggerBuilder.cpp:92
 msgid "A vaporization begin time is negative (edge id='%')."
