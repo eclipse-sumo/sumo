@@ -27,8 +27,23 @@
 // method definitions
 // ===========================================================================
 
+GNEAttributeProperties::GNEAttributeProperties(GNETagProperties* tagProperties, const SumoXMLAttr attribute, const int attributeProperty,
+        const int editProperty, const std::string& definition) :
+    myTagPropertyParent(tagProperties),
+    myAttribute(attribute),
+    myAttrStr(toString(attribute)),
+    myAttributeProperty(attributeProperty),
+    myEditProperty(editProperty),
+    myDefinition(definition) {
+    // check build conditions (only in debug mode)
+    checkBuildConstraints();
+    // add attribute in tag properties vector
+    tagProperties->myAttributeProperties.push_back(this);
+}
+
+
 GNEAttributeProperties::GNEAttributeProperties(GNETagProperties* tagProperties, const SumoXMLAttr attribute, const int attributeProperty, const int editProperty,
-        const std::string& definition, std::string defaultValue) :
+        const std::string& definition, const std::string& defaultValue) :
     myTagPropertyParent(tagProperties),
     myAttribute(attribute),
     myAttrStr(toString(attribute)),
@@ -36,27 +51,24 @@ GNEAttributeProperties::GNEAttributeProperties(GNETagProperties* tagProperties, 
     myEditProperty(editProperty),
     myDefinition(definition),
     myDefaultValue(defaultValue) {
-    // check integrity only in debug mode
-#ifdef DEBUG
-    // empty definition aren't valid
-    if (definition.empty()) {
-        throw FormatException("Missing definition for AttributeProperty '" + toString(attribute) + "'");
-    }
-    // if default value isn't empty, but attribute doesn't support default values, throw exception.
-    if (!defaultValue.empty() && !(attributeProperty & DEFAULTVALUE)) {
-        throw FormatException("AttributeProperty for '" + toString(attribute) + "' doesn't support default values");
-    }
-    // Attributes cannot be flowdefinition and enabilitablet at the same time
-    if ((attributeProperty & FLOW) && (attributeProperty & ACTIVATABLE)) {
-        throw FormatException("Attribute '" + toString(attribute) + "' cannot be flowdefinition and activatable at the same time");
-    }
-    // Check that attribute wasn't already inserted
-    for (const auto& attrProperty : tagProperties->myAttributeProperties) {
-        if (attrProperty->getAttr() == attribute) {
-            throw ProcessError(TLF("Attribute '%' already inserted", toString(attribute)));
-        }
-    }
-#endif // DEBUG
+    // check build conditions (only in debug mode)
+    checkBuildConstraints();
+    // add attribute in tag properties vector
+    tagProperties->myAttributeProperties.push_back(this);
+}
+
+
+GNEAttributeProperties::GNEAttributeProperties(GNETagProperties* tagProperties, const SumoXMLAttr attribute, const int attributeProperty, const int editProperty,
+        const std::string& definition, const std::string& defaultValueMask, const std::string& defaultValue) :
+    myTagPropertyParent(tagProperties),
+    myAttribute(attribute),
+    myAttrStr(toString(attribute)),
+    myAttributeProperty(attributeProperty),
+    myEditProperty(editProperty),
+    myDefinition(definition),
+    myDefaultValue(defaultValue) {
+    // check build conditions (only in debug mode)
+    checkBuildConstraints();
     // add attribute in tag properties vector
     tagProperties->myAttributeProperties.push_back(this);
 }
@@ -605,6 +617,32 @@ GNEAttributeProperties::isCreateMode() const {
 bool
 GNEAttributeProperties::isEditMode() const {
     return (myEditProperty & EDITMODE) != 0;
+}
+
+
+void
+GNEAttributeProperties::checkBuildConstraints() const {
+// check integrity only in debug mode
+#ifdef DEBUG
+    // empty definition aren't valid
+    if (myDefinition.empty()) {
+        throw FormatException("Missing definition for AttributeProperty '" + toString(myAttribute) + "'");
+    }
+    // if default value isn't empty, but attribute doesn't support default values, throw exception.
+    if (!myDefaultValue.empty() && !(myAttributeProperty & DEFAULTVALUE)) {
+        throw FormatException("AttributeProperty for '" + toString(myAttribute) + "' doesn't support default values");
+    }
+    // Attributes cannot be flowdefinition and enabilitablet at the same time
+    if ((myAttributeProperty & FLOW) && (myAttributeProperty & ACTIVATABLE)) {
+        throw FormatException("Attribute '" + toString(myAttribute) + "' cannot be flow definition and activatable at the same time");
+    }
+    // Check that attribute wasn't already inserted
+    for (const auto& attrProperty : myTagPropertyParent->myAttributeProperties) {
+        if (attrProperty->getAttr() == myAttribute) {
+            throw ProcessError(TLF("Attribute '%' already inserted", toString(myAttribute)));
+        }
+    }
+#endif // DEBUG
 }
 
 /****************************************************************************/

@@ -76,8 +76,18 @@ public:
         FLOWEDITOR =        1 << 6,    // Attribute can be edited only in flow editor
     };
 
-    /// @brief parameter constructor
-    GNEAttributeProperties(GNETagProperties* tagProperties, const SumoXMLAttr attribute, const int attributeProperty, const int editProperty, const std::string& definition, std::string defaultValue = "");
+    /// @brief parameter constructor for tag properties without default values
+    GNEAttributeProperties(GNETagProperties* tagProperties, const SumoXMLAttr attribute, const int attributeProperty,
+                           const int editProperty, const std::string& definition);
+
+    /// @brief parameter constructor for tag properties with default values specific
+    GNEAttributeProperties(GNETagProperties* tagProperties, const SumoXMLAttr attribute, const int attributeProperty,
+                           const int editProperty, const std::string& definition, const std::string& defaultValue);
+
+    /// @brief parameter constructor for tag properties with default values generic
+    GNEAttributeProperties(GNETagProperties* tagProperties, const SumoXMLAttr attribute, const int attributeProperty,
+                           const int editProperty, const std::string& definition, const std::string& defaultValueMask,
+                           const std::string& defaultValue);
 
     /// @brief destructor
     ~GNEAttributeProperties();
@@ -324,6 +334,9 @@ private:
 
     /// @brief maxium Range
     double myMaximumRange = 0;
+
+    /// @brief check build constraints
+    void checkBuildConstraints() const;
 
     /// @brief invalidate default constructor
     GNEAttributeProperties() = delete;
