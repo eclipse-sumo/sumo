@@ -1266,6 +1266,8 @@ void
 GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
     myAmLoading = false;
     GNEEvent_NetworkLoaded* ec = static_cast<GNEEvent_NetworkLoaded*>(e);
+    // get option container
+    auto& neteditOptions = OptionsCont::getOptions();
     // check whether the loading was successfull
     if (ec->net == nullptr) {
         // report failure
@@ -1308,6 +1310,23 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
         }
     }
     myMessageWindow->registerMsgHandlers();
+    // first update filenames
+    const auto& additionalFiles = neteditOptions.getStringVector("additional-files");
+    if (additionalFiles.size() > 0) {
+        myNet->getSavingFilesHandler()->updateAdditionalEmptyFilenames(additionalFiles.front());
+    }
+    const auto& demandFiles = neteditOptions.getStringVector("route-files");
+    if (demandFiles.size() > 0) {
+        myNet->getSavingFilesHandler()->updateDemandEmptyFilenames(demandFiles.front());
+    }
+    const auto& dataFiles = neteditOptions.getStringVector("data-files");
+    if (dataFiles.size() > 0) {
+        myNet->getSavingFilesHandler()->updateDataEmptyFilenames(dataFiles.front());
+    }
+    const auto& meanDataFiles = neteditOptions.getStringVector("meandata-files");
+    if (meanDataFiles.size() > 0) {
+        myNet->getSavingFilesHandler()->updateMeanDataEmptyFilenames(meanDataFiles.front());
+    }
     // load elements
     loadAdditionalElements();
     loadDemandElements();
@@ -3881,7 +3900,7 @@ GNEApplicationWindow::onCmdReloadDemandElements(FXObject*, FXSelector, void*) {
     // clear demand elements
     myNet->clearDemandElements(myUndoList);
     // iterate over all demand elements
-    for (const auto &demandFileName : myNet->getSavingFilesHandler()->getDemandFilenames()) {
+    for (const auto& demandFileName : myNet->getSavingFilesHandler()->getDemandFilenames()) {
         // Create handler
         GNEGeneralHandler handler(myNet, demandFileName, myAllowUndoRedoLoading ? myAllowUndoRedo : false, true);
         // Run parser for additionals
@@ -4604,7 +4623,7 @@ GNEApplicationWindow::loadAdditionalElements() {
     // get option container
     auto& neteditOptions = OptionsCont::getOptions();
     // get additional files
-    const auto additionalFiles = neteditOptions.getStringVector("additional-files");
+    const auto& additionalFiles = neteditOptions.getStringVector("additional-files");
     // check if ignore loading of additional files
     const auto ignoreLoadAdditionalFiles = neteditOptions.getBool("ignore.additionalelements");
     // check conditions
@@ -4624,8 +4643,6 @@ GNEApplicationWindow::loadAdditionalElements() {
             // check if ignore missing imputs
             if (FileHelpers::isReadable(file) || !neteditOptions.getBool("ignore-missing-inputs")) {
                 WRITE_MESSAGE(TL("loading additionals from '") + file + "'");
-                // add file in saving file handler
-                myNet->getSavingFilesHandler()->updateAdditionalEmptyFilenames(file);
                 // declare general handler
                 GNEGeneralHandler handler(myNet, file, myAllowUndoRedoLoading ? myAllowUndoRedo : false, false);
                 // Run parser
@@ -4657,7 +4674,7 @@ GNEApplicationWindow::loadDemandElements() {
     // get option container
     auto& neteditOptions = OptionsCont::getOptions();
     // get demand files
-    const auto demandFiles = neteditOptions.getStringVector("route-files");
+    const auto& demandFiles = neteditOptions.getStringVector("route-files");
     // check if ignore loading of additional files
     const auto ignoreLoadDemandFiles = neteditOptions.getBool("ignore.routeelements");
     // check conditions
@@ -4677,8 +4694,6 @@ GNEApplicationWindow::loadDemandElements() {
             // check if ignore missing imputs
             if (FileHelpers::isReadable(file) || !neteditOptions.getBool("ignore-missing-inputs")) {
                 WRITE_MESSAGE(TL("loading demand elements from '") + file + "'");
-                // add file in saving file handler
-                myNet->getSavingFilesHandler()->updateDemandEmptyFilenames(file);
                 // declare general handler
                 GNEGeneralHandler handler(myNet, file, myAllowUndoRedoLoading ? myAllowUndoRedo : false, false);
                 // Run parser
@@ -4710,7 +4725,7 @@ GNEApplicationWindow::loadDataElements() {
     // get option container
     auto& neteditOptions = OptionsCont::getOptions();
     // get data files
-    const auto dataFiles = neteditOptions.getStringVector("data-files");
+    const auto& dataFiles = neteditOptions.getStringVector("data-files");
     if (myNet && (dataFiles.size() > 0)) {
         // disable validation for additionals
         XMLSubSys::setValidation("never", "auto", "auto");
@@ -4723,8 +4738,6 @@ GNEApplicationWindow::loadDataElements() {
             // check if ignore missing imputs
             if (FileHelpers::isReadable(file) || !neteditOptions.getBool("ignore-missing-inputs")) {
                 WRITE_MESSAGE(TL("loading data elements from '") + file + "'");
-                // add file in saving file handler
-                myNet->getSavingFilesHandler()->updateDataEmptyFilenames(file);
                 // declare general handler
                 GNEDataHandler handler(myNet, file, myAllowUndoRedoLoading ? myAllowUndoRedo : false, false);
                 // Run parser
@@ -4756,7 +4769,7 @@ GNEApplicationWindow::loadMeanDataElements() {
     // get option container
     auto& neteditOptions = OptionsCont::getOptions();
     // get meanData files
-    const auto meanDataFiles = neteditOptions.getStringVector("meandata-files");
+    const auto& meanDataFiles = neteditOptions.getStringVector("meandata-files");
     if (myNet && (meanDataFiles.size() > 0)) {
         // disable validation for additionals
         XMLSubSys::setValidation("never", "auto", "auto");
@@ -4769,8 +4782,6 @@ GNEApplicationWindow::loadMeanDataElements() {
             // check if ignore missing imputs
             if (FileHelpers::isReadable(file) || !neteditOptions.getBool("ignore-missing-inputs")) {
                 WRITE_MESSAGE(TL("loading meanData elements from '") + file + "'");
-                // add file in saving file handler
-                myNet->getSavingFilesHandler()->updateMeanDataEmptyFilenames(file);
                 // declare general handler
                 GNEGeneralHandler handler(myNet, file, myAllowUndoRedoLoading ? myAllowUndoRedo : false, false);
                 // Run parser

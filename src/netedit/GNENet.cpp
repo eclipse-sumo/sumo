@@ -2486,14 +2486,21 @@ void
 GNENet::saveDataElementsConfirmed() {
     // Start saving additionals
     getApp()->beginWaitCursor();
-    OutputDevice& device = OutputDevice::getDevice(OptionsCont::getOptions().getString("data-files"));
-    device.writeXMLHeader("data", "datamode_file.xsd", EMPTY_HEADER, false);
-    // write all data sets
-    for (const auto& dataSet : myAttributeCarriers->getDataSets()) {
-        dataSet.second->writeDataSet(device);
+    // get all data elements separated by filenames
+    const auto dataByFilenames = mySavingFilesHandler->getDatasByFilename();
+    // update netedit connfig
+    mySavingFilesHandler->updateNeteditConfig();
+    // iterate over all elements and save files
+    for (const auto& dataByFilename : dataByFilenames) {
+        OutputDevice& device = OutputDevice::getDevice(dataByFilename.first);
+        device.writeXMLHeader("data", "datamode_file.xsd", EMPTY_HEADER, false);
+        // write all data sets
+        for (const auto& dataSet : myAttributeCarriers->getDataSets()) {
+            dataSet.second->writeDataSet(device);
+        }
+        // close device
+        device.close();
     }
-    // close device
-    device.close();
     // mark data element as saved
     mySavingStatus->dataElementsSaved();
     // end saving additionals

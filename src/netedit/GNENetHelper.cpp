@@ -2907,6 +2907,12 @@ GNENetHelper::SavingFilesHandler::getAdditionalsByFilename() {
             additionalsbyFilenames[additional.second->getFilename()].insert(additional.second);
         }
     }
+    // special case for routes (due calibrators)
+    for (const auto& route : myNet->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_ROUTE)) {
+        if (std::find(myAdditionalElementsSavingFiles.begin(), myAdditionalElementsSavingFiles.end(), route.second->getFilename()) != myAdditionalElementsSavingFiles.end()) {
+            additionalsbyFilenames[route.second->getFilename()].insert(route.second);
+        }
+    }
     // clear empty saving files
     auto it = myAdditionalElementsSavingFiles.begin();
     while (it != myAdditionalElementsSavingFiles.end()) {
@@ -2970,7 +2976,9 @@ GNENetHelper::SavingFilesHandler::getDemandsByFilename() {
     ACsbyFilename demandsbyFilenames;
     for (const auto& demandTag : myNet->getAttributeCarriers()->getDemandElements()) {
         for (const auto& demand : demandTag.second) {
-            demandsbyFilenames[demand.second->getFilename()].insert(demand.second);
+            if (std::find(myAdditionalElementsSavingFiles.begin(), myAdditionalElementsSavingFiles.end(), demand.second->getFilename()) == myAdditionalElementsSavingFiles.end()) {
+                demandsbyFilenames[demand.second->getFilename()].insert(demand.second);
+            }
         }
     }
     // clear empty saving files
