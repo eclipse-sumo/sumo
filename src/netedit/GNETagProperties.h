@@ -139,6 +139,9 @@ public:
         NO_ADDITIONAL_CHILDREN =    1 << 4,     // Element doesn't have additional children
     };
 
+    /// @brief declare friend class
+    friend class GNEAttributeProperties;
+
     /// @brief parameter constructor
     GNETagProperties(const SumoXMLTag tag, const int tagType, const int tagProperty, const int tagParents, const int conflicts,
                      const GUIIcon icon, const SumoXMLTag XMLTag, const std::string tooltip, std::vector<SumoXMLTag> parentTags = {},
@@ -158,9 +161,6 @@ public:
 
     /// @brief check Tag integrity (this include all their attributes)
     void checkTagIntegrity() const;
-
-    /// @brief add attribute (duplicated attributed aren't allowed)
-    void addAttribute(GNEAttributeProperties* attributeProperty);
 
     /// @brief get field string (by default tag in string format)
     const std::string& getFieldString() const;
@@ -187,7 +187,22 @@ public:
     int getNumberOfAttributes() const;
 
     /// @brief return the default value of the attribute of an element
-    const std::string& getDefaultValue(SumoXMLAttr attr) const;
+    const std::string& getDefaultStringValue(SumoXMLAttr attr) const;
+
+    /// @brief get default int value
+    int getDefaultIntValue(SumoXMLAttr attr) const;
+
+    /// @brief get default double value
+    double getDefaultDoubleValue(SumoXMLAttr attr) const;
+
+    /// @brief get default time value
+    SUMOTime getDefaultTimeValue(SumoXMLAttr attr) const;
+
+    /// @brief get default bool value
+    bool getDefaultBoolValue(SumoXMLAttr attr) const;
+
+    /// @brief get default bool value
+    const RGBColor& getDefaultColorValue(SumoXMLAttr attr) const;
 
     /// @brief get GUI icon associated to this Tag
     GUIIcon getGUIIcon() const;

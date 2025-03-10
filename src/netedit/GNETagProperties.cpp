@@ -20,8 +20,6 @@
 
 #include "GNETagProperties.h"
 
-#define MAXATTRIBUTES 128
-
 // ===========================================================================
 // method definitions
 // ===========================================================================
@@ -141,36 +139,74 @@ GNETagProperties::checkTagIntegrity() const {
 
 
 const std::string&
-GNETagProperties::getDefaultValue(SumoXMLAttr attr) const {
+GNETagProperties::getDefaultStringValue(SumoXMLAttr attr) const {
     // iterate over attribute properties
     for (const auto& attributeProperty : myAttributeProperties) {
         if (attributeProperty->getAttr() == attr) {
-            if (!attributeProperty->hasDefaultValue()) {
-                throw ProcessError(TLF("attribute '%' doesn't have a default value", attributeProperty->getAttrStr()));
-            } else {
-                return attributeProperty->getDefaultValue();
-            }
+            return attributeProperty->getDefaultStringValue();
         }
     }
     throw ProcessError(TLF("Attribute '%' not defined", toString(attr)));
 }
 
 
-void
-GNETagProperties::addAttribute(GNEAttributeProperties* attributeProperty) {
-    if ((myAttributeProperties.size() + 1) >= MAXATTRIBUTES) {
-        throw ProcessError(TLF("Maximum number of attributes for tag % exceeded", attributeProperty->getAttrStr()));
-    } else {
-        // Check that attribute wasn't already inserted
-        for (const auto& attrProperty : myAttributeProperties) {
-            if (attributeProperty->getAttr() == attrProperty->getAttr()) {
-                throw ProcessError(TLF("Attribute '%' already inserted", attributeProperty->getAttrStr()));
-            }
+int
+GNETagProperties::getDefaultIntValue(SumoXMLAttr attr) const {
+    // iterate over attribute properties
+    for (const auto& attributeProperty : myAttributeProperties) {
+        if (attributeProperty->getAttr() == attr) {
+            return attributeProperty->getDefaultIntValue();
         }
-        // insert AttributeProperties in vector
-        attributeProperty->setTagPropertyParent(this);
-        myAttributeProperties.push_back(attributeProperty);
     }
+    throw ProcessError(TLF("Attribute '%' not defined", toString(attr)));
+}
+
+
+double
+GNETagProperties::getDefaultDoubleValue(SumoXMLAttr attr) const {
+    // iterate over attribute properties
+    for (const auto& attributeProperty : myAttributeProperties) {
+        if (attributeProperty->getAttr() == attr) {
+            return attributeProperty->getDefaultDoubleValue();
+        }
+    }
+    throw ProcessError(TLF("Attribute '%' not defined", toString(attr)));
+}
+
+
+SUMOTime
+GNETagProperties::getDefaultTimeValue(SumoXMLAttr attr) const {
+    // iterate over attribute properties
+    for (const auto& attributeProperty : myAttributeProperties) {
+        if (attributeProperty->getAttr() == attr) {
+            return attributeProperty->getDefaultTimeValue();
+        }
+    }
+    throw ProcessError(TLF("Attribute '%' not defined", toString(attr)));
+}
+
+
+bool
+GNETagProperties::getDefaultBoolValue(SumoXMLAttr attr) const {
+    // iterate over attribute properties
+    for (const auto& attributeProperty : myAttributeProperties) {
+        if (attributeProperty->getAttr() == attr) {
+            return attributeProperty->getDefaultBoolValue();
+        }
+    }
+    throw ProcessError(TLF("Attribute '%' not defined", toString(attr)));
+}
+
+
+const RGBColor&
+GNETagProperties::getDefaultColorValue(SumoXMLAttr attr) const {
+    // iterate over attribute properties
+    for (const auto& attributeProperty : myAttributeProperties) {
+        if (attributeProperty->getAttr() == attr) {
+            return attributeProperty->getDefaultColorValue();
+        }
+    }
+    throw ProcessError(TLF("Attribute '%' not defined", toString(attr)));
 }
 
 

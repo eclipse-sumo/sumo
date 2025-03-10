@@ -102,16 +102,16 @@ GNELaneAreaDetector::writeAdditional(OutputDevice& device) const {
     if (myTrafficLight.size() > 0) {
         device.writeAttr(SUMO_ATTR_TLID, myTrafficLight);
     }
-    if (getAttribute(SUMO_ATTR_HALTING_TIME_THRESHOLD) != myTagProperty->getDefaultValue(SUMO_ATTR_HALTING_TIME_THRESHOLD)) {
+    if (mySpeedThreshold != myTagProperty->getDefaultDoubleValue(SUMO_ATTR_HALTING_TIME_THRESHOLD)) {
         device.writeAttr(SUMO_ATTR_HALTING_TIME_THRESHOLD, mySpeedThreshold);
     }
-    if (getAttribute(SUMO_ATTR_HALTING_SPEED_THRESHOLD) != myTagProperty->getDefaultValue(SUMO_ATTR_HALTING_SPEED_THRESHOLD)) {
+    if (mySpeedThreshold != myTagProperty->getDefaultDoubleValue(SUMO_ATTR_HALTING_SPEED_THRESHOLD)) {
         device.writeAttr(SUMO_ATTR_HALTING_SPEED_THRESHOLD, mySpeedThreshold);
     }
-    if (getAttribute(SUMO_ATTR_JAM_DIST_THRESHOLD) != myTagProperty->getDefaultValue(SUMO_ATTR_JAM_DIST_THRESHOLD)) {
+    if (mySpeedThreshold != myTagProperty->getDefaultDoubleValue(SUMO_ATTR_JAM_DIST_THRESHOLD)) {
         device.writeAttr(SUMO_ATTR_JAM_DIST_THRESHOLD, mySpeedThreshold);
     }
-    if (getAttribute(SUMO_ATTR_SHOW_DETECTOR) != myTagProperty->getDefaultValue(SUMO_ATTR_SHOW_DETECTOR)) {
+    if (myShow != myTagProperty->getDefaultBoolValue(SUMO_ATTR_SHOW_DETECTOR)) {
         device.writeAttr(SUMO_ATTR_SHOW_DETECTOR, myShow);
     }
     // write parameters (Always after children to avoid problems with additionals.xsd)

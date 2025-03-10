@@ -218,7 +218,7 @@ void
 GNEAttributeCarrier::resetDefaultValues() {
     for (const auto& attrProperty : myTagProperty->getAttributeProperties()) {
         if (attrProperty->hasDefaultValue()) {
-            setAttribute(attrProperty->getAttr(), attrProperty->getDefaultValue());
+            setAttribute(attrProperty->getAttr(), attrProperty->getDefaultStringValue());
             if (attrProperty->isActivatable()) {
                 toggleAttribute(attrProperty->getAttr(), attrProperty->getDefaultActivated());
             }
@@ -262,13 +262,21 @@ GNEAttributeCarrier::hasAttribute(SumoXMLAttr key) const {
 
 template<> int
 GNEAttributeCarrier::parse(const std::string& string) {
-    return StringUtils::toInt(string);
+    if (string == "INVALID_INT") {
+        return INVALID_INT;
+    } else {
+        return StringUtils::toInt(string);
+    }
 }
 
 
 template<> double
 GNEAttributeCarrier::parse(const std::string& string) {
-    return StringUtils::toDouble(string);
+    if (string == "INVALID_DOUBLE") {
+        return INVALID_DOUBLE;
+    } else {
+        return StringUtils::toDouble(string);
+    }
 }
 
 
@@ -726,7 +734,7 @@ void
 GNEAttributeCarrier::resetAttributes() {
     for (const auto& attrProperty : myTagProperty->getAttributeProperties()) {
         if (attrProperty->hasDefaultValue()) {
-            setAttribute(attrProperty->getAttr(), attrProperty->getDefaultValue());
+            setAttribute(attrProperty->getAttr(), attrProperty->getDefaultStringValue());
         }
     }
 }

@@ -62,25 +62,25 @@ GNEChargingStation::writeAdditional(OutputDevice& device) const {
     // write common attributes
     writeStoppingPlaceAttributes(device);
     // write specific attributes
-    if (getAttribute(SUMO_ATTR_CHARGINGPOWER) != myTagProperty->getDefaultValue(SUMO_ATTR_CHARGINGPOWER)) {
+    if (myChargingPower != myTagProperty->getDefaultDoubleValue(SUMO_ATTR_CHARGINGPOWER)) {
         device.writeAttr(SUMO_ATTR_CHARGINGPOWER, toString(myChargingPower));
     }
-    if (getAttribute(SUMO_ATTR_EFFICIENCY) != myTagProperty->getDefaultValue(SUMO_ATTR_EFFICIENCY)) {
+    if (myEfficiency != myTagProperty->getDefaultDoubleValue(SUMO_ATTR_EFFICIENCY)) {
         device.writeAttr(SUMO_ATTR_EFFICIENCY, myEfficiency);
     }
-    if (getAttribute(SUMO_ATTR_CHARGEINTRANSIT) != myTagProperty->getDefaultValue(SUMO_ATTR_CHARGEINTRANSIT)) {
+    if (myChargeInTransit != myTagProperty->getDefaultBoolValue(SUMO_ATTR_CHARGEINTRANSIT)) {
         device.writeAttr(SUMO_ATTR_CHARGEINTRANSIT, myChargeInTransit);
     }
-    if (getAttribute(SUMO_ATTR_CHARGEDELAY) != myTagProperty->getDefaultValue(SUMO_ATTR_CHARGEDELAY)) {
-        device.writeAttr(SUMO_ATTR_CHARGEDELAY, myChargeDelay);
+    if (myChargeDelay != myTagProperty->getDefaultTimeValue(SUMO_ATTR_CHARGEDELAY)) {
+        device.writeAttr(SUMO_ATTR_CHARGEDELAY, time2string(myChargeDelay));
     }
-    if (getAttribute(SUMO_ATTR_CHARGETYPE) != myTagProperty->getDefaultValue(SUMO_ATTR_CHARGETYPE)) {
+    if (myChargeType != myTagProperty->getDefaultStringValue(SUMO_ATTR_CHARGETYPE)) {
         device.writeAttr(SUMO_ATTR_CHARGETYPE, myChargeType);
     }
-    if (string2time(myTagProperty->getDefaultValue(SUMO_ATTR_WAITINGTIME)) != myWaitingTime) {
+    if (myWaitingTime != myTagProperty->getDefaultTimeValue(SUMO_ATTR_WAITINGTIME)) {
         device.writeAttr(SUMO_ATTR_WAITINGTIME, time2string(myWaitingTime));
     }
-    if (myTagProperty->getDefaultValue(SUMO_ATTR_PARKING_AREA) != myTagProperty->getDefaultValue(SUMO_ATTR_PARKING_AREA)) {
+    if (myParkingAreaID != myTagProperty->getDefaultStringValue(SUMO_ATTR_PARKING_AREA)) {
         device.writeAttr(SUMO_ATTR_PARKING_AREA, myParkingAreaID);
     }
     // write parameters (Always after children to avoid problems with additionals.xsd)

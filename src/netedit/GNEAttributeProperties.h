@@ -22,12 +22,11 @@
 
 #include <utils/xml/SUMOSAXAttributes.h>
 
-
 // ===========================================================================
 // class declarations
 // ===========================================================================
-class GNETagProperties;
 
+class GNETagProperties;
 
 // ===========================================================================
 // class definitions
@@ -77,8 +76,18 @@ public:
         FLOWEDITOR =        1 << 6,    // Attribute can be edited only in flow editor
     };
 
-    /// @brief parameter constructor
-    GNEAttributeProperties(const SumoXMLAttr attribute, const int attributeProperty, const int editProperty, const std::string& definition, std::string defaultValue = "");
+    /// @brief parameter constructor for tag properties without default values
+    GNEAttributeProperties(GNETagProperties* tagProperties, const SumoXMLAttr attribute, const int attributeProperty,
+                           const int editProperty, const std::string& definition);
+
+    /// @brief parameter constructor for tag properties with default values specific
+    GNEAttributeProperties(GNETagProperties* tagProperties, const SumoXMLAttr attribute, const int attributeProperty,
+                           const int editProperty, const std::string& definition, const std::string& defaultValue);
+
+    /// @brief parameter constructor for tag properties with default values generic
+    GNEAttributeProperties(GNETagProperties* tagProperties, const SumoXMLAttr attribute, const int attributeProperty,
+                           const int editProperty, const std::string& definition, const std::string& defaultValueMask,
+                           const std::string& defaultValue);
 
     /// @brief destructor
     ~GNEAttributeProperties();
@@ -119,8 +128,23 @@ public:
     /// @brief get default value
     const std::string& getDefinition() const;
 
-    /// @brief get default value
-    const std::string& getDefaultValue() const;
+    /// @brief get default value in string format
+    const std::string& getDefaultStringValue() const;
+
+    /// @brief get default int value
+    int getDefaultIntValue() const;
+
+    /// @brief get default double value
+    double getDefaultDoubleValue() const;
+
+    /// @brief get default time value
+    SUMOTime getDefaultTimeValue() const;
+
+    /// @brief get default bool value
+    bool getDefaultBoolValue() const;
+
+    /// @brief get default bool value
+    const RGBColor& getDefaultColorValue() const;
 
     /// @brief get default active value
     bool getDefaultActivated() const;
@@ -257,11 +281,11 @@ public:
     /// @}
 
 private:
+    /// @brief pointer to tagProperty parent
+    const GNETagProperties* myTagPropertyParent;
+
     /// @brief XML Attribute
     SumoXMLAttr myAttribute = SUMO_ATTR_NOTHING;
-
-    /// @brief pointer to tagProperty parent
-    GNETagProperties* myTagPropertyParent = nullptr;
 
     /// @brief string with the Attribute in text format (to avoid unnecesaries toStrings(...) calls)
     std::string myAttrStr;
@@ -275,8 +299,23 @@ private:
     /// @brief text with a definition of attribute
     std::string myDefinition;
 
-    /// @brief default value (by default empty)
-    std::string myDefaultValue;
+    /// @brief default string value
+    std::string myDefaultStringValue;
+
+    /// @brief default int value
+    int myDefaultIntValue = 0;
+
+    /// @brief default double value
+    double myDefaultDoubleValue = 0;
+
+    /// @brief default time value
+    SUMOTime myDefaultTimeValue = 0;
+
+    /// @brief default bool value
+    bool myDefaultBoolValue = false;
+
+    /// @brief get default bool value
+    RGBColor myDefaultColorValue = RGBColor::INVISIBLE;
 
     /// @brief default activated (by default false)
     bool myDefaultActivated = false;
@@ -295,6 +334,12 @@ private:
 
     /// @brief maxium Range
     double myMaximumRange = 0;
+
+    /// @brief check build constraints
+    void checkBuildConstraints() const;
+
+    /// @brief parse default values
+    void parseDefaultValues(const std::string& defaultValue);
 
     /// @brief invalidate default constructor
     GNEAttributeProperties() = delete;

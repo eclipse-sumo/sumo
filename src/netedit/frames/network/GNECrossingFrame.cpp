@@ -239,9 +239,9 @@ GNECrossingFrame::CrossingParameters::enableCrossingParameters(bool hasTLS) {
     if (hasTLS) {
         myCrossingPriorityCheckButton->setCheck(TRUE);
     } else {
-        myCrossingPriorityCheckButton->setCheck(GNEAttributeCarrier::parse<bool>(crossingTagProperties->getDefaultValue(SUMO_ATTR_PRIORITY)));
+        myCrossingPriorityCheckButton->setCheck(crossingTagProperties->getDefaultBoolValue(SUMO_ATTR_PRIORITY));
     }
-    myCrossingWidth->setText(crossingTagProperties->getDefaultValue(SUMO_ATTR_WIDTH).c_str());
+    myCrossingWidth->setText(crossingTagProperties->getDefaultStringValue(SUMO_ATTR_WIDTH).c_str());
     myCrossingWidth->setTextColor(FXRGB(0, 0, 0));
 }
 

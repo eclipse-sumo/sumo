@@ -66,28 +66,28 @@ GNEParkingArea::writeAdditional(OutputDevice& device) const {
     // write common attributes
     writeStoppingPlaceAttributes(device);
     // write specific attributes
-    if (getAttribute(SUMO_ATTR_ROADSIDE_CAPACITY) != myTagProperty->getDefaultValue(SUMO_ATTR_ROADSIDE_CAPACITY)) {
-        device.writeAttr(SUMO_ATTR_ROADSIDE_CAPACITY, toString(myRoadSideCapacity));
+    if (myRoadSideCapacity != myTagProperty->getDefaultIntValue(SUMO_ATTR_ROADSIDE_CAPACITY)) {
+        device.writeAttr(SUMO_ATTR_ROADSIDE_CAPACITY, myRoadSideCapacity);
     }
-    if (getAttribute(SUMO_ATTR_ONROAD) != myTagProperty->getDefaultValue(SUMO_ATTR_ONROAD)) {
+    if (myOnRoad != myTagProperty->getDefaultBoolValue(SUMO_ATTR_ONROAD)) {
         device.writeAttr(SUMO_ATTR_ONROAD, myOnRoad);
     }
-    if (getAttribute(SUMO_ATTR_WIDTH) != myTagProperty->getDefaultValue(SUMO_ATTR_WIDTH)) {
+    if (myWidth != myTagProperty->getDefaultDoubleValue(SUMO_ATTR_WIDTH)) {
         device.writeAttr(SUMO_ATTR_WIDTH, myWidth);
     }
-    if (getAttribute(SUMO_ATTR_LENGTH) != myTagProperty->getDefaultValue(SUMO_ATTR_LENGTH)) {
+    if (myLength != myTagProperty->getDefaultDoubleValue(SUMO_ATTR_LENGTH)) {
         device.writeAttr(SUMO_ATTR_LENGTH, myLength);
     }
-    if (getAttribute(SUMO_ATTR_ANGLE) != myTagProperty->getDefaultValue(SUMO_ATTR_ANGLE)) {
+    if (myAngle != myTagProperty->getDefaultDoubleValue(SUMO_ATTR_ANGLE)) {
         device.writeAttr(SUMO_ATTR_ANGLE, myAngle);
     }
-    if (getAttribute(SUMO_ATTR_DEPARTPOS) != myTagProperty->getDefaultValue(SUMO_ATTR_DEPARTPOS)) {
+    if (myDepartPos != myTagProperty->getDefaultStringValue(SUMO_ATTR_DEPARTPOS)) {
         device.writeAttr(SUMO_ATTR_DEPARTPOS, myDepartPos);
     }
-    if (getAttribute(SUMO_ATTR_LEFTHAND) != myTagProperty->getDefaultValue(SUMO_ATTR_LEFTHAND)) {
+    if (myLefthand != myTagProperty->getDefaultBoolValue(SUMO_ATTR_LEFTHAND)) {
         device.writeAttr(SUMO_ATTR_LEFTHAND, myLefthand);
     }
-    if (getAttribute(SUMO_ATTR_ACCEPTED_BADGES) != myTagProperty->getDefaultValue(SUMO_ATTR_ACCEPTED_BADGES)) {
+    if (getAttribute(SUMO_ATTR_ACCEPTED_BADGES) != myTagProperty->getDefaultStringValue(SUMO_ATTR_ACCEPTED_BADGES)) {
         device.writeAttr(SUMO_ATTR_ACCEPTED_BADGES, toString(myAcceptedBadges));
     }
     // write all parking spaces

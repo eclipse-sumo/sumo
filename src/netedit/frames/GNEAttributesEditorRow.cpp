@@ -280,9 +280,13 @@ SumoXMLAttr
 GNEAttributesEditorRow::fillSumoBaseObject(CommonXMLStructure::SumoBaseObject* baseObject, const bool insertDefaultValues) const {
     const auto attribute = myAttrProperty->getAttr();
     // check if this is the default value
-    const bool usingDefaultValue = isValueValid() && (myAttrProperty->getDefaultValue() == getCurrentValue());
+    const bool usingDefaultValue = isValueValid() && (myAttrProperty->getDefaultStringValue() == getCurrentValue());
     // first check if insert default values
     if (!insertDefaultValues && usingDefaultValue) {
+        return SUMO_ATTR_NOTHING;
+    }
+    // now check if attribute is activatable AND is enabled
+    if (myAttrProperty->isActivatable() && (myAttributeToggleEnableCheckButton->getCheck() == FALSE)) {
         return SUMO_ATTR_NOTHING;
     }
     // continue depending of type
@@ -307,9 +311,8 @@ GNEAttributesEditorRow::fillSumoBaseObject(CommonXMLStructure::SumoBaseObject* b
             } else {
                 baseObject->addIntAttribute(attribute, intValue);
             }
-        } else if (myAttrProperty->hasDefaultValue() && (myValueTextField->getText() == "default")) {
-            // used for default cases
-            baseObject->addIntAttribute(attribute, GNEAttributeCarrier::parse<int>(myAttrProperty->getDefaultValue()));
+        } else if (myAttrProperty->hasDefaultValue() && (myValueTextField->getText().text() == myAttrProperty->getDefaultStringValue())) {
+            baseObject->addIntAttribute(attribute, myAttrProperty->getDefaultIntValue());
         } else {
             return attribute;
         }
@@ -340,9 +343,8 @@ GNEAttributesEditorRow::fillSumoBaseObject(CommonXMLStructure::SumoBaseObject* b
             } else {
                 baseObject->addDoubleAttribute(attribute, doubleValue);
             }
-        } else if (myAttrProperty->hasDefaultValue() && (myValueTextField->getText() == "default")) {
-            // used for default cases (for example, shape layers)
-            baseObject->addDoubleAttribute(attribute, GNEAttributeCarrier::parse<double>(myAttrProperty->getDefaultValue()));
+        } else if (myAttrProperty->hasDefaultValue() && (myValueTextField->getText().text() == myAttrProperty->getDefaultStringValue())) {
+            baseObject->addDoubleAttribute(attribute, myAttrProperty->getDefaultDoubleValue());
         } else {
             return attribute;
         }
@@ -355,9 +357,8 @@ GNEAttributesEditorRow::fillSumoBaseObject(CommonXMLStructure::SumoBaseObject* b
             } else {
                 baseObject->addTimeAttribute(attribute, timeValue);
             }
-        } else if (myAttrProperty->hasDefaultValue() && (myValueTextField->getText() == "default")) {
-            // used for default cases
-            baseObject->addTimeAttribute(attribute, GNEAttributeCarrier::parse<SUMOTime>(myAttrProperty->getDefaultValue()));
+        } else if (myAttrProperty->hasDefaultValue() && (myValueTextField->getText().text() == myAttrProperty->getDefaultStringValue())) {
+            baseObject->addTimeAttribute(attribute, myAttrProperty->getDefaultTimeValue());
         } else {
             return attribute;
         }
@@ -378,6 +379,8 @@ GNEAttributesEditorRow::fillSumoBaseObject(CommonXMLStructure::SumoBaseObject* b
         // color value
         if (GNEAttributeCarrier::canParse<RGBColor>(myValueTextField->getText().text())) {
             baseObject->addColorAttribute(attribute, GNEAttributeCarrier::parse<RGBColor>(myValueTextField->getText().text()));
+        } else if (myAttrProperty->hasDefaultValue() && (myValueTextField->getText().text() == myAttrProperty->getDefaultStringValue())) {
+            baseObject->addColorAttribute(attribute, myAttrProperty->getDefaultColorValue());
         } else {
             return attribute;
         }
@@ -401,8 +404,8 @@ GNEAttributesEditorRow::onCmdOpenColorDialog(FXObject*, FXSelector, void*) {
     // If previous attribute wasn't correct, set black as default color
     if (GNEAttributeCarrier::canParse<RGBColor>(myValueTextField->getText().text())) {
         colordialog.setRGBA(MFXUtils::getFXColor(GNEAttributeCarrier::parse<RGBColor>(myValueTextField->getText().text())));
-    } else if (!myAttrProperty->getDefaultValue().empty()) {
-        colordialog.setRGBA(MFXUtils::getFXColor(GNEAttributeCarrier::parse<RGBColor>(myAttrProperty->getDefaultValue())));
+    } else if (myAttrProperty->hasDefaultValue()) {
+        colordialog.setRGBA(MFXUtils::getFXColor(myAttrProperty->getDefaultColorValue()));
     } else {
         colordialog.setRGBA(MFXUtils::getFXColor(RGBColor::BLACK));
     }
@@ -512,7 +515,7 @@ GNEAttributesEditorRow::onCmdSetAttribute(FXObject* obj, FXSelector, void*) {
         // first check if set default value
         if (myValueTextField->getText().empty() && myAttrProperty->hasDefaultValue() && !myAttrProperty->isVClass()) {
             // update text field without notify
-            myValueTextField->setText(myAttrProperty->getDefaultValue().c_str(), FALSE);
+            myValueTextField->setText(myAttrProperty->getDefaultStringValue().c_str(), FALSE);
         }
         // if we're editing an angle, check if filter between [0,360]
         if ((attribute == SUMO_ATTR_ANGLE) && GNEAttributeCarrier::canParse<double>(myValueTextField->getText().text())) {
