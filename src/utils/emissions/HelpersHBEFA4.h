@@ -110,8 +110,9 @@ public:
                 scale *= 742.;
             }
         }
+        const double a2 = a + GRAVITY * sin(DEG2RAD(slope));
         const double* f = myFunctionParameter[index][e];
-        double result = (f[0] + f[1] * v + f[2] * a + f[3] * v * v + f[4] * v * v * v + f[5] * a * v + f[6] * a * v * v) / scale;
+        double result = (f[0] + f[1] * v + f[2] * a2 + f[3] * v * v + f[4] * v * v * v + f[5] * a2 * v + f[6] * a2 * v * v) / scale;
         if (e != PollutantsInterface::ELEC) {
             // no negative emissions
             result = MAX2(0.0, result);
