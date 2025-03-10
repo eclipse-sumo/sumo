@@ -975,6 +975,7 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::attrs[] = {
     { "lcSpeedGainRight",           SUMO_ATTR_LCA_SPEEDGAINRIGHT },
     { "lcSpeedGainLookahead",       SUMO_ATTR_LCA_SPEEDGAIN_LOOKAHEAD },
     { "lcSpeedGainRemainTime",      SUMO_ATTR_LCA_SPEEDGAIN_REMAIN_TIME },
+    { "lcSpeedGainUrgency",         SUMO_ATTR_LCA_SPEEDGAIN_URGENCY },
     { "lcCooperativeRoundabout",    SUMO_ATTR_LCA_COOPERATIVE_ROUNDABOUT },
     { "lcCooperativeSpeed",         SUMO_ATTR_LCA_COOPERATIVE_SPEED },
     { "lcMaxSpeedLatStanding",      SUMO_ATTR_LCA_MAXSPEEDLATSTANDING },

@@ -67,6 +67,7 @@
         <xsd:attribute name="lcSpeedGainRight" type="nonNegativeFloatType"/>
         <xsd:attribute name="lcSpeedGainLookahead" type="nonNegativeFloatType"/>
         <xsd:attribute name="lcSpeedGainRemainTime" type="nonNegativeFloatType"/>
+        <xsd:attribute name="lcSpeedGainUrgency" type="nonNegativeFloatType"/>
         <xsd:attribute name="lcCooperativeRoundabout" type="nonNegativeFloatType"/>
         <xsd:attribute name="lcCooperativeSpeed" type="nonNegativeFloatTypeWithErrorValue"/>
         <xsd:attribute name="lcTurnAlignmentDistance" type="nonNegativeFloatType"/>

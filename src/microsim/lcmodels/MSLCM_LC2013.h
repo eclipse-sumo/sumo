@@ -236,6 +236,8 @@ protected:
     double mySpeedGainLookahead;
     // @brief the minimum time to spent driving without lane change after a speed-gain change
     double mySpeedGainRemainTime;
+    // @brief the threshold value of mySpeedGainProbability for making a speedGain change urgent
+    double mySpeedGainUrgency;
     // @brief bounus factor staying on the inside of multi-lane roundabout
     double myRoundaboutBonus;
     // @brief factor for cooperative speed adjustment

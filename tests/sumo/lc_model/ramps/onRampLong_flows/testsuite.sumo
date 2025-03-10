@@ -1,0 +1,8 @@
+# lane attribute acceleration is set
+marked_lane
+
+# lane attribute acceleration is set, vehicles accept lower gaps
+marked_lane_assertive
+
+# lane attribute acceleration is set
+marked_lane_urgency
