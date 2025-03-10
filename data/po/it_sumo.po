@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-13 10:07+0100\n"
-"PO-Revision-Date: 2025-03-07 11:16+0000\n"
+"PO-Revision-Date: 2025-03-10 13:17+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -10668,18 +10668,24 @@ msgid ""
 "Trying to specify detector's lane by the given id since the argument 'lane' "
 "is missing."
 msgstr ""
+"Si cerca di specificare la corsia del rivelatore dal codice identificativo "
+"indicato poiché manca l'argumento 'lane'."
 
 #: src/netload/NLHandler.cpp:1139
 msgid ""
 "Missing argument 'pos' for E2Detector '%'. Assuming detector start == lane "
 "start of lane '%'."
 msgstr ""
+"Manca l'argumento 'pos' del rivelatore E2 '%'. Si suppone che l'inizio del "
+"rivelatore coincide con quello della corsia '%'."
 
 #: src/netload/NLHandler.cpp:1144
 msgid ""
 "Missing argument 'endPos' for E2Detector '%'. Assuming detector end == lane "
 "end of lane '%'."
 msgstr ""
+"Manca l'argumento 'endPos' del rivelatore E2 '%'. Si suppone che il termine "
+"del rivelatore coincide con quello della corsia '%'."
 
 #: src/netload/NLHandler.cpp:1213
 #, c-format
@@ -10975,10 +10981,14 @@ msgid ""
 "Builds parameterized curves whenever the angular change between straight "
 "segments exceeds FLOAT degrees"
 msgstr ""
+"Crea curve parametrizzate ovunque dove il cambio di angolo tra segmenti "
+"dritti eccede FLOAT gradi"
 
 #: src/netwrite/NWFrame.cpp:130
 msgid "Write lanes in lefthand networks on the left side (positive indices)"
 msgstr ""
+"Scrivi corsie di reti con circolaziona a sinistra nella parte sinistra ("
+"quella con indici positivi)"
 
 #: src/netwrite/NWFrame.cpp:133
 msgid ""
@@ -11124,6 +11134,8 @@ msgstr ""
 #: src/od2trips_main.cpp:193
 msgid "No TAZ input file (-n) specified."
 msgstr ""
+"Non è stato specificato nessun file di ingresso di zone di assegnazione del "
+"traffico (-n)."
 
 #: src/od2trips_main.cpp:197
 msgid "No input specified."
@@ -11132,10 +11144,14 @@ msgstr "Nessun ingresso è stato specificato."
 #: src/od2trips_main.cpp:201
 msgid "No trip table output file (-o) or flow-output is specified."
 msgstr ""
+"Non è stato specificato nessun file di uscita per corse (-o) e flussi "
+"(--flow-output)."
 
 #: src/od2trips_main.cpp:205
 msgid "Only one of the Options 'pedestrians' and 'persontrips' may be set."
 msgstr ""
+"Soltanto una delle opzioni 'pedestrians' e 'persontrips' può essere scelta "
+"alla volta."
 
 #: src/od2trips_main.cpp:248
 msgid ""
