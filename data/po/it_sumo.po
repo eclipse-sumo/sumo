@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-13 10:07+0100\n"
-"PO-Revision-Date: 2025-03-10 18:18+0000\n"
+"PO-Revision-Date: 2025-03-11 07:47+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -7328,7 +7328,7 @@ msgstr ""
 
 #: src/netbuild/NBLoadedTLDef.cpp:612
 msgid "myNeedsContRelation was not properly initialized\n"
-msgstr ""
+msgstr "myNeedsContRelation non è stato inizializzato correttamente\n"
 
 #: src/netbuild/NBNetBuilder.cpp:94
 msgid "Removing self-loops"
@@ -7748,11 +7748,15 @@ msgid ""
 "Ignoring join exclusion for junction '%' since it already occurred in a list "
 "of nodes to be joined."
 msgstr ""
+"La eccezione dell'incrocio '%' da combinazioni viene ignorata perché si "
+"trova già in un elenco di nodi da combinare."
 
 #: src/netbuild/NBNodeCont.cpp:729
 msgid ""
 "Ignoring join-cluster because junction '%' was already excluded from joining."
 msgstr ""
+"L'insieme di nodi da combinare viene ignorato perché l'incrocio '%' era già "
+"stato escluso da ogni combinazione."
 
 #: src/netbuild/NBNodeCont.cpp:732
 #, c-format
@@ -7760,15 +7764,18 @@ msgid ""
 "Ignoring join-cluster because junction '%' already occurred in another join-"
 "cluster."
 msgstr ""
+"L'insieme di nodi da combinare viene ignorato perché l'incrocio '%' era già "
+"incluso in un altro insieme."
 
 #: src/netbuild/NBNodeCont.cpp:738
 #, c-format
 msgid "Unknown junction '%' in join-cluster."
-msgstr ""
+msgstr "Incrocio sconosciuto '%' in un insieme da combinare."
 
 #: src/netbuild/NBNodeCont.cpp:746
 msgid "Ignoring join-cluster '%' because it has size '%'."
 msgstr ""
+"L'insieme da combinare '%' viene ignorato perché la sua dimensione è '%'."
 
 #: src/netbuild/NBNodeCont.cpp:760
 msgid "unknown junction '%' while joining."
@@ -7782,7 +7789,7 @@ msgstr "Gli incroci % (%) non vengono combinati."
 
 #: src/netbuild/NBNodeCont.cpp:838 src/netbuild/NBNodeCont.cpp:852
 msgid "Reducing junction cluster % (%)."
-msgstr ""
+msgstr "L'insieme da combinare % (%) viene compresso."
 
 #: src/netbuild/NBNodeCont.cpp:1770
 msgid "Could not join junctions %."
@@ -7815,7 +7822,6 @@ msgstr ""
 "Non è possibile creare una logica di semaforo due volte per l'incrocio '%'."
 
 #: src/netbuild/NBNodeCont.cpp:2559 src/netbuild/NBNodeCont.cpp:2651
-#, fuzzy
 msgid "-----------------------------------------------------"
 msgstr "-----------------------------------------------------"
 
@@ -7992,16 +7998,22 @@ msgstr "Non ho potuto determinare il prodotto vettoriale per l'arco '%'."
 #: src/netbuild/NBPTStopCont.cpp:326
 msgid "Removing pt stop '%' on non existing edge '%'."
 msgstr ""
+"La fermata di trasporto pubblico '%' sull'arco non esistente '%' viene "
+"rimossa."
 
 #: src/netbuild/NBPTStopCont.cpp:357
 msgid "Could not re-assign pt stop '%' after replacing edge '%'."
 msgstr ""
+"La fermata di trasporto pubblico '%' non poteva essere assegnata di nuovo "
+"dopo la sostituzione dell'arco '%'."
 
 #: src/netbuild/NBPTStopCont.cpp:446
 msgid ""
 "Could not find corresponding edge or compatible lane for free-floating pt "
 "stop '%' (%). Thus, it will be removed!"
 msgstr ""
+"Non ho potuto incontrare un arco o una corsia compatibile per la fermata di "
+"trasporto pubblico in sospeso '%' (%). Perciò quest'ultima verrà rimossa!"
 
 #: src/netbuild/NBParking.cpp:44
 #, c-format
@@ -9254,16 +9266,17 @@ msgstr ""
 
 #: src/netimport/NIImporter_OpenDrive.cpp:1441
 msgid "Could not find node '%'."
-msgstr ""
+msgstr "Non ho potuto trovare il nodo '%'."
 
 #: src/netimport/NIImporter_OpenDrive.cpp:1533
 msgid "Mismatched geometry for edge '%' between geometry segments % and %."
 msgstr ""
+"La geometria dell'arco '%' non coincide tra i segmento geometrici % e %."
 
 #: src/netimport/NIImporter_OpenDrive.cpp:1715
 #, c-format
 msgid "The sections of edge '%' are not sorted properly."
-msgstr ""
+msgstr "Le sezioni dell'arco '%' non sono ordinate correttamente."
 
 #: src/netimport/NIImporter_OpenDrive.cpp:1725
 msgid ""
