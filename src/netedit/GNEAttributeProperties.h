@@ -119,8 +119,23 @@ public:
     /// @brief get default value
     const std::string& getDefinition() const;
 
-    /// @brief get default value
+    /// @brief get default value in string format
     const std::string& getDefaultValue() const;
+
+    /// @brief get default int value
+    int getDefaultIntValue() const;
+
+    /// @brief get default double value
+    double getDefaultDoubleValue() const;
+
+    /// @brief get default time value
+    SUMOTime getDefaultTimeValue() const;
+
+    /// @brief get default bool value
+    bool getDefaultBoolValue() const;
+
+    /// @brief get default bool value
+    RGBColor getDefaultColorValue() const;
 
     /// @brief get default active value
     bool getDefaultActivated() const;
@@ -275,8 +290,23 @@ private:
     /// @brief text with a definition of attribute
     std::string myDefinition;
 
-    /// @brief default value (by default empty)
+    /// @brief default string value
     std::string myDefaultValue;
+
+    /// @brief default int value
+    int myDefaultIntValue = 0;
+
+    /// @brief default double value
+    double myDefaultDoubleValue = 0;
+
+    /// @brief default time value
+    SUMOTime myDefaultTimeValue = 0;
+
+    /// @brief default bool value
+    bool myDefaultBoolValue = false;
+
+    /// @brief get default bool value
+    RGBColor myDefaultColorValue = RGBColor::INVISIBLE;
 
     /// @brief default activated (by default false)
     bool myDefaultActivated = false;

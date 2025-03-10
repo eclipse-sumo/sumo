@@ -145,11 +145,7 @@ GNETagProperties::getDefaultValue(SumoXMLAttr attr) const {
     // iterate over attribute properties
     for (const auto& attributeProperty : myAttributeProperties) {
         if (attributeProperty->getAttr() == attr) {
-            if (!attributeProperty->hasDefaultValue()) {
-                throw ProcessError(TLF("attribute '%' doesn't have a default value", attributeProperty->getAttrStr()));
-            } else {
-                return attributeProperty->getDefaultValue();
-            }
+            return attributeProperty->getDefaultValue();
         }
     }
     throw ProcessError(TLF("Attribute '%' not defined", toString(attr)));

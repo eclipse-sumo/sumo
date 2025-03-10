@@ -230,6 +230,36 @@ GNEAttributeProperties::getDefaultValue() const {
 }
 
 
+int
+GNEAttributeProperties::getDefaultIntValue() const {
+    return myDefaultIntValue;
+}
+
+
+double
+GNEAttributeProperties::getDefaultDoubleValue() const {
+    return myDefaultDoubleValue;
+}
+
+
+SUMOTime
+GNEAttributeProperties::getDefaultTimeValue() const {
+    return myDefaultTimeValue;
+}
+
+
+bool
+GNEAttributeProperties::getDefaultBoolValue() const {
+    return myDefaultBoolValue;
+}
+
+
+RGBColor
+GNEAttributeProperties::getDefaultColorValue() const {
+    return myDefaultColorValue;
+}
+
+
 bool
 GNEAttributeProperties::getDefaultActivated() const {
     return myDefaultActivated;
