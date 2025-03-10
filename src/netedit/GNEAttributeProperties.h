@@ -22,12 +22,11 @@
 
 #include <utils/xml/SUMOSAXAttributes.h>
 
-
 // ===========================================================================
 // class declarations
 // ===========================================================================
-class GNETagProperties;
 
+class GNETagProperties;
 
 // ===========================================================================
 // class definitions
@@ -78,7 +77,7 @@ public:
     };
 
     /// @brief parameter constructor
-    GNEAttributeProperties(const SumoXMLAttr attribute, const int attributeProperty, const int editProperty, const std::string& definition, std::string defaultValue = "");
+    GNEAttributeProperties(GNETagProperties* tagProperties, const SumoXMLAttr attribute, const int attributeProperty, const int editProperty, const std::string& definition, std::string defaultValue = "");
 
     /// @brief destructor
     ~GNEAttributeProperties();
@@ -272,11 +271,11 @@ public:
     /// @}
 
 private:
+    /// @brief pointer to tagProperty parent
+    const GNETagProperties* myTagPropertyParent;
+
     /// @brief XML Attribute
     SumoXMLAttr myAttribute = SUMO_ATTR_NOTHING;
-
-    /// @brief pointer to tagProperty parent
-    GNETagProperties* myTagPropertyParent = nullptr;
 
     /// @brief string with the Attribute in text format (to avoid unnecesaries toStrings(...) calls)
     std::string myAttrStr;

@@ -139,6 +139,9 @@ public:
         NO_ADDITIONAL_CHILDREN =    1 << 4,     // Element doesn't have additional children
     };
 
+    /// @brief declare friend class
+    friend class GNEAttributeProperties;
+
     /// @brief parameter constructor
     GNETagProperties(const SumoXMLTag tag, const int tagType, const int tagProperty, const int tagParents, const int conflicts,
                      const GUIIcon icon, const SumoXMLTag XMLTag, const std::string tooltip, std::vector<SumoXMLTag> parentTags = {},
@@ -158,9 +161,6 @@ public:
 
     /// @brief check Tag integrity (this include all their attributes)
     void checkTagIntegrity() const;
-
-    /// @brief add attribute (duplicated attributed aren't allowed)
-    void addAttribute(GNEAttributeProperties* attributeProperty);
 
     /// @brief get field string (by default tag in string format)
     const std::string& getFieldString() const;

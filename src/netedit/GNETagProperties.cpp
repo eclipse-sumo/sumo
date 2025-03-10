@@ -20,8 +20,6 @@
 
 #include "GNETagProperties.h"
 
-#define MAXATTRIBUTES 128
-
 // ===========================================================================
 // method definitions
 // ===========================================================================
@@ -149,24 +147,6 @@ GNETagProperties::getDefaultValue(SumoXMLAttr attr) const {
         }
     }
     throw ProcessError(TLF("Attribute '%' not defined", toString(attr)));
-}
-
-
-void
-GNETagProperties::addAttribute(GNEAttributeProperties* attributeProperty) {
-    if ((myAttributeProperties.size() + 1) >= MAXATTRIBUTES) {
-        throw ProcessError(TLF("Maximum number of attributes for tag % exceeded", attributeProperty->getAttrStr()));
-    } else {
-        // Check that attribute wasn't already inserted
-        for (const auto& attrProperty : myAttributeProperties) {
-            if (attributeProperty->getAttr() == attrProperty->getAttr()) {
-                throw ProcessError(TLF("Attribute '%' already inserted", attributeProperty->getAttrStr()));
-            }
-        }
-        // insert AttributeProperties in vector
-        attributeProperty->setTagPropertyParent(this);
-        myAttributeProperties.push_back(attributeProperty);
-    }
 }
 
 

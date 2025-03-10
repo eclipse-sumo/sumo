@@ -27,19 +27,17 @@
 // method definitions
 // ===========================================================================
 
-GNEAttributeProperties::GNEAttributeProperties(const SumoXMLAttr attribute, const int attributeProperty, const int editProperty,
+GNEAttributeProperties::GNEAttributeProperties(GNETagProperties* tagProperties, const SumoXMLAttr attribute, const int attributeProperty, const int editProperty,
         const std::string& definition, std::string defaultValue) :
+    myTagPropertyParent(tagProperties),
     myAttribute(attribute),
-    myTagPropertyParent(nullptr),
     myAttrStr(toString(attribute)),
     myAttributeProperty(attributeProperty),
     myEditProperty(editProperty),
     myDefinition(definition),
-    myDefaultValue(defaultValue),
-    myDefaultActivated(false),
-    myAttrSynonym(SUMO_ATTR_NOTHING),
-    myMinimumRange(0),
-    myMaximumRange(0) {
+    myDefaultValue(defaultValue) {
+    // check integrity only in debug mode
+#ifdef DEBUG
     // empty definition aren't valid
     if (definition.empty()) {
         throw FormatException("Missing definition for AttributeProperty '" + toString(attribute) + "'");
@@ -52,6 +50,15 @@ GNEAttributeProperties::GNEAttributeProperties(const SumoXMLAttr attribute, cons
     if ((attributeProperty & FLOW) && (attributeProperty & ACTIVATABLE)) {
         throw FormatException("Attribute '" + toString(attribute) + "' cannot be flowdefinition and activatable at the same time");
     }
+    // Check that attribute wasn't already inserted
+    for (const auto& attrProperty : tagProperties->myAttributeProperties) {
+        if (attrProperty->getAttr() == attribute) {
+            throw ProcessError(TLF("Attribute '%' already inserted", toString(attribute)));
+        }
+    }
+#endif // DEBUG
+    // add attribute in tag properties vector
+    tagProperties->myAttributeProperties.push_back(this);
 }
 
 
