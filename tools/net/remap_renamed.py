@@ -11,7 +11,7 @@
 # https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 # SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
-# @file    remap_routes.py
+# @file    remap_renamed.py
 # @author  Jakob Erdmann
 # @date    2025-02-26
 
@@ -30,19 +30,15 @@ def get_options(args=None):
     ap = sumolib.options.ArgumentParser(description="Remap infrastructure from one network to another")
     # ap.add_argument("--orig-net", dest="origNet", required=False, category="input", type=ap.net_file,
     #                 help="SUMO network for loading infrastructure", metavar="FILE")
-    ap.add_argument("--target-net", dest="targetNet", required=True, category="input", type=ap.net_file,
-                    help="SUMO network for writing infrastructure", metavar="FILE")
-    ap.add_argument("-r", "--route-file", dest="routes", required=True, category="input",
-                    type=ap.route_file,
+    ap.add_argument("-n", "--net-file", dest="targetNet", required=True, category="input", type=ap.net_file,
+                    help="SUMO network with renamed ids", metavar="FILE")
+    gp = ap.add_mutually_exclusive_group(required=True)
+    gp.add_argument("-r", "--route-file", dest="routes", category="input", type=ap.route_file,
                     help="File for reading routes", metavar="FILE")
+    gp.add_argument("-a", "--additional-file", dest="addfile", category="input", type=ap.route_file,
+                    help="File for reading additional elements", metavar="FILE")
     ap.add_argument("-o", "--output-file", dest="output", required=True, category="output", type=ap.additional_file,
-                    help="File for writing infrastructure", metavar="FILE")
-    # ap.add_argument("--radius", type=float, default=20,
-    #                 help="radius for finding candidate edges")
-    # ap.add_argument("--shapecut", type=float, default=40,
-    #                 help="Shorten polygon and edge shapes to FLOAT to increase robustness of angular comparison")
-    # ap.add_argument("--angle-tolerance", type=float, default=20, dest="atol",
-    #                 help="Match polygons and edges if their angle differs by no more than DEGRESS")
+                    help="File for writing output", metavar="FILE")
     ap.add_argument("-v", "--verbose", action="store_true", dest="verbose",
                     default=False, help="tell me what you are doing")
     options = ap.parse_args()
@@ -83,6 +79,14 @@ def remap_edges(options, origIDs):
         return ' '.join(newEdges)
 
 
+def remap_lanes(options, origIDs):
+    newLanes = [remap_lane(options, l) for l in origIDs.split()]
+    if None in newLanes:
+        return None
+    else:
+        return ' '.join(newLanes)
+
+
 IDS = {
     'edge': remap_edge,
     'attr_from': remap_edge,
@@ -92,6 +96,7 @@ IDS = {
     'fromJunction': remap_junction,
     'toJunction': remap_junction,
     'lane': remap_lane,
+    'lanes': remap_lanes,
 }
 
 
@@ -146,15 +151,22 @@ def main(options):
     options.net2 = sumolib.net.readNet(options.targetNet)
     options.lookup = build_lookup(options.net2)
     options.junction_lookup = build_junction_lookup(options.net2)
+    
+    if options.routes:
+        infile = options.routes
+        tag = "routes"
+    else:
+        infile = options.addfile
+        tag = "additional"
 
     with open(options.output, 'w') as fout:
-        sumolib.writeXMLHeader(fout, "$Id$", "routes", options=options)
-        for obj in parse(options.routes):
+        sumolib.writeXMLHeader(fout, "$Id$", tag, options=options)
+        for obj in parse(infile):
             if remap(options, obj):
                 fout.write(obj.toXML(initialIndent=" " * 4))
             else:
                 fout.write("    <!--" + obj.toXML()[1:-2] + "-->\n")
-        fout.write("</routes>\n")
+        fout.write("</%s>\n" % tag)
 
     if MISSING:
         print("Could not map %s edges (%s total occurences)" % (
