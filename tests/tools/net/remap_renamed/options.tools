@@ -1,0 +1,3 @@
+-n net2.net.xml
+-o out.rou.xml
+tools/net/remap_renamed.py
