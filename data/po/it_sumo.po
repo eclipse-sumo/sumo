@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-13 10:07+0100\n"
-"PO-Revision-Date: 2025-03-11 09:38+0000\n"
+"PO-Revision-Date: 2025-03-11 11:27+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -10370,7 +10370,7 @@ msgstr ""
 #: src/netimport/vissim/tempstructs/NIVissimEdge.cpp:526
 #, c-format
 msgid "The referenced speed distribution '%' is not known."
-msgstr ""
+msgstr "La distribuzione di velocità referenziata '%' è sconosciuta."
 
 #: src/netimport/vissim/tempstructs/NIVissimDistrictConnection.cpp:378
 #: src/netimport/vissim/tempstructs/NIVissimDistrictConnection.cpp:385
