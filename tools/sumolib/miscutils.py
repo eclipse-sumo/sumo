@@ -37,6 +37,7 @@ except ImportError:
     from urllib import urlopen
 # needed for backward compatibility
 from .statistics import Statistics, geh, uMax, uMin, round  # noqa
+from .xml import xmlescape
 
 
 _BLACKLIST = type, ModuleType, FunctionType

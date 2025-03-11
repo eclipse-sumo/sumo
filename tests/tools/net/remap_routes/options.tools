@@ -1,3 +1,0 @@
---target-net net2.net.xml
--o out.rou.xml
-tools/net/remap_routes.py

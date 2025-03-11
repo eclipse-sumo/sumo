@@ -207,6 +207,12 @@ GNEBusStop::getAttribute(SumoXMLAttr key) const {
 }
 
 
+double
+GNEBusStop::getAttributeDouble(SumoXMLAttr key) const {
+    return getStoppingPlaceAttributeDouble(key);
+}
+
+
 void
 GNEBusStop::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     switch (key) {
@@ -243,7 +249,6 @@ GNEBusStop::isValid(SumoXMLAttr key, const std::string& value) {
 void
 GNEBusStop::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
-
         case SUMO_ATTR_LINES:
             myLines = GNEAttributeCarrier::parse<std::vector<std::string> >(value);
             break;

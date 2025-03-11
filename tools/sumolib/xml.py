@@ -34,7 +34,7 @@ except ImportError as e:
 from collections import namedtuple, OrderedDict
 from keyword import iskeyword
 from functools import reduce
-import xml.sax.saxutils
+from xml.sax import saxutils
 
 from . import version, miscutils
 
@@ -67,6 +67,9 @@ DEFAULT_ATTR_CONVERSIONS = {
     'fromLane': int,
     'toLane': int,
 }
+
+def xmlescape(value):
+    return saxutils.escape(str(value), {'"': '&quot;'})
 
 
 def supports_comments():
@@ -237,7 +240,7 @@ def compound_object(element_name, attrnames, warn=False, sort=False):
             return "<%s,child_dict=%s%s>" % (self.getAttributes(), dict(self._child_dict), nodeText)
 
         def toXML(self, initialIndent="", indent="    ", withComments=False):
-            fields = ['%s="%s"' % (self._original_fields[i], getattr(self, k))
+            fields = ['%s="%s"' % (self._original_fields[i], xmlescape(getattr(self, k)))
                       for i, k in enumerate(self._fields) if getattr(self, k) is not None and
                       # see #3454
                       '{' not in self._original_fields[i]]
@@ -630,4 +633,4 @@ def quoteattr(val, ensureUnicode=False):
     # we can prevent this by adding an artificial single quote to the value and removing it again
     if ensureUnicode and type(val) is bytes:
         val = val.decode("utf-8")
-    return '"' + xml.sax.saxutils.quoteattr("'" + val)[2:]
+    return '"' + saxutils.quoteattr("'" + val)[2:]

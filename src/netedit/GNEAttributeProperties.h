@@ -339,7 +339,7 @@ private:
     void checkBuildConstraints() const;
 
     /// @brief parse default values
-    void parseDefaultValues(const std::string& defaultValue);
+    void parseDefaultValues(const std::string& defaultValue, const bool overWritteDefaultString);
 
     /// @brief invalidate default constructor
     GNEAttributeProperties() = delete;
