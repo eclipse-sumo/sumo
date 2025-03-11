@@ -163,7 +163,7 @@ def main(options):
         sumolib.writeXMLHeader(fout, "$Id$", tag, options=options)
         for obj in parse(infile):
             if remap(options, obj):
-                fout.write(obj.toXML(initialIndent=" " * 4))
+                fout.write(obj.toXML(initialIndent=" " * 4, withComments="inline"))
             else:
                 fout.write("    <!--" + obj.toXML()[1:-2] + "-->\n")
         fout.write("</%s>\n" % tag)
