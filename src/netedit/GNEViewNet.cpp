@@ -3002,13 +3002,13 @@ GNEViewNet::onCmdAddReverse(FXObject*, FXSelector, void*) {
 long
 GNEViewNet::onCmdSetCustomGeometryPoint(FXObject*, FXSelector, void*) {
     // get element at popup position
-    GNELane* lane = getLaneAtPopupPosition();
+    GNEEdge* edge = getEdgeAtPopupPosition();
     GNEPoly* poly = getPolygonAtPopupPosition();
     GNETAZ* TAZ = getTAZAtPopupPosition();
     // check element
-    if (lane != nullptr) {
+    if (edge != nullptr) {
         // make a copy of edge geometry
-        PositionVector edgeGeometry = lane->getParentEdge()->getNBEdge()->getGeometry();
+        auto edgeGeometry = edge->getNBEdge()->getGeometry();
         // get index position
         const int index = edgeGeometry.indexOfClosest(getPositionInformation(), true);
         // get new position
@@ -3020,20 +3020,20 @@ GNEViewNet::onCmdSetCustomGeometryPoint(FXObject*, FXSelector, void*) {
             // update new position
             edgeGeometry[index] = newPosition;
             // begin undo list
-            myUndoList->begin(lane->getParentEdge(), TL("change edge Geometry Point position"));
+            myUndoList->begin(edge, TL("change edge Geometry Point position"));
             // continue depending of index
             if (index == 0) {
                 // change shape start
-                GNEChange_Attribute::changeAttribute(lane->getParentEdge(), GNE_ATTR_SHAPE_START, toString(edgeGeometry.front()), myUndoList);
+                GNEChange_Attribute::changeAttribute(edge, GNE_ATTR_SHAPE_START, toString(edgeGeometry.front()), myUndoList);
             } else if (index == ((int)edgeGeometry.size() - 1)) {
                 // change shape end
-                GNEChange_Attribute::changeAttribute(lane->getParentEdge(), GNE_ATTR_SHAPE_END, toString(edgeGeometry.back()), myUndoList);
+                GNEChange_Attribute::changeAttribute(edge, GNE_ATTR_SHAPE_END, toString(edgeGeometry.back()), myUndoList);
             } else {
                 // remove front and back geometry points
                 edgeGeometry.pop_front();
                 edgeGeometry.pop_back();
                 // change shape
-                GNEChange_Attribute::changeAttribute(lane->getParentEdge(), SUMO_ATTR_SHAPE, toString(edgeGeometry), myUndoList);
+                GNEChange_Attribute::changeAttribute(edge, SUMO_ATTR_SHAPE, toString(edgeGeometry), myUndoList);
             }
             // end undo list
             myUndoList->end();
