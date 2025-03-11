@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2008-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2008-2025 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -47,6 +47,12 @@ sys.path += [os.path.join(SUMO_HOME, "tools"), os.path.join(SUMO_HOME, "tests")]
 import sumolib  # noqa
 import runExtraTests  # noqa
 
+try:
+    import matplotlib
+    MATPLOTLIB_CACHE = matplotlib.get_cachedir()
+except ImportError:
+    MATPLOTLIB_CACHE = None
+
 BINARIES = ("activitygen", "emissionsDrivingCycle", "emissionsMap",
             "dfrouter", "duarouter", "jtrrouter", "marouter",
             "netconvert", "netedit", "netgenerate",
@@ -73,10 +79,12 @@ def runTests(options, env, gitrev, debugSuffix=""):
         return
     prefix = env["FILEPREFIX"] + debugSuffix
     env["SUMO_BATCH_RESULT"] = os.path.join(options.rootDir, prefix + "batch_result")
-    env["SUMO_REPORT"] = os.path.join(options.remoteDir, prefix + "report")
-    env["TEXTTEST_TMP"] = os.path.join(options.rootDir, prefix + "texttesttmp")
+    env["SUMO_REPORT"] = os.path.join(options.rootDir, prefix + "report")
+    env["TEXTTEST_TMP"] = os.path.join(options.rootDir, prefix + "tmp")
     env["TEXTTEST_HOME"] = os.path.join(SUMO_HOME, "tests")
     shutil.rmtree(env["TEXTTEST_TMP"], True)
+    if MATPLOTLIB_CACHE:
+        shutil.rmtree(MATPLOTLIB_CACHE, True)
     if not os.path.exists(env["SUMO_REPORT"]):
         os.makedirs(env["SUMO_REPORT"])
     for name in BINARIES:
@@ -96,6 +104,7 @@ def runTests(options, env, gitrev, debugSuffix=""):
         status.log_subprocess([ttBin] + fullOpt, env)
         status.log_subprocess([ttBin, "-a", "sumo.gui"] + fullOpt, env)
     status.log_subprocess([ttBin, "-b", env["FILEPREFIX"], "-coll"], env)
+    shutil.copytree(env["SUMO_REPORT"], os.path.join(options.remoteDir, prefix + "report"), dirs_exist_ok=True)
     status.killall((debugSuffix,), BINARIES)
 
 
@@ -115,7 +124,7 @@ def generateCMake(generator, platform, checkOptionalLibs, python):
 
 def main(options, platform="x64"):
     env["FILEPREFIX"] = options.msvc_version + options.suffix + platform
-    prefix = os.path.join(options.remoteDir, env["FILEPREFIX"])
+    prefix = os.path.join(options.rootDir, env["FILEPREFIX"])
     makeLog = prefix + "Release.log"
     makeAllLog = prefix + "Debug.log"
     testLog = prefix + "Test.log"
@@ -204,12 +213,16 @@ def main(options, platform="x64"):
     runTests(options, env, gitrev)
     with open(statusLog, 'w') as log:
         status.printStatus(makeLog, makeAllLog, env["SMTP_SERVER"], log, testLog=testLog)
+    for f in (makeLog, makeAllLog, statusLog, testLog):
+        shutil.copy(f, options.remoteDir)
     if not options.x64only:
         debug_handler = status.set_rotating_log(testDebugLog, log_handler)
         status.printLog("Running debug tests.")
         runTests(options, env, gitrev, "D")
         with open(prefix + "Dstatus.log", 'w') as log:
             status.printStatus(makeAllLog, testDebugLog, env["SMTP_SERVER"], log, testLog=testDebugLog)
+        for f in (testDebugLog, log.name):
+            shutil.copy(f, options.remoteDir)
 
 
 if __name__ == "__main__":

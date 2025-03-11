@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -446,7 +446,7 @@ MSMeanData::init() {
         // use all edges by default
         for (MSEdge* const edge : MSNet::getInstance()->getEdgeControl().getEdges()) {
             if ((myDumpInternal || !edge->isInternal()) &&
-                    ((detectPersons() && myDumpInternal) || (!edge->isCrossing() && !edge->isWalkingArea()))) {
+                    ((detectsPersons() && myDumpInternal) || (!edge->isCrossing() && !edge->isWalkingArea()))) {
                 myEdges.push_back(edge);
             }
         }
@@ -560,7 +560,7 @@ MSMeanData::writeAggregated(OutputDevice& dev, SUMOTime startTime, SUMOTime stop
     double totalTT = 0;
     for (MSEdge* edge : myEdges) {
         edgeLengthSum += edge->getLength();
-        laneNumber += edge->getNumLanes();
+        laneNumber += edge->getNumDrivingLanes();
         speedSum += edge->getSpeedLimit();
         totalTT += edge->getLength() / edge->getSpeedLimit();
     }
@@ -610,7 +610,7 @@ MSMeanData::writeEdge(OutputDevice& dev,
             MeanDataValues* data = edgeValues.front();
             if (writePrefix(dev, *data, SUMO_TAG_EDGE, getEdgeID(edge))) {
                 data->write(dev, myWrittenAttributes, stopTime - startTime,
-                            (int)edge->getLanes().size(),
+                            edge->getNumDrivingLanes(),
                             edge->getSpeedLimit(),
                             myPrintDefaults ? edge->getLength() / edge->getSpeedLimit() : -1.);
             }
@@ -651,7 +651,7 @@ MSMeanData::writeEdge(OutputDevice& dev,
         if (myTrackVehicles) {
             MeanDataValues& meanData = **edgeValues.begin();
             if (writePrefix(dev, meanData, SUMO_TAG_EDGE, edge->getID())) {
-                meanData.write(dev, myWrittenAttributes, stopTime - startTime, (int)edge->getLanes().size(), edge->getSpeedLimit(),
+                meanData.write(dev, myWrittenAttributes, stopTime - startTime, edge->getNumDrivingLanes(), edge->getSpeedLimit(),
                                myPrintDefaults ? edge->getLength() / edge->getSpeedLimit() : -1.);
             }
             if (!MSNet::getInstance()->skipFinalReset()) {
@@ -667,7 +667,7 @@ MSMeanData::writeEdge(OutputDevice& dev,
                 }
             }
             if (writePrefix(dev, *sumData, SUMO_TAG_EDGE, getEdgeID(edge))) {
-                sumData->write(dev, myWrittenAttributes, stopTime - startTime, (int)edge->getLanes().size(), edge->getSpeedLimit(),
+                sumData->write(dev, myWrittenAttributes, stopTime - startTime, edge->getNumDrivingLanes(), edge->getSpeedLimit(),
                                myPrintDefaults ? edge->getLength() / edge->getSpeedLimit() : -1.);
             }
             delete sumData;

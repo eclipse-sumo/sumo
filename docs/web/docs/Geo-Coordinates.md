@@ -61,7 +61,7 @@ The [duarouter](duarouter.md) and [sumo](sumo.md) applications supports attribut
   the netconvert command
 
 ```
-netconvert --sumo-net-file myNet.net.xml --plain-output-prefix plain --proj.plain-geo
+netconvert --sumo-net-file myNet.net.xml --plain-output-prefix plain --proj.plain-geo
 ```
 
 - [FCD-output](Simulation/Output/FCDOutput.md) can be obtained

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2008-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2008-2025 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -24,7 +24,7 @@ import os
 import subprocess
 import sys
 import math
-from multiprocessing import Process, freeze_support
+import multiprocessing
 
 if "SUMO_HOME" in os.environ:
     sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
@@ -83,7 +83,7 @@ def runSingle(sumoEndTime, traciEndTime, numClients, steplengths, runNr):
         (sumoBinary, numClients, PORT), shell=True, stdout=sys.stdout)
     # Alternate ordering
     indexRange = range(numClients) if (runNr % 2 == 0) else list(reversed(range(numClients)))
-    procs = [Process(target=traciLoop, args=(
+    procs = [multiprocessing.Process(target=traciLoop, args=(
         PORT, (traciEndTime if i != 0 else 20), i + 1, steplengths[indexRange[i]])) for i in range(numClients)]
     for p in procs:
         p.start()
@@ -94,7 +94,7 @@ def runSingle(sumoEndTime, traciEndTime, numClients, steplengths, runNr):
 
 
 if __name__ == '__main__':
-    freeze_support()
+    multiprocessing.set_start_method('spawn')
     runNr = 2
     clientRange = [2, 3]
     steplengths = [0.1, 1.0, 1.7, 2.0]

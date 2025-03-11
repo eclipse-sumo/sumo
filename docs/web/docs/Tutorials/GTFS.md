@@ -120,15 +120,16 @@ which automatically generate the "osm_ptlines.xml" file with the public transpor
 The call is:
 
 ```
-python tools/import/gtfs/gtfs2pt.py -n osm.net.xml --gtfs GTFS_VBB_Juni-Dezember-2019.zip --date 20190904 --osm-routes osm_ptlines.xml --repair --modes bus
+python tools/import/gtfs/gtfs2pt.py -n osm.net.xml --gtfs GTFS_VBB_Juni-Dezember-2019.zip --date 20190904 --osm-routes osm_ptlines.xml --repair --modes bus --vtype-output pt_vtypes.xml
 ```
 
 The option **--repair** is not mandatory, but helpful. It takes the given ptLines
 and tries to repair them using duarouter before the mapping. If some routes of the
 ptLines are not valid, they won't be used for the mapping.
 
-The script generates four output files:
+The script generates the following output files:
 
+- `pt_vtypes.xml`
 - `gtfs_publictransport.add.xml` (defining the stops)
 - `gtfs_publictransport.rou.xml` (defining the single public transport vehicles)
 - `gtfs_missing.xml` contains the elements (stops and ptLines) of the GTFS data that could not be imported
@@ -137,7 +138,7 @@ The script generates four output files:
 To run the simulation call:
 
 ```
-sumo-gui -n osm.net.xml --additional gtfs_publictransport.add.xml --routes gtfs_publictransport.rou.xml
+sumo-gui -n osm.net.xml --additional pt_vtypes.xml,gtfs_publictransport.add.xml --routes gtfs_publictransport.rou.xml
 ```
 
 # Using the outputs in a simulation

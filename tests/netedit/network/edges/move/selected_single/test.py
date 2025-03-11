@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2009-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2009-2025 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -28,23 +28,32 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
+# Change to create mode
+netedit.createEdgeMode()
+
+# select two-way mode
+netedit.changeEditMode(netedit.attrs.modes.network.twoWayMode)
+
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionE)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionF)
+
 # go to select mode
 netedit.selectMode()
 
-# select edge
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.network.edge.move.top)
 
-# change to move mode
+# rebuild network
 netedit.moveMode()
 
-# move first edge
-netedit.moveElement(referencePosition, 460, 210, 460, 60)
+# move
+netedit.moveElementVertical(referencePosition, netedit.positions.network.edge.move.top,
+                            netedit.positions.elements.movementEdgeTop)
 
-# move second edge
-netedit.moveElement(referencePosition, 460, 260, 460, 413)
-
-# Check undos and redos
+# Check undo and redo
 netedit.checkUndoRedo(referencePosition)
+
+# rebuild network
+netedit.rebuildNetwork()
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

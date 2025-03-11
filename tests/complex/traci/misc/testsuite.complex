@@ -19,6 +19,9 @@ tracing_repeat
 # test client-side command tracing (including getters)
 tracing_noGetters
 
+# test client-side command tracing (including getters)
+tracing_printGetters
+
 # test client-side command tracing
 tracing_close_start
 

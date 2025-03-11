@@ -5,10 +5,13 @@ copy_test_path:routes.rou.xml
 copy_test_path:routes2.rou.xml
 copy_test_path:net.net.xml
 copy_test_path:net2.net.xml
+copy_test_path:net3.net.xml
+copy_test_path:input.poly.xml
 copy_test_path:input_additional.add.xml
 copy_test_path:input_additional2.add.xml
 copy_test_path:three_split.net.xml
 copy_test_path:input_net.net.xml
+copy_test_path:input_net.net.xml.gz
 copy_test_path:input_edges.edg.xml
 copy_test_path:input_nodes.nod.xml
 copy_test_path:input_plain.tll.xml
@@ -16,6 +19,7 @@ copy_test_path:input_trips.trips.xml
 copy_test_path:input_trips.trips_foo.xml
 copy_test_path:input_trips.trips_bar.xml
 copy_test_path:input_routes.rou.xml
+copy_test_path:input_routes.rou.xml.gz
 copy_test_path:input_routes2.rou.xml
 copy_test_path:input_flows.flows.xml
 copy_test_path:input_turns.xml
@@ -43,6 +47,7 @@ copy_test_path:testLinks.txt
 copy_test_path:routesx.rou.alt.xml
 copy_test_path:routesy.rou.alt.xml
 copy_test_path:input_districts.xml
+copy_test_path:input_districts.xml.gz
 copy_test_path:input_mtx0708.fma
 copy_test_path:vissim.inp
 copy_test_path:e1.add.xml
@@ -89,6 +94,7 @@ copy_test_path:gtfs.zip
 copy_test_path:battery.xml
 copy_test_path:input.dxf
 copy_test_path:log.txt
+copy_test_path:input_edge_types.txt
 
 [collate_file]
 scaledObj:scaledObj.rou.xml
@@ -133,9 +139,9 @@ diff_xml:diff.xml
 created_sel:diff.created.sel.txt
 deleted_sel:diff.deleted.sel.txt
 changed_sel:diff.changed.sel.txt
-created_shapes:diff.created.shape.xml
-deleted_shapes:diff.deleted.shape.xml
-changed_shapes:diff.changed.shape.xml
+created_shapes:diff.created.shape.add.xml
+deleted_shapes:diff.deleted.shape.add.xml
+changed_shapes:diff.changed.shape.add.xml
 omnet:omnet.xml
 shawn:shawn.xml
 dri:test.dri
@@ -212,6 +218,8 @@ gtfs_missing:gtfs_missing.xml
 gtfs_routes:gtfs_pt_vehicles.add.xml
 gtfs_additional:gtfs_pt_stops.add.xml
 aggregatebattery:aggregatebattery.xml
+landmarks:landmarks.txt
+outputdata:output_data.txt
 
 [collate_script]
 osmimport:$SUMO_HOME/tests/unzip.py
@@ -244,6 +252,7 @@ output:function .* called at .*
 output:function .* finished after .*
 output:optional arguments:{REPLACE options:}
 output:succeeded after .*{REPLACE succeeded after TIME}
+output:usage: {LINES 1000}
 dualog:uration:.*ms
 dualog:uration:.*s
 dualog:Real time factor
@@ -270,30 +279,22 @@ deleted_shapes:<!-- generated on{[->]}-->
 changed_shapes:<!-- generated on{[->]}-->
 aggregatebattery:<!-- generated on{[->]}-->
 errors:Execution of .*duarouter.*'{REPLACE Execution of <path-to>duarouter'}
-errors:Leaked object at 
+errors:Leaked object at
 errors:*** 9 leaks found
 errors:delete: freed
-errors:lxml.etree.XMLSyntaxError{REPLACE XMLSyntaxError}
-errors:File .* lxml.etree.
 errors:OSError: Error reading file{REPLACE IOError: Error reading file}
 errors:.*RuntimeWarning: divide{REPLACE RuntimeWarning: divide}
 errors:Ran [0-9]+ tests in [0-9]+\.[0-9]+s{REPLACE Ran <COUNT> tests in <TIME>}
 errors:No imaging
-errors:Bytes: 0xF6 0x74 0x2E 0x6E, line 3, column 27{REPLACE Bytes: 0xF6 0x74 0x2E 0x6E, line 3, column 26}
-errors:column ([0-9]*) \(line [0-9]*\){REPLACE column \1}
 errors:Scipy version [0-9]+\.[0-9]+\.[0-9]+{REPLACE Scipy}
 errors:OptimizeWarning
-errors:(file:)?/.*/tests/sumo/{REPLACE sumo/tests/sumo/}
-errors:/.*/tests/../tools/{REPLACE sumo/tools/}
+errors:File ".*[\\/]tests[\\/]..[\\/]tools[\\/]{REPLACE File "sumo/tools/}
 errors:.*statistics.py:[0-9]+{REPLACE statistics.py:}
-errors:.*[/\\]([a-zA-Z0-9]*).py", line [0-9]+{REPLACE \1.py}
 errors:unknown url type{REPLACE [Errno 2] No such file or directory}
-errors::ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element
 errors:Matplotlib is building the font cache; this may take a moment.
 errors:apport/report.py:13: DeprecationWarning: the imp{LINES 2}
 errors:dateutil/tz/tz.py:.*: DeprecationWarning: datetime.datetime.utcfromtimestamp{LINES 2}
 errors:matplotlib/projections/__init__.py:.*: UserWarning: Unable to import Axes3D.{LINES 2}
-errors:schemaCheck.py
 errors:site-packages/ortools.*DeprecationWarning:
 errors:remaining_args \.\.\.
 errors:FutureWarning:{LINES 2}
@@ -302,6 +303,8 @@ errors:something strange happend{REPLACE something strange happened}
 errors:LinAlgWarning: Ill-conditioned matrix
 errors:= opt.linprog(
 errors:return sp.linalg.solve
+errors:usage: {[->}error:
+errors:\(choose from .*\){REPLACE (choose wisely)}
 omnet:<!-- generated on
 shawn:<!-- generated on
 gpsdat:r[0-9]
@@ -367,6 +370,7 @@ image:1.001
 image-600:1.001
 image-800:1.001
 osmbatch:0.001
+osmimport:0.0101
 osmlines:0.0101
 osmstops:0.0101
 osmtrips:0.0101

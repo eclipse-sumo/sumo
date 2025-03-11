@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -72,7 +72,8 @@ time2string(SUMOTime t, bool humanReadable) {
         oss << "-";
     }
     // needed for signed zero errors, see #5926
-    t = llabs(t);
+    // llabs(SUMOTime_MIN) would create overflow and must be handleed separately
+    t = t == SUMOTime_MIN ? SUMOTime_MAX : (SUMOTime)llabs(t);
     SUMOTime scale = (SUMOTime)pow(10, MAX2(0, 3 - gPrecision));
     if (scale > 1) {
         if (t != SUMOTime_MAX) {

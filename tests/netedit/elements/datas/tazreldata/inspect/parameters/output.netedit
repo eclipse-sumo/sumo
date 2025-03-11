@@ -4,9 +4,9 @@ TestFunctions: 'reference.png' found. Position: 304 - 168
 newDataSet
 0
 3600
-TestFunctions: Clicked over position 604 - 348
-TestFunctions: Clicked over position 1004 - 348
-TestFunctions: Clicked over position 729 - 422
+TestFunctions: Clicked over position 861 - 399
+TestFunctions: Clicked over position 1012 - 400
+TestFunctions: Clicked over position 954 - 423
 dummyGenericParameters
 key1|key2|key3
 key1=1|key2=2|key3=3
@@ -17,6 +17,8 @@ key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated
 keyInvalid.;%>%$$=1|key2=2|key3=3
 key1=valueInvalid%;%$<>$$%|key2=2|key3=3
 keyFinal1=1|keyFinal2=2|keyFinal3=3
+TestFunctions: Clicked over position 304 - 168
+TestFunctions: Clicked over position 334 - 168
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Netedit closed successfully

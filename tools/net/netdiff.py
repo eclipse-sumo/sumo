@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2011-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2011-2025 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -675,9 +675,9 @@ def main(options):
         selectionOutputFiles.append(codecs.open(options.outprefix + '.deleted.sel.txt', 'w', 'utf-8'))
         selectionOutputFiles.append(codecs.open(options.outprefix + '.changed.sel.txt', 'w', 'utf-8'))
     if options.write_shapes:
-        shapeOutputFiles.append(codecs.open(options.outprefix + '.created.shape.xml', 'w', 'utf-8'))
-        shapeOutputFiles.append(codecs.open(options.outprefix + '.deleted.shape.xml', 'w', 'utf-8'))
-        shapeOutputFiles.append(codecs.open(options.outprefix + '.changed.shape.xml', 'w', 'utf-8'))
+        shapeOutputFiles.append(codecs.open(options.outprefix + '.created.shape.add.xml', 'w', 'utf-8'))
+        shapeOutputFiles.append(codecs.open(options.outprefix + '.deleted.shape.add.xml', 'w', 'utf-8'))
+        shapeOutputFiles.append(codecs.open(options.outprefix + '.changed.shape.add.xml', 'w', 'utf-8'))
         for f in shapeOutputFiles:
             sumolib.writeXMLHeader(f, "$Id$", "additional", options=options)  # noqa
 

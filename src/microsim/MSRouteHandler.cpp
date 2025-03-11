@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -17,6 +17,7 @@
 /// @author  Sascha Krieg
 /// @author  Michael Behrisch
 /// @author  Johannes Rummel
+/// @author  Mirko Barthauer
 /// @date    Mon, 9 Jul 2001
 ///
 // Parser and container for routes during their loading
@@ -34,7 +35,9 @@
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSInsertionControl.h>
+#include <microsim/MSParkingArea.h>
 #include <microsim/MSStoppingPlace.h>
+#include <microsim/trigger/MSChargingStation.h>
 #include <microsim/MSVehicleControl.h>
 #include <microsim/MSEventControl.h>
 #include <microsim/Command_RouteReplacement.h>
@@ -55,6 +58,7 @@ SumoRNG MSRouteHandler::myParsingRNG("routehandler");
 MSRouteHandler::MSRouteHandler(const std::string& file, bool addVehiclesDirectly) :
     SUMORouteHandler(file, addVehiclesDirectly ? "" : "routes", true),
     MapMatcher(OptionsCont::getOptions().getBool("mapmatch.junctions"),
+               OptionsCont::getOptions().getBool("mapmatch.taz"),
                OptionsCont::getOptions().getFloat("mapmatch.distance"),
                MsgHandler::getErrorInstance()),
     myActiveRouteRepeat(0),
@@ -118,7 +122,7 @@ MSRouteHandler::parseFromViaTo(SumoXMLTag tag, const SUMOSAXAttributes& attrs) {
         }
     }
     // from-attributes
-    if ((useTaz || !attrs.hasAttribute(SUMO_ATTR_FROM)) &&
+    if ((useTaz || (!attrs.hasAttribute(SUMO_ATTR_FROM) && !attrs.hasAttribute(SUMO_ATTR_FROMXY) && !attrs.hasAttribute(SUMO_ATTR_FROMLONLAT))) &&
             (attrs.hasAttribute(SUMO_ATTR_FROM_TAZ) || attrs.hasAttribute(SUMO_ATTR_FROM_JUNCTION))) {
         const bool useJunction = attrs.hasAttribute(SUMO_ATTR_FROM_JUNCTION);
         const std::string tazType = useJunction ? "junction" : "taz";
@@ -134,8 +138,16 @@ MSRouteHandler::parseFromViaTo(SumoXMLTag tag, const SUMOSAXAttributes& attrs) {
         }
     } else if (attrs.hasAttribute(SUMO_ATTR_FROMXY)) {
         parseGeoEdges(attrs.get<PositionVector>(SUMO_ATTR_FROMXY, myVehicleParameter->id.c_str(), ok), false, vClass, myActiveRoute, rid, true, ok);
+        if (myMapMatchTAZ && ok) {
+            myVehicleParameter->fromTaz = myActiveRoute.back()->getID();
+            myVehicleParameter->parametersSet |= VEHPARS_FROM_TAZ_SET;
+        }
     } else if (attrs.hasAttribute(SUMO_ATTR_FROMLONLAT)) {
         parseGeoEdges(attrs.get<PositionVector>(SUMO_ATTR_FROMLONLAT, myVehicleParameter->id.c_str(), ok), true, vClass, myActiveRoute, rid, true, ok);
+        if (myMapMatchTAZ && ok) {
+            myVehicleParameter->fromTaz = myActiveRoute.back()->getID();
+            myVehicleParameter->parametersSet |= VEHPARS_FROM_TAZ_SET;
+        }
     } else {
         MSEdge::parseEdgesList(attrs.getOpt<std::string>(SUMO_ATTR_FROM, myVehicleParameter->id.c_str(), ok),
                                myActiveRoute, rid);
@@ -175,7 +187,7 @@ MSRouteHandler::parseFromViaTo(SumoXMLTag tag, const SUMOSAXAttributes& attrs) {
     }
 
     // to-attributes
-    if ((useTaz || !attrs.hasAttribute(SUMO_ATTR_TO)) &&
+    if ((useTaz || (!attrs.hasAttribute(SUMO_ATTR_TO) && !attrs.hasAttribute(SUMO_ATTR_TOXY) && !attrs.hasAttribute(SUMO_ATTR_TOLONLAT))) &&
             (attrs.hasAttribute(SUMO_ATTR_TO_TAZ) || attrs.hasAttribute(SUMO_ATTR_TO_JUNCTION))) {
         const bool useJunction = attrs.hasAttribute(SUMO_ATTR_TO_JUNCTION);
         const std::string tazType = useJunction ? "junction" : "taz";
@@ -191,8 +203,16 @@ MSRouteHandler::parseFromViaTo(SumoXMLTag tag, const SUMOSAXAttributes& attrs) {
         }
     } else if (attrs.hasAttribute(SUMO_ATTR_TOXY)) {
         parseGeoEdges(attrs.get<PositionVector>(SUMO_ATTR_TOXY, myVehicleParameter->id.c_str(), ok, true), false, vClass, myActiveRoute, rid, false, ok);
+        if (myMapMatchTAZ && ok) {
+            myVehicleParameter->toTaz = myActiveRoute.back()->getID();
+            myVehicleParameter->parametersSet |= VEHPARS_TO_TAZ_SET;
+        }
     } else if (attrs.hasAttribute(SUMO_ATTR_TOLONLAT)) {
         parseGeoEdges(attrs.get<PositionVector>(SUMO_ATTR_TOLONLAT, myVehicleParameter->id.c_str(), ok, true), true, vClass, myActiveRoute, rid, false, ok);
+        if (myMapMatchTAZ && ok) {
+            myVehicleParameter->toTaz = myActiveRoute.back()->getID();
+            myVehicleParameter->parametersSet |= VEHPARS_TO_TAZ_SET;
+        }
     } else {
         MSEdge::parseEdgesList(attrs.getOpt<std::string>(SUMO_ATTR_TO, myVehicleParameter->id.c_str(), ok, "", true),
                                myActiveRoute, rid);
@@ -665,16 +685,19 @@ MSRouteHandler::closeVehicle() {
     // try to build the vehicle
     SUMOVehicle* vehicle = nullptr;
     if (vehControl.getVehicle(myVehicleParameter->id) == nullptr) {
+        MSVehicleControl::VehicleDefinitionSource source = (myAmLoadingState) ? MSVehicleControl::VehicleDefinitionSource::STATE : MSVehicleControl::VehicleDefinitionSource::ROUTEFILE;
         try {
-            vehicle = vehControl.buildVehicle(myVehicleParameter, route, vtype, !MSGlobals::gCheckRoutes, true, !myAmLoadingState);
+            vehicle = vehControl.buildVehicle(myVehicleParameter, route, vtype, !MSGlobals::gCheckRoutes, source, !myAmLoadingState);
         } catch (const ProcessError& e) {
             myVehicleParameter = nullptr;
             if (!MSGlobals::gCheckRoutes) {
                 WRITE_WARNING(e.what());
-                vehControl.fixVehicleCounts();
+                vehControl.deleteVehicle(vehicle, true);
+                myVehicleParameter = nullptr;
+                vehicle = nullptr;
                 return;
             } else {
-                throw e;
+                throw;
             }
         }
         const SUMOTime origDepart = myVehicleParameter->depart;
@@ -715,7 +738,7 @@ MSRouteHandler::closeVehicle() {
                     // resample type
                     vtype = vehControl.getVType(myVehicleParameter->vtypeid, &myParsingRNG);
                 }
-                vehicle = vehControl.buildVehicle(newPars, route, vtype, !MSGlobals::gCheckRoutes, true, !myAmLoadingState);
+                vehicle = vehControl.buildVehicle(newPars, route, vtype, !MSGlobals::gCheckRoutes, source, !myAmLoadingState);
                 vehControl.addVehicle(newPars->id, vehicle);
             }
             myVehicleParameter = nullptr;
@@ -1261,6 +1284,15 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
             return result;
         }
         const MSEdge* edge = nullptr;
+        // patch chargingStation stop on a parkingArea
+        if (stop.chargingStation != "") {
+            const MSChargingStation* cs = dynamic_cast<MSChargingStation*>(MSNet::getInstance()->getStoppingPlace(stop.chargingStation, SUMO_TAG_CHARGING_STATION));
+            const MSParkingArea* pa = cs->getParkingArea();
+            if (pa != nullptr) {
+                stop.parkingarea = pa->getID();
+                stop.parking = ParkingType::OFFROAD;
+            }
+        }
         MSStoppingPlace* toStop = retrieveStoppingPlace(attrs, errorSuffix, &stop);
         // if one of the previous stops is defined
         if (toStop != nullptr) {
@@ -1318,7 +1350,7 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
                         vClass = type->getParameter().vehicleClass;
                     }
                 }
-                parseGeoEdges(positions, geo, vClass, geoEdges, myVehicleParameter->id, true, ok);
+                parseGeoEdges(positions, geo, vClass, geoEdges, myVehicleParameter->id, true, ok, true);
                 if (ok) {
                     edge = geoEdges.front();
                     if (geo) {
@@ -1340,7 +1372,8 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
                     } else { // use end of movement before definied as lane/edge
                         edge = myActiveTransportablePlan->back()->getDestination();
                         stop.lane = edge->getLanes()[0]->getID();
-                        stop.endPos = myActiveTransportablePlan->back()->getArrivalPos();
+                        stop.endPos = myActiveTransportablePlan->back()->unspecifiedArrivalPos() ?
+                                      MSStage::ARRIVALPOS_UNSPECIFIED : myActiveTransportablePlan->back()->getArrivalPos();
                         stop.startPos = MAX2(0., stop.endPos - MIN_STOP_LENGTH);
                     }
                 } else {
@@ -1377,8 +1410,12 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
                 myActiveTransportablePlan->push_back(new MSStageWaiting(
                         edge, toStop, -1, myVehicleParameter->depart, departPos, "start", true));
             } else if (myActiveTransportablePlan->back()->getDestination() != edge) {
-                throw ProcessError(TLF("Disconnected plan for % '%' (%!=%).", myActiveTypeName, myVehicleParameter->id,
-                                       edge->getID(), myActiveTransportablePlan->back()->getDestination()->getID()));
+                if (myActiveTransportablePlan->back()->getDestination()->isTazConnector()) {
+                    myActiveTransportablePlan->back()->setDestination(edge, toStop);
+                } else {
+                    throw ProcessError(TLF("Disconnected plan for % '%' (%!=%).", myActiveTypeName, myVehicleParameter->id,
+                                           edge->getID(), myActiveTransportablePlan->back()->getDestination()->getID()));
+                }
             }
             // transporting veh stops somewhere
             else if (myActiveTransportablePlan->back()->getStageType() == MSStageType::WAITING
@@ -1394,7 +1431,8 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
             std::string actType = attrs.getOpt<std::string>(SUMO_ATTR_ACTTYPE, nullptr, ok, "");
             double pos = (stop.startPos + stop.endPos) / 2.;
             if (!myActiveTransportablePlan->empty()) {
-                pos = myActiveTransportablePlan->back()->getArrivalPos();
+                pos = myActiveTransportablePlan->back()->unspecifiedArrivalPos() ?
+                      MSStage::ARRIVALPOS_UNSPECIFIED : myActiveTransportablePlan->back()->getArrivalPos();
             }
             myActiveTransportablePlan->push_back(new MSStageWaiting(edge, toStop, stop.duration, stop.until, pos, actType, false));
             result = myActiveTransportablePlan->back();
@@ -1504,14 +1542,16 @@ MSRouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
         const MSEdge* to = nullptr;
         parseFromViaTo(SUMO_TAG_PERSON, attrs);
         myInsertStopEdgesAt = -1;
-        if (attrs.hasAttribute(SUMO_ATTR_FROM) || attrs.hasAttribute(SUMO_ATTR_FROM_JUNCTION) || attrs.hasAttribute(SUMO_ATTR_FROM_TAZ)) {
+        if (attrs.hasAttribute(SUMO_ATTR_FROM) || attrs.hasAttribute(SUMO_ATTR_FROM_JUNCTION) || attrs.hasAttribute(SUMO_ATTR_FROM_TAZ)
+                || attrs.hasAttribute(SUMO_ATTR_FROMXY) || attrs.hasAttribute(SUMO_ATTR_FROMLONLAT)) {
             from = myActiveRoute.front();
         } else if (myActiveTransportablePlan->empty()) {
             throw ProcessError(TLF("Start edge not defined for person '%'.", myVehicleParameter->id));
         } else {
             from = myActiveTransportablePlan->back()->getDestination();
         }
-        if (attrs.hasAttribute(SUMO_ATTR_TO) || attrs.hasAttribute(SUMO_ATTR_TO_JUNCTION) || attrs.hasAttribute(SUMO_ATTR_TO_TAZ)) {
+        if (attrs.hasAttribute(SUMO_ATTR_TO) || attrs.hasAttribute(SUMO_ATTR_TO_JUNCTION) || attrs.hasAttribute(SUMO_ATTR_TO_TAZ)
+                || attrs.hasAttribute(SUMO_ATTR_TOXY) || attrs.hasAttribute(SUMO_ATTR_TOLONLAT)) {
             to = myActiveRoute.back();
         } // else, to may also be derived from stopping place
 
@@ -1756,21 +1796,20 @@ MSRouteHandler::addTranship(const SUMOSAXAttributes& attrs) {
                 from = preEdge;
             }
             // set 'to':
-            if (attrs.hasAttribute(SUMO_ATTR_CONTAINER_STOP)) {
-                std::string csID = attrs.getOpt<std::string>(SUMO_ATTR_CONTAINER_STOP, nullptr, ok, "");
-                cs = MSNet::getInstance()->getStoppingPlace(csID, SUMO_TAG_CONTAINER_STOP);
-                if (cs == nullptr) {
-                    throw ProcessError("Unknown container stop '" + csID + "' for container '" + cid + "'.");
-                }
-                to = &cs->getLane().getEdge();
-            } else if (attrs.hasAttribute(SUMO_ATTR_TO)) {
+            if (attrs.hasAttribute(SUMO_ATTR_TO)) {
                 const std::string toID = attrs.get<std::string>(SUMO_ATTR_TO, cid.c_str(), ok);
                 to = MSEdge::dictionary(toID);
                 if (to == nullptr) {
                     throw ProcessError("The to edge '" + toID + "' within a tranship of container '" + cid + "' is not known.");
                 }
             } else {
-                throw ProcessError(TLF("Inconsistent tranship for container '%', only one option is allowed: 'edges', 'to', 'containerStop'", cid));
+                const std::string description = "container '" + cid + "' transhipping from edge '" + from->getID() + "'";
+                cs = retrieveStoppingPlace(attrs, " " + description);
+                if (cs != nullptr) {
+                    to = &cs->getLane().getEdge();
+                } else {
+                    throw ProcessError(TLF("Inconsistent tranship for container '%', needs either: 'edges', 'to', 'containerStop' (or any other stopping place)", cid));
+                }
             }
             myActiveRoute.push_back(from);
             myActiveRoute.push_back(to);
@@ -1797,13 +1836,21 @@ MSRouteHandler::addTranship(const SUMOSAXAttributes& attrs) {
 void
 MSRouteHandler::initLaneTree(NamedRTree* tree) {
     for (const auto& edge : MSEdge::getAllEdges()) {
-        for (MSLane* lane : edge->getLanes()) {
-            Boundary b = lane->getShape().getBoxBoundary();
-            const float cmin[2] = {(float) b.xmin(), (float) b.ymin()};
-            const float cmax[2] = {(float) b.xmax(), (float) b.ymax()};
-            tree->Insert(cmin, cmax, lane);
+        if (edge->isNormal() || MSGlobals::gUsingInternalLanes) {
+            for (MSLane* lane : edge->getLanes()) {
+                Boundary b = lane->getShape().getBoxBoundary();
+                const float cmin[2] = {(float) b.xmin(), (float) b.ymin()};
+                const float cmax[2] = {(float) b.xmax(), (float) b.ymax()};
+                tree->Insert(cmin, cmax, lane);
+            }
         }
     }
+}
+
+
+SumoRNG*
+MSRouteHandler::getRNG() {
+    return &myParsingRNG;
 }
 
 

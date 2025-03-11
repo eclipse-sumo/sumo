@@ -1,0 +1,14 @@
+# self overlapping outline
+ticket15111
+
+# custom node shape projected twice
+ticket15137
+
+# net has superfluous edge, bidi connections not found 
+ticket15514
+
+# invalid memory access when deleting narrow lanes
+ticket15718
+
+# invalid network created
+ticket15798

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -22,20 +22,17 @@
 
 #include <netedit/frames/GNEFrame.h>
 
-
 // ===========================================================================
 // class declaration
 // ===========================================================================
 
 class GNEMeanData;
+class GNEAttributesEditor;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/**
- * @class GNEMeanDataFrame
- * The Widget for setting internal attributes of additional elements
- */
+
 class GNEMeanDataFrame : public GNEFrame {
 
 public:
@@ -55,7 +52,7 @@ public:
         ~MeanDataTypeSelector();
 
         /// @brief get current MeanData
-        const GNETagProperties& getCurrentMeanData() const;
+        const GNETagProperties* getCurrentMeanData() const;
 
         /// @brief refresh meanData selector
         void refreshMeanDataTypeSelector();
@@ -75,13 +72,10 @@ public:
         GNEMeanDataFrame* myMeanDataFrameParent;
 
         /// @brief CurrentMeanData selected
-        GNETagProperties myCurrentMeanData;
+        const GNETagProperties* myCurrentMeanData = nullptr;
 
         /// @brief comboBox with the list of vTypes
         MFXComboBoxIcon* myTypeComboBox;
-
-        /// @brief invalidMeanData
-        GNETagProperties myInvalidMeanData;
     };
 
     // ===========================================================================
@@ -223,7 +217,7 @@ protected:
     MeanDataSelector* myMeanDataSelector = nullptr;
 
     /// @brief meanData attributes editor
-    GNEFrameAttributeModules::AttributesEditor* myMeanDataAttributesEditor = nullptr;
+    GNEAttributesEditor* myMeanDataAttributesEditor = nullptr;
 
 private:
     /// @brief Invalidated copy constructor.

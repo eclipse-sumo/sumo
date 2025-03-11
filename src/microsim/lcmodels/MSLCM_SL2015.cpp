@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2013-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2013-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -62,8 +62,6 @@
 
 #define TURN_LANE_DIST 200.0 // the distance at which a lane leading elsewhere is considered to be a turn-lane that must be avoided
 #define GAIN_PERCEPTION_THRESHOLD 0.05 // the minimum relative speed gain which affects the behavior
-
-#define SPEED_GAIN_MIN_SECONDS 20.0
 
 #define ARRIVALPOS_LAT_THRESHOLD 100.0
 
@@ -147,6 +145,7 @@ MSLCM_SL2015::MSLCM_SL2015(MSVehicle& v) :
     mySpeedGainRight(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_SPEEDGAINRIGHT, 0.1)),
     myLaneDiscipline(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_LANE_DISCIPLINE, 0.0)),
     mySpeedGainLookahead(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_SPEEDGAIN_LOOKAHEAD, 5)),
+    mySpeedGainRemainTime(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_SPEEDGAIN_REMAIN_TIME, 20)),
     myRoundaboutBonus(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_COOPERATIVE_ROUNDABOUT, myCooperativeParam)),
     myCooperativeSpeed(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_COOPERATIVE_SPEED, myCooperativeParam)),
     myKeepRightAcceptanceTime(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_KEEPRIGHT_ACCEPTANCE_TIME, -1)),
@@ -1205,6 +1204,7 @@ MSLCM_SL2015::_wantsChangeSublane(
                   << "\n   neighBlockers=" << neighBlockers.toString()
                   << "\n   changeToBest=" << changeToBest
                   << " latLaneDist=" << latLaneDist
+                  << " alts=" << toString((LaneChangeAction)alternatives)
                   << "\n   expectedSpeeds=" << toString(myExpectedSublaneSpeeds)
                   << std::endl;
     }
@@ -1579,7 +1579,11 @@ MSLCM_SL2015::_wantsChangeSublane(
             int j = i;
             while (vMin > 0 && j < (int)sublaneSides.size() && sublaneSides[j] < sublaneSides[i] + vehWidth) {
                 vMin = MIN2(vMin, myExpectedSublaneSpeeds[j]);
-                //std::cout << "     j=" << j << " vMin=" << vMin << " sublaneSides[j]=" << sublaneSides[j] << " leftVehSide=" << leftVehSide << " rightVehSide=" << rightVehSide << "\n";
+#ifdef DEBUG_WANTSCHANGE
+                    if (gDebugFlag2) {
+                        //std::cout << "     j=" << j << " vMin=" << vMin << " sublaneSides[j]=" << sublaneSides[j] << " leftVehSide=" << leftVehSide << " rightVehSide=" << rightVehSide << "\n";
+                    }
+#endif
                 ++j;
             }
             // check whether the vehicle is between lanes
@@ -1601,7 +1605,7 @@ MSLCM_SL2015::_wantsChangeSublane(
                     latDist = currentLatDist;
 #ifdef DEBUG_WANTSCHANGE
                     if (gDebugFlag2) {
-                        std::cout << "      i=" << i << " newLatDist=" << latDist << " relGain=" << relativeGain << "\n";
+                        std::cout << "      i=" << i << " vMin=" << vMin << " newLatDist=" << latDist << " relGain=" << relativeGain << "\n";
                     }
 #endif
                 }
@@ -1686,6 +1690,8 @@ MSLCM_SL2015::_wantsChangeSublane(
                                    << " maxGain=" << maxGain
                                    << " maxGainRight=" << maxGainRight
                                    << " maxGainLeft=" << maxGainLeft
+                                   << " probRight=" << mySpeedGainProbabilityRight
+                                   << " probLeft=" << mySpeedGainProbabilityLeft
                                    << " latDist=" << latDist
                                    << " latDistNice=" << latDistNice
                                    << " sublaneCompact=" << sublaneCompact
@@ -1799,7 +1805,7 @@ MSLCM_SL2015::_wantsChangeSublane(
 
         // make changing on the right more attractive on bidi edges
         if (latDist < 0 && mySpeedGainProbabilityRight >= MAX2(myChangeProbThresholdRight * bidiRightFactor, mySpeedGainProbabilityLeft)
-                && neighDist / MAX2(.1, myVehicle.getSpeed()) > 20.) {
+                && neighDist / MAX2(.1, myVehicle.getSpeed()) > mySpeedGainRemainTime) {
             ret |= LCA_SPEEDGAIN;
             if (!cancelRequest(ret | getLCA(ret, latDist), laneOffset)) {
                 int blockedFully = 0;
@@ -1837,7 +1843,7 @@ MSLCM_SL2015::_wantsChangeSublane(
         if (latDist > 0 && mySpeedGainProbabilityLeft > myChangeProbThresholdLeft &&
                 // if we leave our lane, we should be able to stay in the new
                 // lane for some time
-                (stayInLane || neighDist / MAX2(.1, myVehicle.getSpeed()) > SPEED_GAIN_MIN_SECONDS)) {
+                (stayInLane || neighDist / MAX2(.1, myVehicle.getSpeed()) > mySpeedGainRemainTime)) {
             ret |= LCA_SPEEDGAIN;
             if (!cancelRequest(ret + getLCA(ret, latDist), laneOffset)) {
                 int blockedFully = 0;
@@ -2777,7 +2783,7 @@ MSLCM_SL2015::checkStrategicChange(int ret,
                                    const MSVehicle::LaneQ& best,
                                    int bestLaneOffset,
                                    bool changeToBest,
-                                   double currentDist,
+                                   double& currentDist,
                                    double neighDist,
                                    double laDist,
                                    double roundaboutBonus,
@@ -2817,8 +2823,21 @@ MSLCM_SL2015::checkStrategicChange(int ret,
     if (laneOffset != 0 && changeToBest && bestLaneOffset == curr.bestLaneOffset
             && currentDistDisallows(usableDist, bestLaneOffset, laDist)) {
         /// @brief we urgently need to change lanes to follow our route
-        latDist = latLaneDist;
-        ret |= LCA_STRATEGIC | LCA_URGENT;
+        if (!mustOvertakeStopped(false, neighLane, neighLeaders, leaders, forwardPos, neighDist, right, latLaneDist, currentDist, latDist)) {
+            latDist = latLaneDist;
+            ret |= LCA_STRATEGIC | LCA_URGENT;
+#ifdef DEBUG_STRATEGIC_CHANGE
+            if (gDebugFlag2) {
+                std::cout << SIMTIME << " mustChangeToBest\n";
+            }
+#endif
+        } else {
+#ifdef DEBUG_STRATEGIC_CHANGE
+            if (gDebugFlag2) {
+                std::cout << " veh=" << myVehicle.getID() << " avoidStoppedNeigh\n";
+            }
+#endif
+        }
     } else {
         // VARIANT_20 (noOvertakeRight)
         if (left && avoidOvertakeRight() && neighLeaders.hasVehicles()) {
@@ -2849,7 +2868,12 @@ MSLCM_SL2015::checkStrategicChange(int ret,
 
         // handling reaction to stopped for opposite direction driving NYI
         const bool noOpposites = &myVehicle.getLane()->getEdge() == &neighLane.getEdge();
-        if (laneOffset != 0 && myStrategicParam >= 0 && noOpposites && mustOvertakeStopped(neighLane, leaders, neighLeaders, forwardPos, neighDist, right, latLaneDist, currentDist, latDist)) {
+        if (laneOffset != 0 && myStrategicParam >= 0 && noOpposites && mustOvertakeStopped(true, neighLane, leaders, neighLeaders, forwardPos, neighDist, right, latLaneDist, currentDist, latDist)) {
+#ifdef DEBUG_STRATEGIC_CHANGE
+            if (gDebugFlag2) {
+                std::cout << " veh=" << myVehicle.getID() << " mustOvertakeStopped\n";
+            }
+#endif
             if (latDist == 0) {
                 ret |= LCA_STAY | LCA_STRATEGIC;
             } else {
@@ -2976,39 +3000,52 @@ MSLCM_SL2015::checkStrategicChange(int ret,
 
 
 bool
-MSLCM_SL2015::mustOvertakeStopped(const MSLane& neighLane, const MSLeaderDistanceInfo& leaders, const MSLeaderDistanceInfo& neighLead,
+MSLCM_SL2015::mustOvertakeStopped(bool checkCurrent, const MSLane& neighLane, const MSLeaderDistanceInfo& leaders, const MSLeaderDistanceInfo& neighLead,
                                   double posOnLane, double neighDist, bool right, double latLaneDist, double& currentDist, double& latDist) {
     bool mustOvertake = false;
     const bool checkOverTakeRight = avoidOvertakeRight();
     int rightmost;
     int leftmost;
     const bool curHasStopped = leaders.hasStoppedVehicle();
-    const MSLane* neighBeyond = neighLane.getParallelLane(latLaneDist < 0 ? -1 : 1);
-    const bool hasLaneBeyond = neighBeyond != nullptr && neighBeyond->allowsVehicleClass(myVehicle.getVClass());
+    const int dir = latLaneDist < 0 ? -1 : 1;
+    const MSLane* neighBeyond = neighLane.getParallelLane(dir);
+    const bool hasLaneBeyond = checkCurrent && neighBeyond != nullptr && neighBeyond->allowsVehicleClass(myVehicle.getVClass());
+    UNUSED_PARAMETER(hasLaneBeyond);
     if (curHasStopped) {
         leaders.getSubLanes(&myVehicle, 0, rightmost, leftmost);
         for (int i = rightmost; i <= leftmost; i++) {
             const CLeaderDist& leader = leaders[i];
             if (leader.first != 0 && leader.first->isStopped() && leader.second < REACT_TO_STOPPED_DISTANCE) {
                 const double overtakeDist = leader.second + myVehicle.getVehicleType().getLength() + leader.first->getVehicleType().getLengthWithGap();
+                const double remaining = MIN2(neighDist, currentDist) - posOnLane;
+#ifdef DEBUG_STRATEGIC_CHANGE
+                if (DEBUG_COND) {
+                    std::cout << "  overtakeDist=" << overtakeDist << " remaining=" << remaining
+                        << " minDistToStopped=" << neighLead.getMinDistToStopped()
+                        << " hasLaneBeyond=" << hasLaneBeyond
+                        << "\n";
+                }
+#endif
                 if (// current destination leaves enough space to overtake the leader
-                    MIN2(neighDist, currentDist) - posOnLane > overtakeDist
+                    remaining > overtakeDist
                     // maybe do not overtake on the right at high speed
-                    && (!checkOverTakeRight || !right)
-                    && (!neighLead.hasStoppedVehicle() || hasLaneBeyond)
+                    && (!checkCurrent || !checkOverTakeRight || !right)
+                    && (!neighLead.hasStoppedVehicle() || neighLead.getMinDistToStopped() > overtakeDist /*|| (hasLaneBeyond && hasFreeLaneBeyond(neighBeyond, dir))*/)
                     //&& (neighLead.first == 0 || !neighLead.first->isStopped()
                     //    // neighboring stopped vehicle leaves enough space to overtake leader
                     //    || neighLead.second > overtakeDist))
                 ) {
                     // avoid becoming stuck behind a stopped leader
                     currentDist = myVehicle.getPositionOnLane() + leader.second;
+                    myLeftSpace = currentDist - posOnLane;
                     latDist = latLaneDist;
                     mustOvertake = true;
-#ifdef DEBUG_WANTS_CHANGE
+#ifdef DEBUG_STRATEGIC_CHANGE
                     if (DEBUG_COND) {
                         std::cout << " veh=" << myVehicle.getID() << " overtake stopped leader=" << leader.first->getID()
+                                  << " newCurrentDist=" << currentDist
                                   << " overtakeDist=" << overtakeDist
-                                  << " remaining=" << MIN2(neighDist, currentDist) - posOnLane
+                                  << " remaining=" << remaining
                                   << "\n";
                     }
 #endif
@@ -3021,7 +3058,7 @@ MSLCM_SL2015::mustOvertakeStopped(const MSLane& neighLane, const MSLeaderDistanc
         // #todo fix this if the neigh lane has a different width
         const double offset = (latLaneDist < 0 ? -1 : 1) * myVehicle.getLane()->getWidth();
         neighLead.getSubLanes(&myVehicle, offset, rightmost, leftmost);
-        for (int i = 0; i < neighLead.numSublanes(); i++) {
+        for (int i = 0; i < leaders.numSublanes(); i++) {
             const CLeaderDist& leader = leaders[i];
             if (leader.first != 0 && leader.first->isStopped() && leader.second < REACT_TO_STOPPED_DISTANCE) {
                 mustOvertake = true;
@@ -3784,6 +3821,8 @@ MSLCM_SL2015::getParameter(const std::string& key) const {
         return toString(myOvertakeDeltaSpeedFactor);
     } else if (key == toString(SUMO_ATTR_LCA_SPEEDGAIN_LOOKAHEAD)) {
         return toString(mySpeedGainLookahead);
+    } else if (key == toString(SUMO_ATTR_LCA_SPEEDGAIN_REMAIN_TIME)) {
+        return toString(mySpeedGainRemainTime);
     } else if (key == toString(SUMO_ATTR_LCA_COOPERATIVE_ROUNDABOUT)) {
         return toString(myRoundaboutBonus);
     } else if (key == toString(SUMO_ATTR_LCA_COOPERATIVE_SPEED)) {
@@ -3867,6 +3906,8 @@ MSLCM_SL2015::setParameter(const std::string& key, const std::string& value) {
         myOvertakeDeltaSpeedFactor = doubleValue;
     } else if (key == toString(SUMO_ATTR_LCA_SPEEDGAIN_LOOKAHEAD)) {
         mySpeedGainLookahead = doubleValue;
+    } else if (key == toString(SUMO_ATTR_LCA_SPEEDGAIN_REMAIN_TIME)) {
+        mySpeedGainRemainTime = doubleValue;
     } else if (key == toString(SUMO_ATTR_LCA_COOPERATIVE_ROUNDABOUT)) {
         myRoundaboutBonus = doubleValue;
     } else if (key == toString(SUMO_ATTR_LCA_COOPERATIVE_SPEED)) {

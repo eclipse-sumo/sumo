@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -153,6 +153,8 @@ TemplateHandler::addOption(std::string value, const std::string& synonymes, cons
         // create register depending of type
         if ((type == "STR") || (type == "string")) {
             option = new Option_String(value);
+        } else if ((type == "TIME") || (type == "time")) {
+            option = new Option_String(value, "TIME");
         } else if ((type == "INT") || (type == "int")) {
             option = new Option_Integer(0);
             if (value.empty()) {
@@ -160,7 +162,7 @@ TemplateHandler::addOption(std::string value, const std::string& synonymes, cons
             } else {
                 option->set(value, value, true);
             }
-        } else if ((type == "FLOAT") || (type == "float") || (type == "TIME") || (type == "time")) {
+        } else if ((type == "FLOAT") || (type == "float")) {
             option = new Option_Float(0);
             if (value.empty()) {
                 option->set(INVALID_DOUBLE_STR, "", true);

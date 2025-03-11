@@ -136,3 +136,12 @@ ticket14892
 
 # warning on traffic light
 ticket15150
+
+# psv=yes with bus=no
+ticket15301
+
+# busway:right=lane with access=yes
+ticket16061
+
+# missing psv edge
+ticket16103

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -292,12 +292,16 @@ public:
 
         /// @brief The lane index of this internal lane within the internal edge
         int internalLaneIndex = UNSPECIFIED_INTERNAL_LANE_INDEX;
+        int internalViaLaneIndex = 0;
 
         /// @brief check if Connection is uncontrolled
         bool uncontrolled = false;
 
         /// @brief get ID of internal lane
         std::string getInternalLaneID() const;
+
+        /// @brief get ID of internal lane (second part)
+        std::string getInternalViaLaneID() const;
 
         /// @brief get string describing this connection
         std::string getDescription(const NBEdge* parent) const;

@@ -12,6 +12,9 @@ cross3ltl_meandata_lanes
 cross3ltl_rawdump
 cross3ltl_tripinfo
 cross3ltl_vehroutes
+
+# Copy of cross3ltl_vehroutes
+cross3ltl_vehroutes_keep-attributes_id_edges
 cross3ltl_vtypeprobe
 cross3ltl_queue
 cross3ltl_emission
@@ -38,5 +41,4 @@ amitran_trajectories_schema
 
 # numeric name of input file
 cross3ltl_1234
-
 save_template

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -20,9 +20,7 @@
 #pragma once
 #include <config.h>
 
-#include <utils/xml/CommonXMLStructure.h>
-#include <utils/xml/SUMOSAXHandler.h>
-
+#include "CommonHandler.h"
 
 // ===========================================================================
 // class definitions
@@ -35,13 +33,13 @@
  * This is an extension of the MSRouteHandler as routes and vehicles may also
  *  be loaded from network descriptions.
  */
-class DataHandler : private SUMOSAXHandler {
+class DataHandler : public CommonHandler, private SUMOSAXHandler {
 
 public:
-    /** @brief Constructor
-     * @param[in] file Name of the parsed file
+    /**@brief Constructor
+     * @param[in] filename Name of the parsed file
      */
-    DataHandler(const std::string& file);
+    DataHandler(const std::string& filename);
 
     /// @brief Destructor
     ~DataHandler();
@@ -52,6 +50,9 @@ public:
     /// @brief parse SumoBaseObject (it's called recursivelly)
     void parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj);
 
+    /// @brief run post parser tasks
+    virtual bool postParserTasks() = 0;
+
     /// @name build functions
     /// @{
     /**@brief Builds DataInterval
@@ -60,7 +61,7 @@ public:
      * @param[in] begin interval begin
      * @param[in] end interval end
      */
-    virtual void buildDataInterval(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& dataSetID,
+    virtual bool buildDataInterval(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& dataSetID,
                                    const double begin, const double end) = 0;
 
     /**@brief Builds edgeData
@@ -68,7 +69,7 @@ public:
      * @param[in] edgeID edge ID
      * @param[in] parameters parameters map
      */
-    virtual void buildEdgeData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& edgeID,
+    virtual bool buildEdgeData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& edgeID,
                                const Parameterised::Map& parameters) = 0;
 
     /**@brief Builds edgeRelationData
@@ -77,7 +78,7 @@ public:
      * @param[in] toEdge edge to
      * @param[in] parameters parameters map
      */
-    virtual void buildEdgeRelationData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& fromEdgeID,
+    virtual bool buildEdgeRelationData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& fromEdgeID,
                                        const std::string& toEdgeID, const Parameterised::Map& parameters) = 0;
 
     /**@brief Builds TAZRelationData
@@ -86,24 +87,11 @@ public:
      * @param[in] toTAZ TAZ to
      * @param[in] parameters parameters map
      */
-    virtual void buildTAZRelationData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& fromTAZID,
+    virtual bool buildTAZRelationData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& fromTAZID,
                                       const std::string& toTAZID, const Parameterised::Map& parameters) = 0;
     /// @}
 
-    /// @brief get flag for check if a element wasn't created
-    bool isErrorCreatingElement() const;
-
-protected:
-    /// @brief write error and enable error creating element
-    void writeError(const std::string& error);
-
 private:
-    /// @brief common XML Structure
-    CommonXMLStructure myCommonXMLStructure;
-
-    /// @brief flag for check if a element wasn't created
-    bool myErrorCreatingElement = false;
-
     /// @name inherited from GenericSAXHandler
     /// @{
     /** @brief Called on the opening of a tag;
@@ -146,6 +134,9 @@ private:
 
     /// @brief check parents
     void checkParent(const SumoXMLTag currentTag, const SumoXMLTag parentTag, bool& ok);
+
+    /// @brief invalidate default onstructor
+    DataHandler() = delete;
 
     /// @brief invalidate copy constructor
     DataHandler(const DataHandler& s) = delete;

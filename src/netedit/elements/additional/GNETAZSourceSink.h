@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -19,21 +19,21 @@
 /****************************************************************************/
 #pragma once
 #include <config.h>
+
 #include "GNEAdditional.h"
 
+#include <netedit/elements/GNEAttributeCarrier.h>
+#include <netedit/elements/GNEHierarchicalElement.h>
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/**
- * @class GNETAZSourceSink
- * class used to represent a interval used in Traffic Assignment Zones
- */
-class GNETAZSourceSink : public GNEAdditional, public Parameterised {
+
+class GNETAZSourceSink : public GNEAttributeCarrier, public GNEHierarchicalElement, public Parameterised {
 
 public:
     /// @brief default Constructor
-    GNETAZSourceSink(SumoXMLTag tag, GNENet* net);
+    GNETAZSourceSink(SumoXMLTag sourceSinkTag, GNENet* net);
 
     /**@brief Constructor
      * @param[in] sourceSinkTag Child Tag (Either SUMO_TAG_TAZSOURCE or SUMO_TAG_TAZINK)
@@ -41,88 +41,56 @@ public:
      * @param[in] edge Edge of this TAZ Child belongs
      * @param[in] departWeight depart weight of this TAZ child
      */
-    GNETAZSourceSink(SumoXMLTag sourceSinkTag, GNEAdditional* TAZParent, GNEEdge* edge, double departWeight);
+    GNETAZSourceSink(SumoXMLTag sourceSinkTag, GNEAdditional* TAZParent, GNEEdge* edge, const double departWeight);
 
     /// @brief destructor
     ~GNETAZSourceSink();
 
-    /**@brief get move operation
-     * @note returned GNEMoveOperation can be nullptr
-     */
-    GNEMoveOperation* getMoveOperation();
+    /// @brief get GNEHierarchicalElement associated with this AttributeCarrier
+    GNEHierarchicalElement* getHierarchicalElement();
 
-    /// @name members and functions relative to write additionals into XML
+    /// @brief write TAZ sourceSink
+    void writeTAZSourceSink(OutputDevice& device) const;
+
+    /// @brief get weight
+    double getWeight() const;
+
+    /// @name Function related with graphics
     /// @{
+    /// @brief get GUIGlObject associated with this AttributeCarrier
+    GUIGlObject* getGUIGlObject();
 
-    /**@brief write additional element into a xml file
-    * @param[in] device device in which write parameters of additional element
-    */
-    void writeAdditional(OutputDevice& device) const;
+    /// @brief get GUIGlObject associated with this AttributeCarrier (constant)
+    const GUIGlObject* getGUIGlObject() const;
 
-    /// @brief check if current additional is valid to be written into XML (must be reimplemented in all detector children)
-    bool isAdditionalValid() const;
-
-    /// @brief return a string with the current additional problem (must be reimplemented in all detector children)
-    std::string getAdditionalProblem() const;
-
-    /// @brief fix additional problem (must be reimplemented in all detector children)
-    void fixAdditionalProblem();
+    /// @brief update pre-computed geometry information
+    void updateGeometry();
 
     /// @}
 
     /// @name Function related with contour drawing
     /// @{
 
+    /// @brief check if draw from contour (green)
+    bool checkDrawFromContour() const;
+
+    /// @brief check if draw from contour (magenta)
+    bool checkDrawToContour() const;
+
+    /// @brief check if draw related contour (cyan)
+    bool checkDrawRelatedContour() const;
+
+    /// @brief check if draw over contour (orange)
+    bool checkDrawOverContour() const;
+
+    /// @brief check if draw delete contour (pink/white)
+    bool checkDrawDeleteContour() const;
+
+    /// @brief check if draw select contour (blue)
+    bool checkDrawSelectContour() const;
+
     /// @brief check if draw move contour (red)
     bool checkDrawMoveContour() const;
-
-    /// @}
-
-    /// @brief get depart weight
-    double getDepartWeight() const;
-
-    /// @name Functions related with geometry of element
-    /// @{
-
-    /// @brief update pre-computed geometry information
-    void updateGeometry();
-
-    /// @brief Returns position of additional in view
-    Position getPositionInView() const;
-
-    /// @brief Returns the boundary to which the view shall be centered in order to show the object
-    Boundary getCenteringBoundary() const;
-
-    /// @brief update centering boundary (implies change in RTREE)
-    void updateCenteringBoundary(const bool updateGrid);
-
-    /// @brief split geometry
-    void splitEdgeGeometry(const double splitPosition, const GNENetworkElement* originalElement, const GNENetworkElement* newElement, GNEUndoList* undoList);
-
-    /// @}
-
-    /// @name inherited from GUIGlObject
-    /// @{
-
-    /**@brief Returns the name of the parent object
-     * @return This object's parent id
-     */
-    std::string getParentName() const;
-
-    /**@brief Returns an own popup-menu
-     *
-     * @param[in] app The application needed to build the popup-menu
-     * @param[in] parent The parent window needed to build the popup-menu
-     * @return The built popup-menu
-     * @see GUIGlObject::getPopUpMenu
-     */
-    GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent);
-
-    /**@brief Draws the object
-     * @param[in] s The settings for the current view (may influence drawing)
-     * @see GUIGlObject::drawGL
-     */
-    void drawGL(const GUIVisualizationSettings& s) const;
 
     /// @}
 
@@ -180,7 +148,7 @@ public:
 
 protected:
     /// @brief depart Weight
-    double myDepartWeight;
+    double myWeight;
 
 private:
     /// @brief method for setting the attribute and nothing else

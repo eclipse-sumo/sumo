@@ -1,17 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-11-06 10:35:06 by Eclipse SUMO netedit Version v1_18_0+2431-500ea638ed5
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
+<!-- generated on 2024-10-02 10:31:36 by Eclipse SUMO netedit Version v1_20_0+2211-a70841d223d
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-        <additional-files value="/home/palcraft/.texttest/tmp/netedit.gui.06Nov102825.11399/netedit.gui/netelements/edges/move/selected_separated/additionals.add.xml"/>
-        <route-files value="/home/palcraft/.texttest/tmp/netedit.gui.06Nov102825.11399/netedit.gui/netelements/edges/move/selected_separated/routes.rou.xml"/>
-        <data-files value="/home/palcraft/.texttest/tmp/netedit.gui.06Nov102825.11399/netedit.gui/netelements/edges/move/selected_separated/datas.dat.xml"/>
-        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.gui.06Nov102825.11399/netedit.gui/netelements/edges/move/selected_separated/net.net.xml"/>
+        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.02Oct103010.15324\netedit.gui\network\edges\move\selected_separated\additionals.add.xml"/>
+        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.02Oct103010.15324\netedit.gui\network\edges\move\selected_separated\routes.rou.xml"/>
+        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.02Oct103010.15324\netedit.gui\network\edges\move\selected_separated\datas.dat.xml"/>
+        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.02Oct103010.15324\netedit.gui\network\edges\move\selected_separated\net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="/home/palcraft/.texttest/tmp/netedit.gui.06Nov102825.11399/netedit.gui/netelements/edges/move/selected_separated/net.net.xml"/>
+        <write-license value="true"/>
+        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.02Oct103010.15324\netedit.gui\network\edges\move\selected_separated\net.net.xml"/>
     </output>
 
     <processing>
@@ -37,69 +48,60 @@
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="/home/palcraft/.texttest/tmp/netedit.gui.06Nov102825.11399/netedit.gui/netelements/edges/move/selected_separated/gui-settings.xml"/>
+        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.02Oct103010.15324\netedit.gui\network\edges\move\selected_separated\gui-settings.xml"/>
         <window-size value="1280, 720"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
-        <gui-testing.setting-output value="/home/palcraft/.texttest/tmp/netedit.gui.06Nov102825.11399/netedit.gui/netelements/edges/move/selected_separated/guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.02Oct103010.15324\netedit.gui\network\edges\move\selected_separated\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="/home/palcraft/.texttest/tmp/netedit.gui.06Nov102825.11399/netedit.gui/netelements/edges/move/selected_separated/log.txt"/>
+        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.02Oct103010.15324\netedit.gui\network\edges\move\selected_separated\log.txt"/>
     </report>
 
-</configuration>
+</neteditConfiguration>
 -->
 
 <net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
-    <location netOffset="25.00,11.00" convBoundary="0.00,-17.50,50.00,22.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
+    <location netOffset="0.00,0.00" convBoundary="-60.00,-30.00,60.00,30.00" origBoundary="-10000000000.000000,-10000000000.000000,10000000000.000000,10000000000.000000" projParameter="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs"/>
 
-    <edge id=":gneJ0_0" function="internal">
-        <lane id=":gneJ0_0_0" index="0" speed="3.65" length="4.67" shape="1.02,12.24 -0.42,12.38 -1.24,12.02 -1.43,11.14 -1.02,9.76"/>
+    <edge id=":JunctionExtern0_0" function="internal">
+        <lane id=":JunctionExtern0_0_0" index="0" disallow="pedestrian" speed="3.53" length="4.38" width="3.00" shape="-60.00,1.50 -61.12,0.75 -61.50,0.00 -61.12,-0.75 -60.00,-1.50"/>
     </edge>
-    <edge id=":gneJ1_0" function="internal">
-        <lane id=":gneJ1_0_0" index="0" speed="3.65" length="4.67" shape="50.89,9.67 51.44,11.01 51.33,11.89 50.55,12.33 49.11,12.33"/>
-    </edge>
-
-    <edge id="gneE0" from="gneJ0" to="gneJ1" priority="1" shape="0.00,11.00 22.50,-7.50 50.00,11.00">
-        <lane id="gneE0_0" index="0" speed="13.89" length="64.66" shape="-1.02,9.76 22.40,-9.49 50.89,9.67"/>
-    </edge>
-    <edge id="gneE1" from="gneJ1" to="gneJ0" priority="1" shape="50.00,11.00 22.50,-7.50 0.00,11.00">
-        <lane id="gneE1_0" index="0" speed="13.89" length="59.89" shape="49.11,12.33 22.60,-5.51 1.02,12.24"/>
-    </edge>
-    <edge id="gneE3" from="gneJ4" to="gneJ5" priority="-1" shape="0.00,0.00 22.50,-17.50 49.00,0.00">
-        <lane id="gneE3_0" index="0" speed="13.89" length="62.56" shape="-0.98,-1.26 22.42,-19.47 49.88,-1.34"/>
-    </edge>
-    <edge id="gneE4" from="gneJ3" to="gneJ2" priority="-1" shape="50.00,22.00 22.50,5.00 0.00,22.00">
-        <lane id="gneE4_0" index="0" speed="13.89" length="58.34" shape="49.16,23.36 22.59,6.94 0.96,23.28"/>
+    <edge id=":JunctionExtern1_0" function="internal">
+        <lane id=":JunctionExtern1_0_0" index="0" disallow="pedestrian" speed="3.53" length="4.38" width="3.00" shape="60.00,-1.50 61.12,-0.75 61.50,0.00 61.12,0.75 60.00,1.50"/>
     </edge>
 
-    <tlLogic id="gneJ0" type="static" programID="0" offset="0">
-        <phase duration="87" state="G"/>
-        <phase duration="3"  state="y"/>
-    </tlLogic>
-    <tlLogic id="gneJ1" type="static" programID="0" offset="0">
-        <phase duration="87" state="G"/>
-        <phase duration="3"  state="y"/>
-    </tlLogic>
+    <edge id="E0" from="J0" to="J1" priority="-1" shape="25.00,0.00 0.00,20.00 -25.00,0.00">
+        <lane id="E0_0" index="0" speed="13.89" length="66.59" shape="26.00,1.25 0.00,22.05 -26.00,1.25"/>
+    </edge>
+    <edge id="E1" from="J2" to="J3" priority="-1" shape="-25.00,-10.00 0.00,10.00 25.00,-10.00">
+        <lane id="E1_0" index="0" speed="13.89" length="61.47" shape="-24.00,-11.25 0.00,7.95 24.00,-11.25"/>
+    </edge>
+    <edge id="EdgeExternBot" from="JunctionExtern0" to="JunctionExtern1" priority="-1" length="175.00" shape="-60.00,0.00 -45.00,0.00 -45.00,-25.00 -40.00,-30.00 40.00,-30.00 45.00,-25.00 45.00,0.00 60.00,0.00">
+        <lane id="EdgeExternBot_0" index="0" disallow="pedestrian" speed="13.89" length="175.00" width="3.00" shape="-60.00,-1.50 -46.50,-1.50 -46.50,-25.62 -40.62,-31.50 40.62,-31.50 46.50,-25.62 46.50,-1.50 60.00,-1.50"/>
+    </edge>
+    <edge id="EdgeExternTop" from="JunctionExtern1" to="JunctionExtern0" priority="-1" length="175.00" shape="60.00,0.00 45.00,0.00 45.00,25.00 40.00,30.00 -40.00,30.00 -45.00,25.00 -45.00,0.00 -60.00,0.00">
+        <lane id="EdgeExternTop_0" index="0" disallow="pedestrian" speed="13.89" length="175.00" width="3.00" shape="60.00,1.50 46.50,1.50 46.50,25.62 40.62,31.50 -40.62,31.50 -46.50,25.62 -46.50,1.50 -60.00,1.50"/>
+    </edge>
 
-    <junction id="gneJ0" type="traffic_light" x="0.00" y="11.00" incLanes="gneE1_0" intLanes=":gneJ0_0_0" shape="0.00,11.00 2.03,13.47 0.00,11.00">
+    <junction id="J0" type="dead_end" x="25.00" y="0.00" incLanes="" intLanes="" shape="25.00,-0.00 27.00,2.50"/>
+    <junction id="J1" type="dead_end" x="-25.00" y="0.00" incLanes="E0_0" intLanes="" shape="-27.00,2.50 -25.00,-0.00"/>
+    <junction id="J2" type="dead_end" x="-25.00" y="-10.00" incLanes="" intLanes="" shape="-25.00,-10.00 -23.00,-12.50"/>
+    <junction id="J3" type="dead_end" x="25.00" y="-10.00" incLanes="E1_0" intLanes="" shape="23.00,-12.50 25.00,-10.00"/>
+    <junction id="JunctionExtern0" type="priority" x="-60.00" y="0.00" incLanes="EdgeExternTop_0" intLanes=":JunctionExtern0_0_0" shape="-60.00,0.00 -60.00,3.00 -60.00,0.00">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="gneJ1" type="traffic_light" x="50.00" y="11.00" incLanes="gneE0_0" intLanes=":gneJ1_0_0" shape="50.00,11.00 51.79,8.34 50.00,11.00">
+    <junction id="JunctionExtern1" type="priority" x="60.00" y="0.00" incLanes="EdgeExternBot_0" intLanes=":JunctionExtern1_0_0" shape="60.00,0.00 60.00,-3.00 60.00,0.00">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="gneJ2" type="dead_end" x="0.00" y="22.00" incLanes="gneE4_0" intLanes="" shape="1.93,24.55 -0.00,22.00"/>
-    <junction id="gneJ3" type="dead_end" x="50.00" y="22.00" incLanes="" intLanes="" shape="50.00,22.00 48.32,24.72"/>
-    <junction id="gneJ4" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,0.00 -1.96,-2.53"/>
-    <junction id="gneJ5" type="dead_end" x="49.00" y="0.00" incLanes="gneE3_0" intLanes="" shape="50.76,-2.67 49.00,-0.00"/>
 
-    <connection from="gneE0" to="gneE1" fromLane="0" toLane="0" via=":gneJ1_0_0" tl="gneJ1" linkIndex="0" dir="t" state="O"/>
-    <connection from="gneE1" to="gneE0" fromLane="0" toLane="0" via=":gneJ0_0_0" tl="gneJ0" linkIndex="0" dir="t" state="O"/>
+    <connection from="EdgeExternBot" to="EdgeExternTop" fromLane="0" toLane="0" via=":JunctionExtern1_0_0" dir="t" state="M"/>
+    <connection from="EdgeExternTop" to="EdgeExternBot" fromLane="0" toLane="0" via=":JunctionExtern0_0_0" dir="t" state="M"/>
 
-    <connection from=":gneJ0_0" to="gneE0" fromLane="0" toLane="0" dir="t" state="M"/>
-    <connection from=":gneJ1_0" to="gneE1" fromLane="0" toLane="0" dir="t" state="M"/>
+    <connection from=":JunctionExtern0_0" to="EdgeExternBot" fromLane="0" toLane="0" dir="t" state="M"/>
+    <connection from=":JunctionExtern1_0" to="EdgeExternTop" fromLane="0" toLane="0" dir="t" state="M"/>
 
 </net>

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -14,6 +14,7 @@
 /// @file    RONode.h
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
+/// @author  Ruediger Ebendt
 /// @date    Sept 2002
 ///
 // Base class for nodes used by the router
@@ -25,6 +26,8 @@
 #include <vector>
 #include <utils/common/Named.h>
 #include <utils/geom/Position.h>
+#include <utils/router/FlippedNode.h>
+#include <router/ROVehicle.h>
 
 // ===========================================================================
 // class declarations
@@ -82,14 +85,25 @@ public:
         myOutgoing.push_back(edge);
     }
 
+    /// @brief Returns the flipped routing node
+    // @note If not called before, the flipped routing node is created
+    FlippedNode<ROEdge, RONode, ROVehicle>* getFlippedRoutingNode() const {
+        if (myFlippedRoutingNode == nullptr) {
+            myFlippedRoutingNode = new FlippedNode<ROEdge, RONode, ROVehicle>(this);
+        }
+        return myFlippedRoutingNode;
+    }
+
 private:
     /// @brief This node's position
     Position myPosition;
 
-    /// @brief incoming edges
+    /// @brief Incoming edges
     ConstROEdgeVector myIncoming;
-    /// @brief outgoing edges
+    /// @brief Outgoing edges
     ConstROEdgeVector myOutgoing;
+    /// @brief Flipped routing node
+    mutable FlippedNode<ROEdge, RONode, ROVehicle>* myFlippedRoutingNode = nullptr;
 
 
 private:

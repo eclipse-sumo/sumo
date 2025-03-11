@@ -185,6 +185,7 @@ are safety related:
   takes the same value as **decel**
 - [driver imperfection modelled with the
   *driverstate*-device](../Driver_State.md)
+- option **--emergency-insert** permits insertion of vehicles at *dangerous* speeds as long as they are are still recoverable with the use of emergency braking
 
 ## Lane-Changing Model
 
@@ -223,8 +224,10 @@ behavior. For a description see
 - jmSigmaMinor: When planning to pass a minor link, optimum
   acceleration is assumed. (higher values cause reduced acceleration
   and thus decrease time gaps and safety)
-- jmTimegapMinor: Minimum time gap when passing a minor link ahead of
+- jmTimegapMinor: Minimum time gap when passing a minor link ahead or after
   a prioritized vehicle (lower values decrease safety)
+- jmAdvance: controls whether the ego vehicle may advance towards the conflict point when it's trajectory crosses with a foe vehicle that has already entered the intersection
+- jmExtraGap: defines extra distance to keep to a foe vehicle that has already entered the intersection
 
 # Safety-Related Outputs
 

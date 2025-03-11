@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-16 14:14:27 by Eclipse SUMO netedit Version v1_20_0+1526-384d037a8a4
+<!-- generated on 2024-08-15 21:58:31 by Eclipse SUMO netedit Version v1_20_0+1847-f2d10a7c7c6
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -25,4 +25,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <route id="route_5" edges="Edge0 Edge1 Edge2" color="yellow">
         <stop busStop="busStopA" triggered="container" speed="10.00"/>
     </route>
+    <!-- Vehicles, persons and containers (sorted by depart) -->
+    <vehicle id="vehicle_0" depart="0.00" route="route_0"/>
+    <vehicle id="vehicle_1" depart="0.00" route="route_1"/>
+    <vehicle id="vehicle_2" depart="0.00" route="route_2"/>
+    <vehicle id="vehicle_3" depart="0.00" route="route_3"/>
+    <vehicle id="vehicle_4" depart="0.00" route="route_4"/>
+    <vehicle id="vehicle_5" depart="0.00" route="route_5"/>
 </routes>

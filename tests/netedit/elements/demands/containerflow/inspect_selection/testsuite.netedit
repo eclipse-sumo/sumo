@@ -2,18 +2,8 @@ type
 
 color
 
-begin
+departpos
 
-end
-
-number
-
-containersperhour
-
-period
-
-poisson
-
-probability
+flow_attributes
 
 parameters

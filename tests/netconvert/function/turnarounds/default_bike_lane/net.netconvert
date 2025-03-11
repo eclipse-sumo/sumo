@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-02-29 13:56:12 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
+<!-- generated on 2025-03-05 16:12:14 by Eclipse SUMO netconvert Version v1_22_0+0665-ba2a511bcfc
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <node-files value="input_plain.nod.xml"/>
@@ -31,7 +31,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <xml-validation value="never"/>
     </report>
 
-</configuration>
+</netconvertConfiguration>
 -->
 
 <net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
@@ -161,7 +161,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <phase duration="42" state="rrrrrGGgGGgGgGGgg"/>
         <phase duration="3"  state="rrrrrGygyyyyyyyyy"/>
         <phase duration="42" state="GGgGgGrGrrrrrrrrr"/>
-        <phase duration="3"  state="yyyyyGrgrrrrrrrrr"/>
+        <phase duration="3"  state="yyyyyGryrrrrrrrrr"/>
     </tlLogic>
 
     <junction id="A0" type="priority" x="200.00" y="100.00" incLanes="A1A0_0 A1A0_1 B0A0_0 B0A0_1 bottom0A0_0 bottom0A0_1 bottom0A0_2 left0A0_0 left0A0_1" intLanes="" shape="195.80,107.20 204.20,107.20 204.89,105.53 205.75,104.95 206.96,104.53 208.51,104.28 210.40,104.20 210.40,95.80 208.73,95.47 208.15,95.05 207.73,94.47 207.48,93.72 207.40,92.80 192.60,92.80 192.27,94.47 191.85,95.05 191.27,95.47 190.52,95.72 189.60,95.80 189.60,104.20 193.04,104.53 194.25,104.95 195.11,105.53 195.63,106.28">

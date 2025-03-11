@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-06-06 10:15:59 by Eclipse SUMO sumo Version v1_14_1+13204-5f58e00abea
+<!-- generated on 2025-01-06 16:05:59 by Eclipse SUMO sumo Version v1_21_0+1684-07c849faa0a
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -43,7 +43,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <device.stationfinder.emptyThreshold value="0"/>
     </battery>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <battery-export xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/battery_file.xsd">
@@ -105,7 +105,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="veh0" energyConsumed="-3.0732" totalEnergyConsumed="56.3084" totalEnergyRegenerated="38.6954" actualBatteryCapacity="38.6954" maximumBatteryCapacity="6000.0000" chargingStationId="NULL" energyCharged="0.0000" energyChargedInTransit="0.0000" energyChargedStopped="0.0000" speed="0.0000" acceleration="-3.8900" x="-850.3400" y="995.0500" lane="D2_0" posOnLane="149.6600" timeStopped="1"/>
     </timestep>
     <timestep time="19.00">
-        <vehicle id="veh0" energyConsumed="0.0123" totalEnergyConsumed="56.3207" totalEnergyRegenerated="38.6954" actualBatteryCapacity="38.6830" maximumBatteryCapacity="6000.0000" chargingStationId="NULL" energyCharged="0.0000" energyChargedInTransit="0.0000" energyChargedStopped="0.0000" speed="0.0000" acceleration="-0.0000" x="-850.3400" y="995.0500" lane="D2_0" posOnLane="149.6600" timeStopped="2"/>
+        <vehicle id="veh0" energyConsumed="0.0123" totalEnergyConsumed="56.3207" totalEnergyRegenerated="38.6954" actualBatteryCapacity="38.6830" maximumBatteryCapacity="6000.0000" chargingStationId="NULL" energyCharged="0.0000" energyChargedInTransit="0.0000" energyChargedStopped="0.0000" speed="0.0000" acceleration="0.0000" x="-850.3400" y="995.0500" lane="D2_0" posOnLane="149.6600" timeStopped="2"/>
     </timestep>
     <timestep time="20.00">
         <vehicle id="veh0" energyConsumed="0.0123" totalEnergyConsumed="56.3331" totalEnergyRegenerated="38.6954" actualBatteryCapacity="38.6707" maximumBatteryCapacity="6000.0000" chargingStationId="NULL" energyCharged="0.0000" energyChargedInTransit="0.0000" energyChargedStopped="0.0000" speed="0.0000" acceleration="0.0000" x="-850.3400" y="995.0500" lane="D2_0" posOnLane="149.6600" timeStopped="3"/>

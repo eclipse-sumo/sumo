@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -20,32 +20,19 @@
 #pragma once
 #include <config.h>
 
-
-// ===========================================================================
-// included modules
-// ===========================================================================
-#include <config.h>
-
-#include <netedit/elements/GNEHierarchicalElement.h>
-
 #include "GNEDataSet.h"
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
 
-class GNEDataSet;
 class GNEGenericData;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
-/**
- * @class GNEDataInterval
- * @brief An Element which don't belong to GNENet but has influence in the simulation
- */
-class GNEDataInterval : public GNEHierarchicalElement, public Parameterised {
+class GNEDataInterval : public GNEAttributeCarrier, public GNEHierarchicalElement, public Parameterised {
 
 public:
     /**@brief Constructor
@@ -57,6 +44,9 @@ public:
 
     /// @brief Destructor
     ~GNEDataInterval();
+
+    /// @brief get GNEHierarchicalElement associated with this AttributeCarrier
+    GNEHierarchicalElement* getHierarchicalElement();
 
     /// @brief update generic data child IDs
     void updateGenericDataIDs();

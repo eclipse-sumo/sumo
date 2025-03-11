@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -150,6 +150,9 @@ public:
     /// @brief Returns the position of the intersection
     Position intersectionPosition2D(const PositionVector& v1) const;
 
+    /// @brief open polygon
+    void openPolygon();
+
     /// @brief ensures that the last position equals the first
     void closePolygon();
 
@@ -247,6 +250,9 @@ public:
 
     //// @brief rotate all points around (0,0) in the plane by the given angle
     void rotate2D(double angle);
+
+    //// @brief rotate all points around the first element
+    void rotateAroundFirstElement2D(double angle);
 
     //// @brief append the given vector to this one
     void append(const PositionVector& v, double sameThreshold = 2.0);

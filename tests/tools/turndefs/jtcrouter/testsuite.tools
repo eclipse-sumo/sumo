@@ -9,3 +9,6 @@ discount-sources
 
 # setting additional flow attributes
 attrs
+
+# setting additional flow attributes
+attrs_vType

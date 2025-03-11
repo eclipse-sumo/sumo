@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2017-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2017-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -47,6 +47,7 @@
 #include <microsim/MSStoppingPlace.h>
 #include <microsim/MSParkingArea.h>
 #include <microsim/devices/MSRoutingEngine.h>
+#include <microsim/devices/MSDevice_Taxi.h>
 #include <microsim/trigger/MSChargingStation.h>
 #include <microsim/trigger/MSOverheadWire.h>
 #include <microsim/devices/MSDevice_Tripinfo.h>
@@ -68,11 +69,20 @@ namespace libsumo {
 // ===========================================================================
 SubscriptionResults Simulation::mySubscriptionResults;
 ContextSubscriptionResults Simulation::myContextSubscriptionResults;
+#ifdef HAVE_FOX
+FXMutex Simulation::myStepMutex;
+#endif
 
 
 // ===========================================================================
 // static member definitions
 // ===========================================================================
+std::pair<int, std::string>
+Simulation::init(int /* port */, int /* numRetries */, const std::string& /* host */, const std::string& /* label */, FILE* const /* pipe */) {
+    throw TraCIException("Multi client support (including connection switching) is not implemented in libsumo.");
+}
+
+
 std::pair<int, std::string>
 Simulation::start(const std::vector<std::string>& cmd, int /* port */, int /* numRetries */, const std::string& /* label */, const bool /* verbose */,
                   const std::string& /* traceFile */, bool /* traceGetters */, void* /* _stdout */) {
@@ -83,6 +93,30 @@ Simulation::start(const std::vector<std::string>& cmd, int /* port */, int /* nu
 #endif
     load(std::vector<std::string>(cmd.begin() + 1, cmd.end()));
     return getVersion();
+}
+
+
+bool
+Simulation::isLibsumo() {
+    return true;
+}
+
+
+void
+Simulation::switchConnection(const std::string& /* label */) {
+    throw TraCIException("Multi client support (including connection switching) is not implemented in libsumo.");
+}
+
+
+const std::string&
+Simulation::getLabel() {
+    throw TraCIException("Multi client support (including connection switching) is not implemented in libsumo.");
+}
+
+
+void
+Simulation::setOrder(int /* order */) {
+    throw TraCIException("Multi client support (including connection switching) is not implemented in libsumo.");
 }
 
 
@@ -128,6 +162,9 @@ Simulation::isLoaded() {
 
 void
 Simulation::step(const double time) {
+#ifdef HAVE_FOX
+    FXMutexLock lock(myStepMutex);
+#endif
     Helper::clearStateChanges();
     const SUMOTime t = TIME2STEPS(time);
 #ifdef HAVE_LIBSUMOGUI
@@ -468,7 +505,8 @@ Simulation::getMinExpectedNumber() {
     return (net->getVehicleControl().getActiveVehicleCount()
             + net->getInsertionControl().getPendingFlowCount()
             + (net->hasPersons() ? net->getPersonControl().getActiveCount() : 0)
-            + (net->hasContainers() ? net->getContainerControl().getActiveCount() : 0));
+            + (net->hasContainers() ? net->getContainerControl().getActiveCount() : 0)
+            + (MSDevice_Taxi::hasServableReservations() ? 1 : 0));
 }
 
 
@@ -583,6 +621,7 @@ Simulation::findRoute(const std::string& from, const std::string& to, const std:
         std::string msg;
         if (!vehicle->hasValidRouteStart(msg)) {
             MSNet::getInstance()->getVehicleControl().deleteVehicle(vehicle, true);
+            MSNet::getInstance()->getVehicleControl().discountRoutingVehicle();
             throw TraCIException("Invalid departure edge for vehicle type '" + type->getID() + "' (" + msg + ")");
         }
         // we need to fix the speed factor here for deterministic results
@@ -601,6 +640,7 @@ Simulation::findRoute(const std::string& from, const std::string& to, const std:
     result.travelTime = result.cost = router.recomputeCosts(edges, vehicle, dep, &result.length);
     if (vehicle != nullptr) {
         MSNet::getInstance()->getVehicleControl().deleteVehicle(vehicle, true);
+        MSNet::getInstance()->getVehicleControl().discountRoutingVehicle();
     }
     return result;
 }
@@ -735,6 +775,7 @@ Simulation::findIntermodalRoute(const std::string& from, const std::string& to,
         }
         if (vehicle != nullptr) {
             vehControl.deleteVehicle(vehicle, true);
+            vehControl.discountRoutingVehicle();
         }
     }
     return result;
@@ -775,7 +816,6 @@ Simulation::getParameter(const std::string& objectID, const std::string& key) {
         }
     } else if (StringUtils::startsWith(key, "net.")) {
         const std::string attrName = key.substr(4);
-        Position b = GeoConvHelper::getFinal().getOffsetBase();
         if (attrName == toString(SUMO_ATTR_NET_OFFSET)) {
             return toString(GeoConvHelper::getFinal().getOffsetBase());
         } else {

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-12-20 15:06:50.349495 by randomTrips.py v1_21_0+1562-c53f49b287e
+<configuration>
+    <net-file value="net.net.xml"/>
+    <pedestrians value="True"/>
+    <min-distance value="1.0"/>
+    <end value="100.0"/>
+    <flows value="10"/>
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <personFlow id="0" begin="0" end="100" period="10">
+        <walk from="NC" to="CS"/>
+    </personFlow>
+    <personFlow id="1" begin="0" end="100" period="10">
+        <walk from="NC" to="CS"/>
+    </personFlow>
+    <personFlow id="2" begin="0" end="100" period="10">
+        <walk from="CS" to="NC"/>
+    </personFlow>
+    <personFlow id="3" begin="0" end="100" period="10">
+        <walk from="CS" to="NC"/>
+    </personFlow>
+    <personFlow id="4" begin="0" end="100" period="10">
+        <walk from="NC" to="CS"/>
+    </personFlow>
+    <personFlow id="5" begin="0" end="100" period="10">
+        <walk from="NC" to="CS"/>
+    </personFlow>
+    <personFlow id="6" begin="0" end="100" period="10">
+        <walk from="CS" to="NC"/>
+    </personFlow>
+    <personFlow id="7" begin="0" end="100" period="10">
+        <walk from="NC" to="CS"/>
+    </personFlow>
+    <personFlow id="8" begin="0" end="100" period="10">
+        <walk from="NC" to="CS"/>
+    </personFlow>
+    <personFlow id="9" begin="0" end="100" period="10">
+        <walk from="CS" to="NC"/>
+    </personFlow>
+</routes>

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2008-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2008-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -25,6 +25,29 @@
 #include "MSLane.h"
 #include "MSMoveReminder.h"
 
+StringBijection<MSMoveReminder::Notification>::Entry MSMoveReminder::NotificationValues[] = {
+    {"departed",               NOTIFICATION_DEPARTED},
+    {"junction",               NOTIFICATION_JUNCTION},
+    {"segment",                NOTIFICATION_SEGMENT},
+    {"laneChange",             NOTIFICATION_LANE_CHANGE},
+    {"loadState",              NOTIFICATION_LOAD_STATE},
+    {"teleport",               NOTIFICATION_TELEPORT},
+    {"teleportContinuation",   NOTIFICATION_TELEPORT_CONTINUATION},
+    {"parking",                NOTIFICATION_PARKING},
+    {"parkingReroute",         NOTIFICATION_PARKING_REROUTE},
+    {"arrived",                NOTIFICATION_ARRIVED},
+    {"teleportArrived",        NOTIFICATION_TELEPORT_ARRIVED},
+    {"vaporizedCalibrator",    NOTIFICATION_VAPORIZED_CALIBRATOR},
+    {"vaporizedCollision",     NOTIFICATION_VAPORIZED_COLLISION},
+    {"vaporizedTraCI",         NOTIFICATION_VAPORIZED_TRACI},
+    {"vaporizedGUI",           NOTIFICATION_VAPORIZED_GUI},
+    {"vaporizer",              NOTIFICATION_VAPORIZED_VAPORIZER},
+    {"vaporizedBreakdown",     NOTIFICATION_VAPORIZED_BREAKDOWN},
+    {"none",                   NOTIFICATION_NONE}
+};
+
+StringBijection<MSMoveReminder::Notification> MSMoveReminder::Notifications(
+    MSMoveReminder::NotificationValues, MSMoveReminder::NOTIFICATION_NONE, false);
 
 // ===========================================================================
 // method definitions

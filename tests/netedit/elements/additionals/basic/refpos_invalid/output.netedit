@@ -1,0 +1,9 @@
+TestFunctions: Netedit opened successfully
+Finding reference
+TestFunctions: 'reference.png' found. Position: 304 - 168
+busStop
+dummy reference
+TestFunctions: Clicked over position 685 - 611
+Reference Right
+TestFunctions: Clicked over position 1154 - 390
+TestFunctions: Netedit closed successfully

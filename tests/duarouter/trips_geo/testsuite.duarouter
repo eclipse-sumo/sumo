@@ -10,6 +10,9 @@ geoTrips_distance
 # test mapmatching trips with geo-coordinates to junctions
 geoTrips_junctions
 
+# test mapmatching trips and stop with geo-coordinates to junctions
+geoTrips_junctions_stop
+
 # test mapmatching trips with geo-coordinates to junctions in a network that has internal lanes
 geoTrips_junctions_internalLanes
 
@@ -21,3 +24,15 @@ geoTrips_junctions_writeJunctions
 
 # handle mutiple locations on the same edge
 dense
+
+# test mapmatching trips with geo-coordinates to taz
+geoTrips_taz
+
+# test mapmatching trips with geo-coordinates to taz, edge is part of multiple taz
+geoTrips_taz_multi
+
+# test mapmatching trips with geo-coordinates to taz (no taz loaded)
+geoTrips_taz_missing
+
+# disregard taz information if coordinates are given and option --with-taz is not set
+geoTrips_taz_ignore

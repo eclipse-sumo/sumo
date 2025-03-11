@@ -32,7 +32,7 @@
                 <entry color="grey" threshold="32.00" name="pedestrian"/>
                 <entry color="10,10,10" threshold="64.00" name="passenger"/>
                 <entry color="166,147,26" threshold="256.00" name="taxi"/>
-                <entry color="40,100,40" threshold="512.00" name="train"/>
+                <entry color="40,100,40" threshold="512.00" name="bus"/>
                 <entry color="80,80,80" threshold="2080.00" name="pedestrian_delivery"/>
                 <entry color="192,66,44" threshold="65536.00" name="bicycle"/>
                 <entry color="150,200,200" threshold="8388608.00" name="waterway"/>
@@ -109,7 +109,7 @@
                 <entry color="204,204,204" threshold="0.00"/>
                 <entry color="red" threshold="1.00"/>
             </colorScheme>
-            <colorScheme name="by abs distance (kilometrage)" interpolated="1">
+            <colorScheme name="by ats distance (kilometrage)" interpolated="1">
                 <entry color="204,204,204" threshold="0.00"/>
                 <entry color="red" threshold="1.00"/>
             </colorScheme>

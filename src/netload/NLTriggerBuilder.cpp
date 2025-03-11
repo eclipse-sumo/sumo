@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -26,17 +26,20 @@
 #include <config.h>
 
 #include <string>
+#include <mesosim/MELoop.h>
+#include <mesosim/METriggeredCalibrator.h>
 #include <microsim/MSEventControl.h>
+#include <microsim/MSJunctionControl.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSGlobals.h>
 #include <microsim/MSParkingArea.h>
+#include <microsim/MSStoppingPlace.h>
 #include <microsim/output/MSDetectorControl.h>
 #include <microsim/output/MSRouteProbe.h>
 #include <microsim/trigger/MSLaneSpeedTrigger.h>
 #include <microsim/trigger/MSTriggeredRerouter.h>
 #include <microsim/trigger/MSCalibrator.h>
-#include <microsim/MSStoppingPlace.h>
 #include <microsim/trigger/MSChargingStation.h>
 #include <microsim/trigger/MSOverheadWire.h>
 #include <utils/common/StringTokenizer.h>
@@ -45,14 +48,10 @@
 #include <utils/common/WrappingCommand.h>
 #include <utils/common/RGBColor.h>
 #include <utils/options/OptionsCont.h>
-#include "NLHandler.h"
-#include "NLTriggerBuilder.h"
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include <utils/xml/XMLSubSys.h>
-
-
-#include <mesosim/MELoop.h>
-#include <mesosim/METriggeredCalibrator.h>
+#include "NLHandler.h"
+#include "NLTriggerBuilder.h"
 
 
 // ===========================================================================
@@ -168,7 +167,7 @@ NLTriggerBuilder::parseAndBuildChargingStation(MSNet& net, const SUMOSAXAttribut
     MSParkingArea* parkingArea = getParkingArea(attrs, "parkingArea", id);
 
     // check charge type
-    if ((chargeType != "normal") && (chargeType != "electric") && (chargeType != "fuel")) {
+    if ((chargeType != "normal") && (chargeType != "battery-exchange") && (chargeType != "fuel")) {
         throw InvalidArgument("The chargeType to use within MSLaneSpeedTrigger '" + id + "' is invalid.");
     }
 
@@ -630,32 +629,44 @@ NLTriggerBuilder::parseAndBuildCalibrator(MSNet& net, const SUMOSAXAttributes& a
     }
     MSLane* lane = nullptr;
     MSEdge* edge = nullptr;
-    // get the file name to read further definitions from
-    if (attrs.hasAttribute(SUMO_ATTR_EDGE)) {
-        std::string edgeID = attrs.get<std::string>(SUMO_ATTR_EDGE, id.c_str(), ok);
-        edge = MSEdge::dictionary(edgeID);
-        if (edge == nullptr) {
-            throw InvalidArgument("The edge " + edgeID + " to use within the calibrator '" + id + "' is not known.");
+    MSJunction* node = nullptr;
+    if (attrs.hasAttribute(SUMO_ATTR_NODE)) {
+        if (attrs.hasAttribute(SUMO_ATTR_LANE) || attrs.hasAttribute(SUMO_ATTR_EDGE)) {
+            throw InvalidArgument("The node calibrator '" + id + "' cannot define an edge or lane as well.");
         }
-        if (attrs.hasAttribute(SUMO_ATTR_LANE)) {
-            lane = getLane(attrs, "calibrator", id);
-            if (&lane->getEdge() != edge) {
-                throw InvalidArgument("The edge " + edgeID + " to use within the calibrator '" + id
-                                      + "' does not match the calibrator lane '" + lane->getID() + ".");
-            }
+        const std::string nodeID = attrs.get<std::string>(SUMO_ATTR_NODE, id.c_str(), ok);
+        node = net.getJunctionControl().get(nodeID);
+        if (node == nullptr) {
+            throw InvalidArgument("The node " + nodeID + " to use within the calibrator '" + id + "' is not known.");
         }
     } else {
-        lane = getLane(attrs, "calibrator", id);
-        edge = &lane->getEdge();
+        if (attrs.hasAttribute(SUMO_ATTR_EDGE)) {
+            const std::string edgeID = attrs.get<std::string>(SUMO_ATTR_EDGE, id.c_str(), ok);
+            edge = MSEdge::dictionary(edgeID);
+            if (edge == nullptr) {
+                throw InvalidArgument("The edge " + edgeID + " to use within the calibrator '" + id + "' is not known.");
+            }
+            if (attrs.hasAttribute(SUMO_ATTR_LANE)) {
+                lane = getLane(attrs, "calibrator", id);
+                if (&lane->getEdge() != edge) {
+                    throw InvalidArgument("The edge " + edgeID + " to use within the calibrator '" + id
+                                          + "' does not match the calibrator lane '" + lane->getID() + ".");
+                }
+            }
+        } else {
+            lane = getLane(attrs, "calibrator", id);
+            edge = &lane->getEdge();
+        }
     }
-    const double pos = getPosition(attrs, lane, "calibrator", id, edge);
+    const double pos = node != nullptr ? 0 : getPosition(attrs, lane, "calibrator", id, edge);
     const SUMOTime period = attrs.getOptPeriod(id.c_str(), ok, DELTA_T); // !!! no error handling
     const std::string vTypes = attrs.getOpt<std::string>(SUMO_ATTR_VTYPES, id.c_str(), ok, "");
-    std::string file = getFileName(attrs, base, true);
-    std::string outfile = attrs.getOpt<std::string>(SUMO_ATTR_OUTPUT, id.c_str(), ok, "");
-    std::string routeProbe = attrs.getOpt<std::string>(SUMO_ATTR_ROUTEPROBE, id.c_str(), ok, "");
+    const std::string file = getFileName(attrs, base, true);
+    const std::string outfile = attrs.getOpt<std::string>(SUMO_ATTR_OUTPUT, id.c_str(), ok, "");
+    const std::string routeProbe = attrs.getOpt<std::string>(SUMO_ATTR_ROUTEPROBE, id.c_str(), ok, "");
     // differing defaults for backward compatibility, values are dimensionless
-    double invalidJamThreshold = attrs.getOpt<double>(SUMO_ATTR_JAM_DIST_THRESHOLD, id.c_str(), ok, MSGlobals::gUseMesoSim ? 0.8 : 0.5);
+    const double invalidJamThreshold = attrs.getOpt<double>(SUMO_ATTR_JAM_DIST_THRESHOLD, id.c_str(), ok, MSGlobals::gUseMesoSim ? 0.8 : 0.5);
+    const bool local = attrs.getOpt<bool>(SUMO_ATTR_LOCAL, id.c_str(), ok, false);
     MSRouteProbe* probe = nullptr;
     if (routeProbe != "") {
         probe = dynamic_cast<MSRouteProbe*>(net.getDetectorControl().getTypedDetectors(SUMO_TAG_ROUTEPROBE).get(routeProbe));
@@ -669,12 +680,12 @@ NLTriggerBuilder::parseAndBuildCalibrator(MSNet& net, const SUMOSAXAttributes& a
                           + "' defined for lane '" + lane->getID()
                           + "' will collect data for all lanes of edge '" + edge->getID() + "'.");
         }
-        METriggeredCalibrator* trigger = buildMECalibrator(net, id, edge, pos, file, outfile, period, probe, invalidJamThreshold, vTypes);
+        METriggeredCalibrator* trigger = buildMECalibrator(id, edge, pos, file, outfile, period, probe, invalidJamThreshold, vTypes);
         if (file == "") {
             trigger->registerParent(SUMO_TAG_CALIBRATOR, myHandler);
         }
     } else {
-        MSCalibrator* trigger = buildCalibrator(net, id, edge, lane, pos, file, outfile, period, probe, invalidJamThreshold, vTypes);
+        MSCalibrator* trigger = buildCalibrator(id, edge, lane, node, pos, file, outfile, period, probe, invalidJamThreshold, vTypes, local);
         if (file == "") {
             trigger->registerParent(SUMO_TAG_CALIBRATOR, myHandler);
         }
@@ -713,11 +724,15 @@ NLTriggerBuilder::parseAndBuildRerouter(MSNet& net, const SUMOSAXAttributes& att
     const SUMOTime timeThreshold = TIME2STEPS(attrs.getOpt<double>(SUMO_ATTR_HALTING_TIME_THRESHOLD, id.c_str(), ok, 0));
     const std::string vTypes = attrs.getOpt<std::string>(SUMO_ATTR_VTYPES, id.c_str(), ok, "");
     const std::string pos = attrs.getOpt<std::string>(SUMO_ATTR_POSITION, id.c_str(), ok, "");
+    const double radius = attrs.getOpt<double>(SUMO_ATTR_RADIUS, id.c_str(), ok, std::numeric_limits<double>::max());
+    if (attrs.hasAttribute(SUMO_ATTR_RADIUS) && !attrs.hasAttribute(SUMO_ATTR_POSITION)) {
+        WRITE_WARNINGF(TL("It is strongly advisable to give an explicit position when using radius in the definition of rerouter '%'."), id)
+    }
     Position p = Position::INVALID;
     if (pos != "") {
         const std::vector<std::string> posSplit = StringTokenizer(pos, ",").getVector();
         if (posSplit.size() == 1) {
-            p = edges.front()->getLanes()[0]->geometryPositionAtOffset(StringUtils::toDouble(posSplit[0]));
+            p = edges.front()->getLanes()[0]->geometryPositionAtOffset(StringUtils::toDouble(pos));
         } else if (posSplit.size() == 2) {
             p = Position(StringUtils::toDouble(posSplit[0]), StringUtils::toDouble(posSplit[1]));
         } else if (posSplit.size() == 3) {
@@ -729,7 +744,7 @@ NLTriggerBuilder::parseAndBuildRerouter(MSNet& net, const SUMOSAXAttributes& att
     if (!ok) {
         throw InvalidArgument("Could not parse rerouter '" + id + "'.");
     }
-    MSTriggeredRerouter* trigger = buildRerouter(net, id, edges, prob, off, optional, timeThreshold, vTypes, p);
+    MSTriggeredRerouter* trigger = buildRerouter(net, id, edges, prob, off, optional, timeThreshold, vTypes, p, radius);
     // read in the trigger description
     trigger->registerParent(SUMO_TAG_REROUTER, myHandler);
 }
@@ -747,8 +762,8 @@ NLTriggerBuilder::buildLaneSpeedTrigger(MSNet& /*net*/, const std::string& id,
 
 
 METriggeredCalibrator*
-NLTriggerBuilder::buildMECalibrator(MSNet& /*net*/, const std::string& id,
-                                    const MSEdge* edge,
+NLTriggerBuilder::buildMECalibrator(const std::string& id,
+                                    MSEdge* edge,
                                     double pos,
                                     const std::string& file,
                                     const std::string& outfile,
@@ -756,30 +771,36 @@ NLTriggerBuilder::buildMECalibrator(MSNet& /*net*/, const std::string& id,
                                     MSRouteProbe* probe,
                                     const double invalidJamThreshold,
                                     const std::string& vTypes) {
-    return new METriggeredCalibrator(id, edge, pos, file, outfile, freq, MSGlobals::gMesoNet->getSegmentForEdge(*edge, pos)->getLength(), probe, invalidJamThreshold, vTypes);
+    return new METriggeredCalibrator(id, edge, pos, file, outfile, freq,
+                                     edge == nullptr ? 0. : MSGlobals::gMesoNet->getSegmentForEdge(*edge, pos)->getLength(),
+                                     probe, invalidJamThreshold, vTypes);
 }
 
 
 MSCalibrator*
-NLTriggerBuilder::buildCalibrator(MSNet& /*net*/, const std::string& id,
+NLTriggerBuilder::buildCalibrator(const std::string& id,
                                   MSEdge* edge,
                                   MSLane* lane,
+                                  MSJunction* node,
                                   double pos,
                                   const std::string& file,
                                   const std::string& outfile,
                                   const SUMOTime freq,
                                   const MSRouteProbe* probe,
                                   const double invalidJamThreshold,
-                                  const std::string& vTypes) {
-    return new MSCalibrator(id, edge, lane, pos, file, outfile, freq, edge->getLength(), probe, invalidJamThreshold, vTypes);
+                                  const std::string& vTypes,
+                                  const bool local) {
+    return new MSCalibrator(id, edge, lane, node, pos, file, outfile, freq,
+                            edge == nullptr ? 0. : edge->getLength(),
+                            probe, invalidJamThreshold, vTypes, local, true);
 }
 
 
 MSTriggeredRerouter*
 NLTriggerBuilder::buildRerouter(MSNet&, const std::string& id,
                                 MSEdgeVector& edges, double prob, bool off, bool optional,
-                                SUMOTime timeThreshold, const std::string& vTypes, const Position& pos) {
-    return new MSTriggeredRerouter(id, edges, prob, off, optional, timeThreshold, vTypes, pos);
+                                SUMOTime timeThreshold, const std::string& vTypes, const Position& pos, const double radius) {
+    return new MSTriggeredRerouter(id, edges, prob, off, optional, timeThreshold, vTypes, pos, radius);
 }
 
 
@@ -848,6 +869,7 @@ NLTriggerBuilder::endParkingArea() {
 void
 NLTriggerBuilder::endStoppingPlace() {
     if (myCurrentStop != nullptr) {
+        myCurrentStop->finishedLoading();
         myCurrentStop = nullptr;
     } else {
         throw InvalidArgument("Could not end a stopping place that is not opened.");
@@ -974,7 +996,7 @@ NLTriggerBuilder::getPosition(const SUMOSAXAttributes& attrs,
                               MSLane* lane,
                               const std::string& tt, const std::string& tid,
                               MSEdge* edge) {
-    assert(lane != 0 || edge != 0);
+    assert(lane != nullptr || edge != nullptr);
     const double length = lane != nullptr ? lane->getLength() : edge->getLength();
     bool ok = true;
     double pos = attrs.get<double>(SUMO_ATTR_POSITION, nullptr, ok);
@@ -992,7 +1014,7 @@ NLTriggerBuilder::getPosition(const SUMOSAXAttributes& attrs,
             if (lane != nullptr) {
                 throw InvalidArgument("The position of " + tt + " '" + tid + "' lies beyond the lane's '" + lane->getID() + "' length.");
             } else {
-                throw InvalidArgument("The position of " + tt + " '" + tid + "' lies beyond the edges's '" + edge->getID() + "' length.");
+                throw InvalidArgument("The position of " + tt + " '" + tid + "' lies beyond the edge's '" + edge->getID() + "' length.");
             }
         }
     }

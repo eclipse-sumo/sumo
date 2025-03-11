@@ -13,6 +13,7 @@ o
 # Tests for importing OM(R)-format
 om
 trips
+flows
 
 # use routes as input
 routes

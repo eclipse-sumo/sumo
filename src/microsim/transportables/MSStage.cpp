@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -35,8 +35,8 @@
 /* -------------------------------------------------------------------------
 * static member definitions
 * ----------------------------------------------------------------------- */
+const double MSStage::ARRIVALPOS_UNSPECIFIED(std::numeric_limits<double>::infinity());
 const double MSStage::ROADSIDE_OFFSET(3);
-
 
 // ===========================================================================
 // method definitions
@@ -94,12 +94,6 @@ MSStage::getEdgePosLat(SUMOTime /* now */) const {
 int
 MSStage::getDirection() const {
     return MSPModel::UNDEFINED_DIRECTION;
-}
-
-
-SUMOTime
-MSStage::getWaitingTime(SUMOTime /* now */) const {
-    return 0;
 }
 
 
@@ -193,6 +187,12 @@ MSStage::setDestination(const MSEdge* newDestination, MSStoppingPlace* newDestSt
         myArrivalPos = (newDestStop->getBeginLanePosition() + newDestStop->getEndLanePosition()) / 2;
     }
 }
+
+bool
+MSStage::unspecifiedArrivalPos() const {
+    return myArrivalPos == ARRIVALPOS_UNSPECIFIED;
+}
+
 
 
 /****************************************************************************/

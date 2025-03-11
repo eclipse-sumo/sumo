@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-18 14:15:53 by Eclipse SUMO netedit Version v1_20_0+1303-cbc4b3552ac
-<neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
+<!-- generated on 2025-02-03 14:47:53 by Eclipse SUMO netconvert Version v1_21_0+2283-8c24bb7ce10
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="D:\Netedit_dev\tests\netedit\network\edges\load\speed\net.net.xml"/>
+        <sumo-net-file value="D:/SUMO/tests/netedit\network\edges\load\speed/net.net.xml"/>
     </input>
+
+    <output>
+        <plain-output-prefix value="D:/SUMO/tests/netedit\network\edges\load\speed/net"/>
+    </output>
 
     <processing>
         <geometry.min-radius.fix.railways value="false"/>
@@ -25,7 +29,7 @@
         <walkingareas value="0"/>
     </pedestrian>
 
-</neteditConfiguration>
+</netconvertConfiguration>
 -->
 
 <nodes version="1.20" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">

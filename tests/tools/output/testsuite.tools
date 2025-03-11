@@ -20,7 +20,7 @@ tripinfoDiff
 
 # difference of tripinfo output with personInfo elements
 tripinfoDiff_persons
-edgeDataDiff
+edgeDepartDelay
 tripinfoByType
 tripinfoByTAZ
 attributeStats
@@ -45,6 +45,7 @@ parkingSearchTraffic
 aggregateBatteryOutput
 vehrouteCountValidation
 fcdDiff
+edgeDataDiff
 analyze_pedestrian_jam
 
 # Copy of analyze_pedestrian_jam

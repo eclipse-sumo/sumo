@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2005-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2005-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -151,7 +151,7 @@ public:
      * @param[in] brakePos the first position on the stop lane that the vehicle can stop at
      * @return The last free position of this bus stop
      */
-    double getLastFreePos(const SUMOVehicle& forVehicle, double brakePos = 0) const;
+    virtual double getLastFreePos(const SUMOVehicle& forVehicle, double brakePos = 0) const;
 
     /// @brief return whether the given vehicle fits at the given position
     bool fits(double pos, const SUMOVehicle& veh) const;
@@ -169,7 +169,7 @@ public:
     double getWaitingPositionOnLane(MSTransportable* t) const;
 
 
-    /** @brief For vehicles at the stop this gives the the actual stopping
+    /** @brief For vehicles at the stop this gives the actual stopping
      *         position of the vehicle. For all others the last free stopping position
      *
      */
@@ -181,7 +181,7 @@ public:
         return (int)myWaitingTransportables.size();
     }
 
-    /** @brief Returns the tranportables waiting on this stop
+    /** @brief Returns the transportables waiting on this stop
      */
     std::vector<const MSTransportable*> getTransportables() const;
 
@@ -244,6 +244,9 @@ public:
 
     /// @brief get IDs of persons waiting at this stop
     void getWaitingPersonIDs(std::vector<std::string>& into) const;
+
+    /// @brief perform extra processing after element has been loaded
+    virtual void finishedLoading() {};
 
     /** @brief Remove all vehicles before quick-loading state */
     void clearState();

@@ -15,3 +15,6 @@ recomputing_disable_crossings_3292
 
 # controlled pedestrian rail crossings are lost when loading/saving with netedit
 controlled_pedestrian_rail_crossings_lost_5559
+
+#Deleting one edge remove all crossings
+remove_neighbor_junction_16017

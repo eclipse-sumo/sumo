@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-03-04 15:48:20 by Eclipse SUMO sumo Version v1_22_0+0626-81fd0e9bc42
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <fcd-output value="fcd.xml"/>
+        <fcd-output.attributes value="acceleration"/>
+    </output>
+
+    <time>
+        <end value="300"/>
+    </time>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.statistics value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <fcd_device>
+        <device.fcd.explicit value="left.73"/>
+        <device.fcd.begin value="240"/>
+    </fcd_device>
+
+</sumoConfiguration>
+-->
+
+<fcd-export xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/fcd_file.xsd">
+    <timestep time="240.00">
+        <vehicle id="left.73" acceleration="0.27"/>
+    </timestep>
+    <timestep time="241.00">
+        <vehicle id="left.73" acceleration="-0.09"/>
+    </timestep>
+    <timestep time="242.00">
+        <vehicle id="left.73" acceleration="-0.75"/>
+    </timestep>
+    <timestep time="243.00">
+        <vehicle id="left.73" acceleration="0.24"/>
+    </timestep>
+    <timestep time="244.00">
+        <vehicle id="left.73" acceleration="0.43"/>
+    </timestep>
+    <timestep time="245.00">
+        <vehicle id="left.73" acceleration="0.63"/>
+    </timestep>
+    <timestep time="246.00">
+        <vehicle id="left.73" acceleration="0.44"/>
+    </timestep>
+    <timestep time="247.00">
+        <vehicle id="left.73" acceleration="-0.18"/>
+    </timestep>
+    <timestep time="248.00">
+        <vehicle id="left.73" acceleration="0.51"/>
+    </timestep>
+    <timestep time="249.00">
+        <vehicle id="left.73" acceleration="-0.56"/>
+    </timestep>
+    <timestep time="250.00">
+        <vehicle id="left.73" acceleration="-0.19"/>
+    </timestep>
+    <timestep time="251.00">
+        <vehicle id="left.73" acceleration="-0.05"/>
+    </timestep>
+    <timestep time="252.00">
+        <vehicle id="left.73" acceleration="-0.03"/>
+    </timestep>
+    <timestep time="253.00">
+        <vehicle id="left.73" acceleration="-0.34"/>
+    </timestep>
+    <timestep time="254.00">
+        <vehicle id="left.73" acceleration="0.51"/>
+    </timestep>
+    <timestep time="255.00">
+        <vehicle id="left.73" acceleration="-0.34"/>
+    </timestep>
+    <timestep time="256.00">
+        <vehicle id="left.73" acceleration="-0.22"/>
+    </timestep>
+    <timestep time="257.00">
+        <vehicle id="left.73" acceleration="0.82"/>
+    </timestep>
+    <timestep time="258.00">
+        <vehicle id="left.73" acceleration="1.45"/>
+    </timestep>
+    <timestep time="259.00">
+        <vehicle id="left.73" acceleration="2.16"/>
+    </timestep>
+    <timestep time="260.00">
+        <vehicle id="left.73" acceleration="1.34"/>
+    </timestep>
+    <timestep time="261.00">
+        <vehicle id="left.73" acceleration="1.85"/>
+    </timestep>
+    <timestep time="262.00">
+        <vehicle id="left.73" acceleration="1.94"/>
+    </timestep>
+    <timestep time="263.00">
+        <vehicle id="left.73" acceleration="1.61"/>
+    </timestep>
+    <timestep time="264.00">
+        <vehicle id="left.73" acceleration="1.50"/>
+    </timestep>
+    <timestep time="265.00">
+        <vehicle id="left.73" acceleration="1.69"/>
+    </timestep>
+    <timestep time="266.00">
+        <vehicle id="left.73" acceleration="1.84"/>
+    </timestep>
+    <timestep time="267.00">
+        <vehicle id="left.73" acceleration="2.59"/>
+    </timestep>
+    <timestep time="268.00"/>
+    <timestep time="269.00"/>
+    <timestep time="270.00"/>
+    <timestep time="271.00"/>
+    <timestep time="272.00"/>
+    <timestep time="273.00"/>
+    <timestep time="274.00"/>
+    <timestep time="275.00"/>
+    <timestep time="276.00"/>
+    <timestep time="277.00"/>
+    <timestep time="278.00"/>
+    <timestep time="279.00"/>
+    <timestep time="280.00"/>
+    <timestep time="281.00"/>
+    <timestep time="282.00"/>
+    <timestep time="283.00"/>
+    <timestep time="284.00"/>
+    <timestep time="285.00"/>
+    <timestep time="286.00"/>
+    <timestep time="287.00"/>
+    <timestep time="288.00"/>
+    <timestep time="289.00"/>
+    <timestep time="290.00"/>
+    <timestep time="291.00"/>
+    <timestep time="292.00"/>
+    <timestep time="293.00"/>
+    <timestep time="294.00"/>
+    <timestep time="295.00"/>
+    <timestep time="296.00"/>
+    <timestep time="297.00"/>
+    <timestep time="298.00"/>
+    <timestep time="299.00"/>
+</fcd-export>

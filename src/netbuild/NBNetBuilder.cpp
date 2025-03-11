@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -129,6 +129,13 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
             WRITE_MESSAGEF(TL(" Removed % edges based on vClass."), removed2);
         }
     }
+    if (mayAddOrRemove && oc.getFloat("keep-lanes.min-width") > 0.) {
+        const int removed = myEdgeCont.removeLanesByWidth(myDistrictCont, oc.getFloat("keep-lanes.min-width"));
+        if (removed > 0) {
+            numRemovedEdges += removed;
+            WRITE_MESSAGEF(TL(" Removed % edges because of lane width."), removed);
+        }
+    }
     // Processing pt stops and lines
     if (!myPTStopCont.getStops().empty()) {
         before = PROGRESS_BEGIN_TIME_MESSAGE(TL("Processing public transport stops"));
@@ -241,8 +248,9 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
             myNodeCont.addJoinExclusion(nodeIDs);
         }
         NBNodeTypeComputer::validateRailCrossings(myNodeCont, myTLLCont);
-    } else if (myEdgeCont.hasGuessedRoundabouts() && oc.getBool("roundabouts.guess")) {
+    } else if ((myEdgeCont.hasGuessedRoundabouts() || oc.getBool("crossings.guess")) && oc.getBool("roundabouts.guess")) {
         myEdgeCont.guessRoundabouts();
+        myEdgeCont.markRoundabouts();
     }
     // join junctions (may create new "geometry"-nodes so it needs to come before removing these
     if (mayAddOrRemove && oc.exists("junctions.join-exclude") && oc.isSet("junctions.join-exclude")) {
@@ -462,6 +470,7 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
     // CONNECTIONS COMPUTATION
     //
     before = PROGRESS_BEGIN_TIME_MESSAGE(TL("Computing node types"));
+    NBNode::initRailSignalClasses(myNodeCont);
     NBNodeTypeComputer::computeNodeTypes(myNodeCont, myTLLCont);
     PROGRESS_TIME_MESSAGE(before);
     //

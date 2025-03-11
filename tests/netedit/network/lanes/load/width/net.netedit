@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-18 14:54:34 by Eclipse SUMO netedit Version v1_20_0+1303-cbc4b3552ac
+<!-- generated on 2024-10-02 11:58:32 by Eclipse SUMO netedit Version v1_20_0+2211-a70841d223d
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,15 +14,15 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Jul144503.27476\netedit.gui\network\lanes\load\width\additionals.add.xml"/>
-        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Jul144503.27476\netedit.gui\network\lanes\load\width\routes.rou.xml"/>
-        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Jul144503.27476\netedit.gui\network\lanes\load\width\datas.dat.xml"/>
-        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Jul144503.27476\netedit.gui\network\lanes\load\width\net.net.xml"/>
+        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.02Oct115811.20016\netedit.gui\network\lanes\load\width\additionals.add.xml"/>
+        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.02Oct115811.20016\netedit.gui\network\lanes\load\width\routes.rou.xml"/>
+        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.02Oct115811.20016\netedit.gui\network\lanes\load\width\datas.dat.xml"/>
+        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.02Oct115811.20016\netedit.gui\network\lanes\load\width\net.net.xml"/>
     </input>
 
     <output>
         <write-license value="true"/>
-        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Jul144503.27476\netedit.gui\network\lanes\load\width\net.net.xml"/>
+        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.02Oct115811.20016\netedit.gui\network\lanes\load\width\net.net.xml"/>
     </output>
 
     <processing>
@@ -48,16 +48,16 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Jul144503.27476\netedit.gui\network\lanes\load\width\gui-settings.xml"/>
+        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.02Oct115811.20016\netedit.gui\network\lanes\load\width\gui-settings.xml"/>
         <window-size value="1280, 720"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
-        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Jul144503.27476\netedit.gui\network\lanes\load\width\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.02Oct115811.20016\netedit.gui\network\lanes\load\width\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Jul144503.27476\netedit.gui\network\lanes\load\width\log.txt"/>
+        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.02Oct115811.20016\netedit.gui\network\lanes\load\width\log.txt"/>
     </report>
 
 </neteditConfiguration>
@@ -75,7 +75,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </edge>
 
     <edge id="E0" from="J0" to="J1" priority="-1">
-        <lane id="E0_0" index="0" disallow="pedestrian" speed="13.89" length="60.00" width="12.00" shape="30.00,6.00 -30.00,6.00"/>
+        <lane id="E0_0" index="0" disallow="pedestrian" speed="13.89" length="60.00" width="12.00" shape="30.00,9.20 -30.00,9.20"/>
+        <lane id="E0_1" index="1" disallow="pedestrian" speed="13.89" length="60.00" shape="30.00,1.60 -30.00,1.60"/>
+    </edge>
+    <edge id="E1" from="J3" to="J4" priority="-1">
+        <lane id="E1_0" index="0" speed="13.89" length="60.00" width="5.00" shape="30.00,-17.50 -30.00,-17.50"/>
     </edge>
     <edge id="EdgeExternBot" from="JunctionExtern0" to="JunctionExtern1" priority="-1" length="175.00" shape="-60.00,0.00 -45.00,0.00 -45.00,-25.00 -40.00,-30.00 40.00,-30.00 45.00,-25.00 45.00,0.00 60.00,0.00">
         <lane id="EdgeExternBot_0" index="0" disallow="pedestrian" speed="13.89" length="175.00" width="3.00" shape="-60.00,-1.50 -46.50,-1.50 -46.50,-25.62 -40.62,-31.50 40.62,-31.50 46.50,-25.62 46.50,-1.50 60.00,-1.50"/>
@@ -84,8 +88,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="EdgeExternTop_0" index="0" disallow="pedestrian" speed="13.89" length="175.00" width="3.00" shape="60.00,1.50 46.50,1.50 46.50,25.62 40.62,31.50 -40.62,31.50 -46.50,25.62 -46.50,1.50 -60.00,1.50"/>
     </edge>
 
-    <junction id="J0" type="dead_end" x="30.00" y="0.00" incLanes="" intLanes="" shape="30.00,0.00 30.00,12.00"/>
-    <junction id="J1" type="dead_end" x="-30.00" y="0.00" incLanes="E0_0" intLanes="" shape="-30.00,12.00 -30.00,0.00"/>
+    <junction id="J0" type="dead_end" x="30.00" y="0.00" incLanes="" intLanes="" shape="30.00,0.00 30.00,15.20"/>
+    <junction id="J1" type="dead_end" x="-30.00" y="0.00" incLanes="E0_0 E0_1" intLanes="" shape="-30.00,15.20 -30.00,0.00"/>
+    <junction id="J3" type="dead_end" x="30.00" y="-20.00" incLanes="" intLanes="" shape="30.00,-20.00 30.00,-15.00"/>
+    <junction id="J4" type="dead_end" x="-30.00" y="-20.00" incLanes="E1_0" intLanes="" shape="-30.00,-15.00 -30.00,-20.00"/>
     <junction id="JunctionExtern0" type="priority" x="-60.00" y="0.00" incLanes="EdgeExternTop_0" intLanes=":JunctionExtern0_0_0" shape="-60.00,0.00 -60.00,3.00 -60.00,0.00">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-02-29 13:56:08 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
+<!-- generated on 2024-11-11 15:15:15 by Eclipse SUMO netconvert Version v1_21_0+0699-cd90ce698f1
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <node-files value="input_plain.nod.xml"/>
@@ -28,7 +28,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <ignore-errors.edge-type value="true"/>
     </report>
 
-</configuration>
+</netconvertConfiguration>
 -->
 
 <net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
@@ -705,15 +705,21 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </edge>
 
     <tlLogic id="joinedS_2453091696_cluster_1537334946_2453091683_7202621463_8355251671_#1more_cluster_2453091662_2453091707_31532419_31532420_#1more" type="actuated" programID="0" offset="0">
-        <phase duration="11" state="GGGGrrrrrrrrrrrGGGGrrrrrrggggGGGGGrrrrrrrrrrrrrrr" minDur="7" maxDur="50"/>
-        <phase duration="4"  state="yyyyrrrrrrrrrrrggyyrrrrrrggggyyyyyrrrrrrrrrrrrrrr"/>
-        <phase duration="26" state="rrrrggggggggGGGggrrgrrgrrggggrrrrrgrrgrrGGGgrrrrr" minDur="10" maxDur="100"/>
-        <phase duration="4"  state="rrrryyyyyyyyyyyggrrgrrgrryyyyrrrrryrryrryyyyrrrrr"/>
-        <phase duration="11" state="rrrrrrrrrrrrrrrGGGGGGGGGGrrrrrrrrrrrrrrrrrrrrrrrr" minDur="5" maxDur="50"/>
+        <phase duration="31" state="GGGGrrrrrrrrrrrGGGGrrrrrrggggGGGGGrrrrrrrrrrrrrrr" minDur="7" maxDur="50"/>
+        <phase duration="4"  state="yyyyrrrrrrrrrrryyyyrrrrrryyyyyyyyyrrrrrrrrrrrrrrr"/>
+        <phase duration="31" state="rrrrGGGGrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr" minDur="5" maxDur="50"/>
+        <phase duration="4"  state="rrrryyyyrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr"/>
+        <phase duration="31" state="rrrrrrrrGGGGrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr" minDur="5" maxDur="50"/>
+        <phase duration="4"  state="rrrrrrrryyyyrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr"/>
+        <phase duration="31" state="rrrrrrrrrrrrGGGrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr" minDur="5" maxDur="50"/>
+        <phase duration="4"  state="rrrrrrrrrrrryyyrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr"/>
+        <phase duration="31" state="rrrrrrrrrrrrrrrGGGGGGGGGGrrrrrrrrrrrrrrrrrrrrrrrr" minDur="5" maxDur="50"/>
         <phase duration="4"  state="rrrrrrrrrrrrrrrGGGGyyyyyyrrrrrrrrrrrrrrrrrrrrrrrr"/>
-        <phase duration="11" state="rrrrrrrrrrrrrrrGGGGrrrrrrrrrrrrrrrGGGGGGrrrrrrrrr" minDur="5" maxDur="50"/>
-        <phase duration="4"  state="rrrrrrrrrrrrrrrGGGGrrrrrrrrrrrrrrryyyyyyrrrrrrrrr"/>
-        <phase duration="11" state="rrrrrrrrrrrrrrrGGGGrrrrrrrrrrrrrrrrrrrrrrrrrGGGGG" minDur="7" maxDur="50"/>
+        <phase duration="31" state="rrrrrrrrrrrrrrrGGGGrrrrrrrrrrrrrrrGGGGGGrrrrrrrrr" minDur="5" maxDur="50"/>
+        <phase duration="4"  state="rrrrrrrrrrrrrrryyyyrrrrrrrrrrrrrrryyyyyyrrrrrrrrr"/>
+        <phase duration="31" state="rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrGGGGrrrrr" minDur="5" maxDur="50"/>
+        <phase duration="4"  state="rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrryyyyrrrrr"/>
+        <phase duration="31" state="rrrrrrrrrrrrrrrGGGGrrrrrrrrrrrrrrrrrrrrrrrrrGGGGG" minDur="7" maxDur="50"/>
         <phase duration="4"  state="rrrrrrrrrrrrrrrGGGGrrrrrrrrrrrrrrrrrrrrrrrrryyyyy"/>
     </tlLogic>
 

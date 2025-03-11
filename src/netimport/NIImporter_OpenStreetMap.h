@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -312,6 +312,9 @@ private:
     /// @brief import sidewalks
     bool myImportSidewalks;
 
+    /// @brief import sidewalks
+    bool myOnewayDualSidewalk;
+
     /// @brief import bike path specific permissions and directions
     bool myImportBikeAccess;
 
@@ -320,6 +323,9 @@ private:
 
     /// @brief import turning signals (turn:lanes) to guide connection building
     bool myImportTurnSigns;
+
+    /// @brief whether edges should carry information on the use of typemap defaults
+    bool myAnnotateDefaults;
 
     /// @brief whether additional way and node attributes shall be imported
     static bool myAllAttributes;

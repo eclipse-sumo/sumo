@@ -41,7 +41,8 @@
         <route edges="Edge0 Edge1 Edge2" color="yellow"/>
         <stop parkingArea="parkingAreaA" duration="70.00" until="12.00" extension="10.00" expected="perA perB" permitted="A B" actType="walking" triggered="person" tripId="tripA" line="lineA" onDemand="true" jump="4" split="splitA"/>
     </vehicle>
-	<vehicle id="vehicle_1" depart="0.00">
+
+    <vehicle id="vehicle_1" depart="0.00">
         <route edges="EdgeCenter0 EdgeCenter1" color="yellow"/>
         <stop parkingArea="parkingAreaB" duration="60.00" until="20.00" extension="20.00" expected="conA conB" permitted="C D" actType="singing" triggered="container" tripId="tripB" line="lineB" onDemand="false" jump="8.4" split="splitB"/>
     </vehicle>

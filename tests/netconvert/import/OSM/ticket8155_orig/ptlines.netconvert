@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-04-28 22:49:39 by Eclipse SUMO netconvert Version v1_19_0+1959-e51fd22bc0f
+<!-- generated on 2025-01-30 09:41:03 by Eclipse SUMO netconvert Version v1_21_0+2125-f7884de39c4
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <osm-files value="osm.xml"/>
@@ -46,7 +46,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <xml-validation value="never"/>
     </report>
 
-</configuration>
+</netconvertConfiguration>
 -->
 
 <ptLines xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/ptlines_file.xsd">
@@ -80,13 +80,17 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </ptLine>
     <ptLine id="6768729" name="Bus 434: Heideblick =&gt; Krugplatz" line="434" type="bus" vClass="bus" color="163,16,8" completeness="0.00" missingAfter="6"/>
     <ptLine id="6768731" name="Bus 434: Krugplatz =&gt; Heideblick" line="434" type="bus" vClass="bus" color="163,16,8" completeness="0.00" missingBefore="6"/>
-    <ptLine id="6974398" name="Bus 424: Bevenrode =&gt; Heideblick" line="424" type="bus" vClass="bus" color="225,182,0" completeness="0.00" missingBefore="22"/>
-    <ptLine id="7090404" name="Tram 1: Rathaus =&gt; Wenden" line="1" type="tram" vClass="tram" color="227,0,11" completeness="0.12" missingBefore="14">
+    <ptLine id="6974398" name="Bus 424: Bevenrode =&gt; Heideblick" line="424" type="bus" vClass="bus" color="225,182,0" completeness="0.00" missingBefore="24"/>
+    <ptLine id="6975161" name="Bus 434: Heideblick =&gt; Hänflingstraße" line="434" type="bus" vClass="bus" color="163,16,8" completeness="0.00" missingAfter="14"/>
+    <ptLine id="6975162" name="Bus 434: Heideblick =&gt; Schmiedegasse" line="434" type="bus" vClass="bus" color="163,16,8" completeness="0.00" missingAfter="22"/>
+    <ptLine id="6975163" name="Bus 434: Hänflingstraße =&gt; Heideblick" line="434" type="bus" vClass="bus" color="163,16,8" completeness="0.00" missingBefore="14"/>
+    <ptLine id="6975164" name="Bus 434: Lagesbüttel Schule =&gt; Heideblick" line="434" type="bus" vClass="bus" color="163,16,8" completeness="0.00" missingBefore="20"/>
+    <ptLine id="7090404" name="Tram 1: Rathaus =&gt; Wenden" line="1" type="tram" vClass="tram" color="227,0,11" completeness="0.12" missingBefore="15">
         <route edges="859066429#0 859066429#1 859066429#3 859066430#1 859066430#2 859066434#1 859066434#3"/>
         <busStop id="54143012" name="Veltenhöfer Straße"/>
         <busStop id="54142977" name="Heideblick"/>
     </ptLine>
-    <ptLine id="7090406" name="Tram 1: Wenden =&gt; Rathaus" line="1" type="tram" vClass="tram" color="227,0,11" completeness="0.12" missingAfter="14">
+    <ptLine id="7090406" name="Tram 1: Wenden =&gt; Rathaus" line="1" type="tram" vClass="tram" color="227,0,11" completeness="0.12" missingAfter="15">
         <route edges="859066433#0 859066433#1 859066433#2 859066431#1 859066431#2 859066431#3 859066427#2"/>
         <busStop id="54142977" name="Heideblick"/>
         <busStop id="54143009" name="Veltenhöfer Straße"/>

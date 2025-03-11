@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2002-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2002-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -236,7 +236,7 @@ ROVehicle::collectJumps(const ConstROEdgeVector& mandatory, std::set<ConstROEdge
 
 
 void
-ROVehicle::saveAsXML(OutputDevice& os, OutputDevice* const typeos, bool asAlternatives, OptionsCont& options) const {
+ROVehicle::saveAsXML(OutputDevice& os, OutputDevice* const typeos, bool asAlternatives, OptionsCont& options, int cloneIndex) const {
     if (typeos != nullptr && getType() != nullptr && !getType()->saved) {
         getType()->write(*typeos);
         getType()->saved = true;
@@ -268,8 +268,14 @@ ROVehicle::saveAsXML(OutputDevice& os, OutputDevice* const typeos, bool asAltern
         }
     }
     // write the vehicle (new style, with included routes)
-    getParameter().write(os, options, writeTrip ? SUMO_TAG_TRIP : SUMO_TAG_VEHICLE);
-
+    if (cloneIndex == 0) {
+        getParameter().write(os, options, writeTrip ? SUMO_TAG_TRIP : SUMO_TAG_VEHICLE);
+    } else {
+        SUMOVehicleParameter p = getParameter();
+        // @note id collisions may occur if scale-suffic occurs in other vehicle ids
+        p.id += options.getString("scale-suffix") + toString(cloneIndex);
+        p.write(os, options, writeTrip ? SUMO_TAG_TRIP : SUMO_TAG_VEHICLE);
+    }
     // save the route
     if (writeTrip) {
         const ConstROEdgeVector edges = myRoute->getFirstRoute()->getEdgeVector();

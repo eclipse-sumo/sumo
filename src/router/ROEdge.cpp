@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2002-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2002-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -18,6 +18,7 @@
 /// @author  Michael Behrisch
 /// @author  Melanie Knocke
 /// @author  Yun-Pang Floetteroed
+/// @author  Ruediger Ebendt
 /// @date    Sept 2002
 ///
 // A basic edge for routing applications
@@ -83,11 +84,30 @@ ROEdge::ROEdge(const std::string& id, RONode* from, RONode* to, int index, const
 }
 
 
+ROEdge::ROEdge(const std::string& id, const RONode* from, const RONode* to, SVCPermissions p) :
+    Named(id),
+    myFromJunction(const_cast<RONode*>(from)),
+    myToJunction(const_cast<RONode*>(to)),
+    myIndex(-1),
+    myPriority(0),
+    mySpeed(std::numeric_limits<double>::max()),
+    myLength(0),
+    myAmSink(false),
+    myAmSource(false),
+    myUsingTTTimeLine(false),
+    myUsingETimeLine(false),
+    myCombinedPermissions(p),
+    myOtherTazConnector(nullptr),
+    myTimePenalty(0)
+{ }
+
+
 ROEdge::~ROEdge() {
     for (ROLane* const lane : myLanes) {
         delete lane;
     }
     delete myReversedRoutingEdge;
+    delete myFlippedRoutingEdge;
     delete myRailwayRoutingEdge;
 }
 

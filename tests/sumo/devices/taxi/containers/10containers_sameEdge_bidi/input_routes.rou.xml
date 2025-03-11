@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-09-19 09:46:18 by Eclipse SUMO netedit Version v1_20_0+2048-31af531e001
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <!-- Vehicles, persons and containers (sorted by depart) -->
+    <vType id="truck" vClass="truck"/>
+    <trip id="t_0" type="truck" depart="0.00" from="E0" to="E0">
+        <param key="has.taxi.device" value="true"/>
+    </trip>
+    <containerFlow id="cf_0" begin="0.00" end="1.00" number="10">
+        <stop containerStop="ct_0" duration="60.00"/>
+        <transport containerStop="ct_1" lines="taxi"/>
+        <stop containerStop="ct_1" duration="3600.00"/>
+    </containerFlow>
+</routes>

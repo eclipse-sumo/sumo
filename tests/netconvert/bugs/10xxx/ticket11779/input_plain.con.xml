@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-10-07 17:47:11 by Eclipse SUMO netedit Version v1_14_1+1516-a299e0b
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="/localdata2/debug/11779/netconvertcrash/input_plain.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="/localdata2/debug/11779/netconvertcrash/input_plain.net.xml"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="0"/>
+    </pedestrian>
+
+</configuration>
+-->
+
+<connections version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/connections_file.xsd">
+    <connection from="-36985677" to="-684478254" fromLane="0" toLane="0"/>
+    <connection from="-36985677" to="-684478254" fromLane="0" toLane="1"/>
+
+    <connection from="-36985678" to="-605015893" fromLane="0" toLane="0"/>
+    <connection from="-36985678" to="27802454#0" fromLane="0" toLane="0"/>
+
+    <connection from="-38867748" to="38867744#2" fromLane="0" toLane="0" visibility="9.00"/>
+
+    <connection from="-605015893"/>
+
+    <connection from="-684478253#1"/>
+
+    <connection from="-684478254" to="-684478253#1" fromLane="0" toLane="0"/>
+    <connection from="-684478254" to="-36985678" fromLane="1" toLane="0"/>
+
+    <connection from="-684478255#1" to="-36985677" fromLane="0" toLane="0"/>
+
+    <connection from="-684478256" to="-684478255#1" fromLane="0" toLane="0"/>
+    <connection from="-684478256" to="-38867748" fromLane="1" toLane="0"/>
+
+    <connection from="-856802543#1" to="36985678" fromLane="0" toLane="0"/>
+    <connection from="-856802543#1" to="-605015893" fromLane="0" toLane="0"/>
+
+    <connection from="22964977#0" to="27802454#0" fromLane="0" toLane="0"/>
+    <connection from="22964977#0" to="36985678" fromLane="0" toLane="0"/>
+
+    <connection from="27802454#0"/>
+
+    <connection from="36985677" to="684478255#0" fromLane="0" toLane="0"/>
+    <connection from="36985677" to="684478255#0" fromLane="0" toLane="1"/>
+
+    <connection from="36985678" to="684478254" fromLane="0" toLane="0"/>
+    <connection from="36985678" to="-684478253#1" fromLane="0" toLane="0"/>
+
+    <connection from="38867744#2" to="-856802543#1" fromLane="0" toLane="0"/>
+
+    <connection from="38867748" to="670870213" fromLane="0" toLane="0"/>
+    <connection from="38867748" to="-684478255#1" fromLane="0" toLane="0"/>
+
+    <connection from="670870213"/>
+
+    <connection from="684478253#0" to="-36985678" fromLane="0" toLane="0"/>
+    <connection from="684478253#0" to="684478254" fromLane="1" toLane="0"/>
+
+    <connection from="684478254" to="36985677" fromLane="0" toLane="0"/>
+
+    <connection from="684478255#0" to="-38867748" fromLane="0" toLane="0"/>
+    <connection from="684478255#0" to="670870213" fromLane="1" toLane="0"/>
+
+</connections>

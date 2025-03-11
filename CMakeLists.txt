@@ -15,7 +15,7 @@ option(FMI "Enable generation of an FMI library for SUMO" ON)
 option(NETEDIT "Enable build of netedit" ON)
 option(ENABLE_PYTHON_BINDINGS "Build Python Bindings" ON)
 option(ENABLE_JAVA_BINDINGS "Build Java Bindings" ON)
-option(ENABLE_CS_BINDINGS "Build C# Bindings")
+option(ENABLE_CS_BINDINGS "Build C# Bindings" ON)
 option(CCACHE_SUPPORT "Enable ccache support if installed" ON)
 option(TCMALLOC "Use tcmalloc if installed" ON)
 option(VERBOSE_SUB "Let sub-commands be more verbose")
@@ -120,90 +120,6 @@ if (GNU_COMPILER OR CLANG_COMPILER)
         set(ENABLED_FEATURES "${ENABLED_FEATURES} Coverage")
     endif ()
 elseif (MSVC)
-    # disable warnings (all versions)
-    option(DISABLEWARNING_C5264 "'const' variable is not used" ON)
-    option(DISABLEWARNING_C5267 "definition of implicit operator/constructor/destructor is deprecated" ON)
-    option(DISABLEWARNING_C4355 "'this' : used in base member initializer list" ON)
-    option(DISABLEWARNING_C4266 "'function' : no override available for virtual member function from base 'type'" ON)
-    option(DISABLEWARNING_C4127 "conditional expression is constant" ON)
-    option(DISABLEWARNING_C26495 "'variable' is uninitialized. Always initialize a member variable" ON)
-    # Specific warnings from MSVC15
-    if (MSVC_VERSION LESS 2000)
-        option(DISABLEWARNING_C4619 "there is no warning number xxxx" ON)
-        option(DISABLEWARNING_C4774 "format string expected not string literal" ON)
-        option(DISABLEWARNING_C4571 "structured exceptions (SEH) are no longer caught" ON)
-        option(DISABLEWARNING_C4820 "bytes padding added after data member" ON)
-        option(DISABLEWARNING_C4668 "macro not defined as a preprocessor macro, replacing with '0'" ON)
-        option(DISABLEWARNING_C4710 "function not inlined" ON)
-        option(DISABLEWARNING_C4625 "copy constructor was implicitly defined as deleted" ON)
-        option(DISABLEWARNING_C4626 "assignment operator was implicitly defined as deleted" ON)
-        option(DISABLEWARNING_C5026 "move constructor was implicitly defined as deleted" ON)
-        option(DISABLEWARNING_C5027 "move assignment was implicitly defined as deleted" ON)
-    endif()
-    # 5264
-    if (DISABLEWARNING_C5264)
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd5264")
-    endif (DISABLEWARNING_C5264)
-    # 5267
-    if (DISABLEWARNING_C5267)
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd5267")
-    endif (DISABLEWARNING_C5267)
-    # 4355
-    if (DISABLEWARNING_C4355)
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4355")
-    endif (DISABLEWARNING_C4355)
-    # 4266
-    if (DISABLEWARNING_C4266)
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4266")
-    endif (DISABLEWARNING_C4266)
-    # 4127
-    if (DISABLEWARNING_C4127)
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4127")
-    endif (DISABLEWARNING_C4127)
-    # 26495
-    if (DISABLEWARNING_C26495)
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd26495")
-    endif (DISABLEWARNING_C26495)
-    # 4619
-    if (DISABLEWARNING_C4619)
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4619")
-    endif (DISABLEWARNING_C4619)
-    # 4774
-    if (DISABLEWARNING_C4774)
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4774")
-    endif (DISABLEWARNING_C4774)
-    # 4571
-    if (DISABLEWARNING_C4571)
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4571")
-    endif (DISABLEWARNING_C4571)
-    # 4820
-    if (DISABLEWARNING_C4820)
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4820")
-    endif (DISABLEWARNING_C4820)
-    # 4668
-    if (DISABLEWARNING_C4668)
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4668")
-    endif (DISABLEWARNING_C4668)
-    # 4710
-    if (DISABLEWARNING_C4710)
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4710")
-    endif (DISABLEWARNING_C4710)
-    # 4625
-    if (DISABLEWARNING_C4625)
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4625")
-    endif (DISABLEWARNING_C4625)
-    # 4626
-    if (DISABLEWARNING_C4626)
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4626")
-    endif (DISABLEWARNING_C4626)
-    # 5026
-    if (DISABLEWARNING_C5026)
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd5026")
-    endif (DISABLEWARNING_C5026)
-    # 5027
-    if (DISABLEWARNING_C5027)
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd5027")
-    endif (DISABLEWARNING_C5027)
     # enabling /WX is not possible due to warnings in external headers
     if (CMAKE_BUILD_TYPE STREQUAL "Debug")
         # this is a workaround to disable lots of warnings for replacing /W3 with /W4 in VS 2019
@@ -285,9 +201,9 @@ else()
     # define variables for compatibility. refactor once older cmake unsupported
     if (Python_FOUND)
         set(PYTHONLIBS_FOUND ${Python_FOUND})
-        set(PYTHON_EXECUTABLE ${Python_EXECUTABLE})
-        set(PYTHON_LIBRARIES ${Python_LIBRARIES})
-        set(PYTHON_INCLUDE_DIRS ${Python_INCLUDE_DIRS})
+        set(PYTHON_EXECUTABLE ${Python_EXECUTABLE} CACHE FILEPATH "Python executable")
+        set(PYTHON_LIBRARIES ${Python_LIBRARIES} CACHE FILEPATH "Python libraries")
+        set(PYTHON_INCLUDE_DIRS ${Python_INCLUDE_DIRS} CACHE PATH "Python include folder")
         set(PYTHON_LIBRARY_DIRS ${Python_LIBRARY_DIRS})
     endif()
 endif()
@@ -298,17 +214,17 @@ if (MSVC AND ENABLE_PYTHON_BINDINGS)
                     OUTPUT_VARIABLE IS_PYTHON64 OUTPUT_STRIP_TRAILING_WHITESPACE)
     if (${CMAKE_MODULE_LINKER_FLAGS} STREQUAL "/machine:x64")
         if (${IS_PYTHON64} STREQUAL "False")
-            message(STATUS "Did not find Python 64 bit. Please set PYTHON_EXECUTABLE, PYTHON_INCLUDE_DIR and PYTHON_LIBRARY manually.")
+            message(WARNING "Did not find Python 64 bit. Please set PYTHON_EXECUTABLE, PYTHON_INCLUDE_DIR and PYTHON_LIBRARY manually.")
             set(PYTHON_INCLUDE_DIRS "")
         endif()
     else()
         if (${IS_PYTHON64} STREQUAL "True")
-            message(STATUS "Did not find Python 32 bit. Please set PYTHON_EXECUTABLE, PYTHON_INCLUDE_DIR and PYTHON_LIBRARY manually.")
+            message(WARNING "Did not find Python 32 bit. Please set PYTHON_EXECUTABLE, PYTHON_INCLUDE_DIR and PYTHON_LIBRARY manually.")
             set(PYTHON_INCLUDE_DIRS "")
         endif()
     endif()
     if (NOT PYTHON_DEBUG_LIBRARY AND "${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
-        message(STATUS "Did not find Python debug library. Please reinstall your Python and enable the Python debug libraries in the installer.")
+        message(WARNING "Did not find Python debug library. Please reinstall your Python and enable the Python debug libraries in the installer.")
         set(PYTHON_INCLUDE_DIRS "")
     endif()
 endif()
@@ -379,7 +295,7 @@ if (SUMO_LIBRARIES AND WIN32)
     # Special option for MinGW32
     message(STATUS "Using 64 bit libraries from SUMO_LIBRARIES placed in " ${SUMO_LIBRARIES})
     file(GLOB XERCES_PATH "${SUMO_LIBRARIES}/xerces-c-3.?.?")
-    file(GLOB ZLIB_PATH "${SUMO_LIBRARIES}/3rdPartyLibs/zlib-?.?.??")
+    file(GLOB ZLIB_PATH "${SUMO_LIBRARIES}/3rdPartyLibs/zlib-?.?.*")
     file(GLOB PROJ_PATH "${SUMO_LIBRARIES}/proj-?.?.?")
     file(GLOB FOX_PATH "${SUMO_LIBRARIES}/fox-?.?.??")
     file(GLOB FREETYPE_PATH "${SUMO_LIBRARIES}/3rdPartyLibs/freetype-2.??.?")
@@ -392,9 +308,12 @@ if (SUMO_LIBRARIES AND WIN32)
                                  "${PROJ_PATH}/bin/*.dll"
                                  "${FOX_PATH}/bin/*.dll"
                                  "${ZLIB_PATH}/bin/*.dll"
-#                                 "${FREETYPE_PATH}/bin/*.dll"
+                                 "${FREETYPE_PATH}/bin/*.dll"
                                  "${GETTEXT_PATH}/bin/*.dll"
+								 "${GDAL_PATH}/bin/*.dll"
+                                 "${SUMO_LIBRARIES}/libspatialite-*/bin/*.dll"
                                  "${SUMO_LIBRARIES}/3rdPartyLibs/bzip2-*/bin/*.dll"
+                                 "${SUMO_LIBRARIES}/3rdPartyLibs/geos-*/bin/*.dll"
                                  "${SUMO_LIBRARIES}/3rdPartyLibs/curl-*/bin/*.dll"
                                  "${SUMO_LIBRARIES}/3rdPartyLibs/libpng-*/bin/*.dll"
                                  "${SUMO_LIBRARIES}/3rdPartyLibs/libssh2-*/bin/*.dll"
@@ -403,14 +322,23 @@ if (SUMO_LIBRARIES AND WIN32)
                                  "${SUMO_LIBRARIES}/3rdPartyLibs/tiff-*/bin/*.dll"
                                  "${SUMO_LIBRARIES}/3rdPartyLibs/libxml2-*/bin/*.dll"
                                  "${SUMO_LIBRARIES}/3rdPartyLibs/libiconv-*/bin/*.dll"
+                                 "${SUMO_LIBRARIES}/3rdPartyLibs/openssl-*/bin/*.dll"
+                                 "${SUMO_LIBRARIES}/3rdPartyLibs/sqlite-*/bin/*.dll"
+                                 "${SUMO_LIBRARIES}/3rdPartyLibs/freexl-*/bin/*.dll"
+                                 "${SUMO_LIBRARIES}/3rdPartyLibs/libexpat-*/bin/*.dll"
+                                 "${SUMO_LIBRARIES}/3rdPartyLibs/librttopo-*/bin/*.dll"
+                                 "${SUMO_LIBRARIES}/3rdPartyLibs/minizip-*/bin/*.dll"
+                                 "${SUMO_LIBRARIES}/3rdPartyLibs/bzip2-*/bin/*.dll"
                                  )
     # check if MSVC dll runtimes have to be copied
     if (INSTALL_DLL_RUNTIMES)
         file(GLOB MSVC_DLLS "${SUMO_LIBRARIES}/runtimes/*.dll")
         list(APPEND SUMO_LIBRARIES_DLL ${MSVC_DLLS})
     endif(INSTALL_DLL_RUNTIMES)
-    # set fmt dir depending of msvc toolset version
-    file(GLOB fmt_PATH "${SUMO_LIBRARIES}/3rdPartyLibs/fmt-??.?.?/v${MSVC_TOOLSET_VERSION}")
+    if (MSVC_VERSION GREATER 1919)
+        # fmt in SUMOLibraries only works with MSVC 2019 and later
+        file(GLOB fmt_PATH "${SUMO_LIBRARIES}/3rdPartyLibs/fmt-??.?.?")
+    endif ()
     # declare flag for use google test
     set(USE_GOOGLETEST true)
     # check if use google test
@@ -454,11 +382,17 @@ endif (PROJ_FOUND)
 
 find_package(FOX)
 if (FOX_FOUND)
-    include_directories(SYSTEM ${FOX_INCLUDE_DIR})
-    add_definitions(${FOX_CXX_FLAGS})
-    add_definitions(-DFLOAT_MATH_FUNCTIONS)
-    set(HAVE_FOX 1)
-    set(ENABLED_FEATURES "${ENABLED_FEATURES} GUI")
+    set(OpenGL_GL_PREFERENCE LEGACY)
+    find_package(OpenGL)
+    if (OPENGL_FOUND AND OPENGL_GLU_FOUND)
+        include_directories(SYSTEM ${FOX_INCLUDE_DIR})
+        add_definitions(${FOX_CXX_FLAGS})
+        add_definitions(-DFLOAT_MATH_FUNCTIONS)
+        set(HAVE_FOX 1)
+        set(ENABLED_FEATURES "${ENABLED_FEATURES} GUI")
+    else ()
+        message(WARNING "Fox is present but OpenGL or GLU cannot be found, GUI will be disabled.")
+    endif ()
 endif (FOX_FOUND)
 
 find_package(Freetype)
@@ -800,7 +734,7 @@ endif ()
 add_custom_target(doxygen
     COMMAND rm -rf docs/doxygen
     COMMAND mkdir docs/doxygen
-    COMMAND doxygen sumo.doxyconf &> doxygen.log
+    COMMAND doxygen sumo.doxyconf > doxygen.log 2>&1
     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
 set_property(TARGET doxygen PROPERTY EXCLUDE_FROM_DEFAULT_BUILD TRUE)
 set_property(TARGET doxygen PROPERTY FOLDER "doc")
@@ -922,9 +856,6 @@ if (GIT_FOUND)
         COMMAND rm -r sumo-${PACKAGE_VERSION}/docs/web/docs/images
         COMMAND ln -s ../../userdoc/images sumo-${PACKAGE_VERSION}/docs/web/docs/images
         COMMAND tar -czf sumo_${PACKAGE_VERSION}.orig.tar.gz --exclude "*.jar" sumo-${PACKAGE_VERSION}
-        COMMAND mkdir sumo-${PACKAGE_VERSION}/sumo-gui-macos
-        COMMAND cp -a build_config/macos/*/*.app sumo-${PACKAGE_VERSION}/sumo-gui-macos
-        COMMAND zip -rq sumo-gui-macos-${PACKAGE_VERSION}.zip sumo-${PACKAGE_VERSION}/sumo-gui-macos/*.app
         COMMAND rm -rf sumo-${PACKAGE_VERSION} sumo-${PACKAGE_VERSION}.zip
         WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
     add_dependencies(dist examples doc ${JAVA_TARGETS})

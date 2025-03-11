@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- generated on Mon Jul 11 22:02:53 2011 by SUMO netconvert Version dev-SVN-r10919
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net.net.xml"/>
+    </input>
+
+    <output>
+        <plain-output-prefix value="traci"/>
+    </output>
+
+</configuration>
+-->
+
+<edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="e_m0" from="n_m0" to="n_m1" priority="-1" numLanes="3" speed="60.00"/>
+    <edge id="e_m1" from="n_m1" to="n_m2" priority="-1" numLanes="3" speed="60.00"/>
+    <edge id="e_m2" from="n_m2" to="n_m3" priority="-1" numLanes="3" speed="60.00"/>
+    <edge id="e_m3" from="n_m3" to="n_m4" priority="-1" numLanes="3" speed="60.00"/>
+    <edge id="e_m4" from="n_m4" to="n_m5" priority="-1" numLanes="3" speed="60.00"/>
+    <edge id="e_m5" from="n_m5" to="n_m6" priority="-1" numLanes="3" speed="60.00"/>
+    <edge id="e_m6" from="n_m6" to="n_m7" priority="-1" numLanes="3" speed="60.00"/>
+    <edge id="e_o0" from="n_o1" to="n_o0" priority="-1" numLanes="3" speed="60.00"/>
+    <edge id="e_o1" from="n_o2" to="n_o1" priority="-1" numLanes="3" speed="60.00"/>
+    <edge id="e_shape0" from="n_m7" to="n_o2" priority="-1" numLanes="3" speed="60.00" shape="3500.00,500.00 3500.00,750.00 3400.00,900.00 3000.00,1000.00"/>
+    <edge id="e_shape1" from="n_m7" to="n_u2" priority="-1" numLanes="3" speed="60.00" shape="3500.00,500.00 3500.00,250.00 3400.00,100.00 3000.00,0.00"/>
+    <edge id="e_u0" from="n_u1" to="n_u0" priority="-1" numLanes="3" speed="60.00"/>
+    <edge id="e_u1" from="n_u2" to="n_u1" priority="-1" numLanes="3" speed="60.00"/>
+    <edge id="e_vo0" from="n_o0" to="n_m4" priority="-1" numLanes="2" speed="60.00"/>
+    <edge id="e_vo1" from="n_o1" to="n_m5" priority="-1" numLanes="2" speed="60.00"/>
+    <edge id="e_vo2" from="n_o2" to="n_m6" priority="-1" numLanes="2" speed="60.00"/>
+    <edge id="e_vu0" from="n_u0" to="n_m4" priority="-1" numLanes="2" speed="60.00"/>
+    <edge id="e_vu1" from="n_u1" to="n_m5" priority="-1" numLanes="2" speed="60.00"/>
+    <edge id="e_vu2" from="n_u2" to="n_m6" priority="-1" numLanes="2" speed="60.00"/>
+    <edge id="e_x0" from="n_x0" to="n_x1" priority="-1" numLanes="2" speed="60.00"/>
+    <edge id="e_x1" from="n_x1" to="n_x2" priority="-1" numLanes="2" speed="60.00"/>
+</edges>

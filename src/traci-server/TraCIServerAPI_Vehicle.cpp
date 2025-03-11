@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2009-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2009-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -167,52 +167,6 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
                 }
                 case libsumo::VAR_NEXT_STOPS: {
                     writeNextStops(server, id, 0, false);
-                    break;
-                }
-                case libsumo::VAR_NEXT_LINKS: {
-                    std::vector<libsumo::TraCIConnection> links = libsumo::Vehicle::getNextLinks(id);
-                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_COMPOUND);
-                    tcpip::Storage tempContent;
-                    int cnt = 0;
-                    tempContent.writeUnsignedByte(libsumo::TYPE_INTEGER);
-                    tempContent.writeInt((int)links.size());
-                    ++cnt;
-                    for (std::vector<libsumo::TraCIConnection>::const_iterator i = links.begin(); i != links.end(); ++i) {
-                        // approached non-internal lane (if any)
-                        tempContent.writeUnsignedByte(libsumo::TYPE_STRING);
-                        tempContent.writeString(i->approachedLane);
-                        ++cnt;
-                        // approached "via", internal lane (if any)
-                        tempContent.writeUnsignedByte(libsumo::TYPE_STRING);
-                        tempContent.writeString(i->approachedInternal);
-                        ++cnt;
-                        // priority
-                        tempContent.writeUnsignedByte(libsumo::TYPE_UBYTE);
-                        tempContent.writeUnsignedByte(i->hasPrio);
-                        ++cnt;
-                        // opened
-                        tempContent.writeUnsignedByte(libsumo::TYPE_UBYTE);
-                        tempContent.writeUnsignedByte(i->isOpen);
-                        ++cnt;
-                        // approaching foe
-                        tempContent.writeUnsignedByte(libsumo::TYPE_UBYTE);
-                        tempContent.writeUnsignedByte(i->hasFoe);
-                        ++cnt;
-                        // state (not implemented yet)
-                        tempContent.writeUnsignedByte(libsumo::TYPE_STRING);
-                        tempContent.writeString(i->state);
-                        ++cnt;
-                        // direction
-                        tempContent.writeUnsignedByte(libsumo::TYPE_STRING);
-                        tempContent.writeString(i->direction);
-                        ++cnt;
-                        // length
-                        tempContent.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-                        tempContent.writeDouble(i->length);
-                        ++cnt;
-                    }
-                    server.getWrapperStorage().writeInt(cnt);
-                    server.getWrapperStorage().writeStorage(tempContent);
                     break;
                 }
                 case libsumo::VAR_STOP_PARAMETER: {

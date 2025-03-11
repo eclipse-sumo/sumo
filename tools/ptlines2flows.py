@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2010-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2010-2025 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -24,6 +24,7 @@ import subprocess
 import collections
 import random
 import math
+from io import StringIO
 
 import sumolib
 from sumolib.xml import quoteattr
@@ -254,11 +255,19 @@ def createTrips(options):
         toEdge = None
         vias = []
         if line.route is not None:
-            edges = line.route[0].edges.split()
+            net = getNet(options)
+            missing = []
+            for e in line.route[0].edges.split():
+                if net.hasEdge(e):
+                    edges.append(e)
+                else:
+                    missing.append(e)
+            if missing and options.verbose:
+                print("Removed %s missing edges from OSM route for line '%s'" % (len(missing), line.id))
+
         if options.osmRoutes and len(edges) == 0 and options.verbose:
             print("Cannot use OSM route for line '%s' (no edges given)" % line.id)
         elif options.osmRoutes and len(edges) > 0:
-            edges = line.route[0].edges.split()
             fromEdge = edges[0]
             toEdge = edges[-1]
             if len(edges) > 2:
@@ -449,71 +458,78 @@ def createRoutes(options, trpMap, stopNames):
         stopsUntil[(stop.id, stop.busStop)].append(float(stop.ended))
 
     ft = formatTime if options.hrtime else lambda x: x
+    routes = []
+    flows = []
+    actualDepart = {}  # departure may be delayed when the edge is not yet empty
+    collections.defaultdict(int)
+    routeDurations = {}
+    routeSize = {}
+    flow_duration = options.end - options.begin
+    for vehicle in sumolib.output.parse(options.routes, 'vehicle'):
+        tmpio = StringIO()
+        id = vehicle.id
+        ptline = trpMap[id]
+        flowID = "%s_%s" % (vehicle.type, ptline.ref)
+        try:
+            if vehicle.route is not None:
+                edges = vehicle.route[0].edges
+            else:
+                edges = vehicle.routeDistribution[0].route[1].edges
+            routeSize[flowID] = len(edges.split())
+        except BaseException:
+            if options.ignoreErrors:
+                sys.stderr.write("Warning: Could not parse edges for vehicle '%s'\n" % id)
+                continue
+            else:
+                sys.exit("Could not parse edges for vehicle '%s'\n" % id)
+        flows.append((id, flowID, ptline.ref, vehicle.type, float(vehicle.depart)))
+        actualDepart[id] = float(vehicle.depart)
+        parking = ' parking="true"' if vehicle.type == "bus" and options.busparking else ''
+        stops = vehicle.stop
+        color = ' color="%s"' % ptline.color if ptline.color is not None else ""
+        repeat = ""
+        if len(ptline.terminalIndices) == 2 and stops:
+            lastBusStop = stops[-1].busStop
+            lastUntil = stopsUntil.get((id, lastBusStop))
+            if lastUntil is not None:
+                cycleTime = lastUntil[-1] - actualDepart[id]
+                numRepeats = math.ceil(flow_duration / cycleTime)
+                if numRepeats > 1:
+                    repeat = ' repeat="%s" cycleTime="%s"' % (numRepeats, ft(cycleTime))
+
+        tmpio.write('    <route id="%s"%s edges="%s"%s >\n' % (flowID, color, edges, repeat))
+        if vehicle.stop is not None:
+            for stop in stops:
+                if (id, stop.busStop) in stopsUntil:
+                    until = stopsUntil[(id, stop.busStop)]
+                    stopname = ' <!-- %s -->' % stopNames[stop.busStop] if stop.busStop in stopNames else ''
+                    untilZeroBased = until[0] - actualDepart[id]
+                    if stop.jump is not None:
+                        jump = ' jump="%s"' % stop.jump
+                    else:
+                        jump = ""
+                    if len(until) > 1:
+                        stopsUntil[(id, stop.busStop)] = until[1:]
+                    tmpio.write(
+                        '        <stop busStop="%s" duration="%s" until="%s"%s%s/>%s\n' % (
+                            stop.busStop, options.stopduration, ft(untilZeroBased), parking, jump, stopname))
+                    routeDurations[flowID] = untilZeroBased
+                else:
+                    sys.stderr.write("Warning: Missing stop '%s' for flow '%s'\n" % (stop.busStop, id))
+        else:
+            sys.stderr.write("Warning: No stops for flow '%s'\n" % id)
+        tmpio.write('    </route>\n')
+        routes.append((flowID, tmpio.getvalue()))
 
     with codecs.open(options.outfile, 'w', encoding="UTF8") as foutflows:
-        flows = []
-        actualDepart = {}  # departure may be delayed when the edge is not yet empty
         sumolib.writeXMLHeader(foutflows, root="routes", options=options)
         if not options.novtypes:
             writeTypes(foutflows, options.vtypeprefix, None)
-        collections.defaultdict(int)
-        routeDurations = {}
-        routeSize = {}
-        flow_duration = options.end - options.begin
-        for vehicle in sumolib.output.parse(options.routes, 'vehicle'):
-            id = vehicle.id
-            ptline = trpMap[id]
-            flowID = "%s_%s" % (vehicle.type, ptline.ref)
-            try:
-                if vehicle.route is not None:
-                    edges = vehicle.route[0].edges
-                else:
-                    edges = vehicle.routeDistribution[0].route[1].edges
-                routeSize[flowID] = len(edges.split())
-            except BaseException:
-                if options.ignoreErrors:
-                    sys.stderr.write("Warning: Could not parse edges for vehicle '%s'\n" % id)
-                    continue
-                else:
-                    sys.exit("Could not parse edges for vehicle '%s'\n" % id)
-            flows.append((id, flowID, ptline.ref, vehicle.type, float(vehicle.depart)))
-            actualDepart[id] = float(vehicle.depart)
-            parking = ' parking="true"' if vehicle.type == "bus" and options.busparking else ''
-            stops = vehicle.stop
-            color = ' color="%s"' % ptline.color if ptline.color is not None else ""
-            repeat = ""
-            if len(ptline.terminalIndices) == 2 and stops:
-                lastBusStop = stops[-1].busStop
-                lastUntil = stopsUntil.get((id, lastBusStop))
-                if lastUntil is not None:
-                    cycleTime = lastUntil[-1] - actualDepart[id]
-                    numRepeats = math.ceil(flow_duration / cycleTime)
-                    if numRepeats > 1:
-                        repeat = ' repeat="%s" cycleTime="%s"' % (numRepeats, ft(cycleTime))
 
-            foutflows.write('    <route id="%s"%s edges="%s"%s >\n' % (flowID, color, edges, repeat))
-            if vehicle.stop is not None:
-                for stop in stops:
-                    if (id, stop.busStop) in stopsUntil:
-                        until = stopsUntil[(id, stop.busStop)]
-                        stopname = ' <!-- %s -->' % stopNames[stop.busStop] if stop.busStop in stopNames else ''
-                        untilZeroBased = until[0] - actualDepart[id]
-                        if stop.jump is not None:
-                            jump = ' jump="%s"' % stop.jump
-                        else:
-                            jump = ""
-                        if len(until) > 1:
-                            stopsUntil[(id, stop.busStop)] = until[1:]
-                        foutflows.write(
-                            '        <stop busStop="%s" duration="%s" until="%s"%s%s/>%s\n' % (
-                                stop.busStop, options.stopduration, ft(untilZeroBased), parking, jump, stopname))
-                        routeDurations[flowID] = untilZeroBased
-                    else:
-                        sys.stderr.write("Warning: Missing stop '%s' for flow '%s'\n" % (stop.busStop, id))
-            else:
-                sys.stderr.write("Warning: No stops for flow '%s'\n" % id)
-            foutflows.write('    </route>\n')
-        for vehID, flowID, lineRef, type, begin in flows:
+        for routeID, routeStr in sorted(routes):
+            foutflows.write(routeStr)
+
+        for vehID, flowID, lineRef, type, begin in sorted(flows):
             ptline = trpMap[vehID]
             number = None
             if flowID in routeDurations:

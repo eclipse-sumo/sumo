@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-10-04 14:28:23 by Eclipse SUMO sumo Version v1_14_1+1421-686154e
+<!-- generated on 2024-11-13 08:22:31 by Eclipse SUMO sumo Version v1_21_0+0731-b53b2227a47
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -41,7 +41,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <device.fcd.explicit value="ego"/>
     </fcd_device>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <fcd-export xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/fcd_file.xsd">
@@ -109,241 +109,241 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="ego" acceleration="2.60"/>
     </timestep>
     <timestep time="2.10">
-        <vehicle id="ego" acceleration="-1.21"/>
+        <vehicle id="ego" acceleration="-3.81"/>
     </timestep>
     <timestep time="2.20">
-        <vehicle id="ego" acceleration="-3.07"/>
+        <vehicle id="ego" acceleration="-0.42"/>
     </timestep>
     <timestep time="2.30">
-        <vehicle id="ego" acceleration="-3.86"/>
+        <vehicle id="ego" acceleration="-2.11"/>
     </timestep>
     <timestep time="2.40">
-        <vehicle id="ego" acceleration="-4.06"/>
+        <vehicle id="ego" acceleration="-1.17"/>
     </timestep>
     <timestep time="2.50">
-        <vehicle id="ego" acceleration="-3.96"/>
+        <vehicle id="ego" acceleration="-1.60"/>
     </timestep>
     <timestep time="2.60">
-        <vehicle id="ego" acceleration="-3.71"/>
+        <vehicle id="ego" acceleration="-1.32"/>
     </timestep>
     <timestep time="2.70">
-        <vehicle id="ego" acceleration="-3.39"/>
+        <vehicle id="ego" acceleration="0.45"/>
     </timestep>
     <timestep time="2.80">
-        <vehicle id="ego" acceleration="-3.07"/>
+        <vehicle id="ego" acceleration="-3.61"/>
     </timestep>
     <timestep time="2.90">
-        <vehicle id="ego" acceleration="-2.75"/>
+        <vehicle id="ego" acceleration="-1.50"/>
     </timestep>
     <timestep time="3.00">
-        <vehicle id="ego" acceleration="-2.45"/>
+        <vehicle id="ego" acceleration="-3.47"/>
     </timestep>
     <timestep time="3.10">
-        <vehicle id="ego" acceleration="-2.17"/>
+        <vehicle id="ego" acceleration="-2.26"/>
     </timestep>
     <timestep time="3.20">
-        <vehicle id="ego" acceleration="-1.92"/>
+        <vehicle id="ego" acceleration="-3.14"/>
     </timestep>
     <timestep time="3.30">
-        <vehicle id="ego" acceleration="-1.70"/>
+        <vehicle id="ego" acceleration="-2.39"/>
     </timestep>
     <timestep time="3.40">
-        <vehicle id="ego" acceleration="2.60"/>
+        <vehicle id="ego" acceleration="-2.72"/>
     </timestep>
     <timestep time="3.50">
-        <vehicle id="ego" acceleration="2.60"/>
+        <vehicle id="ego" acceleration="-2.23"/>
     </timestep>
     <timestep time="3.60">
-        <vehicle id="ego" acceleration="0.34"/>
+        <vehicle id="ego" acceleration="-2.29"/>
     </timestep>
     <timestep time="3.70">
-        <vehicle id="ego" acceleration="-0.82"/>
+        <vehicle id="ego" acceleration="-1.94"/>
     </timestep>
     <timestep time="3.80">
-        <vehicle id="ego" acceleration="-1.36"/>
+        <vehicle id="ego" acceleration="-1.89"/>
     </timestep>
     <timestep time="3.90">
-        <vehicle id="ego" acceleration="-1.57"/>
+        <vehicle id="ego" acceleration="-1.63"/>
     </timestep>
     <timestep time="4.00">
-        <vehicle id="ego" acceleration="-1.59"/>
-    </timestep>
-    <timestep time="4.10">
         <vehicle id="ego" acceleration="-1.53"/>
     </timestep>
+    <timestep time="4.10">
+        <vehicle id="ego" acceleration="-1.33"/>
+    </timestep>
     <timestep time="4.20">
-        <vehicle id="ego" acceleration="-1.41"/>
+        <vehicle id="ego" acceleration="-1.22"/>
     </timestep>
     <timestep time="4.30">
-        <vehicle id="ego" acceleration="-1.29"/>
+        <vehicle id="ego" acceleration="-1.06"/>
     </timestep>
     <timestep time="4.40">
-        <vehicle id="ego" acceleration="-1.16"/>
+        <vehicle id="ego" acceleration="-0.96"/>
     </timestep>
     <timestep time="4.50">
-        <vehicle id="ego" acceleration="-1.03"/>
+        <vehicle id="ego" acceleration="-0.84"/>
     </timestep>
     <timestep time="4.60">
-        <vehicle id="ego" acceleration="-0.92"/>
+        <vehicle id="ego" acceleration="-0.75"/>
     </timestep>
     <timestep time="4.70">
-        <vehicle id="ego" acceleration="-0.82"/>
+        <vehicle id="ego" acceleration="-0.66"/>
     </timestep>
     <timestep time="4.80">
-        <vehicle id="ego" acceleration="-0.72"/>
+        <vehicle id="ego" acceleration="-0.58"/>
     </timestep>
     <timestep time="4.90">
-        <vehicle id="ego" acceleration="-0.64"/>
+        <vehicle id="ego" acceleration="-0.51"/>
     </timestep>
     <timestep time="5.00">
-        <vehicle id="ego" acceleration="-0.56"/>
+        <vehicle id="ego" acceleration="-0.45"/>
     </timestep>
     <timestep time="5.10">
-        <vehicle id="ego" acceleration="-0.50"/>
-    </timestep>
-    <timestep time="5.20">
-        <vehicle id="ego" acceleration="-0.44"/>
-    </timestep>
-    <timestep time="5.30">
         <vehicle id="ego" acceleration="-0.39"/>
     </timestep>
-    <timestep time="5.40">
+    <timestep time="5.20">
         <vehicle id="ego" acceleration="-0.34"/>
     </timestep>
-    <timestep time="5.50">
+    <timestep time="5.30">
         <vehicle id="ego" acceleration="-0.30"/>
     </timestep>
+    <timestep time="5.40">
+        <vehicle id="ego" acceleration="-0.26"/>
+    </timestep>
+    <timestep time="5.50">
+        <vehicle id="ego" acceleration="-0.23"/>
+    </timestep>
     <timestep time="5.60">
-        <vehicle id="ego" acceleration="-0.27"/>
+        <vehicle id="ego" acceleration="-0.20"/>
     </timestep>
     <timestep time="5.70">
-        <vehicle id="ego" acceleration="-0.24"/>
+        <vehicle id="ego" acceleration="-0.17"/>
     </timestep>
     <timestep time="5.80">
-        <vehicle id="ego" acceleration="-0.21"/>
-    </timestep>
-    <timestep time="5.90">
-        <vehicle id="ego" acceleration="-0.19"/>
-    </timestep>
-    <timestep time="6.00">
-        <vehicle id="ego" acceleration="-0.16"/>
-    </timestep>
-    <timestep time="6.10">
         <vehicle id="ego" acceleration="-0.15"/>
     </timestep>
-    <timestep time="6.20">
+    <timestep time="5.90">
         <vehicle id="ego" acceleration="-0.13"/>
     </timestep>
-    <timestep time="6.30">
-        <vehicle id="ego" acceleration="-0.11"/>
+    <timestep time="6.00">
+        <vehicle id="ego" acceleration="-0.12"/>
     </timestep>
-    <timestep time="6.40">
+    <timestep time="6.10">
         <vehicle id="ego" acceleration="-0.10"/>
     </timestep>
-    <timestep time="6.50">
+    <timestep time="6.20">
         <vehicle id="ego" acceleration="-0.09"/>
     </timestep>
-    <timestep time="6.60">
+    <timestep time="6.30">
         <vehicle id="ego" acceleration="-0.08"/>
     </timestep>
-    <timestep time="6.70">
+    <timestep time="6.40">
         <vehicle id="ego" acceleration="-0.07"/>
     </timestep>
-    <timestep time="6.80">
+    <timestep time="6.50">
         <vehicle id="ego" acceleration="-0.06"/>
     </timestep>
-    <timestep time="6.90">
-        <vehicle id="ego" acceleration="-0.06"/>
-    </timestep>
-    <timestep time="7.00">
+    <timestep time="6.60">
         <vehicle id="ego" acceleration="-0.05"/>
     </timestep>
-    <timestep time="7.10">
+    <timestep time="6.70">
         <vehicle id="ego" acceleration="-0.04"/>
+    </timestep>
+    <timestep time="6.80">
+        <vehicle id="ego" acceleration="-0.04"/>
+    </timestep>
+    <timestep time="6.90">
+        <vehicle id="ego" acceleration="-0.03"/>
+    </timestep>
+    <timestep time="7.00">
+        <vehicle id="ego" acceleration="-0.03"/>
+    </timestep>
+    <timestep time="7.10">
+        <vehicle id="ego" acceleration="-0.02"/>
     </timestep>
     <timestep time="7.20">
-        <vehicle id="ego" acceleration="-0.04"/>
+        <vehicle id="ego" acceleration="-0.02"/>
     </timestep>
     <timestep time="7.30">
-        <vehicle id="ego" acceleration="-0.04"/>
+        <vehicle id="ego" acceleration="-0.02"/>
     </timestep>
     <timestep time="7.40">
-        <vehicle id="ego" acceleration="-0.03"/>
+        <vehicle id="ego" acceleration="-0.02"/>
     </timestep>
     <timestep time="7.50">
-        <vehicle id="ego" acceleration="-0.03"/>
+        <vehicle id="ego" acceleration="-0.01"/>
     </timestep>
     <timestep time="7.60">
-        <vehicle id="ego" acceleration="-0.03"/>
+        <vehicle id="ego" acceleration="-0.01"/>
     </timestep>
     <timestep time="7.70">
-        <vehicle id="ego" acceleration="-0.02"/>
+        <vehicle id="ego" acceleration="-0.01"/>
     </timestep>
     <timestep time="7.80">
-        <vehicle id="ego" acceleration="-0.02"/>
+        <vehicle id="ego" acceleration="-0.01"/>
     </timestep>
     <timestep time="7.90">
-        <vehicle id="ego" acceleration="-0.02"/>
+        <vehicle id="ego" acceleration="-0.01"/>
     </timestep>
     <timestep time="8.00">
-        <vehicle id="ego" acceleration="-0.02"/>
+        <vehicle id="ego" acceleration="-0.01"/>
     </timestep>
     <timestep time="8.10">
-        <vehicle id="ego" acceleration="-0.02"/>
+        <vehicle id="ego" acceleration="-0.01"/>
     </timestep>
     <timestep time="8.20">
-        <vehicle id="ego" acceleration="-0.01"/>
+        <vehicle id="ego" acceleration="-0.00"/>
     </timestep>
     <timestep time="8.30">
-        <vehicle id="ego" acceleration="-0.01"/>
+        <vehicle id="ego" acceleration="-0.00"/>
     </timestep>
     <timestep time="8.40">
-        <vehicle id="ego" acceleration="-0.01"/>
+        <vehicle id="ego" acceleration="-0.00"/>
     </timestep>
     <timestep time="8.50">
-        <vehicle id="ego" acceleration="-0.01"/>
+        <vehicle id="ego" acceleration="-0.00"/>
     </timestep>
     <timestep time="8.60">
-        <vehicle id="ego" acceleration="-0.01"/>
+        <vehicle id="ego" acceleration="-0.00"/>
     </timestep>
     <timestep time="8.70">
-        <vehicle id="ego" acceleration="-0.01"/>
+        <vehicle id="ego" acceleration="-0.00"/>
     </timestep>
     <timestep time="8.80">
-        <vehicle id="ego" acceleration="-0.01"/>
+        <vehicle id="ego" acceleration="-0.00"/>
     </timestep>
     <timestep time="8.90">
-        <vehicle id="ego" acceleration="-0.01"/>
+        <vehicle id="ego" acceleration="-0.00"/>
     </timestep>
     <timestep time="9.00">
-        <vehicle id="ego" acceleration="-0.01"/>
+        <vehicle id="ego" acceleration="-0.00"/>
     </timestep>
     <timestep time="9.10">
-        <vehicle id="ego" acceleration="-0.01"/>
+        <vehicle id="ego" acceleration="-0.00"/>
     </timestep>
     <timestep time="9.20">
-        <vehicle id="ego" acceleration="-0.01"/>
+        <vehicle id="ego" acceleration="-0.00"/>
     </timestep>
     <timestep time="9.30">
-        <vehicle id="ego" acceleration="-0.01"/>
+        <vehicle id="ego" acceleration="-0.00"/>
     </timestep>
     <timestep time="9.40">
-        <vehicle id="ego" acceleration="-0.01"/>
+        <vehicle id="ego" acceleration="-0.00"/>
     </timestep>
     <timestep time="9.50">
-        <vehicle id="ego" acceleration="-0.01"/>
+        <vehicle id="ego" acceleration="-0.00"/>
     </timestep>
     <timestep time="9.60">
-        <vehicle id="ego" acceleration="-0.01"/>
+        <vehicle id="ego" acceleration="-0.00"/>
     </timestep>
     <timestep time="9.70">
-        <vehicle id="ego" acceleration="-0.01"/>
+        <vehicle id="ego" acceleration="-0.00"/>
     </timestep>
     <timestep time="9.80">
-        <vehicle id="ego" acceleration="-0.01"/>
+        <vehicle id="ego" acceleration="-0.00"/>
     </timestep>
     <timestep time="9.90">
-        <vehicle id="ego" acceleration="-0.01"/>
+        <vehicle id="ego" acceleration="-0.00"/>
     </timestep>
     <timestep time="10.00">
         <vehicle id="ego" acceleration="-0.00"/>
@@ -445,394 +445,394 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="ego" acceleration="-0.00"/>
     </timestep>
     <timestep time="13.30">
-        <vehicle id="ego" acceleration="-0.00"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="13.40">
-        <vehicle id="ego" acceleration="-0.00"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="13.50">
-        <vehicle id="ego" acceleration="-0.00"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="13.60">
-        <vehicle id="ego" acceleration="-0.00"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="13.70">
-        <vehicle id="ego" acceleration="-0.00"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="13.80">
-        <vehicle id="ego" acceleration="-0.00"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="13.90">
-        <vehicle id="ego" acceleration="-0.00"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="14.00">
-        <vehicle id="ego" acceleration="-0.00"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="14.10">
-        <vehicle id="ego" acceleration="-0.00"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="14.20">
-        <vehicle id="ego" acceleration="-0.00"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="14.30">
-        <vehicle id="ego" acceleration="-0.00"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="14.40">
-        <vehicle id="ego" acceleration="-0.00"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="14.50">
-        <vehicle id="ego" acceleration="-0.00"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="14.60">
-        <vehicle id="ego" acceleration="-0.00"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="14.70">
-        <vehicle id="ego" acceleration="-0.00"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="14.80">
-        <vehicle id="ego" acceleration="-0.00"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="14.90">
-        <vehicle id="ego" acceleration="-0.00"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="15.00">
-        <vehicle id="ego" acceleration="-0.00"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="15.10">
-        <vehicle id="ego" acceleration="-0.00"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="15.20">
-        <vehicle id="ego" acceleration="-0.00"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="15.30">
-        <vehicle id="ego" acceleration="-0.00"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="15.40">
-        <vehicle id="ego" acceleration="-0.00"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="15.50">
-        <vehicle id="ego" acceleration="-0.00"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="15.60">
-        <vehicle id="ego" acceleration="-0.00"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="15.70">
-        <vehicle id="ego" acceleration="-0.00"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="15.80">
-        <vehicle id="ego" acceleration="-0.00"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="15.90">
-        <vehicle id="ego" acceleration="-0.00"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="16.00">
-        <vehicle id="ego" acceleration="0.89"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="16.10">
-        <vehicle id="ego" acceleration="0.54"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="16.20">
-        <vehicle id="ego" acceleration="0.17"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="16.30">
-        <vehicle id="ego" acceleration="-0.04"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="16.40">
-        <vehicle id="ego" acceleration="-0.21"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="16.50">
-        <vehicle id="ego" acceleration="-0.26"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="16.60">
-        <vehicle id="ego" acceleration="-0.21"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="16.70">
-        <vehicle id="ego" acceleration="-0.01"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="16.80">
-        <vehicle id="ego" acceleration="-0.08"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="16.90">
-        <vehicle id="ego" acceleration="-0.12"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="17.00">
-        <vehicle id="ego" acceleration="-0.12"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="17.10">
-        <vehicle id="ego" acceleration="-0.02"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="17.20">
-        <vehicle id="ego" acceleration="-0.07"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="17.30">
-        <vehicle id="ego" acceleration="-0.09"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="17.40">
-        <vehicle id="ego" acceleration="-0.08"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="17.50">
-        <vehicle id="ego" acceleration="-0.01"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="17.60">
-        <vehicle id="ego" acceleration="-0.04"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="17.70">
-        <vehicle id="ego" acceleration="-0.06"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="17.80">
-        <vehicle id="ego" acceleration="-0.06"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="17.90">
-        <vehicle id="ego" acceleration="-0.01"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="18.00">
-        <vehicle id="ego" acceleration="-0.03"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="18.10">
-        <vehicle id="ego" acceleration="-0.04"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="18.20">
-        <vehicle id="ego" acceleration="-0.04"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="18.30">
-        <vehicle id="ego" acceleration="-0.01"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="18.40">
-        <vehicle id="ego" acceleration="-0.02"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="18.50">
-        <vehicle id="ego" acceleration="-0.03"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="18.60">
-        <vehicle id="ego" acceleration="-0.03"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="18.70">
-        <vehicle id="ego" acceleration="-0.00"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="18.80">
-        <vehicle id="ego" acceleration="-0.01"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="18.90">
-        <vehicle id="ego" acceleration="-0.02"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="19.00">
-        <vehicle id="ego" acceleration="-0.02"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="19.10">
-        <vehicle id="ego" acceleration="-0.00"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="19.20">
-        <vehicle id="ego" acceleration="-0.01"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="19.30">
-        <vehicle id="ego" acceleration="-0.01"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="19.40">
-        <vehicle id="ego" acceleration="-0.01"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="19.50">
-        <vehicle id="ego" acceleration="-0.00"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="19.60">
-        <vehicle id="ego" acceleration="-0.01"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="19.70">
-        <vehicle id="ego" acceleration="-0.01"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="19.80">
-        <vehicle id="ego" acceleration="-0.01"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="19.90">
-        <vehicle id="ego" acceleration="-0.00"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="20.00">
-        <vehicle id="ego" acceleration="-0.00"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="20.10">
-        <vehicle id="ego" acceleration="-0.01"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="20.20">
-        <vehicle id="ego" acceleration="-0.01"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="20.30">
-        <vehicle id="ego" acceleration="-0.00"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="20.40">
-        <vehicle id="ego" acceleration="-0.00"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="20.50">
-        <vehicle id="ego" acceleration="-0.00"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="20.60">
-        <vehicle id="ego" acceleration="-0.00"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="20.70">
-        <vehicle id="ego" acceleration="-0.00"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="20.80">
-        <vehicle id="ego" acceleration="-0.00"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="20.90">
-        <vehicle id="ego" acceleration="-0.00"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="21.00">
-        <vehicle id="ego" acceleration="-0.00"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="21.10">
-        <vehicle id="ego" acceleration="-0.00"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="21.20">
-        <vehicle id="ego" acceleration="-0.00"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="21.30">
-        <vehicle id="ego" acceleration="-0.00"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="21.40">
-        <vehicle id="ego" acceleration="-0.00"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="21.50">
-        <vehicle id="ego" acceleration="-0.00"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="21.60">
-        <vehicle id="ego" acceleration="-0.00"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="21.70">
-        <vehicle id="ego" acceleration="-0.00"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="21.80">
-        <vehicle id="ego" acceleration="-0.00"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="21.90">
-        <vehicle id="ego" acceleration="-0.00"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="22.00">
-        <vehicle id="ego" acceleration="-0.00"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="22.10">
-        <vehicle id="ego" acceleration="-0.00"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="22.20">
-        <vehicle id="ego" acceleration="-0.00"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="22.30">
-        <vehicle id="ego" acceleration="-0.00"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="22.40">
-        <vehicle id="ego" acceleration="-0.00"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="22.50">
-        <vehicle id="ego" acceleration="-0.00"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="22.60">
-        <vehicle id="ego" acceleration="-0.00"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="22.70">
-        <vehicle id="ego" acceleration="-0.00"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="22.80">
-        <vehicle id="ego" acceleration="-0.00"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="22.90">
-        <vehicle id="ego" acceleration="-0.00"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="23.00">
-        <vehicle id="ego" acceleration="-0.00"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="23.10">
-        <vehicle id="ego" acceleration="-0.00"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="23.20">
-        <vehicle id="ego" acceleration="-0.00"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="23.30">
-        <vehicle id="ego" acceleration="-0.00"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="23.40">
-        <vehicle id="ego" acceleration="-0.00"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="23.50">
-        <vehicle id="ego" acceleration="-0.00"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="23.60">
-        <vehicle id="ego" acceleration="-0.00"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="23.70">
-        <vehicle id="ego" acceleration="-0.00"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="23.80">
-        <vehicle id="ego" acceleration="-0.00"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="23.90">
-        <vehicle id="ego" acceleration="-0.00"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="24.00">
-        <vehicle id="ego" acceleration="-0.00"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="24.10">
-        <vehicle id="ego" acceleration="-0.00"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="24.20">
-        <vehicle id="ego" acceleration="-0.00"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="24.30">
-        <vehicle id="ego" acceleration="-0.00"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="24.40">
-        <vehicle id="ego" acceleration="-0.00"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="24.50">
-        <vehicle id="ego" acceleration="-0.00"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="24.60">
-        <vehicle id="ego" acceleration="-0.00"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="24.70">
-        <vehicle id="ego" acceleration="-0.00"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="24.80">
-        <vehicle id="ego" acceleration="-0.00"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="24.90">
-        <vehicle id="ego" acceleration="-0.00"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="25.00">
-        <vehicle id="ego" acceleration="-0.00"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="25.10">
-        <vehicle id="ego" acceleration="-0.00"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="25.20">
-        <vehicle id="ego" acceleration="-0.00"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="25.30">
-        <vehicle id="ego" acceleration="-0.00"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="25.40">
-        <vehicle id="ego" acceleration="-0.00"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="25.50">
-        <vehicle id="ego" acceleration="-0.00"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="25.60">
-        <vehicle id="ego" acceleration="-0.00"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="25.70">
-        <vehicle id="ego" acceleration="-0.00"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="25.80">
-        <vehicle id="ego" acceleration="-0.00"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="25.90">
-        <vehicle id="ego" acceleration="-0.00"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="26.00">
-        <vehicle id="ego" acceleration="-0.00"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="26.10">
-        <vehicle id="ego" acceleration="-0.00"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="26.20">
-        <vehicle id="ego" acceleration="-0.00"/>
+        <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="26.30">
         <vehicle id="ego" acceleration="0.00"/>
@@ -1855,178 +1855,178 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="ego" acceleration="0.15"/>
     </timestep>
     <timestep time="60.30">
-        <vehicle id="ego" acceleration="0.36"/>
+        <vehicle id="ego" acceleration="0.32"/>
     </timestep>
     <timestep time="60.40">
-        <vehicle id="ego" acceleration="0.58"/>
+        <vehicle id="ego" acceleration="0.51"/>
     </timestep>
     <timestep time="60.50">
-        <vehicle id="ego" acceleration="0.79"/>
+        <vehicle id="ego" acceleration="0.71"/>
     </timestep>
     <timestep time="60.60">
-        <vehicle id="ego" acceleration="0.98"/>
+        <vehicle id="ego" acceleration="0.90"/>
     </timestep>
     <timestep time="60.70">
-        <vehicle id="ego" acceleration="1.16"/>
+        <vehicle id="ego" acceleration="0.21"/>
     </timestep>
     <timestep time="60.80">
-        <vehicle id="ego" acceleration="1.30"/>
+        <vehicle id="ego" acceleration="0.68"/>
     </timestep>
     <timestep time="60.90">
-        <vehicle id="ego" acceleration="1.44"/>
+        <vehicle id="ego" acceleration="0.55"/>
     </timestep>
     <timestep time="61.00">
-        <vehicle id="ego" acceleration="1.56"/>
+        <vehicle id="ego" acceleration="0.72"/>
     </timestep>
     <timestep time="61.10">
-        <vehicle id="ego" acceleration="1.68"/>
+        <vehicle id="ego" acceleration="0.74"/>
     </timestep>
     <timestep time="61.20">
-        <vehicle id="ego" acceleration="1.79"/>
+        <vehicle id="ego" acceleration="0.83"/>
     </timestep>
     <timestep time="61.30">
-        <vehicle id="ego" acceleration="1.88"/>
+        <vehicle id="ego" acceleration="2.60"/>
     </timestep>
     <timestep time="61.40">
-        <vehicle id="ego" acceleration="1.96"/>
+        <vehicle id="ego" acceleration="2.60"/>
     </timestep>
     <timestep time="61.50">
-        <vehicle id="ego" acceleration="2.04"/>
+        <vehicle id="ego" acceleration="2.60"/>
     </timestep>
     <timestep time="61.60">
-        <vehicle id="ego" acceleration="2.10"/>
+        <vehicle id="ego" acceleration="2.60"/>
     </timestep>
     <timestep time="61.70">
-        <vehicle id="ego" acceleration="2.16"/>
+        <vehicle id="ego" acceleration="2.60"/>
     </timestep>
     <timestep time="61.80">
-        <vehicle id="ego" acceleration="2.21"/>
+        <vehicle id="ego" acceleration="2.60"/>
     </timestep>
     <timestep time="61.90">
-        <vehicle id="ego" acceleration="2.26"/>
+        <vehicle id="ego" acceleration="-0.01"/>
     </timestep>
     <timestep time="62.00">
-        <vehicle id="ego" acceleration="2.30"/>
+        <vehicle id="ego" acceleration="1.44"/>
     </timestep>
     <timestep time="62.10">
-        <vehicle id="ego" acceleration="2.33"/>
+        <vehicle id="ego" acceleration="0.78"/>
     </timestep>
     <timestep time="62.20">
-        <vehicle id="ego" acceleration="2.36"/>
+        <vehicle id="ego" acceleration="1.21"/>
     </timestep>
     <timestep time="62.30">
-        <vehicle id="ego" acceleration="2.39"/>
+        <vehicle id="ego" acceleration="1.08"/>
     </timestep>
     <timestep time="62.40">
-        <vehicle id="ego" acceleration="2.42"/>
+        <vehicle id="ego" acceleration="1.23"/>
     </timestep>
     <timestep time="62.50">
-        <vehicle id="ego" acceleration="2.44"/>
+        <vehicle id="ego" acceleration="1.23"/>
     </timestep>
     <timestep time="62.60">
-        <vehicle id="ego" acceleration="2.46"/>
+        <vehicle id="ego" acceleration="1.31"/>
     </timestep>
     <timestep time="62.70">
-        <vehicle id="ego" acceleration="2.47"/>
+        <vehicle id="ego" acceleration="1.35"/>
     </timestep>
     <timestep time="62.80">
-        <vehicle id="ego" acceleration="2.49"/>
+        <vehicle id="ego" acceleration="1.41"/>
     </timestep>
     <timestep time="62.90">
-        <vehicle id="ego" acceleration="2.50"/>
+        <vehicle id="ego" acceleration="1.45"/>
     </timestep>
     <timestep time="63.00">
-        <vehicle id="ego" acceleration="2.51"/>
+        <vehicle id="ego" acceleration="2.60"/>
     </timestep>
     <timestep time="63.10">
-        <vehicle id="ego" acceleration="2.52"/>
+        <vehicle id="ego" acceleration="2.60"/>
     </timestep>
     <timestep time="63.20">
-        <vehicle id="ego" acceleration="2.53"/>
+        <vehicle id="ego" acceleration="2.60"/>
     </timestep>
     <timestep time="63.30">
-        <vehicle id="ego" acceleration="2.54"/>
+        <vehicle id="ego" acceleration="2.60"/>
     </timestep>
     <timestep time="63.40">
-        <vehicle id="ego" acceleration="2.54"/>
+        <vehicle id="ego" acceleration="2.60"/>
     </timestep>
     <timestep time="63.50">
-        <vehicle id="ego" acceleration="2.55"/>
+        <vehicle id="ego" acceleration="2.60"/>
     </timestep>
     <timestep time="63.60">
-        <vehicle id="ego" acceleration="2.56"/>
+        <vehicle id="ego" acceleration="2.60"/>
     </timestep>
     <timestep time="63.70">
-        <vehicle id="ego" acceleration="2.56"/>
+        <vehicle id="ego" acceleration="2.60"/>
     </timestep>
     <timestep time="63.80">
-        <vehicle id="ego" acceleration="2.57"/>
+        <vehicle id="ego" acceleration="2.60"/>
     </timestep>
     <timestep time="63.90">
-        <vehicle id="ego" acceleration="2.57"/>
+        <vehicle id="ego" acceleration="2.60"/>
     </timestep>
     <timestep time="64.00">
-        <vehicle id="ego" acceleration="2.57"/>
+        <vehicle id="ego" acceleration="2.60"/>
     </timestep>
     <timestep time="64.10">
-        <vehicle id="ego" acceleration="2.58"/>
+        <vehicle id="ego" acceleration="2.60"/>
     </timestep>
     <timestep time="64.20">
-        <vehicle id="ego" acceleration="2.58"/>
+        <vehicle id="ego" acceleration="2.60"/>
     </timestep>
     <timestep time="64.30">
-        <vehicle id="ego" acceleration="2.58"/>
+        <vehicle id="ego" acceleration="2.60"/>
     </timestep>
     <timestep time="64.40">
-        <vehicle id="ego" acceleration="2.58"/>
+        <vehicle id="ego" acceleration="2.60"/>
     </timestep>
     <timestep time="64.50">
-        <vehicle id="ego" acceleration="2.58"/>
+        <vehicle id="ego" acceleration="2.60"/>
     </timestep>
     <timestep time="64.60">
-        <vehicle id="ego" acceleration="2.59"/>
+        <vehicle id="ego" acceleration="2.60"/>
     </timestep>
     <timestep time="64.70">
-        <vehicle id="ego" acceleration="2.59"/>
+        <vehicle id="ego" acceleration="2.60"/>
     </timestep>
     <timestep time="64.80">
-        <vehicle id="ego" acceleration="2.59"/>
+        <vehicle id="ego" acceleration="2.60"/>
     </timestep>
     <timestep time="64.90">
-        <vehicle id="ego" acceleration="2.59"/>
+        <vehicle id="ego" acceleration="2.60"/>
     </timestep>
     <timestep time="65.00">
-        <vehicle id="ego" acceleration="2.59"/>
+        <vehicle id="ego" acceleration="2.60"/>
     </timestep>
     <timestep time="65.10">
-        <vehicle id="ego" acceleration="2.59"/>
+        <vehicle id="ego" acceleration="2.60"/>
     </timestep>
     <timestep time="65.20">
-        <vehicle id="ego" acceleration="2.59"/>
+        <vehicle id="ego" acceleration="2.60"/>
     </timestep>
     <timestep time="65.30">
-        <vehicle id="ego" acceleration="2.59"/>
+        <vehicle id="ego" acceleration="2.60"/>
     </timestep>
     <timestep time="65.40">
-        <vehicle id="ego" acceleration="2.59"/>
+        <vehicle id="ego" acceleration="2.60"/>
     </timestep>
     <timestep time="65.50">
-        <vehicle id="ego" acceleration="2.59"/>
+        <vehicle id="ego" acceleration="2.60"/>
     </timestep>
     <timestep time="65.60">
-        <vehicle id="ego" acceleration="2.59"/>
+        <vehicle id="ego" acceleration="2.60"/>
     </timestep>
     <timestep time="65.70">
-        <vehicle id="ego" acceleration="2.59"/>
+        <vehicle id="ego" acceleration="2.60"/>
     </timestep>
     <timestep time="65.80">
-        <vehicle id="ego" acceleration="2.59"/>
+        <vehicle id="ego" acceleration="2.60"/>
     </timestep>
     <timestep time="65.90">
-        <vehicle id="ego" acceleration="2.59"/>
+        <vehicle id="ego" acceleration="2.60"/>
     </timestep>
     <timestep time="66.00">
-        <vehicle id="ego" acceleration="2.59"/>
+        <vehicle id="ego" acceleration="2.60"/>
     </timestep>
     <timestep time="66.10">
         <vehicle id="ego" acceleration="2.60"/>
@@ -2149,13 +2149,13 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="ego" acceleration="2.60"/>
     </timestep>
     <timestep time="70.10">
-        <vehicle id="ego" acceleration="1.54"/>
+        <vehicle id="ego" acceleration="2.60"/>
     </timestep>
     <timestep time="70.20">
-        <vehicle id="ego" acceleration="2.13"/>
+        <vehicle id="ego" acceleration="2.60"/>
     </timestep>
     <timestep time="70.30">
-        <vehicle id="ego" acceleration="2.45"/>
+        <vehicle id="ego" acceleration="2.60"/>
     </timestep>
     <timestep time="70.40">
         <vehicle id="ego" acceleration="2.60"/>
@@ -2209,379 +2209,379 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="ego" acceleration="2.60"/>
     </timestep>
     <timestep time="72.10">
-        <vehicle id="ego" acceleration="2.60"/>
+        <vehicle id="ego" acceleration="2.50"/>
     </timestep>
     <timestep time="72.20">
-        <vehicle id="ego" acceleration="2.60"/>
+        <vehicle id="ego" acceleration="2.40"/>
     </timestep>
     <timestep time="72.30">
-        <vehicle id="ego" acceleration="2.60"/>
-    </timestep>
-    <timestep time="72.40">
-        <vehicle id="ego" acceleration="2.60"/>
-    </timestep>
-    <timestep time="72.50">
-        <vehicle id="ego" acceleration="2.60"/>
-    </timestep>
-    <timestep time="72.60">
-        <vehicle id="ego" acceleration="2.60"/>
-    </timestep>
-    <timestep time="72.70">
-        <vehicle id="ego" acceleration="2.60"/>
-    </timestep>
-    <timestep time="72.80">
-        <vehicle id="ego" acceleration="2.60"/>
-    </timestep>
-    <timestep time="72.90">
-        <vehicle id="ego" acceleration="2.60"/>
-    </timestep>
-    <timestep time="73.00">
-        <vehicle id="ego" acceleration="2.60"/>
-    </timestep>
-    <timestep time="73.10">
-        <vehicle id="ego" acceleration="2.49"/>
-    </timestep>
-    <timestep time="73.20">
         <vehicle id="ego" acceleration="2.31"/>
     </timestep>
+    <timestep time="72.40">
+        <vehicle id="ego" acceleration="2.21"/>
+    </timestep>
+    <timestep time="72.50">
+        <vehicle id="ego" acceleration="2.13"/>
+    </timestep>
+    <timestep time="72.60">
+        <vehicle id="ego" acceleration="2.04"/>
+    </timestep>
+    <timestep time="72.70">
+        <vehicle id="ego" acceleration="1.96"/>
+    </timestep>
+    <timestep time="72.80">
+        <vehicle id="ego" acceleration="1.88"/>
+    </timestep>
+    <timestep time="72.90">
+        <vehicle id="ego" acceleration="1.81"/>
+    </timestep>
+    <timestep time="73.00">
+        <vehicle id="ego" acceleration="1.73"/>
+    </timestep>
+    <timestep time="73.10">
+        <vehicle id="ego" acceleration="1.66"/>
+    </timestep>
+    <timestep time="73.20">
+        <vehicle id="ego" acceleration="1.60"/>
+    </timestep>
     <timestep time="73.30">
-        <vehicle id="ego" acceleration="2.10"/>
+        <vehicle id="ego" acceleration="1.53"/>
     </timestep>
     <timestep time="73.40">
-        <vehicle id="ego" acceleration="1.89"/>
+        <vehicle id="ego" acceleration="1.47"/>
     </timestep>
     <timestep time="73.50">
-        <vehicle id="ego" acceleration="1.68"/>
+        <vehicle id="ego" acceleration="1.41"/>
     </timestep>
     <timestep time="73.60">
-        <vehicle id="ego" acceleration="1.50"/>
+        <vehicle id="ego" acceleration="1.36"/>
     </timestep>
     <timestep time="73.70">
-        <vehicle id="ego" acceleration="1.33"/>
+        <vehicle id="ego" acceleration="1.30"/>
     </timestep>
     <timestep time="73.80">
-        <vehicle id="ego" acceleration="1.17"/>
+        <vehicle id="ego" acceleration="1.25"/>
     </timestep>
     <timestep time="73.90">
-        <vehicle id="ego" acceleration="1.04"/>
+        <vehicle id="ego" acceleration="1.20"/>
     </timestep>
     <timestep time="74.00">
-        <vehicle id="ego" acceleration="0.91"/>
+        <vehicle id="ego" acceleration="1.15"/>
     </timestep>
     <timestep time="74.10">
-        <vehicle id="ego" acceleration="0.81"/>
+        <vehicle id="ego" acceleration="1.11"/>
     </timestep>
     <timestep time="74.20">
-        <vehicle id="ego" acceleration="0.71"/>
+        <vehicle id="ego" acceleration="1.06"/>
     </timestep>
     <timestep time="74.30">
-        <vehicle id="ego" acceleration="0.63"/>
+        <vehicle id="ego" acceleration="1.02"/>
     </timestep>
     <timestep time="74.40">
-        <vehicle id="ego" acceleration="0.55"/>
+        <vehicle id="ego" acceleration="0.98"/>
     </timestep>
     <timestep time="74.50">
-        <vehicle id="ego" acceleration="0.49"/>
-    </timestep>
-    <timestep time="74.60">
-        <vehicle id="ego" acceleration="0.43"/>
-    </timestep>
-    <timestep time="74.70">
-        <vehicle id="ego" acceleration="0.38"/>
-    </timestep>
-    <timestep time="74.80">
-        <vehicle id="ego" acceleration="0.33"/>
-    </timestep>
-    <timestep time="74.90">
-        <vehicle id="ego" acceleration="0.29"/>
-    </timestep>
-    <timestep time="75.00">
-        <vehicle id="ego" acceleration="0.26"/>
-    </timestep>
-    <timestep time="75.10">
-        <vehicle id="ego" acceleration="0.23"/>
-    </timestep>
-    <timestep time="75.20">
         <vehicle id="ego" acceleration="0.94"/>
     </timestep>
+    <timestep time="74.60">
+        <vehicle id="ego" acceleration="0.90"/>
+    </timestep>
+    <timestep time="74.70">
+        <vehicle id="ego" acceleration="0.87"/>
+    </timestep>
+    <timestep time="74.80">
+        <vehicle id="ego" acceleration="0.83"/>
+    </timestep>
+    <timestep time="74.90">
+        <vehicle id="ego" acceleration="0.80"/>
+    </timestep>
+    <timestep time="75.00">
+        <vehicle id="ego" acceleration="0.77"/>
+    </timestep>
+    <timestep time="75.10">
+        <vehicle id="ego" acceleration="0.74"/>
+    </timestep>
+    <timestep time="75.20">
+        <vehicle id="ego" acceleration="0.71"/>
+    </timestep>
     <timestep time="75.30">
-        <vehicle id="ego" acceleration="0.59"/>
+        <vehicle id="ego" acceleration="0.68"/>
     </timestep>
     <timestep time="75.40">
-        <vehicle id="ego" acceleration="0.00"/>
+        <vehicle id="ego" acceleration="0.65"/>
     </timestep>
     <timestep time="75.50">
-        <vehicle id="ego" acceleration="0.00"/>
+        <vehicle id="ego" acceleration="0.62"/>
     </timestep>
     <timestep time="75.60">
-        <vehicle id="ego" acceleration="0.00"/>
+        <vehicle id="ego" acceleration="0.60"/>
     </timestep>
     <timestep time="75.70">
-        <vehicle id="ego" acceleration="0.00"/>
+        <vehicle id="ego" acceleration="0.58"/>
     </timestep>
     <timestep time="75.80">
-        <vehicle id="ego" acceleration="0.00"/>
+        <vehicle id="ego" acceleration="0.55"/>
     </timestep>
     <timestep time="75.90">
-        <vehicle id="ego" acceleration="0.00"/>
+        <vehicle id="ego" acceleration="0.53"/>
     </timestep>
     <timestep time="76.00">
-        <vehicle id="ego" acceleration="0.00"/>
+        <vehicle id="ego" acceleration="0.51"/>
     </timestep>
     <timestep time="76.10">
-        <vehicle id="ego" acceleration="0.00"/>
+        <vehicle id="ego" acceleration="0.49"/>
     </timestep>
     <timestep time="76.20">
-        <vehicle id="ego" acceleration="0.00"/>
+        <vehicle id="ego" acceleration="0.47"/>
     </timestep>
     <timestep time="76.30">
-        <vehicle id="ego" acceleration="0.00"/>
+        <vehicle id="ego" acceleration="0.45"/>
     </timestep>
     <timestep time="76.40">
-        <vehicle id="ego" acceleration="0.00"/>
+        <vehicle id="ego" acceleration="0.43"/>
     </timestep>
     <timestep time="76.50">
-        <vehicle id="ego" acceleration="0.00"/>
+        <vehicle id="ego" acceleration="0.42"/>
     </timestep>
     <timestep time="76.60">
-        <vehicle id="ego" acceleration="0.00"/>
+        <vehicle id="ego" acceleration="0.40"/>
     </timestep>
     <timestep time="76.70">
-        <vehicle id="ego" acceleration="0.00"/>
+        <vehicle id="ego" acceleration="0.38"/>
     </timestep>
     <timestep time="76.80">
-        <vehicle id="ego" acceleration="0.00"/>
+        <vehicle id="ego" acceleration="0.37"/>
     </timestep>
     <timestep time="76.90">
-        <vehicle id="ego" acceleration="0.00"/>
+        <vehicle id="ego" acceleration="0.35"/>
     </timestep>
     <timestep time="77.00">
-        <vehicle id="ego" acceleration="0.00"/>
+        <vehicle id="ego" acceleration="0.34"/>
     </timestep>
     <timestep time="77.10">
-        <vehicle id="ego" acceleration="0.00"/>
+        <vehicle id="ego" acceleration="0.33"/>
     </timestep>
     <timestep time="77.20">
-        <vehicle id="ego" acceleration="0.00"/>
+        <vehicle id="ego" acceleration="0.31"/>
     </timestep>
     <timestep time="77.30">
-        <vehicle id="ego" acceleration="0.00"/>
+        <vehicle id="ego" acceleration="0.30"/>
     </timestep>
     <timestep time="77.40">
-        <vehicle id="ego" acceleration="0.00"/>
+        <vehicle id="ego" acceleration="0.29"/>
     </timestep>
     <timestep time="77.50">
-        <vehicle id="ego" acceleration="0.00"/>
+        <vehicle id="ego" acceleration="0.28"/>
     </timestep>
     <timestep time="77.60">
-        <vehicle id="ego" acceleration="0.00"/>
+        <vehicle id="ego" acceleration="0.27"/>
     </timestep>
     <timestep time="77.70">
-        <vehicle id="ego" acceleration="0.00"/>
+        <vehicle id="ego" acceleration="0.25"/>
     </timestep>
     <timestep time="77.80">
-        <vehicle id="ego" acceleration="0.00"/>
+        <vehicle id="ego" acceleration="0.24"/>
     </timestep>
     <timestep time="77.90">
-        <vehicle id="ego" acceleration="0.00"/>
+        <vehicle id="ego" acceleration="0.23"/>
     </timestep>
     <timestep time="78.00">
-        <vehicle id="ego" acceleration="0.00"/>
+        <vehicle id="ego" acceleration="0.23"/>
     </timestep>
     <timestep time="78.10">
-        <vehicle id="ego" acceleration="0.00"/>
+        <vehicle id="ego" acceleration="0.22"/>
     </timestep>
     <timestep time="78.20">
-        <vehicle id="ego" acceleration="0.00"/>
+        <vehicle id="ego" acceleration="0.21"/>
     </timestep>
     <timestep time="78.30">
-        <vehicle id="ego" acceleration="0.00"/>
+        <vehicle id="ego" acceleration="0.20"/>
     </timestep>
     <timestep time="78.40">
-        <vehicle id="ego" acceleration="0.00"/>
+        <vehicle id="ego" acceleration="0.19"/>
     </timestep>
     <timestep time="78.50">
-        <vehicle id="ego" acceleration="0.00"/>
+        <vehicle id="ego" acceleration="0.18"/>
     </timestep>
     <timestep time="78.60">
-        <vehicle id="ego" acceleration="0.00"/>
+        <vehicle id="ego" acceleration="0.18"/>
     </timestep>
     <timestep time="78.70">
-        <vehicle id="ego" acceleration="0.00"/>
+        <vehicle id="ego" acceleration="0.17"/>
     </timestep>
     <timestep time="78.80">
-        <vehicle id="ego" acceleration="0.00"/>
+        <vehicle id="ego" acceleration="0.16"/>
     </timestep>
     <timestep time="78.90">
-        <vehicle id="ego" acceleration="0.00"/>
+        <vehicle id="ego" acceleration="0.16"/>
     </timestep>
     <timestep time="79.00">
-        <vehicle id="ego" acceleration="0.00"/>
+        <vehicle id="ego" acceleration="0.15"/>
     </timestep>
     <timestep time="79.10">
-        <vehicle id="ego" acceleration="0.00"/>
+        <vehicle id="ego" acceleration="0.14"/>
     </timestep>
     <timestep time="79.20">
-        <vehicle id="ego" acceleration="0.00"/>
+        <vehicle id="ego" acceleration="0.14"/>
     </timestep>
     <timestep time="79.30">
-        <vehicle id="ego" acceleration="0.00"/>
+        <vehicle id="ego" acceleration="0.13"/>
     </timestep>
     <timestep time="79.40">
-        <vehicle id="ego" acceleration="0.00"/>
+        <vehicle id="ego" acceleration="0.13"/>
     </timestep>
     <timestep time="79.50">
-        <vehicle id="ego" acceleration="0.00"/>
+        <vehicle id="ego" acceleration="0.12"/>
     </timestep>
     <timestep time="79.60">
-        <vehicle id="ego" acceleration="0.00"/>
+        <vehicle id="ego" acceleration="0.12"/>
     </timestep>
     <timestep time="79.70">
-        <vehicle id="ego" acceleration="0.00"/>
+        <vehicle id="ego" acceleration="0.11"/>
     </timestep>
     <timestep time="79.80">
-        <vehicle id="ego" acceleration="0.00"/>
+        <vehicle id="ego" acceleration="0.11"/>
     </timestep>
     <timestep time="79.90">
-        <vehicle id="ego" acceleration="0.00"/>
+        <vehicle id="ego" acceleration="0.10"/>
     </timestep>
     <timestep time="80.00">
-        <vehicle id="ego" acceleration="0.00"/>
+        <vehicle id="ego" acceleration="0.10"/>
     </timestep>
     <timestep time="80.10">
-        <vehicle id="ego" acceleration="0.00"/>
+        <vehicle id="ego" acceleration="0.10"/>
     </timestep>
     <timestep time="80.20">
-        <vehicle id="ego" acceleration="0.00"/>
+        <vehicle id="ego" acceleration="0.09"/>
     </timestep>
     <timestep time="80.30">
-        <vehicle id="ego" acceleration="0.00"/>
+        <vehicle id="ego" acceleration="0.09"/>
     </timestep>
     <timestep time="80.40">
-        <vehicle id="ego" acceleration="0.00"/>
+        <vehicle id="ego" acceleration="0.08"/>
     </timestep>
     <timestep time="80.50">
-        <vehicle id="ego" acceleration="0.00"/>
+        <vehicle id="ego" acceleration="0.08"/>
     </timestep>
     <timestep time="80.60">
-        <vehicle id="ego" acceleration="0.00"/>
+        <vehicle id="ego" acceleration="0.08"/>
     </timestep>
     <timestep time="80.70">
-        <vehicle id="ego" acceleration="0.00"/>
+        <vehicle id="ego" acceleration="0.07"/>
     </timestep>
     <timestep time="80.80">
-        <vehicle id="ego" acceleration="0.00"/>
+        <vehicle id="ego" acceleration="0.07"/>
     </timestep>
     <timestep time="80.90">
-        <vehicle id="ego" acceleration="0.00"/>
+        <vehicle id="ego" acceleration="0.07"/>
     </timestep>
     <timestep time="81.00">
-        <vehicle id="ego" acceleration="0.00"/>
+        <vehicle id="ego" acceleration="0.07"/>
     </timestep>
     <timestep time="81.10">
-        <vehicle id="ego" acceleration="0.00"/>
+        <vehicle id="ego" acceleration="0.06"/>
     </timestep>
     <timestep time="81.20">
-        <vehicle id="ego" acceleration="0.00"/>
+        <vehicle id="ego" acceleration="0.06"/>
     </timestep>
     <timestep time="81.30">
-        <vehicle id="ego" acceleration="0.00"/>
+        <vehicle id="ego" acceleration="0.06"/>
     </timestep>
     <timestep time="81.40">
-        <vehicle id="ego" acceleration="0.00"/>
+        <vehicle id="ego" acceleration="0.06"/>
     </timestep>
     <timestep time="81.50">
-        <vehicle id="ego" acceleration="0.00"/>
+        <vehicle id="ego" acceleration="0.05"/>
     </timestep>
     <timestep time="81.60">
-        <vehicle id="ego" acceleration="0.00"/>
+        <vehicle id="ego" acceleration="0.05"/>
     </timestep>
     <timestep time="81.70">
-        <vehicle id="ego" acceleration="0.00"/>
+        <vehicle id="ego" acceleration="0.05"/>
     </timestep>
     <timestep time="81.80">
-        <vehicle id="ego" acceleration="0.00"/>
+        <vehicle id="ego" acceleration="0.05"/>
     </timestep>
     <timestep time="81.90">
-        <vehicle id="ego" acceleration="0.00"/>
+        <vehicle id="ego" acceleration="0.05"/>
     </timestep>
     <timestep time="82.00">
-        <vehicle id="ego" acceleration="0.00"/>
+        <vehicle id="ego" acceleration="0.04"/>
     </timestep>
     <timestep time="82.10">
-        <vehicle id="ego" acceleration="0.00"/>
+        <vehicle id="ego" acceleration="0.04"/>
     </timestep>
     <timestep time="82.20">
-        <vehicle id="ego" acceleration="0.00"/>
+        <vehicle id="ego" acceleration="0.04"/>
     </timestep>
     <timestep time="82.30">
-        <vehicle id="ego" acceleration="0.00"/>
+        <vehicle id="ego" acceleration="0.04"/>
     </timestep>
     <timestep time="82.40">
-        <vehicle id="ego" acceleration="0.00"/>
+        <vehicle id="ego" acceleration="0.04"/>
     </timestep>
     <timestep time="82.50">
-        <vehicle id="ego" acceleration="0.00"/>
+        <vehicle id="ego" acceleration="0.04"/>
     </timestep>
     <timestep time="82.60">
-        <vehicle id="ego" acceleration="0.00"/>
+        <vehicle id="ego" acceleration="0.03"/>
     </timestep>
     <timestep time="82.70">
-        <vehicle id="ego" acceleration="0.00"/>
+        <vehicle id="ego" acceleration="0.03"/>
     </timestep>
     <timestep time="82.80">
-        <vehicle id="ego" acceleration="0.00"/>
+        <vehicle id="ego" acceleration="0.03"/>
     </timestep>
     <timestep time="82.90">
-        <vehicle id="ego" acceleration="0.00"/>
+        <vehicle id="ego" acceleration="0.03"/>
     </timestep>
     <timestep time="83.00">
-        <vehicle id="ego" acceleration="0.00"/>
+        <vehicle id="ego" acceleration="0.03"/>
     </timestep>
     <timestep time="83.10">
-        <vehicle id="ego" acceleration="0.00"/>
+        <vehicle id="ego" acceleration="0.03"/>
     </timestep>
     <timestep time="83.20">
-        <vehicle id="ego" acceleration="0.00"/>
+        <vehicle id="ego" acceleration="0.03"/>
     </timestep>
     <timestep time="83.30">
-        <vehicle id="ego" acceleration="0.00"/>
+        <vehicle id="ego" acceleration="0.03"/>
     </timestep>
     <timestep time="83.40">
-        <vehicle id="ego" acceleration="0.00"/>
+        <vehicle id="ego" acceleration="0.02"/>
     </timestep>
     <timestep time="83.50">
-        <vehicle id="ego" acceleration="0.00"/>
+        <vehicle id="ego" acceleration="0.02"/>
     </timestep>
     <timestep time="83.60">
-        <vehicle id="ego" acceleration="0.00"/>
+        <vehicle id="ego" acceleration="0.02"/>
     </timestep>
     <timestep time="83.70">
-        <vehicle id="ego" acceleration="0.00"/>
+        <vehicle id="ego" acceleration="0.02"/>
     </timestep>
     <timestep time="83.80">
-        <vehicle id="ego" acceleration="0.00"/>
+        <vehicle id="ego" acceleration="0.02"/>
     </timestep>
     <timestep time="83.90">
-        <vehicle id="ego" acceleration="0.00"/>
+        <vehicle id="ego" acceleration="0.02"/>
     </timestep>
     <timestep time="84.00">
-        <vehicle id="ego" acceleration="0.00"/>
+        <vehicle id="ego" acceleration="0.02"/>
     </timestep>
     <timestep time="84.10">
-        <vehicle id="ego" acceleration="0.00"/>
+        <vehicle id="ego" acceleration="0.02"/>
     </timestep>
     <timestep time="84.20">
-        <vehicle id="ego" acceleration="0.00"/>
+        <vehicle id="ego" acceleration="0.02"/>
     </timestep>
     <timestep time="84.30">
-        <vehicle id="ego" acceleration="0.00"/>
+        <vehicle id="ego" acceleration="0.02"/>
     </timestep>
     <timestep time="84.40">
-        <vehicle id="ego" acceleration="0.00"/>
+        <vehicle id="ego" acceleration="0.02"/>
     </timestep>
     <timestep time="84.50">
-        <vehicle id="ego" acceleration="0.00"/>
+        <vehicle id="ego" acceleration="0.40"/>
     </timestep>
     <timestep time="84.60">
         <vehicle id="ego" acceleration="0.00"/>
@@ -2613,5 +2613,29 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <timestep time="85.50">
         <vehicle id="ego" acceleration="0.00"/>
     </timestep>
-    <timestep time="85.60"/>
+    <timestep time="85.60">
+        <vehicle id="ego" acceleration="0.00"/>
+    </timestep>
+    <timestep time="85.70">
+        <vehicle id="ego" acceleration="0.00"/>
+    </timestep>
+    <timestep time="85.80">
+        <vehicle id="ego" acceleration="0.00"/>
+    </timestep>
+    <timestep time="85.90">
+        <vehicle id="ego" acceleration="0.00"/>
+    </timestep>
+    <timestep time="86.00">
+        <vehicle id="ego" acceleration="0.00"/>
+    </timestep>
+    <timestep time="86.10">
+        <vehicle id="ego" acceleration="0.00"/>
+    </timestep>
+    <timestep time="86.20">
+        <vehicle id="ego" acceleration="0.00"/>
+    </timestep>
+    <timestep time="86.30">
+        <vehicle id="ego" acceleration="0.00"/>
+    </timestep>
+    <timestep time="86.40"/>
 </fcd-export>

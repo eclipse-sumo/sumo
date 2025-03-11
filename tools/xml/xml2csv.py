@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2013-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2013-2025 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -62,7 +62,7 @@ class NestingHandler(xml.sax.handler.ContentHandler):
 
 class AttrFinder(NestingHandler):
 
-    def __init__(self, xsdFile, source, split):
+    def __init__(self, xsdFile, source, split, keepAttrs=None):
         NestingHandler.__init__(self)
         self.tagDepths = {}  # tag -> depth of appearance
         self.tagAttrs = collections.defaultdict(
@@ -71,6 +71,7 @@ class AttrFinder(NestingHandler):
         self.attrs = {}
         self.depthTags = {}  # child of root: depth of appearance -> tag list
         self.rootDepth = 1 if split else 0
+        self.keepAttrs = keepAttrs
         if xsdFile:
             self.xsdStruc = xsd.XsdStructure(xsdFile)
             if split:
@@ -128,6 +129,8 @@ class AttrFinder(NestingHandler):
                 return
             # collect attributes
             for a in sorted(list(attrs.keys())):
+                if self.keepAttrs is not None and a not in self.keepAttrs:
+                    continue
                 if a not in self.tagAttrs[name] and ":" not in a:
                     self.tagAttrs[name][a] = xsd.XmlAttribute(a)
                     if not (name, a) in self.renamedAttrs:
@@ -245,6 +248,8 @@ def get_options(arglist=None):
                            help="xsd schema to use")
     optParser.add_argument("-a", "--validation", action="store_true", default=False,
                            help="enable schema validation")
+    optParser.add_argument("--keep-attributes", dest="keepAttrs",
+                           help="Only keep the given attributes")
     optParser.add_argument("-p", "--split", action="store_true", default=False,
                            help="split in different files for the first hierarchy level")
     options = optParser.parse_args(arglist)
@@ -261,13 +266,15 @@ def get_options(arglist=None):
     if options.output and options.output.isdigit() and options.split:
         print("it is not possible to use splitting together with stream output", file=sys.stderr)
         sys.exit()
+    if options.keepAttrs:
+        options.keepAttrs = set(options.keepAttrs.split(','))
     return options
 
 
 def main(args=None):
     options = get_options(args)
     # get attributes
-    attrFinder = AttrFinder(options.xsd, options.source, options.split)
+    attrFinder = AttrFinder(options.xsd, options.source, options.split, options.keepAttrs)
     # write csv
     handler = CSVWriter(attrFinder, options)
     if options.validation:

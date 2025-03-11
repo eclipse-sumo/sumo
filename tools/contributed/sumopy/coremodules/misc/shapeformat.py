@@ -1,5 +1,5 @@
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2016-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2016-2025 German Aerospace Center (DLR) and others.
 # SUMOPy module
 # Copyright (C) 2012-2021 University of Bologna - DICAM
 # This program and the accompanying materials are made available under the
@@ -858,7 +858,7 @@ class Shapedata(am.ArrayObjman):
     def export_shapefile(self, filepath=None):
         """
         Exports shape data into given file.
-        If no file is given, the the default file path will be selected.
+        If no file is given, the default file path will be selected.
         """
         # https://code.google.com/p/pyshp/
         print '\nexport_shapefile', filepath

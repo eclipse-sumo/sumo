@@ -22,6 +22,9 @@ trackFuel_elec
 # leave the road while charging
 chargingStations_parked
 
+# leave the road while charging and parking
+chargingStations_parked_explicit
+
 # leave the road while charging
 chargingStations_parkingCapacity
 
@@ -34,6 +37,9 @@ chargingStations_output
 
 # Vehicles stopping at multiple charging stations, which is recorded as charging events in the aggregated charging station output
 chargingStations_output_aggregated
+
+# Vehicles stopping at multiple charging stations, which is recorded as charging events in the aggregated charging station output (even for still charging vehicles)
+chargingStations_output_aggregated_unfinished
 
 # as above but with step length 0.2
 chargingStations_output_subseconds

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -178,6 +178,14 @@ GUIGeometry::updateSinglePosGeometry(const Position& position, const double rota
     // set position and rotation
     myShape.push_back(position);
     myShapeRotations.push_back(rotation);
+}
+
+
+void GUIGeometry::clearGeometry() {
+    // clear geometry containers
+    myShape.clear();
+    myShapeRotations.clear();
+    myShapeLengths.clear();
 }
 
 
@@ -548,14 +556,6 @@ GUIGeometry::angleLookup(const double angleDeg) {
     }
     assert(index >= 0);
     return (int)index;
-}
-
-
-void GUIGeometry::clearGeometry() {
-    // clear geometry containers
-    myShape.clear();
-    myShapeRotations.clear();
-    myShapeLengths.clear();
 }
 
 

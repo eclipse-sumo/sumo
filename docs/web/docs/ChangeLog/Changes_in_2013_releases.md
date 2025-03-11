@@ -325,7 +325,7 @@ title: Changes in the 2013 releases (versions 0.17.0, 0.17.1, 0.18.0 and 0.19.0)
     railway element is unidirectional or bidirectional.
   - added option **--osm.railway.oneway-default** {{DT_BOOL}} for setting the default behavior when importing
     railways without "tracks" attribute. The appropriate value
-    depends on the mapping style of the regional *OSM* comunity.
+    depends on the mapping style of the regional *OSM* community.
   - added option **--geometry.max-angle** {{DT_FLOAT}} which warns about sharp turns on an edge. This is
     enabled by default for turns above 99 Degrees.
   - added option **--geometry.min-radius** {{DT_FLOAT}} which warns about sharp turns at the start and end

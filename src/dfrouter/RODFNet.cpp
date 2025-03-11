@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -930,13 +930,14 @@ RODFNet::buildEdgeFlowMap(const RODFDetectorFlows& flows,
             }
             const RODFDetector& det = detectors.getDetector(*j);
             bool found = false;
-            for (std::map<double, std::vector<std::string> >::iterator k = cliques.begin(); !found && k != cliques.end(); ++k) {
-                if (fabs((*k).first - det.getPos()) < 1) {
-                    (*k).second.push_back(*j);
-                    if ((*k).second.size() > maxClique->size()) {
-                        maxClique = &(*k).second;
+            for (auto& k : cliques) {
+                if (fabs(k.first - det.getPos()) < 1) {
+                    k.second.push_back(*j);
+                    if (maxClique == nullptr || k.second.size() > maxClique->size()) {
+                        maxClique = &k.second;
                     }
                     found = true;
+                    break;
                 }
             }
             if (!found) {

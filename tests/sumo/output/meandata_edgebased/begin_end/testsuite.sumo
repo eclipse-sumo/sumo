@@ -20,3 +20,6 @@ beg15_end30_nointerval
 beg0_end30_nointerval
 beg0_end30_simBeg10
 beg0_end30_simBeg5
+
+# set option to define edgeData without additional file
+via_option_beg5

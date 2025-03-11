@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -27,6 +27,7 @@
 #include <gui/GUIGlobals.h>
 #include <guisim/GUIParkingArea.h>
 #include <guisim/GUIVehicle.h>
+#include <mesogui/GUIMEVehicle.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSNet.h>
@@ -192,7 +193,11 @@ GUIParkingArea::drawGL(const GUIVisualizationSettings& s) const {
         // draw parking vehicles (their lane might not be within drawing range. if it is, they are drawn twice)
         myLane.getVehiclesSecure();
         for (const MSBaseVehicle* const v : myLane.getParkingVehicles()) {
-            static_cast<const GUIVehicle*>(v)->drawGL(s);
+            if (MSGlobals::gUseMesoSim) {
+                static_cast<const GUIMEVehicle*>(v)->drawGL(s);
+            } else {
+                static_cast<const GUIVehicle*>(v)->drawGL(s);
+            }
         }
         myLane.releaseVehicles();
     }

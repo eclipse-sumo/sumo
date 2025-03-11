@@ -1,6 +1,12 @@
 # test calibrator flow with only a type value given
 calibrate_type
 
+# test calibrator flow with only a type value given
+calibrate_type_junction
+
+# test calibrator flow with only a type value given
+calibrate_type_junction_local
+
 # map from one type distribution to another.
 calibrate_type_distribution
 

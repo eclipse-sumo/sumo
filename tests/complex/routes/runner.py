@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2008-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2008-2025 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -22,34 +22,12 @@ from __future__ import absolute_import
 import os
 import subprocess
 import sys
-from optparse import OptionParser, BadOptionError, AmbiguousOptionError
 sys.path.append(
     os.path.join(os.path.dirname(__file__), '..', '..', '..', "tools"))
-from sumolib import checkBinary  # noqa
+import sumolib  # noqa
 
 
-class PassThroughOptionParser(OptionParser):
-
-    """
-    An unknown option pass-through implementation of OptionParser.
-    see http://stackoverflow.com/questions/1885161/how-can-i-get-optparses-optionparser-to-ignore-invalid-options
-
-    When unknown arguments are encountered, bundle with largs and try again,
-    until rargs is depleted.
-
-    sys.exit(status) will still be called if a known argument is passed
-    incorrectly (e.g. missing arguments or bad argument types, etc.)
-    """
-
-    def _process_args(self, largs, rargs, values):
-        while rargs:
-            try:
-                OptionParser._process_args(self, largs, rargs, values)
-            except (BadOptionError, AmbiguousOptionError) as e:
-                largs.append(e.opt_str)
-
-
-def runInstance(elem, attrSet, childSet, depart):
+def runInstance(call, elem, attrSet, childSet, depart):
     print(elem, attrSet, childSet)
     sys.stdout.flush()
     with open("routes.xml", "w") as routes:
@@ -65,35 +43,30 @@ xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
             if childSet & (2 ** idx):
                 routes.write((8 * " ") + child)
         routes.write('    </%s>\n</routes>\n' % elem)
-    retCode = subprocess.call(
-        call + ["-n", "input_net.net.xml", "-r", routes.name], stdout=sys.stdout, stderr=sys.stdout)
-    retCodeTaz = subprocess.call(
-        call + ["-n", "input_net.net.xml", "-r", routes.name, "--with-taz"], stdout=sys.stdout, stderr=sys.stdout)
-    if retCode < 0 or retCodeTaz < 0:
+    c = call + ["-n", "input_net.net.xml", "-r", routes.name]
+    p = subprocess.Popen(c, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
+    p_taz = subprocess.Popen(c + ["--with-taz"], stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
+    sys.stdout.write(p.communicate()[0] + p_taz.communicate()[0])
+    if p.returncode < 0 or p_taz.returncode < 0:
         sys.stdout.write(open(routes.name).read())
         sys.exit()
 
 
-optParser = PassThroughOptionParser()
+optParser = sumolib.options.ArgumentParser()
 optParser.add_option("-e", "--element", help="xml element to choose")
 optParser.add_option(
-    "-a", "--attr", type="int", default=0, help="attribute set to use")
-optParser.add_option(
-    "-c", "--child", type="int", default=0, help="child set to use")
-options, args = optParser.parse_args()
+    "-a", "--attr", type=int, default=0, help="attribute set to use")
+optParser.add_option("--child", type=int, default=0, help="child set to use")
+options, args = optParser.parse_known_args()
 
 if len(args) == 0 or args[0] == "sumo":
-    call = [checkBinary('sumo'), "--no-step-log", "--no-duration-log",
-            "-a", "input_additional.add.xml"]
+    call = [sumolib.checkBinary('sumo'), "--no-step-log", "--no-duration-log", "-a", "input_additional.add.xml"]
 elif args[0] == "dfrouter":
-    call = [checkBinary('dfrouter'),
-            "--detector-files", "input_additional.add.xml"]
+    call = [sumolib.checkBinary('dfrouter'), "--detector-files", "input_additional.add.xml"]
 elif args[0] == "duarouter":
-    call = [checkBinary('duarouter'), "--no-step-log",
-            "-o", "dummy.xml", "-a", "input_additional.add.xml"]
+    call = [sumolib.checkBinary('duarouter'), "--no-step-log", "-o", "dummy.xml", "-a", "input_additional.add.xml"]
 elif args[0] == "jtrrouter":
-    call = [checkBinary('jtrrouter'), "--no-step-log",
-            "-o", "dummy.xml", "-a", "input_additional.add.xml"]
+    call = [sumolib.checkBinary('jtrrouter'), "--no-step-log", "-o", "dummy.xml", "-a", "input_additional.add.xml"]
 else:
     print("Unsupported application defined", file=sys.stderr)
 call += args[1:]
@@ -107,10 +80,9 @@ childs = ['<route edges="1fi 1si 2o 2fi 2si"/>\n', '<stop lane="1fi_0" duration=
 
 # check route processing
 if options.element:
-    runInstance(
-        options.element, options.attr, options.child, elements[options.element])
+    runInstance(call, options.element, options.attr, options.child, elements[options.element])
 else:
     for elem, depart in sorted(elements.items()):
         for attrSet in range(2 ** len(attrs)):
             for childSet in range(2 ** len(childs)):
-                runInstance(elem, attrSet, childSet, depart)
+                runInstance(call, elem, attrSet, childSet, depart)

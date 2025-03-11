@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -663,6 +663,9 @@ public:
     /// @brief get begin adresses iterator
     std::vector<std::pair<std::string, Option*> >::const_iterator end() const;
 
+    /// @brief make a copy of this OptionsCont instance
+    OptionsCont* clone() const;
+
 private:
     /** @brief Returns the named option
      *
@@ -731,8 +734,8 @@ private:
     /// @brief A map from deprecated options to a bool indicating whether we warned about deprecation
     mutable std::map<std::string, bool> myDeprecatedSynonymes;
 
-    /// @brief invalid copy constructor
-    OptionsCont(const OptionsCont& s) = delete;
+    /// @brief default copy constructor, but private
+    OptionsCont(const OptionsCont& s) = default;
 
     /// @brief invalid assignment operator
     OptionsCont& operator=(const OptionsCont& s) = delete;

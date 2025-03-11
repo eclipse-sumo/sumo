@@ -4,12 +4,6 @@ until
 
 extension
 
-
-
-
-
-
-
 permitted
 
 parking
@@ -21,3 +15,7 @@ speed
 line
 
 tripid
+
+jump
+
+split

@@ -15,19 +15,25 @@ RUN echo '@testing https://dl-cdn.alpinelinux.org/alpine/edge/testing' >> /etc/a
 # Build dependencies
 RUN apk add bash
 RUN apk add --no-cache make
-RUN apk add git cmake g++ fox-dev@testing mesa-dev mesa-gl \
- gdal-dev xerces-c-dev proj-dev eigen-dev gettext
-RUN apk add swig python3-dev py3-pip py3-setuptools py3-build openjdk11-jdk maven
+RUN apk add cmake eigen-dev fox-dev@testing g++ gdal-dev gettext git glu-dev mesa-dev mesa-gl proj-dev xerces-c-dev
+RUN apk add maven openjdk11-jdk py3-build py3-pip py3-setuptools python3-dev swig
+
+RUN addgroup -g 1001 -S sumo && adduser -u 1001 -S sumo -G sumo
+RUN mkdir /opt/sumo && chown sumo /opt/sumo
+
+USER sumo
 
 # Clone the repo
-RUN cd /opt; git clone --shallow-submodules --single-branch --recursive https://github.com/eclipse-sumo/sumo
+RUN cd /opt/sumo; git clone --shallow-submodules --single-branch --recursive https://github.com/eclipse-sumo/sumo
 
 # Create virtual environment for python packages
-RUN python3 -m venv /opt/venv; \
- . /opt/venv/bin/activate \
- pip3 install --no-cache -r /opt/sumo/tools/requirements.txt
+RUN python3 -m venv /opt/sumo/venv; \
+ . /opt/sumo/venv/bin/activate \
+ pip3 install --no-cache -r /opt/sumo/sumo/tools/requirements.txt
+
+WORKDIR /opt/sumo/sumo
 
 # Build and run all examples
-RUN cd /opt/sumo; mkdir build/cmake-build; cd build/cmake-build; \
- cmake ../.. -DCMAKE_INSTALL_PREFIX=/usr -DSUMO_UTILS=TRUE; \
- make -j8 all examples doc install; cd /opt/sumo; rm -rf build/cmake-build
+RUN cmake -B cmake-build -DCMAKE_INSTALL_PREFIX=/usr -DSUMO_UTILS=TRUE && \
+ cd cmake-build && make -j8 all examples doc && \
+ sudo make install && cd .. && rm -rf cmake-build

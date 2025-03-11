@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -141,7 +141,7 @@ NIVissimDisturbance::addToNode(NBNode* node, NBDistrictCont& dc,
         NIVissimEdge* e1 = NIVissimEdge::dictionary(myEdge.getEdgeID());
         NIVissimEdge* e2 = NIVissimEdge::dictionary(myDisturbance.getEdgeID());
         WRITE_WARNINGF(TL("Ugly split to prohibit '%' by '%'."), toString<int>(e1->getID()), toString<int>(e2->getID()));
-        Position pos = e1->crossesEdgeAtPoint(e2);
+        //Position pos = e1->crossesEdgeAtPoint(e2);
         std::string id1 = toString<int>(e1->getID()) + "x" + toString<int>(e2->getID());
         std::string id2 = toString<int>(e2->getID()) + "x" + toString<int>(e1->getID());
         NBNode* node1 = nc.retrieve(id1);

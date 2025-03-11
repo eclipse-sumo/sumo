@@ -11,7 +11,7 @@ assignment (DUA)](../Demand/Dynamic_User_Assignment.md). It works by alternating
 discover travel times and then assigning alternative routes to some of
 the vehicles according to these travel times. This is repeated for a
 defined number of iteration steps. At least two files have to be given
-as input the script: a SUMO-network and a set of trip definitions. A
+as input the script: a SUMO network and a set of trip definitions. A
 stochastic user-equilibrium (UE)traffic state is not guaranteed after
 the assignment. Increasing the number of iteration steps increases the
 likelihood of convergence to equilibrium.
@@ -30,11 +30,11 @@ not disable the edge-based dump for aggregation over 900s, because this
 is read by the [duarouter](../duarouter.md) in the next iteration
 steps in order to compute the DUA.
 
-For further options to the script look either at the source code or
+For further options of the script either look at the source code or
 start it with the "--help" option.
 
 ```
-python tools/assign/duaIterate.py -n <PATH_TO_SUMO_NET> -t <PATH_TO_TRIPS>
+python tools/assign/duaIterate.py -n <PATH_TO_SUMO_NET> -t <PATH_TO_TRIPS>
 ```
 
 ### Loading vehicle types from an additional file
@@ -59,7 +59,7 @@ estimation an additional script is provided which analyses teleport counts
 and how they evolve over the iterations.
 
 ```
-python tools/assign/duaIterate_analysis.py dualog.txt
+python tools/assign/duaIterate_analysis.py dualog.txt
 ```
 
 ## cadytsIterate.py
@@ -73,7 +73,7 @@ SUMO and Cadyts is work in progress. You will need to download
 reference to the jar file to the call.
 
 ```
-python tools/assign/cadytsIterate.py -n input_net.net.xml -r routes.rou.xml -d input_measurements.xml --classpath cadyts.jar
+python tools/assign/cadytsIterate.py -n input_net.net.xml -r routes.rou.xml -d input_measurements.xml --classpath cadyts.jar
 ```
 
 ## one-shot.py
@@ -93,11 +93,11 @@ use of this script.
 An exemplary execution command is shown below.
 
 ```
- one-shot.py -f <travel-time updating interval> -n <network file> -t <trip file>
+ one-shot.py -f <travel-time updating interval> -n <network file> -t <trip file>
 
- where -f travel-time updating interval (sec); -1 means no travel-time updating (default: -1,1800,300,15)
-       -n network file name and the respective path
-       -t trip file name and the respective path
+ where -f travel-time updating interval (sec); -1 means no travel-time updating (default: -1,1800,300,15)
+       -n network file name and the respective path
+       -t trip file name and the respective path
 ```
 
 Additional setting, such as outputs of summary and trip-information as
@@ -111,15 +111,15 @@ The traffic demand of the traffic zones, which have the same connection
 links, will be integrated. The exemplary command is indicated below.
 
 ```
-matrixDailyToHourly.py -m <matrix file> -z <district file> -t <flow time-series file> -o 
+matrixDailyToHourly.py -m <matrix file> -z <district file> -t <flow time-series file> -o
 
 <output directory>
 
-where -m: matrix file name
-      -z: district file name
-      -t: name of the file containing traffic flow time series (optional); If not specified, the defined 
-          daily matrix will be regularly divided into 24 hours.
-      -o: output directory name and the respective path
+where -m: matrix file name
+      -z: district file name
+      -t: name of the file containing traffic flow time series (optional); If not specified, the defined
+          daily matrix will be regularly divided into 24 hours.
+      -o: output directory name and the respective path
 ```
 
 ## costFunctionChecker.py

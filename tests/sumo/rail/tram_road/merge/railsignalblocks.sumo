@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-02-20 22:47:11 by Eclipse SUMO sumo Version v1_22_0+0408-1e09e33461d
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <tripinfo-output value="tripinfos.xml"/>
+        <railsignal-block-output value="railsignal_blocks.xml"/>
+    </output>
+
+    <processing>
+        <time-to-teleport.railsignal-deadlock value="200"/>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</sumoConfiguration>
+-->
+
+<railsignal-block-output>
+    <railSignal id="J1">
+        <link linkIndex="0" from="1a_0" to=":J1_0_0">
+            <driveWay id="J1.0" vehicle="v0" edges="2a 3a">
+                <forward lanes=":J1_0_0 2a_0 :J2_0_0 3a_0"/>
+                <bidi lanes=""/>
+                <flank lanes=""/>
+                <conflictLinks signals="J5_0"/>
+                <foes driveWays="J1.0 J5.0"/>
+            </driveWay>
+        </link>
+    </railSignal>
+    <railSignal id="J5">
+        <link linkIndex="0" from="1b_0" to=":J5_0_0">
+            <driveWay id="J5.0" vehicle="v1" edges="2b 3a">
+                <forward lanes=":J5_0_0 2b_0 :J2_1_0 :J2_2_0 3a_0"/>
+                <bidi lanes=""/>
+                <flank lanes=""/>
+                <conflictLinks signals="J1_0"/>
+                <foes driveWays="J1.0 J5.0"/>
+            </driveWay>
+        </link>
+    </railSignal>
+    <departJunction id="J0">
+        <driveWay id="J0.d0" vehicle="v0" edges="1a">
+            <forward lanes="1a_0"/>
+            <bidi lanes=""/>
+            <flank lanes=""/>
+            <conflictLinks signals=""/>
+            <foes driveWays="J0.d0"/>
+        </driveWay>
+    </departJunction>
+    <departJunction id="J4">
+        <driveWay id="J4.d0" vehicle="v1" edges="1b">
+            <forward lanes="1b_0"/>
+            <bidi lanes=""/>
+            <flank lanes=""/>
+            <conflictLinks signals=""/>
+            <foes driveWays="J4.d0"/>
+        </driveWay>
+    </departJunction>
+</railsignal-block-output>

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2010-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2010-2025 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -34,7 +34,9 @@ except ImportError:
 
 if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
+    sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools', 'route'))
 import sumolib  # noqa
+import sort_routes
 
 
 def get_options(args=None):
@@ -47,6 +49,10 @@ def get_options(args=None):
                     help="SUMO net file (mandatory for --repair or --remove-loops)")
     op.add_argument("--vehicles-only", action="store_true", category="processing",
                     default=False, help="Import only vehicles instead of persons")
+    op.add_argument("--no-bikes", action="store_true", category="processing",
+                    default=False, help="do not import bike trips")
+    op.add_argument("--no-rides", action="store_true", category="processing",
+                    default=False, help="do not import ride trips")
     op.add_argument("--repair", action="store_true", category="processing",
                     default=False, help="Repair routes after import (needs a SUMO net)")
     op.add_argument("--remove-loops", action="store_true", category="processing",
@@ -89,14 +95,26 @@ def getLocation(options, activity, attr, prj=None):
         return None
 
 
-def writeLeg(outf, options, idveh, leg, start, end):
-    """ Write the vehicles and trips. """
+def skipLeg(options, leg):
     # walk and public transport are not relevant
     if leg.mode.endswith("walk") or leg.mode == "pt":
+        return True
+    if options.no_rides and leg.mode == "ride":
+        return True
+    if options.no_bikes and leg.mode in ("bike", "bicycle"):
+        return True
+    return False
+
+
+def writeLeg(outf, options, idveh, leg, start, end, types):
+    """ Write the vehicles and trips. """
+    if skipLeg(options, leg):
         return
     depart = leg.dep_time if options.vehicles_only else "triggered"
-    mode = ' type="%s"' % leg.mode if leg.mode in ("car", "bicycle") else ""
-    if leg.route is None or leg.route[0].distance == "NaN" or leg.mode == "bicycle":
+    mode = ' type="%s"' % leg.mode if leg.mode else ""
+    if leg.mode:
+        types.add(leg.mode)
+    if leg.route is None or leg.route[0].distance == "NaN" or leg.mode in ("bike", "bicycle"):
         outf.write('    <trip id="%s" depart="%s" %s %s%s/>\n'
                    % (idveh, depart, start, end, mode))
     else:
@@ -123,7 +141,8 @@ def main(options):
                     print("Warning: install pyproj to support input with coordinates", file=sys.stderr)
 
     persons = []  # (depart, xmlsnippet)
-    for person in sumolib.xml.parse(options.plan_file, 'person'):
+    types = set()
+    for index, person in enumerate(sumolib.xml.parse(options.plan_file, 'person')):
         outf = StringIO()
         vehIndex = 0
         plan = person.plan[0]
@@ -150,7 +169,7 @@ def main(options):
                     leg.dep_time = lastAct.end_time
                     writeLeg(outf, options, idveh, leg,
                              getLocation(options, lastAct, "from", prj),
-                             getLocation(options, item, "to", prj))
+                             getLocation(options, item, "to", prj), types)
                     lastLeg = None
                 # set missing end_time:
                 if not item.end_time:
@@ -179,7 +198,7 @@ def main(options):
                     leg = item
                     start = 'from="%s"' % leg.route[0].start_link
                     end = 'to="%s"' % leg.route[0].end_link
-                    writeLeg(outf, options, idveh, leg, start, end)
+                    writeLeg(outf, options, idveh, leg, start, end, types)
             if leg:
                 untillist.append(leg.dep_time)
                 vehicleslist.append(idveh if leg.mode != "pt" else "pt")
@@ -206,6 +225,11 @@ def main(options):
                             # outf.write('        <transship to="%s"/>\n' % item.link)
                         elif lastLeg.mode in ("walk", "transit_walk"):
                             outf.write('        <walk %s/>\n' % end)
+                        elif lastLeg.mode == "pt":
+                            outf.write('        <personTrip modes="public" %s/>\n' % end)
+                        elif skipLeg(options, lastLeg):
+                            outf.write('        <!-- ride lines="%s" %s mode="%s"/-->\n' % (
+                                vehicleslist[vehIndex], end, lastLeg.mode))
                         else:
                             outf.write('        <ride lines="%s" %s/>\n' % (vehicleslist[vehIndex], end))
                         vehIndex += 1
@@ -220,21 +244,32 @@ def main(options):
                 if item.name == "leg":
                     lastLeg = item
             outf.write('    </person>\n')
-        persons.append((sumolib.miscutils.parseTime(depart), outf.getvalue()))
+        persons.append((sumolib.miscutils.parseTime(depart), index, outf.getvalue()))
 
     persons.sort()
-    with open(options.output_file, 'w') as outf:
+    tmpout = options.output_file + ".tmp"
+    with open(tmpout, 'w') as outf:
         sumolib.writeXMLHeader(outf, root="routes")
-        outf.write('    <vType id="car" vClass="passenger"/>\n    <vType id="bicycle" vClass="bicycle"/>\n\n')
-        for depart, xml in persons:
+        for t in sorted(types):
+            vClass = ""
+            if t in ("bike", "bicycle"):
+                vClass = ' vClass="bicycle"'
+            outf.write('    <vType id="%s"%s/>\n' % (t, vClass))
+        for depart, index, xml in persons:
             outf.write(xml)
         outf.write('</routes>\n')
     outf.close()
+    # use duarouter for sorting when --vehicles-only is set
     if options.repair or options.remove_loops:
-        args = ["-n", options.net_file, "-r", options.output_file, "-o", options.output_file + ".repaired"]
+        args = ["-n", options.net_file, "-a", tmpout, "-o", options.output_file]
         args += ["--repair"] if options.repair else []
         args += ["--remove-loops"] if options.remove_loops else []
+        args += ["--write-trips", "--write-trips.geo"] if options.prefer_coordinate else []
         subprocess.call([sumolib.checkBinary("duarouter")] + args)
+    elif options.vehicles_only:
+        sort_routes.main([tmpout, '-o', options.output_file])
+    else:
+        os.rename(tmpout, options.output_file)
 
 
 if __name__ == "__main__":

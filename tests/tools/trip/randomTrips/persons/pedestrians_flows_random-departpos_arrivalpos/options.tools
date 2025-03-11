@@ -1,0 +1,4 @@
+-n net.net.xml -s 42 --min-distance 1
+--random-departpos --random-arrivalpos -e 10
+--pedestrians
+--flows 5

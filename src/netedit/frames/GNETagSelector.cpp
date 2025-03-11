@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -17,8 +17,9 @@
 ///
 // Frame for select tags
 /****************************************************************************/
-#include <config.h>
 
+#include <netedit/GNENet.h>
+#include <netedit/GNETagPropertiesDatabase.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/elements/additional/GNEAccess.h>
 #include <netedit/elements/additional/GNEBusStop.h>
@@ -70,7 +71,6 @@
 
 #include "GNETagSelector.h"
 
-
 // ===========================================================================
 // FOX callback mapping
 // ===========================================================================
@@ -93,7 +93,7 @@ GNETagSelector::GNETagSelector(GNEFrame* frameParent, GNETagProperties::TagType 
     myTagType(type),
     myCurrentTemplateAC(nullptr) {
     // Create MFXComboBoxIcon
-    myTagsMatchBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, true, GUIDesignComboBoxVisibleItemsLarge,
+    myTagsMatchBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, true, GUIDesignComboBoxVisibleItems,
                                          this, MID_GNE_TAG_SELECTED, GUIDesignComboBox);
     // set current tag type without notifying
     setCurrentTagType(myTagType, onlyDrawables, false);
@@ -129,7 +129,7 @@ GNEAttributeCarrier*
 GNETagSelector::getTemplateAC(SumoXMLTag ACTag) const {
     // clear myACTemplates and myTagsMatchBox
     for (const auto& ACTemplate : myACTemplates) {
-        if (ACTemplate->getAC()->getTagProperty().getTag() == ACTag) {
+        if (ACTemplate->getAC()->getTagProperty()->getTag() == ACTag) {
             return ACTemplate->getAC();
         }
     }
@@ -206,12 +206,12 @@ GNETagSelector::setCurrentTagType(GNETagProperties::TagType tagType, const bool 
     myACTemplates.clear();
     myTagsMatchBox->clearItems();
     // get tag properties
-    const auto tagProperties = GNEAttributeCarrier::getTagPropertiesByType(myTagType);
+    const auto tagPropertiesByType = myFrameParent->getViewNet()->getNet()->getTagPropertiesDatabase()->getTagPropertiesByType(myTagType, true);
     // fill myACTemplates and myTagsMatchBox
-    for (const auto& tagProperty : tagProperties) {
-        if ((!onlyDrawables || tagProperty.isDrawable()) && (!tagProperty.requireProj() || proj)) {
+    for (const auto tagProperty : tagPropertiesByType) {
+        if ((!onlyDrawables || tagProperty->isDrawable()) && (!tagProperty->requireProj() || proj)) {
             myACTemplates.push_back(new ACTemplate(myFrameParent->getViewNet()->getNet(), tagProperty));
-            myTagsMatchBox->appendIconItem(tagProperty.getFieldString().c_str(), GUIIconSubSys::getIcon(tagProperty.getGUIIcon()), tagProperty.getBackGroundColor());
+            myTagsMatchBox->appendIconItem(tagProperty->getFieldString().c_str(), GUIIconSubSys::getIcon(tagProperty->getGUIIcon()), tagProperty->getBackGroundColor());
         }
     }
     // set color of myTypeMatchBox to black (valid)
@@ -232,7 +232,7 @@ GNETagSelector::setCurrentTag(SumoXMLTag newTag, const bool notifyFrameParent) {
     myCurrentTemplateAC = nullptr;
     // iterate over all myTagsMatchBox
     for (int i = 0; i < (int)myACTemplates.size(); i++) {
-        if (myACTemplates.at(i)->getAC() && (myACTemplates.at(i)->getAC()->getTagProperty().getTag() == newTag)) {
+        if (myACTemplates.at(i)->getAC() && (myACTemplates.at(i)->getAC()->getTagProperty()->getTag() == newTag)) {
             // set current template and currentItem
             myCurrentTemplateAC = myACTemplates.at(i)->getAC();
             myTagsMatchBox->setCurrentItem(i);
@@ -259,7 +259,7 @@ long
 GNETagSelector::onCmdSelectTag(FXObject*, FXSelector, void*) {
     // iterate over all myTagsMatchBox
     for (int i = 0; i < (int)myACTemplates.size(); i++) {
-        if (myACTemplates.at(i)->getAC() && myACTemplates.at(i)->getAC()->getTagProperty().getFieldString() == myTagsMatchBox->getText().text()) {
+        if (myACTemplates.at(i)->getAC() && myACTemplates.at(i)->getAC()->getTagProperty()->getFieldString() == myTagsMatchBox->getText().text()) {
             // set templateAC and currentItem
             myCurrentTemplateAC = myACTemplates.at(i)->getAC();
             myTagsMatchBox->setCurrentItem(i);
@@ -268,8 +268,6 @@ GNETagSelector::onCmdSelectTag(FXObject*, FXSelector, void*) {
             myTagsMatchBox->killFocus();
             // call tag selected function
             myFrameParent->tagSelected();
-            // Write Warning in console if we're in testing mode
-            WRITE_DEBUG(("Selected item '" + myTagsMatchBox->getText() + "' in GNETagSelector").text());
             return 1;
         }
     }
@@ -277,8 +275,6 @@ GNETagSelector::onCmdSelectTag(FXObject*, FXSelector, void*) {
     myCurrentTemplateAC = nullptr;
     // set color of myTypeMatchBox to red (invalid)
     myTagsMatchBox->setTextColor(FXRGB(255, 0, 0));
-    // Write Warning in console if we're in testing mode
-    WRITE_DEBUG("Selected invalid item in GNETagSelector");
     // call tag selected function
     myFrameParent->tagSelected();
     return 1;
@@ -291,14 +287,16 @@ GNETagSelector::ACTemplate::getAC() const {
 }
 
 
-GNETagSelector::ACTemplate::ACTemplate(GNENet* net, const GNETagProperties tagProperty) :
+GNETagSelector::ACTemplate::ACTemplate(GNENet* net, const GNETagProperties* tagProperty) :
     myAC(nullptr) {
     // create attribute carrier depending of tag
-    switch (tagProperty.getTag()) {
+    switch (tagProperty->getTag()) {
         // additional elements
         case SUMO_TAG_BUS_STOP:
+            myAC = GNEBusStop::buildBusStop(net);
+            break;
         case SUMO_TAG_TRAIN_STOP:
-            myAC = new GNEBusStop(tagProperty.getTag(), net);
+            myAC = GNEBusStop::buildTrainStop(net);
             break;
         case SUMO_TAG_ACCESS:
             myAC = new GNEAccess(net);
@@ -320,14 +318,14 @@ GNETagSelector::ACTemplate::ACTemplate(GNENet* net, const GNETagProperties tagPr
             break;
         case SUMO_TAG_LANE_AREA_DETECTOR:
         case GNE_TAG_MULTI_LANE_AREA_DETECTOR:
-            myAC = new GNELaneAreaDetector(tagProperty.getTag(), net);
+            myAC = new GNELaneAreaDetector(tagProperty->getTag(), net);
             break;
         case SUMO_TAG_ENTRY_EXIT_DETECTOR:
             myAC = new GNEMultiEntryExitDetector(net);
             break;
         case SUMO_TAG_DET_ENTRY:
         case SUMO_TAG_DET_EXIT:
-            myAC = new GNEEntryExitDetector(tagProperty.getTag(), net);
+            myAC = new GNEEntryExitDetector(tagProperty->getTag(), net);
             break;
         case SUMO_TAG_INSTANT_INDUCTION_LOOP:
             myAC = new GNEInstantInductionLoopDetector(net);
@@ -340,7 +338,7 @@ GNETagSelector::ACTemplate::ACTemplate(GNENet* net, const GNETagProperties tagPr
             break;
         case SUMO_TAG_CALIBRATOR:
         case GNE_TAG_CALIBRATOR_LANE:
-            myAC = new GNECalibrator(tagProperty.getTag(), net);
+            myAC = new GNECalibrator(tagProperty->getTag(), net);
             break;
         case GNE_TAG_CALIBRATOR_FLOW:
             myAC = new GNECalibratorFlow(net);
@@ -381,12 +379,12 @@ GNETagSelector::ACTemplate::ACTemplate(GNENet* net, const GNETagProperties tagPr
             break;
         // shapes
         case SUMO_TAG_POLY:
-            myAC = new GNEPoly(tagProperty.getTag(), net);
+            myAC = new GNEPoly(tagProperty->getTag(), net);
             break;
         case SUMO_TAG_POI:
         case GNE_TAG_POILANE:
         case GNE_TAG_POIGEO:
-            myAC = new GNEPOI(tagProperty.getTag(), net);
+            myAC = new GNEPOI(tagProperty->getTag(), net);
             break;
         // TAZs
         case SUMO_TAG_TAZ:
@@ -394,7 +392,7 @@ GNETagSelector::ACTemplate::ACTemplate(GNENet* net, const GNETagProperties tagPr
             break;
         case SUMO_TAG_TAZSOURCE:
         case SUMO_TAG_TAZSINK:
-            myAC = new GNETAZSourceSink(tagProperty.getTag(), net);
+            myAC = new GNETAZSourceSink(tagProperty->getTag(), net);
             break;
         // wires
         case SUMO_TAG_TRACTION_SUBSTATION:
@@ -409,12 +407,12 @@ GNETagSelector::ACTemplate::ACTemplate(GNENet* net, const GNETagProperties tagPr
         // JuPedSim elements
         case GNE_TAG_JPS_WALKABLEAREA:
         case GNE_TAG_JPS_OBSTACLE:
-            myAC = new GNEPoly(tagProperty.getTag(), net);
+            myAC = new GNEPoly(tagProperty->getTag(), net);
             break;
         // Demand elements
         case SUMO_TAG_ROUTE:
         case GNE_TAG_ROUTE_EMBEDDED:
-            myAC = new GNERoute(tagProperty.getTag(), net);
+            myAC = new GNERoute(tagProperty->getTag(), net);
             break;
         case SUMO_TAG_VTYPE:
             myAC = new GNEVType(net);
@@ -432,7 +430,7 @@ GNETagSelector::ACTemplate::ACTemplate(GNENet* net, const GNETagProperties tagPr
         case GNE_TAG_FLOW_WITHROUTE:
         case GNE_TAG_FLOW_JUNCTIONS:
         case GNE_TAG_FLOW_TAZS:
-            myAC = new GNEVehicle(tagProperty.getTag(), net);
+            myAC = new GNEVehicle(tagProperty->getTag(), net);
             break;
         // stops
         case GNE_TAG_STOP_LANE:
@@ -453,15 +451,15 @@ GNETagSelector::ACTemplate::ACTemplate(GNENet* net, const GNETagProperties tagPr
         case GNE_TAG_WAYPOINT_CONTAINERSTOP:
         case GNE_TAG_WAYPOINT_CHARGINGSTATION:
         case GNE_TAG_WAYPOINT_PARKINGAREA:
-            myAC = new GNEStop(tagProperty.getTag(), net);
+            myAC = new GNEStop(tagProperty->getTag(), net);
             break;
         case SUMO_TAG_PERSON:
         case SUMO_TAG_PERSONFLOW:
-            myAC = new GNEPerson(tagProperty.getTag(), net);
+            myAC = new GNEPerson(tagProperty->getTag(), net);
             break;
         case SUMO_TAG_CONTAINER:
         case SUMO_TAG_CONTAINERFLOW:
-            myAC = new GNEContainer(tagProperty.getTag(), net);
+            myAC = new GNEContainer(tagProperty->getTag(), net);
             break;
         default:
             throw ProcessError("Non-supported tagProperty in ACTemplate");

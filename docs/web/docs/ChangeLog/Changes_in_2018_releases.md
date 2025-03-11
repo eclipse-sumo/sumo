@@ -465,7 +465,7 @@ title: Changes in the 2018 releases (versions 1.0.0, 1.0.1 and 1.1.0)
     Models](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#lane-changing_models), Issue #4025
   - Implemented [SSM
     Device](../Simulation/Output/SSM_Device.md), which allows
-    output of saftey related quantities. Issue #2669, Issue #4119
+    output of safety related quantities. Issue #2669, Issue #4119
   - 'Smoothed' emergency braking Issue #4116
   - Added an initial version of a [driver state
     device](../Driver_State.md) for modelling imperfect
@@ -553,7 +553,7 @@ title: Changes in the 2018 releases (versions 1.0.0, 1.0.1 and 1.1.0)
     the same *linkIndex* value). Issue #4094
 
     !!! caution
-        The the signal states for the edited junction must be checked by the user
+        The signal states for the edited junction must be checked by the user
 
   - Width, height and diagonal size of a rectangle selection are now
     shown in the status bar. This can be used to measure distances.
@@ -692,7 +692,7 @@ title: Changes in the 2018 releases (versions 1.0.0, 1.0.1 and 1.1.0)
   - `<vTypeProbe>` is now deprecated in favour of FCD-output filtering
   - `<vaporizer>` is now deprecated in favour of calibrators.
   - The default arrival position for person walks is now the middle
-    of the destination edge. This reduces the assymetry from
+    of the destination edge. This reduces the asymmetry from
     arriving in forward or backward direction. Issue #3843
   - tripinfo-output attribute *waitSteps* which counts the number of
     simulation steps in which the vehicle was below a threshold

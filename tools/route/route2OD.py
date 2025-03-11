@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2010-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2010-2025 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -154,7 +154,7 @@ def main(options):
         nl.end = max(nl.end, time)
 
     for vehicle in sumolib.xml.parse(options.routefile, ['vehicle']):
-        if vehicle.route and type(vehicle.route) == list:
+        if vehicle.route and isinstance(vehicle.route, list):
             edges = vehicle.route[0].edges.split()
             addVehicle(vehicle.id, edges[0], edges[-1], parseTime(vehicle.depart))
         else:
@@ -187,7 +187,7 @@ def main(options):
             count = 1
         if flow.attr_from and flow.to:
             addVehicle(flow.id, flow.attr_from, flow.to, parseTime(flow.begin), count)
-        elif flow.route and type(flow.route) == list:
+        elif flow.route and isinstance(flow.route, list):
             edges = flow.route[0].edges.split()
             addVehicle(flow.id, edges[0], edges[-1], parseTime(flow.begin), count)
         elif flow.fromTaz and flow.toTaz:

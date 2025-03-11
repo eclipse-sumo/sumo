@@ -23,7 +23,7 @@ the *.sbx* extension (for all other extensions, XML is assumed). The
 format is XML and TraCI inspired and aims to be self contained (can be
 read without additional information from a network etc.).
 
-Every data item is preceeded by a single byte describing the type which
+Every data item is preceded by a single byte describing the type which
 is one of the following:
 
 - Byte (single unsigned byte, also used for boolean values)
@@ -35,7 +35,7 @@ is one of the following:
   having a possibly different type stated up front)
 - XML-Element-Start (two bytes referring to the element list)
 - XML-Element-End (no data, just an indicator)
-- XML-Attribut (two bytes referring to the attribute list, see below)
+- XML-Attribute (two bytes referring to the attribute list, see below)
 - Edge (32bit integer referring to the edge list, currently unused)
 - Lane (32bit integer referring to the edge list, followed by a single
   byte encoding the index, currently unused)
@@ -45,7 +45,7 @@ is one of the following:
 - Node-Type (single byte referring to the respective list, see below)
 - Edge-Function (single byte referring to the respective list, see
   below)
-- Route (32bit integer encoding length (n), followed by bineary
+- Route (32bit integer encoding length (n), followed by binary
   encoded route, see below)
 - Scaled Integer (32bit int, fixed point float with two decimals)
 - Scaled Position2D (2 32bit int, analogue Position2D fixed point
@@ -54,7 +54,7 @@ is one of the following:
   float with two decimals)
 
 The change from version 1 to version 2 consisted of an "upgrade" of
-XML-Element-Start and XML-Attribut to two bytes (least significant
+XML-Element-Start and XML-Attribute to two bytes (least significant
 first) whereas the explicit reference to the XML-element is now omitted
 from XML-Element-End. Please note that encoding shapes binary may
 increase file size because small nets only need 7 bytes per coordinate
@@ -88,7 +88,7 @@ strings)
   - Simple = Byte | Integer | Double | String | List | Edge | Lane |
     Position2D | Position3D | Color | Node-Type | Edge-Function |
     Route
-  - XMLContent = XML-Element-Start (XML-Attribut Simple)\*
+  - XMLContent = XML-Element-Start (XML-Attribute Simple)\*
     XMLContent\* XML-ELement-End
 - no comments or whitespace, no character data
 

@@ -1,0 +1,17 @@
+common
+
+from_edge
+
+from_junction
+
+from_taz
+
+from_busstop
+
+from_trainstop
+
+from_containerstop
+
+from_chargingstation
+
+from_parkingarea

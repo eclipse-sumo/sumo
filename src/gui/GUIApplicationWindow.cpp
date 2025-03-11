@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -215,6 +215,8 @@ FXDEFMAP(GUIApplicationWindow) GUIApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_LANGUAGE_TR,    GUIApplicationWindow::onUpdChangeLanguage),
     FXMAPFUNC(SEL_COMMAND,  MID_LANGUAGE_HU,    GUIApplicationWindow::onCmdChangeLanguage),
     FXMAPFUNC(SEL_UPDATE,   MID_LANGUAGE_HU,    GUIApplicationWindow::onUpdChangeLanguage),
+    FXMAPFUNC(SEL_COMMAND,  MID_LANGUAGE_JA,    GUIApplicationWindow::onCmdChangeLanguage),
+    FXMAPFUNC(SEL_UPDATE,   MID_LANGUAGE_JA,    GUIApplicationWindow::onUpdChangeLanguage),
     // keys
     FXMAPFUNC(SEL_KEYPRESS,              0,     GUIApplicationWindow::onKeyPress),
     FXMAPFUNC(SEL_KEYRELEASE,            0,     GUIApplicationWindow::onKeyRelease),
@@ -233,19 +235,22 @@ FXIMPLEMENT(GUIApplicationWindow, FXMainWindow, GUIApplicationWindowMap, ARRAYNU
 // ===========================================================================
 // static members
 // ===========================================================================
-
 std::mt19937 GUIApplicationWindow::myGamingRNG;
+
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-GUIApplicationWindow::GUIApplicationWindow(FXApp* a, const std::string& configPattern) :
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4355) // mask warning about "this" in initializers
+#endif
+GUIApplicationWindow::GUIApplicationWindow(FXApp* a) :
     GUIMainWindow(a),
     myFileMenuRecentNetworks(new FXMenuPane(this)),
     myFileMenuRecentConfigs(new FXMenuPane(this)),
     myRecentNetworks(a, "networks"),
     myRecentConfigs(a, "configs"),
-    myConfigPattern(configPattern),
     myLastStepEventMillis(SysUtils::getCurrentMillis() - MIN_DRAW_DELAY) {
     // init icons
     GUIIconSubSys::initIcons(a);
@@ -257,6 +262,9 @@ GUIApplicationWindow::GUIApplicationWindow(FXApp* a, const std::string& configPa
     a->setTooltipTime(1000000000);
     a->setTooltipPause(1000000000);
 }
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 
 GUIRunThread*
@@ -1039,7 +1047,7 @@ GUIApplicationWindow::onCmdOpenConfiguration(FXObject*, FXSelector, void*) {
     FXFileDialog opendialog(this, TL("Open Simulation Configuration"));
     opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::OPEN_SUMOCONFIG));
     opendialog.setSelectMode(SELECTFILE_EXISTING);
-    opendialog.setPatternList(myConfigPattern.c_str());
+    opendialog.setPatternList(SUMOXMLDefinitions::SumoConfigFileExtensions.getMultilineString().c_str());
     if (gCurrentFolder.length() != 0) {
         opendialog.setDirectory(gCurrentFolder);
     }
@@ -1059,7 +1067,7 @@ GUIApplicationWindow::onCmdOpenNetwork(FXObject*, FXSelector, void*) {
     FXFileDialog opendialog(this, TL("Open Network"));
     opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::OPEN_NET));
     opendialog.setSelectMode(SELECTFILE_EXISTING);
-    opendialog.setPatternList("SUMO nets (*.net.xml,*.net.xml.gz)\nAll files (*)");
+    opendialog.setPatternList(SUMOXMLDefinitions::NetFileExtensions.getMultilineString().c_str());
     if (gCurrentFolder.length() != 0) {
         opendialog.setDirectory(gCurrentFolder);
     }
@@ -1079,7 +1087,7 @@ GUIApplicationWindow::onCmdOpenShapes(FXObject*, FXSelector, void*) {
     FXFileDialog opendialog(this, TL("Open Shapes"));
     opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::OPEN_SHAPES));
     opendialog.setSelectMode(SELECTFILE_EXISTING);
-    opendialog.setPatternList("Additional files (*.xml,*.xml.gz)\nAll files (*)");
+    opendialog.setPatternList(SUMOXMLDefinitions::AdditionalFileExtensions.getMultilineString().c_str());
     if (gCurrentFolder.length() != 0) {
         opendialog.setDirectory(gCurrentFolder);
     }
@@ -1110,7 +1118,7 @@ GUIApplicationWindow::onCmdOpenEdgeData(FXObject*, FXSelector, void*) {
     FXFileDialog opendialog(this, TL("Open EdgeData"));
     opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::OPEN_NET));
     opendialog.setSelectMode(SELECTFILE_EXISTING);
-    opendialog.setPatternList("EdgeData files (*.xml,*.xml.gz)\nAll files (*)");
+    opendialog.setPatternList(SUMOXMLDefinitions::EdgeDataFileExtensions.getMultilineString().c_str());
     if (gCurrentFolder.length() != 0) {
         opendialog.setDirectory(gCurrentFolder);
     }
@@ -1180,15 +1188,14 @@ GUIApplicationWindow::onCmdSaveConfig(FXObject*, FXSelector, void*) {
     FXFileDialog opendialog(this, TL("Save SUMO Configuration"));
     opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::SAVE));
     opendialog.setSelectMode(SELECTFILE_ANY);
-    opendialog.setPatternList("Config (*.sumocfg)");
+    opendialog.setPatternList(SUMOXMLDefinitions::SumoConfigFileExtensions.getMultilineString().c_str());
     if (gCurrentFolder.length() != 0) {
         opendialog.setDirectory(gCurrentFolder);
     }
     if (!opendialog.execute() || !MFXUtils::userPermitsOverwritingWhenFileExists(this, opendialog.getFilename())) {
         return 1;
     }
-    std::string file = MFXUtils::assureExtension(opendialog.getFilename(),
-                       opendialog.getPatternText(opendialog.getCurrentPattern()).after('.').before(')')).text();
+    const std::string file = MFXUtils::assureExtension(opendialog).text();
     std::ofstream out(StringUtils::transcodeToLocal(file));
     if (out.good()) {
         OptionsCont::getOptions().writeConfiguration(out, true, false, false, file, true);
@@ -1295,16 +1302,14 @@ GUIApplicationWindow::onCmdSaveState(FXObject*, FXSelector, void*) {
     FXFileDialog opendialog(this, TL("Save Simulation State"));
     opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::SAVE));
     opendialog.setSelectMode(SELECTFILE_ANY);
-    opendialog.setPatternList("GZipped State (*.xml.gz)\nXML State (*.xml)");
+    opendialog.setPatternList(SUMOXMLDefinitions::StateFileExtensions.getMultilineString().c_str());
     if (gCurrentFolder.length() != 0) {
         opendialog.setDirectory(gCurrentFolder);
     }
     if (!opendialog.execute() || !MFXUtils::userPermitsOverwritingWhenFileExists(this, opendialog.getFilename())) {
         return 1;
     }
-
-    const std::string file = MFXUtils::assureExtension(opendialog.getFilename(),
-                             opendialog.getPatternText(opendialog.getCurrentPattern()).after('.').before(')')).text();
+    const std::string file = MFXUtils::assureExtension(opendialog).text();
     MSStateHandler::saveState(file, MSNet::getInstance()->getCurrentTimeStep(), false);
     setStatusBarText(TLF("Simulation state saved to '%'.", file));
     return 1;
@@ -1317,7 +1322,7 @@ GUIApplicationWindow::onCmdLoadState(FXObject*, FXSelector, void*) {
     FXFileDialog opendialog(this, TL("Load Simulation State"));
     opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::OPEN));
     opendialog.setSelectMode(SELECTFILE_ANY);
-    opendialog.setPatternList("GZipped State (*.xml.gz)\nXML State (*.xml)");
+    opendialog.setPatternList(SUMOXMLDefinitions::StateFileExtensions.getMultilineString().c_str());
     if (gCurrentFolder.length() != 0) {
         opendialog.setDirectory(gCurrentFolder);
     }
@@ -1920,9 +1925,23 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent* e) {
                 myRunThread->getBreakpointLock().unlock();
             }
             if (!OptionsCont::getOptions().isDefault("selection-file")) {
-                std::string msg = gSelected.load(OptionsCont::getOptions().getString("selection-file"));
+                delete myDynamicSelection;
+                myDynamicSelection = new std::stringstream();
+                std::string msg = gSelected.load(OptionsCont::getOptions().getString("selection-file"), GLO_MAX, myDynamicSelection);
                 if (msg != "") {
                     WRITE_ERRORF("Errors while loading selection: %", msg.c_str());
+                }
+                if (!myDynamicSelection->str().empty()) {
+                    std::string dummy;
+                    int numNotFound = 0;
+                    while (myDynamicSelection->good()) {
+                        (*myDynamicSelection) >> dummy;
+                        numNotFound++;
+                    }
+                    myDynamicSelection->clear(); // first clear error state before seek works
+                    myDynamicSelection->seekg(0);
+                    // @note for some reason the last line is read twice
+                    WRITE_MESSAGEF("% dynamic objects not present while loading selection", numNotFound - 1);
                 }
             }
             myTLSGame = OptionsCont::getOptions().getString("game.mode") == "tls";
@@ -2012,6 +2031,19 @@ GUIApplicationWindow::handleEvent_SimulationStep(GUIEvent*) {
     }
     if (myRunThread->simulationIsStartable()) {
         getApp()->forceRefresh(); // restores keyboard focus
+    }
+    // try to load dynamic selection
+    if (myDynamicSelection != nullptr) {
+        std::stringstream tmp;
+        gSelected.load(*myDynamicSelection, GLO_MAX, &tmp);
+        if (tmp.str().empty()) {
+            delete myDynamicSelection;
+            myDynamicSelection = nullptr;
+        } else {
+            myDynamicSelection->str(tmp.str());
+            myDynamicSelection->clear(); // first clear error state before seek works
+            myDynamicSelection->seekg(0);
+        }
     }
     updateChildren();
     update();
@@ -2439,8 +2471,11 @@ GUIApplicationWindow::setBreakpoints(const std::vector<SUMOTime>& breakpoints) {
 
 
 void
-GUIApplicationWindow::addBreakpoint(const SUMOTime time) {
-    if (time >= 0) {
+GUIApplicationWindow::addBreakpoint(SUMOTime time) {
+    const SUMOTime begin = string2time(OptionsCont::getOptions().getString("begin"));
+    if (time >= begin) {
+        // ensure breakpoint is valid
+        time -= (time - begin) % DELTA_T;
         std::vector<SUMOTime> breakpoints = retrieveBreakpoints();
         if (std::find(breakpoints.begin(), breakpoints.end(), time) == breakpoints.end()) {
             breakpoints.push_back(time);

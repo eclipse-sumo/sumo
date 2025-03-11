@@ -17,7 +17,7 @@ ticket2769
 # invalid edgedata when vehicles are jammed completely
 ticket5722
 
-# invalid edgedata when vehicles are teleporting accross edge
+# invalid edgedata when vehicles are teleporting across edge
 ticket5723
 
 # invalid edgedata on short segments
@@ -41,3 +41,9 @@ ticket10252
 
 # invalid laneData when running with meso-lane-queue
 ticket15093
+
+# crash after teleport
+ticket15751
+
+# problems with tls-penalty and short tls edges
+ticket16014

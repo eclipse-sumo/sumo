@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-02-18 16:49:15 by Eclipse SUMO sumo Version v1_22_0+0292-17b1f1fe432
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net4.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <tripinfo-output value="tripinfos.xml"/>
+        <vehroute-output value="vehroutes.xml"/>
+        <vehroute-output.write-unfinished value="true"/>
+        <stop-output value="stops.xml"/>
+    </output>
+
+    <report>
+        <no-step-log value="true"/>
+    </report>
+
+    <taxi_device>
+        <device.taxi.dispatch-algorithm value="traci"/>
+    </taxi_device>
+
+    <traci_server>
+        <remote-port value="50607"/>
+    </traci_server>
+
+</sumoConfiguration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <person id="a" depart="0.00" arrival="50.00">
+        <ride from="D2D3" to="D2D3" arrivalPos="0.00" lines="taxi"/>
+        <walk edges="D2D3 D1D2"/>
+    </person>
+
+    <vehicle id="taxi_0" type="taxi" depart="0.00">
+        <routeDistribution>
+            <route replacedOnEdge="A0A1" reason="taxi:prepare_dispatch" replacedAtTime="2.00" probability="0" edges="A0A1"/>
+            <route replacedOnEdge="A0A1" reason="taxi:dispatch" replacedAtTime="2.00" probability="0" edges="A0A1 D2D3 C1D1"/>
+            <route replacedOnEdge="A0A1" reason="taxi:prepare_dispatch" replacedAtTime="3.00" probability="0" edges="A0A1 A1B1 B1B2 B2C2 C2D2 D2D3 D3C3 C3C2 C2C1 C1D1"/>
+            <route edges="A0A1"/>
+        </routeDistribution>
+        <stop lane="A0A1_0" actType="idling"/>
+    </vehicle>
+
+</routes>

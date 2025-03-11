@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2015-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2015-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -108,6 +108,8 @@ public:
 
     /// @brief Returns the area occupancy
     int getOccupancyIncludingBlocked() const;
+
+    int getOccupancyIncludingReservations(const SUMOVehicle* forVehicle) const;
 
     /// @brief Returns the area occupancy at the end of the last simulation step
     int getLastStepOccupancy() const;
@@ -230,6 +232,13 @@ public:
     /// @brief set number alternatives
     void setNumAlternatives(int alternatives);
 
+    /// @brief get the accepted badges
+    std::vector<std::string> getAcceptedBadges() const;
+
+    /// @brief set the accepted badges
+    void setAcceptedBadges(const std::vector<std::string>& badges);
+
+
 protected:
     /// @brief overwrite the capacity (caution: will delete ANY previous parking space definitions)
     void setRoadsideCapacity(int capactity);
@@ -319,12 +328,21 @@ protected:
 
     /// @brief track parking reservations from the lane for the current time step
     SUMOTime myReservationTime;
+    SUMOTime myLastReservationTime;
 
     /// @brief number of reservations
     int myReservations;
+    int myLastReservations;
 
     /// @brief reservation max length
     double myReservationMaxLength;
+    double myLastReservationMaxLength;
+
+    /// @brief the set of vehicles that performed a reservation in this step
+    std::set<const SUMOVehicle*> myReservedVehicles;
+
+    /// @brief maximum length of all parked vehicles
+    double myMaxVehLength;
 
     /// @brief the number of alternative parkingAreas that are assigned to parkingAreaRerouter
     int myNumAlternatives;

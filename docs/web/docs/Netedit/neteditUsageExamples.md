@@ -246,7 +246,24 @@ There is also another solution in case you want to add special lanes to your edg
 
 1. create a network with two lanes in each direction (on the road that should have a TWLT)
 2. select all edges that belong to that road using *select mode*
-3. switch to *move mode*, enter the value of -1.6 in the the 'shift value' input field and press 'Apply shift value' (or hit <kbd>enter</kbd>)
+3. switch to *move mode*, enter the value of -1.6 in the 'shift value' input field and press 'Apply shift value' (or hit <kbd>enter</kbd>)
   - explanation: This makes it so that the inside lanes in both directions are directly on top of each other
 4. go to inspect mode and inspect the selection of edges
 5. activate the 'isBidi' checkbox
+
+## Building Pedestrian infrastructure
+
+In order to [simulate pedestrians](../Simulation/Pedestrians.md), the network needs sidewalks (or footpaths), walkingareas and it will usually contain pedestrian crossings.
+For pedestrian simulation to work, every lane of the network that is not meant for a shared-space simulation, should either disallow road vehicles or disallow pedestrian use.
+Prohibiting pedestrians from walking on the road can be accomplished using the 'allow' attribute of lanes but will happen automatically when either
+
+- edges are created and the 'add Sidwalk' option is active
+- edges are created with a custom 'allow' value (i.e. 'pedestrian' or 'passenger')
+- edge context menu function 'Lane operations/Add restricted Lane/Sidwealk' is applied to an edge or a selection of edges  
+
+Crossings can be created with 'crossing mode' by clicking on a junction and then clicking on one or more edges to be crossed and confirming with <kbd>ENTER</kbd>
+!!! note
+    Crossings can only be created if the edges to be crossed have lanes that prohibit pedestrian use
+    
+Walkingareas are created automatically if the network contains at least one pedestrian crossing or if option **walkingareas** is set in the options screen (<kd>F10</kbd>, in the Pedestrians tab).
+They will be created wherever footpaths or sidewalks are bordered by lanes that prohibit pedestrian use.

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -598,6 +598,10 @@ public:
         return myAccelerationLat;
     }
 
+    double getStrategicLookahead() const {
+        return myStrategicLookahead;
+    }
+
     /// @brief set the lateral speed and update lateral acceleraton
     void setSpeedLat(double speedLat);
 
@@ -641,6 +645,7 @@ public:
     }
 
     static const double NO_NEIGHBOR;
+    static const double UNDEFINED_LOOKAHEAD;
 
 protected:
     virtual bool congested(const MSVehicle* const neighLeader);
@@ -776,6 +781,7 @@ protected:
     ///        in the case of continuous LC.
     bool myDontResetLCGaps;
 
+    double myStrategicLookahead;
     // @brief the maximum lateral speed for non-strategic changes when standing
     double myMaxSpeedLatStanding;
     // @brief the factor of maximum lateral speed to longitudinal speed for non-strategic changes

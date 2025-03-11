@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-01 13:44:43 by Eclipse SUMO netedit Version v1_20_0+0930-542f1297b48
-<neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
+<!-- generated on 2025-02-03 14:57:16 by Eclipse SUMO netconvert Version v1_21_0+2283-8c24bb7ce10
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="D:\Netedit_dev\tests\netedit\network\crossings\with_tls\inspect_selected\net.net.xml"/>
+        <node-files value="D:/SUMO/tests/netedit\network\crossings\with_tls\inspect_selected/net.nod.xml"/>
+        <edge-files value="D:/SUMO/tests/netedit\network\crossings\with_tls\inspect_selected/net.edg.xml"/>
+        <connection-files value="D:/SUMO/tests/netedit\network\crossings\with_tls\inspect_selected/net.con.xml"/>
+        <tllogic-files value="D:/SUMO/tests/netedit\network\crossings\with_tls\inspect_selected/net.tll.xml"/>
     </input>
-
-    <output>
-        <output-file value="D:\Netedit_dev\tests\netedit\network\crossings\with_tls\inspect_selected\net.net.xml"/>
-    </output>
 
     <processing>
         <geometry.min-radius.fix.railways value="false"/>
@@ -19,7 +18,6 @@
     </processing>
 
     <junctions>
-        <no-internal-links value="false"/>
         <no-turnarounds value="true"/>
         <junctions.corner-detail value="5"/>
         <junctions.limit-turn-speed value="5.50"/>
@@ -30,7 +28,7 @@
         <walkingareas value="0"/>
     </pedestrian>
 
-</neteditConfiguration>
+</netconvertConfiguration>
 -->
 
 <net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
@@ -198,19 +196,19 @@
         <request index="1"  response="000100000000000000" foes="001111000010100100" cont="0"/>
         <request index="2"  response="100000000000000010" foes="100000000010100010" cont="1"/>
         <request index="3"  response="000100000000000000" foes="001110000010100000" cont="0"/>
-        <request index="4"  response="000000001000000000" foes="010000001000000000" cont="0"/>
-        <request index="5"  response="100000101000001111" foes="110000101001001111" cont="0"/>
-        <request index="6"  response="000000101000100000" foes="010000101000100000" cont="1"/>
-        <request index="7"  response="100000101000001110" foes="110000101000001110" cont="0"/>
+        <request index="4"  response="010000001000000000" foes="010000001000000000" cont="0"/>
+        <request index="5"  response="110000101000001111" foes="110000101001001111" cont="0"/>
+        <request index="6"  response="010000101000100000" foes="010000101000100000" cont="1"/>
+        <request index="7"  response="110000101000001110" foes="110000101000001110" cont="0"/>
         <request index="8"  response="010000000000000000" foes="010010000000000000" cont="0"/>
         <request index="9"  response="000000000001000000" foes="001010010011110000" cont="0"/>
         <request index="10" response="010000001000000000" foes="011010001000000000" cont="1"/>
         <request index="11" response="000000000001000000" foes="001010000011100000" cont="0"/>
         <request index="12" response="100000000000000010" foes="100000000000000010" cont="0"/>
-        <request index="13" response="100000111100001010" foes="110100111100001010" cont="0"/>
+        <request index="13" response="110000111100001010" foes="110100111100001010" cont="0"/>
         <request index="14" response="100010000000001010" foes="100010000000001010" cont="1"/>
-        <request index="15" response="100000111000001010" foes="110000111000001010" cont="0"/>
-        <request index="16" response="001010000011110000" foes="001010010111110000" cont="0"/>
+        <request index="15" response="110000111000001010" foes="110000111000001010" cont="0"/>
+        <request index="16" response="000000000000000000" foes="001010010111110000" cont="0"/>
         <request index="17" response="000000000000000000" foes="001111000010100101" cont="0"/>
     </junction>
     <junction id="JunctionExtern0" type="priority" x="-60.00" y="0.00" incLanes="EdgeExternTop_0" intLanes=":JunctionExtern0_0_0" shape="-60.00,0.00 -60.00,3.00 -60.00,0.00">
@@ -282,7 +280,7 @@
     <connection from="-E0" to=":Junction5_w0" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":Junction5_w1" to="E0" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="-E2" to=":Junction5_w1" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":Junction5_w2" to=":Junction5_c0" fromLane="0" toLane="0" tl="Junction5" linkIndex="16" dir="s" state="m"/>
+    <connection from=":Junction5_w2" to=":Junction5_c0" fromLane="0" toLane="0" tl="Junction5" linkIndex="16" dir="s" state="M"/>
     <connection from=":Junction5_w2" to="E2" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="-E3" to=":Junction5_w2" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":Junction5_w3" to="E3" fromLane="0" toLane="0" dir="s" state="M"/>

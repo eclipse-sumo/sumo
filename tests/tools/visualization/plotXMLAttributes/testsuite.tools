@@ -79,3 +79,15 @@ first_empty_file
 # error when all files are empty
 empty_files
 stops_filter_pattern
+
+# xml input contains no linebreaks
+no_linebreaks
+
+# xml input contains no linebreaks, using robust parser
+no_linebreaks_robust
+
+# xml input contains no linebreaks, using robust parser (all attributes in one element)
+no_linebreaks_robust2
+
+# split value into list
+vehroute_exitTimes

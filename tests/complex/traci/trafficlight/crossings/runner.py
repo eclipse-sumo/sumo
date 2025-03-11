@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2008-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2008-2025 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -30,6 +30,7 @@ import sumolib  # noqa
 
 traci.start([sumolib.checkBinary('sumo'),
              "-n", "input_net3.net.xml",
+             "-r", "input_routes.rou.xml",
              '--no-step-log',
              ]
             + sys.argv[1:])
@@ -58,17 +59,24 @@ def check():
 traci.trafficlight.setPhase(tlsID, 4)
 traci.trafficlight.setPhaseName(tlsID, "setByTraCI")
 traci.trafficlight.setPhaseDuration(tlsID, 23)
-print("waitingPersons", traci.trafficlight.getServedPersonCount(tlsID, 2))
 check()
 defs = traci.trafficlight.getAllProgramLogics(tlsID)
 print("numDefs=%s numPhases=%s" % (len(defs), list(map(lambda d: len(d.getPhases()), defs))))
+
 traci.trafficlight.subscribe(tlsID)
 print(traci.trafficlight.getSubscriptionResults(tlsID))
 for step in range(3, 6):
     print("step", step)
     traci.simulationStep()
     print(traci.trafficlight.getSubscriptionResults(tlsID))
+
+for _ in range(80):
+    served = [traci.trafficlight.getServedPersonCount(tlsID, i) for i, _ in enumerate(defs[0].getPhases())]
+    print("%s waitingPerPhase=%s" % (traci.simulation.getTime(), served))
+    traci.simulationStep()
+
 traci.trafficlight.setLinkState(tlsID, 4, 'u')
+
 try:
     traci.trafficlight.setLinkState(tlsID, 16, 'u')
 except traci.TraCIException as e:

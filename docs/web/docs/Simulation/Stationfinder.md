@@ -8,7 +8,7 @@ Although SUMO offers output regarding emissions and energy/fuel usage, by defaul
 Charging stations for battery electric vehicles have been introduced with the [battery device](../Models/Electric.md#defining_electric_vehicles).
 
 The stationfinder device lets equipped vehicles monitor their energy buffer (currently battery only) when traveling and reroute to nearby
-charging stations in case they won't make it to their destinations otherwise. Optionally, vehicles can break down due to low battery charge.
+charging stations in case they won't make it to their destinations otherwise. Vehicles can break down due to low battery charge (see `rescueAction` parameter).
 
 !!! note
     As of SUMO 1.21 the device implementation works only for vehicles with a battery device.
@@ -17,24 +17,28 @@ charging stations in case they won't make it to their destinations otherwise. Op
 
 The following table gives the full list of possible parameters for the stationfinder device. Each of these parameters must be specified as a child
 element of the form `<param key=device.stationfinder.<PARAMETER NAME> value=<PARAMETER VALUE>` of the appropriate demand definition element (e.g. `<vehicle ... />`, `<vType ... />`, or `<flow ... />`).
+The parameters take effect only on vehicles which have been assigned a stationfinder device by one of the [device assignment options](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#devices).
 
-| Parameter             | Type             | Range                   | Default          | Description                                                                         |
-| --------------------- | ---------------- | ----------------------- | ---------------- | ----------------------------------------------------------------------------------- |
-| rescueTime            | float (s)        | ≥0                      | 1800             | Time to wait for a rescue vehicle on the road side when the battery is empty        |
-| rescueAction          | enum             | {remove;tow;none}       | remove           | What to do with vehicles in rescue mode: `remove` remove immediately from the simulation, `tow` teleport to a charging station after waiting or do nothing using `none` |
-| reserveFactor         | float            | ≥1                      | 1.1              | Scale battery need with this factor to account for unexpected traffic situations |
-| emptyThreshold        | float            | [0;1]                   | 0.05             | Battery percentage to go into rescue mode |
-| radius                | float (s)        | ≥0                      | 180              | Search radius in travel time seconds |
-| maxEuclideanDistance  | float (m)        |                         | -1               | Euclidean search radius in meters (negative values disable this restriction) |
-| repeat                | float (s)        | ≥0                      | 60               | When to trigger a new search if no station has been found |
-| maxChargePower        | float (W)        | ≥0                      | 100000           | The maximum charging speed of the vehicle battery |
-| chargeType            | enum             | {charging}              | charging         | Type of energy transfer (not used at the moment) |
-| waitForCharge         | float (s)        | ≥0                      | 600              | After this waiting time vehicle searches for a new station when the initial one is blocked |
-| saturatedChargeLevel  | float            | [0;1]                   | 0.8              | Target state of charge after which the vehicle stops charging |
-| needToChargeLevel     | float            | [0;1]                   | 0.4              | State of charge the vehicle begins searching for charging stations |
-| replacePlannedStop    | float            | [0;inf[                 | 0                | Share of the time until the departure at the next planned stop used for charging (values >1 will cause skipping the next planned stop) |
-| maxDistanceToReplacedStop | float        | ≥0                      | 300              | Distance in meters along the network from charging station to the next planned stop |
-| chargingStrategy      | string           | {balanced;latest;none}  | none             | Chosen charging strategy (`balanced` will spread the charging across the whole stopping duration, `latest` will shift charging towards the end of the stopping duration) |
+| Parameter             | Type             | Range                     | Default          | Description                                                                         |
+| --------------------- | ---------------- | ------------------------- | ---------------- | ----------------------------------------------------------------------------------- |
+| rescueTime            | float (s)        | ≥0                        | 1800             | Time to wait for a rescue vehicle on the road side when the battery is empty        |
+| rescueAction          | enum             | {remove; tow; none}         | remove           | What to do with vehicles in rescue mode: `remove` remove immediately from the simulation, `tow` teleport to a charging station after waiting or do nothing using `none` |
+| reserveFactor         | float            | ≥1                        | 1.1              | Scale battery need with this factor to account for unexpected traffic situations |
+| emptyThreshold        | float            | [0;1]                     | 0.05             | Battery percentage to go into rescue mode |
+| radius                | float (s)        | ≥0                        | 180              | Search radius in travel time seconds |
+| maxEuclideanDistance  | float (m)        |                           | -1               | Euclidean search radius in meters (negative values disable this restriction) |
+| repeat                | float (s)        | ≥0                        | 60               | When to trigger a new search if no station has been found |
+| maxChargePower        | float (W)        | ≥0                        | 100000           | The maximum charging speed of the vehicle battery |
+| chargeType            | enum             | {charging}                | charging         | Type of energy transfer (not used at the moment) |
+| waitForCharge         | float (s)        | ≥0                        | 600              | After this waiting time vehicle searches for a new station when the initial one is blocked |
+| saturatedChargeLevel  | float            | [0;1]                     | 0.8              | Target state of charge after which the vehicle stops charging |
+| needToChargeLevel     | float            | [0;1]                     | 0.4              | State of charge the vehicle begins searching for charging stations |
+| replacePlannedStop    | float            | [0;inf[                   | 0                | Share of the time until the departure at the next planned stop used for charging (values >1 will cause skipping the next planned stop) |
+| maxDistanceToReplacedStop | float        | ≥0                        | 300              | Distance in meters along the network from charging station to the next planned stop |
+| chargingStrategy      | string           | {balanced; latest; none}    | none             | Chosen charging strategy (`balanced` will spread the charging across the whole stopping duration, `latest` will shift charging towards the end of the stopping duration) |
+| opportunisticChargeLevel | float         | [0;1]                     | 0                | State of charge below which the vehicle wants to charge nearby planned stops (on the same edge as the planned stop) although not needed to complete its route (named opportunistic charging) |
+| minOpportunityDuration | float (s)       | ≥0                        | 3600             | The minimum expected duration of a planned stop to be used for opportunistic charging |
+| checkEnergyForRoute   | bool             | {true; false}             | false            | Check whether the current battery charge may be enough to complete the route and thus skip searching for charging stations |
 
 ## Decision logic for charging
 
@@ -42,7 +46,8 @@ This paragraph shall convey the major conditions used in the decision logic of t
 vehicle to charge. The user can configure multiple thresholds to change how different vehicles behave.
 
 - As long as the battery state of charge (SoC) is above `needToChargeLevel`, no action is taken. This condition is rechecked each time the SoC has lowered by 10%.
-- When the SoC reaches `needToChargeLevel`, possible charging stations are searched and evaluated using the [target function](#charging_station_target_function). If a valid charging station is found within `radius` travel time (and optionally within `maxEuclideanDistance` air line), the vehicle is immediately rerouted to go there. Other programmed stops will be served after charging.
+- If the stationfinder device estimates the battery charge is still sufficient to reach the destination and keep at least the `emptyThreshold` state of charge, then no action is taken. This check can be deactivated by setting `checkEnergyForRoute` to `false`.
+- When the SoC reaches `needToChargeLevel`, possible charging stations are searched and evaluated using the [target function](#charging_station_target_function). Only charging stations offering the right charging type (such as charging the vehicle battery) are considered valid destinations. If the destination can presumably still be reached with the current SoC and without using the SoC below `emptyThreshold` then no charging station is targeted. If a valid charging station is found within `radius` travel time (and optionally within `maxEuclideanDistance` air line), the vehicle is immediately rerouted to go there. Other programmed stops will be served after charging.
 - If no charging station is available, the vehicle continues its original route. It will search again after `repeat` seconds.
 - If the charging station is occupied on arrival, the vehicle will wait `waitForCharge` seconds before looking for an alternative site.
 - The vehicle will charge enough to complete the planned route multiplied by `reserveFactor` and try to keep the SoC above `emptyThreshold`.
@@ -57,7 +62,7 @@ The available components and their weight factors are described in the table bel
 
 | Parameter Name              | Default value | Description                                                              | Inverse (Bigger is better) |
 | --------------------------- | ------------- | ------------------------------------------------------------------------ | -------------------------- |
-| charging.probability.weight  | 0             | the influence of the  | yes                        |
+| charging.probability.weight  | 0             | currently not applicable  | yes                        |
 | charging.capacity.weight     | 0             | The total capacity of the charging station                              | yes                        |
 | charging.absfreespace.weight | 0             | The absolute number of free spaces                                       | yes                        |
 | charging.relfreespace.weight | 0             | The relative number of free spaces                                       | yes                        |
@@ -86,7 +91,7 @@ element of the form `<param key=device.stationfinder.<PARAMETER NAME> value=<PAR
 ### Inspect the target function result
 The target function value of each searched charging station of the vehicle can be inspected in [sumo-gui](../sumo-gui.md). Proceed with the following steps to see the results next to the charging stations:
 
-- Open the vehicle visulization settings](../sumo-gui.md#vehicle_visualisation_settings) and check "Show charging info"
+- Open the vehicle visualization settings](../sumo-gui.md#vehicle_visualisation_settings) and check "Show charging info"
 - Move to vehicle of interest and open its context menu by right click, then choose "Show Current Route"
 
 Some charging stations may not show target function results. They may be excluded beforehand due to stationfinder device settings like `radius` and `maxEuclideanDistance`.
@@ -107,10 +112,13 @@ The stationfinder device can be configured using the parameters `rescueTime` and
 - `rescueTime="TIME" rescueAction="tow"`: the vehicle will come to a standstill and wait for `TIME` seconds (waiting time for a tow truck). Then it will be teleported to a free charging point, charge and continue its route. Thus the travel from the break down to the charging station is not included in [emissions output](../Simulation/Output/EmissionOutput.md).
 
 ## Interaction with other planned stops
-By default, the stationfinder device will add stops at charging stations without changing any other planned stops. This means the vehicle may need longer to complete its route due to additional charging stops. Under real-world conditions users may prefer charging the vehicle close to their activity location and walk the remaining distance.
+By default, the stationfinder device will add stops at charging stations without changing any other planned stops. However it checks if there are planned stops at charging stations which have not been created by the device itself.
+In case a charging need is detected and the vehicle stops next at a charging station, the device will refrain from planning an additional stop if the battery capacity is assumed sufficient to reach said stop.
+
+Addind additional stops may influence the vehicle's travel time. Under real-world conditions users may prefer charging the vehicle close to their activity location and walk the remaining distance.
 This can be modeled using the parameters `replacePlannedStop` and `maxDistanceToReplacedStop` and stops with defined departure times through the `until` attribute (see [stops](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#stops_and_waypoints)):
 
-- `replacePlannedStop` > 0: Defines the share of stopping time to be transferred from the the next planned stop to charging. If the value exceeds 1, the next planned stop is skipped. If the value is set to 0, no stopping time is transferred.
+- `replacePlannedStop` > 0: Defines the share of stopping time to be transferred from the next planned stop to charging. If the value exceeds 1, the next planned stop is skipped. If the value is set to 0, no stopping time is transferred.
 - `maxDistanceToReplacedStop` defines the acceptable distance in meters between the charging station and the stop modeling the activity location. If the distance is above this threshold, no stopping time will be transferred
 
 ### Charging strategies
@@ -122,3 +130,23 @@ Currently two charging strategies can be set in the stationfinder device using t
 
 - `chargingStrategy="balanced"`: limit the charging power such that charging to the target SoC needs the whole stopping duration ("flat" charging curve)
 - `chargingStrategy="latest"`: still charge at the maximum charge rate but rather than start charging immediately after arrival, start the latest time possible to reach the target SoC
+
+# TraCI
+The internal state of the stationfinder device can be accessed directly using
+[*traci.vehicle.getParameter*](../TraCI/Vehicle_Value_Retrieval.md#supported_device_parameters)
+and
+[*traci.vehicle.setParameter*](../TraCI/Change_Vehicle_State.md#supported_device_parameters).
+
+Some of the device parameters explained above and more **read-only** properties are available (Note that you need to supply the full name `device.stationfinder.<PARAMETER NAME>` to
+the TraCI function):
+
+| Parameter             | Get             | Set               | Description                                                                         |
+| --------------------- | --------------- | ----------------- | ----------------------------------------------------------------------------------- |
+| chargingStation       | yes             | no                | ID of the charging station the vehicle is heading to (empty string elsewise)        |
+| batteryNeed           | yes             | no                | Estimated energy needed for completing the remaining route                          |
+| needToChargeLevel     | yes             | yes               | See [above](#configuration)                                                         |
+| saturatedChargeLevel  | yes             | yes               | See [above](#configuration)                                                         |
+| waitForCharge         | yes             | yes               | See [above](#configuration)                                                         |
+| repeat                | yes             | yes               | See [above](#configuration)                                                         |
+| radius                | yes             | yes               | See [above](#configuration)                                                         |
+| reserveFactor         | yes             | yes               | See [above](#configuration)                                                         |

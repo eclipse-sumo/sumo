@@ -58,7 +58,7 @@ Make sure [netconvert](../netconvert.md) is somewhere in your
 `PATH` and call
 
 ```
-netconvert --node-files=hello.nod.xml --edge-files=hello.edg.xml --output-file=hello.net.xml
+netconvert --node-files=hello.nod.xml --edge-files=hello.edg.xml --output-file=hello.net.xml
 ```
 
 This will generate our network called `hello.net.xml`.
@@ -109,13 +109,13 @@ Now we glue everything together into a configuration file
 Saving this to `hello.sumocfg` we can start the simulation by either
 
 ```
-sumo -c hello.sumocfg
+sumo -c hello.sumocfg
 ```
 
 or with GUI by
 
 ```
-sumo-gui -c hello.sumocfg
+sumo-gui -c hello.sumocfg
 ```
 
 When simulating with GUI it's useful to add a gui-settings file, so you

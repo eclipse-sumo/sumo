@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -17,20 +17,16 @@
 ///
 // The Widget for remove network-elements
 /****************************************************************************/
-#include <config.h>
 
-#include <netedit/GNENet.h>
-#include <netedit/GNEUndoList.h>
-#include <netedit/GNEViewNet.h>
-#include <netedit/GNEViewParent.h>
 #include <netedit/GNEApplicationWindow.h>
+#include <netedit/GNENet.h>
+#include <netedit/GNETagProperties.h>
+#include <netedit/GNEUndoList.h>
 #include <netedit/elements/additional/GNEPoly.h>
 #include <netedit/elements/additional/GNETAZ.h>
 #include <netedit/elements/network/GNEConnection.h>
 #include <netedit/elements/network/GNECrossing.h>
 #include <utils/gui/div/GUIDesigns.h>
-#include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/foxtools/MFXMenuHeader.h>
 
 #include "GNEDeleteFrame.h"
 
@@ -97,7 +93,7 @@ GNEDeleteFrame::SubordinatedElements::SubordinatedElements(const GNEJunction* ju
 GNEDeleteFrame::SubordinatedElements::SubordinatedElements(const GNEEdge* edge) :
     SubordinatedElements(edge, edge->getNet()->getViewNet(), edge) {
     // add the number of subodinated elements of child lanes
-    for (const auto& lane : edge->getLanes()) {
+    for (const auto& lane : edge->getChildLanes()) {
         addValuesFromSubordinatedElements(this, lane);
     }
 }
@@ -209,25 +205,21 @@ GNEDeleteFrame::SubordinatedElements::openWarningDialog(const std::string& type,
     // declare plural depending of "number"
     const std::string plural = (number > 1) ? "s" : "";
     // declare header
-    const std::string header = "Problem deleting " + myAttributeCarrier->getTagProperty().getTagStr() + " '" + myAttributeCarrier->getID() + "'";
+    const std::string header = "Problem deleting " + myAttributeCarrier->getTagProperty()->getTagStr() + " '" + myAttributeCarrier->getID() + "'";
     // declare message
     std::string msg;
     // set message depending of isChild
     if (isChild) {
-        msg = myAttributeCarrier->getTagProperty().getTagStr() + " '" + myAttributeCarrier->getID() +
+        msg = myAttributeCarrier->getTagProperty()->getTagStr() + " '" + myAttributeCarrier->getID() +
               "' cannot be deleted because it has " + toString(number) + " " + type + " element" + plural + ".\n" +
               "To delete it, uncheck 'protect " + type + " elements'.";
     } else {
-        msg = myAttributeCarrier->getTagProperty().getTagStr() + " '" + myAttributeCarrier->getID() +
+        msg = myAttributeCarrier->getTagProperty()->getTagStr() + " '" + myAttributeCarrier->getID() +
               "' cannot be deleted because it is part of " + toString(number) + " " + type + " element" + plural + ".\n" +
               "To delete it, uncheck 'protect " + type + " elements'.";
     }
-    // write warning
-    WRITE_DEBUG("Opened FXMessageBox " + header);
     // open message box
     FXMessageBox::warning(myViewNet->getApp(), MBOX_OK, header.c_str(), "%s", msg.c_str());
-    // write warning if netedit is running in testing mode
-    WRITE_DEBUG("Closed FXMessageBox " + header);
 }
 
 // ---------------------------------------------------------------------------
@@ -442,8 +434,6 @@ GNEDeleteFrame::removeAttributeCarrier(const GNEViewNetHelper::ViewObjectsSelect
     }
     // enable update geometry
     myViewNet->getNet()->enableUpdateGeometry();
-    // update view to show changes
-    myViewNet->updateViewNet();
 }
 
 
@@ -453,13 +443,13 @@ GNEDeleteFrame::removeGeometryPoint(const GNEViewNetHelper::ViewObjectsSelector&
     const Position clickedPosition = myViewNet->getPositionInformation();
     // filter elements with geometry points
     for (const auto& AC : viewObjects.getAttributeCarriers()) {
-        if (AC->getTagProperty().getTag() == SUMO_TAG_EDGE) {
+        if (AC->getTagProperty()->getTag() == SUMO_TAG_EDGE) {
             viewObjects.getEdgeFront()->removeGeometryPoint(clickedPosition, myViewNet->getUndoList());
             return true;
-        } else if (AC->getTagProperty().getTag() == SUMO_TAG_POLY) {
+        } else if (AC->getTagProperty()->getTag() == SUMO_TAG_POLY) {
             viewObjects.getPolyFront()->removeGeometryPoint(clickedPosition, myViewNet->getUndoList());
             return true;
-        } else if (AC->getTagProperty().getTag() == SUMO_TAG_TAZ) {
+        } else if (AC->getTagProperty()->getTag() == SUMO_TAG_TAZ) {
             viewObjects.getTAZFront()->removeGeometryPoint(clickedPosition, myViewNet->getUndoList());
             return true;
         }
@@ -489,16 +479,16 @@ GNEDeleteFrame::selectedACsToDelete() const {
     if (myViewNet->getEditModes().isCurrentSupermodeNetwork()) {
         // iterate over junctions
         for (const auto& junction : myViewNet->getNet()->getAttributeCarriers()->getJunctions()) {
-            if (junction.second.second->isAttributeCarrierSelected()) {
+            if (junction.second->isAttributeCarrierSelected()) {
                 return true;
             }
             // since we iterate over all junctions, it's only necessary to iterate over incoming edges
-            for (const auto& edge : junction.second.second->getGNEIncomingEdges()) {
+            for (const auto& edge : junction.second->getGNEIncomingEdges()) {
                 if (edge->isAttributeCarrierSelected()) {
                     return true;
                 }
                 // check lanes
-                for (const auto& lane : edge->getLanes()) {
+                for (const auto& lane : edge->getChildLanes()) {
                     if (lane->isAttributeCarrierSelected()) {
                         return true;
                     }
@@ -511,7 +501,7 @@ GNEDeleteFrame::selectedACsToDelete() const {
                 }
             }
             // check crossings
-            for (const auto& crossing : junction.second.second->getGNECrossings()) {
+            for (const auto& crossing : junction.second->getGNECrossings()) {
                 if (crossing->isAttributeCarrierSelected()) {
                     return true;
                 }

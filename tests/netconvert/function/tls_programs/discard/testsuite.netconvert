@@ -1,0 +1,20 @@
+# should not discard anything (so that plain can be used for patching)
+input_plain_discard_simple
+
+# should not discard anything (so that plain can be used for patching)
+input_plain_discard_simple_actuated
+
+# should not discard anything (so that plain can be used for patching)
+input_plain_discard_loaded
+
+# discard simple tls
+input_net_discard_simple
+
+# discard all tls
+input_net_discard_loaded
+
+# discard simple tls
+input_net_discard_simple_actuated
+
+# discard simple tls
+input_net_discard_simple_actuated_rebuild

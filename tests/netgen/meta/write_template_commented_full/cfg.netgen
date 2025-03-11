@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-06-11 22:14:38 by Eclipse SUMO netgenerate Version v1_20_0+0443-233e48e5c88
+<!-- generated on 2025-02-24 08:20:22 by Eclipse SUMO netgenerate Version v1_22_0+0456-7818e10d3bc
 -->
 
 <netgenerateConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
@@ -102,22 +102,22 @@
         <!-- Probability for roads to continue at each node -->
         <rand.connectivity value="0.95" synonymes="connectivity rand-connectivity" type="FLOAT"/>
 
-        <!-- Probability for a node having exactly 1 neighbor -->
+        <!-- Probability for a node having at most 1 neighbor -->
         <rand.neighbor-dist1 value="0" synonymes="dist1 rand-neighbor-dist1" type="FLOAT"/>
 
-        <!-- Probability for a node having exactly 2 neighbors -->
+        <!-- Probability for a node having at most 2 neighbors -->
         <rand.neighbor-dist2 value="0" synonymes="dist2 rand-neighbor-dist2" type="FLOAT"/>
 
-        <!-- Probability for a node having exactly 3 neighbors -->
+        <!-- Probability for a node having at most 3 neighbors -->
         <rand.neighbor-dist3 value="10" synonymes="dist3 rand-neighbor-dist3" type="FLOAT"/>
 
-        <!-- Probability for a node having exactly 4 neighbors -->
+        <!-- Probability for a node having at most 4 neighbors -->
         <rand.neighbor-dist4 value="10" synonymes="dist4 rand-neighbor-dist4" type="FLOAT"/>
 
-        <!-- Probability for a node having exactly 5 neighbors -->
+        <!-- Probability for a node having at most 5 neighbors -->
         <rand.neighbor-dist5 value="2" synonymes="dist5 rand-neighbor-dist5" type="FLOAT"/>
 
-        <!-- Probability for a node having exactly 6 neighbors -->
+        <!-- Probability for a node having at most 6 neighbors -->
         <rand.neighbor-dist6 value="1" synonymes="dist6 rand-neighbor-dist6" type="FLOAT"/>
 
         <!-- Place nodes on a regular grid with spacing rand.min-distance -->
@@ -168,7 +168,7 @@
         <!-- The generated net will be written to FILE using Amitran format -->
         <amitran-output value="" type="FILE"/>
 
-        <!-- The generated net will be written to FILE using MATsim format -->
+        <!-- The generated net will be written to FILE using MATSim format -->
         <matsim-output value="" type="FILE"/>
 
         <!-- The generated net will be written to FILE using OpenDRIVE format -->
@@ -204,13 +204,13 @@
         <!-- Set the length of generated turning lanes to FLOAT -->
         <turn-lanes.length value="20" type="FLOAT"/>
 
-        <!-- Apply random spatial perturbation in x direction according the the given distribution -->
+        <!-- Apply random spatial perturbation in x direction according to the given distribution -->
         <perturb-x value="0" type="STR"/>
 
-        <!-- Apply random spatial perturbation in y direction according the the given distribution -->
+        <!-- Apply random spatial perturbation in y direction according to the given distribution -->
         <perturb-y value="0" type="STR"/>
 
-        <!-- Apply random spatial perturbation in z direction according the the given distribution -->
+        <!-- Apply random spatial perturbation in z direction according to the given distribution -->
         <perturb-z value="0" type="STR"/>
 
         <!-- Defines the probability to build a reverse edge -->
@@ -363,6 +363,9 @@
         <!-- The default length when overriding connection lengths -->
         <default.connection-length value="-1" type="FLOAT"/>
 
+        <!-- Whether/where connections should have an internal junction -->
+        <default.connection.cont-pos value="-1" type="FLOAT"/>
+
         <!-- The default algorithm for computing right of way rules (&apos;default&apos;, &apos;edgePriority&apos;) -->
         <default.right-of-way value="default" type="STR"/>
 
@@ -480,6 +483,9 @@
         <!-- Does not instantiate traffic lights at geometry-like nodes -->
         <tls.discard-simple value="false" type="BOOL"/>
 
+        <!-- List rail classes that may run without rail signals -->
+        <railway.signal.permit-unsignalized value="tram,cable_car" type="STR[]"/>
+
     </tls_building>
 
     <edge_removal>
@@ -503,6 +509,9 @@
 
         <!-- Only keep edges which are located within the given boundary (given either as GEODETIC corner coordinates &lt;lon-min,lat-min,lon-max,lat-max&gt; or as polygon &lt;lon0,lat0,lon1,lat1,...&gt;) -->
         <keep-edges.in-geo-boundary value="" type="STR[]"/>
+
+        <!-- Only keep lanes with width in meters &gt; FLOAT -->
+        <keep-lanes.min-width value="0.01" type="FLOAT"/>
 
     </edge_removal>
 
@@ -554,6 +563,9 @@
 
         <!-- Determines the maximal distance for joining junctions (defaults to 10) -->
         <junctions.join-dist value="10" type="FLOAT"/>
+
+        <!-- The angular threshold in degress for rejection of parallel edges when joining junctions -->
+        <junctions.join.parallel-threshold value="30" type="FLOAT"/>
 
         <!-- Joins junctions that have the same coordinates even if not connected -->
         <junctions.join-same value="false" type="BOOL"/>
@@ -635,6 +647,9 @@
 
         <!-- At uncontrolled nodes, do not build crossings across edges with a speed above the threshold -->
         <crossings.guess.speed-threshold value="13.89" type="FLOAT"/>
+
+        <!-- Give priority to guessed crossings at roundabouts -->
+        <crossings.guess.roundabout-priority value="true" type="BOOL"/>
 
         <!-- Always build walking areas even if there are no crossings -->
         <walkingareas value="false" type="BOOL"/>

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -119,7 +119,7 @@ GUICalibrator::GUIManip_Calibrator::GUIManip_Calibrator(
                           ICON_BEFORE_TEXT | LAYOUT_SIDE_TOP | LAYOUT_CENTER_Y,
                           0, 0, 0, 0,   2, 2, 0, 0);
         myPredefinedValues =
-            new MFXComboBoxIcon(gf2, 10, false, GUIDesignComboBoxVisibleItemsSmall, this, MID_PRE_DEF,
+            new MFXComboBoxIcon(gf2, 10, false, GUIDesignComboBoxVisibleItems, this, MID_PRE_DEF,
                                 ICON_BEFORE_TEXT | LAYOUT_SIDE_TOP | LAYOUT_CENTER_Y | COMBOBOX_STATIC);
         myPredefinedValues->appendIconItem("20 km/h");
         myPredefinedValues->appendIconItem("40 km/h");
@@ -263,16 +263,21 @@ GUICalibrator::GUICalibrator(MSCalibrator* calibrator) :
     GUIGlObject_AbstractAdd(GLO_CALIBRATOR, calibrator->getID(), GUIIconSubSys::getIcon(GUIIcon::CALIBRATOR)),
     myCalibrator(calibrator),
     myShowAsKMH(true) {
-    const std::vector<MSLane*>& destLanes = calibrator->myEdge->getLanes();
-    const MSLane* lane = calibrator->myLane;
-    const double pos = calibrator->myPos;
-    for (std::vector<MSLane*>::const_iterator i = destLanes.begin(); i != destLanes.end(); ++i) {
-        if (lane == nullptr || (*i) == lane) {
-            const PositionVector& v = (*i)->getShape();
-            myFGPositions.push_back(v.positionAtOffset(pos));
-            myBoundary.add(v.positionAtOffset(pos));
-            myFGRotations.push_back(-v.rotationDegreeAtOffset(pos));
+    if (calibrator->getEdge() != nullptr) {
+        const std::vector<MSLane*>& destLanes = calibrator->getEdge()->getLanes();
+        const MSLane* lane = calibrator->getLane();
+        const double pos = calibrator->myPos;
+        for (std::vector<MSLane*>::const_iterator i = destLanes.begin(); i != destLanes.end(); ++i) {
+            if (lane == nullptr || (*i) == lane) {
+                const PositionVector& v = (*i)->getShape();
+                myFGPositions.push_back(v.positionAtOffset(pos));
+                myBoundary.add(v.positionAtOffset(pos));
+                myFGRotations.push_back(-v.rotationDegreeAtOffset(pos));
+            }
         }
+    }
+    if (calibrator->myNode != nullptr) {
+        myBoundary.add(calibrator->myNode->getPosition());
     }
 }
 

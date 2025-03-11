@@ -61,7 +61,7 @@ A lane-based emissions output is defined way within an {{AdditionalFile}} as fol
 ### Value Descriptions
 
 !!! caution
-    Please note the the unit of fuel-related outputs changed with SUMO 1.14.0 from liters to milligram.
+    Please note that the unit of fuel-related outputs changed with SUMO 1.14.0 from liters to milligram.
 	For the old behavior use the option **--emissions.volumetric-fuel**.
 
 | Name                | Type                 | Description                     |
@@ -84,14 +84,14 @@ A lane-based emissions output is defined way within an {{AdditionalFile}} as fol
 | HC_normed          | g/km/h               | HC emissions during this interval normed by time and edge/lane length                                                                                                             |
 | PMx_normed         | g/km/h               | PM<sub>x</sub> emissions during this interval normed by time and edge/lane length                                                                                                 |
 | NOx_normed         | g/km/h               | NO<sub>x</sub> emissions during this interval normed by time and edge/lane length                                                                                                 |
-| fuel_normed        | l/km/h               | fuel consumption during this interval normed by time and edge/lane length                                                                                                         |
+| fuel_normed        | g/km/h               | fuel consumption during this interval normed by time and edge/lane length                                                                                                         |
 | electricity_normed | W/km                 | electricity consumption during this interval normed by time and edge/lane length                                                                                                  |
 | CO_perVeh          | mg                   | Assumed CO emissions a vehicle would produce when passing the edge                                                                                                                |
 | CO2_perVeh         | mg                   | Assumed CO<sub>2</sub> emissions a vehicle would produce when passing the edge                                                                                                    |
 | HC_perVeh          | mg                   | Assumed HC emissions a vehicle would produce when passing the edge                                                                                                                |
 | PMx_perVeh         | mg                   | Assumed PM<sub>x</sub> emissions a vehicle would produce when passing the edge                                                                                                    |
 | NOx_perVeh         | mg                   | Assumed NO<sub>x</sub> emissions a vehicle would produce when passing the edge                                                                                                    |
-| fuel_perVeh        | ml                   | Assumed fuel consumption a vehicle would need when passing the edge                                                                                                               |
+| fuel_perVeh        | mg                   | Assumed fuel consumption a vehicle would need when passing the edge                                                                                                               |
 | electricity_perVeh | Wh                   | Assumed electricity consumption a vehicle would need when passing the edge     |
 
 ## Notes
@@ -119,9 +119,13 @@ Notes:
   will cover the complete simulation if no values for begin/end are
   given.
 
+!!! note
+    The **perVeh** outputs are normalized to the mean value that vehicle would consume when driving the full length of the edge. This may leader to a higer value than would be expected from the *abs* output when multiplied by the number of vehicles, whenever vehicles depart or arrive on that edge and do not drive the full length.
+  
+
 ## See Also
 
-- [edge/lane-based network performace measures
+- [edge/lane-based network performance measures
   output](../../Simulation/Output/Lane-_or_Edge-based_Traffic_Measures.md)
   and [edge/lane-based vehicular noise emission
   output](../../Simulation/Output/Lane-_or_Edge-based_Noise_Measures.md)

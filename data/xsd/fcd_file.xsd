@@ -45,6 +45,11 @@
             <xsd:attribute name="leaderID" type="xsd:string" use="optional"/>
             <xsd:attribute name="leaderSpeed" type="floatType" use="optional"/>
             <xsd:attribute name="leaderGap" type="floatType" use="optional"/>
+            <xsd:attribute name="segment" type="xsd:int" use="optional"/>
+            <xsd:attribute name="queue" type="xsd:int" use="optional"/>
+            <xsd:attribute name="entryTime" type="timeType" use="optional"/>
+            <xsd:attribute name="eventTime" type="timeType" use="optional"/>
+            <xsd:attribute name="blockTime" type="timeTypeWithErrorValue" use="optional"/>
         </xsd:complexType>
     </xsd:element>
     <xsd:complexType name="transportableType">

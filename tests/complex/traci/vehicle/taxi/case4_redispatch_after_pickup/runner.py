@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2008-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2008-2025 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -30,6 +30,10 @@ import sumolib  # noqa
 import traci.constants as tc  # noqa
 
 
+def get_reservation_ids():
+    return [r.id for r in traci.person.getTaxiReservations(0)]
+
+
 sumoBinary = sumolib.checkBinary('sumo')
 traci.start([sumoBinary,
              "-n", "input_net4.net.xml",
@@ -48,7 +52,7 @@ print("taxiFleet", fleet)
 reservations = traci.person.getTaxiReservations(0)
 print("reservations", reservations)
 
-reservation_ids = [r.id for r in reservations]
+reservation_ids = get_reservation_ids()
 a, b, c = reservation_ids
 # plan the following stops
 # pickup a
@@ -59,8 +63,9 @@ a, b, c = reservation_ids
 # dropoff c
 traci.vehicle.dispatchTaxi(fleet[0], [a])
 
-while traci.simulation.getMinExpectedNumber() > 0:
+while a in get_reservation_ids() and traci.simulation.getTime() < 150:
     if traci.simulation.getTime() == 20:
         traci.vehicle.dispatchTaxi(fleet[0], [a])
     traci.simulationStep()
+    print(traci.simulation.getTime(), get_reservation_ids(), "ids:", traci.person.getIDList())
 traci.close()

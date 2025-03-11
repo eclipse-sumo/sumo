@@ -33,3 +33,9 @@ actuated_conditions
 
 # Overwrite signal program with TraCI-generated phases twice
 setLogic_repeated
+
+# try to set an invalid program
+setLogic_duration0
+
+# the function should reset when switching the program (#15753)
+getSpentDuration

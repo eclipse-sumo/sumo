@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2008-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2008-2025 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -38,12 +38,15 @@ print("parkingareas", traci.parkingarea.getIDList())
 print("parkingarea count", traci.parkingarea.getIDCount())
 print("stop attributes:")
 for stop in traci.parkingarea.getIDList():
-    print("  stop=%s lane=%s startPos=%s endPos=%s name=%s" % (
+    print("  stop=%s lane=%s startPos=%s endPos=%s name=%s acceptedBadges=%s" % (
         stop,
         traci.parkingarea.getLaneID(stop),
         traci.parkingarea.getStartPos(stop),
         traci.parkingarea.getEndPos(stop),
-        traci.parkingarea.getName(stop)))
+        traci.parkingarea.getName(stop),
+        traci.parkingarea.getAcceptedBadges(stop)))
+    traci.parkingarea.setAcceptedBadges(stop, [])
+    print("    changed acceptedBadges=%s" % (" ".join(traci.parkingarea.getAcceptedBadges(stop))))
 
 for step in range(50):
     if step % 5 == 0:

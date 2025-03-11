@@ -163,8 +163,12 @@ For an option value of *p*, The time penalty is computed by scaling the
 expected waiting time for random arrival within the cycle
 
 ```
-travelTimePenalty = p * (redTime * redTime + redTime) / (2 * cycleTime)
+travelTimePenalty = p * (redTime * redTime + redTime) / (2 * cycleTime)
 ```
+
+!!! caution
+    When edges ahead of a traffic light are shorter than 15m an [unrealistic reduction in traffic flow](https://github.com/eclipse-sumo/sumo/issues/16014) will result from the use of this option and a warning will be given.
+    To identify affected edges in netedit, the tool `net/netcheck.py net.net.xml --short-tls-edges --selection-output selection.txt` can be used.
 
 ### TLS-Flow-Penalty
 When setting **--meso-tls-flow-penalty** {{DT_FLOAT}}: to a value \> 0 (default is 0), a headway penalty is applied
@@ -174,8 +178,8 @@ according to the proportion of green time to cycle time.
 Higher penalty values can be used to reduce the flow even further while lower values increase the maximum flow.
 The latter is useful if the green split is not known exactly (because the traffic light program is guessed heuristically).
 ```
-greenFraction = MIN2(1.0, (cycleTime - redDuration) / cycleTime) / penalty))
-headway = defaultHeadway / greenFraction
+greenFraction = MIN2(1.0, (cycleTime - redDuration) / cycleTime) / penalty))
+headway = defaultHeadway / greenFraction
 ```
 
 Note, that the maximum flow cannot exceed the value at permanent green light regardless of penalty value.

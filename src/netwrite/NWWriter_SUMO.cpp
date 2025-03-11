@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -383,6 +383,7 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice& into, const NBEdgeCont& ec, cons
             into.closeTag(); // close the last edge
             // third pass: write via edges
             if (haveVia) {
+                std::string viaEdgeID = "";
                 for (const NBEdge::Connection& k : elv) {
                     if (!k.haveVia) {
                         continue;
@@ -391,24 +392,32 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice& into, const NBEdgeCont& ec, cons
                         assert(false); // should never happen. tell me when it does
                         continue;
                     }
-                    const NBEdge::Lane& successor = k.toEdge->getLanes()[k.toLane];
-                    into.openTag(SUMO_TAG_EDGE);
-                    into.writeAttr(SUMO_ATTR_ID, k.viaID);
-                    into.writeAttr(SUMO_ATTR_FUNCTION, SumoXMLEdgeFunc::INTERNAL);
-                    if (k.edgeType != "") {
-                        into.writeAttr(SUMO_ATTR_TYPE, k.edgeType);
+                    if (viaEdgeID != k.viaID) {
+                        if (viaEdgeID != "") {
+                            // close the previous edge
+                            into.closeTag();
+                        }
+                        viaEdgeID = k.viaID;
+                        // open a new edge
+                        into.openTag(SUMO_TAG_EDGE);
+                        into.writeAttr(SUMO_ATTR_ID, viaEdgeID);
+                        into.writeAttr(SUMO_ATTR_FUNCTION, SumoXMLEdgeFunc::INTERNAL);
+                        if (k.edgeType != "") {
+                            into.writeAttr(SUMO_ATTR_TYPE, k.edgeType);
+                        }
                     }
+                    const NBEdge::Lane& successor = k.toEdge->getLanes()[k.toLane];
                     SVCPermissions permissions = (k.permissions != SVC_UNSPECIFIED) ? k.permissions : (
                                                      successor.permissions & e->getPermissions(k.fromLane));
                     const double width = e->getInternalLaneWidth(n, k, successor, true);
-                    writeLane(into, k.viaID + "_0", k.vmax, k.friction, permissions, successor.preferred,
+                    writeLane(into, k.getInternalViaLaneID(), k.vmax, k.friction, permissions, successor.preferred,
                               SVCAll, SVCAll, // #XXX todo
                               NBEdge::UNSPECIFIED_OFFSET, NBEdge::UNSPECIFIED_OFFSET,
                               StopOffset(), width, k.viaShape, &k,
                               MAX2(k.viaLength, POSITION_EPS), // microsim needs positive length
                               0, "", "");
-                    into.closeTag();
                 }
+                into.closeTag();
             }
         }
     }
@@ -556,7 +565,7 @@ NWWriter_SUMO::writeLane(OutputDevice& into, const std::string& lID,
     }
     writePreferences(into, preferred);
     // some further information
-    into.writeAttr(SUMO_ATTR_SPEED, speed);
+    into.writeAttr(SUMO_ATTR_SPEED, MAX2(0.0, speed));
     if (friction != NBEdge::UNSPECIFIED_FRICTION) {
         into.writeAttr(SUMO_ATTR_FRICTION, friction);
     }
@@ -574,6 +583,8 @@ NWWriter_SUMO::writeLane(OutputDevice& into, const std::string& lID,
         into.writeAttr(SUMO_ATTR_CUSTOMSHAPE, true);
     }
     if (endOffset > 0 || startOffset > 0) {
+        startOffset = MIN2(startOffset, shape.length() - POSITION_EPS);
+        endOffset = MIN2(endOffset, shape.length() - startOffset - POSITION_EPS);
         assert(startOffset + endOffset < shape.length());
         shape = shape.getSubpart(startOffset, shape.length() - endOffset);
     }
@@ -645,7 +656,7 @@ NWWriter_SUMO::writeJunction(OutputDevice& into, const NBNode& n) {
                 if (!(*k).haveVia) {
                     intLanes.push_back((*k).getInternalLaneID());
                 } else {
-                    intLanes.push_back((*k).viaID + "_0");
+                    intLanes.push_back((*k).getInternalViaLaneID());
                 }
             }
         }
@@ -696,7 +707,9 @@ NWWriter_SUMO::writeInternalNodes(OutputDevice& into, const NBNode& n) {
         for (std::vector<NBEdge::Connection>::const_iterator k = elv.begin(); k != elv.end(); ++k) {
             if ((*k).toEdge != nullptr) {
                 internalLaneIDs.push_back((*k).getInternalLaneID());
-                viaIDs[(*k).getInternalLaneID()] = ((*k).viaID);
+                if ((*k).viaID != "") {
+                    viaIDs[(*k).getInternalLaneID()] = ((*k).getInternalViaLaneID());
+                }
             }
         }
     }
@@ -711,7 +724,7 @@ NWWriter_SUMO::writeInternalNodes(OutputDevice& into, const NBNode& n) {
                 continue;
             }
             Position pos = (*k).shape[-1];
-            into.openTag(SUMO_TAG_JUNCTION).writeAttr(SUMO_ATTR_ID, (*k).viaID + "_0");
+            into.openTag(SUMO_TAG_JUNCTION).writeAttr(SUMO_ATTR_ID, (*k).getInternalViaLaneID());
             into.writeAttr(SUMO_ATTR_TYPE, SumoXMLNodeType::INTERNAL);
             NWFrame::writePositionLong(pos, into);
             std::string incLanes = (*k).getInternalLaneID();
@@ -722,7 +735,7 @@ NWWriter_SUMO::writeInternalNodes(OutputDevice& into, const NBNode& n) {
                     const int index = StringUtils::toInt(incLane.substr(1));
                     incLane = internalLaneIDs[index];
                     if (viaIDs[incLane] != "") {
-                        foeIDs.push_back(viaIDs[incLane] + "_0");
+                        foeIDs.push_back(viaIDs[incLane]);
                     }
                 }
                 incLanes += " " + incLane;
@@ -851,8 +864,9 @@ NWWriter_SUMO::writeInternalConnections(OutputDevice& into, const NBNode& n) {
                     linkIndex2 = c.tlLinkIndex2;
                     tlID = c.tlID;
                 }
-                writeInternalConnection(into, c.id, c.toEdge->getID(), c.internalLaneIndex, c.toLane, c.viaID + "_0", dir, tlID, linkIndex2, false, c.visibility);
-                writeInternalConnection(into, c.viaID, c.toEdge->getID(), 0, c.toLane, "", dir, "", NBConnection::InvalidTlIndex, n.brakeForCrossingOnExit(c.toEdge));
+                writeInternalConnection(into, c.id, c.toEdge->getID(), c.internalLaneIndex, c.toLane, c.getInternalViaLaneID(), dir, tlID, linkIndex2, false, c.visibility);
+                writeInternalConnection(into, c.viaID, c.toEdge->getID(), c.internalViaLaneIndex, c.toLane, "", dir, "", NBConnection::InvalidTlIndex,
+                        n.brakeForCrossingOnExit(c.toEdge, dir, c.indirectLeft));
             } else {
                 // no internal split
                 writeInternalConnection(into, c.id, c.toEdge->getID(), c.internalLaneIndex, c.toLane, "", dir);
@@ -989,7 +1003,6 @@ NWWriter_SUMO::writeSUMOTime(SUMOTime steps) {
     }
 }
 
-
 void
 NWWriter_SUMO::writeProhibitions(OutputDevice& into, const NBConnectionProhibits& prohibitions) {
     for (NBConnectionProhibits::const_iterator j = prohibitions.begin(); j != prohibitions.end(); j++) {
@@ -1034,7 +1047,7 @@ NWWriter_SUMO::writeTrafficLight(OutputDevice& into, const NBTrafficLightLogic* 
     into.writeAttr(SUMO_ATTR_ID, logic->getID());
     into.writeAttr(SUMO_ATTR_TYPE, logic->getType());
     into.writeAttr(SUMO_ATTR_PROGRAMID, logic->getProgramID());
-    into.writeAttr(SUMO_ATTR_OFFSET, writeSUMOTime(logic->getOffset()));
+    into.writeAttr(SUMO_ATTR_OFFSET, logic->getOffset() == SUMOTime_MAX ? "begin" : writeSUMOTime(logic->getOffset()));
     // write the phases
     const bool varPhaseLength = logic->getType() != TrafficLightType::STATIC;
     for (const NBTrafficLightLogic::PhaseDefinition& phase : logic->getPhases()) {

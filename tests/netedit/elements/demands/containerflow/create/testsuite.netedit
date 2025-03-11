@@ -8,18 +8,6 @@ id
 
 color
 
-begin
+departpos
 
-end
-
-endnumber
-
-containersperhour
-
-period
-
-poisson
-
-probability
-
-number
+flow_attributes

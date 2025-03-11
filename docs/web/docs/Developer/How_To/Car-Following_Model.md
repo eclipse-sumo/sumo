@@ -39,7 +39,7 @@ SUMO_TAG_CF_SMART_SK,
 In SUMOXMLDefinitions.cpp:
 
 ```
-{ "carFollowing-SmartSK",     SUMO_TAG_CF_SMART_SK },
+{ "carFollowing-SmartSK",     SUMO_TAG_CF_SMART_SK },
 ```
 
 Furthermore you need to add an entry to
@@ -47,7 +47,7 @@ SUMOXMLDefinitions::carFollowModelValues\[\] also in
 SUMOXMLDefinitions.cpp:
 
 ```
-{ "SmartSK",     SUMO_TAG_CF_SMART_SK },
+{ "SmartSK",     SUMO_TAG_CF_SMART_SK },
 ```
 
 Car-following models are instantiated in MSVehicleType::build(...)
@@ -55,17 +55,17 @@ located in [{{SUMO}}/src/microsim/MSVehicleType.cpp]({{Source}}src/microsim/MSVe
 where you have to put the call to your model's constructor into.
 
 ```
-case SUMO_TAG_CF_SMART_SK:
-  model = new MSCFModel_SmartSK(vtype,
-                                from.getCFParam(SUMO_ATTR_ACCEL, SUMOVTypeParameter::getDefaultAccel(from.vehicleClass)),
-                                from.getCFParam(SUMO_ATTR_DECEL, SUMOVTypeParameter::getDefaultDecel(from.vehicleClass)),
-                                from.getCFParam(SUMO_ATTR_SIGMA, SUMOVTypeParameter::getDefaultImperfection(from.vehicleClass)),
-                                from.getCFParam(SUMO_ATTR_TAU, 1.),
-                                from.getCFParam(SUMO_ATTR_TMP1, 1.),
-                                from.getCFParam(SUMO_ATTR_TMP1, 1.),
-                                from.getCFParam(SUMO_ATTR_TMP1, 1.),
-                                from.getCFParam(SUMO_ATTR_TMP1, 1.),
-                                from.getCFParam(SUMO_ATTR_TMP1, 1.));
+case SUMO_TAG_CF_SMART_SK:
+  model = new MSCFModel_SmartSK(vtype,
+                                from.getCFParam(SUMO_ATTR_ACCEL, SUMOVTypeParameter::getDefaultAccel(from.vehicleClass)),
+                                from.getCFParam(SUMO_ATTR_DECEL, SUMOVTypeParameter::getDefaultDecel(from.vehicleClass)),
+                                from.getCFParam(SUMO_ATTR_SIGMA, SUMOVTypeParameter::getDefaultImperfection(from.vehicleClass)),
+                                from.getCFParam(SUMO_ATTR_TAU, 1.),
+                                from.getCFParam(SUMO_ATTR_TMP1, 1.),
+                                from.getCFParam(SUMO_ATTR_TMP1, 1.),
+                                from.getCFParam(SUMO_ATTR_TMP1, 1.),
+                                from.getCFParam(SUMO_ATTR_TMP1, 1.),
+                                from.getCFParam(SUMO_ATTR_TMP1, 1.));
 ```
 
 You may note that the constructor is read with values from "from". The
@@ -83,11 +83,11 @@ SUMO_ATTR_TMP5,
 In SUMOXMLDefinitions.cpp:
 
 ```
-{ "tmp1",           SUMO_ATTR_TMP1 },
-{ "tmp2",           SUMO_ATTR_TMP2 },
-{ "tmp3",           SUMO_ATTR_TMP3 },
-{ "tmp4",           SUMO_ATTR_TMP4 },
-{ "tmp5",           SUMO_ATTR_TMP5 },
+{ "tmp1",           SUMO_ATTR_TMP1 },
+{ "tmp2",           SUMO_ATTR_TMP2 },
+{ "tmp3",           SUMO_ATTR_TMP3 },
+{ "tmp4",           SUMO_ATTR_TMP4 },
+{ "tmp5",           SUMO_ATTR_TMP5 },
 ```
 
 The second parameter denotes the default value. There are two different
@@ -101,7 +101,7 @@ have floating point values as model parameters at the moment.
 You also have to define which parameter must be read in [{{SUMO}}/src/utils/vehicle/SUMOVehicleParserHelper.cpp]({{Source}}src/utils/vehicle/SUMOVehicleParserHelper.cpp), method getAllowedCFModelAttrs():
 
 ```
-std::set<SumoXMLAttr> smartSKParams;
+std::set<SumoXMLAttr> smartSKParams;
 smartSKParams.insert(SUMO_ATTR_ACCEL);
 smartSKParams.insert(SUMO_ATTR_DECEL);
 smartSKParams.insert(SUMO_ATTR_SIGMA);
@@ -111,7 +111,7 @@ smartSKParams.insert(SUMO_ATTR_TMP2);
 smartSKParams.insert(SUMO_ATTR_TMP3);
 smartSKParams.insert(SUMO_ATTR_TMP4);
 smartSKParams.insert(SUMO_ATTR_TMP5);
-allowedCFModelAttrs[SUMO_TAG_CF_SMART_SK] = smartSKParams;
+allowedCFModelAttrs[SUMO_TAG_CF_SMART_SK] = smartSKParams;
 ```
 
 Note, that we have to adapt the constructor to retrieve the additional
@@ -122,8 +122,8 @@ For further interaction, you also have to adapt the "id" of the model in
 the model's .h class:
 
 ```
-virtual int getModelID() const {
- return SUMO_TAG_CF_SMART_SK;
+virtual int getModelID() const {
+ return SUMO_TAG_CF_SMART_SK;
 }
 ```
 
@@ -144,5 +144,5 @@ XML elements or attributes you either need to adapt the XML schema files
 in {{SUMO}}/data/xsd or add the option
 
 ```
---xml-validation never
+--xml-validation never
 ```

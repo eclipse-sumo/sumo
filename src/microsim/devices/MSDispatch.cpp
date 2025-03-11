@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2007-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2007-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -146,7 +146,6 @@ MSDispatch::removeReservation(MSTransportable* person,
     std::string removedID = "";
     auto it = myGroupReservations.find(group);
     if (it != myGroupReservations.end()) {
-        // try to add to existing reservation
         for (auto itRes = it->second.begin(); itRes != it->second.end(); itRes++) {
             Reservation* res = *itRes;
             if (res->persons.count(person) != 0
@@ -157,13 +156,37 @@ MSDispatch::removeReservation(MSTransportable* person,
                 res->persons.erase(person);
                 if (res->persons.empty()) {
                     removedID = res->id;
-                    fulfilledReservation(res);
                     it->second.erase(itRes);
+                    // cleans up MSDispatch_Greedy
+                    fulfilledReservation(res);
+                    if (it->second.empty()) {
+                        myGroupReservations.erase(it);
+                    }
                 }
                 break;
             }
         }
+    } else {
+        auto it2 = myRunningReservations.find(group);
+        if (it2 != myRunningReservations.end()) {
+            for (auto item : it2->second) {
+                const Reservation* res = item.first;
+                if (res->persons.count(person) != 0
+                        && res->from == from
+                        && res->to == to
+                        && res->fromPos == fromPos
+                        && res->toPos == toPos) {
+                    MSDevice_Taxi* taxi = item.second;
+                    taxi->cancelCustomer(person);
+                    if (res->persons.empty()) {
+                        removedID = res->id;
+                    }
+                    break;
+                }
+            }
+        }
     }
+    myHasServableReservations = myGroupReservations.size() > 0;
 #ifdef DEBUG_RESERVATION
     if (DEBUG_COND2(person)) std::cout << SIMTIME
                                            << " removeReservation p=" << person->getID()
@@ -171,6 +194,7 @@ MSDispatch::removeReservation(MSTransportable* person,
                                            << " to=" << to->getID() << " toPos=" << toPos
                                            << " group=" << group
                                            << " removedID=" << removedID
+                                           << " hasServable=" << myHasServableReservations
                                            << "\n";
 #endif
     return removedID;
@@ -234,13 +258,20 @@ MSDispatch::getReservations() {
 
 std::vector<const Reservation*>
 MSDispatch::getRunningReservations() {
-    return std::vector<const Reservation*>(myRunningReservations.begin(), myRunningReservations.end());
+    std::vector<const Reservation*> result;
+    for (auto item : myRunningReservations) {
+        for (auto item2 : item.second) {
+            result.push_back(item2.first);
+        }
+    }
+    return result;
 }
 
 
 void
-MSDispatch::servedReservation(const Reservation* res) {
-    if (myRunningReservations.count(res)) {
+MSDispatch::servedReservation(const Reservation* res, MSDevice_Taxi* taxi) {
+    auto itR = myRunningReservations.find(res->group);
+    if (itR != myRunningReservations.end() && itR->second.count(res) != 0) {
         return; // was redispatch
     }
     auto it = myGroupReservations.find(res->group);
@@ -251,7 +282,7 @@ MSDispatch::servedReservation(const Reservation* res) {
     if (it2 == it->second.end()) {
         throw ProcessError(TL("Inconsistent group reservations (2)."));
     }
-    myRunningReservations.insert(*it2);
+    myRunningReservations[res->group][res] = taxi;
     const_cast<Reservation*>(*it2)->state = Reservation::ASSIGNED;
     it->second.erase(it2);
     if (it->second.empty()) {
@@ -262,7 +293,10 @@ MSDispatch::servedReservation(const Reservation* res) {
 
 void
 MSDispatch::fulfilledReservation(const Reservation* res) {
-    myRunningReservations.erase(res);
+    myRunningReservations[res->group].erase(res);
+    if (myRunningReservations[res->group].empty()) {
+        myRunningReservations.erase(res->group);
+    }
     delete res;
 }
 

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -17,7 +17,10 @@
 ///
 //
 /****************************************************************************/
+#include <config.h>
+
 #include <netedit/GNENet.h>
+#include <netedit/GNESegment.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/changes/GNEChange_Attribute.h>
@@ -30,32 +33,32 @@
 #include "GNEOverheadWire.h"
 #include "GNEAdditionalHandler.h"
 
-
 // ===========================================================================
 // member method definitions
 // ===========================================================================
 
 GNEOverheadWire::GNEOverheadWire(GNENet* net) :
-    GNEAdditional("", net, GLO_OVERHEAD_WIRE_SEGMENT, SUMO_TAG_OVERHEAD_WIRE_SECTION,
-                  GUIIconSubSys::getIcon(GUIIcon::OVERHEADWIRE), "", {}, {}, {}, {}, {}, {}),
-                            myStartPos(0),
-                            myEndPos(0),
-myFriendlyPosition(false) {
+    GNEAdditional("", net, "", GLO_OVERHEAD_WIRE_SEGMENT, SUMO_TAG_OVERHEAD_WIRE_SECTION, GUIIcon::OVERHEADWIRE, ""),
+    myStartPos(0),
+    myEndPos(0),
+    myFriendlyPosition(false) {
     // reset default values
     resetDefaultValues();
 }
 
 
-GNEOverheadWire::GNEOverheadWire(const std::string& id, std::vector<GNELane*> lanes, GNEAdditional* substation, GNENet* net,
+GNEOverheadWire::GNEOverheadWire(const std::string& id, GNENet* net, const std::string& filename, std::vector<GNELane*> lanes, GNEAdditional* substation,
                                  const double startPos, const double endPos, const bool friendlyPos, const std::vector<std::string>& forbiddenInnerLanes,
                                  const Parameterised::Map& parameters) :
-    GNEAdditional(id, net, GLO_OVERHEAD_WIRE_SEGMENT, SUMO_TAG_OVERHEAD_WIRE_SECTION,
-                  GUIIconSubSys::getIcon(GUIIcon::OVERHEADWIRE), "", {}, {}, lanes, {substation}, {}, {}),
-Parameterised(parameters),
-myStartPos(startPos),
-myEndPos(endPos),
-myFriendlyPosition(friendlyPos),
-myForbiddenInnerLanes(forbiddenInnerLanes) {
+    GNEAdditional(id, net, filename, GLO_OVERHEAD_WIRE_SEGMENT, SUMO_TAG_OVERHEAD_WIRE_SECTION, GUIIcon::OVERHEADWIRE, ""),
+    Parameterised(parameters),
+    myStartPos(startPos),
+    myEndPos(endPos),
+    myFriendlyPosition(friendlyPos),
+    myForbiddenInnerLanes(forbiddenInnerLanes) {
+    // set parents
+    setParents<GNELane*>(lanes);
+    setParent<GNEAdditional*>(substation);
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -237,12 +240,12 @@ GNEOverheadWire::drawGL(const GUIVisualizationSettings& /*s*/) const {
 void
 GNEOverheadWire::computePathElement() {
     // calculate path
-    myNet->getPathManager()->calculateConsecutivePathLanes(this, getParentLanes());
+    myNet->getNetworkPathManager()->calculateConsecutivePathLanes(this, getParentLanes());
 }
 
 
 void
-GNEOverheadWire::drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const double offsetFront) const {
+GNEOverheadWire::drawLanePartialGL(const GUIVisualizationSettings& s, const GNESegment* segment, const double offsetFront) const {
     // calculate overheadWire width
     const double overheadWireWidth = s.addSize.getExaggeration(s, segment->getLane());
     // check if E2 can be drawn
@@ -317,13 +320,13 @@ GNEOverheadWire::drawLanePartialGL(const GUIVisualizationSettings& s, const GNEP
         // declare trim geometry to draw
         const auto shape = (segment->isFirstSegment() || segment->isLastSegment()) ? overheadWireGeometry.getShape() : segment->getLane()->getLaneShape();
         // calculate contour and draw dotted geometry
-        myAdditionalContour.calculateContourExtrudedShape(s, d, this, shape, overheadWireWidth, 1, true, true, 0);
+        myAdditionalContour.calculateContourExtrudedShape(s, d, this, shape, getType(), overheadWireWidth, 1, true, true, 0, segment, segment->getLane()->getParentEdge());
     }
 }
 
 
 void
-GNEOverheadWire::drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const double offsetFront) const {
+GNEOverheadWire::drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNESegment* segment, const double offsetFront) const {
     // calculate overheadWire width
     const double overheadWireWidth = s.addSize.getExaggeration(s, segment->getPreviousLane());
     // check if overhead wire can be drawn
@@ -369,7 +372,7 @@ GNEOverheadWire::drawJunctionPartialGL(const GUIVisualizationSettings& s, const 
             // get shape
             const auto& shape = segment->getPreviousLane()->getLane2laneConnections().getLane2laneGeometry(segment->getNextLane()).getShape();
             // calculate contour and draw dotted geometry
-            myAdditionalContour.calculateContourExtrudedShape(s, d, this, shape, overheadWireWidth, 1, true, true, 0);
+            myAdditionalContour.calculateContourExtrudedShape(s, d, this, shape, getType(), overheadWireWidth, 1, true, true, 0, segment, segment->getJunction());
         }
     }
 }
@@ -392,14 +395,10 @@ GNEOverheadWire::getAttribute(SumoXMLAttr key) const {
             return toString(myFriendlyPosition);
         case SUMO_ATTR_OVERHEAD_WIRE_FORBIDDEN:
             return toString(myForbiddenInnerLanes);
-        case GNE_ATTR_SELECTED:
-            return toString(isAttributeCarrierSelected());
-        case GNE_ATTR_PARAMETERS:
-            return getParametersStr();
         case GNE_ATTR_SHIFTLANEINDEX:
             return "";
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+            return getCommonAttribute(this, key);
     }
 }
 
@@ -445,12 +444,11 @@ GNEOverheadWire::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndo
         case SUMO_ATTR_ENDPOS:
         case SUMO_ATTR_FRIENDLY_POS:
         case SUMO_ATTR_OVERHEAD_WIRE_FORBIDDEN:
-        case GNE_ATTR_SELECTED:
-        case GNE_ATTR_PARAMETERS:
             GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+            setCommonAttribute(key, value, undoList);
+            break;
     }
 }
 
@@ -466,29 +464,24 @@ GNEOverheadWire::isValid(SumoXMLAttr key, const std::string& value) {
             } else {
                 return (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_TRACTION_SUBSTATION, value, false) != nullptr);
             }
-        case SUMO_ATTR_LANES:
-            if (value.empty()) {
-                return false;
-            } else if (canParse<std::vector<GNELane*> >(myNet, value, false)) {
-                // check if lanes are consecutives
-                return lanesConsecutives(parse<std::vector<GNELane*> >(myNet, value));
-            } else {
-                return false;
-            }
         case SUMO_ATTR_STARTPOS:
-            return canParse<double>(value);
+            if (value.empty() || (value == TL("lane start"))) {
+                return true;
+            } else {
+                return canParse<double>(value);
+            }
         case SUMO_ATTR_ENDPOS:
-            return canParse<double>(value);
+            if (value.empty() || (value == TL("lane end"))) {
+                return true;
+            } else {
+                return canParse<double>(value);
+            }
         case SUMO_ATTR_FRIENDLY_POS:
             return canParse<bool>(value);
         case SUMO_ATTR_OVERHEAD_WIRE_FORBIDDEN:
             return true;
-        case GNE_ATTR_SELECTED:
-            return canParse<bool>(value);
-        case GNE_ATTR_PARAMETERS:
-            return areParametersValid(value);
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+            return isCommonValid(key, value);
     }
 }
 
@@ -522,14 +515,22 @@ GNEOverheadWire::setAttribute(SumoXMLAttr key, const std::string& value) {
             replaceAdditionalParentLanes(value);
             break;
         case SUMO_ATTR_STARTPOS:
-            myStartPos = parse<double>(value);
+            if (value.empty() || (value == TL("lane start"))) {
+                myStartPos = INVALID_DOUBLE;
+            } else {
+                myStartPos = parse<double>(value);
+            }
             // update geometry (except for template)
             if (getParentLanes().size() > 0) {
                 updateGeometry();
             }
             break;
         case SUMO_ATTR_ENDPOS:
-            myEndPos = parse<double>(value);
+            if (value.empty() || (value == TL("lane end"))) {
+                myEndPos = INVALID_DOUBLE;
+            } else {
+                myEndPos = parse<double>(value);
+            }
             // update geometry (except for template)
             if (getParentLanes().size() > 0) {
                 updateGeometry();
@@ -541,38 +542,29 @@ GNEOverheadWire::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_OVERHEAD_WIRE_FORBIDDEN:
             myForbiddenInnerLanes = parse<std::vector<std::string> >(value);
             break;
-        case GNE_ATTR_SELECTED:
-            if (parse<bool>(value)) {
-                selectAttributeCarrier();
-            } else {
-                unselectAttributeCarrier();
-            }
-            break;
-        case GNE_ATTR_PARAMETERS:
-            setParametersStr(value);
-            break;
         case GNE_ATTR_SHIFTLANEINDEX:
             shiftLaneIndex();
             break;
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+            setCommonAttribute(this, key, value);
+            break;
     }
 }
 
 void
 GNEOverheadWire::setMoveShape(const GNEMoveResult& moveResult) {
-    if ((moveResult.operationType == GNEMoveOperation::OperationType::ONE_LANE_MOVEFIRST) ||
-            (moveResult.operationType == GNEMoveOperation::OperationType::TWO_LANES_MOVEFIRST)) {
+    if ((moveResult.operationType == GNEMoveOperation::OperationType::SINGLE_LANE_MOVE_FIRST) ||
+            (moveResult.operationType == GNEMoveOperation::OperationType::MULTIPLE_LANES_MOVE_FIRST)) {
         // change only start position
         myStartPos = moveResult.newFirstPos;
-    } else if ((moveResult.operationType == GNEMoveOperation::OperationType::ONE_LANE_MOVESECOND) ||
-               (moveResult.operationType == GNEMoveOperation::OperationType::TWO_LANES_MOVESECOND)) {
+    } else if ((moveResult.operationType == GNEMoveOperation::OperationType::SINGLE_LANE_MOVE_LAST) ||
+               (moveResult.operationType == GNEMoveOperation::OperationType::MULTIPLE_LANES_MOVE_LAST)) {
         // change only end position
         myEndPos = moveResult.newFirstPos;
     } else {
         // change both position
         myStartPos = moveResult.newFirstPos;
-        myEndPos = moveResult.newSecondPos;
+        myEndPos = moveResult.newLastPos;
     }
     // update geometry
     updateGeometry();
@@ -584,18 +576,18 @@ GNEOverheadWire::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* u
     // begin change attribute
     undoList->begin(this, "position of " + getTagStr());
     // set attributes depending of operation type
-    if ((moveResult.operationType == GNEMoveOperation::OperationType::ONE_LANE_MOVEFIRST) ||
-            (moveResult.operationType == GNEMoveOperation::OperationType::TWO_LANES_MOVEFIRST)) {
+    if ((moveResult.operationType == GNEMoveOperation::OperationType::SINGLE_LANE_MOVE_FIRST) ||
+            (moveResult.operationType == GNEMoveOperation::OperationType::MULTIPLE_LANES_MOVE_FIRST)) {
         // set only start position
         setAttribute(SUMO_ATTR_STARTPOS, toString(moveResult.newFirstPos), undoList);
-    } else if ((moveResult.operationType == GNEMoveOperation::OperationType::ONE_LANE_MOVESECOND) ||
-               (moveResult.operationType == GNEMoveOperation::OperationType::TWO_LANES_MOVESECOND)) {
+    } else if ((moveResult.operationType == GNEMoveOperation::OperationType::SINGLE_LANE_MOVE_LAST) ||
+               (moveResult.operationType == GNEMoveOperation::OperationType::MULTIPLE_LANES_MOVE_LAST)) {
         // set only end position
         setAttribute(SUMO_ATTR_ENDPOS, toString(moveResult.newFirstPos), undoList);
     } else {
         // set both positions
         setAttribute(SUMO_ATTR_STARTPOS, toString(moveResult.newFirstPos), undoList);
-        setAttribute(SUMO_ATTR_ENDPOS, toString(moveResult.newSecondPos), undoList);
+        setAttribute(SUMO_ATTR_ENDPOS, toString(moveResult.newLastPos), undoList);
     }
     // end change attribute
     undoList->end();

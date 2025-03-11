@@ -1,5 +1,13 @@
-default_tranship_edges
-
 default_tranship_fromto
 
+default_tranship_busstop
+
+default_tranship_trainstop
+
 default_tranship_containerstop
+
+default_tranship_chargingstation
+
+default_tranship_parkingarea
+
+default_tranship_edges

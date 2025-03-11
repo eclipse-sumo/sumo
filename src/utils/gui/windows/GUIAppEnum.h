@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -786,13 +786,17 @@ enum {
 
     /// @}
 
-    /// @name Toolbar windows messages
+    /// @name Toolbar processing messages
     /// @{
 
     /// @brief compute path manager
     MID_GNE_TOOLBAREDIT_COMPUTEPATHMANAGER,
     /// @brief enable/disable computing after switchin between supermodes
     MID_GNE_TOGGLE_COMPUTE_NETWORK_DATA,
+    /// @brief enable/disable undo-redo
+    MID_GNE_TOGGLE_UNDOREDO,
+    /// @brief enable/disable undo-redo during loading
+    MID_GNE_TOGGLE_UNDOREDO_LOADING,
     /// @brief switch time format
     MID_GNE_TOGGLE_TIMEFORMAT,
 
@@ -831,8 +835,8 @@ enum {
     MID_GNE_NETWORKVIEWOPTIONS_EXTENDSELECTION,
     /// @brief change all phases
     MID_GNE_NETWORKVIEWOPTIONS_CHANGEALLPHASES,
-    /// @brief ask before merging junctions
-    MID_GNE_NETWORKVIEWOPTIONS_ASKFORMERGE,
+    /// @brief don't ask before merging junctions
+    MID_GNE_NETWORKVIEWOPTIONS_MERGEAUTOMATICALLY,
     /// @brief show junctions as bubbles
     MID_GNE_NETWORKVIEWOPTIONS_SHOWBUBBLES,
     /// @brief move elevation instead of x,y
@@ -969,14 +973,6 @@ enum {
     MID_GNE_SET_ATTRIBUTE_BOOL,
     /// @brief attribute edited trough dialog
     MID_GNE_SET_ATTRIBUTE_DIALOG,
-    /// @brief inspect attribute parent element
-    MID_GNE_SET_ATTRIBUTE_INSPECTPARENT,
-    /// @brief edit attribute allow
-    MID_GNE_SET_ATTRIBUTE_ALLOW,
-    /// @brief edit attribute color
-    MID_GNE_SET_ATTRIBUTE_COLOR,
-    /// @brief open parameters dialog
-    MID_GNE_OPEN_PARAMETERS_DIALOG,
     /// @brief attribute selected using button (radio button or checkbox)
     MID_GNE_SET_ATTRIBUTE_BUTTON,
     /// @brief abort edge path creation
@@ -1031,12 +1027,39 @@ enum {
     MID_GNE_PROTECT_ALL,
     /// @brief unprotect all elements
     MID_GNE_UNPROTECT_ALL,
-    /// @brief move up
-    MID_GNE_MOVEUP,
-    /// @brief move down
-    MID_GNE_MOVEDOWN,
-
     /// @}
+
+    /// @name GNEAttributesEditorType messages
+    /// @{
+
+    /// @brief mark element as front
+    MID_GNE_ATTRIBUTESEDITOR_FRONT,
+    /// @brief open element dialog
+    MID_GNE_ATTRIBUTESEDITOR_DIALOG,
+    /// @brief open extended attributes
+    MID_GNE_ATTRIBUTESEDITOR_EXTENDED,
+    /// @brief open generic parameters editor
+    MID_GNE_ATTRIBUTESEDITOR_PARAMETERS,
+    /// @brief open help dialog
+    MID_GNE_ATTRIBUTESEDITOR_HELP,
+    /// @brief set attribute (string, bool, etc.) in attributes editor row
+    MID_GNE_ATTRIBUTESEDITORROW_SETATTRIBUTE,
+    /// @brief toogle enable attribute in attributes editor row
+    MID_GNE_ATTRIBUTESEDITORROW_TOGGLEENABLEATTRIBUTE,
+    /// @brief open color dialog in attributes editor row
+    MID_GNE_ATTRIBUTESEDITORROW_OPENDIALOG_COLOR,
+    /// @brief open allow dialog in attributes editor row
+    MID_GNE_ATTRIBUTESEDITORROW_OPENDIALOG_ALLOW,
+    /// @brief open file dialog in attributes editor row
+    MID_GNE_ATTRIBUTESEDITORROW_OPENDIALOG_FILE,
+    /// @brief reparent
+    MID_GNE_ATTRIBUTESEDITORROW_REPARENT,
+    /// @brief inspect parent
+    MID_GNE_ATTRIBUTESEDITORROW_INSPECTPARENT,
+    /// @brief move lane up
+    MID_GNE_ATTRIBUTESEDITORROW_MOVELANEUP,
+    /// @brief move lane down
+    MID_GNE_ATTRIBUTESEDITORROW_MOVELANEDOWN,
 
     /// @name GNESelectorFrame messages
     /// @{
@@ -1084,7 +1107,7 @@ enum {
     /// @{
 
     /// @brief go back to the previous element
-    MID_GNE_INSPECTORFRAME_GOBACK,
+    MID_GNE_INSPECTORFRAME_INSPECTPREVIOUSELEMENT,
 
     /// @}
 
@@ -1180,8 +1203,6 @@ enum {
     MID_GNE_USESELECTED,
     /// @brief clear selection of elements
     MID_GNE_CLEARSELECTION,
-    /// @brief invert selection of elements
-    MID_GNE_INVERTSELECTION,
     /// @brief stop selection of consecutive edges/lanes
     MID_GNE_STOPSELECTION,
     /// @brief abort selection of consecutive edges/lanes
@@ -1304,6 +1325,30 @@ enum {
     MID_GNE_POLYGON_DELETE_GEOMETRY_POINT,
     /// @brief select elements within polygon boundary
     MID_GNE_POLYGON_SELECT,
+    /// @brief triangulate polygon
+    MID_GNE_POLYGON_TRIANGULATE,
+
+    /// @}
+
+    /// @name GNEPoly messages
+    /// @{
+
+    /// @brief simplify shape edited geometry
+    MID_GNE_SHAPEEDITED_SIMPLIFY,
+    /// @brief straighten shape edited geometry
+    MID_GNE_SHAPEEDITED_STRAIGHTEN,
+    /// @brief close opened shape edited
+    MID_GNE_SHAPEEDITED_CLOSE,
+    /// @brief open closed shape edited
+    MID_GNE_SHAPEEDITED_OPEN,
+    /// @brief Set a vertex of shape edited as first vertex
+    MID_GNE_SHAPEEDITED_SET_FIRST_POINT,
+    /// @brief delete geometry point in shape edited
+    MID_GNE_SHAPEEDITED_DELETE_GEOMETRY_POINT,
+    /// @brief reset shape
+    MID_GNE_SHAPEEDITED_RESET,
+    /// @brief finish editing shape edited
+    MID_GNE_SHAPEEDITED_FINISH,
 
     /// @}
 
@@ -1580,8 +1625,8 @@ enum {
     MID_GNE_UNDOLIST_UPDATE,
     /// @brief check if recomputing is needed
     MID_GNE_RECOMPUTINGNEEDED,
-    /// @brief force save elements (using for saving netedit and sumo configs)
-    MID_GNE_FORCESAVE,
+    /// @brief create automatic filename if it was not defined previously
+    MID_GNE_AUTOMATICFILENAME,
 
     /// @}
 
@@ -1621,6 +1666,8 @@ enum {
     MID_LANGUAGE_TR,
     /// @brief change language to hungarian
     MID_LANGUAGE_HU,
+    /// @brief change language to japanese
+    MID_LANGUAGE_JA,
 
     /// @}
 

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2007-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2007-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -23,6 +23,7 @@
 #include <memory>
 #include <utils/router/SUMOAbstractRouter.h>
 #include <utils/router/RouterProvider.h>
+#include <utils/common/MapMatcher.h>
 
 
 // ===========================================================================
@@ -40,3 +41,4 @@ typedef RouterProvider<MSEdge, MSLane, MSJunction, SUMOVehicle> MSRouterProvider
 typedef SUMOAbstractRouter<MSEdge, SUMOVehicle> MSVehicleRouter;
 typedef IntermodalRouter<MSEdge, MSLane, MSJunction, SUMOVehicle> MSTransportableRouter;
 typedef PedestrianRouter<MSEdge, MSLane, MSJunction, SUMOVehicle> MSPedestrianRouter;
+typedef MapMatcher<MSEdge, MSLane, MSJunction> MSMapMatcher;

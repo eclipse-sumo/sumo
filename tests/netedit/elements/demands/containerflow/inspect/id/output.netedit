@@ -2,18 +2,15 @@ TestFunctions: Netedit opened successfully
 Finding reference
 TestFunctions: 'reference.png' found. Position: 304 - 168
 containerFlow
-TestFunctions: Clicked over position 578 - 568
-TestFunctions: Clicked over position 484 - 228
-TestFunctions: Clicked over position 864 - 388
-TestFunctions: Clicked over position 484 - 225
-0
--6
-5
-TestFunctions: Clicked over position 614 - 308
+TestFunctions: Clicked over position 685 - 611
+TestFunctions: Clicked over position 1154 - 390
+TestFunctions: Clicked over position 1154 - 390
+TestFunctions: Clicked over position 798 - 194
+TestFunctions: Clicked over position 465 - 644
 
 ;;;;;;;;
 id with spaces
-cf_1
+pf_1
 customID
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Clicked over position 304 - 168

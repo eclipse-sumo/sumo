@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -19,21 +19,19 @@
 /****************************************************************************/
 #pragma once
 #include <config.h>
+
 #include "GNEAdditional.h"
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
+
 class GNEParkingArea;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
-/**
- * @class GNEParkingSpace
- * @brief vehicle space used by GNEParkingAreas
- */
 class GNEParkingSpace : public GNEAdditional, public Parameterised {
 
 public:
@@ -41,7 +39,6 @@ public:
     GNEParkingSpace(GNENet* net);
 
     /**@brief Constructor
-     * @param[in] net pointer to GNENet of this additional element belongs
      * @param[in] parkingAreaParent pointer to Parking Area parent
      * @param[in] pos position X-Y-Z
      * @param[in] width ParkingArea's width
@@ -51,7 +48,7 @@ public:
      * @param[in] name ParkingArea's name
      * @param[in] parameters generic parameters
      */
-    GNEParkingSpace(GNENet* net, GNEAdditional* parkingAreaParent, const Position& pos, const std::string& width,
+    GNEParkingSpace(GNEAdditional* parkingAreaParent, const Position& pos, const std::string& width,
                     const std::string& length, const std::string& angle, double slope, const std::string& name,
                     const Parameterised::Map& parameters);
 
@@ -184,14 +181,26 @@ protected:
     /// @brief Slope of Parking Space
     double mySlope;
 
+    /// @brief variable used for moving contour up
+    GNEContour myMovingContourUp;
+
+    /// @brief variable used for moving contour down
+    GNEContour myMovingContourDown;
+
+    /// @brief variable used for moving contour left
+    GNEContour myMovingContourLeft;
+
+    /// @brief variable used for moving contour right
+    GNEContour myMovingContourRight;
+
 private:
     /// @brief draw space
     void drawSpace(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                   const double width) const;
+                   const double width, const bool movingGeometryPoints) const;
 
     /// @brief calculate space contour
     void calculateSpaceContour(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                               const double width, const double exaggeration) const;
+                               const double width, const double exaggeration, const bool movingGeometryPoints) const;
 
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);

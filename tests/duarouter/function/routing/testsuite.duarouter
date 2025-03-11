@@ -15,7 +15,13 @@ chrouter
 # landmark routing
 astar_landmark
 astar_landmark_save
+
+# input landmarks are given as geo-coordinates
+astar_landmark_save_geo
 astar_landmark_save_parallel
+
+# input landmarks are given as geo-coordinates
+astar_landmark_save_geo_parallel
 
 # landmark routing with taz
 astar_landmark_taz

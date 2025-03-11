@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2012-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2012-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -28,6 +28,8 @@
 #ifdef HAVE_FOX
 #include <utils/foxtools/MFXWorkerThread.h>
 #endif
+#include <utils/common/MapMatcher.h>
+#include <utils/geom/PositionVector.h>
 #include <utils/router/ReversedEdge.h>
 #include <utils/router/SUMOAbstractRouter.h>
 
@@ -100,12 +102,12 @@ private:
 };
 
 
-template<class E, class V>
+template<class E, class V, class M>
 class LandmarkLookupTable : public AbstractLookupTable<E, V> {
 public:
     LandmarkLookupTable(const std::string& filename, const std::vector<E*>& edges, SUMOAbstractRouter<E, V>* router,
                         SUMOAbstractRouter<ReversedEdge<E, V>, V>* reverseRouter,
-                        const V* defaultVehicle, const std::string& outfile, const int maxNumThreads) {
+                        const V* defaultVehicle, const std::string& outfile, const int maxNumThreads, M* mapMatcher) {
         myFirstNonInternal = -1;
         std::map<std::string, int> numericID;
         for (E* e : edges) {
@@ -147,6 +149,34 @@ public:
                 myFromLandmarkDists.push_back(std::vector<double>(0));
                 myToLandmarkDists.push_back(std::vector<double>(0));
                 landmarks.push_back(edges[it->second + myFirstNonInternal]);
+            } else if (st.size() == 2) {
+                // geo landmark
+                try {
+                    std::string lonStr = st.get(0);
+                    if (!lonStr.empty() && lonStr.back() == ',') {
+                        // remove trailing comma
+                        lonStr = lonStr.substr(0, lonStr.size() - 1);
+                    }
+                    double lon = StringUtils::toDouble(lonStr);
+                    double lat = StringUtils::toDouble(st.get(1));
+                    std::vector<const E*> mapped;
+                    bool ok;
+                    mapMatcher->parseGeoEdges(PositionVector({Position(lon, lat)}), true, SVC_IGNORING, mapped, "LMLT", false, ok, true);
+                    if (mapped.size() != 1) {
+                        throw ProcessError(TLF("Invalid coordinate in landmark file, could not find edge at  '%'", line));
+                    }
+                    std::string lm = mapped.front()->getID();
+                    const auto& it = numericID.find(lm);
+                    if (it == numericID.end()) {
+                        throw ProcessError(TLF("Landmark edge '%' does not exist in the network.", lm));
+                    }
+                    myLandmarks[lm] = numLandMarks++;
+                    myFromLandmarkDists.push_back(std::vector<double>(0));
+                    myToLandmarkDists.push_back(std::vector<double>(0));
+                    landmarks.push_back(edges[it->second + myFirstNonInternal]);
+                } catch (const NumberFormatException&) {
+                    throw ProcessError(TLF("Broken landmark file, could not parse '%' as coordinates.", line));
+                }
             } else if (st.size() == 4) {
                 // legacy style landmark table
                 const std::string lm = st.get(0);
@@ -206,7 +236,7 @@ public:
                             // The CHRouter needs initialization
                             // before it gets cloned, so we do a dummy routing which is not in parallel
                             std::vector<const E*> route;
-                            router->compute(landmark, landmark, defaultVehicle, 0, route);
+                            router->compute(landmark, landmark, defaultVehicle, 0, route, true);
                         } else {
                             reverseRouter->setAutoBulkMode(true);
                         }
@@ -237,8 +267,10 @@ public:
             if ((int)myFromLandmarkDists[i].size() != (int)edges.size() - myFirstNonInternal) {
                 const E* landmark = landmarks[i];
                 const double lmCost = router->recomputeCosts({landmark}, defaultVehicle, 0);
+                int unreachableFrom = 0;
+                int unreachableTo = 0;
                 for (int j = (int)myFromLandmarkDists[i].size() + myFirstNonInternal; j < (int)edges.size(); ++j) {
-                    const E* edge = edges[j];
+                    const E* const edge = edges[j];
                     double distFrom = -1;
                     double distTo = -1;
                     if (landmark == edge) {
@@ -257,14 +289,14 @@ public:
                             std::vector<const ReversedEdge<E, V>*> reversedRoute;
                             // compute from-distance (skip taz-sources and other unreachable edges)
                             if (edge->getPredecessors().size() > 0 && landmark->getSuccessors().size() > 0) {
-                                if (router->compute(landmark, edge, defaultVehicle, 0, route)) {
+                                if (router->compute(landmark, edge, defaultVehicle, 0, route, true)) {
                                     distFrom = MAX2(0.0, router->recomputeCosts(route, defaultVehicle, 0) - sourceDestCost);
                                     route.clear();
                                 }
                             }
                             // compute to-distance (skip unreachable landmarks)
                             if (landmark->getPredecessors().size() > 0 && edge->getSuccessors().size() > 0) {
-                                if (router->compute(edge, landmark, defaultVehicle, 0, route)) {
+                                if (router->compute(edge, landmark, defaultVehicle, 0, route, true)) {
                                     distTo = MAX2(0.0, router->recomputeCosts(route, defaultVehicle, 0) - sourceDestCost);
                                     route.clear();
                                 }
@@ -273,6 +305,18 @@ public:
                     }
                     myFromLandmarkDists[i].push_back(distFrom);
                     myToLandmarkDists[i].push_back(distTo);
+                    if (!edge->isTazConnector()) {
+                        if (distFrom == -1) {
+                            unreachableFrom++;
+                        }
+                        if (distTo == -1) {
+                            unreachableTo++;
+                        }
+                    }
+                }
+                if (unreachableFrom > 0 || unreachableTo > 0) {
+                    WRITE_WARNINGF(TL("Landmark % is not reachable from % edges and is unable to reach % out of % total edges."),
+                                   landmark->getID(), unreachableFrom, unreachableTo, numericID.size());
                 }
             }
         }
@@ -383,18 +427,18 @@ private:
 
         const std::pair<double, double> compute(const E* src, const E* dest, const double costOff) {
             double fromResult = -1.;
-            if (myRouter->compute(src, dest, myVehicle, 0, myRoute)) {
+            if (myRouter->compute(src, dest, myVehicle, 0, myRoute, true)) {
                 fromResult = MAX2(0.0, myRouter->recomputeCosts(myRoute, myVehicle, 0) + costOff);
                 myRoute.clear();
             }
             double toResult = -1.;
             if (myReversedRouter != nullptr) {
-                if (myReversedRouter->compute(src->getReversedRoutingEdge(), dest->getReversedRoutingEdge(), myVehicle, 0, myReversedRoute)) {
+                if (myReversedRouter->compute(src->getReversedRoutingEdge(), dest->getReversedRoutingEdge(), myVehicle, 0, myReversedRoute, true)) {
                     toResult = MAX2(0.0, myReversedRouter->recomputeCosts(myReversedRoute, myVehicle, 0) + costOff);
                     myReversedRoute.clear();
                 }
             } else {
-                if (myRouter->compute(dest, src, myVehicle, 0, myRoute)) {
+                if (myRouter->compute(dest, src, myVehicle, 0, myRoute, true)) {
                     toResult = MAX2(0.0, myRouter->recomputeCosts(myRoute, myVehicle, 0) + costOff);
                     myRoute.clear();
                 }

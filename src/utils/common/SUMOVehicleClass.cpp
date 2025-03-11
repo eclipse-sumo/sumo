@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -171,6 +171,10 @@ const std::string DEFAULT_RAILTYPE_ID("DEFAULT_RAILTYPE");
 const std::set<std::string> DEFAULT_VTYPES({DEFAULT_VTYPE_ID, DEFAULT_PEDTYPE_ID, DEFAULT_BIKETYPE_ID, DEFAULT_CONTAINERTYPE_ID, DEFAULT_TAXITYPE_ID, DEFAULT_RAILTYPE_ID});
 
 const double DEFAULT_VEH_PROB(1.);
+const double DEFAULT_VEH_MASS(1500.);
+const double DEFAULT_VEH_WIDTH(1.8);
+const double DEFAULT_VEH_HEIGHT(1.5);
+const double DEFAULT_VEH_SHUT_OFF_STOP(300.);
 
 const double DEFAULT_PEDESTRIAN_SPEED(5. / 3.6);
 
@@ -499,7 +503,12 @@ getVehicleShapeName(SUMOVehicleShape id) {
 
 
 bool isRailway(SVCPermissions permissions) {
-    return (permissions & SVC_RAIL_CLASSES) > 0 && (permissions & SVC_PASSENGER) == 0;
+    return (permissions & SVC_RAIL_CLASSES) != 0 && (permissions & ~(SVC_RAIL_CLASSES | SVC_TAXI)) == 0;
+}
+
+bool isRailwayOrShared(SVCPermissions permissions) {
+    // basically check that it isn't SVC_ALL
+    return (permissions & SVC_RAIL_CLASSES) != 0 && (permissions & SVC_NON_ROAD_RAIL) == 0;
 }
 
 bool isTram(SVCPermissions permissions) {
@@ -507,7 +516,7 @@ bool isTram(SVCPermissions permissions) {
 }
 
 bool isBikepath(SVCPermissions permissions) {
-    return (permissions & SVC_BICYCLE) == SVC_BICYCLE && (permissions & SVC_PASSENGER) == 0;
+    return (permissions & SVC_BICYCLE) == SVC_BICYCLE && (permissions & SVC_ROAD_MOTOR_CLASSES) == 0;
 }
 
 
@@ -534,8 +543,8 @@ isSidewalk(SVCPermissions permissions) {
 
 
 bool
-isForWeakModes(SVCPermissions permissions) {
-    return ((permissions & SVC_WEAK) != 0 && (permissions & ~SVC_WEAK) == 0);
+isForVulnerableModes(SVCPermissions permissions) {
+    return ((permissions & SVC_VULNERABLE) != 0 && (permissions & ~SVC_VULNERABLE) == 0);
 }
 
 

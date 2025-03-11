@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2008-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2008-2025 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -28,6 +28,7 @@ from . import constants as tc
 from .exceptions import FatalTraCIError, alias_param
 
 DOMAINS = []
+DOMAIN_BY_ID = {}
 
 
 def _readParameterWithKey(result):
@@ -81,20 +82,23 @@ class SubscriptionResults:
     def add(self, refID, varID, data):
         if refID not in self._results:
             self._results[refID] = {}
-        self._results[refID][varID] = _parse(self._valueFunc, varID, data)
+        self._results[refID][varID] = self.parse(varID, data)
 
     def get(self, refID=None):
         if refID is None:
             return self._results
         return self._results.get(refID, {})
 
-    def addContext(self, refID, objectID=None, varID=None, data=None):
+    def addContext(self, refID, objectID=None, varID=None, value=None):
         if refID not in self._contextResults:
             self._contextResults[refID] = {}
         if objectID is not None and objectID not in self._contextResults[refID]:
             self._contextResults[refID][objectID] = {}
-        if varID is not None and data is not None:
-            self._contextResults[refID][objectID][varID] = _parse(self._valueFunc, varID, data)
+        if varID is not None and value is not None:
+            self._contextResults[refID][objectID][varID] = value
+
+    def parse(self, varID=None, data=None):
+        return _parse(self._valueFunc, varID, data)
 
     def getContext(self, refID=None):
         if refID is None:
@@ -126,6 +130,7 @@ class Domain:
         self._subscriptionDefault = subscriptionDefault
         self._connection = None
         DOMAINS.append(self)
+        DOMAIN_BY_ID[cmdGetID] = self
         # alias
         self.DOMAIN_ID = cmdGetID
 
@@ -223,7 +228,7 @@ class Domain:
         which are closer than dist to the object specified by objectID.
         """
         if varIDs is None:
-            varIDs = self._subscriptionDefault
+            varIDs = DOMAIN_BY_ID.get(domain, self)._subscriptionDefault
         self._connection._subscribeContext(self._contextID, begin, end, objectID, domain, dist, varIDs, parameters)
 
     def unsubscribeContext(self, objectID, domain, dist):

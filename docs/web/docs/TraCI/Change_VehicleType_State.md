@@ -45,7 +45,7 @@ the original type.
 | copy (0x88)               | string                                                         | Creates a new vehicle type with the given ID as a duplicate of the original type.                                                                                                    | [copy](https://sumo.dlr.de/pydoc/traci._vehicletype.html#VehicleTypeDomain-copy)                               |
 | action step length (0x7d) | double (new action step length), boolean (reset action offset) | Sets the current action step length for the vehicle type in s. If the boolean value resetActionOffset is true, an action step is scheduled immediately for all vehicles of the type. | [setActionStepLength](https://sumo.dlr.de/pydoc/traci._vehicletype.html#VehicleTypeDomain-setActionStepLength)         |
 | scale (0x8e) | double | Sets the traffic scaling factor for vehicles of this type | [setScale](https://sumo.dlr.de/pydoc/traci._vehicletype.html#VehicleTypeDomain-setScale)         |
-
+| mass (0xc8)          | double                             | Sets the mass of the vehicle type to the given value                                                                                                                           | [setMass](https://sumo.dlr.de/pydoc/traci._vehicletype.html#VTypeDomain-setMass)           |
 
 
 The message contents are as following:

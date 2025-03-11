@@ -1,14 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-03-04 10:59:49 by Eclipse SUMO netedit Version v1_12_0+1137-e9106068858
+<!-- generated on 2024-09-27 10:43:52 by Eclipse SUMO netedit Version v1_20_0+2172-1b857258f91
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- StoppingPlaces -->
-    <busStop id="busStop1" lane="gneE0_0" startPos="10.00" endPos="15.00" friendlyPos="true"/>
-    <busStop id="busStop2" lane="gneE1_0" startPos="3.00" endPos="13.00" friendlyPos="true"/>
-    <busStop id="busStop3" lane="gneE2_0" endPos="30.00" friendlyPos="true"/>
-    <busStop id="busStop4" lane="gneE2_1" startPos="25.00" friendlyPos="true"/>
-    <busStop id="busStop5" lane="gneE3_0" startPos="3.00" endPos="13.00" friendlyPos="true"/>
-    <busStop id="busStop6" lane="gneE3_1" startPos="3.00" endPos="13.00" friendlyPos="true"/>
+    <busStop id="bs_0" lane="E0_0" startPos="40.00" endPos="50.00" friendlyPos="true"/>
+    <busStop id="bs_1" lane="E1_0" startPos="25.00" endPos="35.00" friendlyPos="true"/>
+    <busStop id="bs_2" lane="-E2_0" startPos="25.00" endPos="35.00" friendlyPos="true"/>
+    <chargingStation id="cs_0" lane="-E1_0" startPos="25.00" endPos="35.00" friendlyPos="true"/>
+    <chargingStation id="cs_1" lane="E2_0" startPos="25.00" endPos="35.00" friendlyPos="true"/>
+    <!-- Detectors -->
+    <inductionLoop id="e1_0" lane="E0_0" pos="15.00" period="300.00" file="e1_0.xml" friendlyPos="1"/>
 </additional>

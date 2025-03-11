@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -20,42 +20,40 @@
 /****************************************************************************/
 #include <config.h>
 
-#include <string>
-#include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
-#include <utils/gui/div/GLHelper.h>
 #include <netedit/GNENet.h>
+#include <netedit/GNETagProperties.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/frames/common/GNEMoveFrame.h>
-#include <utils/gui/div/GUIParameterTableWindow.h>
+#include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/div/GUIGlobalViewObjectsHandler.h>
+#include <utils/gui/div/GUIParameterTableWindow.h>
+#include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/xml/NamespaceIDs.h>
 
 #include "GNEPoly.h"
-
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
 
 GNEPoly::GNEPoly(SumoXMLTag tag, GNENet* net) :
-    TesselatedPolygon("", "", RGBColor::BLACK, {}, false, false, 0, 0, 0, "", false, "", Parameterised::Map()),
-                  GNEAdditional("", net, GLO_POLYGON, tag, GUIIconSubSys::getIcon(GUIIcon::POLY), "", {}, {}, {}, {}, {}, {}),
-mySimplifiedShape(false) {
+    TesselatedPolygon("", "", RGBColor::BLACK, {}, false, false, 0, 0, 0, "", "", Parameterised::Map()),
+GNEAdditional("", net, "", GLO_POLYGON, tag, GUIIcon::POLY, "") {
     // reset default values
     resetDefaultValues();
 }
 
 
-GNEPoly::GNEPoly(GNENet* net, const std::string& id, const std::string& type, const PositionVector& shape, bool geo, bool fill, double lineWidth,
-                 const RGBColor& color, double layer, double angle, const std::string& imgFile, bool relativePath, const std::string& name,
-                 const Parameterised::Map& parameters) :
-    TesselatedPolygon(id, type, color, shape, geo, fill, lineWidth, layer, angle, imgFile, relativePath, name, parameters),
-    GNEAdditional(id, net, GLO_POLYGON, SUMO_TAG_POLY, GUIIconSubSys::getIcon(GUIIcon::POLY), "", {}, {}, {}, {}, {}, {}),
-mySimplifiedShape(false) {
+GNEPoly::GNEPoly(const std::string& id, GNENet* net, const std::string& filename, const std::string& type, const PositionVector& shape,
+                 bool geo, bool fill, double lineWidth, const RGBColor& color, double layer, double angle, const std::string& imgFile,
+                 const std::string& name, const Parameterised::Map& parameters) :
+    TesselatedPolygon(id, type, color, shape, geo, fill, lineWidth, layer, angle, imgFile, name, parameters),
+    GNEAdditional(id, net, filename, GLO_POLYGON, SUMO_TAG_POLY, GUIIcon::POLY, ""),
+    myClosedShape(shape.isClosed()) {
     // check if imgFile is valid
     if (!imgFile.empty() && GUITexturesHelper::getTextureID(imgFile) == -1) {
         setShapeImgFile("");
@@ -78,12 +76,13 @@ mySimplifiedShape(false) {
 }
 
 
-GNEPoly::GNEPoly(SumoXMLTag tag, GNENet* net, const std::string& id, const PositionVector& shape, bool geo, const std::string& name,
-                 const Parameterised::Map& parameters) :
+GNEPoly::GNEPoly(SumoXMLTag tag, const std::string& id, GNENet* net, const std::string& filename, const PositionVector& shape,
+                 bool geo, const std::string& name, const Parameterised::Map& parameters) :
     TesselatedPolygon(id, getJuPedSimType(tag), getJuPedSimColor(tag), shape, geo, getJuPedSimFill(tag), 1,
-                      getJuPedSimLayer(tag), 0, "", false, name, parameters),
-    GNEAdditional(id, net, getJuPedSimGLO(tag), tag, getJuPedSimIcon(tag), "", {}, {}, {}, {}, {}, {}),
-mySimplifiedShape(false) {
+                      getJuPedSimLayer(tag), 0, "", name, parameters),
+    GNEAdditional(id, net, filename, getJuPedSimGLO(tag), tag, getJuPedSimIcon(tag), ""),
+    myClosedShape(shape.isClosed()),
+    mySimplifiedShape(false) {
     // set GEO shape
     myGeoShape = myShape;
     if (geo) {
@@ -113,7 +112,7 @@ GNEPoly::getMoveOperation() {
         return new GNEMoveOperation(this, myShape);
     } else {
         // continue depending of tag
-        switch (getTagProperty().getTag()) {
+        switch (getTagProperty()->getTag()) {
             case GNE_TAG_JPS_WALKABLEAREA:
             case GNE_TAG_JPS_OBSTACLE:
                 // calculate move shape operation maintain shape closed
@@ -233,7 +232,8 @@ GNEPoly::checkDrawMoveContour() const {
     // get edit modes
     const auto& editModes = myNet->getViewNet()->getEditModes();
     // check if we're in move mode
-    if (!myNet->getViewNet()->isMovingElement() && editModes.isCurrentSupermodeNetwork() &&
+    if (!myNet->getViewNet()->isCurrentlyMovingElements() && editModes.isCurrentSupermodeNetwork() &&
+            !myNet->getViewNet()->getEditNetworkElementShapes().getEditedNetworkElement() &&
             (editModes.networkEditMode == NetworkEditMode::NETWORK_MOVE) && myNet->getViewNet()->checkOverLockedElement(this, mySelected)) {
         // only move the first element
         return myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == this;
@@ -266,7 +266,7 @@ GNEPoly::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
         simplifyShape->disable();
     }
     // only allow open/close for non juPedSim polygons
-    if (!myTagProperty.isJuPedSimElement()) {
+    if (!myTagProperty->isJuPedSimElement()) {
         if (myShape.isClosed()) {
             GUIDesigns::buildFXMenuCommand(ret, TL("Open shape"), TL("Open polygon's shape"), nullptr, &parent, MID_GNE_POLYGON_OPEN);
         } else {
@@ -274,6 +274,9 @@ GNEPoly::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
         }
     }
     GUIDesigns::buildFXMenuCommand(ret, TL("Select elements within polygon"), TL("Select elements within polygon boundary"), nullptr, &parent, MID_GNE_POLYGON_SELECT);
+    if (myShape.size() > 3) {
+        GUIDesigns::buildFXMenuCommand(ret, TL("Triangulate polygon"), TL("Convert the current polygon in triangles"), nullptr, &parent, MID_GNE_POLYGON_TRIANGULATE);
+    }
     // add separator
     new FXMenuSeparator(ret);
     // create a extra FXMenuCommand if mouse is over a vertex
@@ -302,8 +305,8 @@ void
 GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
     // first check if poly can be drawn
     if (myNet->getViewNet()->getDemandViewOptions().showShapes() &&
-        myNet->getViewNet()->getDataViewOptions().showShapes() &&
-        GUIPolygon::checkDraw(s, this, this)) {
+            myNet->getViewNet()->getDataViewOptions().showShapes() &&
+            GUIPolygon::checkDraw(s, this, this)) {
         // draw boundary
         const auto boundary = getCenteringBoundary();
         GLHelper::drawBoundary(s, getCenteringBoundary());
@@ -318,7 +321,7 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
             // push layer matrix
             GLHelper::pushMatrix();
             // translate to front
-            myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, getShapeLayer());
+            drawInLayer(s.polyUseCustomLayer ? s.polyCustomLayer : getShapeLayer());
             // draw polygon
             drawPolygon(s, d, color, polyExaggeration);
             // draw contour if don't move whole polygon
@@ -340,7 +343,7 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
             myAdditionalContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
         }
         // calculate contour
-        calculateContourPolygons(s, d, polyExaggeration, (getFill() || myAdditionalGeometry.getShape().isClosed()));
+        calculateContourPolygons(s, d, getShapeLayer(), polyExaggeration, getFill());
     }
 }
 
@@ -517,15 +520,43 @@ GNEPoly::simplifyShape(bool allowUndo) {
 }
 
 
+CommonXMLStructure::SumoBaseObject*
+GNEPoly::getSumoBaseObject() const {
+    CommonXMLStructure::SumoBaseObject* polygonBaseObject = new CommonXMLStructure::SumoBaseObject(nullptr);
+    polygonBaseObject->setTag(myTagProperty->getTag());
+    // fill attributes
+    polygonBaseObject->addStringAttribute(SUMO_ATTR_ID, myID);
+    polygonBaseObject->addPositionVectorAttribute(SUMO_ATTR_SHAPE, myShape);
+    polygonBaseObject->addBoolAttribute(SUMO_ATTR_GEO, myGEO);
+    polygonBaseObject->addBoolAttribute(SUMO_ATTR_FILL, myFill);
+    polygonBaseObject->addDoubleAttribute(SUMO_ATTR_LINEWIDTH, myLineWidth);
+    polygonBaseObject->addColorAttribute(SUMO_ATTR_COLOR, getShapeColor());
+    polygonBaseObject->addStringAttribute(SUMO_ATTR_TYPE, getShapeType());
+    polygonBaseObject->addDoubleAttribute(SUMO_ATTR_LAYER, getShapeLayer());
+    polygonBaseObject->addStringAttribute(SUMO_ATTR_IMGFILE, getShapeImgFile());
+    polygonBaseObject->addDoubleAttribute(SUMO_ATTR_ANGLE, getShapeNaviDegree());
+    polygonBaseObject->addStringAttribute(SUMO_ATTR_NAME, getShapeName());
+    return polygonBaseObject;
+}
+
+
 std::string
 GNEPoly::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
             return myID;
         case SUMO_ATTR_SHAPE:
-            return toString(myShape);
+            if ((GeoConvHelper::getFinal().getProjString() != "!") && myGEO) {
+                return TL("Using GEO Shape");
+            } else {
+                return toString(myShape);
+            }
         case SUMO_ATTR_GEOSHAPE:
-            return toString(myGeoShape, gPrecisionGeo);
+            if (GeoConvHelper::getFinal().getProjString() != "!") {
+                return toString(myGeoShape, gPrecisionGeo);
+            } else {
+                return TL("No geo-conversion defined");
+            }
         case SUMO_ATTR_COLOR:
             return toString(getShapeColor());
         case SUMO_ATTR_FILL:
@@ -542,8 +573,6 @@ GNEPoly::getAttribute(SumoXMLAttr key) const {
             return getShapeType();
         case SUMO_ATTR_IMGFILE:
             return getShapeImgFile();
-        case SUMO_ATTR_RELATIVEPATH:
-            return toString(getShapeRelativePath());
         case SUMO_ATTR_ANGLE:
             return toString(getShapeNaviDegree());
         case SUMO_ATTR_GEO:
@@ -551,13 +580,9 @@ GNEPoly::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_NAME:
             return getShapeName();
         case GNE_ATTR_CLOSE_SHAPE:
-            return toString(myShape.isClosed());
-        case GNE_ATTR_SELECTED:
-            return toString(isAttributeCarrierSelected());
-        case GNE_ATTR_PARAMETERS:
-            return SUMOPolygon::getParametersStr();
+            return toString(myClosedShape);
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+            return getCommonAttribute(this, key);
     }
 }
 
@@ -589,17 +614,15 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         case SUMO_ATTR_LAYER:
         case SUMO_ATTR_TYPE:
         case SUMO_ATTR_IMGFILE:
-        case SUMO_ATTR_RELATIVEPATH:
         case SUMO_ATTR_ANGLE:
         case SUMO_ATTR_GEO:
         case SUMO_ATTR_NAME:
         case GNE_ATTR_CLOSE_SHAPE:
-        case GNE_ATTR_SELECTED:
-        case GNE_ATTR_PARAMETERS:
             GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+            setCommonAttribute(key, value, undoList);
+            break;
     }
 }
 
@@ -638,8 +661,6 @@ GNEPoly::isValid(SumoXMLAttr key, const std::string& value) {
                 // check that image can be loaded
                 return GUITexturesHelper::getTextureID(value) != -1;
             }
-        case SUMO_ATTR_RELATIVEPATH:
-            return canParse<bool>(value);
         case SUMO_ATTR_ANGLE:
             return canParse<double>(value);
         case SUMO_ATTR_GEO:
@@ -647,37 +668,38 @@ GNEPoly::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_NAME:
             return SUMOXMLDefinitions::isValidAttribute(value);
         case GNE_ATTR_CLOSE_SHAPE:
-            if (canParse<bool>(value)) {
-                bool closePolygon = parse<bool>(value);
-                if (closePolygon && (myShape.begin() == myShape.end())) {
-                    // Polygon already closed, then invalid value
-                    return false;
-                } else if (!closePolygon && (myShape.begin() != myShape.end())) {
-                    // Polygon already open, then invalid value
-                    return false;
-                } else {
-                    return true;
-                }
-            } else {
-                return false;
-            }
-        case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
-        case GNE_ATTR_PARAMETERS:
-            return areParametersValid(value);
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+            return isCommonValid(key, value);
     }
 }
 
 
 bool
-GNEPoly::isAttributeEnabled(SumoXMLAttr /* key */) const {
-    // check if we're in supermode Network
-    if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
-        return true;
-    } else {
-        return false;
+GNEPoly::isAttributeEnabled(SumoXMLAttr key) const {
+    switch (key) {
+        case SUMO_ATTR_SHAPE:
+            if (GeoConvHelper::getFinal().getProjString() != "!") {
+                return myGEO == false;
+            } else {
+                return true;
+            }
+        case SUMO_ATTR_GEO:
+            return GeoConvHelper::getFinal().getProjString() != "!";
+        case SUMO_ATTR_GEOSHAPE:
+            if (GeoConvHelper::getFinal().getProjString() != "!") {
+                return myGEO == true;
+            } else {
+                return false;
+            }
+        case GNE_ATTR_CLOSE_SHAPE:
+            if (isTemplate()) {
+                return true;
+            } else {
+                return myShape.size() > 1;
+            }
+        default:
+            return true;
     }
 }
 
@@ -744,6 +766,7 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_FILL:
             myFill = parse<bool>(value);
+            myAdditionalContour.clearContour();
             break;
         case SUMO_ATTR_LINEWIDTH:
             myLineWidth = parse<double>(value);
@@ -763,9 +786,6 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
             // all textures must be refresh
             GUITexturesHelper::clearTextures();
             break;
-        case SUMO_ATTR_RELATIVEPATH:
-            setShapeRelativePath(parse<bool>(value));
-            break;
         case SUMO_ATTR_ANGLE:
             setShapeNaviDegree(parse<double>(value));
             break;
@@ -778,32 +798,27 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
             setShapeName(value);
             break;
         case GNE_ATTR_CLOSE_SHAPE:
-            if (parse<bool>(value)) {
-                myShape.closePolygon();
-                myGeoShape.closePolygon();
-            } else {
-                myShape.pop_back();
-                myGeoShape.pop_back();
+            myClosedShape = parse<bool>(value);
+            if (!isTemplate()) {
+                if (myClosedShape) {
+                    myShape.closePolygon();
+                    myGeoShape.closePolygon();
+
+                } else {
+                    myShape.openPolygon();
+                    myGeoShape.openPolygon();
+                }
+                // disable simplified shape flag
+                mySimplifiedShape = false;
+                // update geometry
+                updateGeometry();
+                // update centering boundary
+                updateCenteringBoundary(true);
             }
-            // disable simplified shape flag
-            mySimplifiedShape = false;
-            // update geometry
-            updateGeometry();
-            // update centering boundary
-            updateCenteringBoundary(true);
-            break;
-        case GNE_ATTR_SELECTED:
-            if (parse<bool>(value)) {
-                selectAttributeCarrier();
-            } else {
-                unselectAttributeCarrier();
-            }
-            break;
-        case GNE_ATTR_PARAMETERS:
-            SUMOPolygon::setParametersStr(value);
             break;
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+            setCommonAttribute(this, key, value);
+            break;
     }
 }
 
@@ -832,7 +847,7 @@ GNEPoly::drawPolygon(const GUIVisualizationSettings& s, const GUIVisualizationSe
     // check if we're drawing a polygon or a polyline
     if (getFill()) {
         // draw inner polygon
-        GUIPolygon::drawInnerPolygon(s, this, this, myAdditionalGeometry.getShape(), 0, getFill(), myTagProperty.isJuPedSimElement() ? false : drawUsingSelectColor());
+        GUIPolygon::drawInnerPolygon(s, this, this, myAdditionalGeometry.getShape(), 0, getFill(), myTagProperty->isJuPedSimElement() ? false : drawUsingSelectColor());
     } else {
         // push matrix
         GLHelper::pushMatrix();

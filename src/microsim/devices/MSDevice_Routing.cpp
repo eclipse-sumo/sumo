@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2007-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2007-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -86,7 +86,7 @@ MSDevice_Routing::insertOptions(OptionsCont& oc) {
     oc.doRegister("device.rerouting.synchronize", new Option_Bool(false));
     oc.addDescription("device.rerouting.synchronize", "Routing", TL("Let rerouting happen at the same time for all vehicles"));
 
-    oc.doRegister("device.rerouting.railsignal", new Option_Bool(true));
+    oc.doRegister("device.rerouting.railsignal", new Option_Bool(false));
     oc.addDescription("device.rerouting.railsignal", "Routing", TL("Allow rerouting triggered by rail signals."));
 
     oc.doRegister("device.rerouting.bike-speeds", new Option_Bool(false));
@@ -139,7 +139,10 @@ MSDevice_Routing::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevic
         // for implicitly equipped vehicles (trips, flows), option probability
         // can still be used to disable periodic rerouting after insertion for
         // parts of the fleet
-        const SUMOTime period = equip || oc.isDefault("device.rerouting.probability") ? v.getTimeParam("device.rerouting.period") : 0;
+        const SUMOTime period = (equip || (
+                                     oc.isDefault("device.rerouting.probability") &&
+                                     v.getFloatParam("device.rerouting.probability") == oc.getFloat("device.rerouting.probability"))
+                                 ? v.getTimeParam("device.rerouting.period") : 0);
         const SUMOTime prePeriod = MAX2((SUMOTime)0, v.getTimeParam("device.rerouting.pre-period"));
         MSRoutingEngine::initWeightUpdate();
         // build the device
@@ -352,6 +355,9 @@ void
 MSDevice_Routing::loadState(const SUMOSAXAttributes& attrs) {
     std::istringstream bis(attrs.getString(SUMO_ATTR_STATE));
     bis >> myPeriod;
+    if (myHolder.hasDeparted()) {
+        rebuildRerouteCommand();
+    }
 }
 
 

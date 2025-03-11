@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-17 09:04:52 by Eclipse SUMO netconvert Version v1_20_0+1264-f5cae912633
+<!-- generated on 2025-02-21 14:16:49 by Eclipse SUMO netconvert Version v1_22_0+0440-9af1eda2b59
 -->
 
 <netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -75,7 +75,7 @@
         <!-- Read RoboCup-net from DIR -->
         <robocup-dir value="" synonymes="robocup robocup-net" type="FILE"/>
 
-        <!-- Read MATsim-net from FILE -->
+        <!-- Read MATSim-net from FILE -->
         <matsim-files value="" synonymes="matsim" type="FILE"/>
 
         <!-- Read ITSUMO-net from FILE -->
@@ -123,7 +123,7 @@
         <!-- The generated net will be written to FILE using Amitran format -->
         <amitran-output value="" type="FILE"/>
 
-        <!-- The generated net will be written to FILE using MATsim format -->
+        <!-- The generated net will be written to FILE using MATSim format -->
         <matsim-output value="" type="FILE"/>
 
         <!-- The generated net will be written to FILE using OpenDRIVE format -->
@@ -414,6 +414,9 @@
         <!-- The default length when overriding connection lengths -->
         <default.connection-length value="-1" type="FLOAT"/>
 
+        <!-- Whether/where connections should have an internal junction -->
+        <default.connection.cont-pos value="-1" type="FLOAT"/>
+
         <!-- The default algorithm for computing right of way rules (&apos;default&apos;, &apos;edgePriority&apos;) -->
         <default.right-of-way value="default" type="STR"/>
 
@@ -618,6 +621,9 @@
         <!-- Removes isolated edges -->
         <remove-edges.isolated value="false" synonymes="remove-isolated" type="BOOL"/>
 
+        <!-- Only keep lanes with width in meters &gt; FLOAT -->
+        <keep-lanes.min-width value="0.01" type="FLOAT"/>
+
     </edge_removal>
 
     <unregulated_nodes>
@@ -668,6 +674,9 @@
 
         <!-- Determines the maximal distance for joining junctions (defaults to 10) -->
         <junctions.join-dist value="10" type="FLOAT"/>
+
+        <!-- The angular threshold in degress for rejection of parallel edges when joining junctions -->
+        <junctions.join.parallel-threshold value="30" type="FLOAT"/>
 
         <!-- Interprets STR[] as list of junctions to exclude from joining -->
         <junctions.join-exclude value="" type="STR[]"/>
@@ -753,6 +762,9 @@
         <!-- At uncontrolled nodes, do not build crossings across edges with a speed above the threshold -->
         <crossings.guess.speed-threshold value="13.89" type="FLOAT"/>
 
+        <!-- Give priority to guessed crossings at roundabouts -->
+        <crossings.guess.roundabout-priority value="true" type="BOOL"/>
+
         <!-- Always build walking areas even if there are no crossings -->
         <walkingareas value="false" type="BOOL"/>
 
@@ -816,6 +828,9 @@
         <!-- Guess signals that guard public transport stops -->
         <railway.signal.guess.by-stops value="false" type="BOOL"/>
 
+        <!-- List rail classes that may run without rail signals -->
+        <railway.signal.permit-unsignalized value="tram,cable_car" type="STR[]"/>
+
         <!-- The search radius for finding suitable road accesses for rail stops -->
         <railway.access-distance value="150" synonymes="osm.stop-output.footway-access-distance" type="FLOAT"/>
 
@@ -861,6 +876,9 @@
         <!-- Import sidewalks -->
         <osm.sidewalks value="false" type="BOOL"/>
 
+        <!-- Default to building two sidewalks on oneway streets (may affect divided roads) -->
+        <osm.oneway-reverse-sidewalk value="false" type="BOOL"/>
+
         <!-- Import crossings -->
         <osm.crossings value="false" type="BOOL"/>
 
@@ -891,7 +909,10 @@
         <!-- The speed limit to be set when there is no actual speed limit in reality -->
         <osm.speedlimit-none value="39.4444" type="FLOAT"/>
 
-        <!-- The edge lengths given in the MATSIM-file will be kept -->
+        <!-- Whether edges shoulds carry information on the usage of typemap defaults -->
+        <osm.annotate-defaults value="false" type="BOOL"/>
+
+        <!-- The edge lengths given in the MATSim-file will be kept -->
         <matsim.keep-length value="false" type="BOOL"/>
 
         <!-- The lane number will be computed from the capacity -->

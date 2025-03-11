@@ -77,6 +77,7 @@ won't be affected by further changes to the original type.
 | parameter (0x7e)          | string, string                                                 | [Sets the string value for the given string parameter](#setting_device_and_lanechangemodel_parameters_0x7e)                                                                                                               | [setParameter](https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-setParameter)        |
 | action step length (0x7d) | double (new action step length), boolean (reset action offset) | Sets the current action step length for the vehicle in s. If the boolean value resetActionOffset is true, an action step is scheduled immediately for the vehicle. | [setActionStepLength](https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-setActionStepLength) |
 | highlight (0x6c)          | highlight specification, see below                             | Adds a highlight to the vehicle                                                                                                                                    | [highlight](https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-highlight)           |
+| mass (0xc8)          | double                             | Sets the mass of the vehicle to the given value                                                                                                                           | [setMass](https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-setMass)           |
 
 Please note:
 
@@ -345,7 +346,7 @@ throughout the simulation.
 
 ### speed mode (0xb3)
 
-This command controls how speeds set with the command *setSpeed (0x40)*
+This command controls how speeds set with the command *setSpeed (0x40)*, *setAcceleration (0x72)*
 and *slowDown (0x14*) are used. Per default, the vehicle may only drive
 slower than the speed that is deemed safe by the car following model and
 it may not exceed the bounds on acceleration and deceleration.
@@ -361,21 +362,25 @@ bit) with the following fields:
 - bit3: Regard right of way at intersections (only applies to approaching foe vehicles outside the intersection)
 - bit4: Brake hard to avoid passing a red light
 - bit5: **Disregard** right of way within intersections (only applies to foe vehicles that have entered the intersection).
+- bit6: **Disregard** speed limit.
 
 Setting the bit enables the check (the according value is regarded),
 keeping the bit==zero disables the check.
 
 Examples:
 
-- default (all checks on) -\> \[0 1 1 1 1 1\] -\> Speed Mode = 31
-- most checks off (legacy) -\> \[0 0 0 0 0 0\] -\> Speed Mode = 0
-- all checks off  -\> \[1 0 0 0 0 0\] -\> Speed Mode = 32
-- disable right of way check -\> \[1 1 0 1 1 1\] -\> Speed Mode = 55
-- run a red light \[0 0 0 1 1 1\] = 7 (also requires setSpeed or slowDown)
-- run a red light even if the intersection is occupied \[1 0 0 1 1 1\] = 39 (also requires setSpeed or slowDown)
+- default (all checks on) -\> \[0 0 1 1 1 1 1\] -\> Speed Mode = 31
+- most checks off (legacy) -\> \[0 0 0 0 0 0 0\] -\> Speed Mode = 0
+- all checks off  -\> \[1 1 0 0 0 0 0\] -\> Speed Mode = 96
+- disable right of way check -\> \[0 1 1 0 1 1 1\] -\> Speed Mode = 55
+- run a red light \[0 0 0 0 1 1 1\] = 7 (also requires setSpeed or slowDown)
+- run a red light even if the intersection is occupied \[0 1 0 0 1 1 1\] = 39 (also requires setSpeed or slowDown)
 
 !!! caution
-    bit5 has inverted semantics and must be set to '1' in order to disable the safety function. This achieves backward compatibility with earlier versions of SUMO where this bit was not defined and right of way within intersection could not be ignored explicitly.
+    bit5 and bit6 have inverted semantics and must be set to '1' in order to disable the safety function. This achieves backward compatibility with earlier versions of SUMO where this bit was not defined and right of way within intersection could not be ignored explicitly.
+
+!!! note
+    bits 3,4,5 and 6 take effect without calling any other traci function
 
 ### lane change mode (0xb6)
 
@@ -558,6 +563,12 @@ call](../TraCI/GenericParameters.md#set_parameter).
 - device.driverstate.headwayChangePerceptionThreshold
 - device.driverstate.maximalReactionTime
 - device.driverstate.originalReactionTime
+- device.stationfinder.needToChargeLevel (double literal)
+- device.stationfinder.saturatedChargeLevel (double literal)
+- device.stationfinder.waitForCharge (double literal)
+- device.stationfinder.repeat (double literal)
+- device.stationfinder.radius (double literal)
+- device.stationfinder.reserveFactor (double literal)
 - device.toc.manualType
 - device.toc.automatedType
 - device.toc.responseTime

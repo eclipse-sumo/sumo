@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2009-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2009-2025 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -28,32 +28,42 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
+# go to additional mode
+netedit.additionalMode()
+
+# select vaporizer
+netedit.changeElement("vaporizer")
+
+# disable center view
+netedit.changeDefaultBoolValue(netedit.attrs.vaporizer.create.center)
+
+# create vaporizer
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
+
+# Change to delete
+netedit.deleteMode()
+
+# inspect first vaporizer
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.vaporizer)
+
+# Check undo
+netedit.undo(referencePosition, 2)
+
 # Change to delete
 netedit.deleteMode()
 
 # enable 'Automatically delete additionals'
 netedit.protectElements(referencePosition)
 
-# delete loaded vaporizer
-netedit.leftClick(referencePosition, netedit.positions.tmp)
-
-# delete lane with the loaded vaporizer
-netedit.leftClick(referencePosition, netedit.positions.tmp)
-
-# Check undo
-netedit.undo(referencePosition, 1)
-
-# Change to delete
-netedit.deleteMode()
-
-# disable 'Automatically delete additionals'
-netedit.protectElements(referencePosition)
-
-# try to delete lane with the  loaded vaporizer (doesn't allowed)
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+# try to delete lane with the second loaded vaporizer (doesn't allowed)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter0)
 
 # wait warning
 netedit.waitDeleteWarning()
+
+# check redo
+netedit.undo(referencePosition, 3)
+netedit.redo(referencePosition, 3)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

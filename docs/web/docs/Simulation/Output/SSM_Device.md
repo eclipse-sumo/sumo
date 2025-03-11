@@ -17,6 +17,9 @@ For instance, a single vehicle can be equipped (with a device parametrized by de
 </routes>
 ```
 
+## Preparing the network file
+The SSM device makes use of the [right-of-way information](../../Networks/SUMO_Road_Networks.md#junctions_and_right-of-way) of the intersections to derive some of the measures. It uses the foe matrix of the right-of-way definition to extract crossing and merging paths. If an intersection is set to **unregulated**, this information is not available and thus e.g. no PET measure can be computed for this intersection.
+
 ## Output File
 
 The SSM device generates an output file (one for each vehicle named `ssm_<vehicleID>.xml` per default, but several vehicles may write to the same file).
@@ -36,8 +39,8 @@ The detail of information given for each conflict and the criteria to qualify an
     ...
     <vehicle id="v0" route="route0" depart="0">
         <param key="has.ssm.device" value="true"/>
-        <param key="device.ssm.measures" value="TTC DRAC PET MDRAC"/>
-        <param key="device.ssm.thresholds" value="3.0 3.0 2.0 3.4"/>
+        <param key="device.ssm.measures" value="TTC DRAC PET BR SGAP TGAP PPET MDRAC"/>
+        <param key="device.ssm.thresholds" value="3.0 3.0 2.0 0.0 0.2 0.5 2.0 3.4"/>
         <param key="device.ssm.range" value="50.0" />
         <param key="device.ssm.mdrac.prt" value="1.0" />
         <param key="device.ssm.extratime" value="5.0" />
@@ -61,14 +64,14 @@ The possible parameters are summarized in the following table
 |---|---|---|---|
 | measures  | list of strings  | All available SSMs  | This space or comma-separated  list of SSM-identifiers determines, which encounter-specific SSMs are calculated for the equipped vehicle's encounters and which global measures are recorded (see [below](#available_ssms))   |
 | thresholds  | list of floats  | <ul><li>TTC < 3.0[s]</li><li>DRAC > 3.0[m/s^2]</li><li>MDRAC > 3.4[m/s^2]</li><li>PET < 2.0[s]</li><li>BR > 0.0[m/s^2]</li><li>SGAP < 0.2[m]</li><li>TGAP < 0.5[s]</li></ul>  | This space or comma-separated list of SSM-thresholds determines, which encounters are classified as conflicts (if their measurements exceed a threshold) and thus written to the output file as a `<conflict>`-element. This list is required to have the same length as the list of measures if given.<br><br>**Note:** Currently the global measures are recorded as a single timeline for the whole simulation span and thresholds have only effect insofar a leader is looked for in the distance corresponding to the SGAP and, respectively, TGAP values.   |
-| range  | double  | 50.0 [m]  | The devices detection range in meters. Other vehicles are tracked as soon as they are closer than `<range>` to the the equipped vehicle *along the road-network*. A tree search is performed to find all vehicles up to range upstream and downstream to the vehicle's current position. Further, for all downstream junctions in range, an upstream search for the given range is performed.  |
+| range  | double  | 50.0 [m]  | The devices detection range in meters. Other vehicles are tracked as soon as they are closer than `<range>` to the equipped vehicle *along the road-network*. A tree search is performed to find all vehicles up to range upstream and downstream to the vehicle's current position. Further, for all downstream junctions in range, an upstream search for the given range is performed.  |
 | extratime  | double  | 5.0 [s]  | The extra time that an encounter is tracked on after not being associated to a potential conflict (either after crossing the conflict area, deviating from a common route, changing lanes, or because vehicles leave the device range, etc.).  |
 | file  | string  | "ssm_<equipped_vehicleID\>.xml"  | The filename for storing the conflict information of the equipped vehicle. Several vehicles may write to the same file. Conflicts of a single vehicle are written in the order of the log-begin of the encounter.   |
-| trajectories  | bool  | false  | Whether the full time lines of the different measured values shall be written to the output. This includes logging the time values, encounter types, vehicle positions and velocities, values of the selected SSMs, and associated conflict point locations. If turned off (default) only the extremal values for the selected SSMs are written.  |
+| trajectories  | bool  | false  | Whether the full time lines of the different measured values shall be written to the output. This includes logging the time values, encounter types, vehicle positions and velocities, values of the selected SSMs, and associated conflict point locations. If turned off (default) only the extreme values for the selected SSMs are written.  |
 | geo  | bool  | false  | Whether the positions in the output file shall be given in the original coordinate reference system of the network (if available).  |
 | write-positions  | bool  | false  | Whether to write the positions (coordinates) to the output.  |
 | write-lane-positions  | bool  | false  | Whether to write the lanes and the positions on the lanes to the output.  |
-| filter-edges.input-file | string | - | If defined, only conflicts occured at the provided edges and junctions are measured. See [Restricting SSM Device to Edges and Junctions](#restricting_ssm_device_to_edges_and_junctions)  |
+| filter-edges.input-file | string | - | If defined, only conflicts occurred at the provided edges and junctions are measured. See [Restricting SSM Device to Edges and Junctions](#restricting_ssm_device_to_edges_and_junctions)  |
 | exclude-conflict-types | list of strings | - | This space or comma-separated list of SSM device conflict type codes determines which conflicts will appear in the output file. Any conflict which has been classified during at least one time step as one of the mentioned types is excluded from the output. Special values **"foe"** (types {3,7,11,13,15}) and **"ego"** (types {2,6,10,12,14}) add predefined sets to the list. |
 
 ## Encounter types
@@ -150,7 +153,7 @@ For crossing and merging situations, we consider "expected" entry and exit times
 For the calculation of those times for the approaching vehicles, we take into account the current deceleration of the
 vehicles, if the vehicle is not decelerating, the current speed is extrapolated as a constant (i.e., acceleration is only considered if it is negative).
 
-For some reference to definitions of SSMs see for instance [Guido et al. (2011) "Safety performance measures: a comparison between microsimulation and observational data"] or [Mahmud et al. (2016) "Application of proximal surrogate indicators for safety evaluation: A review of recent developments and research needs"]
+For some reference to definitions of SSMs see for instance [Guido et al. (2011) "Safety performance measures: a comparison between microsimulation and observational data"](https://doi.org/10.1016/j.sbspro.2011.08.027) or [Mahmud et al. (2016) "Application of proximal surrogate indicators for safety evaluation: A review of recent developments and research needs"](https://doi.org/10.1016/j.iatssr.2017.02.001).
 
 ### TTC
 The time-to-collision is defined for all follow-lead situations for which the follower is faster than the leader. It is given as
@@ -295,17 +298,17 @@ Elements of type `<conflict>` hold the following information in their child elem
 |              | position  | 2D-coordinate     | Coordinate of the corresponding conflict point.               | --device.ssm.measures "TTC" |
 |              | type    | integer (Encounter type code)  | [Type code](#encounter_types) of the corresponding encounter type. (Defines the variant of [TTC-calculation](#ttc).) | --device.ssm.measures "TTC" |
 |              | value   | float >= 0          | The minimal measured TTC-value.                               | --device.ssm.measures "TTC" |
-|              | speed   | float >= 0          | The speed of the reporting vehicle at the occurence of minTTC.| --device.ssm.measures "TTC" |
+|              | speed   | float >= 0          | The speed of the reporting vehicle at the occurrence of minTTC.| --device.ssm.measures "TTC" |
 | maxDRAC      | time    | float               | Time point of the maximal measured value for the DRAC.        | --device.ssm.measures "DRAC" |
 |              | position  | 2D-coordinate     | Coordinate of the corresponding conflict point.               | --device.ssm.measures "DRAC" |
 |              | type    | integer (Encounter type code)  | [Type code](#encounter_types) of the corresponding encounter type. (Defines the variant of [DRAC-calculation](#drac).)  | --device.ssm.measures "DRAC" |
 |              | value   | float >= 0          | The maximal measured DRAC-value.                              | --device.ssm.measures "DRAC" |
-|              | speed   | float >= 0          | The speed of the reporting vehicle at the occurence of maxDRAC.| --device.ssm.measures "DRAC" |
+|              | speed   | float >= 0          | The speed of the reporting vehicle at the occurrence of maxDRAC.| --device.ssm.measures "DRAC" |
 | PET          | time    | float               | Time point of the minimal measured value for the PET. (Usually the PET is only measured once, therefore no PETSpan is reported.)  | --device.ssm.measures "PET" |
 |              | position  | 2D-coordinate     | Coordinate of the corresponding encroachment point.           | --device.ssm.measures "PET" |
 |              | type    | integer (Encounter type code)  | [Type code](#encounter_types) of the corresponding encounter type.  | --device.ssm.measures "PET" |
 |              | value   | float >= 0          | The measured PET-value.                                       | --device.ssm.measures "PET" |
-|              | speed   | float >= 0          | The speed of the reporting vehicle at the occurence of PET.   | --device.ssm.measures "PET" |
+|              | speed   | float >= 0          | The speed of the reporting vehicle at the occurrence of PET.   | --device.ssm.measures "PET" |
 
 
 The `<globalMeasures>` element has the following structure:
@@ -341,7 +344,7 @@ junction:junctionID1
 junction:junctionID2
 ...
 ```
-The edges adjoining the given junctions and the given edges are used to measure the conflicts. Only conflicts occuring at these edges are measured and outputed.
+The edges adjoining the given junctions and the given edges are used to measure the conflicts. Only conflicts occurring at these edges are measured and outputted.
 
 
 ## TraCI

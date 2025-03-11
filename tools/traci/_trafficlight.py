@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2011-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2011-2025 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -367,7 +367,7 @@ class TrafficLightDomain(Domain):
         Time 0 must be used of the phase does not exists.
         Example: “11.0 34.0 15.0 20.0 11.0 34.0 15.0 20.0" (gives total cycle length of 80s)
         """
-        if type(splits) == list:
+        if isinstance(splits, list):
             splits = ' '.join(map(str, splits))
         self.setParameter(tlsID, "NEMA.splits", splits)
 
@@ -381,7 +381,7 @@ class TrafficLightDomain(Domain):
         Time 0 must be used of the phase does not exists.
         Example: “11.0 34.0 15.0 20.0 11.0 34.0 15.0 20.0"
         """
-        if type(maxGreens) == list:
+        if isinstance(maxGreens, list):
             maxGreens = ' '.join(map(str, maxGreens))
         self.setParameter(tlsID, "NEMA.maxGreens", maxGreens)
 

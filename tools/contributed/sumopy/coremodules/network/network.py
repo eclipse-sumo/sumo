@@ -1,5 +1,5 @@
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2016-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2016-2025 German Aerospace Center (DLR) and others.
 # SUMOPy module
 # Copyright (C) 2012-2021 University of Bologna - DICAM
 # This program and the accompanying materials are made available under the
@@ -88,7 +88,7 @@ OSMEDGETYPE_TO_MODES = {'highway.cycleway': ([MODES['bicycle']], 5.6),
 
 class SumoIdsConf(am.ArrayConf):
     """
-    Sumo id array coniguration
+    Sumo id array configuration
     """
     # def __init__(self, **attrs):
     #    print 'ColConf',attrs
@@ -109,7 +109,7 @@ class SumoIdsConf(am.ArrayConf):
 
 
 class Modes(am.ArrayObjman):
-    # http://www.sumo.dlr.de/userdoc/Networks/Building_Networks_from_own_XML-descriptions.html#Edge_Descriptions
+    # https://sumo.dlr.de/docs/Networks/PlainXML.html#edge_descriptions
     def __init__(self, parent, **kwargs):
         ident = 'modes'
         self._init_objman(ident=ident, parent=parent, name='Transport Modes',
@@ -126,7 +126,7 @@ class Modes(am.ArrayObjman):
                                   perm='r',
                                   is_index=True,
                                   name='Name',
-                                  info='Name of mode. Used as key for implementing acces restrictions on edges as well as demand modelling.',
+                                  info='Name of mode. Used as key for implementing access restrictions on edges as well as demand modelling.',
                                   xmltag='vClass',
                                   ))
 
@@ -135,7 +135,7 @@ class Modes(am.ArrayObjman):
                                   perm='rw',
                                   name='Max. Speed',
                                   unit='m/s',
-                                  info='Maximum possible speed for this mode. Speed is used to estimate free flow link travel times, mainly for routig purposes. Note that speeds are usully limited by the lane speed attribute',
+                                  info='Maximum possible speed for this mode. Speed is used to estimate free flow link travel times, mainly for routing purposes. Note that speeds are usully limited by the lane speed attribute',
                                   ))
         if self.get_version() < 0.1:
             self.clear()
@@ -165,8 +165,8 @@ class Modes(am.ArrayObjman):
         self.add_rows(ids=MODES.values(), names=MODES.keys())
 
         # these speeds are used to estimate free flow link travel times
-        # mainly for routig purposes
-        # note that speed limits are usully limited by the lane speed attribute
+        # mainly for routing purposes
+        # note that speed limits are usually limited by the lane speed attribute
         speeds_max_kmph = OrderedDict([
             ("ignoring", 100.0),
             ("pedestrian", 3.6),
@@ -267,7 +267,7 @@ class TrafficLightLogics(am.ArrayObjman):
     def __init__(self, ident, tlss, **kwargs):
         self._init_objman(ident, parent=tlss,
                           name='Traffic Light Logics',
-                          info='Traffic light Logics (TLLs) for Trafic Light Systems (TLSs).',
+                          info='Traffic light Logics (TLLs) for Traffic Light Systems (TLSs).',
                           xmltag=('tlLogics', 'tlLogic', 'ids_tls'),
                           **kwargs)
 
@@ -334,7 +334,7 @@ class TrafficLightLogics(am.ArrayObjman):
 
 
 class TrafficLightSystems(am.ArrayObjman):
-    # http://www.sumo.dlr.de/userdoc/Networks/Building_Networks_from_own_XML-descriptions.html#Traffic_Light_Program_Definition
+    # https://sumo.dlr.de/docs/Networks/PlainXML.html#traffic_light_program_definition
 
     def __init__(self, net, **kwargs):
 
@@ -358,7 +358,7 @@ class TrafficLightSystems(am.ArrayObjman):
         self.add_col(am.IdlistsArrayConf('ids_cons', self.parent.connections,
                                          groupnames=['state'],
                                          name='IDs con.',
-                                         info='ID list of controlled connections. These connections corrispond to the elements of the state vector within the program-phases.',
+                                         info='ID list of controlled connections. These connections correspond to the elements of the state vector within the program-phases.',
                                          ))
 
     # def clear_tlss(self):
@@ -403,10 +403,10 @@ class TrafficLightSystems(am.ArrayObjman):
         self.ids_cons[id_tls] = ids_con
 
         # check whether the number of connections equals to the number of
-        # dignals in the states
+        # signals in the states
         #
         # Attention: they are not equal because there is no connection for
-        # pedestrian crossings! Thos links are under crossins,
+        # pedestrian crossings! Those links are under crossings,
         # but have no link index :(...so just be tolerant
         #
         #n_signals = len(ids_con)
@@ -418,7 +418,7 @@ class TrafficLightSystems(am.ArrayObjman):
         #    states = prog.states.get_value()
         #    #print '  len(state0),n_signals',len(state0),n_signals
         #    if len(states[0]) != n_signals:
-        #        print 'WARNING: tls %s has inconsistant program. \n  Signals =%d, states=%d'%(self.ids_sumo[id_tls],n_signals,len(states[0]))
+        #        print 'WARNING: tls %s has inconsistent program. \n  Signals =%d, states=%d'%(self.ids_sumo[id_tls],n_signals,len(states[0]))
         #        print '  ids_con=',ids_con
         #        for state in states:
         #            print '  state',state
@@ -500,7 +500,7 @@ class TrafficLightSystems(am.ArrayObjman):
 
 
 class Crossings(am.ArrayObjman):
-    # http://www.sumo.dlr.de/userdoc/Networks/Building_Networks_from_own_XML-descriptions.html#Edge_Descriptions
+    # https://sumo.dlr.de/docs/Networks/PlainXML.html#edge_descriptions
     def __init__(self, parent, **kwargs):
         ident = 'crossings'
         self._init_objman(ident=ident, parent=parent, name='Crossings',
@@ -577,7 +577,7 @@ class Crossings(am.ArrayObjman):
 
 
 class Connections(am.ArrayObjman):
-    # http://www.sumo.dlr.de/userdoc/Networks/Building_Networks_from_own_XML-descriptions.html#Edge_Descriptions
+    # https://sumo.dlr.de/docs/Networks/PlainXML.html#edge_descriptions
     def __init__(self, parent, **kwargs):
         ident = 'connections'
         self._init_objman(ident=ident, parent=parent, name='Connections',
@@ -890,7 +890,7 @@ class Connections(am.ArrayObjman):
 
 
 class Lanes(am.ArrayObjman):
-    # http://www.sumo.dlr.de/userdoc/Networks/Building_Networks_from_own_XML-descriptions.html#Edge_Descriptions
+    # https://sumo.dlr.de/docs/Networks/PlainXML.html#edge_descriptions
     def __init__(self, parent, **kwargs):
         ident = 'lanes'
         self._init_objman(ident=ident, parent=parent, name='Lanes',
@@ -1439,7 +1439,7 @@ class Lanes(am.ArrayObjman):
 
 
 class Roundabouts(am.ArrayObjman):
-    # http://www.sumo.dlr.de/userdoc/Networks/Building_Networks_from_own_XML-descriptions.html#Edge_Descriptions
+    # https://sumo.dlr.de/docs/Networks/PlainXML.html#edge_descriptions
     def __init__(self, parent, edges, nodes, **kwargs):
         ident = 'roundabouts'
         self._init_objman(ident=ident, parent=parent,
@@ -1484,7 +1484,7 @@ class Roundabouts(am.ArrayObjman):
 
 
 class Edges(am.ArrayObjman):
-    # http://www.sumo.dlr.de/userdoc/Networks/Building_Networks_from_own_XML-descriptions.html#Edge_Descriptions
+    # https://sumo.dlr.de/docs/Networks/PlainXML.html#edge_descriptions
     def __init__(self, parent, **kwargs):
         ident = 'edges'
         self._init_objman(ident=ident, parent=parent,
@@ -2796,7 +2796,7 @@ class Edges(am.ArrayObjman):
 
 
 class Nodes(am.ArrayObjman):
-    # http://www.sumo.dlr.de/userdoc/Networks/Building_Networks_from_own_XML-descriptions.html#Node_Descriptions
+    # https://sumo.dlr.de/docs/Networks/PlainXML.html#node_descriptions
     def __init__(self, parent,
                  **kwargs):
         ident = 'nodes'

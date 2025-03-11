@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -336,6 +336,12 @@ NBRequest::setBlocking(NBEdge* from1, NBEdge* to1,
             } else {
                 myForbids[idx2][idx1] = true;
             }
+#ifdef DEBUG_SETBLOCKING
+            if (DEBUGCOND) std::cout << "setBlocking"
+                                         << " 1:" << from1->getID() << "->" << to1->getID()
+                                         << " 2:" << from2->getID() << "->" << to2->getID()
+                                         << " 1 yields\n";
+#endif
             return;
         }
         NBContHelper::nextCW(myAll, c1);
@@ -352,6 +358,12 @@ NBRequest::setBlocking(NBEdge* from1, NBEdge* to1,
             } else {
                 myForbids[idx1][idx2] = true;
             }
+#ifdef DEBUG_SETBLOCKING
+            if (DEBUGCOND) std::cout << "setBlocking"
+                                         << " 1:" << from1->getID() << "->" << to1->getID()
+                                         << " 2:" << from2->getID() << "->" << to2->getID()
+                                         << " 2 yields\n";
+#endif
             return;
         }
         NBContHelper::nextCW(myAll, c2);
@@ -465,6 +477,12 @@ NBRequest::resetSignalised() {
                             if ((*i11) == (*i21)) {
                                 myForbids[idx1][idx2] = false;
                                 myForbids[idx2][idx1] = false;
+#ifdef DEBUG_SETBLOCKING
+                                if (DEBUGCOND) std::cout << "resetSignalised both"
+                                                             << " 1:" << (*i11)->getID() << "->" << (*i12).toEdge->getID()
+                                                             << " 2:" << (*i21)->getID() << "->" << (*i22).toEdge->getID()
+                                                             << "\n";
+#endif
                                 continue;
                             }
                             // check other
@@ -485,9 +503,19 @@ NBRequest::resetSignalised() {
                             if ((*i12).tlID != "") {
                                 myForbids[idx1][idx2] = true;
                                 myForbids[idx2][idx1] = false;
+#ifdef DEBUG_SETBLOCKING
+                                if (DEBUGCOND) std::cout << "resetSignalised:2 yields"
+                                                             << " 1:" << (*i11)->getID() << "->" << (*i12).toEdge->getID()
+                                                             << " 2:" << (*i21)->getID() << "->" << (*i22).toEdge->getID() << "\n";
+#endif
                             } else {
                                 myForbids[idx1][idx2] = false;
                                 myForbids[idx2][idx1] = true;
+#ifdef DEBUG_SETBLOCKING
+                                if (DEBUGCOND) std::cout << "resetSignalised:1 yields"
+                                                             << " 1:" << (*i11)->getID() << "->" << (*i12).toEdge->getID()
+                                                             << " 2:" << (*i21)->getID() << "->" << (*i22).toEdge->getID() << "\n";
+#endif
                             }
                         }
                     }
@@ -670,6 +698,7 @@ NBRequest::getResponseString(const NBEdge* const from, const NBEdge::Connection&
 #ifdef DEBUG_RESPONSE
                     if (DEBUGCOND) {
                         std::cout << " c=" << queryCon.getDescription(from) << " prohibitC=" << connected[k].getDescription(*i)
+                                  << " idx=" << idx << " idx2=" << idx2
                                   << " f=" << myForbids[idx2][idx]
                                   << " clf=" << checkLaneFoes
                                   << " clfbc=" << checkLaneFoesByClass(queryCon, *i, connected[k])
@@ -778,9 +807,12 @@ NBRequest::mergeConflict(const NBEdge* from, const NBEdge::Connection& con,
                          const NBEdge* prohibitorFrom,  const NBEdge::Connection& prohibitorCon, bool foes) const {
     if (from == prohibitorFrom
             && con.toEdge == prohibitorCon.toEdge
-            && con.toLane == prohibitorCon.toLane
-            && con.fromLane != prohibitorCon.fromLane
-            && !myJunction->isConstantWidthTransition()) {
+            && ((con.toLane == prohibitorCon.toLane
+                 && con.fromLane != prohibitorCon.fromLane
+                 && !myJunction->isConstantWidthTransition())
+                // this is actually a crossing rather than a merger
+                || (con.fromLane > prohibitorCon.fromLane && con.toLane < prohibitorCon.toLane)
+                || (con.fromLane < prohibitorCon.fromLane && con.toLane > prohibitorCon.toLane))) {
         if (foes) {
             return true;
         }
@@ -1011,7 +1043,7 @@ NBRequest::mustBrake(const NBEdge* const from, const NBEdge* const to, int fromL
             return true;
         }
         // if the link must respond it could also be due to a tlsConflict. This
-        // must not carry over the the off-state response so we continue with
+        // must not carry over the off-state response so we continue with
         // the regular check
     }
     // get the indices
@@ -1134,6 +1166,12 @@ NBRequest::resetCooperating() {
             for (const NBEdge* const e1 : incoming) {
                 for (const NBEdge* const e2 : incoming) {
                     myForbids[getIndex(e1, to)][getIndex(e2, to)] = false;
+#ifdef DEBUG_SETBLOCKING
+                    if (DEBUGCOND) std::cout << "resetCooperating"
+                                                 << " 1:" << e1->getID() << "->" << to->getID()
+                                                 << " 2:" << e2->getID() << "->" << to->getID()
+                                                 << "\n";
+#endif
                 }
             }
         }

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -170,24 +170,14 @@ GNECalibratorDialog::onCmdClickedRoute(FXObject*, FXSelector, void*) {
             }
             // if there are flows that has route to remove as "route" parameter
             if (calibratorFlowsToErase.size() > 0) {
-                // write warning if netedit is running in testing mode
-                WRITE_DEBUG("Opening FXMessageBox of type 'question'");
                 // open question dialog box
                 const std::string msg = ("Deletion of " + toString(SUMO_TAG_ROUTE) + " '" + myRouteList->getItem(i, 0)->getText().text() + "' will remove " +
                                          toString(calibratorFlowsToErase.size()) + " " + toString(GNE_TAG_CALIBRATOR_FLOW) + (calibratorFlowsToErase.size() > 1 ? ("s") : ("")) + ". Continue?");
                 FXuint answer = FXMessageBox::question(getApp(), MBOX_YES_NO, ("Remove " + toString(GNE_TAG_CALIBRATOR_FLOW) + "s").c_str(), "%s", msg.c_str());
                 if (answer != 1) { //1:yes, 2:no, 4:esc
-                    // write warning if netedit is running in testing mode
-                    if (answer == 2) {
-                        WRITE_DEBUG("Closed FXMessageBox of type 'question' with 'No'");
-                    } else if (answer == 4) {
-                        WRITE_DEBUG("Closed FXMessageBox of type 'question' with 'ESC'");
-                    }
                     // abort deletion of route
                     return 0;
                 } else {
-                    // write warning if netedit is running in testing mode
-                    WRITE_DEBUG("Closed FXMessageBox of type 'question' with 'Yes'");
                     // remove affected flows of calibrator flows
                     for (auto j : calibratorFlowsToErase) {
                         myEditedAdditional->getNet()->getViewNet()->getUndoList()->add(new GNEChange_Additional(j, false), true);
@@ -266,7 +256,7 @@ long
 GNECalibratorDialog::onCmdAddVehicleType(FXObject*, FXSelector, void*) {
     // create a new Vehicle Type and configure it with modal GNEVehicleTypeDialog
     std::string vehicleTypeID = myEditedAdditional->getNet()->getViewNet()->getNet()->getAttributeCarriers()->generateDemandElementID(SUMO_TAG_VTYPE);
-    GNEVehicleTypeDialog(new GNEVType(myEditedAdditional->getNet(), vehicleTypeID, SVC_PASSENGER), false);  // NOSONAR, constructor returns after dialog has been closed
+    GNEVehicleTypeDialog(new GNEVType(vehicleTypeID, myEditedAdditional->getNet(), SVC_PASSENGER), false);  // NOSONAR, constructor returns after dialog has been closed
     // update vehicle types table
     updateVehicleTypeTable();
     return 1;
@@ -298,17 +288,9 @@ GNECalibratorDialog::onCmdClickedVehicleType(FXObject*, FXSelector, void*) {
                                          toString(calibratorFlowsToErase.size()) + " " + toString(GNE_TAG_CALIBRATOR_FLOW) + (calibratorFlowsToErase.size() > 1 ? ("s") : ("")) + ". Continue?");
                 FXuint answer = FXMessageBox::question(getApp(), MBOX_YES_NO, ("Remove " + toString(GNE_TAG_CALIBRATOR_FLOW) + "s").c_str(), "%s", msg.c_str());
                 if (answer != 1) { //1:yes, 2:no, 4:esc
-                    // write warning if netedit is running in testing mode
-                    if (answer == 2) {
-                        WRITE_DEBUG("Closed FXMessageBox of type 'question' with 'No'");
-                    } else if (answer == 4) {
-                        WRITE_DEBUG("Closed FXMessageBox of type 'question' with 'ESC'");
-                    }
                     // abort deletion of vehicle type
                     return 0;
                 } else {
-                    // write warning if netedit is running in testing mode
-                    WRITE_DEBUG("Closed FXMessageBox of type 'question' with 'Yes'");
                     // remove affected flows of calibrator flows
                     for (auto j : calibratorFlowsToErase) {
                         myEditedAdditional->getNet()->getViewNet()->getUndoList()->add(new GNEChange_Additional(j, false), true);

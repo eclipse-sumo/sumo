@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -307,6 +307,14 @@ public:
      * @param[in] rem The move reminder to add
      */
     virtual void addMoveReminder(MSMoveReminder* rem);
+
+
+    /** @brief Remove a move-reminder from move-reminder container
+     *
+     * The move reminder will not be deleted by the lane.
+     * @param[in] rem The move reminder to remvoe
+     */
+    virtual void removeMoveReminder(MSMoveReminder* rem);
 
 
     /** @brief Return the list of this lane's move reminders
@@ -1301,12 +1309,11 @@ public:
      *  Every vehicle is retrieved from the given MSVehicleControl and added to this
      *  lane.
      *
-     * @param[in] vehIDs The vehicle ids for the current que
-     * @param[in] vc The vehicle control to retrieve references vehicles from
+     * @param[in] vehs The vehicles for the current lane
      * @todo What about throwing an IOError?
      * @todo What about throwing an error if something else fails (a vehicle can not be referenced)?
      */
-    void loadState(const std::vector<std::string>& vehIDs, MSVehicleControl& vc);
+    void loadState(const std::vector<SUMOVehicle*>& vehs);
 
 
     /* @brief helper function for state saving: checks whether any outgoing

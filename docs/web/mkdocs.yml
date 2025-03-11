@@ -7,7 +7,7 @@ use_directory_urls: false
 dev_addr: 127.0.0.1:8000
 #docs_dir: docs
 #site_dir: site
-copyright: "Copyright &copy; 2001-2024 German Aerospace Center (DLR) and others."
+copyright: "Copyright &copy; 2001-2025 German Aerospace Center (DLR) and others."
 
 nav:
   - Documentation: index.md
@@ -29,7 +29,7 @@ theme:
 
 validation:
   links:
-    absolute_links: info
+    absolute_links: ignore #info
     anchors: warn
     unrecognized_links: warn
 
@@ -46,10 +46,33 @@ plugins:
         - sumo-logo.png
         - sumo-logo.svg
   - macros
+  - pub-debugger:
+      console_log:
+        enabled: true
+        log_level: WARNING
   - redirects:
       redirect_maps:
           "ChangeLog/index.md" : "ChangeLog.md"
           "Contact.md" : "https://eclipse.dev/sumo/contact/"
+#  - spellcheck:
+#      backends:  # the backends you want to use
+#      - codespell:  # or nested configs
+#          dictionaries: [clear, rare]
+#      # known_words can also be a list of words
+#      known_words: known_words.txt
+#      # ignore words in <code> tags
+#      ignore_code: yes
+#      # minimum length of words to consider
+#      min_length: 2
+#      # maximum number of capital letters in a word
+#      max_capital: 1
+#      # keep unicode characters
+#      allow_unicode: no
+#      # whether to only check in strict mode
+#      strict_only: yes
+#      skip_files:
+#      - DiplomStudArb.md
+#      - Tools/Import/VISSIM.md
 
 markdown_extensions:
   - attr_list
@@ -76,8 +99,9 @@ markdown_extensions:
   - codehilite
 
 extra:
-    Version: 1.20.0
-    ReleaseDate: 07.05.2024
+    Version: 1.22.0
+    ReleaseDate: 04.02.2025
+    DOI: "10.5281/zenodo.13907886"
 
     AdditionalFile: '[*additional-file*](/docs/sumo.html#format_of_additional_files)'
     AdditionalFiles: '[*additional-files*](/docs/sumo.html#format_of_additional_files)'

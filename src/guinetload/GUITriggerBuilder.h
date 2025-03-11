@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2004-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2004-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -91,7 +91,7 @@ protected:
     MSTriggeredRerouter* buildRerouter(MSNet& net,
                                        const std::string& id, MSEdgeVector& edges,
                                        double prob, bool off, bool optional, SUMOTime timeThreshold,
-                                       const std::string& vTypes, const Position& pos) override;
+                                       const std::string& vTypes, const Position& pos, const double radius) override;
 
 
     /** @brief Builds a bus stop

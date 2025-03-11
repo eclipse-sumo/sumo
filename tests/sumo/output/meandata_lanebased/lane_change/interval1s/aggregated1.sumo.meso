@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-11-23 12:57:30 by Eclipse SUMO sumo Version v1_11_0+0012-279bcfd
+<!-- generated on 2025-01-24 14:56:42 by Eclipse SUMO sumo Version v1_21_0+2025-5620477d6df
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -24,12 +29,10 @@ SPDX-License-Identifier: EPL-2.0
 
     <processing>
         <default.speeddev value="0"/>
-        <pedestrian.model value="nonInteracting"/>
     </processing>
 
     <report>
         <xml-validation value="never"/>
-        <xml-validation.routes value="never"/>
         <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -38,7 +41,7 @@ SPDX-License-Identifier: EPL-2.0
         <mesosim value="true"/>
     </mesoscopic>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
@@ -97,10 +100,10 @@ SPDX-License-Identifier: EPL-2.0
         <edge id="1si" sampledSeconds="2.00" traveltime="42.19" overlapTraveltime="42.69" density="8.00" laneDensity="2.67" occupancy="0.80" waitingTime="0.00" timeLoss="0.31" speed="5.93" speedRelative="0.43" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
     <interval begin="18.00" end="19.00" id="dump_1">
-        <edge id="1si" sampledSeconds="2.00" traveltime="83.88" overlapTraveltime="84.89" density="8.00" laneDensity="2.67" occupancy="0.80" waitingTime="0.00" timeLoss="0.90" speed="2.98" speedRelative="0.21" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="1si" sampledSeconds="2.00" traveltime="83.88" overlapTraveltime="84.89" density="8.00" laneDensity="2.67" occupancy="0.80" waitingTime="0.99" timeLoss="0.90" speed="2.98" speedRelative="0.21" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
     <interval begin="19.00" end="20.00" id="dump_1">
-        <edge id="1si" sampledSeconds="2.00" traveltime="53.34" overlapTraveltime="53.98" density="8.00" laneDensity="2.67" occupancy="0.80" waitingTime="0.00" timeLoss="0.56" speed="4.69" speedRelative="0.34" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="1si" sampledSeconds="2.00" traveltime="53.34" overlapTraveltime="53.98" density="8.00" laneDensity="2.67" occupancy="0.80" waitingTime="0.99" timeLoss="0.56" speed="4.69" speedRelative="0.34" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
     <interval begin="20.00" end="21.00" id="dump_1">
         <edge id="1si" sampledSeconds="2.00" traveltime="50.00" overlapTraveltime="50.60" density="8.00" laneDensity="2.67" occupancy="0.80" waitingTime="0.00" timeLoss="0.50" speed="5.00" speedRelative="0.36" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
@@ -149,7 +152,7 @@ SPDX-License-Identifier: EPL-2.0
         <edge id="4o" sampledSeconds="0.67" traveltime="100.00" overlapTraveltime="100.60" density="1.33" laneDensity="1.33" occupancy="0.40" waitingTime="0.00" timeLoss="0.00" speed="5.00" speedRelative="0.45" departed="0" arrived="0" entered="1" left="0" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
     <interval begin="35.00" end="36.00" id="dump_1">
-        <edge id="1si" sampledSeconds="0.91" traveltime="55.47" overlapTraveltime="56.14" density="3.65" laneDensity="1.22" occupancy="0.37" waitingTime="0.00" timeLoss="0.50" speed="4.51" speedRelative="0.32" departed="0" arrived="0" entered="0" left="1" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="1si" sampledSeconds="0.91" traveltime="55.47" overlapTraveltime="56.14" density="3.65" laneDensity="1.22" occupancy="0.37" waitingTime="0.09" timeLoss="0.50" speed="4.51" speedRelative="0.32" departed="0" arrived="0" entered="0" left="1" laneChangedFrom="0" laneChangedTo="0"/>
         <edge id="4o" sampledSeconds="1.09" traveltime="100.00" overlapTraveltime="100.60" density="2.17" laneDensity="2.17" occupancy="0.65" waitingTime="0.00" timeLoss="0.04" speed="5.00" speedRelative="0.45" departed="0" arrived="0" entered="1" left="0" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
     <interval begin="36.00" end="37.00" id="dump_1">

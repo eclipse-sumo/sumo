@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -133,6 +133,7 @@ SequentialStringBijection::Entry NIImporter_OpenDrive::openDriveAttrs[] = {
     { "t",              NIImporter_OpenDrive::OPENDRIVE_ATTR_T },
     { "x",              NIImporter_OpenDrive::OPENDRIVE_ATTR_X },
     { "y",              NIImporter_OpenDrive::OPENDRIVE_ATTR_Y },
+    { "z",              NIImporter_OpenDrive::OPENDRIVE_ATTR_Z },
     { "hdg",            NIImporter_OpenDrive::OPENDRIVE_ATTR_HDG },
     { "curvStart",      NIImporter_OpenDrive::OPENDRIVE_ATTR_CURVSTART },
     { "curvEnd",        NIImporter_OpenDrive::OPENDRIVE_ATTR_CURVEND },
@@ -199,7 +200,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     myMinWidth = oc.getFloat("opendrive.min-width");
     myImportInternalShapes = oc.getBool("opendrive.internal-shapes");
     myIgnoreMisplacedSignals = oc.getBool("opendrive.ignore-misplaced-signals");
-    bool customLaneShapes = oc.getBool("opendrive.lane-shapes");
+    const bool customLaneShapes = oc.getBool("opendrive.lane-shapes");
     NBTypeCont& tc = nb.getTypeCont();
     NBNodeCont& nc = nb.getNodeCont();
     // build the handler
@@ -486,7 +487,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                 }
                 sE = nextS / cF;
             }
-            PositionVector geom = geomWithOffset.getSubpart2D(sB, sE);
+            const PositionVector geom = geomWithOffset.getSubpart2D(sB, sE).simplified2(false);
             std::string id = e->id;
             if (positionIDs) {
                 if (sFrom != e->from || sTo != e->to) {
@@ -527,12 +528,12 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                 lanesBuilt = true;
                 std::vector<OpenDriveLane>& lanes = (*j).lanesByDir[OPENDRIVE_TAG_RIGHT];
                 std::sort(lanes.begin(), lanes.end(), LaneSorter());
-                for (std::vector<OpenDriveLane>::const_iterator k = lanes.begin(); k != lanes.end(); ++k) {
-                    std::map<int, int>::const_iterator lp = (*j).laneMap.find((*k).id);
+                for (const OpenDriveLane& odl : lanes) {
+                    std::map<int, int>::const_iterator lp = (*j).laneMap.find(odl.id);
                     if (lp != (*j).laneMap.end()) {
                         int sumoLaneIndex = lp->second;
-                        setLaneAttributes(e, currRight->getLaneStruct(sumoLaneIndex), *k, saveOrigIDs, tc);
-                        laneIndexMap[std::make_pair(currRight, sumoLaneIndex)] = (*k).id;
+                        setLaneAttributes(e, currRight->getLaneStruct(sumoLaneIndex), odl, saveOrigIDs, tc);
+                        laneIndexMap[std::make_pair(currRight, sumoLaneIndex)] = odl.id;
                         if (useOffsets) {
                             PositionVector laneShape = laneGeom;
                             laneShape.move2sideCustom(offsets);
@@ -542,7 +543,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                         useOffsets = true;
                     }
                     if (customLaneShapes) {
-                        addOffsets(false, laneGeom, (*k).widthData, e->id + "_" + toString((*k).id), offsets);
+                        addOffsets(false, laneGeom, odl.widthData, e->id + "_" + toString(odl.id), offsets);
                     }
                 }
                 if (!nb.getEdgeCont().insert(currRight, myImportAllTypes)) {
@@ -1044,7 +1045,7 @@ NIImporter_OpenDrive::setLaneAttributes(const OpenDriveEdge* e, NBEdge::Lane& su
     const double maxWidth = tc.getEdgeTypeMaxWidth(odLane.type);
 
     const bool forbiddenNarrow = (sumoLane.width < myMinWidth
-                                  && (sumoLane.permissions & SVC_PASSENGER) != 0
+                                  && (sumoLane.permissions & ~SVC_VULNERABLE) != 0
                                   && sumoLane.width < tc.getEdgeTypeWidth(odLane.type));
 
     if (sumoLane.width >= 0 && widthResolution > 0) {
@@ -2292,9 +2293,10 @@ NIImporter_OpenDrive::myStartElement(int element,
         case OPENDRIVE_TAG_OFFSET: {
             double x = attrs.get<double>(OPENDRIVE_ATTR_X, "offset", ok);
             double y = attrs.get<double>(OPENDRIVE_ATTR_Y, "offset", ok);
-            myOffset.set(x, y);
+            double z = attrs.get<double>(OPENDRIVE_ATTR_Z, "offset", ok);
+            myOffset.set(-x, -y, -z);
             if (GeoConvHelper::getNumLoaded()) {
-                GeoConvHelper::getLoaded().moveConvertedBy(x, y);
+                GeoConvHelper::getLoaded().moveConvertedBy(-x, -y);
             }
         }
         break;
@@ -2450,7 +2452,7 @@ NIImporter_OpenDrive::myStartElement(int element,
             std::string id = attrs.get<std::string>(OPENDRIVE_ATTR_ID, myCurrentEdge.id.c_str(), ok);
             std::string type = attrs.get<std::string>(OPENDRIVE_ATTR_TYPE, myCurrentEdge.id.c_str(), ok);
             std::string name = attrs.getOpt<std::string>(OPENDRIVE_ATTR_NAME, myCurrentEdge.id.c_str(), ok, "", false);
-            const std::string orientation = attrs.get<std::string>(OPENDRIVE_ATTR_ORIENTATION, myCurrentEdge.id.c_str(), ok);
+            const std::string orientation = attrs.get<std::string>(OPENDRIVE_ATTR_ORIENTATION, id.c_str(), ok);
             int orientationCode = orientation == "-" ? -1 : orientation == "+" ? 1 : 0;
             double s = attrs.get<double>(OPENDRIVE_ATTR_S, myCurrentEdge.id.c_str(), ok);
             bool dynamic = attrs.get<std::string>(OPENDRIVE_ATTR_DYNAMIC, myCurrentEdge.id.c_str(), ok) == "no" ? false : true;
@@ -2461,7 +2463,7 @@ NIImporter_OpenDrive::myStartElement(int element,
         break;
         case OPENDRIVE_TAG_SIGNALREFERENCE: {
             std::string id = attrs.get<std::string>(OPENDRIVE_ATTR_ID, myCurrentEdge.id.c_str(), ok);
-            const std::string orientation = attrs.get<std::string>(OPENDRIVE_ATTR_ORIENTATION, myCurrentEdge.id.c_str(), ok);
+            const std::string orientation = attrs.get<std::string>(OPENDRIVE_ATTR_ORIENTATION, id.c_str(), ok);
             int orientationCode = orientation == "-" ? -1 : orientation == "+" ? 1 : 0;
             double s = attrs.get<double>(OPENDRIVE_ATTR_S, myCurrentEdge.id.c_str(), ok);
             OpenDriveSignal signal = OpenDriveSignal(id, "", "", orientationCode, false, s);
@@ -2686,15 +2688,13 @@ NIImporter_OpenDrive::myCharacters(int element, const std::string& cdata) {
         if (i != std::string::npos) {
             const std::string proj = cdata.substr(i);
             if (proj != "") {
-                GeoConvHelper* result = nullptr;
                 Boundary convBoundary;
                 Boundary origBoundary;
                 // XXX read values from the header
                 convBoundary.add(Position(0, 0));
                 origBoundary.add(Position(0, 0));
                 try {
-                    result = new GeoConvHelper(proj, myOffset, origBoundary, convBoundary);
-                    GeoConvHelper::setLoaded(*result);
+                    GeoConvHelper::setLoaded(GeoConvHelper(proj, myOffset, origBoundary, convBoundary));
                 } catch (ProcessError& e) {
                     WRITE_ERRORF(TL("Could not set projection (%). This can be ignored with --ignore-errors."), std::string(e.what()));
                 }
@@ -2982,12 +2982,12 @@ NIImporter_OpenDrive::findWidthSplit(const NBTypeCont& tc, std::vector<OpenDrive
                                      int section, double sectionStart, double sectionEnd,
                                      std::vector<double>& splitPositions) {
     UNUSED_PARAMETER(section);
-    for (std::vector<OpenDriveLane>::iterator k = lanes.begin(); k != lanes.end(); ++k) {
-        OpenDriveLane& l = *k;
-        SVCPermissions permissions = tc.getEdgeTypePermissions(l.type) & ~(SVC_PEDESTRIAN | SVC_BICYCLE);
+    for (const OpenDriveLane& l : lanes) {
+        const SVCPermissions permissions = tc.getEdgeTypePermissions(l.type) & ~SVC_VULNERABLE;
         if (l.widthData.size() > 0 && tc.knows(l.type) && !tc.getEdgeTypeShallBeDiscarded(l.type) && permissions != 0) {
             double sPrev = l.widthData.front().s;
             double wPrev = l.widthData.front().computeAt(sPrev);
+#ifdef DEBUG_VARIABLE_WIDTHS
             if (gDebugFlag1) std::cout
                         << "findWidthSplit section=" << section
                         << "   sectionStart=" << sectionStart
@@ -2998,32 +2998,39 @@ NIImporter_OpenDrive::findWidthSplit(const NBTypeCont& tc, std::vector<OpenDrive
                         << "    s=" << sPrev
                         << " w=" << wPrev
                         << "\n";
-            for (std::vector<OpenDriveWidth>::iterator it_w = l.widthData.begin(); it_w != l.widthData.end(); ++it_w) {
+#endif
+            for (std::vector<OpenDriveWidth>::const_iterator it_w = l.widthData.begin(); it_w != l.widthData.end(); ++it_w) {
                 double sEnd = (it_w + 1) != l.widthData.end() ? (*(it_w + 1)).s : sectionEnd - sectionStart;
                 double w = (*it_w).computeAt(sEnd);
+#ifdef DEBUG_VARIABLE_WIDTHS
                 if (gDebugFlag1) std::cout
                             << "    sEnd=" << sEnd
                             << " s=" << (*it_w).s
                             << " a=" << (*it_w).a << " b=" << (*it_w).b << " c=" << (*it_w).c << " d=" << (*it_w).d
                             << " w=" << w
                             << "\n";
+#endif
                 const double changeDist = fabs(myMinWidth - wPrev);
                 if (((wPrev < myMinWidth) && (w > myMinWidth))
                         || ((wPrev > myMinWidth) && (w < myMinWidth))) {
                     double splitPos = sPrev + (sEnd - sPrev) / fabs(w - wPrev) * changeDist;
                     double wSplit = (*it_w).computeAt(splitPos);
+#ifdef DEBUG_VARIABLE_WIDTHS
                     if (gDebugFlag1) {
                         std::cout << "     candidate splitPos=" << splitPos << " w=" << wSplit << "\n";
                     }
+#endif
                     // ensure that the thin part is actually thin enough
                     while (wSplit > myMinWidth) {
                         if (wPrev < myMinWidth) {
                             // getting wider
                             splitPos -= POSITION_EPS;
                             if (splitPos < sPrev) {
+#ifdef DEBUG_VARIABLE_WIDTHS
                                 if (gDebugFlag1) {
                                     std::cout << "        aborting search splitPos=" << splitPos << " wSplit=" << wSplit << " sPrev=" << sPrev << " wPrev=" << wPrev << "\n";
                                 }
+#endif
                                 splitPos = sPrev;
                                 break;
                             }
@@ -3031,17 +3038,21 @@ NIImporter_OpenDrive::findWidthSplit(const NBTypeCont& tc, std::vector<OpenDrive
                             // getting thinner
                             splitPos += POSITION_EPS;
                             if (splitPos > sEnd) {
+#ifdef DEBUG_VARIABLE_WIDTHS
                                 if (gDebugFlag1) {
                                     std::cout << "        aborting search splitPos=" << splitPos << " wSplit=" << wSplit << " sEnd=" << sEnd << " w=" << w << "\n";
                                 }
+#endif
                                 splitPos = sEnd;
                                 break;
                             }
                         }
                         wSplit = (*it_w).computeAt(splitPos);
+#ifdef DEBUG_VARIABLE_WIDTHS
                         if (gDebugFlag1) {
                             std::cout << "        refined splitPos=" << splitPos << " w=" << wSplit << "\n";
                         }
+#endif
                     }
                     splitPositions.push_back(sectionStart + splitPos);
                 }

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2002-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2002-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -50,7 +50,13 @@ ODDistrictCont::getRandomSourceFromDistrict(const std::string& name) const {
     if (district == nullptr) {
         throw InvalidArgument("There is no district '" + name + "'.");
     }
-    return district->getRandomSource();
+    std::string randomSource;
+    try {
+        randomSource = district->getRandomSource();
+    } catch (OutOfBoundsException&) {
+        throw ProcessError(TLF("District '%' does not provide any valid source.", name));
+    }
+    return randomSource;
 }
 
 
@@ -60,7 +66,13 @@ ODDistrictCont::getRandomSinkFromDistrict(const std::string& name) const {
     if (district == nullptr) {
         throw InvalidArgument("There is no district '" + name + "'.");
     }
-    return district->getRandomSink();
+    std::string randomSink;
+    try {
+        randomSink = district->getRandomSink();
+    } catch (OutOfBoundsException&) {
+        throw ProcessError(TLF("District '%' does not provide any valid sink.", name));
+    }
+    return randomSink;
 }
 
 

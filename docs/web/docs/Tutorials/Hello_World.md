@@ -33,17 +33,17 @@ Open [netedit](../Netedit/index.md) and create a new network by selecting *File-
 
 
 Make sure that **Network** is selected.
-![](../images/neteditNetworkMode.png)
+![](../images/HelloWorld_netedit_network.png)
 
 Enter **Edge Mode** by selecting *Edit-\>Edge mode*, using the shortcut <kbd>E</kbd> or by clicking on the ![](../images/icon_modecreateedge.png) button.
 In Edge Mode, make sure that ***Chain*** is selected (in newer versions, *Chain* is the following icon: ![](../images/icon_checkbox_chain.png)). This will facilitate creating multiple nodes and their connecting edges with fewer clicks.
 
-![](../images/neteditChainSelected.png)
+![](../images/HelloWorld_netedit_chainmode.png)
 
 Nodes are created by clicking on empty spaces (when in Edge Mode). Insert 3 nodes (a.k.a Junctions) by clicking on three different places at the white blank space.
 After inserting the last Node, press <kbd>Esc</kbd> to unselect that last node.
 
-![](../images/HelloWorld_1.gif)
+![](../images/HelloWorld_create_network.gif)
 
 !!! note "Tip"
     In netedit you can use <kbd>Ctrl</kbd> + <kbd>Z</kbd> to undo
@@ -63,7 +63,7 @@ Replace the position (**pos**) of the nodes with the following values:
 | 2  | 0,50    |
 | 3  | 100,50  |
 
-![](../images/HelloWorld_2.gif)
+![](../images/HelloWorld_edit_nodes.gif)
 
 Our very basic network is done! We just need to save it ![](../images/icon_save.png). Use *File -\> Save Network* (<kbd>Ctrl</kbd> + <kbd>S</kbd>) or *File -\> Save Network As* (<kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>S</kbd>) and give it a proper name (such as `helloWorld.net.xml`).
 
@@ -77,7 +77,7 @@ Do not close netedit yet, the demand still needs to be generated.
 ## Demand Generation in netedit
 
 Now, select the **Demand** supermode in netedit.
-![](../images/neteditDemandMode.png)
+![](../images/HelloWorld_netedit_demand.png)
 
 ### Creating a Route
 
@@ -85,19 +85,24 @@ Enter **Route Mode** by selecting *Edit-\>Route mode*, using the shortcut <kbd>R
 
 Creating a route is as simple as clicking on the Edges that will compose it. When selecting an Edge, its color will change.
 
-- <span style="color:#004000; background:#004000">FOO</span> Selected Edge
-- <span style="color:#00ff00; background:#00ff00">FOO</span> Possible selectable edges
+- <span style="color:#00ff00; background:#00ff00">FOO</span> Last selected Edge
+- <span style="color:#00ffff; background:#00ffff">FOO</span> Selected Edge
+- <span style="color:#004000; background:#004000">FOO</span> Possible selectable edges
 
-After selecting all the edges that will compose the desired route, click on *Create route*.
+After selecting all the edges that will compose the desired route, click on *Finish route creation*.
 
-![](../images/HelloWorld_3.gif)
+![](../images/HelloWorld_create_route.gif)
 
 ### Adding a Vehicle
 
 Finally, enter **Vehicle Mode** by selecting *Edit-\>Vehicle mode*, using the shortcut <kbd>V</kbd> or by clicking on the ![](../images/icon_modevehicle.png) button.
-To insert a Vehicle, just click on the beginning of the route. A car will appear. On the left side bar you can change the vehicle's attributes such as id and even the color (just for fun, change it to blue).
+To insert a Vehicle, select `vehicle (over route)` and click on the beginning of the route. A car will appear.
 
-![](../images/HelloWorld_4.gif)
+![](../images/HelloWorld_create_car.gif)
+
+On the left side bar you can change the vehicle's attributes such as id and even the color (just for fun, change it to blue).
+
+![](../images/HelloWorld_edit_car.gif)
 
 Now save the Demand (route + vehicle) file ![](../images/icon_save.png).
 Use *File -\> Demand elements -\> Save demand elements* (<kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>D</kbd>) or *File -\> Demand elements -\> Save demand elements as* and give it a proper name (such as `helloWorld.rou.xml`).
@@ -126,7 +131,7 @@ Before starting the simulation, make sure that the Delay (![](../images/Delay.pn
 
 Click on Run ![](../images/icon_play.png) (<kbd>Ctrl</kbd> + <kbd>A</kbd>) to start the simulation.
 
-![](../images/HelloWorld_5.gif)
+![](../images/HelloWorld_simulation.gif)
 
 From now on, if we want to run this scenario again we only have to open the SUMO Configuration file (*.sumocfg) in [sumo-gui](../sumo-gui.md) or [sumo](../sumo.md).
 

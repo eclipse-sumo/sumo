@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -57,6 +57,9 @@ public:
 
     /// @brief update position and rotation
     void updateSinglePosGeometry(const Position& position, const double rotation);
+
+    /// @brief clear geometry
+    void clearGeometry();
 
     /// @brief move current shape to side
     void moveGeometryToSide(const double amount);
@@ -124,9 +127,6 @@ public:
     /// @}
 
 protected:
-    /// @brief clear geometry
-    void clearGeometry();
-
     /// @brief calculate shape rotations and lengths
     void calculateShapeRotationsAndLengths();
 

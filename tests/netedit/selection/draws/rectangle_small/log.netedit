@@ -4,3 +4,7 @@ Warning: E3 'e3_0' needs at least one entry and one exit
 Warning: E3 'e3_1' needs at least one entry and one exit
 Warning: E3 'e3_2' needs at least one entry and one exit
 Warning: E3 'e3_3' needs at least one entry and one exit
+Warning: Rerouter 'rr_0' needs at least one edge
+Warning: Rerouter 'rr_1' needs at least one edge
+Warning: Variable Speed Sign 'vs_1' needs at least one lane
+Warning: Variable Speed Sign 'vs_2' needs at least one lane

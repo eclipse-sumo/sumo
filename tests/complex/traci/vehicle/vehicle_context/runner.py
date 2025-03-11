@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2008-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2008-2025 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -35,16 +35,23 @@ sumoCmd = [sumolib.checkBinary('sumo'),
            # '-S', '-Q',
            ] + sys.argv[1:]
 
+try:
+    vehID = "v1"
+    traci.start(sumoCmd)
+    sr = traci.simulationStep(1.)
+    traci.vehicle.subscribeContext(vehID, tc.CMD_GET_VEHICLE_VARIABLE,
+                                   dist=50,
+                                   varIDs=(tc.VAR_SPEED, tc.VAR_EMISSIONCLASS))
+    traci.junction.subscribeContext("gneJ2", tc.CMD_GET_VEHICLE_VARIABLE,
+                                    dist=50,
+                                    varIDs=(tc.VAR_NEXT_LINKS,))
+    traci.simulationStep()
+    for vehID, response in traci.vehicle.getAllContextSubscriptionResults().items():
+        print("t=%s subscriptionResult=%s" % (traci.simulation.getTime(),
+                                              sorted(response.items())))
 
-vehID = "v1"
-traci.start(sumoCmd)
-sr = traci.simulationStep(1.)
-traci.vehicle.subscribeContext(vehID, tc.CMD_GET_VEHICLE_VARIABLE,
-                               dist=50,
-                               varIDs=(tc.VAR_SPEED, tc.VAR_EMISSIONCLASS))
-traci.simulationStep()
-for vehID, response in traci.vehicle.getAllContextSubscriptionResults().items():
-    print("t=%s subscriptionResult=%s" % (traci.simulation.getTime(),
-                                          sorted(response.items())))
-
-traci.close()
+    for junctionID, response in traci.junction.getAllContextSubscriptionResults().items():
+        print("t=%s subscriptionResult=%s" % (traci.simulation.getTime(),
+                                              sorted(response.items())))
+finally:
+    traci.close()

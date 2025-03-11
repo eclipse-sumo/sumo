@@ -8,13 +8,7 @@ turn_lanes
 
 # creating opposite-direction edge due to sidewalk information
 sidewalks
-
-# Area around the ITS in Berlin, Adlershof (13.52494,52.42582,13.53625,52.43026)
-adlershof_dlr
-adlershof_dlr_discard-tls
-
-# Area around the ITS in Berlin, Adlershof (13.52494,52.42582,13.53625,52.43026)
-adlershof_orig_names
+adlershof
 
 # In this scenario, two nodes with the same coordinates start the shape of an edge. The scenario also tests traffic signals and isolated roads.
 duplicate_nodes
@@ -44,12 +38,6 @@ recoverable_errors
 # import elevation data
 elevation
 
-# add sidewalks to appropriate edges
-adlershof_dlr_sidewalks
-
-# add sidewalks from raw data (rather than from typemap heuristic)
-adlershof_dlr_sidewalks_option
-
 # check for working around a xerces transcoding bug
 xerces_bug_1947
 
@@ -57,9 +45,6 @@ xerces_bug_1947
 bicycle_lanes
 bus_lanes
 intersection_with_crossings
-
-# Area around the ITS in Berlin, Adlershof (13.52494,52.42582,13.53625,52.43026)
-numerical_ids
 max_segment_length
 
 # see #3412
@@ -138,4 +123,7 @@ crossings
 
 # see #14786
 crossings_no_barrier
+
+# read highway=busway
+busway
 bugs

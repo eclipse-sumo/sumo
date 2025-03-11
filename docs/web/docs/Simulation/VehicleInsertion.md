@@ -59,7 +59,7 @@ There are two methods for inserting vehicles into the simulation:
 In an uncongested networks these methods behave similar but in a
 congested network with lots of vehicles which cannot be inserted variant
 2) is much faster. In older version of sumo 1) was the default and one
-could switch to 2) using the option **--sloppy-insert** Since version 0.18.0, variant 2) is
+could switch to 2) using the option **--sloppy-insert**. Since version 0.18.0, variant 2) is
 the default and one may switch to 1) using the option **--eager-insert**.
 
 !!! caution
@@ -77,6 +77,11 @@ insertion delay:
 - The parameter Dialog for individual vehicles lists *desired depart*
   and *depart delay*
 
+The following simulation outputs provide information on insertion delay:
+
+- [tripinfo-output](Output/TripInfo.md)
+- [statistic-output](Output/StatisticOutput.md)
+
 ## Effect of simulation step-length
 Insertion attempts can only happen in every simulation step. This may cause artifacts in insertion spacing because at the default step-length of 1s is (usually) too short for vehicles to be inserted in successive steps on the same depart location.
 By default, the next attempt happens 2 seconds after the first vehicle has departed and this gap may be much larger then mandated by the carFollowModel. There are multiple ways to avoid this effect:
@@ -91,7 +96,7 @@ By default, the next attempt happens 2 seconds after the first vehicle has depar
 
 The following remedies are generally recommended to improve insertion flow:
 
-- On multi-lane roads, make sure that all lanes are used for insertion i.e. by setting `departLane="random"` (or `free` or `best`)
+- On multi-lane roads, make sure that all lanes are used for insertion i.e. by setting `departLane="random"` (or `free` or `best`). The highest insertion capacity is achieved with `departLane="best_prob"` which tends to put faster vehicles on the overtaking lane (see [capacity comparison](RoadCapacity.md#insertion_capacity_on_a_2-lane_road))
 - set option **--extrapolate-departpos**
 - insert with `departSpeed="avg"` or `departSpeed="last"` (see [capacity comparison](RoadCapacity.md#further_headway_effects))
 

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-01-27 16:13:43 by Eclipse SUMO netconvert Version v1_21_0+2047-c75c4a5482f
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <osm-files value="osm.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+    </output>
+
+    <projection>
+        <proj.utm value="true"/>
+    </projection>
+
+    <junctions>
+        <junctions.join value="true"/>
+    </junctions>
+
+    <formats>
+        <osm.sidewalks value="true"/>
+    </formats>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</netconvertConfiguration>
+-->
+
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="-279201.78,-5121316.68" convBoundary="0.00,0.00,89.78,58.91" origBoundary="6.137599,46.209609,6.138788,46.210110" projParameter="+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <type id="highway.busway|railway.tram" priority="17" numLanes="1" speed="27.78" allow="bus tram" oneway="1"/>
+
+    <edge id="1352236756" from="1549433372" to="4222276758" priority="17" type="highway.busway|railway.tram" spreadType="center" shape="0.00,55.75 2.14,54.39 2.97,53.86 11.35,48.16 43.48,26.49 50.79,21.54 75.77,4.66 77.89,3.23">
+        <lane id="1352236756_0" index="0" allow="bus tram" speed="27.78" length="93.94" shape="0.00,55.75 2.14,54.39 2.97,53.86 11.35,48.16 43.48,26.49 50.79,21.54 75.77,4.66 77.89,3.23"/>
+    </edge>
+    <edge id="1352236758" from="11120979904" to="1549433354" priority="17" type="highway.busway|railway.tram" spreadType="center" shape="89.78,0.00 80.31,6.38 78.00,7.95 52.94,24.89 45.45,29.96 13.62,51.45 2.38,58.91">
+        <lane id="1352236758_0" index="0" allow="bus tram" speed="27.78" length="105.40" shape="89.78,-0.00 80.31,6.38 78.00,7.95 52.94,24.89 45.45,29.96 13.62,51.45 2.38,58.91"/>
+    </edge>
+
+    <junction id="11120979904" type="dead_end" x="89.78" y="0.00" incLanes="" intLanes="" shape="88.89,-1.33 90.68,1.33"/>
+    <junction id="1549433354" type="dead_end" x="2.38" y="58.91" incLanes="1352236758_0" intLanes="" shape="3.27,60.25 1.50,57.58"/>
+    <junction id="1549433372" type="dead_end" x="0.00" y="55.75" incLanes="" intLanes="" shape="0.86,57.10 -0.86,54.40"/>
+    <junction id="4222276758" type="dead_end" x="77.89" y="3.23" incLanes="1352236756_0" intLanes="" shape="77.00,1.90 78.78,4.56"/>
+
+</net>

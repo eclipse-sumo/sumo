@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-03-18 19:31:12 by Eclipse SUMO netconvert Version v1_19_0+1380-39d533f191b
+<!-- generated on 2025-01-30 09:41:02 by Eclipse SUMO netconvert Version v1_21_0+2125-f7884de39c4
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <type-files value="/scr1/sumo/data/typemap/osmNetconvert.typ.xml,/scr1/sumo/data/typemap/osmNetconvertAerialway.typ.xml"/>
@@ -41,7 +41,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <xml-validation value="never"/>
     </report>
 
-</configuration>
+</netconvertConfiguration>
 -->
 
 <ptLines xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/ptlines_file.xsd">
@@ -67,12 +67,12 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <busStop id="-1609100922" name="Westende"/>
         <busStop id="-380536713" name="Varresbecker Straße"/>
     </ptLine>
-    <ptLine id="3251211" name="Bus 600: Hauptbahnhof =&gt; Vohwinkel Schwebebahn" line="600" type="bus" vClass="bus" completeness="0.15" missingBefore="5" missingAfter="6">
+    <ptLine id="3251211" name="Bus 600: Hauptbahnhof =&gt; Vohwinkel Schwebebahn" line="600" type="bus" vClass="bus" completeness="0.14" missingBefore="5" missingAfter="7">
         <route edges="-5980164#4 -5980164#3 -5980164#2 -5980164#1 -5980164#0 -307459757#4 -307459757#3 -307459757#2 -307459757#1 -307459757#0"/>
         <busStop id="-2511338319" name="Westende"/>
         <busStop id="-698362008" name="Löwer"/>
     </ptLine>
-    <ptLine id="3251212" name="Bus 600: Vohwinkel Schwebebahn =&gt; Hauptbahnhof" line="600" type="bus" vClass="bus" completeness="0.20" missingBefore="8" missingAfter="4">
+    <ptLine id="3251212" name="Bus 600: Vohwinkel Schwebebahn =&gt; Hauptbahnhof" line="600" type="bus" vClass="bus" completeness="0.19" missingBefore="9" missingAfter="4">
         <route edges="307459757#0 307459757#1 307459757#2 307459757#3 307459757#4 5980164#0 5980164#1 5980164#2 5980164#3 5980164#4"/>
         <busStop id="704235124" name="Löwer"/>
         <busStop id="2511338319" name="Westende"/>

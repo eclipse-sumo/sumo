@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -40,38 +40,39 @@ class OptionsCont;
 // ===========================================================================
 // value definitions
 // ===========================================================================
-const int VEHPARS_COLOR_SET = 1;
-const int VEHPARS_VTYPE_SET = 2;
-const int VEHPARS_DEPARTLANE_SET = 2 << 1;
-const int VEHPARS_DEPARTPOS_SET = 2 << 2;
-const int VEHPARS_DEPARTSPEED_SET = 2 << 3;
-const int VEHPARS_END_SET = 2 << 4;
-const int VEHPARS_NUMBER_SET = 2 << 5;
-const int VEHPARS_PERIOD_SET = 2 << 6;
-const int VEHPARS_VPH_SET = 2 << 7;
-const int VEHPARS_PROB_SET = 2 << 8;
-const int VEHPARS_POISSON_SET = 2 << 9;
-const int VEHPARS_ROUTE_SET = 2 << 10;
-const int VEHPARS_ARRIVALLANE_SET = 2 << 11;
-const int VEHPARS_ARRIVALPOS_SET = 2 << 12;
-const int VEHPARS_ARRIVALSPEED_SET = 2 << 13;
-const int VEHPARS_LINE_SET = 2 << 14;
-const int VEHPARS_FROM_TAZ_SET = 2 << 15;
-const int VEHPARS_TO_TAZ_SET = 2 << 16;
-const int VEHPARS_FORCE_REROUTE = 2 << 17;
-const int VEHPARS_PERSON_CAPACITY_SET = 2 << 18;
-const int VEHPARS_PERSON_NUMBER_SET = 2 << 19;
-const int VEHPARS_CONTAINER_NUMBER_SET = 2 << 20;
-const int VEHPARS_DEPARTPOSLAT_SET = 2 << 21;
-const int VEHPARS_ARRIVALPOSLAT_SET = 2 << 22;
-const int VEHPARS_VIA_SET = 2 << 23;
-const int VEHPARS_SPEEDFACTOR_SET = 2 << 24;
-const int VEHPARS_DEPARTEDGE_SET = 2 << 25;
-const int VEHPARS_ARRIVALEDGE_SET = 2 << 26;
-const int VEHPARS_CALIBRATORSPEED_SET = 2 << 27;
-const int VEHPARS_JUNCTIONMODEL_PARAMS_SET = 2 << 28;
-const int VEHPARS_CFMODEL_PARAMS_SET = 2 << 29;
-const int VEHPARS_PARKING_BADGES_SET = 2 << 30;
+const long long int VEHPARS_COLOR_SET = 1;
+const long long int VEHPARS_VTYPE_SET = 2;
+const long long int VEHPARS_DEPARTLANE_SET = 2 << 1;
+const long long int VEHPARS_DEPARTPOS_SET = 2 << 2;
+const long long int VEHPARS_DEPARTSPEED_SET = 2 << 3;
+const long long int VEHPARS_END_SET = 2 << 4;
+const long long int VEHPARS_NUMBER_SET = 2 << 5;
+const long long int VEHPARS_PERIOD_SET = 2 << 6;
+const long long int VEHPARS_VPH_SET = 2 << 7;
+const long long int VEHPARS_PROB_SET = 2 << 8;
+const long long int VEHPARS_POISSON_SET = 2 << 9;
+const long long int VEHPARS_ROUTE_SET = 2 << 10;
+const long long int VEHPARS_ARRIVALLANE_SET = 2 << 11;
+const long long int VEHPARS_ARRIVALPOS_SET = 2 << 12;
+const long long int VEHPARS_ARRIVALSPEED_SET = 2 << 13;
+const long long int VEHPARS_LINE_SET = 2 << 14;
+const long long int VEHPARS_FROM_TAZ_SET = 2 << 15;
+const long long int VEHPARS_TO_TAZ_SET = 2 << 16;
+const long long int VEHPARS_FORCE_REROUTE = 2 << 17;
+const long long int VEHPARS_PERSON_CAPACITY_SET = 2 << 18;
+const long long int VEHPARS_PERSON_NUMBER_SET = 2 << 19;
+const long long int VEHPARS_CONTAINER_NUMBER_SET = 2 << 20;
+const long long int VEHPARS_DEPARTPOSLAT_SET = 2 << 21;
+const long long int VEHPARS_ARRIVALPOSLAT_SET = 2 << 22;
+const long long int VEHPARS_VIA_SET = 2 << 23;
+const long long int VEHPARS_SPEEDFACTOR_SET = 2 << 24;
+const long long int VEHPARS_DEPARTEDGE_SET = 2 << 25;
+const long long int VEHPARS_ARRIVALEDGE_SET = 2 << 26;
+const long long int VEHPARS_CALIBRATORSPEED_SET = 2 << 27;
+const long long int VEHPARS_JUNCTIONMODEL_PARAMS_SET = 2 << 28;
+const long long int VEHPARS_CFMODEL_PARAMS_SET = 2 << 29;
+const long long int VEHPARS_PARKING_BADGES_SET = (long long int)2 << 30;
+const long long int VEHPARS_INSERTION_CHECKS_SET = (long long int)2 << 31;
 
 const int STOP_INDEX_END = -1;
 const int STOP_INDEX_FIT = -2;
@@ -99,6 +100,7 @@ const int STOP_STARTED_SET = 2 << 17;
 const int STOP_POSLAT_SET = 2 << 18;
 const int STOP_ONDEMAND_SET = 2 << 19;
 const int STOP_JUMP_SET = 2 << 20;
+const int STOP_JUMP_UNTIL_SET = 2 << 21;
 
 const double MIN_STOP_LENGTH = 2 * POSITION_EPS;
 
@@ -145,6 +147,8 @@ enum class DepartLaneDefinition {
     ALLOWED_FREE,
     /// @brief The least occupied lane from best lanes
     BEST_FREE,
+    /// @brief The lane most likely according the speedFactor (from best lanes)
+    BEST_PROB,
     /// @brief The rightmost lane the vehicle may use
     FIRST_ALLOWED
 };
@@ -454,6 +458,9 @@ public:
         /// @brief transfer time if there shall be a jump from this stop to the next route edge
         SUMOTime jump = -1;
 
+        /// @brief earlierst jump end if there shall be a jump from this stop to the next route edge
+        SUMOTime jumpUntil = -1;
+
         /// @brief the time at which this stop was reached
         mutable SUMOTime started = -1;
 
@@ -465,6 +472,9 @@ public:
 
         /// @brief at which position in the stops list
         int index = 0;
+
+        /// @brief at which position within the route (only used for state saving)
+        mutable int routeIndex = 0;
 
         /// @brief Information for the output which parameter were set
         int parametersSet = 0;
@@ -484,7 +494,7 @@ public:
      * @param[in] what The parameter which one asks for
      * @return Whether the given parameter was set
      */
-    bool wasSet(int what) const {
+    bool wasSet(long long int what) const {
         return (parametersSet & what) != 0;
     }
 
@@ -655,6 +665,9 @@ public:
     /// @brief parses parking type value
     static ParkingType parseParkingType(const std::string& value);
 
+    /// @brief parses insertion checks
+    static int parseInsertionChecks(const std::string& value);
+
     /// @brief The vehicle tag
     SumoXMLTag tag;
 
@@ -809,7 +822,7 @@ public:
     int insertionChecks;
 
     /// @brief Information for the router which parameter were set, TraCI may modify this (when changing color)
-    mutable int parametersSet;
+    mutable long long int parametersSet;
 
 public:
     /// @brief increment flow
@@ -855,6 +868,4 @@ protected:
     /// @brief check if given insertion checks are valid
     bool areInsertionChecksValid(const std::string& value) const;
 
-    /// @brief parses insertion checks
-    void parseInsertionChecks(const std::string& value);
 };

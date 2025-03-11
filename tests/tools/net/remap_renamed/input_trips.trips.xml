@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-02-26 18:50:15.461776 by randomTrips.py v1_22_0+0526-e2924ab534d
+<configuration>
+    <net-file value="net.net.xml"/>
+    <route-file value="routes.rou.xml"/>
+    <trip-attributes value="speedDev=&quot;0&quot; sigma=&quot;0&quot;"/>
+    <vehicle-class value="passenger"/>
+    <end value="10.0"/>
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="passenger" vClass="passenger" speedDev="0" sigma="0"/>
+    <trip id="0" depart="0.00" from="B2B1" to="A0A1" type="passenger"/>
+    <trip id="1" depart="1.00" from="A2B2" to="A2A1" type="passenger"/>
+    <trip id="2" depart="2.00" from="C0B0" to="B2C2" type="passenger"/>
+    <trip id="3" depart="3.00" from="C1C2" to="A1A0" type="passenger"/>
+    <trip id="4" depart="4.00" from="B1A1" to="A0A1" type="passenger"/>
+    <trip id="5" depart="5.00" from="A2A1" to="B1B2" type="passenger"/>
+    <trip id="6" depart="6.00" from="A0A1" to="A1B1" type="passenger"/>
+    <trip id="7" depart="7.00" from="B2B1" to="B1C1" type="passenger"/>
+    <trip id="8" depart="8.00" from="A2A1" to="B2A2" type="passenger"/>
+    <trip id="9" depart="9.00" from="C1B1" to="A0A1" type="passenger"/>
+</routes>

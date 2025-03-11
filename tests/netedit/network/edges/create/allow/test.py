@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2009-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2009-2025 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -39,25 +39,25 @@ netedit.leftClick(referencePosition, netedit.positions.network.junction.position
 netedit.leftClick(referencePosition, netedit.positions.network.junction.positionB)
 
 # set attribute
-netedit.changeDefaultValue(netedit.attrs.edge.create.allow, "pedestrian bus")
+netedit.changeDefaultValue(netedit.attrs.edge.create.allow, "pedestrian; vus")
 
 # Create two nodes
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionB)
 netedit.leftClick(referencePosition, netedit.positions.network.junction.positionC)
-netedit.leftClick(referencePosition, netedit.positions.network.junction.positionD)
 
 # set attribute
 netedit.changeDefaultValue(netedit.attrs.edge.create.allow, "all")
 
 # Create two nodes
-netedit.leftClick(referencePosition, netedit.positions.network.junction.positionA)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionC)
 netedit.leftClick(referencePosition, netedit.positions.network.junction.positionD)
 
 # set attribute
-netedit.changeDefaultAllowDisallowValue(netedit.attrs.edge.create.allowButton)
+netedit.changeDefaultValue(netedit.attrs.edge.create.allow, "pedestrian bus drone")
 
 # Create two nodes
-netedit.leftClick(referencePosition, netedit.positions.network.junction.positionB)
-netedit.leftClick(referencePosition, netedit.positions.network.junction.positionC)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionD)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionA)
 
 # Check undo and redo
 netedit.checkUndoRedo(referencePosition)

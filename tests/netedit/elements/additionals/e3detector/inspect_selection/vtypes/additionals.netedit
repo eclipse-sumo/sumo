@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-24 14:28:34 by Eclipse SUMO netedit Version v1_20_0+1389-768a687f255
+<!-- generated on 2024-10-01 14:33:16 by Eclipse SUMO netedit Version v1_20_0+2204-fb162b24262
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -15,7 +15,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- Detectors -->
-    <entryExitDetector id="entryExitDetector_A" name="A" pos="-6.00,10.00" period="100.00" file="fileA.txt" vTypes="Type1 Type2 Type3" expectArrival="1">
+    <entryExitDetector id="entryExitDetector_A" name="A" pos="-6.00,10.00" period="100.00" file="fileA.txt" vTypes="Type1 Type2 Type3" expectArrival="1" openEntry="1">
         <detEntry lane="EdgeCenter0_0" pos="5.00"/>
         <detExit lane="EdgeCenter0_0" pos="25.00"/>
         <param key="KeyA1" value="valueA1"/>

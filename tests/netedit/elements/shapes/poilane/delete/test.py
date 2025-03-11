@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2009-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2009-2025 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -34,22 +34,41 @@ netedit.shapeMode()
 # go to shape mode
 netedit.changeElement("poiLane")
 
-# create POILane
-netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
-
-# go to delete mode
-netedit.deleteMode()
-
-# delete created poi
-netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
-
-# delete loaded POI Lane
+# create E1
 netedit.leftClick(referencePosition, netedit.positions.elements.edge1)
 
-# Check undos and redos
-netedit.checkUndoRedo(referencePosition)
+# Change to delete
+netedit.deleteMode()
 
-# save Netedit config
+# delete created E1
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
+
+# delete loaded E1
+netedit.leftClick(referencePosition, netedit.positions.elements.edge1)
+
+# Check undo
+netedit.undo(referencePosition, 1)
+
+# Change to delete
+netedit.deleteMode()
+
+# try to delete lane with the second loaded E1 (doesn't allowed)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge1Ped)
+
+# wait warning
+netedit.waitDeleteWarning()
+
+# disable 'Automatically delete additionals'
+netedit.protectElements(referencePosition)
+
+# try to delete lane with the second loaded E1 (doesn't allowed)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge1Ped)
+
+# check redo
+netedit.undo(referencePosition, 4)
+netedit.redo(referencePosition, 4)
+
+# save netedit config
 netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-05-18 14:21:44 by Eclipse SUMO sumo Version v1_20_0+0120-0256b4ceff1
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<!-- generated on 2024-08-26 15:32:16 by Eclipse SUMO sumo Version v1_20_0+1721-016cfd09667
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -22,7 +22,7 @@
         <mesosim value="true"/>
     </mesoscopic>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
@@ -66,5 +66,5 @@
         <stop duration="1.00" arrival="2.00" arrivalPos="50.00" actType="waiting"/>
         <ride waitingTime="18.80" vehicle="b" depart="20.80" arrival="28.00" arrivalPos="0.00" duration="7.20" routeLength="100.00" timeLoss="0.00"/>
     </personinfo>
-    <tripinfo id="b" depart="0.00" departLane="" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="48.00" arrivalLane="" arrivalPos="100.00" arrivalSpeed="5.00" duration="48.00" routeLength="200.00" waitingTime="0.00" waitingCount="0" stopTime="32.80" timeLoss="32.80" rerouteNo="0" devices="tripinfo_b routing_b person_b" vType="t" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="b" depart="0.00" departLane="middle_0" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="48.00" arrivalLane="end_0" arrivalPos="100.00" arrivalSpeed="5.00" duration="48.00" routeLength="200.00" waitingTime="0.00" waitingCount="0" stopTime="32.80" timeLoss="32.80" rerouteNo="0" devices="tripinfo_b routing_b person_b" vType="t" speedFactor="1.00" vaporized=""/>
 </tripinfos>

@@ -62,11 +62,11 @@
         <stop busStop="busStopA" parking="true"/>
     </route>
 
-	<vehicle id="vehicle_0" depart="0.00" route="route_0"/>
-	<vehicle id="vehicle_1" depart="0.00" route="route_1"/>
-	<vehicle id="vehicle_2" depart="0.00" route="route_2"/>
-	<vehicle id="vehicle_3" depart="0.00" route="route_3"/>
-	<vehicle id="vehicle_4" depart="0.00" route="route_4"/>
-	<vehicle id="vehicle_5" depart="0.00" route="route_5"/>
+    <vehicle id="vehicle_0" depart="0.00" route="route_0"/>
+    <vehicle id="vehicle_1" depart="0.00" route="route_1"/>
+    <vehicle id="vehicle_2" depart="0.00" route="route_2"/>
+    <vehicle id="vehicle_3" depart="0.00" route="route_3"/>
+    <vehicle id="vehicle_4" depart="0.00" route="route_4"/>
+    <vehicle id="vehicle_5" depart="0.00" route="route_5"/>
 
 </routes>

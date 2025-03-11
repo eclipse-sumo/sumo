@@ -1,1 +1,1 @@
---osm-files osm.xml --junctions.join --osm.sidewalks
+--osm-files osm.xml.gz --junctions.join --osm.sidewalks --tls.join

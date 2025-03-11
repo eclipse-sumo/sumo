@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-02-05 12:35:46 by Eclipse SUMO netedit Version v1_22_0+0027-a8e364b3506
+<neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net2.net.xml"/>
+    </input>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="0"/>
+    </pedestrian>
+
+</neteditConfiguration>
+-->
+
+<connections version="1.20" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/connections_file.xsd">
+    <connection from="E4" to="E5" fromLane="0" toLane="1"/>
+    <connection from="E4" to="E5" fromLane="1" toLane="2"/>
+
+    <connection from="E5" to="E6" fromLane="0" toLane="0"/>
+    <connection from="E5" to="E6" fromLane="1" toLane="1"/>
+    <connection from="E5" to="E6" fromLane="2" toLane="2"/>
+
+    <connection from="E6" to="E7" fromLane="1" toLane="0"/>
+    <connection from="E6" to="E7" fromLane="2" toLane="1"/>
+
+    <connection from="E8" to="E5" fromLane="0" toLane="0"/>
+
+</connections>

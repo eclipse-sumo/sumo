@@ -1,1 +1,1 @@
---gtfs https://sumo.dlr.de/daily/GTFS_VBB_Juni-Dezember-2016.zip --date 20160713 tests/complex/gtfs_mitte/runner.py
+--gtfs data/GTFS_VBB_Mitte_20190713.zip --date 20190713 tests/complex/gtfs_mitte/runner.py

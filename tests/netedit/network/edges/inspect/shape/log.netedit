@@ -1,1 +1,9 @@
 Error: Shape of a(n) user-supplied shape is broken: the position is neither x,y nor x,y,z.
+Warning: Found sharp turn with radius 5.00 at the start of edge 'E0'.
+Warning: Found angle of 135.00 degrees at edge 'E0', segment 5.
+Warning: Found angle of 135.00 degrees at edge 'E0', segment 9.
+Warning: Found sharp turn with radius 5.00 at the end of edge 'E0'.
+Warning: Found sharp turn with radius 5.00 at the start of edge 'E0'.
+Warning: Found angle of 135.00 degrees at edge 'E0', segment 5.
+Warning: Found angle of 135.00 degrees at edge 'E0', segment 9.
+Warning: Found sharp turn with radius 5.00 at the end of edge 'E0'.

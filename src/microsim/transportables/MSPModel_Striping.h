@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2014-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2014-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -105,6 +105,8 @@ public:
     static SUMOTime jamTime;
     static SUMOTime jamTimeCrossing;
     static SUMOTime jamTimeNarrow;
+    /// @brief the factor on speed when jammed
+    static double jamFactor;
 
     /// @brief use old style departPosLat interpretation
     static bool myLegacyPosLat;
@@ -140,6 +142,9 @@ public:
     static double RESERVE_FOR_ONCOMING_FACTOR;
     static double RESERVE_FOR_ONCOMING_FACTOR_JUNCTIONS;
     static double RESERVE_FOR_ONCOMING_MAX;
+
+    /// @brief whether to use speed limits embedded in the network
+    static bool USE_NET_SPEEDS;
 
     /// @brief the time pedestrians take to reach maximum impatience
     static const double MAX_WAIT_TOLERANCE;
@@ -291,10 +296,10 @@ protected:
         bool moveToNextLane(SUMOTime currentTime);
 
         /// @brief perform position update
-        void walk(const Obstacles& obs, SUMOTime currentTime);
+        void walk(const Obstacles& obs);
 
         /// @brief returns the impatience
-        double getImpatience(SUMOTime now) const;
+        double getImpatience() const;
 
         int stripe() const;
         int otherStripe() const;
@@ -318,6 +323,9 @@ protected:
 
         /// @brief whether the pedestrian may ignore a red light
         bool ignoreRed(const MSLink* link) const;
+
+        /// @brief whether the pedestrian should stop at a yellow light
+        bool stopForYellow(const MSLink* link) const;
 
         /// @brief return the person width
         virtual double getWidth() const;

@@ -51,8 +51,8 @@
     <flow id="routeFlow_2" begin="0.00" route="route_0" end="3600.00" number="18">
         <stop lane="Edge2_1" startPos="7.00" endPos="17.00" jump="-6"/>
     </flow>
-	
-	<flow id="routeFlow_3" begin="0.00" route="route_0" end="3600.00" number="18">
+
+    <flow id="routeFlow_3" begin="0.00" route="route_0" end="3600.00" number="18">
         <stop lane="Edge2_1" startPos="7.00" endPos="17.00" jump="12.3"/>
     </flow>
 

@@ -1,6 +1,4 @@
 Warning: Vehicle 'splitB' to split from vehicle 'vehicle_1' is not known. time=12.00.
 Warning: Vehicle 'vehicle_1' ignores container triggered stop on lane 'EdgeCenter1_1' due to capacity constraints.
 Warning: Vehicle 'splitA' to split from vehicle 'vehicle_0' is not known. time=19.00.
-Warning: Vehicle 'vehicle_0' performs emergency stop at the end of lane 'Edge2_1' for unknown reasons (decel=-13.52, offset=6.66), time=20.00.
-Warning: Vehicle 'vehicle_0' aborted waiting for a person that will never come.
-Warning: Vehicle 'vehicle_1' aborted waiting for a person that will never come.
+Warning: Vehicle 'vehicle_0' aborts stop.

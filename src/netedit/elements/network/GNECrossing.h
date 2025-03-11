@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -48,10 +48,10 @@ public:
     GNECrossing(GNENet* net);
 
     /**@brief Constructor
-     * @param[in] parentJunction GNEJunction in which this crossing is placed
+     * @param[in] junction GNEJunction in which this crossing is placed
      * @param[in] crossing Node::Crossing
      */
-    GNECrossing(GNEJunction* parentJunction, std::vector<NBEdge*> edges);
+    GNECrossing(GNEJunction* junction, std::vector<NBEdge*> edges);
 
     /// @brief Destructor
     ~GNECrossing();
@@ -111,9 +111,6 @@ public:
     void removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList);
     /// @}
 
-    /// @brief get parent Junction
-    GNEJunction* getParentJunction() const;
-
     /// @brief get crossingEdges
     const std::vector<NBEdge*>& getCrossingEdges() const;
 
@@ -159,6 +156,12 @@ public:
      */
     std::string getAttribute(SumoXMLAttr key) const;
 
+    /* @brief method for getting the Attribute of an XML key in Position format
+     * @param[in] key The attribute key
+     * @return position with the value associated to key
+     */
+    PositionVector getAttributePositionVector(SumoXMLAttr key) const;
+
     /* @brief method for setting the attribute and letting the object perform additional changes
      * @param[in] key The attribute key
      * @param[in] value The new value
@@ -190,9 +193,6 @@ public:
     bool checkEdgeBelong(const std::vector<GNEEdge*>& edges) const;
 
 protected:
-    /// @brief the parent junction of this crossing
-    GNEJunction* myParentJunction;
-
     /// @brief Crossing Edges (It works as ID because a junction can only ONE Crossing with the same edges)
     std::vector<NBEdge*> myCrossingEdges;
 

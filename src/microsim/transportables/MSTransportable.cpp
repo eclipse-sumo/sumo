@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -198,7 +198,7 @@ MSTransportable::getAngle() const {
 
 double
 MSTransportable::getWaitingSeconds() const {
-    return STEPS2TIME((*myStep)->getWaitingTime(MSNet::getInstance()->getCurrentTimeStep()));
+    return STEPS2TIME((*myStep)->getWaitingTime());
 }
 
 double
@@ -308,7 +308,6 @@ MSTransportable::abortStage(SUMOTime step) {
 }
 
 
-
 void
 MSTransportable::appendStage(MSStage* stage, int next) {
     // myStep is invalidated upon modifying myPlan
@@ -339,6 +338,8 @@ MSTransportable::removeStage(int next, bool stayInSim) {
         if (myStep + 1 == myPlan->end() && stayInSim) {
             // stay in the simulation until the start of simStep to allow appending new stages (at the correct position)
             appendStage(new MSStageWaiting(getEdge(), nullptr, 0, 0, getEdgePos(), "last stage removed", false));
+        } else if (myStep + 1 != myPlan->end()) {
+            (*(myStep + 1))->setOrigin(getEdge(), getEdge() == getFromEdge() ? (*myStep)->getOriginStop() : nullptr, getEdgePos());
         }
         (*myStep)->abort(this);
         if (!proceed(MSNet::getInstance(), SIMSTEP)) {
@@ -538,7 +539,7 @@ MSTransportable::rerouteParkingArea(MSStoppingPlace* orig, MSStoppingPlace* repl
         // if the next step is a walk, adapt the route
         MSStage* nextStage = *(myStep + 1);
         if (nextStage->getStageType() == MSStageType::TRIP) {
-            dynamic_cast<MSStageTrip*>(nextStage)->setOrigin(stage->getDestination());
+            dynamic_cast<MSStageTrip*>(nextStage)->setOrigin(stage->getDestination(), stage->getDestinationStop(), stage->getArrivalPos());
 #ifdef DEBUG_PARKING
             std::cout << " set subsequent trip origin\n";
 #endif
@@ -567,7 +568,7 @@ MSTransportable::rerouteParkingArea(MSStoppingPlace* orig, MSStoppingPlace* repl
             if (futureStage->getStageType() == MSStageType::DRIVING) {
                 MSStageDriving* const ds = static_cast<MSStageDriving*>(futureStage);
                 // ride origin is set implicitly from the walk destination
-                ds->setOrigin(nullptr);
+                ds->setOrigin(nullptr, nullptr, -1);
                 if (ds->getLines() == stage->getLines()
                         && prevStage->getDestination() == &orig->getLane().getEdge()) {
                     if (prevStage->getStageType() == MSStageType::TRIP) {
@@ -627,7 +628,7 @@ MSTransportable::getSlope() const {
 
 SUMOTime
 MSTransportable::getWaitingTime(const bool /* accumulated */) const {
-    return (*myStep)->getWaitingTime(MSNet::getInstance()->getCurrentTimeStep());
+    return (*myStep)->getWaitingTime();
 }
 
 

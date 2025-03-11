@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-06-12 07:53:54 by Eclipse SUMO netedit Version v1_20_0+0443-233e48e5c88
+<!-- generated on 2025-02-03 20:56:08 by Eclipse SUMO netedit Version v1_21_0+1830-1621789eca8
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -40,6 +40,7 @@
             <xsd:element name="data-files" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="meandata-files" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="ignore-missing-inputs" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="selection-file" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="sumo-net-file" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="node-files" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="edge-files" type="fileOptionType" minOccurs="0"/>
@@ -133,6 +134,7 @@
             <xsd:element name="geometry.max-segment-length" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="geometry.min-dist" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="geometry.max-angle" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="geometry.max-angle.fix" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="geometry.min-radius" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="geometry.min-radius.fix" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="geometry.min-radius.fix.railways" type="boolOptionType" minOccurs="0"/>
@@ -185,6 +187,7 @@
             <xsd:element name="default.junctions.keep-clear" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="default.junctions.radius" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="default.connection-length" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="default.connection.cont-pos" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="default.right-of-way" type="strOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
@@ -265,6 +268,7 @@
             <xsd:element name="keep-edges.components" type="intOptionType" minOccurs="0"/>
             <xsd:element name="remove-edges.by-type" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="remove-edges.isolated" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="keep-lanes.min-width" type="floatOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 
@@ -322,6 +326,7 @@
             <xsd:element name="sidewalks.guess.exclude" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="crossings.guess" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="crossings.guess.speed-threshold" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="crossings.guess.roundabout-priority" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="walkingareas" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="walkingareas.join-dist" type="floatOptionType" minOccurs="0"/>
         </xsd:all>
@@ -349,6 +354,7 @@
             <xsd:element name="railway.topology.all-bidi.input-file" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="railway.topology.direction-priority" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="railway.topology.extend-priority" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="railway.geometry.straighten" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="railway.signal.guess.by-stops" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="railway.access-distance" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="railway.max-accesses" type="intOptionType" minOccurs="0"/>
@@ -431,6 +437,8 @@
             <xsd:element name="ignore-supermode-question" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="ignore.additionalelements" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="ignore.routeelements" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="e2.friendlyPos.automatic" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="force-saving" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="node-prefix" type="strOptionType" minOccurs="0"/>
             <xsd:element name="edge-prefix" type="strOptionType" minOccurs="0"/>
             <xsd:element name="edge-infix" type="strOptionType" minOccurs="0"/>

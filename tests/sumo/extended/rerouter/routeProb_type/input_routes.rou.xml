@@ -1,9 +1,0 @@
-<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-	<vType id="noReroute" sigma="0"/>
-	<vType id="canReroute" sigma="0"/>
-
-
-    <flow id="noReroute" type="noReroute" begin="0" end="100" number="10" route="r0"/>
-    <flow id="canReroute" type="canReroute" begin="5" end="105" number="10" route="r0"/>
-
-</routes>

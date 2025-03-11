@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -17,12 +17,11 @@
 ///
 // The Widget for move elements
 /****************************************************************************/
-#include <config.h>
 
-#include <netedit/frames/common/GNEMoveFrame.h>
-#include <netedit/GNEViewNet.h>
-#include <netedit/GNEUndoList.h>
 #include <netedit/GNENet.h>
+#include <netedit/GNETagProperties.h>
+#include <netedit/GNEUndoList.h>
+#include <netedit/frames/common/GNEMoveFrame.h>
 #include <utils/foxtools/MFXDynamicLabel.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>
@@ -599,7 +598,7 @@ GNEMoveFrame::ShiftShapeGeometry::onCmdShiftShapeGeometry(FXObject*, FXSelector,
     const auto selectedShapes = myMoveFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getSelectedShapes();
     std::vector<GNEAdditional*> polygons, POIs;
     for (const auto& shape : selectedShapes) {
-        if (shape->getTagProperty().getTag() == SUMO_TAG_POLY) {
+        if (shape->getTagProperty()->getTag() == SUMO_TAG_POLY) {
             polygons.push_back(shape);
         } else {
             POIs.push_back(shape);
@@ -619,7 +618,7 @@ GNEMoveFrame::ShiftShapeGeometry::onCmdShiftShapeGeometry(FXObject*, FXSelector,
     // iterate over POIs
     for (const auto& POI : POIs) {
         // currently only for POIs (not for POILanes or POIGEOs
-        if (POI->getTagProperty().hasAttribute(SUMO_ATTR_POSITION)) {
+        if (POI->getTagProperty()->hasAttribute(SUMO_ATTR_POSITION)) {
             // get shape geometry
             Position position = GNEAttributeCarrier::parse<Position>(POI->getAttribute(SUMO_ATTR_POSITION));
             // shift shape geometry

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -63,7 +63,7 @@ OptionsCont::getOptions() {
 
 
 OptionsCont::OptionsCont() {
-    myCopyrightNotices.push_back(TL("Copyright (C) 2001-2024 German Aerospace Center (DLR) and others; https://sumo.dlr.de"));
+    myCopyrightNotices.push_back(TL("Copyright (C) 2001-2025 German Aerospace Center (DLR) and others; https://sumo.dlr.de"));
 }
 
 
@@ -808,8 +808,8 @@ OptionsCont::printHelp(std::ostream& os) {
         }
         if (!foundTopic) {
             // print topic list
-            os << "Help Topics:"  << std::endl;
-            for (std::string t : mySubTopics) {
+            os << "Help Topics:" << std::endl;
+            for (const std::string& t : mySubTopics) {
                 os << "    " << t << std::endl;
             }
         }
@@ -819,7 +819,7 @@ OptionsCont::printHelp(std::ostream& os) {
     os << "Usage: " << myAppName << " [OPTION]*" << std::endl;
     // print additional text if any
     if (myAdditionalMessage.length() > 0) {
-        os << myAdditionalMessage << std::endl << ' ' << std::endl;
+        os << myAdditionalMessage << std::endl << std::endl;
     }
     // print the options
     for (const auto& subTopic : mySubTopics) {
@@ -835,7 +835,7 @@ OptionsCont::printHelp(std::ostream& os) {
         }
     }
     os << std::endl;
-    os << "Report bugs at <https://github.com/eclipse/sumo/issues>." << std::endl;
+    os << "Report bugs at <https://github.com/eclipse-sumo/sumo/issues>." << std::endl;
     os << "Get in contact via <sumo@dlr.de>." << std::endl;
 }
 
@@ -1051,5 +1051,19 @@ OptionsCont::isInStringVector(const std::string& optionName,
     }
     return false;
 }
+
+
+OptionsCont*
+OptionsCont::clone() const {
+    // build a clone to call writeConfiguration on
+    // (with the possibility of changing a few settings and not affecting the original)
+    OptionsCont* oc = new OptionsCont(*this);
+    oc->resetWritable();
+    for (auto& addr : oc->myAddresses) {
+        addr.second = addr.second->clone();
+    }
+    return oc;
+}
+
 
 /****************************************************************************/

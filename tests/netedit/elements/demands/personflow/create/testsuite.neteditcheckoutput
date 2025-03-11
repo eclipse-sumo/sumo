@@ -1,4 +1,4 @@
-default_trip
+default_persontrip
 
 default_walk
 
@@ -12,18 +12,4 @@ color
 
 departpos
 
-begin
-
-end
-
-endnumber
-
-personsperhour
-
-period
-
-poisson
-
-probability
-
-number
+flow_attributes

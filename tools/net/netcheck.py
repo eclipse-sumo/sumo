@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2007-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2007-2025 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -20,9 +20,14 @@
 # @date    2007-03-20
 
 """
-This script does simple check for the network.
-It tests whether the network is (weakly) connected.
+This script performs checks for the network.
 It needs one parameter, the SUMO net (.net.xml).
+
+- if either option --source or --destination is given, it checks reachability
+- if option --right-of-way is set, it checks for problems with right of way rules
+- if option --short-tls-edges is set, a selection file for short edges (< 15m)
+  incoming to a traffic light is written (see #16014)
+- by default it tests whether the network is (weakly) connected.
 """
 from __future__ import absolute_import
 from __future__ import print_function
@@ -42,6 +47,12 @@ def parse_args():
                     help="List edges reachable from the source")
     op.add_argument("-d", "--destination", category="input", type=op.edge, default=False,
                     help="List edges which can reach the destination")
+    op.add_argument("-w", "--right-of-way", action="store_true", default=False,
+                    dest="checkRightOfWay",
+                    help="Check for problems with right-of-way rules")
+    op.add_argument("--short-tls-edges", action="store_true", default=False,
+                    dest="shortTlsEdges",
+                    help="Check for problems with right-of-way rules")
     op.add_argument("-o", "--selection-output", category="output", type=op.file,
                     help="Write output to file(s) as a loadable selection")
     op.add_argument("--ignore-connections", action="store_true", default=False,
@@ -118,6 +129,43 @@ def getReachable(net, source_id, options, useIncoming=False):
         sys.exit(e)
 
 
+def checkRightOfWay(net, options):
+    lanes = []
+    for edge in net.getEdges(False):
+        for lane in edge.getLanes():
+            if lane.isAccelerationLane():
+                for c in lane.getIncomingConnections():
+                    if c.getFromLane().isNormal() and c.getState() != "M":
+                        lanes.append(lane)
+
+    if options.selection_output:
+        with open(options.selection_output, 'w') as f:
+            for lane in lanes:
+                f.write("lane:%s\n" % lane.getID())
+    else:
+        if lanes:
+            print("Found %s acceleration lanes with invalid right-of-way on the incoming connection" % len(lanes))
+        print('\n'.join([lane.getID() for lane in lanes]))
+
+
+def checkShortTLSEdges(net, options):
+    SHORT_EDGE = 15
+    short = []
+    for edge in net.getEdges(False):
+        if edge.getLength() < SHORT_EDGE and edge.getToNode().getType() == "traffic_light":
+            short.append(edge)
+
+    if options.selection_output:
+        with open(options.selection_output, 'w') as f:
+            for e in short:
+                f.write("edge:%s\n" % e.getID())
+    else:
+        print('\n'.join([e.getID() for e in short]))
+    if short:
+        print("Found %s edges with length below %sm ahead of traffic lights" % (
+            len(short), SHORT_EDGE))
+
+
 if __name__ == "__main__":
     options = parse_args()
     net = sumolib.net.readNet(options.net,
@@ -127,6 +175,10 @@ if __name__ == "__main__":
         getReachable(net, options.source, options)
     elif options.destination:
         getReachable(net, options.destination, options, True)
+    elif options.checkRightOfWay:
+        checkRightOfWay(net, options)
+    elif options.shortTlsEdges:
+        checkShortTLSEdges(net, options)
     else:
         components = getWeaklyConnected(
             net, options.vclass, options.ignore_connections)

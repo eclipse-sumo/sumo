@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2005-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2005-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -110,6 +110,10 @@ fillOptions() {
     oc.doRegister("osm.merge-relations", new Option_Float(-1));
     oc.addDescription("osm.merge-relations", "Input", TL("If FLOAT >= 0, assemble one polygon from all ways of a relation if they all connect with gaps below FLOAT"));
 
+    // geojson import
+    oc.doRegister("geojson-files", new Option_FileName());
+    oc.addDescription("geojson-files", "Input", TL("Reads shapes from geojson FILE"));
+
     // arcview import
     oc.doRegister("shapefile-prefixes", new Option_FileName());
     oc.addSynonyme("shapefile-prefixes", "shapefile-prefix");
@@ -201,6 +205,9 @@ fillOptions() {
     oc.doRegister("poi-layer-offset", new Option_Float(0));
     oc.addDescription("poi-layer-offset", "Processing", TL("Adds FLOAT to the layer value for each poi (i.e. to raise it above polygons)"));
 
+    oc.doRegister("flatten", new Option_Bool(false));
+    oc.addDescription("flatten", "Processing", TL("Remove all z-data"));
+
     // building defaults options
     oc.doRegister("color", new Option_String("0.2,0.5,1."));
     oc.addDescription("color", "Building Defaults", TL("Sets STR as default color"));
@@ -260,7 +267,12 @@ main(int argc, char** argv) {
             // from the given options
 #ifdef PROJ_API_FILE
             const int numProjections = oc.getBool("simple-projection") + oc.getBool("proj.utm") + oc.getBool("proj.dhdn") + (oc.getString("proj").length() > 1);
-            if ((oc.isSet("osm-files") || oc.isSet("dlr-navteq-poly-files") || oc.isSet("dlr-navteq-poi-files") || oc.isSet("shapefile-prefixes")) && numProjections == 0) {
+            if ((oc.isSet("osm-files")
+                    || oc.isSet("dlr-navteq-poly-files")
+                    || oc.isSet("dlr-navteq-poi-files")
+                    || oc.isSet("geojson-files")
+                    || oc.isSet("shapefile-prefixes"))
+                    && numProjections == 0) {
                 // input is lon,lat and projecting it to UTM ensures accurate handling of geometry
                 oc.set("proj.utm", "true");
                 if (oc.isDefault("proj.plain-geo")) {

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2013-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2013-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -49,6 +49,7 @@
 #include "MSDevice_Taxi.h"
 
 //#define DEBUG_DISPATCH
+//#define DEBUG_CANCEL
 
 //#define DEBUG_COND (myHolder.isSelected())
 #define DEBUG_COND (true)
@@ -338,9 +339,10 @@ MSDevice_Taxi::dispatchShared(std::vector<const Reservation*> reservations) {
                 stop.triggered = false;
                 stop.containerTriggered = false;
                 stop.joinTriggered = false;
-                const_cast<SUMOVehicleParameter::Stop&>(stop.pars).permitted.insert("");
                 myHolder.unregisterWaiting();
             }
+            // prevent unauthorized/premature entry
+            const_cast<SUMOVehicleParameter::Stop&>(stop.pars).permitted.insert("");
             while (myHolder.getStops().size() > 1) {
                 myHolder.abortNextStop(1);
             }
@@ -535,21 +537,19 @@ MSDevice_Taxi::cancelCurrentCustomers() {
     }
     // find customers of the current stop
     std::set<const MSTransportable*> customersToBeRemoved;
+    std::set<const MSTransportable*> onBoard;
+    onBoard.insert(myHolder.getPersons().begin(), myHolder.getPersons().end());
+    onBoard.insert(myHolder.getContainers().begin(), myHolder.getContainers().end());
     for (std::string tID : myHolder.getNextStopParameter()->permitted) {
-        //for (const MSTransportable* t : myCustomers) {
         for (auto t : myCustomers) {
-            //bool removed = false;
-            //if (t->getID() == tID) {
-            if (t->getID() == tID) {
-                //cancelCustomer(t);
+            if (t->getID() == tID && onBoard.count(t) == 0) {
                 customersToBeRemoved.insert(t);
-                //removed = cancelCustomer((*tIt));
-
             }
-            //if (!removed) {
-            //    tIt++;
-            //}
         }
+    }
+    if (!customersToBeRemoved.empty()) {
+        WRITE_WARNINGF(TL("Taxi '%' aborts waiting for customers: % at time=%."),
+                       myHolder.getID(), toString(customersToBeRemoved), time2string(SIMSTEP));
     }
     for (auto t : customersToBeRemoved) {
         cancelCustomer(t);
@@ -559,6 +559,12 @@ MSDevice_Taxi::cancelCurrentCustomers() {
 
 bool
 MSDevice_Taxi::cancelCustomer(const MSTransportable* t) {
+#ifdef DEBUG_CANCEL
+    if (DEBUG_COND) {
+        std::cout << SIMTIME << " taxi=" << myHolder.getID() << " cancelCustomer " << t->getID() << "\n";
+    }
+#endif
+
     // is the given transportable a customer of the reservations?
     if (myCustomers.count(t) == 0) {
         return false;
@@ -572,11 +578,10 @@ MSDevice_Taxi::cancelCustomer(const MSTransportable* t) {
             fulfilled = true;
         }
         if (fulfilled) {
-            // delete the reservation
-            myDispatcher->fulfilledReservation(*resIt);
+            const Reservation* res = *resIt;
             // remove reservation from the current dispatch
             for (auto it = myLastDispatch.begin(); it != myLastDispatch.end();) {
-                if (*it == *resIt) {
+                if (*it == res) {
                     it = myLastDispatch.erase(it);
                 } else {
                     ++it;
@@ -584,6 +589,8 @@ MSDevice_Taxi::cancelCustomer(const MSTransportable* t) {
             }
             // remove reservation from the served reservations
             resIt = myCurrentReservations.erase(resIt);
+            // delete the reservation
+            myDispatcher->fulfilledReservation(res);
         } else {
             ++resIt;
         }
@@ -593,6 +600,14 @@ MSDevice_Taxi::cancelCustomer(const MSTransportable* t) {
         // if there is another pickup in the dispatch left, add the state PICKUP
         if (std::count(myLastDispatch.begin(), myLastDispatch.end(), res) == 2) {
             myState |= PICKUP;  // add state PICKUP
+        }
+    }
+    // we also have to clean reservations from myLastDispatch where the customers arrived in the meantime
+    for (auto it = myLastDispatch.begin(); it != myLastDispatch.end();) {
+        if (myCurrentReservations.count(*it) == 0) {
+            it = myLastDispatch.erase(it);
+        } else {
+            ++it;
         }
     }
     // if there are reservations left, go on with the dispatch
@@ -669,6 +684,14 @@ MSDevice_Taxi::prepareStop(ConstMSEdgeVector& edges,
     if (stopPlace != nullptr && &stopPlace->getLane().getEdge() == stopEdge) {
         stop.startPos = stopPlace->getBeginLanePosition();
         stop.endPos = stopPlace->getEndLanePosition();
+        const SumoXMLTag tag = stopPlace->getElement();
+        if (tag == SUMO_TAG_BUS_STOP || tag == SUMO_TAG_TRAIN_STOP) {
+            stop.busstop = stopPlace->getID();
+        } else if (tag == SUMO_TAG_PARKING_AREA) {
+            stop.parkingarea = stopPlace->getID();
+        } else if (tag == SUMO_TAG_CONTAINER_STOP) {
+            stop.containerstop = stopPlace->getID();
+        }
     } else {
         stop.startPos = stopPos;
         stop.endPos = MAX2(stopPos, MIN2(myHolder.getVehicleType().getLength(), stopEdge->getLength()));

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2007-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2007-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -168,6 +168,19 @@ private:
         const bool myOnInit;
         const bool mySilent;
         const MSEdgeVector myProhibited;
+    private:
+        /// @brief Invalidated assignment operator.
+        RoutingTask& operator=(const RoutingTask&) = delete;
+    };
+
+    /**
+     * @class InitTask
+     * @brief setup RNGs for each thread (with proper locking so we don't need
+     * locking later */
+    class InitTask : public MFXWorkerThread::Task {
+    public:
+        InitTask() {}
+        void run(MFXWorkerThread* context);
     private:
         /// @brief Invalidated assignment operator.
         RoutingTask& operator=(const RoutingTask&) = delete;

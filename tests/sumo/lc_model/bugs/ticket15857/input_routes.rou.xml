@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-12-04 14:59:54 by Eclipse SUMO netedit Version v1_21_0+1184-e80092bd906
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="longer" length="13"/>
+    <!-- Vehicles, persons and containers (sorted by depart) -->
+    <vehicle id="blocker" depart="0.00" departLane="1" departPos="-1.5">
+        <route edges="E0 E1"/>
+        <stop lane="E0_1" endPos="-1.5" duration="30"/>
+    </vehicle>
+
+    <vehicle id="A" depart="0.00" departPos="-1" type="longer">
+        <route edges="E0 E1"/>
+    </vehicle>
+    <vehicle id="B" depart="0.00" departPos="-16.2">
+        <route edges="E0 E1"/>
+    </vehicle>
+    <vehicle id="C" depart="0.00" departLane="1" departPos="-9.0">
+        <route edges="E0 E1"/>
+    </vehicle>
+</routes>

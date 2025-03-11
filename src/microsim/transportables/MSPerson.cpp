@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -141,7 +141,8 @@ MSPerson::MSPersonStage_Access::ProceedCmd::execute(SUMOTime currentTime) {
 MSPerson::MSPerson(const SUMOVehicleParameter* pars, MSVehicleType* vtype, MSTransportable::MSTransportablePlan* plan, const double speedFactor) :
     MSTransportable(pars, vtype, plan, true),
     myInfluencer(nullptr),
-    myChosenSpeedFactor(pars->speedFactor < 0 ? speedFactor : pars->speedFactor)
+    myChosenSpeedFactor(pars->speedFactor < 0 ? speedFactor : pars->speedFactor),
+    myTimegapCrossing(getFloatParam("pedestrian.timegap-crossing"))
 { }
 
 
@@ -197,6 +198,7 @@ MSPerson::checkAccess(const MSStage* const prior, const bool waitAtStop) {
                                                         trainExit, platformEntry);
                 }
             }
+            newStage->setTrip(prior->getTrip());
             myStep = myPlan->insert(myStep, newStage);
             return true;
         }
@@ -208,7 +210,7 @@ MSPerson::checkAccess(const MSStage* const prior, const bool waitAtStop) {
 double
 MSPerson::getImpatience() const {
     return MAX2(0., MIN2(1., getVehicleType().getImpatience()
-                         + STEPS2TIME((*myStep)->getWaitingTime(SIMSTEP)) / MSPModel_Striping::MAX_WAIT_TOLERANCE));
+                         + STEPS2TIME((*myStep)->getWaitingTime()) / MSPModel_Striping::MAX_WAIT_TOLERANCE));
 }
 
 const std::string&

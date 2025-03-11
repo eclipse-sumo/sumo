@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -62,11 +62,8 @@ class GUIApplicationWindow : public GUIMainWindow, public MFXInterThreadEventCli
     FXDECLARE(GUIApplicationWindow)
 
 public:
-    /** @brief Constructor
-     * @param[in] a The FOX application
-     * @param[in] configPattern The pattern used for loading configurations
-     */
-    GUIApplicationWindow(FXApp* a, const std::string& configPattern);
+    /// @brief Constructor
+    GUIApplicationWindow(FXApp* a);
 
     /// @brief Destructor
     virtual ~GUIApplicationWindow();
@@ -338,7 +335,7 @@ public:
     virtual void setBreakpoints(const std::vector<SUMOTime>& breakpoints);
 
     /// @brief Adds the given breakpoint
-    void addBreakpoint(const SUMOTime time);
+    void addBreakpoint(SUMOTime time);
 
     /// @brief Sends an event from the application thread to the GUI and waits until it is handled
     virtual void sendBlockingEvent(GUIEvent* event);
@@ -494,9 +491,6 @@ protected:
     /// @brief List of recent configs
     MFXRecentNetworks myRecentConfigs;
 
-    /// @brief Input file pattern
-    std::string myConfigPattern;
-
     /// @brief flag to mark if GUIApplicationWIndow has depend build
     bool hadDependentBuild = false;
 
@@ -584,6 +578,8 @@ protected:
 
     /// @brief breakpoint dialog
     GUIDialog_Breakpoints* myBreakpointDialog = nullptr;
+
+    std::stringstream* myDynamicSelection = nullptr;
 
 private:
     /// @brief starts to load a simulation

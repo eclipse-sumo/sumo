@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2002-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2002-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -137,21 +137,26 @@ RORouteDef::preComputeCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router
         myPrecomputed = myAlternatives[myLastUsed];
     } else {
         // build a new route to test whether it is better
-        ConstROEdgeVector oldEdges;
-        oldEdges.push_back(myAlternatives[0]->getFirst());
-        oldEdges.push_back(myAlternatives[0]->getLast());
+        ConstROEdgeVector oldEdges({getOrigin(), getDestination()});
         ConstROEdgeVector edges;
-        repairCurrentRoute(router, begin, veh, oldEdges, edges);
+        if (repairCurrentRoute(router, begin, veh, oldEdges, edges)) {
+            if (edges.front()->isTazConnector()) {
+                edges.erase(edges.begin());
+            }
+            if (edges.back()->isTazConnector()) {
+                edges.pop_back();
+            }
+        }
         // check whether the same route was already used
-        int cheapest = -1;
+        int existing = -1;
         for (int i = 0; i < (int)myAlternatives.size(); i++) {
             if (edges == myAlternatives[i]->getEdgeVector()) {
-                cheapest = i;
+                existing = i;
                 break;
             }
         }
-        if (cheapest >= 0) {
-            myPrecomputed = myAlternatives[cheapest];
+        if (existing >= 0) {
+            myPrecomputed = myAlternatives[existing];
         } else {
             RGBColor* col = myAlternatives[0]->getColor() != nullptr ? new RGBColor(*myAlternatives[0]->getColor()) : nullptr;
             myPrecomputed = new RORoute(myID, 0, 1, edges, col, myAlternatives[0]->getStops());
@@ -304,6 +309,10 @@ RORouteDef::addAlternative(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
         return;
     }
     // add the route when it's new
+    if (myAlternatives.back()->getProbability() < 0) {
+        delete myAlternatives.back();
+        myAlternatives.pop_back();
+    }
     if (myNewRoute) {
         myAlternatives.push_back(current);
     }
@@ -391,10 +400,15 @@ RORouteDef::addAlternative(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
     }
 }
 
+const ROEdge*
+RORouteDef::getOrigin() const {
+    return myAlternatives.back()->getFirst();
+}
+
 
 const ROEdge*
 RORouteDef::getDestination() const {
-    return myAlternatives[0]->getLast();
+    return myAlternatives.back()->getLast();
 }
 
 

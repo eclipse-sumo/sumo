@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2017-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2017-2025 German Aerospace Center (DLR) and others.
 // TraaS module
 // Copyright (C) 2013-2017 Dresden University of Technology
 // This program and the accompanying materials are made available under the
@@ -50,7 +50,7 @@ public class MultiClient1 {
 
             //start Traci Server
             Simulation.setOrder(1);
-            
+
             int lastPhase = -1;
             for (int i = 0; i < 3600; i++) {
                 Simulation.step();

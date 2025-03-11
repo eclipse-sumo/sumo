@@ -18,3 +18,6 @@ rebuild
 
 # see #13240
 cut_rebuild
+
+# load special offset value
+offset_begin

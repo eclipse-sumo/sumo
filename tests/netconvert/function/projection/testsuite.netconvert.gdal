@@ -6,3 +6,9 @@ utm_heightmap32
 
 # heightmap applied to cartesian data with geo-reference
 heightmap
+
+# apply heightmap to a network file with geo-reference
+net_heightmap
+
+# apply heightmap to a network file with geo-reference
+heightmap_inputZ

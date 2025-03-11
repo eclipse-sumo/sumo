@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2012-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2012-2025 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -47,10 +47,9 @@ def parse_args():
 
 def getCandidates(edge, net, radius):
     candidates = []
-    r = min(radius, sumolib.geomhelper.polyLength(edge.getShape()) / 2)
     for x, y in edge.getShape():
         nearby = set()
-        for edge2, dist in net.getNeighboringEdges(x, y, r):
+        for edge2, dist in net.getNeighboringEdges(x, y, radius):
             nearby.add(edge2)
         candidates.append(nearby)
     return candidates

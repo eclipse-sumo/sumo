@@ -1,4 +1,5 @@
 Loading net-file from 'net3.net.xml' ... done (6ms).
+Loading route-files incrementally from 'input_routes.rou.xml'
 Loading done.
 Generating initial JuPedSim geometry for pedestrian network ...
  done.

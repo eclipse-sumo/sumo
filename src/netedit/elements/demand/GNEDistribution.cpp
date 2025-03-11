@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -17,6 +17,7 @@
 ///
 // abstract distribution used in netedit
 /****************************************************************************/
+
 #include <netedit/GNENet.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <utils/xml/NamespaceIDs.h>
@@ -28,18 +29,16 @@
 // ===========================================================================
 
 GNEDistribution::GNEDistribution(GNENet* net, GUIGlObjectType type, SumoXMLTag elementTag, GUIIcon icon) :
-    GNEDemandElement("", net, type, elementTag, GUIIconSubSys::getIcon(icon),
-                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}) {
+    GNEDemandElement("", net, "", type, elementTag, icon, GNEPathElement::Options::DEMAND_ELEMENT) {
     // reset default values
     resetDefaultValues();
 }
 
 
-GNEDistribution::GNEDistribution(GNENet* net, GUIGlObjectType type, SumoXMLTag elementTag, GUIIcon icon,
-                                 const std::string& ID, const int deterministic) :
-    GNEDemandElement(ID, net, type, elementTag,  GUIIconSubSys::getIcon(icon),
-                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}),
-myDeterministic(deterministic) {
+GNEDistribution::GNEDistribution(const std::string& ID, GNENet* net, const std::string& filename, GUIGlObjectType type, SumoXMLTag elementTag,
+                                 GUIIcon icon, const int deterministic) :
+    GNEDemandElement(ID, net, filename, type, elementTag, icon, GNEPathElement::Options::DEMAND_ELEMENT),
+    myDeterministic(deterministic) {
 }
 
 
@@ -143,13 +142,13 @@ GNEDistribution::computePathElement() {
 
 
 void
-GNEDistribution::drawLanePartialGL(const GUIVisualizationSettings& /*s*/, const GNEPathManager::Segment* /*segment*/, const double /*offsetFront*/) const {
+GNEDistribution::drawLanePartialGL(const GUIVisualizationSettings& /*s*/, const GNESegment* /*segment*/, const double /*offsetFront*/) const {
     // route distributions don't use drawJunctionPartialGL
 }
 
 
 void
-GNEDistribution::drawJunctionPartialGL(const GUIVisualizationSettings& /*s*/, const GNEPathManager::Segment* /*segment*/, const double /*offsetFront*/) const {
+GNEDistribution::drawJunctionPartialGL(const GUIVisualizationSettings& /*s*/, const GNESegment* /*segment*/, const double /*offsetFront*/) const {
     // route distributions don't use drawJunctionPartialGL
 }
 
@@ -186,7 +185,7 @@ GNEDistribution::getAttribute(SumoXMLAttr key) const {
                 return toString(myDeterministic);
             }
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+            return getCommonAttribute(this, key);
     }
 }
 
@@ -229,7 +228,8 @@ GNEDistribution::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndo
             GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+            setCommonAttribute(key, value, undoList);
+            break;
     }
 }
 
@@ -246,7 +246,7 @@ GNEDistribution::isValid(SumoXMLAttr key, const std::string& value) {
                 return canParse<int>(value) && (parse<int>(value) >= 0);
             }
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+            return isCommonValid(key, value);
     }
 }
 
@@ -286,7 +286,8 @@ GNEDistribution::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             break;
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+            setCommonAttribute(this, key, value);
+            break;
     }
 }
 

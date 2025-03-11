@@ -37,6 +37,15 @@ different_lengths
 # guess opposites returns edges with different length but their length is adjusted automatically
 different_lengths_fix
 
+# guess opposites returns edges with different length
+different_lengths_nofix
+
+# guess opposites returns edges with different length
+different_loadedLengths
+
+# guess opposites returns edges with different length
+different_loadedLengths_nofix
+
 # load network with invalid opposites
 load_invalid
 

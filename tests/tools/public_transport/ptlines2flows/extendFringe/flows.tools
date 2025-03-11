@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-04-03 00:58:52.509139 by ptlines2flows.py v1_19_0+1649-d62985f5c41
+<!-- generated on 2025-02-21 09:39:15.219961 by ptlines2flows.py v1_22_0+0419-c0e3a37e915
 <configuration>
     <net-file value="net.net.xml"/>
     <ptlines-file value="ptlines.xml"/>
@@ -29,6 +29,10 @@
     <route id="bus_1:0" edges="-391493954#3 -391493954#2 -391493954#1 -391493954#0 -391493952#2 -391493952#1 -391493952#0 -391493950#1 -391493950#0 -391493947 -391493949 -338412122 -110450334#2 -110450334#1" >
         <stop busStop="3959807220" duration="20" until="67.0"/> <!-- Kolonnenbrücke -->
     </route>
+    <route id="bus_2:0" edges="53356539#0 53356539#1 4710636#0 4710636#1 4710636#2 111325187#0 111325187#1 111325187#2 111325187#3" >
+        <stop busStop="4032629819" duration="20" until="57.0"/> <!-- Monumentenstraße -->
+        <stop busStop="2029039199" duration="20" until="185.0"/> <!-- Dudenstraße/Katzbachstraße -->
+    </route>
     <route id="bus_3:0" edges="53356539#1 4710636#0 4710636#1 4710636#2 111325187#0 111325187#1" >
         <stop busStop="4032629819" duration="20" until="50.0"/> <!-- Monumentenstraße -->
         <stop busStop="2029039199" duration="20" until="109.0"/> <!-- Dudenstraße/Katzbachstraße -->
@@ -37,23 +41,19 @@
         <stop busStop="4032629819" duration="20" until="49.0"/> <!-- Monumentenstraße -->
         <stop busStop="2029039199" duration="20" until="141.0"/> <!-- Dudenstraße/Katzbachstraße -->
     </route>
-    <route id="bus_2:0" edges="53356539#0 53356539#1 4710636#0 4710636#1 4710636#2 111325187#0 111325187#1 111325187#2 111325187#3" >
-        <stop busStop="4032629819" duration="20" until="57.0"/> <!-- Monumentenstraße -->
-        <stop busStop="2029039199" duration="20" until="185.0"/> <!-- Dudenstraße/Katzbachstraße -->
-    </route>
     <flow id="bus_0:0" type="bus" route="bus_0:0" begin="0.0" end="3600.0" period="600" line="0:0" >
         <param key="name" value="noStop"/>
     </flow>
     <flow id="bus_1:0" type="bus" route="bus_1:0" begin="6.0" end="3606.0" period="600" line="1:0" >
         <param key="name" value="oneStop"/>
     </flow>
+    <flow id="bus_2:0" type="bus" route="bus_2:0" begin="0.0" end="3600.0" period="600" line="2:0" >
+        <param key="name" value="twoStops"/>
+    </flow>
     <flow id="bus_3:0" type="bus" route="bus_3:0" begin="0.0" end="3600.0" period="600" line="3:0" >
         <param key="name" value="noRoute"/>
     </flow>
     <flow id="bus_5:0" type="bus" route="bus_5:0" begin="6.0" end="3606.0" period="600" line="5:0" >
         <param key="name" value="StopsNotInRoute"/>
-    </flow>
-    <flow id="bus_2:0" type="bus" route="bus_2:0" begin="0.0" end="3600.0" period="600" line="2:0" >
-        <param key="name" value="twoStops"/>
     </flow>
 </routes>

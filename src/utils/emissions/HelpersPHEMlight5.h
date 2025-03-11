@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2013-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2013-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -64,6 +64,13 @@ public:
      * @return the fuel type
      */
     std::string getFuel(const SUMOEmissionClass c) const;
+
+    /** @brief Returns a reference weight in kg described by this emission class
+     * This implementation returns the value from the corresponding veh description file.
+     * @param[in] c the emission class
+     * @return a reference weight
+     */
+    double getWeight(const SUMOEmissionClass c) const;
 
     /** @brief Returns the amount of emitted pollutant given the vehicle type and state (in mg/s or in ml/s for fuel)
      * @param[in] c The vehicle emission class

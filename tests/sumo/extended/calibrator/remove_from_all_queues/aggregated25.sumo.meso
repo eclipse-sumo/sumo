@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-11-23 12:57:34 by Eclipse SUMO sumo Version v1_11_0+0012-279bcfd
+<!-- generated on 2025-01-16 18:09:22 by Eclipse SUMO sumo Version v1_21_0+1883-11b79950a32
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -21,12 +26,10 @@ SPDX-License-Identifier: EPL-2.0
 
     <processing>
         <default.speeddev value="0"/>
-        <pedestrian.model value="nonInteracting"/>
     </processing>
 
     <report>
         <xml-validation value="never"/>
-        <xml-validation.routes value="never"/>
         <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -36,14 +39,14 @@ SPDX-License-Identifier: EPL-2.0
         <meso-multi-queue value="true"/>
     </mesoscopic>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
     <interval begin="0.00" end="115.00" id="expect10vehs">
         <edge id="beg" sampledSeconds="287.25" traveltime="3.83" overlapTraveltime="4.02" density="24.98" laneDensity="12.49" occupancy="6.24" waitingTime="0.00" timeLoss="17.47" speed="26.11" speedRelative="0.94" departed="75" arrived="0" entered="0" left="75" laneChangedFrom="0" laneChangedTo="0"/>
-        <edge id="end" sampledSeconds="176.22" traveltime="5.03" overlapTraveltime="5.21" density="10.95" laneDensity="10.95" occupancy="5.47" waitingTime="0.00" timeLoss="0.00" speed="27.80" speedRelative="1.00" departed="0" arrived="35" entered="35" left="0" laneChangedFrom="0" laneChangedTo="0"/>
-        <edge id="end2" sampledSeconds="173.54" traveltime="9.64" overlapTraveltime="10.00" density="11.27" laneDensity="11.27" occupancy="5.63" waitingTime="0.00" timeLoss="0.00" speed="13.89" speedRelative="1.00" departed="0" arrived="18" entered="18" left="0" laneChangedFrom="0" laneChangedTo="0"/>
-        <edge id="middle" sampledSeconds="202.64" traveltime="3.54" overlapTraveltime="3.72" density="17.89" laneDensity="8.94" occupancy="4.47" waitingTime="0.00" timeLoss="0.01" speed="27.80" speedRelative="1.00" departed="2" arrived="0" entered="75" left="77" laneChangedFrom="0" laneChangedTo="0" vaporized="24"/>
+        <edge id="end" sampledSeconds="181.26" traveltime="5.03" overlapTraveltime="5.21" density="11.26" laneDensity="11.26" occupancy="5.63" waitingTime="0.00" timeLoss="0.00" speed="27.80" speedRelative="1.00" departed="0" arrived="36" entered="36" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="end2" sampledSeconds="163.90" traveltime="9.64" overlapTraveltime="10.00" density="10.64" laneDensity="10.64" occupancy="5.32" waitingTime="0.00" timeLoss="0.00" speed="13.89" speedRelative="1.00" departed="0" arrived="17" entered="17" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="middle" sampledSeconds="199.94" traveltime="3.54" overlapTraveltime="3.72" density="17.65" laneDensity="8.82" occupancy="4.41" waitingTime="0.00" timeLoss="0.01" speed="27.80" speedRelative="1.00" departed="2" arrived="0" entered="75" left="77" laneChangedFrom="0" laneChangedTo="0" vaporized="24"/>
     </interval>
 </meandata>

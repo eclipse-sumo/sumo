@@ -1,5 +1,5 @@
-Eclipse SUMO polyconvert Version v1_19_0+0280-744f1199eca
- Copyright (C) 2001-2024 German Aerospace Center (DLR) and others; https://sumo.dlr.de
+Eclipse SUMO polyconvert Version v1_21_0+1946-5cf10712f6d
+ Copyright (C) 2001-2025 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Importer of polygons and POIs for the microscopic, multi-modal traffic
  simulation SUMO.
 
@@ -36,6 +36,7 @@ Input Options:
   --osm.merge-relations FLOAT       If FLOAT >= 0, assemble one polygon from
                                      all ways of a relation if they all connect
                                      with gaps below FLOAT
+  --geojson-files FILE              Reads shapes from geojson FILE
   --shapefile-prefixes FILE         Reads shapes from shapefiles FILE
   --shapefile.guess-projection      Guesses the shapefile's projection
   --shapefile.traditional-axis-mapping  Use traditional axis order (lon, lat)
@@ -100,6 +101,7 @@ Processing Options:
   --ignore-errors                   Continue on broken input
   --poi-layer-offset FLOAT          Adds FLOAT to the layer value for each poi
                                      (i.e. to raise it above polygons)
+  --flatten                         Remove all z-data
 
 Building Defaults Options:
   --color STR                       Sets STR as default color
@@ -137,5 +139,5 @@ Examples:
   polyconvert -c <CONFIGURATION>
     run with configuration options set in file
 
-Report bugs at <https://github.com/eclipse/sumo/issues>.
+Report bugs at <https://github.com/eclipse-sumo/sumo/issues>.
 Get in contact via <sumo@dlr.de>.

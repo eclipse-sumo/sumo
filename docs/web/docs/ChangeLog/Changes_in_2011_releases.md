@@ -186,9 +186,9 @@ to get a list of supported options including synonyms.
     correct code for reading length is:
 
 ```
-int length = readByte()
-if length==0:
-length = readInt()
+int length = readByte()
+if length==0:
+length = readInt()
 ```
 
 - added [Contributed/SUMO Traffic Modeler](../Contributed/SUMO_Traffic_Modeler.md)

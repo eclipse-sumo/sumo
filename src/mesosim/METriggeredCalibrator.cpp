@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -48,17 +48,19 @@
 // method definitions
 // ===========================================================================
 METriggeredCalibrator::METriggeredCalibrator(const std::string& id,
-        const MSEdge* const edge, const double pos,
+        MSEdge* const edge, const double pos,
         const std::string& aXMLFilename,
         const std::string& outputFilename,
         const SUMOTime freq, const double length,
         const MSRouteProbe* probe,
         const double invalidJamThreshold,
         const std::string& vTypes) :
-    MSCalibrator(id, edge, (MSLane*)nullptr, pos, aXMLFilename, outputFilename, freq, length, probe, invalidJamThreshold, vTypes, false),
-    mySegment(MSGlobals::gMesoNet->getSegmentForEdge(*edge, pos)) {
+    MSCalibrator(id, edge, nullptr, nullptr, pos, aXMLFilename, outputFilename, freq, length, probe, invalidJamThreshold, vTypes, false, false),
+    mySegment(edge == nullptr ? nullptr : MSGlobals::gMesoNet->getSegmentForEdge(*edge, pos)) {
     myEdgeMeanData.setDescription("meandata_calibrator_" + getID());
-    mySegment->addDetector(&myEdgeMeanData);
+    if (mySegment != nullptr) {
+        mySegment->addDetector(&myEdgeMeanData);
+    }
 }
 
 
@@ -181,7 +183,7 @@ METriggeredCalibrator::execute(SUMOTime currentTime) {
                 newPars->routeid = route->getID();
                 MEVehicle* vehicle;
                 try {
-                    vehicle = static_cast<MEVehicle*>(vc.buildVehicle(newPars, route, vtype, false, false));
+                    vehicle = static_cast<MEVehicle*>(vc.buildVehicle(newPars, route, vtype, false, MSVehicleControl::VehicleDefinitionSource::TRIGGER));
                     std::string msg;
                     if (!vehicle->hasValidRouteStart(msg)) {
                         throw ProcessError(msg);
@@ -192,7 +194,7 @@ METriggeredCalibrator::execute(SUMOTime currentTime) {
                         vehicle = nullptr;
                         break;
                     } else {
-                        throw e;
+                        throw;
                     }
                 }
                 const bool duplicate = vc.getVehicle(newPars->id) != nullptr;

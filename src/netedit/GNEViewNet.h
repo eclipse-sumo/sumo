@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -23,15 +23,6 @@
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 
 #include "GNEViewNetHelper.h"
-
-
-// ===========================================================================
-// class declaration
-// ===========================================================================
-class GNEFrame;
-class GNENet;
-class GNEUndoList;
-class GNEViewParent;
 
 // ===========================================================================
 // class definitions
@@ -72,7 +63,7 @@ public:
     void buildViewToolBars(GUIGlChildWindow* v);
 
     /// @brief Mark the entire GNEViewNet to be repainted later
-    void updateViewNet() const;
+    void updateViewNet(const bool ignoreViewUpdater = true) const;
 
     /// @brief force supermode network(used after load/create new network)
     void forceSupemodeNetwork();
@@ -83,14 +74,20 @@ public:
     /// @brief get objects under cursor
     const GNEViewNetHelper::ViewObjectsSelector& getViewObjectsSelector() const;
 
+    /// @brief get move single element values
+    const GNEViewNetHelper::MoveSingleElementModul& getMoveSingleElementValues() const;
+
     /// @brief get move multiple element values
     const GNEViewNetHelper::MoveMultipleElementModul& getMoveMultipleElementValues() const;
 
-    /// @brief get objects in the given boundary
-    void updateObjectsInBoundary(const Boundary& boundary);
-
-    /// @brief get objects in the given position
+    /// @brief update objects and boundaries in position
     void updateObjectsInPosition(const Position& pos);
+
+    /// @brief get objects in the given shape (using triangulation)
+    void updateObjectsInShape(const PositionVector& shape);
+
+    /// @brief redraw elements only for calculating boundary
+    void redrawPathElementContours();
 
     /** @brief Builds an entry which allows to (de)select the object
      * @param ret The popup menu to add the entry to
@@ -235,6 +232,9 @@ public:
     /// @brief apply template to edge
     long onCmdEgeApplyTemplate(FXObject*, FXSelector, void*);
 
+    /// @name specific of shape edited
+    /// @{
+
     /// @brief simply shape of current polygon
     long onCmdSimplifyShape(FXObject*, FXSelector, void*);
 
@@ -250,8 +250,41 @@ public:
     /// @brief select elements within polygon boundary
     long onCmdSelectPolygonElements(FXObject*, FXSelector, void*);
 
+    /// @brief triangulate polygon
+    long onCmdTriangulatePolygon(FXObject*, FXSelector, void*);
+
     /// @brief set as first geometry point the closes geometry point
     long onCmdSetFirstGeometryPoint(FXObject*, FXSelector, void*);
+
+    /// @}
+
+    /// @name specific of shape edited
+    /// @{
+    /// @brief simply shape edited
+    long onCmdSimplifyShapeEdited(FXObject*, FXSelector, void*);
+
+    /// @brief straight shape edited
+    long onCmdStraightenShapeEdited(FXObject*, FXSelector, void*);
+
+    /// @brief close opened shape edited
+    long onCmdCloseShapeEdited(FXObject*, FXSelector, void*);
+
+    /// @brief open closed shape edited
+    long onCmdOpenShapeEdited(FXObject*, FXSelector, void*);
+
+    /// @brief set first geometry point in shape edited
+    long onCmdSetFirstGeometryPointShapeEdited(FXObject*, FXSelector, void*);
+
+    /// @brief delete the closes geometry point in shape edited
+    long onCmdDeleteGeometryPointShapeEdited(FXObject*, FXSelector, void*);
+
+    /// @brief reset shape edited
+    long onCmdResetShapeEdited(FXObject*, FXSelector, void*);
+
+    /// @brief finish shape edited
+    long onCmdFinishShapeEdited(FXObject*, FXSelector, void*);
+
+    /// @}
 
     /// @brief transform POI to POILane, and vice versa
     long onCmdTransformPOI(FXObject*, FXSelector, void*);
@@ -377,7 +410,7 @@ public:
     long onCmdToggleDrawSpreadVehicles(FXObject*, FXSelector, void*);
 
     /// @brief toggle warn for merge
-    long onCmdToggleWarnAboutMerge(FXObject*, FXSelector, void*);
+    long onCmdToggleMergeAutomatically(FXObject*, FXSelector, void*);
 
     /// @brief toggle show junction bubbles
     long onCmdToggleShowJunctionBubbles(FXObject*, FXSelector, void*);
@@ -506,35 +539,17 @@ public:
     /// @brief get interval bar
     GNEViewNetHelper::IntervalBar& getIntervalBar();
 
-    /// @brief get inspected attribute carriers
-    const std::vector<GNEAttributeCarrier*>& getInspectedAttributeCarriers() const;
-
     /// @brief get lock manager
     GNEViewNetHelper::LockManager& getLockManager();
 
-    /// @brief set inspected attributeCarrier
-    void setInspectedAttributeCarriers(const std::vector<GNEAttributeCarrier*> ACs);
+    /// @brief get inspected elements
+    GNEViewNetHelper::InspectedElements& getInspectedElements();
 
-    /// @brief check if attribute carrier is being inspected
-    bool isAttributeCarrierInspected(const GNEAttributeCarrier* AC) const;
-
-    /// @brief remove given AC of list of inspected Attribute Carriers
-    void removeFromAttributeCarrierInspected(const GNEAttributeCarrier* AC);
-
-    /// @brief get front attributeCarrier
-    const GNEAttributeCarrier* getFrontAttributeCarrier() const;
-
-    /// @brief get front glObject
-    const GUIGlObject* getFrontGLObject() const;
-
-    /// @brief set front attributeCarrier
-    void setFrontAttributeCarrier(GNEAttributeCarrier* AC);
-
-    /// @brief draw front attributeCarrier
-    void drawTranslateFrontAttributeCarrier(const GNEAttributeCarrier* AC, double typeOrLayer, const double extraOffset = 0);
+    /// @brief get marked for drawing front elements
+    GNEViewNetHelper::MarkFrontElements& getMarkFrontElements();
 
     /// @brief check if an element is being moved
-    bool isMovingElement() const;
+    bool isCurrentlyMovingElements() const;
 
     /// @brief check if given element is locked (used for drawing select and delete contour)
     bool checkOverLockedElement(const GUIGlObject* GLObject, const bool isSelected) const;
@@ -566,8 +581,8 @@ public:
     /// @brief return true if junction must be showed as bubbles
     bool showJunctionAsBubbles() const;
 
-    /// @brief try to merge moved junction with another junction in that spot return true if merging did take place
-    bool mergeJunctions(GNEJunction* movedJunction, GNEJunction* targetJunction);
+    /// @brief ask merge junctions
+    bool askMergeJunctions(const GNEJunction* movedJunction, const GNEJunction* targetJunction, bool& alreadyAsked);
 
     /// @brief ask about change supermode
     bool aksChangeSupermode(const std::string& operation, Supermode expectedSupermode);
@@ -598,7 +613,7 @@ protected:
     GNEViewNet();
 
     /// @brief do paintGL
-    int doPaintGL(int mode, const Boundary& bound);
+    int doPaintGL(int mode, const Boundary& drawingBoundary);
 
     /// @brief called after some features are already initialized
     void doInit();
@@ -700,6 +715,12 @@ private:
     /// @brief lock manager
     GNEViewNetHelper::LockManager myLockManager;
 
+    /// @brief inspected element
+    GNEViewNetHelper::InspectedElements myInspectedElements;
+
+    /// @brief front element
+    GNEViewNetHelper::MarkFrontElements myMarkFrontElements;
+
     /// @brief view parent
     GNEViewParent* myViewParent = nullptr;
 
@@ -711,12 +732,6 @@ private:
 
     /// @brief a reference to the undolist maintained in the application
     GNEUndoList* myUndoList = nullptr;
-
-    /// @brief current inspected attribute carrier
-    std::vector<GNEAttributeCarrier*> myInspectedAttributeCarriers;
-
-    /// @brief front attribute carrier
-    GNEAttributeCarrier* myFrontAttributeCarrier = nullptr;
 
     /// @brief last created route
     GNEDemandElement* myLastCreatedRoute = nullptr;
@@ -746,13 +761,13 @@ private:
     void updateDataModeSpecificControls();
 
     /// @brief delete given network attribute carriers
-    void deleteNetworkAttributeCarriers(const std::vector<GNEAttributeCarrier*> ACs);
+    void deleteNetworkAttributeCarrier(const GNEAttributeCarrier* AC);
 
     /// @brief delete given demand attribute carriers
-    void deleteDemandAttributeCarriers(const std::vector<GNEAttributeCarrier*> ACs);
+    void deleteDemandAttributeCarrier(const GNEAttributeCarrier* AC);
 
     /// @brief delete data attribute carriers
-    void deleteDataAttributeCarriers(const std::vector<GNEAttributeCarrier*> ACs);
+    void deleteDataAttributeCarrier(const GNEAttributeCarrier* AC);
 
     /// @brief try to retrieve an edge at popup position
     GNEEdge* getEdgeAtPopupPosition();
@@ -786,6 +801,9 @@ private:
 
     /// @brief try to retrieve a TAZ at popup position
     GNETAZ* getTAZAtPopupPosition();
+
+    /// @brief try to retreive a edited shape at popup position
+    GNENetworkElement* getShapeEditedAtPopupPosition();
 
     /// @brief Auxiliary function used by onLeftBtnPress(...)
     void processClick(void* eventData);

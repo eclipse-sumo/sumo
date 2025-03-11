@@ -1,0 +1,1 @@
+--no-internal-links --geometry.remove -v -n input_nodes.nod.xml -e input_edges.edg.xml

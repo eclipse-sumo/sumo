@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -180,6 +180,11 @@ MSVehicleType::setScale(double value) {
 }
 
 void
+MSVehicleType::setLcContRight(const std::string& value) {
+    myParameter.lcParameter[SUMO_ATTR_LCA_CONTRIGHT] = value;
+}
+
+void
 MSVehicleType::setDefaultProbability(const double& prob) {
     if (myOriginalType != nullptr && prob < 0) {
         myParameter.defaultProbability = myOriginalType->getDefaultProbability();
@@ -259,6 +264,7 @@ void
 MSVehicleType::setMass(double mass) {
     myParameter.mass = mass;
     myParameter.parametersSet |= VTYPEPARS_MASS_SET;
+    const_cast<EnergyParams&>(myEnergyParams).setMass(mass);
 }
 
 

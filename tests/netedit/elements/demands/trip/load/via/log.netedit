@@ -1,4 +1,3 @@
-Error: Attribute 'via' in definition of trip 'trip_1' is empty.
-Error: Via edge 'dummyEdge' doesn't exist.
-Error: Attribute 'via' in definition of trip 'trip_3' is empty.
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.16Jul140528.2955/netedit.gui/elements/demands/trip/load/via/routes.rou.xml failed.
+Error: Attribute 'via' in definition of trip 'trip_0' is empty.
+Error: Could not build trip with ID 'trip_1' in netedit; via edge with ID 'dummyEdge' doesn't exist.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.18Dec174643.2935/netedit.gui/elements/demands/trip/load/via/routes.rou.xml failed.

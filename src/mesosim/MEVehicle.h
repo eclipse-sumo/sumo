@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -82,6 +82,10 @@ public:
         return nullptr;
     }
 
+    const MSLane* getBackLane() const {
+        return nullptr;
+    }
+
     /** @brief Return current position (x/y, cartesian)
      *
      * If the vehicle's myLane is 0, Position::INVALID.
@@ -91,20 +95,22 @@ public:
      */
     Position getPosition(const double offset = 0) const;
 
+    /// @brief get bounding rectangle
+    PositionVector getBoundingBox(double offset = 0) const;
 
     /** @brief Returns the vehicle's estimated speed assuming no delays
      * @return The vehicle's estimated speed
-     * @note This is only an upper bound. The speed will be lower if the preceeding vehicle is delayed
+     * @note This is only an upper bound. The speed will be lower if the preceding vehicle is delayed
      */
     double getSpeed() const;
 
     /** @brief Returns the vehicle's estimated average speed on the segment assuming no further delays
      * @return The vehicle's estimated average speed
-     * @note This is only an upper bound. The speed will be lower if the preceeding vehicle is delayed
+     * @note This is only an upper bound. The speed will be lower if the preceding vehicle is delayed
      */
     double getAverageSpeed() const;
 
-    /// @brief Returns the vehicle's estimated speed after driving accross the link
+    /// @brief Returns the vehicle's estimated speed after driving across the link
     double estimateLeaveSpeed(const MSLink* link) const;
 
 
@@ -134,7 +140,7 @@ public:
      */
     bool moveRoutePointer();
 
-    /** @brief Returns whether this vehicle has already arived
+    /** @brief Returns whether this vehicle has already arrived
      * (reached the arrivalPosition on its final edge)
      */
     bool hasArrived() const;
@@ -219,6 +225,7 @@ public:
         return mySegment;
     }
 
+    int getSegmentIndex() const;
 
     /** @brief Returns the index of the que the vehicle is in
      * @return The que index
@@ -249,6 +256,12 @@ public:
         return myLastEntryTime;
     }
 
+    /** @brief Returns the time of the vehicle's last action point.
+     * @return The time of the last action point
+     */
+    SUMOTime getLastActionTime() const {
+        return SIMSTEP;
+    }
 
     /** @brief Sets the time at which the vehicle was blocked
      * @param[in] t The blocking time

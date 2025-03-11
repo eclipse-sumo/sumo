@@ -34,7 +34,7 @@ These values have the following meanings (the defaults are from the Kia below):
 
 | key                               | Value Type | Default           | Description                                             |
 | --------------------------------- | ---------- | ----------------- | ------------------------------------------------------- |
-| maximumBatteryCapacity            | float      | 35000 (Wh)        | Maximum battery capacity *E<sub>max</sub>*              |
+| device.battery.capacity           | float      | 35000 (Wh)        | Maximum battery capacity *E<sub>max</sub>*              |
 | maximumPower                      | float      | 150000 (W)        | Maximum power which the vehicle can reach (unused)      |
 | vehicleMass                       | float      | 1830 (kg)         | Vehicle mass *m<sub>veh</sub>* (deprecated)             |
 | loading                           | float      | 0 (kg)            | Additional mass **(to be defined in the vehicle type)**     |
@@ -54,7 +54,7 @@ These values have the following meanings (the defaults are from the Kia below):
 !!! note
     Before SUMO 1.20.0 the `rotatingMass` was called `internalMomentOfInertia` but it has been renamed to make clear
     that it is a mass and not a moment of inertia. The old parameter is considered deprecated.
-    Also the `vehicleMass` has been deprecated in favor of the new `mass` attribute.
+    Also the `vehicleMass` has been deprecated in favor of the new `mass` attribute of vehicles / vehicle types.
 
 An example of a vehicle with electric attribute (those are the values for a city bus from the original publication):
 
@@ -62,7 +62,7 @@ An example of a vehicle with electric attribute (those are the values for a city
 <routes>
     <vType id="ElectricBus" accel="1.0" decel="1.0" length="12" maxSpeed="100.0" sigma="0.0" minGap="2.5" mass="10000" color="1,1,1">
         <param key="has.battery.device" value="true"/>
-        <param key="maximumBatteryCapacity" value="2000"/>
+        <param key="device.battery.capacity" value="2000"/>
         <param key="maximumPower" value="1000"/>
         <param key="frontSurfaceArea" value="5"/>
         <param key="airDragCoefficient" value="0.6"/>
@@ -84,13 +84,13 @@ It will not use the [default emission class](../Vehicle_Type_Parameter_Defaults.
 This is for backward compatibility and will issue a warning because in general it is preferable to set the emission class explicitly.
 Most of the parameters above do actually apply to this emission class and not to the battery device itself.
 
-The initial energy content of the battery (by default `0.5*maximumBatteryCapacity`) can
+The initial energy content of the battery (by default `0.5*device.battery.capacity`) can
 be set in the vehicle definitions
 
 ```xml
 <routes>
     <vehicle id="0" type="type1" depart="0" color="1,0,0">
-        <param key="actualBatteryCapacity" value="500"/>
+        <param key="device.battery.chargeLevel" value="500"/>
     </vehicle>
 </routes>
 ```
@@ -98,7 +98,7 @@ be set in the vehicle definitions
 The charging rate of the battery at a charging station is limited to model the effects of battery management controllers (e.g. charge a nearly full battery less than an nearly empty one).
 There are two ways to define the maximum charge rate: For a constant rate set the attribute `device.battery.maximumChargeRate`.
 If instead a maximum charge rate depending on the state of charge is wanted, it can be defined through data points between which the rate will get interpolated.
-The states of charge have to be given in device.battery.chargeLevelTable` and the corresponding charge rates in `device.battery.chargeCurveTable`.
+The states of charge have to be given in `device.battery.chargeLevelTable` and the corresponding charge rates in `device.battery.chargeCurveTable`.
 If defined, the maximum charge curve takes precedence over the constant maximum charge rate `device.battery.maximumChargeRate`. An example definition where the charge rate decreases above
 50% state of charge looks like the following:
 
@@ -120,7 +120,9 @@ the [stationfinder device](../Simulation/Stationfinder.md) can be configured to 
 
 A charging station is a surface defined on a lane in which the vehicles
 equipped with a battery are charged. The basic structure and parameters
-of bus stops were used for the implementation of charging stations.
+of bus stops were used for the implementation of charging stations. 
+A charging station can be converted to a gas station by setting the **chargeType** attribute to `fuel`. Then electric vehicles cannot charge there anymore.
+
 
 | key                 | Value Type | Value range                                                                                | Default   | Description         |
 | ------------------- | ---------- | -------------------------------- | --------- | ----------------------------------------------------------------------------- |
@@ -134,7 +136,7 @@ of bus stops were used for the implementation of charging stations.
 | **efficiency**      | float      | 0 <= efficiency <= 1                                                                       | 0.95   | Charging efficiency *η<sub>chrg</sub>*                                                                                          |
 | **chargeInTransit** | bool       | true or false                                                                              | false  | Enable or disable charge in transit, i.e. vehicle is forced/not forced to stop for charging                                     |
 | **chargeDelay**     | float      | chargeDelay \> 0                                                                           | 0         | Time delay after the vehicles have reached / stopped on the charging station, before the energy transfer (charging) is starting |
-| chargeType | string | | normal | Charging type (normal, electric, fuel) |
+| chargeType | string | {normal, battery-exchange, fuel} | normal | Charging type  |
 | parkingArea         | string     | valid parkingArea id                                                                       |        | id of the parking the charging station should be positioned on (optional) - vehicles will only charge after reaching the parking
 
 Charging stations are defined in additional using the following format:
@@ -253,6 +255,8 @@ the following structure:
 </chargingstations-export>
 ```
 
+If the option **--chargingstations-output.aggregated.write-unfinished true** is set as well, vehicles still charging at the
+end of the simulation are included as well (but do not contain the chargingEnd attribute).
 Attributes with the same name can be looked up in the [table above](#full_report). The remaining attributes are:
 
 | Name               | Type   | Description                                                      |
@@ -350,20 +354,29 @@ Furthermore, the function
 can be used to access the consumption of the vehicle if the `emissionClass="Energy/unknown"` [is
 declared](#emission_output).
 
-## Calculating the remaining Range:
+## Query of the current state of charge
+
+The current state of charge of the battery can be computed as the quotient of the actual battery charge and the maximum battery capacity:
+```python
+capacity = float(traci.vehicle.getParameter(vehID, "device.battery.capacity"))
+currentCharge = float(traci.vehicle.getParameter(vehID, "device.battery.chargeLevel"))
+stateOfCharge = currentCharge / capacity
+```
+
+## Calculating the remaining Range
 
 After the vehicle has been driving for a while, the remaining range can be computed based on previous consumption and distance:
 ```python
 mWh = traci.vehicle.getDistance(vehID) / float(traci.vehicle.getParameter(vehID, "device.battery.totalEnergyConsumed"))
-remainingRange = float(traci.vehicle.getParameter(vehID, "device.battery.actualBatteryCapacity")) * mWh
+remainingRange = float(traci.vehicle.getParameter(vehID, "device.battery.chargeLevel")) * mWh
 ```
 To compute the remaining range on departure, the value of `mWh` (meters per Watt-hour) should be calibrated from a prior simulation.
 
-## Reducing the power of a charging station:
+## Reducing the power of a charging station
 
 If too many consumers connect to the eletrical grid, it may not be able to supply the nominal power of the charging station. A temporary
 power drop of 20% can be modeled using the following sample code:
-```
+```python
 prevPower = traci.chargingstation.getPower(chargingStationID) # remember for restoring the full power later
 traci.chargingstation.setPower(chargingStationID, prevPower * 0.8)
 ```
@@ -390,20 +403,20 @@ Heidelberg
 The values are provided by courtesy of Jim Div based on his own calibration.
 
 ```xml
-<vType id="soulEV65" minGap="2.50" maxSpeed="29.06" color="white" accel="1.0" decel="1.0" sigma="0.0" emissionClass="Energy/unknown">
+<!-- vehicle mass = 1682kg curb wt + average 2 passengers / bags -->
+<vType id="soulEV65" minGap="2.50" maxSpeed="29.06" color="white" accel="1.0" decel="1.0" sigma="0.0" emissionClass="Energy/unknown" mass="1830">
     <param key="has.battery.device" value="true"/>
     <param key="airDragCoefficient" value="0.35"/>       <!-- https://www.evspecifications.com/en/model/e94fa0 -->
     <param key="constantPowerIntake" value="100"/>       <!-- observed summer levels -->
     <param key="frontSurfaceArea" value="2.6"/>          <!-- computed (ht-clearance) * width -->
     <param key="rotatingMass" value="40"/>               <!-- guesstimate, inspired by PHEMlight5 PC_BEV -->
-    <param key="maximumBatteryCapacity" value="64000"/>
+    <param key="device.battery.capacity" value="64000"/>
     <param key="maximumPower" value="150000"/>           <!-- website as above -->
     <param key="propulsionEfficiency" value=".98"/>      <!-- guesstimate value providing closest match to observed -->
     <param key="radialDragCoefficient" value="0.1"/>     <!-- as above -->
     <param key="recuperationEfficiency" value=".96"/>    <!-- as above -->
     <param key="rollDragCoefficient" value="0.01"/>      <!-- as above -->
     <param key="stoppingThreshold" value="0.1"/>         <!-- as above -->
-    <param key="vehicleMass" value="1830"/>              <!-- 1682kg curb wt + average 2 passengers / bags -->
 </vType>
 ```
 

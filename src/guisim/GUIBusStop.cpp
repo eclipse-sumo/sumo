@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -58,7 +58,9 @@ GUIBusStop::GUIBusStop(const std::string& id, SumoXMLTag element, const std::vec
                        double frompos, double topos, const std::string name, int personCapacity,
                        double parkingLength, const RGBColor& color) :
     MSStoppingPlace(id, element, lines, lane, frompos, topos, name, personCapacity, parkingLength, color),
-    GUIGlObject_AbstractAdd(GLO_BUS_STOP, id, GUIIconSubSys::getIcon(GUIIcon::BUSSTOP)) {
+    GUIGlObject_AbstractAdd(GLO_BUS_STOP, id, GUIIconSubSys::getIcon(GUIIcon::BUSSTOP)),
+    myEmptyColor(RGBColor::INVISIBLE)
+{
     // see MSVehicleControl defContainerType
     myWidth = MAX2(1.0, ceil((double)personCapacity / getTransportablesAbreast()) * myTransportableDepth);
     initShape(myFGShape, myFGShapeRotations, myFGShapeLengths, myFGSignPos, myFGSignRot);
@@ -98,6 +100,18 @@ GUIBusStop::initShape(PositionVector& fgShape,
         fgSignRot = fgShape.rotationDegreeAtOffset(double((fgShape.length() / 2.)));
         const double rotSign = MSGlobals::gLefthand ? -1 : 1;
         fgSignRot -= 90 * rotSign;
+    }
+}
+
+
+void
+GUIBusStop::finishedLoading() {
+    if (hasParameter("emptyColor")) {
+        try {
+            myEmptyColor = RGBColor::parseColor(getParameter("emptyColor"));
+        } catch (ProcessError& e) {
+            WRITE_WARNINGF("Could not parse color '%' (%)", getParameter("emptyColor"), e.what());
+        }
     }
 }
 
@@ -185,73 +199,78 @@ GUIBusStop::drawGL(const GUIVisualizationSettings& s) const {
     if (getColor() != RGBColor::INVISIBLE) {
         color = getColor();
     }
-    GLHelper::pushName(getGlID());
-    GLHelper::pushMatrix();
-    // draw the area
-    glTranslated(0, 0, getType());
-    GLHelper::setColor(color);
-    const double exaggeration = getExaggeration(s);
-    // only shrink the box but never enlarge it (only enlarge the sign)
-    const bool s2 = s.secondaryShape;
-    if (s2) {
-        GLHelper::drawBoxLines(myFGShape2, myFGShapeRotations2, myFGShapeLengths2, myWidth * 0.5 * MIN2(1.0, exaggeration), 0, 0);
-    } else {
-        GLHelper::drawBoxLines(myFGShape, myFGShapeRotations, myFGShapeLengths, myWidth * 0.5 * MIN2(1.0, exaggeration), 0, 0);
+    if (myEmptyColor != RGBColor::INVISIBLE && myEndPositions.empty() && myWaitingTransportables.empty()) {
+        color = myEmptyColor;
     }
-    const double signRot = s2 ? myFGSignRot2 : myFGSignRot;
+    const bool s2 = s.secondaryShape;
     const Position& signPos = s2 ? myFGSignPos2 : myFGSignPos;
-    // draw details unless zoomed out to far
-    if (s.drawDetail(10, exaggeration)) {
+    // recognize full transparency and simply don't draw
+    if (color.alpha() != 0) {
+        GLHelper::pushName(getGlID());
         GLHelper::pushMatrix();
-        // draw the lines
-        const double rotSign = MSGlobals::gLefthand ? 1 : -1;
-        const double lineAngle = s.getTextAngle(signRot);
-        // Iterate over every line
-        RGBColor lineColor = color.changedBrightness(-51);
-        const double textOffset = s.flippedTextAngle(rotSign * signRot) ? -1 : 1;
-        const double textOffset2 = s.flippedTextAngle(rotSign * signRot) ? -1 : 0.3;
-        for (int i = 0; i < (int)myLines.size(); ++i) {
-            // push a new matrix for every line
+        // draw the area
+        glTranslated(0, 0, getType());
+        GLHelper::setColor(color);
+        const double exaggeration = getExaggeration(s);
+        // only shrink the box but never enlarge it (only enlarge the sign)
+        if (s2) {
+            GLHelper::drawBoxLines(myFGShape2, myFGShapeRotations2, myFGShapeLengths2, myWidth * 0.5 * MIN2(1.0, exaggeration), 0, 0);
+        } else {
+            GLHelper::drawBoxLines(myFGShape, myFGShapeRotations, myFGShapeLengths, myWidth * 0.5 * MIN2(1.0, exaggeration), 0, 0);
+        }
+        const double signRot = s2 ? myFGSignRot2 : myFGSignRot;
+        // draw details unless zoomed out to far
+        if (s.drawDetail(10, exaggeration)) {
             GLHelper::pushMatrix();
-            // traslate and rotate
+            // draw the lines
+            const double rotSign = MSGlobals::gLefthand ? 1 : -1;
+            const double lineAngle = s.getTextAngle(signRot);
+            // Iterate over every line
+            RGBColor lineColor = color.changedBrightness(-51);
+            const double textOffset = s.flippedTextAngle(rotSign * signRot) ? -1 : 1;
+            const double textOffset2 = s.flippedTextAngle(rotSign * signRot) ? -1 : 0.3;
+            for (int i = 0; i < (int)myLines.size(); ++i) {
+                // push a new matrix for every line
+                GLHelper::pushMatrix();
+                // traslate and rotate
+                glTranslated(signPos.x(), signPos.y(), 0);
+                glRotated(-lineAngle, 0, 0, 1);
+                // draw line
+                GLHelper::drawText(myLines[i].c_str(), Position(1.2, i * textOffset + textOffset2), .1, 1.f, lineColor, 0, FONS_ALIGN_LEFT);
+                // pop matrix for every line
+                GLHelper::popMatrix();
+            }
+            GLHelper::setColor(color);
+            const Position accessOrigin = getCenterPos();
+            for (std::vector<Position>::const_iterator i = myAccessCoords.begin(); i != myAccessCoords.end(); ++i) {
+                GLHelper::drawBoxLine(*i, RAD2DEG(accessOrigin.angleTo2D(*i)) - 90, accessOrigin.distanceTo2D(*i), .05);
+            }
+            // draw the sign
             glTranslated(signPos.x(), signPos.y(), 0);
-            glRotated(-lineAngle, 0, 0, 1);
-            // draw line
-            GLHelper::drawText(myLines[i].c_str(), Position(1.2, i * textOffset + textOffset2), .1, 1.f, lineColor, 0, FONS_ALIGN_LEFT);
-            // pop matrix for every line
+            int noPoints = 9;
+            if (s.scale * exaggeration > 25) {
+                noPoints = MIN2((int)(9.0 + (s.scale * exaggeration) / 10.0), 36);
+            }
+            glScaled(exaggeration, exaggeration, 1);
+            GLHelper::drawFilledCircle((double) 1.1, noPoints);
+            glTranslated(0, 0, .1);
+            GLHelper::setColor(colorSign);
+            GLHelper::drawFilledCircle((double) 0.9, noPoints);
+            if (myElement == SUMO_TAG_CONTAINER_STOP) {
+                GLHelper::drawText("C", Position(), .1, 1.6, color, signRot);
+            } else if (myElement == SUMO_TAG_TRAIN_STOP) {
+                GLHelper::drawText("T", Position(), .1, 1.6, color, signRot);
+            } else {
+                GLHelper::drawText("H", Position(), .1, 1.6, color, signRot);
+            }
             GLHelper::popMatrix();
         }
-        GLHelper::setColor(color);
-        const Position accessOrigin = getCenterPos();
-        for (std::vector<Position>::const_iterator i = myAccessCoords.begin(); i != myAccessCoords.end(); ++i) {
-            GLHelper::drawBoxLine(*i, RAD2DEG(accessOrigin.angleTo2D(*i)) - 90, accessOrigin.distanceTo2D(*i), .05);
-        }
-        // draw the sign
-        glTranslated(signPos.x(), signPos.y(), 0);
-        int noPoints = 9;
-        if (s.scale * exaggeration > 25) {
-            noPoints = MIN2((int)(9.0 + (s.scale * exaggeration) / 10.0), 36);
-        }
-        glScaled(exaggeration, exaggeration, 1);
-        GLHelper::drawFilledCircle((double) 1.1, noPoints);
-        glTranslated(0, 0, .1);
-        GLHelper::setColor(colorSign);
-        GLHelper::drawFilledCircle((double) 0.9, noPoints);
-
-        if (myElement == SUMO_TAG_CONTAINER_STOP) {
-            GLHelper::drawText("C", Position(), .1, 1.6, color, signRot);
-        } else if (myElement == SUMO_TAG_TRAIN_STOP) {
-            GLHelper::drawText("T", Position(), .1, 1.6, color, signRot);
-        } else {
-            GLHelper::drawText("H", Position(), .1, 1.6, color, signRot);
+        if (s.addFullName.show(this) && getMyName() != "") {
+            GLHelper::drawTextSettings(s.addFullName, getMyName(), signPos, s.scale, s.getTextAngle(signRot), GLO_MAX - getType());
         }
         GLHelper::popMatrix();
+        GLHelper::popName();
     }
-    if (s.addFullName.show(this) && getMyName() != "") {
-        GLHelper::drawTextSettings(s.addFullName, getMyName(), signPos, s.scale, s.getTextAngle(signRot), GLO_MAX - getType());
-    }
-    GLHelper::popMatrix();
-    GLHelper::popName();
     drawName(signPos, s.scale, s.addName, s.angle);
 }
 

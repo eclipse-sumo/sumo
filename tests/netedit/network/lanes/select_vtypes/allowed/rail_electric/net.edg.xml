@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-01 08:42:09 by Eclipse SUMO netedit Version v1_20_0+1067-ecd6dc8927e
-<neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
+<!-- generated on 2025-02-03 14:48:09 by Eclipse SUMO netconvert Version v1_21_0+2283-8c24bb7ce10
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="D:\Netedit_dev\tests\netedit\network\lanes\select_vtypes\allowed\aircraft\net.net.xml"/>
+        <sumo-net-file value="D:/SUMO/tests/netedit\network\lanes\select_vtypes\allowed\rail_electric/net.net.xml"/>
     </input>
+
+    <output>
+        <plain-output-prefix value="D:/SUMO/tests/netedit\network\lanes\select_vtypes\allowed\rail_electric/net"/>
+    </output>
 
     <processing>
         <geometry.min-radius.fix.railways value="false"/>
@@ -25,13 +29,13 @@
         <walkingareas value="0"/>
     </pedestrian>
 
-</neteditConfiguration>
+</netconvertConfiguration>
 -->
 
 <edges version="1.20" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
     <edge id="-E44" from="J39" to="J38" priority="-1" numLanes="2" speed="13.89">
-        <lane index="1" disallow="all"/>
         <lane index="0" allow="rail_electric"/>
+        <lane index="1" disallow="all"/>
     </edge>
     <edge id="E44" from="J38" to="J39" priority="-1" numLanes="2" speed="13.89">
         <lane index="0" disallow="all"/>

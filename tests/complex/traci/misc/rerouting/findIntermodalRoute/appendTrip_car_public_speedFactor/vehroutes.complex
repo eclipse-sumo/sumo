@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-12-06 20:07:39 by Eclipse SUMO sumo Version v1_21_0+1245-8ffc1612bf0
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml,input_additional2.add.xml"/>
+    </input>
+
+    <output>
+        <tripinfo-output value="tripinfo.xml"/>
+        <vehroute-output value="vehroutes.xml"/>
+        <vehroute-output.dua value="true"/>
+    </output>
+
+    <report>
+        <no-step-log value="true"/>
+    </report>
+
+    <tripinfo_device>
+        <device.tripinfo.probability value="0"/>
+    </tripinfo_device>
+
+    <vehroutes_device>
+        <device.vehroute.probability value="0"/>
+    </vehroutes_device>
+
+    <traci_server>
+        <remote-port value="50987"/>
+    </traci_server>
+
+</sumoConfiguration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <person id="p1" depart="1.00" arrival="439.00">
+        <ride from="A0B0" to="B1A1" arrivalPos="493.80" lines="taxi"/>
+        <walk edges="accessB" busStop="stopB_N"/> <!-- B -->
+    </person>
+
+    <person id="p0" depart="1.00" arrival="1070.00">
+        <walk edges="A0B0 accessC" busStop="stopC_W"/> <!-- C -->
+        <ride from="railEW" to="railEW" busStop="stopA_W" lines="train2:1" intended="train_train2:1.0" depart="599.00"/> <!-- A -->
+        <walk edges="accessA" busStop="stopA_N"/> <!-- A -->
+        <ride from="railSN" to="railSN" busStop="stopB_N" lines="train1:0" intended="train_train1:0.1" depart="1001.00"/> <!-- B -->
+    </person>
+
+</routes>

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -232,15 +232,18 @@ GUITriggeredRerouter::GUITriggeredRerouterPopupMenu::onCmdOpenManip(FXObject*,
 // -------------------------------------------------------------------------
 
 GUITriggeredRerouter::GUITriggeredRerouter(const std::string& id, const MSEdgeVector& edges, double prob,
-        bool off, bool optional, SUMOTime timeThreshold, const std::string& vTypes, const Position& pos, SUMORTree& rtree) :
-    MSTriggeredRerouter(id, edges, prob, off, optional, timeThreshold, vTypes, pos),
+        bool off, bool optional, SUMOTime timeThreshold, const std::string& vTypes, const Position& pos, const double radius, SUMORTree& rtree) :
+    MSTriggeredRerouter(id, edges, prob, off, optional, timeThreshold, vTypes, pos, radius),
     GUIGlObject_AbstractAdd(GLO_REROUTER, id, GUIIconSubSys::getIcon(GUIIcon::REROUTER)),
     myShiftProbDistIndex(0) {
     // add visualisation objects for edges which trigger the rerouter
     for (MSEdgeVector::const_iterator it = edges.begin(); it != edges.end(); ++it) {
-        myEdgeVisualizations.push_back(new GUITriggeredRerouterEdge(dynamic_cast<GUIEdge*>(*it), this, REROUTER_TRIGGER_EDGE));
+        myEdgeVisualizations.push_back(new GUITriggeredRerouterEdge(dynamic_cast<GUIEdge*>(*it), this, REROUTER_TRIGGER_EDGE, -1, pos, radius));
         rtree.addAdditionalGLObject(myEdgeVisualizations.back());
         myBoundary.add(myEdgeVisualizations.back()->getCenteringBoundary());
+        if (pos != Position::INVALID) {
+            break;
+        }
     }
 }
 
@@ -382,25 +385,32 @@ GUITriggeredRerouter::shiftProbs() {
 /* -------------------------------------------------------------------------
  * GUITriggeredRerouterEdge - methods
  * ----------------------------------------------------------------------- */
-GUITriggeredRerouter::GUITriggeredRerouterEdge::GUITriggeredRerouterEdge(GUIEdge* edge, GUITriggeredRerouter* parent, RerouterEdgeType edgeType, int distIndex) :
+GUITriggeredRerouter::GUITriggeredRerouterEdge::GUITriggeredRerouterEdge(GUIEdge* edge, GUITriggeredRerouter* parent, RerouterEdgeType edgeType, int distIndex,
+        const Position& pos, const double radius) :
     GUIGlObject(GLO_REROUTER_EDGE, parent->getID() + ":" + edge->getID(), GUIIconSubSys::getIcon(GUIIcon::REROUTER)),
     myParent(parent),
     myEdge(edge),
     myEdgeType(edgeType),
     myDistIndex(distIndex) {
+    UNUSED_PARAMETER(radius);  // it would be nice to have this in the visualization too
     const std::vector<MSLane*>& lanes = edge->getLanes();
-    myFGPositions.reserve(lanes.size());
-    myFGRotations.reserve(lanes.size());
-    for (const MSLane* lane : lanes) {
-        if ((lane->getPermissions() & ~SVC_PEDESTRIAN) == 0) {
-            continue;
+    if (pos == Position::INVALID) {
+        for (const MSLane* lane : lanes) {
+            if ((lane->getPermissions() & ~SVC_PEDESTRIAN) == 0) {
+                continue;
+            }
+            const PositionVector& v = lane->getShape();
+            const double lanePos = edgeType == REROUTER_TRIGGER_EDGE ? MAX2(0.0, v.length() - 6) : MIN2(v.length(), 3.0);
+            myFGPositions.push_back(v.positionAtOffset(lanePos));
+            myFGRotations.push_back(-v.rotationDegreeAtOffset(lanePos));
+            myBoundary.add(myFGPositions.back());
+            myHalfWidths.push_back(lane->getWidth() * 0.5 * 0.875);
         }
-        const PositionVector& v = lane->getShape();
-        const double pos = edgeType == REROUTER_TRIGGER_EDGE ? MAX2(0.0, v.length() - 6) : MIN2(v.length(), 3.0);
-        myFGPositions.push_back(v.positionAtOffset(pos));
-        myFGRotations.push_back(-v.rotationDegreeAtOffset(pos));
+    } else {
+        myFGPositions.push_back(pos);
+        myFGRotations.push_back(0);
         myBoundary.add(myFGPositions.back());
-        myHalfWidths.push_back(lane->getWidth() * 0.5 * 0.875);
+        myHalfWidths.push_back(SUMO_const_halfLaneWidth * 0.875);
     }
 }
 

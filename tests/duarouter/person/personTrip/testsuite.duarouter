@@ -195,6 +195,9 @@ geoTrips
 # test reading trips with geo-coordinates
 geoTrips_lonLat
 
+# test reading trips with geo-coordinates
+geoTrips_lonLat_stop_junctions
+
 # test reading walk with geo-coordinates
 geoWalk_lonLat
 

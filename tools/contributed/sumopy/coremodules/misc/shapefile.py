@@ -1,5 +1,5 @@
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2016-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2016-2025 German Aerospace Center (DLR) and others.
 # SUMOPy module
 # Copyright (C) 2012-2021 University of Bologna - DICAM
 # This program and the accompanying materials are made available under the
@@ -320,7 +320,7 @@ class Reader:
             return self._offsets[i]
 
     def shape(self, i=0):
-        """Returns a shape object for a shape in the the geometry
+        """Returns a shape object for a shape in the geometry
         record file."""
         shp = self.__getFileObj(self.shp)
         i = self.__restrictIndex(i)

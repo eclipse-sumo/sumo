@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -18,17 +18,17 @@
 // The Widget for editing connection prohibits
 /****************************************************************************/
 
-#include <utils/gui/div/GUIDesigns.h>
-#include <netedit/elements/network/GNELane.h>
+#include <netedit/GNEApplicationWindow.h>
+#include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
 #include <netedit/elements/network/GNEConnection.h>
 #include <netedit/elements/network/GNEEdge.h>
 #include <netedit/elements/network/GNEJunction.h>
-#include <netedit/GNEViewNet.h>
-#include <netedit/GNEViewParent.h>
-#include <netedit/GNEApplicationWindow.h>
+#include <netedit/elements/network/GNELane.h>
+#include <utils/foxtools/MFXLabelTooltip.h>
+#include <utils/gui/div/GUIDesigns.h>
 
 #include "GNEProhibitionFrame.h"
-
 
 // ===========================================================================
 // FOX callback mapping

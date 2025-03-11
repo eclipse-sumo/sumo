@@ -1,54 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-02-27 17:41:11.038911 by matsim_importPlans.py v1_19_0+1057-c5d8ddd
+<!-- generated on 2024-11-19 07:28:10.224484 by matsim_importPlans.py v1_21_0+0853-3c053a3b301
   options: <doubleminus>plan-file matsim_plans.xml -o out.rou.xml
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vType id="car" vClass="passenger"/>
     <vType id="bicycle" vClass="bicycle"/>
-
-    <trip id="1000001_0" depart="triggered" from="25516" to="102599" type="bicycle"/>
-    <trip id="1000001_1" depart="triggered" from="102599" to="25516" type="bicycle"/>
-    <person id="1000001" depart="0:0:0">
-        <param key="home-activity-zone" value="brandenburg"/>
-        <param key="subpopulation" value="person"/>
-        <stop edge="25516" until="17:53:00" actType="home_91800.0"/>
-        <ride lines="1000001_0" to="102599"/>
-        <stop edge="102599" until="19:48:02" actType="other_1200.0"/>
-        <ride lines="1000001_1" to="25516"/>
-        <stop edge="25516" until="24:0:0" actType="home_91800.0"/>
-    </person>
-    <trip id="100004901_0" depart="triggered" from="139046" to="47949" type="bicycle"/>
-    <trip id="100004901_1" depart="triggered" from="47949" to="12958" type="bicycle"/>
-    <trip id="100004901_2" depart="triggered" from="12958" to="139046" type="bicycle"/>
-    <person id="100004901" depart="0:0:0">
-        <param key="home-activity-zone" value="brandenburg"/>
-        <param key="subpopulation" value="person"/>
-        <stop edge="139046" until="05:58:44" actType="home_54600.0"/>
-        <ride lines="100004901_0" to="47949"/>
-        <stop edge="47949" until="14:41:48" actType="work_39000.0"/>
-        <ride lines="100004901_1" to="12958"/>
-        <stop edge="12958" until="16:06:37" actType="shopping_600.0"/>
-        <ride lines="100004901_2" to="139046"/>
-        <stop edge="139046" until="24:0:0" actType="home_54600.0"/>
-    </person>
-    <trip id="100029801_0" depart="triggered" from="12466" to="93716" type="bicycle"/>
-    <trip id="100029801_2" depart="triggered" from="93716" to="135726" type="bicycle"/>
-    <trip id="100029801_3" depart="triggered" from="135726" to="12466" type="bicycle"/>
-    <person id="100029801" depart="0:0:0">
-        <param key="home-activity-zone" value="brandenburg"/>
-        <param key="subpopulation" value="person"/>
-        <stop edge="12466" until="07:11:00" actType="home_67800.0"/>
-        <ride lines="100029801_0" to="93716"/>
-        <stop edge="93716" until="13:00:00" actType="work_20400.0"/>
-        <walk to="93716"/>
-        <stop edge="93716" until="14:01:22" actType="leisure_3600.0"/>
-        <ride lines="100029801_2" to="135726"/>
-        <stop edge="135726" until="15:34:52" actType="shopping_3000.0"/>
-        <ride lines="100029801_3" to="12466"/>
-        <stop edge="12466" until="24:0:0" actType="home_67800.0"/>
-    </person>
+    <vType id="car"/>
+    <vType id="ride"/>
     <vehicle id="10000001_1" depart="triggered" type="car">
         <route edges="144395 13185 110920 110771 110773 13324 110367 110369 143404 98098 143528 111248 111278 111280 143420 143410 131204 133161 13679 93161 26733 26730 46537 41913 134075"/>
     </vehicle>
@@ -109,6 +68,17 @@
         <ride lines="10000001_22" to="144395"/>
         <stop edge="144395" until="16:36:55" actType="car interaction"/>
         <stop edge="144395" until="24:0:0" actType="home_77400.0"/>
+    </person>
+    <trip id="1000001_0" depart="triggered" from="25516" to="102599" type="bicycle"/>
+    <trip id="1000001_1" depart="triggered" from="102599" to="25516" type="bicycle"/>
+    <person id="1000001" depart="0:0:0">
+        <param key="home-activity-zone" value="brandenburg"/>
+        <param key="subpopulation" value="person"/>
+        <stop edge="25516" until="17:53:00" actType="home_91800.0"/>
+        <ride lines="1000001_0" to="102599"/>
+        <stop edge="102599" until="19:48:02" actType="other_1200.0"/>
+        <ride lines="1000001_1" to="25516"/>
+        <stop edge="25516" until="24:0:0" actType="home_91800.0"/>
     </person>
     <vehicle id="100002101_1" depart="triggered" type="car">
         <route edges="71096 71097 10104 79146 26688 79151 79155 105719 20964 85694 71145 71099 71142 653 59689 121588 76770 12478 75008 75011 75012 75009 12938 62232 69343 12926 12936 62433 155519 58634 104746 104748 104750 132264 132262 12868 57967 112457 12844 12854 73994 1202 54573 43581"/>
@@ -197,10 +167,10 @@
         <stop edge="49491" until="20:24:22" actType="car interaction"/>
         <stop edge="49491" until="24:0:0" actType="home_48600.0"/>
     </person>
-    <vehicle id="100003501_1" depart="triggered">
+    <vehicle id="100003501_1" depart="triggered" type="ride">
         <route edges="121589 139046 122340 154788 10092 114790 57850 57769 57767 154768 58888 105758 58875 54580 64388 53405 3979 66958 149400 54564 43470 72339 149804 71058 151885 94171 157222 132348 132336 157197 94262 30548 157224 157223"/>
     </vehicle>
-    <vehicle id="100003501_4" depart="triggered">
+    <vehicle id="100003501_4" depart="triggered" type="ride">
         <route edges="157223 157224 129389 129913 149596 44775 44798 107892 138264 138266 109107 44789 109110 44805 44803 104411 26265 119742 104428 104432 109111 117695 155520 117800 86410 64581 19789 117737 121589"/>
     </vehicle>
     <trip id="100003501_6" depart="triggered" from="121589" to="155518" type="bicycle"/>
@@ -221,6 +191,20 @@
         <stop edge="155518" until="17:22:46" actType="leisure_600.0"/>
         <ride lines="100003501_7" to="121589"/>
         <stop edge="121589" until="24:0:0" actType="home_82200.0"/>
+    </person>
+    <trip id="100004901_0" depart="triggered" from="139046" to="47949" type="bicycle"/>
+    <trip id="100004901_1" depart="triggered" from="47949" to="12958" type="bicycle"/>
+    <trip id="100004901_2" depart="triggered" from="12958" to="139046" type="bicycle"/>
+    <person id="100004901" depart="0:0:0">
+        <param key="home-activity-zone" value="brandenburg"/>
+        <param key="subpopulation" value="person"/>
+        <stop edge="139046" until="05:58:44" actType="home_54600.0"/>
+        <ride lines="100004901_0" to="47949"/>
+        <stop edge="47949" until="14:41:48" actType="work_39000.0"/>
+        <ride lines="100004901_1" to="12958"/>
+        <stop edge="12958" until="16:06:37" actType="shopping_600.0"/>
+        <ride lines="100004901_2" to="139046"/>
+        <stop edge="139046" until="24:0:0" actType="home_54600.0"/>
     </person>
     <vehicle id="100008001_1" depart="triggered" type="car">
         <route edges="57849 114789 10093 154787 122341 139047 121590 26702 139043 139055 30475 59913 48414 69340 99898 99905 99903 99901 99911 99909 4133 135480 4140 105771 8498 141028 4138 47077 135726 71973 21132 2386 102456 2388 157803 79543 130212 130208 157801 79540 7884 7896 157736 2391 2396 2480 16251 71895 12958"/>
@@ -343,5 +327,21 @@
         <ride lines="100008701_8" to="49642"/>
         <stop edge="49642" until="22:10:25" actType="car interaction"/>
         <stop edge="49642" until="24:0:0" actType="home_48000.0"/>
+    </person>
+    <trip id="100029801_0" depart="triggered" from="12466" to="93716" type="bicycle"/>
+    <trip id="100029801_2" depart="triggered" from="93716" to="135726" type="bicycle"/>
+    <trip id="100029801_3" depart="triggered" from="135726" to="12466" type="bicycle"/>
+    <person id="100029801" depart="0:0:0">
+        <param key="home-activity-zone" value="brandenburg"/>
+        <param key="subpopulation" value="person"/>
+        <stop edge="12466" until="07:11:00" actType="home_67800.0"/>
+        <ride lines="100029801_0" to="93716"/>
+        <stop edge="93716" until="13:00:00" actType="work_20400.0"/>
+        <walk to="93716"/>
+        <stop edge="93716" until="14:01:22" actType="leisure_3600.0"/>
+        <ride lines="100029801_2" to="135726"/>
+        <stop edge="135726" until="15:34:52" actType="shopping_3000.0"/>
+        <ride lines="100029801_3" to="12466"/>
+        <stop edge="12466" until="24:0:0" actType="home_67800.0"/>
     </person>
 </routes>

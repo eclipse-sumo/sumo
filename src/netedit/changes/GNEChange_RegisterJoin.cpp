@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -17,7 +17,6 @@
 ///
 // A network change in which something is changed (for undo/redo)
 /****************************************************************************/
-#include <config.h>
 
 #include <netbuild/NBNodeCont.h>
 #include <netedit/GNENet.h>
@@ -29,6 +28,7 @@
 // ===========================================================================
 // FOX-declarations
 // ===========================================================================
+
 FXIMPLEMENT_ABSTRACT(GNEChange_RegisterJoin, GNEChange, nullptr, 0)
 
 // ===========================================================================
@@ -50,16 +50,12 @@ GNEChange_RegisterJoin::~GNEChange_RegisterJoin() {
 
 void
 GNEChange_RegisterJoin::undo() {
-    // show extra information for tests
-    WRITE_DEBUG("Reverting join registration");
     myNC.unregisterJoinedCluster(myNodeIDs);
 }
 
 
 void
 GNEChange_RegisterJoin::redo() {
-    // show extra information for tests
-    WRITE_DEBUG("Redo join registration");
     myNC.registerJoinedCluster(myNodeIDs);
 }
 
@@ -78,8 +74,7 @@ GNEChange_RegisterJoin::redoName() const {
 
 GNEChange_RegisterJoin::GNEChange_RegisterJoin(const std::set<NBNode*, ComparatorIdLess>& cluster, NBNodeCont& nc) :
     GNEChange(Supermode::NETWORK, true, false),
-    myNC(nc)
-{
+    myNC(nc) {
     for (NBNode* n : cluster) {
         myNodeIDs.insert(n->getID());
     }

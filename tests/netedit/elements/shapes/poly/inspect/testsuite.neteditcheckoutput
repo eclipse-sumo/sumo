@@ -25,17 +25,14 @@ name
 # edit poly imgfile
 imgfile
 
-# edit poly relative path
-relativepath
-
 # edit poly angle
 angle
 
+# edit use geo
+geo
+
 # edit geo shape
 geo_shape
-
-# edit use geo
-geo_use
 
 # edit poly parameters
 parameters

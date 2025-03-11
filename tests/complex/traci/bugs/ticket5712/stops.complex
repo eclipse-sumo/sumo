@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Mar 12 11:12:24 2020 by Eclipse SUMO Version v1_5_0+0671-ab1576c
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<!-- generated on 2025-02-21 15:47:12 by Eclipse SUMO sumo Version v1_22_0+0441-086a4a97432
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="input_net2.net.xml"/>
@@ -17,12 +17,12 @@
     </report>
 
     <traci_server>
-        <remote-port value="34595"/>
+        <remote-port value="53307"/>
     </traci_server>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <stops xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/stopinfo_file.xsd">
-    <stopinfo id="veh0" type="DEFAULT_VEHTYPE" lane="CE_0" pos="49.99" parking="0" started="56.00" ended="100.00" delay="0.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
+    <stopinfo id="veh0" type="DEFAULT_VEHTYPE" lane="CE_0" pos="49.99" parking="0" started="56.00" ended="100.00" delay="0.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
 </stops>

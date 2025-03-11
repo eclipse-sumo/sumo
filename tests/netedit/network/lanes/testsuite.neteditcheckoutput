@@ -1,4 +1,6 @@
-#delete
+create
+
+delete
 
 inspect
 
@@ -6,8 +8,6 @@ inspect_selected
 
 load
 
-#move
+move
 
 select_vtypes
-
-contextual_menu

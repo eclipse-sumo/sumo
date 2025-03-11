@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2009-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2009-2025 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -34,9 +34,8 @@ netedit.supermodeDemand()
 # go to select mode
 netedit.selectMode()
 
-# select both routes
-netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.edgeRepeat1)
+# select all using invert
+netedit.selectionInvert()
 
 # go to inspect mode
 netedit.inspectMode()
@@ -45,16 +44,16 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 
 # Change parameter repeat with a non valid value (empty)
-netedit.modifyAttribute(netedit.attrs.route.inspectSelection.repeat, "", False)
+netedit.modifyAttribute(netedit.attrs.route.inspectSelection.repeat, "", True)
 
 # Change parameter repeat with a non valid value (dummy)
-netedit.modifyAttribute(netedit.attrs.route.inspectSelection.repeat, "dummyRepeat", False)
+netedit.modifyAttribute(netedit.attrs.route.inspectSelection.repeat, "dummyRepeat", True)
 
 # Change parameter repeat with a valid value
-netedit.modifyAttribute(netedit.attrs.route.inspectSelection.repeat, "-13.1", False)
+netedit.modifyAttribute(netedit.attrs.route.inspectSelection.repeat, "-13.1", True)
 
 # Change parameter repeat with a valid value
-netedit.modifyAttribute(netedit.attrs.route.inspectSelection.repeat, "14", False)
+netedit.modifyAttribute(netedit.attrs.route.inspectSelection.repeat, "14", True)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

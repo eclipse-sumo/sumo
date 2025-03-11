@@ -1,8 +1,6 @@
 basic
 
-create_consecutive
-
-create_nonconsecutive
+create
 
 delete
 
@@ -12,8 +10,8 @@ inspect_selection
 
 load
 
-reverse
-
 volatilerecomputing
 
 fix
+
+contextual_menu

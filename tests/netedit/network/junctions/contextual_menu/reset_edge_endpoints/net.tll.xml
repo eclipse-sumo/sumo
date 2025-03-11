@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-17 13:21:14 by Eclipse SUMO netedit Version v1_20_0+1264-f5cae912633
-<neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
+<!-- generated on 2025-02-03 14:48:01 by Eclipse SUMO netconvert Version v1_21_0+2283-8c24bb7ce10
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="D:\Netedit_dev\tests\netedit\network\junctions\contextual_menu\reset_edge_endpoints\net.net.xml"/>
+        <sumo-net-file value="D:/SUMO/tests/netedit\network\junctions\contextual_menu\reset_edge_endpoints/net.net.xml"/>
     </input>
+
+    <output>
+        <plain-output-prefix value="D:/SUMO/tests/netedit\network\junctions\contextual_menu\reset_edge_endpoints/net"/>
+    </output>
 
     <processing>
         <geometry.min-radius.fix.railways value="false"/>
@@ -15,7 +19,6 @@
     </processing>
 
     <junctions>
-        <no-internal-links value="false"/>
         <no-turnarounds value="true"/>
         <junctions.corner-detail value="5"/>
         <junctions.limit-turn-speed value="5.50"/>
@@ -23,20 +26,22 @@
     </junctions>
 
     <pedestrian>
-        <walkingareas value="1"/>
+        <walkingareas value="0"/>
     </pedestrian>
 
-</neteditConfiguration>
+</netconvertConfiguration>
 -->
 
 <tlLogics version="1.20" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tllogic_file.xsd">
     <tlLogic id="JunctionCenter" type="static" programID="0" offset="0">
-        <phase duration="37" state="gGgrrrgGgrrrrGrG"/>
+        <phase duration="36" state="gGgrrrgGgrrrrGrG"/>
         <phase duration="5"  state="gGgrrrgGgrrrrrrr"/>
         <phase duration="3"  state="yyyrrryyyrrrrrrr"/>
-        <phase duration="37" state="rrrgGgrrrgGgGrGr"/>
+        <phase duration="1"  state="rrrrrrrrrrrrrrrr"/>
+        <phase duration="36" state="rrrgGgrrrgGgGrGr"/>
         <phase duration="5"  state="rrrgGgrrrgGgrrrr"/>
         <phase duration="3"  state="rrryyyrrryyyrrrr"/>
+        <phase duration="1"  state="rrrrrrrrrrrrrrrr"/>
     </tlLogic>
 
     <connection from="-E4" to="E7" fromLane="1" toLane="1" tl="JunctionCenter" linkIndex="9"/>

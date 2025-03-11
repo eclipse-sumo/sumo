@@ -1,1 +1,1 @@
-Warning: Vehicle 'vehicle_0' performs emergency stop at the end of lane 'Edge2_1' for unknown reasons (decel=-9.59, offset=0.19), time=20.00.
+Warning: Vehicle 'vehicle_0' aborts stop.

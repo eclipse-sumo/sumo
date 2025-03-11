@@ -77,3 +77,9 @@ paths_around
 # create walkingareas that usually should be avoided
 paths_around_joinAnyway
 3_arm_service_entering
+
+# roundabout with crossings on all sides
+roundabout
+
+# roundabout with crossings on all sides
+roundabout_noPriority

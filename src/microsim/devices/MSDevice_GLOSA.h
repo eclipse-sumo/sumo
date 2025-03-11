@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2013-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2013-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -147,7 +147,12 @@ public:
 private:
 
     /// @brief compute time to next (relevant) switch
-    static double getTimeToSwitch(const MSLink* tlsLink);
+    static double getTimeToSwitch(const MSLink* tlsLink, int& countOld);
+
+    /// @brief compute time to next (relevant) switch the vehicle can reach
+    static double getTimeToNextSwitch(const MSLink* tlsLink, bool& currentPhaseGreen, bool& currentPhaseStop, int& countOld);
+
+    static double timeGreen(const MSLink* tlsLink);
 
     /// @brief return minimum number of seconds to reach the junction
     double earliest_arrival(double speed, double distance);
@@ -160,7 +165,7 @@ private:
     double time_to_junction_at_continuous_accel(double d, double v);
 
     /// @brief adapt speed to reach junction at green
-    void adaptSpeed(double distance, double timeToJunction, double timeToSwitch);
+    void adaptSpeed(double distance, double timeToJunction, double timeToSwitch, bool& solved);
 
     /** @brief Constructor
      *
@@ -168,7 +173,7 @@ private:
      * @param[in] id The ID of the device
      */
     MSDevice_GLOSA(SUMOVehicle& holder, const std::string& id, double minSpeed, double range, double maxSpeedFactor,
-        double addSwitchTime, bool overrideSafety, bool ignoreCFModel);
+                   double addSwitchTime, bool useQueue,  bool overrideSafety, bool ignoreCFModel);
 
 
 
@@ -199,6 +204,8 @@ private:
 
     /// @brief If speedFactor is currently beeing changed by the GLOSA device
     bool mySpeedAdviceActive;
+    /// @brief if true the queue in front of the TLS is used for calculation
+    bool  myUseQueue;
 
 
 private:

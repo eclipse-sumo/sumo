@@ -121,11 +121,15 @@
     #pragma warning(disable: 5039)
     /* Disable constructor is not implicitly called */
     #pragma warning(disable: 4582)
-
-    /* Disable "unsafe" warnings for crt functions in VC++ 2005. */
-    #if _MSC_VER >= 1400
-        #define _CRT_SECURE_NO_WARNINGS
+    /* Disable destructor is not implicitly called */
+    #pragma warning(disable: 4583)
+    /* Disable "implicit copy constructor/assignment operator is deprecated because it has a user-provided destructor" */
+    #if _MSC_VER >= 1930
+        #pragma warning(disable: 5267)
     #endif
+
+    /* Disable "unsafe" warnings for crt functions. */
+    #define _CRT_SECURE_NO_WARNINGS
 
     /* define WIN32 */
     #ifndef WIN32
@@ -212,7 +216,7 @@
 #define HAVE_VERSION_H
 #ifndef HAVE_VERSION_H
     /* Define if auto-generated version.h is unavailable. */
-    #define VERSION_STRING "1.20.0"
+    #define VERSION_STRING "1.22.0"
 #endif
 
 /* defines the epsilon to use on general floating point comparison */

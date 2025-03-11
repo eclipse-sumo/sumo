@@ -14,6 +14,8 @@ set(utils_geom_STAT_SRCS
    Position.h
    PositionVector.cpp
    PositionVector.h
+   Triangle.cpp
+   Triangle.h
 )
 
 add_library(utils_geom STATIC ${utils_geom_STAT_SRCS})

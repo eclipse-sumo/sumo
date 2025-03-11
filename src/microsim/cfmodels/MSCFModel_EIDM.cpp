@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -74,6 +74,9 @@ MSCFModel_EIDM::MSCFModel_EIDM(const MSVehicleType* vtype) :
 {
     // IDM does not drive very precise and may violate minGap on occasion
     myCollisionMinGapFactor = vtype->getParameter().getCFParam(SUMO_ATTR_COLLISION_MINGAP_FACTOR, 0.1);
+    if (vtype->getActionStepLength() != DELTA_T) {
+        WRITE_WARNINGF("CarFollowModel EIDM is not compatible with actionStepLength % in vType '%'", STEPS2TIME(vtype->getActionStepLength()), vtype->getID());
+    }
 }
 
 MSCFModel_EIDM::~MSCFModel_EIDM() {}
@@ -618,8 +621,8 @@ MSCFModel_EIDM::freeSpeed(const MSVehicle* const veh, double speed, double seen,
     VehicleVariables* vars = (VehicleVariables*)veh->getCarFollowVariables();
 
     if (veh->getDevice(typeid(MSDevice_GLOSA)) != nullptr &&
-        static_cast<MSDevice_GLOSA*>(veh->getDevice(typeid(MSDevice_GLOSA)))->isSpeedAdviceActive() &&
-        maxSpeed < speed) {
+            static_cast<MSDevice_GLOSA*>(veh->getDevice(typeid(MSDevice_GLOSA)))->isSpeedAdviceActive() &&
+            maxSpeed < speed) {
         seen = speed * (1 - (vars->v0_old - vars->v0_int) / (vars->v0_old - maxSpeed)) * myTpreview;
     }
 

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -189,8 +189,8 @@ SUMOVehicleParameter::write(OutputDevice& dev, const OptionsCont& oc, const Sumo
     if (wasSet(VEHPARS_CALIBRATORSPEED_SET)) {
         dev.writeAttr(SUMO_ATTR_SPEED, calibratorSpeed);
     }
-    // speed (only used by calibrators)
-    if (insertionChecks != (int)InsertionCheck::ALL) {
+    // insertionChecks
+    if (wasSet(VEHPARS_INSERTION_CHECKS_SET) && insertionChecks != (int)InsertionCheck::ALL) {
         std::vector<std::string> checks;
         if (insertionChecks == (int)InsertionCheck::NONE) {
             checks.push_back(toString(InsertionCheck::NONE));
@@ -239,6 +239,9 @@ SUMOVehicleParameter::Stop::write(OutputDevice& dev, const bool close, const boo
                 dev.writeAttr(SUMO_ATTR_ENDPOS, endPos);
             }
         }
+    }
+    if (index > 0) {
+        dev.writeAttr(SUMO_ATTR_INDEX, index);
     }
     if ((parametersSet & STOP_POSLAT_SET) != 0 && posLat != INVALID_DOUBLE) {
         dev.writeAttr(SUMO_ATTR_POSITION_LAT, posLat);
@@ -299,6 +302,9 @@ SUMOVehicleParameter::Stop::write(OutputDevice& dev, const bool close, const boo
     }
     if ((parametersSet & STOP_JUMP_SET) != 0 && jump >= 0) {
         dev.writeAttr(SUMO_ATTR_JUMP, time2string(jump));
+    }
+    if ((parametersSet & STOP_JUMP_UNTIL_SET) != 0 && jumpUntil >= 0) {
+        dev.writeAttr(SUMO_ATTR_JUMP_UNTIL, time2string(jumpUntil));
     }
     if (collision) {
         dev.writeAttr(SUMO_ATTR_COLLISION, collision);
@@ -385,6 +391,8 @@ SUMOVehicleParameter::parseDepartLane(const std::string& val, const std::string&
         dld = DepartLaneDefinition::ALLOWED_FREE;
     } else if (val == "best") {
         dld = DepartLaneDefinition::BEST_FREE;
+    } else if (val == "best_prob") {
+        dld = DepartLaneDefinition::BEST_PROB;
     } else if (val == "first") {
         dld = DepartLaneDefinition::FIRST_ALLOWED;
     } else {
@@ -399,9 +407,9 @@ SUMOVehicleParameter::parseDepartLane(const std::string& val, const std::string&
     }
     if (!ok) {
         if (id.empty()) {
-            error = "Invalid departLane definition for " + element + ". Must be one of (\"random\", \"free\", \"allowed\", \"best\", \"first\", or an int>=0)";
+            error = "Invalid departLane definition for " + element + ". Must be one of (\"random\", \"free\", \"allowed\", \"best\", \"best_prob\", \"first\", or an int>=0)";
         } else {
-            error = "Invalid departLane definition for " + element + " '" + id + "';\n must be one of (\"random\", \"free\", \"allowed\", \"best\", \"first\", or an int>=0)";
+            error = "Invalid departLane definition for " + element + " '" + id + "';\n must be one of (\"random\", \"free\", \"allowed\", \"best\", \"best_prob\", \"first\", or an int>=0)";
         }
     }
     return ok;
@@ -813,6 +821,9 @@ SUMOVehicleParameter::getDepartLane() const {
         case DepartLaneDefinition::BEST_FREE:
             val = "best";
             break;
+        case DepartLaneDefinition::BEST_PROB:
+            val = "best_prob";
+            break;
         case DepartLaneDefinition::FIRST_ALLOWED:
             val = "first";
             break;
@@ -1118,19 +1129,25 @@ SUMOVehicleParameter::areInsertionChecksValid(const std::string& value) const {
 }
 
 
-void
+int
 SUMOVehicleParameter::parseInsertionChecks(const std::string& value) {
     // first reset insertionChecks
-    insertionChecks = 0;
+    int result = 0;
     if (value.empty()) {
-        insertionChecks = (int)InsertionCheck::ALL;
+        return (int)InsertionCheck::ALL;
     } else {
         // split value in substrinsg
         StringTokenizer insertionCheckStrs(value, " ");
         while (insertionCheckStrs.hasNext()) {
-            insertionChecks |= (int)SUMOXMLDefinitions::InsertionChecks.get(insertionCheckStrs.next());
+            std::string val = insertionCheckStrs.next();
+            if (SUMOXMLDefinitions::InsertionChecks.hasString(val)) {
+                result |= (int)SUMOXMLDefinitions::InsertionChecks.get(val);
+            } else {
+                throw InvalidArgument("Unknown value '" + val + "' in " + toString(SUMO_ATTR_INSERTIONCHECKS) + ".");
+            }
         }
     }
+    return result;
 }
 
 /****************************************************************************/

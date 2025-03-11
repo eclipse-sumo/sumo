@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2009-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2009-2025 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.shapeMode()
 
 # go to shape mode
-netedit.changeElement("jps.obstacle")
+netedit.changeElement("jupedsim.obstacle")
 
 # create polygon with default values
 netedit.createSquaredShape(referencePosition, netedit.positions.elements.additionals.shapeA,
@@ -42,13 +42,10 @@ netedit.createSquaredShape(referencePosition, netedit.positions.elements.additio
 netedit.deleteMode()
 
 # delete created polygon
-netedit.leftClick(referencePosition, netedit.positions.tmp)
-
-# try to delete second polygon (not possible due isn't fill)
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeA)
 
 # delete loaded filled polygon
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeC)
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

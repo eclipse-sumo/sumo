@@ -84,6 +84,7 @@ The complete list of attributes is:
 | jamThreshold   | float                   | The maximum distance to the next standing vehicle in order to make this vehicle count as a participant to the jam; *in m, default: 10m*.     |
 | friendlyPos    | bool                    | If set, no error will be reported if the detector is placed behind the lane. Instead, the detector will be placed 0.1 meters from the lane's end or at position 0.1, if the position was negative and larger than the lane's length after multiplication with -1; *default: false*. |
 | vTypes         | string                  | space separated list of vehicle type ids to consider, "" means all; default "".  |
+| nextEdges      | stringList              | list of edge ids that must all be part of the future route of the vehicle to qualify for detection (default *empty*)  |
 | detectPersons   | string            | [detect persons instead of vehicles (pedestrians or passengers)](../Pedestrians.md#detectors_for_pedestrians)       |
 
 # Generated Output
@@ -133,7 +134,7 @@ The values are described in the following table.
 | begin                       | (simulation) seconds | The first time step the values were collected in                                                                                                                                                            |
 | end                         | (simulation) seconds | The last time step + DELTA_T the values were collected in (may be equal to begin)                                                                                                                          |
 | id                          | id                   | The id of the detector (needed if several detectors share an output file)                                                                                                                                   |
-| sampledSeconds              | s                    | The total time all vehicles which contributed data were on the detector. this may be fractional even if the time step is one second, because the times when the vehicle enters and leaves are interpolated. |
+| sampledSeconds              | s                    | The total time all vehicles which contributed data were on the detector. This may be fractional even if the time step is one second, because the times when the vehicle enters and leaves are interpolated. |
 | nVehEntered                 | \#                   | The number of vehicles that entered the detector in the corresponding interval. (vehicle front has passed 'pos')                                                                                                                            |
 | nVehLeft                    | \#                   | The number of vehicles that left the detector in the corresponding interval. (vehicle back has passed 'endPos' / has changed lane / has been teleported / has parked)  |
 | nVehSeen                    | \#                   | The number of vehicles that were on the detector in the corresponding interval (were "seen" by the detector).                                                                                               |

@@ -47,3 +47,15 @@ ticket14322
 
 # emergency braking in roundabout
 ticket14587
+
+# invalid cooperative changing ahead of roundabout	
+ticket15854
+
+# deadlock with 3 vehicles
+ticket15857
+
+# deadlock on junction
+ticket15887
+
+# collision on junction
+ticket15927

@@ -1,0 +1,4 @@
+Warning: Stepping duration of 1.00 for IDM model in vType flow is unsafe
+Warning: Vehicle 'flow.2' performs emergency braking on lane '0_0' with decel=9.00, wished=4.50, severity=1.00, time=31.00.
+Warning: Vehicle 'flow.3' performs emergency braking on lane '0_0' with decel=9.00, wished=4.50, severity=1.00, time=32.00.
+Warning: Vehicle 'flow.9' performs emergency braking on lane '0_0' with decel=9.00, wished=4.50, severity=1.00, time=49.00.

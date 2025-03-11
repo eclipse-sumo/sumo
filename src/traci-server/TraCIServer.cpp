@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2007-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2007-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -114,6 +114,54 @@ TraCIServer::initWrapper(const int domainID, const int variable, const std::stri
     myWrapperStorage.writeUnsignedByte(domainID);
     myWrapperStorage.writeUnsignedByte(variable);
     myWrapperStorage.writeString(objID);
+}
+
+
+bool
+TraCIServer::wrapConnectionVector(const std::string& /* objID */, const int /* variable */, const std::vector<libsumo::TraCIConnection>& value) {
+    myWrapperStorage.writeUnsignedByte(libsumo::TYPE_COMPOUND);
+    tcpip::Storage tempContent;
+    int cnt = 0;
+    tempContent.writeUnsignedByte(libsumo::TYPE_INTEGER);
+    tempContent.writeInt((int)value.size());
+    ++cnt;
+    for (const libsumo::TraCIConnection& con : value) {
+        // approached non-internal lane (if any)
+        tempContent.writeUnsignedByte(libsumo::TYPE_STRING);
+        tempContent.writeString(con.approachedLane);
+        ++cnt;
+        // approached "via", internal lane (if any)
+        tempContent.writeUnsignedByte(libsumo::TYPE_STRING);
+        tempContent.writeString(con.approachedInternal);
+        ++cnt;
+        // priority
+        tempContent.writeUnsignedByte(libsumo::TYPE_UBYTE);
+        tempContent.writeUnsignedByte(con.hasPrio);
+        ++cnt;
+        // opened
+        tempContent.writeUnsignedByte(libsumo::TYPE_UBYTE);
+        tempContent.writeUnsignedByte(con.isOpen);
+        ++cnt;
+        // approaching foe
+        tempContent.writeUnsignedByte(libsumo::TYPE_UBYTE);
+        tempContent.writeUnsignedByte(con.hasFoe);
+        ++cnt;
+        // state (not implemented yet)
+        tempContent.writeUnsignedByte(libsumo::TYPE_STRING);
+        tempContent.writeString(con.state);
+        ++cnt;
+        // direction
+        tempContent.writeUnsignedByte(libsumo::TYPE_STRING);
+        tempContent.writeString(con.direction);
+        ++cnt;
+        // length
+        tempContent.writeUnsignedByte(libsumo::TYPE_DOUBLE);
+        tempContent.writeDouble(con.length);
+        ++cnt;
+    }
+    myWrapperStorage.writeInt(cnt);
+    myWrapperStorage.writeStorage(tempContent);
+    return true;
 }
 
 

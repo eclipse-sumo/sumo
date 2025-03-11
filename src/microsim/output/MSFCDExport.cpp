@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2012-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2012-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -40,6 +40,7 @@
 #include <microsim/transportables/MSPerson.h>
 #include <microsim/transportables/MSTransportableControl.h>
 #include <microsim/MSVehicleControl.h>
+#include <mesosim/MEVehicle.h>
 #include "MSFCDExport.h"
 
 
@@ -162,6 +163,14 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
                         arrivalDelay = 0;
                     }
                     of.writeOptionalAttr(SUMO_ATTR_ARRIVALDELAY, arrivalDelay, mask);
+                }
+                if (MSGlobals::gUseMesoSim) {
+                    const MEVehicle* mesoVeh = dynamic_cast<const MEVehicle*>(veh);
+                    of.writeOptionalAttr(SUMO_ATTR_SEGMENT, mesoVeh->getSegmentIndex(), mask);
+                    of.writeOptionalAttr(SUMO_ATTR_QUEUE, mesoVeh->getQueIndex(), mask);
+                    of.writeOptionalAttr(SUMO_ATTR_ENTRYTIME, mesoVeh->getLastEntryTimeSeconds(), mask);
+                    of.writeOptionalAttr(SUMO_ATTR_EVENTTIME, mesoVeh->getEventTimeSeconds(), mask);
+                    of.writeOptionalAttr(SUMO_ATTR_BLOCKTIME, mesoVeh->getBlockTime() == SUMOTime_MAX ? -1.0 : mesoVeh->getBlockTimeSeconds(), mask);
                 }
                 of.closeTag();
             }

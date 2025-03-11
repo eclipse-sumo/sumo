@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-04-26 09:53:55 by Eclipse SUMO netconvert Version v1_19_0+1942-af64547e310
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<!-- generated on 2025-01-30 10:36:15 by Eclipse SUMO netconvert Version v1_21_0+2127-1e2a421b562
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <type-files value="${SUMO_HOME}/data/typemap/osmNetconvert.typ.xml,${SUMO_HOME}/data/typemap/osmNetconvertUrbanDe.typ.xml,${SUMO_HOME}/data/typemap/osmNetconvertPedestrians.typ.xml,${SUMO_HOME}/data/typemap/osmNetconvertShips.typ.xml,${SUMO_HOME}/data/typemap/osmNetconvertBicycle.typ.xml,${SUMO_HOME}/data/typemap/osmNetconvertAerialway.typ.xml"/>
-        <osm-files value="/home/erdm_ja/.texttest/tmp/tools.26Apr095353.1353728/tools/import/OSM/webWizard/osm_bbox.osm.xml"/>
+        <osm-files value="/home/erdm_ja/.texttest/tmp/tools.30Jan103613.2789103/tools/import/OSM/webWizard/osm_bbox.osm.xml"/>
     </input>
 
     <output>
@@ -54,7 +54,7 @@
         <osm.sidewalks value="true"/>
     </formats>
 
-</configuration>
+</netconvertConfiguration>
 -->
 
 <ptLines xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/ptlines_file.xsd">
@@ -89,7 +89,7 @@
         <busStop id="272408975" name="Unter den Linden/Friedrichstraße"/>
         <busStop id="271373068" name="S+U Brandenburger Tor"/>
     </ptLine>
-    <ptLine id="1900690" name="Buslinie 100: S+U Alexanderplatz =&gt; S+U Zoologischer Garten" line="100" type="bus" vClass="bus" color="149,39,110" completeness="0.41" missingAfter="10">
+    <ptLine id="1900690" name="Buslinie 100: S+U Alexanderplatz =&gt; S+U Zoologischer Garten" line="100" type="bus" vClass="bus" color="149,39,110" completeness="0.39" missingAfter="11">
         <route edges="112128419#2 415280722 195401013#2 195401013#3 24914992#1 171826985#0 171826985#1 171826985#3 24913519#1 24913519#2 541763975 202156995#0 202156995#1 4067932#1 339201219 541763974 61584187#0 61584187#1 61584187#2 61584187#3 61584187#4 54048863 15971197 4611699 169195795#0 169195795#1 169195795#2 169195795#5 169195795#6 169195795#7 169195795#8 169195795#10 340498988 188386313#0 188386313#1 24913304#1"/>
         <busStop id="270719334" name="S+U Alexanderplatz/Memhardstraße"/>
         <busStop id="270727248" name="S+U Alexanderplatz"/>
@@ -132,7 +132,7 @@
         <busStop id="-1615531689" name="S+U Alexanderplatz/Dircksenstraße"/>
         <busStop id="30732068" name="Memhardstraße"/>
     </ptLine>
-    <ptLine id="1986097" name="Buslinie 200: Michelangelostraße =&gt; S+U Zoologischer Garten" line="200" type="bus" vClass="bus" color="149,39,110" completeness="0.27" missingBefore="9" missingAfter="10">
+    <ptLine id="1986097" name="Buslinie 200: Michelangelostraße =&gt; S+U Zoologischer Garten" line="200" type="bus" vClass="bus" color="149,39,110" completeness="0.26" missingBefore="9" missingAfter="11">
         <route edges="24914141#0 24914141#2 24914141#3 24914141#4 24914141#6 318282850#0 318282850#2 112128419#1 112128419#2 415280722 195401013#2 195401013#3 24914992#1 171826985#0 171826985#1 171826985#3 24913519#1 24913519#2 541763975 202156995#0 202156995#1 4067932#1 339201219 541763974 61584187#0 61584187#1 61584187#2 61584187#3 61584187#4 54048863 15971197 4611699 169195795#0 169195795#1 169195795#2 169195795#5 169195795#6 169195795#7 169195795#8 169195795#10 340498988 188386313#0 188386313#1 155186522 24913267#0 24913267#3 326116286#0 4402014#0 4402014#3 326116285#0 326116285#2"/>
         <busStop id="270720402" name="Mollstraße/Prenzlauer Allee"/>
         <busStop id="270719334" name="S+U Alexanderplatz/Memhardstraße"/>
@@ -384,6 +384,14 @@
         <busStop id="3867910416" name="Berliner Rathaus"/>
         <busStop id="3907105048" name="Littenstraße"/>
     </ptLine>
+    <ptLine id="2227743" name="U-Bahnlinie U5: S+U Alexanderplatz =&gt; U Hönow" line="U5" type="subway" vClass="subway" period="300" color="125,83,61" completeness="0.05" missingAfter="19">
+        <route edges="4699210#3"/>
+        <busStop id="2094266776" name="U Alexanderplatz"/>
+    </ptLine>
+    <ptLine id="2227744" name="U-Bahnlinie U5: U Hönow =&gt; S+U Alexanderplatz" line="U5" type="subway" vClass="subway" period="300" color="125,83,61" completeness="0.05" missingBefore="19">
+        <route edges="438860770"/>
+        <busStop id="2094266777" name="U Alexanderplatz"/>
+    </ptLine>
     <ptLine id="2269237" name="S-Bahnlinie S2: S Bernau =&gt; S Blankenfelde" line="S2" type="light_rail" vClass="rail_urban" period="1200" color="1,138,71" completeness="0.07" missingBefore="13" missingAfter="13">
         <route edges="109444375 230976793#1 465376248 394320752#1"/>
         <busStop id="30353449" name="S Oranienburger Straße"/>
@@ -479,7 +487,7 @@
         <busStop id="2094266780" name="U Alexanderplatz"/>
         <busStop id="4961125734" name="U Rosa-Luxemburg-Platz"/>
     </ptLine>
-    <ptLine id="2679013" name="U-Bahnlinie U8: S+U Hermannstraße =&gt; S+U Wittenau" line="U8" type="subway" vClass="subway" period="300" color="5,90,153" completeness="0.22" missingBefore="8" missingAfter="10">
+    <ptLine id="2679013" name="U-Bahnlinie U8: S+U Hermannstraße =&gt; S+U Wittenau" line="U8" type="subway" vClass="subway" period="300" color="5,90,153" completeness="0.21" missingBefore="8" missingAfter="11">
         <route edges="379102293#0 379102293#1"/>
         <busStop id="3824719830" name="S+U Jannowitzbrücke"/>
         <busStop id="2094266983" name="U Alexanderplatz"/>
@@ -487,7 +495,7 @@
         <busStop id="5227235607" name="U Rosenthaler Platz"/>
         <busStop id="29190909" name="U Bernauer Straße"/>
     </ptLine>
-    <ptLine id="2679014" name="U-Bahnlinie U8: S+U Wittenau =&gt; S+U Hermannstraße" line="U8" type="subway" vClass="subway" period="300" color="5,90,153" completeness="0.17" missingBefore="11" missingAfter="8">
+    <ptLine id="2679014" name="U-Bahnlinie U8: S+U Wittenau =&gt; S+U Hermannstraße" line="U8" type="subway" vClass="subway" period="300" color="5,90,153" completeness="0.17" missingBefore="12" missingAfter="8">
         <route edges="381201610"/>
         <busStop id="5227235608" name="U Rosenthaler Platz"/>
         <busStop id="4655287360" name="U Weinmeisterstraße"/>

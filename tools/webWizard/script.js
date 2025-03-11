@@ -353,7 +353,8 @@ on("ready", function(){
             elem("#lat_lon").value = lat.toFixed(6) + " " + lon.toFixed(6);
         }
 
-        var leftHandBounds = [new OpenLayers.Bounds(-9, 50, 3, 60), // British Isles
+        var leftHandBounds = [new OpenLayers.Bounds(-11,50,1,60), // British Isles
+                              new OpenLayers.Bounds(0.774536,50.986099,1.779785,53.146770), // British Isles (part2)
                               new OpenLayers.Bounds(66, 3, 90, 30), // India, Pakistan
                               new OpenLayers.Bounds(95, -45, 179, 2), // Australia, Indonesia
                               new OpenLayers.Bounds(-20, -35, 40, -15), // Southern Africa

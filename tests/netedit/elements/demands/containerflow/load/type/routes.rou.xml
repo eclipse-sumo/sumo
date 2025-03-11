@@ -6,19 +6,19 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <vType id="customType" length="20.00" width="5.00" height="12.00" color="cyan"/>
     <!-- Vehicles, containers and containers (sorted by depart) -->
-    <containerFlow id="p_0" begin="0.00" end="23.00" containersPerHour="1200.00">
+    <containerFlow id="c_0" begin="0.00" end="23.00" containersPerHour="1200.00">
         <tranship from="Edge0" to="Edge2"/>
     </containerFlow>
 
-    <containerFlow id="p_1" type="" begin="1.00" end="23.00" containersPerHour="1200.00">
+    <containerFlow id="c_1" type="" begin="1.00" end="23.00" containersPerHour="1200.00">
         <tranship from="Edge0" to="Edge2"/>
     </containerFlow>
 
-    <containerFlow id="p_2" type="dummyType" begin="2.00" end="23.00" containersPerHour="1200.00">
+    <containerFlow id="c_2" type="dummyType" begin="2.00" end="23.00" containersPerHour="1200.00">
         <tranship from="Edge0" to="Edge2"/>
     </containerFlow>
 
-    <containerFlow id="p_3" type="customType" begin="3.00" end="23.00" containersPerHour="1200.00">
+    <containerFlow id="c_3" type="customType" begin="3.00" end="23.00" containersPerHour="1200.00">
         <tranship from="Edge0" to="Edge2"/>
     </containerFlow>
 </routes>

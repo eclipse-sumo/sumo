@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -40,6 +40,8 @@ typedef std::vector<int> IntVector;
  * @brief Definition of a vector of strings
  */
 typedef std::vector<std::string> StringVector;
+
+#define CLONEABLE(Type) virtual Type* clone() const { return new Type(*this); }
 
 /* -------------------------------------------------------------------------
  * Option
@@ -331,6 +333,12 @@ public:
      */
     virtual const std::string& getTypeName() const;
 
+    /** @brief Returns a copy of this option
+     *
+     * @return The option copy
+     */
+    virtual Option* clone() const = 0;
+
 protected:
     /** @brief Marks the information as set
      *
@@ -427,6 +435,8 @@ public:
     */
     bool isInteger() const;
 
+    CLONEABLE(Option_Integer)
+
 private:
     /// @brief the value, valid only when the base-classes "myAmSet"-member is true
     int myValue;
@@ -471,6 +481,8 @@ public:
      * @return Whether the new value could be set
      */
     bool set(const std::string& v, const std::string& orig, const bool append);
+
+    CLONEABLE(Option_String)
 
 protected:
     /// @brief the value, valid only when the base-classes "myAmSet"-member is true
@@ -523,6 +535,8 @@ public:
     */
     bool isFloat() const;
 
+    CLONEABLE(Option_Float)
+
 private:
     /// @brief the value, valid only when the base-classes "myAmSet"-member is true
     double myValue;
@@ -561,6 +575,8 @@ public:
      */
     bool isBool() const;
 
+    CLONEABLE(Option_Bool)
+
 protected:
     /// @brief the value, valid only when the base-classes "myAmSet"-member is true
     bool myValue;
@@ -584,6 +600,8 @@ public:
 
     /// @brief sets the given value (converts it to bool)
     bool set(const std::string& v, const std::string& orig, const bool append);
+
+    CLONEABLE(Option_BoolExtended)
 };
 
 // -------------------------------------------------------------------------
@@ -624,6 +642,8 @@ public:
      * @exception InvalidArgument If the value could not be converted into a vector of integers
      */
     bool set(const std::string& v, const std::string& orig, const bool append);
+
+    CLONEABLE(Option_IntVector)
 
 private:
     /// @brief the value, valid only when the base-classes "myAmSet"-member is true
@@ -670,6 +690,8 @@ public:
      */
     bool set(const std::string& v, const std::string& orig, const bool append);
 
+    CLONEABLE(Option_StringVector)
+
 private:
     /// @brief the value, valid only when the base-classes "myAmSet"-member is true
     StringVector myValue;
@@ -708,6 +730,8 @@ public:
      * not in line with code style of the Options sub-system.
      */
     std::string getString() const;
+
+    CLONEABLE(Option_FileName)
 };
 
 // -------------------------------------------------------------------------
@@ -730,6 +754,8 @@ public:
      * @return true
      */
     bool isNetwork() const;
+
+    CLONEABLE(Option_Network)
 };
 
 // -------------------------------------------------------------------------
@@ -752,6 +778,8 @@ public:
      * @return true
      */
     bool isAdditional() const;
+
+    CLONEABLE(Option_Additional)
 };
 
 // -------------------------------------------------------------------------
@@ -774,6 +802,8 @@ public:
      * @return true
      */
     bool isRoute() const;
+
+    CLONEABLE(Option_Route)
 };
 
 // -------------------------------------------------------------------------
@@ -796,6 +826,8 @@ public:
      * @return true
      */
     bool isData() const;
+
+    CLONEABLE(Option_Data)
 };
 
 // -------------------------------------------------------------------------
@@ -818,6 +850,8 @@ public:
      * @return true
      */
     bool isSumoConfig() const;
+
+    CLONEABLE(Option_SumoConfig)
 };
 
 // -------------------------------------------------------------------------
@@ -840,6 +874,8 @@ public:
      * @return true
      */
     bool isEdge() const;
+
+    CLONEABLE(Option_Edge)
 };
 
 // -------------------------------------------------------------------------
@@ -862,4 +898,6 @@ public:
      * @return true
      */
     bool isEdgeVector() const;
+
+    CLONEABLE(Option_EdgeVector)
 };

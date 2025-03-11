@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-06-28 14:19:43 by Eclipse SUMO netedit Version v1_20_0+1039-25f5ab4053c
+<!-- generated on 2025-01-07 12:02:04 by Eclipse SUMO netedit Version v1_21_0+1687-5d9a0443092
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,15 +14,16 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-        <additional-files value="/home/palcraft/.texttest/tmp/netedit.gui.28Jun141430.2226/netedit.gui/network/junctions/inspect/tls/unselected/type/priority_stop/additionals.add.xml"/>
-        <route-files value="/home/palcraft/.texttest/tmp/netedit.gui.28Jun141430.2226/netedit.gui/network/junctions/inspect/tls/unselected/type/priority_stop/routes.rou.xml"/>
-        <data-files value="/home/palcraft/.texttest/tmp/netedit.gui.28Jun141430.2226/netedit.gui/network/junctions/inspect/tls/unselected/type/priority_stop/datas.dat.xml"/>
-        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.gui.28Jun141430.2226/netedit.gui/network/junctions/inspect/tls/unselected/type/priority_stop/net.net.xml"/>
+        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Jan110902.14028\netedit.gui\network\junctions\inspect\tls\unselected\type\priority_stop\additionals.add.xml"/>
+        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Jan110902.14028\netedit.gui\network\junctions\inspect\tls\unselected\type\priority_stop\routes.rou.xml"/>
+        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Jan110902.14028\netedit.gui\network\junctions\inspect\tls\unselected\type\priority_stop\datas.dat.xml"/>
+        <meandata-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Jan110902.14028\netedit.gui\network\junctions\inspect\tls\unselected\type\priority_stop\datas.med.add.xml"/>
+        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Jan110902.14028\netedit.gui\network\junctions\inspect\tls\unselected\type\priority_stop\net.net.xml"/>
     </input>
 
     <output>
         <write-license value="true"/>
-        <output-file value="/home/palcraft/.texttest/tmp/netedit.gui.28Jun141430.2226/netedit.gui/network/junctions/inspect/tls/unselected/type/priority_stop/net.net.xml"/>
+        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Jan110902.14028\netedit.gui\network\junctions\inspect\tls\unselected\type\priority_stop\net.net.xml"/>
     </output>
 
     <processing>
@@ -46,19 +47,20 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <netedit>
         <ignore-supermode-question value="true"/>
+        <force-saving value="true"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="/home/palcraft/.texttest/tmp/netedit.gui.28Jun141430.2226/netedit.gui/network/junctions/inspect/tls/unselected/type/priority_stop/gui-settings.xml"/>
+        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Jan110902.14028\netedit.gui\network\junctions\inspect\tls\unselected\type\priority_stop\gui-settings.xml"/>
         <window-size value="1280, 720"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
-        <gui-testing.setting-output value="/home/palcraft/.texttest/tmp/netedit.gui.28Jun141430.2226/netedit.gui/network/junctions/inspect/tls/unselected/type/priority_stop/guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Jan110902.14028\netedit.gui\network\junctions\inspect\tls\unselected\type\priority_stop\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="/home/palcraft/.texttest/tmp/netedit.gui.28Jun141430.2226/netedit.gui/network/junctions/inspect/tls/unselected/type/priority_stop/log.txt"/>
+        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Jan110902.14028\netedit.gui\network\junctions\inspect\tls\unselected\type\priority_stop\log.txt"/>
     </report>
 
 </neteditConfiguration>
@@ -168,13 +170,13 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id=":JunctionRight_2_0" index="0" disallow="pedestrian" speed="13.89" length="14.40" shape="26.60,-7.20 26.60,7.20"/>
     </edge>
     <edge id=":JunctionRight_3" function="internal">
-        <lane id=":JunctionRight_3_0" index="0" disallow="pedestrian" speed="7.58" length="12.62" shape="26.60,-7.20 26.18,-3.35 24.90,-0.60 22.77,1.05 19.80,1.60"/>
+        <lane id=":JunctionRight_3_0" index="0" disallow="pedestrian" speed="7.39" length="11.94" shape="26.60,-7.20 26.02,-4.26 24.48,-1.41 22.30,0.75 19.80,1.60"/>
     </edge>
     <edge id=":JunctionRight_4" function="internal">
         <lane id=":JunctionRight_4_0" index="0" disallow="pedestrian" speed="5.99" length="7.49" shape="19.80,-1.60 21.37,-1.95 22.50,-3.00 23.17,-4.75 23.40,-7.20"/>
     </edge>
     <edge id=":JunctionRight_5" function="internal">
-        <lane id=":JunctionRight_5_0" index="0" disallow="pedestrian" speed="7.58" length="12.62" shape="19.80,-1.60 22.78,-1.05 24.90,0.60 26.18,3.35 26.60,7.20"/>
+        <lane id=":JunctionRight_5_0" index="0" disallow="pedestrian" speed="7.39" length="11.94" shape="19.80,-1.60 22.30,-0.75 24.48,1.41 26.02,4.26 26.60,7.20"/>
     </edge>
     <edge id=":JunctionTop_w0" function="walkingarea">
         <lane id=":JunctionTop_w0_0" index="0" allow="pedestrian" speed="2.78" length="8.40" width="2.00" shape="-3.20,25.00 -5.20,25.00 5.20,25.00 3.20,25.00"/>
@@ -249,13 +251,16 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <phase duration="42" state="rrGGGr" minDur="5" maxDur="50"/>
         <phase duration="3"  state="rryyGr"/>
     </tlLogic>
+    <tlLogic id="JunctionRight" type="static" programID="0" offset="0">
+        <phase duration="90" state="GGGGGG"/>
+    </tlLogic>
 
     <junction id="J0" type="dead_end" x="-25.00" y="25.00" incLanes="E0_0" intLanes="" shape="-25.00,25.00 -21.80,25.00 -25.00,25.00"/>
     <junction id="J1" type="dead_end" x="-25.00" y="-25.00" incLanes="E1_0" intLanes="" shape="-25.00,-25.00 -28.20,-25.00 -25.00,-25.00"/>
     <junction id="J2" type="dead_end" x="25.00" y="25.00" incLanes="E2_0" intLanes="" shape="25.00,25.00 28.20,25.00 25.00,25.00"/>
     <junction id="J3" type="dead_end" x="25.00" y="-25.00" incLanes="E3_0" intLanes="" shape="25.00,-25.00 21.80,-25.00 25.00,-25.00"/>
     <junction id="JunctionBot" type="dead_end" x="0.00" y="-25.00" incLanes="E7_0 E7_1" intLanes="" shape="0.00,-25.00 -5.20,-25.00 0.00,-25.00"/>
-    <junction id="JunctionCenter" type="priority_stop" x="0.00" y="0.00" incLanes="-E5_0 -E5_1 -E6_0 -E6_1 -E7_0 -E7_1 -E4_0 -E4_1 :JunctionCenter_w1_0 :JunctionCenter_w2_0 :JunctionCenter_w3_0 :JunctionCenter_w0_0" intLanes=":JunctionCenter_0_0 :JunctionCenter_1_0 :JunctionCenter_2_0 :JunctionCenter_3_0 :JunctionCenter_4_0 :JunctionCenter_5_0 :JunctionCenter_6_0 :JunctionCenter_7_0 :JunctionCenter_8_0 :JunctionCenter_9_0 :JunctionCenter_10_0 :JunctionCenter_11_0 :JunctionCenter_c0_0 :JunctionCenter_c1_0 :JunctionCenter_c2_0 :JunctionCenter_c3_0" shape="-5.20,7.20 5.20,7.20 5.42,6.09 5.70,5.70 6.09,5.42 6.59,5.26 7.20,5.20 7.20,-5.20 6.09,-5.42 5.70,-5.70 5.42,-6.09 5.26,-6.59 5.20,-7.20 -5.20,-7.20 -5.42,-6.09 -5.70,-5.70 -6.09,-5.42 -6.59,-5.26 -7.20,-5.20 -7.20,5.20 -6.09,5.42 -5.70,5.70 -5.42,6.09 -5.26,6.59" name="center">
+    <junction id="JunctionCenter" type="priority_stop" x="0.00" y="0.00" incLanes="-E5_0 -E5_1 -E6_0 -E6_1 -E7_0 -E7_1 -E4_0 -E4_1 :JunctionCenter_w1_0 :JunctionCenter_w2_0 :JunctionCenter_w3_0 :JunctionCenter_w0_0" intLanes=":JunctionCenter_0_0 :JunctionCenter_1_0 :JunctionCenter_2_0 :JunctionCenter_3_0 :JunctionCenter_4_0 :JunctionCenter_5_0 :JunctionCenter_6_0 :JunctionCenter_7_0 :JunctionCenter_8_0 :JunctionCenter_9_0 :JunctionCenter_10_0 :JunctionCenter_11_0 :JunctionCenter_c0_0 :JunctionCenter_c1_0 :JunctionCenter_c2_0 :JunctionCenter_c3_0" shape="-5.20,7.20 5.20,7.20 5.42,6.09 5.70,5.70 6.09,5.42 6.59,5.26 7.20,5.20 7.20,-5.20 6.09,-5.42 5.70,-5.70 5.42,-6.09 5.26,-6.59 5.20,-7.20 -5.20,-7.20 -5.42,-6.09 -5.70,-5.70 -6.09,-5.42 -6.59,-5.26 -7.20,-5.20 -7.20,5.20 -6.09,5.42 -5.70,5.70 -5.42,6.09 -5.26,6.59" rightOfWay="allwayStop" name="center">
         <request index="0"  response="1001000000000000" foes="1001000100010000" cont="0"/>
         <request index="1"  response="0101000000000000" foes="0101111100110000" cont="0"/>
         <request index="2"  response="0011000111000000" foes="0011110111110000" cont="0"/>
@@ -279,7 +284,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <junction id="JunctionExtern1" type="priority" x="60.00" y="0.00" incLanes="EdgeExternBot_0" intLanes=":JunctionExtern1_0_0" shape="60.00,0.00 60.00,-3.00 60.00,0.00">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="JunctionLeft" type="traffic_light" x="-25.00" y="0.00" incLanes="-E0_0 E4_0 E4_1 -E1_0" intLanes=":JunctionLeft_0_0 :JunctionLeft_6_0 :JunctionLeft_2_0 :JunctionLeft_3_0 :JunctionLeft_4_0 :JunctionLeft_5_0" shape="-28.20,7.20 -21.80,7.20 -21.58,6.09 -21.30,5.70 -20.91,5.42 -20.41,5.26 -19.80,5.20 -19.80,-5.20 -20.91,-5.42 -21.30,-5.70 -21.58,-6.09 -21.74,-6.59 -21.80,-7.20 -28.20,-7.20" radius="2.00" fringe="outer" name="left">
+    <junction id="JunctionLeft" type="traffic_light" x="-25.00" y="0.00" incLanes="-E0_0 E4_0 E4_1 -E1_0" intLanes=":JunctionLeft_0_0 :JunctionLeft_6_0 :JunctionLeft_2_0 :JunctionLeft_3_0 :JunctionLeft_4_0 :JunctionLeft_5_0" shape="-28.20,7.20 -21.80,7.20 -21.58,6.09 -21.30,5.70 -20.91,5.42 -20.41,5.26 -19.80,5.20 -19.80,-5.20 -20.91,-5.42 -21.30,-5.70 -21.58,-6.09 -21.74,-6.59 -21.80,-7.20 -28.20,-7.20" radius="2.00" rightOfWay="mixedPriority" fringe="outer" name="left">
         <request index="0" response="000000" foes="001000" cont="0"/>
         <request index="1" response="110000" foes="111000" cont="1"/>
         <request index="2" response="100000" foes="100000" cont="0"/>
@@ -287,14 +292,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <request index="4" response="000000" foes="000010" cont="0"/>
         <request index="5" response="000000" foes="001110" cont="0"/>
     </junction>
-    <junction id="JunctionRight" type="priority" x="25.00" y="0.00" incLanes="-E2_0 -E3_0 E6_0 E6_1" intLanes=":JunctionRight_0_0 :JunctionRight_1_0 :JunctionRight_2_0 :JunctionRight_3_0 :JunctionRight_4_0 :JunctionRight_5_0" shape="21.80,7.20 28.20,7.20 28.20,-7.20 21.80,-7.20 21.58,-6.09 21.30,-5.70 20.91,-5.42 20.41,-5.26 19.80,-5.20 19.80,5.20 20.91,5.42 21.30,5.70 21.58,6.09 21.74,6.59">
-        <request index="0" response="000000" foes="001000" cont="0"/>
-        <request index="1" response="110000" foes="111000" cont="0"/>
-        <request index="2" response="100000" foes="100000" cont="0"/>
-        <request index="3" response="100011" foes="100011" cont="0"/>
-        <request index="4" response="000000" foes="000010" cont="0"/>
-        <request index="5" response="000000" foes="001110" cont="0"/>
-    </junction>
+    <junction id="JunctionRight" type="traffic_light_unregulated" x="25.00" y="0.00" incLanes="-E2_0 -E3_0 E6_0 E6_1" intLanes=":JunctionRight_0_0 :JunctionRight_1_0 :JunctionRight_2_0 :JunctionRight_3_0 :JunctionRight_4_0 :JunctionRight_5_0" shape="21.80,7.20 28.20,7.20 28.20,-7.20 21.80,-7.20 21.58,-6.09 21.30,-5.70 20.91,-5.42 20.41,-5.26 19.80,-5.20 19.80,5.20 20.91,5.42 21.30,5.70 21.58,6.09 21.74,6.59"/>
     <junction id="JunctionTop" type="dead_end" x="0.00" y="25.00" incLanes="E5_0 E5_1" intLanes="" shape="0.00,25.00 5.20,25.00 0.00,25.00"/>
 
     <junction id=":JunctionLeft_6_0" type="internal" x="-25.94" y="2.84" incLanes=":JunctionLeft_1_0 -E1_0" intLanes=":JunctionLeft_3_0 :JunctionLeft_4_0 :JunctionLeft_5_0"/>
@@ -303,26 +301,26 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <connection from="-E0" to="-E4" fromLane="0" toLane="1" via=":JunctionLeft_1_0" tl="JunctionLeft" linkIndex="1" dir="l" state="o"/>
     <connection from="-E1" to="-E4" fromLane="0" toLane="1" via=":JunctionLeft_4_0" tl="JunctionLeft" linkIndex="4" dir="r" state="O"/>
     <connection from="-E1" to="E0" fromLane="0" toLane="0" via=":JunctionLeft_5_0" tl="JunctionLeft" linkIndex="5" dir="s" state="O"/>
-    <connection from="-E2" to="-E6" fromLane="0" toLane="1" via=":JunctionRight_0_0" dir="r" state="M"/>
-    <connection from="-E2" to="E3" fromLane="0" toLane="0" via=":JunctionRight_1_0" dir="s" state="m"/>
-    <connection from="-E3" to="E2" fromLane="0" toLane="0" via=":JunctionRight_2_0" dir="s" state="m"/>
-    <connection from="-E3" to="-E6" fromLane="0" toLane="1" via=":JunctionRight_3_0" dir="l" state="m"/>
+    <connection from="-E2" to="-E6" fromLane="0" toLane="1" keepClear="0" via=":JunctionRight_0_0" tl="JunctionRight" linkIndex="0" dir="r" state="O"/>
+    <connection from="-E2" to="E3" fromLane="0" toLane="0" keepClear="0" via=":JunctionRight_1_0" tl="JunctionRight" linkIndex="1" dir="s" state="O"/>
+    <connection from="-E3" to="E2" fromLane="0" toLane="0" keepClear="0" via=":JunctionRight_2_0" tl="JunctionRight" linkIndex="2" dir="s" state="O"/>
+    <connection from="-E3" to="-E6" fromLane="0" toLane="1" keepClear="0" via=":JunctionRight_3_0" tl="JunctionRight" linkIndex="3" dir="l" state="O"/>
     <connection from="-E4" to="E7" fromLane="1" toLane="1" via=":JunctionCenter_9_0" dir="r" state="s"/>
     <connection from="-E4" to="E6" fromLane="1" toLane="1" via=":JunctionCenter_10_0" dir="s" state="s"/>
     <connection from="-E4" to="E5" fromLane="1" toLane="1" via=":JunctionCenter_11_0" dir="l" state="s"/>
-    <connection from="-E5" to="E4" fromLane="1" toLane="1" via=":JunctionCenter_0_0" dir="r" state="s"/>
-    <connection from="-E5" to="E7" fromLane="1" toLane="1" via=":JunctionCenter_1_0" dir="s" state="s"/>
-    <connection from="-E5" to="E6" fromLane="1" toLane="1" via=":JunctionCenter_2_0" dir="l" state="s"/>
+    <connection from="-E5" to="E4" fromLane="1" toLane="1" via=":JunctionCenter_0_0" dir="r" state="m"/>
+    <connection from="-E5" to="E7" fromLane="1" toLane="1" via=":JunctionCenter_1_0" dir="s" state="m"/>
+    <connection from="-E5" to="E6" fromLane="1" toLane="1" via=":JunctionCenter_2_0" dir="l" state="m"/>
     <connection from="-E6" to="E5" fromLane="1" toLane="1" via=":JunctionCenter_3_0" dir="r" state="s"/>
     <connection from="-E6" to="E4" fromLane="1" toLane="1" via=":JunctionCenter_4_0" dir="s" state="s"/>
     <connection from="-E6" to="E7" fromLane="1" toLane="1" via=":JunctionCenter_5_0" dir="l" state="s"/>
-    <connection from="-E7" to="E6" fromLane="1" toLane="1" via=":JunctionCenter_6_0" dir="r" state="s"/>
-    <connection from="-E7" to="E5" fromLane="1" toLane="1" via=":JunctionCenter_7_0" dir="s" state="s"/>
-    <connection from="-E7" to="E4" fromLane="1" toLane="1" via=":JunctionCenter_8_0" dir="l" state="s"/>
+    <connection from="-E7" to="E6" fromLane="1" toLane="1" via=":JunctionCenter_6_0" dir="r" state="m"/>
+    <connection from="-E7" to="E5" fromLane="1" toLane="1" via=":JunctionCenter_7_0" dir="s" state="m"/>
+    <connection from="-E7" to="E4" fromLane="1" toLane="1" via=":JunctionCenter_8_0" dir="l" state="m"/>
     <connection from="E4" to="E0" fromLane="1" toLane="0" via=":JunctionLeft_2_0" tl="JunctionLeft" linkIndex="2" dir="r" state="o"/>
     <connection from="E4" to="E1" fromLane="1" toLane="0" via=":JunctionLeft_3_0" tl="JunctionLeft" linkIndex="3" dir="l" state="o"/>
-    <connection from="E6" to="E3" fromLane="1" toLane="0" via=":JunctionRight_4_0" dir="r" state="M"/>
-    <connection from="E6" to="E2" fromLane="1" toLane="0" via=":JunctionRight_5_0" dir="l" state="M"/>
+    <connection from="E6" to="E3" fromLane="1" toLane="0" keepClear="0" via=":JunctionRight_4_0" tl="JunctionRight" linkIndex="4" dir="r" state="O"/>
+    <connection from="E6" to="E2" fromLane="1" toLane="0" keepClear="0" via=":JunctionRight_5_0" tl="JunctionRight" linkIndex="5" dir="l" state="O"/>
     <connection from="EdgeExternBot" to="EdgeExternTop" fromLane="0" toLane="0" via=":JunctionExtern1_0_0" dir="t" state="M"/>
     <connection from="EdgeExternTop" to="EdgeExternBot" fromLane="0" toLane="0" via=":JunctionExtern0_0_0" dir="t" state="M"/>
 

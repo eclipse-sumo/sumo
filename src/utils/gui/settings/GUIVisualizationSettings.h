@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -89,7 +89,8 @@ struct GUIVisualizationTextSettings {
 struct GUIVisualizationRainbowSettings {
 
     /// @brief constructor
-    GUIVisualizationRainbowSettings(bool _hideMin, double _minThreshold, bool _hideMax, double _maxThreshold, bool _setNeutral, double _neutralThreshold, bool _fixRange);
+    GUIVisualizationRainbowSettings(bool _hideMin, double _minThreshold, bool _hideMax, double _maxThreshold, bool _setNeutral,
+            double _neutralThreshold, bool _fixRange, int _rainboScheme);
 
     /// @brief equality comparator
     bool operator==(const GUIVisualizationRainbowSettings& other);
@@ -114,6 +115,8 @@ struct GUIVisualizationRainbowSettings {
     double neutralThreshold;
     /// @brief whether the color scale should be fixed to the given min/max values
     bool fixRange;
+    /// @brief index in the list of color schemes
+    int rainbowScheme;
     /// @brief color steps for the rainbow;
     std::vector<RGBColor> colors;
 };
@@ -395,6 +398,9 @@ struct GUIVisualizationAdditionalSettings {
     /// @brief Vaporizer size
     static const double vaporizerSize;
 
+    /// @brief stopEdges size
+    static const double stopEdgeSize;
+
     /// @brief connection color
     static const RGBColor connectionColor;
 
@@ -487,6 +493,15 @@ struct GUIVisualizationStoppingPlaceSettings {
 
     /// @brief chargingStation width
     static const double chargingStationWidth;
+
+    /// @brief symbol external radius
+    static const double symbolExternalRadius;
+
+    /// @brief symbol internal radius
+    static const double symbolInternalRadius;
+
+    /// @brief symbol internal text size
+    static const double symbolInternalTextSize;
 };
 
 
@@ -591,13 +606,13 @@ public:
         JunctionElement = 1,            // crossings, walking area, connections and internal lanes
         DottedContoursResampled = 1,    // resample dotted contours
         PreciseSelection = 1,           // precise selection using boundaries
+        DottedContours = 1,             // draw dotted contours
 
         Level2 = 2,
         CircleResolution8 = 2,  // circle resolution = 8
         DrawPolygonSquare = 2,  // draw polygons as squares
         VehicleTriangle = 2,    // draw vehicles as triangles
         Additionals = 2,        // draw additional elements
-        DottedContours = 2,     // draw dotted contours
         GeometryBoxLines = 2,   // draw lines instead boxes in GUIGeometry::drawGeometry
 
         Level3 = 3,
@@ -612,13 +627,19 @@ public:
     GUIVisualizationSettings(const std::string& _name, bool _netedit = false);
 
     /// @brief check if draw junction
-    bool checkDrawJunction(const Boundary &b, const bool selected) const;
+    bool checkDrawJunction(const Boundary& b, const bool selected) const;
+
+    /// @brief check if draw edge
+    bool checkDrawEdge(const Boundary& b) const;
+
+    /// @brief update ignore hide by zoom (call BEFORE drawing all elements).
+    void updateIgnoreHideByZoom();
 
     /// @brief check if draw additionals
     bool checkDrawAdditional(Detail d, const bool selected) const;
 
     /// @brief check if draw polygon
-    bool checkDrawPoly(const Boundary &b, const bool selected) const;
+    bool checkDrawPoly(const Boundary& b, const bool selected) const;
 
     /// @brief check if draw POI
     bool checkDrawPOI(const double w, const double h, const Detail d, const bool selected) const;
@@ -675,9 +696,6 @@ public:
 
     /// @brief return wether the text was flipped for reading at the given angle
     bool flippedTextAngle(double objectAngle) const;
-
-    /// @brief check if draw element depending of boundarySize
-    bool checkBoundarySizeDrawing(const double w, const double h) const;
 
     /// @brief return the detail level
     Detail getDetailLevel(const double exaggeration) const;
@@ -755,7 +773,7 @@ public:
     /// @brief Information whether rails shall be drawn
     bool showRails;
 
-    // Setting bundles for optional drawing names with size and color
+    /// @brief Setting bundles for optional drawing names with size and color
     GUIVisualizationTextSettings edgeName, internalEdgeName, cwaEdgeName, streetName, edgeValue, edgeScaleValue;
 
     /// @brief flag to show or hide connectors
@@ -951,6 +969,12 @@ public:
     /// @brief key for rendering poi textual parameter
     std::string poiTextParam;
 
+    /// @brief whether the rendering layer of POIs should be overriden
+    bool poiUseCustomLayer;
+
+    /// @brief the custom layer for POIs
+    double poiCustomLayer;
+
     /// @brief The polygon colorer
     GUIColorer polyColorer;
 
@@ -962,6 +986,12 @@ public:
 
     // Setting bundles for optional drawing polygon types
     GUIVisualizationTextSettings polyType;
+
+    /// @brief whether the rendering layer of polygons should be overriden
+    bool polyUseCustomLayer;
+
+    /// @brief the custom layer for polygons
+    double polyCustomLayer;
     /// @}
 
 
@@ -1106,11 +1136,12 @@ public:
     /// @brief detail settings
     GUIVisualizationDetailSettings detailSettings;
 
-    /// @brief alt key pressed (only used for draw polygons under other elements in SUMO-GUI, store is not needed)
-    bool altKeyPressed = false;
-
     /// @brief constant for boundary size drawing (20 for slow computers, 10 for quick computers)
     double BoundarySizeDrawing = 15;
+
+protected:
+    /// @brief flag for ignore hide by zoom (used if we're drawing elements with constant size, their ID/name/etc. texts, etc.)
+    bool myIgnoreHideByZoom;
 
 private:
     /// @brief set copy constructor private

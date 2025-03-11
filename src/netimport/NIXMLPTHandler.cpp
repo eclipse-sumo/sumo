@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -146,8 +146,8 @@ NIXMLPTHandler::addPTStop(const SUMOSAXAttributes& attrs) {
     const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "busStop", ok);
     const std::string name = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), ok, "");
     const std::string laneID = attrs.get<std::string>(SUMO_ATTR_LANE, id.c_str(), ok);
-    const double startPos = attrs.get<double>(SUMO_ATTR_STARTPOS, id.c_str(), ok);
-    const double endPos = attrs.get<double>(SUMO_ATTR_ENDPOS, id.c_str(), ok);
+    double startPos = attrs.get<double>(SUMO_ATTR_STARTPOS, id.c_str(), ok);
+    double endPos = attrs.get<double>(SUMO_ATTR_ENDPOS, id.c_str(), ok);
     const double parkingLength = attrs.getOpt<double>(SUMO_ATTR_PARKING_LENGTH, id.c_str(), ok, 0);
     const RGBColor color = attrs.getOpt<RGBColor>(SUMO_ATTR_COLOR, id.c_str(), ok, RGBColor(false));
     //const std::string lines = attrs.get<std::string>(SUMO_ATTR_LINES, id.c_str(), ok);
@@ -173,6 +173,12 @@ NIXMLPTHandler::addPTStop(const SUMOSAXAttributes& attrs) {
         permissions = SVC_BUS;
     }
     if (ok) {
+        if (startPos < 0) {
+            startPos += edge->getLoadedLength();
+        }
+        if (endPos < 0) {
+            endPos += edge->getLoadedLength();
+        }
         Position pos = edge->geometryPositionAtOffset((startPos + endPos) / 2);
         myCurrentStop = std::make_shared<NBPTStop>(id, pos, edgeID, edgeID, endPos - startPos, name, permissions, parkingLength, color, startPos);
         if (!myStopCont.insert(myCurrentStop)) {

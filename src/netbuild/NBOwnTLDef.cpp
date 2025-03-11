@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -424,7 +424,11 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
             if (perms == SVC_TRAM) {
                 groupTram = true;
             } else if ((perms & ~(SVC_PEDESTRIAN | SVC_BICYCLE | SVC_DELIVERY)) == 0) {
-                groupOther = true;
+                if (OptionsCont::getOptions().getBool("tls.ignore-internal-junction-jam")) {
+                    // otherwise, we can get a mutual conflict for minor green
+                    // streams which would create deadlock
+                    groupOther = true;
+                }
             }
             // group all edges with the same permissions into a single phase (later)
             if (groupTram || groupOther) {
@@ -785,7 +789,7 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
     if (isNEMA) {
         NBTrafficLightLogic* nemaLogic = buildNemaPhases(fromEdges, toEdges, crossings, chosenList, straightStates, leftStates);
         if (nemaLogic == nullptr) {
-            WRITE_WARNINGF(TL("Generating NEMA phases is not support for traffic light '%' with % incoming edges. Using tlType 'actuated' as fallback"), getID(), incoming.size());
+            WRITE_WARNINGF(TL("Generating NEMA phases is not supported for traffic light '%' with % incoming edges. Using tlType 'actuated' as fallback"), getID(), incoming.size());
             logic->setType(TrafficLightType::ACTUATED);
             setType(TrafficLightType::ACTUATED);
         } else {
@@ -836,9 +840,8 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
         const std::string nextState = allPhases[(i + 1) % phaseCount].state;
         bool updatedState = false;
         for (int i1 = 0; i1 < stateSize; ++i1) {
-            if (currState[i1] == 'y' && (nextState[i1] == 'g' || nextState[i1] == 'G') && (prevState[i1] == 'g' || prevState[i1] == 'G')) {
-                LinkState ls = (nextState[i1] == prevState[i1]) ? (LinkState)prevState[i1] : (LinkState)'g';
-                logic->setPhaseState(i, i1, ls);
+            if (currState[i1] == 'y' && (nextState[i1] == prevState[i1] || nextState[i1] == 'G') && (prevState[i1] == 'g' || prevState[i1] == 'G')) {
+                logic->setPhaseState(i, i1, (LinkState)prevState[i1]);
                 updatedState = true;
             }
         }
@@ -907,6 +910,12 @@ NBOwnTLDef::addPedestrianPhases(NBTrafficLightLogic* logic, const SUMOTime green
         if (pedTime >= minPedTime) {
             // ensure clearing time for pedestrians
             const int pedStates = (int)crossings.size();
+            const bool isSimpleActuatedCrossing = logic->getType() == TrafficLightType::ACTUATED
+                                                  && minDur == UNSPECIFIED_DURATION && logic->getPhases().size() == 2;
+            if (isSimpleActuatedCrossing) {
+                // permit green phase to extend when there are no pedestrians
+                logic->setPhaseNext(0, {0, 1});
+            }
             logic->addStep(pedTime, state, minDur, maxDur, earliestEnd, latestEnd);
 #ifdef DEBUG_PHASES
             if (DEBUGCOND2(logic)) {
@@ -1017,6 +1026,10 @@ NBOwnTLDef::patchNEMAStateForCrossings(const std::string& state,
     //std::cout << " patchNEMAStateForCrossings green=" << greenEdge->getID() << " other=" << Named::getIDSecure(otherChosen) << " end=" << Named::getIDSecure(end) << " all=" << toString(all) << "\n";
 
     EdgeVector::const_iterator end = std::find(all.begin(), all.end(), endEdge);
+    if (end == all.end()) {
+        // at least prevent an infinite loop
+        end = start;
+    }
     auto it = start;
     NBContHelper::nextCCW(all, it);
     for (; it != end; NBContHelper::nextCCW(all, it)) {
@@ -1552,7 +1565,7 @@ NBOwnTLDef::deactivateAlwaysGreen(NBTrafficLightLogic* logic) const {
 
 void
 NBOwnTLDef::deactivateInsideEdges(NBTrafficLightLogic* logic, const EdgeVector& fromEdges) const {
-    const int n = logic->getNumLinks();
+    const int n = (int)fromEdges.size();
     const int p = (int)logic->getPhases().size();
     for (int i1 = 0; i1 < n; ++i1) {
         if (fromEdges[i1]->isInsideTLS()) {
@@ -1566,7 +1579,7 @@ NBOwnTLDef::deactivateInsideEdges(NBTrafficLightLogic* logic, const EdgeVector& 
 
 SUMOTime
 NBOwnTLDef::computeEscapeTime(const std::string& state, const EdgeVector& fromEdges, const EdgeVector& toEdges) const {
-    const int n = (int)state.size();
+    const int n = (int)fromEdges.size();
     double maxTime = 0;
     for (int i1 = 0; i1 < n; ++i1) {
         if (state[i1] == 'y' && !fromEdges[i1]->isInsideTLS()) {

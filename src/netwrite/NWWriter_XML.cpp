@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -51,12 +51,14 @@ void
 NWWriter_XML::writeNetwork(const OptionsCont& oc, const std::string& prefix, NBNetBuilder& nb) {
     // check whether plain-output files shall be generated
     if (prefix != "") {
+        const bool haveTypes = nb.getTypeCont().size() > 0;
         writeNodes(oc, prefix, nb.getNodeCont());
-        if (nb.getTypeCont().size() > 0) {
+        if (haveTypes) {
             writeTypes(prefix, nb.getEdgeCont(), nb.getTypeCont());
         }
         writeEdgesAndConnections(oc, prefix, nb.getNodeCont(), nb.getEdgeCont());
         writeTrafficLights(prefix, nb.getTLLogicCont(), nb.getEdgeCont());
+        writeConfig(oc, prefix, haveTypes);
     }
     if (oc.isSet("junctions.join-output")) {
         writeJoinedJunctions(oc.getString("junctions.join-output"), nb.getNodeCont());
@@ -77,6 +79,35 @@ NWWriter_XML::writeNetwork(const OptionsCont& oc, const std::string& prefix, NBN
     if (oc.exists("taz-output") && oc.isSet("taz-output")) {
         writeDistricts(oc, nb.getDistrictCont());
     }
+}
+
+
+void
+NWWriter_XML::writeConfig(const OptionsCont& oc, const std::string& prefix, bool haveTypes) {
+    if (!oc.exists("node-files")) {
+        // do not write configuration for netgen
+        return;
+    }
+    OptionsCont* tmp = oc.clone();
+    tmp->set("node-files", prefix + ".nod.xml");
+    tmp->set("edge-files", prefix + ".edg.xml");
+    tmp->set("connection-files", prefix + ".con.xml");
+    tmp->set("tllogic-files", prefix + ".tll.xml");
+    if (haveTypes) {
+        tmp->set("type-files", prefix + ".typ.xml");
+    }
+    tmp->setDefault("sumo-net-file", "");
+    tmp->setDefault("plain-output-prefix", "");
+
+    const std::string configPath = prefix + ".netccfg";
+    std::ofstream out(configPath.c_str());
+    if (!out.good()) {
+        delete tmp;
+        throw ProcessError(TLF("Could not save configuration to '%'", configPath));
+    } else {
+        tmp->writeConfiguration(out, true, false, false);
+    }
+    delete tmp;
 }
 
 

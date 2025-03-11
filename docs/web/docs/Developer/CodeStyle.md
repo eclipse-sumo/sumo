@@ -21,7 +21,7 @@ code use the following call to AStyle (or execute
 tools/build_config/checkStyle.py --fix <FILE_NAME\> before committing):
 
 ```sh
-astyle --style=java --unpad-paren --pad-header --pad-oper --add-brackets --indent-switches --align-pointer=type -n <FILE_NAME>
+astyle --style=java --unpad-paren --pad-header --pad-oper --add-brackets --indent-switches --align-pointer=type -n <FILE_NAME>
 ```
 
 Still, there are several other things you should keep in mind (The
@@ -160,7 +160,7 @@ Executable files should also contain a so called shebang in the first
 line:
 
 ```
-!#/usr/bin/env python
+!#/usr/bin/env python
 ```
 
 If your script needs Python 3 then state python3 there.

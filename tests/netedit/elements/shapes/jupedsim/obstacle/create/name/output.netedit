@@ -1,19 +1,19 @@
 TestFunctions: Netedit opened successfully
 Finding reference
 TestFunctions: 'reference.png' found. Position: 304 - 168
-jps.obstacle
+jupedsim.obstacle
 %%%%%%$$$$
-TestFunctions: Clicked over position 514 - 304
-TestFunctions: Clicked over position 514 - 204.0
-TestFunctions: Clicked over position 414.0 - 204.0
-TestFunctions: Clicked over position 414.0 - 304
-TestFunctions: Clicked over position 514 - 304
+TestFunctions: Clicked over position 608 - 301
+TestFunctions: Clicked over position 608 - 201.0
+TestFunctions: Clicked over position 508.0 - 201.0
+TestFunctions: Clicked over position 508.0 - 301
+TestFunctions: Clicked over position 608 - 301
 customName
-TestFunctions: Clicked over position 896 - 304
-TestFunctions: Clicked over position 896 - 204.0
-TestFunctions: Clicked over position 796.0 - 204.0
-TestFunctions: Clicked over position 796.0 - 304
-TestFunctions: Clicked over position 896 - 304
+TestFunctions: Clicked over position 763 - 301
+TestFunctions: Clicked over position 763 - 201.0
+TestFunctions: Clicked over position 663.0 - 201.0
+TestFunctions: Clicked over position 663.0 - 301
+TestFunctions: Clicked over position 763 - 301
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Netedit closed successfully

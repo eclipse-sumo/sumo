@@ -61,7 +61,7 @@ title: FAQ
   other people about SUMO.
 - Answer questions on the [sumo-user mailing list](Contact.md)
   whenever you know the answer
-- Contribute to this wiki ([contact us](Contact.md), so we can
+- Contribute to this documentation ([contact us](Contact.md), so we can
   give you editing rights)
 - Create a video tutorial and tell us about it
 - Join us at the annual [SUMO User Conference](https://eclipse.dev/sumo/conference/)
@@ -77,7 +77,7 @@ title: FAQ
   that you used when registering for your account:
 
 ```
-git config --global user.email "email@example.com"
+git config --global user.email "email@example.com"
 ```
 
 - Create an [Eclipse account](https://accounts.eclipse.org/user/register) if you do not
@@ -90,15 +90,15 @@ git config --global user.email "email@example.com"
 - Clone the forked repository to your computer
 
 ```
-git clone https://github.com/yourgithubid/sumo.git
+git clone https://github.com/yourgithubid/sumo.git
 ```
 
 - Modify the files in the created sumo clone directory
 - From within this directory Commit your changes with
 
 ```
-git add src
-git commit -m "your change message" -s
+git add src
+git commit -m "your change message" -s
 ```
 
 !!! caution
@@ -107,7 +107,7 @@ git commit -m "your change message" -s
 - Push your changes to your fork on GitHub with
 
 ```
-git push
+git push
 ```
 
 - Send us a [pull request on GitHub](https://help.github.com/en/articles/creating-a-pull-request-from-a-fork)
@@ -146,11 +146,11 @@ be your problem. 32bit-applications may only use 2GB of RAM. Use the
 work with larger files. If this does not fix the crash, please report
 this as a bug [as explained below](#how_do_i_report_erroneous_behavior_of_a_sumo_application).
 
-### Why does SUMO not behave as documented in this wiki?
+### Why does SUMO not behave as documented here?
 
-This wiki documents the behavior of the [latest development version](Downloads.md#nightly_snapshots). This is usually quite
-close the the [latest release](Downloads.md) (differences are
-explicitly listed in the [ChangeLog](ChangeLog.md). If you are
+This documentation refers to the [latest development version](Downloads.md#nightly_snapshots). This is usually quite
+close to the [latest release](Downloads.md) (differences are
+explicitly listed in the [ChangeLog](ChangeLog.md)). If you are
 using an older version of SUMO, you need to refer to [the documentation that is packaged with that version](Downloads.md#older_releases_and_alternative_download). Note that we do
 not back-port bugfixes to older version of SUMO. If possible you should
 always use the latest version of SUMO.
@@ -219,7 +219,7 @@ you may appear to be lazy).
   - read the documentation
   - check out the [Tutorials](Tutorials/index.md)
   - do a web search (past questions and answers from the mailing list can be found by google)
-  - describe which documentation you used, especially when [your experience doesn't match the documentation](#why_does_sumo_not_behave_as_documented_in_this_wiki)
+  - describe which documentation you used, especially when [your experience doesn't match the documentation](#why_does_sumo_not_behave_as_documented_here)
 - Do not ask the same thing twice in a short span of time. If you are
 in a hurry and cannot get an answer, try to change your question
 according to the above suggestions.
@@ -379,7 +379,7 @@ There are plenty of git clients for all platforms. If you use the command line c
 can checkout sumo using the following command:
 
 ```
-git clone --recursive https://github.com/eclipse-sumo/sumo
+git clone --recursive https://github.com/eclipse-sumo/sumo
 ```
 
 If you want to see the full project history in your git checkout please
@@ -394,7 +394,7 @@ and simply type `git pull`.
 
 ### Is there further documentation on Git?
 
-  There is the [Git book](https://git-scm.com/book/) and the [GitHub help](https://help.github.com/) is also worth reading.
+  There is the [Git book](https://git-scm.com/book/en/v2) and the [GitHub help](https://help.github.com/) is also worth reading.
 
 ### How to get an older version of SUMO?
 
@@ -435,7 +435,12 @@ and simply type `git pull`.
 
   Make sure that your computer supports 3D Acceleration and graphical
   drivers are correctly installed and configured. It will probably not
-  work on mahcines accessed via RDP or a similar remote desktop protocol.
+  work on machines accessed via RDP or a similar remote desktop protocol.
+
+### The build process aborts with an error on `src/netedit/templates.h`
+
+   Make sure that environment variable SUMO_HOME points at the base folder of the most recent version rather than some older version of SUMO.
+   See https://github.com/eclipse-sumo/sumo/issues/16115
 
 ### Troubleshooting
 
@@ -518,8 +523,8 @@ and simply type `git pull`.
   Errors such as
 
 ```
-Error: attribute name expected at
-At line/column 10/46
+Error: attribute name expected at
+At line/column 10/46
 ```
 
   can be caused by non-printing characters in the XML-file. Open your
@@ -776,6 +781,17 @@ see [inspecting connections](Netedit/editModesCommon.md#inspecting_connections)
   map exact vehicle locations (including lateral positioning) and also
   to move vehicles beyond the road space by using the [TraCI moveToXY function](TraCI/Change_Vehicle_State.md#move_to_xy_0xb4).
 
+### How do I avoid routes with many turn-arounds?
+
+Turn-arounds are a frequently observed at the start or end of a route if the respective edge goes in the wrong direction with regard to the general direction of travel.
+There are different ways to avoid this:
+
+- specify trips between junctions using attribute fromJunction/toJunction or using fromXY/toXY (fromLonLat/toLonLat) with option **--mapmatch.junctions**
+  - randomTrips.py provides option ** --junction-taz** for this purpose
+- set duarouter option **--remove-loops**  which will cut off starting / ending turn-arounds in the route
+
+Turn-arounds may also happen in the middle of the route because they are perceived as a faster alternative (and this may even be correct, depending on the state of traffic). To discourage the use of turn-arounds, the option **--weights.turnaround-penalty** may be given a higher value (default is 5.0). Both [sumo](sumo.md) and [duarouter](duarouter.md) support this option.
+
 ## Simulation
 
 ### How to simulate an accident
@@ -921,6 +937,8 @@ There are several reasons why a counter-lane-change-deadlock can happen:
   (not a proper junction) make sure to use the [zipper type](Networks/PlainXML.md#node_types). If you want to change the way vehicles behave
   for the whole scenario, lower their [lcStrategic](Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#lane-changing_models) value.
 
+  In cases where one lane has multiple target lanes on the next edge, vehicles will prefer the rightmost continuation lane by default. This can be changed with vType-attribute [lcContRight](Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#lane-changing_models).
+
 ### How do I get high flows/vehicle densities?
 
 By default, insertion flow is [limited by the time resolution of the simulation](Simulation/VehicleInsertion.md#forcing_insertion_avoiding_depart_delay) (vehicles are only inserted every full second) and by the default insertion speed of 0.
@@ -972,7 +990,7 @@ density:
 <flow id="lane0" from="startEdge" to="destEdge" begin="0" end="3600" period="1.951" departPos="base" departSpeed="7.885" departLane="0"/>
 ```
 !!! caution
-    For the continuous case, the specified density is reached **only** close to the inflow as vehicles start accelerating to their preferred speeds. In order to maintain the density along the edge, use a ring road scenario or limit the allowed speed to te *departSpeed* value. Remember [time-resolution dependency](#how_do_i_get_high_flowsvehicle_densities) for further adjustment.
+    For the continuous case, the specified density is reached **only** close to the inflow as vehicles start accelerating to their preferred speeds. In order to maintain the density along the edge, use a ring road scenario or limit the allowed speed to the *departSpeed* value. Remember [time-resolution dependency](#how_do_i_get_high_flowsvehicle_densities) for further adjustment.
 
 
 ### How do I force a lane change?
@@ -1024,7 +1042,7 @@ This reproducibility is often necessary (i.e. for debugging a scenario).
 However, to avoid biases from this "fixed" randomness it is often useful to run the simulation multiple times and perform analysis on the ensemble of results.
 Likewise, in the real world different days have different traffic and it is more reliable to draw conclusions from multiple days rather than a single day.
 
-To change the default randomness, either option **--seed** or option **--random** must be used. The first option sets a user-defined intialization for the random number generator whereas the other picks a random seed (which will be different on every run).
+To change the default randomness, either option **--seed** or option **--random** must be used. The first option sets a user-defined initialization for the random number generator whereas the other picks a random seed (which will be different on every run).
 
 !!! note
     These options apply to sumo, duarouter and many python tools which employ randomization.
@@ -1046,6 +1064,10 @@ The tool [attributeStats.py](Tools/Output.md#attributestatspy) can be used to ge
 i.e. if simulations where run with the option `<statistic-output value="stats.xml">/`, the command
 `tools/output/attributeStats.py *.stats.xml` will generate statistics on each of the attributes in the statistic-output file over all runs.
 
+The tool [attributeCompare.py](Tools/Output.md#attributecomparepy) can be used if the attribute of interest must be grouped. An example would be to obtain averaged traffic data for each individual edge and hour in an hourly [edgeData-output](Simulation/Output/Lane-_or_Edge-based_Traffic_Measures.md). The following command groups each of the traffic attributes by edge id and interval begin time:
+
+`tools/output/attributeCompare.py *.ed.xml -o output.xml -i id,begin`
+
 ### How to simulate autonomous vehicles?
 
 All vehicles in SUMO are autonomous (in the sense of having their routes, speeds and lane changing decision controlled by a computer algorithm).
@@ -1061,13 +1083,18 @@ Functions that are meant to capture specific human behaviors can be switched of 
 - imperfect acceleration, dawdling: `sigma="0"`
 - imperfect compliance with the speed limit: `speedDev="0"` in the `vType` or `speedFactor="1"` in the `<vehicle>`
 
-Further safey-critical behaviors are described at [Safety](Simulation/Safety.md#safety-related_parameters).
+Further safety-critical behaviors are described at [Safety](Simulation/Safety.md#safety-related_parameters).
 
 ### Why are queuing vehicles on a lane drawn as stacked in sumo-gui?
 
 If no [collisions](Simulation/Safety.md#collisions) have been reported, this is due to [length-geometry mismatch](Simulation/Distances.md#length-geometry-mismatch) and not [scaling the vehicle length
 to geometry](sumo-gui.md#scaling).
 
+### How do I model pedestrians crossing the road at random locations ?
+
+The closes approach currently supported, is to split the edge multiple times and put a non-prioritized pedestrian crossings at each split.
+Then configuring some pedestrians to use these in a reckless manner.
+The latter is accomplished by setting vType attributes `jmIgnoreFoeProb` and `jmIgnoreFoeSpeed` to ignore foes that are approaching the junction below the given speed with the given probability.
 
 ## Visualization
 
@@ -1251,10 +1278,10 @@ as explained [here](TraCI/Interfacing_TraCI_from_Python.md) and
 path to your SUMO-installation into your script:
 
 ```
- import sys
- sys.path.append('/your/path/to/sumo/tools')
- import traci
- import sumolib
+ import sys
+ sys.path.append('/your/path/to/sumo/tools')
+ import traci
+ import sumolib
 ```
 
 ### the python scripts do not accept command line arguments (windows only)
@@ -1271,7 +1298,7 @@ script.py <argument>
 you do
 
 ```
-python script.py <argument>
+python script.py <argument>
 ```
 
 ### [osmWebWizard.py](Tools/Import/OSM.md#osmwebwizardpy) fails to generate Scenario on Windows 10

@@ -11,6 +11,12 @@ alternative_format_vehicles_only
 # Importing bikes and walks
 bikes_walks
 
+# Importing walks
+no_bikes
+
+# filter out rides
+no_rides
+
 # import coordinates instead of edge ids
 coordinates
 

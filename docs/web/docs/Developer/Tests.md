@@ -26,7 +26,7 @@ We use [TextTest](https://texttest.org/) 4.x as our testing environment which
 is Python based and currently available for Python 3. To install
 it on Linux / MacOS, you can open a terminal and type:
 
-`pip3 install texttest`
+`pip3 install texttest`
 
 For a "naked" python installation, the following may be needed to allow TextTest to work:
 
@@ -57,9 +57,9 @@ Common options added to the personal config file
 to collapse the static test suites on program start. E.g.:
 
 ```
-   diff_program:meld
-   view_program:geany
-   static_collapse_suites:1
+   diff_program:meld
+   view_program:geany
+   static_collapse_suites:1
 ```
 
 ## Recommended python packages
@@ -100,8 +100,8 @@ example application.
   this:
 
 ```
-call %~dp0\testEnv.bat %1
-start %TEXTTESTPY% -a polyconvert
+call %~dp0\testEnv.bat %1
+start %TEXTTESTPY% -a polyconvert
 ```
 
 - add the application to the list of applications that are tested each
@@ -110,13 +110,13 @@ night by
     was added:
 
 ```
-export POLYCONVERT_BINARY="$SUMO_BINDIR/polyconvert"
+export POLYCONVERT_BINARY="$SUMO_BINDIR/polyconvert"
 ```
 
 - adding it to **testEnv.bat**; in our case, the following line was added:
 
 ```
-set POLYCONVERT_BINARY=%~dp0\..\bin\polyconvert%1.exe
+set POLYCONVERT_BINARY=%~dp0\..\bin\polyconvert%1.exe
 ```
 
 - build a test folder for the application, named as the application
@@ -144,7 +144,7 @@ copy_test_path:input_net.net.xml
 config:config.cfg
 log:log.txt
 [run_dependent_text]
-output:polyconvert.exe{REPLACE polyconvert}
+output:polyconvert.exe{REPLACE polyconvert}
 net:Version
 ```
 

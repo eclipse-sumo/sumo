@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2013-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2013-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -102,6 +102,11 @@ MSDevice_FCD::getDefaultMask() {
     mask.reset(SUMO_ATTR_SPEED_LAT);
     mask.reset(SUMO_ATTR_POSITION_LAT);
     mask.reset(SUMO_ATTR_ARRIVALDELAY);
+    mask.reset(SUMO_ATTR_SEGMENT);
+    mask.reset(SUMO_ATTR_QUEUE);
+    mask.reset(SUMO_ATTR_ENTRYTIME);
+    mask.reset(SUMO_ATTR_EVENTTIME);
+    mask.reset(SUMO_ATTR_BLOCKTIME);
     return mask;
 }
 

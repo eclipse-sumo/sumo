@@ -1,0 +1,2 @@
+Error: Option 'rand.connectivity' requires a value below 0.999
+Quitting (on error).

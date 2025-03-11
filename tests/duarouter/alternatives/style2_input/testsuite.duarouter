@@ -31,5 +31,19 @@ vtypecheck
 # Route's cost is not given
 route_cost_missing
 
+# taz information stored in rou.alt.xml
+with_taz
+
+# taz information stored in rou.alt.xml
+with_taz_used
+
+# taz information stored in rou.alt.xml.
+# trigger use when option --junction-taz is set
+with_taz_used2
+
+# taz information stored in rou.alt.xml.
+# input already contains more than one alternative
+with_taz_used3
+
 # Checks handling of broken input
 errors

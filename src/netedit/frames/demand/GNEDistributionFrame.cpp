@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -18,18 +18,21 @@
 // The Widget for edit distribution elements
 /****************************************************************************/
 
-#include <netedit/GNENet.h>
-#include <netedit/GNEUndoList.h>
-#include <netedit/GNEViewNet.h>
-#include <netedit/GNEViewParent.h>
 #include <netedit/GNEApplicationWindow.h>
+#include <netedit/GNENet.h>
+#include <netedit/GNETagProperties.h>
+#include <netedit/GNEUndoList.h>
+#include <netedit/GNEViewParent.h>
 #include <netedit/changes/GNEChange_DemandElement.h>
-#include <netedit/elements/demand/GNEVTypeDistribution.h>
 #include <netedit/elements/demand/GNERouteDistribution.h>
+#include <netedit/elements/demand/GNEVTypeDistribution.h>
+#include <netedit/frames/GNEAttributesEditor.h>
+#include <utils/foxtools/MFXTextFieldTooltip.h>
 #include <utils/gui/div/GUIDesigns.h>
 
 #include "GNEDistributionFrame.h"
 
+#define TEMPORAL_FILENAME std::string()
 
 // ===========================================================================
 // FOX callback mapping
@@ -109,14 +112,14 @@ GNEDistributionFrame::DistributionEditor::onCmdCreateDistribution(FXObject*, FXS
     // create new distribution
     GNEDemandElement* distribution = nullptr;
     if (myDistributionTag == SUMO_TAG_VTYPE_DISTRIBUTION) {
-        distribution = new GNEVTypeDistribution(myFrameParent->getViewNet()->getNet(), distributionID, -1);
+        distribution = new GNEVTypeDistribution(distributionID, myFrameParent->getViewNet()->getNet(), TEMPORAL_FILENAME, -1);
     } else if (myDistributionTag == SUMO_TAG_ROUTE_DISTRIBUTION) {
-        distribution = new GNERouteDistribution(myFrameParent->getViewNet()->getNet(), distributionID);
+        distribution = new GNERouteDistribution(distributionID, myFrameParent->getViewNet()->getNet(), TEMPORAL_FILENAME);
     } else {
         throw ProcessError("Invalid distribution");
     }
     // add it using undoList (to allow undo-redo)
-    undoList->begin(distribution->getTagProperty().getGUIIcon(), "create distribution");
+    undoList->begin(distribution->getTagProperty()->getGUIIcon(), "create distribution");
     undoList->add(new GNEChange_DemandElement(distribution, true), true);
     undoList->end();
     // refresh selector using created distribution
@@ -131,7 +134,7 @@ GNEDistributionFrame::DistributionEditor::onCmdDeleteDistribution(FXObject*, FXS
     auto currentDistribution = myDistributionSelector->getCurrentDistribution();
     if (currentDistribution) {
         // begin undo list operation
-        undoList->begin(currentDistribution->getTagProperty().getGUIIcon(), "delete " + currentDistribution->getTagProperty().getTagStr() + " distribution");
+        undoList->begin(currentDistribution->getTagProperty()->getGUIIcon(), "delete " + currentDistribution->getTagProperty()->getTagStr() + " distribution");
         // remove distribution
         myFrameParent->getViewNet()->getNet()->deleteDemandElement(myDistributionSelector->getCurrentDistribution(), undoList);
         // end undo list operation
@@ -161,7 +164,7 @@ GNEDistributionFrame::DistributionSelector::DistributionSelector(GNEFrame* frame
     MFXGroupBoxModule(frameParent, TL("Distribution selector")),
     myFrameParent(frameParent) {
     // Create MFXComboBoxIcon
-    myDistributionsComboBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, true, GUIDesignComboBoxVisibleItemsMedium,
+    myDistributionsComboBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, true, GUIDesignComboBoxVisibleItems,
             this, MID_GNE_SET_TYPE, GUIDesignComboBox);
     // DistributionSelector is always shown
     show();
@@ -217,16 +220,12 @@ GNEDistributionFrame::DistributionSelector::refreshDistributionSelector() {
     }
     // continue depending of myCurrentDistribution
     if (myCurrentDistribution) {
-        // set distribtution as inspected element
-        myFrameParent->getViewNet()->setInspectedAttributeCarriers({myCurrentDistribution});
         // show modules
-        myAttributesEditor->showAttributeEditorModule(true);
+        myAttributesEditor->showAttributesEditor(myCurrentDistribution, true);
         myDistributionValuesEditor->showDistributionValuesEditor();
     } else {
-        // remove inspected elements
-        myFrameParent->getViewNet()->setInspectedAttributeCarriers({});
         // hide modules
-        myAttributesEditor->hideAttributesEditorModule();
+        myAttributesEditor->hideAttributesEditor();
         myDistributionValuesEditor->hideDistributionValuesEditor();
     }
 }
@@ -243,13 +242,9 @@ GNEDistributionFrame::DistributionSelector::onCmdSelectDistribution(FXObject*, F
             myCurrentDistribution = distribution.second;
             // set color of myTypeMatchBox to black (valid)
             myDistributionsComboBox->setTextColor(FXRGB(0, 0, 0));
-            // set myCurrentType as inspected element
-            viewNet->setInspectedAttributeCarriers({distribution.second});
             // show modules
-            myAttributesEditor->showAttributeEditorModule(true);
+            myAttributesEditor->showAttributesEditor(distribution.second, true);
             myDistributionValuesEditor->showDistributionValuesEditor();
-            // Write Warning in console if we're in testing mode
-            WRITE_DEBUG(("Selected item '" + myDistributionsComboBox->getText() + "' in DistributionSelector").text());
             // update viewNet
             viewNet->updateViewNet();
             return 1;
@@ -258,12 +253,10 @@ GNEDistributionFrame::DistributionSelector::onCmdSelectDistribution(FXObject*, F
     // not found, then reset myCurrentDistribution
     myCurrentDistribution = nullptr;
     // hide modules
-    myAttributesEditor->hideAttributesEditorModule();
+    myAttributesEditor->hideAttributesEditor();
     myDistributionValuesEditor->hideDistributionValuesEditor();
     // set color of myTypeMatchBox to red (invalid)
     myDistributionsComboBox->setTextColor(FXRGB(255, 0, 0));
-    // Write Warning in console if we're in testing mode
-    WRITE_DEBUG("Selected invalid item in DistributionSelector");
     // update viewNet
     viewNet->updateViewNet();
     return 1;
@@ -313,7 +306,7 @@ GNEDistributionFrame::DistributionRow::DistributionRow(DistributionValuesEditor*
     // create label
     myIconLabel = new FXLabel(this, "", key->getACIcon(), GUIDesignLabelIconThick);
     // Create and hide MFXTextFieldTooltip for string attributes
-    myComboBoxKeys = new MFXComboBoxIcon(this, GUIDesignComboBoxNCol, true, GUIDesignComboBoxVisibleItemsMedium,
+    myComboBoxKeys = new MFXComboBoxIcon(this, GUIDesignComboBoxNCol, true, GUIDesignComboBoxVisibleItems,
                                          this, MID_GNE_SET_TYPE, GUIDesignComboBox);
     // Create and hide MFXTextFieldTooltip for string attributes
     myProbabilityTextField = new MFXTextFieldTooltip(this, staticTooltipMenu,
@@ -477,7 +470,7 @@ GNEDistributionFrame::DistributionRow::isValidNewKey() const {
 // ---------------------------------------------------------------------------
 
 GNEDistributionFrame::DistributionValuesEditor::DistributionValuesEditor(GNEFrame* frameParent, DistributionEditor* distributionEditor,
-        DistributionSelector* distributionSelector, GNEFrameAttributeModules::AttributesEditor* attributesEditor, SumoXMLTag distributionValueTag) :
+        DistributionSelector* distributionSelector, GNEAttributesEditor* attributesEditor, SumoXMLTag distributionValueTag) :
     MFXGroupBoxModule(frameParent, TL("Distribution values")),
     myFrameParent(frameParent),
     myDistributionEditor(distributionEditor),

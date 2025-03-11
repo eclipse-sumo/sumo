@@ -22,3 +22,6 @@ extra
 
 # write extra attributes for all lanes
 extra_lanes
+
+# write kml edge geometries including edgedata
+edgedata

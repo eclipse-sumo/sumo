@@ -6,8 +6,6 @@ add_subdirectory(data)
 set(netedit_frames_SRCS
    GNEFrame.h
    GNEFrame.cpp
-   GNEFrameAttributeModules.h
-   GNEFrameAttributeModules.cpp
    GNEConsecutiveSelector.cpp
    GNEConsecutiveSelector.h
    GNEDemandSelector.cpp
@@ -28,14 +26,8 @@ set(netedit_frames_SRCS
    GNESelectorParent.h
    GNETagSelector.cpp
    GNETagSelector.h
-   GNEAttributesCreator.h
-   GNEAttributesCreator.cpp
-   GNEAttributesCreatorRow.h
-   GNEAttributesCreatorRow.cpp
    GNEFlowEditor.h
    GNEFlowEditor.cpp
-   GNENeteditAttributes.h
-   GNENeteditAttributes.cpp
    GNETLSTable.h
    GNETLSTable.cpp
    GNEPlanSelector.h
@@ -44,6 +36,12 @@ set(netedit_frames_SRCS
    GNEPlanCreator.cpp
    GNEPlanCreatorLegend.h
    GNEPlanCreatorLegend.cpp
+   GNEAttributesEditor.h
+   GNEAttributesEditor.cpp
+   GNEAttributesEditorRow.h
+   GNEAttributesEditorRow.cpp
+   GNEAttributesEditorType.h
+   GNEAttributesEditorType.cpp
    )
 
 add_library(netedit_frames STATIC ${netedit_frames_SRCS})

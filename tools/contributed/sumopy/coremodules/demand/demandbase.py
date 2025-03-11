@@ -1,5 +1,5 @@
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2016-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2016-2025 German Aerospace Center (DLR) and others.
 # SUMOPy module
 # Copyright (C) 2012-2021 University of Bologna - DICAM
 # This program and the accompanying materials are made available under the
@@ -176,7 +176,7 @@ class ModeShares(am.ArrayObjman):
 
 
 class ActivityTypes(am.ArrayObjman):
-    # http://www.sumo.dlr.de/userdoc/Networks/Building_Networks_from_own_XML-descriptions.html#Edge_Descriptions
+    # https://sumo.dlr.de/docs/Networks/PlainXML.html#edge_descriptions
     def __init__(self, ident, demand, **kwargs):
 
         self._init_objman(ident, parent=demand, name='Activity Types',

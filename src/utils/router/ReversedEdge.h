@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -13,6 +13,7 @@
 /****************************************************************************/
 /// @file    ReversedEdge.h
 /// @author  Michael Behrisch
+/// @author  Ruediger Ebendt
 /// @date    29.01.2020
 ///
 // The ReversedEdge is a wrapper around a ROEdge or a MSEdge used for
@@ -48,6 +49,11 @@ public:
                 revSource->myViaSuccessors.push_back(std::make_pair(this, preVia));
             }
         }
+    }
+
+    /// @brief Returns the original edge
+    const E* getOriginalEdge() const {
+        return myOriginal;
     }
 
     /** @brief Returns the index (numeric id) of the edge

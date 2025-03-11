@@ -34,6 +34,12 @@ minimum_distance_fringe
 # disturb fastest-path-search
 random-routing-factor
 
+# call marouter instead of duarouter
+marouter
+
+# call marouter instead of duarouter
+marouter_flows
+
 # consider vehicle class when picking source- and destination edges if option --vclass is used
 vclass
 
@@ -66,6 +72,7 @@ flows
 # create flows for jtrrouter (no to)
 flows_jtrrouter
 flows_binomial
+flows_poisson
 
 # use fromJunction and toJunction
 junctionTaz
@@ -79,9 +86,6 @@ viaEdgeType
 
 # Test for having the options "additional-files" and "vtype-output" and vClass
 additional_and_vClass
-
-# only permit fringe origins/destinations
-fringe_factor_max
 
 # do not start/end trips on roundabout
 roundabout

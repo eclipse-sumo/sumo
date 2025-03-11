@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-03-06 16:45:21 by Eclipse SUMO netedit Version v1_16_0+1039-3cbc10a7960
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="miv.net.xml.gz"/>
+    </input>
+
+    <output>
+        <output.street-names value="true"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="0"/>
+    </pedestrian>
+
+</configuration>
+-->
+
+<edges version="1.16" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="121709566#3" from="cluster_3351857325_3351857326" to="5671614353" name="Hamburger Straße" priority="12" numLanes="2" speed="13.89" shape="4980.88,9920.68 4995.20,9883.30 4999.03,9873.26" spreadType="center">
+        <lane index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship">
+            <param key="origId" value="121709566"/>
+        </lane>
+        <lane index="1" disallow="pedestrian rail_urban rail rail_electric rail_fast ship">
+            <param key="origId" value="121709566 317671620#10"/>
+        </lane>
+    </edge>
+    <edge id="121709566#4" from="5671614353" to="3351857317" name="Hamburger Straße" priority="12" numLanes="2" speed="13.89" shape="4999.03,9873.26 5007.49,9851.52 5009.87,9839.55" spreadType="center" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship">
+        <lane index="0">
+            <param key="origId" value="121709566"/>
+        </lane>
+        <lane index="1">
+            <param key="origId" value="121709566"/>
+        </lane>
+    </edge>
+    <edge id="317671620#11" from="5671614353" to="3351857317" priority="17" numLanes="1" speed="13.89" shape="5001.14,9873.98 5009.08,9852.52 5013.69,9840.68" spreadType="center" allow="tram">
+        <lane index="0">
+            <param key="origId" value="317671620"/>
+        </lane>
+    </edge>
+    <edge id="507114919#0" from="3351857317" to="3351857314" name="Hamburger Straße" priority="12" numLanes="3" speed="13.89" spreadType="center">
+        <lane index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship">
+            <param key="origId" value="507114919"/>
+        </lane>
+        <lane index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship">
+            <param key="origId" value="507114919"/>
+        </lane>
+        <lane index="2" disallow="pedestrian rail_urban rail rail_electric rail_fast ship">
+            <param key="origId" value="507114919 317671620#12"/>
+        </lane>
+    </edge>
+
+
+</edges>

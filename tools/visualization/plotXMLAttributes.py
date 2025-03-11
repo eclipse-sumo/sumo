@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2007-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2007-2025 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -17,11 +17,22 @@
 # @date    2021-11-05
 
 """
-This script plots arbitrary xml attributes from xml files
-Individual trajectories can be clicked in interactive mode to print the data Id on the console
+This script plots arbitrary xml attributes from xml files.
 
-selects two attributes for x and y axis and a third (id-attribute) for grouping
-of data points into lines
+Options -x, -y, -i select attributes for the x and y axis and an id
+for grouping of data points into lines  (-i @NONE creates one group)
+The following special attributes are also supported
+  @INDEX: the index of the other value within the input file is used.
+  @RANK: the index of the other value within the sorted (descending) list of values is used
+  @COUNT: the number of occurrences of the other value is used.
+          Together with option --barplot or -hbarplot this gives a histogram.
+          Binning size can be set via options --xbin and --ybin.
+  @DENSITY: the number of occurrences of the other value is used, normalized by the total number of values.
+  @BOX: one or more box plots of the other value are drawn.
+        The --idattr is used for grouping and there will be one box plot per id
+  @FILE: the (shortened) input file name is used (useful when plotting one value per file)
+
+Individual trajectories can be clicked in interactive mode to print the data Id on the console.
 
 """
 from __future__ import absolute_import
@@ -62,13 +73,8 @@ NON_DATA_ATTRS = SYMBOLIC_ATTRS + [NONE_ATTR]
 
 def getOptions(args=None):
     optParser = ArgumentParser(
-        description='Plot arbitrary attributes from xml files',
-        epilog='Individual trajectories can be clicked in interactive mode to print the data Id on the console\n'
-        'selects two attributs for x and y axis and optionally a third (id-attribute)\n'
-        'for grouping of data points into lines\n\n'
-        'Example\n'
-        '  plotXMLAttributes.py -x started -y initialPersons -s stopout.xml\n'
-        '    plots passengers over time for vehicles from SUMO stop output',
+        description=__doc__.split('\n')[1],
+        epilog=__doc__,
         formatter_class=RawDescriptionHelpFormatter, conflict_handler='resolve')
 
     optParser.add_option("files", nargs='+', category="input", type=optParser.file_list,
@@ -93,6 +99,10 @@ def getOptions(args=None):
                          help="if --xattr is a list concatenate the values")
     optParser.add_option("--join-y", action="store_true", dest="joiny", default=False,
                          help="if --yattr is a list concatenate the values")
+    optParser.add_option("--split-x", action="store_true", dest="splitx", default=False,
+                         help="interpret the x value as a list of values")
+    optParser.add_option("--split-y", action="store_true", dest="splity", default=False,
+                         help="interpret the y value as a list of values")
     optParser.add_option("--xfactor", help="multiplier for x-data", type=float, default=1)
     optParser.add_option("--yfactor", help="multiplier for y-data", type=float, default=1)
     optParser.add_option("--xbin", help="binning size for x-data", type=float)
@@ -103,6 +113,10 @@ def getOptions(args=None):
                          help="clamp y values to range A:B or half-range A: / :B")
     optParser.add_option("--invert-yaxis", dest="invertYAxis", action="store_true",
                          default=False, help="Invert the Y-Axis")
+    optParser.add_option("--xstr", action="store_true",
+                         default=False, help="Interpret x-data as string")
+    optParser.add_option("--ystr", action="store_true",
+                         default=False, help="Interpret y-data as string")
     optParser.add_option("--scatterplot", action="store_true", category="visualization",
                          default=False, help="Draw a scatterplot instead of lines")
     optParser.add_option("--barplot", action="store_true", category="visualization",
@@ -110,6 +124,9 @@ def getOptions(args=None):
     optParser.add_option("--hbarplot", action="store_true", category="visualization",
                          default=False, help="Draw a bar plot parallel to the x-axis")
     optParser.add_option("--legend", action="store_true", default=False, category="visualization", help="Add legend")
+    optParser.add_option("--robust-parser", action="store_true", dest="robustParser", default=False,
+                         category="visualization",
+                         help="Use a standard XML-parser instead of a faster regex-based parser")
     optParser.add_option("-v", "--verbose", action="store_true", default=False, help="tell me what you are doing")
     sumolib.visualization.helpers.addPlotOptions(optParser)
     sumolib.visualization.helpers.addInteractionOptions(optParser)
@@ -208,6 +225,24 @@ def write_csv(data, fname):
 def onpick(event):
     mevent = event.mouseevent
     print("dataID=%s x=%d y=%d" % (event.artist.get_label(), mevent.xdata, mevent.ydata))
+
+
+def makeSplitter(splitx, otherIsIndex, ds_fun):
+    def splitter(file):
+        for dataID, x, y in ds_fun(file):
+            if splitx:
+                for i, x2 in enumerate(x.split()):
+                    if otherIsIndex:
+                        yield dataID, x2, i
+                    else:
+                        yield dataID, x2, y
+            else:
+                for i, y2 in enumerate(y.split()):
+                    if otherIsIndex:
+                        yield dataID, i, y2
+                    else:
+                        yield dataID, x, y2
+    return splitter
 
 
 def getDataStream(options):
@@ -313,50 +348,80 @@ def getDataStream(options):
             index = 0
             foundParent = False
             with openz(xmlfile) as xmlf:
-                for line in xmlf:
-                    if mE0 in line:
-                        foundParent = not parseValues(index, line, mAs0, values, skippedLines)
-                    if mE1 in line:
-                        if not foundParent:
-                            print("Warning: Skipped element '%s' without parent element '%s'" % (elems[1], elems[0]),
-                                  file=sys.stderr)
-                            missingParents += 1
-                            continue
-                        skip = parseValues(index, line, mAs1, values, skippedLines)
-                        if not skip:
-                            for toYield in combineValues(attrs, attr2parts, values, splitX, splitY):
-                                yield toYield
-                                index += 1
+                if options.robustParser:
+                    for event, elem in ET.iterparse(xmlf, ("start",)):
+                        if elem.tag == elems[0]:
+                            foundParent = not retrieveValues(index, elem, attrs0, values, skippedLines)
+                        elif elem.tag == elems[1]:
+                            if not foundParent:
+                                print("Warning: Skipped element '%s' without parent element '%s'" % (
+                                      elems[1], elems[0]), file=sys.stderr)
+                                missingParents += 1
+                                continue
+                            skip = retrieveValues(index, elem, attrs1, values, skippedLines)
+                            if not skip:
+                                for toYield in combineValues(attrs, attr2parts, values, splitX, splitY):
+                                    yield toYield
+                                    index += 1
+
+                else:
+                    for line in xmlf:
+                        if mE0 in line:
+                            foundParent = not parseValues(index, line, mAs0, values, skippedLines)
+                        if mE1 in line:
+                            if not foundParent:
+                                print("Warning: Skipped element '%s' without parent element '%s'" % (
+                                      elems[1], elems[0]), file=sys.stderr)
+                                missingParents += 1
+                                continue
+                            skip = parseValues(index, line, mAs1, values, skippedLines)
+                            if not skip:
+                                for toYield in combineValues(attrs, attr2parts, values, splitX, splitY):
+                                    yield toYield
+                                    index += 1
 
             for attr, count in skippedLines.items():
                 print("Warning: Skipped %s lines because of missing attributes '%s'." % (
                     count, attr), file=sys.stderr)
             if missingParents:
                 print("Use options --xelem, --yelem, --idelem to resolve ambiguous elements")
+
+        if options.splitx:
+            datastream = makeSplitter(True, options.yattr == INDEX_ATTR, datastream)
+        if options.splity:
+            datastream = makeSplitter(False, options.xattr == INDEX_ATTR, datastream)
 
         return datastream
 
     elif len(allElems) == 1:
         def datastream(xmlfile):
-            missingParents = 0
             mE = "<%s " % allElems[0]
             mAs = [re.compile('%s="([^"]*)"' % a) for a in allAttrs]
             index = 0
             with openz(xmlfile) as xmlf:
-                for line in xmlf:
-                    if mE in line:
-                        values = {}  # attr -> value
-                        skip = parseValues(index, line, zip(allAttrs, mAs), values, skippedLines)
-                        if not skip:
-                            for toYield in combineValues(attrs, attr2parts, values, splitX, splitY):
-                                yield toYield
-                                index += 1
+                if options.robustParser:
+                    for event, elem in ET.iterparse(xmlf, ("start",)):
+                        if elem.tag == allElems[0]:
+                            values = {}  # attr -> value
+                            skip = retrieveValues(index, elem, allAttrs, values, skippedLines)
+                            if not skip:
+                                for toYield in combineValues(attrs, attr2parts, values, splitX, splitY):
+                                    yield toYield
+                                    index += 1
+
+                else:
+                    for line in xmlf:
+                        if mE in line:
+                            values = {}  # attr -> value
+                            skip = parseValues(index, line, zip(allAttrs, mAs), values, skippedLines)
+                            if not skip:
+                                for toYield in combineValues(attrs, attr2parts, values, splitX, splitY):
+                                    yield toYield
+                                    index += 1
 
             for attr, count in skippedLines.items():
                 print("Warning: Skipped %s lines because of missing attributes '%s'." % (
                     count, attr), file=sys.stderr)
-            if missingParents:
-                print("Use options --xelem, --yelem, --idelem to resolve ambiguous elements")
 
         return datastream
 
@@ -370,6 +435,25 @@ def parseValues(index, line, attributePatterns, values, skippedLines):
         m = r.search(line)
         if m:
             values[a] = m.groups()[0]
+        elif a == INDEX_ATTR:
+            values[a] = index
+        elif a in POST_PROCESSING_ATTRS:
+            # set in post-processing
+            values[a] = 0
+        elif a == NONE_ATTR:
+            values[a] = NONE_ATTR_DEFAULT
+        else:
+            skip = True
+            skippedLines[a] += 1
+    return skip
+
+
+def retrieveValues(index, elem, attrs, values, skippedLines):
+    skip = False
+    for a in attrs:
+        v = elem.get(a)
+        if v is not None:
+            values[a] = v
         elif a == INDEX_ATTR:
             values[a] = index
         elif a in POST_PROCESSING_ATTRS:
@@ -431,7 +515,7 @@ def interpretValue(value):
 
 
 def isnumeric(value):
-    return type(value) == int or type(value) == float
+    return isinstance(value, int) or isinstance(value, float)
 
 
 def keepNumeric(d, xyIndex):
@@ -545,6 +629,9 @@ def main(options):
     usableIDs = 0
     idFromSplitAttrs = ',' in options.xattr or ',' in options.yattr
 
+    interpretx = (lambda x: x) if options.xstr else interpretValue
+    interprety = (lambda x: x) if options.ystr else interpretValue
+
     for fileIndex, datafile in enumerate(options.files):
         totalIDs = 0
         filteredIDs = 0
@@ -568,8 +655,8 @@ def main(options):
                 suffix = shortFileNames[fileIndex]
                 if len(suffix) > 0:
                     dataID = str(dataID) + "#" + suffix
-            x = interpretValue(x)
-            y = interpretValue(y)
+            x = interpretx(x)
+            y = interprety(y)
             if options.xattr == FILE_ATTR:
                 x = titleFileNames[fileIndex]
             if options.yattr == FILE_ATTR:

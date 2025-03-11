@@ -33,6 +33,8 @@ set(netedit_changes_SRCS
    GNEChange_Lane.h
    GNEChange_MeanData.cpp
    GNEChange_MeanData.h
+   GNEChange_TAZSourceSink.cpp
+   GNEChange_TAZSourceSink.h
    GNEChange_TLS.cpp
    GNEChange_TLS.h
    GNEChange_ToggleAttribute.cpp

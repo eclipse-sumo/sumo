@@ -18,6 +18,7 @@ route2sel
 
 # Tests for <SUMO_DIST>/tools/route_tools/route_1htoDay.py
 route_1htoDay
+geoTrip2POI
 
 # sort routes and flows
 sort

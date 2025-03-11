@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2012-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2012-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -72,12 +72,12 @@
  *  be reported as an error or as a warning.
  *
  */
-template<class E, class V>
+template<class E, class V, class M>
 class AStarRouter : public SUMOAbstractRouter<E, V> {
 public:
     typedef AbstractLookupTable<E, V> LookupTable;
     typedef FullLookupTable<E, V> FLT;
-    typedef LandmarkLookupTable<E, V> LMLT;
+    typedef LandmarkLookupTable<E, V, M> LMLT;
 
     /**
      * @class EdgeInfoComparator
@@ -121,8 +121,8 @@ public:
     virtual ~AStarRouter() {}
 
     virtual SUMOAbstractRouter<E, V>* clone() {
-        return new AStarRouter<E, V>(this->myEdgeInfos, this->myErrorMsgHandler == MsgHandler::getWarningInstance(), this->myOperation, myLookupTable,
-                                     this->myHavePermissions, this->myHaveRestrictions);
+        return new AStarRouter<E, V, M>(this->myEdgeInfos, this->myErrorMsgHandler == MsgHandler::getWarningInstance(), this->myOperation, myLookupTable,
+                                        this->myHavePermissions, this->myHaveRestrictions);
     }
 
     /** @brief Builds the route between the given edges using the minimum travel time */

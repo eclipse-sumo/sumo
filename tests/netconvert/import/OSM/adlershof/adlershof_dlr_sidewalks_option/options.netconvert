@@ -1,0 +1,2 @@
+--osm-files osm.xml -v --tls.discard-simple --tls.guess-signals --output net.net.xml --geometry.remove --junctions.join --no-internal-links
+--osm.sidewalks

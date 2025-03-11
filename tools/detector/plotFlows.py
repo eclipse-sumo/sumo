@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2007-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2007-2025 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -36,7 +36,7 @@ def get_options(args=None):
     parser = sumolib.options.ArgumentParser()
     parser.add_argument("-d", "--detector-file", dest="detfile", category="input", type=parser.additional_file,
                         help="read detectors from FILE (mandatory)", metavar="FILE")
-    parser.add_argument("-c", "--flow-column", dest="flowcol", default="qPKW", type=str,
+    parser.add_argument("--flow-column", dest="flowcol", default="qPKW", type=str,
                         help="which column contains flows", metavar="STRING")
     parser.add_argument("-z", "--respect-zero", action="store_true", dest="respectzero",
                         default=False, help="respect detectors without data (or with permanent zero) with zero flow")
@@ -107,7 +107,7 @@ def plot(options, allData, prefix="", linestyle="-"):
     plt.ylabel("Avg. Simulation Flow %s" % prefix)
 
     plt.xlabel("Minutes")
-    x = range(int(options.begin), int(options.end), options.interval)
+    x = range(int(options.begin), int(options.end), int(options.interval))
     # if options.boxplot:
     #    for f, data in zip(options.flowfiles, allData):
     #        label = f[-12:-4] + labelsuffix
@@ -122,12 +122,15 @@ def plot(options, allData, prefix="", linestyle="-"):
     #    plt.boxplot(x, allData[1:])
     # else:
     for f, data in zip(options.flowfiles, allData):
-        label = f[-12:-4] + labelsuffix
+        label = f[:-4] + labelsuffix
         plt.plot(x, data, label=label, linestyle=linestyle)
         label = label.replace(";", "_")
         if options.csv_output is not None:
-            lastdir = os.path.basename(os.path.dirname(f))
-            write_csv(x, data, "%s_%s.%s.csv" % (options.csv_output, label, lastdir))
+            fname = options.csv_output
+            if len(options.flowfiles) > 1:
+                lastdir = os.path.basename(os.path.dirname(f))
+                fname = "%s_%s.%s.csv" % (options.csv_output, label, lastdir)
+            write_csv(x, data, fname)
     if not options.nolegend:
         plt.legend(loc='best')
     if not options.singleplot:
@@ -155,7 +158,7 @@ def main(options):
             for edge, group in detReader.getGroups():
                 if options.idfilter is not None and options.idfilter not in group.ids[0]:
                     continue
-                assert (len(group.timeline) <= len(data))
+                assert len(group.timeline) <= len(data)
                 for i, (flow, speed) in enumerate(group.timeline):
                     addToDataList(data, i, flow)
             allData.append(data)
@@ -169,7 +172,7 @@ def main(options):
                 for edge, group in detReader.getGroups():
                     if options.idfilter is not None and options.idfilter not in group.ids[0]:
                         continue
-                    assert (len(group.timeline) <= len(data))
+                    assert len(group.timeline) <= len(data)
                     if group.type == detType:
                         for i, (flow, speed) in enumerate(group.timeline):
                             addToDataList(data, i, flow)
@@ -177,7 +180,7 @@ def main(options):
             plot(options, allData, detType, linestyle)
 
     elif options.groupby == "none":
-        for det, groupName in [(g.ids[0], g.getName(options.longnames)) for e, g in detReaders[0].getGroups()]:
+        for det, groupName in [(g.ids[0], g.getName(options.longnames, None)) for e, g in detReaders[0].getGroups()]:
             allData = []  # one list for each file
             for detReader, f in zip(detReaders, options.flowfiles):
                 data = initDataList(options.begin, options.end, options.interval)
@@ -186,7 +189,7 @@ def main(options):
                     continue
                 if options.idfilter is not None and options.idfilter not in group.ids[0]:
                     continue
-                assert (len(group.timeline) <= len(data))
+                assert len(group.timeline) <= len(data)
                 for i, (flow, speed) in enumerate(group.timeline):
                     addToDataList(data, i, flow)
                 allData.append(data)

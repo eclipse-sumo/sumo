@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -59,6 +59,7 @@
 #include <microsim/devices/MSDevice_BTreceiver.h>
 #include <microsim/devices/MSDevice_ElecHybrid.h>
 #include <microsim/devices/MSDevice_Battery.h>
+#include <microsim/traffic_lights/MSDriveWay.h>
 #include <gui/GUIApplicationWindow.h>
 #include <gui/GUIGlobals.h>
 #include "GUIVehicle.h"
@@ -70,25 +71,27 @@
 
 #define SPEEDMODE_DEFAULT 31
 #define LANECHANGEMODE_DEFAULT 1621
-
 //#define DEBUG_FOES
 
+
 // ===========================================================================
-// FOX callback mapping
+// member method definitions
 // ===========================================================================
-
-// Object implementation
-
-
 /* -------------------------------------------------------------------------
  * GUIVehicle - methods
  * ----------------------------------------------------------------------- */
-
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4355) // mask warning about "this" in initializers
+#endif
 GUIVehicle::GUIVehicle(SUMOVehicleParameter* pars, ConstMSRoutePtr route,
                        MSVehicleType* type, const double speedFactor) :
     MSVehicle(pars, route, type, speedFactor),
     GUIBaseVehicle((MSBaseVehicle&) * this) {
 }
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 
 GUIVehicle::~GUIVehicle() {
@@ -193,6 +196,9 @@ GUIVehicle::getParameterWindow(GUIMainWindow& app,
         ret->mkItem(TL("leftmost edge sublane [#]"), true, new FunctionBinding<GUIVehicle, int>(this, &GUIVehicle::getLeftSublaneOnEdge));
         ret->mkItem(TL("lane change maneuver distance [m]"), true, new FunctionBinding<GUIVehicle, double>(this, &GUIVehicle::getManeuverDist));
     }
+    if (isRailway(getVClass())) {
+        ret->mkItem(TL("driveways"), true, new FunctionBindingString<GUIVehicle>(this, &GUIVehicle::getDriveWays));
+    }
     if (hasBattery || isElecHybrid) {
         ret->mkItem(TL("present state of charge [Wh]"), true,
                     new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getStateOfCharge));
@@ -200,7 +206,7 @@ GUIVehicle::getParameterWindow(GUIMainWindow& app,
     if (hasBattery) {
         ret->mkItem(TL("relative state of charge (SoC) [-]"), true,
                     new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getRelativeStateOfCharge));
-        ret->mkItem(TL("currently charging [Wh]"), true,
+        ret->mkItem(TL("current timestep charge [Wh]"), true,
                     new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getChargedEnergy));
         ret->mkItem(TL("maximum charge rate [W]"), true,
                     new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getMaxChargeRate));
@@ -751,19 +757,33 @@ GUIVehicle::getStopInfo() const {
     }
     if (myStops.front().pars.triggered) {
         result += ", triggered";
-    } else if (myStops.front().pars.containerTriggered) {
+    }
+    if (myStops.front().pars.containerTriggered) {
         result += ", containerTriggered";
-    } else if (myStops.front().pars.collision) {
+    }
+    if (myStops.front().pars.collision) {
         result += ", collision";
-    } else if (myStops.front().pars.until != -1) {
+    }
+    if (myStops.front().pars.arrival != -1) {
+        result += ", arrival=" + time2string(myStops.front().pars.arrival);
+    }
+    if (myStops.front().pars.started != -1) {
+        result += ", started=" + time2string(myStops.front().pars.started);
+    }
+    if (myStops.front().pars.until != -1) {
         result += ", until=" + time2string(myStops.front().pars.until);
-    } else {
-        result += ", duration=" + time2string(myStops.front().duration);
+    }
+    if (myStops.front().pars.extension != -1) {
+        result += ", extension=" + time2string(myStops.front().pars.extension);
+    }
+    if (!myStops.front().pars.permitted.empty()) {
+        result += ", permitted=" + toString(myStops.front().pars.permitted);
     }
     if (myStops.front().pars.actType != "") {
         result += ", actType=" + myStops.front().pars.actType;
     }
-    return result;
+    result += ", duration=" + time2string(myStops.front().duration);
+    return StringUtils::wrapText(result, 60);
 }
 
 
@@ -771,6 +791,7 @@ void
 GUIVehicle::selectBlockingFoes() const {
     double dist = myLane->getLength() - getPositionOnLane();
 #ifdef DEBUG_FOES
+    gDebugFlag1 = true;
     std::cout << SIMTIME << " selectBlockingFoes veh=" << getID() << " dist=" << dist << " numLinks=" << myLFLinkLanes.size() << "\n";
 #endif
     for (DriveItemVector::const_iterator i = myLFLinkLanes.begin(); i != myLFLinkLanes.end(); ++i) {
@@ -786,7 +807,7 @@ GUIVehicle::selectBlockingFoes() const {
         const bool isOpen =
 #endif
             dpi.myLink->opened(dpi.myArrivalTime, dpi.myArrivalSpeed, dpi.getLeaveSpeed(), getVehicleType().getLength(),
-                               getImpatience(), getCarFollowModel().getMaxDecel(), getWaitingTime(), getLateralPositionOnLane(), &blockingFoes, false, this);
+                               getImpatience(), getCarFollowModel().getMaxDecel(), getWaitingTime(), getLateralPositionOnLane(), &blockingFoes, false, this, dpi.myDistance);
 #ifdef DEBUG_FOES
         if (!isOpen) {
             std::cout << "     closed due to:\n";
@@ -806,7 +827,7 @@ GUIVehicle::selectBlockingFoes() const {
                     parallelLink->opened(dpi.myArrivalTime, dpi.myArrivalSpeed, dpi.getLeaveSpeed(),
                                          getVehicleType().getLength(), getImpatience(),
                                          getCarFollowModel().getMaxDecel(),
-                                         getWaitingTime(), shadowLatPos, &blockingFoes, false, this);
+                                         getWaitingTime(), shadowLatPos, &blockingFoes, false, this, dpi.myDistance);
 #ifdef DEBUG_FOES
                 if (!isShadowOpen) {
                     std::cout <<  "    foes at shadow link=" << parallelLink->getViaLaneOrLane()->getID() << ":\n";
@@ -818,11 +839,12 @@ GUIVehicle::selectBlockingFoes() const {
             }
         }
         for (const auto& item : blockingFoes) {
-            gSelected.select(static_cast<const GUIVehicle*>(item)->getGlID());
+            if (item->isVehicle()) {
+                gSelected.select(static_cast<const GUIVehicle*>(item)->getGlID());
+            } else {
+                gSelected.select(static_cast<const GUIPerson*>(item)->getGlID());
+            }
         }
-#ifdef DEBUG_FOES
-        gDebugFlag1 = true;
-#endif
         const MSLink::LinkLeaders linkLeaders = (dpi.myLink)->getLeaderInfo(this, dist, &blockingPersons);
 #ifdef DEBUG_FOES
         gDebugFlag1 = false;
@@ -932,6 +954,19 @@ GUIVehicle::getShadowLaneID() const {
 std::string
 GUIVehicle::getTargetLaneID() const {
     return Named::getIDSecure(getLaneChangeModel().getTargetLane(), "");
+}
+
+
+std::string
+GUIVehicle::getDriveWays() const {
+    std::vector<std::string> result;
+    for (auto item : myMoveReminders) {
+        const MSDriveWay* dw = dynamic_cast<const MSDriveWay*>(item.first);
+        if (dw) {
+            result.push_back(dw->getID());
+        }
+    }
+    return StringUtils::wrapText(joinToStringSorting(result, " "), 60);
 }
 
 double

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -35,6 +35,7 @@
 #include <utils/emissions/PollutantsInterface.h>
 #include <utils/emissions/HelpersEnergy.h>
 #include <utils/iodevices/OutputDevice.h>
+#include <utils/xml/SUMOSAXAttributes.h>
 #include "MSRoutingEngine.h"
 #include "MSDevice_Battery.h"
 #include "MSDevice_StationFinder.h"
@@ -77,16 +78,22 @@ MSDevice_StationFinder::insertOptions(OptionsCont& oc) {
     oc.addDescription("device.stationfinder.chargeType", "Battery", TL("Type of energy transfer"));
     oc.doRegister("device.stationfinder.waitForCharge", new Option_String("600", "TIME"));
     oc.addDescription("device.stationfinder.waitForCharge", "Battery", TL("After this waiting time vehicle searches for a new station when the initial one is blocked"));
+    oc.doRegister("device.stationfinder.minOpportunityDuration", new Option_String("3600", "TIME"));
+    oc.addDescription("device.stationfinder.minOpportunityDuration", "Battery", TL("Only stops with a predicted duration of at least the given threshold are considered for opportunistic charging."));
     oc.doRegister("device.stationfinder.saturatedChargeLevel", new Option_Float(0.8));
     oc.addDescription("device.stationfinder.saturatedChargeLevel", "Battery", TL("Target state of charge after which the vehicle stops charging"));
     oc.doRegister("device.stationfinder.needToChargeLevel", new Option_Float(0.4));
     oc.addDescription("device.stationfinder.needToChargeLevel", "Battery", TL("State of charge the vehicle begins searching for charging stations"));
+    oc.doRegister("device.stationfinder.opportunisticChargeLevel", new Option_Float(0.));
+    oc.addDescription("device.stationfinder.opportunisticChargeLevel", "Battery", TL("State of charge below which the vehicle may look for charging opportunities along its planned stops"));
     oc.doRegister("device.stationfinder.replacePlannedStop", new Option_Float(0.));
     oc.addDescription("device.stationfinder.replacePlannedStop", "Battery", TL("Share of stopping time of the next independently planned stop to use for charging instead"));
     oc.doRegister("device.stationfinder.maxDistanceToReplacedStop", new Option_Float(300.));
     oc.addDescription("device.stationfinder.maxDistanceToReplacedStop", "Battery", TL("Maximum distance in meters from the original stop to be replaced by the charging stop"));
     oc.doRegister("device.stationfinder.chargingStrategy", new Option_String("none"));
     oc.addDescription("device.stationfinder.chargingStrategy", "Battery", TL("Set a charging strategy to alter time and charging load from the set: [none, balanced, latest]"));
+    oc.doRegister("device.stationfinder.checkEnergyForRoute", new Option_Bool(true));
+    oc.addDescription("device.stationfinder.checkEnergyForRoute", "Battery", TL("Only search for charging stations if the battery charge is not estimated sufficient to complete the current route"));
 }
 
 
@@ -110,7 +117,8 @@ MSDevice_StationFinder::MSDevice_StationFinder(SUMOVehicle& holder)
 }, { {"waitingTime", false}, {"chargingTime", false} }),
 myVeh(dynamic_cast<MSVehicle&>(holder)),
 myBattery(nullptr), myChargingStation(nullptr), myRescueCommand(nullptr), myChargeLimitCommand(nullptr),
-myLastChargeCheck(0), myCheckInterval(1000), myArrivalAtChargingStation(-1), myLastSearch(-1) {
+myLastChargeCheck(0), myCheckInterval(1000), myArrivalAtChargingStation(-1), myLastSearch(-1),
+myLastOpportunisticSearch(-1) {
     // consider whole path to/from a charging station in the search
     myEvalParams["distanceto"] = 0.;
     myEvalParams["timeto"] = 1.;
@@ -148,14 +156,21 @@ myLastChargeCheck(0), myCheckInterval(1000), myArrivalAtChargingStation(-1), myL
     myChargeType = CHARGETYPE_CHARGING;
 
     myWaitForCharge = holder.getTimeParam("device.stationfinder.waitForCharge");
+    myMinOpportunisticTime = holder.getTimeParam("device.stationfinder.minOpportunityDuration");
     myTargetSoC = MAX2(0., MIN2(holder.getFloatParam("device.stationfinder.saturatedChargeLevel"), 1.));
     mySearchSoC = MAX2(0., MIN2(holder.getFloatParam("device.stationfinder.needToChargeLevel"), 1.));
     if (mySearchSoC <= myEmptySoC) {
         WRITE_WARNINGF(TL("Vehicle '%' searches for charging stations only in the rescue case due to search threshold % <= rescue threshold %."), myHolder.getID(), mySearchSoC, myEmptySoC);
     }
+    myOpportunitySoC = MAX2(0., MIN2(holder.getFloatParam("device.stationfinder.opportunisticChargeLevel"), 1.));
+    if (myOpportunitySoC > 0. && myOpportunitySoC < MIN2(mySearchSoC + NUMERICAL_EPS, 1.)) {
+        myOpportunitySoC = 0.;
+        WRITE_WARNINGF(TL("Vehicle '%' won't do opportunistic charging as the threshold % is too close to the regular one %."), myHolder.getID(), myOpportunitySoC, mySearchSoC);
+    }
     myReplacePlannedStop = MAX2(0., holder.getFloatParam("device.stationfinder.replacePlannedStop"));
     myDistanceToOriginalStop = holder.getFloatParam("device.stationfinder.maxDistanceToReplacedStop");
-    myUpdateSoC = MAX2(0., mySearchSoC - DEFAULT_SOC_INTERVAL);
+    myUpdateSoC = -1.; // MAX2(0., mySearchSoC - DEFAULT_SOC_INTERVAL);
+    myCheckEnergyForRoute = holder.getBoolParam("device.stationfinder.checkEnergyForRoute");
 }
 
 
@@ -202,7 +217,12 @@ MSDevice_StationFinder::notifyMove(SUMOTrafficObject& veh, double /*oldPos*/, do
         }
     }
     const double currentSoC = myBattery->getActualBatteryCapacity() / myBattery->getMaximumBatteryCapacity();
-    if (currentSoC > mySearchSoC || mySearchState == SEARCHSTATE_BROKEN_DOWN) {
+    if (currentSoC < myOpportunitySoC && currentSoC < myTargetSoC && mySearchState == SEARCHSTATE_NONE) {
+        // battery SoC is low enough to allow opportunistic charging (charging whenever - wherever)
+        planOpportunisticCharging();
+        myLastOpportunisticSearch = now;
+        return true;
+    } else if (currentSoC > mySearchSoC || mySearchState == SEARCHSTATE_BROKEN_DOWN) {
         // battery SoC is too high to look for charging facilities or the vehicle is already in rescue mode
         return true;
     }
@@ -262,7 +282,8 @@ MSDevice_StationFinder::notifyMove(SUMOTrafficObject& veh, double /*oldPos*/, do
             }
         }
     } else if (myChargingStation == nullptr &&
-               (myUpdateSoC - currentSoC > DEFAULT_SOC_INTERVAL || (mySearchState == SEARCHSTATE_UNSUCCESSFUL && now - myLastSearch >= myRepeatInterval))) {
+               (myUpdateSoC < 0. || myUpdateSoC - currentSoC > DEFAULT_SOC_INTERVAL || (mySearchState == SEARCHSTATE_UNSUCCESSFUL &&
+                       now - myLastSearch >= myRepeatInterval && !myHolder.isStopped()))) {
         // check if a charging stop is already planned without the device, otherwise reroute inside this device
         if (!alreadyPlannedCharging() && now > myHolder.getDeparture()) {
             rerouteToChargingStation();
@@ -281,6 +302,72 @@ MSDevice_StationFinder::notifyIdle(SUMOTrafficObject& /*veh*/) {
 
 
 void
+MSDevice_StationFinder::saveState(OutputDevice& out) const {
+    out.openTag(SUMO_TAG_DEVICE);
+    out.writeAttr(SUMO_ATTR_ID, getID());
+    std::vector<std::string> internals;
+    internals.push_back(toString(myLastChargeCheck));
+    internals.push_back(toString(myUpdateSoC));
+    internals.push_back(toString(mySearchSoC));
+    internals.push_back(toString(myTargetSoC));
+    internals.push_back(toString(myWaitForCharge));
+    internals.push_back(toString(myRepeatInterval));
+    internals.push_back(toString(myRadius));
+    internals.push_back(toString(myLastSearch));
+    internals.push_back(toString(myReserveFactor));
+    internals.push_back(toString(mySearchState));
+    internals.push_back(toString(myArrivalAtChargingStation));
+    internals.push_back((myChargingStation == nullptr) ? "NULL" : myChargingStation->getID());
+    internals.push_back(toString(myChargeLimits.size()));
+    for (auto chargeLimit : myChargeLimits) {
+        internals.push_back(toString(chargeLimit.first));
+        internals.push_back(toString(chargeLimit.second));
+    }
+    internals.push_back(toString(myOpportunitySoC));
+    internals.push_back(toString(myMinOpportunisticTime));
+    internals.push_back(toString(myCheckEnergyForRoute));
+    out.writeAttr(SUMO_ATTR_STATE, toString(internals));
+    out.closeTag();
+}
+
+
+void
+MSDevice_StationFinder::loadState(const SUMOSAXAttributes& attrs) {
+    std::istringstream bis(attrs.getString(SUMO_ATTR_STATE));
+    bis >> myLastChargeCheck;
+    bis >> myUpdateSoC;
+    bis >> mySearchSoC;
+    bis >> myTargetSoC;
+    bis >> myWaitForCharge;
+    bis >> myRepeatInterval;
+    bis >> myRadius;
+    bis >> myLastSearch;
+    bis >> myReserveFactor;
+    int searchState;
+    bis >> searchState;
+    mySearchState = (SearchState)searchState;
+    bis >> myArrivalAtChargingStation;
+    std::string csID;
+    bis >> csID;
+    if (csID != "NULL") {
+        myChargingStation = dynamic_cast<MSChargingStation*>(MSNet::getInstance()->getStoppingPlace(csID, SUMO_TAG_CHARGING_STATION));
+    }
+    int chargeLimitCount = 0;
+    bis >> chargeLimitCount;
+    for (int i = 0; i < chargeLimitCount; ++i) {
+        SUMOTime t = 0;
+        double limit = 0.;
+        bis >> t;
+        bis >> limit;
+        myChargeLimits.push_back({ t, limit });
+    }
+    bis >> myOpportunitySoC;
+    bis >> myMinOpportunisticTime;
+    bis >> myCheckEnergyForRoute;
+}
+
+
+void
 MSDevice_StationFinder::notifyMoveInternal(const SUMOTrafficObject& /*veh*/,
         const double /* frontOnLane */,
         const double /* timeOnLane */,
@@ -295,7 +382,7 @@ MSDevice_StationFinder::notifyMoveInternal(const SUMOTrafficObject& /*veh*/,
 
 
 MSChargingStation*
-MSDevice_StationFinder::findChargingStation(SUMOAbstractRouter<MSEdge, SUMOVehicle>& /*router*/, double expectedConsumption, StoppingPlaceParamMap_t& scores, bool constrainTT, bool skipVisited, bool skipOccupied) {
+MSDevice_StationFinder::findChargingStation(SUMOAbstractRouter<MSEdge, SUMOVehicle>& /*router*/, double expectedConsumption, StoppingPlaceParamMap_t& scores, bool constrainTT, bool skipVisited, bool skipOccupied, bool visible) {
     MSChargingStation* minStation = nullptr;
     std::vector<StoppingPlaceVisible> candidates;
     const StoppingPlaceMemory* chargingMemory = myVeh.getChargingMemory();
@@ -306,6 +393,9 @@ MSDevice_StationFinder::findChargingStation(SUMOAbstractRouter<MSEdge, SUMOVehic
     for (const auto& stop : MSNet::getInstance()->getStoppingPlaces(SUMO_TAG_CHARGING_STATION)) {
         MSChargingStation* cs = static_cast<MSChargingStation*>(stop.second);
         if (cs->getEfficency() < NUMERICAL_EPS || cs->getChargingPower(false) < NUMERICAL_EPS) {
+            continue;
+        }
+        if (cs->getChargeType() != myBattery->getChargeType()) {
             continue;
         }
         if (cs->getParkingArea() != nullptr && !cs->getParkingArea()->accepts(&myVeh)) {
@@ -321,6 +411,9 @@ MSDevice_StationFinder::findChargingStation(SUMOAbstractRouter<MSEdge, SUMOVehic
         }
         if (constrainTT && myMaxEuclideanDistance > 0 && stop.second->getLane().geometryPositionAtOffset(stop.second->getBeginLanePosition()).distanceTo2D(myHolder.getPosition()) > myMaxEuclideanDistance) {
             // skip probably too distant charging stations
+            continue;
+        }
+        if (visible && myHolder.getEdge()->getID() != stop.second->getLane().getEdge().getID()) {
             continue;
         }
         candidates.push_back({cs, false});
@@ -340,7 +433,7 @@ MSDevice_StationFinder::findChargingStation(SUMOAbstractRouter<MSEdge, SUMOVehic
 bool
 MSDevice_StationFinder::rerouteToChargingStation(bool replace) {
     double expectedConsumption = MIN2(estimateConsumption() * myReserveFactor, myBattery->getMaximumBatteryCapacity() * myTargetSoC);
-    if (myBattery->getActualBatteryCapacity() < expectedConsumption) {
+    if (!myCheckEnergyForRoute || myBattery->getActualBatteryCapacity() < expectedConsumption + myEmptySoC * myBattery->getMaximumBatteryCapacity()) {
         myLastSearch = SIMSTEP;
         MSVehicleRouter& router = MSRoutingEngine::getRouterTT(myHolder.getRNGIndex(), myHolder.getVClass());
         StoppingPlaceParamMap_t scores = {};
@@ -357,6 +450,7 @@ MSDevice_StationFinder::rerouteToChargingStation(bool replace) {
             stopPar.edge = cs->getLane().getEdge().getID();
             stopPar.lane = cs->getLane().getID();
             stopPar.duration = TIME2STEPS(expectedConsumption / (cs->getChargingPower(false) * cs->getEfficency()));
+            stopPar.parametersSet = STOP_DURATION_SET;
             if (myReplacePlannedStop > 0) {
                 // "reuse" a previously planned stop (stop at charging station instead of a different stop)
                 // what if the charging station is skipped due to long waiting time?
@@ -369,6 +463,7 @@ MSDevice_StationFinder::rerouteToChargingStation(bool replace) {
                         if (timeToOriginalStop + myLastSearch < originalUntil) {
                             const SUMOTime delta = originalUntil - (timeToOriginalStop + myLastSearch);
                             stopPar.until = timeToOriginalStop + myLastSearch + (SUMOTime)((double)delta * MIN2(myReplacePlannedStop, 1.));
+                            stopPar.parametersSet |= STOP_UNTIL_SET;
                             if (myReplacePlannedStop > 1.) {
                                 myHolder.abortNextStop();
                             }
@@ -414,6 +509,52 @@ MSDevice_StationFinder::rerouteToChargingStation(bool replace) {
         }
         mySearchState = SEARCHSTATE_UNSUCCESSFUL;
         WRITE_MESSAGEF(TL("Vehicle '%' wants to charge at time=% but does not find any charging station nearby."), myHolder.getID(), toString(SIMTIME));
+    }
+    return false;
+}
+
+
+bool
+MSDevice_StationFinder::planOpportunisticCharging() {
+    // check next stop
+    double capacityDelta = MAX2(0., myTargetSoC * myBattery->getMaximumBatteryCapacity() - myBattery->getActualBatteryCapacity());
+    if (myHolder.hasStops() && capacityDelta > 0.) {
+        MSStop& nextStop = myHolder.getNextStop();
+        if (myHolder.isStopped() || nextStop.chargingStation != nullptr || myHolder.getCurrentRouteEdge() != nextStop.edge ||
+                nextStop.getMinDuration(SIMSTEP) < myMinOpportunisticTime) {
+            return false;
+        }
+        // find charging station on same edge
+        MSVehicleRouter& router = MSRoutingEngine::getRouterTT(myHolder.getRNGIndex(), myHolder.getVClass());
+        StoppingPlaceParamMap_t scores = {};
+        MSChargingStation* cs = findChargingStation(router, 0., scores, true, true, true, true);
+        if (cs != nullptr) {
+            // replace next stop by charging stop
+            myChargingStation = cs;
+            SUMOVehicleParameter::Stop stopPar;
+            stopPar.chargingStation = cs->getID();
+            if (cs->getParkingArea() != nullptr) {
+                stopPar.parkingarea = cs->getParkingArea()->getID();
+                stopPar.parking = (cs->getParkingArea()->parkOnRoad()) ? ParkingType::ONROAD : ParkingType::OFFROAD;
+            }
+            stopPar.edge = cs->getLane().getEdge().getID();
+            stopPar.lane = cs->getLane().getID();
+            stopPar.startPos = cs->getBeginLanePosition();
+            stopPar.endPos = cs->getEndLanePosition();
+            // copy over depart time from previously planned stop
+            SUMOTime oldUntil = nextStop.getUntil();
+            if (oldUntil > 0) {
+                stopPar.until = oldUntil;
+                stopPar.duration = 0;
+            } else { // set a duration needed to charge to the target SoC
+                stopPar.duration = nextStop.duration;
+            }
+            std::string errorMsg;
+            if (!myVeh.replaceStop(0, stopPar, "stationfinder:opportunisticSearch", false, errorMsg)) {
+                WRITE_ERROR(errorMsg);
+            }
+            return true;
+        }
     }
     return false;
 }
@@ -490,15 +631,19 @@ MSDevice_StationFinder::estimateConsumption(const MSEdge* target, const bool inc
             expectedConsumption = totalConsumption / (passedTime - stopDiscount) * remainingTime;
         } else {
             // fallback consumption rate for vehicles starting with low battery
+            if (!myHolder.getVehicleType().getParameter().wasSet(VTYPEPARS_EMISSIONCLASS_SET)) {
+                WRITE_ERRORF("The stationfinder device needs emission parameters for range estimation but no emission class has been set for the vehicle '%'", myHolder.getID());
+            }
             const double speed = MIN2(myHolder.getMaxSpeed(), myHolder.getLane()->getSpeedLimit());
             EnergyParams* const params = myHolder.getEmissionParameters();
-            expectedConsumption = PollutantsInterface::compute(myVeh.getVehicleType().getEmissionClass(), PollutantsInterface::ELEC,
+            PollutantsInterface::EmissionType emType = myBattery->tracksFuel() ? PollutantsInterface::FUEL : PollutantsInterface::ELEC;
+            expectedConsumption = PollutantsInterface::compute(myVeh.getVehicleType().getEmissionClass(), emType,
                                   speed * 0.8, 0., 0., params) * (remainingTime - passedTime);
         }
         if (includeEmptySoC) {
             expectedConsumption += MAX2(0., myEmptySoC * myBattery->getMaximumBatteryCapacity() - myBattery->getActualBatteryCapacity());
         }
-        expectedConsumption /= myHolder.getEmissionParameters()->getDouble(SUMO_ATTR_PROPULSIONEFFICIENCY);
+        expectedConsumption /= myHolder.getEmissionParameters()->getDoubleOptional(SUMO_ATTR_PROPULSIONEFFICIENCY, 1.);
         return expectedConsumption;
     }
     return 0.;
@@ -575,8 +720,8 @@ void
 MSDevice_StationFinder::implementChargingStrategy(SUMOTime begin, SUMOTime end, const double plannedCharge, const MSChargingStation* cs) {
     myChargeLimits.clear();
     if (myChargingStrategy == CHARGINGSTRATEGY_BALANCED) {
-        const double balancedCharge = plannedCharge / STEPS2TIME(end - begin);
-        myChargeLimits.push_back({ begin, balancedCharge });
+        const double balancedChargeRate = plannedCharge / STEPS2TIME(end - begin) * 3600.;
+        myChargeLimits.push_back({ begin, balancedChargeRate });
         myChargeLimits.push_back({ end, -1});
     } else { // CHARGINGSTRATEGY_LATEST
         SUMOTime expectedDuration = myBattery->estimateChargingDuration(plannedCharge, cs->getChargingPower(false) * cs->getEfficency());
@@ -608,8 +753,46 @@ MSDevice_StationFinder::getParameter(const std::string& key) const {
         return (myChargingStation == nullptr) ? "" : myChargingStation->getID();
     } else if (key == "batteryNeed") {
         return toString(estimateConsumption() * myReserveFactor);
+    } else if (key == "needToChargeLevel") {
+        return toString(mySearchSoC);
+    } else if (key == "saturatedChargeLevel") {
+        return toString(myTargetSoC);
+    } else if (key == "waitForCharge") {
+        return toString(myWaitForCharge);
+    } else if (key == "repeat") {
+        return toString(myRepeatInterval);
+    } else if (key == "radius") {
+        return toString(myRadius);
+    } else if (key == "reserveFactor") {
+        return toString(myReserveFactor);
     }
     throw InvalidArgument(TLF("Parameter '%' is not supported for device of type '%'", key, deviceName()));
+}
+
+
+void
+MSDevice_StationFinder::setParameter(const std::string& key, const std::string& value) {
+    double doubleValue;
+    try {
+        doubleValue = StringUtils::toDouble(value);
+    } catch (NumberFormatException&) {
+        throw InvalidArgument(TLF("Setting parameter '%' requires a number for device of type '%'", key, deviceName()));
+    }
+    if (key == "needToChargeLevel") {
+        mySearchSoC = MAX2(0., MIN2(1., doubleValue));
+    } else if (key == "saturatedChargeLevel") {
+        myTargetSoC = MAX2(0., MIN2(1., doubleValue));
+    } else if (key == "waitForCharge") {
+        myWaitForCharge = TIME2STEPS(MAX2(0., doubleValue));
+    } else if (key == "repeat") {
+        myRepeatInterval = TIME2STEPS(MAX2(0., doubleValue));
+    } else if (key == "radius") {
+        myRadius = TIME2STEPS(MAX2(0., doubleValue));
+    } else if (key == "reserveFactor") {
+        myReserveFactor = MAX2(1., doubleValue);
+    } else {
+        throw InvalidArgument(TLF("Setting parameter '%' is not supported for device of type '%'", key, deviceName()));
+    }
 }
 
 

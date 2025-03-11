@@ -1,7 +1,7 @@
 # create crossing in an intersection with four arms
 create
 
-# create crossing in a junction with four arms without sidewalks 
+# create crossing in a junction with four arms without sidewalks
 create_nosidewalks
 
 # delete crossing

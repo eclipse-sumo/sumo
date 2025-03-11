@@ -1,0 +1,12 @@
+Warning: Lane '-326116286#2_1' is not connected from any incoming edge at junction '25662542'.
+Warning: Lane '-326116286#2_2' is not connected from any incoming edge at junction '25662542'.
+Warning: Edge '-4402014#2' is not connected to outgoing edges at junction '25662542'.
+Warning: Lane '-4588217#5_1' is not connected from any incoming edge at junction '25662542'.
+Warning: Edge '-4588220#2' is not connected to outgoing edges at junction '25662542'.
+Warning: Edge '326116286#0' is not connected to outgoing edges at junction '25662542'.
+Warning: Lane '4402014#0_1' is not connected from any incoming edge at junction '25662542'.
+Warning: Lane '4402014#0_2' is not connected from any incoming edge at junction '25662542'.
+Warning: Edge '4588217#3' is not connected to outgoing edges at junction '25662542'.
+Warning: The traffic light 'GS_25662542' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light 'GS_25662542'
+Warning: 7 total messages of type: Lane '%' is not connected from any incoming edge at junction '%'.

@@ -1,0 +1,5 @@
+departure: count 4, min 0.00 (0), max 0.00 (0), mean 0.00, Q1 0.00, median 0.00, Q3 0.00
+departDelay: count 4, min 0.00 (0), max 3.00 (1), mean 0.75, Q1 0.00, median 0.00, Q3 3.00
+edgeDelay-max: count 1, min 3.00 (4/1to3/1), max 3.00 (4/1to3/1), mean 3.00, Q1 3.00, median 3.00, Q3 3.00
+edgeDelay-avg: count 1, min 0.75 (4/1to3/1), max 0.75 (4/1to3/1), mean 0.75, Q1 0.75, median 0.75, Q3 0.75
+edgeDelay-total: count 1, min 3.00 (4/1to3/1), max 3.00 (4/1to3/1), mean 3.00, Q1 3.00, median 3.00, Q3 3.00

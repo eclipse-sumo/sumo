@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -55,6 +55,7 @@ RORouteHandler::RORouteHandler(RONet& net, const std::string& file,
                                const bool checkSchema) :
     SUMORouteHandler(file, checkSchema ? "routes" : "", true),
     MapMatcher(OptionsCont::getOptions().getBool("mapmatch.junctions"),
+               OptionsCont::getOptions().getBool("mapmatch.taz"),
                OptionsCont::getOptions().getFloat("mapmatch.distance"),
                ignoreErrors ? MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance()),
     myNet(net),
@@ -70,7 +71,12 @@ RORouteHandler::RORouteHandler(RONet& net, const std::string& file,
     myKeepVTypeDist(OptionsCont::getOptions().getBool("keep-vtype-distributions")),
     myUnsortedInput(OptionsCont::getOptions().exists("unsorted-input") && OptionsCont::getOptions().getBool("unsorted-input")),
     myCurrentVTypeDistribution(nullptr),
-    myCurrentAlternatives(nullptr) {
+    myCurrentAlternatives(nullptr),
+    myUseTaz(OptionsCont::getOptions().getBool("with-taz")),
+    myWriteJunctions(OptionsCont::getOptions().exists("write-trips")
+            && OptionsCont::getOptions().getBool("write-trips")
+            && OptionsCont::getOptions().getBool("write-trips.junctions"))
+{
     myActiveRoute.reserve(100);
 }
 
@@ -100,8 +106,8 @@ void
 RORouteHandler::parseFromViaTo(SumoXMLTag tag, const SUMOSAXAttributes& attrs, bool& ok) {
     const std::string element = toString(tag);
     myActiveRoute.clear();
-    bool useTaz = OptionsCont::getOptions().getBool("with-taz");
-    if (useTaz && !myVehicleParameter->wasSet(VEHPARS_FROM_TAZ_SET) && !myVehicleParameter->wasSet(VEHPARS_TO_TAZ_SET)) {
+    bool useTaz = myUseTaz;
+    if (myUseTaz && !myVehicleParameter->wasSet(VEHPARS_FROM_TAZ_SET) && !myVehicleParameter->wasSet(VEHPARS_TO_TAZ_SET)) {
         WRITE_WARNINGF(TL("Taz usage was requested but no taz present in % '%'!"), element, myVehicleParameter->id);
         useTaz = false;
     }
@@ -114,7 +120,7 @@ RORouteHandler::parseFromViaTo(SumoXMLTag tag, const SUMOSAXAttributes& attrs, b
     }
     // from-attributes
     const std::string rid = "for " + element + " '" + myVehicleParameter->id + "'";
-    if ((useTaz || !attrs.hasAttribute(SUMO_ATTR_FROM)) &&
+    if ((useTaz || (!attrs.hasAttribute(SUMO_ATTR_FROM) && !attrs.hasAttribute(SUMO_ATTR_FROMXY) && !attrs.hasAttribute(SUMO_ATTR_FROMLONLAT))) &&
             (attrs.hasAttribute(SUMO_ATTR_FROM_TAZ) || attrs.hasAttribute(SUMO_ATTR_FROM_JUNCTION))) {
         const bool useJunction = attrs.hasAttribute(SUMO_ATTR_FROM_JUNCTION);
         const std::string tazType = useJunction ? "junction" : "taz";
@@ -129,11 +135,23 @@ RORouteHandler::parseFromViaTo(SumoXMLTag tag, const SUMOSAXAttributes& attrs, b
             ok = false;
         } else {
             myActiveRoute.push_back(fromTaz);
+            if (useJunction && tag != SUMO_TAG_PERSON && !myWriteJunctions) {
+                myVehicleParameter->fromTaz = tazID;
+                myVehicleParameter->parametersSet |= VEHPARS_FROM_TAZ_SET;
+            }
         }
     } else if (attrs.hasAttribute(SUMO_ATTR_FROMXY)) {
         parseGeoEdges(attrs.get<PositionVector>(SUMO_ATTR_FROMXY, myVehicleParameter->id.c_str(), ok), false, vClass, myActiveRoute, rid, true, ok);
+        if (myMapMatchTAZ && ok) {
+            myVehicleParameter->fromTaz = myActiveRoute.back()->getID();
+            myVehicleParameter->parametersSet |= VEHPARS_FROM_TAZ_SET;
+        }
     } else if (attrs.hasAttribute(SUMO_ATTR_FROMLONLAT)) {
         parseGeoEdges(attrs.get<PositionVector>(SUMO_ATTR_FROMLONLAT, myVehicleParameter->id.c_str(), ok), true, vClass, myActiveRoute, rid, true, ok);
+        if (myMapMatchTAZ && ok) {
+            myVehicleParameter->fromTaz = myActiveRoute.back()->getID();
+            myVehicleParameter->parametersSet |= VEHPARS_FROM_TAZ_SET;
+        }
     } else {
         parseEdges(attrs.getOpt<std::string>(SUMO_ATTR_FROM, myVehicleParameter->id.c_str(), ok), myActiveRoute, rid, ok);
     }
@@ -166,7 +184,7 @@ RORouteHandler::parseFromViaTo(SumoXMLTag tag, const SUMOSAXAttributes& attrs, b
     }
 
     // to-attributes
-    if ((useTaz || !attrs.hasAttribute(SUMO_ATTR_TO)) &&
+    if ((useTaz || (!attrs.hasAttribute(SUMO_ATTR_TO) && !attrs.hasAttribute(SUMO_ATTR_TOXY) && !attrs.hasAttribute(SUMO_ATTR_TOLONLAT))) &&
             (attrs.hasAttribute(SUMO_ATTR_TO_TAZ) || attrs.hasAttribute(SUMO_ATTR_TO_JUNCTION))) {
         const bool useJunction = attrs.hasAttribute(SUMO_ATTR_TO_JUNCTION);
         const std::string tazType = useJunction ? "junction" : "taz";
@@ -181,11 +199,23 @@ RORouteHandler::parseFromViaTo(SumoXMLTag tag, const SUMOSAXAttributes& attrs, b
             ok = false;
         } else {
             myActiveRoute.push_back(toTaz);
+            if (useJunction && tag != SUMO_TAG_PERSON && !myWriteJunctions) {
+                myVehicleParameter->toTaz = tazID;
+                myVehicleParameter->parametersSet |= VEHPARS_TO_TAZ_SET;
+            }
         }
     } else if (attrs.hasAttribute(SUMO_ATTR_TOXY)) {
         parseGeoEdges(attrs.get<PositionVector>(SUMO_ATTR_TOXY, myVehicleParameter->id.c_str(), ok, true), false, vClass, myActiveRoute, rid, false, ok);
+        if (myMapMatchTAZ && ok) {
+            myVehicleParameter->toTaz = myActiveRoute.back()->getID();
+            myVehicleParameter->parametersSet |= VEHPARS_TO_TAZ_SET;
+        }
     } else if (attrs.hasAttribute(SUMO_ATTR_TOLONLAT)) {
         parseGeoEdges(attrs.get<PositionVector>(SUMO_ATTR_TOLONLAT, myVehicleParameter->id.c_str(), ok, true), true, vClass, myActiveRoute, rid, false, ok);
+        if (myMapMatchTAZ && ok) {
+            myVehicleParameter->toTaz = myActiveRoute.back()->getID();
+            myVehicleParameter->parametersSet |= VEHPARS_TO_TAZ_SET;
+        }
     } else {
         parseEdges(attrs.getOpt<std::string>(SUMO_ATTR_TO, myVehicleParameter->id.c_str(), ok, "", true), myActiveRoute, rid, ok);
     }
@@ -545,6 +575,50 @@ RORouteHandler::closeRouteDistribution() {
         } else if (!myNet.addRouteDef(myCurrentAlternatives)) {
             myErrorOutput->inform("Another route (or distribution) with the id '" + myCurrentAlternatives->getID() + "' exists.");
             delete myCurrentAlternatives;
+        } else {
+            if (myVehicleParameter != nullptr
+                    && (myUseTaz || OptionsCont::getOptions().getBool("junction-taz"))
+                    && (myVehicleParameter->wasSet(VEHPARS_FROM_TAZ_SET) ||
+                        myVehicleParameter->wasSet(VEHPARS_TO_TAZ_SET))) {
+                // we are loading a rou.alt.xml, permit rerouting between taz
+                bool ok = true;
+                ConstROEdgeVector edges;
+                if (myVehicleParameter->fromTaz != "") {
+                    const std::string tazID = myVehicleParameter->fromTaz;
+                    const ROEdge* fromTaz = myNet.getEdge(tazID + "-source");
+                    if (fromTaz == nullptr) {
+                        myErrorOutput->inform("Source taz '" + tazID + "' not known for vehicle '" + myVehicleParameter->id + "'!");
+                        ok = false;
+                    } else if (fromTaz->getNumSuccessors() == 0) {
+                        myErrorOutput->inform("Source taz '" + tazID + "' has no outgoing edges for vehicle '" + myVehicleParameter->id + "'!");
+                        ok = false;
+                    } else {
+                        edges.push_back(fromTaz);
+                    }
+                } else {
+                    edges.push_back(myCurrentAlternatives->getOrigin());
+                }
+                if (myVehicleParameter->toTaz != "") {
+                    const std::string tazID = myVehicleParameter->toTaz;
+                    const ROEdge* toTaz = myNet.getEdge(tazID + "-sink");
+                    if (toTaz == nullptr) {
+                        myErrorOutput->inform("Sink taz '" + tazID + "' not known for vehicle '" + myVehicleParameter->id + "'!");
+                        ok = false;
+                    } else if (toTaz->getNumPredecessors() == 0) {
+                        myErrorOutput->inform("Sink taz '" + tazID + "' has no incoming edges for vehicle '" + myVehicleParameter->id + "'!");
+                        ok = false;
+                    } else {
+                        edges.push_back(toTaz);
+                    }
+                } else {
+                    edges.push_back(myCurrentAlternatives->getDestination());
+                }
+                if (ok) {
+                    // negative probability indicates that this route should not be written
+                    RORoute* route = new RORoute(myCurrentAlternatives->getID(), 0, -1, edges, nullptr, myActiveRouteStops);
+                    myCurrentAlternatives->addLoadedAlternative(route);
+                }
+            }
         }
         myCurrentAlternatives = nullptr;
     }
@@ -937,7 +1011,7 @@ RORouteHandler::addStop(const SUMOSAXAttributes& attrs) {
                     vClass = type->vehicleClass;
                 }
             }
-            parseGeoEdges(positions, geo, vClass, geoEdges, myVehicleParameter->id, true, ok);
+            parseGeoEdges(positions, geo, vClass, geoEdges, myVehicleParameter->id, true, ok, true);
             if (ok) {
                 edge = geoEdges.front();
                 hasPos = true;

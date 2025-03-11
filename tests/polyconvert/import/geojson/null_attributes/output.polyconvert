@@ -1,0 +1,5 @@
+Parsing from geojson-file 'input.geojson' ...
+Available fields: objectid Sid GN_Kfz_Rund GN_Kfz_Jahr GN_SV_Rund GN_Rad_Rund GN_Rad_Jahr N_CODE_23
+ done.
+ done.
+Success.

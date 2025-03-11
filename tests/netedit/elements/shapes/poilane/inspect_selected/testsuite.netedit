@@ -24,9 +24,6 @@ height
 # edit poi imgfile
 imgfile
 
-# edit poi relative path
-relativepath
-
 # edit poi angle
 angle
 

@@ -18,11 +18,11 @@ SUMO-network is named **--visum-file** {{DT_FILE}} or **--visum** {{DT_FILE}} fo
 data into "my_sumo_net.net.xml":
 
 ```
-netconvert --visum my_visum_net.net -o my_sumo_net.net.xml
+netconvert --visum my_visum_net.net -o my_sumo_net.net.xml
 ```
 
 !!! caution
-    If your network contains geo-coordiantes (lon/lat) you must add option **--proj.utm** in order to project your network into the cartesian plane
+    If your network contains geo-coordinates (lon/lat) you must add option **--proj.utm** in order to project your network into the cartesian plane
 
 # Import Coverage
 
@@ -71,7 +71,7 @@ numbers are missing. Still, one can try to obtain the lane number from
 the given edges' capacities. An approximation is:
 
 ```
-LANE_NUMBER = MAXIMUM_FLOW / CAPACITY_NORM
+LANE_NUMBER = MAXIMUM_FLOW / CAPACITY_NORM
 ```
 
 The value of CAPACITY_NORM is controlled via the option **--capacity-norm** {{DT_FLOAT}} (default:

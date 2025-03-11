@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2009-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2009-2025 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -31,25 +31,22 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 # go to TAZ mode
 netedit.TAZMode()
 
-# create TAZ
-netedit.createSquaredShape(referencePosition, 407, 142, 200, True)
+# create polygon with default values
+netedit.createSquaredShape(referencePosition, netedit.positions.elements.additionals.shapeA,
+                           netedit.positions.elements.additionals.shapeSize, True)
 
 # go to delete mode
 netedit.deleteMode()
 
-# delete created TAZ
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+# delete created polygon
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeA)
 
-# delete second TAZ
-netedit.leftClick(referencePosition, netedit.positions.tmp)
-
-# delete third TAZ clicking center
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+# delete loaded filled polygon
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeC)
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)
 
-# save TAZs
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)
 

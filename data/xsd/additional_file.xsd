@@ -39,6 +39,7 @@
             <xsd:element name="calibrator" type="calibratorType" minOccurs="0"/>
             <xsd:element name="vaporizer" type="vaporizerType" minOccurs="0"/>
             <xsd:element name="railSignalConstraints" type="railSignalConstraintsType" minOccurs="0"/>
+            <xsd:element name="deadlock" type="deadlockType" minOccurs="0"/>
 
             <xsd:element name="vTypeDistribution" type="vTypeDistributionType" minOccurs="0"/>
             <xsd:element name="routeDistribution" type="routeDistributionType" minOccurs="0"/>
@@ -245,6 +246,8 @@
         <xsd:attribute name="edges" type="xsd:string" use="optional"/>
         <xsd:attribute name="edgesFile" type="xsd:string" use="optional"/>
         <xsd:attribute name="aggregate" type="boolType" use="optional"/>
+        <xsd:attribute name="minSamples" type="nonNegativeFloatType" use="optional"/>
+        <xsd:attribute name="speedThreshold" type="floatType" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="timedEventType">
@@ -258,7 +261,7 @@
                 </xsd:restriction>
             </xsd:simpleType>
         </xsd:attribute>
-        <xsd:attribute name="source" type="xsd:string" use="required"/>
+        <xsd:attribute name="source" type="xsd:string" use="optional"/>
         <xsd:attribute name="dest" type="xsd:string" use="required"/>
         <xsd:attribute name="saveDetectors" type="boolType" use="optional"/>
         <xsd:attribute name="saveConditions" type="boolType" use="optional"/>
@@ -376,6 +379,7 @@
         <xsd:attribute name="vTypes" type="xsd:string" use="optional"/>
         <xsd:attribute name="timeThreshold" type="nonNegativeFloatType" use="optional"/>
         <xsd:attribute name="pos" type="xsd:string" use="optional"/>
+        <xsd:attribute name="radius" type="nonNegativeFloatType" use="optional"/>
         <xsd:attribute name="name" type="xsd:string" use="optional"/>
         <xsd:attribute name="visible" type="boolType" use="optional"/>
         <xsd:attribute name="off" type="boolType" use="optional"/>
@@ -449,7 +453,7 @@
             <xsd:simpleType>
                 <xsd:restriction base="xsd:string">
                     <xsd:enumeration value="normal"/>
-                    <xsd:enumeration value="electric"/>
+                    <xsd:enumeration value="battery-exchange"/>
                     <xsd:enumeration value="fuel"/>
                 </xsd:restriction>
             </xsd:simpleType>
@@ -568,8 +572,10 @@
         <xsd:attribute name="id" type="detectorIdType" use="required"/>
         <xsd:attribute name="edge" type="xsd:string" use="optional"/>
         <xsd:attribute name="lane" type="xsd:string" use="optional"/>
-        <xsd:attribute name="pos" type="floatType" use="required"/>
+        <xsd:attribute name="node" type="xsd:string" use="optional"/>
+        <xsd:attribute name="pos" type="floatType" use="optional"/>
         <xsd:attribute name="friendlyPos" type="boolType" use="optional"/>
+        <xsd:attribute name="local" type="boolType" use="optional"/>
         <xsd:attribute name="period" type="positiveFloatType" use="optional"/>
         <xsd:attribute name="freq" type="positiveFloatType" use="optional"/>
         <xsd:attribute name="file" type="xsd:string" use="optional"/>
@@ -610,6 +616,12 @@
         <xsd:attribute name="foes"   use="required" type="xsd:string"/>
         <xsd:attribute name="limit"  use="optional" type="positiveIntType"/>
         <xsd:attribute name="active" use="optional" type="boolType"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="deadlockType">
+        <xsd:attribute name="time" type="timeType" use="optional"/>
+        <xsd:attribute name="vehicles" type="xsd:string" use="optional"/>
+        <xsd:attribute name="signals" type="xsd:string" use="required"/>
     </xsd:complexType>
 
     <xsd:complexType name="polygonType">
@@ -676,7 +688,7 @@
         <xsd:attribute name="id" type="idType" use="required"/>
         <xsd:attribute name="type" type="tlTypeType" use="optional"/>
         <xsd:attribute name="programID" type="xsd:string" use="required"/>
-        <xsd:attribute name="offset" type="floatType" use="optional"/>
+        <xsd:attribute name="offset" type="offsetType" use="optional"/>
     </xsd:complexType>
 
 

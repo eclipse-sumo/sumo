@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2008-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2008-2025 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -38,10 +38,7 @@ def get_depart_lines(route_file):
 output_file1 = 'output1.rou.xml'
 output_file2 = 'output2.rou.xml'
 
-jtrrouter = checkBinary('jtrrouter')
-assert(jtrrouter)
-
-args = [jtrrouter,
+args = [checkBinary('jtrrouter'),
         '--net-file', 'input_net.net.xml',
         '--route-files', 'input_flows.flows.xml',
         '--turn-ratio-files', 'input_turns.turns.xml',

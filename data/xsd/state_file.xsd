@@ -23,11 +23,14 @@
                 <xsd:element name="railSignalConstraintTracker" type="railSignalConstraintTrackerType" minOccurs="0"/>
                 <xsd:element name="railSignalConstraints" type="railSignalConstraintsType" minOccurs="0"/>
                 <xsd:element name="tlLogic" type="tlStateType" minOccurs="0"/>
+                <xsd:element name="driveWay" type="driveWayStateType" minOccurs="0"/>
+                <xsd:element name="subDriveWay" type="driveWayStateType" minOccurs="0"/>
             </xsd:choice>
             <xsd:attribute name="version" type="xsd:string"/>
             <xsd:attribute name="time" type="timeType"/>
             <xsd:attribute name="type" type="xsd:string"/>
             <xsd:attribute name="constraints" type="boolType"/>
+            <xsd:attribute name="rail" type="boolType"/>
         </xsd:complexType>
     </xsd:element>
 
@@ -106,6 +109,7 @@
         <xsd:attribute name="arrivalEdge" type="routeIndexType"/>
         <xsd:attribute name="arrivalLane" type="arrivalLaneType"/>
         <xsd:attribute name="arrivalPos" type="arrivalPosType"/>
+        <xsd:attribute name="arrivalPosRandomized" type="nonNegativeFloatType"/>
         <xsd:attribute name="arrivalSpeed" type="arrivalSpeedType"/>
         <xsd:attribute name="departPosLat" type="departPosLatType"/>
         <xsd:attribute name="arrivalPosLat" type="arrivalPosLatType"/>
@@ -230,6 +234,12 @@
         <xsd:attribute name="programID" type="xsd:string" use="required"/>
         <xsd:attribute name="phase" type="xsd:int" use="required"/>
         <xsd:attribute name="duration" type="xsd:integer" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="driveWayStateType">
+        <xsd:attribute name="id" type="idType" use="required"/>
+        <xsd:attribute name="edges" type="xsd:string" use="required"/>
+        <xsd:attribute name="vehicles" type="xsd:string" use="optional"/>
     </xsd:complexType>
 
 </xsd:schema>

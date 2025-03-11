@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2013-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2013-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -46,6 +46,7 @@ class MSDevice_StationFinder;
  */
 class MSDevice_Battery : public MSVehicleDevice {
 public:
+
     /** @brief Inserts MSDevice_Example-options
     * @param[filled] oc The options container to add the options to
     */
@@ -78,11 +79,11 @@ public:
     *
     * @return True (always).
     */
-    bool notifyMove(SUMOTrafficObject& veh, double oldPos,  double newPos, double newSpeed);
+    bool notifyMove(SUMOTrafficObject& veh, double oldPos,  double newPos, double newSpeed) override;
     /// @}
 
     /// @brief return the name for this type of device
-    const std::string deviceName() const {
+    const std::string deviceName() const override {
         return "battery";
     }
 
@@ -90,22 +91,25 @@ public:
      *
      * @param[in] out The OutputDevice to write the information into
      */
-    void saveState(OutputDevice& out) const;
+    void saveState(OutputDevice& out) const override;
 
     /** @brief Loads the state of the device from the given description
      *
      * @param[in] attrs XML attributes describing the current state
      */
-    void loadState(const SUMOSAXAttributes& attrs);
+    void loadState(const SUMOSAXAttributes& attrs) override;
 
     /// @brief try to retrieve the given parameter from this device. Throw exception for unsupported key
-    std::string getParameter(const std::string& key) const;
+    std::string getParameter(const std::string& key) const override;
 
     /// @brief try to set the given parameter for this device. Throw exception for unsupported key
-    void setParameter(const std::string& key, const std::string& value);
+    void setParameter(const std::string& key, const std::string& value) override;
 
     /// @brief called to update state for parking vehicles
-    void notifyParking();
+    void notifyParking() override;
+
+    /// @brief Called on vehicle deletion to extend tripinfo
+    void generateOutput(OutputDevice* tripinfoOut) const override;
 
 private:
     /** @brief Constructor
@@ -168,6 +172,12 @@ public:
     /// @brief Get current charge rate in W depending on the state of charge
     double getMaximumChargeRate() const;
 
+    /// @brief Whether the battery device is actually used as a tank of a combustion vehicle
+    bool tracksFuel() const;
+
+    /// @brief Get the charge type
+    MSChargingStation::ChargeType getChargeType() const;
+
     /// @brief Set actual vehicle's Battery Capacity in kWh
     void setActualBatteryCapacity(const double actualBatteryCapacity);
 
@@ -223,7 +233,7 @@ protected:
     /// @brief Parameter, Flag: Vehicles it's charging in transit (by default is false)
     bool myChargingInTransit;
 
-    /// @brief Parameter, Moment, wich the vehicle has beging to charging
+    /// @brief Parameter, Moment, which the vehicle has beging to charging
     SUMOTime myChargingStartTime;
 
     /// @brief Parameter, Vehicle consum during a time step (by default is 0.)
@@ -250,8 +260,14 @@ protected:
     /// @brief Parameter, How many timestep the vehicle is stopped
     int myVehicleStopped;
 
+    /// @brief Count how many times the vehicle experienced a depleted battery
+    int myDepletedCount;
+
     /// @brief whether to track fuel consumption instead of electricity
     bool myTrackFuel;
+
+    /// @brief the accepted charge type
+    MSChargingStation::ChargeType myChargeType;
 
 
 private:

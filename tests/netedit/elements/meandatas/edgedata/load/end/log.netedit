@@ -1,0 +1,4 @@
+Error: Attribute 'end' in definition of edgeData 'ed_0' is empty.
+Error: Attribute 'end' in definition of edgeData 'ed_1' is not a valid time value.
+Error: Could not build edgeData with ID 'ed_2' in netedit; Attribute end cannot be negative (-12.00).
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.10Jan163043.4247/netedit.gui/elements/meandatas/edgedata/load/end/datas.med.add.xml failed.

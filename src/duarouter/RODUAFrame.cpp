@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -105,6 +105,13 @@ RODUAFrame::addImportOptions() {
 
     oc.doRegister("astar.save-landmark-distances", new Option_FileName());
     oc.addDescription("astar.save-landmark-distances", "Processing", TL("Save lookup table for astar ALT-variant to the given file"));
+
+    oc.doRegister("scale", new Option_Float(1.));
+    oc.addDescription("scale", "Processing", TL("Scale demand by the given factor (by discarding or duplicating vehicles)"));
+
+    oc.doRegister("scale-suffix", new Option_String("."));
+    oc.addDescription("scale-suffix", "Processing", TL("Suffix to be added when creating ids for cloned vehicles"));
+
 }
 
 

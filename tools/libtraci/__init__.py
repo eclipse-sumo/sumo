@@ -1,5 +1,5 @@
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2018-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2018-2025 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -28,7 +28,7 @@ from .libtraci import vehicle, simulation, person, trafficlight, gui  # noqa
 from .libtraci import *  # noqa
 from .libtraci import TraCIStage, TraCINextStopData, TraCIReservation, TraCILogic, TraCIPhase, TraCIException  # noqa
 from .libtraci import TraCICollision, TraCISignalConstraint  # noqa
-from ._libtraci import TraCILogic_phases_get, TraCILogic_phases_set  # noqa
+from ._libtraci import TraCILogic_phases_get, TraCILogic_phases_set, TraCILogic_swiginit, new_TraCILogic  # noqa
 
 DOMAINS = [
     busstop,  # noqa
@@ -84,6 +84,28 @@ def set_phases(self, phases):
     TraCILogic_phases_set(self, new_phases)
 
 
+def TraCILogic__init__(self, *args, **kwargs):
+    # Extract known keyword arguments or set to None if not provided
+    programID = kwargs.get('programID', args[0] if len(args) > 0 else None)
+    type_ = kwargs.get('type',  args[1] if len(args) > 1 else None)
+    currentPhaseIndex = kwargs.get('currentPhaseIndex',  args[2] if len(args) > 2 else None)
+    phases = kwargs.get('phases',  args[3] if len(args) > 3 else None)
+    # subParameter = kwargs.get('subParameter',  args[4] if len(args) > 4 else None)
+
+    # Update phases if provided
+    if phases:
+        new_phases = [TraCIPhase(p.duration, p.state, p.minDur, p.maxDur, p.next, p.name) for p in phases]
+        phases = new_phases
+
+    # Rebuild args including the extracted keyword arguments
+    args = (programID, type_, currentPhaseIndex, phases)
+
+    # Initialize with the original function
+    TraCILogic_swiginit(self, new_TraCILogic(*args))
+
+
+# Override methods and properties
+TraCILogic.__init__ = TraCILogic__init__
 TraCILogic.phases = property(TraCILogic_phases_get, set_phases)
 TraCILogic.getPhases = _trafficlight.Logic.getPhases
 TraCILogic.__repr__ = _trafficlight.Logic.__repr__
@@ -176,6 +198,7 @@ def start(cmd, port=None, numRetries=constants.DEFAULT_NUM_RETRIES, label="defau
             # simulationStep shows up as simulation.step
             global _libtraci_step
             _libtraci_step = _stepManager._addTracing(_libtraci_step, "simulation")
+        _stepManager._traceFile.write("import traci\n")
         _stepManager.write("start", repr(cmd))
     return version
 

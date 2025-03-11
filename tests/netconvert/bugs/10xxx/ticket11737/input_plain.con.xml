@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-10-06 11:00:12 by Eclipse SUMO netedit Version v1_14_1+1311-ab8f708ab1e
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+        <output.street-names value="true"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <tls_building>
+        <tls.ignore-internal-junction-jam value="1"/>
+    </tls_building>
+
+    <junctions>
+        <no-internal-links value="false"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="1"/>
+    </pedestrian>
+
+</configuration>
+-->
+
+<connections version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/connections_file.xsd">
+    <connection from="-148050455#1" to="148050455#1" fromLane="2" toLane="3"/>
+
+    <connection from="-30399663#1"/>
+
+    <connection from="-gneE61"/>
+
+    <connection from="148050455#1" to="28639688#1" fromLane="1" toLane="1" uncontrolled="1"/>
+    <connection from="148050455#1" to="-gneE61" fromLane="1" toLane="1" shape="5786.02,5653.70 5786.91,5658.50 5789.61,5665.08 5782.91,5683.50 5780.61,5688.01"/>
+    <connection from="148050455#1" to="54169280#0" fromLane="1" toLane="1" contPos="48.00" shape="5785.65,5653.77 5789.46,5658.76 5792.97,5664.01 5799.73,5669.89 5785.44,5688.35 5777.88,5685.48 5773.90,5684.46 5754.22,5679.59 5753.06,5673.47 5749.73,5670.00"/>
+    <connection from="148050455#1" to="28639688#1" fromLane="2" toLane="2"/>
+    <connection from="148050455#1" to="-30399663#1" fromLane="3" toLane="0"/>
+
+    <connection from="30399663#1" to="54169280#0" fromLane="1" toLane="1" uncontrolled="1"/>
+    <connection from="30399663#1" to="-148050455#1" fromLane="1" toLane="1" shape="5754.43,5682.59 5755.24,5676.32 5755.90,5671.21 5762.27,5659.03 5767.38,5654.48 5771.52,5648.80"/>
+    <connection from="30399663#1" to="28639688#1" fromLane="1" toLane="1" contPos="40.00" shape="5754.28,5682.56 5754.39,5678.50 5752.88,5673.88 5750.72,5670.27 5756.93,5652.31 5760.46,5652.75 5765.59,5653.99 5778.48,5657.48 5787.14,5661.60 5793.19,5665.14 5802.54,5672.40"/>
+    <connection from="30399663#1" to="54169280#0" fromLane="2" toLane="2"/>
+    <connection from="30399663#1" to="-148050455#1" fromLane="2" toLane="2"/>
+    <connection from="30399663#1" to="28639688#1" fromLane="3" toLane="2"/>
+    <connection from="30399663#1" to="28639688#1" fromLane="4" toLane="3"/>
+    <connection from="30399663#1" to="-30399663#1" fromLane="4" toLane="0"/>
+
+    <connection from="737320747#4.146" to="-148050455#1" fromLane="1" toLane="1" uncontrolled="1"/>
+    <connection from="737320747#4.146" to="28639688#1" fromLane="1" toLane="1" shape="5756.26,5651.84 5763.19,5653.40 5769.86,5654.96 5778.57,5657.45 5786.64,5661.23 5792.52,5664.69 5802.54,5672.40"/>
+    <connection from="737320747#4.146" to="-gneE61" fromLane="1" toLane="1" contPos="36.00" shape="5756.23,5651.94 5767.32,5650.86 5770.03,5649.04 5785.99,5654.83 5786.94,5658.47 5789.44,5665.23 5785.98,5675.12 5782.88,5683.63 5780.61,5688.01"/>
+    <connection from="737320747#4.146" to="-148050455#1" fromLane="2" toLane="2"/>
+    <connection from="737320747#4.146" to="28639688#1" fromLane="2" toLane="2"/>
+    <connection from="737320747#4.146" to="28639688#1" fromLane="3" toLane="3"/>
+    <connection from="737320747#4.146" to="-30399663#1" fromLane="4" toLane="0"/>
+
+    <connection from="gneE12" to="54169280#0" fromLane="0" toLane="2"/>
+    <connection from="gneE12" to="54169280#0" fromLane="1" toLane="3"/>
+    <connection from="gneE12" to="-148050455#1" fromLane="2" toLane="2"/>
+    <connection from="gneE12" to="28639688#1" fromLane="2" toLane="2"/>
+    <connection from="gneE12" to="28639688#1" fromLane="2" toLane="3"/>
+
+    <connection from="gneE61" to="54169280#0" fromLane="1" toLane="1" shape="5778.59,5687.94 5778.51,5685.31 5754.15,5679.86 5752.98,5674.68 5749.73,5670.00"/>
+
+    <crossing node="gneJ21" edges="28639688#1 gneE12" priority="1" width="4.00" linkIndex="23" linkIndex2="21"/>
+    <crossing node="gneJ21" edges="-148050455#1 148050455#1" priority="1" width="4.00" linkIndex="24" linkIndex2="22"/>
+    <crossing node="gneJ21" edges="54169280#0 737320747#4.146" priority="1" width="4.00" linkIndex="25" linkIndex2="23"/>
+    <crossing node="gneJ21" edges="-30399663#1 30399663#1" priority="1" width="4.00" linkIndex="26" linkIndex2="24"/>
+</connections>

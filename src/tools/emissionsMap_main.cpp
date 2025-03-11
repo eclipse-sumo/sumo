@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2013-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2013-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -27,6 +27,7 @@
 #include <iostream>
 #include <string>
 #include <ctime>
+#include <memory>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StringUtils.h>
 #include <utils/options/Option.h>
@@ -40,12 +41,13 @@
 #include <utils/xml/XMLSubSys.h>
 #include <utils/common/FileHelpers.h>
 #include <utils/iodevices/OutputDevice.h>
+#include "VTypesHandler.h"
 
 
 // ===========================================================================
 // functions
 // ===========================================================================
-void single(const std::string& of, const std::string& className, SUMOEmissionClass c,
+void single(const OptionsCont& oc, const std::string& of, const std::string& className, SUMOEmissionClass c,
             double vMin, double vMax, double vStep,
             double aMin, double aMax, double aStep,
             double sMin, double sMax, double sStep,
@@ -57,11 +59,40 @@ void single(const std::string& of, const std::string& className, SUMOEmissionCla
     if (!o.good()) {
         throw ProcessError(TLF("Could not open file '%' for writing.", of));
     }
-    EnergyParams energyParams(c);
+
+    std::unique_ptr<EnergyParams> energyParams;
+    std::map<std::string, SUMOVTypeParameter*> vTypes;
+    if (oc.isSet("vtype") || oc.isSet("additional-files")) {
+        if (!oc.isSet("additional-files")) {
+            throw ProcessError(TL("Option --vtype requires option --additional-files for loading vehicle types"));
+        }
+        if (!oc.isUsableFileList("additional-files")) {
+            throw ProcessError();
+        }
+        for (const std::string& file : oc.getStringVector("additional-files")) {
+            VTypesHandler typesHandler(file, vTypes);
+            if (!XMLSubSys::runParser(typesHandler, file)) {
+                throw ProcessError(TLF("Loading of % failed.", file));
+            }
+        }
+        if (!oc.isSet("vtype") && vTypes.size() != 1) {
+            throw ProcessError(TL("Vehicle type is not unique."));
+        }
+        const auto vTypeIt = oc.isSet("vtype") ? vTypes.find(oc.getString("vtype")) : vTypes.begin();
+        if (vTypeIt == vTypes.end()) {
+            throw ProcessError(TLF("Vehicle type '%' is not defined.", oc.getString("vtype")));
+        }
+        if (oc.isDefault("emission-class")) {
+            c = vTypeIt->second->emissionClass;
+        }
+        energyParams = std::unique_ptr<EnergyParams>(new EnergyParams(vTypeIt->second));
+    } else {
+        energyParams = std::unique_ptr<EnergyParams>(new EnergyParams());
+    }
     for (double v = vMin; v <= vMax; v += vStep) {
         for (double a = aMin; a <= aMax; a += aStep) {
             for (double s = sMin; s <= sMax; s += sStep) {
-                const PollutantsInterface::Emissions result = PollutantsInterface::computeAll(c, v, a, s, &energyParams);
+                const PollutantsInterface::Emissions result = PollutantsInterface::computeAll(c, v, a, s, energyParams.get());
                 o << v << ";" << a << ";" << s << ";" << "CO" << ";" << result.CO << std::endl;
                 o << v << ";" << a << ";" << s << ";" << "CO2" << ";" << result.CO2 << std::endl;
                 o << v << ";" << a << ";" << s << ";" << "HC" << ";" << result.HC << std::endl;
@@ -84,12 +115,19 @@ main(int argc, char** argv) {
     oc.setApplicationName("emissionsMap", "Eclipse SUMO emissionsMap Version " VERSION_STRING);
     // add options
     SystemFrame::addConfigurationOptions(oc);
+    oc.addOptionSubTopic("Input");
     oc.addOptionSubTopic("Processing");
     oc.doRegister("iterate", 'i', new Option_Bool(false));
     oc.addDescription("iterate", "Processing", TL("If set, maps for all available emissions are written."));
 
     oc.doRegister("emission-class", 'e', new Option_String());
     oc.addDescription("emission-class", "Processing", TL("Defines the name of the emission class to generate the map for."));
+
+    oc.doRegister("additional-files", new Option_FileName());
+    oc.addDescription("additional-files", "Input", TL("Load emission parameters (vTypes) from FILE(s)"));
+
+    oc.doRegister("vtype", new Option_String());
+    oc.addDescription("vtype", "Input", TL("Defines the vehicle type to use for emission parameters."));
 
     oc.doRegister("v-min", new Option_Float(0.));
     oc.addDescription("v-min", "Processing", TL("Defines the minimum velocity boundary of the map to generate (in m/s)."));
@@ -159,7 +197,7 @@ main(int argc, char** argv) {
                 throw ProcessError(TL("The output file (-o) must be given."));
             }
             const SUMOEmissionClass c = PollutantsInterface::getClassByName(oc.getString("emission-class"));
-            single(oc.getString("output-file"), oc.getString("emission-class"),
+            single(oc, oc.getString("output-file"), oc.getString("emission-class"),
                    c, vMin, vMax, vStep, aMin, aMax, aStep, sMin, sMax, sStep, oc.getBool("verbose"));
         } else {
             if (!oc.isSet("output-file")) {
@@ -168,7 +206,8 @@ main(int argc, char** argv) {
             const std::vector<SUMOEmissionClass> classes = PollutantsInterface::getAllClasses();
             for (std::vector<SUMOEmissionClass>::const_iterator ci = classes.begin(); ci != classes.end(); ++ci) {
                 SUMOEmissionClass c = *ci;
-                single(oc.getString("output-file") + PollutantsInterface::getName(c) + ".csv", PollutantsInterface::getName(c),
+                single(oc, oc.getString("output-file") + PollutantsInterface::getName(c) + ".csv",
+                       PollutantsInterface::getName(c),
                        c, vMin, vMax, vStep, aMin, aMax, aStep, sMin, sMax, sStep, oc.getBool("verbose"));
             }
         }

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-08-30 12:11:33 by Eclipse SUMO netedit Version v1_20_0+1790-a5ebcecacf0
+<neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
+
+    <input>
+        <sumocfg-file value="/Users/Jette/develop/simulation_examples/SUMO/routing/test.sumocfg"/>
+        <additional-files value="/Users/Jette/develop/simulation_examples/SUMO/routing/geometry.add.xml"/>
+        <route-files value="/Users/Jette/develop/simulation_examples/SUMO/routing/demand.rou.xml"/>
+        <sumo-net-file value="/Users/Jette/develop/simulation_examples/SUMO/routing/network.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="/Users/Jette/develop/simulation_examples/SUMO/routing/network.net.xml"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="0"/>
+    </pedestrian>
+
+</neteditConfiguration>
+-->
+
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,0.00" convBoundary="-10.50,31.49,99.31,65.16" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
+
+    <edge id="rerout_fix" from="J8" to="J9" priority="-1">
+        <lane id="rerout_fix_0" index="0" speed="13.89" length="5.00" shape="17.61,46.50 22.61,46.50"/>
+    </edge>
+    <edge id="rerouter" from="J2" to="J3" priority="-1">
+        <lane id="rerouter_0" index="0" speed="13.89" length="5.00" shape="40.52,46.21 45.52,46.21"/>
+    </edge>
+    <edge id="start" from="J0" to="J1" priority="-1">
+        <lane id="start_0" index="0" speed="13.89" length="5.00" shape="-10.50,45.92 -5.50,45.92"/>
+    </edge>
+    <edge id="ziel1" from="J4" to="J5" priority="-1">
+        <lane id="ziel1_0" index="0" speed="13.89" length="5.00" shape="90.09,63.56 95.09,63.56"/>
+    </edge>
+    <edge id="ziel2" from="J6" to="J7" priority="-1">
+        <lane id="ziel2_0" index="0" speed="13.89" length="5.00" shape="94.31,29.89 99.31,29.89"/>
+    </edge>
+
+    <junction id="J0" type="dead_end" x="-10.50" y="47.52" incLanes="" intLanes="" shape="-10.50,47.52 -10.50,44.32"/>
+    <junction id="J1" type="dead_end" x="-5.50" y="47.52" incLanes="start_0" intLanes="" shape="-5.50,44.32 -5.50,47.52"/>
+    <junction id="J2" type="dead_end" x="40.52" y="47.81" incLanes="" intLanes="" shape="40.52,47.81 40.52,44.61"/>
+    <junction id="J3" type="dead_end" x="45.52" y="47.81" incLanes="rerouter_0" intLanes="" shape="45.52,44.61 45.52,47.81"/>
+    <junction id="J4" type="dead_end" x="90.09" y="65.16" incLanes="" intLanes="" shape="90.09,65.16 90.09,61.96"/>
+    <junction id="J5" type="dead_end" x="95.09" y="65.16" incLanes="ziel1_0" intLanes="" shape="95.09,61.96 95.09,65.16"/>
+    <junction id="J6" type="dead_end" x="94.31" y="31.49" incLanes="" intLanes="" shape="94.31,31.49 94.31,28.29"/>
+    <junction id="J7" type="dead_end" x="99.31" y="31.49" incLanes="ziel2_0" intLanes="" shape="99.31,28.29 99.31,31.49"/>
+    <junction id="J8" type="dead_end" x="17.61" y="48.10" incLanes="" intLanes="" shape="17.61,48.10 17.61,44.90"/>
+    <junction id="J9" type="dead_end" x="22.61" y="48.10" incLanes="rerout_fix_0" intLanes="" shape="22.61,44.90 22.61,48.10"/>
+
+</net>

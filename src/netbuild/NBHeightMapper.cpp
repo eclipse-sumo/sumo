@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2011-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2011-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -92,7 +92,7 @@ NBHeightMapper::getZ(const Position& geo) const {
         const Boundary& boundary = item.boundary;
         int16_t* raster = item.raster;
         double result = -1e6;
-        if (boundary.around(geo)) {
+        if (boundary.around2D(geo)) {
             const int xSize = item.xSize;
             const double normX = (geo.x() - boundary.xmin()) / mySizeOfPixel.x();
             const double normY = (geo.y() - boundary.ymax()) / mySizeOfPixel.y();

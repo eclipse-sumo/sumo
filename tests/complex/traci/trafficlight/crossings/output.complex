@@ -4,7 +4,6 @@ step 1
 step 2
 trafficlight ('C',)
 trafficlight count 1
-waitingPersons 0
 examining C
 ryg rrrrrrrrrrryrrrrrrrrrrryrrrr
 rygdef (Logic(programID='0', type=0, currentPhaseIndex=4, phases=(Phase(duration=28.0, state='rrrrrrgGgGGgrrrrrrgGgGGgGrGr', minDur=28.0, maxDur=28.0), Phase(duration=5.0, state='rrrrrrgGgGGgrrrrrrgGgGGgrrrr', minDur=5.0, maxDur=5.0), Phase(duration=3.0, state='rrrrrryyyyygrrrrrryyyyygrrrr', minDur=3.0, maxDur=3.0), Phase(duration=6.0, state='rrrrrrrrrrrGrrrrrrrrrrrGrrrr', minDur=6.0, maxDur=6.0), Phase(duration=3.0, state='rrrrrrrrrrryrrrrrrrrrrryrrrr', minDur=3.0, maxDur=3.0, name='setByTraCI'), Phase(duration=28.0, state='gGgGGgrrrrrrgGgGGgrrrrrrrGrG', minDur=28.0, maxDur=28.0), Phase(duration=5.0, state='gGgGGgrrrrrrgGgGGgrrrrrrrrrr', minDur=5.0, maxDur=5.0), Phase(duration=3.0, state='yyyyygrrrrrryyyyygrrrrrrrrrr', minDur=3.0, maxDur=3.0), Phase(duration=6.0, state='rrrrrGrrrrrrrrrrrGrrrrrrrrrr', minDur=6.0, maxDur=6.0), Phase(duration=3.0, state='rrrrryrrrrrrrrrrryrrrrrrrrrr', minDur=3.0, maxDur=3.0)), subParameter={}),)
@@ -23,16 +22,96 @@ step 4
 {0: ('C',)}
 step 5
 {0: ('C',)}
+6.0 waitingPerPhase=[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+7.0 waitingPerPhase=[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+8.0 waitingPerPhase=[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+9.0 waitingPerPhase=[0, 0, 0, 0, 0, 1, 0, 0, 0, 0]
+10.0 waitingPerPhase=[0, 0, 0, 0, 0, 1, 0, 0, 0, 0]
+11.0 waitingPerPhase=[0, 0, 0, 0, 0, 1, 0, 0, 0, 0]
+12.0 waitingPerPhase=[0, 0, 0, 0, 0, 2, 0, 0, 0, 0]
+13.0 waitingPerPhase=[0, 0, 0, 0, 0, 3, 0, 0, 0, 0]
+14.0 waitingPerPhase=[0, 0, 0, 0, 0, 3, 0, 0, 0, 0]
+15.0 waitingPerPhase=[0, 0, 0, 0, 0, 4, 0, 0, 0, 0]
+16.0 waitingPerPhase=[0, 0, 0, 0, 0, 4, 0, 0, 0, 0]
+17.0 waitingPerPhase=[0, 0, 0, 0, 0, 5, 0, 0, 0, 0]
+18.0 waitingPerPhase=[0, 0, 0, 0, 0, 5, 0, 0, 0, 0]
+19.0 waitingPerPhase=[0, 0, 0, 0, 0, 5, 0, 0, 0, 0]
+20.0 waitingPerPhase=[0, 0, 0, 0, 0, 5, 0, 0, 0, 0]
+21.0 waitingPerPhase=[0, 0, 0, 0, 0, 6, 0, 0, 0, 0]
+22.0 waitingPerPhase=[0, 0, 0, 0, 0, 7, 0, 0, 0, 0]
+23.0 waitingPerPhase=[0, 0, 0, 0, 0, 7, 0, 0, 0, 0]
+24.0 waitingPerPhase=[0, 0, 0, 0, 0, 8, 0, 0, 0, 0]
+25.0 waitingPerPhase=[0, 0, 0, 0, 0, 8, 0, 0, 0, 0]
+26.0 waitingPerPhase=[0, 0, 0, 0, 0, 9, 0, 0, 0, 0]
+27.0 waitingPerPhase=[0, 0, 0, 0, 0, 5, 0, 0, 0, 0]
+28.0 waitingPerPhase=[0, 0, 0, 0, 0, 2, 0, 0, 0, 0]
+29.0 waitingPerPhase=[0, 0, 0, 0, 0, 3, 0, 0, 0, 0]
+30.0 waitingPerPhase=[0, 0, 0, 0, 0, 3, 0, 0, 0, 0]
+31.0 waitingPerPhase=[0, 0, 0, 0, 0, 2, 0, 0, 0, 0]
+32.0 waitingPerPhase=[0, 0, 0, 0, 0, 1, 0, 0, 0, 0]
+33.0 waitingPerPhase=[0, 0, 0, 0, 0, 1, 0, 0, 0, 0]
+34.0 waitingPerPhase=[0, 0, 0, 0, 0, 1, 0, 0, 0, 0]
+35.0 waitingPerPhase=[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+36.0 waitingPerPhase=[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+37.0 waitingPerPhase=[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+38.0 waitingPerPhase=[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+39.0 waitingPerPhase=[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+40.0 waitingPerPhase=[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+41.0 waitingPerPhase=[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+42.0 waitingPerPhase=[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+43.0 waitingPerPhase=[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+44.0 waitingPerPhase=[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+45.0 waitingPerPhase=[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+46.0 waitingPerPhase=[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+47.0 waitingPerPhase=[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+48.0 waitingPerPhase=[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+49.0 waitingPerPhase=[1, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+50.0 waitingPerPhase=[1, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+51.0 waitingPerPhase=[1, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+52.0 waitingPerPhase=[2, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+53.0 waitingPerPhase=[3, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+54.0 waitingPerPhase=[4, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+55.0 waitingPerPhase=[4, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+56.0 waitingPerPhase=[4, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+57.0 waitingPerPhase=[4, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+58.0 waitingPerPhase=[5, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+59.0 waitingPerPhase=[5, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+60.0 waitingPerPhase=[6, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+61.0 waitingPerPhase=[6, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+62.0 waitingPerPhase=[7, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+63.0 waitingPerPhase=[7, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+64.0 waitingPerPhase=[8, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+65.0 waitingPerPhase=[8, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+66.0 waitingPerPhase=[9, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+67.0 waitingPerPhase=[10, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+68.0 waitingPerPhase=[10, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+69.0 waitingPerPhase=[10, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+70.0 waitingPerPhase=[10, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+71.0 waitingPerPhase=[10, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+72.0 waitingPerPhase=[2, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+73.0 waitingPerPhase=[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+74.0 waitingPerPhase=[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+75.0 waitingPerPhase=[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+76.0 waitingPerPhase=[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+77.0 waitingPerPhase=[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+78.0 waitingPerPhase=[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+79.0 waitingPerPhase=[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+80.0 waitingPerPhase=[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+81.0 waitingPerPhase=[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+82.0 waitingPerPhase=[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+83.0 waitingPerPhase=[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+84.0 waitingPerPhase=[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+85.0 waitingPerPhase=[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 examining C
-ryg rrrrurrrrrryrrrrurrrrrryrrrr
-rygdef (Logic(programID='0', type=0, currentPhaseIndex=4, phases=(Phase(duration=28.0, state='rrrrrrgGgGGgrrrrrrgGgGGgGrGr', minDur=28.0, maxDur=28.0), Phase(duration=5.0, state='rrrrrrgGgGGgrrrrrrgGgGGgrrrr', minDur=5.0, maxDur=5.0), Phase(duration=3.0, state='rrrrrryyyyygrrrrrryyyyygrrrr', minDur=3.0, maxDur=3.0), Phase(duration=6.0, state='rrrrrrrrrrrGrrrrrrrrrrrGrrrr', minDur=6.0, maxDur=6.0), Phase(duration=3.0, state='rrrrrrrrrrryrrrrrrrrrrryrrrr', minDur=3.0, maxDur=3.0, name='setByTraCI'), Phase(duration=28.0, state='gGgGGgrrrrrrgGgGGgrrrrrrrGrG', minDur=28.0, maxDur=28.0), Phase(duration=5.0, state='gGgGGgrrrrrrgGgGGgrrrrrrrrrr', minDur=5.0, maxDur=5.0), Phase(duration=3.0, state='yyyyygrrrrrryyyyygrrrrrrrrrr', minDur=3.0, maxDur=3.0), Phase(duration=6.0, state='rrrrrGrrrrrrrrrrrGrrrrrrrrrr', minDur=6.0, maxDur=6.0), Phase(duration=3.0, state='rrrrryrrrrrrrrrrryrrrrrrrrrr', minDur=3.0, maxDur=3.0)), subParameter={}), Logic(programID='online', type=0, currentPhaseIndex=0, phases=(Phase(duration=1.0, state='rrrrurrrrrryrrrrurrrrrryrrrr', minDur=1.0, maxDur=1.0),), subParameter={}))
+ryg rrrrurgGgGGgrrrrurgGgGGgGrGr
+rygdef (Logic(programID='0', type=0, currentPhaseIndex=0, phases=(Phase(duration=28.0, state='rrrrrrgGgGGgrrrrrrgGgGGgGrGr', minDur=28.0, maxDur=28.0), Phase(duration=5.0, state='rrrrrrgGgGGgrrrrrrgGgGGgrrrr', minDur=5.0, maxDur=5.0), Phase(duration=3.0, state='rrrrrryyyyygrrrrrryyyyygrrrr', minDur=3.0, maxDur=3.0), Phase(duration=6.0, state='rrrrrrrrrrrGrrrrrrrrrrrGrrrr', minDur=6.0, maxDur=6.0), Phase(duration=3.0, state='rrrrrrrrrrryrrrrrrrrrrryrrrr', minDur=3.0, maxDur=3.0, name='setByTraCI'), Phase(duration=28.0, state='gGgGGgrrrrrrgGgGGgrrrrrrrGrG', minDur=28.0, maxDur=28.0), Phase(duration=5.0, state='gGgGGgrrrrrrgGgGGgrrrrrrrrrr', minDur=5.0, maxDur=5.0), Phase(duration=3.0, state='yyyyygrrrrrryyyyygrrrrrrrrrr', minDur=3.0, maxDur=3.0), Phase(duration=6.0, state='rrrrrGrrrrrrrrrrrGrrrrrrrrrr', minDur=6.0, maxDur=6.0), Phase(duration=3.0, state='rrrrryrrrrrrrrrrryrrrrrrrrrr', minDur=3.0, maxDur=3.0)), subParameter={}), Logic(programID='online', type=0, currentPhaseIndex=0, phases=(Phase(duration=1.0, state='rrrrurgGgGGgrrrrurgGgGGgGrGr', minDur=1.0, maxDur=1.0),), subParameter={}))
 lanes ('NC_2', 'NC_2', 'NC_3', 'NC_3', 'NC_4', 'NC_4', 'EC_2', 'EC_2', 'EC_3', 'EC_3', 'EC_4', 'EC_4', 'SC_2', 'SC_2', 'SC_3', 'SC_3', 'SC_4', 'SC_4', 'WC_2', 'WC_2', 'WC_3', 'WC_3', 'WC_4', 'WC_4', ':C_w1_0', ':C_w2_0', ':C_w3_0', ':C_w0_0')
 links [[('NC_2', 'CW_2', ':C_0_0')], [('NC_2', 'CS_2', ':C_1_0')], [('NC_3', 'CW_3', ':C_2_0')], [('NC_3', 'CS_3', ':C_3_0')], [('NC_4', 'CS_4', ':C_3_1')], [('NC_4', 'CE_4', ':C_5_0')], [('EC_2', 'CN_2', ':C_6_0')], [('EC_2', 'CW_2', ':C_7_0')], [('EC_3', 'CN_3', ':C_8_0')], [('EC_3', 'CW_3', ':C_9_0')], [('EC_4', 'CW_4', ':C_9_1')], [('EC_4', 'CS_4', ':C_11_0')], [('SC_2', 'CE_2', ':C_12_0')], [('SC_2', 'CN_2', ':C_13_0')], [('SC_3', 'CE_3', ':C_14_0')], [('SC_3', 'CN_3', ':C_15_0')], [('SC_4', 'CN_4', ':C_15_1')], [('SC_4', 'CW_4', ':C_17_0')], [('WC_2', 'CS_2', ':C_18_0')], [('WC_2', 'CE_2', ':C_19_0')], [('WC_3', 'CS_3', ':C_20_0')], [('WC_3', 'CE_3', ':C_21_0')], [('WC_4', 'CE_4', ':C_21_1')], [('WC_4', 'CN_4', ':C_23_0')], [(':C_w1_0', ':C_c0_0', '')], [(':C_w2_0', ':C_c1_0', '')], [(':C_w3_0', ':C_c2_0', '')], [(':C_w0_0', ':C_c3_0', '')]]
 program online
 phase 0
 phaseName 
-switch 7.0
+switch 87.0
 duration 1.0
-set ryg rrrrurrrrrryrrrrurrrrrryrrrr
+set ryg rrrrurgGgGGgrrrrurgGgGGgGrGr
 program online
 ryg ooooooooooooooooooooooooOOOO

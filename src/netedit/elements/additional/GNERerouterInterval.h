@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -19,6 +19,7 @@
 /****************************************************************************/
 #pragma once
 #include <config.h>
+
 #include "GNEAdditional.h"
 
 // ===========================================================================
@@ -36,11 +37,8 @@ class GNEParkingAreaReroute;
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/**
- * @class GNERerouterInterval
- * class used to represent a interval used in rerouters
- */
-class GNERerouterInterval : public GNEAdditional {
+
+class GNERerouterInterval : public GNEAdditional, public Parameterised {
 
 public:
     /// @brief default constructor
@@ -162,10 +160,10 @@ public:
 
 protected:
     /// @brief begin timeStep
-    SUMOTime myBegin;
+    SUMOTime myBegin = 0;
 
     /// @brief end timeStep
-    SUMOTime myEnd;
+    SUMOTime myEnd = 0;
 
 private:
     /// @brief set attribute after validation

@@ -9,4 +9,7 @@
     <vType id="slowCar" maxSpeed="1"/>
     <vType id="slowCarFactor" speedFactor="0.2"/>
     <vType id="fastCar" speedFactor="2"/>
+    <vType id="taxi" vClass="taxi">
+        <param key="has.taxi.device" value="true"/>
+    </vType>
 </routes>

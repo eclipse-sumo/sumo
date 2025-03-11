@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -31,6 +31,7 @@
 #define DEFAULT_AVG_WAITING_TIME 900. // s
 #define DEFAULT_CHARGINGSTATION_VIEW_DIST 10 // m
 #define DEFAULT_CONSUMPTION_ESTIMATE_HISTORY 10 // s
+#define DEFAULT_OPPORTUNITY_INTERVAL 1800 // s
 
 // ===========================================================================
 // class declarations
@@ -101,7 +102,6 @@ public:
      */
     static void buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>& into);
 
-public:
     /** @brief Constructor
      *
      * @param[in] holder The vehicle that holds this device
@@ -143,6 +143,18 @@ public:
 
     /// @}
 
+    /** @brief Saves the state of the device
+     *
+     * @param[in] out The OutputDevice to write the information into
+     */
+    void saveState(OutputDevice& out) const override;
+
+    /** @brief Loads the state of the device from the given description
+     *
+     * @param[in] attrs XML attributes describing the current state
+     */
+    void loadState(const SUMOSAXAttributes& attrs) override;
+
     /// @brief return the name for this type of device
     const std::string deviceName() const override {
         return "stationfinder";
@@ -172,6 +184,9 @@ public:
     }
 
     std::string getParameter(const std::string& key) const override;
+
+    /// @brief try to set the given parameter for this device. Throw exception for unsupported key
+    void setParameter(const std::string& key, const std::string& value) override;
 
     /** @brief Compute some custom target function components
      *
@@ -254,9 +269,14 @@ private:
      * @param[in] constrainTT whether to constrain the search radius by a maximum travel time
      * @param[in] skipVisited whether to skip charging stations which have not been available when passing by recently
      * @param[in] skipOccupied whether to skip fully occupied charging stations
+     * @param[in] visible whether the charging station has to be within the visibility radius of the vehicle
      * @return The found charging station, otherwise nullptr
      */
-    MSChargingStation* findChargingStation(SUMOAbstractRouter<MSEdge, SUMOVehicle>& router, double expectedConsumption, StoppingPlaceParamMap_t& scores, bool constrainTT = true, bool skipVisited = true, bool skipOccupied = false);
+    MSChargingStation* findChargingStation(SUMOAbstractRouter<MSEdge,
+                                           SUMOVehicle>& router,
+                                           double expectedConsumption,
+                                           StoppingPlaceParamMap_t& scores,
+                                           bool constrainTT = true, bool skipVisited = true, bool skipOccupied = false, bool visible = false);
 
 
     /** @brief reroute to a charging station
@@ -265,6 +285,14 @@ private:
      * @return true if the vehicle has been redirected to a charging station, false otherwise
      */
     bool rerouteToChargingStation(bool replace = false);
+
+
+    /** @brief check which stop is suited for opportunistic charging and try to plan charging stops
+     *
+     * @return true if the vehicle has planned at least one opportunistic charging stop
+     */
+    bool planOpportunisticCharging();
+
 
     /** @brief search for a charging station and teleport the vehicle there as a rescue measure
      */
@@ -339,6 +367,9 @@ private:
     /// @brief Last time charging stations have been searched
     SUMOTime myLastSearch;
 
+    /// @brief Last time charging stations have been searched for opportunistic charging
+    SUMOTime myLastOpportunisticSearch;
+
     /// @brief The time to wait for a rescue vehicle in case the battery is empty
     double myRescueTime;
 
@@ -360,6 +391,9 @@ private:
     /// @brief Accepted waiting time at the charging station before a place becomes available
     SUMOTime myWaitForCharge;
 
+    /// @brief Minimal expected stop duration to allow for opportunistic charging (not needed to complete the route)
+    SUMOTime myMinOpportunisticTime;
+
     /// @brief SoC the last time the station finder algorithm was run completely
     double myUpdateSoC;
 
@@ -372,10 +406,13 @@ private:
     /// @brief The state of charge at which the vehicle starts looking for charging stations
     double mySearchSoC;
 
-    /// @brief The share of stopping time a charging stop should take from the next regulr (non-charging) stop under certain conditions
+    /// @brief The state of charge at/below which the vehicle is interested in charging although it may still be sufficient to terminate its route
+    double myOpportunitySoC;
+
+    /// @brief The share of stopping time a charging stop should take from the next regular (non-charging) stop under certain conditions
     double myReplacePlannedStop;
 
-    /// @brief The distance in meters to the original stop replaced by the charging stop (models charging close to the activity location)
+    /// @brief The distance in meters to the original stop replaced by the charging stop (models charging close to the activity location) - used as well for opportunistic charging
     double myDistanceToOriginalStop;
 
     /// @brief The type of charging permitted by the battery (charging, bidirectional, battery exchange)
@@ -389,6 +426,9 @@ private:
 
     /// @brief The current state of the charging search (remember for decision logic)
     SearchState mySearchState = SEARCHSTATE_NONE;
+
+    /// @brief Whether to skip searching charging stations if the battery charge is sufficient to complete the current route
+    bool myCheckEnergyForRoute;
 
 private:
     /// @brief Invalidated copy constructor.

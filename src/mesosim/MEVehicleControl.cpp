@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -44,10 +44,10 @@ MEVehicleControl::~MEVehicleControl() {}
 SUMOVehicle*
 MEVehicleControl::buildVehicle(SUMOVehicleParameter* defs,
                                ConstMSRoutePtr route, MSVehicleType* type,
-                               const bool ignoreStopErrors, const bool fromRouteFile,
+                               const bool ignoreStopErrors, const VehicleDefinitionSource source,
                                bool addRouteStops) {
-    MEVehicle* built = new MEVehicle(defs, route, type, type->computeChosenSpeedDeviation(fromRouteFile ? MSRouteHandler::getParsingRNG() : nullptr));
-    initVehicle(built, ignoreStopErrors, addRouteStops);
+    MEVehicle* built = new MEVehicle(defs, route, type, type->computeChosenSpeedDeviation(source == VehicleDefinitionSource::ROUTEFILE ? MSRouteHandler::getParsingRNG() : nullptr));
+    initVehicle(built, ignoreStopErrors, addRouteStops, source);
     return built;
 }
 

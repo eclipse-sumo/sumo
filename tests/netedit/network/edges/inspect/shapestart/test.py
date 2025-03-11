@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2009-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2009-2025 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -28,14 +28,11 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
-# recompute
-netedit.rebuildNetwork()
-
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect edge
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.network.edge.leftBot)
 
 # Change parameter 18 with a non valid value (dummy)
 netedit.modifyAttribute(netedit.attrs.edge.inspect.shapeStart, "dummyShapeStart", False)
@@ -43,20 +40,17 @@ netedit.modifyAttribute(netedit.attrs.edge.inspect.shapeStart, "dummyShapeStart"
 # Change parameter 18 with a non valid value (incomplete)
 netedit.modifyAttribute(netedit.attrs.edge.inspect.shapeStart, "34", False)
 
+# Change parameter 19 with a duplicated value (See #3157)
+netedit.modifyAttribute(netedit.attrs.edge.inspect.shapeEnd, "30.00,0.00", False)
+
 # Change parameter 18 with a valid value (empty)
 netedit.modifyAttribute(netedit.attrs.edge.inspect.shapeStart, "", False)
 
 # Change parameter 18 with a valid value
-netedit.modifyAttribute(netedit.attrs.edge.inspect.shapeStart, "14,15.5", False)
-
-# recompute
-netedit.rebuildNetwork()
+netedit.modifyAttribute(netedit.attrs.edge.inspect.shapeStart, "-20.00,-5.00", False)
 
 # Check undos
 netedit.undo(referencePosition, 1)
-
-# recompute
-netedit.rebuildNetwork()
 
 # check redos
 netedit.redo(referencePosition, 1)

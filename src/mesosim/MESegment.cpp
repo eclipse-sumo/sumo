@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -316,7 +316,7 @@ MESegment::hasSpaceFor(const MEVehicle* const veh, const SUMOTime entryTime, int
     }
     const SUMOVehicleClass svc = veh->getVClass();
     int minSize = std::numeric_limits<int>::max();
-    const MSEdge* const succ = myNextSegment == nullptr ? veh->succEdge(1) : nullptr;
+    const MSEdge* const succ = myNextSegment == nullptr ? veh->succEdge(veh->getEdge() == &myEdge ? 1 : 2) : nullptr;
     for (int i = 0; i < (int)myQueues.size(); i++) {
         const Queue& q = myQueues[i];
         const double newOccupancy = q.size() == 0 ? 0. : q.getOccupancy() + veh->getVehicleType().getLengthWithGap();
@@ -328,7 +328,10 @@ MESegment::hasSpaceFor(const MEVehicle* const veh, const SUMOTime entryTime, int
                         // - regular insertions must respect entryBlockTime
                         // - initial insertions should not cause additional jamming
                         // - inserted vehicle should be able to continue at the current speed
-                        if (q.getOccupancy() <= myJamThreshold && !hasBlockedLeader() && !myTLSPenalty) {
+                        if (veh->getInsertionChecks() == (int)InsertionCheck::NONE) {
+                            qIdx = i;
+                            minSize = q.size();
+                        } else if (q.getOccupancy() <= myJamThreshold && !hasBlockedLeader() && !myTLSPenalty) {
                             if (newOccupancy <= myJamThreshold) {
                                 qIdx = i;
                                 minSize = q.size();
@@ -633,7 +636,8 @@ MESegment::receive(MEVehicle* veh, const int qIdx, SUMOTime time, const bool isD
         myEdge.addWaiting(veh);
     }
     if (veh->isParking()) {
-        veh->setEventTime(stopTime);
+        // parking stops should take at least 1ms
+        veh->setEventTime(MAX2(stopTime, veh->getEventTime() + 1));
         veh->setSegment(this, PARKING_QUEUE);
         myEdge.getLanes()[0]->addParking(veh);  // TODO for GUI only
     } else {
@@ -790,17 +794,14 @@ MESegment::clearState() {
 }
 
 void
-MESegment::loadState(const std::vector<std::string>& vehIds, MSVehicleControl& vc, const SUMOTime block, const int queIdx) {
+MESegment::loadState(const std::vector<SUMOVehicle*>& vehs, const SUMOTime blockTime, const int queIdx) {
     Queue& q = myQueues[queIdx];
-    for (const std::string& id : vehIds) {
-        MEVehicle* v = static_cast<MEVehicle*>(vc.getVehicle(id));
-        // vehicle could be removed due to options
-        if (v != nullptr) {
-            assert(v->getSegment() == this);
-            q.getModifiableVehicles().push_back(v);
-            myNumVehicles++;
-            q.setOccupancy(q.getOccupancy() + v->getVehicleType().getLengthWithGap());
-        }
+    for (SUMOVehicle* veh : vehs) {
+        MEVehicle* v = static_cast<MEVehicle*>(veh);
+        assert(v->getSegment() == this);
+        q.getModifiableVehicles().push_back(v);
+        myNumVehicles++;
+        q.setOccupancy(q.getOccupancy() + v->getVehicleType().getLengthWithGap());
     }
     if (q.size() != 0) {
         // add the last vehicle of this queue
@@ -808,7 +809,7 @@ MESegment::loadState(const std::vector<std::string>& vehIds, MSVehicleControl& v
         MEVehicle* veh = q.getVehicles().back();
         MSGlobals::gMesoNet->addLeaderCar(veh, getLink(veh));
     }
-    q.setBlockTime(block);
+    q.setBlockTime(blockTime);
     q.setOccupancy(MIN2(q.getOccupancy(), myQueueCapacity));
 }
 

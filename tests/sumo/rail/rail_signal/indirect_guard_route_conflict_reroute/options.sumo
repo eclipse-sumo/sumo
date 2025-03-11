@@ -3,3 +3,4 @@
 --routes=input_routes.rou.xml
 --tripinfo-output tripinfos.xml
 --vehroute-output vehroutes.xml
+--device.rerouting.railsignal

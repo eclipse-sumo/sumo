@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -19,17 +19,13 @@
 /****************************************************************************/
 #pragma once
 #include <config.h>
-#include "GNEStoppingPlace.h"
 
+#include "GNEStoppingPlace.h"
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
-/**
- * @class GNEParkingArea
- * @brief A lane area vehicles can park at (netedit-version)
- */
 class GNEParkingArea : public GNEStoppingPlace {
 
 public:
@@ -37,9 +33,10 @@ public:
     GNEParkingArea(GNENet* net);
 
     /**@brief Constructor
-     * @param[in] id The storage of gl-ids to get the one for this lane representation from
-     * @param[in] lane Lane of this StoppingPlace belongs
+     * @param[in] id parking area ID
      * @param[in] net pointer to GNENet of this additional element belongs
+     * @param[in] filename file in which this element is stored
+     * @param[in] lane Lane of this StoppingPlace belongs
      * @param[in] startPos Start position of the StoppingPlace
      * @param[in] endPos End position of the StoppingPlace
      * @param[in] departPos lane position in that vehicle must depart when leaves parkingArea
@@ -53,10 +50,9 @@ public:
      * @param[in] lefthand enable or disable lefthand
      * @param[in] parameters generic parameters
      */
-    GNEParkingArea(const std::string& id, GNELane* lane, GNENet* net, const double startPos, const double endPos,
-                   const std::string& departPos, const std::string& name, const std::vector<std::string>& badges,
-                   const bool friendlyPosition, const int roadSideCapacity,
-                   const bool onRoad, const double width, const double length, const double angle, const bool lefthand,
+    GNEParkingArea(const std::string& id, GNENet* net, const std::string& filename, GNELane* lane, const double startPos, const double endPos,
+                   const std::string& departPos, const std::string& name, const std::vector<std::string>& badges, const bool friendlyPosition,
+                   const int roadSideCapacity, const bool onRoad, const double width, const double length, const double angle, const bool lefthand,
                    const Parameterised::Map& parameters);
 
     /// @brief Destructor

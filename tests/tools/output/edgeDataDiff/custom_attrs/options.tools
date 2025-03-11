@@ -1,0 +1,1 @@
+input_edgedata.xml input_data.xml diff.xml --attributes attr,attr2

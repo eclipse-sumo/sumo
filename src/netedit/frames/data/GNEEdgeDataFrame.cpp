@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -17,16 +17,18 @@
 ///
 // The Widget for add edgeData elements
 /****************************************************************************/
-#include <config.h>
 
+#include <netedit/GNEApplicationWindow.h>
+#include <netedit/GNETagProperties.h>
+#include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
+#include <netedit/elements/data/GNEDataHandler.h>
 #include <netedit/elements/data/GNEDataInterval.h>
 #include <netedit/elements/data/GNEEdgeData.h>
-#include <netedit/elements/data/GNEDataHandler.h>
 #include <netedit/elements/network/GNEEdge.h>
-#include <netedit/GNEViewNet.h>
+#include <netedit/frames/GNEAttributesEditor.h>
 
 #include "GNEEdgeDataFrame.h"
-
 
 // ===========================================================================
 // method definitions
@@ -46,7 +48,7 @@ GNEEdgeDataFrame::addEdgeData(const GNEViewNetHelper::ViewObjectsSelector& viewO
     if (viewObjects.getEdgeFront() && myDataSetSelector->getDataSet() && myIntervalSelector->getDataInterval()) {
         // first check if the given interval there is already a EdgeData for the given ID
         for (const auto& genericData : myIntervalSelector->getDataInterval()->getGenericDataChildren()) {
-            if ((genericData->getTagProperty().getTag() == GNE_TAG_EDGEREL_SINGLE) && (genericData->getParentEdges().front() == viewObjects.getEdgeFront())) {
+            if ((genericData->getTagProperty()->getTag() == GNE_TAG_EDGEREL_SINGLE) && (genericData->getParentEdges().front() == viewObjects.getEdgeFront())) {
                 // write warning
                 WRITE_WARNINGF(TL("There is already a % in edge '%'"), genericData->getTagStr(), viewObjects.getEdgeFront()->getID());
                 // abort edge data creation
@@ -54,7 +56,8 @@ GNEEdgeDataFrame::addEdgeData(const GNEViewNetHelper::ViewObjectsSelector& viewO
             }
         }
         // check if parameters are valid
-        if (myGenericDataAttributes->areAttributesValid()) {
+        if (myGenericDataAttributesEditor->checkAttributes(true)) {
+            GNEDataHandler dataHandler(myViewNet->getNet(), "", myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), false);
             // create interval base object
             CommonXMLStructure::SumoBaseObject* intervalBaseObject = new CommonXMLStructure::SumoBaseObject(nullptr);
             intervalBaseObject->addStringAttribute(SUMO_ATTR_ID, myIntervalSelector->getDataInterval()->getID());
@@ -62,12 +65,12 @@ GNEEdgeDataFrame::addEdgeData(const GNEViewNetHelper::ViewObjectsSelector& viewO
             intervalBaseObject->addDoubleAttribute(SUMO_ATTR_END, myIntervalSelector->getDataInterval()->getAttributeDouble(SUMO_ATTR_END));
             // create genericData base object
             CommonXMLStructure::SumoBaseObject* genericDataBaseObject = new CommonXMLStructure::SumoBaseObject(intervalBaseObject);
-            // finally create edgeData
-            GNEDataHandler dataHandler(myViewNet->getNet(), "", true, false);
-            dataHandler.buildEdgeData(genericDataBaseObject, viewObjects.getEdgeFront()->getID(), myGenericDataAttributes->getParametersMap());
-            // delete intervalBaseObject (and genericDataBaseObject)
+            // obtain parameters
+            myGenericDataAttributesEditor->fillSumoBaseObject(genericDataBaseObject);
+            // create edgeData
+            dataHandler.buildEdgeData(genericDataBaseObject, viewObjects.getEdgeFront()->getID(), genericDataBaseObject->getParameters());
+            // delete data interval object (and child)
             delete intervalBaseObject;
-            // edgeData created, then return true
             return true;
         } else {
             return false;

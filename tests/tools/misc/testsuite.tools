@@ -8,3 +8,4 @@ generateContinuousRerouters
 extractTest
 runSeeds
 distributeChargingStations
+generateLandmarks

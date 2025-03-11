@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2017-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2017-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -13,6 +13,7 @@
 /****************************************************************************/
 /// @file    ParkingArea.cpp
 /// @author  Angelo Banse
+/// @author  Mirko Barthauer
 /// @date    10.11.2020
 ///
 // C++ TraCI client API implementation
@@ -75,6 +76,15 @@ ParkingArea::getVehicleIDs(const std::string& stopID) {
     return Dom::getStringVector(libsumo::VAR_STOP_STARTING_VEHICLES_IDS, stopID);
 }
 
+std::vector<std::string>
+ParkingArea::getAcceptedBadges(const std::string& stopID) {
+    return Dom::getStringVector(libsumo::VAR_ACCESS_BADGE, stopID);
+}
+
+void
+ParkingArea::setAcceptedBadges(const std::string& stopID, const std::vector<std::string>& badges) {
+    Dom::setStringVector(libsumo::VAR_ACCESS_BADGE, stopID, badges);
+}
 
 LIBTRACI_SUBSCRIPTION_IMPLEMENTATION(ParkingArea, PARKINGAREA)
 LIBTRACI_PARAMETER_IMPLEMENTATION(ParkingArea, PARKINGAREA)

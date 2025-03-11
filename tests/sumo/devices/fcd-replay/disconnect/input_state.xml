@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-03-21 11:56:35 by Eclipse SUMO sumo Version v1_19_0+1439-fe8b4a30f04
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="../../../motorway.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <fcd-output value="input_state.xml"/>
+    </output>
+
+</configuration>
+-->
+
+<fcd-export xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/fcd_file.xsd">
+    <timestep time="0.00">
+        <vehicle id="v0" x="-294.97" y="-49.16" angle="80.54" type="t1" speed="0.00" pos="5.10" lane="onRamp_0" slope="0.00"/>
+    </timestep>
+    <timestep time="1.00">
+        <vehicle id="v0" x="-292.40" y="-48.73" angle="80.54" type="t1" speed="2.60" pos="7.70" lane="onRamp_0" slope="0.00"/>
+    </timestep>
+    <timestep time="2.00">
+        <vehicle id="v0" x="-287.28" y="-47.88" angle="80.54" type="t1" speed="5.20" pos="12.90" lane="onRamp_0" slope="0.00"/>
+    </timestep>
+    <timestep time="3.00">
+        <vehicle id="v0" x="-279.58" y="-46.60" angle="80.54" type="t1" speed="7.80" pos="20.70" lane="onRamp_0" slope="0.00"/>
+    </timestep>
+    <timestep time="4.00">
+        <vehicle id="v0" x="-269.32" y="-44.89" angle="80.54" type="t1" speed="10.40" pos="31.10" lane="onRamp_0" slope="0.00"/>
+    </timestep>
+    <timestep time="5.00">
+        <vehicle id="v0" x="-256.50" y="-42.75" angle="80.54" type="t1" speed="13.00" pos="44.10" lane="onRamp_0" slope="0.00"/>
+    </timestep>
+    <timestep time="6.00">
+        <vehicle id="v0" x="-241.11" y="-40.19" angle="80.54" type="t1" speed="15.60" pos="59.70" lane="onRamp_0" slope="0.00"/>
+    </timestep>
+    <timestep time="7.00">
+        <vehicle id="v0" x="-223.16" y="-37.19" angle="80.54" type="t1" speed="18.20" pos="77.90" lane="onRamp_0" slope="0.00"/>
+    </timestep>
+    <timestep time="8.00">
+        <vehicle id="v0" x="-202.64" y="-33.77" angle="80.54" type="t1" speed="20.80" pos="98.70" lane="onRamp_0" slope="0.00"/>
+    </timestep>
+    <timestep time="9.00">
+        <vehicle id="v0" x="-179.56" y="-29.93" angle="80.54" type="t1" speed="23.40" pos="122.10" lane="onRamp_0" slope="0.00"/>
+    </timestep>
+    <timestep time="10.00">
+        <vehicle id="v0" x="-153.91" y="-25.65" angle="80.54" type="t1" speed="26.00" pos="148.10" lane="onRamp_0" slope="0.00"/>
+    </timestep>
+    <timestep time="11.00">
+        <vehicle id="v0" x="-125.70" y="-20.95" angle="80.54" type="t1" speed="28.60" pos="176.70" lane="onRamp_0" slope="0.00"/>
+    </timestep>
+    <timestep time="12.00">
+        <vehicle id="v0" x="-94.93" y="-15.82" angle="80.54" type="t1" speed="31.20" pos="207.90" lane="onRamp_0" slope="0.00"/>
+    </timestep>
+    <timestep time="13.00">
+        <vehicle id="v0" x="-61.59" y="-10.26" angle="80.54" type="t1" speed="33.80" pos="241.70" lane="onRamp_0" slope="0.00"/>
+    </timestep>
+    <timestep time="14.00">
+        <vehicle id="v0" x="-26.52" y="-5.00" angle="87.13" type="t1" speed="35.50" pos="277.20" lane="onRamp_0" slope="0.00"/>
+    </timestep>
+    <timestep time="18.00">
+        <vehicle id="v0" x="112.45" y="-1.60" angle="90.00" type="t1" speed="38.16" pos="8.45" lane="beg_0" slope="0.00"/>
+    </timestep>
+    <timestep time="19.00">
+        <vehicle id="v0" x="150.61" y="-1.60" angle="90.00" type="t1" speed="38.16" pos="46.61" lane="beg_0" slope="0.00"/>
+    </timestep>
+    <timestep time="20.00">
+        <vehicle id="v0" x="188.77" y="-1.60" angle="90.00" type="t1" speed="38.16" pos="84.77" lane="beg_0" slope="0.00"/>
+    </timestep>
+    <timestep time="21.00">
+        <vehicle id="v0" x="226.93" y="-1.60" angle="90.00" type="t1" speed="38.16" pos="122.93" lane="beg_0" slope="0.00"/>
+    </timestep>
+    <timestep time="22.00">
+        <vehicle id="v0" x="265.09" y="-1.60" angle="90.00" type="t1" speed="38.16" pos="161.09" lane="beg_0" slope="0.00"/>
+    </timestep>
+    <timestep time="23.00"/>
+</fcd-export>

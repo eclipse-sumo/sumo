@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2016-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2016-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -39,30 +39,21 @@ class GNEVehicle;
 class GNEWalk : public GNEDemandElement, public Parameterised, public GNEDemandElementPlan {
 
 public:
-    /**@brief general constructor for walks
-     * @param[in] net Network in which this walk is placed
-     * @param[in] personParent person parent
-     * @param[in] fromEdge from edge
-     * @param[in] fromTAZ from TAZ
-     * @param[in] fromJunction from Junction
-     * @param[in] fromBusStop from busStop
-     * @param[in] fromTrainStop from trainStop
-     * @param[in] toEdge to edge
-     * @param[in] toTAZ to TAZ
-     * @param[in] toJunction to Junction
-     * @param[in] toBusStop to busStop
-     * @param[in] toTrainStop to trainStop
-     * @param[in] edgeList list of edges
-     * @param[in] route route
-     * @param[in] arrivalPosition arrival position on the destination edge
-     */
-    static GNEWalk* buildWalk(GNENet* net, GNEDemandElement* personParent,
-                              GNEEdge* fromEdge, GNEAdditional* fromTAZ, GNEJunction* fromJunction, GNEAdditional* fromBusStop, GNEAdditional* fromTrainStop,
-                              GNEEdge* toEdge, GNEAdditional* toTAZ, GNEJunction* toJunction, GNEAdditional* toBusStop, GNEAdditional* toTrainStop,
-                              std::vector<GNEEdge*> edgeList, GNEDemandElement* route, double arrivalPosition);
-
     /// @brief default constructor
     GNEWalk(SumoXMLTag tag, GNENet* net);
+
+    /**@brief constructor called in buildWalk
+     * @param[in] net Network in which this Walk is placed
+     * @param[in] tag walk tag
+     * @param[in] icon walk icon
+     * @param[in] personParent person parent
+     * @param[in] planParameters plan parameters
+     * @param[in] arrivalPosition arrival position
+     * @param[in] speed speed (not together with duration)
+     * @param[in] duration duration (not together with speed)
+     */
+    GNEWalk(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* personParent, const GNEPlanParents& planParameters,
+            const double arrivalPosition, const double speed, const SUMOTime duration);
 
     /// @brief destructor
     ~GNEWalk();
@@ -138,7 +129,7 @@ public:
 
     /// @}
 
-    /// @name inherited from GNEPathManager::PathElement
+    /// @name inherited from GNEPathElement
     /// @{
 
     /// @brief compute pathElement
@@ -149,14 +140,14 @@ public:
      * @param[in] segment lane segment
      * @param[in] offsetFront front offset
      */
-    void drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const double offsetFront) const;
+    void drawLanePartialGL(const GUIVisualizationSettings& s, const GNESegment* segment, const double offsetFront) const;
 
     /**@brief Draws partial object over junction
      * @param[in] s The settings for the current view (may influence drawing)
      * @param[in] segment junction segment
      * @param[in] offsetFront front offset
      */
-    void drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const double offsetFront) const;
+    void drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNESegment* segment, const double offsetFront) const;
 
     /// @brief get first path lane
     GNELane* getFirstPathLane() const;
@@ -215,6 +206,13 @@ public:
     /// @brief get parameters map
     const Parameterised::Map& getACParametersMap() const;
 
+protected:
+    /// @brief speed
+    double mySpeed = 0;
+
+    /// @brief duration
+    SUMOTime myDuration = 0;
+
 private:
     /// @brief method for setting the attribute and nothing else
     void setAttribute(SumoXMLAttr key, const std::string& value);
@@ -224,18 +222,6 @@ private:
 
     /// @brief commit move shape
     void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList);
-
-    /**@brief constructor called in buildWalk
-     * @param[in] net Network in which this Walk is placed
-     * @param[in] tag walk tag
-     * @param[in] icon walk icon
-     * @param[in] parents demand element parents (person and, optionally, route)
-     * @param[in] junction from-to junctions
-     * @param[in] eges from-to edges
-     * @param[in] additionals from-to additionals
-     */
-    GNEWalk(GNENet* net, SumoXMLTag tag, GUIIcon icon, std::vector<GNEDemandElement*>& parents, const std::vector<GNEJunction*>& junctions,
-            const std::vector<GNEEdge*>& edges, const std::vector<GNEAdditional*>& additionals, double arrivalPosition);
 
     /// @brief Invalidated copy constructor.
     GNEWalk(GNEWalk*) = delete;

@@ -1,20 +1,24 @@
 <edge id="CN">
-    <lane id="CN_0" index="0" length="91.95" shape="104.95,108.05 104.95,200.00" speed="13.89"/>
-    <lane id="CN_1" index="1" length="91.95" shape="101.65,108.05 101.65,200.00" speed="13.89"/>
+    <lane id="CN_0" index="0" speed="13.89" length="91.95" shape="104.95,108.05 104.95,200.00"/>
+    <lane id="CN_1" index="1" speed="13.89" length="91.95" shape="101.65,108.05 101.65,200.00"/>
+    <param key="testParam with &amp;" value="more problematic values: &lt; and &gt;"/>
 </edge>
 
 <edge id="CN" from="whereever">
-    <lane id="CN_0" index="0" length="91.95" shape="104.95,108.05 104.95,200.00" speed="13.89"/>
-    <lane id="CN_1" index="1" length="91.95" shape="101.65,108.05 101.65,200.00" speed="13.89"/>
+    <lane id="CN_0" index="0" speed="13.89" length="91.95" shape="104.95,108.05 104.95,200.00"/>
+    <lane id="CN_1" index="1" speed="13.89" length="91.95" shape="101.65,108.05 101.65,200.00"/>
+    <param key="testParam with &amp;" value="more problematic values: &lt; and &gt;"/>
 </edge>
 
-<edge from="C" id="CN" priority="2" to="N">
-    <lane id="CN_0" index="0" length="91.95" shape="104.95,108.05 104.95,200.00" speed="13.89"/>
-    <lane id="CN_1" index="1" length="91.95" shape="101.65,108.05 101.65,200.00" speed="13.89"/>
+<edge id="CN" from="C" to="N" priority="2">
+    <lane id="CN_0" index="0" speed="13.89" length="91.95" shape="104.95,108.05 104.95,200.00"/>
+    <lane id="CN_1" index="1" speed="13.89" length="91.95" shape="101.65,108.05 101.65,200.00"/>
+    <param key="testParam with &amp;" value="more problematic values: &lt; and &gt;"/>
 </edge>
 
-<edge from="whereever" id="CN" priority="2" to="N">
-    <lane id="CN_0" index="0" length="91.95" shape="104.95,108.05 104.95,200.00" speed="13.89"/>
-    <lane id="CN_1" index="1" length="91.95" shape="101.65,108.05 101.65,200.00" speed="13.89"/>
+<edge id="CN" from="whereever" to="N" priority="2">
+    <lane id="CN_0" index="0" speed="13.89" length="91.95" shape="104.95,108.05 104.95,200.00"/>
+    <lane id="CN_1" index="1" speed="13.89" length="91.95" shape="101.65,108.05 101.65,200.00"/>
+    <param key="testParam with &amp;" value="more problematic values: &lt; and &gt;"/>
 </edge>
 

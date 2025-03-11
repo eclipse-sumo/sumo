@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2009-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2009-2025 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -42,6 +42,14 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 # press enter to create route
 netedit.typeEnter()
 
+# create route using three edges
+netedit.leftClick(referencePosition, netedit.positions.elements.edge3)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge4)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge5)
+
+# press enter to create route
+netedit.typeEnter()
+
 # go to vehicle mode
 netedit.vehicleMode()
 
@@ -50,6 +58,9 @@ netedit.changeElement("flow (over route)")
 
 # try to create vehicle
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
+
+# try to create vehicle
+netedit.leftClick(referencePosition, netedit.positions.elements.edge5)
 
 # set invalid id
 netedit.changeDefaultValue(netedit.attrs.routeFlow.create.id, "%%;;%%%%")

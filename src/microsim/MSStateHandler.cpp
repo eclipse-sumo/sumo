@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2012-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2012-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -36,6 +36,7 @@
 #include <microsim/traffic_lights/MSTLLogicControl.h>
 #include <microsim/traffic_lights/MSRailSignalConstraint.h>
 #include <microsim/traffic_lights/MSRailSignal.h>
+#include <microsim/traffic_lights/MSDriveWay.h>
 #include <microsim/devices/MSDevice_Routing.h>
 #include <microsim/devices/MSDevice_BTreceiver.h>
 #include <microsim/devices/MSDevice_ToC.h>
@@ -135,6 +136,9 @@ MSStateHandler::saveState(const std::string& file, SUMOTime step, bool usePrefix
     if (OptionsCont::getOptions().getBool("save-state.constraints")) {
         out.writeAttr(SUMO_ATTR_CONSTRAINTS, true);
     }
+    if (MSDriveWay::haveDriveWays()) {
+        out.writeAttr(SUMO_ATTR_RAIL, true);
+    }
     if (OptionsCont::getOptions().getBool("save-state.rng")) {
         saveRNGs(out);
         if (!MSGlobals::gUseMesoSim) {
@@ -187,6 +191,10 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
             bool ok;
             if (attrs.getOpt<bool>(SUMO_ATTR_CONSTRAINTS, nullptr, ok, false)) {
                 MSRailSignalConstraint::clearAll();
+            }
+            if (attrs.getOpt<bool>(SUMO_ATTR_RAIL, nullptr, ok, false)) {
+                // init before loading any vehicles to ensure that driveways are built early
+                MSRailSignalControl::getInstance();
             }
             break;
         }
@@ -290,12 +298,21 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
         case SUMO_TAG_VIEWSETTINGS_VEHICLES: {
             bool ok;
             const std::vector<std::string>& vehIDs = attrs.get<std::vector<std::string> >(SUMO_ATTR_VALUE, nullptr, ok, false);
-            if (MSGlobals::gUseMesoSim) {
-                mySegment->loadState(vehIDs, MSNet::getInstance()->getVehicleControl(), StringUtils::toLong(attrs.getString(SUMO_ATTR_TIME)) - myOffset, myQueIndex);
-            } else {
-                myCurrentLane->loadState(vehIDs, MSNet::getInstance()->getVehicleControl());
+            std::vector<SUMOVehicle*> vehs;
+            for (const std::string& id : vehIDs) {
+                SUMOVehicle* v = vc.getVehicle(id);
+                // vehicle could be removed due to options
+                if (v != nullptr) {
+                    vehs.push_back(v);
+                    myArrived.erase(v);
+                }
             }
-            myQueIndex++;
+            if (MSGlobals::gUseMesoSim) {
+                mySegment->loadState(vehs, StringUtils::toLong(attrs.getString(SUMO_ATTR_TIME)) - myOffset, myQueIndex);
+                myQueIndex++;
+            } else {
+                myCurrentLane->loadState(vehs);
+            }
             break;
         }
         case SUMO_TAG_LINK: {
@@ -333,6 +350,11 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
         }
         case SUMO_TAG_RAILSIGNAL_CONSTRAINT_TRACKER: {
             MSRailSignalConstraint_Predecessor::loadState(attrs);
+            break;
+        }
+        case SUMO_TAG_DRIVEWAY:
+        case SUMO_TAG_SUBDRIVEWAY: {
+            MSDriveWay::loadState(attrs, element);
             break;
         }
         case SUMO_TAG_PARAM: {
@@ -434,6 +456,10 @@ MSStateHandler::myEndElement(int element) {
                 WRITE_MESSAGEF(TL("Removed % vehicles while loading state."), toString(myRemoved));
                 vc.discountStateRemoved(myRemoved);
             }
+            for (SUMOVehicle* v : myArrived) {
+                // state was created with active option --keep-after-arrival
+                vc.deleteKeptVehicle(v);
+            }
             break;
         }
         default:
@@ -461,6 +487,7 @@ MSStateHandler::closeVehicle() {
         }
         v->setChosenSpeedFactor(myAttrs->getFloat(SUMO_ATTR_SPEEDFACTOR));
         v->loadState(*myAttrs, myOffset);
+
         if (v->hasDeparted()) {
             // vehicle already departed: disable pre-insertion rerouting and enable regular routing behavior
             MSDevice_Routing* routingDevice = static_cast<MSDevice_Routing*>(v->getDevice(typeid(MSDevice_Routing)));
@@ -474,8 +501,7 @@ MSStateHandler::closeVehicle() {
             }
             vc.handleTriggeredDepart(v, false);
             if (v->hasArrived()) {
-                // state was created with active option --keep-after-arrival
-                vc.deleteKeptVehicle(v);
+                myArrived.insert(v);
             }
         }
         while (!myDeviceAttrs.empty()) {

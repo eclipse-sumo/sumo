@@ -1,0 +1,19 @@
+(<edge id="SC" from="S" to="C"/>, <edge id="CN" from="C" to="N"/>) 200.00
+(<edge id="SC" from="S" to="C"/>, <edge id=":C_15" function="internal"/>, <edge id="CN" from="C" to="N"/>) 200.00
+[<edge id="SC" from="S" to="C"/>, <edge id="CN" from="C" to="N"/>] 197.67
+(<edge id="SC" from="S" to="C"/>, <edge id=":C_w2" function="walkingarea"/>, <edge id=":C_c1" function="crossing"/>, <edge id=":C_w1" function="walkingarea"/>, <edge id="CN" from="C" to="N"/>) 197.67
+
+(<edge id="SC" from="S" to="C"/>, <edge id="CE" from="C" to="E"/>) 186.52
+(<edge id="SC" from="S" to="C"/>, <edge id=":C_14" function="internal"/>, <edge id=":C_31" function="internal"/>, <edge id="CE" from="C" to="E"/>) 186.52
+[<edge id="SC" from="S" to="C"/>, <edge id="CE" from="C" to="E"/>] 176.90
+(<edge id="SC" from="S" to="C"/>, <edge id=":C_w2" function="walkingarea"/>, <edge id="CE" from="C" to="E"/>) 176.90
+
+(<edge id="SC" from="S" to="C"/>, <edge id="CE" from="C" to="E"/>, <edge id="EC" from="E" to="C"/>) 277.49
+(<edge id="SC" from="S" to="C"/>, <edge id=":C_14" function="internal"/>, <edge id=":C_31" function="internal"/>, <edge id="CE" from="C" to="E"/>, <edge id=":E_0" function="internal"/>, <edge id="EC" from="E" to="C"/>) 277.49
+[<edge id="SC" from="S" to="C"/>, <edge id="EC" from="E" to="C"/>] 196.92
+(<edge id="SC" from="S" to="C"/>, <edge id=":C_w2" function="walkingarea"/>, <edge id=":C_c1" function="crossing"/>, <edge id=":C_w1" function="walkingarea"/>, <edge id="EC" from="E" to="C"/>) 196.92
+
+(<edge id="CE" from="C" to="E"/>, <edge id="EC" from="E" to="C"/>, <edge id="CS" from="C" to="S"/>, <edge id="SC" from="S" to="C"/>) 378.34
+(<edge id="CE" from="C" to="E"/>, <edge id=":E_0" function="internal"/>, <edge id="EC" from="E" to="C"/>, <edge id=":C_11" function="internal"/>, <edge id=":C_29" function="internal"/>, <edge id="CS" from="C" to="S"/>, <edge id=":S_0" function="internal"/>, <edge id="SC" from="S" to="C"/>) 378.34
+[<edge id="CE" from="C" to="E"/>, <edge id="SC" from="S" to="C"/>] 176.90
+(<edge id="CE" from="C" to="E"/>, <edge id=":C_w2" function="walkingarea"/>, <edge id="SC" from="S" to="C"/>) 176.90

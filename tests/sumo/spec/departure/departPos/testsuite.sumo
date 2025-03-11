@@ -34,3 +34,11 @@ pos_last_speed_given
 # departPos="last" departSpeed="max" 
 # (should insert with maximum vehicle speed
 pos_last_speed_max
+
+# departPos="last" should take into account stops
+# 
+pos_last_stop
+pos_stop
+
+# departPos="stop" but the departLane differs from the stop lane
+pos_stop_otherLane

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2009-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2009-2025 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -31,6 +31,13 @@ class reference:
     x = 0
     y = 0
 
+# down-left position (to avoid missclicks with toolbar menus)
+
+
+class downLeft:
+    x = 950
+    y = 470
+
 # extern lane bot (common for all tests)
 
 
@@ -44,6 +51,11 @@ class externLaneBot:
 class externLaneTop:
     x = 42
     y = 136
+
+
+class overlappedTest:
+    x = 500
+    y = 218
 
 # network
 
@@ -91,6 +103,7 @@ class network:
 
     class junction:
 
+        # top left
         class positionA:
             x = 257
             y = 424
@@ -99,6 +112,7 @@ class network:
             x = 308
             y = 377
 
+        # top right
         class positionB:
             x = 734
             y = 426
@@ -107,6 +121,7 @@ class network:
             x = 691
             y = 384
 
+        # bot right
         class positionC:
             x = 737
             y = 42
@@ -115,6 +130,7 @@ class network:
             x = 691
             y = 90
 
+        # bot left
         class positionD:
             x = 259
             y = 42
@@ -123,11 +139,29 @@ class network:
             x = 309
             y = 92
 
+        # middle left
+        class positionE:
+            x = 256
+            y = 235
+
+        # middle right
+        class positionF:
+            x = 739
+            y = 235
+
         class cross:
 
             class center:
                 x = 498
                 y = 236
+
+            class up:
+                x = 495
+                y = 23
+
+            class down:
+                x = 495
+                y = 441
 
             class left:
                 x = 278
@@ -137,19 +171,53 @@ class network:
                 x = 706
                 y = 232
 
-            class top:
-                x = 495
-                y = 23
+        class merge:
 
-            class bot:
-                x = 495
-                y = 441
+            class fromA:
+                x = 400
+                y = 235
+
+            class fromB:
+                x = 400
+                y = 45
+
+            class toA:
+                x = 590
+                y = 235
+
+            class toB:
+                x = 590
+                y = 45
 
     class edge:
 
         class centerA:
             x = 500
             y = 429
+
+        class centerB:
+            x = 500
+            y = 30
+
+        class center:
+            x = 500
+            y = 250
+
+        class top:
+            x = 497
+            y = 150
+
+        class bot:
+            x = 497
+            y = 324
+
+        class left:
+            x = 409
+            y = 237
+
+        class right:
+            x = 587
+            y = 237
 
         class leftTop:
             x = 400
@@ -172,7 +240,7 @@ class network:
             y = 130
 
         class topRight:
-            x = 510
+            x = 520
             y = 130
 
         class botLeft:
@@ -180,8 +248,22 @@ class network:
             y = 320
 
         class botRight:
-            x = 510
+            x = 520
             y = 320
+
+        class move:
+
+            class top:
+                x = 500
+                y = 217
+
+            class bot:
+                x = 500
+                y = 256
+
+            class geometryPointTop:
+                x = 497
+                y = 43
 
     class crossing:
 
@@ -247,6 +329,13 @@ class network:
             x = 750
             y = 270
 
+    # TLS
+    class TLS:
+
+        class edit:
+            x = 447
+            y = 225
+
 
 class elements:
 
@@ -258,6 +347,10 @@ class elements:
         x = 381
         y = 443
 
+    class edge0_dataMode:
+        x = 381
+        y = 443 + 30
+
     class edge1Ped:
         x = 874
         y = 238
@@ -265,6 +358,10 @@ class elements:
     class edge1:
         x = 850
         y = 222
+
+    class edge1_dataMode:
+        x = 850
+        y = 222 + 30
 
     class edge2Ped:
         x = 463
@@ -274,13 +371,21 @@ class elements:
         x = 494
         y = 26
 
+    # class edge2_dataMode:
+    #    x = 494
+    #    y = 26 + 30
+
     class edge3Ped:
         x = 409
-        y = 89
+        y = 57
 
     class edge3:
         x = 477
         y = 56
+
+    # class edge3_dataMode:
+    #    x = 477
+    #    y = 56 + 30
 
     class edge4Ped:
         x = 791
@@ -290,6 +395,10 @@ class elements:
         x = 817
         y = 235
 
+    # class edge4_dataMode:
+    #    x = 817
+    #    y = 235 + 30
+
     class edge5Ped:
         x = 459
         y = 383
@@ -298,13 +407,17 @@ class elements:
         x = 515
         y = 413
 
+    # class edge5_dataMode:
+    #    x = 515
+    #    y = 413 + 30
+
     class edgeBike0:
         x = 145
         y = 125
 
     class edgeBike1:
-        x = 18
-        y = 125
+        x = 180
+        y = 140
 
     class edgeCenter0Ped:
         x = 341
@@ -335,8 +448,8 @@ class elements:
         y = 38
 
     class junction3:
-        x = 154
-        y = 35
+        x = 155
+        y = 45
 
     class junction4:
         x = 159
@@ -358,6 +471,20 @@ class elements:
         down = -100
         left = -100
         right = 100
+
+    class movementRadiusC:
+        up = 200
+        down = 0
+        left = 0
+        right = 190
+
+    class movementEdgeTop:
+        up = -180
+        down = 0
+
+    class movementEdgeBot:
+        up = 0
+        down = 180
 
     # additional (for inspect, delete, etc.)
     class additionals:
@@ -434,38 +561,78 @@ class elements:
             x = 650
             y = 233
 
+        class centerShape:
+            x = 400
+            y = 121
+
+        class geometryPointNew:
+            x = 400
+            y = 138
+
+        class geometryPointExistent:
+            x = 362
+            y = 138
+
+        class geometryPointDestinyA:
+            x = 574
+            y = 238
+
+        class geometryPointDestinyB:
+            x = 498
+            y = 332
+
         shapeSize = 200
 
     # demand elements (for inspect, delete, etc.)
     class demands:
 
         class TAZGreen:
-            x = 518
-            y = 160
+            x = 557
+            y = 231
 
         class TAZRed:
-            x = 730
-            y = 177
+            x = 708
+            y = 232
 
         class busStop:
             x = 296
             y = 11
 
+        class busStopB:
+            x = 340
+            y = 200
+
         class trainStop:
             x = 718
             y = 13
+
+        class trainStopB:
+            x = 284
+            y = 265
 
         class containerStop:
             x = 411
             y = -5
 
+        class containerStopB:
+            x = 411
+            y = 194
+
         class chargingStation:
             x = 623
             y = 23
 
+        class chargingStationB:
+            x = 287
+            y = 220
+
         class parkingArea:
             x = 525
             y = -5
+
+        class parkingAreaB:
+            x = 352.00
+            y = 282
 
         class route:
             x = 420
@@ -484,11 +651,11 @@ class elements:
             y = 440
 
         class vehicleJunction:
-            x = 162
+            x = 159
             y = 405
 
         class vehicleTAZ:
-            x = 525
+            x = 565
             y = 230
 
         class person:
@@ -499,6 +666,92 @@ class elements:
             x = 415
             y = 30
 
-        class planPerson:
+        class planEdge1:
+            x = 848
+            y = 160
+
+        class planEdge1Ped:
+            x = 872
+            y = 160
+
+        class planEdge2:
+            x = 775
+            y = 27
+
+        class planEdge2Ped:
             x = 600
             y = 4
+
+        class planEdgeBike0Ped:
+            x = 112
+            y = 130
+
+        class planBusStop:
+            x = 112
+            y = 130
+
+        class planContainerStop:
+            x = 112
+            y = 130
+
+        class planStopEdge:
+            x = 493
+            y = -15
+
+        class planStopBusStop:
+            x = 250
+            y = -5
+
+    # data elements (for inspect, delete, etc.)
+    class data:
+
+        class TAZRelTop:
+            x = 630
+            y = 238
+
+        class TAZRelBot:
+            x = 650
+            y = 255
+
+
+class bugs:
+
+    class ticket10588:
+        x = 596
+        y = 75
+
+    class ticket10591:
+
+        class lane:
+            x = 596
+            y = 75
+
+        class junction:
+            x = 768
+            y = 9
+
+    class ticket5552:
+
+        class junction1:
+            x = 500
+            y = 175
+
+        class junction2:
+            x = 550
+            y = 175
+
+        class junction3:
+            x = 550
+            y = 230
+
+        class junction4:
+            x = 500
+            y = 290
+
+        class junction5:
+            x = 450
+            y = 290
+
+        class junction6:
+            x = 450
+            y = 230

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -17,11 +17,11 @@
 ///
 // A network change in which a single edgeType is created or deleted
 /****************************************************************************/
-#include <config.h>
 
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
+#include <netedit/GNEApplicationWindow.h>
 #include <netedit/frames/network/GNECreateEdgeFrame.h>
 #include <netedit/elements/network/GNEEdgeType.h>
 
@@ -30,6 +30,7 @@
 // ===========================================================================
 // FOX-declarations
 // ===========================================================================
+
 FXIMPLEMENT_ABSTRACT(GNEChange_EdgeType, GNEChange, nullptr, 0)
 
 // ===========================================================================
@@ -46,17 +47,18 @@ GNEChange_EdgeType::GNEChange_EdgeType(GNEEdgeType* edgeType, bool forward):
 
 
 GNEChange_EdgeType::~GNEChange_EdgeType() {
-    myEdgeType->decRef("GNEChange_EdgeType");
-    if (myEdgeType->unreferenced()) {
-        // show extra information for tests
-        WRITE_DEBUG("Deleting unreferenced " + myEdgeType->getTagStr() + " '" + myEdgeType->getID() + "' GNEChange_EdgeType");
-        // make sure that edgeType isn't in net before removing
-        if (myEdgeType->getNet()->getAttributeCarriers()->retrieveEdgeType(myEdgeType->getID(), false)) {
-            // delete edgeType from net
-            myEdgeType->getNet()->getAttributeCarriers()->deleteEdgeType(myEdgeType);
+    // only continue we have undo-redo mode enabled
+    if (myEdgeType->getNet()->getViewNet()->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed()) {
+        myEdgeType->decRef("GNEChange_EdgeType");
+        if (myEdgeType->unreferenced()) {
+            // make sure that edgeType isn't in net before removing
+            if (myEdgeType->getNet()->getAttributeCarriers()->retrieveEdgeType(myEdgeType->getID(), false)) {
+                // delete edgeType from net
+                myEdgeType->getNet()->getAttributeCarriers()->deleteEdgeType(myEdgeType);
+            }
+            // delete edgeType
+            delete myEdgeType;
         }
-        // delete edgeType
-        delete myEdgeType;
     }
 }
 
@@ -64,13 +66,9 @@ GNEChange_EdgeType::~GNEChange_EdgeType() {
 void
 GNEChange_EdgeType::undo() {
     if (myForward) {
-        // show extra information for tests
-        WRITE_DEBUG("Removing " + myEdgeType->getTagStr() + " '" + myEdgeType->getID() + "' from " + toString(SUMO_TAG_NET));
         // delete edgeType from net
         myEdgeType->getNet()->getAttributeCarriers()->deleteEdgeType(myEdgeType);
     } else {
-        // show extra information for tests
-        WRITE_DEBUG("Adding " + myEdgeType->getTagStr() + " '" + myEdgeType->getID() + "' into " + toString(SUMO_TAG_NET));
         // insert edgeType into net
         myEdgeType->getNet()->getAttributeCarriers()->insertEdgeType(myEdgeType);
     }
@@ -86,13 +84,9 @@ GNEChange_EdgeType::undo() {
 void
 GNEChange_EdgeType::redo() {
     if (myForward) {
-        // show extra information for tests
-        WRITE_DEBUG("Adding " + myEdgeType->getTagStr() + " '" + myEdgeType->getID() + "' into " + toString(SUMO_TAG_NET));
         // insert edgeType into net
         myEdgeType->getNet()->getAttributeCarriers()->insertEdgeType(myEdgeType);
     } else {
-        // show extra information for tests
-        WRITE_DEBUG("Removing " + myEdgeType->getTagStr() + " '" + myEdgeType->getID() + "' from " + toString(SUMO_TAG_NET));
         // delete edgeType from net
         myEdgeType->getNet()->getAttributeCarriers()->deleteEdgeType(myEdgeType);
     }

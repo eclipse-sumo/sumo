@@ -16,7 +16,7 @@ be informed** about it (use the
 The data can be [downloaded from our scenario
 repository](https://sourceforge.net/projects/sumo/files/traffic_data/scenarios/TAPASCologne).
 There also vehicle traces available from the [KolnTrace project at CITI
-Lab](https://kolntrace.project.citi-lab.fr/).
+Lab](https://web.archive.org/web/20240519081107/https://kolntrace.project.citi-lab.fr/).
 
 ## About
 
@@ -163,7 +163,7 @@ The below images show the structure of demand data over 24 hour period.
 This shows normal behavior of mobility. Peak hours like \~8-9am ,
 \~4-6pm during which the number of trips are usually high. More
 information of the city of cologne can be found in the link
-[\[1\]](https://www.stadt-koeln.de/mediaasset/content/pdf15/stadtkoeln_zahlenspiegel_e_bfrei.pdf).
+[\[1\]](https://web.archive.org/web/20230321021848/https://www.stadt-koeln.de/mediaasset/content/pdf15/stadtkoeln_zahlenspiegel_e_bfrei.pdf).
 The total number of trips (made by cars) over 24h is very close to the
 number of registered cars\*3 (3 trips per registered car). There are
 around \~420415\*3 (\~1.2 million) trips which matches the number in the

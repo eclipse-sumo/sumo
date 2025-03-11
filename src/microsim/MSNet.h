@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -556,6 +556,12 @@ public:
      */
     MSStoppingPlace* getStoppingPlace(const std::string& id, const SumoXMLTag category) const;
 
+    /** @brief Returns the named stopping place by looking through all categories
+     * @param[in] id The id of the stop to return.
+     * @return The named stop, or 0 if no such stop exists
+     */
+    MSStoppingPlace* getStoppingPlace(const std::string& id) const;
+
     /** @brief Returns the stop of the given category close to the given position
      * @param[in] lane the lane of the stop to return.
      * @param[in] pos the position of the stop to return.
@@ -815,6 +821,8 @@ public:
     virtual bool skipFinalReset() const {
         return false;
     }
+
+    MSMapMatcher* getMapMatcher() const;
 
     /// @brief find electrical substation by its id
     MSTractionSubstation* findTractionSubstation(const std::string& substationId);

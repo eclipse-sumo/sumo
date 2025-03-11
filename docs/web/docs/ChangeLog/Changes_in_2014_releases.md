@@ -134,7 +134,7 @@ title: Changes in the 2014 releases (versions 0.20.0, 0.21.0 and 0.22.0)
         are now scrollable to allow work on smaller screens.
   - The attributes which can be used to customize lane colors can
         now also be used to scale their width. This is done in the view
-        customization dialog unter 'Streets' -\> 'Scale width'.
+        customization dialog under 'Streets' -\> 'Scale width'.
   - Vehicle coloring *by time since lane change* now indicates the
         direction of the change by its color
   - Added new link state 'u' to encode red-yellow phase (shown as
@@ -258,7 +258,7 @@ title: Changes in the 2014 releases (versions 0.20.0, 0.21.0 and 0.22.0)
     immediately.
 - netconvert
   - when loading traffic light programs from *tllogic-files*, the
-    node attribute *controlledInner* is now propperly preserved
+    node attribute *controlledInner* is now properly preserved
   - guessed traffic light programs no longer contain duplicate
     consecutive phases
   - Fixed bug where option **ramps.guess** would sometimes fail to add necessary
@@ -526,7 +526,7 @@ title: Changes in the 2014 releases (versions 0.20.0, 0.21.0 and 0.22.0)
   - Reworked drawing of trains to have more realistic [carriage lengths](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#visualization).
     Also some busses are drawn with flexible segments now.
   - The vehicle parameter dialog now lists the maximum speed of the
-    vehicle's type and the the time headway to the vehicle's current
+    vehicle's type and the time headway to the vehicle's current
     leader
   - added vehicle coloring mode *by time headway*
   - Traffic light colors now distinguish between *green major* (code

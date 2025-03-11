@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -24,12 +24,13 @@
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
+#include <netedit/GNEApplicationWindow.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/xml/XMLSubSys.h>
 
 #include "GNESingleParametersDialog.h"
-
 
 // ===========================================================================
 // FOX callback mapping
@@ -297,7 +298,7 @@ GNESingleParametersDialog::ParametersOperations::onCmdLoadParameters(FXObject*, 
     FXFileDialog opendialog(this, TL("Open Parameter Template"));
     opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::GREENVEHICLE));
     opendialog.setSelectMode(SELECTFILE_EXISTING);
-    opendialog.setPatternList(" Parameter Template files (*.xml,*.xml.gz)\nAll files (*)");
+    opendialog.setPatternList(SUMOXMLDefinitions::XMLFileExtensions.getMultilineString().c_str());
     if (gCurrentFolder.length() != 0) {
         opendialog.setDirectory(gCurrentFolder);
     }
@@ -322,7 +323,8 @@ long
 GNESingleParametersDialog::ParametersOperations::onCmdSaveParameters(FXObject*, FXSelector, void*) {
     // obtain file to save parameters
     FXString file = MFXUtils::getFilename2Write(this,
-                    TL("Save Parameter Template file"), ".xml",
+                    TL("Save Parameter Template file"),
+                    SUMOXMLDefinitions::XMLFileExtensions.getMultilineString().c_str(),
                     GUIIconSubSys::getIcon(GUIIcon::GREENVEHICLE),
                     gCurrentFolder);
     if (file == "") {
@@ -412,8 +414,6 @@ GNESingleParametersDialog::ParametersOperations::onCmdHelpParameter(FXObject*, F
     new FXHorizontalFrame(myHorizontalFrameOKButton, GUIDesignAuxiliarHorizontalFrame);
     GUIDesigns::buildFXButton(myHorizontalFrameOKButton, TL("OK"), "", TL("close"), GUIIconSubSys::getIcon(GUIIcon::ACCEPT), ParameterHelpDialog, FXDialogBox::ID_ACCEPT, GUIDesignButtonOK);
     new FXHorizontalFrame(myHorizontalFrameOKButton, GUIDesignAuxiliarHorizontalFrame);
-    // Write Warning in console if we're in testing mode
-    WRITE_DEBUG("Opening Parameter help dialog");
     // create Dialog
     ParameterHelpDialog->create();
     // show in the given position
@@ -422,8 +422,6 @@ GNESingleParametersDialog::ParametersOperations::onCmdHelpParameter(FXObject*, F
     getApp()->refresh();
     // open as modal dialog (will block all windows until stop() or stopModal() is called)
     getApp()->runModalFor(ParameterHelpDialog);
-    // Write Warning in console if we're in testing mode
-    WRITE_DEBUG("Closing Parameter help dialog");
     return 1;
 }
 
@@ -478,51 +476,19 @@ GNESingleParametersDialog::ParametersOperations::GNEParameterHandler::myStartEle
 // GNESingleParametersDialog - methods
 // ---------------------------------------------------------------------------
 
-GNESingleParametersDialog::GNESingleParametersDialog(GNEFrameAttributeModules::GenericDataAttributes* genericDataAttributes) :
-    FXDialogBox(genericDataAttributes->getFrameParent()->getViewNet()->getApp(), "Edit attributes", GUIDesignDialogBoxExplicitStretchable(400, 300)),
-    myGenericDataAttributes(genericDataAttributes),
-    myParametersEditor(nullptr),
-    VTypeAttributeRow(nullptr),
-    myAttributeCarrier(nullptr),
-    myTLDef(nullptr) {
-    // call auxiliar constructor for elements
-    constructor("Attributes");
-    // fill myParametersValues
-    myParametersValues->setParameters(genericDataAttributes->getParameters());
-}
-
-
-GNESingleParametersDialog::GNESingleParametersDialog(GNEFrameAttributeModules::ParametersEditor* parametersEditor) :
-    FXDialogBox(parametersEditor->getViewNet()->getApp(), "Edit parameters", GUIDesignDialogBoxExplicitStretchable(400, 300)),
-    myGenericDataAttributes(nullptr),
-    myParametersEditor(parametersEditor),
-    VTypeAttributeRow(nullptr),
-    myAttributeCarrier(nullptr),
-    myTLDef(nullptr) {
+GNESingleParametersDialog::GNESingleParametersDialog(GNEAttributesEditorType* attributesEditor) :
+    FXDialogBox(attributesEditor->getFrameParent()->getViewNet()->getViewParent()->getGNEAppWindows()->getApp(), "Edit parameters", GUIDesignDialogBoxExplicitStretchable(400, 300)),
+    myAttributesEditor(attributesEditor) {
     // call auxiliar constructor
     constructor("Parameters");
-    if (parametersEditor->getInspectorFrameParent()) {
-        // get AC Front
-        const auto AC = parametersEditor->getViewNet()->getInspectedAttributeCarriers().front();
-        // fill myParametersValues
-        myParametersValues->setParameters(AC->getACParameters<std::vector<std::pair<std::string, std::string> > >());
-    } else if (parametersEditor->getTypeFrameParent()) {
-        // get type
-        const auto type = parametersEditor->getTypeFrameParent()->getTypeSelector()->getCurrentType();
-        // fill myParametersValues
-        myParametersValues->setParameters(type->getACParameters<std::vector<std::pair<std::string, std::string> > >());
-    }
+    // fill myParametersValues
+    myParametersValues->setParameters(attributesEditor->getEditedAttributeCarriers().front()->getACParameters<std::vector<std::pair<std::string, std::string> > >());
 }
-
 
 
 GNESingleParametersDialog::GNESingleParametersDialog(GNEVehicleTypeDialog::VTypeAttributes::VTypeAttributeRow* VTypeAttributeRow, GNEViewNet* viewNet) :
     FXDialogBox(viewNet->getApp(), "Edit parameters", GUIDesignDialogBoxExplicitStretchable(400, 300)),
-    myGenericDataAttributes(nullptr),
-    myParametersEditor(nullptr),
-    VTypeAttributeRow(VTypeAttributeRow),
-    myAttributeCarrier(nullptr),
-    myTLDef(nullptr) {
+    VTypeAttributeRow(VTypeAttributeRow) {
     // call auxiliar constructor
     constructor("Parameters");
     // fill myEditedParameters
@@ -532,11 +498,7 @@ GNESingleParametersDialog::GNESingleParametersDialog(GNEVehicleTypeDialog::VType
 
 GNESingleParametersDialog::GNESingleParametersDialog(GNEAttributeCarrier* attributeCarrier) :
     FXDialogBox(attributeCarrier->getNet()->getViewNet()->getApp(), "Edit parameters", GUIDesignDialogBoxExplicitStretchable(400, 300)),
-    myGenericDataAttributes(nullptr),
-    myParametersEditor(nullptr),
-    VTypeAttributeRow(nullptr),
-    myAttributeCarrier(attributeCarrier),
-    myTLDef(nullptr) {
+    myAttributeCarrier(attributeCarrier) {
     // call auxiliar constructor
     constructor("Parameters");
     // fill myEditedParameters
@@ -546,10 +508,6 @@ GNESingleParametersDialog::GNESingleParametersDialog(GNEAttributeCarrier* attrib
 
 GNESingleParametersDialog::GNESingleParametersDialog(FXApp* app, NBLoadedSUMOTLDef* TLDef) :
     FXDialogBox(app, "Edit parameters", GUIDesignDialogBoxExplicitStretchable(400, 300)),
-    myGenericDataAttributes(nullptr),
-    myParametersEditor(nullptr),
-    VTypeAttributeRow(nullptr),
-    myAttributeCarrier(nullptr),
     myTLDef(TLDef) {
     // call auxiliar constructor
     constructor("Parameters");
@@ -576,20 +534,12 @@ GNESingleParametersDialog::onCmdAccept(FXObject*, FXSelector, void*) {
         // ignore last row
         if (parameterRow != myParametersValues->getParameterRows().back()) {
             if (parameterRow->keyField->getText().empty()) {
-                // write warning if netedit is running in testing mode
-                WRITE_DEBUG("Opening FXMessageBox of type 'warning'");
                 // open warning Box
                 FXMessageBox::warning(getApp(), MBOX_OK, "Empty Parameter key", "%s", "Parameters with empty keys aren't allowed");
-                // write warning if netedit is running in testing mode
-                WRITE_DEBUG("Closed FXMessageBox of type 'warning' with 'OK'");
                 return 1;
             } else if (!SUMOXMLDefinitions::isValidParameterKey(parameterRow->keyField->getText().text())) {
-                // write warning if netedit is running in testing mode
-                WRITE_DEBUG("Opening FXMessageBox of type 'warning'");
                 // open warning Box
                 FXMessageBox::warning(getApp(), MBOX_OK, "Invalid Parameter key", "%s", "There are keys with invalid characters");
-                // write warning if netedit is running in testing mode
-                WRITE_DEBUG("Closed FXMessageBox of type 'warning' with 'OK'");
                 return 1;
             }
             // insert in parameters
@@ -601,35 +551,18 @@ GNESingleParametersDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     // check if there is duplicated keys
     for (auto i = parameters.begin(); i != parameters.end(); i++) {
         if (((i + 1) != parameters.end()) && (i->first) == (i + 1)->first) {
-            // write warning if netedit is running in testing mode
-            WRITE_DEBUG("Opening FXMessageBox of type 'warning'");
             // open warning Box
             FXMessageBox::warning(getApp(), MBOX_OK, "Duplicated Parameters", "%s", "Parameters with the same Key aren't allowed");
-            // write warning if netedit is running in testing mode
-            WRITE_DEBUG("Closed FXMessageBox of type 'warning' with 'OK'");
             return 1;
         }
     }
     // set parameters in Parameters editor parents
-    if (myGenericDataAttributes) {
-        // set parameter in editor creator
-        myGenericDataAttributes->setParameters(parameters);
-    } else if (myParametersEditor) {
-        if (myParametersEditor->getInspectorFrameParent()) {
-            // get inspected AC
-            const auto AC = myParametersEditor->getViewNet()->getInspectedAttributeCarriers().front();
-            // set parameter in AC using undoList
-            myParametersEditor->getViewNet()->getUndoList()->begin(AC, "change parameters");
-            AC->setACParameters(parameters, myParametersEditor->getViewNet()->getUndoList());
-            myParametersEditor->getViewNet()->getUndoList()->end();
-        } else if (myParametersEditor->getTypeFrameParent()) {
-            // get type
-            const auto type = myParametersEditor->getTypeFrameParent()->getTypeSelector()->getCurrentType();
-            // set parameter in AC using undoList
-            myParametersEditor->getViewNet()->getUndoList()->begin(type, "change parameters");
-            type->setACParameters(parameters, myParametersEditor->getViewNet()->getUndoList());
-            myParametersEditor->getViewNet()->getUndoList()->end();
-        }
+    if (myAttributesEditor) {
+        auto editedAC = myAttributesEditor->getEditedAttributeCarriers().front();
+        // set parameter in AC using undoList
+        myAttributesEditor->getFrameParent()->getViewNet()->getUndoList()->begin(editedAC, "change parameters");
+        editedAC->setACParameters(parameters, myAttributesEditor->getFrameParent()->getViewNet()->getUndoList());
+        myAttributesEditor->getFrameParent()->getViewNet()->getUndoList()->end();
     } else if (VTypeAttributeRow) {
         // set parameter in VTypeAttributeRow
         VTypeAttributeRow->setParameters(parameters);
@@ -661,16 +594,8 @@ GNESingleParametersDialog::onCmdCancel(FXObject*, FXSelector, void*) {
 long
 GNESingleParametersDialog::onCmdReset(FXObject*, FXSelector, void*) {
     // restore original parameters
-    if (myGenericDataAttributes) {
-        myParametersValues->setParameters(myGenericDataAttributes->getParameters());
-    } else if (myParametersEditor) {
-        if (myParametersEditor->getInspectorFrameParent()) {
-            const auto AC = myParametersEditor->getViewNet()->getInspectedAttributeCarriers().front();
-            myParametersValues->setParameters(AC->getACParameters<std::vector<std::pair<std::string, std::string> > >());
-        } else if (myParametersEditor->getTypeFrameParent()) {
-            const auto type = myParametersEditor->getTypeFrameParent()->getTypeSelector()->getCurrentType();
-            myParametersValues->setParameters(type->getACParameters<std::vector<std::pair<std::string, std::string> > >());
-        }
+    if (myAttributesEditor) {
+        myParametersValues->setParameters(myAttributesEditor->getEditedAttributeCarriers().front()->getACParameters<std::vector<std::pair<std::string, std::string> > >());
     } else if (VTypeAttributeRow) {
         myParametersValues->setParameters(VTypeAttributeRow->getParametersVectorStr());
     } else if (myAttributeCarrier) {
@@ -706,7 +631,7 @@ GNESingleParametersDialog::constructor(const std::string& name) {
     // create dialog buttons bot centered
     FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(mainFrame, GUIDesignHorizontalFrame);
     new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
-    myAcceptButton = GUIDesigns::buildFXButton(buttonsFrame, TL("accept"), "", TL("close"), GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_GNE_BUTTON_ACCEPT, GUIDesignButtonAccept);
+    myKeepOldButton = GUIDesigns::buildFXButton(buttonsFrame, TL("accept"), "", TL("close"), GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_GNE_BUTTON_ACCEPT, GUIDesignButtonAccept);
     myCancelButton = GUIDesigns::buildFXButton(buttonsFrame, TL("cancel"), "", TL("close"), GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_GNE_BUTTON_CANCEL, GUIDesignButtonCancel);
     myResetButton = GUIDesigns::buildFXButton(buttonsFrame, TL("reset"), "", TL("close"),  GUIIconSubSys::getIcon(GUIIcon::RESET), this, MID_GNE_BUTTON_RESET,  GUIDesignButtonReset);
     new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);

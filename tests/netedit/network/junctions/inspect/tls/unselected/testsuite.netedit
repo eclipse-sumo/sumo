@@ -1,9 +1,12 @@
-# edit attribute type
 type
 
-id
-
 pos
+
+tltype
+
+tllayout
+
+id
 
 shape
 
@@ -16,10 +19,6 @@ rightofway
 fringe
 
 name
-
-tltype
-
-tllayout
 
 tl
 

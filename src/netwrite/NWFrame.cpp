@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -79,7 +79,7 @@ NWFrame::fillOptions(OptionsCont& oc, bool forNetgen) {
     oc.addDescription("amitran-output", "Output", TL("The generated net will be written to FILE using Amitran format"));
 
     oc.doRegister("matsim-output", new Option_FileName());
-    oc.addDescription("matsim-output", "Output", TL("The generated net will be written to FILE using MATsim format"));
+    oc.addDescription("matsim-output", "Output", TL("The generated net will be written to FILE using MATSim format"));
 
     oc.doRegister("opendrive-output", new Option_FileName());
     oc.addDescription("opendrive-output", "Output", TL("The generated net will be written to FILE using OpenDRIVE format"));

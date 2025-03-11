@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-02-28 14:05:54 by Eclipse SUMO sumo Version v1_22_0+0585-6981afa7342
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <tripinfo-output value="tripinfos.xml"/>
+        <tripinfo-output.write-unfinished value="true"/>
+    </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+    </mesoscopic>
+
+</sumoConfiguration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <tripinfo id="blocker" depart="0.00" departLane="A1A0_1" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="507.00" arrivalLane="A1A0_1" arrivalPos="87.60" arrivalSpeed="0.17" duration="507.00" routeLength="87.60" waitingTime="0.00" waitingCount="0" stopTime="500.00" timeLoss="500.00" rerouteNo="0" devices="tripinfo_blocker routing_blocker" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="blocker2" depart="0.00" departLane="A0B0_1" departPos="0.00" departSpeed="13.89" departDelay="0.00" arrival="521.00" arrivalLane="A0B0_1" arrivalPos="287.60" arrivalSpeed="0.19" duration="521.00" routeLength="287.60" waitingTime="0.00" waitingCount="0" stopTime="500.00" timeLoss="500.00" rerouteNo="0" devices="tripinfo_blocker2 routing_blocker2" vType="long" speedFactor="1.00" vaporized=""/>
+    <personinfo id="p0" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="522.00" waitingTime="42.00" timeLoss="0.00" traveltime="480.00">
+        <ride waitingTime="42.00" vehicle="taxi" depart="42.00" arrival="522.00" arrivalPos="191.73" duration="480.00" routeLength="1221.73" timeLoss="0.00"/>
+    </personinfo>
+    <personinfo id="p1" depart="120.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="537.00" waitingTime="496.00" timeLoss="0.00" traveltime="41.00">
+        <ride waitingTime="496.00" vehicle="taxi" depart="616.00" arrival="657.00" arrivalPos="190.40" duration="41.00" routeLength="561.60" timeLoss="0.00"/>
+    </personinfo>
+    <tripinfo id="taxi" depart="0.00" departLane="B2C2_1" departPos="0.00" departSpeed="13.89" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="718.00" routeLength="2821.60" waitingTime="0.00" waitingCount="0" stopTime="122.00" timeLoss="451.70" rerouteNo="4" devices="tripinfo_taxi routing_taxi taxi_taxi person_taxi" vType="taxi" speedFactor="1.00" vaporized="">
+        <taxi customers="2" occupiedDistance="1783.33" occupiedTime="522.09"/>
+    </tripinfo>
+</tripinfos>

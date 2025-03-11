@@ -36,7 +36,7 @@ Add the files to the [{{SUMO}}/src/microsim/lcmodels/CMakeLists.txt]({{Source}}s
 
 ### Updating the XSD schema files so they permit the new model name
 
-All permited models must be defined in [{{SUMO}}/data/xsd/routeTypes.xsd]({{Source}}data/xsd/routeTypes.xsd) in the list of permitted values for the `laneChangeModel` attribute.
+All permitted models must be defined in [{{SUMO}}/data/xsd/routeTypes.xsd]({{Source}}data/xsd/routeTypes.xsd) in the list of permitted values for the `laneChangeModel` attribute.
 
 ### Registering the model name as possible value
 
@@ -89,5 +89,5 @@ XML elements or attributes you either need to adapt the XML schema files
 in {{SUMO}}/data/xsd or add the option
 
 ```
---xml-validation never
+--xml-validation never
 ```

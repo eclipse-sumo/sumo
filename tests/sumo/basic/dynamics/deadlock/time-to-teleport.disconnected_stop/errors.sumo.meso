@@ -1,0 +1,2 @@
+Warning: Network contains internal links which are ignored. Vehicles will 'jump' across junctions and thus underestimate route lengths and travel times.
+Warning: Teleporting vehicle 'v_0'; waited too long (disconnected), from edge 'SC':0 to edge 'WC':0, time=8.62.

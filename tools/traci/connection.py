@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2008-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2008-2025 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -169,7 +169,8 @@ class Connection(StepManager):
             elif f == "u":  # raw unsigned byte needed for distance command and subscribe
                 packed += struct.pack("!B", int(v))
             elif f == "s":
-                v = str(v).encode("utf8")
+                if sys.version_info[0] > 2 or not isinstance(v, str):
+                    v = str(v).encode("utf8")
                 packed += struct.pack("!Bi", tc.TYPE_STRING, len(v)) + v
             elif f == "p":  # polygon
                 if len(v) <= 255:
@@ -240,8 +241,7 @@ class Connection(StepManager):
                                   (response >= tc.RESPONSE_SUBSCRIBE_PARKINGAREA_VARIABLE and
                                    response <= tc.RESPONSE_SUBSCRIBE_OVERHEADWIRE_VARIABLE))
         objectID = result.readString()
-        if not isVariableSubscription:
-            result.read("!B")  # domain
+        contextDomain = 0 if isVariableSubscription else result.read("!B")[0]
         numVars = result.read("!B")[0]
         if isVariableSubscription:
             while numVars > 0:
@@ -256,17 +256,19 @@ class Connection(StepManager):
                 numVars -= 1
         else:
             objectNo = result.read("!i")[0]
-            self._subscriptionMapping[response].addContext(objectID)
+            subsMap = self._subscriptionMapping[response]
+            subsMap.addContext(objectID)
             for _ in range(objectNo):
                 oid = result.readString()
                 if numVars == 0:
-                    self._subscriptionMapping[response].addContext(objectID, oid)
+                    subsMap.addContext(objectID, oid)
                 for __ in range(numVars):
                     varID, status = result.read("!BB")
                     if status:
                         print("Error!", result.readTypedString())
-                    elif response in self._subscriptionMapping:
-                        self._subscriptionMapping[response].addContext(objectID, oid, varID, result)
+                    elif contextDomain in self._subscriptionMapping:
+                        subsMap.addContext(objectID, oid, varID,
+                                           self._subscriptionMapping[contextDomain].parse(varID, result))
                     else:
                         raise FatalTraCIError(
                             "Cannot handle subscription response %02x for %s." % (response, objectID))

@@ -1,16 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-04-24 14:40:49 by Eclipse SUMO netedit Version v1_16_0+2366-f1efea7ef7d
+<!-- generated on 2024-07-31 16:06:41 by Eclipse SUMO netedit Version v1_20_0+1585-7f20689389f
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- TAZs -->
-    <taz id="taz_0" shape="-8.00,10.00 -8.00,18.00 -16.00,18.00 -16.00,10.00 -8.00,10.00" name="%%%%%%;;;" color="blue">
-        <tazSource id="top" weight="1.00"/>
-        <tazSink id="top" weight="1.00"/>
+    <taz id="taz_0" shape="-20.00,10.00 -20.00,22.00 -30.00,22.00 -30.00,10.00 -20.00,10.00" name="%%%%%%;;;" color="blue">
+        <tazSource id="Edge2" weight="1.00"/>
+        <tazSink id="Edge2" weight="1.00"/>
+        <tazSource id="Edge3" weight="1.00"/>
+        <tazSink id="Edge3" weight="1.00"/>
+        <tazSource id="EdgeBike1" weight="1.00"/>
+        <tazSink id="EdgeBike1" weight="1.00"/>
     </taz>
-    <taz id="taz_1" shape="6.00,10.00 6.00,18.00 -2.00,18.00 -2.00,10.00 6.00,10.00" name="customName" color="blue">
-        <tazSource id="top" weight="1.00"/>
-        <tazSink id="top" weight="1.00"/>
+    <taz id="taz_1" shape="-4.00,10.00 -4.00,22.00 -14.00,22.00 -14.00,10.00 -4.00,10.00" name="customName" color="blue">
+        <tazSource id="Edge2" weight="1.00"/>
+        <tazSink id="Edge2" weight="1.00"/>
+        <tazSource id="Edge3" weight="1.00"/>
+        <tazSink id="Edge3" weight="1.00"/>
     </taz>
 </additional>

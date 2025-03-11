@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -27,41 +27,39 @@
 
 #include "GNETransport.h"
 
+
 // ===========================================================================
 // method definitions
 // ===========================================================================
-
-GNETransport*
-GNETransport::buildTransport(GNENet* net, GNEDemandElement* containerParent,
-                             GNEEdge* fromEdge, GNEAdditional* fromContainerStop, GNEEdge* toEdge,
-                             GNEAdditional* toContainerStop, double arrivalPosition) {
-    // declare icon an tag
-    const auto iconTag = getTransportTagIcon(fromEdge, toEdge, fromContainerStop, toContainerStop);
-    // declare containers
-    std::vector<GNEEdge*> edges;
-    std::vector<GNEAdditional*> additionals;
-    // continue depending of input parameters
-    if (fromEdge) {
-        edges.push_back(fromEdge);
-    } else if (fromContainerStop) {
-        additionals.push_back(fromContainerStop);
-    }
-    if (toEdge) {
-        edges.push_back(toEdge);
-    } else if (toContainerStop) {
-        additionals.push_back(toContainerStop);
-    }
-    return new GNETransport(net, iconTag.first, iconTag.second, containerParent, edges, additionals, arrivalPosition);
-}
-
-
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4355) // mask warning about "this" in initializers
+#endif
 GNETransport::GNETransport(SumoXMLTag tag, GNENet* net) :
-    GNEDemandElement("", net, GLO_TRANSPORT, tag, GUIIconSubSys::getIcon(GUIIcon::TRANSHIP_EDGE),
-                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}),
-GNEDemandElementPlan(this, -1, -1) {
+    GNEDemandElement("", net, "", GLO_TRANSPORT, tag, GUIIcon::TRANSHIP_EDGE, GNEPathElement::Options::DEMAND_ELEMENT),
+    GNEDemandElementPlan(this, -1, -1) {
     // reset default values
     resetDefaultValues();
 }
+
+
+GNETransport::GNETransport(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* containerParent, const GNEPlanParents& planParameters,
+                           const double arrivalPosition, const std::vector<std::string>& lines, const std::string& group) :
+    GNEDemandElement(containerParent, net, GLO_TRANSPORT, tag, icon, GNEPathElement::Options::DEMAND_ELEMENT),
+    GNEDemandElementPlan(this, -1, arrivalPosition),
+    myLines(lines),
+    myGroup(group) {
+    // set parents
+    setParents<GNEJunction*>(planParameters.getJunctions());
+    setParents<GNEEdge*>(planParameters.getEdges());
+    setParents<GNEAdditional*>(planParameters.getAdditionalElements());
+    setParents<GNEDemandElement*>(planParameters.getDemandElements(containerParent));
+    // update centering boundary without updating grid
+    updatePlanCenteringBoundary(false);
+}
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 
 GNETransport::~GNETransport() {}
@@ -81,11 +79,16 @@ GNETransport::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
 
 void
 GNETransport::writeDemandElement(OutputDevice& device) const {
+    // first write origin stop (if this element starts in a stoppingPlace)
     writeOriginStop(device);
+    // write rest of attributes
     device.openTag(SUMO_TAG_TRANSPORT);
     writeLocationAttributes(device);
     if (myLines.size() > 0) {
         device.writeAttr(SUMO_ATTR_LINES, myLines);
+    }
+    if (myGroup.size() > 0) {
+        device.writeAttr(SUMO_ATTR_GROUP, myGroup);
     }
     device.closeTag();
 }
@@ -164,13 +167,13 @@ GNETransport::computePathElement() {
 
 
 void
-GNETransport::drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const double offsetFront) const {
+GNETransport::drawLanePartialGL(const GUIVisualizationSettings& s, const GNESegment* segment, const double offsetFront) const {
     drawPlanLanePartial(checkDrawContainerPlan(), s, segment, offsetFront, s.widthSettings.transportWidth, s.colorSettings.transportColor, s.colorSettings.selectedContainerPlanColor);
 }
 
 
 void
-GNETransport::drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const double offsetFront) const {
+GNETransport::drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNESegment* segment, const double offsetFront) const {
     drawPlanJunctionPartial(checkDrawContainerPlan(), s, segment, offsetFront, s.widthSettings.transportWidth, s.colorSettings.transportColor, s.colorSettings.selectedContainerPlanColor);
 }
 
@@ -193,6 +196,8 @@ GNETransport::getAttribute(SumoXMLAttr key) const {
         // specific person plan attributes
         case SUMO_ATTR_LINES:
             return joinToString(myLines, " ");
+        case SUMO_ATTR_GROUP:
+            return myGroup;
         default:
             return getPlanAttribute(key);
     }
@@ -215,6 +220,7 @@ void
 GNETransport::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     switch (key) {
         case SUMO_ATTR_LINES:
+        case SUMO_ATTR_GROUP:
             GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
         default:
@@ -230,6 +236,8 @@ GNETransport::isValid(SumoXMLAttr key, const std::string& value) {
         // specific person plan attributes
         case SUMO_ATTR_LINES:
             return canParse<std::vector<std::string> >(value);
+        case SUMO_ATTR_GROUP:
+            return true;
         default:
             return isPlanValid(key, value);
     }
@@ -270,6 +278,9 @@ GNETransport::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_LINES:
             myLines = GNEAttributeCarrier::parse<std::vector<std::string> >(value);
             break;
+        case SUMO_ATTR_GROUP:
+            myGroup = value;
+            break;
         default:
             setPlanAttribute(key, value);
             break;
@@ -292,15 +303,6 @@ GNETransport::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undo
     // now adjust start position
     setAttribute(SUMO_ATTR_ARRIVALPOS, toString(moveResult.newFirstPos), undoList);
     undoList->end();
-}
-
-
-GNETransport::GNETransport(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* containerParent,
-                           const std::vector<GNEEdge*>& edges, const std::vector<GNEAdditional*>& additionals,
-                           double arrivalPosition) :
-    GNEDemandElement(containerParent, net, GLO_TRANSPORT, tag, GUIIconSubSys::getIcon(icon),
-                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, edges, {}, additionals, {containerParent}, {}),
-GNEDemandElementPlan(this, -1, arrivalPosition) {
 }
 
 /****************************************************************************/

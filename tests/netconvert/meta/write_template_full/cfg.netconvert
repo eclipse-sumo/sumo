@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-17 09:04:52 by Eclipse SUMO netconvert Version v1_20_0+1264-f5cae912633
+<!-- generated on 2025-02-21 14:16:49 by Eclipse SUMO netconvert Version v1_22_0+0440-9af1eda2b59
 -->
 
 <netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -31,7 +31,7 @@
         <visum-file value="" synonymes="visum" type="FILE" help="Read VISUM-net from FILE"/>
         <vissim-file value="" synonymes="vissim" type="FILE" help="Read VISSIM-net from FILE"/>
         <robocup-dir value="" synonymes="robocup robocup-net" type="FILE" help="Read RoboCup-net from DIR"/>
-        <matsim-files value="" synonymes="matsim" type="FILE" help="Read MATsim-net from FILE"/>
+        <matsim-files value="" synonymes="matsim" type="FILE" help="Read MATSim-net from FILE"/>
         <itsumo-files value="" synonymes="itsumo" type="FILE" help="Read ITSUMO-net from FILE"/>
         <heightmap.shapefiles value="" type="FILE" help="Read heightmap from ArcGIS shapefile"/>
         <heightmap.geotiff value="" type="FILE" help="Read heightmap from GeoTIFF"/>
@@ -49,7 +49,7 @@
         <junctions.join-output value="" type="FILE" help="Writes information about joined junctions to FILE (can be loaded as additional node-file to reproduce joins"/>
         <prefix value="" type="STR" help="Defines a prefix for edge and junction names"/>
         <amitran-output value="" type="FILE" help="The generated net will be written to FILE using Amitran format"/>
-        <matsim-output value="" type="FILE" help="The generated net will be written to FILE using MATsim format"/>
+        <matsim-output value="" type="FILE" help="The generated net will be written to FILE using MATSim format"/>
         <opendrive-output value="" type="FILE" help="The generated net will be written to FILE using OpenDRIVE format"/>
         <dlr-navteq-output value="" type="FILE" help="The generated net will be written to dlr-navteq files with the given PREFIX"/>
         <dlr-navteq.version value="6.5" type="STR" help="The dlr-navteq output format version to write"/>
@@ -152,6 +152,7 @@
         <default.junctions.keep-clear value="true" type="BOOL" help="Whether junctions should be kept clear by default"/>
         <default.junctions.radius value="4" type="FLOAT" help="The default turning radius of intersections"/>
         <default.connection-length value="-1" type="FLOAT" help="The default length when overriding connection lengths"/>
+        <default.connection.cont-pos value="-1" type="FLOAT" help="Whether/where connections should have an internal junction"/>
         <default.right-of-way value="default" type="STR" help="The default algorithm for computing right of way rules (&apos;default&apos;, &apos;edgePriority&apos;)"/>
     </building_defaults>
 
@@ -226,6 +227,7 @@
         <keep-edges.components value="0" type="INT" help="Only keep the INT largest weakly connected components"/>
         <remove-edges.by-type value="" type="STR[]" help="Remove edges where type is in STR[]"/>
         <remove-edges.isolated value="false" synonymes="remove-isolated" type="BOOL" help="Removes isolated edges"/>
+        <keep-lanes.min-width value="0.01" type="FLOAT" help="Only keep lanes with width in meters &gt; FLOAT"/>
     </edge_removal>
 
     <unregulated_nodes>
@@ -247,6 +249,7 @@
         <no-left-connections value="false" type="BOOL" help="Disables building connections to left"/>
         <junctions.join value="false" type="BOOL" help="Joins junctions that are close to each other (recommended for OSM import)"/>
         <junctions.join-dist value="10" type="FLOAT" help="Determines the maximal distance for joining junctions (defaults to 10)"/>
+        <junctions.join.parallel-threshold value="30" type="FLOAT" help="The angular threshold in degress for rejection of parallel edges when joining junctions"/>
         <junctions.join-exclude value="" type="STR[]" help="Interprets STR[] as list of junctions to exclude from joining"/>
         <junctions.join-same value="false" type="BOOL" help="Joins junctions that have the same coordinates even if not connected"/>
         <max-join-ids value="4" type="INT" help="Abbreviate junction or TLS id if it joins more than INT junctions"/>
@@ -277,6 +280,7 @@
         <sidewalks.guess.exclude value="" type="STR[]" help="Do not guess sidewalks for the given list of edges"/>
         <crossings.guess value="false" type="BOOL" help="Guess pedestrian crossings based on the presence of sidewalks"/>
         <crossings.guess.speed-threshold value="13.89" type="FLOAT" help="At uncontrolled nodes, do not build crossings across edges with a speed above the threshold"/>
+        <crossings.guess.roundabout-priority value="true" type="BOOL" help="Give priority to guessed crossings at roundabouts"/>
         <walkingareas value="false" type="BOOL" help="Always build walking areas even if there are no crossings"/>
         <walkingareas.join-dist value="15" type="FLOAT" help="Do not create a walkingarea between sidewalks that are connected by a pedestrian junction within FLOAT"/>
     </pedestrian>
@@ -302,6 +306,7 @@
         <railway.topology.extend-priority value="false" type="BOOL" help="Extend loaded edge priority values based on estimated main direction"/>
         <railway.geometry.straighten value="false" type="BOOL" help="Move junctions to straighten a sequence of rail edges"/>
         <railway.signal.guess.by-stops value="false" type="BOOL" help="Guess signals that guard public transport stops"/>
+        <railway.signal.permit-unsignalized value="tram,cable_car" type="STR[]" help="List rail classes that may run without rail signals"/>
         <railway.access-distance value="150" synonymes="osm.stop-output.footway-access-distance" type="FLOAT" help="The search radius for finding suitable road accesses for rail stops"/>
         <railway.max-accesses value="5" synonymes="osm.stop-output.footway-max-accesses" type="INT" help="The maximum road accesses registered per rail stops"/>
         <railway.access-factor value="1.5" synonymes="osm.stop-output.footway-access-factor" type="FLOAT" help="The walking length of the access is computed as air-line distance multiplied by FLOAT"/>
@@ -319,6 +324,7 @@
         <osm.lane-access value="false" type="BOOL" help="Import lane-specific access restrictions"/>
         <osm.bike-access value="false" synonymes="osm.bike-lanes" type="BOOL" help="Import bike lanes and fix directions and permissions on bike paths"/>
         <osm.sidewalks value="false" type="BOOL" help="Import sidewalks"/>
+        <osm.oneway-reverse-sidewalk value="false" type="BOOL" help="Default to building two sidewalks on oneway streets (may affect divided roads)"/>
         <osm.crossings value="false" type="BOOL" help="Import crossings"/>
         <osm.turn-lanes value="false" type="BOOL" help="Import turning arrows from OSM to help with connection building"/>
         <osm.stop-output.length value="25" type="FLOAT" help="The default length of a public transport stop in FLOAT m"/>
@@ -329,7 +335,8 @@
         <osm.all-attributes value="false" synonymes="osm.all-tags" type="BOOL" help="Whether additional attributes shall be imported"/>
         <osm.extra-attributes value="all" synonymes="osm.extra-tags" type="STR[]" help="List of additional attributes that shall be imported from OSM via osm.all-attributes (set &apos;all&apos; to import all)"/>
         <osm.speedlimit-none value="39.4444" type="FLOAT" help="The speed limit to be set when there is no actual speed limit in reality"/>
-        <matsim.keep-length value="false" type="BOOL" help="The edge lengths given in the MATSIM-file will be kept"/>
+        <osm.annotate-defaults value="false" type="BOOL" help="Whether edges shoulds carry information on the usage of typemap defaults"/>
+        <matsim.keep-length value="false" type="BOOL" help="The edge lengths given in the MATSim-file will be kept"/>
         <matsim.lanes-from-capacity value="false" type="BOOL" help="The lane number will be computed from the capacity"/>
         <shapefile.street-id value="" synonymes="arcview.street-id" type="STR" help="Read edge ids from column STR"/>
         <shapefile.from-id value="" synonymes="arcview.from-id" type="STR" help="Read from-node ids from column STR"/>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-02-20 16:12:54 by Eclipse SUMO netconvert Version v1_22_0+0332-698bf2cd8fa
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="input_plain.nod.xml"/>
+        <edge-files value="input_plain.edg.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+    </output>
+
+    <junctions>
+        <no-internal-links value="true"/>
+    </junctions>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</netconvertConfiguration>
+-->
+
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="200.00,100.00" convBoundary="0.00,0.00,400.00,200.00" origBoundary="-1000.00,-100.00,1000.00,100.00" projParameter="!"/>
+
+    <edge id="CN" from="C" to="N" priority="3">
+        <lane id="CN_0" index="0" allow="bus tram" speed="13.89" length="100.00" shape="201.60,104.70 201.60,200.00"/>
+    </edge>
+    <edge id="CW" from="C" to="W" priority="2">
+        <lane id="CW_0" index="0" allow="tram" speed="33.33" length="200.00" shape="198.50,101.60 0.00,101.60"/>
+    </edge>
+    <edge id="EC" from="E" to="C" priority="2">
+        <lane id="EC_0" index="0" allow="tram" speed="33.33" length="200.00" shape="400.00,101.60 204.70,101.60"/>
+    </edge>
+    <edge id="SC" from="S" to="C" priority="3">
+        <lane id="SC_0" index="0" allow="bus tram" speed="13.89" length="100.00" shape="201.60,0.00 201.60,98.50"/>
+    </edge>
+
+    <junction id="C" type="rail_crossing" x="200.00" y="100.00" incLanes="EC_0 SC_0" intLanes="" shape="200.00,104.70 203.20,104.70 203.37,103.87 203.57,103.58 203.87,103.37 204.24,103.24 204.70,103.20 204.70,100.00 203.87,99.83 203.57,99.62 203.37,99.33 203.24,98.96 203.20,98.50 200.00,98.50 199.83,99.33 199.62,99.62 199.33,99.83 198.96,99.96 198.50,100.00 198.50,103.20 199.33,103.37 199.62,103.57 199.83,103.87 199.96,104.24">
+        <request index="0" response="0100" foes="0100"/>
+        <request index="1" response="1100" foes="1100"/>
+        <request index="2" response="0000" foes="0011"/>
+        <request index="3" response="0000" foes="0010"/>
+    </junction>
+    <junction id="E" type="dead_end" x="400.00" y="100.00" incLanes="" intLanes="" shape="400.00,100.00 400.00,103.20"/>
+    <junction id="N" type="dead_end" x="200.00" y="200.00" incLanes="CN_0" intLanes="" shape="203.20,200.00 200.00,200.00"/>
+    <junction id="S" type="dead_end" x="200.00" y="0.00" incLanes="" intLanes="" shape="200.00,0.00 203.20,0.00"/>
+    <junction id="W" type="dead_end" x="0.00" y="100.00" incLanes="CW_0" intLanes="" shape="0.00,103.20 0.00,100.00"/>
+
+    <connection from="EC" to="CN" fromLane="0" toLane="0" tl="C" linkIndex="-1" dir="r" state="M"/>
+    <connection from="EC" to="CW" fromLane="0" toLane="0" tl="C" linkIndex="-1" dir="s" state="M"/>
+    <connection from="SC" to="CN" fromLane="0" toLane="0" tl="C" linkIndex="0" dir="s" state="O"/>
+    <connection from="SC" to="CW" fromLane="0" toLane="0" tl="C" linkIndex="1" dir="l" state="O"/>
+
+</net>

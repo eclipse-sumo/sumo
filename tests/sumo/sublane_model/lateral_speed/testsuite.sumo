@@ -32,3 +32,6 @@ red_light_maxDistLatStanding_3.2
 
 # avoid strong lateral acceleration due to random lateral movement
 lcSigma
+
+# avoid strong lateral acceleration due to random lateral movement
+lcSigma_queued

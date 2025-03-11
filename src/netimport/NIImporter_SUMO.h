@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -130,7 +130,7 @@ private:
     void addLane(const SUMOSAXAttributes& attrs);
 
     /** @brief parses stop offsets for the current lane or edge
-     * @param[in] attrs The attributes to get the stop offset sepcifics from
+     * @param[in] attrs The attributes to get the stop offset specifics from
      */
     void addStopOffsets(const SUMOSAXAttributes& attrs, bool& ok);
 
@@ -140,7 +140,7 @@ private:
     void addJunction(const SUMOSAXAttributes& attrs);
 
 
-    /** @brief Parses a reques and saves selected attributes in myCurrentJunction
+    /** @brief Parses a request and saves selected attributes in myCurrentJunction
      * @param[in] attrs The attributes to get the junction's values from
      */
     void addRequest(const SUMOSAXAttributes& attrs);
@@ -395,7 +395,7 @@ private:
     /// @brief whether the loaded network was built for lefthand traffic
     bool myAmLefthand;
 
-    /// @brief whether the the written network should have a different "handedness" (LHT/RHT) than the loaded network
+    /// @brief whether the written network should have a different "handedness" (LHT/RHT) than the loaded network
     bool myChangeLefthand;
 
     /// @brief the level of corner detail in the loaded network

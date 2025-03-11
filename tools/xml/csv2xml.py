@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2013-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2013-2025 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -57,6 +57,8 @@ def get_options():
                        help="convert the given csv-file into the specified format")
     group.add_argument("-x", "--xsd",
                        help="xsd schema to use")
+    group.add_argument("--flat", action="store_true", default=False,
+                       help="use csv header as flat structure instead of a schema")
     options = optParser.parse_args()
     if not options.output:
         options.output = os.path.splitext(options.source)[0] + ".xml"
@@ -182,6 +184,24 @@ def writeHierarchicalXml(struct, options):
         inputf.close()
 
 
+def writeFlatXml(options):
+    with contextlib.closing(xml2csv.getOutStream(options.output)) as outputf:
+        if options.source.isdigit():
+            inputf = xml2csv.getSocketStream(int(options.source))
+        else:
+            inputf = io.open(options.source, encoding="utf8")
+        outputf.write('<data>\n')
+        fields = None
+        for raw in csv.reader(inputf, delimiter=options.delimiter):
+            if not fields:
+                fields = raw
+            else:
+                outputf.write('    <record %s/>\n' % (
+                    ' '.join(['%s="%s"' % av for av in zip(fields, raw)])))
+        outputf.write('</data>\n')
+        inputf.close()
+
+
 def main():
     options = get_options()
     if options.type in ["nodes", "node", "nod"]:
@@ -194,6 +214,8 @@ def main():
         write_xml('routes', 'vehicle', options, row2vehicle_and_route)
     elif options.type in ["flows", "flow"]:
         write_xml('routes', 'flow', options, row2vehicle_and_route)
+    elif options.flat:
+        writeFlatXml(options)
     elif options.xsd:
         writeHierarchicalXml(xsd.XsdStructure(options.xsd), options)
 

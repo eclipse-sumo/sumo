@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2011-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2011-2025 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -155,6 +155,24 @@ class PersonDomain(VTypeDomain):
         """
         return self._getUniversal(tc.VAR_LANEPOSITION, personID)
 
+    def getWalkingDistance(self, personID, edgeID, pos, laneIndex=0):
+        """getWalkingDistance(string, string, double, integer) -> double
+
+        For a person in walking stage and an edge along the remaining route of
+        personID, return the distance from the current position
+        to the given edge and position along the walk.
+        Otherwise, raise a TraCIException
+        """
+        return self._getUniversal(tc.DISTANCE_REQUEST, personID, "tru", 2,
+                                  (edgeID, pos, laneIndex), tc.REQUEST_DRIVINGDIST)
+
+    def getWalkingDistance2D(self, personID, x, y):
+        """getWalkingDistance2D(string, double, double) -> integer
+
+        Return the distance to the given network position along the walk (see getWalkingDistance)
+        """
+        return self._getUniversal(tc.DISTANCE_REQUEST, personID, "tou", 2, (x, y), tc.REQUEST_DRIVINGDIST)
+
     def getWaitingTime(self, personID):
         """getWaitingTime(string) -> double
         The waiting time of a person is defined as the time (in seconds) spent with a
@@ -186,7 +204,7 @@ class PersonDomain(VTypeDomain):
 
     def getStage(self, personID, nextStageIndex=0):
         """getStage(string, int) -> stage
-        Returns the the nth stage object (type simulation.Stage)
+        Returns the nth stage object (type simulation.Stage)
         Attribute type of this object has the following meaning:
           0 for not-yet-departed
           1 for waiting

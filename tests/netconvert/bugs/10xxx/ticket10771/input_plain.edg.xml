@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-05-20 11:49:52 by Eclipse SUMO netedit Version v1_13_0+0340-e0e1cd4baec
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="C:\Users\behr_mi\Projekte\simo\projects\junction_control_comparison2\scenario\5GBraWo\brawo.net.xml.gz"/>
+    </input>
+
+    <output>
+        <output-file value="C:\Users\behr_mi\Projekte\simo\projects\junction_control_comparison2\scenario\5GBraWo\brawo.net.xml.gz"/>
+        <output.street-names value="true"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+</configuration>
+-->
+
+<edges version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="206614452#2" from="cluster_28114806_286726503_2952513732_2952513733_318617385_318617386" to="Willy-Brandt-Platz" priority="17" numLanes="1" speed="13.89" shape="6398.48,7189.21 6405.06,7207.36 6408.66,7218.77 6412.15,7230.67 6418.45,7254.31 6429.45,7297.01 6437.29,7333.17 6448.01,7388.67 6453.82,7424.32 6454.64,7429.81 6455.20,7433.90 6457.70,7449.93" spreadType="center" allow="tram"/>
+    <edge id="25076207#0" from="cluster_2166437512_2166437513_2166437514_2166437515_2302566753_28449352_28449353_309922883_309922906_51520995" to="cluster_282514172_286726504" name="Willy-Brandt-Platz" priority="12" numLanes="2" speed="13.89" shape="6380.23,7063.64 6386.53,7071.27 6390.21,7076.22 6392.89,7079.82 6397.00,7085.75 6408.21,7107.11 6411.66,7114.61 6417.10,7129.40 6428.17,7163.66 6429.57,7169.09" spreadType="center" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship">
+        <param key="ref" value="L 295"/>
+    </edge>
+    <edge id="25076207#11" from="57749950" to="28007021" name="Willy-Brandt-Platz" priority="12" numLanes="2" speed="13.89" shape="6438.70,7215.17 6441.85,7237.96 6445.57,7266.59 6452.32,7322.67 6453.57,7333.97" spreadType="center" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship">
+        <param key="ref" value="L 295"/>
+    </edge>
+    <edge id="25076207#9" from="cluster_282514172_286726504" to="57749950" name="Willy-Brandt-Platz" priority="12" numLanes="2" speed="13.89" shape="6431.99,7178.50 6432.81,7182.41 6435.76,7198.71 6438.70,7215.17" spreadType="center" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship">
+        <param key="ref" value="L 295"/>
+    </edge>
+    <edge id="26186987#2" from="cluster_28114806_286726503_2952513732_2952513733_318617385_318617386" to="cluster_282514172_286726504" name="Willy-Brandt-Platz" priority="3" numLanes="1" speed="13.89" shape="6395.26,7180.92 6429.57,7169.09" spreadType="center" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
+    <edge id="26203795#0" from="cluster_282514172_286726504" to="cluster_28114806_286726503_2952513732_2952513733_318617385_318617386" name="Willy-Brandt-Platz" priority="3" numLanes="1" speed="13.89" shape="6431.99,7178.50 6400.90,7188.34 6398.48,7189.21" spreadType="center" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
+    <edge id="28217281#0" from="3231100261" to="cluster_28114806_286726503_2952513732_2952513733_318617385_318617386" name="Willy-Brandt-Platz" priority="12" numLanes="5" speed="13.89" shape="6401.80,7246.45 6398.45,7237.19 6389.45,7212.85 6382.23,7194.53" spreadType="center" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship">
+        <param key="ref" value="L 295"/>
+    </edge>
+    <edge id="291757763#11" from="Willy-Brandt-Platz" to="cluster_28114806_286726503_2952513732_2952513733_318617385_318617386" priority="17" numLanes="1" speed="13.89" shape="6454.17,7449.66 6451.51,7433.50 6450.91,7429.43 6443.09,7382.26 6433.80,7333.39 6421.22,7278.87 6404.48,7217.01 6399.95,7203.29 6395.08,7190.18" spreadType="center" allow="tram"/>
+    <edge id="291757763#15" from="cluster_28114806_286726503_2952513732_2952513733_318617385_318617386" to="2166437547" priority="17" numLanes="1" speed="13.89" shape="6391.89,7182.30 6370.23,7136.17 6367.15,7130.00 6364.79,7125.25 6362.31,7119.97" spreadType="center" allow="tram"/>
+    <edge id="316917599#0" from="cluster_28114806_286726503_2952513732_2952513733_318617385_318617386" to="256574415" name="Willy-Brandt-Platz" priority="12" numLanes="4" speed="13.89" shape="6380.43,7189.81 6369.90,7163.69 6359.73,7139.88 6358.09,7136.48 6355.99,7132.14" spreadType="center" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship">
+        <param key="ref" value="L 295"/>
+    </edge>
+    <edge id="6148697#2" from="50917994" to="cluster_28114806_286726503_2952513732_2952513733_318617385_318617386" priority="17" numLanes="1" speed="13.89" shape="6365.27,7118.71 6367.23,7122.70 6369.84,7127.93 6388.19,7164.70 6395.26,7180.92" spreadType="center" allow="tram"/>
+
+
+</edges>

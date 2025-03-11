@@ -24,13 +24,13 @@ parameter value. So, for importing a network from OpenStreetMap one
 could simply write:
 
 ```
-netconvert --osm my_osm_net.xml
+netconvert --osm my_osm_net.xml
 ```
 
 and for importing a VISUM-network:
 
 ```
-netconvert --visum my_visum_net.net
+netconvert --visum my_visum_net.net
 ```
 
 In both cases, as no output name is given, the SUMO network generated
@@ -40,7 +40,7 @@ the imported VISUM-network into a file named "my_sumo_net.net.xml",
 write:
 
 ```
-netconvert --visum my_visum_net.net -o my_sumo_net.net.xml
+netconvert --visum my_visum_net.net -o my_sumo_net.net.xml
 ```
 
 Many further parameter steer how the network is imported and how the
@@ -76,7 +76,7 @@ the following formats:
 - any input files may be combined
 - "plain XML" files will be applied last and can be used to patch/update previously loaded elements
 - multiple sumo networks (.net.xml) may be merged by giving a list of files: **--sumo-net-file FILE1,FILE2**. The offsets will be handled automatically for geo-referenced network data
-- To merge nodes and edges which occupy the same location but have different ids, the the options **--junctions.join-same --edges.join** can be set
+- To merge nodes and edges which occupy the same location but have different ids, the options **--junctions.join-same --edges.join** can be set
 
 ## Export
 
@@ -175,7 +175,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--visum-file** {{DT_FILE}} | Read VISUM-net from FILE |
 | **--vissim-file** {{DT_FILE}} | Read VISSIM-net from FILE |
 | **--robocup-dir** {{DT_FILE}} | Read RoboCup-net from DIR |
-| **--matsim-files** {{DT_FILE}} | Read MATsim-net from FILE |
+| **--matsim-files** {{DT_FILE}} | Read MATSim-net from FILE |
 | **--itsumo-files** {{DT_FILE}} | Read ITSUMO-net from FILE |
 | **--heightmap.shapefiles** {{DT_FILE}} | Read heightmap from ArcGIS shapefile |
 | **--heightmap.geotiff** {{DT_FILE}} | Read heightmap from GeoTIFF |
@@ -195,7 +195,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--junctions.join-output** {{DT_FILE}} | Writes information about joined junctions to FILE (can be loaded as additional node-file to reproduce joins |
 | **--prefix** {{DT_STR}} | Defines a prefix for edge and junction names |
 | **--amitran-output** {{DT_FILE}} | The generated net will be written to FILE using Amitran format |
-| **--matsim-output** {{DT_FILE}} | The generated net will be written to FILE using MATsim format |
+| **--matsim-output** {{DT_FILE}} | The generated net will be written to FILE using MATSim format |
 | **--opendrive-output** {{DT_FILE}} | The generated net will be written to FILE using OpenDRIVE format |
 | **--dlr-navteq-output** {{DT_FILE}} | The generated net will be written to dlr-navteq files with the given PREFIX |
 | **--dlr-navteq.version** {{DT_STR}} | The dlr-navteq output format version to write; *default:* **6.5** |
@@ -251,6 +251,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--geometry.max-segment-length** {{DT_FLOAT}} | splits geometry to restrict segment length; *default:* **0** |
 | **--geometry.min-dist** {{DT_FLOAT}} | reduces too similar geometry points; *default:* **-1** |
 | **--geometry.max-angle** {{DT_FLOAT}} | Warn about edge geometries with an angle above DEGREES in successive segments; *default:* **99** |
+| **--geometry.max-angle.fix** {{DT_BOOL}} | Straighten edge geometries with an angle above max-angle successive segments; *default:* **false** |
 | **--geometry.min-radius** {{DT_FLOAT}} | Warn about edge geometries with a turning radius less than METERS at the start or end; *default:* **9** |
 | **--geometry.min-radius.fix** {{DT_BOOL}} | Straighten edge geometries to avoid turning radii less than geometry.min-radius; *default:* **false** |
 | **--geometry.min-radius.fix.railways** {{DT_BOOL}} | Straighten edge geometries to avoid turning radii less than geometry.min-radius (only railways); *default:* **true** |
@@ -303,6 +304,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--default.junctions.keep-clear** {{DT_BOOL}} | Whether junctions should be kept clear by default; *default:* **true** |
 | **--default.junctions.radius** {{DT_FLOAT}} | The default turning radius of intersections; *default:* **4** |
 | **--default.connection-length** {{DT_FLOAT}} | The default length when overriding connection lengths; *default:* **-1** |
+| **--default.connection.cont-pos** {{DT_FLOAT}} | Whether/where connections should have an internal junction; *default:* **-1** |
 | **--default.right-of-way** {{DT_STR}} | The default algorithm for computing right of way rules ('default', 'edgePriority'); *default:* **default** |
 
 ### Tls Building
@@ -383,6 +385,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--keep-edges.components** {{DT_INT}} | Only keep the INT largest weakly connected components; *default:* **0** |
 | **--remove-edges.by-type** {{DT_STR_LIST}} | Remove edges where type is in STR[] |
 | **--remove-edges.isolated** {{DT_BOOL}} | Removes isolated edges; *default:* **false** |
+| **--keep-lanes.min-width** {{DT_FLOAT}} | Only keep lanes with width in meters > FLOAT; *default:* **0.01** |
 
 ### Unregulated Nodes
 
@@ -440,6 +443,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--sidewalks.guess.exclude** {{DT_STR_LIST}} | Do not guess sidewalks for the given list of edges |
 | **--crossings.guess** {{DT_BOOL}} | Guess pedestrian crossings based on the presence of sidewalks; *default:* **false** |
 | **--crossings.guess.speed-threshold** {{DT_FLOAT}} | At uncontrolled nodes, do not build crossings across edges with a speed above the threshold; *default:* **13.89** |
+| **--crossings.guess.roundabout-priority** {{DT_BOOL}} | Give priority to guessed crossings at roundabouts; *default:* **true** |
 | **--walkingareas** {{DT_BOOL}} | Always build walking areas even if there are no crossings; *default:* **false** |
 | **--walkingareas.join-dist** {{DT_FLOAT}} | Do not create a walkingarea between sidewalks that are connected by a pedestrian junction within FLOAT; *default:* **15** |
 
@@ -467,6 +471,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--railway.topology.all-bidi.input-file** {{DT_FILE}} | Make all rails edge ids from FILE usable in both direction |
 | **--railway.topology.direction-priority** {{DT_BOOL}} | Set edge priority values based on estimated main direction; *default:* **false** |
 | **--railway.topology.extend-priority** {{DT_BOOL}} | Extend loaded edge priority values based on estimated main direction; *default:* **false** |
+| **--railway.geometry.straighten** {{DT_BOOL}} | Move junctions to straighten a sequence of rail edges; *default:* **false** |
 | **--railway.signal.guess.by-stops** {{DT_BOOL}} | Guess signals that guard public transport stops; *default:* **false** |
 | **--railway.access-distance** {{DT_FLOAT}} | The search radius for finding suitable road accesses for rail stops; *default:* **150** |
 | **--railway.max-accesses** {{DT_INT}} | The maximum road accesses registered per rail stops; *default:* **5** |
@@ -497,7 +502,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--osm.all-attributes** {{DT_BOOL}} | Whether additional attributes shall be imported; *default:* **false** |
 | **--osm.extra-attributes** {{DT_STR_LIST}} | List of additional attributes that shall be imported from OSM via osm.all-attributes (set 'all' to import all); *default:* **all** |
 | **--osm.speedlimit-none** {{DT_FLOAT}} | The speed limit to be set when there is no actual speed limit in reality; *default:* **39.4444** |
-| **--matsim.keep-length** {{DT_BOOL}} | The edge lengths given in the MATSIM-file will be kept; *default:* **false** |
+| **--matsim.keep-length** {{DT_BOOL}} | The edge lengths given in the MATSim-file will be kept; *default:* **false** |
 | **--matsim.lanes-from-capacity** {{DT_BOOL}} | The lane number will be computed from the capacity; *default:* **false** |
 | **--shapefile.street-id** {{DT_STR}} | Read edge ids from column STR |
 | **--shapefile.from-id** {{DT_STR}} | Read from-node ids from column STR |
@@ -574,7 +579,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 
 By default, netconvert assumes networks to follow right-hand traffic
 rules. When importing importing/building a network for a jurisdiction
-wiht left-hand traffic, the option **--lefthand** must be set.
+with left-hand traffic, the option **--lefthand** must be set.
 
 Note, that this also influences geometries if the edges which make up a
 two-directional road are defined using the road-center-line as geometry.
@@ -584,7 +589,7 @@ left. This means that for some edges, the same input geometries can be
 used to build right-hand as well as left-hand networks. However, if the
 edge geometries are defined using the center-line of the directional
 edge (attribute \{\{XML|1=spreadType="center"/\>) then the geometries are
-only useable for a specific type of jurisdiction (networks with the
+only usable for a specific type of jurisdiction (networks with the
 wrong setting for **--lefthand** will look strange).
 
 # Warnings during Import

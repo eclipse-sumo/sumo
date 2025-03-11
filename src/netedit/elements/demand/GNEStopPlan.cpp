@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -17,6 +17,7 @@
 ///
 // Representation of Stops in netedit
 /****************************************************************************/
+
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
@@ -29,61 +30,42 @@
 
 #include "GNEStopPlan.h"
 
+
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-
-GNEStopPlan*
-GNEStopPlan::buildPersonStopPlan(GNENet* net, GNEDemandElement* personParent,
-                                 GNEEdge* edge, GNEAdditional* busStop, GNEAdditional* trainStop, const double endPos,
-                                 const SUMOTime duration, const SUMOTime until, const std::string& actType,
-                                 bool friendlyPos, const int parameterSet) {
-    // declare icon an tag
-    const auto iconTag = getPersonStopTagIcon(edge, busStop, trainStop);
-    // declare containers
-    std::vector<GNEEdge*> edges;
-    std::vector<GNEAdditional*> additionals;
-    // continue depending of input parameters
-    if (edge) {
-        edges.push_back(edge);
-    } else if (busStop) {
-        additionals.push_back(busStop);
-    } else if (trainStop) {
-        additionals.push_back(trainStop);
-    }
-    return new GNEStopPlan(net, iconTag.first, iconTag.second, personParent, edges, additionals,
-                           endPos, duration, until, actType, friendlyPos, parameterSet);
-}
-
-
-GNEStopPlan*
-GNEStopPlan::buildContainerStopPlan(GNENet* net, GNEDemandElement* personParent,
-                                    GNEEdge* edge, GNEAdditional* containerStop, const double endPos,
-                                    const SUMOTime duration, const SUMOTime until, const std::string& actType,
-                                    bool friendlyPos, const int parameterSet) {
-    // declare icon an tag
-    const auto iconTag = getContainerStopTagIcon(edge, containerStop);
-    // declare containers
-    std::vector<GNEEdge*> edges;
-    std::vector<GNEAdditional*> additionals;
-    // continue depending of input parameters
-    if (edge) {
-        edges.push_back(edge);
-    } else if (containerStop) {
-        additionals.push_back(containerStop);
-    }
-    return new GNEStopPlan(net, iconTag.first, iconTag.second, personParent, edges, additionals,
-                           endPos, duration, until, actType, friendlyPos, parameterSet);
-}
-
-
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4355) // mask warning about "this" in initializers
+#endif
 GNEStopPlan::GNEStopPlan(SumoXMLTag tag, GNENet* net) :
-    GNEDemandElement("", net, GLO_STOP_PLAN, tag, GUIIconSubSys::getIcon(GUIIcon::STOP),
-                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}),
-GNEDemandElementPlan(this, -1, -1) {
+    GNEDemandElement("", net, "", GLO_STOP_PLAN, tag, GUIIcon::STOP, GNEPathElement::Options::DEMAND_ELEMENT),
+    GNEDemandElementPlan(this, -1, -1) {
     // reset default values
     resetDefaultValues();
 }
+
+
+GNEStopPlan::GNEStopPlan(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* personParent, const GNEPlanParents& planParameters,
+                         const double endPos, const SUMOTime duration, const SUMOTime until, const std::string& actType, bool friendlyPos, const int parameterSet) :
+    GNEDemandElement(personParent, net, GLO_STOP_PLAN, tag, icon, GNEPathElement::Options::DEMAND_ELEMENT),
+    GNEDemandElementPlan(this, -1, endPos),
+    myDuration(duration),
+    myUntil(until),
+    myActType(actType),
+    myFriendlyPos(friendlyPos),
+    myParametersSet(parameterSet) {
+    // set parents
+    setParents<GNEJunction*>(planParameters.getJunctions());
+    setParents<GNEEdge*>(planParameters.getEdges());
+    setParents<GNEAdditional*>(planParameters.getAdditionalElements());
+    setParents<GNEDemandElement*>(planParameters.getDemandElements(personParent));
+    // update centering boundary without updating grid
+    updatePlanCenteringBoundary(false);
+}
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 
 GNEStopPlan::~GNEStopPlan() {}
@@ -109,7 +91,7 @@ GNEStopPlan::writeDemandElement(OutputDevice& device) const {
     if (isAttributeEnabled(SUMO_ATTR_ACTTYPE) && (myActType.size() > 0)) {
         device.writeAttr(SUMO_ATTR_ACTTYPE, myActType);
     }
-    if (myTagProperty.hasAttribute(SUMO_ATTR_FRIENDLY_POS) && myFriendlyPos) {
+    if (myTagProperty->hasAttribute(SUMO_ATTR_FRIENDLY_POS) && myFriendlyPos) {
         device.writeAttr(SUMO_ATTR_FRIENDLY_POS, myFriendlyPos);
     }
     device.closeTag();
@@ -148,16 +130,23 @@ GNEStopPlan::getColor() const {
 
 void
 GNEStopPlan::updateGeometry() {
+    const auto& viewSettings = myNet->getViewNet()->getVisualisationSettings();
+    PositionVector shape;
     // update geometry depending of parent
     if (getParentAdditionals().size() > 0) {
+        const double stopWidth = (getParentAdditionals().front()->getTagProperty()->getTag() == SUMO_TAG_BUS_STOP) ?
+                                 viewSettings.stoppingPlaceSettings.busStopWidth : viewSettings.stoppingPlaceSettings.trainStopWidth;
         // get busStop shape
         const PositionVector& busStopShape = getParentAdditionals().front()->getAdditionalGeometry().getShape();
-        // update demand element geometry using both positions
-        myDemandElementGeometry.updateGeometry(busStopShape, busStopShape.length2D() - 0.6, busStopShape.length2D(), 0);
+        PositionVector shapeA = {busStopShape[-1], busStopShape[-2]};
+        PositionVector shapeB = {busStopShape[-1], busStopShape[-2]};
+        shapeA.rotateAroundFirstElement2D(DEG2RAD(90));
+        shapeB.rotateAroundFirstElement2D(-DEG2RAD(90));
+        shape = {shapeA.positionAtOffset2D(stopWidth), shapeB.positionAtOffset2D(stopWidth)};
     } else if (getParentEdges().size() > 0) {
         // get front and back lane
-        const GNELane* frontLane = getParentEdges().front()->getLanes().front();
-        const GNELane* backLane = getParentEdges().front()->getLanes().back();
+        const GNELane* frontLane = getParentEdges().front()->getChildLanes().front();
+        const GNELane* backLane = getParentEdges().front()->getChildLanes().back();
         // calculate front position
         const Position frontPosition = frontLane->getLaneShape().positionAtOffset2D(getAttributeDouble(GNE_ATTR_PLAN_GEOMETRY_ENDPOS),
                                        frontLane->getDrawingConstants()->getDrawingWidth());
@@ -167,8 +156,13 @@ GNEStopPlan::updateGeometry() {
         const Position backPosition = frontLane->getLaneShape().positionAtOffset2D(getAttributeDouble(GNE_ATTR_PLAN_GEOMETRY_ENDPOS),
                                       (length + backLane->getDrawingConstants()->getDrawingWidth() - frontLane->getDrawingConstants()->getDrawingWidth()) * -1);
         // update demand element geometry using both positions
-        myDemandElementGeometry.updateGeometry({frontPosition, backPosition});
+        shape = {frontPosition, backPosition};
     }
+    // extrapolate for sign
+    shape.extrapolate(0.1, true);
+    myDemandElementGeometry.updateGeometry(shape);
+    shape.extrapolate(viewSettings.additionalSettings.stopEdgeSize - 0.1, true);
+    mySignPosition = shape.front();
 }
 
 
@@ -205,22 +199,78 @@ GNEStopPlan::splitEdgeGeometry(const double /*splitPosition*/, const GNENetworkE
 void
 GNEStopPlan::drawGL(const GUIVisualizationSettings& s) const {
     // check if stop can be draw
-    if ((getTagProperty().isPlanStopPerson() && checkDrawPersonPlan()) ||
-            (getTagProperty().isPlanStopContainer() && checkDrawContainerPlan())) {
+    if ((getTagProperty()->isPlanStopPerson() && checkDrawPersonPlan()) ||
+            (getTagProperty()->isPlanStopContainer() && checkDrawContainerPlan())) {
         // Obtain exaggeration of the draw
         const double exaggeration = getExaggeration(s);
         // get detail level
         const auto d = s.getDetailLevel(exaggeration);
-        // check if draw stopPerson over busStop oder over lane
-        if (getParentAdditionals().size() > 0) {
-            drawStopOverStoppingPlace(s, d, exaggeration);
+        // draw geometry only if we'rent in drawForObjectUnderCursor mode
+        if (s.checkDrawAdditional(d, isAttributeCarrierSelected())) {
+            // declare stop color
+            const RGBColor stopColor = drawUsingSelectColor() ? s.colorSettings.selectedPersonPlanColor : s.colorSettings.stopColor;
+            // Add layer matrix matrix
+            GLHelper::pushMatrix();
+            // translate to front
+            drawInLayer(getType());
+            // declare stop color
+            // declare central line color
+            const RGBColor centralLineColor = drawUsingSelectColor() ? stopColor.changedBrightness(-32) : RGBColor::WHITE;
+            // set base color
+            GLHelper::setColor(stopColor);
+            // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
+            GUIGeometry::drawGeometry(d, myDemandElementGeometry, 0.3 * exaggeration);
+            // move to front
+            glTranslated(0, 0, .1);
+            // set central color
+            GLHelper::setColor(centralLineColor);
+            // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
+            GUIGeometry::drawGeometry(d, myDemandElementGeometry, 0.05 * exaggeration);
+            // move to icon position and front
+            glTranslated(mySignPosition.x(), mySignPosition.y(), .1);
+            // rotate over lane
+            GUIGeometry::rotateOverLane((myDemandElementGeometry.getShapeRotations().front() * -1) + 90);
+            // draw icon depending of detail level
+            if (d <= GUIVisualizationSettings::Detail::AdditionalDetails) {
+                // set color
+                glColor3d(1, 1, 1);
+                // rotate texture
+                glRotated(180, 0, 0, 1);
+                // draw texture
+                if (drawUsingSelectColor()) {
+                    GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GUITexture::STOPPERSON_SELECTED), s.additionalSettings.stopEdgeSize * exaggeration);
+                } else {
+                    GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GUITexture::STOPPERSON), s.additionalSettings.stopEdgeSize * exaggeration);
+                }
+            } else {
+                // set stop color
+                GLHelper::setColor(stopColor);
+                // draw filled circle
+                GLHelper::drawFilledCircleDetailled(d, 0.1 + s.additionalSettings.stopEdgeSize);
+            }
+            // pop layer matrix
+            GLHelper::popMatrix();
+            // draw lock icon
+            GNEViewNetHelper::LockIcon::drawLockIcon(d, this, getType(), mySignPosition, exaggeration);
+            // draw dotted contour
+            myStopContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
+            myStopSignContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidthSmall, true);
+        }
+        // calculate contour and draw dotted geometry
+        if (getParentLanes().size() > 0) {
+            myStopContour.calculateContourExtrudedShape(s, d, this, myDemandElementGeometry.getShape(), getType(), 0.3, exaggeration, false, true, 0, nullptr, getParentLanes().front()->getParentEdge());
+            myStopSignContour.calculateContourCircleShape(s, d, this, mySignPosition, s.additionalSettings.stopEdgeSize, getType(), exaggeration, getParentLanes().front()->getParentEdge());
+        } else if (getParentEdges().size() > 0) {
+            myStopContour.calculateContourExtrudedShape(s, d, this, myDemandElementGeometry.getShape(), getType(), 0.3, exaggeration, false, true, 0, nullptr, getParentEdges().front());
+            myStopSignContour.calculateContourCircleShape(s, d, this, mySignPosition, s.additionalSettings.stopEdgeSize, getType(), exaggeration, getParentEdges().front());
         } else {
-            drawStopOverEdge(s, d, exaggeration);
+            myStopContour.calculateContourExtrudedShape(s, d, this, myDemandElementGeometry.getShape(), getType(), 0.3, exaggeration, false, true, 0, nullptr, getParentAdditionals().front());
+            myStopSignContour.calculateContourCircleShape(s, d, this, mySignPosition, s.additionalSettings.stopEdgeSize, getType(), exaggeration, getParentAdditionals().front());
         }
-        // check if draw plan parent
-        if (getParentDemandElements().at(0)->getPreviousChildDemandElement(this) == nullptr) {
-            getParentDemandElements().at(0)->drawGL(s);
-        }
+    }
+    // check if draw plan parent
+    if (getParentDemandElements().at(0)->getPreviousChildDemandElement(this) == nullptr) {
+        getParentDemandElements().at(0)->drawGL(s);
     }
 }
 
@@ -233,13 +283,13 @@ GNEStopPlan::computePathElement() {
 
 
 void
-GNEStopPlan::drawLanePartialGL(const GUIVisualizationSettings& /*s*/, const GNEPathManager::Segment* /*segment*/, const double /*offsetFront*/) const {
+GNEStopPlan::drawLanePartialGL(const GUIVisualizationSettings& /*s*/, const GNESegment* /*segment*/, const double /*offsetFront*/) const {
     // Stops don't use drawJunctionPartialGL
 }
 
 
 void
-GNEStopPlan::drawJunctionPartialGL(const GUIVisualizationSettings& /*s*/, const GNEPathManager::Segment* /*segment*/, const double /*offsetFront*/) const {
+GNEStopPlan::drawJunctionPartialGL(const GUIVisualizationSettings& /*s*/, const GNESegment* /*segment*/, const double /*offsetFront*/) const {
     // Stops don't use drawJunctionPartialGL
 }
 
@@ -386,132 +436,6 @@ GNEStopPlan::getACParametersMap() const {
 }
 
 // ===========================================================================
-// protected
-// ===========================================================================
-
-void
-GNEStopPlan::drawStopOverEdge(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, const double exaggeration) const {
-    // draw geometry only if we'rent in drawForObjectUnderCursor mode
-    if (s.checkDrawAdditional(d, isAttributeCarrierSelected())) {
-        // declare stop color
-        const RGBColor stopColor = drawUsingSelectColor() ? s.colorSettings.selectedPersonPlanColor : s.colorSettings.stopColor;
-        // Add layer matrix matrix
-        GLHelper::pushMatrix();
-        // translate to front
-        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, getType());
-        // declare stop color
-        // declare central line color
-        const RGBColor centralLineColor = drawUsingSelectColor() ? stopColor.changedBrightness(-32) : RGBColor::WHITE;
-        // set base color
-        GLHelper::setColor(stopColor);
-        // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
-        GUIGeometry::drawGeometry(d, myDemandElementGeometry, 0.3 * exaggeration);
-        // move to front
-        glTranslated(0, 0, .1);
-        // set central color
-        GLHelper::setColor(centralLineColor);
-        // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
-        GUIGeometry::drawGeometry(d, myDemandElementGeometry, 0.05 * exaggeration);
-        // move to icon position and front
-        glTranslated(myDemandElementGeometry.getShape().front().x(), myDemandElementGeometry.getShape().front().y(), .1);
-        // rotate over lane
-        GUIGeometry::rotateOverLane((myDemandElementGeometry.getShapeRotations().front() * -1) + 90);
-        // move again
-        glTranslated(0, s.additionalSettings.vaporizerSize * exaggeration, 0);
-        // draw icon depending of detail level
-        if (d <= GUIVisualizationSettings::Detail::AdditionalDetails) {
-            // set color
-            glColor3d(1, 1, 1);
-            // rotate texture
-            glRotated(180, 0, 0, 1);
-            // draw texture
-            if (drawUsingSelectColor()) {
-                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GUITexture::STOPPERSON_SELECTED), s.additionalSettings.vaporizerSize * exaggeration);
-            } else {
-                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GUITexture::STOPPERSON), s.additionalSettings.vaporizerSize * exaggeration);
-            }
-        } else {
-            // rotate
-            glRotated(22.5, 0, 0, 1);
-            // set stop color
-            GLHelper::setColor(stopColor);
-            // move matrix
-            glTranslated(0, 0, 0);
-            // draw filled circle
-            GLHelper::drawFilledCircleDetailled(d, 0.1 + s.additionalSettings.vaporizerSize);
-        }
-        // pop layer matrix
-        GLHelper::popMatrix();
-        // draw lock icon
-        GNEViewNetHelper::LockIcon::drawLockIcon(d, this, getType(), getPositionInView(), exaggeration);
-        // draw dotted contour
-        myStopContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
-    }
-    // calculate contour and draw dotted geometry
-    myStopContour.calculateContourExtrudedShape(s, d, this, myDemandElementGeometry.getShape(), 0.3, exaggeration, true, true, 0);
-}
-
-
-void
-GNEStopPlan::drawStopOverStoppingPlace(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, const double exaggeration) const {
-    // draw geometry only if we'rent in drawForObjectUnderCursor mode
-    if (s.checkDrawAdditional(d, isAttributeCarrierSelected())) {
-        // declare stop color
-        const RGBColor stopColor = drawUsingSelectColor() ? s.colorSettings.selectedPersonPlanColor : s.colorSettings.stopColor;
-        // Add layer matrix matrix
-        GLHelper::pushMatrix();
-        // translate to front
-        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, getType());
-        // set base color
-        GLHelper::setColor(stopColor);
-        // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
-        if (getParentAdditionals().front()->getTagProperty().getTag() == SUMO_TAG_TRAIN_STOP) {
-            GUIGeometry::drawGeometry(d, myDemandElementGeometry, s.stoppingPlaceSettings.trainStopWidth * exaggeration);
-        } else {
-            GUIGeometry::drawGeometry(d, myDemandElementGeometry, s.stoppingPlaceSettings.busStopWidth * exaggeration);
-        }
-        // move to icon position and front
-        glTranslated(myDemandElementGeometry.getShape().getLineCenter().x(), myDemandElementGeometry.getShape().getLineCenter().y(), .1);
-        // rotate over lane
-        GUIGeometry::rotateOverLane((myDemandElementGeometry.getShapeRotations().front() * -1) + 90);
-        // move again
-        glTranslated(s.stoppingPlaceSettings.busStopWidth * exaggeration * -2, 0, 0);
-        // draw icon depending of detail level
-        if (d <= GUIVisualizationSettings::Detail::AdditionalDetails) {
-            // set color
-            glColor3d(1, 1, 1);
-            // rotate texture
-            glRotated(-90, 0, 0, 1);
-            // draw texture
-            if (drawUsingSelectColor()) {
-                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GUITexture::STOPPERSON_SELECTED),
-                                                   s.additionalSettings.vaporizerSize * exaggeration);
-            } else {
-                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GUITexture::STOPPERSON),
-                                                   s.additionalSettings.vaporizerSize * exaggeration);
-            }
-        } else {
-            // rotate
-            glRotated(22.5, 0, 0, 1);
-            // set stop color
-            GLHelper::setColor(stopColor);
-            // move matrix
-            glTranslated(0, 0, 0);
-            // draw filled circle
-            GLHelper::drawFilledCircle(0.1 + s.additionalSettings.vaporizerSize, 8);
-        }
-        // pop layer matrix
-        GLHelper::popMatrix();
-        // draw lock icon
-        GNEViewNetHelper::LockIcon::drawLockIcon(d, this, getType(), getPositionInView(), exaggeration);
-        // draw dotted contour
-        myStopContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
-    }
-    // calculate contour and draw dotted geometry
-    myStopContour.calculateContourExtrudedShape(s, d, this, myDemandElementGeometry.getShape(), 0.3, exaggeration, true, true, 0);
-}
-
-// ===========================================================================
 // private
 // ===========================================================================
 
@@ -585,20 +509,6 @@ GNEStopPlan::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoL
     // now adjust start position
     setAttribute(SUMO_ATTR_ENDPOS, toString(moveResult.newFirstPos), undoList);
     undoList->end();
-}
-
-
-GNEStopPlan::GNEStopPlan(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* personParent, const std::vector<GNEEdge*>& edges,
-                         const std::vector<GNEAdditional*>& additionals, const double endPos, const SUMOTime duration, const SUMOTime until,
-                         const std::string& actType, bool friendlyPos, const int parameterSet) :
-    GNEDemandElement(personParent, net, GLO_STOP_PLAN, tag, GUIIconSubSys::getIcon(icon),
-                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, edges, {}, additionals, {personParent}, {}),
-GNEDemandElementPlan(this, -1, endPos),
-myDuration(duration),
-myUntil(until),
-myActType(actType),
-myFriendlyPos(friendlyPos),
-myParametersSet(parameterSet) {
 }
 
 /****************************************************************************/

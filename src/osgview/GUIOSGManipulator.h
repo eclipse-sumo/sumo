@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -54,7 +54,7 @@ public:
     osg::Matrixd getMatrix() const override;
     /// @brief Get the position of the manipulator as a inverse matrix of the manipulator, typically used as a model view matrix.
     osg::Matrixd getInverseMatrix() const override;
-    /// @brief Note the the current manipulator mode in the HUD
+    /// @brief Note the current manipulator mode in the HUD
     void updateHUDText();
 protected:
     void centerMousePointer(const osgGA::GUIEventAdapter& ea, osgGA::GUIActionAdapter& aa) override;

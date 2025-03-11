@@ -233,6 +233,12 @@ Most network objects can be colored according to their selection status
 (*color by selection*) and selected network elements may be manipulated
 as a group in [netedit](Netedit/index.md).
 
+### Loading a selection automatically
+
+By setting option **--selection-file FILE** a selection file as described above can be given to **sumo-gui** at startup.
+Any objects that are loaded at the start of the simulation will be selected immediately. 
+Any persons, vehicles or containers that were not loaded will be selected once they are loaded at a later simulation time.
+
 ## Locating Objects
 
 All simulation objects can be located based on their ID by using the
@@ -263,6 +269,10 @@ in the main menu bar also contains a check-box that toggles whether
 and [internal
 junctions](Networks/SUMO_Road_Networks.md#internal_junctions)
 shall be listed in the object locator dialog.
+
+## Screenshots
+
+The current view can be captured as a raster or a vector image file (called snapshot) from inside sumo-gui pressing the apposite button ![icon_camera.png](images/icon_camera.png "Make Snapshot"). If vector image file types are not available, this feature has not been activated in the build process.
 
 # Influencing the simulation
 
@@ -472,7 +482,7 @@ The following coloring options are useful in this regard:
 - Under a meso-simulation: No lane can be selected/shown. "segment" information will be displayed by right-clicking an edge
   or further choosing "Show Parameter" (see the example image below).
   ![segment_example](https://github.com/eclipse-sumo/sumo/assets/26454969/74eee4d2-5799-4a0e-a96e-6032bef34a3a)
-- Under a mirco-simulation: Each lane ID can be displayed by mause overing, when the icon "View Tooltips" is toggled.
+- Under a micro-simulation: Each lane ID can be displayed by mouse hovering, when the icon "View Tooltips" is toggled.
   Each lane can be selected.
 - If specific models are used, e.g. sublane and IDM, the respective information can be seen by right-clicking
   a road user (vehicle, pedestrian,train...) and further choosing "Show Parameter".
@@ -601,7 +611,7 @@ The following textual annotations are supported:
 
 - **vehicle id**: Renders the vehicle id and also 'line' attribute if defined for the vehicle
 - **vehicle color value**: The numerical value that forms the basis for coloring (i.e. speed) is rendered
-- **vehicle scale value**: The numerical value that forms the basis for scaling (i.e. acceleration( is rendered. It may be useful to activate scaling just for the textual value (and setting a scaling factors to 1).
+- **vehicle scale value**: The numerical value that forms the basis for scaling (i.e. acceleration) is rendered. It may be useful to activate scaling just for the textual value (and setting a scaling factors to 1).
 - **Vehicle text param**: Renders any [Generic Parameter](Simulation/GenericParameters.md) set on the vehicle. This also supports any [virtual parameters accessible via TraCI](TraCI/Vehicle_Value_Retrieval.md#device_and_lanechangemodel_parameter_retrieval_0x7e)
 
 
@@ -643,7 +653,7 @@ Each text can be configured with regard to its size color and background color. 
 | by average relative speed                | %       | By the average speed of vehicles on the lane as percentage of the allowed speed      |
 | by routing device assumed speed          | m/s   | The averaged speed [computed by the rerouting device](Demand/Automatic_Routing.md#edge_weights) |
 | by insertion backlog                     |       | The number of cars currently delayed for insertion on the lane     |
-| by TAZ                                   |       | By the color of the TAZ to whish this edge belongs (if [TAZs](Demand/Importing_O/D_Matrices.md#describing_the_taz) with colors are loaded) |
+| by TAZ                                   |       | By the color of the TAZ to which this edge belongs (if [TAZs](Demand/Importing_O/D_Matrices.md#describing_the_taz) with colors are loaded) |
 | by param (numerical, streetwise)         |       | By the edge parameter configured in the drop-down list of all known edge parameters.  |
 | by param (numerical, lanewise)           |       | By the lane parameter configured in the drop-down list of all known lane parameters.  |
 | by edgeData (numerical, streetwise)      |       | By the edgeData attribute configured in the drop-down list of all loaded edgeData attributes.  |
@@ -651,7 +661,7 @@ Each text can be configured with regard to its size color and background color. 
 | by distance (kilometrage)                | m     | By the kilometrage value at start of the edge (negative values indicate falling kilometrage)   |
 | by abs distance (kilometrage)            | m     | By the kilometrage value at start of the edge  |
 | by reachability (traveltime)             | s     | Traveltime for reaching this edge from the most recently used 'selected reachability' location |
-| by thread index                          |       | Index of the thread that is computing this lane (when running with option **--threads** |
+| by thread index                          |       | Index of the thread that is computing this lane (when running with option **--threads**) |
 | free parking spaces                      |       | Total number of free parkingArea spaces on that edge |
 | by live edgeData                         |       | By the selected attribute value of the selected meanData id being recorded in the current simulation (configuration via two drop-down lists) |
 
@@ -1029,7 +1039,7 @@ settings
 
 ## Using Live Data
 
-Instead of loading data from a file you can visualize the aggregated data that is currently being collected by the simulation.
+Instead of loading data from a file you can visualize the [aggregated data](Simulation/Output/Lane-_or_Edge-based_Traffic_Measures.md) that is currently being collected by the simulation.
 For this you need to color 'by live edgeData' and select the id of the configured `edgeData` (or `laneData`) element.
 This will always show the current aggregation interval (so the collected data is reset to 0 at the start of a new interval).
 By using the option **--edgedata-output FILE** or **--lanedata-output FILE** you can quickly configure a data collection that aggregates over the whole simulation.

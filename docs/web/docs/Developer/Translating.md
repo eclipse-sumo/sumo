@@ -32,7 +32,8 @@ use `WRITE_MESSAGEF(TL("The vehicle '%' has a problem."), id);` (this works for
 
 Please be aware that changing a translatable string in the code (even if you just fix a typo)
 will invalidate (i.e. remove) all translations. This does not mean you should not do it, you
-should just review the changes to the translation files as well.
+should just review the changes to the translation files as well. In case you want to keep the translations 
+but fix a typo in the translatable string, please consider using [our helper scripts](#change_original_strings) for that task.
 
 The translations should not be applied to debug and developer messages. This includes everything
 in src/foreign, src/libsumo, src/libtraci, src/traci_testclient and unittest.

@@ -1,2 +1,1 @@
-Warning: Vehicle 'vehicle_0' performs emergency stop at the end of lane 'Edge2_1' for unknown reasons (decel=0.00, offset=0.24), time=83.00.
 Warning: Vehicle 'customSplit' to split from vehicle 'vehicle_0' is not known. time=84.00.

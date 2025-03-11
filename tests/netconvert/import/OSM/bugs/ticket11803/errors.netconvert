@@ -8,21 +8,18 @@ Warning: No way found for reference '8161400' in relation '11138423'
 Warning: No way found for reference '306839970' in relation '11138423'
 Warning: Ignoring restriction relation '11138423' with unknown from-way.
 Warning: Ignoring restriction relation '11138423' with unknown to-way.
-Warning: PT line in relation 12936338 with no stops ignored. Probably OSM file is incomplete.
-Warning: PT line in relation 12967710 with no stops ignored. Probably OSM file is incomplete.
-Warning: PT line in relation 13014480 with no stops ignored. Probably OSM file is incomplete.
-Warning: PT line in relation 13014494 with no stops ignored. Probably OSM file is incomplete.
-Warning: PT line in relation 13026202 with no stops ignored. Probably OSM file is incomplete.
+Warning: PT line 'Bateau 3154 : Genève-Mt-Blanc → Coppet → Genève-Mt-Blanc' in relation 12967710 seems to be split, only keeping first part.
+Warning: PT line 'Bateau 3154 : Genève-Mt-Blanc → Genève-Jardin-Anglais → La Belotte → Bellevue → Genève-Mt-Blanc → Genève-Jardin-Anglais' in relation 13042678 seems to be split, only keeping first part.
 Warning: Cannot revise pt stop localization for pt line '12936075', which has no route edges. Ignoring!
+Warning: Removed invalid stop '1035567617' from line '12936075'.
 Warning: Removed invalid stop '418757008' from line '12936075'.
 Warning: Cannot revise pt stop localization for pt line '12936336', which has no route edges. Ignoring!
+Warning: Removed invalid stop '1035567617' from line '12936336'.
 Warning: Removed invalid stop '418757008' from line '12936336'.
 Warning: Cannot revise pt stop localization for pt line '12936337', which has no route edges. Ignoring!
 Warning: Removed invalid stop '418757008' from line '12936337'.
 Warning: Cannot revise pt stop localization for pt line '13014368', which has no route edges. Ignoring!
-Warning: Removed invalid stop '418757008' from line '13014368'.
 Warning: Cannot revise pt stop localization for pt line '13014477', which has no route edges. Ignoring!
-Warning: Removed invalid stop '418757008' from line '13014477'.
 Warning: Removing pt stop '1035567617' on non existing edge ''.
 Warning: Removing pt stop '418757008' on non existing edge ''.
 Warning: Removed 2 pt stops because they could not be assigned to the network
@@ -31,4 +28,4 @@ Warning: The traffic light '1495288665' does not control any links; it will not 
 Warning: Could not build program '0' for traffic light '1495288665'
 Warning: Minor green from edge '256651831' to edge '256651830' exceeds 19.44m/s. Maybe a left-turn lane is missing.
 Warning: 6 total messages of type: Cannot revise pt stop localization for pt line '%', which has no route edges. Ignoring!
-Warning: 7 total messages of type: Removed invalid stop '%' from line '%'.
+Warning: 18 total messages of type: Removed invalid stop '%' from line '%'.

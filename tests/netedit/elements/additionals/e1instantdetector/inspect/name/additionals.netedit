@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-06-21 14:55:05 by Eclipse SUMO netedit Version v1_20_0+0718-09bde91b55d
+<!-- generated on 2024-09-22 16:30:43 by Eclipse SUMO netedit Version v1_20_0+2108-65a749ef018
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -15,5 +15,5 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- Detectors -->
-    <instantInductionLoop id="e1i_0" name="customName" lane="EdgeCenter1_1" pos="21.71" file="e1i_0.xml"/>
+    <instantInductionLoop id="e1i_0" lane="EdgeCenter1_1" pos="21.71" name="customName" file="e1i_0.xml"/>
 </additional>

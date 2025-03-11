@@ -4,3 +4,6 @@ small
 
 # a vehicle that is blocked from continuing in the roundabout should give way to entering vehicles that could otherwise continue
 blocked_on_junction
+
+# a busy roundabout should not jam on the inside
+busy_noInternal

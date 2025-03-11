@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-03-06 08:59:03 by Eclipse SUMO netedit Version v1_22_0+0672-7b0ff7b5103
+<neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="/localdata1/debug/16291/kreuz/net3.net.xml"/>
+    </input>
+
+    <processing>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+    </junctions>
+
+    <netedit>
+        <new-network value="false"/>
+    </netedit>
+
+</neteditConfiguration>
+-->
+
+<edges version="1.20" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="E0" from="J0" to="J1" priority="-1" numLanes="2" speed="13.89">
+        <lane index="0"/>
+        <lane index="1" allow="bus"/>
+    </edge>
+    <edge id="E1" from="J1" to="J2" priority="-1" numLanes="2" speed="13.89"/>
+    <edge id="E2" from="J1" to="J3" priority="-1" numLanes="1" speed="13.89" allow="bus"/>
+</edges>

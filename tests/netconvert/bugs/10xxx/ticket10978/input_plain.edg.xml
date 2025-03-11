@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<edges version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="-35919683#3" from="529649253" to="30223042" name="Guntherstraße" priority="10" numLanes="2" speed="13.89" shape="5482.28,10926.03 5482.60,10922.86 5485.37,10899.11 5485.75,10895.49 5486.45,10889.82 5486.67,10887.97" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
+    <edge id="-511268009#3" from="30223042" to="5001523817" name="Nibelungenplatz" priority="10" numLanes="1" speed="8.33" shape="5486.67,10887.97 5486.88,10885.05 5487.39,10879.49 5487.53,10877.16 5489.79,10848.71" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
+    <edge id="-511268012#2" from="30223042" to="2972382261" name="Siegfriedstraße" priority="10" numLanes="1" speed="13.89" shape="5486.67,10887.97 5492.77,10888.60 5500.36,10889.70 5511.79,10891.24 5523.80,10892.43" disallow="rail_urban rail rail_electric rail_fast ship"/>
+    <edge id="-511268013#2" from="5001523818" to="30223042" name="Siegfriedstraße" priority="10" numLanes="2" speed="13.89" shape="5453.85,10882.60 5475.53,10886.15 5477.63,10886.49 5479.96,10886.85 5486.67,10887.97">
+        <lane index="0" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
+        <lane index="1" disallow="rail_urban rail rail_electric rail_fast ship"/>
+    </edge>
+    <edge id="35919683#0" from="30223042" to="529649253" name="Guntherstraße" priority="10" numLanes="1" speed="13.89" shape="5486.67,10887.97 5486.45,10889.82 5485.75,10895.49 5485.37,10899.11 5482.60,10922.86 5482.28,10926.03" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
+    <edge id="511268009#0" from="5001523817" to="30223042" name="Nibelungenplatz" priority="10" numLanes="3" speed="8.33" shape="5489.79,10848.71 5487.53,10877.16 5487.39,10879.49 5486.88,10885.05 5486.67,10887.97" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
+    <edge id="511268012#0" from="2972382261" to="30223042" name="Siegfriedstraße" priority="10" numLanes="2" speed="13.89" shape="5523.80,10892.43 5511.79,10891.24 5500.36,10889.70 5492.77,10888.60 5486.67,10887.97">
+        <lane index="0" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
+        <lane index="1" disallow="rail_urban rail rail_electric rail_fast ship"/>
+    </edge>
+    <edge id="511268013#0" from="30223042" to="5001523818" name="Siegfriedstraße" priority="10" numLanes="1" speed="13.89" shape="5486.67,10887.97 5479.96,10886.85 5477.63,10886.49 5475.53,10886.15 5453.85,10882.60" disallow="rail_urban rail rail_electric rail_fast ship"/>
+</edges>

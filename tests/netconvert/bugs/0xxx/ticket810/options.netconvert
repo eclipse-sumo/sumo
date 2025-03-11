@@ -1,0 +1,1 @@
+--node-files input_nodes.nod.xml --edge-files input_edges.edg.xml -o net.net.xml --no-turnarounds

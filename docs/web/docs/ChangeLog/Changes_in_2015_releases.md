@@ -215,7 +215,7 @@ title: Changes in the 2015 releases (versions 0.23.0, 0.24.0 and 0.25.0)
     added to the vehicle parameter dialog. #1970
   - Junction shapes are no longer drawn when their color is set to
     fully transparent.
-  - The network version is now shown the the network parameter
+  - The network version is now shown in the network parameter
     dialog.
 
 - netconvert

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2016-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2016-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -72,35 +72,38 @@ public:
     GNERoute(GNENet* net);
 
     /// @brief default constructor (used in copy vehicles)
-    GNERoute(GNENet* net, const std::string& id, const GNEDemandElement* originalRoute);
+    GNERoute(const std::string& id, GNENet* net, const GNEDemandElement* originalRoute);
 
     /// @brief default  constructor (used in copy embedded vehicles)
     GNERoute(GNENet* net, GNEVehicle* vehicleParent, const GNEDemandElement* originalRoute);
 
     /**@brief parameter constructor
-     * @param[in] viewNet view in which this Route is placed
      * @param[in] id route ID
+     * @param[in] net net in which this Route is placed
+     * @param[in] filename file in which this element is stored
      * @param[in] vClass vehicle class
      * @param[in] edges route edges
      * @param[in] color route color
      * @param[in] repeat the number of times that the edges of this route shall be repeated
      * @param[in] cycleType the times will be shifted forward by 'cycleTime' on each repeat
+     * @param[in] probability used in routeDistributions
      * @param[in] parameters generic parameters
      */
-    GNERoute(GNENet* net, const std::string& id, SUMOVehicleClass vClass, const std::vector<GNEEdge*>& edges, const RGBColor& color,
-             const int repeat, const SUMOTime cycleTime, const Parameterised::Map& parameters);
+    GNERoute(const std::string& id, GNENet* net, const std::string& filename, SUMOVehicleClass vClass, const std::vector<GNEEdge*>& edges,
+             const RGBColor& color, const int repeat, const SUMOTime cycleTime, const double probability, const Parameterised::Map& parameters);
 
     /**@brief parameter constructor for embedded routes
-     * @param[in] viewNet view in which this Route is placed
+     * @param[in] net net in which this Route is placed
      * @param[in] vehicleParent vehicle parent of this embedded route
      * @param[in] edges route edges
      * @param[in] color route color
      * @param[in] repeat the number of times that the edges of this route shall be repeated
      * @param[in] cycleType the times will be shifted forward by 'cycleTime' on each repeat
+     * @param[in] probability used in routeDistributions
      * @param[in] parameters generic parameters
      */
     GNERoute(GNENet* net, GNEDemandElement* vehicleParent, const std::vector<GNEEdge*>& edges, const RGBColor& color,
-             const int repeat, const SUMOTime cycleTime, const Parameterised::Map& parameters);
+             const int repeat, const SUMOTime cycleTime, const double probability, const Parameterised::Map& parameters);
 
     /// @brief destructor
     ~GNERoute();
@@ -179,7 +182,7 @@ public:
 
     /// @}
 
-    /// @name inherited from GNEPathManager::PathElement
+    /// @name inherited from GNEPathElement
     /// @{
 
     /// @brief compute pathElement
@@ -190,14 +193,14 @@ public:
      * @param[in] segment lane segment
      * @param[in] offsetFront front offset
      */
-    void drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const double offsetFront) const;
+    void drawLanePartialGL(const GUIVisualizationSettings& s, const GNESegment* segment, const double offsetFront) const;
 
     /**@brief Draws partial object over junction
      * @param[in] s The settings for the current view (may influence drawing)
      * @param[in] segment junction segment
      * @param[in] offsetFront front offset
      */
-    void drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const double offsetFront) const;
+    void drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNESegment* segment, const double offsetFront) const;
 
     /// @brief get first path lane
     GNELane* getFirstPathLane() const;
@@ -267,21 +270,24 @@ public:
 
 protected:
     /// @brief route color
-    RGBColor myColor;
+    RGBColor myColor = RGBColor::YELLOW;
 
     /// @brief repeat
-    int myRepeat;
+    int myRepeat = 0;
 
     /// @brief cycleTime
-    SUMOTime myCycleTime;
+    SUMOTime myCycleTime = 0;
+
+    /// @brief probability
+    double myProbability = 1.0;
 
     /// @brief SUMOVehicleClass (Only used for drawing)
-    SUMOVehicleClass myVClass;
+    SUMOVehicleClass myVClass = SVC_PASSENGER;
 
 private:
     /// @brief draw route partial lane
     void drawRoutePartialLane(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                              const GNEPathManager::Segment* segment, const double offsetFront,
+                              const GNESegment* segment, const double offsetFront,
                               const GUIGeometry& geometry, const double exaggeration) const;
 
     /// @brief draw route partial junction

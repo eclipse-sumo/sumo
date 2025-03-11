@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -91,6 +91,12 @@ ConstRouterEdgePairVector NBEdge::Connection::myViaSuccessors = ConstRouterEdgeP
 std::string
 NBEdge::Connection::getInternalLaneID() const {
     return id + "_" + toString(internalLaneIndex);
+}
+
+
+std::string
+NBEdge::Connection::getInternalViaLaneID() const {
+    return viaID + "_" + toString(internalViaLaneIndex);
 }
 
 
@@ -1101,6 +1107,7 @@ NBEdge::addEdge2EdgeConnection(NBEdge* dest, bool overrideRemoval, SVCPermission
     if (dest == nullptr) {
         invalidateConnections();
         myConnections.push_back(Connection(-1, dest, -1));
+        myStep = EdgeBuildingStep::LANES2LANES_USER;
     } else if (find_if(myConnections.begin(), myConnections.end(), connections_toedge_finder(dest)) == myConnections.end()) {
         myConnections.push_back(Connection(-1, dest, -1));
         myConnections.back().permissions = permissions;
@@ -1695,6 +1702,7 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
     const double limitTurnSpeedWarnTurn = oc.getFloat("junctions.limit-turn-speed.warn.turn");
     const bool higherSpeed = oc.getBool("junctions.higher-speed");
     const double interalJunctionVehicleWidth = oc.getFloat("internal-junctions.vehicle-width");
+    const double defaultContPos = oc.getFloat("default.connection.cont-pos");
     const bool fromRail = isRailway(getPermissions());
     std::string innerID = ":" + n.getID();
     NBEdge* toEdge = nullptr;
@@ -1887,6 +1895,9 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
             }
 
         }
+        if (con.contPos == UNSPECIFIED_CONTPOS) {
+            con.contPos = defaultContPos;
+        }
         if (con.contPos != UNSPECIFIED_CONTPOS) {
             // apply custom internal junction position
             if (con.contPos <= 0 || con.contPos >= shape.length()) {
@@ -1968,6 +1979,10 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
             con.shape = split.first;
             con.foeIncomingLanes = std::vector<std::string>(tmpFoeIncomingLanes.begin(), tmpFoeIncomingLanes.end());
             con.foeInternalLinks = foeInternalLinks; // resolve link indices to lane ids later
+            if (i != myConnections.begin() && (i - 1)->toEdge == con.toEdge && (i - 1)->haveVia)  {
+                --splitIndex;
+                con.internalViaLaneIndex = (i - 1)->internalViaLaneIndex + 1;
+            }
             con.viaID = innerID + "_" + toString(splitIndex + noInternalNoSplits);
             ++splitIndex;
             con.viaShape = split.second;
@@ -2837,6 +2852,11 @@ NBEdge::applyTurnSigns() {
             std::vector<LinkDirection> taxi = decodeTurnSigns(turnSigns, TURN_SIGN_SHIFT_TAXI);
             std::vector<LinkDirection> bike = decodeTurnSigns(turnSigns, TURN_SIGN_SHIFT_BICYCLE);
             //std::cout << "  allSigns=" << allSigns << " turnSigns=" << turnSigns << " bus=" << bus.size() << "\n";
+            SVCPermissions fromP = getPermissions(i);
+            if ((fromP & SVC_PASSENGER) != 0) {
+                // if the source permits passenger traffic, the target should too
+                fromP = SVC_PASSENGER;
+            }
             for (LinkDirection dir : decodeTurnSigns(allSigns)) {
                 SVCPermissions perm = 0;
                 updateTurnPermissions(perm, dir, SVCAll, all);
@@ -2851,11 +2871,6 @@ NBEdge::applyTurnSigns() {
                 if (to != nullptr) {
                     if (toLaneIndex.count(to) == 0) {
                         // initialize to rightmost feasible lane
-                        SVCPermissions fromP = getPermissions(i);
-                        if ((fromP & SVC_PASSENGER) != 0) {
-                            // if the source permits passenger traffic, the target should too
-                            fromP = SVC_PASSENGER;
-                        }
                         int toLane = toLaneMap[to][0];
                         while ((to->getPermissions(toLane) & fromP) == 0 && (toLane + 1 < to->getNumLanes())) {
                             toLane++;
@@ -2874,14 +2889,22 @@ NBEdge::applyTurnSigns() {
 #endif
                         toLaneIndex[to] = toLane;
                     }
+#ifdef DEBUG_TURNSIGNS
+                    //std::cout << "  set fromLane=" << i << " to=" << to->getID() << " toLane=" << toLaneIndex[to] << "\n";
+#endif
                     setConnection(i, to, toLaneIndex[to], Lane2LaneInfoType::VALIDATED, true,
                                   false, KEEPCLEAR_UNSPECIFIED, UNSPECIFIED_CONTPOS,
                                   UNSPECIFIED_VISIBILITY_DISTANCE, UNSPECIFIED_SPEED, UNSPECIFIED_FRICTION,
                                   myDefaultConnectionLength, PositionVector::EMPTY,
                                   UNSPECIFIED_CONNECTION_UNCONTROLLED,
                                   perm);
-                    if (toLaneIndex[to] < to->getNumLanes() - 1) {
+                    if (toLaneIndex[to] < to->getNumLanes() - 1
+                            && (to->getPermissions(toLaneIndex[to] + 1) & fromP) != 0) {
                         toLaneIndex[to]++;
+                    } else if (toLaneIndex[to] < to->getNumLanes() - 2
+                            && (to->getPermissions(toLaneIndex[to] + 2) & fromP) != 0){
+                        // skip forbidden lane
+                        toLaneIndex[to] += 2;
                     }
                 }
             }
@@ -3131,6 +3154,9 @@ NBEdge::recheckLanes() {
         }
     }
 #endif
+    if (myStep != EdgeBuildingStep::LANES2LANES_USER) {
+        myStep = EdgeBuildingStep::LANES2LANES_DONE;
+    }
     return true;
 }
 

@@ -1,5 +1,9 @@
 type
 
+tltype
+
+tllayout
+
 radius
 
 keepclear
@@ -9,10 +13,6 @@ rightofway
 fringe
 
 name
-
-tltype
-
-tllayout
 
 tl
 

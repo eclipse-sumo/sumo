@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-12-20 15:29:25.304089 by randomTrips.py v1_21_0+1565-970ff40fbb2
+<configuration>
+    <net-file value="net.net.xml"/>
+    <pedestrians value="True"/>
+    <random-departpos value="True"/>
+    <random-arrivalpos value="True"/>
+    <min-distance value="1.0"/>
+    <end value="10.0"/>
+    <flows value="5"/>
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <personFlow id="0" begin="0" end="10" period="5" departPos="33.80">
+        <walk from="NC" to="CS" arrivalPos="29.29"/>
+    </personFlow>
+    <personFlow id="1" begin="0" end="10" period="5" departPos="14.27">
+        <walk from="NC" to="CS" arrivalPos="6.52"/>
+    </personFlow>
+    <personFlow id="2" begin="0" end="10" period="5" departPos="40.16">
+        <walk from="CS" to="NC" arrivalPos="14.12"/>
+    </personFlow>
+    <personFlow id="3" begin="0" end="10" period="5" departPos="3.89">
+        <walk from="CS" to="NC" arrivalPos="4.06"/>
+    </personFlow>
+    <personFlow id="4" begin="0" end="10" period="5" departPos="35.55">
+        <walk from="NC" to="CS" arrivalPos="25.33"/>
+    </personFlow>
+</routes>

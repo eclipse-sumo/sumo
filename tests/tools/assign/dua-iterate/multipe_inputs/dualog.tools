@@ -1,109 +1,119 @@
 -------------------------------------------------------------------------------
-['/home/behr_mi/sumo/bin/duarouter', '-c', '000/iteration_000_input_trips.duarcfg']
+['/scr1/sumo/bin/duarouter', '-c', '000/iteration_000_input_trips.duarcfg']
 Success.
 -------------------------------------------------------------------------------
-['/home/behr_mi/sumo/bin/duarouter', '-c', '000/iteration_000_input_trips.duarcfg']
+['/scr1/sumo/bin/duarouter', '-c', '000/iteration_000_input_trips.duarcfg']
 Success.
 -------------------------------------------------------------------------------
-['/home/behr_mi/sumo/bin/sumo', '-c', '000/iteration_000.sumocfg']
+['/scr1/sumo/bin/sumo', '-c', '000/iteration_000.sumocfg']
 Loading net-file from '000/../input_net.net.xml' ... done (0ms).
-Loading additional-files from '000/../edgedata.add.xml' ... done (1ms).
+Loading additional-files from '000/../edgedata.add.xml' ... done (0ms).
+Loading route-files incrementally from '000/input_trips.trips_bar_000.rou.xml'
+Loading route-files incrementally from '000/input_trips.trips_foo_000.rou.xml'
 Loading done.
-Simulation version v1_20_0+0782-2de3bc16e35 started with time: 0.00.
+Simulation version v1_21_0+1557-fb9ec070d59 started with time: 0.00.
 Simulation ended at time: 253.00.
 Reason: All vehicles have left the simulation.
 Performance:
- Duration: 0.03s
- Real time factor: 7441.18
- UPS: 43500.000000
+ Duration: 0.02s
+ Real time factor: 12047.6
+ UPS: 70428.571429
 Vehicles:
  Inserted: 10
  Running: 0
  Waiting: 0
 -------------------------------------------------------------------------------
-['/home/behr_mi/sumo/bin/duarouter', '-c', '001/iteration_001_input_trips.duarcfg']
+['/scr1/sumo/bin/duarouter', '-c', '001/iteration_001_input_trips.duarcfg']
 Success.
 -------------------------------------------------------------------------------
-['/home/behr_mi/sumo/bin/duarouter', '-c', '001/iteration_001_input_trips.duarcfg']
+['/scr1/sumo/bin/duarouter', '-c', '001/iteration_001_input_trips.duarcfg']
 Success.
 -------------------------------------------------------------------------------
-['/home/behr_mi/sumo/bin/sumo', '-c', '001/iteration_001.sumocfg']
-Loading net-file from '001/../input_net.net.xml' ... done (1ms).
-Loading additional-files from '001/../edgedata.add.xml' ... done (0ms).
+['/scr1/sumo/bin/sumo', '-c', '001/iteration_001.sumocfg']
+Loading net-file from '001/../input_net.net.xml' ... done (0ms).
+Loading additional-files from '001/../edgedata.add.xml' ... done (1ms).
+Loading route-files incrementally from '001/input_trips.trips_bar_001.rou.xml'
+Loading route-files incrementally from '001/input_trips.trips_foo_001.rou.xml'
 Loading done.
-Simulation version v1_20_0+0782-2de3bc16e35 started with time: 0.00.
+Simulation version v1_21_0+1557-fb9ec070d59 started with time: 0.00.
 Simulation ended at time: 248.00.
 Reason: All vehicles have left the simulation.
 Performance:
- Duration: 0.03s
- Real time factor: 9185.19
- UPS: 53962.962963
+ Duration: 0.02s
+ Real time factor: 13777.8
+ UPS: 80944.444444
 Vehicles:
  Inserted: 10
  Running: 0
  Waiting: 0
 -------------------------------------------------------------------------------
-['/home/behr_mi/sumo/bin/duarouter', '-c', '002/iteration_002_input_trips.duarcfg']
+['/scr1/sumo/bin/duarouter', '-c', '002/iteration_002_input_trips.duarcfg']
 Success.
 -------------------------------------------------------------------------------
-['/home/behr_mi/sumo/bin/duarouter', '-c', '002/iteration_002_input_trips.duarcfg']
+['/scr1/sumo/bin/duarouter', '-c', '002/iteration_002_input_trips.duarcfg']
 Success.
 -------------------------------------------------------------------------------
-['/home/behr_mi/sumo/bin/sumo', '-c', '002/iteration_002.sumocfg']
-Loading net-file from '002/../input_net.net.xml' ... done (1ms).
-Loading additional-files from '002/../edgedata.add.xml' ... done (1ms).
+['/scr1/sumo/bin/sumo', '-c', '002/iteration_002.sumocfg']
+Loading net-file from '002/../input_net.net.xml' ... done (0ms).
+Loading additional-files from '002/../edgedata.add.xml' ... done (2ms).
+Loading route-files incrementally from '002/input_trips.trips_bar_002.rou.xml'
+Loading route-files incrementally from '002/input_trips.trips_foo_002.rou.xml'
 Loading done.
-Simulation version v1_20_0+0782-2de3bc16e35 started with time: 0.00.
+Simulation version v1_21_0+1557-fb9ec070d59 started with time: 0.00.
 Simulation ended at time: 248.00.
 Reason: All vehicles have left the simulation.
 Performance:
- Duration: 0.03s
- Real time factor: 9185.19
- UPS: 53962.962963
+ Duration: 0.06s
+ Real time factor: 4133.33
+ UPS: 24283.333333
 Vehicles:
  Inserted: 10
  Running: 0
  Waiting: 0
 -------------------------------------------------------------------------------
-['/home/behr_mi/sumo/bin/duarouter', '-c', '003/iteration_003_input_trips.duarcfg']
+['/scr1/sumo/bin/duarouter', '-c', '003/iteration_003_input_trips.duarcfg']
 Success.
 -------------------------------------------------------------------------------
-['/home/behr_mi/sumo/bin/duarouter', '-c', '003/iteration_003_input_trips.duarcfg']
+['/scr1/sumo/bin/duarouter', '-c', '003/iteration_003_input_trips.duarcfg']
 Success.
 -------------------------------------------------------------------------------
-['/home/behr_mi/sumo/bin/sumo', '-c', '003/iteration_003.sumocfg']
+['/scr1/sumo/bin/sumo', '-c', '003/iteration_003.sumocfg']
 Loading net-file from '003/../input_net.net.xml' ... done (1ms).
 Loading additional-files from '003/../edgedata.add.xml' ... done (0ms).
+Loading route-files incrementally from '003/input_trips.trips_bar_003.rou.xml'
+Loading route-files incrementally from '003/input_trips.trips_foo_003.rou.xml'
 Loading done.
-Simulation version v1_20_0+0782-2de3bc16e35 started with time: 0.00.
+Simulation version v1_21_0+1557-fb9ec070d59 started with time: 0.00.
 Simulation ended at time: 248.00.
 Reason: All vehicles have left the simulation.
 Performance:
- Duration: 0.04s
- Real time factor: 7085.71
- UPS: 41628.571429
+ Duration: 0.02s
+ Real time factor: 13052.6
+ UPS: 76684.210526
 Vehicles:
  Inserted: 10
  Running: 0
  Waiting: 0
 -------------------------------------------------------------------------------
-['/home/behr_mi/sumo/bin/duarouter', '-c', '004/iteration_004_input_trips.duarcfg']
+['/scr1/sumo/bin/duarouter', '-c', '004/iteration_004_input_trips.duarcfg']
 Success.
 -------------------------------------------------------------------------------
-['/home/behr_mi/sumo/bin/duarouter', '-c', '004/iteration_004_input_trips.duarcfg']
+['/scr1/sumo/bin/duarouter', '-c', '004/iteration_004_input_trips.duarcfg']
 Success.
 -------------------------------------------------------------------------------
-['/home/behr_mi/sumo/bin/sumo', '-c', '004/iteration_004.sumocfg']
-Loading net-file from '004/../input_net.net.xml' ... done (1ms).
+['/scr1/sumo/bin/sumo', '-c', '004/iteration_004.sumocfg']
+Loading net-file from '004/../input_net.net.xml' ... done (0ms).
 Loading additional-files from '004/../edgedata.add.xml' ... done (0ms).
+Loading route-files incrementally from '004/input_trips.trips_bar_004.rou.xml'
+Loading route-files incrementally from '004/input_trips.trips_foo_004.rou.xml'
 Loading done.
-Simulation version v1_20_0+0782-2de3bc16e35 started with time: 0.00.
+Simulation version v1_21_0+1557-fb9ec070d59 started with time: 0.00.
 Simulation ended at time: 248.00.
 Reason: All vehicles have left the simulation.
 Performance:
- Duration: 0.04s
- Real time factor: 6888.89
- UPS: 40472.222222
+ Duration: 0.01s
+ Real time factor: 20666.7
+ UPS: 121416.666667
 Vehicles:
  Inserted: 10
  Running: 0

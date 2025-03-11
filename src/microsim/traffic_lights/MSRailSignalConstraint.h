@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2002-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2002-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -27,6 +27,7 @@
 // class declarations
 // ===========================================================================
 class MSRailSignal;
+class SUMOVehicle;
 class SUMOSAXAttributes;
 
 
@@ -66,6 +67,10 @@ public:
         return "RailSignalConstraint";
     }
 
+    virtual const SUMOVehicle* getFoe() const {
+        return nullptr;
+    }
+
     virtual void write(OutputDevice& out, const std::string& tripId) const = 0;
 
     ConstraintType getType() const {
@@ -102,6 +107,10 @@ public:
         return myType == INSERTION_PREDECESSOR || myType == INSERTION_ORDER;
     }
 
+    static void storeTripId(const std::string& tripId, const std::string& vehID);
+
+    static const std::string& lookupVehId(const std::string& tripId);
+
     /// @brief clean up state
     static void cleanup();
 
@@ -115,9 +124,11 @@ public:
     static void clearAll();
 
 protected:
-    static std::string getVehID(const std::string& tripID);
+    static const SUMOVehicle* getVeh(const std::string& tripID, bool checkID = false);
 
     ConstraintType myType;
+
+    static std::map<std::string, std::string> myTripIdLookup;
 };
 
 
@@ -155,6 +166,8 @@ public:
     }
 
     std::string getDescription() const;
+
+    const SUMOVehicle* getFoe() const;
 
     class PassedTracker : public MSMoveReminder {
     public:
@@ -202,7 +215,7 @@ public:
     const MSRailSignal* myFoeSignal;
 
 
-    static std::map<const MSLane*, PassedTracker*> myTrackerLookup;
+    static std::map<const MSLane*, PassedTracker*, ComparatorNumericalIdLess> myTrackerLookup;
 
 private:
     /// invalidated assignment operator

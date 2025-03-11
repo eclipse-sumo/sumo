@@ -6,9 +6,11 @@ startpos
 
 endpos
 
+friendlypos
+
 name
 
-friendlypos
+color
 
 lines
 
@@ -16,6 +18,14 @@ containercapacity
 
 parkinglength
 
-color
-
 parameters
+
+front
+
+size
+
+forcesize
+
+reference
+
+additionalfile

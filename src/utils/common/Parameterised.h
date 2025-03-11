@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2002-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2002-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -95,13 +95,6 @@ public:
      * @return The value stored under the key
      */
     double getDouble(const std::string& key, const double defaultValue) const;
-
-    /**@brief Returns the value for a given key converted to a list of doubles
-     * @param[in] key The key to ask for
-     * @param[in] defaultValue The default value to return if no value is stored under the key
-     * @return The value stored under the key
-     */
-    std::vector<double> getDoubles(const std::string& key, std::vector<double> defaultValue = std::vector<double>()) const;
 
     /// @brief Clears the parameter map
     void clearParameter();

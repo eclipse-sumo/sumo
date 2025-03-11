@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2015-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2015-2025 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -36,29 +36,17 @@ from glob import glob
 TOOLS = [
 
     # detector
-    # "detector/aggregateFlows.py",   NO CONFIG
-    # "detector/detector.py",         NO CONFIG
     "detector/edgeDataFromFlow.py",
-    # "detector/filterFlows.py",      NO CONFIG
     "detector/flowFromEdgeData.py",
-    # "detector/flowFromRoutes.py",   NO CONFIG
-    # "detector/flowrouter.py",       NO CONFIG
     "detector/mapDetectors.py",
-    # "detector/plotFlows.py",        NO CONFIG
-    # "detector/routeUsage.py",       NO CONFIG
-    # "detector/validate.py",         NO CONFIG
 
     # district
-    # "district/aggregateAndSplitMatrices.py",    NO CONFIG
-    # "district/countConnectionsInDistricts.py",  NO CONFIG
-    # "district/districtMapper.py",               NO CONFIG
     "district/filterDistricts.py",
     "district/gridDistricts.py",
     "district/stationDistricts.py",
 
     # drt
     # "drt/darpSolvers.py",   NO CONFIG
-    # "drt/drtOnline.py",     NO CONFIG
     "drt/drtOrtools.py",
     # "drt/ortools_pdp.py",   NO CONFIG
 
@@ -74,19 +62,8 @@ TOOLS = [
     "import/gtfs/gtfs2fcd.py",
     # "import/gtfs/gtfs2osm.py",                                NO CONFIG
     "import/gtfs/gtfs2pt.py",
-    # "import/vissim/convert_detectors2SUMO.py",                NO CONFIG
-    # "import/vissim/convert_vissimXML_flows_statRoutes.py",    NO CONFIG
-    # "import/vissim/tls_vissimXML2SUMOnet_update.py",          NO CONFIG
-    # "import/vissim/vissim_parseBusStops.py",                  NO CONFIG
     "import/vissim/vissim_parseRoutes.py",
-    # "import/vissim/vissim2poly.py",                           NO CONFIG
     "import/visum/visum_convertEdgeTypes.py",
-    # "import/visum/visum_convertRoutes.py",                    NO CONFIG
-    # "import/visum/visum_convertTurnPercentages.py",           NO CONFIG
-    # "import/visum/visum_parseZaehlstelle.py",                 NO CONFIG
-    # "import/matsim_importPlans.py",                         NO CONFIG
-    # "import/signal_POIs_from_xodr.py",                      NO CONFIG
-    # "import/osmTaxiStop.py",                                NO CONFIG
 
     # net
     "net/abstractRail.py",
@@ -111,19 +88,11 @@ TOOLS = [
     # "net/xmlnodes_applyOffset.py",          NO CONFIG
 
     # route
-    # "route/addParkingAreaStops2Routes.py",  NO CONFIG
-    # "route/addParkingAreaStops2Trips.py",   NO CONFIG
     "route/addStopDelay.py",
     "route/addStops2Routes.py",
     "route/addTAZ.py",
-    # "route/analyzePersonPlans.py",          NO CONFIG
     "route/checkStopOrder.py",
-    # "route/cutRoutes.py",                   NO CONFIG
-    # "route/cutTrips.py",
     "route/implausibleRoutes.py",
-    # "route/route_1htoDay.py",               NO CONFIG
-    # "route/route_departOffset.py",          NO CONFIG
-    # "route/route2alts.py",                  NO CONFIG
     "route/route2OD.py",
     # "route/route2poly.py",                  NO CONFIG
     # "route/route2sel.py",                   NO CONFIG
@@ -154,7 +123,6 @@ TOOLS = [
     "output/fcdDiff.py",
     # "output/generateITetrisIntersectionMetrics.py", NO CONFIG
     # "output/generateITetrisNetworkMetrics.py",      NO CONFIG
-    # "output/generateMeanDataDefinitions.py",        NO CONFIG
     # "output/generateTLSE1Detectors.py",             NO CONFIG
     "output/generateTLSE2Detectors.py",
     # "output/generateTLSE3Detectors.py",             NO CONFIG
@@ -166,12 +134,9 @@ TOOLS = [
     "output/stopOrder.py",
     # "output/tables.py",                             NO CONFIG
     # "output/timingStats.py",                        NO CONFIG
-    # "output/tripinfoByTAZ.py",                      NO CONFIG
     "output/tripinfoByType.py",
-    # "output/tripinfoDiff.py",                       NO CONFIG
     # "output/tripStatistics.py",                     NO CONFIG
     "output/vehLanes.py",
-    # "output/vehroute2amitranOD.py",                 NO CONFIG
     "output/vehrouteCountValidation.py",
     "output/vehrouteDiff.py",
     "output/walkFactor.py",
@@ -187,7 +152,6 @@ TOOLS = [
     # "tls/buildTransitions.py",      NO CONFIG
     "tls/createTlsCsv.py",
     # "tls/tls_check.py",             NO CONFIG
-    # "tls/tls_csv2SUMO.py",          NO CONFIG
     "tls/tls_csvSignalGroups.py",
 
     # turn-defs
@@ -200,7 +164,6 @@ TOOLS = [
     "turn-defs/turnFile2EdgeRelations.py",
 
     # visualization
-    # "visualization/macrOutput.py",                  NO CONFIG
     # "visualization/mpl_dump_onNet.py",              NO CONFIG
     # "visualization/mpl_dump_timeline.py",           NO CONFIG
     # "visualization/mpl_dump_twoAgainst.py",         NO CONFIG
@@ -222,30 +185,22 @@ TOOLS = [
     "xml/xml2csv.py",
     "xml/changeAttribute.py",
     "xml/filterElements.py",
-    # "xml/protobuf2xml.py",      NO CONFIG
-    # "xml/xml2protobuf.py",      NO CONFIG
-    # "xml/xsd.py",               NO CONFIG
 
     # other
-    # "averageTripStatistics.py",       NO CONFIG
     "countEdgeUsage.py",
     "createVehTypeDistribution.py",
     "edgesInDistricts.py",
-    # "evacuateAreas.py",               NOT_SUITABLE
-    "extractTest.py",
+    # "extractTest.py",                 NOT_SUITABLE
     "fcdReplay.py",
     "findAllRoutes.py",
     "generateBidiDistricts.py",
     "generateContinuousRerouters.py",
     "generateParkingAreaRerouters.py",
     "generateParkingAreas.py",
-    # "generateParkingLots.py",         NO CONFIG
     "generateRailSignalConstraints.py",
     "generateRerouters.py",
-    # "jtcrouter.py",                   NO CONFIG
     # "osmBuild.py",                    NOT_SUITABLE
     "osmGet.py",
-    # "osmWebWizard.py",                NOT_WORKING_YET
     "plot_trajectories.py",
     "ptlines2flows.py",
     "randomTrips.py",
@@ -255,12 +210,80 @@ TOOLS = [
     "tileGet.py",
     "tlsCoordinator.py",
     "tlsCycleAdaptation.py",
-    # "traceExporter.py",               NO CONFIG
+
+
+    "jtcrouter.py",
+    "distributeChargingStations.py",
+    "traceExporter.py",
+    "createScreenshotSequence.py",
+    "averageTripStatistics.py",
+    "generateLandmarks.py",
+    # "osmWebWizard.py",         NOT_WORKING
+    "assign/duaIterateMix.py",
+    "assign/duaIterate_analysis.py",
+    "assign/duaIterate_reroutingAnalysis.py",
+    "assign/one-shot.py",
+    # "assign/cadytsIterate.py", NOT_WORKING (on windows to due classpath default)
+    "assign/costFunctionChecker.py",
+    "assign/duaIterate.py",
+    "detector/aggregateFlows.py",
+    "detector/filterFlows.py",
+    "detector/flowFromRoutes.py",
+    "detector/flowrouter.py",
+    "detector/routeUsage.py",
+    "detector/validate.py",
+    "detector/plotFlows.py",
+    "drt/drtOnline.py",
+    "import/matsim/matsim_importPlans.py",
+    "import/osm/osmTaxiStop.py",
+    "import/vissim/convert_detectors2SUMO.py",
+    "import/vissim/convert_vissimXML_flows_statRoutes.py",
+    "import/vissim/tls_vissimXML2SUMOnet_update.py",
+    "import/vissim/vissim2poly.py",
+    "import/vissim/vissim_parseBusStops.py",
+    "import/visum/visum_convertRoutes.py",
+    "import/visum/visum_convertTurnPercentages.py",
+    "import/visum/visum_parseZaehlstelle.py",
+    "import/opendrive/signal_POIs_from_xodr.py",
+    "output/generateMeanDataDefinitions.py",
+    "output/edgeDepartDelay.py",
+    "output/vehroute2amitranOD.py",
+    "output/tripinfoByTAZ.py",
+    "output/tripinfoDiff.py",
+    "route/route_departOffset.py",
+    "route/cutTrips.py",
+    "route/driveways2poly.py",
+    "route/addParkingAreaStops2Trips.py",
+    "route/analyzePersonPlans.py",
+    "route/addParkingAreaStops2Routes.py",
+    "route/cutRoutes.py",
+    "route/route2alts.py",
+    "route/route_1htoDay.py",
+    "route/geoTrip2POI.py",
+    "visualization/macrOutput.py",
+    "visualization/plotWKT.py",
+    "xml/protobuf2xml.py",
+    "xml/xml2protobuf.py",
+    "district/aggregateAndSplitMatrices.py",
+    "district/countConnectionsInDistricts.py",
+    "district/districtMapper.py",
+    "emissions/hbefa2sumo.py",
+    "net/buildFullGraph.py",
+    "net/generateStationEdges.py",
+    "net/patchVClasses.py",
+    "shapes/poly2edgedata.py",
+    "tls/buildTransitions.py",
+    "tls/tls_csv2SUMO.py",
+    "trigger/csv2vss.py",
+    "trigger/meandata2vss.py",
 ]
 
 
 PATH_MAPPING = {
-    "import/dxf": "import"
+    "import/dxf": "import",
+    "import/osm": "import",
+    "import/matsim": "import",
+    "import/opendrive": "import",
 }
 
 
@@ -273,7 +296,7 @@ SOURCE_DEPS = [
 
 def buildTemplateToolHeader(templateHeaderFile):
     print(
-        "#pragma once\n"
+        u"#pragma once\n"
         "#include <string>\n"
         "#include <vector>\n"
         "\n"
@@ -348,37 +371,53 @@ def generateTemplate(app, appBin):
         sys.stderr.write("Error when generating template for " + app + ": '%s'" % e)
         template = ""
     # join variable and formatted template
-    return 'const std::string %sTemplate = "%s";\n' % (app, template)
+    return u'const std::string %sTemplate = "%s";\n' % (app, template)
 
 
-def generateToolTemplates(toolDir, toolPaths, verbose):
-    """
-    @brief generate tool template
-    """
-    print("Obtaining tool templates.")
-    procs = []
-    result = ""
-    for toolPath in toolPaths:
-        toolName = os.path.basename(toolPath)[:-3]
-        if verbose:
-            print("Obtaining '" + toolName + "' tool template.")
-        # obtain template piping stdout using check_output
-        procs.append(subprocess.Popen([sys.executable, join(toolDir, toolPath), "--save-template", "stdout"],
-                                      stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True))
-    failed = []
+def _collectOutput(procs, toolPaths, failed, verbose, testFailure):
+    result = u""
     for p, toolPath in zip(procs, toolPaths):
         toolName = os.path.basename(toolPath)[:-3]
         d = os.path.dirname(toolPath)
         result += 'TemplateTool("%s", "tools/%s", "%s",\n' % (toolName, toolPath, PATH_MAPPING.get(d, d))
         stdout, stderr = p.communicate()
         if p.returncode:
-            failed.append(toolName)
+            failed.append(toolPath if testFailure else toolName)
             if verbose:
                 print("Cannot generate tool template for %s: '%s'." % (toolName, stderr), file=sys.stderr)
             result += '""'
         else:
             result += formatToolTemplate(stdout)
         result += '),\n'
+    return result
+
+
+def generateToolTemplates(toolDir, toolPaths, verbose, testFailure=False):
+    """
+    @brief generate tool template
+    """
+    print("Obtaining tool templates.")
+    procs = []
+    result = u""
+    failed = []
+    paths = []
+    env = dict(os.environ)
+    if "SUMO_HOME" not in env:
+        env["SUMO_HOME"] = join(dirname(__file__), '..', '..')
+    for toolPath in toolPaths:
+        toolName = os.path.basename(toolPath)[:-3]
+        if verbose:
+            print("Obtaining '" + toolName + "' tool template.")
+        procs.append(subprocess.Popen([sys.executable, join(toolDir, toolPath), "--save-template", "stdout"], env=env,
+                                      stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True))
+        paths.append(toolPath)
+        if len(procs) == 32:
+            result += _collectOutput(procs, paths, failed, verbose, testFailure)
+            procs = []
+            paths = []
+    result += _collectOutput(procs, paths, failed, verbose, testFailure)
+    if testFailure:
+        return failed
     if failed:
         print("Could not generate tool templates for %s." % (", ".join(failed)), file=sys.stderr)
     return result
@@ -408,9 +447,9 @@ def main():
         with io.open("templates.h", 'w', encoding='utf8') as templateHeaderFile:
             buildTemplateToolHeader(templateHeaderFile)
             is_debug = sys.argv[1].endswith("D") or sys.argv[1].endswith("D.exe")
-            print("const std::vector<TemplateTool> templateTools {\n", file=templateHeaderFile)
+            print(u"const std::vector<TemplateTool> templateTools {\n", file=templateHeaderFile)
             print(generateToolTemplates(toolDir, TOOLS, is_debug), file=templateHeaderFile)
-            print("};\n", file=templateHeaderFile)
+            print(u"};\n", file=templateHeaderFile)
             # generate sumo Template
             print(generateTemplate("sumo", sys.argv[1]), file=templateHeaderFile)
             # generate netgenerate Template

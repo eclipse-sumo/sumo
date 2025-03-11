@@ -1,5 +1,5 @@
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2010-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2010-2025 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -12,6 +12,7 @@
 
 # @file    gtfs2osm.py
 # @author  Giuliana Armellini
+# @author  Mirko Barthauer
 # @date    2021-02-18
 
 """
@@ -27,6 +28,8 @@ import math
 import io
 import re
 from collections import defaultdict
+import hashlib
+
 # from pprint import pprint
 
 import pandas as pd
@@ -105,6 +108,10 @@ for i in range(900, 907):
 # }
 
 
+def md5hash(s):
+    return hashlib.md5(s.encode('utf-8')).hexdigest()
+
+
 @benchmark
 def import_gtfs(options, gtfsZip):
     """
@@ -123,6 +130,8 @@ def import_gtfs(options, gtfsZip):
 
     if 'trip_headsign' not in trips:
         trips['trip_headsign'] = ''
+    if 'direction_id' not in trips:
+        trips = discover_direction(routes, trips, stop_times)
     if 'route_short_name' not in routes:
         routes['route_short_name'] = routes['route_long_name']
 
@@ -195,6 +204,20 @@ def import_gtfs(options, gtfsZip):
         print("Warning! No GTFS data found for the given date %s." % options.date)
 
     return routes, trips_on_day, shapes, stops, stop_times
+
+
+@benchmark
+def discover_direction(routes, trips, stop_times):
+    """
+    Sets the direction value if it is not present in the GTFS data to identify separate
+    directions of the same PT line.
+    """
+    # create a direction_id identifier from the stop sequence
+    enhancedStopTimes = pd.merge(stop_times, pd.merge(trips, routes, on='route_id', how='left'), on='trip_id')
+    groupedStopTimes = enhancedStopTimes.groupby(["trip_id"], as_index=False).agg({'stop_id': ' '.join})
+    groupedStopTimes['direction_id'] = groupedStopTimes['stop_id'].apply(md5hash)
+    # copy the direction_id back to the trips file / join the DataFrame
+    return pd.merge(trips, groupedStopTimes[['trip_id', 'direction_id']], on='trip_id', how='left')
 
 
 @benchmark
@@ -530,7 +553,7 @@ def map_gtfs_osm(options, net, osm_routes, gtfs_data, shapes, shapes_dict, filte
     filtered_stops['stop_name'] = [[x] + re.split(r', | ,|,', x) + [x.replace(',', '')]
                                    for x in filtered_stops['stop_name']]
     filtered_shapes = filtered_stops.groupby(['shape_id', 'route_short_name',
-                                              'route_type', 'direction_id']).stop_name.aggregate(sum).reset_index(
+                                              'route_type', 'direction_id']).stop_name.aggregate("sum").reset_index(
         name='stop_name_all')
     filtered_stops = pd.merge(filtered_stops, filtered_shapes)
 
@@ -545,8 +568,8 @@ def map_gtfs_osm(options, net, osm_routes, gtfs_data, shapes, shapes_dict, filte
             aux_shapes = shapes[shapes['shape_id'] == row.shape_id]
             pt_orig = aux_shapes[aux_shapes.shape_pt_sequence == aux_shapes.shape_pt_sequence.min()]
             pt_dest = aux_shapes[aux_shapes.shape_pt_sequence == aux_shapes.shape_pt_sequence.max()]
-            line_dir = get_line_dir((pt_orig.shape_pt_lon, pt_orig.shape_pt_lat),
-                                    (pt_dest.shape_pt_lon, pt_dest.shape_pt_lat))
+            line_dir = get_line_dir((pt_orig.shape_pt_lon.iloc[0], pt_orig.shape_pt_lat.iloc[0]),
+                                    (pt_dest.shape_pt_lon.iloc[0], pt_dest.shape_pt_lat.iloc[0]))
 
             # get osm lines with same route name and pt type,
             # and if they have at least one matching stop name in osm and gtfs routes
@@ -653,11 +676,11 @@ def write_gtfs_osm_outputs(options, map_routes, map_stops, missing_stops, missin
         print("Generates stops and routes output")
 
     # determine if we need to format times (depart, duration, until) to be human readable or whole seconds
-    ft = humanReadableTime if "hrtime" in options and options.hrtime else lambda x: int(x)
+    ft = humanReadableTime if "hrtime" in options and options.hrtime else int
 
     with sumolib.openz(options.additional_output, mode='w') as output_file:
         sumolib.xml.writeHeader(output_file, root="additional")
-        for stop, value in map_stops.items():
+        for stop, value in sorted(map_stops.items()):
             name, lane, start_pos, end_pos, access, v_type = value[:6]
             typ = "busStop" if v_type == "bus" else "trainStop"
             output_file.write(u'    <%s id="%s" lane="%s" startPos="%.2f" endPos="%.2f" name=%s friendlyPos="true"%s>\n' %  # noqa

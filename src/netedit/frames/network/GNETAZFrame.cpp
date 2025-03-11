@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -17,22 +17,19 @@
 ///
 // The Widget for add TAZ elements
 /****************************************************************************/
-#include <config.h>
 
-#include <utils/foxtools/MFXDynamicLabel.h>
-#include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/div/GUIDesigns.h>
+#include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNENet.h>
-#include <netedit/GNEViewNet.h>
-#include <netedit/changes/GNEChange_Additional.h>
-#include <netedit/elements/additional/GNETAZ.h>
-#include <netedit/elements/additional/GNETAZSourceSink.h>
-#include <netedit/elements/additional/GNEAdditionalHandler.h>
+#include <netedit/GNETagProperties.h>
 #include <netedit/GNEUndoList.h>
-#include <utils/options/OptionsCont.h>
+#include <netedit/GNEViewParent.h>
+#include <netedit/changes/GNEChange_TAZSourceSink.h>
+#include <netedit/elements/additional/GNEAdditionalHandler.h>
+#include <netedit/elements/additional/GNETAZ.h>
+#include <utils/foxtools/MFXDynamicLabel.h>
+#include <utils/gui/div/GUIDesigns.h>
 
 #include "GNETAZFrame.h"
-
 
 // ===========================================================================
 // FOX callback mapping
@@ -96,10 +93,12 @@ GNETAZFrame::CurrentTAZ::TAZEdgeColor::~TAZEdgeColor() {}
 
 void
 GNETAZFrame::CurrentTAZ::TAZEdgeColor::updateColors() {
-    sourceColor = GNEAttributeCarrier::parse<int>(source->getAttribute(GNE_ATTR_TAZCOLOR));
-    sinkColor = GNEAttributeCarrier::parse<int>(sink->getAttribute(GNE_ATTR_TAZCOLOR));
+    sourceColor = source ? GNEAttributeCarrier::parse<int>(source->getAttribute(GNE_ATTR_TAZCOLOR)) : 0;
+    sinkColor = sink ? GNEAttributeCarrier::parse<int>(sink->getAttribute(GNE_ATTR_TAZCOLOR)) : 0;
+    double sourceWeight = source ? source->getWeight() : 0;
+    double sinkWeight = sink ? sink->getWeight() : 0;
     // Obtain Source+Sink needs more steps. First obtain Source+Sink Weight
-    double sourcePlusSinkWeight = source->getDepartWeight() + sink->getDepartWeight();
+    double sourcePlusSinkWeight = sourceWeight + sinkWeight;
     // avoid division between zero
     if ((myCurrentTAZParent->myMaxSourcePlusSinkWeight - myCurrentTAZParent->myMinSourcePlusSinkWeight) == 0) {
         sourcePlusSinkColor = 0;
@@ -117,7 +116,7 @@ GNETAZFrame::CurrentTAZ::TAZEdgeColor::updateColors() {
         }
     }
     // Obtain Source+Sink needs more steps. First obtain Source-Sink Weight
-    double sourceMinusSinkWeight =  source->getDepartWeight() - sink->getDepartWeight();
+    double sourceMinusSinkWeight =  sourceWeight - sinkWeight;
     // avoid division between zero
     if ((myCurrentTAZParent->myMaxSourceMinusSinkWeight - myCurrentTAZParent->myMinSourceMinusSinkWeight) == 0) {
         sourceMinusSinkColor = 0;
@@ -260,8 +259,8 @@ GNETAZFrame::CurrentTAZ::refreshTAZEdges() {
         myEditedTAZ->updateTAZStatistic();
         myTAZFrameParent->myTAZCommonStatistics->updateStatistics();
         // iterate over child TAZElements and create TAZEdges
-        for (const auto& TAZElement : myEditedTAZ->getChildAdditionals()) {
-            addTAZChild(dynamic_cast<GNETAZSourceSink*>(TAZElement));
+        for (const auto& TAZSourceSink : myEditedTAZ->getChildTAZSourceSinks()) {
+            addSourceSink(TAZSourceSink);
         }
         // update colors after add all edges
         for (auto& TAZEdgeColor : myTAZEdgeColors) {
@@ -274,67 +273,62 @@ GNETAZFrame::CurrentTAZ::refreshTAZEdges() {
 
 
 void
-GNETAZFrame::CurrentTAZ::addTAZChild(GNETAZSourceSink* sourceSink) {
-    // first make sure that TAZElements is an TAZ Source or Sink
-    if (sourceSink && ((sourceSink->getTagProperty().getTag() == SUMO_TAG_TAZSOURCE) || (sourceSink->getTagProperty().getTag() == SUMO_TAG_TAZSINK))) {
-        GNEEdge* edge = myTAZFrameParent->myViewNet->getNet()->getAttributeCarriers()->retrieveEdge(sourceSink->getAttribute(SUMO_ATTR_EDGE));
-        // first check if TAZEdgeColor has to be created
-        bool createTAZEdge = true;
-        for (auto& TAZEdgeColor : myTAZEdgeColors) {
-            if (TAZEdgeColor.edge == edge) {
-                createTAZEdge = false;
-                // update TAZ Source or Sink
-                if (sourceSink->getTagProperty().getTag() == SUMO_TAG_TAZSOURCE) {
-                    TAZEdgeColor.source = sourceSink;
-                } else {
-                    TAZEdgeColor.sink = sourceSink;
-                }
-            }
-        }
-        // check if TAZElements has to be created
-        if (createTAZEdge) {
-            if (sourceSink->getTagProperty().getTag() == SUMO_TAG_TAZSOURCE) {
-                myTAZEdgeColors.push_back(TAZEdgeColor(this, edge, sourceSink, nullptr));
+GNETAZFrame::CurrentTAZ::addSourceSink(GNETAZSourceSink* sourceSink) {
+    GNEEdge* edge = myTAZFrameParent->myViewNet->getNet()->getAttributeCarriers()->retrieveEdge(sourceSink->getAttribute(SUMO_ATTR_EDGE));
+    // first check if TAZEdgeColor has to be created
+    bool createTAZEdge = true;
+    for (auto& TAZEdgeColor : myTAZEdgeColors) {
+        if (TAZEdgeColor.edge == edge) {
+            createTAZEdge = false;
+            // update TAZ Source or Sink
+            if (sourceSink->getTagProperty()->getTag() == SUMO_TAG_TAZSOURCE) {
+                TAZEdgeColor.source = sourceSink;
             } else {
-                myTAZEdgeColors.push_back(TAZEdgeColor(this, edge, nullptr, sourceSink));
+                TAZEdgeColor.sink = sourceSink;
             }
         }
-        // recalculate weights
-        myMaxSourcePlusSinkWeight = 0;
-        myMinSourcePlusSinkWeight = -1;
-        myMaxSourceMinusSinkWeight = 0;
-        myMinSourceMinusSinkWeight = -1;
-        for (const auto& TAZEdgeColor : myTAZEdgeColors) {
-            // make sure that both TAZ Source and Sink exist
-            if (TAZEdgeColor.source && TAZEdgeColor.sink) {
-                // obtain source plus sink
-                double sourcePlusSink = TAZEdgeColor.source->getDepartWeight() + TAZEdgeColor.sink->getDepartWeight();
-                // check myMaxSourcePlusSinkWeight
-                if (sourcePlusSink > myMaxSourcePlusSinkWeight) {
-                    myMaxSourcePlusSinkWeight = sourcePlusSink;
-                }
-                // check myMinSourcePlusSinkWeight
-                if ((myMinSourcePlusSinkWeight == -1) || (sourcePlusSink < myMinSourcePlusSinkWeight)) {
-                    myMinSourcePlusSinkWeight = sourcePlusSink;
-                }
-                // obtain source minus sink
-                double sourceMinusSink = TAZEdgeColor.source->getDepartWeight() - TAZEdgeColor.sink->getDepartWeight();
-                // use valor absolute
-                if (sourceMinusSink < 0) {
-                    sourceMinusSink *= -1;
-                }
-                // check myMaxSourcePlusSinkWeight
-                if (sourceMinusSink > myMaxSourceMinusSinkWeight) {
-                    myMaxSourceMinusSinkWeight = sourceMinusSink;
-                }
-                // check myMinSourcePlusSinkWeight
-                if ((myMinSourceMinusSinkWeight == -1) || (sourceMinusSink < myMinSourceMinusSinkWeight)) {
-                    myMinSourceMinusSinkWeight = sourceMinusSink;
-                }
+    }
+    // check if TAZElements has to be created
+    if (createTAZEdge) {
+        if (sourceSink->getTagProperty()->getTag() == SUMO_TAG_TAZSOURCE) {
+            myTAZEdgeColors.push_back(TAZEdgeColor(this, edge, sourceSink, nullptr));
+        } else {
+            myTAZEdgeColors.push_back(TAZEdgeColor(this, edge, nullptr, sourceSink));
+        }
+    }
+    // recalculate weights
+    myMaxSourcePlusSinkWeight = 0;
+    myMinSourcePlusSinkWeight = -1;
+    myMaxSourceMinusSinkWeight = 0;
+    myMinSourceMinusSinkWeight = -1;
+    for (const auto& TAZEdgeColor : myTAZEdgeColors) {
+        // make sure that both TAZ Source and Sink exist
+        if (TAZEdgeColor.source && TAZEdgeColor.sink) {
+            // obtain source plus sink
+            double sourcePlusSink = TAZEdgeColor.source->getWeight() + TAZEdgeColor.sink->getWeight();
+            // check myMaxSourcePlusSinkWeight
+            if (sourcePlusSink > myMaxSourcePlusSinkWeight) {
+                myMaxSourcePlusSinkWeight = sourcePlusSink;
+            }
+            // check myMinSourcePlusSinkWeight
+            if ((myMinSourcePlusSinkWeight == -1) || (sourcePlusSink < myMinSourcePlusSinkWeight)) {
+                myMinSourcePlusSinkWeight = sourcePlusSink;
+            }
+            // obtain source minus sink
+            double sourceMinusSink = TAZEdgeColor.source->getWeight() - TAZEdgeColor.sink->getWeight();
+            // use valor absolute
+            if (sourceMinusSink < 0) {
+                sourceMinusSink *= -1;
+            }
+            // check myMaxSourcePlusSinkWeight
+            if (sourceMinusSink > myMaxSourceMinusSinkWeight) {
+                myMaxSourceMinusSinkWeight = sourceMinusSink;
+            }
+            // check myMinSourcePlusSinkWeight
+            if ((myMinSourceMinusSinkWeight == -1) || (sourceMinusSink < myMinSourceMinusSinkWeight)) {
+                myMinSourceMinusSinkWeight = sourceMinusSink;
             }
         }
-    } else {
-        throw ProcessError(TL("Invalid TAZ Child"));
     }
 }
 
@@ -373,7 +367,7 @@ GNETAZFrame::TAZCommonStatistics::updateStatistics() {
         // declare ostringstream for statistics
         std::ostringstream information;
         information
-                << TL("- Number of edges: ") << toString(myTAZFrameParent->myCurrentTAZ->getTAZ()->getChildAdditionals().size() / 2) << "\n"
+                << TL("- Number of edges: ") << toString(myTAZFrameParent->myCurrentTAZ->getTAZ()->getChildTAZSourceSinks().size() / 2) << "\n"
                 << TL("- Min source: ") << myTAZFrameParent->myCurrentTAZ->getTAZ()->getAttribute(GNE_ATTR_MIN_SOURCE) << "\n"
                 << TL("- Max source: ") << myTAZFrameParent->myCurrentTAZ->getTAZ()->getAttribute(GNE_ATTR_MAX_SOURCE) << "\n"
                 << TL("- Average source: ") << myTAZFrameParent->myCurrentTAZ->getTAZ()->getAttribute(GNE_ATTR_AVERAGE_SOURCE) << "\n"
@@ -792,14 +786,14 @@ GNETAZFrame::TAZChildDefaultParameters::onCmdSetZeroFringeProbabilities(FXObject
     myTAZFrameParent->getViewNet()->getNet()->computeAndUpdate(neteditOptions, false);
     myTAZFrameParent->getViewNet()->update();
     // find all edges with TAZSource/sinks and without successors/predecessors
-    std::vector<GNEAdditional*> sources;
-    std::vector<GNEAdditional*> sinks;
+    std::vector<GNETAZSourceSink*> sources;
+    std::vector<GNETAZSourceSink*> sinks;
     std::set<GNEAdditional*> TAZs;
     // check if we're editing a single TAZ or all TAZs
     if (myTAZFrameParent->myCurrentTAZ->getTAZ() != nullptr) {
         // iterate over source/sinks
-        for (const auto& TAZSourceSink : myTAZFrameParent->myCurrentTAZ->getTAZ()->getChildAdditionals()) {
-            if (TAZSourceSink->getTagProperty().getTag() == SUMO_TAG_TAZSOURCE) {
+        for (const auto& TAZSourceSink : myTAZFrameParent->myCurrentTAZ->getTAZ()->getChildTAZSourceSinks()) {
+            if (TAZSourceSink->getTagProperty()->getTag() == SUMO_TAG_TAZSOURCE) {
                 // set sink probability to 0 for all edges that have no predecessor
                 if (!TAZSourceSink->getParentEdges().front()->hasSuccessors() &&
                         (TAZSourceSink->getAttributeDouble(SUMO_ATTR_WEIGHT) != 0)) {
@@ -819,8 +813,8 @@ GNETAZFrame::TAZChildDefaultParameters::onCmdSetZeroFringeProbabilities(FXObject
         // iterate over all TAZs
         for (const auto& TAZ : myTAZFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getAdditionals().at(SUMO_TAG_TAZ)) {
             // iterate over source/sinks
-            for (const auto& TAZSourceSink : TAZ.second->getChildAdditionals()) {
-                if (TAZSourceSink->getTagProperty().getTag() == SUMO_TAG_TAZSOURCE) {
+            for (const auto& TAZSourceSink : TAZ.second->getChildTAZSourceSinks()) {
+                if (TAZSourceSink->getTagProperty()->getTag() == SUMO_TAG_TAZSOURCE) {
                     // set sink probability to 0 for all edges that have no predecessor
                     if (!TAZSourceSink->getParentEdges().front()->hasSuccessors() &&
                             (TAZSourceSink->getAttributeDouble(SUMO_ATTR_WEIGHT) != 0)) {
@@ -1088,7 +1082,7 @@ GNETAZFrame::TAZSelectionStatistics::updateStatistics() {
         // iterate over child TAZElements
         for (const auto& selectedEdge : myEdgeAndTAZChildrenSelected) {
             //start with sources
-            weight = selectedEdge.source->getDepartWeight();
+            weight = selectedEdge.source->getWeight();
             // insert source weight in weightSinkTextField
             weightSourceSet.insert(toString(weight));
             // check max Weight
@@ -1102,7 +1096,7 @@ GNETAZFrame::TAZSelectionStatistics::updateStatistics() {
             // update Average
             averageWeightSource += weight;
             // continue with sinks
-            weight = selectedEdge.sink->getDepartWeight();
+            weight = selectedEdge.sink->getWeight();
             // save sink weight in weightSinkTextField
             weightSinkSet.insert(toString(weight));
             // check max Weight
@@ -1277,7 +1271,7 @@ GNETAZFrame::TAZParameters::onCmdSetAttribute(FXObject* obj, FXSelector, void*) 
         }
     } else if (obj == myTextFieldCenter) {
         // check center
-        if (myTextFieldCenter->getText().empty() || GNEAttributeCarrier::canParse<RGBColor>(myTextFieldCenter->getText().text())) {
+        if (myTextFieldCenter->getText().empty() || GNEAttributeCarrier::canParse<Position>(myTextFieldCenter->getText().text())) {
             myTextFieldCenter->setTextColor(FXRGB(0, 0, 0));
             myTextFieldCenter->killFocus();
         } else {
@@ -1362,7 +1356,7 @@ void
 GNETAZFrame::TAZEdgesGraphic::hideTAZEdgesGraphicModule() {
     // iterate over all edges and restore color
     for (const auto& edge : myTAZFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getEdges()) {
-        for (const auto& lane : edge.second.second->getLanes()) {
+        for (const auto& lane : edge.second->getChildLanes()) {
             lane->setSpecialColor(nullptr);
         }
     }
@@ -1375,9 +1369,9 @@ GNETAZFrame::TAZEdgesGraphic::updateEdgeColors() {
     const std::vector<RGBColor>& scaledColors = GNEViewNetHelper::getRainbowScaledColors();
     // start painting all edges in gray
     for (const auto& edge : myTAZFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getEdges()) {
-        if (!edge.second.second->isAttributeCarrierSelected()) {
+        if (!edge.second->isAttributeCarrierSelected()) {
             // set candidate color (in this case, gray)
-            for (const auto lane : edge.second.second->getLanes()) {
+            for (const auto lane : edge.second->getChildLanes()) {
                 lane->setSpecialColor(&myEdgeDefaultColor);
             }
         }
@@ -1386,16 +1380,16 @@ GNETAZFrame::TAZEdgesGraphic::updateEdgeColors() {
     for (const auto& TAZEdgeColor : myTAZFrameParent->myCurrentTAZ->getTAZEdges()) {
         if (!TAZEdgeColor.edge->isAttributeCarrierSelected()) {
             // set candidate color (in this case,
-            for (const auto& lane : TAZEdgeColor.edge->getLanes()) {
+            for (const auto& lane : TAZEdgeColor.edge->getChildLanes()) {
                 // check what will be painted (source, sink or both)
                 if (myColorBySourceWeight->getCheck() == TRUE) {
-                    lane->setSpecialColor(&scaledColors.at(TAZEdgeColor.sourceColor), TAZEdgeColor.source->getDepartWeight());
+                    lane->setSpecialColor(&scaledColors.at(TAZEdgeColor.sourceColor), TAZEdgeColor.source->getWeight());
                 } else if (myColorBySinkWeight->getCheck() == TRUE) {
-                    lane->setSpecialColor(&scaledColors.at(TAZEdgeColor.sinkColor), TAZEdgeColor.sink->getDepartWeight());
+                    lane->setSpecialColor(&scaledColors.at(TAZEdgeColor.sinkColor), TAZEdgeColor.sink->getWeight());
                 } else if (myColorBySourcePlusSinkWeight->getCheck() == TRUE) {
-                    lane->setSpecialColor(&scaledColors.at(TAZEdgeColor.sourcePlusSinkColor), TAZEdgeColor.source->getDepartWeight() + TAZEdgeColor.sink->getDepartWeight());
+                    lane->setSpecialColor(&scaledColors.at(TAZEdgeColor.sourcePlusSinkColor), TAZEdgeColor.source->getWeight() + TAZEdgeColor.sink->getWeight());
                 } else {
-                    lane->setSpecialColor(&scaledColors.at(TAZEdgeColor.sourceMinusSinkColor), TAZEdgeColor.source->getDepartWeight() - TAZEdgeColor.sink->getDepartWeight());
+                    lane->setSpecialColor(&scaledColors.at(TAZEdgeColor.sourceMinusSinkColor), TAZEdgeColor.source->getWeight() - TAZEdgeColor.sink->getWeight());
                 }
             }
         }
@@ -1404,7 +1398,7 @@ GNETAZFrame::TAZEdgesGraphic::updateEdgeColors() {
     for (const auto& selectedEdge : myTAZFrameParent->myTAZSelectionStatistics->getEdgeAndTAZChildrenSelected()) {
         if (!selectedEdge.edge->isAttributeCarrierSelected()) {
             // set candidate selected color
-            for (const auto& lane : selectedEdge.edge->getLanes()) {
+            for (const auto& lane : selectedEdge.edge->getChildLanes()) {
                 lane->setSpecialColor(&myEdgeSelectedColor);
             }
         }
@@ -1627,15 +1621,14 @@ GNETAZFrame::shapeDrawed() {
         }
         // check if TAZ has to be created with edges
         if (myTAZParameters->isAddEdgesWithinEnabled()) {
-            // update objects in boundary
-            myViewNet->updateObjectsInBoundary(shape.getBoxBoundary());
-            // get all edge IDs
+            // get all elements within shape
+            myViewNet->updateObjectsInShape(shape);
+            // declare edge IDs
             std::vector<std::string> edgeIDs;
-            // get only edges with geometry around shape
+            edgeIDs.reserve(myViewNet->getViewObjectsSelector().getEdges().size());
+            // get only edges with geometry around triangle
             for (const auto& edge : myViewNet->getViewObjectsSelector().getEdges()) {
-                if (myViewNet->getNet()->getAttributeCarriers()->isNetworkElementAroundShape(edge, shape)) {
-                    edgeIDs.push_back(edge->getID());
-                }
+                edgeIDs.push_back(edge->getID());
             }
             myBaseTAZ->addStringListAttribute(SUMO_ATTR_EDGES, edgeIDs);
         } else {
@@ -1643,9 +1636,13 @@ GNETAZFrame::shapeDrawed() {
             myBaseTAZ->addStringListAttribute(SUMO_ATTR_EDGES, std::vector<std::string>());
         }
         // declare additional handler
-        GNEAdditionalHandler additionalHandler(myViewNet->getNet(), true, false);
+        GNEAdditionalHandler additionalHandler(myViewNet->getNet(), myBaseTAZ->hasStringAttribute(GNE_ATTR_ADDITIONAL_FILE)?
+                                               myBaseTAZ->getStringAttribute(GNE_ATTR_ADDITIONAL_FILE) : "",
+                                               myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), false);
         // build TAZ
         additionalHandler.parseSumoBaseObject(myBaseTAZ);
+        // Write info
+        WRITE_MESSAGE(TLF("Created % sources and sinks", (2 * myBaseTAZ->getStringListAttribute(SUMO_ATTR_EDGES).size())));
         // TAZ created, then return true
         return true;
     }
@@ -1663,10 +1660,10 @@ GNETAZFrame::addOrRemoveTAZMember(GNEEdge* edge) {
                 myTAZSaveChanges->enableButtonsAndBeginUndoList();
                 // remove Source and Sinks using GNEChange_TAZElement
                 if (myViewNet->getNet()->getAttributeCarriers()->retrieveAdditional(TAZEdgeColor.source->getGUIGlObject(), false)) {
-                    myViewNet->getUndoList()->add(new GNEChange_Additional(TAZEdgeColor.source, false), true);
+                    myViewNet->getUndoList()->add(new GNEChange_TAZSourceSink(TAZEdgeColor.source, false), true);
                 }
                 if (myViewNet->getNet()->getAttributeCarriers()->retrieveAdditional(TAZEdgeColor.sink->getGUIGlObject(), false)) {
-                    myViewNet->getUndoList()->add(new GNEChange_Additional(TAZEdgeColor.sink, false), true);
+                    myViewNet->getUndoList()->add(new GNEChange_TAZSourceSink(TAZEdgeColor.sink, false), true);
                 }
                 // always refresh TAZ Edges after removing TAZSources/Sinks
                 myCurrentTAZ->refreshTAZEdges();
@@ -1678,11 +1675,11 @@ GNETAZFrame::addOrRemoveTAZMember(GNEEdge* edge) {
         // if wasn't found, then add it
         myTAZSaveChanges->enableButtonsAndBeginUndoList();
         // create TAZ Sink using GNEChange_TAZElement and value of TAZChild default parameters
-        GNEAdditional* source = new GNETAZSourceSink(SUMO_TAG_TAZSOURCE, myCurrentTAZ->getTAZ(), edge, myTAZChildDefaultParameters->getDefaultTAZSourceWeight());
-        myViewNet->getUndoList()->add(new GNEChange_Additional(source, true), true);
+        GNETAZSourceSink* source = new GNETAZSourceSink(SUMO_TAG_TAZSOURCE, myCurrentTAZ->getTAZ(), edge, myTAZChildDefaultParameters->getDefaultTAZSourceWeight());
+        myViewNet->getUndoList()->add(new GNEChange_TAZSourceSink(source, true), true);
         // create TAZ Sink using GNEChange_TAZElement and value of TAZChild default parameters
-        GNEAdditional* sink = new GNETAZSourceSink(SUMO_TAG_TAZSINK, myCurrentTAZ->getTAZ(), edge, myTAZChildDefaultParameters->getDefaultTAZSinkWeight());
-        myViewNet->getUndoList()->add(new GNEChange_Additional(sink, true), true);
+        GNETAZSourceSink* sink = new GNETAZSourceSink(SUMO_TAG_TAZSINK, myCurrentTAZ->getTAZ(), edge, myTAZChildDefaultParameters->getDefaultTAZSinkWeight());
+        myViewNet->getUndoList()->add(new GNEChange_TAZSourceSink(sink, true), true);
         // always refresh TAZ Edges after adding TAZSources/Sinks
         myCurrentTAZ->refreshTAZEdges();
         // update selected button
@@ -1701,16 +1698,15 @@ GNETAZFrame::dropTAZMembers() {
         // enable save changes button
         myTAZSaveChanges->enableButtonsAndBeginUndoList();
         // remove Source and Sinks using GNEChange_TAZElement
-        if (myViewNet->getNet()->getAttributeCarriers()->retrieveAdditional(TAZEdgeColor.source, false)) {
-            myViewNet->getUndoList()->add(new GNEChange_Additional(TAZEdgeColor.source, false), true);
+        if (TAZEdgeColor.source) {
+            myViewNet->getUndoList()->add(new GNEChange_TAZSourceSink(TAZEdgeColor.source, false), true);
         }
-        if (myViewNet->getNet()->getAttributeCarriers()->retrieveAdditional(TAZEdgeColor.sink, false)) {
-            myViewNet->getUndoList()->add(new GNEChange_Additional(TAZEdgeColor.sink, false), true);
+        if (TAZEdgeColor.sink) {
+            myViewNet->getUndoList()->add(new GNEChange_TAZSourceSink(TAZEdgeColor.sink, false), true);
         }
     }
     // always refresh TAZ Edges after removing TAZSources/Sinks
     myCurrentTAZ->refreshTAZEdges();
 }
-
 
 /****************************************************************************/

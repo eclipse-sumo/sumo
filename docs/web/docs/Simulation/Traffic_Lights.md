@@ -87,7 +87,7 @@ simultaneously
 
 ## Phase layout *alternateOneWay*
 This layout can be used to model alternating access to a road section which can only be used by one direction at a time.
-To make use of this layout, a [joint traffic light](#controlling_multiple_junctions_with_the_same_controller) must be defined for all junctions that border the restricted section. Alternating green phases are separated by an all-red phase that is long enough to clear the interior section.
+To make use of this layout, a [joint traffic light](#controlling_multiple_junctions_with_the_same_controller) must be defined for all junctions that border the restricted section and also all junctions that lie within it. Alternating green phases are separated by an all-red phase that is long enough to clear the interior section.
 
 ## Other Phase layouts
 
@@ -166,7 +166,7 @@ The following attributes/elements are used within the tlLogic element:
 | **id**         | id (string)                           | The id of the traffic light. This must be an existing traffic light id in the .net.xml file. Typically the id for a traffic light is identical with the junction id. The name may be obtained by right-clicking the red/green bars in front of a controlled intersection. |
 | **type**       | enum (static, actuated, delay_based) | The type of the traffic light (fixed phase durations, phase prolongation based on time gaps between vehicles (actuated), or on accumulated time loss of queued vehicles (delay_based) )                                                                                  |
 | **programID**  | id (string)                           | The id of the traffic light program; This must be a new program name for the traffic light id. Please note that "off" is reserved, see below.                                                                                                                             |
-| **offset**     | int                                   | The initial time offset of the program |
+| **offset**     | int or "begin"                        | The initial time offset of the program, If set to "begin", the offset will automatically match the simulation begin time so that the traffic light always starts in phase 0 |
 
 ## <phase\> Attributes
 
@@ -333,6 +333,7 @@ Detector activation states can optionally be written to the [TLS output](Output/
   <param key="freq" value="300"/>
   <param key="jam-threshold" value="-1"/>
   <param key="detector-length" value="0"/>
+  <param key="build-all-detectors" value="false"/>
 
   <phase duration="31" minDur="5" maxDur="45" state="GGggrrrrGGggrrrr"/>
   ...
@@ -356,6 +357,7 @@ induction loop detectors](../Simulation/Output/Induction_Loops_Detectors_(E1).md
 - **jam-threshold**: ignore detected vehicles if they have stood on a detector for the given time or more
 - **jam-threshold:LANEID**: ignore detected vehicles if they have stood on the detector on the given LANEID for the given time or more
 - **detector-length**: set detector length to the given value (to ensure robust request detection with varying gaps and vehicle positions)
+- **build-all-detectors**: build detectors for all incoming lanes even if they would not control an actuated phase
 
 Some parameters are only used when a signal plan with [dynamic phase selection](#dynamic_phase_selection_phase_skipping) is active:
 
@@ -481,14 +483,14 @@ The following elements are permitted in an expression for attributes
 - logical operators 'or', 'and', '!'
 - parentheses (,)
 - pre-defined functions:
-  - 'z:DETID': returns the time gap since the last vehicle detection for inductionLoop detector with id 'DETID' or id 'TLSID_PROGRAMID_DETID' (DETID may omit the the [prefix 'TLSID_PROGRAMID_'](#detectors))
+  - 'z:DETID': returns the time gap since the last vehicle detection for inductionLoop detector with id 'DETID' or id 'TLSID_PROGRAMID_DETID' (DETID may omit the [prefix 'TLSID_PROGRAMID_'](#detectors))
   - 'a:DETID': returns number of vehicles on detector with id 'DETID'. Supports inductionLoop and laneAreaDetectors. Also supports omitting the prefix of the detector id. (see 'z:')
   - 'g:TLSINDEX': returns current green duration in seconds for link with the given index
   - 'r:TLSINDEX': returns current red duration in seconds for link with the given index
   - 'c:': returns the time within the current cycle
 - [use-defined functions](#custom_function_definitions) FNAME:arg1,args2,...,argN  where arg may be any expression that does not contain spaces (except within parentheses)
 - Symbolic names for [pre-defined expressions](#named_expressions)
-- The special keyword `DEFAULT`. This will evaluate to true if the all detectors for the current phase exceed the configured *max-gap*. It can be used to easily mix custom rules with default switching behavior.
+- The special keyword `DEFAULT`. This will evaluate to true if all detectors for the current phase exceed the configured *max-gap*. It can be used to easily mix custom rules with default switching behavior.
 
 The following constraints apply to expressions:
 
@@ -559,7 +561,7 @@ The default gap control logic, replicated with custom conditions. A complete sce
 ```
 
 !!! note
-    The the expression 'z:D0.0' retrieves the detection gap of detector 'C_PI_D0.0' but the prefix 'C_PI_' may be omitted.
+    The expression 'z:D0.0' retrieves the detection gap of detector 'C_PI_D0.0' but the prefix 'C_PI_' may be omitted.
 
 #### Bus prioritization
 
@@ -587,7 +589,7 @@ The default gap control logic, replicated with custom conditions. A complete sce
 ### Overriding Phase Attributes with Expressions
 
 By default, the phase attributes 'minDur', 'maxDur', 'earliestEnd' and 'latestEnd' are defined numerically (or left undefined).
-It may be desireable to redefine these attributes with expressions (i.e. condition ids or condition values) for the following reasons:
+It may be desirable to redefine these attributes with expressions (i.e. condition ids or condition values) for the following reasons:
 
 - the switching logic may be expressed more succinctly if these values can change dynamically during the signals operation
 - the phase definitions shall be reused for multiple programs and all variability shall be expressed in table of constants (defined via `<conditions>`s)
@@ -635,12 +637,12 @@ It may sometimes be useful to store and modify numerical values that persist ove
 - **check** may be any expression which is permitted for condition values
 - **value** may be any expression which is permitted for conditions values
 
-Every time the control logic is executed, all `assignment`s are executed in the order they are defined: If the the 'check'-expression evaluates to true (a non-0 value), the 'value'-expression is evaluated and the result is stored under the given id:
+Every time the control logic is executed, all `assignment`s are executed in the order they are defined: If the 'check'-expression evaluates to true (a non-0 value), the 'value'-expression is evaluated and the result is stored under the given id:
 
 - if **id** is the id of a condition element, the value of that conditions is replaced by a string representation of the result (The accuracy of this representation is limited by simulation option **--precision**)
 - if **id** is not the id of a condition element, a double valued variable with that id is created / updated in the current scope. If the assignment is not part of a [use-defined functions](#custom_function_definitions), this is the global scope
 
-The test case [find_primes](https://sumo.dlr.de/extractTest.php?path=sumo/basic/tls/actuated/conditions/assignments/find_primes) computes all prime numbers below 100 inside the traffic light controller as a capability demonstration.
+The test case [find_primes](https://sumo.dlr.de/extractTest.php?path=sumo/tls/actuated/conditions/assignments/find_primes) computes all prime numbers below 100 inside the traffic light controller as a capability demonstration.
 
 ### Custom function definitions
 
@@ -756,7 +758,7 @@ Assuming the program as defined above is put in a file called
 [sumo](../sumo.md)/[sumo-gui](../sumo-gui.md) like this
 
 ```
-sumo -a tls.add.xml ...<other options for network and routes>
+sumo -a tls.add.xml ...<other options for network and routes>
 ```
 
 ## Switching TLS 'off'

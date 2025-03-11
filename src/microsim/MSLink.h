@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2002-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2002-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -180,7 +180,7 @@ public:
     };
 
     typedef std::map<const SUMOVehicle*, const ApproachingVehicleInformation, ComparatorNumericalIdLess> ApproachInfos;
-    typedef std::vector<const SUMOVehicle*> BlockingFoes;
+    typedef std::vector<const SUMOTrafficObject*> BlockingFoes;
     typedef std::map<const MSPerson*, ApproachingPersonInformation> PersonApproachInfos;
 
     enum ConflictFlag {
@@ -307,6 +307,11 @@ public:
     /// @brief return all approaching vehicles
     const ApproachInfos& getApproaching() const {
         return myApproachingVehicles;
+    }
+
+    /// @brief return all approaching vehicles
+    const PersonApproachInfos* getApproachingPersons() const {
+        return myApproachingPersons;
     }
 
     /** @brief Remove all approaching vehicles before quick-loading state */
@@ -474,6 +479,10 @@ public:
 
     inline bool haveGreen() const {
         return myState == LINKSTATE_TL_GREEN_MAJOR || myState == LINKSTATE_TL_GREEN_MINOR;
+    }
+
+    inline bool mustStop() const {
+        return myState == LINKSTATE_STOP || myState == LINKSTATE_ALLWAY_STOP;
     }
 
     inline bool isTLSControlled() const {
@@ -687,6 +696,13 @@ public:
     /// @brief get string description for this link
     std::string  getDescription() const;
 
+    /// @brief get the closest vehicle approaching this link
+    std::pair<const SUMOVehicle* const, const ApproachingVehicleInformation> getClosest() const;
+
+    inline bool hasFoeCrossing() const {
+        return myHavePedestrianCrossingFoe;
+    }
+
     /// @brief post-processing for legacy networks
     static void recheckSetRequestInformation();
 
@@ -742,7 +758,7 @@ private:
     const CustomConflict* getCustomConflict(const MSLane* foeLane) const;
 
     /// @brief add information about another pedestrian crossing
-    void updateDistToFoePedCrossing(double dist); 
+    void updateDistToFoePedCrossing(double dist);
 
 private:
     /// @brief The lane behind the junction approached by this link

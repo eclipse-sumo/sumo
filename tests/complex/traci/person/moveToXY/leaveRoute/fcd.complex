@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-16 19:34:53 by Eclipse SUMO sumo Version v1_20_0+1258-9d1aeffff86
+<!-- generated on 2025-01-30 08:28:04 by Eclipse SUMO sumo Version v1_21_0+2095-489e3797173
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -18,7 +18,7 @@
     </report>
 
     <traci_server>
-        <remote-port value="48981"/>
+        <remote-port value="59265"/>
     </traci_server>
 
 </sumoConfiguration>
@@ -41,10 +41,10 @@
         <person id="p0" x="88.30" y="0.12" angle="45.00" speed="1.00" pos="85.10" edge="A0B0" slope="0.00" type="DEFAULT_PEDTYPE"/>
     </timestep>
     <timestep time="5.00">
-        <person id="p0" x="89.30" y="1.12" angle="45.00" speed="1.75" pos="6.00" edge="B0A0" slope="0.00" type="DEFAULT_PEDTYPE"/>
+        <person id="p0" x="89.30" y="0.24" angle="83.21" speed="1.00" pos="86.10" edge="A0B0" slope="0.00" type="DEFAULT_PEDTYPE"/>
     </timestep>
     <timestep time="6.00">
-        <person id="p0" x="90.30" y="2.12" angle="45.00" speed="1.00" pos="5.00" edge="B0A0" slope="0.00" type="DEFAULT_PEDTYPE"/>
+        <person id="p0" x="90.30" y="2.12" angle="28.00" speed="2.64" pos="5.00" edge="B0A0" slope="0.00" type="DEFAULT_PEDTYPE"/>
     </timestep>
     <timestep time="7.00">
         <person id="p0" x="91.30" y="3.12" angle="45.00" speed="1.00" pos="4.00" edge="B0A0" slope="0.00" type="DEFAULT_PEDTYPE"/>
@@ -341,10 +341,10 @@
         <person id="p0" x="188.30" y="100.12" angle="45.00" speed="1.00" pos="83.60" edge="B1C1" slope="0.00" type="DEFAULT_PEDTYPE"/>
     </timestep>
     <timestep time="105.00">
-        <person id="p0" x="189.30" y="101.12" angle="45.00" speed="1.75" pos="6.00" edge="C1B1" slope="0.00" type="DEFAULT_PEDTYPE"/>
+        <person id="p0" x="189.30" y="100.24" angle="83.21" speed="1.00" pos="84.60" edge="B1C1" slope="0.00" type="DEFAULT_PEDTYPE"/>
     </timestep>
     <timestep time="106.00">
-        <person id="p0" x="190.30" y="102.12" angle="45.00" speed="1.00" pos="5.00" edge="C1B1" slope="0.00" type="DEFAULT_PEDTYPE"/>
+        <person id="p0" x="190.30" y="102.12" angle="28.00" speed="2.64" pos="5.00" edge="C1B1" slope="0.00" type="DEFAULT_PEDTYPE"/>
     </timestep>
     <timestep time="107.00">
         <person id="p0" x="191.30" y="103.12" angle="45.00" speed="1.00" pos="4.00" edge="C1B1" slope="0.00" type="DEFAULT_PEDTYPE"/>

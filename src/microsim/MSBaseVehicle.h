@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2010-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2010-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -338,10 +338,11 @@ public:
      *
      * @param[in] route The new route to pass
      * @param[in] info Information regarding the replacement
+     * @param[in] addRouteStops Whether stops from the replacement route should be added
      * @param[in] removeStops Whether stops should be removed if they do not fit onto the new route
      * @return Whether the new route was accepted
      */
-    virtual bool replaceRoute(ConstMSRoutePtr route, const std::string& info, bool onInit = false, int offset = 0, bool addStops = true, bool removeStops = true,
+    virtual bool replaceRoute(ConstMSRoutePtr route, const std::string& info, bool onInit = false, int offset = 0, bool addRouteStops = true, bool removeStops = true,
                               std::string* msgReturn = nullptr);
 
     /** @brief Returns the vehicle's acceleration
@@ -429,6 +430,10 @@ public:
 
     /// @brief return index of edge within route
     int getRoutePosition() const;
+
+    int getArrivalPosition() const {
+        return myParameter->arrivalEdge;
+    }
 
     /// @brief reset index of edge within route
     void resetRoutePosition(int index, DepartLaneDefinition departLaneProcedure);
@@ -553,6 +558,9 @@ public:
         return myType->getLength();
     }
 
+    /* @brief Return whether this vehicle must be treated like a railway vehicle
+     * either due to its vClass or the vClass of it's edge */
+    bool isRail() const;
 
     /** @brief Returns the vehicle's width
      * @return vehicle's width
@@ -978,6 +986,8 @@ public:
     /// @brief apply departEdge and arrivalEdge attributes
     void setDepartAndArrivalEdge();
 
+    int getInsertionChecks() const;
+
     /// @brief interpret stop lane on opposite side of the road
     static MSLane* interpretOppositeStop(SUMOVehicleParameter::Stop& stop);
 
@@ -1128,6 +1138,9 @@ private:
 
     /// @brief helper function
     bool insertJump(int nextStopIndex, MSRouteIterator itStart, std::string& errorMsg);
+
+    /// @brief patch stop.pars.index to record the number of skipped candidate edges before stop.edge (in a looped route)
+    void setSkips(MSStop& stop, int prevActiveStops);
 
 private:
     /// invalidated assignment operator

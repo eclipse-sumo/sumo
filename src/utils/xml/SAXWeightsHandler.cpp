@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2007-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2007-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -41,8 +41,9 @@ SAXWeightsHandler::ToRetrieveDefinition::ToRetrieveDefinition(const std::string&
     myDestination(destination),
     myAggValue(0),
     myNoLanes(0),
-    myHadAttribute(0) {
-}
+    myHadAttribute(0),
+    myHadNonNumeric(false)
+{ }
 
 
 SAXWeightsHandler::ToRetrieveDefinition::~ToRetrieveDefinition() {
@@ -116,15 +117,26 @@ SAXWeightsHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
 
 void
 SAXWeightsHandler::tryParse(const SUMOSAXAttributes& attrs, bool isEdge) {
-    // !!!! no error handling!
     if (isEdge) {
         // process all that want values directly from the edge
         for (const auto& definition : myDefinitions) {
             if (definition->myAmEdgeBased) {
                 if (attrs.hasAttribute(definition->myAttributeName)) {
-                    definition->myAggValue = attrs.getFloat(definition->myAttributeName);
-                    definition->myNoLanes = 1;
-                    definition->myHadAttribute = true;
+                    try {
+                        definition->myAggValue = attrs.getFloat(definition->myAttributeName);
+                        definition->myNoLanes = 1;
+                        definition->myHadAttribute = true;
+                    } catch (EmptyData&) {
+                        WRITE_ERRORF(TL("Missing value '%' in edge '%'."), definition->myAttributeName, myCurrentEdgeID);
+                    } catch (NumberFormatException&) {
+                        if (!definition->myHadNonNumeric) {
+                            // warn only once
+                            definition->myHadNonNumeric = true;
+                            WRITE_ERRORF(TL("The value '%' of attribute '%' should be numeric in edge '%' at time step %."),
+                                         attrs.getStringSecure(definition->myAttributeName, ""), definition->myAttributeName,
+                                         myCurrentEdgeID, time2string(TIME2STEPS(myCurrentTimeBeg)));
+                        }
+                    }
                 } else {
                     definition->myHadAttribute = false;
                 }
@@ -144,8 +156,13 @@ SAXWeightsHandler::tryParse(const SUMOSAXAttributes& attrs, bool isEdge) {
                 } catch (EmptyData&) {
                     WRITE_ERRORF(TL("Missing value '%' in edge '%'."), definition->myAttributeName, myCurrentEdgeID);
                 } catch (NumberFormatException&) {
-                    WRITE_ERROR("The value should be numeric, but is not.\n In edge '" + myCurrentEdgeID +
-                                "' at time step " + toString(myCurrentTimeBeg) + ".");
+                    if (!definition->myHadNonNumeric) {
+                        // warn only once
+                        definition->myHadNonNumeric = true;
+                        WRITE_ERRORF(TL("The value '%' of attribute '%' should be numeric in edge '%' at time step %."),
+                                     attrs.getStringSecure(definition->myAttributeName, ""), definition->myAttributeName,
+                                     myCurrentEdgeID, time2string(TIME2STEPS(myCurrentTimeBeg)));
+                    }
                 }
             }
         }

@@ -6,6 +6,9 @@ actuated
 delay_based
 plain_tll_actuated
 
+# special offset value
+plain_tll_offset_begin
+
 # test a tl-controlled junction which has no junction logic
 unregulated
 

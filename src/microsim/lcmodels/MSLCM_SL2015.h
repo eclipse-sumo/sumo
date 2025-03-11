@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2013-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2013-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -282,7 +282,7 @@ protected:
                              const MSVehicle::LaneQ& best,
                              int bestLaneOffset,
                              bool changeToBest,
-                             double currentDist,
+                             double& currentDist,
                              double neighDist,
                              double laDist,
                              double roundaboutBonus,
@@ -292,7 +292,7 @@ protected:
                             );
 
 
-    bool mustOvertakeStopped(const MSLane& neighLane, const MSLeaderDistanceInfo& leaders, const MSLeaderDistanceInfo& neighLead,
+    bool mustOvertakeStopped(bool checkCurrent, const MSLane& neighLane, const MSLeaderDistanceInfo& leaders, const MSLeaderDistanceInfo& neighLead,
                              double posOnLane, double neighDist, bool right, double latLaneDist, double& currentDist, double& latDist);
 
     /// @brief check whether lateral gap requirements are met override the current maneuver if necessary
@@ -443,6 +443,8 @@ protected:
     double myLaneDiscipline;
     // @brief lookahead for speedGain in seconds
     double mySpeedGainLookahead;
+    // @brief the minimum time to spent driving without lane change after a speed-gain change
+    double mySpeedGainRemainTime;
     // @brief bonus factor staying on the inside of multi-lane roundabout
     double myRoundaboutBonus;
     // @brief factor for cooperative speed adjustment

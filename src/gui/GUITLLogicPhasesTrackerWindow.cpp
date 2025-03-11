@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -261,14 +261,14 @@ GUITLLogicPhasesTrackerWindow::initToolBar() {
     }
 
     new FXLabel(myToolBar, "time style:", nullptr, LAYOUT_CENTER_Y);
-    myTimeMode = new MFXComboBoxIcon(myToolBar, 11, false, GUIDesignComboBoxVisibleItemsMedium,
+    myTimeMode = new MFXComboBoxIcon(myToolBar, 11, false, GUIDesignComboBoxVisibleItems,
                                      this, MID_SIMSTEP, GUIDesignViewSettingsComboBox1);
     myTimeMode->appendIconItem("seconds");
     myTimeMode->appendIconItem("MM:SS");
     myTimeMode->appendIconItem("time in cycle");
 
     new FXLabel(myToolBar, "green time", nullptr, LAYOUT_CENTER_Y);
-    myGreenMode = new MFXComboBoxIcon(myToolBar, 6, false, GUIDesignComboBoxVisibleItemsMedium,
+    myGreenMode = new MFXComboBoxIcon(myToolBar, 6, false, GUIDesignComboBoxVisibleItems,
                                       this, MID_SIMSTEP, GUIDesignViewSettingsComboBox1);
     myGreenMode->appendIconItem("off");
     myGreenMode->appendIconItem("phase");

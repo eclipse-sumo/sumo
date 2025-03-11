@@ -251,7 +251,7 @@ The attributes used within such definitions are:
 | Attribute Name | Value Type  | Description            |
 | -------------- | ----------- | ---------------------------------------------------------------------------------------------- |
 | **id**         | id (string) | The id of a new route to assign; the id must be the id of a previously loaded route                                                                          |
-| probability    | float       | The the probability with which a vehicle will use the given edge as destination; (default 1). The probabilities are automatically normalized for all entries |
+| probability    | float       | The probability with which a vehicle will use the given edge as destination; (default 1). The probabilities are automatically normalized for all entries |
 
 ### Repeated public transport routes
 
@@ -339,7 +339,7 @@ vType](../Simulation/GenericParameters.md):
 | parking.relfreespace.weight | 0             | The relative number of free spaces                                       | yes                        |
 | parking.distanceto.weight   | 1             | The road distance to the parking area                                    | no                         |
 | parking.timeto.weight       | 0             | The assumed travel time to the parking area                              | no                         |
-| parking.distancefrom.weight | 0             | The road distance from the parking area to the vehicles destination      | no                         |
+| parking.distancefrom.weight | 0             | The road distance from the parking area to the vehicle destination      | no                         |
 | parking.timefrom.weight     | 0             | The assumed travel time from the parking area to the vehicle destination | no                         |
 
 When 'parking.probability.weight' is set to a positive value, a random number between 0 and attribute 'probability' is drawn for each candidate parkingArea. This value is then normalized to the range [0,1] by dividing with the maximum probability value of all parkingAreaReroute elements. The inverted normalized value is then multiplied with parking.probability.weight to enter into the candidate score.
@@ -422,12 +422,12 @@ To following effects occur:
 - 1a-2a-3b-4b-5a: **W**
 - 1a-2a-3b-4b-5b: **W**
 
-- 1a-2b-3a-4a-5a: **E** (becomes **W** with **--ignore-route-errors**)
+- 1a-2b-3a-4a-5a: **E** (becomes **W** with **--ignore-route-errors** or **--device.rerouting.mode 8**)
 - 1a-2b-3a-4a-5b: **W**
 - 1a-2b-3a-4b-5a: **W**
 - 1a-2b-3a-4b-5b: **W**
 
-- 1a-2b-3b-4a-5a: **E** (becomes **W** with **--ignore-route-errors**)
+- 1a-2b-3b-4a-5a: **E** (becomes **W** with **--ignore-route-errors** or **--device.rerouting.mode 8**)
 - 1a-2b-3b-4a-5b: **W**
 - 1a-2b-3b-4b-5a: **W**
 - 1a-2b-3b-4b-5b: **W**

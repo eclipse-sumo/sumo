@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -75,13 +75,13 @@ GNENetDiffTool::postProcessing() {
         }
         // load shapes
         if (myPythonToolsOptions.getBool("load-shapes-modified")) {
-            loadShapes(myPythonToolsOptions.getString("outprefix") + ".changed.shape.xml");
+            loadShapes(myPythonToolsOptions.getString("outprefix") + ".changed.shape.add.xml");
         }
         if (myPythonToolsOptions.getBool("load-shapes-added")) {
-            loadShapes(myPythonToolsOptions.getString("outprefix") + ".created.shape.xml");
+            loadShapes(myPythonToolsOptions.getString("outprefix") + ".created.shape.add.xml");
         }
         if (myPythonToolsOptions.getBool("load-shapes-deleted")) {
-            loadShapes(myPythonToolsOptions.getString("outprefix") + ".deleted.shape.xml");
+            loadShapes(myPythonToolsOptions.getString("outprefix") + ".deleted.shape.add.xml");
         }
     }
 }
@@ -153,7 +153,7 @@ GNENetDiffTool::loadShapes(const std::string& file) {
     // disable validation for additionals
     XMLSubSys::setValidation("never", "auto", "auto");
     // Create additional handler
-    GNEGeneralHandler generalHandler(myGNEApp->getViewNet()->getNet(), file, true, true);
+    GNEGeneralHandler generalHandler(myGNEApp->getViewNet()->getNet(), file, myGNEApp->isUndoRedoAllowed(), true);
     // begin undoList operation
     undoList->begin(Supermode::NETWORK, GUIIcon::SUPERMODENETWORK, TL("load shapes from '") + file + "'");
     // Run parser

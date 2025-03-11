@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2017-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2017-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -90,6 +90,30 @@ Person::getLanePosition(const std::string& personID) {
     return Dom::getDouble(libsumo::VAR_LANEPOSITION, personID);
 }
 
+
+double
+Person::getWalkingDistance(const std::string& personID, const std::string& edgeID, double pos, int laneIndex) {
+    tcpip::Storage content;
+    StoHelp::writeCompound(content, 2);
+    content.writeUnsignedByte(libsumo::POSITION_ROADMAP);
+    content.writeString(edgeID);
+    content.writeDouble(pos);
+    content.writeUnsignedByte(laneIndex);
+    content.writeUnsignedByte(libsumo::REQUEST_DRIVINGDIST);
+    return Dom::getDouble(libsumo::DISTANCE_REQUEST, personID, &content);
+}
+
+
+double
+Person::getWalkingDistance2D(const std::string& personID, double x, double y) {
+    tcpip::Storage content;
+    StoHelp::writeCompound(content, 2);
+    content.writeUnsignedByte(libsumo::POSITION_2D);
+    content.writeDouble(x);
+    content.writeDouble(y);
+    content.writeUnsignedByte(libsumo::REQUEST_DRIVINGDIST);
+    return Dom::getDouble(libsumo::DISTANCE_REQUEST, personID, &content);
+}
 
 std::vector<libsumo::TraCIReservation>
 Person::getTaxiReservations(int onlyNew) {

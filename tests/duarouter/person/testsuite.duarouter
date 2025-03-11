@@ -40,3 +40,6 @@ stoppingPlace
 
 # mismatch between vehicle stoppingPlace and ride stoppingPlace
 stoppingPlace_mismatch
+
+# Copy of basic
+scale_3

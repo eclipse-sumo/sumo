@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -30,7 +30,7 @@
 #ifdef HAVE_EIGEN
 #ifdef _MSC_VER
 #pragma warning(push)
-#pragma warning(disable: 4464 5031)
+#pragma warning(disable: 4127 4464 5031)
 #endif
 // avoid warnings in clang
 #ifdef __clang__
@@ -126,12 +126,12 @@ public:
     /// @brief return alphaBest variable, the best alpha scaling value
     double getAlphaBest() {
         return alphaBest;
-    };
+    }
 
     /// @brief return the reason why `alpha` scaling value has been used
     alphaFlag getAlphaReason() {
         return alphaReason;
-    };
+    }
 
 private:
 

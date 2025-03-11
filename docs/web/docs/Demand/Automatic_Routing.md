@@ -69,7 +69,7 @@ interval may be altered using the ".adaptation-interval" option.
 By setting the option **--device.rerouting.adaptation-weight** {{DT_FLOAT}} the travel speed of each edge is computed as
 
 ```
-FLOAT * priorValue + (1 - FLOAT) * currentMeanSpeed
+FLOAT * priorValue + (1 - FLOAT) * currentMeanSpeed
 ```
 
 This averaging takes place with the period set by **--device.rerouting.adaptation-interval**.

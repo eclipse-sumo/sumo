@@ -8,10 +8,8 @@ inspect_selection
 
 load
 
-transform
-
-reverse
-
-volatilerecomputing
+volatile_recomputing
 
 fix
+
+contextual_menu

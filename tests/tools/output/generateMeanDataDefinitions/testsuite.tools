@@ -27,3 +27,9 @@ detector_type_unknown
 
 # Tests whether fails informatively on unknown detector type.
 detector_type_missing
+
+# Tests whether fails informatively on unknown detector type.
+empty_suffix
+
+# no output suffix, reading from config
+empty_suffix_config

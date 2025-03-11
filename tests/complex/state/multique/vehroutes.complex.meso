@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-03-31 10:26:14 by Eclipse SUMO sumo Version v1_12_0+1808-7caee96
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<!-- generated on 2025-01-02 15:48:05 by Eclipse SUMO sumo Version v1_21_0+1635-bee1c8eab2a
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="input_net.net.xml"/>
@@ -14,10 +14,6 @@
         <vehroute-output value="vehroutes.xml"/>
     </output>
 
-    <processing>
-        <pedestrian.model value="nonInteracting"/>
-    </processing>
-
     <report>
         <duration-log.disable value="true"/>
         <no-step-log value="true"/>
@@ -27,7 +23,7 @@
         <mesosim value="true"/>
     </mesoscopic>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
@@ -35,31 +31,31 @@
         <route edges="SC CW"/>
     </vehicle>
 
-    <vehicle id="0.3" depart="00:00:30" arrival="00:00:44">
+    <vehicle id="0.3" depart="00:00:30" arrival="00:00:43">
         <route edges="SC CW"/>
     </vehicle>
 
-    <vehicle id="0.4" depart="00:00:40" arrival="00:00:53">
+    <vehicle id="0.4" depart="00:00:40" arrival="00:00:54">
         <route edges="SC CW"/>
     </vehicle>
 
-    <vehicle id="0.5" depart="00:00:50" arrival="00:01:02">
+    <vehicle id="0.5" depart="00:00:50" arrival="00:01:03">
         <route edges="SC CW"/>
     </vehicle>
 
-    <vehicle id="0.6" depart="00:01:00" arrival="00:01:13">
+    <vehicle id="0.6" depart="00:01:00" arrival="00:01:12">
         <route edges="SC CW"/>
     </vehicle>
 
-    <vehicle id="0.7" depart="00:01:10" arrival="00:01:26">
+    <vehicle id="0.7" depart="00:01:10" arrival="00:01:23">
         <route edges="SC CW"/>
     </vehicle>
 
-    <vehicle id="0.8" depart="00:01:20" arrival="00:01:33">
+    <vehicle id="0.8" depart="00:01:20" arrival="00:01:36">
         <route edges="SC CW"/>
     </vehicle>
 
-    <vehicle id="0.9" depart="00:01:30" arrival="00:01:45">
+    <vehicle id="0.9" depart="00:01:30" arrival="00:01:43">
         <route edges="SC CW"/>
     </vehicle>
 

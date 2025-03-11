@@ -12,3 +12,6 @@ taxi
 
 # test intermodal taxi routing where the origin and destination edge require walking
 taxi_startEndWalk
+
+# append a trip stage directly instead of calling findIntermodalRoute
+appendTrip_car_public_speedFactor

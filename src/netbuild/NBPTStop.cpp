@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -217,7 +217,7 @@ NBPTStop::findLaneAndComputeBusStopExtent(const NBEdge* edge) {
             double offset = shape.nearest_offset_to_point2D(getPosition(), false);
             const double edgeLength = edge->getFinalLength();
             offset *= edgeLength / shape.length2D();
-            if (myGivenStartPos >= 0) {
+            if (wasLoaded()) {
                 myStartPos = myGivenStartPos;
                 myEndPos = myStartPos + myPTStopLength;
             } else {

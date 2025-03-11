@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-04 11:17:22 by Eclipse SUMO netedit Version v1_20_0+0930-542f1297b48
-<neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
+<!-- generated on 2025-02-03 14:57:12 by Eclipse SUMO netconvert Version v1_21_0+2283-8c24bb7ce10
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <additional-files value="D:\Netedit_dev\tests\netedit\selection\additionals.add.xml"/>
-        <sumo-net-file value="D:\Netedit_dev\tests\netedit\selection\net.net.xml"/>
+        <node-files value="D:/SUMO/tests/netedit\basic/net.nod.xml"/>
+        <edge-files value="D:/SUMO/tests/netedit\basic/net.edg.xml"/>
+        <connection-files value="D:/SUMO/tests/netedit\basic/net.con.xml"/>
+        <tllogic-files value="D:/SUMO/tests/netedit\basic/net.tll.xml"/>
     </input>
-
-    <output>
-        <output-file value="D:\Netedit_dev\tests\netedit\selection\net.net.xml"/>
-    </output>
 
     <processing>
         <geometry.min-radius.fix.railways value="false"/>
@@ -20,7 +18,6 @@
     </processing>
 
     <junctions>
-        <no-internal-links value="false"/>
         <no-turnarounds value="true"/>
         <junctions.corner-detail value="5"/>
         <junctions.limit-turn-speed value="5.50"/>
@@ -31,7 +28,7 @@
         <walkingareas value="1"/>
     </pedestrian>
 
-</neteditConfiguration>
+</netconvertConfiguration>
 -->
 
 <net version="1.20" junctionCornerDetail="5" walkingareas="true" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">

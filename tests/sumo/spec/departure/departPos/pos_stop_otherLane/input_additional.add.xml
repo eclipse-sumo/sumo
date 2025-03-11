@@ -1,0 +1,8 @@
+<routes>
+
+	<vehicle id="1" depart="0" departPos="stop" departLane="1">
+        <route edges="beg"/>
+        <stop lane="beg_0" duration="10" endPos="250"/>
+    </vehicle>
+
+</routes>

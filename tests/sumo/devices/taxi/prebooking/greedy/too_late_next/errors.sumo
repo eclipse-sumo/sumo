@@ -1,2 +1,3 @@
+Warning: Taxi 'trip_0' aborts waiting for customers: p0 at time=254.00.
 Warning: Person 'p0' aborted waiting for taxi at edge 'C1C0'.
 Warning: Vehicle 'trip_0' aborted waiting for a person that will never come.

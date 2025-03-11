@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -279,6 +279,37 @@ public:
 
         /// @brief text field
         FXTextField* myFloatTextField = nullptr;
+    };
+
+    /// @brief input float
+    class InputTime : public InputOption {
+
+    public:
+        /// @brief constructor
+        InputTime(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent, const std::string& topic,
+                  const std::string& name, const std::string& description, const std::string& defaultValue);
+
+        /// @brief update option
+        void updateOption();
+
+        /// @brief restore option
+        void restoreOption();
+
+        /// @brief called when user set value in textField/button/checkBox
+        long onCmdSetOption(FXObject*, FXSelector, void*);
+
+        /// @brief called when user press reset button
+        long onCmdResetOption(FXObject*, FXSelector, void*);
+
+    private:
+        /// @brief get value
+        std::string getValue() const;
+
+        /// @brief parse float xx to xx.00
+        std::string parseTime(const std::string& value) const;
+
+        /// @brief text field
+        FXTextField* myTimeTextField = nullptr;
     };
 
     /// @brief input filename

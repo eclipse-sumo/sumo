@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-04-12 13:00:41 by Eclipse SUMO netconvert Version v1_19_0+1806-3a769482ef6
+<!-- generated on 2025-03-05 16:11:57 by Eclipse SUMO netconvert Version v1_22_0+0665-ba2a511bcfc
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <node-files value="input_plain.nod.xml"/>
@@ -33,7 +33,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <ignore-errors.edge-type value="true"/>
     </report>
 
-</configuration>
+</netconvertConfiguration>
 -->
 
 <net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
@@ -180,11 +180,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <phase duration="18" state="rGGGGgrrrrrrrrG" minDur="5" maxDur="50"/>
         <phase duration="3"  state="rGyyyyrrrrrrrrG"/>
         <phase duration="20" state="GGrrrrGGrrrGrrG" minDur="5" maxDur="50"/>
-        <phase duration="3"  state="yGrrrrggrrrgrrG"/>
+        <phase duration="3"  state="yGrrrryyrrryrrG"/>
         <phase duration="20" state="rGGGGgggrrrggGG" minDur="5" maxDur="50"/>
         <phase duration="3"  state="ryyyyggyrrryyyG"/>
         <phase duration="20" state="rrrrrGGrGGGrrrG" minDur="5" maxDur="50"/>
-        <phase duration="3"  state="rrrrrgyryyyrrrG"/>
+        <phase duration="3"  state="rrrrryyryyyrrrG"/>
     </tlLogic>
 
     <junction id="1085513888" type="priority" x="114.49" y="74.71" incLanes="-144014237#0_0 93584121#1_0" intLanes="" shape="113.96,76.22 115.22,73.28 115.07,73.22 115.02,73.20 114.90,73.16">

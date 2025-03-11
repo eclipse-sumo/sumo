@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -19,16 +19,13 @@
 /****************************************************************************/
 #pragma once
 #include <config.h>
-#include "GNEAdditional.h"
 
+#include "GNEAdditional.h"
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/**
- * @class GNERouteProbe
- * @brief Representation of a RouteProbe in netedit
- */
+
 class GNERouteProbe : public GNEAdditional, public Parameterised {
 
 public:
@@ -38,15 +35,18 @@ public:
     /**@brief Constructor
      * @param[in] id The storage of gl-ids to get the one for this lane representation from
      * @param[in] net pointer to GNENet of this additional element belongs
+     * @param[in] filename file in which this element is stored
      * @param[in] edge edge in which this routeProbe is placed
      * @param[in] period The period in which to report the distribution
      * @oaran[in] name Route Probe Name
-     * @param[in] filename The file for generated output
+     * @param[in] outputFilename The file for generated output
      * @param[in] begin The time at which to start generating output
+     * @param[in] vTypes list of vehicle types to be affected
      * @param[in] parameters generic parameters
      */
-    GNERouteProbe(const std::string& id, GNENet* net, GNEEdge* edge, const SUMOTime period, const std::string& name,
-                  const std::string& filename, SUMOTime begin, const Parameterised::Map& parameters);
+    GNERouteProbe(const std::string& id, GNENet* net, const std::string& filename, GNEEdge* edge, const SUMOTime period,
+                  const std::string& name, const std::string& outputFilename, SUMOTime begin, const std::vector<std::string>& vehicleTypes,
+                  const Parameterised::Map& parameters);
 
     /// @brief Destructor
     ~GNERouteProbe();
@@ -157,16 +157,22 @@ public:
 
 protected:
     /// @brief RouteProbe period
-    SUMOTime myPeriod;
+    SUMOTime myPeriod = 0;
 
-    /// @brief filename of RouteProbe
-    std::string myFilename;
+    /// @brief output filename
+    std::string myOutputFilename;
 
     /// @brief begin of rerouter
-    SUMOTime myBegin;
+    SUMOTime myBegin = 0;
+
+    /// @brief vehicle types
+    std::vector<std::string> myVehicleTypes;
 
     /// @brief route probe logo offset
     Position myRouteProbeLogoOffset;
+
+    /// @brief symbol base contour
+    GNEContour mySymbolBaseContour;
 
 private:
     /// @brief set attribute after validation

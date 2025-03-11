@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -1355,6 +1355,14 @@ PositionVector::angleAt2D(int pos) const {
 
 
 void
+PositionVector::openPolygon() {
+    if ((size() > 1) && (front() == back())) {
+        pop_back();
+    }
+}
+
+
+void
 PositionVector::closePolygon() {
     if ((size() != 0) && ((*this)[0] != back())) {
         push_back((*this)[0]);
@@ -1387,7 +1395,7 @@ PositionVector::distance2D(const Position& p, bool perpendicular) const {
     if (size() == 0) {
         return std::numeric_limits<double>::max();
     } else if (size() == 1) {
-        return front().distanceTo(p);
+        return front().distanceTo2D(p);
     }
     const double nearestOffset = nearest_offset_to_point2D(p, perpendicular);
     if (nearestOffset == GeomHelper::INVALID_OFFSET) {
@@ -1674,6 +1682,18 @@ PositionVector::rotate2D(double angle) {
         const double xnew = x * c - y * s;
         const double ynew = x * s + y * c;
         (*this)[i].set(xnew, ynew, z);
+    }
+}
+
+
+void
+PositionVector::rotateAroundFirstElement2D(double angle) {
+    if (size() > 1) {
+        // translate position vector to (0,0), rotate, and traslate back again
+        const Position offset = front();
+        sub(offset);
+        rotate2D(angle);
+        add(offset);
     }
 }
 

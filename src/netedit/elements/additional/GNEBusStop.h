@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -19,28 +19,27 @@
 /****************************************************************************/
 #pragma once
 #include <config.h>
-#include "GNEStoppingPlace.h"
 
+#include "GNEStoppingPlace.h"
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
-/**
- * @class GNEBusStop
- * @brief A lane area vehicles can halt at (netedit-version)
- */
 class GNEBusStop : public GNEStoppingPlace {
 
 public:
     /// @brief default constructor
-    GNEBusStop(SumoXMLTag tag, GNENet* net);
+    static GNEBusStop* buildBusStop(GNENet* net);
 
-    /**@brief parameter Constructor
-     * @param[in] tag busStop or trainStop tag
-     * @param[in] id The storage of gl-ids to get the one for this lane representation from
-     * @param[in] lane Lane of this StoppingPlace belongs
+    /// @brief default constructor
+    static GNEBusStop* buildTrainStop(GNENet* net);
+
+    /**@brief parameter constructor for bus stops
+     * @param[in] id busStop ID
      * @param[in] net pointer to GNENet of this additional element belongs
+     * @param[in] filename file in which this element is stored
+     * @param[in] lane Lane of this StoppingPlace belongs
      * @param[in] startPos Start position of the StoppingPlace
      * @param[in] endPos End position of the StoppingPlace
      * @param[in] name Name of busStop
@@ -51,9 +50,30 @@ public:
      * @param[in] friendlyPos enable or disable friendly position
      * @param[in] parameters generic parameters
      */
-    GNEBusStop(SumoXMLTag tag, const std::string& id, GNELane* lane, GNENet* net, const double startPos, const double endPos,
-               const std::string& name, const std::vector<std::string>& lines, int personCapacity, double parkingLength,
-               const RGBColor& color, bool friendlyPosition, const Parameterised::Map& parameters);
+    static GNEBusStop* buildBusStop(const std::string& id, GNENet* net, const std::string& filename, GNELane* lane,
+                                    const double startPos, const double endPos, const std::string& name, const std::vector<std::string>& lines,
+                                    int personCapacity, double parkingLength, const RGBColor& color, bool friendlyPosition,
+                                    const Parameterised::Map& parameters);
+
+    /**@brief parameter constructor for train stops
+     * @param[in] id trainStop ID
+     * @param[in] net pointer to GNENet of this additional element belongs
+     * @param[in] filename file in which this element is stored
+     * @param[in] lane Lane of this StoppingPlace belongs
+     * @param[in] startPos Start position of the StoppingPlace
+     * @param[in] endPos End position of the StoppingPlace
+     * @param[in] name Name of busStop
+     * @param[in] lines lines of the busStop
+     * @param[in] personCapacity larger numbers of persons trying to enter will create an upstream jam on the sidewalk.
+     * @param[in] parkingLength parking length
+     * @param[in] color busStop color
+     * @param[in] friendlyPos enable or disable friendly position
+     * @param[in] parameters generic parameters
+     */
+    static GNEBusStop* buildTrainStop(const std::string& id, GNENet* net, const std::string& filename, GNELane* lane,
+                                      const double startPos, const double endPos, const std::string& name, const std::vector<std::string>& lines,
+                                      int personCapacity, double parkingLength, const RGBColor& color, bool friendlyPosition,
+                                      const Parameterised::Map& parameters);
 
     /// @brief Destructor
     ~GNEBusStop();
@@ -78,6 +98,7 @@ public:
      * @see GUIGlObject::drawGL
      */
     void drawGL(const GUIVisualizationSettings& s) const;
+
     /// @}
 
     /// @name inherited from GNEAttributeCarrier
@@ -88,6 +109,12 @@ public:
      * @return string with the value associated to key
      */
     std::string getAttribute(SumoXMLAttr key) const;
+
+    /* @brief method for getting the Attribute of an XML key in double format (to avoid unnecessary parse<double>(...) for certain attributes)
+     * @param[in] key The attribute key
+     * @return double with the value associated to key
+     */
+    double getAttributeDouble(SumoXMLAttr key) const;
 
     /* @brief method for setting the attribute and letting the object perform additional changes
      * @param[in] key The attribute key
@@ -110,17 +137,41 @@ protected:
     std::vector<std::string> myLines;
 
     /// @brief maximum number of persons that can wait at this stop
-    int myPersonCapacity;
+    int myPersonCapacity = 0;
 
     /// @brief custom space for vehicles that park at this stop
-    double myParkingLength;
-
-    /// @brief RGB color
-    RGBColor myColor;
+    double myParkingLength = 0;
 
 private:
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);
+
+    /// @brief default constructor
+    GNEBusStop(SumoXMLTag tag, GUIGlObjectType type, GUIIcon icon, GNENet* net);
+
+    /**@brief parameter Constructor
+     * @param[in] tag busStop or trainStop tag
+     * @param[in] type busStop or trainStop GLO type
+     * @param[in] icon busStop or trainStop icon
+     * @param[in] id busStop ID
+     * @param[in] net pointer to GNENet of this additional element belongs
+     * @param[in] filename file in which this element is stored
+     * @param[in] lane Lane of this StoppingPlace belongs
+     * @param[in] startPos Start position of the StoppingPlace
+     * @param[in] endPos End position of the StoppingPlace
+     * @param[in] name Name of busStop
+     * @param[in] lines lines of the busStop
+     * @param[in] personCapacity larger numbers of persons trying to enter will create an upstream jam on the sidewalk.
+     * @param[in] parkingLength parking length
+     * @param[in] color busStop color
+     * @param[in] friendlyPos enable or disable friendly position
+     * @param[in] parameters generic parameters
+     */
+    GNEBusStop(SumoXMLTag tag, GUIGlObjectType type, GUIIcon icon, const std::string& id, GNENet* net,
+               const std::string& filename, GNELane* lane, const double startPos, const double endPos,
+               const std::string& name, const std::vector<std::string>& lines, int personCapacity,
+               double parkingLength, const RGBColor& color, bool friendlyPosition,
+               const Parameterised::Map& parameters);
 
     /// @brief Invalidated copy constructor.
     GNEBusStop(const GNEBusStop&) = delete;

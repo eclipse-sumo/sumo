@@ -25,7 +25,7 @@ title: Changes in the 2020 releases (versions 1.5.0, 1.6.0, 1.7.0 and 1.8.0)
   - battery model now works correctly with subseconds and handles additional power intake better. Issue #7695
   - crashing
     - Fixed crash on parallel intermodal routing. Issue #7627
-    - Fixe crash when defining stops on internal edges. Issue #7690
+    - Fixed crash when defining stops on internal edges. Issue #7690
     - Fixed crash when using meanData attribute 'trackVehicles=True' in a pedestrian simulation. Issue #7664
     - Fixed crash when vehicle with ssm device is teleported. Issue #7753
     - Fixed crash on invalid route input. Issue #7801
@@ -177,7 +177,7 @@ title: Changes in the 2020 releases (versions 1.5.0, 1.6.0, 1.7.0 and 1.8.0)
 
 ### Other
 - Changed osmWebWizard default for **--device.rerouting.adaptation-interval** from 1 to 10 to increase performance. The value of **--adaptation-steps** was reduced from 180 to 18 so that the time over which speeds are averaged remains at 180s (with fewer samples). Issue #7640
-- [macOS launchers](../Downloads.md#application_launchers) added for **sumo-gui**, **netedit** and the **osmWebWizard**. This allows to set **sumo-gui** as the default application to open `.sumocfg` files (to open a simulation by just double clicking a file) on macOS.
+- [macOS launchers](../Downloads.md#homebrew) added for **sumo-gui**, **netedit** and the **osmWebWizard**. This allows to set **sumo-gui** as the default application to open `.sumocfg` files (to open a simulation by just double clicking a file) on macOS.
 - extractTest.py now extracts tests for all variants (sumo, meso) which have specific outputs and got a lot better picking up all options
 
 
@@ -394,7 +394,7 @@ title: Changes in the 2020 releases (versions 1.5.0, 1.6.0, 1.7.0 and 1.8.0)
   - [attributeStats.py](../Tools/Output.md#attributestatspy) now supports option **--precision** to control output precision. Issue #7238
   - Improved [cutRoutes.py](../Tools/Routes.md#cutroutespy) for use with person plans. Issue #6027, #7384
   - Added new tool [addStopDelay.py](../Tools/Routes.md#addstopdelaypy) to add random stop delays to a route file. Issue #5209
-  - [routeSampler.py](../Tools/Turns.md#routesamplerpy): Now supports option **--weighted**. This causes routes to be sampled according to their probability. The probability can either be specified explicitly using route attribute 'probability' or implicitly if the same sequence of edges appears multiple times in the the route input. Issue #7501
+  - [routeSampler.py](../Tools/Turns.md#routesamplerpy): Now supports option **--weighted**. This causes routes to be sampled according to their probability. The probability can either be specified explicitly using route attribute 'probability' or implicitly if the same sequence of edges appears multiple times in the route input. Issue #7501
 
 ### Other
 - Simulation

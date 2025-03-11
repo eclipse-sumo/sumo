@@ -31,7 +31,7 @@ the type name is used as option name and the value indicates the
 position of the file. So
 
 ```
-polyconvert --visum mynet.net -o converted.poi.xml
+polyconvert --visum mynet.net -o converted.poi.xml
 ```
 imports from a VISUM-net file.
 
@@ -68,7 +68,9 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 attributes to the imported shapes in dependence of their "type". Not all
 imported formats have a type information. When using shape files, for
 example, all instances of an artifact type are normally stored in a
-distinct shape file.
+distinct shape file. **polyconvert** supports [virtual file systems](https://gdal.org/en/latest/user/virtual_file_systems.html) when
+importing shape files. So if you have your shapes in myshapes.zip and the main file has the name arcview.shp
+you can import them via `polyconvert --shapefile /vsizip/myshapes.zip/arcview` (**--shapefile** is an alias to **--shapefile-prefixes**).
 
 | Option | Description |
 |--------|-------------|
@@ -153,6 +155,7 @@ this boundary are discarded in these cases.
 | **--all-attributes** {{DT_BOOL}} | Imports all attributes as key/value pairs; *default:* **false** |
 | **--ignore-errors** {{DT_BOOL}} | Continue on broken input; *default:* **false** |
 | **--poi-layer-offset** {{DT_FLOAT}} | Adds FLOAT to the layer value for each poi (i.e. to raise it above polygons); *default:* **0** |
+| **--flatten** {{DT_BOOL}} | Remove all z-data; *default:* **false** |
 
 ### Building Defaults
 

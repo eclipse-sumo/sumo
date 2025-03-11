@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -21,21 +21,20 @@
 #include <config.h>
 
 #include <netedit/frames/GNEFrame.h>
-#include <netedit/frames/GNEAttributesCreator.h>
-#include <utils/foxtools/MFXDynamicLabel.h>
-#include <utils/vehicle/SUMOVehicleParameter.h>
-#include <netedit/elements/demand/GNERouteHandler.h>
-#include <netedit/frames/GNENeteditAttributes.h>
-#include <netedit/frames/GNEDemandSelector.h>
-#include <netedit/frames/GNETagSelector.h>
 
+// ===========================================================================
+// class declaration
+// ===========================================================================
+
+class GNEAttributesEditor;
+class GNEDemandElementSelector;
+class GNETagSelector;
+class MFXDynamicLabel;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/**
- * @class GNEStopFrame
- */
+
 class GNEStopFrame : public GNEFrame {
 
 public:
@@ -103,24 +102,21 @@ protected:
     void demandElementSelected();
 
 private:
-    /// @brief route handler
-    GNERouteHandler myRouteHandler;
-
     /// @brief stop parent base object
-    CommonXMLStructure::SumoBaseObject* myStopParentBaseObject;
+    CommonXMLStructure::SumoBaseObject* myStopParentBaseObject = nullptr;
+
+    /// @brief plan parameters
+    CommonXMLStructure::PlanParameters myPlanParameters;
 
     /// @brief Stop parent selectors
-    GNEDemandElementSelector* myStopParentSelector;
+    GNEDemandElementSelector* myStopParentSelector = nullptr;
 
     /// @brief stop tag selector selector (used to select diffent kind of Stops)
-    GNETagSelector* myStopTagSelector;
+    GNETagSelector* myStopTagSelector = nullptr;
 
-    /// @brief internal Stop attributes
-    GNEAttributesCreator* myStopAttributes;
-
-    /// @brief Netedit parameter
-    GNENeteditAttributes* myNeteditAttributes;
+    /// @brief attributes editor
+    GNEAttributesEditor* myAttributesEditor = nullptr;
 
     /// @brief Help creation
-    HelpCreation* myHelpCreation;
+    HelpCreation* myHelpCreation = nullptr;
 };

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2014-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2014-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -95,11 +95,11 @@ public:
      * @param[in] collectBlockers The list of persons blocking the crossing
      * @return Whether the vehicle must wait
      */
-    virtual bool blockedAtDist(const SUMOTrafficObject* ego, const MSLane* lane, double vehSide, double vehWidth,
+    virtual bool blockedAtDist(const SUMOTrafficObject* ego, const MSLane* lane, double vehCenter, double vehWidth,
                                double oncomingGap, std::vector<const MSPerson*>* collectBlockers) {
         UNUSED_PARAMETER(ego);
         UNUSED_PARAMETER(lane);
-        UNUSED_PARAMETER(vehSide);
+        UNUSED_PARAMETER(vehCenter);
         UNUSED_PARAMETER(vehWidth);
         UNUSED_PARAMETER(oncomingGap);
         UNUSED_PARAMETER(collectBlockers);

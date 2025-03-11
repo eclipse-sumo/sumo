@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -43,10 +43,11 @@ class GNEApplicationWindow : public GUIMainWindow, public MFXInterThreadEventCli
 public:
 
     /**@brief Constructor
-     * @param[in] a The FOX application
+     * @param[in] app The FOX application
+     * @param[in] tagPropertiesDatabase pointer to tag properties database
      * @param[in] configPattern The pattern used for loading configurations
      */
-    GNEApplicationWindow(FXApp* a, const std::string& configPattern);
+    GNEApplicationWindow(FXApp* app, const GNETagPropertiesDatabase* tagPropertiesDatabase, const std::string& configPattern);
 
     /// @brief Destructor
     ~GNEApplicationWindow();
@@ -479,6 +480,12 @@ public:
     /// @brief called when toggle checkbox compute network when switching between supermodes
     long onCmdToggleComputeNetworkData(FXObject*, FXSelector, void*);
 
+    /// @brief called when toggle checkbox disable undo redo (processing)
+    long onCmdToggleUndoRedo(FXObject*, FXSelector, void*);
+
+    /// @brief called when toggle checkbox disable undo redo during loading (file)
+    long onCmdToggleUndoRedoLoading(FXObject*, FXSelector, void*);
+
     /// @brief called when user press "options" button
     long onCmdOpenOptionsDialog(FXObject*, FXSelector, void*);
 
@@ -541,6 +548,9 @@ public:
     /// @brief get default cursor
     FXCursor* getDefaultCursor();
 
+    /// @brief get tag properties database
+    const GNETagPropertiesDatabase* getTagPropertiesDatabase() const;
+
     /// @brief get pointer to undoList
     GNEUndoList* getUndoList();
 
@@ -562,17 +572,24 @@ public:
     /// @brief update FXMenuCommands depending of supermode
     void updateSuperModeMenuCommands(const Supermode supermode);
 
-    /// @brief disable undo-redo giving a string with the reason
-    void disableUndoRedo(const std::string& reason);
+    /// @name functions related with undo-redo
+    /// @{
+    /// @brief check if undo-redo is allow (processing/checkbox)
+    bool isUndoRedoAllowed() const;
 
-    /// @brief disable undo-redo
-    void enableUndoRedo();
+    /// @brief enable undo-redo temporally (for example, after creating an edge)
+    void enableUndoRedoTemporally();
 
-    /// @brief check if undo-redo is enabled
-    const std::string& isUndoRedoEnabled() const;
+    /// @brief disable undo-redo temporally giving a string with the reason  (for example, if we're creating an edge)
+    void disableUndoRedoTemporally(const std::string& reason);
+
+    /// @brief check if undo-redo is enabled temporally
+    const std::string& isUndoRedoEnabledTemporally() const;
 
     /// @brief clear undo list
     void clearUndoList();
+
+    /// @}
 
     /// @brief get file Menu Commands (needed for show/hide menu commands)
     GNEApplicationWindowHelper::FileMenuCommands& getFileMenuCommands();
@@ -601,11 +618,11 @@ public:
     /// @brief load demand elements
     void loadDemandElements();
 
-    /// @brief load meanData elements
-    void loadMeanDataElements();
-
     /// @brief load data elements
     void loadDataElements();
+
+    /// @brief load meanData elements
+    void loadMeanDataElements();
 
 protected:
     /// @brief FOX needs this for static members
@@ -618,42 +635,44 @@ protected:
     bool myAmLoading = false;
 
     /// @brief the submenus
-    FXMenuPane* myFileMenu = nullptr,
-                *myFileMenuNeteditConfig = nullptr,
-                 *myFileMenuSumoConfig = nullptr,
-                  *myFileMenuTLS = nullptr,
-                   *myFileMenuEdgeTypes = nullptr,
-                    *myFileMenuAdditionals = nullptr,
-                     *myFileMenuDemandElements = nullptr,
-                      *myFileMenuDataElements = nullptr,
-                       *myFileMenuMeanDataElements = nullptr,
-                        *myFileMenuRecentNetworks = nullptr,
-                         *myFileMenuRecentConfigs = nullptr,
-                          *myModesMenu = nullptr,
-                           *myEditMenu = nullptr,
-                            *myLockMenu = nullptr,
-                             *myProcessingMenu = nullptr,
-                              *myLocatorMenu = nullptr,
-                               *myToolsMenu = nullptr,
-                                *myToolsDetectorMenu = nullptr,
-                                 *myToolsDistrictMenu = nullptr,
-                                  *myToolsDRTMenu = nullptr,
-                                   *myToolsEmissionsMenu = nullptr,
-                                    *myToolsImportMenu = nullptr,
-                                     *myToolsImportCityBrainMenu = nullptr,
-                                      *myToolsImportGTFSMenu = nullptr,
-                                       *myToolsImportVissim = nullptr,
-                                        *myToolsImportVisum = nullptr,
-                                         *myToolsNetMenu = nullptr,
-                                          *myToolsRouteMenu = nullptr,
-                                           *myToolsOutputMenu = nullptr,
-                                            *myToolsShapes = nullptr,
-                                             *myToolsTLS = nullptr,
-                                              *myToolsTurnDefs = nullptr,
-                                               *myToolsVisualizationMenu = nullptr,
-                                                *myToolsXML = nullptr,
-                                                 *myWindowMenu = nullptr,
-                                                  *myHelpMenu = nullptr;
+    FXMenuPane* myFileMenu = nullptr;
+    FXMenuPane* myFileMenuNeteditConfig = nullptr;
+    FXMenuPane* myFileMenuSumoConfig = nullptr;
+    FXMenuPane* myFileMenuTLS = nullptr;
+    FXMenuPane* myFileMenuEdgeTypes = nullptr;
+    FXMenuPane* myFileMenuAdditionals = nullptr;
+    FXMenuPane* myFileMenuDemandElements = nullptr;
+    FXMenuPane* myFileMenuDataElements = nullptr;
+    FXMenuPane* myFileMenuMeanDataElements = nullptr;
+    FXMenuPane* myFileMenuRecentNetworks = nullptr;
+    FXMenuPane* myFileMenuRecentConfigs = nullptr;
+    FXMenuPane* myModesMenu = nullptr;
+    FXMenuPane* myEditMenu = nullptr;
+    FXMenuPane* myLockMenu = nullptr;
+    FXMenuPane* myProcessingMenu = nullptr;
+    FXMenuPane* myLocatorMenu = nullptr;
+    FXMenuPane* myToolsMenu = nullptr;
+    FXMenuPane* myToolsAssignMenu = nullptr;
+    FXMenuPane* myToolsDetectorMenu = nullptr;
+    FXMenuPane* myToolsDistrictMenu = nullptr;
+    FXMenuPane* myToolsDRTMenu = nullptr;
+    FXMenuPane* myToolsEmissionsMenu = nullptr;
+    FXMenuPane* myToolsImportMenu = nullptr;
+    FXMenuPane* myToolsImportCityBrainMenu = nullptr;
+    FXMenuPane* myToolsImportGTFSMenu = nullptr;
+    FXMenuPane* myToolsImportVissim = nullptr;
+    FXMenuPane* myToolsImportVisum = nullptr;
+    FXMenuPane* myToolsNetMenu = nullptr;
+    FXMenuPane* myToolsRouteMenu = nullptr;
+    FXMenuPane* myToolsOutputMenu = nullptr;
+    FXMenuPane* myToolsShapes = nullptr;
+    FXMenuPane* myToolsTLS = nullptr;
+    FXMenuPane* myToolsTriggerMenu = nullptr;
+    FXMenuPane* myToolsTurnDefs = nullptr;
+    FXMenuPane* myToolsVisualizationMenu = nullptr;
+    FXMenuPane* myToolsXML = nullptr;
+    FXMenuPane* myWindowMenu = nullptr;
+    FXMenuPane* myHelpMenu = nullptr;
 
     /// @brief map with menu pane tools and strings
     std::map<std::string, FXMenuPane*> myMenuPaneToolMaps;
@@ -681,6 +700,9 @@ protected:
 
     /// @brief check if had dependent build
     bool myHadDependentBuild = false;
+
+    /// @brief tagProperties database
+    const GNETagPropertiesDatabase* myTagPropertiesDatabase = nullptr;
 
     /// @brief we are responsible for the net
     GNENet* myNet = nullptr;
@@ -758,6 +780,12 @@ private:
     /// @brief the prefix for the window title
     const FXString myTitlePrefix;
 
+    /// @brief allow undo-redo (read from registry)
+    bool myAllowUndoRedo = true;
+
+    /// @brief allow undo-redo loading (read from registry)
+    bool myAllowUndoRedoLoading = true;
+
     /// @brief The menu used for the MDI-windows
     FXMDIMenu* myMDIMenu = nullptr;
 
@@ -768,19 +796,7 @@ private:
     void closeAllWindows();
 
     /// @brief warns about unsaved changes and gives the user the option to abort
-    bool continueWithUnsavedChanges();
-
-    /// @brief warns about unsaved changes in additionals and gives the user the option to abort
-    bool continueWithUnsavedAdditionalChanges();
-
-    /// @brief warns about unsaved changes in demand elements and gives the user the option to abort
-    bool continueWithUnsavedDemandElementChanges();
-
-    /// @brief warns about unsaved changes in data elements and gives the user the option to abort
-    bool continueWithUnsavedDataElementChanges();
-
-    /// @brief warns about unsaved changes in meanData elements and gives the user the option to abort
-    bool continueWithUnsavedMeanDataElementChanges();
+    bool askSaveElements();
 
     /// @brief set input files in sumo options
     void setInputInSumoOptions(const bool ignoreAdditionals, const bool ignoreRoutes);

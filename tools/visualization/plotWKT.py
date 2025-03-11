@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2024-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2024-2025 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -44,12 +44,12 @@ def plotLineString(data, color):
 
 
 def plotGeom(data, min_area, color):
-    if type(data) == Polygon:
+    if isinstance(data, Polygon):
         plotPolygonWithHoles(data, min_area, color)
-    elif type(data) == MultiPolygon:
+    elif isinstance(data, MultiPolygon):
         for polygon in data.geoms:
             plotPolygonWithHoles(polygon, min_area, color)
-    elif type(data) == LineString:
+    elif isinstance(data, LineString):
         plotLineString(data, color)
 
 

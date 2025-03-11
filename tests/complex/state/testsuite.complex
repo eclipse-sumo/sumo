@@ -1,6 +1,9 @@
 # test state saving with persons
 persons
 
+# railway specific tests
+rail
+
 # two vehicles saved and reloaded
 plain
 
@@ -31,6 +34,12 @@ dists_xml
 # lots of vehicles with rerouting, insertion backlog and vehroute output
 rerouting
 
+# vehicles partially equipped for rerouting
+rerouting2
+
+# vehicles skip stop edges along looped routes (require stop attribute index) and reroute after finishing the stop (which affects the index value).
+rerouting_looped_stops
+
 # flow saved and loaded
 flow
 
@@ -49,15 +58,8 @@ save_flow50
 
 # save and load flow but do not load the original route file
 load_flow_state_only
-save_on_rail_signal
 save_parking
 save_parking_busStop
-save_rail_signal
-save_rail_signal_constraint
-
-# include the actual constraints in the saved state
-save_rail_signal_constraint_include
-save_rail_signal_approach_steplength
 save_rng
 save_routeDistribution
 
@@ -71,9 +73,6 @@ save_stopped_started_ended
 
 # save stops in named routes
 named_route_stops
-
-# restore further lanes according to previous route when loading state
-rail_furtherLane
 
 # test vehroute-output.exit-times after loading state
 exit_times
@@ -104,6 +103,15 @@ calibrator
 
 # see #11394
 continous_lanechange
+
+# vehicle stops twice in the same spot, state is saved before departure
+stops_looped
+
+# vehicle passes an edge twice but stops on the second pass
+stops_looped2
+
+# see #13110
+arrivalPos_random
 
 # two vehicles saved and reloaded
 replay

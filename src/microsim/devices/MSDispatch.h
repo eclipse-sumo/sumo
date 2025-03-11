@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2007-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2007-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -191,13 +191,13 @@ public:
     bool myHasServableReservations = false;
 
 protected:
-    void servedReservation(const Reservation* res);
+    void servedReservation(const Reservation* res, MSDevice_Taxi* taxi);
 
     /// @brief whether the given taxi has sufficient capacity to serve the reservation
     int remainingCapacity(const MSDevice_Taxi* taxi, const Reservation* res);
 
     // reservations that are currently being served (could still be used during re-dispatch)
-    std::set<const Reservation*> myRunningReservations;
+    std::map<std::string, std::map<const Reservation*, MSDevice_Taxi*> > myRunningReservations;
 
     /// @brief optional file output for dispatch information
     OutputDevice* myOutput;

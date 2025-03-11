@@ -1,13 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-07-25 11:08:20 by Eclipse SUMO netedit Version v1_18_0+0511-d8469bdc8ac
+<!-- generated on 2024-10-01 08:56:12 by Eclipse SUMO netedit Version v1_20_0+2204-fb162b24262
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <!-- VTypes -->
-    <vType id="typeA" length="20.00" width="5.00" height="12.00" color="cyan"/>
-    <vType id="typeB" length="20.00" width="5.00" height="12.00" color="cyan"/>
-    <vType id="typeC" length="20.00" width="5.00" height="12.00" color="cyan"/>
+    <vType id="typeA" length="10.00" width="5.00" height="12.00" color="cyan"/>
+    <vType id="typeB" length="11.00" width="5.00" height="12.00" color="cyan"/>
+    <vType id="typeC" length="12.00" width="5.00" height="12.00" color="cyan"/>
     <!-- Vehicles, persons and containers (sorted by depart) -->
     <flow id="flowA" type="typeC" begin="0.00" departLane="random" departPos="2.00" departPosLat="2.00" departSpeed="12.00" arrivalLane="0" arrivalPos="3.00" arrivalPosLat="3.00" arrivalSpeed="12.00" color="red" line="line A" fromTaz="taz_green" toTaz="taz_red" personNumber="1" containerNumber="5" end="26.00" number="14">
         <param key="KeyA1" value="valueA1"/>

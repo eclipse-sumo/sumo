@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-08-08 13:04:36 by Eclipse SUMO netedit Version v1_20_0+1763-a87dd661c22
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- StoppingPlaces -->
+    <busStop id="bs_0" lane="-E3_1" startPos="2.80" endPos="12.80"/>
+    <busStop id="bs_1" lane="E3_1" startPos="2.80" endPos="12.80"/>
+    <busStop id="bs_10" lane="-E6_1" startPos="2.80" endPos="12.80"/>
+    <busStop id="bs_11" lane="E6_1" startPos="4.80" endPos="14.80"/>
+    <busStop id="bs_12" lane="E0_1" startPos="2.80" endPos="12.80"/>
+    <busStop id="bs_2" lane="-E9_1" startPos="4.80" endPos="14.80"/>
+    <busStop id="bs_3" lane="-E0_1" startPos="4.80" endPos="14.80"/>
+    <busStop id="bs_4" lane="E9_1" startPos="2.80" endPos="12.80"/>
+    <busStop id="bs_5" lane="-E4_1" startPos="2.80" endPos="12.80"/>
+    <busStop id="bs_6" lane="-E10_1" startPos="4.80" endPos="14.80"/>
+    <busStop id="bs_7" lane="E10_1" startPos="2.80" endPos="12.80"/>
+    <busStop id="bs_8" lane="E4_1" startPos="2.80" endPos="12.80"/>
+    <!-- Detectors -->
+    <inductionLoop id="e1_0" lane="E1_1" pos="4.80" period="300.00" file="e1_0.xml"/>
+    <inductionLoop id="e1_1" lane="-E2_1" pos="4.80" period="300.00" file="e1_1.xml"/>
+    <inductionLoop id="e1_2" lane="-E1_1" pos="2.80" period="300.00" file="e1_2.xml"/>
+    <inductionLoop id="e1_3" lane="E2_1" pos="2.80" period="300.00" file="e1_3.xml"/>
+    <inductionLoop id="e1_4" lane="-E11_1" pos="2.80" period="300.00" file="e1_4.xml"/>
+    <inductionLoop id="e1_5" lane="E11_1" pos="4.80" period="300.00" file="e1_5.xml"/>
+    <inductionLoop id="e1_6" lane="E5_1" pos="2.80" period="300.00" file="e1_6.xml"/>
+    <inductionLoop id="e1_7" lane="-E5_1" pos="4.80" period="300.00" file="e1_7.xml"/>
+    <instantInductionLoop id="e1i_0" lane="-E7_1" pos="2.80" file="e1i_0.xml"/>
+    <instantInductionLoop id="e1i_1" lane="E7_1" pos="2.80" file="e1i_1.xml"/>
+    <instantInductionLoop id="e1i_2" lane="-E8_1" pos="2.80" file="e1i_2.xml"/>
+    <instantInductionLoop id="e1i_3" lane="E8_1" pos="2.80" file="e1i_3.xml"/>
+</additional>

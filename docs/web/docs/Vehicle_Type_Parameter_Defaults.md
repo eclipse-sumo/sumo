@@ -127,12 +127,12 @@ All passenger cars share the defaults listed above, the values below are just id
 - (23): `https://jml2012.indexcopernicus.com/fulltxt.php?ICID=1022800` (dead link) (pdf p.229-230)
 - (24): <https://de.wikipedia.org/wiki/Kleinkraftrad>
 - (25): <https://de.wikipedia.org/wiki/Vespa_LX>
-- (26): <https://www.colliseum.net/wiki/Bremsversuche_mit_dem_Kleinkraftrad_S_50_/_S_51>
+- (26): <https://www.colliseum.eu/wiki/Bremsversuche_mit_dem_Kleinkraftrad_S_50_/_S_51>
 - (27): <https://web.archive.org/web/20120622045505/https://www.unfallaufnahme.info/uebersichten-listen-und-tabellen/geschwindigkeiten-und-bremswege/index.html>
 - (28): <https://de.wikipedia.org/wiki/BMW_R_1200_GS_K25>
-- (29): <https://www.autoscout24.de/auto/technische-daten/mercedes-benz/vito/vito-111-cdi-kompakt-2003-2014-transporter-diesel/>
+- (29): <https://www.autoscout24.de/auto/technische-daten/mercedes-benz/vito/vito-111-cdi-kompakt-2003-2006-transporter-diesel/>
 - (30): <https://www.car-plus.de/news/17-7-5-tonner-mieten#:~:text=Unser%207%2C5%2DTonner,-Sie%20mieten%20bei&text=Der%20Laderaum%20ist%206%2C10,mit%20einer%20Maul%2D%20oder%20Kugelkopfkupplung.>
-- (31): <https://www.colliseum.net/wiki/Lkw-Anfahrbeschleunigungswerte_f%C3%BCr_die_Praxis>
+- (31): <https://www.colliseum.eu/wiki/Lkw-Anfahrbeschleunigungswerte_f%C3%BCr_die_Praxis>
 - (32): <https://de.wikipedia.org/wiki/Zul%C3%A4ssige_H%C3%B6chstgeschwindigkeit_im_Stra%C3%9Fenverkehr_(Deutschland)>
 - (33): `https://www.ice-fansite.com/index.php?option=com_content&view=article&id=195:ice1-techdat&catid=50:icet&Itemid=69` (dead link)
 - (34): <https://en.wikipedia.org/wiki/Orders_of_magnitude_(acceleration)>

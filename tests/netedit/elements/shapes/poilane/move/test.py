@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2009-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2009-2025 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -34,19 +34,20 @@ netedit.shapeMode()
 # go to shape mode
 netedit.changeElement("poiLane")
 
-# create poiLane
-netedit.leftClick(referencePosition, netedit.positions.elements.edge1)
+# create POILane
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 
-# go to move mode
+# change to move mode
 netedit.moveMode()
 
 # move
-netedit.moveElement(referencePosition, netedit.positions.elements.edge1, netedit.positions.elements.movementRadius)
+netedit.moveElementHorizontal(referencePosition, netedit.positions.elements.edgeCenter1,
+                              netedit.positions.elements.movementRadius)
 
-# Check undo redo
+# Check undos and redos
 netedit.checkUndoRedo(referencePosition)
 
-# save Netedit config
+# save netedit config
 netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit

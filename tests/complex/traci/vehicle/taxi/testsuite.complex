@@ -1,5 +1,8 @@
 getTaxiFleet
 
+# check interaction if taxi algorithm isn't "traci"
+defaultAlgorithm
+
 # dispatch a taxi to service a single customer
 basic
 
@@ -38,6 +41,15 @@ looped_dispatch
 
 # update reservations when removing a person
 remove_person
+
+# update taxi state when removing person that must be picked up
+remove_person2
+
+# update taxi state when removing person that must be picked up
+remove_person_dispatched
+
+# update taxi state when removing driving stage of a person that must be picked up
+remove_stage_dispatched
 
 # see #8398
 redispatch_on_internal

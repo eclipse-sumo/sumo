@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Aug 18 17:41:03 2020 by Eclipse SUMO sumo Version v1_6_0+1652-94f968aebd
+<!-- generated on 2024-07-05 13:57:21 by Eclipse SUMO sumo Version v1_20_0+0455-eda2cef667b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -25,7 +30,6 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
-        <xml-validation.routes value="never"/>
         <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -42,7 +46,7 @@ SPDX-License-Identifier: EPL-2.0
         <route edges="a b c c.19 d e"/>
     </vehicle>
 
-    <vehicle id="WE1" type="fast" depart="22.00" arrival="200.00">
+    <vehicle id="WE1" type="fast" depart="75.00" arrival="200.00">
         <route edges="a b c c.19 d e"/>
     </vehicle>
 

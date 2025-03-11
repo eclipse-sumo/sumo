@@ -1,8 +1,8 @@
 <viewsettings>
     <scheme name="standard">
-        <opengl dither="0" fps="0" drawBoundaries="0" forceDrawPositionSelection="0" disableDottedContours="0" forceDrawRectangleSelection="0" geometryIndices_show="0" geometryIndices_size="50.00" geometryIndices_color="255,0,128" geometryIndices_bgColor="128,0,0,0" geometryIndices_constantSize="1" geometryIndices_onlySelected="0"/>
+        <opengl dither="0" fps="0" trueZ="0" drawBoundaries="0" disableDottedContours="0" forceDrawRectangleSelection="0" geometryIndices_show="0" geometryIndices_size="50.00" geometryIndices_color="255,0,128" geometryIndices_bgColor="128,0,0,0" geometryIndices_constantSize="1" geometryIndices_onlySelected="0"/>
         <background backgroundColor="white" showGrid="0" gridXSize="100.00" gridYSize="100.00"/>
-        <edges laneEdgeMode="0" scaleMode="0" laneShowBorders="1" showBikeMarkings="1" showLinkDecals="1" realisticLinkRules="0" showLinkRules="1" showRails="1" secondaryShape="0" hideConnectors="0" widthExaggeration="1.00" minSize="0.00" showDirection="0" showSublanes="1" spreadSuperposed="0" edgeParam="EDGE_KEY" laneParam="LANE_KEY" vehicleParam="PARAM_NUMERICAL" vehicleScaleParam="PARAM_NUMERICAL" vehicleTextParam="PARAM_TEXT" edgeData="speed" edgeDataID="" edgeDataScaling="" edgeValueHideCheck="0" edgeValueHideThreshold="0.00" edgeValueHideCheck2="0" edgeValueHideThreshold2="200.00"
+        <edges laneEdgeMode="0" scaleMode="0" laneShowBorders="1" showBikeMarkings="1" showLinkDecals="1" realisticLinkRules="0" showLinkRules="1" showRails="1" secondaryShape="0" hideConnectors="0" widthExaggeration="1.00" minSize="0.00" showDirection="0" showSublanes="1" spreadSuperposed="0" disableHideByZoom="0" edgeParam="EDGE_KEY" laneParam="LANE_KEY" vehicleParam="PARAM_NUMERICAL" vehicleScaleParam="PARAM_NUMERICAL" vehicleTextParam="PARAM_TEXT" edgeData="speed" edgeDataID="" edgeDataScaling="" edgeValueHideCheck="0" edgeValueHideThreshold="0.00" edgeValueHideCheck2="0" edgeValueHideThreshold2="200.00" edgeValueSetNeutral="0" edgeValueNeutralThreshold="0.00" edgeValueFixRange="0"
                 edgeName_show="0" edgeName_size="60.00" edgeName_color="orange" edgeName_bgColor="128,0,0,0" edgeName_constantSize="1" edgeName_onlySelected="0"
                 internalEdgeName_show="0" internalEdgeName_size="45.00" internalEdgeName_color="128,64,0" internalEdgeName_bgColor="128,0,0,0" internalEdgeName_constantSize="1" internalEdgeName_onlySelected="0"
                 cwaEdgeName_show="0" cwaEdgeName_size="60.00" cwaEdgeName_color="magenta" cwaEdgeName_bgColor="128,0,0,0" cwaEdgeName_constantSize="1" cwaEdgeName_onlySelected="0"
@@ -21,6 +21,7 @@
                 <entry color="green" name="connector"/>
                 <entry color="orange" name="forbidden"/>
                 <entry color="145,145,145" name="data mode"/>
+                <entry color="200,240,240" name="airway"/>
             </colorScheme>
             <colorScheme name="by selection">
                 <entry color="grey" name="unselected"/>
@@ -35,10 +36,10 @@
                 <entry color="80,80,80" threshold="2080.00" name="pedestrian_delivery"/>
                 <entry color="192,66,44" threshold="65536.00" name="bicycle"/>
                 <entry color="150,200,200" threshold="8388608.00" name="waterway"/>
-                <entry color="255,206,0" threshold="50495455.00" name="motorway"/>
-                <entry color="black" threshold="50593759.00" name="disallow_pedestrian"/>
-                <entry color="black" threshold="50593791.00" name="normal_road"/>
-                <entry color="green" threshold="67108863.00" name="all"/>
+                <entry color="255,206,0" threshold="7247921119.00" name="motorway"/>
+                <entry color="black" threshold="7248019423.00" name="disallow_pedestrian"/>
+                <entry color="black" threshold="7248019455.00" name="normal_road"/>
+                <entry color="green" threshold="8589934591.00" name="all"/>
             </colorScheme>
             <colorScheme name="by allowed speed (lanewise)" interpolated="1">
                 <entry color="red" threshold="0.00"/>
@@ -119,7 +120,7 @@
                 <entry color="1.00" name="uniform"/>
             </scalingScheme>
         </edges>
-        <vehicles vehicleMode="0" vehicleScaleMode="0" vehicleQuality="0" vehicle_minSize="1.00" vehicle_exaggeration="1.00" vehicle_constantSize="0" vehicle_constantSizeSelected="0" showBlinker="1" drawMinGap="0" drawBrakeGap="0" showBTRange="0" showRouteIndex="0" scaleLength="1" drawReversed="0" showParkingInfo="0"
+        <vehicles vehicleMode="0" vehicleScaleMode="0" vehicleQuality="0" vehicle_minSize="1.00" vehicle_exaggeration="1.00" vehicle_constantSize="0" vehicle_constantSizeSelected="0" showBlinker="1" drawMinGap="0" drawBrakeGap="0" showBTRange="0" showRouteIndex="0" scaleLength="1" drawReversed="0" showParkingInfo="0" showChargingInfo="0"
                   vehicleName_show="0" vehicleName_size="60.00" vehicleName_color="204,153,0" vehicleName_bgColor="128,0,0,0" vehicleName_constantSize="1" vehicleName_onlySelected="0"
                   vehicleValue_show="0" vehicleValue_size="80.00" vehicleValue_color="cyan" vehicleValue_bgColor="128,0,0,0" vehicleValue_constantSize="1" vehicleValue_onlySelected="0"
                   vehicleScaleValue_show="0" vehicleScaleValue_size="80.00" vehicleScaleValue_color="grey" vehicleScaleValue_bgColor="128,0,0,0" vehicleScaleValue_constantSize="1" vehicleScaleValue_onlySelected="0"
@@ -151,7 +152,7 @@
                    junctionName_show="0" junctionName_size="60.00" junctionName_color="192,255,128" junctionName_bgColor="128,0,0,0" junctionName_constantSize="1" junctionName_onlySelected="0"
                    internalJunctionName_show="0" internalJunctionName_size="50.00" internalJunctionName_color="0,204,128" internalJunctionName_bgColor="128,0,0,0" internalJunctionName_constantSize="1" internalJunctionName_onlySelected="0"
                    tlsPhaseIndex_show="0" tlsPhaseIndex_size="150.00" tlsPhaseIndex_color="yellow" tlsPhaseIndex_bgColor="128,0,0,0" tlsPhaseIndex_constantSize="1" tlsPhaseIndex_onlySelected="0" tlsPhaseName_show="0" tlsPhaseName_size="150.00" tlsPhaseName_color="orange" tlsPhaseName_bgColor="128,0,0,0" tlsPhaseName_constantSize="1" tlsPhaseName_onlySelected="0"
-                   showLane2Lane="0" drawShape="1" drawCrossingsAndWalkingareas="1" junction_minSize="1.00" junction_exaggeration="1.00" junction_constantSize="0" junction_constantSizeSelected="0">
+                   showLane2Lane="0" drawShape="1" drawCrossingsAndWalkingareas="1" junction_minSize="1.00" junction_exaggeration="1.00" junction_constantSize="0" junction_constantSizeSelected="0" junctionValueHideCheck="0" junctionValueHideThreshold="0.00" junctionValueHideCheck2="0" junctionValueHideThreshold2="100.00" junctionValueSetNeutral="0" junctionValueNeutralThreshold="0.00" junctionValueFixRange="0">
             <colorScheme name="uniform">
                 <entry color="102,0,0"/>
                 <entry color="204,0,0" name="junction bubble"/>
@@ -220,5 +221,5 @@
         <view3D show3DTLSLinkMarkers="1" show3DTLSDomes="1" show3DHeadUpDisplay="1" generate3DTLSModels="0" ambient3DLight="32,32,32" diffuse3DLight="64,64,64"/>
         <legend showSizeLegend="1" showColorLegend="0" showVehicleColorLegend="0"/>
     </scheme>
-    <viewport zoom="120.00" x="30.00" y="30.00" angle="0.00"/>
+    <viewport zoom="140.00" x="0.00" y="0.00" angle="0.00"/>
 </viewsettings>

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -63,14 +63,19 @@ bool PCLoaderArcView::myWarnMissingProjection = true;
 // ===========================================================================
 void
 PCLoaderArcView::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill, PCTypeMap& tm) {
-    if (!oc.isSet("shapefile-prefixes")) {
+    if (!oc.isSet("shapefile-prefixes") && !oc.isSet("geojson-files")) {
         return;
     }
     // parse file(s)
-    std::vector<std::string> files = oc.getStringVector("shapefile-prefixes");
-    for (std::vector<std::string>::const_iterator file = files.begin(); file != files.end(); ++file) {
-        PROGRESS_BEGIN_MESSAGE("Parsing from shape-file '" + *file + "'");
-        load(*file, oc, toFill, tm);
+    for (std::string file : oc.getStringVector("shapefile-prefixes")) {
+        file += ".shp";
+        PROGRESS_BEGIN_MESSAGE("Parsing from shape-file '" + file + "'");
+        load(file, oc, toFill, tm);
+        PROGRESS_DONE_MESSAGE();
+    }
+    for (const std::string& file : oc.getStringVector("geojson-files")) {
+        PROGRESS_BEGIN_MESSAGE("Parsing from geojson-file '" + file + "'");
+        load(file, oc, toFill, tm);
         PROGRESS_DONE_MESSAGE();
     }
 }
@@ -101,7 +106,7 @@ PCLoaderArcView::toShape(OGRLineString* geom, const std::string& tid) {
         Position pos(geom->getX(j), geom->getY(j));
 #else
     for (const OGRPoint& p : *geom) {
-        Position pos(p.getX(), p.getY());
+        Position pos(p.getX(), p.getY(), p.Is3D() ? p.getZ() : 0.0);
 #endif
         if (!geoConvHelper.x2cartesian(pos)) {
             WRITE_ERRORF(TL("Unable to project coordinates for polygon '%'."), tid);
@@ -120,8 +125,6 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
     // get defaults
     const std::string idField = oc.getString("shapefile.id-column");
     const bool useRunningID = oc.getBool("shapefile.use-running-id") || idField == "";
-    // start parsing
-    std::string shpName = file + ".shp";
     int fillType = -1;
     if (oc.getString("shapefile.fill") == "true") {
         fillType = 1;
@@ -130,13 +133,13 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
     }
 #if GDAL_VERSION_MAJOR < 2
     OGRRegisterAll();
-    OGRDataSource* poDS = OGRSFDriverRegistrar::Open(shpName.c_str(), FALSE);
+    OGRDataSource* poDS = OGRSFDriverRegistrar::Open(file.c_str(), FALSE);
 #else
     GDALAllRegister();
-    GDALDataset* poDS = (GDALDataset*) GDALOpenEx(shpName.c_str(), GDAL_OF_VECTOR | GA_ReadOnly, NULL, NULL, NULL);
+    GDALDataset* poDS = (GDALDataset*) GDALOpenEx(file.c_str(), GDAL_OF_VECTOR | GA_ReadOnly, NULL, NULL, NULL);
 #endif
     if (poDS == NULL) {
-        throw ProcessError(TLF("Could not open shape description '%'.", shpName));
+        throw ProcessError(TLF("Could not open shape description '%'.", file));
     }
 
     // begin file parsing
@@ -227,7 +230,8 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
         }
         OGRwkbGeometryType gtype = poGeometry->getGeometryType();
         switch (gtype) {
-            case wkbPoint: {
+            case wkbPoint:
+            case wkbPoint25D: {
                 OGRPoint* cgeom = (OGRPoint*) poGeometry;
                 Position pos(cgeom->getX(), cgeom->getY());
                 if (!geoConvHelper.x2cartesian(pos)) {
@@ -248,7 +252,8 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
                 }
             }
             break;
-            case wkbPolygon: {
+            case wkbPolygon:
+            case wkbPolygon25D: {
                 const bool fill = fillType < 0 || fillType == 1;
                 const PositionVector shape = toShape(((OGRPolygon*) poGeometry)->getExteriorRing(), id);
                 SUMOPolygon* poly = new SUMOPolygon(id, type, color, shape, false, fill, 1, layer, angle, imgFile);
@@ -257,7 +262,8 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
                 }
             }
             break;
-            case wkbMultiPoint: {
+            case wkbMultiPoint:
+            case wkbMultiPoint25D: {
                 OGRMultiPoint* cgeom = (OGRMultiPoint*) poGeometry;
                 for (int i = 0; i < cgeom->getNumGeometries(); ++i) {
                     OGRPoint* cgeom2 = (OGRPoint*) cgeom->getGeometryRef(i);
@@ -273,7 +279,8 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
                 }
             }
             break;
-            case wkbMultiLineString: {
+            case wkbMultiLineString:
+            case wkbMultiLineString25D: {
                 OGRMultiLineString* cgeom = (OGRMultiLineString*) poGeometry;
                 for (int i = 0; i < cgeom->getNumGeometries(); ++i) {
                     const std::string tid = id + "#" + toString(i);
@@ -285,7 +292,8 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
                 }
             }
             break;
-            case wkbMultiPolygon: {
+            case wkbMultiPolygon:
+            case wkbMultiPolygon25D: {
                 const bool fill = fillType < 0 || fillType == 1;
                 OGRMultiPolygon* cgeom = (OGRMultiPolygon*) poGeometry;
                 for (int i = 0; i < cgeom->getNumGeometries(); ++i) {
@@ -302,17 +310,13 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
                 WRITE_WARNINGF(TL("Unsupported shape type occurred (id='%')."), id);
                 break;
         }
-        if (oc.getBool("shapefile.add-param")) {
+        if (oc.getBool("shapefile.add-param") || oc.getBool("all-attributes")) {
             for (std::vector<Parameterised*>::const_iterator it = parCont.begin(); it != parCont.end(); ++it) {
                 OGRFeatureDefn* poFDefn = poLayer->GetLayerDefn();
                 for (int iField = 0; iField < poFDefn->GetFieldCount(); iField++) {
                     OGRFieldDefn* poFieldDefn = poFDefn->GetFieldDefn(iField);
                     if (poFieldDefn->GetNameRef() != idField) {
-                        if (poFieldDefn->GetType() == OFTReal) {
-                            (*it)->setParameter(poFieldDefn->GetNameRef(), toString(poFeature->GetFieldAsDouble(iField)));
-                        } else {
-                            (*it)->setParameter(poFieldDefn->GetNameRef(), StringUtils::latin1_to_utf8(poFeature->GetFieldAsString(iField)));
-                        }
+                        (*it)->setParameter(poFieldDefn->GetNameRef(), StringUtils::latin1_to_utf8(poFeature->GetFieldAsString(iField)));
                     }
                 }
             }

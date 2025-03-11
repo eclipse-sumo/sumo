@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2003-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2003-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -28,6 +28,7 @@
 #include <map>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/StdDefs.h>
+#include <utils/common/StringBijection.h>
 #ifdef HAVE_FOX
 #include <utils/foxtools/fxheader.h>
 #endif
@@ -68,7 +69,7 @@ public:
      * @param[in] lane Lane on which the reminder will work.
      * @param[in] doAdd whether to add the reminder to the lane
      */
-    MSMoveReminder(const std::string& description, MSLane* const lane = 0, const bool doAdd = true);
+    MSMoveReminder(const std::string& description, MSLane* const lane = nullptr, const bool doAdd = true);
 
 
     /** @brief Destructor
@@ -122,7 +123,9 @@ public:
         /// @brief The vehicle got vaporized with a vaporizer
         NOTIFICATION_VAPORIZED_VAPORIZER,
         /// @brief The vehicle got removed via stationfinder device
-        NOTIFICATION_VAPORIZED_BREAKDOWN
+        NOTIFICATION_VAPORIZED_BREAKDOWN,
+        /// @brief must be the last one
+        NOTIFICATION_NONE
     };
 
 
@@ -204,7 +207,7 @@ public:
      *
      * @return True if the reminder wants to receive further info.
      */
-    virtual bool notifyLeave(SUMOTrafficObject& veh, double lastPos, Notification reason, const MSLane* enteredLane = 0) {
+    virtual bool notifyLeave(SUMOTrafficObject& veh, double lastPos, Notification reason, const MSLane* enteredLane = nullptr) {
         UNUSED_PARAMETER(&veh);
         UNUSED_PARAMETER(lastPos);
         UNUSED_PARAMETER(reason);
@@ -212,6 +215,25 @@ public:
         return true;
     }
 
+    /** @brief Called if the vehicle's back leaves the reminder's lane
+     *
+     * Informs if vehicle back leaves reminder lane (due to lane change, removal
+     *  from the network, or leaving to the next lane).
+     *  The default is to do nothing.
+     *
+     * @param[in] veh The leaving vehicle.
+     * @param[in] reason how the vehicle leaves the lane
+     * @param[in] leftLane The lane that the vehicle's back left
+     * @see Notification
+     *
+     * @return True if the reminder wants to receive further info.
+     */
+    virtual bool notifyLeaveBack(SUMOTrafficObject& veh, Notification reason, const MSLane* leftLane) {
+        UNUSED_PARAMETER(&veh);
+        UNUSED_PARAMETER(reason);
+        UNUSED_PARAMETER(leftLane);
+        return true;
+    }
 
     // TODO: Documentation
     void updateDetector(SUMOTrafficObject& veh, double entryPos, double leavePos,
@@ -267,13 +289,15 @@ public:
         return false;
     }
 
+    static StringBijection<Notification> Notifications;
+
 protected:
     void removeFromVehicleUpdateValues(SUMOTrafficObject& veh);
 
 protected:
 
     /// @brief Lane on which the reminder works
-    MSLane* const myLane;
+    MSLane* myLane;
     /// @brief a description of this moveReminder
     std::string myDescription;
 
@@ -284,6 +308,7 @@ protected:
 
 private:
     std::map<long long int, std::pair<SUMOTime, double> > myLastVehicleUpdateValues;
+    static StringBijection<Notification>::Entry NotificationValues[];
 
 
 private:

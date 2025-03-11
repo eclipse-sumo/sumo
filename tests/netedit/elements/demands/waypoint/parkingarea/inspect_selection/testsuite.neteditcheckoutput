@@ -4,12 +4,6 @@ until
 
 extension
 
-
-
-
-
-
-
 permitted
 
 acttype
@@ -19,3 +13,7 @@ tripid
 line
 
 speed
+
+jump
+
+split

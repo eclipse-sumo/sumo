@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -643,7 +643,7 @@ NBNodeCont::generateNodeClusters(double maxDist, NodeClusters& into) const {
                 if (length + dist < maxDist) {
                     // don't add long "boring" appendages but always join the whole rail crossing or tls
                     const bool trueGeomLike = s->geometryLike();
-                    if (trueGeomLike || geometryLikeForClass(s, SVC_WEAK | SVC_DELIVERY)) {
+                    if (trueGeomLike || geometryLikeForClass(s, SVC_VULNERABLE | SVC_DELIVERY)) {
                         const bool hasTLS = n->isTrafficLight() || s->isTrafficLight();
                         const double fullLength = e->getGeometry().length2D();
                         const double length2 = bothCrossing || hasTLS || trueGeomLike ? length : fullLength;
@@ -999,8 +999,7 @@ NBNodeCont::pruneClusterFringe(NodeSet& cluster, double maxDist) const {
                             || isRailway(e->getPermissions()) // join railway crossings
                             || (clusterDist <= pedestrianFringeThreshold
                                 && (!pruneNoisyFringe
-                                    || ((e->getPermissions() & SVC_WEAK) != 0 &&
-                                        (e->getPermissions() & ~SVC_WEAK) == 0)
+                                    || isForVulnerableModes(e->getPermissions())
                                     // permit joining small opposite merges
                                     || getDiameter(cluster) < maxDist
                                     || cluster.size() == 2))
@@ -1065,9 +1064,9 @@ NBNodeCont::pruneLongEdges(NodeSet& cluster, double maxDist, const bool dryRun) 
     }
     for (NBNode* n : cluster) {
         for (NBEdge* edge : n->getOutgoingEdges()) {
-            // we must track the edge length accross geometry like nodes
-            // Also, intersecions that are geometry-like
-            // from the perspective of passenger traffic should be tracked accross
+            // we must track the edge length across geometry like nodes
+            // Also, intersections that are geometry-like
+            // from the perspective of passenger traffic should be tracked across
             std::vector<NBNode*> passed;
             double length = 0;
             NBEdge* cur = edge;
@@ -1468,8 +1467,8 @@ NBNodeCont::feasibleCluster(const NodeSet& cluster, const std::map<const NBNode*
         return false;
     }
     // check for incoming parallel edges
-    const double PARALLEL_THRESHOLD_SAME_NODE = 10;
-    const double PARALLEL_THRESHOLD_DIFF_NODE = 30;
+    const double PARALLEL_THRESHOLD_DIFF_NODE = OptionsCont::getOptions().getFloat("junctions.join.parallel-threshold");
+    const double PARALLEL_THRESHOLD_SAME_NODE = PARALLEL_THRESHOLD_DIFF_NODE / 3;
     bool foundParallel = false;
     for (auto j = finalIncomingAngles.begin(); j != finalIncomingAngles.end() && !foundParallel; ++j) {
         auto k = j;
@@ -2055,7 +2054,7 @@ NBNodeCont::shouldBeTLSControlled(const NodeSet& c, double laneSpeedThreshold, b
             }
         }
     }
-    //std::cout << " c=" << joinNamedToString(c, ' ') << " f=" << f << " size=" << c.size() << " thresh=" << laneSpeedThreshold << " tooFast=" << tooFast << "\n";
+    //std::cout << " c=" << joinNamedToString(c, ' ') << " size=" << c.size() << " laneSpeedSum=" << laneSpeedSum << " thresh=" << laneSpeedThreshold << " tooFast=" << tooFast << "\n";
     return !tooFast && laneSpeedSum >= laneSpeedThreshold && c.size() != 0;
 }
 
@@ -2697,7 +2696,11 @@ NBNodeCont::discardTrafficLights(NBTrafficLightLogicCont& tlc, bool geometryLike
                 // do not remove joined tls when only removing geometry-like tls
                 continue;
             }
-            if (guessSignals && node->isTLControlled() && node->geometryLike()) {
+            if (node->getCrossings().size() > 0) {
+                // keep controlled pedestrian crossings
+                continue;
+            }
+            if (guessSignals && node->geometryLike()) {
                 // record signal location
                 for (NBEdge* edge : node->getOutgoingEdges()) {
                     edge->setSignalPosition(node->getPosition(), nullptr);

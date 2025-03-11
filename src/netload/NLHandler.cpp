@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -45,6 +45,7 @@
 #include <microsim/MSStoppingPlace.h>
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
 #include <microsim/traffic_lights/MSRailSignal.h>
+#include <microsim/traffic_lights/MSRailSignalControl.h>
 #include <microsim/traffic_lights/MSRailSignalConstraint.h>
 #include <mesosim/MESegment.h>
 #include <utils/iodevices/OutputDevice.h>
@@ -288,6 +289,9 @@ NLHandler::myStartElement(int element,
             case SUMO_TAG_INSERTION_ORDER: // intended fall-through
             case SUMO_TAG_BIDI_PREDECESSOR:
                 myLastParameterised.push_back(addPredecessorConstraint(element, attrs, myConstrainedSignal));
+                break;
+            case SUMO_TAG_DEADLOCK:
+                addDeadlock(attrs);
                 break;
             default:
                 break;
@@ -790,8 +794,10 @@ NLHandler::initTrafficLightLogic(const SUMOSAXAttributes& attrs) {
             type = TrafficLightType::STATIC;
         }
     }
-    //
-    const SUMOTime offset = attrs.getOptSUMOTimeReporting(SUMO_ATTR_OFFSET, id.c_str(), ok, 0);
+    SUMOTime offset = attrs.getOptOffsetReporting(SUMO_ATTR_OFFSET, id.c_str(), ok, 0);
+    if (offset == SUMOTime_MAX) {
+        offset = string2time(OptionsCont::getOptions().getString("begin"));
+    }
     if (!ok) {
         myCurrentIsBroken = true;
         return;
@@ -1593,34 +1599,34 @@ NLHandler::addDistrict(const SUMOSAXAttributes& attrs) {
         const std::string sinkID = myCurrentDistrictID + "-sink";
         const std::string sourceID = myCurrentDistrictID + "-source";
 
-        MSEdge* sink = myEdgeControlBuilder.buildEdge(sinkID, SumoXMLEdgeFunc::CONNECTOR, "", "", -1, 0);
-        if (!MSEdge::dictionary(sinkID, sink)) {
-            delete sink;
+        MSEdge* sink = MSEdge::dictionary(sinkID);
+        if (sink == nullptr) {
+            sink = myEdgeControlBuilder.buildEdge(sinkID, SumoXMLEdgeFunc::CONNECTOR, "", "", -1, 0);
+            MSEdge::dictionary(sinkID, sink);
+            sink->initialize(new std::vector<MSLane*>());
+        } else {
             if (OptionsCont::getOptions().getBool("junction-taz")
                     && myNet.getJunctionControl().get(myCurrentDistrictID) != nullptr) {
                 // overwrite junction taz
-                sink = MSEdge::dictionary(sinkID);
                 sink->resetTAZ(myNet.getJunctionControl().get(myCurrentDistrictID));
                 WRITE_WARNINGF(TL("Replacing junction-taz '%' with loaded TAZ."), myCurrentDistrictID);
             } else {
                 throw InvalidArgument("Another edge with the id '" + sinkID + "' exists.");
             }
-        } else {
-            sink->initialize(new std::vector<MSLane*>());
         }
-        MSEdge* source = myEdgeControlBuilder.buildEdge(sourceID, SumoXMLEdgeFunc::CONNECTOR, "", "", -1, 0);
-        if (!MSEdge::dictionary(sourceID, source)) {
-            delete source;
+        MSEdge* source = MSEdge::dictionary(sourceID);
+        if (source == nullptr) {
+            source = myEdgeControlBuilder.buildEdge(sourceID, SumoXMLEdgeFunc::CONNECTOR, "", "", -1, 0);
+            MSEdge::dictionary(sourceID, source);
+            source->initialize(new std::vector<MSLane*>());
+        } else {
             if (OptionsCont::getOptions().getBool("junction-taz")
                     && myNet.getJunctionControl().get(myCurrentDistrictID) != nullptr) {
                 // overwrite junction taz
-                source = MSEdge::dictionary(sourceID);
                 source->resetTAZ(myNet.getJunctionControl().get(myCurrentDistrictID));
             } else {
                 throw InvalidArgument("Another edge with the id '" + sourceID + "' exists.");
             }
-        } else {
-            source->initialize(new std::vector<MSLane*>());
         }
         sink->setOtherTazConnector(source);
         source->setOtherTazConnector(sink);
@@ -1645,7 +1651,7 @@ NLHandler::addDistrict(const SUMOSAXAttributes& attrs) {
             PositionVector shape = attrs.get<PositionVector>(SUMO_ATTR_SHAPE, myCurrentDistrictID.c_str(), ok);
             const bool fill = attrs.getOpt<bool>(SUMO_ATTR_FILL, myCurrentDistrictID.c_str(), ok, false);
             if (shape.size() != 0) {
-                if (!myNet.getShapeContainer().addPolygon(myCurrentDistrictID, "taz", color, 0, 0, "", false, shape, false, fill, 1.0, false, name)) {
+                if (!myNet.getShapeContainer().addPolygon(myCurrentDistrictID, "taz", color, 0, 0, "", shape, false, fill, 1.0, false, name)) {
                     WRITE_WARNINGF(TL("Skipping visualization of taz '%', polygon already exists."), myCurrentDistrictID);
                 } else {
                     myLastParameterised.push_back(myNet.getShapeContainer().getPolygons().get(myCurrentDistrictID));
@@ -1720,6 +1726,23 @@ NLHandler::addMesoEdgeType(const SUMOSAXAttributes& attrs) {
     if (myNetIsLoaded) {
         myHaveSeenMesoEdgeType = true;
     }
+}
+
+void
+NLHandler::addDeadlock(const SUMOSAXAttributes& attrs) {
+    bool ok = true;
+    std::vector<std::string> signalIDs = attrs.get<std::vector<std::string>>(SUMO_ATTR_SIGNALS, nullptr, ok);
+    std::vector<const MSRailSignal*> signals;
+    for (const std::string& id : signalIDs) {
+        const MSTrafficLightLogic* tll = myJunctionControlBuilder.getTLLogicControlToUse().getActive(id);
+        const MSRailSignal* rs = dynamic_cast<const MSRailSignal*>(tll);
+        if (rs != nullptr) {
+            signals.push_back(rs);
+        } else {
+            throw InvalidArgument("Rail signal '" + toString(id) + "' in " + toString(SUMO_TAG_DEADLOCK) + " is not known");
+        }
+    }
+    MSRailSignalControl::getInstance().addDeadlockCheck(signals);
 }
 
 // ----------------------------------

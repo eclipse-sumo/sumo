@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -31,16 +31,17 @@
 // ===========================================================================
 
 GNEVariableSpeedSignSymbol::GNEVariableSpeedSignSymbol(GNENet* net) :
-    GNEAdditional("", net, GLO_VSS, GNE_TAG_VSS_SYMBOL, GUIIconSubSys::getIcon(GUIIcon::VARIABLESPEEDSIGN), "",
-{}, {}, {}, {}, {}, {}) {
+    GNEAdditional("", net, "", GLO_VSS, GNE_TAG_VSS_SYMBOL, GUIIcon::VARIABLESPEEDSIGN, "") {
     // reset default values
     resetDefaultValues();
 }
 
 
 GNEVariableSpeedSignSymbol::GNEVariableSpeedSignSymbol(GNEAdditional* VSSParent, GNELane* lane) :
-    GNEAdditional(VSSParent->getNet(), GLO_VSS, GNE_TAG_VSS_SYMBOL, GUIIconSubSys::getIcon(GUIIcon::VARIABLESPEEDSIGN), "",
-{}, {}, {lane}, {VSSParent}, {}, {}) {
+    GNEAdditional(VSSParent, GLO_VSS, GNE_TAG_VSS_SYMBOL, GUIIcon::VARIABLESPEEDSIGN, "") {
+    // set parents
+    setParent<GNELane*>(lane);
+    setParent<GNEAdditional*>(VSSParent);
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -122,8 +123,8 @@ void
 GNEVariableSpeedSignSymbol::drawGL(const GUIVisualizationSettings& s) const {
     // first check if additional has to be drawn
     if (myNet->getViewNet()->getDataViewOptions().showAdditionals() &&
-        (myAdditionalGeometry.getShape().size() > 0) &&
-        (myAdditionalGeometry.getShapeRotations().size() > 0)) {
+            (myAdditionalGeometry.getShape().size() > 0) &&
+            (myAdditionalGeometry.getShapeRotations().size() > 0)) {
         // Obtain exaggeration of the draw
         const double VSSExaggeration = s.addSize.getExaggeration(s, getParentAdditionals().front());
         // get detail level
@@ -138,7 +139,8 @@ GNEVariableSpeedSignSymbol::drawGL(const GUIVisualizationSettings& s) const {
             myAdditionalContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
         }
         // calculate contour circle
-        myAdditionalContour.calculateContourCircleShape(s, d, this, myAdditionalGeometry.getShape().front(), 1.3, VSSExaggeration);
+        myAdditionalContour.calculateContourCircleShape(s, d, this, myAdditionalGeometry.getShape().front(), 1.3, getType(),
+                VSSExaggeration, getParentLanes().front()->getParentEdge());
     }
 }
 
@@ -150,7 +152,7 @@ GNEVariableSpeedSignSymbol::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_LANE:
             return getParentLanes().front()->getID();
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+            return getCommonAttribute(nullptr, key);
     }
 }
 
@@ -163,7 +165,7 @@ GNEVariableSpeedSignSymbol::getAttributeDouble(SumoXMLAttr /*key*/) const {
 
 const Parameterised::Map&
 GNEVariableSpeedSignSymbol::getACParametersMap() const {
-    return PARAMETERS_EMPTY;
+    return getParametersMap();
 }
 
 
@@ -200,7 +202,7 @@ GNEVariableSpeedSignSymbol::drawVSSSymbol(const GUIVisualizationSettings& s, con
     // start drawing symbol
     GLHelper::pushMatrix();
     // translate to front
-    myNet->getViewNet()->drawTranslateFrontAttributeCarrier(getParentAdditionals().front(), GLO_VSS);
+    getParentAdditionals().front()->drawInLayer(GLO_VSS);
     // translate to position
     glTranslated(myAdditionalGeometry.getShape().front().x(), myAdditionalGeometry.getShape().front().y(), 0);
     // rotate over lane

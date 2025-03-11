@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -18,6 +18,7 @@
 // The thread that performs the loading of a Netedit-net (adapted from
 // GUILoadThread)
 /****************************************************************************/
+
 #include <netbuild/NBFrame.h>
 #include <netbuild/NBNetBuilder.h>
 #include <netimport/NIFrame.h>
@@ -34,7 +35,6 @@
 #include "GNEEvent_NetworkLoaded.h"
 #include "GNELoadThread.h"
 #include "GNENet.h"
-
 
 // ===========================================================================
 // member method definitions
@@ -67,8 +67,6 @@ GNELoadThread::run() {
     auto& neteditOptions = OptionsCont::getOptions();
     // register message callbacks
     MsgHandler::getMessageInstance()->addRetriever(myMessageRetriever);
-    MsgHandler::getDebugInstance()->addRetriever(myDebugRetriever);
-    MsgHandler::getGLDebugInstance()->addRetriever(myGLDebugRetriever);
     MsgHandler::getErrorInstance()->addRetriever(myErrorRetriever);
     MsgHandler::getWarningInstance()->addRetriever(myWarningRetriever);
     // flag for check if input is valid
@@ -138,8 +136,6 @@ GNELoadThread::run() {
         return 0;
     }
     // clear message instances
-    MsgHandler::getGLDebugInstance()->clear();
-    MsgHandler::getDebugInstance()->clear();
     MsgHandler::getErrorInstance()->clear();
     MsgHandler::getWarningInstance()->clear();
     MsgHandler::getMessageInstance()->clear();
@@ -164,7 +160,7 @@ GNELoadThread::run() {
     // check if create a new net
     if (neteditOptions.getBool("new")) {
         // create new network
-        net = new GNENet(netBuilder);
+        net = new GNENet(netBuilder, myApplicationWindow->getTagPropertiesDatabase());
     } else {
         // declare net loader
         NILoader nl(*netBuilder);
@@ -189,7 +185,7 @@ GNELoadThread::run() {
                 throw ProcessError();
             } else {
                 // now create net with al information loaded in net builder
-                net = new GNENet(netBuilder);
+                net = new GNENet(netBuilder, myApplicationWindow->getTagPropertiesDatabase());
                 // check if change traffic direction
                 if (neteditOptions.getBool("lefthand")) {
                     // force initial geometry computation without volatile options because the net will look strange otherwise
@@ -240,8 +236,6 @@ GNELoadThread::run() {
 void
 GNELoadThread::submitEndAndCleanup(GNENet* net, const std::string& loadedFile, const std::string& guiSettingsFile, const bool viewportFromRegistry) {
     // remove message callbacks
-    MsgHandler::getDebugInstance()->removeRetriever(myDebugRetriever);
-    MsgHandler::getGLDebugInstance()->removeRetriever(myGLDebugRetriever);
     MsgHandler::getErrorInstance()->removeRetriever(myErrorRetriever);
     MsgHandler::getWarningInstance()->removeRetriever(myWarningRetriever);
     MsgHandler::getMessageInstance()->removeRetriever(myMessageRetriever);
@@ -332,6 +326,12 @@ GNELoadThread::fillOptions(OptionsCont& neteditOptions) {
 
     neteditOptions.doRegister("ignore.routeelements", new Option_Bool(false));
     neteditOptions.addDescription("ignore.routeelements", "Netedit", TL("Ignore route elements during loading of sumo-configs"));
+
+    neteditOptions.doRegister("e2.friendlyPos.automatic", new Option_Bool(true));
+    neteditOptions.addDescription("e2.friendlyPos.automatic", "Netedit", TL("If the lane is shorter than the additional, automatically enable friendlyPos"));
+
+    neteditOptions.doRegister("force-saving", new Option_Bool(false));
+    neteditOptions.addDescription("force-saving", "Netedit", TL("If enabled, elements will be saved regardless of whether they have been edited or not"));
 
     // network prefixes
 

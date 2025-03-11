@@ -6,3 +6,9 @@ waiting_time_top
 # route files is loaded with option -a so that the vehicle with the later depart (lower waitingTime) can be defined first.
 # This way the later vehicle would be allowed to to first if the numerical-id tiebraker were used.
 waiting_time_bottom
+
+# insertion cannot happen if the driveway is approache by a fast train that cannot stop safely.
+insertion_vs_fastApproach
+
+# ensure stable priority decision if one train wants to stop before a signal
+stop_before_signal

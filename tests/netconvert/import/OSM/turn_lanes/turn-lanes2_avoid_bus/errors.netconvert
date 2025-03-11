@@ -1,0 +1,9 @@
+Warning: Unknown lane use specifier '' ignored for way '11668362'
+Warning: Unknown lane use specifier '' ignored for way '11668362'
+Warning: Unknown lane use specifier '' ignored for way '11668362'
+Warning: Unknown lane use specifier '' ignored for way '24234881'
+Warning: Unknown lane use specifier '' ignored for way '24234881'
+Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.secondary' (first occurrence for edge '11668362').
+Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.primary' (first occurrence for edge '207669528').
+Warning: Cannot apply turn sign information for edge '-24234881#1' because there are 2 signed directions and 3 targets (after target pruning)
+Warning: 6 total messages of type: Unknown lane use specifier '%' ignored for way '%'

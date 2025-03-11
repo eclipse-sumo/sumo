@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<connections version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/connections_file.xsd">
+    <connection from="-gneE0_1" to="-gneE2" fromLane="0" toLane="0"/>
+    <connection from="-gneE0_1" to="-gneE3" fromLane="1" toLane="1"/>
+    <connection from="-gneE0_1" to="-gneE1" fromLane="2" toLane="1"/>
+
+    <connection from="-gneE1"/>
+
+    <connection from="-gneE2"/>
+
+    <connection from="-gneE3"/>
+
+    <connection from="gneE0"/>
+
+    <connection from="gneE1_1" to="gneE0" fromLane="0" toLane="0"/>
+    <connection from="gneE1_1" to="-gneE2" fromLane="0" toLane="0"/>
+    <connection from="gneE1_1" to="-gneE2" fromLane="1" toLane="0"/>
+    <connection from="gneE1_1" to="-gneE3" fromLane="1" toLane="2"/>
+
+    <connection from="gneE2_1" to="-gneE3" fromLane="0" toLane="0"/>
+    <connection from="gneE2_1" to="-gneE1" fromLane="0" toLane="0"/>
+    <connection from="gneE2_1" to="-gneE1" fromLane="0" toLane="1"/>
+    <connection from="gneE2_1" to="gneE0" fromLane="0" toLane="0"/>
+
+    <connection from="gneE3_1" to="-gneE1" fromLane="0" toLane="0"/>
+    <connection from="gneE3_1" to="gneE0" fromLane="0" toLane="0"/>
+    <connection from="gneE3_1" to="-gneE2" fromLane="0" toLane="0"/>
+
+    <!-- Custom priority east-west travel is higher than south-direct travel -->
+    <prohibition prohibitor="gneE1_1->-gneE2" prohibited="-gneE0_1->-gneE3"/>
+    <prohibition prohibitor="gneE2_1->-gneE1" prohibited="-gneE0_1->-gneE3"/>
+
+</connections>

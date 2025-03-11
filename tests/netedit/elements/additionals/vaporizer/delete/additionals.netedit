@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-02-23 16:27:12 by Eclipse SUMO netedit Version v1_16_0+0659-f7c8a084c16
+<!-- generated on 2021-11-16 09:59:01 by Eclipse SUMO netedit Version v1_10_0+2302-18d2c1dce6e
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <!-- Other additionals -->
-    <vaporizer id="EdgeCenter0" begin="5.00" end="20.00"/>
 </additional>

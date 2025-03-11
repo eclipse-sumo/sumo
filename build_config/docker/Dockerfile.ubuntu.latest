@@ -5,9 +5,14 @@
 # now you have a bash inside a docker container and can for instance run
 # $ sumo -c $SUMO_HOME/docs/examples/sumo/busses/test.sumocfg
 
-FROM ubuntu:bionic
+FROM ubuntu:jammy
 
 ENV SUMO_HOME=/usr/share/sumo
 
 RUN apt-get -y update; apt-get -y install software-properties-common; add-apt-repository ppa:sumo/stable
-RUN apt-get -y update; apt-get -y install sumo sumo-tools sumo-doc
+RUN apt-get -y update; apt-get -y install sumo sumo-doc sumo-tools
+
+RUN useradd -ms /bin/bash sumo
+
+USER sumo
+WORKDIR /home/sumo

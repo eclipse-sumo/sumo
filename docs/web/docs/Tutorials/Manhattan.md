@@ -21,7 +21,7 @@ for this tutorial are written in a configuration file. The network is
 created by calling
 
 ```
-netgenerate -c manhattan/data/manhattan.netgcfg
+netgenerate -c manhattan/data/manhattan.netgcfg
 ```
 
 # Generating vehicles
@@ -39,9 +39,9 @@ used to generated suitable randomFlows with the following options. If the **--tr
 is not recognized correctly, try using double quotes around the option value and escape double quotes inside.
 
 ```
- <SUMO_HOME>/tools/randomTrips.py -n net.net.xml -o flows.xml --begin 0 --end 1 \
-       --flows 100 --jtrrouter \
-       --trip-attributes 'departPos="random" departSpeed="max"'
+ <SUMO_HOME>/tools/randomTrips.py -n net.net.xml -o flows.xml --begin 0 --end 1 \
+       --flows 100 --jtrrouter \
+       --trip-attributes 'departPos="random" departSpeed="max"'
 ```
 
 The option **--flows 100** defines the number of vehicles that shall drive in the
@@ -69,7 +69,7 @@ All options for this tutorial are written in a configuration file. The
 vehicles are created by calling
 
 ```
-jtrrouter -c manhattan/data/manhattan.jtrrcfg
+jtrrouter -c manhattan/data/manhattan.jtrrcfg
 ```
 
 ## Remarks on Vehicle number

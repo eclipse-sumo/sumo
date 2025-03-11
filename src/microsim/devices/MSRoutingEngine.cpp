@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2007-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2007-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -182,13 +182,9 @@ SumoRNG*
 MSRoutingEngine::getThreadRNG() {
     if (myHaveRoutingThreads) {
         auto it = myThreadRNGs.find(std::this_thread::get_id());
-        if (it != myThreadRNGs.end()) {
-            return it->second;
-        } else {
-            SumoRNG* rng = new SumoRNG("routing_" + toString(myThreadRNGs.size()));
-            myThreadRNGs[std::this_thread::get_id()] = rng;
-            return rng;
-        }
+        // created by InitTask
+        assert(it != myThreadRNGs.end());
+        return it->second;
     }
     return nullptr;
 }
@@ -386,7 +382,7 @@ MSRoutingEngine::initRouter(SUMOVehicle* vehicle) {
     if (routingAlgorithm == "dijkstra") {
         router = new DijkstraRouter<MSEdge, SUMOVehicle>(MSEdge::getAllEdges(), true, myEffortFunc, nullptr, false, nullptr, true);
     } else if (routingAlgorithm == "astar") {
-        typedef AStarRouter<MSEdge, SUMOVehicle> AStar;
+        typedef AStarRouter<MSEdge, SUMOVehicle, MSMapMatcher> AStar;
         std::shared_ptr<const AStar::LookupTable> lookup = nullptr;
         if (oc.isSet("astar.all-distances")) {
             lookup = std::make_shared<const AStar::FLT>(oc.getString("astar.all-distances"), (int)MSEdge::getAllEdges().size());
@@ -398,7 +394,7 @@ MSRoutingEngine::initRouter(SUMOVehicle* vehicle) {
                 MSEdge::getAllEdges(), true, &MSNet::getTravelTime,
                 string2time(oc.getString("begin")), string2time(oc.getString("end")), SUMOTime_MAX, hasPermissions, 1);
             lookup = std::make_shared<const AStar::LMLT>(oc.getString("astar.landmark-distances"), MSEdge::getAllEdges(), &chrouter,
-                     nullptr, vehicle, "", oc.getInt("device.rerouting.threads"));
+                     nullptr, vehicle, "", oc.getInt("device.rerouting.threads"), MSNet::getInstance()->getMapMatcher());
             vehicle->setChosenSpeedFactor(speedFactor);
         }
         router = new AStar(MSEdge::getAllEdges(), true, myEffortFunc, lookup, true);
@@ -435,6 +431,10 @@ MSRoutingEngine::initRouter(SUMOVehicle* vehicle) {
             }
         }
         myHaveRoutingThreads = true;
+        for (int i = 0; i < threadPool.size(); i++) {
+            threadPool.add(new InitTask(), i);
+        }
+        threadPool.waitAll();
     }
 #endif
 #endif
@@ -639,6 +639,17 @@ MSRoutingEngine::RoutingTask::run(MFXWorkerThread* context) {
         }
     }
 }
+
+// ---------------------------------------------------------------------------
+// MSRoutingEngine::InitTask-methods
+// ---------------------------------------------------------------------------
+void
+MSRoutingEngine::InitTask::run(MFXWorkerThread* /*context*/) {
+    FXMutexLock lock(myRouteCacheMutex);
+    SumoRNG* rng = new SumoRNG("routing_" + toString(myThreadRNGs.size()));
+    myThreadRNGs[std::this_thread::get_id()] = rng;
+}
+
 #endif
 
 

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -20,16 +20,17 @@
 #pragma once
 #include <config.h>
 
-#include <netedit/elements/demand/GNERouteHandler.h>
-#include <netedit/frames/GNEAttributesCreator.h>
-#include <netedit/frames/GNEDemandSelector.h>
-#include <netedit/frames/GNEElementTree.h>
 #include <netedit/frames/GNEFrame.h>
-#include <netedit/frames/GNEPlanCreatorLegend.h>
-#include <netedit/frames/GNETagSelector.h>
-#include <netedit/frames/GNEPlanSelector.h>
-#include <netedit/frames/GNEPlanCreator.h>
 
+// ===========================================================================
+// class declaration
+// ===========================================================================
+
+class GNEAttributesEditor;
+class GNEDemandElementSelector;
+class GNEElementTree;
+class GNEPlanCreator;
+class GNEPlanSelector;
 
 // ===========================================================================
 // class definitions
@@ -40,7 +41,6 @@
 class GNEPersonPlanFrame : public GNEFrame {
 
 public:
-
     /**@brief Constructor
      * @brief viewParent GNEViewParent in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNEFrame
@@ -88,24 +88,21 @@ protected:
     bool createPath(const bool useLastRoute);
 
 private:
-    /// @brief route handler
-    GNERouteHandler myRouteHandler;
-
     /// @brief Person selectors
-    GNEDemandElementSelector* myPersonSelector;
+    GNEDemandElementSelector* myPersonSelector = nullptr;
 
     /// @brief personPlan selector
-    GNEPlanSelector* myPlanSelector;
+    GNEPlanSelector* myPlanSelector = nullptr;
 
-    /// @brief internal vehicle attributes
-    GNEAttributesCreator* myPersonPlanAttributes;
+    /// @brief person plan attributes editor
+    GNEAttributesEditor* myPersonPlanAttributesEditor = nullptr;
 
     /// @brief plan Creator
-    GNEPlanCreator* myPlanCreator;
+    GNEPlanCreator* myPlanCreator = nullptr;
 
     /// @brief Person Hierarchy
-    GNEElementTree* myPersonHierarchy;
+    GNEElementTree* myPersonHierarchy = nullptr;
 
     /// @brief plan creator legend
-    GNEPlanCreatorLegend* myPlanCreatorLegend;
+    GNEPlanCreatorLegend* myPlanCreatorLegend = nullptr;
 };

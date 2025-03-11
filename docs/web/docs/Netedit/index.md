@@ -96,6 +96,7 @@ In addition to these hotkeys, [all hotkeys for moving and zooming in
 sumo-gui](../sumo-gui.md#keyboard_shortcuts) are supported.
 
 - <Button-Left\>: Execute mode specific action
+  - in 'Inspect'-mode repeated clicks on the same location cycle through objects at that location
 - <Button-Right\>: Open context-menu
 - <Button-Right-Drag\>: Change zoom
 - <Button-Left-Drag\>: Move the view around (*panning*)
@@ -119,6 +120,9 @@ sumo-gui](../sumo-gui.md#keyboard_shortcuts) are supported.
   - in 'Create Edge'-mode, allow moving the view without defining junctions
   - in 'Create Additional'-mode, allow moving the view without adding additionals
   - in 'POI-Poly'-mode, allow moving the view without adding POIs
+- <kbd>ALT</kbd>:
+  - in 'Inspect'-mode: <Button-Left\> inspects individual object instead of selection (when object is selected)
+  - in 'Inspect'-mode: <Button-Right\> opens a menu for selecting among all objects at the same location
 - <kbd>Enter</kbd>:
   - in 'Inspect'-mode: confirm attribute changes
   - in 'Connect'-mode: deselect current lane and save all changes
@@ -129,6 +133,7 @@ sumo-gui](../sumo-gui.md#keyboard_shortcuts) are supported.
 ## Processing Menu Options
 
 - **Compute Junctions** (<kbd>F5</kbd>): recomputes the geometry and logic of all junctions. This is triggered automatically when entering modes which require this information (Connect, Traffic Lights).
+- **Compute Junctions with volatile options** (<kbd>Shift</kbd> + <kbd>F5</kbd>): recomputes everything and processes options that can modify the network if set (i.e. **crossings.guess**). This processing step does not support *undo/redo*.
 - **Clean Junctions** (<kbd>F6</kbd>): removes all junctions that do not have any adjacent edges (These junctions are not included when saving the network. They are kept in the editor until cleaned for potential reuse).
 - **Join Selected Junctions** (<kbd>F7</kbd>): joins the selected junctions into a single junction (See [joining junctions](../Networks/PlainXML.md#joining_nodes)).
 - **Options** (<kbd>F10</kbd>): inspect and set all options. These are the same options that [netconvert](../netconvert.md) accepts on the commandline or in a configuration.
@@ -228,6 +233,7 @@ Right clicking over an element will open a popup-menu with functions and operati
 - [Converting an intersection into a roundabout](neteditUsageExamples.md#converting_an_intersection_into_a_roundabout)
 - [Correcting road access permissions](neteditUsageExamples.md#correcting_road_access_permissions)
 - [Creating bidirectional railway tracks](neteditUsageExamples.md#creating_bidirectional_railway_tracks)
+- [Creating pedestrian infrastructure](neteditUsageExamples.md#building_pedestrian_infrastructure)
 - [**+ many others**](neteditUsageExamples.md).
 
 # Planned Features

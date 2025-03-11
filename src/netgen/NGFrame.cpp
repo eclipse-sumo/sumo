@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2011-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2011-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -50,11 +50,11 @@ NGFrame::fillOptions() {
     oc.addDescription("turn-lanes.length", "Processing", TL("Set the length of generated turning lanes to FLOAT"));
 
     oc.doRegister("perturb-x", new Option_String("0"));
-    oc.addDescription("perturb-x", "Processing", TL("Apply random spatial perturbation in x direction according the the given distribution"));
+    oc.addDescription("perturb-x", "Processing", TL("Apply random spatial perturbation in x direction according to the given distribution"));
     oc.doRegister("perturb-y", new Option_String("0"));
-    oc.addDescription("perturb-y", "Processing", TL("Apply random spatial perturbation in y direction according the the given distribution"));
+    oc.addDescription("perturb-y", "Processing", TL("Apply random spatial perturbation in y direction according to the given distribution"));
     oc.doRegister("perturb-z", new Option_String("0"));
-    oc.addDescription("perturb-z", "Processing", TL("Apply random spatial perturbation in z direction according the the given distribution"));
+    oc.addDescription("perturb-z", "Processing", TL("Apply random spatial perturbation in z direction according to the given distribution"));
 
     oc.doRegister("bidi-probability", new Option_Float(1));
     oc.addSynonyme("bidi-probability", "rand-bidi-probability", true);
@@ -184,32 +184,32 @@ NGFrame::fillOptions() {
     oc.doRegister("rand.neighbor-dist1", new Option_Float(0));
     oc.addSynonyme("rand.neighbor-dist1", "rand-neighbor-dist1", true);
     oc.addSynonyme("rand.neighbor-dist1", "dist1");
-    oc.addDescription("rand.neighbor-dist1", "Random Network", TL("Probability for a node having exactly 1 neighbor"));
+    oc.addDescription("rand.neighbor-dist1", "Random Network", TL("Probability for a node having at most 1 neighbor"));
 
     oc.doRegister("rand.neighbor-dist2", new Option_Float(0));
     oc.addSynonyme("rand.neighbor-dist2", "rand-neighbor-dist2", true);
     oc.addSynonyme("rand.neighbor-dist2", "dist2");
-    oc.addDescription("rand.neighbor-dist2", "Random Network", TL("Probability for a node having exactly 2 neighbors"));
+    oc.addDescription("rand.neighbor-dist2", "Random Network", TL("Probability for a node having at most 2 neighbors"));
 
     oc.doRegister("rand.neighbor-dist3", new Option_Float(10));
     oc.addSynonyme("rand.neighbor-dist3", "rand-neighbor-dist3", true);
     oc.addSynonyme("rand.neighbor-dist3", "dist3");
-    oc.addDescription("rand.neighbor-dist3", "Random Network", TL("Probability for a node having exactly 3 neighbors"));
+    oc.addDescription("rand.neighbor-dist3", "Random Network", TL("Probability for a node having at most 3 neighbors"));
 
     oc.doRegister("rand.neighbor-dist4", new Option_Float(10));
     oc.addSynonyme("rand.neighbor-dist4", "rand-neighbor-dist4", true);
     oc.addSynonyme("rand.neighbor-dist4", "dist4");
-    oc.addDescription("rand.neighbor-dist4", "Random Network", TL("Probability for a node having exactly 4 neighbors"));
+    oc.addDescription("rand.neighbor-dist4", "Random Network", TL("Probability for a node having at most 4 neighbors"));
 
     oc.doRegister("rand.neighbor-dist5", new Option_Float(2));
     oc.addSynonyme("rand.neighbor-dist5", "rand-neighbor-dist5", true);
     oc.addSynonyme("rand.neighbor-dist5", "dist5");
-    oc.addDescription("rand.neighbor-dist5", "Random Network", TL("Probability for a node having exactly 5 neighbors"));
+    oc.addDescription("rand.neighbor-dist5", "Random Network", TL("Probability for a node having at most 5 neighbors"));
 
     oc.doRegister("rand.neighbor-dist6", new Option_Float(1));
     oc.addSynonyme("rand.neighbor-dist6", "rand-neighbor-dist6", true);
     oc.addSynonyme("rand.neighbor-dist6", "dist6");
-    oc.addDescription("rand.neighbor-dist6", "Random Network", TL("Probability for a node having exactly 6 neighbors"));
+    oc.addDescription("rand.neighbor-dist6", "Random Network", TL("Probability for a node having at most 6 neighbors"));
 
     oc.doRegister("rand.grid", new Option_Bool(false));
     oc.addDescription("rand.grid", "Random Network", TL("Place nodes on a regular grid with spacing rand.min-distance"));
@@ -272,6 +272,10 @@ NGFrame::checkOptions() {
     }
     if (oc.getBool("random-type") && !oc.isSet("type-files")) {
         WRITE_WARNING(TL("Option 'random-type' takes no effect unless 'type-files' are loaded"));
+    }
+    if (oc.getFloat("rand.connectivity") > 0.999) {
+        WRITE_ERROR(TL("Option 'rand.connectivity' requires a value below 0.999"));
+        ok = false;
     }
     return ok;
 }

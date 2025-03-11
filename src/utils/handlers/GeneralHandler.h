@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -20,12 +20,7 @@
 #pragma once
 #include <config.h>
 
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <utils/xml/SUMOSAXHandler.h>
-
 
 // ===========================================================================
 // class definitions
@@ -52,6 +47,9 @@ private:
     /// @brief end element
     virtual void endTag() = 0;
 
+    /// @brief run post parser tasks
+    virtual bool postParserTasks() = 0;
+
     /// @name inherited from SUMOSAXHandler
     /// @{
     /** @brief Called on the opening of a tag;
@@ -72,7 +70,11 @@ private:
      * @todo Refactor/describe
      */
     void myEndElement(int element);
+
     /// @}
+
+    /// @brief invalidate default onstructor
+    GeneralHandler() = delete;
 
     /// @brief invalidate copy constructor
     GeneralHandler(const GeneralHandler& s) = delete;

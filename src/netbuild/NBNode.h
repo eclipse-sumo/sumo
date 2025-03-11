@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -338,7 +338,7 @@ public:
     }
 
     /// @brief causes the traffic light to be computed anew
-    void invalidateTLS(NBTrafficLightLogicCont& tlCont, bool removedConnections, bool addedConnections);
+    void invalidateTLS(NBTrafficLightLogicCont& tlCont, bool addedConnections, bool removedConnections);
 
     /// @brief patches loaded signal plans by modifying lane indices above threshold by the given offset
     void shiftTLConnectionLaneIndex(NBEdge* edge, int offset, int threshold = -1);
@@ -478,7 +478,7 @@ public:
     bool mustBrakeForCrossing(const NBEdge* const from, const NBEdge* const to, const Crossing& crossing) const;
 
     /// @brief whether a connection to the given edge must brake for a crossing when leaving the intersection
-    bool brakeForCrossingOnExit(const NBEdge* to) const;
+    bool brakeForCrossingOnExit(const NBEdge* to, LinkDirection dir, bool indirect) const;
 
     /// @brief return whether the given laneToLane connection is a right turn which must yield to a bicycle crossings
     static bool rightTurnConflict(const NBEdge* from, const NBEdge* to, int fromLane,
@@ -847,6 +847,12 @@ public:
     /// @brief return list of unique endpoint coordinates of all edges at this node
     std::vector<std::pair<Position, std::string> > getEndPoints() const;
 
+    /// @brief ensure connectivity for all vClasses
+    void recheckVClassConnections(NBEdge* currentOutgoing);
+
+    /// @brief initialize signalized rail classes
+    static void initRailSignalClasses(const NBNodeCont& nc);
+
 private:
     /// @brief sets the priorites in case of a priority junction
     void setPriorityJunctionPriorities();
@@ -881,11 +887,11 @@ private:
 
     NBEdge* getNextCompatibleOutgoing(const NBEdge* incoming, SVCPermissions vehPerm, EdgeVector::const_iterator start, bool clockwise) const;
 
-    /// @brief ensure connectivity for all vClasses
-    void recheckVClassConnections(NBEdge* currentOutgoing);
-
     /// @brief get the reduction in driving lanes at this junction
     void getReduction(const NBEdge* in, const NBEdge* out, int& inOffset, int& inEnd, int& outOffset, int& outEnd, int& reduction) const;
+
+    /// @brief helper function to add connections for unsatisfied modes
+    SVCPermissions findToLaneForPermissions(NBEdge* currentOutgoing, int fromLane, NBEdge* incoming, SVCPermissions unsatisfied);
 
     /// @brief check whether this edge has extra lanes on the right side
     int addedLanesRight(NBEdge* out, int addedLanes) const;
@@ -901,6 +907,18 @@ private:
 
     /// @brief geometry helper that cuts the first shape where bordered by the other two
     PositionVector cutAtShapes(const PositionVector& cut, const PositionVector& border1, const PositionVector& border2, const PositionVector& def);
+
+    /// @brief compute offset for centering path-across-street crossings
+    void patchOffset_pathAcrossStreet(double& offset);
+
+    /// @brief whether the given rail connections at this node may run in unsignalized (right-of-way) mode
+    bool unsignalizedOperation() const;
+
+    /// @brief ensure connectivity for all special vClass
+    void recheckSpecialConnections(NBEdge* incoming, NBEdge* currentOutgoing, SVCPermissions svcSpecial);
+
+    /// @brief helper function for recheckSpecialConnections
+    bool avoidConfict(NBEdge* incoming, NBEdge* currentOutgoing, SVCPermissions svcSpecial, LinkDirection dir, int i);
 
 private:
     /// @brief The position the node lies at
@@ -976,6 +994,12 @@ private:
 
     /// @brief whether the node type was guessed rather than loaded
     bool myTypeWasGuessed;
+
+    /// @brief all vehicle classes for which rail signals exist
+    static SVCPermissions myHaveRailSignalClasses;
+
+    /// @brief all rail classes for which operation without rail signals is permitted
+    static SVCPermissions myPermitUnsignalizedClasses;
 
 private:
     /// @brief invalidated copy constructor

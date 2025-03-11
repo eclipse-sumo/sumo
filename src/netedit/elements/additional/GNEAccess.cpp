@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -20,6 +20,7 @@
 #include <config.h>
 
 #include <netedit/GNENet.h>
+#include <netedit/GNETagProperties.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
@@ -38,23 +39,26 @@
 // ===========================================================================
 
 GNEAccess::GNEAccess(GNENet* net) :
-    GNEAdditional("", net, GLO_ACCESS, SUMO_TAG_ACCESS, GUIIconSubSys::getIcon(GUIIcon::ACCESS), "", {}, {}, {}, {}, {}, {}),
-              myPositionOverLane(0),
-              myLength(0),
-myFriendlyPosition(false) {
+    GNEAdditional("", net, "", GLO_ACCESS, SUMO_TAG_ACCESS, GUIIcon::ACCESS, ""),
+    myPositionOverLane(0),
+    myLength(0),
+    myFriendlyPosition(false) {
     // reset default values
     resetDefaultValues();
 }
 
 
-GNEAccess::GNEAccess(GNEAdditional* busStop, GNELane* lane, GNENet* net, const double pos, const std::string& specialPos,
+GNEAccess::GNEAccess(GNEAdditional* busStop, GNELane* lane, const double pos, const std::string& specialPos,
                      const bool friendlyPos, const double length, const Parameterised::Map& parameters) :
-    GNEAdditional(net, GLO_ACCESS, SUMO_TAG_ACCESS, GUIIconSubSys::getIcon(GUIIcon::ACCESS), "", {}, {}, {lane}, {busStop}, {}, {}),
-Parameterised(parameters),
-myPositionOverLane(pos),
-mySpecialPosition(specialPos),
-myLength(length),
-myFriendlyPosition(friendlyPos) {
+    GNEAdditional(busStop, GLO_ACCESS, SUMO_TAG_ACCESS, GUIIcon::ACCESS, ""),
+    Parameterised(parameters),
+    myPositionOverLane(pos),
+    mySpecialPosition(specialPos),
+    myLength(length),
+    myFriendlyPosition(friendlyPos) {
+    // set parents
+    setParent<GNELane*>(lane);
+    setParent<GNEAdditional*>(busStop);
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -192,7 +196,8 @@ GNEAccess::checkDrawMoveContour() const {
     // get edit modes
     const auto& editModes = myNet->getViewNet()->getEditModes();
     // check if we're in move mode
-    if (!myNet->getViewNet()->isMovingElement() && editModes.isCurrentSupermodeNetwork() &&
+    if (!myNet->getViewNet()->isCurrentlyMovingElements() && editModes.isCurrentSupermodeNetwork() &&
+            !myNet->getViewNet()->getEditNetworkElementShapes().getEditedNetworkElement() &&
             (editModes.networkEditMode == NetworkEditMode::NETWORK_MOVE) && myNet->getViewNet()->checkOverLockedElement(this, mySelected)) {
         // only move the first element
         return myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == this;
@@ -220,12 +225,16 @@ GNEAccess::drawGL(const GUIVisualizationSettings& s) const {
     if (myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
         // Obtain exaggeration
         const double accessExaggeration = getExaggeration(s);
+        // adjust radius depending of mode and distance to mouse position
+        double radius = 0.5;
+        if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
+                myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(myAdditionalGeometry.getShape().front()) < 1) {
+            radius = 1;
+        }
         // get detail level
         const auto d = s.getDetailLevel(1);
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
         if (s.checkDrawAdditional(d, isAttributeCarrierSelected())) {
-            // radius depends if mouse is over element
-            const double radius = gViewObjectsHandler.isElementSelected(this) ? 1 : 0.5;
             // get color
             RGBColor accessColor;
             if (drawUsingSelectColor()) {
@@ -240,13 +249,13 @@ GNEAccess::drawGL(const GUIVisualizationSettings& s) const {
             // push layer matrix
             GLHelper::pushMatrix();
             // translate to front
-            myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_ACCESS);
+            drawInLayer(GLO_ACCESS);
             // set color
             GLHelper::setColor(accessColor);
             // translate to geometry position
             glTranslated(myAdditionalGeometry.getShape().front().x(), myAdditionalGeometry.getShape().front().y(), 0);
             // draw circle
-            GLHelper::drawFilledCircleDetailled(d, radius);
+            GLHelper::drawFilledCircleDetailled(d, radius * accessExaggeration);
             // pop layer matrix
             GLHelper::popMatrix();
             // draw lock icon
@@ -255,7 +264,8 @@ GNEAccess::drawGL(const GUIVisualizationSettings& s) const {
             myAdditionalContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidthSmall, true);
         }
         // calculate contour
-        myAdditionalContour.calculateContourCircleShape(s, d, this, myAdditionalGeometry.getShape().front(), 1, accessExaggeration);
+        myAdditionalContour.calculateContourCircleShape(s, d, this, myAdditionalGeometry.getShape().front(), radius, getType(),
+                accessExaggeration, getParentLanes().front()->getParentEdge());
     }
 }
 
@@ -278,15 +288,15 @@ GNEAccess::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_FRIENDLY_POS:
             return toString(myFriendlyPosition);
         case GNE_ATTR_PARENT:
-            return getParentAdditionals().at(0)->getID();
-        case GNE_ATTR_SELECTED:
-            return toString(isAttributeCarrierSelected());
-        case GNE_ATTR_PARAMETERS:
-            return getParametersStr();
+            if (isTemplate()) {
+                return "";
+            } else {
+                return getParentAdditionals().at(0)->getID();
+            }
         case GNE_ATTR_SHIFTLANEINDEX:
             return "";
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+            return getCommonAttribute(this, key);
     }
 }
 
@@ -311,13 +321,12 @@ GNEAccess::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* 
         case SUMO_ATTR_LENGTH:
         case SUMO_ATTR_FRIENDLY_POS:
         case GNE_ATTR_PARENT:
-        case GNE_ATTR_SELECTED:
-        case GNE_ATTR_PARAMETERS:
         case GNE_ATTR_SHIFTLANEINDEX:
             GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+            setCommonAttribute(key, value, undoList);
+            break;
     }
 }
 
@@ -354,12 +363,8 @@ GNEAccess::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<bool>(value);
         case GNE_ATTR_PARENT:
             return (myNet->getAttributeCarriers()->retrieveAdditionals(NamespaceIDs::busStops, value, false) != nullptr);
-        case GNE_ATTR_SELECTED:
-            return canParse<bool>(value);
-        case GNE_ATTR_PARAMETERS:
-            return areParametersValid(value);
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+            return isCommonValid(key, value);
     }
 }
 
@@ -396,7 +401,11 @@ GNEAccess::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             break;
         case SUMO_ATTR_LENGTH:
-            myLength = parse<double>(value);
+            if (value.empty()) {
+                myLength = myTagProperty->getDefaultDoubleValue(key);
+            } else {
+                myLength = parse<double>(value);
+            }
             break;
         case SUMO_ATTR_FRIENDLY_POS:
             myFriendlyPosition = parse<bool>(value);
@@ -408,21 +417,12 @@ GNEAccess::setAttribute(SumoXMLAttr key, const std::string& value) {
                 replaceAdditionalParent(SUMO_TAG_TRAIN_STOP, value, 0);
             }
             break;
-        case GNE_ATTR_SELECTED:
-            if (parse<bool>(value)) {
-                selectAttributeCarrier();
-            } else {
-                unselectAttributeCarrier();
-            }
-            break;
-        case GNE_ATTR_PARAMETERS:
-            setParametersStr(value);
-            break;
         case GNE_ATTR_SHIFTLANEINDEX:
             shiftLaneIndex();
             break;
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+            setCommonAttribute(this, key, value);
+            break;
     }
 }
 

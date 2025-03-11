@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -27,48 +27,39 @@
 
 #include "GNERide.h"
 
+
 // ===========================================================================
 // method definitions
 // ===========================================================================
-
-GNERide*
-GNERide::buildRide(GNENet* net, GNEDemandElement* personParent,
-                   GNEEdge* fromEdge, GNEAdditional* fromBusStop, GNEAdditional* fromTrainStop,
-                   GNEEdge* toEdge, GNEAdditional* toBusStop, GNEAdditional* toTrainStop,
-                   double arrivalPosition, const std::vector<std::string>& lines) {
-    // declare icon an tag
-    const auto iconTag = getRideTagIcon(fromEdge, toEdge, fromBusStop, toBusStop, fromTrainStop, toTrainStop);
-    // declare containers
-    std::vector<GNEJunction*> junctions;
-    std::vector<GNEEdge*> edges;
-    std::vector<GNEAdditional*> additionals;
-    // continue depending of input parameters
-    if (fromEdge) {
-        edges.push_back(fromEdge);
-    } else if (fromBusStop) {
-        additionals.push_back(fromBusStop);
-    } else if (fromTrainStop) {
-        additionals.push_back(fromTrainStop);
-    }
-    if (toEdge) {
-        edges.push_back(toEdge);
-    } else if (toBusStop) {
-        additionals.push_back(toBusStop);
-    } else if (toTrainStop) {
-        additionals.push_back(toTrainStop);
-    }
-    return new GNERide(net, iconTag.first, iconTag.second, personParent, edges, additionals, arrivalPosition, lines);
-}
-
-
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4355) // mask warning about "this" in initializers
+#endif
 GNERide::GNERide(SumoXMLTag tag, GNENet* net) :
-    GNEDemandElement("", net, GLO_RIDE, tag, GUIIconSubSys::getIcon(GUIIcon::RIDE_EDGE),
-                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}),
-GNEDemandElementPlan(this, -1, -1) {
+    GNEDemandElement("", net, "", GLO_RIDE, tag, GUIIcon::RIDE_EDGE, GNEPathElement::Options::DEMAND_ELEMENT),
+    GNEDemandElementPlan(this, -1, -1) {
     // reset default values
     resetDefaultValues();
 }
 
+
+GNERide::GNERide(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* personParent, const GNEPlanParents& planParameters,
+                 const double arrivalPosition, const std::vector<std::string>& lines, const std::string& group) :
+    GNEDemandElement(personParent, net, GLO_PERSONTRIP, tag, icon, GNEPathElement::Options::DEMAND_ELEMENT),
+    GNEDemandElementPlan(this, -1, arrivalPosition),
+    myLines(lines),
+    myGroup(group) {
+    // set parents
+    setParents<GNEJunction*>(planParameters.getJunctions());
+    setParents<GNEEdge*>(planParameters.getEdges());
+    setParents<GNEAdditional*>(planParameters.getAdditionalElements());
+    setParents<GNEDemandElement*>(planParameters.getDemandElements(personParent));
+    // update centering boundary without updating grid
+    updatePlanCenteringBoundary(false);
+}
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 GNERide::~GNERide() {}
 
@@ -87,13 +78,18 @@ GNERide::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
 
 void
 GNERide::writeDemandElement(OutputDevice& device) const {
+    // first write origin stop (if this element starts in a stoppingPlace)
     writeOriginStop(device);
+    // write rest of attributes
     device.openTag(SUMO_TAG_RIDE);
     writeLocationAttributes(device);
-    if (myLines.empty()) {
-        device.writeAttr(SUMO_ATTR_LINES, "ANY");
-    } else {
+    // lines
+    if (myLines.size() > 0) {
         device.writeAttr(SUMO_ATTR_LINES, myLines);
+    }
+    // group
+    if (myGroup.size() > 0) {
+        device.writeAttr(SUMO_ATTR_GROUP, myGroup);
     }
     device.closeTag();
 }
@@ -167,34 +163,18 @@ GNERide::drawGL(const GUIVisualizationSettings& s) const {
 
 void
 GNERide::computePathElement() {
-    // get first and last path lanes
-    const auto firstPathLane = getFirstPathLane();
-    const auto lastPathLane = getLastPathLane();
-    // continue depending of pathLane
-    if (firstPathLane && lastPathLane) {
-        // calculate path
-        myNet->getPathManager()->calculatePath(this, SVC_PASSENGER, firstPathLane, lastPathLane);
-        // check if calculate ignoring path
-        if (!myNet->getPathManager()->isPathValid(this)) {
-            myNet->getPathManager()->calculatePath(this, SVC_IGNORING, firstPathLane, lastPathLane);
-        }
-    } else {
-        // reset path
-        myNet->getPathManager()->removePath(this);
-    }
-    // update geometry
-    updateGeometry();
+    computePlanPathElement();
 }
 
 
 void
-GNERide::drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const double offsetFront) const {
+GNERide::drawLanePartialGL(const GUIVisualizationSettings& s, const GNESegment* segment, const double offsetFront) const {
     drawPlanLanePartial(checkDrawPersonPlan(), s, segment, offsetFront, s.widthSettings.rideWidth, s.colorSettings.rideColor, s.colorSettings.selectedPersonPlanColor);
 }
 
 
 void
-GNERide::drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const double offsetFront) const {
+GNERide::drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNESegment* segment, const double offsetFront) const {
     drawPlanJunctionPartial(checkDrawPersonPlan(), s, segment, offsetFront, s.widthSettings.rideWidth, s.colorSettings.rideColor, s.colorSettings.selectedPersonPlanColor);
 }
 
@@ -216,6 +196,8 @@ GNERide::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_LINES:
             return joinToString(myLines, " ");
+        case SUMO_ATTR_GROUP:
+            return myGroup;
         default:
             return getPlanAttribute(key);
     }
@@ -238,6 +220,7 @@ void
 GNERide::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     switch (key) {
         case SUMO_ATTR_LINES:
+        case SUMO_ATTR_GROUP:
             GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
         default:
@@ -252,6 +235,8 @@ GNERide::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_LINES:
             return canParse<std::vector<std::string> >(value);
+        case SUMO_ATTR_GROUP:
+            return true;
         default:
             return isPlanValid(key, value);
     }
@@ -291,6 +276,9 @@ GNERide::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_LINES:
             myLines = GNEAttributeCarrier::parse<std::vector<std::string> >(value);
             break;
+        case SUMO_ATTR_GROUP:
+            myGroup = value;
+            break;
         default:
             setPlanAttribute(key, value);
             break;
@@ -301,7 +289,7 @@ GNERide::setAttribute(SumoXMLAttr key, const std::string& value) {
 void
 GNERide::setMoveShape(const GNEMoveResult& moveResult) {
     // change both position
-    myArrivalPosition = moveResult.newSecondPos;
+    myArrivalPosition = moveResult.newLastPos;
     // update geometry
     updateGeometry();
 }
@@ -313,15 +301,6 @@ GNERide::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList)
     // now adjust start position
     setAttribute(SUMO_ATTR_ARRIVALPOS, toString(moveResult.newFirstPos), undoList);
     undoList->end();
-}
-
-
-GNERide::GNERide(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* personParent, const std::vector<GNEEdge*>& edges,
-                 const std::vector<GNEAdditional*>& additionals, double arrivalPosition, const std::vector<std::string>& lines) :
-    GNEDemandElement(personParent, net, GLO_PERSONTRIP, tag, GUIIconSubSys::getIcon(icon),
-                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, edges, {}, additionals, {personParent}, {}),
-GNEDemandElementPlan(this, -1, arrivalPosition),
-myLines(lines) {
 }
 
 /****************************************************************************/

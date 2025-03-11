@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -73,6 +73,15 @@ public:
     /// @brief Definition of the internal vehicles map iterator
     typedef std::map<std::string, SUMOVehicle*>::const_iterator constVehIt;
 
+    /// @brief possible origins of a vehicle definition
+    enum VehicleDefinitionSource {
+        ROUTEFILE,
+        STATE,
+        TRIGGER,
+        LIBSUMO,
+        OTHER
+    };
+
 public:
     /// @brief Constructor
     MSVehicleControl();
@@ -93,12 +102,12 @@ public:
      * @param[in] route The route of this vehicle
      * @param[in] type The type of this vehicle
      * @param[in] ignoreStopErrors whether invalid stops trigger a warning only
-     * @param[in] fromRouteFile whether we are just reading the route file or creating via trigger, traci, ...
+     * @param[in] source whether we are just reading the route file or creating via trigger, traci, ...
      * @return The built vehicle (MSVehicle instance)
      */
     virtual SUMOVehicle* buildVehicle(SUMOVehicleParameter* defs, ConstMSRoutePtr route,
                                       MSVehicleType* type,
-                                      const bool ignoreStopErrors, const bool fromRouteFile = true,
+                                      const bool ignoreStopErrors, const VehicleDefinitionSource source = ROUTEFILE,
                                       bool addRouteStops = true);
     /// @}
 
@@ -525,6 +534,11 @@ public:
         myEndedVehNo += n;
     }
 
+    void discountRoutingVehicle() {
+        myLoadedVehNo--;
+        myEndedVehNo--;
+        myDiscarded--;
+    }
 
     /** @brief informes about all waiting vehicles (deletion in destructor)
      */
@@ -573,7 +587,7 @@ private:
     bool isPendingRemoval(SUMOVehicle* veh);
 
 protected:
-    void initVehicle(MSBaseVehicle* built, const bool ignoreStopErrors, bool addRouteStops);
+    void initVehicle(MSBaseVehicle* built, const bool ignoreStopErrors, bool addRouteStops, const VehicleDefinitionSource source);
 
 private:
     /// @name Vehicle statistics (always accessible)

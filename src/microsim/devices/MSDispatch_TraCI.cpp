@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2007-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2007-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -74,6 +74,7 @@ void
 MSDispatch_TraCI::fulfilledReservation(const Reservation* res) {
     myReservationLookup.remove(res->id, res);
     MSDispatch::fulfilledReservation(res);
+    myHasServableReservations = myReservationLookup.size() > 0;
 }
 
 void
@@ -98,7 +99,7 @@ MSDispatch_TraCI::interpretDispatch(MSDevice_Taxi* taxi, const std::vector<std::
     // in case of ride sharing the same reservation may occur multiple times
     std::set<const Reservation*> unique(reservations.begin(), reservations.end());
     for (const Reservation* res : unique) {
-        servedReservation(res);
+        servedReservation(res, taxi);
     }
 }
 
@@ -107,7 +108,7 @@ std::string
 MSDispatch_TraCI::splitReservation(std::string resID, std::vector<std::string> personIDs) {
     if (myReservationLookup.hasString(resID)) {
         Reservation* res = const_cast<Reservation*>(myReservationLookup.get(resID));
-        if (myRunningReservations.count(res) != 0) {
+        if (myRunningReservations.count(res->group) != 0 && myRunningReservations[res->group].count(res) != 0) {
             throw InvalidArgument("Cannot split reservation '" + resID + "' after dispatch");
         }
         std::set<std::string> allPersons;

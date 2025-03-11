@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-12-18 09:31:36 by Eclipse SUMO sumo Version v1_21_0+1418-347bcd25c9e
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <tripinfo-output value="tripinfos.xml"/>
+        <railsignal-vehicle-output value="railsignal_vehicles.xml"/>
+    </output>
+
+    <routing>
+        <persontrip.transfer.taxi-walk value="ptStops"/>
+        <persontrip.transfer.walk-taxi value="ptStops"/>
+    </routing>
+
+    <report>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <taxi_device>
+        <device.taxi.dispatch-period value="30"/>
+    </taxi_device>
+
+</sumoConfiguration>
+-->
+
+<railsignal-vehicle-output>
+    <railSignal id="J2">
+        <link linkIndex="0" from="E1_0" to=":J2_0_0">
+            <driveWay id="J2.0">
+                <entry id="t_0" time="24.00" reason="junction"/>
+                <exit id="t_0" time="62.00" reason="junction"/>
+            </driveWay>
+        </link>
+    </railSignal>
+    <railSignal id="J6">
+        <link linkIndex="0" from="E5_0" to=":J6_0_0">
+            <driveWay id="J6.0">
+                <entry id="t_0" time="62.00" reason="junction"/>
+                <exit id="t_0" time="68.00" reason="parking"/>
+            </driveWay>
+        </link>
+    </railSignal>
+    <departJunction id="J0">
+        <driveWay id="J0.d0">
+            <entry id="t_0" time="0.00" reason="departed"/>
+            <exit id="t_0" time="10.00" reason="junction"/>
+        </driveWay>
+    </departJunction>
+    <departJunction id="J1">
+        <driveWay id="J1.d0"/>
+        <driveWay id="J1.d1">
+            <entry id="t_0" time="18.00" reason="parking"/>
+            <exit id="t_0" time="25.00" reason="junction"/>
+        </driveWay>
+    </departJunction>
+    <departJunction id="J6">
+        <driveWay id="J6.d0">
+            <entry id="t_0" time="128.00" reason="parking"/>
+            <exit id="t_0" time="129.00" reason="parking"/>
+        </driveWay>
+    </departJunction>
+</railsignal-vehicle-output>

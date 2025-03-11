@@ -1,3 +1,6 @@
+# load trips specified with coordinates
+geo
+
 # test attributes fromJunction toJunction and viaJunctions
 junctionTaz
 
@@ -56,11 +59,11 @@ busstop
 busstop_early
 
 # public transport via bus stops but the person departs to late to use a bus
-#
+# 
 busstop_too_late
 
 # public transport via bus stops but the person barely misses the last bus
-#
+# 
 busstop_too_late2
 
 # public transport via bustops, two busses at the same time

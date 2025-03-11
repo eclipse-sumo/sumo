@@ -48,62 +48,61 @@ For scripts in other subdirectories of tools you have to replace xml in this exa
 
 ## Using tools from netedit
 
-Since version 1.17.0, netedit supports calling many tools via configuration dialog by using the 'Tools' menu. For a demonstration, see the [SUMO 2023 Confererence tutorial](../Tutorials/index.md#sumo_user_conference_tutorials).
+Since version 1.17.0, netedit supports calling many tools via configuration dialog by using the 'Tools' menu. For a demonstration, see the [SUMO 2023 Conference tutorial](../Tutorials/index.md#sumo_user_conference_tutorials).
 
 # Tools by category
 
 The tools are divided into the following topics:
 
 - *[assign](Assign.md)* - traffic assignment tools
-- *[build](Build.md)* - tools used for code styling and
+- *[build_config](Build.md)* - tools used for code styling and
 by the building subsystems
 - *[detector](Detector.md)* - some tools for dealing
 with real life induction loop data
-- *[turn-data](Turns.md)* - some tools with turning counts and turning
-  ratio data
-with real life induction loop data
+- *[devel](devel.md)* - tools for developers
 - *[district](District.md)* - tools for handling traffic
 analysis zones (TAZ) aka districts
+- *[drt](Drt.md)* - tools to simulate demand responsive transport
+- *[emissions](Emissions.md)* - tools for computing and
+visualizing emissions
 - *import* - additional tools to import data from a variety of formats
   - *[GTFS](Import/GTFS.md)* - some helpers for using GTFS data
   - *[MATSim](Import/MATSim.md)* - some helpers for
     using MATSim data
-  - *[OpenDRIVE](Import/OpenDRIVE.md)* - some helpers for
-    using OpenDRIVE data
   - *[OSM](Import/OSM.md)* - some helpers for
     accessing/using OpenStreetMap data
+  - *[OpenDRIVE](Import/OpenDRIVE.md)* - some helpers for
+    using OpenDRIVE data
   - *[Vissim](Import/VISSIM.md)* - some helpers for
     using VISSIM data
   - *[Visum](Import/VISUM.md)* - some helpers for
     using VISUM data
 - *[net](Net.md)* - tools for working with networks
 (mainly SUMO-networks)
-- *projects* - additional tools used by our projects
+- *[output](Output.md)* - python tools for working with
+sumo output files
+- *[railways](Railways.md)* - tools for the simulations of trains
 - *[route](Routes.md)* - tools for working with routes
 - *[shapes](Shapes.md)* - tools for working with shapes
 (PoIs and polygons)
-- *[tls](tls.md)* - tools for traffic light systems
-- *[traci](../TraCI/Interfacing_TraCI_from_Python.md)* - Python
-implementation of the TraCI interface
-- *[traceExporter](TraceExporter.md)* - generate
-mobility traces / trajectories / orbits / gps tracks in various
-formats
-- *[trip](Trip.md)* - Trip generation and modification
-without [od2trips](../od2trips.md)
-- *[visualization](Visualization.md)* - graphical
-evaluation of SUMO-outputs
 - *[sumolib](Sumolib.md)* - python library for working
 with sumo networks, simulation output and miscellaneous utility
 functions
-- *[output](Output.md)* - python tools for working with
-sumo output files
-- *[emissions](Emissions.md)* - tools for computing and
-visualizing emissions
-- *[railways](Railways.md)* - tools for the simulations of trains
-- *[drt](Drt.md)* - tools to simulate demand responsive transport
+- *[tls](tls.md)* - tools for traffic light systems
+- *[traceExporter](TraceExporter.md)* - generate
+mobility traces / trajectories / orbits / gps tracks in various
+formats
+- *[traci](../TraCI/Interfacing_TraCI_from_Python.md)* - Python
+implementation of the TraCI interface
+- *[trip](Trip.md)* - Trip generation and modification
+without [od2trips](../od2trips.md)
+- *[turn-data](Turns.md)* - some tools with turning counts and turning
+  ratio data
+with real life induction loop data
+- *[visualization](Visualization.md)* - graphical
+evaluation of SUMO-outputs
 - *[xml](Xml.md)* - python tools for converting xml and
 xml schema related utilities
-- *[devel](devel.md)* - tools for developers
 - *[miscellaneous](Misc.md)* - tools that do not fit the
 above categories
 

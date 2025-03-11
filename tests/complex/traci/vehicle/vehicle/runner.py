@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2008-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2008-2025 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -210,7 +210,10 @@ except traci.TraCIException:
     pass
 traci.vehicle.setSignals(vehID, 12)
 traci.vehicle.setRoutingMode(vehID, traci.constants.ROUTING_MODE_AGGREGATED)
-traci.vehicle.setStop(vehID, "2fi", pos=55.0, laneIndex=0, duration=2, flags=1)
+try:
+    traci.vehicle.setStop(vehID, "2fi", pos=55.0, laneIndex=0, duration=2, flags=1)
+except traci.TraCIException:
+    pass
 sys.stderr.flush()
 
 check(vehID)
@@ -475,7 +478,7 @@ traci.vehicle.addLegacy(electricVeh, "horizontal", typeID="electric")
 print("device.battery.maximumBatteryCapacity from vehicle definition: %s" % (
     traci.vehicle.getParameter(electricVeh, "device.battery.capacity")))
 traci.vehicle.setParameter(electricVeh, "device.battery.maximumBatteryCapacity", "40000")
-traci.vehicle.setParameter(electricVeh, "device.battery.vehicleMass", "1024")
+# traci.vehicle.setParameter(electricVeh, "device.battery.vehicleMass", "1024")
 print("has battery device: %s" % traci.vehicle.getParameter(electricVeh, "has.battery.device"))
 print("has vehroute device: %s" % traci.vehicle.getParameter(electricVeh, "has.vehroute.device"))
 print("has rerouting device: %s" % traci.vehicle.getParameter(electricVeh, "has.rerouting.device"))
@@ -514,7 +517,7 @@ traci.vehicle.subscribe(electricVeh, [tc.VAR_POSITION, tc.VAR_POSITION3D])
 for i in range(10):
     step()
     print(('%s speed="%s" consumed="%s" charged="%s" totalConsumed="%s" totalRegenerated="%s" cap="%s" ' +
-           'maxCap="%s" station="%s" mass=%s emissionClass=%s electricityConsumption=%s') % (
+           'maxCap="%s" station="%s" emissionClass=%s electricityConsumption=%s') % (
         electricVeh,
         traci.vehicle.getSpeed(electricVeh),
         traci.vehicle.getParameter(electricVeh, "device.battery.energyConsumed"),
@@ -524,7 +527,7 @@ for i in range(10):
         traci.vehicle.getParameter(electricVeh, "device.battery.chargeLevel"),
         traci.vehicle.getParameter(electricVeh, "device.battery.maximumBatteryCapacity"),
         traci.vehicle.getParameter(electricVeh, "device.battery.chargingStationId"),
-        traci.vehicle.getParameter(electricVeh, "device.battery.vehicleMass"),
+        # traci.vehicle.getParameter(electricVeh, "device.battery.vehicleMass"),
         traci.vehicle.getEmissionClass(electricVeh),
         traci.vehicle.getElectricityConsumption(electricVeh),
     ))

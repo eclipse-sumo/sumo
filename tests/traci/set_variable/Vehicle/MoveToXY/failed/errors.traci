@@ -1,1 +1,4 @@
-Error: Answered with error to command 0xc4: Could not map vehicle 'veh0', distance to road is 111.60.
+TraCIAPI is deprecated. Please use libtraci instead, see https://sumo.dlr.de/docs/Libtraci.html.
+#Error while connecting: tcpip::Socket::connect() @ socket: Connection refused
+TraCIAPI is deprecated. Please use libtraci instead, see https://sumo.dlr.de/docs/Libtraci.html.
+Error: Answered with error to command 0xc4: Could not map vehicle 'veh0', distance to road is 110.00.

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-01-02 15:45:51 by Eclipse SUMO sumo Version v1_21_0+1635-bee1c8eab2a
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net2.net.xml"/>
+        <load-state value="state.xml"/>
+    </input>
+
+    <output>
+        <tripinfo-output value="tripinfo2.xml"/>
+        <vehroute-output value="vehroutes2.xml"/>
+    </output>
+
+    <report>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</sumoConfiguration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <tripinfo id="f.4" depart="8.00" departLane="SC_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="20.00" arrivalLane="SC_0" arrivalPos="54.25" arrivalSpeed="5.00" duration="12.00" routeLength="49.15" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="1.24" rerouteNo="0" devices="vehroute_f.4 tripinfo_f.4" vType="DEFAULT_VEHTYPE" speedFactor="1.03" vaporized=""/>
+    <tripinfo id="f.6" depart="12.00" departLane="SC_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="26.00" arrivalLane="SC_0" arrivalPos="68.34" arrivalSpeed="5.00" duration="14.00" routeLength="63.24" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.48" rerouteNo="0" devices="vehroute_f.6 tripinfo_f.6" vType="DEFAULT_VEHTYPE" speedFactor="1.05" vaporized=""/>
+    <tripinfo id="f.8" depart="17.00" departLane="SC_0" departPos="5.10" departSpeed="0.00" departDelay="1.00" arrival="27.00" arrivalLane="SC_0" arrivalPos="50.14" arrivalSpeed="5.00" duration="10.00" routeLength="45.04" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.76" rerouteNo="0" devices="vehroute_f.8 tripinfo_f.8" vType="DEFAULT_VEHTYPE" speedFactor="0.94" vaporized=""/>
+    <tripinfo id="f.9" depart="20.00" departLane="SC_0" departPos="5.10" departSpeed="0.00" departDelay="2.00" arrival="34.00" arrivalLane="SC_0" arrivalPos="68.51" arrivalSpeed="5.00" duration="14.00" routeLength="63.41" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.48" rerouteNo="0" devices="vehroute_f.9 tripinfo_f.9" vType="DEFAULT_VEHTYPE" speedFactor="0.86" vaporized=""/>
+</tripinfos>

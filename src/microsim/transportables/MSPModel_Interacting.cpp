@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2014-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2014-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -26,8 +26,9 @@
 #include <microsim/MSNet.h>
 #include "MSPModel_Interacting.h"
 
-// #define DEBUG_INTERACTING
+//#define DEBUG_INTERACTING
 
+#define DEBUGCOND(PED) ((PED)->getPerson()->isSelected())
 
 // ===========================================================================
 // static members
@@ -67,15 +68,15 @@ MSPModel_Interacting::remove(MSTransportableStateAdapter* state) {
 
 
 bool
-MSPModel_Interacting::blockedAtDist(const SUMOTrafficObject* ego, const MSLane* lane, double vehSide, double vehWidth,
+MSPModel_Interacting::blockedAtDist(const SUMOTrafficObject* ego, const MSLane* lane, double vehCenter, double vehWidth,
                                     double oncomingGap, std::vector<const MSPerson*>* collectBlockers) {
     for (const MSPModel_InteractingState* ped : getPedestrians(lane)) {
-        const double leaderFrontDist = (ped->getDirection() == FORWARD ? vehSide - ped->getEdgePos(0) : ped->getEdgePos(0) - vehSide);
+        const double leaderFrontDist = (ped->getDirection() == FORWARD ? vehCenter - ped->getEdgePos(0) : ped->getEdgePos(0) - vehCenter) - vehWidth * 0.5;
         const double leaderBackDist = leaderFrontDist + ped->getPerson()->getVehicleType().getLength();
 #ifdef DEBUG_INTERACTING
         if DEBUGCOND(ped) {
-            std::cout << SIMTIME << " lane=" << lane->getID() << " dir=" << ped->getDirection() << " pX=" << ped->getEdgePos(0) << " pL=" << ped.getLength()
-                      << " vehSide=" << vehSide
+            std::cout << SIMTIME << " lane=" << lane->getID() << " dir=" << ped->getDirection() << " pX=" << ped->getEdgePos(0) << " pL=" << ped->getPerson()->getVehicleType().getLength()
+                      << " vehCenter=" << vehCenter
                       << " vehWidth=" << vehWidth
                       << " lBD=" << leaderBackDist
                       << " lFD=" << leaderFrontDist
@@ -140,7 +141,7 @@ MSPModel_Interacting::nextBlocking(const MSLane* lane, double minPos, double min
                 std::cout << "  nextBlocking lane=" << lane->getID() << " bidi=" << bidi
                           << " minPos=" << minPos << " minRight=" << minRight << " maxLeft=" << maxLeft
                           << " stopTime=" << stopTime
-                          << " pedY=" << ped->getPosLat()
+                          << " ped=" << ped->getID()
                           << " pedX=" << ped->getEdgePos(0)
                           << " relX2=" << relX2
                           << " center=" << center
@@ -176,8 +177,8 @@ MSPModel_Interacting::unregisterCrossingApproach(const MSPModel_InteractingState
     // person has entered the crossing
     crossing->getIncomingLanes()[0].viaLink->removeApproachingPerson(ped.getPerson());
 #ifdef DEBUG_INTERACTING
-    if DEBUGCOND(ped) {
-        std::cout << SIMTIME << " unregister " << ped->getPerson()->getID() << " at crossing " << crossing->getID() << "\n";
+    if DEBUGCOND(&ped) {
+        std::cout << SIMTIME << " unregister " << ped.getPerson()->getID() << " at crossing " << crossing->getID() << "\n";
     }
 #endif
 }

@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-07-07 11:08:08.282948 by matsim_importPlans.py v1_13_0+1343-240e5d48340
-  options: <doubleminus>plan-file matsim_plans.xml -o out.rou.xml <doubleminus>vehicles-only-->
+<!-- generated on 2024-11-19 14:28:49.391780 by matsim_importPlans.py v1_21_0+0863-27f9b3af3ac
+  options: <doubleminus>plan-file matsim_plans.xml -o out.rou.xml <doubleminus>vehicles-only
+-->
+
+<!-- generated on 2024-11-19 14:28:49.462331 by matsim_importPlans.py v1_21_0+0863-27f9b3af3ac
+  options: <doubleminus>plan-file matsim_plans.xml -o out.rou.xml <doubleminus>vehicles-only
+-->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vType id="car" vClass="passenger"/>
-    <vType id="bicycle" vClass="bicycle"/>
-
+    <vType id="car"/>
     <trip id="10040_1_0" depart="02:47:20" from="576273431" to="52799758" type="car"/>
     <trip id="10280_1_0" depart="02:51:20" from="576273431" to="52799758" type="car"/>
     <trip id="10280_2_0" depart="02:51:20" from="576273431" to="52799758" type="car"/>

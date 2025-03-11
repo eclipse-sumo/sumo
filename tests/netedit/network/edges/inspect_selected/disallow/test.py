@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2009-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2009-2025 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -28,55 +28,46 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
-# recompute
-netedit.rebuildNetwork()
-
 # go to select mode
 netedit.selectMode()
 
-# select first edge
-netedit.leftClick(referencePosition, netedit.positions.tmp)
-
-# select second edge
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+# select all using invert
+netedit.selectionInvert()
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect selected edges
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.network.edge.leftBot)
 
 # Change parameter 7 with an non valid value
-netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.disallowed, "DummyDisallowed", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.disallow, "DummyDisallowed", False)
 
 # Change parameter 7 with a valid value (empty)
-netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.disallowed, "", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.disallow, "", False)
 
 # Change parameter 7 with a valid value (different separators)
-netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.disallowed, "authority  army, passenger; taxi. tram", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.disallow, "authority  army, passenger; taxi. tram", False)
 
 # Change parameter 7 with a valid value (empty)
-netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.disallowed, "", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.disallow, "", False)
 
 # Change parameter 7 with a valid value (empty)
-netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.disallowed,
+netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.disallow,
                         "emergency authority army vip passenger hov bus coach tram rail_urban rail " +
                         "rail_electric motorcycle moped pedestrian custom1", False)
 
-# recompute
-netedit.rebuildNetwork()
-
 # Check undos
 netedit.undo(referencePosition, 3)
-
-# recompute
-netedit.rebuildNetwork()
 
 # check redos
 netedit.redo(referencePosition, 3)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)
+
+# fix routes
+netedit.typeSpace()
 
 # quit netedit
 netedit.quit(neteditProcess)

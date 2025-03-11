@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2012-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2012-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -176,7 +176,7 @@ public:
     /// @{
     static bool moveToXYMap(const Position& pos, double maxRouteDistance, bool mayLeaveNetwork, const std::string& origID,
                             const double angle, double speed, const ConstMSEdgeVector& currentRoute, const int routePosition,
-                            const MSLane* currentLane, double currentLanePos, bool onRoad, SUMOVehicleClass vClass, bool setLateralPos,
+                            const MSLane* currentLane, double currentLanePos, bool onRoad, SUMOVehicleClass vClass, double currentAngle, bool setLateralPos,
                             double& bestDistance, MSLane** lane, double& lanePos, int& routeOffset, ConstMSEdgeVector& edges);
 
     static bool moveToXYMap_matchingRoutePosition(const Position& pos, const std::string& origID,
@@ -185,6 +185,10 @@ public:
             double& bestDistance, MSLane** lane, double& lanePos, int& routeOffset);
 
     static bool findCloserLane(const MSEdge* edge, const Position& pos, SUMOVehicleClass vClass, double& bestDistance, MSLane** lane);
+
+    /// @brief return the distance of pos from the area covered by this lane
+    static double patchShapeDistance(const MSLane* lane, const Position& pos, double dist, bool wasPerpendicular);
+
 
     class LaneUtility {
     public:
@@ -211,6 +215,7 @@ public:
         SubscriptionWrapper(VariableWrapper::SubscriptionHandler handler, SubscriptionResults& into, ContextSubscriptionResults& context);
         void setContext(const std::string* const refID);
         void clear();
+        bool wrapConnectionVector(const std::string& objID, const int variable, const std::vector<TraCIConnection>& value);
         bool wrapDouble(const std::string& objID, const int variable, const double value);
         bool wrapInt(const std::string& objID, const int variable, const int value);
         bool wrapString(const std::string& objID, const int variable, const std::string& value);

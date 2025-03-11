@@ -1,10 +1,10 @@
-default
-
 id
+
+friendlypos
 
 name
 
-friendlypos
+color
 
 lines
 
@@ -12,8 +12,12 @@ containercapacity
 
 parkinglength
 
-color
+parameters
 
-references
+size
 
-references_length
+forcesize
+
+reference
+
+additionalfile

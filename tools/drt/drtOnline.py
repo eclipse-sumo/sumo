@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2007-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2007-2025 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -63,7 +63,7 @@ def initOptions():
                     help="Timeout for exhaustive search (default 5 seconds)")
     ap.add_argument("--ilp-time", type=float, default=5,
                     help="Timeout for ILP solver (default 5 seconds)")
-    ap.add_argument("--c-ko", type=int, default=1000000000000,
+    ap.add_argument("--c-ko", type=int, default=1000000000,
                     help="Cost of ignoring a reservation")
     ap.add_argument("--cost-per-trip", type=int, default=600, help="Cost to avoid using multiple vehicles"
                     " if the travel time of trips is similar (default 600 seconds)")
@@ -429,7 +429,7 @@ def main():
                 veh_constraints = {}
                 res_constraints = {}
                 costs = {}
-                trips = list(routes.keys())  # trips for parsing ILP solution
+                trips = list(sorted(routes.keys()))  # trips for parsing ILP solution
 
                 # add bonus_cost to trip cost (makes trips with more served
                 # reservations cheaper than splitting the reservations to more
@@ -456,10 +456,8 @@ def main():
                                for route_index in ilp_result]
 
             # assign routes to vehicles
-            for route_id in best_routes:
-                stops = route_id.replace('y', '')
-                stops = stops.replace('z', '')
-                stops = stops.split("_")
+            for route_id in sorted(best_routes):
+                stops = route_id.replace('y', '').replace('z', '').split("_")
                 veh_id = stops[0]
                 # first check if new route is better than the current one
                 current_route = []

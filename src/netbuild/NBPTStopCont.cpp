@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -385,7 +385,7 @@ NBPTStopCont::alignIdSigns() {
     for (auto& i : stops) {
         std::shared_ptr<NBPTStop> s = i.second;
         const std::string& stopId = s->getID();
-        if (s->getEdgeId() == "") {
+        if (s->getEdgeId() == "" || s->wasLoaded()) {
             continue;
         }
         const char edgeSign = s->getEdgeId().at(0);
@@ -393,6 +393,9 @@ NBPTStopCont::alignIdSigns() {
         if (edgeSign != stopSign && (edgeSign == '-' || stopSign == '-')) {
             const std::string reverseID = getReverseID(stopId);
             std::shared_ptr<NBPTStop> rs = get(reverseID);
+            if (rs != nullptr && rs->wasLoaded()) {
+                continue;
+            }
             s->setPTStopId(reverseID);
             myPTStops.erase(stopId);
             myPTStops[reverseID] = s;

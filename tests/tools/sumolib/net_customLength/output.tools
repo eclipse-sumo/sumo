@@ -1,0 +1,3 @@
+default_0 mid=(150.0, 100.0) halfLength=50.0 getClosestLanePosAndDist=(50.0, 1.5999999999999943)
+longer_0 mid=(50.0, 100.0) halfLength=75.0 getClosestLanePosAndDist=(75.0, 1.5999999999999943)
+shorter_0 mid=(250.0, 100.0) halfLength=25.0 getClosestLanePosAndDist=(25.0, 1.5999999999999943)

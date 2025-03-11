@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -41,7 +41,7 @@ MSChargingStation::MSChargingStation(const std::string& chargingStationID, MSLan
                                      const std::string& name, double chargingPower, double efficency, bool chargeInTransit,
                                      SUMOTime chargeDelay, const std::string& chargeType, SUMOTime waitingTime) :
     MSStoppingPlace(chargingStationID, SUMO_TAG_CHARGING_STATION, std::vector<std::string>(), lane, startPos, endPos, name),
-    myChargeInTransit(chargeInTransit) {
+    myChargeInTransit(chargeInTransit), myChargeType(stringToChargeType(chargeType)) {
     if (chargingPower < 0) {
         WRITE_WARNING(TLF("Attribute % for chargingStation with ID='%' is invalid (%).", toString(SUMO_ATTR_CHARGINGPOWER), getID(), toString(chargingPower)))
     } else {
@@ -57,15 +57,10 @@ MSChargingStation::MSChargingStation(const std::string& chargingStationID, MSLan
     } else {
         myChargeDelay = chargeDelay;
     }
-    if ((chargeType != "normal") && (chargeType != "electric") && (chargeType != "fuel")) {
-        WRITE_WARNING(TLF("Attribute % for chargingStation with ID='%' is invalid (%).", toString(SUMO_ATTR_CHARGETYPE), getID(), chargeType))
-    } else {
-        myChargeDelay = chargeDelay;
-    }
     if (waitingTime < 0) {
         WRITE_WARNING(TLF("Attribute % for chargingStation with ID='%' is invalid (%).", toString(SUMO_ATTR_WAITINGTIME), getID(), toString(waitingTime)))
     } else {
-        myChargeDelay = chargeDelay;
+        myWaitingTime = waitingTime;
     }
     if (getBeginLanePosition() > getEndLanePosition()) {
         WRITE_WARNING(TLF("ChargingStation with ID='%' doesn't have a valid position (% < %).", getID(), toString(getBeginLanePosition()), toString(getEndLanePosition())));
@@ -114,7 +109,7 @@ MSChargingStation::getChargeDelay() const {
 }
 
 
-const std::string&
+MSChargingStation::ChargeType
 MSChargingStation::getChargeType() const {
     return myChargeType;
 }
@@ -248,14 +243,16 @@ MSChargingStation::writeChargingStationOutput(OutputDevice& output) {
 
 
 void
-MSChargingStation::writeAggregatedChargingStationOutput(OutputDevice& output) {
+MSChargingStation::writeAggregatedChargingStationOutput(OutputDevice& output, bool includeUnfinished) {
     std::vector<std::string> terminatedChargers;
     for (const auto& item : myChargeValues) {
         const Charge& lastCharge = item.second.back();
-        if (lastCharge.timeStep < SIMSTEP - DELTA_T) {
-            // no charge during the last time step == has stopped charging
-            terminatedChargers.push_back(item.first);
-
+        // no charge during the last time step == has stopped charging
+        bool finished = lastCharge.timeStep < SIMSTEP - DELTA_T;
+        if (finished || includeUnfinished) {
+            if (finished) {
+                terminatedChargers.push_back(item.first);
+            }
             // aggregate values
             double charged = 0.;
             double minPower = lastCharge.chargingPower;
@@ -264,7 +261,6 @@ MSChargingStation::writeAggregatedChargingStationOutput(OutputDevice& output) {
             double maxCharge = lastCharge.WCharged;
             double minEfficiency = lastCharge.chargingEfficiency;
             double maxEfficiency = lastCharge.chargingEfficiency;
-
             for (const auto& charge : item.second) {
                 charged += charge.WCharged;
                 if (charge.chargingPower < minPower) {
@@ -286,7 +282,6 @@ MSChargingStation::writeAggregatedChargingStationOutput(OutputDevice& output) {
                     maxEfficiency = charge.chargingEfficiency;
                 }
             }
-
             // actually write the data
             output.openTag(SUMO_TAG_CHARGING_EVENT);
             output.writeAttr(SUMO_ATTR_CHARGINGSTATIONID, myID);
@@ -294,7 +289,9 @@ MSChargingStation::writeAggregatedChargingStationOutput(OutputDevice& output) {
             output.writeAttr(SUMO_ATTR_TYPE, lastCharge.vehicleType);
             output.writeAttr(SUMO_ATTR_TOTALENERGYCHARGED_VEHICLE, charged);
             output.writeAttr(SUMO_ATTR_CHARGINGBEGIN, time2string(item.second.at(0).timeStep));
-            output.writeAttr(SUMO_ATTR_CHARGINGEND, time2string(lastCharge.timeStep));
+            if (finished) {
+                output.writeAttr(SUMO_ATTR_CHARGINGEND, time2string(lastCharge.timeStep));
+            }
             output.writeAttr(SUMO_ATTR_ACTUALBATTERYCAPACITY, lastCharge.actualBatteryCapacity);
             output.writeAttr(SUMO_ATTR_MAXIMUMBATTERYCAPACITY, lastCharge.maxBatteryCapacity);
             output.writeAttr(SUMO_ATTR_MINPOWER, minPower);

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2012-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2012-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -45,7 +45,6 @@ public:
     static const double DEFAULT_LAYER_POI;
     static const double DEFAULT_ANGLE;
     static const std::string DEFAULT_IMG_FILE;
-    static const bool DEFAULT_RELATIVEPATH;
     static const double DEFAULT_IMG_WIDTH;
     static const double DEFAULT_IMG_HEIGHT;
     static const std::string DEFAULT_NAME;
@@ -60,10 +59,9 @@ public:
      * @param[in] angle The rotation of the shape in navigational degrees
      * @param[in] imgFile The raster image of the shape
      * @param[in] name shape name
-     * @param[in] relativePath set image file as relative path
      */
     Shape(const std::string& id, const std::string& type, const RGBColor& color, double layer,
-          double angle, const std::string& imgFile, const std::string& name, bool relativePath);
+          double angle, const std::string& imgFile, const std::string& name);
 
     /// @brief Destructor
     virtual ~Shape();
@@ -111,12 +109,6 @@ public:
         return myName;
     }
 
-    /** @brief Returns the relativePath of the Shape
-     * @return The Shape's relativePath
-     */
-    inline bool getShapeRelativePath() const {
-        return myRelativePath;
-    }
     /// @}
 
 
@@ -170,12 +162,6 @@ public:
         myName = name;
     }
 
-    /** @brief Sets a new relativePath value
-     * @param[in] relativePath The new relative path to set
-     */
-    inline void setShapeRelativePath(bool relativePath) {
-        myRelativePath = relativePath;
-    }
     /// @}
 
 private:
@@ -196,7 +182,4 @@ private:
 
     /// @brief shape name
     std::string myName;
-
-    /// @brief Enable or disable save imgFile as relative path
-    bool myRelativePath;
 };

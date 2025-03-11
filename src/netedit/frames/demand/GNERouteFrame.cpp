@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -17,13 +17,16 @@
 ///
 // The Widget for remove network-elements
 /****************************************************************************/
-#include <config.h>
 
-#include <utils/gui/div/GUIDesigns.h>
-#include <utils/gui/windows/GUIAppEnum.h>
-#include <netedit/elements/demand/GNERoute.h>
-#include <netedit/GNEViewNet.h>
+#include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNENet.h>
+#include <netedit/GNEViewParent.h>
+#include <netedit/elements/demand/GNERoute.h>
+#include <netedit/frames/GNEAttributesEditor.h>
+#include <netedit/frames/GNEFrame.h>
+#include <netedit/frames/GNEPathCreator.h>
+#include <netedit/frames/GNEPathLegendModule.h>
+#include <utils/gui/div/GUIDesigns.h>
 
 #include "GNERouteFrame.h"
 
@@ -52,19 +55,19 @@ GNERouteFrame::RouteModeSelector::RouteModeSelector(GNERouteFrame* routeFramePar
     MFXGroupBoxModule(routeFrameParent, TL("Route mode")),
     myRouteFrameParent(routeFrameParent) {
     // create route template
-    myRouteTemplate = new GNERoute(routeFrameParent->getViewNet()->getNet());
+    myRouteTemplate = new GNERoute(SUMO_TAG_ROUTE, routeFrameParent->getViewNet()->getNet());
     // first fill myRouteModesStrings
     myRouteModesStrings.push_back(std::make_pair(RouteMode::NONCONSECUTIVE_EDGES, "non consecutive edges"));
     myRouteModesStrings.push_back(std::make_pair(RouteMode::CONSECUTIVE_EDGES, "consecutive edges"));
     // Create MFXComboBoxIcon for Route mode
-    myRouteModeMatchBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, false, GUIDesignComboBoxVisibleItemsMedium,
+    myRouteModeMatchBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, false, GUIDesignComboBoxVisibleItems,
             this, MID_GNE_ROUTEFRAME_ROUTEMODE, GUIDesignComboBox);
     // fill myRouteModeMatchBox with route modes
     for (const auto& routeMode : myRouteModesStrings) {
         myRouteModeMatchBox->appendIconItem(routeMode.second.c_str());
     }
     // Create MFXComboBoxIcon for VClass
-    myVClassMatchBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, false, GUIDesignComboBoxVisibleItemsMedium,
+    myVClassMatchBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, false, GUIDesignComboBoxVisibleItems,
                                            this, MID_GNE_ROUTEFRAME_VCLASS, GUIDesignComboBox);
     // fill myVClassMatchBox with all VCLass
     for (const auto& vClass : SumoVehicleClassStrings.getStrings()) {
@@ -107,7 +110,7 @@ GNERouteFrame::RouteModeSelector::areParametersValid() {
         // check if create routes consecutively
         const bool consecutiveEdges = (myCurrentRouteMode == RouteMode::CONSECUTIVE_EDGES);
         // show route attributes modul
-        myRouteFrameParent->myRouteAttributes->showAttributesCreatorModule(myRouteTemplate, {});
+        myRouteFrameParent->myRouteAttributesEditor->showAttributesEditor(myRouteTemplate, true);
         // show path creator
         myRouteFrameParent->myPathCreator->showPathCreatorModule(myRouteTemplate->getTagProperty(), consecutiveEdges);
         // update edge colors
@@ -116,12 +119,12 @@ GNERouteFrame::RouteModeSelector::areParametersValid() {
         myRouteFrameParent->myPathLegend->showPathLegendModule();
     } else {
         // hide all moduls if route mode isnt' valid
-        myRouteFrameParent->myRouteAttributes->hideAttributesCreatorModule();
+        myRouteFrameParent->myRouteAttributesEditor->hideAttributesEditor();
         myRouteFrameParent->myPathCreator->hidePathCreatorModule();
         myRouteFrameParent->myPathLegend->hidePathLegendModule();
         // reset all flags
         for (const auto& edge : myRouteFrameParent->myViewNet->getNet()->getAttributeCarriers()->getEdges()) {
-            edge.second.second->resetCandidateFlags();
+            edge.second->resetCandidateFlags();
         }
         // update view net
         myRouteFrameParent->myViewNet->update();
@@ -144,8 +147,6 @@ GNERouteFrame::RouteModeSelector::onCmdSelectRouteMode(FXObject*, FXSelector, vo
             myCurrentRouteMode = routeMode.first;
             // set color of myTypeMatchBox to black (valid)
             myRouteModeMatchBox->setTextColor(FXRGB(0, 0, 0));
-            // Write Warning in console if we're in testing mode
-            WRITE_DEBUG(("Selected RouteMode '" + myRouteModeMatchBox->getText() + "' in RouteModeSelector").text());
         }
     }
     // check if parameters are valid
@@ -171,8 +172,6 @@ GNERouteFrame::RouteModeSelector::onCmdSelectVClass(FXObject*, FXSelector, void*
             myVClassMatchBox->setTextColor(FXRGB(0, 0, 0));
             // set vClass in Path creator
             myRouteFrameParent->myPathCreator->setVClass(SumoVehicleClassStrings.get(vClass));
-            // Write Warning in console if we're in testing mode
-            WRITE_DEBUG(("Selected VClass '" + myVClassMatchBox->getText() + "' in RouteModeSelector").text());
         }
     }
     // check if parameters are valid
@@ -186,17 +185,16 @@ GNERouteFrame::RouteModeSelector::onCmdSelectVClass(FXObject*, FXSelector, void*
 
 GNERouteFrame::GNERouteFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
     GNEFrame(viewParent, viewNet, TL("Routes")),
-    myRouteHandler("", myViewNet->getNet(), true, false),
     myRouteBaseObject(new CommonXMLStructure::SumoBaseObject(nullptr)) {
 
     // create route mode Selector module
     myRouteModeSelector = new RouteModeSelector(this);
 
     // Create route parameters
-    myRouteAttributes = new GNEAttributesCreator(this);
+    myRouteAttributesEditor = new GNEAttributesEditor(this, GNEAttributesEditorType::EditorType::CREATOR);
 
     // create consecutive edges module
-    myPathCreator = new GNEPathCreator(this);
+    myPathCreator = new GNEPathCreator(this, viewNet->getNet()->getDemandPathManager());
 
     // create legend label
     myPathLegend = new GNEPathLegendModule(this);
@@ -221,7 +219,7 @@ void
 GNERouteFrame::hide() {
     // reset candidate edges
     for (const auto& edge : myViewNet->getNet()->getAttributeCarriers()->getEdges()) {
-        edge.second.second->resetCandidateFlags();
+        edge.second->resetCandidateFlags();
     }
     GNEFrame::hide();
 }
@@ -251,20 +249,17 @@ GNERouteFrame::getPathCreator() const {
 bool
 GNERouteFrame::createPath(const bool /*useLastRoute*/) {
     // check that route attributes are valid
-    if (!myRouteAttributes->areValuesValid()) {
-        myRouteAttributes->showWarningMessage();
+    if (!myRouteAttributesEditor->checkAttributes(true)) {
+        return false;
     } else if (myPathCreator->getSelectedEdges().size() > 0) {
         // clear base object
         myRouteBaseObject->clear();
         // set tag
         myRouteBaseObject->setTag(SUMO_TAG_ROUTE);
         // obtain attributes
-        myRouteAttributes->getAttributesAndValues(myRouteBaseObject, true);
-        if (!myRouteBaseObject->hasStringAttribute(SUMO_ATTR_ID)) {
-            myRouteBaseObject->addStringAttribute(SUMO_ATTR_ID, myViewNet->getNet()->getAttributeCarriers()->generateDemandElementID(SUMO_TAG_ROUTE));
-        }
+        myRouteAttributesEditor->fillSumoBaseObject(myRouteBaseObject);
         // add probability (needed for distributions)
-        myRouteBaseObject->addDoubleAttribute(SUMO_ATTR_PROB, 0.5);
+        myRouteBaseObject->addDoubleAttribute(SUMO_ATTR_PROB, 1.0);
         // declare edge vector
         std::vector<std::string> edges;
         for (const auto& path : myPathCreator->getPath()) {
@@ -279,12 +274,16 @@ GNERouteFrame::createPath(const bool /*useLastRoute*/) {
         }
         // set edges in route base object
         myRouteBaseObject->addStringListAttribute(SUMO_ATTR_EDGES, edges);
+        // declare route handler
+        GNERouteHandler routeHandler(myViewNet->getNet(), myRouteBaseObject->hasStringAttribute(GNE_ATTR_DEMAND_FILE)?
+                                     myRouteBaseObject->getStringAttribute(GNE_ATTR_DEMAND_FILE) : "",
+                                     myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), false);
         // create route
-        myRouteHandler.parseSumoBaseObject(myRouteBaseObject);
+        routeHandler.parseSumoBaseObject(myRouteBaseObject);
         // abort path creation
         myPathCreator->abortPathCreation();
         // refresh route attributes
-        myRouteAttributes->refreshAttributesCreator();
+        myRouteAttributesEditor->refreshAttributesEditor();
         // get new route
         auto newRoute = myViewNet->getNet()->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_ROUTE, myRouteBaseObject->getStringAttribute(SUMO_ATTR_ID));
         // compute path route

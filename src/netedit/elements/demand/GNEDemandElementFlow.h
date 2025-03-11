@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -39,16 +39,17 @@ class GNEDemandElementFlow : public SUMOVehicleParameter {
 
 protected:
     /// @brief constructor
-    GNEDemandElementFlow(const GNEDemandElement* flowElement);
+    GNEDemandElementFlow(GNEDemandElement* flowElement);
 
     /// @brief constructor with parameters
-    GNEDemandElementFlow(const GNEDemandElement* flowElement, const SUMOVehicleParameter& vehicleParameters);
+    GNEDemandElementFlow(GNEDemandElement* flowElement, const SUMOVehicleParameter& vehicleParameters);
 
     /// @brief destructor
     ~GNEDemandElementFlow();
 
     /// @brief draw flow label
-    void drawFlowLabel(const Position& position, const double rotation, const double width, const double length, const double exaggeration) const;
+    void drawFlowLabel(const Position& position, const double rotation, const double width,
+                       const double length, const double exaggeration) const;
 
     /// @brief write flow attributes
     void writeFlowAttributes(const GNEDemandElement* flowElement, OutputDevice& device) const;
@@ -59,7 +60,7 @@ protected:
      * @param[in] key The attribute key
      * @return string with the value associated to key
      */
-    std::string getFlowAttribute(SumoXMLAttr key) const;
+    std::string getFlowAttribute(const GNEDemandElement* flowElement, SumoXMLAttr key) const;
 
     /* @brief method for getting the Attribute of an XML key in double format (to avoid unnecessary parse<double>(...) for certain attributes)
      * @param[in] key The attribute key
@@ -102,17 +103,17 @@ protected:
     bool isFlowAttributeEnabled(SumoXMLAttr key) const;
 
     /// @brief method for setting the attribute and nothing else
-    void setFlowAttribute(const GNEDemandElement* flowElement, SumoXMLAttr key, const std::string& value);
+    void setFlowAttribute(GNEDemandElement* flowElement, SumoXMLAttr key, const std::string& value);
 
     /// @brief toggle flow parameters (used in toggleAttribute(...) function of vehicles, persons and containers
     void toggleFlowAttribute(const SumoXMLAttr attribute, const bool value);
 
 private:
     /// @brief set flow default attributes
-    void setDefaultFlowAttributes(const GNEDemandElement* flowElement);
+    void setDefaultFlowAttributes(GNEDemandElement* flowElement);
 
     /// @brief adjust decimal value
-    std::string adjustDecimalValue(const double value) const;
+    std::string adjustDecimalValue(const double value, const int precission) const;
 
     /// @brief Invalidated copy constructor.
     GNEDemandElementFlow(const GNEDemandElementFlow&) = delete;

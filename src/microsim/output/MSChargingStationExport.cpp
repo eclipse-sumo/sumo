@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -26,16 +26,19 @@
 #include <utils/iodevices/OutputDevice.h>
 #include <microsim/MSNet.h>
 #include <microsim/trigger/MSChargingStation.h>
+#include <utils/options/OptionsCont.h>
 #include "MSChargingStationExport.h"
+
 
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
 void
-MSChargingStationExport::write(OutputDevice& of, SUMOTime /* timestep */) {
+MSChargingStationExport::write(OutputDevice& of, bool end) {
     // loop through charging stations
+    bool includeUnfinished = end && OptionsCont::getOptions().getBool("chargingstations-output.aggregated.write-unfinished");
     for (const auto& stop : MSNet::getInstance()->getStoppingPlaces(SUMO_TAG_CHARGING_STATION)) {
-        static_cast<MSChargingStation*>(stop.second)->writeAggregatedChargingStationOutput(of);
+        static_cast<MSChargingStation*>(stop.second)->writeAggregatedChargingStationOutput(of, includeUnfinished);
     }
 }

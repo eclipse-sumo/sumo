@@ -1,0 +1,2 @@
+Error: Could not build vehicle with ID 'vehicle_0' in netedit; Requiere either a route or an embedded route or a from-to attribute (Edges, junctions or TAZs).
+Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.06Jan142105.16668\netedit.gui\elements\demands\vehicle\load\no_route\routes.rou.xml failed.

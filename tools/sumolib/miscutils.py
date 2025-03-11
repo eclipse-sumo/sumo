@@ -1,5 +1,5 @@
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2012-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2012-2025 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -29,12 +29,38 @@ import random
 import gzip
 import codecs
 import io
+from types import ModuleType, FunctionType
+from gc import get_referents
 try:
     from urllib.request import urlopen
 except ImportError:
     from urllib import urlopen
 # needed for backward compatibility
 from .statistics import Statistics, geh, uMax, uMin, round  # noqa
+from .xml import xmlescape
+
+
+_BLACKLIST = type, ModuleType, FunctionType
+
+
+def get_size(obj):
+    """sum size of object & members.
+    lifted from https://stackoverflow.com/a/30316760
+    """
+    if isinstance(obj, (_BLACKLIST)):
+        raise TypeError('getsize() does not take argument of type: ' + str(type(obj)))
+    seen_ids = set()
+    size = 0
+    objects = [obj]
+    while objects:
+        need_referents = []
+        for obj in objects:
+            if not isinstance(obj, _BLACKLIST) and id(obj) not in seen_ids:
+                seen_ids.add(id(obj))
+                size += sys.getsizeof(obj)
+                need_referents.append(obj)
+        objects = get_referents(*need_referents)
+    return size
 
 
 def benchmark(func):
@@ -52,6 +78,26 @@ def benchmark(func):
         sys.stdout.flush()
         return result
     return benchmark_wrapper
+
+
+class Benchmarker:
+    """
+    class for benchmarking a function using a "with"-statement.
+    Preferable over the "benchmark" function for the following use cases
+    - benchmarking a code block that isn't wrapped in a function
+    - benchmarking a function only in some calls
+    """
+    def __init__(self, active, description):
+        self.active = active
+        self.description = description
+
+    def __enter__(self):
+        self.started = time.time()
+
+    def __exit__(self, *args):
+        if self.active:
+            duration = time.time() - self.started
+            print("%s finished after %s" % (self.description, humanReadableTime(duration)))
 
 
 class working_dir:
@@ -277,7 +323,7 @@ def getFlowNumber(flow):
                 period = float(flow.period)
         for attr in ['perHour', 'vehsPerHour']:
             if flow.hasAttribute(attr):
-                period = 3600 / float(flow.getAttributes(attr))
+                period = 3600 / float(flow.getAttribute(attr))
         if period > 0:
             return math.ceil(duration / period)
         else:

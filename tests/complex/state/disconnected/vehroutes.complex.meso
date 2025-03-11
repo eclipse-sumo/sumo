@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-03-30 11:00:05 by Eclipse SUMO sumo Version v1_12_0+1770-c60e6e70bb3
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<!-- generated on 2025-01-02 15:48:04 by Eclipse SUMO sumo Version v1_21_0+1635-bee1c8eab2a
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="input_net.net.xml"/>
@@ -14,7 +14,6 @@
 
     <processing>
         <ignore-route-errors value="true"/>
-        <pedestrian.model value="nonInteracting"/>
     </processing>
 
     <report>
@@ -26,15 +25,15 @@
         <mesosim value="true"/>
     </mesoscopic>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vehicle id="0" depart="0.00" departPos="0.00" departSpeed="10.00" speedFactor="1.0600" arrival="120.00">
+    <vehicle id="0" depart="0.00" departPos="0.00" departSpeed="10.00" speedFactor="1.0600" arrival="411.00">
         <route edges="4/1to3/1 2/1to1/1 1/1to0/1"/>
     </vehicle>
 
-    <vehicle id="1" depart="5.00" departPos="0.00" departSpeed="10.00" speedFactor="1.0600" arrival="125.00">
+    <vehicle id="1" depart="5.00" departPos="0.00" departSpeed="10.00" speedFactor="1.0600" arrival="714.00">
         <route edges="4/1to3/1 2/1to1/1 1/1to0/1"/>
     </vehicle>
 

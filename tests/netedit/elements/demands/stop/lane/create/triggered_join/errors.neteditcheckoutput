@@ -1,3 +1,52 @@
 Error: Attribute 'join' in definition of a stop is empty.
 Error: Attribute 'join' in definition of a stop is empty.
-Error: Attribute 'join' in definition of a stop is empty.
+Warning: Teleporting vehicle 'routeFlow.2'; waited too long (blocked), lane='Edge2_1', time=721.00.
+Warning: Vehicle 'routeFlow.2' teleports beyond arrival edge 'Edge2', time=721.00.
+Warning: Vehicle 'routeFlow.2' skips stop on lane 'Edge2_1' time=721.00.
+Warning: Vehicle 'routeFlow.2' skips stop on lane 'Edge2_1' time=721.00.
+Warning: Vehicle 'routeFlow.2' skips stop on lane 'Edge2_1' time=721.00.
+Warning: Teleporting vehicle 'routeFlow.3'; waited too long (blocked), lane='Edge2_1', time=1027.00.
+Warning: Vehicle 'routeFlow.3' teleports beyond arrival edge 'Edge2', time=1027.00.
+Warning: Vehicle 'routeFlow.3' skips stop on lane 'Edge2_1' time=1027.00.
+Warning: Vehicle 'routeFlow.3' skips stop on lane 'Edge2_1' time=1027.00.
+Warning: Vehicle 'routeFlow.3' skips stop on lane 'Edge2_1' time=1027.00.
+Warning: Teleporting vehicle 'routeFlow.4'; waited too long (blocked), lane='Edge2_1', time=1333.00.
+Warning: Vehicle 'routeFlow.4' teleports beyond arrival edge 'Edge2', time=1333.00.
+Warning: Vehicle 'routeFlow.4' skips stop on lane 'Edge2_1' time=1333.00.
+Warning: Vehicle 'routeFlow.4' skips stop on lane 'Edge2_1' time=1333.00.
+Warning: Vehicle 'routeFlow.4' skips stop on lane 'Edge2_1' time=1333.00.
+Warning: Teleporting vehicle 'routeFlow.5'; waited too long (blocked), lane='Edge2_1', time=1639.00.
+Warning: Vehicle 'routeFlow.5' teleports beyond arrival edge 'Edge2', time=1639.00.
+Warning: Vehicle 'routeFlow.5' skips stop on lane 'Edge2_1' time=1639.00.
+Warning: Vehicle 'routeFlow.5' skips stop on lane 'Edge2_1' time=1639.00.
+Warning: Vehicle 'routeFlow.5' skips stop on lane 'Edge2_1' time=1639.00.
+Warning: Teleporting vehicle 'routeFlow.6'; waited too long (blocked), lane='Edge2_1', time=1944.00.
+Warning: Vehicle 'routeFlow.6' teleports beyond arrival edge 'Edge2', time=1944.00.
+Warning: Vehicle 'routeFlow.6' skips stop on lane 'Edge2_1' time=1944.00.
+Warning: Vehicle 'routeFlow.6' skips stop on lane 'Edge2_1' time=1944.00.
+Warning: Vehicle 'routeFlow.6' skips stop on lane 'Edge2_1' time=1944.00.
+Warning: Teleporting vehicle 'routeFlow.7'; waited too long (blocked), lane='Edge2_1', time=2251.00.
+Warning: Vehicle 'routeFlow.7' teleports beyond arrival edge 'Edge2', time=2251.00.
+Warning: Vehicle 'routeFlow.7' skips stop on lane 'Edge2_1' time=2251.00.
+Warning: Vehicle 'routeFlow.7' skips stop on lane 'Edge2_1' time=2251.00.
+Warning: Vehicle 'routeFlow.7' skips stop on lane 'Edge2_1' time=2251.00.
+Warning: Teleporting vehicle 'routeFlow.8'; waited too long (blocked), lane='Edge2_1', time=2555.00.
+Warning: Vehicle 'routeFlow.8' teleports beyond arrival edge 'Edge2', time=2555.00.
+Warning: Vehicle 'routeFlow.8' skips stop on lane 'Edge2_1' time=2555.00.
+Warning: Vehicle 'routeFlow.8' skips stop on lane 'Edge2_1' time=2555.00.
+Warning: Vehicle 'routeFlow.8' skips stop on lane 'Edge2_1' time=2555.00.
+Warning: Teleporting vehicle 'routeFlow.9'; waited too long (blocked), lane='Edge2_1', time=2861.00.
+Warning: Vehicle 'routeFlow.9' teleports beyond arrival edge 'Edge2', time=2861.00.
+Warning: Vehicle 'routeFlow.9' skips stop on lane 'Edge2_1' time=2861.00.
+Warning: Vehicle 'routeFlow.9' skips stop on lane 'Edge2_1' time=2861.00.
+Warning: Vehicle 'routeFlow.9' skips stop on lane 'Edge2_1' time=2861.00.
+Warning: Teleporting vehicle 'routeFlow.10'; waited too long (blocked), lane='Edge2_1', time=3166.00.
+Warning: Vehicle 'routeFlow.10' teleports beyond arrival edge 'Edge2', time=3166.00.
+Warning: Vehicle 'routeFlow.10' skips stop on lane 'Edge2_1' time=3166.00.
+Warning: Vehicle 'routeFlow.10' skips stop on lane 'Edge2_1' time=3166.00.
+Warning: Vehicle 'routeFlow.10' skips stop on lane 'Edge2_1' time=3166.00.
+Warning: Teleporting vehicle 'routeFlow.11'; waited too long (blocked), lane='Edge2_1', time=3472.00.
+Warning: Vehicle 'routeFlow.11' teleports beyond arrival edge 'Edge2', time=3472.00.
+Warning: Vehicle 'routeFlow.11' skips stop on lane 'Edge2_1' time=3472.00.
+Warning: Vehicle 'routeFlow.11' skips stop on lane 'Edge2_1' time=3472.00.
+Warning: Vehicle 'routeFlow.11' skips stop on lane 'Edge2_1' time=3472.00.

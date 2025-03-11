@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2012-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2012-2025 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -93,6 +93,10 @@ def get_options(args=None):
              and options.odFiles is None)):
         sys.exit()
 
+    for attr in ["edgeDataAttr", "arrivalAttr", "departAttr", "turnAttr"]:
+        if getattr(options, attr) not in [None, "None"]:
+            setattr(options, attr, getattr(options, attr).split(","))
+
     options.routeFiles = options.routeFiles.split(',')
     options.turnFiles = options.turnFiles.split(',') if options.turnFiles is not None else []
     options.turnRatioFiles = options.turnRatioFiles.split(',') if options.turnRatioFiles is not None else []
@@ -163,6 +167,7 @@ def checkInterval(options, begin, end, intervalPrefix, mismatchf):
                 continue
             route = vehicle.route[0]
             edges = tuple(route.edges.split())
+            edgeSet = set(edges)
 
             exitTimes = []
             if route.exitTimes:
@@ -172,7 +177,7 @@ def checkInterval(options, begin, end, intervalPrefix, mismatchf):
 
             numPassedDets = 0
             for cd in countData:
-                i = cd.routePasses(edges)
+                i = cd.routePasses(edges, edgeSet)
                 if i is not None:
                     numPassedDets += 1
                     et = exitTimes[i]

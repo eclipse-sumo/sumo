@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -20,9 +20,7 @@
 #pragma once
 #include <config.h>
 
-#include <utils/xml/CommonXMLStructure.h>
-#include <utils/xml/SUMOSAXHandler.h>
-
+#include "CommonHandler.h"
 
 // ===========================================================================
 // class definitions
@@ -35,11 +33,11 @@
  * This is an extension of the MSRouteHandler as routes and vehicles may also
  *  be loaded from network descriptions.
  */
-class MeanDataHandler {
+class MeanDataHandler : public CommonHandler {
 
 public:
     /// @brief Constructor
-    MeanDataHandler();
+    MeanDataHandler(const std::string& filename);
 
     /// @brief Destructor
     virtual ~MeanDataHandler();
@@ -53,10 +51,13 @@ public:
     /// @brief parse SumoBaseObject (it's called recursivelly)
     void parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj);
 
+    /// @brief run post parser tasks
+    virtual bool postParserTasks() = 0;
+
     /// @name build functions
     /// @{
     /// @brief Builds edgeMeanData
-    virtual void buildEdgeMeanData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& ID,
+    virtual bool buildEdgeMeanData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& ID,
                                    const std::string& file, SUMOTime period, SUMOTime begin, SUMOTime end, const bool trackVehicles,
                                    const std::vector<std::string>& writtenAttributes, const bool aggregate, const std::vector<std::string>& edges,
                                    const std::string& edgeFile, std::string excludeEmpty, const bool withInternal,
@@ -64,7 +65,7 @@ public:
                                    const std::vector<std::string>& vTypes, const double speedThreshold) = 0;
 
     /// @brief Builds laneMeanData
-    virtual void buildLaneMeanData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& ID,
+    virtual bool buildLaneMeanData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& ID,
                                    const std::string& file, SUMOTime period, SUMOTime begin, SUMOTime end, const bool trackVehicles,
                                    const std::vector<std::string>& writtenAttributes, const bool aggregate, const std::vector<std::string>& edges,
                                    const std::string& edgeFile, std::string excludeEmpty, const bool withInternal,
@@ -73,20 +74,7 @@ public:
 
     /// @}
 
-    /// @brief get flag for check if a element wasn't created
-    bool isErrorCreatingElement() const;
-
-protected:
-    /// @brief write error and enable error creating element
-    void writeError(const std::string& error);
-
 private:
-    /// @brief common XML Structure
-    CommonXMLStructure myCommonXMLStructure;
-
-    /// @brief flag for check if a element wasn't created
-    bool myErrorCreatingElement = false;
-
     /// @name parse meanMeanData attributes
     /// @{
     /// @brief parse edgeMeanData attributes
@@ -96,6 +84,9 @@ private:
     void parseLaneMeanData(const SUMOSAXAttributes& attrs);
 
     /// @}
+
+    /// @brief invalidate default onstructor
+    MeanDataHandler() = delete;
 
     /// @brief invalidate copy constructor
     MeanDataHandler(const MeanDataHandler& s) = delete;

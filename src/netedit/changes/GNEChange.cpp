@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -41,15 +41,13 @@ GNEChange::GNEChange(Supermode supermode, bool forward, const bool selectedEleme
 
 GNEChange::GNEChange(Supermode supermode, GNEHierarchicalElement* hierarchicalElement, bool forward, const bool selectedElement) :
     mySupermode(supermode),
+    myParents(hierarchicalElement->getParents()),
     myForward(forward),
     mySelectedElement(selectedElement),
-    myOriginalHierarchicalContainer(hierarchicalElement->getHierarchicalContainer()),
     next(nullptr) {
-    // get all hierarchical elements (Parents and children)
-    const auto hierarchicalElements = hierarchicalElement->getAllHierarchicalElements();
-    // save all hierarchical containers
-    for (const auto& element : hierarchicalElements) {
-        myHierarchicalContainers[element] = element->getHierarchicalContainer();
+    // if we're creating the element, clear hierarchical elements (because parent and children will be added in undo-redo)
+    if (forward) {
+        hierarchicalElement->clearParents();
     }
 }
 
@@ -87,15 +85,6 @@ GNEChange::GNEChange() :
     myForward(false),
     mySelectedElement(false),
     next(nullptr) {
-}
-
-
-void
-GNEChange::restoreHierarchicalContainers() {
-    // iterate over all parents and children container and restore it
-    for (const auto& container : myHierarchicalContainers) {
-        container.first->restoreHierarchicalContainer(container.second);
-    }
 }
 
 /****************************************************************************/

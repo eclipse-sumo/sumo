@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -20,7 +20,9 @@
 #pragma once
 #include <config.h>
 
+#include <netedit/GNEViewNetHelper.h>
 #include <utils/foxtools/MFXGroupBoxModule.h>
+#include <utils/geom/Position.h>
 
 // ===========================================================================
 // class declaration
@@ -37,20 +39,23 @@ class GNEOverlappedInspection : public MFXGroupBoxModule {
     FXDECLARE(GNEOverlappedInspection)
 
 public:
-    /// @brief constructor
-    GNEOverlappedInspection(GNEFrame* frameParent);
-
     /// @brief constructor (used for filter objects under cusor
-    GNEOverlappedInspection(GNEFrame* frameParent, const SumoXMLTag filteredTag);
+    GNEOverlappedInspection(GNEFrame* frameParent, const bool onlyJunctions);
 
     /// @brief destructor
     ~GNEOverlappedInspection();
 
-    /// @brief show template editor
-    void showOverlappedInspection(const GNEViewNetHelper::ViewObjectsSelector& viewObjects, const Position& clickedPosition);
+    /// @brief show overlapped inspection
+    void showOverlappedInspection(GNEViewNetHelper::ViewObjectsSelector& viewObjects, const Position& clickedPosition, const bool shiftKeyPressed);
 
-    /// @brief hide template editor
-    void hideOverlappedInspection();
+    /// @brief show template editor
+    void refreshOverlappedInspection();
+
+    /// @brief clear overlapped inspection
+    void clearOverlappedInspection();
+
+    /// @brief hide overlapped inspection
+    void hiderOverlappedInspection();
 
     /// @brief check if overlappedInspection modul is shown
     bool overlappedInspectionShown() const;
@@ -58,23 +63,14 @@ public:
     /// @brief get number of overlapped ACSs
     int getNumberOfOverlappedACs() const;
 
-    /// @brief check if given position is near to saved position
-    bool checkSavedPosition(const Position& clickedPosition) const;
-
-    /// @brief try to go to next element if clicked position is near to saved position
-    bool nextElement(const Position& clickedPosition);
-
-    /// @brief try to go to previous element if clicked position is near to saved position
-    bool previousElement(const Position& clickedPosition);
-
     /// @name FOX-callbacks
     /// @{
 
     /// @brief Inspect next Element (from top to bot)
-    long onCmdNextElement(FXObject*, FXSelector, void*);
+    long onCmdInspectNextElement(FXObject*, FXSelector, void*);
 
     /// @brief Inspect previous element (from top to bot)
-    long onCmdPreviousElement(FXObject*, FXSelector, void*);
+    long onCmdInspectPreviousElement(FXObject*, FXSelector, void*);
 
     /// @brief show list of overlapped elements
     long onCmdShowList(FXObject*, FXSelector, void*);
@@ -90,37 +86,34 @@ protected:
     /// @brief FOX needs this
     GNEOverlappedInspection();
 
-    /// @brief build Fox Toolkit elemements
-    void buildFXElements();
-
 private:
     /// @brief current frame parent
-    GNEFrame* myFrameParent;
+    GNEFrame* myFrameParent = nullptr;
 
     /// @brief Previous element button
-    FXButton* myPreviousElement;
+    FXButton* myPreviousElement = nullptr;
 
     /// @brief Button for current index
-    FXButton* myCurrentIndexButton;
+    FXButton* myCurrentIndexButton = nullptr;
 
     /// @brief Next element button
-    FXButton* myNextElement;
+    FXButton* myNextElement = nullptr;
 
     /// @brief list of overlapped elements
-    FXList* myOverlappedElementList;
+    FXList* myOverlappedElementList = nullptr;
 
     /// @brief button for help
-    FXButton* myHelpButton;
+    FXButton* myHelpButton = nullptr;
 
-    /// @brief filtered tag
-    const SumoXMLTag myFilteredTag;
+    /// @brief clicked position
+    Position myClickedPosition = Position::INVALID;
+
+    /// @brief flag to indicate that this modul is only for junctions
+    const bool myOnlyJunctions = false;
 
     /// @brief objects under cursor
     std::vector<GNEAttributeCarrier*> myOverlappedACs;
 
     /// @brief current index item
-    size_t myItemIndex;
-
-    /// @brief saved clicked position
-    Position mySavedClickedPosition;
+    int myItemIndex = 0;
 };

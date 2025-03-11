@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2021-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2021-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -33,15 +33,16 @@ public:
     GNETractionSubstation(GNENet* net);
 
     /**@brief Constructor
-     * @param[in] id The storage of gl-ids to get the one for this lane representation from
-     * @param[in] net pointer to GNENet of this additional element belongs
+     * @param[in] id The name of the traction substation
+     * @param[in] net net in which this polygon is placed
+     * @param[in] filename file in which this element is stored
      * @param[in] pos position (center) of the tractionSubstation in the map
      * @param[in] voltage tractionSubstation voltage
      * @param[in] currentLimit tractionSubstation currentLimit
      * @param[in] parameters generic parameters
      */
-    GNETractionSubstation(const std::string& id, GNENet* net, const Position& pos, const double voltage,
-                          const double currentLimit, const Parameterised::Map& parameters);
+    GNETractionSubstation(const std::string& id, GNENet* net, const std::string& filename, const Position& pos,
+                          const double voltage, const double currentLimit, const Parameterised::Map& parameters);
 
     /// @brief Destructor
     ~GNETractionSubstation();

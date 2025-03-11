@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2017-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2017-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -122,8 +122,8 @@ ChargingStation::getChargeInTransit(const std::string& stopID) {
 
 
 void
-ChargingStation::setChargingPower(const std::string& stopID, double chargingpower) {
-    dynamic_cast<MSChargingStation*>(getChargingStation(stopID))->setChargingPower(chargingpower);
+ChargingStation::setChargingPower(const std::string& stopID, double power) {
+    dynamic_cast<MSChargingStation*>(getChargingStation(stopID))->setChargingPower(power);
 }
 
 
@@ -140,8 +140,8 @@ ChargingStation::setChargeDelay(const std::string& stopID, double delay) {
 
 
 void
-ChargingStation::setChargeInTransit(const std::string& stopID, bool value) {
-    dynamic_cast<MSChargingStation*>(getChargingStation(stopID))->setChargeInTransit(value);
+ChargingStation::setChargeInTransit(const std::string& stopID, bool inTransit) {
+    dynamic_cast<MSChargingStation*>(getChargingStation(stopID))->setChargeInTransit(inTransit);
 }
 
 

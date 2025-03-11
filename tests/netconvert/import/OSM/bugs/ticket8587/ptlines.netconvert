@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-04-03 10:18:32 by Eclipse SUMO netconvert Version v1_19_0+1653-1011da01c71
+<!-- generated on 2025-01-30 09:41:04 by Eclipse SUMO netconvert Version v1_21_0+2125-f7884de39c4
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <osm-files value="osm.xml"/>
@@ -44,19 +44,20 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <xml-validation value="never"/>
     </report>
 
-</configuration>
+</netconvertConfiguration>
 -->
 
 <ptLines xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/ptlines_file.xsd">
-    <ptLine id="1571844" name="Buslinie 737: S Königs Wusterhausen =&gt; S Wildau =&gt; A10 Center" line="737" type="bus" vClass="bus" color="blue" completeness="0.19" missingBefore="12" missingAfter="1">
+    <ptLine id="1571844" name="Buslinie 737: S Königs Wusterhausen =&gt; S Wildau =&gt; A10 Center" line="737" type="bus" vClass="bus" color="blue" completeness="0.18" missingBefore="12" missingAfter="2">
         <route edges="4935287#0 4935287#1 783647325#0 783647325#1 26216780#0 26216780#2 26216780#3 253109042 253109039 253109043 253109044 253109040 4935300#0 4935300#2 27765448#0 27765448#1 782661221 782661618#0 782661618#3 240042205#0 240042205#1 151495035#0 151495035#1 151495035#2 253109041 253109045 253109042 6272844#0 6272844#2 6272844#3 6272844#4 -5067106#4 -5067106#3 -5067106#1 -5067106#0"/>
         <busStop id="1234643991" name="Chausseestraße"/>
         <busStop id="1643085195" name="A10 Center"/>
         <busStop id="-7307151972" name="Albertusstraße"/>
     </ptLine>
-    <ptLine id="9366515" name="Buslinie 738: Waltersdorf =&gt; S Eichwalde =&gt; A10 Center" line="738" type="bus" vClass="bus" color="127,255,0" completeness="0.04" missingBefore="43">
+    <ptLine id="9366515" name="Buslinie 738: Waltersdorf =&gt; S Eichwalde =&gt; A10 Center" line="738" type="bus" vClass="bus" color="127,255,0" completeness="0.06" missingBefore="43" missingAfter="2">
         <route edges="4935287#0 4935287#1 783647325#0 783647325#1 26216780#0 26216780#2 26216780#3 253109042 253109039 253109043 253109044 253109040 4935300#0 4935300#2 27765448#0 27765448#1 782661221 782661618#0 782661618#3 240042205#0 240042205#1 151495035#0 151495035#1 151495035#2 253109041 253109045 253109042 6272844#0 6272844#2 6272844#3 6272844#4 -5067106#4 -5067106#3 -5067106#1 -5067106#0"/>
         <busStop id="1234643991" name="Chausseestraße"/>
         <busStop id="1643085195" name="A10 Center"/>
+        <busStop id="-7307151972" name="Albertusstraße"/>
     </ptLine>
 </ptLines>

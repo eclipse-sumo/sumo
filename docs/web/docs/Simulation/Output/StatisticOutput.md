@@ -96,16 +96,18 @@ The following output attributes are generated:
 
 | Attribute Name         | Value Type | Description                                                                                 |
 | ---------------------- | ---------- | ------------------------------------------------------------------------------------------- |
+| **count**              | #          | The number of vehicles contributing to this statistic (defaults to arrived vehicles but includes all inserted vehicles if option **--tripinfo-output.write-unfinished** is set)
 | **routeLength**        | m          | The average route length                                                                    |
 | **speed**              | m/s        | The average trip speed                                                                      |
 | **duration**           | s          | The average trip duration                                                                   |
 | **waitingTime**        | s          | The average time spent standing (involuntarily)                                             |
 | **timeLoss**           | s          | The average time lost due to driving slower than desired (includes waitingTime)             |
 | **departDelay**        | s          | The average time vehicles had to wait before starting their journeys                        |
-| **departDelayWaiting** | s          | The average waiting time of vehicles which could not be inserted due to lack of road space  |
+| **departDelayWaiting** | s          | The average waiting time of vehicles which could not be inserted due to lack of road space |
 | **totalTravelTime**    | s          | The total travel time of all vehicles |
 | **totalDepartDelay**   | s          | The total depart delay of all vehicles  |
 
+T
 
 ## pedestrianStatistics
 

@@ -1,7 +1,7 @@
 # delete single connections using click in delete mode
 click
 
-# delete selection of connections using click in delete mode 
+# delete selection of connections using click in delete mode
 click_selected
 
 # delete frame

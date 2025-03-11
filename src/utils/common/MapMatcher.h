@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -23,6 +23,7 @@
 #include <utils/geom/GeoConvHelper.h>
 #include <utils/vehicle/SUMOVTypeParameter.h>
 #include "NamedRTree.h"
+#include "RandHelper.h"
 #include "SUMOVehicleClass.h"
 #include "MsgHandler.h"
 
@@ -42,21 +43,13 @@
 
 template<class E, class L, class N>
 class MapMatcher {
-protected:
-    MapMatcher(bool matchJunctions, double matchDistance, MsgHandler* errorOutput):
-        myLaneTree(nullptr),
-        myMapMatchJunctions(matchJunctions),
-        myMapMatchingDistance(matchDistance),
-        myErrorOutput(errorOutput) {}
 
-    virtual ~MapMatcher() {
-        delete myLaneTree;
-    }
-
+public:
     void parseGeoEdges(const PositionVector& positions, bool geo, SUMOVehicleClass vClass,
-                       std::vector<const E*>& into, const std::string& rid, bool isFrom, bool& ok) {
+                       std::vector<const E*>& into, const std::string& rid, bool isFrom, bool& ok, bool forceEdge = false) {
         if (geo && !GeoConvHelper::getFinal().usingGeoProjection()) {
             WRITE_ERROR(TL("Cannot convert geo-positions because the network has no geo-reference"));
+            ok = false;
             return;
         }
         for (Position pos : positions) {
@@ -78,10 +71,16 @@ protected:
                 while (bestEdge->isInternal()) {
                     bestEdge = bestEdge->getSuccessors().front();
                 }
-                if (myMapMatchJunctions) {
-                    bestEdge = getJunctionTaz(pos, bestEdge, vClass, isFrom);
+                if ((myMapMatchJunctions || myMapMatchTAZ) && !forceEdge) {
+                    if (myMapMatchTAZ) {
+                        bestEdge = getTaz(pos, bestEdge, isFrom);
+                    } else {
+                        bestEdge = getJunctionTaz(pos, bestEdge, vClass, isFrom);
+                    }
                     if (bestEdge != nullptr) {
                         into.push_back(bestEdge);
+                    } else {
+                        ok = false;
                     }
                 } else {
                     // handle multiple via locations on the same edge without loops
@@ -93,6 +92,19 @@ protected:
         }
     }
 
+
+
+protected:
+    MapMatcher(bool matchJunctions, bool matchTAZ, double matchDistance, MsgHandler* errorOutput):
+        myMapMatchTAZ(matchTAZ),
+        myLaneTree(nullptr),
+        myMapMatchJunctions(matchJunctions),
+        myMapMatchingDistance(matchDistance),
+        myErrorOutput(errorOutput) {}
+
+    virtual ~MapMatcher() {
+        delete myLaneTree;
+    }
 
     /// @brief find closest lane within distance for the given position or nullptr
     const L* getClosestLane(const Position& pos, SUMOVehicleClass vClass, double distance = -1.) {
@@ -163,10 +175,46 @@ protected:
         }
     }
 
+    /// @brief find closest junction taz given the closest edge
+    const E* getTaz(const Position& pos, const E* closestEdge, bool isFrom) {
+        if (closestEdge == nullptr) {
+            return nullptr;
+        } else {
+            std::vector<const E*> cands;
+            if (isFrom) {
+                for (const E* e : closestEdge->getPredecessors()) {
+                    if (e->isTazConnector()) {
+                        cands.push_back(e);
+                    }
+                }
+            } else {
+                for (const E* e : closestEdge->getSuccessors()) {
+                    if (e->isTazConnector()) {
+                        cands.push_back(e);
+                    }
+                }
+            }
+            if (cands.size() == 0) {
+                myErrorOutput->inform("Taz for edge '" + closestEdge->getID() + "' not found when mapping position " + toString(pos) + "." + JUNCTION_TAZ_MISSING_HELP);
+                return nullptr;
+            }
+            if (cands.size() > 1) {
+                return cands[RandHelper::rand((int)cands.size(), getRNG())];
+            } else {
+                return cands.front();
+            }
+        }
+    }
+
+    virtual SumoRNG* getRNG() {
+        return nullptr;
+    }
 
     virtual void initLaneTree(NamedRTree* tree) = 0;
 
     virtual E* retrieveEdge(const std::string& id) = 0;
+
+    bool myMapMatchTAZ;
 
 private:
     /// @brief initialize lane-RTree

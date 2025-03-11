@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -18,6 +18,8 @@
 // Route distribution used in netedit
 /****************************************************************************/
 
+#include <netedit/GNETagProperties.h>
+
 #include "GNERouteDistribution.h"
 
 // ===========================================================================
@@ -29,8 +31,8 @@ GNERouteDistribution::GNERouteDistribution(GNENet* net) :
 }
 
 
-GNERouteDistribution::GNERouteDistribution(GNENet* net, const std::string& ID) :
-    GNEDistribution(net, GLO_ROUTE, SUMO_TAG_ROUTE_DISTRIBUTION, GUIIcon::ROUTEDISTRIBUTION, ID, -1) {
+GNERouteDistribution::GNERouteDistribution(const std::string& ID, GNENet* net, const std::string& filename) :
+    GNEDistribution(ID, net, filename, GLO_ROUTE, SUMO_TAG_ROUTE_DISTRIBUTION, GUIIcon::ROUTEDISTRIBUTION, -1) {
 }
 
 
@@ -42,7 +44,7 @@ GNERouteDistribution::writeDemandElement(OutputDevice& device) const {
     // only save if there is distribution elements to save
     if (!isDistributionEmpty()) {
         // now write attributes
-        device.openTag(getTagProperty().getTag());
+        device.openTag(getTagProperty()->getTag());
         device.writeAttr(SUMO_ATTR_ID, getID());
         device.writeAttr(SUMO_ATTR_ROUTES, getAttributeDistributionKeys());
         device.writeAttr(SUMO_ATTR_PROBS, getAttributeDistributionValues());

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-02-29 13:56:02 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
+<!-- generated on 2024-12-20 14:05:35 by Eclipse SUMO netconvert Version v1_21_0+1546-57149b55864
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <node-files value="input_plain.nod.xml"/>
@@ -33,7 +33,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <xml-validation value="never"/>
     </report>
 
-</configuration>
+</netconvertConfiguration>
 -->
 
 <net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
@@ -215,10 +215,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <connection from="171826985#3" to="-534588621#1" fromLane="4" toLane="2" tl="cluster_1827996421_1827996431_1827996455_2121324874_21487210_29221504_29221506_341340973_3792418589_3792418616_3792418629_3792418630_3792418641_3792418791" linkIndex="6" dir="l" state="o"/>
     <connection from="202156994#0" to="-534588621#1" fromLane="1" toLane="1" tl="cluster_1827996421_1827996431_1827996455_2121324874_21487210_29221504_29221506_341340973_3792418589_3792418616_3792418629_3792418630_3792418641_3792418791" linkIndex="14" dir="r" state="O"/>
     <connection from="202156994#0" to="-534588621#1" fromLane="1" toLane="2" tl="cluster_1827996421_1827996431_1827996455_2121324874_21487210_29221504_29221506_341340973_3792418589_3792418616_3792418629_3792418630_3792418641_3792418791" linkIndex="15" dir="r" state="O"/>
-    <connection from="202156994#0" to="72157174#1" fromLane="1" toLane="1" tl="cluster_1827996421_1827996431_1827996455_2121324874_21487210_29221504_29221506_341340973_3792418589_3792418616_3792418629_3792418630_3792418641_3792418791" linkIndex="16" dir="s" state="O"/>
-    <connection from="202156994#0" to="72157174#1" fromLane="2" toLane="2" tl="cluster_1827996421_1827996431_1827996455_2121324874_21487210_29221504_29221506_341340973_3792418589_3792418616_3792418629_3792418630_3792418641_3792418791" linkIndex="17" dir="s" state="O"/>
-    <connection from="202156994#0" to="72157174#1" fromLane="3" toLane="3" tl="cluster_1827996421_1827996431_1827996455_2121324874_21487210_29221504_29221506_341340973_3792418589_3792418616_3792418629_3792418630_3792418641_3792418791" linkIndex="18" dir="s" state="O"/>
-    <connection from="202156994#0" to="4773465#1" fromLane="4" toLane="1" tl="cluster_1827996421_1827996431_1827996455_2121324874_21487210_29221504_29221506_341340973_3792418589_3792418616_3792418629_3792418630_3792418641_3792418791" linkIndex="19" dir="l" state="o"/>
+    <connection from="202156994#0" to="72157174#1" fromLane="2" toLane="1" tl="cluster_1827996421_1827996431_1827996455_2121324874_21487210_29221504_29221506_341340973_3792418589_3792418616_3792418629_3792418630_3792418641_3792418791" linkIndex="16" dir="s" state="O"/>
+    <connection from="202156994#0" to="72157174#1" fromLane="3" toLane="2" tl="cluster_1827996421_1827996431_1827996455_2121324874_21487210_29221504_29221506_341340973_3792418589_3792418616_3792418629_3792418630_3792418641_3792418791" linkIndex="17" dir="s" state="O"/>
+    <connection from="202156994#0" to="72157174#1" fromLane="4" toLane="3" tl="cluster_1827996421_1827996431_1827996455_2121324874_21487210_29221504_29221506_341340973_3792418589_3792418616_3792418629_3792418630_3792418641_3792418791" linkIndex="18" dir="s" state="O"/>
+    <connection from="202156994#0" to="4773465#1" fromLane="5" toLane="1" tl="cluster_1827996421_1827996431_1827996455_2121324874_21487210_29221504_29221506_341340973_3792418589_3792418616_3792418629_3792418630_3792418641_3792418791" linkIndex="19" dir="l" state="o"/>
     <connection from="202156994#0" to="4773465#1" fromLane="5" toLane="3" tl="cluster_1827996421_1827996431_1827996455_2121324874_21487210_29221504_29221506_341340973_3792418589_3792418616_3792418629_3792418630_3792418641_3792418791" linkIndex="20" dir="l" state="o"/>
     <connection from="202157002#3" to="24913519#1" fromLane="1" toLane="1" tl="cluster_1827996421_1827996431_1827996455_2121324874_21487210_29221504_29221506_341340973_3792418589_3792418616_3792418629_3792418630_3792418641_3792418791" linkIndex="21" dir="r" state="o"/>
     <connection from="202157002#3" to="-534588621#1" fromLane="1" toLane="1" tl="cluster_1827996421_1827996431_1827996455_2121324874_21487210_29221504_29221506_341340973_3792418589_3792418616_3792418629_3792418630_3792418641_3792418791" linkIndex="22" dir="s" state="o"/>

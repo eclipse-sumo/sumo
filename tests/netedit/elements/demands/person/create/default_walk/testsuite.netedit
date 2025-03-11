@@ -1,7 +1,15 @@
-default_walk_edges
-
 default_walk_fromto
 
 default_walk_busstop
+
+default_walk_trainstop
+
+default_walk_containerstop
+
+default_walk_chargingstation
+
+default_walk_parkingarea
+
+default_walk_edges
 
 default_walk_route

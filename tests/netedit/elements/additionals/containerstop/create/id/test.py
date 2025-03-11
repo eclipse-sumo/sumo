@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2009-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2009-2025 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -31,29 +31,29 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 # go to additional mode
 netedit.additionalMode()
 
-# select containerStop
+# select trainStop
 netedit.changeElement("containerStop")
 
-# create containerStop in mode "Reference Left"
+# create trainStop in mode "Reference Left"
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
+
+# set invalid ID (duplicated
+netedit.changeDefaultValue(netedit.attrs.trainStop.create.id, ";;;;;;;;;;;;;;;;")
+
+# create trainStop in mode "Reference Left"
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
+
+# set invalid ID (duplicated
+netedit.changeDefaultValue(netedit.attrs.trainStop.create.id, "ct_0")
+
+# create trainStop in mode "Reference Left"
+netedit.leftClick(referencePosition, netedit.positions.elements.edge1)
+
+# set invalid ID (duplicated
+netedit.changeDefaultValue(netedit.attrs.trainStop.create.id, "custom_ID")
+
+# create trainStop in mode "Reference Left"
 netedit.leftClick(referencePosition, netedit.positions.elements.edge3)
-
-# set invalid ID (duplicated
-netedit.changeDefaultValue(netedit.attrs.containerStop.create.id, ";;;;;;;;;;;;;;;;")
-
-# create containerStop in mode "Reference Left"
-netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
-
-# set invalid ID (duplicated
-netedit.changeDefaultValue(netedit.attrs.containerStop.create.id, "ct_0")
-
-# create containerStop in mode "Reference Left"
-netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
-
-# set invalid ID (duplicated
-netedit.changeDefaultValue(netedit.attrs.containerStop.create.id, "custom_ID")
-
-# create containerStop in mode "Reference Left"
-netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

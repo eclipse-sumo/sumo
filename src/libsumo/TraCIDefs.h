@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2012-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2012-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -338,8 +338,7 @@ typedef std::map<std::string, libsumo::TraCIResults> SubscriptionResults;
 typedef std::map<std::string, libsumo::SubscriptionResults> ContextSubscriptionResults;
 
 
-class TraCIPhase {
-public:
+struct TraCIPhase {
     TraCIPhase() {}
     TraCIPhase(const double _duration, const std::string& _state, const double _minDur = libsumo::INVALID_DOUBLE_VALUE,
                const double _maxDur = libsumo::INVALID_DOUBLE_VALUE,
@@ -363,8 +362,7 @@ public:
 
 
 namespace libsumo {
-class TraCILogic {
-public:
+struct TraCILogic {
     TraCILogic() {}
     TraCILogic(const std::string& _programID, const int _type, const int _currentPhaseIndex,
                const std::vector<std::shared_ptr<libsumo::TraCIPhase> >& _phases = std::vector<std::shared_ptr<libsumo::TraCIPhase> >())
@@ -379,8 +377,7 @@ public:
 };
 
 
-class TraCILink {
-public:
+struct TraCILink {
     TraCILink() {}
     TraCILink(const std::string& _from, const std::string& _via, const std::string& _to)
         : fromLane(_from), viaLane(_via), toLane(_to) {}
@@ -392,14 +389,20 @@ public:
 };
 
 
-class TraCIConnection {
-public:
+struct TraCIConnection {
     TraCIConnection() {} // this is needed by SWIG when building a vector of this type, please don't use it
     TraCIConnection(const std::string& _approachedLane, const bool _hasPrio, const bool _isOpen, const bool _hasFoe,
                     const std::string _approachedInternal, const std::string _state, const std::string _direction, const double _length)
         : approachedLane(_approachedLane), hasPrio(_hasPrio), isOpen(_isOpen), hasFoe(_hasFoe),
           approachedInternal(_approachedInternal), state(_state), direction(_direction), length(_length) {}
     ~TraCIConnection() {}
+
+    std::string getString() const {
+        std::ostringstream os;
+        os << "TraCIConnection(" << approachedLane << "," << hasPrio << "," << isOpen
+           << "," << hasFoe << "," << approachedInternal << "," << state << "," << direction << "," << length << ")";
+        return os.str();
+    }
 
     std::string approachedLane;
     bool hasPrio;
@@ -409,6 +412,21 @@ public:
     std::string state;
     std::string direction;
     double length;
+};
+
+
+struct TraCIConnectionVectorWrapped : TraCIResult {
+    std::string getString() const {
+        std::ostringstream os;
+        os << "TraCIConnectionVectorWrapped[";
+        for (const TraCIConnection& v : value) {
+            os << v.getString() << ",";
+        }
+        os << "]";
+        return os.str();
+    }
+
+    std::vector<TraCIConnection> value;
 };
 
 
@@ -428,6 +446,13 @@ struct TraCIVehicleData {
 
 
 struct TraCINextTLSData {
+    std::string getString() const {
+        std::ostringstream os;
+        os << "TraCINextTLSData(" << id << "," << tlIndex << "," << dist
+           << "," << state << ")";
+        return os.str();
+    }
+
     /// @brief The id of the next tls
     std::string id;
     /// @brief The tls index of the controlled link
@@ -439,7 +464,22 @@ struct TraCINextTLSData {
 };
 
 
-struct TraCINextStopData : TraCIResult {
+struct TraCINextTLSDataVectorWrapped : TraCIResult {
+    std::string getString() const {
+        std::ostringstream os;
+        os << "TraCINextTLSDataVectorWrapped[";
+        for (const TraCINextTLSData& v : value) {
+            os << v.getString() << ",";
+        }
+        os << "]";
+        return os.str();
+    }
+
+    std::vector<TraCINextTLSData> value;
+};
+
+
+struct TraCINextStopData {
 
     TraCINextStopData(const std::string& lane = "",
                       double startPos = INVALID_DOUBLE_VALUE,
@@ -518,15 +558,15 @@ struct TraCINextStopData : TraCIResult {
 };
 
 
-/** @struct TraCINextStopDataVector
+/** @struct TraCINextStopDataVectorWrapped
  * @brief A list of vehicle stops
  * @see TraCINextStopData
  */
-struct TraCINextStopDataVector : TraCIResult {
+struct TraCINextStopDataVectorWrapped : TraCIResult {
     std::string getString() const {
         std::ostringstream os;
-        os << "TraCINextStopDataVector[";
-        for (TraCINextStopData v : value) {
+        os << "TraCINextStopDataVectorWrapped[";
+        for (const TraCINextStopData& v : value) {
             os << v.getString() << ",";
         }
         os << "]";
@@ -538,6 +578,17 @@ struct TraCINextStopDataVector : TraCIResult {
 
 
 struct TraCIBestLanesData {
+    std::string getString() const {
+        std::ostringstream os;
+        os << "TraCIBestLanesData(" << laneID << "," << length << "," << occupation
+           << "," << bestLaneOffset << "," << allowsContinuation << ",[";
+        for (const std::string& s : continuationLanes) {
+            os << s << ",";
+        }
+        os << "])";
+        return os.str();
+    }
+
     /// @brief The id of the lane
     std::string laneID;
     /// @brief The length than can be driven from that lane without lane change
@@ -553,7 +604,22 @@ struct TraCIBestLanesData {
 };
 
 
-class TraCIStage {
+struct TraCIBestLanesDataVectorWrapped : TraCIResult {
+    std::string getString() const {
+        std::ostringstream os;
+        os << "TraCIBestLanesDataVectorWrapped[";
+        for (const TraCIBestLanesData& v : value) {
+            os << v.getString() << ",";
+        }
+        os << "]";
+        return os.str();
+    }
+
+    std::vector<TraCIBestLanesData> value;
+};
+
+
+struct TraCIStage {
 public:
     TraCIStage(int type = INVALID_INT_VALUE, const std::string& vType = "", const std::string& line = "", const std::string& destStop = "",
                const std::vector<std::string>& edges = std::vector<std::string>(),
@@ -592,8 +658,7 @@ public:
 
 
 
-class TraCIReservation {
-public:
+struct TraCIReservation {
     TraCIReservation() {}
     TraCIReservation(const std::string& id,
                      const std::vector<std::string>& persons,

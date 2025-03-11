@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -17,16 +17,16 @@
 ///
 // Frame for select demand elements
 /****************************************************************************/
-#include <config.h>
 
 #include <netedit/GNENet.h>
+#include <netedit/GNETagProperties.h>
+#include <netedit/GNETagPropertiesDatabase.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 
 #include "GNEDemandSelector.h"
-
 
 // ===========================================================================
 // FOX callback mapping
@@ -52,7 +52,7 @@ GNEDemandElementSelector::GNEDemandElementSelector(GNEFrame* frameParent, SumoXM
                     myTagType(tagType),
 mySelectingMultipleElements(false) {
     // Create MFXComboBoxIcon
-    myDemandElementsComboBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, true, GUIDesignComboBoxVisibleItemsMedium,
+    myDemandElementsComboBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, true, GUIDesignComboBoxVisibleItems,
             this, MID_GNE_SET_TYPE, GUIDesignComboBox);
     // refresh demand element MatchBox
     refreshDemandElementSelector();
@@ -68,13 +68,13 @@ GNEDemandElementSelector::GNEDemandElementSelector(GNEFrame* frameParent, const 
     mySelectingMultipleElements(false) {
     // fill myDemandElementTags
     for (const auto& tagType : tagTypes) {
-        const auto tagProperties = GNEAttributeCarrier::getTagPropertiesByType(tagType);
-        for (const auto& tagProperty : tagProperties) {
-            myDemandElementTags.push_back(tagProperty.getTag());
+        const auto tagPropertiesByType = frameParent->getViewNet()->getNet()->getTagPropertiesDatabase()->getTagPropertiesByType(tagType, false);
+        for (const auto tagProperty : tagPropertiesByType) {
+            myDemandElementTags.push_back(tagProperty->getTag());
         }
     }
     // Create MFXComboBoxIcon
-    myDemandElementsComboBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, true, GUIDesignComboBoxVisibleItemsMedium,
+    myDemandElementsComboBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, true, GUIDesignComboBoxVisibleItems,
             this, MID_GNE_SET_TYPE, GUIDesignComboBox);
     // refresh demand element MatchBox
     refreshDemandElementSelector();
@@ -105,7 +105,7 @@ GNEDemandElementSelector::setDemandElement(GNEDemandElement* demandElement) {
     myCurrentDemandElement = demandElement;
     if (demandElement != nullptr) {
         // check that demandElement tag correspond to a tag of myDemandElementTags
-        if (std::find(myDemandElementTags.begin(), myDemandElementTags.end(), demandElement->getTagProperty().getTag()) != myDemandElementTags.end()) {
+        if (std::find(myDemandElementTags.begin(), myDemandElementTags.end(), demandElement->getTagProperty()->getTag()) != myDemandElementTags.end()) {
             // update text of myDemandElementsComboBox
             myDemandElementsComboBox->setCurrentItem(demandElement->getID().c_str());
         }
@@ -207,7 +207,7 @@ GNEDemandElementSelector::refreshDemandElementSelector() {
             }
             for (const auto& demandElement : sortedElements) {
                 myDemandElementsComboBox->appendIconItem(demandElement.first.c_str(), demandElement.second->getACIcon(),
-                        demandElement.second->getTagProperty().getBackGroundColor());
+                        demandElement.second->getTagProperty()->getBackGroundColor());
             }
         }
     }
@@ -241,8 +241,8 @@ GNEDemandElementSelector::getPreviousPlanElement() const {
     if (myCurrentDemandElement == nullptr) {
         return nullptr;
     }
-    if (!myCurrentDemandElement->getTagProperty().isPerson() &&
-            !myCurrentDemandElement->getTagProperty().isContainer()) {
+    if (!myCurrentDemandElement->getTagProperty()->isPerson() &&
+            !myCurrentDemandElement->getTagProperty()->isContainer()) {
         return nullptr;
     }
     if (myCurrentDemandElement->getChildDemandElements().empty()) {
@@ -265,8 +265,6 @@ GNEDemandElementSelector::onCmdSelectDemandElement(FXObject*, FXSelector, void*)
                 myCurrentDemandElement = demandElement.second;
                 // call demandElementSelected function
                 myFrameParent->demandElementSelected();
-                // Write Warning in console if we're in testing mode
-                WRITE_DEBUG((TL("Selected item '") + myDemandElementsComboBox->getText() + TL("' in DemandElementSelector")).text());
                 return 1;
             }
         }
@@ -277,8 +275,6 @@ GNEDemandElementSelector::onCmdSelectDemandElement(FXObject*, FXSelector, void*)
     myFrameParent->demandElementSelected();
     // change color of myDemandElementsComboBox to red (invalid)
     myDemandElementsComboBox->setTextColor(FXRGB(255, 0, 0));
-    // Write Warning in console if we're in testing mode
-    WRITE_DEBUG(TL("Selected invalid item in DemandElementSelector"));
     return 1;
 }
 

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -74,9 +74,7 @@ public:
         return MEVehicle::getPosition(offset);
     }
 
-    Position getVisualPosition(bool /*s2*/, const double offset = 0) const {
-        return MEVehicle::getPosition(offset);
-    }
+    Position getVisualPosition(bool s2, const double offset = 0) const;
 
     /// @brief return exaggeration associated with this GLObject
     double getExaggeration(const GUIVisualizationSettings& s) const;
@@ -122,8 +120,6 @@ public:
 
     std::string getEdgeID() const;
 
-    int getSegmentIndex() const;
-
     /// @brief adds the blocking foes to the current selection
     void selectBlockingFoes() const;
 
@@ -144,4 +140,6 @@ public:
      */
     GUIParameterTableWindow* getTypeParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent);
 
+    /// @brief whether this vehicle is selected in the GUI
+    bool isSelected() const;
 };

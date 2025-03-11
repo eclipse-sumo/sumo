@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2012-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2012-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -401,26 +401,29 @@ Connection::readVariables(tcpip::Storage& inMsg, const std::string& objectID, in
                 }
                 break;
                 case libsumo::TYPE_COMPOUND: {
-                    int n = inMsg.readInt();
+                    const int n = inMsg.readInt();
                     if (n == 2) {
-                        inMsg.readUnsignedByte();
-                        const std::string s = inMsg.readString();
-                        const int secondType = inMsg.readUnsignedByte();
-                        if (secondType == libsumo::TYPE_DOUBLE) {
-                            auto r = std::make_shared<libsumo::TraCIRoadPosition>();
-                            r->edgeID = s;
-                            r->pos = inMsg.readDouble();
-                            into[objectID][variableID] = r;
-                        } else if (secondType == libsumo::TYPE_STRING) {
-                            auto sl = std::make_shared<libsumo::TraCIStringList>();
-                            sl->value.push_back(s);
-                            sl->value.push_back(inMsg.readString());
-                            into[objectID][variableID] = sl;
+                        const int firstType = inMsg.readUnsignedByte();
+                        if (firstType == libsumo::TYPE_STRING) {
+                            const std::string s = inMsg.readString();
+                            const int secondType = inMsg.readUnsignedByte();
+                            if (secondType == libsumo::TYPE_DOUBLE) {
+                                auto r = std::make_shared<libsumo::TraCIRoadPosition>();
+                                r->edgeID = s;
+                                r->pos = inMsg.readDouble();
+                                into[objectID][variableID] = r;
+                                break;
+                            } else if (secondType == libsumo::TYPE_STRING) {
+                                auto sl = std::make_shared<libsumo::TraCIStringList>();
+                                sl->value.push_back(s);
+                                sl->value.push_back(inMsg.readString());
+                                into[objectID][variableID] = sl;
+                                break;
+                            }
                         }
                     }
                 }
-                break;
-
+                FALLTHROUGH;
                 // TODO Other data types
 
                 default:

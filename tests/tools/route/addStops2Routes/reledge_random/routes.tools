@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-07-07 11:06:31.343745 by addStops2Routes.py v1_13_0+1343-240e5d48340
+<!-- generated on 2025-03-05 10:16:32.971835 by addStops2Routes.py v1_22_0+0650-d108669826e
 <configuration>
-    <duration value="1800"/>
     <net-file value="input_net.net.xml"/>
+    <route-files value="input_routes2.rou.xml"/>
     <output-file value="out.rou.xml"/>
+    <duration value="1800"/>
+    <until value="12:0:0"/>
     <parking value="True"/>
     <reledge value="random"/>
-    <route-files value="input_routes2.rou.xml"/>
-    <until value="12:0:0"/>
 </configuration>
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <vType id="type1" vClass="passenger"/>
-    <vehicle color="1,0,0" depart="0" id="0" type="type1">
+    <vehicle id="0" type="type1" depart="0" color="1,0,0">
         <route edges="SC CN"/>
         <stop duration="1800" lane="CN_3" parking="true" until="12:0:0"/>
     </vehicle>
-    <vehicle color="1,0,0" depart="0" id="1" type="type1">
+    <vehicle id="1" type="type1" depart="0" color="1,0,0">
         <route edges="EC CW"/>
         <stop duration="1800" lane="EC_3" parking="true" until="12:0:0"/>
     </vehicle>
-    <vehicle color="1,0,0" depart="0" id="2" type="type1">
+    <vehicle id="2" type="type1" depart="0" color="1,0,0">
         <route edges="NC CW WC CS"/>
         <stop duration="1800" lane="CW_3" parking="true" until="12:0:0"/>
     </vehicle>

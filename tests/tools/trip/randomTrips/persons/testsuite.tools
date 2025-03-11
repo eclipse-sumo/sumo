@@ -7,9 +7,19 @@ vehicle_class_persontrips
 # test pedestrian trips with intermediate waypoints
 intermediate_pedestrians
 pedestrians
+pedestrians_flow
+
+# Copy of pedestrians_flow
+pedestrians_flow_binomial
+
+# Copy of pedestrians_flow
+pedestrians_flow_poisson
 
 # generate random persontrips
 persontrips
+
+# generate random flows of persontrips
+persontrips_flow
 
 # walks between junctions
 pedestrians_junctionTaz
@@ -17,6 +27,13 @@ pedestrians_junctionTaz
 # generate random persontrips between junctions
 persontrips_junctionTaz
 
+# generate random persontrips between junctions
+persontrips_junctionTaz_flow
+
 # generate random taxi rides
 taxirides
 fringeFactor
+pedestrians_random-departpos_arrivalpos
+
+# Copy of pedestrians_random-departpos_arrivalpos
+pedestrians_flows_random-departpos_arrivalpos

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-06-02 18:49:03 by Eclipse SUMO netedit Version v1_17_0+0652-1215d8ae5cd
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <!-- VTypes -->
+    <vType accel="1.0" decel="5.0" id="ElectricVehicle1" emissionClass="Energy" mass="1600" length="12" maxSpeed="100.0" sigma="0.0" minGap="2.5" color="1,1,1">
+        <param key="device.battery.capacity" value="60000"/>
+        <param key="device.battery.maxPower" value="100000"/>
+        <param key="rotatingMass" value="30"/>
+        <param key="frontSurfaceArea" value="2.2"/>
+        <param key="airDragCoefficient" value="0.33"/>
+        <param key="radialDragCoefficient" value="0"/>
+        <param key="rollDragCoefficient" value="0.1"/>
+        <param key="constantPowerIntake" value="40"/>
+        <param key="propulsionEfficiency" value="0.8"/>
+        <param key="recuperationEfficiency" value="0.8"/>
+        <param key="device.stationfinder.opportunisticChargeLevel" value="0.7"/>
+        <param key="device.stationfinder.minOpportunityDuration" value="30"/>
+    </vType>
+
+    <!-- Vehicles, persons and containers (sorted by depart) -->
+    <vehicle id="veh0" type="ElectricVehicle1" depart="0.00" arrival="346.00">
+        <route edges="E0E1 E1D1 D1D2 D2C2 C2B2 B2A2 A2A3 A3A4"/>
+        <stop lane="D1D2_0" startPos="425" endPos="430" duration="30" />
+        <param key="device.battery.chargeLevel" value="36000"/>
+    </vehicle>
+
+    <vehicle id="veh2" type="ElectricVehicle1" depart="2.00" arrival="486.00">
+        <route edges="A4A3 A3A2 A2A1 A1B1 B1C1 -C1B1 C1D1 D1D0 D0E0"/>
+        <param key="device.battery.chargeLevel" value="36000"/>
+    </vehicle>
+
+</routes>

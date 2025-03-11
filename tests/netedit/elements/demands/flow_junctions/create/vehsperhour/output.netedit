@@ -4,19 +4,19 @@ TestFunctions: 'reference.png' found. Position: 304 - 168
 flow (from-to junctions)
 dummySpacing
 TestFunctions: Clicked over position 458 - 598
-TestFunctions: Clicked over position 458 - 203
+TestFunctions: Clicked over position 459 - 213
 vehsPerHour
 TestFunctions: Clicked over position 458 - 598
-TestFunctions: Clicked over position 458 - 203
+TestFunctions: Clicked over position 459 - 213
 dummy
 TestFunctions: Clicked over position 458 - 598
-TestFunctions: Clicked over position 458 - 203
+TestFunctions: Clicked over position 459 - 213
 -30
 TestFunctions: Clicked over position 458 - 598
-TestFunctions: Clicked over position 458 - 203
+TestFunctions: Clicked over position 459 - 213
 20.5
 TestFunctions: Clicked over position 458 - 598
-TestFunctions: Clicked over position 458 - 203
+TestFunctions: Clicked over position 459 - 213
 22
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Clicked over position 304 - 168

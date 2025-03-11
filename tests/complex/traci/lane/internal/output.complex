@@ -10,7 +10,7 @@ allowed ('passenger',)
 disallowed ('private', 'emergency', 'authority', 'army', 'vip', 'pedestrian', 'hov', 'taxi', 'bus', 'coach', 'delivery', 'truck', 'trailer', 'motorcycle', 'moped', 'bicycle', 'evehicle', 'tram', 'rail_urban', 'rail', 'rail_electric', 'rail_fast', 'ship', 'container', 'cable_car', 'subway', 'aircraft', 'wheelchair', 'scooter', 'drone', 'custom1', 'custom2')
 linkNum 1
 links [('CN_3', True, True, False)]
-linksExtended [('CN_3', True, True, False, '', 'M', 's', 0.0)]
+linksExtended (('CN_3', True, True, False, '', 'M', 's', 0.0),)
 shape ((104.95, 85.4), (104.95, 113.1))
 edge :C_15
 CO2 0.0

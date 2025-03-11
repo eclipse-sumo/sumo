@@ -46,7 +46,7 @@ network). This takes the following form:
 
 ```xml
 <busStop id="myStop" lane="A_0" startPos="230" endPos="250">
-   <access lane="B_0" pos="150"/>
+   <access lane="B_0" pos="150"/>
 </busStop>
 ```
 
@@ -65,6 +65,19 @@ The value `doors` is currently only used when exiting a train or bus. The starti
 subsequent walk of the exiting passengers will be randomly chosen among the door positions of the train or bus.
 The door positions themselves cannot be defined but they are derived from the number of carriages
 and the number of doors per carriage of the vehicle, see [carriage definition](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#carriages).
+
+## Virtual Stops
+
+While it is possible to [stop anywhere](#stopping_without_defining_a_bus_stop), it may be useful to define busStops that are visible as infrastructure but only when in use.
+This makes it possible to define a limited list of potential stopping locations for use with [on-demand public transport](Taxi.md) and [intermodal routing](../IntermodalRouting.md#switching_between_modes). To distinguish "real" busStops from "virtual" busStops the [generic parameter](GenericParameters.md) `emptyColor` can be set:
+
+```
+    <busStop id="example" lane="E0_0" startPos="50" endPos="60" color="255,145,4">
+        <param key="emptyColor" value="1,1,1,0"/>
+    </busStop>
+```
+
+The busStop will take on the `emptyColor` if it has neither waiting persons nor stopping vehicles. If the fourth value of the color definition (the *alpha*-channel) is set to *0*, the busStop will be invisible when empty.
 
 # Letting Vehicles stop at a bus stop
 
@@ -109,24 +122,24 @@ It is also possible to define a bus route without defining all
 intermediate edges:
 
 ```xml
-   <trip id="0" type="BUS" depart="0" color="1,1,0" from="2/0to2/1" to="2/0to2/1">
-       <stop busStop="busstop1" duration="20"/>
-       <stop busStop="busstop2" duration="20"/>
-       <stop busStop="busstop3" duration="20"/>
-       <stop busStop="busstop4" duration="20"/>
-   </trip>
+   <trip id="0" type="BUS" depart="0" color="1,1,0" from="2/0to2/1" to="2/0to2/1">
+       <stop busStop="busstop1" duration="20"/>
+       <stop busStop="busstop2" duration="20"/>
+       <stop busStop="busstop3" duration="20"/>
+       <stop busStop="busstop4" duration="20"/>
+   </trip>
 ```
 The vehicle will take the fastest path between *from*-edge and *to*-edge
 that visits all stops in their correct order.
 
 Even the trip attributes 'from' and 'to' can be omitted to let the bus start at the first stop and end at the last. Using `departPos="stop"`, the vehicle will be inserted directly at the first stop in its route:
 ```xml
-   <trip id="0" type="BUS" depart="0" color="1,1,0" departPos="stop">
-       <stop busStop="busstop1" duration="20"/>
-       <stop busStop="busstop2" duration="20"/>
-       <stop busStop="busstop3" duration="20"/>
-       <stop busStop="busstop4" duration="20"/>
-   </trip>
+   <trip id="0" type="BUS" depart="0" color="1,1,0" departPos="stop">
+       <stop busStop="busstop1" duration="20"/>
+       <stop busStop="busstop2" duration="20"/>
+       <stop busStop="busstop3" duration="20"/>
+       <stop busStop="busstop4" duration="20"/>
+   </trip>
 ```
 
 # Public Transport Schedules

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -59,6 +59,7 @@
 #include <utils/router/IntermodalRouter.h>
 #include <utils/router/PedestrianRouter.h>
 #include <utils/vehicle/SUMORouteLoaderControl.h>
+#include <utils/vehicle/SUMORouteLoader.h>
 #include <utils/vehicle/SUMOVehicleParserHelper.h>
 #include <utils/xml/XMLSubSys.h>
 #include <traci-server/TraCIServer.h>
@@ -95,6 +96,7 @@
 #include <microsim/traffic_lights/MSRailSignalConstraint.h>
 #include <microsim/traffic_lights/MSRailSignalControl.h>
 #include <microsim/traffic_lights/MSTLLogicControl.h>
+#include <microsim/traffic_lights/MSDriveWay.h>
 #include <microsim/trigger/MSCalibrator.h>
 #include <microsim/trigger/MSChargingStation.h>
 #include <microsim/trigger/MSLaneSpeedTrigger.h>
@@ -190,9 +192,7 @@ MSNet::getInstance(void) {
 
 void
 MSNet::initStatic() {
-    if (!MSGlobals::gUseMesoSim) {
-        MSVehicle::Influencer::init();
-    }
+    MSDriveWay::init();
 }
 
 void
@@ -491,8 +491,10 @@ MSNet::generateStatistics(const SUMOTime start, const long now) {
             msg << " Emergency Braking: " << myVehicleControl->getEmergencyBrakingCount() << "\n";
         }
         if (myPersonControl != nullptr && myPersonControl->getLoadedNumber() > 0) {
+            const std::string discardNotice = ((myPersonControl->getLoadedNumber() != myPersonControl->getDepartedNumber()) ?
+                                           " (Loaded: " + toString(myPersonControl->getLoadedNumber()) + ")" : "");
             msg << "Persons:\n"
-                << " Inserted: " << myPersonControl->getLoadedNumber() << "\n"
+                << " Inserted: " << myPersonControl->getDepartedNumber() << discardNotice << "\n"
                 << " Running: " << myPersonControl->getRunningNumber() << "\n";
             if (myPersonControl->getJammedNumber() > 0) {
                 msg << " Jammed: " << myPersonControl->getJammedNumber() << "\n";
@@ -509,8 +511,10 @@ MSNet::generateStatistics(const SUMOTime start, const long now) {
             }
         }
         if (myContainerControl != nullptr && myContainerControl->getLoadedNumber() > 0) {
+            const std::string discardNotice = ((myContainerControl->getLoadedNumber() != myContainerControl->getDepartedNumber()) ?
+                                           " (Loaded: " + toString(myContainerControl->getLoadedNumber()) + ")" : "");
             msg << "Containers:\n"
-                << " Inserted: " << myContainerControl->getLoadedNumber() << "\n"
+                << " Inserted: " << myContainerControl->getDepartedNumber() << "\n"
                 << " Running: " << myContainerControl->getRunningNumber() << "\n";
             if (myContainerControl->getJammedNumber() > 0) {
                 msg << " Jammed: " << myContainerControl->getJammedNumber() << "\n";
@@ -687,8 +691,12 @@ MSNet::closeSimulation(SUMOTime start, const std::string& reason) {
     if (OptionsCont::getOptions().getBool("tripinfo-output.write-unfinished")) {
         MSDevice_Tripinfo::generateOutputForUnfinished();
     }
-    if (OptionsCont::getOptions().isSet("chargingstations-output") && !OptionsCont::getOptions().getBool("chargingstations-output.aggregated")) {
-        writeChargingStationOutput();
+    if (OptionsCont::getOptions().isSet("chargingstations-output")) {
+        if (!OptionsCont::getOptions().getBool("chargingstations-output.aggregated")) {
+            writeChargingStationOutput();
+        } else if (OptionsCont::getOptions().getBool("chargingstations-output.aggregated.write-unfinished")) {
+            MSChargingStationExport::write(OutputDevice::getDeviceByOption("chargingstations-output"), true);
+        }
     }
     if (OptionsCont::getOptions().isSet("overheadwiresegments-output")) {
         writeOverheadWireSegmentOutput();
@@ -696,9 +704,7 @@ MSNet::closeSimulation(SUMOTime start, const std::string& reason) {
     if (OptionsCont::getOptions().isSet("substations-output")) {
         writeSubstationOutput();
     }
-    if (OptionsCont::getOptions().isSet("railsignal-block-output")) {
-        writeRailSignalBlocks();
-    }
+    writeRailSignalBlocks();
     const long now = SysUtils::getCurrentMillis();
     if (myLogExecutionTime || OptionsCont::getOptions().getBool("duration-log.statistics")) {
         WRITE_MESSAGE(generateStatistics(start, now));
@@ -766,7 +772,7 @@ MSNet::simulationStep(const bool onlyMove) {
     }
     myBeginOfTimestepEvents->execute(myStep);
     if (MSRailSignalControl::hasInstance()) {
-        MSRailSignalControl::getInstance().recheckGreen();
+        MSRailSignalControl::getInstance().updateSignals(myStep);
     }
 #ifdef HAVE_FOX
     MSRoutingEngine::waitForAll();
@@ -814,6 +820,10 @@ MSNet::simulationStep(const bool onlyMove) {
     // containers
     if (myContainerControl != nullptr && myContainerControl->hasTransportables()) {
         myContainerControl->checkWaiting(this, myStep);
+    }
+    if (MSRailSignalControl::hasInstance()) {
+        MSRailSignalControl::getInstance().resetWaitRelations();
+        // preserve waitRelation from insertion for the next step
     }
     // insert vehicles
     myInserter->determineCandidates(myStep);
@@ -971,6 +981,7 @@ MSNet::clearAll() {
     MSStopOut::cleanup();
     MSRailSignalConstraint::cleanup();
     MSRailSignalControl::cleanup();
+    MSDriveWay::cleanup();
     TraCIServer* t = TraCIServer::getInstance();
     if (t != nullptr) {
         t->cleanup();
@@ -1028,6 +1039,7 @@ MSNet::clearState(const SUMOTime step, bool quickReload) {
     myEndOfTimestepEvents->clearState(myStep, step);
     myInsertionEvents->clearState(myStep, step);
     MSRailSignalControl::clearState();
+    MSDriveWay::clearState();
     myStep = step;
     MSGlobals::gClearState = false;
 }
@@ -1064,7 +1076,7 @@ MSNet::writeOutput() {
 
     // charging station aggregated dumps
     if (OptionsCont::getOptions().isSet("chargingstations-output") && OptionsCont::getOptions().getBool("chargingstations-output.aggregated")) {
-        MSChargingStationExport::write(OutputDevice::getDeviceByOption("chargingstations-output"), myStep);
+        MSChargingStationExport::write(OutputDevice::getDeviceByOption("chargingstations-output"));
     }
 
     // elecHybrid dumps
@@ -1378,6 +1390,18 @@ MSNet::getStoppingPlace(const std::string& id, const SumoXMLTag category) const 
 }
 
 
+MSStoppingPlace*
+MSNet::getStoppingPlace(const std::string& id) const {
+    for (SumoXMLTag category : std::vector<SumoXMLTag>({SUMO_TAG_BUS_STOP, SUMO_TAG_PARKING_AREA, SUMO_TAG_CONTAINER_STOP, SUMO_TAG_CHARGING_STATION, SUMO_TAG_OVERHEAD_WIRE_SEGMENT})) {
+        MSStoppingPlace* result = getStoppingPlace(id, category);
+        if (result != nullptr) {
+            return result;
+        }
+    }
+    return nullptr;
+}
+
+
 std::string
 MSNet::getStoppingPlaceID(const MSLane* lane, const double pos, const SumoXMLTag category) const {
     if (myStoppingPlaces.count(category) > 0) {
@@ -1416,12 +1440,25 @@ MSNet::writeChargingStationOutput() const {
 
 void
 MSNet::writeRailSignalBlocks() const {
-    OutputDevice& output = OutputDevice::getDeviceByOption("railsignal-block-output");
-    for (auto tls : myLogics->getAllLogics()) {
-        MSRailSignal* rs = dynamic_cast<MSRailSignal*>(tls);
-        if (rs != nullptr) {
-            rs->writeBlocks(output);
+    if (OptionsCont::getOptions().isSet("railsignal-block-output")) {
+        OutputDevice& output = OutputDevice::getDeviceByOption("railsignal-block-output");
+        for (auto tls : myLogics->getAllLogics()) {
+            MSRailSignal* rs = dynamic_cast<MSRailSignal*>(tls);
+            if (rs != nullptr) {
+                rs->writeBlocks(output, false);
+            }
         }
+        MSDriveWay::writeDepatureBlocks(output, false);
+    }
+    if (OptionsCont::getOptions().isSet("railsignal-vehicle-output")) {
+        OutputDevice& output = OutputDevice::getDeviceByOption("railsignal-vehicle-output");
+        for (auto tls : myLogics->getAllLogics()) {
+            MSRailSignal* rs = dynamic_cast<MSRailSignal*>(tls);
+            if (rs != nullptr) {
+                rs->writeBlocks(output, true);
+            }
+        }
+        MSDriveWay::writeDepatureBlocks(output, true);
     }
 }
 
@@ -1481,7 +1518,7 @@ MSNet::getRouterTT(const int rngIndex, const MSEdgeVector& prohibited) const {
             if (routingAlgorithm != "astar") {
                 WRITE_WARNINGF(TL("TraCI and Triggers cannot use routing algorithm '%'. using 'astar' instead."), routingAlgorithm);
             }
-            myRouterTT[rngIndex] = new AStarRouter<MSEdge, SUMOVehicle>(MSEdge::getAllEdges(), true, &MSNet::getTravelTime, nullptr, true);
+            myRouterTT[rngIndex] = new AStarRouter<MSEdge, SUMOVehicle, MSMapMatcher>(MSEdge::getAllEdges(), true, &MSNet::getTravelTime, nullptr, true);
         }
     }
     myRouterTT[rngIndex]->prohibit(prohibited);
@@ -1606,6 +1643,17 @@ MSNet::warnOnce(const std::string& typeAndID) {
         return true;
     }
     return false;
+}
+
+
+MSMapMatcher*
+MSNet::getMapMatcher() const {
+    auto loader = myRouteLoaders->getFirstLoader();
+    if (loader != nullptr) {
+        return dynamic_cast<MSMapMatcher*>(loader->getRouteHandler());
+    } else {
+        return nullptr;
+    }
 }
 
 void

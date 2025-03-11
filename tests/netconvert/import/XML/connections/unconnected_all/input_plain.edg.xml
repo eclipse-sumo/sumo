@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-12-20 10:11:06 by Eclipse SUMO netedit Version v1_21_0+1522-8cbae08792c
+<neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="osm.net.xml.gz"/>
+    </input>
+
+    <output>
+        <output.street-names value="true"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="false"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="1"/>
+    </pedestrian>
+
+</neteditConfiguration>
+-->
+
+<edges version="1.20" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <location netOffset="-389562.46,-5817979.56" convBoundary="888.83,1574.61,1026.57,1664.86" origBoundary="13.372213,52.501727,13.527402,52.569285" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <edge id="-326116286#2" from="25662542" to="3327334153" name="Glinkastraße" priority="12" type="cycleway.lane|highway.primary" numLanes="3" speed="13.89" shape="920.32,1615.21 919.04,1628.67 918.79,1631.36 915.61,1664.86">
+        <lane index="0" allow="pedestrian" width="3.00">
+            <param key="origId" value="326116286"/>
+        </lane>
+        <lane index="1" allow="bicycle" width="1.25">
+            <param key="origId" value="326116286"/>
+        </lane>
+        <lane index="2" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone">
+            <param key="origId" value="326116286"/>
+        </lane>
+        <param key="ref" value="B 2;B 5"/>
+    </edge>
+    <edge id="-4402014#2" from="2055804552" to="25662542" name="Behrenstraße" priority="12" type="highway.primary" numLanes="3" speed="8.33" shape="888.83,1612.33 902.75,1613.60 904.58,1613.77 920.32,1615.21">
+        <lane index="0" allow="pedestrian" width="3.00">
+            <param key="origId" value="4402014"/>
+        </lane>
+        <lane index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone">
+            <param key="origId" value="4402014"/>
+        </lane>
+        <lane index="2" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone">
+            <param key="origId" value="4402014"/>
+        </lane>
+        <param key="ref" value="B 2;B 5"/>
+    </edge>
+    <edge id="-4588217#5" from="25662542" to="2882465305" name="Behrenstraße" priority="3" type="highway.residential" numLanes="2" speed="8.33" shape="920.32,1615.21 932.57,1616.30 935.88,1616.58 1026.57,1624.58">
+        <lane index="0" allow="pedestrian" width="2.00">
+            <param key="origId" value="4588217"/>
+        </lane>
+        <lane index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone">
+            <param key="origId" value="4588217"/>
+        </lane>
+    </edge>
+    <edge id="-4588220#2" from="5148507741" to="25662542" name="Glinkastraße" priority="10" type="cycleway.lane|highway.tertiary" numLanes="3" speed="13.89" shape="923.67,1574.61 922.94,1583.40 921.41,1601.95 921.22,1604.32 920.32,1615.21">
+        <lane index="0" allow="pedestrian" width="3.00">
+            <param key="origId" value="4588220"/>
+        </lane>
+        <lane index="1" allow="bicycle" width="1.25">
+            <param key="origId" value="4588220"/>
+        </lane>
+        <lane index="2" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone">
+            <param key="origId" value="4588220"/>
+        </lane>
+    </edge>
+    <edge id="326116286#0" from="3327334153" to="25662542" name="Glinkastraße" priority="12" type="cycleway.lane|highway.primary" numLanes="4" speed="13.89" shape="915.61,1664.86 918.79,1631.36 919.04,1628.67 920.32,1615.21">
+        <lane index="0" allow="pedestrian" width="3.00">
+            <param key="origId" value="326116286"/>
+        </lane>
+        <lane index="1" allow="bicycle" width="1.25">
+            <param key="origId" value="326116286"/>
+        </lane>
+        <lane index="2" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone">
+            <param key="origId" value="326116286"/>
+        </lane>
+        <lane index="3" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone">
+            <param key="origId" value="326116286"/>
+        </lane>
+        <param key="ref" value="B 2;B 5"/>
+    </edge>
+    <edge id="4402014#0" from="25662542" to="2055804552" name="Behrenstraße" priority="12" type="highway.primary" numLanes="3" speed="8.33" shape="920.32,1615.21 904.58,1613.77 902.75,1613.60 888.83,1612.33">
+        <lane index="0" allow="pedestrian" width="3.00">
+            <param key="origId" value="4402014"/>
+        </lane>
+        <lane index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone">
+            <param key="origId" value="4402014"/>
+        </lane>
+        <lane index="2" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone">
+            <param key="origId" value="4402014"/>
+        </lane>
+        <param key="ref" value="B 2;B 5"/>
+    </edge>
+    <edge id="4588217#3" from="2882465305" to="25662542" name="Behrenstraße" priority="3" type="highway.residential" numLanes="2" speed="8.33" shape="1026.57,1624.58 935.88,1616.58 932.57,1616.30 920.32,1615.21">
+        <lane index="0" allow="pedestrian" width="2.00">
+            <param key="origId" value="4588217"/>
+        </lane>
+        <lane index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone">
+            <param key="origId" value="4588217"/>
+        </lane>
+    </edge>
+    <edge id="4588220#0" from="25662542" to="5148507741" name="Glinkastraße" priority="10" type="cycleway.lane|highway.tertiary" numLanes="3" speed="13.89" shape="920.32,1615.21 921.22,1604.32 921.41,1601.95 922.94,1583.40 923.67,1574.61">
+        <lane index="0" allow="pedestrian" width="3.00">
+            <param key="origId" value="4588220"/>
+        </lane>
+        <lane index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone">
+            <param key="origId" value="4588220"/>
+        </lane>
+        <lane index="2" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone">
+            <param key="origId" value="4588220"/>
+        </lane>
+    </edge>
+</edges>

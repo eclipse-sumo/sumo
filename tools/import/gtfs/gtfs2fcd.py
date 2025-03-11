@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2010-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2010-2025 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -40,8 +40,11 @@ def add_options():
         description="converts GTFS data into separate fcd traces for every distinct trip")
     op.add_argument("-r", "--region", default="gtfs", category="input",
                     help="define the region to process")
-    op.add_argument("--gtfs", category="input", required=True, type=op.data_file,
-                    help="define gtfs zip file to load (mandatory)", fix_path=True)
+    gp = op.add_mutually_exclusive_group(required=True)
+    gp.add_argument("--gtfs", category="input", type=op.data_file,
+                    help="define gtfs zip file to load (mandatory)")
+    gp.add_argument("--merged-csv", category="input", type=op.data_file, dest="mergedCSV",
+                    help="define csv file for loading merged data (instead of gtfs data)")
     op.add_argument("--date", category="input", required=True, help="define the day to import, format: 'YYYYMMDD'")
     op.add_argument("--fcd", category="input", type=op.data_file,
                     help="directory to write / read the generated FCD files to / from")
@@ -99,11 +102,13 @@ def get_merged_data(options):
         stops_merged['start_char'] = ''
 
     trips_routes_merged = pd.merge(trips_on_day, routes, on='route_id')
-    return pd.merge(stops_merged, trips_routes_merged,
+    all_merged = pd.merge(stops_merged, trips_routes_merged,
                     on='trip_id')[['trip_id', 'route_id', 'route_short_name', 'route_type',
                                    'stop_id', 'stop_name', 'stop_lat', 'stop_lon', 'stop_sequence',
                                    'fare_zone', 'fare_token', 'start_char', 'trip_headsign',
                                    'arrival_time', 'departure_time']].drop_duplicates()
+    #  all_merged.to_csv("tmp.csv", sep=";", index=False)
+    return all_merged
 
 
 def dataAvailable(options):
@@ -114,7 +119,12 @@ def dataAvailable(options):
 
 
 def main(options):
-    full_data_merged = get_merged_data(options)
+    if options.mergedCSV:
+        full_data_merged = pd.read_csv(options.mergedCSV, sep=";",
+                                       keep_default_na=False,
+                                       dtype={"route_type": str})
+    else:
+        full_data_merged = get_merged_data(options)
     if full_data_merged.empty:
         return False
     fcdFile = {}

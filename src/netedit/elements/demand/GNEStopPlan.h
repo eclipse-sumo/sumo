@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -30,43 +30,24 @@
 class GNEStopPlan : public GNEDemandElement, public Parameterised, public GNEDemandElementPlan {
 
 public:
-    /**@brief general constructor for person stop plans
-     * @param[in] net Network in which this rides is placed
-     * @param[in] personParent person parent
-     * @param[in] eges from-to edges
-     * @param[in] busStop bus stop
-     * @param[in] trainStop train stop
-     * @param[in] endPos end position
-     * @param[in] duration stop duration
-     * @param[in] until stop until
-     * @param[in] actType act type
-     * @param[in] friendlyPos friendly position
-     * @param[in] parameterSet parameter sets
-     */
-    static GNEStopPlan* buildPersonStopPlan(GNENet* net, GNEDemandElement* personParent,
-                                            GNEEdge* edge, GNEAdditional* busStop, GNEAdditional* trainStop, const double endPos,
-                                            const SUMOTime duration, const SUMOTime until, const std::string& actType,
-                                            const bool friendlyPos, const int parameterSet);
-
-    /**@brief general constructor for container stop plans
-     * @param[in] net Network in which this rides is placed
-     * @param[in] personParent person parent
-     * @param[in] eges from-to edges
-     * @param[in] containerStop container stop
-     * @param[in] endPos end position
-     * @param[in] duration stop duration
-     * @param[in] until stop until
-     * @param[in] actType act type
-     * @param[in] friendlyPos friendly position
-     * @param[in] parameterSet parameter sets
-     */
-    static GNEStopPlan* buildContainerStopPlan(GNENet* net, GNEDemandElement* personParent,
-            GNEEdge* edge, GNEAdditional* containerStop, const double endPos,
-            const SUMOTime duration, const SUMOTime until, const std::string& actType,
-            const bool friendlyPos, const int parameterSet);
-
     /// @brief default constructor
     GNEStopPlan(SumoXMLTag tag, GNENet* net);
+
+    /**@brief constructor called in buldStopPlan
+     * @param[in] net Network in which this Ride is placed
+     * @param[in] tag personTrip tag
+     * @param[in] icon personTrip icon
+     * @param[in] planParameters plan parameters
+     * @param[in] additionals from-to additionals
+     * @param[in] endPos end position
+     * @param[in] duration stop duration
+     * @param[in] until stop until
+     * @param[in] actType act type
+     * @param[in] friendlyPos friendly pos
+     * @param[in] parameterSet parameter sets
+     */
+    GNEStopPlan(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* personParent, const GNEPlanParents& planParameters,
+                const double endPos, const SUMOTime duration, const SUMOTime until, const std::string& actType, bool friendlyPos, const int parameterSet);
 
     /// @brief destructor
     ~GNEStopPlan();
@@ -135,7 +116,7 @@ public:
 
     /// @}
 
-    /// @name inherited from GNEPathManager::PathElement
+    /// @name inherited from GNEPathElement
     /// @{
 
     /// @brief compute pathElement
@@ -146,14 +127,14 @@ public:
      * @param[in] segment lane segment
      * @param[in] offsetFront front offset
      */
-    void drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const double offsetFront) const;
+    void drawLanePartialGL(const GUIVisualizationSettings& s, const GNESegment* segment, const double offsetFront) const;
 
     /**@brief Draws partial object over junction
      * @param[in] s The settings for the current view (may influence drawing)
      * @param[in] segment junction segment
      * @param[in] offsetFront front offset
      */
-    void drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const double offsetFront) const;
+    void drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNESegment* segment, const double offsetFront) const;
 
     /// @brief get first path lane
     GNELane* getFirstPathLane() const;
@@ -230,6 +211,12 @@ protected:
     /// @brief variable used for draw contours
     GNEContour myStopContour;
 
+    /// @brief variable used for draw sign contours
+    GNEContour myStopSignContour;
+
+    /// @brief sign position
+    Position mySignPosition;
+
     /// @brief duration
     SUMOTime myDuration;
 
@@ -245,12 +232,6 @@ protected:
     /// @brief parameter set
     int myParametersSet = 0;
 
-    /// @brief draw stop plan over lane
-    void drawStopOverEdge(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, const double exaggeration) const;
-
-    /// @brief draw stop plan over stoppingPlace
-    void drawStopOverStoppingPlace(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, const double exaggeration) const;
-
 private:
     /// @brief method for setting the attribute and nothing else
     void setAttribute(SumoXMLAttr key, const std::string& value);
@@ -263,24 +244,6 @@ private:
 
     /// @brief commit move shape
     void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList);
-
-    /**@brief constructor called in buldStopPlan
-     * @param[in] net Network in which this Ride is placed
-     * @param[in] tag personTrip tag
-     * @param[in] icon personTrip icon
-     * @param[in] personParent person parent
-     * @param[in] eges from-to edges
-     * @param[in] additionals from-to additionals
-     * @param[in] endPos end position
-     * @param[in] duration stop duration
-     * @param[in] until stop until
-     * @param[in] actType act type
-     * @param[in] friendlyPos friendly pos
-     * @param[in] parameterSet parameter sets
-     */
-    GNEStopPlan(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* personParent, const std::vector<GNEEdge*>& edges,
-                const std::vector<GNEAdditional*>& additionals, const double endPos, const SUMOTime duration, const SUMOTime until,
-                const std::string& actType, bool friendlyPos, const int parameterSet);
 
     /// @brief Invalidated copy constructor.
     GNEStopPlan(const GNEStopPlan&) = delete;

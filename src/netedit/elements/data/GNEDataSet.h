@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -20,13 +20,8 @@
 #pragma once
 #include <config.h>
 
-
-// ===========================================================================
-// included modules
-// ===========================================================================
-#include <config.h>
-
 #include <netedit/elements/GNEAttributeCarrier.h>
+#include <netedit/elements/GNEHierarchicalElement.h>
 #include <utils/common/Parameterised.h>
 
 // ===========================================================================
@@ -40,7 +35,7 @@ class GNEDataInterval;
 // class definitions
 // ===========================================================================
 
-class GNEDataSet : public GNEAttributeCarrier, public Parameterised {
+class GNEDataSet : public GNEAttributeCarrier, public GNEHierarchicalElement, public Parameterised {
 
 public:
     /// @brief attribute colors
@@ -78,8 +73,10 @@ public:
 
     /**@brief Constructor
      * @param[in] net pointer to GNEViewNet of this data element element belongs
+     * @param[in] dataSetID data set ID
+     * @param[in] filename file in which this dataSet is stored
      */
-    GNEDataSet(GNENet* net, const std::string dataSetID);
+    GNEDataSet(const std::string& dataSetID, GNENet* net, const std::string& filename);
 
     /// @brief Destructor
     ~GNEDataSet();

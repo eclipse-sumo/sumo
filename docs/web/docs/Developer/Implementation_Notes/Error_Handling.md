@@ -46,13 +46,13 @@ direct feedback (for instance on one way socket connections) we ignore
 the data (with something like a log message), otherwise we try to give
 feedback.
 
-*Programming bugs* should be catched in a way that allows to retrack
+*Programming bugs* should be caught in a way that allows to retrack
 them. The user shall not be confronted with any segfaults-popups or
 things like that. Rather, an error message about an improper behavior
 shall be printed (currently: "Quitting (on unknown error).") and the
 application should quit correctly.
 
-*System errors* should be catched and printed to the user. The
+*System errors* should be caught and printed to the user. The
 application should then quit correctly.
 
 ### Implementation in command line applications
@@ -76,30 +76,30 @@ ProcessError has really one set.
 
 ```
 int
-main(int argc, char **argv)
+main(int argc, char **argv)
 {
-    // initialise return code
-    int ret = 0;
-    ... make uncritical initialisation ...
-    try {
-       ... do some critical stuff ...
-    } catch (ProcessError &e) {
-        if(string(e.what())!=string("Process Error") && string(e.what())!=string("")) {
-            MsgHandler::getErrorInstance()->inform(e.what());
-        }
-        MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);
-        // set return code to "failure"
-        ret = 1;
-#ifndef _DEBUG
-    } catch (...) {
-        MsgHandler::getErrorInstance()->inform("Quitting (on unknown error).", false);
-        // set return code to "failure"
-        ret = 1;
+    // initialise return code
+    int ret = 0;
+    ... make uncritical initialisation ...
+    try {
+       ... do some critical stuff ...
+    } catch (ProcessError &e) {
+        if(string(e.what())!=string("Process Error") && string(e.what())!=string("")) {
+            MsgHandler::getErrorInstance()->inform(e.what());
+        }
+        MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);
+        // set return code to "failure"
+        ret = 1;
+#ifndef _DEBUG
+    } catch (...) {
+        MsgHandler::getErrorInstance()->inform("Quitting (on unknown error).", false);
+        // set return code to "failure"
+        ret = 1;
 #endif
-    }
-    ... clean up ...
-    // return the return code
-    return ret;
+    }
+    ... clean up ...
+    // return the return code
+    return ret;
 }
 ```
 
@@ -157,7 +157,7 @@ settings.
   - There is no check for unused values
 - WAUT errors
   - How comes that a tls-switch - output is build though errors
-    occured? (see
+    occurred? (see
     tests/sumo/errors/wauts/cross3ltl_error_unknown_wautid)
   - The programs are checked in a lazy way, the error is reported
     too late (see

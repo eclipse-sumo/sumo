@@ -1,6 +1,15 @@
 # tests for rail signals
 rail_signal
 
+# test for conflicts and deadlocks involving a siding
+siding
+
+# complex deadlocks that are not found automatically
+deadlocks
+
+# complex deadlocks that are not found automatically but are avoided by loading deadlock hints.
+deadlocks_loadHints
+
 # trams driving in a loop servicing stops
 tramwayLoop
 
@@ -13,11 +22,17 @@ routing
 # tests for train reversal
 reversal
 
+# tests for shared tram/car lane
+tram_road
+
 # Two trains approaching conflicting block simultaneously causing a head-on conflict
 headonconflict
 
 # Tests interlocked block signalling
 interlocking
+
+# test vehicle-on-driveway registration
+overlapping_driveways
 
 # speed when passing tracks with different speed limits
 slow_fast_slow
@@ -65,3 +80,5 @@ crossing
 # test for various types of train collision
 collision
 
+# test for various types of train collision without enforcing insertion checks
+collision_noInsertionChecks

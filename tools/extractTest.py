@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2009-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2009-2025 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -233,10 +233,10 @@ calls = [
                 nameBase = os.path.basename(target)
             if "." in variant:
                 nameBase += variant.split(".")[-1]
-            isNetdiff = False
+            loadAllNets = False
             for a in appOptions:
-                if "netdiff.py" in a:
-                    isNetdiff = True
+                if "netdiff.py" in a or "remap_additionals.py" in a:
+                    loadAllNets = True
             exclude = []
             # gather copy_test_path exclusions
             for configFile in cfg:
@@ -251,7 +251,7 @@ calls = [
                     for line in config:
                         entry = line.strip().split(':')
                         if entry and "copy_test_path" in entry[0] and entry[1] in potentials:
-                            if "net" in app or isNetdiff or not net or entry[1][-8:] != ".net.xml" or entry[1] == net:
+                            if "net" in app or loadAllNets or not net or entry[1][-8:] != ".net.xml" or entry[1] == net:
                                 toCopy = potentials[entry[1]][0]
                                 if os.path.isdir(toCopy):
                                     # copy from least specific to most specific

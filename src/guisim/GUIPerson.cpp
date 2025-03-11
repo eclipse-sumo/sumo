@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -234,6 +234,7 @@ GUIPerson::getParameterWindow(GUIMainWindow& app,
     ret->mkItem(TL("dest stop [id]"), true, new FunctionBindingString<GUIPerson>(this, &GUIPerson::getDestinationStopID));
     ret->mkItem(TL("arrival position [m]"), true, new FunctionBinding<GUIPerson, double>(this, &GUIPerson::getStageArrivalPos));
     ret->mkItem(TL("edge [id]"), true, new FunctionBindingString<GUIPerson>(this, &GUIPerson::getEdgeID));
+    ret->mkItem(TL("lane [id]"), true, new FunctionBindingString<GUIPerson>(this, &GUIPerson::getLaneID));
     ret->mkItem(TL("position [m]"), true, new FunctionBinding<GUIPerson, double>(this, &GUIPerson::getEdgePos));
     ret->mkItem(TL("speed [m/s]"), true, new FunctionBinding<GUIPerson, double>(this, &GUIPerson::getSpeed));
     ret->mkItem(TL("speed factor"), false, getChosenSpeedFactor());
@@ -497,7 +498,22 @@ GUIPerson::getGUIPosition(const GUIVisualizationSettings* s) const {
     }
     if (getCurrentStageType() == MSStageType::DRIVING) {
         if (!isWaiting4Vehicle() && myPositionInVehicle.pos != Position::INVALID) {
-            return myPositionInVehicle.pos;
+            if (s != nullptr) {
+                return myPositionInVehicle.pos;
+            } else {
+                // centering boundary must cover the vehicle regardless of exaggeration and zoom
+                SUMOVehicle* veh = getCurrentStage()->getVehicle();
+                if (veh == nullptr) {
+                    // should not happen
+                    return myPositionInVehicle.pos;
+                }
+                PositionVector b = veh->getBoundingBox();
+                if (b.around(myPositionInVehicle.pos)) {
+                    return myPositionInVehicle.pos;
+                } else {
+                    return b.getCentroid();
+                }
+            }
         } else if (isWaiting4Vehicle()
                    && s != nullptr
                    && s->gaming
@@ -576,6 +592,16 @@ GUIPerson::getEdgeID() const {
         return "arrived";
     }
     return  getEdge()->getID();
+}
+
+
+std::string
+GUIPerson::getLaneID() const {
+    FXMutexLock locker(myLock);
+    if (hasArrived()) {
+        return "arrived";
+    }
+    return getLane() != nullptr ? getLane()->getID() : "";
 }
 
 

@@ -1,0 +1,9 @@
+<routes>
+    <vType id="DEFAULT_VEHTYPE" sigma="0"/>
+
+    <flow id="fNS" depart="0" period="exp(0.3)" end="1000" from="NC" to="CS" departSpeed="avg"/>
+    <flow id="fSN" depart="0" period="exp(0.3)" end="1000" from="SC" to="CN" departSpeed="avg"/>
+    <flow id="fEW" depart="0" period="exp(0.3)" end="1000" from="EC" to="CW" departSpeed="avg"/>
+    <flow id="fWE" depart="0" period="exp(0.3)" end="1000" from="WC" to="CE" departSpeed="avg"/>
+        
+</routes>

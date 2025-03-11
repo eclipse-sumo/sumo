@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2007-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2007-2025 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -27,8 +27,6 @@ from __future__ import absolute_import
 import sys
 import argparse
 import collections
-from xml.sax import parse
-
 import sumolib
 
 
@@ -197,12 +195,10 @@ if __name__ == "__main__":
               "taz only.")
     dec = DistrictEdgeComputer(sumolib.net.readNet(nets[0]))
     tazFiles = nets + options.taz_files.split(",")
-    polyReader = sumolib.shapes.polygon.PolygonReader(True)
-    for tf in tazFiles:
-        parse(tf, polyReader)
+    polygons = sumolib.shapes.polygon.read(tazFiles, includeTaz=True)
     if options.verbose:
         print("Calculating")
-    dec.computeWithin(polyReader.getPolygons(), options)
+    dec.computeWithin(polygons, options)
     if options.verbose:
         print("Writing results")
     dec.writeResults(options)

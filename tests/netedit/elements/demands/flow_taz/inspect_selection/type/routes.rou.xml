@@ -37,9 +37,9 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vType id="typeA" length="20.00" width="5.00" height="12.00" color="cyan"/>
-    <vType id="typeB" length="20.00" width="5.00" height="12.00" color="cyan"/>
-    <vType id="typeC" length="20.00" width="5.00" height="12.00" color="cyan"/>
+    <vType id="typeA" length="10.00" width="5.00" height="12.00" color="cyan"/>
+    <vType id="typeB" length="11.00" width="5.00" height="12.00" color="cyan"/>
+    <vType id="typeC" length="12.00" width="5.00" height="12.00" color="cyan"/>
 
     <!-- flow A -->
     <flow id="flowA" type="typeA" fromTaz="taz_green" toTaz="taz_red" departLane="random" departPos="2.00" departPosLat="2.00" departSpeed="12.00" arrivalLane="0" arrivalPos="3.00" arrivalPosLat="3.00" arrivalSpeed="12.00" color="red" line="line A" personNumber="1" containerNumber="5" begin="0.00" end="26.00" number="14">

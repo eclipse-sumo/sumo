@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -41,14 +41,14 @@ class GNEEdge;
  * a popup menu. Messages are routeted to an internal dataTarget and to the
  * editor (hence inheritance from FXDelegator)
  */
-class GNEWalkingArea : public GNENetworkElement {
+class GNEWalkingArea : public GNENetworkElement, public Parameterised {
 
 public:
     /**@brief Constructor
-     * @param[in] parentJunction GNEJunction in which this crossing is placed
+     * @param[in] junction GNEJunction in which this crossing is placed
      * @param[in] ID walkingArea ID
      */
-    GNEWalkingArea(GNEJunction* parentJunction, const std::string& ID);
+    GNEWalkingArea(GNEJunction* junction, const std::string& ID);
 
     /// @brief Destructor
     ~GNEWalkingArea();
@@ -100,9 +100,6 @@ public:
 
     /// @}
 
-    /// @brief get parent Junction
-    GNEJunction* getParentJunction() const;
-
     /// @brief get referente to NBode::WalkingArea
     NBNode::WalkingArea& getNBWalkingArea() const;
 
@@ -144,6 +141,12 @@ public:
      */
     std::string getAttribute(SumoXMLAttr key) const;
 
+    /* @brief method for getting the Attribute of an XML key in Position format
+     * @param[in] key The attribute key
+     * @return position with the value associated to key
+     */
+    PositionVector getAttributePositionVector(SumoXMLAttr key) const;
+
     /* @brief method for setting the attribute and letting the object perform additional changes
      * @param[in] key The attribute key
      * @param[in] value The new value
@@ -169,9 +172,6 @@ public:
     const Parameterised::Map& getACParametersMap() const;
 
 protected:
-    /// @brief the parent junction of this crossing
-    GNEJunction* myParentJunction;
-
     /// @brief An object that stores the shape and its tesselation
     mutable TesselatedPolygon myTesselation;
 

@@ -1,16 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-06-11 18:09:00 by Eclipse SUMO netedit Version v1_20_0+0459-30b40d5d475
+<!-- generated on 2024-10-01 09:18:46 by Eclipse SUMO netedit Version v1_20_0+2204-fb162b24262
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <!-- Vehicles, persons and containers (sorted by depart) -->
-    <trip id="tripA" depart="0.00" departLane="random" departPos="2.00" departPosLat="2.00" departSpeed="12.00" arrivalLane="0" arrivalPos="3.00" arrivalPosLat="-12.00" arrivalSpeed="12.00" color="red" line="line A" fromTaz="taz_green" toTaz="taz_red" personNumber="1" containerNumber="5" insertionChecks="speedLimit pedestrian all">
+    <trip id="tripA" depart="0.00" departLane="random" departPos="2.00" departPosLat="2.00" departSpeed="12.00" arrivalLane="0" arrivalPos="3.00" arrivalPosLat="4.20" arrivalSpeed="12.00" color="red" line="line A" fromTaz="taz_green" toTaz="taz_red" personNumber="1" containerNumber="5" insertionChecks="speedLimit pedestrian all">
         <param key="KeyA1" value="valueA1"/>
         <param key="KeyA2" value="valueA3"/>
         <param key="KeyA3" value="valueA2"/>
     </trip>
-    <trip id="tripB" depart="10.00" departLane="free" departPos="random" departPosLat="random_free" departSpeed="speedLimit" arrivalLane="current" arrivalPos="random" arrivalPosLat="-12.00" arrivalSpeed="current" color="blue" line="line B" fromTaz="taz_red" toTaz="taz_green" personNumber="2" containerNumber="10" insertionChecks="leaderGap junction speedLimit pedestrian all">
+    <trip id="tripB" depart="10.00" departLane="free" departPos="random" departPosLat="random_free" departSpeed="speedLimit" arrivalLane="current" arrivalPos="random" arrivalPosLat="4.20" arrivalSpeed="current" color="blue" line="line B" fromTaz="taz_red" toTaz="taz_green" personNumber="2" containerNumber="10" insertionChecks="leaderGap junction speedLimit pedestrian all">
         <param key="KeyB1" value="valueB1"/>
         <param key="KeyB2" value="valueB3"/>
         <param key="KeyB3" value="valueB2"/>

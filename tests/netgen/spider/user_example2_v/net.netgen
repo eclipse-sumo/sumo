@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-02-29 13:36:52 by Eclipse SUMO netgenerate Version v1_19_0+1092-a49a04372af
+<!-- generated on 2025-01-09 15:19:20 by Eclipse SUMO netgenerate Version v1_21_0+1775-c2a2f9e96c3
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
+<netgenerateConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
 
     <spider_network>
         <spider value="true"/>
@@ -34,7 +34,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <xml-validation value="never"/>
     </report>
 
-</configuration>
+</netgenerateConfiguration>
 -->
 
 <net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
@@ -476,7 +476,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <connection from="C2B2" to="B2B1" fromLane="0" toLane="0" dir="l" state="m"/>
     <connection from="C2B2" to="B2C2" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="C2C1" to="C1B1" fromLane="0" toLane="0" dir="r" state="m"/>
-    <connection from="C2C1" to="C1C4" fromLane="0" toLane="0" dir="r" state="m"/>
+    <connection from="C2C1" to="C1C4" fromLane="0" toLane="0" dir="R" state="m"/>
     <connection from="C2C1" to="C1D1" fromLane="0" toLane="0" dir="l" state="m"/>
     <connection from="C2C1" to="C1C2" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="C2C3" to="C3D3" fromLane="0" toLane="0" dir="r" state="m"/>
@@ -495,7 +495,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <connection from="C3C2" to="C2D2" fromLane="0" toLane="0" dir="l" state="m"/>
     <connection from="C3C2" to="C2C3" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="C3C4" to="C4D4" fromLane="0" toLane="0" dir="r" state="m"/>
-    <connection from="C3C4" to="C4C1" fromLane="0" toLane="0" dir="l" state="m"/>
+    <connection from="C3C4" to="C4C1" fromLane="0" toLane="0" dir="L" state="m"/>
     <connection from="C3C4" to="C4B4" fromLane="0" toLane="0" dir="l" state="m"/>
     <connection from="C3C4" to="C4C3" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="C3D3" to="D3D2" fromLane="0" toLane="0" dir="r" state="m"/>
@@ -543,7 +543,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <connection from="D3D2" to="D2C2" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="D3D2" to="D2D1" fromLane="0" toLane="0" dir="R" state="M"/>
     <connection from="D3D2" to="D2D3" fromLane="0" toLane="0" dir="t" state="m"/>
-    <connection from="D3D4" to="D4D1" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from="D3D4" to="D4D1" fromLane="0" toLane="0" dir="L" state="M"/>
     <connection from="D3D4" to="D4C4" fromLane="0" toLane="0" dir="l" state="m"/>
     <connection from="D3D4" to="D4D3" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="D4C4" to="C4C1" fromLane="0" toLane="0" dir="r" state="M"/>
