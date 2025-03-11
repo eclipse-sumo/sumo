@@ -320,6 +320,29 @@ GNEStoppingPlace::getStoppingPlaceAttribute(const Parameterised* parameterised, 
 }
 
 
+double
+GNEStoppingPlace::getStoppingPlaceAttributeDouble(SumoXMLAttr key) const {
+    switch (key) {
+        case SUMO_ATTR_STARTPOS:
+            if (myStartPosition != INVALID_DOUBLE) {
+                return myStartPosition;
+            } else {
+                return 0;
+            }
+        case SUMO_ATTR_ENDPOS:
+            if (myEndPosition != INVALID_DOUBLE) {
+                return myEndPosition;
+            } else {
+                return getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
+            }
+        case SUMO_ATTR_CENTER:
+            return ((getStoppingPlaceAttributeDouble(SUMO_ATTR_ENDPOS) - getStoppingPlaceAttributeDouble(SUMO_ATTR_STARTPOS)) * 0.5) + getStoppingPlaceAttributeDouble(SUMO_ATTR_STARTPOS);
+        default:
+            throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
+    }
+}
+
+
 void
 GNEStoppingPlace::setStoppingPlaceAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     switch (key) {
@@ -414,13 +437,13 @@ GNEStoppingPlace::setStoppingPlaceAttribute(Parameterised* parameterised, SumoXM
             break;
         case SUMO_ATTR_STARTPOS:
             if (value == "") {
-                myStartPosition = INVALID_DOUBLE;
+                myStartPosition = 0;
             } else {
                 myStartPosition = parse<double>(value);
             }
             break;
         case SUMO_ATTR_ENDPOS:
-            if (value == "") {
+            if ((value == "") || (value == "lane end")) {
                 myEndPosition = INVALID_DOUBLE;
             } else {
                 myEndPosition = parse<double>(value);
@@ -481,29 +504,6 @@ GNEStoppingPlace::setStoppingPlaceGeometry(double movingToSide) {
 
     // Cut shape using as delimitators fixed start position and fixed end position
     myAdditionalGeometry.updateGeometry(laneShape, getStartGeometryPositionOverLane(), getEndGeometryPositionOverLane(), myMoveElementLateralOffset);
-}
-
-
-double
-GNEStoppingPlace::getAttributeDouble(SumoXMLAttr key) const {
-    switch (key) {
-        case SUMO_ATTR_STARTPOS:
-            if (myStartPosition != INVALID_DOUBLE) {
-                return myStartPosition;
-            } else {
-                return 0;
-            }
-        case SUMO_ATTR_ENDPOS:
-            if (myEndPosition != INVALID_DOUBLE) {
-                return myEndPosition;
-            } else {
-                return getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
-            }
-        case SUMO_ATTR_CENTER:
-            return ((getAttributeDouble(SUMO_ATTR_ENDPOS) - getAttributeDouble(SUMO_ATTR_STARTPOS)) * 0.5) + getAttributeDouble(SUMO_ATTR_STARTPOS);
-        default:
-            throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
-    }
 }
 
 

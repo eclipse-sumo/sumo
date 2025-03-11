@@ -202,6 +202,19 @@ GNEChargingStation::getAttribute(SumoXMLAttr key) const {
 }
 
 
+double
+GNEChargingStation::getAttributeDouble(SumoXMLAttr key) const {
+    switch (key) {
+        case SUMO_ATTR_CHARGINGPOWER:
+            return myChargingPower;
+        case SUMO_ATTR_EFFICIENCY:
+            return myEfficiency;
+        default:
+            return getStoppingPlaceAttributeDouble(key);
+    }
+}
+
+
 void
 GNEChargingStation::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     switch (key) {

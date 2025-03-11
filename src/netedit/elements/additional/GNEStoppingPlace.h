@@ -130,7 +130,7 @@ public:
      * @param[in] key The attribute key
      * @return double with the value associated to key
      */
-    virtual double getAttributeDouble(SumoXMLAttr key) const;
+    virtual double getAttributeDouble(SumoXMLAttr key) const = 0;
 
     /// @brief get parameters map
     const Parameterised::Map& getACParametersMap() const;
@@ -201,6 +201,12 @@ protected:
      * @return string with the value associated to key
      */
     std::string getStoppingPlaceAttribute(const Parameterised* parameterised, SumoXMLAttr key) const;
+
+    /* @brief method for getting the Attribute of an XML key in double format (to avoid unnecessary parse<double>(...) for certain attributes)
+     * @param[in] key The attribute key
+     * @return double with the value associated to key
+     */
+    double getStoppingPlaceAttributeDouble(SumoXMLAttr key) const;
 
     /* @brief method for setting the stoppingPlace attribute and letting the object perform additional changes
      * @param[in] key The attribute key
