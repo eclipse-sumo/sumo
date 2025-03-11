@@ -247,15 +247,15 @@ GNEStoppingPlace::writeStoppingPlaceAttributes(OutputDevice& device) const {
     // lane
     device.writeAttr(SUMO_ATTR_LANE, getParentLanes().front()->getID());
     // start and end positions
-    if (myStartPosition != INVALID_DOUBLE) {
+    if (myStartPosition != myTagProperty->getDefaultDoubleValue(SUMO_ATTR_STARTPOS)) {
         device.writeAttr(SUMO_ATTR_STARTPOS, myStartPosition);
     }
-    if (myEndPosition != INVALID_DOUBLE) {
+    if (myEndPosition != myTagProperty->getDefaultDoubleValue(SUMO_ATTR_ENDPOS)) {
         device.writeAttr(SUMO_ATTR_ENDPOS, myEndPosition);
     }
     // friendly position (only if true)
     if (myFriendlyPosition) {
-        device.writeAttr(SUMO_ATTR_FRIENDLY_POS, "true");
+        device.writeAttr(SUMO_ATTR_FRIENDLY_POS, myFriendlyPosition);
     }
     // color (if defined)
     if (getAttribute(SUMO_ATTR_COLOR).size() > 0) {
@@ -275,13 +275,13 @@ GNEStoppingPlace::getStoppingPlaceAttribute(const Parameterised* parameterised, 
             if (myStartPosition != INVALID_DOUBLE) {
                 return toString(myStartPosition);
             } else {
-                return "";
+                return TL("lane start");
             }
         case SUMO_ATTR_ENDPOS:
             if (myEndPosition != INVALID_DOUBLE) {
                 return toString(myEndPosition);
             } else {
-                return "";
+                return TL("lane end");
             }
         case SUMO_ATTR_NAME:
             return myAdditionalName;
@@ -381,7 +381,7 @@ GNEStoppingPlace::isStoppingPlaceValid(SumoXMLAttr key, const std::string& value
                 return false;
             }
         case SUMO_ATTR_STARTPOS:
-            if (value.empty()) {
+            if (value.empty() || (value == TL("lane start"))) {
                 return true;
             } else if (canParse<double>(value)) {
                 return SUMORouteHandler::isStopPosValid(parse<double>(value), getAttributeDouble(SUMO_ATTR_ENDPOS), getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength(), POSITION_EPS, myFriendlyPosition);
@@ -389,7 +389,7 @@ GNEStoppingPlace::isStoppingPlaceValid(SumoXMLAttr key, const std::string& value
                 return false;
             }
         case SUMO_ATTR_ENDPOS:
-            if (value.empty()) {
+            if (value.empty() || (value == TL("lane end"))) {
                 return true;
             } else if (canParse<double>(value)) {
                 return SUMORouteHandler::isStopPosValid(getAttributeDouble(SUMO_ATTR_STARTPOS), parse<double>(value), getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength(), POSITION_EPS, myFriendlyPosition);
@@ -436,14 +436,14 @@ GNEStoppingPlace::setStoppingPlaceAttribute(Parameterised* parameterised, SumoXM
             replaceAdditionalParentLanes(value);
             break;
         case SUMO_ATTR_STARTPOS:
-            if (value == "") {
-                myStartPosition = 0;
+            if (value.empty() || (value == TL("lane start"))) {
+                myStartPosition = INVALID_DOUBLE;
             } else {
                 myStartPosition = parse<double>(value);
             }
             break;
         case SUMO_ATTR_ENDPOS:
-            if ((value == "") || (value == "lane end")) {
+            if (value.empty() || (value == TL("lane end"))) {
                 myEndPosition = INVALID_DOUBLE;
             } else {
                 myEndPosition = parse<double>(value);

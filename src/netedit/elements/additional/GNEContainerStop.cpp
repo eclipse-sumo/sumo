@@ -246,7 +246,11 @@ GNEContainerStop::setAttribute(SumoXMLAttr key, const std::string& value) {
             myContainerCapacity = GNEAttributeCarrier::parse<int>(value);
             break;
         case SUMO_ATTR_PARKING_LENGTH:
-            myParkingLength = GNEAttributeCarrier::parse<double>(value);
+            if (value.empty()) {
+                myParkingLength = myTagProperty->getDefaultDoubleValue(key);
+            } else {
+                myParkingLength = GNEAttributeCarrier::parse<double>(value);
+            }
             break;
         default:
             setStoppingPlaceAttribute(this, key, value);

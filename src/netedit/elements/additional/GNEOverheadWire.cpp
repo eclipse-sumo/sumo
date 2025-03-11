@@ -464,19 +464,18 @@ GNEOverheadWire::isValid(SumoXMLAttr key, const std::string& value) {
             } else {
                 return (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_TRACTION_SUBSTATION, value, false) != nullptr);
             }
-        case SUMO_ATTR_LANES:
-            if (value.empty()) {
-                return false;
-            } else if (canParse<std::vector<GNELane*> >(myNet, value, false)) {
-                // check if lanes are consecutives
-                return lanesConsecutives(parse<std::vector<GNELane*> >(myNet, value));
-            } else {
-                return false;
-            }
         case SUMO_ATTR_STARTPOS:
-            return canParse<double>(value);
+            if (value.empty() || (value == TL("lane start"))) {
+                return true;
+            } else {
+                return canParse<double>(value);
+            }
         case SUMO_ATTR_ENDPOS:
-            return canParse<double>(value);
+            if (value.empty() || (value == TL("lane end"))) {
+                return true;
+            } else {
+                return canParse<double>(value);
+            }
         case SUMO_ATTR_FRIENDLY_POS:
             return canParse<bool>(value);
         case SUMO_ATTR_OVERHEAD_WIRE_FORBIDDEN:
@@ -516,14 +515,22 @@ GNEOverheadWire::setAttribute(SumoXMLAttr key, const std::string& value) {
             replaceAdditionalParentLanes(value);
             break;
         case SUMO_ATTR_STARTPOS:
-            myStartPos = parse<double>(value);
+            if (value.empty() || (value == TL("lane start"))) {
+                myStartPos = INVALID_DOUBLE;
+            } else {
+                myStartPos = parse<double>(value);
+            }
             // update geometry (except for template)
             if (getParentLanes().size() > 0) {
                 updateGeometry();
             }
             break;
         case SUMO_ATTR_ENDPOS:
-            myEndPos = parse<double>(value);
+            if (value.empty() || (value == TL("lane end"))) {
+                myEndPos = INVALID_DOUBLE;
+            } else {
+                myEndPos = parse<double>(value);
+            }
             // update geometry (except for template)
             if (getParentLanes().size() > 0) {
                 updateGeometry();

@@ -54,7 +54,7 @@ GNEAttributeProperties::GNEAttributeProperties(GNETagProperties* tagProperties, 
     // check build conditions (only in debug mode)
     checkBuildConstraints();
     // parse default values
-    parseDefaultValues(defaultValue);
+    parseDefaultValues(defaultValue, true);
     // add attribute in tag properties vector
     tagProperties->myAttributeProperties.push_back(this);
 }
@@ -72,7 +72,7 @@ GNEAttributeProperties::GNEAttributeProperties(GNETagProperties* tagProperties, 
     // check build conditions (only in debug mode)
     checkBuildConstraints();
     // parse default values
-    parseDefaultValues(defaultValue);
+    parseDefaultValues(defaultValue, false);
     // add attribute in tag properties vector
     tagProperties->myAttributeProperties.push_back(this);
 }
@@ -91,27 +91,6 @@ GNEAttributeProperties::checkAttributeIntegrity() const {
     }
     if (myEditProperty == 0) {
         throw FormatException("Attr edition properties cannot be empty");
-    }
-    // check that default values can be parsed (only in debug mode)
-    if (hasDefaultValue()) {
-        if (isInt() && !GNEAttributeCarrier::canParse<int>(myDefaultStringValue)) {
-            throw FormatException("Default value cannot be parsed to int");
-        }
-        if (isFloat() && !GNEAttributeCarrier::canParse<double>(myDefaultStringValue)) {
-            throw FormatException("Default value cannot be parsed to float");
-        }
-        if (isSUMOTime() && !GNEAttributeCarrier::canParse<SUMOTime>(myDefaultStringValue)) {
-            throw FormatException("Default value cannot be parsed to SUMOTime");
-        }
-        if (isBool() && !GNEAttributeCarrier::canParse<bool>(myDefaultStringValue)) {
-            throw FormatException("Default value cannot be parsed to bool");
-        }
-        if (isPosition() && (myDefaultStringValue.size() > 0) && !GNEAttributeCarrier::canParse<Position>(myDefaultStringValue)) {
-            throw FormatException("Default value cannot be parsed to position");
-        }
-        if (isColor() && !GNEAttributeCarrier::canParse<RGBColor>(myDefaultStringValue)) {
-            throw FormatException("Default value cannot be parsed to color");
-        }
     }
     // check that positive attributes correspond only to a int, floats or SUMOTimes
     if (isPositive() && !(isInt() || isFloat() || isSUMOTime())) {
@@ -651,23 +630,33 @@ GNEAttributeProperties::checkBuildConstraints() const {
 
 
 void
-GNEAttributeProperties::parseDefaultValues(const std::string& defaultValue) {
+GNEAttributeProperties::parseDefaultValues(const std::string& defaultValue, const bool overWritteDefaultString) {
     // in every case parse default value back (to avoid problems during comparations)
     if (isInt()) {
         myDefaultIntValue = GNEAttributeCarrier::parse<int>(defaultValue);
-        myDefaultStringValue = toString(myDefaultIntValue);
+        if (overWritteDefaultString) {
+            myDefaultStringValue = toString(myDefaultIntValue);
+        }
     } else if (isFloat()) {
         myDefaultDoubleValue = GNEAttributeCarrier::parse<double>(defaultValue);
-        myDefaultStringValue = toString(myDefaultDoubleValue);
+        if (overWritteDefaultString) {
+            myDefaultStringValue = toString(myDefaultDoubleValue);
+        }
     } else if (isSUMOTime()) {
         myDefaultTimeValue = GNEAttributeCarrier::parse<SUMOTime>(defaultValue);
-        myDefaultStringValue = time2string(myDefaultTimeValue);
+        if (overWritteDefaultString) {
+            myDefaultStringValue = toString(myDefaultTimeValue);
+        }
     } else if (isBool()) {
         myDefaultBoolValue = GNEAttributeCarrier::parse<bool>(defaultValue);
-        myDefaultStringValue = toString(myDefaultBoolValue);
+        if (overWritteDefaultString) {
+            myDefaultStringValue = toString(myDefaultBoolValue);
+        }
     } else if (isBool()) {
         myDefaultColorValue = GNEAttributeCarrier::parse<RGBColor>(defaultValue);
-        myDefaultStringValue = toString(myDefaultColorValue);
+        if (overWritteDefaultString) {
+            myDefaultStringValue = toString(myDefaultColorValue);
+        }
     }
 }
 
