@@ -81,7 +81,7 @@ title: ChangeLog
   - sumolib: function `xml.parse` is now useful when loading nested elements and not providing argument `element_names`. The new attribute `outputLevel` (default 1) controls which elements to retrieve #16211
   - sumolib: Objects loaded with function `xml.parse` now preserve their attribute order when serialized with `toXML` #16254
   - [remap_additionals.py](Tools/Net.md#remap_additionalspy): convert infrastructure from one network to another network (which may differ in geometry, lanes and edge splits) #16206
-  - [remap_routes.py](Tools/Net.md#remap_routespy): convert route files from one network to another #16252
+  - [remap_renamed.py](Tools/Net.md#remap_renamedpy): convert route files and additioanal files after renaming network ids (i.e. with **--numerical-ids**) #16252
   - ptlines2flows.py: now sorts written routes and flows by id #16222
 
 
