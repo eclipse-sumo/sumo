@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-13 10:07+0100\n"
-"PO-Revision-Date: 2025-03-11 07:47+0000\n"
+"PO-Revision-Date: 2025-03-11 09:38+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -9283,10 +9283,14 @@ msgid ""
 "Almost duplicate s-value '%' for lane sections occurred at edge '%'; first "
 "entry was removed."
 msgstr ""
+"Valori s quasi identici incontrati nelle sezioni di corsia dell'arco '%'; il "
+"primo valore è stato omesso."
 
 #: src/netimport/NIImporter_OpenDrive.cpp:1769
 msgid "Could not compute spiral geometry for edge '%' (cDot=% length=%)."
 msgstr ""
+"Non ho potuto calcolare la geometria spirale per l'arco '%' (cDot=% "
+"lunghezza=%)."
 
 #: src/netimport/NIImporter_OpenDrive.cpp:1818
 msgid "Could not compute spiral geometry for edge '%' (%)."
@@ -9376,7 +9380,7 @@ msgstr "Non ho potuto inserire l'incrocio '%'."
 #: src/netimport/NIImporter_OpenStreetMap.cpp:476
 msgid ""
 "Discarding edge '%' which connects two identical nodes without geometry."
-msgstr ""
+msgstr "L'arco '%' che collega due nodi identici senza geometria viene omesso."
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:629
 #: src/netimport/NIImporter_OpenStreetMap.cpp:627
