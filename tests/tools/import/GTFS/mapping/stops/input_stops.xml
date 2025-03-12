@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-03-12 10:44:56 by Eclipse SUMO netconvert Version v1_22_0+0765-dcff7dad877
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <osm-files value="sumo-scenarios/brunswick/osm/BS_detail.osm.xml"/>
+    </input>
+
+    <output>
+        <ptstop-output value="ptstops.xml"/>
+    </output>
+
+    <projection>
+        <proj.utm value="true"/>
+    </projection>
+
+    <edge_removal>
+        <keep-edges.in-geo-boundary value="10.509219,52.256458,10.530758,52.270119"/>
+        <keep-edges.by-vclass value="passenger,bus"/>
+    </edge_removal>
+
+</netconvertConfiguration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <busStop id="-1515856077" name="Rathaus" lane="-37976385#1_0" startPos="18.80" endPos="33.80" friendlyPos="true"/>
+    <busStop id="-270105899" name="Altstadtmarkt" lane="-625229902_0" startPos="31.93" endPos="46.93" friendlyPos="true"/>
+    <busStop id="-3265534056" name="Friedrich-Wilhelm-Straße" lane="-190405266#3_0" startPos="64.29" endPos="79.29" friendlyPos="true"/>
+    <busStop id="-335753779" name="Staatstheater" lane="-171756596_0" startPos="21.18" endPos="58.54" friendlyPos="true"/>
+    <busStop id="-335811224" name="Güldenstraße" lane="-320399277#2_0" startPos="15.03" endPos="30.03" friendlyPos="true"/>
+    <busStop id="-343717363" name="Güldenstraße" lane="-320814805#1_0" startPos="1.65" endPos="16.65" friendlyPos="true"/>
+    <busStop id="-4397192313" name="Altstadtmarkt" lane="-625229902_0" startPos="5.03" endPos="20.03" friendlyPos="true"/>
+    <busStop id="-4420481310" name="Staatstheater" lane="-171756596_0" startPos="8.02" endPos="23.02" friendlyPos="true"/>
+    <busStop id="-4635230831" name="Wilhelmstraße" lane="-627097690_0" startPos="10.99" endPos="25.99" friendlyPos="true"/>
+    <busStop id="-583283132" name="Rathaus" lane="-5148300_0" startPos="11.23" endPos="26.23" friendlyPos="true"/>
+    <busStop id="-822623518" name="Goslarsche Straße" lane="-283066855_0" startPos="0.73" endPos="15.61" friendlyPos="true"/>
+    <busStop id="1223820160" name="Maschstraße" lane="375727027#2_0" startPos="77.66" endPos="92.66" friendlyPos="true"/>
+    <busStop id="1515856077" name="Rathaus" lane="5134732_0" startPos="30.42" endPos="45.42" friendlyPos="true"/>
+    <busStop id="1741027767" name="Holzhof (Volkswagenhalle)" lane="127240643#2_0" startPos="16.77" endPos="33.44" friendlyPos="true"/>
+    <busStop id="247702454" name="Packhof" lane="37983000_0" startPos="56.70" endPos="71.70" friendlyPos="true"/>
+    <busStop id="270066352" name="Münzstraße" lane="5021504_0" startPos="32.70" endPos="47.70" friendlyPos="true"/>
+    <busStop id="270105899" name="Altstadtmarkt" lane="-625229902_0" startPos="31.93" endPos="46.93" friendlyPos="true"/>
+    <busStop id="270148915" name="Rathaus" lane="27220201#0_0" startPos="149.88" endPos="164.88" friendlyPos="true"/>
+    <busStop id="272856305" name="Europaplatz" lane="122119622#0_0" startPos="56.39" endPos="71.39" friendlyPos="true"/>
+    <busStop id="272856887" name="Am Wassertor (Volkswagenhalle)" lane="316791983_0" startPos="10.72" endPos="32.15" friendlyPos="true"/>
+    <busStop id="272856917" name="John-F.-Kennedy-Platz" lane="43328051#0_0" startPos="25.91" endPos="50.91" friendlyPos="true"/>
+    <busStop id="272857163" name="John-F.-Kennedy-Platz" lane="32055654_0" startPos="5.91" endPos="17.74" friendlyPos="true"/>
+    <busStop id="282832479" name="Radeklint" lane="60922609#0_0" startPos="18.72" endPos="82.10" friendlyPos="true"/>
+    <busStop id="282832480" name="Radeklint" lane="30424335#0_0" startPos="27.85" endPos="94.17" friendlyPos="true"/>
+    <busStop id="295017591" name="Friedrich-Wilhelm-Platz" lane="588927595_0" startPos="41.25" endPos="101.53" friendlyPos="true"/>
+    <busStop id="299530289" name="Schloss" lane="25730281#0_0" startPos="9.32" endPos="24.32" friendlyPos="true"/>
+    <busStop id="3265534056" name="Friedrich-Wilhelm-Straße" lane="190405266#0_0" startPos="180.93" endPos="195.93" friendlyPos="true"/>
+    <busStop id="335753011" name="Friedrich-Wilhelm-Platz" lane="18962450#0_0" startPos="20.89" endPos="62.67" friendlyPos="true"/>
+    <busStop id="335753779" name="Staatstheater" lane="171756596_0" startPos="5.00" endPos="43.33" friendlyPos="true"/>
+    <busStop id="335771085" name="Schloss" lane="319583927#0_0" startPos="0.00" endPos="11.15" friendlyPos="true"/>
+    <busStop id="335811224" name="Güldenstraße" lane="320399277#0_0" startPos="9.33" endPos="24.33" friendlyPos="true"/>
+    <busStop id="3388048661" name="Friedrich-Wilhelm-Platz" lane="588927595_0" startPos="20.43" endPos="80.70" friendlyPos="true"/>
+    <busStop id="343717113" name="Güldenstraße" lane="167920428#6_0" startPos="52.18" endPos="67.18" friendlyPos="true"/>
+    <busStop id="343717194" name="Güldenstraße" lane="8618349#0_0" startPos="40.93" endPos="55.93" friendlyPos="true"/>
+    <busStop id="343717363" name="Güldenstraße" lane="320814805#0_0" startPos="92.75" endPos="107.75" friendlyPos="true"/>
+    <busStop id="343717895" name="Güldenstraße" lane="376743573#0_0" startPos="101.64" endPos="116.64" friendlyPos="true"/>
+    <busStop id="343718199" name="Güldenstraße" lane="320399274#1_0" startPos="105.20" endPos="120.20" friendlyPos="true"/>
+    <busStop id="3790696287" name="Maschstraße" lane="394076960#0_0" startPos="17.54" endPos="32.54" friendlyPos="true"/>
+    <busStop id="398552760" name="Südstraße" lane="5021501#0_0" startPos="1.59" endPos="16.59" friendlyPos="true"/>
+    <busStop id="4209124830" name="P&amp;R &quot;Weihnachtsmarkt&quot;" lane="220890642#4_0" startPos="182.80" endPos="197.80" friendlyPos="true"/>
+    <busStop id="4397192313" name="Altstadtmarkt" lane="8108069_0" startPos="29.07" endPos="44.07" friendlyPos="true"/>
+    <busStop id="4420481309" name="Goslarsche Straße" lane="283066855_0" startPos="7.44" endPos="22.32" friendlyPos="true"/>
+    <busStop id="4420481310" name="Staatstheater" lane="-171756596_0" startPos="8.02" endPos="23.02" friendlyPos="true"/>
+    <busStop id="4635230831" name="Wilhelmstraße" lane="314842169#0_0" startPos="29.40" endPos="29.60" friendlyPos="true"/>
+    <busStop id="544541081" name="Holzhof (Volkswagenhalle)" lane="59393474#4_0" startPos="44.25" endPos="60.92" friendlyPos="true"/>
+    <busStop id="5653387073" name="Wilhelmstraße (Steig 17)" lane="326537335_0" startPos="40.06" endPos="55.06" friendlyPos="true"/>
+    <busStop id="5653387075" name="Wilhelmstraße (Steig 18)" lane="326537335_0" startPos="38.75" endPos="53.75" friendlyPos="true"/>
+    <busStop id="583283132" name="Rathaus" lane="-5148300_0" startPos="11.23" endPos="26.23" friendlyPos="true"/>
+    <busStop id="585140525" name="Südstraße" lane="31016344#0_0" startPos="25.64" endPos="40.64" friendlyPos="true"/>
+    <busStop id="655312126" name="John-F.-Kennedy-Platz" lane="51353826#0_0" startPos="25.00" endPos="50.00" friendlyPos="true"/>
+    <busStop id="757436879" name="Europaplatz" lane="23329778#6_0" startPos="5.57" endPos="20.57" friendlyPos="true"/>
+    <busStop id="765881522" name="Rathaus" lane="27220209#0_0" startPos="9.14" endPos="24.14" friendlyPos="true"/>
+</additional>
