@@ -957,6 +957,10 @@ def convertShape(shapeString):
     return cshape
 
 
+def lane2edge(laneID):
+    return laneID[:laneID.rfind("_")]
+
+
 def readNet(filename, **others):
     """ load a .net.xml file
     The following named options are supported:

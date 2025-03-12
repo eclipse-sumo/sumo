@@ -94,23 +94,30 @@ def mapTrace(trace, net, delta, verbose=False, airDistFactor=2, fillGaps=0, gapP
     result = ()
     paths = {}  # maps a path stub to a pair of current cost and the last mapping position on the last edge
     lastPos = None
+    nPathCalls = 0
+    nNoCandidates = 0
     if verbose:
-        print("mapping trace with %s points" % len(trace))
+        print("mapping trace with %s points ... " % len(trace), end="", flush=True)
     for idx, pos in enumerate(trace):
+        x, y = pos
         newPaths = {}
         if vias and idx in vias:
-            if net.hasEdge(vias[idx]):
-                candidates = [(net.getEdge(vias[idx]), 0.)]
-            else:
-                print("Unknown via edge %s for %s,%s" % (vias[idx], pos[0], pos[1]))
-                candidates = []
+            candidates = []
+            for edgeID in vias[idx]:
+                if net.hasEdge(edgeID):
+                    candidates.append((net.getEdge(edgeID), 0.))
+                else:
+                    print("Unknown via edge %s for %s,%s" % (edgeID, x, y))
         else:
-            candidates = net.getNeighboringEdges(pos[0], pos[1], delta, not net.hasInternal)
+            candidates = net.getNeighboringEdges(x, y, delta, not net.hasInternal)
         if debug:
-            print("\n\npos:%s, %s" % (pos[0], pos[1]))
+            print("\n\npos:%s, %s" % (x, y))
             print("candidates:%s\n" % [(e.getID(), c) for e, c in candidates])
         if verbose and not candidates:
-            print("Found no candidate edges for %s,%s" % pos)
+            if nNoCandidates == 0:
+                print()
+            print("   Found no candidate edges for %s,%s (index %s) " % (x, y, idx))
+            nNoCandidates += 1
 
         for edge, d in candidates:
             if vClass is not None and not edge.allows(vClass):
@@ -138,6 +145,7 @@ def mapTrace(trace, net, delta, verbose=False, airDistFactor=2, fillGaps=0, gapP
                             extension, cost = net.getOptimalPath(path[-1], edge, maxCost=maxGap,
                                                                  reversalPenalty=reversalPenalty,
                                                                  fromPos=lastBase, toPos=base)
+                            nPathCalls += 1
                             if extension is None:
                                 airLineDist = euclidean(
                                     path[-1].getToNode().getCoord(),
@@ -175,6 +183,10 @@ def mapTrace(trace, net, delta, verbose=False, airDistFactor=2, fillGaps=0, gapP
                 result += minPath
         paths = newPaths
         lastPos = pos
+    if verbose:
+        if nNoCandidates > 0:
+            print("%s Points had no candidates. " % nNoCandidates, end="")
+        print("(%s router calls)" % nPathCalls)
     if paths:
         if debug:
             print("**************** result:")

@@ -651,7 +651,7 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
         // Vaporizer (deprecated)
         case SUMO_TAG_VAPORIZER:
             if (buildVaporizer(obj,
-                               obj->getStringAttribute(SUMO_ATTR_ID),
+                               obj->getStringAttribute(SUMO_ATTR_EDGE),
                                obj->getTimeAttribute(SUMO_ATTR_BEGIN),
                                obj->getTimeAttribute(SUMO_ATTR_END),
                                obj->getStringAttribute(SUMO_ATTR_NAME),
@@ -1773,7 +1773,7 @@ AdditionalHandler::parseVaporizerAttributes(const SUMOSAXAttributes& attrs) {
         // set tag
         myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_VAPORIZER);
         // add all attributes
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, edgeID);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_EDGE, edgeID);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addTimeAttribute(SUMO_ATTR_BEGIN, begin);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addTimeAttribute(SUMO_ATTR_END, end);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_NAME, name);
