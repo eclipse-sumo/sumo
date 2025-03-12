@@ -68,7 +68,7 @@ GNENetHelper::AttributeCarriers::AttributeCarriers(GNENet* net) :
                                    GNETagProperties::TagType::SHAPE | GNETagProperties::TagType::TAZELEMENT | GNETagProperties::TagType::WIRE, false);
     for (const auto& additionalTagProperty : additionalTagProperties) {
         myAdditionals.insert(std::make_pair(additionalTagProperty->getTag(), std::unordered_map<const GUIGlObject*, GNEAdditional*>()));
-        if (additionalTagProperty->hasAttribute(SUMO_ATTR_ID)) {
+        if (additionalTagProperty->hasAttribute(SUMO_ATTR_ID) || (additionalTagProperty->getTag() == SUMO_TAG_VAPORIZER)) {
             myAdditionalIDs.insert(std::make_pair(additionalTagProperty->getTag(), std::map<const std::string, GNEAdditional*>()));
         }
     }
