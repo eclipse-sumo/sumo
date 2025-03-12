@@ -195,6 +195,9 @@ protected:
     /// @brief fill name attribute
     void fillNameAttribute(GNETagProperties* tagProperties);
 
+    /// @brief fill edge attribute
+    void fillEdgeAttribute(GNETagProperties* tagProperties, const bool synonymID);
+
     /// @brief fill lane attribute
     void fillLaneAttribute(GNETagProperties* tagProperties, const bool synonymID);
 
@@ -219,11 +222,23 @@ protected:
     /// @brief fill allowDisallow attributes
     void fillAllowDisallowAttributes(GNETagProperties* tagProperties);
 
-    /// @brief fill lane position attributes
+    /// @brief fill lane position attribute
     void fillPosOverLaneAttribute(GNETagProperties* tagProperties);
 
-    /// @brief fill lane position attributes
+    /// @brief fill detect person attribute
     void fillDetectPersonsAttribute(GNETagProperties* tagProperties);
+
+    /// @brief fill color attribute
+    void fillColorAttribute(GNETagProperties* tagProperties, const std::string& defaultColor);
+
+    /// @brief fill detector period attribute
+    void fillDetectorPeriodAttribute(GNETagProperties* tagProperties);
+
+    /// @brief fill detector next edges attribute
+    void fillDetectorNextEdgesAttribute(GNETagProperties* tagProperties);
+
+    /// @brief fill detector threshold attribute
+    void fillDetectorThresholdAttributes(GNETagProperties* tagProperties, const bool includingJam);
 
     /// @}
 
