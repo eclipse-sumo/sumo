@@ -153,7 +153,10 @@ def main(options):
             buf = u""
             offset = 0
             firstDep = None
+            lastIndex = None
             for __, d in data.sort_values(by=['stop_sequence']).iterrows():
+                if d.stop_sequence == lastIndex:
+                    print("Invalid stop_sequence in input for trip %s" % trip_id, file=sys.stderr)
                 arrivalSec = d.arrival_time + timeIndex
                 stopSeq.append(d.stop_id)
                 departureSec = d.departure_time + timeIndex
@@ -165,6 +168,7 @@ def main(options):
                 if firstDep is None:
                     firstDep = departureSec - timeIndex
                 offset += departureSec - arrivalSec
+                lastIndex = d.stop_sequence
             mode = gtfs2osm.GTFS2OSM_MODES[d.route_type]
             if mode in modes:
                 s = tuple(stopSeq)
