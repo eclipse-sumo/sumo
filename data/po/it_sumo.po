@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-13 10:07+0100\n"
-"PO-Revision-Date: 2025-03-11 11:27+0000\n"
+"PO-Revision-Date: 2025-03-12 07:59+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -11032,6 +11032,8 @@ msgid ""
 "'ptline-clean-up' only works in conjunction with 'ptline-output'. Ignoring "
 "invalid option."
 msgstr ""
+"'ptline-clean-up' funziona solamente insieme a 'ptline-output'. L'opzione "
+"viene ignorata."
 
 #: src/netwrite/NWFrame.cpp:189
 msgid "Writing network"
@@ -11045,7 +11047,7 @@ msgstr ""
 #: src/netwrite/NWWriter_DlrNavteq.cpp:156
 #: src/netwrite/NWWriter_DlrNavteq.cpp:163
 msgid "Could not reconstruct shape for edge:'%' (%)."
-msgstr ""
+msgstr "Non ho potuto ricostruire la forma dell'arco:'%' (%)."
 
 #: src/netwrite/NWWriter_OpenDrive.cpp:313
 msgid "Could not compute smooth shape for edge '%'."
@@ -11064,12 +11066,16 @@ msgstr ""
 msgid ""
 "Uneven stop line at lane '%' (dist=%) cannot be represented in OpenDRIVE."
 msgstr ""
+"La linea di arresto inclinata della corsia '%' (dist=%) non può essere "
+"rappresentata in OpenDRIVE."
 
 #: src/netwrite/NWWriter_SUMO.cpp:241
 msgid ""
 "Embedding TAZ-data inside the network is deprecated. Use option --taz-output "
 "instead"
 msgstr ""
+"I dati di zone di assegnazione del traffico non vengono più integrati nella "
+"rete. Invece usa l'opzione --taz-output"
 
 #: src/netwrite/NWWriter_SUMO.cpp:478
 msgid "Could not find bidi-connection for edge '%'"
