@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-03-12 10:19:07.772283 by gtfs2pt.py v1_22_0+0766-a678db9e4ce
+<configuration>
+    <merged-csv value="data.csv"/>
+    <modes value="bus"/>
+    <vtype-output value="vehtypes.xml"/>
+    <network value="net.net.xml"/>
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <route id="132189814" edges="-171756596 -37976103#3 -314841164#1 -37976385#1 -615184925 -198087353#0 -5148300 22978949#0 54684975#0 54684975#11 23386846#0 37983000 28381788 28509534#0 28509534#1 28509707#0 307200571 409312582#1 30425275#0 291686198 210624811#0 210624811#2 210624811#3 210624811#4 409312580 8108069 -376915189 -8107411#2 8618349#0 8618349#3 319389908#0 31016344#0 316781879#0 8618348 316785565 23118706 384876527 384876526 4743778#0 127240643#0 127240643#1 127240643#2">
+        <stop busStop="132189814.0" duration="10" until="0"/> <!-- Braunschweig Staatstheater -->
+        <stop busStop="132189814.1" duration="10" until="120"/> <!-- Braunschweig Rathaus -->
+        <stop busStop="132189814.2" duration="10" until="180"/> <!-- Braunschweig Packhof -->
+        <stop busStop="132189814.3" duration="10" until="240"/> <!-- Braunschweig Hintern Brüdern -->
+        <stop busStop="132189814.4" duration="10" until="300"/> <!-- Braunschweig Altstadtmarkt -->
+        <stop busStop="132189814.5" duration="10" until="420"/> <!-- Braunschweig Güldenstraße -->
+        <stop busStop="132189814.6" duration="10" until="480"/> <!-- Braunschweig Südstraße -->
+        <stop busStop="132189814.7" duration="10" until="540"/> <!-- Braunschweig Holzhof -->
+    </route>
+    <vehicle id="132189814.0" route="132189814" type="bus" depart="36890" line="132189814">
+        <param key="gtfs.route_name" value="413"/>
+        <param key="gtfs.trip_headsign" value="Braunschweig Dieselstraße"/>
+    </vehicle>
+</routes>

@@ -1,2 +1,5 @@
 # import public transport using shorter path between stops
 gtfs2pt_fcd
+
+# patch a single stop so that it maps to a different edge
+patch_stop
