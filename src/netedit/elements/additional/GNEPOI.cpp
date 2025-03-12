@@ -662,10 +662,8 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
             replaceAdditionalParentLanes(value);
             break;
         case SUMO_ATTR_POSITION: {
-            if (getParentLanes().size() > 0) {
-                if (canParse<double>(value)) {
-                    myPosOverLane = parse<double>(value);
-                }
+            if (myTagProperty->getTag() == GNE_TAG_POILANE) {
+                myPosOverLane = parse<double>(value);
             } else {
                 // set position
                 set(parse<Position>(value));

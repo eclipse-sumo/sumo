@@ -213,6 +213,15 @@ protected:
     /// @brief fill imgFile attribute
     void fillImgFileAttribute(GNETagProperties* tagProperties);
 
+    /// @brief fill depart attribute
+    void fillDepartAttribute(GNETagProperties* tagProperties);
+
+    /// @brief fill allowDisallow attributes
+    void fillAllowDisallowAttributes(GNETagProperties* tagProperties);
+
+    /// @brief fill lane position attributes
+    void fillPosOverLaneAttribute(GNETagProperties* tagProperties);
+
     /// @}
 
     /// @brief update max number of attributes by type
