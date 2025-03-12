@@ -15,7 +15,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- StoppingPlaces -->
-    <parkingArea id="parkingAreaA" name="parkingArea1" lane="EdgeCenter1_1" startPos="16.71" endPos="26.71" friendlyPos="true" onRoad="1" width="5.00" length="7.00" departPos="7">
+    <parkingArea id="parkingAreaA" name="parkingArea1" lane="EdgeCenter1_1" startPos="16.71" endPos="26.71" friendlyPos="1" onRoad="1" width="5.00" length="7.00" departPos="7">
         <param key="keyFinal1" value="value1"/>
         <param key="keyFinal2" value="value2"/>
         <param key="keyFinal3" value="value3"/>

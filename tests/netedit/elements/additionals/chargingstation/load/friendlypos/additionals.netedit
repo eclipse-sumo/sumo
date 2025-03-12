@@ -5,9 +5,9 @@
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- StoppingPlaces -->
-    <chargingStation id="chargingStation_1" name="chargingStation" lane="EdgeCenter1_1" startPos="15.00" endPos="20.00" friendlyPos="true" chargeDelay="5000"/>
-    <chargingStation id="chargingStation_2" name="chargingStation" lane="EdgeCenter1_1" startPos="-20.00" endPos="-10.00" friendlyPos="true" chargeDelay="5000"/>
-    <chargingStation id="chargingStation_3" name="chargingStation" lane="EdgeCenter1_1" startPos="200.00" endPos="300.00" friendlyPos="true" chargeDelay="5000"/>
-    <chargingStation id="chargingStation_4" name="chargingStation" lane="EdgeCenter1_1" startPos="50.00" endPos="20.00" friendlyPos="true" chargeDelay="5000"/>
-    <chargingStation id="chargingStation_5" name="chargingStation" lane="EdgeCenter1_1" startPos="20.00" endPos="20.00" friendlyPos="true" chargeDelay="5000"/>
+    <chargingStation id="chargingStation_1" name="chargingStation" lane="EdgeCenter1_1" startPos="15.00" endPos="20.00" friendlyPos="1" chargeDelay="5000"/>
+    <chargingStation id="chargingStation_2" name="chargingStation" lane="EdgeCenter1_1" startPos="-20.00" endPos="-10.00" friendlyPos="1" chargeDelay="5000"/>
+    <chargingStation id="chargingStation_3" name="chargingStation" lane="EdgeCenter1_1" startPos="200.00" endPos="300.00" friendlyPos="1" chargeDelay="5000"/>
+    <chargingStation id="chargingStation_4" name="chargingStation" lane="EdgeCenter1_1" startPos="50.00" endPos="20.00" friendlyPos="1" chargeDelay="5000"/>
+    <chargingStation id="chargingStation_5" name="chargingStation" lane="EdgeCenter1_1" startPos="20.00" endPos="20.00" friendlyPos="1" chargeDelay="5000"/>
 </additional>

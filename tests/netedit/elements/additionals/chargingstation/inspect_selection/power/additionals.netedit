@@ -20,7 +20,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="KeyA2" value="valueA3"/>
         <param key="KeyA3" value="valueA2"/>
     </chargingStation>
-    <chargingStation id="chargingStationB" name="chargingStationNameB" lane="EdgeCenter0_1" startPos="26.71" endPos="36.71" friendlyPos="true" power="11000.00" efficiency="0.85" chargeInTransit="1" chargeDelay="2000" chargeType="fuel" waitingTime="500.00">
+    <chargingStation id="chargingStationB" name="chargingStationNameB" lane="EdgeCenter0_1" startPos="26.71" endPos="36.71" friendlyPos="1" power="11000.00" efficiency="0.85" chargeInTransit="1" chargeDelay="2000" chargeType="fuel" waitingTime="500.00">
         <param key="KeyB1" value="valueB1"/>
         <param key="KeyB2" value="valueB3"/>
         <param key="KeyB3" value="valueB2"/>

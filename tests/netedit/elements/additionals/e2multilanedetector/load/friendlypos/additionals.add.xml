@@ -41,5 +41,5 @@
     <laneAreaDetector id="multiLaneAreaDetector_2" lanes="Edge0_1 Edge1_1 Edge2_1" pos="15" period="900.00" file="multiLaneAreaDetector_2.xml" endPos="15"  friendlyPos="false"/>
 
     <!-- positive -->
-    <laneAreaDetector id="multiLaneAreaDetector_3" lanes="Edge0_1 Edge1_1 Edge2_1" pos="15" period="900.00" file="multiLaneAreaDetector_3.xml" endPos="15"  friendlyPos="true"/>
+    <laneAreaDetector id="multiLaneAreaDetector_3" lanes="Edge0_1 Edge1_1 Edge2_1" pos="15" period="900.00" file="multiLaneAreaDetector_3.xml" endPos="15"  friendlyPos="1"/>
 </additional>

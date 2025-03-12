@@ -20,14 +20,14 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <calibrator id="ca_0" edge="-E0" pos="0.00"/>
     <calibrator id="ca_1" lane="-E0_2" pos="25.00"/>
     <!-- StoppingPlaces -->
-    <busStop id="bs_0" lane="-E0_0" startPos="45.00" endPos="55.00" friendlyPos="true"/>
-    <trainStop id="ts_0" lane="-E0_1" startPos="40.00" endPos="50.00" friendlyPos="true"/>
-    <containerStop id="ct_0" lane="-E0_0" startPos="25.00" endPos="35.00" friendlyPos="true"/>
-    <parkingArea id="pa_0" lane="-E0_0" startPos="5.00" endPos="15.00" friendlyPos="true">
+    <busStop id="bs_0" lane="-E0_0" startPos="45.00" endPos="55.00" friendlyPos="1"/>
+    <trainStop id="ts_0" lane="-E0_1" startPos="40.00" endPos="50.00" friendlyPos="1"/>
+    <containerStop id="ct_0" lane="-E0_0" startPos="25.00" endPos="35.00" friendlyPos="1"/>
+    <parkingArea id="pa_0" lane="-E0_0" startPos="5.00" endPos="15.00" friendlyPos="1">
         <space x="-30.00" y="20.00"/>
         <space x="30.00" y="20.00"/>
     </parkingArea>
-    <chargingStation id="cs_0" lane="-E0_0" startPos="15.00" endPos="25.00" friendlyPos="true"/>
+    <chargingStation id="cs_0" lane="-E0_0" startPos="15.00" endPos="25.00" friendlyPos="1"/>
     <!-- Detectors -->
     <inductionLoop id="e1_0" lane="-E0_2" pos="50.00" period="300.00" file="e1_0.xml" friendlyPos="1"/>
     <instantInductionLoop id="e1i_0" lane="-E0_2" pos="30.00" file="e1i_0.xml" friendlyPos="1"/>
