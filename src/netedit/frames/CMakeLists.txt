@@ -26,8 +26,6 @@ set(netedit_frames_SRCS
    GNESelectorParent.h
    GNETagSelector.cpp
    GNETagSelector.h
-   GNEFlowEditor.h
-   GNEFlowEditor.cpp
    GNETLSTable.h
    GNETLSTable.cpp
    GNEPlanSelector.h
