@@ -99,11 +99,12 @@ def mapTrace(trace, net, delta, verbose=False, airDistFactor=2, fillGaps=0, gapP
     for idx, pos in enumerate(trace):
         newPaths = {}
         if vias and idx in vias:
-            if net.hasEdge(vias[idx]):
-                candidates = [(net.getEdge(vias[idx]), 0.)]
-            else:
-                print("Unknown via edge %s for %s,%s" % (vias[idx], pos[0], pos[1]))
-                candidates = []
+            candidates = []
+            for edgeID in vias[idx]:
+                if net.hasEdge(edgeID):
+                    candidates.append((net.getEdge(edgeID), 0.))
+                else:
+                    print("Unknown via edge %s for %s,%s" % (edgeID, pos[0], pos[1]))
         else:
             candidates = net.getNeighboringEdges(pos[0], pos[1], delta, not net.hasInternal)
         if debug:

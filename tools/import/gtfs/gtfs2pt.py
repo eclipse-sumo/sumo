@@ -30,6 +30,7 @@ import glob
 import subprocess
 import collections
 import zipfile
+import rtree
 import pandas as pd
 pd.options.mode.chained_assignment = None  # default='warn'
 
@@ -38,6 +39,7 @@ sys.path += [os.path.join(os.environ["SUMO_HOME"], "tools"),
 import route2poly  # noqa
 import sumolib  # noqa
 from sumolib.miscutils import humanReadableTime  # noqa
+from sumolib.net import lane2edge  # noqa
 import tracemapper  # noqa
 
 import gtfs2fcd  # noqa
@@ -67,6 +69,8 @@ def get_options(args=None):
                     help="do not create access links")
     ap.add_argument("--sort", action="store_true", default=False, category="processing",
                     help="sorting the output-file")
+    ap.add_argument("--stops", category="input", type=ap.file,
+                    help="file with candidate stops (selected by proxmity)")
     ap.add_argument("--patched-stops", category="input", dest="patchedStops", type=ap.file,
                     help="file with replacement stops (based on stop ids)")
     ap.add_argument("-H", "--human-readable-time", category="output", dest="hrtime", default=False, action="store_true",
@@ -203,7 +207,7 @@ def mapFCD(options, typedNets):
         subprocess.call(call, shell=True)
 
 
-def traceMap(options, typedNets, fixedStops, invEdgeMap, radius=150):
+def traceMap(options, typedNets, fixedStops, stopLookup, invEdgeMap, radius=150):
     routes = collections.OrderedDict()
     for mode in sorted(typedNets.keys()):
         if options.verbose:
@@ -221,10 +225,15 @@ def traceMap(options, typedNets, fixedStops, invEdgeMap, radius=150):
             if (minX < netBox[1][0] + radius and minY < netBox[1][1] + radius and
                     maxX > netBox[0][0] - radius and maxY > netBox[0][1] - radius):
                 vias = {}
+                if stopLookup.hasCandidates():
+                    for idx, xy in enumerate(trace):
+                        candidates = stopLookup.getCandidates(xy)
+                        if candidates:
+                            vias[idx] = [invEdgeMap[lane2edge(stop.lane)] for stop in candidates]
                 for idx in range(len(trace)):
                     fixed = fixedStops.get("%s.%s" % (tid, idx))
                     if fixed:
-                        vias[idx] = invEdgeMap[fixed.lane[:fixed.lane.rfind("_")]]
+                        vias[idx] = [invEdgeMap[lane2edge(fixed.lane)]]
                 mappedRoute = sumolib.route.mapTrace(trace, net, radius, verbose=options.verbose,
                                                      fillGaps=options.fill_gaps, gapPenalty=5000., vias=vias,
                                                      reversalPenalty=1000.)
@@ -382,6 +391,34 @@ def filter_trips(options, routes, stops, outf, begin, end):
             outf.write(vehs)
 
 
+class StopLookup:
+    def __init__(self, fname, net):
+        self._candidates = []
+        self._net = net
+        self._rtree = rtree.index.Index()
+        if fname:
+            self._candidates = list(sumolib.xml.parse(fname, ("busStop", "trainStop")))
+            for ri, stop in enumerate(self._candidates):
+                lane = net.getLane(stop.lane)
+                middle = (float(stop.startPos) + float(stop.endPos)) / 2
+                x, y = sumolib.geomhelper.positionAtShapeOffset(lane.getShape(), middle)
+                bbox = (x - 1, y - 1, x + 1, y + 1)
+                self._rtree.add(ri, bbox)
+
+    def hasCandidates(self):
+        return len(self._candidates) > 0
+
+    def getCandidates(self, xy, r=150):
+        if self._candidates:
+            stops = []
+            x, y = xy
+            for i in self._rtree.intersection((x - r, y - r, x + r, y + r)):
+                stops.append(self._candidates[i])
+            return stops
+        else:
+            return []
+
+
 def main(options):
     if options.verbose:
         print('Loading net')
@@ -393,6 +430,7 @@ def main(options):
     else:
         options.bbox = [float(coord) for coord in options.bbox.split(",")]
     fixedStops = {}
+    stopLookup = StopLookup(options.stops, net)
     if options.patchedStops:
         for stop in sumolib.xml.parse(options.patchedStops, ("busStop", "trainStop")):
             fixedStops[stop.id] = stop
@@ -445,7 +483,7 @@ def main(options):
                 return
             if options.mapperlib != "tracemapper":
                 print("Warning! No mapping library found, falling back to tracemapper.", file=sys.stderr)
-            routes = traceMap(options, typedNets, fixedStops, invEdgeMap)
+            routes = traceMap(options, typedNets, fixedStops, stopLookup, invEdgeMap)
 
         if options.poly_output:
             generate_polygons(net, routes, options.poly_output)
