@@ -213,8 +213,10 @@ def traceMap(options, typedNets, fixedStops, stopLookup, invEdgeMap, radius=150)
         if options.verbose:
             print("mapping", mode)
         net = sumolib.net.readNet(os.path.join(options.network_split, mode + ".net.xml"))
+        mode_edges = set([e.getID() for e in net.getEdges()])
         netBox = net.getBBoxXY()
         numTraces = 0
+        numRoutes = 0
         filePath = os.path.join(options.fcd, mode + ".fcd.xml")
         if not os.path.exists(filePath):
             return []
@@ -229,7 +231,8 @@ def traceMap(options, typedNets, fixedStops, stopLookup, invEdgeMap, radius=150)
                     for idx, xy in enumerate(trace):
                         candidates = stopLookup.getCandidates(xy)
                         if candidates:
-                            vias[idx] = [invEdgeMap[lane2edge(stop.lane)] for stop in candidates]
+                            all_edges = [invEdgeMap[lane2edge(stop.lane)] for stop in candidates]
+                            vias[idx] = [e for e in all_edges if e in mode_edges]
                 for idx in range(len(trace)):
                     fixed = fixedStops.get("%s.%s" % (tid, idx))
                     if fixed:
@@ -238,9 +241,10 @@ def traceMap(options, typedNets, fixedStops, stopLookup, invEdgeMap, radius=150)
                                                      fillGaps=options.fill_gaps, gapPenalty=5000., vias=vias,
                                                      reversalPenalty=1000.)
                 if mappedRoute:
+                    numRoutes += 1
                     routes[tid] = [e.getID() for e in mappedRoute]
         if options.verbose:
-            print("mapped", numTraces, "traces to", len(routes), "routes.")
+            print("mapped", numTraces, "traces to", numRoutes, "routes.")
     return routes
 
 
