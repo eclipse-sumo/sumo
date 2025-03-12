@@ -23,6 +23,8 @@ trips.txt, calendar.txt and calendar_dates.txt.
 - importing the route paths from OSM. For this you also need the GTFS file
 shapes.txt and the public transport line definitions from OSM (see [ptLines output](../../Networks/Further_Outputs.md#public_transport_lines)).
 
+- importing the candidate stops from OSM (or anywhere else). This guides selection of stop locations whereas the routes will be built be fastest-path search.
+
 The minimal call is:
 
 ```
@@ -35,7 +37,15 @@ or for the option with OSM routes:
 python tools/import/gtfs/gtfs2pt.py --network <net-file> --gtfs <gtfs-data-file> --date <YYYYMMDD> --osm-routes <ptlines-file>
 ```
 
-In both cases you can use the **--modes** option that allows to select which public transport
+If OSM routes or shapes are not available, it helps to load a file with candidate stopping locations (i.e. from importing OSM with option **--ptstop-output**).
+Whenever a GTFS-coordinate has nearby stops, all of them will be considered as candidates instead of using all edges within range. This greatly speeds up the importer.
+
+```
+python tools/import/gtfs/gtfs2pt.py --network <net-file> --gtfs <gtfs-data-file> --date <YYYYMMDD> --stops <ptstop-file>
+```
+
+
+In either case you can use the **--modes** option that allows to select which public transport
 modes should be imported (bus, tram, train, subway and/or ferry). As default all modes are imported.
 
 As output an additional file (.add.xml) containing the stops and a route file
