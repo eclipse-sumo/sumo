@@ -365,7 +365,7 @@ GNEDetector::writeDetectorValues(OutputDevice& device) const {
         device.writeAttr(SUMO_ATTR_DETECT_PERSONS, myDetectPersons);
     }
     if (myFriendlyPosition) {
-        device.writeAttr(SUMO_ATTR_FRIENDLY_POS, true);
+        device.writeAttr(SUMO_ATTR_FRIENDLY_POS, myFriendlyPosition);
     }
 }
 
