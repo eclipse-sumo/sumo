@@ -45,7 +45,7 @@ def add_options():
                     help="define gtfs zip file to load (mandatory)")
     gp.add_argument("--merged-csv", category="input", type=op.data_file, dest="mergedCSV",
                     help="define csv file for loading merged data (instead of gtfs data)")
-    op.add_argument("--date", category="input", required=True, help="define the day to import, format: 'YYYYMMDD'")
+    op.add_argument("--date", category="input", required=False, help="define the day to import, format: 'YYYYMMDD'")
     op.add_argument("--fcd", category="input", type=op.data_file,
                     help="directory to write / read the generated FCD files to / from")
     op.add_argument("--gpsdat", category="input", type=op.data_file,
@@ -71,6 +71,9 @@ def check_options(options):
         options.gpsdat = os.path.join('input', options.region)
     if options.modes is None:
         options.modes = ",".join(gtfs2osm.OSM2SUMO_MODES.keys())
+    if options.gtfs and not options.date:
+        raise ValueError("When option --gtfs is set, option --date must be set as well")
+
     return options
 
 
