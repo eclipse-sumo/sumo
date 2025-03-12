@@ -222,6 +222,9 @@ protected:
     /// @brief fill lane position attributes
     void fillPosOverLaneAttribute(GNETagProperties* tagProperties);
 
+    /// @brief fill lane position attributes
+    void fillDetectPersonsAttribute(GNETagProperties* tagProperties);
+
     /// @}
 
     /// @brief update max number of attributes by type

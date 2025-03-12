@@ -1316,12 +1316,7 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
                                    GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
                                    TL("List of edge ids that must all be part of the future route of the vehicle to qualify for detection"));
 
-        auto detectPersons = new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_DETECT_PERSONS,
-                GNEAttributeProperties::STRING | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::DEFAULTVALUE,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
-                TL("Detect persons instead of vehicles (pedestrians or passengers)"),
-                SUMOXMLDefinitions::PersonModeValues.getString(PersonMode::NONE));
-        detectPersons->setDiscreteValues(SUMOXMLDefinitions::PersonModeValues.getStrings());
+        fillDetectPersonsAttribute(myTagProperties[currentTag]);
 
         fillFriendlyPosAttribute(myTagProperties[currentTag]);
     }
@@ -1370,12 +1365,7 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
                                    GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
                                    TL("List of edge ids that must all be part of the future route of the vehicle to qualify for detection"));
 
-        auto detectPersons = new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_DETECT_PERSONS,
-                GNEAttributeProperties::STRING | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::DEFAULTVALUE,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
-                TL("Detect persons instead of vehicles (pedestrians or passengers)"),
-                SUMOXMLDefinitions::PersonModeValues.getString(PersonMode::NONE));
-        detectPersons->setDiscreteValues(SUMOXMLDefinitions::PersonModeValues.getStrings());
+        fillDetectPersonsAttribute(myTagProperties[currentTag]);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_HALTING_TIME_THRESHOLD,
                                    GNEAttributeProperties::SUMOTIME | GNEAttributeProperties::DEFAULTVALUE,
@@ -1450,12 +1440,7 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
                                    GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
                                    TL("List of edge ids that must all be part of the future route of the vehicle to qualify for detection"));
 
-        auto detectPersons = new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_DETECT_PERSONS,
-                GNEAttributeProperties::STRING | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::DEFAULTVALUE,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
-                TL("Detect persons instead of vehicles (pedestrians or passengers)"),
-                SUMOXMLDefinitions::PersonModeValues.getString(PersonMode::NONE));
-        detectPersons->setDiscreteValues(SUMOXMLDefinitions::PersonModeValues.getStrings());
+        fillDetectPersonsAttribute(myTagProperties[currentTag]);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_HALTING_TIME_THRESHOLD,
                                    GNEAttributeProperties::SUMOTIME | GNEAttributeProperties::DEFAULTVALUE,
@@ -1519,12 +1504,7 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
                                    GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
                                    TL("List of edge ids that must all be part of the future route of the vehicle to qualify for detection"));
 
-        auto detectPersons = new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_DETECT_PERSONS,
-                GNEAttributeProperties::STRING | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::DEFAULTVALUE,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
-                TL("Detect persons instead of vehicles (pedestrians or passengers)"),
-                SUMOXMLDefinitions::PersonModeValues.getString(PersonMode::NONE));
-        detectPersons->setDiscreteValues(SUMOXMLDefinitions::PersonModeValues.getStrings());
+        fillDetectPersonsAttribute(myTagProperties[currentTag]);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_OPEN_ENTRY,
                                    GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
@@ -1614,12 +1594,7 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
                                    GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
                                    TL("List of edge ids that must all be part of the future route of the vehicle to qualify for detection"));
 
-        auto detectPersons = new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_DETECT_PERSONS,
-                GNEAttributeProperties::STRING | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::DEFAULTVALUE,
-                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
-                TL("Detect persons instead of vehicles (pedestrians or passengers)"),
-                SUMOXMLDefinitions::PersonModeValues.getString(PersonMode::NONE));
-        detectPersons->setDiscreteValues(SUMOXMLDefinitions::PersonModeValues.getStrings());
+        fillDetectPersonsAttribute(myTagProperties[currentTag]);
 
         fillFriendlyPosAttribute(myTagProperties[currentTag]);
     }
@@ -8514,10 +8489,7 @@ GNETagPropertiesDatabase::fillCommonMeanDataAttributes(GNETagProperties* tagProp
                                TL("whether aggregation should be performed over all vehicles that entered the edge/lane in the aggregation interval"),
                                GNEAttributeCarrier::False);
 
-    new GNEAttributeProperties(tagProperties, SUMO_ATTR_DETECT_PERSONS,
-                               GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUE,
-                               GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
-                               TL("Whether pedestrians shall be recorded instead of vehicles. Allowed value is walk"));
+    fillDetectPersonsAttribute(tagProperties);
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_WRITE_ATTRIBUTES,
                                GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUE,
@@ -8660,6 +8632,17 @@ GNETagPropertiesDatabase::fillPosOverLaneAttribute(GNETagProperties* tagProperti
                                GNEAttributeProperties::EDITMODE,
                                TLF("The position on the lane the % shall be laid on in meters", tagProperties->getTagStr()),
                                "0");
+}
+
+
+void
+GNETagPropertiesDatabase::fillDetectPersonsAttribute(GNETagProperties* tagProperties) {
+    auto detectPersons = new GNEAttributeProperties(tagProperties, SUMO_ATTR_DETECT_PERSONS,
+            GNEAttributeProperties::STRING | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::DEFAULTVALUE,
+            GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+            TL("Detect persons instead of vehicles (pedestrians or passengers)"),
+            SUMOXMLDefinitions::PersonModeValues.getString(PersonMode::NONE));
+    detectPersons->setDiscreteValues(SUMOXMLDefinitions::PersonModeValues.getStrings());
 }
 
 
