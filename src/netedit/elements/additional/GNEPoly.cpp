@@ -564,11 +564,7 @@ GNEPoly::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_LINEWIDTH:
             return toString(myLineWidth);
         case SUMO_ATTR_LAYER:
-            if (getShapeLayer() == Shape::DEFAULT_LAYER) {
-                return "default";
-            } else {
-                return toString(getShapeLayer());
-            }
+            return toString(getShapeLayer());
         case SUMO_ATTR_TYPE:
             return getShapeType();
         case SUMO_ATTR_IMGFILE:
@@ -647,7 +643,7 @@ GNEPoly::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_LINEWIDTH:
             return canParse<double>(value) && (parse<double>(value) >= 0);
         case SUMO_ATTR_LAYER:
-            if (value == "default") {
+            if (value.empty()) {
                 return true;
             } else {
                 return canParse<double>(value);
@@ -772,8 +768,8 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
             myLineWidth = parse<double>(value);
             break;
         case SUMO_ATTR_LAYER:
-            if (value == "default") {
-                setShapeLayer(Shape::DEFAULT_LAYER);
+            if (value.empty()) {
+                setShapeLayer(myTagProperty->getDefaultDoubleValue(key));
             } else {
                 setShapeLayer(parse<double>(value));
             }
