@@ -67,7 +67,8 @@ def get_options(args=None):
                     help="do not create access links")
     ap.add_argument("--sort", action="store_true", default=False, category="processing",
                     help="sorting the output-file")
-    ap.add_argument("--stops", category="input", type=ap.file, help="file with predefined stop positions to use")
+    ap.add_argument("--patched-stops", category="input", dest="patchedStops", type=ap.file,
+                    help="file with replacement stops (based on stop ids)")
     ap.add_argument("-H", "--human-readable-time", category="output", dest="hrtime", default=False, action="store_true",
                     help="write times as h:m:s")
 
@@ -392,8 +393,8 @@ def main(options):
     else:
         options.bbox = [float(coord) for coord in options.bbox.split(",")]
     fixedStops = {}
-    if options.stops:
-        for stop in sumolib.xml.parse(options.stops, ("busStop", "trainStop")):
+    if options.patchedStops:
+        for stop in sumolib.xml.parse(options.patchedStops, ("busStop", "trainStop")):
             fixedStops[stop.id] = stop
     if options.osm_routes:
         # Import PT from GTFS and OSM routes
