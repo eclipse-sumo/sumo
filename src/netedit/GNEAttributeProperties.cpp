@@ -645,12 +645,12 @@ GNEAttributeProperties::parseDefaultValues(const std::string& defaultValue, cons
     } else if (isSUMOTime()) {
         myDefaultTimeValue = GNEAttributeCarrier::parse<SUMOTime>(defaultValue);
         if (overWritteDefaultString) {
-            myDefaultStringValue = toString(myDefaultTimeValue);
+            myDefaultStringValue = time2string(myDefaultTimeValue);
         }
     } else if (isBool()) {
         myDefaultBoolValue = GNEAttributeCarrier::parse<bool>(defaultValue);
         if (overWritteDefaultString) {
-            myDefaultStringValue = toString(myDefaultBoolValue);
+            myDefaultStringValue = myDefaultBoolValue ? GNEAttributeCarrier::True : GNEAttributeCarrier::False;
         }
     } else if (isBool()) {
         myDefaultColorValue = GNEAttributeCarrier::parse<RGBColor>(defaultValue);

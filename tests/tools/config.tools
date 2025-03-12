@@ -72,6 +72,7 @@ copy_test_path:fcd.xml
 copy_test_path:fcd.xml.gz
 copy_test_path:fcd2.xml
 copy_test_path:data.txt
+copy_test_path:data.csv
 copy_test_path:source.csv
 copy_test_path:osm.xml
 copy_test_path:osm_bbox.osm.xml

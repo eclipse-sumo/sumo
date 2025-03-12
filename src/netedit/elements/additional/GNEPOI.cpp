@@ -441,11 +441,7 @@ GNEPOI::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_ICON:
             return getIconStr();
         case SUMO_ATTR_LAYER:
-            if (getShapeLayer() == Shape::DEFAULT_LAYER_POI) {
-                return "default";
-            } else {
-                return toString(getShapeLayer());
-            }
+            return toString(getShapeLayer());
         case SUMO_ATTR_IMGFILE:
             return getShapeImgFile();
         case SUMO_ATTR_WIDTH:
@@ -533,7 +529,7 @@ GNEPOI::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ICON:
             return SUMOXMLDefinitions::POIIcons.hasString(value);
         case SUMO_ATTR_LAYER:
-            if (value == "default") {
+            if (value.empty()) {
                 return true;
             } else {
                 return canParse<double>(value);
@@ -662,10 +658,8 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
             replaceAdditionalParentLanes(value);
             break;
         case SUMO_ATTR_POSITION: {
-            if (getParentLanes().size() > 0) {
-                if (canParse<double>(value)) {
-                    myPosOverLane = parse<double>(value);
-                }
+            if (myTagProperty->getTag() == GNE_TAG_POILANE) {
+                myPosOverLane = parse<double>(value);
             } else {
                 // set position
                 set(parse<Position>(value));
@@ -717,8 +711,8 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
             setIcon(value);
             break;
         case SUMO_ATTR_LAYER:
-            if (value == "default") {
-                setShapeLayer(Shape::DEFAULT_LAYER_POI);
+            if (value.empty()) {
+                setShapeLayer(myTagProperty->getDefaultDoubleValue(key));
             } else {
                 setShapeLayer(parse<double>(value));
             }

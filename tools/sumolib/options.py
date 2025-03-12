@@ -30,7 +30,8 @@ import io
 from argparse import RawDescriptionHelpFormatter  # noqa
 from copy import deepcopy
 from functools import wraps
-from .miscutils import openz, parseTime, xmlescape
+from .miscutils import openz, parseTime
+from .xml import xmlescape
 
 
 class ConfigurationReader(handler.ContentHandler):

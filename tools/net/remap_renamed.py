@@ -80,7 +80,7 @@ def remap_edges(options, origIDs):
 
 
 def remap_lanes(options, origIDs):
-    newLanes = [remap_lane(options, l) for l in origIDs.split()]
+    newLanes = [remap_lane(options, lane) for lane in origIDs.split()]
     if None in newLanes:
         return None
     else:
@@ -151,7 +151,7 @@ def main(options):
     options.net2 = sumolib.net.readNet(options.targetNet)
     options.lookup = build_lookup(options.net2)
     options.junction_lookup = build_junction_lookup(options.net2)
-    
+
     if options.routes:
         infile = options.routes
         tag = "routes"
@@ -163,7 +163,7 @@ def main(options):
         sumolib.writeXMLHeader(fout, "$Id$", tag, options=options)
         for obj in parse(infile):
             if remap(options, obj):
-                fout.write(obj.toXML(initialIndent=" " * 4))
+                fout.write(obj.toXML(initialIndent=" " * 4, withComments="inline"))
             else:
                 fout.write("    <!--" + obj.toXML()[1:-2] + "-->\n")
         fout.write("</%s>\n" % tag)

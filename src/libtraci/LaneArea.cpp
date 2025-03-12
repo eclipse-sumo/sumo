@@ -118,6 +118,11 @@ LaneArea::getIntervalMeanSpeed(const std::string& detID) {
 }
 
 double
+LaneArea::getIntervalMeanTimeLoss(const std::string& detID) {
+    return Dom::getDouble(libsumo::VAR_INTERVAL_TIMELOSS, detID);
+}
+
+double
 LaneArea::getIntervalMaxJamLengthInMeters(const std::string& detID) {
     return Dom::getDouble(libsumo::VAR_INTERVAL_MAX_JAM_LENGTH_METERS, detID);
 }
@@ -135,6 +140,11 @@ LaneArea::getLastIntervalOccupancy(const std::string& detID) {
 double
 LaneArea::getLastIntervalMeanSpeed(const std::string& detID) {
     return Dom::getDouble(libsumo::VAR_LAST_INTERVAL_SPEED, detID);
+}
+
+double
+LaneArea::getLastIntervalMeanTimeLoss(const std::string& detID) {
+    return Dom::getDouble(libsumo::VAR_LAST_INTERVAL_TIMELOSS, detID);
 }
 
 double

@@ -45,7 +45,7 @@ def add_options():
                     help="define gtfs zip file to load (mandatory)")
     gp.add_argument("--merged-csv", category="input", type=op.data_file, dest="mergedCSV",
                     help="define csv file for loading merged data (instead of gtfs data)")
-    op.add_argument("--date", category="input", required=True, help="define the day to import, format: 'YYYYMMDD'")
+    op.add_argument("--date", category="input", required=False, help="define the day to import, format: 'YYYYMMDD'")
     op.add_argument("--fcd", category="input", type=op.data_file,
                     help="directory to write / read the generated FCD files to / from")
     op.add_argument("--gpsdat", category="input", type=op.data_file,
@@ -71,6 +71,9 @@ def check_options(options):
         options.gpsdat = os.path.join('input', options.region)
     if options.modes is None:
         options.modes = ",".join(gtfs2osm.OSM2SUMO_MODES.keys())
+    if options.gtfs and not options.date:
+        raise ValueError("When option --gtfs is set, option --date must be set as well")
+
     return options
 
 
@@ -102,13 +105,13 @@ def get_merged_data(options):
         stops_merged['start_char'] = ''
 
     trips_routes_merged = pd.merge(trips_on_day, routes, on='route_id')
-    all_merged = pd.merge(stops_merged, trips_routes_merged,
-                    on='trip_id')[['trip_id', 'route_id', 'route_short_name', 'route_type',
-                                   'stop_id', 'stop_name', 'stop_lat', 'stop_lon', 'stop_sequence',
-                                   'fare_zone', 'fare_token', 'start_char', 'trip_headsign',
-                                   'arrival_time', 'departure_time']].drop_duplicates()
-    #  all_merged.to_csv("tmp.csv", sep=";", index=False)
-    return all_merged
+    merged = pd.merge(stops_merged, trips_routes_merged,
+                      on='trip_id')[['trip_id', 'route_id', 'route_short_name', 'route_type',
+                                     'stop_id', 'stop_name', 'stop_lat', 'stop_lon', 'stop_sequence',
+                                     'fare_zone', 'fare_token', 'start_char', 'trip_headsign',
+                                     'arrival_time', 'departure_time']].drop_duplicates()
+    #  merged.to_csv("tmp.csv", sep=";", index=False)
+    return merged
 
 
 def dataAvailable(options):

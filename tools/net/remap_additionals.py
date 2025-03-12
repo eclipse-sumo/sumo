@@ -179,8 +179,8 @@ def getPosAttrs(obj):
 IDS = {
         'edge': remap_edge,
         'lane': remap_lane,
-        'edges' : remap_edges,
-        'lanes' : remap_lanes,
+        'edges': remap_edges,
+        'lanes': remap_lanes,
         }
 
 

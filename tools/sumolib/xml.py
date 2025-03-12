@@ -68,6 +68,7 @@ DEFAULT_ATTR_CONVERSIONS = {
     'toLane': int,
 }
 
+
 def xmlescape(value):
     return saxutils.escape(str(value), {'"': '&quot;'})
 
@@ -258,7 +259,9 @@ def compound_object(element_name, attrnames, warn=False, sort=False):
                 return initialIndent + "<%s%s %s/%s>\n" % (commentStart, self.name, " ".join(fields), commentEnd)
             else:
                 s = initialIndent + "<%s%s %s>\n" % (commentStart, self.name, " ".join(fields))
-                for c in self._child_list:
+                for i, c in enumerate(self._child_list):
+                    if i > 0 and c.isComment() and withComments == "inline":
+                        s = s[:-1]
                     s += c.toXML(initialIndent + indent, withComments=withComments)
                 if self._text is not None and self._text.strip():
                     s += self._text.strip(" ")

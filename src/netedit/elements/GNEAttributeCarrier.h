@@ -50,7 +50,6 @@ class GNEAttributeCarrier : public GNEReferenceCounter {
     friend class GNEChange_ToggleAttribute;
     friend class GNEAttributesCreatorRow;
     friend class GNEAttributesEditorType;
-    friend class GNEFlowEditor;
 
 public:
 

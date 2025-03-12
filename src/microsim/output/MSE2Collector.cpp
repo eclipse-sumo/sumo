@@ -91,6 +91,7 @@ MSE2Collector::MSE2Collector(const std::string& id,
     myCurrentHaltingsNumber(0),
     myPreviousMeanOccupancy(0),
     myPreviousMeanSpeed(0),
+    myPreviousMeanTimeLoss(0),
     myPreviousMaxJamLengthInMeters(0),
     myPreviousNumberOfSeenVehicles(0),
     myOverrideVehNumber(-1) {
@@ -195,6 +196,11 @@ MSE2Collector::MSE2Collector(const std::string& id,
     myCurrentJamLengthInMeters(0),
     myCurrentJamLengthInVehicles(0),
     myCurrentHaltingsNumber(0),
+    myPreviousMeanOccupancy(0),
+    myPreviousMeanSpeed(0),
+    myPreviousMeanTimeLoss(0),
+    myPreviousMaxJamLengthInMeters(0),
+    myPreviousNumberOfSeenVehicles(0),
     myOverrideVehNumber(-1) {
     reset();
 
@@ -1358,10 +1364,12 @@ void
 MSE2Collector::writeXMLOutput(OutputDevice& dev, SUMOTime startTime, SUMOTime stopTime) {
     const double meanSpeed = getIntervalMeanSpeed();
     const double meanOccupancy = getIntervalOccupancy();
+    const double meanTimeLoss = getIntervalMeanTimeLoss();
     myPreviousMeanOccupancy = meanOccupancy;
     myPreviousMeanSpeed = meanSpeed;
     myPreviousMaxJamLengthInMeters = myMaxJamInMeters;
     myPreviousNumberOfSeenVehicles = myNumberOfSeenVehicles;
+    myPreviousMeanTimeLoss = meanTimeLoss;
 
     if (dev.isNull()) {
         reset();
@@ -1373,7 +1381,6 @@ MSE2Collector::writeXMLOutput(OutputDevice& dev, SUMOTime startTime, SUMOTime st
     const double meanJamLengthInMeters = myTimeSamples != 0 ? myMeanMaxJamInMeters / (double) myTimeSamples : 0;
     const double meanJamLengthInVehicles = myTimeSamples != 0 ? myMeanMaxJamInVehicles / (double) myTimeSamples : 0;
     const double meanVehicleNumber = myTimeSamples != 0 ? (double) myMeanVehicleNumber / (double) myTimeSamples : 0;
-    const double meanTimeLoss = myNumberOfSeenVehicles != 0 ? myTotalTimeLoss / myNumberOfSeenVehicles : -1;
 
     SUMOTime haltingDurationSum = 0;
     SUMOTime maxHaltingDuration = 0;

@@ -40,14 +40,17 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <vType id="passenger" speedFactor="normc(1.00,0.00)" vClass="passenger" sigma="0"/>
     <vehicle id="0" type="passenger" depart="0.00">
-        <route edges="B2B1 B1B0 B0A0 A0A1"/>
+        <route edges="B2B1 B1B0 B0A0 A0A1"/> <!-- comment_1 -->
     </vehicle>
     <vehicle id="1" type="passenger" depart="1.00">
+        <!-- comment_2 -->
         <route edges="A2B2 B2C2 C2C1 C1B1 B1B2 B2A2 A2A1"/>
     </vehicle>
     <vehicle id="2" type="passenger" depart="2.00">
         <route edges="C0B0 B0B1 B1B2 B2C2"/>
+        <!-- comment_3 -->
     </vehicle>
+    <!-- comment_4 -->
     <vehicle id="3" type="passenger" depart="3.00">
         <route edges="C1C2 C2B2 B2A2 A2A1 A1A0"/>
     </vehicle>
