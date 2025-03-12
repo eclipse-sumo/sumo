@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-03-12 16:47:16.513897 by gtfs2pt.py v1_22_0+0799-a4de8cefe5e
+<!-- generated on 2025-03-12 16:52:31.618988 by gtfs2pt.py v1_22_0+0800-0ffc9d17b66
 <configuration>
     <merged-csv value="data.csv"/>
     <modes value="bus"/>
