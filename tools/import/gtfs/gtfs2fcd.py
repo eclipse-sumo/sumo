@@ -102,13 +102,13 @@ def get_merged_data(options):
         stops_merged['start_char'] = ''
 
     trips_routes_merged = pd.merge(trips_on_day, routes, on='route_id')
-    all_merged = pd.merge(stops_merged, trips_routes_merged,
-                    on='trip_id')[['trip_id', 'route_id', 'route_short_name', 'route_type',
-                                   'stop_id', 'stop_name', 'stop_lat', 'stop_lon', 'stop_sequence',
-                                   'fare_zone', 'fare_token', 'start_char', 'trip_headsign',
-                                   'arrival_time', 'departure_time']].drop_duplicates()
-    #  all_merged.to_csv("tmp.csv", sep=";", index=False)
-    return all_merged
+    merged = pd.merge(stops_merged, trips_routes_merged,
+                      on='trip_id')[['trip_id', 'route_id', 'route_short_name', 'route_type',
+                                     'stop_id', 'stop_name', 'stop_lat', 'stop_lon', 'stop_sequence',
+                                     'fare_zone', 'fare_token', 'start_char', 'trip_headsign',
+                                     'arrival_time', 'departure_time']].drop_duplicates()
+    #  merged.to_csv("tmp.csv", sep=";", index=False)
+    return merged
 
 
 def dataAvailable(options):

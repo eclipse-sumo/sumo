@@ -68,6 +68,7 @@ DEFAULT_ATTR_CONVERSIONS = {
     'toLane': int,
 }
 
+
 def xmlescape(value):
     return saxutils.escape(str(value), {'"': '&quot;'})
 
