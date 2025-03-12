@@ -512,7 +512,8 @@ MSStageDriving::setArrived(MSNet* net, MSTransportable* transportable, SUMOTime 
                         // Jitter the position before projection because of possible train curvature.
                         Position direction = randomCarriage->front - randomCarriage->back;
                         direction.norm2D();
-                        randomDoor.add(direction * RandHelper::rand(-0.5 * MSTrainHelper::CARRIAGE_DOOR_WIDTH, 0.5 * MSTrainHelper::CARRIAGE_DOOR_WIDTH));
+                        const double doorWidth = train->getVehicleType().getParameter().carriageDoorWidth;
+                        randomDoor.add(direction * RandHelper::rand(-0.5 * doorWidth, 0.5 * doorWidth));
                         // Project onto the lane.
                         myArrivalPos = lane->getShape().nearest_offset_to_point2D(randomDoor);
                         myArrivalPos = lane->interpolateGeometryPosToLanePos(myArrivalPos);

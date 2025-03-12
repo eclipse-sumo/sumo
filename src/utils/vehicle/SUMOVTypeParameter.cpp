@@ -79,6 +79,8 @@ SUMOVTypeParameter::VClassDefaultValues::VClassDefaultValues(SUMOVehicleClass vc
     carriageLength(-1),
     locomotiveLength(-1),
     carriageDoors(2),
+    carriageDoorWidth(1.5),
+    maxPlatformDistance(3.),
     latAlignmentProcedure(LatAlignmentDefinition::CENTER) {
     // update default values
     switch (vclass) {
@@ -340,8 +342,10 @@ SUMOVTypeParameter::SUMOVTypeParameter(const std::string& vtid, const SUMOVehicl
       latAlignmentProcedure(LatAlignmentDefinition::CENTER),
       carriageLength(-1),
       locomotiveLength(-1),
-      carriageGap(1),
+      carriageGap(1.),
       carriageDoors(2),
+      carriageDoorWidth(1.5),
+      maxPlatformDistance(3.),
       timeToTeleport(TTT_UNSET),
       timeToTeleportBidi(TTT_UNSET),
       speedFactorPremature(-1),
@@ -801,6 +805,12 @@ SUMOVTypeParameter::initRailVisualizationParameters() {
     if (hasParameter("carriageDoors")) {
         carriageDoors = StringUtils::toInt(getParameter("carriageDoors"));
         parametersSet |= VTYPEPARS_CARRIAGE_DOORS_SET;
+    }
+    if (hasParameter("carriageDoorWidth")) {
+        carriageDoorWidth = StringUtils::toDouble(getParameter("carriageDoorWidth"));
+    }
+    if (hasParameter("maxPlatformDistance")) {
+        maxPlatformDistance = StringUtils::toDouble(getParameter("maxPlatformDistance"));
     }
     if (hasParameter("frontSeatPos")) {
         frontSeatPos = StringUtils::toDouble(getParameter("frontSeatPos"));

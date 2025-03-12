@@ -25,7 +25,6 @@
 #include "MSTrainHelper.h"
 
 
-const double MSTrainHelper::CARRIAGE_DOOR_WIDTH = 1.5;
 const double MSTrainHelper::PEDESTRIAN_RADIUS_EXTRA_TOLERANCE = 0.01;
 
 // ===========================================================================
