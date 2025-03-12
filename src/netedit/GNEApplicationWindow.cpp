@@ -1310,7 +1310,16 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
         }
     }
     myMessageWindow->registerMsgHandlers();
-    // first update filenames
+    // if we're loading a sumo config, update netedit options
+    if ((mySumoOptions.getStringVector("additional-files").size() > 0) && neteditOptions.getStringVector("additional-files").empty()) {
+        neteditOptions.resetWritable();
+        neteditOptions.set("additional-files", mySumoOptions.getValueString("additional-files"));
+    }
+    if ((mySumoOptions.getStringVector("route-files").size() > 0) && neteditOptions.getStringVector("route-files").empty()) {
+        neteditOptions.resetWritable();
+        neteditOptions.set("route-files", mySumoOptions.getValueString("route-files"));
+    }
+    // update default filenames
     const auto& additionalFiles = neteditOptions.getStringVector("additional-files");
     if (additionalFiles.size() > 0) {
         myNet->getSavingFilesHandler()->updateAdditionalEmptyFilenames(additionalFiles.front());
