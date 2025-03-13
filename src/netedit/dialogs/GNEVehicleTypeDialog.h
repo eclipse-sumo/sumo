@@ -266,16 +266,17 @@ public:
 
         /// @brief VTypeAttributeRow for OSG
         VTypeAttributeRow* myOSGFile;
+        /*
+                Waiting for #16343
+                /// @brief VTypeAttributeRow for carriage length
+                VTypeAttributeRow* myCarriageLength;
 
-        /// @brief VTypeAttributeRow for carriage length
-        VTypeAttributeRow* myCarriageLength;
+                /// @brief VTypeAttributeRow for locomotive length
+                VTypeAttributeRow* myLocomotiveLength;
 
-        /// @brief VTypeAttributeRow for locomotive length
-        VTypeAttributeRow* myLocomotiveLength;
-
-        /// @brief VTypeAttributeRow for carriage GAP
-        VTypeAttributeRow* myCarriageGap;
-
+                /// @brief VTypeAttributeRow for carriage GAP
+                VTypeAttributeRow* myCarriageGap;
+        */
         /// @brief VTypeAttributeRow for LaneChangeModel
         VTypeAttributeRow* myLaneChangeModel;
 
