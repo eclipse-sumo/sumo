@@ -2551,13 +2551,13 @@ GNETagPropertiesDatabase::fillDemandElements() {
                                    TL("The number of containers the vehicle can transport"));
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_BOARDING_DURATION,
-                                   GNEAttributeProperties::FLOAT | GNEAttributeProperties::DEFAULTVALUE,
+                                   GNEAttributeProperties::SUMOTIME | GNEAttributeProperties::DEFAULTVALUE,
                                    GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE | GNEAttributeProperties::EXTENDEDEDITOR,
                                    TL("The time required by a person to board the vehicle"),
                                    "0.50");
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_LOADING_DURATION,
-                                   GNEAttributeProperties::FLOAT | GNEAttributeProperties::DEFAULTVALUE,
+                                   GNEAttributeProperties::SUMOTIME | GNEAttributeProperties::DEFAULTVALUE,
                                    GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE | GNEAttributeProperties::EXTENDEDEDITOR,
                                    TL("The time required to load a container onto the vehicle"),
                                    "90");
@@ -2582,7 +2582,7 @@ GNETagPropertiesDatabase::fillDemandElements() {
                                    "1");
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_ACTIONSTEPLENGTH,
-                                   GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE,
+                                   GNEAttributeProperties::SUMOTIME | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE,
                                    GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE | GNEAttributeProperties::EXTENDEDEDITOR,
                                    TL("The interval length for which vehicle performs its decision logic (acceleration and lane-changing)"),
                                    toString(OptionsCont::getOptions().getFloat("default.action-step-length")));
