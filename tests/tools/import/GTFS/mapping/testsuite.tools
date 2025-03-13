@@ -9,3 +9,6 @@ stops
 
 # load stops with invalid sequence numbers
 bad_sequence
+
+# test routes if the vehicle class is disallowed on some lanes
+vclass_disallowed
