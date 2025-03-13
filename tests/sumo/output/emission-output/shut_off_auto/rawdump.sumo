@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-06-15 13:02:12 by Eclipse SUMO sumo Version v1_13_0+0844-22f88dc7bc3
+<!-- generated on 2025-03-13 14:04:32 by Eclipse SUMO sumo Version v1_14_1+18119-640ec445508
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net2.net.xml"/>
@@ -37,7 +37,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <device.emissions.period value="5"/>
     </emissions>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <emission-export xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/emission_file.xsd">
@@ -201,4 +201,44 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <timestep time="325.00">
         <vehicle id="3" eclass="PHEMlight/PC_G_EU4" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="0.00" noise="62.96" route="r1" type="PHEMlight/PC_G_EU4" waiting="0.00" lane="CE_0" pos="90.99" speed="12.62" angle="90.00" x="199.04" y="95.05"/>
     </timestep>
+    <timestep time="330.00"/>
+    <timestep time="335.00"/>
+    <timestep time="340.00"/>
+    <timestep time="345.00"/>
+    <timestep time="350.00"/>
+    <timestep time="355.00"/>
+    <timestep time="360.00">
+        <vehicle id="4" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="0.03" noise="55.94" route="r1" type="BEV" waiting="0.00" lane="WC_0" pos="5.10" speed="0.00" angle="90.00" x="5.10" y="95.05"/>
+    </timestep>
+    <timestep time="365.00">
+        <vehicle id="4" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="13.63" noise="71.26" route="r1" type="BEV" waiting="0.00" lane="WC_0" pos="39.23" speed="11.45" angle="90.00" x="39.23" y="95.05"/>
+    </timestep>
+    <timestep time="370.00">
+        <vehicle id="4" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="-12.77" noise="47.26" route="r1" type="BEV" waiting="0.00" lane="WC_0" pos="90.56" speed="4.33" angle="90.00" x="90.56" y="95.05"/>
+    </timestep>
+    <timestep time="375.00">
+        <vehicle id="4" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="0.03" noise="55.94" route="r1" type="BEV" waiting="4.00" lane="WC_0" pos="90.95" speed="0.00" angle="90.00" x="90.95" y="95.05"/>
+    </timestep>
+    <timestep time="380.00">
+        <vehicle id="4" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="0.03" noise="55.94" route="r1" type="BEV" waiting="9.00" lane="WC_0" pos="90.95" speed="0.00" angle="90.00" x="90.95" y="95.05"/>
+    </timestep>
+    <timestep time="385.00">
+        <vehicle id="4" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="0.00" noise="55.94" route="r1" type="BEV" waiting="14.00" lane="WC_0" pos="90.95" speed="0.00" angle="90.00" x="90.95" y="95.05"/>
+    </timestep>
+    <timestep time="390.00">
+        <vehicle id="4" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="0.00" noise="55.94" route="r1" type="BEV" waiting="19.00" lane="WC_0" pos="90.95" speed="0.00" angle="90.00" x="90.95" y="95.05"/>
+    </timestep>
+    <timestep time="395.00">
+        <vehicle id="4" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="0.00" noise="55.94" route="r1" type="BEV" waiting="24.00" lane="WC_0" pos="90.95" speed="0.00" angle="90.00" x="90.95" y="95.05"/>
+    </timestep>
+    <timestep time="400.00">
+        <vehicle id="4" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="0.00" noise="55.94" route="r1" type="BEV" waiting="29.00" lane="WC_0" pos="90.95" speed="0.00" angle="90.00" x="90.95" y="95.05"/>
+    </timestep>
+    <timestep time="405.00">
+        <vehicle id="4" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="1.51" noise="66.81" route="r1" type="BEV" waiting="0.00" lane=":C_16_0" pos="1.27" speed="2.27" angle="90.00" x="93.22" y="95.05"/>
+    </timestep>
+    <timestep time="410.00">
+        <vehicle id="4" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="17.36" noise="73.09" route="r1" type="BEV" waiting="0.00" lane="CE_0" pos="29.90" speed="13.19" angle="90.00" x="137.95" y="95.05"/>
+    </timestep>
+    <timestep time="415.00"/>
 </emission-export>
