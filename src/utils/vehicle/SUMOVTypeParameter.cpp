@@ -442,7 +442,7 @@ SUMOVTypeParameter::setManoeuverAngleTimes(const SUMOVehicleClass vclass) {
 }
 
 void
-SUMOVTypeParameter::write(OutputDevice& dev) const {
+SUMOVTypeParameter::write(OutputDevice& dev, const bool saveAsParameters) const {
     // first check if vehicle type can be written
     if (onlyReferenced) {
         return;
@@ -592,31 +592,47 @@ SUMOVTypeParameter::write(OutputDevice& dev) const {
     }
     // Write carriage length
     if (wasSet(VTYPEPARS_CARRIAGE_LENGTH_SET)) {
-        dev.openTag(SUMO_TAG_PARAM);
-        dev.writeAttr(SUMO_ATTR_KEY, toString(SUMO_ATTR_CARRIAGE_LENGTH));
-        dev.writeAttr(SUMO_ATTR_VALUE, toString(carriageLength));
-        dev.closeTag();
+        if (saveAsParameters) {
+            dev.openTag(SUMO_TAG_PARAM);
+            dev.writeAttr(SUMO_ATTR_KEY, toString(SUMO_ATTR_CARRIAGE_LENGTH));
+            dev.writeAttr(SUMO_ATTR_VALUE, toString(carriageLength));
+            dev.closeTag();
+        } else {
+            dev.writeAttr(SUMO_ATTR_CARRIAGE_LENGTH, carriageLength);
+        }
     }
     // Write locomotive length
     if (wasSet(VTYPEPARS_LOCOMOTIVE_LENGTH_SET)) {
-        dev.openTag(SUMO_TAG_PARAM);
-        dev.writeAttr(SUMO_ATTR_KEY, toString(SUMO_ATTR_LOCOMOTIVE_LENGTH));
-        dev.writeAttr(SUMO_ATTR_VALUE, toString(locomotiveLength));
-        dev.closeTag();
+        if (saveAsParameters) {
+            dev.openTag(SUMO_TAG_PARAM);
+            dev.writeAttr(SUMO_ATTR_KEY, toString(SUMO_ATTR_LOCOMOTIVE_LENGTH));
+            dev.writeAttr(SUMO_ATTR_VALUE, toString(locomotiveLength));
+            dev.closeTag();
+        } else {
+            dev.writeAttr(SUMO_ATTR_LOCOMOTIVE_LENGTH, locomotiveLength);
+        }
     }
     // Write carriage gap
     if (wasSet(VTYPEPARS_CARRIAGE_GAP_SET)) {
-        dev.openTag(SUMO_TAG_PARAM);
-        dev.writeAttr(SUMO_ATTR_KEY, toString(SUMO_ATTR_CARRIAGE_GAP));
-        dev.writeAttr(SUMO_ATTR_VALUE, toString(carriageGap));
-        dev.closeTag();
+        if (saveAsParameters) {
+            dev.openTag(SUMO_TAG_PARAM);
+            dev.writeAttr(SUMO_ATTR_KEY, toString(SUMO_ATTR_CARRIAGE_GAP));
+            dev.writeAttr(SUMO_ATTR_VALUE, toString(carriageGap));
+            dev.closeTag();
+        } else {
+            dev.writeAttr(SUMO_ATTR_CARRIAGE_GAP, carriageGap);
+        }
     }
     // Write carriage doors
     if (wasSet(VTYPEPARS_CARRIAGE_DOORS_SET)) {
-        dev.openTag(SUMO_TAG_PARAM);
-        dev.writeAttr(SUMO_ATTR_KEY, toString(SUMO_ATTR_CARRIAGE_DOORS));
-        dev.writeAttr(SUMO_ATTR_VALUE, toString(carriageDoors));
-        dev.closeTag();
+        if (saveAsParameters) {
+            dev.openTag(SUMO_TAG_PARAM);
+            dev.writeAttr(SUMO_ATTR_KEY, toString(SUMO_ATTR_CARRIAGE_DOORS));
+            dev.writeAttr(SUMO_ATTR_VALUE, toString(carriageDoors));
+            dev.closeTag();
+        } else {
+            dev.writeAttr(SUMO_ATTR_CARRIAGE_DOORS, carriageDoors);
+        }
     }
     // Write rest of parameters
     writeParams(dev);

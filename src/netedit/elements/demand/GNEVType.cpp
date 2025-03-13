@@ -105,10 +105,10 @@ GNEVType::writeDemandElement(OutputDevice& device) const {
     // only write default vehicle types if it was modified
     if (myDefaultVehicleType) {
         if (myDefaultVehicleTypeModified) {
-            write(device);
+            write(device, false);
         }
     } else {
-        write(device);
+        write(device, false);
     }
 }
 
@@ -462,7 +462,7 @@ GNEVType::getAttribute(SumoXMLAttr key) const {
             }
         case SUMO_ATTR_ACTIONSTEPLENGTH:
             if (wasSet(VTYPEPARS_ACTIONSTEPLENGTH_SET)) {
-                return toString(actionStepLength);
+                return time2string(actionStepLength);
             } else {
                 return myTagProperty->getDefaultStringValue(SUMO_ATTR_ACTIONSTEPLENGTH);
             }
@@ -868,9 +868,9 @@ GNEVType::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_CONTAINER_CAPACITY:
             return canParse<int>(value);
         case SUMO_ATTR_BOARDING_DURATION:
-            return canParse<double>(value);
+            return canParse<SUMOTime>(value) && (parse<SUMOTime>(value) >= 0);
         case SUMO_ATTR_LOADING_DURATION:
-            return canParse<double>(value);
+            return canParse<SUMOTime>(value) && (parse<SUMOTime>(value) >= 0);
         case SUMO_ATTR_LATALIGNMENT:
             return SUMOVTypeParameter::isValidLatAlignment(value);
         case SUMO_ATTR_MINGAP_LAT:
@@ -878,7 +878,7 @@ GNEVType::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_MAXSPEED_LAT:
             return canParse<double>(value);
         case SUMO_ATTR_ACTIONSTEPLENGTH:
-            return canParse<double>(value) && (parse<double>(value) >= 0);
+            return canParse<SUMOTime>(value) && (parse<SUMOTime>(value) >= 0);
         case SUMO_ATTR_PROB:
             return canParse<double>(value) && (parse<double>(value) >= 0);
         case SUMO_ATTR_OSGFILE:
@@ -1253,10 +1253,10 @@ GNEVType::overwriteVType(GNEDemandElement* vType, const SUMOVTypeParameter newVT
         vType->setAttribute(SUMO_ATTR_CONTAINER_CAPACITY, toString(newVTypeParameter.containerCapacity), undoList);
     }
     if (newVTypeParameter.wasSet(VTYPEPARS_BOARDING_DURATION)) {
-        vType->setAttribute(SUMO_ATTR_BOARDING_DURATION, toString(newVTypeParameter.boardingDuration), undoList);
+        vType->setAttribute(SUMO_ATTR_BOARDING_DURATION, time2string(newVTypeParameter.boardingDuration), undoList);
     }
     if (newVTypeParameter.wasSet(VTYPEPARS_LOADING_DURATION)) {
-        vType->setAttribute(SUMO_ATTR_LOADING_DURATION, toString(newVTypeParameter.loadingDuration), undoList);
+        vType->setAttribute(SUMO_ATTR_LOADING_DURATION, time2string(newVTypeParameter.loadingDuration), undoList);
     }
     if (newVTypeParameter.wasSet(VTYPEPARS_LATALIGNMENT_SET)) {
         if (newVTypeParameter.latAlignmentProcedure != LatAlignmentDefinition::GIVEN) {
@@ -1272,7 +1272,7 @@ GNEVType::overwriteVType(GNEDemandElement* vType, const SUMOVTypeParameter newVT
         vType->setAttribute(SUMO_ATTR_MAXSPEED_LAT, toString(newVTypeParameter.maxSpeedLat), undoList);
     }
     if (newVTypeParameter.wasSet(VTYPEPARS_ACTIONSTEPLENGTH_SET)) {
-        vType->setAttribute(SUMO_ATTR_ACTIONSTEPLENGTH, toString(newVTypeParameter.actionStepLength), undoList);
+        vType->setAttribute(SUMO_ATTR_ACTIONSTEPLENGTH, time2string(newVTypeParameter.actionStepLength), undoList);
     }
     if (newVTypeParameter.wasSet(VTYPEPARS_PROBABILITY_SET)) {
         vType->setAttribute(SUMO_ATTR_PROB, toString(newVTypeParameter.defaultProbability), undoList);
@@ -1695,7 +1695,7 @@ GNEVType::setAttribute(SumoXMLAttr key, const std::string& value) {
                 parametersSet |= VTYPEPARS_BOARDING_DURATION;
             } else {
                 // set default value
-                boardingDuration = string2time(myTagProperty->getDefaultStringValue(key));
+                boardingDuration = myTagProperty->getDefaultTimeValue(key);
                 // unset parameter
                 parametersSet &= ~VTYPEPARS_BOARDING_DURATION;
             }
@@ -1707,7 +1707,7 @@ GNEVType::setAttribute(SumoXMLAttr key, const std::string& value) {
                 parametersSet |= VTYPEPARS_LOADING_DURATION;
             } else {
                 // set default value
-                loadingDuration = string2time(myTagProperty->getDefaultStringValue(key));
+                loadingDuration = myTagProperty->getDefaultTimeValue(key);
                 // unset parameter
                 parametersSet &= ~VTYPEPARS_LOADING_DURATION;
             }

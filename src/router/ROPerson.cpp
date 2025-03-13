@@ -460,11 +460,11 @@ ROPerson::saveAsXML(OutputDevice& os, OutputDevice* const typeos, bool asAlterna
     }
 
     if (typeos != nullptr && getType() != nullptr && !getType()->saved) {
-        getType()->write(*typeos);
+        getType()->write(*typeos, true);
         getType()->saved = true;
     }
     if (getType() != nullptr && !getType()->saved) {
-        getType()->write(os);
+        getType()->write(os, true);
         getType()->saved = asAlternatives;
     }
 
