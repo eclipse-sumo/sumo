@@ -4189,7 +4189,7 @@ GNEApplicationWindow::onCmdSaveDataElementsUnified(FXObject* sender, FXSelector 
         myUndoList->begin(Supermode::DATA, GUIIcon::SUPERMODEDATA, TLF("saving of unified data elements in '%'", dataFile));
         // iterate over all demand elementes and change file
         for (const auto& dataSet : myNet->getAttributeCarriers()->getDataSets()) {
-            dataSet.second->setAttribute(GNE_ATTR_ADDITIONAL_FILE, dataFile, myUndoList);
+            dataSet.second->setAttribute(GNE_ATTR_DATA_FILE, dataFile, myUndoList);
         }
         // end undoList operation
         myUndoList->end();
