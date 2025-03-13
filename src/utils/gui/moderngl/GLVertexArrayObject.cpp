@@ -23,8 +23,8 @@
 #define GLVERTEXARRAYOBJECT_MINRESERVE 4000
 
 
-GLVertexArrayObject::GLVertexArrayObject(unsigned int vertexSize, unsigned int itemSize):
-    myID(0), myVertexBufferID(0), myIndexBufferID(0), myVertexBufferSize(0), myIndexBufferSize(0), myVertexInputSize(vertexSize), myItemSize(itemSize), myGeometryType(GL_TRIANGLES){
+GLVertexArrayObject::GLVertexArrayObject(unsigned int itemSize, unsigned int vertexSize)
+    : myID(0), myVertexBufferID(0), myIndexBufferID(0), myVertexBufferSize(0), myIndexBufferSize(0), myVertexInputSize(0), myItemSize(itemSize), myGeometryType(GL_TRIANGLES){
 
     glGenVertexArrays(1, &myID);
 #ifdef _DEBUG
@@ -35,7 +35,7 @@ GLVertexArrayObject::GLVertexArrayObject(unsigned int vertexSize, unsigned int i
 #ifdef _DEBUG
     std::cout << "GLVertexArrayObject::GLVertexArrayObject ID " << myID << " glGenBuffers/glBindBuffer(" << myVertexBufferID << " | " << myIndexBufferID << ")" << std::endl;
 #endif
-    resizeBuffers(myVertexInputSize, myVertexInputSize);
+    resizeBuffers(vertexSize, vertexSize);
     unbind();
 }
 
@@ -131,12 +131,27 @@ GLVertexArrayObject::setItemSize(const unsigned long long vertexCount, const uns
 }
 
 
+void
+GLVertexArrayObject::clearBuffer() {
+#ifdef _DEBUG
+        std::cout << "GLVertexArrayObject::clearBuffer " << myGeometries.size() << " geometries begin" << std::endl;
+#endif
+    glBufferSubData(GL_ARRAY_BUFFER, 0, myVertexInputSize * myItemSize, nullptr);
+    glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, 0, myVertexInputSize * sizeof(unsigned int), nullptr);
+    myVertexInputSize = 0;
+    myGeometries.clear();
+#ifdef _DEBUG
+        std::cout << "GLVertexArrayObject::clearBuffer " << myGeometries.size() << " geometries end" << std::endl;
+#endif
+}
+
+
 bool
-GLVertexArrayObject::addVertexData(std::vector<GLBufferStruct>& data) {
+GLVertexArrayObject::addVertexData(std::vector<GLBufferStruct>& data, GLenum geometryType) {
     unsigned long long offset = myVertexInputSize;
 
-    const long byteSize = data.size() * sizeof(GLBufferStruct);
     unsigned long long addSize = data.size();
+    const long byteSize = addSize * myItemSize;
     glBufferSubData(GL_ARRAY_BUFFER, 0, byteSize, &data[0]);
     GLint bufferSize = 0;
     glGetBufferParameteriv(GL_ARRAY_BUFFER, GL_BUFFER_SIZE, &bufferSize);
@@ -152,50 +167,36 @@ GLVertexArrayObject::addVertexData(std::vector<GLBufferStruct>& data) {
     }
     glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, 0, sizeof(int) * addSize, &indexBufferVals[0]);
     myVertexInputSize += addSize;
+    myGeometries.push_back({ geometryType, addSize });
 #ifdef _DEBUG
-    std::cout << "GLVertexArrayObject::addVertexData of " << myVertexInputSize << " vertices starting at offset " << offset << std::endl;
+    std::cout << "GLVertexArrayObject::addVertexData of " << addSize << " vertices starting at offset " << offset << std::endl;
 #endif
     return true;
 }
 
 
 bool
-GLVertexArrayObject::setVertexData(std::vector<GLBufferStruct>& data) {
+GLVertexArrayObject::setVertexData(std::vector<GLBufferStruct>& data, GLenum geometryType) {
     // TODO: to be replaced by addVertexData with offset 0
-    return addVertexData(data);
-
-    /*
-    const long byteSize = data.size() * sizeof(GLBufferStruct);
-    myVertexInputSize = data.size();
-    glBufferSubData(GL_ARRAY_BUFFER, 0, byteSize, &data[0]);
-    GLint bufferSize = 0;
-    glGetBufferParameteriv(GL_ARRAY_BUFFER, GL_BUFFER_SIZE, &bufferSize);
-    if (byteSize > bufferSize) {
-        glDeleteBuffers(1, &myVertexBufferID);
-        // TODO: Log the error
-        return false;
-    }
-    // demo index buffer
-    std::vector<unsigned int> indexBufferVals;
-    for (int i = 0; i < myVertexInputSize; ++i) {
-        indexBufferVals.push_back(i);
-    }
-    glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, 0, sizeof(int) * myVertexInputSize, &indexBufferVals[0]);
-
-#ifdef _DEBUG
-    std::cout << "GLVertexArrayObject::setVertexData of " << myVertexInputSize << " vertices" << std::endl;
-#endif
-    return true;
-    */
+    return addVertexData(data, geometryType);
 }
 
 
 void
 GLVertexArrayObject::drawGL() const {
-    glDrawElements(myGeometryType, myVertexInputSize, GL_UNSIGNED_INT, nullptr);
+    unsigned long long offset = 0;
 #ifdef _DEBUG
-    std::cout << "GLVertexArrayObject::drawGL glDrawArrays(GL_TRIANGLES, 0, " << myVertexInputSize <<");" << std::endl;
+    std::cout << "GLVertexArrayObject::drawGL draw " << myGeometries.size() << " geometries " << std::endl;
 #endif
+    for (auto entry : myGeometries) {
+        //glDrawArrays(entry.first, offset, entry.second);
+        glDrawElements((GLenum)entry.first, entry.second, GL_UNSIGNED_INT, (GLvoid*)offset);
+        //glDrawElements((GLenum)entry.first, entry.second, GL_UNSIGNED_INT, nullptr);
+#ifdef _DEBUG
+        std::cout << "GLVertexArrayObject::drawGL glDrawElements(" << entry.first << ", " << offset << ", " << entry.second << ");" << std::endl;
+#endif
+        offset += entry.second;
+    }
 }
 
 

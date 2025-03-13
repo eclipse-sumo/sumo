@@ -4,6 +4,8 @@ set(utils_gui_moderngl_STAT_SRCS
     GLRenderer.cpp
     GLShader.h
     GLShader.cpp
+    GLTransformStack.h
+    GLTransformStack.cpp
     GLVertexArrayObject.h
     GLVertexArrayObject.cpp
 )

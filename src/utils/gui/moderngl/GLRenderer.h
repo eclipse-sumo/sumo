@@ -53,6 +53,7 @@ public:
     bool addShader(const std::string& name, const GLShader& shader);
     void setVertexAttributes(const std::vector<std::pair<GLint, unsigned int>>& attributeDefinitions);
     void checkBufferSizes();
+    void clearBuffer();
     GLuint getUniformID(const std::string& key);
     bool setVertexData(std::vector<GLBufferStruct>& data);
     void setUniform(const std::string& key, const float value);

@@ -28,6 +28,7 @@
 #include <utils/common/ToString.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/gui/div/GUIGeometry.h>
+#include <utils/gui/moderngl/GLTransformStack.h>
 #define FONTSTASH_IMPLEMENTATION // Expands implementation
 #ifdef _MSC_VER
 #pragma warning(disable: 4505 5219) // do not warn about unused functions and implicit float conversions
@@ -66,7 +67,7 @@ long GLHelper::myVertexCounterModern = 0;
 int GLHelper::myMatrixCounterDebug = 0;
 int GLHelper::myNameCounter = 0;
 std::vector<std::pair<double, double> > GLHelper::myCircleCoords;
-std::vector<GLBufferStruct> GLHelper::myVertices;
+std::map<GLenum, std::vector<GLBufferStruct>> GLHelper::myVertices;
 RGBColor GLHelper::myCurrentColor(255,255,255,255);
 double GLHelper::myCurrentLayer = 0.;
 std::vector<RGBColor> GLHelper::myDottedcontourColors;
@@ -212,8 +213,17 @@ GLHelper::checkCounterName() {
 
 
 std::vector<GLBufferStruct>&
-GLHelper::getVertexData() {
-    return myVertices;
+GLHelper::getVertexData(GLenum geometryType) {
+    return myVertices[geometryType];
+}
+
+
+long
+GLHelper::getVertexCount(GLenum geometryType) {
+    if (myVertices.find(geometryType) != myVertices.end()) {
+        return myVertices[geometryType].size();
+    }
+    return 0;
 }
 
 
@@ -344,12 +354,12 @@ GLHelper::drawRectangleModern(const Position& center, const double width, const 
 
     float centerX = center.x();
     float centerY = center.y();
-    addVertex(centerX - halfWidth, centerY + halfHeight, 0.); // P0
-    addVertex(centerX - halfWidth, centerY - halfHeight, 0.); // P1
-    addVertex(centerX + halfWidth, centerY - halfHeight, 0.); // P2
-    addVertex(centerX + halfWidth, centerY - halfHeight, 0.); // P2
-    addVertex(centerX + halfWidth, centerY + halfHeight, 0.); // P3
-    addVertex(centerX - halfWidth, centerY + halfHeight, 0.); // P0
+    addVertex(GL_TRIANGLES, centerX - halfWidth, centerY + halfHeight, 0.); // P0
+    addVertex(GL_TRIANGLES, centerX - halfWidth, centerY - halfHeight, 0.); // P1
+    addVertex(GL_TRIANGLES, centerX + halfWidth, centerY - halfHeight, 0.); // P2
+    addVertex(GL_TRIANGLES, centerX + halfWidth, centerY - halfHeight, 0.); // P2
+    addVertex(GL_TRIANGLES, centerX + halfWidth, centerY + halfHeight, 0.); // P3
+    addVertex(GL_TRIANGLES, centerX - halfWidth, centerY + halfHeight, 0.); // P0
 }
 
 void
@@ -372,6 +382,23 @@ GLHelper::drawBoxLine(const Position& beg, double rot, double visLength,
 
 
 void
+GLHelper::drawBoxLineModern(const Position& beg, double rot, double visLength, 
+                            double width, double offset) {
+    GLTransformStack::getTransformStack().pushMatrix();
+    GLTransformStack::getTransformStack().translate(glm::vec3(beg.x(), beg.y(), 0));
+    //glRotated(rot, 0, 0, 1);
+    GLTransformStack::getTransformStack().rotate(rot, glm::vec3(0, 0, 1));
+    addVertex(GL_TRIANGLES, -width - offset, 0.);
+    addVertex(GL_TRIANGLES, -width - offset, -visLength);
+    addVertex(GL_TRIANGLES, width - offset, -visLength);
+    addVertex(GL_TRIANGLES, -width - offset, 0.);
+    addVertex(GL_TRIANGLES, width - offset, -visLength);
+    addVertex(GL_TRIANGLES, width - offset, 0.);
+    GLTransformStack::getTransformStack().popMatrix();
+}
+
+
+void
 GLHelper::drawBoxLine(const Position& beg1, const Position& beg2,
                       double rot, double visLength,
                       double width) {
@@ -388,6 +415,23 @@ GLHelper::drawBoxLine(const Position& beg1, const Position& beg2,
 #ifdef CHECK_ELEMENTCOUNTER
     myVertexCounter += 4;
 #endif
+}
+
+
+void
+GLHelper::drawBoxLineModern(const Position& beg1, const Position& beg2,
+                            double rot, double visLength, double width) {
+    GLTransformStack::getTransformStack().pushMatrix();
+    GLTransformStack::getTransformStack().translate(glm::vec3((beg2.x() + beg1.x()) * .5, (beg2.y() + beg1.y()) * .5, 0));
+    //glRotated(rot, 0, 0, 1);
+    GLTransformStack::getTransformStack().rotate(rot, glm::vec3(0, 0, 1));
+    addVertex(GL_TRIANGLES, -width, 0.);
+    addVertex(GL_TRIANGLES, -width, -visLength);
+    addVertex(GL_TRIANGLES, width, -visLength);
+    addVertex(GL_TRIANGLES, -width, 0.);
+    addVertex(GL_TRIANGLES, width, -visLength);
+    addVertex(GL_TRIANGLES, width, 0.);
+    GLTransformStack::getTransformStack().popMatrix();
 }
 
 
@@ -446,6 +490,49 @@ GLHelper::drawBoxLines(const PositionVector& geom,
 
 
 void
+GLHelper::drawBoxLinesModern(const PositionVector& geom,
+                             const std::vector<double>& rots,
+                             const std::vector<double>& lengths,
+                             double width, int cornerDetail, double offset) {
+    // draw the lane
+    int e = (int)geom.size() - 1;
+    for (int i = 0; i < e; i++) {
+        drawBoxLineModern(geom[i], rots[i], lengths[i], width, offset);
+    }
+    // TODO: draw the corner details
+    /*
+    if (cornerDetail > 0) {
+        for (int i = 1; i < e; i++) {
+            GLHelper::pushMatrix();
+            glTranslated(geom[i].x(), geom[i].y(), 0.1);
+            double angleBeg = -rots[i - 1];
+            double angleEnd = 180 - rots[i];
+            if (rightTurn(rots[i - 1], rots[i])) {
+                std::swap(angleBeg, angleEnd);
+            }
+            // only draw the missing piece
+            angleBeg -= 90;
+            angleEnd += 90;
+            // avoid drawing more than 360 degrees
+            if (angleEnd - angleBeg > 360) {
+                angleBeg += 360;
+            }
+            if (angleEnd - angleBeg < -360) {
+                angleEnd += 360;
+            }
+            // draw the right way around
+            if (angleEnd > angleBeg) {
+                angleEnd -= 360;
+            }
+            drawFilledCircle(width + offset, cornerDetail, angleBeg, angleEnd);
+            GLHelper::popMatrix();
+        }
+    }
+    */
+}
+
+
+void
 GLHelper::drawBoxLines(const PositionVector& geom,
                        const std::vector<double>& rots,
                        const std::vector<double>& lengths,
@@ -469,6 +556,16 @@ GLHelper::drawBoxLines(const PositionVector& geom,
 
 
 void
+GLHelper::drawBoxLinesModern(const PositionVector& geom,
+                             const std::vector<double>& rots,
+                             const std::vector<double>& lengths,
+                             const std::vector<RGBColor>& cols,
+                             double width, int cornerDetail, double offset) {
+
+}
+
+
+void
 GLHelper::drawBoxLines(const PositionVector& geom1,
                        const PositionVector& geom2,
                        const std::vector<double>& rots,
@@ -482,10 +579,28 @@ GLHelper::drawBoxLines(const PositionVector& geom1,
 
 
 void
+GLHelper::drawBoxLinesModern(const PositionVector& geom1,
+                             const PositionVector& geom2,
+                             const std::vector<double>& rots,
+                             const std::vector<double>& lengths,
+                             double width) {
+
+}
+
+
+void
 GLHelper::drawBoxLines(const PositionVector& geom, double width) {
     // first convert to GUIGeometry to avoid graphical errors with Z value (see #13992)
     const auto geometry = GUIGeometry(geom);
     drawBoxLines(geometry.getShape(), geometry.getShapeRotations(), geometry.getShapeLengths(), width);
+}
+
+
+void
+GLHelper::drawBoxLinesModern(const PositionVector& geom, double width) {
+    // first convert to GUIGeometry to avoid graphical errors with Z value (see #13992)
+    const auto geometry = GUIGeometry(geom);
+    drawBoxLinesModern(geometry.getShape(), geometry.getShapeRotations(), geometry.getShapeLengths(), width);
 }
 
 
@@ -542,11 +657,8 @@ void
 GLHelper::drawLineModern(const PositionVector& v) {
     int e = (int)v.size() - 1;
     for (int i = 0; i < e; ++i) {
-        addVertex(v[i]);
-        addVertex(v[i + 1]);
-#ifdef CHECK_ELEMENTCOUNTER
-        myVertexCounterModern += 2;
-#endif
+        addVertex(GL_LINES, v[i]);
+        addVertex(GL_LINES, v[i + 1]);
     }
 
 }
@@ -573,11 +685,8 @@ GLHelper::drawLineModern(const PositionVector& v, const std::vector<RGBColor>& c
     int e = (int)v.size() - 1;
     for (int i = 0; i < e; ++i) {
         setColor(cols[i]);
-        addVertex(v[i]);
-        addVertex(v[i + 1]);
-#ifdef CHECK_ELEMENTCOUNTER
-        myVertexCounterModern += 2;
-#endif
+        addVertex(GL_LINES, v[i]);
+        addVertex(GL_LINES, v[i + 1]);
     }
 }
 
@@ -655,6 +764,12 @@ GLHelper::drawFilledCircle(double const radius, int const steps) {
 
 
 void
+GLHelper::drawFilledCircleModern(double const radius, int const steps) {
+    drawFilledCircleModern(radius, steps, 0, 360);
+}
+
+
+void
 GLHelper::drawFilledCircle(double radius, int steps, double beg, double end) {
     const double inc = (end - beg) / (double)steps;
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
@@ -671,6 +786,22 @@ GLHelper::drawFilledCircle(double radius, int steps, double beg, double end) {
 #ifdef CHECK_ELEMENTCOUNTER
         myVertexCounter += 3;
 #endif
+    }
+}
+
+
+void
+GLHelper::drawFilledCircleModern(double radius, int steps, double beg, double end) {
+    const double inc = (end - beg) / (double)steps;
+    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+    std::pair<double, double> p1 = getCircleCoords().at(angleLookup(beg));
+
+    for (int i = 0; i <= steps; ++i) {
+        const std::pair<double, double>& p2 = getCircleCoords().at(angleLookup(beg + i * inc));
+        addVertex(GL_TRIANGLES, p1.first * radius, p1.second * radius);
+        addVertex(GL_TRIANGLES, p1.first * radius, p1.second * radius);
+        addVertex(GL_TRIANGLES, 0., 0.);
+        p1 = p2;
     }
 }
 
@@ -803,27 +934,32 @@ GLHelper::drawSpaceOccupancies(const double exaggeration, const Position& pos, c
 
 
 void
-GLHelper::addVertex(const Position& pos, const RGBColor& col) {
-    addVertex(pos.x(), pos.y(), myCurrentLayer, col.red(), col.green(), col.blue(), col.alpha());
+GLHelper::addVertex(GLenum geometryType, const Position& pos, const RGBColor& col) {
+    addVertex(geometryType, pos.x(), pos.y(), myCurrentLayer, col.red(), col.green(), col.blue(), col.alpha());
 }
 
 
 void
-GLHelper::addVertex(const Position& pos) {
-    addVertex(pos.x(), pos.y(), myCurrentLayer);
+GLHelper::addVertex(GLenum geometryType, const Position& pos) {
+    addVertex(geometryType, pos.x(), pos.y(), myCurrentLayer);
 }
 
 
 void
-GLHelper::addVertex(float x, float y, float z) {
-    addVertex(x, y, myCurrentLayer, myCurrentColor.red(), myCurrentColor.green(), myCurrentColor.blue(), myCurrentColor.alpha());
+GLHelper::addVertex(GLenum geometryType, float x, float y, float z) {
+    addVertex(geometryType, x, y, myCurrentLayer, myCurrentColor.red(), myCurrentColor.green(), myCurrentColor.blue(), myCurrentColor.alpha());
 }
 
 
 void
-GLHelper::addVertex(float x, float y, float z, float r, float g, float b, float a) {
-    GLBufferStruct vertex = { { x, y, z }, { r, g, b, a } };
-    myVertices.push_back(vertex);
+GLHelper::addVertex(GLenum geometryType, float x, float y, float z, float r, float g, float b, float a) {
+    // apply transform
+    glm::vec4 transformed = GLTransformStack::getTransformStack().applyTransform(glm::vec3(x, y, z));
+    float tX = (float)(transformed.x);
+    float tY = (float)(transformed.y);
+    GLBufferStruct vertex = { { tX, tY, 0.f }, { r, g, b, a } };
+    //GLBufferStruct vertex = { { x, y, z }, { r, g, b, a } };
+    myVertices[geometryType].push_back(vertex);
     myVertexCounterModern++;
 }
 

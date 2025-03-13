@@ -981,10 +981,10 @@ GUILane::drawGLModern(const GUIVisualizationSettings& s) const {
                     halfWidth *= 0.4; // create visible gap
                 }
                 if (shapeColors.size() > 0) {
-                    GLHelper::drawBoxLines(baseShape, getShapeRotations(s2), getShapeLengths(s2), shapeColors, halfWidth * exaggeration, cornerDetail, offset);
+                    GLHelper::drawBoxLinesModern(baseShape, getShapeRotations(s2), getShapeLengths(s2), shapeColors, halfWidth * exaggeration, cornerDetail, offset);
                 }
                 else {
-                    GLHelper::drawBoxLines(baseShape, getShapeRotations(s2), getShapeLengths(s2), halfWidth * exaggeration, cornerDetail, offset);
+                    GLHelper::drawBoxLinesModern(baseShape, getShapeRotations(s2), getShapeLengths(s2), halfWidth * exaggeration, cornerDetail, offset);
                 }
             }
             GLHelper::popMatrix();

@@ -31,7 +31,7 @@
 class GLVertexArrayObject {
 
 public:
-    GLVertexArrayObject(unsigned int vertexSize, unsigned int itemSize);
+    GLVertexArrayObject(unsigned int itemSize, unsigned int vertexSize = 10000);
     ~GLVertexArrayObject();
     GLVertexArrayObject(const GLVertexArrayObject& copy);
 
@@ -44,8 +44,9 @@ public:
 
     void setGeometryType(GLenum type);
     void setItemSize(const unsigned long long vertexCount, const unsigned long long indexCount);
-    bool addVertexData(std::vector<GLBufferStruct>& data);
-    bool setVertexData(std::vector<GLBufferStruct>& data);
+    void clearBuffer();
+    bool addVertexData(std::vector<GLBufferStruct>& data, GLenum geometryType = GL_TRIANGLES);
+    bool setVertexData(std::vector<GLBufferStruct>& data, GLenum geometryType = GL_TRIANGLES);
     void drawGL() const;
     void bind() const;
     void unbind() const;
@@ -62,4 +63,5 @@ private:
     unsigned long long myVertexBufferSize;
     unsigned long long myIndexBufferSize;
     unsigned long long myVertexInputSize;
+    std::vector <std::pair<GLenum, unsigned long long>> myGeometries;
 };

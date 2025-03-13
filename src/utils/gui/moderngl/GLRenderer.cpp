@@ -79,7 +79,7 @@ GLRenderer::addConfiguration(const std::string& name, const std::string& shaderN
     }
 
     // add configuration struct
-    myConfigurations[name] = { shaderName, programID, std::make_shared<GLVertexArrayObject>(30000, itemSize) };
+    myConfigurations[name] = { shaderName, programID, std::make_shared<GLVertexArrayObject>(itemSize, 30000) };
 
 #ifdef _DEBUG
     std::cout << "GLRenderer::addConfiguration added configuration '" << name << "'" << std::endl;
@@ -166,6 +166,14 @@ GLRenderer::checkBufferSizes() {
     int vertices = GLHelper::getVertexCounterModern();
     if (vertices > myConfigurations[myCurrentConfiguration].vao->getVertexSize()) {
         myConfigurations[myCurrentConfiguration].vao->setItemSize(vertices, vertices);
+    }
+}
+
+
+void
+GLRenderer::clearBuffer() {
+    if (!myCurrentConfiguration.empty()) {
+        myConfigurations[myCurrentConfiguration].vao->clearBuffer();
     }
 }
 

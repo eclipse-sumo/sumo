@@ -64,6 +64,7 @@
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/moderngl/GLShader.h>
 #include <utils/gui/moderngl/GLBufferStruct.h>
+#include <utils/gui/moderngl/GLTransformStack.h>
 #include <utils/gui/settings/GUICompleteSchemeStorage.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/windows/GUIDialog_ViewSettings.h>
@@ -338,6 +339,7 @@ GUIViewTraffic::create() {
 
 int
 GUIViewTraffic::doPaintGL(int mode, const Boundary& bound) {
+
     // init view settings
     glRenderMode(mode);
     glMatrixMode(GL_MODELVIEW);
@@ -379,15 +381,18 @@ GUIViewTraffic::doPaintGL(int mode, const Boundary& bound) {
 
     // Test/Debug insert modern OpenGL drawing routine here
     if (myRenderer != nullptr) {
-        GLHelper::clearVertexData();
 
         // Debug / Demo rectangles
-        //GLHelper::setColor(RGBColor(0, 255, 0));
-        //Position pos1(150.f, 20.f);
-        //GLHelper::drawRectangleModern(pos1, 150.f, 150.f);
-        //GLHelper::setColor(RGBColor(0, 0, 255));
-        //Position pos2(250., 500.);
-        //GLHelper::drawRectangleModern(pos2, 30., 80.);
+        
+        GLHelper::setColor(RGBColor(0, 255, 0));
+        GLTransformStack::getTransformStack().pushMatrix();
+        GLTransformStack::getTransformStack().translate(glm::vec3(100.f, 100.f, 0.f));
+        Position pos1(150.f, 20.f);
+        GLHelper::drawRectangleModern(pos1, 150.f, 150.f);
+        GLTransformStack::getTransformStack().popMatrix();
+        GLHelper::setColor(RGBColor(0, 0, 255));
+        Position pos2(250., 500.);
+        GLHelper::drawRectangleModern(pos2, 30., 80.);
 
         if (GLHelper::getVertexCounterModern() > 0) {
             // render
@@ -403,9 +408,17 @@ GUIViewTraffic::doPaintGL(int mode, const Boundary& bound) {
             myRenderer->activateConfiguration("Standard");
             myRenderer->setUniform("u_MVP", proj * scale * translate * rotate);
             myRenderer->checkBufferSizes();
-            myRenderer->setVertexData(GLHelper::getVertexData());
+            GLenum geometries[] = { GL_LINES, GL_TRIANGLES };
+            for (auto geo : geometries) {
+                if (GLHelper::getVertexCount(geo) > 0) {
+                    myRenderer->setVertexData(GLHelper::getVertexData(geo));
+                }
+            }
             myRenderer->paintGL();
+            GLHelper::clearVertexData();
+            myRenderer->clearBuffer();
             myRenderer->deactivateCurrentConfiguration();
+            GLTransformStack::getTransformStack().reset();
         }
     }
 

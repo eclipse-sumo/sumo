@@ -88,8 +88,11 @@ public:
     static void checkCounterName();
 
     /// @brief get ref to the vertex data
-    static std::vector<GLBufferStruct>& getVertexData();
+    static std::vector<GLBufferStruct>& getVertexData(GLenum geometryType);
     
+    /// @brief get the vertx count of a specific geometry type
+    static long getVertexCount(GLenum geometryType);
+
     /// @brief clear vertex data
     static void clearVertexData();
 
@@ -139,6 +142,8 @@ public:
     static void drawBoxLine(const Position& beg, double rot,
                             double visLength, double width, double offset = 0);
 
+    static void drawBoxLineModern(const Position& beg, double rot,
+        double visLength, double width, double offset = 0);
 
     /** @brief Draws a thick line using the mean of both given points as begin position
      *
@@ -153,6 +158,8 @@ public:
     static void drawBoxLine(const Position& beg1, const Position& beg2,
                             double rot, double visLength, double width);
 
+    static void drawBoxLineModern(const Position& beg1, const Position& beg2,
+        double rot, double visLength, double width);
 
     /** @brief Draws thick lines
      *
@@ -169,6 +176,10 @@ public:
     static void drawBoxLines(const PositionVector& geom,
                              const std::vector<double>& rots, const std::vector<double>& lengths,
                              double width, int cornerDetail = 0, double offset = 0);
+
+    static void drawBoxLinesModern(const PositionVector& geom,
+        const std::vector<double>& rots, const std::vector<double>& lengths,
+        double width, int cornerDetail = 0, double offset = 0);
 
     /** @brief Draws thick lines with varying color
      *
@@ -188,6 +199,11 @@ public:
                              const std::vector<RGBColor>& cols,
                              double width, int cornerDetail = 0, double offset = 0);
 
+    static void drawBoxLinesModern(const PositionVector& geom,
+        const std::vector<double>& rots, const std::vector<double>& lengths,
+        const std::vector<RGBColor>& cols,
+        double width, int cornerDetail = 0, double offset = 0);
+
 
     /** @brief Draws thick lines using the mean of the points given in the point lists as begin positions
      *
@@ -205,6 +221,10 @@ public:
                              const std::vector<double>& rots, const std::vector<double>& lengths,
                              double width);
 
+    static void drawBoxLinesModern(const PositionVector& geom1,
+        const PositionVector& geom2,
+        const std::vector<double>& rots, const std::vector<double>& lengths,
+        double width);
 
     /** @brief Draws thick lines
      *
@@ -217,6 +237,7 @@ public:
      */
     static void drawBoxLines(const PositionVector& geom, double width);
 
+    static void drawBoxLinesModern(const PositionVector& geom, double width);
 
     /** @brief Draws a thin line
      *
@@ -302,6 +323,8 @@ public:
      */
     static void drawFilledCircle(const double widradiusth, const int steps = 8);
 
+    static void drawFilledCircleModern(double const radius, int const steps);
+
     /** @brief Draws a filled circle around (0,0)
      *
      * The circle is drawn use GL_TRIANGLES.
@@ -313,6 +336,8 @@ public:
      */
     static void drawFilledCircle(double radius, int steps,
                                  double beg, double end);
+
+    static void drawFilledCircleModern(double radius, int steps, double beg, double end);
 
 
     /** @brief Draws an unfilled circle around (0,0)
@@ -429,10 +454,10 @@ public:
 
 private:
     /// @brief Add vertx data (position and colour) to the global vertex storage (to be transferred to the GPU)
-    static void addVertex(const Position& pos, const RGBColor& col);
-    static void addVertex(const Position& pos);
-    static void addVertex(float x, float y , float z);
-    static void addVertex(float x, float y, float z, float r, float g, float b, float a);
+    static void addVertex(GLenum geometryType, const Position& pos, const RGBColor& col);
+    static void addVertex(GLenum geometryType, const Position& pos);
+    static void addVertex(GLenum geometryType, float x, float y , float z = 0.);
+    static void addVertex(GLenum geometryType, float x, float y, float z, float r, float g, float b, float a);
 
 private:
     /// @brief whether the road makes a right turn (or goes straight)
@@ -463,7 +488,7 @@ private:
     static std::vector<std::pair<double, double> > myCircleCoords;
 
     /// @brief Storage for precomputed sin/cos-values describing a circle
-    static std::vector<GLBufferStruct> myVertices;
+    static std::map<GLenum, std::vector<GLBufferStruct>> myVertices;
 
     /// @brief Storage for current color (helper variable for transition to modern OpenGL)
     static RGBColor myCurrentColor;
