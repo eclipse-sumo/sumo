@@ -278,7 +278,7 @@ def generate_polygons(net, routes, outfile):
         outf.write('</polygons>\n')
 
 
-def map_stops(options, net, routes, rout, edgeMap, fixedStops):
+def map_stops(options, net, routes, rout, edgeMap, fixedStops, stopLookup):
     stops = collections.defaultdict(list)
     stopEnds = collections.defaultdict(list)
     rid = None
@@ -346,8 +346,23 @@ def map_stops(options, net, routes, rout, edgeMap, fixedStops):
                 s = fixedStops[stop]
                 laneID, start, end = s.lane, float(s.startPos), float(s.endPos)
             else:
-                result = gtfs2osm.getBestLane(net, veh.x, veh.y, 200, stopLength, options.center_stops,
-                                              route[lastIndex:], gtfs2osm.OSM2SUMO_MODES[mode], lastPos)
+                result = None
+                if stopLookup.hasCandidates():
+                    xy = net.convertLonLat2XY(float(veh.x), float(veh.y))
+                    candidates = stopLookup.getCandidates(xy, options.radius)
+                    if candidates:
+                        on_route = [s for s in candidates if lane2edge(s.lane) in route[lastIndex:]]
+                        if on_route:
+                            best = None
+                            bestDist = 1e3 * options.radius
+                            for stopObj in on_route:
+                                dist = sumolib.geomhelper.distance(stopObj.center_xy, xy)
+                                if dist < bestDist:
+                                    bestDist = dist
+                                    result = (stopObj.lane, float(stopObj.startPos), float(stopObj.endPos))
+                if result is None:
+                    result = gtfs2osm.getBestLane(net, veh.x, veh.y, 200, stopLength, options.center_stops,
+                                                  route[lastIndex:], gtfs2osm.OSM2SUMO_MODES[mode], lastPos)
                 if result is None:
                     if options.warn_unmapped:
                         print("Warning! No stop for %s." % str(veh), file=sys.stderr)
@@ -423,6 +438,7 @@ class StopLookup:
                 x, y = sumolib.geomhelper.positionAtShapeOffset(lane.getShape(), middle)
                 bbox = (x - 1, y - 1, x + 1, y + 1)
                 self._rtree.add(ri, bbox)
+                stop.center_xy = (x, y)
 
     def hasCandidates(self):
         return len(self._candidates) > 0
@@ -508,7 +524,7 @@ def main(options):
             generate_polygons(net, routes, options.poly_output)
         with sumolib.openz(options.additional_output, mode='w') as aout:
             sumolib.xml.writeHeader(aout, os.path.basename(__file__), "additional", options=options)
-            stops = map_stops(options, net, routes, aout, edgeMap, fixedStops)
+            stops = map_stops(options, net, routes, aout, edgeMap, fixedStops, stopLookup)
             aout.write(u'</additional>\n')
         with sumolib.openz(options.route_output, mode='w') as rout:
             ft = humanReadableTime if options.hrtime else lambda x: x

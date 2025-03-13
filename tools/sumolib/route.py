@@ -108,6 +108,8 @@ def mapTrace(trace, net, delta, verbose=False, airDistFactor=2, fillGaps=0, gapP
                     candidates.append((net.getEdge(edgeID), 0.))
                 else:
                     print("Unknown via edge %s for %s,%s" % (edgeID, x, y))
+            # print("idx %s: vias=%s, candidates=%s (%s)" % (idx, len(vias[idx]),
+            #    len(candidates), [ed[0].getID() for ed in candidates]))
         else:
             candidates = net.getNeighboringEdges(x, y, delta, not net.hasInternal)
         if debug:
