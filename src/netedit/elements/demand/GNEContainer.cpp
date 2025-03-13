@@ -57,18 +57,8 @@ GNEContainer::GNEContainerPopupMenu::GNEContainerPopupMenu(GNEContainer* contain
     myContainer(container),
     myTransformToContainer(nullptr),
     myTransformToContainerFlow(nullptr) {
-    // build header
-    myContainer->buildPopupHeader(this, app);
-    // build menu command for center button and copy cursor position to clipboard
-    myContainer->buildCenterPopupEntry(this);
-    myContainer->buildPositionCopyEntry(this, app);
-    // build menu commands for names
-    GUIDesigns::buildFXMenuCommand(this, ("Copy " + myContainer->getTagStr() + " name to clipboard").c_str(), nullptr, this, MID_COPY_NAME);
-    GUIDesigns::buildFXMenuCommand(this, ("Copy " + myContainer->getTagStr() + " typed name to clipboard").c_str(), nullptr, this, MID_COPY_TYPED_NAME);
-    new FXMenuSeparator(this);
-    // build selection and show parameters menu
-    myContainer->getNet()->getViewNet()->buildSelectionACPopupEntry(this, myContainer);
-    myContainer->buildShowParamsPopupEntry(this);
+    // build common options
+    container->buildPopUpMenuCommonOptions(this, app, container->getTagProperty()->getTag(), container->isAttributeCarrierSelected());
     // add transform functions only in demand mode
     if (myContainer->getNet()->getViewNet()->getEditModes().isCurrentSupermodeDemand()) {
         // create menu pane for transform operations
@@ -112,18 +102,8 @@ GNEContainer::GNESelectedContainersPopupMenu::GNESelectedContainersPopupMenu(GNE
     mySelectedContainers(selectedContainer),
     myTransformToContainer(nullptr),
     myTransformToContainerFlow(nullptr) {
-    // build header
-    container->buildPopupHeader(this, app);
-    // build menu command for center button and copy cursor position to clipboard
-    container->buildCenterPopupEntry(this);
-    container->buildPositionCopyEntry(this, app);
-    // build menu commands for names
-    GUIDesigns::buildFXMenuCommand(this, ("Copy " + container->getTagStr() + " name to clipboard").c_str(), nullptr, this, MID_COPY_NAME);
-    GUIDesigns::buildFXMenuCommand(this, ("Copy " + container->getTagStr() + " typed name to clipboard").c_str(), nullptr, this, MID_COPY_TYPED_NAME);
-    new FXMenuSeparator(this);
-    // build selection and show parameters menu
-    container->getNet()->getViewNet()->buildSelectionACPopupEntry(this, container);
-    container->buildShowParamsPopupEntry(this);
+    // build common options
+    container->buildPopUpMenuCommonOptions(this, app, container->getTagProperty()->getTag(), container->isAttributeCarrierSelected());
     // add transform functions only in demand mode
     if (container->getNet()->getViewNet()->getEditModes().isCurrentSupermodeDemand()) {
         // create menu pane for transform operations

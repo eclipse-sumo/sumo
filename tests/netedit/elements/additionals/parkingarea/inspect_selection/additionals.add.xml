@@ -1,6 +1,6 @@
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- Parking Area A -->
-    <parkingArea id="parkingAreaA" lane="EdgeCenter1_1" startPos="16.71" endPos="26.71" roadsideCapacity="0" width="5.00" length="7.00" angle="0.00" departPos="7" name="parkingArea1" friendlyPos="true" onRoad="true" lefthand="false">
+    <parkingArea id="parkingAreaA" lane="EdgeCenter1_1" startPos="16.71" endPos="26.71" roadsideCapacity="0" width="5.00" length="7.00" angle="0.00" departPos="7" name="parkingArea1" friendlyPos="1" onRoad="true" lefthand="false">
         <param key="KeyA1" value="valueA1"/>
         <param key="KeyA2" value="valueA2"/>
         <param key="KeyA3" value="valueA3"/>

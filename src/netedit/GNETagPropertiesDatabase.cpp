@@ -2551,13 +2551,13 @@ GNETagPropertiesDatabase::fillDemandElements() {
                                    TL("The number of containers the vehicle can transport"));
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_BOARDING_DURATION,
-                                   GNEAttributeProperties::FLOAT | GNEAttributeProperties::DEFAULTVALUE,
+                                   GNEAttributeProperties::SUMOTIME | GNEAttributeProperties::DEFAULTVALUE,
                                    GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE | GNEAttributeProperties::EXTENDEDEDITOR,
                                    TL("The time required by a person to board the vehicle"),
                                    "0.50");
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_LOADING_DURATION,
-                                   GNEAttributeProperties::FLOAT | GNEAttributeProperties::DEFAULTVALUE,
+                                   GNEAttributeProperties::SUMOTIME | GNEAttributeProperties::DEFAULTVALUE,
                                    GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE | GNEAttributeProperties::EXTENDEDEDITOR,
                                    TL("The time required to load a container onto the vehicle"),
                                    "90");
@@ -2582,7 +2582,7 @@ GNETagPropertiesDatabase::fillDemandElements() {
                                    "1");
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_ACTIONSTEPLENGTH,
-                                   GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE,
+                                   GNEAttributeProperties::SUMOTIME | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE,
                                    GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE | GNEAttributeProperties::EXTENDEDEDITOR,
                                    TL("The interval length for which vehicle performs its decision logic (acceleration and lane-changing)"),
                                    toString(OptionsCont::getOptions().getFloat("default.action-step-length")));
@@ -2597,23 +2597,24 @@ GNETagPropertiesDatabase::fillDemandElements() {
                                    GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE,
                                    GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE | GNEAttributeProperties::EXTENDEDEDITOR,
                                    TL("3D model file for this class"));
+        /*
+                Waiting for #16343
+                new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_CARRIAGE_LENGTH,
+                                           GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE,
+                                           GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE | GNEAttributeProperties::EXTENDEDEDITOR,
+                                           TL("Carriage lengths"));
 
-        new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_CARRIAGE_LENGTH,
-                                   GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE,
-                                   GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE | GNEAttributeProperties::EXTENDEDEDITOR,
-                                   TL("Carriage lengths"));
+                new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_LOCOMOTIVE_LENGTH,
+                                           GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE,
+                                           GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE | GNEAttributeProperties::EXTENDEDEDITOR,
+                                           TL("Locomotive lengths"));
 
-        new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_LOCOMOTIVE_LENGTH,
-                                   GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE,
-                                   GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE | GNEAttributeProperties::EXTENDEDEDITOR,
-                                   TL("Locomotive lengths"));
-
-        new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_CARRIAGE_GAP,
-                                   GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE,
-                                   GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE | GNEAttributeProperties::EXTENDEDEDITOR,
-                                   TL("Gap between carriages"),
-                                   "1");
-
+                new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_CARRIAGE_GAP,
+                                           GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE,
+                                           GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE | GNEAttributeProperties::EXTENDEDEDITOR,
+                                           TL("Gap between carriages"),
+                                           "1");
+        */
         // fill VType Car Following Model Values (implemented in a separated function to improve code legibility)
         fillCarFollowingModelAttributes(myTagProperties[currentTag]);
 

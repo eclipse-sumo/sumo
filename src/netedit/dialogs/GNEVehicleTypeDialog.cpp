@@ -126,16 +126,19 @@ GNEVehicleTypeDialog::VTypeAttributes::VClassRow::setVariable() {
             if (!myVTypeAttributesParent->myVehicleTypeDialog->myEditedDemandElement->isAttributeEnabled(SUMO_ATTR_CONTAINER_CAPACITY)) {
                 myVTypeAttributesParent->myContainerCapacity->updateValue(toString(defaultVTypeParameters.containerCapacity));
             }
-            if (!myVTypeAttributesParent->myVehicleTypeDialog->myEditedDemandElement->isAttributeEnabled(SUMO_ATTR_CARRIAGE_LENGTH)) {
-                myVTypeAttributesParent->myCarriageLength->updateValue(toString(defaultVTypeParameters.containerCapacity));
-            }
-            if (!myVTypeAttributesParent->myVehicleTypeDialog->myEditedDemandElement->isAttributeEnabled(SUMO_ATTR_LOCOMOTIVE_LENGTH)) {
-                myVTypeAttributesParent->myLocomotiveLength->updateValue(toString(defaultVTypeParameters.locomotiveLength));
-            }
-            // update GUIShape
-            if (SumoVehicleClassStrings.hasString(myComboBoxVClass->getText().text())) {
-                myVTypeAttributesParent->myVShapeRow->updateValue(SumoVehicleClassStrings.get(myComboBoxVClass->getText().text()));
-            }
+            /*
+                        Waiting for #16343
+                        if (!myVTypeAttributesParent->myVehicleTypeDialog->myEditedDemandElement->isAttributeEnabled(SUMO_ATTR_CARRIAGE_LENGTH)) {
+                            myVTypeAttributesParent->myCarriageLength->updateValue(toString(defaultVTypeParameters.containerCapacity));
+                        }
+                        if (!myVTypeAttributesParent->myVehicleTypeDialog->myEditedDemandElement->isAttributeEnabled(SUMO_ATTR_LOCOMOTIVE_LENGTH)) {
+                            myVTypeAttributesParent->myLocomotiveLength->updateValue(toString(defaultVTypeParameters.locomotiveLength));
+                        }
+                        // update GUIShape
+                        if (SumoVehicleClassStrings.hasString(myComboBoxVClass->getText().text())) {
+                            myVTypeAttributesParent->myVShapeRow->updateValue(SumoVehicleClassStrings.get(myComboBoxVClass->getText().text()));
+                        }
+            */
         }
     } else {
         myComboBoxVClass->setTextColor(FXRGB(255, 0, 0));
@@ -965,16 +968,17 @@ GNEVehicleTypeDialog::VTypeAttributes::buildAttributesB(FXVerticalFrame* column)
 
     // 10 create VTypeAttributeRow and Label for ActionStepLength
     myActionStepLength = new VTypeAttributeRow(this, column, SUMO_ATTR_ACTIONSTEPLENGTH, VTypeAttributeRow::RowAttrType::ROWTYPE_STRING);
+    /*
+        Waiting for #16343
+        // 11 create FXTextField and Label for Carriage length
+        myCarriageLength = new VTypeAttributeRow(this, column, SUMO_ATTR_CARRIAGE_LENGTH, VTypeAttributeRow::RowAttrType::ROWTYPE_STRING);
 
-    // 11 create FXTextField and Label for Carriage length
-    myCarriageLength = new VTypeAttributeRow(this, column, SUMO_ATTR_CARRIAGE_LENGTH, VTypeAttributeRow::RowAttrType::ROWTYPE_STRING);
+        // 12 create FXTextField and Label for Locomotive length
+        myLocomotiveLength = new VTypeAttributeRow(this, column, SUMO_ATTR_LOCOMOTIVE_LENGTH, VTypeAttributeRow::RowAttrType::ROWTYPE_STRING);
 
-    // 12 create FXTextField and Label for Locomotive length
-    myLocomotiveLength = new VTypeAttributeRow(this, column, SUMO_ATTR_LOCOMOTIVE_LENGTH, VTypeAttributeRow::RowAttrType::ROWTYPE_STRING);
-
-    // 13 create FXTextField and Label for carriage GAP
-    myCarriageGap = new VTypeAttributeRow(this, column, SUMO_ATTR_CARRIAGE_GAP, VTypeAttributeRow::RowAttrType::ROWTYPE_STRING);
-
+        // 13 create FXTextField and Label for carriage GAP
+        myCarriageGap = new VTypeAttributeRow(this, column, SUMO_ATTR_CARRIAGE_GAP, VTypeAttributeRow::RowAttrType::ROWTYPE_STRING);
+    */
     // 14 create FXTextField and Label for parameters
     myParameters = new VTypeAttributeRow(this, column, GNE_ATTR_PARAMETERS, VTypeAttributeRow::RowAttrType::ROWTYPE_PARAMETERS);
 }
@@ -1108,15 +1112,18 @@ GNEVehicleTypeDialog::VTypeAttributes::updateValues() {
     myOSGFile->updateValue(toString(defaultVTypeParameters.osgFile));
     myPersonCapacity->updateValue(toString(defaultVTypeParameters.personCapacity));
     myContainerCapacity->updateValue(toString(defaultVTypeParameters.containerCapacity));
-    myCarriageLength->updateValue(toString(defaultVTypeParameters.carriageLength));
-    myLocomotiveLength->updateValue(toString(defaultVTypeParameters.locomotiveLength));
+    /*
+        Waiting for #16343
+        myCarriageLength->updateValue(toString(defaultVTypeParameters.carriageLength));
+        myLocomotiveLength->updateValue(toString(defaultVTypeParameters.locomotiveLength));
+        myCarriageGap->updateValue();
+    */
     myBoardingDuration->updateValue();
     myLoadingDuration->updateValue();
     myMinGapLat->updateValue();
     myMaxSpeedLat->updateValue();
     myActionStepLength->updateValue();
     myProbability->updateValue();
-    myCarriageGap->updateValue();
     // JM Parameters
     myJMCrossingGap->updateValue();
     myJMIgnoreKeepclearTime->updateValue();
@@ -1201,15 +1208,18 @@ GNEVehicleTypeDialog::VTypeAttributes::onCmdSetAttribute(FXObject*, FXSelector, 
     myOSGFile->setVariable(toString(defaultVTypeParameters.osgFile));
     myPersonCapacity->setVariable(toString(defaultVTypeParameters.personCapacity));
     myContainerCapacity->setVariable(toString(defaultVTypeParameters.containerCapacity));
-    myCarriageLength->setVariable(toString(defaultVTypeParameters.carriageLength));
-    myLocomotiveLength->setVariable(toString(defaultVTypeParameters.locomotiveLength));
+    /*
+        Waiting for #16343
+        myCarriageLength->setVariable(toString(defaultVTypeParameters.carriageLength));
+        myLocomotiveLength->setVariable(toString(defaultVTypeParameters.locomotiveLength));
+        myCarriageGap->setVariable();
+    */
     myBoardingDuration->setVariable();
     myLoadingDuration->setVariable();
     myMinGapLat->setVariable();
     myMaxSpeedLat->setVariable();
     myActionStepLength->setVariable();
     myProbability->setVariable();
-    myCarriageGap->setVariable();
     // JM Variables
     myJMCrossingGap->setVariable();
     myJMIgnoreKeepclearTime->setVariable();

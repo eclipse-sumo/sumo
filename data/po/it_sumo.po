@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-13 10:07+0100\n"
-"PO-Revision-Date: 2025-03-12 07:59+0000\n"
+"PO-Revision-Date: 2025-03-13 11:01+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.10.3-dev\n"
+"X-Generator: Weblate 5.10.3\n"
 
 #: src/activitygen/AGActivityGen.cpp:46
 msgid "Reading input"
@@ -10375,7 +10375,7 @@ msgstr "La distribuzione di velocità referenziata '%' è sconosciuta."
 #: src/netimport/vissim/tempstructs/NIVissimDistrictConnection.cpp:378
 #: src/netimport/vissim/tempstructs/NIVissimDistrictConnection.cpp:385
 msgid ". Using default."
-msgstr ""
+msgstr ". Uso del valore standard."
 
 #: src/netimport/vissim/tempstructs/NIVissimDisturbance.cpp:143
 msgid "Ugly split to prohibit '%' by '%'."
@@ -10415,17 +10415,17 @@ msgstr ""
 
 #: src/netimport/vissim/tempstructs/NIVissimEdge.cpp:439
 msgid "Will not build edge '%'."
-msgstr ""
+msgstr "L'arco '%' non verrà costruito."
 
 #: src/netimport/vissim/tempstructs/NIVissimEdge.cpp:464
 #: src/netimport/vissim/tempstructs/NIVissimEdge.cpp:472
 #, c-format
 msgid "Could not insert node '%' to nodes container."
-msgstr ""
+msgstr "Il nodo '%' non poteva essere inserito nel contenitore di nodi."
 
 #: src/netimport/vissim/tempstructs/NIVissimEdge.cpp:490
 msgid "Could not build edge '%'; would connect same node."
-msgstr ""
+msgstr "L'arco '%' non poteva essere costruito; collegherebbe lo stesso nodo."
 
 #: src/netimport/vissim/tempstructs/NIVissimEdge.cpp:532
 msgid "What about distribution '%'"
@@ -10447,6 +10447,8 @@ msgid ""
 "Error on adding a traffic light\n"
 " Must be a multiple id ('%')"
 msgstr ""
+"Errore nelL'addizione di un semaforo\n"
+" Deve tenere un codice identificativo multiplo ('%')"
 
 #: src/netimport/vissim/tempstructs/NIVissimTL.cpp:383
 msgid "The signal group '%' could not be assigned to tl '%'."
@@ -11524,19 +11526,21 @@ msgstr "Indovina la proiezione del shapefile"
 
 #: src/polyconvert/polyconvert_main.cpp:134
 msgid "Defines in which column the id can be found"
-msgstr ""
+msgstr "Definisce la colonna del codice identificativo"
 
 #: src/polyconvert/polyconvert_main.cpp:138
 msgid "Defines which columns form the type id (comma separated list)"
 msgstr ""
+"Definisce quali colonne formano il codice identificativo del tipo (elenco "
+"separato da virgole)"
 
 #: src/polyconvert/polyconvert_main.cpp:141
 msgid "A running number will be used as id"
-msgstr ""
+msgstr "Numeri consecutivi verranno usati come codici identificativi"
 
 #: src/polyconvert/polyconvert_main.cpp:144
 msgid "Extract all additional columns as params"
-msgstr ""
+msgstr "Estrai tuttle le colonne addizionali come parametri"
 
 #: src/polyconvert/polyconvert_main.cpp:147
 msgid ""
@@ -13094,48 +13098,49 @@ msgstr " Usa --help per accedere all'elenco di opzioni."
 
 #: src/utils/options/OptionsCont.cpp:677
 msgid "Written configuration to '%'"
-msgstr ""
+msgstr "Configurazione salvata in '%'"
 
 #: src/utils/options/OptionsCont.cpp:690
 msgid "Could not save template to '%'"
-msgstr ""
+msgstr "Non ho potuto salvare il modello in '%'"
 
 #: src/utils/options/OptionsCont.cpp:694
 msgid "Written template to '%'"
-msgstr ""
+msgstr "Modello salvato in '%'"
 
 #: src/utils/options/OptionsCont.cpp:706
 msgid "Could not save schema to '%'"
-msgstr ""
+msgstr "Non ho potuto salvare lo schema in '%'"
 
 #: src/utils/options/OptionsCont.cpp:710
 msgid "Written schema to '%'"
-msgstr ""
+msgstr "Schema salvato in '%'"
 
 #: src/utils/options/OptionsIO.cpp:88 src/utils/options/OptionsIO.cpp:135
 msgid "Could not parse commandline options."
-msgstr ""
+msgstr "Non ho potuto analizzare le opzioni della linea di comando."
 
 #: src/utils/options/OptionsIO.cpp:103
 msgid "Could not access configuration '%'."
-msgstr ""
+msgstr "Non ho potuto accedere alla configurazione '%'."
 
 #: src/utils/options/OptionsIO.cpp:107
 msgid "Loading configuration"
-msgstr ""
+msgstr "Caricamento della configurazione"
 
 #: src/utils/options/OptionsIO.cpp:121
 msgid "Could not load configuration '%'."
-msgstr ""
+msgstr "Non ho potuto caricare la configurazione '%'."
 
 #: src/utils/options/OptionsLoader.cpp:77
 msgid "Could not set option '%' (probably defined twice)."
 msgstr ""
+"L'opzione '%' non poteva essere impostata (probabilmente definita due volte)."
 
 #: src/utils/options/OptionsParser.cpp:136
 #: src/utils/options/OptionsParser.cpp:143
 msgid "Missing value for parameter '%'."
-msgstr ""
+msgstr "Manca il valore del parametro '%'."
 
 #: src/utils/options/OptionsParser.cpp:155
 #, c-format
@@ -13143,10 +13148,12 @@ msgid ""
 "The parameter '%' is not allowed in this context.\n"
 " Switch or parameter name expected."
 msgstr ""
+"Il parametro '%' non è permesso in questo contesto.\n"
+" Si richiede un interruttore o un nome di parametro."
 
 #: src/utils/options/OptionsParser.cpp:159
 msgid "Mixed parameter syntax in '%'."
-msgstr ""
+msgstr "Sintassi di parametro mischiata in '%'."
 
 #: src/utils/router/AStarLookupTable.h:127
 msgid "Could not load landmark-lookup-table from '%'."

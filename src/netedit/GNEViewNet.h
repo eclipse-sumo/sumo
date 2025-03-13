@@ -89,12 +89,6 @@ public:
     /// @brief redraw elements only for calculating boundary
     void redrawPathElementContours();
 
-    /** @brief Builds an entry which allows to (de)select the object
-     * @param ret The popup menu to add the entry to
-     * @param AC AttributeCarrier that will be select/unselected
-     */
-    void buildSelectionACPopupEntry(GUIGLObjectPopupMenu* ret, GNEAttributeCarrier* AC);
-
     /// @brief set color scheme
     bool setColorScheme(const std::string& name);
 

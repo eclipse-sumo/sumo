@@ -217,11 +217,14 @@ def traceMap(options, typedNets, fixedStops, stopLookup, invEdgeMap, radius=150)
         netBox = net.getBBoxXY()
         numTraces = 0
         numRoutes = 0
+        cacheHits = 0
         filePath = os.path.join(options.fcd, mode + ".fcd.xml")
         if not os.path.exists(filePath):
             return []
         traces = tracemapper.readFCD(filePath, net, True)
+        traceCache = {}
         for tid, trace in traces:
+            trace = tuple(trace)
             numTraces += 1
             minX, minY, maxX, maxY = sumolib.geomhelper.addToBoundingBox(trace)
             if (minX < netBox[1][0] + radius and minY < netBox[1][1] + radius and
@@ -237,14 +240,21 @@ def traceMap(options, typedNets, fixedStops, stopLookup, invEdgeMap, radius=150)
                     fixed = fixedStops.get("%s.%s" % (tid, idx))
                     if fixed:
                         vias[idx] = [invEdgeMap[lane2edge(fixed.lane)]]
-                mappedRoute = sumolib.route.mapTrace(trace, net, radius, verbose=options.verbose,
-                                                     fillGaps=options.fill_gaps, gapPenalty=5000., vias=vias,
-                                                     reversalPenalty=1000.)
+                if trace in traceCache:
+                    mappedRoute =  traceCache[trace]
+                    cacheHits += 1
+                else:
+                    mappedRoute = sumolib.route.mapTrace(trace, net, radius, verbose=options.verbose,
+                                                         fillGaps=options.fill_gaps, gapPenalty=5000., vias=vias,
+                                                         reversalPenalty=1000.)
+                    traceCache[trace] = mappedRoute
+
                 if mappedRoute:
                     numRoutes += 1
                     routes[tid] = [e.getID() for e in mappedRoute]
         if options.verbose:
-            print("mapped", numTraces, "traces to", numRoutes, "routes.")
+            print("mapped %s traces to %s routes (%s cacheHits)" % (
+                numTraces, numRoutes, cacheHits))
     return routes
 
 

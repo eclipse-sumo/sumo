@@ -15,8 +15,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- StoppingPlaces -->
-    <busStop id="bs_0" lane="E0_0" startPos="5.00" endPos="15.00" friendlyPos="true"/>
-    <busStop id="bs_1" lane="-E00_0" startPos="5.00" endPos="15.00" friendlyPos="true"/>
-    <busStop id="bs_2" lane="-E0_0" startPos="5.00" endPos="15.00" friendlyPos="true"/>
-    <busStop id="bs_3" lane="E0.20_0" startPos="25.00" endPos="35.00" friendlyPos="true"/>
+    <busStop id="bs_0" lane="E0_0" startPos="5.00" endPos="15.00" friendlyPos="1"/>
+    <busStop id="bs_1" lane="-E00_0" startPos="5.00" endPos="15.00" friendlyPos="1"/>
+    <busStop id="bs_2" lane="-E0_0" startPos="5.00" endPos="15.00" friendlyPos="1"/>
+    <busStop id="bs_3" lane="E0.20_0" startPos="25.00" endPos="35.00" friendlyPos="1"/>
 </additional>

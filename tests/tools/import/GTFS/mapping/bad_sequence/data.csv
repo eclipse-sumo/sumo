@@ -1,0 +1,9 @@
+trip_id;route_id;route_short_name;route_type;stop_id;stop_name;stop_lat;stop_lon;stop_sequence;fare_zone;fare_token;start_char;trip_headsign;arrival_time;departure_time
+132189814;31727_3;413;3;120010016104;Braunschweig Güldenstraße;52.262095;10.514188;0;;;;Braunschweig Dieselstraße;37320;37320
+132189814;31727_3;413;3;120010031501;Braunschweig Hintern Brüdern;52.265493;10.517161;0;;;;Braunschweig Dieselstraße;37140;37140
+132189814;31727_3;413;3;120010032201;Braunschweig Packhof;52.26541;10.521949;0;;;;Braunschweig Dieselstraße;37080;37080
+132189814;31727_3;413;3;120010041001;Braunschweig Südstraße;52.259972;10.515571;0;;;;Braunschweig Dieselstraße;37380;37380
+132189814;31727_3;413;3;120010001502;Braunschweig Altstadtmarkt;52.262974;10.517664;0;;;;Braunschweig Dieselstraße;37200;37200
+132189814;31727_3;413;3;120010016202;Braunschweig Holzhof;52.256569;10.517781;0;;;;Braunschweig Dieselstraße;37440;37440
+132189814;31727_3;413;3;120010034202;Braunschweig Rathaus;52.26519;10.525524;0;;;;Braunschweig Dieselstraße;37020;37020
+132189814;31727_3;413;3;120010039401;Braunschweig Staatstheater;52.265817;10.53033;0;;;;Braunschweig Dieselstraße;36900;36900

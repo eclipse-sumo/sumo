@@ -15,7 +15,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- StoppingPlaces -->
-    <containerStop id="containerStopA" name="containerStop" lane="EdgeCenter1_1" startPos="16.71" endPos="26.71" friendlyPos="true" lines="line1 line2" containerCapacity="10" parkingLength="12.00" color="125,60,200">
+    <containerStop id="containerStopA" name="containerStop" lane="EdgeCenter1_1" startPos="16.71" endPos="26.71" friendlyPos="1" lines="line1 line2" containerCapacity="10" parkingLength="12.00" color="125,60,200">
         <param key="KeyA1" value="valueA1"/>
         <param key="KeyA2" value="valueA3"/>
         <param key="KeyA3" value="valueA2"/>

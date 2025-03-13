@@ -50,7 +50,7 @@
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <poi id="POI_1" lon="-0.000180" lat="0.000090" color="red" layer="202.00" width="20" height="15" angle="18" friendlyPos="true" imgFile="fileA" name="nameA" posLat="0.1" type="typeA">
+    <poi id="POI_1" lon="-0.000180" lat="0.000090" color="red" layer="202.00" width="20" height="15" angle="18" friendlyPos="1" imgFile="fileA" name="nameA" posLat="0.1" type="typeA">
         <param key="KeyA1" value="valueA1"/>
         <param key="KeyA3" value="valueA2"/>
         <param key="KeyA2" value="valueA3"/>

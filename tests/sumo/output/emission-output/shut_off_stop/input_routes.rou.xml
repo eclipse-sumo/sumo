@@ -2,6 +2,7 @@
     <vType id="HBEFA2/P_7_7" emissionClass="HBEFA2/P_7_7"/>
     <vType id="HBEFA3/PC_G_EU4" emissionClass="HBEFA3/PC_G_EU4"/>
     <vType id="PHEMlight/PC_G_EU4" emissionClass="PHEMlight/PC_G_EU4"/>
+    <vType id="BEV" emissionClass="Energy"/>
 
     <vType id="always_on">
         <param key="shutOffStopDuration" value="100000"/>
@@ -13,6 +14,9 @@
         <param key="shutOffStopDuration" value="100000"/>
     </vType>
     <vType id="PHEMlight_always_on" emissionClass="PHEMlight/PC_G_EU4">
+        <param key="shutOffStopDuration" value="100000"/>
+    </vType>
+    <vType id="BEV_always_on" emissionClass="Energy">
         <param key="shutOffStopDuration" value="100000"/>
     </vType>
 
@@ -34,19 +38,27 @@
         <stop lane="CE_0" endPos="50" duration="700"/>
     </vehicle>
 
-    <vehicle id="4" depart="4000" route="r1" type="always_on">
+    <vehicle id="4" depart="3600" route="r1" type="BEV">
         <stop lane="CE_0" endPos="50" duration="700"/>
     </vehicle>
 
-    <vehicle id="5" depart="4900" route="r1" type="HBEFA2_always_on">
+    <vehicle id="5" depart="4500" route="r1" type="always_on">
         <stop lane="CE_0" endPos="50" duration="700"/>
     </vehicle>
 
-    <vehicle id="6" depart="5800" route="r1" type="HBEFA3_always_on">
+    <vehicle id="6" depart="5400" route="r1" type="HBEFA2_always_on">
         <stop lane="CE_0" endPos="50" duration="700"/>
     </vehicle>
 
-    <vehicle id="7" depart="6700" route="r1" type="PHEMlight_always_on">
+    <vehicle id="7" depart="6300" route="r1" type="HBEFA3_always_on">
+        <stop lane="CE_0" endPos="50" duration="700"/>
+    </vehicle>
+
+    <vehicle id="8" depart="7200" route="r1" type="PHEMlight_always_on">
+        <stop lane="CE_0" endPos="50" duration="700"/>
+    </vehicle>
+
+    <vehicle id="9" depart="8100" route="r1" type="BEV_always_on">
         <stop lane="CE_0" endPos="50" duration="700"/>
     </vehicle>
 </routes>

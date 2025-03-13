@@ -13,6 +13,6 @@
     <parkingArea id="parkingArea_3" lane="EdgeCenter1_0" startPos="5" endPos="10" roadsideCapacity="2.5" width="12.00" length="5.00" angle="0.00" name="parkingArea"/>
 
     <!-- valid roadsideCapacity -->
-    <parkingArea id="parkingArea_4" lane="EdgeCenter1_0" startPos="7" endPos="12" roadsideCapacity="4" width="12.00" length="5.00" angle="0.00" name="parkingArea" friendlyPos="true"/>
+    <parkingArea id="parkingArea_4" lane="EdgeCenter1_0" startPos="7" endPos="12" roadsideCapacity="4" width="12.00" length="5.00" angle="0.00" name="parkingArea" friendlyPos="1"/>
 
 </additional>

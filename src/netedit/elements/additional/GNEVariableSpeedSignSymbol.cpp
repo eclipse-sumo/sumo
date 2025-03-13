@@ -159,7 +159,7 @@ GNEVariableSpeedSignSymbol::getAttribute(SumoXMLAttr key) const {
 
 double
 GNEVariableSpeedSignSymbol::getAttributeDouble(SumoXMLAttr /*key*/) const {
-    throw InvalidArgument("Symbols cannot be edited");
+    return 0;
 }
 
 
@@ -170,14 +170,14 @@ GNEVariableSpeedSignSymbol::getACParametersMap() const {
 
 
 void
-GNEVariableSpeedSignSymbol::setAttribute(SumoXMLAttr /*key*/, const std::string& /*value*/, GNEUndoList* /*undoList*/) {
-    throw InvalidArgument("Symbols cannot be edited");
+GNEVariableSpeedSignSymbol::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
+    setCommonAttribute(key, value, undoList);
 }
 
 
 bool
-GNEVariableSpeedSignSymbol::isValid(SumoXMLAttr /*key*/, const std::string& /*value*/) {
-    throw InvalidArgument("Symbols cannot be edited");
+GNEVariableSpeedSignSymbol::isValid(SumoXMLAttr key, const std::string& value) {
+    return isCommonValid(key, value);
 }
 
 
@@ -247,8 +247,8 @@ GNEVariableSpeedSignSymbol::drawVSSSymbol(const GUIVisualizationSettings& s, con
 
 
 void
-GNEVariableSpeedSignSymbol::setAttribute(SumoXMLAttr /*key*/, const std::string& /*value*/) {
-    throw InvalidArgument("Symbols cannot be edited");
+GNEVariableSpeedSignSymbol::setAttribute(SumoXMLAttr key, const std::string& value) {
+    setCommonAttribute(this, key, value);
 }
 
 

@@ -118,6 +118,9 @@ protected:
     /// @brief build vehicle over route
     bool buildVehicleOverRoute(SumoXMLTag vehicleTag, GNEDemandElement* route);
 
+    /// @brief update flow attributes
+    void updateFlowAttributes();
+
 private:
     /// @brief vehicle base object
     CommonXMLStructure::SumoBaseObject* myVehicleBaseObject = nullptr;

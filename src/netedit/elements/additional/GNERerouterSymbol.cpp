@@ -187,7 +187,7 @@ GNERerouterSymbol::getAttribute(SumoXMLAttr key) const {
 
 double
 GNERerouterSymbol::getAttributeDouble(SumoXMLAttr /*key*/) const {
-    throw InvalidArgument("Symbols cannot be edited");
+    return 0;
 }
 
 
@@ -198,14 +198,14 @@ GNERerouterSymbol::getACParametersMap() const {
 
 
 void
-GNERerouterSymbol::setAttribute(SumoXMLAttr /*key*/, const std::string& /*value*/, GNEUndoList* /*undoList*/) {
-    throw InvalidArgument("Symbols cannot be edited");
+GNERerouterSymbol::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
+    setCommonAttribute(key, value, undoList);
 }
 
 
 bool
-GNERerouterSymbol::isValid(SumoXMLAttr /*key*/, const std::string& /*value*/) {
-    throw InvalidArgument("Symbols cannot be edited");
+GNERerouterSymbol::isValid(SumoXMLAttr key, const std::string& value) {
+    return isCommonValid(key, value);
 }
 
 
@@ -286,8 +286,8 @@ GNERerouterSymbol::drawRerouterSymbol(const GUIVisualizationSettings& s, const G
 
 
 void
-GNERerouterSymbol::setAttribute(SumoXMLAttr /*key*/, const std::string& /*value*/) {
-    throw InvalidArgument("Symbols cannot be edited");
+GNERerouterSymbol::setAttribute(SumoXMLAttr key, const std::string& value) {
+    setCommonAttribute(this, key, value);
 }
 
 

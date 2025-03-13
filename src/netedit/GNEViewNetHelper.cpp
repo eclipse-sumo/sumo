@@ -2292,7 +2292,7 @@ GNEViewNetHelper::SaveElements::buildSaveElementsButtons() {
     // create save additional elements button
     mySaveAdditionalElements = new MFXButtonTooltip(mySaveIndividualFilesPopup, tooltipMenu,
             std::string("\t") + TL("Save additional elements") + std::string("\t") + TL("Save additional elements. (Ctrl+Shift+A)"), GUIIconSubSys::getIcon(GUIIcon::SAVE_ADDITIONALELEMENTS),
-            myViewNet->getViewParent()->getGNEAppWindows(), MID_HOTKEY_CTRL_SHIFT_A_SAVEADDITIONALS, GUIDesignButtonPopup);
+            myViewNet->getViewParent()->getGNEAppWindows(), MID_HOTKEY_CTRL_SHIFT_A_SAVEADDITIONALELEMENTS, GUIDesignButtonPopup);
     mySaveAdditionalElements->create();
     // create save demand elements button
     mySaveDemandElements = new MFXButtonTooltip(mySaveIndividualFilesPopup, tooltipMenu,
@@ -2307,7 +2307,7 @@ GNEViewNetHelper::SaveElements::buildSaveElementsButtons() {
     // create save mean datas elements button
     mySaveMeanDataElements = new MFXButtonTooltip(mySaveIndividualFilesPopup, tooltipMenu,
             std::string("\t") + TL("Save mean data elements") + std::string("\t") + TL("Save mean data elements. (Ctrl+Shift+M)"), GUIIconSubSys::getIcon(GUIIcon::SAVE_MEANDATAELEMENTS),
-            myViewNet->getViewParent()->getGNEAppWindows(), MID_HOTKEY_CTRL_SHIFT_M_SAVEMEANDATAS, GUIDesignButtonPopup);
+            myViewNet->getViewParent()->getGNEAppWindows(), MID_HOTKEY_CTRL_SHIFT_M_SAVEMEANDATAELEMENTS, GUIDesignButtonPopup);
     mySaveMeanDataElements->create();
     // recalc menu bar because there is new elements
     gripSaveElements->recalc();

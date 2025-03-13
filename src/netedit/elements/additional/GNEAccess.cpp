@@ -139,7 +139,7 @@ GNEAccess::writeAdditional(OutputDevice& device) const {
         device.writeAttr(SUMO_ATTR_LENGTH, myLength);
     }
     if (myFriendlyPosition) {
-        device.writeAttr(SUMO_ATTR_FRIENDLY_POS, true);
+        device.writeAttr(SUMO_ATTR_FRIENDLY_POS, myFriendlyPosition);
     }
     device.closeTag();
 }

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-03-12 16:52:31.535339 by gtfs2pt.py v1_22_0+0800-0ffc9d17b66
+<configuration>
+    <merged-csv value="data.csv"/>
+    <modes value="bus"/>
+    <vtype-output value="vehtypes.xml"/>
+    <network value="net.net.xml"/>
+    <stops value="input_stops.xml"/>
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <busStop id="132189814.0" lane="376468591#0_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Braunschweig Güldenstraße"/>
+    <busStop id="132189814.3" lane="31016344#0_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Braunschweig Südstraße"/>
+    <busStop id="132189814.5" lane="316789358_0" startPos="19.29" endPos="32.29" friendlyPos="true" name="Braunschweig Holzhof"/>
+    <busStop id="132189814.6" lane="5148300_0" startPos="9.46" endPos="22.46" friendlyPos="true" name="Braunschweig Rathaus"/>
+    <busStop id="132189814.7" lane="171756596_0" startPos="31.34" endPos="44.34" friendlyPos="true" name="Braunschweig Staatstheater"/>
+</additional>

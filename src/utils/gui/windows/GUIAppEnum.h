@@ -80,7 +80,7 @@ enum {
     /// @{
 
     /// @brief Start the simulation in SUMO and open Additionals Elements in netedit
-    MID_HOTKEY_CTRL_A_STARTSIMULATION_OPENADDITIONALS,
+    MID_HOTKEY_CTRL_A_STARTSIMULATION_OPENADDITIONALELEMENTS,
     /// @brief Edit simulation breakpoints in SUMO and open Data Elements in netedit
     MID_HOTKEY_CTRL_B_EDITBREAKPOINT_OPENDATAELEMENTS,
     /// @brief Copy the current selection / element
@@ -199,7 +199,7 @@ enum {
     /// @{
 
     /// @brief Save Additional Elements
-    MID_HOTKEY_CTRL_SHIFT_A_SAVEADDITIONALS,
+    MID_HOTKEY_CTRL_SHIFT_A_SAVEADDITIONALELEMENTS,
     /// @brief save Data Elements
     MID_HOTKEY_CTRL_SHIFT_B_SAVEDATAELEMENTS,
     /// @brief Save neteditConfig
@@ -213,7 +213,7 @@ enum {
     /// @brief save TLS Programs
     MID_HOTKEY_CTRL_SHIFT_K_SAVETLS,
     /// @brief save Mean Datas
-    MID_HOTKEY_CTRL_SHIFT_M_SAVEMEANDATAS,
+    MID_HOTKEY_CTRL_SHIFT_M_SAVEMEANDATAELEMENTS,
     /// @brief open a new window (SUMO AND netedit)
     MID_HOTKEY_CTRL_SHIFT_N_NEWWINDOW,
     /// @brief open Netconvert file
@@ -717,12 +717,12 @@ enum {
     MID_GNE_TOOLBARFILE_SAVESUMOCONFIG_AS,
     /// @brief save network as
     MID_GNE_TOOLBARFILE_SAVENETWORK_AS,
-    /// @brief save additionals as
-    MID_GNE_TOOLBARFILE_SAVEADDITIONALS_AS,
+    /// @brief save additionals unified
+    MID_GNE_TOOLBARFILE_SAVEADDITIONALELEMENTS_UNIFIED,
     /// @brief save JuPedSim as
     MID_GNE_TOOLBARFILE_SAVEJUPEDSIMELEMENTS_AS,
     /// @brief reload additionals
-    MID_GNE_TOOLBARFILE_RELOAD_ADDITIONALS,
+    MID_GNE_TOOLBARFILE_RELOAD_ADDITIONALELEMENTS,
     /// @brief save TLS Programs as
     MID_GNE_TOOLBARFILE_SAVETLSPROGRAMS_AS,
     /// @brief reload TLS Programs
@@ -731,20 +731,20 @@ enum {
     MID_GNE_TOOLBARFILE_SAVEEDGETYPES_AS,
     /// @brief reload edge types
     MID_GNE_TOOLBARFILE_RELOAD_EDGETYPES,
-    /// @brief save demand elements as
-    MID_GNE_TOOLBARFILE_SAVEDEMAND_AS,
+    /// @brief save demand elements unified
+    MID_GNE_TOOLBARFILE_SAVEDEMANDELEMENTS_UNIFIED,
     /// @brief reload demand elements
     MID_GNE_TOOLBARFILE_RELOAD_DEMANDELEMENTS,
-    /// @brief save data elements as
-    MID_GNE_TOOLBARFILE_SAVEDATA_AS,
+    /// @brief save data elements unified
+    MID_GNE_TOOLBARFILE_SAVEDATAELEMENTS_UNIFIED,
     /// @brief reload data elements
     MID_GNE_TOOLBARFILE_RELOAD_DATAELEMENTS,
     /// @brief open meanData file
-    MID_GNE_TOOLBARFILE_OPENMEANDATAS,
-    /// @brief save meanDatas as
-    MID_GNE_TOOLBARFILE_SAVEMEANDATAS_AS,
+    MID_GNE_TOOLBARFILE_OPENMEANDATAELEMENTS,
+    /// @brief save meanDatas unified
+    MID_GNE_TOOLBARFILE_SAVEMEANDATAELEMENTS_UNIFIED,
     /// @brief reload meanDatas
-    MID_GNE_TOOLBARFILE_RELOAD_MEANDATAS,
+    MID_GNE_TOOLBARFILE_RELOAD_MEANDATAELEMENTS,
 
     /// @}
 

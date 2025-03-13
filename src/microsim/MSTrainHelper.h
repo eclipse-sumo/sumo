@@ -111,9 +111,6 @@ public:
     /// @brief return length exaggeration factor (special for long vehicles)
     static double getUpscaleLength(double upscale, double length, double width, int vehicleQuality);
 
-    /// @brief average door width used to compute doors positions
-    static const double CARRIAGE_DOOR_WIDTH;
-
     /// @brief small extra tolerance used to avoid constraint violations
     static const double PEDESTRIAN_RADIUS_EXTRA_TOLERANCE;
 

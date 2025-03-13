@@ -15,6 +15,7 @@
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
+/// @author  Mirko Barthauer
 /// @date    Mon, 10.05.2004
 ///
 // Helper methods for HBEFA-based emission computation
@@ -44,6 +45,9 @@ HelpersEnergy::compute(const SUMOEmissionClass /* c */, const PollutantsInterfac
     }
     if (param == nullptr) {
         param = EnergyParams::getDefault();
+    }
+    if (param->isEngineOff()) {
+        return 0.;
     }
     //@ToDo: All formulas below work with the logic of the euler update (refs #860).
     //       Approximation order could be improved. Refs. #2592.

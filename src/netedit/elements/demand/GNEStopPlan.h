@@ -227,7 +227,7 @@ protected:
     std::string myActType;
 
     /// @brief friendly pos
-    bool myFriendlyPos;
+    bool myFriendlyPos = false;
 
     /// @brief parameter set
     int myParametersSet = 0;

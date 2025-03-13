@@ -16,7 +16,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- StoppingPlaces -->
     <chargingStation id="chargingStationA" lane="EdgeCenter1_1" startPos="16.71" endPos="36.71"/>
-    <chargingStation id="chargingStationB" lane="EdgeCenter0_0" startPos="10.00" endPos="2000.00" friendlyPos="true"/>
-    <chargingStation id="chargingStationC" lane="Edge3_1" startPos="-2000.00" endPos="10.00" friendlyPos="true"/>
-    <chargingStation id="chargingStationD" lane="Edge5_1" startPos="-2000.00" endPos="2000.00" friendlyPos="true"/>
+    <chargingStation id="chargingStationB" lane="EdgeCenter0_0" startPos="10.00" endPos="2000.00" friendlyPos="1"/>
+    <chargingStation id="chargingStationC" lane="Edge3_1" startPos="-2000.00" endPos="10.00" friendlyPos="1"/>
+    <chargingStation id="chargingStationD" lane="Edge5_1" startPos="-2000.00" endPos="2000.00" friendlyPos="1"/>
 </additional>

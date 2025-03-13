@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-11-28 11:45:34 by Eclipse SUMO sumo Version v1_21_0+1012-56f51359a8c
+<!-- generated on 2025-03-13 14:47:11 by Eclipse SUMO sumo Version v1_14_1+18119-640ec445508
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -48,6 +48,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
     <tripinfo id="veh0" depart="0.00" departLane="D2_0" departPos="18.10" departSpeed="0.00" departDelay="0.00" arrival="1813.00" arrivalLane="D2_0" arrivalPos="149.66" arrivalSpeed="0.00" duration="1813.00" routeLength="131.56" waitingTime="0.00" waitingCount="0" stopTime="1796.00" timeLoss="7.53" rerouteNo="1" devices="tripinfo_veh0 stationfinder_veh0 battery_veh0" vType="ElectricVehicle1" speedFactor="1.00" vaporized="end">
-        <battery depleted="1" actualBatteryCapacity="16.53" totalEnergyConsumed="78.47" totalEnergyRegenerated="38.70"/>
+        <battery depleted="1" actualBatteryCapacity="38.70" totalEnergyConsumed="56.31" totalEnergyRegenerated="38.70"/>
     </tripinfo>
 </tripinfos>
