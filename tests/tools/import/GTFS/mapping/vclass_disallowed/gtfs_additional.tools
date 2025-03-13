@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-03-13 16:33:39.174046 by gtfs2pt.py v1_22_0+0825-c41cf226a1f
+<!-- generated on 2025-03-13 23:35:39.901273 by gtfs2pt.py v1_22_0+0829-a1b275cb524
 <configuration>
     <merged-csv value="data.csv"/>
     <modes value="bus"/>
@@ -11,6 +11,6 @@
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <busStop id="t1.0" lane="beg_0" startPos="20.22" endPos="33.22" friendlyPos="true" name="stopname1"/>
-    <busStop id="t1.1" lane="end_0" startPos="43.06" endPos="56.06" friendlyPos="true" name="stopname2"/>
+    <busStop id="t1.0" lane="beg_0" startPos="10.00" endPos="20.00" friendlyPos="true" name="stopname1"/>
+    <busStop id="t1.1" lane="end_0" startPos="10.00" endPos="20.00" friendlyPos="true" name="stopname2"/>
 </additional>
