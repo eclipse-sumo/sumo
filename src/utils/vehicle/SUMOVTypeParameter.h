@@ -212,10 +212,9 @@ public:
     /** @brief Writes the vtype
      *
      * @param[in, out] dev The device to write into
-     * @param[in] saveAsParameters save certain attributes as parameters
      * @exception IOError not yet implemented
      */
-    void write(OutputDevice& dev, const bool saveAsParameters) const;
+    void write(OutputDevice& dev) const;
 
     /** @brief Returns the named value from the map, or the default if it is not contained there
      * @param[in] attr The corresponding xml attribute

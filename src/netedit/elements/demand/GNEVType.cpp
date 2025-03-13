@@ -105,10 +105,10 @@ GNEVType::writeDemandElement(OutputDevice& device) const {
     // only write default vehicle types if it was modified
     if (myDefaultVehicleType) {
         if (myDefaultVehicleTypeModified) {
-            write(device, false);
+            write(device);
         }
     } else {
-        write(device, false);
+        write(device);
     }
 }
 

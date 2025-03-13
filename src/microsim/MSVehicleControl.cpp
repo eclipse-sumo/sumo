@@ -234,7 +234,7 @@ MSVehicleControl::saveState(OutputDevice& out) {
     // save vehicle types
     for (const auto& item : myVTypeDict) {
         if (myReplaceableDefaultVTypes.count(item.first) == 0) {
-            item.second->getParameter().write(out, true);
+            item.second->getParameter().write(out);
         }
     }
     for (const auto& item : myVTypeDistDict) {
