@@ -291,19 +291,10 @@ GNEDemandElement::openDemandElementDialog() {
 
 GUIGLObjectPopupMenu*
 GNEDemandElement::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
+    // create popup
     GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
-    // build header
-    buildPopupHeader(ret, app);
-    // build menu command for center button and copy cursor position to clipboard
-    buildCenterPopupEntry(ret);
-    buildPositionCopyEntry(ret, app);
-    // build menu commands for names
-    GUIDesigns::buildFXMenuCommand(ret, "Copy " + getTagStr() + " name to clipboard", nullptr, ret, MID_COPY_NAME);
-    GUIDesigns::buildFXMenuCommand(ret, "Copy " + getTagStr() + " typed name to clipboard", nullptr, ret, MID_COPY_TYPED_NAME);
-    new FXMenuSeparator(ret);
-    // build selection and show parameters menu
-    myNet->getViewNet()->buildSelectionACPopupEntry(ret, this);
-    buildShowParamsPopupEntry(ret);
+    // build common options
+    buildPopUpMenuCommonOptions(ret, app, myTagProperty->getTag(), mySelected);
     // show option to open demand element dialog
     if (myTagProperty->hasDialog()) {
         GUIDesigns::buildFXMenuCommand(ret, ("Open " + getTagStr() + " Dialog").c_str(), getACIcon(), &parent, MID_OPEN_ADDITIONAL_DIALOG);

@@ -279,6 +279,27 @@ GUIGlObject::setNode(osg::Node* node) {
 #endif
 
 void
+GUIGlObject::buildPopUpMenuCommonOptions(GUIGLObjectPopupMenu* ret, GUIMainWindow& app, const SumoXMLTag tag, const bool selected, bool addSeparator) {
+    // build header
+    buildPopupHeader(ret, app);
+    // build menu command for center button and copy cursor position to clipboard
+    buildCenterPopupEntry(ret);
+    // build menu commands for names
+    GUIDesigns::buildFXMenuCommand(ret, TLF("Copy % name to clipboard", toString(tag)), nullptr, ret, MID_COPY_NAME);
+    GUIDesigns::buildFXMenuCommand(ret, TLF("Copy % typed name to clipboard", toString(tag)), nullptr, ret, MID_COPY_TYPED_NAME);
+    new FXMenuSeparator(ret);
+    if (selected) {
+        GUIDesigns::buildFXMenuCommand(ret, TL("Remove from Selected"), GUIIconSubSys::getIcon(GUIIcon::FLAG_MINUS), ret, MID_REMOVESELECT);
+    } else {
+        GUIDesigns::buildFXMenuCommand(ret, TL("Add to Selected"), GUIIconSubSys::getIcon(GUIIcon::FLAG_PLUS), ret, MID_ADDSELECT);
+    }
+    new FXMenuSeparator(ret);
+    buildShowParamsPopupEntry(ret, true);
+    buildPositionCopyEntry(ret, app, addSeparator);
+}
+
+
+void
 GUIGlObject::buildPopupHeader(GUIGLObjectPopupMenu* ret, GUIMainWindow& app, bool addSeparator) {
     new MFXMenuHeader(ret, app.getBoldFont(), getFullName().c_str(), myIcon, nullptr, 0);
     if (OptionsCont::getOptions().getBool("gui-testing")) {
@@ -341,7 +362,7 @@ GUIGlObject::buildShowTypeParamsPopupEntry(GUIGLObjectPopupMenu* ret, bool addSe
 
 
 void
-GUIGlObject::buildPositionCopyEntry(GUIGLObjectPopupMenu* ret, const GUIMainWindow& app) const {
+GUIGlObject::buildPositionCopyEntry(GUIGLObjectPopupMenu* ret, const GUIMainWindow& app, bool addSeparator) const {
     GUIDesigns::buildFXMenuCommand(ret, TL("Copy cursor position to clipboard"), nullptr, ret, MID_COPY_CURSOR_POSITION);
     if (GeoConvHelper::getFinal().usingGeoProjection()) {
         GUIDesigns::buildFXMenuCommand(ret, TL("Copy cursor geo-position to clipboard"), nullptr, ret, MID_COPY_CURSOR_GEOPOSITION);
@@ -360,6 +381,9 @@ GUIGlObject::buildPositionCopyEntry(GUIGLObjectPopupMenu* ret, const GUIMainWind
                 GUIDesigns::buildFXMenuCommand(showCursorGeoPositionPane, mapper.first, nullptr, ret, MID_SHOW_GEOPOSITION_ONLINE);
             }
         }
+    }
+    if (addSeparator) {
+        new FXMenuSeparator(ret);
     }
 }
 

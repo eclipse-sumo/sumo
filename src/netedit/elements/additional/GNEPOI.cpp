@@ -326,15 +326,10 @@ GNEPOI::getParentName() const {
 
 GUIGLObjectPopupMenu*
 GNEPOI::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
+    // create popup
     GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
-    buildPopupHeader(ret, app);
-    buildCenterPopupEntry(ret);
-    buildNameCopyPopupEntry(ret);
-    // build selection and show parameters menu
-    myNet->getViewNet()->buildSelectionACPopupEntry(ret, this);
-    buildShowParamsPopupEntry(ret);
-    buildPositionCopyEntry(ret, app);
-    new FXMenuSeparator(ret);
+    // build common options
+    buildPopUpMenuCommonOptions(ret, app, myTagProperty->getTag(), mySelected);
     // specific of  non juPedSim polygons
     if (!myTagProperty->isJuPedSimElement()) {
         // continue depending of lane number

@@ -251,15 +251,10 @@ GNEPoly::getParentName() const {
 
 GUIGLObjectPopupMenu*
 GNEPoly::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
+    // create popup
     GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
-    buildPopupHeader(ret, app);
-    buildCenterPopupEntry(ret);
-    buildNameCopyPopupEntry(ret);
-    // build selection and show parameters menu
-    myNet->getViewNet()->buildSelectionACPopupEntry(ret, this);
-    buildShowParamsPopupEntry(ret);
-    buildPositionCopyEntry(ret, app);
-    new FXMenuSeparator(ret);
+    // build common options
+    buildPopUpMenuCommonOptions(ret, app, myTagProperty->getTag(), mySelected);
     FXMenuCommand* simplifyShape = GUIDesigns::buildFXMenuCommand(ret, TL("Simplify Shape"), TL("Replace current shape with a rectangle"), nullptr, &parent, MID_GNE_POLYGON_SIMPLIFY_SHAPE);
     // disable simplify shape if polygon was already simplified
     if (mySimplifiedShape || myShape.size() <= 2) {
@@ -277,11 +272,11 @@ GNEPoly::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     if (myShape.size() > 3) {
         GUIDesigns::buildFXMenuCommand(ret, TL("Triangulate polygon"), TL("Convert the current polygon in triangles"), nullptr, &parent, MID_GNE_POLYGON_TRIANGULATE);
     }
-    // add separator
-    new FXMenuSeparator(ret);
     // create a extra FXMenuCommand if mouse is over a vertex
     const int index = getVertexIndex(myNet->getViewNet()->getPositionInformation(), false);
     if (index != -1) {
+        // add separator
+        new FXMenuSeparator(ret);
         // check if we're in network mode
         if (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE) {
             GUIDesigns::buildFXMenuCommand(ret, "Set custom Geometry Point", nullptr, &parent, MID_GNE_CUSTOM_GEOMETRYPOINT);

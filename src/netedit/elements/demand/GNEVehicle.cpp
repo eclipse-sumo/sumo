@@ -66,18 +66,8 @@ const double GNEVehicle::myArrivalPositionDiameter = SUMO_const_halfLaneWidth * 
 GNEVehicle::GNESingleVehiclePopupMenu::GNESingleVehiclePopupMenu(GNEVehicle* vehicle, GUIMainWindow& app, GUISUMOAbstractView& parent) :
     GUIGLObjectPopupMenu(app, parent, *vehicle),
     myVehicle(vehicle) {
-    // build header
-    myVehicle->buildPopupHeader(this, app);
-    // build menu command for center button and copy cursor position to clipboard
-    myVehicle->buildCenterPopupEntry(this);
-    myVehicle->buildPositionCopyEntry(this, app);
-    // build menu commands for names
-    GUIDesigns::buildFXMenuCommand(this, ("Copy " + myVehicle->getTagStr() + " name to clipboard").c_str(), nullptr, this, MID_COPY_NAME);
-    GUIDesigns::buildFXMenuCommand(this, ("Copy " + myVehicle->getTagStr() + " typed name to clipboard").c_str(), nullptr, this, MID_COPY_TYPED_NAME);
-    new FXMenuSeparator(this);
-    // build selection and show parameters menu
-    myVehicle->getNet()->getViewNet()->buildSelectionACPopupEntry(this, myVehicle);
-    myVehicle->buildShowParamsPopupEntry(this);
+    // build common options
+    vehicle->buildPopUpMenuCommonOptions(this, app, vehicle->getTagProperty()->getTag(), vehicle->isAttributeCarrierSelected());
     // route length
     vehicle->buildMenuCommandRouteLength(this);
     // add transform functions only in demand mode
@@ -198,18 +188,8 @@ GNEVehicle::GNESelectedVehiclesPopupMenu::GNESelectedVehiclesPopupMenu(GNEVehicl
     GUIGLObjectPopupMenu(app, parent, *vehicle),
     mySelectedVehicles(selectedVehicle),
     myVehicleTag(vehicle->getTagProperty()->getTag()) {
-    // build header
-    vehicle->buildPopupHeader(this, app);
-    // build menu command for center button and copy cursor position to clipboard
-    vehicle->buildCenterPopupEntry(this);
-    vehicle->buildPositionCopyEntry(this, app);
-    // build menu commands for names
-    GUIDesigns::buildFXMenuCommand(this, ("Copy " + vehicle->getTagStr() + " name to clipboard").c_str(), nullptr, this, MID_COPY_NAME);
-    GUIDesigns::buildFXMenuCommand(this, ("Copy " + vehicle->getTagStr() + " typed name to clipboard").c_str(), nullptr, this, MID_COPY_TYPED_NAME);
-    new FXMenuSeparator(this);
-    // build selection and show parameters menu
-    vehicle->getNet()->getViewNet()->buildSelectionACPopupEntry(this, vehicle);
-    vehicle->buildShowParamsPopupEntry(this);
+    // build common options
+    vehicle->buildPopUpMenuCommonOptions(this, app, vehicle->getTagProperty()->getTag(), vehicle->isAttributeCarrierSelected());
     // route length
     vehicle->buildMenuCommandRouteLength(this);
     // add transform functions only in demand mode

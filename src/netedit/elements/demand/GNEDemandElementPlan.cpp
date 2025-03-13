@@ -1061,19 +1061,10 @@ GNEDemandElementPlan::writeOriginStop(OutputDevice& device) const {
 
 GUIGLObjectPopupMenu*
 GNEDemandElementPlan::getPlanPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
+    // create popup
     GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *myPlanElement);
-    // build header
-    myPlanElement->buildPopupHeader(ret, app);
-    // build menu command for center button and copy cursor position to clipboard
-    myPlanElement->buildCenterPopupEntry(ret);
-    myPlanElement->buildPositionCopyEntry(ret, app);
-    // build menu commands for names
-    GUIDesigns::buildFXMenuCommand(ret, "Copy " + myPlanElement->getTagStr() + " name to clipboard", nullptr, ret, MID_COPY_NAME);
-    GUIDesigns::buildFXMenuCommand(ret, "Copy " + myPlanElement->getTagStr() + " typed name to clipboard", nullptr, ret, MID_COPY_TYPED_NAME);
-    new FXMenuSeparator(ret);
-    // build selection and show parameters menu
-    myPlanElement->getNet()->getViewNet()->buildSelectionACPopupEntry(ret, myPlanElement);
-    myPlanElement->buildShowParamsPopupEntry(ret);
+    // build common options
+    myPlanElement->buildPopUpMenuCommonOptions(ret, app, myPlanElement->getTagProperty()->getTag(), myPlanElement->isAttributeCarrierSelected());
     GUIDesigns::buildFXMenuCommand(ret, ("Cursor position in view: " + toString(getPlanPositionInView().x()) + "," + toString(getPlanPositionInView().y())).c_str(), nullptr, nullptr, 0);
     return ret;
 }

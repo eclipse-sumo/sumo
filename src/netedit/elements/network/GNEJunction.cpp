@@ -495,17 +495,10 @@ GNEJunction::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     if (myShapeEdited) {
         return getShapeEditedPopUpMenu(app, parent, myNBNode->getShape());
     } else {
+        // create popup
         GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
-        // build common commands
-        buildPopupHeader(ret, app);
-        buildCenterPopupEntry(ret);
-        buildNameCopyPopupEntry(ret);
-        // build selection and show parameters menu
-        myNet->getViewNet()->buildSelectionACPopupEntry(ret, this);
-        buildShowParamsPopupEntry(ret);
-        buildPositionCopyEntry(ret, app);
-        // add separator
-        new FXMenuSeparator(ret);
+        // build common options
+        buildPopUpMenuCommonOptions(ret, app, myTagProperty->getTag(), mySelected, myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork());
         // check if we're in supermode network
         if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
             const int numSelectedJunctions = myNet->getAttributeCarriers()->getNumberOfSelectedJunctions();
