@@ -7,6 +7,9 @@ patch_stop
 # use candiate stop locations to restrict mapping
 stops
 
+# test routes if the vehicle class is disallowed on some lanes
+stops_otherEdge
+
 # load stops with invalid sequence numbers
 bad_sequence
 
