@@ -73,6 +73,8 @@ def get_options(args=None):
                     help="file with candidate stops (selected by proxmity)")
     ap.add_argument("--patched-stops", category="input", dest="patchedStops", type=ap.file,
                     help="file with replacement stops (based on stop ids)")
+    ap.add_argument("--radius", default=150, category="input", type=float,
+                    help="maximum matching radius for candidate edges and stops")
     ap.add_argument("-H", "--human-readable-time", category="output", dest="hrtime", default=False, action="store_true",
                     help="write times as h:m:s")
 
@@ -233,7 +235,7 @@ def traceMap(options, typedNets, fixedStops, stopLookup, invEdgeMap, radius=150)
                 vias = {}
                 if stopLookup.hasCandidates():
                     for idx, xy in enumerate(trace):
-                        candidates = stopLookup.getCandidates(xy)
+                        candidates = stopLookup.getCandidates(xy, options.radius)
                         if candidates:
                             all_edges = [invEdgeMap[lane2edge(stop.lane)] for stop in candidates]
                             vias[idx] = [e for e in all_edges if e in mode_edges]
@@ -500,7 +502,7 @@ def main(options):
                 return
             if options.mapperlib != "tracemapper":
                 print("Warning! No mapping library found, falling back to tracemapper.", file=sys.stderr)
-            routes = traceMap(options, typedNets, fixedStops, stopLookup, invEdgeMap)
+            routes = traceMap(options, typedNets, fixedStops, stopLookup, invEdgeMap, options.radius)
 
         if options.poly_output:
             generate_polygons(net, routes, options.poly_output)
