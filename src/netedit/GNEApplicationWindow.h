@@ -238,19 +238,19 @@ public:
     long onUpdSaveEdgeTypesAs(FXObject*, FXSelector, void*);
 
     /// @brief called when the command/FXCall open additionals is executed
-    long onCmdOpenAdditionals(FXObject*, FXSelector, void*);
+    long onCmdOpenAdditionalElements(FXObject*, FXSelector, void*);
 
     /// @brief called when the command/FXCall reload additionals is executed
-    long onCmdReloadAdditionals(FXObject*, FXSelector, void*);
+    long onCmdReloadAdditionalElements(FXObject*, FXSelector, void*);
 
     /// @brief called when the command/FXCall reload additionals is updated
-    long onUpdReloadAdditionals(FXObject*, FXSelector, void*);
+    long onUpdReloadAdditionalElements(FXObject*, FXSelector, void*);
 
     /// @brief called when the command/FXCall save additionals is executed
-    long onCmdSaveAdditionals(FXObject*, FXSelector, void*);
+    long onCmdSaveAdditionalElements(FXObject*, FXSelector, void*);
 
-    /// @brief called when the command/FXCall save additionals as is executed
-    long onCmdSaveAdditionalsAs(FXObject*, FXSelector, void*);
+    /// @brief called when the command/FXCall save additionals unified is executed
+    long onCmdSaveAdditionalElementsUnified(FXObject*, FXSelector, void*);
 
     /// @brief called when the command/FXCall save JuPedSim elements as is executed
     long onCmdSaveJuPedSimElementsAs(FXObject*, FXSelector, void*);
@@ -276,29 +276,29 @@ public:
     /// @brief called when the command/FXCall reload data elements is updated
     long onUpdReloadDataElements(FXObject*, FXSelector, void*);
 
-    /// @brief called when the command/FXCall save demand elements as is executed
-    long onCmdSaveDemandElementsAs(FXObject*, FXSelector, void*);
+    /// @brief called when the command/FXCall save demand elements unified is executed
+    long onCmdSaveDemandElementsUnified(FXObject*, FXSelector, void*);
 
     /// @brief called when the command/FXCall save data elements is executed
     long onCmdSaveDataElements(FXObject*, FXSelector, void*);
 
-    /// @brief called when the command/FXCall save data elements as is executed
-    long onCmdSaveDataElementsAs(FXObject*, FXSelector, void*);
+    /// @brief called when the command/FXCall save data elements unified is executed
+    long onCmdSaveDataElementsUnified(FXObject*, FXSelector, void*);
 
     /// @brief called when the command/FXCall open meanDatas is executed
-    long onCmdOpenMeanDatas(FXObject*, FXSelector, void*);
+    long onCmdOpenMeanDataElements(FXObject*, FXSelector, void*);
 
     /// @brief called when the command/FXCall reload meanDatas is executed
-    long onCmdReloadMeanDatas(FXObject*, FXSelector, void*);
+    long onCmdReloadMeanDataElements(FXObject*, FXSelector, void*);
 
     /// @brief called when the command/FXCall reload meanDatas is updated
-    long onUpdReloadMeanDatas(FXObject*, FXSelector, void*);
+    long onUpdReloadMeanDataElements(FXObject*, FXSelector, void*);
 
     /// @brief called when the command/FXCall save meanDatas is executed
-    long onCmdSaveMeanDatas(FXObject*, FXSelector, void*);
+    long onCmdSaveMeanDataElements(FXObject*, FXSelector, void*);
 
-    /// @brief called when the command/FXCall save meanDatas as is executed
-    long onCmdSaveMeanDatasAs(FXObject*, FXSelector, void*);
+    /// @brief called when the command/FXCall save meanDatas unified is executed
+    long onCmdSaveMeanDataElementsUnified(FXObject*, FXSelector, void*);
 
     /// @brief called when the update/FXCall needs network is executed
     long onUpdNeedsNetwork(FXObject*, FXSelector, void*);
@@ -313,10 +313,10 @@ public:
     long onUpdSaveNetwork(FXObject*, FXSelector, void*);
 
     /// @brief called when the update/FXCall save additionals is executed
-    long onUpdSaveAdditionals(FXObject*, FXSelector, void*);
+    long onUpdSaveAdditionalElements(FXObject*, FXSelector, void*);
 
-    /// @brief called when the update/FXCall save additionals as is executed
-    long onUpdSaveAdditionalsAs(FXObject*, FXSelector, void*);
+    /// @brief called when the update/FXCall save additionals unified is executed
+    long onUpdSaveAdditionalElementsUnified(FXObject*, FXSelector, void*);
 
     /// @brief called when the update/FXCall save juPedSim as is executed
     long onUpdSaveJuPedSimElementsAs(FXObject*, FXSelector, void*);
@@ -324,20 +324,20 @@ public:
     /// @brief called when the update/FXCall save demand elements is executed
     long onUpdSaveDemandElements(FXObject*, FXSelector, void*);
 
-    /// @brief called when the update/FXCall save demand elements as is executed
-    long onUpdSaveDemandElementsAs(FXObject*, FXSelector, void*);
+    /// @brief called when the update/FXCall save demand elements unified is executed
+    long onUpdSaveDemandElementsUnified(FXObject*, FXSelector, void*);
 
     /// @brief called when the update/FXCall save data elements is executed
     long onUpdSaveDataElements(FXObject*, FXSelector, void*);
 
-    /// @brief called when the update/FXCall save data elements as is executed
-    long onUpdSaveDataElementsAs(FXObject*, FXSelector, void*);
+    /// @brief called when the update/FXCall save data elements unified is executed
+    long onUpdSaveDataElementsUnified(FXObject*, FXSelector, void*);
 
     /// @brief called when the update/FXCall save meanDatas is executed
-    long onUpdSaveMeanDatas(FXObject*, FXSelector, void*);
+    long onUpdSaveMeanDataElements(FXObject*, FXSelector, void*);
 
-    /// @brief called when the update/FXCall save meanDatas as is executed
-    long onUpdSaveMeanDatasAs(FXObject*, FXSelector, void*);
+    /// @brief called when the update/FXCall save meanDatas unified is executed
+    long onUpdSaveMeanDataElementsUnified(FXObject*, FXSelector, void*);
 
     /// @brief called when the update/FXCall undo is executed
     long onUpdUndo(FXObject* obj, FXSelector sel, void* ptr);

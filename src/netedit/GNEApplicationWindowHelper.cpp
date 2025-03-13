@@ -446,17 +446,17 @@ void
 GNEApplicationWindowHelper::FileMenuCommands::buildAdditionalSection(FXMenuPane* menuPane) {
     GUIDesigns::buildFXMenuCommandShortcut(menuPane,
                                            TL("Load Additionals..."), "Ctrl+A", TL("Load additionals and shapes."),
-                                           GUIIconSubSys::getIcon(GUIIcon::OPEN_ADDITIONALS), myGNEApp, MID_HOTKEY_CTRL_A_STARTSIMULATION_OPENADDITIONALS);
+                                           GUIIconSubSys::getIcon(GUIIcon::OPEN_ADDITIONALS), myGNEApp, MID_HOTKEY_CTRL_A_STARTSIMULATION_OPENADDITIONALELEMENTS);
 
     new FXMenuSeparator(menuPane);
 
     GUIDesigns::buildFXMenuCommandShortcut(menuPane,
                                            TL("Save Additionals"), "Ctrl+Shift+A", TL("Save additionals and shapes."),
-                                           GUIIconSubSys::getIcon(GUIIcon::SAVE_ADDITIONALELEMENTS), myGNEApp, MID_HOTKEY_CTRL_SHIFT_A_SAVEADDITIONALS);
+                                           GUIIconSubSys::getIcon(GUIIcon::SAVE_ADDITIONALELEMENTS), myGNEApp, MID_HOTKEY_CTRL_SHIFT_A_SAVEADDITIONALELEMENTS);
 
     GUIDesigns::buildFXMenuCommandShortcut(menuPane,
-                                           TL("Save Additionals As..."), "", TL("Save additional elements to another file."),
-                                           GUIIconSubSys::getIcon(GUIIcon::SAVE_ADDITIONALELEMENTS), myGNEApp, MID_GNE_TOOLBARFILE_SAVEADDITIONALS_AS);
+                                           TL("Save Additionals unified"), "", TL("Save additional elements unified in the same file."),
+                                           GUIIconSubSys::getIcon(GUIIcon::SAVE_ADDITIONALELEMENTS), myGNEApp, MID_GNE_TOOLBARFILE_SAVEADDITIONALELEMENTS_UNIFIED);
 
     GUIDesigns::buildFXMenuCommandShortcut(menuPane,
                                            TL("Save JuPedSim Elements As..."), "", TL("Save JuPedSim elements in a separated file."),
@@ -466,7 +466,7 @@ GNEApplicationWindowHelper::FileMenuCommands::buildAdditionalSection(FXMenuPane*
 
     GUIDesigns::buildFXMenuCommandShortcut(menuPane,
                                            TL("Reload Additionals"), "", TL("Reload additionals."),
-                                           GUIIconSubSys::getIcon(GUIIcon::RELOAD), myGNEApp, MID_GNE_TOOLBARFILE_RELOAD_ADDITIONALS);
+                                           GUIIconSubSys::getIcon(GUIIcon::RELOAD), myGNEApp, MID_GNE_TOOLBARFILE_RELOAD_ADDITIONALELEMENTS);
 }
 
 
@@ -483,8 +483,8 @@ GNEApplicationWindowHelper::FileMenuCommands::buildDemandSection(FXMenuPane* men
                                            GUIIconSubSys::getIcon(GUIIcon::SAVE_DEMANDELEMENTS), myGNEApp, MID_HOTKEY_CTRL_SHIFT_D_SAVEDEMANDELEMENTS);
 
     GUIDesigns::buildFXMenuCommandShortcut(menuPane,
-                                           TL("Save Demand Elements As..."), "", TL("Save demand elements to another file."),
-                                           GUIIconSubSys::getIcon(GUIIcon::SAVE_DEMANDELEMENTS), myGNEApp, MID_GNE_TOOLBARFILE_SAVEDEMAND_AS);
+                                           TL("Save Demand Elements unified"), "", TL("Save demand elements to another file."),
+                                           GUIIconSubSys::getIcon(GUIIcon::SAVE_DEMANDELEMENTS), myGNEApp, MID_GNE_TOOLBARFILE_SAVEDEMANDELEMENTS_UNIFIED);
 
     new FXMenuSeparator(menuPane);
 
@@ -507,8 +507,8 @@ GNEApplicationWindowHelper::FileMenuCommands::buildDataSection(FXMenuPane* menuP
                                            GUIIconSubSys::getIcon(GUIIcon::SAVE_DATAELEMENTS), myGNEApp, MID_HOTKEY_CTRL_SHIFT_B_SAVEDATAELEMENTS);
 
     GUIDesigns::buildFXMenuCommandShortcut(menuPane,
-                                           TL("Save Data Elements As..."), "", TL("Save data elements to another file."),
-                                           GUIIconSubSys::getIcon(GUIIcon::SAVE_DATAELEMENTS), myGNEApp, MID_GNE_TOOLBARFILE_SAVEDATA_AS);
+                                           TL("Save Data Elements unified"), "", TL("Save data elements to another file."),
+                                           GUIIconSubSys::getIcon(GUIIcon::SAVE_DATAELEMENTS), myGNEApp, MID_GNE_TOOLBARFILE_SAVEDATAELEMENTS_UNIFIED);
 
     new FXMenuSeparator(menuPane);
 
@@ -522,23 +522,23 @@ void
 GNEApplicationWindowHelper::FileMenuCommands::buildMeanDataSection(FXMenuPane* menuPane) {
     GUIDesigns::buildFXMenuCommandShortcut(menuPane,
                                            TL("Load MeanDatas..."), "", TL("Load meanDatas and shapes."),
-                                           GUIIconSubSys::getIcon(GUIIcon::OPEN_MEANDATAS), myGNEApp, MID_GNE_TOOLBARFILE_OPENMEANDATAS);
+                                           GUIIconSubSys::getIcon(GUIIcon::OPEN_MEANDATAS), myGNEApp, MID_GNE_TOOLBARFILE_OPENMEANDATAELEMENTS);
 
     new FXMenuSeparator(menuPane);
 
     GUIDesigns::buildFXMenuCommandShortcut(menuPane,
                                            TL("Save MeanDatas"), "", TL("Save meanDatas and shapes."),
-                                           GUIIconSubSys::getIcon(GUIIcon::SAVE_MEANDATAELEMENTS), myGNEApp, MID_HOTKEY_CTRL_SHIFT_M_SAVEMEANDATAS);
+                                           GUIIconSubSys::getIcon(GUIIcon::SAVE_MEANDATAELEMENTS), myGNEApp, MID_HOTKEY_CTRL_SHIFT_M_SAVEMEANDATAELEMENTS);
 
     GUIDesigns::buildFXMenuCommandShortcut(menuPane,
-                                           TL("Save MeanDatas As..."), "Ctrl+Shift+M", TL("Save meanData elements to another file."),
-                                           GUIIconSubSys::getIcon(GUIIcon::SAVE_MEANDATAELEMENTS), myGNEApp, MID_GNE_TOOLBARFILE_SAVEMEANDATAS_AS);
+                                           TL("Save MeanDatas unified"), "Ctrl+Shift+M", TL("Save meanData elements to another file."),
+                                           GUIIconSubSys::getIcon(GUIIcon::SAVE_MEANDATAELEMENTS), myGNEApp, MID_GNE_TOOLBARFILE_SAVEMEANDATAELEMENTS_UNIFIED);
 
     new FXMenuSeparator(menuPane);
 
     GUIDesigns::buildFXMenuCommandShortcut(menuPane,
                                            TL("Reload MeanDatas"), "", TL("Reload meanDatas."),
-                                           GUIIconSubSys::getIcon(GUIIcon::RELOAD), myGNEApp, MID_GNE_TOOLBARFILE_RELOAD_MEANDATAS);
+                                           GUIIconSubSys::getIcon(GUIIcon::RELOAD), myGNEApp, MID_GNE_TOOLBARFILE_RELOAD_MEANDATAELEMENTS);
 }
 
 // ---------------------------------------------------------------------------

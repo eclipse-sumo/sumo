@@ -31,6 +31,8 @@
 #include <netedit/dialogs/options/GNEOptionsDialog.h>
 #include <netedit/elements/GNEGeneralHandler.h>
 #include <netedit/elements/data/GNEDataHandler.h>
+#include <netedit/elements/data/GNEDataSet.h>
+#include <netedit/elements/data/GNEMeanData.h>
 #include <netedit/elements/network/GNECrossing.h>
 #include <netedit/elements/network/GNEEdgeType.h>
 #include <netedit/elements/network/GNELaneType.h>
@@ -148,16 +150,16 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_SAVEEDGETYPES_AS,           GNEApplicationWindow::onCmdSaveEdgeTypesAs),
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_SAVEEDGETYPES_AS,           GNEApplicationWindow::onUpdSaveEdgeTypesAs),
     // additionals
-    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_A_STARTSIMULATION_OPENADDITIONALS,  GNEApplicationWindow::onCmdOpenAdditionals),
-    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_A_STARTSIMULATION_OPENADDITIONALS,  GNEApplicationWindow::onUpdNeedsNetwork),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_RELOAD_ADDITIONALS,             GNEApplicationWindow::onCmdReloadAdditionals),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_RELOAD_ADDITIONALS,             GNEApplicationWindow::onUpdReloadAdditionals),
-    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_SHIFT_A_SAVEADDITIONALS,            GNEApplicationWindow::onCmdSaveAdditionals),
-    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_SHIFT_A_SAVEADDITIONALS,            GNEApplicationWindow::onUpdSaveAdditionals),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_SAVEADDITIONALS_AS,             GNEApplicationWindow::onCmdSaveAdditionalsAs),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_SAVEADDITIONALS_AS,             GNEApplicationWindow::onUpdSaveAdditionalsAs),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_SAVEJUPEDSIMELEMENTS_AS,        GNEApplicationWindow::onCmdSaveJuPedSimElementsAs),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_SAVEJUPEDSIMELEMENTS_AS,        GNEApplicationWindow::onUpdSaveJuPedSimElementsAs),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_A_STARTSIMULATION_OPENADDITIONALELEMENTS,   GNEApplicationWindow::onCmdOpenAdditionalElements),
+    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_A_STARTSIMULATION_OPENADDITIONALELEMENTS,   GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_RELOAD_ADDITIONALELEMENTS,              GNEApplicationWindow::onCmdReloadAdditionalElements),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_RELOAD_ADDITIONALELEMENTS,              GNEApplicationWindow::onUpdReloadAdditionalElements),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_SHIFT_A_SAVEADDITIONALELEMENTS,             GNEApplicationWindow::onCmdSaveAdditionalElements),
+    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_SHIFT_A_SAVEADDITIONALELEMENTS,             GNEApplicationWindow::onUpdSaveAdditionalElements),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_SAVEADDITIONALELEMENTS_UNIFIED,         GNEApplicationWindow::onCmdSaveAdditionalElementsUnified),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_SAVEADDITIONALELEMENTS_UNIFIED,         GNEApplicationWindow::onUpdSaveAdditionalElementsUnified),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_SAVEJUPEDSIMELEMENTS_AS,                GNEApplicationWindow::onCmdSaveJuPedSimElementsAs),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_SAVEJUPEDSIMELEMENTS_AS,                GNEApplicationWindow::onUpdSaveJuPedSimElementsAs),
     // demand elements
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_D_SINGLESIMULATIONSTEP_OPENDEMANDELEMENTS,  GNEApplicationWindow::onCmdOpenDemandElements),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_D_SINGLESIMULATIONSTEP_OPENDEMANDELEMENTS,  GNEApplicationWindow::onUpdNeedsNetwork),
@@ -165,8 +167,8 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_RELOAD_DEMANDELEMENTS,                  GNEApplicationWindow::onUpdReloadDemandElements),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_SHIFT_D_SAVEDEMANDELEMENTS,                 GNEApplicationWindow::onCmdSaveDemandElements),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_SHIFT_D_SAVEDEMANDELEMENTS,                 GNEApplicationWindow::onUpdSaveDemandElements),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_SAVEDEMAND_AS,                          GNEApplicationWindow::onCmdSaveDemandElementsAs),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_SAVEDEMAND_AS,                          GNEApplicationWindow::onUpdSaveDemandElementsAs),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_SAVEDEMANDELEMENTS_UNIFIED,             GNEApplicationWindow::onCmdSaveDemandElementsUnified),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_SAVEDEMANDELEMENTS_UNIFIED,             GNEApplicationWindow::onUpdSaveDemandElementsUnified),
     // data elements
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_B_EDITBREAKPOINT_OPENDATAELEMENTS,  GNEApplicationWindow::onCmdOpenDataElements),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_B_EDITBREAKPOINT_OPENDATAELEMENTS,  GNEApplicationWindow::onUpdNeedsNetwork),
@@ -174,17 +176,17 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_RELOAD_DATAELEMENTS,            GNEApplicationWindow::onUpdReloadDataElements),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_SHIFT_B_SAVEDATAELEMENTS,           GNEApplicationWindow::onCmdSaveDataElements),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_SHIFT_B_SAVEDATAELEMENTS,           GNEApplicationWindow::onUpdSaveDataElements),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_SAVEDATA_AS,                    GNEApplicationWindow::onCmdSaveDataElementsAs),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_SAVEDATA_AS,                    GNEApplicationWindow::onUpdSaveDataElementsAs),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_SAVEDATAELEMENTS_UNIFIED,       GNEApplicationWindow::onCmdSaveDataElementsUnified),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_SAVEDATAELEMENTS_UNIFIED,       GNEApplicationWindow::onUpdSaveDataElementsUnified),
     // meanDatas
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_OPENMEANDATAS,      GNEApplicationWindow::onCmdOpenMeanDatas),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_OPENMEANDATAS,      GNEApplicationWindow::onUpdNeedsNetwork),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_RELOAD_MEANDATAS,   GNEApplicationWindow::onCmdReloadMeanDatas),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_RELOAD_MEANDATAS,   GNEApplicationWindow::onUpdReloadMeanDatas),
-    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_SHIFT_M_SAVEMEANDATAS,  GNEApplicationWindow::onCmdSaveMeanDatas),
-    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_SHIFT_M_SAVEMEANDATAS,  GNEApplicationWindow::onUpdSaveMeanDatas),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_SAVEMEANDATAS_AS,   GNEApplicationWindow::onCmdSaveMeanDatasAs),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_SAVEMEANDATAS_AS,   GNEApplicationWindow::onUpdSaveMeanDatasAs),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_OPENMEANDATAELEMENTS,           GNEApplicationWindow::onCmdOpenMeanDataElements),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_OPENMEANDATAELEMENTS,           GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_RELOAD_MEANDATAELEMENTS,        GNEApplicationWindow::onCmdReloadMeanDataElements),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_RELOAD_MEANDATAELEMENTS,        GNEApplicationWindow::onUpdReloadMeanDataElements),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_SHIFT_M_SAVEMEANDATAELEMENTS,       GNEApplicationWindow::onCmdSaveMeanDataElements),
+    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_SHIFT_M_SAVEMEANDATAELEMENTS,       GNEApplicationWindow::onUpdSaveMeanDataElements),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_SAVEMEANDATAELEMENTS_UNIFIED,   GNEApplicationWindow::onCmdSaveMeanDataElementsUnified),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_SAVEMEANDATAELEMENTS_UNIFIED,   GNEApplicationWindow::onUpdSaveMeanDataElementsUnified),
     // other
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_SAVETLSPROGRAMS_AS, GNEApplicationWindow::onCmdSaveTLSProgramsAs),
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_SAVETLSPROGRAMS_AS, GNEApplicationWindow::onUpdSaveTLSPrograms),
@@ -195,22 +197,22 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_F3_SUPERMODE_DEMAND,     GNEApplicationWindow::onCmdSetSuperMode),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_F4_SUPERMODE_DATA,       GNEApplicationWindow::onCmdSetSuperMode),
     // Toolbar modes
-    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_A_MODE_STARTSIMULATION_ADDITIONALS_STOPS,   GNEApplicationWindow::onCmdSetMode),
-    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_C_MODE_CONNECT_CONTAINER,                GNEApplicationWindow::onCmdSetMode),
-    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_D_MODE_SINGLESIMULATIONSTEP_DELETE,      GNEApplicationWindow::onCmdSetMode),
-    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_E_MODE_EDGE_EDGEDATA,                    GNEApplicationWindow::onCmdSetMode),
-    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_H_MODE_PROHIBITION_CONTAINERPLAN,        GNEApplicationWindow::onCmdSetMode),
-    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_I_MODE_INSPECT,                          GNEApplicationWindow::onCmdSetMode),
-    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_L_MODE_PERSONPLAN,                       GNEApplicationWindow::onCmdSetMode),
-    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_M_MODE_MOVE_MEANDATA,                    GNEApplicationWindow::onCmdSetMode),
-    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_P_MODE_POLYGON_PERSON,                   GNEApplicationWindow::onCmdSetMode),
-    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_R_MODE_CROSSING_ROUTE_EDGERELDATA,       GNEApplicationWindow::onCmdSetMode),
-    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_S_MODE_STOPSIMULATION_SELECT,            GNEApplicationWindow::onCmdSetMode),
-    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_T_MODE_TLS_TYPE,                         GNEApplicationWindow::onCmdSetMode),
-    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_U_MODE_DECAL_TYPEDISTRIBUTION,           GNEApplicationWindow::onCmdSetMode),
-    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_V_MODE_VEHICLE,                          GNEApplicationWindow::onCmdSetMode),
-    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_W_MODE_WIRE_ROUTEDISTRIBUTION,           GNEApplicationWindow::onCmdSetMode),
-    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_Z_MODE_TAZ_TAZREL,                       GNEApplicationWindow::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_A_MODE_STARTSIMULATION_ADDITIONALS_STOPS,    GNEApplicationWindow::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_C_MODE_CONNECT_CONTAINER,                    GNEApplicationWindow::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_D_MODE_SINGLESIMULATIONSTEP_DELETE,          GNEApplicationWindow::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_E_MODE_EDGE_EDGEDATA,                        GNEApplicationWindow::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_H_MODE_PROHIBITION_CONTAINERPLAN,            GNEApplicationWindow::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_I_MODE_INSPECT,                              GNEApplicationWindow::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_L_MODE_PERSONPLAN,                           GNEApplicationWindow::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_M_MODE_MOVE_MEANDATA,                        GNEApplicationWindow::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_P_MODE_POLYGON_PERSON,                       GNEApplicationWindow::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_R_MODE_CROSSING_ROUTE_EDGERELDATA,           GNEApplicationWindow::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_S_MODE_STOPSIMULATION_SELECT,                GNEApplicationWindow::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_T_MODE_TLS_TYPE,                             GNEApplicationWindow::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_U_MODE_DECAL_TYPEDISTRIBUTION,               GNEApplicationWindow::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_V_MODE_VEHICLE,                              GNEApplicationWindow::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_W_MODE_WIRE_ROUTEDISTRIBUTION,               GNEApplicationWindow::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_Z_MODE_TAZ_TAZREL,                           GNEApplicationWindow::onCmdSetMode),
     // Toolbar edit
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_Z_UNDO,                     GNEApplicationWindow::onCmdUndo),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_Z_UNDO,                     GNEApplicationWindow::onUpdUndo),
@@ -1807,10 +1809,10 @@ GNEApplicationWindow::computeJunctionWithVolatileOptions() {
         return 0;
     } else {
         // save all elements
-        onCmdSaveAdditionals(nullptr, 0, nullptr);
+        onCmdSaveAdditionalElements(nullptr, 0, nullptr);
         onCmdSaveDemandElements(nullptr, 0, nullptr);
         onCmdSaveDataElements(nullptr, 0, nullptr);
-        onCmdSaveMeanDatas(nullptr, 0, nullptr);
+        onCmdSaveMeanDataElements(nullptr, 0, nullptr);
         // compute with volatile options
         myNet->computeNetwork(this, true, true);
         updateControls();
@@ -2632,7 +2634,7 @@ GNEApplicationWindow::onUpdSaveNetwork(FXObject* sender, FXSelector, void*) {
 
 
 long
-GNEApplicationWindow::onUpdSaveAdditionals(FXObject* sender, FXSelector, void*) {
+GNEApplicationWindow::onUpdSaveAdditionalElements(FXObject* sender, FXSelector, void*) {
     if (myNet == nullptr) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else if (myNet->getViewNet()->getViewParent()->getTAZFrame()->getTAZSaveChangesModule()->isChangesPending()) {
@@ -2644,7 +2646,7 @@ GNEApplicationWindow::onUpdSaveAdditionals(FXObject* sender, FXSelector, void*) 
 
 
 long
-GNEApplicationWindow::onUpdSaveAdditionalsAs(FXObject* sender, FXSelector, void*) {
+GNEApplicationWindow::onUpdSaveAdditionalElementsUnified(FXObject* sender, FXSelector, void*) {
     if (myNet == nullptr) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else if (myNet->getAttributeCarriers()->getNumberOfAdditionals() == 0) {
@@ -2683,7 +2685,7 @@ GNEApplicationWindow::onUpdSaveDemandElements(FXObject* sender, FXSelector, void
 
 
 long
-GNEApplicationWindow::onUpdSaveDemandElementsAs(FXObject* sender, FXSelector, void*) {
+GNEApplicationWindow::onUpdSaveDemandElementsUnified(FXObject* sender, FXSelector, void*) {
     if (myNet == nullptr) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else if (myNet->getAttributeCarriers()->getNumberOfDemandElements() == 0) {
@@ -2708,7 +2710,7 @@ GNEApplicationWindow::onUpdSaveDataElements(FXObject* sender, FXSelector, void*)
 
 
 long
-GNEApplicationWindow::onUpdSaveDataElementsAs(FXObject* sender, FXSelector, void*) {
+GNEApplicationWindow::onUpdSaveDataElementsUnified(FXObject* sender, FXSelector, void*) {
     if (myNet == nullptr) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else if (myNet->getAttributeCarriers()->getDataSets().size() == 0) {
@@ -2721,7 +2723,7 @@ GNEApplicationWindow::onUpdSaveDataElementsAs(FXObject* sender, FXSelector, void
 
 
 long
-GNEApplicationWindow::onUpdSaveMeanDatas(FXObject* sender, FXSelector, void*) {
+GNEApplicationWindow::onUpdSaveMeanDataElements(FXObject* sender, FXSelector, void*) {
     if (myNet == nullptr) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else if (myNet->getSavingStatus()->isMeanDatasSaved()) {
@@ -2733,7 +2735,7 @@ GNEApplicationWindow::onUpdSaveMeanDatas(FXObject* sender, FXSelector, void*) {
 
 
 long
-GNEApplicationWindow::onUpdSaveMeanDatasAs(FXObject* sender, FXSelector, void*) {
+GNEApplicationWindow::onUpdSaveMeanDataElementsUnified(FXObject* sender, FXSelector, void*) {
     if (myNet == nullptr) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else if (myNet->getAttributeCarriers()->getNumberOfMeanDatas() == 0) {
@@ -3322,7 +3324,7 @@ GNEApplicationWindow::onCmdSaveNeteditConfig(FXObject*, FXSelector, void*) {
             WRITE_MESSAGE(TL("Saving of Netedit configuration aborted"));
             return 0;
         }
-        if (onCmdSaveAdditionals(nullptr, MID_GNE_AUTOMATICFILENAME, &patterFile) != 1) {
+        if (onCmdSaveAdditionalElements(nullptr, MID_GNE_AUTOMATICFILENAME, &patterFile) != 1) {
             WRITE_MESSAGE(TL("Saving of Netedit configuration aborted"));
             return 0;
         }
@@ -3334,7 +3336,7 @@ GNEApplicationWindow::onCmdSaveNeteditConfig(FXObject*, FXSelector, void*) {
             WRITE_MESSAGE(TL("Saving of Netedit configuration aborted"));
             return 0;
         }
-        if (onCmdSaveMeanDatas(nullptr, MID_GNE_AUTOMATICFILENAME, &patterFile) != 1) {
+        if (onCmdSaveMeanDataElements(nullptr, MID_GNE_AUTOMATICFILENAME, &patterFile) != 1) {
             WRITE_MESSAGE(TL("Saving of Netedit configuration aborted"));
             return 0;
         }
@@ -3426,7 +3428,7 @@ GNEApplicationWindow::onCmdSaveSumoConfig(FXObject* sender, FXSelector sel, void
             WRITE_MESSAGE(TL("Saving of SUMO configuration aborted"));
             return 0;
         }
-        if (onCmdSaveAdditionals(nullptr, MID_GNE_AUTOMATICFILENAME, &patterFile) != 1) {
+        if (onCmdSaveAdditionalElements(nullptr, MID_GNE_AUTOMATICFILENAME, &patterFile) != 1) {
             WRITE_MESSAGE(TL("Saving of SUMO configuration aborted"));
             return 0;
         }
@@ -3438,7 +3440,7 @@ GNEApplicationWindow::onCmdSaveSumoConfig(FXObject* sender, FXSelector sel, void
             WRITE_MESSAGE(TL("Saving of SUMO configuration aborted"));
             return 0;
         }
-        if (onCmdSaveMeanDatas(nullptr, MID_GNE_AUTOMATICFILENAME, &patterFile) != 1) {
+        if (onCmdSaveMeanDataElements(nullptr, MID_GNE_AUTOMATICFILENAME, &patterFile) != 1) {
             WRITE_MESSAGE(TL("Saving of SUMO configuration aborted"));
             return 0;
         }
@@ -3639,7 +3641,7 @@ GNEApplicationWindow::onUpdSaveEdgeTypesAs(FXObject* sender, FXSelector, void*) 
 
 
 long
-GNEApplicationWindow::onCmdOpenAdditionals(FXObject*, FXSelector, void*) {
+GNEApplicationWindow::onCmdOpenAdditionalElements(FXObject*, FXSelector, void*) {
     // get file
     const auto additionalFile = GNEApplicationWindowHelper::openAdditionalFileDialog(this, false);
     // check file
@@ -3694,7 +3696,7 @@ GNEApplicationWindow::onCmdOpenAdditionals(FXObject*, FXSelector, void*) {
 
 
 long
-GNEApplicationWindow::onCmdReloadAdditionals(FXObject*, FXSelector, void*) {
+GNEApplicationWindow::onCmdReloadAdditionalElements(FXObject*, FXSelector, void*) {
     // disable validation for additionals
     XMLSubSys::setValidation("never", "auto", "auto");
     // begin undoList operation
@@ -3725,7 +3727,7 @@ GNEApplicationWindow::onCmdReloadAdditionals(FXObject*, FXSelector, void*) {
 
 
 long
-GNEApplicationWindow::onUpdReloadAdditionals(FXObject* sender, FXSelector, void*) {
+GNEApplicationWindow::onUpdReloadAdditionalElements(FXObject* sender, FXSelector, void*) {
     if (myViewNet == nullptr) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else if (myViewNet->getNet()->getSavingFilesHandler()->getAdditionalFilenames().empty()) {
@@ -3737,7 +3739,7 @@ GNEApplicationWindow::onUpdReloadAdditionals(FXObject* sender, FXSelector, void*
 
 
 long
-GNEApplicationWindow::onCmdSaveAdditionals(FXObject* sender, FXSelector sel, void* ptr) {
+GNEApplicationWindow::onCmdSaveAdditionalElements(FXObject* sender, FXSelector sel, void* ptr) {
     const auto savingFileHandler = myViewNet->getNet()->getSavingFilesHandler();
     // get option container
     auto& neteditOptions = OptionsCont::getOptions();
@@ -3752,7 +3754,7 @@ GNEApplicationWindow::onCmdSaveAdditionals(FXObject* sender, FXSelector sel, voi
     // check if we have to open save as dialog
     if (savingFileHandler->getAdditionalFilenames().empty()) {
         // choose file to save
-        return onCmdSaveAdditionalsAs(sender, sel, ptr);
+        return onCmdSaveAdditionalElementsUnified(sender, sel, ptr);
     } else {
         // always recompute before saving
         myNet->computeNetwork(this);
@@ -3779,7 +3781,7 @@ GNEApplicationWindow::onCmdSaveAdditionals(FXObject* sender, FXSelector sel, voi
 
 
 long
-GNEApplicationWindow::onCmdSaveAdditionalsAs(FXObject* sender, FXSelector sel, void* ptr) {
+GNEApplicationWindow::onCmdSaveAdditionalElementsUnified(FXObject* sender, FXSelector sel, void* ptr) {
     // get option container
     auto& neteditOptions = OptionsCont::getOptions();
     // declare current folder
@@ -3794,11 +3796,18 @@ GNEApplicationWindow::onCmdSaveAdditionalsAs(FXObject* sender, FXSelector sel, v
     const auto additionalFile = GNEApplicationWindowHelper::openAdditionalFileDialog(this, true);
     // check that file is valid
     if (!additionalFile.empty()) {
-        myViewNet->getNet()->getSavingFilesHandler()->updateAdditionalEmptyFilenames(additionalFile);
-        // enable save additionals
-        myNet->getSavingStatus()->requireSaveAdditionals();
+        // begin undoList operation
+        myUndoList->begin(Supermode::NETWORK, GUIIcon::SUPERMODENETWORK, TLF("saving of unified additional elements in '%'", additionalFile));
+        // iterate over all demand elementes and change file
+        for (const auto& additionalElementTag : myNet->getAttributeCarriers()->getAdditionals()) {
+            for (const auto& additionalElement : additionalElementTag.second) {
+                additionalElement.second->setAttribute(GNE_ATTR_ADDITIONAL_FILE, additionalFile, myUndoList);
+            }
+        }
+        // end undoList operation
+        myUndoList->end();
         // save additionals
-        return onCmdSaveAdditionals(sender, sel, ptr);
+        return onCmdSaveAdditionalElements(sender, sel, ptr);
     } else {
         return 0;
     }
@@ -3959,7 +3968,7 @@ GNEApplicationWindow::onCmdSaveDemandElements(FXObject* sender, FXSelector sel, 
     // check if we have to open save as dialog
     if (savingFileHandler->getDemandFilenames().empty()) {
         // choose file to save
-        return onCmdSaveDemandElementsAs(sender, sel, ptr);
+        return onCmdSaveAdditionalElementsUnified(sender, sel, ptr);
     } else {
         // always recompute before saving
         myNet->computeNetwork(this);
@@ -3984,7 +3993,7 @@ GNEApplicationWindow::onCmdSaveDemandElements(FXObject* sender, FXSelector sel, 
 
 
 long
-GNEApplicationWindow::onCmdSaveDemandElementsAs(FXObject* sender, FXSelector sel, void* ptr) {
+GNEApplicationWindow::onCmdSaveDemandElementsUnified(FXObject* sender, FXSelector sel, void* ptr) {
     // get option container
     auto& neteditOptions = OptionsCont::getOptions();
     // declare current folder
@@ -3999,12 +4008,16 @@ GNEApplicationWindow::onCmdSaveDemandElementsAs(FXObject* sender, FXSelector sel
     const auto routeFile = GNEApplicationWindowHelper::openRouteFileDialog(this, true);
     // check that file is correct
     if (!routeFile.empty()) {
-        // update demand empty filenames
-        myNet->getSavingFilesHandler()->updateDemandEmptyFilenames(routeFile);
-        // requiere save demand elements
-        myNet->getSavingStatus()->requireSaveDemandElements();
-        // set focus again in viewNet
-        myViewNet->setFocus();
+        // begin undoList operation
+        myUndoList->begin(Supermode::DEMAND, GUIIcon::SUPERMODEDEMAND, TLF("saving of unified demand elements in '%'", routeFile));
+        // iterate over all demand elementes and change file
+        for (const auto& demandElementTag : myNet->getAttributeCarriers()->getDemandElements()) {
+            for (const auto& demandElement : demandElementTag.second) {
+                demandElement.second->setAttribute(GNE_ATTR_DEMAND_FILE, routeFile, myUndoList);
+            }
+        }
+        // end undoList operation
+        myUndoList->end();
         // save demand elements
         return onCmdSaveDemandElements(sender, sel, ptr);
     } else {
@@ -4134,7 +4147,7 @@ GNEApplicationWindow::onCmdSaveDataElements(FXObject* sender, FXSelector sel, vo
     }
     // check if we have to open save as dialog
     if (savingFileHandler->getDataFilenames().empty()) {
-        return onCmdSaveDataElementsAs(sender, sel, ptr);
+        return onCmdSaveDataElementsUnified(sender, sel, ptr);
     } else {
         try {
             // save data elements
@@ -4157,7 +4170,7 @@ GNEApplicationWindow::onCmdSaveDataElements(FXObject* sender, FXSelector sel, vo
 
 
 long
-GNEApplicationWindow::onCmdSaveDataElementsAs(FXObject* sender, FXSelector sel, void* ptr) {
+GNEApplicationWindow::onCmdSaveDataElementsUnified(FXObject* sender, FXSelector sel, void* ptr) {
     // get option container
     auto& neteditOptions = OptionsCont::getOptions();
     // declare current folder
@@ -4172,12 +4185,14 @@ GNEApplicationWindow::onCmdSaveDataElementsAs(FXObject* sender, FXSelector sel, 
     const auto dataFile = GNEApplicationWindowHelper::openDataFileDialog(this, true);
     // check that file is correct
     if (!dataFile.empty()) {
-        // update demand empty filenames
-        myNet->getSavingFilesHandler()->updateDataEmptyFilenames(dataFile);
-        // mark data elements as unsaved
-        myNet->getSavingStatus()->requireSaveDataElements();
-        // set focus again in viewNet
-        myViewNet->setFocus();
+        // begin undoList operation
+        myUndoList->begin(Supermode::DATA, GUIIcon::SUPERMODEDATA, TLF("saving of unified data elements in '%'", dataFile));
+        // iterate over all demand elementes and change file
+        for (const auto& dataSet : myNet->getAttributeCarriers()->getDataSets()) {
+            dataSet.second->setAttribute(GNE_ATTR_ADDITIONAL_FILE, dataFile, myUndoList);
+        }
+        // end undoList operation
+        myUndoList->end();
         // save data elements
         return onCmdSaveDataElements(sender, sel, ptr);
     } else {
@@ -4187,7 +4202,7 @@ GNEApplicationWindow::onCmdSaveDataElementsAs(FXObject* sender, FXSelector sel, 
 
 
 long
-GNEApplicationWindow::onCmdOpenMeanDatas(FXObject*, FXSelector, void*) {
+GNEApplicationWindow::onCmdOpenMeanDataElements(FXObject*, FXSelector, void*) {
     // get file
     const auto meanDataFile = GNEApplicationWindowHelper::openMeanDataDialog(this, false);
     // check file
@@ -4242,7 +4257,7 @@ GNEApplicationWindow::onCmdOpenMeanDatas(FXObject*, FXSelector, void*) {
 
 
 long
-GNEApplicationWindow::onCmdReloadMeanDatas(FXObject*, FXSelector, void*) {
+GNEApplicationWindow::onCmdReloadMeanDataElements(FXObject*, FXSelector, void*) {
     // disable validation for meanDatas
     XMLSubSys::setValidation("never", "auto", "auto");
     // begin undoList operation
@@ -4272,7 +4287,7 @@ GNEApplicationWindow::onCmdReloadMeanDatas(FXObject*, FXSelector, void*) {
 
 
 long
-GNEApplicationWindow::onUpdReloadMeanDatas(FXObject* sender, FXSelector, void*) {
+GNEApplicationWindow::onUpdReloadMeanDataElements(FXObject* sender, FXSelector, void*) {
     if (myViewNet == nullptr) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else if (myViewNet->getNet()->getSavingFilesHandler()->getMeanDataFilenames().empty()) {
@@ -4284,7 +4299,7 @@ GNEApplicationWindow::onUpdReloadMeanDatas(FXObject* sender, FXSelector, void*) 
 
 
 long
-GNEApplicationWindow::onCmdSaveMeanDatas(FXObject* sender, FXSelector sel, void* ptr) {
+GNEApplicationWindow::onCmdSaveMeanDataElements(FXObject* sender, FXSelector sel, void* ptr) {
     const auto savingFileHandler = myViewNet->getNet()->getSavingFilesHandler();
     // get option container
     auto& neteditOptions = OptionsCont::getOptions();
@@ -4299,7 +4314,7 @@ GNEApplicationWindow::onCmdSaveMeanDatas(FXObject* sender, FXSelector sel, void*
     }
     // check if we have to open save as dialog
     if (savingFileHandler->getMeanDataFilenames().empty()) {
-        return onCmdSaveMeanDatasAs(sender, sel, ptr);
+        return onCmdSaveMeanDataElementsUnified(sender, sel, ptr);
     } else {
         try {
             // compute before saving
@@ -4324,7 +4339,7 @@ GNEApplicationWindow::onCmdSaveMeanDatas(FXObject* sender, FXSelector sel, void*
 
 
 long
-GNEApplicationWindow::onCmdSaveMeanDatasAs(FXObject* sender, FXSelector sel, void* ptr) {
+GNEApplicationWindow::onCmdSaveMeanDataElementsUnified(FXObject* sender, FXSelector sel, void* ptr) {
     // get option container
     auto& neteditOptions = OptionsCont::getOptions();
     // declare current folder
@@ -4339,14 +4354,18 @@ GNEApplicationWindow::onCmdSaveMeanDatasAs(FXObject* sender, FXSelector sel, voi
     const auto meanDataFile = GNEApplicationWindowHelper::openMeanDataDialog(this, true);
     // check that file is valid
     if (!meanDataFile.empty()) {
-        // update demand empty filenames
-        myNet->getSavingFilesHandler()->updateMeanDataEmptyFilenames(meanDataFile);
-        // mark mean datas as unsaved
-        myNet->getSavingStatus()->requireSaveMeanDatas();
-        // set focus again in viewNet
-        myViewNet->setFocus();
+        // begin undoList operation
+        myUndoList->begin(Supermode::DATA, GUIIcon::MODEMEANDATA, TLF("saving of unified mean data elements in '%'", meanDataFile));
+        // iterate over all demand elementes and change file
+        for (const auto& meanDataTag : myNet->getAttributeCarriers()->getMeanDatas()) {
+            for (const auto& meanData : meanDataTag.second) {
+                meanData.second->setAttribute(GNE_ATTR_MEANDATA_FILE, meanDataFile, myUndoList);
+            }
+        }
+        // end undoList operation
+        myUndoList->end();
         // save meanDatas
-        return onCmdSaveMeanDatas(sender, sel, ptr);
+        return onCmdSaveMeanDataElements(sender, sel, ptr);
     } else {
         return 0;
     }
@@ -4375,7 +4394,7 @@ GNEApplicationWindow::askSaveElements() {
             return false;
         }
         if ((saveAdditionalElements == GNENetHelper::SavingStatus::AskSaving::SAVE) &&
-                (onCmdSaveAdditionals(nullptr, 0, nullptr) != 1)) {
+                (onCmdSaveAdditionalElements(nullptr, 0, nullptr) != 1)) {
             return false;
         }
         if ((saveDemandElements == GNENetHelper::SavingStatus::AskSaving::SAVE) &&
@@ -4387,7 +4406,7 @@ GNEApplicationWindow::askSaveElements() {
             return false;
         }
         if ((saveMeanDataElements == GNENetHelper::SavingStatus::AskSaving::SAVE) &&
-                (onCmdSaveMeanDatas(nullptr, 0, nullptr) != 1)) {
+                (onCmdSaveMeanDataElements(nullptr, 0, nullptr) != 1)) {
             return false;
         }
         // restore focus in viewNet
