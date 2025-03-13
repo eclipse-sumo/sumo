@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-03-13 16:26:05.518657 by gtfs2pt.py v1_22_0+0824-b321ff32fce
+<!-- generated on 2025-03-13 16:33:39.190037 by gtfs2pt.py v1_22_0+0825-c41cf226a1f
 <configuration>
     <merged-csv value="data.csv"/>
     <modes value="bus"/>
@@ -11,7 +11,7 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <route id="t1" edges="beg detour end">
+    <route id="t1" edges="beg detour_long end">
         <stop busStop="t1.0" duration="10" until="0"/> <!-- stopname1 -->
         <stop busStop="t1.1" duration="10" until="50"/> <!-- stopname2 -->
     </route>
