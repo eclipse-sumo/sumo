@@ -144,7 +144,7 @@ def mapTrace(trace, net, delta, verbose=False, airDistFactor=2, fillGaps=0, gapP
                             maxGap = min(penalty + edge.getLength() + path[-1].getLength(), fillGaps)
                             extension, cost = net.getOptimalPath(path[-1], edge, maxCost=maxGap,
                                                                  reversalPenalty=reversalPenalty,
-                                                                 fromPos=lastBase, toPos=base)
+                                                                 fromPos=lastBase, toPos=base, vClass=vClass)
                             nPathCalls += 1
                             if extension is None:
                                 airLineDist = euclidean(

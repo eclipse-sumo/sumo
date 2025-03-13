@@ -210,6 +210,7 @@ def mapFCD(options, typedNets):
 def traceMap(options, typedNets, fixedStops, stopLookup, invEdgeMap, radius=150):
     routes = collections.OrderedDict()
     for mode in sorted(typedNets.keys()):
+        vclass = gtfs2osm.OSM2SUMO_MODES.get(mode)
         if options.verbose:
             print("mapping", mode)
         net = sumolib.net.readNet(os.path.join(options.network_split, mode + ".net.xml"))
@@ -245,7 +246,8 @@ def traceMap(options, typedNets, fixedStops, stopLookup, invEdgeMap, radius=150)
                     cacheHits += 1
                 else:
                     mappedRoute = sumolib.route.mapTrace(trace, net, radius, verbose=options.verbose,
-                                                         fillGaps=options.fill_gaps, gapPenalty=5000., vias=vias,
+                                                         fillGaps=options.fill_gaps, gapPenalty=5000.,
+                                                         vClass=vclass, vias=vias,
                                                          reversalPenalty=1000.)
                     traceCache[trace] = mappedRoute
 
@@ -280,6 +282,7 @@ def map_stops(options, net, routes, rout, edgeMap, fixedStops):
     rid = None
     for inp in sorted(glob.glob(os.path.join(options.fcd, "*.fcd.xml"))):
         mode = os.path.basename(inp)[:-8]
+        vclass = gtfs2osm.OSM2SUMO_MODES.get(mode)
         typedNetFile = os.path.join(options.network_split, mode + ".net.xml")
         if not os.path.exists(typedNetFile):
             print("Warning! No net", typedNetFile, file=sys.stderr)
@@ -313,7 +316,7 @@ def map_stops(options, net, routes, rout, edgeMap, fixedStops):
             if rid not in fixed:
                 routeFixed = [routes[rid][0]]
                 for routeEdgeID in routes[rid][1:]:
-                    path, _ = typedNet.getShortestPath(typedNet.getEdge(routeFixed[-1]), typedNet.getEdge(routeEdgeID))
+                    path, _ = typedNet.getShortestPath(typedNet.getEdge(routeFixed[-1]), typedNet.getEdge(routeEdgeID), vClass=vclass)
                     if path is None or len(path) > options.fill_gaps + 2:
                         error = "no path found" if path is None else "path too long (%s)" % len(path)
                         print("Warning! Disconnected route '%s' between '%s' and '%s', %s. Keeping longer part." %
