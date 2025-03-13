@@ -2496,7 +2496,9 @@ GNENet::saveDataElementsConfirmed() {
         device.writeXMLHeader("data", "datamode_file.xsd", EMPTY_HEADER, false);
         // write all data sets
         for (const auto& dataSet : myAttributeCarriers->getDataSets()) {
-            dataSet.second->writeDataSet(device);
+            if (dataByFilename.second.count(dataSet.second) > 0) {
+                dataSet.second->writeDataSet(device);
+            }
         }
         // close device
         device.close();
