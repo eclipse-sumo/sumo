@@ -435,7 +435,8 @@ class StopLookup:
             self._candidates = list(sumolib.xml.parse(fname, ("busStop", "trainStop")))
             for ri, stop in enumerate(self._candidates):
                 lane = net.getLane(stop.lane)
-                middle = (float(stop.startPos) + float(stop.endPos)) / 2
+                middle = (lane.interpretOffset(float(stop.startPos)) +
+                          lane.interpretOffset(float(stop.endPos))) / 2
                 x, y = sumolib.geomhelper.positionAtShapeOffset(lane.getShape(), middle)
                 bbox = (x - 1, y - 1, x + 1, y + 1)
                 self._rtree.add(ri, bbox)
