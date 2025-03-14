@@ -356,6 +356,9 @@ protected:
     /// @brief filename in which save this AC
     std::string myFilename;
 
+    /// @brief boolean to check if center this element after creation
+    bool myCenterAfterCreation = true;
+
     /// @brief whether the current object is a template object (used for edit attributes)
     const bool myIsTemplate = false;
 

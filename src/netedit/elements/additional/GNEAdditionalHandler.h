@@ -703,31 +703,6 @@ protected:
     /// @brief check if element exist, and if overwritte
     bool checkElement(const SumoXMLTag tag, GNEAdditional* additional);
 
-    /// @brief struct for Netedit parameters
-    struct NeteditParameters {
-        /// @brief parameter constructor
-        NeteditParameters(const CommonXMLStructure::SumoBaseObject* sumoBaseObject);
-
-        /// @brief destructor
-        ~NeteditParameters();
-
-        /// @brief select
-        const bool select;
-
-        /// @brief center view after creation
-        const bool centerAfterCreation;
-
-    private:
-        /// @brief default constructor
-        NeteditParameters();
-
-        /// @brief invalidate copy constructor
-        NeteditParameters(const NeteditParameters& s) = delete;
-
-        /// @brief invalidate assignment operator
-        NeteditParameters& operator=(const NeteditParameters& s) = delete;
-    };
-
 private:
     /// @brief pointer to GNENet
     GNENet* myNet;

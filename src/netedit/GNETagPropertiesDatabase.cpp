@@ -6944,6 +6944,13 @@ GNETagPropertiesDatabase::fillPersonStopElements() {
 void
 GNETagPropertiesDatabase::fillCommonAttributes(GNETagProperties* tagProperties) {
     GNEAttributeProperties* commonAttribute = nullptr;
+    // check if element can be reparent
+    if (tagProperties->canCenterCameraAfterCreation()) {
+        commonAttribute = new GNEAttributeProperties(tagProperties, GNE_ATTR_CENTER_AFTER_CREATION,
+                GNEAttributeProperties::BOOL,
+                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::NETEDITEDITOR,
+                TLF("Center view over element % after creation", tagProperties->getTagStr()));
+    }
     // fill file attributes
     if (!tagProperties->isChild() && !tagProperties->isSymbol()) {
         if (tagProperties->isAdditionalElement()) {
@@ -6972,6 +6979,13 @@ GNETagPropertiesDatabase::fillCommonAttributes(GNETagProperties* tagProperties) 
             commonAttribute->setFilenameExtensions(SUMOXMLDefinitions::MeanDataFileExtensions.getMultilineString());
         }
     }
+    /*
+    new GNEAttributeProperties(myTagProperties[currentTag], relativePath,
+            GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
+            GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+            TL("Enable or disable use image file as a relative path"),
+            toString(Shape::DEFAULT_RELATIVEPATH));
+    */
     // if this is a drawable element, add front and select attributes
     if (tagProperties->isDrawable()) {
         commonAttribute = new GNEAttributeProperties(tagProperties, GNE_ATTR_FRONTELEMENT,
@@ -6998,13 +7012,6 @@ GNETagPropertiesDatabase::fillCommonAttributes(GNETagProperties* tagProperties) 
                 GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
                 TL("Generic parameters (Format: key1=value1|key2=value2|..."));
     }
-    /*
-    new GNEAttributeProperties(myTagProperties[currentTag], relativePath,
-            GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
-            GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
-            TL("Enable or disable use image file as a relative path"),
-            toString(Shape::DEFAULT_RELATIVEPATH));
-    */
 }
 
 

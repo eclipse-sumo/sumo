@@ -754,6 +754,8 @@ GNEAttributeCarrier::getCommonAttribute(const Parameterised* parameterised, Sumo
         case GNE_ATTR_DATA_FILE:
         case GNE_ATTR_MEANDATA_FILE:
             return myFilename;
+        case GNE_ATTR_CENTER_AFTER_CREATION:
+            return toString(myCenterAfterCreation);
         case GNE_ATTR_SELECTED:
             if (mySelected) {
                 return True;
@@ -793,6 +795,7 @@ GNEAttributeCarrier::setCommonAttribute(SumoXMLAttr key, const std::string& valu
             break;
         case GNE_ATTR_DATA_FILE:
         case GNE_ATTR_MEANDATA_FILE:
+        case GNE_ATTR_CENTER_AFTER_CREATION:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
             GNEChange_Attribute::changeAttribute(this, key, value, undoList);
@@ -811,6 +814,7 @@ GNEAttributeCarrier::isCommonValid(SumoXMLAttr key, const std::string& value) co
         case GNE_ATTR_DATA_FILE:
         case GNE_ATTR_MEANDATA_FILE:
             return SUMOXMLDefinitions::isValidFilename(value);
+        case GNE_ATTR_CENTER_AFTER_CREATION:
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
         case GNE_ATTR_PARAMETERS:
@@ -867,6 +871,9 @@ GNEAttributeCarrier::setCommonAttribute(Parameterised* parameterised, SumoXMLAtt
             } else {
                 myNet->getSavingFilesHandler()->addMeanDataFilename(this);
             }
+            break;
+        case GNE_ATTR_CENTER_AFTER_CREATION:
+            myCenterAfterCreation = parse<bool>(value);
             break;
         case GNE_ATTR_SELECTED:
             if (parse<bool>(value)) {
