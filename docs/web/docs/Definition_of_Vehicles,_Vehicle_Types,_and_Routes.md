@@ -913,7 +913,7 @@ following table.
 
 | Attribute Value | Description                                                                                              |
 | --------------- | -------------------------------------------------------------------------------------------------------- |
-| LC2013          | The default car following model, developed by Jakob Erdmann based on DK2008 (see [SUMO’s Lane-Changing Model](https://elib.dlr.de/102254/)). This is the default model.    |
+| LC2013          | The default lane changing model, developed by Jakob Erdmann based on DK2008 (see [SUMO’s Lane-Changing Model](https://elib.dlr.de/102254/)). This is the default model.    |
 | SL2015          | Lane-changing model for [sublane-simulation](Simulation/SublaneModel.md) (used by default when setting option **--lateral-resolution** {{DT_FLOAT}}). This model can only be used with the sublane-extension.<br><br>**Caution:** This model may technically be used without activating sublane-simulation but this usage has not been fully tested and may not work as expected.  |
 | DK2008          | The original lane-changing model of sumo until version 0.18.0, developed by Daniel Krajzewicz (see [Traffic Simulation with SUMO – Simulation of Urban Mobility](https://link.springer.com/chapter/10.1007/978-1-4419-6142-6_7)). |
 
