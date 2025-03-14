@@ -358,6 +358,15 @@ def map_stops(options, net, routes, rout, edgeMap, fixedStops, stopLookup):
                             bestDist = 1e3 * options.radius
                             for stopObj in on_route:
                                 lane = net.getLane(stopObj.lane)
+                                if not lane.allows(vclass):
+                                    for lane2 in lane.getEdge().getLanes():
+                                        if lane2.allows(vclass):
+                                            print("Warning! Fixed lane of loaded stop", stopObj.id, file=sys.stderr)
+                                            lane = lane2
+                                if not lane.allows(vclass):
+                                    print("Warning! Unable to fix lane of loaded stop", stopObj.id, file=sys.stderr)
+                                    continue
+
                                 endPos = float(stopObj.endPos)
                                 if  (stopIndex > 0
                                      and lane2edge(stopObj.lane) == route[lastIndex]
@@ -366,7 +375,7 @@ def map_stops(options, net, routes, rout, edgeMap, fixedStops, stopLookup):
                                 dist = sumolib.geomhelper.distance(stopObj.center_xy, xy)
                                 if dist < bestDist:
                                     bestDist = dist
-                                    result = (stopObj.lane, float(stopObj.startPos), endPos)
+                                    result = (lane.getID(), float(stopObj.startPos), endPos)
                 if result is None:
                     result = gtfs2osm.getBestLane(net, veh.x, veh.y, 200, stopLength, options.center_stops,
                                                   route[lastIndex:], gtfs2osm.OSM2SUMO_MODES[mode], lastPos)
