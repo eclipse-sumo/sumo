@@ -86,7 +86,7 @@ GNEAdditionalHandler::postParserTasks() {
 
 
 bool
-GNEAdditionalHandler::buildBusStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id,
+GNEAdditionalHandler::buildBusStop(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const std::string& id,
                                    const std::string& laneID, const double startPos, const double endPos, const std::string& name,
                                    const std::vector<std::string>& lines, const int personCapacity, const double parkingLength,
                                    const RGBColor& color, const bool friendlyPosition, const Parameterised::Map& parameters) {
@@ -129,7 +129,7 @@ GNEAdditionalHandler::buildBusStop(const CommonXMLStructure::SumoBaseObject* sum
 
 
 bool
-GNEAdditionalHandler::buildTrainStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id,
+GNEAdditionalHandler::buildTrainStop(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const std::string& id,
                                      const std::string& laneID, const double startPos, const double endPos, const std::string& name,
                                      const std::vector<std::string>& lines, const int personCapacity, const double parkingLength,
                                      const RGBColor& color, const bool friendlyPosition, const Parameterised::Map& parameters) {
@@ -229,7 +229,7 @@ GNEAdditionalHandler::buildAccess(const CommonXMLStructure::SumoBaseObject* sumo
 
 
 bool
-GNEAdditionalHandler::buildContainerStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& laneID,
+GNEAdditionalHandler::buildContainerStop(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const std::string& id, const std::string& laneID,
         const double startPos, const double endPos, const std::string& name, const std::vector<std::string>& lines, const int containerCapacity,
         const double parkingLength, const RGBColor& color, const bool friendlyPosition, const Parameterised::Map& parameters) {
     // check conditions
@@ -271,7 +271,7 @@ GNEAdditionalHandler::buildContainerStop(const CommonXMLStructure::SumoBaseObjec
 
 
 bool
-GNEAdditionalHandler::buildChargingStation(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id,
+GNEAdditionalHandler::buildChargingStation(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const std::string& id,
         const std::string& laneID, const double startPos, const double endPos, const std::string& name, const double chargingPower,
         const double efficiency, const bool chargeInTransit, const SUMOTime chargeDelay, const std::string& chargeType,
         const SUMOTime waitingTime, const bool friendlyPosition, const std::string& /* parkingAreaID */, const Parameterised::Map& parameters) {
@@ -316,7 +316,7 @@ GNEAdditionalHandler::buildChargingStation(const CommonXMLStructure::SumoBaseObj
 
 
 bool
-GNEAdditionalHandler::buildParkingArea(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& laneID,
+GNEAdditionalHandler::buildParkingArea(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const std::string& id, const std::string& laneID,
                                        const double startPos, const double endPos, const std::string& departPos, const std::string& name,
                                        const std::vector<std::string>& badges, const bool friendlyPosition, const int roadSideCapacity, const bool onRoad,
                                        const double width, const double length, const double angle, const bool lefthand, const Parameterised::Map& parameters) {
@@ -411,7 +411,7 @@ GNEAdditionalHandler::buildParkingSpace(const CommonXMLStructure::SumoBaseObject
 
 
 bool
-GNEAdditionalHandler::buildE1Detector(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& laneID,
+GNEAdditionalHandler::buildE1Detector(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const std::string& id, const std::string& laneID,
                                       const double position, const SUMOTime period, const std::string& file, const std::vector<std::string>& vehicleTypes,
                                       const std::vector<std::string>& nextEdges, const std::string& detectPersons, const std::string& name,
                                       const bool friendlyPos, const Parameterised::Map& parameters) {
@@ -456,7 +456,7 @@ GNEAdditionalHandler::buildE1Detector(const CommonXMLStructure::SumoBaseObject* 
 
 
 bool
-GNEAdditionalHandler::buildSingleLaneDetectorE2(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& laneID,
+GNEAdditionalHandler::buildSingleLaneDetectorE2(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const std::string& id, const std::string& laneID,
         const double pos, const double length, const SUMOTime period, const std::string& trafficLight, const std::string& filename,
         const std::vector<std::string>& vehicleTypes, const std::vector<std::string>& nextEdges, const std::string& detectPersons,
         const std::string& name, const SUMOTime timeThreshold, const double speedThreshold, const double jamThreshold,
@@ -518,7 +518,7 @@ GNEAdditionalHandler::buildSingleLaneDetectorE2(const CommonXMLStructure::SumoBa
 
 
 bool
-GNEAdditionalHandler::buildMultiLaneDetectorE2(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::vector<std::string>& laneIDs,
+GNEAdditionalHandler::buildMultiLaneDetectorE2(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const std::string& id, const std::vector<std::string>& laneIDs,
         const double pos, const double endPos, const SUMOTime period, const std::string& trafficLight, const std::string& filename,
         const std::vector<std::string>& vehicleTypes, const std::vector<std::string>& nextEdges, const std::string& detectPersons,
         const std::string& name, const SUMOTime timeThreshold, const double speedThreshold, const double jamThreshold,
@@ -583,7 +583,7 @@ GNEAdditionalHandler::buildMultiLaneDetectorE2(const CommonXMLStructure::SumoBas
 
 
 bool
-GNEAdditionalHandler::buildDetectorE3(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const Position& pos, const SUMOTime period,
+GNEAdditionalHandler::buildDetectorE3(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const std::string& id, const Position& pos, const SUMOTime period,
                                       const std::string& filename, const std::vector<std::string>& vehicleTypes, const std::vector<std::string>& nextEdges,
                                       const std::string& detectPersons, const std::string& name, const SUMOTime timeThreshold, const double speedThreshold,
                                       const bool openEntry, const bool expectedArrival, const Parameterised::Map& parameters) {
@@ -688,7 +688,7 @@ GNEAdditionalHandler::buildDetectorExit(const CommonXMLStructure::SumoBaseObject
 
 
 bool
-GNEAdditionalHandler::buildDetectorE1Instant(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& laneID, double pos,
+GNEAdditionalHandler::buildDetectorE1Instant(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const std::string& id, const std::string& laneID, double pos,
         const std::string& filename, const std::vector<std::string>& vehicleTypes, const std::vector<std::string>& nextEdges,
         const std::string& detectPersons, const std::string& name, const bool friendlyPos, const Parameterised::Map& parameters) {
     // check conditions
@@ -872,7 +872,7 @@ GNEAdditionalHandler::buildCalibratorFlow(const CommonXMLStructure::SumoBaseObje
 
 
 bool
-GNEAdditionalHandler::buildRerouter(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const Position& pos,
+GNEAdditionalHandler::buildRerouter(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const std::string& id, const Position& pos,
                                     const std::vector<std::string>& edgeIDs, const double prob, const std::string& name,
                                     const bool off, const bool optional, const SUMOTime timeThreshold,
                                     const std::vector<std::string>& vTypes, const Parameterised::Map& parameters) {
@@ -1163,7 +1163,7 @@ GNEAdditionalHandler::buildRouteProbe(const CommonXMLStructure::SumoBaseObject* 
 
 
 bool
-GNEAdditionalHandler::buildVariableSpeedSign(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const Position& pos,
+GNEAdditionalHandler::buildVariableSpeedSign(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const std::string& id, const Position& pos,
         const std::vector<std::string>& laneIDs, const std::string& name, const std::vector<std::string>& vTypes, const Parameterised::Map& parameters) {
     // check conditions
     const auto element = retrieveAdditionalElement({SUMO_TAG_VSS}, id);
@@ -1474,7 +1474,7 @@ GNEAdditionalHandler::buildTAZSink(const CommonXMLStructure::SumoBaseObject* sum
 
 
 bool
-GNEAdditionalHandler::buildTractionSubstation(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const Position& pos,
+GNEAdditionalHandler::buildTractionSubstation(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const std::string& id, const Position& pos,
         const double voltage, const double currentLimit, const Parameterised::Map& parameters) {
     // check conditions
     const auto element = retrieveAdditionalElement({SUMO_TAG_TRACTION_SUBSTATION}, id);
@@ -1504,7 +1504,7 @@ GNEAdditionalHandler::buildTractionSubstation(const CommonXMLStructure::SumoBase
 
 
 bool
-GNEAdditionalHandler::buildOverheadWire(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& substationId,
+GNEAdditionalHandler::buildOverheadWire(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const std::string& id, const std::string& substationId,
                                         const std::vector<std::string>& laneIDs, const double startPos, const double endPos, const bool friendlyPos,
                                         const std::vector<std::string>& forbiddenInnerLanes, const Parameterised::Map& parameters) {
     // check conditions
@@ -1554,7 +1554,7 @@ GNEAdditionalHandler::buildOverheadWire(const CommonXMLStructure::SumoBaseObject
 
 
 bool
-GNEAdditionalHandler::buildOverheadWireClamp(const CommonXMLStructure::SumoBaseObject* /* sumoBaseObject */, const std::string& /* id */, const std::string& /* overheadWireIDStartClamp */,
+GNEAdditionalHandler::buildOverheadWireClamp(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const std::string& /* id */, const std::string& /* overheadWireIDStartClamp */,
         const std::string& /* laneIDStartClamp */, const std::string& /* overheadWireIDEndClamp */, const std::string& /* laneIDEndClamp */,
         const Parameterised::Map& /* parameters */) {
     //
@@ -1600,7 +1600,7 @@ GNEAdditionalHandler::buildPolygon(const CommonXMLStructure::SumoBaseObject* sum
 
 
 bool
-GNEAdditionalHandler::buildPOI(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& type,
+GNEAdditionalHandler::buildPOI(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const std::string& id, const std::string& type,
                                const RGBColor& color, const double x, const double y, const std::string& icon, double layer, double angle,
                                const std::string& imgFile, double width, double height, const std::string& name, const Parameterised::Map& parameters) {
     // check conditions
@@ -1634,7 +1634,7 @@ GNEAdditionalHandler::buildPOI(const CommonXMLStructure::SumoBaseObject* sumoBas
 
 
 bool
-GNEAdditionalHandler::buildPOILane(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& type,
+GNEAdditionalHandler::buildPOILane(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const std::string& id, const std::string& type,
                                    const RGBColor& color, const std::string& laneID, double posOverLane, const bool friendlyPos, double posLat,
                                    const std::string& icon, double layer, double angle, const std::string& imgFile, double width, double height,
                                    const std::string& name, const Parameterised::Map& parameters) {
@@ -1680,7 +1680,7 @@ GNEAdditionalHandler::buildPOILane(const CommonXMLStructure::SumoBaseObject* sum
 
 
 bool
-GNEAdditionalHandler::buildPOIGeo(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& type,
+GNEAdditionalHandler::buildPOIGeo(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const std::string& id, const std::string& type,
                                   const RGBColor& color, const double lon, const double lat, const std::string& icon, double layer,
                                   double angle, const std::string& imgFile, double width, double height, const std::string& name,
                                   const Parameterised::Map& parameters) {
@@ -1717,7 +1717,7 @@ GNEAdditionalHandler::buildPOIGeo(const CommonXMLStructure::SumoBaseObject* sumo
 
 
 bool
-GNEAdditionalHandler::buildJpsWalkableArea(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const PositionVector& shape,
+GNEAdditionalHandler::buildJpsWalkableArea(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const std::string& id, const PositionVector& shape,
         bool geo, const std::string& name, const Parameterised::Map& parameters) {
     // check conditions
     const auto element = retrieveAdditionalElement(NamespaceIDs::polygons, id);
@@ -1744,7 +1744,7 @@ GNEAdditionalHandler::buildJpsWalkableArea(const CommonXMLStructure::SumoBaseObj
 
 
 bool
-GNEAdditionalHandler::buildJpsObstacle(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const PositionVector& shape,
+GNEAdditionalHandler::buildJpsObstacle(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const std::string& id, const PositionVector& shape,
                                        bool geo, const std::string& name, const Parameterised::Map& parameters) {
     // check conditions
     const auto element = retrieveAdditionalElement(NamespaceIDs::polygons, id);
