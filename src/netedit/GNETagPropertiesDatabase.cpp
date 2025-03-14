@@ -2032,7 +2032,7 @@ GNETagPropertiesDatabase::fillShapeElements() {
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_GEOSHAPE,
                                    GNEAttributeProperties::STRING | GNEAttributeProperties::POSITION | GNEAttributeProperties::LIST | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                                   GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE | GNEAttributeProperties::GEOEDITOR,
+                                   GNEAttributeProperties::EDITMODE | GNEAttributeProperties::GEOEDITOR,
                                    TL("A custom geo shape for this polygon"));
 
         new GNEAttributeProperties(myTagProperties[currentTag], GNE_ATTR_CLOSE_SHAPE,
