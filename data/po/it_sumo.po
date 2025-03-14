@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-13 10:07+0100\n"
-"PO-Revision-Date: 2025-03-13 11:01+0000\n"
+"PO-Revision-Date: 2025-03-14 13:45+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.10.3\n"
+"X-Generator: Weblate 5.11-dev\n"
 
 #: src/activitygen/AGActivityGen.cpp:46
 msgid "Reading input"
@@ -5467,10 +5467,14 @@ msgid ""
 "Missing yellow phase in tlLogic '%', program '%' for tl-index % when "
 "switching% to phase %."
 msgstr ""
+"Fase di giallo mancante nella logica semaforica '%', programma '%' per "
+"l'indice semaforico % nella transizione% verso fase %."
 
 #: src/microsim/traffic_lights/MSTrafficLightLogic.cpp:204
 msgid "Missing green phase in tlLogic '%', program '%' for tl-index %."
 msgstr ""
+"Fase di verde mancante nella logica semaforica '%', programma '%' per "
+"l'indice semaforico %."
 
 #: src/microsim/traffic_lights/MSTrafficLightLogic.cpp:267
 msgid ""
@@ -8465,11 +8469,11 @@ msgstr "Leggi rete ITSUMO da FILE"
 
 #: src/netimport/NIFrame.cpp:134
 msgid "Read heightmap from ArcGIS shapefile"
-msgstr ""
+msgstr "Leggi mappa altimetrica da shapefile ArcGIS"
 
 #: src/netimport/NIFrame.cpp:137
 msgid "Read heightmap from GeoTIFF"
-msgstr ""
+msgstr "Leggi mappa altimetrica da GeoTIFF"
 
 #: src/netimport/NIFrame.cpp:145 src/od2trips_main.cpp:159
 #: src/polyconvert/polyconvert_main.cpp:203
@@ -12204,7 +12208,7 @@ msgstr "Non ho potuto aprire il file '%' in modo scrittura."
 #: src/tools/emissionsMap_main.cpp:114
 msgid "Builds and writes an emissions map for SUMO's emission models."
 msgstr ""
-"Costruice e scrive corrispondenze di emissions per gli modelli di emissioni "
+"Costruice e scrive corrispondenze di emissioni per gli modelli di emissioni "
 "di SUMO."
 
 #: src/tools/emissionsMap_main.cpp:121
