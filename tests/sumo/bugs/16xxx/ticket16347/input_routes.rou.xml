@@ -1,0 +1,15 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+	<vType id="DEFAULT_VEHTYPE" accel="2.6" decel="4.5" sigma="0" length="3" minGap="2" maxSpeed="70"/>
+	<vType id="slow" accel="2.6" decel="4.5" sigma="0" length="3" minGap="2" maxSpeed="2"/>
+
+    <route id="left" edges="beg beg2left left left2end end rend"/>
+    <route id="middle" edges="middle"/>
+
+    <vehicle id="obstruction" type="slow" depart="0" route="middle"/>
+
+    <flow id="rerouting_device" begin="0" end="20" number="10" route="left" color="blue">
+        <param key="has.rerouting.device" value="true"/>
+    </flow>
+    <flow id="no_device" begin="0" end="20" number="10" route="left" color="yellow"/>
+
+</routes>
