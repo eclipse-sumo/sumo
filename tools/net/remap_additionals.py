@@ -99,6 +99,12 @@ def remap_lane(options, obj, laneID, pos=None):
         cands2 = [c for c in edge2.getLanes() if c.getPermissions() == lane.getPermissions()]
         if not cands2 and lane.allows("passenger"):
             cands2 = [c for c in edge2.getLanes() if c.allows("passenger")]
+        if not cands2 and lane.allows("bus"):
+            cands2 = [c for c in edge2.getLanes() if c.allows("bus")]
+        if not cands2 and lane.allows("taxi"):
+            cands2 = [c for c in edge2.getLanes() if c.allows("taxi")]
+        if not cands2 and lane.allows("bicycle"):
+            cands2 = [c for c in edge2.getLanes() if c.allows("bicycle")]
         if not cands2:
             cands2 = edge2.getLanes()
         lane2 = cands2[min(candIndex, len(cands2) - 1)].getID()
