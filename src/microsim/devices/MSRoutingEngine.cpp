@@ -435,6 +435,8 @@ MSRoutingEngine::initRouter(SUMOVehicle* vehicle) {
             threadPool.add(new InitTask(), i);
         }
         threadPool.waitAll();
+        // to use when routing is triggered from the main thread (i.e. by a rerouter)
+        myThreadRNGs[std::this_thread::get_id()] = nullptr;
     }
 #endif
 #endif
