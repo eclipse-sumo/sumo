@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-13 10:07+0100\n"
-"PO-Revision-Date: 2025-03-14 13:45+0000\n"
+"PO-Revision-Date: 2025-03-14 14:07+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -12214,10 +12214,14 @@ msgstr ""
 #: src/tools/emissionsMap_main.cpp:121
 msgid "If set, maps for all available emissions are written."
 msgstr ""
+"Se impostato vengono scritte corrispondenze per tutte le emissioni "
+"disponibili."
 
 #: src/tools/emissionsMap_main.cpp:124
 msgid "Defines the name of the emission class to generate the map for."
 msgstr ""
+"Definisce il nome della classe di emissioni per la quale si genera una "
+"corrispondenza."
 
 #: src/tools/emissionsMap_main.cpp:133
 msgid "Defines the minimum velocity boundary of the map to generate (in m/s)."
@@ -12264,11 +12268,11 @@ msgstr ""
 
 #: src/tools/emissionsMap_main.cpp:194
 msgid "The emission class (-e) must be given."
-msgstr ""
+msgstr "SI deve provvedere una classe di emissioni (-e)."
 
 #: src/tools/emissionsMap_main.cpp:197
 msgid "The output file (-o) must be given."
-msgstr ""
+msgstr "SI deve provvedere un file di uscita (-o)."
 
 #: src/traci-server/TraCIServer.cpp:362
 msgid "Starting TraCI without using internal lanes!"
