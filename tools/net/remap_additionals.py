@@ -72,8 +72,8 @@ def make_consecutive(net, laneIDs):
 
 def remap_lanes(options, obj, laneIDs, pos=None):
     laneIDs_positions2 = [remap_lane(options, obj, laneID, pos) for laneID in laneIDs.split()]
-    laneIDs2 = [l for l,pos in laneIDs_positions2]
-    if obj.name in ["e2Detector","laneAreaDetector"]:
+    laneIDs2 = [la for la, pos in laneIDs_positions2]
+    if obj.name in ["e2Detector", "laneAreaDetector"]:
         laneIDs2 = make_consecutive(options.net2, laneIDs2)
     pos2 = laneIDs_positions2[0][1]
 
@@ -82,7 +82,7 @@ def remap_lanes(options, obj, laneIDs, pos=None):
 
 def remap_edges(options, obj, edgeIDs, pos=None):
     edgeIDs_positions2 = [remap_edge(options, obj, edgeID, pos) for edgeID in edgeIDs.split()]
-    edgeIDs2 = [e for e,pos in edgeIDs_positions2]
+    edgeIDs2 = [e for e, pos in edgeIDs_positions2]
     pos2 = edgeIDs_positions2[0][1]
     return ' '.join(edgeIDs2), pos2
 

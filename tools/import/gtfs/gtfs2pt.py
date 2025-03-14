@@ -244,7 +244,7 @@ def traceMap(options, typedNets, fixedStops, stopLookup, invEdgeMap, radius=150)
                     if fixed:
                         vias[idx] = [invEdgeMap[lane2edge(fixed.lane)]]
                 if trace in traceCache:
-                    mappedRoute =  traceCache[trace]
+                    mappedRoute = traceCache[trace]
                     cacheHits += 1
                 else:
                     mappedRoute = sumolib.route.mapTrace(trace, net, radius, verbose=options.verbose,
@@ -318,7 +318,9 @@ def map_stops(options, net, routes, rout, edgeMap, fixedStops, stopLookup):
             if rid not in fixed:
                 routeFixed = [routes[rid][0]]
                 for routeEdgeID in routes[rid][1:]:
-                    path, _ = typedNet.getShortestPath(typedNet.getEdge(routeFixed[-1]), typedNet.getEdge(routeEdgeID), vClass=vclass)
+                    path, _ = typedNet.getShortestPath(typedNet.getEdge(routeFixed[-1]),
+                                                       typedNet.getEdge(routeEdgeID),
+                                                       vClass=vclass)
                     if path is None or len(path) > options.fill_gaps + 2:
                         error = "no path found" if path is None else "path too long (%s)" % len(path)
                         print("Warning! Disconnected route '%s' between '%s' and '%s', %s. Keeping longer part." %
@@ -353,7 +355,6 @@ def map_stops(options, net, routes, rout, edgeMap, fixedStops, stopLookup):
                     if candidates:
                         on_route = [s for s in candidates if lane2edge(s.lane) in route[lastIndex:]]
                         if on_route:
-                            best = None
                             bestDist = 1e3 * options.radius
                             for stopObj in on_route:
                                 dist = sumolib.geomhelper.distance(stopObj.center_xy, xy)
