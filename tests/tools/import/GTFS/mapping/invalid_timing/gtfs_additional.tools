@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-03-15 12:26:09.445445 by gtfs2pt.py v1_22_0+0859-a31ddc5a43f
+<!-- generated on 2025-03-15 12:34:01.644613 by gtfs2pt.py v1_22_0+0860-8598b6aa226
 <configuration>
     <merged-csv value="data.csv"/>
     <modes value="bus"/>
@@ -10,7 +10,8 @@
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <busStop id="132189814.0" lane="376468591#0_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Braunschweig Güldenstraße"/>
-    <busStop id="132189814.1" lane="30425275#0_0" startPos="29.12" endPos="42.12" friendlyPos="true" name="Braunschweig Hintern Brüdern"/>
-    <busStop id="132189814.2" lane="37983000_0" startPos="28.47" endPos="41.47" friendlyPos="true" name="Braunschweig Packhof"/>
+    <busStop id="t1.0" lane="beg_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="stopname1"/>
+    <busStop id="t1.1" lane="middle_0" startPos="34.43" endPos="47.43" friendlyPos="true" name="stopname1"/>
+    <busStop id="t1.2" lane="middle2_0" startPos="49.30" endPos="62.30" friendlyPos="true" name="stopname2"/>
+    <busStop id="t1.3" lane="end_0" startPos="51.26" endPos="64.26" friendlyPos="true" name="stopname3"/>
 </additional>
