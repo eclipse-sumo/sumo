@@ -368,9 +368,9 @@ def map_stops(options, net, routes, rout, edgeMap, fixedStops, stopLookup):
                                     continue
 
                                 endPos = float(stopObj.endPos)
-                                if  (stopIndex > 0
-                                     and lane2edge(stopObj.lane) == route[lastIndex]
-                                     and lane.interpretOffset(endPos) < lane.interpretOffset(lastPos)):
+                                if (stopIndex > 0
+                                        and lane2edge(stopObj.lane) == route[lastIndex]
+                                        and lane.interpretOffset(endPos) < lane.interpretOffset(lastPos)):
                                     continue
                                 dist = sumolib.geomhelper.distance(stopObj.center_xy, xy)
                                 if dist < bestDist:
