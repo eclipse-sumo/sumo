@@ -1,0 +1,4 @@
+trip_id;route_id;route_short_name;route_type;stop_id;stop_name;stop_lat;stop_lon;stop_sequence;fare_zone;fare_token;start_char;trip_headsign;arrival_time;departure_time
+132189814;31727_3;413;3;120010016104;Braunschweig Güldenstraße;52.262095;10.514188;0;;;;Braunschweig Dieselstraße;1000;1000
+132189814;31727_3;413;3;120010031501;Braunschweig Hintern Brüdern;52.265493;10.517161;1;;;;Braunschweig Dieselstraße;800;800
+132189814;31727_3;413;3;120010032201;Braunschweig Packhof;52.26541;10.521949;2;;;;Braunschweig Dieselstraße;600;900

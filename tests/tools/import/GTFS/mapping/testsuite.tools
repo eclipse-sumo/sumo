@@ -16,6 +16,9 @@ stops_sameEdgeOrder
 # load stops with invalid sequence numbers
 bad_sequence
 
+# load stops with invalid timing
+invalid_timing
+
 # test routes if the vehicle class is disallowed on some lanes
 vclass_disallowed
 

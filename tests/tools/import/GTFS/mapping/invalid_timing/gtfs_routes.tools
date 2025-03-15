@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-03-15 12:26:09.529740 by gtfs2pt.py v1_22_0+0859-a31ddc5a43f
+<configuration>
+    <merged-csv value="data.csv"/>
+    <modes value="bus"/>
+    <vtype-output value="vehtypes.xml"/>
+    <network value="net.net.xml"/>
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <route id="132189814" edges="376468591#0 376743573#0 376743573#4 376743573#5 376743572#0 31414016#0 5021498#0 5021499#0 30425275#0 8107421#0 8107421#2 23233924#1 118713744#0 118713744#1 118713744#4 8074366#5 28509707#0 307200571 395003741#0 8107410#0 150851273#0 150851273#1 379981942 33436145#0 32269752#0 32269752#1 5021505#0 288839942#0 54684974 13002096#0 54684973#0 33230516 315421255#0 -615184925 -198087353#0 -5148300 22978949#0 54684975#0 54684975#11 23386846#0 37983000">
+        <stop busStop="132189814.0" duration="10" until="0"/> <!-- Braunschweig Güldenstraße -->
+        <stop busStop="132189814.1" duration="10" until="-200"/> <!-- Braunschweig Hintern Brüdern -->
+        <stop busStop="132189814.2" duration="10" until="-100"/> <!-- Braunschweig Packhof -->
+    </route>
+    <vehicle id="132189814.0" route="132189814" type="bus" depart="990" line="132189814">
+        <param key="gtfs.route_name" value="413"/>
+        <param key="gtfs.trip_headsign" value="Braunschweig Dieselstraße"/>
+    </vehicle>
+</routes>
