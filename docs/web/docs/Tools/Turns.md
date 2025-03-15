@@ -29,6 +29,7 @@ Only the edge attribute 'id' and another attribute for the traffic count are nee
 ```
 
 The attributes for reading the counts from edge-data file can be set with option **--edgedata-attribute** (default 'entered')
+You can put any number of counting attributes in the same `<edge>` element if you intend to call **routeSamper.py** [multiple times for different vehicle types](#multiple_vehicle_types).
 
 !!! note
     The default attribute is 'entered' because this attribute corresponds best to the through-traffic count in sumo-generated edgeData files.
@@ -68,6 +69,7 @@ Example call:
 python tools/routeSampler.py -r <input-route-file> --turn-files <turn-files> -o <output-file>
 ```
 The attributes for reading the counts from the turn-data file can be set with option **--turn-attribute** (default 'count')
+You can put any number of counting attributes in the same `<edgeRelation>` element if you intend to call **routeSamper.py** [multiple times for different vehicle types](#multiple_vehicle_types).
 
 In case an existing scenario should be modified (i.e. in combination with different kinds of counting data) it is also possible to [convert an existing file with vehicles into a turn-count file](#generateturnratiospy).
 
@@ -94,7 +96,8 @@ Example call:
 python tools/routeSampler.py -r <input-route-file> --turn-ratio-files <turn-ratio-files> -o <output-file>
 ```
 
-The attributes for reading the ratios from the turn-data file can be set with option **--turn-ratio-attribute** (default *probability*)
+The attributes for reading the ratios from the turn-data file can be set with option **--turn-ratio-attribute** (default *probability*).
+You can put any number of counting attributes in the same `<edgeRelation>` element if you intend to call **routeSamper.py** [multiple times for different vehicle types](#multiple_vehicle_types).
 
 !!! caution
     Turning ratios must be combined with some other counting data to define the absolute level of traffic. This can be any of the other counting data formats or by setting option **--total-count**.
