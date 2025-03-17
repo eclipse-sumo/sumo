@@ -146,7 +146,7 @@ GNEMatchAttribute::onCmdSelMBTag(FXObject*, FXSelector, void*) {
     myMatchTagComboBox->setTextColor(FXRGB(255, 0, 0));
     // iterate over tags
     for (const auto& tagProperty : myTagProperties) {
-        if (tagProperty->getFieldString() == myMatchTagComboBox->getText().text()) {
+        if (tagProperty->getSelectorText() == myMatchTagComboBox->getText().text()) {
             // set valid tag
             myCurrentTag = tagProperty->getTag();
             // set valid color
@@ -296,7 +296,7 @@ GNEMatchAttribute::updateTag() {
     // itreate over myTagProperties
     for (int i = 0; i < (int)myTagProperties.size(); i++) {
         // add tag in combo Box
-        myMatchTagComboBox->appendIconItem(myTagProperties.at(i)->getFieldString().c_str(), GUIIconSubSys::getIcon(myTagProperties.at(i)->getGUIIcon()));
+        myMatchTagComboBox->appendIconItem(myTagProperties.at(i)->getSelectorText().c_str(), GUIIconSubSys::getIcon(myTagProperties.at(i)->getGUIIcon()));
         // check tag index
         if (myTagProperties.at(i)->getTag() == myCurrentTag) {
             tagIndex = i;

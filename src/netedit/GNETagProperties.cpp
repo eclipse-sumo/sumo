@@ -27,7 +27,7 @@
 GNETagProperties::GNETagProperties(const SumoXMLTag tag, const int tagType, const int tagProperty, const int tagParents,
                                    const int conflicts, const GUIIcon icon, const SumoXMLTag XMLTag, const std::string tooltip,
                                    const std::vector<SumoXMLTag> parentTags, const unsigned int backgroundColor,
-                                   const std::string fieldString) :
+                                   const std::string selectorText) :
     myTag(tag),
     myTagStr(toString(tag)),
     myTagType(tagType),
@@ -38,7 +38,7 @@ GNETagProperties::GNETagProperties(const SumoXMLTag tag, const int tagType, cons
     myXMLTag(XMLTag),
     myTooltipText(tooltip),
     myParentTags(parentTags),
-    myFieldString(fieldString.empty() ? toString(tag) : fieldString),
+    mySelectorText(selectorText.empty() ? toString(tag) : selectorText),
     myBackgroundColor(backgroundColor) {
 }
 
@@ -211,8 +211,8 @@ GNETagProperties::getDefaultColorValue(SumoXMLAttr attr) const {
 
 
 const std::string&
-GNETagProperties::getFieldString() const {
-    return myFieldString;
+GNETagProperties::getSelectorText() const {
+    return mySelectorText;
 }
 
 

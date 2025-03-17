@@ -145,7 +145,7 @@ public:
     /// @brief parameter constructor
     GNETagProperties(const SumoXMLTag tag, const int tagType, const int tagProperty, const int tagParents, const int conflicts,
                      const GUIIcon icon, const SumoXMLTag XMLTag, const std::string tooltip, std::vector<SumoXMLTag> parentTags = {},
-                     const unsigned int backgroundColor = FXRGBA(255, 255, 255, 255), const std::string fieldString = "");
+                     const unsigned int backgroundColor = FXRGBA(255, 255, 255, 255), const std::string selectorText = "");
 
     /// @brief destructor
     ~GNETagProperties();
@@ -163,7 +163,7 @@ public:
     void checkTagIntegrity() const;
 
     /// @brief get field string (by default tag in string format)
-    const std::string& getFieldString() const;
+    const std::string& getSelectorText() const;
 
     /// @brief get tooltip text
     const std::string& getTooltipText() const;
@@ -529,8 +529,8 @@ private:
     /// @brief vector with master tags (used by child elements)
     std::vector<SumoXMLTag> myParentTags;
 
-    /// @brief field string
-    std::string myFieldString;
+    /// @brief text show in selector text
+    std::string mySelectorText;
 
     /// @brief background color (used in labels and textFields, by default white)
     unsigned int myBackgroundColor = 0;

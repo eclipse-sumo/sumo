@@ -873,6 +873,45 @@ struct GNENetHelper {
         AttributeCarriers& operator=(const AttributeCarriers&) = delete;
     };
 
+    /// @brief modul for AC Templates
+    class ACTemplate {
+
+    public:
+        /// @brief constructor
+        ACTemplate(GNENet* net);
+
+        /// @brief build templates
+        void buildTemplates();
+
+        /// @brief destructor
+        ~ACTemplate();
+
+        /// @brief get all AC templates
+        std::map<SumoXMLTag, GNEAttributeCarrier*> getACTemplates() const;
+
+        /// @brief get template AC by tag
+        GNEAttributeCarrier* getTemplateAC(const SumoXMLTag tag) const;
+
+        /// @brief get template AC by text (using selector text
+        GNEAttributeCarrier* getTemplateAC(const std::string& selectorText) const;
+
+    private:
+        /// @brief pointer to net
+        GNENet* myNet = nullptr;
+
+        /// @brief map with templates
+        std::map<SumoXMLTag, GNEAttributeCarrier*> myTemplates;
+
+        /// @brief Invalidated default constructor.
+        ACTemplate() = delete;
+
+        /// @brief Invalidated copy constructor.
+        ACTemplate(const ACTemplate&) = delete;
+
+        /// @brief Invalidated assignment operator
+        ACTemplate& operator=(const ACTemplate& src) = delete;
+    };
+
     /// @brief modul for handling saving files
     class SavingFilesHandler {
 
@@ -882,9 +921,6 @@ struct GNENetHelper {
 
         /// @brief constructor
         SavingFilesHandler(GNENet* net);
-
-        /// @brief add template
-        void addTemplate(GNEAttributeCarrier* templateAC);
 
         /// @brief update netedit config
         void updateNeteditConfig();
@@ -972,9 +1008,6 @@ struct GNENetHelper {
     private:
         /// @brief pointer to net
         GNENet* myNet;
-
-        /// @brief vector with attribute carrier templates
-        std::vector<GNEAttributeCarrier*> myTemplateACs;
 
         /// @brief vector with additional elements saving files
         std::vector<std::string> myAdditionalElementsSavingFiles;

@@ -50,9 +50,6 @@ public:
     /// @brief hide item selector
     void hideTagSelector();
 
-    /// @brief get templateAC
-    GNEAttributeCarrier* getTemplateAC(SumoXMLTag ACTag) const;
-
     /// @brief get current templateAC
     GNEAttributeCarrier* getCurrentTemplateAC() const;
 
@@ -76,29 +73,6 @@ protected:
     FOX_CONSTRUCTOR(GNETagSelector)
 
 private:
-    class ACTemplate {
-
-    public:
-        /// @brief constructor
-        ACTemplate(GNENet* net, const GNETagProperties* tagProperty);
-
-        /// @brief destructor
-        ~ACTemplate();
-
-        /// @brief get template AC
-        GNEAttributeCarrier* getAC() const;
-
-    private:
-        /// @brief editedAC
-        GNEAttributeCarrier* myAC;
-
-        /// @brief Invalidated copy constructor.
-        ACTemplate(const ACTemplate&) = delete;
-
-        /// @brief Invalidated assignment operator
-        ACTemplate& operator=(const ACTemplate& src) = delete;
-    };
-
     /// @brief pointer to Frame Parent
     GNEFrame* myFrameParent;
 
@@ -110,7 +84,4 @@ private:
 
     /// @brief current templateAC;
     GNEAttributeCarrier* myCurrentTemplateAC;
-
-    /// @brief list with ACTemplates
-    std::vector<ACTemplate*> myACTemplates;
 };

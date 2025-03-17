@@ -33,10 +33,10 @@ public:
     /// @brief default constructor
     GNEStopPlan(SumoXMLTag tag, GNENet* net);
 
-    /**@brief constructor called in buldStopPlan
-     * @param[in] net Network in which this Ride is placed
-     * @param[in] tag personTrip tag
-     * @param[in] icon personTrip icon
+    /**@brief constructor called in buildStopPlan
+     * @param[in] net Network in which this stop is placed
+     * @param[in] tag stop tag
+     * @param[in] icon stop icon
      * @param[in] planParameters plan parameters
      * @param[in] additionals from-to additionals
      * @param[in] endPos end position

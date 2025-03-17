@@ -56,9 +56,7 @@ GNEAttributeCarrier::GNEAttributeCarrier(const SumoXMLTag tag, GNENet* net, cons
     myFilename(filename),
     myIsTemplate(isTemplate) {
     // check if add this AC to saving file handler
-    if (isTemplate) {
-        net->getSavingFilesHandler()->addTemplate(this);
-    } else if (myFilename.size() > 0) {
+    if (myFilename.size() > 0) {
         // add filename to saving files handler
         if (myTagProperty->isAdditionalElement()) {
             net->getSavingFilesHandler()->addAdditionalFilename(this);
