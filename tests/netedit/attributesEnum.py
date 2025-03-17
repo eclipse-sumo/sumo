@@ -1935,11 +1935,10 @@ class jpsWalkableArea:
         name = 6
         parameters = 8
         parametersButton = 9
-        frontButton = 11
-        additionalFileButton = 12
-        additionalFile = 13
-        helpDialog = 14
-        reset = 15
+        additionalFileButton = 11
+        additionalFile = 12
+        helpDialog = 13
+        reset = 14
 
     class inspect:
         id = 1
@@ -1972,11 +1971,10 @@ class jpsObstacle:
         name = 6
         parameters = 8
         parametersButton = 9
-        frontButton = 11
-        additionalFileButton = 12
-        additionalFile = 13
-        helpDialog = 14
-        reset = 15
+        additionalFileButton = 11
+        additionalFile = 12
+        helpDialog = 13
+        reset = 14
 
     class inspect:
         id = 1
@@ -2001,7 +1999,7 @@ class jpsObstacle:
         reset = 10
 
 # --------------------------------
-# TAZ ELEMENTS SHORT NAME XXXX
+# TAZ ELEMENTS
 # --------------------------------
 
 # TAZ
@@ -2009,30 +2007,49 @@ class jpsObstacle:
 
 class TAZ:
     class create:
+        id = 2
         center = 3
-        fill = 4
+        name = 4
         colorButton = 5
         color = 6
-        name = 7
-        edgesWithin = 8
+        fill = 7
+        parameters = 9
+        parametersButton = 10
+        edgesWithin = 12
+        additionalFileButton = 13
+        additionalFile = 14
+        helpDialog = 15
+        reset = 16
 
     class inspect:
         id = 1
         shape = 2
         center = 3
-        fill = 4
+        name = 4
         colorButton = 5
         color = 6
-        name = 7
-        parameters = 10
+        fill = 7
+        parameters = 9
+        parametersButton = 10
+        frontButton = 12
+        additionalFileButton = 13
+        additionalFile = 14
+        helpDialog = 15
+        reset = 16
 
     class inspectSelection:
         center = 1
-        fill = 2
+        name = 2
         colorButton = 3
         color = 4
-        name = 5
-        parameters = 8
+        fill = 5
+        parameters = 7
+        parametersButton = 8
+        frontButton = 10
+        additionalFileButton = 11
+        additionalFile = 12
+        helpDialog = 13
+        reset = 14
 
 # --------------------------------
 # DEMAND ELEMENTS

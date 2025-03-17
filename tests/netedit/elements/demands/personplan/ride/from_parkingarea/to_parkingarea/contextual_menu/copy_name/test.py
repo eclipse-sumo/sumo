@@ -61,7 +61,7 @@ netedit.inspectMode()
 
 # transform
 netedit.contextualMenuOperation(referencePosition, netedit.positions.elements.demands.planEdgeBike0Ped,
-                                netedit.contextualMenu.vehicles.copyName)
+                                netedit.contextualMenu.copyName)
 
 # Check undos
 netedit.undo(referencePosition, 1)

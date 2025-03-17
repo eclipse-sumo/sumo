@@ -60,7 +60,7 @@ netedit.inspectMode()
 
 # transform
 netedit.contextualMenuOperation(referencePosition, netedit.positions.elements.demands.TAZGreen,
-                                netedit.contextualMenu.vehicles.addToSelected)
+                                netedit.contextualMenu.addToSelected)
 
 # delete junction
 netedit.typeDelete()
