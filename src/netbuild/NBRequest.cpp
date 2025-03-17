@@ -657,7 +657,6 @@ NBRequest::getResponseString(const NBEdge* const from, const NBEdge::Connection&
     for (std::vector<NBNode::Crossing*>::const_reverse_iterator i = crossings.rbegin(); i != crossings.rend(); i++) {
         result += mustBrakeForCrossing(myJunction, from, to, **i) ? '1' : '0';
     }
-    const NBEdge::Connection& queryCon = from->getConnection(fromLane, to, toLane);
     // normal connections
     for (EdgeVector::const_reverse_iterator i = myIncoming.rbegin(); i != myIncoming.rend(); i++) {
         //const std::vector<NBEdge::Connection> &allConnections = (*i)->getConnections();
@@ -670,7 +669,7 @@ NBRequest::getResponseString(const NBEdge* const from, const NBEdge::Connection&
                     result += '0';
 #ifdef DEBUG_RESPONSE
                     if (DEBUGCOND) {
-                        std::cout << " c=" << queryCon.getDescription(from) << " pass\n";
+                        std::cout << " c=" << c.getDescription(from) << " pass\n";
                     }
 #endif
                 } else if ((*i) == from && fromLane == j) {
@@ -678,12 +677,12 @@ NBRequest::getResponseString(const NBEdge* const from, const NBEdge::Connection&
                     // except for indirect turns
 #ifdef DEBUG_RESPONSE
                     if (DEBUGCOND) {
-                        std::cout << " c=" << queryCon.getDescription(from) << " prohibitC=" << connected[k].getDescription(*i)
-                                  << " itc=" <<  indirectLeftTurnConflict(from, queryCon, *i, connected[k], false)
+                        std::cout << " c=" << c.getDescription(from) << " prohibitC=" << connected[k].getDescription(*i)
+                                  << " itc=" <<  indirectLeftTurnConflict(from, c, *i, connected[k], false)
                                   << "\n";
                     }
 #endif
-                    if (indirectLeftTurnConflict(from, queryCon, *i, connected[k], false)) {
+                    if (indirectLeftTurnConflict(from, c, *i, connected[k], false)) {
                         result += '1';
                     } else {
                         result += '0';
@@ -697,33 +696,33 @@ NBRequest::getResponseString(const NBEdge* const from, const NBEdge::Connection&
                     // check whether the connection is prohibited by another one
 #ifdef DEBUG_RESPONSE
                     if (DEBUGCOND) {
-                        std::cout << " c=" << queryCon.getDescription(from) << " prohibitC=" << connected[k].getDescription(*i)
+                        std::cout << " c=" << c.getDescription(from) << " prohibitC=" << connected[k].getDescription(*i)
                                   << " idx=" << idx << " idx2=" << idx2
                                   << " f=" << myForbids[idx2][idx]
                                   << " clf=" << checkLaneFoes
-                                  << " clfbc=" << checkLaneFoesByClass(queryCon, *i, connected[k])
-                                  << " clfbcoop=" << checkLaneFoesByCooperation(from, queryCon, *i, connected[k])
+                                  << " clfbc=" << checkLaneFoesByClass(c, *i, connected[k])
+                                  << " clfbcoop=" << checkLaneFoesByCooperation(from, c, *i, connected[k])
                                   << " lc=" << laneConflict(from, to, toLane, *i, connected[k].toEdge, connected[k].toLane)
                                   << " rtc=" << NBNode::rightTurnConflict(from, to, fromLane, *i, connected[k].toEdge, connected[k].fromLane)
-                                  << " rtc2=" << rightTurnConflict(from, queryCon, *i, connected[k])
-                                  << " mc=" << mergeConflict(from, queryCon, *i, connected[k], false)
-                                  << " oltc=" << oppositeLeftTurnConflict(from, queryCon, *i, connected[k], false)
-                                  << " itc=" <<  indirectLeftTurnConflict(from, queryCon, *i, connected[k], zipper)
-                                  << " bc=" <<  bidiConflict(from, queryCon, *i, connected[k], false)
+                                  << " rtc2=" << rightTurnConflict(from, c, *i, connected[k])
+                                  << " mc=" << mergeConflict(from, c, *i, connected[k], false)
+                                  << " oltc=" << oppositeLeftTurnConflict(from, c, *i, connected[k], false)
+                                  << " itc=" <<  indirectLeftTurnConflict(from, c, *i, connected[k], zipper)
+                                  << " bc=" <<  bidiConflict(from, c, *i, connected[k], false)
                                   << " rorc=" << myJunction->rightOnRedConflict(c.tlLinkIndex, connected[k].tlLinkIndex)
                                   << " tlscc=" << myJunction->tlsContConflict(from, c, *i, connected[k])
                                   << "\n";
                     }
 #endif
-                    const bool hasLaneConflict = (!(checkLaneFoes || checkLaneFoesByClass(queryCon, *i, connected[k])
-                                                    || checkLaneFoesByCooperation(from, queryCon, *i, connected[k]))
+                    const bool hasLaneConflict = (!(checkLaneFoes || checkLaneFoesByClass(c, *i, connected[k])
+                                                    || checkLaneFoesByCooperation(from, c, *i, connected[k]))
                                                   || laneConflict(from, to, toLane, *i, connected[k].toEdge, connected[k].toLane));
-                    if (((myForbids[idx2][idx] || (zipper && myForbids[idx][idx2])) && hasLaneConflict && !bidiConflict(*i, connected[k], from, queryCon, false))
-                            || rightTurnConflict(from, queryCon, *i, connected[k])
-                            || mergeConflict(from, queryCon, *i, connected[k], zipper)
-                            || oppositeLeftTurnConflict(from, queryCon, *i, connected[k], zipper)
-                            || indirectLeftTurnConflict(from, queryCon, *i, connected[k], zipper)
-                            || bidiConflict(from, queryCon, *i, connected[k], false)
+                    if (((myForbids[idx2][idx] || (zipper && myForbids[idx][idx2])) && hasLaneConflict && !bidiConflict(*i, connected[k], from, c, false))
+                            || rightTurnConflict(from, c, *i, connected[k])
+                            || mergeConflict(from, c, *i, connected[k], zipper)
+                            || oppositeLeftTurnConflict(from, c, *i, connected[k], zipper)
+                            || indirectLeftTurnConflict(from, c, *i, connected[k], zipper)
+                            || bidiConflict(from, c, *i, connected[k], false)
                             || myJunction->rightOnRedConflict(c.tlLinkIndex, connected[k].tlLinkIndex)
                             || (myJunction->tlsContConflict(from, c, *i, connected[k]) && hasLaneConflict
                                 && !OptionsCont::getOptions().getBool("tls.ignore-internal-junction-jam"))
