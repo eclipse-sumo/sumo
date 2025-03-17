@@ -599,7 +599,7 @@ NBRequest::computeLaneResponse(NBEdge* from, int fromLane, int pos, const bool c
     for (const NBEdge::Connection& c : from->getConnectionsFromLane(fromLane)) {
         assert(c.toEdge != 0);
         pos++;
-        const std::string foes = getFoesString(from, c.toEdge, fromLane, c.toLane, checkLaneFoes);
+        const std::string foes = getFoesString(from, c, checkLaneFoes);
         const std::string response = getResponseString(from, c, checkLaneFoes);
         myFoes.push_back(foes);
         myResponse.push_back(response);
@@ -740,7 +740,7 @@ NBRequest::getResponseString(const NBEdge* const from, const NBEdge::Connection&
 
 
 std::string
-NBRequest::getFoesString(NBEdge* from, NBEdge* to, int fromLane, int toLane, const bool checkLaneFoes) const {
+NBRequest::getFoesString(NBEdge* from, const NBEdge::Connection& c, const bool checkLaneFoes) const {
     const bool lefthand = OptionsCont::getOptions().getBool("lefthand");
     // remember the case when the lane is a "dead end" in the meaning that
     // vehicles must choose another lane to move over the following
@@ -752,30 +752,29 @@ NBRequest::getFoesString(NBEdge* from, NBEdge* to, int fromLane, int toLane, con
     for (std::vector<NBNode::Crossing*>::const_reverse_iterator i = crossings.rbegin(); i != crossings.rend(); i++) {
         bool foes = false;
         for (EdgeVector::const_iterator it_e = (**i).edges.begin(); it_e != (**i).edges.end(); ++it_e) {
-            if ((*it_e) == from || (*it_e) == to) {
+            if ((*it_e) == from || (*it_e) == c.toEdge) {
                 foes = true;
                 break;
             }
         }
         result += foes ? '1' : '0';
     }
-    const NBEdge::Connection& queryCon = from->getConnection(fromLane, to, toLane);
     // normal connections
     for (EdgeVector::const_reverse_iterator i = myIncoming.rbegin(); i != myIncoming.rend(); i++) {
         for (int j = (*i)->getNumLanes() - 1; j >= 0; --j) {
             const std::vector<NBEdge::Connection>& connected = (*i)->getConnectionsFromLane(j);
             int size = (int) connected.size();
             for (int k = size; k-- > 0;) {
-                const bool hasLaneConflict = (!(checkLaneFoes || checkLaneFoesByClass(queryCon, *i, connected[k])
-                                                || checkLaneFoesByCooperation(from, queryCon, *i, connected[k]))
-                                              || laneConflict(from, to, toLane, *i, connected[k].toEdge, connected[k].toLane));
-                if ((foes(from, to, (*i), connected[k].toEdge) && hasLaneConflict)
-                        || rightTurnConflict(from, queryCon, *i, connected[k])
-                        || myJunction->turnFoes(from, to, fromLane, *i, connected[k].toEdge, connected[k].fromLane, lefthand)
-                        || mergeConflict(from, queryCon, *i, connected[k], true)
-                        || oppositeLeftTurnConflict(from, queryCon, *i, connected[k], true)
-                        || indirectLeftTurnConflict(from, queryCon, *i, connected[k], true)
-                        || bidiConflict(from, queryCon, *i, connected[k], true)
+                const bool hasLaneConflict = (!(checkLaneFoes || checkLaneFoesByClass(c, *i, connected[k])
+                                                || checkLaneFoesByCooperation(from, c, *i, connected[k]))
+                                              || laneConflict(from, c.toEdge, c.toLane, *i, connected[k].toEdge, connected[k].toLane));
+                if ((foes(from, c.toEdge, (*i), connected[k].toEdge) && hasLaneConflict)
+                        || rightTurnConflict(from, c, *i, connected[k])
+                        || myJunction->turnFoes(from, c.toEdge, c.fromLane, *i, connected[k].toEdge, connected[k].fromLane, lefthand)
+                        || mergeConflict(from, c, *i, connected[k], true)
+                        || oppositeLeftTurnConflict(from, c, *i, connected[k], true)
+                        || indirectLeftTurnConflict(from, c, *i, connected[k], true)
+                        || bidiConflict(from, c, *i, connected[k], true)
                    ) {
                     result += '1';
                 } else {
