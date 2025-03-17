@@ -426,10 +426,12 @@ NBLoadedSUMOTLDef::initNeedsContRelation() const {
                                                                c1.getFrom(), c1.getTo(), c1.getFromLane(), c2.getFrom(), c2.getTo(), c2.getFromLane());
                             const bool forbidden = forbids(c2.getFrom(), c2.getTo(), c1.getFrom(), c1.getTo(), true, controlledWithin);
                             const bool isFoes = foes(c2.getFrom(), c2.getTo(), c1.getFrom(), c1.getTo()) && !c2.getFrom()->isTurningDirectionAt(c2.getTo());
-                            if (forbidden || rightTurnConflict) {
+                            const bool hasContRel = forbidden || rightTurnConflict;
+                            const bool indirectLeft = c1.getFrom()->getConnection(c1.getFromLane(), c1.getTo(), c1.getToLane()).indirectLeft;
+                            if (hasContRel) {
                                 myNeedsContRelation.insert(StreamPair(c1.getFrom(), c1.getTo(), c2.getFrom(), c2.getTo()));
                             }
-                            if (isFoes && state[i1] == 's') {
+                            if (isFoes && (state[i1] == 's' || (!hasContRel && state[i2] == 'G' && !indirectLeft))) {
                                 myExtraConflicts.insert(std::make_pair(i1, i2));
                                 //std::cout << getID() << " prog=" << getProgramID() << " phase=" << (it - phases.begin()) << " extraConflict i1=" << i1 << " i2=" << i2 << "\n";
                             }
