@@ -773,7 +773,7 @@ public:
     void avoidOverlap();
 
     /// @brief whether the given index must yield to the foeIndex while turing right on a red light
-    bool rightOnRedConflict(int index, int foeIndex) const;
+    bool extraConflict(int index, int foeIndex) const;
 
     /// @brief sort all edge containers for this node
     void sortEdges(bool useNodeShape);
