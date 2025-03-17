@@ -1,0 +1,3 @@
+Warning! Stop 2 for vehicle t1 starts earlier (1200) than previous stop (1400)
+Warning! Stop 3 for vehicle t1 starts earlier (800) than previous stop (1200)
+Warning! No mapping library found, falling back to tracemapper.

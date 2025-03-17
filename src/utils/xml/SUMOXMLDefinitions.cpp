@@ -1355,10 +1355,10 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::attrs[] = {
     { "close shape",                        GNE_ATTR_CLOSE_SHAPE },
     { "parent",                             GNE_ATTR_PARENT },
     { "dataSet",                            GNE_ATTR_DATASET },
-    { "genericParameter",                   GNE_ATTR_PARAMETERS },
+    { TL("Parameters"),                     GNE_ATTR_PARAMETERS },
     { "flowParameter",                      GNE_ATTR_FLOWPARAMETERS },
     { "defaultVTypeModified",               GNE_ATTR_DEFAULT_VTYPE_MODIFIED },
-    { "centerAfterCreation",                GNE_ATTR_CENTER_AFTER_CREATION },
+    { TL("center view"),                    GNE_ATTR_CENTER_AFTER_CREATION },
     { "opposite",                           GNE_ATTR_OPPOSITE },
     { "shiftLaneIndex",                     GNE_ATTR_SHIFTLANEINDEX },
     { "stopOffset",                         GNE_ATTR_STOPOFFSET },
@@ -1378,12 +1378,12 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::attrs[] = {
     { "spacing",                            GNE_ATTR_FLOW_SPACING },
     { "reference",                          GNE_ATTR_REFERENCE },
     { "size",                               GNE_ATTR_SIZE },
-    { "force size",                         GNE_ATTR_FORCESIZE },
+    { TL("force size"),                     GNE_ATTR_FORCESIZE },
     { "laneLength",                         GNE_ATTR_LANELENGTH },
-    { "add. file",                          GNE_ATTR_ADDITIONAL_FILE },
-    { "route file",                         GNE_ATTR_DEMAND_FILE },
-    { "data file",                          GNE_ATTR_DATA_FILE },
-    { "mean file",                          GNE_ATTR_MEANDATA_FILE },
+    { TL("add. file"),                      GNE_ATTR_ADDITIONAL_FILE },
+    { TL("route file"),                     GNE_ATTR_DEMAND_FILE },
+    { TL("data file"),                      GNE_ATTR_DATA_FILE },
+    { TL("mean file"),                      GNE_ATTR_MEANDATA_FILE },
     // mapped to additional elements on writing
     { "fromBusStop",                        GNE_ATTR_FROM_BUSSTOP },
     { "fromTrainStop",                      GNE_ATTR_FROM_TRAINSTOP },
@@ -1393,6 +1393,7 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::attrs[] = {
     { "fromRoute",                          GNE_ATTR_FROM_ROUTE },
     { "isRoundabout",                       GNE_ATTR_IS_ROUNDABOUT },
     { "frontElement",                       GNE_ATTR_FRONTELEMENT },
+    { TL("edges within"),                   GNE_ATTR_EDGES_WITHIN },
 
     { "carriageLength",     SUMO_ATTR_CARRIAGE_LENGTH },
     { "locomotiveLength",   SUMO_ATTR_LOCOMOTIVE_LENGTH },
@@ -1405,7 +1406,7 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::attrs[] = {
     { "xmlns:xsi",                      SUMO_ATTR_XMLNS },
     { "xsi:noNamespaceSchemaLocation",  SUMO_ATTR_SCHEMA_LOCATION },
 
-    //@name RNG state saving attributes
+    // @name RNG state saving attributes
     // @{
     { "routeHandler",      SUMO_ATTR_RNG_ROUTEHANDLER },
     { "insertionControl",  SUMO_ATTR_RNG_INSERTIONCONTROL },

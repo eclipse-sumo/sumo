@@ -7,5 +7,20 @@ patch_stop
 # use candiate stop locations to restrict mapping
 stops
 
+# use the closest loaded stop in range even if it's not on the closest edge to the given coordinate.
+stops_otherEdge
+
+# ensure that stops on the same edge are in the correct sequence
+stops_sameEdgeOrder
+
 # load stops with invalid sequence numbers
 bad_sequence
+
+# load stops with invalid timing
+invalid_timing
+
+# test routes if the vehicle class is disallowed on some lanes
+vclass_disallowed
+
+# ensure correct stop placement if some lanes are forbidden
+lane_disallowed

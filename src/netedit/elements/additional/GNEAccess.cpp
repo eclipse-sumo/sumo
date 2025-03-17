@@ -284,7 +284,11 @@ GNEAccess::getAttribute(SumoXMLAttr key) const {
                 return toString(myPositionOverLane);
             }
         case SUMO_ATTR_LENGTH:
-            return toString(myLength);
+            if (myLength == -1) {
+                return "";
+            } else {
+                return toString(myLength);
+            }
         case SUMO_ATTR_FRIENDLY_POS:
             return toString(myFriendlyPosition);
         case GNE_ATTR_PARENT:

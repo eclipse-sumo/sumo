@@ -628,7 +628,7 @@ void
 GNEVehicleFrame::updateFlowAttributes() {
     // adjust poisson value
     if (myVehicleBaseObject->hasDoubleAttribute(GNE_ATTR_POISSON)) {
-        myVehicleBaseObject->addStringAttribute(SUMO_ATTR_PERIOD, "exp(" + toString(myVehicleBaseObject->hasDoubleAttribute(GNE_ATTR_POISSON)) + ")");
+        myVehicleBaseObject->addStringAttribute(SUMO_ATTR_PERIOD, "exp(" + toString(myVehicleBaseObject->getDoubleAttribute(GNE_ATTR_POISSON)) + ")");
     }
 }
 

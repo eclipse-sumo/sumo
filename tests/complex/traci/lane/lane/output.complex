@@ -43,13 +43,13 @@ after setDisallowed ('private', 'emergency', 'authority', 'army', 'vip', 'pedest
 after setMaxSpeed 42.0
 after setLength 123.0
 foes ('4si_1',)
-{16: 1}
+{16: 1, 67: 270.0}
 step 3
 pending 2fi_0: ('horiz2',)
-{16: 2}
+{16: 2, 67: 270.0}
 step 4
 pending 2fi_0: ()
-{16: 2}
+{16: 2, 67: 270.0}
 step 5
 pending 2fi_0: ()
-{16: 2}
+{16: 2, 67: 270.0}

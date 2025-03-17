@@ -1,0 +1,6 @@
+--no-step-log --net-file=three_split.net.xml
+-r input_routes.rou.xml -a input_additional.add.xml
+--ignore-route-errors
+--device.rerouting.pre-period 0
+--device.rerouting.threads 8
+--weights.random-factor 1.2

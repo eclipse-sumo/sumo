@@ -372,6 +372,8 @@ GNEAttributesEditorRow::fillSumoBaseObject(CommonXMLStructure::SumoBaseObject* b
             }
         } else if (GNEAttributeCarrier::canParse<Position>(myValueTextField->getText().text())) {
             baseObject->addPositionAttribute(attribute, GNEAttributeCarrier::parse<Position>(myValueTextField->getText().text()));
+        } else if (myAttrProperty->hasDefaultValue() && (myValueTextField->getText().text() == myAttrProperty->getDefaultStringValue())) {
+            baseObject->addPositionAttribute(attribute, myAttrProperty->getDefaultPositionValue());
         } else {
             return attribute;
         }

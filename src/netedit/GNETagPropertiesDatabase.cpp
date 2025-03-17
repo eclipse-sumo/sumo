@@ -165,7 +165,7 @@ GNETagPropertiesDatabase::getTagPropertiesByType(const int tagPropertyCategory, 
             }
         }
     }
-    if (tagPropertyCategory & GNETagProperties::TagType::VEHICLESTOP) {
+    if (tagPropertyCategory & GNETagProperties::TagType::STOP_VEHICLE) {
         // fill stop (and waypoints) tags
         for (const auto& tagProperty : myTagProperties) {
             if (tagProperty.second->isVehicleStop()) {
@@ -225,7 +225,7 @@ GNETagPropertiesDatabase::getTagPropertiesByType(const int tagPropertyCategory, 
             }
         }
     }
-    if (tagPropertyCategory & GNETagProperties::TagType::STOPPERSON) {
+    if (tagPropertyCategory & GNETagProperties::TagType::STOP_PERSON) {
         if (mergePlans) {
             allowedTags.push_back(myTagPropertiesSet.at(GNE_TAG_STOPPERSON));
         } else {
@@ -293,7 +293,7 @@ GNETagPropertiesDatabase::getTagPropertiesByType(const int tagPropertyCategory, 
             }
         }
     }
-    if (tagPropertyCategory & GNETagProperties::TagType::STOPCONTAINER) {
+    if (tagPropertyCategory & GNETagProperties::TagType::STOP_CONTAINER) {
         if (mergePlans) {
             allowedTags.push_back(myTagPropertiesSet.at(GNE_TAG_STOPCONTAINER));
         } else {
@@ -2032,7 +2032,7 @@ GNETagPropertiesDatabase::fillShapeElements() {
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_GEOSHAPE,
                                    GNEAttributeProperties::STRING | GNEAttributeProperties::POSITION | GNEAttributeProperties::LIST | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                                   GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE | GNEAttributeProperties::GEOEDITOR,
+                                   GNEAttributeProperties::EDITMODE | GNEAttributeProperties::GEOEDITOR,
                                    TL("A custom geo shape for this polygon"));
 
         new GNEAttributeProperties(myTagProperties[currentTag], GNE_ATTR_CLOSE_SHAPE,
@@ -2153,6 +2153,12 @@ GNETagPropertiesDatabase::fillTAZElements() {
                                    GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
                                    TL("An information whether the TAZ shall be filled"),
                                    GNEAttributeCarrier::False);
+
+        new GNEAttributeProperties(myTagProperties[currentTag], GNE_ATTR_EDGES_WITHIN,
+                                   GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::COPYABLE,
+                                   GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::NETEDITEDITOR,
+                                   TL("Use the edges within the shape"),
+                                   GNEAttributeCarrier::True);
     }
     currentTag = SUMO_TAG_TAZSOURCE;
     {
@@ -3028,7 +3034,7 @@ GNETagPropertiesDatabase::fillStopElements() {
     {
         // set values of tag
         myTagProperties[currentTag] = new GNETagProperties(currentTag,
-                GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::VEHICLESTOP,
+                GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::STOP_VEHICLE,
                 GNETagProperties::TagProperty::CHILD,
                 GNETagProperties::TagParents::NO_PARENTS,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
@@ -3078,7 +3084,7 @@ GNETagPropertiesDatabase::fillStopElements() {
     {
         // set values of tag
         myTagProperties[currentTag] = new GNETagProperties(currentTag,
-                GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::VEHICLESTOP,
+                GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::STOP_VEHICLE,
                 GNETagProperties::TagProperty::CHILD,
                 GNETagProperties::TagParents::NO_PARENTS,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
@@ -3097,7 +3103,7 @@ GNETagPropertiesDatabase::fillStopElements() {
     {
         // set values of tag
         myTagProperties[currentTag] = new GNETagProperties(currentTag,
-                GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::VEHICLESTOP,
+                GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::STOP_VEHICLE,
                 GNETagProperties::TagProperty::CHILD,
                 GNETagProperties::TagParents::NO_PARENTS,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
@@ -3116,7 +3122,7 @@ GNETagPropertiesDatabase::fillStopElements() {
     {
         // set values of tag
         myTagProperties[currentTag] = new GNETagProperties(currentTag,
-                GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::VEHICLESTOP,
+                GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::STOP_VEHICLE,
                 GNETagProperties::TagProperty::CHILD,
                 GNETagProperties::TagParents::NO_PARENTS,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
@@ -3135,7 +3141,7 @@ GNETagPropertiesDatabase::fillStopElements() {
     {
         // set values of tag
         myTagProperties[currentTag] = new GNETagProperties(currentTag,
-                GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::VEHICLESTOP,
+                GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::STOP_VEHICLE,
                 GNETagProperties::TagProperty::CHILD,
                 GNETagProperties::TagParents::NO_PARENTS,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
@@ -3154,7 +3160,7 @@ GNETagPropertiesDatabase::fillStopElements() {
     {
         // set values of tag
         myTagProperties[currentTag] = new GNETagProperties(currentTag,
-                GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::VEHICLESTOP,
+                GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::STOP_VEHICLE,
                 GNETagProperties::TagProperty::CHILD,
                 GNETagProperties::TagParents::NO_PARENTS,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
@@ -3179,7 +3185,7 @@ GNETagPropertiesDatabase::fillWaypointElements() {
     {
         // set values of tag
         myTagProperties[currentTag] = new GNETagProperties(currentTag,
-                GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::VEHICLESTOP | GNETagProperties::TagType::VEHICLEWAYPOINT,
+                GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::STOP_VEHICLE | GNETagProperties::TagType::WAYPOINT_VEHICLE,
                 GNETagProperties::TagProperty::CHILD,
                 GNETagProperties::TagParents::NO_PARENTS,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
@@ -3229,7 +3235,7 @@ GNETagPropertiesDatabase::fillWaypointElements() {
     {
         // set values of tag
         myTagProperties[currentTag] = new GNETagProperties(currentTag,
-                GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::VEHICLESTOP | GNETagProperties::TagType::VEHICLEWAYPOINT,
+                GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::STOP_VEHICLE | GNETagProperties::TagType::WAYPOINT_VEHICLE,
                 GNETagProperties::TagProperty::CHILD,
                 GNETagProperties::TagParents::NO_PARENTS,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
@@ -3248,7 +3254,7 @@ GNETagPropertiesDatabase::fillWaypointElements() {
     {
         // set values of tag
         myTagProperties[currentTag] = new GNETagProperties(currentTag,
-                GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::VEHICLESTOP | GNETagProperties::TagType::VEHICLEWAYPOINT,
+                GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::STOP_VEHICLE | GNETagProperties::TagType::WAYPOINT_VEHICLE,
                 GNETagProperties::TagProperty::CHILD,
                 GNETagProperties::TagParents::NO_PARENTS,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
@@ -3267,7 +3273,7 @@ GNETagPropertiesDatabase::fillWaypointElements() {
     {
         // set values of tag
         myTagProperties[currentTag] = new GNETagProperties(currentTag,
-                GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::VEHICLESTOP | GNETagProperties::TagType::VEHICLEWAYPOINT,
+                GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::STOP_VEHICLE | GNETagProperties::TagType::WAYPOINT_VEHICLE,
                 GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
                 GNETagProperties::TagParents::NO_PARENTS,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
@@ -3286,7 +3292,7 @@ GNETagPropertiesDatabase::fillWaypointElements() {
     {
         // set values of tag
         myTagProperties[currentTag] = new GNETagProperties(currentTag,
-                GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::VEHICLESTOP | GNETagProperties::TagType::VEHICLEWAYPOINT,
+                GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::STOP_VEHICLE | GNETagProperties::TagType::WAYPOINT_VEHICLE,
                 GNETagProperties::TagProperty::CHILD,
                 GNETagProperties::TagParents::NO_PARENTS,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
@@ -3305,7 +3311,7 @@ GNETagPropertiesDatabase::fillWaypointElements() {
     {
         // set values of tag
         myTagProperties[currentTag] = new GNETagProperties(currentTag,
-                GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::VEHICLESTOP | GNETagProperties::TagType::VEHICLEWAYPOINT,
+                GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::STOP_VEHICLE | GNETagProperties::TagType::WAYPOINT_VEHICLE,
                 GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
                 GNETagProperties::TagParents::NO_PARENTS,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
@@ -4749,7 +4755,7 @@ GNETagPropertiesDatabase::fillContainerTranshipElements() {
 void
 GNETagPropertiesDatabase::fillContainerStopElements() {
     // declare common tag types and properties
-    const int tagType = GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::CONTAINERPLAN | GNETagProperties::TagType::STOPCONTAINER;
+    const int tagType = GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::CONTAINERPLAN | GNETagProperties::TagType::STOP_CONTAINER;
     const int tagProperty = GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS;
     const int conflicts = GNETagProperties::Conflicts::NO_CONFLICTS;
     const std::vector<SumoXMLTag> parents({SUMO_TAG_CONTAINER, SUMO_TAG_CONTAINERFLOW});
@@ -6859,7 +6865,7 @@ GNETagPropertiesDatabase::fillPersonPlanRides() {
 void
 GNETagPropertiesDatabase::fillPersonStopElements() {
     // declare common tag types and properties
-    const int tagType = GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::STOPPERSON;
+    const int tagType = GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::STOP_PERSON;
     const int tagProperty = GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS;
     const int conflicts = GNETagProperties::Conflicts::NO_CONFLICTS;
     const std::vector<SumoXMLTag> parents({SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW});
@@ -6944,6 +6950,13 @@ GNETagPropertiesDatabase::fillPersonStopElements() {
 void
 GNETagPropertiesDatabase::fillCommonAttributes(GNETagProperties* tagProperties) {
     GNEAttributeProperties* commonAttribute = nullptr;
+    // check if element can be reparent
+    if (tagProperties->canCenterCameraAfterCreation()) {
+        commonAttribute = new GNEAttributeProperties(tagProperties, GNE_ATTR_CENTER_AFTER_CREATION,
+                GNEAttributeProperties::BOOL,
+                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::NETEDITEDITOR,
+                TLF("Center view over element % after creation", tagProperties->getTagStr()));
+    }
     // fill file attributes
     if (!tagProperties->isChild() && !tagProperties->isSymbol()) {
         if (tagProperties->isAdditionalElement()) {
@@ -6972,6 +6985,13 @@ GNETagPropertiesDatabase::fillCommonAttributes(GNETagProperties* tagProperties) 
             commonAttribute->setFilenameExtensions(SUMOXMLDefinitions::MeanDataFileExtensions.getMultilineString());
         }
     }
+    /*
+    new GNEAttributeProperties(myTagProperties[currentTag], relativePath,
+            GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
+            GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+            TL("Enable or disable use image file as a relative path"),
+            toString(Shape::DEFAULT_RELATIVEPATH));
+    */
     // if this is a drawable element, add front and select attributes
     if (tagProperties->isDrawable()) {
         commonAttribute = new GNEAttributeProperties(tagProperties, GNE_ATTR_FRONTELEMENT,
@@ -6998,13 +7018,6 @@ GNETagPropertiesDatabase::fillCommonAttributes(GNETagProperties* tagProperties) 
                 GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
                 TL("Generic parameters (Format: key1=value1|key2=value2|..."));
     }
-    /*
-    new GNEAttributeProperties(myTagProperties[currentTag], relativePath,
-            GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
-            GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
-            TL("Enable or disable use image file as a relative path"),
-            toString(Shape::DEFAULT_RELATIVEPATH));
-    */
 }
 
 

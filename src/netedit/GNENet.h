@@ -54,6 +54,9 @@ public:
     /// @brief get all attribute carriers used in this net
     GNENetHelper::AttributeCarriers* getAttributeCarriers() const;
 
+    /// @brief get all attribute carriers templates used in this net
+    GNENetHelper::ACTemplate* getACTemplates() const;
+
     /// @brief get saving files handler
     GNENetHelper::SavingFilesHandler* getSavingFilesHandler() const;
 
@@ -512,6 +515,9 @@ protected:
 
     /// @brief attributeCarriers module
     GNENetHelper::AttributeCarriers* myAttributeCarriers = nullptr;
+
+    /// @brief attributeCarriers templates
+    GNENetHelper::ACTemplate* myACTemplates = nullptr;
 
     /// @brief saving files handler module
     GNENetHelper::SavingFilesHandler* mySavingFilesHandler = nullptr;

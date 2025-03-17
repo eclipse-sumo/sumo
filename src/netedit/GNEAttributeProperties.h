@@ -146,6 +146,9 @@ public:
     /// @brief get default bool value
     const RGBColor& getDefaultColorValue() const;
 
+    /// @brief get default position value
+    const Position& getDefaultPositionValue() const;
+
     /// @brief get default active value
     bool getDefaultActivated() const;
 
@@ -316,6 +319,9 @@ private:
 
     /// @brief get default bool value
     RGBColor myDefaultColorValue = RGBColor::INVISIBLE;
+
+    /// @brief get default position value
+    Position myDefaultPositionValue = Position::INVALID;
 
     /// @brief default activated (by default false)
     bool myDefaultActivated = false;

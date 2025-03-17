@@ -262,6 +262,12 @@ GNEAttributeProperties::getDefaultColorValue() const {
 }
 
 
+const Position&
+GNEAttributeProperties::getDefaultPositionValue() const {
+    return myDefaultPositionValue;
+}
+
+
 bool
 GNEAttributeProperties::getDefaultActivated() const {
     return myDefaultActivated;
@@ -656,6 +662,11 @@ GNEAttributeProperties::parseDefaultValues(const std::string& defaultValue, cons
         myDefaultColorValue = GNEAttributeCarrier::parse<RGBColor>(defaultValue);
         if (overWritteDefaultString) {
             myDefaultStringValue = toString(myDefaultColorValue);
+        }
+    } else if (isPosition()) {
+        myDefaultPositionValue = GNEAttributeCarrier::parse<Position>(defaultValue);
+        if (overWritteDefaultString) {
+            myDefaultStringValue = toString(myDefaultPositionValue);
         }
     }
 }

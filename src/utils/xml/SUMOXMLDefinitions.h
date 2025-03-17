@@ -1856,7 +1856,7 @@ enum SumoXMLAttr {
     GNE_ATTR_DATA_FILE,
     /// @brief meanData data file
     GNE_ATTR_MEANDATA_FILE,
-    // virtual attributes for easier UI
+    // @brief virtual attributes for easier UI
     GNE_ATTR_FROM_BUSSTOP,
     GNE_ATTR_FROM_TRAINSTOP,
     GNE_ATTR_FROM_CONTAINERSTOP,
@@ -1865,6 +1865,8 @@ enum SumoXMLAttr {
     GNE_ATTR_FROM_ROUTE,
     GNE_ATTR_IS_ROUNDABOUT,
     GNE_ATTR_FRONTELEMENT,
+    /// @brief virtual attribute used for use edges within during TAZ creation
+    GNE_ATTR_EDGES_WITHIN,
     // @}
 
     /// @name train parameters

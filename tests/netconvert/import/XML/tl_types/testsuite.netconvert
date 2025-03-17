@@ -41,3 +41,6 @@ static_ignore-internal-junction-jam
 
 # Copy of default
 off_allwayStop
+
+# see #16338
+major_left_minor_right

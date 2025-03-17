@@ -52,8 +52,8 @@ public:
         VTYPE =             1 << 11, // Vehicle types (vType and vTypeDistribution)
         VEHICLE =           1 << 12, // Vehicles (Vehicles, trips, flows...)
         ROUTE =             1 << 13, // Routes and embedded routes
-        VEHICLESTOP =       1 << 14, // Vehicle stops
-        VEHICLEWAYPOINT =   1 << 15, // Vehicle waypoints (note: All waypoints are also Stops)
+        STOP_VEHICLE =      1 << 14, // Vehicle stops
+        WAYPOINT_VEHICLE =  1 << 15, // Vehicle waypoints (note: All waypoints are also Stops)
         FLOW =              1 << 16, // Flows
         // persons
         PERSON =            1 << 17, // Persons (Persons and personFlows)
@@ -61,13 +61,13 @@ public:
         PERSONTRIP =        1 << 19, // Person Trips
         WALK =              1 << 20, // Walks
         RIDE =              1 << 21, // Rides
-        STOPPERSON =        1 << 22, // Person stops
+        STOP_PERSON =       1 << 22, // Person stops
         // containers
         CONTAINER =         1 << 23, // Containers (Containers and personFlows)
-        CONTAINERPLAN =     1 << 24, // Container plans (tranship and transport)
+        CONTAINERPLAN =     1 << 24, // Container plans (transport, tranships and containerStops)
         TRANSPORT =         1 << 25, // Transport
         TRANSHIP =          1 << 26, // Tranship
-        STOPCONTAINER =     1 << 27, // Container stops
+        STOP_CONTAINER =    1 << 27, // Container stops
         // sub data elements
         GENERICDATA =       1 << 28, // Generic data (GNEEdgeData, GNELaneData...)
         MEANDATA =          1 << 29, // Mean datas
@@ -145,7 +145,7 @@ public:
     /// @brief parameter constructor
     GNETagProperties(const SumoXMLTag tag, const int tagType, const int tagProperty, const int tagParents, const int conflicts,
                      const GUIIcon icon, const SumoXMLTag XMLTag, const std::string tooltip, std::vector<SumoXMLTag> parentTags = {},
-                     const unsigned int backgroundColor = FXRGBA(255, 255, 255, 255), const std::string fieldString = "");
+                     const unsigned int backgroundColor = FXRGBA(255, 255, 255, 255), const std::string selectorText = "");
 
     /// @brief destructor
     ~GNETagProperties();
@@ -163,7 +163,7 @@ public:
     void checkTagIntegrity() const;
 
     /// @brief get field string (by default tag in string format)
-    const std::string& getFieldString() const;
+    const std::string& getSelectorText() const;
 
     /// @brief get tooltip text
     const std::string& getTooltipText() const;
@@ -529,8 +529,8 @@ private:
     /// @brief vector with master tags (used by child elements)
     std::vector<SumoXMLTag> myParentTags;
 
-    /// @brief field string
-    std::string myFieldString;
+    /// @brief text show in selector text
+    std::string mySelectorText;
 
     /// @brief background color (used in labels and textFields, by default white)
     unsigned int myBackgroundColor = 0;

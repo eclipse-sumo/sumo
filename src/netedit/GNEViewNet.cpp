@@ -33,6 +33,7 @@
 #include <netedit/elements/network/GNEWalkingArea.h>
 #include <netedit/frames/GNEAttributesEditor.h>
 #include <netedit/frames/GNEConsecutiveSelector.h>
+#include <netedit/frames/GNEDrawingShape.h>
 #include <netedit/frames/GNENetworkSelector.h>
 #include <netedit/frames/GNEOverlappedInspection.h>
 #include <netedit/frames/GNEPathCreator.h>

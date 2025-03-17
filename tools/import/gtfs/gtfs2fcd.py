@@ -154,9 +154,16 @@ def main(options):
             offset = 0
             firstDep = None
             lastIndex = None
-            for __, d in data.sort_values(by=['stop_sequence']).iterrows():
+            lastArrival = None
+            for idx, d in data.sort_values(by=['stop_sequence']).iterrows():
                 if d.stop_sequence == lastIndex:
                     print("Invalid stop_sequence in input for trip %s" % trip_id, file=sys.stderr)
+                if lastArrival is not None:
+                    if d.arrival_time < lastArrival:
+                        print("Warning! Stop %s for vehicle %s starts earlier (%s) than previous stop (%s)" % (
+                            idx, trip_id, d.arrival_time, lastArrival), file=sys.stderr)
+                lastArrival = d.arrival_time
+
                 arrivalSec = d.arrival_time + timeIndex
                 stopSeq.append(d.stop_id)
                 departureSec = d.departure_time + timeIndex

@@ -319,3 +319,9 @@ class Lane:
 
     def isNormal(self):
         return self.getID()[0] != ":"
+
+    def interpretOffset(self, lanePos):
+        if lanePos >= 0:
+            return lanePos
+        else:
+            return lanePos + self.getLength()

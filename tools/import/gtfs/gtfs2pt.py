@@ -73,6 +73,8 @@ def get_options(args=None):
                     help="file with candidate stops (selected by proxmity)")
     ap.add_argument("--patched-stops", category="input", dest="patchedStops", type=ap.file,
                     help="file with replacement stops (based on stop ids)")
+    ap.add_argument("--radius", default=150, category="input", type=float,
+                    help="maximum matching radius for candidate edges and stops")
     ap.add_argument("-H", "--human-readable-time", category="output", dest="hrtime", default=False, action="store_true",
                     help="write times as h:m:s")
 
@@ -210,6 +212,7 @@ def mapFCD(options, typedNets):
 def traceMap(options, typedNets, fixedStops, stopLookup, invEdgeMap, radius=150):
     routes = collections.OrderedDict()
     for mode in sorted(typedNets.keys()):
+        vclass = gtfs2osm.OSM2SUMO_MODES.get(mode)
         if options.verbose:
             print("mapping", mode)
         net = sumolib.net.readNet(os.path.join(options.network_split, mode + ".net.xml"))
@@ -232,7 +235,7 @@ def traceMap(options, typedNets, fixedStops, stopLookup, invEdgeMap, radius=150)
                 vias = {}
                 if stopLookup.hasCandidates():
                     for idx, xy in enumerate(trace):
-                        candidates = stopLookup.getCandidates(xy)
+                        candidates = stopLookup.getCandidates(xy, options.radius)
                         if candidates:
                             all_edges = [invEdgeMap[lane2edge(stop.lane)] for stop in candidates]
                             vias[idx] = [e for e in all_edges if e in mode_edges]
@@ -241,11 +244,12 @@ def traceMap(options, typedNets, fixedStops, stopLookup, invEdgeMap, radius=150)
                     if fixed:
                         vias[idx] = [invEdgeMap[lane2edge(fixed.lane)]]
                 if trace in traceCache:
-                    mappedRoute =  traceCache[trace]
+                    mappedRoute = traceCache[trace]
                     cacheHits += 1
                 else:
                     mappedRoute = sumolib.route.mapTrace(trace, net, radius, verbose=options.verbose,
-                                                         fillGaps=options.fill_gaps, gapPenalty=5000., vias=vias,
+                                                         fillGaps=options.fill_gaps, gapPenalty=5000.,
+                                                         vClass=vclass, vias=vias,
                                                          reversalPenalty=1000.)
                     traceCache[trace] = mappedRoute
 
@@ -274,12 +278,13 @@ def generate_polygons(net, routes, outfile):
         outf.write('</polygons>\n')
 
 
-def map_stops(options, net, routes, rout, edgeMap, fixedStops):
+def map_stops(options, net, routes, rout, edgeMap, fixedStops, stopLookup):
     stops = collections.defaultdict(list)
     stopEnds = collections.defaultdict(list)
     rid = None
     for inp in sorted(glob.glob(os.path.join(options.fcd, "*.fcd.xml"))):
         mode = os.path.basename(inp)[:-8]
+        vclass = gtfs2osm.OSM2SUMO_MODES.get(mode)
         typedNetFile = os.path.join(options.network_split, mode + ".net.xml")
         if not os.path.exists(typedNetFile):
             print("Warning! No net", typedNetFile, file=sys.stderr)
@@ -313,7 +318,9 @@ def map_stops(options, net, routes, rout, edgeMap, fixedStops):
             if rid not in fixed:
                 routeFixed = [routes[rid][0]]
                 for routeEdgeID in routes[rid][1:]:
-                    path, _ = typedNet.getShortestPath(typedNet.getEdge(routeFixed[-1]), typedNet.getEdge(routeEdgeID))
+                    path, _ = typedNet.getShortestPath(typedNet.getEdge(routeFixed[-1]),
+                                                       typedNet.getEdge(routeEdgeID),
+                                                       vClass=vclass)
                     if path is None or len(path) > options.fill_gaps + 2:
                         error = "no path found" if path is None else "path too long (%s)" % len(path)
                         print("Warning! Disconnected route '%s' between '%s' and '%s', %s. Keeping longer part." %
@@ -341,8 +348,37 @@ def map_stops(options, net, routes, rout, edgeMap, fixedStops):
                 s = fixedStops[stop]
                 laneID, start, end = s.lane, float(s.startPos), float(s.endPos)
             else:
-                result = gtfs2osm.getBestLane(net, veh.x, veh.y, 200, stopLength, options.center_stops,
-                                              route[lastIndex:], gtfs2osm.OSM2SUMO_MODES[mode], lastPos)
+                result = None
+                if stopLookup.hasCandidates():
+                    xy = net.convertLonLat2XY(float(veh.x), float(veh.y))
+                    candidates = stopLookup.getCandidates(xy, options.radius)
+                    if candidates:
+                        on_route = [s for s in candidates if lane2edge(s.lane) in route[lastIndex:]]
+                        if on_route:
+                            bestDist = 1e3 * options.radius
+                            for stopObj in on_route:
+                                lane = net.getLane(stopObj.lane)
+                                if not lane.allows(vclass):
+                                    for lane2 in lane.getEdge().getLanes():
+                                        if lane2.allows(vclass):
+                                            print("Warning! Fixed lane of loaded stop", stopObj.id, file=sys.stderr)
+                                            lane = lane2
+                                if not lane.allows(vclass):
+                                    print("Warning! Unable to fix lane of loaded stop", stopObj.id, file=sys.stderr)
+                                    continue
+
+                                endPos = float(stopObj.endPos)
+                                if (stopIndex > 0
+                                        and lane2edge(stopObj.lane) == route[lastIndex]
+                                        and lane.interpretOffset(endPos) < lane.interpretOffset(lastPos)):
+                                    continue
+                                dist = sumolib.geomhelper.distance(stopObj.center_xy, xy)
+                                if dist < bestDist:
+                                    bestDist = dist
+                                    result = (lane.getID(), float(stopObj.startPos), endPos)
+                if result is None:
+                    result = gtfs2osm.getBestLane(net, veh.x, veh.y, 200, stopLength, options.center_stops,
+                                                  route[lastIndex:], gtfs2osm.OSM2SUMO_MODES[mode], lastPos)
                 if result is None:
                     if options.warn_unmapped:
                         print("Warning! No stop for %s." % str(veh), file=sys.stderr)
@@ -414,10 +450,12 @@ class StopLookup:
             self._candidates = list(sumolib.xml.parse(fname, ("busStop", "trainStop")))
             for ri, stop in enumerate(self._candidates):
                 lane = net.getLane(stop.lane)
-                middle = (float(stop.startPos) + float(stop.endPos)) / 2
+                middle = (lane.interpretOffset(float(stop.startPos)) +
+                          lane.interpretOffset(float(stop.endPos))) / 2
                 x, y = sumolib.geomhelper.positionAtShapeOffset(lane.getShape(), middle)
                 bbox = (x - 1, y - 1, x + 1, y + 1)
                 self._rtree.add(ri, bbox)
+                stop.center_xy = (x, y)
 
     def hasCandidates(self):
         return len(self._candidates) > 0
@@ -497,13 +535,13 @@ def main(options):
                 return
             if options.mapperlib != "tracemapper":
                 print("Warning! No mapping library found, falling back to tracemapper.", file=sys.stderr)
-            routes = traceMap(options, typedNets, fixedStops, stopLookup, invEdgeMap)
+            routes = traceMap(options, typedNets, fixedStops, stopLookup, invEdgeMap, options.radius)
 
         if options.poly_output:
             generate_polygons(net, routes, options.poly_output)
         with sumolib.openz(options.additional_output, mode='w') as aout:
             sumolib.xml.writeHeader(aout, os.path.basename(__file__), "additional", options=options)
-            stops = map_stops(options, net, routes, aout, edgeMap, fixedStops)
+            stops = map_stops(options, net, routes, aout, edgeMap, fixedStops, stopLookup)
             aout.write(u'</additional>\n')
         with sumolib.openz(options.route_output, mode='w') as rout:
             ft = humanReadableTime if options.hrtime else lambda x: x

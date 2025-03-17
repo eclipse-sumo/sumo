@@ -26,6 +26,8 @@
 #include <netedit/changes/GNEChange_TAZSourceSink.h>
 #include <netedit/elements/additional/GNEAdditionalHandler.h>
 #include <netedit/elements/additional/GNETAZ.h>
+#include <netedit/frames/GNEAttributesEditor.h>
+#include <netedit/frames/GNEDrawingShape.h>
 #include <utils/foxtools/MFXDynamicLabel.h>
 #include <utils/gui/div/GUIDesigns.h>
 
@@ -34,12 +36,6 @@
 // ===========================================================================
 // FOX callback mapping
 // ===========================================================================
-
-FXDEFMAP(GNETAZFrame::TAZParameters) TAZParametersMap[] = {
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_SET_ATTRIBUTE_DIALOG,    GNETAZFrame::TAZParameters::onCmdSetColorAttribute),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_SET_ATTRIBUTE,           GNETAZFrame::TAZParameters::onCmdSetAttribute),
-    FXMAPFUNC(SEL_COMMAND, MID_HELP,                        GNETAZFrame::TAZParameters::onCmdHelp),
-};
 
 FXDEFMAP(GNETAZFrame::TAZSaveChanges) TAZSaveChangesMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_OK,         GNETAZFrame::TAZSaveChanges::onCmdSaveChanges),
@@ -61,7 +57,6 @@ FXDEFMAP(GNETAZFrame::TAZEdgesGraphic) TAZEdgesGraphicMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNETAZFrame::TAZParameters,             MFXGroupBoxModule,     TAZParametersMap,               ARRAYNUMBER(TAZParametersMap))
 FXIMPLEMENT(GNETAZFrame::TAZSaveChanges,            MFXGroupBoxModule,     TAZSaveChangesMap,              ARRAYNUMBER(TAZSaveChangesMap))
 FXIMPLEMENT(GNETAZFrame::TAZChildDefaultParameters, MFXGroupBoxModule,     TAZChildDefaultParametersMap,   ARRAYNUMBER(TAZChildDefaultParametersMap))
 FXIMPLEMENT(GNETAZFrame::TAZSelectionStatistics,    MFXGroupBoxModule,     TAZSelectionStatisticsMap,      ARRAYNUMBER(TAZSelectionStatisticsMap))
@@ -176,7 +171,7 @@ GNETAZFrame::CurrentTAZ::setTAZ(GNETAZ* editedTAZ) {
         // refresh TAZ Edges
         refreshTAZEdges();
         // hide TAZ parameters
-        myTAZFrameParent->myTAZParameters->hideTAZParametersModule();
+        myTAZFrameParent->myTAZAttributesEditor->hideAttributesEditor();
         // hide drawing shape
         myTAZFrameParent->myDrawingShape->hideDrawingShape();
         // show edge common parameters
@@ -189,7 +184,7 @@ GNETAZFrame::CurrentTAZ::setTAZ(GNETAZ* editedTAZ) {
         myTAZFrameParent->myTAZEdgesGraphic->showTAZEdgesGraphicModule();
     } else {
         // show TAZ parameters
-        myTAZFrameParent->myTAZParameters->showTAZParametersModule();
+        myTAZFrameParent->myTAZAttributesEditor->showAttributesEditor(myTAZFrameParent->getViewNet()->getNet()->getACTemplates()->getTemplateAC(SUMO_TAG_TAZ), true);
         // show drawing shape
         myTAZFrameParent->myDrawingShape->showDrawingShape();
         // hide edge common parameters
@@ -1149,168 +1144,6 @@ GNETAZFrame::TAZSelectionStatistics::updateStatistics() {
 }
 
 // ---------------------------------------------------------------------------
-// GNETAZFrame::TAZParameters- methods
-// ---------------------------------------------------------------------------
-
-GNETAZFrame::TAZParameters::TAZParameters(GNETAZFrame* TAZFrameParent) :
-    MFXGroupBoxModule(TAZFrameParent, TL("TAZ parameters")),
-    myTAZFrameParent(TAZFrameParent),
-    myTAZTemplate(nullptr) {
-    // create TAZ Template
-    myTAZTemplate = new GNETAZ(TAZFrameParent->getViewNet()->getNet());
-    // create Button and string textField for center (by default, empty)
-    FXHorizontalFrame* centerParameter = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
-    new FXLabel(centerParameter, toString(SUMO_ATTR_CENTER).c_str(), 0, GUIDesignLabelThickedFixed(100));
-    myTextFieldCenter = new FXTextField(centerParameter, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
-    // create Button and string textField for color and set blue as default color
-    FXHorizontalFrame* fillParameter = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
-    new FXLabel(fillParameter, toString(SUMO_ATTR_FILL).c_str(), 0, GUIDesignLabelThickedFixed(100));
-    myCheckButtonFill = new FXCheckButton(fillParameter, "false", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
-    myCheckButtonFill->setCheck(FALSE);
-    // create Button and string textField for color and set blue as default color
-    FXHorizontalFrame* colorParameter = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
-    myColorEditor = GUIDesigns::buildFXButton(colorParameter, toString(SUMO_ATTR_COLOR), "", "", 0, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonAttribute);
-    myColorEditor->setIcon(GUIIconSubSys::getIcon(GUIIcon::COLORWHEEL));
-    myTextFieldColor = new FXTextField(colorParameter, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
-    myTextFieldColor->setText("blue");
-    // create Button and string textField for name and set blue as default name
-    FXHorizontalFrame* nameParameter = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
-    new FXLabel(nameParameter, toString(SUMO_ATTR_NAME).c_str(), 0, GUIDesignLabelThickedFixed(100));
-    myTextFieldName = new FXTextField(nameParameter, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
-    // create Label and CheckButton for use inner edges with true as default value
-    FXHorizontalFrame* useInnenEdges = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
-    new FXLabel(useInnenEdges, TL("Edges within"), 0, GUIDesignLabelThickedFixed(100));
-    myAddEdgesWithinCheckButton = new FXCheckButton(useInnenEdges, TL("use"), this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
-    myAddEdgesWithinCheckButton->setCheck(true);
-    // Create help button
-    myHelpTAZAttribute = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Help"), "", "", 0, this, MID_HELP, GUIDesignButtonRectangular);
-}
-
-
-GNETAZFrame::TAZParameters::~TAZParameters() {
-    delete myTAZTemplate;
-}
-
-
-void
-GNETAZFrame::TAZParameters::showTAZParametersModule() {
-    MFXGroupBoxModule::show();
-}
-
-
-void
-GNETAZFrame::TAZParameters::hideTAZParametersModule() {
-    MFXGroupBoxModule::hide();
-}
-
-
-bool
-GNETAZFrame::TAZParameters::isCurrentParametersValid() const {
-    const bool validColor = GNEAttributeCarrier::canParse<RGBColor>(myTextFieldColor->getText().text());
-    const bool validCenter = myTextFieldCenter->getText().empty() || GNEAttributeCarrier::canParse<Position>(myTextFieldCenter->getText().text());
-    const bool validName = SUMOXMLDefinitions::isValidAttribute(myTextFieldName->getText().text());
-    return (validColor && validCenter && validName);
-}
-
-
-bool
-GNETAZFrame::TAZParameters::isAddEdgesWithinEnabled() const {
-    return (myAddEdgesWithinCheckButton->getCheck() == TRUE);
-}
-
-
-void
-GNETAZFrame::TAZParameters::getAttributesAndValues() const {
-    // check if baseTAZ exist, and if yes, delete it
-    if (myTAZFrameParent->myBaseTAZ) {
-        // delete baseTAZ (and all children)
-        delete myTAZFrameParent->myBaseTAZ;
-    }
-    // create a base TAZ
-    myTAZFrameParent->myBaseTAZ = new CommonXMLStructure::SumoBaseObject(nullptr);
-    // set tag
-    myTAZFrameParent->myBaseTAZ->setTag(SUMO_TAG_TAZ);
-    // get attributes
-    myTAZFrameParent->myBaseTAZ->addPositionAttribute(SUMO_ATTR_CENTER, myTextFieldCenter->getText().empty() ? Position::INVALID : GNEAttributeCarrier::parse<Position>(myTextFieldCenter->getText().text()));
-    myTAZFrameParent->myBaseTAZ->addBoolAttribute(SUMO_ATTR_FILL, (myCheckButtonFill->getCheck() == TRUE));
-    myTAZFrameParent->myBaseTAZ->addColorAttribute(SUMO_ATTR_COLOR, GNEAttributeCarrier::parse<RGBColor>(myTextFieldColor->getText().text()));
-    myTAZFrameParent->myBaseTAZ->addStringAttribute(SUMO_ATTR_NAME, myTextFieldName->getText().text());
-}
-
-
-long
-GNETAZFrame::TAZParameters::onCmdSetColorAttribute(FXObject*, FXSelector, void*) {
-    // create FXColorDialog
-    FXColorDialog colordialog(getCollapsableFrame(), TL("Color Dialog"));
-    colordialog.setTarget(this);
-    colordialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::COLORWHEEL));
-    // If previous attribute wasn't correct, set black as default color
-    if (GNEAttributeCarrier::canParse<RGBColor>(myTextFieldColor->getText().text())) {
-        colordialog.setRGBA(MFXUtils::getFXColor(GNEAttributeCarrier::parse<RGBColor>(myTextFieldColor->getText().text())));
-    } else {
-        colordialog.setRGBA(MFXUtils::getFXColor(RGBColor::BLUE));
-    }
-    // execute dialog to get a new color
-    if (colordialog.execute()) {
-        myTextFieldColor->setText(toString(MFXUtils::getRGBColor(colordialog.getRGBA())).c_str());
-        onCmdSetAttribute(0, 0, 0);
-    }
-    return 0;
-}
-
-
-long
-GNETAZFrame::TAZParameters::onCmdSetAttribute(FXObject* obj, FXSelector, void*) {
-    if (obj == myTextFieldColor) {
-        // check color
-        if (GNEAttributeCarrier::canParse<RGBColor>(myTextFieldColor->getText().text())) {
-            myTextFieldColor->setTextColor(FXRGB(0, 0, 0));
-            myTextFieldColor->killFocus();
-        } else {
-            myTextFieldColor->setTextColor(FXRGB(255, 0, 0));
-        }
-    } else if (obj == myTextFieldCenter) {
-        // check center
-        if (myTextFieldCenter->getText().empty() || GNEAttributeCarrier::canParse<Position>(myTextFieldCenter->getText().text())) {
-            myTextFieldCenter->setTextColor(FXRGB(0, 0, 0));
-            myTextFieldCenter->killFocus();
-        } else {
-            myTextFieldCenter->setTextColor(FXRGB(255, 0, 0));
-        }
-    } else if (obj == myTextFieldName) {
-        // check name
-        if (SUMOXMLDefinitions::isValidAttribute(myTextFieldName->getText().text())) {
-            myTextFieldName->setTextColor(FXRGB(0, 0, 0));
-            myTextFieldName->killFocus();
-        } else {
-            myTextFieldName->setTextColor(FXRGB(255, 0, 0));
-        }
-    } else if (obj == myAddEdgesWithinCheckButton) {
-        // change useInnenEdgesCheckButton text
-        if (myAddEdgesWithinCheckButton->getCheck() == TRUE) {
-            myAddEdgesWithinCheckButton->setText(TL("use"));
-        } else {
-            myAddEdgesWithinCheckButton->setText(TL("not use"));
-        }
-    } else if (obj == myCheckButtonFill) {
-        // change myCheckButtonFill text
-        if (myCheckButtonFill->getCheck() == TRUE) {
-            myCheckButtonFill->setText("true");
-        } else {
-            myCheckButtonFill->setText("false");
-        }
-    }
-    return 0;
-}
-
-
-long
-GNETAZFrame::TAZParameters::onCmdHelp(FXObject*, FXSelector, void*) {
-    myTAZFrameParent->openHelpAttributesDialog(myTAZTemplate);
-    return 1;
-}
-
-// ---------------------------------------------------------------------------
 // GNETAZFrame::TAZEdgesGraphic - methods
 // ---------------------------------------------------------------------------
 
@@ -1438,14 +1271,13 @@ GNETAZFrame::TAZEdgesGraphic::onCmdChoosenBy(FXObject* obj, FXSelector, void*) {
 // ---------------------------------------------------------------------------
 
 GNETAZFrame::GNETAZFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
-    GNEFrame(viewParent, viewNet, TL("TAZs")),
-    myBaseTAZ(nullptr) {
+    GNEFrame(viewParent, viewNet, TL("TAZs")) {
 
     // create current TAZ module
     myCurrentTAZ = new CurrentTAZ(this);
 
     // Create TAZ Parameters module
-    myTAZParameters = new TAZParameters(this);
+    myTAZAttributesEditor = new GNEAttributesEditor(this, GNEAttributesEditorType::EditorType::CREATOR);
 
     // Create drawing controls module
     myDrawingShape = new GNEDrawingShape(this);
@@ -1475,6 +1307,15 @@ GNETAZFrame::~GNETAZFrame() {
     if (myBaseTAZ) {
         delete myBaseTAZ;
     }
+}
+
+
+void
+GNETAZFrame::show() {
+    // edit template
+    myCurrentTAZ->setTAZ(nullptr);
+    // show frame
+    GNEFrame::show();
 }
 
 
@@ -1601,14 +1442,21 @@ GNETAZFrame::getTAZSaveChangesModule() const {
 bool
 GNETAZFrame::shapeDrawed() {
     // show warning dialogbox and stop check if input parameters are valid
-    if (!myTAZParameters->isCurrentParametersValid()) {
+    if (!myTAZAttributesEditor->checkAttributes(true)) {
         return false;
     } else if (myDrawingShape->getTemporalShape().size() < 3) {
         WRITE_WARNING(TL("TAZ shape needs at least three points"));
         return false;
     } else {
+        // reset base TAZ element
+        if (myBaseTAZ) {
+            delete myBaseTAZ;
+        }
+        // create an new base additional
+        myBaseTAZ = new CommonXMLStructure::SumoBaseObject(nullptr);
+        myBaseTAZ->setTag(SUMO_TAG_TAZ);
         // get attributes and values
-        myTAZParameters->getAttributesAndValues();
+        myTAZAttributesEditor->fillSumoBaseObject(myBaseTAZ);
         // generate new ID
         myBaseTAZ->addStringAttribute(SUMO_ATTR_ID, myViewNet->getNet()->getAttributeCarriers()->generateAdditionalID(SUMO_TAG_TAZ));
         // obtain shape and close it
@@ -1620,7 +1468,7 @@ GNETAZFrame::shapeDrawed() {
             myBaseTAZ->addPositionAttribute(SUMO_ATTR_CENTER, shape.getCentroid());
         }
         // check if TAZ has to be created with edges
-        if (myTAZParameters->isAddEdgesWithinEnabled()) {
+        if (myBaseTAZ->getBoolAttribute(GNE_ATTR_EDGES_WITHIN)) {
             // get all elements within shape
             myViewNet->updateObjectsInShape(shape);
             // declare edge IDs
@@ -1636,7 +1484,7 @@ GNETAZFrame::shapeDrawed() {
             myBaseTAZ->addStringListAttribute(SUMO_ATTR_EDGES, std::vector<std::string>());
         }
         // declare additional handler
-        GNEAdditionalHandler additionalHandler(myViewNet->getNet(), myBaseTAZ->hasStringAttribute(GNE_ATTR_ADDITIONAL_FILE)?
+        GNEAdditionalHandler additionalHandler(myViewNet->getNet(), myBaseTAZ->hasStringAttribute(GNE_ATTR_ADDITIONAL_FILE) ?
                                                myBaseTAZ->getStringAttribute(GNE_ATTR_ADDITIONAL_FILE) : "",
                                                myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), false);
         // build TAZ

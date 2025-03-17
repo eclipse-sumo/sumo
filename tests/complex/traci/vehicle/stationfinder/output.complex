@@ -1,3 +1,4 @@
+ Retrying in 1 seconds
 5.00 batteryNeed="2628.10" chargingStation="" chargePower="0.00" usedAverage="0.00"
 6.00 batteryNeed="2517.28" chargingStation="chargingStation1" chargePower="0.00" usedAverage="1223.97"
 7.00 batteryNeed="2519.66" chargingStation="chargingStation1" chargePower="0.00" usedAverage="4171.07"
@@ -7,7 +8,7 @@
 11.00 batteryNeed="2533.45" chargingStation="chargingStation1" chargePower="0.00" usedAverage="13264.86"
 12.00 batteryNeed="2519.31" chargingStation="chargingStation1" chargePower="0.00" usedAverage="11606.76"
 13.00 batteryNeed="2515.84" chargingStation="chargingStation1" chargePower="0.00" usedAverage="10317.12"
-14.00 batteryNeed="2508.60" chargingStation="chargingStation1" chargePower="20900.00" usedAverage="9285.40"
+14.00 batteryNeed="2417.99" chargingStation="chargingStation1" chargePower="20900.00" usedAverage="9285.40"
 15.00 batteryNeed="2797.13" chargingStation="chargingStation1" chargePower="20900.00" usedAverage="8441.28"
 16.00 batteryNeed="2758.09" chargingStation="chargingStation1" chargePower="20900.00" usedAverage="7737.84"
 17.00 batteryNeed="2723.97" chargingStation="chargingStation1" chargePower="20900.00" usedAverage="7142.62"

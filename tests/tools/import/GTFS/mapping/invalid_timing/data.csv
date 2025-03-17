@@ -1,0 +1,5 @@
+trip_id;route_id;route_short_name;route_type;stop_id;stop_name;stop_lat;stop_lon;stop_sequence;fare_zone;fare_token;start_char;trip_headsign;arrival_time;departure_time
+t1;t1;t1;3;stop1;stopname1;52.255635;10.506880;1;;;;;1000;1000
+t1;t1;t1;3;stop1;stopname1;52.255641;10.509138;2;;;;;1400;1300
+t1;t1;t1;3;stop2;stopname2;52.255611;10.510820;3;;;;;1200;1200
+t1;t1;t1;3;stop3;stopname3;52.255585;10.512313;4;;;;;800;800

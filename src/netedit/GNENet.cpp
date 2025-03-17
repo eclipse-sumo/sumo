@@ -99,6 +99,7 @@ GNENet::GNENet(NBNetBuilder* netBuilder, const GNETagPropertiesDatabase* tagProp
     myNetBuilder(netBuilder),
     myTagPropertiesDatabase(tagPropertiesDatabase),
     myAttributeCarriers(new GNENetHelper::AttributeCarriers(this)),
+    myACTemplates(new GNENetHelper::ACTemplate(this)),
     mySavingFilesHandler(new GNENetHelper::SavingFilesHandler(this)),
     mySavingStatus(new GNENetHelper::SavingStatus(this)),
     myNetworkPathManager(new GNEPathManager(this)),
@@ -106,6 +107,8 @@ GNENet::GNENet(NBNetBuilder* netBuilder, const GNETagPropertiesDatabase* tagProp
     myDataPathManager(new GNEPathManager(this)) {
     // set net in gIDStorage
     GUIGlObjectStorage::gIDStorage.setNetObject(this);
+    // build templates
+    myACTemplates->buildTemplates();
     // init junction and edges
     initJunctionsAndEdges();
     // check Z boundary
@@ -126,6 +129,7 @@ GNENet::~GNENet() {
     delete myDataPathManager;
     // delete attribute carriers
     delete myAttributeCarriers;
+    delete myACTemplates;
     // delete saving status
     delete mySavingStatus;
     delete myNetBuilder;
@@ -141,6 +145,12 @@ GNENet::getTagPropertiesDatabase() const {
 GNENetHelper::AttributeCarriers*
 GNENet::getAttributeCarriers() const {
     return myAttributeCarriers;
+}
+
+
+GNENetHelper::ACTemplate*
+GNENet::getACTemplates() const {
+    return myACTemplates;
 }
 
 
@@ -1959,14 +1969,14 @@ GNENet::replaceJunctionByGeometry(GNEJunction* junction, GNEUndoList* undoList) 
         // start operation
         undoList->begin(junction, TL("replace junction by geometry"));
         // obtain Edges to join
-        std::vector<std::pair<NBEdge*, NBEdge*> > toJoin = junction->getNBNode()->getEdgesToJoin();
+        std::vector<std::pair<NBEdge*, NBEdge*> > edgesToJoin = junction->getNBNode()->getEdgesToJoin();
         // clear connections of junction to replace
         clearJunctionConnections(junction, undoList);
         // iterate over NBEdges to join
-        for (auto j : toJoin) {
+        for (auto edgePair : edgesToJoin) {
             // obtain GNEEdges
-            GNEEdge* begin = myAttributeCarriers->getEdges().at(j.first->getID());
-            GNEEdge* continuation = myAttributeCarriers->getEdges().at(j.second->getID());
+            GNEEdge* begin = myAttributeCarriers->getEdges().at(edgePair.first->getID());
+            GNEEdge* continuation = myAttributeCarriers->getEdges().at(edgePair.second->getID());
             // remove connections between the edges
             std::vector<NBEdge::Connection> connections = begin->getNBEdge()->getConnections();
             for (auto con : connections) {
@@ -1974,21 +1984,12 @@ GNENet::replaceJunctionByGeometry(GNEJunction* junction, GNEUndoList* undoList) 
             }
             // fix shape of replaced edge
             PositionVector newShape = begin->getNBEdge()->getInnerGeometry();
-            if (begin->getNBEdge()->hasDefaultGeometryEndpointAtNode(begin->getNBEdge()->getToNode())) {
-                newShape.push_back(junction->getNBNode()->getPosition());
-            } else {
-                newShape.push_back(begin->getNBEdge()->getGeometry()[-1]);
-            }
-            if (continuation->getNBEdge()->hasDefaultGeometryEndpointAtNode(begin->getNBEdge()->getToNode())) {
-                newShape.push_back_noDoublePos(junction->getNBNode()->getPosition());
-            } else {
-                newShape.push_back_noDoublePos(continuation->getNBEdge()->getGeometry()[0]);
-            }
+            newShape.push_back(junction->getNBNode()->getPosition());
             // replace incoming edge
             replaceIncomingEdge(continuation, begin, undoList);
 
             newShape.append(continuation->getNBEdge()->getInnerGeometry());
-            begin->setAttribute(GNE_ATTR_SHAPE_END, continuation->getAttribute(GNE_ATTR_SHAPE_END), undoList);
+            begin->setAttribute(GNE_ATTR_SHAPE_END, "", undoList);
             begin->setAttribute(SUMO_ATTR_ENDOFFSET, continuation->getAttribute(SUMO_ATTR_ENDOFFSET), undoList);
             begin->setAttribute(SUMO_ATTR_SHAPE, toString(newShape), undoList);
             begin->getNBEdge()->resetNodeBorder(begin->getNBEdge()->getToNode());
