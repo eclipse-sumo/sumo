@@ -1271,8 +1271,7 @@ GNETAZFrame::TAZEdgesGraphic::onCmdChoosenBy(FXObject* obj, FXSelector, void*) {
 // ---------------------------------------------------------------------------
 
 GNETAZFrame::GNETAZFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
-    GNEFrame(viewParent, viewNet, TL("TAZs")),
-    myBaseTAZ(nullptr) {
+    GNEFrame(viewParent, viewNet, TL("TAZs")) {
 
     // create current TAZ module
     myCurrentTAZ = new CurrentTAZ(this);
@@ -1308,6 +1307,15 @@ GNETAZFrame::~GNETAZFrame() {
     if (myBaseTAZ) {
         delete myBaseTAZ;
     }
+}
+
+
+void
+GNETAZFrame::show() {
+    // edit template
+    myCurrentTAZ->setTAZ(nullptr);
+    // show frame
+    GNEFrame::show();
 }
 
 
@@ -1440,6 +1448,13 @@ GNETAZFrame::shapeDrawed() {
         WRITE_WARNING(TL("TAZ shape needs at least three points"));
         return false;
     } else {
+        // reset base TAZ element
+        if (myBaseTAZ) {
+            delete myBaseTAZ;
+        }
+        // create an new base additional
+        myBaseTAZ = new CommonXMLStructure::SumoBaseObject(nullptr);
+        myBaseTAZ->setTag(SUMO_TAG_TAZ);
         // get attributes and values
         myTAZAttributesEditor->fillSumoBaseObject(myBaseTAZ);
         // generate new ID

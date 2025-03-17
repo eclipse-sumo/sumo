@@ -320,8 +320,9 @@ GNEAttributeCarrier::parse(const std::string& string) {
 
 template<> Position
 GNEAttributeCarrier::parse(const std::string& string) {
+    // we handle empty strings as position invalids
     if (string.size() == 0) {
-        throw EmptyData();
+        return Position::INVALID;
     } else {
         bool ok = true;
         PositionVector pos = GeomConvHelper::parseShapeReporting(string, "user-supplied position", 0, ok, false, false);

@@ -450,6 +450,9 @@ public:
     /// @brief Destructor
     ~GNETAZFrame();
 
+    /// @brief show TAZ Frame
+    void show();
+
     /// @brief hide TAZ frame
     void hide();
 
@@ -477,7 +480,7 @@ public:
 
 protected:
     /// @brief SumoBaseObject used for creating TAZ
-    CommonXMLStructure::SumoBaseObject* myBaseTAZ;
+    CommonXMLStructure::SumoBaseObject* myBaseTAZ = nullptr;
 
     /**@brief build a shaped element using the drawed shape
      * return true if was successfully created
