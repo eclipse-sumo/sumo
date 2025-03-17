@@ -47,7 +47,7 @@ netedit.inspectMode()
 
 # add to selected
 netedit.contextualMenuOperation(referencePosition, netedit.positions.elements.demands.vehicleEdge,
-                                netedit.contextualMenu.vehicles.addToSelected)
+                                netedit.contextualMenu.addToSelected)
 
 # delete junction
 netedit.typeDelete()

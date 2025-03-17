@@ -392,60 +392,6 @@ class routes:
 
 class vehicles:
 
-    # center element in view (temporal)
-    class center:
-        mainMenuPosition = 3
-        subMenuAPosition = 0
-        subMenuBPosition = 0
-
-    # copy name (temporal)
-    class copyName:
-        mainMenuPosition = 7
-        subMenuAPosition = 0
-        subMenuBPosition = 0
-
-    # copy typed name (temporal)
-    class copyTypedName:
-        mainMenuPosition = 8
-        subMenuAPosition = 0
-        subMenuBPosition = 0
-
-    # add to selected (temporal)
-    class addToSelected:
-        mainMenuPosition = 9
-        subMenuAPosition = 0
-        subMenuBPosition = 0
-
-    # copy cursor position (temporal)
-    class copyCursorPosition:
-        mainMenuPosition = 4
-        subMenuAPosition = 0
-        subMenuBPosition = 0
-
-    # copy cursor geo position (temporal)
-    class copyCursorGeoPosition:
-        mainMenuPosition = 5
-        subMenuAPosition = 0
-        subMenuBPosition = 0
-
-    # show cursor geo position in geo hack (temporal)
-    class showCursorGeoPositionGeoHack:
-        mainMenuPosition = 6
-        subMenuAPosition = 1
-        subMenuBPosition = 0
-
-    # show cursor geo position in google maps (temporal)
-    class showCursorGeoPositionGoogleMaps:
-        mainMenuPosition = 6
-        subMenuAPosition = 2
-        subMenuBPosition = 0
-
-    # show cursor geo position in OSM (temporal)
-    class showCursorGeoPositionOSM:
-        mainMenuPosition = 6
-        subMenuAPosition = 3
-        subMenuBPosition = 0
-
     # reverse
     class reverseCurrent:
         mainMenuPosition = 11

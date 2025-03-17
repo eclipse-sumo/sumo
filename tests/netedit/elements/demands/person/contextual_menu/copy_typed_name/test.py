@@ -46,7 +46,7 @@ netedit.inspectMode()
 
 # copy typed name
 netedit.contextualMenuOperation(referencePosition, netedit.positions.elements.demands.person,
-                                netedit.contextualMenu.vehicles.copyTypedName)
+                                netedit.contextualMenu.copyTypedName)
 
 # Check undos
 netedit.undo(referencePosition, 1)
