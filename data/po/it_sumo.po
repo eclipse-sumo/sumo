@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-13 10:07+0100\n"
-"PO-Revision-Date: 2025-03-14 14:07+0000\n"
+"PO-Revision-Date: 2025-03-17 13:50+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -8630,6 +8630,8 @@ msgstr "Il limite di velocità da impostare laddove in realtà non ce n'è uno"
 msgid ""
 "Whether edges shoulds carry information on the usage of typemap defaults"
 msgstr ""
+"Se gli archi dovrebbero contenere informazioni sull'uso di valori standard "
+"tratti da tipi di arco"
 
 #: src/netimport/NIFrame.cpp:243 src/netimport/NIFrame.cpp:240
 msgid "The edge lengths given in the MATSim-file will be kept"
@@ -8715,7 +8717,7 @@ msgstr "Le lunghezze degli arci tratti dal file DLR Navteq verranno mantenute"
 
 #: src/netimport/NIFrame.cpp:315 src/netimport/NIFrame.cpp:312
 msgid "Structure join offset"
-msgstr ""
+msgstr "Distanza massima di strutture da combinare"
 
 #: src/netimport/NIFrame.cpp:318 src/netimport/NIFrame.cpp:315
 msgid "Use FLOAT as default speed"
@@ -9845,12 +9847,12 @@ msgstr ""
 #: src/netimport/NIImporter_VISUM.cpp:618
 #, c-format
 msgid "The district '%' could not be built."
-msgstr ""
+msgstr "Il distretto '%' non poteva essere costruito."
 
 #: src/netimport/NIImporter_VISUM.cpp:594
 #: src/netimport/NIImporter_VISUM.cpp:629
 msgid "A duplicate edge id occurred (ID='%')."
-msgstr ""
+msgstr "Un codice identificativo raddoppiato si è prodotto (ID='%')."
 
 #: src/netimport/NIImporter_VISUM.cpp:614
 msgid ""
@@ -9861,11 +9863,11 @@ msgstr ""
 #: src/netimport/NIImporter_VISUM.cpp:671
 #: src/netimport/NIImporter_VISUM.cpp:720
 msgid "There is no edge from node '%' to node '%'."
-msgstr ""
+msgstr "Non c'è nessun arco tra il nodo '%' e quello '%'."
 
 #: src/netimport/NIImporter_VISUM.cpp:698
 msgid "Error in geometry description from node '%' to node '%'."
-msgstr ""
+msgstr "Errore nella descrizione di geometria dal nodo '%' al nodo '%'."
 
 #: src/netimport/NIImporter_VISUM.cpp:757
 msgid "A lane number for edge '%' is not numeric (%)."
