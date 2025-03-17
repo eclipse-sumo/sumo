@@ -2153,6 +2153,12 @@ GNETagPropertiesDatabase::fillTAZElements() {
                                    GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
                                    TL("An information whether the TAZ shall be filled"),
                                    GNEAttributeCarrier::False);
+
+        new GNEAttributeProperties(myTagProperties[currentTag], GNE_ATTR_EDGES_WITHIN,
+                                   GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::COPYABLE,
+                                   GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::NETEDITEDITOR,
+                                   TL("Use the edges within the shape"),
+                                   GNEAttributeCarrier::True);
     }
     currentTag = SUMO_TAG_TAZSOURCE;
     {

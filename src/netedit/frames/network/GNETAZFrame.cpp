@@ -1468,7 +1468,7 @@ GNETAZFrame::shapeDrawed() {
             myBaseTAZ->addPositionAttribute(SUMO_ATTR_CENTER, shape.getCentroid());
         }
         // check if TAZ has to be created with edges
-        if (true /*myTAZParameters->isAddEdgesWithinEnabled()*/) {
+        if (myBaseTAZ->getBoolAttribute(GNE_ATTR_EDGES_WITHIN)) {
             // get all elements within shape
             myViewNet->updateObjectsInShape(shape);
             // declare edge IDs
