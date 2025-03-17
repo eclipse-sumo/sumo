@@ -182,10 +182,7 @@ GNECrossingFrame::EdgesSelector::onCmdClearSelection(FXObject*, FXSelector, void
 GNECrossingFrame::CrossingParameters::CrossingParameters(GNECrossingFrame* crossingFrameParent) :
     MFXGroupBoxModule(crossingFrameParent, TL("Crossing parameters")),
     myCrossingFrameParent(crossingFrameParent),
-    myCrossingTemplate(nullptr),
     myCurrentParametersValid(true) {
-    // createcrossing template
-    myCrossingTemplate = new GNECrossing(crossingFrameParent->getViewNet()->getNet());
     FXHorizontalFrame* crossingParameter = nullptr;
     // create label and string textField for edges
     crossingParameter = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
@@ -212,7 +209,6 @@ GNECrossingFrame::CrossingParameters::CrossingParameters(GNECrossingFrame* cross
 
 
 GNECrossingFrame::CrossingParameters::~CrossingParameters() {
-    delete myCrossingTemplate;
 }
 
 
@@ -446,7 +442,6 @@ GNECrossingFrame::CrossingParameters::onCmdSetAttribute(FXObject*, FXSelector, v
 
 long
 GNECrossingFrame::CrossingParameters::onCmdHelp(FXObject*, FXSelector, void*) {
-    myCrossingFrameParent->openHelpAttributesDialog(myCrossingTemplate);
     return 1;
 }
 
