@@ -165,7 +165,7 @@ GNETagPropertiesDatabase::getTagPropertiesByType(const int tagPropertyCategory, 
             }
         }
     }
-    if (tagPropertyCategory & GNETagProperties::TagType::VEHICLESTOP) {
+    if (tagPropertyCategory & GNETagProperties::TagType::STOP_VEHICLE) {
         // fill stop (and waypoints) tags
         for (const auto& tagProperty : myTagProperties) {
             if (tagProperty.second->isVehicleStop()) {
@@ -225,7 +225,7 @@ GNETagPropertiesDatabase::getTagPropertiesByType(const int tagPropertyCategory, 
             }
         }
     }
-    if (tagPropertyCategory & GNETagProperties::TagType::STOPPERSON) {
+    if (tagPropertyCategory & GNETagProperties::TagType::STOP_PERSON) {
         if (mergePlans) {
             allowedTags.push_back(myTagPropertiesSet.at(GNE_TAG_STOPPERSON));
         } else {
@@ -293,7 +293,7 @@ GNETagPropertiesDatabase::getTagPropertiesByType(const int tagPropertyCategory, 
             }
         }
     }
-    if (tagPropertyCategory & GNETagProperties::TagType::STOPCONTAINER) {
+    if (tagPropertyCategory & GNETagProperties::TagType::STOP_CONTAINER) {
         if (mergePlans) {
             allowedTags.push_back(myTagPropertiesSet.at(GNE_TAG_STOPCONTAINER));
         } else {
@@ -3028,7 +3028,7 @@ GNETagPropertiesDatabase::fillStopElements() {
     {
         // set values of tag
         myTagProperties[currentTag] = new GNETagProperties(currentTag,
-                GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::VEHICLESTOP,
+                GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::STOP_VEHICLE,
                 GNETagProperties::TagProperty::CHILD,
                 GNETagProperties::TagParents::NO_PARENTS,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
@@ -3078,7 +3078,7 @@ GNETagPropertiesDatabase::fillStopElements() {
     {
         // set values of tag
         myTagProperties[currentTag] = new GNETagProperties(currentTag,
-                GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::VEHICLESTOP,
+                GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::STOP_VEHICLE,
                 GNETagProperties::TagProperty::CHILD,
                 GNETagProperties::TagParents::NO_PARENTS,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
@@ -3097,7 +3097,7 @@ GNETagPropertiesDatabase::fillStopElements() {
     {
         // set values of tag
         myTagProperties[currentTag] = new GNETagProperties(currentTag,
-                GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::VEHICLESTOP,
+                GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::STOP_VEHICLE,
                 GNETagProperties::TagProperty::CHILD,
                 GNETagProperties::TagParents::NO_PARENTS,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
@@ -3116,7 +3116,7 @@ GNETagPropertiesDatabase::fillStopElements() {
     {
         // set values of tag
         myTagProperties[currentTag] = new GNETagProperties(currentTag,
-                GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::VEHICLESTOP,
+                GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::STOP_VEHICLE,
                 GNETagProperties::TagProperty::CHILD,
                 GNETagProperties::TagParents::NO_PARENTS,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
@@ -3135,7 +3135,7 @@ GNETagPropertiesDatabase::fillStopElements() {
     {
         // set values of tag
         myTagProperties[currentTag] = new GNETagProperties(currentTag,
-                GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::VEHICLESTOP,
+                GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::STOP_VEHICLE,
                 GNETagProperties::TagProperty::CHILD,
                 GNETagProperties::TagParents::NO_PARENTS,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
@@ -3154,7 +3154,7 @@ GNETagPropertiesDatabase::fillStopElements() {
     {
         // set values of tag
         myTagProperties[currentTag] = new GNETagProperties(currentTag,
-                GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::VEHICLESTOP,
+                GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::STOP_VEHICLE,
                 GNETagProperties::TagProperty::CHILD,
                 GNETagProperties::TagParents::NO_PARENTS,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
@@ -3179,7 +3179,7 @@ GNETagPropertiesDatabase::fillWaypointElements() {
     {
         // set values of tag
         myTagProperties[currentTag] = new GNETagProperties(currentTag,
-                GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::VEHICLESTOP | GNETagProperties::TagType::VEHICLEWAYPOINT,
+                GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::STOP_VEHICLE | GNETagProperties::TagType::WAYPOINT_VEHICLE,
                 GNETagProperties::TagProperty::CHILD,
                 GNETagProperties::TagParents::NO_PARENTS,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
@@ -3229,7 +3229,7 @@ GNETagPropertiesDatabase::fillWaypointElements() {
     {
         // set values of tag
         myTagProperties[currentTag] = new GNETagProperties(currentTag,
-                GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::VEHICLESTOP | GNETagProperties::TagType::VEHICLEWAYPOINT,
+                GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::STOP_VEHICLE | GNETagProperties::TagType::WAYPOINT_VEHICLE,
                 GNETagProperties::TagProperty::CHILD,
                 GNETagProperties::TagParents::NO_PARENTS,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
@@ -3248,7 +3248,7 @@ GNETagPropertiesDatabase::fillWaypointElements() {
     {
         // set values of tag
         myTagProperties[currentTag] = new GNETagProperties(currentTag,
-                GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::VEHICLESTOP | GNETagProperties::TagType::VEHICLEWAYPOINT,
+                GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::STOP_VEHICLE | GNETagProperties::TagType::WAYPOINT_VEHICLE,
                 GNETagProperties::TagProperty::CHILD,
                 GNETagProperties::TagParents::NO_PARENTS,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
@@ -3267,7 +3267,7 @@ GNETagPropertiesDatabase::fillWaypointElements() {
     {
         // set values of tag
         myTagProperties[currentTag] = new GNETagProperties(currentTag,
-                GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::VEHICLESTOP | GNETagProperties::TagType::VEHICLEWAYPOINT,
+                GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::STOP_VEHICLE | GNETagProperties::TagType::WAYPOINT_VEHICLE,
                 GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
                 GNETagProperties::TagParents::NO_PARENTS,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
@@ -3286,7 +3286,7 @@ GNETagPropertiesDatabase::fillWaypointElements() {
     {
         // set values of tag
         myTagProperties[currentTag] = new GNETagProperties(currentTag,
-                GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::VEHICLESTOP | GNETagProperties::TagType::VEHICLEWAYPOINT,
+                GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::STOP_VEHICLE | GNETagProperties::TagType::WAYPOINT_VEHICLE,
                 GNETagProperties::TagProperty::CHILD,
                 GNETagProperties::TagParents::NO_PARENTS,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
@@ -3305,7 +3305,7 @@ GNETagPropertiesDatabase::fillWaypointElements() {
     {
         // set values of tag
         myTagProperties[currentTag] = new GNETagProperties(currentTag,
-                GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::VEHICLESTOP | GNETagProperties::TagType::VEHICLEWAYPOINT,
+                GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::STOP_VEHICLE | GNETagProperties::TagType::WAYPOINT_VEHICLE,
                 GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
                 GNETagProperties::TagParents::NO_PARENTS,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
@@ -4749,7 +4749,7 @@ GNETagPropertiesDatabase::fillContainerTranshipElements() {
 void
 GNETagPropertiesDatabase::fillContainerStopElements() {
     // declare common tag types and properties
-    const int tagType = GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::CONTAINERPLAN | GNETagProperties::TagType::STOPCONTAINER;
+    const int tagType = GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::CONTAINERPLAN | GNETagProperties::TagType::STOP_CONTAINER;
     const int tagProperty = GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS;
     const int conflicts = GNETagProperties::Conflicts::NO_CONFLICTS;
     const std::vector<SumoXMLTag> parents({SUMO_TAG_CONTAINER, SUMO_TAG_CONTAINERFLOW});
@@ -6859,7 +6859,7 @@ GNETagPropertiesDatabase::fillPersonPlanRides() {
 void
 GNETagPropertiesDatabase::fillPersonStopElements() {
     // declare common tag types and properties
-    const int tagType = GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::STOPPERSON;
+    const int tagType = GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::STOP_PERSON;
     const int tagProperty = GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS;
     const int conflicts = GNETagProperties::Conflicts::NO_CONFLICTS;
     const std::vector<SumoXMLTag> parents({SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW});

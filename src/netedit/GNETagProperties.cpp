@@ -401,13 +401,13 @@ GNETagProperties::isRoute() const {
 
 bool
 GNETagProperties::isVehicleStop() const {
-    return (myTagType & VEHICLESTOP) != 0;
+    return (myTagType & STOP_VEHICLE) != 0;
 }
 
 
 bool
 GNETagProperties::isVehicleWaypoint() const {
-    return (myTagType & VEHICLEWAYPOINT) != 0;
+    return (myTagType & WAYPOINT_VEHICLE) != 0;
 }
 
 
@@ -491,13 +491,13 @@ GNETagProperties::isPlanStop() const {
 
 bool
 GNETagProperties::isPlanStopPerson() const {
-    return (myTagType & STOPPERSON) != 0;
+    return (myTagType & STOP_PERSON) != 0;
 }
 
 
 bool
 GNETagProperties::isPlanStopContainer() const {
-    return (myTagType & STOPCONTAINER) != 0;
+    return (myTagType & STOP_CONTAINER) != 0;
 }
 
 
