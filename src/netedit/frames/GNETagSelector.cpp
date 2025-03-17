@@ -36,24 +36,21 @@ FXDEFMAP(GNETagSelector) TagSelectorMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNETagSelector,                MFXGroupBoxModule,     TagSelectorMap,                 ARRAYNUMBER(TagSelectorMap))
+FXIMPLEMENT(GNETagSelector, MFXGroupBoxModule,  TagSelectorMap, ARRAYNUMBER(TagSelectorMap))
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
 
-GNETagSelector::GNETagSelector(GNEFrame* frameParent, GNETagProperties::TagType type, SumoXMLTag tag, bool onlyDrawables) :
+GNETagSelector::GNETagSelector(GNEFrame* frameParent, const GNETagProperties::TagType type, const SumoXMLTag tag) :
     MFXGroupBoxModule(frameParent, TL("Element")),
     myFrameParent(frameParent),
-    myTagType(type),
     myCurrentTemplateAC(nullptr) {
     // Create MFXComboBoxIcon
     myTagsMatchBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, true, GUIDesignComboBoxVisibleItems,
                                          this, MID_GNE_TAG_SELECTED, GUIDesignComboBox);
-    // set current tag type without notifying
-    setCurrentTagType(myTagType, onlyDrawables, false);
-    // set current tag without notifying
-    setCurrentTag(tag, false);
+    // update tag types without informing parent (because we're in the creator
+    updateTagTypes(type, tag, false);
     // GNETagSelector is always shown
     show();
 }
@@ -81,13 +78,11 @@ GNETagSelector::getCurrentTemplateAC() const {
 
 
 void
-GNETagSelector::setCurrentTagType(GNETagProperties::TagType tagType, const bool onlyDrawables, const bool notifyFrameParent) {
+GNETagSelector::updateTagTypes(const GNETagProperties::TagType type, const SumoXMLTag tag, const bool informParent) {
     // check if net has proj
     const bool proj = (GeoConvHelper::getFinal().getProjString() != "!");
-    // set new tagType
-    myTagType = tagType;
     // change GNETagSelector text
-    switch (myTagType) {
+    switch (type) {
         case GNETagProperties::TagType::NETWORKELEMENT:
             setText(TL("network elements"));
             break;
@@ -138,16 +133,16 @@ GNETagSelector::setCurrentTagType(GNETagProperties::TagType tagType, const bool 
     }
     myTagsMatchBox->clearItems();
     // get tag properties
-    const auto tagPropertiesByType = myFrameParent->getViewNet()->getNet()->getTagPropertiesDatabase()->getTagPropertiesByType(myTagType, true);
+    const auto tagPropertiesByType = myFrameParent->getViewNet()->getNet()->getTagPropertiesDatabase()->getTagPropertiesByType(type, true);
     // fill myACTemplates and myTagsMatchBox
     for (const auto tagProperty : tagPropertiesByType) {
-        if ((!onlyDrawables || tagProperty->isDrawable()) && (!tagProperty->requireProj() || proj)) {
+        if (!tagProperty->requireProj() || proj) {
             myTagsMatchBox->appendIconItem(tagProperty->getSelectorText().c_str(), GUIIconSubSys::getIcon(tagProperty->getGUIIcon()), tagProperty->getBackGroundColor());
         }
     }
     if (myTagsMatchBox->getNumItems() > 0) {
         myTagsMatchBox->enable();
-        myTagsMatchBox->setCurrentItem(0, TRUE);
+        setCurrentTag(tag, informParent);
     } else {
         myTagsMatchBox->disable();
     }
@@ -155,7 +150,7 @@ GNETagSelector::setCurrentTagType(GNETagProperties::TagType tagType, const bool 
 
 
 void
-GNETagSelector::setCurrentTag(SumoXMLTag newTag, const bool notifyFrameParent) {
+GNETagSelector::setCurrentTag(SumoXMLTag newTag, const bool informParent) {
     // first reset myCurrentTemplateAC
     myCurrentTemplateAC = myFrameParent->getViewNet()->getNet()->getACTemplates()->getTemplateAC(newTag);
     // iterate over all myTagsMatchBox
@@ -167,8 +162,8 @@ GNETagSelector::setCurrentTag(SumoXMLTag newTag, const bool notifyFrameParent) {
             myTagsMatchBox->killFocus();
         }
     }
-    // call tag selected function
-    if (notifyFrameParent) {
+    // inform to frame parent that a tag was selected
+    if (informParent) {
         myFrameParent->tagSelected();
     }
 }
@@ -188,12 +183,11 @@ GNETagSelector::onCmdSelectTag(FXObject*, FXSelector, void*) {
         // set color of myTypeMatchBox to black (valid)
         myTagsMatchBox->setTextColor(FXRGB(0, 0, 0));
         myTagsMatchBox->killFocus();
-        return 1;
     } else {
         // set color of myTypeMatchBox to red (invalid)
         myTagsMatchBox->setTextColor(FXRGB(255, 0, 0));
     }
-    // call tag selected function
+    // inform to frame parent that a tag was selected
     myFrameParent->tagSelected();
     return 1;
 }
