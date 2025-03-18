@@ -146,8 +146,6 @@ GNEContainer::GNESelectedContainersPopupMenu::onCmdTransform(FXObject* obj, FXSe
 GNEContainer::GNEContainer(SumoXMLTag tag, GNENet* net) :
     GNEDemandElement("", net, "", GLO_CONTAINER, tag, GUIIcon::CONTAINER, GNEPathElement::Options::DEMAND_ELEMENT),
     GNEDemandElementFlow(this) {
-    // reset default values
-    resetDefaultValues();
     // set end and container per hours as default flow values
     toggleAttribute(SUMO_ATTR_END, 1);
     toggleAttribute(SUMO_ATTR_CONTAINERSPERHOUR, 1);

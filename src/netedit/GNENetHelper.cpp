@@ -2987,6 +2987,10 @@ GNENetHelper::ACTemplate::buildTemplates() {
     for (const auto stopContainer : stopContainers) {
         myTemplates[stopContainer->getTag()] = new GNEStopPlan(stopContainer->getTag(), myNet);
     }
+    // reset all to their default values
+    for (const auto& AC : myTemplates) {
+        AC.second->resetDefaultValues(false);
+    }
 }
 
 

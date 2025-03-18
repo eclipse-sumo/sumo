@@ -156,10 +156,10 @@ protected:
     Position myPosition;
 
     /// @brief voltage
-    double myVoltage;
+    double myVoltage = 0;
 
     /// @brief current limit
-    double myCurrentLimit;
+    double myCurrentLimit = 0;
 
 private:
     /// @brief set attribute after validation

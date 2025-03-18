@@ -38,12 +38,7 @@
 // ===========================================================================
 
 GNEOverheadWire::GNEOverheadWire(GNENet* net) :
-    GNEAdditional("", net, "", GLO_OVERHEAD_WIRE_SEGMENT, SUMO_TAG_OVERHEAD_WIRE_SECTION, GUIIcon::OVERHEADWIRE, ""),
-    myStartPos(0),
-    myEndPos(0),
-    myFriendlyPosition(false) {
-    // reset default values
-    resetDefaultValues();
+    GNEAdditional("", net, "", GLO_OVERHEAD_WIRE_SEGMENT, SUMO_TAG_OVERHEAD_WIRE_SECTION, GUIIcon::OVERHEADWIRE, "") {
 }
 
 

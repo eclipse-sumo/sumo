@@ -267,8 +267,6 @@ GNEBusStop::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 GNEBusStop::GNEBusStop(SumoXMLTag tag, GUIGlObjectType type, GUIIcon icon, GNENet* net) :
     GNEStoppingPlace(net, type, tag, icon) {
-    // reset default values
-    resetDefaultValues();
 }
 
 

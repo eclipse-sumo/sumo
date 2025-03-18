@@ -38,8 +38,6 @@
 GNERide::GNERide(SumoXMLTag tag, GNENet* net) :
     GNEDemandElement("", net, "", GLO_RIDE, tag, GUIIcon::RIDE_EDGE, GNEPathElement::Options::DEMAND_ELEMENT),
     GNEDemandElementPlan(this, -1, -1) {
-    // reset default values
-    resetDefaultValues();
 }
 
 

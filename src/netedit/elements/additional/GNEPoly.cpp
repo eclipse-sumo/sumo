@@ -43,8 +43,6 @@
 GNEPoly::GNEPoly(SumoXMLTag tag, GNENet* net) :
     TesselatedPolygon("", "", RGBColor::BLACK, {}, false, false, 0, 0, 0, "", "", Parameterised::Map()),
 GNEAdditional("", net, "", GLO_POLYGON, tag, GUIIcon::POLY, "") {
-    // reset default values
-    resetDefaultValues();
 }
 
 

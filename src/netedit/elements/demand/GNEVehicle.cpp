@@ -424,8 +424,6 @@ GNEVehicle::GNESelectedVehiclesPopupMenu::onCmdTransform(FXObject* obj, FXSelect
 GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net) :
     GNEDemandElement("", net, "", GLO_VEHICLE, tag, GUIIcon::VEHICLE, GNEPathElement::Options::DEMAND_ELEMENT),
     GNEDemandElementFlow(this) {
-    // reset default values
-    resetDefaultValues();
     // set end and vehPerHours as default flow values
     toggleAttribute(SUMO_ATTR_END, true);
     toggleAttribute(SUMO_ATTR_VEHSPERHOUR, true);

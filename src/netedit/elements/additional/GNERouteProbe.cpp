@@ -34,13 +34,7 @@
 // ===========================================================================
 
 GNERouteProbe::GNERouteProbe(GNENet* net) :
-    GNEAdditional("", net, "", GLO_ROUTEPROBE, SUMO_TAG_ROUTEPROBE, GUIIcon::ROUTEPROBE, ""),
-    myPeriod(SUMOTime_MAX_PERIOD),
-    myBegin(0) {
-    // reset default values
-    resetDefaultValues();
-    // update centering boundary without updating grid
-    updateCenteringBoundary(false);
+    GNEAdditional("", net, "", GLO_ROUTEPROBE, SUMO_TAG_ROUTEPROBE, GUIIcon::ROUTEPROBE, "") {
 }
 
 

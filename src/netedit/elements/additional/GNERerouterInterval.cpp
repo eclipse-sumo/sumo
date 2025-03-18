@@ -33,8 +33,6 @@
 
 GNERerouterInterval::GNERerouterInterval(GNENet* net) :
     GNEAdditional("", net, "", GLO_REROUTER_INTERVAL, SUMO_TAG_INTERVAL, GUIIcon::REROUTERINTERVAL, "") {
-    // reset default values
-    resetDefaultValues();
 }
 
 
@@ -42,8 +40,6 @@ GNERerouterInterval::GNERerouterInterval(GNERerouterDialog* rerouterDialog) :
     GNEAdditional(rerouterDialog->getEditedAdditional(), GLO_REROUTER_INTERVAL, SUMO_TAG_INTERVAL, GUIIcon::REROUTERINTERVAL, "") {
     // set parents
     setParent<GNEAdditional*>(rerouterDialog->getEditedAdditional());
-    // reset default values
-    resetDefaultValues();
     // update boundary of rerouter parent
     rerouterDialog->getEditedAdditional()->updateCenteringBoundary(true);
 }

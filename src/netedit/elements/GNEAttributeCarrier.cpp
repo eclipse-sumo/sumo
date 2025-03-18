@@ -213,12 +213,16 @@ GNEAttributeCarrier::checkDrawFrontContour() const {
 
 
 void
-GNEAttributeCarrier::resetDefaultValues() {
-    for (const auto& attrProperty : myTagProperty->getAttributeProperties()) {
-        if (attrProperty->hasDefaultValue()) {
-            setAttribute(attrProperty->getAttr(), attrProperty->getDefaultStringValue());
-            if (attrProperty->isActivatable()) {
-                toggleAttribute(attrProperty->getAttr(), attrProperty->getDefaultActivated());
+GNEAttributeCarrier::resetDefaultValues(const bool allowUndoRedo) {
+    if (allowUndoRedo) {
+    } else {
+        // simply reset every
+        for (const auto& attrProperty : myTagProperty->getAttributeProperties()) {
+            if (attrProperty->hasDefaultValue()) {
+                setAttribute(attrProperty->getAttr(), attrProperty->getDefaultStringValue());
+                if (attrProperty->isActivatable()) {
+                    toggleAttribute(attrProperty->getAttr(), attrProperty->getDefaultActivated());
+                }
             }
         }
     }

@@ -148,7 +148,7 @@ public:
 
 protected:
     /// @brief depart Weight
-    double myWeight;
+    double myWeight = 0;
 
 private:
     /// @brief method for setting the attribute and nothing else

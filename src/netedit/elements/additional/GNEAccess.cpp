@@ -43,8 +43,6 @@ GNEAccess::GNEAccess(GNENet* net) :
     myPositionOverLane(0),
     myLength(0),
     myFriendlyPosition(false) {
-    // reset default values
-    resetDefaultValues();
 }
 
 

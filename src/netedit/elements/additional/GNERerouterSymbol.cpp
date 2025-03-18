@@ -32,8 +32,6 @@
 
 GNERerouterSymbol::GNERerouterSymbol(GNENet* net) :
     GNEAdditional("", net, "", GLO_REROUTER, GNE_TAG_REROUTER_SYMBOL, GUIIcon::REROUTER, "") {
-    // reset default values
-    resetDefaultValues();
 }
 
 

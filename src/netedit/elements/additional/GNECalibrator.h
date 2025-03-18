@@ -219,16 +219,16 @@ public:
 
 protected:
     /// @brief position over Lane
-    double myPositionOverLane;
+    double myPositionOverLane = 0;
 
     /// @brief Frequency of calibrator
-    SUMOTime myFrequency;
+    SUMOTime myFrequency = 0;
 
     /// @brief output of calibrator
     std::string myOutput;
 
     /// @brief jamThreshold
-    double myJamThreshold;
+    double myJamThreshold = 0;
 
     /// @brief vTypes
     std::vector<std::string> myVTypes;

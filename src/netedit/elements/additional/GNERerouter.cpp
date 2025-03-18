@@ -40,8 +40,6 @@ GNERerouter::GNERerouter(GNENet* net) :
     myOff(false),
     myOptional(false),
     myTimeThreshold(0) {
-    // reset default values
-    resetDefaultValues();
 }
 
 
