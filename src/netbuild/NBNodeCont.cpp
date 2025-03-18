@@ -1023,7 +1023,7 @@ NBNodeCont::pruneClusterFringe(NodeSet& cluster, double maxDist) const {
             if (clusterNeighbors.size() == 0
                     || (outsideNeighbors.size() <= 1
                         && clusterNeighbors.size() == 1
-                        && !n->isTLControlled())) {
+                        && !(n->isTLControlled() /*|| n->hadSignal()*/))) {
                 cluster.erase(check);
                 pruneFringe = true; // other nodes could belong to the fringe now
 #ifdef DEBUG_JOINJUNCTIONS
@@ -1518,15 +1518,8 @@ NBNodeCont::feasibleCluster(const NodeSet& cluster, const std::map<const NBNode*
     // check for stop edges and tls within the cluster
     bool hasTLS = false;
     for (NBNode* n : cluster) {
-        if (n->isTLControlled()) {
+        if (n->isTLControlled() || n->hadSignal()) {
             hasTLS = true;
-        } else {
-            for (NBEdge* e : n->getIncomingEdges()) {
-                if (e->getSignalPosition() != Position::INVALID) {
-                    hasTLS = true;
-                    break;
-                }
-            }
         }
         const auto& stopEnds = ptStopEnds.find(n);
         if (stopEnds != ptStopEnds.end()) {
