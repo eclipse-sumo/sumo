@@ -36,6 +36,7 @@
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/globjects/GUIPolygon.h>
+#include <utils/gui/moderngl/GLTransformStack.h>
 #include <utils/gui/images/VClassIcons.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 #include <utils/gui/windows/GUIAppEnum.h>
@@ -813,6 +814,7 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
 void
 GUILane::drawGLModern(const GUIVisualizationSettings& s) const {
     GLHelper::pushMatrix();
+    GLTransformStack::getTransformStack().pushMatrix();
     GLHelper::pushName(getGlID());
     const bool s2 = s.secondaryShape;
     double exaggeration = s.laneWidthExaggeration;
@@ -834,27 +836,33 @@ GUILane::drawGLModern(const GUIVisualizationSettings& s) const {
         const PositionVector& baseShape = getShape(s2);
         const bool hasRailSignal = myEdge->getToJunction()->getType() == SumoXMLNodeType::RAIL_SIGNAL;
         if (s.trueZ) {
-            glTranslated(0, 0, baseShape.getMinZ());
+            //glTranslated(0, 0, baseShape.getMinZ());
+            GLTransformStack::getTransformStack().translate(glm::vec3(0, 0, baseShape.getMinZ()));
         }
         else {
             if (isCrossing) {
                 // draw internal lanes on top of junctions
-                glTranslated(0, 0, GLO_JUNCTION + 0.1);
+                //glTranslated(0, 0, GLO_JUNCTION + 0.1);
+                GLTransformStack::getTransformStack().translate(glm::vec3(0, 0, GLO_JUNCTION + 0.1));
             }
             else if (isWalkingArea) {
                 // draw internal lanes on top of junctions
-                glTranslated(0, 0, GLO_JUNCTION + 0.3);
+                //glTranslated(0, 0, GLO_JUNCTION + 0.3);
+                GLTransformStack::getTransformStack().translate(glm::vec3(0, 0, GLO_JUNCTION + 0.3));
             }
             else if (isWaterway(myPermissions)) {
                 // draw waterways below normal roads
-                glTranslated(0, 0, getType() - 0.2);
+                //glTranslated(0, 0, getType() - 0.2);
+                GLTransformStack::getTransformStack().translate(glm::vec3(0, 0, getType() - 0.2));
             }
             else if (myPermissions == SVC_SUBWAY) {
                 // draw subways further below
-                glTranslated(0, 0, getType() - 0.4);
+                //glTranslated(0, 0, getType() - 0.4);
+                GLTransformStack::getTransformStack().translate(glm::vec3(0, 0, getType() - 0.4));
             }
             else {
-                glTranslated(0, 0, getType());
+                //glTranslated(0, 0, getType());
+                GLTransformStack::getTransformStack().translate(glm::vec3(0, 0, getType()));
             }
         }
         auto& shapeColors = getShapeColors(s2);
@@ -889,9 +897,9 @@ GUILane::drawGLModern(const GUIVisualizationSettings& s) const {
                 }
             }
             GLHelper::popMatrix();
+            GLTransformStack::getTransformStack().popMatrix();
         }
         else {
-
             GUINet* net = (GUINet*)MSNet::getInstance();
             bool mustDrawMarkings = false;
             bool hiddenBidi = getBidiLane() != nullptr && myEdge->getNumericalID() > myEdge->getBidiEdge()->getNumericalID();
@@ -921,16 +929,17 @@ GUILane::drawGLModern(const GUIVisualizationSettings& s) const {
                 const double halfRailWidth = detailZoom ? (halfInnerFeetWidth + 0.15 * exaggeration) : SUMO_const_halfLaneWidth * exaggeration;
                 const double halfCrossTieWidth = halfGauge * 1.81;
                 if (shapeColors.size() > 0) {
-                    GLHelper::drawBoxLines(shape, getShapeRotations(s2), getShapeLengths(s2), getShapeColors(s2), halfRailWidth);
+                    GLHelper::drawBoxLinesModern(shape, getShapeRotations(s2), getShapeLengths(s2), getShapeColors(s2), halfRailWidth);
                 }
                 else {
-                    GLHelper::drawBoxLines(shape, getShapeRotations(s2), getShapeLengths(s2), halfRailWidth);
+                    GLHelper::drawBoxLinesModern(shape, getShapeRotations(s2), getShapeLengths(s2), halfRailWidth);
                 }
                 // Draw white on top with reduced width (the area between the two tracks)
                 if (detailZoom) {
                     glColor3d(1, 1, 1);
-                    glTranslated(0, 0, .1);
-                    GLHelper::drawBoxLines(shape, getShapeRotations(s2), getShapeLengths(s2), halfInnerFeetWidth);
+                    //glTranslated(0, 0, .1);
+                    GLTransformStack::getTransformStack().translate(glm::vec3(0, 0, .1));
+                    GLHelper::drawBoxLinesModern(shape, getShapeRotations(s2), getShapeLengths(s2), halfInnerFeetWidth);
                     setColor(s);
                     GLHelper::drawCrossTies(shape, getShapeRotations(s2), getShapeLengths(s2), 0.26 * exaggeration, 0.6 * exaggeration,
                         halfCrossTieWidth, 0, s.forceDrawForRectangleSelection);
@@ -938,7 +947,8 @@ GUILane::drawGLModern(const GUIVisualizationSettings& s) const {
             }
             else if (isCrossing) {
                 if (s.drawCrossingsAndWalkingareas && (s.scale > 3.0 || s.junctionSize.minSize == 0)) {
-                    glTranslated(0, 0, .2);
+                    //glTranslated(0, 0, .2);
+                    GLTransformStack::getTransformStack().translate(glm::vec3(0, 0, .2));
                     GLHelper::drawCrossTies(baseShape, getShapeRotations(s2), getShapeLengths(s2), 0.5, 1.0, getWidth() * 0.5,
                         0, s.drawForRectangleSelection);
 #ifdef GUILane_DEBUG_DRAW_CROSSING_OUTLINE
@@ -952,17 +962,20 @@ GUILane::drawGLModern(const GUIVisualizationSettings& s) const {
                         }
                     }
 #endif
-                    glTranslated(0, 0, -.2);
+                    //glTranslated(0, 0, -.2);
+                    GLTransformStack::getTransformStack().translate(glm::vec3(0, 0, -.2));
                 }
             }
             else if (isWalkingArea) {
                 if (s.drawCrossingsAndWalkingareas && (s.scale > 3.0 || s.junctionSize.minSize == 0)) {
-                    glTranslated(0, 0, .2);
+                    //glTranslated(0, 0, .2);
+                    GLTransformStack::getTransformStack().translate(glm::vec3(0, 0, .2));
                     if (myTesselation == nullptr) {
                         myTesselation = new TesselatedPolygon(getID(), "", RGBColor::MAGENTA, PositionVector(), false, true, 0);
                     }
                     myTesselation->drawTesselation(baseShape);
-                    glTranslated(0, 0, -.2);
+                    //glTranslated(0, 0, -.2);
+                    GLTransformStack::getTransformStack().translate(glm::vec3(0, 0, -.2));
                     if (s.geometryIndices.show(this)) {
                         GLHelper::debugVertices(baseShape, s.geometryIndices, s.scale);
                     }
@@ -988,6 +1001,7 @@ GUILane::drawGLModern(const GUIVisualizationSettings& s) const {
                 }
             }
             GLHelper::popMatrix();
+            GLTransformStack::getTransformStack().popMatrix();
 #ifdef GUILane_DEBUG_DRAW_FOE_INTERSECTIONS
             if (myEdge->isInternal() && gSelected.isSelected(getType(), getGlID())) {
                 debugDrawFoeIntersections();
@@ -999,8 +1013,10 @@ GUILane::drawGLModern(const GUIVisualizationSettings& s) const {
             // draw details
             if ((!isInternal || isCrossing || !s.drawJunctionShape) && (drawDetails || junctionExaggeration > 1)) {
                 GLHelper::pushMatrix();
-                glTranslated(0, 0, GLO_JUNCTION); // must draw on top of junction shape
-                glTranslated(0, 0, .5);
+                GLTransformStack::getTransformStack().pushMatrix();
+                //glTranslated(0, 0, GLO_JUNCTION); // must draw on top of junction shape
+                //glTranslated(0, 0, .5);
+                GLTransformStack::getTransformStack().translate(glm::vec3(0, 0, GLO_JUNCTION + .5));
                 if (drawDetails) {
                     if (s.showLaneDirection) {
                         if (drawRails) {
@@ -1022,7 +1038,7 @@ GUILane::drawGLModern(const GUIVisualizationSettings& s) const {
                             const double offsetSign = MSGlobals::gLefthand ? -1 : 1;
                             GLHelper::setColor(color.changedBrightness(51));
                             for (double offset = -myHalfLaneWidth; offset < myHalfLaneWidth; offset += MSGlobals::gLateralResolution) {
-                                GLHelper::drawBoxLines(baseShape, getShapeRotations(s2), getShapeLengths(s2), 0.01, 0, -offset * offsetSign);
+                                GLHelper::drawBoxLinesModern(baseShape, getShapeRotations(s2), getShapeLengths(s2), 0.01, 0, -offset * offsetSign);
                             }
                         }
                         if (MSGlobals::gUseMesoSim && mySegmentStartIndex.size() > 0 && (myPermissions & ~SVC_PEDESTRIAN) != 0) {
@@ -1032,8 +1048,8 @@ GUILane::drawGLModern(const GUIVisualizationSettings& s) const {
                                 if (shapeColors.size() > 0) {
                                     GLHelper::setColor(shapeColors[i].changedBrightness(51));
                                 }
-                                GLHelper::drawBoxLine(baseShape[i], getShapeRotations(s2)[i] + 90, myWidth / 3, 0.2, 0);
-                                GLHelper::drawBoxLine(baseShape[i], getShapeRotations(s2)[i] - 90, myWidth / 3, 0.2, 0);
+                                GLHelper::drawBoxLineModern(baseShape[i], getShapeRotations(s2)[i] + 90, myWidth / 3, 0.2, 0);
+                                GLHelper::drawBoxLineModern(baseShape[i], getShapeRotations(s2)[i] - 90, myWidth / 3, 0.2, 0);
                             }
                         }
                         if (s.showLinkDecals && !drawRails && !drawAsWaterway(s) && myPermissions != SVC_PEDESTRIAN) {
@@ -1055,13 +1071,16 @@ GUILane::drawGLModern(const GUIVisualizationSettings& s) const {
                     drawLane2LaneConnections(junctionExaggeration, s.secondaryShape);
                 }
                 GLHelper::popMatrix();
+                GLTransformStack::getTransformStack().popMatrix();
                 // make sure link rules are drawn so tls can be selected via right-click
                 if (s.showLinkRules && drawDetails && !isWalkingArea &&
                     (!myEdge->isInternal() || (getLinkCont().size() > 0 && getLinkCont()[0]->isInternalJunctionLink()))) {
                     GLHelper::pushMatrix();
+                    GLTransformStack::getTransformStack().pushMatrix();
                     glTranslated(0, 0, GLO_SHAPE); // must draw on top of junction shape and additionals
                     drawLinkRules(s, *net);
                     GLHelper::popMatrix();
+                    GLTransformStack::getTransformStack().popMatrix();
                 }
             }
             if (mustDrawMarkings && drawDetails && s.laneShowBorders) { // needs matrix reset
@@ -1081,6 +1100,7 @@ GUILane::drawGLModern(const GUIVisualizationSettings& s) const {
     }
     else {
         GLHelper::popMatrix();
+        GLTransformStack::getTransformStack().popMatrix();
     }
     // draw vehicles
     if (s.scale * s.vehicleSize.getExaggeration(s, nullptr) > s.vehicleSize.minSize) {
