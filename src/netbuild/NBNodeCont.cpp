@@ -2686,7 +2686,7 @@ NBNodeCont::rename(NBNode* node, const std::string& newID) {
 
 
 void
-NBNodeCont::discardTrafficLights(NBTrafficLightLogicCont& tlc, bool geometryLike, bool guessSignals) {
+NBNodeCont::discardTrafficLights(NBTrafficLightLogicCont& tlc, bool geometryLike) {
     for (NodeCont::const_iterator i = myNodes.begin(); i != myNodes.end(); ++i) {
         NBNode* node = i->second;
         if (node->isTLControlled() && (!geometryLike || node->geometryLike())) {
@@ -2700,14 +2700,12 @@ NBNodeCont::discardTrafficLights(NBTrafficLightLogicCont& tlc, bool geometryLike
                 // keep controlled pedestrian crossings
                 continue;
             }
-            if (guessSignals && node->geometryLike()) {
-                // record signal location
-                for (NBEdge* edge : node->getOutgoingEdges()) {
-                    edge->setSignalPosition(node->getPosition(), nullptr);
+            // record signal location
+            for (NBEdge* edge : node->getOutgoingEdges()) {
+                edge->setSignalPosition(node->getPosition(), nullptr);
 #ifdef DEBUG_GUESSSIGNALS
-                    std::cout << "   discard-simple " << node->getID() << "  edge=" << edge->getID() << " pos=" << edge->getSignalPosition() << "\n";
+                std::cout << "   discard-simple " << node->getID() << "  edge=" << edge->getID() << " pos=" << edge->getSignalPosition() << "\n";
 #endif
-                }
             }
             for (std::set<NBTrafficLightDefinition*>::const_iterator it = tldefs.begin(); it != tldefs.end(); ++it) {
                 NBTrafficLightDefinition* tlDef = *it;

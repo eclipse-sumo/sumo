@@ -354,7 +354,7 @@ public:
     /* @brief discards traffic lights
      * @param[in] geometryLike Whether only tls at geometry-like nodes shall be discarded
      */
-    void discardTrafficLights(NBTrafficLightLogicCont& tlc, bool geometryLike, bool guessSignals);
+    void discardTrafficLights(NBTrafficLightLogicCont& tlc, bool geometryLike);
 
     /// @brief discards rail signals
     void discardRailSignals();

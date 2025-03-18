@@ -271,7 +271,7 @@ main(int argc, char** argv) {
         WRITE_MESSAGEF(TL("   % nodes generated."), toString<int>(nb.getNodeCont().size()));
         WRITE_MESSAGEF(TL("   % edges generated."), toString<int>(nb.getEdgeCont().size()));
         if (oc.getBool("tls.discard-simple")) {
-            nb.getNodeCont().discardTrafficLights(nb.getTLLogicCont(), true, false);
+            nb.getNodeCont().discardTrafficLights(nb.getTLLogicCont(), true);
             int removed = nb.getTLLogicCont().getNumExtracted();
             if (removed > 0) {
                 WRITE_MESSAGEF(TL(" Removed % traffic lights at geometry-like nodes"), toString(removed));
