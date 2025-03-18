@@ -55,7 +55,7 @@ FXDEFMAP(GNEAttributesEditorType) GNEAttributeTableMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_ATTRIBUTESEDITOR_EXTENDED,      GNEAttributesEditorType::onCmdOpenExtendedAttributesDialog),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_ATTRIBUTESEDITOR_PARAMETERS,    GNEAttributesEditorType::onCmdOpenEditParametersDialog),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_ATTRIBUTESEDITOR_HELP,          GNEAttributesEditorType::onCmdAttributesEditorHelp),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ATTRIBUTESEDITOR_RESET,          GNEAttributesEditorType::onCmdAttributesEditorReset)
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ATTRIBUTESEDITOR_RESET,         GNEAttributesEditorType::onCmdAttributesEditorReset)
 };
 
 // Object implementation
@@ -80,7 +80,7 @@ GNEAttributesEditorType::GNEAttributesEditorType(GNEFrame* frameParent, const st
         // Create buttons
         myFrameNeteditButtons = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
         GUIDesigns::buildFXButton(myFrameNeteditButtons, TL("Help"), TL("Open help attributes dialog"), TL("Open help attributes dialog"), nullptr, this, MID_GNE_ATTRIBUTESEDITOR_HELP, GUIDesignButtonRectangular);
-        GUIDesigns::buildFXButton(myFrameNeteditButtons, "", TL("Reset attributes"), TL("Reset attributes"), GUIIconSubSys::getIcon(GUIIcon::UNDO), this, MID_GNE_ATTRIBUTESEDITOR_RESET, GUIDesignButtonIcon);
+        GUIDesigns::buildFXButton(myFrameNeteditButtons, "", TL("Reset attributes"), TL("Reset attributes"), GUIIconSubSys::getIcon(GUIIcon::RESET), this, MID_GNE_ATTRIBUTESEDITOR_RESET, GUIDesignButtonIcon);
     }
     // build rows
     buildRows(this);
@@ -420,6 +420,21 @@ GNEAttributesEditorType::onCmdAttributesEditorHelp(FXObject*, FXSelector, void*)
 
 long
 GNEAttributesEditorType::onCmdAttributesEditorReset(FXObject*, FXSelector, void*) {
+    if (myEditedACs.size() > 0) {
+        // continue depending if we're creating or inspecting (undo-redo)
+        if (myEditorType == EditorType::CREATOR) {
+            for (auto& AC : myEditedACs) {
+                AC->resetDefaultValues(false);
+            }
+        } else {
+            myFrameParent->getViewNet()->getUndoList()->begin(myEditedACs.front()->getTagProperty()->getGUIIcon(), TLF("reset %", myEditedACs.front()->getTagProperty()->getTagStr()));
+            for (auto& AC : myEditedACs) {
+                AC->resetDefaultValues(true);
+            }
+            myFrameParent->getViewNet()->getUndoList()->end();
+        }
+        refreshAttributesEditor();
+    }
     return 1;
 }
 

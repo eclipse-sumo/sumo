@@ -394,9 +394,6 @@ private:
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
     virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;
 
-    /// @brief reset attributes to their default values without undo-redo
-    void resetAttributes();
-
     /// @brief Invalidated copy constructor.
     GNEAttributeCarrier(const GNEAttributeCarrier&) = delete;
 

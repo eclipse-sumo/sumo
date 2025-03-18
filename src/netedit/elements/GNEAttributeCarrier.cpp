@@ -21,6 +21,7 @@
 #include <netedit/GNENet.h>
 #include <netedit/GNETagProperties.h>
 #include <netedit/GNETagPropertiesDatabase.h>
+#include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <utils/common/StringTokenizer.h>
@@ -215,6 +216,22 @@ GNEAttributeCarrier::checkDrawFrontContour() const {
 void
 GNEAttributeCarrier::resetDefaultValues(const bool allowUndoRedo) {
     if (allowUndoRedo) {
+        // reset within undo-redo
+        const auto undoList = myNet->getViewNet()->getUndoList();
+        undoList->begin(myTagProperty->getGUIIcon(), TLF("reset %", myTagProperty->getTagStr()));
+        for (const auto& attrProperty : myTagProperty->getAttributeProperties()) {
+            if (attrProperty->hasDefaultValue()) {
+                setAttribute(attrProperty->getAttr(), attrProperty->getDefaultStringValue(), undoList);
+                if (attrProperty->isActivatable()) {
+                    if (attrProperty->getDefaultActivated()) {
+                        enableAttribute(attrProperty->getAttr(), undoList);
+                    } else {
+                        disableAttribute(attrProperty->getAttr(), undoList);
+                    }
+                }
+            }
+        }
+        undoList->end();
     } else {
         // simply reset every
         for (const auto& attrProperty : myTagProperty->getAttributeProperties()) {
@@ -732,16 +749,6 @@ GNEAttributeCarrier::getTagProperty() const {
 // ===========================================================================
 // private
 // ===========================================================================
-
-void
-GNEAttributeCarrier::resetAttributes() {
-    for (const auto& attrProperty : myTagProperty->getAttributeProperties()) {
-        if (attrProperty->hasDefaultValue()) {
-            setAttribute(attrProperty->getAttr(), attrProperty->getDefaultStringValue());
-        }
-    }
-}
-
 
 void
 GNEAttributeCarrier::toggleAttribute(SumoXMLAttr /*key*/, const bool /*value*/) {
