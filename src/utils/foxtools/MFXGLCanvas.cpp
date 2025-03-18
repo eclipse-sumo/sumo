@@ -105,7 +105,7 @@ FXbool MFXGLCanvas::isShared() const { return TRUE /*sgnext != this*/; }
 void MFXGLCanvas::create(){
     FXTRACE((50, "MFXGLCanvas::create\n"));
 
-    if (wglCreateContextAttribsARB == nullptr && wglChoosePixelFormatARB == nullptr) {
+    if (myWglCreateContextAttribsARB == nullptr || myWglChoosePixelFormatARB == nullptr) {
         WNDCLASSA window_class{ 0 };
         window_class.style = CS_HREDRAW | CS_VREDRAW | CS_OWNDC;
         window_class.lpfnWndProc = DefWindowProcA;
@@ -114,8 +114,10 @@ void MFXGLCanvas::create(){
 
         if (!RegisterClassA(&window_class)) {
             const DWORD error = GetLastError();
-            FXTRACE((1, "MFXGLCanvas::create register dummy window class error %u\n", error));
-            throw FX::FXWindowException("Failed to register dummy OpenGL window.");
+            if (error != 1410) { // 1410 = ERROR_CLASS_ALREADY_EXISTS
+                FXTRACE((1, "MFXGLCanvas::create register dummy window class error %u\n", error));
+                throw FX::FXWindowException("Failed to register dummy OpenGL window.");
+            }
         }
 
         HWND dummy_window = CreateWindowExA(
