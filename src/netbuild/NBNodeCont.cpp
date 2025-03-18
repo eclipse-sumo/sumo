@@ -1520,6 +1520,13 @@ NBNodeCont::feasibleCluster(const NodeSet& cluster, const std::map<const NBNode*
     for (NBNode* n : cluster) {
         if (n->isTLControlled()) {
             hasTLS = true;
+        } else {
+            for (NBEdge* e : n->getIncomingEdges()) {
+                if (e->getSignalPosition() != Position::INVALID) {
+                    hasTLS = true;
+                    break;
+                }
+            }
         }
         const auto& stopEnds = ptStopEnds.find(n);
         if (stopEnds != ptStopEnds.end()) {
