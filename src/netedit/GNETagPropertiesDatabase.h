@@ -190,7 +190,7 @@ protected:
     /// @{
 
     /// @brief fill ID attribute
-    void fillIDAttribute(GNETagProperties* tagProperties);
+    void fillIDAttribute(GNETagProperties* tagProperties, const bool createMode);
 
     /// @brief fill name attribute
     void fillNameAttribute(GNETagProperties* tagProperties);

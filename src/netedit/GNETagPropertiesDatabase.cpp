@@ -435,7 +435,7 @@ GNETagPropertiesDatabase::fillNetworkElements() {
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::JUNCTION, currentTag, TL("Junction"));
         // set values of attributes
-        fillIDAttribute(myTagProperties[currentTag]);
+        fillIDAttribute(myTagProperties[currentTag], true);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_POSITION,
                                    GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::POSITION | GNEAttributeProperties::UPDATEGEOMETRY, // virtual attribute from the combination of the actually attributes SUMO_ATTR_X, SUMO_ATTR_Y
@@ -518,7 +518,7 @@ GNETagPropertiesDatabase::fillNetworkElements() {
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::EDGETYPE, currentTag, TL("EdgeType"));
         // set values of attributes
-        fillIDAttribute(myTagProperties[currentTag]);
+        fillIDAttribute(myTagProperties[currentTag], false);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_NUMLANES,
                                    GNEAttributeProperties::INT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::COPYABLE,
@@ -599,7 +599,7 @@ GNETagPropertiesDatabase::fillNetworkElements() {
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::EDGE, currentTag, TL("Edge"));
         // set values of attributes
-        fillIDAttribute(myTagProperties[currentTag]);
+        fillIDAttribute(myTagProperties[currentTag], true);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_FROM,
                                    GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
@@ -719,7 +719,7 @@ GNETagPropertiesDatabase::fillNetworkElements() {
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::LANE, currentTag, TL("Lane"));
         // set values of attributes
-        fillIDAttribute(myTagProperties[currentTag]);
+        fillIDAttribute(myTagProperties[currentTag], true);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_INDEX,
                                    GNEAttributeProperties::INT | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
@@ -800,7 +800,7 @@ GNETagPropertiesDatabase::fillNetworkElements() {
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::CROSSING, currentTag, TL("Crossing"));
         // set values of attributes
-        fillIDAttribute(myTagProperties[currentTag]);
+        fillIDAttribute(myTagProperties[currentTag], true);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_EDGES,
                                    GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
@@ -846,7 +846,7 @@ GNETagPropertiesDatabase::fillNetworkElements() {
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::WALKINGAREA, currentTag, TL("WalkingArea"));
         // set values of attributes
-        fillIDAttribute(myTagProperties[currentTag]);
+        fillIDAttribute(myTagProperties[currentTag], true);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_WIDTH,
                                    GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY,
@@ -1293,7 +1293,7 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
                 GUIIcon::E1, currentTag, TL("E1 InductionLoop"),
                 {}, FXRGBA(210, 233, 255, 255));
         // set values of attributes
-        fillIDAttribute(myTagProperties[currentTag]);
+        fillIDAttribute(myTagProperties[currentTag], true);
 
         fillLaneAttribute(myTagProperties[currentTag], false);
 
@@ -1324,7 +1324,7 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
                 GUIIcon::E2, currentTag, TL("E2 LaneAreaDetector"),
                 {}, FXRGBA(210, 233, 255, 255));
         // set values of attributes
-        fillIDAttribute(myTagProperties[currentTag]);
+        fillIDAttribute(myTagProperties[currentTag], true);
 
         fillLaneAttribute(myTagProperties[currentTag], false);
 
@@ -1374,7 +1374,7 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
                 GUIIcon::E2, SUMO_TAG_LANE_AREA_DETECTOR, TL("E2 MultiLaneAreaDetector"),
                 {}, FXRGBA(210, 233, 255, 255));
         // set values of attributes
-        fillIDAttribute(myTagProperties[currentTag]);
+        fillIDAttribute(myTagProperties[currentTag], true);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_LANES,
                                    GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::SECUENCIAL | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
@@ -1426,7 +1426,7 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
                 GUIIcon::E3, currentTag, TL("E3 EntryExitDetector"),
                 {}, FXRGBA(210, 233, 255, 255));
         // set values of attributes
-        fillIDAttribute(myTagProperties[currentTag]);
+        fillIDAttribute(myTagProperties[currentTag], true);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_POSITION,
                                    GNEAttributeProperties::STRING | GNEAttributeProperties::POSITION | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY,
@@ -1507,7 +1507,7 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
                 GUIIcon::E1INSTANT, currentTag, TL("E3 DetExit"),
                 {}, FXRGBA(210, 233, 255, 255));
         // set values of attributes
-        fillIDAttribute(myTagProperties[currentTag]);
+        fillIDAttribute(myTagProperties[currentTag], true);
 
         fillLaneAttribute(myTagProperties[currentTag], false);
 
@@ -1536,7 +1536,7 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
                 GUIIcon::ROUTEPROBE, currentTag, TL("RouteProbe"),
                 {}, FXRGBA(210, 233, 255, 255));
         // set values of attributes
-        fillIDAttribute(myTagProperties[currentTag]);
+        fillIDAttribute(myTagProperties[currentTag], true);
 
         fillEdgeAttribute(myTagProperties[currentTag], false);
 
@@ -1569,7 +1569,7 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
                 GUIIcon::VARIABLESPEEDSIGN, currentTag, TL("VariableSpeedSign"),
                 {}, FXRGBA(210, 233, 255, 255));
         // set values of attributes
-        fillIDAttribute(myTagProperties[currentTag]);
+        fillIDAttribute(myTagProperties[currentTag], true);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_LANES,
                                    GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
@@ -1630,7 +1630,7 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
                 GUIIcon::CALIBRATOR, currentTag, TL("Calibrator"),
                 {}, FXRGBA(253, 255, 206, 255));
         // set values of attributes
-        fillIDAttribute(myTagProperties[currentTag]);
+        fillIDAttribute(myTagProperties[currentTag], true);
 
         fillEdgeAttribute(myTagProperties[currentTag], false);
 
@@ -1670,7 +1670,7 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
                 GUIIcon::CALIBRATOR, SUMO_TAG_CALIBRATOR, TL("CalibratorLane"),
                 {}, FXRGBA(253, 255, 206, 255));
         // set values of attributes
-        fillIDAttribute(myTagProperties[currentTag]);
+        fillIDAttribute(myTagProperties[currentTag], true);
 
         fillLaneAttribute(myTagProperties[currentTag], false);
 
@@ -1761,7 +1761,7 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
                 {}, FXRGBA(255, 213, 213, 255));
 
         // set values of attributes
-        fillIDAttribute(myTagProperties[currentTag]);
+        fillIDAttribute(myTagProperties[currentTag], true);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_POSITION,
                                    GNEAttributeProperties::STRING | GNEAttributeProperties::POSITION | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY,
@@ -1981,7 +1981,7 @@ GNETagPropertiesDatabase::fillShapeElements() {
                 GUIIcon::POLY, currentTag, TL("Polygon"),
                 {}, FXRGBA(240, 255, 205, 255));
         // set values of attributes
-        fillIDAttribute(myTagProperties[currentTag]);
+        fillIDAttribute(myTagProperties[currentTag], true);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_SHAPE,
                                    GNEAttributeProperties::STRING | GNEAttributeProperties::POSITION | GNEAttributeProperties::LIST | GNEAttributeProperties::UNIQUE,
@@ -2051,7 +2051,7 @@ GNETagPropertiesDatabase::fillShapeElements() {
                 GUIIcon::POI, currentTag, TL("PointOfInterest"),
                 {}, FXRGBA(210, 233, 255, 255));
         // set values of attributes
-        fillIDAttribute(myTagProperties[currentTag]);
+        fillIDAttribute(myTagProperties[currentTag], true);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_POSITION,
                                    GNEAttributeProperties::STRING | GNEAttributeProperties::POSITION | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY, // virtual attribute from the combination of the actually attributes SUMO_ATTR_X, SUMO_ATTR_Y
@@ -2072,7 +2072,7 @@ GNETagPropertiesDatabase::fillShapeElements() {
                 GUIIcon::POILANE, SUMO_TAG_POI, TL("PointOfInterestLane"),
                 {}, FXRGBA(210, 233, 255, 255));
         // set values of attributes
-        fillIDAttribute(myTagProperties[currentTag]);
+        fillIDAttribute(myTagProperties[currentTag], true);
 
         fillLaneAttribute(myTagProperties[currentTag], false);
 
@@ -2100,7 +2100,7 @@ GNETagPropertiesDatabase::fillShapeElements() {
                 GUIIcon::POIGEO, SUMO_TAG_POI, TL("PointOfInterestGeo"),
                 {}, FXRGBA(210, 233, 255, 255));
         // set values of attributes
-        fillIDAttribute(myTagProperties[currentTag]);
+        fillIDAttribute(myTagProperties[currentTag], true);
 
         // set values of attributes
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_LON,
@@ -2132,7 +2132,7 @@ GNETagPropertiesDatabase::fillTAZElements() {
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::TAZ, currentTag, TL("TrafficAssignmentZones"));
         // set values of attributes
-        fillIDAttribute(myTagProperties[currentTag]);
+        fillIDAttribute(myTagProperties[currentTag], true);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_SHAPE,
                                    GNEAttributeProperties::STRING | GNEAttributeProperties::POSITION | GNEAttributeProperties::LIST | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY,
@@ -2214,7 +2214,7 @@ GNETagPropertiesDatabase::fillWireElements() {
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::TRACTION_SUBSTATION, currentTag, TL("TractionSubstation"));
         // set attribute properties
-        fillIDAttribute(myTagProperties[currentTag]);
+        fillIDAttribute(myTagProperties[currentTag], true);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_POSITION,
                                    GNEAttributeProperties::STRING | GNEAttributeProperties::POSITION | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY,
@@ -2244,7 +2244,7 @@ GNETagPropertiesDatabase::fillWireElements() {
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::OVERHEADWIRE, currentTag, TL("WireSection"));
         // set attribute properties
-        fillIDAttribute(myTagProperties[currentTag]);
+        fillIDAttribute(myTagProperties[currentTag], true);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_SUBSTATIONID,
                                    GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE,
@@ -2285,7 +2285,7 @@ GNETagPropertiesDatabase::fillWireElements() {
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::OVERHEADWIRE_CLAMP, currentTag, TL("OverheadWireClamp"));
         // set attribute properties
-        fillIDAttribute(myTagProperties[currentTag]);
+        fillIDAttribute(myTagProperties[currentTag], true);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_OVERHEAD_WIRECLAMP_START,
                                    GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE,
@@ -2324,7 +2324,7 @@ GNETagPropertiesDatabase::fillJuPedSimElements() {
                 GUIIcon::JPS_WALKABLEAREA, SUMO_TAG_POLY, TL("JuPedSim WalkableArea"),
                 {}, FXRGBA(253, 255, 206, 255));
         // set values of attributes
-        fillIDAttribute(myTagProperties[currentTag]);
+        fillIDAttribute(myTagProperties[currentTag], true);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_SHAPE,
                                    GNEAttributeProperties::STRING | GNEAttributeProperties::POSITION | GNEAttributeProperties::LIST | GNEAttributeProperties::UNIQUE,
@@ -2344,7 +2344,7 @@ GNETagPropertiesDatabase::fillJuPedSimElements() {
                 GUIIcon::JPS_OBSTACLE, SUMO_TAG_POLY, TL("JuPedSim Obstacle"),
                 {}, FXRGBA(253, 255, 206, 255));
         // set values of attributes
-        fillIDAttribute(myTagProperties[currentTag]);
+        fillIDAttribute(myTagProperties[currentTag], true);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_SHAPE,
                                    GNEAttributeProperties::STRING | GNEAttributeProperties::POSITION | GNEAttributeProperties::LIST | GNEAttributeProperties::UNIQUE,
@@ -2370,7 +2370,7 @@ GNETagPropertiesDatabase::fillDemandElements() {
                 GUIIcon::ROUTE, currentTag, TL("Route"));
 
         // set values of attributes
-        fillIDAttribute(myTagProperties[currentTag]);
+        fillIDAttribute(myTagProperties[currentTag], true);
 
         new GNEAttributeProperties(myTagProperties[currentTag], GNE_ATTR_ROUTE_DISTRIBUTION,
                                    GNEAttributeProperties::STRING,
@@ -2414,7 +2414,7 @@ GNETagPropertiesDatabase::fillDemandElements() {
                 GUIIcon::ROUTEDISTRIBUTION, currentTag, TL("RouteDistribution"));
 
         // set values of attributes
-        fillIDAttribute(myTagProperties[currentTag]);
+        fillIDAttribute(myTagProperties[currentTag], true);
     }
     currentTag = GNE_TAG_ROUTE_EMBEDDED;
     {
@@ -2459,7 +2459,7 @@ GNETagPropertiesDatabase::fillDemandElements() {
                 GUIIcon::VTYPE, currentTag, TL("VehicleType"));
 
         // set values of attributes
-        fillIDAttribute(myTagProperties[currentTag]);
+        fillIDAttribute(myTagProperties[currentTag], true);
 
         new GNEAttributeProperties(myTagProperties[currentTag], GNE_ATTR_VTYPE_DISTRIBUTION,
                                    GNEAttributeProperties::STRING,
@@ -2641,7 +2641,7 @@ GNETagPropertiesDatabase::fillDemandElements() {
                 GUIIcon::VTYPEDISTRIBUTION, currentTag, TL("VehicleTypeDistribution"));
 
         // set values of attributes
-        fillIDAttribute(myTagProperties[currentTag]);
+        fillIDAttribute(myTagProperties[currentTag], true);
     }
 }
 
@@ -2661,7 +2661,7 @@ GNETagPropertiesDatabase::fillVehicleElements() {
                 {}, FXRGBA(253, 255, 206, 255), "trip (from-to edges)");
 
         // set values of attributes
-        fillIDAttribute(myTagProperties[currentTag]);
+        fillIDAttribute(myTagProperties[currentTag], true);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_TYPE,
                                    GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY | GNEAttributeProperties::VTYPE,
@@ -2701,7 +2701,7 @@ GNETagPropertiesDatabase::fillVehicleElements() {
                 {}, FXRGBA(255, 213, 213, 255), "trip (from-to junctions)");
 
         // set values of attributes
-        fillIDAttribute(myTagProperties[currentTag]);
+        fillIDAttribute(myTagProperties[currentTag], true);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_TYPE,
                                    GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY | GNEAttributeProperties::VTYPE,
@@ -2736,7 +2736,7 @@ GNETagPropertiesDatabase::fillVehicleElements() {
                 {}, FXRGBA(240, 255, 205, 255), "trip (from-to TAZs)");
 
         // set values of attributes
-        fillIDAttribute(myTagProperties[currentTag]);
+        fillIDAttribute(myTagProperties[currentTag], true);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_TYPE,
                                    GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY | GNEAttributeProperties::VTYPE,
@@ -2771,7 +2771,7 @@ GNETagPropertiesDatabase::fillVehicleElements() {
                 {}, FXRGBA(210, 233, 255, 255), "vehicle (over route)");
 
         // set values of attributes
-        fillIDAttribute(myTagProperties[currentTag]);
+        fillIDAttribute(myTagProperties[currentTag], true);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_TYPE,
                                    GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY | GNEAttributeProperties::VTYPE,
@@ -2811,7 +2811,7 @@ GNETagPropertiesDatabase::fillVehicleElements() {
                 {}, FXRGBA(210, 233, 255, 255), "vehicle (embedded route)");
 
         // set values of attributes
-        fillIDAttribute(myTagProperties[currentTag]);
+        fillIDAttribute(myTagProperties[currentTag], true);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_TYPE,
                                    GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY | GNEAttributeProperties::VTYPE,
@@ -2846,7 +2846,7 @@ GNETagPropertiesDatabase::fillVehicleElements() {
                 {}, FXRGBA(253, 255, 206, 255), "flow (from-to edges)");
 
         // set values of attributes
-        fillIDAttribute(myTagProperties[currentTag]);
+        fillIDAttribute(myTagProperties[currentTag], true);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_TYPE,
                                    GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY | GNEAttributeProperties::VTYPE,
@@ -2887,7 +2887,7 @@ GNETagPropertiesDatabase::fillVehicleElements() {
                 {}, FXRGBA(255, 213, 213, 255), "flow (from-to junctions)");
 
         // set values of attributes
-        fillIDAttribute(myTagProperties[currentTag]);
+        fillIDAttribute(myTagProperties[currentTag], true);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_TYPE,
                                    GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY | GNEAttributeProperties::VTYPE,
@@ -2923,7 +2923,7 @@ GNETagPropertiesDatabase::fillVehicleElements() {
                 {}, FXRGBA(240, 255, 205, 255), "flow (from-to TAZs)");
 
         // set values of attributes
-        fillIDAttribute(myTagProperties[currentTag]);
+        fillIDAttribute(myTagProperties[currentTag], true);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_TYPE,
                                    GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY | GNEAttributeProperties::VTYPE,
@@ -2959,7 +2959,7 @@ GNETagPropertiesDatabase::fillVehicleElements() {
                 {}, FXRGBA(210, 233, 255, 255), "flow (over route)");
 
         // set values of attributes
-        fillIDAttribute(myTagProperties[currentTag]);
+        fillIDAttribute(myTagProperties[currentTag], true);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_TYPE,
                                    GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY | GNEAttributeProperties::VTYPE,
@@ -3000,7 +3000,7 @@ GNETagPropertiesDatabase::fillVehicleElements() {
                 {}, FXRGBA(210, 233, 255, 255), "flow (embedded route)");
 
         // set values of attributes
-        fillIDAttribute(myTagProperties[currentTag]);
+        fillIDAttribute(myTagProperties[currentTag], true);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_TYPE,
                                    GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY | GNEAttributeProperties::VTYPE,
@@ -7024,7 +7024,7 @@ GNETagPropertiesDatabase::fillCommonAttributes(GNETagProperties* tagProperties) 
 void
 GNETagPropertiesDatabase::fillCommonStoppingPlaceAttributes(GNETagProperties* tagProperties, const bool includeColor) {
     // set values of attributes
-    fillIDAttribute(tagProperties);
+    fillIDAttribute(tagProperties, true);
 
     fillLaneAttribute(tagProperties, false);
 
@@ -7739,7 +7739,7 @@ GNETagPropertiesDatabase::fillLaneChangingModelAttributes(GNETagProperties* tagP
 void
 GNETagPropertiesDatabase::fillCommonPersonAttributes(GNETagProperties* tagProperties) {
     // fill person attributes
-    fillIDAttribute(tagProperties);
+    fillIDAttribute(tagProperties, true);
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_TYPE,
                                GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY | GNEAttributeProperties::VTYPE,
@@ -7760,7 +7760,7 @@ GNETagPropertiesDatabase::fillCommonPersonAttributes(GNETagProperties* tagProper
 void
 GNETagPropertiesDatabase::fillCommonContainerAttributes(GNETagProperties* tagProperties) {
     // fill common container attributes
-    fillIDAttribute(tagProperties);
+    fillIDAttribute(tagProperties, true);
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_TYPE,
                                GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY | GNEAttributeProperties::VTYPE,
@@ -8188,7 +8188,7 @@ GNETagPropertiesDatabase::fillDataElements() {
                 GUIIcon::DATASET, currentTag, TL("DataSet"));
 
         // set values of attributes
-        fillIDAttribute(myTagProperties[currentTag]);
+        fillIDAttribute(myTagProperties[currentTag], true);
     }
     // fill data interval element
     currentTag = SUMO_TAG_DATAINTERVAL;
@@ -8203,7 +8203,7 @@ GNETagPropertiesDatabase::fillDataElements() {
         {SUMO_TAG_DATASET});
 
         // set values of attributes
-        fillIDAttribute(myTagProperties[currentTag]);
+        fillIDAttribute(myTagProperties[currentTag], true);
 
         // set values of attributes
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_BEGIN,
@@ -8304,7 +8304,7 @@ GNETagPropertiesDatabase::fillDataElements() {
 void
 GNETagPropertiesDatabase::fillCommonMeanDataAttributes(GNETagProperties* tagProperties) {
     // fill all meanData attributes
-    fillIDAttribute(tagProperties);
+    fillIDAttribute(tagProperties, true);
 
     fillFileAttribute(tagProperties);
 
@@ -8391,11 +8391,18 @@ GNETagPropertiesDatabase::fillCommonMeanDataAttributes(GNETagProperties* tagProp
 }
 
 void
-GNETagPropertiesDatabase::fillIDAttribute(GNETagProperties* tagProperties) {
-    new GNEAttributeProperties(tagProperties, SUMO_ATTR_ID,
-                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE,
-                               GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
-                               TLF("ID of %", tagProperties->getTagStr()));
+GNETagPropertiesDatabase::fillIDAttribute(GNETagProperties* tagProperties, const bool createMode) {
+    if (createMode) {
+        new GNEAttributeProperties(tagProperties, SUMO_ATTR_ID,
+                                   GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE,
+                                   GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                                   TLF("ID of %", tagProperties->getTagStr()));
+    } else {
+        new GNEAttributeProperties(tagProperties, SUMO_ATTR_ID,
+                                   GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE,
+                                   GNEAttributeProperties::EDITMODE,
+                                   TLF("ID of %", tagProperties->getTagStr()));
+    }
 }
 
 
