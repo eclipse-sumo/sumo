@@ -136,6 +136,9 @@ public:
     /// @brief called when user press the help button
     long onCmdAttributesEditorHelp(FXObject*, FXSelector, void*);
 
+    /// @brief called when user press the reset button
+    long onCmdAttributesEditorReset(FXObject*, FXSelector, void*);
+
     /// @}
 
 protected:
@@ -187,8 +190,8 @@ private:
     /// @brief pointer to open generic parameters editor button
     FXButton* myOpenGenericParametersEditorButton = nullptr;
 
-    /// @brief button for help
-    FXButton* myHelpButton = nullptr;
+    /// @brief frame for netedit buttons (helps and reset)
+    FXHorizontalFrame* myFrameNeteditButtons = nullptr;
 
     /// @brief first singleton with attributes editor rows
     static AttributesEditorRows myFirstSingletonAttributesEditorRows;

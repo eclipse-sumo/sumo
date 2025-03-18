@@ -1042,6 +1042,8 @@ enum {
     MID_GNE_ATTRIBUTESEDITOR_PARAMETERS,
     /// @brief open help dialog
     MID_GNE_ATTRIBUTESEDITOR_HELP,
+    /// @brief reset attributes
+    MID_GNE_ATTRIBUTESEDITOR_RESET,
     /// @brief set attribute (string, bool, etc.) in attributes editor row
     MID_GNE_ATTRIBUTESEDITORROW_SETATTRIBUTE,
     /// @brief toogle enable attribute in attributes editor row
