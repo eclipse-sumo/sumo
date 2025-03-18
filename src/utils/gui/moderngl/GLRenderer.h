@@ -31,7 +31,7 @@
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/moderngl/GLVertexArrayObject.h>
 #include <utils/gui/moderngl/GLShader.h>
-#include <utils/common/UtilExceptions.h>
+
 
 struct GLBufferStruct;
 

@@ -19,7 +19,9 @@
 /****************************************************************************/
 #include "GLRenderer.h"
 
+#include <utils/common/UtilExceptions.h>
 #include <utils/gui/moderngl/GLBufferStruct.h>
+
 
 // ===========================================================================
 // static member definitions

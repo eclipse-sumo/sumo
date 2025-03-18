@@ -23,8 +23,8 @@
 
 #include "GLTransformStack.h"
 #include "gtc/matrix_transform.hpp"
-// #define GLM_ENABLE_EXPERIMENTAL
 #include <gtx/string_cast.hpp>
+#include <utils/common/UtilExceptions.h>
 
 // ===========================================================================
 // static member definitions
@@ -69,6 +69,9 @@ GLTransformStack::pushMatrix() {
 
 void
 GLTransformStack::popMatrix() {
+    if (myStack.size() == 0) {
+        throw ProcessError("GlTransfromStack::popMatrix matrix container is already empty");
+    }
     myStack.pop_back();
 }
 
@@ -85,11 +88,11 @@ GLTransformStack::rotate(const float angle, const glm::vec3& axis) {
     // subtract current pivot point and add it again after the transformation
     glm::mat4 currentMatrix = *myStack.rbegin();
     currentMatrix = glm::rotate(currentMatrix, angle, axis);
-
+/*
 #ifdef _DEBUG
     std::cout << "GLTransformStack::rotate by " << angle << " deg = " << angle << ",\n\tmatrix " << glm::to_string(currentMatrix) << std::endl;
 #endif
-
+*/
     *myStack.rbegin() = currentMatrix;
 }
 
@@ -113,12 +116,14 @@ GLTransformStack::applyTransform(const glm::vec3& v) const {
     }
     glm::vec4 result = myStack.back() * glm::vec4(v, 1.);
 
+/*
 #ifdef _DEBUG
     // plot stored matrices and the currently cached one, input and result of the transformation
     std::cout << "GLTransformStack::applyTransform(" << glm::to_string(v) << ")" << std::endl;
     std::cout << "\tcached matrix: " << glm::to_string(myStack.back()) << std::endl;
     std::cout << "\tresult vector: " << glm::to_string(result) << std::endl;
 #endif
+*/
 
     return glm::vec3(result.x / result.w, result.y / result.w, result.z / result.w);
     //return (myCurrentTransform * glm::vec4(v, 1.)).xyz;
