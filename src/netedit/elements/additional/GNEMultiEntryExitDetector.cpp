@@ -35,8 +35,6 @@
 
 GNEMultiEntryExitDetector::GNEMultiEntryExitDetector(GNENet* net) :
     GNEAdditional("", net, "", GLO_E3DETECTOR, SUMO_TAG_ENTRY_EXIT_DETECTOR, GUIIcon::E3ENTRY, "") {
-    // reset default values
-    resetDefaultValues();
 }
 
 

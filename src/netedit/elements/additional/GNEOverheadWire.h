@@ -172,13 +172,13 @@ public:
 
 protected:
     /// @brief start position over lane
-    double myStartPos;
+    double myStartPos = 0;
 
     /// @brief end position over lane
-    double myEndPos;
+    double myEndPos = 0;
 
     /// @brief friendly position
-    bool myFriendlyPosition;
+    bool myFriendlyPosition = false;
 
     /// @brief forbidden inner lanes
     std::vector<std::string> myForbiddenInnerLanes;

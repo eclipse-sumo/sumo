@@ -156,7 +156,7 @@ public:
 
 protected:
     /// @brief timeStep
-    SUMOTime myTime;
+    SUMOTime myTime = 0;
 
     /// @brief speed in this timeStep
     std::string mySpeed;

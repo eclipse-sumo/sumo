@@ -43,8 +43,6 @@
 
 GNELaneAreaDetector::GNELaneAreaDetector(SumoXMLTag tag, GNENet* net) :
     GNEDetector(net, GLO_E2DETECTOR, tag, GUIIcon::E2) {
-    // reset default values
-    resetDefaultValues();
 }
 
 

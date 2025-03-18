@@ -4243,9 +4243,9 @@ NBNode::isTrafficLight(SumoXMLNodeType type) {
 
 
 bool
-NBNode::rightOnRedConflict(int index, int foeIndex) const {
+NBNode::extraConflict(int index, int foeIndex) const {
     for (NBTrafficLightDefinition* def : myTrafficLights) {
-        if (def->rightOnRedConflict(index, foeIndex)) {
+        if (def->extraConflict(index, foeIndex)) {
             return true;
         }
     }

@@ -32,8 +32,6 @@
 
 GNEChargingStation::GNEChargingStation(GNENet* net) :
     GNEStoppingPlace(net, GLO_CHARGING_STATION, SUMO_TAG_CHARGING_STATION, GUIIcon::CHARGINGSTATION) {
-    // reset default values
-    resetDefaultValues();
 }
 
 

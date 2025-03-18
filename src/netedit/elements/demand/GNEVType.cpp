@@ -36,8 +36,6 @@ GNEVType::GNEVType(GNENet* net) :
     SUMOVTypeParameter(""),
     myDefaultVehicleType(true),
     myDefaultVehicleTypeModified(false) {
-    // reset default values
-    resetDefaultValues();
     // init Rail Visualization Parameters
     initRailVisualizationParameters();
 }

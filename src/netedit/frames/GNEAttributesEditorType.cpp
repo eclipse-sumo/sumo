@@ -35,6 +35,7 @@
 #include <netedit/frames/common/GNEInspectorFrame.h>
 #include <utils/gui/div/GUIDesigns.h>
 
+#include "GNEAttributesEditor.h"
 #include "GNEAttributesEditorType.h"
 #include "GNEAttributesEditorRow.h"
 
@@ -54,7 +55,8 @@ FXDEFMAP(GNEAttributesEditorType) GNEAttributeTableMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_ATTRIBUTESEDITOR_DIALOG,        GNEAttributesEditorType::onCmdOpenElementDialog),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_ATTRIBUTESEDITOR_EXTENDED,      GNEAttributesEditorType::onCmdOpenExtendedAttributesDialog),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_ATTRIBUTESEDITOR_PARAMETERS,    GNEAttributesEditorType::onCmdOpenEditParametersDialog),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ATTRIBUTESEDITOR_HELP,          GNEAttributesEditorType::onCmdAttributesEditorHelp)
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ATTRIBUTESEDITOR_HELP,          GNEAttributesEditorType::onCmdAttributesEditorHelp),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ATTRIBUTESEDITOR_RESET,         GNEAttributesEditorType::onCmdAttributesEditorReset)
 };
 
 // Object implementation
@@ -64,9 +66,11 @@ FXIMPLEMENT(GNEAttributesEditorType,  MFXGroupBoxModule,  GNEAttributeTableMap, 
 // method definitions
 // ===========================================================================
 
-GNEAttributesEditorType::GNEAttributesEditorType(GNEFrame* frameParent, const std::string attributesEditorName, EditorType editorType, AttributeType attributeType) :
+GNEAttributesEditorType::GNEAttributesEditorType(GNEFrame* frameParent, GNEAttributesEditor* attributesEditorParent,
+        const std::string attributesEditorName, EditorType editorType, AttributeType attributeType) :
     MFXGroupBoxModule(frameParent, attributesEditorName.c_str()),
     myFrameParent(frameParent),
+    myAttributesEditorParent(attributesEditorParent),
     myEditorType(editorType),
     myAttributeType(attributeType) {
     // create netedit especific buttons (before row)
@@ -76,8 +80,12 @@ GNEAttributesEditorType::GNEAttributesEditorType(GNEFrame* frameParent, const st
         myFrontButton->hide();
         myOpenDialogButton = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Open element dialog"), "", "", nullptr, this, MID_GNE_ATTRIBUTESEDITOR_DIALOG, GUIDesignButton);
         myOpenDialogButton->hide();
-        // Create help button
-        myHelpButton = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Help"), "", "", nullptr, this, MID_GNE_ATTRIBUTESEDITOR_HELP, GUIDesignButtonRectangular);
+        // Create buttons
+        myFrameNeteditButtons = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
+        GUIDesigns::buildFXButton(myFrameNeteditButtons, TL("Help"), TL("Open help attributes dialog"), TL("Open help attributes dialog"), nullptr,
+                                  this, MID_GNE_ATTRIBUTESEDITOR_HELP, GUIDesignButtonRectangular);
+        GUIDesigns::buildFXButton(myFrameNeteditButtons, "", TL("Reset attributes"), TL("Reset attributes"), GUIIconSubSys::getIcon(GUIIcon::RESET),
+                                  this, MID_GNE_ATTRIBUTESEDITOR_RESET, GUIDesignButtonIcon);
     }
     // build rows
     buildRows(this);
@@ -274,9 +282,8 @@ GNEAttributesEditorType::refreshAttributesEditor() {
     if ((rowIndex == 0) && !showButtons) {
         hideAttributesEditor();
     } else {
-        if (myHelpButton) {
-            myHelpButton->reparent(this);
-            myHelpButton->show();
+        if (myFrameNeteditButtons) {
+            myFrameNeteditButtons->reparent(this);
         }
         show();
     }
@@ -411,6 +418,28 @@ long
 GNEAttributesEditorType::onCmdAttributesEditorHelp(FXObject*, FXSelector, void*) {
     if (myEditedACs.size() > 0) {
         myFrameParent->openHelpAttributesDialog(myEditedACs.front());
+    }
+    return 1;
+}
+
+
+long
+GNEAttributesEditorType::onCmdAttributesEditorReset(FXObject*, FXSelector, void*) {
+    if (myEditedACs.size() > 0) {
+        // continue depending if we're creating or inspecting (undo-redo)
+        if (myEditorType == EditorType::CREATOR) {
+            for (auto& AC : myEditedACs) {
+                AC->resetDefaultValues(false);
+            }
+        } else {
+            myFrameParent->getViewNet()->getUndoList()->begin(myEditedACs.front()->getTagProperty()->getGUIIcon(), TLF("reset %", myEditedACs.front()->getTagProperty()->getTagStr()));
+            for (auto& AC : myEditedACs) {
+                AC->resetDefaultValues(true);
+            }
+            myFrameParent->getViewNet()->getUndoList()->end();
+        }
+        // refresh all attributes editor types
+        myAttributesEditorParent->refreshAttributesEditor();
     }
     return 1;
 }

@@ -153,7 +153,7 @@ public:
 
 protected:
     /// @brief probability with which a vehicle will use the given edge as destination
-    double myProbability;
+    double myProbability = 0;
 
 private:
     /// @brief set attribute after validation

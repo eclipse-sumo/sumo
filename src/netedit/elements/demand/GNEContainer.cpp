@@ -58,7 +58,7 @@ GNEContainer::GNEContainerPopupMenu::GNEContainerPopupMenu(GNEContainer* contain
     myTransformToContainer(nullptr),
     myTransformToContainerFlow(nullptr) {
     // build common options
-    container->buildPopUpMenuCommonOptions(this, app, container->getTagProperty()->getTag(), container->isAttributeCarrierSelected());
+    container->buildPopUpMenuCommonOptions(this, app, container->myNet->getViewNet(), container->getTagProperty()->getTag(), container->isAttributeCarrierSelected());
     // add transform functions only in demand mode
     if (myContainer->getNet()->getViewNet()->getEditModes().isCurrentSupermodeDemand()) {
         // create menu pane for transform operations
@@ -103,7 +103,7 @@ GNEContainer::GNESelectedContainersPopupMenu::GNESelectedContainersPopupMenu(GNE
     myTransformToContainer(nullptr),
     myTransformToContainerFlow(nullptr) {
     // build common options
-    container->buildPopUpMenuCommonOptions(this, app, container->getTagProperty()->getTag(), container->isAttributeCarrierSelected());
+    container->buildPopUpMenuCommonOptions(this, app, container->myNet->getViewNet(), container->getTagProperty()->getTag(), container->isAttributeCarrierSelected());
     // add transform functions only in demand mode
     if (container->getNet()->getViewNet()->getEditModes().isCurrentSupermodeDemand()) {
         // create menu pane for transform operations
@@ -146,8 +146,6 @@ GNEContainer::GNESelectedContainersPopupMenu::onCmdTransform(FXObject* obj, FXSe
 GNEContainer::GNEContainer(SumoXMLTag tag, GNENet* net) :
     GNEDemandElement("", net, "", GLO_CONTAINER, tag, GUIIcon::CONTAINER, GNEPathElement::Options::DEMAND_ELEMENT),
     GNEDemandElementFlow(this) {
-    // reset default values
-    resetDefaultValues();
     // set end and container per hours as default flow values
     toggleAttribute(SUMO_ATTR_END, 1);
     toggleAttribute(SUMO_ATTR_CONTAINERSPERHOUR, 1);

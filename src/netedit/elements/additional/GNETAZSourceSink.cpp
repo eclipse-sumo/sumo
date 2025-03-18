@@ -35,10 +35,7 @@
 // ===========================================================================
 
 GNETAZSourceSink::GNETAZSourceSink(SumoXMLTag sourceSinkTag, GNENet* net) :
-    GNEAttributeCarrier(sourceSinkTag, net, "", true),
-    myWeight(0) {
-    // reset default values
-    resetDefaultValues();
+    GNEAttributeCarrier(sourceSinkTag, net, "", true) {
 }
 
 

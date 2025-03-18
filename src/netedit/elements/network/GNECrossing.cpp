@@ -39,8 +39,6 @@
 GNECrossing::GNECrossing(GNENet* net) :
     GNENetworkElement(net, "", GLO_CROSSING, SUMO_TAG_CROSSING, GUIIcon::CROSSING),
     myTemplateNBCrossing(new NBNode::Crossing(nullptr, {}, 0, false, 0, 0, {})) {
-    // reset default values
-    resetDefaultValues();
 }
 
 
@@ -302,7 +300,7 @@ GNECrossing::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     } else {
         GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
         // build common options
-        buildPopUpMenuCommonOptions(ret, app, myTagProperty->getTag(), mySelected);
+        buildPopUpMenuCommonOptions(ret, app, myNet->getViewNet(), myTagProperty->getTag(), mySelected);
         // check if we're in supermode network
         if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
             // create menu commands

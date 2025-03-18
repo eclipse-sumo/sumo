@@ -33,6 +33,7 @@
 
 class GNEFrame;
 class GNEAttributeCarrier;
+class GNEAttributesEditor;
 class GNEAttributesEditorRow;
 
 // ===========================================================================
@@ -65,7 +66,9 @@ public:
     };
 
     /// @brief constructor
-    GNEAttributesEditorType(GNEFrame* frameParent, const std::string attributesEditorName, EditorType editorType, AttributeType attributeType);
+    GNEAttributesEditorType(GNEFrame* frameParent, GNEAttributesEditor* attributesEditorParent,
+                            const std::string attributesEditorName, EditorType editorType,
+                            AttributeType attributeType);
 
     /// @brief constructor
     ~GNEAttributesEditorType();
@@ -136,6 +139,9 @@ public:
     /// @brief called when user press the help button
     long onCmdAttributesEditorHelp(FXObject*, FXSelector, void*);
 
+    /// @brief called when user press the reset button
+    long onCmdAttributesEditorReset(FXObject*, FXSelector, void*);
+
     /// @}
 
 protected:
@@ -175,6 +181,9 @@ private:
     /// @brief pointer to GNEFrame parent
     GNEFrame* myFrameParent;
 
+    /// @brief pointer to GNEAttributesEditor parent
+    GNEAttributesEditor* myAttributesEditorParent;
+
     /// @brief pointer to front button
     FXButton* myFrontButton = nullptr;
 
@@ -187,8 +196,8 @@ private:
     /// @brief pointer to open generic parameters editor button
     FXButton* myOpenGenericParametersEditorButton = nullptr;
 
-    /// @brief button for help
-    FXButton* myHelpButton = nullptr;
+    /// @brief frame for netedit buttons (helps and reset)
+    FXHorizontalFrame* myFrameNeteditButtons = nullptr;
 
     /// @brief first singleton with attributes editor rows
     static AttributesEditorRows myFirstSingletonAttributesEditorRows;

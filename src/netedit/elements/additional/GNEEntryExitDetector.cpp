@@ -39,8 +39,6 @@
 
 GNEEntryExitDetector::GNEEntryExitDetector(SumoXMLTag entryExitTag, GNENet* net) :
     GNEDetector(net, GLO_DET_ENTRY, entryExitTag, GUIIcon::E3ENTRY) {
-    // reset default values
-    resetDefaultValues();
 }
 
 

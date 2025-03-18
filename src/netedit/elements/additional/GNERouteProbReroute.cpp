@@ -31,10 +31,7 @@
 // ===========================================================================
 
 GNERouteProbReroute::GNERouteProbReroute(GNENet* net) :
-    GNEAdditional("", net, "", GLO_REROUTER_ROUTEPROBREROUTE, SUMO_TAG_ROUTE_PROB_REROUTE, GUIIcon::ROUTEPROBREROUTE, ""),
-    myProbability(0) {
-    // reset default values
-    resetDefaultValues();
+    GNEAdditional("", net, "", GLO_REROUTER_ROUTEPROBREROUTE, SUMO_TAG_ROUTE_PROB_REROUTE, GUIIcon::ROUTEPROBREROUTE, "") {
 }
 
 

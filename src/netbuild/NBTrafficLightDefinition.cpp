@@ -60,7 +60,7 @@ NBTrafficLightDefinition::NBTrafficLightDefinition(const std::string& id,
     mySubID(programID), myOffset(offset),
     myType(type),
     myNeedsContRelationReady(false),
-    myRightOnRedConflictsReady(false) {
+    myExtraConflictsReady(false) {
     std::vector<NBNode*>::iterator i = myControlledNodes.begin();
     while (i != myControlledNodes.end()) {
         for (std::vector<NBNode*>::iterator j = i + 1; j != myControlledNodes.end();) {
@@ -86,7 +86,7 @@ NBTrafficLightDefinition::NBTrafficLightDefinition(const std::string& id,
     myOffset(offset),
     myType(type),
     myNeedsContRelationReady(false),
-    myRightOnRedConflictsReady(false) {
+    myExtraConflictsReady(false) {
     addNode(junction);
 }
 
@@ -98,7 +98,7 @@ NBTrafficLightDefinition::NBTrafficLightDefinition(const std::string& id, const 
     myOffset(offset),
     myType(type),
     myNeedsContRelationReady(false),
-    myRightOnRedConflictsReady(false) {
+    myExtraConflictsReady(false) {
 }
 
 
@@ -558,29 +558,29 @@ NBTrafficLightDefinition::initNeedsContRelation() const {
 
 
 void
-NBTrafficLightDefinition::initRightOnRedConflicts() const {
-    if (!myRightOnRedConflictsReady) {
+NBTrafficLightDefinition::initExtraConflicts() const {
+    if (!myExtraConflictsReady) {
         NBOwnTLDef dummy(DummyID, myControlledNodes, 0, TrafficLightType::STATIC);
         dummy.setParticipantsInformation();
         NBTrafficLightLogic* tllDummy = dummy.computeLogicAndConts(0, true);
         delete tllDummy;
-        myRightOnRedConflicts = dummy.myRightOnRedConflicts;
+        myExtraConflicts = dummy.myExtraConflicts;
         for (std::vector<NBNode*>::const_iterator i = myControlledNodes.begin(); i != myControlledNodes.end(); i++) {
             (*i)->removeTrafficLight(&dummy);
         }
-        myRightOnRedConflictsReady = true;
-        //std::cout << " rightOnRedConflicts tls=" << getID() << " pro=" << getProgramID() << "\n";
-        //for (RightOnRedConflicts::const_iterator it = myRightOnRedConflicts.begin(); it != myRightOnRedConflicts.end(); ++it) {
-        //    std::cout << "   " << it->first << ", " << it->second << "\n";
+        myExtraConflictsReady = true;
+        //std::cout << " extraConflicts tls=" << getID() << " pro=" << getProgramID() << "\n";
+        //for (auto item : myExtraConflicts) {
+        //    std::cout << "   " << item.first << ", " << item.second << "\n";
         //}
     }
 }
 
 
 bool
-NBTrafficLightDefinition::rightOnRedConflict(int index, int foeIndex) const {
-    initRightOnRedConflicts();
-    return std::find(myRightOnRedConflicts.begin(), myRightOnRedConflicts.end(), std::make_pair(index, foeIndex)) != myRightOnRedConflicts.end();
+NBTrafficLightDefinition::extraConflict(int index, int foeIndex) const {
+    initExtraConflicts();
+    return std::find(myExtraConflicts.begin(), myExtraConflicts.end(), std::make_pair(index, foeIndex)) != myExtraConflicts.end();
 }
 
 std::string

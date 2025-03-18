@@ -30,15 +30,12 @@
 // ===========================================================================
 
 GNEParkingAreaReroute::GNEParkingAreaReroute(GNENet* net):
-    GNEAdditional("", net, "", GLO_REROUTER, SUMO_TAG_PARKING_AREA_REROUTE, GUIIcon::PARKINGZONEREROUTE, ""),
-    myProbability(0),
-    myVisible(0) {
-    // reset default values
-    resetDefaultValues();
+    GNEAdditional("", net, "", GLO_REROUTER, SUMO_TAG_PARKING_AREA_REROUTE, GUIIcon::PARKINGZONEREROUTE, "") {
 }
 
 
-GNEParkingAreaReroute::GNEParkingAreaReroute(GNEAdditional* rerouterIntervalParent, GNEAdditional* newParkingArea, double probability, bool visible):
+GNEParkingAreaReroute::GNEParkingAreaReroute(GNEAdditional* rerouterIntervalParent, GNEAdditional* newParkingArea,
+        const double probability, const bool visible):
     GNEAdditional(rerouterIntervalParent, GLO_REROUTER, SUMO_TAG_PARKING_AREA_REROUTE, GUIIcon::PARKINGZONEREROUTE, ""),
     myProbability(probability),
     myVisible(visible) {

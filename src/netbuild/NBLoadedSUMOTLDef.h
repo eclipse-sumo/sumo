@@ -146,7 +146,7 @@ public:
     void setType(TrafficLightType type);
 
     /// @brief whether the given index must yield to the foeIndex while turing right on a red light
-    bool rightOnRedConflict(int index, int foeIndex) const;
+    bool extraConflict(int index, int foeIndex) const;
 
     /* @brief shortens phase states to remove states that are not referenced by
      * any controlled link and returns whether states were shortened

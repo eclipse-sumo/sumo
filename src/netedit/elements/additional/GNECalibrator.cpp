@@ -38,12 +38,7 @@
 
 GNECalibrator::GNECalibrator(SumoXMLTag tag, GNENet* net) :
     GNEAdditional("", net, "", GLO_CALIBRATOR, tag, GUIIcon::CALIBRATOR, ""),
-    myPositionOverLane(0),
-    myFrequency(0),
-    myJamThreshold(0),
     myCalibratorContours(new std::vector<GNEContour*>()) {
-    // reset default values
-    resetDefaultValues();
 }
 
 

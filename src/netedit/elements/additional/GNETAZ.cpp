@@ -49,8 +49,6 @@ const double GNETAZ::myHintSizeSquared = 0.64;
 GNETAZ::GNETAZ(GNENet* net) :
     GNEAdditional("", net, "", GLO_TAZ, SUMO_TAG_TAZ, GUIIcon::TAZ, ""),
     TesselatedPolygon("", "", RGBColor::BLACK, {}, false, false, 1, Shape::DEFAULT_LAYER, Shape::DEFAULT_ANGLE, Shape::DEFAULT_IMG_FILE, "") {
-    // reset default values
-    resetDefaultValues();
 }
 
 
@@ -277,7 +275,7 @@ GNETAZ::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     // create popup
     GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
     // build common options
-    buildPopUpMenuCommonOptions(ret, app, myTagProperty->getTag(), mySelected, false);
+    buildPopUpMenuCommonOptions(ret, app, myNet->getViewNet(), myTagProperty->getTag(), mySelected, false);
     // create a extra FXMenuCommand if mouse is over a vertex
     const int index = getVertexIndex(myNet->getViewNet()->getPositionInformation(), false);
     if (index != -1) {

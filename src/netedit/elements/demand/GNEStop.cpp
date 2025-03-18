@@ -43,8 +43,6 @@ GNEStop::GNEStop(SumoXMLTag tag, GNENet* net) :
     GNEDemandElement("", net, "", GLO_STOP, tag, GUIIcon::STOP, GNEPathElement::Options::DEMAND_ELEMENT),
     GNEDemandElementPlan(this, -1, -1),
     myCreationIndex(myNet->getAttributeCarriers()->getStopIndex()) {
-    // reset default values
-    resetDefaultValues();
     // enable parking for stops in parkin)gAreas
     if ((tag == GNE_TAG_STOP_PARKINGAREA) || (tag == GNE_TAG_WAYPOINT_PARKINGAREA)) {
         parametersSet |= STOP_PARKING_SET;

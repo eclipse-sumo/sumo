@@ -36,8 +36,6 @@
 
 GNEVariableSpeedSign::GNEVariableSpeedSign(GNENet* net) :
     GNEAdditional("", net, "", GLO_VSS, SUMO_TAG_VSS, GUIIcon::VARIABLESPEEDSIGN, "") {
-    // reset default values
-    resetDefaultValues();
 }
 
 

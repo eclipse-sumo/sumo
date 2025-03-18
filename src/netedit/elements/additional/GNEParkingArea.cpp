@@ -33,8 +33,6 @@
 
 GNEParkingArea::GNEParkingArea(GNENet* net) :
     GNEStoppingPlace(net, GLO_PARKING_AREA, SUMO_TAG_PARKING_AREA, GUIIcon::PARKINGAREA) {
-    // reset default values
-    resetDefaultValues();
 }
 
 

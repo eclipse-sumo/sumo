@@ -32,11 +32,7 @@
 // ===========================================================================
 
 GNETractionSubstation::GNETractionSubstation(GNENet* net) :
-    GNEAdditional("", net, "", GLO_TRACTIONSUBSTATION, SUMO_TAG_TRACTION_SUBSTATION, GUIIcon::TRACTION_SUBSTATION, ""),
-    myVoltage(0),
-    myCurrentLimit(0) {
-    // reset default values
-    resetDefaultValues();
+    GNEAdditional("", net, "", GLO_TRACTIONSUBSTATION, SUMO_TAG_TRACTION_SUBSTATION, GUIIcon::TRACTION_SUBSTATION, "") {
 }
 
 

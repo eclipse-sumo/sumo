@@ -581,7 +581,9 @@ GNEAttributesEditorRow::getAttributeValue(const bool enabled) const {
     if ((attribute == SUMO_ATTR_ID) && (myAttributeTable->myEditorType == GNEAttributesEditorType::EditorType::CREATOR)) {
         const auto& ACs = myAttributeTable->getFrameParent()->getViewNet()->getNet()->getAttributeCarriers();
         const auto parentTag = myAttrProperty->getTagPropertyParent()->getTag();
-        if (myAttrProperty->getTagPropertyParent()->isAdditionalElement()) {
+        if (myAttrProperty->getTagPropertyParent()->getTag() == SUMO_TAG_EDGE) {
+            return ACs->generateEdgeID();
+        } else if (myAttrProperty->getTagPropertyParent()->isAdditionalElement()) {
             return ACs->generateAdditionalID(parentTag);
         } else if (myAttrProperty->getTagPropertyParent()->isDemandElement()) {
             return ACs->generateDemandElementID(parentTag);
@@ -590,7 +592,7 @@ GNEAttributesEditorRow::getAttributeValue(const bool enabled) const {
         } else if (parentTag == SUMO_TAG_TYPE) {
             return ACs->generateEdgeTypeID();
         } else if (parentTag == SUMO_TAG_DATASET) {
-            return ACs->generateDataSetID("");
+            return ACs->generateDataSetID();
         }
     }
     if (enabled) {

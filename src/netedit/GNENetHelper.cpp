@@ -830,6 +830,18 @@ GNENetHelper::AttributeCarriers::addPrefixToEdges(const std::string& prefix) {
 }
 
 
+std::string
+GNENetHelper::AttributeCarriers::generateEdgeID() const {
+    // get edge prefix
+    const std::string edgePrefix = OptionsCont::getOptions().getString("prefix") + OptionsCont::getOptions().getString("edge-prefix");
+    // generate new ID
+    while (myEdges.count(edgePrefix + toString(myNet->getEdgeIDCounter())) != 0) {
+        myNet->getEdgeIDCounter()++;
+    }
+    return edgePrefix + toString(myNet->getEdgeIDCounter());
+}
+
+
 void
 GNENetHelper::AttributeCarriers::updateEdgeID(GNEEdge* edge, const std::string& newID) {
     if (myEdges.count(edge->getID()) == 0) {
@@ -1955,13 +1967,14 @@ GNENetHelper::AttributeCarriers::getDataSets() const {
 
 
 std::string
-GNENetHelper::AttributeCarriers::generateDataSetID(const std::string& prefix) const {
-    const std::string dataSetTagStr = toString(SUMO_TAG_DATASET);
+GNENetHelper::AttributeCarriers::generateDataSetID() const {
+    // get prefix
+    const auto prefix = OptionsCont::getOptions().getString("dataSet-prefix");
     int counter = 0;
-    while (retrieveDataSet(prefix + dataSetTagStr + "_" + toString(counter), false) != nullptr) {
+    while (retrieveDataSet(prefix + "_" + toString(counter), false) != nullptr) {
         counter++;
     }
-    return (prefix + dataSetTagStr + "_" + toString(counter));
+    return (prefix + "_" + toString(counter));
 }
 
 
@@ -2973,6 +2986,10 @@ GNENetHelper::ACTemplate::buildTemplates() {
     const auto stopContainers = myNet->getTagPropertiesDatabase()->getTagPropertiesByType(GNETagProperties::TagType::STOP_CONTAINER, false);
     for (const auto stopContainer : stopContainers) {
         myTemplates[stopContainer->getTag()] = new GNEStopPlan(stopContainer->getTag(), myNet);
+    }
+    // reset all to their default values
+    for (const auto& AC : myTemplates) {
+        AC.second->resetDefaultValues(false);
     }
 }
 

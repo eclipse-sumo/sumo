@@ -30,8 +30,6 @@
 
 GNEDistribution::GNEDistribution(GNENet* net, GUIGlObjectType type, SumoXMLTag elementTag, GUIIcon icon) :
     GNEDemandElement("", net, "", type, elementTag, icon, GNEPathElement::Options::DEMAND_ELEMENT) {
-    // reset default values
-    resetDefaultValues();
 }
 
 

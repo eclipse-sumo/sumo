@@ -153,10 +153,10 @@ public:
 
 protected:
     /// @brief begin time of vaporizer
-    SUMOTime myBegin;
+    SUMOTime myBegin = 0;
 
     /// @brief end time in which this vaporizer is placed
-    SUMOTime myEnd;
+    SUMOTime myEnd = 0;
 
     /// @brief symbol base contour
     GNEContour mySymbolBaseContour;

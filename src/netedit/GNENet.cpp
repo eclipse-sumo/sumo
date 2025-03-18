@@ -278,10 +278,6 @@ GNENet::createJunction(const Position& pos, GNEUndoList* undoList) {
 GNEEdge*
 GNENet::createEdge(GNEJunction* src, GNEJunction* dest, GNEEdge* edgeTemplate, GNEUndoList* undoList,
                    const std::string& suggestedName, bool wasSplit, bool allowDuplicateGeom, bool recomputeConnections) {
-    // get edge prefix
-    const std::string edgePrefix = OptionsCont::getOptions().getString("prefix") + OptionsCont::getOptions().getString("edge-prefix");
-    // get edge infix
-    std::string edgeInfix = OptionsCont::getOptions().getString("edge-infix");
     // prevent duplicate edge (same geometry)
     for (const auto& outgoingEdge : src->getNBNode()->getOutgoingEdges()) {
         if (outgoingEdge->getToNode() == dest->getNBNode() && outgoingEdge->getGeometry().size() == 2) {
@@ -292,6 +288,10 @@ GNENet::createEdge(GNEJunction* src, GNEJunction* dest, GNEEdge* edgeTemplate, G
     }
     // check if exist opposite edge
     const auto oppositeEdges = myAttributeCarriers->retrieveEdges(dest, src);
+    // get edge prefix
+    const std::string edgePrefix = OptionsCont::getOptions().getString("prefix") + OptionsCont::getOptions().getString("edge-prefix");
+    // get edge infix
+    std::string edgeInfix = OptionsCont::getOptions().getString("edge-infix");
     // declare edge id
     std::string edgeID;
     // update id
@@ -328,11 +328,7 @@ GNENet::createEdge(GNEJunction* src, GNEJunction* dest, GNEEdge* edgeTemplate, G
             edgeID = src->getID() + edgeInfix + toString(counter) + dest->getID();
         }
     } else {
-        // generate new ID
-        while (myAttributeCarriers->getEdges().count(edgePrefix + toString(myEdgeIDCounter)) != 0) {
-            myEdgeIDCounter++;
-        }
-        edgeID = edgePrefix + toString(myEdgeIDCounter);
+        edgeID = myAttributeCarriers->generateEdgeID();
     }
     GNEEdge* edge;
     // check if there is a template edge
@@ -2929,6 +2925,18 @@ GNENet::disableUpdateData() {
 bool
 GNENet::isUpdateDataEnabled() const {
     return myUpdateDataEnabled;
+}
+
+
+unsigned int&
+GNENet::getJunctionIDCounter() {
+    return myJunctionIDCounter;
+}
+
+
+unsigned int&
+GNENet::getEdgeIDCounter() {
+    return myEdgeIDCounter;
 }
 
 // ===========================================================================

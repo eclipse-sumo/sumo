@@ -205,8 +205,7 @@ private:
 
 
     /** writes which participating links are foes to the given */
-    std::string getFoesString(NBEdge* from, NBEdge* to,
-                              int fromLane, int toLane, const bool checkLaneFoes) const;
+    std::string getFoesString(NBEdge* from, const NBEdge::Connection& c, const bool checkLaneFoes) const;
 
 
     /** @brief Returns the index to the internal combination container for the given edge combination

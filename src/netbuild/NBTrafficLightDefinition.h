@@ -341,15 +341,15 @@ public:
      */
     bool needsCont(const NBEdge* fromE, const NBEdge* toE, const NBEdge* otherFromE, const NBEdge* otherToE) const;
 
-    /// @brief whether the given index must yield to the foeIndex while turning right on a red light
-    virtual bool rightOnRedConflict(int index, int foeIndex) const;
+    /// @brief whether the given index must yield to the foeIndex (i.e. while turning right on a red light)
+    virtual bool extraConflict(int index, int foeIndex) const;
 
     /* initialize myNeedsContRelation and set myNeedsContRelationReady to true
      * This information is a byproduct of NBOwnTLDef::myCompute. All other
      * subclasses instantiate a private instance of NBOwnTLDef to answer this query */
     virtual void initNeedsContRelation() const;
 
-    virtual void initRightOnRedConflicts() const;
+    virtual void initExtraConflicts() const;
 
     ///@brief Returns the maximum index controlled by this traffic light and assigned to a connection
     virtual int getMaxIndex() = 0;
@@ -469,9 +469,10 @@ protected:
     mutable NeedsContRelation myNeedsContRelation;
     mutable bool myNeedsContRelationReady;
 
-    typedef std::set<std::pair<int, int> > RightOnRedConflicts;
-    mutable RightOnRedConflicts myRightOnRedConflicts;
-    mutable bool myRightOnRedConflictsReady;
+    typedef std::set<std::pair<int, int> > ExtraConflicts;
+    // extra conflcits that arises if the signal plan permits conflicting streams to drive at the same time (i.e. right-on-red)
+    mutable ExtraConflicts myExtraConflicts;
+    mutable bool myExtraConflictsReady;
 
 private:
     static std::set<NBEdge*> collectReachable(EdgeVector outer, const EdgeVector& within, bool checkControlled);

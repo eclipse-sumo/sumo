@@ -278,6 +278,9 @@ struct GNENetHelper {
         /// @brief add prefix to all edges
         void addPrefixToEdges(const std::string& prefix);
 
+        /// @brief generate edge ID
+        std::string generateEdgeID() const;
+
         /// @brief update edge ID in container
         void updateEdgeID(GNEEdge* edge, const std::string& newID);
 
@@ -543,7 +546,7 @@ struct GNENetHelper {
         const std::map<const std::string, GNEDataSet*>& getDataSets() const;
 
         /// @brief generate data set id
-        std::string generateDataSetID(const std::string& prefix) const;
+        std::string generateDataSetID() const;
 
         /// @}
 

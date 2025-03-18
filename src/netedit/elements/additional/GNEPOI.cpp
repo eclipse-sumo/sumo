@@ -48,8 +48,6 @@ GNEPOI::GNEPOI(SumoXMLTag tag, GNENet* net) :
     PointOfInterest("", "", RGBColor::BLACK, Position(0, 0), false, "", 0, false, 0, SUMOXMLDefinitions::POIIcons.getString(POIIcon::NONE),
                     0, 0, "", 0, 0, "", Parameterised::Map()),
     GNEAdditional("", net, "", GLO_POI, tag, GUIIcon::POI, "") {
-    // reset default values
-    resetDefaultValues();
 }
 
 
@@ -329,7 +327,7 @@ GNEPOI::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     // create popup
     GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
     // build common options
-    buildPopUpMenuCommonOptions(ret, app, myTagProperty->getTag(), mySelected);
+    buildPopUpMenuCommonOptions(ret, app, myNet->getViewNet(), myTagProperty->getTag(), mySelected);
     // specific of  non juPedSim polygons
     if (!myTagProperty->isJuPedSimElement()) {
         // continue depending of lane number

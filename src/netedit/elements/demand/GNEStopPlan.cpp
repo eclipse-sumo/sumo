@@ -41,8 +41,6 @@
 GNEStopPlan::GNEStopPlan(SumoXMLTag tag, GNENet* net) :
     GNEDemandElement("", net, "", GLO_STOP_PLAN, tag, GUIIcon::STOP, GNEPathElement::Options::DEMAND_ELEMENT),
     GNEDemandElementPlan(this, -1, -1) {
-    // reset default values
-    resetDefaultValues();
 }
 
 

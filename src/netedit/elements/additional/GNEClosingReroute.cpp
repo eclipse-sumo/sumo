@@ -30,11 +30,7 @@
 // ===========================================================================
 
 GNEClosingReroute::GNEClosingReroute(GNENet* net) :
-    GNEAdditional("", net, "", GLO_REROUTER_CLOSINGREROUTE, SUMO_TAG_CLOSING_REROUTE, GUIIcon::CLOSINGREROUTE, ""),
-    myClosedEdge(nullptr),
-    myPermissions(0) {
-    // reset default values
-    resetDefaultValues();
+    GNEAdditional("", net, "", GLO_REROUTER_CLOSINGREROUTE, SUMO_TAG_CLOSING_REROUTE, GUIIcon::CLOSINGREROUTE, "") {
 }
 
 

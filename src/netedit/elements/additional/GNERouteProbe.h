@@ -157,7 +157,7 @@ public:
 
 protected:
     /// @brief RouteProbe period
-    SUMOTime myPeriod = 0;
+    SUMOTime myPeriod = SUMOTime_MAX_PERIOD;
 
     /// @brief output filename
     std::string myOutputFilename;

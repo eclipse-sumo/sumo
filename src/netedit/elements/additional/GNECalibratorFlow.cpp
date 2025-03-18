@@ -38,8 +38,6 @@
 
 GNECalibratorFlow::GNECalibratorFlow(GNENet* net) :
     GNEAdditional("", net, "", GLO_CALIBRATOR, GNE_TAG_CALIBRATOR_FLOW, GUIIcon::CALIBRATOR, "") {
-    // reset default values
-    resetDefaultValues();
     // set VPH and speed enabled
     toggleAttribute(SUMO_ATTR_VEHSPERHOUR, true);
     toggleAttribute(SUMO_ATTR_SPEED, true);
