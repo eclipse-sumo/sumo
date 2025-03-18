@@ -158,3 +158,9 @@ meso
 # Input and output parameters of stationfinder and battery devices
 stationfinder
 speedMode_speedLimit
+
+# add a trip between junctions
+addTrip_junctions
+
+# add a trip between taz
+addTrip_taz
