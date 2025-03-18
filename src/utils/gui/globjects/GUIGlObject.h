@@ -244,7 +244,8 @@ protected:
     /// @name helper methods for building popup-menus
     /// @{
     /// @brief build common popup options
-    void buildPopUpMenuCommonOptions(GUIGLObjectPopupMenu* ret, GUIMainWindow& app, const SumoXMLTag tag, const bool selected, bool addSeparator = true);
+    void buildPopUpMenuCommonOptions(GUIGLObjectPopupMenu* ret, GUIMainWindow& app, GUISUMOAbstractView* parent, const SumoXMLTag tag,
+                                     const bool selected, bool addSeparator = true);
 
     /** @brief Builds the header
      * @param[in, filled] ret The popup menu to add the entry to

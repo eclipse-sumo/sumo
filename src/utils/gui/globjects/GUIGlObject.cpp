@@ -279,7 +279,8 @@ GUIGlObject::setNode(osg::Node* node) {
 #endif
 
 void
-GUIGlObject::buildPopUpMenuCommonOptions(GUIGLObjectPopupMenu* ret, GUIMainWindow& app, const SumoXMLTag tag, const bool selected, bool addSeparator) {
+GUIGlObject::buildPopUpMenuCommonOptions(GUIGLObjectPopupMenu* ret, GUIMainWindow& app, GUISUMOAbstractView* parent,
+        const SumoXMLTag tag, const bool selected, bool addSeparator) {
     // build header
     buildPopupHeader(ret, app);
     // build menu command for center button and copy cursor position to clipboard
@@ -289,9 +290,9 @@ GUIGlObject::buildPopUpMenuCommonOptions(GUIGLObjectPopupMenu* ret, GUIMainWindo
     GUIDesigns::buildFXMenuCommand(ret, TLF("Copy % typed name to clipboard", toString(tag)), nullptr, ret, MID_COPY_TYPED_NAME);
     new FXMenuSeparator(ret);
     if (selected) {
-        GUIDesigns::buildFXMenuCommand(ret, TL("Remove from Selected"), GUIIconSubSys::getIcon(GUIIcon::FLAG_MINUS), ret, MID_REMOVESELECT);
+        GUIDesigns::buildFXMenuCommand(ret, TL("Remove from Selected"), GUIIconSubSys::getIcon(GUIIcon::FLAG_MINUS), parent, MID_REMOVESELECT);
     } else {
-        GUIDesigns::buildFXMenuCommand(ret, TL("Add to Selected"), GUIIconSubSys::getIcon(GUIIcon::FLAG_PLUS), ret, MID_ADDSELECT);
+        GUIDesigns::buildFXMenuCommand(ret, TL("Add to Selected"), GUIIconSubSys::getIcon(GUIIcon::FLAG_PLUS), parent, MID_ADDSELECT);
     }
     new FXMenuSeparator(ret);
     buildShowParamsPopupEntry(ret, true);

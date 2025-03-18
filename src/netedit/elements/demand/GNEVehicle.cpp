@@ -67,7 +67,7 @@ GNEVehicle::GNESingleVehiclePopupMenu::GNESingleVehiclePopupMenu(GNEVehicle* veh
     GUIGLObjectPopupMenu(app, parent, *vehicle),
     myVehicle(vehicle) {
     // build common options
-    vehicle->buildPopUpMenuCommonOptions(this, app, vehicle->getTagProperty()->getTag(), vehicle->isAttributeCarrierSelected());
+    vehicle->buildPopUpMenuCommonOptions(this, app, vehicle->myNet->getViewNet(), vehicle->getTagProperty()->getTag(), vehicle->isAttributeCarrierSelected());
     // route length
     vehicle->buildMenuCommandRouteLength(this);
     // add transform functions only in demand mode
@@ -189,7 +189,7 @@ GNEVehicle::GNESelectedVehiclesPopupMenu::GNESelectedVehiclesPopupMenu(GNEVehicl
     mySelectedVehicles(selectedVehicle),
     myVehicleTag(vehicle->getTagProperty()->getTag()) {
     // build common options
-    vehicle->buildPopUpMenuCommonOptions(this, app, vehicle->getTagProperty()->getTag(), vehicle->isAttributeCarrierSelected());
+    vehicle->buildPopUpMenuCommonOptions(this, app, vehicle->myNet->getViewNet(), vehicle->getTagProperty()->getTag(), vehicle->isAttributeCarrierSelected());
     // route length
     vehicle->buildMenuCommandRouteLength(this);
     // add transform functions only in demand mode
