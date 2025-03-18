@@ -383,30 +383,45 @@ GUIViewTraffic::doPaintGL(int mode, const Boundary& bound) {
     if (myRenderer != nullptr) {
 
         // Debug / Demo rectangles
-        
+        /*
         GLHelper::setColor(RGBColor(0, 255, 0));
         GLTransformStack::getTransformStack().pushMatrix();
-        GLTransformStack::getTransformStack().translate(glm::vec3(100.f, 100.f, 0.f));
-        Position pos1(150.f, 20.f);
+        GLTransformStack::getTransformStack().translate(glm::vec3(150.f, 100.f, 0.f));
+        GLTransformStack::getTransformStack().rotate(30.f, glm::vec3(0.f,0.f,1.f));
+        Position pos1(0., 0.f);
         GLHelper::drawRectangleModern(pos1, 150.f, 150.f);
+
         GLTransformStack::getTransformStack().popMatrix();
         GLHelper::setColor(RGBColor(0, 0, 255));
         Position pos2(250., 500.);
         GLHelper::drawRectangleModern(pos2, 30., 80.);
+        */
 
         if (GLHelper::getVertexCounterModern() > 0) {
             // render
             // set camera perspective through GLSL uniform
             glm::mat4 proj = glm::ortho(0.f, (float)getWidth(), 0.f, (float)getHeight(), -1.0f, 1.0f);
+            glm::mat4 preRotate = glm::translate(glm::mat4(1.f), glm::vec3(-bound.getCenter().x(), -bound.getCenter().y(), 0.0f));
+            glm::mat4 rotate = glm::rotate(glm::mat4(1.f), (float)myChanger->getRotation(), glm::vec3(0.f, 0.f, 1.f));
+            glm::mat4 postRotate = glm::translate(glm::mat4(1.f), glm::vec3(bound.getCenter().x(), bound.getCenter().y(), 0.0f));
 
-            glm::mat4 rotate = glm::translate(glm::mat4(), glm::vec3(-bound.getCenter().x(), -bound.getCenter().y(), 0.0f));
-            rotate = glm::rotate(rotate, glm::radians((float)myChanger->getRotation()), glm::vec3(0.0, 0.0, 1.0));
-            rotate = glm::translate(rotate, glm::vec3(bound.getCenter().x(), bound.getCenter().y(), 0.0f));
+            glm::mat4 scale = glm::scale(glm::mat4(1.f), glm::vec3((double)getWidth() / bound.getWidth(), (double)getHeight() / bound.getHeight(), 1));
+            
+            // TODO: didn't the bound "change" in between / at least that would be the effect?
+            glm::mat4 translate = glm::translate(glm::mat4(1.f), glm::vec3(-bound.xmin(), -bound.ymin(), 0.0f));
 
-            glm::mat4 scale = glm::scale(glm::mat4(1), glm::vec3((double)getWidth() / bound.getWidth(), (double)getHeight() / bound.getHeight(), 1));
-            glm::mat4 translate = glm::translate(glm::mat4(), glm::vec3(-bound.xmin(), -bound.ymin(), 0.0f));
+            /*
+            Boundary rotBound;
+            double rad = -DEG2RAD(myChanger->getRotation());
+            rotBound.add(Position(bound.xmin(), bound.ymin()).rotateAround2D(rad, bound.getCenter()));
+            rotBound.add(Position(bound.xmin(), bound.ymax()).rotateAround2D(rad, bound.getCenter()));
+            rotBound.add(Position(bound.xmax(), bound.ymin()).rotateAround2D(rad, bound.getCenter()));
+            rotBound.add(Position(bound.xmax(), bound.ymax()).rotateAround2D(rad, bound.getCenter()));
+            bound = rotBound;
+            */
+
             myRenderer->activateConfiguration("Standard");
-            myRenderer->setUniform("u_MVP", proj * scale * translate * rotate);
+            myRenderer->setUniform("u_MVP", proj * scale * translate * postRotate * rotate * preRotate);
             myRenderer->checkBufferSizes();
             GLenum geometries[] = { GL_LINES, GL_TRIANGLES };
             for (auto geo : geometries) {

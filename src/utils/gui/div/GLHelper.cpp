@@ -499,12 +499,11 @@ GLHelper::drawBoxLinesModern(const PositionVector& geom,
     for (int i = 0; i < e; i++) {
         drawBoxLineModern(geom[i], rots[i], lengths[i], width, offset);
     }
-    // TODO: draw the corner details
-    /*
+    //  draw the corner details
     if (cornerDetail > 0) {
         for (int i = 1; i < e; i++) {
-            GLHelper::pushMatrix();
-            glTranslated(geom[i].x(), geom[i].y(), 0.1);
+            GLTransformStack::getTransformStack().pushMatrix();
+            GLTransformStack::getTransformStack().translate(glm::vec3(geom[i].x(), geom[i].y(), 0.1));
             double angleBeg = -rots[i - 1];
             double angleEnd = 180 - rots[i];
             if (rightTurn(rots[i - 1], rots[i])) {
@@ -524,11 +523,10 @@ GLHelper::drawBoxLinesModern(const PositionVector& geom,
             if (angleEnd > angleBeg) {
                 angleEnd -= 360;
             }
-            drawFilledCircle(width + offset, cornerDetail, angleBeg, angleEnd);
-            GLHelper::popMatrix();
+            drawFilledCircleModern(width + offset, cornerDetail, angleBeg, angleEnd);
+            GLTransformStack::getTransformStack().popMatrix();
         }
     }
-    */
 }
 
 
@@ -561,7 +559,20 @@ GLHelper::drawBoxLinesModern(const PositionVector& geom,
                              const std::vector<double>& lengths,
                              const std::vector<RGBColor>& cols,
                              double width, int cornerDetail, double offset) {
-
+    int e = (int)geom.size() - 1;
+    for (int i = 0; i < e; i++) {
+        setColor(cols[i]);
+        drawBoxLineModern(geom[i], rots[i], lengths[i], width, offset);
+    }
+    if (cornerDetail > 0) {
+        for (int i = 1; i < e; i++) {
+            GLTransformStack::getTransformStack().pushMatrix();
+            setColor(cols[i]);
+            GLTransformStack::getTransformStack().translate(glm::vec3(geom[i].x(), geom[i].y(), 0));
+            drawFilledCircleModern(width, cornerDetail);
+            GLTransformStack::getTransformStack().popMatrix();
+        }
+    }
 }
 
 
@@ -584,7 +595,10 @@ GLHelper::drawBoxLinesModern(const PositionVector& geom1,
                              const std::vector<double>& rots,
                              const std::vector<double>& lengths,
                              double width) {
-
+    int minS = (int)MIN4(rots.size(), lengths.size(), geom1.size(), geom2.size());
+    for (int i = 0; i < minS; i++) {
+        GLHelper::drawBoxLineModern(geom1[i], geom2[i], rots[i], lengths[i], width);
+    }
 }
 
 
@@ -660,7 +674,6 @@ GLHelper::drawLineModern(const PositionVector& v) {
         addVertex(GL_LINES, v[i]);
         addVertex(GL_LINES, v[i + 1]);
     }
-
 }
 
 
@@ -954,10 +967,8 @@ GLHelper::addVertex(GLenum geometryType, float x, float y, float z) {
 void
 GLHelper::addVertex(GLenum geometryType, float x, float y, float z, float r, float g, float b, float a) {
     // apply transform
-    glm::vec4 transformed = GLTransformStack::getTransformStack().applyTransform(glm::vec3(x, y, z));
-    float tX = (float)(transformed.x);
-    float tY = (float)(transformed.y);
-    GLBufferStruct vertex = { { tX, tY, 0.f }, { r, g, b, a } };
+    glm::vec3 transformed = GLTransformStack::getTransformStack().applyTransform(glm::vec3(x, y, z));
+    GLBufferStruct vertex = { { transformed.x, transformed.y, transformed.z }, { r, g, b, a } };
     //GLBufferStruct vertex = { { x, y, z }, { r, g, b, a } };
     myVertices[geometryType].push_back(vertex);
     myVertexCounterModern++;

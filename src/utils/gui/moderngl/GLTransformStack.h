@@ -20,7 +20,7 @@
 #pragma once
 #include <config.h>
 
-#include <stack>
+#include <vector>
 #define GLM_SWIZZLE
 #include <glm.hpp>
 
@@ -49,11 +49,9 @@ public:
     void rotate(const float angle, const glm::vec3& axis);
     void scale(const glm::vec3& s);
     void scale(const double s);
-    glm::vec4 applyTransform(glm::vec3& v) const;
+    glm::vec3 applyTransform(const glm::vec3& v) const;
 
 private:
-    void updateCurrentMatrix();
-
     /// @brief default copy constructor, but private
     GLTransformStack(const GLTransformStack& s) = default;
 
@@ -62,7 +60,5 @@ private:
 
 private:
     static GLTransformStack myInstance;
-
-    std::stack<glm::mat4x4> myStack;
-    glm::mat4x4 myCurrentTransform;
+    std::vector<glm::mat4x4> myStack;
 };

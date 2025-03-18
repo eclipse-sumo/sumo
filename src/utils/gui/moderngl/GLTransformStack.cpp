@@ -19,8 +19,12 @@
 /****************************************************************************/
 #pragma once
 #include <config.h>
+#include <iostream>
+
 #include "GLTransformStack.h"
 #include "gtc/matrix_transform.hpp"
+// #define GLM_ENABLE_EXPERIMENTAL
+#include <gtx/string_cast.hpp>
 
 // ===========================================================================
 // static member definitions
@@ -39,8 +43,7 @@ GLTransformStack::getTransformStack() {
 }
 
 
-GLTransformStack::GLTransformStack(): myCurrentTransform(glm::mat4(1.f)) {
-    myStack.push(myCurrentTransform);
+GLTransformStack::GLTransformStack() {
 }
 
 
@@ -50,45 +53,50 @@ GLTransformStack::~GLTransformStack() {
 
 void
 GLTransformStack::reset() {
-    while (myStack.size() > 0) {
-        myStack.pop();
-    }
-    myCurrentTransform = glm::mat4(1.f);
+    myStack.clear();
 }
 
 
 void
 GLTransformStack::pushMatrix() {
-    myStack.push(glm::mat4(1.f));
+    if (myStack.size() > 0) {
+        myStack.push_back(glm::mat4(myStack.back()));
+    } else {
+        myStack.push_back(glm::mat4(1.f));
+    }
 }
 
 
 void
 GLTransformStack::popMatrix() {
-    myStack.pop();
-    updateCurrentMatrix();
+    myStack.pop_back();
 }
 
 
 void
 GLTransformStack::translate(const glm::vec3& t) {
-    myStack.push(glm::translate(glm::mat4(1.f), t));
-    updateCurrentMatrix();
+    *myStack.rbegin() = glm::translate(*myStack.rbegin(), t);
 }
 
 
 void
 GLTransformStack::rotate(const float angle, const glm::vec3& axis) {
     // TODO: how???
-    myStack.push(glm::rotate(glm::mat4(1.f), glm::radians(angle), axis));
-    updateCurrentMatrix();
+    // subtract current pivot point and add it again after the transformation
+    glm::mat4 currentMatrix = *myStack.rbegin();
+    currentMatrix = glm::rotate(currentMatrix, angle, axis);
+
+#ifdef _DEBUG
+    std::cout << "GLTransformStack::rotate by " << angle << " deg = " << angle << ",\n\tmatrix " << glm::to_string(currentMatrix) << std::endl;
+#endif
+
+    *myStack.rbegin() = currentMatrix;
 }
 
 
 void
 GLTransformStack::scale(const glm::vec3& s) {
-    myStack.push(glm::scale(glm::mat4(1.0f), s));
-    updateCurrentMatrix();
+    *myStack.rbegin() = glm::scale(*myStack.rbegin(), s);
 }
 
 
@@ -98,13 +106,20 @@ GLTransformStack::scale(const double s) {
 }
 
 
-glm::vec4
-GLTransformStack::applyTransform(glm::vec3& v) const {
-    return (myCurrentTransform * glm::vec4(v, 1.));
-}
+glm::vec3
+GLTransformStack::applyTransform(const glm::vec3& v) const {
+    if (myStack.size() == 0) {
+        return v;
+    }
+    glm::vec4 result = myStack.back() * glm::vec4(v, 1.);
 
+#ifdef _DEBUG
+    // plot stored matrices and the currently cached one, input and result of the transformation
+    std::cout << "GLTransformStack::applyTransform(" << glm::to_string(v) << ")" << std::endl;
+    std::cout << "\tcached matrix: " << glm::to_string(myStack.back()) << std::endl;
+    std::cout << "\tresult vector: " << glm::to_string(result) << std::endl;
+#endif
 
-void
-GLTransformStack::updateCurrentMatrix() {
-    myCurrentTransform = myStack.top() * myCurrentTransform;
+    return glm::vec3(result.x / result.w, result.y / result.w, result.z / result.w);
+    //return (myCurrentTransform * glm::vec4(v, 1.)).xyz;
 }
