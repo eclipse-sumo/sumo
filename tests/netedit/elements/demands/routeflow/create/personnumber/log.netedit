@@ -1,0 +1,3 @@
+Warning: Invalid value 'dummycontainerNumber' in attribute personNumber
+Warning: Invalid value '-12' in attribute personNumber
+Warning: Invalid value '3.5' in attribute personNumber
