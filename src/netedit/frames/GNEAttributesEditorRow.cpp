@@ -590,7 +590,7 @@ GNEAttributesEditorRow::getAttributeValue(const bool enabled) const {
         } else if (parentTag == SUMO_TAG_TYPE) {
             return ACs->generateEdgeTypeID();
         } else if (parentTag == SUMO_TAG_DATASET) {
-            return ACs->generateDataSetID("");
+            return ACs->generateDataSetID();
         }
     }
     if (enabled) {

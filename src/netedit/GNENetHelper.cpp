@@ -1955,13 +1955,14 @@ GNENetHelper::AttributeCarriers::getDataSets() const {
 
 
 std::string
-GNENetHelper::AttributeCarriers::generateDataSetID(const std::string& prefix) const {
-    const std::string dataSetTagStr = toString(SUMO_TAG_DATASET);
+GNENetHelper::AttributeCarriers::generateDataSetID() const {
+    // get prefix
+    const auto prefix = OptionsCont::getOptions().getString("dataSet-prefix");
     int counter = 0;
-    while (retrieveDataSet(prefix + dataSetTagStr + "_" + toString(counter), false) != nullptr) {
+    while (retrieveDataSet(prefix + "_" + toString(counter), false) != nullptr) {
         counter++;
     }
-    return (prefix + dataSetTagStr + "_" + toString(counter));
+    return (prefix + "_" + toString(counter));
 }
 
 

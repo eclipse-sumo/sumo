@@ -440,6 +440,9 @@ GNELoadThread::fillOptions(OptionsCont& neteditOptions) {
 
     // data prefixes
 
+    neteditOptions.doRegister("dataSet-prefix", new Option_String("ds"));
+    neteditOptions.addDescription("dataSet-prefix", "Netedit", TL("Prefix for dataSet naming"));
+
     // mean data prefixes
 
     neteditOptions.doRegister("meanDataEdge-prefix", new Option_String("ed"));

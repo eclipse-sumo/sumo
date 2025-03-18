@@ -543,7 +543,7 @@ struct GNENetHelper {
         const std::map<const std::string, GNEDataSet*>& getDataSets() const;
 
         /// @brief generate data set id
-        std::string generateDataSetID(const std::string& prefix) const;
+        std::string generateDataSetID() const;
 
         /// @}
 
