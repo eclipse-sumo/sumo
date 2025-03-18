@@ -7000,9 +7000,10 @@ GNETagPropertiesDatabase::fillCommonAttributes(GNETagProperties* tagProperties) 
                 TL("Toggle front element"));
 
         commonAttribute = new GNEAttributeProperties(tagProperties, GNE_ATTR_SELECTED,
-                GNEAttributeProperties::BOOL,
+                GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
                 GNEAttributeProperties::NETEDITEDITOR,
-                TL("Toggle select element"));
+                TL("Toggle select element"),
+                GNEAttributeCarrier::False);
     }
     // check if element can be reparent
     if (tagProperties->canBeReparent()) {
@@ -7014,7 +7015,7 @@ GNETagPropertiesDatabase::fillCommonAttributes(GNETagProperties* tagProperties) 
     // check if element has parameters
     if (tagProperties->hasParameters()) {
         commonAttribute = new GNEAttributeProperties(tagProperties, GNE_ATTR_PARAMETERS,
-                GNEAttributeProperties::STRING,
+                GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE,
                 GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
                 TL("Generic parameters (Format: key1=value1|key2=value2|..."));
     }

@@ -28,12 +28,12 @@
 // ===========================================================================
 
 GNEAttributesEditor::GNEAttributesEditor(GNEFrame* frameParent, GNEAttributesEditorType::EditorType editorType) {
-    myBasicAttributesEditor = new GNEAttributesEditorType(frameParent, TL("Internal attributes"), editorType, GNEAttributesEditorType::AttributeType::BASIC);
-    myExtendedAttributesEditor = new GNEAttributesEditorType(frameParent, TL("Extended attributes"), editorType, GNEAttributesEditorType::AttributeType::EXTENDED);
-    myFlowAttributesEditor = new GNEAttributesEditorType(frameParent, TL("Flow attributes"), editorType, GNEAttributesEditorType::AttributeType::FLOW);
-    myGeoAttributesEditor = new GNEAttributesEditorType(frameParent, TL("Geo attributes"), editorType, GNEAttributesEditorType::AttributeType::GEO);
-    myParametersAttributesEditor = new GNEAttributesEditorType(frameParent, TL("Parameters"), editorType, GNEAttributesEditorType::AttributeType::PARAMETERS);
-    myNeteditAttributesEditor = new GNEAttributesEditorType(frameParent, TL("Netedit attributes"), editorType, GNEAttributesEditorType::AttributeType::NETEDIT);
+    myBasicAttributesEditor = new GNEAttributesEditorType(frameParent, this, TL("Internal attributes"), editorType, GNEAttributesEditorType::AttributeType::BASIC);
+    myExtendedAttributesEditor = new GNEAttributesEditorType(frameParent, this, TL("Extended attributes"), editorType, GNEAttributesEditorType::AttributeType::EXTENDED);
+    myFlowAttributesEditor = new GNEAttributesEditorType(frameParent, this, TL("Flow attributes"), editorType, GNEAttributesEditorType::AttributeType::FLOW);
+    myGeoAttributesEditor = new GNEAttributesEditorType(frameParent, this, TL("Geo attributes"), editorType, GNEAttributesEditorType::AttributeType::GEO);
+    myParametersAttributesEditor = new GNEAttributesEditorType(frameParent, this, TL("Parameters"), editorType, GNEAttributesEditorType::AttributeType::PARAMETERS);
+    myNeteditAttributesEditor = new GNEAttributesEditorType(frameParent, this, TL("Netedit attributes"), editorType, GNEAttributesEditorType::AttributeType::NETEDIT);
 }
 
 

@@ -33,6 +33,7 @@
 
 class GNEFrame;
 class GNEAttributeCarrier;
+class GNEAttributesEditor;
 class GNEAttributesEditorRow;
 
 // ===========================================================================
@@ -65,7 +66,9 @@ public:
     };
 
     /// @brief constructor
-    GNEAttributesEditorType(GNEFrame* frameParent, const std::string attributesEditorName, EditorType editorType, AttributeType attributeType);
+    GNEAttributesEditorType(GNEFrame* frameParent, GNEAttributesEditor* attributesEditorParent,
+                            const std::string attributesEditorName, EditorType editorType,
+                            AttributeType attributeType);
 
     /// @brief constructor
     ~GNEAttributesEditorType();
@@ -177,6 +180,9 @@ private:
 
     /// @brief pointer to GNEFrame parent
     GNEFrame* myFrameParent;
+
+    /// @brief pointer to GNEAttributesEditor parent
+    GNEAttributesEditor* myAttributesEditorParent;
 
     /// @brief pointer to front button
     FXButton* myFrontButton = nullptr;

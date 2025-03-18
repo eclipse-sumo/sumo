@@ -35,6 +35,7 @@
 #include <netedit/frames/common/GNEInspectorFrame.h>
 #include <utils/gui/div/GUIDesigns.h>
 
+#include "GNEAttributesEditor.h"
 #include "GNEAttributesEditorType.h"
 #include "GNEAttributesEditorRow.h"
 
@@ -65,9 +66,11 @@ FXIMPLEMENT(GNEAttributesEditorType,  MFXGroupBoxModule,  GNEAttributeTableMap, 
 // method definitions
 // ===========================================================================
 
-GNEAttributesEditorType::GNEAttributesEditorType(GNEFrame* frameParent, const std::string attributesEditorName, EditorType editorType, AttributeType attributeType) :
+GNEAttributesEditorType::GNEAttributesEditorType(GNEFrame* frameParent, GNEAttributesEditor* attributesEditorParent,
+        const std::string attributesEditorName, EditorType editorType, AttributeType attributeType) :
     MFXGroupBoxModule(frameParent, attributesEditorName.c_str()),
     myFrameParent(frameParent),
+    myAttributesEditorParent(attributesEditorParent),
     myEditorType(editorType),
     myAttributeType(attributeType) {
     // create netedit especific buttons (before row)
@@ -79,8 +82,10 @@ GNEAttributesEditorType::GNEAttributesEditorType(GNEFrame* frameParent, const st
         myOpenDialogButton->hide();
         // Create buttons
         myFrameNeteditButtons = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
-        GUIDesigns::buildFXButton(myFrameNeteditButtons, TL("Help"), TL("Open help attributes dialog"), TL("Open help attributes dialog"), nullptr, this, MID_GNE_ATTRIBUTESEDITOR_HELP, GUIDesignButtonRectangular);
-        GUIDesigns::buildFXButton(myFrameNeteditButtons, "", TL("Reset attributes"), TL("Reset attributes"), GUIIconSubSys::getIcon(GUIIcon::RESET), this, MID_GNE_ATTRIBUTESEDITOR_RESET, GUIDesignButtonIcon);
+        GUIDesigns::buildFXButton(myFrameNeteditButtons, TL("Help"), TL("Open help attributes dialog"), TL("Open help attributes dialog"), nullptr,
+                                  this, MID_GNE_ATTRIBUTESEDITOR_HELP, GUIDesignButtonRectangular);
+        GUIDesigns::buildFXButton(myFrameNeteditButtons, "", TL("Reset attributes"), TL("Reset attributes"), GUIIconSubSys::getIcon(GUIIcon::RESET),
+                                  this, MID_GNE_ATTRIBUTESEDITOR_RESET, GUIDesignButtonIcon);
     }
     // build rows
     buildRows(this);
@@ -433,7 +438,8 @@ GNEAttributesEditorType::onCmdAttributesEditorReset(FXObject*, FXSelector, void*
             }
             myFrameParent->getViewNet()->getUndoList()->end();
         }
-        refreshAttributesEditor();
+        // refresh all attributes editor types
+        myAttributesEditorParent->refreshAttributesEditor();
     }
     return 1;
 }
