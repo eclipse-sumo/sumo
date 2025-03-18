@@ -383,10 +383,10 @@ GUIViewTraffic::doPaintGL(int mode, const Boundary& bound) {
     if (myRenderer != nullptr) {
 
         // Debug / Demo rectangles
-        /*
+        
         GLHelper::setColor(RGBColor(0, 255, 0));
         GLTransformStack::getTransformStack().pushMatrix();
-        GLTransformStack::getTransformStack().translate(glm::vec3(150.f, 100.f, 0.f));
+        GLTransformStack::getTransformStack().translate(glm::vec3(150.f, 100.f, 3.f));
         GLTransformStack::getTransformStack().rotate(30.f, glm::vec3(0.f,0.f,1.f));
         Position pos1(0., 0.f);
         GLHelper::drawRectangleModern(pos1, 150.f, 150.f);
@@ -395,12 +395,11 @@ GUIViewTraffic::doPaintGL(int mode, const Boundary& bound) {
         GLHelper::setColor(RGBColor(0, 0, 255));
         Position pos2(250., 500.);
         GLHelper::drawRectangleModern(pos2, 30., 80.);
-        */
 
         if (GLHelper::getVertexCounterModern() > 0) {
             // render
             // set camera perspective through GLSL uniform
-            glm::mat4 proj = glm::ortho(0.f, (float)getWidth(), 0.f, (float)getHeight(), -1.0f, 1.0f);
+            glm::mat4 proj = glm::ortho(0.f, (float)getWidth(), 0.f, (float)getHeight(), -10.f, (float)GLO_MAX);
             glm::mat4 preRotate = glm::translate(glm::mat4(1.f), glm::vec3(-bound.getCenter().x(), -bound.getCenter().y(), 0.0f));
             glm::mat4 rotate = glm::rotate(glm::mat4(1.f), (float)myChanger->getRotation(), glm::vec3(0.f, 0.f, 1.f));
             glm::mat4 postRotate = glm::translate(glm::mat4(1.f), glm::vec3(bound.getCenter().x(), bound.getCenter().y(), 0.0f));
@@ -419,6 +418,10 @@ GUIViewTraffic::doPaintGL(int mode, const Boundary& bound) {
             rotBound.add(Position(bound.xmax(), bound.ymax()).rotateAround2D(rad, bound.getCenter()));
             bound = rotBound;
             */
+
+            // test projection on an example vertex
+            glm::vec3 exampleVertex = glm::vec3(10.f, 20.f, 3.f);
+            glm::vec4 transformedVertex = proj * scale * translate * postRotate * rotate * preRotate * glm::vec4(exampleVertex, 1);
 
             myRenderer->activateConfiguration("Standard");
             myRenderer->setUniform("u_MVP", proj * scale * translate * postRotate * rotate * preRotate);
