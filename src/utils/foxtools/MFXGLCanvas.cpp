@@ -93,7 +93,7 @@ MFXGLCanvas::MFXGLCanvas(FXComposite* p,MFXGLVisual *vis,MFXGLCanvas* sharegroup
 
 #ifdef WIN32
 const char* 
-MFXGLCanvas::GetClass() const { return "FXGLCanvas"; } // the name is linked to a WIN API Window definition
+MFXGLCanvas::GetClass() const { return "FXGLCanvas"; } // the name is linked to a WIN API Window definition in the original FOX toolkit
 #endif
 
 
