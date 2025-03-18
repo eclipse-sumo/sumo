@@ -184,8 +184,14 @@ class Domain:
 
     def subscribe(self, objectID, varIDs=None, begin=tc.INVALID_DOUBLE_VALUE, end=tc.INVALID_DOUBLE_VALUE,
                   parameters=None):
-        """subscribe(string, list(integer), double, double, map(string->tuple)) -> None
-
+        """subscribe(string, list(integer), double, double, map) -> None
+        The parameters map argument is needed when subscribing to functions that require additional parameters:
+        The map keys must be a subset of the varIDs
+        The map values may take any of the following forms:
+        - a single integer, float or string value (for methods that require only one additional argument of such type)
+        - a tuple where
+          - the first element is a string consisting of format specifiers (see method _pack in module connection)
+          - the remaining elements are the arguments (one per character in the format specifier string)
         Subscribe to one or more object values for the given interval.
         """
         if varIDs is None:
