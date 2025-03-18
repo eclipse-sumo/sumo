@@ -278,6 +278,9 @@ struct GNENetHelper {
         /// @brief add prefix to all edges
         void addPrefixToEdges(const std::string& prefix);
 
+        /// @brief generate edge ID
+        std::string generateEdgeID() const;
+
         /// @brief update edge ID in container
         void updateEdgeID(GNEEdge* edge, const std::string& newID);
 

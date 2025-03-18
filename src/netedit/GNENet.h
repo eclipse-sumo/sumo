@@ -497,6 +497,12 @@ public:
 
     /// @}
 
+    /// @name get junction id counter
+    unsigned int& getJunctionIDCounter();
+
+    /// @name get edge id counter
+    unsigned int& getEdgeIDCounter();
+
     /// @brief variable used for write headers in additional, demand and data elements
     static const std::map<SumoXMLAttr, std::string> EMPTY_HEADER;
 

@@ -830,6 +830,18 @@ GNENetHelper::AttributeCarriers::addPrefixToEdges(const std::string& prefix) {
 }
 
 
+std::string
+GNENetHelper::AttributeCarriers::generateEdgeID() const {
+    // get edge prefix
+    const std::string edgePrefix = OptionsCont::getOptions().getString("prefix") + OptionsCont::getOptions().getString("edge-prefix");
+    // generate new ID
+    while (myEdges.count(edgePrefix + toString(myNet->getEdgeIDCounter())) != 0) {
+        myNet->getEdgeIDCounter()++;
+    }
+    return edgePrefix + toString(myNet->getEdgeIDCounter());
+}
+
+
 void
 GNENetHelper::AttributeCarriers::updateEdgeID(GNEEdge* edge, const std::string& newID) {
     if (myEdges.count(edge->getID()) == 0) {
