@@ -133,7 +133,7 @@ GNETagSelector::updateTagTypes(const GNETagProperties::TagType type, const SumoX
     }
     myTagsMatchBox->clearItems();
     // get tag properties
-    const auto tagPropertiesByType = myFrameParent->getViewNet()->getNet()->getTagPropertiesDatabase()->getTagPropertiesByType(type, true);
+    const auto tagPropertiesByType = myFrameParent->getViewNet()->getNet()->getTagPropertiesDatabase()->getTagPropertiesByType(type);
     // fill myACTemplates and myTagsMatchBox
     for (const auto tagProperty : tagPropertiesByType) {
         if (!tagProperty->requireProj() || proj) {

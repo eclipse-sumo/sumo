@@ -71,7 +71,7 @@ GNEMeanDataFrame::MeanDataTypeSelector::MeanDataTypeSelector(GNEMeanDataFrame* m
     myTypeComboBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, false, GUIDesignComboBoxVisibleItems,
                                          this, MID_GNE_SET_TYPE, GUIDesignComboBox);
     // add mean data types
-    const auto tagPropertiesMeanDatas = myMeanDataFrameParent->getViewNet()->getNet()->getTagPropertiesDatabase()->getTagPropertiesByType(GNETagProperties::MEANDATA, false);
+    const auto tagPropertiesMeanDatas = myMeanDataFrameParent->getViewNet()->getNet()->getTagPropertiesDatabase()->getTagPropertiesByType(GNETagProperties::MEANDATA);
     for (const auto& meanDataType : tagPropertiesMeanDatas) {
         myTypeComboBox->appendIconItem(meanDataType->getTagStr().c_str(), GUIIconSubSys::getIcon(meanDataType->getGUIIcon()));
     }
@@ -96,7 +96,7 @@ GNEMeanDataFrame::MeanDataTypeSelector::refreshMeanDataTypeSelector() {
     // clear items
     myTypeComboBox->clearItems();
     // add mean data types
-    const auto tagPropertiesMeanDatas = myMeanDataFrameParent->getViewNet()->getNet()->getTagPropertiesDatabase()->getTagPropertiesByType(GNETagProperties::MEANDATA, false);
+    const auto tagPropertiesMeanDatas = myMeanDataFrameParent->getViewNet()->getNet()->getTagPropertiesDatabase()->getTagPropertiesByType(GNETagProperties::MEANDATA);
     for (const auto& meanDataType : tagPropertiesMeanDatas) {
         myTypeComboBox->appendIconItem(meanDataType->getTagStr().c_str(), GUIIconSubSys::getIcon(meanDataType->getGUIIcon()));
     }
@@ -121,7 +121,7 @@ GNEMeanDataFrame::MeanDataTypeSelector::refreshMeanDataTypeSelector() {
 long
 GNEMeanDataFrame::MeanDataTypeSelector::onCmdSelectItem(FXObject*, FXSelector, void*) {
     // add mean data types
-    const auto tagPropertiesMeanDatas = myMeanDataFrameParent->getViewNet()->getNet()->getTagPropertiesDatabase()->getTagPropertiesByType(GNETagProperties::MEANDATA, false);
+    const auto tagPropertiesMeanDatas = myMeanDataFrameParent->getViewNet()->getNet()->getTagPropertiesDatabase()->getTagPropertiesByType(GNETagProperties::MEANDATA);
     // Check if value of myTypeMatchBox correspond of an allowed additional tags
     for (const auto& meanDataType : tagPropertiesMeanDatas) {
         if (meanDataType->getTagStr() == myTypeComboBox->getText().text()) {

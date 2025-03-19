@@ -48,7 +48,7 @@ public:
     GNETagProperties* getTagProperty(SumoXMLTag tag) const;
 
     /// @brief get tagProperties associated to the given GNETagProperties::TagType (NETWORKELEMENT, ADDITIONALELEMENT, VEHICLE, etc.)
-    const std::vector<const GNETagProperties*> getTagPropertiesByType(const int tagPropertyCategory, const bool mergePlans) const;
+    const std::vector<const GNETagProperties*> getTagPropertiesByType(const int tagPropertyCategory) const;
 
     /// @brief get tagProperties associated to the given set tag (persons, stops, plans, etc.)
     const std::vector<const GNETagProperties*> getTagPropertiesSet(SumoXMLTag setTag) const;
@@ -264,14 +264,11 @@ private:
     /// @brief map with the tags properties vinculated with supermodes
     std::map<Supermode, GNETagProperties*> mySupermodeTagProperties;
 
-        /// @brief map with tag properties sets (persons, stops, etc.)
+    /// @brief map with tag properties sets (persons, stops, etc.)
     std::map<SumoXMLTag, GNETagProperties*> mySetTmp;
 
     /// @brief map with the tags properties
     std::map<SumoXMLTag, GNETagProperties*> myTagProperties;
-
-    /// @brief map with tag properties sets (persons, stops, etc.)
-    std::map<SumoXMLTag, GNETagProperties*> myTagPropertiesSet;
 
     /// @brief Invalidated copy constructor.
     GNETagPropertiesDatabase(const GNETagPropertiesDatabase&) = delete;
