@@ -143,12 +143,12 @@ public:
     friend class GNEAttributeProperties;
 
     /// @brief parameter constructor
-    GNETagProperties(const SumoXMLTag tag, GNETagProperties* set, const int tagType, const int tagProperty, const int tagParents, const int conflicts,
+    GNETagProperties(const SumoXMLTag tag, GNETagProperties* parent, const int tagType, const int tagProperty, const int tagParents, const int conflicts,
                      const GUIIcon icon, const SumoXMLTag XMLTag, const std::string tooltip, std::vector<SumoXMLTag> parentTags = {},
                      const unsigned int backgroundColor = FXRGBA(255, 255, 255, 255), const std::string selectorText = "");
 
     /// @brief parameter constructor for sets
-    GNETagProperties(const SumoXMLTag tag, GNETagProperties* set, const GUIIcon icon, const std::string tooltip);
+    GNETagProperties(const SumoXMLTag tag, GNETagProperties* parent, const GUIIcon icon, const std::string tooltip);
 
     /// @brief destructor
     ~GNETagProperties();
@@ -498,12 +498,22 @@ public:
     /// @brief return true if tag correspond to an element that has vClass icons
     bool vClassIcon() const;
 
+protected:
+    /// @brief add child
+    void addChild(GNETagProperties* child);
+
 private:
     /// @brief Sumo XML Tag vinculated wit this tag Property
     SumoXMLTag myTag = SUMO_TAG_NOTHING;
 
     /// @brief Sumo XML Tag vinculated wit this tag Property in String format
     std::string myTagStr;
+    
+    /// @brief tag property parent
+    GNETagProperties* myParent = nullptr;
+
+    /// @brief tag property children
+    std::vector<GNETagProperties*> myChildren;
 
     /// @brief tag Types
     int myTagType = -1;

@@ -24,12 +24,13 @@
 // method definitions
 // ===========================================================================
 
-GNETagProperties::GNETagProperties(const SumoXMLTag tag, GNETagProperties* set, const int tagType, const int tagProperty, const int tagParents,
+GNETagProperties::GNETagProperties(const SumoXMLTag tag, GNETagProperties* parent, const int tagType, const int tagProperty, const int tagParents,
                                    const int conflicts, const GUIIcon icon, const SumoXMLTag XMLTag, const std::string tooltip,
                                    const std::vector<SumoXMLTag> parentTags, const unsigned int backgroundColor,
                                    const std::string selectorText) :
     myTag(tag),
     myTagStr(toString(tag)),
+    myParent(parent),
     myTagType(tagType),
     myTagProperty(tagProperty),
     myTagParents(tagParents),
@@ -40,17 +41,24 @@ GNETagProperties::GNETagProperties(const SumoXMLTag tag, GNETagProperties* set, 
     myParentTags(parentTags),
     mySelectorText(selectorText.empty() ? toString(tag) : selectorText),
     myBackgroundColor(backgroundColor) {
+    if (parent) {
+        parent->addChild(this);
+    }
 }
 
 
-GNETagProperties::GNETagProperties(const SumoXMLTag tag, GNETagProperties* set, const GUIIcon icon, const std::string tooltip) :
+GNETagProperties::GNETagProperties(const SumoXMLTag tag, GNETagProperties* parent, const GUIIcon icon, const std::string tooltip) :
     myTag(tag),
     myTagStr(toString(tag)),
+    myParent(parent),
     myIcon(icon),
     myXMLTag(tag),
     myTooltipText(tooltip),
     mySelectorText(toString(tag)),
     myBackgroundColor(FXRGBA(255, 255, 255, 255)) {
+    if (parent) {
+        parent->addChild(this);
+    }
 }
 
 
@@ -101,6 +109,11 @@ GNETagProperties::checkTagIntegrity() const {
     if (myConflicts == -1) {
         throw ProcessError(TL("no conflict defined"));
     }
+    // check that this edge has parents (Except supermodes)
+    if ((myTag != GNE_TAG_SUPERMODE_NETWORK) && (myTag != GNE_TAG_SUPERMODE_DEMAND) && (myTag != GNE_TAG_SUPERMODE_DATA) && (myParent == nullptr)) {
+        throw ProcessError(TL("No parent defined"));
+    }
+
     // check that element must ist at least networkElement, Additional, or shape
     if (!isNetworkElement() && !isAdditionalElement() && !isDemandElement() && !isDataElement() && !isMeanData() && !isInternalLane() && !isOtherElement()) {
         throw ProcessError(TL("no basic type property defined"));
@@ -810,6 +823,12 @@ GNETagProperties::requireProj() const {
 bool
 GNETagProperties::vClassIcon() const {
     return (myTagProperty & VCLASS_ICON) != 0;
+}
+
+
+void
+GNETagProperties::addChild(GNETagProperties* child) {
+    myChildren.push_back(child);
 }
 
 /****************************************************************************/

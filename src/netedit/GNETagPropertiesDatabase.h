@@ -69,8 +69,8 @@ public:
     void writeAttributeHelp() const;
 
 protected:
-    /// @brief fill supermode elements
-    void fillSupermodes();
+    /// @brief fill hierarchy elements
+    void fillHierarchy();
 
     /// @brief fill network elements
     void fillNetworkElements();
