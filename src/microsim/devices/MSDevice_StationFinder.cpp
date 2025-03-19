@@ -432,7 +432,8 @@ MSDevice_StationFinder::findChargingStation(SUMOAbstractRouter<MSEdge, SUMOVehic
 
 bool
 MSDevice_StationFinder::rerouteToChargingStation(bool replace) {
-    double expectedConsumption = MIN2(estimateConsumption() * myReserveFactor, myBattery->getMaximumBatteryCapacity() * myTargetSoC);
+    double expectedConsumption = (myCheckEnergyForRoute) ? MIN2(estimateConsumption() * myReserveFactor, myBattery->getMaximumBatteryCapacity() * myTargetSoC) :
+                                 myBattery->getMaximumBatteryCapacity() * MAX2(myTargetSoC - myBattery->getActualBatteryCapacity() / myBattery->getMaximumBatteryCapacity(), 0.);
     if (!myCheckEnergyForRoute || myBattery->getActualBatteryCapacity() < expectedConsumption + myEmptySoC * myBattery->getMaximumBatteryCapacity()) {
         myLastSearch = SIMSTEP;
         MSVehicleRouter& router = MSRoutingEngine::getRouterTT(myHolder.getRNGIndex(), myHolder.getVClass());
