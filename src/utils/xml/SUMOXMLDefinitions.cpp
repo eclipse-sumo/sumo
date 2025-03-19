@@ -625,12 +625,21 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::tags[] = {
     { "stopContainer: parkingArea",     GNE_TAG_STOPCONTAINER_PARKINGAREA },
     // root file
     { "rootFile",   SUMO_TAG_ROOTFILE },
-    // root file
-    { TL("network"),    GNE_TAG_SUPERMODE_NETWORK },
-    { TL("demand"),     GNE_TAG_SUPERMODE_DEMAND },
-    { TL("data"),       GNE_TAG_SUPERMODE_DATA },
+    // netedit sets
+    { "network",        GNE_TAG_SUPERMODE_NETWORK },
+    { "demand",         GNE_TAG_SUPERMODE_DEMAND },
+    { "data",           GNE_TAG_SUPERMODE_DATA },
+    { "stoppingPlaces", GNE_TAG_STOPPINGPLACES },
+    { "detectors",      GNE_TAG_DETECTORS },
+    { "shapes",         GNE_TAG_SHAPES },
+    { "TAZs",           GNE_TAG_TAZS },
+    { "wires",          GNE_TAG_WIRES },
+    { "jupedsim",       GNE_TAG_JUPEDSIM },
+    { "stops",          GNE_TAG_STOPS },
+    { "personPlans",    GNE_TAG_PERSONPLANS },
+    { "containerPlans", GNE_TAG_CONTAINERPLANS },
     // Last element
-    { "",                                       SUMO_TAG_NOTHING }  // -> must be the last one
+    { "",   SUMO_TAG_NOTHING }  // -> must be the last one
 };
 
 

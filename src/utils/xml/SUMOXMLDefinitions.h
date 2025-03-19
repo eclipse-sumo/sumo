@@ -798,10 +798,19 @@ enum SumoXMLTag {
     GNE_TAG_STOPCONTAINER_PARKINGAREA,
     /// @}
 
-    // @brief supermodes
+    // @brief netedit sets
     GNE_TAG_SUPERMODE_NETWORK,
     GNE_TAG_SUPERMODE_DEMAND,
     GNE_TAG_SUPERMODE_DATA,
+    GNE_TAG_STOPPINGPLACES,
+    GNE_TAG_DETECTORS,
+    GNE_TAG_SHAPES,
+    GNE_TAG_TAZS,
+    GNE_TAG_WIRES,
+    GNE_TAG_JUPEDSIM,
+    GNE_TAG_STOPS,
+    GNE_TAG_PERSONPLANS,
+    GNE_TAG_CONTAINERPLANS,
     /// @}
 
     /// @brief invalid tag, must be the last one

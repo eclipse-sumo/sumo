@@ -24,7 +24,7 @@
 // method definitions
 // ===========================================================================
 
-GNETagProperties::GNETagProperties(const SumoXMLTag tag, const int tagType, const int tagProperty, const int tagParents,
+GNETagProperties::GNETagProperties(const SumoXMLTag tag, GNETagProperties* set, const int tagType, const int tagProperty, const int tagParents,
                                    const int conflicts, const GUIIcon icon, const SumoXMLTag XMLTag, const std::string tooltip,
                                    const std::vector<SumoXMLTag> parentTags, const unsigned int backgroundColor,
                                    const std::string selectorText) :

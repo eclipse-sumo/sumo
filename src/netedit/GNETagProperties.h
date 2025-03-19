@@ -143,7 +143,7 @@ public:
     friend class GNEAttributeProperties;
 
     /// @brief parameter constructor
-    GNETagProperties(const SumoXMLTag tag, const int tagType, const int tagProperty, const int tagParents, const int conflicts,
+    GNETagProperties(const SumoXMLTag tag, GNETagProperties* set, const int tagType, const int tagProperty, const int tagParents, const int conflicts,
                      const GUIIcon icon, const SumoXMLTag XMLTag, const std::string tooltip, std::vector<SumoXMLTag> parentTags = {},
                      const unsigned int backgroundColor = FXRGBA(255, 255, 255, 255), const std::string selectorText = "");
 
