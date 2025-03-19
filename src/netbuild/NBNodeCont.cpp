@@ -1635,6 +1635,12 @@ NBNodeCont::feasibleCluster(const NodeSet& cluster, const std::map<const NBNode*
                 }
             }
         }
+        /*
+        if (NBNode::geometryLike(outsideIncoming, outsideOutgoing) && hasTLS && OptionsCont::getOptions().getBool("tls.discard-simple")) {
+            reason = "geometry-like simple tls";
+            return false;
+        }
+        */
     }
     return true;
 }
