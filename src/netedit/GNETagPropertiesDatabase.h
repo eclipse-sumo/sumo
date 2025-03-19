@@ -265,7 +265,7 @@ private:
     std::map<Supermode, GNETagProperties*> mySupermodeTagProperties;
 
     /// @brief map with tag properties sets (persons, stops, etc.)
-    std::map<SumoXMLTag, GNETagProperties*> mySetTmp;
+    std::map<SumoXMLTag, GNETagProperties*> mySetTagProperties;
 
     /// @brief map with the tags properties
     std::map<SumoXMLTag, GNETagProperties*> myTagProperties;

@@ -209,7 +209,7 @@ GNEStopFrame::addStop(const GNEViewNetHelper::ViewObjectsSelector& viewObjects, 
         // create stop base object
         getStopParameter(myStopTagSelector->getCurrentTemplateAC()->getTagProperty()->getTag(),
                          viewObjects.getLaneFront(), viewObjects.getAdditionalFront());
-        if (myStopParentBaseObject && myStopParentBaseObject->getTag() != SUMO_TAG_NOTHING) {
+        if (myStopParentBaseObject->getTag() != SUMO_TAG_NOTHING) {
             // declare route handler
             GNERouteHandler routeHandler(myViewNet->getNet(), myStopParentBaseObject->hasStringAttribute(GNE_ATTR_DEMAND_FILE) ?
                                          myStopParentBaseObject->getStringAttribute(GNE_ATTR_DEMAND_FILE) : "",
