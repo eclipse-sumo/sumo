@@ -2876,7 +2876,9 @@ GNENetHelper::ACTemplate::ACTemplate(GNENet* net) :
 
 void
 GNENetHelper::ACTemplate::buildTemplates() {
-    // create template for every element
+    // network
+    myTemplates[SUMO_TAG_CROSSING] = new GNECrossing(myNet);
+    // additionals
     myTemplates[SUMO_TAG_BUS_STOP] = GNEBusStop::buildBusStop(myNet);
     myTemplates[SUMO_TAG_TRAIN_STOP] = GNEBusStop::buildTrainStop(myNet);
     myTemplates[SUMO_TAG_ACCESS] = new GNEAccess(myNet);
