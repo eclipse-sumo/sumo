@@ -810,7 +810,14 @@ enum SumoXMLTag {
     GNE_TAG_JUPEDSIM,
     GNE_TAG_STOPS,
     GNE_TAG_PERSONPLANS,
+    GNE_TAG_PERSONTRIPS,
+    GNE_TAG_RIDES,
+    GNE_TAG_WALKS,
+    GNE_TAG_PERSONSTOPS,
     GNE_TAG_CONTAINERPLANS,
+    GNE_TAG_TRANSPORTS,
+    GNE_TAG_TRANSHIPS,
+    GNE_TAG_CONTAINERSTOPS,
     /// @}
 
     /// @brief invalid tag, must be the last one

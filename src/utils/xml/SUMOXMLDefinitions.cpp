@@ -637,7 +637,14 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::tags[] = {
     { "jupedsim",       GNE_TAG_JUPEDSIM },
     { "stops",          GNE_TAG_STOPS },
     { "personPlans",    GNE_TAG_PERSONPLANS },
+    { "personTrips",    GNE_TAG_PERSONTRIPS },
+    { "rides",          GNE_TAG_RIDES },
+    { "walks",          GNE_TAG_WALKS },
+    { "personStops",    GNE_TAG_PERSONSTOPS },
     { "containerPlans", GNE_TAG_CONTAINERPLANS },
+    { "transports",     GNE_TAG_TRANSPORTS },
+    { "tranships",      GNE_TAG_TRANSHIPS },
+    { "containerStops", GNE_TAG_CONTAINERSTOPS },
     // Last element
     { "",   SUMO_TAG_NOTHING }  // -> must be the last one
 };
