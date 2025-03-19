@@ -43,6 +43,17 @@ GNETagProperties::GNETagProperties(const SumoXMLTag tag, const int tagType, cons
 }
 
 
+GNETagProperties::GNETagProperties(const SumoXMLTag tag, GNETagProperties* set, const GUIIcon icon, const std::string tooltip) :
+    myTag(tag),
+    myTagStr(toString(tag)),
+    myIcon(icon),
+    myXMLTag(tag),
+    myTooltipText(tooltip),
+    mySelectorText(toString(tag)),
+    myBackgroundColor(FXRGBA(255, 255, 255, 255)) {
+}
+
+
 GNETagProperties::~GNETagProperties() {
     for (const auto& attrProperties : myAttributeProperties) {
         delete attrProperties;

@@ -147,6 +147,9 @@ public:
                      const GUIIcon icon, const SumoXMLTag XMLTag, const std::string tooltip, std::vector<SumoXMLTag> parentTags = {},
                      const unsigned int backgroundColor = FXRGBA(255, 255, 255, 255), const std::string selectorText = "");
 
+    /// @brief parameter constructor for sets
+    GNETagProperties(const SumoXMLTag tag, GNETagProperties* set, const GUIIcon icon, const std::string tooltip);
+
     /// @brief destructor
     ~GNETagProperties();
 

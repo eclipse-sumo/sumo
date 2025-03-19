@@ -616,15 +616,19 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::tags[] = {
     { "tranship: parkingarea->parkingarea",         GNE_TAG_TRANSHIP_PARKINGAREA_PARKINGAREA },
     { "tranship: edges",                            GNE_TAG_TRANSHIP_EDGES },
     // GNE Container Stops
-    { "stopContainer",                          GNE_TAG_STOPCONTAINER },
-    { "stopContainer: edge",                    GNE_TAG_STOPCONTAINER_EDGE },
-    { "stopContainer: busStop",                 GNE_TAG_STOPCONTAINER_BUSSTOP },
-    { "stopContainer: trainStop",               GNE_TAG_STOPCONTAINER_TRAINSTOP },
-    { "stopContainer: containerStop",           GNE_TAG_STOPCONTAINER_CONTAINERSTOP },
-    { "stopContainer: chargingStation",         GNE_TAG_STOPCONTAINER_CHARGINGSTATION },
-    { "stopContainer: parkingArea",             GNE_TAG_STOPCONTAINER_PARKINGAREA },
+    { "stopContainer",                  GNE_TAG_STOPCONTAINER },
+    { "stopContainer: edge",            GNE_TAG_STOPCONTAINER_EDGE },
+    { "stopContainer: busStop",         GNE_TAG_STOPCONTAINER_BUSSTOP },
+    { "stopContainer: trainStop",       GNE_TAG_STOPCONTAINER_TRAINSTOP },
+    { "stopContainer: containerStop",   GNE_TAG_STOPCONTAINER_CONTAINERSTOP },
+    { "stopContainer: chargingStation", GNE_TAG_STOPCONTAINER_CHARGINGSTATION },
+    { "stopContainer: parkingArea",     GNE_TAG_STOPCONTAINER_PARKINGAREA },
     // root file
-    { "rootFile",                               SUMO_TAG_ROOTFILE },
+    { "rootFile",   SUMO_TAG_ROOTFILE },
+    // root file
+    { TL("network"),    GNE_TAG_SUPERMODE_NETWORK },
+    { TL("demand"),     GNE_TAG_SUPERMODE_DEMAND },
+    { TL("data"),       GNE_TAG_SUPERMODE_DATA },
     // Last element
     { "",                                       SUMO_TAG_NOTHING }  // -> must be the last one
 };

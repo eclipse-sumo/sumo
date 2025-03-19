@@ -69,6 +69,9 @@ public:
     void writeAttributeHelp() const;
 
 protected:
+    /// @brief fill supermode elements
+    void fillSupermodes();
+
     /// @brief fill network elements
     void fillNetworkElements();
 
@@ -257,6 +260,9 @@ private:
 
     /// @brief max number of netedit attributes (needed for netedit attributes editor)
     int myMaxNumberOfNeteditAttributeRows = 0;
+
+    /// @brief map with the tags properties vinculated with supermodes
+    std::map<Supermode, GNETagProperties*> mySupermodeTagProperties;
 
     /// @brief map with the tags properties
     std::map<SumoXMLTag, GNETagProperties*> myTagProperties;

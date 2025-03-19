@@ -31,6 +31,7 @@
 
 GNETagPropertiesDatabase::GNETagPropertiesDatabase() {
     // fill all groups of ACs
+    fillSupermodes();
     fillNetworkElements();
     fillAdditionalElements();
     fillShapeElements();
@@ -407,6 +408,15 @@ GNETagPropertiesDatabase::writeAttributeHelp() const {
             dev << "|\n";
         }
     }
+}
+
+
+void
+GNETagPropertiesDatabase::fillSupermodes() {
+    // set values of tag
+    mySupermodeTagProperties[Supermode::NETWORK] = new GNETagProperties(GNE_TAG_SUPERMODE_NETWORK, nullptr, GUIIcon::SUPERMODENETWORK, TL("Supermode network"));
+    mySupermodeTagProperties[Supermode::DEMAND] = new GNETagProperties(GNE_TAG_SUPERMODE_DEMAND, nullptr, GUIIcon::SUPERMODENETWORK, TL("Supermode network"));
+    mySupermodeTagProperties[Supermode::DATA] = new GNETagProperties(GNE_TAG_SUPERMODE_DATA, nullptr, GUIIcon::SUPERMODENETWORK, TL("Supermode network"));
 }
 
 
