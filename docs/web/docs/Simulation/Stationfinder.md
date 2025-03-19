@@ -38,7 +38,7 @@ The parameters take effect only on vehicles which have been assigned a stationfi
 | chargingStrategy      | string           | {balanced; latest; none}    | none             | Chosen charging strategy (`balanced` will spread the charging across the whole stopping duration, `latest` will shift charging towards the end of the stopping duration) |
 | opportunisticChargeLevel | float         | [0;1]                     | 0                | State of charge below which the vehicle wants to charge nearby planned stops (on the same edge as the planned stop) although not needed to complete its route (named opportunistic charging) |
 | minOpportunityDuration | float (s)       | ≥0                        | 3600             | The minimum expected duration of a planned stop to be used for opportunistic charging |
-| checkEnergyForRoute   | bool             | {true; false}             | false            | Check whether the current battery charge may be enough to complete the route and thus skip searching for charging stations |
+| checkEnergyForRoute   | bool             | {true; false}             | true            | Check whether the current battery charge may be enough to complete the route and thus skip searching for charging stations |
 
 ## Decision logic for charging
 
