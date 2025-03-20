@@ -98,33 +98,143 @@ GNETagProperties::checkTagIntegrity() const {
     // check integrity only in debug mode
 #ifdef DEBUG
     if (myTagType == -1) {
-        throw ProcessError(TL("no tag type defined"));
+        throw ProcessError("no tag type defined");
     }
     if (myTagProperty == -1) {
-        throw ProcessError(TL("no tag property defined"));
+        throw ProcessError("no tag property defined");
     }
     if (myTagParents == -1) {
-        throw ProcessError(TL("no tag parent defined"));
+        throw ProcessError("no tag parent defined");
     }
     if (myConflicts == -1) {
-        throw ProcessError(TL("no conflict defined"));
+        throw ProcessError("no conflict defined");
     }
     // check that this edge has parents (Except supermodes)
     if ((myTag != GNE_TAG_SUPERMODE_NETWORK) && (myTag != GNE_TAG_SUPERMODE_DEMAND) && (myTag != GNE_TAG_SUPERMODE_DATA) && (myParent == nullptr)) {
-        throw ProcessError(TL("No parent defined"));
+        throw ProcessError("No parent defined");
     }
-
+    // check network parents
+    if (isNetworkElement() && (myParent->getTag() != GNE_TAG_SUPERMODE_NETWORK)) {
+        throw ProcessError("Invalid supermode network parent");
+    }
+    // check additional parents
+    if (isStoppingPlace()) {
+        if (myParent->getTag() != GNE_TAG_STOPPINGPLACES) {
+            throw ProcessError("Invalid stoppingPlace parent");
+        }
+    } else if (isDetector()) {
+        if (myParent->getTag() != GNE_TAG_DETECTORS) {
+            throw ProcessError("Invalid detector parent");
+        }
+    } else if (isWireElement()) {
+        if (myParent->getTag() != GNE_TAG_WIRES) {
+            throw ProcessError("Invalid wire parent");
+        }
+    } else if (isJuPedSimElement()) {
+        if (myParent->getTag() != GNE_TAG_JUPEDSIM) {
+            throw ProcessError("Invalid juPedSim parent");
+        }
+    } else if (isTAZElement()) {
+        if (myParent->getTag() != GNE_TAG_TAZS) {
+            throw ProcessError("Invalid TAZ parent");
+        }
+    } else if (isShapeElement()) {
+        if (myParent->getTag() != GNE_TAG_SHAPES) {
+            throw ProcessError("Invalid shape parent");
+        }
+    } else if (isAdditionalElement()) {
+        // exceptions for access and spaces
+        if ((myTag == SUMO_TAG_ACCESS || myTag == SUMO_TAG_PARKING_SPACE)) {
+            if (myParent->getTag() != GNE_TAG_STOPPINGPLACES) {
+                throw ProcessError("Invalid stoppingPlace parent");
+            }
+        } else if (myParent->getTag() != SUMO_TAG_VIEWSETTINGS_ADDITIONALS) {
+            throw ProcessError("Invalid additional parent");
+        }
+    }
+    // check demand parents
+    if (isVehicle()) {
+        if (myParent->getTag() != SUMO_TAG_VIEWSETTINGS_VEHICLES) {
+            throw ProcessError("Invalid vehicle parent");
+        }
+    } else if (isVehicleStop()) {
+        if (myParent->getTag() != GNE_TAG_STOPS) {
+            throw ProcessError("Invalid vehicle stop parent");
+        }
+    } else if (isPerson()) {
+        if (myParent->getTag() != SUMO_TAG_VIEWSETTINGS_PERSONS) {
+            throw ProcessError("Invalid person parent");
+        }
+    } else if (isPlanPersonTrip()) {
+        if (myParent->getTag() != GNE_TAG_PERSONTRIPS) {
+            throw ProcessError("Invalid person trip parent");
+        }
+    } else if (isPlanRide()) {
+        if (myParent->getTag() != GNE_TAG_RIDES) {
+            throw ProcessError("Invalid ride parent");
+        }
+    } else if (isPlanWalk()) {
+        if (myParent->getTag() != GNE_TAG_WALKS) {
+            throw ProcessError("Invalid walk parent");
+        }
+    } else if (isPlanStopPerson()) {
+        if (myParent->getTag() != GNE_TAG_PERSONSTOPS) {
+            throw ProcessError("Invalid person stop parent");
+        }
+    } else if (isPlanPerson()) {
+        if (myParent->getTag() != GNE_TAG_PERSONPLANS) {
+            throw ProcessError("Invalid person plan parent");
+        }
+    } else if (isContainer()) {
+        if (myParent->getTag() != SUMO_TAG_VIEWSETTINGS_CONTAINERS) {
+            throw ProcessError("Invalid container parent");
+        }
+    } else if (isPlanTransport()) {
+        if (myParent->getTag() != GNE_TAG_TRANSPORTS) {
+            throw ProcessError("Invalid ride parent");
+        }
+    } else if (isPlanTranship()) {
+        if (myParent->getTag() != GNE_TAG_TRANSHIPS) {
+            throw ProcessError("Invalid walk parent");
+        }
+    } else if (isPlanStopContainer()) {
+        if (myParent->getTag() != GNE_TAG_CONTAINERSTOPS) {
+            throw ProcessError("Invalid container stop parent");
+        }
+    } else if (isPlanContainer()) {
+        if (myParent->getTag() != GNE_TAG_CONTAINERPLANS) {
+            throw ProcessError("Invalid container plan parent");
+        }
+    } else if (isDemandElement()) {
+        if (myParent->getTag() != GNE_TAG_SUPERMODE_DEMAND) {
+            throw ProcessError("Invalid supermode demand parent");
+        }
+    }
+    // check data parents
+    if (isGenericData()) {
+        if (myParent->getTag() != GNE_TAG_DATAS) {
+            throw ProcessError("Invalid generic data parent");
+        }
+    } else if (isMeanData()) {
+        if (myParent->getTag() != GNE_TAG_MEANDATAS) {
+            throw ProcessError("Invalid mean data parent");
+        }
+    } else if (isDataElement()) {
+        if (myParent->getTag() != GNE_TAG_SUPERMODE_DATA) {
+            throw ProcessError("Invalid supermode data parent");
+        }
+    }
     // check that element must ist at least networkElement, Additional, or shape
     if (!isNetworkElement() && !isAdditionalElement() && !isDemandElement() && !isDataElement() && !isMeanData() && !isInternalLane() && !isOtherElement()) {
-        throw ProcessError(TL("no basic type property defined"));
+        throw ProcessError("no basic type property defined");
     }
     // check that element only is networkElement, Additional, or shape at the same time
     if ((isNetworkElement() + isAdditionalElement() + isDemandElement() + isDataElement() + isMeanData() + isOtherElement()) > 1) {
-        throw ProcessError(TL("multiple basic type properties defined"));
+        throw ProcessError("multiple basic type properties defined");
     }
     // check that element only is shape, TAZ, or wire at the same time
     if ((isShapeElement() + isTAZElement() + isWireElement()) > 1) {
-        throw ProcessError(TL("element can be either shape or TAZ or wire element at the same time"));
+        throw ProcessError("element can be either shape or TAZ or wire element at the same time");
     }
     // check that master tag is valid
     if (isChild() && myParentTags.empty()) {
@@ -150,11 +260,11 @@ GNETagProperties::checkTagIntegrity() const {
             if ((attributeProperty->getAttr() != SUMO_ATTR_ALLOW) && (attributeProperty->getAttr() != SUMO_ATTR_DISALLOW) &&
                     (attributeProperty->getAttr() != SUMO_ATTR_CHANGE_LEFT) && (attributeProperty->getAttr() != SUMO_ATTR_CHANGE_RIGHT) &&
                     (attributeProperty->getAttr() != GNE_ATTR_STOPOEXCEPTION)) {
-                throw ProcessError(TL("Attributes aren't combinables"));
+                throw ProcessError("Attributes aren't combinables");
             } else if ((attributeProperty->getAttr() == SUMO_ATTR_ALLOW) && !hasAttribute(SUMO_ATTR_DISALLOW)) {
-                throw ProcessError(TL("allow need a disallow attribute in the same tag"));
+                throw ProcessError("allow need a disallow attribute in the same tag");
             } else if ((attributeProperty->getAttr() == SUMO_ATTR_DISALLOW) && !hasAttribute(SUMO_ATTR_ALLOW)) {
-                throw ProcessError(TL("disallow need an allow attribute in the same tag"));
+                throw ProcessError("disallow need an allow attribute in the same tag");
             }
         }
     }
