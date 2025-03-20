@@ -98,19 +98,23 @@ GNETagProperties::checkTagIntegrity() const {
     // check integrity only in debug mode
 #ifdef DEBUG
     if (myTagType == -1) {
-        throw ProcessError("no tag type defined");
+        throw ProcessError("No tag type defined");
     }
     if (myTagProperty == -1) {
-        throw ProcessError("no tag property defined");
+        throw ProcessError("No tag property defined");
     }
     if (myTagParents == -1) {
-        throw ProcessError("no tag parent defined");
+        throw ProcessError("No tag parent defined");
     }
     if (myConflicts == -1) {
-        throw ProcessError("no conflict defined");
+        throw ProcessError("No conflict defined");
     }
     // check that this edge has parents (Except supermodes)
-    if ((myTag != GNE_TAG_SUPERMODE_NETWORK) && (myTag != GNE_TAG_SUPERMODE_DEMAND) && (myTag != GNE_TAG_SUPERMODE_DATA) && (myParent == nullptr)) {
+    if (myTag == SUMO_TAG_ROOTFILE) {
+        if (myParent != nullptr) {
+            throw ProcessError("Root parent must be empty");
+        }
+    } else if (myParent == nullptr) {
         throw ProcessError("No parent defined");
     }
     // check network parents
@@ -400,6 +404,12 @@ GNETagProperties::at(int index) const {
 int
 GNETagProperties::getNumberOfAttributes() const {
     return (int)myAttributeProperties.size();
+}
+
+
+const std::vector<GNETagProperties*>&
+GNETagProperties::getChildren() const {
+    return myChildren;
 }
 
 

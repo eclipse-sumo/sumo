@@ -62,6 +62,8 @@ GNETagPropertiesDatabase::GNETagPropertiesDatabase() {
     }
     // update max number of editable attributes
     updateMaxNumberOfAttributesEditorRows();
+    // calculate hierarchy dept
+    calculateHierarchyDepth(mySetTagProperties[SUMO_TAG_ROOTFILE], 0);
     // check integrity of all Tags (function checkTagIntegrity() throws an exception if there is an inconsistency)
     for (const auto& tagProperties : myTagProperties) {
         tagProperties.second->checkTagIntegrity();
@@ -322,6 +324,12 @@ GNETagPropertiesDatabase::getMaxNumberOfNeteditAttributesRows() const {
 }
 
 
+int
+GNETagPropertiesDatabase::getHierarchyDepth() const {
+    return myHierarchyDepth;
+}
+
+
 void
 GNETagPropertiesDatabase::writeAttributeHelp() const {
     // merge "virtual" netedit tags like  '<walk: edge->edge'
@@ -376,112 +384,117 @@ GNETagPropertiesDatabase::writeAttributeHelp() const {
 
 void
 GNETagPropertiesDatabase::fillHierarchy() {
-    // set values of tag
-    mySupermodeTagProperties[Supermode::NETWORK] = new GNETagProperties(GNE_TAG_SUPERMODE_NETWORK,
+    // root
+    mySetTagProperties[SUMO_TAG_ROOTFILE] = new GNETagProperties(SUMO_TAG_ROOTFILE,
             nullptr,
+            GUIIcon::NETEDIT,
+            TL("Root"));
+    // supermodes
+    mySetTagProperties[GNE_TAG_SUPERMODE_NETWORK] = new GNETagProperties(GNE_TAG_SUPERMODE_NETWORK,
+            mySetTagProperties.at(SUMO_TAG_ROOTFILE),
             GUIIcon::SUPERMODENETWORK,
             TL("Supermode network"));
-    mySupermodeTagProperties[Supermode::DEMAND] = new GNETagProperties(GNE_TAG_SUPERMODE_DEMAND,
-            nullptr,
+    mySetTagProperties[GNE_TAG_SUPERMODE_DEMAND] = new GNETagProperties(GNE_TAG_SUPERMODE_DEMAND,
+            mySetTagProperties.at(SUMO_TAG_ROOTFILE),
             GUIIcon::SUPERMODEDEMAND,
             TL("Supermode demand"));
-    mySupermodeTagProperties[Supermode::DATA] = new GNETagProperties(GNE_TAG_SUPERMODE_DATA,
-            nullptr,
+    mySetTagProperties[GNE_TAG_SUPERMODE_DATA] = new GNETagProperties(GNE_TAG_SUPERMODE_DATA,
+            mySetTagProperties.at(SUMO_TAG_ROOTFILE),
             GUIIcon::SUPERMODEDATA,
             TL("Supermode data"));
     // additionals
     mySetTagProperties[SUMO_TAG_VIEWSETTINGS_ADDITIONALS] = new GNETagProperties(SUMO_TAG_VIEWSETTINGS_ADDITIONALS,
-            mySupermodeTagProperties.at(Supermode::NETWORK),
+            mySetTagProperties.at(GNE_TAG_SUPERMODE_NETWORK),
             GUIIcon::MODEADDITIONAL,
             TL("Additional elements"));
     mySetTagProperties[GNE_TAG_STOPPINGPLACES] = new GNETagProperties(GNE_TAG_STOPPINGPLACES,
-            mySetTagProperties[SUMO_TAG_VIEWSETTINGS_ADDITIONALS],
+            mySetTagProperties.at(SUMO_TAG_VIEWSETTINGS_ADDITIONALS),
             GUIIcon::BUSSTOP,
             TL("Stopping places"));
     mySetTagProperties[GNE_TAG_DETECTORS] = new GNETagProperties(GNE_TAG_DETECTORS,
-            mySetTagProperties[SUMO_TAG_VIEWSETTINGS_ADDITIONALS],
+            mySetTagProperties.at(SUMO_TAG_VIEWSETTINGS_ADDITIONALS),
             GUIIcon::E1,
             TL("Detectors"));
     mySetTagProperties[GNE_TAG_WIRES] = new GNETagProperties(GNE_TAG_WIRES,
-            mySetTagProperties[SUMO_TAG_VIEWSETTINGS_ADDITIONALS],
+            mySetTagProperties.at(SUMO_TAG_VIEWSETTINGS_ADDITIONALS),
             GUIIcon::MODEWIRE,
             TL("Wires"));
     // shapes
     mySetTagProperties[GNE_TAG_SHAPES] = new GNETagProperties(GNE_TAG_SHAPES,
-            mySupermodeTagProperties.at(Supermode::NETWORK),
+            mySetTagProperties.at(GNE_TAG_SUPERMODE_NETWORK),
             GUIIcon::MODESHAPE,
             TL("Shapes"));
     mySetTagProperties[GNE_TAG_JUPEDSIM] = new GNETagProperties(GNE_TAG_JUPEDSIM,
-            mySetTagProperties[GNE_TAG_SHAPES],
+            mySetTagProperties.at(GNE_TAG_SHAPES),
             GUIIcon::E1,
             TL("JuPedSim elements"));
     // TAZs
     mySetTagProperties[GNE_TAG_TAZS] = new GNETagProperties(GNE_TAG_TAZS,
-            mySupermodeTagProperties.at(Supermode::NETWORK),
+            mySetTagProperties.at(GNE_TAG_SUPERMODE_NETWORK),
             GUIIcon::MODEADDITIONAL,
             TL("TAZ elements"));
     // vehicles
     mySetTagProperties[SUMO_TAG_VIEWSETTINGS_VEHICLES] = new GNETagProperties(SUMO_TAG_VIEWSETTINGS_VEHICLES,
-            mySupermodeTagProperties[Supermode::DEMAND],
+            mySetTagProperties.at(GNE_TAG_SUPERMODE_DEMAND),
             GUIIcon::MODEVEHICLE,
             TL("Vehicles"));
     mySetTagProperties[GNE_TAG_STOPS] = new GNETagProperties(GNE_TAG_STOPS,
-            mySetTagProperties[SUMO_TAG_VIEWSETTINGS_VEHICLES],
+            mySetTagProperties.at(SUMO_TAG_VIEWSETTINGS_VEHICLES),
             GUIIcon::MODEWIRE,
             TL("Stops"));
     // persons
     mySetTagProperties[SUMO_TAG_VIEWSETTINGS_PERSONS] = new GNETagProperties(SUMO_TAG_VIEWSETTINGS_PERSONS,
-            mySupermodeTagProperties[Supermode::DEMAND],
+            mySetTagProperties.at(GNE_TAG_SUPERMODE_DEMAND),
             GUIIcon::MODEPERSON,
             TL("Persons"));
     mySetTagProperties[GNE_TAG_PERSONPLANS] = new GNETagProperties(GNE_TAG_PERSONPLANS,
-            mySetTagProperties[SUMO_TAG_VIEWSETTINGS_PERSONS],
+            mySetTagProperties.at(SUMO_TAG_VIEWSETTINGS_PERSONS),
             GUIIcon::MODEWIRE,
             TL("Person plans"));
     mySetTagProperties[GNE_TAG_PERSONTRIPS] = new GNETagProperties(GNE_TAG_PERSONTRIPS,
-            mySetTagProperties[GNE_TAG_PERSONPLANS],
+            mySetTagProperties.at(GNE_TAG_PERSONPLANS),
             GUIIcon::PERSONTRIP_BUSSTOP,
             TL("Person trips"));
     mySetTagProperties[GNE_TAG_RIDES] = new GNETagProperties(GNE_TAG_RIDES,
-            mySetTagProperties[GNE_TAG_PERSONPLANS],
+            mySetTagProperties.at(GNE_TAG_PERSONPLANS),
             GUIIcon::RIDE_BUSSTOP,
             TL("Rides"));
     mySetTagProperties[GNE_TAG_WALKS] = new GNETagProperties(GNE_TAG_WALKS,
-            mySetTagProperties[GNE_TAG_PERSONPLANS],
+            mySetTagProperties.at(GNE_TAG_PERSONPLANS),
             GUIIcon::WALK_BUSSTOP,
             TL("Walks trips"));
     mySetTagProperties[GNE_TAG_PERSONSTOPS] = new GNETagProperties(GNE_TAG_PERSONSTOPS,
-            mySetTagProperties[GNE_TAG_PERSONPLANS],
+            mySetTagProperties.at(GNE_TAG_PERSONPLANS),
             GUIIcon::STOP,
             TL("Person stop"));
     // containers
     mySetTagProperties[SUMO_TAG_VIEWSETTINGS_CONTAINERS] = new GNETagProperties(SUMO_TAG_VIEWSETTINGS_CONTAINERS,
-            mySupermodeTagProperties[Supermode::DEMAND],
+            mySetTagProperties.at(GNE_TAG_SUPERMODE_DEMAND),
             GUIIcon::MODEVEHICLE,
             TL("Containers"));
     mySetTagProperties[GNE_TAG_CONTAINERPLANS] = new GNETagProperties(GNE_TAG_CONTAINERPLANS,
-            mySetTagProperties[SUMO_TAG_VIEWSETTINGS_CONTAINERS],
+            mySetTagProperties.at(SUMO_TAG_VIEWSETTINGS_CONTAINERS),
             GUIIcon::MODEWIRE,
             TL("Container plans"));
     mySetTagProperties[GNE_TAG_TRANSPORTS] = new GNETagProperties(GNE_TAG_TRANSPORTS,
-            mySetTagProperties[GNE_TAG_CONTAINERPLANS],
+            mySetTagProperties.at(GNE_TAG_CONTAINERPLANS),
             GUIIcon::TRANSPORT_BUSSTOP,
             TL("Transports"));
     mySetTagProperties[GNE_TAG_TRANSHIPS] = new GNETagProperties(GNE_TAG_TRANSHIPS,
-            mySetTagProperties[GNE_TAG_CONTAINERPLANS],
+            mySetTagProperties.at(GNE_TAG_CONTAINERPLANS),
             GUIIcon::TRANSHIP_BUSSTOP,
             TL("Tranships"));
     mySetTagProperties[GNE_TAG_CONTAINERSTOPS] = new GNETagProperties(GNE_TAG_CONTAINERSTOPS,
-            mySetTagProperties[GNE_TAG_CONTAINERPLANS],
+            mySetTagProperties.at(GNE_TAG_CONTAINERPLANS),
             GUIIcon::STOP,
             TL("Container stop"));
     // datas
     mySetTagProperties[GNE_TAG_DATAS] = new GNETagProperties(GNE_TAG_DATAS,
-            mySupermodeTagProperties.at(Supermode::DATA),
+            mySetTagProperties.at(GNE_TAG_SUPERMODE_DATA),
             GUIIcon::EDGEDATA,
             TL("Datas"));
     mySetTagProperties[GNE_TAG_MEANDATAS] = new GNETagProperties(GNE_TAG_MEANDATAS,
-            mySupermodeTagProperties.at(Supermode::DATA),
+            mySetTagProperties.at(GNE_TAG_SUPERMODE_DATA),
             GUIIcon::MEANDATAEDGE,
             TL("Mean datas"));
 }
@@ -505,7 +518,7 @@ GNETagPropertiesDatabase::fillNetworkElements() {
     SumoXMLTag currentTag = SUMO_TAG_JUNCTION;
     {
         // set values of tag
-        myTagProperties[currentTag] = new GNETagProperties(currentTag, mySupermodeTagProperties.at(Supermode::NETWORK),
+        myTagProperties[currentTag] = new GNETagProperties(currentTag, mySetTagProperties[GNE_TAG_SUPERMODE_NETWORK],
                 GNETagProperties::TagType::NETWORKELEMENT,
                 GNETagProperties::TagProperty::RTREE,
                 GNETagProperties::TagParents::NO_PARENTS,
@@ -588,7 +601,7 @@ GNETagPropertiesDatabase::fillNetworkElements() {
     currentTag = SUMO_TAG_TYPE;
     {
         // set values of tag
-        myTagProperties[currentTag] = new GNETagProperties(currentTag, mySupermodeTagProperties.at(Supermode::NETWORK),
+        myTagProperties[currentTag] = new GNETagProperties(currentTag, mySetTagProperties[GNE_TAG_SUPERMODE_NETWORK],
                 GNETagProperties::TagType::NETWORKELEMENT,
                 GNETagProperties::TagProperty::NOTDRAWABLE | GNETagProperties::TagProperty::NOTSELECTABLE,
                 GNETagProperties::TagParents::NO_PARENTS,
@@ -645,7 +658,7 @@ GNETagPropertiesDatabase::fillNetworkElements() {
     currentTag = SUMO_TAG_LANETYPE;
     {
         // set values of tag
-        myTagProperties[currentTag] = new GNETagProperties(currentTag, mySupermodeTagProperties.at(Supermode::NETWORK),
+        myTagProperties[currentTag] = new GNETagProperties(currentTag, mySetTagProperties[GNE_TAG_SUPERMODE_NETWORK],
                 GNETagProperties::TagType::NETWORKELEMENT,
                 GNETagProperties::TagProperty::NOTDRAWABLE | GNETagProperties::TagProperty::NOTSELECTABLE,
                 GNETagProperties::TagParents::NO_PARENTS,
@@ -669,7 +682,7 @@ GNETagPropertiesDatabase::fillNetworkElements() {
     currentTag = SUMO_TAG_EDGE;
     {
         // set values of tag
-        myTagProperties[currentTag] = new GNETagProperties(currentTag, mySupermodeTagProperties.at(Supermode::NETWORK),
+        myTagProperties[currentTag] = new GNETagProperties(currentTag, mySetTagProperties[GNE_TAG_SUPERMODE_NETWORK],
                 GNETagProperties::TagType::NETWORKELEMENT,
                 GNETagProperties::TagProperty::RTREE,
                 GNETagProperties::TagParents::NO_PARENTS,
@@ -789,7 +802,7 @@ GNETagPropertiesDatabase::fillNetworkElements() {
     currentTag = SUMO_TAG_LANE;
     {
         // set values of tag
-        myTagProperties[currentTag] = new GNETagProperties(currentTag, mySupermodeTagProperties.at(Supermode::NETWORK),
+        myTagProperties[currentTag] = new GNETagProperties(currentTag, mySetTagProperties[GNE_TAG_SUPERMODE_NETWORK],
                 GNETagProperties::TagType::NETWORKELEMENT,
                 GNETagProperties::TagProperty::NO_PROPERTY,
                 GNETagProperties::TagParents::NO_PARENTS,
@@ -870,7 +883,7 @@ GNETagPropertiesDatabase::fillNetworkElements() {
     currentTag = SUMO_TAG_CROSSING;
     {
         // set values of tag
-        myTagProperties[currentTag] = new GNETagProperties(currentTag, mySupermodeTagProperties.at(Supermode::NETWORK),
+        myTagProperties[currentTag] = new GNETagProperties(currentTag, mySetTagProperties[GNE_TAG_SUPERMODE_NETWORK],
                 GNETagProperties::TagType::NETWORKELEMENT,
                 GNETagProperties::TagProperty::NO_PROPERTY,
                 GNETagProperties::TagParents::NO_PARENTS,
@@ -916,7 +929,7 @@ GNETagPropertiesDatabase::fillNetworkElements() {
     currentTag = SUMO_TAG_WALKINGAREA;
     {
         // set values of tag
-        myTagProperties[currentTag] = new GNETagProperties(currentTag, mySupermodeTagProperties.at(Supermode::NETWORK),
+        myTagProperties[currentTag] = new GNETagProperties(currentTag, mySetTagProperties[GNE_TAG_SUPERMODE_NETWORK],
                 GNETagProperties::TagType::NETWORKELEMENT,
                 GNETagProperties::TagProperty::NOPARAMETERS,
                 GNETagProperties::TagParents::NO_PARENTS,
@@ -945,7 +958,7 @@ GNETagPropertiesDatabase::fillNetworkElements() {
     currentTag = SUMO_TAG_CONNECTION;
     {
         // set values of tag
-        myTagProperties[currentTag] = new GNETagProperties(currentTag, mySupermodeTagProperties.at(Supermode::NETWORK),
+        myTagProperties[currentTag] = new GNETagProperties(currentTag, mySetTagProperties[GNE_TAG_SUPERMODE_NETWORK],
                 GNETagProperties::TagType::NETWORKELEMENT,
                 GNETagProperties::TagProperty::NO_PROPERTY,
                 GNETagProperties::TagParents::NO_PARENTS,
@@ -1070,7 +1083,7 @@ GNETagPropertiesDatabase::fillNetworkElements() {
     currentTag = GNE_TAG_INTERNAL_LANE;
     {
         // set values of tag
-        myTagProperties[currentTag] = new GNETagProperties(currentTag, mySupermodeTagProperties.at(Supermode::NETWORK),
+        myTagProperties[currentTag] = new GNETagProperties(currentTag, mySetTagProperties[GNE_TAG_SUPERMODE_NETWORK],
                 GNETagProperties::TagType::INTERNALLANE,
                 GNETagProperties::TagProperty::NO_PROPERTY,
                 GNETagProperties::TagParents::NO_PARENTS,
@@ -2439,7 +2452,7 @@ GNETagPropertiesDatabase::fillDemandElements() {
     SumoXMLTag currentTag = SUMO_TAG_ROUTE;
     {
         // set values of tag
-        myTagProperties[currentTag] = new GNETagProperties(currentTag, mySupermodeTagProperties.at(Supermode::DEMAND),
+        myTagProperties[currentTag] = new GNETagProperties(currentTag, mySetTagProperties[GNE_TAG_SUPERMODE_DEMAND],
                 GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::ROUTE,
                 GNETagProperties::TagProperty::NO_PROPERTY,
                 GNETagProperties::TagParents::NO_PARENTS,
@@ -2483,7 +2496,7 @@ GNETagPropertiesDatabase::fillDemandElements() {
     currentTag = SUMO_TAG_ROUTE_DISTRIBUTION;
     {
         // set values of tag
-        myTagProperties[currentTag] = new GNETagProperties(currentTag, mySupermodeTagProperties.at(Supermode::DEMAND),
+        myTagProperties[currentTag] = new GNETagProperties(currentTag, mySetTagProperties[GNE_TAG_SUPERMODE_DEMAND],
                 GNETagProperties::TagType::DEMANDELEMENT,
                 GNETagProperties::TagProperty::NOTDRAWABLE | GNETagProperties::TagProperty::NOTSELECTABLE | GNETagProperties::TagProperty::NOPARAMETERS,
                 GNETagProperties::TagParents::NO_PARENTS,
@@ -2496,7 +2509,7 @@ GNETagPropertiesDatabase::fillDemandElements() {
     currentTag = GNE_TAG_ROUTE_EMBEDDED;
     {
         // set values of tag
-        myTagProperties[currentTag] = new GNETagProperties(currentTag, mySupermodeTagProperties.at(Supermode::DEMAND),
+        myTagProperties[currentTag] = new GNETagProperties(currentTag, mySetTagProperties[GNE_TAG_SUPERMODE_DEMAND],
                 GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::ROUTE,
                 GNETagProperties::TagProperty::CHILD,
                 GNETagProperties::TagParents::NO_PARENTS,
@@ -2528,7 +2541,7 @@ GNETagPropertiesDatabase::fillDemandElements() {
     currentTag = SUMO_TAG_VTYPE;
     {
         // set values of tag
-        myTagProperties[currentTag] = new GNETagProperties(currentTag, mySupermodeTagProperties.at(Supermode::DEMAND),
+        myTagProperties[currentTag] = new GNETagProperties(currentTag, mySetTagProperties[GNE_TAG_SUPERMODE_DEMAND],
                 GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::VTYPE,
                 GNETagProperties::TagProperty::NOTDRAWABLE | GNETagProperties::TagProperty::NOTSELECTABLE | GNETagProperties::TagProperty::VCLASS_ICON | GNETagProperties::TagProperty::EXTENDED,
                 GNETagProperties::TagParents::NO_PARENTS,
@@ -2710,7 +2723,7 @@ GNETagPropertiesDatabase::fillDemandElements() {
     currentTag = SUMO_TAG_VTYPE_DISTRIBUTION;
     {
         // set values of tag
-        myTagProperties[currentTag] = new GNETagProperties(currentTag, mySupermodeTagProperties.at(Supermode::DEMAND),
+        myTagProperties[currentTag] = new GNETagProperties(currentTag, mySetTagProperties[GNE_TAG_SUPERMODE_DEMAND],
                 GNETagProperties::TagType::DEMANDELEMENT,
                 GNETagProperties::TagProperty::NOTDRAWABLE | GNETagProperties::TagProperty::NOTSELECTABLE | GNETagProperties::TagProperty::NOPARAMETERS,
                 GNETagProperties::TagParents::NO_PARENTS,
@@ -8216,7 +8229,7 @@ GNETagPropertiesDatabase::fillDataElements() {
     SumoXMLTag currentTag = SUMO_TAG_DATASET;
     {
         // set values of tag
-        myTagProperties[currentTag] = new GNETagProperties(currentTag, mySupermodeTagProperties.at(Supermode::DATA),
+        myTagProperties[currentTag] = new GNETagProperties(currentTag, mySetTagProperties[GNE_TAG_SUPERMODE_DATA],
                 GNETagProperties::TagType::DATAELEMENT,
                 GNETagProperties::TagProperty::NOTDRAWABLE | GNETagProperties::TagProperty::NOPARAMETERS | GNETagProperties::TagProperty::NOTSELECTABLE,
                 GNETagProperties::TagParents::NO_PARENTS,
@@ -8230,7 +8243,7 @@ GNETagPropertiesDatabase::fillDataElements() {
     currentTag = SUMO_TAG_DATAINTERVAL;
     {
         // set values of tag
-        myTagProperties[currentTag] = new GNETagProperties(currentTag, mySupermodeTagProperties.at(Supermode::DATA),
+        myTagProperties[currentTag] = new GNETagProperties(currentTag, mySetTagProperties[GNE_TAG_SUPERMODE_DATA],
                 GNETagProperties::TagType::DATAELEMENT,
                 GNETagProperties::TagProperty::NOTDRAWABLE | GNETagProperties::TagProperty::NOPARAMETERS | GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOTSELECTABLE,
                 GNETagProperties::TagParents::NO_PARENTS,
@@ -8669,6 +8682,22 @@ GNETagPropertiesDatabase::updateMaxNumberOfAttributesEditorRows() {
         }
         if (myMaxNumberOfNeteditAttributeRows < neteditAttributes) {
             myMaxNumberOfNeteditAttributeRows = neteditAttributes;
+        }
+    }
+}
+
+
+void
+GNETagPropertiesDatabase::calculateHierarchyDepth(const GNETagProperties* tagProperty, const int currentLevel) {
+    if (tagProperty->getChildren().empty()) {
+        // check if update hierarchy dept
+        if (currentLevel > myHierarchyDepth) {
+            myHierarchyDepth = currentLevel;
+        }
+    } else {
+        // iterate over low level
+        for (const auto& child : tagProperty->getChildren()) {
+            calculateHierarchyDepth(child, currentLevel + 1);
         }
     }
 }

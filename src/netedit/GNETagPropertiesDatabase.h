@@ -65,6 +65,9 @@ public:
     /// @brief get max number of netedit attribute rows
     int getMaxNumberOfNeteditAttributesRows() const;
 
+    /// @brief get hierarchy dept
+    int getHierarchyDepth() const;
+
     /// @brief write machine readable attribute help to file
     void writeAttributeHelp() const;
 
@@ -248,6 +251,9 @@ protected:
     /// @brief update max number of attributes by type
     void updateMaxNumberOfAttributesEditorRows();
 
+    /// @brief calculate hierarchy depth
+    void calculateHierarchyDepth(const GNETagProperties* tagProperty, const int currentLevel);
+
 private:
     /// @brief max number of editable (non extended) attributes (needed for attributes editor)
     int myMaxNumberOfEditableAttributeRows = 0;
@@ -261,8 +267,8 @@ private:
     /// @brief max number of netedit attributes (needed for netedit attributes editor)
     int myMaxNumberOfNeteditAttributeRows = 0;
 
-    /// @brief map with the tags properties vinculated with supermodes
-    std::map<Supermode, GNETagProperties*> mySupermodeTagProperties;
+    /// @brief hierarchy dept
+    int myHierarchyDepth = 0;
 
     /// @brief map with tag properties sets (persons, stops, etc.)
     std::map<SumoXMLTag, GNETagProperties*> mySetTagProperties;

@@ -189,6 +189,9 @@ public:
     /// @brief get number of attributes
     int getNumberOfAttributes() const;
 
+    /// @brief tag property children
+    const std::vector<GNETagProperties*>& getChildren() const;
+
     /// @brief return the default value of the attribute of an element
     const std::string& getDefaultStringValue(SumoXMLAttr attr) const;
 
@@ -508,7 +511,7 @@ private:
 
     /// @brief Sumo XML Tag vinculated wit this tag Property in String format
     std::string myTagStr;
-    
+
     /// @brief tag property parent
     GNETagProperties* myParent = nullptr;
 
