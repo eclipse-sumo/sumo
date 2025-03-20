@@ -407,6 +407,32 @@ GNETagProperties::getNumberOfAttributes() const {
 }
 
 
+int
+GNETagProperties::getHierarchyDepth() const {
+    int depth = 0;
+    const GNETagProperties* parent = myParent;
+    while (parent != nullptr) {
+        depth++;
+        parent = parent->myParent;
+    }
+    return depth;
+}
+
+
+const GNETagProperties*
+GNETagProperties::getParent(const int depth) const {
+    const GNETagProperties* parent = myParent;
+    for (int i = 0; i < depth; i++) {
+        if (parent) {
+            parent = parent->myParent;
+        } else {
+            throw ProcessError("Too hight depth");
+        }
+    }
+    return parent;
+}
+
+
 const std::vector<GNETagProperties*>&
 GNETagProperties::getChildren() const {
     return myChildren;

@@ -189,6 +189,12 @@ public:
     /// @brief get number of attributes
     int getNumberOfAttributes() const;
 
+    /// @brief get hierarchy depth of this tag property (0 means top)
+    int getHierarchyDepth() const;
+
+    /// @brief get tag property parent
+    const GNETagProperties* getParent(const int depth) const;
+
     /// @brief tag property children
     const std::vector<GNETagProperties*>& getChildren() const;
 
@@ -513,7 +519,7 @@ private:
     std::string myTagStr;
 
     /// @brief tag property parent
-    GNETagProperties* myParent = nullptr;
+    const GNETagProperties* myParent = nullptr;
 
     /// @brief tag property children
     std::vector<GNETagProperties*> myChildren;
