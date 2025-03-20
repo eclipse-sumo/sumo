@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-13 10:07+0100\n"
-"PO-Revision-Date: 2025-03-20 02:41+0000\n"
+"PO-Revision-Date: 2025-03-20 15:02+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -6136,6 +6136,7 @@ msgstr ""
 #: src/netbuild/NBAlgorithms_Railway.cpp:1045
 msgid "No connection found between stops on edge '%' and edge '%'."
 msgstr ""
+"Nessun collegamento è stato trovato tra le fermate sugli archi '%' e '%'."
 
 #: src/netbuild/NBAlgorithms_Railway.cpp:1155
 msgid ""
@@ -12033,11 +12034,13 @@ msgstr ""
 
 #: src/sumo_main.cpp:49
 msgid "Another interrupt signal received, hard exit."
-msgstr ""
+msgstr "Un'altro segnale di interruzione è stato ricevuto - uscita forzata."
 
 #: src/sumo_main.cpp:52
 msgid "Interrupt signal received, trying to exit gracefully."
 msgstr ""
+"Un segnale di interruzione è stato ricevuto, cercando di uscire "
+"graziosamente."
 
 #: src/sumo_main.cpp:86
 msgid "A microscopic, multi-modal traffic simulation."
