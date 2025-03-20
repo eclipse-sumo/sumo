@@ -30,7 +30,6 @@
 // class declaration
 // ===========================================================================
 
-class GNEElementSet;
 class GNEMatchAttribute;
 class GNEMatchGenericDataAttribute;
 
@@ -467,14 +466,8 @@ private:
     /// @brief modul for change modification mode
     GNESelectorFrame::ModificationMode* myModificationMode = nullptr;
 
-    /// @brief moduls for select network element set
-    GNEElementSet* myNetworkElementSet = nullptr;
-
-    /// @brief moduls for select demand element set
-    GNEElementSet* myDemandElementSet = nullptr;
-
-    /// @brief moduls for select data element set
-    GNEElementSet* myDataElementSet = nullptr;
+    /// @brief modul for match attribute
+    GNEMatchAttribute* myMatchAttribute = nullptr;
 
     /// @brief modul for visual scaling
     GNESelectorFrame::VisualScaling* myVisualScaling = nullptr;

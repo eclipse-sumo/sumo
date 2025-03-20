@@ -18,6 +18,7 @@
 // The Widget for modifying selections of network-elements
 /****************************************************************************/
 
+#include <netedit/frames/common/GNESelectorFrame.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNETagProperties.h>
 #include <netedit/GNETagPropertiesDatabase.h>
@@ -25,7 +26,6 @@
 #include <utils/gui/windows/GUIAppEnum.h>
 
 #include "GNEMatchAttribute.h"
-
 // ===========================================================================
 // FOX callback mapping
 // ===========================================================================
@@ -44,14 +44,17 @@ FXIMPLEMENT(GNEMatchAttribute, MFXGroupBoxModule, GNEMatchAttributeMap, ARRAYNUM
 // method definitions
 // ===========================================================================
 
-GNEMatchAttribute::GNEMatchAttribute(GNEElementSet* elementSet, SumoXMLTag defaultTag, SumoXMLAttr defaultAttr, const std::string& defaultValue) :
-    MFXGroupBoxModule(elementSet->getSelectorFrameParent(), TL("Match Attribute")),
-    myElementSet(elementSet),
+GNEMatchAttribute::GNEMatchAttribute(GNESelectorFrame* selectorFrameParent, SumoXMLTag defaultTag, SumoXMLAttr defaultAttr, const std::string& defaultValue) :
+    MFXGroupBoxModule(selectorFrameParent->getContentFrame(), TL("Match Attribute")),
     myCurrentTag(defaultTag),
-    myCurrentAttribute(defaultAttr) {
-    // Create MFXComboBoxIcon for tags
-    myMatchTagComboBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, true, GUIDesignComboBoxVisibleItems,
-            this, MID_GNE_SELECTORFRAME_SELECTTAG, GUIDesignComboBox);
+    myCurrentAttribute(defaultAttr),
+    mySelectorFrameParent(selectorFrameParent) {
+    // Create MFXComboBoxIcons
+    for (int i = 0; i < selectorFrameParent->getViewNet()->getNet()->getTagPropertiesDatabase()->getHierarchyDepth(); i++) {
+        auto comboBoxIcon = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, true, GUIDesignComboBoxVisibleItems,
+                                                this, MID_GNE_SELECTORFRAME_SELECTTAG, GUIDesignComboBox);
+        myTagComboBoxVector.push_back(comboBoxIcon);
+    }
     // Create MFXComboBoxIcon for Attributes
     myMatchAttrComboBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, true, GUIDesignComboBoxVisibleItems,
             this, MID_GNE_SELECTORFRAME_SELECTATTRIBUTE, GUIDesignComboBox);
@@ -71,8 +74,9 @@ GNEMatchAttribute::~GNEMatchAttribute() {}
 
 void
 GNEMatchAttribute::enableMatchAttribute() {
-    // enable comboBox, text field and button
-    myMatchTagComboBox->enable();
+    for (const auto& tagComboBox : myTagComboBoxVector) {
+        tagComboBox->enable();
+    }
     myMatchAttrComboBox->enable();
     myMatchString->enable();
     myMatchStringButton->enable();
@@ -81,53 +85,56 @@ GNEMatchAttribute::enableMatchAttribute() {
 
 void
 GNEMatchAttribute::disableMatchAttribute() {
-    // disable comboboxes and text field
-    myMatchTagComboBox->disable();
+    for (const auto& tagComboBox : myTagComboBoxVector) {
+        tagComboBox->disable();
+        tagComboBox->setTextColor(FXRGB(0, 0, 0));
+    }
     myMatchAttrComboBox->disable();
     myMatchString->disable();
     myMatchStringButton->disable();
     // change colors to black (even if there are invalid values)
-    myMatchTagComboBox->setTextColor(FXRGB(0, 0, 0));
     myMatchAttrComboBox->setTextColor(FXRGB(0, 0, 0));
     myMatchString->setTextColor(FXRGB(0, 0, 0));
 }
 
 
 void
-GNEMatchAttribute::showMatchAttribute(const GNEElementSet::Type type) {
-    const auto tagPropertiesDatabase = myElementSet->getSelectorFrameParent()->getViewNet()->getNet()->getTagPropertiesDatabase();
-    // declare flag for proj
-    const bool proj = (GeoConvHelper::getFinal().getProjString() != "!");
-    // get tags for the given element set
-    std::vector<const GNETagProperties*> tagPropertiesByType;
-    if (type == (GNEElementSet::Type::NETWORK)) {
-        tagPropertiesByType = tagPropertiesDatabase->getTagPropertiesByType(GNETagProperties::TagType::NETWORKELEMENT);
-    } else if (type == GNEElementSet::Type::ADDITIONAL) {
-        tagPropertiesByType = tagPropertiesDatabase->getTagPropertiesByType(GNETagProperties::TagType::ADDITIONALELEMENT);
-    } else if (type == GNEElementSet::Type::SHAPE) {
-        tagPropertiesByType = tagPropertiesDatabase->getTagPropertiesByType(GNETagProperties::TagType::SHAPE);
-    } else if (type == GNEElementSet::Type::TAZ) {
-        tagPropertiesByType = tagPropertiesDatabase->getTagPropertiesByType(GNETagProperties::TagType::TAZELEMENT);
-    } else if (type == GNEElementSet::Type::DEMAND) {
-        tagPropertiesByType = tagPropertiesDatabase->getTagPropertiesByType(GNETagProperties::TagType::DEMANDELEMENT);
-    } else if (type == GNEElementSet::Type::GENERICDATA) {
-        tagPropertiesByType = tagPropertiesDatabase->getTagPropertiesByType(GNETagProperties::TagType::GENERICDATA);
-    } else {
-        throw ProcessError(TL("Unknown set"));
-    }
-    // now filter to allow only drawables and proj
-    myTagProperties.clear();
-    for (const auto tagProperty : tagPropertiesByType) {
-        if (tagProperty->isDrawable() && (!tagProperty->requireProj() || proj)) {
-            myTagProperties.push_back(tagProperty);
+GNEMatchAttribute::showMatchAttribute() {
+    /*
+        const auto tagPropertiesDatabase = myElementSet->getSelectorFrameParent()->getViewNet()->getNet()->getTagPropertiesDatabase();
+        // declare flag for proj
+        const bool proj = (GeoConvHelper::getFinal().getProjString() != "!");
+        // get tags for the given element set
+        std::vector<const GNETagProperties*> tagPropertiesByType;
+        if (type == (GNEElementSet::Type::NETWORK)) {
+            tagPropertiesByType = tagPropertiesDatabase->getTagPropertiesByType(GNETagProperties::TagType::NETWORKELEMENT);
+        } else if (type == GNEElementSet::Type::ADDITIONAL) {
+            tagPropertiesByType = tagPropertiesDatabase->getTagPropertiesByType(GNETagProperties::TagType::ADDITIONALELEMENT);
+        } else if (type == GNEElementSet::Type::SHAPE) {
+            tagPropertiesByType = tagPropertiesDatabase->getTagPropertiesByType(GNETagProperties::TagType::SHAPE);
+        } else if (type == GNEElementSet::Type::TAZ) {
+            tagPropertiesByType = tagPropertiesDatabase->getTagPropertiesByType(GNETagProperties::TagType::TAZELEMENT);
+        } else if (type == GNEElementSet::Type::DEMAND) {
+            tagPropertiesByType = tagPropertiesDatabase->getTagPropertiesByType(GNETagProperties::TagType::DEMANDELEMENT);
+        } else if (type == GNEElementSet::Type::GENERICDATA) {
+            tagPropertiesByType = tagPropertiesDatabase->getTagPropertiesByType(GNETagProperties::TagType::GENERICDATA);
+        } else {
+            throw ProcessError(TL("Unknown set"));
         }
-    }
-    // update tag
-    updateTag();
-    // update attributeProperty
-    updateAttribute();
-    // show groupbox
-    show();
+        // now filter to allow only drawables and proj
+        myTagProperties.clear();
+        for (const auto tagProperty : tagPropertiesByType) {
+            if (tagProperty->isDrawable() && (!tagProperty->requireProj() || proj)) {
+                myTagProperties.push_back(tagProperty);
+            }
+        }
+        // update tag
+        updateTag();
+        // update attributeProperty
+        updateAttribute();
+        // show groupbox
+        show();
+    */
 }
 
 
@@ -139,100 +146,112 @@ GNEMatchAttribute::hideMatchAttribute() {
 
 
 long
-GNEMatchAttribute::onCmdSelMBTag(FXObject*, FXSelector, void*) {
-    // reset current tag
-    myCurrentTag = SUMO_TAG_NOTHING;
-    // set invalid color
-    myMatchTagComboBox->setTextColor(FXRGB(255, 0, 0));
-    // iterate over tags
-    for (const auto& tagProperty : myTagProperties) {
-        if (tagProperty->getSelectorText() == myMatchTagComboBox->getText().text()) {
-            // set valid tag
-            myCurrentTag = tagProperty->getTag();
-            // set valid color
-            myMatchTagComboBox->setTextColor(FXRGB(0, 0, 0));
+GNEMatchAttribute::onCmdSelMBTag(FXObject* obj, FXSelector, void*) {
+    /*
+        // iterate over all comboBoxes
+        for (const auto &tagComboBox : myTagComboBoxVector) {
+            if (tagComboBox == obj) {
+            }
         }
-    }
-    // update attributeProperty
-    updateAttribute();
+        // reset current tag
+        myCurrentTag = SUMO_TAG_NOTHING;
+        // set invalid color
+        myMatchTagComboBox->setTextColor(FXRGB(255, 0, 0));
+        // iterate over tags
+        for (const auto& tagProperty : myTagProperties) {
+            if (tagProperty->getSelectorText() == myMatchTagComboBox->getText().text()) {
+                // set valid tag
+                myCurrentTag = tagProperty->getTag();
+                // set valid color
+                myMatchTagComboBox->setTextColor(FXRGB(0, 0, 0));
+            }
+        }
+        // update attributeProperty
+        updateAttribute();
+    */
     return 1;
 }
 
 
 long
 GNEMatchAttribute::onCmdSelMBAttribute(FXObject*, FXSelector, void*) {
-    // set current selected attributeProperty
-    myCurrentAttribute = SUMO_ATTR_NOTHING;
-    for (const auto attributeProperty : myElementSet->getSelectorFrameParent()->getViewNet()->getNet()->getTagPropertiesDatabase()->getTagProperty(myCurrentTag)->getAttributeProperties()) {
-        if (attributeProperty->getAttrStr() == myMatchAttrComboBox->getText().text()) {
-            myCurrentAttribute = attributeProperty->getAttr();
+    /*
+        // set current selected attributeProperty
+        myCurrentAttribute = SUMO_ATTR_NOTHING;
+        for (const auto attributeProperty : myElementSet->getSelectorFrameParent()->getViewNet()->getNet()->getTagPropertiesDatabase()->getTagProperty(myCurrentTag)->getAttributeProperties()) {
+            if (attributeProperty->getAttrStr() == myMatchAttrComboBox->getText().text()) {
+                myCurrentAttribute = attributeProperty->getAttr();
+            }
         }
-    }
-    // check if selected attributeProperty is valid
-    if (myCurrentAttribute != SUMO_ATTR_NOTHING) {
-        myMatchAttrComboBox->setTextColor(FXRGB(0, 0, 0));
-        myMatchString->enable();
-        myMatchStringButton->enable();
-    } else {
-        myMatchAttrComboBox->setTextColor(FXRGB(255, 0, 0));
-        myMatchString->disable();
-        myMatchStringButton->disable();
-    }
+        // check if selected attributeProperty is valid
+        if (myCurrentAttribute != SUMO_ATTR_NOTHING) {
+            myMatchAttrComboBox->setTextColor(FXRGB(0, 0, 0));
+            myMatchString->enable();
+            myMatchStringButton->enable();
+        } else {
+            myMatchAttrComboBox->setTextColor(FXRGB(255, 0, 0));
+            myMatchString->disable();
+            myMatchStringButton->disable();
+        }
+    */
     return 1;
 }
 
 
 long
 GNEMatchAttribute::onCmdSelMBString(FXObject*, FXSelector, void*) {
-    // obtain expresion
-    std::string expr(myMatchString->getText().text());
-    const auto tagProperty = myElementSet->getSelectorFrameParent()->getViewNet()->getNet()->getTagPropertiesDatabase()->getTagProperty(myCurrentTag);
-    bool valid = true;
-    if (expr == "") {
-        // the empty expression matches all objects
-        myElementSet->getSelectorFrameParent()->handleIDs(myElementSet->getSelectorFrameParent()->getMatches(myCurrentTag, myCurrentAttribute, '@', 0, expr));
-    } else if (tagProperty->hasAttribute(myCurrentAttribute) && tagProperty->getAttributeProperties(myCurrentAttribute)->isNumerical()) {
-        // The expression must have the form
-        //  <val matches if attr < val
-        //  >val matches if attr > val
-        //  =val matches if attr = val
-        //  val matches if attr = val
-        char compOp = expr[0];
-        if (compOp == '<' || compOp == '>' || compOp == '=') {
-            expr = expr.substr(1);
+    /*
+        // obtain expresion
+        std::string expr(myMatchString->getText().text());
+        const auto tagProperty = myElementSet->getSelectorFrameParent()->getViewNet()->getNet()->getTagPropertiesDatabase()->getTagProperty(myCurrentTag);
+        bool valid = true;
+        if (expr == "") {
+            // the empty expression matches all objects
+            myElementSet->getSelectorFrameParent()->handleIDs(myElementSet->getSelectorFrameParent()->getMatches(myCurrentTag, myCurrentAttribute, '@', 0, expr));
+        } else if (tagProperty->hasAttribute(myCurrentAttribute) && tagProperty->getAttributeProperties(myCurrentAttribute)->isNumerical()) {
+            // The expression must have the form
+            //  <val matches if attr < val
+            //  >val matches if attr > val
+            //  =val matches if attr = val
+            //  val matches if attr = val
+            char compOp = expr[0];
+            if (compOp == '<' || compOp == '>' || compOp == '=') {
+                expr = expr.substr(1);
+            } else {
+                compOp = '=';
+            }
+            // check if value can be parsed to double
+            if (GNEAttributeCarrier::canParse<double>(expr.c_str())) {
+                myElementSet->getSelectorFrameParent()->handleIDs(myElementSet->getSelectorFrameParent()->getMatches(myCurrentTag, myCurrentAttribute, compOp, GNEAttributeCarrier::parse<double>(expr.c_str()), expr));
+            } else {
+                valid = false;
+            }
         } else {
-            compOp = '=';
+            // The expression must have the form
+            //   =str: matches if <str> is an exact match
+            //   !str: matches if <str> is not a substring
+            //   ^str: matches if <str> is not an exact match
+            //   str: matches if <str> is a substring (sends compOp '@')
+            // Alternatively, if the expression is empty it matches all objects
+            char compOp = expr[0];
+            if (compOp == '=' || compOp == '!' || compOp == '^') {
+                expr = expr.substr(1);
+            } else {
+                compOp = '@';
+            }
+            myElementSet->getSelectorFrameParent()->handleIDs(myElementSet->getSelectorFrameParent()->getMatches(myCurrentTag, myCurrentAttribute, compOp, 0, expr));
         }
-        // check if value can be parsed to double
-        if (GNEAttributeCarrier::canParse<double>(expr.c_str())) {
-            myElementSet->getSelectorFrameParent()->handleIDs(myElementSet->getSelectorFrameParent()->getMatches(myCurrentTag, myCurrentAttribute, compOp, GNEAttributeCarrier::parse<double>(expr.c_str()), expr));
+        if (valid) {
+            myMatchString->setTextColor(FXRGB(0, 0, 0));
+            myMatchString->killFocus();
+            myMatchStringButton->enable();
         } else {
-            valid = false;
+            myMatchString->setTextColor(FXRGB(255, 0, 0));
+            myMatchStringButton->disable();
         }
-    } else {
-        // The expression must have the form
-        //   =str: matches if <str> is an exact match
-        //   !str: matches if <str> is not a substring
-        //   ^str: matches if <str> is not an exact match
-        //   str: matches if <str> is a substring (sends compOp '@')
-        // Alternatively, if the expression is empty it matches all objects
-        char compOp = expr[0];
-        if (compOp == '=' || compOp == '!' || compOp == '^') {
-            expr = expr.substr(1);
-        } else {
-            compOp = '@';
-        }
-        myElementSet->getSelectorFrameParent()->handleIDs(myElementSet->getSelectorFrameParent()->getMatches(myCurrentTag, myCurrentAttribute, compOp, 0, expr));
-    }
-    if (valid) {
-        myMatchString->setTextColor(FXRGB(0, 0, 0));
-        myMatchString->killFocus();
-        myMatchStringButton->enable();
-    } else {
-        myMatchString->setTextColor(FXRGB(255, 0, 0));
-        myMatchStringButton->disable();
-    }
+    */
     return 1;
+
 }
 
 
@@ -288,6 +307,7 @@ GNEMatchAttribute::onCmdHelp(FXObject*, FXSelector, void*) {
 
 void
 GNEMatchAttribute::updateTag() {
+    /*
     // declare tag index
     int tagIndex = -1;
     // fill combo box tags
@@ -309,48 +329,51 @@ GNEMatchAttribute::updateTag() {
     } else {
         myMatchTagComboBox->setCurrentItem(tagIndex);
     }
+    */
 }
 
 
 void
 GNEMatchAttribute::updateAttribute() {
-    // first check if tag is valid
-    if (myCurrentTag != SUMO_TAG_NOTHING) {
-        // now continue with attributes
-        const auto tagProperty = myElementSet->getSelectorFrameParent()->getViewNet()->getNet()->getTagPropertiesDatabase()->getTagProperty(myCurrentTag);
-        // set color and enable items
-        myMatchAttrComboBox->enable();
-        myMatchAttrComboBox->setTextColor(FXRGB(0, 0, 0));
-        myMatchAttrComboBox->clearItems();
-        // declare attr index
-        int attrIndex = -1;
-        // fill attributeProperty combo box
-        for (int i = 0; i < (int)tagProperty->getNumberOfAttributes(); i++) {
-            myMatchAttrComboBox->appendIconItem(tagProperty->at(i)->getAttrStr().c_str());
-            // check attr index
-            if (tagProperty->at(i)->getAttr() == myCurrentAttribute) {
-                attrIndex = i;
+    /*
+        // first check if tag is valid
+        if (myCurrentTag != SUMO_TAG_NOTHING) {
+            // now continue with attributes
+            const auto tagProperty = myElementSet->getSelectorFrameParent()->getViewNet()->getNet()->getTagPropertiesDatabase()->getTagProperty(myCurrentTag);
+            // set color and enable items
+            myMatchAttrComboBox->enable();
+            myMatchAttrComboBox->setTextColor(FXRGB(0, 0, 0));
+            myMatchAttrComboBox->clearItems();
+            // declare attr index
+            int attrIndex = -1;
+            // fill attributeProperty combo box
+            for (int i = 0; i < (int)tagProperty->getNumberOfAttributes(); i++) {
+                myMatchAttrComboBox->appendIconItem(tagProperty->at(i)->getAttrStr().c_str());
+                // check attr index
+                if (tagProperty->at(i)->getAttr() == myCurrentAttribute) {
+                    attrIndex = i;
+                }
             }
-        }
-        // check attrIndex
-        if (attrIndex == -1) {
-            myMatchAttrComboBox->setCurrentItem(0);
-            if (tagProperty->getNumberOfAttributes() > 0) {
-                myCurrentAttribute = tagProperty->getAttributeProperties().front()->getAttr();
+            // check attrIndex
+            if (attrIndex == -1) {
+                myMatchAttrComboBox->setCurrentItem(0);
+                if (tagProperty->getNumberOfAttributes() > 0) {
+                    myCurrentAttribute = tagProperty->getAttributeProperties().front()->getAttr();
+                }
+            } else {
+                myMatchAttrComboBox->setCurrentItem(attrIndex);
             }
+            // enable mach string
+            myMatchString->enable();
+            myMatchStringButton->enable();
         } else {
-            myMatchAttrComboBox->setCurrentItem(attrIndex);
+            // disable myMatchAttrComboBox
+            myMatchAttrComboBox->disable();
+            // disable mach string
+            myMatchString->disable();
+            myMatchStringButton->disable();
         }
-        // enable mach string
-        myMatchString->enable();
-        myMatchStringButton->enable();
-    } else {
-        // disable myMatchAttrComboBox
-        myMatchAttrComboBox->disable();
-        // disable mach string
-        myMatchString->disable();
-        myMatchStringButton->disable();
-    }
+    */
 }
 
 /****************************************************************************/

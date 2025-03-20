@@ -21,13 +21,13 @@
 #pragma once
 #include <config.h>
 
-#include "GNEElementSet.h"
+#include <utils/foxtools/MFXGroupBoxModule.h>
 
 // ===========================================================================
-// class definitions
+// class declaration
 // ===========================================================================
 
-class GNETagProperties;
+class GNESelectorFrame;
 
 // ===========================================================================
 // class definitions
@@ -39,7 +39,7 @@ class GNEMatchAttribute : public MFXGroupBoxModule {
 
 public:
     /// @brief constructor
-    GNEMatchAttribute(GNEElementSet* elementSet, SumoXMLTag defaultTag, SumoXMLAttr defaultAttr, const std::string& defaultValue);
+    GNEMatchAttribute(GNESelectorFrame* selectorFrameParent, SumoXMLTag defaultTag, SumoXMLAttr defaultAttr, const std::string& defaultValue);
 
     /// @brief destructor
     ~GNEMatchAttribute();
@@ -51,7 +51,7 @@ public:
     void disableMatchAttribute();
 
     /// @brief show match attributes
-    void showMatchAttribute(const GNEElementSet::Type type);
+    void showMatchAttribute();
 
     /// @brief hide match attributes
     void hideMatchAttribute();
@@ -62,7 +62,7 @@ public:
     /**@brief Called when the user selectes a tag in the match box
      * @note updates the attr listbox and repaints itself
      */
-    long onCmdSelMBTag(FXObject*, FXSelector, void*);
+    long onCmdSelMBTag(FXObject* obj, FXSelector, void*);
 
     /**@brief Called when the user selectes a tag in the match box
      * @note updates the attr listbox and repaints itself
@@ -92,14 +92,14 @@ protected:
     void updateAttribute();
 
 private:
-    /// @brief pointer to element set Parent
-    GNEElementSet* myElementSet;
+    /// @brief pointer to selector frame parent
+    GNESelectorFrame* mySelectorFrameParent = nullptr;
 
-    /// @brief tag of the match box
-    MFXComboBoxIcon* myMatchTagComboBox;
+    /// @brief vector with ComboBoxes
+    std::vector <MFXComboBoxIcon*> myTagComboBoxVector;
 
     /// @brief attributes of the match box
-    MFXComboBoxIcon* myMatchAttrComboBox;
+    MFXComboBoxIcon* myMatchAttrComboBox = nullptr;
 
     /// @brief current SumoXMLTag tag
     SumoXMLTag myCurrentTag;
@@ -108,10 +108,10 @@ private:
     SumoXMLAttr myCurrentAttribute;
 
     /// @brief string of the match
-    FXTextField* myMatchString;
+    FXTextField* myMatchString = nullptr;
 
     /// @brief match string button
-    FXButton* myMatchStringButton;
+    FXButton* myMatchStringButton = nullptr;
 
     /// @brief vector with tagProperties
     std::vector<const GNETagProperties*> myTagProperties;

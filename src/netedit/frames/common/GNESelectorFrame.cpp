@@ -25,13 +25,13 @@
 #include <netedit/elements/network/GNEConnection.h>
 #include <netedit/elements/network/GNECrossing.h>
 #include <netedit/elements/network/GNEWalkingArea.h>
+#include <netedit/frames/common/GNEMatchAttribute.h>
 #include <utils/foxtools/MFXDynamicLabel.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 
 #include "GNESelectorFrame.h"
-#include "GNEElementSet.h"
 
 // ===========================================================================
 // FOX callback mapping
@@ -940,9 +940,7 @@ GNESelectorFrame::GNESelectorFrame(GNEViewParent* viewParent, GNEViewNet* viewNe
     // create Modification Mode modul
     myModificationMode = new ModificationMode(this);
     // create ElementSet modul
-    myNetworkElementSet = new GNEElementSet(this, Supermode::NETWORK, SUMO_TAG_EDGE, SUMO_ATTR_SPEED, ">10.0");
-    myDemandElementSet = new GNEElementSet(this, Supermode::DEMAND, SUMO_TAG_VEHICLE, SUMO_ATTR_ID, "");
-    myDataElementSet = new GNEElementSet(this, Supermode::DATA, GNE_TAG_EDGEREL_SINGLE, GNE_ATTR_PARAMETERS, "key=value");
+    myMatchAttribute = new GNEMatchAttribute(this, SUMO_TAG_EDGE, SUMO_ATTR_SPEED, ">10.0");
     // create VisualScaling modul
     myVisualScaling = new VisualScaling(this);
     // create SelectionOperation modul
@@ -959,23 +957,7 @@ GNESelectorFrame::~GNESelectorFrame() {}
 
 void
 GNESelectorFrame::show() {
-    // refresh element set
-    if (myViewNet->getEditModes().isCurrentSupermodeNetwork()) {
-        // only show network element set
-        myNetworkElementSet->showElementSet();
-        myDemandElementSet->hideElementSet();
-        myDataElementSet->hideElementSet();
-    } else if (myViewNet->getEditModes().isCurrentSupermodeDemand()) {
-        // only show demand element set
-        myNetworkElementSet->hideElementSet();
-        myDemandElementSet->showElementSet();
-        myDataElementSet->hideElementSet();
-    } else if (myViewNet->getEditModes().isCurrentSupermodeData()) {
-        // only show data element set
-        myNetworkElementSet->hideElementSet();
-        myDemandElementSet->hideElementSet();
-        myDataElementSet->showElementSet();
-    }
+    myMatchAttribute->showMatchAttribute();
     // update information label
     mySelectionInformation->updateInformationLabel();
     // Show frame
