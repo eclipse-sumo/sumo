@@ -136,6 +136,7 @@ struct GNENetHelper {
 
         /**@brief get the attribute carriers based on Type
          * @param[in] type The GUI-type of the AC. SUMO_TAG_NOTHING returns all elements (Warning: bottleneck)
+         * @note tag could not exist
          */
         std::vector<GNEAttributeCarrier*> retrieveAttributeCarriers(SumoXMLTag tag = SUMO_TAG_NOTHING);
 

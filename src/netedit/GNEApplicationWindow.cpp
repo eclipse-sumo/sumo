@@ -3826,7 +3826,7 @@ GNEApplicationWindow::onCmdSaveJuPedSimElementsAs(FXObject*, FXSelector, void*) 
             // get all jupedsims
             std::unordered_set<const GNEAttributeCarrier*> juPedSimElements;
             for (const auto& additionalTag : myNet->getAttributeCarriers()->getAdditionals()) {
-                if (myTagPropertiesDatabase->getTagProperty(additionalTag.first)->isJuPedSimElement()) {
+                if (myTagPropertiesDatabase->getTagProperty(additionalTag.first, true)->isJuPedSimElement()) {
                     for (const auto& additional : additionalTag.second) {
                         juPedSimElements.insert(additional.second);
                     }

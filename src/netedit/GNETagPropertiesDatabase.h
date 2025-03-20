@@ -45,13 +45,13 @@ public:
     ~GNETagPropertiesDatabase();
 
     /// @brief get tagProperty associated to the given tag
-    GNETagProperties* getTagProperty(SumoXMLTag tag) const;
+    GNETagProperties* getTagProperty(const SumoXMLTag tag, const bool hardFail) const;
+
+    /// @brief get tagProperties associated to the given set tag (persons, stops, plans, etc.)
+    const std::vector<const GNETagProperties*> getTagPropertiesSet(const SumoXMLTag tag, const bool hardFail) const;
 
     /// @brief get tagProperties associated to the given GNETagProperties::TagType (NETWORKELEMENT, ADDITIONALELEMENT, VEHICLE, etc.)
     const std::vector<const GNETagProperties*> getTagPropertiesByType(const int tagPropertyCategory) const;
-
-    /// @brief get tagProperties associated to the given set tag (persons, stops, plans, etc.)
-    const std::vector<const GNETagProperties*> getTagPropertiesSet(SumoXMLTag setTag) const;
 
     /// @brief max number of editable (non extended) attributes
     int getMaxNumberOfEditableAttributeRows() const;

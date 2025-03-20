@@ -1084,10 +1084,10 @@ void
 GNEEdge::copyEdgeType(const GNEEdgeType* edgeType, GNEUndoList* undoList) {
     const auto tagPropertiesDatabase = myNet->getTagPropertiesDatabase();
     // get tag properties
-    const auto edgeProperties = tagPropertiesDatabase->getTagProperty(SUMO_TAG_EDGE);
-    const auto laneProperties = tagPropertiesDatabase->getTagProperty(SUMO_TAG_LANE);
-    const auto edgeTypeProperties = tagPropertiesDatabase->getTagProperty(SUMO_TAG_TYPE);
-    const auto laneTypeProperties = tagPropertiesDatabase->getTagProperty(SUMO_TAG_LANETYPE);
+    const auto edgeProperties = tagPropertiesDatabase->getTagProperty(SUMO_TAG_EDGE, true);
+    const auto laneProperties = tagPropertiesDatabase->getTagProperty(SUMO_TAG_LANE, true);
+    const auto edgeTypeProperties = tagPropertiesDatabase->getTagProperty(SUMO_TAG_TYPE, true);
+    const auto laneTypeProperties = tagPropertiesDatabase->getTagProperty(SUMO_TAG_LANETYPE, true);
     // set type (only for info)
     setAttribute(SUMO_ATTR_TYPE, edgeType->getAttribute(SUMO_ATTR_ID), undoList);
     // copy attributes

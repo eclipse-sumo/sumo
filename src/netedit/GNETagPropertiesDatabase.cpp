@@ -80,14 +80,29 @@ GNETagPropertiesDatabase::~GNETagPropertiesDatabase() {
 
 
 GNETagProperties*
-GNETagPropertiesDatabase::getTagProperty(SumoXMLTag tag) const {
+GNETagPropertiesDatabase::getTagProperty(SumoXMLTag tag, const bool hardFail) const {
     // check that tag is defined in tagProperties or in tagPropertiesSet
     if (myTagProperties.count(tag) > 0) {
         return myTagProperties.at(tag);
     } else if (mySetTagProperties.count(tag) > 0) {
         return mySetTagProperties.at(tag);
-    } else {
+    } else if (hardFail) {
         throw ProcessError(TLF("TagProperty for tag '%' not defined", toString(tag)));
+    } else {
+        return nullptr;
+    }
+}
+
+
+const std::vector<const GNETagProperties*>
+GNETagPropertiesDatabase::getTagPropertiesSet(const SumoXMLTag tag, const bool hardFail) const {
+    // check that tag is defined in tagProperties or in tagPropertiesSet
+    if (mySetTagProperties.count(tag) > 0) {
+        return mySetTagProperties.at(tag)->getChildren();
+    } else if (hardFail) {
+        throw ProcessError(TLF("TagPropertySet for tag '%' not defined", toString(tag)));
+    } else {
+        return {};
     }
 }
 
@@ -272,31 +287,6 @@ GNETagPropertiesDatabase::getTagPropertiesByType(const int tagPropertyCategory) 
         }
     }
     return allowedTags;
-}
-
-
-const std::vector<const GNETagProperties*>
-GNETagPropertiesDatabase::getTagPropertiesSet(SumoXMLTag setTag) const {
-    std::vector<const GNETagProperties*> result;
-    // fill tags
-    for (const auto& tagProperty : myTagProperties) {
-        if ((setTag == SUMO_TAG_PERSONTRIP) && tagProperty.second->isPlanPerson()) {
-            result.push_back(tagProperty.second);
-        } else if ((setTag == SUMO_TAG_RIDE) && tagProperty.second->isPlanRide()) {
-            result.push_back(tagProperty.second);
-        } else if ((setTag == SUMO_TAG_WALK) && tagProperty.second->isPlanWalk()) {
-            result.push_back(tagProperty.second);
-        } else if ((setTag == GNE_TAG_STOPPERSON) && tagProperty.second->isPlanStopPerson()) {
-            result.push_back(tagProperty.second);
-        } else if ((setTag == SUMO_TAG_TRANSPORT) && tagProperty.second->isPlanTransport()) {
-            result.push_back(tagProperty.second);
-        } else if ((setTag == SUMO_TAG_TRANSHIP) && tagProperty.second->isPlanTranship()) {
-            result.push_back(tagProperty.second);
-        } else if ((setTag == GNE_TAG_STOPCONTAINER) && tagProperty.second->isPlanStopContainer()) {
-            result.push_back(tagProperty.second);
-        }
-    }
-    return result;
 }
 
 
