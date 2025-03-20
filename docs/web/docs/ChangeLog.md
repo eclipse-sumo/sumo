@@ -19,17 +19,28 @@ title: ChangeLog
   - The number of loaded vehicles is no longer impacted by temporary vehicles used during intermodal routing #16259
   - Fixed oscillating speed during zipper merging #16146
   - Fixed invalid bestLaneOffset when an edge has usable lanes divided by forbidden lanes. This could result in invalid departure errors #16287
+  - Fixed crash after lane change with E3 detector using `detectPersons="car"` #16296
+  - Ensured simulation terminates when using LC2013 with sublane model #16297
+  - Fixed crash when using option **--device.rerouting.threads** with option **--weights.random-factor** and rerouters #16347
+  - Fixed treatment of stationfinder device parameter `checkEnergyForRoute` #16380
+  - Fixed collision due to unsafe lane changing ahead of a zipper merge #16305
  
 - netedit
+  - Restored functionality for setting custom geometry point by entering values #16179 (regression in 1.20.0)
   - Fixed invalid connections after using *reset connections* #16127
+  - Saving demand that was loaded from a sumocfg in multiple route files is now working #14805
+  - Fixed handling of special vType params for visualizing rail carriages #16334
 
 - netconvert
+  - Fixed unsafe program transition from 'G' to 'g' #16289 (regression in 1.20.0)
   - Fixed invalid link state when straight connection passes a crossing after internal junction #16167
   - Option **--bikelanes.guess** no longer impacts loaded connection attributes #16196
   - Fixed invalid right of way rules / junction type when shared tram lanes crosses another tram line #16215
   - Fixed bug where stops loaded with option **--ptstop-files** were renamed #16220
   - failure to map elevation to a network with z-data #16235
-
+  - Fixed invalid connections when using option **--osm.turn-lanes** #13586
+  - Fixed invalid bus connections when guessing #16291
+  - Fixed invalid right-of-way rules at traffic lights with uncommon phase layouts. #16338
  
 - TraCI
   - Setting vehicle parameter 'lcContRight' is now working #16147
@@ -37,10 +48,13 @@ title: ChangeLog
   - Fixed bug where `vehicle.slowDown` require and additional simulation step to reach the taget speed and `vehicle.setAcceleration` was achieving the wrong acceleration #7361
   - Fixed invalid active person count after person removal #16192
   - `person.removeStage` now works for a taxi-driving stage if the taxi is already en route to pick-up #11620
+  - Subscription to `lane.getAngle` is now working #16360
 
 - Tools
   - `sumolib.net.lane.getClosestLanePosAndDist` now gives correct results when lane length differs from shape length #16269
-
+  - `sumolib.xml` no properly escapes special characters when generating xml #16318
+  - gtfs2pt.py: Fixed problem that caused invalid routes to be written #16336
+  - gtfs2pt.py: Fixed invalid stop placement on disallowed lane #16352
 
 ### Enhancements
 
@@ -50,6 +64,10 @@ title: ChangeLog
   - Added stop attribute `jumpUntil` to set a minimum time for the end of a jump #16153
   - Tram insertion automatically uses moving-block mode when there are no rail signals for tram in the network #16208
   - Taxis that transfer passengers at a busStop now register at that stop. This shops up in **--stop-output**. #16263
+  - Road slope is now used in HBEFA computation #16307
+
+- netedit
+  - Each object now tracks the file from which it was loaded to facilitate working with projects where multiple route- or additional-files are used #12430
 
 - netconvert
   - Added option **--junctions.join.parallel-threshold DEGREES** to increase user control over joining junctions (with **--junctions.join**) #16140
@@ -71,6 +89,7 @@ title: ChangeLog
   - Added function `traci.route.delete` #15452
   - `simulation.getMinExpectedNumber` now takes into account pending taxi reservations #16187
   - Addedd function `person.getWalkingDistance` #16197
+  - Added `lanearea` functions `getIntervalMeanTimeLoss` and `getLastIntervalMeanTimeLoss` #16311
 
 
 - Tools
@@ -83,11 +102,17 @@ title: ChangeLog
   - [remap_additionals.py](Tools/Net.md#remap_additionalspy): convert infrastructure from one network to another network (which may differ in geometry, lanes and edge splits) #16206
   - [remap_renamed.py](Tools/Net.md#remap_renamedpy): convert route files and additioanal files after renaming network ids (i.e. with **--numerical-ids**) #16252
   - ptlines2flows.py: now sorts written routes and flows by id #16222
+  - ptlines2flows.py: now safely handles missing edges #16293  - 
+  - gtfs2pt.py: now supports option **--merged-csv** for loading transit schedule data from a single file #16310
+  - gtfs2pt.py: now supports option **--patched-stops** to customize stop-to-lane assignment for individual stops #10720
+  - gtfs2pt.py: now supports option **--stops** for giving a list of candidate stop edges to guide mapping. This can can greatly improve running time #16326
+  - gtfs2pt.py: improved running time through caching #15856
 
 
 ### Miscellaneous
 
 - In netedit, the default extension of edge data files is now *.xml, instead of *.dat.xml #16257
+- Netedit: unified contextual menus for all elements #15314
 
 
 
