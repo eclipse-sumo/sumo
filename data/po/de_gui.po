@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-13 10:07+0100\n"
-"PO-Revision-Date: 2025-03-06 15:02+0000\n"
+"PO-Revision-Date: 2025-03-20 08:43+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.10.3-dev\n"
+"X-Generator: Weblate 5.11-dev\n"
 
 #: src/gui/GUIApplicationWindow.cpp:308 src/gui/GUIApplicationWindow.cpp:311
 #: src/gui/GUIApplicationWindow.cpp:2271 src/gui/GUIApplicationWindow.cpp:2272
@@ -17256,7 +17256,7 @@ msgstr "Fahrradmarkierungen anzeigen"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1864
 msgid "Show turning arrows"
-msgstr "Drehpfeile anzeigen"
+msgstr "Abbiegepfeile anzeigen"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1867
 msgid "Show right-of-way rules"
