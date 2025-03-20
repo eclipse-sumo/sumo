@@ -106,8 +106,8 @@ GNEMultiEntryExitDetector::writeAdditional(OutputDevice& device) const {
         if (myExpectedArrival != myTagProperty->getDefaultBoolValue(SUMO_ATTR_EXPECT_ARRIVAL)) {
             device.writeAttr(SUMO_ATTR_EXPECT_ARRIVAL, myExpectedArrival);
         }
-        if (myExpectedArrival != myTagProperty->getDefaultBoolValue(SUMO_ATTR_OPEN_ENTRY)) {
-            device.writeAttr(SUMO_ATTR_OPEN_ENTRY, myExpectedArrival);
+        if (myOpenEntry != myTagProperty->getDefaultBoolValue(SUMO_ATTR_OPEN_ENTRY)) {
+            device.writeAttr(SUMO_ATTR_OPEN_ENTRY, myOpenEntry);
         }
         // write all entry/exits
         for (const auto& access : getChildAdditionals()) {

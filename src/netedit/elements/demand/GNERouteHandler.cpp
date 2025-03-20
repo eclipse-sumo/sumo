@@ -1746,11 +1746,11 @@ GNERouteHandler::transformToRouteFlow(GNEVehicle* originalVehicle, bool createEm
         FXMessageBox::warning(originalVehicle->getNet()->getViewNet()->getApp(), MBOX_OK, header.c_str(), "%s", message.c_str());
     } else {
         // begin undo-redo operation
-        net->getViewNet()->getUndoList()->begin(originalVehicle, "transform " + originalVehicle->getTagStr() + " to " + toString(SUMO_TAG_VEHICLE));
+        net->getViewNet()->getUndoList()->begin(originalVehicle, "transform " + originalVehicle->getTagStr() + " to " + toString(GNE_TAG_FLOW_ROUTE));
         // first delete vehicle
         net->deleteDemandElement(originalVehicle, net->getViewNet()->getUndoList());
         // change depart
-        if (!originalVehicle->getNet()->getViewNet()->getNet()->getTagPropertiesDatabase()->getTagProperty(vehicleParameters.tag)->isFlow()) {
+        if (!originalVehicle->getTagProperty()->isFlow()) {
             // get template flow
             const auto templateFlow = net->getViewNet()->getNet()->getACTemplates()->getTemplateAC(GNE_TAG_FLOW_ROUTE);
             // set flow parameters
@@ -1900,7 +1900,7 @@ GNERouteHandler::transformToFlow(GNEVehicle* originalVehicle) {
             net->deleteDemandElement(route, net->getViewNet()->getUndoList());
         }
         // change depart
-        if (!originalVehicle->getNet()->getViewNet()->getNet()->getTagPropertiesDatabase()->getTagProperty(vehicleParameters.tag)->isFlow()) {
+        if (!originalVehicle->getTagProperty()->isFlow()) {
             // get template flow
             const auto templateFlow = net->getViewNet()->getNet()->getACTemplates()->getTemplateAC(GNE_TAG_FLOW_ROUTE);
             // set flow parameters

@@ -1,0 +1,6 @@
+--osm-files osm.xml
+-R
+--junctions.join
+--tls.discard-simple
+--no-internal-links
+--keep-edges.by-vclass passenger

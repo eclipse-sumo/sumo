@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-13 10:07+0100\n"
-"PO-Revision-Date: 2025-03-17 13:50+0000\n"
+"PO-Revision-Date: 2025-03-19 12:20+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -1020,7 +1020,7 @@ msgstr ""
 #: src/libsumo/Vehicle.cpp:1524
 #, c-format
 msgid "Ignoring changeLaneRelative for vehicle '%' that isn't on the road"
-msgstr ""
+msgstr "Si ignora changeLaneRelative per il veicolo '%' trovandosi fuori strada"
 
 #: src/libsumo/Vehicle.cpp:1526
 msgid "Ignoring indexOffset % for vehicle '%' on laneIndex %."
@@ -2877,6 +2877,7 @@ msgstr "Si può ricominciare o uscire alle fine."
 msgid ""
 "The option 'meso-junction-control.limited' implies 'meso-junction-control'."
 msgstr ""
+"L'opzione 'meso-junction-control.limited' implica 'meso-junction-control'."
 
 #: src/microsim/MSFrame.cpp:931
 msgid "The begin time should not be negative."
@@ -3139,7 +3140,7 @@ msgstr ""
 
 #: src/microsim/MSLane.cpp:2183
 msgid " collision with person '%', lane='%', time=%, stage=%."
-msgstr ""
+msgstr " collisione con la persona '%', corsia='%', ore=%, tratto=%."
 
 #: src/microsim/MSLane.cpp:2244
 msgid "Removing vehicle '%' after breaking down, lane='%', time=%."
@@ -3227,7 +3228,7 @@ msgstr "Tutti i veicoli sono usciti dalla simulazione."
 
 #: src/microsim/MSNet.cpp:944
 msgid "TraCI requested termination."
-msgstr ""
+msgstr "TraCI ha richiesto la chiusura."
 
 #: src/microsim/MSNet.cpp:946
 msgid "An error occurred (see log)."
@@ -5510,6 +5511,8 @@ msgstr ""
 #, c-format
 msgid "NEMA tlLogic '%' is not coordinated but an offset was set."
 msgstr ""
+"La logica semaforica NEMA '%' non è coordinata ma un ritardo è stato "
+"impostato."
 
 #: src/microsim/traffic_lights/NEMAController.cpp:965
 msgid "I am starting in the coordinated phases"
@@ -5792,6 +5795,8 @@ msgid ""
 "Either 'vehsPerHour', 'speed' or 'type' has to be set in flow definition of "
 "calibrator '%'."
 msgstr ""
+"Uno degli attributi seguenti deve essere impostato nella definzioni di "
+"flusso del calibrator '%': 'vehsPerHour, 'speed' oppure 'type\"."
 
 #: src/microsim/trigger/MSCalibrator.cpp:249
 msgid "Type calibration is not supported in meso for calibrator '%'."
@@ -5892,6 +5897,8 @@ msgstr ""
 msgid ""
 "Invalid distance computation for vehicle '%' to stopping place '%' at time=%."
 msgstr ""
+"Calcolo di distanza invalido per veicolo '%' fino al luogo di fermata '%' "
+"alle ore %."
 
 #: src/microsim/trigger/MSStoppingPlaceRerouter.cpp:497
 msgid ""
@@ -6102,6 +6109,8 @@ msgstr ""
 msgid ""
 "Added % bidi-edges between % pairs of railway switches (count by length: %)"
 msgstr ""
+"% archi bidirezionali sono stati aggiunti tra % paia di scambi ferroviari ("
+"numero per lunghezza : %)"
 
 #: src/netbuild/NBAlgorithms_Railway.cpp:978
 msgid ""
@@ -6133,7 +6142,7 @@ msgid ""
 "Added % bidi-edges to ensure connectivity of straight tracks at switches."
 msgstr ""
 "% archi bidirezionali sono stati aggiunti per assicurare il collegamento di "
-"binari dritti nei deviatoi."
+"binari dritti nei scambi ferroviari."
 
 #: src/netbuild/NBAlgorithms_Railway.cpp:1217
 msgid ""
@@ -9268,7 +9277,7 @@ msgstr ""
 #: src/netimport/NIImporter_OpenDrive.cpp:1398
 #, c-format
 msgid "While setting connections: incoming road '%' is not known."
-msgstr ""
+msgstr "Nel impostare i collegamenti: la via entrante '%' è sconosciuta."
 
 #: src/netimport/NIImporter_OpenDrive.cpp:1441
 msgid "Could not find node '%'."
@@ -9343,7 +9352,7 @@ msgstr ""
 
 #: src/netimport/NIImporter_OpenDrive.cpp:2818
 msgid "Mismatching parenthesis in geometry definition for road '%'"
-msgstr ""
+msgstr "Parentesi non coincidenti nella definizione di geometria della via '%'"
 
 #: src/netimport/NIImporter_OpenDrive.cpp:2822
 msgid "Double geometry information for road '%'"
@@ -10417,7 +10426,7 @@ msgstr ""
 #: src/netimport/vissim/tempstructs/NIVissimDisturbance.cpp:340
 #, c-format
 msgid "Could not build % of % disturbances."
-msgstr ""
+msgstr "% di % perturbazioni non potevano essere costruite."
 
 #: src/netimport/vissim/tempstructs/NIVissimEdge.cpp:439
 msgid "Will not build edge '%'."
@@ -11030,10 +11039,13 @@ msgid ""
 "OpenDRIVE cannot represent oblique lane cuts and should use option "
 "'rectangular-lane-cut'."
 msgstr ""
+"OpenDRIVE non sa come rappresentare dei tagli di corsie trasversali e "
+"dovrebbe usare l'opzione 'rectangular-lane-cut'."
 
 #: src/netwrite/NWFrame.cpp:176
 msgid "public transport lines output requires 'ptstop-output' to be set"
 msgstr ""
+"l'uscita di linee di trasporto pubblico richiede di impostare 'ptstop-output'"
 
 #: src/netwrite/NWFrame.cpp:180
 msgid ""

@@ -68,7 +68,7 @@ GNEDemandElementSelector::GNEDemandElementSelector(GNEFrame* frameParent, const 
     mySelectingMultipleElements(false) {
     // fill myDemandElementTags
     for (const auto& tagType : tagTypes) {
-        const auto tagPropertiesByType = frameParent->getViewNet()->getNet()->getTagPropertiesDatabase()->getTagPropertiesByType(tagType, false);
+        const auto tagPropertiesByType = frameParent->getViewNet()->getNet()->getTagPropertiesDatabase()->getTagPropertiesByType(tagType);
         for (const auto tagProperty : tagPropertiesByType) {
             myDemandElementTags.push_back(tagProperty->getTag());
         }

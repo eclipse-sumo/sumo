@@ -12,6 +12,12 @@ Warning: Minor green from edge '-24214693#0' to edge '-25951490' exceeds 19.44m/
 Warning: Minor green from edge '-24214693#0' to edge '22917251' exceeds 19.44m/s. Maybe a left-turn lane is missing.
 Warning: Minor green from edge '-24214693#0' to edge '-7727483#3' exceeds 19.44m/s. Maybe a left-turn lane is missing.
 Warning: 8 total messages of type: Minor green from edge '%' to edge '%' exceeds %m/s. Maybe a left-turn lane is missing.
+Warning: Minor green from edge '7216737#3' to edge '-25951490' exceeds 19.44m/s. Maybe a left-turn lane is missing.
+Warning: Minor green from edge '7216737#3' to edge '22917251' exceeds 19.44m/s. Maybe a left-turn lane is missing.
+Warning: Minor green from edge '-24214693#0' to edge '-25951490' exceeds 19.44m/s. Maybe a left-turn lane is missing.
+Warning: Minor green from edge '-24214693#0' to edge '22917251' exceeds 19.44m/s. Maybe a left-turn lane is missing.
+Warning: Minor green from edge '-24214693#0' to edge '-7727483#3' exceeds 19.44m/s. Maybe a left-turn lane is missing.
+Warning: 8 total messages of type: Minor green from edge '%' to edge '%' exceeds %m/s. Maybe a left-turn lane is missing.
 --- 
 +++ 
 @@ -887,7 +887,7 @@

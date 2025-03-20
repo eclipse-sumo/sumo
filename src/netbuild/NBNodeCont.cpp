@@ -1023,7 +1023,7 @@ NBNodeCont::pruneClusterFringe(NodeSet& cluster, double maxDist) const {
             if (clusterNeighbors.size() == 0
                     || (outsideNeighbors.size() <= 1
                         && clusterNeighbors.size() == 1
-                        && !n->isTLControlled())) {
+                        && !(n->isTLControlled() /*|| n->hadSignal()*/))) {
                 cluster.erase(check);
                 pruneFringe = true; // other nodes could belong to the fringe now
 #ifdef DEBUG_JOINJUNCTIONS
@@ -1518,7 +1518,7 @@ NBNodeCont::feasibleCluster(const NodeSet& cluster, const std::map<const NBNode*
     // check for stop edges and tls within the cluster
     bool hasTLS = false;
     for (NBNode* n : cluster) {
-        if (n->isTLControlled()) {
+        if (n->isTLControlled() || n->hadSignal()) {
             hasTLS = true;
         }
         const auto& stopEnds = ptStopEnds.find(n);
@@ -1587,18 +1587,18 @@ NBNodeCont::feasibleCluster(const NodeSet& cluster, const std::map<const NBNode*
         }
     }
     // prevent joining of simple merging/spreading structures
-    if (!hasTLS && cluster.size() >= 2) {
+    if (cluster.size() >= 2) {
         int entryNodes = 0;
         int exitNodes = 0;
-        int outsideIncoming = 0;
-        int outsideOutgoing = 0;
+        EdgeVector outsideIncoming;
+        EdgeVector outsideOutgoing;
         int edgesWithin = 0;
         for (NBNode* n : cluster) {
             bool foundOutsideIncoming = false;
             for (NBEdge* e : n->getIncomingEdges()) {
                 if (cluster.count(e->getFromNode()) == 0) {
                     // edge entering from outside the cluster
-                    outsideIncoming++;
+                    outsideIncoming.push_back(e);
                     foundOutsideIncoming = true;
                 } else {
                     edgesWithin++;
@@ -1611,7 +1611,7 @@ NBNodeCont::feasibleCluster(const NodeSet& cluster, const std::map<const NBNode*
             for (NBEdge* e : n->getOutgoingEdges()) {
                 if (cluster.count(e->getToNode()) == 0) {
                     // edge leaving cluster
-                    outsideOutgoing++;
+                    outsideOutgoing.push_back(e);
                     foundOutsideOutgoing = true;
                 }
             }
@@ -1619,20 +1619,28 @@ NBNodeCont::feasibleCluster(const NodeSet& cluster, const std::map<const NBNode*
                 exitNodes++;
             }
         }
-        if (entryNodes < 2) {
-            reason = "only 1 entry node";
-            return false;
-        }
-        if (exitNodes < 2) {
-            reason = "only 1 exit node";
-            return false;
-        }
-        if (cluster.size() == 2) {
-            if (edgesWithin == 1 && outsideIncoming < 3 && outsideOutgoing < 3) {
-                reason = "only 1 edge within and no cross-traffic";
+        if (!hasTLS) {
+            if (entryNodes < 2) {
+                reason = "only 1 entry node";
                 return false;
             }
+            if (exitNodes < 2) {
+                reason = "only 1 exit node";
+                return false;
+            }
+            if (cluster.size() == 2) {
+                if (edgesWithin == 1 && outsideIncoming.size() < 3 && outsideOutgoing.size() < 3) {
+                    reason = "only 1 edge within and no cross-traffic";
+                    return false;
+                }
+            }
         }
+        /*
+        if (NBNode::geometryLike(outsideIncoming, outsideOutgoing) && hasTLS && OptionsCont::getOptions().getBool("tls.discard-simple")) {
+            reason = "geometry-like simple tls";
+            return false;
+        }
+        */
     }
     return true;
 }
@@ -2686,7 +2694,7 @@ NBNodeCont::rename(NBNode* node, const std::string& newID) {
 
 
 void
-NBNodeCont::discardTrafficLights(NBTrafficLightLogicCont& tlc, bool geometryLike, bool guessSignals) {
+NBNodeCont::discardTrafficLights(NBTrafficLightLogicCont& tlc, bool geometryLike) {
     for (NodeCont::const_iterator i = myNodes.begin(); i != myNodes.end(); ++i) {
         NBNode* node = i->second;
         if (node->isTLControlled() && (!geometryLike || node->geometryLike())) {
@@ -2700,14 +2708,12 @@ NBNodeCont::discardTrafficLights(NBTrafficLightLogicCont& tlc, bool geometryLike
                 // keep controlled pedestrian crossings
                 continue;
             }
-            if (guessSignals && node->geometryLike()) {
-                // record signal location
-                for (NBEdge* edge : node->getOutgoingEdges()) {
-                    edge->setSignalPosition(node->getPosition(), nullptr);
+            // record signal location
+            for (NBEdge* edge : node->getOutgoingEdges()) {
+                edge->setSignalPosition(node->getPosition(), nullptr);
 #ifdef DEBUG_GUESSSIGNALS
-                    std::cout << "   discard-simple " << node->getID() << "  edge=" << edge->getID() << " pos=" << edge->getSignalPosition() << "\n";
+                std::cout << "   discard-simple " << node->getID() << "  edge=" << edge->getID() << " pos=" << edge->getSignalPosition() << "\n";
 #endif
-                }
             }
             for (std::set<NBTrafficLightDefinition*>::const_iterator it = tldefs.begin(); it != tldefs.end(); ++it) {
                 NBTrafficLightDefinition* tlDef = *it;
