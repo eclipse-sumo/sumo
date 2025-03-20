@@ -818,6 +818,8 @@ enum SumoXMLTag {
     GNE_TAG_TRANSPORTS,
     GNE_TAG_TRANSHIPS,
     GNE_TAG_CONTAINERSTOPS,
+    GNE_TAG_DATAS,
+    GNE_TAG_MEANDATAS,
     /// @}
 
     /// @brief invalid tag, must be the last one
