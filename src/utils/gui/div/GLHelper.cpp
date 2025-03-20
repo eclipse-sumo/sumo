@@ -69,6 +69,7 @@ int GLHelper::myNameCounter = 0;
 std::vector<std::pair<double, double> > GLHelper::myCircleCoords;
 std::map<GLenum, std::vector<GLBufferStruct>> GLHelper::myVertices;
 RGBColor GLHelper::myCurrentColor(255,255,255,255);
+RGBColor GLHelper::myCurrentGlobalColor(255, 255, 255, 255);
 double GLHelper::myCurrentLayer = 0.;
 std::vector<RGBColor> GLHelper::myDottedcontourColors;
 FONScontext* GLHelper::myFont = nullptr;
@@ -246,6 +247,8 @@ GLHelper::computeVertexAttributeSize(const std::vector<std::pair<GLint, unsigned
         case GL_BYTE:
             typeSize = sizeof(char);
             break;
+        case GL_UNSIGNED_BYTE:
+            typeSize = sizeof(unsigned char);
         }
         result += typeSize * entry.second;
     }
@@ -432,6 +435,17 @@ GLHelper::drawBoxLineModern(const Position& beg1, const Position& beg2,
     addVertex(GL_TRIANGLES, width, -visLength);
     addVertex(GL_TRIANGLES, width, 0.);
     GLTransformStack::getTransformStack().popMatrix();
+}
+
+
+void
+GLHelper::drawQuad(const Position& p0, const Position& p1, const Position& p2, const Position& p3) {
+    addVertex(GL_TRIANGLES, p0);
+    addVertex(GL_TRIANGLES, p1);
+    addVertex(GL_TRIANGLES, p2);
+    addVertex(GL_TRIANGLES, p0);
+    addVertex(GL_TRIANGLES, p2);
+    addVertex(GL_TRIANGLES, p3);
 }
 
 
@@ -635,6 +649,17 @@ GLHelper::drawLine(const Position& beg, double rot, double visLength) {
 
 
 void
+GLHelper::drawLineModern(const Position& beg, double rot, double visLength) {
+    GLTransformStack::getTransformStack().pushMatrix();
+    GLTransformStack::getTransformStack().translate(glm::vec3(beg.x(), beg.y(), 0));
+    GLTransformStack::getTransformStack().rotate(rot);
+    addVertex(GL_LINES, 0, 0);
+    addVertex(GL_LINES, 0, -visLength);
+    GLTransformStack::getTransformStack().popMatrix();
+}
+
+
+void
 GLHelper::drawLine(const Position& beg1, const Position& beg2,
                    double rot, double visLength) {
     GLHelper::pushMatrix();
@@ -650,6 +675,17 @@ GLHelper::drawLine(const Position& beg1, const Position& beg2,
 #endif
 }
 
+
+void
+GLHelper::drawLineModern(const Position& beg1, const Position& beg2,
+    double rot, double visLength) {
+    GLTransformStack::getTransformStack().pushMatrix();
+    GLTransformStack::getTransformStack().translate(glm::vec3((beg2.x() + beg1.x()) * .5, (beg2.y() + beg1.y()) * .5, 0));
+    GLTransformStack::getTransformStack().rotate(rot);
+    addVertex(GL_LINES, 0, 0);
+    addVertex(GL_LINES, 0, -visLength);
+    GLTransformStack::getTransformStack().popMatrix();
+}
 
 
 void
@@ -713,6 +749,13 @@ GLHelper::drawLine(const Position& beg, const Position& end) {
 #ifdef CHECK_ELEMENTCOUNTER
     myVertexCounter += 2;
 #endif
+}
+
+
+void
+GLHelper::drawLineModern(const Position& beg, const Position& end) {
+    addVertex(GL_LINES, beg);
+    addVertex(GL_LINES, end);
 }
 
 
@@ -826,6 +869,12 @@ GLHelper::drawOutlineCircle(double radius, double iRadius, int steps) {
 
 
 void
+GLHelper::drawOutlineCircleModern(double radius, double iRadius, int steps) {
+    drawOutlineCircleModern(radius, iRadius, steps, 0, 360);
+}
+
+
+void
 GLHelper::drawOutlineCircle(double radius, double iRadius, int steps,
                             double beg, double end) {
     const double inc = (end - beg) / (double)steps;
@@ -853,6 +902,27 @@ GLHelper::drawOutlineCircle(double radius, double iRadius, int steps,
 
 
 void
+GLHelper::drawOutlineCircleModern(double radius, double iRadius, int steps,
+    double beg, double end) {
+    const double inc = (end - beg) / (double)steps;
+    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+    std::pair<double, double> p1 = getCircleCoords().at(angleLookup(beg));
+
+    for (int i = 0; i <= steps; ++i) {
+        const std::pair<double, double>& p2 = getCircleCoords().at(angleLookup(beg + i * inc));
+        addVertex(GL_TRIANGLES, p1.first * radius, p1.second * radius);
+        addVertex(GL_TRIANGLES, p2.first * radius, p2.second * radius);
+        addVertex(GL_TRIANGLES, p2.first * iRadius, p2.second * iRadius);
+
+        addVertex(GL_TRIANGLES, p2.first * iRadius, p2.second * iRadius);
+        addVertex(GL_TRIANGLES, p1.first * iRadius, p1.second * iRadius);
+        addVertex(GL_TRIANGLES, p1.first * radius, p1.second * radius);
+        p1 = p2;
+    }
+}
+
+
+void
 GLHelper::drawTriangleAtEnd(const Position& p1, const Position& p2, double tLength,
                             double tWidth, const double extraOffset) {
     const double length = p1.distanceTo(p2);
@@ -874,6 +944,26 @@ GLHelper::drawTriangleAtEnd(const Position& p1, const Position& p2, double tLeng
 #ifdef CHECK_ELEMENTCOUNTER
     myVertexCounter += 3;
 #endif
+}
+
+
+void
+GLHelper::drawTriangleAtEndModern(const Position& p1, const Position& p2, double tLength,
+    double tWidth, const double extraOffset) {
+    const double length = p1.distanceTo(p2);
+    if (length < tLength) {
+        tWidth *= length / tLength;
+        tLength = length;
+    }
+    Position rl(PositionVector::positionAtOffset(p1, p2, length - tLength));
+    GLTransformStack::getTransformStack().pushMatrix();
+    GLTransformStack::getTransformStack().translate(glm::vec3(rl.x(), rl.y(), 0));
+    GLTransformStack::getTransformStack().rotate(-GeomHelper::naviDegree(p1.angleTo2D(p2)));
+    GLTransformStack::getTransformStack().translate(glm::vec3(0, extraOffset, 0));
+    addVertex(GL_TRIANGLES, 0, tLength);
+    addVertex(GL_TRIANGLES, -tWidth, 0);
+    addVertex(GL_TRIANGLES, +tWidth, 0);
+    GLTransformStack::getTransformStack().popMatrix();
 }
 
 
@@ -965,11 +1055,10 @@ GLHelper::addVertex(GLenum geometryType, float x, float y, float z) {
 
 
 void
-GLHelper::addVertex(GLenum geometryType, float x, float y, float z, float r, float g, float b, float a) {
+GLHelper::addVertex(GLenum geometryType, float x, float y, float z, unsigned char r, unsigned char g, unsigned char b, unsigned char a) {
     // apply transform
     glm::vec3 transformed = GLTransformStack::getTransformStack().applyTransform(glm::vec3(x, y, z));
     GLBufferStruct vertex = { { transformed.x, transformed.y, transformed.z }, { r, g, b, a } };
-    //GLBufferStruct vertex = { { x, y, z }, { r, g, b, a } };
     myVertices[geometryType].push_back(vertex);
     myVertexCounterModern++;
 }
@@ -1154,6 +1243,35 @@ GLHelper::drawCrossTies(const PositionVector& geom, const std::vector<double>& r
 }
 
 void
+GLHelper::drawCrossTiesModern(const PositionVector& geom, const std::vector<double>& rots,
+    const std::vector<double>& lengths, double length, double spacing,
+    double halfWidth, double offset, bool lessDetail) {
+    GLTransformStack::getTransformStack().pushMatrix();
+    // draw on top of of the white area between the rails
+    GLTransformStack::getTransformStack().translate(glm::vec3(0, 0, 0.1));
+    int e = (int)geom.size() - 1;
+    for (int i = 0; i < e; ++i) {
+        GLTransformStack::getTransformStack().pushMatrix();
+        GLTransformStack::getTransformStack().translate(glm::vec3(geom[i].x() - offset, geom[i].y(), 0.));
+        GLTransformStack::getTransformStack().rotate(rots[i]);
+        // draw crossing depending of detail
+        if (!lessDetail) {
+            for (double t = 0; t < lengths[i]; t += spacing) {
+                GLHelper::drawRectangleModern(Position(0., -t -0.5 * length), 2 * halfWidth, length);
+            }
+        }
+        else {
+            // only draw a single rectangle if it's being drawn only for selecting
+            GLHelper::drawRectangleModern(Position(0., -0.5 * lengths.back()), 2 * halfWidth, lengths.back());
+        }
+        // pop three draw matrix
+        GLTransformStack::getTransformStack().popMatrix();
+    }
+    GLTransformStack::getTransformStack().popMatrix();
+}
+
+
+void
 GLHelper::drawInverseMarkings(const PositionVector& geom,
                               const std::vector<double>& rots,
                               const std::vector<double>& lengths,
@@ -1207,6 +1325,45 @@ GLHelper::drawInverseMarkings(const PositionVector& geom,
 
 
 void
+GLHelper::drawInverseMarkingsModern(const PositionVector& geom,
+    const std::vector<double>& rots,
+    const std::vector<double>& lengths,
+    double maxLength, double spacing,
+    double halfWidth, bool cl, bool cr, bool lefthand, double scale) {
+    double mw = (halfWidth + SUMO_const_laneMarkWidth * (cl ? 0.6 : 0.2)) * scale;
+    double mw2 = (halfWidth - SUMO_const_laneMarkWidth * (cr ? 0.6 : 0.2)) * scale;
+    if (cl || cr) {
+        if (lefthand) {
+            mw *= -1;
+            mw2 *= -1;
+        }
+        int e = (int)geom.size() - 1;
+        double offset = 0;
+        for (int i = 0; i < e; ++i) {
+            GLTransformStack::getTransformStack().pushMatrix();
+            GLTransformStack::getTransformStack().translate(glm::vec3(geom[i].x(), geom[i].y(), 2.1));
+            GLTransformStack::getTransformStack().rotate(rots[i]);
+            double t;
+            for (t = offset; t < lengths[i]; t += spacing) {
+                const double length = MIN2((double)maxLength, lengths[i] - t);
+                drawQuad(Position(-mw, -t), Position(-mw, -t - length), Position(-mw2, -t - length), Position(-mw2, -t));
+                if (!cl || !cr) {
+                    // draw inverse marking between asymmetrical lane markings
+                    const double length2 = MIN2((double)6, lengths[i] - t);
+                    drawQuad(Position(-halfWidth + 0.02, -t - length2), 
+                             Position(-halfWidth + 0.02, -t - length),
+                             Position(-halfWidth - 0.02, -t - length),
+                             Position(-halfWidth - 0.02, -t - length2));
+                }
+            }
+            offset = t - lengths[i] - spacing;
+            GLTransformStack::getTransformStack().popMatrix();
+        }
+    }
+}
+
+
+void
 GLHelper::debugVertices(const PositionVector& shape, const GUIVisualizationTextSettings& settings, double scale, double layer) {
     for (int i = 0; i < (int)shape.size(); ++i) {
         drawTextBox(toString(i), shape[i], layer,
@@ -1231,6 +1388,23 @@ GLHelper::drawBoundary(const GUIVisualizationSettings& s, const Boundary& b) {
         drawLine(Position(b.xmax(), b.ymin()), Position(b.xmin(), b.ymin()));
         drawLine(Position(b.xmin(), b.ymin()), Position(b.xmin(), b.ymax()));
         GLHelper::popMatrix();
+    }
+}
+
+
+void
+GLHelper::drawBoundaryModern(const GUIVisualizationSettings& s, const Boundary& b) {
+    if (s.drawBoundaries) {
+        GLTransformStack::getTransformStack().pushMatrix();
+        GLHelper::setColor(RGBColor::MAGENTA);
+        // draw on top
+        glTranslated(0, 0, 1024);
+        GLTransformStack::getTransformStack().translate(glm::vec3(0, 0, 1024));
+        drawLineModern(Position(b.xmin(), b.ymax()), Position(b.xmax(), b.ymax()));
+        drawLineModern(Position(b.xmax(), b.ymax()), Position(b.xmax(), b.ymin()));
+        drawLineModern(Position(b.xmax(), b.ymin()), Position(b.xmin(), b.ymin()));
+        drawLineModern(Position(b.xmin(), b.ymin()), Position(b.xmin(), b.ymax()));
+        GLTransformStack::getTransformStack().popMatrix();
     }
 }
 

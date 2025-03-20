@@ -250,6 +250,8 @@ public:
     static void drawLine(const Position& beg, double rot,
                          double visLength);
 
+    static void drawLineModern(const Position& beg, double rot, double visLength);
+
 
     /** @brief Draws a thin line using the mean of both given points as begin position
      *
@@ -262,6 +264,8 @@ public:
      */
     static void drawLine(const Position& beg1, const Position& beg2,
                          double rot, double visLength);
+
+    static void drawLineModern(const Position& beg1, const Position& beg2, double rot, double visLength);
 
 
     /** @brief Draws a thin line along the given position vector
@@ -294,6 +298,8 @@ public:
      * @param[in] end End of the line
      */
     static void drawLine(const Position& beg, const Position& end);
+
+    static void drawLineModern(const Position& beg, const Position& end);
 
     /** @brief Draws a filled circle around (0,0) depending of level of detail
      *
@@ -351,6 +357,8 @@ public:
     static void drawOutlineCircle(double radius, double iRadius,
                                   int steps = 8);
 
+    static void drawOutlineCircleModern(double radius, double iRadius, int steps);
+
 
     /** @brief Draws an unfilled circle around (0,0)
      *
@@ -365,6 +373,8 @@ public:
     static void drawOutlineCircle(double radius, double iRadius,
                                   int steps, double beg, double end);
 
+    static void drawOutlineCircleModern(double radius, double iRadius, int steps, double beg, double end);
+
 
     /** @brief Draws a triangle at the end of the given line
      *
@@ -376,6 +386,8 @@ public:
      */
     static void drawTriangleAtEnd(const Position& p1, const Position& p2, double tLength,
                                   double tWidth, const double extraOffset = 0);
+
+    static void drawTriangleAtEndModern(const Position& p1, const Position& p2, double tLength, double tWidth, const double extraOffset = 0);
 
     /// @brief Sets the gl-color to this value
     static void setColor(const RGBColor& c);
@@ -429,6 +441,12 @@ public:
                               double length, double spacing, double halfWidth,
                               double offset, bool lessDetail);
 
+    static void drawCrossTiesModern(const PositionVector& geom,
+                                    const std::vector<double>& rots,
+                                    const std::vector<double>& lengths,
+                                    double length, double spacing, double halfWidth,
+                                    double offset, bool lessDetail);
+
     /// @bried draw the space between markings (in road color)
     static void drawInverseMarkings(const PositionVector& geom,
                                     const std::vector<double>& rots,
@@ -436,11 +454,15 @@ public:
                                     double maxLength, double spacing,
                                     double halfWidth, bool cl, bool cr, bool lefthand, double scale);
 
+    static void drawInverseMarkingsModern(const PositionVector& geom, const std::vector<double>& rots, const std::vector<double>& lengths, double maxLength, double spacing, double halfWidth, bool cl, bool cr, bool lefthand, double scale);
+
     /// @brief draw vertex numbers for the given shape (in a random color)
     static void debugVertices(const PositionVector& shape, const GUIVisualizationTextSettings& settings, double scale, double layer = 1024);
 
     /// @brief Draw a boundary (used for debugging)
     static void drawBoundary(const GUIVisualizationSettings& s, const Boundary& b);
+
+    static void drawBoundaryModern(const GUIVisualizationSettings& s, const Boundary& b);
 
     /// @brief to be called when the font context is invalidated
     static void resetFont();
@@ -452,12 +474,14 @@ public:
     static void drawSpaceOccupancies(const double exaggeration, const Position& pos, const double rotation,
                                      const double width, const double length, const bool vehicle);
 
-private:
     /// @brief Add vertx data (position and colour) to the global vertex storage (to be transferred to the GPU)
     static void addVertex(GLenum geometryType, const Position& pos, const RGBColor& col);
     static void addVertex(GLenum geometryType, const Position& pos);
     static void addVertex(GLenum geometryType, float x, float y , float z = 0.);
-    static void addVertex(GLenum geometryType, float x, float y, float z, float r, float g, float b, float a);
+    static void addVertex(GLenum geometryType, float x, float y, float z, unsigned char r, unsigned char g, unsigned char b, unsigned char a);
+
+    /// @brief Helper to draw a quad (=create two triangles)
+    static void drawQuad(const Position& p0, const Position& p1, const Position& p2, const Position& p3);
 
 private:
     /// @brief whether the road makes a right turn (or goes straight)
@@ -492,6 +516,7 @@ private:
 
     /// @brief Storage for current color (helper variable for transition to modern OpenGL)
     static RGBColor myCurrentColor;
+    static RGBColor myCurrentGlobalColor;
 
     /// @brief Layer / Z coordinate
     static double myCurrentLayer;

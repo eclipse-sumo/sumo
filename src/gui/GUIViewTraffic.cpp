@@ -383,7 +383,7 @@ GUIViewTraffic::doPaintGL(int mode, const Boundary& bound) {
     if (myRenderer != nullptr) {
 
         // Debug / Demo rectangles
-        
+        /*
         GLHelper::setColor(RGBColor(0, 255, 0));
         GLTransformStack::getTransformStack().pushMatrix();
         GLTransformStack::getTransformStack().translate(glm::vec3(150.f, 100.f, 3.f));
@@ -395,6 +395,7 @@ GUIViewTraffic::doPaintGL(int mode, const Boundary& bound) {
         GLHelper::setColor(RGBColor(0, 0, 255));
         Position pos2(250., 500.);
         GLHelper::drawRectangleModern(pos2, 30., 80.);
+        */
 
         if (GLHelper::getVertexCounterModern() > 0) {
             // render
@@ -857,7 +858,7 @@ GUIViewTraffic::initModernOpenGL() {
 
         myRenderer = std::make_shared<GLRenderer>();
         myRenderer->addShader("FaceColorShader", shader);
-        const std::vector<std::pair<GLint, unsigned int>> attributeDefinitions = { {GL_FLOAT, 3}, {GL_BYTE, 4} };
+        const std::vector<std::pair<GLint, unsigned int>> attributeDefinitions = { {GL_FLOAT, 3}, {GL_UNSIGNED_BYTE, 4} };
         myRenderer->addConfiguration("Standard", "FaceColorShader", GLHelper::computeVertexAttributeSize(attributeDefinitions));
         myRenderer->activateConfiguration("Standard");
         myRenderer->getVAO()->setGeometryType((GLenum)GL_LINES);

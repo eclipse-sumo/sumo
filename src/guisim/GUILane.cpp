@@ -15,6 +15,7 @@
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
+/// @author  Mirko Barthauer
 /// @date    Sept 2002
 ///
 // Representation of a lane in the micro simulation (gui-version)
@@ -346,17 +347,15 @@ GUILane::drawLinkRules(const GUIVisualizationSettings& s, const GUINet& net) con
         const Position& f = shape[-2];
         const double rot = RAD2DEG(atan2((end.x() - f.x()), (f.y() - end.y())));
         GLHelper::setColor(s.getLinkColor(LINKSTATE_MAJOR));
-        GLHelper::pushMatrix();
-        glTranslated(end.x(), end.y(), 0);
-        glRotated(rot, 0, 0, 1);
-        glTranslated(0, stopOffsetPassenger, 0);
-        glBegin(GL_QUADS);
-        glVertex2d(-myHalfLaneWidth, 0.0);
-        glVertex2d(-myHalfLaneWidth, 0.2);
-        glVertex2d(myHalfLaneWidth, 0.2);
-        glVertex2d(myHalfLaneWidth, 0.0);
-        glEnd();
-        GLHelper::popMatrix();
+        GLTransformStack::getTransformStack().pushMatrix();
+        GLTransformStack::getTransformStack().translate(glm::vec3(end.x(), end.y(), 0));
+        GLTransformStack::getTransformStack().rotate(rot);
+        GLTransformStack::getTransformStack().translate(glm::vec3(0, stopOffsetPassenger, 0));
+        GLHelper::drawQuad(Position(-myHalfLaneWidth, 0.0),
+                           Position(-myHalfLaneWidth, 0.2),
+                           Position(myHalfLaneWidth, 0.2),
+                           Position(myHalfLaneWidth, 0.0));
+        GLTransformStack::getTransformStack().popMatrix();
     }
 }
 
@@ -372,20 +371,18 @@ GUILane::drawLinkRule(const GUIVisualizationSettings& s, const GUINet& net, cons
         } else {
             GLHelper::setColor(GUIVisualizationSettings::getLinkColor(LINKSTATE_DEADEND));
         }
-        GLHelper::pushMatrix();
-        glTranslated(end.x(), end.y(), 0);
-        glRotated(rot, 0, 0, 1);
-        glBegin(GL_QUADS);
-        glVertex2d(-myHalfLaneWidth, 0.0);
-        glVertex2d(-myHalfLaneWidth, 0.5);
-        glVertex2d(myHalfLaneWidth, 0.5);
-        glVertex2d(myHalfLaneWidth, 0.0);
-        glEnd();
-        GLHelper::popMatrix();
+        GLTransformStack::getTransformStack().pushMatrix();
+        GLTransformStack::getTransformStack().translate(glm::vec3(end.x(), end.y(), 0));
+        GLTransformStack::getTransformStack().rotate(rot);
+        GLHelper::drawQuad(Position(-myHalfLaneWidth, 0.0),
+                           Position(-myHalfLaneWidth, 0.5),
+                           Position(myHalfLaneWidth, 0.5),
+                           Position(myHalfLaneWidth, 0.0));
+        GLTransformStack::getTransformStack().popMatrix();
     } else {
-        GLHelper::pushMatrix();
-        glTranslated(end.x(), end.y(), 0);
-        glRotated(rot, 0, 0, 1);
+        GLTransformStack::getTransformStack().pushMatrix();
+        GLTransformStack::getTransformStack().translate(glm::vec3(end.x(), end.y(), 0));
+        GLTransformStack::getTransformStack().rotate(rot);
         // select glID
 
         switch (link->getState()) {
@@ -421,16 +418,14 @@ GUILane::drawLinkRule(const GUIVisualizationSettings& s, const GUINet& net, cons
             if (myEdge->getToJunction()->getType() == SumoXMLNodeType::RAIL_SIGNAL) {
                 scale *= MAX2(s.laneWidthExaggeration, s.junctionSize.getExaggeration(s, this, 10));
             }
-            glScaled(scale, scale, 1);
-            glBegin(GL_QUADS);
-            glVertex2d(x1 - myHalfLaneWidth, 0.0);
-            glVertex2d(x1 - myHalfLaneWidth, 0.5);
-            glVertex2d(x2 - myHalfLaneWidth, 0.5);
-            glVertex2d(x2 - myHalfLaneWidth, 0.0);
-            glEnd();
+            GLTransformStack::getTransformStack().scale(glm::vec3(scale, scale, 1));
+            GLHelper::drawQuad(Position(x1 - myHalfLaneWidth, 0.0),
+                               Position(x1 - myHalfLaneWidth, 0.5),
+                               Position(x2 - myHalfLaneWidth, 0.5),
+                               Position(x2 - myHalfLaneWidth, 0.0));
         }
         GLHelper::popName();
-        GLHelper::popMatrix();
+        GLTransformStack::getTransformStack().popMatrix();
     }
 }
 
@@ -443,12 +438,12 @@ GUILane::drawArrows(bool secondaryShape) const {
     const Position& end = getShape(secondaryShape).back();
     const Position& f = getShape(secondaryShape)[-2];
     const double rot = RAD2DEG(atan2((end.x() - f.x()), (f.y() - end.y())));
-    GLHelper::pushMatrix();
-    glColor3d(1, 1, 1);
-    glTranslated(end.x(), end.y(), 0);
-    glRotated(rot, 0, 0, 1);
+    GLTransformStack::getTransformStack().pushMatrix();
+    GLHelper::setColor(RGBColor(255, 255, 255));
+    GLTransformStack::getTransformStack().translate(glm::vec3(end.x(), end.y(), 0));
+    GLTransformStack::getTransformStack().rotate(rot);
     if (myWidth < SUMO_const_laneWidth) {
-        glScaled(myWidth / SUMO_const_laneWidth, 1, 1);
+        GLTransformStack::getTransformStack().scale(glm::vec3(myWidth / SUMO_const_laneWidth, 1, 1));
     }
     for (const MSLink* const link : myLinks) {
         LinkDirection dir = link->getDirection();
@@ -458,46 +453,46 @@ GUILane::drawArrows(bool secondaryShape) const {
         }
         switch (dir) {
             case LinkDirection::STRAIGHT:
-                GLHelper::drawBoxLine(Position(0, 4), 0, 2, .05);
-                GLHelper::drawTriangleAtEnd(Position(0, 4), Position(0, 1), (double) 1, (double) .25);
+                GLHelper::drawBoxLineModern(Position(0, 4), 0, 2, .05);
+                GLHelper::drawTriangleAtEndModern(Position(0, 4), Position(0, 1), (double) 1, (double) .25);
                 break;
             case LinkDirection::TURN:
-                GLHelper::drawBoxLine(Position(0, 4), 0, 1.5, .05);
-                GLHelper::drawBoxLine(Position(0, 2.5), 90, .5, .05);
-                GLHelper::drawBoxLine(Position(0.5, 2.5), 180, 1, .05);
-                GLHelper::drawTriangleAtEnd(Position(0.5, 2.5), Position(0.5, 4), (double) 1, (double) .25);
+                GLHelper::drawBoxLineModern(Position(0, 4), 0, 1.5, .05);
+                GLHelper::drawBoxLineModern(Position(0, 2.5), 90, .5, .05);
+                GLHelper::drawBoxLineModern(Position(0.5, 2.5), 180, 1, .05);
+                GLHelper::drawTriangleAtEndModern(Position(0.5, 2.5), Position(0.5, 4), (double) 1, (double) .25);
                 break;
             case LinkDirection::TURN_LEFTHAND:
-                GLHelper::drawBoxLine(Position(0, 4), 0, 1.5, .05);
-                GLHelper::drawBoxLine(Position(0, 2.5), -90, .5, .05);
-                GLHelper::drawBoxLine(Position(-0.5, 2.5), -180, 1, .05);
-                GLHelper::drawTriangleAtEnd(Position(-0.5, 2.5), Position(-0.5, 4), (double) 1, (double) .25);
+                GLHelper::drawBoxLineModern(Position(0, 4), 0, 1.5, .05);
+                GLHelper::drawBoxLineModern(Position(0, 2.5), -90, .5, .05);
+                GLHelper::drawBoxLineModern(Position(-0.5, 2.5), -180, 1, .05);
+                GLHelper::drawTriangleAtEndModern(Position(-0.5, 2.5), Position(-0.5, 4), (double) 1, (double) .25);
                 break;
             case LinkDirection::LEFT:
-                GLHelper::drawBoxLine(Position(0, 4), 0, 1.5, .05);
-                GLHelper::drawBoxLine(Position(0, 2.5), 90, 1, .05);
-                GLHelper::drawTriangleAtEnd(Position(0, 2.5), Position(1.5, 2.5), (double) 1, (double) .25);
+                GLHelper::drawBoxLineModern(Position(0, 4), 0, 1.5, .05);
+                GLHelper::drawBoxLineModern(Position(0, 2.5), 90, 1, .05);
+                GLHelper::drawTriangleAtEndModern(Position(0, 2.5), Position(1.5, 2.5), (double) 1, (double) .25);
                 break;
             case LinkDirection::RIGHT:
-                GLHelper::drawBoxLine(Position(0, 4), 0, 1.5, .05);
-                GLHelper::drawBoxLine(Position(0, 2.5), -90, 1, .05);
-                GLHelper::drawTriangleAtEnd(Position(0, 2.5), Position(-1.5, 2.5), (double) 1, (double) .25);
+                GLHelper::drawBoxLineModern(Position(0, 4), 0, 1.5, .05);
+                GLHelper::drawBoxLineModern(Position(0, 2.5), -90, 1, .05);
+                GLHelper::drawTriangleAtEndModern(Position(0, 2.5), Position(-1.5, 2.5), (double) 1, (double) .25);
                 break;
             case LinkDirection::PARTLEFT:
-                GLHelper::drawBoxLine(Position(0, 4), 0, 1.5, .05);
-                GLHelper::drawBoxLine(Position(0, 2.5), 45, .7, .05);
-                GLHelper::drawTriangleAtEnd(Position(0, 2.5), Position(1.2, 1.3), (double) 1, (double) .25);
+                GLHelper::drawBoxLineModern(Position(0, 4), 0, 1.5, .05);
+                GLHelper::drawBoxLineModern(Position(0, 2.5), 45, .7, .05);
+                GLHelper::drawTriangleAtEndModern(Position(0, 2.5), Position(1.2, 1.3), (double) 1, (double) .25);
                 break;
             case LinkDirection::PARTRIGHT:
-                GLHelper::drawBoxLine(Position(0, 4), 0, 1.5, .05);
-                GLHelper::drawBoxLine(Position(0, 2.5), -45, .7, .05);
-                GLHelper::drawTriangleAtEnd(Position(0, 2.5), Position(-1.2, 1.3), (double) 1, (double) .25);
+                GLHelper::drawBoxLineModern(Position(0, 4), 0, 1.5, .05);
+                GLHelper::drawBoxLineModern(Position(0, 2.5), -45, .7, .05);
+                GLHelper::drawTriangleAtEndModern(Position(0, 2.5), Position(-1.2, 1.3), (double) 1, (double) .25);
                 break;
             default:
                 break;
         }
     }
-    GLHelper::popMatrix();
+    GLTransformStack::getTransformStack().popMatrix();
 }
 
 
@@ -513,17 +508,15 @@ GUILane::drawLane2LaneConnections(double exaggeration, bool s2) const {
             continue;
         }
         GLHelper::setColor(GUIVisualizationSettings::getLinkColor(link->getState()));
-        glBegin(GL_LINES);
         Position p1 = myEdge->isWalkingArea() ? getShape(s2).getCentroid() : getShape(s2)[-1];
         Position p2 = connected->getEdge().isWalkingArea() ? connected->getShape(s2).getCentroid() : connected->getShape(s2)[0];
         if (exaggeration > 1) {
             p1 = centroid + ((p1 - centroid) * exaggeration);
             p2 = centroid + ((p2 - centroid) * exaggeration);
         }
-        glVertex2d(p1.x(), p1.y());
-        glVertex2d(p2.x(), p2.y());
-        glEnd();
-        GLHelper::drawTriangleAtEnd(p1, p2, (double) .4, (double) .2);
+        GLHelper::addVertex(GL_LINES, p1);
+        GLHelper::addVertex(GL_LINES, p2);
+        GLHelper::drawTriangleAtEndModern(p1, p2, (double) .4, (double) .2);
     }
 }
 
@@ -836,32 +829,26 @@ GUILane::drawGLModern(const GUIVisualizationSettings& s) const {
         const PositionVector& baseShape = getShape(s2);
         const bool hasRailSignal = myEdge->getToJunction()->getType() == SumoXMLNodeType::RAIL_SIGNAL;
         if (s.trueZ) {
-            //glTranslated(0, 0, baseShape.getMinZ());
             GLTransformStack::getTransformStack().translate(glm::vec3(0, 0, baseShape.getMinZ()));
         }
         else {
             if (isCrossing) {
                 // draw internal lanes on top of junctions
-                //glTranslated(0, 0, GLO_JUNCTION + 0.1);
                 GLTransformStack::getTransformStack().translate(glm::vec3(0, 0, GLO_JUNCTION + 0.1));
             }
             else if (isWalkingArea) {
                 // draw internal lanes on top of junctions
-                //glTranslated(0, 0, GLO_JUNCTION + 0.3);
                 GLTransformStack::getTransformStack().translate(glm::vec3(0, 0, GLO_JUNCTION + 0.3));
             }
             else if (isWaterway(myPermissions)) {
                 // draw waterways below normal roads
-                //glTranslated(0, 0, getType() - 0.2);
                 GLTransformStack::getTransformStack().translate(glm::vec3(0, 0, getType() - 0.2));
             }
             else if (myPermissions == SVC_SUBWAY) {
                 // draw subways further below
-                //glTranslated(0, 0, getType() - 0.4);
                 GLTransformStack::getTransformStack().translate(glm::vec3(0, 0, getType() - 0.4));
             }
             else {
-                //glTranslated(0, 0, getType());
                 GLTransformStack::getTransformStack().translate(glm::vec3(0, 0, getType()));
             }
         }
@@ -936,45 +923,42 @@ GUILane::drawGLModern(const GUIVisualizationSettings& s) const {
                 }
                 // Draw white on top with reduced width (the area between the two tracks)
                 if (detailZoom) {
-                    glColor3d(1, 1, 1);
-                    //glTranslated(0, 0, .1);
+                    GLHelper::setColor(RGBColor(255, 255, 255));
                     GLTransformStack::getTransformStack().translate(glm::vec3(0, 0, .1));
                     GLHelper::drawBoxLinesModern(shape, getShapeRotations(s2), getShapeLengths(s2), halfInnerFeetWidth);
                     setColor(s);
-                    GLHelper::drawCrossTies(shape, getShapeRotations(s2), getShapeLengths(s2), 0.26 * exaggeration, 0.6 * exaggeration,
+                    GLHelper::drawCrossTiesModern(shape, getShapeRotations(s2), getShapeLengths(s2), 0.26 * exaggeration, 0.6 * exaggeration,
                         halfCrossTieWidth, 0, s.forceDrawForRectangleSelection);
                 }
             }
             else if (isCrossing) {
                 if (s.drawCrossingsAndWalkingareas && (s.scale > 3.0 || s.junctionSize.minSize == 0)) {
-                    //glTranslated(0, 0, .2);
                     GLTransformStack::getTransformStack().translate(glm::vec3(0, 0, .2));
-                    GLHelper::drawCrossTies(baseShape, getShapeRotations(s2), getShapeLengths(s2), 0.5, 1.0, getWidth() * 0.5,
+                    GLHelper::drawCrossTiesModern(baseShape, getShapeRotations(s2), getShapeLengths(s2), 0.5, 1.0, getWidth() * 0.5,
                         0, s.drawForRectangleSelection);
 #ifdef GUILane_DEBUG_DRAW_CROSSING_OUTLINE
                     if (myOutlineShape != nullptr) {
                         GLHelper::setColor(RGBColor::BLUE);
-                        glTranslated(0, 0, 0.4);
-                        GLHelper::drawBoxLines(*myOutlineShape, 0.1);
-                        glTranslated(0, 0, -0.4);
+                        //glTranslated(0, 0, 0.4);
+                        GLTransformStack::getTransformStack().translate(glm::vec3(0, 0, .4));
+                        GLHelper::drawBoxLinesModern(*myOutlineShape, 0.1);
+                        //glTranslated(0, 0, -0.4);
+                        GLTransformStack::getTransformStack().translate(glm::vec3(0, 0, -0.4));
                         if (s.geometryIndices.show(this)) {
                             GLHelper::debugVertices(*myOutlineShape, s.geometryIndices, s.scale);
                         }
                     }
 #endif
-                    //glTranslated(0, 0, -.2);
                     GLTransformStack::getTransformStack().translate(glm::vec3(0, 0, -.2));
                 }
             }
             else if (isWalkingArea) {
                 if (s.drawCrossingsAndWalkingareas && (s.scale > 3.0 || s.junctionSize.minSize == 0)) {
-                    //glTranslated(0, 0, .2);
                     GLTransformStack::getTransformStack().translate(glm::vec3(0, 0, .2));
                     if (myTesselation == nullptr) {
                         myTesselation = new TesselatedPolygon(getID(), "", RGBColor::MAGENTA, PositionVector(), false, true, 0);
                     }
                     myTesselation->drawTesselation(baseShape);
-                    //glTranslated(0, 0, -.2);
                     GLTransformStack::getTransformStack().translate(glm::vec3(0, 0, -.2));
                     if (s.geometryIndices.show(this)) {
                         GLHelper::debugVertices(baseShape, s.geometryIndices, s.scale);
@@ -1024,7 +1008,8 @@ GUILane::drawGLModern(const GUIVisualizationSettings& s) const {
                             GLHelper::setColor(setColor(s).changedBrightness(100));
                         }
                         else {
-                            glColor3d(0.3, 0.3, 0.3);
+                            //glColor3d(0.3, 0.3, 0.3);
+                            GLHelper::setColor(RGBColor(77, 77, 77));
                         }
                         if (!isCrossing || s.drawCrossingsAndWalkingareas) {
                             drawDirectionIndicators(exaggeration, spreadSuperposed, s.secondaryShape);
@@ -1055,16 +1040,16 @@ GUILane::drawGLModern(const GUIVisualizationSettings& s) const {
                         if (s.showLinkDecals && !drawRails && !drawAsWaterway(s) && myPermissions != SVC_PEDESTRIAN) {
                             drawArrows(s.secondaryShape);
                         }
-                        glTranslated(0, 0, 1000);
+                        GLTransformStack::getTransformStack().translate(glm::vec3(0, 0, 1000));
                         if (s.drawLinkJunctionIndex.show(nullptr)) {
                             drawLinkNo(s);
                         }
                         if (s.drawLinkTLIndex.show(nullptr)) {
                             drawTLSLinkNo(s, *net);
                         }
-                        glTranslated(0, 0, -1000);
+                        GLTransformStack::getTransformStack().translate(glm::vec3(0, 0, -1000));
                     }
-                    glTranslated(0, 0, .1);
+                    GLTransformStack::getTransformStack().translate(glm::vec3(0, 0, .1));
                 }
                 if ((drawDetails || junctionExaggeration > 1) && s.showLane2Lane) {
                     //  draw from end of first to the begin of second but respect junction scaling
@@ -1075,11 +1060,9 @@ GUILane::drawGLModern(const GUIVisualizationSettings& s) const {
                 // make sure link rules are drawn so tls can be selected via right-click
                 if (s.showLinkRules && drawDetails && !isWalkingArea &&
                     (!myEdge->isInternal() || (getLinkCont().size() > 0 && getLinkCont()[0]->isInternalJunctionLink()))) {
-                    GLHelper::pushMatrix();
                     GLTransformStack::getTransformStack().pushMatrix();
-                    glTranslated(0, 0, GLO_SHAPE); // must draw on top of junction shape and additionals
+                    GLTransformStack::getTransformStack().translate(glm::vec3(0, 0, GLO_SHAPE)); // must draw on top of junction shape and additionals
                     drawLinkRules(s, *net);
-                    GLHelper::popMatrix();
                     GLTransformStack::getTransformStack().popMatrix();
                 }
             }
@@ -1144,52 +1127,55 @@ GUILane::neighLaneNotBidi() const {
 
 void
 GUILane::drawMarkings(const GUIVisualizationSettings& s, double scale) const {
-    GLHelper::pushMatrix();
-    glTranslated(0, 0, GLO_EDGE);
+    GLTransformStack::getTransformStack().pushMatrix();
+    GLTransformStack::getTransformStack().translate(glm::vec3(0, 0, GLO_EDGE));
     setColor(s);
     // optionally draw inverse markings
     const bool s2 = s.secondaryShape;
     if (myIndex > 0 && (myEdge->getLanes()[myIndex - 1]->getPermissions() & myPermissions) != 0) {
         const bool cl = myEdge->getLanes()[myIndex - 1]->allowsChangingLeft(SVC_PASSENGER);
         const bool cr = allowsChangingRight(SVC_PASSENGER);
-        GLHelper::drawInverseMarkings(getShape(s2), getShapeRotations(s2), getShapeLengths(s2), 3, 6, myHalfLaneWidth, cl, cr, MSGlobals::gLefthand, scale);
+        GLHelper::drawInverseMarkingsModern(getShape(s2), getShapeRotations(s2), getShapeLengths(s2), 3, 6, myHalfLaneWidth, cl, cr, MSGlobals::gLefthand, scale);
     }
     // draw white boundings and white markings
-    glColor3d(1, 1, 1);
-    GLHelper::drawBoxLines(
+    GLHelper::setColor(RGBColor(255, 255, 255));
+    GLHelper::drawBoxLinesModern(
         getShape(s2),
         getShapeRotations(s2),
         getShapeLengths(s2),
         (myHalfLaneWidth + SUMO_const_laneMarkWidth) * scale);
-    GLHelper::popMatrix();
+    GLTransformStack::getTransformStack().popMatrix();
 }
 
 
 void
 GUILane::drawBikeMarkings() const {
     // draw bike lane markings onto the intersection
-    glColor3d(1, 1, 1);
+    //glColor3d(1, 1, 1);
+    GLHelper::setColor(RGBColor(255, 255, 255));
     /// fixme
     const bool s2 = false;
     const int e = (int) getShape(s2).size() - 1;
     const double markWidth = 0.1;
     const double mw = myHalfLaneWidth;
     for (int i = 0; i < e; ++i) {
-        GLHelper::pushMatrix();
-        glTranslated(getShape(s2)[i].x(), getShape(s2)[i].y(), GLO_JUNCTION + 0.4);
-        glRotated(getShapeRotations(s2)[i], 0, 0, 1);
+        //GLHelper::pushMatrix();
+        GLTransformStack::getTransformStack().pushMatrix();
+        //glTranslated(getShape(s2)[i].x(), getShape(s2)[i].y(), GLO_JUNCTION + 0.4);
+        GLTransformStack::getTransformStack().translate(glm::vec3(getShape(s2)[i].x(), getShape(s2)[i].y(), GLO_JUNCTION + 0.4));
+        //glRotated(getShapeRotations(s2)[i], 0, 0, 1);
+        GLTransformStack::getTransformStack().rotate(getShapeRotations(s2)[i]);
         for (double t = 0; t < getShapeLengths(s2)[i]; t += 0.5) {
             // left and right marking
             for (int side = -1; side <= 1; side += 2) {
-                glBegin(GL_QUADS);
-                glVertex2d(side * mw, -t);
-                glVertex2d(side * mw, -t - 0.35);
-                glVertex2d(side * (mw + markWidth), -t - 0.35);
-                glVertex2d(side * (mw + markWidth), -t);
-                glEnd();
+                GLHelper::drawQuad(Position(side * mw, -t),
+                                   Position(side * mw, -t - 0.35),
+                                   Position(side * (mw + markWidth), -t - 0.35),
+                                   Position(side * (mw + markWidth), -t));
             }
         }
-        GLHelper::popMatrix();
+        //GLHelper::popMatrix();
+        GLTransformStack::getTransformStack().popMatrix();
     }
 }
 
@@ -1200,7 +1186,7 @@ GUILane::drawJunctionChangeProhibitions() const {
     const bool s2 = false;
     // draw white markings
     if (myIndex > 0 && (myEdge->getLanes()[myIndex - 1]->getPermissions() & myPermissions) != 0) {
-        glColor3d(1, 1, 1);
+        GLHelper::setColor(RGBColor(255, 255, 255));
         const bool cl = myEdge->getLanes()[myIndex - 1]->allowsChangingLeft(SVC_PASSENGER);
         const bool cr = allowsChangingRight(SVC_PASSENGER);
         // solid line marking
@@ -1233,36 +1219,26 @@ GUILane::drawJunctionChangeProhibitions() const {
         }
         int e = (int) getShape(s2).size() - 1;
         for (int i = 0; i < e; ++i) {
-            GLHelper::pushMatrix();
-            glTranslated(getShape(s2)[i].x(), getShape(s2)[i].y(), GLO_JUNCTION + 0.4);
-            glRotated(getShapeRotations(s2)[i], 0, 0, 1);
+            GLTransformStack::getTransformStack().pushMatrix();
+            GLTransformStack::getTransformStack().translate(glm::vec3(getShape(s2)[i].x(), getShape(s2)[i].y(), GLO_JUNCTION + 0.4));
+            GLTransformStack::getTransformStack().rotate(getShapeRotations(s2)[i]);
             for (double t = 0; t < getShapeLengths(s2)[i]; t += 6) {
                 const double lengthSolid = MIN2(6.0, getShapeLengths(s2)[i] - t);
-                glBegin(GL_QUADS);
-                glVertex2d(-mw, -t);
-                glVertex2d(-mw, -t - lengthSolid);
-                glVertex2d(-mw2, -t - lengthSolid);
-                glVertex2d(-mw2, -t);
-                glEnd();
+                GLHelper::drawQuad(Position(-mw, -t), Position(-mw, -t - lengthSolid), Position(-mw2, -t - lengthSolid), Position(-mw2, -t));
                 if (cl || cr) {
                     const double lengthBroken = MIN2(3.0, getShapeLengths(s2)[i] - t);
-                    glBegin(GL_QUADS);
-                    glVertex2d(-mw3, -t);
-                    glVertex2d(-mw3, -t - lengthBroken);
-                    glVertex2d(-mw4, -t - lengthBroken);
-                    glVertex2d(-mw4, -t);
-                    glEnd();
+                    GLHelper::drawQuad(Position(-mw3, -t), Position(-mw3, -t - lengthSolid), Position(-mw4, -t - lengthSolid), Position(-mw4, -t));
                 }
             }
-            GLHelper::popMatrix();
+            GLTransformStack::getTransformStack().popMatrix();
         }
     }
 }
 
 void
 GUILane::drawDirectionIndicators(double exaggeration, bool spreadSuperposed, bool s2) const {
-    GLHelper::pushMatrix();
-    glTranslated(0, 0, GLO_EDGE);
+    GLTransformStack::getTransformStack().pushMatrix();
+    GLTransformStack::getTransformStack().translate(glm::vec3(0, 0, GLO_EDGE));
     int e = (int) getShape(s2).size() - 1;
     const double widthFactor = spreadSuperposed ? 0.4 : 1;
     const double w = MAX2(POSITION_EPS, myWidth * widthFactor);
@@ -1270,20 +1246,18 @@ GUILane::drawDirectionIndicators(double exaggeration, bool spreadSuperposed, boo
     const double w4 = MAX2(POSITION_EPS, myQuarterLaneWidth * widthFactor);
     const double sideOffset = spreadSuperposed ? w * -0.5 : 0;
     for (int i = 0; i < e; ++i) {
-        GLHelper::pushMatrix();
-        glTranslated(getShape(s2)[i].x(), getShape(s2)[i].y(), 0.1);
-        glRotated(getShapeRotations(s2)[i], 0, 0, 1);
+        GLTransformStack::getTransformStack().pushMatrix();
+        GLTransformStack::getTransformStack().translate(glm::vec3(getShape(s2)[i].x(), getShape(s2)[i].y(), 0.1));
+        GLTransformStack::getTransformStack().rotate(getShapeRotations(s2)[i]);
         for (double t = 0; t < getShapeLengths(s2)[i]; t += w) {
             const double length = MIN2(w2, getShapeLengths(s2)[i] - t) * exaggeration;
-            glBegin(GL_TRIANGLES);
-            glVertex2d(sideOffset, -t - length);
-            glVertex2d(sideOffset - w4 * exaggeration, -t);
-            glVertex2d(sideOffset + w4 * exaggeration, -t);
-            glEnd();
+            GLHelper::addVertex(GL_TRIANGLES, sideOffset, -t - length);
+            GLHelper::addVertex(GL_TRIANGLES, sideOffset - w4 * exaggeration, -t);
+            GLHelper::addVertex(GL_TRIANGLES, sideOffset + w4 * exaggeration, -t);
         }
-        GLHelper::popMatrix();
+        GLTransformStack::getTransformStack().popMatrix();
     }
-    GLHelper::popMatrix();
+    GLTransformStack::getTransformStack().popMatrix();
 }
 
 

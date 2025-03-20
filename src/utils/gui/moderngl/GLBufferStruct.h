@@ -26,5 +26,5 @@
 
 struct GLBufferStruct {
     float position[3];
-    char color[4];
+    unsigned char color[4];
 };
