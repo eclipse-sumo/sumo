@@ -7036,8 +7036,11 @@ MSVehicle::unsafeLinkAhead(const MSLane* lane, double zipperDist) const {
                 if (found) {
                     const SUMOTime leaveTime = (*link)->getLeaveTime((*di).myArrivalTime, (*di).myArrivalSpeed,
                                                (*di).getLeaveSpeed(), getVehicleType().getLength());
-                    //std::cout << SIMTIME << " veh=" << getID() << " changeTo=" << Named::getIDSecure(bestLaneConts.front()) << " linkState=" << toString((*link)->getState()) << " seen=" << seen << " dist=" << dist << "\n";
-                    if ((*link)->hasApproachingFoe((*di).myArrivalTime, leaveTime, (*di).myArrivalSpeed, getCarFollowModel().getMaxDecel())) {
+                    const MSLink* entry = (*link)->getCorrespondingEntryLink();
+                    //if (DEBUG_COND) {
+                    //    std::cout << SIMTIME << " veh=" << getID() << " changeTo=" << Named::getIDSecure(bestLaneConts.front()) << " linkState=" << toString((*link)->getState()) << " seen=" << seen << " dist=" << dist << " zipperDist=" << zipperDist << " aT=" << STEPS2TIME((*di).myArrivalTime) << " lT=" << STEPS2TIME(leaveTime) << "\n";
+                    //}
+                    if (entry->hasApproachingFoe((*di).myArrivalTime, leaveTime, (*di).myArrivalSpeed, getCarFollowModel().getMaxDecel())) {
                         //std::cout << SIMTIME << " veh=" << getID() << " aborting changeTo=" << Named::getIDSecure(bestLaneConts.front()) << " linkState=" << toString((*link)->getState()) << " seen=" << seen << " dist=" << dist << "\n";
                         return true;
                     }
