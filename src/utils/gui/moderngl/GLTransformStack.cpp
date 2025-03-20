@@ -98,6 +98,12 @@ GLTransformStack::rotate(const float angle, const glm::vec3& axis) {
 
 
 void
+GLTransformStack::rotate(const float angle) {
+    rotate(angle, glm::vec3(0, 0, 1));
+}
+
+
+void
 GLTransformStack::scale(const glm::vec3& s) {
     *myStack.rbegin() = glm::scale(*myStack.rbegin(), s);
 }

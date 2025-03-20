@@ -47,6 +47,7 @@ public:
     void popMatrix();
     void translate(const glm::vec3& t);
     void rotate(const float angle, const glm::vec3& axis);
+    void rotate(const float angle);
     void scale(const glm::vec3& s);
     void scale(const double s);
     glm::vec3 applyTransform(const glm::vec3& v) const;
