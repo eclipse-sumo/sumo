@@ -249,7 +249,7 @@ title: Changes in the 2017 releases (versions 0.29.0, 0.30.0, 0.31.0 and 0.32.0)
 
 ### Other
 
-- The SUMO license changed to the [Eclipse Public License Version 2](https://eclipse.org/legal/epl-v20.html)
+- The SUMO license changed to the [Eclipse Public License Version 2](https://www.eclipse.org/legal/epl-2.0/)
 - The SUMO build process now supports CMake. It is likely that version
 0.32.0 will be the last one shipping Visual Studio solutions. Please
 have a look at
