@@ -156,9 +156,6 @@ public:
     /// @brief get Tag vinculated with this attribute Property
     SumoXMLTag getTag() const;
 
-    /// @brief get supermode associated with this tag
-    Supermode getSupermode() const;
-
     /// @brief get Tag vinculated with this attribute Property in String Format (used to avoid multiple calls to toString(...)
     const std::string& getTagStr() const;
 
@@ -186,17 +183,20 @@ public:
     /// @brief get attribute value
     const GNEAttributeProperties* at(int index) const;
 
+    /// @brief check if current TagProperties owns the attribute "attr"
+    bool hasAttribute(SumoXMLAttr attr) const;
+
     /// @brief get number of attributes
     int getNumberOfAttributes() const;
 
-    /// @brief get hierarchy depth of this tag property (0 means top)
-    int getHierarchyDepth() const;
+    /// @brief get GUI icon associated to this Tag
+    GUIIcon getGUIIcon() const;
 
-    /// @brief get tag property parent
-    const GNETagProperties* getParent(const int depth) const;
+    /// @brief get XML tag
+    SumoXMLTag getXMLTag() const;
 
-    /// @brief tag property children
-    const std::vector<GNETagProperties*>& getChildren() const;
+    /// @brief default values
+    /// @{
 
     /// @brief return the default value of the attribute of an element
     const std::string& getDefaultStringValue(SumoXMLAttr attr) const;
@@ -216,19 +216,32 @@ public:
     /// @brief get default bool value
     const RGBColor& getDefaultColorValue(SumoXMLAttr attr) const;
 
-    /// @brief get GUI icon associated to this Tag
-    GUIIcon getGUIIcon() const;
+    /// @}
 
-    /// @brief get XML tag
-    SumoXMLTag getXMLTag() const;
+    /// @brief hierarchy functions
+    /// @{
 
     /// @brief get parent tags
     const std::vector<SumoXMLTag>& getParentTags() const;
 
-    /// @brief check if current TagProperties owns the attribute "attr"
-    bool hasAttribute(SumoXMLAttr attr) const;
+    /// @brief get hierarchy depth of this tag property (0 means top)
+    int getHierarchyDepth() const;
 
-    /// @brief element sets
+    /// @brief get tag property parent
+    const GNETagProperties* getParent(const int depth) const;
+
+    /// @brief tag property children
+    const std::vector<const GNETagProperties*>& getChildren() const;
+
+    /// @brief get all children tags (Including this)
+    std::vector<const GNETagProperties*> getAllChildren() const;
+
+    /// @brief get supermode associated with this tag
+    Supermode getSupermode() const;
+
+    /// @}
+
+    /// @brief network elements
     /// @{
 
     /// @brief return true if tag correspond to a network element
@@ -509,7 +522,7 @@ public:
 
 protected:
     /// @brief add child
-    void addChild(GNETagProperties* child);
+    void addChild(const GNETagProperties* child);
 
 private:
     /// @brief Sumo XML Tag vinculated wit this tag Property
@@ -522,7 +535,7 @@ private:
     const GNETagProperties* myParent = nullptr;
 
     /// @brief tag property children
-    std::vector<GNETagProperties*> myChildren;
+    std::vector<const GNETagProperties*> myChildren;
 
     /// @brief tag Types
     int myTagType = -1;
@@ -556,6 +569,9 @@ private:
 
     /// @brief background color (used in labels and textFields, by default white)
     unsigned int myBackgroundColor = 0;
+
+    /// @brief recursive function for get all children tags (Including this)
+    void getChildrenTags(const GNETagProperties* tagProperties, std::vector<const GNETagProperties*>& result) const;
 
     /// @brief default constructor
     GNETagProperties() = delete;

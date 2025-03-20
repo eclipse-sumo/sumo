@@ -75,18 +75,6 @@ GNETagProperties::getTag() const {
 }
 
 
-Supermode
-GNETagProperties::getSupermode() const {
-    if (isDemandElement()) {
-        return Supermode::DEMAND;
-    } else if (isDataElement() || isMeanData()) {
-        return Supermode::DATA;
-    } else {
-        return Supermode::NETWORK;
-    }
-}
-
-
 const std::string&
 GNETagProperties::getTagStr() const {
     return myTagStr;
@@ -401,9 +389,38 @@ GNETagProperties::at(int index) const {
 }
 
 
+bool
+GNETagProperties::hasAttribute(SumoXMLAttr attr) const {
+    // iterate over attribute properties
+    for (const auto& attributeProperty : myAttributeProperties) {
+        if (attributeProperty->getAttr() == attr) {
+            return true;
+        }
+    }
+    return false;
+}
+
+
 int
 GNETagProperties::getNumberOfAttributes() const {
     return (int)myAttributeProperties.size();
+}
+
+
+GUIIcon
+GNETagProperties::getGUIIcon() const {
+    return myIcon;
+}
+
+
+SumoXMLTag
+GNETagProperties::getXMLTag() const {
+    return myXMLTag;
+}
+
+const std::vector<SumoXMLTag>&
+GNETagProperties::getParentTags() const {
+    return myParentTags;
 }
 
 
@@ -433,39 +450,41 @@ GNETagProperties::getParent(const int depth) const {
 }
 
 
-const std::vector<GNETagProperties*>&
+const std::vector<const GNETagProperties*>&
 GNETagProperties::getChildren() const {
     return myChildren;
 }
 
 
-GUIIcon
-GNETagProperties::getGUIIcon() const {
-    return myIcon;
+std::vector<const GNETagProperties*>
+GNETagProperties::getAllChildren() const {
+    std::vector<const GNETagProperties*> results;
+    // obtain all tags recursively (including this)
+    getChildrenTags(this, results);
+    return results;
 }
 
 
-SumoXMLTag
-GNETagProperties::getXMLTag() const {
-    return myXMLTag;
-}
-
-
-const std::vector<SumoXMLTag>&
-GNETagProperties::getParentTags() const {
-    return myParentTags;
-}
-
-
-bool
-GNETagProperties::hasAttribute(SumoXMLAttr attr) const {
-    // iterate over attribute properties
-    for (const auto& attributeProperty : myAttributeProperties) {
-        if (attributeProperty->getAttr() == attr) {
-            return true;
+Supermode
+GNETagProperties::getSupermode() const {
+    if (myParent == nullptr) {
+        throw ProcessError("Root doesn't have an associated supermode");
+    } else {
+        const GNETagProperties* parent = myParent;
+        while (parent->myParent != nullptr) {
+            parent = parent->myParent;
+        }
+        // continue depending of supermode
+        if (parent->getTag() == GNE_TAG_SUPERMODE_NETWORK) {
+            return Supermode::NETWORK;
+        } else if (parent->getTag() == GNE_TAG_SUPERMODE_DEMAND) {
+            return Supermode::DEMAND;
+        } else if (parent->getTag() == GNE_TAG_SUPERMODE_DATA) {
+            return Supermode::DATA;
+        } else {
+            throw ProcessError("Invalid supermode");
         }
     }
-    return false;
 }
 
 
@@ -973,8 +992,19 @@ GNETagProperties::vClassIcon() const {
 
 
 void
-GNETagProperties::addChild(GNETagProperties* child) {
+GNETagProperties::addChild(const GNETagProperties* child) {
     myChildren.push_back(child);
 }
+
+
+void
+GNETagProperties::getChildrenTags(const GNETagProperties* tagProperties, std::vector<const GNETagProperties*>& result) const {
+    result.push_back(this);
+    // call it iterative for all children
+    for (const auto& child : myChildren) {
+        getChildrenTags(child, result);
+    }
+}
+
 
 /****************************************************************************/
