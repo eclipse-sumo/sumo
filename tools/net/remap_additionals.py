@@ -25,6 +25,7 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 import sumolib  # noqa
 from sumolib.geomhelper import distance  # noqa
 from sumolib.xml import parse  # noqa
+from sumolib.net import lane2edge  # noqa
 import sumolib.geomhelper as gh  # noqa
 
 
@@ -221,13 +222,15 @@ def remap(options, obj, level=1):
 
 def patchSpecialCases(options, obj, level):
     if level == 1:
-        accessLanes = set()
+        accessEdges = set()
         for child in obj.getChildList():
             if child.name == "access" and not child.isCommented():
-                if child.lane in accessLanes:
-                    print("Disabling duplicate access on lane %s" % child.lane, file=sys.stderr)
+                edge = lane2edge(child.lane)
+                if edge in accessEdges:
+                    print("Disabling duplicate access on edge %s" % edge, file=sys.stderr)
                     child.setCommented()
                 else:
+                    accessEdges.add(edge)
                     lane = options.net2.getLane(child.lane)
                     if not lane.allows("pedestrian"):
                         found = False
@@ -239,7 +242,6 @@ def patchSpecialCases(options, obj, level):
                         if not found:
                             print("Disabling access on non-pedestrian lane %s" % child.lane, file=sys.stderr)
                             child.setCommented()
-                    accessLanes.add(child.lane)
 
 
 def main(options):
