@@ -34,7 +34,7 @@
 // ===========================================================================
 
 FXDEFMAP(GNEMatchAttribute) GNEMatchAttributeMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECTORFRAME_SELECTTAG,        GNEMatchAttribute::onCmdSelMBTag),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECTORFRAME_SELECTTAG,        GNEMatchAttribute::onCmdTagSelected),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECTORFRAME_SELECTATTRIBUTE,  GNEMatchAttribute::onCmdSelMBAttribute),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECTORFRAME_PROCESSSTRING,    GNEMatchAttribute::onCmdSelMBString),
     FXMAPFUNC(SEL_COMMAND,  MID_HELP,                               GNEMatchAttribute::onCmdHelp)
@@ -122,25 +122,49 @@ GNEMatchAttribute::hideMatchAttribute() {
 
 void
 GNEMatchAttribute::refreshMatchAttribute() {
-    const auto depth = myTagProperties ? myTagProperties->getHierarchyDepth() : 0;
-    // show the first
-    for (int i = 0; i < depth; i++) {
+    auto parents = myTagProperties->getParents();
+    const auto allTagProperty = mySelectorFrameParent->getViewNet()->getNet()->getTagPropertiesDatabase()->getTagPropertiesAll();
+    // fill hierarchy
+    for (int i = 0; i < (int)parents.size(); i++) {
         auto comboBox = myTagComboBoxVector.at(i);
+        // clear previous elements
         comboBox->clearItems();
         // add <all> always as first element
-        myTagComboBoxVector.at(i)->appendTagItem(mySelectorFrameParent->getViewNet()->getNet()->getTagPropertiesDatabase()->getTagPropertiesAll());
-        const auto tagPropertyParent = myTagProperties->getParent(i);
-        for (const auto tagPropertyChild : tagPropertyParent->getChildren()) {
+        myTagComboBoxVector.at(i)->appendTagItem(allTagProperty);
+        // add rest of tags
+        for (const auto tagPropertyChild : parents.at(i)->getChildren()) {
             myTagComboBoxVector.at(i)->appendTagItem(tagPropertyChild);
         }
     }
-    myTagComboBoxVector.at(depth)->show();
+    // remove root
+    parents.erase(parents.begin());
+    // set parents
+    for (int i = 0; i < (int)parents.size(); i++) {
+        myTagComboBoxVector.at(i)->setCurrentItem(parents.at(i), FALSE);
+    }
+    // now configure current tag
+    myTagComboBoxVector.at(parents.size())->setCurrentItem(myTagProperties, FALSE);
+    // if current tag has children, show it
+    auto comboBoxCurrentItem = myTagComboBoxVector.at(parents.size() + 1);
+    if (myTagProperties->getChildren().size() > 0) {
+        comboBoxCurrentItem->clearItems();
+        // add <all> always as first element
+        comboBoxCurrentItem->appendTagItem(allTagProperty);
+        // add every child
+        for (const auto& tagPropertyChild : myTagProperties->getChildren()) {
+            comboBoxCurrentItem->appendTagItem(tagPropertyChild);
+        }
+        comboBoxCurrentItem->show();
+    } else {
+        comboBoxCurrentItem->hide();
+    }
     // hide the rest
-    for (int i = (depth + 1); i < (int)myTagComboBoxVector.size(); i++) {
+    for (int i = (parents.size() + 2); i < (int)myTagComboBoxVector.size(); i++) {
         myTagComboBoxVector.at(i)->hide();
     }
     // now fill attributes
     myMatchAttrComboBox->clearItems();
+    // get ALL Children recursivelly)
     const auto attributes = myTagProperties->getAllChildrenAttributes();
     for (const auto& attribute : attributes) {
         myMatchAttrComboBox->appendIconItem(attribute.first.c_str());
@@ -149,30 +173,16 @@ GNEMatchAttribute::refreshMatchAttribute() {
 
 
 long
-GNEMatchAttribute::onCmdSelMBTag(FXObject* obj, FXSelector, void*) {
-    /*
-        // iterate over all comboBoxes
-        for (const auto &tagComboBox : myTagComboBoxVector) {
-            if (tagComboBox == obj) {
-            }
+GNEMatchAttribute::onCmdTagSelected(FXObject* obj, FXSelector, void*) {
+    // iterate over all comboBoxes
+    for (const auto& tagComboBox : myTagComboBoxVector) {
+        if (tagComboBox == obj) {
+            myTagProperties = tagComboBox->getCurrentTagProperty();
+            refreshMatchAttribute();
+            return 1;
         }
-        // reset current tag
-        myCurrentTag = SUMO_TAG_NOTHING;
-        // set invalid color
-        myMatchTagComboBox->setTextColor(FXRGB(255, 0, 0));
-        // iterate over tags
-        for (const auto& tagProperty : myTagProperties) {
-            if (tagProperty->getSelectorText() == myMatchTagComboBox->getText().text()) {
-                // set valid tag
-                myCurrentTag = tagProperty->getTag();
-                // set valid color
-                myMatchTagComboBox->setTextColor(FXRGB(0, 0, 0));
-            }
-        }
-        // update attributeProperty
-        updateAttribute();
-    */
-    return 1;
+    }
+    return 0;
 }
 
 

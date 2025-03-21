@@ -195,6 +195,9 @@ public:
     /// @brief get XML tag
     SumoXMLTag getXMLTag() const;
 
+    /// @brief get parent tags
+    const std::vector<SumoXMLTag>& getParentTags() const;
+
     /// @brief default values
     /// @{
 
@@ -221,19 +224,13 @@ public:
     /// @brief hierarchy functions
     /// @{
 
-    /// @brief get parent tags
-    const std::vector<SumoXMLTag>& getParentTags() const;
+    /// @brief get all parents, beginning from root (not included) untils this element
+    const std::vector<const GNETagProperties*> getParents() const;
 
-    /// @brief get hierarchy depth of this tag property (0 means top)
-    int getHierarchyDepth() const;
-
-    /// @brief get tag property parent
-    const GNETagProperties* getParent(const int depth) const;
-
-    /// @brief tag property children
+    /// @brief get children of this tag property
     const std::vector<const GNETagProperties*>& getChildren() const;
 
-    /// @brief get all children tags (Including this)
+    /// @brief get all children tags (Including children of their children)
     std::vector<const GNETagProperties*> getAllChildren() const;
 
     /// @brief get all children attributes sorted by name (Including this)

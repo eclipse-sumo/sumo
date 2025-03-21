@@ -68,7 +68,7 @@ public:
     /**@brief Called when the user selectes a tag in the match box
      * @note updates the attr listbox and repaints itself
      */
-    long onCmdSelMBTag(FXObject* obj, FXSelector, void*);
+    long onCmdTagSelected(FXObject* obj, FXSelector, void*);
 
     /**@brief Called when the user selectes a tag in the match box
      * @note updates the attr listbox and repaints itself

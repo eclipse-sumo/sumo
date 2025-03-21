@@ -48,6 +48,29 @@ MFXComboBoxTagProperty::getTagProperties(FXint index) const {
 }
 
 
+const GNETagProperties*
+MFXComboBoxTagProperty::getCurrentTagProperty() const {
+    const auto currentIndex = MFXComboBoxIcon::getCurrentItem();
+    if (currentIndex >= 0) {
+        return myTagProperties.at(currentIndex);
+    } else {
+        return nullptr;
+    }
+}
+
+
+long
+MFXComboBoxTagProperty::setCurrentItem(const GNETagProperties* tagProperties, FXbool notify) {
+    for (int i = 0; i < (int)myTagProperties.size(); i++) {
+        if (myTagProperties.at(i) == tagProperties) {
+            return MFXComboBoxIcon::setCurrentItem(i, notify);
+        }
+    }
+    fxerror("%s::setItem: index out of range.\n", getClassName());
+    return 0;
+}
+
+
 void
 MFXComboBoxTagProperty::clearItems() {
     MFXComboBoxIcon::clearItems();

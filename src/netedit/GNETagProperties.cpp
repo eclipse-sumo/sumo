@@ -419,39 +419,24 @@ GNETagProperties::getXMLTag() const {
     return myXMLTag;
 }
 
+
 const std::vector<SumoXMLTag>&
 GNETagProperties::getParentTags() const {
     return myParentTags;
 }
 
 
-int
-GNETagProperties::getHierarchyDepth() const {
-    int depth = 0;
-    const GNETagProperties* parent = myParent;
-    while (parent != nullptr) {
-        depth++;
-        parent = parent->myParent;
-    }
-    return depth;
-}
-
-
-const GNETagProperties*
-GNETagProperties::getParent(const int depth) const {
+const std::vector<const GNETagProperties*>
+GNETagProperties::getParents() const {
     // get the list of all roots
     std::vector<const GNETagProperties*> parents;
     parents.push_back(myParent);
-    while (parents.back()->myParent != nullptr) {
+    while (parents.back() && (parents.back()->myParent != nullptr)) {
         parents.push_back(parents.back()->myParent);
     }
     // reverse iterator
     std::reverse(parents.begin(), parents.end());
-    if ((depth < 0) || (depth >= (int)parents.size())) {
-        throw ProcessError("Invalid depth");
-    } else {
-        return parents.at(depth);
-    }
+    return parents;
 }
 
 
@@ -1024,7 +1009,7 @@ GNETagProperties::getChildrenTagProperties(const GNETagProperties* tagProperties
 void
 GNETagProperties::getChildrenAttributes(const GNETagProperties* tagProperties, std::map<std::string, const GNEAttributeProperties*>& result) const {
     // add every attribute only once
-    for (const auto& attributeProperty : myAttributeProperties) {
+    for (const auto& attributeProperty : tagProperties->myAttributeProperties) {
         result[attributeProperty->getAttrStr()] = attributeProperty;
     }
     // call it iterative for all children
