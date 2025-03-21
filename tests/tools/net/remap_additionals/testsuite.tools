@@ -9,3 +9,6 @@ access_unmappable
 
 # prevent multiple access on the same lane
 access_duplicate
+
+# when edges overlap, use vclass to resolve ambiguity in mapping
+edge_overlap_vclass
