@@ -59,6 +59,7 @@ void
 MSFullExport::writeVehicles(OutputDevice& of) {
     of.openTag("vehicles");
     MSVehicleControl& vc = MSNet::getInstance()->getVehicleControl();
+    const bool hasEle = MSNet::getInstance()->hasElevation();
     for (MSVehicleControl::constVehIt it = vc.loadedVehBegin(); it != vc.loadedVehEnd(); ++it) {
         const SUMOVehicle* veh = it->second;
         const MSVehicle* microVeh = dynamic_cast<const MSVehicle*>(veh);
@@ -84,6 +85,10 @@ MSFullExport::writeVehicles(OutputDevice& of) {
             const Position pos = veh->getPosition();
             of.writeAttr("x", pos.x());
             of.writeAttr("y", pos.y());
+            if (hasEle) {
+                of.writeAttr("z", pos.z());
+                of.writeAttr(SUMO_ATTR_SLOPE, veh->getSlope());
+            }
             of.closeTag();
         }
     }
@@ -93,6 +98,7 @@ MSFullExport::writeVehicles(OutputDevice& of) {
 void
 MSFullExport::writePersons(OutputDevice& of) {
     MSTransportableControl& tc = MSNet::getInstance()->getPersonControl();
+    const bool hasEle = MSNet::getInstance()->hasElevation();
     of.openTag("persons");
     for (auto it = tc.loadedBegin(); it != tc.loadedEnd(); ++it) {
         const MSTransportable* p = it->second;
@@ -104,6 +110,9 @@ MSFullExport::writePersons(OutputDevice& of) {
             of.writeAttr(SUMO_ATTR_ID, p->getID());
             of.writeAttr(SUMO_ATTR_X, pos.x());
             of.writeAttr(SUMO_ATTR_Y, pos.y());
+            if (hasEle) {
+                of.writeAttr("z", pos.z());
+            }
             of.writeAttr(SUMO_ATTR_ANGLE, GeomHelper::naviDegree(p->getAngle()));
             of.writeAttr(SUMO_ATTR_SPEED, p->getSpeed());
             of.writeAttr(SUMO_ATTR_POSITION, p->getEdgePos());
