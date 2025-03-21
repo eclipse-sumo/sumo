@@ -23,6 +23,12 @@
 #include "MFXComboBoxIcon.h"
 
 // ===========================================================================
+// class declaration
+// ===========================================================================
+
+class GNEAttributeProperties;
+
+// ===========================================================================
 // class definitions
 // ===========================================================================
 
@@ -39,9 +45,30 @@ public:
     /// @brief Destructor
     ~MFXComboBoxAttrProperty();
 
+    /// @brief append item
+    FXint appendAttrItem(const GNEAttributeProperties* attrProperties, FXColor bgColor = FXRGB(255, 255, 255), void* ptr = nullptr);
+
+    /// @brief get tag property
+    const GNEAttributeProperties* getAttrProperties(FXint index) const;
+
+    /// @brief Remove all items from the list
+    void clearItems();
+
 private:
+    /// @brief vector with tag properties
+    std::vector<const GNEAttributeProperties*> myAttrProperties;
+
+    /// @brief delete original replace the item at index
+    FXint updateIconItem(FXint index, const FXString& text, FXIcon* icon = nullptr, FXColor bgColor = FXRGB(255, 255, 255), void* ptr = nullptr) = delete;
+
+    /// @brief delete original insert icon item in the given position
+    FXint insertIconItem(FXint index, const FXString& text, FXIcon* icon = nullptr, FXColor bgColor = FXRGB(255, 255, 255), void* ptr = nullptr) = delete;
+
+    /// @brief delete original append icon item in the last position
+    FXint appendIconItem(const FXString& text, FXIcon* icon = nullptr, FXColor bgColor = FXRGB(255, 255, 255), void* ptr = nullptr) = delete;
+
     /// @brief invalidate copy constructor
-    MFXComboBoxAttrProperty(const MFXComboBoxAttrProperty&);
+    MFXComboBoxAttrProperty(const MFXComboBoxAttrProperty&) = delete;
 
     /// @brief invalidate assignment operator
     MFXComboBoxAttrProperty& operator=(const MFXComboBoxAttrProperty&) = delete;

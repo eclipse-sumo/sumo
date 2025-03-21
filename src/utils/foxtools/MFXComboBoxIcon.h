@@ -111,7 +111,7 @@ public:
     void removeItem(FXint index);
 
     /// @brief Remove all items from the list
-    void clearItems();
+    virtual void clearItems();
 
     /// @brief find item
     FXint findItem(const FXString& text) const;
@@ -175,7 +175,7 @@ protected:
 
 private:
     /// @brief invalidate copy constructor
-    MFXComboBoxIcon(const MFXComboBoxIcon&);
+    MFXComboBoxIcon(const MFXComboBoxIcon&) = delete;
 
     /// @brief invalidate assignment operator
     MFXComboBoxIcon& operator=(const MFXComboBoxIcon&) = delete;

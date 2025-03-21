@@ -18,8 +18,9 @@
 // ComboBox icon specific for tag properties
 /****************************************************************************/
 
-#include "MFXComboBoxTagProperty.h"
+#include <netedit/GNETagProperties.h>
 
+#include "MFXComboBoxTagProperty.h"
 
 // ===========================================================================
 // member method definitions
@@ -28,10 +29,27 @@
 MFXComboBoxTagProperty::MFXComboBoxTagProperty(FXComposite* p, FXint cols, const bool canSearch, const int visibleItems,
         FXObject* tgt, FXSelector sel, FXuint opts, FXint x, FXint y, FXint w, FXint h, FXint pl, FXint pr, FXint pt, FXint pb) :
     MFXComboBoxIcon(p, cols, canSearch, visibleItems, tgt, sel, opts, x, y, w, h, pl, pr, pt, pb) {
-
 }
 
 
-MFXComboBoxTagProperty::~MFXComboBoxTagProperty() {
+MFXComboBoxTagProperty::~MFXComboBoxTagProperty() {}
 
+
+FXint
+MFXComboBoxTagProperty::appendTagItem(const GNETagProperties* tagProperties, FXColor bgColor, void* ptr) {
+    myTagProperties.push_back(tagProperties);
+    return MFXComboBoxIcon::appendIconItem(tagProperties->getSelectorText().c_str(), GUIIconSubSys::getIcon(tagProperties->getGUIIcon()), bgColor, ptr);
+}
+
+
+const GNETagProperties*
+MFXComboBoxTagProperty::getTagProperty(FXint index) const {
+    return myTagProperties.at(index);
+}
+
+
+void
+MFXComboBoxTagProperty::clearItems() {
+    MFXComboBoxIcon::clearItems();
+    myTagProperties.clear();
 }

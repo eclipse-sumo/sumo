@@ -23,6 +23,12 @@
 #include "MFXComboBoxIcon.h"
 
 // ===========================================================================
+// class declaration
+// ===========================================================================
+
+class GNETagProperties;
+
+// ===========================================================================
 // class definitions
 // ===========================================================================
 
@@ -39,9 +45,30 @@ public:
     /// @brief Destructor
     ~MFXComboBoxTagProperty();
 
+    /// @brief append item
+    FXint appendTagItem(const GNETagProperties* tagProperties, FXColor bgColor = FXRGB(255, 255, 255), void* ptr = nullptr);
+
+    /// @brief get tag property
+    const GNETagProperties* getTagProperty(FXint index) const;
+
+    /// @brief Remove all items from the list
+    void clearItems();
+
 private:
+    /// @brief vector with tag properties
+    std::vector<const GNETagProperties*> myTagProperties;
+
+    /// @brief delete original replace the item at index
+    FXint updateIconItem(FXint index, const FXString& text, FXIcon* icon = nullptr, FXColor bgColor = FXRGB(255, 255, 255), void* ptr = nullptr) = delete;
+
+    /// @brief delete original insert icon item in the given position
+    FXint insertIconItem(FXint index, const FXString& text, FXIcon* icon = nullptr, FXColor bgColor = FXRGB(255, 255, 255), void* ptr = nullptr) = delete;
+
+    /// @brief delete original append icon item in the last position
+    FXint appendIconItem(const FXString& text, FXIcon* icon = nullptr, FXColor bgColor = FXRGB(255, 255, 255), void* ptr = nullptr) = delete;
+
     /// @brief invalidate copy constructor
-    MFXComboBoxTagProperty(const MFXComboBoxTagProperty&);
+    MFXComboBoxTagProperty(const MFXComboBoxTagProperty&) = delete;
 
     /// @brief invalidate assignment operator
     MFXComboBoxTagProperty& operator=(const MFXComboBoxTagProperty&) = delete;

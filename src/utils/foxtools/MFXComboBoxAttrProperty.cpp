@@ -18,8 +18,10 @@
 // ComboBox icon specific for attr properties
 /****************************************************************************/
 
-#include "MFXComboBoxAttrProperty.h"
+#include <netedit/GNEAttributeProperties.h>
 
+
+#include "MFXComboBoxAttrProperty.h"
 
 // ===========================================================================
 // member method definitions
@@ -28,10 +30,27 @@
 MFXComboBoxAttrProperty::MFXComboBoxAttrProperty(FXComposite* p, FXint cols, const bool canSearch, const int visibleItems,
         FXObject* tgt, FXSelector sel, FXuint opts, FXint x, FXint y, FXint w, FXint h, FXint pl, FXint pr, FXint pt, FXint pb) :
     MFXComboBoxIcon(p, cols, canSearch, visibleItems, tgt, sel, opts, x, y, w, h, pl, pr, pt, pb) {
-
 }
 
 
-MFXComboBoxAttrProperty::~MFXComboBoxAttrProperty() {
+MFXComboBoxAttrProperty::~MFXComboBoxAttrProperty() {}
 
+
+FXint
+MFXComboBoxAttrProperty::appendAttrItem(const GNEAttributeProperties* attrProperties, FXColor bgColor, void* ptr) {
+    myAttrProperties.push_back(attrProperties);
+    return MFXComboBoxIcon::appendIconItem(attrProperties->getAttrStr().c_str(), nullptr, bgColor, ptr);
+}
+
+
+const GNEAttributeProperties*
+MFXComboBoxAttrProperty::getAttrProperties(FXint index) const {
+    return myAttrProperties.at(index);
+}
+
+
+void
+MFXComboBoxAttrProperty::clearItems() {
+    MFXComboBoxIcon::clearItems();
+    myAttrProperties.clear();
 }
