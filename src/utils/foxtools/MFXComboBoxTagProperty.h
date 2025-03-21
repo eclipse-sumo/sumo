@@ -48,8 +48,8 @@ public:
     /// @brief append item
     FXint appendTagItem(const GNETagProperties* tagProperties, FXColor bgColor = FXRGB(255, 255, 255), void* ptr = nullptr);
 
-    /// @brief get tag property
-    const GNETagProperties* getTagProperty(FXint index) const;
+    /// @brief get tag properties
+    const GNETagProperties* getTagProperties(FXint index) const;
 
     /// @brief Remove all items from the list
     void clearItems();

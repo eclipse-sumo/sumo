@@ -43,7 +43,7 @@ MFXComboBoxTagProperty::appendTagItem(const GNETagProperties* tagProperties, FXC
 
 
 const GNETagProperties*
-MFXComboBoxTagProperty::getTagProperty(FXint index) const {
+MFXComboBoxTagProperty::getTagProperties(FXint index) const {
     return myTagProperties.at(index);
 }
 
