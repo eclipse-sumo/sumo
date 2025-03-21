@@ -6,3 +6,6 @@ usable_lanes
 
 # not all access elements can be mapped to the target network
 access_unmappable
+
+# prevent multiple access on the same lane
+access_duplicate
