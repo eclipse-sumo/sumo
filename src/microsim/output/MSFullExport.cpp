@@ -78,8 +78,12 @@ MSFullExport::writeVehicles(OutputDevice& of) {
                 of.writeAttr("waiting", microVeh->getWaitingSeconds());
                 of.writeAttr("lane", microVeh->getLane()->getID());
             }
-            of.writeAttr("pos", veh->getPositionOnLane()).writeAttr("speed", veh->getSpeed());
-            of.writeAttr("angle", GeomHelper::naviDegree(veh->getAngle())).writeAttr("x", veh->getPosition().x()).writeAttr("y", veh->getPosition().y());
+            of.writeAttr("pos", veh->getPositionOnLane());
+            of.writeAttr("speed", veh->getSpeed());
+            of.writeAttr("angle", GeomHelper::naviDegree(veh->getAngle()));
+            const Position pos = veh->getPosition();
+            of.writeAttr("x", pos.x());
+            of.writeAttr("y", pos.y());
             of.closeTag();
         }
     }
