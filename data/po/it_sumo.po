@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-13 10:07+0100\n"
-"PO-Revision-Date: 2025-03-21 08:29+0000\n"
+"PO-Revision-Date: 2025-03-21 09:13+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -9232,12 +9232,12 @@ msgstr "L'arco '%' non tiene corsie."
 #: src/netimport/NIImporter_OpenDrive.cpp:679
 #, c-format
 msgid "While setting connections: from-edge '%' is not known."
-msgstr ""
+msgstr "Nel mettere collegamenti: l'arco di partenza '%' è sconosciuto."
 
 #: src/netimport/NIImporter_OpenDrive.cpp:689
 #, c-format
 msgid "While setting connections: to-edge '%' is not known."
-msgstr ""
+msgstr "Nel mettere collegamenti: l'arco di arrivo '%' è sconosciuto."
 
 #: src/netimport/NIImporter_OpenDrive.cpp:715
 #: src/netimport/NIImporter_OpenDrive.cpp:718
@@ -9638,23 +9638,27 @@ msgstr "Il nodo intermedio '%' non è stato inizializzato"
 #, c-format
 msgid "from-edge '%' of restriction relation could not be determined"
 msgstr ""
+"L'arco di partenza '%' della relazione restrittiva non poteva essere "
+"determinato"
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:2180
 #: src/netimport/NIImporter_OpenStreetMap.cpp:2170
 #, c-format
 msgid "to-edge '%' of restriction relation could not be determined"
 msgstr ""
+"L'arco di arrivo '%' della relazione restrittiva non poteva essere "
+"determinato"
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:2210
 #: src/netimport/NIImporter_OpenStreetMap.cpp:2200
 msgid "direction of restriction relation could not be determined%"
-msgstr ""
+msgstr "la direzione della relazione restrittiva non poteva essere determinato%"
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:2231
 #: src/netimport/NIImporter_OpenStreetMap.cpp:2221
 #, c-format
 msgid "Ambiguous way reference '%' in restriction relation"
-msgstr ""
+msgstr "Referenza di cammino ambigua '%' in una relazione restrittiva"
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:2482
 #: src/netimport/NIImporter_OpenStreetMap.cpp:2473
