@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-13 10:07+0100\n"
-"PO-Revision-Date: 2025-03-20 15:02+0000\n"
+"PO-Revision-Date: 2025-03-21 08:29+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -3950,16 +3950,20 @@ msgstr "La batteria del veicolo '%' si è esaurita alle ore %."
 #: src/microsim/devices/MSDevice_Battery.cpp:391
 msgid "Trying to set into the battery device of vehicle '%' an invalid % (%)."
 msgstr ""
+"Si prova ad impostare un valore invalido nell'attrezzo di batteria del "
+"veicolo '%': % (%)."
 
 #: src/microsim/devices/MSDevice_Bluelight.cpp:59
 msgid ""
 "Set the distance at which other drivers react to the blue light and siren "
 "sound"
 msgstr ""
+"Imposta la distanza alla quale gli altri conducenti reagiscono alla luce blu "
+"e al suono della sirena"
 
 #: src/microsim/devices/MSDevice_Bluelight.cpp:61
 msgid "Reduce the minGap for reacting vehicles by the given factor"
-msgstr ""
+msgstr "Abbassa minGap per i veicoli che reagiscono con il fattore indicato"
 
 #: src/microsim/devices/MSDevice_Bluelight.cpp:70
 msgid ""
