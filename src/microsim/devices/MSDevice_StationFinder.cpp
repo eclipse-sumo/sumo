@@ -423,7 +423,7 @@ MSDevice_StationFinder::findChargingStation(SUMOAbstractRouter<MSEdge, SUMOVehic
     std::vector<double> probs(candidates.size(), 1.);
     bool newDestination;
     myCheckValidity = constrainTT;
-    MSStoppingPlace* bestCandidate = reroute(candidates, probs, myHolder, newDestination, newRoute, scores);
+    MSStoppingPlace* bestCandidate = rerouteStoppingPlace(candidates, probs, myHolder, newDestination, newRoute, scores);
     myCheckValidity = true;
     minStation = dynamic_cast<MSChargingStation*>(bestCandidate);
     return minStation;
