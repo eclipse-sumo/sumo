@@ -24,10 +24,10 @@
 // method definitions
 // ===========================================================================
 
-GNETagProperties::GNETagProperties(const SumoXMLTag tag, GNETagProperties* parent, const int tagType, const int tagProperty, const int tagParents,
-                                   const int conflicts, const GUIIcon icon, const SumoXMLTag XMLTag, const std::string tooltip,
-                                   const std::vector<SumoXMLTag> parentTags, const unsigned int backgroundColor,
-                                   const std::string selectorText) :
+GNETagProperties::GNETagProperties(const SumoXMLTag tag, GNETagProperties* parent, const int tagType, const int tagProperty,
+                                   const int tagParents, const int conflicts, const GUIIcon icon, const SumoXMLTag XMLTag,
+                                   const std::string tooltip, const std::vector<SumoXMLTag> parentTags,
+                                   const unsigned int backgroundColor, const std::string selectorText) :
     myTag(tag),
     myTagStr(toString(tag)),
     myParent(parent),
@@ -47,14 +47,15 @@ GNETagProperties::GNETagProperties(const SumoXMLTag tag, GNETagProperties* paren
 }
 
 
-GNETagProperties::GNETagProperties(const SumoXMLTag tag, GNETagProperties* parent, const GUIIcon icon, const std::string tooltip) :
+GNETagProperties::GNETagProperties(const SumoXMLTag tag, GNETagProperties* parent, const GUIIcon icon, const std::string tooltip,
+                                   const std::string selectorText) :
     myTag(tag),
     myTagStr(toString(tag)),
     myParent(parent),
     myIcon(icon),
     myXMLTag(tag),
     myTooltipText(tooltip),
-    mySelectorText(toString(tag)),
+    mySelectorText(selectorText.empty() ? toString(tag) : selectorText),
     myBackgroundColor(FXRGBA(255, 255, 255, 255)) {
     if (parent) {
         parent->addChild(this);

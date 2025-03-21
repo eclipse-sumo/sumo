@@ -23,10 +23,12 @@
 #include <netedit/GNETagProperties.h>
 #include <netedit/GNEAttributeProperties.h>
 #include <netedit/GNETagPropertiesDatabase.h>
+#include <utils/foxtools/MFXComboBoxTagProperty.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 
 #include "GNEMatchAttribute.h"
+
 // ===========================================================================
 // FOX callback mapping
 // ===========================================================================
@@ -50,8 +52,8 @@ GNEMatchAttribute::GNEMatchAttribute(GNESelectorFrame* selectorFrameParent, Sumo
     mySelectorFrameParent(selectorFrameParent) {
     // Create MFXComboBoxIcons
     for (int i = 0; i < selectorFrameParent->getViewNet()->getNet()->getTagPropertiesDatabase()->getHierarchyDepth(); i++) {
-        auto comboBoxIcon = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, true, GUIDesignComboBoxVisibleItems,
-                                                this, MID_GNE_SELECTORFRAME_SELECTTAG, GUIDesignComboBox);
+        auto comboBoxIcon = new MFXComboBoxTagProperty(getCollapsableFrame(), GUIDesignComboBoxNCol, true, GUIDesignComboBoxVisibleItems,
+                this, MID_GNE_SELECTORFRAME_SELECTTAG, GUIDesignComboBox);
         myTagComboBoxVector.push_back(comboBoxIcon);
     }
     // Create MFXComboBoxIcon for Attributes
@@ -126,10 +128,10 @@ GNEMatchAttribute::refreshMatchAttribute() {
         auto comboBox = myTagComboBoxVector.at(i);
         comboBox->clearItems();
         // add <all> always as first element
-        myTagComboBoxVector.at(i)->appendIconItem("<all>");
+        myTagComboBoxVector.at(i)->appendTagItem(mySelectorFrameParent->getViewNet()->getNet()->getTagPropertiesDatabase()->getTagPropertiesAll());
         const auto tagPropertyParent = myTagProperties->getParent(i);
         for (const auto tagPropertyChild : tagPropertyParent->getChildren()) {
-            myTagComboBoxVector.at(i)->appendIconItem(tagPropertyChild->getTagStr().c_str(), GUIIconSubSys::getIcon(tagPropertyChild->getGUIIcon()));
+            myTagComboBoxVector.at(i)->appendTagItem(tagPropertyChild);
         }
     }
     myTagComboBoxVector.at(depth)->show();

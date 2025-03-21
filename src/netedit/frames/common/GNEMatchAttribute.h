@@ -30,6 +30,7 @@
 class GNEAttributeProperties;
 class GNESelectorFrame;
 class GNETagProperties;
+class MFXComboBoxTagProperty;
 
 // ===========================================================================
 // class definitions
@@ -101,7 +102,7 @@ private:
     GNESelectorFrame* mySelectorFrameParent = nullptr;
 
     /// @brief vector with ComboBoxes
-    std::vector <MFXComboBoxIcon*> myTagComboBoxVector;
+    std::vector <MFXComboBoxTagProperty*> myTagComboBoxVector;
 
     /// @brief attributes of the match box
     MFXComboBoxIcon* myMatchAttrComboBox = nullptr;

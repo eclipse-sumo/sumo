@@ -796,8 +796,6 @@ enum SumoXMLTag {
     GNE_TAG_STOPCONTAINER_CONTAINERSTOP,
     GNE_TAG_STOPCONTAINER_CHARGINGSTATION,
     GNE_TAG_STOPCONTAINER_PARKINGAREA,
-    /// @}
-
     // @brief netedit sets
     GNE_TAG_SUPERMODE_NETWORK,
     GNE_TAG_SUPERMODE_DEMAND,
@@ -820,6 +818,8 @@ enum SumoXMLTag {
     GNE_TAG_CONTAINERSTOPS,
     GNE_TAG_DATAS,
     GNE_TAG_MEANDATAS,
+    // @brief others
+    GNE_TAG_ALL,
     /// @}
 
     /// @brief invalid tag, must be the last one
@@ -1891,6 +1891,8 @@ enum SumoXMLAttr {
     GNE_ATTR_FRONTELEMENT,
     /// @brief virtual attribute used for use edges within during TAZ creation
     GNE_ATTR_EDGES_WITHIN,
+    /// @brief all attributes
+    GNE_ATTR_ALL,
     // @}
 
     /// @name train parameters
@@ -1928,6 +1930,7 @@ enum SumoXMLAttr {
     SUMO_ATTR_MESO_MINOR_PENALTY,
     SUMO_ATTR_MESO_OVERTAKING,
     // @}
+
     /// @brief invalid attribute, must be the last one
     SUMO_ATTR_NOTHING,
 };

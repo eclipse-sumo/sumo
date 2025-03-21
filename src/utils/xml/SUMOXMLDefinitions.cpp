@@ -647,6 +647,7 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::tags[] = {
     { "containerStops", GNE_TAG_CONTAINERSTOPS },
     { "datas",          GNE_TAG_DATAS },
     { "meanDatas",      GNE_TAG_MEANDATAS },
+    { "all",            GNE_TAG_ALL },
     // Last element
     { "",   SUMO_TAG_NOTHING }  // -> must be the last one
 };
@@ -1416,6 +1417,7 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::attrs[] = {
     { "isRoundabout",                       GNE_ATTR_IS_ROUNDABOUT },
     { "frontElement",                       GNE_ATTR_FRONTELEMENT },
     { TL("edges within"),                   GNE_ATTR_EDGES_WITHIN },
+    { "all",                                GNE_ATTR_ALL },
 
     { "carriageLength",     SUMO_ATTR_CARRIAGE_LENGTH },
     { "locomotiveLength",   SUMO_ATTR_LOCOMOTIVE_LENGTH },
