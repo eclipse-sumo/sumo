@@ -1120,7 +1120,7 @@ GNESelectorFrame::getMatches(const SumoXMLTag ACTag, const SumoXMLAttr ACAttr, c
     // first retrieve all ACs using ACTag
     const auto allACbyTag = myViewNet->getNet()->getAttributeCarriers()->retrieveAttributeCarriers(ACTag);
     // get Tag value
-    const auto tagProperties = myViewNet->getNet()->getTagPropertiesDatabase()->getTagProperty(ACTag);
+    const auto tagProperties = myViewNet->getNet()->getTagPropertiesDatabase()->getTagProperty(ACTag, true);
     // iterate over all ACs
     for (const auto& AC : allACbyTag) {
         if (expr == "" && compOp == '@') {

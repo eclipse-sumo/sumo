@@ -27,7 +27,9 @@
 // class declaration
 // ===========================================================================
 
+class GNEAttributeProperties;
 class GNESelectorFrame;
+class GNETagProperties;
 
 // ===========================================================================
 // class definitions
@@ -55,6 +57,9 @@ public:
 
     /// @brief hide match attributes
     void hideMatchAttribute();
+
+    /// @brief refresh match attribute
+    void refreshMatchAttribute();
 
     /// @name FOX-callbacks
     /// @{
@@ -101,20 +106,17 @@ private:
     /// @brief attributes of the match box
     MFXComboBoxIcon* myMatchAttrComboBox = nullptr;
 
-    /// @brief current SumoXMLTag tag
-    SumoXMLTag myCurrentTag;
+    /// @brief current tag properties
+    const GNETagProperties* myTagProperties = nullptr;
 
-    /// @brief current SumoXMLTag Attribute
-    SumoXMLAttr myCurrentAttribute;
+    /// @brief current attribute properties
+    const GNEAttributeProperties* myAttributeProperties = nullptr;
 
     /// @brief string of the match
     FXTextField* myMatchString = nullptr;
 
     /// @brief match string button
     FXButton* myMatchStringButton = nullptr;
-
-    /// @brief vector with tagProperties
-    std::vector<const GNETagProperties*> myTagProperties;
 
     /// @brief Invalidated copy constructor.
     GNEMatchAttribute(const GNEMatchAttribute&) = delete;

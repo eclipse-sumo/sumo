@@ -21,6 +21,7 @@
 #include <netedit/frames/common/GNESelectorFrame.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNETagProperties.h>
+#include <netedit/GNEAttributeProperties.h>
 #include <netedit/GNETagPropertiesDatabase.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>
@@ -45,9 +46,7 @@ FXIMPLEMENT(GNEMatchAttribute, MFXGroupBoxModule, GNEMatchAttributeMap, ARRAYNUM
 // ===========================================================================
 
 GNEMatchAttribute::GNEMatchAttribute(GNESelectorFrame* selectorFrameParent, SumoXMLTag defaultTag, SumoXMLAttr defaultAttr, const std::string& defaultValue) :
-    MFXGroupBoxModule(selectorFrameParent->getContentFrame(), TL("Match Attribute")),
-    myCurrentTag(defaultTag),
-    myCurrentAttribute(defaultAttr),
+    MFXGroupBoxModule(selectorFrameParent, TL("Match Attribute")),
     mySelectorFrameParent(selectorFrameParent) {
     // Create MFXComboBoxIcons
     for (int i = 0; i < selectorFrameParent->getViewNet()->getNet()->getTagPropertiesDatabase()->getHierarchyDepth(); i++) {
@@ -64,8 +63,13 @@ GNEMatchAttribute::GNEMatchAttribute(GNESelectorFrame* selectorFrameParent, Sumo
     myMatchStringButton = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Apply selection"), "", "", nullptr, this, MID_GNE_SELECTORFRAME_PROCESSSTRING, GUIDesignButton);
     // Create help button
     GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Help"), "", "", nullptr, this, MID_HELP, GUIDesignButtonRectangular);
+    // set current tag, attribute and value
+    myTagProperties = selectorFrameParent->getViewNet()->getNet()->getTagPropertiesDatabase()->getTagProperty(defaultTag, true);
+    myAttributeProperties = myTagProperties->getAttributeProperties(defaultAttr);
     // Set default value for Match string
     myMatchString->setText(defaultValue.c_str());
+    // refresh with the current tag and attr
+    refreshMatchAttribute();
 }
 
 
@@ -100,41 +104,10 @@ GNEMatchAttribute::disableMatchAttribute() {
 
 void
 GNEMatchAttribute::showMatchAttribute() {
-    /*
-        const auto tagPropertiesDatabase = myElementSet->getSelectorFrameParent()->getViewNet()->getNet()->getTagPropertiesDatabase();
-        // declare flag for proj
-        const bool proj = (GeoConvHelper::getFinal().getProjString() != "!");
-        // get tags for the given element set
-        std::vector<const GNETagProperties*> tagPropertiesByType;
-        if (type == (GNEElementSet::Type::NETWORK)) {
-            tagPropertiesByType = tagPropertiesDatabase->getTagPropertiesByType(GNETagProperties::TagType::NETWORKELEMENT);
-        } else if (type == GNEElementSet::Type::ADDITIONAL) {
-            tagPropertiesByType = tagPropertiesDatabase->getTagPropertiesByType(GNETagProperties::TagType::ADDITIONALELEMENT);
-        } else if (type == GNEElementSet::Type::SHAPE) {
-            tagPropertiesByType = tagPropertiesDatabase->getTagPropertiesByType(GNETagProperties::TagType::SHAPE);
-        } else if (type == GNEElementSet::Type::TAZ) {
-            tagPropertiesByType = tagPropertiesDatabase->getTagPropertiesByType(GNETagProperties::TagType::TAZELEMENT);
-        } else if (type == GNEElementSet::Type::DEMAND) {
-            tagPropertiesByType = tagPropertiesDatabase->getTagPropertiesByType(GNETagProperties::TagType::DEMANDELEMENT);
-        } else if (type == GNEElementSet::Type::GENERICDATA) {
-            tagPropertiesByType = tagPropertiesDatabase->getTagPropertiesByType(GNETagProperties::TagType::GENERICDATA);
-        } else {
-            throw ProcessError(TL("Unknown set"));
-        }
-        // now filter to allow only drawables and proj
-        myTagProperties.clear();
-        for (const auto tagProperty : tagPropertiesByType) {
-            if (tagProperty->isDrawable() && (!tagProperty->requireProj() || proj)) {
-                myTagProperties.push_back(tagProperty);
-            }
-        }
-        // update tag
-        updateTag();
-        // update attributeProperty
-        updateAttribute();
-        // show groupbox
-        show();
-    */
+    // refresh before show
+    refreshMatchAttribute();
+    // show groupbox
+    show();
 }
 
 
@@ -142,6 +115,28 @@ void
 GNEMatchAttribute::hideMatchAttribute() {
     // hide groupbox
     hide();
+}
+
+
+void
+GNEMatchAttribute::refreshMatchAttribute() {
+    const auto depth = myTagProperties ? myTagProperties->getHierarchyDepth() : 0;
+    // show the first
+    for (int i = 0; i < depth; i++) {
+        auto comboBox = myTagComboBoxVector.at(i);
+        comboBox->clearItems();
+        myTagComboBoxVector.at(i)->appendIconItem("<all>");
+        const auto tagPropertyParent = myTagProperties->getParent(i);
+        for (const auto tagPropertyChild : tagPropertyParent->getChildren()) {
+            myTagComboBoxVector.at(i)->appendIconItem(tagPropertyChild->getTagStr().c_str(), GUIIconSubSys::getIcon(tagPropertyChild->getGUIIcon()));
+        }
+    }
+    // show next
+    myTagComboBoxVector.at(depth)->show();
+    // hide the rest
+    for (int i = (depth + 1); i < (int)myTagComboBoxVector.size(); i++) {
+        myTagComboBoxVector.at(i)->hide();
+    }
 }
 
 

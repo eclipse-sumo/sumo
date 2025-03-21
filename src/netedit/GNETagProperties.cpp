@@ -438,15 +438,19 @@ GNETagProperties::getHierarchyDepth() const {
 
 const GNETagProperties*
 GNETagProperties::getParent(const int depth) const {
-    const GNETagProperties* parent = myParent;
-    for (int i = 0; i < depth; i++) {
-        if (parent) {
-            parent = parent->myParent;
-        } else {
-            throw ProcessError("Too hight depth");
-        }
+    // get the list of all roots
+    std::vector<const GNETagProperties*> parents;
+    parents.push_back(myParent);
+    while (parents.back()->myParent != nullptr) {
+        parents.push_back(parents.back()->myParent);
     }
-    return parent;
+    // reverse iterator
+    std::reverse(parents.begin(), parents.end());
+    if ((depth < 0) || (depth >= (int)parents.size())) {
+        throw ProcessError("Invalid depth");
+    } else {
+        return parents.at(depth);
+    }
 }
 
 
@@ -1001,7 +1005,7 @@ void
 GNETagProperties::getChildrenTags(const GNETagProperties* tagProperties, std::vector<const GNETagProperties*>& result) const {
     result.push_back(this);
     // call it iterative for all children
-    for (const auto& child : myChildren) {
+    for (const auto& child : tagProperties->myChildren) {
         getChildrenTags(child, result);
     }
 }

@@ -45,7 +45,7 @@ public:
     ~GNETagPropertiesDatabase();
 
     /// @brief get tagProperty associated to the given tag
-    GNETagProperties* getTagProperty(const SumoXMLTag tag, const bool hardFail) const;
+    const GNETagProperties* getTagProperty(const SumoXMLTag tag, const bool hardFail) const;
 
     /// @brief get tagProperties associated to the given set tag (persons, stops, plans, etc.)
     const std::vector<const GNETagProperties*> getTagPropertiesSet(const SumoXMLTag tag, const bool hardFail) const;

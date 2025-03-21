@@ -79,7 +79,7 @@ GNETagPropertiesDatabase::~GNETagPropertiesDatabase() {
 }
 
 
-GNETagProperties*
+const GNETagProperties*
 GNETagPropertiesDatabase::getTagProperty(SumoXMLTag tag, const bool hardFail) const {
     // check that tag is defined in tagProperties or in tagPropertiesSet
     if (myTagProperties.count(tag) > 0) {
