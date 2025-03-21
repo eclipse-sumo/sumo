@@ -16,17 +16,18 @@
 /// @author  Pablo Alvarez Lopez
 /// @date    2018-12-19
 ///
-//
+// ComboBox with search field and icons
 /****************************************************************************/
-
 #pragma once
 #include <config.h>
 
 #include "MFXListIcon.h"
 #include "MFXTextFieldSearch.h"
 
+// ===========================================================================
+// class definitions
+// ===========================================================================
 
-/// @brief ComboBox with icon
 class MFXComboBoxIcon : public FXPacker {
     /// @brief FOX declaration
     FXDECLARE(MFXComboBoxIcon)
