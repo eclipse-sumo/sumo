@@ -236,6 +236,9 @@ public:
     /// @brief get all children tags (Including this)
     std::vector<const GNETagProperties*> getAllChildren() const;
 
+    /// @brief get all children attributes sorted by name (Including this)
+    std::map<std::string, const GNEAttributeProperties*> getAllChildrenAttributes() const;
+
     /// @brief get supermode associated with this tag
     Supermode getSupermode() const;
 
@@ -570,8 +573,11 @@ private:
     /// @brief background color (used in labels and textFields, by default white)
     unsigned int myBackgroundColor = 0;
 
-    /// @brief recursive function for get all children tags (Including this)
-    void getChildrenTags(const GNETagProperties* tagProperties, std::vector<const GNETagProperties*>& result) const;
+    /// @brief recursive function for get all children tag properites (Including this)
+    void getChildrenTagProperties(const GNETagProperties* tagProperties, std::vector<const GNETagProperties*>& result) const;
+
+    /// @brief recursive function for get all children attributes (Including this)
+    void getChildrenAttributes(const GNETagProperties* tagProperties, std::map<std::string, const GNEAttributeProperties*>& result) const;
 
     /// @brief default constructor
     GNETagProperties() = delete;

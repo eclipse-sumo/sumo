@@ -125,17 +125,23 @@ GNEMatchAttribute::refreshMatchAttribute() {
     for (int i = 0; i < depth; i++) {
         auto comboBox = myTagComboBoxVector.at(i);
         comboBox->clearItems();
+        // add <all> always as first element
         myTagComboBoxVector.at(i)->appendIconItem("<all>");
         const auto tagPropertyParent = myTagProperties->getParent(i);
         for (const auto tagPropertyChild : tagPropertyParent->getChildren()) {
             myTagComboBoxVector.at(i)->appendIconItem(tagPropertyChild->getTagStr().c_str(), GUIIconSubSys::getIcon(tagPropertyChild->getGUIIcon()));
         }
     }
-    // show next
     myTagComboBoxVector.at(depth)->show();
     // hide the rest
     for (int i = (depth + 1); i < (int)myTagComboBoxVector.size(); i++) {
         myTagComboBoxVector.at(i)->hide();
+    }
+    // now fill attributes
+    myMatchAttrComboBox->clearItems();
+    const auto attributes = myTagProperties->getAllChildrenAttributes();
+    for (const auto& attribute : attributes) {
+        myMatchAttrComboBox->appendIconItem(attribute.first.c_str());
     }
 }
 

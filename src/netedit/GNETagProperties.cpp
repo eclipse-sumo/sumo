@@ -464,7 +464,16 @@ std::vector<const GNETagProperties*>
 GNETagProperties::getAllChildren() const {
     std::vector<const GNETagProperties*> results;
     // obtain all tags recursively (including this)
-    getChildrenTags(this, results);
+    getChildrenTagProperties(this, results);
+    return results;
+}
+
+
+std::map<std::string, const GNEAttributeProperties*>
+GNETagProperties::getAllChildrenAttributes() const {
+    std::map<std::string, const GNEAttributeProperties*> results;
+    // obtain all children attributes recursively (including this)
+    getChildrenAttributes(this, results);
     return results;
 }
 
@@ -1002,13 +1011,25 @@ GNETagProperties::addChild(const GNETagProperties* child) {
 
 
 void
-GNETagProperties::getChildrenTags(const GNETagProperties* tagProperties, std::vector<const GNETagProperties*>& result) const {
+GNETagProperties::getChildrenTagProperties(const GNETagProperties* tagProperties, std::vector<const GNETagProperties*>& result) const {
     result.push_back(this);
     // call it iterative for all children
     for (const auto& child : tagProperties->myChildren) {
-        getChildrenTags(child, result);
+        getChildrenTagProperties(child, result);
     }
 }
 
+
+void
+GNETagProperties::getChildrenAttributes(const GNETagProperties* tagProperties, std::map<std::string, const GNEAttributeProperties*>& result) const {
+    // add every attribute only once
+    for (const auto& attributeProperty : myAttributeProperties) {
+        result[attributeProperty->getAttrStr()] = attributeProperty;
+    }
+    // call it iterative for all children
+    for (const auto& child : tagProperties->myChildren) {
+        getChildrenAttributes(child, result);
+    }
+}
 
 /****************************************************************************/
