@@ -106,8 +106,8 @@ GNETagProperties::checkTagIntegrity() const {
         throw ProcessError("No parent defined");
     }
     // check network parents
-    if (isNetworkElement() && (myParent->getTag() != GNE_TAG_SUPERMODE_NETWORK)) {
-        throw ProcessError("Invalid supermode network parent");
+    if (isNetworkElement() && (myParent->getTag() != SUMO_TAG_NET)) {
+        throw ProcessError("Invalid network element parent");
     }
     // check additional parents
     if (isStoppingPlace()) {
