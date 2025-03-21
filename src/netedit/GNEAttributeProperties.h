@@ -20,6 +20,7 @@
 #pragma once
 #include <config.h>
 
+#include <utils/geom/Position.h>
 #include <utils/xml/SUMOSAXAttributes.h>
 
 // ===========================================================================
