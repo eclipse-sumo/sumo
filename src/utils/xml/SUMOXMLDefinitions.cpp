@@ -1377,7 +1377,7 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::attrs[] = {
     { "close shape",                        GNE_ATTR_CLOSE_SHAPE },
     { "parent",                             GNE_ATTR_PARENT },
     { "dataSet",                            GNE_ATTR_DATASET },
-    { TL("Parameters"),                     GNE_ATTR_PARAMETERS },
+    { TL("parameters"),                     GNE_ATTR_PARAMETERS },
     { "flowParameter",                      GNE_ATTR_FLOWPARAMETERS },
     { "defaultVTypeModified",               GNE_ATTR_DEFAULT_VTYPE_MODIFIED },
     { TL("center view"),                    GNE_ATTR_CENTER_AFTER_CREATION },
