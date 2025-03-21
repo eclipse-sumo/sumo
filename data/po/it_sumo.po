@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-13 10:07+0100\n"
-"PO-Revision-Date: 2025-03-21 09:13+0000\n"
+"PO-Revision-Date: 2025-03-21 13:09+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -9254,7 +9254,7 @@ msgstr ""
 #: src/netimport/NIImporter_OpenDrive.cpp:792
 #, c-format
 msgid "Edge '%' has signals but no lane sections."
-msgstr ""
+msgstr "L'arco '%' tiene segnali ma nessuna sezione di corsie."
 
 #: src/netimport/NIImporter_OpenDrive.cpp:814
 msgid "Ambiguous start of connection."
