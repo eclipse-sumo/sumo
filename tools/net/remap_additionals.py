@@ -114,6 +114,7 @@ def remap_lane(options, obj, laneID, pos=None):
 
 def remap_edge(options, obj, edgeID, pos=None):
     edge = options.net.getEdge(edgeID)
+    permissions = set(edge.getPermissions())
     shape = edge.getShape()
     shapelen = gh.polyLength(shape)
     relpos = pos / edge.getLength() if pos else 0.5
@@ -147,6 +148,20 @@ def remap_edge(options, obj, edgeID, pos=None):
         if degrees(fabs(origAngle - angle)) < options.atol:
             cands.append(e)
     edges = cands
+    cands2 = [e for e in edges if permissions.issubset(e.getPermissions())]
+    if not cands2:
+        # relax permission requirements a minimum
+        for svc in ["passenger", "bus", "bicycle" "tram", "rail", "pedestrian"]:
+            if svc in permissions:
+                permissions = set([svc])
+                break
+        cands2 = [e for e in edges if permissions.issubset(e.getPermissions())]
+        if not cands2:
+            print("No edges that allow '%s' found near %.2f,%.2f (origEdge %s)" % (
+                " ".join(permissions), x2, y2, edgeID), file=sys.stderr)
+            return None, None
+    edges = cands2
+
     if not edges:
         print("No edges with angle %.2f found near %.2f,%.2f (origEdge %s)" % (
             degrees(origAngle), x2, y2, edgeID), file=sys.stderr)
