@@ -160,7 +160,11 @@ When using idle-algorithm **taxistand**, the following inputs must be provided:
 - the list of parkingAreas that may be used for a particular taxi or taxi fleet must be defined as a `<rerouter>`-element according to the [description for parking search simulation](Rerouter.md#rerouting_to_an_alternative_parking_area).
 - the taxi must define the parameter `device.taxi.stands-rerouter` either as a child element of the `<vehicle>` or its `<vType>` and declare the rerouter id.
 
-The strategy for choosing among the alternative taxi stands follows the description for parking search simulation (i.e. with respect to prior knowledge of remaining capacity).
+By default, an idle taxi will pick the first parkingarea in the list of alternatives (`<parkingAreaReroute` entries in the `<rerouter>`).
+If the [generic parameter](GenericParameters.md) `<param key="parking.ignoreDest" value="1"/>` is set in the vehicle or vType, then the "best" according to the rerouting strategy is used (i.e. the stand closest to the current vehicle location).
+
+The strategy for choosing among the alternative taxi stands follows the description for [parking search simulation](Rerouter.md#determining_the_alternative_parking_area) (i.e. with respect to prior knowledge of remaining capacity).
+
 
 Example declarations for the rerouter and the taxi vType that references it:
 
