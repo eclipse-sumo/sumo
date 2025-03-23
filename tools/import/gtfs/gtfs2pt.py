@@ -136,6 +136,7 @@ def get_options(args=None):
 
 def splitNet(options):
     netcCall = [sumolib.checkBinary("netconvert"), "--no-internal-links", "--numerical-ids", "--no-turnarounds",
+                "--no-warnings",
                 "--offset.disable-normalization", "--output.original-names", "--aggregate-warnings", "1",
                 "--junctions.corner-detail", "0", "--dlr-navteq.precision", "0", "--geometry.avoid-overlap", "false"]
     doNavteqOut = os.path.exists(options.mapperlib)
