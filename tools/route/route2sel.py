@@ -19,21 +19,18 @@ from __future__ import print_function
 from __future__ import absolute_import
 import os
 import sys
-from optparse import OptionParser
 
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 from sumolib.output import parse, parse_fast  # noqa
+from sumolib.options import ArgumentParser
 
 
 def parse_args():
     USAGE = "Usage: " + sys.argv[0] + " <routefile> [options]"
-    optParser = OptionParser()
-    optParser.add_option("-o", "--outfile", help="name of output file")
-    options, args = optParser.parse_args()
-    try:
-        options.routefiles = args
-    except Exception:
-        sys.exit(USAGE)
+    ap = ArgumentParser()
+    ap.add_option("routefiles", nargs="+", category="input", help="route files")
+    ap.add_option("-o", "--outfile", category="output", help="name of output file")
+    options = ap.parse_args()
     if options.outfile is None:
         options.outfile = options.routefiles[0] + ".sel.txt"
     return options

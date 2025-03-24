@@ -95,7 +95,7 @@ TOOLS = [
     "route/implausibleRoutes.py",
     "route/route2OD.py",
     # "route/route2poly.py",                  NO CONFIG
-    # "route/route2sel.py",                   NO CONFIG
+    "route/route2sel.py",
     "route/routecheck.py",
     "route/routecompare.py",
     "route/routeStats.py",
