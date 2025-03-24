@@ -72,6 +72,11 @@ MFXComboBoxAttrProperty::setCurrentItem(const GNEAttributeProperties* attributeP
 }
 
 
+bool
+MFXComboBoxAttrProperty::hasAttrProperty(const GNEAttributeProperties* attrProperties) {
+    return std::find(myAttrProperties.begin(), myAttrProperties.end(), attrProperties) != myAttrProperties.end();
+}
+
 void
 MFXComboBoxAttrProperty::clearItems() {
     MFXComboBoxIcon::clearItems();

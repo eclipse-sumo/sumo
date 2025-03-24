@@ -141,7 +141,7 @@ GNEMatchAttribute::refreshMatchAttribute() {
         myTagComboBoxVector.at(i)->appendTagItem(myCurrentEditedProperties->getTagPropertiesAll());
         // add siblings (except for root)
         if (parentHierarchy.at(i)->getParent()) {
-            for (const auto tagSibling : parentHierarchy.at(i)->getParent()->getChildren()) {
+            for (const auto tagSibling : parentHierarchy.at(i)->getParent()->getTagChildren()) {
                 myTagComboBoxVector.at(i)->appendTagItem(tagSibling);
             }
             // update tag
@@ -153,12 +153,12 @@ GNEMatchAttribute::refreshMatchAttribute() {
     myTagComboBoxVector.at(1)->hide();
     // check if show children
     auto comboBoxChildren = myTagComboBoxVector.at(parentHierarchy.size());
-    if (parentHierarchy.back()->getChildren().size() > 0) {
+    if (parentHierarchy.back()->getTagChildren().size() > 0) {
         // clear previous elements
         comboBoxChildren->clearItems();
         // add <all> always as first element
         comboBoxChildren->appendTagItem(myCurrentEditedProperties->getTagPropertiesAll());
-        for (const auto childTagProperty : parentHierarchy.back()->getChildren()) {
+        for (const auto childTagProperty : parentHierarchy.back()->getTagChildren()) {
             comboBoxChildren->appendTagItem(childTagProperty);
         }
         comboBoxChildren->show();
@@ -171,10 +171,22 @@ GNEMatchAttribute::refreshMatchAttribute() {
     }
     // now fill attributes
     myAttributeComboBox->clearItems();
-    // get ALL Children recursivelly)
-    const auto attributes = myCurrentEditedProperties->getTagProperties()->getAllChildrenAttributes();
+    // get all children recursivelly
+    const auto attributes = myCurrentEditedProperties->getTagProperties()->getAttributeChildrenRecursively(true);
     for (const auto& attribute : attributes) {
         myAttributeComboBox->appendAttrItem(attribute.second);
+    }
+    // update tag
+    if (myAttributeComboBox->getNumItems() == 0) {
+        myAttributeComboBox->disable();
+    } else {
+        myAttributeComboBox->enable();
+        if (myAttributeComboBox->hasAttrProperty(myCurrentEditedProperties->getAttributeProperties())) {
+            myAttributeComboBox->setCurrentItem(myCurrentEditedProperties->getAttributeProperties(), FALSE);
+        } else {
+            myAttributeComboBox->setCurrentItem(attributes.begin()->second, FALSE);
+            myCurrentEditedProperties->setAttributeProperties(myAttributeComboBox->getCurrentAttrProperty());
+        }
     }
     // set match string
     myMatchString->setText(myCurrentEditedProperties->getMatchValue().c_str(), FALSE);

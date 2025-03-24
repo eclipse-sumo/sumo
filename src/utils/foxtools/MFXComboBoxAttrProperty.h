@@ -57,6 +57,9 @@ public:
     /// @brief Set the current item
     long setCurrentItem(const GNEAttributeProperties* attrProperties, FXbool notify = FALSE);
 
+    /// @brief check if the given attribute exist in comboBox
+    bool hasAttrProperty(const GNEAttributeProperties* attrProperties);
+
     /// @brief Remove all items from the list
     void clearItems();
 

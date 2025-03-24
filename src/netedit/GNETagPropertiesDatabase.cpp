@@ -98,7 +98,7 @@ const std::vector<const GNETagProperties*>
 GNETagPropertiesDatabase::getTagPropertiesSet(const SumoXMLTag tag, const bool hardFail) const {
     // check that tag is defined in tagProperties or in tagPropertiesSet
     if (mySetTagProperties.count(tag) > 0) {
-        return mySetTagProperties.at(tag)->getChildren();
+        return mySetTagProperties.at(tag)->getTagChildren();
     } else if (hardFail) {
         throw ProcessError(TLF("TagPropertySet for tag '%' not defined", toString(tag)));
     } else {

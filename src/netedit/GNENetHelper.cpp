@@ -374,7 +374,7 @@ GNENetHelper::AttributeCarriers::retrieveAttributeCarriers(SumoXMLTag tag) {
             result.reserve(myNumberOfDataElements + myNumberOfMeanDataElements);
         }
         // iterate over all tag properties (including children)and add it into result
-        for (const auto& tagPropertyChild : tagProperty->getAllChildren()) {
+        for (const auto& tagPropertyChild : tagProperty->getTagChildren()) {
             const auto tagChild = tagPropertyChild->getTag();
             // fill network elements
             if (tagChild == SUMO_TAG_JUNCTION) {

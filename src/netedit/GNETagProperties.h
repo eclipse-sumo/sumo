@@ -231,14 +231,13 @@ public:
     const std::vector<const GNETagProperties*> getParentHierarchy() const;
 
     /// @brief get children of this tag property
-    const std::vector<const GNETagProperties*>& getChildren() const;
+    const std::vector<const GNETagProperties*>& getTagChildren() const;
 
     /// @brief get all children tags (Including children of their children)
-    std::vector<const GNETagProperties*> getAllChildren() const;
+    std::vector<const GNETagProperties*> getTagChildrenRecursively() const;
 
     /// @brief get all children attributes sorted by name (Including this)
-    std::map<std::string, const GNEAttributeProperties*> getAllChildrenAttributes() const;
-
+    std::map<std::string, const GNEAttributeProperties*> getAttributeChildrenRecursively(const bool onlyCommon) const;
     /// @brief get supermode associated with this tag
     Supermode getSupermode() const;
 

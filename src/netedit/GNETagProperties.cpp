@@ -446,26 +446,46 @@ GNETagProperties::getParentHierarchy() const {
 
 
 const std::vector<const GNETagProperties*>&
-GNETagProperties::getChildren() const {
+GNETagProperties::getTagChildren() const {
     return myChildren;
 }
 
 
 std::vector<const GNETagProperties*>
-GNETagProperties::getAllChildren() const {
-    std::vector<const GNETagProperties*> results;
+GNETagProperties::getTagChildrenRecursively() const {
+    std::vector<const GNETagProperties*> children;
     // obtain all tags recursively (including this)
-    getChildrenTagProperties(this, results);
-    return results;
+    getChildrenTagProperties(this, children);
+    return children;
 }
 
 
 std::map<std::string, const GNEAttributeProperties*>
-GNETagProperties::getAllChildrenAttributes() const {
-    std::map<std::string, const GNEAttributeProperties*> results;
+GNETagProperties::getAttributeChildrenRecursively(const bool onlyCommon) const {
+    std::map<std::string, const GNEAttributeProperties*> allChildrenAttributes;
     // obtain all children attributes recursively (including this)
-    getChildrenAttributes(this, results);
-    return results;
+    getChildrenAttributes(this, allChildrenAttributes);
+    // check if get only commons
+    if (onlyCommon) {
+        std::map<std::string, const GNEAttributeProperties*> commonChildrenAttributes;
+        // get all tag children and take only the common attributes
+        const auto tagChildren = getTagChildrenRecursively();
+        // iterate over all children and check if exist in child tag
+        for (const auto attributeChild : allChildrenAttributes) {
+            bool isCommon = true;
+            for (const auto tagChild : tagChildren) {
+                if (!tagChild->hasAttribute(attributeChild.second->getAttr())) {
+                    isCommon = false;
+                }
+            }
+            if (isCommon) {
+                commonChildrenAttributes.insert(attributeChild);
+            }
+        }
+        return commonChildrenAttributes;
+    } else {
+        return allChildrenAttributes;
+    }
 }
 
 
