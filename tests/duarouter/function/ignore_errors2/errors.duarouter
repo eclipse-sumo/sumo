@@ -9,3 +9,4 @@ Warning: Mandatory edge 'E5' not reachable by vehicle 'v_2'.
 Warning: The vehicle 'v_2' has no valid route.
 Warning: No connection between edge 'E2' and edge 'E4' found.
 Warning: Mandatory edge 'E4' not reachable by vehicle 'v_3'.
+Warning: The vehicle 'v_3' has no valid route.
