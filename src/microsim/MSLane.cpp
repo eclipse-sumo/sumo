@@ -2009,11 +2009,22 @@ MSLane::handleCollisionBetween(SUMOTime timestep, const std::string& stage, cons
     if (collider->ignoreCollision() || victim->ignoreCollision()) {
         return;
     }
-    const std::string collisionType = ((collider->getLaneChangeModel().isOpposite() != victim->getLaneChangeModel().isOpposite()
-                                        || (&collider->getLane()->getEdge() == victim->getLane()->getEdge().getBidiEdge()))
-                                       ?  "frontal" : (isInternal() ? "junction" : "collision"));
-    const std::string collisionText = collisionType == "frontal" ? TL("frontal collision") :
-                                      (collisionType == "junction" ? TL("junction collision") : TL("collision"));
+    std::string collisionType;
+    std::string collisionText;
+    if (collider->getLaneChangeModel().isOpposite() != victim->getLaneChangeModel().isOpposite() ||
+        &collider->getLane()->getEdge() == victim->getLane()->getEdge().getBidiEdge()) {
+        collisionType = "frontal";
+        collisionText = TL("frontal collision");
+    } else if (stage == MSNet::STAGE_LANECHANGE) {
+        collisionType = "side";
+        collisionText = TL("side collision");
+    } else if (isInternal()) {
+        collisionType = "junction";
+        collisionText = TL("junction collision");
+    } else {
+        collisionType = "collision";
+        collisionText = TL("collision");
+    }
 
     // in frontal collisions the opposite vehicle is the collider
     if (victim->getLaneChangeModel().isOpposite() && !collider->getLaneChangeModel().isOpposite()) {
