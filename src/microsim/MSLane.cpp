@@ -2114,7 +2114,7 @@ MSLane::handleCollisionBetween(SUMOTime timestep, const std::string& stage, cons
                        time2string(timestep), stage);
         MSNet::getInstance()->informVehicleStateListener(victim, MSNet::VehicleState::COLLISION);
         MSNet::getInstance()->informVehicleStateListener(collider, MSNet::VehicleState::COLLISION);
-        MSNet::getInstance()->getVehicleControl().registerCollision(myCollisionAction == COLLISION_ACTION_TELEPORT);
+        MSNet::getInstance()->getVehicleControl().countCollision(myCollisionAction == COLLISION_ACTION_TELEPORT);
     }
 #ifdef DEBUG_COLLISIONS
     if (DEBUG_COND2(collider)) {
@@ -2195,7 +2195,7 @@ MSLane::handleIntermodalCollisionBetween(SUMOTime timestep, const std::string& s
                                        victim->getID(), getID(), time2string(timestep), stage));
         }
         MSNet::getInstance()->informVehicleStateListener(collider, MSNet::VehicleState::COLLISION);
-        MSNet::getInstance()->getVehicleControl().registerCollision(myIntermodalCollisionAction == COLLISION_ACTION_TELEPORT);
+        MSNet::getInstance()->getVehicleControl().countCollision(myIntermodalCollisionAction == COLLISION_ACTION_TELEPORT);
     }
 #ifdef DEBUG_COLLISIONS
     if (DEBUG_COND2(collider)) {
@@ -2265,7 +2265,7 @@ MSLane::executeMovements(const SUMOTime t) {
             assert(false);
             WRITE_WARNINGF(TL("Teleporting vehicle '%'; beyond end of lane, target lane='%', time=%."),
                            veh->getID(), getID(), time2string(t));
-            MSNet::getInstance()->getVehicleControl().registerCollision(true);
+            MSNet::getInstance()->getVehicleControl().countCollision(true);
             MSVehicleTransfer::getInstance()->add(t, veh);
 
         } else if (veh->collisionStopTime() == 0) {
