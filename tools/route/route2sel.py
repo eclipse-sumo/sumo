@@ -28,8 +28,8 @@ from sumolib.options import ArgumentParser
 def parse_args():
     USAGE = "Usage: " + sys.argv[0] + " <routefile> [options]"
     ap = ArgumentParser()
-    ap.add_option("routefiles", nargs="+", category="input", help="route files")
-    ap.add_option("-o", "--outfile", category="output", help="name of output file")
+    ap.add_option("routefiles", nargs="+", category="input", type=ap.file_list, help="route files")
+    ap.add_option("-o", "--outfile", category="output", type=ap.file, help="name of output file")
     options = ap.parse_args()
     if options.outfile is None:
         options.outfile = options.routefiles[0] + ".sel.txt"
