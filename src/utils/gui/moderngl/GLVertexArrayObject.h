@@ -25,8 +25,7 @@
 #include <GL/glew.h>
 #endif
 
-#include <utils/gui/moderngl/GLBufferStruct.h>
-
+struct GLBufferStruct;
 
 class GLVertexArrayObject {
 

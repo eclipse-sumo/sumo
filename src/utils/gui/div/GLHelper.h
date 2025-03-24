@@ -27,14 +27,17 @@
 #include <utils/common/RGBColor.h>
 #include <utils/geom/PositionVector.h>
 #include <utils/gui/settings/GUIVisualizationSettings.h>
-#include <utils/gui/moderngl/GLBufferStruct.h>
 
+#ifndef __glew_h__
+#include <GL/glew.h>
+#endif
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
 struct GUIVisualizationTextSettings;
-
+struct GLAttributeDefinition;
+struct GLBufferStruct;
 
 // ===========================================================================
 // class definitions
@@ -97,7 +100,7 @@ public:
     static void clearVertexData();
 
     /// @brief sum size of vertex attributes
-    static unsigned int computeVertexAttributeSize(const std::vector<std::pair<GLint, unsigned int>>& attributeDefinitions);
+    static unsigned int computeVertexAttributeSize(const std::vector<GLAttributeDefinition>& attributeDefinitions);
 
     /** @brief Draws a filled polygon described by the list of points
      * @note this only works well for convex polygons

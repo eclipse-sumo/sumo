@@ -19,9 +19,12 @@
 /****************************************************************************/
 #include "GLRenderer.h"
 
+#include <iostream>
 #include <utils/common/UtilExceptions.h>
-#include <utils/gui/moderngl/GLBufferStruct.h>
-
+#include <utils/gui/div/GLHelper.h>
+#include <utils/gui/moderngl/GLVertexArrayObject.h>
+#include <utils/gui/moderngl/GLStructs.h>
+#include <utils/gui/moderngl/GLShader.h>
 
 // ===========================================================================
 // static member definitions
@@ -130,7 +133,7 @@ GLRenderer::addShader(const std::string& name, const GLShader& shader) {
 
 
 void
-GLRenderer::setVertexAttributes(const std::vector<std::pair<GLint, unsigned int>>& attributeDefinitions) {
+GLRenderer::setVertexAttributes(const std::vector<GLAttributeDefinition>& attributeDefinitions) {
     if (myCurrentConfiguration == "") {
         // TODO: issue a warning that no VAO is set
         return;
@@ -140,21 +143,22 @@ GLRenderer::setVertexAttributes(const std::vector<std::pair<GLint, unsigned int>
     unsigned int stride = 0;
     for (auto entry : attributeDefinitions) {
         unsigned int typeSize = 0;
-        switch (entry.first) {
+        switch (entry.type) {
         case GL_FLOAT:
             typeSize = sizeof(float);
             break;
         case GL_BYTE:
+        case GL_UNSIGNED_BYTE:
             typeSize = sizeof(char);
             break;
         }
-        sizes.push_back(typeSize * entry.second);
-        stride += typeSize * entry.second;
+        sizes.push_back(typeSize * entry.size);
+        stride += typeSize * entry.size;
     }
     GLintptr offset = 0;
     for (int i = 0; i < attributeCount; ++i) {
         glEnableVertexAttribArray(i);
-        glVertexAttribPointer(i, attributeDefinitions[i].second, attributeDefinitions[i].first, GL_FALSE, stride, (GLvoid*)offset);
+        glVertexAttribPointer(i, attributeDefinitions[i].size, attributeDefinitions[i].type, attributeDefinitions[i].normalized, stride, (GLvoid*)offset);
 #ifdef _DEBUG
         std::cout << "GLRenderer::setVertexAttributes glVertexAttribPointer position " << i << " offset " << offset << std::endl;
 #endif
@@ -195,8 +199,8 @@ GLRenderer::getUniformID(const std::string& key) {
 
 
 bool
-GLRenderer::setVertexData(std::vector<GLBufferStruct>& data) {
-    return myConfigurations[myCurrentConfiguration].vao->setVertexData(data);
+GLRenderer::setVertexData(std::vector<GLBufferStruct>& data, GLenum type) {
+    return myConfigurations[myCurrentConfiguration].vao->setVertexData(data, type);
 }
 
 

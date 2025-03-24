@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GLBufferStruct.h
+/// @file    GLStructs.h
 /// @author  Mirko Barthauer
 /// @date    24.01.2025
 ///
@@ -19,6 +19,8 @@
 /****************************************************************************/
 #pragma once
 #include <config.h>
+#include <string>
+#include <memory>
 
 #ifndef __glew_h__
 #include <GL/glew.h>
@@ -27,4 +29,10 @@
 struct GLBufferStruct {
     float position[3];
     unsigned char color[4];
+};
+
+struct GLAttributeDefinition {
+    GLint type;
+    unsigned int size;
+    GLint normalized;
 };

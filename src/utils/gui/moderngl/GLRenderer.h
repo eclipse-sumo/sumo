@@ -28,12 +28,13 @@
 
 #include <map>
 #include <vector>
-#include <utils/gui/div/GLHelper.h>
-#include <utils/gui/moderngl/GLVertexArrayObject.h>
-#include <utils/gui/moderngl/GLShader.h>
+#include <memory>
+#include <string>
 
-
+struct GLAttributeDefinition;
 struct GLBufferStruct;
+class GLVertexArrayObject;
+class GLShader;
 
 struct GLConfiguration {
     std::string shaderName;
@@ -51,11 +52,11 @@ public:
     std::shared_ptr<GLVertexArrayObject> getVAO();
     void deactivateCurrentConfiguration();
     bool addShader(const std::string& name, const GLShader& shader);
-    void setVertexAttributes(const std::vector<std::pair<GLint, unsigned int>>& attributeDefinitions);
+    void setVertexAttributes(const std::vector<GLAttributeDefinition>& attributeDefinitions);
     void checkBufferSizes();
     void clearBuffer();
     GLuint getUniformID(const std::string& key);
-    bool setVertexData(std::vector<GLBufferStruct>& data);
+    bool setVertexData(std::vector<GLBufferStruct>& data, GLenum type);
     void setUniform(const std::string& key, const float value);
     void setUniform(const std::string& key, const float v1, const float v2, const float v3);
     void setUniform(const std::string& key, const float v1, const float v2, const float v3, const float v4);

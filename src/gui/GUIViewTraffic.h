@@ -32,12 +32,12 @@
 #include <utils/geom/PositionVector.h>
 #include "GUISUMOViewParent.h"
 #include <utils/gui/windows/GUISUMOAbstractView.h>
-#include <utils/gui/moderngl/GLRenderer.h>
 
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
+class GLRenderer;
 class GUINet;
 class GUISUMOViewParent;
 class GUIVehicle;

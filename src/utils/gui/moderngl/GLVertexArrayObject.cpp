@@ -19,6 +19,8 @@
 /****************************************************************************/
 #include "GLVertexArrayObject.h"
 #include <iostream>
+#include <utils/common/UtilExceptions.h>
+#include <utils/gui/moderngl/GLStructs.h>
 
 #define GLVERTEXARRAYOBJECT_MINRESERVE 4000
 
@@ -157,7 +159,7 @@ GLVertexArrayObject::addVertexData(std::vector<GLBufferStruct>& data, GLenum geo
     glGetBufferParameteriv(GL_ARRAY_BUFFER, GL_BUFFER_SIZE, &bufferSize);
     if (byteSize > bufferSize) {
         glDeleteBuffers(1, &myVertexBufferID);
-        // TODO: Log the error
+        throw ProcessError("The OpenGL buffer is not big enough to contain all vertices.");
         return false;
     }
     // demo index buffer
@@ -189,9 +191,7 @@ GLVertexArrayObject::drawGL() const {
     std::cout << "GLVertexArrayObject::drawGL draw " << myGeometries.size() << " geometries " << std::endl;
 #endif
     for (auto entry : myGeometries) {
-        //glDrawArrays(entry.first, offset, entry.second);
         glDrawElements((GLenum)entry.first, entry.second, GL_UNSIGNED_INT, (GLvoid*)offset);
-        //glDrawElements((GLenum)entry.first, entry.second, GL_UNSIGNED_INT, nullptr);
 #ifdef _DEBUG
         std::cout << "GLVertexArrayObject::drawGL glDrawElements(" << entry.first << ", " << offset << ", " << entry.second << ");" << std::endl;
 #endif

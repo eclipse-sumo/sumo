@@ -62,9 +62,11 @@
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/gui/globjects/GUIShapeContainer.h>
 #include <utils/gui/images/GUIIconSubSys.h>
+#include <utils/gui/moderngl/GLRenderer.h>
 #include <utils/gui/moderngl/GLShader.h>
-#include <utils/gui/moderngl/GLBufferStruct.h>
+#include <utils/gui/moderngl/GLStructs.h>
 #include <utils/gui/moderngl/GLTransformStack.h>
+#include <utils/gui/moderngl/GLVertexArrayObject.h>
 #include <utils/gui/settings/GUICompleteSchemeStorage.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/windows/GUIDialog_ViewSettings.h>
@@ -430,7 +432,7 @@ GUIViewTraffic::doPaintGL(int mode, const Boundary& bound) {
             GLenum geometries[] = { GL_LINES, GL_TRIANGLES };
             for (auto geo : geometries) {
                 if (GLHelper::getVertexCount(geo) > 0) {
-                    myRenderer->setVertexData(GLHelper::getVertexData(geo));
+                    myRenderer->setVertexData(GLHelper::getVertexData(geo), geo);
                 }
             }
             myRenderer->paintGL();
@@ -858,7 +860,7 @@ GUIViewTraffic::initModernOpenGL() {
 
         myRenderer = std::make_shared<GLRenderer>();
         myRenderer->addShader("FaceColorShader", shader);
-        const std::vector<std::pair<GLint, unsigned int>> attributeDefinitions = { {GL_FLOAT, 3}, {GL_UNSIGNED_BYTE, 4} };
+        const std::vector<GLAttributeDefinition> attributeDefinitions = { {GL_FLOAT, 3, GL_FALSE}, {GL_UNSIGNED_BYTE, 4, GL_TRUE} }; // actually GL_UNSIGNED_BYTE? >> but this produces artifacts
         myRenderer->addConfiguration("Standard", "FaceColorShader", GLHelper::computeVertexAttributeSize(attributeDefinitions));
         myRenderer->activateConfiguration("Standard");
         myRenderer->getVAO()->setGeometryType((GLenum)GL_LINES);

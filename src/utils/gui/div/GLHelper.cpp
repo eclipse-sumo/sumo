@@ -28,7 +28,9 @@
 #include <utils/common/ToString.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/gui/div/GUIGeometry.h>
+#include <utils/gui/moderngl/GLStructs.h>
 #include <utils/gui/moderngl/GLTransformStack.h>
+
 #define FONTSTASH_IMPLEMENTATION // Expands implementation
 #ifdef _MSC_VER
 #pragma warning(disable: 4505 5219) // do not warn about unused functions and implicit float conversions
@@ -236,21 +238,20 @@ GLHelper::clearVertexData() {
 
 
 unsigned int
-GLHelper::computeVertexAttributeSize(const std::vector<std::pair<GLint, unsigned int>>& attributeDefinitions) {
+GLHelper::computeVertexAttributeSize(const std::vector<GLAttributeDefinition>& attributeDefinitions) {
     unsigned int result = 0;
     for (auto entry : attributeDefinitions) {
         unsigned int typeSize = 0;
-        switch (entry.first) {
+        switch (entry.type) {
         case GL_FLOAT:
             typeSize = sizeof(float);
             break;
         case GL_BYTE:
+        case GL_UNSIGNED_BYTE:
             typeSize = sizeof(char);
             break;
-        case GL_UNSIGNED_BYTE:
-            typeSize = sizeof(unsigned char);
         }
-        result += typeSize * entry.second;
+        result += typeSize * entry.size;
     }
     return result;
 }
