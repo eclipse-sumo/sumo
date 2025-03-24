@@ -51,6 +51,7 @@ GNETagProperties::GNETagProperties(const SumoXMLTag tag, GNETagProperties* paren
                                    const std::string selectorText) :
     myTag(tag),
     myTagStr(toString(tag)),
+    myHierarchicalTag(true),
     myParent(parent),
     myIcon(icon),
     myXMLTag(tag),
@@ -474,7 +475,7 @@ GNETagProperties::getAttributeChildrenRecursively(const bool onlyCommon) const {
         for (const auto attributeChild : allChildrenAttributes) {
             bool isCommon = true;
             for (const auto tagChild : tagChildren) {
-                if (!tagChild->hasAttribute(attributeChild.second->getAttr())) {
+                if (!tagChild->isHierarchicalTag() && !tagChild->hasAttribute(attributeChild.second->getAttr())) {
                     isCommon = false;
                 }
             }
@@ -506,6 +507,12 @@ GNETagProperties::getSupermode() const {
             throw ProcessError("Invalid supermode");
         }
     }
+}
+
+
+bool
+GNETagProperties::isHierarchicalTag() const {
+    return myHierarchicalTag;
 }
 
 
@@ -1020,7 +1027,7 @@ GNETagProperties::addChild(const GNETagProperties* child) {
 
 void
 GNETagProperties::getChildrenTagProperties(const GNETagProperties* tagProperties, std::vector<const GNETagProperties*>& result) const {
-    result.push_back(this);
+    result.push_back(tagProperties);
     // call it iterative for all children
     for (const auto& child : tagProperties->myChildren) {
         getChildrenTagProperties(child, result);

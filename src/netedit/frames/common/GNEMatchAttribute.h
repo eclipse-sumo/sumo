@@ -67,11 +67,14 @@ public:
     /// @name FOX-callbacks
     /// @{
 
-    /// @brief Called when the user selectes a tag in the match box
+    /// @brief Called when the user selects a tag in the match box
     long onCmdTagSelected(FXObject* obj, FXSelector, void*);
 
-    /// @brief Called when the user selectes an attribute in the match box
+    /// @brief Called when the user selects an attribute in the match box
     long onCmdAttributeSelected(FXObject*, FXSelector, void*);
+
+    /// @brief Called when the user toogle the only common checkbox
+    long onCmdToogleOnlyCommon(FXObject*, FXSelector, void*);
 
     /**@brief Called when the user enters a new selection expression
      * @note validates expression and modifies current selection
@@ -108,6 +111,9 @@ private:
 
         /// @brief get special tag <all>
         const GNETagProperties* getTagPropertiesAll() const;
+
+        /// @brief get attr properties no common
+        const GNEAttributeProperties* getAttributePropertiesNoCommon() const;
 
         /// @brief get tag property (depending of supermode)
         const GNETagProperties* getTagProperties() const;
@@ -158,8 +164,11 @@ private:
         /// @brief current data match value
         std::string myDataMatchValue;
 
-        /// @brief get tag properties <all>
-        const GNETagProperties* myTagPropertiesAllAttributes = nullptr;
+        /// @brief tag properties <all>
+        GNETagProperties* myTagPropertiesAllAttributes = nullptr;
+
+        /// @brief attribute properties no common
+        const GNEAttributeProperties* myAttributePropertiesNoCommon = nullptr;
 
         /// @brief default constructor
         CurrentEditedProperties() = delete;
@@ -176,6 +185,9 @@ private:
 
     /// @brief vector with tag property comboBoxes
     std::vector <MFXComboBoxTagProperty*> myTagComboBoxVector;
+
+    /// @brief checkbox for enable/disable show only common attributes
+    FXCheckButton* myShowOnlyCommonAttributes = nullptr;
 
     /// @brief attribute property comboBox
     MFXComboBoxAttrProperty* myAttributeComboBox = nullptr;

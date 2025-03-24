@@ -147,7 +147,7 @@ public:
                      const GUIIcon icon, const SumoXMLTag XMLTag, const std::string tooltip, std::vector<SumoXMLTag> XMLParentTags = {},
                      const unsigned int backgroundColor = FXRGBA(255, 255, 255, 255), const std::string selectorText = "");
 
-    /// @brief parameter constructor for sets
+    /// @brief parameter constructor for hierarchical elements
     GNETagProperties(const SumoXMLTag tag, GNETagProperties* parent, const GUIIcon icon, const std::string tooltip, const std::string selectorText = "");
 
     /// @brief destructor
@@ -238,10 +238,14 @@ public:
 
     /// @brief get all children attributes sorted by name (Including this)
     std::map<std::string, const GNEAttributeProperties*> getAttributeChildrenRecursively(const bool onlyCommon) const;
+
     /// @brief get supermode associated with this tag
     Supermode getSupermode() const;
 
     /// @}
+
+    /// @brief check if this is a hirearchical tag
+    bool isHierarchicalTag() const;
 
     /// @brief network elements
     /// @{
@@ -528,10 +532,10 @@ protected:
 
 private:
     /// @brief Sumo XML Tag vinculated wit this tag Property
-    SumoXMLTag myTag = SUMO_TAG_NOTHING;
+    const SumoXMLTag myTag = SUMO_TAG_NOTHING;
 
     /// @brief Sumo XML Tag vinculated wit this tag Property in String format
-    std::string myTagStr;
+    const std::string myTagStr;
 
     /// @brief tag property parent
     const GNETagProperties* myParent = nullptr;
@@ -540,37 +544,40 @@ private:
     std::vector<const GNETagProperties*> myChildren;
 
     /// @brief tag Types
-    int myTagType = -1;
+    const int myTagType = -1;
 
     /// @brief tag properties
-    int myTagProperty = -1;
+    const int myTagProperty = -1;
 
     /// @brief tag parents
-    int myTagParents = -1;
+    const int myTagParents = -1;
 
     /// @brief conflicts
-    int myConflicts = -1;
+    const int myConflicts = -1;
+
+    /// @brief check if this is a hierarchical tag
+    const bool myHierarchicalTag = false;
 
     /// @brief vector with the attribute values vinculated with this Tag
     std::vector<const GNEAttributeProperties*> myAttributeProperties;
 
     /// @brief icon associated to this Tag
-    GUIIcon myIcon = GUIIcon::EMPTY;
+    const GUIIcon myIcon = GUIIcon::EMPTY;
 
     /// @brief Tag written in XML and used in GNENetHelper::AttributeCarriers
-    SumoXMLTag myXMLTag = SUMO_TAG_NOTHING;
+    const SumoXMLTag myXMLTag = SUMO_TAG_NOTHING;
 
     /// @brief tooltip text
-    std::string myTooltipText;
+    const std::string myTooltipText;
 
     /// @brief vector with XML parent tags (used by child elements like access or spaces)
-    std::vector<SumoXMLTag> myXMLParentTags;
+    const std::vector<SumoXMLTag> myXMLParentTags;
 
     /// @brief text show in selector text
-    std::string mySelectorText;
+    const std::string mySelectorText;
 
     /// @brief background color (used in labels and textFields, by default white)
-    unsigned int myBackgroundColor = 0;
+    const unsigned int myBackgroundColor = 0;
 
     /// @brief recursive function for get all children tag properites (Including this)
     void getChildrenTagProperties(const GNETagProperties* tagProperties, std::vector<const GNETagProperties*>& result) const;

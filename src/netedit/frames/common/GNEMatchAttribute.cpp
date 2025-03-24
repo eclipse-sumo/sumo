@@ -37,6 +37,7 @@
 FXDEFMAP(GNEMatchAttribute) GNEMatchAttributeMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECTORFRAME_SELECTTAG,        GNEMatchAttribute::onCmdTagSelected),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECTORFRAME_SELECTATTRIBUTE,  GNEMatchAttribute::onCmdAttributeSelected),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECTORFRAME_TOGGLECOMMON,     GNEMatchAttribute::onCmdToogleOnlyCommon),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECTORFRAME_PROCESSSTRING,    GNEMatchAttribute::onCmdSelMBString),
     FXMAPFUNC(SEL_COMMAND,  MID_HELP,                               GNEMatchAttribute::onCmdHelp)
 };
@@ -65,6 +66,8 @@ GNEMatchAttribute::GNEMatchAttribute(GNESelectorFrame* selectorFrameParent) :
                 this, MID_GNE_SELECTORFRAME_SELECTTAG, GUIDesignComboBox);
         myTagComboBoxVector.push_back(comboBoxIcon);
     }
+    myShowOnlyCommonAttributes = new FXCheckButton(getCollapsableFrame(), TL("Only common"), this, MID_GNE_SELECTORFRAME_TOGGLECOMMON, GUIDesignCheckButton);
+    myShowOnlyCommonAttributes->setCheck(FALSE);
     // Create MFXComboBoxIcon for Attributes
     myAttributeComboBox = new MFXComboBoxAttrProperty(getCollapsableFrame(), GUIDesignComboBoxNCol, true, GUIDesignComboBoxVisibleItems,
             this, MID_GNE_SELECTORFRAME_SELECTATTRIBUTE, GUIDesignComboBox);
@@ -172,7 +175,7 @@ GNEMatchAttribute::refreshMatchAttribute() {
     // now fill attributes
     myAttributeComboBox->clearItems();
     // get all children recursivelly
-    const auto attributes = myCurrentEditedProperties->getTagProperties()->getAttributeChildrenRecursively(true);
+    const auto attributes = myCurrentEditedProperties->getTagProperties()->getAttributeChildrenRecursively(myShowOnlyCommonAttributes->getCheck() == TRUE);
     for (const auto& attribute : attributes) {
         myAttributeComboBox->appendAttrItem(attribute.second);
     }
@@ -220,6 +223,14 @@ GNEMatchAttribute::onCmdTagSelected(FXObject* obj, FXSelector, void*) {
 long
 GNEMatchAttribute::onCmdAttributeSelected(FXObject*, FXSelector, void*) {
     myCurrentEditedProperties->setAttributeProperties(myAttributeComboBox->getCurrentAttrProperty());
+    refreshMatchAttribute();
+    return 1;
+}
+
+
+long
+GNEMatchAttribute::onCmdToogleOnlyCommon(FXObject*, FXSelector, void*) {
+    // simply refresh attribute
     refreshMatchAttribute();
     return 1;
 }
@@ -403,15 +414,17 @@ GNEMatchAttribute::updateAttribute() {
     */
 }
 
-// ---------------------------------------------------------------------------
+// ---------------------------------------------------------------------1------
 // GNEMatchAttribute::CurrentEditedProperties - methods
 // ---------------------------------------------------------------------------
 
 GNEMatchAttribute::CurrentEditedProperties::CurrentEditedProperties(const GNEMatchAttribute* matchAttributeParent) :
-    myMatchAttributeParent(matchAttributeParent),
-    myTagPropertiesAllAttributes(new GNETagProperties(GNE_TAG_ATTRIBUTES_ALL, nullptr, GUIIcon::EMPTY, TL("Show all attributes"), TL("<all>"))) {
-    const auto database = myMatchAttributeParent->mySelectorFrameParent->getViewNet()->getNet()->getTagPropertiesDatabase();
+    myMatchAttributeParent(matchAttributeParent) {
+    // build special attributes
+    myTagPropertiesAllAttributes = new GNETagProperties(GNE_TAG_ATTRIBUTES_ALL, nullptr, GUIIcon::EMPTY, TL("Show all attributes"), TL("<all>"));
+    myAttributePropertiesNoCommon = new GNEAttributeProperties(myTagPropertiesAllAttributes, GNE_ATTR_NOCOMMON, TL("No common attributes defined"));
     // set default tag and attribute for every property
+    const auto database = myMatchAttributeParent->mySelectorFrameParent->getViewNet()->getNet()->getTagPropertiesDatabase();
     setTagProperties(database->getTagProperty(SUMO_TAG_EDGE, true));
     setAttributeProperties(myNetworkTagProperties.back()->getAttributeProperties(SUMO_ATTR_SPEED));
     myNetworkMatchValue = ">= 10";
@@ -430,6 +443,12 @@ GNEMatchAttribute::CurrentEditedProperties::~CurrentEditedProperties() {
 const GNETagProperties*
 GNEMatchAttribute::CurrentEditedProperties::getTagPropertiesAll() const {
     return myTagPropertiesAllAttributes;
+}
+
+
+const GNEAttributeProperties*
+GNEMatchAttribute::CurrentEditedProperties::getAttributePropertiesNoCommon() const {
+    return myAttributePropertiesNoCommon;
 }
 
 

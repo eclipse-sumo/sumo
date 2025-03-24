@@ -1419,6 +1419,7 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::attrs[] = {
     { "frontElement",                       GNE_ATTR_FRONTELEMENT },
     { TL("edges within"),                   GNE_ATTR_EDGES_WITHIN },
     { "all",                                GNE_ATTR_ALL },
+    { "noCommonAttributes",                 GNE_ATTR_NOCOMMON },
 
     { "carriageLength",     SUMO_ATTR_CARRIAGE_LENGTH },
     { "locomotiveLength",   SUMO_ATTR_LOCOMOTIVE_LENGTH },

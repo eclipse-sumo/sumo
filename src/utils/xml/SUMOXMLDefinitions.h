@@ -1893,6 +1893,8 @@ enum SumoXMLAttr {
     GNE_ATTR_EDGES_WITHIN,
     /// @brief all attributes
     GNE_ATTR_ALL,
+    /// @brief no common attributes
+    GNE_ATTR_NOCOMMON,
     // @}
 
     /// @name train parameters

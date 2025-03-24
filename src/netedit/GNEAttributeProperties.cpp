@@ -78,6 +78,18 @@ GNEAttributeProperties::GNEAttributeProperties(GNETagProperties* tagProperties, 
 }
 
 
+GNEAttributeProperties::GNEAttributeProperties(GNETagProperties* tagProperties, const SumoXMLAttr attribute, const std::string& definition) :
+    myTagPropertyParent(tagProperties),
+    myAttribute(attribute),
+    myAttrStr(toString(attribute)),
+    myDefinition(definition) {
+    // check build conditions (only in debug mode)
+    checkBuildConstraints();
+    // add attribute in tag properties vector
+    tagProperties->myAttributeProperties.push_back(this);
+}
+
+
 GNEAttributeProperties::~GNEAttributeProperties() {}
 
 
