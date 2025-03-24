@@ -94,7 +94,7 @@ TOOLS = [
     "route/checkStopOrder.py",
     "route/implausibleRoutes.py",
     "route/route2OD.py",
-    # "route/route2poly.py",                  NO CONFIG
+    "route/route2poly.py",
     "route/route2sel.py",
     "route/routecheck.py",
     "route/routecompare.py",
