@@ -103,6 +103,15 @@ private:
         /// @brief constructor
         CurrentEditedProperties(const GNEMatchAttribute* matchAttributeParent);
 
+        /// @brief destructor
+        ~CurrentEditedProperties();
+
+        /// @brief get special tag <all>
+        const GNETagProperties* getTagPropertiesAll() const;
+
+        /// @brief get special tag <common attributes>
+        const GNETagProperties* getTagPropertiesCommonAttributes() const;
+
         /// @brief get tag property (depending of supermode)
         const GNETagProperties* getTagProperties() const;
 
@@ -151,6 +160,12 @@ private:
 
         /// @brief current data match value
         std::string myDataMatchValue;
+
+        /// @brief get tag properties <all>
+        const GNETagProperties* myTagPropertiesAllAttributes = nullptr;
+
+        /// @brief get tag properties <common attributes>
+        const GNETagProperties* myTagPropertiesCommonAttributes = nullptr;
 
         /// @brief default constructor
         CurrentEditedProperties() = delete;

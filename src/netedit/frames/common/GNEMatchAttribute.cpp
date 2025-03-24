@@ -132,14 +132,14 @@ void
 GNEMatchAttribute::refreshMatchAttribute() {
     // continue depending of current
     auto parentHierarchy = myCurrentEditedProperties->getTagProperties()->getParentHierarchy();
-    const auto allTagProperty = mySelectorFrameParent->getViewNet()->getNet()->getTagPropertiesDatabase()->getTagPropertiesAll();
     // fill hierarchy
     for (size_t i = 0; i < parentHierarchy.size(); i++) {
         auto comboBox = myTagComboBoxVector.at(i);
         // clear previous elements
         comboBox->clearItems();
-        // add <all> always as first element
-        myTagComboBoxVector.at(i)->appendTagItem(allTagProperty);
+        // add <all> and <common> always as first element
+        myTagComboBoxVector.at(i)->appendTagItem(myCurrentEditedProperties->getTagPropertiesAll());
+        myTagComboBoxVector.at(i)->appendTagItem(myCurrentEditedProperties->getTagPropertiesCommonAttributes());
         // add siblings (except for root)
         if (parentHierarchy.at(i)->getParent()) {
             for (const auto tagSibling : parentHierarchy.at(i)->getParent()->getChildren()) {
@@ -153,15 +153,19 @@ GNEMatchAttribute::refreshMatchAttribute() {
     myTagComboBoxVector.at(0)->hide();
     myTagComboBoxVector.at(1)->hide();
     // check if show children
+    auto comboBoxChildren = myTagComboBoxVector.at(parentHierarchy.size());
     if (parentHierarchy.back()->getChildren().size() > 0) {
         // clear previous elements
-        myTagComboBoxVector.at(parentHierarchy.size())->clearItems();
+        comboBoxChildren->clearItems();
+        // add <all> always as first element
+        comboBoxChildren->appendTagItem(myCurrentEditedProperties->getTagPropertiesAll());
+        comboBoxChildren->appendTagItem(myCurrentEditedProperties->getTagPropertiesCommonAttributes());
         for (const auto childTagProperty : parentHierarchy.back()->getChildren()) {
-            myTagComboBoxVector.at(parentHierarchy.size())->appendTagItem(childTagProperty);
+            comboBoxChildren->appendTagItem(childTagProperty);
         }
-        myTagComboBoxVector.at(parentHierarchy.size())->show();
+        comboBoxChildren->show();
     } else {
-        myTagComboBoxVector.at(parentHierarchy.size())->hide();
+        comboBoxChildren->hide();
     }
     // hide rest of combo boxes
     for (size_t i = (parentHierarchy.size() + 1); i < myTagComboBoxVector.size(); i++) {
@@ -190,7 +194,13 @@ GNEMatchAttribute::onCmdTagSelected(FXObject* obj, FXSelector, void*) {
     }
     // check if tag property exist
     if (myTagComboBoxVector.at(tagComboBoxIndex)->getCurrentTagProperty()) {
-        myCurrentEditedProperties->setTagProperties(myTagComboBoxVector.at(tagComboBoxIndex)->getCurrentTagProperty());
+        const auto selectedTag = myTagComboBoxVector.at(tagComboBoxIndex)->getCurrentTagProperty();
+        // if we select <all>, use parent tag
+        if ((selectedTag == myCurrentEditedProperties->getTagPropertiesAll()) || (selectedTag == myCurrentEditedProperties->getTagPropertiesCommonAttributes())) {
+            myCurrentEditedProperties->setTagProperties(myTagComboBoxVector.at(tagComboBoxIndex - 1)->getCurrentTagProperty());
+        } else {
+            myCurrentEditedProperties->setTagProperties(selectedTag);
+        }
         refreshMatchAttribute();
     }
     return 0;
@@ -388,7 +398,9 @@ GNEMatchAttribute::updateAttribute() {
 // ---------------------------------------------------------------------------
 
 GNEMatchAttribute::CurrentEditedProperties::CurrentEditedProperties(const GNEMatchAttribute* matchAttributeParent) :
-    myMatchAttributeParent(matchAttributeParent) {
+    myMatchAttributeParent(matchAttributeParent),
+    myTagPropertiesAllAttributes(new GNETagProperties(GNE_TAG_ATTRIBUTES_ALL, nullptr, GUIIcon::EMPTY, TL("Show all attributes"), TL("<all>"))),
+    myTagPropertiesCommonAttributes(new GNETagProperties(GNE_TAG_ATTRIBUTES_COMMON, nullptr, GUIIcon::EMPTY, TL("Show only common attributes"), TL("<common>"))) {
     const auto database = myMatchAttributeParent->mySelectorFrameParent->getViewNet()->getNet()->getTagPropertiesDatabase();
     // set default tag and attribute for every property
     setTagProperties(database->getTagProperty(SUMO_TAG_EDGE, true));
@@ -398,6 +410,24 @@ GNEMatchAttribute::CurrentEditedProperties::CurrentEditedProperties(const GNEMat
     setAttributeProperties(myNetworkTagProperties.back()->getAttributeProperties(SUMO_ATTR_ID));
     setTagProperties(database->getTagProperty(SUMO_TAG_DATASET, true));
     setAttributeProperties(myNetworkTagProperties.back()->getAttributeProperties(SUMO_ATTR_ID));
+}
+
+
+GNEMatchAttribute::CurrentEditedProperties::~CurrentEditedProperties() {
+    delete myTagPropertiesAllAttributes;
+    delete myTagPropertiesCommonAttributes;
+}
+
+
+const GNETagProperties*
+GNEMatchAttribute::CurrentEditedProperties::getTagPropertiesAll() const {
+    return myTagPropertiesAllAttributes;
+}
+
+
+const GNETagProperties*
+GNEMatchAttribute::CurrentEditedProperties::getTagPropertiesCommonAttributes() const {
+    return myTagPropertiesCommonAttributes;
 }
 
 

@@ -71,9 +71,6 @@ public:
     /// @brief write machine readable attribute help to file
     void writeAttributeHelp() const;
 
-    /// @brief get special all tag
-    const GNETagProperties* getTagPropertiesAll() const;
-
 protected:
     /// @brief fill hierarchy elements
     void fillHierarchy();
@@ -278,9 +275,6 @@ private:
 
     /// @brief map with the tags properties
     std::map<SumoXMLTag, GNETagProperties*> myTagProperties;
-
-    /// @brief get tag properties all
-    const GNETagProperties* myTagPropertiesAll = nullptr;
 
     /// @brief Invalidated copy constructor.
     GNETagPropertiesDatabase(const GNETagPropertiesDatabase&) = delete;

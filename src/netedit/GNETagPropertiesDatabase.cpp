@@ -29,8 +29,7 @@
 // method definitions
 // ===========================================================================
 
-GNETagPropertiesDatabase::GNETagPropertiesDatabase() :
-    myTagPropertiesAll(new GNETagProperties(GNE_TAG_ALL, nullptr, GUIIcon::EMPTY, TL("Select all elements"), TL("<all>"))) {
+GNETagPropertiesDatabase::GNETagPropertiesDatabase() {
     // fill all groups of ACs
     fillHierarchy();
     fillNetworkElements();
@@ -77,8 +76,6 @@ GNETagPropertiesDatabase::~GNETagPropertiesDatabase() {
     for (auto& tagProperties : myTagProperties) {
         delete tagProperties.second;
     }
-    // delete special all attributes
-    delete myTagPropertiesAll;
 }
 
 
@@ -372,13 +369,6 @@ GNETagPropertiesDatabase::writeAttributeHelp() const {
             dev << "|\n";
         }
     }
-}
-
-
-const GNETagProperties*
-GNETagPropertiesDatabase::getTagPropertiesAll() const {
-    return myTagPropertiesAll;
-
 }
 
 
