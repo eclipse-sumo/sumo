@@ -30,8 +30,10 @@
 // class declaration
 // ===========================================================================
 
+class GNEAttributeProperties;
 class GNEMatchAttribute;
 class GNEMatchGenericDataAttribute;
+class GNETagProperties;
 
 // ===========================================================================
 // class definitions
@@ -438,7 +440,7 @@ public:
      * @param[in] ACAttr XML Attribute of AttributeCarrier
      * @param[in] compOp One of {<,>,=} for matching against val or '@' for matching against expr
      */
-    std::vector<GNEAttributeCarrier*> getMatches(const SumoXMLTag ACTag, const SumoXMLAttr ACAttr, const char compOp, const double val, const std::string& expr);
+    std::vector<GNEAttributeCarrier*> getMatches(const GNETagProperties* tagProperty, const GNEAttributeProperties* attrProperties, const char compOp, const double val, const std::string& expr);
 
     /**@brief return GenericDatas of the given type with matching attrs
      * @param[in] genericDatas list of filter generic datas

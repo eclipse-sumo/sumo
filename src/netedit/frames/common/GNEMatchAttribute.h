@@ -76,14 +76,10 @@ public:
     /// @brief Called when the user toogle the only common checkbox
     long onCmdToogleOnlyCommon(FXObject*, FXSelector, void*);
 
-    /**@brief Called when the user enters a new selection expression
-     * @note validates expression and modifies current selection
-     */
-    long onCmdSelMBString(FXObject*, FXSelector, void*);
+    /// @brief Called when the user enters a new selection expression
+    long onCmdProcessString(FXObject*, FXSelector, void*);
 
-    /**@brief Called when the user clicks the help button
-     * @note pop up help window
-     */
+    /// @brief Called when the user clicks the help button
     long onCmdHelp(FXObject*, FXSelector, void*);
 
     /// @}
@@ -91,12 +87,6 @@ public:
 protected:
     /// @brief FOX need this
     FOX_CONSTRUCTOR(GNEMatchAttribute)
-
-    /// @brief update tag
-    void updateTag();
-
-    /// @brief update attribute
-    void updateAttribute();
 
 private:
     /// @brief container with current edited properties

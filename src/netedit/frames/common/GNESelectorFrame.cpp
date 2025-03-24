@@ -1115,19 +1115,17 @@ GNESelectorFrame::handleIDs(const std::vector<GNEAttributeCarrier*>& ACs, const 
 
 
 std::vector<GNEAttributeCarrier*>
-GNESelectorFrame::getMatches(const SumoXMLTag ACTag, const SumoXMLAttr ACAttr, const char compOp, const double val, const std::string& expr) {
+GNESelectorFrame::getMatches(const GNETagProperties* tagProperty, const GNEAttributeProperties* attrProperties, const char compOp, const double val, const std::string& expr) {
     std::vector<GNEAttributeCarrier*> result;
     // first retrieve all ACs using ACTag
-    const auto allACbyTag = myViewNet->getNet()->getAttributeCarriers()->retrieveAttributeCarriers(ACTag);
-    // get Tag value
-    const auto tagProperties = myViewNet->getNet()->getTagPropertiesDatabase()->getTagProperty(ACTag, true);
+    const auto allACbyTag = myViewNet->getNet()->getAttributeCarriers()->retrieveAttributeCarriers(tagProperty->getTag());
     // iterate over all ACs
     for (const auto& AC : allACbyTag) {
         if (expr == "" && compOp == '@') {
             result.push_back(AC);
-        } else if (tagProperties->hasAttribute(ACAttr) && tagProperties->getAttributeProperties(ACAttr)->isNumerical()) {
+        } else if (attrProperties->isNumerical()) {
             double acVal;
-            std::istringstream buf(AC->getAttribute(ACAttr));
+            std::istringstream buf(AC->getAttribute(attrProperties->getAttr()));
             buf >> acVal;
             switch (compOp) {
                 case '<':
@@ -1148,7 +1146,7 @@ GNESelectorFrame::getMatches(const SumoXMLTag ACTag, const SumoXMLAttr ACAttr, c
             }
         } else {
             // string match
-            std::string acVal = AC->getAttributeForSelection(ACAttr);
+            std::string acVal = AC->getAttributeForSelection(attrProperties->getAttr());
             switch (compOp) {
                 case '@':
                     if (acVal.find(expr) != std::string::npos) {
