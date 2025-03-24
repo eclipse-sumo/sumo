@@ -30,6 +30,8 @@
 class GNEAttributeProperties;
 class GNESelectorFrame;
 class GNETagProperties;
+class GNETagPropertiesDatabase;
+class MFXComboBoxAttrProperty;
 class MFXComboBoxTagProperty;
 
 // ===========================================================================
@@ -42,7 +44,7 @@ class GNEMatchAttribute : public MFXGroupBoxModule {
 
 public:
     /// @brief constructor
-    GNEMatchAttribute(GNESelectorFrame* selectorFrameParent, SumoXMLTag defaultTag, SumoXMLAttr defaultAttr, const std::string& defaultValue);
+    GNEMatchAttribute(GNESelectorFrame* selectorFrameParent);
 
     /// @brief destructor
     ~GNEMatchAttribute();
@@ -65,15 +67,11 @@ public:
     /// @name FOX-callbacks
     /// @{
 
-    /**@brief Called when the user selectes a tag in the match box
-     * @note updates the attr listbox and repaints itself
-     */
+    /// @brief Called when the user selectes a tag in the match box
     long onCmdTagSelected(FXObject* obj, FXSelector, void*);
 
-    /**@brief Called when the user selectes a tag in the match box
-     * @note updates the attr listbox and repaints itself
-     */
-    long onCmdSelMBAttribute(FXObject*, FXSelector, void*);
+    /// @brief Called when the user selectes an attribute in the match box
+    long onCmdAttributeSelected(FXObject*, FXSelector, void*);
 
     /**@brief Called when the user enters a new selection expression
      * @note validates expression and modifies current selection
@@ -98,26 +96,89 @@ protected:
     void updateAttribute();
 
 private:
+    /// @brief container with current edited properties
+    class CurrentEditedProperties {
+
+    public:
+        /// @brief constructor
+        CurrentEditedProperties(const GNEMatchAttribute* matchAttributeParent);
+
+        /// @brief get tag property (depending of supermode)
+        const GNETagProperties* getTagProperties() const;
+
+        /// @brief get attribute property (depending of supermode)
+        const GNEAttributeProperties* getAttributeProperties() const;
+
+        /// @brief get match value (depending of supermode)
+        const std::string& getMatchValue() const;
+
+        /// @brief set tag property (depending of supermode)
+        void setTagProperties(const GNETagProperties* tagProperty);
+
+        /// @brief set attribute property (depending of supermode)
+        void setAttributeProperties(const GNEAttributeProperties* attrProperty);
+
+        /// @brief set match value (depending of supermode)
+        void setMatchValue(const std::string value);
+
+    private:
+        /// @brief pointer to match attribute parent
+        const GNEMatchAttribute* myMatchAttributeParent = nullptr;
+
+        /// @brief current network tag properties
+        const GNETagProperties* myNetworkTagProperties = nullptr;
+
+        /// @brief current network attribute properties
+        const GNEAttributeProperties* myNetworkAttributeProperties = nullptr;
+
+        /// @brief current network match value
+        std::string myNetworkMatchValue;
+
+        /// @brief current demand tag properties
+        const GNETagProperties* myDemandTagProperties = nullptr;
+
+        /// @brief current demand attribute properties
+        const GNEAttributeProperties* myDemandAttributeProperties = nullptr;
+
+        /// @brief current demand match value
+        std::string myDemandMatchValue;
+
+        /// @brief current data tag properties
+        const GNETagProperties* myDataTagProperties = nullptr;
+
+        /// @brief current data attribute properties
+        const GNEAttributeProperties* myDataAttributeProperties = nullptr;
+
+        /// @brief current data match value
+        std::string myDataMatchValue;
+
+        /// @brief default constructor
+        CurrentEditedProperties() = delete;
+
+        /// @brief Invalidated copy constructor.
+        CurrentEditedProperties(const CurrentEditedProperties&) = delete;
+
+        /// @brief Invalidated assignment operator
+        CurrentEditedProperties& operator=(const CurrentEditedProperties& src) = delete;
+    };
+
     /// @brief pointer to selector frame parent
     GNESelectorFrame* mySelectorFrameParent = nullptr;
 
-    /// @brief vector with ComboBoxes
+    /// @brief vector with tag property comboBoxes
     std::vector <MFXComboBoxTagProperty*> myTagComboBoxVector;
 
-    /// @brief attributes of the match box
-    MFXComboBoxIcon* myMatchAttrComboBox = nullptr;
-
-    /// @brief current tag properties
-    const GNETagProperties* myTagProperties = nullptr;
-
-    /// @brief current attribute properties
-    const GNEAttributeProperties* myAttributeProperties = nullptr;
+    /// @brief attribute property comboBox
+    MFXComboBoxAttrProperty* myAttributeComboBox = nullptr;
 
     /// @brief string of the match
     FXTextField* myMatchString = nullptr;
 
     /// @brief match string button
     FXButton* myMatchStringButton = nullptr;
+
+    /// @brief current edited properties
+    CurrentEditedProperties* myCurrentEditedProperties;
 
     /// @brief Invalidated copy constructor.
     GNEMatchAttribute(const GNEMatchAttribute&) = delete;

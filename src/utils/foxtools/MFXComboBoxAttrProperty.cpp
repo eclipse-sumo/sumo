@@ -49,6 +49,29 @@ MFXComboBoxAttrProperty::getAttrProperties(FXint index) const {
 }
 
 
+const GNEAttributeProperties*
+MFXComboBoxAttrProperty::getCurrentAttrProperty() const {
+    const auto currentIndex = MFXComboBoxIcon::getCurrentItem();
+    if (currentIndex >= 0) {
+        return myAttrProperties.at(currentIndex);
+    } else {
+        return nullptr;
+    }
+}
+
+
+long
+MFXComboBoxAttrProperty::setCurrentItem(const GNEAttributeProperties* attributeProperties, FXbool notify) {
+    for (int i = 0; i < (int)myAttrProperties.size(); i++) {
+        if (myAttrProperties.at(i) == attributeProperties) {
+            return MFXComboBoxIcon::setCurrentItem(i, notify);
+        }
+    }
+    fxerror("%s::setItem: index out of range.\n", getClassName());
+    return 0;
+}
+
+
 void
 MFXComboBoxAttrProperty::clearItems() {
     MFXComboBoxIcon::clearItems();

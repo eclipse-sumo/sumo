@@ -48,8 +48,14 @@ public:
     /// @brief append item
     FXint appendAttrItem(const GNEAttributeProperties* attrProperties, FXColor bgColor = FXRGB(255, 255, 255), void* ptr = nullptr);
 
-    /// @brief get tag property
+    /// @brief get attribute properties
     const GNEAttributeProperties* getAttrProperties(FXint index) const;
+
+    /// @brief get current attribute property
+    const GNEAttributeProperties* getCurrentAttrProperty() const;
+
+    /// @brief Set the current item
+    long setCurrentItem(const GNEAttributeProperties* attrProperties, FXbool notify = FALSE);
 
     /// @brief Remove all items from the list
     void clearItems();

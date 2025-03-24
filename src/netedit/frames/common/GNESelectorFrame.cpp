@@ -940,7 +940,7 @@ GNESelectorFrame::GNESelectorFrame(GNEViewParent* viewParent, GNEViewNet* viewNe
     // create Modification Mode modul
     myModificationMode = new ModificationMode(this);
     // create ElementSet modul
-    myMatchAttribute = new GNEMatchAttribute(this, SUMO_TAG_EDGE, SUMO_ATTR_SPEED, ">10.0");
+    myMatchAttribute = new GNEMatchAttribute(this);
     // create VisualScaling modul
     myVisualScaling = new VisualScaling(this);
     // create SelectionOperation modul
