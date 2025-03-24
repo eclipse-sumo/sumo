@@ -1431,6 +1431,9 @@ protected:
     /// @brief return length of fractional vehicles on this lane
     double getFractionalVehicleLength(bool brutto) const;
 
+    /// @brief detect frontal collisions
+    static bool isFrontalCollision(const MSVehicle* collider, const MSVehicle* victim);
+
     /// Unique numerical ID (set on reading by netload)
     int myNumericalID;
 

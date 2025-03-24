@@ -2011,8 +2011,7 @@ MSLane::handleCollisionBetween(SUMOTime timestep, const std::string& stage, cons
     }
     std::string collisionType;
     std::string collisionText;
-    if (collider->getLaneChangeModel().isOpposite() != victim->getLaneChangeModel().isOpposite() ||
-        &collider->getLane()->getEdge() == victim->getLane()->getEdge().getBidiEdge()) {
+    if (isFrontalCollision(collider, victim)) {
         collisionType = "frontal";
         collisionText = TL("frontal collision");
     } else if (stage == MSNet::STAGE_LANECHANGE) {
@@ -2216,6 +2215,25 @@ MSLane::handleIntermodalCollisionBetween(SUMOTime timestep, const std::string& s
 #endif
 }
 
+
+bool
+MSLane::isFrontalCollision(const MSVehicle* collider, const MSVehicle* victim) {
+    if (collider->getLaneChangeModel().isOpposite() != victim->getLaneChangeModel().isOpposite()) {
+        return true;
+    } else {
+        const MSEdge* victimBidi = victim->getLane()->getEdge().getBidiEdge();
+        if (&collider->getLane()->getEdge() == victimBidi) {
+            return true;
+        } else {
+            for (MSLane* further : collider->getFurtherLanes()) {
+                if (&further->getEdge() == victimBidi) {
+                    return true;
+                }
+            }
+        }
+    }
+    return false;
+}
 
 void
 MSLane::executeMovements(const SUMOTime t) {
