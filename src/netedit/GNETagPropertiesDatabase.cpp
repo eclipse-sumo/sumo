@@ -64,7 +64,7 @@ GNETagPropertiesDatabase::GNETagPropertiesDatabase() :
     // update max number of editable attributes
     updateMaxNumberOfAttributesEditorRows();
     // calculate hierarchy dept
-    calculateHierarchyDepth(mySetTagProperties[SUMO_TAG_ROOTFILE], 0);
+    updateMaxHierarchyDepth();
     // check integrity of all Tags (function checkTagIntegrity() throws an exception if there is an inconsistency)
     for (const auto& tagProperties : myTagProperties) {
         tagProperties.second->checkTagIntegrity();
@@ -339,7 +339,7 @@ GNETagPropertiesDatabase::writeAttributeHelp() const {
             // don't write elements without attributes, they are only used for internal purposes
             continue;
         }
-        if (mergedTagProperty.second->getParentTags().empty()) {
+        if (mergedTagProperty.second->getXMLParentTags().empty()) {
             dev << "\n## " << toString(mergedTagProperty.first) << "\n";
         } else {
             if (mergedTagProperty.first == SUMO_TAG_FLOW) {
@@ -350,7 +350,7 @@ GNETagPropertiesDatabase::writeAttributeHelp() const {
                 dev << "child element of ";
             }
             bool sep = false;
-            for (const auto& pTag : mergedTagProperty.second->getParentTags()) {
+            for (const auto& pTag : mergedTagProperty.second->getXMLParentTags()) {
                 if (sep) {
                     dev << ", ";
                 } else {
@@ -387,7 +387,7 @@ GNETagPropertiesDatabase::fillHierarchy() {
     // root
     mySetTagProperties[SUMO_TAG_ROOTFILE] = new GNETagProperties(SUMO_TAG_ROOTFILE,
             nullptr,
-            GUIIcon::NETEDIT,
+            GUIIcon::NETEDIT_MINI,
             TL("Root"));
     // supermodes
     mySetTagProperties[GNE_TAG_SUPERMODE_NETWORK] = new GNETagProperties(GNE_TAG_SUPERMODE_NETWORK,
@@ -8693,16 +8693,11 @@ GNETagPropertiesDatabase::updateMaxNumberOfAttributesEditorRows() {
 
 
 void
-GNETagPropertiesDatabase::calculateHierarchyDepth(const GNETagProperties* tagProperty, const int currentLevel) {
-    if (tagProperty->getChildren().empty()) {
-        // check if update hierarchy dept
-        if (currentLevel > myHierarchyDepth) {
-            myHierarchyDepth = currentLevel;
-        }
-    } else {
-        // iterate over low level
-        for (const auto& child : tagProperty->getChildren()) {
-            calculateHierarchyDepth(child, currentLevel + 1);
+GNETagPropertiesDatabase::updateMaxHierarchyDepth() {
+    for (const auto& tagPropertyItem : myTagProperties) {
+        const int hierarchySize = (int)tagPropertyItem.second->getParentHierarchy().size();
+        if (hierarchySize > myHierarchyDepth) {
+            myHierarchyDepth = hierarchySize;
         }
     }
 }

@@ -252,7 +252,7 @@ GNEAdditional::checkDrawToContour() const {
             return (inspectedAC->getAttribute(SUMO_ATTR_TO) == getID());
         } else if (inspectedAC->hasAttribute(GNE_ATTR_PARENT)) {
             // check all parent tags
-            const auto& parentTags = inspectedAC->getTagProperty()->getParentTags();
+            const auto& parentTags = inspectedAC->getTagProperty()->getXMLParentTags();
             if (std::find(parentTags.begin(), parentTags.end(), myTagProperty->getTag()) != parentTags.end()) {
                 return (inspectedAC->getAttribute(GNE_ATTR_PARENT) == getID());
             }

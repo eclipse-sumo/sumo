@@ -123,31 +123,31 @@ private:
 
     private:
         /// @brief pointer to match attribute parent
-        const GNEMatchAttribute* myMatchAttributeParent = nullptr;
+        const GNEMatchAttribute* myMatchAttributeParent;
 
         /// @brief current network tag properties
-        const GNETagProperties* myNetworkTagProperties = nullptr;
+        std::vector<const GNETagProperties*> myNetworkTagProperties;
 
         /// @brief current network attribute properties
-        const GNEAttributeProperties* myNetworkAttributeProperties = nullptr;
+        const GNEAttributeProperties* myNetworkAttributeProperties;
 
         /// @brief current network match value
         std::string myNetworkMatchValue;
 
         /// @brief current demand tag properties
-        const GNETagProperties* myDemandTagProperties = nullptr;
+        std::vector<const GNETagProperties*> myDemandTagProperties;
 
         /// @brief current demand attribute properties
-        const GNEAttributeProperties* myDemandAttributeProperties = nullptr;
+        const GNEAttributeProperties* myDemandAttributeProperties;
 
         /// @brief current demand match value
         std::string myDemandMatchValue;
 
         /// @brief current data tag properties
-        const GNETagProperties* myDataTagProperties = nullptr;
+        std::vector<const GNETagProperties*> myDataTagProperties;
 
         /// @brief current data attribute properties
-        const GNEAttributeProperties* myDataAttributeProperties = nullptr;
+        const GNEAttributeProperties* myDataAttributeProperties;
 
         /// @brief current data match value
         std::string myDataMatchValue;

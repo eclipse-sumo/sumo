@@ -26,7 +26,7 @@
 
 GNETagProperties::GNETagProperties(const SumoXMLTag tag, GNETagProperties* parent, const int tagType, const int tagProperty,
                                    const int tagParents, const int conflicts, const GUIIcon icon, const SumoXMLTag XMLTag,
-                                   const std::string tooltip, const std::vector<SumoXMLTag> parentTags,
+                                   const std::string tooltip, const std::vector<SumoXMLTag> XMLParentTags,
                                    const unsigned int backgroundColor, const std::string selectorText) :
     myTag(tag),
     myTagStr(toString(tag)),
@@ -38,7 +38,7 @@ GNETagProperties::GNETagProperties(const SumoXMLTag tag, GNETagProperties* paren
     myIcon(icon),
     myXMLTag(XMLTag),
     myTooltipText(tooltip),
-    myParentTags(parentTags),
+    myXMLParentTags(XMLParentTags),
     mySelectorText(selectorText.empty() ? toString(tag) : selectorText),
     myBackgroundColor(backgroundColor) {
     if (parent) {
@@ -230,11 +230,11 @@ GNETagProperties::checkTagIntegrity() const {
         throw ProcessError("element can be either shape or TAZ or wire element at the same time");
     }
     // check that master tag is valid
-    if (isChild() && myParentTags.empty()) {
+    if (isChild() && myXMLParentTags.empty()) {
         throw FormatException("Parent tags cannot be empty");
     }
     // check that master was defined
-    if (!isChild() && !myParentTags.empty()) {
+    if (!isChild() && !myXMLParentTags.empty()) {
         throw FormatException("Element doesn't support parent elements");
     }
     // check reparent
@@ -421,20 +421,25 @@ GNETagProperties::getXMLTag() const {
 
 
 const std::vector<SumoXMLTag>&
-GNETagProperties::getParentTags() const {
-    return myParentTags;
+GNETagProperties::getXMLParentTags() const {
+    return myXMLParentTags;
+}
+
+
+const GNETagProperties*
+GNETagProperties::getParent() const {
+    return myParent;
 }
 
 
 const std::vector<const GNETagProperties*>
-GNETagProperties::getParents() const {
+GNETagProperties::getParentHierarchy() const {
     // get the list of all roots
     std::vector<const GNETagProperties*> parents;
-    parents.push_back(myParent);
-    while (parents.back() && (parents.back()->myParent != nullptr)) {
+    parents.push_back(this);
+    while (parents.back()->myParent != nullptr) {
         parents.push_back(parents.back()->myParent);
     }
-    // reverse iterator
     std::reverse(parents.begin(), parents.end());
     return parents;
 }
@@ -469,16 +474,13 @@ GNETagProperties::getSupermode() const {
     if (myParent == nullptr) {
         throw ProcessError("Root doesn't have an associated supermode");
     } else {
-        const GNETagProperties* parent = myParent;
-        while (parent->myParent != nullptr) {
-            parent = parent->myParent;
-        }
+        auto parents = getParentHierarchy();
         // continue depending of supermode
-        if (parent->getTag() == GNE_TAG_SUPERMODE_NETWORK) {
+        if (parents.at(1)->getTag() == GNE_TAG_SUPERMODE_NETWORK) {
             return Supermode::NETWORK;
-        } else if (parent->getTag() == GNE_TAG_SUPERMODE_DEMAND) {
+        } else if (parents.at(1)->getTag() == GNE_TAG_SUPERMODE_DEMAND) {
             return Supermode::DEMAND;
-        } else if (parent->getTag() == GNE_TAG_SUPERMODE_DATA) {
+        } else if (parents.at(1)->getTag() == GNE_TAG_SUPERMODE_DATA) {
             return Supermode::DATA;
         } else {
             throw ProcessError("Invalid supermode");

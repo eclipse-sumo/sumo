@@ -333,7 +333,7 @@ GNEAdditionalFrame::tagSelected() {
         myAdditionalAttributesEditor->showAttributesEditor(templateAC, true);
         // Show myAdditionalFrameParent if we're adding an slave element
         if (templateAC->getTagProperty()->isChild()) {
-            mySelectorAdditionalParent->showSelectorParentModule(templateAC->getTagProperty()->getParentTags());
+            mySelectorAdditionalParent->showSelectorParentModule(templateAC->getTagProperty()->getXMLParentTags());
         } else {
             mySelectorAdditionalParent->hideSelectorParentModule();
         }
@@ -410,7 +410,7 @@ GNEAdditionalFrame::initBaseAdditionalObject(const GNETagProperties* tagProperty
     if (tagProperty->isChild()) {
         // check if we clicked over a parent
         SumoXMLTag parentTag = SUMO_TAG_NOTHING;
-        for (const auto& pTag : tagProperty->getParentTags()) {
+        for (const auto& pTag : tagProperty->getXMLParentTags()) {
             if (myBaseAdditional->hasParentID(pTag)) {
                 parentTag = pTag;
             }
@@ -422,11 +422,11 @@ GNEAdditionalFrame::initBaseAdditionalObject(const GNETagProperties* tagProperty
         }
         // continue depending of parents
         if (mySelectorAdditionalParent->getIdSelected().empty()) {
-            WRITE_WARNING(TLF("A % must be selected before insertion of %.", toString(tagProperty->getParentTags().front()), tagProperty->getTagStr()));
+            WRITE_WARNING(TLF("A % must be selected before insertion of %.", toString(tagProperty->getXMLParentTags().front()), tagProperty->getTagStr()));
             return false;
         } else {
             // set parent tag // POSSIBLE ERROR WITH ACCESS AND BUSSTOPS!
-            myBaseAdditional->setTag(tagProperty->getParentTags().front());
+            myBaseAdditional->setTag(tagProperty->getXMLParentTags().front());
             // add ID
             myBaseAdditional->addStringAttribute(SUMO_ATTR_ID, mySelectorAdditionalParent->getIdSelected());
             // create base additional again as child of current base additional

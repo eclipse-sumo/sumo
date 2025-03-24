@@ -144,7 +144,7 @@ public:
 
     /// @brief parameter constructor
     GNETagProperties(const SumoXMLTag tag, GNETagProperties* parent, const int tagType, const int tagProperty, const int tagParents, const int conflicts,
-                     const GUIIcon icon, const SumoXMLTag XMLTag, const std::string tooltip, std::vector<SumoXMLTag> parentTags = {},
+                     const GUIIcon icon, const SumoXMLTag XMLTag, const std::string tooltip, std::vector<SumoXMLTag> XMLParentTags = {},
                      const unsigned int backgroundColor = FXRGBA(255, 255, 255, 255), const std::string selectorText = "");
 
     /// @brief parameter constructor for sets
@@ -195,8 +195,8 @@ public:
     /// @brief get XML tag
     SumoXMLTag getXMLTag() const;
 
-    /// @brief get parent tags
-    const std::vector<SumoXMLTag>& getParentTags() const;
+    /// @brief get XML parent tags
+    const std::vector<SumoXMLTag>& getXMLParentTags() const;
 
     /// @brief default values
     /// @{
@@ -224,8 +224,11 @@ public:
     /// @brief hierarchy functions
     /// @{
 
-    /// @brief get all parents, beginning from root (not included) untils this element
-    const std::vector<const GNETagProperties*> getParents() const;
+    /// @brief get parent of this element
+    const GNETagProperties* getParent() const;
+
+    /// @brief get all parents, beginning from current element (root not included) untils this element
+    const std::vector<const GNETagProperties*> getParentHierarchy() const;
 
     /// @brief get children of this tag property
     const std::vector<const GNETagProperties*>& getChildren() const;
@@ -561,8 +564,8 @@ private:
     /// @brief tooltip text
     std::string myTooltipText;
 
-    /// @brief vector with master tags (used by child elements)
-    std::vector<SumoXMLTag> myParentTags;
+    /// @brief vector with XML parent tags (used by child elements like access or spaces)
+    std::vector<SumoXMLTag> myXMLParentTags;
 
     /// @brief text show in selector text
     std::string mySelectorText;

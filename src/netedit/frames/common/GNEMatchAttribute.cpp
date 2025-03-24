@@ -59,8 +59,8 @@ GNEMatchAttribute::GNEMatchAttribute(GNESelectorFrame* selectorFrameParent) :
     MFXGroupBoxModule(selectorFrameParent, TL("Match Attribute")),
     mySelectorFrameParent(selectorFrameParent),
     myCurrentEditedProperties(new CurrentEditedProperties(this)) {
-    // Create MFXComboBoxIcons
-    for (int i = 0; i < selectorFrameParent->getViewNet()->getNet()->getTagPropertiesDatabase()->getHierarchyDepth(); i++) {
+    // Create MFXComboBoxIcons (sum 1 due children)
+    for (int i = 0; i < selectorFrameParent->getViewNet()->getNet()->getTagPropertiesDatabase()->getHierarchyDepth() + 1; i++) {
         auto comboBoxIcon = new MFXComboBoxTagProperty(getCollapsableFrame(), GUIDesignComboBoxNCol, true, GUIDesignComboBoxVisibleItems,
                 this, MID_GNE_SELECTORFRAME_SELECTTAG, GUIDesignComboBox);
         myTagComboBoxVector.push_back(comboBoxIcon);
@@ -131,44 +131,40 @@ GNEMatchAttribute::hideMatchAttribute() {
 void
 GNEMatchAttribute::refreshMatchAttribute() {
     // continue depending of current
-    auto parents = myCurrentEditedProperties->getTagProperties()->getParents();
+    auto parentHierarchy = myCurrentEditedProperties->getTagProperties()->getParentHierarchy();
     const auto allTagProperty = mySelectorFrameParent->getViewNet()->getNet()->getTagPropertiesDatabase()->getTagPropertiesAll();
     // fill hierarchy
-    for (int i = 0; i < (int)parents.size(); i++) {
+    for (size_t i = 0; i < parentHierarchy.size(); i++) {
         auto comboBox = myTagComboBoxVector.at(i);
         // clear previous elements
         comboBox->clearItems();
         // add <all> always as first element
         myTagComboBoxVector.at(i)->appendTagItem(allTagProperty);
-        // add rest of tags
-        for (const auto tagPropertyChild : parents.at(i)->getChildren()) {
-            myTagComboBoxVector.at(i)->appendTagItem(tagPropertyChild);
+        // add siblings (except for root)
+        if (parentHierarchy.at(i)->getParent()) {
+            for (const auto tagSibling : parentHierarchy.at(i)->getParent()->getChildren()) {
+                myTagComboBoxVector.at(i)->appendTagItem(tagSibling);
+            }
+            // update tag
+            myTagComboBoxVector.at(i)->setCurrentItem(parentHierarchy.at(i), FALSE);
         }
     }
-    // remove root
-    parents.erase(parents.begin());
-    // set parents
-    for (int i = 0; i < (int)parents.size(); i++) {
-        myTagComboBoxVector.at(i)->setCurrentItem(parents.at(i), FALSE);
-    }
-    // now configure current tag
-    myTagComboBoxVector.at(parents.size())->setCurrentItem(myCurrentEditedProperties->getTagProperties(), FALSE);
-    // if current tag has children, show it
-    auto comboBoxCurrentItem = myTagComboBoxVector.at(parents.size() + 1);
-    if (myCurrentEditedProperties->getTagProperties()->getChildren().size() > 0) {
-        comboBoxCurrentItem->clearItems();
-        // add <all> always as first element
-        comboBoxCurrentItem->appendTagItem(allTagProperty);
-        // add every child
-        for (const auto& tagPropertyChild : myCurrentEditedProperties->getTagProperties()->getChildren()) {
-            comboBoxCurrentItem->appendTagItem(tagPropertyChild);
+    // hide the two first combo boxes(root and supermode)
+    myTagComboBoxVector.at(0)->hide();
+    myTagComboBoxVector.at(1)->hide();
+    // check if show children
+    if (parentHierarchy.back()->getChildren().size() > 0) {
+        // clear previous elements
+        myTagComboBoxVector.at(parentHierarchy.size())->clearItems();
+        for (const auto childTagProperty : parentHierarchy.back()->getChildren()) {
+            myTagComboBoxVector.at(parentHierarchy.size())->appendTagItem(childTagProperty);
         }
-        comboBoxCurrentItem->show();
+        myTagComboBoxVector.at(parentHierarchy.size())->show();
     } else {
-        comboBoxCurrentItem->hide();
+        myTagComboBoxVector.at(parentHierarchy.size())->hide();
     }
-    // hide the rest
-    for (int i = (parents.size() + 2); i < (int)myTagComboBoxVector.size(); i++) {
+    // hide rest of combo boxes
+    for (size_t i = (parentHierarchy.size() + 1); i < myTagComboBoxVector.size(); i++) {
         myTagComboBoxVector.at(i)->hide();
     }
     // now fill attributes
@@ -395,24 +391,26 @@ GNEMatchAttribute::CurrentEditedProperties::CurrentEditedProperties(const GNEMat
     myMatchAttributeParent(matchAttributeParent) {
     const auto database = myMatchAttributeParent->mySelectorFrameParent->getViewNet()->getNet()->getTagPropertiesDatabase();
     // set default tag and attribute for every property
-    myNetworkTagProperties = database->getTagProperty(SUMO_TAG_EDGE, true);
-    myNetworkAttributeProperties = myNetworkTagProperties->getAttributeProperties(SUMO_ATTR_SPEED);
+    setTagProperties(database->getTagProperty(SUMO_TAG_EDGE, true));
+    setAttributeProperties(myNetworkTagProperties.back()->getAttributeProperties(SUMO_ATTR_SPEED));
     myNetworkMatchValue = ">= 10";
-    myDemandTagProperties = database->getTagProperty(SUMO_TAG_VEHICLE, true);
-    myDemandAttributeProperties = myNetworkTagProperties->getAttributeProperties(SUMO_ATTR_ID);
-    myDataTagProperties = database->getTagProperty(SUMO_TAG_DATASET, true);
-    myDataAttributeProperties = myNetworkTagProperties->getAttributeProperties(SUMO_ATTR_ID);
+    setTagProperties(database->getTagProperty(SUMO_TAG_VEHICLE, true));
+    setAttributeProperties(myNetworkTagProperties.back()->getAttributeProperties(SUMO_ATTR_ID));
+    setTagProperties(database->getTagProperty(SUMO_TAG_DATASET, true));
+    setAttributeProperties(myNetworkTagProperties.back()->getAttributeProperties(SUMO_ATTR_ID));
 }
 
 
 const GNETagProperties*
 GNEMatchAttribute::CurrentEditedProperties::getTagProperties() const {
     if (myMatchAttributeParent->mySelectorFrameParent->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
-        return myNetworkTagProperties;
+        return myNetworkTagProperties.back();
     } else if (myMatchAttributeParent->mySelectorFrameParent->getViewNet()->getEditModes().isCurrentSupermodeDemand()) {
-        return myDemandTagProperties;
+        return myDemandTagProperties.back();
     } else if (myMatchAttributeParent->mySelectorFrameParent->getViewNet()->getEditModes().isCurrentSupermodeData()) {
-        return myDataTagProperties;
+        return myDataTagProperties.back();
+    } else {
+        throw ProcessError("Invalid supermode");
     }
 }
 
@@ -425,6 +423,8 @@ GNEMatchAttribute::CurrentEditedProperties::getAttributeProperties() const {
         return myDemandAttributeProperties;
     } else if (myMatchAttributeParent->mySelectorFrameParent->getViewNet()->getEditModes().isCurrentSupermodeData()) {
         return myDataAttributeProperties;
+    } else {
+        throw ProcessError("Invalid supermode");
     }
 }
 
@@ -437,29 +437,31 @@ GNEMatchAttribute::CurrentEditedProperties::getMatchValue() const {
         return myDemandMatchValue;
     } else if (myMatchAttributeParent->mySelectorFrameParent->getViewNet()->getEditModes().isCurrentSupermodeData()) {
         return myDataMatchValue;
+    } else {
+        throw ProcessError("Invalid supermode");
     }
 }
 
 
 void
 GNEMatchAttribute::CurrentEditedProperties::setTagProperties(const GNETagProperties* tagProperty) {
-    if (myMatchAttributeParent->mySelectorFrameParent->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
-        myNetworkTagProperties = tagProperty;
-    } else if (myMatchAttributeParent->mySelectorFrameParent->getViewNet()->getEditModes().isCurrentSupermodeDemand()) {
-        myDemandTagProperties = tagProperty;
-    } else if (myMatchAttributeParent->mySelectorFrameParent->getViewNet()->getEditModes().isCurrentSupermodeData()) {
-        myDataTagProperties = tagProperty;
+    if (tagProperty->getSupermode() == Supermode::NETWORK) {
+        myNetworkTagProperties = tagProperty->getParentHierarchy();
+    } else if (tagProperty->getSupermode() == Supermode::DEMAND) {
+        myDemandTagProperties = tagProperty->getParentHierarchy();
+    } else if (tagProperty->getSupermode() == Supermode::DATA) {
+        myDataTagProperties = tagProperty->getParentHierarchy();
     }
 }
 
 
 void
 GNEMatchAttribute::CurrentEditedProperties::setAttributeProperties(const GNEAttributeProperties* attrProperty) {
-    if (myMatchAttributeParent->mySelectorFrameParent->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
+    if (attrProperty->getTagPropertyParent()->getSupermode() == Supermode::NETWORK) {
         myNetworkAttributeProperties = attrProperty;
-    } else if (myMatchAttributeParent->mySelectorFrameParent->getViewNet()->getEditModes().isCurrentSupermodeDemand()) {
+    } else if (attrProperty->getTagPropertyParent()->getSupermode() == Supermode::DEMAND) {
         myDemandAttributeProperties = attrProperty;
-    } else if (myMatchAttributeParent->mySelectorFrameParent->getViewNet()->getEditModes().isCurrentSupermodeData()) {
+    } else if (attrProperty->getTagPropertyParent()->getSupermode() == Supermode::DATA) {
         myDataAttributeProperties = attrProperty;
     }
 }

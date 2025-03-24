@@ -254,8 +254,8 @@ protected:
     /// @brief update max number of attributes by type
     void updateMaxNumberOfAttributesEditorRows();
 
-    /// @brief calculate hierarchy depth
-    void calculateHierarchyDepth(const GNETagProperties* tagProperty, const int currentLevel);
+    /// @brief update max hierarchy depth
+    void updateMaxHierarchyDepth();
 
 private:
     /// @brief max number of editable (non extended) attributes (needed for attributes editor)
