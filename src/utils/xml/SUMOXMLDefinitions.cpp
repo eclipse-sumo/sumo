@@ -649,7 +649,6 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::tags[] = {
     { "meanDatas",      GNE_TAG_MEANDATAS },
     // attributes
     { "allAttributes",      GNE_TAG_ATTRIBUTES_ALL },
-    { "commonAttributes",   GNE_TAG_ATTRIBUTES_COMMON },
     // Last element
     { "",   SUMO_TAG_NOTHING }  // -> must be the last one
 };

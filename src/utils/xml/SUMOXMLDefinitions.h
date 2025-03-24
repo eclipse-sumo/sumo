@@ -820,7 +820,6 @@ enum SumoXMLTag {
     GNE_TAG_MEANDATAS,
     // @brief attributes
     GNE_TAG_ATTRIBUTES_ALL,
-    GNE_TAG_ATTRIBUTES_COMMON,
     /// @}
 
     /// @brief invalid tag, must be the last one
