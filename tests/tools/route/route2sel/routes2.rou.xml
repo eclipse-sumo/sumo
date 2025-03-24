@@ -10,4 +10,9 @@
     <flow id="1" begin="0" end="100" number="3" from="A" to="B" via="C D"/>
     <flow id="2" begin="0" end="100" number="3" from="A" to="B" via="E"/>
     <flow id="3" begin="0" end="100" number="3" from="A" to="B"/>
+
+    <route id="route0" edges="X Y Z"/>
+    <trip id="trip4" depart="0" route="route0"/>
+    <flow id="flow4" begin="0" end="10" number="3" route="route0"/>
+
 </routes>
