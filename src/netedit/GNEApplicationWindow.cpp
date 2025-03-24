@@ -3968,7 +3968,7 @@ GNEApplicationWindow::onCmdSaveDemandElements(FXObject* sender, FXSelector sel, 
     // check if we have to open save as dialog
     if (savingFileHandler->getDemandFilenames().empty()) {
         // choose file to save
-        return onCmdSaveAdditionalElementsUnified(sender, sel, ptr);
+        return onCmdSaveDemandElementsUnified(sender, sel, ptr);
     } else {
         // always recompute before saving
         myNet->computeNetwork(this);
