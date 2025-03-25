@@ -870,12 +870,12 @@ def main(options):
                                 departures.append(rTime)
                             departures.sort()
                         else:
+                            # generate with constant spacing
                             while departureTime < arrivalTime:
                                 departures.append(departureTime)
                                 departureTime += period
 
                         for time in departures:
-                            # generate with constant spacing
                             try:
                                 origin, destination, intermediate = generate_origin_destination(trip_generator, options)
                                 idx = generate_one(idx, time, arrivalTime, period, origin, destination, intermediate)
