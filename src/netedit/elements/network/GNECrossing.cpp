@@ -106,6 +106,10 @@ GNECrossing::checkDrawToContour() const {
 
 bool
 GNECrossing::checkDrawRelatedContour() const {
+    // check opened popup
+    if (myNet->getViewNet()->getPopup()) {
+        return myNet->getViewNet()->getPopup()->getGLObject() == this;
+    }
     return false;
 }
 

@@ -82,6 +82,9 @@ public:
     /// @brief return the real owner of this popup
     GUISUMOAbstractView* getParentView();
 
+    /// @brief The object that belongs to this popup-menu
+    GUIGlObject* getGLObject() const;
+
     /// @brief popup type;
     PopupType getPopupType() const;
 

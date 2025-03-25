@@ -322,8 +322,11 @@ GNEEdge::checkDrawRelatedContour() const {
                 return true;
             }
         }
+    } else if (myNet->getViewNet()->getPopup()) {
+        return myNet->getViewNet()->getPopup()->getGLObject() == this;
+    } else {
+        return false;
     }
-    return false;
 }
 
 

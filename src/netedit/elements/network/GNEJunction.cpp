@@ -266,7 +266,14 @@ GNEJunction::checkDrawToContour() const {
 
 bool
 GNEJunction::checkDrawRelatedContour() const {
-    return (myNet->getViewNet()->getViewParent()->getCrossingFrame()->getEdgesSelector()->getCurrentJunction() == this);
+    if (myNet->getViewNet()->getViewParent()->getCrossingFrame()->getEdgesSelector()->getCurrentJunction() == this) {
+        return true;
+    }
+    // check opened popup
+    if (myNet->getViewNet()->getPopup()) {
+        return myNet->getViewNet()->getPopup()->getGLObject() == this;
+    }
+    return false;
 }
 
 

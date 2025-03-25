@@ -354,6 +354,10 @@ GNELane::checkDrawToContour() const {
 
 bool
 GNELane::checkDrawRelatedContour() const {
+    // check opened popup
+    if (myNet->getViewNet()->getPopup()) {
+        return myNet->getViewNet()->getPopup()->getGLObject() == this;
+    }
     return false;
 }
 
