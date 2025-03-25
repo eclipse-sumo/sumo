@@ -680,6 +680,29 @@ def main(options):
         options.angle_center = (xmin + xmax) / 2, (ymin + ymax) / 2
 
     trip_generator = buildTripGenerator(options.net, options)
+
+    if trip_generator and options.weights_outprefix:
+        idPrefix = ""
+        if options.tripprefix:
+            idPrefix = options.tripprefix + "."
+        trip_generator.source_generator.write_weights(
+            options.weights_outprefix + SOURCE_SUFFIX,
+            idPrefix + "src", options.begin, options.end)
+        trip_generator.sink_generator.write_weights(
+            options.weights_outprefix + DEST_SUFFIX,
+            idPrefix + "dst", options.begin, options.end)
+        if trip_generator.via_generator:
+            trip_generator.via_generator.write_weights(
+                options.weights_outprefix + VIA_SUFFIX,
+                idPrefix + "via", options.begin, options.end)
+
+    createTrips(options, trip_generator)
+
+    # return wether trips could be generated as requested
+    return trip_generator is not None
+
+
+def createTrips(options, trip_generator):
     idx = 0
 
     vtypeattrs, options.tripattrs, personattrs, otherattrs = split_trip_attributes(
@@ -993,24 +1016,6 @@ def main(options):
                 if options.verbose:
                     print("Only %s out of %s requested %ss passed validation. Sampling again to find more." % (
                         nValid, nRequested, getElement(options)))
-
-    if trip_generator and options.weights_outprefix:
-        idPrefix = ""
-        if options.tripprefix:
-            idPrefix = options.tripprefix + "."
-        trip_generator.source_generator.write_weights(
-            options.weights_outprefix + SOURCE_SUFFIX,
-            idPrefix + "src", options.begin, options.end)
-        trip_generator.sink_generator.write_weights(
-            options.weights_outprefix + DEST_SUFFIX,
-            idPrefix + "dst", options.begin, options.end)
-        if trip_generator.via_generator:
-            trip_generator.via_generator.write_weights(
-                options.weights_outprefix + VIA_SUFFIX,
-                idPrefix + "via", options.begin, options.end)
-
-    # return wether trips could be generated as requested
-    return trip_generator is not None
 
 
 if __name__ == "__main__":
