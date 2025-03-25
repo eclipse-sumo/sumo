@@ -59,6 +59,9 @@ binomial_low
 
 # generate validated trips
 validate
+
+# generate validated trips
+validate_vclass
 validate_intermediate
 
 # setting non-positive period should fail
