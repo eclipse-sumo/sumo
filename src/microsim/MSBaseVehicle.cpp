@@ -1276,6 +1276,9 @@ MSBaseVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& e
         return false;
     }
     if (stopType != "stop" && stopType != "parkingArea" && myType->getLength() / 2. > parkingLength
+            // do not warn for stops that fill the whole lane
+            && parkingLength < stop.lane->getLength()
+            // do not warn twice for the same stop
             && MSNet::getInstance()->warnOnce(stopType + ":" + stopID)) {
         errorMsg = errorMsgStart + " on lane '" + stop.lane->getID() + "' is too short for vehicle '" + myParameter->id + "'.";
     }
