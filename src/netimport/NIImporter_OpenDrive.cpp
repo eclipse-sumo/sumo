@@ -699,13 +699,13 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
             continue;
         }
         if (fromLane < 0) {
-            fromEdge = revertID(fromEdge);
+            fromEdge = reversedEdgeID(fromEdge);
         }
         if (toLane == UNSET_CONNECTION) {
             continue;
         }
         if (toLane < 0) {
-            toEdge = revertID(toEdge);
+            toEdge = reversedEdgeID(toEdge);
         }
         fromLane = fromLast ? odFrom->laneSections.back().laneMap[fromLane] : odFrom->laneSections[0].laneMap[fromLane];
         toLane = toLast ?  odTo->laneSections.back().laneMap[toLane] : odTo->laneSections[0].laneMap[toLane];
@@ -998,17 +998,18 @@ NIImporter_OpenDrive::writeRoadObjects(const OpenDriveEdge* e) {
 }
 
 
+
 std::pair<NBEdge*, NBEdge*>
 NIImporter_OpenDrive::retrieveSignalEdges(NBNetBuilder& nb, const std::string& fromID, const std::string& toID, const std::string& junction) {
     NBEdge* from;
     NBEdge* to;
     from = nb.getEdgeCont().retrieve(fromID);
     if (from == nullptr || from->getToNode()->getID() != junction) {
-        from = nb.getEdgeCont().retrieve(fromID[0] == '-' ? fromID.substr(1) : "-" + fromID);
+        from = nb.getEdgeCont().retrieve(reversedEdgeID(fromID));
     }
     to = nb.getEdgeCont().retrieve(toID);
     if (to == nullptr || to->getFromNode()->getID() != junction) {
-        to = nb.getEdgeCont().retrieve(toID[0] == '-' ? toID.substr(1) : "-" + toID);
+        to = nb.getEdgeCont().retrieve(reversedEdgeID(toID));
     }
     return std::make_pair(from, to);
 }
@@ -1411,11 +1412,9 @@ NIImporter_OpenDrive::setEdgeLinks2(OpenDriveEdge& e, const std::map<std::string
 }
 
 
-std::string NIImporter_OpenDrive::revertID(const std::string& id) {
-    if (id[0] == '-') {
-        return id.substr(1);
-    }
-    return "-" + id;
+std::string
+NIImporter_OpenDrive::reversedEdgeID(const std::string& edgeID) {
+    return edgeID[0] == '-' ? edgeID.substr(1) : "-" + edgeID;
 }
 
 
