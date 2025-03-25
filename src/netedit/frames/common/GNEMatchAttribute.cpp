@@ -238,13 +238,14 @@ GNEMatchAttribute::onCmdToogleOnlyCommon(FXObject*, FXSelector, void*) {
 
 long
 GNEMatchAttribute::onCmdProcessString(FXObject*, FXSelector, void*) {
+    std::vector<GNEAttributeCarrier*> matches;
     // obtain expresion
-    std::string expr(myMatchString->getText().text());
+    std::string expr = myMatchString->getText().text();
 
     bool valid = true;
     if (expr == "") {
         // the empty expression matches all objects
-        mySelectorFrameParent->handleIDs(mySelectorFrameParent->getMatches(myCurrentEditedProperties->getTagProperties(), myCurrentEditedProperties->getAttributeProperties(), '@', 0, expr));
+        matches = getMatches('@', 0, expr);
     } else if (myCurrentEditedProperties->getAttributeProperties()->isNumerical()) {
         // The expression must have the form
         //  <val matches if attr < val
@@ -259,7 +260,7 @@ GNEMatchAttribute::onCmdProcessString(FXObject*, FXSelector, void*) {
         }
         // check if value can be parsed to double
         if (GNEAttributeCarrier::canParse<double>(expr.c_str())) {
-            mySelectorFrameParent->handleIDs(mySelectorFrameParent->getMatches(myCurrentEditedProperties->getTagProperties(), myCurrentEditedProperties->getAttributeProperties(), compOp, GNEAttributeCarrier::parse<double>(expr.c_str()), expr));
+            matches = getMatches(compOp, GNEAttributeCarrier::parse<double>(expr.c_str()), expr);
         } else {
             valid = false;
         }
@@ -276,9 +277,10 @@ GNEMatchAttribute::onCmdProcessString(FXObject*, FXSelector, void*) {
         } else {
             compOp = '@';
         }
-        mySelectorFrameParent->handleIDs(mySelectorFrameParent->getMatches(myCurrentEditedProperties->getTagProperties(), myCurrentEditedProperties->getAttributeProperties(), compOp, 0, expr));
+        matches = getMatches(compOp, 0, expr);
     }
     if (valid) {
+        mySelectorFrameParent->handleIDs(matches);
         myMatchString->setTextColor(FXRGB(0, 0, 0));
         myMatchString->killFocus();
         myMatchStringButton->enable();
@@ -338,6 +340,126 @@ GNEMatchAttribute::onCmdHelp(FXObject*, FXSelector, void*) {
     // open as modal dialog (will block all windows until stop() or stopModal() is called)
     getApp()->runModalFor(additionalNeteditAttributesHelpDialog);
     return 1;
+}
+
+
+std::vector<GNEAttributeCarrier*>
+GNEMatchAttribute::getMatches(const char compOp, const double val, const std::string& expr) {
+    std::vector<GNEAttributeCarrier*> result;
+    // first retrieve all ACs using ACTag
+    const auto allACbyTag = mySelectorFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveAttributeCarriers(myCurrentEditedProperties->getTagProperties()->getTag());
+    // iterate over all ACs
+    for (const auto& AC : allACbyTag) {
+        if (expr == "" && compOp == '@') {
+            result.push_back(AC);
+        } else if (myCurrentEditedProperties->getAttributeProperties()->isNumerical()) {
+            double acVal;
+            std::istringstream buf(AC->getAttribute(myCurrentEditedProperties->getAttributeProperties()->getAttr()));
+            buf >> acVal;
+            switch (compOp) {
+                case '<':
+                    if (acVal < val) {
+                        result.push_back(AC);
+                    }
+                    break;
+                case '>':
+                    if (acVal > val) {
+                        result.push_back(AC);
+                    }
+                    break;
+                case '=':
+                    if (acVal == val) {
+                        result.push_back(AC);
+                    }
+                    break;
+            }
+        } else {
+            // string match
+            std::string acVal = AC->getAttributeForSelection(myCurrentEditedProperties->getAttributeProperties()->getAttr());
+            switch (compOp) {
+                case '@':
+                    if (acVal.find(expr) != std::string::npos) {
+                        result.push_back(AC);
+                    }
+                    break;
+                case '!':
+                    if (acVal.find(expr) == std::string::npos) {
+                        result.push_back(AC);
+                    }
+                    break;
+                case '=':
+                    if (acVal == expr) {
+                        result.push_back(AC);
+                    }
+                    break;
+                case '^':
+                    if (acVal != expr) {
+                        result.push_back(AC);
+                    }
+                    break;
+            }
+        }
+    }
+    return result;
+}
+
+
+std::vector<GNEAttributeCarrier*>
+GNEMatchAttribute::getGenericMatches(const std::vector<GNEGenericData*>& genericDatas, const std::string& attr, const char compOp, const double val, const std::string& expr) {
+    std::vector<GNEAttributeCarrier*> result;
+    // iterate over generic datas
+    for (const auto& genericData : genericDatas) {
+        if (expr == "" && compOp == '@') {
+            result.push_back(genericData);
+        } else if (attr != toString(GNE_ATTR_PARENT)) {
+            double acVal;
+            std::istringstream buf(genericData->getParameter(attr, "0"));
+            buf >> acVal;
+            switch (compOp) {
+                case '<':
+                    if (acVal < val) {
+                        result.push_back(genericData);
+                    }
+                    break;
+                case '>':
+                    if (acVal > val) {
+                        result.push_back(genericData);
+                    }
+                    break;
+                case '=':
+                    if (acVal == val) {
+                        result.push_back(genericData);
+                    }
+                    break;
+            }
+        } else {
+            // string match
+            std::string acVal = genericData->getAttributeForSelection(GNE_ATTR_PARENT);
+            switch (compOp) {
+                case '@':
+                    if (acVal.find(expr) != std::string::npos) {
+                        result.push_back(genericData);
+                    }
+                    break;
+                case '!':
+                    if (acVal.find(expr) == std::string::npos) {
+                        result.push_back(genericData);
+                    }
+                    break;
+                case '=':
+                    if (acVal == expr) {
+                        result.push_back(genericData);
+                    }
+                    break;
+                case '^':
+                    if (acVal != expr) {
+                        result.push_back(genericData);
+                    }
+                    break;
+            }
+        }
+    }
+    return result;
 }
 
 // ---------------------------------------------------------------------1------

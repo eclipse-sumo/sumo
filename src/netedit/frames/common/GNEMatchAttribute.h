@@ -88,6 +88,19 @@ protected:
     /// @brief FOX need this
     FOX_CONSTRUCTOR(GNEMatchAttribute)
 
+    /**@brief return ACs of the given type with matching attrs
+     * @param[in] compOp One of {<,>,=} for matching against val or '@' for matching against expr
+     */
+    std::vector<GNEAttributeCarrier*> getMatches(const char compOp, const double val, const std::string& expr);
+
+    /**@brief return GenericDatas of the given type with matching attrs
+     * @param[in] genericDatas list of filter generic datas
+     * @param[in] attr XML Attribute used to filter
+     * @param[in] compOp One of {<,>,=} for matching against val or '@' for matching against expr
+     */
+    std::vector<GNEAttributeCarrier*> getGenericMatches(const std::vector<GNEGenericData*>& genericDatas, const std::string& attr, const char compOp, const double val, const std::string& expr);
+
+
 private:
     /// @brief container with current edited properties
     class CurrentEditedProperties {
