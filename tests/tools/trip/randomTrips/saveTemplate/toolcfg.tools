@@ -7,6 +7,7 @@
     <route-file value="None" type="route_file" help="generates route file with duarouter" category="output"/>
     <vtype-output value="None" type="file" help="Store generated vehicle types in a separate file" category="output"/>
     <weights-output-prefix value="None" type="file" help="generates weights files for visualisation" category="output"/>
+    <error-log value="None" type="file" help="record routing errors" category="output"/>
     <pedestrians value="False" type="bool" help="create a person file with pedestrian trips instead of vehicle trips" category="persons"/>
     <personrides value="None" type="string" help="create a person file with rides using STR as lines attribute" category="persons"/>
     <persontrips value="False" type="bool" help="create a person file with person trips instead of vehicle trips" category="persons"/>
@@ -50,6 +51,7 @@
     <random-routing-factor value="1" type="float" help="Edge weights for routing are dynamically disturbed by a random factor drawn uniformly from [1,FLOAT)" category="processing"/>
     <marouter value="False" type="bool" help="Compute routes with marouter instead of duarouter" category="processing"/>
     <validate value="False" type="bool" help="Whether to produce trip output that is already checked for connectivity" category="processing"/>
+    <min-success-rate value="0.1" type="float" help="Minimum ratio of valid trips to retry sampling if some trips are invalid" category="processing"/>
     <verbose value="False" type="bool" help="tell me what you are doing" category="processing"/>
     <begin value="0" type="time" help="begin time" category="flow"/>
     <end value="3600" type="time" help="end time (default 3600)" category="flow"/>

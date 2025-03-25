@@ -1,0 +1,108 @@
+Warning: No connection between edge 'left' and edge 'beg2left' found.
+Warning: Mandatory edge 'beg2left' not reachable by vehicle '0'.
+Warning: The vehicle '0' has no valid route.
+Warning: No connection between edge 'left2end' and edge 'middle' found.
+Warning: Mandatory edge 'middle' not reachable by vehicle '2'.
+Warning: The vehicle '2' has no valid route.
+Warning: No connection between edge 'middle' and edge 'beg2left' found.
+Warning: Mandatory edge 'beg2left' not reachable by vehicle '3'.
+Warning: The vehicle '3' has no valid route.
+Warning: No connection between edge 'end' and edge 'beg2left' found.
+Warning: Mandatory edge 'beg2left' not reachable by vehicle '4'.
+Warning: The vehicle '4' has no valid route.
+Warning: No connection between edge 'left2end' and edge 'beg2left' found.
+Warning: Mandatory edge 'beg2left' not reachable by vehicle '9'.
+Warning: The vehicle '9' has no valid route.
+Warning: No connection between edge 'left2end' and edge 'middle' found.
+Warning: Mandatory edge 'middle' not reachable by vehicle '10'.
+Warning: The vehicle '10' has no valid route.
+Warning: No connection between edge 'end' and edge 'beg2left' found.
+Warning: Mandatory edge 'beg2left' not reachable by vehicle '11'.
+Warning: The vehicle '11' has no valid route.
+Warning: No connection between edge 'middle' and edge 'left' found.
+Warning: Mandatory edge 'left' not reachable by vehicle '12'.
+Warning: The vehicle '12' has no valid route.
+Warning: No connection between edge 'middle' and edge 'left2end' found.
+Warning: Mandatory edge 'left2end' not reachable by vehicle '14'.
+Warning: The vehicle '14' has no valid route.
+Warning: No connection between edge 'left2end' and edge 'middle' found.
+Warning: Mandatory edge 'middle' not reachable by vehicle '15'.
+Warning: The vehicle '15' has no valid route.
+Warning: No connection between edge 'end' and edge 'left2end' found.
+Warning: Mandatory edge 'left2end' not reachable by vehicle '17'.
+Warning: The vehicle '17' has no valid route.
+Warning: No connection between edge 'middle' and edge 'left2end' found.
+Warning: Mandatory edge 'left2end' not reachable by vehicle '19'.
+Warning: The vehicle '19' has no valid route.
+Warning: No connection between edge 'left2end' and edge 'beg2left' found.
+Warning: Mandatory edge 'beg2left' not reachable by vehicle '20'.
+Warning: The vehicle '20' has no valid route.
+Warning: No connection between edge 'beg2left' and edge 'middle' found.
+Warning: Mandatory edge 'middle' not reachable by vehicle '28'.
+Warning: The vehicle '28' has no valid route.
+Warning: No connection between edge 'middle' and edge 'left2end' found.
+Warning: Mandatory edge 'left2end' not reachable by vehicle '30'.
+Warning: The vehicle '30' has no valid route.
+Warning: No connection between edge 'left' and edge 'middle' found.
+Warning: Mandatory edge 'middle' not reachable by vehicle '31'.
+Warning: The vehicle '31' has no valid route.
+Warning: No connection between edge 'middle' and edge 'left' found.
+Warning: Mandatory edge 'left' not reachable by vehicle '38'.
+Warning: The vehicle '38' has no valid route.
+Warning: No connection between edge 'middle' and edge 'left2end' found.
+Warning: Mandatory edge 'left2end' not reachable by vehicle '43'.
+Warning: The vehicle '43' has no valid route.
+Warning: No connection between edge 'left2end' and edge 'left' found.
+Warning: Mandatory edge 'left' not reachable by vehicle '46'.
+Warning: The vehicle '46' has no valid route.
+Warning: No connection between edge 'middle' and edge 'left2end' found.
+Warning: Mandatory edge 'left2end' not reachable by vehicle '48'.
+Warning: The vehicle '48' has no valid route.
+Warning: No connection between edge 'left' and edge 'beg2left' found.
+Warning: Mandatory edge 'beg2left' not reachable by vehicle '59'.
+Warning: The vehicle '59' has no valid route.
+Warning: No connection between edge 'left2end' and edge 'beg2left' found.
+Warning: Mandatory edge 'beg2left' not reachable by vehicle '69'.
+Warning: The vehicle '69' has no valid route.
+Warning: No connection between edge 'end' and edge 'left2end' found.
+Warning: Mandatory edge 'left2end' not reachable by vehicle '70'.
+Warning: The vehicle '70' has no valid route.
+Warning: No connection between edge 'left' and edge 'middle' found.
+Warning: Mandatory edge 'middle' not reachable by vehicle '73'.
+Warning: The vehicle '73' has no valid route.
+Warning: No connection between edge 'middle' and edge 'left2end' found.
+Warning: Mandatory edge 'left2end' not reachable by vehicle '75'.
+Warning: The vehicle '75' has no valid route.
+Warning: No connection between edge 'end' and edge 'left2end' found.
+Warning: Mandatory edge 'left2end' not reachable by vehicle '76'.
+Warning: The vehicle '76' has no valid route.
+Warning: No connection between edge 'end' and edge 'left2end' found.
+Warning: Mandatory edge 'left2end' not reachable by vehicle '78'.
+Warning: The vehicle '78' has no valid route.
+Warning: No connection between edge 'middle' and edge 'beg2left' found.
+Warning: Mandatory edge 'beg2left' not reachable by vehicle '82'.
+Warning: The vehicle '82' has no valid route.
+Warning: No connection between edge 'beg2left' and edge 'middle' found.
+Warning: Mandatory edge 'middle' not reachable by vehicle '83'.
+Warning: The vehicle '83' has no valid route.
+Warning: No connection between edge 'middle' and edge 'left2end' found.
+Warning: Mandatory edge 'left2end' not reachable by vehicle '85'.
+Warning: The vehicle '85' has no valid route.
+Warning: No connection between edge 'end' and edge 'middle' found.
+Warning: Mandatory edge 'middle' not reachable by vehicle '86'.
+Warning: The vehicle '86' has no valid route.
+Warning: No connection between edge 'end' and edge 'left' found.
+Warning: Mandatory edge 'left' not reachable by vehicle '89'.
+Warning: The vehicle '89' has no valid route.
+Warning: No connection between edge 'left2end' and edge 'middle' found.
+Warning: Mandatory edge 'middle' not reachable by vehicle '90'.
+Warning: The vehicle '90' has no valid route.
+Warning: No connection between edge 'middle' and edge 'beg2left' found.
+Warning: Mandatory edge 'beg2left' not reachable by vehicle '91'.
+Warning: The vehicle '91' has no valid route.
+Warning: No connection between edge 'end' and edge 'left' found.
+Warning: Mandatory edge 'left' not reachable by vehicle '92'.
+Warning: The vehicle '92' has no valid route.
+Warning: No connection between edge 'left' and edge 'beg2left' found.
+Warning: Mandatory edge 'beg2left' not reachable by vehicle '98'.
+Warning: The vehicle '98' has no valid route.

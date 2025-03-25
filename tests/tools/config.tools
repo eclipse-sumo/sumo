@@ -221,6 +221,7 @@ gtfs_additional:gtfs_pt_stops.add.xml
 aggregatebattery:aggregatebattery.xml
 landmarks:landmarks.txt
 outputdata:output_data.txt
+errorlog:errorlog.txt
 
 [collate_script]
 osmimport:$SUMO_HOME/tests/unzip.py
