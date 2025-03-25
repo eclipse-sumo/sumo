@@ -822,8 +822,7 @@ def main(options):
                     generate_one_trip(label, combined_attrs, departureTime)
 
         except Exception as exc:
-            if options.verbose:
-                print(exc, file=sys.stderr)
+            print(exc, file=sys.stderr)
 
         return idx + 1
 
@@ -896,8 +895,7 @@ def main(options):
                                         idx = generate_one(idx, time, arrivalTime, period,
                                                            origin, destination, intermediate)
                                     except Exception as exc:
-                                        if options.verbose:
-                                            print(exc, file=sys.stderr)
+                                        print(exc, file=sys.stderr)
                             time += 1.0
             else:
                 try:
@@ -913,8 +911,7 @@ def main(options):
                             origin, destination, intermediate = origins_destinations[j]
                             generate_one(j, departureTime, arrivalTime, period, origin, destination, intermediate, i)
                 except Exception as exc:
-                    if options.verbose:
-                        print(exc, file=sys.stderr)
+                    print(exc, file=sys.stderr)
 
         fouttrips.write("</routes>\n")
 
