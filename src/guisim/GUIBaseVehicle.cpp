@@ -103,8 +103,8 @@ FXIMPLEMENT(GUIBaseVehicle::GUIBaseVehiclePopupMenu, GUIGLObjectPopupMenu, GUIBa
  * GUIBaseVehicle::GUIBaseVehiclePopupMenu - methods
  * ----------------------------------------------------------------------- */
 GUIBaseVehicle::GUIBaseVehiclePopupMenu::GUIBaseVehiclePopupMenu(
-    GUIMainWindow& app, GUISUMOAbstractView& parent, GUIGlObject& o)
-    : GUIGLObjectPopupMenu(app, parent, o) {
+    GUIMainWindow& app, GUISUMOAbstractView& parent, GUIGlObject* o) :
+    GUIGLObjectPopupMenu(app, parent, o) {
 }
 
 
@@ -341,9 +341,8 @@ GUIBaseVehicle::~GUIBaseVehicle() {
 
 
 GUIGLObjectPopupMenu*
-GUIBaseVehicle::getPopUpMenu(GUIMainWindow& app,
-                             GUISUMOAbstractView& parent) {
-    GUIGLObjectPopupMenu* ret = new GUIBaseVehiclePopupMenu(app, parent, *this);
+GUIBaseVehicle::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
+    GUIGLObjectPopupMenu* ret = new GUIBaseVehiclePopupMenu(app, parent, this);
     buildPopupHeader(ret, app);
     buildCenterPopupEntry(ret);
     buildNameCopyPopupEntry(ret);

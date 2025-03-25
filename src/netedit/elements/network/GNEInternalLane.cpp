@@ -249,7 +249,7 @@ GNEInternalLane::getTLIndex() const {
 
 GUIGLObjectPopupMenu*
 GNEInternalLane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
-    myPopup = new GUIGLObjectPopupMenu(app, parent, *this);
+    myPopup = new GUIGLObjectPopupMenu(app, parent, this);
     buildPopupHeader(myPopup, app);
     if ((myEditor != nullptr) && (myEditor->getViewNet()->getEditModes().isCurrentSupermodeNetwork())) {
         const std::vector<std::string> names = LinkStateNames.getStrings();

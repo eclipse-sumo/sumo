@@ -298,7 +298,7 @@ GNECrossing::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     if (myShapeEdited) {
         return getShapeEditedPopUpMenu(app, parent, getNBCrossing()->customShape);
     } else {
-        GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
+        GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, this);
         // build common options
         buildPopUpMenuCommonOptions(ret, app, myNet->getViewNet(), myTagProperty->getTag(), mySelected);
         // check if we're in supermode network

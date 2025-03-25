@@ -64,7 +64,7 @@ const double GNEVehicle::myArrivalPositionDiameter = SUMO_const_halfLaneWidth * 
 // ===========================================================================
 
 GNEVehicle::GNESingleVehiclePopupMenu::GNESingleVehiclePopupMenu(GNEVehicle* vehicle, GUIMainWindow& app, GUISUMOAbstractView& parent) :
-    GUIGLObjectPopupMenu(app, parent, *vehicle),
+    GUIGLObjectPopupMenu(app, parent, vehicle),
     myVehicle(vehicle) {
     // build common options
     vehicle->buildPopUpMenuCommonOptions(this, app, vehicle->myNet->getViewNet(), vehicle->getTagProperty()->getTag(), vehicle->isAttributeCarrierSelected());
@@ -185,7 +185,7 @@ GNEVehicle::GNESingleVehiclePopupMenu::onCmdTransform(FXObject*, FXSelector sel,
 // ===========================================================================
 
 GNEVehicle::GNESelectedVehiclesPopupMenu::GNESelectedVehiclesPopupMenu(GNEVehicle* vehicle, const std::vector<GNEVehicle*>& selectedVehicle, GUIMainWindow& app, GUISUMOAbstractView& parent) :
-    GUIGLObjectPopupMenu(app, parent, *vehicle),
+    GUIGLObjectPopupMenu(app, parent, vehicle),
     mySelectedVehicles(selectedVehicle),
     myVehicleTag(vehicle->getTagProperty()->getTag()) {
     // build common options

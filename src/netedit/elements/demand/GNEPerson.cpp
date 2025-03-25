@@ -54,7 +54,7 @@ FXIMPLEMENT(GNEPerson::GNESelectedPersonsPopupMenu, GUIGLObjectPopupMenu, select
 // ===========================================================================
 
 GNEPerson::GNEPersonPopupMenu::GNEPersonPopupMenu(GNEPerson* person, GUIMainWindow& app, GUISUMOAbstractView& parent) :
-    GUIGLObjectPopupMenu(app, parent, *person),
+    GUIGLObjectPopupMenu(app, parent, person),
     myPerson(person),
     myTransformToPerson(nullptr),
     myTransformToPersonFlow(nullptr) {
@@ -98,7 +98,7 @@ GNEPerson::GNEPersonPopupMenu::onCmdTransform(FXObject* obj, FXSelector, void*) 
 // ===========================================================================
 
 GNEPerson::GNESelectedPersonsPopupMenu::GNESelectedPersonsPopupMenu(GNEPerson* person, const std::vector<GNEPerson*>& selectedPerson, GUIMainWindow& app, GUISUMOAbstractView& parent) :
-    GUIGLObjectPopupMenu(app, parent, *person),
+    GUIGLObjectPopupMenu(app, parent, person),
     myPersonTag(person->getTagProperty()->getTag()),
     mySelectedPersons(selectedPerson),
     myTransformToPerson(nullptr),

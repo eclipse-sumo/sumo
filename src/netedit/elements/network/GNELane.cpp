@@ -499,7 +499,7 @@ GNELane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     const NetworkEditMode editMode = myNet->getViewNet()->getEditModes().networkEditMode;
     // get mouse position
     const auto mousePosition = myNet->getViewNet()->getPositionInformation();
-    GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
+    GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, this);
     buildPopupHeader(ret, app);
     buildCenterPopupEntry(ret);
     // build copy names entry

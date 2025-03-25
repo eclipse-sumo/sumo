@@ -329,7 +329,7 @@ GNEConnection::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
         return getShapeEditedPopUpMenu(app, parent, getNBEdgeConnection().customShape);
     } else {
         // create popup
-        GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
+        GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, this);
         // build common options
         buildPopUpMenuCommonOptions(ret, app, myNet->getViewNet(), myTagProperty->getTag(), mySelected);
         // check if we're in supermode network

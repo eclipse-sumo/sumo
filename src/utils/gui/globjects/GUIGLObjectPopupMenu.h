@@ -30,10 +30,10 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
+
 class GUISUMOAbstractView;
 class GUIGlObject;
 class GUIMainWindow;
-
 
 // ===========================================================================
 // class definitions
@@ -62,7 +62,7 @@ public:
      * @param[in] parent The parent view for changing it
      * @param[in] o The object of interest
      */
-    GUIGLObjectPopupMenu(GUIMainWindow& app, GUISUMOAbstractView& parent, GUIGlObject& o);
+    GUIGLObjectPopupMenu(GUIMainWindow& app, GUISUMOAbstractView& parent, GUIGlObject* o);
 
     /** @brief Constructor
      * @param[in] app The main window for instantiation of other windows

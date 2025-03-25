@@ -237,10 +237,10 @@ GUICalibrator::GUIManip_Calibrator::onCmdChangeOption(FXObject*, FXSelector, voi
 /* -------------------------------------------------------------------------
  * GUICalibrator::GUICalibratorPopupMenu - methods
  * ----------------------------------------------------------------------- */
+
 GUICalibrator::GUICalibratorPopupMenu::GUICalibratorPopupMenu(
-    GUIMainWindow& app, GUISUMOAbstractView& parent,
-    GUIGlObject& o)
-    : GUIGLObjectPopupMenu(app, parent, o) {}
+    GUIMainWindow& app, GUISUMOAbstractView& parent, GUIGlObject* o) :
+    GUIGLObjectPopupMenu(app, parent, o) {}
 
 
 GUICalibrator::GUICalibratorPopupMenu::~GUICalibratorPopupMenu() {}
@@ -286,9 +286,8 @@ GUICalibrator::~GUICalibrator() {}
 
 
 GUIGLObjectPopupMenu*
-GUICalibrator::getPopUpMenu(GUIMainWindow& app,
-                            GUISUMOAbstractView& parent) {
-    GUIGLObjectPopupMenu* ret = new GUICalibratorPopupMenu(app, parent, *this);
+GUICalibrator::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
+    GUIGLObjectPopupMenu* ret = new GUICalibratorPopupMenu(app, parent, this);
     buildPopupHeader(ret, app);
     buildCenterPopupEntry(ret);
     //buildShowManipulatorPopupEntry(ret);
@@ -301,8 +300,7 @@ GUICalibrator::getPopUpMenu(GUIMainWindow& app,
 
 
 GUIParameterTableWindow*
-GUICalibrator::getParameterWindow(GUIMainWindow& app,
-                                  GUISUMOAbstractView&) {
+GUICalibrator::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
     GUIParameterTableWindow* ret;
     auto myCurrentStateInterval = myCalibrator->myCurrentStateInterval;
     if (myCalibrator->isActive()) {

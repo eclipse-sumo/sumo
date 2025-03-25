@@ -307,7 +307,7 @@ GNENetworkElement::checkDrawingBoundarySelection() const {
 
 GUIGLObjectPopupMenu*
 GNENetworkElement::getShapeEditedPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent, const PositionVector& shape) {
-    GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
+    GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, this);
     const std::string headerName = TLF("% (Edited shape)", getFullName());
     new MFXMenuHeader(ret, app.getBoldFont(), headerName.c_str(), getGLIcon(), nullptr, 0);
     if (OptionsCont::getOptions().getBool("gui-testing")) {

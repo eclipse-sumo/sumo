@@ -292,7 +292,7 @@ GNEDemandElement::openDemandElementDialog() {
 GUIGLObjectPopupMenu*
 GNEDemandElement::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     // create popup
-    GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
+    GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, this);
     // build common options
     buildPopUpMenuCommonOptions(ret, app, myNet->getViewNet(), myTagProperty->getTag(), mySelected);
     // show option to open demand element dialog

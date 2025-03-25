@@ -1062,7 +1062,7 @@ GNEDemandElementPlan::writeOriginStop(OutputDevice& device) const {
 GUIGLObjectPopupMenu*
 GNEDemandElementPlan::getPlanPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     // create popup
-    GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *myPlanElement);
+    GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, myPlanElement);
     // build common options
     myPlanElement->buildPopUpMenuCommonOptions(ret, app, myPlanElement->myNet->getViewNet(), myPlanElement->getTagProperty()->getTag(), myPlanElement->isAttributeCarrierSelected());
     GUIDesigns::buildFXMenuCommand(ret, ("Cursor position in view: " + toString(getPlanPositionInView().x()) + "," + toString(getPlanPositionInView().y())).c_str(), nullptr, nullptr, 0);

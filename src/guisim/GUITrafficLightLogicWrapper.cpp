@@ -75,9 +75,8 @@ FXIMPLEMENT(GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu, G
  * GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu - methods
  * ----------------------------------------------------------------------- */
 GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu::GUITrafficLightLogicWrapperPopupMenu(
-    GUIMainWindow& app, GUISUMOAbstractView& parent,
-    GUIGlObject& o)
-    : GUIGLObjectPopupMenu(app, parent, o) {}
+    GUIMainWindow& app, GUISUMOAbstractView& parent, GUIGlObject* o) :
+    GUIGLObjectPopupMenu(app, parent, o) {}
 
 
 GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu::~GUITrafficLightLogicWrapperPopupMenu() {}
@@ -158,10 +157,9 @@ GUITrafficLightLogicWrapper::~GUITrafficLightLogicWrapper() {}
 
 
 GUIGLObjectPopupMenu*
-GUITrafficLightLogicWrapper::getPopUpMenu(GUIMainWindow& app,
-        GUISUMOAbstractView& parent) {
+GUITrafficLightLogicWrapper::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     myApp = &app;
-    GUIGLObjectPopupMenu* ret = new GUITrafficLightLogicWrapperPopupMenu(app, parent, *this);
+    GUIGLObjectPopupMenu* ret = new GUITrafficLightLogicWrapperPopupMenu(app, parent, this);
     buildPopupHeader(ret, app);
     buildCenterPopupEntry(ret);
     const MSTLLogicControl::TLSLogicVariants& vars = myTLLogicControl.get(myTLLogic.getID());

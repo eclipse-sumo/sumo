@@ -53,7 +53,7 @@ FXIMPLEMENT(GNEContainer::GNESelectedContainersPopupMenu, GUIGLObjectPopupMenu, 
 // ===========================================================================
 
 GNEContainer::GNEContainerPopupMenu::GNEContainerPopupMenu(GNEContainer* container, GUIMainWindow& app, GUISUMOAbstractView& parent) :
-    GUIGLObjectPopupMenu(app, parent, *container),
+    GUIGLObjectPopupMenu(app, parent, container),
     myContainer(container),
     myTransformToContainer(nullptr),
     myTransformToContainerFlow(nullptr) {
@@ -97,7 +97,7 @@ GNEContainer::GNEContainerPopupMenu::onCmdTransform(FXObject* obj, FXSelector, v
 // ===========================================================================
 
 GNEContainer::GNESelectedContainersPopupMenu::GNESelectedContainersPopupMenu(GNEContainer* container, const std::vector<GNEContainer*>& selectedContainer, GUIMainWindow& app, GUISUMOAbstractView& parent) :
-    GUIGLObjectPopupMenu(app, parent, *container),
+    GUIGLObjectPopupMenu(app, parent, container),
     myContainerTag(container->getTagProperty()->getTag()),
     mySelectedContainers(selectedContainer),
     myTransformToContainer(nullptr),

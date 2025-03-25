@@ -203,7 +203,7 @@ GUIPolygon::~GUIPolygon() {
 GUIGLObjectPopupMenu*
 GUIPolygon::getPopUpMenu(GUIMainWindow& app,
                          GUISUMOAbstractView& parent) {
-    GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
+    GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, this);
     buildPopupHeader(ret, app, false);
     GUIDesigns::buildFXMenuCommand(ret, "(" + getShapeType() + ")", nullptr, nullptr, 0);
     new FXMenuSeparator(ret);
