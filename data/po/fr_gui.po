@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-13 10:07+0100\n"
-"PO-Revision-Date: 2025-03-25 11:39+0000\n"
-"Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
+"PO-Revision-Date: 2025-03-25 13:23+0000\n"
+"Last-Translator: Benjamin Couéraud <bcoueraud87@gmail.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/fr/>\n"
 "Language: fr\n"
@@ -180,6 +180,8 @@ msgid ""
 "Sets a breakpoint at the current simulation step + offset configured in "
 "application settings"
 msgstr ""
+"Place un point d'arrêt au pas courant + décalage configuré dans les "
+"paramètres d'application"
 
 #: src/gui/GUIApplicationWindow.cpp:521
 msgid "Edit Breakpoints"
@@ -212,27 +214,27 @@ msgstr ""
 
 #: src/gui/GUIApplicationWindow.cpp:531
 msgid "Load additionals in netedit"
-msgstr ""
+msgstr "Charge éléments additionnels dans netedit"
 
 #: src/gui/GUIApplicationWindow.cpp:531
 msgid "Load additionals in netedit."
-msgstr ""
+msgstr "Charge éléments additionnels dans netedit."
 
 #: src/gui/GUIApplicationWindow.cpp:533
 msgid "Load demand in netedit"
-msgstr ""
+msgstr "Charge demande dans netedit"
 
 #: src/gui/GUIApplicationWindow.cpp:533
 msgid "Load demand in netedit."
-msgstr ""
+msgstr "Charge demande dans netedit."
 
 #: src/gui/GUIApplicationWindow.cpp:536
 msgid "Open in netedit"
-msgstr ""
+msgstr "Ouvrir dans netedit"
 
 #: src/gui/GUIApplicationWindow.cpp:536
 msgid "Opens current simulation in NETEDIT."
-msgstr ""
+msgstr "Ouvrir la simulation actuelle dans NETEDIT."
 
 #: src/gui/GUIApplicationWindow.cpp:540
 msgid "&Settings"
@@ -490,7 +492,7 @@ msgstr "Partager &Horizontalement"
 
 #: src/gui/GUIApplicationWindow.cpp:617
 msgid "Tile the views horizontally."
-msgstr ""
+msgstr "Divise les vues horizontalement."
 
 #: src/gui/GUIApplicationWindow.cpp:620
 msgid "Tile &Vertically"
@@ -498,7 +500,7 @@ msgstr "Partager &Verticalement"
 
 #: src/gui/GUIApplicationWindow.cpp:620
 msgid "Tile the views vertically."
-msgstr ""
+msgstr "Divise les vues verticalement."
 
 #: src/gui/GUIApplicationWindow.cpp:623
 msgid "Cascade"
@@ -506,7 +508,7 @@ msgstr "Cascade"
 
 #: src/gui/GUIApplicationWindow.cpp:623
 msgid "Cascade the views."
-msgstr ""
+msgstr "Cascader les vues."
 
 #: src/gui/GUIApplicationWindow.cpp:627
 #: src/gui/dialogs/GUIDialog_Breakpoints.cpp:100
@@ -516,7 +518,7 @@ msgstr "&Fermer"
 
 #: src/gui/GUIApplicationWindow.cpp:627
 msgid "Close the selected view."
-msgstr ""
+msgstr "Fermer la vue sélectionnée."
 
 #: src/gui/GUIApplicationWindow.cpp:637
 msgid "&Others..."
@@ -613,7 +615,7 @@ msgstr "&Avis"
 
 #: src/gui/GUIApplicationWindow.cpp:666
 msgid "Open feedback dialog."
-msgstr ""
+msgstr "Ouvrir le dialogue de commentaires."
 
 #: src/gui/GUIApplicationWindow.cpp:669
 msgid "&About"
@@ -673,6 +675,8 @@ msgid ""
 "Scale traffic volume from running flows and from vehicles that are loaded "
 "incrementally from route files."
 msgstr ""
+"Adapter le volume de trafic des flux et véhicules chargés incrémentalement "
+"depuis fichiers de routes."
 
 #: src/gui/GUIApplicationWindow.cpp:772
 msgid "Waiting Time:"
@@ -770,11 +774,11 @@ msgstr "Ouvrir EdgeData"
 
 #: src/gui/GUIApplicationWindow.cpp:1154
 msgid "Auto-Reloading."
-msgstr ""
+msgstr "Rechargement-Automatique."
 
 #: src/gui/GUIApplicationWindow.cpp:1154
 msgid "TraCI-Loading."
-msgstr ""
+msgstr "Chargement-TraCI."
 
 #: src/gui/GUIApplicationWindow.cpp:1156
 msgid "Reloading."
@@ -828,11 +832,11 @@ msgstr "Echec chargement état depuis '%' (%)."
 
 #: src/gui/GUIApplicationWindow.cpp:1487
 msgid "Scale number of vehicles in simulation"
-msgstr ""
+msgstr "Adapte nombre de véhicules dans simulation"
 
 #: src/gui/GUIApplicationWindow.cpp:1504
 msgid "Open sumo config in netedit"
-msgstr ""
+msgstr "Ouvre config sumo dans netedit"
 
 #: src/gui/GUIApplicationWindow.cpp:1508
 msgid "Open network in netedit"
@@ -850,27 +854,27 @@ msgstr "'%' chargé."
 
 #: src/gui/GUIApplicationWindow.cpp:1954
 msgid "SUMO Interactive Traffic Light"
-msgstr ""
+msgstr "Feu de Circulation Interactif SUMO"
 
 #: src/gui/GUIApplicationWindow.cpp:1956
 msgid "SUMO Interactive Demand-Responsive-Transport"
-msgstr ""
+msgstr "Transport-à-la-Demande Interactif SUMO"
 
 #: src/gui/GUIApplicationWindow.cpp:2084
 msgid "Simulation ended at time: %. (%)"
-msgstr ""
+msgstr "Simulation terminée au temps : %. (%)"
 
 #: src/gui/GUIApplicationWindow.cpp:2087
 msgid "Simulation ended at time: %."
-msgstr ""
+msgstr "Simulation terminée au temps : %."
 
 #: src/gui/GUIApplicationWindow.cpp:2088
 msgid "Reason:"
-msgstr ""
+msgstr "Raison :"
 
 #: src/gui/GUIApplicationWindow.cpp:2089
 msgid "Do you want to close all open files and views?"
-msgstr ""
+msgstr "Voulez-vous fermer tous les fichiers ouverts et les vues ?"
 
 #: src/gui/GUIApplicationWindow.cpp:2090
 msgid "Simulation ended"
@@ -883,11 +887,11 @@ msgstr "Chargement '%'."
 #: src/gui/GUIApplicationWindow.cpp:2341 src/gui/GUIApplicationWindow.cpp:2343
 #: src/gui/GUIApplicationWindow.cpp:2344 src/gui/GUIApplicationWindow.cpp:2345
 msgid "seconds"
-msgstr ""
+msgstr "secondes"
 
 #: src/gui/GUIApplicationWindow.cpp:2488
 msgid "Set breakpoint at %"
-msgstr ""
+msgstr "Place point d'arrêt à %"
 
 #: src/gui/GUILoadThread.cpp:206
 msgid "Could not load edgedata-files '%'"
@@ -925,40 +929,40 @@ msgstr "ID Message inconnu dans onCmdLocate"
 
 #: src/gui/GUISUMOViewParent.cpp:233 src/netedit/GNEViewParent.cpp:526
 msgid "Junction Chooser"
-msgstr ""
+msgstr "Sélecteur de jonction"
 
 #: src/gui/GUISUMOViewParent.cpp:237 src/netedit/GNEViewParent.cpp:533
 msgid "Edge Chooser"
-msgstr ""
+msgstr "Sélecteur d'arête"
 
 #: src/gui/GUISUMOViewParent.cpp:241 src/netedit/GNEViewParent.cpp:547
 #: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:91
 msgid "Vehicle Chooser"
-msgstr ""
+msgstr "Sélecteur de véhicule"
 
 #: src/gui/GUISUMOViewParent.cpp:245 src/netedit/GNEViewParent.cpp:558
 msgid "Person Chooser"
-msgstr ""
+msgstr "Sélecteur de personne"
 
 #: src/gui/GUISUMOViewParent.cpp:249 src/netedit/GNEViewParent.cpp:568
 msgid "Container Chooser"
-msgstr ""
+msgstr "Sélecteur de conteneur"
 
 #: src/gui/GUISUMOViewParent.cpp:253
 msgid "Traffic Lights Chooser"
-msgstr ""
+msgstr "Sélecteur de feux de circulation"
 
 #: src/gui/GUISUMOViewParent.cpp:257
 msgid "Additional Objects Chooser"
-msgstr ""
+msgstr "Sélecteur d'objets additionnels"
 
 #: src/gui/GUISUMOViewParent.cpp:261 src/netedit/GNEViewParent.cpp:619
 msgid "POI Chooser"
-msgstr ""
+msgstr "Sélecteur de POI"
 
 #: src/gui/GUISUMOViewParent.cpp:265
 msgid "Polygon Chooser"
-msgstr ""
+msgstr "Sélecteur de polygone"
 
 #: src/gui/GUITLLogicPhasesTrackerWindow.cpp:277
 msgid "phase names"
@@ -978,15 +982,15 @@ msgstr "Un dépassement temps de calcul s'est produit."
 
 #: src/gui/GUIViewTraffic.cpp:108 src/netedit/GNEViewNet.cpp:364
 msgid "Locate Junctions"
-msgstr ""
+msgstr "Localiser Jonctions"
 
 #: src/gui/GUIViewTraffic.cpp:108
 msgid "Locate a junction within the network."
-msgstr ""
+msgstr "Localiser une jonction dans un réseau."
 
 #: src/gui/GUIViewTraffic.cpp:113 src/netedit/GNEViewNet.cpp:368
 msgid "Locate Edges"
-msgstr ""
+msgstr "Localiser Arêtes"
 
 #: src/gui/GUIViewTraffic.cpp:113
 msgid "Locate an edge within the network."
