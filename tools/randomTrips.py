@@ -998,7 +998,7 @@ def createTrips(options, trip_generator, rerunFactor=None, skipValidation=False)
                     raise ValueError("The argument '%s' has already been passed without the %s prefix." % (
                                      option[0], router))
 
-    if options.routefile:
+    if options.routefile and rerunFactor is None:
         args2 = (maargs if options.marouter else duargs)[:]
         args2 += ['-o', options.routefile]
         if options.verbose:
