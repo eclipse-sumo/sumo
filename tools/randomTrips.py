@@ -168,6 +168,8 @@ def get_options(args=None):
                     help="Compute routes with marouter instead of duarouter")
     op.add_argument("--validate", default=False, action="store_true",
                     help="Whether to produce trip output that is already checked for connectivity")
+    op.add_argument("--min-success-rate", dest="minSuccessRate", default=0.1, type=float,
+                    help="Minimum ratio of valid trips to retry sampling if some trips are invalid")
     op.add_argument("-v", "--verbose", action="store_true", default=False,
                     help="tell me what you are doing")
     # flow
@@ -509,7 +511,7 @@ class LoadedProps:
 
     def __init__(self, fname):
         self.weights = defaultdict(lambda: 0)
-        for edge in sumolib.output.parse_fast(fname, 'edge', ['id', 'value']):
+        for edge in sumolib.xml.parse_fast(fname, 'edge', ['id', 'value']):
             self.weights[edge.id] = float(edge.value)
 
     def __call__(self, edge):
@@ -642,6 +644,19 @@ def prependSpace(s):
 
 def samplePosition(edge):
     return random.uniform(0.0, edge.getLength())
+
+
+def getElement(options):
+    if options.pedestrians:
+        if options.flows > 0:
+            return "personFlow"
+        else:
+            return "person"
+    else:
+        if options.flows > 0:
+            return "flow"
+        else:
+            return "trip"
 
 
 def main(options):
@@ -965,6 +980,18 @@ def main(options):
         os.remove(options.tripfile)  # on windows, rename does not overwrite
         os.rename(tmpTrips, options.tripfile)
         sumolib.xml.insertOptionsHeader(options.tripfile, options)
+        nRequested = idx - 1
+        nValid = len(list(sumolib.xml.parse_fast(options.tripfile, getElement(options), [])))
+        if nRequested > 0 and nValid < nRequested:
+            successRate = nValid / nRequested
+            if successRate < options.minSuccessRate:
+                print("Warning: Only %s out of %s requested %ss passed validation. " +
+                      "Set option --min-success-rate to find more valid trips" % (
+                          nValid, nRequested, getElement(options)), file=sys.stderr)
+            else:
+                if options.verbose:
+                    print("Only %s out of %s requested %ss passed validation. Sampling again to find more." % (
+                        nValid, nRequested, getElement(options)))
 
     if trip_generator and options.weights_outprefix:
         idPrefix = ""
