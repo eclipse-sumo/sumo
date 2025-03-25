@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-13 10:07+0100\n"
-"PO-Revision-Date: 2025-03-25 15:37+0000\n"
+"PO-Revision-Date: 2025-03-25 16:37+0000\n"
 "Last-Translator: Benjamin Couéraud <bcoueraud87@gmail.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/fr/>\n"
@@ -1656,204 +1656,204 @@ msgstr "taux d'occupation brut du segment [%]"
 
 #: src/guisim/GUIEdge.cpp:203
 msgid "segment mean vehicle speed [m/s]"
-msgstr ""
+msgstr "vitesse moyenne d'un véhicule du segment [m/s]"
 
 #: src/guisim/GUIEdge.cpp:204
 msgid "segment flow [veh/h/lane]"
-msgstr ""
+msgstr "flux au travers segment [veh/h/lane]"
 
 #: src/guisim/GUIEdge.cpp:205
 msgid "segment vehicles [#]"
-msgstr ""
+msgstr "véhicules dans segment [#]"
 
 #: src/guisim/GUIEdge.cpp:206
 msgid "segment leader leave time"
-msgstr ""
+msgstr "temps de sortie du véhicule meneur du segment"
 
 #: src/guisim/GUIEdge.cpp:207
 msgid "segment headway [s]"
-msgstr ""
+msgstr "temps de suivi du véhicule dans le segment [s]"
 
 #: src/guisim/GUIEdge.cpp:208
 msgid "segment entry block time [s]"
-msgstr ""
+msgstr "temps de blocage pour accéder au segment [s]"
 
 #: src/guisim/GUIEdge.cpp:226
 msgid "Type Information:"
-msgstr ""
+msgstr "Informations du type :"
 
 #: src/guisim/GUIEdge.cpp:227
 msgid "type [id]"
-msgstr ""
+msgstr "type [id]"
 
 #: src/guisim/GUIEdge.cpp:228
 msgid "tauff"
-msgstr ""
+msgstr "tauff (espacement maximal entre sections non limitées)"
 
 #: src/guisim/GUIEdge.cpp:229
 msgid "taufj"
-msgstr ""
+msgstr "taufj (espacement maximal entre section non limitée et section limitée)"
 
 #: src/guisim/GUIEdge.cpp:230
 msgid "taujf"
-msgstr ""
+msgstr "taujf (espacement maximal entre section limitée et section non limitée)"
 
 #: src/guisim/GUIEdge.cpp:231
 msgid "taujj"
-msgstr ""
+msgstr "taujj (espacement maximal entre sections limitées)"
 
 #: src/guisim/GUIEdge.cpp:232
 msgid "jam threshold"
-msgstr ""
+msgstr "seuil d'embouteillage"
 
 #: src/guisim/GUIEdge.cpp:233
 msgid "junction control"
-msgstr ""
+msgstr "contrôle de jonction"
 
 #: src/guisim/GUIEdge.cpp:234
 msgid "tls penalty"
-msgstr ""
+msgstr "pénalité au feu de circulation"
 
 #: src/guisim/GUIEdge.cpp:235
 msgid "tls flow penalty"
-msgstr ""
+msgstr "penalité de flux au feu de circulation"
 
 #: src/guisim/GUIEdge.cpp:236
 msgid "minor penalty"
-msgstr ""
+msgstr "pénalité mineure"
 
 #: src/guisim/GUIEdge.cpp:237
 msgid "overtaking"
-msgstr ""
+msgstr "dépassement"
 
 #: src/guisim/GUIInductLoop.cpp:150
 msgid "entered vehicles [-]"
-msgstr ""
+msgstr "véhicules entrés [-]"
 
 #: src/guisim/GUIInductLoop.cpp:156
 msgid "vehicle length [m]"
-msgstr ""
+msgstr "longueur de véhicule [m]"
 
 #: src/guisim/GUIInductLoop.cpp:158
 msgid "empty time [s]"
-msgstr ""
+msgstr "temps sans véhicule [s]"
 
 #: src/guisim/GUIInductLoop.cpp:160
 msgid "occupied time [s]"
-msgstr ""
+msgstr "temps d'occupation [s]"
 
 #: src/guisim/GUIInductLoop.cpp:162
 msgid "interval entered vehicles [#]"
-msgstr ""
+msgstr "véhicules entrés dans intervalle [#]"
 
 #: src/guisim/GUIInductLoop.cpp:168
 msgid "last interval entered vehicles [#]"
-msgstr ""
+msgstr "véhicules entrés dans intervalle précédent [#]"
 
 #: src/guisim/GUIJunctionWrapper.cpp:121 src/guisim/GUILane.cpp:1066
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:241
 msgid "type"
-msgstr ""
+msgstr "type"
 
 #: src/guisim/GUILane.cpp:1002
 msgid "Copy edge name to clipboard"
-msgstr ""
+msgstr "Copier nom d'arête dans presse-papiers"
 
 #: src/guisim/GUILane.cpp:1010
 msgid "pos: "
-msgstr ""
+msgstr "position : "
 
 #: src/guisim/GUILane.cpp:1010
 msgid "height: "
-msgstr ""
+msgstr "hauteur : "
 
 #: src/guisim/GUILane.cpp:1019
 msgid "Reopen lane"
-msgstr ""
+msgstr "Réouvrir voie"
 
 #: src/guisim/GUILane.cpp:1020
 msgid "Reopen edge"
-msgstr ""
+msgstr "Réouvrir arête"
 
 #: src/guisim/GUILane.cpp:1022
 msgid "Reopen lane (override rerouter)"
-msgstr ""
+msgstr "Réouvrir voie (écraser réassigneur)"
 
 #: src/guisim/GUILane.cpp:1023
 msgid "Reopen edge (override rerouter)"
-msgstr ""
+msgstr "Réouvrir arête (écraser réassigneur)"
 
 #: src/guisim/GUILane.cpp:1026
 msgid "Close lane"
-msgstr ""
+msgstr "Fermer voie"
 
 #: src/guisim/GUILane.cpp:1027
 msgid "Close edge"
-msgstr ""
+msgstr "Fermer arête"
 
 #: src/guisim/GUILane.cpp:1029
 msgid "Add rerouter"
-msgstr ""
+msgstr "Ajouter réassigneur"
 
 #: src/guisim/GUILane.cpp:1034 src/netedit/elements/network/GNELane.cpp:2184
 msgid "Select reachable"
-msgstr ""
+msgstr "Sélectionner voies accessibles"
 
 #: src/guisim/GUILane.cpp:1047 src/guisim/GUILane.cpp:1051
 msgid "allowed speed [m/s]"
-msgstr ""
+msgstr "vitesse autorisée [m/s]"
 
 #: src/guisim/GUILane.cpp:1055 src/guisim/GUIVehicle.cpp:233
 msgid "width [m]"
-msgstr ""
+msgstr "largeur [m]"
 
 #: src/guisim/GUILane.cpp:1057
 msgid "stored travel time [s]"
-msgstr ""
+msgstr "temps de trajet accumulé [s]"
 
 #: src/guisim/GUILane.cpp:1058
 msgid "loaded weight"
-msgstr ""
+msgstr "poids chargé"
 
 #: src/guisim/GUILane.cpp:1060
 msgid "lane friction coefficient [%]"
-msgstr ""
+msgstr "coefficient de friction voie [%]"
 
 #: src/guisim/GUILane.cpp:1063
 msgid "netto occupancy [%]"
-msgstr ""
+msgstr "taux d'occupation net [%]"
 
 #: src/guisim/GUILane.cpp:1065
 msgid "edge type"
-msgstr ""
+msgstr "type d'arête"
 
 #: src/guisim/GUILane.cpp:1067 src/guisim/GUITrafficLightLogicWrapper.cpp:259
 msgid "priority"
-msgstr ""
+msgstr "priorité"
 
 #: src/guisim/GUILane.cpp:1068
 msgid "distance [km]"
-msgstr ""
+msgstr "distance [km]"
 
 #: src/guisim/GUILane.cpp:1069
 msgid "allowed vehicle class"
-msgstr ""
+msgstr "classes de véhicules autorisées"
 
 #: src/guisim/GUILane.cpp:1070
 msgid "disallowed vehicle class"
-msgstr ""
+msgstr "classes de véhicules non autorisées"
 
 #: src/guisim/GUILane.cpp:1071
 msgid "permission code"
-msgstr ""
+msgstr "code de permission"
 
 #: src/guisim/GUILane.cpp:1072
 msgid "color value"
-msgstr ""
+msgstr "valeur de couleur"
 
 #: src/guisim/GUILane.cpp:1074
 msgid "bidi-lane"
-msgstr ""
+msgstr "voie bidirectionnelle"
 
 #: src/guisim/GUINet.cpp:327
 msgid "Network size exceeds 1 Lightyear. Please reconsider your inputs.\n"
