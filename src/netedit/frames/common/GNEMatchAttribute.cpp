@@ -145,7 +145,9 @@ GNEMatchAttribute::refreshMatchAttribute() {
         // add siblings (except for root)
         if (parentHierarchy.at(i)->getParent()) {
             for (const auto tagSibling : parentHierarchy.at(i)->getParent()->getTagChildren()) {
-                myTagComboBoxVector.at(i)->appendTagItem(tagSibling);
+                if (tagSibling->isDrawable()) {
+                    myTagComboBoxVector.at(i)->appendTagItem(tagSibling);
+                }
             }
             // update tag
             myTagComboBoxVector.at(i)->setCurrentItem(parentHierarchy.at(i), FALSE);
@@ -175,13 +177,17 @@ GNEMatchAttribute::refreshMatchAttribute() {
     // now fill attributes
     myAttributeComboBox->clearItems();
     // get all children recursivelly
-    const auto attributes = myCurrentEditedProperties->getTagProperties()->getAttributeChildrenRecursively(myShowOnlyCommonAttributes->getCheck() == TRUE);
+    const auto attributes = myCurrentEditedProperties->getTagProperties()->getAttributeChildrenRecursively(myShowOnlyCommonAttributes->getCheck() == TRUE, true);
     for (const auto& attribute : attributes) {
         myAttributeComboBox->appendAttrItem(attribute.second);
     }
     // update tag
     if (myAttributeComboBox->getNumItems() == 0) {
+        myAttributeComboBox->appendAttrItem(myCurrentEditedProperties->getAttributePropertiesNoCommon());
         myAttributeComboBox->disable();
+        // set match string
+        myMatchString->setText("", FALSE);
+        myMatchString->disable();
     } else {
         myAttributeComboBox->enable();
         if (myAttributeComboBox->hasAttrProperty(myCurrentEditedProperties->getAttributeProperties())) {
@@ -190,9 +196,10 @@ GNEMatchAttribute::refreshMatchAttribute() {
             myAttributeComboBox->setCurrentItem(attributes.begin()->second, FALSE);
             myCurrentEditedProperties->setAttributeProperties(myAttributeComboBox->getCurrentAttrProperty());
         }
+        // set match string
+        myMatchString->setText(myCurrentEditedProperties->getMatchValue().c_str(), FALSE);
+        myMatchString->enable();
     }
-    // set match string
-    myMatchString->setText(myCurrentEditedProperties->getMatchValue().c_str(), FALSE);
 }
 
 
@@ -241,7 +248,6 @@ GNEMatchAttribute::onCmdProcessString(FXObject*, FXSelector, void*) {
     std::vector<GNEAttributeCarrier*> matches;
     // obtain expresion
     std::string expr = myMatchString->getText().text();
-
     bool valid = true;
     if (expr == "") {
         // the empty expression matches all objects

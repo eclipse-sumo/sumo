@@ -52,7 +52,7 @@ GNETagProperties::GNETagProperties(const SumoXMLTag tag, GNETagProperties* paren
     myTag(tag),
     myTagStr(toString(tag)),
     myParent(parent),
-    myHierarchicalTag(true),
+    myTagProperty(HIERARCHICAL),
     myIcon(icon),
     myXMLTag(tag),
     myTooltipText(tooltip),
@@ -462,20 +462,22 @@ GNETagProperties::getTagChildrenRecursively() const {
 
 
 std::map<std::string, const GNEAttributeProperties*>
-GNETagProperties::getAttributeChildrenRecursively(const bool onlyCommon) const {
+GNETagProperties::getAttributeChildrenRecursively(const bool onlyCommon, const bool onlyDrawables) const {
     std::map<std::string, const GNEAttributeProperties*> allChildrenAttributes;
     // obtain all children attributes recursively (including this)
-    getChildrenAttributes(this, allChildrenAttributes);
+    getChildrenAttributes(this, allChildrenAttributes, onlyDrawables);
     // check if get only commons
     if (onlyCommon) {
         std::map<std::string, const GNEAttributeProperties*> commonChildrenAttributes;
         // get all tag children and take only the common attributes
         const auto tagChildren = getTagChildrenRecursively();
         // iterate over all children and check if exist in child tag
-        for (const auto attributeChild : allChildrenAttributes) {
+        for (const auto& attributeChild : allChildrenAttributes) {
             bool isCommon = true;
             for (const auto tagChild : tagChildren) {
-                if (!tagChild->isHierarchicalTag() && !tagChild->hasAttribute(attributeChild.second->getAttr())) {
+                if ((!onlyDrawables || tagChild->isDrawable()) &&   // filter only drawables
+                        !tagChild->isHierarchicalTag() &&               // hierarchical tags doesn't have attirbutes
+                        !tagChild->hasAttribute(attributeChild.second->getAttr())) {
                     isCommon = false;
                 }
             }
@@ -512,7 +514,7 @@ GNETagProperties::getSupermode() const {
 
 bool
 GNETagProperties::isHierarchicalTag() const {
-    return myHierarchicalTag;
+    return (myTagProperty & HIERARCHICAL) != 0;
 }
 
 
@@ -1036,14 +1038,16 @@ GNETagProperties::getChildrenTagProperties(const GNETagProperties* tagProperties
 
 
 void
-GNETagProperties::getChildrenAttributes(const GNETagProperties* tagProperties, std::map<std::string, const GNEAttributeProperties*>& result) const {
+GNETagProperties::getChildrenAttributes(const GNETagProperties* tagProperties, std::map<std::string, const GNEAttributeProperties*>& result, const bool onlyDrawables) const {
     // add every attribute only once
-    for (const auto& attributeProperty : tagProperties->myAttributeProperties) {
-        result[attributeProperty->getAttrStr()] = attributeProperty;
+    if (!onlyDrawables || tagProperties->isDrawable()) {
+        for (const auto& attributeProperty : tagProperties->myAttributeProperties) {
+            result[attributeProperty->getAttrStr()] = attributeProperty;
+        }
     }
     // call it iterative for all children
     for (const auto& child : tagProperties->myChildren) {
-        getChildrenAttributes(child, result);
+        getChildrenAttributes(child, result, onlyDrawables);
     }
 }
 

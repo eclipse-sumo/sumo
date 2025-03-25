@@ -92,6 +92,7 @@ public:
         VCLASS_ICON =           1 << 11,    // Element returns icon depending of their vClass
         SYMBOL =                1 << 12,    // Element is a symbol (VSSSymbols, RerouterSymbols...)
         EXTENDED =              1 << 13,    // Element contains extended attributes (Usually vTypes)
+        HIERARCHICAL =          1 << 14,    // Element is a hierarchical
     };
 
     /// @brief tag parents
@@ -237,7 +238,7 @@ public:
     std::vector<const GNETagProperties*> getTagChildrenRecursively() const;
 
     /// @brief get all children attributes sorted by name (Including this)
-    std::map<std::string, const GNEAttributeProperties*> getAttributeChildrenRecursively(const bool onlyCommon) const;
+    std::map<std::string, const GNEAttributeProperties*> getAttributeChildrenRecursively(const bool onlyCommon, const bool onlyDrawables) const;
 
     /// @brief get supermode associated with this tag
     Supermode getSupermode() const;
@@ -555,9 +556,6 @@ private:
     /// @brief conflicts
     const int myConflicts = -1;
 
-    /// @brief check if this is a hierarchical tag
-    const bool myHierarchicalTag = false;
-
     /// @brief vector with the attribute values vinculated with this Tag
     std::vector<const GNEAttributeProperties*> myAttributeProperties;
 
@@ -583,7 +581,7 @@ private:
     void getChildrenTagProperties(const GNETagProperties* tagProperties, std::vector<const GNETagProperties*>& result) const;
 
     /// @brief recursive function for get all children attributes (Including this)
-    void getChildrenAttributes(const GNETagProperties* tagProperties, std::map<std::string, const GNEAttributeProperties*>& result) const;
+    void getChildrenAttributes(const GNETagProperties* tagProperties, std::map<std::string, const GNEAttributeProperties*>& result, const bool onlyDrawables) const;
 
     /// @brief default constructor
     GNETagProperties() = delete;
