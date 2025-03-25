@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-13 10:07+0100\n"
-"PO-Revision-Date: 2025-03-25 13:23+0000\n"
+"PO-Revision-Date: 2025-03-25 13:54+0000\n"
 "Last-Translator: Benjamin Couéraud <bcoueraud87@gmail.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/fr/>\n"
@@ -1261,15 +1261,15 @@ msgstr ""
 
 #: src/guisim/GUIBaseVehicle.cpp:390
 msgid "Select Foes"
-msgstr ""
+msgstr "Sélectionner Opposants"
 
 #: src/guisim/GUIBaseVehicle.cpp:392
 msgid "Select transported"
-msgstr ""
+msgstr "Sélectionner transportés"
 
 #: src/guisim/GUIBaseVehicle.cpp:394
 msgid "Abort stop"
-msgstr ""
+msgstr "Interrompre arrêt"
 
 #: src/guisim/GUIBaseVehicle.cpp:394
 #: src/netedit/GNEApplicationWindowHelper.cpp:721
@@ -1280,7 +1280,7 @@ msgstr "Arrêt"
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1274
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1339
 msgid "Remove"
-msgstr ""
+msgstr "Retirer"
 
 #: src/guisim/GUIBaseVehicle.cpp:879 src/guisim/GUIVehicle.cpp:628
 msgid "Vehicle parameter '%' key '%' is not a number for vehicle '%'."
@@ -1299,41 +1299,41 @@ msgstr "nom"
 #: src/guisim/GUIBusStop.cpp:136 src/guisim/GUIChargingStation.cpp:84
 #: src/guisim/GUIOverheadWire.cpp:109 src/guisim/GUIParkingArea.cpp:111
 msgid "begin position [m]"
-msgstr ""
+msgstr "position de départ [m]"
 
 #: src/guisim/GUIBusStop.cpp:137 src/guisim/GUIChargingStation.cpp:85
 #: src/guisim/GUIInductLoop.cpp:143 src/guisim/GUIOverheadWire.cpp:110
 #: src/guisim/GUIParkingArea.cpp:112
 msgid "end position [m]"
-msgstr ""
+msgstr "position d'arrivée [m]"
 
 #: src/guisim/GUIBusStop.cpp:138
 msgid "lines"
-msgstr ""
+msgstr "lignes"
 
 #: src/guisim/GUIBusStop.cpp:139
 msgid "parking length [m]"
-msgstr ""
+msgstr "longueur de stationnement [m]"
 
 #: src/guisim/GUIBusStop.cpp:143 src/guisim/GUIChargingStation.cpp:86
 msgid "stopped vehicles [#]"
-msgstr ""
+msgstr "véhicules arrêtés [#]"
 
 #: src/guisim/GUIBusStop.cpp:144 src/guisim/GUIChargingStation.cpp:87
 msgid "last free pos [m]"
-msgstr ""
+msgstr "dernière position libre [m]"
 
 #: src/guisim/GUIBusStop.cpp:158
 msgid "waiting for:"
-msgstr ""
+msgstr "en attente de :"
 
 #: src/guisim/GUICalibrator.cpp:311
 msgid "interval start"
-msgstr ""
+msgstr "début de l'intervalle"
 
 #: src/guisim/GUICalibrator.cpp:312
 msgid "interval end"
-msgstr ""
+msgstr "fin de l'intervalle"
 
 #: src/guisim/GUICalibrator.cpp:313
 msgid "aspired flow [veh/h]"
