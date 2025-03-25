@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-13 10:07+0100\n"
-"PO-Revision-Date: 2025-03-25 13:54+0000\n"
+"PO-Revision-Date: 2025-03-25 15:11+0000\n"
 "Last-Translator: Benjamin Couéraud <bcoueraud87@gmail.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/fr/>\n"
@@ -1337,202 +1337,202 @@ msgstr "fin de l'intervalle"
 
 #: src/guisim/GUICalibrator.cpp:313
 msgid "aspired flow [veh/h]"
-msgstr ""
+msgstr "flux désiré [veh/h]"
 
 #: src/guisim/GUICalibrator.cpp:314
 msgid "aspired speed"
-msgstr ""
+msgstr "vitesse désirée"
 
 #: src/guisim/GUICalibrator.cpp:315
 msgid "current flow [veh/h]"
-msgstr ""
+msgstr "flux courant [veh/h]"
 
 #: src/guisim/GUICalibrator.cpp:316
 msgid "current speed"
-msgstr ""
+msgstr "vitesse courante"
 
 #: src/guisim/GUICalibrator.cpp:317
 msgid "default speed"
-msgstr ""
+msgstr "vitesse par défaut"
 
 #: src/guisim/GUICalibrator.cpp:318
 msgid "required vehicles"
-msgstr ""
+msgstr "véhicules recquis"
 
 #: src/guisim/GUICalibrator.cpp:319
 msgid "passed vehicles"
-msgstr ""
+msgstr "véhicules passés"
 
 #: src/guisim/GUICalibrator.cpp:320
 msgid "inserted vehicles"
-msgstr ""
+msgstr "véhicules insérés"
 
 #: src/guisim/GUICalibrator.cpp:321
 msgid "removed vehicles"
-msgstr ""
+msgstr "véhicules retirés"
 
 #: src/guisim/GUICalibrator.cpp:322
 msgid "cleared in jam"
-msgstr ""
+msgstr "véhicules retirés d'un embouteillage"
 
 #: src/guisim/GUICalibrator.cpp:329
 msgid "inactive until"
-msgstr ""
+msgstr "inactif jusqu'à"
 
 #: src/guisim/GUIChargingStation.cpp:88
 msgid "charging power [W]"
-msgstr ""
+msgstr "puissance de chargement [W]"
 
 #: src/guisim/GUIChargingStation.cpp:89
 msgid "charging efficiency [#]"
-msgstr ""
+msgstr "efficacité de chargement [#]"
 
 #: src/guisim/GUIChargingStation.cpp:90
 msgid "charge in transit [true/false]"
-msgstr ""
+msgstr "chargement en déplacement [true/false]"
 
 #: src/guisim/GUIChargingStation.cpp:91
 msgid "charge delay [s]"
-msgstr ""
+msgstr "délai de chargement [s]"
 
 #: src/guisim/GUIChargingStation.cpp:92
 msgid "charge type"
-msgstr ""
+msgstr "type de chargement"
 
 #: src/guisim/GUIChargingStation.cpp:93 src/guisim/GUIContainer.cpp:175
 #: src/guisim/GUIPerson.cpp:242 src/guisim/GUIVehicle.cpp:134
 msgid "waiting time [s]"
-msgstr ""
+msgstr "temps d'attente [s]"
 
 #: src/guisim/GUIContainer.cpp:164 src/guisim/GUIPerson.cpp:229
 msgid "stage"
-msgstr ""
+msgstr "étape"
 
 #: src/guisim/GUIContainer.cpp:166 src/guisim/GUIPerson.cpp:231
 msgid "stage index"
-msgstr ""
+msgstr "indice de l'étape"
 
 #: src/guisim/GUIContainer.cpp:167 src/guisim/GUIPerson.cpp:232
 msgid "start edge [id]"
-msgstr ""
+msgstr "arête de départ [id]"
 
 #: src/guisim/GUIContainer.cpp:168 src/guisim/GUIPerson.cpp:233
 msgid "dest edge [id]"
-msgstr ""
+msgstr "arête de destination [id]"
 
 #: src/guisim/GUIContainer.cpp:169
 msgid "arrivalPos [m]"
-msgstr ""
+msgstr "position d'arrivée [m]"
 
 #: src/guisim/GUIContainer.cpp:170 src/guisim/GUIPerson.cpp:236
 msgid "edge [id]"
-msgstr ""
+msgstr "arête [id]"
 
 #: src/guisim/GUIContainer.cpp:171 src/guisim/GUIE2Collector.cpp:131
 #: src/guisim/GUIInductLoop.cpp:141 src/guisim/GUIInstantInductLoop.cpp:97
 #: src/guisim/GUIPerson.cpp:238 src/guisim/GUIVehicle.cpp:116
 msgid "position [m]"
-msgstr ""
+msgstr "position [m]"
 
 #: src/guisim/GUIContainer.cpp:172 src/guisim/GUIInductLoop.cpp:152
 #: src/guisim/GUILaneSpeedTrigger.cpp:306 src/guisim/GUIPerson.cpp:239
 #: src/guisim/GUIVehicle.cpp:120
 msgid "speed [m/s]"
-msgstr ""
+msgstr "vitesse [m/s]"
 
 #: src/guisim/GUIContainer.cpp:173 src/guisim/GUIPerson.cpp:240
 #: src/guisim/GUIVehicle.cpp:130
 msgid "speed factor"
-msgstr ""
+msgstr "facteur vitesse"
 
 #: src/guisim/GUIContainer.cpp:174 src/guisim/GUIPerson.cpp:241
 #: src/guisim/GUIVehicle.cpp:126
 msgid "angle [degree]"
-msgstr ""
+msgstr "angle [degrés]"
 
 #: src/guisim/GUIContainer.cpp:176 src/guisim/GUIPerson.cpp:245
 #: src/guisim/GUIVehicle.cpp:146
 msgid "desired depart [s]"
-msgstr ""
+msgstr "départ désiré [s]"
 
 #: src/guisim/GUIContainer.cpp:186 src/guisim/GUIPerson.cpp:255
 msgid "length"
-msgstr ""
+msgstr "longueur"
 
 #: src/guisim/GUIContainer.cpp:187 src/guisim/GUIPerson.cpp:256
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2176
 msgid "width"
-msgstr ""
+msgstr "largeur"
 
 #: src/guisim/GUIContainer.cpp:188 src/guisim/GUIPerson.cpp:257
 msgid "height"
-msgstr ""
+msgstr "hauteur"
 
 #: src/guisim/GUIContainer.cpp:189 src/guisim/GUIPerson.cpp:258
 msgid "minGap"
-msgstr ""
+msgstr "écart minimal"
 
 #: src/guisim/GUIContainer.cpp:190 src/guisim/GUIPerson.cpp:259
 #: src/guisim/GUIVehicle.cpp:238
 msgid "mass [kg]"
-msgstr ""
+msgstr "masse [kg]"
 
 #: src/guisim/GUIContainer.cpp:191 src/guisim/GUIPerson.cpp:261
 #: src/guisim/GUIVehicle.cpp:242
 msgid "maximum speed [m/s]"
-msgstr ""
+msgstr "vitesse maximale [m/s]"
 
 #: src/guisim/GUIE2Collector.cpp:130 src/guisim/GUIEdge.cpp:185
 #: src/guisim/GUILane.cpp:1054 src/guisim/GUIVehicle.cpp:232
 msgid "length [m]"
-msgstr ""
+msgstr "longueur [m]"
 
 #: src/guisim/GUIE2Collector.cpp:132 src/guisim/GUIInductLoop.cpp:145
 #: src/guisim/GUIInstantInductLoop.cpp:98
 #: src/utils/gui/div/GUIMessageWindow.cpp:72
 msgid "lane"
-msgstr ""
+msgstr "voie"
 
 #: src/guisim/GUIE2Collector.cpp:134 src/guisim/GUIE3Collector.cpp:82
 #: src/guisim/GUIInductLoop.cpp:147 src/guisim/GUIInstantInductLoop.cpp:100
 msgid "vTypes"
-msgstr ""
+msgstr "types de véhicules (vTypes)"
 
 #: src/guisim/GUIE2Collector.cpp:137 src/guisim/GUIEdge.cpp:194
 msgid "vehicles [#]"
-msgstr ""
+msgstr "véhicules [#]"
 
 #: src/guisim/GUIE2Collector.cpp:139 src/guisim/GUIInductLoop.cpp:154
 msgid "occupancy [%]"
-msgstr ""
+msgstr "taux d'occupation [%]"
 
 #: src/guisim/GUIE2Collector.cpp:141 src/guisim/GUIE3Collector.cpp:86
 msgid "mean speed [m/s]"
-msgstr ""
+msgstr "vitesse moyenne [m/s]"
 
 #: src/guisim/GUIE2Collector.cpp:143
 msgid "mean vehicle length [m]"
-msgstr ""
+msgstr "longueur véhicule moyenne [m]"
 
 #: src/guisim/GUIE2Collector.cpp:145
 msgid "jam number [#]"
-msgstr ""
+msgstr "nombre d'embouteillages [#]"
 
 #: src/guisim/GUIE2Collector.cpp:147
 msgid "max jam length [veh]"
-msgstr ""
+msgstr "longueur maximale d'embouteillage [veh]"
 
 #: src/guisim/GUIE2Collector.cpp:149
 msgid "max jam length [m]"
-msgstr ""
+msgstr "longueur maximale d'embouteillage [m]"
 
 #: src/guisim/GUIE2Collector.cpp:151
 msgid "jam length sum [veh]"
-msgstr ""
+msgstr "longueur d'embouteillage cumulée [veh]"
 
 #: src/guisim/GUIE2Collector.cpp:153
 msgid "jam length sum [m]"
-msgstr ""
+msgstr "longueur d'embouteillage cumulée [m]"
 
 #: src/guisim/GUIE2Collector.cpp:155
 msgid "started halts [#]"
