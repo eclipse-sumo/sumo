@@ -717,7 +717,7 @@ def main(options):
 def createTrips(options, trip_generator, rerunFactor=None, skipValidation=False):
     idx = 0
 
-    vtypeattrs, options.tripattrs, personattrs, otherattrs = split_trip_attributes(
+    vtypeattrs, tripattrs, personattrs, otherattrs = split_trip_attributes(
         options.tripattrs, options.pedestrians, options.vehicle_class, options.verbose)
 
     vias = {}
@@ -739,7 +739,7 @@ def createTrips(options, trip_generator, rerunFactor=None, skipValidation=False)
         if options.pedestrians:
             combined_attrs = ""
         else:
-            combined_attrs = options.tripattrs
+            combined_attrs = tripattrs
         arrivalPos = ""
         if options.randomDepartPos:
             randomPosition = samplePosition(origin)
@@ -882,7 +882,7 @@ def createTrips(options, trip_generator, rerunFactor=None, skipValidation=False)
                     fouttype.write("</additional>\n")
             else:
                 fouttrips.write(vTypeDef)
-            options.tripattrs += ' type="%s"' % options.vtypeID
+            tripattrs += ' type="%s"' % options.vtypeID
             personattrs += ' type="%s"' % options.vtypeID
 
         if trip_generator:
