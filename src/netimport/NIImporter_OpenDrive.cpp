@@ -837,7 +837,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                     // figure out the correct combination of directions
                     NBEdge* from;
                     NBEdge* to;
-                    auto fromTo = retrieveSignalEdges(nb, fromID, toID, e->junction);
+                    auto fromTo = retrieveSignalEdges(nb, fromID, toID, signal.minLane);
                     from = fromTo.first;
                     to = fromTo.second;
                     if (from == nullptr) {
@@ -852,7 +852,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                         if (fromForward != lanesForward) {
                             std::swap(fromID, toID);
 
-                            const auto& signalFromTo = retrieveSignalEdges(nb, fromID, toID, e->junction);
+                            const auto& signalFromTo = retrieveSignalEdges(nb, fromID, toID, signal.minLane);
                             from = signalFromTo.first;
                             to = signalFromTo.second;
                             if (from == nullptr) {
@@ -864,7 +864,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                     for (NBEdge::Connection& c : from->getConnections()) {
                         if (c.toEdge == to) {
                             int odLane = laneIndexMap[std::make_pair(from, c.fromLane)];
-                            //std::cout << "  fromLane=" << c.fromLane << " odLane=" << odLane << "\n";
+                            //std::cout << " e=" << e->id << " from=" << from->getID() << " fromLane=" << c.fromLane << " odLane=" << odLane << " sMin=" << signal.minLane << " sMax=" << signal.maxLane << "\n";
                             if (signal.minLane == 0 || (signal.minLane <= odLane && signal.maxLane >= odLane)) {
                                 if (c.hasParameter("signalID")) {
                                     c.setParameter("signalID", c.getParameter("signalID") + " " + signal.id);
@@ -1000,17 +1000,40 @@ NIImporter_OpenDrive::writeRoadObjects(const OpenDriveEdge* e) {
 
 
 std::pair<NBEdge*, NBEdge*>
-NIImporter_OpenDrive::retrieveSignalEdges(NBNetBuilder& nb, const std::string& fromID, const std::string& toID, const std::string& junction) {
+NIImporter_OpenDrive::retrieveSignalEdges(NBNetBuilder& nb, const std::string& fromID, const std::string& toID, int signalMinLane) {
     NBEdge* from;
     NBEdge* to;
+    NBEdge* fromReverse;
+    NBEdge* toReverse;
     from = nb.getEdgeCont().retrieve(fromID);
-    if (from == nullptr || from->getToNode()->getID() != junction) {
-        from = nb.getEdgeCont().retrieve(reversedEdgeID(fromID));
-    }
     to = nb.getEdgeCont().retrieve(toID);
-    if (to == nullptr || to->getFromNode()->getID() != junction) {
-        to = nb.getEdgeCont().retrieve(reversedEdgeID(toID));
+    fromReverse = nb.getEdgeCont().retrieve(reversedEdgeID(fromID));
+    toReverse = nb.getEdgeCont().retrieve(reversedEdgeID(toID));
+
+    if (from == nullptr) {
+        from = fromReverse;
     }
+    if (to == nullptr) {
+        to = toReverse;
+    }
+    if (from != nullptr && to != nullptr && from->getToNode() != to->getFromNode()) {
+        if (from->getFromNode() == to->getToNode() && signalMinLane >= 0) {
+            std::swap(from, to);
+        } else if (fromReverse != nullptr && toReverse != nullptr && fromReverse->getToNode() == toReverse->getFromNode() && signalMinLane <= 0) {
+            from = fromReverse;
+            to = toReverse;
+        } else {
+            if (from->getFromNode() == to->getFromNode()
+                    && fromReverse != nullptr && fromReverse->getToNode() == to->getFromNode()) {
+                from = fromReverse;
+            }
+            if (to->getToNode() == from->getToNode()
+                    && toReverse != nullptr && toReverse->getFromNode() == from->getToNode()) {
+                to = toReverse;
+            }
+        }
+    }
+    //std::cout << fromID << " " << toID << "  from=" << Named::getIDSecure(from) << " to=" << Named::getIDSecure(to) << " sMin=" << signalMinLane << "\n";
     return std::make_pair(from, to);
 }
 
