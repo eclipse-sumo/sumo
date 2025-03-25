@@ -86,7 +86,25 @@ MSLaneChanger::ChangeElem::ChangeElem(MSLane* _lane) :
     firstBlocked(nullptr),
     lastStopped(nullptr),
     ahead(_lane->getWidth()),
-    aheadNext(_lane->getWidth(), nullptr, 0.) {
+    aheadNext(_lane->getWidth(), nullptr, 0.),
+    zipperDist(0)
+{
+    if (lane->isInternal()) {
+        for (auto ili : lane->getIncomingLanes()) {
+            if (ili.viaLink->getState() == LINKSTATE_ZIPPER) {
+                zipperDist = lane->getLength();
+                break;
+            }
+        }
+    } else {
+        for (const MSLink* link : lane->getLinkCont()) {
+            if (link->getState() == LINKSTATE_ZIPPER) {
+                zipperDist = MAX2(zipperDist, link->getFoeVisibilityDistance());
+                // @note: if this lane is shorter than zipperDist it would be better to extend this to any upstream edges within the
+                // visibility distance of the zipper link
+            }
+        }
+    }
 }
 
 void
@@ -931,7 +949,19 @@ MSLaneChanger::checkChange(
     }
     if (blocked == 0 && (state & LCA_WANTS_LANECHANGE)) {
         // ensure that merging is safe for any upcoming zipper links after changing
-        if (vehicle->unsafeLinkAhead(targetLane)) {
+        double targetZipperDist = 0;
+        if (laneOffset == 0) {
+            targetZipperDist = myCandi->zipperDist;
+        } else if (laneOffset == 1) {
+            if ((myCandi + 1) != myChanger.end()) {
+                targetZipperDist = (myCandi + 1)->zipperDist;
+            }
+        } else if (laneOffset == -1) {
+            if (myCandi > myChanger.begin()) {
+                targetZipperDist = (myCandi - 1)->zipperDist;
+            }
+        }
+        if (vehicle->unsafeLinkAhead(targetLane, targetZipperDist)) {
             state |= blockedByLeader;
         }
     }

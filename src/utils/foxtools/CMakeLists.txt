@@ -1,6 +1,6 @@
 set(utils_foxtools_STAT_SRCS
-   fxheader.h
    fxexdefs.h
+   fxheader.h
    MFXBaseObject.cpp
    MFXBaseObject.h
    MFXButtonTooltip.cpp
@@ -9,8 +9,12 @@ set(utils_foxtools_STAT_SRCS
    MFXCheckButtonTooltip.h
    MFXCheckableButton.cpp
    MFXCheckableButton.h
+   MFXComboBoxAttrProperty.cpp
+   MFXComboBoxAttrProperty.h
    MFXComboBoxIcon.cpp
    MFXComboBoxIcon.h
+   MFXComboBoxTagProperty.cpp
+   MFXComboBoxTagProperty.h
    MFXDecalsTable.cpp
    MFXDecalsTable.h
    MFXDynamicLabel.cpp

@@ -69,8 +69,8 @@ def get_options(args=None):
                     help="do not create access links")
     ap.add_argument("--sort", action="store_true", default=False, category="processing",
                     help="sorting the output-file")
-    ap.add_argument("--stops", category="input", type=ap.file,
-                    help="file with candidate stops (selected by proxmity)")
+    ap.add_argument("--stops", category="input", type=ap.file_list,
+                    help="files with candidate stops (selected by proxmity)")
     ap.add_argument("--patched-stops", category="input", dest="patchedStops", type=ap.file,
                     help="file with replacement stops (based on stop ids)")
     ap.add_argument("--radius", default=150, category="input", type=float,
@@ -136,6 +136,7 @@ def get_options(args=None):
 
 def splitNet(options):
     netcCall = [sumolib.checkBinary("netconvert"), "--no-internal-links", "--numerical-ids", "--no-turnarounds",
+                "--no-warnings",
                 "--offset.disable-normalization", "--output.original-names", "--aggregate-warnings", "1",
                 "--junctions.corner-detail", "0", "--dlr-navteq.precision", "0", "--geometry.avoid-overlap", "false"]
     doNavteqOut = os.path.exists(options.mapperlib)
@@ -442,12 +443,13 @@ def filter_trips(options, routes, stops, outf, begin, end):
 
 
 class StopLookup:
-    def __init__(self, fname, net):
+    def __init__(self, fnames, net):
         self._candidates = []
         self._net = net
         self._rtree = rtree.index.Index()
-        if fname:
-            self._candidates = list(sumolib.xml.parse(fname, ("busStop", "trainStop")))
+        if fnames:
+            for fname in fnames.split(','):
+                self._candidates += list(sumolib.xml.parse(fname, ("busStop", "trainStop")))
             for ri, stop in enumerate(self._candidates):
                 lane = net.getLane(stop.lane)
                 middle = (lane.interpretOffset(float(stop.startPos)) +

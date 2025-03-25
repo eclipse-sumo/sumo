@@ -39,6 +39,7 @@
 #include <guisim/GUINet.h>
 #include <guisim/GUIVehicle.h>
 #include <guisim/GUIVehicleControl.h>
+#include <mesogui/GUIMEVehicle.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSGlobals.h>
 #include <microsim/MSJunctionControl.h>
@@ -205,6 +206,23 @@ GUIViewTraffic::buildColorRainbow(const GUIVisualizationSettings& s, GUIColorSch
                     maxValue = MAX2(maxValue, val);
                 }
             }
+        }
+    } else if (objectType == GLO_VEHICLE) {
+        MSVehicleControl& c = MSNet::getInstance()->getVehicleControl();
+        for (MSVehicleControl::constVehIt it_v = c.loadedVehBegin(); it_v != c.loadedVehEnd(); ++it_v) {
+            const GUIGlObject* veh;
+            if (MSGlobals::gUseMesoSim) {
+                veh = static_cast<const GUIMEVehicle*>(it_v->second);
+            } else {
+                veh = static_cast<const GUIVehicle*>(it_v->second);
+            }
+            const double val = veh->getColorValue(s, active);
+            if (val == s.MISSING_DATA) {
+                hasMissingData = true;
+                continue;
+            }
+            minValue = MIN2(minValue, val);
+            maxValue = MAX2(maxValue, val);
         }
     } else if (objectType == GLO_JUNCTION) {
         if (active == 3) {

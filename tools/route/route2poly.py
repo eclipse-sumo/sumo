@@ -26,52 +26,49 @@ import os
 import itertools
 import random
 from collections import defaultdict
-from optparse import OptionParser
 sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 from sumolib.output import parse  # noqa
 from sumolib.net import readNet  # noqa
 from sumolib.miscutils import Colorgen  # noqa
 from sumolib import geomhelper  # noqa
+from sumolib.options import ArgumentParser  # noqa
 
 
 def parse_args(args):
-    USAGE = "Usage: " + sys.argv[0] + " <netfile> <routefile> [options]"
-    optParser = OptionParser()
-    optParser.add_option("-o", "--outfile", help="name of output file")
-    optParser.add_option("-u", "--hue", default="random",
-                         help="hue for polygons (float from [0,1] or 'random')")
-    optParser.add_option("-s", "--saturation", default=1,
-                         help="saturation for polygons (float from [0,1] or 'random')")
-    optParser.add_option("-b", "--brightness", default=1,
-                         help="brightness for polygons (float from [0,1] or 'random')")
-    optParser.add_option("-l", "--layer", default=100, help="layer for generated polygons")
-    optParser.add_option("--geo", action="store_true",
-                         default=False, help="write polygons with geo-coordinates")
-    optParser.add_option("--internal", action="store_true",
-                         default=False, help="include internal edges in generated shapes")
-    optParser.add_option("--spread", type="float", help="spread polygons laterally to avoid overlap")
-    optParser.add_option("--blur", type="float",
-                         default=0, help="maximum random disturbance to route geometry")
-    optParser.add_option("--scale-width", type="float", dest="scaleWidth",
-                         help="group similar routes and scale width by " +
-                              "group size multiplied with the given factor (in m)")
-    optParser.add_option("--standalone", action="store_true", default=False,
-                         help="Parse stand-alone routes that are not define as child-element of a vehicle")
-    optParser.add_option("--filter-output.file", dest="filterOutputFile",
-                         help="only write output for edges in the given selection file")
-    optParser.add_option("--seed", type="int", help="random seed")
-    options, args = optParser.parse_args(args=args)
+    ap = ArgumentParser(description="generates a polygon for every loaded route")
+    ap.add_option("net", category="input", type=ap.net_file,
+                  help="input net file")
+    ap.add_option("routefiles", nargs="+", category="input", type=ap.file_list,
+                  help="input route files")
+    ap.add_option("-o", "--outfile", category="output", type=ap.file,
+                  help="name of output file")
+    ap.add_option("-u", "--hue", default="random",
+                  help="hue for polygons (float from [0,1] or 'random')")
+    ap.add_option("-s", "--saturation", default=1,
+                  help="saturation for polygons (float from [0,1] or 'random')")
+    ap.add_option("-b", "--brightness", default=1,
+                  help="brightness for polygons (float from [0,1] or 'random')")
+    ap.add_option("-l", "--layer", default=100,
+                  help="layer for generated polygons")
+    ap.add_option("--geo", action="store_true", default=False,
+                  help="write polygons with geo-coordinates")
+    ap.add_option("--internal", action="store_true", default=False,
+                  help="include internal edges in generated shapes")
+    ap.add_option("--spread", type=float,
+                  help="spread polygons laterally to avoid overlap")
+    ap.add_option("--blur", type=float, default=0,
+                  help="maximum random disturbance to route geometry")
+    ap.add_option("--scale-width", type=float, dest="scaleWidth",
+                  help="group similar routes and scale width by group size multiplied with the given factor (in m)")
+    ap.add_option("--standalone", action="store_true", default=False,
+                  help="Parse stand-alone routes that are not define as child-element of a vehicle")
+    ap.add_option("--filter-output.file", dest="filterOutputFile",
+                  help="only write output for edges in the given selection file")
+    ap.add_option("--seed", type=int, help="random seed")
+    options = ap.parse_args(args=args)
     if options.seed:
         random.seed(options.seed)
-    if len(args) < 2:
-        sys.exit(USAGE)
-    try:
-        options.net = args[0]
-        options.routefiles = args[1:]
-        options.colorgen = Colorgen(
-            (options.hue, options.saturation, options.brightness))
-    except Exception:
-        sys.exit(USAGE)
+    options.colorgen = Colorgen((options.hue, options.saturation, options.brightness))
     if options.outfile is None:
         options.outfile = options.routefiles[0] + ".poly.xml"
 

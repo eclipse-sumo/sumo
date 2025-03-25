@@ -645,6 +645,10 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::tags[] = {
     { "transports",     GNE_TAG_TRANSPORTS },
     { "tranships",      GNE_TAG_TRANSHIPS },
     { "containerStops", GNE_TAG_CONTAINERSTOPS },
+    { "datas",          GNE_TAG_DATAS },
+    { "meanDatas",      GNE_TAG_MEANDATAS },
+    // attributes
+    { "allAttributes",      GNE_TAG_ATTRIBUTES_ALL },
     // Last element
     { "",   SUMO_TAG_NOTHING }  // -> must be the last one
 };
@@ -1375,7 +1379,7 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::attrs[] = {
     { "close shape",                        GNE_ATTR_CLOSE_SHAPE },
     { "parent",                             GNE_ATTR_PARENT },
     { "dataSet",                            GNE_ATTR_DATASET },
-    { TL("Parameters"),                     GNE_ATTR_PARAMETERS },
+    { TL("parameters"),                     GNE_ATTR_PARAMETERS },
     { "flowParameter",                      GNE_ATTR_FLOWPARAMETERS },
     { "defaultVTypeModified",               GNE_ATTR_DEFAULT_VTYPE_MODIFIED },
     { TL("center view"),                    GNE_ATTR_CENTER_AFTER_CREATION },
@@ -1414,6 +1418,8 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::attrs[] = {
     { "isRoundabout",                       GNE_ATTR_IS_ROUNDABOUT },
     { "frontElement",                       GNE_ATTR_FRONTELEMENT },
     { TL("edges within"),                   GNE_ATTR_EDGES_WITHIN },
+    { "all",                                GNE_ATTR_ALL },
+    { TL("no common attrs."),               GNE_ATTR_NOCOMMON },
 
     { "carriageLength",     SUMO_ATTR_CARRIAGE_LENGTH },
     { "locomotiveLength",   SUMO_ATTR_LOCOMOTIVE_LENGTH },

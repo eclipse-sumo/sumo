@@ -1,5 +1,8 @@
 # go on even if the route is defect
 ignore_errors
+
+# keep valid input and remove invalid
+ignore_errors2
 ignore_errors_invalid_depart_edge
 
 # randomize edge weights

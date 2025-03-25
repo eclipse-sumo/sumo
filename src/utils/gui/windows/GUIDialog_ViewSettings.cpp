@@ -195,6 +195,7 @@ GUIDialog_ViewSettings::~GUIDialog_ViewSettings() {
     delete myEdgeRainbowPanel;
     delete myJunctionRainbowPanel;
     delete myDataRainbowPanel;
+    delete myVehicleRainbowPanel;
 }
 
 
@@ -350,6 +351,7 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*, FXSelector, void* ptr) {
     myVehicleScaleValuePanel->update(mySettings->vehicleScaleValue);
     myVehicleTextPanel->update(mySettings->vehicleText);
     myVehicleSizePanel->update(mySettings->vehicleSize);
+    myVehicleRainbowPanel->update(mySettings->vehicleValueRainBow);
 
     myPersonColorMode->setCurrentItem((FXint) mySettings->personColorer.getActive());
     myPersonShapeDetail->setCurrentItem(mySettings->personQuality);
@@ -662,6 +664,7 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
     tmpSettings.vehicleScaleValue = myVehicleScaleValuePanel->getSettings();
     tmpSettings.vehicleText = myVehicleTextPanel->getSettings();
     tmpSettings.vehicleSize = myVehicleSizePanel->getSettings();
+    tmpSettings.vehicleValueRainBow = myVehicleRainbowPanel->getSettings();
 
     tmpSettings.personColorer.setActive(myPersonColorMode->getCurrentItem());
     tmpSettings.personQuality = myPersonShapeDetail->getCurrentItem();
@@ -742,6 +745,9 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
         doRebuildColorMatrices = true;
     } else if (sender == myJunctionRainbowPanel->myColorRainbow) {
         myParent->buildColorRainbow(tmpSettings, tmpSettings.junctionColorer.getScheme(), tmpSettings.junctionColorer.getActive(), GLO_JUNCTION, myJunctionRainbowPanel->getSettings());
+        doRebuildColorMatrices = true;
+    } else if (sender == myVehicleRainbowPanel->myColorRainbow) {
+        myParent->buildColorRainbow(tmpSettings, tmpSettings.vehicleColorer.getScheme(), tmpSettings.vehicleColorer.getActive(), GLO_VEHICLE, myVehicleRainbowPanel->getSettings());
         doRebuildColorMatrices = true;
     } else if (myDataRainbowPanel && sender == myDataRainbowPanel->myColorRainbow) {
         myParent->buildColorRainbow(tmpSettings, tmpSettings.dataColorer.getScheme(), tmpSettings.dataColorer.getActive(), GLO_TAZRELDATA, myDataRainbowPanel->getSettings());
@@ -1390,6 +1396,11 @@ GUIDialog_ViewSettings::rebuildColorMatrices(bool doCreate) {
     } else {
         myJunctionRainbowPanel->myColorRainbow->enable();
     }
+    if (mySettings->vehicleColorer.getScheme().isFixed()) {
+        myVehicleRainbowPanel->myColorRainbow->disable();
+    } else {
+        myVehicleRainbowPanel->myColorRainbow->enable();
+    }
     std::string activeSchemeName = myLaneEdgeColorMode->getText().text();
     std::string activeScaleSchemeName = myLaneEdgeScaleMode->getText().text();
     myParamKey->clearItems();
@@ -1953,6 +1964,9 @@ GUIDialog_ViewSettings::buildVehiclesFrame(FXTabBook* tabbook) {
     myVehicleParamKey = new FXComboBox(matrixColor, 1, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
     myVehicleParamKey->setEditable(true);
     myVehicleParamKey->disable();
+
+    // rainbow settings
+    myVehicleRainbowPanel = new RainbowPanel(verticalframe, this, mySettings->vehicleValueRainBow);
 
     myVehicleColorSettingFrame = new FXVerticalFrame(verticalframe, GUIDesignViewSettingsVerticalFrame4);
     new FXHorizontalSeparator(verticalframe, GUIDesignHorizontalSeparator);

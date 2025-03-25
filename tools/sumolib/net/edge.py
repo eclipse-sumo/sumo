@@ -258,6 +258,13 @@ class Edge:
             return len([c for c in cons if c._direction not in (
                 Connection.LINKDIR_TURN, Connection.LINKDIR_TURN_LEFTHAND)]) == 0
 
+    def getPermissions(self):
+        """return the allowed vehicle classes for all lanes"""
+        allowed = set()
+        for lane in self._lanes:
+            allowed.update(lane.getPermissions())
+        return list(allowed)
+
     def allows(self, vClass):
         """true if this edge has a lane which allows the given vehicle class"""
         for lane in self._lanes:

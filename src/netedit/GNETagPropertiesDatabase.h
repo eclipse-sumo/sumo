@@ -45,13 +45,13 @@ public:
     ~GNETagPropertiesDatabase();
 
     /// @brief get tagProperty associated to the given tag
-    GNETagProperties* getTagProperty(SumoXMLTag tag) const;
+    const GNETagProperties* getTagProperty(const SumoXMLTag tag, const bool hardFail) const;
+
+    /// @brief get tagProperties associated to the given set tag (persons, stops, plans, etc.)
+    const std::vector<const GNETagProperties*> getTagPropertiesSet(const SumoXMLTag tag, const bool hardFail) const;
 
     /// @brief get tagProperties associated to the given GNETagProperties::TagType (NETWORKELEMENT, ADDITIONALELEMENT, VEHICLE, etc.)
     const std::vector<const GNETagProperties*> getTagPropertiesByType(const int tagPropertyCategory) const;
-
-    /// @brief get tagProperties associated to the given set tag (persons, stops, plans, etc.)
-    const std::vector<const GNETagProperties*> getTagPropertiesSet(SumoXMLTag setTag) const;
 
     /// @brief max number of editable (non extended) attributes
     int getMaxNumberOfEditableAttributeRows() const;
@@ -64,6 +64,9 @@ public:
 
     /// @brief get max number of netedit attribute rows
     int getMaxNumberOfNeteditAttributesRows() const;
+
+    /// @brief get hierarchy dept
+    int getHierarchyDepth() const;
 
     /// @brief write machine readable attribute help to file
     void writeAttributeHelp() const;
@@ -248,6 +251,9 @@ protected:
     /// @brief update max number of attributes by type
     void updateMaxNumberOfAttributesEditorRows();
 
+    /// @brief update max hierarchy depth
+    void updateMaxHierarchyDepth();
+
 private:
     /// @brief max number of editable (non extended) attributes (needed for attributes editor)
     int myMaxNumberOfEditableAttributeRows = 0;
@@ -261,8 +267,8 @@ private:
     /// @brief max number of netedit attributes (needed for netedit attributes editor)
     int myMaxNumberOfNeteditAttributeRows = 0;
 
-    /// @brief map with the tags properties vinculated with supermodes
-    std::map<Supermode, GNETagProperties*> mySupermodeTagProperties;
+    /// @brief hierarchy dept
+    int myHierarchyDepth = 0;
 
     /// @brief map with tag properties sets (persons, stops, etc.)
     std::map<SumoXMLTag, GNETagProperties*> mySetTagProperties;

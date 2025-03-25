@@ -36,7 +36,7 @@ an information about itself:
 Eclipse SUMO netgenerate Version {{Version}}
  Build features: Linux-4.1.39-56-default Proj GDAL GUI
  Copyright (C) 2001-2020 German Aerospace Center (DLR) and others; https://sumo.dlr.de
- License EPL-2.0: Eclipse Public License Version 2 <https://eclipse.org/legal/epl-v20.html>
+ License EPL-2.0: Eclipse Public License Version 2 <https://www.eclipse.org/legal/epl-2.0/>
  Use --help to get the list of options.
 ```
 

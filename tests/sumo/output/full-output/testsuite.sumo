@@ -4,6 +4,9 @@ no_vehicles
 # one vehicle is moving
 one_vehicle
 
+# one vehicle is moving
+one_vehicle_ele
+
 # one vehicle is moving, timestep is subseconds
 one_vehicle_subsecond
 

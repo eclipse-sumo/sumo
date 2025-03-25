@@ -25,6 +25,7 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 import sumolib  # noqa
 from sumolib.geomhelper import distance  # noqa
 from sumolib.xml import parse  # noqa
+from sumolib.net import lane2edge  # noqa
 import sumolib.geomhelper as gh  # noqa
 
 
@@ -113,6 +114,7 @@ def remap_lane(options, obj, laneID, pos=None):
 
 def remap_edge(options, obj, edgeID, pos=None):
     edge = options.net.getEdge(edgeID)
+    permissions = set(edge.getPermissions())
     shape = edge.getShape()
     shapelen = gh.polyLength(shape)
     relpos = pos / edge.getLength() if pos else 0.5
@@ -146,6 +148,20 @@ def remap_edge(options, obj, edgeID, pos=None):
         if degrees(fabs(origAngle - angle)) < options.atol:
             cands.append(e)
     edges = cands
+    cands2 = [e for e in edges if permissions.issubset(e.getPermissions())]
+    if not cands2:
+        # relax permission requirements a minimum
+        for svc in ["passenger", "bus", "bicycle" "tram", "rail", "pedestrian"]:
+            if svc in permissions:
+                permissions = set([svc])
+                break
+        cands2 = [e for e in edges if permissions.issubset(e.getPermissions())]
+        if not cands2:
+            print("No edges that allow '%s' found near %.2f,%.2f (origEdge %s)" % (
+                " ".join(permissions), x2, y2, edgeID), file=sys.stderr)
+            return None, None
+    edges = cands2
+
     if not edges:
         print("No edges with angle %.2f found near %.2f,%.2f (origEdge %s)" % (
             degrees(origAngle), x2, y2, edgeID), file=sys.stderr)
@@ -221,13 +237,15 @@ def remap(options, obj, level=1):
 
 def patchSpecialCases(options, obj, level):
     if level == 1:
-        accessLanes = set()
+        accessEdges = set()
         for child in obj.getChildList():
             if child.name == "access" and not child.isCommented():
-                if child.lane in accessLanes:
-                    print("Disabling duplicate access on lane %s" % child.lane, file=sys.stderr)
+                edge = lane2edge(child.lane)
+                if edge in accessEdges:
+                    print("Disabling duplicate access on edge %s" % edge, file=sys.stderr)
                     child.setCommented()
                 else:
+                    accessEdges.add(edge)
                     lane = options.net2.getLane(child.lane)
                     if not lane.allows("pedestrian"):
                         found = False
@@ -239,7 +257,6 @@ def patchSpecialCases(options, obj, level):
                         if not found:
                             print("Disabling access on non-pedestrian lane %s" % child.lane, file=sys.stderr)
                             child.setCommented()
-                    accessLanes.add(child.lane)
 
 
 def main(options):

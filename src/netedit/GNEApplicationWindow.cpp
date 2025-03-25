@@ -3826,7 +3826,7 @@ GNEApplicationWindow::onCmdSaveJuPedSimElementsAs(FXObject*, FXSelector, void*) 
             // get all jupedsims
             std::unordered_set<const GNEAttributeCarrier*> juPedSimElements;
             for (const auto& additionalTag : myNet->getAttributeCarriers()->getAdditionals()) {
-                if (myTagPropertiesDatabase->getTagProperty(additionalTag.first)->isJuPedSimElement()) {
+                if (myTagPropertiesDatabase->getTagProperty(additionalTag.first, true)->isJuPedSimElement()) {
                     for (const auto& additional : additionalTag.second) {
                         juPedSimElements.insert(additional.second);
                     }
@@ -3968,7 +3968,7 @@ GNEApplicationWindow::onCmdSaveDemandElements(FXObject* sender, FXSelector sel, 
     // check if we have to open save as dialog
     if (savingFileHandler->getDemandFilenames().empty()) {
         // choose file to save
-        return onCmdSaveAdditionalElementsUnified(sender, sel, ptr);
+        return onCmdSaveDemandElementsUnified(sender, sel, ptr);
     } else {
         // always recompute before saving
         myNet->computeNetwork(this);

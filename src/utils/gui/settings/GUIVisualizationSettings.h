@@ -865,6 +865,7 @@ public:
     // Setting bundles for optional drawing vehicle names or color value
     GUIVisualizationTextSettings vehicleName, vehicleValue, vehicleScaleValue, vehicleText;
 
+    GUIVisualizationRainbowSettings vehicleValueRainBow;
     /// @}
 
 

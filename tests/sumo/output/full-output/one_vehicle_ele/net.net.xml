@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-03-21 10:08:50 by Eclipse SUMO netgenerate Version v1_22_0+0941-4f8d635656e
+<netgenerateConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
+
+    <grid_network>
+        <grid value="true"/>
+        <grid.x-number value="2"/>
+        <grid.y-number value="1"/>
+        <grid.x-attach-length value="100"/>
+    </grid_network>
+
+    <processing>
+        <perturb-z value="7"/>
+    </processing>
+
+</netgenerateConfiguration>
+-->
+
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,0.00" convBoundary="0.00,0.00,300.00,0.00" origBoundary="0.00,0.00,300.00,0.00" projParameter="!"/>
+
+    <edge id=":A0_0" function="internal">
+        <lane id=":A0_0_0" index="0" speed="13.89" length="0.10" shape="100.00,1.60,4.20 100.00,1.60,4.20"/>
+    </edge>
+    <edge id=":A0_1" function="internal">
+        <lane id=":A0_1_0" index="0" speed="13.89" length="0.10" shape="100.00,-1.60,4.20 100.00,-1.60,4.20"/>
+    </edge>
+    <edge id=":B0_0" function="internal">
+        <lane id=":B0_0_0" index="0" speed="13.89" length="0.10" shape="200.00,1.60,-4.32 200.00,1.60,-4.32"/>
+    </edge>
+    <edge id=":B0_1" function="internal">
+        <lane id=":B0_1_0" index="0" speed="13.89" length="0.10" shape="200.00,-1.60,-4.32 200.00,-1.60,-4.32"/>
+    </edge>
+    <edge id=":left0_0" function="internal">
+        <lane id=":left0_0_0" index="0" speed="3.65" length="4.67" shape="0.00,1.60,0.73 -1.20,0.80,0.73 -1.60,0.00,0.73 -1.20,-0.80,0.73 0.00,-1.60,0.73"/>
+    </edge>
+    <edge id=":right0_0" function="internal">
+        <lane id=":right0_0_0" index="0" speed="3.65" length="4.67" shape="300.00,-1.60,5.79 301.20,-0.80,5.79 301.60,0.00,5.79 301.20,0.80,5.79 300.00,1.60,5.79"/>
+    </edge>
+
+    <edge id="A0B0" from="A0" to="B0" priority="-1">
+        <lane id="A0B0_0" index="0" speed="13.89" length="100.36" shape="100.00,-1.60,4.20 200.00,-1.60,-4.32"/>
+    </edge>
+    <edge id="A0left0" from="A0" to="left0" priority="-1">
+        <lane id="A0left0_0" index="0" speed="13.89" length="100.06" shape="100.00,1.60,4.20 0.00,1.60,0.73"/>
+    </edge>
+    <edge id="B0A0" from="B0" to="A0" priority="-1">
+        <lane id="B0A0_0" index="0" speed="13.89" length="100.36" shape="200.00,1.60,-4.32 100.00,1.60,4.20"/>
+    </edge>
+    <edge id="B0right0" from="B0" to="right0" priority="-1">
+        <lane id="B0right0_0" index="0" speed="13.89" length="100.51" shape="200.00,-1.60,-4.32 300.00,-1.60,5.79"/>
+    </edge>
+    <edge id="left0A0" from="left0" to="A0" priority="-1">
+        <lane id="left0A0_0" index="0" speed="13.89" length="100.06" shape="0.00,-1.60,0.73 100.00,-1.60,4.20"/>
+    </edge>
+    <edge id="right0B0" from="right0" to="B0" priority="-1">
+        <lane id="right0B0_0" index="0" speed="13.89" length="100.51" shape="300.00,1.60,5.79 200.00,1.60,-4.32"/>
+    </edge>
+
+    <junction id="A0" type="priority" x="100.00" y="0.00" z="4.20" incLanes="B0A0_0 left0A0_0" intLanes=":A0_0_0 :A0_1_0" shape="100.00,3.20,4.20 100.00,-3.20,4.20 100.00,3.20,4.20">
+        <request index="0" response="00" foes="00" cont="0"/>
+        <request index="1" response="00" foes="00" cont="0"/>
+    </junction>
+    <junction id="B0" type="priority" x="200.00" y="0.00" z="-4.32" incLanes="right0B0_0 A0B0_0" intLanes=":B0_0_0 :B0_1_0" shape="200.00,3.20,-4.32 200.00,-3.20,-4.32 200.00,3.20,-4.32">
+        <request index="0" response="00" foes="00" cont="0"/>
+        <request index="1" response="00" foes="00" cont="0"/>
+    </junction>
+    <junction id="left0" type="priority" x="0.00" y="0.00" z="0.73" incLanes="A0left0_0" intLanes=":left0_0_0" shape="0.00,0.00,0.73 0.00,3.20,0.73 0.00,0.00,0.73" fringe="outer">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="right0" type="priority" x="300.00" y="0.00" z="5.79" incLanes="B0right0_0" intLanes=":right0_0_0" shape="300.00,0.00,5.79 300.00,-3.20,5.79 300.00,0.00,5.79" fringe="outer">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+
+    <connection from="A0B0" to="B0right0" fromLane="0" toLane="0" via=":B0_1_0" dir="s" state="M"/>
+    <connection from="A0left0" to="left0A0" fromLane="0" toLane="0" via=":left0_0_0" dir="t" state="M"/>
+    <connection from="B0A0" to="A0left0" fromLane="0" toLane="0" via=":A0_0_0" dir="s" state="M"/>
+    <connection from="B0right0" to="right0B0" fromLane="0" toLane="0" via=":right0_0_0" dir="t" state="M"/>
+    <connection from="left0A0" to="A0B0" fromLane="0" toLane="0" via=":A0_1_0" dir="s" state="M"/>
+    <connection from="right0B0" to="B0A0" fromLane="0" toLane="0" via=":B0_0_0" dir="s" state="M"/>
+
+    <connection from=":A0_0" to="A0left0" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":A0_1" to="A0B0" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":B0_0" to="B0A0" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":B0_1" to="B0right0" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":left0_0" to="left0A0" fromLane="0" toLane="0" dir="t" state="M"/>
+    <connection from=":right0_0" to="right0B0" fromLane="0" toLane="0" dir="t" state="M"/>
+
+</net>

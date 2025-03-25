@@ -7002,21 +7002,22 @@ MSVehicle::removeApproachingInformation(const DriveItemVector& lfLinks) const {
 
 
 bool
-MSVehicle::unsafeLinkAhead(const MSLane* lane) const {
+MSVehicle::unsafeLinkAhead(const MSLane* lane, double zipperDist) const {
     // the following links are unsafe:
     // - zipper links if they are close enough and have approaching vehicles in the relevant time range
     // - unprioritized links if the vehicle is currently approaching a prioritzed link and unable to stop in time
     double seen = myLane->getLength() - getPositionOnLane();
-    const double dist = getCarFollowModel().brakeGap(getSpeed(), getCarFollowModel().getMaxDecel(), 0);
+    const double dist = MAX2(zipperDist, getCarFollowModel().brakeGap(getSpeed(), getCarFollowModel().getMaxDecel(), 0));
     if (seen < dist) {
         const std::vector<MSLane*>& bestLaneConts = getBestLanesContinuation(lane);
         int view = 1;
         std::vector<MSLink*>::const_iterator link = MSLane::succLinkSec(*this, view, *lane, bestLaneConts);
         DriveItemVector::const_iterator di = myLFLinkLanes.begin();
         while (!lane->isLinkEnd(link) && seen <= dist) {
-            if (!lane->getEdge().isInternal()
+            if ((!lane->isInternal()
                     && (((*link)->getState() == LINKSTATE_ZIPPER && seen < (*link)->getFoeVisibilityDistance())
-                        || !(*link)->havePriority())) {
+                        || !(*link)->havePriority()))
+                    || (lane->isInternal() && zipperDist > 0)) {
                 // find the drive item corresponding to this link
                 bool found = false;
                 while (di != myLFLinkLanes.end() && !found) {
@@ -7035,7 +7036,11 @@ MSVehicle::unsafeLinkAhead(const MSLane* lane) const {
                 if (found) {
                     const SUMOTime leaveTime = (*link)->getLeaveTime((*di).myArrivalTime, (*di).myArrivalSpeed,
                                                (*di).getLeaveSpeed(), getVehicleType().getLength());
-                    if ((*link)->hasApproachingFoe((*di).myArrivalTime, leaveTime, (*di).myArrivalSpeed, getCarFollowModel().getMaxDecel())) {
+                    const MSLink* entry = (*link)->getCorrespondingEntryLink();
+                    //if (DEBUG_COND) {
+                    //    std::cout << SIMTIME << " veh=" << getID() << " changeTo=" << Named::getIDSecure(bestLaneConts.front()) << " linkState=" << toString((*link)->getState()) << " seen=" << seen << " dist=" << dist << " zipperDist=" << zipperDist << " aT=" << STEPS2TIME((*di).myArrivalTime) << " lT=" << STEPS2TIME(leaveTime) << "\n";
+                    //}
+                    if (entry->hasApproachingFoe((*di).myArrivalTime, leaveTime, (*di).myArrivalSpeed, getCarFollowModel().getMaxDecel())) {
                         //std::cout << SIMTIME << " veh=" << getID() << " aborting changeTo=" << Named::getIDSecure(bestLaneConts.front()) << " linkState=" << toString((*link)->getState()) << " seen=" << seen << " dist=" << dist << "\n";
                         return true;
                     }

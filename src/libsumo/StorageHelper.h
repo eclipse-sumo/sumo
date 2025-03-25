@@ -116,6 +116,17 @@ public:
         stage.description = readTypedString(inputStorage, error);
     }
 
+    static void readConnection(tcpip::Storage& inputStorage, libsumo::TraCIConnection& connection, const std::string& error = "") {
+        connection.approachedLane = readTypedString(inputStorage, error);
+        connection.approachedInternal = readTypedString(inputStorage, error);
+        connection.hasPrio = readBool(inputStorage, error);
+        connection.isOpen = readBool(inputStorage, error);
+        connection.hasFoe = readBool(inputStorage, error);
+        connection.state = readTypedString(inputStorage, error);
+        connection.direction = readTypedString(inputStorage, error);
+        connection.length = readTypedDouble(inputStorage, error);
+    }
+
 
     static void writeTypedByte(tcpip::Storage& content, int value) {
         content.writeUnsignedByte(libsumo::TYPE_BYTE);

@@ -151,7 +151,7 @@ public:
      * @param[in] keepCurrentStop whether the current stop at the given stopp index should still be served after the new one
      * @return the best stopping place according to the target function or nullptr
      */
-    MSStoppingPlace* reroute(std::vector<StoppingPlaceVisible>& stoppingPlaceCandidates, const std::vector<double>& probs, SUMOVehicle& veh,
+    MSStoppingPlace* rerouteStoppingPlace(std::vector<StoppingPlaceVisible>& stoppingPlaceCandidates, const std::vector<double>& probs, SUMOVehicle& veh,
                              bool& newDestination, ConstMSEdgeVector& newRoute, StoppingPlaceParamMap_t& scores, const MSEdgeVector& closedEdges = {},
                              const int insertStopIndex = 0, const bool keepCurrentStop = true);
     /** @brief compute the target function for a single alternative

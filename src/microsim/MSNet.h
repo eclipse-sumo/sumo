@@ -121,6 +121,7 @@ public:
         const MSLane* lane;
         double pos;
         SUMOTime time;
+        SUMOTime continuationTime;
     };
 
     typedef std::map<std::string, std::vector<Collision> > CollisionMap;

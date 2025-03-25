@@ -2009,11 +2009,21 @@ MSLane::handleCollisionBetween(SUMOTime timestep, const std::string& stage, cons
     if (collider->ignoreCollision() || victim->ignoreCollision()) {
         return;
     }
-    const std::string collisionType = ((collider->getLaneChangeModel().isOpposite() != victim->getLaneChangeModel().isOpposite()
-                                        || (&collider->getLane()->getEdge() == victim->getLane()->getEdge().getBidiEdge()))
-                                       ?  "frontal" : (isInternal() ? "junction" : "collision"));
-    const std::string collisionText = collisionType == "frontal" ? TL("frontal collision") :
-                                      (collisionType == "junction" ? TL("junction collision") : TL("collision"));
+    std::string collisionType;
+    std::string collisionText;
+    if (isFrontalCollision(collider, victim)) {
+        collisionType = "frontal";
+        collisionText = TL("frontal collision");
+    } else if (stage == MSNet::STAGE_LANECHANGE) {
+        collisionType = "side";
+        collisionText = TL("side collision");
+    } else if (isInternal()) {
+        collisionType = "junction";
+        collisionText = TL("junction collision");
+    } else {
+        collisionType = "collision";
+        collisionText = TL("collision");
+    }
 
     // in frontal collisions the opposite vehicle is the collider
     if (victim->getLaneChangeModel().isOpposite() && !collider->getLaneChangeModel().isOpposite()) {
@@ -2114,7 +2124,7 @@ MSLane::handleCollisionBetween(SUMOTime timestep, const std::string& stage, cons
                        time2string(timestep), stage);
         MSNet::getInstance()->informVehicleStateListener(victim, MSNet::VehicleState::COLLISION);
         MSNet::getInstance()->informVehicleStateListener(collider, MSNet::VehicleState::COLLISION);
-        MSNet::getInstance()->getVehicleControl().registerCollision(myCollisionAction == COLLISION_ACTION_TELEPORT);
+        MSNet::getInstance()->getVehicleControl().countCollision(myCollisionAction == COLLISION_ACTION_TELEPORT);
     }
 #ifdef DEBUG_COLLISIONS
     if (DEBUG_COND2(collider)) {
@@ -2195,7 +2205,7 @@ MSLane::handleIntermodalCollisionBetween(SUMOTime timestep, const std::string& s
                                        victim->getID(), getID(), time2string(timestep), stage));
         }
         MSNet::getInstance()->informVehicleStateListener(collider, MSNet::VehicleState::COLLISION);
-        MSNet::getInstance()->getVehicleControl().registerCollision(myIntermodalCollisionAction == COLLISION_ACTION_TELEPORT);
+        MSNet::getInstance()->getVehicleControl().countCollision(myIntermodalCollisionAction == COLLISION_ACTION_TELEPORT);
     }
 #ifdef DEBUG_COLLISIONS
     if (DEBUG_COND2(collider)) {
@@ -2205,6 +2215,25 @@ MSLane::handleIntermodalCollisionBetween(SUMOTime timestep, const std::string& s
 #endif
 }
 
+
+bool
+MSLane::isFrontalCollision(const MSVehicle* collider, const MSVehicle* victim) {
+    if (collider->getLaneChangeModel().isOpposite() != victim->getLaneChangeModel().isOpposite()) {
+        return true;
+    } else {
+        const MSEdge* victimBidi = victim->getLane()->getEdge().getBidiEdge();
+        if (&collider->getLane()->getEdge() == victimBidi) {
+            return true;
+        } else {
+            for (MSLane* further : collider->getFurtherLanes()) {
+                if (&further->getEdge() == victimBidi) {
+                    return true;
+                }
+            }
+        }
+    }
+    return false;
+}
 
 void
 MSLane::executeMovements(const SUMOTime t) {
@@ -2265,7 +2294,7 @@ MSLane::executeMovements(const SUMOTime t) {
             assert(false);
             WRITE_WARNINGF(TL("Teleporting vehicle '%'; beyond end of lane, target lane='%', time=%."),
                            veh->getID(), getID(), time2string(t));
-            MSNet::getInstance()->getVehicleControl().registerCollision(true);
+            MSNet::getInstance()->getVehicleControl().countCollision(true);
             MSVehicleTransfer::getInstance()->add(t, veh);
 
         } else if (veh->collisionStopTime() == 0) {

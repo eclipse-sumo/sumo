@@ -823,6 +823,18 @@ GNEViewNet::buildColorRainbow(const GUIVisualizationSettings& s, GUIColorScheme&
             minValue = MIN2(minValue, val);
             maxValue = MAX2(maxValue, val);
         }
+    } else if (objectType == GLO_VEHICLE) {
+        for (const auto& tagMap : myNet->getAttributeCarriers()->getDemandElements()) {
+            for (const auto& objItem : tagMap.second) {
+                const double val = objItem.first->getColorValue(s, active);
+                if (val == s.MISSING_DATA) {
+                    hasMissingData = true;
+                    continue;
+                }
+                minValue = MIN2(minValue, val);
+                maxValue = MAX2(maxValue, val);
+            }
+        }
     } else if (objectType == GLO_JUNCTION) {
         if (active == 3) {
             for (const auto& junction : myNet->getAttributeCarriers()->getJunctions()) {

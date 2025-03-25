@@ -545,6 +545,9 @@ MSNet::writeCollisions() const {
     OutputDevice& od = OutputDevice::getDeviceByOption("collision-output");
     for (const auto& item : myCollisions) {
         for (const auto& c : item.second) {
+            if (c.time != SIMSTEP) {
+                continue;
+            }
             od.openTag("collision");
             od.writeAttr("time", time2string(getCurrentTimeStep()));
             od.writeAttr("type", c.type);
@@ -1321,13 +1324,20 @@ MSNet::registerCollision(const SUMOTrafficObject* collider, const SUMOTrafficObj
         for (Collision& old : it->second) {
             if (old.victim == victim->getID()) {
                 // collision from previous step continues
-                old.colliderSpeed = collider->getSpeed();
-                old.victimSpeed = victim->getSpeed();
-                old.type = collisionType;
-                old.lane = lane;
-                old.pos = pos;
-                old.time = myStep;
+                old.continuationTime = myStep;
                 return false;
+            }
+        }
+    } else {
+        // maybe the roles have been reversed
+        auto it2 = myCollisions.find(victim->getID());
+        if (it2 != myCollisions.end()) {
+            for (Collision& old : it2->second) {
+                if (old.victim == collider->getID()) {
+                    // collision from previous step continues (keep the old roles)
+                    old.continuationTime = myStep;
+                    return false;
+                }
             }
         }
     }
@@ -1341,6 +1351,7 @@ MSNet::registerCollision(const SUMOTrafficObject* collider, const SUMOTrafficObj
     c.lane = lane;
     c.pos = pos;
     c.time = myStep;
+    c.continuationTime = myStep;
     myCollisions[collider->getID()].push_back(c);
     return true;
 }
@@ -1350,7 +1361,7 @@ void
 MSNet::removeOutdatedCollisions() {
     for (auto it = myCollisions.begin(); it != myCollisions.end();) {
         for (auto it2 = it->second.begin(); it2 != it->second.end();) {
-            if (it2->time != myStep) {
+            if (it2->continuationTime != myStep) {
                 it2 = it->second.erase(it2);
             } else {
                 it2++;

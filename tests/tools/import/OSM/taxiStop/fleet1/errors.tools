@@ -71,8 +71,8 @@ Warning: Not joining junctions 1673526976,29192953,4590472031,4590472049,4590472
 Warning: Reducing junction cluster 26701256,29192960,3590535061,3590535063,4590472038 (parallel incoming -15977422#0,-35578576#1).
 Warning: Reducing junction cluster 1803575761,21487209,2480337678,2656298207,29219440,341340978,3831343134,4566145597,5747234974 (long edge).
 Warning: Not joining junctions 27005148,3378459428 (only 1 edge within and no cross-traffic).
-Warning: Not joining junctions 28373972,3513423889,3513425993 (not compact (maxEdge=4612964#0 length=7.19)).
 Warning: Not joining junctions 2933657337,2933662031 (parallel outgoing 289830064,344594961).
+Warning: Not joining junctions 30731510,588181257,588181258,588181259 (only 1 exit node).
 Warning: Ambiguity in turnarounds computation at junction '1206481791'.
 Warning: Ambiguity in turnarounds computation at junction '1206481808'.
 Warning: Ambiguity in turnarounds computation at junction '5527777343'.
@@ -94,7 +94,6 @@ Warning: 10 total messages of type: Could not re-assign PT stop '%', probably br
 Warning: 13 total messages of type: Discarding unknown compound '%' in type '%' (first occurrence for edge '%').
 Warning: 15 total messages of type: Discarding unusable type '%' (first occurrence for edge '%').
 Warning: 15 total messages of type: No way found for reference '%' in relation '%'
-Warning: 6 total messages of type: Not joining junctions % (%).
 Warning: 15 total messages of type: PT line in relation % with no stops ignored. Probably OSM file is incomplete.
 Warning: 9 total messages of type: PT stop '%' has been moved to edge '%'.
 Warning: 22 total messages of type: Platform '%' in relation: '%' is given as polygon, which currently is not supported.

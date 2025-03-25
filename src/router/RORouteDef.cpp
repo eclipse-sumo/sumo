@@ -146,21 +146,21 @@ RORouteDef::preComputeCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router
             if (edges.back()->isTazConnector()) {
                 edges.pop_back();
             }
-        }
-        // check whether the same route was already used
-        int existing = -1;
-        for (int i = 0; i < (int)myAlternatives.size(); i++) {
-            if (edges == myAlternatives[i]->getEdgeVector()) {
-                existing = i;
-                break;
+            // check whether the same route was already used
+            int existing = -1;
+            for (int i = 0; i < (int)myAlternatives.size(); i++) {
+                if (edges == myAlternatives[i]->getEdgeVector()) {
+                    existing = i;
+                    break;
+                }
             }
-        }
-        if (existing >= 0) {
-            myPrecomputed = myAlternatives[existing];
-        } else {
-            RGBColor* col = myAlternatives[0]->getColor() != nullptr ? new RGBColor(*myAlternatives[0]->getColor()) : nullptr;
-            myPrecomputed = new RORoute(myID, 0, 1, edges, col, myAlternatives[0]->getStops());
-            myNewRoute = true;
+            if (existing >= 0) {
+                myPrecomputed = myAlternatives[existing];
+            } else {
+                RGBColor* col = myAlternatives[0]->getColor() != nullptr ? new RGBColor(*myAlternatives[0]->getColor()) : nullptr;
+                myPrecomputed = new RORoute(myID, 0, 1, edges, col, myAlternatives[0]->getStops());
+                myNewRoute = true;
+            }
         }
     }
 }

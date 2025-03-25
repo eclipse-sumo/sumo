@@ -606,6 +606,7 @@ GUIVisualizationSettings::GUIVisualizationSettings(const std::string& _name, boo
     vehicleValue(false, 80, RGBColor::CYAN),
     vehicleScaleValue(false, 80, RGBColor::GREY),
     vehicleText(false, 80, RGBColor::RED),
+    vehicleValueRainBow(false, 0, false, 100, false, 0, false, 1),
     personQuality(netedit ? 2 : 0),
     personSize(1),
     personName(false, 60, RGBColor(0, 153, 204, 255)),
@@ -2110,6 +2111,7 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     dev.writeAttr("vehicleScaleMode", vehicleScaler.getActive());
     dev.writeAttr("vehicleQuality", vehicleQuality);
     vehicleSize.print(dev, "vehicle");
+    vehicleValueRainBow.print(dev, "vehicleValue");
     dev.writeAttr("showBlinker", showBlinker);
     dev.writeAttr("drawMinGap", drawMinGap);
     dev.writeAttr("drawBrakeGap", drawBrakeGap);
@@ -2451,6 +2453,9 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
         return false;
     }
     if (vehicleSize != v2.vehicleSize) {
+        return false;
+    }
+    if (vehicleValueRainBow != v2.vehicleValueRainBow) {
         return false;
     }
     if (showBlinker != v2.showBlinker) {

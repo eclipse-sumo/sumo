@@ -470,7 +470,7 @@ public:
     }
 
     /// @brief registers one collision-related teleport
-    void registerCollision(bool teleport) {
+    void countCollision(bool teleport) {
         myCollisions++;
         if (teleport) {
             myTeleportsCollision++;

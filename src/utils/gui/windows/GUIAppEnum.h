@@ -1070,6 +1070,8 @@ enum {
     MID_GNE_SELECTORFRAME_SELECTTAG,
     /// @brief select attribute in selector frame
     MID_GNE_SELECTORFRAME_SELECTATTRIBUTE,
+    /// @brief toogle only show common
+    MID_GNE_SELECTORFRAME_TOGGLECOMMON,
     /// @brief process string
     MID_GNE_SELECTORFRAME_PROCESSSTRING,
     /// @brief changes the visual scaling of selected items

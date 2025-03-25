@@ -19,21 +19,18 @@ from __future__ import print_function
 from __future__ import absolute_import
 import os
 import sys
-from optparse import OptionParser
 
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 from sumolib.output import parse, parse_fast  # noqa
+from sumolib.options import ArgumentParser
 
 
 def parse_args():
     USAGE = "Usage: " + sys.argv[0] + " <routefile> [options]"
-    optParser = OptionParser()
-    optParser.add_option("-o", "--outfile", help="name of output file")
-    options, args = optParser.parse_args()
-    try:
-        options.routefiles = args
-    except Exception:
-        sys.exit(USAGE)
+    ap = ArgumentParser()
+    ap.add_option("routefiles", nargs="+", category="input", type=ap.file_list, help="route files")
+    ap.add_option("-o", "--outfile", category="output", type=ap.file, help="name of output file")
+    options = ap.parse_args()
     if options.outfile is None:
         options.outfile = options.routefiles[0] + ".sel.txt"
     return options
@@ -51,15 +48,15 @@ def main():
 
         # warn about potentially missing edges
         for trip in parse(routefile, ['trip', 'flow'], heterogeneous=True):
-            edges.update([trip.attr_from, trip.to])
-            if trip.via is not None:
-                edges.update(trip.via.split())
-            print(
-                "Warning: Trip %s is not guaranteed to be connected within the extracted edges." % trip.id)
+            for attr in ['attr_from', 'to', 'via']:
+                if trip.attr_from:
+                    edges.update(trip.attr_from)
+                if trip.to:
+                    edges.update(trip.to)
+                if trip.via:
+                    edges.update(trip.via.split())
         for walk in parse_fast(routefile, 'walk', ['from', 'to']):
             edges.update([walk.attr_from, walk.to])
-            print("Warning: Walk from %s to %s is not guaranteed to be connected within the extracted edges." % (
-                walk.attr_from, walk.to))
 
     with open(options.outfile, 'w') as outf:
         for e in sorted(list(edges)):

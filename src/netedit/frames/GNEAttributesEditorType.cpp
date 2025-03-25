@@ -506,8 +506,8 @@ GNEAttributesEditorType::toggleEnableAttribute(SumoXMLAttr attr, const bool valu
 
 void
 GNEAttributesEditorType::enableReparent() {
-    if (myEditedACs.front()->getTagProperty()->getParentTags().size() > 0) {
-        myReparentTag = myEditedACs.front()->getTagProperty()->getParentTags().front();
+    if (myEditedACs.front()->getTagProperty()->getXMLParentTags().size() > 0) {
+        myReparentTag = myEditedACs.front()->getTagProperty()->getXMLParentTags().front();
         refreshAttributesEditor();
         myFrameParent->getViewNet()->update();
     }

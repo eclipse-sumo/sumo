@@ -1190,7 +1190,7 @@ public:
 
 
     /// @brief whether the vehicle may safely move to the given lane with regard to upcoming links
-    bool unsafeLinkAhead(const MSLane* lane) const;
+    bool unsafeLinkAhead(const MSLane* lane, double zipperDist) const;
 
     /// @brief decide whether the vehicle is passing a minor link or has comitted to do so
     bool passingMinor() const;

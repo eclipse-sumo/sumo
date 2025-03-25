@@ -30,9 +30,10 @@
 // class declaration
 // ===========================================================================
 
-class GNEElementSet;
+class GNEAttributeProperties;
 class GNEMatchAttribute;
 class GNEMatchGenericDataAttribute;
+class GNETagProperties;
 
 // ===========================================================================
 // class definitions
@@ -434,20 +435,6 @@ public:
      */
     void handleIDs(const std::vector<GNEAttributeCarrier*>& ACs, const ModificationMode::Operation setop = ModificationMode::Operation::DEFAULT);
 
-    /**@brief return ACs of the given type with matching attrs
-     * @param[in] ACTag XML Tag of AttributeCarrier
-     * @param[in] ACAttr XML Attribute of AttributeCarrier
-     * @param[in] compOp One of {<,>,=} for matching against val or '@' for matching against expr
-     */
-    std::vector<GNEAttributeCarrier*> getMatches(const SumoXMLTag ACTag, const SumoXMLAttr ACAttr, const char compOp, const double val, const std::string& expr);
-
-    /**@brief return GenericDatas of the given type with matching attrs
-     * @param[in] genericDatas list of filter generic datas
-     * @param[in] attr XML Attribute used to filter
-     * @param[in] compOp One of {<,>,=} for matching against val or '@' for matching against expr
-     */
-    std::vector<GNEAttributeCarrier*> getGenericMatches(const std::vector<GNEGenericData*>& genericDatas, const std::string& attr, const char compOp, const double val, const std::string& expr);
-
     /// @brief get vertical frame that holds all widgets of frame
     FXVerticalFrame* getContentFrame() const;
 
@@ -467,14 +454,8 @@ private:
     /// @brief modul for change modification mode
     GNESelectorFrame::ModificationMode* myModificationMode = nullptr;
 
-    /// @brief moduls for select network element set
-    GNEElementSet* myNetworkElementSet = nullptr;
-
-    /// @brief moduls for select demand element set
-    GNEElementSet* myDemandElementSet = nullptr;
-
-    /// @brief moduls for select data element set
-    GNEElementSet* myDataElementSet = nullptr;
+    /// @brief modul for match attribute
+    GNEMatchAttribute* myMatchAttribute = nullptr;
 
     /// @brief modul for visual scaling
     GNESelectorFrame::VisualScaling* myVisualScaling = nullptr;

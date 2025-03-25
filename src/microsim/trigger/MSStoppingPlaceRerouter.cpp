@@ -30,7 +30,9 @@
 #include <microsim/trigger/MSChargingStation.h>
 #include "MSStoppingPlaceRerouter.h"
 
+//#define DEBUG_STOPPINGPLACE
 #define DEBUGCOND (veh.isSelected())
+//#define DEBUGCOND (true)
 
 
 ///@brief Constructor
@@ -48,7 +50,7 @@ MSStoppingPlaceRerouter::MSStoppingPlaceRerouter(SumoXMLTag stoppingType, std::s
 }
 
 MSStoppingPlace*
-MSStoppingPlaceRerouter::reroute(std::vector<StoppingPlaceVisible>& stoppingPlaceCandidates, const std::vector<double>& probs, SUMOVehicle& veh, bool& newDestination, ConstMSEdgeVector& newRoute, StoppingPlaceParamMap_t& scores,
+MSStoppingPlaceRerouter::rerouteStoppingPlace(std::vector<StoppingPlaceVisible>& stoppingPlaceCandidates, const std::vector<double>& probs, SUMOVehicle& veh, bool& newDestination, ConstMSEdgeVector& newRoute, StoppingPlaceParamMap_t& scores,
                                  const MSEdgeVector& closedEdges, const int insertStopIndex, const bool keepCurrentStop) {
     // Reroute destination from initial stopping place to an alternative stopping place
     // if the following conditions are met:
@@ -82,6 +84,7 @@ MSStoppingPlaceRerouter::reroute(std::vector<StoppingPlaceVisible>& stoppingPlac
 
     MSStoppingPlace* onTheWay = nullptr;
     const int stopAnywhere = (int)getWeight(veh, "anywhere", -1);
+    const bool ignoreDest = getWeight(veh, "ignoreDest", myConsiderDestVisibility ? 0 : 1) != 0;
     // check whether we are ready to accept any free stopping place along the
     // way to our destination
     if (stopAnywhere < 0 || stopAnywhere > getNumberStoppingPlaceReroutes(veh)) {
@@ -128,11 +131,11 @@ MSStoppingPlaceRerouter::reroute(std::vector<StoppingPlaceVisible>& stoppingPlac
         }
 #endif
     }
-    if (myConsiderDestVisibility && !destVisible && onTheWay == nullptr) {
+    if (!ignoreDest && !destVisible && onTheWay == nullptr) {
         return nullptr;
     }
 
-    if (!myConsiderDestVisibility || getLastStepStoppingPlaceOccupancy(destStoppingPlace) >= getStoppingPlaceCapacity(destStoppingPlace) || onTheWay != nullptr) {
+    if (ignoreDest || getLastStepStoppingPlaceOccupancy(destStoppingPlace) >= getStoppingPlaceCapacity(destStoppingPlace) || onTheWay != nullptr) {
         // if the current route ends at the stopping place, the new route will
         // also end at the new stopping place
         newDestination = (destStoppingPlace != nullptr && &destStoppingPlace->getLane().getEdge() == route.getLastEdge()

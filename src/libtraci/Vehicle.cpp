@@ -419,19 +419,10 @@ Vehicle::getNextLinks(const std::string& vehID) {
     tcpip::Storage& ret = Dom::get(libsumo::VAR_NEXT_LINKS, vehID);
     ret.readInt(); // components
     // number of items
-    ret.readUnsignedByte();
-
-    const int linkNo = ret.readInt();
+    const int linkNo = StoHelp::readTypedInt(ret);
     for (int i = 0; i < linkNo; ++i) {
         libsumo::TraCIConnection con;
-        con.approachedLane = StoHelp::readTypedString(ret);
-        con.approachedInternal = StoHelp::readTypedString(ret);
-        con.hasPrio = StoHelp::readBool(ret);
-        con.isOpen = StoHelp::readBool(ret);
-        con.hasFoe = StoHelp::readBool(ret);
-        con.state = StoHelp::readTypedString(ret);
-        con.direction = StoHelp::readTypedString(ret);
-        con.length = StoHelp::readTypedDouble(ret);
+        StoHelp::readConnection(ret, con);
         result.emplace_back(con);
     }
     return result;

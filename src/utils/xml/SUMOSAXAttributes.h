@@ -30,17 +30,17 @@
 #include <utils/common/SUMOTime.h>
 #include <utils/common/ToString.h>
 #include <utils/common/UtilExceptions.h>
-#include "SUMOXMLDefinitions.h"
 
+#include "SUMOXMLDefinitions.h"
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
+
 class Position;
 class PositionVector;
 class Boundary;
 class RGBColor;
-
 
 // ===========================================================================
 // class definitions
