@@ -426,6 +426,18 @@ class RandomTripGenerator:
         raise Exception("Warning: no trip found after %s tries" % maxtries)
 
 
+class CachedTripGenerator:
+
+    def __init__(self, cache):
+        self._cache = cache
+        self._nCalled = 0
+
+    def get_trip(self, min_distance, max_distance, maxtries=100, junctionTaz=False, min_dist_fringe=None):
+        result =  self._cache[self._nCalled % len(self._cache)]
+        self._nCalled += 1
+        return result
+
+
 def get_prob_fun(options, fringe_bonus, fringe_forbidden, max_length):
     # fringe_bonus None generates intermediate way points
     randomProbs = defaultdict(lambda: 1)
@@ -702,13 +714,15 @@ def main(options):
     return trip_generator is not None
 
 
-def createTrips(options, trip_generator):
+def createTrips(options, trip_generator, rerunFactor=None, skipValidation=False):
     idx = 0
 
     vtypeattrs, options.tripattrs, personattrs, otherattrs = split_trip_attributes(
         options.tripattrs, options.pedestrians, options.vehicle_class, options.verbose)
 
     vias = {}
+    generatedTrips = [] # (label, origin, destination, intermediate)
+    validatedTrips = [] # (origin, destination, intermediate)
 
     time_delta = (parseTime(options.end) - parseTime(options.begin)) / len(options.period)
     times = [parseTime(options.begin) + i * time_delta for i in range(len(options.period) + 1)]
@@ -825,6 +839,7 @@ def createTrips(options, trip_generator):
         try:
             label, combined_attrs, attrFrom, attrTo, via, arrivalPos = generate_attributes(
                 idx, departureTime, arrivalTime, origin, destination, intermediate, options)
+            generatedTrips.append((label, origin, destination, intermediate))
 
             if options.pedestrians:
                 if options.flows > 0:
@@ -876,6 +891,8 @@ def createTrips(options, trip_generator):
                     time = departureTime = parseTime(times[i])
                     arrivalTime = parseTime(times[i+1])
                     period = options.period[i]
+                    if rerunFactor is not None:
+                        period /= rerunFactor
                     if period == 0.0:
                         continue
                     if options.binomial is None:
@@ -929,6 +946,8 @@ def createTrips(options, trip_generator):
                             departureTime = times[i]
                             arrivalTime = times[i+1]
                             period = options.period[i]
+                            if rerunFactor is not None:
+                                period /= rerunFactor
                             if period == 0.0:
                                 continue
                             origin, destination, intermediate = origins_destinations[j]
@@ -989,7 +1008,7 @@ def createTrips(options, trip_generator):
         sys.stdout.flush()
         sumolib.xml.insertOptionsHeader(options.routefile, options)
 
-    if options.validate:
+    if options.validate and not skipValidation:
         # write to temporary file because the input is read incrementally
         tmpTrips = options.tripfile + ".tmp"
         args2 = duargs + ['-o', tmpTrips, '--write-trips']
@@ -1003,19 +1022,33 @@ def createTrips(options, trip_generator):
         os.remove(options.tripfile)  # on windows, rename does not overwrite
         os.rename(tmpTrips, options.tripfile)
         sumolib.xml.insertOptionsHeader(options.tripfile, options)
-        nRequested = idx - 1
-        nValid = len(list(sumolib.xml.parse_fast(options.tripfile, getElement(options), [])))
-        if nRequested > 0 and nValid < nRequested:
-            successRate = nValid / nRequested
-            if successRate < options.minSuccessRate:
-                print("Warning: Only %s out of %s requested %ss passed validation. " +
-                      "Set option --error-log for more details on the failure." +
-                      "Set option --min-success-rate to find more valid trips" % (
-                          nValid, nRequested, getElement(options)), file=sys.stderr)
-            else:
-                if options.verbose:
-                    print("Only %s out of %s requested %ss passed validation. Sampling again to find more." % (
-                        nValid, nRequested, getElement(options)))
+
+        validLabels = set([t.id for t in sumolib.xml.parse_fast(options.tripfile, getElement(options), ['id'])])
+        validatedTrips = [(o, d, i) for (label, o, d, i) in generatedTrips if label in validLabels]
+
+        if rerunFactor is None:
+            nRequested = idx - 1
+            nValid = len(validLabels)
+            if nRequested > 0 and nValid < nRequested:
+                successRate = nValid / nRequested
+                if successRate < options.minSuccessRate:
+                    print("Warning: Only %s out of %s requested %ss passed validation. " +
+                          "Set option --error-log for more details on the failure." +
+                          "Set option --min-success-rate to find more valid trips" % (
+                              nValid, nRequested, getElement(options)), file=sys.stderr)
+                else:
+                    if options.verbose:
+                        print("Only %s out of %s requested %ss passed validation. Sampling again to find more." % (
+                            nValid, nRequested, getElement(options)))
+
+                    # 1. call the current trip_generator again to generate more valid origin-destination pairs
+                    validatedTrips2 = createTrips(options, trip_generator, 1.2 / successRate - 1)
+                    # 2. reconfigure trip_generator to only output valid pairs
+                    trip_generator2 = CachedTripGenerator(validatedTrips + validatedTrips2)
+                    # 3. call trip_generator again to output the desired number of trips
+                    return createTrips(options, trip_generator2, skipValidation=True)
+
+    return validatedTrips
 
 
 if __name__ == "__main__":
