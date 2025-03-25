@@ -296,161 +296,25 @@ GNENetHelper::AttributeCarriers::retrieveAttributeCarrier(const GUIGlID id, bool
 
 std::vector<GNEAttributeCarrier*>
 GNENetHelper::AttributeCarriers::retrieveAttributeCarriers(SumoXMLTag tag) {
-    std::vector<GNEAttributeCarrier*> result;
+    std::vector<GNEAttributeCarrier*> ACs;
     // first check if we have to return all ACs
     if (tag == SUMO_TAG_NOTHING) {
-        // reserve size
-        size_t numElements = myJunctions.size() + myEdges.size() + myLanes.size() + myConnections.size() + myCrossings.size();
-        for (const auto& additionalTag : myAdditionals) {
-            numElements += additionalTag.second.size();
-        }
-        for (const auto& demandElementTag : myDemandElements) {
-            numElements += demandElementTag.second.size();
-        }
-        numElements += (myDataSets.size() + myDataIntervals.size());
-        for (const auto& genericDataTag : myGenericDatas) {
-            numElements += genericDataTag.second.size();
-        }
-        for (const auto& meanDataTag : myMeanDatas) {
-            numElements += meanDataTag.second.size();
-        }
-        result.reserve(numElements);
-        // fill network elements
-        for (const auto& junction : myJunctions) {
-            result.push_back(junction.second);
-        }
-        for (const auto& edge : myEdges) {
-            result.push_back(edge.second);
-        }
-        for (const auto& lane : myLanes) {
-            result.push_back(lane.second);
-        }
-        for (const auto& connection : myConnections) {
-            result.push_back(connection.second);
-        }
-        for (const auto& crossing : myCrossings) {
-            result.push_back(crossing.second);
-        }
-        for (const auto& walkingArea : myWalkingAreas) {
-            result.push_back(walkingArea.second);
-        }
-        // fill additional elements
-        for (const auto& additionalTag : myAdditionals) {
-            for (const auto& additional : additionalTag.second) {
-                result.push_back(additional.second);
-            }
-        }
-        // fill demand elements
-        for (const auto& demandElementTag : myDemandElements) {
-            for (const auto& demandElemet : demandElementTag.second) {
-                result.push_back(demandElemet.second);
-            }
-        }
-        // fill data elements
-        for (const auto& dataSet : myDataSets) {
-            result.push_back(dataSet.second);
-        }
-        for (const auto& dataInterval : myDataIntervals) {
-            result.push_back(dataInterval.second);
-        }
-        for (const auto& genericDataTag : myGenericDatas) {
-            for (const auto& genericData : genericDataTag.second) {
-                result.push_back(genericData.second);
-            }
-        }
-        for (const auto& meanDataTag : myMeanDatas) {
-            for (const auto& meanData : meanDataTag.second) {
-                result.push_back(meanData.second);
-            }
-        }
+        const auto rootTagProperty = myNet->getTagPropertiesDatabase()->getTagProperty(SUMO_TAG_ROOTFILE, true);
+        ACs.reserve(myNumberOfNetworkElements + myNumberOfDemandElements + myNumberOfDataElements);
+        retrieveAttributeCarriersRecursively(rootTagProperty, ACs);
     } else {
         const auto tagProperty = myNet->getTagPropertiesDatabase()->getTagProperty(tag, true);
         // reserve space
         if (tagProperty->getSupermode() == Supermode::NETWORK) {
-            result.reserve(myNumberOfNetworkElements);
+            ACs.reserve(myNumberOfNetworkElements);
         } else if (tagProperty->getSupermode() == Supermode::DEMAND) {
-            result.reserve(myNumberOfDemandElements);
+            ACs.reserve(myNumberOfDemandElements);
         } else if (tagProperty->getSupermode() == Supermode::DATA) {
-            result.reserve(myNumberOfDataElements + myNumberOfMeanDataElements);
+            ACs.reserve(myNumberOfDataElements + myNumberOfMeanDataElements);
         }
-        // iterate over all tag properties (including children)and add it into result
-        for (const auto& tagPropertyChild : tagProperty->getTagChildren()) {
-            const auto tagChild = tagPropertyChild->getTag();
-            // fill network elements
-            if (tagChild == SUMO_TAG_JUNCTION) {
-                for (const auto& junction : myJunctions) {
-                    result.push_back(junction.second);
-                }
-            }
-            if (tagChild == SUMO_TAG_EDGE) {
-                for (const auto& edge : myEdges) {
-                    result.push_back(edge.second);
-                }
-            }
-            if (tagChild == SUMO_TAG_LANE) {
-                for (const auto& lane : myLanes) {
-                    result.push_back(lane.second);
-                }
-            }
-            if (tagChild == SUMO_TAG_CONNECTION) {
-                for (const auto& connection : myConnections) {
-                    result.push_back(connection.second);
-                }
-            }
-            if (tagChild == SUMO_TAG_CROSSING) {
-                for (const auto& crossing : myCrossings) {
-                    result.push_back(crossing.second);
-                }
-            }
-            if (tagChild == SUMO_TAG_WALKINGAREA) {
-                for (const auto& walkingArea : myWalkingAreas) {
-                    result.push_back(walkingArea.second);
-                }
-            }
-            // fill additional elements
-            for (const auto& additionalTag : myAdditionals) {
-                if (additionalTag.first == tagChild) {
-                    for (const auto& additional : additionalTag.second) {
-                        result.push_back(additional.second);
-                    }
-                }
-            }
-            // fill demand elements
-            for (const auto& demandElementTag : myDemandElements) {
-                if (demandElementTag.first == tagChild) {
-                    for (const auto& demandElemet : demandElementTag.second) {
-                        result.push_back(demandElemet.second);
-                    }
-                }
-            }
-            // fill data elements
-            if (tagChild == SUMO_TAG_DATASET) {
-                for (const auto& dataSet : myDataSets) {
-                    result.push_back(dataSet.second);
-                }
-            }
-            if (tagChild == SUMO_TAG_DATAINTERVAL) {
-                for (const auto& dataInterval : myDataIntervals) {
-                    result.push_back(dataInterval.second);
-                }
-            }
-            for (const auto& genericDataTag : myGenericDatas) {
-                if (genericDataTag.first == tagChild) {
-                    for (const auto& genericData : genericDataTag.second) {
-                        result.push_back(genericData.second);
-                    }
-                }
-            }
-            for (const auto& meanDataTag : myMeanDatas) {
-                if (meanDataTag.first == tagChild) {
-                    for (const auto& meanData : meanDataTag.second) {
-                        result.push_back(meanData.second);
-                    }
-                }
-            }
-        }
+        retrieveAttributeCarriersRecursively(tagProperty, ACs);
     }
-    return result;
+    return ACs;
 }
 
 
@@ -2957,6 +2821,93 @@ GNENetHelper::AttributeCarriers::updateDemandElementFrames(const GNETagPropertie
                 // nothing to update
                 break;
         }
+    }
+}
+
+
+void
+GNENetHelper::AttributeCarriers::retrieveAttributeCarriersRecursively(const GNETagProperties* tag, std::vector<GNEAttributeCarrier*>& ACs) {
+    // fill network elements
+    if (tag->getTag() == SUMO_TAG_JUNCTION) {
+        for (const auto& junction : myJunctions) {
+            ACs.push_back(junction.second);
+        }
+    }
+    if (tag->getTag() == SUMO_TAG_EDGE) {
+        for (const auto& edge : myEdges) {
+            ACs.push_back(edge.second);
+        }
+    }
+    if (tag->getTag() == SUMO_TAG_LANE) {
+        for (const auto& lane : myLanes) {
+            ACs.push_back(lane.second);
+        }
+    }
+    if (tag->getTag() == SUMO_TAG_CONNECTION) {
+        for (const auto& connection : myConnections) {
+            ACs.push_back(connection.second);
+        }
+    }
+    if (tag->getTag() == SUMO_TAG_CROSSING) {
+        for (const auto& crossing : myCrossings) {
+            ACs.push_back(crossing.second);
+        }
+    }
+    if (tag->getTag() == SUMO_TAG_WALKINGAREA) {
+        for (const auto& walkingArea : myWalkingAreas) {
+            ACs.push_back(walkingArea.second);
+        }
+    }
+    // fill additional elements
+    if (tag->isAdditionalElement()) {
+        for (const auto& additionalTag : myAdditionals) {
+            if (additionalTag.first == tag->getTag()) {
+                for (const auto& additional : additionalTag.second) {
+                    ACs.push_back(additional.second);
+                }
+            }
+        }
+    }
+    // fill demand elements
+    if (tag->isDemandElement()) {
+        for (const auto& demandElementTag : myDemandElements) {
+            if (demandElementTag.first == tag->getTag()) {
+                for (const auto& demandElemet : demandElementTag.second) {
+                    ACs.push_back(demandElemet.second);
+                }
+            }
+        }
+    }
+    // fill data elements
+    if (tag->isDataElement()) {
+        if (tag->getTag() == SUMO_TAG_DATASET) {
+            for (const auto& dataSet : myDataSets) {
+                ACs.push_back(dataSet.second);
+            }
+        }
+        if (tag->getTag() == SUMO_TAG_DATAINTERVAL) {
+            for (const auto& dataInterval : myDataIntervals) {
+                ACs.push_back(dataInterval.second);
+            }
+        }
+        for (const auto& genericDataTag : myGenericDatas) {
+            if (genericDataTag.first == tag->getTag()) {
+                for (const auto& genericData : genericDataTag.second) {
+                    ACs.push_back(genericData.second);
+                }
+            }
+        }
+        for (const auto& meanDataTag : myMeanDatas) {
+            if (meanDataTag.first == tag->getTag()) {
+                for (const auto& meanData : meanDataTag.second) {
+                    ACs.push_back(meanData.second);
+                }
+            }
+        }
+    }
+    // iterate over children
+    for (const auto child : tag->getTagChildren()) {
+        retrieveAttributeCarriersRecursively(child, ACs);
     }
 }
 

@@ -797,6 +797,9 @@ struct GNENetHelper {
         /// @brief update demand element frames (called after insert/delete demand element)
         void updateDemandElementFrames(const GNETagProperties* tagProperty);
 
+        /// @brief retrieve attribute carriers recursively
+        void retrieveAttributeCarriersRecursively(const GNETagProperties* tag, std::vector<GNEAttributeCarrier*>& ACs);
+
     private:
         /// @brief pointer to net
         GNENet* myNet;
