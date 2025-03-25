@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-13 10:07+0100\n"
-"PO-Revision-Date: 2025-03-25 15:11+0000\n"
+"PO-Revision-Date: 2025-03-25 15:37+0000\n"
 "Last-Translator: Benjamin Couéraud <bcoueraud87@gmail.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/fr/>\n"
@@ -1536,55 +1536,55 @@ msgstr "longueur d'embouteillage cumulée [m]"
 
 #: src/guisim/GUIE2Collector.cpp:155
 msgid "started halts [#]"
-msgstr ""
+msgstr "véhicules immobilisés [#]"
 
 #: src/guisim/GUIE2Collector.cpp:157
 msgid "interval seen vehicles [#]"
-msgstr ""
+msgstr "véhicules dans l'intervalle courant [#]"
 
 #: src/guisim/GUIE2Collector.cpp:159 src/guisim/GUIInductLoop.cpp:164
 msgid "interval speed [m/s]"
-msgstr ""
+msgstr "vitesse dans l'intervalle courant [m/s]"
 
 #: src/guisim/GUIE2Collector.cpp:161 src/guisim/GUIInductLoop.cpp:166
 msgid "interval occupancy [%]"
-msgstr ""
+msgstr "taux d'occupation dans l'intervalle courant [%]"
 
 #: src/guisim/GUIE2Collector.cpp:163
 msgid "interval max jam length [m]"
-msgstr ""
+msgstr "longueur maximale d'embouteillage dans l'intervalle courant [m]"
 
 #: src/guisim/GUIE2Collector.cpp:165
 msgid "last interval seen vehicles [#]"
-msgstr ""
+msgstr "véhicules dans l'intervalle précédent [#]"
 
 #: src/guisim/GUIE2Collector.cpp:167 src/guisim/GUIInductLoop.cpp:170
 msgid "last interval speed [m/s]"
-msgstr ""
+msgstr "vitesse de l'intervalle précédent [m/s]"
 
 #: src/guisim/GUIE2Collector.cpp:169 src/guisim/GUIInductLoop.cpp:172
 msgid "last interval occupancy [%]"
-msgstr ""
+msgstr "taux d'occupation de l'intervalle précédent [%]"
 
 #: src/guisim/GUIE2Collector.cpp:171
 msgid "last interval max jam length [m]"
-msgstr ""
+msgstr "longueur maximale d'embouteillage de l'intervalle précédent [m]"
 
 #: src/guisim/GUIE3Collector.cpp:84
 msgid "vehicles within [#]"
-msgstr ""
+msgstr "véhicules à l'intérieur [#]"
 
 #: src/guisim/GUIE3Collector.cpp:88
 msgid "haltings [#]"
-msgstr ""
+msgstr "immobilisations [#]"
 
 #: src/guisim/GUIE3Collector.cpp:90
 msgid "last interval mean travel time [s]"
-msgstr ""
+msgstr "temps de trajet moyen de l'intervalle précédent [s]"
 
 #: src/guisim/GUIE3Collector.cpp:92
 msgid "last interval mean haltings [#]"
-msgstr ""
+msgstr "nombre moyen d'immobilisations de l'intervalle précédent [#]"
 
 #: src/guisim/GUIE3Collector.cpp:94
 msgid "last interval mean time loss [s]"
@@ -1612,47 +1612,47 @@ msgstr ""
 
 #: src/guisim/GUIEdge.cpp:189
 msgid "mean vehicle speed [m/s]"
-msgstr ""
+msgstr "vitesse moyenne d'un véhicule [m/s]"
 
 #: src/guisim/GUIEdge.cpp:190 src/guisim/GUILane.cpp:1059
 msgid "routing speed [m/s]"
-msgstr ""
+msgstr "vitesse de calcul d'itinéraire [m/s]"
 
 #: src/guisim/GUIEdge.cpp:191 src/guisim/GUILane.cpp:1061
 msgid "time penalty [s]"
-msgstr ""
+msgstr "pénalité de temps [s]"
 
 #: src/guisim/GUIEdge.cpp:192 src/guisim/GUILane.cpp:1062
 msgid "brutto occupancy [%]"
-msgstr ""
+msgstr "taux d'occupation brut [%]"
 
 #: src/guisim/GUIEdge.cpp:193
 msgid "flow [veh/h/lane]"
-msgstr ""
+msgstr "flux [veh/h/lane]"
 
 #: src/guisim/GUIEdge.cpp:197
 msgid "segment index"
-msgstr ""
+msgstr "indice du segment"
 
 #: src/guisim/GUIEdge.cpp:198
 msgid "segment queues"
-msgstr ""
+msgstr "files d'attente du segment"
 
 #: src/guisim/GUIEdge.cpp:199
 msgid "segment length [m]"
-msgstr ""
+msgstr "longueur du segment [m]"
 
 #: src/guisim/GUIEdge.cpp:200
 msgid "segment allowed speed [m/s]"
-msgstr ""
+msgstr "vitesse autorisée dans segment [m/s]"
 
 #: src/guisim/GUIEdge.cpp:201
 msgid "segment jam threshold [%]"
-msgstr ""
+msgstr "seuil d'embouteillage du segment [%]"
 
 #: src/guisim/GUIEdge.cpp:202
 msgid "segment brutto occupancy [%]"
-msgstr ""
+msgstr "taux d'occupation brut du segment [%]"
 
 #: src/guisim/GUIEdge.cpp:203
 msgid "segment mean vehicle speed [m/s]"
