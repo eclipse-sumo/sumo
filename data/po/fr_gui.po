@@ -8,15 +8,16 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-13 10:07+0100\n"
-"PO-Revision-Date: 2025-01-23 14:49+0000\n"
-"Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
-"Language-Team: French <https://hosted.weblate.org/projects/eclipse-sumo/sumo-gui-netedit/fr/>\n"
+"PO-Revision-Date: 2025-03-25 11:39+0000\n"
+"Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
+"Language-Team: French <https://hosted.weblate.org/projects/eclipse-sumo/"
+"sumo-gui-netedit/fr/>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.10-dev\n"
+"X-Generator: Weblate 5.11-dev\n"
 
 #: src/gui/GUIApplicationWindow.cpp:308 src/gui/GUIApplicationWindow.cpp:311
 #: src/gui/GUIApplicationWindow.cpp:2271 src/gui/GUIApplicationWindow.cpp:2272
@@ -7911,7 +7912,7 @@ msgstr ""
 #: src/netedit/GNETagPropertiesDatabase.cpp:6291
 #: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:435
 msgid "route"
-msgstr ""
+msgstr "route"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6970
 #: src/netedit/GNETagPropertiesDatabase.cpp:6980
