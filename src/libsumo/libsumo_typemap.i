@@ -89,7 +89,7 @@
     $1 = &vars;
 }
 
-%typemap(in) const libsumo::TraCIResults& (libsumo::TraCIResults params) {
+%typemap(in) const libsumo::TraCIResults& (libsumo::TraCIResults parameters) {
     if (!PyDict_Check($input)) {
         PyErr_SetString(PyExc_TypeError, "Expecting a dict");
         SWIG_fail;
@@ -100,14 +100,14 @@
     while (PyDict_Next($input, &pos, &key, &value)) {
         const int key_int = PyLong_AsLong(key);
         if (PyInt_Check(value)) {
-            params[key_int] = std::make_shared<libsumo::TraCIInt>(PyInt_AsLong(value));
+            parameters[key_int] = std::make_shared<libsumo::TraCIInt>(PyInt_AsLong(value));
         } else if (PyFloat_Check(value)) {
-            params[key_int] = std::make_shared<libsumo::TraCIDouble>(PyFloat_AsDouble(value));
+            parameters[key_int] = std::make_shared<libsumo::TraCIDouble>(PyFloat_AsDouble(value));
         } else if (PyString_Check(value)) {
-            params[key_int] = std::make_shared<libsumo::TraCIString>(PyString_AsString(value));
+            parameters[key_int] = std::make_shared<libsumo::TraCIString>(PyString_AsString(value));
         }
     }
-    $1 = &params;
+    $1 = &parameters;
 }
 
 %typemap(typecheck, precedence=SWIG_TYPECHECK_INTEGER) const std::vector<int>& {
