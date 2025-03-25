@@ -1248,18 +1248,23 @@ MSBaseVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& e
     }
     std::string stopType = "stop";
     std::string stopID = "";
+    double parkingLength = stop.pars.endPos - stop.pars.startPos;
     if (stop.busstop != nullptr) {
         stopType = "busStop";
         stopID = stop.busstop->getID();
+        parkingLength = stop.busstop->getParkingLength();
     } else if (stop.containerstop != nullptr) {
         stopType = "containerStop";
         stopID = stop.containerstop->getID();
+        parkingLength = stop.containerstop->getParkingLength();
     } else if (stop.chargingStation != nullptr) {
         stopType = "chargingStation";
         stopID = stop.chargingStation->getID();
+        parkingLength = stop.chargingStation->getParkingLength();
     } else if (stop.overheadWireSegment != nullptr) {
         stopType = "overheadWireSegment";
         stopID = stop.overheadWireSegment->getID();
+        parkingLength = stop.overheadWireSegment->getParkingLength();
     } else if (stop.parkingarea != nullptr) {
         stopType = "parkingArea";
         stopID = stop.parkingarea->getID();
@@ -1270,7 +1275,7 @@ MSBaseVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& e
         errorMsg = errorMsgStart + " for vehicle '" + myParameter->id + "' on lane '" + stop.lane->getID() + "' has an invalid position.";
         return false;
     }
-    if (stopType != "stop" && stopType != "parkingArea" && myType->getLength() / 2. > stop.pars.endPos - stop.pars.startPos
+    if (stopType != "stop" && stopType != "parkingArea" && myType->getLength() / 2. > parkingLength
             && MSNet::getInstance()->warnOnce(stopType + ":" + stopID)) {
         errorMsg = errorMsgStart + " on lane '" + stop.lane->getID() + "' is too short for vehicle '" + myParameter->id + "'.";
     }
