@@ -433,7 +433,7 @@ class CachedTripGenerator:
         self._nCalled = 0
 
     def get_trip(self, min_distance, max_distance, maxtries=100, junctionTaz=False, min_dist_fringe=None):
-        result =  self._cache[self._nCalled % len(self._cache)]
+        result = self._cache[self._nCalled % len(self._cache)]
         self._nCalled += 1
         return result
 
@@ -721,8 +721,8 @@ def createTrips(options, trip_generator, rerunFactor=None, skipValidation=False)
         options.tripattrs, options.pedestrians, options.vehicle_class, options.verbose)
 
     vias = {}
-    generatedTrips = [] # (label, origin, destination, intermediate)
-    validatedTrips = [] # (origin, destination, intermediate)
+    generatedTrips = []  # (label, origin, destination, intermediate)
+    validatedTrips = []  # (origin, destination, intermediate)
 
     time_delta = (parseTime(options.end) - parseTime(options.begin)) / len(options.period)
     times = [parseTime(options.begin) + i * time_delta for i in range(len(options.period) + 1)]
@@ -1032,10 +1032,10 @@ def createTrips(options, trip_generator, rerunFactor=None, skipValidation=False)
             if nRequested > 0 and nValid < nRequested:
                 successRate = nValid / nRequested
                 if successRate < options.minSuccessRate:
-                    print("Warning: Only %s out of %s requested %ss passed validation. " +
-                          "Set option --error-log for more details on the failure." +
-                          "Set option --min-success-rate to find more valid trips" % (
-                              nValid, nRequested, getElement(options)), file=sys.stderr)
+                    print("Warning: Only %s out of %s requested %ss passed validation. "
+                          "Set option --error-log for more details on the failure. "
+                          "Set option --min-success-rate to find more valid trips." %
+                          (nValid, nRequested, getElement(options)), file=sys.stderr)
                 else:
                     if options.verbose:
                         print("Only %s out of %s requested %ss passed validation. Sampling again to find more." % (

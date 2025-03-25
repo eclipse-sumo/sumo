@@ -22,11 +22,10 @@ import sys
 
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 from sumolib.output import parse, parse_fast  # noqa
-from sumolib.options import ArgumentParser
+from sumolib.options import ArgumentParser  # noqa
 
 
 def parse_args():
-    USAGE = "Usage: " + sys.argv[0] + " <routefile> [options]"
     ap = ArgumentParser()
     ap.add_option("routefiles", nargs="+", category="input", type=ap.file_list, help="route files")
     ap.add_option("-o", "--outfile", category="output", type=ap.file, help="name of output file")
