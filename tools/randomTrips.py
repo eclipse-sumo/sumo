@@ -68,6 +68,8 @@ def get_options(args=None):
                     help="Store generated vehicle types in a separate file")
     op.add_argument("--weights-output-prefix", category="output", dest="weights_outprefix", type=op.file,
                     help="generates weights files for visualisation")
+    op.add_argument("--error-log", category="output", dest="errorlog", type=op.file,
+                    help="record routing errors")
     # persons
     op.add_argument("--pedestrians", category="persons", action="store_true", default=False,
                     help="create a person file with pedestrian trips instead of vehicle trips")
@@ -919,6 +921,7 @@ def main(options):
     # call duarouter for routes or validated trips
     args = ['-n', options.netfile, '-r', options.tripfile, '--ignore-errors',
             '--begin', str(options.begin), '--end', str(options.end),
+            '--no-warnings',
             '--no-step-log']
     if options.additional is not None:
         args += ['--additional-files', options.additional]
@@ -928,10 +931,10 @@ def main(options):
         args += ['--vtype-output', options.vtypeout]
     if options.junctionTaz:
         args += ['--junction-taz']
-    if not options.verbose:
-        args += ['--no-warnings']
-    else:
+    if options.verbose:
         args += ['-v']
+    if options.errorlog:
+        args += ['--error-log', options.errorlog]
 
     duargs = [DUAROUTER, '--alternatives-output', 'NUL'] + args
     maargs = [MAROUTER] + args
@@ -986,6 +989,7 @@ def main(options):
             successRate = nValid / nRequested
             if successRate < options.minSuccessRate:
                 print("Warning: Only %s out of %s requested %ss passed validation. " +
+                      "Set option --error-log for more details on the failure." +
                       "Set option --min-success-rate to find more valid trips" % (
                           nValid, nRequested, getElement(options)), file=sys.stderr)
             else:
@@ -1015,8 +1019,7 @@ def main(options):
 if __name__ == "__main__":
     try:
         if not main(get_options()):
-            print("Error: Trips couldn't be generated as requested. "
-                  "Try the --verbose option to output more details on the failure.", file=sys.stderr)
+            print("Error: Trips couldn't be generated as requested. ", file=sys.stderr)
             sys.exit(1)
     except ValueError as e:
         print("Error:", e, file=sys.stderr)
