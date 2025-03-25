@@ -150,7 +150,11 @@ GNEMatchAttribute::refreshMatchAttribute() {
                 }
             }
             // update tag
-            myTagComboBoxVector.at(i)->setCurrentItem(parentHierarchy.at(i), FALSE);
+            if (myTagComboBoxVector.at(i)->hasTagProperty(parentHierarchy.at(i))) {
+                myTagComboBoxVector.at(i)->setCurrentItem(parentHierarchy.at(i), FALSE);
+            } else {
+                myTagComboBoxVector.at(i)->hide();
+            }
         }
     }
     // hide the two first combo boxes(root and supermode)

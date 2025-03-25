@@ -54,6 +54,9 @@ public:
     /// @brief get current tag property
     const GNETagProperties* getCurrentTagProperty() const;
 
+    /// @brief check if the comboBox has the given tag property
+    bool hasTagProperty(const GNETagProperties* tagProperties) const;
+
     /// @brief Set the current item
     long setCurrentItem(const GNETagProperties* tagProperties, FXbool notify = FALSE);
 
