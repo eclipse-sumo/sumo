@@ -51,8 +51,8 @@ GNETagProperties::GNETagProperties(const SumoXMLTag tag, GNETagProperties* paren
                                    const std::string selectorText) :
     myTag(tag),
     myTagStr(toString(tag)),
-    myHierarchicalTag(true),
     myParent(parent),
+    myHierarchicalTag(true),
     myIcon(icon),
     myXMLTag(tag),
     myTooltipText(tooltip),
