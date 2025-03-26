@@ -136,6 +136,9 @@ public:
     /// @brief check if draw inspect contour (black/white)
     bool checkDrawInspectContour() const;
 
+    /// @brief check if draw inspect contour (black/white)
+    bool checkDrawInspectContourSmall() const;
+
     /// @brief check if draw front contour (green/blue)
     bool checkDrawFrontContour() const;
 
