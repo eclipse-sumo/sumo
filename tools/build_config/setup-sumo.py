@@ -40,7 +40,6 @@ setup(
         'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Developers',
         'Intended Audience :: Science/Research',
-        'License :: OSI Approved :: Eclipse Public License 2.0 (EPL-2.0)',
         'Programming Language :: C++',
         'Programming Language :: Python :: 2',
         'Programming Language :: Python :: 3',
