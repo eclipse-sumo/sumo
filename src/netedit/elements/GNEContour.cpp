@@ -340,6 +340,8 @@ GNEContour::drawDottedContours(const GUIVisualizationSettings& s, const GUIVisua
         // delete contour
         if (AC->checkDrawDeleteContour()) {
             return drawDottedContour(s, GUIDottedGeometry::DottedContourType::REMOVE, lineWidth, addOffset);
+        } else if (AC->checkDrawDeleteContourSmall()) {
+            return drawDottedContour(s, GUIDottedGeometry::DottedContourType::REMOVE, s.dottedContourSettings.segmentWidthSmall, addOffset);
         }
         // select contour
         if (AC->checkDrawSelectContour()) {

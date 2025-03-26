@@ -398,7 +398,6 @@ GNEEdge::checkDrawDeleteContour() const {
         const auto& editModes = myNet->getViewNet()->getEditModes();
         // check if we're in delete mode
         if (editModes.isCurrentSupermodeNetwork() && (editModes.networkEditMode == NetworkEditMode::NETWORK_DELETE)) {
-
             // check lanes
             for (const auto& lane : getChildLanes()) {
                 if (myNet->getViewNet()->checkOverLockedElement(lane, mySelected) &&
@@ -424,7 +423,13 @@ GNEEdge::checkDrawDeleteContour() const {
 
 bool
 GNEEdge::checkDrawDeleteContourSmall() const {
-    return false;
+    // from-to junction
+    const auto junction = myNet->getViewNet()->getViewObjectsSelector().getJunctionFront();
+    if (junction == myNet->getViewNet()->getViewObjectsSelector().getAttributeCarrierFront()) {
+        return ((getFromJunction() == junction) || (getToJunction() == junction)); 
+    } else {
+        return false;
+    }
 }
 
 
