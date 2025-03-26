@@ -472,7 +472,10 @@ class Builder(object):
         self.filename("zip", ".zip")
 
         with ZipFile(self.files["zip"], "w") as zipfile:
-            files = ["net", "guisettings", "config", "run.bat", "build.bat"]
+            files = ["net", "guisettings", "config", "run.bat"]
+
+            if self.data["vehicles"] or self.data["publicTransport"]:
+                files += ["build.bat"]
 
             if self.data["poly"]:
                 files += ["poly"]
@@ -537,7 +540,7 @@ class OSMImporterWebSocket(WebSocket):
                 data = builder.createZip()
                 builder.finalize()
 
-                self.sendMessage(u"zip " + data)
+                self.sendMessage(b"zip " + data)
         except ssl.CertificateError:
             self.report("Error with SSL certificate, try 'pip install -U certifi'.")
         except Exception as e:
