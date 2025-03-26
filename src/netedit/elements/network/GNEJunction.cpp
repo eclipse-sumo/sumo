@@ -333,6 +333,12 @@ GNEJunction::checkDrawDeleteContour() const {
 
 
 bool
+GNEJunction::checkDrawDeleteContourSmall() const {
+    return false;
+}
+
+
+bool
 GNEJunction::checkDrawSelectContour() const {
     // get edit modes
     const auto& editModes = myNet->getViewNet()->getEditModes();

@@ -243,6 +243,12 @@ GNEDemandElement::checkDrawDeleteContour() const {
 
 
 bool
+GNEDemandElement::checkDrawDeleteContourSmall() const {
+    return false;
+}
+
+
+bool
 GNEDemandElement::checkDrawSelectContour() const {
     // get edit modes
     const auto& editModes = myNet->getViewNet()->getEditModes();

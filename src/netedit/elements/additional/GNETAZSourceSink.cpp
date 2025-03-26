@@ -128,6 +128,12 @@ GNETAZSourceSink::checkDrawDeleteContour() const {
 
 
 bool
+GNETAZSourceSink::checkDrawDeleteContourSmall() const {
+    return false;
+}
+
+
+bool
 GNETAZSourceSink::checkDrawSelectContour() const {
     return false;
 }

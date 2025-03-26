@@ -138,6 +138,12 @@ GNEInternalLane::checkDrawDeleteContour() const {
 
 
 bool
+GNEInternalLane::checkDrawDeleteContourSmall() const {
+    return false;
+}
+
+
+bool
 GNEInternalLane::checkDrawSelectContour() const {
     return false;
 }

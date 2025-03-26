@@ -163,6 +163,12 @@ GNEConnection::checkDrawDeleteContour() const {
 
 
 bool
+GNEConnection::checkDrawDeleteContourSmall() const {
+    return false;
+}
+
+
+bool
 GNEConnection::checkDrawSelectContour() const {
     // get edit modes
     const auto& editModes = myNet->getViewNet()->getEditModes();

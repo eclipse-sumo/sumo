@@ -193,6 +193,12 @@ GNEEdgeType::checkDrawDeleteContour() const {
 
 
 bool
+GNEEdgeType::checkDrawDeleteContourSmall() const {
+    return false;
+}
+
+
+bool
 GNEEdgeType::checkDrawSelectContour() const {
     return false;
 }

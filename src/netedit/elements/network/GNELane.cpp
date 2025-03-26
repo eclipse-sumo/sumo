@@ -387,6 +387,12 @@ GNELane::checkDrawDeleteContour() const {
 
 
 bool
+GNELane::checkDrawDeleteContourSmall() const {
+    return false;
+}
+
+
+bool
 GNELane::checkDrawSelectContour() const {
     // first check if we're selecting edges or lanes
     if (myNet->getViewNet()->checkSelectEdges()) {

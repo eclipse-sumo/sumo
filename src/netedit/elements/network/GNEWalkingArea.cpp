@@ -102,6 +102,12 @@ GNEWalkingArea::checkDrawDeleteContour() const {
 
 
 bool
+GNEWalkingArea::checkDrawDeleteContourSmall() const {
+        return false;
+}
+
+
+bool
 GNEWalkingArea::checkDrawSelectContour() const {
     // get edit modes
     const auto& editModes = myNet->getViewNet()->getEditModes();

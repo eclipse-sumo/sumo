@@ -136,7 +136,7 @@ public:
     /// @brief check if draw inspect contour (black/white)
     bool checkDrawInspectContour() const;
 
-    /// @brief check if draw inspect contour (black/white)
+    /// @brief check if draw inspect contour small (black/white)
     bool checkDrawInspectContourSmall() const;
 
     /// @brief check if draw front contour (green/blue)
@@ -156,6 +156,9 @@ public:
 
     /// @brief check if draw delete contour (pink/white)
     virtual bool checkDrawDeleteContour() const = 0;
+
+    /// @brief check if draw delete contour small (pink/white)
+    virtual bool checkDrawDeleteContourSmall() const = 0;
 
     /// @brief check if draw select contour (blue)
     virtual bool checkDrawSelectContour() const = 0;

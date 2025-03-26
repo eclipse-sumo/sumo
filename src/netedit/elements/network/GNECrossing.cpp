@@ -134,6 +134,12 @@ GNECrossing::checkDrawDeleteContour() const {
 
 
 bool
+GNECrossing::checkDrawDeleteContourSmall() const {
+    return false;
+}
+
+
+bool
 GNECrossing::checkDrawSelectContour() const {
     // get edit modes
     const auto& editModes = myNet->getViewNet()->getEditModes();
