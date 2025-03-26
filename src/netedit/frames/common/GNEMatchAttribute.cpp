@@ -479,7 +479,12 @@ GNEMatchAttribute::getGenericMatches(const std::vector<GNEGenericData*>& generic
 GNEMatchAttribute::CurrentEditedProperties::CurrentEditedProperties(const GNEMatchAttribute* matchAttributeParent) :
     myMatchAttributeParent(matchAttributeParent) {
     // build special attributes
-    myTagPropertiesAllAttributes = new GNETagProperties(GNE_TAG_ATTRIBUTES_ALL, nullptr, GUIIcon::EMPTY, TL("Show all attributes"), TL("<all>"));
+    myTagPropertiesAllAttributes = new GNETagProperties(GNE_TAG_ATTRIBUTES_ALL, 
+                                                        nullptr,
+                                                        GUIIcon::EMPTY,
+                                                        TL("Show all attributes"),
+                                                        FXRGBA(255, 255, 255, 255),
+                                                        TL("<all>"));
     myAttributePropertiesNoCommon = new GNEAttributeProperties(myTagPropertiesAllAttributes, GNE_ATTR_NOCOMMON, TL("No common attributes defined"));
     // set default tag and attribute for every property
     const auto database = myMatchAttributeParent->mySelectorFrameParent->getViewNet()->getNet()->getTagPropertiesDatabase();

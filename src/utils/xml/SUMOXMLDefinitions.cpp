@@ -635,6 +635,7 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::tags[] = {
     { "TAZs",           GNE_TAG_TAZS },
     { "wires",          GNE_TAG_WIRES },
     { "jupedsim",       GNE_TAG_JUPEDSIM },
+    { "flows",          GNE_TAG_FLOWS },
     { "stops",          GNE_TAG_STOPS },
     { "personPlans",    GNE_TAG_PERSONPLANS },
     { "personTrips",    GNE_TAG_PERSONTRIPS },

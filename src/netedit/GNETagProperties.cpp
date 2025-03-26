@@ -48,7 +48,7 @@ GNETagProperties::GNETagProperties(const SumoXMLTag tag, GNETagProperties* paren
 
 
 GNETagProperties::GNETagProperties(const SumoXMLTag tag, GNETagProperties* parent, const GUIIcon icon, const std::string tooltip,
-                                   const std::string selectorText) :
+                                   const unsigned int backgroundColor, const std::string selectorText) :
     myTag(tag),
     myTagStr(toString(tag)),
     myParent(parent),
@@ -57,7 +57,7 @@ GNETagProperties::GNETagProperties(const SumoXMLTag tag, GNETagProperties* paren
     myXMLTag(tag),
     myTooltipText(tooltip),
     mySelectorText(selectorText.empty() ? toString(tag) : selectorText),
-    myBackgroundColor(FXRGBA(255, 255, 255, 255)) {
+    myBackgroundColor(backgroundColor) {
     if (parent) {
         parent->addChild(this);
     }
@@ -137,12 +137,7 @@ GNETagProperties::checkTagIntegrity() const {
             throw ProcessError("Invalid shape parent");
         }
     } else if (isAdditionalElement()) {
-        // exceptions for access and spaces
-        if ((myTag == SUMO_TAG_ACCESS || myTag == SUMO_TAG_PARKING_SPACE)) {
-            if (myParent->getTag() != GNE_TAG_STOPPINGPLACES) {
-                throw ProcessError("Invalid stoppingPlace parent");
-            }
-        } else if (myParent->getTag() != SUMO_TAG_VIEWSETTINGS_ADDITIONALS) {
+        if (myParent->getTag() != SUMO_TAG_VIEWSETTINGS_ADDITIONALS) {
             throw ProcessError("Invalid additional parent");
         }
     }
@@ -154,10 +149,6 @@ GNETagProperties::checkTagIntegrity() const {
     } else if (isVehicleStop()) {
         if (myParent->getTag() != GNE_TAG_STOPS) {
             throw ProcessError("Invalid vehicle stop parent");
-        }
-    } else if (isPerson()) {
-        if (myParent->getTag() != SUMO_TAG_VIEWSETTINGS_PERSONS) {
-            throw ProcessError("Invalid person parent");
         }
     } else if (isPlanPersonTrip()) {
         if (myParent->getTag() != GNE_TAG_PERSONTRIPS) {
@@ -178,10 +169,6 @@ GNETagProperties::checkTagIntegrity() const {
     } else if (isPlanPerson()) {
         if (myParent->getTag() != GNE_TAG_PERSONPLANS) {
             throw ProcessError("Invalid person plan parent");
-        }
-    } else if (isContainer()) {
-        if (myParent->getTag() != SUMO_TAG_VIEWSETTINGS_CONTAINERS) {
-            throw ProcessError("Invalid container parent");
         }
     } else if (isPlanTransport()) {
         if (myParent->getTag() != GNE_TAG_TRANSPORTS) {
