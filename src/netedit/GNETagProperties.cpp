@@ -196,10 +196,6 @@ GNETagProperties::checkTagIntegrity() const {
         if (myParent->getTag() != GNE_TAG_DATAS) {
             throw ProcessError("Invalid generic data parent");
         }
-    } else if (isMeanData()) {
-        if (myParent->getTag() != GNE_TAG_MEANDATAS) {
-            throw ProcessError("Invalid mean data parent");
-        }
     } else if (isDataElement()) {
         if (myParent->getTag() != GNE_TAG_SUPERMODE_DATA) {
             throw ProcessError("Invalid supermode data parent");

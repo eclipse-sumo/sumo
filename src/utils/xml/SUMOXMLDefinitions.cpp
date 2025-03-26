@@ -647,9 +647,8 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::tags[] = {
     { "tranships",      GNE_TAG_TRANSHIPS },
     { "containerStops", GNE_TAG_CONTAINERSTOPS },
     { "datas",          GNE_TAG_DATAS },
-    { "meanDatas",      GNE_TAG_MEANDATAS },
     // attributes
-    { "allAttributes",      GNE_TAG_ATTRIBUTES_ALL },
+    { "allAttributes",  GNE_TAG_ATTRIBUTES_ALL },
     // Last element
     { "",   SUMO_TAG_NOTHING }  // -> must be the last one
 };
@@ -1420,7 +1419,6 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::attrs[] = {
     { "frontElement",                       GNE_ATTR_FRONTELEMENT },
     { TL("edges within"),                   GNE_ATTR_EDGES_WITHIN },
     // 'all' is a reserved keyword when configuring attribute filters and must not occur as an attribute name
-    { "ALL",                                GNE_ATTR_ALL },
     { TL("no common attrs."),               GNE_ATTR_NOCOMMON },
 
     { "carriageLength",     SUMO_ATTR_CARRIAGE_LENGTH },

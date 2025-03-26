@@ -544,13 +544,6 @@ GNETagPropertiesDatabase::fillHierarchy() {
             TL("Datas"),
             FXRGBA(255, 255, 255, 255),
             TL("Datas"));
-    // meanDatas - level 2
-    mySetTagProperties[GNE_TAG_MEANDATAS] = new GNETagProperties(GNE_TAG_MEANDATAS,
-            mySetTagProperties.at(GNE_TAG_SUPERMODE_DATA),
-            GUIIcon::MEANDATAEDGE,
-            TL("Mean datas"),
-            FXRGBA(255, 255, 255, 255),
-            TL("Mean datas"));
 }
 
 
@@ -8378,7 +8371,7 @@ GNETagPropertiesDatabase::fillDataElements() {
     currentTag = SUMO_TAG_MEANDATA_EDGE;
     {
         // set values of tag
-        myTagProperties[currentTag] = new GNETagProperties(currentTag, mySetTagProperties.at(GNE_TAG_MEANDATAS),
+        myTagProperties[currentTag] = new GNETagProperties(currentTag, mySetTagProperties.at(GNE_TAG_SUPERMODE_DATA),
                 GNETagProperties::TagType::MEANDATA,
                 GNETagProperties::TagProperty::NOTDRAWABLE | GNETagProperties::TagProperty::NOPARAMETERS | GNETagProperties::TagProperty::NOTSELECTABLE,
                 GNETagProperties::TagParents::NO_PARENTS,
@@ -8391,7 +8384,7 @@ GNETagPropertiesDatabase::fillDataElements() {
     currentTag = SUMO_TAG_MEANDATA_LANE;
     {
         // set values of tag
-        myTagProperties[currentTag] = new GNETagProperties(currentTag, mySetTagProperties.at(GNE_TAG_MEANDATAS),
+        myTagProperties[currentTag] = new GNETagProperties(currentTag, mySetTagProperties.at(GNE_TAG_SUPERMODE_DATA),
                 GNETagProperties::TagType::MEANDATA,
                 GNETagProperties::TagProperty::NOTDRAWABLE | GNETagProperties::TagProperty::NOPARAMETERS | GNETagProperties::TagProperty::NOTSELECTABLE,
                 GNETagProperties::TagParents::NO_PARENTS,

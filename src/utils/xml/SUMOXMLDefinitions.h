@@ -818,7 +818,6 @@ enum SumoXMLTag {
     GNE_TAG_TRANSHIPS,
     GNE_TAG_CONTAINERSTOPS,
     GNE_TAG_DATAS,
-    GNE_TAG_MEANDATAS,
     // @brief attributes
     GNE_TAG_ATTRIBUTES_ALL,
     /// @}
@@ -1892,8 +1891,6 @@ enum SumoXMLAttr {
     GNE_ATTR_FRONTELEMENT,
     /// @brief virtual attribute used for use edges within during TAZ creation
     GNE_ATTR_EDGES_WITHIN,
-    /// @brief all attributes
-    GNE_ATTR_ALL,
     /// @brief no common attributes
     GNE_ATTR_NOCOMMON,
     // @}
