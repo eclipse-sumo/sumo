@@ -2018,6 +2018,7 @@ NBEdgeCont::joinTramEdges(NBDistrictCont& dc, NBPTStopCont& sc, NBPTLineCont& lc
                 int laneIndex = item.first.second;
                 const PositionVector& laneShape = road->getLaneShape(laneIndex);
                 double tramPos = tramEdge->getGeometry().nearest_offset_to_point2D(laneShape.front(), false);
+                //std::cout << " road=" << road->getID() << " tramEdge=" << tramEdge->getID() << " tramShape=" << tramEdge->getGeometry() << " laneFront=" << laneShape.front() << " tramPos=" << tramPos << "\n";
                 roads.push_back(std::make_pair(tramPos, item.first));
             }
         }
@@ -2049,7 +2050,7 @@ NBEdgeCont::joinTramEdges(NBDistrictCont& dc, NBPTStopCont& sc, NBPTLineCont& lc
                 const double gap = item.first - pos;
                 NBEdge* road = item.second.first;
                 int laneIndex = item.second.second;
-                if (gap >= JOIN_TRAM_MIN_LENGTH) {
+                if (gap >= JOIN_TRAM_MIN_LENGTH && road->getFromNode() != tramEdge->getFromNode()) {
 #ifdef DEBUG_JOIN_TRAM
                     std::cout << "    splitting tramEdge=" << tramEdge->getID() << " at " << item.first << " (gap=" << gap << ")\n";
 #endif
