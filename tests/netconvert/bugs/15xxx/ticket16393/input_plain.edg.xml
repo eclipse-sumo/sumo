@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-03-26 08:19:14 by Eclipse SUMO netedit Version v1_22_0+1040-5511e9a2f39
+<neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="leipzig25.net.xml.gz"/>
+    </input>
+
+    <output>
+        <output.street-names value="true"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="0"/>
+    </pedestrian>
+
+</neteditConfiguration>
+-->
+
+<edges version="1.20" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <location netOffset="-291598.22,-5677144.66" convBoundary="27359.94,14192.77,27968.36,14382.09" origBoundary="11.995504,50.807619,12.645329,51.700285" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <edge id="-1173062658#0" from="7289719782" to="59283475" name="Hildegardstraße" priority="2" type="highway.living_street" numLanes="1" speed="2.78" disallow="tram rail_urban rail rail_electric rail_fast ship cable_car subway">
+        <lane index="0">
+            <param key="origId" value="1173062658"/>
+        </lane>
+    </edge>
+    <edge id="-1173062658#1" from="10885850518" to="7289719782" name="Hildegardstraße" priority="2" type="highway.living_street" numLanes="1" speed="2.78" disallow="tram rail_urban rail rail_electric rail_fast ship cable_car subway">
+        <lane index="0">
+            <param key="origId" value="1173062658"/>
+        </lane>
+    </edge>
+    <edge id="-1210488620#1" from="7289719776" to="59608420" name="Hildegardstraße" priority="3" type="highway.residential" numLanes="1" speed="8.33" shape="27842.74,14285.72 27832.72,14198.76 27832.02,14192.77" disallow="tram rail_urban rail rail_electric rail_fast ship cable_car subway">
+        <lane index="0">
+            <param key="origId" value="1210488620"/>
+        </lane>
+    </edge>
+    <edge id="-1210488620#2" from="59283475" to="7289719776" name="Hildegardstraße" priority="3" type="highway.residential" numLanes="1" speed="8.33" disallow="tram rail_urban rail rail_electric rail_fast ship cable_car subway">
+        <lane index="0">
+            <param key="origId" value="1210488620"/>
+        </lane>
+    </edge>
+    <edge id="-134462344#0" from="cluster2100489236_cluster10653940598_10653940599_10653940600_3190849749_#2more" to="cluster26117661_cluster7289719773_cluster7289719761_7289719774" name="Hermann-Liebmann-Straße" priority="11" type="highway.secondary" numLanes="2" speed="13.89" shape="27747.85,14314.85 27748.69,14321.33 27756.39,14380.82" disallow="tram rail_urban rail rail_electric rail_fast ship cable_car subway">
+        <lane index="0">
+            <param key="origId" value="134462344"/>
+        </lane>
+        <lane index="1">
+            <param key="origId" value="134462344"/>
+        </lane>
+    </edge>
+    <edge id="-313176444" from="3190849748" to="cluster2100489236_cluster10653940598_10653940599_10653940600_3190849749_#2more" name="Hermann-Liebmann-Straße" priority="10" type="highway.tertiary" numLanes="2" speed="13.89" shape="27737.37,14210.54 27739.34,14230.08 27743.85,14274.82 27744.98,14286.00" disallow="tram rail_urban rail rail_electric rail_fast ship cable_car subway">
+        <lane index="0">
+            <param key="origId" value="313176444"/>
+        </lane>
+        <lane index="1">
+            <param key="origId" value="313176444"/>
+        </lane>
+    </edge>
+    <edge id="-337039712#3" from="59283475" to="17088212" name="Eisenbahnstraße" priority="11" type="highway.secondary" numLanes="1" speed="8.33" disallow="tram rail_urban rail rail_electric rail_fast ship cable_car subway">
+        <lane index="0">
+            <param key="origId" value="337039712"/>
+        </lane>
+    </edge>
+    <edge id="-598072205#0" from="cluster2100489236_cluster10653940598_10653940599_10653940600_3190849749_#2more" to="59283475" name="Eisenbahnstraße" priority="11" type="highway.secondary" numLanes="1" speed="8.33" shape="27761.17,14298.14 27774.62,14296.53 27833.50,14289.50 27843.05,14288.36" disallow="tram rail_urban rail rail_electric rail_fast ship cable_car subway">
+        <lane index="0">
+            <param key="origId" value="598072205 598072206 1173062659"/>
+        </lane>
+    </edge>
+    <edge id="-598072207#0" from="cluster2100489236_cluster10653940598_10653940599_10653940600_3190849749_#2more" to="17088211" name="Eisenbahnstraße" priority="11" type="highway.secondary" numLanes="1" speed="8.33" shape="27729.30,14302.03 27718.66,14303.34 27709.46,14304.47 27665.26,14309.87 27649.03,14311.86 27637.87,14313.24 27575.38,14320.92 27565.71,14322.11 27560.41,14322.76 27549.39,14324.11" disallow="tram rail_urban rail rail_electric rail_fast ship cable_car subway">
+        <lane index="0">
+            <param key="origId" value="598072207 598072209 1106902224 1171501916 1171502163 1171502119 1171502119 1171502118"/>
+        </lane>
+    </edge>
+    <edge id="1171502118#1" from="17088211" to="cluster2100489236_cluster10653940598_10653940599_10653940600_3190849749_#2more" name="Eisenbahnstraße" priority="11" type="highway.secondary" numLanes="1" speed="8.33" shape="27549.39,14324.11 27560.41,14322.76 27565.71,14322.11 27575.38,14320.92 27637.87,14313.24 27649.03,14311.86 27665.26,14309.87 27709.46,14304.47 27718.66,14303.34 27729.30,14302.03" disallow="tram rail_urban rail rail_electric rail_fast ship cable_car subway">
+        <lane index="0">
+            <param key="origId" value="1171502118 1171502119 1171502119 1171502163 1171501916 1106902224 598072209 598072207"/>
+        </lane>
+    </edge>
+    <edge id="1173062658#0" from="59283475" to="7289719782" name="Hildegardstraße" priority="2" type="highway.living_street" numLanes="1" speed="2.78" disallow="tram rail_urban rail rail_electric rail_fast ship cable_car subway">
+        <lane index="0">
+            <param key="origId" value="1173062658"/>
+        </lane>
+    </edge>
+    <edge id="1173062658#1" from="7289719782" to="10885850518" name="Hildegardstraße" priority="2" type="highway.living_street" numLanes="1" speed="2.78" disallow="tram rail_urban rail rail_electric rail_fast ship cable_car subway">
+        <lane index="0">
+            <param key="origId" value="1173062658"/>
+        </lane>
+    </edge>
+    <edge id="1173062659" from="59283475" to="cluster2100489236_cluster10653940598_10653940599_10653940600_3190849749_#2more" name="Eisenbahnstraße" priority="11" type="highway.secondary" numLanes="1" speed="8.33" shape="27843.05,14288.36 27833.50,14289.50 27774.62,14296.53 27761.17,14298.14" disallow="tram rail_urban rail rail_electric rail_fast ship cable_car subway">
+        <lane index="0">
+            <param key="origId" value="1173062659 598072206 598072205"/>
+        </lane>
+    </edge>
+    <edge id="1210488620#1" from="59608420" to="7289719776" name="Hildegardstraße" priority="3" type="highway.residential" numLanes="1" speed="8.33" shape="27832.02,14192.77 27832.72,14198.76 27842.74,14285.72" disallow="tram rail_urban rail rail_electric rail_fast ship cable_car subway">
+        <lane index="0">
+            <param key="origId" value="1210488620"/>
+        </lane>
+    </edge>
+    <edge id="1210488620#2" from="7289719776" to="59283475" name="Hildegardstraße" priority="3" type="highway.residential" numLanes="1" speed="8.33" disallow="tram rail_urban rail rail_electric rail_fast ship cable_car subway">
+        <lane index="0">
+            <param key="origId" value="1210488620"/>
+        </lane>
+    </edge>
+    <edge id="134462344#0" from="cluster26117661_cluster7289719773_cluster7289719761_7289719774" to="cluster2100489236_cluster10653940598_10653940599_10653940600_3190849749_#2more" name="Hermann-Liebmann-Straße" priority="11" type="highway.secondary" numLanes="2" speed="13.89" shape="27756.39,14380.82 27748.69,14321.33 27747.85,14314.85" disallow="tram rail_urban rail rail_electric rail_fast ship cable_car subway">
+        <lane index="0">
+            <param key="origId" value="134462344"/>
+        </lane>
+        <lane index="1">
+            <param key="origId" value="134462344"/>
+        </lane>
+    </edge>
+    <edge id="159017676#0" from="cluster2100489236_cluster10653940598_10653940599_10653940600_3190849749_#2more" to="10157833472" priority="17" type="railway.tram" numLanes="1" speed="13.89" shape="27729.99,14304.07 27724.44,14304.71 27709.85,14306.21 27704.88,14306.70 27578.84,14322.54 27549.63,14325.92" spreadType="center" allow="tram">
+        <lane index="0">
+            <param key="origId" value="159017676"/>
+        </lane>
+    </edge>
+    <edge id="200061272#3" from="7289719783" to="7289719782" priority="17" type="railway.tram" numLanes="1" speed="13.89" shape="27968.36,14275.53 27873.59,14286.75 27843.31,14290.54" spreadType="center" allow="tram">
+        <lane index="0">
+            <param key="origId" value="200061272"/>
+        </lane>
+    </edge>
+    <edge id="200061272#4" from="7289719782" to="cluster2100489236_cluster10653940598_10653940599_10653940600_3190849749_#2more" priority="17" type="railway.tram" numLanes="1" speed="13.89" shape="27843.31,14290.54 27788.33,14297.42 27754.99,14301.20 27746.66,14302.15" spreadType="center" allow="tram">
+        <lane index="0">
+            <param key="origId" value="200061272"/>
+        </lane>
+    </edge>
+    <edge id="200061275#11" from="10911670912" to="cluster2100489236_cluster10653940598_10653940599_10653940600_3190849749_#2more" priority="17" type="railway.tram" numLanes="1" speed="13.89" shape="27359.94,14345.41 27454.49,14333.29 27466.79,14331.87 27552.26,14321.99 27565.48,14320.36 27648.78,14310.05 27653.55,14309.46 27704.63,14303.04 27709.31,14302.45 27727.11,14300.22" spreadType="center" allow="tram">
+        <lane index="0">
+            <param key="origId" value="200061275"/>
+        </lane>
+    </edge>
+    <edge id="200063440#1" from="cluster2100489236_cluster10653940598_10653940599_10653940600_3190849749_#2more" to="7289719776" priority="17" type="railway.tram" numLanes="1" speed="13.89" shape="27746.23,14297.82 27754.83,14296.73 27842.74,14285.72" spreadType="center" allow="tram">
+        <lane index="0">
+            <param key="origId" value="200063440"/>
+        </lane>
+    </edge>
+    <edge id="200063440#2" from="7289719776" to="7289719777" priority="17" type="railway.tram" numLanes="1" speed="13.89" spreadType="center" allow="tram">
+        <lane index="0">
+            <param key="origId" value="200063440"/>
+        </lane>
+    </edge>
+    <edge id="313176438#3" from="cluster2100489236_cluster10653940598_10653940599_10653940600_3190849749_#2more" to="cluster26117661_cluster7289719773_cluster7289719761_7289719774" priority="17" type="railway.tram" numLanes="1" speed="13.89" shape="27747.44,14310.70 27748.36,14312.08 27749.80,14315.97 27750.87,14322.42 27756.97,14373.31 27758.01,14382.09" spreadType="center" allow="tram">
+        <lane index="0">
+            <param key="origId" value="313176438 313176437"/>
+        </lane>
+    </edge>
+    <edge id="313176444" from="cluster2100489236_cluster10653940598_10653940599_10653940600_3190849749_#2more" to="3190849748" name="Hermann-Liebmann-Straße" priority="10" type="highway.tertiary" numLanes="2" speed="13.89" shape="27744.98,14286.00 27743.85,14274.82 27739.34,14230.08 27737.37,14210.54" disallow="tram rail_urban rail rail_electric rail_fast ship cable_car subway">
+        <lane index="0">
+            <param key="origId" value="313176444"/>
+        </lane>
+        <lane index="1">
+            <param key="origId" value="313176444"/>
+        </lane>
+    </edge>
+    <edge id="337039712#3" from="17088212" to="59283475" name="Eisenbahnstraße" priority="11" type="highway.secondary" numLanes="1" speed="8.33" disallow="tram rail_urban rail rail_electric rail_fast ship cable_car subway">
+        <lane index="0">
+            <param key="origId" value="337039712"/>
+        </lane>
+    </edge>
+    <edge id="759996924" from="2100489237" to="cluster2100489236_cluster10653940598_10653940599_10653940600_3190849749_#2more" priority="17" type="railway.tram" numLanes="1" speed="2.78" shape="27752.06,14371.81 27745.97,14322.02 27745.22,14315.91 27744.26,14313.13 27742.19,14309.94 27739.26,14306.95 27736.59,14305.26 27734.09,14304.55 27729.99,14304.07" spreadType="center" allow="tram">
+        <lane index="0">
+            <param key="origId" value="759996924"/>
+        </lane>
+    </edge>
+
+
+</edges>

@@ -119,6 +119,10 @@ GNEGenericData::checkDrawToContour() const {
 
 bool
 GNEGenericData::checkDrawRelatedContour() const {
+    // check opened popup
+    if (myNet->getViewNet()->getPopup()) {
+        return myNet->getViewNet()->getPopup()->getGLObject() == this;
+    }
     return false;
 }
 
@@ -139,6 +143,12 @@ GNEGenericData::checkDrawDeleteContour() const {
     } else {
         return false;
     }
+}
+
+
+bool
+GNEGenericData::checkDrawDeleteContourSmall() const {
+    return false;
 }
 
 
@@ -182,7 +192,7 @@ GNEGenericData::fixGenericDataProblem() {
 GUIGLObjectPopupMenu*
 GNEGenericData::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     // create popup
-    GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
+    GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, this);
     // build common options
     buildPopUpMenuCommonOptions(ret, app, myNet->getViewNet(), myTagProperty->getTag(), mySelected);
     // show option to open additional dialog

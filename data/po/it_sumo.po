@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-13 10:07+0100\n"
-"PO-Revision-Date: 2025-03-19 12:20+0000\n"
+"PO-Revision-Date: 2025-03-26 08:23+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -3919,12 +3919,16 @@ msgstr ""
 msgid ""
 "Battery builder: Vehicle '%' doesn't have a valid value for parameter % (%)."
 msgstr ""
+"Costruttore di batterie: Il veicolo '%' non ha un valore valido per il "
+"parametro % (%)."
 
 #: src/microsim/devices/MSDevice_Battery.cpp:132
 msgid ""
 "Battery builder: Vehicle '%' has a % (%) greater than its % (%). A max "
 "battery capacity value will be assigned."
 msgstr ""
+"Costruttore di batterie: Il veicolo '%' ha un % (%) maggiore di suo % (%). "
+"Un valore di capacità massima verrà assegnato."
 
 #: src/microsim/devices/MSDevice_Battery.cpp:147
 msgid ""
@@ -3932,6 +3936,10 @@ msgid ""
 "Please consider setting an explicit emission class or battery outputs might "
 "be inconsistent with emission outputs!"
 msgstr ""
+"L'attrezzo batteria è presente nel veicolo '%' ma non è stata impostata "
+"nessuna classe di emissioni. Per favore considera di impostarne una "
+"esplicitamente, sennò l'uscita batteria e l'uscita di emissioni potrebbero "
+"divergere!"
 
 #: src/microsim/devices/MSDevice_Battery.cpp:206
 msgid "Battery of vehicle '%' is depleted, time=%."
@@ -3942,16 +3950,20 @@ msgstr "La batteria del veicolo '%' si è esaurita alle ore %."
 #: src/microsim/devices/MSDevice_Battery.cpp:391
 msgid "Trying to set into the battery device of vehicle '%' an invalid % (%)."
 msgstr ""
+"Si prova ad impostare un valore invalido nell'attrezzo di batteria del "
+"veicolo '%': % (%)."
 
 #: src/microsim/devices/MSDevice_Bluelight.cpp:59
 msgid ""
 "Set the distance at which other drivers react to the blue light and siren "
 "sound"
 msgstr ""
+"Imposta la distanza alla quale gli altri conducenti reagiscono alla luce blu "
+"e al suono della sirena"
 
 #: src/microsim/devices/MSDevice_Bluelight.cpp:61
 msgid "Reduce the minGap for reacting vehicles by the given factor"
-msgstr ""
+msgstr "Abbassa minGap per i veicoli che reagiscono con il fattore indicato"
 
 #: src/microsim/devices/MSDevice_Bluelight.cpp:70
 msgid ""
@@ -5394,7 +5406,7 @@ msgstr ""
 #: src/microsim/traffic_lights/MSRailSignalConstraint.cpp:157
 #, c-format
 msgid "Unknown tracker lane '%' in loaded state."
-msgstr ""
+msgstr "Corsia di inseguimento '%' sconosciuta nello stato caricato."
 
 #: src/microsim/traffic_lights/MSSOTLTrafficLightLogic.cpp:169
 msgid "Listing output lanes"
@@ -6128,6 +6140,7 @@ msgstr ""
 #: src/netbuild/NBAlgorithms_Railway.cpp:1045
 msgid "No connection found between stops on edge '%' and edge '%'."
 msgstr ""
+"Nessun collegamento è stato trovato tra le fermate sugli archi '%' e '%'."
 
 #: src/netbuild/NBAlgorithms_Railway.cpp:1155
 msgid ""
@@ -9219,12 +9232,12 @@ msgstr "L'arco '%' non tiene corsie."
 #: src/netimport/NIImporter_OpenDrive.cpp:679
 #, c-format
 msgid "While setting connections: from-edge '%' is not known."
-msgstr ""
+msgstr "Nel mettere collegamenti: l'arco di partenza '%' è sconosciuto."
 
 #: src/netimport/NIImporter_OpenDrive.cpp:689
 #, c-format
 msgid "While setting connections: to-edge '%' is not known."
-msgstr ""
+msgstr "Nel mettere collegamenti: l'arco di arrivo '%' è sconosciuto."
 
 #: src/netimport/NIImporter_OpenDrive.cpp:715
 #: src/netimport/NIImporter_OpenDrive.cpp:718
@@ -9237,11 +9250,13 @@ msgid ""
 "Controlling multiple junctions by the same controller '%' is currently not "
 "implemented."
 msgstr ""
+"Controllare più incroci dalla stessa centralina '%' attualmente non è "
+"implementato."
 
 #: src/netimport/NIImporter_OpenDrive.cpp:792
 #, c-format
 msgid "Edge '%' has signals but no lane sections."
-msgstr ""
+msgstr "L'arco '%' tiene segnali ma nessuna sezione di corsie."
 
 #: src/netimport/NIImporter_OpenDrive.cpp:814
 msgid "Ambiguous start of connection."
@@ -9266,6 +9281,8 @@ msgstr ""
 #: src/netimport/NIImporter_OpenDrive.cpp:895
 msgid "Found a traffic light signal on an unknown edge (original edge id='%')."
 msgstr ""
+"Un segnale è stato trovato su un arco sconosciuto (codice identificativo "
+"dell'arco originale='%')."
 
 #: src/netimport/NIImporter_OpenDrive.cpp:926
 msgid ""
@@ -9339,7 +9356,7 @@ msgstr "Un oggetto senza codice identificativo sull'arco '%' viene ignorato."
 
 #: src/netimport/NIImporter_OpenDrive.cpp:2636
 msgid "Repeat without object at edge '%'."
-msgstr ""
+msgstr "Ripetizione senza oggetto all'arco '%'."
 
 #: src/netimport/NIImporter_OpenDrive.cpp:2699
 msgid "Could not set projection (%). This can be ignored with --ignore-errors."
@@ -9625,23 +9642,27 @@ msgstr "Il nodo intermedio '%' non è stato inizializzato"
 #, c-format
 msgid "from-edge '%' of restriction relation could not be determined"
 msgstr ""
+"L'arco di partenza '%' della relazione restrittiva non poteva essere "
+"determinato"
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:2180
 #: src/netimport/NIImporter_OpenStreetMap.cpp:2170
 #, c-format
 msgid "to-edge '%' of restriction relation could not be determined"
 msgstr ""
+"L'arco di arrivo '%' della relazione restrittiva non poteva essere "
+"determinato"
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:2210
 #: src/netimport/NIImporter_OpenStreetMap.cpp:2200
 msgid "direction of restriction relation could not be determined%"
-msgstr ""
+msgstr "la direzione della relazione restrittiva non poteva essere determinato%"
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:2231
 #: src/netimport/NIImporter_OpenStreetMap.cpp:2221
 #, c-format
 msgid "Ambiguous way reference '%' in restriction relation"
-msgstr ""
+msgstr "Referenza di cammino ambigua '%' in una relazione restrittiva"
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:2482
 #: src/netimport/NIImporter_OpenStreetMap.cpp:2473
@@ -12025,11 +12046,13 @@ msgstr ""
 
 #: src/sumo_main.cpp:49
 msgid "Another interrupt signal received, hard exit."
-msgstr ""
+msgstr "Un'altro segnale di interruzione è stato ricevuto - uscita forzata."
 
 #: src/sumo_main.cpp:52
 msgid "Interrupt signal received, trying to exit gracefully."
 msgstr ""
+"Un segnale di interruzione è stato ricevuto, cercando di uscire "
+"graziosamente."
 
 #: src/sumo_main.cpp:86
 msgid "A microscopic, multi-modal traffic simulation."

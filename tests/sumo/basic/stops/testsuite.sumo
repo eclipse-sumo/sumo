@@ -10,6 +10,12 @@ two_rails_at_one_containerstop
 # one short bus is stopping at a bus stop, such that a second bus has to wait for stopping
 long_bus_at_busstop2
 
+# one short bus is stopping at a bus stop, such that a second bus has to wait for stopping
+long_bus_at_busstop_parkingLength
+
+# one short bus is stopping at a bus stop, such that a second bus has to wait for stopping
+long_bus_at_busstop_shortEdge
+
 # one short rail is stopping at a containerstop, such that a second rail has to wait for stopping
 long_rail_at_containerstop2
 

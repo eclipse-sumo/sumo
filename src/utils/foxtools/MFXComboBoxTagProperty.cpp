@@ -59,6 +59,12 @@ MFXComboBoxTagProperty::getCurrentTagProperty() const {
 }
 
 
+bool
+MFXComboBoxTagProperty::hasTagProperty(const GNETagProperties* tagProperties) const {
+    return std::find(myTagProperties.begin(), myTagProperties.end(), tagProperties) != myTagProperties.end();
+}
+
+
 long
 MFXComboBoxTagProperty::setCurrentItem(const GNETagProperties* tagProperties, FXbool notify) {
     for (int i = 0; i < (int)myTagProperties.size(); i++) {

@@ -117,6 +117,10 @@ GNEInternalLane::checkDrawToContour() const {
 
 bool
 GNEInternalLane::checkDrawRelatedContour() const {
+    // check opened popup
+    if (myNet->getViewNet()->getPopup()) {
+        return myNet->getViewNet()->getPopup()->getGLObject() == this;
+    }
     return false;
 }
 
@@ -129,6 +133,12 @@ GNEInternalLane::checkDrawOverContour() const {
 
 bool
 GNEInternalLane::checkDrawDeleteContour() const {
+    return false;
+}
+
+
+bool
+GNEInternalLane::checkDrawDeleteContourSmall() const {
     return false;
 }
 
@@ -249,7 +259,7 @@ GNEInternalLane::getTLIndex() const {
 
 GUIGLObjectPopupMenu*
 GNEInternalLane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
-    myPopup = new GUIGLObjectPopupMenu(app, parent, *this);
+    myPopup = new GUIGLObjectPopupMenu(app, parent, this);
     buildPopupHeader(myPopup, app);
     if ((myEditor != nullptr) && (myEditor->getViewNet()->getEditModes().isCurrentSupermodeNetwork())) {
         const std::vector<std::string> names = LinkStateNames.getStrings();

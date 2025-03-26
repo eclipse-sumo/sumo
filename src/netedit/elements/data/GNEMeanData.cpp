@@ -186,6 +186,12 @@ GNEMeanData::checkDrawDeleteContour() const {
 
 
 bool
+GNEMeanData::checkDrawDeleteContourSmall() const {
+    return false;
+}
+
+
+bool
 GNEMeanData::checkDrawSelectContour() const {
     return false;
 }

@@ -241,9 +241,8 @@ GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger::onCmdChangeOption(FXObject*, FXS
  * GUILaneSpeedTrigger::GUILaneSpeedTriggerPopupMenu - methods
  * ----------------------------------------------------------------------- */
 GUILaneSpeedTrigger::GUILaneSpeedTriggerPopupMenu::GUILaneSpeedTriggerPopupMenu(
-    GUIMainWindow& app, GUISUMOAbstractView& parent,
-    GUIGlObject& o)
-    : GUIGLObjectPopupMenu(app, parent, o) {}
+    GUIMainWindow& app, GUISUMOAbstractView& parent, GUIGlObject* o) :
+    GUIGLObjectPopupMenu(app, parent, o) {}
 
 
 GUILaneSpeedTrigger::GUILaneSpeedTriggerPopupMenu::~GUILaneSpeedTriggerPopupMenu() {}
@@ -284,9 +283,8 @@ GUILaneSpeedTrigger::~GUILaneSpeedTrigger() {}
 
 
 GUIGLObjectPopupMenu*
-GUILaneSpeedTrigger::getPopUpMenu(GUIMainWindow& app,
-                                  GUISUMOAbstractView& parent) {
-    GUIGLObjectPopupMenu* ret = new GUILaneSpeedTriggerPopupMenu(app, parent, *this);
+GUILaneSpeedTrigger::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
+    GUIGLObjectPopupMenu* ret = new GUILaneSpeedTriggerPopupMenu(app, parent, this);
     buildPopupHeader(ret, app);
     buildCenterPopupEntry(ret);
     buildShowManipulatorPopupEntry(ret);
@@ -299,8 +297,7 @@ GUILaneSpeedTrigger::getPopUpMenu(GUIMainWindow& app,
 
 
 GUIParameterTableWindow*
-GUILaneSpeedTrigger::getParameterWindow(GUIMainWindow& app,
-                                        GUISUMOAbstractView&) {
+GUILaneSpeedTrigger::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
     GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this);
     // add items
     ret->mkItem(TL("speed [m/s]"), true,

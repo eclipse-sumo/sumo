@@ -117,6 +117,12 @@ GNEEdgeTemplate::checkDrawDeleteContour() const {
 
 
 bool
+GNEEdgeTemplate::checkDrawDeleteContourSmall() const {
+    return false;
+}
+
+
+bool
 GNEEdgeTemplate::checkDrawSelectContour() const {
     return false;
 }

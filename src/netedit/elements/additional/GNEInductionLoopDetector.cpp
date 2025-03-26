@@ -28,6 +28,7 @@
 #include <netedit/frames/network/GNETLSEditorFrame.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIGlobalViewObjectsHandler.h>
+#include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 
 #include "GNEInductionLoopDetector.h"
 #include "GNEAdditionalHandler.h"
@@ -133,9 +134,12 @@ GNEInductionLoopDetector::checkDrawRelatedContour() const {
             (TLSAttributes->getE1Detectors().count(getParentLanes().front()->getID()) > 0) &&
             (TLSAttributes->getE1Detectors().at(getParentLanes().front()->getID()) == getID())) {
         return true;
-    } else {
-        return false;
     }
+    // check opened popup
+    if (myNet->getViewNet()->getPopup()) {
+        return myNet->getViewNet()->getPopup()->getGLObject() == this;
+    }
+    return false;
 }
 
 

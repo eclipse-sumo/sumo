@@ -150,12 +150,21 @@ GNEMatchAttribute::refreshMatchAttribute() {
                 }
             }
             // update tag
-            myTagComboBoxVector.at(i)->setCurrentItem(parentHierarchy.at(i), FALSE);
+            if (myTagComboBoxVector.at(i)->hasTagProperty(parentHierarchy.at(i))) {
+                myTagComboBoxVector.at(i)->setCurrentItem(parentHierarchy.at(i), FALSE);
+                myTagComboBoxVector.at(i)->show();
+            } else {
+                myTagComboBoxVector.at(i)->hide();
+            }
         }
     }
     // hide the two first combo boxes(root and supermode)
     myTagComboBoxVector.at(0)->hide();
     myTagComboBoxVector.at(1)->hide();
+    // hide comboBox with only one element (+ <all>)
+    if (myTagComboBoxVector.at(parentHierarchy.size() - 1)->getNumItems() == 2) {
+        myTagComboBoxVector.at(parentHierarchy.size() - 1)->hide();
+    }
     // check if show children
     auto comboBoxChildren = myTagComboBoxVector.at(parentHierarchy.size());
     if (parentHierarchy.back()->getTagChildren().size() > 0) {
@@ -475,8 +484,15 @@ GNEMatchAttribute::getGenericMatches(const std::vector<GNEGenericData*>& generic
 GNEMatchAttribute::CurrentEditedProperties::CurrentEditedProperties(const GNEMatchAttribute* matchAttributeParent) :
     myMatchAttributeParent(matchAttributeParent) {
     // build special attributes
-    myTagPropertiesAllAttributes = new GNETagProperties(GNE_TAG_ATTRIBUTES_ALL, nullptr, GUIIcon::EMPTY, TL("Show all attributes"), TL("<all>"));
-    myAttributePropertiesNoCommon = new GNEAttributeProperties(myTagPropertiesAllAttributes, GNE_ATTR_NOCOMMON, TL("No common attributes defined"));
+    myTagPropertiesAllAttributes = new GNETagProperties(GNE_TAG_ATTRIBUTES_ALL, 
+                                                        nullptr,
+                                                        GUIIcon::EMPTY,
+                                                        TL("Show all attributes"),
+                                                        FXRGBA(255, 255, 255, 255),
+                                                        TL("<all>"));
+    myAttributePropertiesNoCommon = new GNEAttributeProperties(myTagPropertiesAllAttributes,
+                                                               GNE_ATTR_NOCOMMON,
+                                                               TL("No common attributes defined"));
     // set default tag and attribute for every property
     const auto database = myMatchAttributeParent->mySelectorFrameParent->getViewNet()->getNet()->getTagPropertiesDatabase();
     setTagProperties(database->getTagProperty(SUMO_TAG_EDGE, true));
@@ -484,7 +500,7 @@ GNEMatchAttribute::CurrentEditedProperties::CurrentEditedProperties(const GNEMat
     myNetworkMatchValue = ">= 10";
     setTagProperties(database->getTagProperty(SUMO_TAG_VEHICLE, true));
     setAttributeProperties(myNetworkTagProperties.back()->getAttributeProperties(SUMO_ATTR_ID));
-    setTagProperties(database->getTagProperty(SUMO_TAG_DATASET, true));
+    setTagProperties(database->getTagProperty(GNE_TAG_DATAS, true));
     setAttributeProperties(myNetworkTagProperties.back()->getAttributeProperties(SUMO_ATTR_ID));
 }
 

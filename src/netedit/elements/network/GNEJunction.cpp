@@ -266,7 +266,14 @@ GNEJunction::checkDrawToContour() const {
 
 bool
 GNEJunction::checkDrawRelatedContour() const {
-    return (myNet->getViewNet()->getViewParent()->getCrossingFrame()->getEdgesSelector()->getCurrentJunction() == this);
+    if (myNet->getViewNet()->getViewParent()->getCrossingFrame()->getEdgesSelector()->getCurrentJunction() == this) {
+        return true;
+    }
+    // check opened popup
+    if (myNet->getViewNet()->getPopup()) {
+        return myNet->getViewNet()->getPopup()->getGLObject() == this;
+    }
+    return false;
 }
 
 
@@ -322,6 +329,12 @@ GNEJunction::checkDrawDeleteContour() const {
     } else {
         return false;
     }
+}
+
+
+bool
+GNEJunction::checkDrawDeleteContourSmall() const {
+    return false;
 }
 
 
@@ -496,7 +509,7 @@ GNEJunction::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
         return getShapeEditedPopUpMenu(app, parent, myNBNode->getShape());
     } else {
         // create popup
-        GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
+        GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, this);
         // build common options
         buildPopUpMenuCommonOptions(ret, app, myNet->getViewNet(), myTagProperty->getTag(), mySelected, myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork());
         // check if we're in supermode network

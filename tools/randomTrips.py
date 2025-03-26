@@ -433,7 +433,7 @@ class CachedTripGenerator:
         self._nCalled = 0
 
     def get_trip(self, min_distance, max_distance, maxtries=100, junctionTaz=False, min_dist_fringe=None):
-        result =  self._cache[self._nCalled % len(self._cache)]
+        result = self._cache[self._nCalled % len(self._cache)]
         self._nCalled += 1
         return result
 
@@ -717,12 +717,12 @@ def main(options):
 def createTrips(options, trip_generator, rerunFactor=None, skipValidation=False):
     idx = 0
 
-    vtypeattrs, options.tripattrs, personattrs, otherattrs = split_trip_attributes(
+    vtypeattrs, tripattrs, personattrs, otherattrs = split_trip_attributes(
         options.tripattrs, options.pedestrians, options.vehicle_class, options.verbose)
 
     vias = {}
-    generatedTrips = [] # (label, origin, destination, intermediate)
-    validatedTrips = [] # (origin, destination, intermediate)
+    generatedTrips = []  # (label, origin, destination, intermediate)
+    validatedTrips = []  # (origin, destination, intermediate)
 
     time_delta = (parseTime(options.end) - parseTime(options.begin)) / len(options.period)
     times = [parseTime(options.begin) + i * time_delta for i in range(len(options.period) + 1)]
@@ -739,7 +739,7 @@ def createTrips(options, trip_generator, rerunFactor=None, skipValidation=False)
         if options.pedestrians:
             combined_attrs = ""
         else:
-            combined_attrs = options.tripattrs
+            combined_attrs = tripattrs
         arrivalPos = ""
         if options.randomDepartPos:
             randomPosition = samplePosition(origin)
@@ -882,7 +882,7 @@ def createTrips(options, trip_generator, rerunFactor=None, skipValidation=False)
                     fouttype.write("</additional>\n")
             else:
                 fouttrips.write(vTypeDef)
-            options.tripattrs += ' type="%s"' % options.vtypeID
+            tripattrs += ' type="%s"' % options.vtypeID
             personattrs += ' type="%s"' % options.vtypeID
 
         if trip_generator:
@@ -998,7 +998,7 @@ def createTrips(options, trip_generator, rerunFactor=None, skipValidation=False)
                     raise ValueError("The argument '%s' has already been passed without the %s prefix." % (
                                      option[0], router))
 
-    if options.routefile:
+    if options.routefile and rerunFactor is None:
         args2 = (maargs if options.marouter else duargs)[:]
         args2 += ['-o', options.routefile]
         if options.verbose:
@@ -1032,10 +1032,10 @@ def createTrips(options, trip_generator, rerunFactor=None, skipValidation=False)
             if nRequested > 0 and nValid < nRequested:
                 successRate = nValid / nRequested
                 if successRate < options.minSuccessRate:
-                    print("Warning: Only %s out of %s requested %ss passed validation. " +
-                          "Set option --error-log for more details on the failure." +
-                          "Set option --min-success-rate to find more valid trips" % (
-                              nValid, nRequested, getElement(options)), file=sys.stderr)
+                    print("Warning: Only %s out of %s requested %ss passed validation. "
+                          "Set option --error-log for more details on the failure. "
+                          "Set option --min-success-rate to find more valid trips." %
+                          (nValid, nRequested, getElement(options)), file=sys.stderr)
                 else:
                     if options.verbose:
                         print("Only %s out of %s requested %ss passed validation. Sampling again to find more." % (

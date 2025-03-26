@@ -204,15 +204,13 @@ GUITriggeredRerouter::GUIManip_TriggeredRerouter::onCmdShiftProbs(FXObject*, FXS
     return 1;
 }
 
-
-
 /* -------------------------------------------------------------------------
  * GUITriggeredRerouter::GUITriggeredRerouterPopupMenu - methods
  * ----------------------------------------------------------------------- */
+
 GUITriggeredRerouter::GUITriggeredRerouterPopupMenu::GUITriggeredRerouterPopupMenu(
-    GUIMainWindow& app, GUISUMOAbstractView& parent,
-    GUIGlObject& o)
-    : GUIGLObjectPopupMenu(app, parent, o) {}
+    GUIMainWindow& app, GUISUMOAbstractView& parent, GUIGlObject* o) :
+    GUIGLObjectPopupMenu(app, parent, o) {}
 
 
 GUITriggeredRerouter::GUITriggeredRerouterPopupMenu::~GUITriggeredRerouterPopupMenu() {}
@@ -305,9 +303,8 @@ GUITriggeredRerouter::myEndElement(int element) {
 
 
 GUIGLObjectPopupMenu*
-GUITriggeredRerouter::getPopUpMenu(GUIMainWindow& app,
-                                   GUISUMOAbstractView& parent) {
-    GUIGLObjectPopupMenu* ret = new GUITriggeredRerouterPopupMenu(app, parent, *this);
+GUITriggeredRerouter::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
+    GUIGLObjectPopupMenu* ret = new GUITriggeredRerouterPopupMenu(app, parent, this);
     buildPopupHeader(ret, app);
     buildCenterPopupEntry(ret);
     buildShowManipulatorPopupEntry(ret, false);

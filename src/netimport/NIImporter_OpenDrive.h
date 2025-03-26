@@ -674,7 +674,7 @@ private:
                                         std::vector<Connection>& into, std::set<Connection>& seen);
     static bool laneSectionsConnected(OpenDriveEdge* edge, int in, int out);
     friend bool operator<(const Connection& c1, const Connection& c2);
-    static std::string revertID(const std::string& id);
+    static std::string reversedEdgeID(const std::string& id);
     const NBTypeCont& myTypeContainer;
     OpenDriveEdge myCurrentEdge;
     OpenDriveController myCurrentController;
@@ -754,7 +754,7 @@ protected:
     static NBTrafficLightDefinition* getTLSSecure(NBEdge* inEdge, /*const NBEdge::Connection& conn,*/ NBNetBuilder& nb);
 
 
-    static std::pair<NBEdge*, NBEdge*> retrieveSignalEdges(NBNetBuilder& nb, const std::string& fromID, const std::string& toID, const std::string& junction);
+    static std::pair<NBEdge*, NBEdge*> retrieveSignalEdges(NBNetBuilder& nb, const std::string& fromID, const std::string& toID, int signalMinLane);
 
     static void splitMinWidths(OpenDriveEdge* e, const NBTypeCont& tc, double minDist);
 

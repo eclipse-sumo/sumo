@@ -93,16 +93,14 @@ public:
 
 
 
-    GUIManipulator* openManipulator(GUIMainWindow& app,
-                                    GUISUMOAbstractView& parent);
+    GUIManipulator* openManipulator(GUIMainWindow& app, GUISUMOAbstractView& parent);
 
 public:
     class GUICalibratorPopupMenu : public GUIGLObjectPopupMenu {
         FXDECLARE(GUICalibratorPopupMenu)
     public:
 
-        GUICalibratorPopupMenu(GUIMainWindow& app,
-                               GUISUMOAbstractView& parent, GUIGlObject& o);
+        GUICalibratorPopupMenu(GUIMainWindow& app, GUISUMOAbstractView& parent, GUIGlObject* o);
 
         ~GUICalibratorPopupMenu();
 

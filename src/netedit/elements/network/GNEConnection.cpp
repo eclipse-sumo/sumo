@@ -135,6 +135,10 @@ GNEConnection::checkDrawToContour() const {
 
 bool
 GNEConnection::checkDrawRelatedContour() const {
+    // check opened popup
+    if (myNet->getViewNet()->getPopup()) {
+        return myNet->getViewNet()->getPopup()->getGLObject() == this;
+    }
     return false;
 }
 
@@ -155,6 +159,12 @@ GNEConnection::checkDrawDeleteContour() const {
     } else {
         return false;
     }
+}
+
+
+bool
+GNEConnection::checkDrawDeleteContourSmall() const {
+    return false;
 }
 
 
@@ -329,7 +339,7 @@ GNEConnection::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
         return getShapeEditedPopUpMenu(app, parent, getNBEdgeConnection().customShape);
     } else {
         // create popup
-        GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
+        GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, this);
         // build common options
         buildPopUpMenuCommonOptions(ret, app, myNet->getViewNet(), myTagProperty->getTag(), mySelected);
         // check if we're in supermode network

@@ -185,10 +185,12 @@ GNEDemandElement::checkDrawRelatedContour() const {
                 }
             }
         }
-        return false;
-    } else {
-        return false;
     }
+    // check opened popup
+    if (myNet->getViewNet()->getPopup()) {
+        return myNet->getViewNet()->getPopup()->getGLObject() == this;
+    }
+    return false;
 }
 
 
@@ -237,6 +239,23 @@ GNEDemandElement::checkDrawDeleteContour() const {
     } else {
         return false;
     }
+}
+
+
+bool
+GNEDemandElement::checkDrawDeleteContourSmall() const {
+    if (myTagProperty->vehicleRoute()) {
+        const auto route = myNet->getViewNet()->getViewObjectsSelector().getDemandElementFront();
+        if (route && (route == myNet->getViewNet()->getViewObjectsSelector().getAttributeCarrierFront())) {
+            return (getParentDemandElements().at(1) == route); 
+        }
+    }else if (myTagProperty->getTag() == GNE_TAG_ROUTE_EMBEDDED) {
+        const auto vehicle = myNet->getViewNet()->getViewObjectsSelector().getDemandElementFront();
+        if (vehicle && (vehicle == myNet->getViewNet()->getViewObjectsSelector().getAttributeCarrierFront())) {
+            return (getParentDemandElements().front() == vehicle); 
+        }
+    }
+    return false;
 }
 
 
@@ -292,7 +311,7 @@ GNEDemandElement::openDemandElementDialog() {
 GUIGLObjectPopupMenu*
 GNEDemandElement::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     // create popup
-    GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
+    GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, this);
     // build common options
     buildPopUpMenuCommonOptions(ret, app, myNet->getViewNet(), myTagProperty->getTag(), mySelected);
     // show option to open demand element dialog

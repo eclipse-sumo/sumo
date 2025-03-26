@@ -111,6 +111,12 @@ GNELaneType::checkDrawDeleteContour() const {
 
 
 bool
+GNELaneType::checkDrawDeleteContourSmall() const {
+    return false;
+}
+
+
+bool
 GNELaneType::checkDrawSelectContour() const {
     return false;
 }

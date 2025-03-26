@@ -52,7 +52,7 @@ public:
          * @param[in] o The object of interest
          * @param[in, out] additionalVisualizations Information which additional visualisations are enabled (per view)
          */
-        GNERoutePopupMenu(GUIMainWindow& app, GUISUMOAbstractView& parent, GUIGlObject& o);
+        GNERoutePopupMenu(GUIMainWindow& app, GUISUMOAbstractView& parent, GUIGlObject* o);
 
         /// @brief Destructor
         ~GNERoutePopupMenu();

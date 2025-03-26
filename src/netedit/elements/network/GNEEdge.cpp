@@ -323,6 +323,9 @@ GNEEdge::checkDrawRelatedContour() const {
             }
         }
     }
+    if (myNet->getViewNet()->getPopup()) {
+        return myNet->getViewNet()->getPopup()->getGLObject() == this;
+    }
     return false;
 }
 
@@ -412,6 +415,18 @@ GNEEdge::checkDrawDeleteContour() const {
         } else {
             return false;
         }
+    } else {
+        return false;
+    }
+}
+
+
+bool
+GNEEdge::checkDrawDeleteContourSmall() const {
+    // from-to junction
+    const auto junction = myNet->getViewNet()->getViewObjectsSelector().getJunctionFront();
+    if (junction == myNet->getViewNet()->getViewObjectsSelector().getAttributeCarrierFront()) {
+        return ((getFromJunction() == junction) || (getToJunction() == junction)); 
     } else {
         return false;
     }

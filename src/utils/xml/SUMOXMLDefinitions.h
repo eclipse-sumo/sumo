@@ -806,6 +806,7 @@ enum SumoXMLTag {
     GNE_TAG_TAZS,
     GNE_TAG_WIRES,
     GNE_TAG_JUPEDSIM,
+    GNE_TAG_FLOWS,
     GNE_TAG_STOPS,
     GNE_TAG_PERSONPLANS,
     GNE_TAG_PERSONTRIPS,
@@ -817,7 +818,6 @@ enum SumoXMLTag {
     GNE_TAG_TRANSHIPS,
     GNE_TAG_CONTAINERSTOPS,
     GNE_TAG_DATAS,
-    GNE_TAG_MEANDATAS,
     // @brief attributes
     GNE_TAG_ATTRIBUTES_ALL,
     /// @}
@@ -1891,8 +1891,6 @@ enum SumoXMLAttr {
     GNE_ATTR_FRONTELEMENT,
     /// @brief virtual attribute used for use edges within during TAZ creation
     GNE_ATTR_EDGES_WITHIN,
-    /// @brief all attributes
-    GNE_ATTR_ALL,
     /// @brief no common attributes
     GNE_ATTR_NOCOMMON,
     // @}
@@ -2465,6 +2463,12 @@ enum class AdditionalFileExtension {
     ALL,
 };
 
+/// @brief additional file extension
+enum class ShapesFileExtension {
+    XML,
+    ALL,
+};
+
 /// @brief route file extension
 enum class RouteFileExtension {
     ROU_XML,
@@ -2623,6 +2627,9 @@ public:
 
     /// @brief additional file extensions
     static StringBijection<AdditionalFileExtension> AdditionalFileExtensions;
+
+    /// @brief additional file extensions
+    static StringBijection<ShapesFileExtension> ShapesFileExtensions;
 
     /// @brief route file extensions
     static StringBijection<RouteFileExtension> RouteFileExtensions;
@@ -2807,6 +2814,9 @@ private:
 
     /// @brief additional file extension values
     static StringBijection<AdditionalFileExtension>::Entry additionalFileExtensionValues[];
+
+    /// @brief additional file extension values
+    static StringBijection<ShapesFileExtension>::Entry shapesFileExtensionValues[];
 
     /// @brief route file extension values
     static StringBijection<RouteFileExtension>::Entry routeFileExtensionsValues[];

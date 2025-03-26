@@ -635,6 +635,7 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::tags[] = {
     { "TAZs",           GNE_TAG_TAZS },
     { "wires",          GNE_TAG_WIRES },
     { "jupedsim",       GNE_TAG_JUPEDSIM },
+    { "flows",          GNE_TAG_FLOWS },
     { "stops",          GNE_TAG_STOPS },
     { "personPlans",    GNE_TAG_PERSONPLANS },
     { "personTrips",    GNE_TAG_PERSONTRIPS },
@@ -646,9 +647,8 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::tags[] = {
     { "tranships",      GNE_TAG_TRANSHIPS },
     { "containerStops", GNE_TAG_CONTAINERSTOPS },
     { "datas",          GNE_TAG_DATAS },
-    { "meanDatas",      GNE_TAG_MEANDATAS },
     // attributes
-    { "allAttributes",      GNE_TAG_ATTRIBUTES_ALL },
+    { "allAttributes",  GNE_TAG_ATTRIBUTES_ALL },
     // Last element
     { "",   SUMO_TAG_NOTHING }  // -> must be the last one
 };
@@ -1418,7 +1418,7 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::attrs[] = {
     { "isRoundabout",                       GNE_ATTR_IS_ROUNDABOUT },
     { "frontElement",                       GNE_ATTR_FRONTELEMENT },
     { TL("edges within"),                   GNE_ATTR_EDGES_WITHIN },
-    { "all",                                GNE_ATTR_ALL },
+    // 'all' is a reserved keyword when configuring attribute filters and must not occur as an attribute name
     { TL("no common attrs."),               GNE_ATTR_NOCOMMON },
 
     { "carriageLength",     SUMO_ATTR_CARRIAGE_LENGTH },
@@ -1845,6 +1845,11 @@ StringBijection<AdditionalFileExtension>::Entry SUMOXMLDefinitions::additionalFi
     {TL("All files (*)"),                               AdditionalFileExtension::ALL} //< must be the last one
 };
 
+StringBijection<ShapesFileExtension>::Entry SUMOXMLDefinitions::shapesFileExtensionValues[] = {
+    {TL("XML files (*.xml, *.xml.gz)"),                 ShapesFileExtension::XML},
+    {TL("All files (*)"),                               ShapesFileExtension::ALL} //< must be the last one
+};
+
 StringBijection<RouteFileExtension>::Entry SUMOXMLDefinitions::routeFileExtensionsValues[] = {
     {TL("Route files (*.rou.xml, *.rou.xml.gz)"),   RouteFileExtension::ROU_XML},
     {TL("XML files (*.xml, *.xml.gz)"),             RouteFileExtension::XML},
@@ -1982,6 +1987,9 @@ StringBijection<EdgeTypeFileExtension> SUMOXMLDefinitions::EdgeTypeFileExtension
 
 StringBijection<AdditionalFileExtension> SUMOXMLDefinitions::AdditionalFileExtensions(
     SUMOXMLDefinitions::additionalFileExtensionValues, AdditionalFileExtension::ALL, false);
+
+StringBijection<ShapesFileExtension> SUMOXMLDefinitions::ShapesFileExtensions(
+    SUMOXMLDefinitions::shapesFileExtensionValues, ShapesFileExtension::ALL, false);
 
 StringBijection<RouteFileExtension> SUMOXMLDefinitions::RouteFileExtensions(
     SUMOXMLDefinitions::routeFileExtensionsValues, RouteFileExtension::ALL, false);

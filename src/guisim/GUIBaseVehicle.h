@@ -257,13 +257,14 @@ public:
      */
     class GUIBaseVehiclePopupMenu : public GUIGLObjectPopupMenu {
         FXDECLARE(GUIBaseVehiclePopupMenu)
+
     public:
         /** @brief Constructor
          * @param[in] app The main window for instantiation of other windows
          * @param[in] parent The parent view for changing it
          * @param[in] o The object of interest
          */
-        GUIBaseVehiclePopupMenu(GUIMainWindow& app, GUISUMOAbstractView& parent, GUIGlObject& o);
+        GUIBaseVehiclePopupMenu(GUIMainWindow& app, GUISUMOAbstractView& parent, GUIGlObject* o);
 
         /// @brief Destructor
         ~GUIBaseVehiclePopupMenu();
@@ -307,7 +308,6 @@ public:
 
     protected:
         FOX_CONSTRUCTOR(GUIBaseVehiclePopupMenu)
-
     };
 
 

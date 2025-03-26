@@ -64,15 +64,15 @@ print(net.getNode("myNodeID").getCoord())
 The sumolib documentation is available online at
 [https://sumo.dlr.de/docs/Tools/Sumolib.html](https://sumo.dlr.de/docs/Tools/Sumolib.html). For a list of available
 functions take a look at the [pydoc generated documentation](http://sumo.dlr.de/pydoc/sumolib.html)
-or simply browse the [source code here](https://github.com/eclipse/sumo/tree/main/tools/sumolib).
+or simply browse the [source code here](https://github.com/eclipse-sumo/sumo/tree/main/tools/sumolib).
 
 
 ## Contributing
 
 If you find a bug in sumolib or have a suggestion for a new feature, please report it on the SUMO issue tracker at
-[https://github.com/eclipse/sumo/issues](https://github.com/eclipse/sumo/issues). If you would like to contribute code
+[https://github.com/eclipse-sumo/sumo/issues](https://github.com/eclipse-sumo/sumo/issues). If you would like to contribute code
 to sumolib, please submit a pull request to the SUMO repository at
-[https://github.com/eclipse/sumo](https://github.com/eclipse/sumo).
+[https://github.com/eclipse-sumo/sumo](https://github.com/eclipse-sumo/sumo).
 
 ## License
 
@@ -83,7 +83,6 @@ sumolib is released under the Eclipse Public License 2.0 (EPL-2.0).''',
         'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Developers',
         'Intended Audience :: Science/Research',
-        'License :: OSI Approved :: Eclipse Public License 2.0 (EPL-2.0)',
         'Programming Language :: Python :: 2',
         'Programming Language :: Python :: 3',
     ],

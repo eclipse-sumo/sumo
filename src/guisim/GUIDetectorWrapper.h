@@ -73,7 +73,7 @@ public:
         FXDECLARE(PopupMenu)
 
     public:
-        PopupMenu(GUIMainWindow& app, GUISUMOAbstractView& parent, GUIGlObject& o);
+        PopupMenu(GUIMainWindow& app, GUISUMOAbstractView& parent, GUIGlObject* o);
 
         /// @brief Destructor
         virtual ~PopupMenu() {};

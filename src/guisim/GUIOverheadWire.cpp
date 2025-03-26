@@ -118,7 +118,7 @@ GUIOverheadWire::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
 
 GUIGLObjectPopupMenu*
 GUIOverheadWire::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
-    GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
+    GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, this);
     buildPopupHeader(ret, app);
     buildCenterPopupEntry(ret);
     buildNameCopyPopupEntry(ret);
@@ -335,7 +335,7 @@ GUIOverheadWireClamp::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView
 
 GUIGLObjectPopupMenu*
 GUIOverheadWireClamp::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
-    GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
+    GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, this);
     buildPopupHeader(ret, app);
     buildCenterPopupEntry(ret);
     buildNameCopyPopupEntry(ret);

@@ -231,6 +231,12 @@ GNEDataSet::checkDrawDeleteContour() const {
 
 
 bool
+GNEDataSet::checkDrawDeleteContourSmall() const {
+    return false;
+}
+
+
+bool
 GNEDataSet::checkDrawSelectContour() const {
     return false;
 }

@@ -353,6 +353,9 @@ public:
 
     ///@}
 
+    /// @brief ge the current popup-menu
+    GUIGLObjectPopupMenu* getPopup() const;
+
     /// @brief get position of current popup
     const Position& getPopupPosition() const;
 

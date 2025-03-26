@@ -96,8 +96,8 @@ The meanings of the written values are given in the following table.
 | angle               | degree               | The angle of the vehicle                                                                                                |
 | x                   | m                    | The absolute X coordinate of the vehicle (center of front bumper).                                                     |
 | y                   | m                    | The absolute Y coordinate of the vehicle (center of front bumper).                                                     |
-| z                   | m                    | The absolute Z coordinate of the vehicle (center of front bumper).                                                     |
-| slope               | degrees              | The vehicle angle of inclination to the horizontal                                                                     |
+| z                   | m                    | The absolute Z coordinate of the vehicle (center of front bumper, only if the network has elevation data)               |
+| slope               | degrees              | The vehicle angle of inclination to the horizontal (only if the network has elevation data)                             |
 | traveltime          | seconds              | The mean travel time on the specific lane                                                                               |
 | fuel\@lane           | l/km/h              | The fuel consumption on the specific lane                                                                               |
 | maxspeed            | m/s                  | The maximum speed of the vehicles on the specific lane                                                                  |

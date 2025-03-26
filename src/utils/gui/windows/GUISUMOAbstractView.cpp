@@ -1032,6 +1032,12 @@ GUISUMOAbstractView::onPaint(FXObject*, FXSelector, void*) {
 }
 
 
+GUIGLObjectPopupMenu*
+GUISUMOAbstractView::getPopup() const {
+    return myPopup;
+}
+
+
 const Position&
 GUISUMOAbstractView::getPopupPosition() const {
     return myPopupPosition;

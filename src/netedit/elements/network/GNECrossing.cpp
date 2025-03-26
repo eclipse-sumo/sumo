@@ -106,6 +106,10 @@ GNECrossing::checkDrawToContour() const {
 
 bool
 GNECrossing::checkDrawRelatedContour() const {
+    // check opened popup
+    if (myNet->getViewNet()->getPopup()) {
+        return myNet->getViewNet()->getPopup()->getGLObject() == this;
+    }
     return false;
 }
 
@@ -126,6 +130,12 @@ GNECrossing::checkDrawDeleteContour() const {
     } else {
         return false;
     }
+}
+
+
+bool
+GNECrossing::checkDrawDeleteContourSmall() const {
+    return false;
 }
 
 
@@ -298,7 +308,7 @@ GNECrossing::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     if (myShapeEdited) {
         return getShapeEditedPopUpMenu(app, parent, getNBCrossing()->customShape);
     } else {
-        GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
+        GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, this);
         // build common options
         buildPopUpMenuCommonOptions(ret, app, myNet->getViewNet(), myTagProperty->getTag(), mySelected);
         // check if we're in supermode network

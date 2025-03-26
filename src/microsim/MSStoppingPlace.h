@@ -242,6 +242,10 @@ public:
         return myTransportableCapacity;
     }
 
+    inline double getParkingLength() const {
+        return (myEndPos - myBegPos) / myParkingFactor;
+    }
+
     /// @brief get IDs of persons waiting at this stop
     void getWaitingPersonIDs(std::vector<std::string>& into) const;
 

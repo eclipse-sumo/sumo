@@ -74,6 +74,10 @@ GNEWalkingArea::checkDrawToContour() const {
 
 bool
 GNEWalkingArea::checkDrawRelatedContour() const {
+    // check opened popup
+    if (myNet->getViewNet()->getPopup()) {
+        return myNet->getViewNet()->getPopup()->getGLObject() == this;
+    }
     return false;
 }
 
@@ -94,6 +98,12 @@ GNEWalkingArea::checkDrawDeleteContour() const {
     } else {
         return false;
     }
+}
+
+
+bool
+GNEWalkingArea::checkDrawDeleteContourSmall() const {
+        return false;
 }
 
 
@@ -195,7 +205,7 @@ GNEWalkingArea::updateGLObject() {
 GUIGLObjectPopupMenu*
 GNEWalkingArea::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     // create popup
-    GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
+    GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, this);
     // build common options
     buildPopUpMenuCommonOptions(ret, app, myNet->getViewNet(), myTagProperty->getTag(), mySelected);
     // check if we're in supermode network

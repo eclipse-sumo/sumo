@@ -157,6 +157,12 @@ GNEDataInterval::checkDrawDeleteContour() const {
 
 
 bool
+GNEDataInterval::checkDrawDeleteContourSmall() const {
+    return false;
+}
+
+
+bool
 GNEDataInterval::checkDrawSelectContour() const {
     return false;
 }

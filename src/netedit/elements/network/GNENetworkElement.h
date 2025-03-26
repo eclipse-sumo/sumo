@@ -94,6 +94,9 @@ public:
     /// @brief check if draw delete contour (pink/white)
     virtual bool checkDrawDeleteContour() const = 0;
 
+    /// @brief check if draw delete contour small (pink/white)
+    virtual bool checkDrawDeleteContourSmall() const = 0;
+
     /// @brief check if draw select contour (blue)
     virtual bool checkDrawSelectContour() const = 0;
 

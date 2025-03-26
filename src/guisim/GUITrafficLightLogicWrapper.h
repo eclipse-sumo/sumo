@@ -130,10 +130,10 @@ public:
      */
     class GUITrafficLightLogicWrapperPopupMenu : public GUIGLObjectPopupMenu {
         FXDECLARE(GUITrafficLightLogicWrapperPopupMenu)
+
     public:
         /// Constructor
-        GUITrafficLightLogicWrapperPopupMenu(GUIMainWindow& app,
-                                             GUISUMOAbstractView& parent, GUIGlObject& o);
+        GUITrafficLightLogicWrapperPopupMenu(GUIMainWindow& app, GUISUMOAbstractView& parent, GUIGlObject* o);
 
         /// Destructor
         ~GUITrafficLightLogicWrapperPopupMenu();
@@ -163,5 +163,4 @@ private:
 
     /// The main application
     GUIMainWindow* myApp;
-
 };

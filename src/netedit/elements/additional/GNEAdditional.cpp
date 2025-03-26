@@ -306,9 +306,12 @@ GNEAdditional::checkDrawRelatedContour() const {
     const auto& neteditAttributesEditor = myNet->getViewNet()->getViewParent()->getInspectorFrame()->getAttributesEditor();
     if (neteditAttributesEditor->isReparenting()) {
         return neteditAttributesEditor->checkNewParent(this);
-    } else {
-        return false;
     }
+    // check opened popup
+    if (myNet->getViewNet()->getPopup()) {
+        return myNet->getViewNet()->getPopup()->getGLObject() == this;
+    }
+    return false;
 }
 
 
@@ -379,6 +382,18 @@ GNEAdditional::checkDrawDeleteContour() const {
 
 
 bool
+GNEAdditional::checkDrawDeleteContourSmall() const {
+    if (getParentAdditionals().size() > 0) {
+        const auto additional = myNet->getViewNet()->getViewObjectsSelector().getAdditionalFront();
+        if (additional && (additional == myNet->getViewNet()->getViewObjectsSelector().getAttributeCarrierFront())) {
+            return (getParentAdditionals().front() == additional); 
+        }
+    }
+    return false;
+}
+
+
+bool
 GNEAdditional::checkDrawSelectContour() const {
     // get edit modes
     const auto& editModes = myNet->getViewNet()->getEditModes();
@@ -394,7 +409,7 @@ GNEAdditional::checkDrawSelectContour() const {
 GUIGLObjectPopupMenu*
 GNEAdditional::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     // create popup
-    GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
+    GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, this);
     // build common options
     buildPopUpMenuCommonOptions(ret, app, myNet->getViewNet(), myTagProperty->getTag(), mySelected);
     // show option to open additional dialog

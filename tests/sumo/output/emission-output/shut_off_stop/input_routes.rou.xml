@@ -42,23 +42,27 @@
         <stop lane="CE_0" endPos="50" duration="700"/>
     </vehicle>
 
-    <vehicle id="5" depart="4500" route="r1" type="always_on">
+    <vehicle id="5" depart="4500" route="r1" type="BEV">
+        <stop parkingArea="pa" parking="true" duration="700"/>
+    </vehicle>
+
+    <vehicle id="6" depart="5400" route="r1" type="always_on">
         <stop lane="CE_0" endPos="50" duration="700"/>
     </vehicle>
 
-    <vehicle id="6" depart="5400" route="r1" type="HBEFA2_always_on">
+    <vehicle id="7" depart="6300" route="r1" type="HBEFA2_always_on">
         <stop lane="CE_0" endPos="50" duration="700"/>
     </vehicle>
 
-    <vehicle id="7" depart="6300" route="r1" type="HBEFA3_always_on">
+    <vehicle id="8" depart="7200" route="r1" type="HBEFA3_always_on">
         <stop lane="CE_0" endPos="50" duration="700"/>
     </vehicle>
 
-    <vehicle id="8" depart="7200" route="r1" type="PHEMlight_always_on">
+    <vehicle id="9" depart="8100" route="r1" type="PHEMlight_always_on">
         <stop lane="CE_0" endPos="50" duration="700"/>
     </vehicle>
 
-    <vehicle id="9" depart="8100" route="r1" type="BEV_always_on">
+    <vehicle id="10" depart="9000" route="r1" type="BEV_always_on">
         <stop lane="CE_0" endPos="50" duration="700"/>
     </vehicle>
 </routes>
