@@ -2465,6 +2465,12 @@ enum class AdditionalFileExtension {
     ALL,
 };
 
+/// @brief additional file extension
+enum class ShapesFileExtension {
+    XML,
+    ALL,
+};
+
 /// @brief route file extension
 enum class RouteFileExtension {
     ROU_XML,
@@ -2623,6 +2629,9 @@ public:
 
     /// @brief additional file extensions
     static StringBijection<AdditionalFileExtension> AdditionalFileExtensions;
+
+    /// @brief additional file extensions
+    static StringBijection<ShapesFileExtension> ShapesFileExtensions;
 
     /// @brief route file extensions
     static StringBijection<RouteFileExtension> RouteFileExtensions;
@@ -2807,6 +2816,9 @@ private:
 
     /// @brief additional file extension values
     static StringBijection<AdditionalFileExtension>::Entry additionalFileExtensionValues[];
+
+    /// @brief additional file extension values
+    static StringBijection<ShapesFileExtension>::Entry shapesFileExtensionValues[];
 
     /// @brief route file extension values
     static StringBijection<RouteFileExtension>::Entry routeFileExtensionsValues[];

@@ -1846,6 +1846,11 @@ StringBijection<AdditionalFileExtension>::Entry SUMOXMLDefinitions::additionalFi
     {TL("All files (*)"),                               AdditionalFileExtension::ALL} //< must be the last one
 };
 
+StringBijection<ShapesFileExtension>::Entry SUMOXMLDefinitions::shapesFileExtensionValues[] = {
+    {TL("XML files (*.xml, *.xml.gz)"),                 ShapesFileExtension::XML},
+    {TL("All files (*)"),                               ShapesFileExtension::ALL} //< must be the last one
+};
+
 StringBijection<RouteFileExtension>::Entry SUMOXMLDefinitions::routeFileExtensionsValues[] = {
     {TL("Route files (*.rou.xml, *.rou.xml.gz)"),   RouteFileExtension::ROU_XML},
     {TL("XML files (*.xml, *.xml.gz)"),             RouteFileExtension::XML},
@@ -1983,6 +1988,9 @@ StringBijection<EdgeTypeFileExtension> SUMOXMLDefinitions::EdgeTypeFileExtension
 
 StringBijection<AdditionalFileExtension> SUMOXMLDefinitions::AdditionalFileExtensions(
     SUMOXMLDefinitions::additionalFileExtensionValues, AdditionalFileExtension::ALL, false);
+
+StringBijection<ShapesFileExtension> SUMOXMLDefinitions::ShapesFileExtensions(
+    SUMOXMLDefinitions::shapesFileExtensionValues, ShapesFileExtension::ALL, false);
 
 StringBijection<RouteFileExtension> SUMOXMLDefinitions::RouteFileExtensions(
     SUMOXMLDefinitions::routeFileExtensionsValues, RouteFileExtension::ALL, false);
