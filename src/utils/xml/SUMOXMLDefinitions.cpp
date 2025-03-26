@@ -1418,7 +1418,8 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::attrs[] = {
     { "isRoundabout",                       GNE_ATTR_IS_ROUNDABOUT },
     { "frontElement",                       GNE_ATTR_FRONTELEMENT },
     { TL("edges within"),                   GNE_ATTR_EDGES_WITHIN },
-    { "all",                                GNE_ATTR_ALL },
+    // 'all' is a reserved keyword when configuring attribute filters and must not occur as an attribute name
+    { "ALL",                                GNE_ATTR_ALL },
     { TL("no common attrs."),               GNE_ATTR_NOCOMMON },
 
     { "carriageLength",     SUMO_ATTR_CARRIAGE_LENGTH },
