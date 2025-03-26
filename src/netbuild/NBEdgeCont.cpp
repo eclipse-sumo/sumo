@@ -1952,9 +1952,11 @@ NBEdgeCont::joinTramEdges(NBDistrictCont& dc, NBPTStopCont& sc, NBPTLineCont& lc
             nearby.insert(const_cast<NBEdge*>(static_cast<const NBEdge*>(namedEdge)));
         }
         for (NBEdge* const tramEdge : nearby) {
-            // find a continous stretch of tramEdge that runs along one of the
-            // lanes of the road edge
-            const PositionVector& tramShape = tramEdge->getGeometry();
+            // find a continous stretch of tramEdge that runs along one of the lanes of the road edge
+            PositionVector tramShape = tramEdge->getGeometry();
+            if (tramEdge->getToNode() == edge->getToNode()) {
+                tramShape.extrapolate(tramShape.back().distanceTo2D(edge->getGeometry().back()), false, true);
+            }
             double minEdgeDist = maxDist + 1;
             int minLane = -1;
             // find the lane where the maximum distance from the tram geometry
