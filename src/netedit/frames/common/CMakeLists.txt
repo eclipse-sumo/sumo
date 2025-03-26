@@ -3,8 +3,6 @@ set(netedit_frames_common_SRCS
    GNEInspectorFrame.cpp
    GNESelectorFrame.h
    GNESelectorFrame.cpp
-   GNEMatchAttribute.h
-   GNEMatchAttribute.cpp
    GNEDeleteFrame.h
    GNEDeleteFrame.cpp
    GNEMoveFrame.h
