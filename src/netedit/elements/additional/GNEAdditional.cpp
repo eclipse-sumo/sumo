@@ -383,6 +383,12 @@ GNEAdditional::checkDrawDeleteContour() const {
 
 bool
 GNEAdditional::checkDrawDeleteContourSmall() const {
+    if (getParentAdditionals().size() > 0) {
+        const auto additional = myNet->getViewNet()->getViewObjectsSelector().getAdditionalFront();
+        if (additional && (additional == myNet->getViewNet()->getViewObjectsSelector().getAttributeCarrierFront())) {
+            return (getParentAdditionals().front() == additional); 
+        }
+    }
     return false;
 }
 

@@ -244,6 +244,17 @@ GNEDemandElement::checkDrawDeleteContour() const {
 
 bool
 GNEDemandElement::checkDrawDeleteContourSmall() const {
+    if (myTagProperty->vehicleRoute()) {
+        const auto route = myNet->getViewNet()->getViewObjectsSelector().getDemandElementFront();
+        if (route && (route == myNet->getViewNet()->getViewObjectsSelector().getAttributeCarrierFront())) {
+            return (getParentDemandElements().at(1) == route); 
+        }
+    }else if (myTagProperty->getTag() == GNE_TAG_ROUTE_EMBEDDED) {
+        const auto vehicle = myNet->getViewNet()->getViewObjectsSelector().getDemandElementFront();
+        if (vehicle && (vehicle == myNet->getViewNet()->getViewObjectsSelector().getAttributeCarrierFront())) {
+            return (getParentDemandElements().front() == vehicle); 
+        }
+    }
     return false;
 }
 
