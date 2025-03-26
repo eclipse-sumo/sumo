@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-13 10:07+0100\n"
-"PO-Revision-Date: 2025-03-21 13:09+0000\n"
+"PO-Revision-Date: 2025-03-26 07:23+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -5406,7 +5406,7 @@ msgstr ""
 #: src/microsim/traffic_lights/MSRailSignalConstraint.cpp:157
 #, c-format
 msgid "Unknown tracker lane '%' in loaded state."
-msgstr ""
+msgstr "Corsia di inseguimento '%' sconosciuta nello stato caricato."
 
 #: src/microsim/traffic_lights/MSSOTLTrafficLightLogic.cpp:169
 msgid "Listing output lanes"
@@ -9250,6 +9250,8 @@ msgid ""
 "Controlling multiple junctions by the same controller '%' is currently not "
 "implemented."
 msgstr ""
+"Controllare più incroci dalla stessa centralina '%' attualmente non è "
+"implementato."
 
 #: src/netimport/NIImporter_OpenDrive.cpp:792
 #, c-format
@@ -9279,6 +9281,8 @@ msgstr ""
 #: src/netimport/NIImporter_OpenDrive.cpp:895
 msgid "Found a traffic light signal on an unknown edge (original edge id='%')."
 msgstr ""
+"Un segnale è stato trovato su un arco sconosciuto (codice identificativo "
+"dell'arco originale='%')."
 
 #: src/netimport/NIImporter_OpenDrive.cpp:926
 msgid ""
