@@ -46,7 +46,7 @@ HelpersEnergy::compute(const SUMOEmissionClass /* c */, const PollutantsInterfac
     if (param == nullptr) {
         param = EnergyParams::getDefault();
     }
-    if (param->isEngineOff()) {
+    if (param->isOff()) {
         return 0.;
     }
     //@ToDo: All formulas below work with the logic of the euler update (refs #860).
