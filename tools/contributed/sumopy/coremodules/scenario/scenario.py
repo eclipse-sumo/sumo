@@ -222,7 +222,7 @@ class Scenario(cm.BaseObjman):
         self._init_attributes()
 
     def _init_attributes(self):
-        print 'Scenario._init_attributes'  # ,dir(self)
+        print('Scenario._init_attributes')  # ,dir(self)
 
         attrsman = self.get_attrsman()
         self.simulation = attrsman.add(cm.ObjConf(simulation.Simulation(self)))
@@ -288,7 +288,7 @@ class Scenario(cm.BaseObjman):
         try:
             self.demand.import_xml(self.get_rootfilename(), self.get_workdirpath())
         except:
-            print 'WARNING: import of demand data failed. Please check for inconsistency with trip/route and network edge IDs.'
+            print('WARNING: import of demand data failed. Please check for inconsistency with trip/route and network edge IDs.')
 
     def update_netoffset(self, deltaoffset):
         """
