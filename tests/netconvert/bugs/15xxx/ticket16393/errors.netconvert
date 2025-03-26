@@ -1,2 +1,2 @@
-Error: Index out of range in bracket operator of PositionVector
-Quitting (on error).
+Warning: Converting invalid rail_crossing to priority junction '7289719776'.
+Warning: Converting invalid rail_crossing to priority junction '7289719782'.
