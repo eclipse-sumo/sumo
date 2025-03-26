@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-13 10:07+0100\n"
-"PO-Revision-Date: 2025-03-26 07:23+0000\n"
+"PO-Revision-Date: 2025-03-26 08:23+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -9356,7 +9356,7 @@ msgstr "Un oggetto senza codice identificativo sull'arco '%' viene ignorato."
 
 #: src/netimport/NIImporter_OpenDrive.cpp:2636
 msgid "Repeat without object at edge '%'."
-msgstr ""
+msgstr "Ripetizione senza oggetto all'arco '%'."
 
 #: src/netimport/NIImporter_OpenDrive.cpp:2699
 msgid "Could not set projection (%). This can be ignored with --ignore-errors."
