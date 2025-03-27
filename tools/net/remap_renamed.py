@@ -123,7 +123,7 @@ def addOrigId(lookup, origId, obj):
     if origId is not None:
         if " " in origId:
             print("multi-part origId not supported (%s '%s' origId '%s')" % (
-                obj.name, obj.getID(), origId), file=sys.stderr)
+                type(obj), obj.getID(), origId), file=sys.stderr)
         else:
             lookup[origId] = obj.getID()
 
