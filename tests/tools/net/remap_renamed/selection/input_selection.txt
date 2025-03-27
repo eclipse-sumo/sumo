@@ -1,0 +1,5 @@
+edge:C1C2
+edge:A1A2
+junction:A1
+lane:B1B2_0
+vehicle:foo
