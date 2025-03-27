@@ -352,6 +352,11 @@ TraCIServer::TraCIServer(const SUMOTime begin, const int port, const int numClie
     myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_VEHICLE_VARIABLE, libsumo::VAR_LEADER));
     myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_VEHICLE_VARIABLE, libsumo::VAR_FOLLOWER));
     myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_LANE_VARIABLE, libsumo::VAR_ANGLE));
+    myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_LANE_VARIABLE, libsumo::LANE_CHANGES));
+    myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_LANE_VARIABLE, libsumo::VAR_FOES));
+    myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_EDGE_VARIABLE, libsumo::VAR_EDGE_TRAVELTIME));
+    myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_EDGE_VARIABLE, libsumo::VAR_EDGE_EFFORT));
+    myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_EDGE_VARIABLE, libsumo::VAR_ANGLE));
     myParameterized.insert(std::make_pair(0, libsumo::VAR_PARAMETER));
     myParameterized.insert(std::make_pair(0, libsumo::VAR_PARAMETER_WITH_KEY));
 
@@ -1309,14 +1314,21 @@ TraCIServer::addObjectVariableSubscription(const int commandId, const bool hasCo
         variables.push_back(varID);
         parameters.push_back(std::make_shared<tcpip::Storage>());
         if ((myParameterized.count(std::make_pair(0, varID)) > 0) || (myParameterized.count(std::make_pair(commandId, varID)) > 0)) {
+            if (!myInputStorage.valid_pos()) {
+                writeStatusCmd(commandId, libsumo::RTYPE_ERR, "Missing parameter for subscription " + toHex(commandId, 2));
+                return false;
+            }
             const int parType = myInputStorage.readUnsignedByte();
             parameters.back()->writeUnsignedByte(parType);
             if (parType == libsumo::TYPE_DOUBLE) {
                 parameters.back()->writeDouble(myInputStorage.readDouble());
             } else if (parType == libsumo::TYPE_STRING) {
                 parameters.back()->writeString(myInputStorage.readString());
+            } else if (parType == libsumo::TYPE_BYTE) {
+                parameters.back()->writeByte(myInputStorage.readByte());
             } else {
-                // Error!
+                writeStatusCmd(commandId, libsumo::RTYPE_ERR, "Invalid parameter for subscription " + toHex(commandId, 2));
+                return false;
             }
         }
     }
