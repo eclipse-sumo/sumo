@@ -63,8 +63,16 @@ try:
                             param = {v: "3o_0"}
                         elif '"d"' in remainder:
                             param = {v: 0.}
+                        elif '"i"' in remainder:
+                            param = {v: 0}
                         elif '"b"' in remainder:
                             param = {v: ("b", 1)}
+                        elif '"tru"' in remainder:
+                            param = {v: ("tru", 2, ("1si", 0., 0), traci.constants.REQUEST_DRIVINGDIST)}
+                            continue  # skip it for now, it is a distance request
+                        elif '"tou"' in remainder:
+                            param = {v: ("tou", 2, (0., 0.), traci.constants.REQUEST_DRIVINGDIST)}
+                            continue  # skip it for now, it is a distance request
                         getattr(traci, dt._name).subscribe(name, [v], parameters=param)
 finally:
     traci.close()
