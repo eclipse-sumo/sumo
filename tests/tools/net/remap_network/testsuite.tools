@@ -1,2 +1,5 @@
 # remap infrastructure between similar networks
 basic
+
+# each target edge should only occur once per original edge
+no_duplicates
