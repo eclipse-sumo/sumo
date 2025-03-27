@@ -619,7 +619,7 @@ struct TraCIBestLanesDataVectorWrapped : TraCIResult {
 };
 
 
-struct TraCIStage {
+struct TraCIStage : TraCIResult {
 public:
     TraCIStage(int type = INVALID_INT_VALUE, const std::string& vType = "", const std::string& line = "", const std::string& destStop = "",
                const std::vector<std::string>& edges = std::vector<std::string>(),

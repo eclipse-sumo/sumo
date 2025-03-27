@@ -49,7 +49,6 @@
 #include <utils/shapes/PointOfInterest.h>
 #include <utils/shapes/ShapeContainer.h>
 #include <utils/xml/XMLSubSys.h>
-#include <libsumo/Helper.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSVehicle.h>
 #include <microsim/MSEdge.h>
@@ -60,6 +59,8 @@
 #include <microsim/MSLane.h>
 #include <microsim/MSGlobals.h>
 #include <microsim/traffic_lights/MSTLLogicControl.h>
+#include <libsumo/Helper.h>
+#include <libsumo/StorageHelper.h>
 #include <libsumo/Simulation.h>
 #include <libsumo/Subscription.h>
 #include <libsumo/TraCIConstants.h>
@@ -270,6 +271,13 @@ TraCIServer::wrapStringPair(const std::string& /* objID */, const int /* variabl
 }
 
 
+bool
+TraCIServer::wrapStage(const std::string& /* objID */, const int /* variable */, const libsumo::TraCIStage& value) {
+    StoHelp::writeStage(myWrapperStorage, value);
+    return true;
+}
+
+
 tcpip::Storage&
 TraCIServer::getWrapperStorage() {
     return myWrapperStorage;
@@ -357,6 +365,8 @@ TraCIServer::TraCIServer(const SUMOTime begin, const int port, const int numClie
     myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_EDGE_VARIABLE, libsumo::VAR_EDGE_TRAVELTIME));
     myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_EDGE_VARIABLE, libsumo::VAR_EDGE_EFFORT));
     myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_EDGE_VARIABLE, libsumo::VAR_ANGLE));
+    myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_PERSON_VARIABLE, libsumo::VAR_EDGES));
+    myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_PERSON_VARIABLE, libsumo::VAR_STAGE));
     myParameterized.insert(std::make_pair(0, libsumo::VAR_PARAMETER));
     myParameterized.insert(std::make_pair(0, libsumo::VAR_PARAMETER_WITH_KEY));
 
@@ -1322,6 +1332,8 @@ TraCIServer::addObjectVariableSubscription(const int commandId, const bool hasCo
             parameters.back()->writeUnsignedByte(parType);
             if (parType == libsumo::TYPE_DOUBLE) {
                 parameters.back()->writeDouble(myInputStorage.readDouble());
+            } else if (parType == libsumo::TYPE_INTEGER) {
+                parameters.back()->writeInt(myInputStorage.readInt());
             } else if (parType == libsumo::TYPE_STRING) {
                 parameters.back()->writeString(myInputStorage.readString());
             } else if (parType == libsumo::TYPE_BYTE) {

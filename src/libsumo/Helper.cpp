@@ -1978,6 +1978,13 @@ Helper::SubscriptionWrapper::wrapStringPair(const std::string& objID, const int 
 }
 
 
+bool
+Helper::SubscriptionWrapper::wrapStage(const std::string& objID, const int variable, const TraCIStage& value) {
+    (*myActiveResults)[objID][variable] = std::make_shared<TraCIStage>(value);
+    return true;
+}
+
+
 void
 Helper::SubscriptionWrapper::empty(const std::string& objID) {
     (*myActiveResults)[objID]; // initiate the empty map to track the objectID for TRACI_ID_LIST context subscriptions

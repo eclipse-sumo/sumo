@@ -48,23 +48,6 @@ TraCIServerAPI_Person::processGet(TraCIServer& server, tcpip::Storage& inputStor
         // in case of SPLIT_TAXI_RESERVATIONS id is a reservation id and handleVariable would throw an "unknown person" error
         if (variable == libsumo::SPLIT_TAXI_RESERVATIONS || !libsumo::Person::handleVariable(id, variable, &server, &inputStorage)) {
             switch (variable) {
-                case libsumo::VAR_EDGES: {
-                    int nextStageIndex = 0;
-                    if (!server.readTypeCheckingInt(inputStorage, nextStageIndex)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_GET_PERSON_VARIABLE, "The message must contain the stage index.", outputStorage);
-                    }
-                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRINGLIST);
-                    server.getWrapperStorage().writeStringList(libsumo::Person::getEdges(id, nextStageIndex));
-                    break;
-                }
-                case libsumo::VAR_STAGE: {
-                    int nextStageIndex = 0;
-                    if (!server.readTypeCheckingInt(inputStorage, nextStageIndex)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_GET_PERSON_VARIABLE, "The message must contain the stage index.", outputStorage);
-                    }
-                    libsumo::StorageHelper::writeStage(server.getWrapperStorage(), libsumo::Person::getStage(id, nextStageIndex));
-                    break;
-                }
                 case libsumo::VAR_TAXI_RESERVATIONS: {
                     int onlyNew = 0;
                     if (!server.readTypeCheckingInt(inputStorage, onlyNew)) {
