@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-13 10:07+0100\n"
-"PO-Revision-Date: 2025-03-26 08:23+0000\n"
+"PO-Revision-Date: 2025-03-27 10:29+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -11120,11 +11120,11 @@ msgstr ""
 
 #: src/netwrite/NWWriter_SUMO.cpp:478
 msgid "Could not find bidi-connection for edge '%'"
-msgstr ""
+msgstr "Non ho trovato il collegamento bidirezionale per l'arco '%'"
 
 #: src/netwrite/NWWriter_XML.cpp:106 src/utils/options/OptionsCont.cpp:673
 msgid "Could not save configuration to '%'"
-msgstr ""
+msgstr "Non ho potuto salvare la configurazione in '%'"
 
 #: src/netwrite/NWWriter_XML.cpp:119 src/polyconvert/PCPolyContainer.cpp:105
 msgid ""
@@ -11181,19 +11181,20 @@ msgstr ""
 
 #: src/od2trips_main.cpp:140
 msgid "Spreads trips uniformly over each time period"
-msgstr ""
+msgstr "Distribuisci le corse in modo uniforme in ogni intervallo"
 
 #: src/od2trips_main.cpp:143
 msgid "Always choose source and sink edge which are not identical"
 msgstr ""
+"Scegli sempre degli archi di sorgente e di scaricao che non siano identici"
 
 #: src/od2trips_main.cpp:149
 msgid "Defines the prefix for vehicle names"
-msgstr ""
+msgstr "Definisce il prefisso per i nomi dei veicoli"
 
 #: src/od2trips_main.cpp:162
 msgid "Disable console output of current time step"
-msgstr ""
+msgstr "Disattiva l'uscita di console per il passo di simulazione attuale"
 
 #: src/od2trips_main.cpp:193
 msgid "No TAZ input file (-n) specified."
