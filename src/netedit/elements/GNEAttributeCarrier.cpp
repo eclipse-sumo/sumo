@@ -211,8 +211,8 @@ bool
 GNEAttributeCarrier::checkDrawInspectContourSmall() const {
     const auto& modes = myNet->getViewNet()->getEditModes();
     if (modes.isCurrentSupermodeNetwork() &&
-        (modes.networkEditMode == NetworkEditMode::NETWORK_INSPECT) &&
-        (myTagProperty->getSupermode() == Supermode::NETWORK)) {
+            (modes.networkEditMode == NetworkEditMode::NETWORK_INSPECT) &&
+            (myTagProperty->getSupermode() == Supermode::NETWORK)) {
         return myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == getGUIGlObject();
     } else if (modes.isCurrentSupermodeDemand() &&
                (modes.demandEditMode == DemandEditMode::DEMAND_INSPECT) &&
@@ -222,6 +222,8 @@ GNEAttributeCarrier::checkDrawInspectContourSmall() const {
                (modes.dataEditMode == DataEditMode::DATA_INSPECT) &&
                (myTagProperty->getSupermode() == Supermode::DATA)) {
         return myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == getGUIGlObject();
+    } else {
+        return false;
     }
 }
 
