@@ -2121,10 +2121,10 @@ def changePersonPlan(personPlan, flow):
     focusOnFrame()
     # jump to person plan
     if (flow):
-        for _ in range(29):
+        for _ in range(30):
             typeTab()
     else:
-        for _ in range(21):
+        for _ in range(22):
             typeTab()
     # paste the new personPlan
     pasteIntoTextField(personPlan)
@@ -2182,10 +2182,10 @@ def changeContainerPlan(containerPlan, flow):
     focusOnFrame()
     # jump to container plan
     if (flow):
-        for _ in range(29):
+        for _ in range(30):
             typeTab()
     else:
-        for _ in range(21):
+        for _ in range(22):
             typeTab()
     # paste the new containerPlan
     pasteIntoTextField(containerPlan)
