@@ -2668,7 +2668,7 @@ GNEEdge::drawStartGeometryPoint(const GUIVisualizationSettings& s, const GUIVisu
         const auto& startGeometryPointPos = myNBEdge->getGeometry().front();
         // get flags
         const bool startPosEdited = (startGeometryPointPos != getParentJunctions().front()->getPositionInView());
-        const bool forceDraw = myNet->getViewNet()->getViewParent()->getMoveFrame()->getNetworkModeOptions()->getForceDrawGeometryPoints();
+        const bool forceDraw = myNet->getViewNet()->getViewParent()->getMoveFrame()->getNetworkMoveOptions()->getForceDrawGeometryPoints();
         // check drawing conditions
         if (startPosEdited || forceDraw) {
             // calculate angle betwen first and second geometry point
@@ -2732,7 +2732,7 @@ GNEEdge::drawEndGeometryPoint(const GUIVisualizationSettings& s, const GUIVisual
         const auto& geometryPointPos = myNBEdge->getGeometry().back();
         // get flags
         const bool endPosEdited = (geometryPointPos != getParentJunctions().back()->getPositionInView());
-        const bool forceDraw = myNet->getViewNet()->getViewParent()->getMoveFrame()->getNetworkModeOptions()->getForceDrawGeometryPoints();
+        const bool forceDraw = myNet->getViewNet()->getViewParent()->getMoveFrame()->getNetworkMoveOptions()->getForceDrawGeometryPoints();
         // check drawing conditions
         if (endPosEdited || forceDraw) {
             // calculate angle last and previous geometry point
@@ -2905,7 +2905,7 @@ GNEEdge::calculateEdgeContour(const GUIVisualizationSettings& s, const GUIVisual
         // get geometry point radius
         const auto geometryPointRadius = getGeometryPointRadius();
         // check if edit extrems
-        const bool forceDrawExtrems = myNet->getViewNet()->getViewParent()->getMoveFrame()->getNetworkModeOptions()->getForceDrawGeometryPoints();
+        const bool forceDrawExtrems = myNet->getViewNet()->getViewParent()->getMoveFrame()->getNetworkMoveOptions()->getForceDrawGeometryPoints();
         const bool firstExtrem = forceDrawExtrems || (myNBEdge->getGeometry().front() != getParentJunctions().front()->getPositionInView());
         const bool lastExtrem = forceDrawExtrems || (myNBEdge->getGeometry().back() != getParentJunctions().back()->getPositionInView());
         // check if we're in move mode

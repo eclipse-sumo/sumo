@@ -105,7 +105,7 @@ GNEPoly::~GNEPoly() {}
 GNEMoveOperation*
 GNEPoly::getMoveOperation() {
     // edit depending if shape is blocked
-    if (myNet->getViewNet()->getViewParent()->getMoveFrame()->getNetworkModeOptions()->getMoveWholePolygons()) {
+    if (myNet->getViewNet()->getViewParent()->getMoveFrame()->getNetworkMoveOptions()->getMoveWholePolygons()) {
         // move entire shape
         return new GNEMoveOperation(this, myShape);
     } else {
@@ -318,7 +318,7 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
             // draw polygon
             drawPolygon(s, d, color, polyExaggeration);
             // draw contour if don't move whole polygon
-            if (!myNet->getViewNet()->getViewParent()->getMoveFrame()->getNetworkModeOptions()->getMoveWholePolygons()) {
+            if (!myNet->getViewNet()->getViewParent()->getMoveFrame()->getNetworkMoveOptions()->getMoveWholePolygons()) {
                 // get darker color
                 const RGBColor darkerColor = color.changedBrightness(-32);
                 // draw contour

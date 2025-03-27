@@ -24,6 +24,7 @@
 #include <netbuild/NBNetBuilder.h>
 #include <netbuild/NBOwnTLDef.h>
 #include <netedit/frames/common/GNEDeleteFrame.h>
+#include <netedit/frames/common/GNEMoveFrame.h>
 #include <netedit/frames/network/GNETLSEditorFrame.h>
 #include <netedit/frames/network/GNECrossingFrame.h>
 #include <netedit/frames/network/GNECreateEdgeFrame.h>
@@ -681,6 +682,8 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
                     // draw junction as shape
                     drawJunctionAsShape(s, d, junctionExaggeration);
                 }
+                // draw junction center (only in move mode)
+                drawJunctionCenter(s, d);
                 // draw TLS
                 drawTLSIcon(s);
                 // draw elevation
@@ -1788,6 +1791,23 @@ GNEJunction::drawJunctionAsShape(const GUIVisualizationSettings& s, const GUIVis
                                             s.neteditSizeSettings.junctionGeometryPointRadius, exaggeration,
                                             myNet->getViewNet()->getNetworkViewOptions().editingElevation());
         }
+    }
+}
+
+
+void
+GNEJunction::drawJunctionCenter(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const {
+    if (myNet->getViewNet()->getViewParent()->getMoveFrame()->getNetworkMoveOptions()->getMoveOnlyJunctionCenter()) {
+        // push matrix
+        GLHelper::pushMatrix();
+        // set color
+        GLHelper::setColor(setColor(s, true).changedBrightness(-20));
+        // move matrix junction center
+        glTranslated(myNBNode->getPosition().x(), myNBNode->getPosition().y(), 1.7);
+        // draw filled circle
+        GLHelper::drawFilledCircleDetailled(d, s.neteditSizeSettings.edgeGeometryPointRadius);
+        // pop matrix
+        GLHelper::popMatrix();
     }
 }
 

@@ -911,7 +911,7 @@ GNEAdditional::drawDemandElementChildren(const GUIVisualizationSettings& s) cons
 GNEMoveOperation*
 GNEAdditional::getMoveOperationSingleLane(const double startPos, const double endPos) {
     // get allow change lane
-    const bool allowChangeLane = myNet->getViewNet()->getViewParent()->getMoveFrame()->getCommonModeOptions()->getAllowChangeLane();
+    const bool allowChangeLane = myNet->getViewNet()->getViewParent()->getMoveFrame()->getCommonMoveOptions()->getAllowChangeLane();
     // fist check if we're moving only extremes
     if (myNet->getViewNet()->getMouseButtonKeyPressed().shiftKeyPressed()) {
         // get snap radius
@@ -1071,7 +1071,7 @@ GNEAdditional::calculateContourPolygons(const GUIVisualizationSettings& s, const
     // get edit modes
     const auto& editModes = myNet->getViewNet()->getEditModes();
     // check if draw geometry points
-    if (editModes.isCurrentSupermodeNetwork() && !myNet->getViewNet()->getViewParent()->getMoveFrame()->getNetworkModeOptions()->getMoveWholePolygons()) {
+    if (editModes.isCurrentSupermodeNetwork() && !myNet->getViewNet()->getViewParent()->getMoveFrame()->getNetworkMoveOptions()->getMoveWholePolygons()) {
         // check if we're in move mode
         const bool moveMode = (editModes.networkEditMode == NetworkEditMode::NETWORK_MOVE);
         // get geometry point radius (size depends if we're in move mode)

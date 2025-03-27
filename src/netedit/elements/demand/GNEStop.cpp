@@ -123,7 +123,7 @@ GNEMoveOperation*
 GNEStop::getMoveOperation() {
     if ((myTagProperty->getTag() == GNE_TAG_STOP_LANE) || (myTagProperty->getTag() == GNE_TAG_WAYPOINT_LANE)) {
         // get allow change lane
-        const bool allowChangeLane = myNet->getViewNet()->getViewParent()->getMoveFrame()->getCommonModeOptions()->getAllowChangeLane();
+        const bool allowChangeLane = myNet->getViewNet()->getViewParent()->getMoveFrame()->getCommonMoveOptions()->getAllowChangeLane();
         // fist check if we're moving only extremes
         if (myNet->getViewNet()->getEditModes().isCurrentSupermodeDemand() &&
                 (myNet->getViewNet()->getEditModes().demandEditMode == DemandEditMode::DEMAND_MOVE) &&

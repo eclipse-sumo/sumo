@@ -75,7 +75,7 @@ GNETAZ::getMoveOperation() {
     if (myTAZCenter.distanceSquaredTo2D(myNet->getViewNet()->getPositionInformation()) < (snap_radius * snap_radius)) {
         // move entire shape
         return new GNEMoveOperation(this, myTAZCenter);
-    } else if (myNet->getViewNet()->getViewParent()->getMoveFrame()->getNetworkModeOptions()->getMoveWholePolygons()) {
+    } else if (myNet->getViewNet()->getViewParent()->getMoveFrame()->getNetworkMoveOptions()->getMoveWholePolygons()) {
         // move entire shape
         return new GNEMoveOperation(this, myShape);
     } else {
@@ -329,7 +329,7 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
                 GLHelper::popMatrix();
             }
             // draw contour if shape isn't blocked
-            if (!myNet->getViewNet()->getViewParent()->getMoveFrame()->getNetworkModeOptions()->getMoveWholePolygons()) {
+            if (!myNet->getViewNet()->getViewParent()->getMoveFrame()->getNetworkMoveOptions()->getMoveWholePolygons()) {
                 // push contour matrix
                 GLHelper::pushMatrix();
                 // translate to front
