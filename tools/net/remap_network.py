@@ -113,6 +113,8 @@ def mapEdge(options, edge):
         bestCommon = 0
         bestScore = 0
         for edge2, _ in edges2:
+            if edge2 in usedEdges:
+                continue
             score, commonLength = compareEdge(edge, shape, edge2, options.radius)
             if score > bestScore:
                 best = edge2
@@ -125,6 +127,7 @@ def mapEdge(options, edge):
         cutFraction = bestCommon / shapelen
         shape = cutOff(shape, bestCommon)
         success += cutFraction
+        usedEdges.add(best)
         # print(edge.getID(), best.getID(), commonLength, len(edges2))
     if options.verbose:
         print(edge.getID(), success)
