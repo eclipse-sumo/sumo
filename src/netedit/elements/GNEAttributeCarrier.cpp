@@ -334,13 +334,6 @@ GNEAttributeCarrier::canParse<bool>(const std::string& string) {
 
 
 template<> bool
-GNEAttributeCarrier::canParse<std::string>(const std::string& /*string*/) {
-    // a string can be parsed to string
-    return true;
-}
-
-
-template<> bool
 GNEAttributeCarrier::canParse<Position>(const std::string& string) {
     bool ok = true;
     GeomConvHelper::parseShapeReporting(string, "position", 0, ok, true, false);
@@ -381,20 +374,6 @@ GNEAttributeCarrier::canParse<PositionVector>(const std::string& string) {
     bool ok = true;
     GeomConvHelper::parseShapeReporting(string, "shape", 0, ok, true, false);
     return ok;
-}
-
-
-template<> bool
-GNEAttributeCarrier::canParse<std::vector<std::string> >(const std::string& /*string*/) {
-    // always true
-    return true;
-}
-
-
-template<> bool
-GNEAttributeCarrier::canParse<std::set<std::string> >(const std::string& /*string*/) {
-    // always true
-    return true;
 }
 
 
@@ -457,7 +436,6 @@ GNEAttributeCarrier::canParse<std::vector<SumoXMLAttr> >(const std::string& stri
     return true;
 }
 
-
 // parse functions
 
 template<> int
@@ -489,12 +467,6 @@ GNEAttributeCarrier::parse(const std::string& string) {
 template<> bool
 GNEAttributeCarrier::parse(const std::string& string) {
     return StringUtils::toBool(string);
-}
-
-
-template<> std::string
-GNEAttributeCarrier::parse(const std::string& string) {
-    return string;
 }
 
 
@@ -575,8 +547,8 @@ template<> std::set<std::string>
 GNEAttributeCarrier::parse(const std::string& string) {
     std::vector<std::string> vectorString = StringTokenizer(string).getVector();
     std::set<std::string> solution;
-    for (const auto& i : vectorString) {
-        solution.insert(i);
+    for (const auto& string : vectorString) {
+        solution.insert(string);
     }
     return solution;
 }
@@ -584,10 +556,10 @@ GNEAttributeCarrier::parse(const std::string& string) {
 
 template<> std::vector<int>
 GNEAttributeCarrier::parse(const std::string& string) {
-    std::vector<std::string> parsedValues = parse<std::vector<std::string> >(string);
+    std::vector<std::string> vectorInt = parse<std::vector<std::string> >(string);
     std::vector<int> parsedIntValues;
-    for (const auto& i : parsedValues) {
-        parsedIntValues.push_back(parse<int>(i));
+    for (const auto& intValue : vectorInt) {
+        parsedIntValues.push_back(parse<int>(intValue));
     }
     return parsedIntValues;
 }
@@ -595,10 +567,10 @@ GNEAttributeCarrier::parse(const std::string& string) {
 
 template<> std::vector<double>
 GNEAttributeCarrier::parse(const std::string& string) {
-    std::vector<std::string> parsedValues = parse<std::vector<std::string> >(string);
+    std::vector<std::string> vectorDouble = parse<std::vector<std::string> >(string);
     std::vector<double> parsedDoubleValues;
-    for (const auto& i : parsedValues) {
-        parsedDoubleValues.push_back(parse<double>(i));
+    for (const auto& doubleValue : vectorDouble) {
+        parsedDoubleValues.push_back(parse<double>(doubleValue));
     }
     return parsedDoubleValues;
 }
@@ -606,10 +578,10 @@ GNEAttributeCarrier::parse(const std::string& string) {
 
 template<> std::vector<bool>
 GNEAttributeCarrier::parse(const std::string& string) {
-    std::vector<std::string> parsedValues = parse<std::vector<std::string> >(string);
+    std::vector<std::string> vectorBool = parse<std::vector<std::string> >(string);
     std::vector<bool> parsedBoolValues;
-    for (const auto& i : parsedValues) {
-        parsedBoolValues.push_back(parse<bool>(i));
+    for (const auto& boolValue : vectorBool) {
+        parsedBoolValues.push_back(parse<bool>(boolValue));
     }
     return parsedBoolValues;
 }

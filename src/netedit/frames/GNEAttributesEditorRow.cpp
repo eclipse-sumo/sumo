@@ -806,11 +806,7 @@ GNEAttributesEditorRow::showValueComboBox(const GNEAttributeProperties* attrProp
     // first we need to check if all boolean values are equal
     bool allValuesEqual = true;
     // declare  boolean vector
-    std::vector<std::string> stringVector;
-    // check if value can be parsed to a boolean vector
-    if (GNEAttributeCarrier::canParse<std::vector<std::string> >(value)) {
-        stringVector = GNEAttributeCarrier::parse<std::vector<std::string> >(value);
-    }
+    std::vector<std::string> stringVector = GNEAttributeCarrier::parse<std::vector<std::string> >(value);
     // iterate over string comparing all element with the first
     for (const auto& stringValue : stringVector) {
         if (stringValue != stringVector.front()) {
