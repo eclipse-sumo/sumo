@@ -235,7 +235,7 @@ calls = [
                 nameBase += variant.split(".")[-1]
             loadAllNets = False
             for a in appOptions:
-                if "netdiff.py" in a or "remap_additionals.py" in a:
+                if "netdiff.py" in a or "remap_additionals.py" in a or "remap_network.py" in a:
                     loadAllNets = True
             exclude = []
             # gather copy_test_path exclusions

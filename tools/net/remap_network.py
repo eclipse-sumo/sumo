@@ -41,6 +41,8 @@ def get_options(args=None):
                     help="File for writing mapping information", metavar="FILE")
     ap.add_argument("--radius", type=float, default=1.6,
                     help="radius for finding candidate edges")
+    ap.add_argument("--min-common", type=float, dest="minCommon", default=0.1,
+                    help="minimum common length in meters")
     ap.add_argument("--filter-ids", dest="filterIds",
                     help="only handle the given edges")
     ap.add_argument("-v", "--verbose", action="store_true", dest="verbose",
@@ -100,7 +102,7 @@ def cutOff(shape, commonLength):
 
 def mapEdge(options, edge):
     success = 0
-    results = [] # [(targetEdge, overlap), ...]
+    results = [] # [(targetEdge, targetFraction, commonLength), ...]
     origShape = edge.getShape()
     shape = [options.remap_xy(xy) for xy in origShape]
     shapelen = gh.polyLength(shape)
@@ -120,10 +122,11 @@ def mapEdge(options, edge):
                 best = edge2
                 bestCommon = commonLength
                 bestScore = score
-        if bestCommon < 0.1:
+        if bestCommon < options.minCommon:
             break
-        overlap = bestCommon / gh.polyLength(best.getShape())
-        results.append((best, overlap))
+        bestLength = gh.polyLength(best.getShape())
+        fraction = bestCommon / bestLength
+        results.append((best, fraction, bestCommon))
         cutFraction = bestCommon / shapelen
         shape = cutOff(shape, bestCommon)
         success += cutFraction
@@ -131,6 +134,9 @@ def mapEdge(options, edge):
         # print(edge.getID(), best.getID(), commonLength, len(edges2))
     if options.verbose:
         print(edge.getID(), success)
+    if success >= 1.01:
+        print("implausibly high success %s for edge %s" % (success, edge.getID()), file=sys.stderr)
+
     return success, results
 
 
@@ -152,7 +158,7 @@ def main(options):
 
     successStats = Statistics("completeness")
     with open(options.output, 'w') as fout, open(options.output + ".success", 'w') as sout:
-        fout.write(';'.join(["origEdge", "targetEdge", "targetFrom", "targetTo", "overlap"]) + '\n')
+        fout.write(';'.join(["origEdge", "targetEdge", "targetFrom", "targetTo", "targetFraction", "common"]) + '\n')
         sout.write(';'.join(["origEdge", "success"]) + '\n')
         for edge in options.net.getEdges():
             if options.filterIds and edge.getID() not in options.filterIds:
@@ -160,11 +166,11 @@ def main(options):
             success, targets = mapEdge(options, edge)
             sout.write(';'.join([edge.getID(), str(success)]) + '\n')
             successStats.add(success, edge.getID())
-            for edge2, overlap in targets:
+            for edge2, fraction, common in targets:
                 fout.write(';'.join([
                     edge.getID(), edge2.getID(),
                     edge2.getFromNode().getID(), edge2.getToNode().getID(),
-                    str(overlap)]) + '\n')
+                    str(fraction), str(common)]) + '\n')
     print(successStats)
 
 if __name__ == "__main__":
