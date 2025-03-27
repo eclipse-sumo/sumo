@@ -299,6 +299,166 @@ GNEAttributeCarrier::hasAttribute(SumoXMLAttr key) const {
     return myTagProperty->hasAttribute(key);
 }
 
+// canParse functions
+
+template<> bool
+GNEAttributeCarrier::canParse<int>(const std::string& string) {
+    if (string == "INVALID_INT") {
+        return true;
+    } else {
+        return StringUtils::isInt(string);
+    }
+}
+
+
+template<> bool
+GNEAttributeCarrier::canParse<double>(const std::string& string) {
+    if (string == "INVALID_DOUBLE") {
+        return true;
+    } else {
+        return StringUtils::isDouble(string);
+    }
+}
+
+
+template<> bool
+GNEAttributeCarrier::canParse<SUMOTime>(const std::string& string) {
+    return isTime(string);
+}
+
+
+template<> bool
+GNEAttributeCarrier::canParse<bool>(const std::string& string) {
+    return StringUtils::isBool(string);
+}
+
+
+template<> bool
+GNEAttributeCarrier::canParse<std::string>(const std::string& /*string*/) {
+    // a string can be parsed to string
+    return true;
+}
+
+
+template<> bool
+GNEAttributeCarrier::canParse<Position>(const std::string& string) {
+    bool ok = true;
+    GeomConvHelper::parseShapeReporting(string, "position", 0, ok, true, false);
+    return ok;
+}
+
+
+template<> bool
+GNEAttributeCarrier::canParse<SUMOVehicleClass>(const std::string& string) {
+    return SumoVehicleClassStrings.hasString(string);
+}
+
+
+template<> bool
+GNEAttributeCarrier::canParse<RGBColor>(const std::string& string) {
+    return RGBColor::isColor(string);
+}
+
+
+template<> bool
+GNEAttributeCarrier::canParse<SumoXMLAttr>(const std::string& string) {
+    return SUMOXMLDefinitions::Attrs.hasString(string);
+}
+
+
+template<> bool
+GNEAttributeCarrier::canParse<SUMOVehicleShape>(const std::string& string) {
+    if (string.empty()) {
+        return true;
+    } else {
+        return SumoVehicleShapeStrings.hasString(string);
+    }
+}
+
+
+template<> bool
+GNEAttributeCarrier::canParse<PositionVector>(const std::string& string) {
+    bool ok = true;
+    GeomConvHelper::parseShapeReporting(string, "shape", 0, ok, true, false);
+    return ok;
+}
+
+
+template<> bool
+GNEAttributeCarrier::canParse<std::vector<std::string> >(const std::string& /*string*/) {
+    // always true
+    return true;
+}
+
+
+template<> bool
+GNEAttributeCarrier::canParse<std::set<std::string> >(const std::string& /*string*/) {
+    // always true
+    return true;
+}
+
+
+template<> bool
+GNEAttributeCarrier::canParse<std::vector<int> >(const std::string& string) {
+    if (string.empty()) {
+        return true;
+    }
+    const auto values = StringTokenizer(string).getVector();
+    for (const auto& value : values) {
+        if (!canParse<int>(value)) {
+            return false;
+        }
+    }
+    return true;
+}
+
+
+template<> bool
+GNEAttributeCarrier::canParse<std::vector<double> >(const std::string& string) {
+    if (string.empty()) {
+        return true;
+    }
+    const auto values = StringTokenizer(string).getVector();
+    for (const auto& value : values) {
+        if (!canParse<double>(value)) {
+            return false;
+        }
+    }
+    return true;
+}
+
+
+template<> bool
+GNEAttributeCarrier::canParse<std::vector<bool> >(const std::string& string) {
+    if (string.empty()) {
+        return true;
+    }
+    const auto values = StringTokenizer(string).getVector();
+    for (const auto& value : values) {
+        if (!canParse<bool>(value)) {
+            return false;
+        }
+    }
+    return true;
+}
+
+
+template<> bool
+GNEAttributeCarrier::canParse<std::vector<SumoXMLAttr> >(const std::string& string) {
+    if (string.empty()) {
+        return true;
+    }
+    const auto values = StringTokenizer(string).getVector();
+    for (const auto& value : values) {
+        if (!canParse<SumoXMLAttr>(value)) {
+            return false;
+        }
+    }
+    return true;
+}
+
+
+// parse functions
 
 template<> int
 GNEAttributeCarrier::parse(const std::string& string) {
@@ -397,7 +557,7 @@ GNEAttributeCarrier::parse(const std::string& string) {
 
 template<> SUMOVehicleShape
 GNEAttributeCarrier::parse(const std::string& string) {
-    if ((string == "unknown") || (!SumoVehicleShapeStrings.hasString(string))) {
+    if (string.empty()) {
         return SUMOVehicleShape::UNKNOWN;
     } else {
         return SumoVehicleShapeStrings.get(string);

@@ -277,18 +277,7 @@ public:
 
     /// @brief true if a value of type T can be parsed from string
     template<typename T>
-    static bool canParse(const std::string& string) {
-        try {
-            GNEAttributeCarrier::parse<T>(string);
-        } catch (EmptyData&) {
-            // general
-            return false;
-        } catch (FormatException&) {
-            // numbers, time, boolean, colors
-            return false;
-        }
-        return true;
-    }
+    static bool canParse(const std::string& string);
 
     /// @brief parses a value of type T from string (used for basic types: int, double, bool, etc.)
     template<typename T>
