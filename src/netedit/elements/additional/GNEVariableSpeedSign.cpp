@@ -274,7 +274,7 @@ GNEVariableSpeedSign::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_POSITION:
             return canParse<Position>(value);
         case SUMO_ATTR_LANES:
-            return canParse<std::vector<GNELane*> >(myNet, value, false);
+            return canParse<std::vector<GNELane*> >(myNet, value);
         case SUMO_ATTR_NAME:
             return SUMOXMLDefinitions::isValidAttribute(value);
         case SUMO_ATTR_VTYPES:

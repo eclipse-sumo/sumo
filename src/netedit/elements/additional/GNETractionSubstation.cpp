@@ -228,7 +228,7 @@ GNETractionSubstation::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             return isValidAdditionalID(value);
         case SUMO_ATTR_EDGES:
-            return canParse<std::vector<GNEEdge*> >(myNet, value, false);
+            return canParse<std::vector<GNEEdge*> >(myNet, value);
         case SUMO_ATTR_POSITION:
             return canParse<Position>(value);
         case SUMO_ATTR_VOLTAGE:

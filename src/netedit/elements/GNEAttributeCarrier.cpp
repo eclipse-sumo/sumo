@@ -603,53 +603,73 @@ GNEAttributeCarrier::parse(const std::string& value) {
     return attributes;
 }
 
+// can parse (network) functions
 
-template<> std::vector<GNEEdge*>
-GNEAttributeCarrier::parse(GNENet* net, const std::string& value) {
+template<> bool
+GNEAttributeCarrier::canParse<std::vector<GNEEdge*> >(const GNENet* net, const std::string& value) {
     // Declare string vector
     const auto edgeIds = GNEAttributeCarrier::parse<std::vector<std::string> > (value);
-    std::vector<GNEEdge*> parsedEdges;
-    parsedEdges.reserve(edgeIds.size());
-    // Iterate over edges IDs, retrieve Edges and add it into parsedEdges
     for (const auto& edgeID : edgeIds) {
-        GNEEdge* retrievedEdge = net->getAttributeCarriers()->retrieveEdge(edgeID, false);
-        if (retrievedEdge) {
-            parsedEdges.push_back(net->getAttributeCarriers()->retrieveEdge(edgeID));
-        } else {
-            throw FormatException("Error parsing parameter " + toString(SUMO_ATTR_EDGES) + ". " +
-                                  toString(SUMO_TAG_EDGE) + " '" + edgeID + "' doesn't exist");
+        if (net->getAttributeCarriers()->retrieveEdge(edgeID, false) == nullptr) {
+            return false;
         }
     }
-    return parsedEdges;
+    return true;
 }
 
 
-template<> std::vector<GNELane*>
-GNEAttributeCarrier::parse(GNENet* net, const std::string& value) {
+template<> bool
+GNEAttributeCarrier::canParse<std::vector<GNELane*> >(const GNENet* net, const std::string& value) {
     // Declare string vector
     const auto laneIds = GNEAttributeCarrier::parse<std::vector<std::string> > (value);
     std::vector<GNELane*> parsedLanes;
     parsedLanes.reserve(laneIds.size());
     // Iterate over lanes IDs, retrieve Lanes and add it into parsedLanes
     for (const auto& laneID : laneIds) {
-        GNELane* retrievedLane = net->getAttributeCarriers()->retrieveLane(laneID, false);
-        if (retrievedLane) {
-            parsedLanes.push_back(net->getAttributeCarriers()->retrieveLane(laneID));
-        } else {
-            throw FormatException("Error parsing parameter " + toString(SUMO_ATTR_LANES) + ". " +
-                                  toString(SUMO_TAG_LANE) + " '" + laneID + "'  doesn't exist");
+        if (net->getAttributeCarriers()->retrieveLane(laneID, false) == nullptr) {
+            return false;
         }
+    }
+    return true;
+}
+
+// parse (network) functions
+
+template<> std::vector<GNEEdge*>
+GNEAttributeCarrier::parse(const GNENet* net, const std::string& value) {
+    // Declare string vector
+    const auto edgeIds = GNEAttributeCarrier::parse<std::vector<std::string> > (value);
+    std::vector<GNEEdge*> parsedEdges;
+    parsedEdges.reserve(edgeIds.size());
+    // Iterate over edges IDs, retrieve Edges and add it into parsedEdges
+    for (const auto& edgeID : edgeIds) {
+        parsedEdges.push_back(net->getAttributeCarriers()->retrieveEdge(edgeID));
+    }
+    return parsedEdges;
+}
+
+
+template<> std::vector<GNELane*>
+GNEAttributeCarrier::parse(const GNENet* net, const std::string& value) {
+    // Declare string vector
+    const auto laneIds = GNEAttributeCarrier::parse<std::vector<std::string> > (value);
+    std::vector<GNELane*> parsedLanes;
+    parsedLanes.reserve(laneIds.size());
+    // Iterate over lanes IDs, retrieve Lanes and add it into parsedLanes
+    for (const auto& laneID : laneIds) {
+        parsedLanes.push_back(net->getAttributeCarriers()->retrieveLane(laneID));
     }
     return parsedLanes;
 }
 
+// parse ID functions
 
 template<> std::string
 GNEAttributeCarrier::parseIDs(const std::vector<GNEEdge*>& ACs) {
     // obtain ID's of edges and return their join
     std::vector<std::string> edgeIDs;
-    for (const auto& i : ACs) {
-        edgeIDs.push_back(i->getID());
+    for (const auto& AC : ACs) {
+        edgeIDs.push_back(AC->getID());
     }
     return joinToString(edgeIDs, " ");
 }
@@ -659,8 +679,8 @@ template<> std::string
 GNEAttributeCarrier::parseIDs(const std::vector<GNELane*>& ACs) {
     // obtain ID's of lanes and return their join
     std::vector<std::string> laneIDs;
-    for (const auto& i : ACs) {
-        laneIDs.push_back(i->getID());
+    for (const auto& AC : ACs) {
+        laneIDs.push_back(AC->getID());
     }
     return joinToString(laneIDs, " ");
 }

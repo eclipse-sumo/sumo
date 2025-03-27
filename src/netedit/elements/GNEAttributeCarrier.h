@@ -283,23 +283,13 @@ public:
     template<typename T>
     static T parse(const std::string& string);
 
-    /// @brief true if a value of type T can be parsed from string
+    /// @brief true if a value of type T can be parsed from string (requieres network)
     template<typename T>
-    static bool canParse(GNENet* net, const std::string& value, bool report) {
-        try {
-            parse<T>(net, value);
-        } catch (FormatException& exception) {
-            if (report) {
-                WRITE_WARNING(exception.what())
-            }
-            return false;
-        }
-        return true;
-    }
+    static bool canParse(const GNENet* net, const std::string& value);
 
     /// @brief parses a complex value of type T from string (use for list of edges, list of lanes, etc.)
     template<typename T>
-    static T parse(GNENet* net, const std::string& value);
+    static T parse(const GNENet* net, const std::string& value);
 
     /// @brief parses a list of specific Attribute Carriers into a string of IDs
     template<typename T>

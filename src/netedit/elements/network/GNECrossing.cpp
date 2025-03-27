@@ -426,7 +426,7 @@ GNECrossing::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             return false;
         case SUMO_ATTR_EDGES:
-            if (canParse<std::vector<GNEEdge*> >(myNet, value, false)) {
+            if (canParse<std::vector<GNEEdge*> >(myNet, value)) {
                 // parse edges and save their IDs in a set
                 std::vector<GNEEdge*> parsedEdges = parse<std::vector<GNEEdge*> >(myNet, value);
                 EdgeVector nbEdges;
