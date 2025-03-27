@@ -336,7 +336,7 @@ RGBColor::isColor(std::string coldef) {
             (coldef == "random")) {
         return true;
     }
-    // check if is defined using an exadecimal value
+    // check if is defined using an hexadecimal value
     if (coldef[0] == '#') {
         if (StringUtils::isHex(coldef)) {
             return ((coldef.length() == 7) || (coldef.length() == 9));

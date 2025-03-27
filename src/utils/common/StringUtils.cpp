@@ -336,15 +336,10 @@ StringUtils::isInt(const std::string& sData) {
     // first check if can be converted to long int
     if (isLong(sData)) {
         const long long int result = toLong(sData);
-        // now chec if it is in the range of an int
-        if ((result > std::numeric_limits<int>::max()) || (result < std::numeric_limits<int>::min())) {
-            return false;
-        } else {
-            return true;
-        }
-    } else {
-        return false;
+        // now check if the result is in the range of an int
+        return ((result <= std::numeric_limits<int>::max()) && (result >= std::numeric_limits<int>::min()));
     }
+    return false;
 }
 
 
@@ -445,7 +440,7 @@ StringUtils::isHex(std::string sData) {
     char* returnPtr;
     // reset errno
     errno = 0;
-    // call string to long (size 16) from standartd library
+    // call string to long (size 16) from standard library
     strtol(sDataPtr, &returnPtr, 16);
     // check out of range
     if (errno == ERANGE) {

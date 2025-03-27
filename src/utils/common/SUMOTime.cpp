@@ -51,7 +51,7 @@ string2time(const std::string& r) {
         }
         return TIME2STEPS(time);
     } else {
-        // try to parse jj:hh:mm:ss.s
+        // try to parse dd:hh:mm:ss.s
         std::vector<std::string> hrt = StringTokenizer(r, ":").getVector();
         if (hrt.size() == 3) {
             //std::cout << "parsed '" << r << "' as " << (3600 * string2time(hrt[0]) + 60 * string2time(hrt[1]) + string2time(hrt[2])) << "\n";
@@ -74,12 +74,12 @@ isTime(const std::string& r) {
             return false;
         }
     } else {
-        // try to parse jj:hh:mm:ss.s
+        // try to parse dd:hh:mm:ss.s
         const std::vector<std::string> hrt = StringTokenizer(r, ":").getVector();
         if (hrt.size() == 3) {
-            return isTime(hrt[0]) && isTime(hrt[1]) && isTime(hrt[2]);
+            return StringUtils::isInt(hrt[0]) && StringUtils::isInt(hrt[1]) && StringUtils::isInt(hrt[2]);
         } else if (hrt.size() == 4) {
-            return isTime(hrt[0]) && isTime(hrt[1]) && isTime(hrt[2]) && isTime(hrt[3]);
+            return StringUtils::isInt(hrt[0]) && StringUtils::isInt(hrt[1]) && StringUtils::isInt(hrt[2]) && StringUtils::isDouble(hrt[3]);
         } else {
             return false;
         }
