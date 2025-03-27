@@ -55,20 +55,22 @@ def get_options(args=None):
 
 def compareEdge(edge, shape, edge2, radius):
     shape2 = edge2.getShape()
-    off_dists = [gh.polygonOffsetAndDistanceToPoint(point, shape2) for point in shape]
+    off_dists = [(point,) + gh.polygonOffsetAndDistanceToPoint(point, shape2) for point in shape]
     lastOffset = None
+    lastPoint = None
     commonLength = 0
     distSum = 0
     distCount = 0
-    for offset, dist in off_dists:
+    for point, offset, dist in off_dists:
         if (lastOffset is None or offset >= lastOffset) and dist <= radius:
             if lastOffset is not None:
-                commonLength += offset - lastOffset
+                commonLength += gh.distance(lastPoint, point)
             lastOffset = offset
+            lastPoint = point
             distSum += dist
             distCount += 1
         else:
-            firstOffset = off_dists[0][0]
+            firstOffset = off_dists[0][1]
             offset2, dist2 = gh.polygonOffsetAndDistanceToPoint(shape2[-1], shape, True)
             if lastOffset is not None and firstOffset + offset2 >= lastOffset and dist2 <= radius:
                 # edge2 ends before reaching the end of shape
@@ -125,7 +127,7 @@ def mapEdge(options, edge):
         if bestCommon < options.minCommon:
             break
         bestLength = gh.polyLength(best.getShape())
-        fraction = bestCommon / bestLength
+        fraction = min(1.0, bestCommon / bestLength)
         results.append((best, fraction, bestCommon))
         cutFraction = bestCommon / shapelen
         shape = cutOff(shape, bestCommon)
