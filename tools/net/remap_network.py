@@ -166,13 +166,13 @@ def main(options):
             if options.filterIds and edge.getID() not in options.filterIds:
                 continue
             success, targets = mapEdge(options, edge)
-            sout.write(';'.join([edge.getID(), str(success)]) + '\n')
+            sout.write(';'.join([edge.getID(), "%.2f" % success]) + '\n')
             successStats.add(success, edge.getID())
             for edge2, fraction, common in targets:
                 fout.write(';'.join([
                     edge.getID(), edge2.getID(),
                     edge2.getFromNode().getID(), edge2.getToNode().getID(),
-                    str(fraction), str(common)]) + '\n')
+                    "%.2f" % fraction, "%.2f" % common]) + '\n')
     print(successStats)
 
 if __name__ == "__main__":
