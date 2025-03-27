@@ -1738,11 +1738,7 @@ GNEVehicle::isValid(SumoXMLAttr key, const std::string& value) {
             }
         }
         case SUMO_ATTR_VIA:
-            if (value.empty()) {
-                return true;
-            } else {
-                return canParse<std::vector<GNEEdge*> >(myNet, value);
-            }
+            return canParse<std::vector<GNEEdge*> >(myNet, value, false);
         // Specific of from-to junctions
         case SUMO_ATTR_FROM_JUNCTION:
         case SUMO_ATTR_TO_JUNCTION:

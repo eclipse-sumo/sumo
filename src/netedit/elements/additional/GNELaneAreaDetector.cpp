@@ -473,11 +473,8 @@ GNELaneAreaDetector::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_LANES:
             if (value.empty()) {
                 return false;
-            } else if (canParse<std::vector<GNELane*> >(myNet, value)) {
-                // check if lanes are consecutives
-                return lanesConsecutives(parse<std::vector<GNELane*> >(myNet, value));
             } else {
-                return false;
+                return canParse<std::vector<GNELane*> >(myNet, value, true);
             }
         case SUMO_ATTR_ENDPOS:
             return canParse<double>(value);

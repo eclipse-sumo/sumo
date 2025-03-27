@@ -342,7 +342,7 @@ GNEMeanData::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_WRITE_ATTRIBUTES:
             return canParse<std::vector<SumoXMLAttr> >(value);
         case SUMO_ATTR_EDGES:
-            return canParse<std::vector<GNEEdge*> >(myNet, value);
+            return canParse<std::vector<GNEEdge*> >(myNet, value, false);
         case SUMO_ATTR_EDGESFILE:
             return SUMOXMLDefinitions::isValidFilename(value);
         case SUMO_ATTR_AGGREGATE:

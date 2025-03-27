@@ -545,10 +545,10 @@ GNEAttributeCarrier::parse(const std::string& string) {
 
 template<> std::set<std::string>
 GNEAttributeCarrier::parse(const std::string& string) {
-    std::vector<std::string> vectorString = StringTokenizer(string).getVector();
+    const auto vectorString = StringTokenizer(string).getVector();
     std::set<std::string> solution;
-    for (const auto& string : vectorString) {
-        solution.insert(string);
+    for (const auto& stringValue : vectorString) {
+        solution.insert(stringValue);
     }
     return solution;
 }
@@ -556,7 +556,7 @@ GNEAttributeCarrier::parse(const std::string& string) {
 
 template<> std::vector<int>
 GNEAttributeCarrier::parse(const std::string& string) {
-    std::vector<std::string> vectorInt = parse<std::vector<std::string> >(string);
+    const auto vectorInt = parse<std::vector<std::string> >(string);
     std::vector<int> parsedIntValues;
     for (const auto& intValue : vectorInt) {
         parsedIntValues.push_back(parse<int>(intValue));
@@ -567,7 +567,7 @@ GNEAttributeCarrier::parse(const std::string& string) {
 
 template<> std::vector<double>
 GNEAttributeCarrier::parse(const std::string& string) {
-    std::vector<std::string> vectorDouble = parse<std::vector<std::string> >(string);
+    const auto vectorDouble = parse<std::vector<std::string> >(string);
     std::vector<double> parsedDoubleValues;
     for (const auto& doubleValue : vectorDouble) {
         parsedDoubleValues.push_back(parse<double>(doubleValue));
@@ -578,7 +578,7 @@ GNEAttributeCarrier::parse(const std::string& string) {
 
 template<> std::vector<bool>
 GNEAttributeCarrier::parse(const std::string& string) {
-    std::vector<std::string> vectorBool = parse<std::vector<std::string> >(string);
+    const auto vectorBool = parse<std::vector<std::string> >(string);
     std::vector<bool> parsedBoolValues;
     for (const auto& boolValue : vectorBool) {
         parsedBoolValues.push_back(parse<bool>(boolValue));
@@ -590,7 +590,7 @@ GNEAttributeCarrier::parse(const std::string& string) {
 template<> std::vector<SumoXMLAttr>
 GNEAttributeCarrier::parse(const std::string& value) {
     // Declare string vector
-    std::vector<std::string> attributesStr = GNEAttributeCarrier::parse<std::vector<std::string> > (value);
+    const auto attributesStr = parse<std::vector<std::string> > (value);
     std::vector<SumoXMLAttr> attributes;
     // Iterate over lanes IDs, retrieve Lanes and add it into parsedLanes
     for (const auto& attributeStr : attributesStr) {
@@ -606,12 +606,20 @@ GNEAttributeCarrier::parse(const std::string& value) {
 // can parse (network) functions
 
 template<> bool
-GNEAttributeCarrier::canParse<std::vector<GNEEdge*> >(const GNENet* net, const std::string& value) {
+GNEAttributeCarrier::canParse<std::vector<GNEEdge*> >(const GNENet* net, const std::string& value, const bool checkConsecutivity) {
     // Declare string vector
-    const auto edgeIds = GNEAttributeCarrier::parse<std::vector<std::string> > (value);
+    const auto edgeIds = parse<std::vector<std::string> > (value);
+    std::vector<GNEEdge*> parsedEdges;
+    parsedEdges.reserve(edgeIds.size());
     for (const auto& edgeID : edgeIds) {
-        if (net->getAttributeCarriers()->retrieveEdge(edgeID, false) == nullptr) {
+        const auto edge = net->getAttributeCarriers()->retrieveEdge(edgeID, false);
+        if (edge == nullptr) {
             return false;
+        } else if (checkConsecutivity) {
+            if ((parsedEdges.size() > 0) && (parsedEdges.back()->getToJunction() != edge->getFromJunction())) {
+                return false;
+            }
+            parsedEdges.push_back(edge);
         }
     }
     return true;
@@ -619,15 +627,21 @@ GNEAttributeCarrier::canParse<std::vector<GNEEdge*> >(const GNENet* net, const s
 
 
 template<> bool
-GNEAttributeCarrier::canParse<std::vector<GNELane*> >(const GNENet* net, const std::string& value) {
+GNEAttributeCarrier::canParse<std::vector<GNELane*> >(const GNENet* net, const std::string& value, const bool checkConsecutivity) {
     // Declare string vector
-    const auto laneIds = GNEAttributeCarrier::parse<std::vector<std::string> > (value);
+    const auto laneIds = parse<std::vector<std::string> > (value);
     std::vector<GNELane*> parsedLanes;
     parsedLanes.reserve(laneIds.size());
     // Iterate over lanes IDs, retrieve Lanes and add it into parsedLanes
     for (const auto& laneID : laneIds) {
-        if (net->getAttributeCarriers()->retrieveLane(laneID, false) == nullptr) {
+        const auto lane = net->getAttributeCarriers()->retrieveLane(laneID, false);
+        if (lane == nullptr) {
             return false;
+        } else if (checkConsecutivity) {
+            if ((parsedLanes.size() > 0) && (parsedLanes.back()->getParentEdge()->getToJunction() != lane->getParentEdge()->getFromJunction())) {
+                return false;
+            }
+            parsedLanes.push_back(lane);
         }
     }
     return true;
@@ -638,7 +652,7 @@ GNEAttributeCarrier::canParse<std::vector<GNELane*> >(const GNENet* net, const s
 template<> std::vector<GNEEdge*>
 GNEAttributeCarrier::parse(const GNENet* net, const std::string& value) {
     // Declare string vector
-    const auto edgeIds = GNEAttributeCarrier::parse<std::vector<std::string> > (value);
+    const auto edgeIds = parse<std::vector<std::string> > (value);
     std::vector<GNEEdge*> parsedEdges;
     parsedEdges.reserve(edgeIds.size());
     // Iterate over edges IDs, retrieve Edges and add it into parsedEdges
@@ -652,7 +666,7 @@ GNEAttributeCarrier::parse(const GNENet* net, const std::string& value) {
 template<> std::vector<GNELane*>
 GNEAttributeCarrier::parse(const GNENet* net, const std::string& value) {
     // Declare string vector
-    const auto laneIds = GNEAttributeCarrier::parse<std::vector<std::string> > (value);
+    const auto laneIds = parse<std::vector<std::string> > (value);
     std::vector<GNELane*> parsedLanes;
     parsedLanes.reserve(laneIds.size());
     // Iterate over lanes IDs, retrieve Lanes and add it into parsedLanes
@@ -683,37 +697,6 @@ GNEAttributeCarrier::parseIDs(const std::vector<GNELane*>& ACs) {
         laneIDs.push_back(AC->getID());
     }
     return joinToString(laneIDs, " ");
-}
-
-
-bool
-GNEAttributeCarrier::lanesConsecutives(const std::vector<GNELane*>& lanes) {
-    // we need at least two lanes
-    if (lanes.size() > 1) {
-        // now check that lanes are consecutive (not necessary connected)
-        int currentLane = 0;
-        while (currentLane < ((int)lanes.size() - 1)) {
-            int nextLane = -1;
-            // iterate over outgoing edges of destination junction of edge's lane
-            for (int i = 0; (i < (int)lanes.at(currentLane)->getParentEdge()->getToJunction()->getGNEOutgoingEdges().size()) && (nextLane == -1); i++) {
-                // iterate over lanes of outgoing edges of destination junction of edge's lane
-                for (int j = 0; (j < (int)lanes.at(currentLane)->getParentEdge()->getToJunction()->getGNEOutgoingEdges().at(i)->getChildLanes().size()) && (nextLane == -1); j++) {
-                    // check if lane correspond to the next lane of "lanes"
-                    if (lanes.at(currentLane)->getParentEdge()->getToJunction()->getGNEOutgoingEdges().at(i)->getChildLanes().at(j) == lanes.at(currentLane + 1)) {
-                        nextLane = currentLane;
-                    }
-                }
-            }
-            if (nextLane == -1) {
-                return false;
-            } else {
-                currentLane++;
-            }
-        }
-        return true;
-    } else {
-        return false;
-    }
 }
 
 
