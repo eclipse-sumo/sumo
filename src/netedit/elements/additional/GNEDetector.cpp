@@ -107,7 +107,7 @@ GNEDetector::getMoveOperation() {
     } else {
         // return move operation for detectors with single position placed over shape (E1, EntryExits..)
         return new GNEMoveOperation(this, getParentLanes().front(), myPositionOverLane,
-                                    myNet->getViewNet()->getViewParent()->getMoveFrame()->getCommonModeOptions()->getAllowChangeLane());
+                                    myNet->getViewNet()->getViewParent()->getMoveFrame()->getCommonMoveOptions()->getAllowChangeLane());
     }
 }
 

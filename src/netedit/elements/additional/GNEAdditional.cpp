@@ -383,10 +383,13 @@ GNEAdditional::checkDrawDeleteContour() const {
 
 bool
 GNEAdditional::checkDrawDeleteContourSmall() const {
-    if (getParentAdditionals().size() > 0) {
+    // get edit modes
+    const auto& editModes = myNet->getViewNet()->getEditModes();
+    // check if we're in delete mode and this additional has a parent
+    if (editModes.isCurrentSupermodeNetwork() && (editModes.networkEditMode == NetworkEditMode::NETWORK_DELETE) && (getParentAdditionals().size() > 0)) {
         const auto additional = myNet->getViewNet()->getViewObjectsSelector().getAdditionalFront();
         if (additional && (additional == myNet->getViewNet()->getViewObjectsSelector().getAttributeCarrierFront())) {
-            return (getParentAdditionals().front() == additional); 
+            return (getParentAdditionals().front() == additional);
         }
     }
     return false;
@@ -908,7 +911,7 @@ GNEAdditional::drawDemandElementChildren(const GUIVisualizationSettings& s) cons
 GNEMoveOperation*
 GNEAdditional::getMoveOperationSingleLane(const double startPos, const double endPos) {
     // get allow change lane
-    const bool allowChangeLane = myNet->getViewNet()->getViewParent()->getMoveFrame()->getCommonModeOptions()->getAllowChangeLane();
+    const bool allowChangeLane = myNet->getViewNet()->getViewParent()->getMoveFrame()->getCommonMoveOptions()->getAllowChangeLane();
     // fist check if we're moving only extremes
     if (myNet->getViewNet()->getMouseButtonKeyPressed().shiftKeyPressed()) {
         // get snap radius
@@ -1068,7 +1071,7 @@ GNEAdditional::calculateContourPolygons(const GUIVisualizationSettings& s, const
     // get edit modes
     const auto& editModes = myNet->getViewNet()->getEditModes();
     // check if draw geometry points
-    if (editModes.isCurrentSupermodeNetwork() && !myNet->getViewNet()->getViewParent()->getMoveFrame()->getNetworkModeOptions()->getMoveWholePolygons()) {
+    if (editModes.isCurrentSupermodeNetwork() && !myNet->getViewNet()->getViewParent()->getMoveFrame()->getNetworkMoveOptions()->getMoveWholePolygons()) {
         // check if we're in move mode
         const bool moveMode = (editModes.networkEditMode == NetworkEditMode::NETWORK_MOVE);
         // get geometry point radius (size depends if we're in move mode)

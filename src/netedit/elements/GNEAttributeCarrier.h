@@ -275,49 +275,32 @@ public:
     /// @brief get tagProperty associated with this Attribute Carrier
     const GNETagProperties* getTagProperty() const;
 
+    /// @name parse functions
+    /// @{
+
     /// @brief true if a value of type T can be parsed from string
     template<typename T>
-    static bool canParse(const std::string& string) {
-        try {
-            GNEAttributeCarrier::parse<T>(string);
-        } catch (EmptyData&) {
-            // general
-            return false;
-        } catch (FormatException&) {
-            // numbers, time, boolean, colors
-            return false;
-        }
-        return true;
-    }
+    static bool canParse(const std::string& string);
 
     /// @brief parses a value of type T from string (used for basic types: int, double, bool, etc.)
     template<typename T>
     static T parse(const std::string& string);
 
-    /// @brief true if a value of type T can be parsed from string
+    /**@brief true if a value of type T can be parsed from string (requieres network)
+     * @note checkConsecutivity doesn't check connectivity trought connections
+     */
     template<typename T>
-    static bool canParse(GNENet* net, const std::string& value, bool report) {
-        try {
-            parse<T>(net, value);
-        } catch (FormatException& exception) {
-            if (report) {
-                WRITE_WARNING(exception.what())
-            }
-            return false;
-        }
-        return true;
-    }
+    static bool canParse(const GNENet* net, const std::string& value, const bool checkConsecutivity);
 
     /// @brief parses a complex value of type T from string (use for list of edges, list of lanes, etc.)
     template<typename T>
-    static T parse(GNENet* net, const std::string& value);
+    static T parse(const GNENet* net, const std::string& value);
 
     /// @brief parses a list of specific Attribute Carriers into a string of IDs
     template<typename T>
     static std::string parseIDs(const std::vector<T>& ACs);
 
-    /// @brief check if lanes are consecutives
-    static bool lanesConsecutives(const std::vector<GNELane*>& lanes);
+    /// @}
 
     /// @name Certain attributes and ACs (for example, connections) can be either loaded or guessed. The following static variables are used to remark it.
     /// @{

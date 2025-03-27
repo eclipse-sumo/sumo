@@ -211,8 +211,8 @@ bool
 GNEAttributeCarrier::checkDrawInspectContourSmall() const {
     const auto& modes = myNet->getViewNet()->getEditModes();
     if (modes.isCurrentSupermodeNetwork() &&
-        (modes.networkEditMode == NetworkEditMode::NETWORK_INSPECT) &&
-        (myTagProperty->getSupermode() == Supermode::NETWORK)) {
+            (modes.networkEditMode == NetworkEditMode::NETWORK_INSPECT) &&
+            (myTagProperty->getSupermode() == Supermode::NETWORK)) {
         return myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == getGUIGlObject();
     } else if (modes.isCurrentSupermodeDemand() &&
                (modes.demandEditMode == DemandEditMode::DEMAND_INSPECT) &&
@@ -222,6 +222,8 @@ GNEAttributeCarrier::checkDrawInspectContourSmall() const {
                (modes.dataEditMode == DataEditMode::DATA_INSPECT) &&
                (myTagProperty->getSupermode() == Supermode::DATA)) {
         return myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == getGUIGlObject();
+    } else {
+        return false;
     }
 }
 
@@ -297,6 +299,144 @@ GNEAttributeCarrier::hasAttribute(SumoXMLAttr key) const {
     return myTagProperty->hasAttribute(key);
 }
 
+// canParse functions
+
+template<> bool
+GNEAttributeCarrier::canParse<int>(const std::string& string) {
+    if (string == "INVALID_INT") {
+        return true;
+    } else {
+        return StringUtils::isInt(string);
+    }
+}
+
+
+template<> bool
+GNEAttributeCarrier::canParse<double>(const std::string& string) {
+    if (string == "INVALID_DOUBLE") {
+        return true;
+    } else {
+        return StringUtils::isDouble(string);
+    }
+}
+
+
+template<> bool
+GNEAttributeCarrier::canParse<SUMOTime>(const std::string& string) {
+    return isTime(string);
+}
+
+
+template<> bool
+GNEAttributeCarrier::canParse<bool>(const std::string& string) {
+    return StringUtils::isBool(string);
+}
+
+
+template<> bool
+GNEAttributeCarrier::canParse<Position>(const std::string& string) {
+    bool ok = true;
+    GeomConvHelper::parseShapeReporting(string, "position", 0, ok, true, false);
+    return ok;
+}
+
+
+template<> bool
+GNEAttributeCarrier::canParse<SUMOVehicleClass>(const std::string& string) {
+    return SumoVehicleClassStrings.hasString(string);
+}
+
+
+template<> bool
+GNEAttributeCarrier::canParse<RGBColor>(const std::string& string) {
+    return RGBColor::isColor(string);
+}
+
+
+template<> bool
+GNEAttributeCarrier::canParse<SumoXMLAttr>(const std::string& string) {
+    return SUMOXMLDefinitions::Attrs.hasString(string);
+}
+
+
+template<> bool
+GNEAttributeCarrier::canParse<SUMOVehicleShape>(const std::string& string) {
+    if (string.empty()) {
+        return true;
+    } else {
+        return SumoVehicleShapeStrings.hasString(string);
+    }
+}
+
+
+template<> bool
+GNEAttributeCarrier::canParse<PositionVector>(const std::string& string) {
+    bool ok = true;
+    GeomConvHelper::parseShapeReporting(string, "shape", 0, ok, true, false);
+    return ok;
+}
+
+
+template<> bool
+GNEAttributeCarrier::canParse<std::vector<int> >(const std::string& string) {
+    if (string.empty()) {
+        return true;
+    }
+    const auto values = StringTokenizer(string).getVector();
+    for (const auto& value : values) {
+        if (!canParse<int>(value)) {
+            return false;
+        }
+    }
+    return true;
+}
+
+
+template<> bool
+GNEAttributeCarrier::canParse<std::vector<double> >(const std::string& string) {
+    if (string.empty()) {
+        return true;
+    }
+    const auto values = StringTokenizer(string).getVector();
+    for (const auto& value : values) {
+        if (!canParse<double>(value)) {
+            return false;
+        }
+    }
+    return true;
+}
+
+
+template<> bool
+GNEAttributeCarrier::canParse<std::vector<bool> >(const std::string& string) {
+    if (string.empty()) {
+        return true;
+    }
+    const auto values = StringTokenizer(string).getVector();
+    for (const auto& value : values) {
+        if (!canParse<bool>(value)) {
+            return false;
+        }
+    }
+    return true;
+}
+
+
+template<> bool
+GNEAttributeCarrier::canParse<std::vector<SumoXMLAttr> >(const std::string& string) {
+    if (string.empty()) {
+        return true;
+    }
+    const auto values = StringTokenizer(string).getVector();
+    for (const auto& value : values) {
+        if (!canParse<SumoXMLAttr>(value)) {
+            return false;
+        }
+    }
+    return true;
+}
+
+// parse functions
 
 template<> int
 GNEAttributeCarrier::parse(const std::string& string) {
@@ -327,12 +467,6 @@ GNEAttributeCarrier::parse(const std::string& string) {
 template<> bool
 GNEAttributeCarrier::parse(const std::string& string) {
     return StringUtils::toBool(string);
-}
-
-
-template<> std::string
-GNEAttributeCarrier::parse(const std::string& string) {
-    return string;
 }
 
 
@@ -395,7 +529,7 @@ GNEAttributeCarrier::parse(const std::string& string) {
 
 template<> SUMOVehicleShape
 GNEAttributeCarrier::parse(const std::string& string) {
-    if ((string == "unknown") || (!SumoVehicleShapeStrings.hasString(string))) {
+    if (string.empty()) {
         return SUMOVehicleShape::UNKNOWN;
     } else {
         return SumoVehicleShapeStrings.get(string);
@@ -411,10 +545,10 @@ GNEAttributeCarrier::parse(const std::string& string) {
 
 template<> std::set<std::string>
 GNEAttributeCarrier::parse(const std::string& string) {
-    std::vector<std::string> vectorString = StringTokenizer(string).getVector();
+    const auto vectorString = StringTokenizer(string).getVector();
     std::set<std::string> solution;
-    for (const auto& i : vectorString) {
-        solution.insert(i);
+    for (const auto& stringValue : vectorString) {
+        solution.insert(stringValue);
     }
     return solution;
 }
@@ -422,10 +556,10 @@ GNEAttributeCarrier::parse(const std::string& string) {
 
 template<> std::vector<int>
 GNEAttributeCarrier::parse(const std::string& string) {
-    std::vector<std::string> parsedValues = parse<std::vector<std::string> >(string);
+    const auto vectorInt = parse<std::vector<std::string> >(string);
     std::vector<int> parsedIntValues;
-    for (const auto& i : parsedValues) {
-        parsedIntValues.push_back(parse<int>(i));
+    for (const auto& intValue : vectorInt) {
+        parsedIntValues.push_back(parse<int>(intValue));
     }
     return parsedIntValues;
 }
@@ -433,10 +567,10 @@ GNEAttributeCarrier::parse(const std::string& string) {
 
 template<> std::vector<double>
 GNEAttributeCarrier::parse(const std::string& string) {
-    std::vector<std::string> parsedValues = parse<std::vector<std::string> >(string);
+    const auto vectorDouble = parse<std::vector<std::string> >(string);
     std::vector<double> parsedDoubleValues;
-    for (const auto& i : parsedValues) {
-        parsedDoubleValues.push_back(parse<double>(i));
+    for (const auto& doubleValue : vectorDouble) {
+        parsedDoubleValues.push_back(parse<double>(doubleValue));
     }
     return parsedDoubleValues;
 }
@@ -444,10 +578,10 @@ GNEAttributeCarrier::parse(const std::string& string) {
 
 template<> std::vector<bool>
 GNEAttributeCarrier::parse(const std::string& string) {
-    std::vector<std::string> parsedValues = parse<std::vector<std::string> >(string);
+    const auto vectorBool = parse<std::vector<std::string> >(string);
     std::vector<bool> parsedBoolValues;
-    for (const auto& i : parsedValues) {
-        parsedBoolValues.push_back(parse<bool>(i));
+    for (const auto& boolValue : vectorBool) {
+        parsedBoolValues.push_back(parse<bool>(boolValue));
     }
     return parsedBoolValues;
 }
@@ -456,7 +590,7 @@ GNEAttributeCarrier::parse(const std::string& string) {
 template<> std::vector<SumoXMLAttr>
 GNEAttributeCarrier::parse(const std::string& value) {
     // Declare string vector
-    std::vector<std::string> attributesStr = GNEAttributeCarrier::parse<std::vector<std::string> > (value);
+    const auto attributesStr = parse<std::vector<std::string> > (value);
     std::vector<SumoXMLAttr> attributes;
     // Iterate over lanes IDs, retrieve Lanes and add it into parsedLanes
     for (const auto& attributeStr : attributesStr) {
@@ -469,53 +603,87 @@ GNEAttributeCarrier::parse(const std::string& value) {
     return attributes;
 }
 
+// can parse (network) functions
+
+template<> bool
+GNEAttributeCarrier::canParse<std::vector<GNEEdge*> >(const GNENet* net, const std::string& value, const bool checkConsecutivity) {
+    // Declare string vector
+    const auto edgeIds = parse<std::vector<std::string> > (value);
+    std::vector<GNEEdge*> parsedEdges;
+    parsedEdges.reserve(edgeIds.size());
+    for (const auto& edgeID : edgeIds) {
+        const auto edge = net->getAttributeCarriers()->retrieveEdge(edgeID, false);
+        if (edge == nullptr) {
+            return false;
+        } else if (checkConsecutivity) {
+            if ((parsedEdges.size() > 0) && (parsedEdges.back()->getToJunction() != edge->getFromJunction())) {
+                return false;
+            }
+            parsedEdges.push_back(edge);
+        }
+    }
+    return true;
+}
+
+
+template<> bool
+GNEAttributeCarrier::canParse<std::vector<GNELane*> >(const GNENet* net, const std::string& value, const bool checkConsecutivity) {
+    // Declare string vector
+    const auto laneIds = parse<std::vector<std::string> > (value);
+    std::vector<GNELane*> parsedLanes;
+    parsedLanes.reserve(laneIds.size());
+    // Iterate over lanes IDs, retrieve Lanes and add it into parsedLanes
+    for (const auto& laneID : laneIds) {
+        const auto lane = net->getAttributeCarriers()->retrieveLane(laneID, false);
+        if (lane == nullptr) {
+            return false;
+        } else if (checkConsecutivity) {
+            if ((parsedLanes.size() > 0) && (parsedLanes.back()->getParentEdge()->getToJunction() != lane->getParentEdge()->getFromJunction())) {
+                return false;
+            }
+            parsedLanes.push_back(lane);
+        }
+    }
+    return true;
+}
+
+// parse (network) functions
 
 template<> std::vector<GNEEdge*>
-GNEAttributeCarrier::parse(GNENet* net, const std::string& value) {
+GNEAttributeCarrier::parse(const GNENet* net, const std::string& value) {
     // Declare string vector
-    const auto edgeIds = GNEAttributeCarrier::parse<std::vector<std::string> > (value);
+    const auto edgeIds = parse<std::vector<std::string> > (value);
     std::vector<GNEEdge*> parsedEdges;
     parsedEdges.reserve(edgeIds.size());
     // Iterate over edges IDs, retrieve Edges and add it into parsedEdges
     for (const auto& edgeID : edgeIds) {
-        GNEEdge* retrievedEdge = net->getAttributeCarriers()->retrieveEdge(edgeID, false);
-        if (retrievedEdge) {
-            parsedEdges.push_back(net->getAttributeCarriers()->retrieveEdge(edgeID));
-        } else {
-            throw FormatException("Error parsing parameter " + toString(SUMO_ATTR_EDGES) + ". " +
-                                  toString(SUMO_TAG_EDGE) + " '" + edgeID + "' doesn't exist");
-        }
+        parsedEdges.push_back(net->getAttributeCarriers()->retrieveEdge(edgeID));
     }
     return parsedEdges;
 }
 
 
 template<> std::vector<GNELane*>
-GNEAttributeCarrier::parse(GNENet* net, const std::string& value) {
+GNEAttributeCarrier::parse(const GNENet* net, const std::string& value) {
     // Declare string vector
-    const auto laneIds = GNEAttributeCarrier::parse<std::vector<std::string> > (value);
+    const auto laneIds = parse<std::vector<std::string> > (value);
     std::vector<GNELane*> parsedLanes;
     parsedLanes.reserve(laneIds.size());
     // Iterate over lanes IDs, retrieve Lanes and add it into parsedLanes
     for (const auto& laneID : laneIds) {
-        GNELane* retrievedLane = net->getAttributeCarriers()->retrieveLane(laneID, false);
-        if (retrievedLane) {
-            parsedLanes.push_back(net->getAttributeCarriers()->retrieveLane(laneID));
-        } else {
-            throw FormatException("Error parsing parameter " + toString(SUMO_ATTR_LANES) + ". " +
-                                  toString(SUMO_TAG_LANE) + " '" + laneID + "'  doesn't exist");
-        }
+        parsedLanes.push_back(net->getAttributeCarriers()->retrieveLane(laneID));
     }
     return parsedLanes;
 }
 
+// parse ID functions
 
 template<> std::string
 GNEAttributeCarrier::parseIDs(const std::vector<GNEEdge*>& ACs) {
     // obtain ID's of edges and return their join
     std::vector<std::string> edgeIDs;
-    for (const auto& i : ACs) {
-        edgeIDs.push_back(i->getID());
+    for (const auto& AC : ACs) {
+        edgeIDs.push_back(AC->getID());
     }
     return joinToString(edgeIDs, " ");
 }
@@ -525,41 +693,10 @@ template<> std::string
 GNEAttributeCarrier::parseIDs(const std::vector<GNELane*>& ACs) {
     // obtain ID's of lanes and return their join
     std::vector<std::string> laneIDs;
-    for (const auto& i : ACs) {
-        laneIDs.push_back(i->getID());
+    for (const auto& AC : ACs) {
+        laneIDs.push_back(AC->getID());
     }
     return joinToString(laneIDs, " ");
-}
-
-
-bool
-GNEAttributeCarrier::lanesConsecutives(const std::vector<GNELane*>& lanes) {
-    // we need at least two lanes
-    if (lanes.size() > 1) {
-        // now check that lanes are consecutive (not necessary connected)
-        int currentLane = 0;
-        while (currentLane < ((int)lanes.size() - 1)) {
-            int nextLane = -1;
-            // iterate over outgoing edges of destination junction of edge's lane
-            for (int i = 0; (i < (int)lanes.at(currentLane)->getParentEdge()->getToJunction()->getGNEOutgoingEdges().size()) && (nextLane == -1); i++) {
-                // iterate over lanes of outgoing edges of destination junction of edge's lane
-                for (int j = 0; (j < (int)lanes.at(currentLane)->getParentEdge()->getToJunction()->getGNEOutgoingEdges().at(i)->getChildLanes().size()) && (nextLane == -1); j++) {
-                    // check if lane correspond to the next lane of "lanes"
-                    if (lanes.at(currentLane)->getParentEdge()->getToJunction()->getGNEOutgoingEdges().at(i)->getChildLanes().at(j) == lanes.at(currentLane + 1)) {
-                        nextLane = currentLane;
-                    }
-                }
-            }
-            if (nextLane == -1) {
-                return false;
-            } else {
-                currentLane++;
-            }
-        }
-        return true;
-    } else {
-        return false;
-    }
 }
 
 

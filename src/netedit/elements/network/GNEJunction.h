@@ -370,6 +370,9 @@ private:
     void drawJunctionAsShape(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
                              const double exaggeration) const;
 
+    /// @brief draw junction center (only in move mode)
+    void drawJunctionCenter(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const;
+
     /// @brief draw TLS icon
     void drawTLSIcon(const GUIVisualizationSettings& s) const;
 

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-02-20 09:45:02 by Eclipse SUMO netedit Version v1_22_0+0321-11d8a44837b
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- StoppingPlaces -->
+    <busStop id="bs_0" lane="A0A1_0" startPos="14.54" endPos="24.54"/>
+    <busStop id="bs_1" lane="A0A1_0" startPos="81.67" endPos="91.67"/>
+    <busStop id="bs_2" lane="D2D3_0" startPos="51.98" endPos="61.98"/>
+    <busStop id="bs_3" lane="B0B1_0" startPos="30.00" endPos="81.70">
+        <access lane="B1C1_0" pos="11.90"/>
+        <access lane="C0B0_0" pos="81.20"/>
+    </busStop>
+    <parkingArea id="pa_0" lane="A1A2_0" startPos="50.00" endPos="80.00" roadsideCapacity="5" length="6.00" angle="45.00"/>
+    <parkingArea id="pa_1" lane="A2A1_0" startPos="58.12" endPos="68.12" width="2.00" length="6.00" angle="90.00">
+        <space x="-10.12" y="144.69"/>
+        <space x="-11.54" y="140.43"/>
+        <space x="-11.82" y="135.74"/>
+        <space x="-10.12" y="131.04"/>
+    </parkingArea>
+    <!-- Detectors -->
+    <inductionLoop id="e1_0" lane="B1A1_0" pos="46.75" period="300.00" file="NUL"/>
+    <laneAreaDetector id="e2_0" lane="B2B1_0" pos="46.13" length="10.00" period="300.00" file="NUL"/>
+    <laneAreaDetector id="e2_1" lanes="A2B2_0 B2C2_0" pos="77.28" endPos="3.67" period="300.00" file="NUL"/>
+</additional>

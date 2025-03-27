@@ -41,6 +41,8 @@ def get_options(args=None):
                     help="File for writing mapping information", metavar="FILE")
     ap.add_argument("--radius", type=float, default=1.6,
                     help="radius for finding candidate edges")
+    ap.add_argument("--min-common", type=float, dest="minCommon", default=0.1,
+                    help="minimum common length in meters")
     ap.add_argument("--filter-ids", dest="filterIds",
                     help="only handle the given edges")
     ap.add_argument("-v", "--verbose", action="store_true", dest="verbose",
@@ -53,20 +55,22 @@ def get_options(args=None):
 
 def compareEdge(edge, shape, edge2, radius):
     shape2 = edge2.getShape()
-    off_dists = [gh.polygonOffsetAndDistanceToPoint(point, shape2) for point in shape]
+    off_dists = [(point,) + gh.polygonOffsetAndDistanceToPoint(point, shape2) for point in shape]
     lastOffset = None
+    lastPoint = None
     commonLength = 0
     distSum = 0
     distCount = 0
-    for offset, dist in off_dists:
+    for point, offset, dist in off_dists:
         if (lastOffset is None or offset >= lastOffset) and dist <= radius:
             if lastOffset is not None:
-                commonLength += offset - lastOffset
+                commonLength += gh.distance(lastPoint, point)
             lastOffset = offset
+            lastPoint = point
             distSum += dist
             distCount += 1
         else:
-            firstOffset = off_dists[0][0]
+            firstOffset = off_dists[0][1]
             offset2, dist2 = gh.polygonOffsetAndDistanceToPoint(shape2[-1], shape, True)
             if lastOffset is not None and firstOffset + offset2 >= lastOffset and dist2 <= radius:
                 # edge2 ends before reaching the end of shape
@@ -100,7 +104,7 @@ def cutOff(shape, commonLength):
 
 def mapEdge(options, edge):
     success = 0
-    results = [] # [(targetEdge, overlap), ...]
+    results = [] # [(targetEdge, targetFraction, commonLength), ...]
     origShape = edge.getShape()
     shape = [options.remap_xy(xy) for xy in origShape]
     shapelen = gh.polyLength(shape)
@@ -113,21 +117,28 @@ def mapEdge(options, edge):
         bestCommon = 0
         bestScore = 0
         for edge2, _ in edges2:
+            if edge2 in usedEdges:
+                continue
             score, commonLength = compareEdge(edge, shape, edge2, options.radius)
             if score > bestScore:
                 best = edge2
                 bestCommon = commonLength
                 bestScore = score
-        if bestCommon < 0.1:
+        if bestCommon < options.minCommon:
             break
-        overlap = bestCommon / gh.polyLength(best.getShape())
-        results.append((best, overlap))
+        bestLength = gh.polyLength(best.getShape())
+        fraction = min(1.0, bestCommon / bestLength)
+        results.append((best, fraction, bestCommon))
         cutFraction = bestCommon / shapelen
         shape = cutOff(shape, bestCommon)
         success += cutFraction
+        usedEdges.add(best)
         # print(edge.getID(), best.getID(), commonLength, len(edges2))
     if options.verbose:
         print(edge.getID(), success)
+    if success >= 1.01:
+        print("implausibly high success %s for edge %s" % (success, edge.getID()), file=sys.stderr)
+
     return success, results
 
 
@@ -149,19 +160,19 @@ def main(options):
 
     successStats = Statistics("completeness")
     with open(options.output, 'w') as fout, open(options.output + ".success", 'w') as sout:
-        fout.write(';'.join(["origEdge", "targetEdge", "targetFrom", "targetTo", "overlap"]) + '\n')
+        fout.write(';'.join(["origEdge", "targetEdge", "targetFrom", "targetTo", "targetFraction", "common"]) + '\n')
         sout.write(';'.join(["origEdge", "success"]) + '\n')
         for edge in options.net.getEdges():
             if options.filterIds and edge.getID() not in options.filterIds:
                 continue
             success, targets = mapEdge(options, edge)
-            sout.write(';'.join([edge.getID(), str(success)]) + '\n')
+            sout.write(';'.join([edge.getID(), "%.2f" % success]) + '\n')
             successStats.add(success, edge.getID())
-            for edge2, overlap in targets:
+            for edge2, fraction, common in targets:
                 fout.write(';'.join([
                     edge.getID(), edge2.getID(),
                     edge2.getFromNode().getID(), edge2.getToNode().getID(),
-                    str(overlap)]) + '\n')
+                    "%.2f" % fraction, "%.2f" % common]) + '\n')
     print(successStats)
 
 if __name__ == "__main__":

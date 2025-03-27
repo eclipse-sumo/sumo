@@ -67,7 +67,7 @@ GNEStoppingPlace::~GNEStoppingPlace() {}
 GNEMoveOperation*
 GNEStoppingPlace::getMoveOperation() {
     // get allow change lane
-    const bool allowChangeLane = myNet->getViewNet()->getViewParent()->getMoveFrame()->getCommonModeOptions()->getAllowChangeLane();
+    const bool allowChangeLane = myNet->getViewNet()->getViewParent()->getMoveFrame()->getCommonMoveOptions()->getAllowChangeLane();
     // fist check if we're moving only extremes
     if (drawMovingGeometryPoints(false)) {
         // get geometry points under cursor

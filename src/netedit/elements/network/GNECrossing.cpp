@@ -430,8 +430,8 @@ GNECrossing::isValid(SumoXMLAttr key, const std::string& value) {
                 // parse edges and save their IDs in a set
                 std::vector<GNEEdge*> parsedEdges = parse<std::vector<GNEEdge*> >(myNet, value);
                 EdgeVector nbEdges;
-                for (auto i : parsedEdges) {
-                    nbEdges.push_back(i->getNBEdge());
+                for (const auto& edge : parsedEdges) {
+                    nbEdges.push_back(edge->getNBEdge());
                 }
                 std::sort(nbEdges.begin(), nbEdges.end());
                 //

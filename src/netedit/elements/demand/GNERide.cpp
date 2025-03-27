@@ -232,7 +232,6 @@ bool
 GNERide::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_LINES:
-            return canParse<std::vector<std::string> >(value);
         case SUMO_ATTR_GROUP:
             return true;
         default:

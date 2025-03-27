@@ -108,6 +108,9 @@ public:
      */
     static int toInt(const std::string& sData);
 
+    /// @brief check if the given sData can be converted to int
+    static bool isInt(const std::string& sData);
+
     /// @brief converts a string into the integer value described by it
     /// @return the default value if the data is empty
     static int toIntSecure(const std::string& sData, int def);
@@ -118,17 +121,26 @@ public:
      */
     static long long int toLong(const std::string& sData);
 
+    /// @brief Check if the given sData can be converted to long
+    static bool isLong(const std::string& sData);
+
     /**@brief converts a string with a hex value into the integer value described by it by calling the char-type converter
      * @throw an EmptyData - exception if the given string is empty
      * @throw a NumberFormatException - exception when the string does not contain an integer
      */
     static int hexToInt(const std::string& sData);
 
+    /// @brief check if the given string can be converted to hex
+    static bool isHex(std::string sData);
+
     /**@brief converts a string into the double value described by it by calling the char-type converter
      * @throw an EmptyData - exception if the given string is empty
      * @throw a NumberFormatException - exception when the string does not contain a double
      */
     static double toDouble(const std::string& sData);
+
+    /// @brief check if the given sData can be conveted to double
+    static bool isDouble(const std::string& sData);
 
     /// @brief converts a string into the integer value described by it
     /// @return the default value if the data is empty
@@ -141,6 +153,9 @@ public:
      * @throw BoolFormatException in any other case
      */
     static bool toBool(const std::string& sData);
+
+    /// @brief check if the given value can be converted to bool
+    static bool isBool(const std::string& sData);
 
     /// @brief parse a (network) version string
     static MMVersion toVersion(const std::string& sData);

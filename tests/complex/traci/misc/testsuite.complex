@@ -44,3 +44,6 @@ encoding
 
 # matching function signatures between traci and libsumo
 signature
+
+# testing all subscriptions
+subscription

@@ -39,3 +39,6 @@ nefz_energy_vtype
 
 # output coasting decel
 coasting
+
+# output coasting decel with slope
+coasting_slope

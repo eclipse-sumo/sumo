@@ -423,13 +423,16 @@ GNEEdge::checkDrawDeleteContour() const {
 
 bool
 GNEEdge::checkDrawDeleteContourSmall() const {
-    // from-to junction
-    const auto junction = myNet->getViewNet()->getViewObjectsSelector().getJunctionFront();
-    if (junction == myNet->getViewNet()->getViewObjectsSelector().getAttributeCarrierFront()) {
-        return ((getFromJunction() == junction) || (getToJunction() == junction)); 
-    } else {
-        return false;
+    // get edit modes
+    const auto& editModes = myNet->getViewNet()->getEditModes();
+    // check if we're in delete mode
+    if (editModes.isCurrentSupermodeNetwork() && (editModes.networkEditMode == NetworkEditMode::NETWORK_DELETE)) {
+        const auto junction = myNet->getViewNet()->getViewObjectsSelector().getJunctionFront();
+        if (junction == myNet->getViewNet()->getViewObjectsSelector().getAttributeCarrierFront()) {
+            return ((getFromJunction() == junction) || (getToJunction() == junction));
+        }
     }
+    return false;
 }
 
 
@@ -2665,7 +2668,7 @@ GNEEdge::drawStartGeometryPoint(const GUIVisualizationSettings& s, const GUIVisu
         const auto& startGeometryPointPos = myNBEdge->getGeometry().front();
         // get flags
         const bool startPosEdited = (startGeometryPointPos != getParentJunctions().front()->getPositionInView());
-        const bool forceDraw = myNet->getViewNet()->getViewParent()->getMoveFrame()->getNetworkModeOptions()->getForceDrawGeometryPoints();
+        const bool forceDraw = myNet->getViewNet()->getViewParent()->getMoveFrame()->getNetworkMoveOptions()->getForceDrawGeometryPoints();
         // check drawing conditions
         if (startPosEdited || forceDraw) {
             // calculate angle betwen first and second geometry point
@@ -2722,14 +2725,14 @@ GNEEdge::drawStartGeometryPoint(const GUIVisualizationSettings& s, const GUIVisu
 
 void
 GNEEdge::drawEndGeometryPoint(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                              const double layer, const double geometryPointRadius, const double exaggeration) const {
+                              const double geometryPointRadius, const double layer, const double exaggeration) const {
     // check detail level
     if (d <= GUIVisualizationSettings::Detail::GeometryPoint) {
         // get first geometry point
         const auto& geometryPointPos = myNBEdge->getGeometry().back();
         // get flags
         const bool endPosEdited = (geometryPointPos != getParentJunctions().back()->getPositionInView());
-        const bool forceDraw = myNet->getViewNet()->getViewParent()->getMoveFrame()->getNetworkModeOptions()->getForceDrawGeometryPoints();
+        const bool forceDraw = myNet->getViewNet()->getViewParent()->getMoveFrame()->getNetworkMoveOptions()->getForceDrawGeometryPoints();
         // check drawing conditions
         if (endPosEdited || forceDraw) {
             // calculate angle last and previous geometry point
@@ -2902,7 +2905,7 @@ GNEEdge::calculateEdgeContour(const GUIVisualizationSettings& s, const GUIVisual
         // get geometry point radius
         const auto geometryPointRadius = getGeometryPointRadius();
         // check if edit extrems
-        const bool forceDrawExtrems = myNet->getViewNet()->getViewParent()->getMoveFrame()->getNetworkModeOptions()->getForceDrawGeometryPoints();
+        const bool forceDrawExtrems = myNet->getViewNet()->getViewParent()->getMoveFrame()->getNetworkMoveOptions()->getForceDrawGeometryPoints();
         const bool firstExtrem = forceDrawExtrems || (myNBEdge->getGeometry().front() != getParentJunctions().front()->getPositionInView());
         const bool lastExtrem = forceDrawExtrems || (myNBEdge->getGeometry().back() != getParentJunctions().back()->getPositionInView());
         // check if we're in move mode

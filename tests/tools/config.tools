@@ -55,6 +55,7 @@ copy_test_path:e2.add.xml
 copy_test_path:e3.add.xml
 copy_test_path:connections.con.xml
 copy_test_path:selection.txt
+copy_test_path:input_selection.txt
 copy_test_path:source.net.xml
 copy_test_path:source.nod.xml
 copy_test_path:source.edg.xml

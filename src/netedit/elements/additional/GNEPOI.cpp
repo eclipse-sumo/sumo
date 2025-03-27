@@ -117,7 +117,7 @@ GNEPOI::getMoveOperation() {
     } else if (getTagProperty()->getTag() == GNE_TAG_POILANE) {
         // return move operation for POI placed over lane
         return new GNEMoveOperation(this, getParentLanes().front(), myPosOverLane,
-                                    myNet->getViewNet()->getViewParent()->getMoveFrame()->getCommonModeOptions()->getAllowChangeLane());
+                                    myNet->getViewNet()->getViewParent()->getMoveFrame()->getCommonMoveOptions()->getAllowChangeLane());
     } else {
         // return move operation for a position in view
         return new GNEMoveOperation(this, *this);

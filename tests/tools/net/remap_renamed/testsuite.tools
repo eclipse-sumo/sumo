@@ -3,3 +3,6 @@ origIds_trips
 
 # remap route file between networks with renamed ids
 origIds_vehicles
+
+# remap contents of a selection file
+selection

@@ -22,29 +22,25 @@
 
 #include <netedit/frames/GNEFrame.h>
 
-
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/**
- * @class GNEMoveFrame
- * The Widget for create edges
- */
+
 class GNEMoveFrame : public GNEFrame {
 
 public:
     // ===========================================================================
-    // class CommonModeOptions
+    // class CommonMoveOptions
     // ===========================================================================
 
-    class CommonModeOptions : public MFXGroupBoxModule {
+    class CommonMoveOptions : public MFXGroupBoxModule {
 
     public:
         /// @brief constructor
-        CommonModeOptions(GNEMoveFrame* moveFrameParent);
+        CommonMoveOptions(GNEMoveFrame* moveFrameParent);
 
         /// @brief destructor
-        ~CommonModeOptions();
+        ~CommonMoveOptions();
 
         /// @brief allow change lane
         bool getAllowChangeLane() const;
@@ -61,31 +57,34 @@ public:
     };
 
     // ===========================================================================
-    // class NetworkModeOptions
+    // class NetworkMoveOptions
     // ===========================================================================
 
-    class NetworkModeOptions : public MFXGroupBoxModule {
+    class NetworkMoveOptions : public MFXGroupBoxModule {
         /// @brief FOX-declaration
-        FXDECLARE(GNEMoveFrame::NetworkModeOptions)
+        FXDECLARE(GNEMoveFrame::NetworkMoveOptions)
 
     public:
         /// @brief constructor
-        NetworkModeOptions(GNEMoveFrame* moveFrameParent);
+        NetworkMoveOptions(GNEMoveFrame* moveFrameParent);
 
         /// @brief destructor
-        ~NetworkModeOptions();
+        ~NetworkMoveOptions();
 
-        /// @brief show NetworkModeOptions
-        void showNetworkModeOptions();
+        /// @brief show NetworkMoveOptions
+        void showNetworkMoveOptions();
 
-        /// @brief hide NetworkModeOptions
-        void hideNetworkModeOptions();
+        /// @brief hide NetworkMoveOptions
+        void hideNetworkMoveOptions();
 
-        /// @brief move whole polygons
+        /// @brief check if option "move whole polygons" is enabled
         bool getMoveWholePolygons() const;
 
-        /// @brief force draw geometry points
+        /// @brief check if option "force draw geometry points" is enabled
         bool getForceDrawGeometryPoints() const;
+
+        /// @brief check if option "move only junction center" is enabled
+        bool getMoveOnlyJunctionCenter() const;
 
         /// @name FOX-callbacks
         /// @{
@@ -96,7 +95,7 @@ public:
 
     protected:
         /// @brief FOX need this
-        FOX_CONSTRUCTOR(NetworkModeOptions)
+        FOX_CONSTRUCTOR(NetworkMoveOptions)
 
     private:
         /// @brief pointer to move frame parent
@@ -105,28 +104,31 @@ public:
         /// @brief checkbox for enable/disable move whole polygons
         FXCheckButton* myMoveWholePolygons = nullptr;
 
-        /// @brief checkbox for force darwi geometry points
+        /// @brief checkbox for force draw geometry points
         FXCheckButton* myForceDrawGeometryPoints = nullptr;
+
+        /// @brief checkbox for move only juntion center
+        FXCheckButton* myMoveOnlyJunctionCenter = nullptr;
     };
 
     // ===========================================================================
     // class DemandMoveOptions
     // ===========================================================================
 
-    class DemandModeOptions : public MFXGroupBoxModule {
+    class DemandMoveOptions : public MFXGroupBoxModule {
 
     public:
         /// @brief constructor
-        DemandModeOptions(GNEMoveFrame* moveFrameParent);
+        DemandMoveOptions(GNEMoveFrame* moveFrameParent);
 
         /// @brief destructor
-        ~DemandModeOptions();
+        ~DemandMoveOptions();
 
-        /// @brief show DemandModeOptions
-        void showDemandModeOptions();
+        /// @brief show DemandMoveOptions
+        void showDemandMoveOptions();
 
-        /// @brief hide DemandModeOptions
-        void hideDemandModeOptions();
+        /// @brief hide DemandMoveOptions
+        void hideDemandMoveOptions();
 
         /// @brief check if leave stopPersonConnected is enabled
         bool getLeaveStopPersonsConnected() const;
@@ -331,23 +333,23 @@ public:
     void hide();
 
     /// @brief get common mode options
-    CommonModeOptions* getCommonModeOptions() const;
+    CommonMoveOptions* getCommonMoveOptions() const;
 
     /// @brief get network mode options
-    NetworkModeOptions* getNetworkModeOptions() const;
+    NetworkMoveOptions* getNetworkMoveOptions() const;
 
     /// @brief get demand mode options
-    DemandModeOptions* getDemandModeOptions() const;
+    DemandMoveOptions* getDemandMoveOptions() const;
 
 private:
-    /// @brief modul for CommonMode Options
-    CommonModeOptions* myCommonModeOptions = nullptr;
+    /// @brief modul for CommonMove Options
+    CommonMoveOptions* myCommonMoveOptions = nullptr;
 
-    /// @brief modul for NetworkMode Options
-    NetworkModeOptions* myNetworkModeOptions = nullptr;
+    /// @brief modul for NetworkMove Options
+    NetworkMoveOptions* myNetworkMoveOptions = nullptr;
 
-    /// @brief modul for DemandMode Options
-    DemandModeOptions* myDemandModeOptions = nullptr;
+    /// @brief modul for DemandMove Options
+    DemandMoveOptions* myDemandMoveOptions = nullptr;
 
     /// @brief modul for shift edge selected geometry
     ShiftEdgeSelectedGeometry* myShiftEdgeSelectedGeometry = nullptr;
