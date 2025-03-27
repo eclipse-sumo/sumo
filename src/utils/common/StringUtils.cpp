@@ -392,9 +392,9 @@ StringUtils::isLong(const std::string& sData) {
     errno = 0;
     // continue depending of current plattform
 #ifdef WIN32
-    long long int ret = _strtoi64(data, &end, 10);
+    _strtoi64(data, &end, 10);
 #else
-    long long int ret = strtoll(data, &end, 10);
+    strtoll(data, &end, 10);
 #endif
     // check out of range
     if (errno == ERANGE) {
