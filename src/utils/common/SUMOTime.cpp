@@ -65,6 +65,28 @@ string2time(const std::string& r) {
 }
 
 
+bool
+isTime(const std::string& r) {
+    if (r.find(":") == std::string::npos) {
+        if (StringUtils::isDouble(r)) {
+            return (StringUtils::toDouble(r) <= STEPS2TIME(SUMOTime_MAX));
+        } else {
+            return false;
+        }
+    } else {
+        // try to parse jj:hh:mm:ss.s
+        const std::vector<std::string> hrt = StringTokenizer(r, ":").getVector();
+        if (hrt.size() == 3) {
+            return isTime(hrt[0]) && isTime(hrt[1]) && isTime(hrt[2]);
+        } else if (hrt.size() == 4) {
+            return isTime(hrt[0]) && isTime(hrt[1]) && isTime(hrt[2]) && isTime(hrt[3]);
+        } else {
+            return false;
+        }
+    }
+}
+
+
 std::string
 time2string(SUMOTime t, bool humanReadable) {
     std::ostringstream oss;
