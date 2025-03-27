@@ -19,17 +19,21 @@
 import os
 import sys
 import inspect
+import importlib
 if "SUMO_HOME" in os.environ:
     sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
 import sumolib
 import traci
+os.environ.pop('LIBSUMO_AS_TRACI', None)
+os.environ.pop('LIBTRACI_AS_TRACI', None)
+pure_traci = importlib.reload(traci)
 
 VERBOSE = False
 
 try:
     traci.start([sumolib.checkBinary("sumo"), "-c", "sumo.sumocfg", "+a", "input_additional.add.xml"])
     traci.simulationStep()
-    for dt in traci.DOMAINS:
+    for dt in pure_traci.DOMAINS:
         if dt._name == "gui":
             continue
         for ft in inspect.getmembers(dt):
@@ -56,11 +60,11 @@ try:
                             name = dt._name + "_0"
                         param = None
                         if '"s"' in remainder:
-                            param = {v: ""}
+                            param = {v: "3o_0"}
                         elif '"d"' in remainder:
                             param = {v: 0.}
                         elif '"b"' in remainder:
-                            param = {v: 0}
-                        dt.subscribe(name, [v], parameters=param)
+                            param = {v: ("b", 1)}
+                        getattr(traci, dt._name).subscribe(name, [v], parameters=param)
 finally:
     traci.close()
