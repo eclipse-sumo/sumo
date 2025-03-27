@@ -34,7 +34,7 @@ try:
     traci.start([sumolib.checkBinary("sumo"), "-c", "sumo.sumocfg", "+a", "input_additional.add.xml"])
     traci.simulationStep()
     for dt in pure_traci.DOMAINS:
-        if dt._name == "gui":
+        if dt._name == "gui" or dt._name == "simulation":
             continue
         for ft in inspect.getmembers(dt):
             if inspect.ismethod(ft[1]):
@@ -47,6 +47,8 @@ try:
                     else:
                         variable = source[s:source.index(")", s)]
                         remainder = ""
+                    if "TAXI_RESERVATIONS" in variable or variable == "DISTANCE_REQUEST":
+                        continue
                     if hasattr(traci.constants, variable):
                         print("Subscribing to %s.%s." % (dt._name, variable))
                         v = getattr(traci.constants, variable)
@@ -54,7 +56,7 @@ try:
                             name = "1si"
                         elif dt._name == "lane":
                             name = "1si_0"
-                        elif dt._name == "junction":
+                        elif dt._name in ("junction", "trafficlight"):
                             name = "0"
                         else:
                             name = dt._name + "_0"
