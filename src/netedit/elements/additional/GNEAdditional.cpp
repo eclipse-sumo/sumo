@@ -383,10 +383,13 @@ GNEAdditional::checkDrawDeleteContour() const {
 
 bool
 GNEAdditional::checkDrawDeleteContourSmall() const {
-    if (getParentAdditionals().size() > 0) {
+    // get edit modes
+    const auto& editModes = myNet->getViewNet()->getEditModes();
+    // check if we're in delete mode and this additional has a parent
+    if (editModes.isCurrentSupermodeNetwork() && (editModes.networkEditMode == NetworkEditMode::NETWORK_DELETE) && (getParentAdditionals().size() > 0)) {
         const auto additional = myNet->getViewNet()->getViewObjectsSelector().getAdditionalFront();
         if (additional && (additional == myNet->getViewNet()->getViewObjectsSelector().getAttributeCarrierFront())) {
-            return (getParentAdditionals().front() == additional); 
+            return (getParentAdditionals().front() == additional);
         }
     }
     return false;

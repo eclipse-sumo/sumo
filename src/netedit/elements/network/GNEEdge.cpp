@@ -423,13 +423,16 @@ GNEEdge::checkDrawDeleteContour() const {
 
 bool
 GNEEdge::checkDrawDeleteContourSmall() const {
-    // from-to junction
-    const auto junction = myNet->getViewNet()->getViewObjectsSelector().getJunctionFront();
-    if (junction == myNet->getViewNet()->getViewObjectsSelector().getAttributeCarrierFront()) {
-        return ((getFromJunction() == junction) || (getToJunction() == junction)); 
-    } else {
-        return false;
+    // get edit modes
+    const auto& editModes = myNet->getViewNet()->getEditModes();
+    // check if we're in delete mode
+    if (editModes.isCurrentSupermodeNetwork() && (editModes.networkEditMode == NetworkEditMode::NETWORK_DELETE)) {
+        const auto junction = myNet->getViewNet()->getViewObjectsSelector().getJunctionFront();
+        if (junction == myNet->getViewNet()->getViewObjectsSelector().getAttributeCarrierFront()) {
+            return ((getFromJunction() == junction) || (getToJunction() == junction));
+        }
     }
+    return false;
 }
 
 
