@@ -110,10 +110,14 @@ public:
                         const V* defaultVehicle, const std::string& outfile, const int maxNumThreads, M* mapMatcher) {
         myFirstNonInternal = -1;
         std::map<std::string, int> numericID;
+        bool haveTaz = false;
         for (E* e : edges) {
             if (!e->isInternal()) {
                 if (myFirstNonInternal == -1) {
                     myFirstNonInternal = e->getNumericalID();
+                }
+                if (e->isTazConnector()) {
+                    haveTaz = true;
                 }
                 numericID[e->getID()] = e->getNumericalID() - myFirstNonInternal;
             }
@@ -224,7 +228,8 @@ public:
                     if (myFromLandmarkDists[i].empty()) {
                         WRITE_WARNINGF(TL("No lookup table for landmark edge '%', recalculating."), landmark->getID());
                     } else {
-                        throw ProcessError(TLF("Not all network edges were found in the lookup table '%' for landmark edge '%'.", filename, landmark->getID()));
+                        const std::string tazWarning = haveTaz ? " Make sure that any used taz or junction-taz definitions are loaded when generating the table" : "";
+                        throw ProcessError(TLF("Not all network edges were found in the lookup table '%' for landmark edge '%'.%", filename, landmark->getID(), tazWarning));
                     }
                 }
 #ifdef HAVE_FOX
