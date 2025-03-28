@@ -1,9 +1,9 @@
 set(utils_gui_moderngl_STAT_SRCS
-    GLBufferStruct.h
     GLRenderer.h
     GLRenderer.cpp
     GLShader.h
     GLShader.cpp
+    GLStructs.h
     GLTransformStack.h
     GLTransformStack.cpp
     GLVertexArrayObject.h
