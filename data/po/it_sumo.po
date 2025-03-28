@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-13 10:07+0100\n"
-"PO-Revision-Date: 2025-03-28 13:25+0000\n"
+"PO-Revision-Date: 2025-03-28 14:40+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -12165,18 +12165,20 @@ msgid ""
 "Sets a global slope (in deg) that is used if the file does not contain slope "
 "information."
 msgstr ""
+"Imposta una pendenza (in gradi) da usare se il file non contiene "
+"informazioni sulla pendenza."
 
 #: src/tools/emissionsDrivingCycle_main.cpp:118
 msgid "Defines the file to write the emission cycle results into."
-msgstr ""
+msgstr "Definisce il file dove scrivere i risultati del ciclo di emissioni."
 
 #: src/tools/emissionsDrivingCycle_main.cpp:121
 msgid "Defines the attributes to write."
-msgstr ""
+msgstr "Definisce gli attributi da scrivere."
 
 #: src/tools/emissionsDrivingCycle_main.cpp:124
 msgid "Save the emission values of each vehicle in XML"
-msgstr ""
+msgstr "Salva gli valori di emissioni di ogni veicolo in XML"
 
 #: src/tools/emissionsDrivingCycle_main.cpp:128
 msgid "Save the aggregated and normed emission values of each vehicle in CSV"
