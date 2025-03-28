@@ -37,8 +37,10 @@ def get_options(args=None):
                     help="SUMO network with edges of interest", metavar="FILE")
     ap.add_argument("--target-net", dest="targetNet", required=True, category="input", type=ap.net_file,
                     help="SUMO network with edge ids that should be used to represent the original edges", metavar="FILE")
-    ap.add_argument("-o", "--output-file", dest="output", required=True, category="output", type=ap.additional_file,
+    ap.add_argument("-o", "--output-file", dest="output", required=True, category="output", type=ap.file,
                     help="File for writing mapping information", metavar="FILE")
+    ap.add_argument("-s", "--success-output", dest="successOutput", category="output", type=ap.file,
+                    help="File for writing mapping success information", metavar="FILE")
     ap.add_argument("--radius", type=float, default=1.6,
                     help="radius for finding candidate edges")
     ap.add_argument("--min-common", type=float, dest="minCommon", default=0.1,
@@ -50,6 +52,8 @@ def get_options(args=None):
     options = ap.parse_args()
     if options.filterIds:
         options.filterIds = set(options.filterIds.split(','))
+    if not options.successOutput:
+        options.successOutput = options.output + ".success"
     return options
 
 
@@ -159,7 +163,7 @@ def main(options):
         options.remap_xy = lambda x: x
 
     successStats = Statistics("completeness")
-    with open(options.output, 'w') as fout, open(options.output + ".success", 'w') as sout:
+    with open(options.output, 'w') as fout, open(options.successOutput, 'w') as sout:
         fout.write(';'.join(["origEdge", "targetEdge", "targetFrom", "targetTo", "targetFraction", "common"]) + '\n')
         sout.write(';'.join(["origEdge", "success"]) + '\n')
         for edge in options.net.getEdges():
