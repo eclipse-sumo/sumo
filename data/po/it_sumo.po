@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-13 10:07+0100\n"
-"PO-Revision-Date: 2025-03-27 10:29+0000\n"
+"PO-Revision-Date: 2025-03-28 13:25+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -11880,11 +11880,11 @@ msgstr ""
 
 #: src/router/ROLoader.cpp:245
 msgid "The loader for % from file '%' could not be initialised (%)."
-msgstr ""
+msgstr "L'analizzatore per % dal file '%' non poteva essere inizializzato (%)."
 
 #: src/router/ROLoader.cpp:283
 msgid "failed."
-msgstr ""
+msgstr "fallito."
 
 #: src/router/RONet.cpp:162
 #, c-format
@@ -11927,7 +11927,7 @@ msgstr "Il tipo di veicolo '%' occorre almeno due volte."
 
 #: src/router/RONet.cpp:498
 msgid "Requesting departure time for unknown vehicle '%'"
-msgstr ""
+msgstr "Si richiede l'ora di partenza del veicolo sconosciuto '%'"
 
 #: src/router/RONet.cpp:528
 #, c-format
@@ -11938,11 +11938,15 @@ msgstr "Esiste un'altra persone con il codice identificativo '%'."
 msgid ""
 "Bulking different maximum speeds ('%' and '%') may lead to suboptimal routes."
 msgstr ""
+"La collezione di velocità massime differenti ('%' e '%') può portare a "
+"itinerari subottimali."
 
 #: src/router/RONet.cpp:640
 msgid ""
 "Bulking different vehicle classes ('%' and '%') may lead to invalid routes."
 msgstr ""
+"La collezione di classi di veicoli differenti ('%' e '%') può portare a "
+"degli itinerari invalidi."
 
 #: src/router/RONetHandler.cpp:139
 msgid "Unknown node '%'."
