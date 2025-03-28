@@ -1985,6 +1985,15 @@ Helper::SubscriptionWrapper::wrapStage(const std::string& objID, const int varia
 }
 
 
+bool
+Helper::SubscriptionWrapper::wrapSignalConstraintVector(const std::string& objID, const int variable, const std::vector<libsumo::TraCISignalConstraint>& value) {
+    auto sl = std::make_shared<TraCISignalConstraintVectorWrapped>();
+    sl->value = value;
+    (*myActiveResults)[objID][variable] = sl;
+    return true;
+}
+
+
 void
 Helper::SubscriptionWrapper::empty(const std::string& objID) {
     (*myActiveResults)[objID]; // initiate the empty map to track the objectID for TRACI_ID_LIST context subscriptions

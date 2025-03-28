@@ -168,6 +168,7 @@ public:
     virtual bool wrapStringDoublePair(const std::string& objID, const int variable, const std::pair<std::string, double>& value) = 0;
     virtual bool wrapStringPair(const std::string& objID, const int variable, const std::pair<std::string, std::string>& value) = 0;
     virtual bool wrapStage(const std::string& objID, const int variable, const TraCIStage& value) = 0;
+    virtual bool wrapSignalConstraintVector(const std::string& objID, const int variable, const std::vector<TraCISignalConstraint>& value) = 0;
     virtual void empty(const std::string& /* objID */) {}
 };
 

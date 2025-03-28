@@ -739,6 +739,21 @@ struct TraCISignalConstraint {
 };
 
 
+struct TraCISignalConstraintVectorWrapped : TraCIResult {
+    std::string getString() const {
+        std::ostringstream os;
+        os << "TraCISignalConstraintVectorWrapped[";
+        for (const TraCISignalConstraint& v : value) {
+            os << v.getString() << ",";
+        }
+        os << "]";
+        return os.str();
+    }
+
+    std::vector<TraCISignalConstraint> value;
+};
+
+
 struct TraCIJunctionFoe {
     /// @brief the id of the vehicle with intersecting trajectory
     std::string foeId;

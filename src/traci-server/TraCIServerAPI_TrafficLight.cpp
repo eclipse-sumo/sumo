@@ -103,65 +103,6 @@ TraCIServerAPI_TrafficLight::processGet(TraCIServer& server, tcpip::Storage& inp
                     server.getWrapperStorage().writeInt(libsumo::TrafficLight::getServedPersonCount(id, index));
                     break;
                 }
-                case libsumo::TL_BLOCKING_VEHICLES: {
-                    int index = 0;
-                    if (!server.readTypeCheckingInt(inputStorage, index)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "The link index must be given as an integer.", outputStorage);
-                    }
-                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRINGLIST);
-                    server.getWrapperStorage().writeStringList(libsumo::TrafficLight::getBlockingVehicles(id, index));
-                    break;
-                }
-                case libsumo::TL_RIVAL_VEHICLES: {
-                    int index = 0;
-                    if (!server.readTypeCheckingInt(inputStorage, index)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "The link index must be given as an integer.", outputStorage);
-                    }
-                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRINGLIST);
-                    server.getWrapperStorage().writeStringList(libsumo::TrafficLight::getRivalVehicles(id, index));
-                    break;
-                }
-                case libsumo::TL_PRIORITY_VEHICLES: {
-                    int index = 0;
-                    if (!server.readTypeCheckingInt(inputStorage, index)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "The link index must be given as an integer.", outputStorage);
-                    }
-                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRINGLIST);
-                    server.getWrapperStorage().writeStringList(libsumo::TrafficLight::getPriorityVehicles(id, index));
-                    break;
-                }
-                case libsumo::TL_CONSTRAINT: {
-                    std::string tripId;
-                    if (!server.readTypeCheckingString(inputStorage, tripId)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "The tripId must be given as a string.", outputStorage);
-                    }
-                    std::vector<libsumo::TraCISignalConstraint> constraints = libsumo::TrafficLight::getConstraints(id, tripId);
-                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_COMPOUND);
-                    const int cnt = 1 + (int)constraints.size() * 5;
-                    server.getWrapperStorage().writeInt(cnt);
-                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_INTEGER);
-                    server.getWrapperStorage().writeInt((int)constraints.size());
-                    for (const auto& c : constraints) {
-                        writeConstraint(server, c);
-                    }
-                    break;
-                }
-                case libsumo::TL_CONSTRAINT_BYFOE: {
-                    std::string foeId;
-                    if (!server.readTypeCheckingString(inputStorage, foeId)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "The foeId must be given as a string.", outputStorage);
-                    }
-                    std::vector<libsumo::TraCISignalConstraint> constraints = libsumo::TrafficLight::getConstraintsByFoe(id, foeId);
-                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_COMPOUND);
-                    const int cnt = 1 + (int)constraints.size() * 5;
-                    server.getWrapperStorage().writeInt(cnt);
-                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_INTEGER);
-                    server.getWrapperStorage().writeInt((int)constraints.size());
-                    for (const auto& c : constraints) {
-                        writeConstraint(server, c);
-                    }
-                    break;
-                }
                 case libsumo::TL_CONSTRAINT_SWAP: {
                     if (inputStorage.readUnsignedByte() != libsumo::TYPE_COMPOUND) {
                         return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "A compound object is needed for swapping constraints.", outputStorage);
@@ -180,15 +121,7 @@ TraCIServerAPI_TrafficLight::processGet(TraCIServer& server, tcpip::Storage& inp
                     if (!server.readTypeCheckingString(inputStorage, foeId)) {
                         return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "The foe tripId must be given as a string.", outputStorage);
                     }
-                    std::vector<libsumo::TraCISignalConstraint> constraints = libsumo::TrafficLight::swapConstraints(id, tripId, foeSignal, foeId);
-                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_COMPOUND);
-                    const int cnt = 1 + (int)constraints.size() * 5;
-                    server.getWrapperStorage().writeInt(cnt);
-                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_INTEGER);
-                    server.getWrapperStorage().writeInt((int)constraints.size());
-                    for (const auto& c : constraints) {
-                        writeConstraint(server, c);
-                    }
+                    server.wrapSignalConstraintVector(id, variable, libsumo::TrafficLight::swapConstraints(id, tripId, foeSignal, foeId));
                     break;
                 }
                 case libsumo::TL_EXTERNAL_STATE: {

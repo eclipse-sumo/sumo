@@ -172,22 +172,39 @@ public:
         }
     }
 
-    static void writeStage(tcpip::Storage& outputStorage, const libsumo::TraCIStage& stage) {
-        writeCompound(outputStorage, 13);
-        outputStorage.writeUnsignedByte(libsumo::TYPE_INTEGER);
-        outputStorage.writeInt(stage.type);
-        writeTypedString(outputStorage, stage.vType);
-        writeTypedString(outputStorage, stage.line);
-        writeTypedString(outputStorage, stage.destStop);
-        writeTypedStringList(outputStorage, stage.edges);
-        writeTypedDouble(outputStorage, stage.travelTime);
-        writeTypedDouble(outputStorage, stage.cost);
-        writeTypedDouble(outputStorage, stage.length);
-        writeTypedString(outputStorage, stage.intended);
-        writeTypedDouble(outputStorage, stage.depart);
-        writeTypedDouble(outputStorage, stage.departPos);
-        writeTypedDouble(outputStorage, stage.arrivalPos);
-        writeTypedString(outputStorage, stage.description);
+    static void writeStage(tcpip::Storage& content, const libsumo::TraCIStage& stage) {
+        writeCompound(content, 13);
+        content.writeUnsignedByte(libsumo::TYPE_INTEGER);
+        content.writeInt(stage.type);
+        writeTypedString(content, stage.vType);
+        writeTypedString(content, stage.line);
+        writeTypedString(content, stage.destStop);
+        writeTypedStringList(content, stage.edges);
+        writeTypedDouble(content, stage.travelTime);
+        writeTypedDouble(content, stage.cost);
+        writeTypedDouble(content, stage.length);
+        writeTypedString(content, stage.intended);
+        writeTypedDouble(content, stage.depart);
+        writeTypedDouble(content, stage.departPos);
+        writeTypedDouble(content, stage.arrivalPos);
+        writeTypedString(content, stage.description);
+    }
+
+    static void writeConstraint(tcpip::Storage& content, const libsumo::TraCISignalConstraint& c) {
+        writeTypedString(content, c.signalId);
+        writeTypedString(content, c.tripId);
+        writeTypedString(content, c.foeId);
+        writeTypedString(content, c.foeSignal);
+        writeTypedInt(content, c.limit);
+        writeTypedInt(content, c.type);
+        writeTypedByte(content, c.mustWait);
+        writeTypedByte(content, c.active);
+        std::vector<std::string> paramItems;
+        for (const auto& item : c.param) {
+            paramItems.push_back(item.first);
+            paramItems.push_back(item.second);
+        }
+        writeTypedStringList(content, paramItems);
     }
 
 };

@@ -274,6 +274,7 @@ public:
     bool wrapStringDoublePair(const std::string& objID, const int variable, const std::pair<std::string, double>& value);
     bool wrapStringPair(const std::string& objID, const int variable, const std::pair<std::string, std::string>& value);
     bool wrapStage(const std::string& objID, const int variable, const libsumo::TraCIStage& value);
+    bool wrapSignalConstraintVector(const std::string& objID, const int variable, const std::vector<libsumo::TraCISignalConstraint>& value);
     tcpip::Storage& getWrapperStorage();
     /// @}
 

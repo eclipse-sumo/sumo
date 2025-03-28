@@ -40,6 +40,7 @@
 #include <microsim/traffic_lights/MSRailSignalControl.h>
 #include <netload/NLDetectorBuilder.h>
 #include <libsumo/TraCIConstants.h>
+#include <libsumo/StorageHelper.h>
 #include "Helper.h"
 #include "TrafficLight.h"
 
@@ -1007,14 +1008,22 @@ TrafficLight::handleVariable(const std::string& objID, const int variable, Varia
             return wrapper->wrapDouble(objID, variable, getNextSwitch(objID));
         case TL_SPENT_DURATION:
             return wrapper->wrapDouble(objID, variable, getSpentDuration(objID));
+        case TL_BLOCKING_VEHICLES:
+            return wrapper->wrapStringList(objID, variable, getBlockingVehicles(objID, StoHelp::readTypedInt(*paramData)));
+        case TL_RIVAL_VEHICLES:
+            return wrapper->wrapStringList(objID, variable, getRivalVehicles(objID, StoHelp::readTypedInt(*paramData)));
+        case TL_PRIORITY_VEHICLES:
+            return wrapper->wrapStringList(objID, variable, getPriorityVehicles(objID, StoHelp::readTypedInt(*paramData)));
+        case TL_CONSTRAINT:
+            return wrapper->wrapSignalConstraintVector(objID, variable, getConstraints(objID, StoHelp::readTypedString(*paramData)));
+        case TL_CONSTRAINT_BYFOE:
+            return wrapper->wrapSignalConstraintVector(objID, variable, getConstraintsByFoe(objID, StoHelp::readTypedString(*paramData)));
         case TL_CONTROLLED_JUNCTIONS:
             return wrapper->wrapStringList(objID, variable, getControlledJunctions(objID));
-        case libsumo::VAR_PARAMETER:
-            paramData->readUnsignedByte();
-            return wrapper->wrapString(objID, variable, getParameter(objID, paramData->readString()));
-        case libsumo::VAR_PARAMETER_WITH_KEY:
-            paramData->readUnsignedByte();
-            return wrapper->wrapStringPair(objID, variable, getParameterWithKey(objID, paramData->readString()));
+        case VAR_PARAMETER:
+            return wrapper->wrapString(objID, variable, getParameter(objID, StoHelp::readTypedString(*paramData)));
+        case VAR_PARAMETER_WITH_KEY:
+            return wrapper->wrapStringPair(objID, variable, getParameterWithKey(objID, StoHelp::readTypedString(*paramData)));
         default:
             return false;
     }

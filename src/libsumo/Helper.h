@@ -227,6 +227,7 @@ public:
         bool wrapStringDoublePair(const std::string& objID, const int variable, const std::pair<std::string, double>& value);
         bool wrapStringPair(const std::string& objID, const int variable, const std::pair<std::string, std::string>& value);
         bool wrapStage(const std::string& objID, const int variable, const TraCIStage& value);
+        bool wrapSignalConstraintVector(const std::string& objID, const int variable, const std::vector<TraCISignalConstraint>& value);
         void empty(const std::string& objID);
     private:
         SubscriptionResults& myResults;

@@ -278,6 +278,17 @@ TraCIServer::wrapStage(const std::string& /* objID */, const int /* variable */,
 }
 
 
+bool
+TraCIServer::wrapSignalConstraintVector(const std::string& /* objID */, const int /* variable */, const std::vector<libsumo::TraCISignalConstraint>& value) {
+    StoHelp::writeCompound(myWrapperStorage, 1 + (int)value.size() * 5);
+    StoHelp::writeTypedInt(myWrapperStorage, (int)value.size());
+    for (const auto& c : value) {
+        StoHelp::writeConstraint(myWrapperStorage, c);
+    }
+    return true;
+}
+
+
 tcpip::Storage&
 TraCIServer::getWrapperStorage() {
     return myWrapperStorage;
@@ -367,6 +378,11 @@ TraCIServer::TraCIServer(const SUMOTime begin, const int port, const int numClie
     myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_EDGE_VARIABLE, libsumo::VAR_ANGLE));
     myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_PERSON_VARIABLE, libsumo::VAR_EDGES));
     myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_PERSON_VARIABLE, libsumo::VAR_STAGE));
+    myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_TL_VARIABLE, libsumo::TL_BLOCKING_VEHICLES));
+    myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_TL_VARIABLE, libsumo::TL_RIVAL_VEHICLES));
+    myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_TL_VARIABLE, libsumo::TL_PRIORITY_VEHICLES));
+    myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_TL_VARIABLE, libsumo::TL_CONSTRAINT));
+    myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_TL_VARIABLE, libsumo::TL_CONSTRAINT_BYFOE));
     myParameterized.insert(std::make_pair(0, libsumo::VAR_PARAMETER));
     myParameterized.insert(std::make_pair(0, libsumo::VAR_PARAMETER_WITH_KEY));
 

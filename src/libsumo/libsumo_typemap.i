@@ -483,6 +483,7 @@ SUBSCRIBE_HELPER(RouteProbe)
 %shared_ptr(libsumo::TraCIReservation)
 %shared_ptr(libsumo::TraCICollision)
 %shared_ptr(libsumo::TraCISignalConstraint)
+%shared_ptr(libsumo::TraCISignalConstraintVectorWrapped)
 %shared_ptr(libsumo::TraCIJunctionFoe)
 #endif
 
