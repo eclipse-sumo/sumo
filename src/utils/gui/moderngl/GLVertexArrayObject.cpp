@@ -128,22 +128,6 @@ GLVertexArrayObject::resizeBuffers(int newVertexSize, int newIndexSize) {
     // TODO: look into creating a new buffer on GPU and transferring the existing data with glCopyBufferSubData
     // see https://docs.gl/gl3/glCopyBufferSubData // ??? but what if we transmit data for every time step anyway?
 
-    // delete old ones
-    if (myVertexBufferID > 0) {
-#ifdef _DEBUG
-        std::cout << "GLVertexArrayObject::resizeBuffers delete array buffer " << myVertexBufferID << std::endl;
-#endif
-        glDeleteBuffers(1, &myVertexBufferID);
-        myVertexBufferID = 0;
-    }
-    if (myIndexBufferID > 0) {
-#ifdef _DEBUG
-        std::cout << "GLVertexArrayObject::resizeBuffers delete elemennt array buffer " << myIndexBufferID << std::endl;
-#endif
-        glDeleteBuffers(1, &myIndexBufferID);
-        myIndexBufferID = 0;
-    }
-
     // check if the expected size exceeds the maximum recommended GPU given size
 #ifdef _DEBUG
     GLint64 maxVertexCount;
@@ -155,14 +139,18 @@ GLVertexArrayObject::resizeBuffers(int newVertexSize, int newIndexSize) {
 #endif
 
     // create new ones
-    glGenBuffers(1, &myVertexBufferID);
+    if (myVertexBufferID == 0) {
+        glGenBuffers(1, &myVertexBufferID);
+    }
     glBindBuffer(GL_ARRAY_BUFFER, myVertexBufferID);
     glBufferData(GL_ARRAY_BUFFER, newVertexSize * myItemSize, nullptr, GL_DYNAMIC_DRAW);
 #ifdef _DEBUG
     std::cout << "GLVertexArrayObject::resizeBuffers created new array buffer " << myVertexBufferID << std::endl;
 #endif
 
-    glGenBuffers(1, &myIndexBufferID);
+    if (myIndexBufferID == 0) {
+        glGenBuffers(1, &myIndexBufferID);
+    }
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, myIndexBufferID);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, newIndexSize * sizeof(unsigned int), nullptr, GL_DYNAMIC_DRAW);
 #ifdef _DEBUG
