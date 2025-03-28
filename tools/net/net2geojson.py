@@ -28,6 +28,7 @@ from collections import defaultdict
 if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 import sumolib  # noqa
+import sumolib.geomhelper as gh
 
 
 def parse_args():
@@ -54,6 +55,8 @@ def parse_args():
                     help="Append junction coordinates to edge shapes")
     op.add_argument("-b", "--boundary", dest="boundary", action="store_true", default=False,
                     help="Export boundary shapes instead of center-lines")
+    op.add_argument("-t", "--traffic-lights", action="store_true", default=False, dest="tls",
+                    help="Export traffic light geometries")
     op.add_argument("--edgedata-timeline", action="store_true", default=False, dest="edgedataTimeline",
                     help="Exports all time intervals (by default only the first is exported)")
     op.add_argument("-x", "--extra-attributes", action="store_true", default=False, dest="extraAttributes",
@@ -134,7 +137,7 @@ if __name__ == "__main__":
                 feature["properties"]["allow"] = ",".join(sorted(permissions_union))
 
         if options.boundary:
-            geometry = sumolib.geomhelper.line2boundary(geometry, width)
+            geometry = gh.line2boundary(geometry, width)
         feature["geometry"] = shape2json(net, geometry, options.boundary)
         features.append(feature)
 
@@ -147,6 +150,29 @@ if __name__ == "__main__":
             }
             feature["geometry"] = shape2json(net, junction.getShape(), options.boundary)
             features.append(feature)
+
+    if options.tls:
+        for edge in net.getEdges():
+            for lane in edge.getLanes():
+                nCons = len(lane.getOutgoing())
+                for i, con in enumerate(lane.getOutgoing()):
+                    if con.getTLSID() != "":
+                        feature = {"type": "Feature"}
+                        feature["properties"] = {
+                            "element": 'tls_connection',
+                            "id": "%s_%s" % (con.getJunction().getID(), con.getJunctionIndex()),
+                            "tls": con.getTLSID(),
+                            "tlIndex": con.getTLLinkIndex(),
+                        }
+                        barLength = lane.getWidth() / nCons
+                        offset = i * barLength - lane.getWidth() * 0.5
+                        prev, end = lane.getShape()[-2:]
+                        geometry = [gh.add(end, gh.sideOffset(prev, end, offset)),
+                                    gh.add(end, gh.sideOffset(prev, end, offset + barLength))]
+                        if options.boundary:
+                            geometry = gh.line2boundary(geometry, 0.2)
+                        feature["geometry"] = shape2json(net, geometry, options.boundary)
+                        features.append(feature)
 
     geojson = {}
     geojson["type"] = "FeatureCollection"
