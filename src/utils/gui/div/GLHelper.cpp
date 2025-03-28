@@ -184,6 +184,13 @@ GLHelper::getVertexCounter() {
 long
 GLHelper::getVertexCounterModern() {
     return myVertexCounterModern;
+    /*
+    long result = 0;
+    for (const auto& entry : myVertices) {
+        result += entry.second.size();
+    }
+    return result;
+    */
 }
 
 
@@ -390,8 +397,7 @@ GLHelper::drawBoxLineModern(const Position& beg, double rot, double visLength,
                             double width, double offset) {
     GLTransformStack::getTransformStack().pushMatrix();
     GLTransformStack::getTransformStack().translate(glm::vec3(beg.x(), beg.y(), 0));
-    //glRotated(rot, 0, 0, 1);
-    GLTransformStack::getTransformStack().rotate(rot, glm::vec3(0, 0, 1));
+    GLTransformStack::getTransformStack().rotate(rot);
     addVertex(GL_TRIANGLES, -width - offset, 0.);
     addVertex(GL_TRIANGLES, -width - offset, -visLength);
     addVertex(GL_TRIANGLES, width - offset, -visLength);

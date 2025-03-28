@@ -26,11 +26,12 @@
 #endif
 
 struct GLBufferStruct;
+struct GLAttributeDefinition;
 
 class GLVertexArrayObject {
 
 public:
-    GLVertexArrayObject(unsigned int itemSize, unsigned int vertexSize = 10000);
+    GLVertexArrayObject(unsigned int itemSize, unsigned int vertexSize = 0);
     ~GLVertexArrayObject();
     GLVertexArrayObject(const GLVertexArrayObject& copy);
 
@@ -40,12 +41,11 @@ public:
     GLenum getGeometryType() const;
     unsigned long long getVertexSize() const;
     unsigned long long getIndexSize() const;
-
+    void setAttributes(const std::vector<GLAttributeDefinition>& attributes);
     void setGeometryType(GLenum type);
     void setItemSize(const unsigned long long vertexCount, const unsigned long long indexCount);
     void clearBuffer();
     bool addVertexData(std::vector<GLBufferStruct>& data, GLenum geometryType = GL_TRIANGLES);
-    bool setVertexData(std::vector<GLBufferStruct>& data, GLenum geometryType = GL_TRIANGLES);
     void drawGL() const;
     void bind() const;
     void unbind() const;
@@ -57,10 +57,10 @@ private:
     GLuint myID;
     GLuint myVertexBufferID;
     GLuint myIndexBufferID;
-    GLenum myGeometryType;
     unsigned int myItemSize;
     unsigned long long myVertexBufferSize;
     unsigned long long myIndexBufferSize;
     unsigned long long myVertexInputSize;
+    std::vector< GLAttributeDefinition> myAttributes;
     std::vector <std::pair<GLenum, unsigned long long>> myGeometries;
 };

@@ -68,7 +68,6 @@ private:
     std::map<std::string, GLConfiguration> myConfigurations;
     std::string myCurrentConfiguration;
     GLuint myProgramID;
-    unsigned int myAttributeCount;
 
     static std::map<std::string, std::pair<GLuint, GLuint>> myShaders;
 };

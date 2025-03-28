@@ -26,7 +26,7 @@
 
 
 GLVertexArrayObject::GLVertexArrayObject(unsigned int itemSize, unsigned int vertexSize)
-    : myID(0), myVertexBufferID(0), myIndexBufferID(0), myVertexBufferSize(0), myIndexBufferSize(0), myVertexInputSize(0), myItemSize(itemSize), myGeometryType(GL_TRIANGLES){
+    : myID(0), myVertexBufferID(0), myIndexBufferID(0), myVertexBufferSize(0), myIndexBufferSize(0), myVertexInputSize(0), myItemSize(itemSize) {
 
     glGenVertexArrays(1, &myID);
 #ifdef _DEBUG
@@ -43,6 +43,12 @@ GLVertexArrayObject::GLVertexArrayObject(unsigned int itemSize, unsigned int ver
 
 
 GLVertexArrayObject::~GLVertexArrayObject() {
+    if (myVertexBufferID > 0) {
+        glDeleteBuffers(1, &myVertexBufferID);
+    }
+    if (myIndexBufferID > 0) {
+        glDeleteBuffers(1, &myIndexBufferID);
+    }
     glDeleteVertexArrays(1, &myID);
 }
 
@@ -71,12 +77,6 @@ GLVertexArrayObject::getIndexBufferID() const {
 }
 
 
-GLenum
-GLVertexArrayObject::getGeometryType() const {
-    return myGeometryType;
-}
-
-
 unsigned long long
 GLVertexArrayObject::getVertexSize() const {
     return myVertexBufferSize;
@@ -90,44 +90,105 @@ GLVertexArrayObject::getIndexSize() const {
 
 
 void
+GLVertexArrayObject::setAttributes(const std::vector<GLAttributeDefinition>& attributes) {
+    myAttributes.clear();
+    unsigned int attributeCount = attributes.size();
+    std::vector<unsigned int> sizes;
+    unsigned int stride = 0;
+    for (auto entry : attributes) {
+        unsigned int typeSize = 0;
+        switch (entry.type) {
+        case GL_FLOAT:
+            typeSize = sizeof(float);
+            break;
+        case GL_BYTE:
+        case GL_UNSIGNED_BYTE:
+            typeSize = sizeof(char);
+            break;
+        }
+        sizes.push_back(typeSize * entry.size);
+        stride += typeSize * entry.size;
+    }
+    GLintptr offset = 0;
+    for (int i = 0; i < attributeCount; ++i) {
+        glEnableVertexAttribArray(i);
+        glVertexAttribPointer(i, attributes[i].size, attributes[i].type, attributes[i].normalized, stride, (GLvoid*)offset);
+#ifdef _DEBUG
+        std::cout << "GLVertexArrayObject::setAttributes glVertexAttribPointer position " << i << " offset " << offset << std::endl;
+#endif
+        offset += sizes[i];
+        myAttributes.push_back(attributes[i]);
+    }
+
+}
+
+
+void
 GLVertexArrayObject::resizeBuffers(int newVertexSize, int newIndexSize) {
     // TODO: look into creating a new buffer on GPU and transferring the existing data with glCopyBufferSubData
     // see https://docs.gl/gl3/glCopyBufferSubData // ??? but what if we transmit data for every time step anyway?
 
     // delete old ones
     if (myVertexBufferID > 0) {
+#ifdef _DEBUG
+        std::cout << "GLVertexArrayObject::resizeBuffers delete array buffer " << myVertexBufferID << std::endl;
+#endif
         glDeleteBuffers(1, &myVertexBufferID);
+        myVertexBufferID = 0;
     }
     if (myIndexBufferID > 0) {
+#ifdef _DEBUG
+        std::cout << "GLVertexArrayObject::resizeBuffers delete elemennt array buffer " << myIndexBufferID << std::endl;
+#endif
         glDeleteBuffers(1, &myIndexBufferID);
+        myIndexBufferID = 0;
     }
+
+    // check if the expected size exceeds the maximum recommended GPU given size
+#ifdef _DEBUG
+    GLint64 maxVertexCount;
+    glGetInteger64v(GL_MAX_ELEMENTS_VERTICES, &maxVertexCount);
+    if (maxVertexCount < newVertexSize) {
+        std::cout << "GLVertexArrayObject::resizeBuffers should not save more than " << maxVertexCount << " vertices on GPU" << std::endl;
+    }
+    std::cout << "GLVertexArrayObject::resizeBuffers attempt to resize to accomodate " << newVertexSize << " vertices" << std::endl;
+#endif
 
     // create new ones
     glGenBuffers(1, &myVertexBufferID);
     glBindBuffer(GL_ARRAY_BUFFER, myVertexBufferID);
     glBufferData(GL_ARRAY_BUFFER, newVertexSize * myItemSize, nullptr, GL_DYNAMIC_DRAW);
+#ifdef _DEBUG
+    std::cout << "GLVertexArrayObject::resizeBuffers created new array buffer " << myVertexBufferID << std::endl;
+#endif
+
     glGenBuffers(1, &myIndexBufferID);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, myIndexBufferID);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, newIndexSize * sizeof(unsigned int), nullptr, GL_DYNAMIC_DRAW);
+#ifdef _DEBUG
+    std::cout << "GLVertexArrayObject::resizeBuffers created new element array buffer " << myIndexBufferID << std::endl;
+#endif
 
     myVertexBufferSize = newVertexSize;
     myIndexBufferSize = newIndexSize;
 
 #ifdef _DEBUG
-    std::cout << "GLVertexArrayObject::resizeBuffers to vertex size " << myVertexBufferSize << std::endl;
+    // check if the buffer could be acquired
+    GLint bufferSize = 0;
+    glGetBufferParameteriv(GL_ARRAY_BUFFER, GL_BUFFER_SIZE, &bufferSize);
+    if (bufferSize < newVertexSize * myItemSize) {
+        std::cout << "GLVertexArrayObject::resizeBuffers created a smaller buffer than requested" << std::endl;
+    } else {
+        std::cout << "GLVertexArrayObject::resizeBuffers to vertex size " << myVertexBufferSize << std::endl;
+    }
 #endif
 }
 
 
 void
-GLVertexArrayObject::setGeometryType(GLenum type) {
-    myGeometryType = type;
-}
-
-
-void
 GLVertexArrayObject::setItemSize(const unsigned long long vertexCount, const unsigned long long indexCount) {
-    if (vertexCount - myVertexBufferSize <= 0) {
+    long long diff = myVertexBufferSize - vertexCount;
+    if (diff < 0) {
         resizeBuffers(vertexCount + GLVERTEXARRAYOBJECT_MINRESERVE, indexCount + GLVERTEXARRAYOBJECT_MINRESERVE);
     }
 }
@@ -151,17 +212,12 @@ GLVertexArrayObject::clearBuffer() {
 bool
 GLVertexArrayObject::addVertexData(std::vector<GLBufferStruct>& data, GLenum geometryType) {
     unsigned long long offset = myVertexInputSize;
-
     unsigned long long addSize = data.size();
+    if (addSize > myVertexBufferSize) {
+        setItemSize(addSize, addSize);
+    }
     const long byteSize = addSize * myItemSize;
     glBufferSubData(GL_ARRAY_BUFFER, 0, byteSize, &data[0]);
-    GLint bufferSize = 0;
-    glGetBufferParameteriv(GL_ARRAY_BUFFER, GL_BUFFER_SIZE, &bufferSize);
-    if (byteSize > bufferSize) {
-        glDeleteBuffers(1, &myVertexBufferID);
-        throw ProcessError("The OpenGL buffer is not big enough to contain all vertices.");
-        return false;
-    }
     // demo index buffer
     std::vector<unsigned int> indexBufferVals;
     for (int i = 0; i < addSize; ++i) {
@@ -174,13 +230,6 @@ GLVertexArrayObject::addVertexData(std::vector<GLBufferStruct>& data, GLenum geo
     std::cout << "GLVertexArrayObject::addVertexData of " << addSize << " vertices starting at offset " << offset << std::endl;
 #endif
     return true;
-}
-
-
-bool
-GLVertexArrayObject::setVertexData(std::vector<GLBufferStruct>& data, GLenum geometryType) {
-    // TODO: to be replaced by addVertexData with offset 0
-    return addVertexData(data, geometryType);
 }
 
 

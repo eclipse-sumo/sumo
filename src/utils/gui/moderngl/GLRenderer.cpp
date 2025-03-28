@@ -35,7 +35,7 @@ std::map<std::string, std::pair<GLuint, GLuint>> GLRenderer::myShaders;
 // method definitions
 // ===========================================================================
 
-GLRenderer::GLRenderer(): myProgramID(0) {
+GLRenderer::GLRenderer(): myCurrentConfiguration(""), myProgramID(0) {
 #ifdef _DEBUG
     std::cout << "GLRenderer::GLRenderer glCreateProgram()" << std::endl;
 #endif
@@ -84,7 +84,7 @@ GLRenderer::addConfiguration(const std::string& name, const std::string& shaderN
     }
 
     // add configuration struct
-    myConfigurations[name] = { shaderName, programID, std::make_shared<GLVertexArrayObject>(itemSize, 30000) };
+    myConfigurations[name] = { shaderName, programID, std::make_shared<GLVertexArrayObject>(itemSize, 128000) };
 
 #ifdef _DEBUG
     std::cout << "GLRenderer::addConfiguration added configuration '" << name << "'" << std::endl;
@@ -116,8 +116,10 @@ GLRenderer::getVAO() {
 void
 GLRenderer::deactivateCurrentConfiguration() {
     glUseProgram(0);
-    myConfigurations[myCurrentConfiguration].vao->unbind();
-    myCurrentConfiguration = "";
+    if (!myCurrentConfiguration.empty()) {
+        myConfigurations[myCurrentConfiguration].vao->unbind();
+        myCurrentConfiguration = "";
+    }
     myProgramID = 0;
 }
 
@@ -138,32 +140,33 @@ GLRenderer::setVertexAttributes(const std::vector<GLAttributeDefinition>& attrib
         // TODO: issue a warning that no VAO is set
         return;
     }
-    unsigned int attributeCount = attributeDefinitions.size();
-    std::vector<unsigned int> sizes;
-    unsigned int stride = 0;
-    for (auto entry : attributeDefinitions) {
-        unsigned int typeSize = 0;
-        switch (entry.type) {
-        case GL_FLOAT:
-            typeSize = sizeof(float);
-            break;
-        case GL_BYTE:
-        case GL_UNSIGNED_BYTE:
-            typeSize = sizeof(char);
-            break;
-        }
-        sizes.push_back(typeSize * entry.size);
-        stride += typeSize * entry.size;
-    }
-    GLintptr offset = 0;
-    for (int i = 0; i < attributeCount; ++i) {
-        glEnableVertexAttribArray(i);
-        glVertexAttribPointer(i, attributeDefinitions[i].size, attributeDefinitions[i].type, attributeDefinitions[i].normalized, stride, (GLvoid*)offset);
-#ifdef _DEBUG
-        std::cout << "GLRenderer::setVertexAttributes glVertexAttribPointer position " << i << " offset " << offset << std::endl;
-#endif
-        offset += sizes[i];
-    }
+    myConfigurations[myCurrentConfiguration].vao->setAttributes(attributeDefinitions);
+//    unsigned int attributeCount = attributeDefinitions.size();
+//    std::vector<unsigned int> sizes;
+//    unsigned int stride = 0;
+//    for (auto entry : attributeDefinitions) {
+//        unsigned int typeSize = 0;
+//        switch (entry.type) {
+//        case GL_FLOAT:
+//            typeSize = sizeof(float);
+//            break;
+//        case GL_BYTE:
+//        case GL_UNSIGNED_BYTE:
+//            typeSize = sizeof(char);
+//            break;
+//        }
+//        sizes.push_back(typeSize * entry.size);
+//        stride += typeSize * entry.size;
+//    }
+//    GLintptr offset = 0;
+//    for (int i = 0; i < attributeCount; ++i) {
+//        glEnableVertexAttribArray(i);
+//        glVertexAttribPointer(i, attributeDefinitions[i].size, attributeDefinitions[i].type, attributeDefinitions[i].normalized, stride, (GLvoid*)offset);
+//#ifdef _DEBUG
+//        std::cout << "GLRenderer::setVertexAttributes glVertexAttribPointer position " << i << " offset " << offset << std::endl;
+//#endif
+//        offset += sizes[i];
+//    }
 }
 
 
@@ -200,7 +203,7 @@ GLRenderer::getUniformID(const std::string& key) {
 
 bool
 GLRenderer::setVertexData(std::vector<GLBufferStruct>& data, GLenum type) {
-    return myConfigurations[myCurrentConfiguration].vao->setVertexData(data, type);
+    return myConfigurations[myCurrentConfiguration].vao->addVertexData(data, type);
 }
 
 

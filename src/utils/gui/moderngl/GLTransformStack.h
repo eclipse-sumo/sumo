@@ -24,7 +24,6 @@
 #define GLM_SWIZZLE
 #include <glm.hpp>
 
-// TODO: using a singleton pattern 
 
 // ===========================================================================
 // class declarations

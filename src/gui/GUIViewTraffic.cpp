@@ -851,19 +851,22 @@ GUIViewTraffic::changePedestrianNetworkColor(const GUIVisualizationSettings& s) 
 void
 GUIViewTraffic::initModernOpenGL() {
     // create modern OpenGL structures
-    if (getenv("SUMO_HOME") != nullptr && myRenderer == nullptr) {
+    const char* sumoPath = getenv("SUMO_HOME");
+    if (sumoPath != nullptr && myRenderer == nullptr) {
         // shader paths
         // TODO: replace with production path
         const std::string vertexShaderPath = "D:/Repos/sumo-opengl3.3/data/shaders/vertexShader.glsl"; // production value should be: std::string(getenv("SUMO_HOME")) + "/data/shaders/vertexShader.glsl";
         const std::string fragmentShaderPath = "D:/Repos/sumo-opengl3.3/data/shaders/fragmentShader.glsl"; // production value should be: std::string(getenv("SUMO_HOME")) + "/data/shaders/fragmentShader.glsl";
+        //const std::string vertexShaderPath = std::string(sumoPath) + "/data/shaders/vertexShader.glsl";
+        //const std::string fragmentShaderPath = std::string(sumoPath) + "/data/shaders/fragmentShader.glsl";
+
         const GLShader shader = GLShader(vertexShaderPath, fragmentShaderPath);
 
         myRenderer = std::make_shared<GLRenderer>();
         myRenderer->addShader("FaceColorShader", shader);
-        const std::vector<GLAttributeDefinition> attributeDefinitions = { {GL_FLOAT, 3, GL_FALSE}, {GL_UNSIGNED_BYTE, 4, GL_TRUE} }; // actually GL_UNSIGNED_BYTE? >> but this produces artifacts
+        const std::vector<GLAttributeDefinition> attributeDefinitions = { {GL_FLOAT, 3, GL_FALSE}, {GL_UNSIGNED_BYTE, 4, GL_TRUE} };
         myRenderer->addConfiguration("Standard", "FaceColorShader", GLHelper::computeVertexAttributeSize(attributeDefinitions));
         myRenderer->activateConfiguration("Standard");
-        myRenderer->getVAO()->setGeometryType((GLenum)GL_LINES);
         myRenderer->setVertexAttributes(attributeDefinitions);
         myRenderer->deactivateCurrentConfiguration();
     }
