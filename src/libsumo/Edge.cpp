@@ -386,10 +386,8 @@ LIBSUMO_SUBSCRIPTION_IMPLEMENTATION(Edge, EDGE)
 void
 Edge::storeShape(const std::string& edgeID, PositionVector& shape) {
     const MSEdge* const e = getEdge(edgeID);
-    const std::vector<MSLane*>& lanes = e->getLanes();
-    shape = lanes.front()->getShape();
-    if (lanes.size() > 1) {
-        copy(lanes.back()->getShape().begin(), lanes.back()->getShape().end(), back_inserter(shape));
+    for (const MSLane* lane : e->getLanes()) {
+        copy(lane->getShape().begin(), lane->getShape().end(), back_inserter(shape));
     }
 }
 
