@@ -182,6 +182,9 @@ class Domain:
         """
         return self._getUniversal(tc.ID_COUNT, "")
 
+    def domainID(self):
+        return self._cmdGetID
+
     def subscribe(self, objectID, varIDs=None, begin=tc.INVALID_DOUBLE_VALUE, end=tc.INVALID_DOUBLE_VALUE,
                   parameters=None):
         """subscribe(string, list(integer), double, double, map) -> None
