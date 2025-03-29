@@ -2956,6 +2956,30 @@ Vehicle::handleVariable(const std::string& objID, const int variable, VariableWr
             return wrapper->wrapStringList(objID, variable, getLoadedIDList());
         case VAR_TELEPORTING_LIST:
             return wrapper->wrapStringList(objID, variable, getTeleportingIDList());
+        case VAR_FOLLOW_SPEED: {
+            StoHelp::readCompound(*paramData);
+            const double speed = StoHelp::readTypedDouble(*paramData);
+            const double gap = StoHelp::readTypedDouble(*paramData);
+            const double leaderSpeed = StoHelp::readTypedDouble(*paramData);
+            const double leaderMaxDecel = StoHelp::readTypedDouble(*paramData);
+            return wrapper->wrapDouble(objID, variable, getFollowSpeed(objID, speed, gap, leaderSpeed, leaderMaxDecel, StoHelp::readTypedString(*paramData)));
+        }
+        case VAR_SECURE_GAP: {
+            StoHelp::readCompound(*paramData);
+            const double speed = StoHelp::readTypedDouble(*paramData);
+            const double leaderSpeed = StoHelp::readTypedDouble(*paramData);
+            const double leaderMaxDecel = StoHelp::readTypedDouble(*paramData);
+            return wrapper->wrapDouble(objID, variable, getSecureGap(objID, speed, leaderSpeed, leaderMaxDecel, StoHelp::readTypedString(*paramData)));
+        }
+        case VAR_STOP_SPEED: {
+            StoHelp::readCompound(*paramData);
+            const double speed = StoHelp::readTypedDouble(*paramData);
+            return wrapper->wrapDouble(objID, variable, getStopSpeed(objID, speed, StoHelp::readTypedDouble(*paramData)));
+        }
+        case VAR_FOES:
+            return wrapper->wrapJunctionFoeVector(objID, variable, getJunctionFoes(objID, StoHelp::readTypedDouble(*paramData)));
+        case CMD_CHANGELANE:
+            return wrapper->wrapIntPair(objID, variable, getLaneChangeState(objID, StoHelp::readTypedInt(*paramData)));
         case VAR_PARAMETER:
             return wrapper->wrapString(objID, variable, getParameter(objID, StoHelp::readTypedString(*paramData)));
         case VAR_PARAMETER_WITH_KEY:

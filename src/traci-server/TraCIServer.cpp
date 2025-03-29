@@ -249,24 +249,27 @@ TraCIServer::wrapColor(const std::string& /* objID */, const int /* variable */,
 
 bool
 TraCIServer::wrapStringDoublePair(const std::string& /* objID */, const int /* variable */, const std::pair<std::string, double>& value) {
-    myWrapperStorage.writeUnsignedByte(libsumo::TYPE_COMPOUND);
-    myWrapperStorage.writeInt(2);
-    myWrapperStorage.writeUnsignedByte(libsumo::TYPE_STRING);
-    myWrapperStorage.writeString(value.first);
-    myWrapperStorage.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    myWrapperStorage.writeDouble(value.second);
+    StoHelp::writeCompound(myWrapperStorage, 2);
+    StoHelp::writeTypedString(myWrapperStorage, value.first);
+    StoHelp::writeTypedDouble(myWrapperStorage, value.second);
     return true;
 }
 
 
 bool
 TraCIServer::wrapStringPair(const std::string& /* objID */, const int /* variable */, const std::pair<std::string, std::string>& value) {
-    myWrapperStorage.writeUnsignedByte(libsumo::TYPE_COMPOUND);
-    myWrapperStorage.writeInt(2);
-    myWrapperStorage.writeUnsignedByte(libsumo::TYPE_STRING);
-    myWrapperStorage.writeString(value.first);
-    myWrapperStorage.writeUnsignedByte(libsumo::TYPE_STRING);
-    myWrapperStorage.writeString(value.second);
+    StoHelp::writeCompound(myWrapperStorage, 2);
+    StoHelp::writeTypedString(myWrapperStorage, value.first);
+    StoHelp::writeTypedString(myWrapperStorage, value.second);
+    return true;
+}
+
+
+bool
+TraCIServer::wrapIntPair(const std::string& /* objID */, const int /* variable */, const std::pair<int, int>& value) {
+    StoHelp::writeCompound(myWrapperStorage, 2);
+    StoHelp::writeTypedInt(myWrapperStorage, value.first);
+    StoHelp::writeTypedInt(myWrapperStorage, value.second);
     return true;
 }
 
@@ -284,6 +287,27 @@ TraCIServer::wrapSignalConstraintVector(const std::string& /* objID */, const in
     StoHelp::writeTypedInt(myWrapperStorage, (int)value.size());
     for (const auto& c : value) {
         StoHelp::writeConstraint(myWrapperStorage, c);
+    }
+    return true;
+}
+
+
+bool
+TraCIServer::wrapJunctionFoeVector(const std::string& /* objID */, const int /* variable */, const std::vector<libsumo::TraCIJunctionFoe>& value) {
+    StoHelp::writeCompound(myWrapperStorage, 1 + (int)value.size() * 9);
+    StoHelp::writeTypedInt(myWrapperStorage, (int)value.size());
+    for (const auto& c : value) {
+        StoHelp::writeTypedString(myWrapperStorage, c.foeId);
+        StoHelp::writeTypedDouble(myWrapperStorage, c.egoDist);
+        StoHelp::writeTypedDouble(myWrapperStorage, c.foeDist);
+        StoHelp::writeTypedDouble(myWrapperStorage, c.egoExitDist);
+        StoHelp::writeTypedDouble(myWrapperStorage, c.foeExitDist);
+        StoHelp::writeTypedString(myWrapperStorage, c.egoLane);
+        StoHelp::writeTypedString(myWrapperStorage, c.foeLane);
+        myWrapperStorage.writeUnsignedByte(libsumo::TYPE_UBYTE);
+        myWrapperStorage.writeChar(c.egoResponse);
+        myWrapperStorage.writeUnsignedByte(libsumo::TYPE_UBYTE);
+        myWrapperStorage.writeChar(c.foeResponse);
     }
     return true;
 }
@@ -386,6 +410,11 @@ TraCIServer::TraCIServer(const SUMOTime begin, const int port, const int numClie
     myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_TL_VARIABLE, libsumo::VAR_PERSON_NUMBER));
     myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_VEHICLE_VARIABLE, libsumo::VAR_EDGE_TRAVELTIME));
     myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_VEHICLE_VARIABLE, libsumo::VAR_EDGE_EFFORT));
+    myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_VEHICLE_VARIABLE, libsumo::VAR_FOLLOW_SPEED));
+    myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_VEHICLE_VARIABLE, libsumo::VAR_SECURE_GAP));
+    myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_VEHICLE_VARIABLE, libsumo::VAR_STOP_SPEED));
+    myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_VEHICLE_VARIABLE, libsumo::VAR_FOES));
+    myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_VEHICLE_VARIABLE, libsumo::CMD_CHANGELANE));
     myParameterized.insert(std::make_pair(0, libsumo::VAR_PARAMETER));
     myParameterized.insert(std::make_pair(0, libsumo::VAR_PARAMETER_WITH_KEY));
 

@@ -167,8 +167,10 @@ public:
     virtual bool wrapColor(const std::string& objID, const int variable, const TraCIColor& value) = 0;
     virtual bool wrapStringDoublePair(const std::string& objID, const int variable, const std::pair<std::string, double>& value) = 0;
     virtual bool wrapStringPair(const std::string& objID, const int variable, const std::pair<std::string, std::string>& value) = 0;
+    virtual bool wrapIntPair(const std::string& objID, const int variable, const std::pair<int, int>& value) = 0;
     virtual bool wrapStage(const std::string& objID, const int variable, const TraCIStage& value) = 0;
     virtual bool wrapSignalConstraintVector(const std::string& objID, const int variable, const std::vector<TraCISignalConstraint>& value) = 0;
+    virtual bool wrapJunctionFoeVector(const std::string& objID, const int variable, const std::vector<TraCIJunctionFoe>& value) = 0;
     virtual void empty(const std::string& /* objID */) {}
 };
 

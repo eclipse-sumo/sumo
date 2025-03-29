@@ -1979,6 +1979,16 @@ Helper::SubscriptionWrapper::wrapStringPair(const std::string& objID, const int 
 
 
 bool
+Helper::SubscriptionWrapper::wrapIntPair(const std::string& objID, const int variable, const std::pair<int, int>& value) {
+    auto sl = std::make_shared<TraCIIntList>();
+    sl->value.push_back(value.first);
+    sl->value.push_back(value.second);
+    (*myActiveResults)[objID][variable] = sl;
+    return true;
+}
+
+
+bool
 Helper::SubscriptionWrapper::wrapStage(const std::string& objID, const int variable, const TraCIStage& value) {
     (*myActiveResults)[objID][variable] = std::make_shared<TraCIStage>(value);
     return true;
@@ -1988,6 +1998,15 @@ Helper::SubscriptionWrapper::wrapStage(const std::string& objID, const int varia
 bool
 Helper::SubscriptionWrapper::wrapSignalConstraintVector(const std::string& objID, const int variable, const std::vector<libsumo::TraCISignalConstraint>& value) {
     auto sl = std::make_shared<TraCISignalConstraintVectorWrapped>();
+    sl->value = value;
+    (*myActiveResults)[objID][variable] = sl;
+    return true;
+}
+
+
+bool
+Helper::SubscriptionWrapper::wrapJunctionFoeVector(const std::string& objID, const int variable, const std::vector<libsumo::TraCIJunctionFoe>& value) {
+    auto sl = std::make_shared<TraCIJunctionFoeVectorWrapped>();
     sl->value = value;
     (*myActiveResults)[objID][variable] = sl;
     return true;

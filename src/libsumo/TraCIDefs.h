@@ -331,6 +331,23 @@ struct TraCIDoubleList : TraCIResult {
 };
 
 
+struct TraCIIntList : TraCIResult {
+    std::string getString() const {
+        std::ostringstream os;
+        os << "[";
+        for (int v : value) {
+            os << v << ",";
+        }
+        os << "]";
+        return os.str();
+    }
+    std::vector<int> value;
+#ifdef SWIGJAVA
+    SWIGJAVA_CAST(TraCIIntList)
+#endif
+};
+
+
 /// @brief {variable->value}
 typedef std::map<int, std::shared_ptr<libsumo::TraCIResult> > TraCIResults;
 /// @brief {object->{variable->value}}
@@ -765,7 +782,29 @@ struct TraCIJunctionFoe {
     std::string foeLane;
     bool egoResponse;
     bool foeResponse;
+
+    std::string getString() const {
+        std::ostringstream os;
+        os << "TraCIJunctionFoe(foeId=" << foeId << ", egoDist=" << egoDist << ", foeDist=" << foeDist << ", foeDist=" << foeDist << ")";
+        return os.str();
+    }
 };
+
+
+struct TraCIJunctionFoeVectorWrapped : TraCIResult {
+    std::string getString() const {
+        std::ostringstream os;
+        os << "TraCIJunctionFoeVectorWrapped[";
+        for (const TraCIJunctionFoe& v : value) {
+            os << v.getString() << ",";
+        }
+        os << "]";
+        return os.str();
+    }
+
+    std::vector<TraCIJunctionFoe> value;
+};
+
 
 }
 

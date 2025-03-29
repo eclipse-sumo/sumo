@@ -467,6 +467,7 @@ SUBSCRIBE_HELPER(RouteProbe)
 %shared_ptr(libsumo::TraCIString)
 %shared_ptr(libsumo::TraCIStringList)
 %shared_ptr(libsumo::TraCIDoubleList)
+%shared_ptr(libsumo::TraCIIntList)
 %shared_ptr(libsumo::TraCIPhase)
 %shared_ptr(libsumo::TraCILogic)
 %shared_ptr(libsumo::TraCILink)
@@ -485,6 +486,7 @@ SUBSCRIBE_HELPER(RouteProbe)
 %shared_ptr(libsumo::TraCISignalConstraint)
 %shared_ptr(libsumo::TraCISignalConstraintVectorWrapped)
 %shared_ptr(libsumo::TraCIJunctionFoe)
+%shared_ptr(libsumo::TraCIJunctionFoeVectorWrapped)
 #endif
 
 // replacing vector instances of standard types, see https://stackoverflow.com/questions/8469138
