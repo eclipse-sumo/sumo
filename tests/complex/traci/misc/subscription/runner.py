@@ -47,7 +47,7 @@ try:
                     else:
                         variable = source[s:source.index(")", s)]
                         remainder = ""
-                    if "TAXI_RESERVATIONS" in variable or variable == "DISTANCE_REQUEST":
+                    if "TAXI_RESERVATIONS" in variable or variable in ("DISTANCE_REQUEST", "TL_CONSTRAINT_SWAP"):
                         continue
                     if hasattr(traci.constants, variable):
                         print("Subscribing to %s.%s." % (dt._name, variable))
@@ -69,6 +69,8 @@ try:
                             param = {v: 0}
                         elif '"b"' in remainder:
                             param = {v: ("b", 1)}
+                        elif '"tds"' in remainder:  # effort or traveltime for vehicle
+                            param = {v: ("tds", 2, 0., "1si")}
                         elif '"tru"' in remainder:
                             param = {v: ("tru", 2, ("1si", 0., 0), traci.constants.REQUEST_DRIVINGDIST)}
                             continue  # skip it for now, it is a distance request
