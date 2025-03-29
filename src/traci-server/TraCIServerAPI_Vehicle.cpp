@@ -63,47 +63,6 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
     try {
         if (!libsumo::Vehicle::handleVariable(id, variable, &server, &inputStorage)) {
             switch (variable) {
-                case libsumo::VAR_EDGE_TRAVELTIME: {
-                    if (inputStorage.readUnsignedByte() != libsumo::TYPE_COMPOUND) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_GET_VEHICLE_VARIABLE, "Retrieval of travel time requires a compound object.", outputStorage);
-                    }
-                    if (inputStorage.readInt() != 2) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_GET_VEHICLE_VARIABLE, "Retrieval of travel time requires time and edge as parameter.", outputStorage);
-                    }
-                    double time = 0.;
-                    if (!server.readTypeCheckingDouble(inputStorage, time)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_GET_VEHICLE_VARIABLE, "Retrieval of travel time requires the referenced time as first parameter.", outputStorage);
-                    }
-                    // edge
-                    std::string edgeID;
-                    if (!server.readTypeCheckingString(inputStorage, edgeID)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_GET_VEHICLE_VARIABLE, "Retrieval of travel time requires the referenced edge as second parameter.", outputStorage);
-                    }
-                    // retrieve
-                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_DOUBLE);
-                    server.getWrapperStorage().writeDouble(libsumo::Vehicle::getAdaptedTraveltime(id, time, edgeID));
-                    break;
-                }
-                case libsumo::VAR_EDGE_EFFORT: {
-                    if (inputStorage.readUnsignedByte() != libsumo::TYPE_COMPOUND) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_GET_VEHICLE_VARIABLE, "Retrieval of effort requires a compound object.", outputStorage);
-                    }
-                    if (inputStorage.readInt() != 2) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_GET_VEHICLE_VARIABLE, "Retrieval of effort requires time and edge as parameter.", outputStorage);
-                    }
-                    double time = 0.;
-                    if (!server.readTypeCheckingDouble(inputStorage, time)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_GET_VEHICLE_VARIABLE, "Retrieval of effort requires the referenced time as first parameter.", outputStorage);
-                    }
-                    // edge
-                    std::string edgeID;
-                    if (!server.readTypeCheckingString(inputStorage, edgeID)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_GET_VEHICLE_VARIABLE, "Retrieval of effort requires the referenced edge as second parameter.", outputStorage);
-                    }
-                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_DOUBLE);
-                    server.getWrapperStorage().writeDouble(libsumo::Vehicle::getEffort(id, time, edgeID));
-                    break;
-                }
                 case libsumo::VAR_BEST_LANES: {
                     server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_COMPOUND);
                     tcpip::Storage tempContent;

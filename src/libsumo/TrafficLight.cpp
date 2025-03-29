@@ -1008,6 +1008,8 @@ TrafficLight::handleVariable(const std::string& objID, const int variable, Varia
             return wrapper->wrapDouble(objID, variable, getNextSwitch(objID));
         case TL_SPENT_DURATION:
             return wrapper->wrapDouble(objID, variable, getSpentDuration(objID));
+        case VAR_PERSON_NUMBER:
+            return wrapper->wrapInt(objID, variable, getServedPersonCount(objID, StoHelp::readTypedInt(*paramData)));
         case TL_BLOCKING_VEHICLES:
             return wrapper->wrapStringList(objID, variable, getBlockingVehicles(objID, StoHelp::readTypedInt(*paramData)));
         case TL_RIVAL_VEHICLES:

@@ -46,6 +46,7 @@
 #include <microsim/devices/MSDevice_Taxi.h>
 #include <microsim/devices/MSDispatch_TraCI.h>
 #include <mesosim/MEVehicle.h>
+#include <libsumo/StorageHelper.h>
 #include <libsumo/TraCIDefs.h>
 #include <libsumo/TraCIConstants.h>
 #include "Helper.h"
@@ -2897,6 +2898,16 @@ Vehicle::handleVariable(const std::string& objID, const int variable, VariableWr
             return wrapper->wrapDouble(objID, variable, getWaitingTime(objID));
         case VAR_ACCUMULATED_WAITING_TIME:
             return wrapper->wrapDouble(objID, variable, getAccumulatedWaitingTime(objID));
+        case VAR_EDGE_TRAVELTIME: {
+            StoHelp::readCompound(*paramData);
+            const double time = StoHelp::readTypedDouble(*paramData);
+            return wrapper->wrapDouble(objID, variable, getAdaptedTraveltime(objID, time, StoHelp::readTypedString(*paramData)));
+        }
+        case VAR_EDGE_EFFORT: {
+            StoHelp::readCompound(*paramData);
+            const double time = StoHelp::readTypedDouble(*paramData);
+            return wrapper->wrapDouble(objID, variable, getEffort(objID, time, StoHelp::readTypedString(*paramData)));
+        }
         case VAR_ROUTE_VALID:
             return wrapper->wrapInt(objID, variable, isRouteValid(objID));
         case VAR_EDGES:
@@ -2937,26 +2948,18 @@ Vehicle::handleVariable(const std::string& objID, const int variable, VariableWr
             return wrapper->wrapDouble(objID, variable, getTimeLoss(objID));
         case VAR_MINGAP_LAT:
             return wrapper->wrapDouble(objID, variable, getMinGapLat(objID));
-        case VAR_LEADER: {
-            paramData->readUnsignedByte();
-            const double dist = paramData->readDouble();
-            return wrapper->wrapStringDoublePair(objID, variable, getLeader(objID, dist));
-        }
-        case VAR_FOLLOWER: {
-            paramData->readUnsignedByte();
-            const double dist = paramData->readDouble();
-            return wrapper->wrapStringDoublePair(objID, variable, getFollower(objID, dist));
-        }
+        case VAR_LEADER:
+            return wrapper->wrapStringDoublePair(objID, variable, getLeader(objID, StoHelp::readTypedDouble(*paramData)));
+        case VAR_FOLLOWER:
+            return wrapper->wrapStringDoublePair(objID, variable, getFollower(objID, StoHelp::readTypedDouble(*paramData)));
         case VAR_LOADED_LIST:
             return wrapper->wrapStringList(objID, variable, getLoadedIDList());
         case VAR_TELEPORTING_LIST:
             return wrapper->wrapStringList(objID, variable, getTeleportingIDList());
-        case libsumo::VAR_PARAMETER:
-            paramData->readUnsignedByte();
-            return wrapper->wrapString(objID, variable, getParameter(objID, paramData->readString()));
-        case libsumo::VAR_PARAMETER_WITH_KEY:
-            paramData->readUnsignedByte();
-            return wrapper->wrapStringPair(objID, variable, getParameterWithKey(objID, paramData->readString()));
+        case VAR_PARAMETER:
+            return wrapper->wrapString(objID, variable, getParameter(objID, StoHelp::readTypedString(*paramData)));
+        case VAR_PARAMETER_WITH_KEY:
+            return wrapper->wrapStringPair(objID, variable, getParameterWithKey(objID, StoHelp::readTypedString(*paramData)));
         case VAR_TAXI_FLEET:
             // we cannot use the general fall through here because we do not have an object id
             return false;
