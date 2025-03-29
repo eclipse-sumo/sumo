@@ -48,9 +48,11 @@ public:
         std::vector<Position> unboardingPositions;
     };
 
-    MSTrainHelper(const MSVehicle* vehicle, bool reversed = false, bool secondaryShape = false, double exaggeration = 1.0, int vehicleQuality = 3)
-        : myTrain(vehicle) {
-        computeTrainDimensions(exaggeration, vehicleQuality);
+    MSTrainHelper(const MSVehicle* vehicle, double scaledLength = -1, bool reversed = false,
+                  bool secondaryShape = false, double exaggeration = 1.0, int vehicleQuality = 3)
+        : myTrain(vehicle)
+    {
+        computeTrainDimensions(exaggeration, secondaryShape, scaledLength < 0 ? myTrain->getLength() : scaledLength, vehicleQuality);
         computeCarriages(reversed, secondaryShape);
     }
 
@@ -115,7 +117,7 @@ public:
     static const double PEDESTRIAN_RADIUS_EXTRA_TOLERANCE;
 
 private:
-    void computeTrainDimensions(double exaggeration, int vehicleQuality);
+    void computeTrainDimensions(double exaggeration, bool secondaryShape, double scaledLength, int vehicleQuality);
     void computeCarriages(bool reversed, bool secondaryShape);
 
     const MSVehicle* myTrain;

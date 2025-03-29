@@ -184,7 +184,7 @@ private:
     /* @brief draw train with individual carriages. The number of carriages is
      * determined from defaultLength of carriages and vehicle length
      * passengerSeats are computed beginning at firstPassengerCarriage */
-    void drawAction_drawCarriageClass(const GUIVisualizationSettings& s, bool asImage) const;
+    void drawAction_drawCarriageClass(const GUIVisualizationSettings& s, double scaledLength, bool asImage) const;
 
     /// @brief retrieve information about the current stop state
     std::string getStopInfo() const;

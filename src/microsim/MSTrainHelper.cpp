@@ -22,8 +22,10 @@
 #include <microsim/MSLane.h>
 #include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
 #include <microsim/MSVehicle.h>
+#include <microsim/MSEdge.h>
 #include "MSTrainHelper.h"
 
+#define MIN_SCALED_CARRIAGE_LENGTH 5
 
 const double MSTrainHelper::PEDESTRIAN_RADIUS_EXTRA_TOLERANCE = 0.01;
 
@@ -31,14 +33,28 @@ const double MSTrainHelper::PEDESTRIAN_RADIUS_EXTRA_TOLERANCE = 0.01;
 // method definitions
 // ===========================================================================
 void
-MSTrainHelper::computeTrainDimensions(double exaggeration, int vehicleQuality) {
+MSTrainHelper::computeTrainDimensions(double exaggeration, bool secondaryShape, double scaledLength, int vehicleQuality) {
     const MSVehicleType& vtype = myTrain->getVehicleType();
-    const double totalLength = vtype.getLength();
+    const double laneFactor = (myTrain->getLane() != nullptr
+            ? myTrain->getLane()->getLengthGeometryFactor(secondaryShape)
+            : (myTrain->getEdge()->getLanes().size() > 0 ? myTrain->getEdge()->getLanes()[0]->getLengthGeometryFactor(secondaryShape) : 1));
+    double totalLength = vtype.getLength();
+    const double geometryScale = scaledLength / totalLength;
     myUpscaleLength = getUpscaleLength(exaggeration, totalLength, vtype.getWidth(), vehicleQuality);
     myLocomotiveLength = vtype.getParameter().locomotiveLength * myUpscaleLength;
     myDefaultLength = vtype.getParameter().carriageLength * myUpscaleLength;
     if (myLocomotiveLength == 0) {
         myLocomotiveLength = myDefaultLength;
+    }
+    const double minLength = MIN2(myLocomotiveLength, myDefaultLength);
+    if (geometryScale < 1 && minLength * geometryScale < MIN_SCALED_CARRIAGE_LENGTH) {
+        const double rescaleSmall = MIN_SCALED_CARRIAGE_LENGTH / (minLength * geometryScale);
+        myLocomotiveLength *= rescaleSmall;
+        myDefaultLength *= rescaleSmall;
+    } else if (geometryScale == 1 && laneFactor != 1) {
+        totalLength /= laneFactor;
+        myLocomotiveLength /= laneFactor;
+        myDefaultLength /= laneFactor;
     }
     myCarriageGap = vtype.getParameter().carriageGap * myUpscaleLength;
     myLength = totalLength * myUpscaleLength;
