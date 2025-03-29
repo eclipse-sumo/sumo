@@ -126,6 +126,7 @@ private:
     double myDefaultLength;
     double myCarriageGap;
     double myLength;
+    bool myUnscale;
     double myHalfWidth;
     int myNumCarriages;
     double myCarriageLengthWithGap;
