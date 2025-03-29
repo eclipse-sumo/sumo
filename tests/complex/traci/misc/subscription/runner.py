@@ -71,12 +71,16 @@ try:
                             param = {v: ("b", 1)}
                         elif '"tds"' in remainder:  # effort or traveltime for vehicle
                             param = {v: ("tds", 2, 0., "1si")}
+                        elif '"tdddds"' in remainder:  # follow speed for vehicle
+                            param = {v: ("tdddds", 5, 0., 0., 0., 0., "1si")}
+                        elif '"tddds"' in remainder:  # secure gap for vehicle
+                            param = {v: ("tddds", 4, 0., 0., 0., "1si")}
+                        elif '"tdd"' in remainder:  # stop speed for vehicle
+                            param = {v: ("tdd", 2, 0., 0.)}
                         elif '"tru"' in remainder:
                             param = {v: ("tru", 2, ("1si", 0., 0), traci.constants.REQUEST_DRIVINGDIST)}
-                            continue  # skip it for now, it is a distance request
                         elif '"tou"' in remainder:
                             param = {v: ("tou", 2, (0., 0.), traci.constants.REQUEST_DRIVINGDIST)}
-                            continue  # skip it for now, it is a distance request
                         getattr(traci, dt._name).subscribe(name, [v], parameters=param)
 finally:
     traci.close()
