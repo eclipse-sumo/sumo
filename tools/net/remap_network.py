@@ -142,6 +142,7 @@ def mapEdge(options, edge):
         print(edge.getID(), success)
     if success >= 1.01:
         print("implausibly high success %s for edge %s" % (success, edge.getID()), file=sys.stderr)
+    success = round(success, 2)
     success = min(success, 1)
     return success, results
 
