@@ -57,7 +57,7 @@ try:
                         elif dt._name == "lane":
                             name = "1si_0"
                         elif dt._name in ("junction", "trafficlight"):
-                            name = "0"
+                            name = "A" if "CONSTRAINT" in variable else "0"
                         else:
                             name = dt._name + "_0"
                         param = None
