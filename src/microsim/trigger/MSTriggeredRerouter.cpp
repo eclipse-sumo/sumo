@@ -41,6 +41,7 @@
 #include <utils/common/WrappingCommand.h>
 #include <microsim/MSEdgeWeightsStorage.h>
 #include <microsim/MSLane.h>
+#include <microsim/MSLink.h>
 #include <microsim/MSVehicle.h>
 #include <microsim/MSRoute.h>
 #include <microsim/MSEdge.h>
@@ -50,6 +51,8 @@
 #include <microsim/MSGlobals.h>
 #include <microsim/MSParkingArea.h>
 #include <microsim/MSStop.h>
+#include <microsim/traffic_lights/MSRailSignal.h>
+#include <microsim/traffic_lights/MSRailSignalConstraint.h>
 #include <microsim/transportables/MSPerson.h>
 #include <microsim/devices/MSDevice_Routing.h>
 #include <microsim/devices/MSRoutingEngine.h>
@@ -266,6 +269,30 @@ MSTriggeredRerouter::myStartElement(int element,
         myParsedRerouteInterval.edgeProbs.add(via, prob);
         myParsedRerouteInterval.isVia = true;
     }
+    if (element == SUMO_TAG_OVERTAKING_REROUTE) {
+        // for letting a slow train use a siding to be overtaken by a fast train
+        bool ok = true;
+        for (const std::string& edgeID : attrs.get<std::vector<std::string> >(SUMO_ATTR_MAIN, getID().c_str(), ok)) {
+            MSEdge* edge = MSEdge::dictionary(edgeID);
+            if (edge == nullptr) {
+                throw InvalidArgument("The main edge '" + edgeID + "' to use within rerouter '" + getID() + "' is not known.");
+            }
+            myParsedRerouteInterval.main.push_back(edge);
+            myParsedRerouteInterval.cMain.push_back(edge);
+        }
+        for (const std::string& edgeID : attrs.get<std::vector<std::string> >(SUMO_ATTR_SIDING, getID().c_str(), ok)) {
+            MSEdge* edge = MSEdge::dictionary(edgeID);
+            if (edge == nullptr) {
+                throw InvalidArgument("The siding edge '" + edgeID + "' to use within rerouter '" + getID() + "' is not known.");
+            }
+            myParsedRerouteInterval.siding.push_back(edge);
+            myParsedRerouteInterval.cSiding.push_back(edge);
+        }
+        myParsedRerouteInterval.sidingExit = findSignal(myParsedRerouteInterval.cSiding.begin(), myParsedRerouteInterval.cSiding.end());
+        if (myParsedRerouteInterval.sidingExit == nullptr) {
+            throw InvalidArgument("The siding within rerouter '" + getID() + "' does not have a rail signal.");
+        }
+    }
 }
 
 
@@ -364,9 +391,11 @@ MSTriggeredRerouter::getCurrentReroute(SUMOTime time, SUMOTrafficObject& obj) co
                 ri.parkProbs.getOverallProb() > 0) {
                 return &ri;
             }
-            if (!ri.closed.empty() || !ri.closedLanesAffected.empty()) {
+            if (!ri.closed.empty() || !ri.closedLanesAffected.empty() || !ri.main.empty()) {
                 const std::set<SUMOTrafficObject::NumericalID>& edgeIndices = obj.getUpcomingEdgeIDs();
-                if (affected(edgeIndices, ri.closed) || affected(edgeIndices, ri.closedLanesAffected)) {
+                if (affected(edgeIndices, ri.closed)
+                        || affected(edgeIndices, ri.closedLanesAffected)
+                        || affected(edgeIndices, ri.main)) {
                     return &ri;
                 }
             }
@@ -381,7 +410,7 @@ MSTriggeredRerouter::getCurrentReroute(SUMOTime time) const {
     for (const RerouteInterval& ri : myIntervals) {
         if (ri.begin <= time && ri.end > time) {
             if (ri.edgeProbs.getOverallProb() != 0 || ri.routeProbs.getOverallProb() != 0 || ri.parkProbs.getOverallProb() != 0
-                    || !ri.closed.empty() || !ri.closedLanesAffected.empty()) {
+                    || !ri.closed.empty() || !ri.closedLanesAffected.empty() || !ri.main.empty()) {
                 return &ri;
             }
         }
@@ -498,6 +527,39 @@ MSTriggeredRerouter::triggerRouting(SUMOTrafficObject& tObject, MSMoveReminder::
                               + "' could not reroute to new parkingArea '" + newParkingArea->getID()
                               + "' reason=" + errorMsg + ", time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
             }
+        }
+        return false;
+    }
+    if (rerouteDef->main.size() > 0) {
+        if (!tObject.isVehicle()) {
+            return false;
+        }
+        SUMOVehicle& veh = static_cast<SUMOVehicle&>(tObject);
+        const ConstMSEdgeVector& oldEdges = veh.getRoute().getEdges();
+        auto mainStart = std::find(veh.getCurrentRouteEdge(), oldEdges.end(), rerouteDef->main.front());
+        if (mainStart == oldEdges.end()
+                // exit main within
+                || ConstMSEdgeVector(mainStart, mainStart + rerouteDef->main.size()) != rerouteDef->cMain
+                // stop in main
+                || (veh.hasStops() && veh.getNextStop().edge < (mainStart + rerouteDef->main.size()))) {
+            //std::cout << SIMTIME << " veh=" << veh.getID() << " wrong route or stop\n";
+            return false;
+        }
+        std::pair<const SUMOVehicle*, MSRailSignal*> overtaker_signal = overtakingTrain(veh, mainStart, rerouteDef->main);
+        if (overtaker_signal.first != nullptr) {
+            SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = hasReroutingDevice
+                    ? MSRoutingEngine::getRouterTT(veh.getRNGIndex(), veh.getVClass(), rerouteDef->closed)
+                    : MSNet::getInstance()->getRouterTT(veh.getRNGIndex(), rerouteDef->closed);
+            ConstMSEdgeVector newEdges(veh.getCurrentRouteEdge(), mainStart);
+            newEdges.insert(newEdges.end(), rerouteDef->siding.begin(), rerouteDef->siding.end());
+            newEdges.insert(newEdges.end(), mainStart + rerouteDef->main.size(), oldEdges.end());
+            const double routeCost = router.recomputeCosts(newEdges, &veh, MSNet::getInstance()->getCurrentTimeStep());
+            const double savings = (router.recomputeCosts(rerouteDef->cMain, &veh, MSNet::getInstance()->getCurrentTimeStep())
+                    - router.recomputeCosts(rerouteDef->cSiding, &veh, MSNet::getInstance()->getCurrentTimeStep()));
+            const std::string info = getID() + ":" + toString(SUMO_TAG_OVERTAKING_REROUTE) + ":" + overtaker_signal.first->getID();
+            veh.replaceRouteEdges(newEdges, routeCost, savings, info, false, false, false);
+            rerouteDef->sidingExit->addConstraint(veh.getID(), new MSRailSignalConstraint_Predecessor(
+                        MSRailSignalConstraint::PREDECESSOR, overtaker_signal.second, overtaker_signal.first->getID(), 100, true));
         }
         return false;
     }
@@ -759,6 +821,79 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
     return dynamic_cast<MSParkingArea*>(rerouteStoppingPlace(parks, rerouteDef->parkProbs.getProbs(), veh, newDestination, newRoute, addInput, rerouteDef->closed));
 }
 
+
+std::pair<const SUMOVehicle*, MSRailSignal*>
+MSTriggeredRerouter::overtakingTrain(const SUMOVehicle& veh, ConstMSEdgeVector::const_iterator mainStart, const MSEdgeVector& main) {
+    const double vMax = veh.getMaxSpeed();
+    MSVehicleControl& c = MSNet::getInstance()->getVehicleControl();
+    for (MSVehicleControl::constVehIt it_veh = c.loadedVehBegin(); it_veh != c.loadedVehEnd(); ++it_veh) {
+        const SUMOVehicle* veh2 = (*it_veh).second;
+        if (veh2->isOnRoad() && veh2->getMaxSpeed() > vMax) {
+            const ConstMSEdgeVector& route2 = veh2->getRoute().getEdges();
+            auto itOnMain2 = route2.end();
+            int mainIndex = 0;
+            for (const MSEdge* m : main) {
+                itOnMain2 = std::find(route2.begin(), route2.end(), m);
+                if (itOnMain2 != route2.end()) {
+                    break;
+                }
+                mainIndex++;
+            }
+            if (itOnMain2 != route2.end()) {
+                auto itOnMain = mainStart + mainIndex;
+                double timeToMain = 0;
+                double timeToMain2 = 0;
+                for (auto it = veh.getCurrentRouteEdge(); it != itOnMain; it++) {
+                    timeToMain += (*it)->getMinimumTravelTime(&veh);
+                }
+                for (auto it = veh2->getCurrentRouteEdge(); it != itOnMain2; it++) {
+                    timeToMain2 += (*it)->getMinimumTravelTime(veh2);
+                }
+                double commonTime = 0;
+                double commonTime2 = 0;
+                int nCommon = 0;
+                auto exitMain2 = itOnMain2;
+                while (itOnMain2 != route2.end() && *itOnMain == *itOnMain2) {
+                    const MSEdge* common = *itOnMain;
+                    commonTime += common->getMinimumTravelTime(&veh);
+                    commonTime2 += common->getMinimumTravelTime(veh2);
+                    nCommon++;
+                    itOnMain++;
+                    itOnMain2++;
+                }
+                exitMain2 += MIN2(nCommon, (int)main.size() - mainIndex);
+                const double saving = timeToMain + commonTime - (timeToMain2 + commonTime2);
+                //std::cout << " veh=" << veh.getID() << " veh2=" << veh2->getID() << " nCommon=" << nCommon << " cT=" << commonTime << " cT2=" << commonTime2
+                //    << " ttm=" << timeToMain << " ttm2=" << timeToMain2 << " saving=" << saving << "\n";
+                if (saving > 300) {
+                    MSRailSignal* s = findSignal(veh2->getCurrentRouteEdge(), exitMain2);
+                    if (s != nullptr) {
+                        return std::make_pair(veh2, s);
+                    }
+                }
+            }
+        }
+    }
+    return std::make_pair(nullptr, nullptr);
+}
+
+
+MSRailSignal*
+MSTriggeredRerouter::findSignal(ConstMSEdgeVector::const_iterator begin, ConstMSEdgeVector::const_iterator end) {
+    auto it = end;
+    do {
+        it--;
+        const MSEdge* edge = *it;
+        if (edge->getToJunction()->getType() == SumoXMLNodeType::RAIL_SIGNAL) {
+            for (const MSLink* link : edge->getLanes().front()->getLinkCont()) {
+                if (link->getTLLogic() != nullptr) {
+                    return dynamic_cast<MSRailSignal*>(const_cast<MSTrafficLightLogic*>(link->getTLLogic()));
+                }
+            }
+        }
+    } while (it != begin);
+    return nullptr;
+}
 
 bool
 MSTriggeredRerouter::applies(const SUMOTrafficObject& obj) const {
