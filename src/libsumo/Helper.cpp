@@ -1969,6 +1969,15 @@ Helper::SubscriptionWrapper::wrapStringDoublePair(const std::string& objID, cons
 
 
 bool
+Helper::SubscriptionWrapper::wrapStringDoublePairList(const std::string& objID, const int variable, const std::vector<std::pair<std::string, double> >& value) {
+    auto sl = std::make_shared<TraCIStringDoublePairList>();
+    sl->value = value;
+    (*myActiveResults)[objID][variable] = sl;
+    return true;
+}
+
+
+bool
 Helper::SubscriptionWrapper::wrapStringPair(const std::string& objID, const int variable, const std::pair<std::string, std::string>& value) {
     auto sl = std::make_shared<TraCIStringList>();
     sl->value.push_back(value.first);

@@ -69,6 +69,8 @@ try:
                             param = {v: 0}
                         elif '"b"' in remainder:
                             param = {v: ("b", 1)}
+                        elif '"B"' in remainder:
+                            param = {v: ("B", 0)}
                         elif '"tds"' in remainder:  # effort or traveltime for vehicle
                             param = {v: ("tds", 2, 0., "1si")}
                         elif '"tdddds"' in remainder:  # follow speed for vehicle

@@ -166,6 +166,7 @@ public:
     virtual bool wrapPositionVector(const std::string& objID, const int variable, const TraCIPositionVector& value) = 0;
     virtual bool wrapColor(const std::string& objID, const int variable, const TraCIColor& value) = 0;
     virtual bool wrapStringDoublePair(const std::string& objID, const int variable, const std::pair<std::string, double>& value) = 0;
+    virtual bool wrapStringDoublePairList(const std::string& objID, const int variable, const std::vector<std::pair<std::string, double> >& value) = 0;
     virtual bool wrapStringPair(const std::string& objID, const int variable, const std::pair<std::string, std::string>& value) = 0;
     virtual bool wrapIntPair(const std::string& objID, const int variable, const std::pair<int, int>& value) = 0;
     virtual bool wrapStage(const std::string& objID, const int variable, const TraCIStage& value) = 0;

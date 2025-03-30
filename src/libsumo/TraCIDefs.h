@@ -348,6 +348,23 @@ struct TraCIIntList : TraCIResult {
 };
 
 
+struct TraCIStringDoublePairList : TraCIResult {
+    std::string getString() const {
+        std::ostringstream os;
+        os << "[";
+        for (const auto& v : value) {
+            os << "(" << v.first << "," << v.second << "),";
+        }
+        os << "]";
+        return os.str();
+    }
+    std::vector<std::pair<std::string, double> > value;
+#ifdef SWIGJAVA
+    SWIGJAVA_CAST(TraCIStringDoublePairList)
+#endif
+};
+
+
 /// @brief {variable->value}
 typedef std::map<int, std::shared_ptr<libsumo::TraCIResult> > TraCIResults;
 /// @brief {object->{variable->value}}

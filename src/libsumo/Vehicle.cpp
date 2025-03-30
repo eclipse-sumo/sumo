@@ -2978,6 +2978,8 @@ Vehicle::handleVariable(const std::string& objID, const int variable, VariableWr
         }
         case VAR_FOES:
             return wrapper->wrapJunctionFoeVector(objID, variable, getJunctionFoes(objID, StoHelp::readTypedDouble(*paramData)));
+        case VAR_NEIGHBORS:
+            return wrapper->wrapStringDoublePairList(objID, variable, getNeighbors(objID, StoHelp::readTypedByte(*paramData)));
         case CMD_CHANGELANE:
             return wrapper->wrapIntPair(objID, variable, getLaneChangeState(objID, StoHelp::readTypedInt(*paramData)));
         case VAR_PARAMETER:
