@@ -71,7 +71,8 @@ static const libsumo::TraCIResults getSubscriptionResults(const std::string& obj
 static const libsumo::ContextSubscriptionResults getAllContextSubscriptionResults(); \
 static const libsumo::SubscriptionResults getContextSubscriptionResults(const std::string& objectID); \
 static void subscribeParameterWithKey(const std::string& objectID, const std::string& key, double beginTime = libsumo::INVALID_DOUBLE_VALUE, double endTime = libsumo::INVALID_DOUBLE_VALUE); \
-static const int DOMAIN_ID;
+static const int DOMAIN_ID; \
+static int domainID() { return DOMAIN_ID; }
 
 #define LIBSUMO_SUBSCRIPTION_IMPLEMENTATION(CLASS, DOM) \
 const int CLASS::DOMAIN_ID(libsumo::CMD_GET_##DOM##_VARIABLE); \
