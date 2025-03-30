@@ -79,6 +79,8 @@ try:
                             param = {v: ("tddds", 4, 0., 0., 0., "1si")}
                         elif '"tdd"' in remainder:  # stop speed for vehicle
                             param = {v: ("tdd", 2, 0., 0.)}
+                        elif '"tisb"' in remainder:  # stop parameter for vehicle
+                            param = {v: ("tisb", 3, 0, "edge", False)}
                         elif '"tru"' in remainder:
                             param = {v: ("tru", 2, ("1si", 0., 0), traci.constants.REQUEST_DRIVINGDIST)}
                         elif '"tou"' in remainder:

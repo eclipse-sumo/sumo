@@ -25,6 +25,7 @@
     <route id="route_0" edges="1si"/>
     <vehicle id="vehicle_0" depart="0">
         <route edges="1si"/>
+        <stop lane="1si_0" endPos="100"/>
     </vehicle>
     <person id="person_0" depart="0">
         <walk edges="1si"/>

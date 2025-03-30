@@ -2022,6 +2022,15 @@ Helper::SubscriptionWrapper::wrapJunctionFoeVector(const std::string& objID, con
 }
 
 
+bool
+Helper::SubscriptionWrapper::wrapNextStopDataVector(const std::string& objID, const int variable, const std::vector<libsumo::TraCINextStopData>& value) {
+    auto sl = std::make_shared<TraCINextStopDataVectorWrapped>();
+    sl->value = value;
+    (*myActiveResults)[objID][variable] = sl;
+    return true;
+}
+
+
 void
 Helper::SubscriptionWrapper::empty(const std::string& objID) {
     (*myActiveResults)[objID]; // initiate the empty map to track the objectID for TRACI_ID_LIST context subscriptions

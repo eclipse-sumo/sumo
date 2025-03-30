@@ -115,46 +115,6 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
                     }
                     break;
                 }
-                case libsumo::VAR_NEXT_STOPS2: {
-                    // deliberate fallThrough!
-                    int limit = 0;
-                    if (!server.readTypeCheckingInt(inputStorage, limit)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_GET_VEHICLE_VARIABLE, "Stop retrieval uses an optional integer.", outputStorage);
-                    }
-                    writeNextStops(server, id, limit, true);
-                    break;
-                }
-                case libsumo::VAR_NEXT_STOPS: {
-                    writeNextStops(server, id, 0, false);
-                    break;
-                }
-                case libsumo::VAR_STOP_PARAMETER: {
-                    // read variables
-                    if (inputStorage.readUnsignedByte() != libsumo::TYPE_COMPOUND) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "getting stop parameter needs a compound object description.", outputStorage);
-                    }
-                    int compoundSize = inputStorage.readInt();
-                    if (compoundSize != 2 && compoundSize != 3) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "getting a stop parameter needs a compound object description of 2 or 3 items.", outputStorage);
-                    }
-                    int nextStopIndex;
-                    if (!server.readTypeCheckingInt(inputStorage, nextStopIndex)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "The first setStopParameter parameter must be the nextStopIndex given as an integer.", outputStorage);
-                    }
-                    std::string param;
-                    if (!server.readTypeCheckingString(inputStorage, param)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "The second setStopParameter parameter must be the param given as a string.", outputStorage);
-                    }
-                    int customParam = 0;
-                    if (compoundSize == 3) {
-                        if (!server.readTypeCheckingByte(inputStorage, customParam)) {
-                            return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "The third setStopParameter parameter must be the customParam flag given as a byte.", outputStorage);
-                        }
-                    }
-                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRING);
-                    server.getWrapperStorage().writeString(libsumo::Vehicle::getStopParameter(id, nextStopIndex, param, customParam != 0));
-                }
-                break;
                 case libsumo::DISTANCE_REQUEST: {
                     if (inputStorage.readUnsignedByte() != libsumo::TYPE_COMPOUND) {
                         return server.writeErrorStatusCmd(libsumo::CMD_GET_VEHICLE_VARIABLE, "Retrieval of distance requires a compound object.", outputStorage);
@@ -205,20 +165,6 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
                     }
                     server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRINGLIST);
                     server.getWrapperStorage().writeStringList(libsumo::Vehicle::getTaxiFleet(flag));
-                    break;
-                }
-                case libsumo::VAR_NEIGHBORS: {
-                    int mode;
-                    if (!server.readTypeCheckingUnsignedByte(inputStorage, mode)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_GET_VEHICLE_VARIABLE, "Retrieval of neighboring vehicles needs bitset to specify mode.", outputStorage);
-                    }
-                    const std::vector<std::pair<std::string, double> >& neighVehicles = libsumo::Vehicle::getNeighbors(id, mode);
-                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_COMPOUND);
-                    server.getWrapperStorage().writeInt((int)neighVehicles.size());
-                    for (auto& p : neighVehicles) {
-                        server.getWrapperStorage().writeString(p.first);
-                        server.getWrapperStorage().writeDouble(p.second);
-                    }
                     break;
                 }
                 default:
@@ -1200,53 +1146,6 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
     return true;
 }
 
-
-void
-TraCIServerAPI_Vehicle::writeNextStops(TraCIServer& server, const std::string& id, int limit, bool full) {
-    std::vector<libsumo::TraCINextStopData> nextStops = libsumo::Vehicle::getStops(id, limit);
-    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_COMPOUND);
-    const int cnt = 1 + (int)nextStops.size() * 4;
-    server.getWrapperStorage().writeInt(cnt);
-    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_INTEGER);
-    server.getWrapperStorage().writeInt((int)nextStops.size());
-    for (std::vector<libsumo::TraCINextStopData>::iterator it = nextStops.begin(); it != nextStops.end(); ++it) {
-        int legacyStopFlags = (it->stopFlags << 1) + (it->arrival >= 0 ? 1 : 0);
-        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRING);
-        server.getWrapperStorage().writeString(it->lane);
-        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_DOUBLE);
-        server.getWrapperStorage().writeDouble(it->endPos);
-        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRING);
-        server.getWrapperStorage().writeString(it->stoppingPlaceID);
-        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_INTEGER);
-        server.getWrapperStorage().writeInt(full ? it->stopFlags : legacyStopFlags);
-        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_DOUBLE);
-        server.getWrapperStorage().writeDouble(it->duration);
-        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_DOUBLE);
-        server.getWrapperStorage().writeDouble(it->until);
-        if (full) {
-            server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_DOUBLE);
-            server.getWrapperStorage().writeDouble(it->startPos);
-            server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_DOUBLE);
-            server.getWrapperStorage().writeDouble(it->intendedArrival);
-            server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_DOUBLE);
-            server.getWrapperStorage().writeDouble(it->arrival);
-            server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_DOUBLE);
-            server.getWrapperStorage().writeDouble(it->depart);
-            server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRING);
-            server.getWrapperStorage().writeString(it->split);
-            server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRING);
-            server.getWrapperStorage().writeString(it->join);
-            server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRING);
-            server.getWrapperStorage().writeString(it->actType);
-            server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRING);
-            server.getWrapperStorage().writeString(it->tripId);
-            server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRING);
-            server.getWrapperStorage().writeString(it->line);
-            server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_DOUBLE);
-            server.getWrapperStorage().writeDouble(it->speed);
-        }
-    }
-}
 
 bool
 TraCIServerAPI_Vehicle::insertReplaceStop(TraCIServer& server, tcpip::Storage& inputStorage, tcpip::Storage& outputStorage, const std::string& id, bool replace) {

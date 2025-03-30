@@ -231,6 +231,7 @@ public:
         bool wrapStage(const std::string& objID, const int variable, const TraCIStage& value);
         bool wrapSignalConstraintVector(const std::string& objID, const int variable, const std::vector<TraCISignalConstraint>& value);
         bool wrapJunctionFoeVector(const std::string& objID, const int variable, const std::vector<TraCIJunctionFoe>& value);
+        bool wrapNextStopDataVector(const std::string& objID, const int variable, const std::vector<TraCINextStopData>& value);
         void empty(const std::string& objID);
     private:
         SubscriptionResults& myResults;

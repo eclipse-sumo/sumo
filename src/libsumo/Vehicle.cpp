@@ -2982,6 +2982,17 @@ Vehicle::handleVariable(const std::string& objID, const int variable, VariableWr
             return wrapper->wrapStringDoublePairList(objID, variable, getNeighbors(objID, StoHelp::readTypedByte(*paramData)));
         case CMD_CHANGELANE:
             return wrapper->wrapIntPair(objID, variable, getLaneChangeState(objID, StoHelp::readTypedInt(*paramData)));
+        case VAR_STOP_PARAMETER: {
+            const int count = StoHelp::readCompound(*paramData);
+            const int nextStopIndex = StoHelp::readTypedInt(*paramData);
+            const std::string param = StoHelp::readTypedString(*paramData);
+            const bool customParam = count == 3 && StoHelp::readTypedByte(*paramData) != 0;
+            return wrapper->wrapString(objID, variable, getStopParameter(objID, nextStopIndex, param, customParam));
+        }
+        case VAR_NEXT_STOPS:
+            return wrapper->wrapNextStopDataVector(objID, variable, getNextStops(objID));
+        case VAR_NEXT_STOPS2:
+            return wrapper->wrapNextStopDataVector(objID, variable, getStops(objID, StoHelp::readTypedInt(*paramData)));
         case VAR_PARAMETER:
             return wrapper->wrapString(objID, variable, getParameter(objID, StoHelp::readTypedString(*paramData)));
         case VAR_PARAMETER_WITH_KEY:
