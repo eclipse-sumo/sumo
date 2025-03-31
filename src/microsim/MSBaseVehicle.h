@@ -986,6 +986,8 @@ public:
     /// @brief apply departEdge and arrivalEdge attributes
     void setDepartAndArrivalEdge();
 
+    int getDepartEdge() const;
+
     int getInsertionChecks() const;
 
     /// @brief interpret stop lane on opposite side of the road

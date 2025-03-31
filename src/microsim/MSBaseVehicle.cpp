@@ -847,7 +847,9 @@ MSBaseVehicle::removeReminder(MSMoveReminder* rem) {
 
 void
 MSBaseVehicle::activateReminders(const MSMoveReminder::Notification reason, const MSLane* enteredLane) {
-    for (MoveReminderCont::iterator rem = myMoveReminders.begin(); rem != myMoveReminders.end();) {
+    // notifyEnter may cause new reminders to be added so we cannot use an iterator
+    for (int i = 0; i < (int)myMoveReminders.size();) {
+        auto rem = &myMoveReminders[i];
         // skip the reminder if it is a lane reminder but not for my lane (indicated by rem->second > 0.)
         if (rem->first->getLane() != nullptr && rem->second > 0.) {
 #ifdef _DEBUG
@@ -855,7 +857,7 @@ MSBaseVehicle::activateReminders(const MSMoveReminder::Notification reason, cons
                 traceMoveReminder("notifyEnter_skipped", rem->first, rem->second, true);
             }
 #endif
-            ++rem;
+            ++i;
         } else {
             if (rem->first->notifyEnter(*this, reason, enteredLane)) {
 #ifdef _DEBUG
@@ -863,14 +865,14 @@ MSBaseVehicle::activateReminders(const MSMoveReminder::Notification reason, cons
                     traceMoveReminder("notifyEnter", rem->first, rem->second, true);
                 }
 #endif
-                ++rem;
+                ++i;
             } else {
 #ifdef _DEBUG
                 if (myTraceMoveReminders) {
                     traceMoveReminder("notifyEnter", rem->first, rem->second, false);
                 }
 #endif
-                rem = myMoveReminders.erase(rem);
+                myMoveReminders.erase(myMoveReminders.begin() + i);
             }
         }
     }
@@ -989,6 +991,11 @@ MSBaseVehicle::setDepartAndArrivalEdge() {
         assert(pars->arrivalEdge >= begin);
         assert(pars->arrivalEdge < routeEdges);
     }
+}
+
+int
+MSBaseVehicle::getDepartEdge() const {
+    return myParameter->departEdge <= myRoute->size() ? myParameter->departEdge : 0;
 }
 
 int
