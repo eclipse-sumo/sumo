@@ -272,7 +272,13 @@ public:
     bool wrapPositionVector(const std::string& objID, const int variable, const libsumo::TraCIPositionVector& value);
     bool wrapColor(const std::string& objID, const int variable, const libsumo::TraCIColor& value);
     bool wrapStringDoublePair(const std::string& objID, const int variable, const std::pair<std::string, double>& value);
+    bool wrapStringDoublePairList(const std::string& objID, const int variable, const std::vector<std::pair<std::string, double> >& value);
     bool wrapStringPair(const std::string& objID, const int variable, const std::pair<std::string, std::string>& value);
+    bool wrapIntPair(const std::string& objID, const int variable, const std::pair<int, int>& value);
+    bool wrapStage(const std::string& objID, const int variable, const libsumo::TraCIStage& value);
+    bool wrapSignalConstraintVector(const std::string& objID, const int variable, const std::vector<libsumo::TraCISignalConstraint>& value);
+    bool wrapJunctionFoeVector(const std::string& objID, const int variable, const std::vector<libsumo::TraCIJunctionFoe>& value);
+    bool wrapNextStopDataVector(const std::string& objID, const int variable, const std::vector<libsumo::TraCINextStopData>& value);
     tcpip::Storage& getWrapperStorage();
     /// @}
 

@@ -38,8 +38,6 @@
 GNETransport::GNETransport(SumoXMLTag tag, GNENet* net) :
     GNEDemandElement("", net, "", GLO_TRANSPORT, tag, GUIIcon::TRANSHIP_EDGE, GNEPathElement::Options::DEMAND_ELEMENT),
     GNEDemandElementPlan(this, -1, -1) {
-    // reset default values
-    resetDefaultValues();
 }
 
 
@@ -235,7 +233,7 @@ GNETransport::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         // specific person plan attributes
         case SUMO_ATTR_LINES:
-            return canParse<std::vector<std::string> >(value);
+            return true;
         case SUMO_ATTR_GROUP:
             return true;
         default:

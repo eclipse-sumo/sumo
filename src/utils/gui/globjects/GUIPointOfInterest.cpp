@@ -50,7 +50,7 @@ GUIPointOfInterest::~GUIPointOfInterest() {}
 
 GUIGLObjectPopupMenu*
 GUIPointOfInterest::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
-    GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
+    GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, this);
     // build shape header
     buildShapePopupOptions(app, ret, getShapeType());
     return ret;

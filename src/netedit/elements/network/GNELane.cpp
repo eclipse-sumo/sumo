@@ -354,6 +354,10 @@ GNELane::checkDrawToContour() const {
 
 bool
 GNELane::checkDrawRelatedContour() const {
+    // check opened popup
+    if (myNet->getViewNet()->getPopup()) {
+        return myNet->getViewNet()->getPopup()->getGLObject() == this;
+    }
     return false;
 }
 
@@ -379,6 +383,12 @@ GNELane::checkDrawDeleteContour() const {
             return false;
         }
     }
+}
+
+
+bool
+GNELane::checkDrawDeleteContourSmall() const {
+    return false;
 }
 
 
@@ -499,7 +509,7 @@ GNELane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     const NetworkEditMode editMode = myNet->getViewNet()->getEditModes().networkEditMode;
     // get mouse position
     const auto mousePosition = myNet->getViewNet()->getPositionInformation();
-    GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
+    GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, this);
     buildPopupHeader(ret, app);
     buildCenterPopupEntry(ret);
     // build copy names entry

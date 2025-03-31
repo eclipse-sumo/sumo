@@ -252,7 +252,7 @@ GNEAdditional::checkDrawToContour() const {
             return (inspectedAC->getAttribute(SUMO_ATTR_TO) == getID());
         } else if (inspectedAC->hasAttribute(GNE_ATTR_PARENT)) {
             // check all parent tags
-            const auto& parentTags = inspectedAC->getTagProperty()->getParentTags();
+            const auto& parentTags = inspectedAC->getTagProperty()->getXMLParentTags();
             if (std::find(parentTags.begin(), parentTags.end(), myTagProperty->getTag()) != parentTags.end()) {
                 return (inspectedAC->getAttribute(GNE_ATTR_PARENT) == getID());
             }
@@ -306,9 +306,12 @@ GNEAdditional::checkDrawRelatedContour() const {
     const auto& neteditAttributesEditor = myNet->getViewNet()->getViewParent()->getInspectorFrame()->getAttributesEditor();
     if (neteditAttributesEditor->isReparenting()) {
         return neteditAttributesEditor->checkNewParent(this);
-    } else {
-        return false;
     }
+    // check opened popup
+    if (myNet->getViewNet()->getPopup()) {
+        return myNet->getViewNet()->getPopup()->getGLObject() == this;
+    }
+    return false;
 }
 
 
@@ -379,6 +382,21 @@ GNEAdditional::checkDrawDeleteContour() const {
 
 
 bool
+GNEAdditional::checkDrawDeleteContourSmall() const {
+    // get edit modes
+    const auto& editModes = myNet->getViewNet()->getEditModes();
+    // check if we're in delete mode and this additional has a parent
+    if (editModes.isCurrentSupermodeNetwork() && (editModes.networkEditMode == NetworkEditMode::NETWORK_DELETE) && (getParentAdditionals().size() > 0)) {
+        const auto additional = myNet->getViewNet()->getViewObjectsSelector().getAdditionalFront();
+        if (additional && (additional == myNet->getViewNet()->getViewObjectsSelector().getAttributeCarrierFront())) {
+            return (getParentAdditionals().front() == additional);
+        }
+    }
+    return false;
+}
+
+
+bool
 GNEAdditional::checkDrawSelectContour() const {
     // get edit modes
     const auto& editModes = myNet->getViewNet()->getEditModes();
@@ -393,19 +411,10 @@ GNEAdditional::checkDrawSelectContour() const {
 
 GUIGLObjectPopupMenu*
 GNEAdditional::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
-    GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
-    // build header
-    buildPopupHeader(ret, app);
-    // build menu command for center button and copy cursor position to clipboard
-    buildCenterPopupEntry(ret);
-    // build menu commands for names
-    GUIDesigns::buildFXMenuCommand(ret, TLF("Copy % name to clipboard", getTagStr()), nullptr, ret, MID_COPY_NAME);
-    GUIDesigns::buildFXMenuCommand(ret, TLF("Copy % typed name to clipboard", getTagStr()), nullptr, ret, MID_COPY_TYPED_NAME);
-    new FXMenuSeparator(ret);
-    // build selection and show parameters menu
-    myNet->getViewNet()->buildSelectionACPopupEntry(ret, this);
-    buildShowParamsPopupEntry(ret);
-    buildPositionCopyEntry(ret, app);
+    // create popup
+    GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, this);
+    // build common options
+    buildPopUpMenuCommonOptions(ret, app, myNet->getViewNet(), myTagProperty->getTag(), mySelected);
     // show option to open additional dialog
     if (myTagProperty->hasDialog()) {
         GUIDesigns::buildFXMenuCommand(ret, TL("Open ") + getTagStr() + TL(" Dialog"), getACIcon(), &parent, MID_OPEN_ADDITIONAL_DIALOG);
@@ -902,7 +911,7 @@ GNEAdditional::drawDemandElementChildren(const GUIVisualizationSettings& s) cons
 GNEMoveOperation*
 GNEAdditional::getMoveOperationSingleLane(const double startPos, const double endPos) {
     // get allow change lane
-    const bool allowChangeLane = myNet->getViewNet()->getViewParent()->getMoveFrame()->getCommonModeOptions()->getAllowChangeLane();
+    const bool allowChangeLane = myNet->getViewNet()->getViewParent()->getMoveFrame()->getCommonMoveOptions()->getAllowChangeLane();
     // fist check if we're moving only extremes
     if (myNet->getViewNet()->getMouseButtonKeyPressed().shiftKeyPressed()) {
         // get snap radius
@@ -1062,7 +1071,7 @@ GNEAdditional::calculateContourPolygons(const GUIVisualizationSettings& s, const
     // get edit modes
     const auto& editModes = myNet->getViewNet()->getEditModes();
     // check if draw geometry points
-    if (editModes.isCurrentSupermodeNetwork() && !myNet->getViewNet()->getViewParent()->getMoveFrame()->getNetworkModeOptions()->getMoveWholePolygons()) {
+    if (editModes.isCurrentSupermodeNetwork() && !myNet->getViewNet()->getViewParent()->getMoveFrame()->getNetworkMoveOptions()->getMoveWholePolygons()) {
         // check if we're in move mode
         const bool moveMode = (editModes.networkEditMode == NetworkEditMode::NETWORK_MOVE);
         // get geometry point radius (size depends if we're in move mode)

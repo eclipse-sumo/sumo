@@ -1,0 +1,12 @@
+Warning: No connection between edge 'E0' and edge 'E5' found.
+Warning: Mandatory edge 'E5' not reachable by vehicle 't_1'.
+Warning: The vehicle 't_1' has no valid route.
+Warning: No connection between edge 'E2' and edge 'E3' found.
+Warning: Mandatory edge 'E3' not reachable by vehicle 't_2'.
+Warning: The vehicle 't_2' has no valid route.
+Warning: No connection between edge 'E0' and edge 'E5' found.
+Warning: Mandatory edge 'E5' not reachable by vehicle 'v_2'.
+Warning: The vehicle 'v_2' has no valid route.
+Warning: No connection between edge 'E2' and edge 'E4' found.
+Warning: Mandatory edge 'E4' not reachable by vehicle 'v_3'.
+Warning: The vehicle 'v_3' has no valid route.

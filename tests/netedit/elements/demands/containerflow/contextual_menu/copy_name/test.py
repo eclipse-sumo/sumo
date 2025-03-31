@@ -49,7 +49,7 @@ netedit.inspectMode()
 
 # copy name
 netedit.contextualMenuOperation(referencePosition, netedit.positions.elements.demands.container,
-                                netedit.contextualMenu.vehicles.copyName)
+                                netedit.contextualMenu.copyName)
 
 # Check undos
 netedit.undo(referencePosition, 1)

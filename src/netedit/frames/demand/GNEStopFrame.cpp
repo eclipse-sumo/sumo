@@ -128,7 +128,7 @@ GNEStopFrame::GNEStopFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
     myStopParentSelector = new GNEDemandElementSelector(this, {GNETagProperties::TagType::VEHICLE, GNETagProperties::TagType::ROUTE});
 
     // Create item Selector module for Stops
-    myStopTagSelector = new GNETagSelector(this, GNETagProperties::TagType::VEHICLESTOP, GNE_TAG_STOP_LANE);
+    myStopTagSelector = new GNETagSelector(this, GNETagProperties::TagType::STOP_VEHICLE, GNE_TAG_STOP_LANE);
 
     // Create attributes editor
     myAttributesEditor = new GNEAttributesEditor(this, GNEAttributesEditorType::EditorType::CREATOR);
@@ -211,7 +211,7 @@ GNEStopFrame::addStop(const GNEViewNetHelper::ViewObjectsSelector& viewObjects, 
                          viewObjects.getLaneFront(), viewObjects.getAdditionalFront());
         if (myStopParentBaseObject->getTag() != SUMO_TAG_NOTHING) {
             // declare route handler
-            GNERouteHandler routeHandler(myViewNet->getNet(), myStopParentBaseObject->hasStringAttribute(GNE_ATTR_DEMAND_FILE)?
+            GNERouteHandler routeHandler(myViewNet->getNet(), myStopParentBaseObject->hasStringAttribute(GNE_ATTR_DEMAND_FILE) ?
                                          myStopParentBaseObject->getStringAttribute(GNE_ATTR_DEMAND_FILE) : "",
                                          myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), false);
             // build stop

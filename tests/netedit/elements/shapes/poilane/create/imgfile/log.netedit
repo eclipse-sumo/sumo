@@ -1,4 +1,6 @@
 Error: Could not load '%%$%$&$%$%$'.
 Unknown file extension '' for image '%%$%$&$%$%$'!
+Warning: Invalid value '%%$%$&$%$%$' in attribute imgFile
 Error: Could not load 'paris.ico'.
 Loading failed!
+Warning: Invalid value 'paris.ico' in attribute imgFile

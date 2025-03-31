@@ -114,6 +114,13 @@ class LaneAreaDomain(Domain):
         """
         return self._getUniversal(tc.VAR_INTERVAL_SPEED, detID)
 
+    def getIntervalMeanTimeLoss(self, detID):
+        """getIntervalMeanTimeLoss(string) -> double
+
+        Returns the mean timeLoss per vehicle during the current interval
+        """
+        return self._getUniversal(tc.VAR_INTERVAL_TIMELOSS, detID)
+
     def getIntervalMaxJamLengthInMeters(self, detID):
         """getIntervalMaxJamLengthInMeters(string) -> double
 
@@ -141,6 +148,13 @@ class LaneAreaDomain(Domain):
         Returns the mean speed during the previous interval
         """
         return self._getUniversal(tc.VAR_LAST_INTERVAL_SPEED, detID)
+
+    def getLastIntervalMeanTimeLoss(self, detID):
+        """getLastIntervalMeanTimeLoss(string) -> double
+
+        Returns the mean timeLoss per vehicle during the previous interval
+        """
+        return self._getUniversal(tc.VAR_LAST_INTERVAL_TIMELOSS, detID)
 
     def getLastIntervalMaxJamLengthInMeters(self, detID):
         """getLastIntervalMaxJamLengthInMeters(string) -> double

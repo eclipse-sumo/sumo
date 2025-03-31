@@ -38,8 +38,6 @@
 GNEPersonTrip::GNEPersonTrip(SumoXMLTag tag, GNENet* net) :
     GNEDemandElement("", net, "", GLO_PERSONTRIP, tag, GUIIcon::PERSONTRIP_EDGE, GNEPathElement::Options::DEMAND_ELEMENT),
     GNEDemandElementPlan(this, -1, -1) {
-    // reset default values
-    resetDefaultValues();
 }
 
 GNEPersonTrip::GNEPersonTrip(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* personParent, const GNEPlanParents& planParameters,
@@ -265,9 +263,8 @@ GNEPersonTrip::isValid(SumoXMLAttr key, const std::string& value) {
             return SUMOVehicleParameter::parsePersonModes(value, myTagProperty->getTagStr(), "", dummyModeSet, dummyError);
         }
         case SUMO_ATTR_VTYPES:
-            return canParse<std::vector<std::string> >(value);
         case SUMO_ATTR_LINES:
-            return canParse<std::vector<std::string> >(value);
+            return true;
         case SUMO_ATTR_WALKFACTOR:
             return canParse<double>(value) && (parse<double>(value) >= 0);
         case SUMO_ATTR_GROUP:

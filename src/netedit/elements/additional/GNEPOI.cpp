@@ -48,8 +48,6 @@ GNEPOI::GNEPOI(SumoXMLTag tag, GNENet* net) :
     PointOfInterest("", "", RGBColor::BLACK, Position(0, 0), false, "", 0, false, 0, SUMOXMLDefinitions::POIIcons.getString(POIIcon::NONE),
                     0, 0, "", 0, 0, "", Parameterised::Map()),
     GNEAdditional("", net, "", GLO_POI, tag, GUIIcon::POI, "") {
-    // reset default values
-    resetDefaultValues();
 }
 
 
@@ -119,7 +117,7 @@ GNEPOI::getMoveOperation() {
     } else if (getTagProperty()->getTag() == GNE_TAG_POILANE) {
         // return move operation for POI placed over lane
         return new GNEMoveOperation(this, getParentLanes().front(), myPosOverLane,
-                                    myNet->getViewNet()->getViewParent()->getMoveFrame()->getCommonModeOptions()->getAllowChangeLane());
+                                    myNet->getViewNet()->getViewParent()->getMoveFrame()->getCommonMoveOptions()->getAllowChangeLane());
     } else {
         // return move operation for a position in view
         return new GNEMoveOperation(this, *this);
@@ -326,15 +324,10 @@ GNEPOI::getParentName() const {
 
 GUIGLObjectPopupMenu*
 GNEPOI::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
-    GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
-    buildPopupHeader(ret, app);
-    buildCenterPopupEntry(ret);
-    buildNameCopyPopupEntry(ret);
-    // build selection and show parameters menu
-    myNet->getViewNet()->buildSelectionACPopupEntry(ret, this);
-    buildShowParamsPopupEntry(ret);
-    buildPositionCopyEntry(ret, app);
-    new FXMenuSeparator(ret);
+    // create popup
+    GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, this);
+    // build common options
+    buildPopUpMenuCommonOptions(ret, app, myNet->getViewNet(), myTagProperty->getTag(), mySelected);
     // specific of  non juPedSim polygons
     if (!myTagProperty->isJuPedSimElement()) {
         // continue depending of lane number
@@ -441,11 +434,7 @@ GNEPOI::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_ICON:
             return getIconStr();
         case SUMO_ATTR_LAYER:
-            if (getShapeLayer() == Shape::DEFAULT_LAYER_POI) {
-                return "default";
-            } else {
-                return toString(getShapeLayer());
-            }
+            return toString(getShapeLayer());
         case SUMO_ATTR_IMGFILE:
             return getShapeImgFile();
         case SUMO_ATTR_WIDTH:
@@ -533,7 +522,7 @@ GNEPOI::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ICON:
             return SUMOXMLDefinitions::POIIcons.hasString(value);
         case SUMO_ATTR_LAYER:
-            if (value == "default") {
+            if (value.empty()) {
                 return true;
             } else {
                 return canParse<double>(value);
@@ -662,10 +651,8 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
             replaceAdditionalParentLanes(value);
             break;
         case SUMO_ATTR_POSITION: {
-            if (getParentLanes().size() > 0) {
-                if (canParse<double>(value)) {
-                    myPosOverLane = parse<double>(value);
-                }
+            if (myTagProperty->getTag() == GNE_TAG_POILANE) {
+                myPosOverLane = parse<double>(value);
             } else {
                 // set position
                 set(parse<Position>(value));
@@ -717,8 +704,8 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
             setIcon(value);
             break;
         case SUMO_ATTR_LAYER:
-            if (value == "default") {
-                setShapeLayer(Shape::DEFAULT_LAYER_POI);
+            if (value.empty()) {
+                setShapeLayer(myTagProperty->getDefaultDoubleValue(key));
             } else {
                 setShapeLayer(parse<double>(value));
             }

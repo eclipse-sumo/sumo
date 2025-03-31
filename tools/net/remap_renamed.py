@@ -24,6 +24,7 @@ from collections import defaultdict
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 import sumolib  # noqa
 from sumolib.xml import parse  # noqa
+from sumolib.net import lane2edge, lane2index  # noqa
 
 
 def get_options(args=None):
@@ -37,6 +38,8 @@ def get_options(args=None):
                     help="File for reading routes", metavar="FILE")
     gp.add_argument("-a", "--additional-file", dest="addfile", category="input", type=ap.route_file,
                     help="File for reading additional elements", metavar="FILE")
+    gp.add_argument("-s", "--selection-file", dest="selfile", category="input", type=ap.file,
+                    help="File for reading a selection file with edges, lanes or junctions", metavar="FILE")
     ap.add_argument("-o", "--output-file", dest="output", required=True, category="output", type=ap.additional_file,
                     help="File for writing output", metavar="FILE")
     ap.add_argument("-v", "--verbose", action="store_true", dest="verbose",
@@ -80,7 +83,7 @@ def remap_edges(options, origIDs):
 
 
 def remap_lanes(options, origIDs):
-    newLanes = [remap_lane(options, l) for l in origIDs.split()]
+    newLanes = [remap_lane(options, lane) for lane in origIDs.split()]
     if None in newLanes:
         return None
     else:
@@ -123,7 +126,7 @@ def addOrigId(lookup, origId, obj):
     if origId is not None:
         if " " in origId:
             print("multi-part origId not supported (%s '%s' origId '%s')" % (
-                obj.name, obj.getID(), origId), file=sys.stderr)
+                type(obj), obj.getID(), origId), file=sys.stderr)
         else:
             lookup[origId] = obj.getID()
 
@@ -144,6 +147,22 @@ def build_junction_lookup(net):
         addOrigId(lookup, origId, node)
     return lookup
 
+def mapSelection(options):
+    types = (("edge:",     lambda x: options.lookup[x]),
+             ("junction:", lambda x: options.junction_lookup[x]),
+             ("lane:",    lambda x: options.lookup[lane2edge(x)] + "_" + str(lane2index(x))))
+    with open(options.output, 'w') as fout, open(options.selfile) as infile:
+        for line in infile:
+            line = line.strip()
+            ignored = True
+            for prefix, fun in types:
+                if line.startswith(prefix):
+                    fout.write(prefix + fun(line[len(prefix):]) + '\n')
+                    ignored = False
+                    break
+            if ignored:
+                print("Warning: Could not map '%s'" % line, file= sys.stderr)
+
 
 def main(options):
     if options.verbose:
@@ -151,22 +170,25 @@ def main(options):
     options.net2 = sumolib.net.readNet(options.targetNet)
     options.lookup = build_lookup(options.net2)
     options.junction_lookup = build_junction_lookup(options.net2)
-    
-    if options.routes:
-        infile = options.routes
-        tag = "routes"
-    else:
-        infile = options.addfile
-        tag = "additional"
 
-    with open(options.output, 'w') as fout:
-        sumolib.writeXMLHeader(fout, "$Id$", tag, options=options)
-        for obj in parse(infile):
-            if remap(options, obj):
-                fout.write(obj.toXML(initialIndent=" " * 4))
-            else:
-                fout.write("    <!--" + obj.toXML()[1:-2] + "-->\n")
-        fout.write("</%s>\n" % tag)
+    if options.selfile:
+        mapSelection(options)
+    else:
+        if options.routes:
+            infile = options.routes
+            tag = "routes"
+        else:
+            infile = options.addfile
+            tag = "additional"
+
+        with open(options.output, 'w') as fout:
+            sumolib.writeXMLHeader(fout, "$Id$", tag, options=options)
+            for obj in parse(infile):
+                if remap(options, obj):
+                    fout.write(obj.toXML(initialIndent=" " * 4, withComments="inline"))
+                else:
+                    fout.write("    <!--" + obj.toXML()[1:-2] + "-->\n")
+            fout.write("</%s>\n" % tag)
 
     if MISSING:
         print("Could not map %s edges (%s total occurences)" % (

@@ -10,6 +10,9 @@ junctionCoordinates
 # write geojson  junction shapes
 junctions
 
+# write geojson  tls shapes
+tls
+
 # write geojson edge boundaries
 boundaries
 

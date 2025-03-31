@@ -41,8 +41,6 @@
 GNEStopPlan::GNEStopPlan(SumoXMLTag tag, GNENet* net) :
     GNEDemandElement("", net, "", GLO_STOP_PLAN, tag, GUIIcon::STOP, GNEPathElement::Options::DEMAND_ELEMENT),
     GNEDemandElementPlan(this, -1, -1) {
-    // reset default values
-    resetDefaultValues();
 }
 
 
@@ -88,10 +86,10 @@ GNEStopPlan::writeDemandElement(OutputDevice& device) const {
     if (isAttributeEnabled(SUMO_ATTR_UNTIL)) {
         device.writeAttr(SUMO_ATTR_UNTIL, getAttribute(SUMO_ATTR_UNTIL));
     }
-    if (isAttributeEnabled(SUMO_ATTR_ACTTYPE) && (myActType.size() > 0)) {
+    if (myActType.size() > 0) {
         device.writeAttr(SUMO_ATTR_ACTTYPE, myActType);
     }
-    if (myTagProperty->hasAttribute(SUMO_ATTR_FRIENDLY_POS) && myFriendlyPos) {
+    if (myFriendlyPos) {
         device.writeAttr(SUMO_ATTR_FRIENDLY_POS, myFriendlyPos);
     }
     device.closeTag();

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-03-27 08:19:05 by Eclipse SUMO netedit Version v1_22_0+1080-8c6c1877d27
+<neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="/scr2/debug/16409/net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="/scr2/debug/16409/net.net.xml"/>
+        <output.street-names value="true"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="0"/>
+    </pedestrian>
+
+</neteditConfiguration>
+-->
+
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="-291598.22,-5677144.66" convBoundary="15952.37,13401.43,16027.22,13620.66" origBoundary="11.995504,50.807619,12.645329,51.700285" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <type id="highway.living_street" priority="2" numLanes="1" speed="2.78" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
+
+    <edge id="-75719355" from="893943565" to="893943583" name="Holunderweg" priority="2" type="highway.living_street">
+        <lane id="-75719355_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="2.78" length="39.34" shape="15953.97,13401.37 15955.25,13433.55">
+            <param key="origId" value="75719355"/>
+        </lane>
+    </edge>
+    <edge id="-75719357#1" from="893943583" to="893943589" name="Holunderweg" priority="2" type="highway.living_street" shape="15953.94,13440.74 15991.29,13440.11 16004.46,13437.18 16010.70,13433.11">
+        <lane id="-75719357#1_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="2.78" length="58.30" shape="15961.19,13439.02 15991.10,13438.51 16003.83,13435.68 16009.83,13431.77">
+            <param key="origId" value="75719357"/>
+        </lane>
+    </edge>
+    <edge id="-75719358" from="893943596" to="893943583" name="Gimpelweg" priority="2" type="highway.living_street" shape="15971.00,13524.11 15965.06,13521.53 15958.88,13514.47 15956.79,13508.28 15953.94,13440.74">
+        <lane id="-75719358_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="2.78" length="89.99" shape="15965.00,13523.25 15964.09,13522.85 15957.47,13515.28 15955.20,13508.58 15952.65,13448.08">
+            <param key="origId" value="75719358"/>
+        </lane>
+    </edge>
+    <edge id="-75719362#0" from="893943596" to="893943598" name="Weißdornweg" priority="2" type="highway.living_street" shape="15971.00,13524.11 15977.18,13515.37 15983.60,13510.83 15995.64,13508.40 16027.22,13506.07">
+        <lane id="-75719362#0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="2.78" length="62.52" shape="15973.07,13518.41 15976.03,13514.22 15982.95,13509.33 15995.42,13506.81 16027.10,13504.47">
+            <param key="origId" value="75719362"/>
+        </lane>
+    </edge>
+    <edge id="-75719362#1" from="893943607" to="893943596" name="Weißdornweg" priority="2" type="highway.living_street" shape="15991.86,13620.66 15985.62,13617.05 15981.59,13613.53 15978.18,13609.28 15975.69,13603.87 15974.80,13595.04 15969.23,13534.24 15969.95,13529.81 15971.00,13524.11">
+        <lane id="-75719362#1_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="2.78" length="104.18" shape="15991.06,13622.04 15984.68,13618.36 15980.43,13614.64 15976.81,13610.13 15974.12,13604.30 15973.21,13595.19 15967.62,13534.18 15968.38,13529.52">
+            <param key="origId" value="75719362"/>
+        </lane>
+    </edge>
+    <edge id="75719355" from="893943583" to="893943565" name="Holunderweg" priority="2" type="highway.living_street">
+        <lane id="75719355_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="2.78" length="39.34" shape="15952.06,13433.68 15950.77,13401.49">
+            <param key="origId" value="75719355"/>
+        </lane>
+    </edge>
+    <edge id="75719357#1" from="893943589" to="893943583" name="Holunderweg" priority="2" type="highway.living_street" shape="16010.70,13433.11 16004.46,13437.18 15991.29,13440.11 15953.94,13440.74">
+        <lane id="75719357#1_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="2.78" length="58.30" shape="16011.57,13434.45 16005.09,13438.68 15991.48,13441.71 15961.25,13442.22">
+            <param key="origId" value="75719357"/>
+        </lane>
+    </edge>
+    <edge id="75719358" from="893943583" to="893943596" name="Gimpelweg" priority="2" type="highway.living_street" shape="15953.94,13440.74 15956.79,13508.28 15958.88,13514.47 15965.06,13521.53 15971.00,13524.11">
+        <lane id="75719358_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="2.78" length="89.99" shape="15955.85,13447.95 15958.38,13507.98 15960.29,13513.66 15966.03,13520.21 15966.28,13520.31">
+            <param key="origId" value="75719358"/>
+        </lane>
+    </edge>
+    <edge id="75719362#0" from="893943598" to="893943596" name="Weißdornweg" priority="2" type="highway.living_street" shape="16027.22,13506.07 15995.64,13508.40 15983.60,13510.83 15977.18,13515.37 15971.00,13524.11">
+        <lane id="75719362#0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="2.78" length="62.52" shape="16027.34,13507.67 15995.86,13509.99 15984.25,13512.33 15978.33,13516.52 15975.69,13520.26">
+            <param key="origId" value="75719362"/>
+        </lane>
+    </edge>
+    <edge id="75719362#1" from="893943596" to="893943607" name="Weißdornweg" priority="2" type="highway.living_street" shape="15971.00,13524.11 15969.95,13529.81 15969.23,13534.24 15974.80,13595.04 15975.69,13603.87 15978.18,13609.28 15981.59,13613.53 15985.62,13617.05 15991.86,13620.66">
+        <lane id="75719362#1_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="2.78" length="104.18" shape="15971.52,13530.10 15970.84,13534.30 15976.39,13594.89 15977.26,13603.44 15979.55,13608.43 15982.75,13612.42 15986.56,13615.74 15992.66,13619.28">
+            <param key="origId" value="75719362"/>
+        </lane>
+    </edge>
+
+    <junction id="893943565" type="dead_end" x="15952.37" y="13401.43" incLanes="75719355_0" intLanes="" shape="15952.37,13401.43 15949.17,13401.56 15952.37,13401.43"/>
+    <junction id="893943583" type="right_before_left" x="15953.94" y="13440.74" incLanes="-75719358_0 75719357#1_0 -75719355_0" intLanes="" shape="15951.05,13448.15 15957.44,13447.88 15957.79,13445.65 15958.32,13444.87 15959.07,13444.30 15960.06,13443.95 15961.27,13443.82 15961.17,13437.42 15958.84,13437.01 15958.01,13436.47 15957.40,13435.70 15957.02,13434.71 15956.85,13433.49 15950.46,13433.75">
+        <request index="0" response="000000" foes="001000"/>
+        <request index="1" response="110000" foes="111000"/>
+        <request index="2" response="000000" foes="100000"/>
+        <request index="3" response="000011" foes="100011"/>
+        <request index="4" response="000000" foes="000010"/>
+        <request index="5" response="001100" foes="001110"/>
+    </junction>
+    <junction id="893943589" type="dead_end" x="16010.70" y="13433.11" incLanes="-75719357#1_0" intLanes="" shape="16010.70,13433.11 16008.95,13430.43 16010.70,13433.11"/>
+    <junction id="893943596" type="right_before_left" x="15971.00" y="13524.11" incLanes="75719362#0_0 75719358_0 -75719362#1_0" intLanes="" shape="15976.99,13521.18 15971.77,13517.48 15970.05,13519.32 15969.23,13519.73 15968.45,13519.79 15967.71,13519.51 15966.93,13518.81 15964.36,13524.71 15965.95,13525.79 15966.45,13526.50 15966.76,13527.31 15966.88,13528.23 15966.80,13529.23 15973.10,13530.39 15973.47,13528.25 15973.83,13526.70 15974.27,13525.45 15974.88,13524.28 15975.76,13522.93">
+        <request index="0" response="000000" foes="001000"/>
+        <request index="1" response="110000" foes="111000"/>
+        <request index="2" response="000000" foes="100000"/>
+        <request index="3" response="000011" foes="100011"/>
+        <request index="4" response="000000" foes="000010"/>
+        <request index="5" response="001100" foes="001110"/>
+    </junction>
+    <junction id="893943598" type="dead_end" x="16027.22" y="13506.07" incLanes="-75719362#0_0" intLanes="" shape="16027.22,13506.07 16026.98,13502.88 16027.22,13506.07"/>
+    <junction id="893943607" type="dead_end" x="15991.86" y="13620.66" incLanes="75719362#1_0" intLanes="" shape="15991.86,13620.66 15993.46,13617.89 15991.86,13620.66"/>
+
+    <connection from="-75719355" to="-75719357#1" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="-75719355" to="75719358" fromLane="0" toLane="0" dir="s" state="="/>
+    <connection from="-75719358" to="75719355" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="-75719358" to="-75719357#1" fromLane="0" toLane="0" dir="l" state="="/>
+    <connection from="-75719362#1" to="-75719358" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="-75719362#1" to="-75719362#0" fromLane="0" toLane="0" dir="s" state="="/>
+    <connection from="75719357#1" to="75719358" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="75719357#1" to="75719355" fromLane="0" toLane="0" dir="l" state="="/>
+    <connection from="75719358" to="-75719362#0" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="75719358" to="75719362#1" fromLane="0" toLane="0" dir="l" state="="/>
+    <connection from="75719362#0" to="75719362#1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="75719362#0" to="-75719358" fromLane="0" toLane="0" dir="l" state="="/>
+
+
+</net>

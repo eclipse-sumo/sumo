@@ -2902,7 +2902,7 @@ NBEdge::applyTurnSigns() {
                             && (to->getPermissions(toLaneIndex[to] + 1) & fromP) != 0) {
                         toLaneIndex[to]++;
                     } else if (toLaneIndex[to] < to->getNumLanes() - 2
-                            && (to->getPermissions(toLaneIndex[to] + 2) & fromP) != 0){
+                               && (to->getPermissions(toLaneIndex[to] + 2) & fromP) != 0) {
                         // skip forbidden lane
                         toLaneIndex[to] += 2;
                     }

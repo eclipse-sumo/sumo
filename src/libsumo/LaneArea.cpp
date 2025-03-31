@@ -129,6 +129,11 @@ LaneArea::getIntervalMeanSpeed(const std::string& detID) {
 }
 
 double
+LaneArea::getIntervalMeanTimeLoss(const std::string& detID) {
+    return getDetector(detID)->getIntervalMeanTimeLoss();
+}
+
+double
 LaneArea::getIntervalMaxJamLengthInMeters(const std::string& detID) {
     return getDetector(detID)->getIntervalMaxJamLengthInMeters();
 }
@@ -146,6 +151,11 @@ LaneArea::getLastIntervalOccupancy(const std::string& detID) {
 double
 LaneArea::getLastIntervalMeanSpeed(const std::string& detID) {
     return getDetector(detID)->getLastIntervalMeanSpeed();
+}
+
+double
+LaneArea::getLastIntervalMeanTimeLoss(const std::string& detID) {
+    return getDetector(detID)->getLastIntervalMeanTimeLoss();
 }
 
 double
@@ -262,6 +272,8 @@ LaneArea::handleVariable(const std::string& objID, const int variable, VariableW
             return wrapper->wrapDouble(objID, variable, getIntervalOccupancy(objID));
         case VAR_INTERVAL_SPEED:
             return wrapper->wrapDouble(objID, variable, getIntervalMeanSpeed(objID));
+        case VAR_INTERVAL_TIMELOSS:
+            return wrapper->wrapDouble(objID, variable, getIntervalMeanTimeLoss(objID));
         case VAR_INTERVAL_MAX_JAM_LENGTH_METERS:
             return wrapper->wrapDouble(objID, variable, getIntervalMaxJamLengthInMeters(objID));
         case VAR_INTERVAL_NUMBER:
@@ -270,6 +282,8 @@ LaneArea::handleVariable(const std::string& objID, const int variable, VariableW
             return wrapper->wrapDouble(objID, variable, getLastIntervalOccupancy(objID));
         case VAR_LAST_INTERVAL_SPEED:
             return wrapper->wrapDouble(objID, variable, getLastIntervalMeanSpeed(objID));
+        case VAR_LAST_INTERVAL_TIMELOSS:
+            return wrapper->wrapDouble(objID, variable, getLastIntervalMeanTimeLoss(objID));
         case VAR_LAST_INTERVAL_MAX_JAM_LENGTH_METERS:
             return wrapper->wrapDouble(objID, variable, getLastIntervalMaxJamLengthInMeters(objID));
         case VAR_LAST_INTERVAL_NUMBER:

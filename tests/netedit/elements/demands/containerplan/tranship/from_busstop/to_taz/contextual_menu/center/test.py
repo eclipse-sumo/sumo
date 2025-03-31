@@ -61,7 +61,7 @@ netedit.inspectMode()
 
 # transform
 netedit.contextualMenuOperation(referencePosition, netedit.positions.elements.demands.TAZRed,
-                                netedit.contextualMenu.vehicles.center)
+                                netedit.contextualMenu.center)
 
 # Check undos
 netedit.undo(referencePosition, 1)

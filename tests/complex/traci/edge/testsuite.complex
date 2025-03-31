@@ -6,3 +6,6 @@ setMaxSpeed
 
 # retrieve bidi lane
 bidi
+
+# see #16422
+subscribeContextVehicles

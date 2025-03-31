@@ -38,12 +38,7 @@
 // ===========================================================================
 
 GNEOverheadWire::GNEOverheadWire(GNENet* net) :
-    GNEAdditional("", net, "", GLO_OVERHEAD_WIRE_SEGMENT, SUMO_TAG_OVERHEAD_WIRE_SECTION, GUIIcon::OVERHEADWIRE, ""),
-    myStartPos(0),
-    myEndPos(0),
-    myFriendlyPosition(false) {
-    // reset default values
-    resetDefaultValues();
+    GNEAdditional("", net, "", GLO_OVERHEAD_WIRE_SEGMENT, SUMO_TAG_OVERHEAD_WIRE_SECTION, GUIIcon::OVERHEADWIRE, "") {
 }
 
 
@@ -89,7 +84,7 @@ GNEOverheadWire::writeAdditional(OutputDevice& device) const {
     device.writeAttr(SUMO_ATTR_STARTPOS, myStartPos);
     device.writeAttr(SUMO_ATTR_ENDPOS, myEndPos);
     if (myFriendlyPosition) {
-        device.writeAttr(SUMO_ATTR_FRIENDLY_POS, true);
+        device.writeAttr(SUMO_ATTR_FRIENDLY_POS, myFriendlyPosition);
     }
     if (!myForbiddenInnerLanes.empty()) {
         device.writeAttr(SUMO_ATTR_OVERHEAD_WIRE_FORBIDDEN, myForbiddenInnerLanes);

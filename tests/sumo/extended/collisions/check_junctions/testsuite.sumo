@@ -17,3 +17,6 @@ stoptime_warn
 
 # see #11609
 short_edge
+
+# see #16414
+straight_bike_vs_turning_car

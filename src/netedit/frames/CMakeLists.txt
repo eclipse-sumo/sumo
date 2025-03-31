@@ -14,6 +14,8 @@ set(netedit_frames_SRCS
    GNEDrawingShape.h
    GNEElementTree.cpp
    GNEElementTree.h
+   GNEMatchAttribute.h
+   GNEMatchAttribute.cpp
    GNENetworkSelector.cpp
    GNENetworkSelector.h
    GNEOverlappedInspection.cpp
@@ -26,8 +28,6 @@ set(netedit_frames_SRCS
    GNESelectorParent.h
    GNETagSelector.cpp
    GNETagSelector.h
-   GNEFlowEditor.h
-   GNEFlowEditor.cpp
    GNETLSTable.h
    GNETLSTable.cpp
    GNEPlanSelector.h

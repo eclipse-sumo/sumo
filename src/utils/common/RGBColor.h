@@ -122,6 +122,9 @@ public:
      */
     static RGBColor parseColor(std::string coldef);
 
+    /// @brief check if the given string can be parsed to color
+    static bool isColor(std::string coldef);
+
     /** @brief Parses a color information
      *
      * It is assumed that the color is stored as "<RED>,<GREEN>,<BLUE>"

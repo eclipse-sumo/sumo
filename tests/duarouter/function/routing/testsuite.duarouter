@@ -26,6 +26,10 @@ astar_landmark_save_geo_parallel
 # landmark routing with taz
 astar_landmark_taz
 
+# landmark routing with taz but the taz were not included when building the table
+astar_landmark_taz_missing
+astar_landmark_table_incomplete
+
 # missing landmark edge
 astar_landmark_missing
 

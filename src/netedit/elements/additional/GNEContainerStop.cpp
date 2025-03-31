@@ -33,8 +33,6 @@
 
 GNEContainerStop::GNEContainerStop(GNENet* net) :
     GNEStoppingPlace(net, GLO_CONTAINER_STOP, SUMO_TAG_CONTAINER_STOP, GUIIcon::CONTAINERSTOP) {
-    // reset default values
-    resetDefaultValues();
 }
 
 
@@ -69,7 +67,7 @@ GNEContainerStop::writeAdditional(OutputDevice& device) const {
         device.writeAttr(SUMO_ATTR_ENDPOS, myEndPosition);
     }
     if (myFriendlyPosition) {
-        device.writeAttr(SUMO_ATTR_FRIENDLY_POS, "true");
+        device.writeAttr(SUMO_ATTR_FRIENDLY_POS, myFriendlyPosition);
     }
     if (getAttribute(SUMO_ATTR_LINES) != myTagProperty->getDefaultStringValue(SUMO_ATTR_LINES)) {
         device.writeAttr(SUMO_ATTR_LINES, toString(myLines));
@@ -184,7 +182,7 @@ GNEContainerStop::drawGL(const GUIVisualizationSettings& s) const {
 std::string
 GNEContainerStop::getAttribute(SumoXMLAttr key) const {
     switch (key) {
-        
+
         case SUMO_ATTR_LINES:
             return joinToString(myLines, " ");
         case SUMO_ATTR_CONTAINER_CAPACITY:
@@ -222,7 +220,7 @@ bool
 GNEContainerStop::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_LINES:
-            return canParse<std::vector<std::string> >(value);
+            return true;
         case SUMO_ATTR_CONTAINER_CAPACITY:
             return canParse<int>(value) && (parse<int>(value) >= 0);
         case SUMO_ATTR_PARKING_LENGTH:

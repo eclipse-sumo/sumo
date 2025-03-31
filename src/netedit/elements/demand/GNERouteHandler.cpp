@@ -1746,13 +1746,13 @@ GNERouteHandler::transformToRouteFlow(GNEVehicle* originalVehicle, bool createEm
         FXMessageBox::warning(originalVehicle->getNet()->getViewNet()->getApp(), MBOX_OK, header.c_str(), "%s", message.c_str());
     } else {
         // begin undo-redo operation
-        net->getViewNet()->getUndoList()->begin(originalVehicle, "transform " + originalVehicle->getTagStr() + " to " + toString(SUMO_TAG_VEHICLE));
+        net->getViewNet()->getUndoList()->begin(originalVehicle, "transform " + originalVehicle->getTagStr() + " to " + toString(GNE_TAG_FLOW_ROUTE));
         // first delete vehicle
         net->deleteDemandElement(originalVehicle, net->getViewNet()->getUndoList());
         // change depart
-        if (!originalVehicle->getNet()->getViewNet()->getNet()->getTagPropertiesDatabase()->getTagProperty(vehicleParameters.tag)->isFlow()) {
+        if (!originalVehicle->getTagProperty()->isFlow()) {
             // get template flow
-            const auto templateFlow = net->getViewNet()->getViewParent()->getVehicleFrame()->getVehicleTagSelector()->getTemplateAC(GNE_TAG_FLOW_ROUTE);
+            const auto templateFlow = net->getViewNet()->getNet()->getACTemplates()->getTemplateAC(GNE_TAG_FLOW_ROUTE);
             // set flow parameters
             vehicleParameters.repetitionEnd = vehicleParameters.depart + string2time("3600");
             vehicleParameters.repetitionNumber = GNEAttributeCarrier::parse<int>(templateFlow->getAttribute(SUMO_ATTR_NUMBER));
@@ -1900,9 +1900,9 @@ GNERouteHandler::transformToFlow(GNEVehicle* originalVehicle) {
             net->deleteDemandElement(route, net->getViewNet()->getUndoList());
         }
         // change depart
-        if (!originalVehicle->getNet()->getViewNet()->getNet()->getTagPropertiesDatabase()->getTagProperty(vehicleParameters.tag)->isFlow()) {
+        if (!originalVehicle->getTagProperty()->isFlow()) {
             // get template flow
-            const auto templateFlow = net->getViewNet()->getViewParent()->getVehicleFrame()->getVehicleTagSelector()->getTemplateAC(GNE_TAG_FLOW_ROUTE);
+            const auto templateFlow = net->getViewNet()->getNet()->getACTemplates()->getTemplateAC(GNE_TAG_FLOW_ROUTE);
             // set flow parameters
             vehicleParameters.repetitionEnd = vehicleParameters.depart + string2time("3600");
             vehicleParameters.repetitionNumber = GNEAttributeCarrier::parse<int>(templateFlow->getAttribute(SUMO_ATTR_NUMBER));
@@ -1994,7 +1994,7 @@ GNERouteHandler::transformToFlowJunctions(GNEVehicle* originalVehicle) {
         // first delete vehicle
         net->deleteDemandElement(originalVehicle, net->getViewNet()->getUndoList());
         // get template flow
-        const auto templateFlow = net->getViewNet()->getViewParent()->getVehicleFrame()->getVehicleTagSelector()->getTemplateAC(GNE_TAG_FLOW_JUNCTIONS);
+        const auto templateFlow = net->getViewNet()->getNet()->getACTemplates()->getTemplateAC(GNE_TAG_FLOW_JUNCTIONS);
         // set flow parameters
         vehicleParameters.repetitionEnd = vehicleParameters.depart + string2time("3600");
         vehicleParameters.repetitionNumber = GNEAttributeCarrier::parse<int>(templateFlow->getAttribute(SUMO_ATTR_NUMBER));
@@ -2085,7 +2085,7 @@ GNERouteHandler::transformToFlowTAZs(GNEVehicle* originalVehicle) {
         // first delete vehicle
         net->deleteDemandElement(originalVehicle, net->getViewNet()->getUndoList());
         // get template flow
-        const auto templateFlow = net->getViewNet()->getViewParent()->getVehicleFrame()->getVehicleTagSelector()->getTemplateAC(GNE_TAG_FLOW_TAZS);
+        const auto templateFlow = net->getViewNet()->getNet()->getACTemplates()->getTemplateAC(GNE_TAG_FLOW_TAZS);
         // set flow parameters
         vehicleParameters.repetitionEnd = vehicleParameters.depart + string2time("3600");
         vehicleParameters.repetitionNumber = GNEAttributeCarrier::parse<int>(templateFlow->getAttribute(SUMO_ATTR_NUMBER));

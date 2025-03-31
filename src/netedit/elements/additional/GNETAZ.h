@@ -196,6 +196,9 @@ protected:
     /// @brief TAZ center contour
     GNEContour myTAZCenterContour;
 
+    /// @brief use edges whithin during creation (only in edit mode)
+    bool myEdgesWithin = false;
+
 private:
     /// @brief hint size of vertex
     static const double myHintSize;

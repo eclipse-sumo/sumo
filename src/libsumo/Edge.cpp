@@ -27,6 +27,7 @@
 #include <microsim/MSVehicle.h>
 #include <microsim/MSInsertionControl.h>
 #include <libsumo/Helper.h>
+#include <libsumo/StorageHelper.h>
 #include <libsumo/TraCIDefs.h>
 #include <libsumo/TraCIConstants.h>
 #include <libsumo/Lane.h>
@@ -385,10 +386,8 @@ LIBSUMO_SUBSCRIPTION_IMPLEMENTATION(Edge, EDGE)
 void
 Edge::storeShape(const std::string& edgeID, PositionVector& shape) {
     const MSEdge* const e = getEdge(edgeID);
-    const std::vector<MSLane*>& lanes = e->getLanes();
-    shape = lanes.front()->getShape();
-    if (lanes.size() > 1) {
-        copy(lanes.back()->getShape().begin(), lanes.back()->getShape().end(), back_inserter(shape));
+    for (const MSLane* lane : e->getLanes()) {
+        copy(lane->getShape().begin(), lane->getShape().end(), back_inserter(shape));
     }
 }
 
@@ -406,6 +405,10 @@ Edge::handleVariable(const std::string& objID, const int variable, VariableWrapp
             return wrapper->wrapStringList(objID, variable, getIDList());
         case ID_COUNT:
             return wrapper->wrapInt(objID, variable, getIDCount());
+        case VAR_EDGE_TRAVELTIME:
+            return wrapper->wrapDouble(objID, variable, getAdaptedTraveltime(objID, StoHelp::readTypedDouble(*paramData)));
+        case VAR_EDGE_EFFORT:
+            return wrapper->wrapDouble(objID, variable, getEffort(objID, StoHelp::readTypedDouble(*paramData)));
         case VAR_CURRENT_TRAVELTIME:
             return wrapper->wrapDouble(objID, variable, getTraveltime(objID));
         case VAR_WAITING_TIME:
@@ -449,20 +452,17 @@ Edge::handleVariable(const std::string& objID, const int variable, VariableWrapp
         case VAR_PENDING_VEHICLES:
             return wrapper->wrapStringList(objID, variable, getPendingVehicles(objID));
         case VAR_ANGLE:
-            paramData->readUnsignedByte();
-            return wrapper->wrapDouble(objID, variable, getAngle(objID, paramData->readDouble()));
+            return wrapper->wrapDouble(objID, variable, getAngle(objID, StoHelp::readTypedDouble(*paramData)));
         case FROM_JUNCTION:
             return wrapper->wrapString(objID, variable, getFromJunction(objID));
         case TO_JUNCTION:
             return wrapper->wrapString(objID, variable, getToJunction(objID));
         case VAR_BIDI:
             return wrapper->wrapString(objID, variable, getBidiEdge(objID));
-        case libsumo::VAR_PARAMETER:
-            paramData->readUnsignedByte();
-            return wrapper->wrapString(objID, variable, getParameter(objID, paramData->readString()));
-        case libsumo::VAR_PARAMETER_WITH_KEY:
-            paramData->readUnsignedByte();
-            return wrapper->wrapStringPair(objID, variable, getParameterWithKey(objID, paramData->readString()));
+        case VAR_PARAMETER:
+            return wrapper->wrapString(objID, variable, getParameter(objID, StoHelp::readTypedString(*paramData)));
+        case VAR_PARAMETER_WITH_KEY:
+            return wrapper->wrapStringPair(objID, variable, getParameterWithKey(objID, StoHelp::readTypedString(*paramData)));
         default:
             return false;
     }

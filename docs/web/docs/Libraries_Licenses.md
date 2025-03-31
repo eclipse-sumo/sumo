@@ -12,7 +12,7 @@ here except for the cases where we deliver binaries for that code.
 All the code which can be found under <SUMO\>/src and <SUMO\>/tools except
 for <SUMO\>/src/foreign and <SUMO\>/tools/contributed is since 03.10.2017
 (revision 26300) licensed under [EPL
-V2](https://eclipse.org/legal/epl-v20.html). All earlier versions were
+V2](https://www.eclipse.org/legal/epl-2.0/). All earlier versions were
 licensed under [GPL V3+](https://gnu.org/licenses/gpl.html). The code in
 <SUMO\>/src/foreign and <SUMO\>/tools/contributed should have separate
 license files but we strive to list them here as well:

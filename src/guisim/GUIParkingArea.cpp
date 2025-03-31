@@ -90,7 +90,7 @@ GUIParkingArea::~GUIParkingArea() {}
 GUIGLObjectPopupMenu*
 GUIParkingArea::getPopUpMenu(GUIMainWindow& app,
                              GUISUMOAbstractView& parent) {
-    GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
+    GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, this);
     buildPopupHeader(ret, app);
     buildCenterPopupEntry(ret);
     buildNameCopyPopupEntry(ret);

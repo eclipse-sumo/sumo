@@ -38,8 +38,6 @@
 
 GNEInstantInductionLoopDetector::GNEInstantInductionLoopDetector(GNENet* net) :
     GNEDetector(net, GLO_E1DETECTOR_INSTANT, SUMO_TAG_INSTANT_INDUCTION_LOOP, GUIIcon::E1INSTANT) {
-    // reset default values
-    resetDefaultValues();
 }
 
 

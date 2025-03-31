@@ -155,6 +155,10 @@ Representation of chargingStation in GUI
 ![](../images/ChargingStationCharging.png "Color of chargingStation during charge")
 Color of chargingStation during charge
 
+!!! note
+    If the charging station shall be positioned on a parking (using the attribute **parkingArea**), the referenced parkingArea has to defined beforehand/loaded before the charging station.
+
+
 ## Stopping at a Charging Station
 
 A stop at a charging station may occur due to traffic conditions,

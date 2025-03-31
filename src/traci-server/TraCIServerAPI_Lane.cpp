@@ -96,11 +96,6 @@ TraCIServerAPI_Lane::processGet(TraCIServer& server, tcpip::Storage& inputStorag
                     server.getWrapperStorage().writeStorage(tempContent);
                     break;
                 }
-                case libsumo::VAR_FOES: {
-                    const std::string toLane = StoHelp::readTypedString(inputStorage, "Foe retrieval requires a string.");
-                    StoHelp::writeTypedStringList(server.getWrapperStorage(), toLane == "" ? libsumo::Lane::getInternalFoes(id) : libsumo::Lane::getFoes(id, toLane));
-                    break;
-                }
                 default:
                     return server.writeErrorStatusCmd(libsumo::CMD_GET_LANE_VARIABLE, "Get Lane Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
             }

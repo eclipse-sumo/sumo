@@ -95,6 +95,8 @@ print("after setLength", traci.lane.getLength(laneID))
 print("foes", traci.lane.getFoes("1si_0", "3o_0"))
 
 traci.lane.subscribe(laneID)
+param = {traci.constants.VAR_ANGLE: 10.0}
+traci.lane.subscribe(laneID, [traci.constants.VAR_ANGLE], parameters=param)
 print(traci.lane.getSubscriptionResults(laneID))
 for step in range(3, 6):
     print("step", step)

@@ -49,8 +49,6 @@ const double GNETAZ::myHintSizeSquared = 0.64;
 GNETAZ::GNETAZ(GNENet* net) :
     GNEAdditional("", net, "", GLO_TAZ, SUMO_TAG_TAZ, GUIIcon::TAZ, ""),
     TesselatedPolygon("", "", RGBColor::BLACK, {}, false, false, 1, Shape::DEFAULT_LAYER, Shape::DEFAULT_ANGLE, Shape::DEFAULT_IMG_FILE, "") {
-    // reset default values
-    resetDefaultValues();
 }
 
 
@@ -77,7 +75,7 @@ GNETAZ::getMoveOperation() {
     if (myTAZCenter.distanceSquaredTo2D(myNet->getViewNet()->getPositionInformation()) < (snap_radius * snap_radius)) {
         // move entire shape
         return new GNEMoveOperation(this, myTAZCenter);
-    } else if (myNet->getViewNet()->getViewParent()->getMoveFrame()->getNetworkModeOptions()->getMoveWholePolygons()) {
+    } else if (myNet->getViewNet()->getViewParent()->getMoveFrame()->getNetworkMoveOptions()->getMoveWholePolygons()) {
         // move entire shape
         return new GNEMoveOperation(this, myShape);
     } else {
@@ -274,16 +272,15 @@ GNETAZ::getParentName() const {
 
 GUIGLObjectPopupMenu*
 GNETAZ::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
-    GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
-    buildPopupHeader(ret, app);
-    buildCenterPopupEntry(ret);
-    buildNameCopyPopupEntry(ret);
-    // build selection and show parameters menu
-    myNet->getViewNet()->buildSelectionACPopupEntry(ret, this);
-    buildShowParamsPopupEntry(ret);
+    // create popup
+    GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, this);
+    // build common options
+    buildPopUpMenuCommonOptions(ret, app, myNet->getViewNet(), myTagProperty->getTag(), mySelected, false);
     // create a extra FXMenuCommand if mouse is over a vertex
     const int index = getVertexIndex(myNet->getViewNet()->getPositionInformation(), false);
     if (index != -1) {
+        // add separator
+        new FXMenuSeparator(ret);
         // check if we're in network mode
         if (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE) {
             GUIDesigns::buildFXMenuCommand(ret, TL("Set custom Geometry Point"), nullptr, &parent, MID_GNE_CUSTOM_GEOMETRYPOINT);
@@ -332,7 +329,7 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
                 GLHelper::popMatrix();
             }
             // draw contour if shape isn't blocked
-            if (!myNet->getViewNet()->getViewParent()->getMoveFrame()->getNetworkModeOptions()->getMoveWholePolygons()) {
+            if (!myNet->getViewNet()->getViewParent()->getMoveFrame()->getNetworkMoveOptions()->getMoveWholePolygons()) {
                 // push contour matrix
                 GLHelper::pushMatrix();
                 // translate to front
@@ -435,6 +432,8 @@ GNETAZ::getAttribute(SumoXMLAttr key) const {
             }
             return toString(edgeIDs);
         }
+        case GNE_ATTR_EDGES_WITHIN:
+            return toString(myEdgesWithin);
         case GNE_ATTR_MIN_SOURCE:
             if (myMinWeightSource == INVALID_DOUBLE) {
                 return "undefined";
@@ -530,6 +529,7 @@ GNETAZ::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* und
         case SUMO_ATTR_NAME:
         case SUMO_ATTR_FILL:
         case SUMO_ATTR_EDGES:
+        case GNE_ATTR_EDGES_WITHIN:
             GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
         default:
@@ -568,6 +568,8 @@ GNETAZ::isValid(SumoXMLAttr key, const std::string& value) {
             } else {
                 return SUMOXMLDefinitions::isValidListOfTypeID(value);
             }
+        case GNE_ATTR_EDGES_WITHIN:
+            return canParse<bool>(value);
         default:
             return isCommonValid(key, value);
     }
@@ -696,6 +698,9 @@ GNETAZ::setAttribute(SumoXMLAttr key, const std::string& value) {
             resetAdditionalContour();
             break;
         case SUMO_ATTR_EDGES:
+            break;
+        case GNE_ATTR_EDGES_WITHIN:
+            myEdgesWithin = parse<bool>(value);
             break;
         default:
             setCommonAttribute(this, key, value);

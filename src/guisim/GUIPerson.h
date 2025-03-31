@@ -197,7 +197,7 @@ public:
          * @param[in] parent The parent view for changing it
          * @param[in] o The object of interest
          */
-        GUIPersonPopupMenu(GUIMainWindow& app, GUISUMOAbstractView& parent, GUIGlObject& o);
+        GUIPersonPopupMenu(GUIMainWindow& app, GUISUMOAbstractView& parent, GUIGlObject* o);
 
         /// @brief Destructor
         ~GUIPersonPopupMenu();

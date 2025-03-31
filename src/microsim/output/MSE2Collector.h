@@ -515,6 +515,9 @@ public:
     double getIntervalMeanSpeed() const {
         return myVehicleSamples != 0 ? mySpeedSum / myVehicleSamples : -1;
     }
+    double getIntervalMeanTimeLoss() const {
+        return myNumberOfSeenVehicles != 0 ? myTotalTimeLoss / myNumberOfSeenVehicles : -1;
+    }
     double getIntervalMaxJamLengthInMeters() const {
         return myMaxJamInMeters;
     }
@@ -527,6 +530,9 @@ public:
     }
     double getLastIntervalMeanSpeed() const {
         return myPreviousMeanSpeed;
+    }
+    double getLastIntervalMeanTimeLoss() const {
+        return myPreviousMeanTimeLoss;
     }
     double getLastIntervalMaxJamLengthInMeters() const {
         return myPreviousMaxJamLengthInMeters;
@@ -801,6 +807,8 @@ private:
     double myCurrentOccupancy;
     /// @brief The current mean speed
     double myCurrentMeanSpeed;
+    /// @brief The current mean timeLoss
+    double myCurrentMeanTimeLoss;
     /// @brief The current mean length
     double myCurrentMeanLength;
     /// @brief The current jam number
@@ -823,6 +831,7 @@ private:
     /// @{
     double myPreviousMeanOccupancy;
     double myPreviousMeanSpeed;
+    double myPreviousMeanTimeLoss;
     double myPreviousMaxJamLengthInMeters;
     int myPreviousNumberOfSeenVehicles;
     /// @}

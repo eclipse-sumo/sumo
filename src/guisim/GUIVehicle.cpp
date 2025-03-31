@@ -321,7 +321,7 @@ GUIVehicle::drawAction_drawLinkItems(const GUIVisualizationSettings& s) const {
 
 
 void
-GUIVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& s, bool asImage) const {
+GUIVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& s, double scaledLength, bool asImage) const {
     RGBColor current = GLHelper::getColor();
     RGBColor darker = current.changedBrightness(-51);
     const double exaggeration = (s.vehicleSize.getExaggeration(s, this)
@@ -329,8 +329,7 @@ GUIVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& s, bool
     if (exaggeration == 0) {
         return;
     }
-    // bool reversed =
-    MSTrainHelper trainHelper(this, isReversed() && s.drawReversed, s.secondaryShape, exaggeration, s.vehicleQuality);
+    MSTrainHelper trainHelper(this, scaledLength, isReversed() && s.drawReversed, s.secondaryShape, exaggeration, s.vehicleQuality);
     const int numCarriages = trainHelper.getNumCarriages();
     const int firstPassengerCarriage = trainHelper.getFirstPassengerCarriage();
     const int noPersonsBackCarriages = (getVehicleType().getGuiShape() == SUMOVehicleShape::TRUCK_SEMITRAILER || getVehicleType().getGuiShape() == SUMOVehicleShape::TRUCK_1TRAILER) && numCarriages > 1 ? 1 : 0;
@@ -348,7 +347,7 @@ GUIVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& s, bool
     }
     GLHelper::popMatrix(); // undo initial translation and rotation
     const double xCornerCut = 0.3 * exaggeration;
-    const double yCornerCut = 0.4 * trainHelper.getUpscaleLength();
+    const double yCornerCut = MIN2(0.4 * trainHelper.getUpscaleLength(),  trainHelper.getUpscaleLength() * scaledLength / 4);
     Position front, back;
     double angle = 0.0;
     double curCLength = trainHelper.getFirstCarriageLength();

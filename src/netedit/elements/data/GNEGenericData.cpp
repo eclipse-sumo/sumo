@@ -119,6 +119,10 @@ GNEGenericData::checkDrawToContour() const {
 
 bool
 GNEGenericData::checkDrawRelatedContour() const {
+    // check opened popup
+    if (myNet->getViewNet()->getPopup()) {
+        return myNet->getViewNet()->getPopup()->getGLObject() == this;
+    }
     return false;
 }
 
@@ -139,6 +143,12 @@ GNEGenericData::checkDrawDeleteContour() const {
     } else {
         return false;
     }
+}
+
+
+bool
+GNEGenericData::checkDrawDeleteContourSmall() const {
+    return false;
 }
 
 
@@ -181,19 +191,10 @@ GNEGenericData::fixGenericDataProblem() {
 
 GUIGLObjectPopupMenu*
 GNEGenericData::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
-    GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
-    // build header
-    buildPopupHeader(ret, app);
-    // build menu command for center button and copy cursor position to clipboard
-    buildCenterPopupEntry(ret);
-    buildPositionCopyEntry(ret, app);
-    // build menu commands for names
-    GUIDesigns::buildFXMenuCommand(ret, TLF("Copy % name to clipboard", getTagStr()), nullptr, ret, MID_COPY_NAME);
-    GUIDesigns::buildFXMenuCommand(ret, TLF("Copy % name to clipboard", getTagStr()), nullptr, ret, MID_COPY_TYPED_NAME);
-    new FXMenuSeparator(ret);
-    // build selection and show parameters menu
-    myDataIntervalParent->getNet()->getViewNet()->buildSelectionACPopupEntry(ret, this);
-    buildShowParamsPopupEntry(ret);
+    // create popup
+    GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, this);
+    // build common options
+    buildPopUpMenuCommonOptions(ret, app, myNet->getViewNet(), myTagProperty->getTag(), mySelected);
     // show option to open additional dialog
     if (myTagProperty->hasDialog()) {
         GUIDesigns::buildFXMenuCommand(ret, (TLF("Open % Dialog", getTagStr())).c_str(), getACIcon(), &parent, MID_OPEN_ADDITIONAL_DIALOG);

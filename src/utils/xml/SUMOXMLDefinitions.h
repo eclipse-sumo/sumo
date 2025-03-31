@@ -127,8 +127,10 @@ enum SumoXMLTag {
     SUMO_TAG_ROUTE_PROB_REROUTE,
     /// @brief entry for an alternative parking zone
     SUMO_TAG_PARKING_AREA_REROUTE,
-    /// @brief probability of a via fora reroute
+    /// @brief probability of a via reroute
     SUMO_TAG_VIA_PROB_REROUTE,
+    /// @brief decision point for rerouting to be overtaken
+    SUMO_TAG_OVERTAKING_REROUTE,
     /// @brief A variable speed sign
     SUMO_TAG_VSS,
     /// @brief VSS Symbol
@@ -796,6 +798,30 @@ enum SumoXMLTag {
     GNE_TAG_STOPCONTAINER_CONTAINERSTOP,
     GNE_TAG_STOPCONTAINER_CHARGINGSTATION,
     GNE_TAG_STOPCONTAINER_PARKINGAREA,
+    // @brief netedit sets
+    GNE_TAG_SUPERMODE_NETWORK,
+    GNE_TAG_SUPERMODE_DEMAND,
+    GNE_TAG_SUPERMODE_DATA,
+    GNE_TAG_STOPPINGPLACES,
+    GNE_TAG_DETECTORS,
+    GNE_TAG_SHAPES,
+    GNE_TAG_TAZS,
+    GNE_TAG_WIRES,
+    GNE_TAG_JUPEDSIM,
+    GNE_TAG_FLOWS,
+    GNE_TAG_STOPS,
+    GNE_TAG_PERSONPLANS,
+    GNE_TAG_PERSONTRIPS,
+    GNE_TAG_RIDES,
+    GNE_TAG_WALKS,
+    GNE_TAG_PERSONSTOPS,
+    GNE_TAG_CONTAINERPLANS,
+    GNE_TAG_TRANSPORTS,
+    GNE_TAG_TRANSHIPS,
+    GNE_TAG_CONTAINERSTOPS,
+    GNE_TAG_DATAS,
+    // @brief attributes
+    GNE_TAG_ATTRIBUTES_ALL,
     /// @}
 
     /// @brief invalid tag, must be the last one
@@ -1672,6 +1698,8 @@ enum SumoXMLAttr {
     SUMO_ATTR_ORIGIN,
     SUMO_ATTR_DESTINATION,
     SUMO_ATTR_VISIBLE,
+    SUMO_ATTR_MAIN,
+    SUMO_ATTR_SIDING,
     SUMO_ATTR_LIMIT,
     SUMO_ATTR_ACTIVE,
     SUMO_ATTR_ARRIVALTIME,
@@ -1856,7 +1884,7 @@ enum SumoXMLAttr {
     GNE_ATTR_DATA_FILE,
     /// @brief meanData data file
     GNE_ATTR_MEANDATA_FILE,
-    // virtual attributes for easier UI
+    // @brief virtual attributes for easier UI
     GNE_ATTR_FROM_BUSSTOP,
     GNE_ATTR_FROM_TRAINSTOP,
     GNE_ATTR_FROM_CONTAINERSTOP,
@@ -1865,6 +1893,10 @@ enum SumoXMLAttr {
     GNE_ATTR_FROM_ROUTE,
     GNE_ATTR_IS_ROUNDABOUT,
     GNE_ATTR_FRONTELEMENT,
+    /// @brief virtual attribute used for use edges within during TAZ creation
+    GNE_ATTR_EDGES_WITHIN,
+    /// @brief no common attributes
+    GNE_ATTR_NOCOMMON,
     // @}
 
     /// @name train parameters
@@ -1902,6 +1934,7 @@ enum SumoXMLAttr {
     SUMO_ATTR_MESO_MINOR_PENALTY,
     SUMO_ATTR_MESO_OVERTAKING,
     // @}
+
     /// @brief invalid attribute, must be the last one
     SUMO_ATTR_NOTHING,
 };
@@ -2434,6 +2467,12 @@ enum class AdditionalFileExtension {
     ALL,
 };
 
+/// @brief additional file extension
+enum class ShapesFileExtension {
+    XML,
+    ALL,
+};
+
 /// @brief route file extension
 enum class RouteFileExtension {
     ROU_XML,
@@ -2592,6 +2631,9 @@ public:
 
     /// @brief additional file extensions
     static StringBijection<AdditionalFileExtension> AdditionalFileExtensions;
+
+    /// @brief additional file extensions
+    static StringBijection<ShapesFileExtension> ShapesFileExtensions;
 
     /// @brief route file extensions
     static StringBijection<RouteFileExtension> RouteFileExtensions;
@@ -2776,6 +2818,9 @@ private:
 
     /// @brief additional file extension values
     static StringBijection<AdditionalFileExtension>::Entry additionalFileExtensionValues[];
+
+    /// @brief additional file extension values
+    static StringBijection<ShapesFileExtension>::Entry shapesFileExtensionValues[];
 
     /// @brief route file extension values
     static StringBijection<RouteFileExtension>::Entry routeFileExtensionsValues[];

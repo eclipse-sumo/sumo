@@ -43,8 +43,6 @@
 
 GNELaneAreaDetector::GNELaneAreaDetector(SumoXMLTag tag, GNENet* net) :
     GNEDetector(net, GLO_E2DETECTOR, tag, GUIIcon::E2) {
-    // reset default values
-    resetDefaultValues();
 }
 
 
@@ -102,14 +100,14 @@ GNELaneAreaDetector::writeAdditional(OutputDevice& device) const {
     if (myTrafficLight.size() > 0) {
         device.writeAttr(SUMO_ATTR_TLID, myTrafficLight);
     }
-    if (mySpeedThreshold != myTagProperty->getDefaultDoubleValue(SUMO_ATTR_HALTING_TIME_THRESHOLD)) {
-        device.writeAttr(SUMO_ATTR_HALTING_TIME_THRESHOLD, mySpeedThreshold);
+    if (myTimeThreshold != myTagProperty->getDefaultTimeValue(SUMO_ATTR_HALTING_TIME_THRESHOLD)) {
+        device.writeAttr(SUMO_ATTR_HALTING_TIME_THRESHOLD, time2string(myTimeThreshold));
     }
     if (mySpeedThreshold != myTagProperty->getDefaultDoubleValue(SUMO_ATTR_HALTING_SPEED_THRESHOLD)) {
         device.writeAttr(SUMO_ATTR_HALTING_SPEED_THRESHOLD, mySpeedThreshold);
     }
-    if (mySpeedThreshold != myTagProperty->getDefaultDoubleValue(SUMO_ATTR_JAM_DIST_THRESHOLD)) {
-        device.writeAttr(SUMO_ATTR_JAM_DIST_THRESHOLD, mySpeedThreshold);
+    if (myJamThreshold != myTagProperty->getDefaultDoubleValue(SUMO_ATTR_JAM_DIST_THRESHOLD)) {
+        device.writeAttr(SUMO_ATTR_JAM_DIST_THRESHOLD, myJamThreshold);
     }
     if (myShow != myTagProperty->getDefaultBoolValue(SUMO_ATTR_SHOW_DETECTOR)) {
         device.writeAttr(SUMO_ATTR_SHOW_DETECTOR, myShow);
@@ -475,11 +473,8 @@ GNELaneAreaDetector::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_LANES:
             if (value.empty()) {
                 return false;
-            } else if (canParse<std::vector<GNELane*> >(myNet, value, false)) {
-                // check if lanes are consecutives
-                return lanesConsecutives(parse<std::vector<GNELane*> >(myNet, value));
             } else {
-                return false;
+                return canParse<std::vector<GNELane*> >(myNet, value, true);
             }
         case SUMO_ATTR_ENDPOS:
             return canParse<double>(value);

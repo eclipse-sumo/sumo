@@ -123,7 +123,7 @@ FXDEFMAP(GUIApplicationWindow) GUIApplicationWindowMap[] = {
 #endif
     // Time
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_A_MODE_STARTSIMULATION_ADDITIONALS_STOPS,        GUIApplicationWindow::onCmdStart),
-    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_A_STARTSIMULATION_OPENADDITIONALS,          GUIApplicationWindow::onCmdStart),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_A_STARTSIMULATION_OPENADDITIONALELEMENTS,          GUIApplicationWindow::onCmdStart),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_S_MODE_STOPSIMULATION_SELECT,                    GUIApplicationWindow::onCmdStop),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_S_STOPSIMULATION_SAVENETWORK,               GUIApplicationWindow::onCmdStop),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_D_MODE_SINGLESIMULATIONSTEP_DELETE,              GUIApplicationWindow::onCmdStep),
@@ -152,7 +152,7 @@ FXDEFMAP(GUIApplicationWindow) GUIApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_QUICK_RELOAD,                               GUIApplicationWindow::onUpdReload),
     FXMAPFUNC(SEL_UPDATE,   MID_RECENTFILE,                                             GUIApplicationWindow::onUpdOpenRecent),
     FXMAPFUNC(SEL_UPDATE,   MID_NEW_MICROVIEW,                                          GUIApplicationWindow::onUpdAddView),
-    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_A_STARTSIMULATION_OPENADDITIONALS,          GUIApplicationWindow::onUpdStart),
+    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_A_STARTSIMULATION_OPENADDITIONALELEMENTS,          GUIApplicationWindow::onUpdStart),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_S_STOPSIMULATION_SAVENETWORK,               GUIApplicationWindow::onUpdStop),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_D_SINGLESIMULATIONSTEP_OPENDEMANDELEMENTS,  GUIApplicationWindow::onUpdStep),
     FXMAPFUNC(SEL_UPDATE,   MID_SIMSAVE,                                                GUIApplicationWindow::onUpdNeedsNetwork),
@@ -588,7 +588,7 @@ GUIApplicationWindow::fillMenuBar() {
     GUIDesigns::buildFXMenuTitle(myMenuBar, TL("Simulation"), nullptr, myControlMenu);
     GUIDesigns::buildFXMenuCommandShortcut(myControlMenu,
                                            TL("Run"), "A,space", TL("Start/ Resume the simulation."),
-                                           GUIIconSubSys::getIcon(GUIIcon::START), this, MID_HOTKEY_CTRL_A_STARTSIMULATION_OPENADDITIONALS);
+                                           GUIIconSubSys::getIcon(GUIIcon::START), this, MID_HOTKEY_CTRL_A_STARTSIMULATION_OPENADDITIONALELEMENTS);
     GUIDesigns::buildFXMenuCommandShortcut(myControlMenu,
                                            TLC("Simulation", "Stop"), "S,space", TL("Halt the simulation."),
                                            GUIIconSubSys::getIcon(GUIIcon::STOP), this, MID_HOTKEY_CTRL_S_STOPSIMULATION_SAVENETWORK);
@@ -694,7 +694,7 @@ GUIApplicationWindow::buildToolBars() {
         new FXToolBarGrip(myToolBar2, myToolBar2, FXToolBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
         // build simulation tools
         new MFXButtonTooltip(myToolBar2, myStaticTooltipMenu, TL("\tRun\tStart/Resume the loaded simulation."),
-                             GUIIconSubSys::getIcon(GUIIcon::START), this, MID_HOTKEY_CTRL_A_STARTSIMULATION_OPENADDITIONALS, GUIDesignButtonToolbar);
+                             GUIIconSubSys::getIcon(GUIIcon::START), this, MID_HOTKEY_CTRL_A_STARTSIMULATION_OPENADDITIONALELEMENTS, GUIDesignButtonToolbar);
         new MFXButtonTooltip(myToolBar2, myStaticTooltipMenu, TL("\tStop\tHalt the running simulation."),
                              GUIIconSubSys::getIcon(GUIIcon::STOP), this, MID_HOTKEY_CTRL_S_STOPSIMULATION_SAVENETWORK, GUIDesignButtonToolbar);
         new MFXButtonTooltip(myToolBar2, myStaticTooltipMenu, TL("\tStep\tPerform a single simulation step."),
@@ -1087,7 +1087,7 @@ GUIApplicationWindow::onCmdOpenShapes(FXObject*, FXSelector, void*) {
     FXFileDialog opendialog(this, TL("Open Shapes"));
     opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::OPEN_SHAPES));
     opendialog.setSelectMode(SELECTFILE_EXISTING);
-    opendialog.setPatternList(SUMOXMLDefinitions::AdditionalFileExtensions.getMultilineString().c_str());
+    opendialog.setPatternList(SUMOXMLDefinitions::ShapesFileExtensions.getMultilineString().c_str());
     if (gCurrentFolder.length() != 0) {
         opendialog.setDirectory(gCurrentFolder);
     }
@@ -1443,7 +1443,7 @@ GUIApplicationWindow::onUpdStart(FXObject* sender, FXSelector, void* ptr) {
                    ptr);
     if (myRunThread->simulationIsStartable() && !myAmLoading) {
         // bind start simulation with space key
-        GUIShortcutsSubSys::changeAccelerator(getAccelTable(), this, KEY_SPACE, MID_HOTKEY_CTRL_A_STARTSIMULATION_OPENADDITIONALS);
+        GUIShortcutsSubSys::changeAccelerator(getAccelTable(), this, KEY_SPACE, MID_HOTKEY_CTRL_A_STARTSIMULATION_OPENADDITIONALELEMENTS);
     }
     return 1;
 }

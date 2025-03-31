@@ -94,10 +94,12 @@ The meanings of the written values are given in the following table.
 | pos                 | meters               | The position of the vehicle on a specific lane (distance of the front bumper from the start of the lane)                |
 | speed               | m/s                  | The current speed of the vehicle                                                                                         |
 | angle               | degree               | The angle of the vehicle                                                                                                |
-| pos_x              | \---                 | The absolute X coordinate of the vehicle (center of front bumper). The value depends on the given geographic projection. |
-| pos_y              | \---                 | The absolute Y coordinate of the vehicle (center of front bumper). The value depends on the given geographic projection  |
+| x                   | m                    | The absolute X coordinate of the vehicle (center of front bumper).                                                     |
+| y                   | m                    | The absolute Y coordinate of the vehicle (center of front bumper).                                                     |
+| z                   | m                    | The absolute Z coordinate of the vehicle (center of front bumper, only if the network has elevation data)               |
+| slope               | degrees              | The vehicle angle of inclination to the horizontal (only if the network has elevation data)                             |
 | traveltime          | seconds              | The mean travel time on the specific lane                                                                               |
-| fuel\@lane           | l/km/h               | The fuel consumption on the specific lane                                                                               |
+| fuel\@lane           | l/km/h              | The fuel consumption on the specific lane                                                                               |
 | maxspeed            | m/s                  | The maximum speed of the vehicles on the specific lane                                                                  |
 | meanspeed           | m/s                  | The mean speed of the vehicles on the specific lane                                                                     |
 | occupancy           | %                    | The occupancy of the lane in %                                                                                          |

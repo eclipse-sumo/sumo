@@ -18,6 +18,7 @@
 // Helper for GNENet
 /****************************************************************************/
 
+
 #include <netbuild/NBNetBuilder.h>
 #include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNENet.h>
@@ -25,10 +26,54 @@
 #include <netedit/GNETagPropertiesDatabase.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
+#include <netedit/elements/additional/GNEAccess.h>
+#include <netedit/elements/additional/GNEBusStop.h>
+#include <netedit/elements/additional/GNECalibrator.h>
+#include <netedit/elements/additional/GNECalibratorFlow.h>
+#include <netedit/elements/additional/GNEChargingStation.h>
+#include <netedit/elements/additional/GNEClosingLaneReroute.h>
+#include <netedit/elements/additional/GNEClosingReroute.h>
+#include <netedit/elements/additional/GNEContainerStop.h>
+#include <netedit/elements/additional/GNEDestProbReroute.h>
+#include <netedit/elements/additional/GNEEntryExitDetector.h>
+#include <netedit/elements/additional/GNEInductionLoopDetector.h>
+#include <netedit/elements/additional/GNEInstantInductionLoopDetector.h>
+#include <netedit/elements/additional/GNELaneAreaDetector.h>
+#include <netedit/elements/additional/GNEMultiEntryExitDetector.h>
+#include <netedit/elements/additional/GNEOverheadWire.h>
+#include <netedit/elements/additional/GNEPOI.h>
+#include <netedit/elements/additional/GNEParkingArea.h>
+#include <netedit/elements/additional/GNEParkingAreaReroute.h>
+#include <netedit/elements/additional/GNEParkingSpace.h>
+#include <netedit/elements/additional/GNEPoly.h>
+#include <netedit/elements/additional/GNERerouter.h>
+#include <netedit/elements/additional/GNERerouterInterval.h>
+#include <netedit/elements/additional/GNERerouterSymbol.h>
+#include <netedit/elements/additional/GNERouteProbReroute.h>
+#include <netedit/elements/additional/GNERouteProbe.h>
+#include <netedit/elements/additional/GNETAZ.h>
 #include <netedit/elements/additional/GNETAZSourceSink.h>
+#include <netedit/elements/additional/GNETAZSourceSink.h>
+#include <netedit/elements/additional/GNETractionSubstation.h>
+#include <netedit/elements/additional/GNEVaporizer.h>
+#include <netedit/elements/additional/GNEVariableSpeedSign.h>
+#include <netedit/elements/additional/GNEVariableSpeedSignStep.h>
+#include <netedit/elements/additional/GNEVariableSpeedSignSymbol.h>
 #include <netedit/elements/data/GNEDataInterval.h>
 #include <netedit/elements/data/GNEMeanData.h>
+#include <netedit/elements/demand/GNEContainer.h>
+#include <netedit/elements/demand/GNEPerson.h>
+#include <netedit/elements/demand/GNEPersonTrip.h>
+#include <netedit/elements/demand/GNERide.h>
+#include <netedit/elements/demand/GNERoute.h>
+#include <netedit/elements/demand/GNEStop.h>
+#include <netedit/elements/demand/GNEStopPlan.h>
+#include <netedit/elements/demand/GNETranship.h>
+#include <netedit/elements/demand/GNETransport.h>
 #include <netedit/elements/demand/GNEVType.h>
+#include <netedit/elements/demand/GNEVTypeDistribution.h>
+#include <netedit/elements/demand/GNEVehicle.h>
+#include <netedit/elements/demand/GNEWalk.h>
 #include <netedit/elements/network/GNEConnection.h>
 #include <netedit/elements/network/GNECrossing.h>
 #include <netedit/elements/network/GNEEdgeTemplate.h>
@@ -65,34 +110,34 @@ GNENetHelper::AttributeCarriers::AttributeCarriers(GNENet* net) :
     myStopIndex(0) {
     // fill additionals with tags
     auto additionalTagProperties = myNet->getTagPropertiesDatabase()->getTagPropertiesByType(GNETagProperties::TagType::ADDITIONALELEMENT |
-                                   GNETagProperties::TagType::SHAPE | GNETagProperties::TagType::TAZELEMENT | GNETagProperties::TagType::WIRE, false);
+                                   GNETagProperties::TagType::SHAPE | GNETagProperties::TagType::TAZELEMENT | GNETagProperties::TagType::WIRE);
     for (const auto& additionalTagProperty : additionalTagProperties) {
         myAdditionals.insert(std::make_pair(additionalTagProperty->getTag(), std::unordered_map<const GUIGlObject*, GNEAdditional*>()));
-        if (additionalTagProperty->hasAttribute(SUMO_ATTR_ID)) {
+        if (additionalTagProperty->hasAttribute(SUMO_ATTR_ID) || (additionalTagProperty->getTag() == SUMO_TAG_VAPORIZER)) {
             myAdditionalIDs.insert(std::make_pair(additionalTagProperty->getTag(), std::map<const std::string, GNEAdditional*>()));
         }
     }
     myTAZSourceSinks.insert(std::make_pair(SUMO_TAG_TAZSOURCE, std::unordered_map<const GNEAttributeCarrier*, GNETAZSourceSink*>()));
     myTAZSourceSinks.insert(std::make_pair(SUMO_TAG_TAZSINK, std::unordered_map<const GNEAttributeCarrier*, GNETAZSourceSink*>()));
     // fill demand elements with tags
-    auto demandElementTagProperties = myNet->getTagPropertiesDatabase()->getTagPropertiesByType(GNETagProperties::TagType::DEMANDELEMENT, false);
+    auto demandElementTagProperties = myNet->getTagPropertiesDatabase()->getTagPropertiesByType(GNETagProperties::TagType::DEMANDELEMENT);
     for (const auto& demandElementTagProperty : demandElementTagProperties) {
         myDemandElements.insert(std::make_pair(demandElementTagProperty->getTag(), std::unordered_map<const GUIGlObject*, GNEDemandElement*>()));
         if (demandElementTagProperty->hasAttribute(SUMO_ATTR_ID)) {
             myDemandElementIDs.insert(std::make_pair(demandElementTagProperty->getTag(), std::map<const std::string, GNEDemandElement*>()));
         }
     }
-    auto stopTagProperties = myNet->getTagPropertiesDatabase()->getTagPropertiesByType(GNETagProperties::TagType::VEHICLESTOP, false);
+    auto stopTagProperties = myNet->getTagPropertiesDatabase()->getTagPropertiesByType(GNETagProperties::TagType::STOP_VEHICLE);
     for (const auto& stopTagProperty : stopTagProperties) {
         myDemandElements.insert(std::make_pair(stopTagProperty->getTag(), std::unordered_map<const GUIGlObject*, GNEDemandElement*>()));
     }
     // fill data elements with tags
-    auto genericDataElementTagProperties = myNet->getTagPropertiesDatabase()->getTagPropertiesByType(GNETagProperties::TagType::GENERICDATA, false);
+    auto genericDataElementTagProperties = myNet->getTagPropertiesDatabase()->getTagPropertiesByType(GNETagProperties::TagType::GENERICDATA);
     for (const auto& genericDataElementTagProperty : genericDataElementTagProperties) {
         myGenericDatas.insert(std::make_pair(genericDataElementTagProperty->getTag(), std::unordered_map<const GUIGlObject*, GNEGenericData*>()));
     }
     // fill meanDatas with tags
-    auto meanDataTagProperties = myNet->getTagPropertiesDatabase()->getTagPropertiesByType(GNETagProperties::TagType::MEANDATA, false);
+    auto meanDataTagProperties = myNet->getTagPropertiesDatabase()->getTagPropertiesByType(GNETagProperties::TagType::MEANDATA);
     for (const auto& meanDataTagProperty : meanDataTagProperties) {
         myMeanDatas.insert(std::make_pair(meanDataTagProperty->getTag(), std::map<const std::string, GNEMeanData*>()));
     }
@@ -251,66 +296,25 @@ GNENetHelper::AttributeCarriers::retrieveAttributeCarrier(const GUIGlID id, bool
 
 std::vector<GNEAttributeCarrier*>
 GNENetHelper::AttributeCarriers::retrieveAttributeCarriers(SumoXMLTag tag) {
-    std::vector<GNEAttributeCarrier*> result;
-    if ((tag == SUMO_TAG_NOTHING) || (tag == SUMO_TAG_JUNCTION)) {
-        for (const auto& junction : myJunctions) {
-            result.push_back(junction.second);
+    std::vector<GNEAttributeCarrier*> ACs;
+    // first check if we have to return all ACs
+    if (tag == SUMO_TAG_NOTHING) {
+        const auto rootTagProperty = myNet->getTagPropertiesDatabase()->getTagProperty(SUMO_TAG_ROOTFILE, true);
+        ACs.reserve(myNumberOfNetworkElements + myNumberOfDemandElements + myNumberOfDataElements);
+        retrieveAttributeCarriersRecursively(rootTagProperty, ACs);
+    } else {
+        const auto tagProperty = myNet->getTagPropertiesDatabase()->getTagProperty(tag, true);
+        // reserve space
+        if (tagProperty->getSupermode() == Supermode::NETWORK) {
+            ACs.reserve(myNumberOfNetworkElements);
+        } else if (tagProperty->getSupermode() == Supermode::DEMAND) {
+            ACs.reserve(myNumberOfDemandElements);
+        } else if (tagProperty->getSupermode() == Supermode::DATA) {
+            ACs.reserve(myNumberOfDataElements + myNumberOfMeanDataElements);
         }
-    } else if ((tag == SUMO_TAG_NOTHING) || (tag == SUMO_TAG_EDGE)) {
-        for (const auto& edge : myEdges) {
-            result.push_back(edge.second);
-        }
-    } else if ((tag == SUMO_TAG_NOTHING) || (tag == SUMO_TAG_LANE)) {
-        for (const auto& lane : myLanes) {
-            result.push_back(lane.second);
-        }
-    } else if ((tag == SUMO_TAG_NOTHING) || (tag == SUMO_TAG_CONNECTION)) {
-        for (const auto& connection : myConnections) {
-            result.push_back(connection.second);
-        }
-    } else if ((tag == SUMO_TAG_NOTHING) || (tag == SUMO_TAG_CROSSING)) {
-        for (const auto& crossing : myCrossings) {
-            result.push_back(crossing.second);
-        }
-    } else if ((tag == SUMO_TAG_NOTHING) || (tag == SUMO_TAG_WALKINGAREA)) {
-        for (const auto& walkingArea : myWalkingAreas) {
-            result.push_back(walkingArea.second);
-        }
-    } else if ((tag == SUMO_TAG_NOTHING) || (myNet->getTagPropertiesDatabase()->getTagProperty(tag)->isAdditionalElement())) {
-        for (const auto& additional : myAdditionals.at(tag)) {
-            result.push_back(additional.second);
-        }
-    } else if ((tag == SUMO_TAG_NOTHING) || (myNet->getTagPropertiesDatabase()->getTagProperty(tag)->isDemandElement())) {
-        auto mergingPlans = myNet->getTagPropertiesDatabase()->getTagPropertiesSet(tag);
-        if (mergingPlans.size() > 0) {
-            for (const auto& mergingPlan : mergingPlans) {
-                for (const auto& demandElemet : myDemandElements.at(mergingPlan->getTag())) {
-                    result.push_back(demandElemet.second);
-                }
-            }
-        } else {
-            for (const auto& demandElemet : myDemandElements.at(tag)) {
-                result.push_back(demandElemet.second);
-            }
-        }
-    } else if ((tag == SUMO_TAG_NOTHING) || (tag == SUMO_TAG_DATASET)) {
-        for (const auto& dataSet : myDataSets) {
-            result.push_back(dataSet.second);
-        }
-    } else if ((tag == SUMO_TAG_NOTHING) || (tag == SUMO_TAG_DATAINTERVAL)) {
-        for (const auto& dataInterval : myDataIntervals) {
-            result.push_back(dataInterval.second);
-        }
-    } else if ((tag == SUMO_TAG_NOTHING) || (myNet->getTagPropertiesDatabase()->getTagProperty(tag)->isGenericData())) {
-        for (const auto& genericData : myGenericDatas.at(tag)) {
-            result.push_back(genericData.second);
-        }
-    } else if ((tag == SUMO_TAG_NOTHING) || (myNet->getTagPropertiesDatabase()->getTagProperty(tag)->isMeanData())) {
-        for (const auto& meanData : myMeanDatas.at(tag)) {
-            result.push_back(meanData.second);
-        }
+        retrieveAttributeCarriersRecursively(tagProperty, ACs);
     }
-    return result;
+    return ACs;
 }
 
 
@@ -782,6 +786,18 @@ GNENetHelper::AttributeCarriers::addPrefixToEdges(const std::string& prefix) {
         // insert in myEdges again
         myEdges[prefix + edge.first] = edge.second;
     }
+}
+
+
+std::string
+GNENetHelper::AttributeCarriers::generateEdgeID() const {
+    // get edge prefix
+    const std::string edgePrefix = OptionsCont::getOptions().getString("prefix") + OptionsCont::getOptions().getString("edge-prefix");
+    // generate new ID
+    while (myEdges.count(edgePrefix + toString(myNet->getEdgeIDCounter())) != 0) {
+        myNet->getEdgeIDCounter()++;
+    }
+    return edgePrefix + toString(myNet->getEdgeIDCounter());
 }
 
 
@@ -1436,7 +1452,7 @@ GNENetHelper::AttributeCarriers::generateDemandElementID(SumoXMLTag tag) const {
     // obtain option container
     const auto& neteditOptions = OptionsCont::getOptions();
     // get tag property
-    const auto tagProperty = myNet->getTagPropertiesDatabase()->getTagProperty(tag);
+    const auto tagProperty = myNet->getTagPropertiesDatabase()->getTagProperty(tag, true);
     // get prefix
     std::string prefix;
     if (tag == SUMO_TAG_ROUTE) {
@@ -1910,13 +1926,14 @@ GNENetHelper::AttributeCarriers::getDataSets() const {
 
 
 std::string
-GNENetHelper::AttributeCarriers::generateDataSetID(const std::string& prefix) const {
-    const std::string dataSetTagStr = toString(SUMO_TAG_DATASET);
+GNENetHelper::AttributeCarriers::generateDataSetID() const {
+    // get prefix
+    const auto prefix = OptionsCont::getOptions().getString("dataSet-prefix");
     int counter = 0;
-    while (retrieveDataSet(prefix + dataSetTagStr + "_" + toString(counter), false) != nullptr) {
+    while (retrieveDataSet(prefix + "_" + toString(counter), false) != nullptr) {
         counter++;
     }
-    return (prefix + dataSetTagStr + "_" + toString(counter));
+    return (prefix + "_" + toString(counter));
 }
 
 
@@ -2807,18 +2824,263 @@ GNENetHelper::AttributeCarriers::updateDemandElementFrames(const GNETagPropertie
     }
 }
 
+
+void
+GNENetHelper::AttributeCarriers::retrieveAttributeCarriersRecursively(const GNETagProperties* tag, std::vector<GNEAttributeCarrier*>& ACs) {
+    // fill network elements
+    if (tag->getTag() == SUMO_TAG_JUNCTION) {
+        for (const auto& junction : myJunctions) {
+            ACs.push_back(junction.second);
+        }
+    }
+    if (tag->getTag() == SUMO_TAG_EDGE) {
+        for (const auto& edge : myEdges) {
+            ACs.push_back(edge.second);
+        }
+    }
+    if (tag->getTag() == SUMO_TAG_LANE) {
+        for (const auto& lane : myLanes) {
+            ACs.push_back(lane.second);
+        }
+    }
+    if (tag->getTag() == SUMO_TAG_CONNECTION) {
+        for (const auto& connection : myConnections) {
+            ACs.push_back(connection.second);
+        }
+    }
+    if (tag->getTag() == SUMO_TAG_CROSSING) {
+        for (const auto& crossing : myCrossings) {
+            ACs.push_back(crossing.second);
+        }
+    }
+    if (tag->getTag() == SUMO_TAG_WALKINGAREA) {
+        for (const auto& walkingArea : myWalkingAreas) {
+            ACs.push_back(walkingArea.second);
+        }
+    }
+    // fill additional elements
+    if (tag->isAdditionalElement()) {
+        for (const auto& additionalTag : myAdditionals) {
+            if (additionalTag.first == tag->getTag()) {
+                for (const auto& additional : additionalTag.second) {
+                    ACs.push_back(additional.second);
+                }
+            }
+        }
+    }
+    // fill demand elements
+    if (tag->isDemandElement()) {
+        for (const auto& demandElementTag : myDemandElements) {
+            if (demandElementTag.first == tag->getTag()) {
+                for (const auto& demandElemet : demandElementTag.second) {
+                    ACs.push_back(demandElemet.second);
+                }
+            }
+        }
+    }
+    // fill data elements
+    if (tag->isDataElement()) {
+        if (tag->getTag() == SUMO_TAG_DATASET) {
+            for (const auto& dataSet : myDataSets) {
+                ACs.push_back(dataSet.second);
+            }
+        }
+        if (tag->getTag() == SUMO_TAG_DATAINTERVAL) {
+            for (const auto& dataInterval : myDataIntervals) {
+                ACs.push_back(dataInterval.second);
+            }
+        }
+        for (const auto& genericDataTag : myGenericDatas) {
+            if (genericDataTag.first == tag->getTag()) {
+                for (const auto& genericData : genericDataTag.second) {
+                    ACs.push_back(genericData.second);
+                }
+            }
+        }
+        for (const auto& meanDataTag : myMeanDatas) {
+            if (meanDataTag.first == tag->getTag()) {
+                for (const auto& meanData : meanDataTag.second) {
+                    ACs.push_back(meanData.second);
+                }
+            }
+        }
+    }
+    // iterate over children
+    for (const auto child : tag->getTagChildren()) {
+        retrieveAttributeCarriersRecursively(child, ACs);
+    }
+}
+
+// ---------------------------------------------------------------------------
+// GNENetHelper::GNETagSelector - methods
+// ---------------------------------------------------------------------------
+
+GNENetHelper::ACTemplate::ACTemplate(GNENet* net) :
+    myNet(net) {
+}
+
+
+void
+GNENetHelper::ACTemplate::buildTemplates() {
+    // network
+    myTemplates[SUMO_TAG_CROSSING] = new GNECrossing(myNet);
+    // additionals
+    myTemplates[SUMO_TAG_BUS_STOP] = GNEBusStop::buildBusStop(myNet);
+    myTemplates[SUMO_TAG_TRAIN_STOP] = GNEBusStop::buildTrainStop(myNet);
+    myTemplates[SUMO_TAG_ACCESS] = new GNEAccess(myNet);
+    myTemplates[SUMO_TAG_CONTAINER_STOP] = new GNEContainerStop(myNet);
+    myTemplates[SUMO_TAG_CHARGING_STATION] = new GNEChargingStation(myNet);
+    myTemplates[SUMO_TAG_PARKING_AREA] = new GNEParkingArea(myNet);
+    myTemplates[SUMO_TAG_PARKING_SPACE] = new GNEParkingSpace(myNet);
+    myTemplates[SUMO_TAG_INDUCTION_LOOP] = new GNEInductionLoopDetector(myNet);
+    myTemplates[SUMO_TAG_LANE_AREA_DETECTOR] = new GNELaneAreaDetector(SUMO_TAG_LANE_AREA_DETECTOR, myNet);
+    myTemplates[GNE_TAG_MULTI_LANE_AREA_DETECTOR] = new GNELaneAreaDetector(GNE_TAG_MULTI_LANE_AREA_DETECTOR, myNet);
+    myTemplates[SUMO_TAG_ENTRY_EXIT_DETECTOR] = new GNEMultiEntryExitDetector(myNet);
+    myTemplates[SUMO_TAG_DET_ENTRY] = new GNEEntryExitDetector(SUMO_TAG_DET_ENTRY, myNet);
+    myTemplates[SUMO_TAG_DET_EXIT] = new GNEEntryExitDetector(SUMO_TAG_DET_EXIT, myNet);
+    myTemplates[SUMO_TAG_INSTANT_INDUCTION_LOOP] = new GNEInstantInductionLoopDetector(myNet);
+    myTemplates[SUMO_TAG_VSS] = new GNEVariableSpeedSign(myNet);
+    myTemplates[SUMO_TAG_STEP] = new GNEVariableSpeedSignStep(myNet);
+    myTemplates[SUMO_TAG_CALIBRATOR] = new GNECalibrator(SUMO_TAG_CALIBRATOR, myNet);
+    myTemplates[GNE_TAG_CALIBRATOR_LANE] = new GNECalibrator(GNE_TAG_CALIBRATOR_LANE, myNet);
+    myTemplates[GNE_TAG_CALIBRATOR_FLOW] = new GNECalibratorFlow(myNet);
+    myTemplates[SUMO_TAG_REROUTER] = new GNERerouter(myNet);
+    myTemplates[SUMO_TAG_INTERVAL] = new GNERerouterInterval(myNet);
+    myTemplates[SUMO_TAG_CLOSING_REROUTE] = new GNEClosingReroute(myNet);
+    myTemplates[SUMO_TAG_CLOSING_LANE_REROUTE] = new GNEClosingLaneReroute(myNet);
+    myTemplates[SUMO_TAG_DEST_PROB_REROUTE] = new GNEDestProbReroute(myNet);
+    myTemplates[SUMO_TAG_PARKING_AREA_REROUTE] = new GNEParkingAreaReroute(myNet);
+    myTemplates[SUMO_TAG_ROUTE_PROB_REROUTE] = new GNERouteProbReroute(myNet);
+    myTemplates[SUMO_TAG_ROUTEPROBE] = new GNERouteProbe(myNet);
+    myTemplates[SUMO_TAG_VAPORIZER] = new GNEVaporizer(myNet);
+    // symbols
+    myTemplates[GNE_TAG_REROUTER_SYMBOL] = new GNERerouterSymbol(myNet);
+    myTemplates[GNE_TAG_VSS_SYMBOL] = new GNEVariableSpeedSignSymbol(myNet);
+    // shapes
+    myTemplates[SUMO_TAG_POLY] = new GNEPoly(SUMO_TAG_POLY, myNet);
+    myTemplates[SUMO_TAG_POI] = new GNEPOI(SUMO_TAG_POI, myNet);
+    myTemplates[GNE_TAG_POILANE] = new GNEPOI(GNE_TAG_POILANE, myNet);
+    myTemplates[GNE_TAG_POIGEO] = new GNEPOI(GNE_TAG_POIGEO, myNet);
+    // TAZs
+    myTemplates[SUMO_TAG_TAZ] = new GNETAZ(myNet);
+    myTemplates[SUMO_TAG_TAZSOURCE] = new GNETAZSourceSink(SUMO_TAG_TAZSOURCE, myNet);
+    myTemplates[SUMO_TAG_TAZSINK] = new GNETAZSourceSink(SUMO_TAG_TAZSINK, myNet);
+    // wires
+    myTemplates[SUMO_TAG_TRACTION_SUBSTATION] = new GNETractionSubstation(myNet);
+    myTemplates[SUMO_TAG_OVERHEAD_WIRE_SECTION] = new GNEOverheadWire(myNet);
+    //myTemplates[SUMO_TAG_OVERHEAD_WIRE_CLAMP] = nullptr;   // TMP
+    // JuPedSim elements
+    myTemplates[GNE_TAG_JPS_WALKABLEAREA] = new GNEPoly(GNE_TAG_JPS_WALKABLEAREA, myNet);
+    myTemplates[GNE_TAG_JPS_OBSTACLE] = new GNEPoly(GNE_TAG_JPS_OBSTACLE, myNet);
+    // vTypes
+    myTemplates[SUMO_TAG_VTYPE] = new GNEVType(myNet);
+    myTemplates[SUMO_TAG_VTYPE_DISTRIBUTION] = new GNEVTypeDistribution(myNet);
+    // routes
+    const auto routes = myNet->getTagPropertiesDatabase()->getTagPropertiesByType(GNETagProperties::TagType::ROUTE);
+    for (const auto route : routes) {
+        myTemplates[route->getTag()] = new GNERoute(route->getTag(), myNet);
+    }
+    // vehicles
+    const auto vehicles = myNet->getTagPropertiesDatabase()->getTagPropertiesByType(GNETagProperties::TagType::VEHICLE);
+    for (const auto vehicle : vehicles) {
+        myTemplates[vehicle->getTag()] = new GNEVehicle(vehicle->getTag(), myNet);
+    }
+    // persons
+    const auto persons = myNet->getTagPropertiesDatabase()->getTagPropertiesByType(GNETagProperties::TagType::PERSON);
+    for (const auto person : persons) {
+        myTemplates[person->getTag()] = new GNEPerson(person->getTag(), myNet);
+    }
+    // container
+    const auto containers = myNet->getTagPropertiesDatabase()->getTagPropertiesByType(GNETagProperties::TagType::CONTAINER);
+    for (const auto container : containers) {
+        myTemplates[container->getTag()] = new GNEContainer(container->getTag(), myNet);
+    }
+    // stops and waypoints
+    const auto stopAndWaypoints = myNet->getTagPropertiesDatabase()->getTagPropertiesByType(GNETagProperties::TagType::STOP_VEHICLE);
+    for (const auto stopAndWaypoint : stopAndWaypoints) {
+        myTemplates[stopAndWaypoint->getTag()] = new GNEStop(stopAndWaypoint->getTag(), myNet);
+    }
+    // personTrip
+    const auto personTrips = myNet->getTagPropertiesDatabase()->getTagPropertiesByType(GNETagProperties::TagType::PERSONTRIP);
+    for (const auto personTrip : personTrips) {
+        myTemplates[personTrip->getTag()] = new GNEPersonTrip(personTrip->getTag(), myNet);
+    }
+    // walk
+    const auto walks = myNet->getTagPropertiesDatabase()->getTagPropertiesByType(GNETagProperties::TagType::WALK);
+    for (const auto walk : walks) {
+        myTemplates[walk->getTag()] = new GNEWalk(walk->getTag(), myNet);
+    }
+    // ride
+    const auto rides = myNet->getTagPropertiesDatabase()->getTagPropertiesByType(GNETagProperties::TagType::RIDE);
+    for (const auto ride : rides) {
+        myTemplates[ride->getTag()] = new GNERide(ride->getTag(), myNet);
+    }
+    // stop person
+    const auto stopPersons = myNet->getTagPropertiesDatabase()->getTagPropertiesByType(GNETagProperties::TagType::STOP_PERSON);
+    for (const auto stopPerson : stopPersons) {
+        myTemplates[stopPerson->getTag()] = new GNEStopPlan(stopPerson->getTag(), myNet);
+    }
+    // transport
+    const auto transports = myNet->getTagPropertiesDatabase()->getTagPropertiesByType(GNETagProperties::TagType::TRANSPORT);
+    for (const auto transport : transports) {
+        myTemplates[transport->getTag()] = new GNETransport(transport->getTag(), myNet);
+    }
+    // tranship
+    const auto tranships = myNet->getTagPropertiesDatabase()->getTagPropertiesByType(GNETagProperties::TagType::TRANSHIP);
+    for (const auto tranship : tranships) {
+        myTemplates[tranship->getTag()] = new GNETranship(tranship->getTag(), myNet);
+    }
+    // stop container
+    const auto stopContainers = myNet->getTagPropertiesDatabase()->getTagPropertiesByType(GNETagProperties::TagType::STOP_CONTAINER);
+    for (const auto stopContainer : stopContainers) {
+        myTemplates[stopContainer->getTag()] = new GNEStopPlan(stopContainer->getTag(), myNet);
+    }
+    // reset all to their default values
+    for (const auto& AC : myTemplates) {
+        AC.second->resetDefaultValues(false);
+    }
+}
+
+
+GNENetHelper::ACTemplate::~ACTemplate() {
+    for (auto& AC : myTemplates) {
+        delete AC.second;
+    }
+}
+
+
+std::map<SumoXMLTag, GNEAttributeCarrier*>
+GNENetHelper::ACTemplate::getACTemplates() const {
+    return myTemplates;
+}
+
+
+GNEAttributeCarrier*
+GNENetHelper::ACTemplate::getTemplateAC(const SumoXMLTag tag) const {
+    if (myTemplates.count(tag) > 0) {
+        return myTemplates.at(tag);
+    } else {
+        return nullptr;
+    }
+}
+
+
+GNEAttributeCarrier*
+GNENetHelper::ACTemplate::getTemplateAC(const std::string& selectorText) const {
+    for (const auto& templateAC : myTemplates) {
+        if (templateAC.second->getTagProperty()->getSelectorText() == selectorText) {
+            return templateAC.second;
+        }
+    }
+    return nullptr;
+}
+
 // ---------------------------------------------------------------------------
 // GNENetHelper::SavingFilesHandler - methods
 // ---------------------------------------------------------------------------
 
 GNENetHelper::SavingFilesHandler::SavingFilesHandler(GNENet* net) :
     myNet(net) {
-}
-
-
-void
-GNENetHelper::SavingFilesHandler::addTemplate(GNEAttributeCarrier* templateAC) {
-    myTemplateACs.push_back(templateAC);
 }
 
 
@@ -2881,9 +3143,9 @@ GNENetHelper::SavingFilesHandler::updateAdditionalEmptyFilenames(const std::stri
         }
     }
     // update all templates
-    for (auto& templateAC : myTemplateACs) {
-        if (templateAC->getTagProperty()->isAdditionalElement() && templateAC->getFilename().empty()) {
-            templateAC->changeDefaultFilename(file);
+    for (auto& templateAC : myNet->getACTemplates()->getACTemplates()) {
+        if (templateAC.second->getTagProperty()->isAdditionalElement() && templateAC.second->getFilename().empty()) {
+            templateAC.second->changeDefaultFilename(file);
         }
     }
     // add it to current files
@@ -2953,9 +3215,9 @@ GNENetHelper::SavingFilesHandler::updateDemandEmptyFilenames(const std::string& 
         }
     }
     // update all templates
-    for (auto& templateAC : myTemplateACs) {
-        if (templateAC->getTagProperty()->isDemandElement() && templateAC->getFilename().empty()) {
-            templateAC->changeDefaultFilename(file);
+    for (auto& templateAC : myNet->getACTemplates()->getACTemplates()) {
+        if (templateAC.second->getTagProperty()->isDemandElement() && templateAC.second->getFilename().empty()) {
+            templateAC.second->changeDefaultFilename(file);
         }
     }
     // add it to current files
@@ -3079,9 +3341,9 @@ GNENetHelper::SavingFilesHandler::updateMeanDataEmptyFilenames(const std::string
         }
     }
     // update all templates
-    for (auto& templateAC : myTemplateACs) {
-        if (templateAC->getTagProperty()->isMeanData() && templateAC->getFilename().empty()) {
-            templateAC->changeDefaultFilename(file);
+    for (auto& templateAC : myNet->getACTemplates()->getACTemplates()) {
+        if (templateAC.second->getTagProperty()->isMeanData() && templateAC.second->getFilename().empty()) {
+            templateAC.second->changeDefaultFilename(file);
         }
     }
     // add it to current files

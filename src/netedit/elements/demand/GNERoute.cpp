@@ -50,7 +50,7 @@ FXIMPLEMENT(GNERoute::GNERoutePopupMenu, GUIGLObjectPopupMenu, GNERoutePopupMenu
 // GNERoute::GNERoutePopupMenu - methods
 // ===========================================================================
 
-GNERoute::GNERoutePopupMenu::GNERoutePopupMenu(GUIMainWindow& app, GUISUMOAbstractView& parent, GUIGlObject& o) :
+GNERoute::GNERoutePopupMenu::GNERoutePopupMenu(GUIMainWindow& app, GUISUMOAbstractView& parent, GUIGlObject* o) :
     GUIGLObjectPopupMenu(app, parent, o) {
 }
 
@@ -78,16 +78,12 @@ GNERoute::GNERoutePopupMenu::onCmdApplyDistance(FXObject*, FXSelector, void*) {
 
 GNERoute::GNERoute(SumoXMLTag tag, GNENet* net) :
     GNEDemandElement("", net, "", GLO_ROUTE, tag, GUIIcon::ROUTE, GNEPathElement::Options::DEMAND_ELEMENT | GNEPathElement::Options::ROUTE) {
-    // reset default values
-    resetDefaultValues();
 }
 
 
 GNERoute::GNERoute(GNENet* net) :
     GNEDemandElement(net->getAttributeCarriers()->generateDemandElementID(SUMO_TAG_ROUTE), net, "", GLO_ROUTE, SUMO_TAG_ROUTE, GUIIcon::ROUTE,
                      GNEPathElement::Options::DEMAND_ELEMENT | GNEPathElement::Options::ROUTE) {
-    // reset default values
-    resetDefaultValues();
 }
 
 
@@ -164,19 +160,10 @@ GNERoute::getMoveOperation() {
 
 GUIGLObjectPopupMenu*
 GNERoute::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
-    GUIGLObjectPopupMenu* ret = new GNERoutePopupMenu(app, parent, *this);
-    // build header
-    buildPopupHeader(ret, app);
-    // build menu command for center button and copy cursor position to clipboard
-    buildCenterPopupEntry(ret);
-    buildPositionCopyEntry(ret, app);
-    // build menu commands for names
-    GUIDesigns::buildFXMenuCommand(ret, "Copy " + getTagStr() + " name to clipboard", nullptr, ret, MID_COPY_NAME);
-    GUIDesigns::buildFXMenuCommand(ret, "Copy " + getTagStr() + " typed name to clipboard", nullptr, ret, MID_COPY_TYPED_NAME);
-    new FXMenuSeparator(ret);
-    // build selection and show parameters menu
-    myNet->getViewNet()->buildSelectionACPopupEntry(ret, this);
-    buildShowParamsPopupEntry(ret);
+    // create popup
+    GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, this);
+    // build common options
+    buildPopUpMenuCommonOptions(ret, app, myNet->getViewNet(), myTagProperty->getTag(), mySelected);
     // show option to open demand element dialog
     if (myTagProperty->hasDialog()) {
         GUIDesigns::buildFXMenuCommand(ret, "Open " + getTagStr() + " Dialog", getACIcon(), &parent, MID_OPEN_ADDITIONAL_DIALOG);
@@ -643,11 +630,10 @@ GNERoute::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             return isValidDemandElementID(value);
         case SUMO_ATTR_EDGES:
-            if (canParse<std::vector<GNEEdge*> >(myNet, value, false)) {
-                // all edges exist, then check if compounds a valid route
-                return isRouteValid(parse<std::vector<GNEEdge*> >(myNet, value)).empty();
-            } else {
+            if (value.empty()) {
                 return false;
+            } else {
+                return canParse<std::vector<GNEEdge*> >(myNet, value, true);
             }
         case SUMO_ATTR_COLOR:
             if (value.empty()) {

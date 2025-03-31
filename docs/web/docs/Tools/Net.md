@@ -256,12 +256,13 @@ Example call:
 python tools/net/remap_additionals.py --orig-net input_net.net.xml --target-net input_net2.net.xml -a input_additional.add.xml -o out.add.xml
 ```
 
-## remap_renamed.py
+# remap_renamed.py
 
-Remap infrastructure or routes from one network to another if the new network has an `origId` param on every lane that reflects the edge id of the original network. A supported use case is converting the origial network with option **--numerical-ids** and then transforming other scenario file so that it can be used with the new network.
+Remap infrastructure, vehicles, routes or a selection file from one network to another if the new network has an `origId` param on every lane that reflects the edge id of the original network. A supported use case is converting the origial network with option **--numerical-ids** and then transforming other scenario file so that it can be used with the new network.
 
 Example calls:
 ```
 python tools/net/remap_additionals.py -n input_net2.net.xml -r input_routes.rou.xml -o out.rou.xml
 python tools/net/remap_additionals.py -n input_net2.net.xml -a input_additionals.add.xml -o out.add.xml
+python tools/net/remap_additionals.py -n input_net2.net.xml -s input_selection.txt -o selection.txt
 ```

@@ -45,13 +45,13 @@ public:
     ~GNETagPropertiesDatabase();
 
     /// @brief get tagProperty associated to the given tag
-    GNETagProperties* getTagProperty(SumoXMLTag tag) const;
-
-    /// @brief get tagProperties associated to the given GNETagProperties::TagType (NETWORKELEMENT, ADDITIONALELEMENT, VEHICLE, etc.)
-    const std::vector<const GNETagProperties*> getTagPropertiesByType(const int tagPropertyCategory, const bool mergePlans) const;
+    const GNETagProperties* getTagProperty(const SumoXMLTag tag, const bool hardFail) const;
 
     /// @brief get tagProperties associated to the given set tag (persons, stops, plans, etc.)
-    const std::vector<const GNETagProperties*> getTagPropertiesSet(SumoXMLTag setTag) const;
+    const std::vector<const GNETagProperties*> getTagPropertiesSet(const SumoXMLTag tag, const bool hardFail) const;
+
+    /// @brief get tagProperties associated to the given GNETagProperties::TagType (NETWORKELEMENT, ADDITIONALELEMENT, VEHICLE, etc.)
+    const std::vector<const GNETagProperties*> getTagPropertiesByType(const int tagPropertyCategory) const;
 
     /// @brief max number of editable (non extended) attributes
     int getMaxNumberOfEditableAttributeRows() const;
@@ -65,10 +65,16 @@ public:
     /// @brief get max number of netedit attribute rows
     int getMaxNumberOfNeteditAttributesRows() const;
 
+    /// @brief get hierarchy dept
+    int getHierarchyDepth() const;
+
     /// @brief write machine readable attribute help to file
     void writeAttributeHelp() const;
 
 protected:
+    /// @brief fill hierarchy elements
+    void fillHierarchy();
+
     /// @brief fill network elements
     void fillNetworkElements();
 
@@ -190,10 +196,13 @@ protected:
     /// @{
 
     /// @brief fill ID attribute
-    void fillIDAttribute(GNETagProperties* tagProperties);
+    void fillIDAttribute(GNETagProperties* tagProperties, const bool createMode);
 
     /// @brief fill name attribute
     void fillNameAttribute(GNETagProperties* tagProperties);
+
+    /// @brief fill edge attribute
+    void fillEdgeAttribute(GNETagProperties* tagProperties, const bool synonymID);
 
     /// @brief fill lane attribute
     void fillLaneAttribute(GNETagProperties* tagProperties, const bool synonymID);
@@ -213,10 +222,37 @@ protected:
     /// @brief fill imgFile attribute
     void fillImgFileAttribute(GNETagProperties* tagProperties);
 
+    /// @brief fill depart attribute
+    void fillDepartAttribute(GNETagProperties* tagProperties);
+
+    /// @brief fill allowDisallow attributes
+    void fillAllowDisallowAttributes(GNETagProperties* tagProperties);
+
+    /// @brief fill lane position attribute
+    void fillPosOverLaneAttribute(GNETagProperties* tagProperties);
+
+    /// @brief fill detect person attribute
+    void fillDetectPersonsAttribute(GNETagProperties* tagProperties);
+
+    /// @brief fill color attribute
+    void fillColorAttribute(GNETagProperties* tagProperties, const std::string& defaultColor);
+
+    /// @brief fill detector period attribute
+    void fillDetectorPeriodAttribute(GNETagProperties* tagProperties);
+
+    /// @brief fill detector next edges attribute
+    void fillDetectorNextEdgesAttribute(GNETagProperties* tagProperties);
+
+    /// @brief fill detector threshold attribute
+    void fillDetectorThresholdAttributes(GNETagProperties* tagProperties, const bool includingJam);
+
     /// @}
 
     /// @brief update max number of attributes by type
     void updateMaxNumberOfAttributesEditorRows();
+
+    /// @brief update max hierarchy depth
+    void updateMaxHierarchyDepth();
 
 private:
     /// @brief max number of editable (non extended) attributes (needed for attributes editor)
@@ -231,11 +267,14 @@ private:
     /// @brief max number of netedit attributes (needed for netedit attributes editor)
     int myMaxNumberOfNeteditAttributeRows = 0;
 
-    /// @brief map with the tags properties
-    std::map<SumoXMLTag, GNETagProperties*> myTagProperties;
+    /// @brief hierarchy dept
+    int myHierarchyDepth = 0;
 
     /// @brief map with tag properties sets (persons, stops, etc.)
-    std::map<SumoXMLTag, GNETagProperties*> myTagPropertiesSet;
+    std::map<SumoXMLTag, GNETagProperties*> mySetTagProperties;
+
+    /// @brief map with the tags properties
+    std::map<SumoXMLTag, GNETagProperties*> myTagProperties;
 
     /// @brief Invalidated copy constructor.
     GNETagPropertiesDatabase(const GNETagPropertiesDatabase&) = delete;

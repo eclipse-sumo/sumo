@@ -54,7 +54,7 @@ GUIDetectorWrapper::~GUIDetectorWrapper() {}
 
 GUIGLObjectPopupMenu*
 GUIDetectorWrapper::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
-    GUIGLObjectPopupMenu* ret = new PopupMenu(app, parent, *this);
+    GUIGLObjectPopupMenu* ret = new PopupMenu(app, parent, this);
     buildPopupHeader(ret, app);
     buildCenterPopupEntry(ret);
     buildNameCopyPopupEntry(ret);
@@ -83,7 +83,7 @@ GUIDetectorWrapper::getExaggeration(const GUIVisualizationSettings& s) const {
  * GUIDetectorWrapper::PopupMenu - methods
  * ----------------------------------------------------------------------- */
 GUIDetectorWrapper::PopupMenu::PopupMenu(
-    GUIMainWindow& app, GUISUMOAbstractView& parent, GUIGlObject& o) :
+    GUIMainWindow& app, GUISUMOAbstractView& parent, GUIGlObject* o) :
     GUIGLObjectPopupMenu(app, parent, o) {
 }
 

@@ -232,7 +232,7 @@ bool
 GNEBusStop::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_LINES:
-            return canParse<std::vector<std::string> >(value);
+            return true;
         case SUMO_ATTR_PERSON_CAPACITY:
             return canParse<int>(value) && (parse<int>(value) > 0 || parse<int>(value) == -1);
         case SUMO_ATTR_PARKING_LENGTH:
@@ -267,8 +267,6 @@ GNEBusStop::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 GNEBusStop::GNEBusStop(SumoXMLTag tag, GUIGlObjectType type, GUIIcon icon, GNENet* net) :
     GNEStoppingPlace(net, type, tag, icon) {
-    // reset default values
-    resetDefaultValues();
 }
 
 

@@ -33,6 +33,7 @@
 #include <netedit/elements/network/GNEWalkingArea.h>
 #include <netedit/frames/GNEAttributesEditor.h>
 #include <netedit/frames/GNEConsecutiveSelector.h>
+#include <netedit/frames/GNEDrawingShape.h>
 #include <netedit/frames/GNENetworkSelector.h>
 #include <netedit/frames/GNEOverlappedInspection.h>
 #include <netedit/frames/GNEPathCreator.h>
@@ -598,17 +599,6 @@ GNEViewNet::getMoveMultipleElementValues() const {
 }
 
 
-void
-GNEViewNet::buildSelectionACPopupEntry(GUIGLObjectPopupMenu* ret, GNEAttributeCarrier* AC) {
-    if (AC->isAttributeCarrierSelected()) {
-        GUIDesigns::buildFXMenuCommand(ret, TL("Remove from Selected"), GUIIconSubSys::getIcon(GUIIcon::FLAG_MINUS), this, MID_REMOVESELECT);
-    } else {
-        GUIDesigns::buildFXMenuCommand(ret, TL("Add to Selected"), GUIIconSubSys::getIcon(GUIIcon::FLAG_PLUS), this, MID_ADDSELECT);
-    }
-    new FXMenuSeparator(ret);
-}
-
-
 bool
 GNEViewNet::setColorScheme(const std::string& name) {
     if (!gSchemeStorage.contains(name)) {
@@ -832,6 +822,18 @@ GNEViewNet::buildColorRainbow(const GUIVisualizationSettings& s, GUIColorScheme&
             }
             minValue = MIN2(minValue, val);
             maxValue = MAX2(maxValue, val);
+        }
+    } else if (objectType == GLO_VEHICLE) {
+        for (const auto& tagMap : myNet->getAttributeCarriers()->getDemandElements()) {
+            for (const auto& objItem : tagMap.second) {
+                const double val = objItem.first->getColorValue(s, active);
+                if (val == s.MISSING_DATA) {
+                    hasMissingData = true;
+                    continue;
+                }
+                minValue = MIN2(minValue, val);
+                maxValue = MAX2(maxValue, val);
+            }
         }
     } else if (objectType == GLO_JUNCTION) {
         if (active == 3) {
@@ -3002,13 +3004,13 @@ GNEViewNet::onCmdAddReverse(FXObject*, FXSelector, void*) {
 long
 GNEViewNet::onCmdSetCustomGeometryPoint(FXObject*, FXSelector, void*) {
     // get element at popup position
-    GNELane* lane = getLaneAtPopupPosition();
+    GNEEdge* edge = getEdgeAtPopupPosition();
     GNEPoly* poly = getPolygonAtPopupPosition();
     GNETAZ* TAZ = getTAZAtPopupPosition();
     // check element
-    if (lane != nullptr) {
+    if (edge != nullptr) {
         // make a copy of edge geometry
-        PositionVector edgeGeometry = lane->getParentEdge()->getNBEdge()->getGeometry();
+        auto edgeGeometry = edge->getNBEdge()->getGeometry();
         // get index position
         const int index = edgeGeometry.indexOfClosest(getPositionInformation(), true);
         // get new position
@@ -3020,20 +3022,20 @@ GNEViewNet::onCmdSetCustomGeometryPoint(FXObject*, FXSelector, void*) {
             // update new position
             edgeGeometry[index] = newPosition;
             // begin undo list
-            myUndoList->begin(lane->getParentEdge(), TL("change edge Geometry Point position"));
+            myUndoList->begin(edge, TL("change edge Geometry Point position"));
             // continue depending of index
             if (index == 0) {
                 // change shape start
-                GNEChange_Attribute::changeAttribute(lane->getParentEdge(), GNE_ATTR_SHAPE_START, toString(edgeGeometry.front()), myUndoList);
+                GNEChange_Attribute::changeAttribute(edge, GNE_ATTR_SHAPE_START, toString(edgeGeometry.front()), myUndoList);
             } else if (index == ((int)edgeGeometry.size() - 1)) {
                 // change shape end
-                GNEChange_Attribute::changeAttribute(lane->getParentEdge(), GNE_ATTR_SHAPE_END, toString(edgeGeometry.back()), myUndoList);
+                GNEChange_Attribute::changeAttribute(edge, GNE_ATTR_SHAPE_END, toString(edgeGeometry.back()), myUndoList);
             } else {
                 // remove front and back geometry points
                 edgeGeometry.pop_front();
                 edgeGeometry.pop_back();
                 // change shape
-                GNEChange_Attribute::changeAttribute(lane->getParentEdge(), SUMO_ATTR_SHAPE, toString(edgeGeometry), myUndoList);
+                GNEChange_Attribute::changeAttribute(edge, SUMO_ATTR_SHAPE, toString(edgeGeometry), myUndoList);
             }
             // end undo list
             myUndoList->end();

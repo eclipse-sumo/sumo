@@ -32,6 +32,7 @@
 #include <utils/common/StringBijection.h>
 #include <utils/common/RGBColor.h>
 #include <utils/foxtools/fxheader.h>
+#include <utils/xml/SUMOXMLDefinitions.h>
 
 #include "GUIGlObjectTypes.h"
 
@@ -242,6 +243,10 @@ public:
 protected:
     /// @name helper methods for building popup-menus
     /// @{
+    /// @brief build common popup options
+    void buildPopUpMenuCommonOptions(GUIGLObjectPopupMenu* ret, GUIMainWindow& app, GUISUMOAbstractView* parent, const SumoXMLTag tag,
+                                     const bool selected, bool addSeparator = true);
+
     /** @brief Builds the header
      * @param[in, filled] ret The popup menu to add the entry to
      * @param[in] addSeparator Whether a separator shall be added, too
@@ -283,13 +288,14 @@ protected:
      * @param[in, filled] ret The popup menu to add the entry to
      * @param[in] addSeparator Whether a separator shall be added, too
      */
-    void buildPositionCopyEntry(GUIGLObjectPopupMenu* ret, const GUIMainWindow& app) const;
+    void buildPositionCopyEntry(GUIGLObjectPopupMenu* ret, const GUIMainWindow& app, bool addSeparator = true) const;
 
     /** @brief Builds an entry which allows to open the manipulator window
      * @param[in, filled] ret The popup menu to add the entry to
      * @param[in] addSeparator Whether a separator shall be added, too
      */
     void buildShowManipulatorPopupEntry(GUIGLObjectPopupMenu* ret, bool addSeparator = true);
+
     /// @}
 
     /// @brief build basic shape popup options. Used to unify pop-ups menu in netedit and SUMO-GUI

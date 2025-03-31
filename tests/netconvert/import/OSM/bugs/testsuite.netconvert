@@ -145,3 +145,9 @@ ticket16061
 
 # missing psv edge
 ticket16103
+
+# missing join
+ticket16366
+
+# invalid join
+ticket16366b

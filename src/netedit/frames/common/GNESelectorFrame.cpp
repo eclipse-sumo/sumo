@@ -25,13 +25,13 @@
 #include <netedit/elements/network/GNEConnection.h>
 #include <netedit/elements/network/GNECrossing.h>
 #include <netedit/elements/network/GNEWalkingArea.h>
+#include <netedit/frames/GNEMatchAttribute.h>
 #include <utils/foxtools/MFXDynamicLabel.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 
 #include "GNESelectorFrame.h"
-#include "GNEElementSet.h"
 
 // ===========================================================================
 // FOX callback mapping
@@ -324,7 +324,7 @@ GNESelectorFrame::SelectionOperation::onCmdLoad(FXObject*, FXSelector, void*) {
     FXFileDialog opendialog(getCollapsableFrame(), TL("Open List of Selected Items"));
     opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::OPEN));
     opendialog.setSelectMode(SELECTFILE_EXISTING);
-    opendialog.setPatternList(SUMOXMLDefinitions::OSGFileExtensions.getMultilineString().c_str());
+    opendialog.setPatternList(SUMOXMLDefinitions::TXTFileExtensions.getMultilineString().c_str());
     if (gCurrentFolder.length() != 0) {
         opendialog.setDirectory(gCurrentFolder);
     }
@@ -940,9 +940,7 @@ GNESelectorFrame::GNESelectorFrame(GNEViewParent* viewParent, GNEViewNet* viewNe
     // create Modification Mode modul
     myModificationMode = new ModificationMode(this);
     // create ElementSet modul
-    myNetworkElementSet = new GNEElementSet(this, Supermode::NETWORK, SUMO_TAG_EDGE, SUMO_ATTR_SPEED, ">10.0");
-    myDemandElementSet = new GNEElementSet(this, Supermode::DEMAND, SUMO_TAG_VEHICLE, SUMO_ATTR_ID, "");
-    myDataElementSet = new GNEElementSet(this, Supermode::DATA, GNE_TAG_EDGEREL_SINGLE, GNE_ATTR_PARAMETERS, "key=value");
+    myMatchAttribute = new GNEMatchAttribute(this);
     // create VisualScaling modul
     myVisualScaling = new VisualScaling(this);
     // create SelectionOperation modul
@@ -959,23 +957,7 @@ GNESelectorFrame::~GNESelectorFrame() {}
 
 void
 GNESelectorFrame::show() {
-    // refresh element set
-    if (myViewNet->getEditModes().isCurrentSupermodeNetwork()) {
-        // only show network element set
-        myNetworkElementSet->showElementSet();
-        myDemandElementSet->hideElementSet();
-        myDataElementSet->hideElementSet();
-    } else if (myViewNet->getEditModes().isCurrentSupermodeDemand()) {
-        // only show demand element set
-        myNetworkElementSet->hideElementSet();
-        myDemandElementSet->showElementSet();
-        myDataElementSet->hideElementSet();
-    } else if (myViewNet->getEditModes().isCurrentSupermodeData()) {
-        // only show data element set
-        myNetworkElementSet->hideElementSet();
-        myDemandElementSet->hideElementSet();
-        myDataElementSet->showElementSet();
-    }
+    myMatchAttribute->showMatchAttribute();
     // update information label
     mySelectionInformation->updateInformationLabel();
     // Show frame
@@ -1129,128 +1111,6 @@ GNESelectorFrame::handleIDs(const std::vector<GNEAttributeCarrier*>& ACs, const 
         // finish operation
         myViewNet->getUndoList()->end();
     }
-}
-
-
-std::vector<GNEAttributeCarrier*>
-GNESelectorFrame::getMatches(const SumoXMLTag ACTag, const SumoXMLAttr ACAttr, const char compOp, const double val, const std::string& expr) {
-    std::vector<GNEAttributeCarrier*> result;
-    // first retrieve all ACs using ACTag
-    const auto allACbyTag = myViewNet->getNet()->getAttributeCarriers()->retrieveAttributeCarriers(ACTag);
-    // get Tag value
-    const auto tagProperties = myViewNet->getNet()->getTagPropertiesDatabase()->getTagProperty(ACTag);
-    // iterate over all ACs
-    for (const auto& AC : allACbyTag) {
-        if (expr == "" && compOp == '@') {
-            result.push_back(AC);
-        } else if (tagProperties->hasAttribute(ACAttr) && tagProperties->getAttributeProperties(ACAttr)->isNumerical()) {
-            double acVal;
-            std::istringstream buf(AC->getAttribute(ACAttr));
-            buf >> acVal;
-            switch (compOp) {
-                case '<':
-                    if (acVal < val) {
-                        result.push_back(AC);
-                    }
-                    break;
-                case '>':
-                    if (acVal > val) {
-                        result.push_back(AC);
-                    }
-                    break;
-                case '=':
-                    if (acVal == val) {
-                        result.push_back(AC);
-                    }
-                    break;
-            }
-        } else {
-            // string match
-            std::string acVal = AC->getAttributeForSelection(ACAttr);
-            switch (compOp) {
-                case '@':
-                    if (acVal.find(expr) != std::string::npos) {
-                        result.push_back(AC);
-                    }
-                    break;
-                case '!':
-                    if (acVal.find(expr) == std::string::npos) {
-                        result.push_back(AC);
-                    }
-                    break;
-                case '=':
-                    if (acVal == expr) {
-                        result.push_back(AC);
-                    }
-                    break;
-                case '^':
-                    if (acVal != expr) {
-                        result.push_back(AC);
-                    }
-                    break;
-            }
-        }
-    }
-    return result;
-}
-
-
-std::vector<GNEAttributeCarrier*>
-GNESelectorFrame::getGenericMatches(const std::vector<GNEGenericData*>& genericDatas, const std::string& attr, const char compOp, const double val, const std::string& expr) {
-    std::vector<GNEAttributeCarrier*> result;
-    // iterate over generic datas
-    for (const auto& genericData : genericDatas) {
-        if (expr == "" && compOp == '@') {
-            result.push_back(genericData);
-        } else if (attr != toString(GNE_ATTR_PARENT)) {
-            double acVal;
-            std::istringstream buf(genericData->getParameter(attr, "0"));
-            buf >> acVal;
-            switch (compOp) {
-                case '<':
-                    if (acVal < val) {
-                        result.push_back(genericData);
-                    }
-                    break;
-                case '>':
-                    if (acVal > val) {
-                        result.push_back(genericData);
-                    }
-                    break;
-                case '=':
-                    if (acVal == val) {
-                        result.push_back(genericData);
-                    }
-                    break;
-            }
-        } else {
-            // string match
-            std::string acVal = genericData->getAttributeForSelection(GNE_ATTR_PARENT);
-            switch (compOp) {
-                case '@':
-                    if (acVal.find(expr) != std::string::npos) {
-                        result.push_back(genericData);
-                    }
-                    break;
-                case '!':
-                    if (acVal.find(expr) == std::string::npos) {
-                        result.push_back(genericData);
-                    }
-                    break;
-                case '=':
-                    if (acVal == expr) {
-                        result.push_back(genericData);
-                    }
-                    break;
-                case '^':
-                    if (acVal != expr) {
-                        result.push_back(genericData);
-                    }
-                    break;
-            }
-        }
-    }
-    return result;
 }
 
 

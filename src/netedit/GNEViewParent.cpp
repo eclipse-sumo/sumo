@@ -600,7 +600,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                 chooserLoc = &myACChoosers.ACChooserAdditional;
                 locateTitle = TL("Additional Chooser");
                 for (const auto& additionalTag : viewNet->getNet()->getAttributeCarriers()->getAdditionals()) {
-                    const auto tagProperty = viewNet->getNet()->getTagPropertiesDatabase()->getTagProperty(additionalTag.first);
+                    const auto tagProperty = viewNet->getNet()->getTagPropertiesDatabase()->getTagProperty(additionalTag.first, true);
                     // avoid shapes and TAZs
                     if (!tagProperty->isShapeElement() && !tagProperty->isTAZElement()) {
                         for (const auto& additional : additionalTag.second) {

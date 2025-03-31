@@ -388,7 +388,7 @@ GNEMoveElement::commitMove(const GNEViewNet* viewNet, GNEMoveOperation* moveOper
                 }
             }
             // remove double points if merge points is enabled (only in commitMove)
-            if (viewNet->getViewParent()->getMoveFrame()->getCommonModeOptions()->getMergeGeometryPoints() && (moveResult.shapeToUpdate.size() > 2)) {
+            if (viewNet->getViewParent()->getMoveFrame()->getCommonMoveOptions()->getMergeGeometryPoints() && (moveResult.shapeToUpdate.size() > 2)) {
                 moveResult.shapeToUpdate.removeDoublePoints(2);
             }
         } else {

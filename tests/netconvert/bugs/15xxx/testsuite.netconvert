@@ -12,3 +12,6 @@ ticket15718
 
 # invalid network created
 ticket15798
+
+# crash with --edges.join-tram-dist
+ticket16393

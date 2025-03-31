@@ -372,6 +372,8 @@ GNEAttributesEditorRow::fillSumoBaseObject(CommonXMLStructure::SumoBaseObject* b
             }
         } else if (GNEAttributeCarrier::canParse<Position>(myValueTextField->getText().text())) {
             baseObject->addPositionAttribute(attribute, GNEAttributeCarrier::parse<Position>(myValueTextField->getText().text()));
+        } else if (myAttrProperty->hasDefaultValue() && (myValueTextField->getText().text() == myAttrProperty->getDefaultStringValue())) {
+            baseObject->addPositionAttribute(attribute, myAttrProperty->getDefaultPositionValue());
         } else {
             return attribute;
         }
@@ -579,7 +581,9 @@ GNEAttributesEditorRow::getAttributeValue(const bool enabled) const {
     if ((attribute == SUMO_ATTR_ID) && (myAttributeTable->myEditorType == GNEAttributesEditorType::EditorType::CREATOR)) {
         const auto& ACs = myAttributeTable->getFrameParent()->getViewNet()->getNet()->getAttributeCarriers();
         const auto parentTag = myAttrProperty->getTagPropertyParent()->getTag();
-        if (myAttrProperty->getTagPropertyParent()->isAdditionalElement()) {
+        if (myAttrProperty->getTagPropertyParent()->getTag() == SUMO_TAG_EDGE) {
+            return ACs->generateEdgeID();
+        } else if (myAttrProperty->getTagPropertyParent()->isAdditionalElement()) {
             return ACs->generateAdditionalID(parentTag);
         } else if (myAttrProperty->getTagPropertyParent()->isDemandElement()) {
             return ACs->generateDemandElementID(parentTag);
@@ -588,7 +592,7 @@ GNEAttributesEditorRow::getAttributeValue(const bool enabled) const {
         } else if (parentTag == SUMO_TAG_TYPE) {
             return ACs->generateEdgeTypeID();
         } else if (parentTag == SUMO_TAG_DATASET) {
-            return ACs->generateDataSetID("");
+            return ACs->generateDataSetID();
         }
     }
     if (enabled) {
@@ -802,11 +806,7 @@ GNEAttributesEditorRow::showValueComboBox(const GNEAttributeProperties* attrProp
     // first we need to check if all boolean values are equal
     bool allValuesEqual = true;
     // declare  boolean vector
-    std::vector<std::string> stringVector;
-    // check if value can be parsed to a boolean vector
-    if (GNEAttributeCarrier::canParse<std::vector<std::string> >(value)) {
-        stringVector = GNEAttributeCarrier::parse<std::vector<std::string> >(value);
-    }
+    std::vector<std::string> stringVector = GNEAttributeCarrier::parse<std::vector<std::string> >(value);
     // iterate over string comparing all element with the first
     for (const auto& stringValue : stringVector) {
         if (stringValue != stringVector.front()) {

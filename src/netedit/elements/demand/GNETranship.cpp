@@ -38,10 +38,7 @@
 #endif
 GNETranship::GNETranship(SumoXMLTag tag, GNENet* net) :
     GNEDemandElement("", net, "", GLO_TRANSHIP, tag, GUIIcon::TRANSHIP_EDGE, GNEPathElement::Options::DEMAND_ELEMENT),
-    GNEDemandElementPlan(this, -1, -1),
-    mySpeed(0) {
-    // reset default values
-    resetDefaultValues();
+    GNEDemandElementPlan(this, -1, -1) {
 }
 
 

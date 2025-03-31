@@ -41,6 +41,7 @@
 #include <utils/router/PedestrianRouter.h>
 #include <utils/vehicle/SUMOVehicleParserHelper.h>
 #include "Helper.h"
+#include "StorageHelper.h"
 #include "VehicleType.h"
 #include "Person.h"
 
@@ -141,7 +142,7 @@ Person::getWalkingDistance(const std::string& personID, const std::string& edgeI
         const MSStageWalking* walk = dynamic_cast<const MSStageWalking*>(p->getCurrentStage());
         ConstMSEdgeVector edges = walk->getEdges();
         edges.erase(edges.begin(), edges.begin() + walk->getRoutePosition());
-        const MSLane* lane = Helper::getLaneChecking(edgeID, laneIndex, pos); 
+        const MSLane* lane = Helper::getLaneChecking(edgeID, laneIndex, pos);
         auto it = std::find(edges.begin(), edges.end(), &lane->getEdge());
         if (it == edges.end()) {
             // Vehicle would return INVALID_DOUBLE_VALUE;
@@ -1321,6 +1322,10 @@ Person::handleVariable(const std::string& objID, const int variable, VariableWra
             return wrapper->wrapDouble(objID, variable, getSpeedFactor(objID));
         case VAR_NEXT_EDGE:
             return wrapper->wrapString(objID, variable, getNextEdge(objID));
+        case VAR_EDGES:
+            return wrapper->wrapStringList(objID, variable, getEdges(objID, StoHelp::readTypedInt(*paramData)));
+        case VAR_STAGE:
+            return wrapper->wrapStage(objID, variable, getStage(objID, StoHelp::readTypedInt(*paramData)));
         case VAR_STAGES_REMAINING:
             return wrapper->wrapInt(objID, variable, getRemainingStages(objID));
         case VAR_VEHICLE:
@@ -1328,12 +1333,10 @@ Person::handleVariable(const std::string& objID, const int variable, VariableWra
         case VAR_MAXSPEED:
             // integrate desiredMaxSpeed and individual speedFactor
             return wrapper->wrapDouble(objID, variable, getMaxSpeed(objID));
-        case libsumo::VAR_PARAMETER:
-            paramData->readUnsignedByte();
-            return wrapper->wrapString(objID, variable, getParameter(objID, paramData->readString()));
-        case libsumo::VAR_PARAMETER_WITH_KEY:
-            paramData->readUnsignedByte();
-            return wrapper->wrapStringPair(objID, variable, getParameterWithKey(objID, paramData->readString()));
+        case VAR_PARAMETER:
+            return wrapper->wrapString(objID, variable, getParameter(objID, StoHelp::readTypedString(*paramData)));
+        case VAR_PARAMETER_WITH_KEY:
+            return wrapper->wrapStringPair(objID, variable, getParameterWithKey(objID, StoHelp::readTypedString(*paramData)));
         case VAR_TAXI_RESERVATIONS:
             // we cannot use the general fall through here because we do not have an object id
             return false;

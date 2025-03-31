@@ -136,7 +136,26 @@ Helper::subscribe(const int commandId, const std::string& id, const std::vector<
         s.range = std::numeric_limits<double>::max();
     }
     if (s.variables.size() == 1 && s.variables.front() == -1) {
-        s.variables.clear();
+        if (contextDomain == 0) {
+            if (commandId == libsumo::CMD_SUBSCRIBE_VEHICLE_VARIABLE) {
+                // default for vehicles is edge id and lane position
+                s.variables = {libsumo::VAR_ROAD_ID, libsumo::VAR_LANEPOSITION};
+                s.parameters.push_back(std::make_shared<tcpip::Storage>());
+            } else if (commandId == libsumo::CMD_SUBSCRIBE_EDGE_VARIABLE ||
+                       commandId == libsumo::CMD_SUBSCRIBE_INDUCTIONLOOP_VARIABLE ||
+                       commandId == libsumo::CMD_SUBSCRIBE_LANE_VARIABLE ||
+                       commandId == libsumo::CMD_SUBSCRIBE_LANEAREA_VARIABLE ||
+                       commandId == libsumo::CMD_SUBSCRIBE_MULTIENTRYEXIT_VARIABLE) {
+                // default for detectors, edges and lanes is vehicle number
+                s.variables[0] = libsumo::LAST_STEP_VEHICLE_NUMBER;
+            } else {
+                // for all others id list
+                s.variables[0] = libsumo::TRACI_ID_LIST;
+            }
+        } else {
+            s.variables.clear();
+            s.parameters.clear();
+        }
     }
     handleSingleSubscription(s);
     libsumo::Subscription* modifiedSubscription = nullptr;
@@ -298,18 +317,9 @@ Helper::handleSingleSubscription(const Subscription& s) {
                     ++k;
                 }
             }
-        } else {
-            if (s.contextDomain == 0 && getCommandId == libsumo::CMD_GET_VEHICLE_VARIABLE) {
-                // default for vehicles is edge id and lane position
-                handler->handle(objID, VAR_ROAD_ID, container, nullptr);
-                handler->handle(objID, VAR_LANEPOSITION, container, nullptr);
-            } else if (s.contextDomain > 0) {
-                // default for contexts is an empty map (similar to id list)
-                container->empty(objID);
-            } else if (!handler->handle(objID, libsumo::LAST_STEP_VEHICLE_NUMBER, container, nullptr)) {
-                // default for detectors is vehicle number, for all others id list
-                handler->handle(objID, libsumo::TRACI_ID_LIST, container, nullptr);
-            }
+        } else if (s.contextDomain > 0) {
+            // default for contexts is an empty map (similar to id list)
+            container->empty(objID);
         }
     }
 }
@@ -1959,10 +1969,63 @@ Helper::SubscriptionWrapper::wrapStringDoublePair(const std::string& objID, cons
 
 
 bool
+Helper::SubscriptionWrapper::wrapStringDoublePairList(const std::string& objID, const int variable, const std::vector<std::pair<std::string, double> >& value) {
+    auto sl = std::make_shared<TraCIStringDoublePairList>();
+    sl->value = value;
+    (*myActiveResults)[objID][variable] = sl;
+    return true;
+}
+
+
+bool
 Helper::SubscriptionWrapper::wrapStringPair(const std::string& objID, const int variable, const std::pair<std::string, std::string>& value) {
     auto sl = std::make_shared<TraCIStringList>();
     sl->value.push_back(value.first);
     sl->value.push_back(value.second);
+    (*myActiveResults)[objID][variable] = sl;
+    return true;
+}
+
+
+bool
+Helper::SubscriptionWrapper::wrapIntPair(const std::string& objID, const int variable, const std::pair<int, int>& value) {
+    auto sl = std::make_shared<TraCIIntList>();
+    sl->value.push_back(value.first);
+    sl->value.push_back(value.second);
+    (*myActiveResults)[objID][variable] = sl;
+    return true;
+}
+
+
+bool
+Helper::SubscriptionWrapper::wrapStage(const std::string& objID, const int variable, const TraCIStage& value) {
+    (*myActiveResults)[objID][variable] = std::make_shared<TraCIStage>(value);
+    return true;
+}
+
+
+bool
+Helper::SubscriptionWrapper::wrapSignalConstraintVector(const std::string& objID, const int variable, const std::vector<libsumo::TraCISignalConstraint>& value) {
+    auto sl = std::make_shared<TraCISignalConstraintVectorWrapped>();
+    sl->value = value;
+    (*myActiveResults)[objID][variable] = sl;
+    return true;
+}
+
+
+bool
+Helper::SubscriptionWrapper::wrapJunctionFoeVector(const std::string& objID, const int variable, const std::vector<libsumo::TraCIJunctionFoe>& value) {
+    auto sl = std::make_shared<TraCIJunctionFoeVectorWrapped>();
+    sl->value = value;
+    (*myActiveResults)[objID][variable] = sl;
+    return true;
+}
+
+
+bool
+Helper::SubscriptionWrapper::wrapNextStopDataVector(const std::string& objID, const int variable, const std::vector<libsumo::TraCINextStopData>& value) {
+    auto sl = std::make_shared<TraCINextStopDataVectorWrapped>();
+    sl->value = value;
     (*myActiveResults)[objID][variable] = sl;
     return true;
 }

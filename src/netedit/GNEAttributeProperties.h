@@ -20,6 +20,7 @@
 #pragma once
 #include <config.h>
 
+#include <utils/geom/Position.h>
 #include <utils/xml/SUMOSAXAttributes.h>
 
 // ===========================================================================
@@ -76,18 +77,21 @@ public:
         FLOWEDITOR =        1 << 6,    // Attribute can be edited only in flow editor
     };
 
-    /// @brief parameter constructor for tag properties without default values
+    /// @brief parameter constructor for attribute properties without default values
     GNEAttributeProperties(GNETagProperties* tagProperties, const SumoXMLAttr attribute, const int attributeProperty,
                            const int editProperty, const std::string& definition);
 
-    /// @brief parameter constructor for tag properties with default values specific
+    /// @brief parameter constructor for attribute properties with default values specific
     GNEAttributeProperties(GNETagProperties* tagProperties, const SumoXMLAttr attribute, const int attributeProperty,
                            const int editProperty, const std::string& definition, const std::string& defaultValue);
 
-    /// @brief parameter constructor for tag properties with default values generic
+    /// @brief parameter constructor for attribute properties with default values generic
     GNEAttributeProperties(GNETagProperties* tagProperties, const SumoXMLAttr attribute, const int attributeProperty,
                            const int editProperty, const std::string& definition, const std::string& defaultValueMask,
                            const std::string& defaultValue);
+
+    /// @brief parameter constructor for special attribute properties (ej: no common)
+    GNEAttributeProperties(GNETagProperties* tagProperties, const SumoXMLAttr attribute, const std::string& definition);
 
     /// @brief destructor
     ~GNEAttributeProperties();
@@ -145,6 +149,9 @@ public:
 
     /// @brief get default bool value
     const RGBColor& getDefaultColorValue() const;
+
+    /// @brief get default position value
+    const Position& getDefaultPositionValue() const;
 
     /// @brief get default active value
     bool getDefaultActivated() const;
@@ -316,6 +323,9 @@ private:
 
     /// @brief get default bool value
     RGBColor myDefaultColorValue = RGBColor::INVISIBLE;
+
+    /// @brief get default position value
+    Position myDefaultPositionValue = Position::INVALID;
 
     /// @brief default activated (by default false)
     bool myDefaultActivated = false;

@@ -56,11 +56,13 @@ public:
 
     static double getIntervalOccupancy(const std::string& detID);
     static double getIntervalMeanSpeed(const std::string& detID);
+    static double getIntervalMeanTimeLoss(const std::string& detID);
     static double getIntervalMaxJamLengthInMeters(const std::string& detID);
     static int getIntervalVehicleNumber(const std::string& detID);
 
     static double getLastIntervalOccupancy(const std::string& detID);
     static double getLastIntervalMeanSpeed(const std::string& detID);
+    static double getLastIntervalMeanTimeLoss(const std::string& detID);
     static double getLastIntervalMaxJamLengthInMeters(const std::string& detID);
     static int getLastIntervalVehicleNumber(const std::string& detID);
 

@@ -64,20 +64,10 @@ const double GNEVehicle::myArrivalPositionDiameter = SUMO_const_halfLaneWidth * 
 // ===========================================================================
 
 GNEVehicle::GNESingleVehiclePopupMenu::GNESingleVehiclePopupMenu(GNEVehicle* vehicle, GUIMainWindow& app, GUISUMOAbstractView& parent) :
-    GUIGLObjectPopupMenu(app, parent, *vehicle),
+    GUIGLObjectPopupMenu(app, parent, vehicle),
     myVehicle(vehicle) {
-    // build header
-    myVehicle->buildPopupHeader(this, app);
-    // build menu command for center button and copy cursor position to clipboard
-    myVehicle->buildCenterPopupEntry(this);
-    myVehicle->buildPositionCopyEntry(this, app);
-    // build menu commands for names
-    GUIDesigns::buildFXMenuCommand(this, ("Copy " + myVehicle->getTagStr() + " name to clipboard").c_str(), nullptr, this, MID_COPY_NAME);
-    GUIDesigns::buildFXMenuCommand(this, ("Copy " + myVehicle->getTagStr() + " typed name to clipboard").c_str(), nullptr, this, MID_COPY_TYPED_NAME);
-    new FXMenuSeparator(this);
-    // build selection and show parameters menu
-    myVehicle->getNet()->getViewNet()->buildSelectionACPopupEntry(this, myVehicle);
-    myVehicle->buildShowParamsPopupEntry(this);
+    // build common options
+    vehicle->buildPopUpMenuCommonOptions(this, app, vehicle->myNet->getViewNet(), vehicle->getTagProperty()->getTag(), vehicle->isAttributeCarrierSelected());
     // route length
     vehicle->buildMenuCommandRouteLength(this);
     // add transform functions only in demand mode
@@ -195,21 +185,11 @@ GNEVehicle::GNESingleVehiclePopupMenu::onCmdTransform(FXObject*, FXSelector sel,
 // ===========================================================================
 
 GNEVehicle::GNESelectedVehiclesPopupMenu::GNESelectedVehiclesPopupMenu(GNEVehicle* vehicle, const std::vector<GNEVehicle*>& selectedVehicle, GUIMainWindow& app, GUISUMOAbstractView& parent) :
-    GUIGLObjectPopupMenu(app, parent, *vehicle),
+    GUIGLObjectPopupMenu(app, parent, vehicle),
     mySelectedVehicles(selectedVehicle),
     myVehicleTag(vehicle->getTagProperty()->getTag()) {
-    // build header
-    vehicle->buildPopupHeader(this, app);
-    // build menu command for center button and copy cursor position to clipboard
-    vehicle->buildCenterPopupEntry(this);
-    vehicle->buildPositionCopyEntry(this, app);
-    // build menu commands for names
-    GUIDesigns::buildFXMenuCommand(this, ("Copy " + vehicle->getTagStr() + " name to clipboard").c_str(), nullptr, this, MID_COPY_NAME);
-    GUIDesigns::buildFXMenuCommand(this, ("Copy " + vehicle->getTagStr() + " typed name to clipboard").c_str(), nullptr, this, MID_COPY_TYPED_NAME);
-    new FXMenuSeparator(this);
-    // build selection and show parameters menu
-    vehicle->getNet()->getViewNet()->buildSelectionACPopupEntry(this, vehicle);
-    vehicle->buildShowParamsPopupEntry(this);
+    // build common options
+    vehicle->buildPopUpMenuCommonOptions(this, app, vehicle->myNet->getViewNet(), vehicle->getTagProperty()->getTag(), vehicle->isAttributeCarrierSelected());
     // route length
     vehicle->buildMenuCommandRouteLength(this);
     // add transform functions only in demand mode
@@ -444,8 +424,6 @@ GNEVehicle::GNESelectedVehiclesPopupMenu::onCmdTransform(FXObject* obj, FXSelect
 GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net) :
     GNEDemandElement("", net, "", GLO_VEHICLE, tag, GUIIcon::VEHICLE, GNEPathElement::Options::DEMAND_ELEMENT),
     GNEDemandElementFlow(this) {
-    // reset default values
-    resetDefaultValues();
     // set end and vehPerHours as default flow values
     toggleAttribute(SUMO_ATTR_END, true);
     toggleAttribute(SUMO_ATTR_VEHSPERHOUR, true);
@@ -572,11 +550,11 @@ GNEVehicle::getMoveOperation() {
         // return move operation depending if we're editing departPos or arrivalPos
         if (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(getAttributePosition(GNE_ATTR_PLAN_GEOMETRY_STARTPOS)) < (diameter * diameter)) {
             return new GNEMoveOperation(this, firstLane, departPosDouble, lastLane, INVALID_DOUBLE,
-                                        myNet->getViewNet()->getViewParent()->getMoveFrame()->getCommonModeOptions()->getAllowChangeLane(),
+                                        myNet->getViewNet()->getViewParent()->getMoveFrame()->getCommonMoveOptions()->getAllowChangeLane(),
                                         GNEMoveOperation::OperationType::MULTIPLE_LANES_MOVE_FIRST);
         } else if (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(getAttributePosition(GNE_ATTR_PLAN_GEOMETRY_ENDPOS)) < (myArrivalPositionDiameter * myArrivalPositionDiameter)) {
             return new GNEMoveOperation(this, firstLane, INVALID_DOUBLE, lastLane, arrivalPosDouble,
-                                        myNet->getViewNet()->getViewParent()->getMoveFrame()->getCommonModeOptions()->getAllowChangeLane(),
+                                        myNet->getViewNet()->getViewParent()->getMoveFrame()->getCommonMoveOptions()->getAllowChangeLane(),
                                         GNEMoveOperation::OperationType::MULTIPLE_LANES_MOVE_LAST);
         }
     }
@@ -808,9 +786,12 @@ GNEVehicle::checkDrawRelatedContour() const {
     if (editModes.isCurrentSupermodeDemand() && (editModes.demandEditMode == DemandEditMode::DEMAND_TYPE) &&
             (myNet->getViewNet()->getViewParent()->getTypeFrame()->getTypeSelector()->getCurrentType() == getParentDemandElements().front())) {
         return true;
-    } else {
-        return false;
     }
+    // check opened popup
+    if (myNet->getViewNet()->getPopup()) {
+        return myNet->getViewNet()->getPopup()->getGLObject() == this;
+    }
+    return false;
 }
 
 
@@ -1757,11 +1738,7 @@ GNEVehicle::isValid(SumoXMLAttr key, const std::string& value) {
             }
         }
         case SUMO_ATTR_VIA:
-            if (value.empty()) {
-                return true;
-            } else {
-                return canParse<std::vector<GNEEdge*> >(myNet, value, false);
-            }
+            return canParse<std::vector<GNEEdge*> >(myNet, value, false);
         // Specific of from-to junctions
         case SUMO_ATTR_FROM_JUNCTION:
         case SUMO_ATTR_TO_JUNCTION:

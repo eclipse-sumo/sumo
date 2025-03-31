@@ -54,22 +54,12 @@ FXIMPLEMENT(GNEPerson::GNESelectedPersonsPopupMenu, GUIGLObjectPopupMenu, select
 // ===========================================================================
 
 GNEPerson::GNEPersonPopupMenu::GNEPersonPopupMenu(GNEPerson* person, GUIMainWindow& app, GUISUMOAbstractView& parent) :
-    GUIGLObjectPopupMenu(app, parent, *person),
+    GUIGLObjectPopupMenu(app, parent, person),
     myPerson(person),
     myTransformToPerson(nullptr),
     myTransformToPersonFlow(nullptr) {
-    // build header
-    myPerson->buildPopupHeader(this, app);
-    // build menu command for center button and copy cursor position to clipboard
-    myPerson->buildCenterPopupEntry(this);
-    myPerson->buildPositionCopyEntry(this, app);
-    // build menu commands for names
-    GUIDesigns::buildFXMenuCommand(this, ("Copy " + myPerson->getTagStr() + " name to clipboard").c_str(), nullptr, this, MID_COPY_NAME);
-    GUIDesigns::buildFXMenuCommand(this, ("Copy " + myPerson->getTagStr() + " typed name to clipboard").c_str(), nullptr, this, MID_COPY_TYPED_NAME);
-    new FXMenuSeparator(this);
-    // build selection and show parameters menu
-    myPerson->getNet()->getViewNet()->buildSelectionACPopupEntry(this, myPerson);
-    myPerson->buildShowParamsPopupEntry(this);
+    // build common options
+    person->buildPopUpMenuCommonOptions(this, app, person->myNet->getViewNet(), person->getTagProperty()->getTag(), person->isAttributeCarrierSelected());
     // add transform functions only in demand mode
     if (myPerson->getNet()->getViewNet()->getEditModes().isCurrentSupermodeDemand()) {
         // create menu pane for transform operations
@@ -108,23 +98,13 @@ GNEPerson::GNEPersonPopupMenu::onCmdTransform(FXObject* obj, FXSelector, void*) 
 // ===========================================================================
 
 GNEPerson::GNESelectedPersonsPopupMenu::GNESelectedPersonsPopupMenu(GNEPerson* person, const std::vector<GNEPerson*>& selectedPerson, GUIMainWindow& app, GUISUMOAbstractView& parent) :
-    GUIGLObjectPopupMenu(app, parent, *person),
+    GUIGLObjectPopupMenu(app, parent, person),
     myPersonTag(person->getTagProperty()->getTag()),
     mySelectedPersons(selectedPerson),
     myTransformToPerson(nullptr),
     myTransformToPersonFlow(nullptr) {
-    // build header
-    person->buildPopupHeader(this, app);
-    // build menu command for center button and copy cursor position to clipboard
-    person->buildCenterPopupEntry(this);
-    person->buildPositionCopyEntry(this, app);
-    // build menu commands for names
-    GUIDesigns::buildFXMenuCommand(this, ("Copy " + person->getTagStr() + " name to clipboard").c_str(), nullptr, this, MID_COPY_NAME);
-    GUIDesigns::buildFXMenuCommand(this, ("Copy " + person->getTagStr() + " typed name to clipboard").c_str(), nullptr, this, MID_COPY_TYPED_NAME);
-    new FXMenuSeparator(this);
-    // build selection and show parameters menu
-    person->getNet()->getViewNet()->buildSelectionACPopupEntry(this, person);
-    person->buildShowParamsPopupEntry(this);
+    // build common options
+    person->buildPopUpMenuCommonOptions(this, app, person->myNet->getViewNet(), person->myTagProperty->getTag(), person->isAttributeCarrierSelected());
     // add transform functions only in demand mode
     if (person->getNet()->getViewNet()->getEditModes().isCurrentSupermodeDemand()) {
         // create menu pane for transform operations
@@ -166,8 +146,6 @@ GNEPerson::GNESelectedPersonsPopupMenu::onCmdTransform(FXObject* obj, FXSelector
 GNEPerson::GNEPerson(SumoXMLTag tag, GNENet* net) :
     GNEDemandElement("", net, "", GLO_PERSON, tag, GUIIcon::PERSON, GNEPathElement::Options::DEMAND_ELEMENT),
     GNEDemandElementFlow(this) {
-    // reset default values
-    resetDefaultValues();
     // enable set and persons per hour as default flow values
     toggleAttribute(SUMO_ATTR_END, true);
     toggleAttribute(SUMO_ATTR_PERSONSPERHOUR, true);

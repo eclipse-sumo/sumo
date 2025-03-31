@@ -37,8 +37,6 @@
 GNEParkingSpace::GNEParkingSpace(GNENet* net) :
     GNEAdditional("", net, "", GLO_PARKING_SPACE, SUMO_TAG_PARKING_SPACE, GUIIcon::PARKINGSPACE, ""),
     mySlope(0) {
-    // reset default values
-    resetDefaultValues();
 }
 
 

@@ -135,6 +135,10 @@ GNEConnection::checkDrawToContour() const {
 
 bool
 GNEConnection::checkDrawRelatedContour() const {
+    // check opened popup
+    if (myNet->getViewNet()->getPopup()) {
+        return myNet->getViewNet()->getPopup()->getGLObject() == this;
+    }
     return false;
 }
 
@@ -155,6 +159,12 @@ GNEConnection::checkDrawDeleteContour() const {
     } else {
         return false;
     }
+}
+
+
+bool
+GNEConnection::checkDrawDeleteContourSmall() const {
+    return false;
 }
 
 
@@ -328,15 +338,10 @@ GNEConnection::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     if (myShapeEdited) {
         return getShapeEditedPopUpMenu(app, parent, getNBEdgeConnection().customShape);
     } else {
-        GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
-        buildPopupHeader(ret, app);
-        buildCenterPopupEntry(ret);
-        buildNameCopyPopupEntry(ret);
-        // build selection and show parameters menu
-        myNet->getViewNet()->buildSelectionACPopupEntry(ret, this);
-        buildShowParamsPopupEntry(ret);
-        // build position copy entry
-        buildPositionCopyEntry(ret, app);
+        // create popup
+        GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, this);
+        // build common options
+        buildPopUpMenuCommonOptions(ret, app, myNet->getViewNet(), myTagProperty->getTag(), mySelected);
         // check if we're in supermode network
         if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
             // create menu commands

@@ -913,7 +913,7 @@ following table.
 
 | Attribute Value | Description                                                                                              |
 | --------------- | -------------------------------------------------------------------------------------------------------- |
-| LC2013          | The default car following model, developed by Jakob Erdmann based on DK2008 (see [SUMO’s Lane-Changing Model](https://elib.dlr.de/102254/)). This is the default model.    |
+| LC2013          | The default lane changing model, developed by Jakob Erdmann based on DK2008 (see [SUMO’s Lane-Changing Model](https://elib.dlr.de/102254/)). This is the default model.    |
 | SL2015          | Lane-changing model for [sublane-simulation](Simulation/SublaneModel.md) (used by default when setting option **--lateral-resolution** {{DT_FLOAT}}). This model can only be used with the sublane-extension.<br><br>**Caution:** This model may technically be used without activating sublane-simulation but this usage has not been fully tested and may not work as expected.  |
 | DK2008          | The original lane-changing model of sumo until version 0.18.0, developed by Daniel Krajzewicz (see [Traffic Simulation with SUMO – Simulation of Urban Mobility](https://link.springer.com/chapter/10.1007/978-1-4419-6142-6_7)). |
 
@@ -1197,7 +1197,7 @@ Stops can be childs of vehicles, routes, persons or containers.
 | posLat             | float            |  | - | lateral offset while stopped |
 | onDemand           | bool             |  | false | whether stopping may be skipped if no person wants to embark or disembark there |
 | jump           | float(s) or HH:MM:SS |  | -1 | when set to a non-negative value, jump to the next *mandatory* route edge (next stop or arrival edge) and spend the given time for the *jump* |
-| jumpUntil      | float(s) or HH:MM:SS |  | -1 | when set to a non-negative value, the jump to the next route edge will last at least until the given time (and possibly longer depnding on the value of `jump`) |
+| jumpUntil      | float(s) or HH:MM:SS |  | -1 | when set to a non-negative value, the jump to the next route edge will last at least until the given time (and possibly longer depending on the value of `jump`) |
 | split          | string |  | vehicle id | must be set to the id of a vehicle with `depart="split"`. [Splits the train](Simulation/Railways.md#splitting_a_train) upon reaching the stop. |
 | join           | string |  | vehicle id | must be set to the id of a vehicle that stops with `triggered="join"`. [Joins this train to another](Simulation/Railways.md#joining_two_trains) upn reaching the stop |
 
@@ -1310,10 +1310,12 @@ placeholder `<DEVICENAME>` below
 - [toc](ToC_Device.md)
 - [driverstate](Driver_State.md)
 - [fcd](Simulation/Output/FCDOutput.md)
+- [fcdreplay](Simulation/FCDReplay.md)
 - [tripinfo](Simulation/Output/TripInfo.md)
 - [vehroute](Simulation/Output/VehRoutes.md)
 - [taxi](Simulation/Taxi.md)
 - [glosa](Simulation/GLOSA.md)
+- [friction](Simulation/Friction.md)  
 - [example](Developer/How_To/Device.md)
 
 ## Automatic assignment

@@ -64,10 +64,10 @@ FXIMPLEMENT(GUIGLObjectPopupMenu, FXMenuPane, GUIGLObjectPopupMenuMap, ARRAYNUMB
 // method definitions
 // ===========================================================================
 
-GUIGLObjectPopupMenu::GUIGLObjectPopupMenu(GUIMainWindow& app, GUISUMOAbstractView& parent, GUIGlObject& o) :
+GUIGLObjectPopupMenu::GUIGLObjectPopupMenu(GUIMainWindow& app, GUISUMOAbstractView& parent, GUIGlObject* o) :
     FXMenuPane(&parent),
     myParent(&parent),
-    myObject(&o),
+    myObject(o),
     myApplication(&app),
     myPopupType(PopupType::ATTRIBUTES),
     myNetworkPosition(parent.getPositionInformation()),
@@ -121,6 +121,12 @@ GUIGLObjectPopupMenu::removePopupFromObject() {
 GUISUMOAbstractView*
 GUIGLObjectPopupMenu::getParentView() {
     return myParent;
+}
+
+
+GUIGlObject*
+GUIGLObjectPopupMenu::getGLObject() const {
+    return myObject;
 }
 
 

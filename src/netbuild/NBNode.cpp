@@ -429,6 +429,16 @@ NBNode::removeTrafficLights(bool setAsPriority) {
     }
 }
 
+bool
+NBNode::hadSignal() const {
+    for (NBEdge* e : getIncomingEdges()) {
+        if (e->getSignalPosition() != Position::INVALID) {
+            return true;
+        }
+    }
+    return false;
+}
+
 
 void
 NBNode::invalidateTLS(NBTrafficLightLogicCont& tlCont, bool addedConnections, bool removedConnections) {
@@ -4004,7 +4014,7 @@ NBNode::geometryLike() const {
 }
 
 bool
-NBNode::geometryLike(const EdgeVector& incoming, const EdgeVector& outgoing) const {
+NBNode::geometryLike(const EdgeVector& incoming, const EdgeVector& outgoing) {
     if (incoming.size() == 1 && outgoing.size() == 1) {
         return true;
     }
@@ -4025,8 +4035,8 @@ NBNode::geometryLike(const EdgeVector& incoming, const EdgeVector& outgoing) con
         }
         for (EdgeVector::const_iterator it = incoming.begin(); it != incoming.end(); ++it) {
             NBEdge* inEdge = *it;
-            double angle0 = fabs(NBHelpers::relAngle(inEdge->getAngleAtNode(this), out0->getAngleAtNode(this)));
-            double angle1 = fabs(NBHelpers::relAngle(inEdge->getAngleAtNode(this), out1->getAngleAtNode(this)));
+            double angle0 = fabs(NBHelpers::relAngle(inEdge->getAngleAtNode(inEdge->getToNode()), out0->getAngleAtNode(out0->getFromNode())));
+            double angle1 = fabs(NBHelpers::relAngle(inEdge->getAngleAtNode(inEdge->getToNode()), out1->getAngleAtNode(out1->getFromNode())));
             if (MAX2(angle0, angle1) <= 160) {
                 // neither of the outgoing edges is parallel to inEdge
                 return false;
@@ -4243,9 +4253,9 @@ NBNode::isTrafficLight(SumoXMLNodeType type) {
 
 
 bool
-NBNode::rightOnRedConflict(int index, int foeIndex) const {
+NBNode::extraConflict(int index, int foeIndex) const {
     for (NBTrafficLightDefinition* def : myTrafficLights) {
-        if (def->rightOnRedConflict(index, foeIndex)) {
+        if (def->extraConflict(index, foeIndex)) {
             return true;
         }
     }

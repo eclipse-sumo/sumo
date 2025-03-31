@@ -16,7 +16,7 @@ charging stations in case they won't make it to their destinations otherwise. Ve
 ## Configuration
 
 The following table gives the full list of possible parameters for the stationfinder device. Each of these parameters must be specified as a child
-element of the form `<param key=device.stationfinder.<PARAMETER NAME> value=<PARAMETER VALUE>` of the appropriate demand definition element (e.g. `<vehicle ... />`, `<vType ... />`, or `<flow ... />`).
+element of the form `<param key="device.stationfinder.<PARAMETER NAME>" value="<PARAMETER VALUE>"` of the appropriate demand definition element (e.g. `<vehicle ... />`, `<vType ... />`, or `<flow ... />`).
 The parameters take effect only on vehicles which have been assigned a stationfinder device by one of the [device assignment options](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#devices).
 
 | Parameter             | Type             | Range                     | Default          | Description                                                                         |
@@ -38,7 +38,7 @@ The parameters take effect only on vehicles which have been assigned a stationfi
 | chargingStrategy      | string           | {balanced; latest; none}    | none             | Chosen charging strategy (`balanced` will spread the charging across the whole stopping duration, `latest` will shift charging towards the end of the stopping duration) |
 | opportunisticChargeLevel | float         | [0;1]                     | 0                | State of charge below which the vehicle wants to charge nearby planned stops (on the same edge as the planned stop) although not needed to complete its route (named opportunistic charging) |
 | minOpportunityDuration | float (s)       | ≥0                        | 3600             | The minimum expected duration of a planned stop to be used for opportunistic charging |
-| checkEnergyForRoute   | bool             | {true; false}             | false            | Check whether the current battery charge may be enough to complete the route and thus skip searching for charging stations |
+| checkEnergyForRoute   | bool             | {true; false}             | true            | Check whether the current battery charge may be enough to complete the route and thus skip searching for charging stations |
 
 ## Decision logic for charging
 
@@ -57,7 +57,7 @@ vehicle to charge. The user can configure multiple thresholds to change how diff
 
 When there are more sites to choose from, the device sorts the charging stations according to a target function and chooses the one with the lowest score. The target function works the same way as
 [the one for parking search](Rerouter.md#determining_the_alternative_parking_area). Thus it consists of a linear combination of components and corresponding weight factors. Each of these parameters must be specified as a child
-element of the form `<param key=device.stationfinder.<PARAMETER NAME> value=<PARAMETER VALUE>` of the appropriate demand definition element (e.g. `<vehicle ... />`, `<vType ... />`, or `<flow ... />`).
+element of the form `<param key="device.stationfinder.<PARAMETER NAME>" value="<PARAMETER VALUE>"` of the appropriate demand definition element (e.g. `<vehicle ... />`, `<vType ... />`, or `<flow ... />`).
 The available components and their weight factors are described in the table below:
 
 | Parameter Name              | Default value | Description                                                              | Inverse (Bigger is better) |
@@ -81,7 +81,7 @@ The inverted normalized value is then multiplied with `charging.probability.weig
 
 ### Further parameters to affect charging station search behavior
 Each of these parameters must be specified as a child
-element of the form `<param key=device.stationfinder.<PARAMETER NAME> value=<PARAMETER VALUE>` of the appropriate demand definition element (e.g. `<vehicle ... />`, `<vType ... />`, or `<flow ... />`).
+element of the form `<param key="device.stationfinder.<PARAMETER NAME>" value="<PARAMETER VALUE>"` of the appropriate demand definition element (e.g. `<vehicle ... />`, `<vType ... />`, or `<flow ... />`).
 
 |Parameter Name         | Default value | Description                                                              |
 | --------------------- | ------------- | ------------------------------------------------------------------------ |

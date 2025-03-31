@@ -43,8 +43,6 @@ GNEAccess::GNEAccess(GNENet* net) :
     myPositionOverLane(0),
     myLength(0),
     myFriendlyPosition(false) {
-    // reset default values
-    resetDefaultValues();
 }
 
 
@@ -72,7 +70,7 @@ GNEMoveOperation*
 GNEAccess::getMoveOperation() {
     // return move operation for additional placed over shape
     return new GNEMoveOperation(this, getParentLanes().front(), myPositionOverLane,
-                                myNet->getViewNet()->getViewParent()->getMoveFrame()->getCommonModeOptions()->getAllowChangeLane());
+                                myNet->getViewNet()->getViewParent()->getMoveFrame()->getCommonMoveOptions()->getAllowChangeLane());
 }
 
 
@@ -139,7 +137,7 @@ GNEAccess::writeAdditional(OutputDevice& device) const {
         device.writeAttr(SUMO_ATTR_LENGTH, myLength);
     }
     if (myFriendlyPosition) {
-        device.writeAttr(SUMO_ATTR_FRIENDLY_POS, true);
+        device.writeAttr(SUMO_ATTR_FRIENDLY_POS, myFriendlyPosition);
     }
     device.closeTag();
 }
@@ -284,7 +282,11 @@ GNEAccess::getAttribute(SumoXMLAttr key) const {
                 return toString(myPositionOverLane);
             }
         case SUMO_ATTR_LENGTH:
-            return toString(myLength);
+            if (myLength == -1) {
+                return "";
+            } else {
+                return toString(myLength);
+            }
         case SUMO_ATTR_FRIENDLY_POS:
             return toString(myFriendlyPosition);
         case GNE_ATTR_PARENT:

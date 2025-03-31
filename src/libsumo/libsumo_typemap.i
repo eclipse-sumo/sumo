@@ -89,6 +89,27 @@
     $1 = &vars;
 }
 
+%typemap(in) const libsumo::TraCIResults& (libsumo::TraCIResults parameters) {
+    if (!PyDict_Check($input)) {
+        PyErr_SetString(PyExc_TypeError, "Expecting a dict");
+        SWIG_fail;
+    }
+    PyObject *key, *value;
+    Py_ssize_t pos = 0;
+
+    while (PyDict_Next($input, &pos, &key, &value)) {
+        const int key_int = PyLong_AsLong(key);
+        if (PyInt_Check(value)) {
+            parameters[key_int] = std::make_shared<libsumo::TraCIInt>(PyInt_AsLong(value));
+        } else if (PyFloat_Check(value)) {
+            parameters[key_int] = std::make_shared<libsumo::TraCIDouble>(PyFloat_AsDouble(value));
+        } else if (PyString_Check(value)) {
+            parameters[key_int] = std::make_shared<libsumo::TraCIString>(PyString_AsString(value));
+        }
+    }
+    $1 = &parameters;
+}
+
 %typemap(typecheck, precedence=SWIG_TYPECHECK_INTEGER) const std::vector<int>& {
     $1 = PySequence_Check($input) ? 1 : 0;
 }
@@ -446,6 +467,8 @@ SUBSCRIBE_HELPER(RouteProbe)
 %shared_ptr(libsumo::TraCIString)
 %shared_ptr(libsumo::TraCIStringList)
 %shared_ptr(libsumo::TraCIDoubleList)
+%shared_ptr(libsumo::TraCIIntList)
+%shared_ptr(libsumo::TraCIStringDoublePairList)
 %shared_ptr(libsumo::TraCIPhase)
 %shared_ptr(libsumo::TraCILogic)
 %shared_ptr(libsumo::TraCILink)
@@ -462,7 +485,9 @@ SUBSCRIBE_HELPER(RouteProbe)
 %shared_ptr(libsumo::TraCIReservation)
 %shared_ptr(libsumo::TraCICollision)
 %shared_ptr(libsumo::TraCISignalConstraint)
+%shared_ptr(libsumo::TraCISignalConstraintVectorWrapped)
 %shared_ptr(libsumo::TraCIJunctionFoe)
+%shared_ptr(libsumo::TraCIJunctionFoeVectorWrapped)
 #endif
 
 // replacing vector instances of standard types, see https://stackoverflow.com/questions/8469138

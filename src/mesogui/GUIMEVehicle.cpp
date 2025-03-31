@@ -150,8 +150,8 @@ GUIMEVehicle::getTypeParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
 
 
 void
-GUIMEVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& /* s */, bool /* asImage */) const {
-    GUIBaseVehicleHelper::drawAction_drawVehicleAsBoxPlus(getVType().getWidth(), getVType().getLength());
+GUIMEVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& /* s */, double scaledLength, bool /* asImage */) const {
+    GUIBaseVehicleHelper::drawAction_drawVehicleAsBoxPlus(getVType().getWidth(), scaledLength);
 }
 
 

@@ -223,8 +223,7 @@ public:
         FXDECLARE(GUITriggeredRerouterPopupMenu)
     public:
 
-        GUITriggeredRerouterPopupMenu(GUIMainWindow& app,
-                                      GUISUMOAbstractView& parent, GUIGlObject& o);
+        GUITriggeredRerouterPopupMenu(GUIMainWindow& app, GUISUMOAbstractView& parent, GUIGlObject* o);
 
         ~GUITriggeredRerouterPopupMenu();
 

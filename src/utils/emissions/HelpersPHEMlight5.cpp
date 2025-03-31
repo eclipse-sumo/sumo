@@ -26,6 +26,7 @@
 #include <foreign/PHEMlight/V5/cpp/Constants.h>
 #include <foreign/PHEMlight/V5/cpp/Correction.h>
 #include <utils/common/StringUtils.h>
+#include <utils/geom/GeomHelper.h>
 #include <utils/options/OptionsCont.h>
 
 #include "EnergyParams.h"
@@ -191,7 +192,7 @@ HelpersPHEMlight5::getModifiedAccel(const SUMOEmissionClass c, const double v, c
 double
 HelpersPHEMlight5::getCoastingDecel(const SUMOEmissionClass c, const double v, const double a, const double slope, const EnergyParams* param) const {
     PHEMlightdllV5::CEP* const currCep = myCEPs.find(c)->second;
-    // this is a copy of CEP::GetDecelCoast
+    // this is a copy of CEP::GetDecelCoast with an adapted slope force calculation
     if (v < PHEMlightdllV5::Constants::SPEED_DCEL_MIN) {
         return v / PHEMlightdllV5::Constants::SPEED_DCEL_MIN * getCoastingDecel(c, PHEMlightdllV5::Constants::SPEED_DCEL_MIN, a, slope, param);
     }
@@ -205,7 +206,7 @@ HelpersPHEMlight5::getCoastingDecel(const SUMOEmissionClass c, const double v, c
 
     const double fRoll = currCep->getResistance(v, rf0) * (mass + load) * PHEMlightdllV5::Constants::GRAVITY_CONST;
     const double fAir = cw * PHEMlightdllV5::Constants::AIR_DENSITY_CONST * 0.5 * std::pow(v, 2);
-    const double fGrad = (mass + load) * PHEMlightdllV5::Constants::GRAVITY_CONST * slope / 100;
+    const double fGrad = (mass + load) * PHEMlightdllV5::Constants::GRAVITY_CONST * sin(DEG2RAD(slope));
 
     return -(currCep->getFMot(v, ratedPower, wheelRadius) + fRoll + fAir + fGrad) / ((mass + load) * rotFactor);
 }

@@ -405,6 +405,11 @@ persons:
 - [fcd-output](../Simulation/Output/FCDOutput.md)
 - [netstate-dump](../Simulation/Output/RawDump.md)
 - [aggregated simulation statistics](../Simulation/Output/index.md#aggregated_traffic_measures)
+- [statistic output](../Simulation/Output/StatisticOutput.md)
+- [meanData](../Simulation/Output/Lane-_or_Edge-based_Traffic_Measures.md) (with attribute `detectPersons`)
+- [E1, E2 and E3 detectors](../Simulation/Pedestrians.md#detectors_for_pedestrians)
+- [collision-output](../Simulation/Output/Collisions.md) (collision types "crossing", "walkingarea" and "junctionPedestrian")
+- [stop-output](../Simulation/Output/StopOutput.md) (in attributes "initialPersons", "loadedPersons", "unloadedPersons")
 
 # Devices
 

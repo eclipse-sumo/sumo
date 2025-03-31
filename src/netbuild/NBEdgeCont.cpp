@@ -1952,9 +1952,11 @@ NBEdgeCont::joinTramEdges(NBDistrictCont& dc, NBPTStopCont& sc, NBPTLineCont& lc
             nearby.insert(const_cast<NBEdge*>(static_cast<const NBEdge*>(namedEdge)));
         }
         for (NBEdge* const tramEdge : nearby) {
-            // find a continous stretch of tramEdge that runs along one of the
-            // lanes of the road edge
-            const PositionVector& tramShape = tramEdge->getGeometry();
+            // find a continous stretch of tramEdge that runs along one of the lanes of the road edge
+            PositionVector tramShape = tramEdge->getGeometry();
+            if (tramEdge->getToNode() == edge->getToNode()) {
+                tramShape.extrapolate(tramShape.back().distanceTo2D(edge->getGeometry().back()), false, true);
+            }
             double minEdgeDist = maxDist + 1;
             int minLane = -1;
             // find the lane where the maximum distance from the tram geometry
@@ -2018,6 +2020,7 @@ NBEdgeCont::joinTramEdges(NBDistrictCont& dc, NBPTStopCont& sc, NBPTLineCont& lc
                 int laneIndex = item.first.second;
                 const PositionVector& laneShape = road->getLaneShape(laneIndex);
                 double tramPos = tramEdge->getGeometry().nearest_offset_to_point2D(laneShape.front(), false);
+                //std::cout << " road=" << road->getID() << " tramEdge=" << tramEdge->getID() << " tramShape=" << tramEdge->getGeometry() << " laneFront=" << laneShape.front() << " tramPos=" << tramPos << "\n";
                 roads.push_back(std::make_pair(tramPos, item.first));
             }
         }
@@ -2049,7 +2052,7 @@ NBEdgeCont::joinTramEdges(NBDistrictCont& dc, NBPTStopCont& sc, NBPTLineCont& lc
                 const double gap = item.first - pos;
                 NBEdge* road = item.second.first;
                 int laneIndex = item.second.second;
-                if (gap >= JOIN_TRAM_MIN_LENGTH) {
+                if (gap >= JOIN_TRAM_MIN_LENGTH && road->getFromNode() != tramEdge->getFromNode()) {
 #ifdef DEBUG_JOIN_TRAM
                     std::cout << "    splitting tramEdge=" << tramEdge->getID() << " at " << item.first << " (gap=" << gap << ")\n";
 #endif

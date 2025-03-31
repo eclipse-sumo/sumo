@@ -54,7 +54,6 @@ const int MSPModel_JuPedSim::GEOS_QUADRANT_SEGMENTS = 16;
 const double MSPModel_JuPedSim::GEOS_MITRE_LIMIT = 5.0;
 const double MSPModel_JuPedSim::GEOS_MIN_AREA = 1;
 const double MSPModel_JuPedSim::GEOS_BUFFERED_SEGMENT_WIDTH = 0.5 * SUMO_const_laneWidth;
-const double MSPModel_JuPedSim::CARRIAGE_RAMP_LENGTH = 2.0;
 const RGBColor MSPModel_JuPedSim::PEDESTRIAN_NETWORK_COLOR = RGBColor(179, 217, 255, 255);
 const RGBColor MSPModel_JuPedSim::PEDESTRIAN_NETWORK_CARRIAGES_AND_RAMPS_COLOR = RGBColor(255, 217, 179, 255);
 const std::string MSPModel_JuPedSim::PEDESTRIAN_NETWORK_ID = "jupedsim.pedestrian_network";
@@ -641,6 +640,7 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
             std::vector<GEOSGeometry*> rampPolygons;
             for (const MSVehicle* train : allStoppedTrains) {
                 if (train->getLeavingPersonNumber() > 0) {
+                    const SUMOVTypeParameter& vTypeParam = train->getVehicleType().getParameter();
                     MSTrainHelper trainHelper = MSTrainHelper(train);
                     trainHelper.computeDoorPositions();
                     const std::vector<MSTrainHelper::Carriage*>& carriages = trainHelper.getCarriages();
@@ -660,8 +660,8 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
                         carriageShape.push_back(carriage->front - perp * p);
                         carriagePolygons.push_back(createGeometryFromShape(carriageShape));
                         // Create ramps geometry.
-                        p += CARRIAGE_RAMP_LENGTH;
-                        const double d = 0.5 * MSTrainHelper::CARRIAGE_DOOR_WIDTH;
+                        p += vTypeParam.maxPlatformDistance;
+                        const double d = 0.5 * vTypeParam.carriageDoorWidth;
                         for (const Position& door : carriage->doorPositions) {
                             PositionVector rampShape;
                             rampShape.push_back(door - perp * p + dir * d);

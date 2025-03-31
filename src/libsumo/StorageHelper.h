@@ -30,7 +30,7 @@ namespace libsumo {
 
 class StorageHelper {
 public:
-    static std::shared_ptr<tcpip::Storage> toStorage(const TraCIResult& v) {
+    static inline std::shared_ptr<tcpip::Storage> toStorage(const TraCIResult& v) {
         std::shared_ptr<tcpip::Storage> result = std::make_shared<tcpip::Storage>();
         result->writeUnsignedByte(v.getType());
         switch (v.getType()) {
@@ -47,42 +47,49 @@ public:
         return result;
     }
 
-    static int readTypedInt(tcpip::Storage& ret, const std::string& error = "") {
+    static inline int readTypedInt(tcpip::Storage& ret, const std::string& error = "") {
         if (ret.readUnsignedByte() != libsumo::TYPE_INTEGER && error != "") {
             throw TraCIException(error);
         }
         return ret.readInt();
     }
 
-    static int readTypedByte(tcpip::Storage& ret, const std::string& error = "") {
+    static inline int readTypedByte(tcpip::Storage& ret, const std::string& error = "") {
         if (ret.readUnsignedByte() != libsumo::TYPE_BYTE && error != "") {
             throw TraCIException(error);
         }
         return ret.readByte();
     }
 
-    static double readTypedDouble(tcpip::Storage& ret, const std::string& error = "") {
+    static inline int readTypedUnsignedByte(tcpip::Storage& ret, const std::string& error = "") {
+        if (ret.readUnsignedByte() != libsumo::TYPE_UBYTE && error != "") {
+            throw TraCIException(error);
+        }
+        return ret.readUnsignedByte();
+    }
+
+    static inline double readTypedDouble(tcpip::Storage& ret, const std::string& error = "") {
         if (ret.readUnsignedByte() != libsumo::TYPE_DOUBLE && error != "") {
             throw TraCIException(error);
         }
         return ret.readDouble();
     }
 
-    static std::string readTypedString(tcpip::Storage& ret, const std::string& error = "") {
+    static inline std::string readTypedString(tcpip::Storage& ret, const std::string& error = "") {
         if (ret.readUnsignedByte() != libsumo::TYPE_STRING && error != "") {
             throw TraCIException(error);
         }
         return ret.readString();
     }
 
-    static std::vector<std::string> readTypedStringList(tcpip::Storage& ret, const std::string& error = "") {
+    static inline std::vector<std::string> readTypedStringList(tcpip::Storage& ret, const std::string& error = "") {
         if (ret.readUnsignedByte() != libsumo::TYPE_STRINGLIST && error != "") {
             throw TraCIException(error);
         }
         return ret.readStringList();
     }
 
-    static int readCompound(tcpip::Storage& ret, int expectedSize = -1, const std::string& error = "") {
+    static inline int readCompound(tcpip::Storage& ret, int expectedSize = -1, const std::string& error = "") {
         const int type = ret.readUnsignedByte();
         const int size = ret.readInt();
         if (error != "") {
@@ -93,14 +100,14 @@ public:
         return size;
     }
 
-    static bool readBool(tcpip::Storage& ret, const std::string& error = "") {
+    static inline bool readBool(tcpip::Storage& ret, const std::string& error = "") {
         if (ret.readUnsignedByte() != libsumo::TYPE_UBYTE && error != "") {
             throw TraCIException(error);
         }
         return ret.readUnsignedByte() != 0;
     }
 
-    static void readStage(tcpip::Storage& inputStorage, libsumo::TraCIStage& stage, const std::string& error = "") {
+    static inline void readStage(tcpip::Storage& inputStorage, libsumo::TraCIStage& stage, const std::string& error = "") {
         stage.type = readTypedInt(inputStorage, error);
         stage.vType = readTypedString(inputStorage, error);
         stage.line = readTypedString(inputStorage, error);
@@ -116,38 +123,54 @@ public:
         stage.description = readTypedString(inputStorage, error);
     }
 
+    static inline void readConnection(tcpip::Storage& inputStorage, libsumo::TraCIConnection& connection, const std::string& error = "") {
+        connection.approachedLane = readTypedString(inputStorage, error);
+        connection.approachedInternal = readTypedString(inputStorage, error);
+        connection.hasPrio = readBool(inputStorage, error);
+        connection.isOpen = readBool(inputStorage, error);
+        connection.hasFoe = readBool(inputStorage, error);
+        connection.state = readTypedString(inputStorage, error);
+        connection.direction = readTypedString(inputStorage, error);
+        connection.length = readTypedDouble(inputStorage, error);
+    }
 
-    static void writeTypedByte(tcpip::Storage& content, int value) {
+
+    static inline void writeTypedByte(tcpip::Storage& content, int value) {
         content.writeUnsignedByte(libsumo::TYPE_BYTE);
         content.writeByte(value);
     }
 
-    static void writeTypedInt(tcpip::Storage& content, int value) {
+    static inline void writeTypedUnsignedByte(tcpip::Storage& content, int value) {
+        content.writeUnsignedByte(libsumo::TYPE_UBYTE);
+        content.writeUnsignedByte(value);
+    }
+
+    static inline void writeTypedInt(tcpip::Storage& content, int value) {
         content.writeUnsignedByte(libsumo::TYPE_INTEGER);
         content.writeInt(value);
     }
 
-    static void writeTypedDouble(tcpip::Storage& content, double value) {
+    static inline void writeTypedDouble(tcpip::Storage& content, double value) {
         content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
         content.writeDouble(value);
     }
 
-    static void writeTypedString(tcpip::Storage& content, const std::string& value) {
+    static inline void writeTypedString(tcpip::Storage& content, const std::string& value) {
         content.writeUnsignedByte(libsumo::TYPE_STRING);
         content.writeString(value);
     }
 
-    static void writeTypedStringList(tcpip::Storage& content, const std::vector<std::string>& value) {
+    static inline void writeTypedStringList(tcpip::Storage& content, const std::vector<std::string>& value) {
         content.writeUnsignedByte(libsumo::TYPE_STRINGLIST);
         content.writeStringList(value);
     }
 
-    static void writeCompound(tcpip::Storage& content, int size) {
+    static inline void writeCompound(tcpip::Storage& content, int size) {
         content.writeUnsignedByte(libsumo::TYPE_COMPOUND);
         content.writeInt(size);
     }
 
-    static void writePolygon(tcpip::Storage& content, const libsumo::TraCIPositionVector& shape) {
+    static inline void writePolygon(tcpip::Storage& content, const libsumo::TraCIPositionVector& shape) {
         content.writeUnsignedByte(libsumo::TYPE_POLYGON);
         if (shape.value.size() <= 255) {
             content.writeUnsignedByte((int)shape.value.size());
@@ -161,22 +184,39 @@ public:
         }
     }
 
-    static void writeStage(tcpip::Storage& outputStorage, const libsumo::TraCIStage& stage) {
-        writeCompound(outputStorage, 13);
-        outputStorage.writeUnsignedByte(libsumo::TYPE_INTEGER);
-        outputStorage.writeInt(stage.type);
-        writeTypedString(outputStorage, stage.vType);
-        writeTypedString(outputStorage, stage.line);
-        writeTypedString(outputStorage, stage.destStop);
-        writeTypedStringList(outputStorage, stage.edges);
-        writeTypedDouble(outputStorage, stage.travelTime);
-        writeTypedDouble(outputStorage, stage.cost);
-        writeTypedDouble(outputStorage, stage.length);
-        writeTypedString(outputStorage, stage.intended);
-        writeTypedDouble(outputStorage, stage.depart);
-        writeTypedDouble(outputStorage, stage.departPos);
-        writeTypedDouble(outputStorage, stage.arrivalPos);
-        writeTypedString(outputStorage, stage.description);
+    static inline void writeStage(tcpip::Storage& content, const libsumo::TraCIStage& stage) {
+        writeCompound(content, 13);
+        content.writeUnsignedByte(libsumo::TYPE_INTEGER);
+        content.writeInt(stage.type);
+        writeTypedString(content, stage.vType);
+        writeTypedString(content, stage.line);
+        writeTypedString(content, stage.destStop);
+        writeTypedStringList(content, stage.edges);
+        writeTypedDouble(content, stage.travelTime);
+        writeTypedDouble(content, stage.cost);
+        writeTypedDouble(content, stage.length);
+        writeTypedString(content, stage.intended);
+        writeTypedDouble(content, stage.depart);
+        writeTypedDouble(content, stage.departPos);
+        writeTypedDouble(content, stage.arrivalPos);
+        writeTypedString(content, stage.description);
+    }
+
+    static inline void writeConstraint(tcpip::Storage& content, const libsumo::TraCISignalConstraint& c) {
+        writeTypedString(content, c.signalId);
+        writeTypedString(content, c.tripId);
+        writeTypedString(content, c.foeId);
+        writeTypedString(content, c.foeSignal);
+        writeTypedInt(content, c.limit);
+        writeTypedInt(content, c.type);
+        writeTypedByte(content, c.mustWait);
+        writeTypedByte(content, c.active);
+        std::vector<std::string> paramItems;
+        for (const auto& item : c.param) {
+            paramItems.push_back(item.first);
+            paramItems.push_back(item.second);
+        }
+        writeTypedStringList(content, paramItems);
     }
 
 };

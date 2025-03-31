@@ -22,24 +22,36 @@
 #include <microsim/MSLane.h>
 #include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
 #include <microsim/MSVehicle.h>
+#include <microsim/MSEdge.h>
 #include "MSTrainHelper.h"
 
+#define MIN_SCALED_CARRIAGE_LENGTH 5
 
-const double MSTrainHelper::CARRIAGE_DOOR_WIDTH = 1.5;
 const double MSTrainHelper::PEDESTRIAN_RADIUS_EXTRA_TOLERANCE = 0.01;
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
 void
-MSTrainHelper::computeTrainDimensions(double exaggeration, int vehicleQuality) {
+MSTrainHelper::computeTrainDimensions(double exaggeration, bool secondaryShape, double scaledLength, int vehicleQuality) {
     const MSVehicleType& vtype = myTrain->getVehicleType();
-    const double totalLength = vtype.getLength();
+    const double laneFactor = (myTrain->getLane() != nullptr
+            ? myTrain->getLane()->getLengthGeometryFactor(secondaryShape)
+            : (myTrain->getEdge()->getLanes().size() > 0 ? myTrain->getEdge()->getLanes()[0]->getLengthGeometryFactor(secondaryShape) : 1));
+    double totalLength = vtype.getLength();
+    const double geometryScale = scaledLength / totalLength;
     myUpscaleLength = getUpscaleLength(exaggeration, totalLength, vtype.getWidth(), vehicleQuality);
     myLocomotiveLength = vtype.getParameter().locomotiveLength * myUpscaleLength;
     myDefaultLength = vtype.getParameter().carriageLength * myUpscaleLength;
     if (myLocomotiveLength == 0) {
         myLocomotiveLength = myDefaultLength;
+    }
+    const double minLength = MIN2(myLocomotiveLength, myDefaultLength);
+    myUnscale = geometryScale == 1 && laneFactor != 1;
+    if (geometryScale < 1 && minLength * geometryScale < MIN_SCALED_CARRIAGE_LENGTH) {
+        const double rescaleSmall = MIN_SCALED_CARRIAGE_LENGTH / (minLength * geometryScale);
+        myLocomotiveLength *= rescaleSmall;
+        myDefaultLength *= rescaleSmall;
     }
     myCarriageGap = vtype.getParameter().carriageGap * myUpscaleLength;
     myLength = totalLength * myUpscaleLength;
@@ -80,9 +92,9 @@ MSTrainHelper::computeCarriages(bool reversed, bool secondaryShape) {
         // This still produces some artifacts when not fully on the current lane.
         carriageOffset = MIN2(carriageOffset + myTrain->getLength(), lane->getLength());
     }
-    double carriageBackOffset = carriageOffset - myFirstCarriageLength;
+    double unscale = myUnscale ? 1 / lane->getLengthGeometryFactor() : 1;
+    double carriageBackOffset = carriageOffset - myFirstCarriageLength * unscale;
 
-    double curCLength = myFirstCarriageLength;
     myFirstCarriageNo = 0;  // default case - we're going forwards
     myIsReversed = (myTrain->isReversed() && reversed) || myTrain->getLaneChangeModel().isOpposite();
     if (myIsReversed) {
@@ -105,41 +117,40 @@ MSTrainHelper::computeCarriages(bool reversed, bool secondaryShape) {
     for (int i = 0; i < myNumCarriages; ++i) {
         Carriage* carriage = new Carriage();
         if (i == myFirstCarriageNo) {
-            curCLength = myFirstCarriageLength;
             if (myFirstCarriageNo > 0) {
                 // Previous loop iteration has adjusted backpos for a normal carriage so have to correct
                 carriageBackOffset += myCarriageLengthWithGap;
                 carriageBackOffset -= myFirstCarriageLength + myCarriageGap;
             }
-        } else {
-            curCLength = myCarriageLength;
         }
         while (carriageOffset < 0) {
             const MSLane* prev = myTrain->getPreviousLane(lane, furtherIndex);
             if (prev != lane) {
                 carriageOffset += prev->getLength();
             } else {
-                // No lane available.
-                carriageOffset = 0;
+                break;
             }
             lane = prev;
         }
         while (carriageBackOffset < 0) {
             const MSLane* prev = myTrain->getPreviousLane(backLane, backFurtherIndex);
             if (prev != backLane) {
+                if (myUnscale) {
+                    carriageBackOffset *= backLane->getLengthGeometryFactor() / prev->getLengthGeometryFactor();
+                }
                 carriageBackOffset += prev->getLength();
             } else {
-                // No lane available.
-                carriageBackOffset = 0;
+                break;
             }
             backLane = prev;
         }
-        carriage->front = lane->getShape(secondaryShape).positionAtOffset(carriageOffset * lane->getLengthGeometryFactor(secondaryShape), lateralOffset);
-        carriage->back = backLane->getShape(secondaryShape).positionAtOffset(carriageBackOffset * backLane->getLengthGeometryFactor(secondaryShape), lateralOffset);
+        carriage->front = lane->getShape(secondaryShape).positionAtOffset2D(carriageOffset * lane->getLengthGeometryFactor(secondaryShape), lateralOffset, true);
+        carriage->back = backLane->getShape(secondaryShape).positionAtOffset2D(carriageBackOffset * backLane->getLengthGeometryFactor(secondaryShape), lateralOffset, true);
+        double unscale = myUnscale ? 1 / backLane->getLengthGeometryFactor() : 1;
         myCarriages.push_back(carriage);
-
-        carriageOffset -= (curCLength + myCarriageGap);
-        carriageBackOffset -= myCarriageLengthWithGap;
+        lane = backLane;
+        carriageOffset = carriageBackOffset - myCarriageGap;
+        carriageBackOffset -= myCarriageLengthWithGap * unscale;
     }
 }
 

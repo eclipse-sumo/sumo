@@ -35,11 +35,7 @@
 // ===========================================================================
 
 GNEVaporizer::GNEVaporizer(GNENet* net) :
-    GNEAdditional("", net, "", GLO_VAPORIZER, SUMO_TAG_VAPORIZER, GUIIcon::VAPORIZER, ""),
-    myBegin(0),
-    myEnd(0) {
-    // reset default values
-    resetDefaultValues();
+    GNEAdditional("", net, "", GLO_VAPORIZER, SUMO_TAG_VAPORIZER, GUIIcon::VAPORIZER, "") {
 }
 
 

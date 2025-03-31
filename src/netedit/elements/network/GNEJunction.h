@@ -100,6 +100,9 @@ public:
     /// @brief check if draw delete contour (pink/white)
     bool checkDrawDeleteContour() const;
 
+    /// @brief check if draw delete contour small (pink/white)
+    bool checkDrawDeleteContourSmall() const;
+
     /// @brief check if draw select contour (blue)
     bool checkDrawSelectContour() const;
 
@@ -366,6 +369,9 @@ private:
     /// @brief draw junction as bubble
     void drawJunctionAsShape(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
                              const double exaggeration) const;
+
+    /// @brief draw junction center (only in move mode)
+    void drawJunctionCenter(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const;
 
     /// @brief draw TLS icon
     void drawTLSIcon(const GUIVisualizationSettings& s) const;

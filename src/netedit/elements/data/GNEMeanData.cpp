@@ -32,7 +32,7 @@ GNEMeanData::GNEMeanData(SumoXMLTag tag, std::string ID, GNENet* net, const std:
     GNEAttributeCarrier(tag, net, filename, true),
     myID(ID) {
     // reset default values
-    resetDefaultValues();
+    resetDefaultValues(false);
 }
 
 
@@ -181,6 +181,12 @@ GNEMeanData::checkDrawOverContour() const {
 
 bool
 GNEMeanData::checkDrawDeleteContour() const {
+    return false;
+}
+
+
+bool
+GNEMeanData::checkDrawDeleteContourSmall() const {
     return false;
 }
 

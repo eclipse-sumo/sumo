@@ -16,17 +16,18 @@
 /// @author  Pablo Alvarez Lopez
 /// @date    2018-12-19
 ///
-//
+// ComboBox with search field and icons
 /****************************************************************************/
-
 #pragma once
 #include <config.h>
 
 #include "MFXListIcon.h"
 #include "MFXTextFieldSearch.h"
 
+// ===========================================================================
+// class definitions
+// ===========================================================================
 
-/// @brief ComboBox with icon
 class MFXComboBoxIcon : public FXPacker {
     /// @brief FOX declaration
     FXDECLARE(MFXComboBoxIcon)
@@ -110,7 +111,7 @@ public:
     void removeItem(FXint index);
 
     /// @brief Remove all items from the list
-    void clearItems();
+    virtual void clearItems();
 
     /// @brief find item
     FXint findItem(const FXString& text) const;
@@ -174,7 +175,7 @@ protected:
 
 private:
     /// @brief invalidate copy constructor
-    MFXComboBoxIcon(const MFXComboBoxIcon&);
+    MFXComboBoxIcon(const MFXComboBoxIcon&) = delete;
 
     /// @brief invalidate assignment operator
     MFXComboBoxIcon& operator=(const MFXComboBoxIcon&) = delete;

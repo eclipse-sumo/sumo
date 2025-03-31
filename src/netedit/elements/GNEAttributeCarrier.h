@@ -48,9 +48,7 @@ class GNEAttributeCarrier : public GNEReferenceCounter {
     /// @brief declare friend class
     friend class GNEChange_Attribute;
     friend class GNEChange_ToggleAttribute;
-    friend class GNEAttributesCreatorRow;
     friend class GNEAttributesEditorType;
-    friend class GNEFlowEditor;
 
 public:
 
@@ -138,6 +136,9 @@ public:
     /// @brief check if draw inspect contour (black/white)
     bool checkDrawInspectContour() const;
 
+    /// @brief check if draw inspect contour small (black/white)
+    bool checkDrawInspectContourSmall() const;
+
     /// @brief check if draw front contour (green/blue)
     bool checkDrawFrontContour() const;
 
@@ -156,6 +157,9 @@ public:
     /// @brief check if draw delete contour (pink/white)
     virtual bool checkDrawDeleteContour() const = 0;
 
+    /// @brief check if draw delete contour small (pink/white)
+    virtual bool checkDrawDeleteContourSmall() const = 0;
+
     /// @brief check if draw select contour (blue)
     virtual bool checkDrawSelectContour() const = 0;
 
@@ -165,7 +169,7 @@ public:
     /// @}
 
     /// @brief reset attribute carrier to their default values
-    void resetDefaultValues();
+    void resetDefaultValues(const bool allowUndoRedo);
 
     /// @name Functions related with attributes (must be implemented in all children)
     /// @{
@@ -271,49 +275,32 @@ public:
     /// @brief get tagProperty associated with this Attribute Carrier
     const GNETagProperties* getTagProperty() const;
 
+    /// @name parse functions
+    /// @{
+
     /// @brief true if a value of type T can be parsed from string
     template<typename T>
-    static bool canParse(const std::string& string) {
-        try {
-            GNEAttributeCarrier::parse<T>(string);
-        } catch (EmptyData&) {
-            // general
-            return false;
-        } catch (FormatException&) {
-            // numbers, time, boolean, colors
-            return false;
-        }
-        return true;
-    }
+    static bool canParse(const std::string& string);
 
     /// @brief parses a value of type T from string (used for basic types: int, double, bool, etc.)
     template<typename T>
     static T parse(const std::string& string);
 
-    /// @brief true if a value of type T can be parsed from string
+    /**@brief true if a value of type T can be parsed from string (requieres network)
+     * @note checkConsecutivity doesn't check connectivity trought connections
+     */
     template<typename T>
-    static bool canParse(GNENet* net, const std::string& value, bool report) {
-        try {
-            parse<T>(net, value);
-        } catch (FormatException& exception) {
-            if (report) {
-                WRITE_WARNING(exception.what())
-            }
-            return false;
-        }
-        return true;
-    }
+    static bool canParse(const GNENet* net, const std::string& value, const bool checkConsecutivity);
 
     /// @brief parses a complex value of type T from string (use for list of edges, list of lanes, etc.)
     template<typename T>
-    static T parse(GNENet* net, const std::string& value);
+    static T parse(const GNENet* net, const std::string& value);
 
     /// @brief parses a list of specific Attribute Carriers into a string of IDs
     template<typename T>
     static std::string parseIDs(const std::vector<T>& ACs);
 
-    /// @brief check if lanes are consecutives
-    static bool lanesConsecutives(const std::vector<GNELane*>& lanes);
+    /// @}
 
     /// @name Certain attributes and ACs (for example, connections) can be either loaded or guessed. The following static variables are used to remark it.
     /// @{
@@ -357,6 +344,9 @@ protected:
     /// @brief filename in which save this AC
     std::string myFilename;
 
+    /// @brief boolean to check if center this element after creation
+    bool myCenterAfterCreation = true;
+
     /// @brief whether the current object is a template object (used for edit attributes)
     const bool myIsTemplate = false;
 
@@ -392,9 +382,6 @@ protected:
 private:
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
     virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;
-
-    /// @brief reset attributes to their default values without undo-redo
-    void resetAttributes();
 
     /// @brief Invalidated copy constructor.
     GNEAttributeCarrier(const GNEAttributeCarrier&) = delete;

@@ -90,42 +90,11 @@ Lane::getLinks(const std::string& laneID) {
     sto.readUnsignedByte();
     sto.readInt();
 
-    int linkNo = sto.readInt();
+    const int linkNo = sto.readInt();
     for (int i = 0; i < linkNo; ++i) {
-
-        sto.readUnsignedByte();
-        std::string approachedLane = sto.readString();
-
-        sto.readUnsignedByte();
-        std::string approachedLaneInternal = sto.readString();
-
-        sto.readUnsignedByte();
-        bool hasPrio = sto.readUnsignedByte() != 0;
-
-        sto.readUnsignedByte();
-        bool isOpen = sto.readUnsignedByte() != 0;
-
-        sto.readUnsignedByte();
-        bool hasFoe = sto.readUnsignedByte() != 0;
-
-        sto.readUnsignedByte();
-        std::string state = sto.readString();
-
-        sto.readUnsignedByte();
-        std::string direction = sto.readString();
-
-        sto.readUnsignedByte();
-        double length = sto.readDouble();
-
-        ret.push_back(libsumo::TraCIConnection(approachedLane,
-                                               hasPrio,
-                                               isOpen,
-                                               hasFoe,
-                                               approachedLaneInternal,
-                                               state,
-                                               direction,
-                                               length));
-
+        libsumo::TraCIConnection conn;
+        StoHelp::readConnection(sto, conn);
+        ret.emplace_back(conn);
     }
     return ret;
 }
@@ -268,15 +237,9 @@ Lane::getFoes(const std::string& laneID, const std::string& toLaneID) {
 }
 
 
-// XXX: there seems to be no "Dom::getFoes"
 std::vector<std::string>
 Lane::getInternalFoes(const std::string& laneID) {
-    //tcpip::Storage content;
-    //content.writeUnsignedByte(libsumo::TYPE_STRING);
-    //content.writeString("");
-    //return Dom::getStringVector(libsumo::VAR_FOES, laneID, &content);
     return getFoes(laneID, "");
-    //return Dom::getFoes(laneID, "");
 }
 
 

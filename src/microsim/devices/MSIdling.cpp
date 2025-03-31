@@ -216,7 +216,7 @@ MSIdling_TaxiStand::idle(MSDevice_Taxi* taxi) {
             WRITE_WARNING("Stop insertion failed for idling taxi '" + veh.getID() + "' (" + error + ").");
         } else {
             //std::cout << SIMTIME << " taxistandsVeh=" << veh.getID() << "  driving to parkingArea " << pa->getID() << "\n";
-            veh.activateReminders(MSMoveReminder::NOTIFICATION_PARKING_REROUTE, &pa->getLane());
+            myRerouter->triggerRouting(veh, MSMoveReminder::NOTIFICATION_PARKING_REROUTE);
         }
     } else {
         //std::cout << SIMTIME << " taxistandsVeh=" << veh.getID() << "  already driving to parkingArea\n";

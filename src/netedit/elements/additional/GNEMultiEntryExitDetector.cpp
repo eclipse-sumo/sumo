@@ -35,8 +35,6 @@
 
 GNEMultiEntryExitDetector::GNEMultiEntryExitDetector(GNENet* net) :
     GNEAdditional("", net, "", GLO_E3DETECTOR, SUMO_TAG_ENTRY_EXIT_DETECTOR, GUIIcon::E3ENTRY, "") {
-    // reset default values
-    resetDefaultValues();
 }
 
 
@@ -108,8 +106,8 @@ GNEMultiEntryExitDetector::writeAdditional(OutputDevice& device) const {
         if (myExpectedArrival != myTagProperty->getDefaultBoolValue(SUMO_ATTR_EXPECT_ARRIVAL)) {
             device.writeAttr(SUMO_ATTR_EXPECT_ARRIVAL, myExpectedArrival);
         }
-        if (myExpectedArrival != myTagProperty->getDefaultBoolValue(SUMO_ATTR_OPEN_ENTRY)) {
-            device.writeAttr(SUMO_ATTR_OPEN_ENTRY, myExpectedArrival);
+        if (myOpenEntry != myTagProperty->getDefaultBoolValue(SUMO_ATTR_OPEN_ENTRY)) {
+            device.writeAttr(SUMO_ATTR_OPEN_ENTRY, myOpenEntry);
         }
         // write all entry/exits
         for (const auto& access : getChildAdditionals()) {

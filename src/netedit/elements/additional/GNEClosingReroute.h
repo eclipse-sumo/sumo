@@ -152,10 +152,10 @@ public:
 
 protected:
     /// @brief closed edge
-    GNEEdge* myClosedEdge;
+    GNEEdge* myClosedEdge = nullptr;
 
     // @brief permissions of this Closing Reroute
-    SVCPermissions myPermissions;
+    SVCPermissions myPermissions = SVCAll;
 
 private:
     /// @brief set attribute after validation

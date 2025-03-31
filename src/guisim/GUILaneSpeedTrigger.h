@@ -67,8 +67,7 @@ public:
      * @return The built popup-menu
      * @see GUIGlObject::getPopUpMenu
      */
-    GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app,
-                                       GUISUMOAbstractView& parent);
+    GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent);
 
     /** @brief Returns an own parameter window
      *
@@ -77,8 +76,7 @@ public:
      * @return The built parameter window
      * @see GUIGlObject::getParameterWindow
      */
-    GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app,
-            GUISUMOAbstractView& parent);
+    GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent);
 
     /// @brief return exaggeration associated with this GLObject
     double getExaggeration(const GUIVisualizationSettings& s) const;
@@ -97,16 +95,14 @@ public:
     void drawGL(const GUIVisualizationSettings& s) const;
     //@}
 
-    GUIManipulator* openManipulator(GUIMainWindow& app,
-                                    GUISUMOAbstractView& parent);
+    GUIManipulator* openManipulator(GUIMainWindow& app, GUISUMOAbstractView& parent);
 
 public:
     class GUILaneSpeedTriggerPopupMenu : public GUIGLObjectPopupMenu {
         FXDECLARE(GUILaneSpeedTriggerPopupMenu)
     public:
 
-        GUILaneSpeedTriggerPopupMenu(GUIMainWindow& app,
-                                     GUISUMOAbstractView& parent, GUIGlObject& o);
+        GUILaneSpeedTriggerPopupMenu(GUIMainWindow& app, GUISUMOAbstractView& parent, GUIGlObject* o);
 
         ~GUILaneSpeedTriggerPopupMenu();
 
@@ -136,7 +132,6 @@ public:
         /// Destructor
         virtual ~GUIManip_LaneSpeedTrigger();
 
-        long onCmdOverride(FXObject*, FXSelector, void*);
         long onCmdClose(FXObject*, FXSelector, void*);
         long onCmdUserDef(FXObject*, FXSelector, void*);
         long onUpdUserDef(FXObject*, FXSelector, void*);
@@ -162,8 +157,7 @@ public:
         GUILaneSpeedTrigger* myObject;
 
     protected:
-        GUIManip_LaneSpeedTrigger() { }
-
+        FOX_CONSTRUCTOR(GUIManip_LaneSpeedTrigger)
     };
 
 private:

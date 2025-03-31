@@ -272,7 +272,7 @@ binary downloads above which already contain the runtime dependencies.
 # Note on Licensing
 
 SUMO is licensed under the
-[EPL-2.0](https://eclipse.org/legal/epl-v20.html) with GPL v2 or later as a secondary license option using only [open
+[EPL-2.0](https://www.eclipse.org/legal/epl-2.0/) with GPL v2 or later as a secondary license option using only [open
 source libraries](Libraries_Licenses.md).
 
 The standard Windows build only contains code and Windows binaries with Eclipse

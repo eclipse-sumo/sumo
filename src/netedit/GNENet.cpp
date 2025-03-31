@@ -99,6 +99,7 @@ GNENet::GNENet(NBNetBuilder* netBuilder, const GNETagPropertiesDatabase* tagProp
     myNetBuilder(netBuilder),
     myTagPropertiesDatabase(tagPropertiesDatabase),
     myAttributeCarriers(new GNENetHelper::AttributeCarriers(this)),
+    myACTemplates(new GNENetHelper::ACTemplate(this)),
     mySavingFilesHandler(new GNENetHelper::SavingFilesHandler(this)),
     mySavingStatus(new GNENetHelper::SavingStatus(this)),
     myNetworkPathManager(new GNEPathManager(this)),
@@ -106,6 +107,8 @@ GNENet::GNENet(NBNetBuilder* netBuilder, const GNETagPropertiesDatabase* tagProp
     myDataPathManager(new GNEPathManager(this)) {
     // set net in gIDStorage
     GUIGlObjectStorage::gIDStorage.setNetObject(this);
+    // build templates
+    myACTemplates->buildTemplates();
     // init junction and edges
     initJunctionsAndEdges();
     // check Z boundary
@@ -126,6 +129,7 @@ GNENet::~GNENet() {
     delete myDataPathManager;
     // delete attribute carriers
     delete myAttributeCarriers;
+    delete myACTemplates;
     // delete saving status
     delete mySavingStatus;
     delete myNetBuilder;
@@ -141,6 +145,12 @@ GNENet::getTagPropertiesDatabase() const {
 GNENetHelper::AttributeCarriers*
 GNENet::getAttributeCarriers() const {
     return myAttributeCarriers;
+}
+
+
+GNENetHelper::ACTemplate*
+GNENet::getACTemplates() const {
+    return myACTemplates;
 }
 
 
@@ -194,7 +204,7 @@ GNENet::getEdgesAndNumberOfLanes() const {
 
 GUIGLObjectPopupMenu*
 GNENet::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
-    GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
+    GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, this);
     buildPopupHeader(ret, app);
     buildCenterPopupEntry(ret);
     buildPositionCopyEntry(ret, app);
@@ -268,10 +278,6 @@ GNENet::createJunction(const Position& pos, GNEUndoList* undoList) {
 GNEEdge*
 GNENet::createEdge(GNEJunction* src, GNEJunction* dest, GNEEdge* edgeTemplate, GNEUndoList* undoList,
                    const std::string& suggestedName, bool wasSplit, bool allowDuplicateGeom, bool recomputeConnections) {
-    // get edge prefix
-    const std::string edgePrefix = OptionsCont::getOptions().getString("prefix") + OptionsCont::getOptions().getString("edge-prefix");
-    // get edge infix
-    std::string edgeInfix = OptionsCont::getOptions().getString("edge-infix");
     // prevent duplicate edge (same geometry)
     for (const auto& outgoingEdge : src->getNBNode()->getOutgoingEdges()) {
         if (outgoingEdge->getToNode() == dest->getNBNode() && outgoingEdge->getGeometry().size() == 2) {
@@ -282,6 +288,10 @@ GNENet::createEdge(GNEJunction* src, GNEJunction* dest, GNEEdge* edgeTemplate, G
     }
     // check if exist opposite edge
     const auto oppositeEdges = myAttributeCarriers->retrieveEdges(dest, src);
+    // get edge prefix
+    const std::string edgePrefix = OptionsCont::getOptions().getString("prefix") + OptionsCont::getOptions().getString("edge-prefix");
+    // get edge infix
+    std::string edgeInfix = OptionsCont::getOptions().getString("edge-infix");
     // declare edge id
     std::string edgeID;
     // update id
@@ -318,11 +328,7 @@ GNENet::createEdge(GNEJunction* src, GNEJunction* dest, GNEEdge* edgeTemplate, G
             edgeID = src->getID() + edgeInfix + toString(counter) + dest->getID();
         }
     } else {
-        // generate new ID
-        while (myAttributeCarriers->getEdges().count(edgePrefix + toString(myEdgeIDCounter)) != 0) {
-            myEdgeIDCounter++;
-        }
-        edgeID = edgePrefix + toString(myEdgeIDCounter);
+        edgeID = myAttributeCarriers->generateEdgeID();
     }
     GNEEdge* edge;
     // check if there is a template edge
@@ -1959,14 +1965,14 @@ GNENet::replaceJunctionByGeometry(GNEJunction* junction, GNEUndoList* undoList) 
         // start operation
         undoList->begin(junction, TL("replace junction by geometry"));
         // obtain Edges to join
-        std::vector<std::pair<NBEdge*, NBEdge*> > toJoin = junction->getNBNode()->getEdgesToJoin();
+        std::vector<std::pair<NBEdge*, NBEdge*> > edgesToJoin = junction->getNBNode()->getEdgesToJoin();
         // clear connections of junction to replace
         clearJunctionConnections(junction, undoList);
         // iterate over NBEdges to join
-        for (auto j : toJoin) {
+        for (auto edgePair : edgesToJoin) {
             // obtain GNEEdges
-            GNEEdge* begin = myAttributeCarriers->getEdges().at(j.first->getID());
-            GNEEdge* continuation = myAttributeCarriers->getEdges().at(j.second->getID());
+            GNEEdge* begin = myAttributeCarriers->getEdges().at(edgePair.first->getID());
+            GNEEdge* continuation = myAttributeCarriers->getEdges().at(edgePair.second->getID());
             // remove connections between the edges
             std::vector<NBEdge::Connection> connections = begin->getNBEdge()->getConnections();
             for (auto con : connections) {
@@ -1974,21 +1980,12 @@ GNENet::replaceJunctionByGeometry(GNEJunction* junction, GNEUndoList* undoList) 
             }
             // fix shape of replaced edge
             PositionVector newShape = begin->getNBEdge()->getInnerGeometry();
-            if (begin->getNBEdge()->hasDefaultGeometryEndpointAtNode(begin->getNBEdge()->getToNode())) {
-                newShape.push_back(junction->getNBNode()->getPosition());
-            } else {
-                newShape.push_back(begin->getNBEdge()->getGeometry()[-1]);
-            }
-            if (continuation->getNBEdge()->hasDefaultGeometryEndpointAtNode(begin->getNBEdge()->getToNode())) {
-                newShape.push_back_noDoublePos(junction->getNBNode()->getPosition());
-            } else {
-                newShape.push_back_noDoublePos(continuation->getNBEdge()->getGeometry()[0]);
-            }
+            newShape.push_back(junction->getNBNode()->getPosition());
             // replace incoming edge
             replaceIncomingEdge(continuation, begin, undoList);
 
             newShape.append(continuation->getNBEdge()->getInnerGeometry());
-            begin->setAttribute(GNE_ATTR_SHAPE_END, continuation->getAttribute(GNE_ATTR_SHAPE_END), undoList);
+            begin->setAttribute(GNE_ATTR_SHAPE_END, "", undoList);
             begin->setAttribute(SUMO_ATTR_ENDOFFSET, continuation->getAttribute(SUMO_ATTR_ENDOFFSET), undoList);
             begin->setAttribute(SUMO_ATTR_SHAPE, toString(newShape), undoList);
             begin->getNBEdge()->resetNodeBorder(begin->getNBEdge()->getToNode());
@@ -2496,7 +2493,9 @@ GNENet::saveDataElementsConfirmed() {
         device.writeXMLHeader("data", "datamode_file.xsd", EMPTY_HEADER, false);
         // write all data sets
         for (const auto& dataSet : myAttributeCarriers->getDataSets()) {
-            dataSet.second->writeDataSet(device);
+            if (dataByFilename.second.count(dataSet.second) > 0) {
+                dataSet.second->writeDataSet(device);
+            }
         }
         // close device
         device.close();
@@ -2926,6 +2925,18 @@ GNENet::disableUpdateData() {
 bool
 GNENet::isUpdateDataEnabled() const {
     return myUpdateDataEnabled;
+}
+
+
+unsigned int&
+GNENet::getJunctionIDCounter() {
+    return myJunctionIDCounter;
+}
+
+
+unsigned int&
+GNENet::getEdgeIDCounter() {
+    return myEdgeIDCounter;
 }
 
 // ===========================================================================

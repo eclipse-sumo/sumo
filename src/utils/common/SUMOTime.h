@@ -68,6 +68,9 @@ extern SUMOTime DELTA_T;
 /// @brief convert string to SUMOTime
 SUMOTime string2time(const std::string& r);
 
+/// @brief check if the given string is a valid time
+bool isTime(const std::string& r);
+
 /// @brief convert SUMOTime to string (independently of global format setting)
 std::string time2string(SUMOTime t, bool humanReadable);
 

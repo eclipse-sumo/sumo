@@ -43,8 +43,6 @@
 GNEPoly::GNEPoly(SumoXMLTag tag, GNENet* net) :
     TesselatedPolygon("", "", RGBColor::BLACK, {}, false, false, 0, 0, 0, "", "", Parameterised::Map()),
 GNEAdditional("", net, "", GLO_POLYGON, tag, GUIIcon::POLY, "") {
-    // reset default values
-    resetDefaultValues();
 }
 
 
@@ -107,7 +105,7 @@ GNEPoly::~GNEPoly() {}
 GNEMoveOperation*
 GNEPoly::getMoveOperation() {
     // edit depending if shape is blocked
-    if (myNet->getViewNet()->getViewParent()->getMoveFrame()->getNetworkModeOptions()->getMoveWholePolygons()) {
+    if (myNet->getViewNet()->getViewParent()->getMoveFrame()->getNetworkMoveOptions()->getMoveWholePolygons()) {
         // move entire shape
         return new GNEMoveOperation(this, myShape);
     } else {
@@ -251,15 +249,10 @@ GNEPoly::getParentName() const {
 
 GUIGLObjectPopupMenu*
 GNEPoly::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
-    GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
-    buildPopupHeader(ret, app);
-    buildCenterPopupEntry(ret);
-    buildNameCopyPopupEntry(ret);
-    // build selection and show parameters menu
-    myNet->getViewNet()->buildSelectionACPopupEntry(ret, this);
-    buildShowParamsPopupEntry(ret);
-    buildPositionCopyEntry(ret, app);
-    new FXMenuSeparator(ret);
+    // create popup
+    GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, this);
+    // build common options
+    buildPopUpMenuCommonOptions(ret, app, myNet->getViewNet(), myTagProperty->getTag(), mySelected);
     FXMenuCommand* simplifyShape = GUIDesigns::buildFXMenuCommand(ret, TL("Simplify Shape"), TL("Replace current shape with a rectangle"), nullptr, &parent, MID_GNE_POLYGON_SIMPLIFY_SHAPE);
     // disable simplify shape if polygon was already simplified
     if (mySimplifiedShape || myShape.size() <= 2) {
@@ -277,11 +270,11 @@ GNEPoly::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     if (myShape.size() > 3) {
         GUIDesigns::buildFXMenuCommand(ret, TL("Triangulate polygon"), TL("Convert the current polygon in triangles"), nullptr, &parent, MID_GNE_POLYGON_TRIANGULATE);
     }
-    // add separator
-    new FXMenuSeparator(ret);
     // create a extra FXMenuCommand if mouse is over a vertex
     const int index = getVertexIndex(myNet->getViewNet()->getPositionInformation(), false);
     if (index != -1) {
+        // add separator
+        new FXMenuSeparator(ret);
         // check if we're in network mode
         if (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE) {
             GUIDesigns::buildFXMenuCommand(ret, "Set custom Geometry Point", nullptr, &parent, MID_GNE_CUSTOM_GEOMETRYPOINT);
@@ -325,7 +318,7 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
             // draw polygon
             drawPolygon(s, d, color, polyExaggeration);
             // draw contour if don't move whole polygon
-            if (!myNet->getViewNet()->getViewParent()->getMoveFrame()->getNetworkModeOptions()->getMoveWholePolygons()) {
+            if (!myNet->getViewNet()->getViewParent()->getMoveFrame()->getNetworkMoveOptions()->getMoveWholePolygons()) {
                 // get darker color
                 const RGBColor darkerColor = color.changedBrightness(-32);
                 // draw contour
@@ -564,11 +557,7 @@ GNEPoly::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_LINEWIDTH:
             return toString(myLineWidth);
         case SUMO_ATTR_LAYER:
-            if (getShapeLayer() == Shape::DEFAULT_LAYER) {
-                return "default";
-            } else {
-                return toString(getShapeLayer());
-            }
+            return toString(getShapeLayer());
         case SUMO_ATTR_TYPE:
             return getShapeType();
         case SUMO_ATTR_IMGFILE:
@@ -647,7 +636,7 @@ GNEPoly::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_LINEWIDTH:
             return canParse<double>(value) && (parse<double>(value) >= 0);
         case SUMO_ATTR_LAYER:
-            if (value == "default") {
+            if (value.empty()) {
                 return true;
             } else {
                 return canParse<double>(value);
@@ -772,8 +761,8 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
             myLineWidth = parse<double>(value);
             break;
         case SUMO_ATTR_LAYER:
-            if (value == "default") {
-                setShapeLayer(Shape::DEFAULT_LAYER);
+            if (value.empty()) {
+                setShapeLayer(myTagProperty->getDefaultDoubleValue(key));
             } else {
                 setShapeLayer(parse<double>(value));
             }

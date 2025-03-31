@@ -400,10 +400,10 @@ void
 NBLoadedSUMOTLDef::initNeedsContRelation() const {
     if (!amInvalid() && !myNeedsContRelationReady) {
         myNeedsContRelation.clear();
-        myRightOnRedConflicts.clear();
+        myExtraConflicts.clear();
         if (myType == TrafficLightType::NEMA) {
             NBTrafficLightDefinition::initNeedsContRelation();
-            NBTrafficLightDefinition::initRightOnRedConflicts();
+            NBTrafficLightDefinition::initExtraConflicts();
         } else {
             const bool controlledWithin = !OptionsCont::getOptions().getBool("tls.uncontrolled-within");
             const std::vector<NBTrafficLightLogic::PhaseDefinition> phases = myTLLogic->getPhases();
@@ -426,14 +426,17 @@ NBLoadedSUMOTLDef::initNeedsContRelation() const {
                                                                c1.getFrom(), c1.getTo(), c1.getFromLane(), c2.getFrom(), c2.getTo(), c2.getFromLane());
                             const bool forbidden = forbids(c2.getFrom(), c2.getTo(), c1.getFrom(), c1.getTo(), true, controlledWithin);
                             const bool isFoes = foes(c2.getFrom(), c2.getTo(), c1.getFrom(), c1.getTo()) && !c2.getFrom()->isTurningDirectionAt(c2.getTo());
-                            if (forbidden || rightTurnConflict) {
+                            const bool hasContRel = forbidden || rightTurnConflict;
+                            const bool indirectLeft = c1.getFrom()->getConnection(c1.getFromLane(), c1.getTo(), c1.getToLane()).indirectLeft;
+                            if (hasContRel) {
                                 myNeedsContRelation.insert(StreamPair(c1.getFrom(), c1.getTo(), c2.getFrom(), c2.getTo()));
                             }
-                            if (isFoes && state[i1] == 's') {
-                                myRightOnRedConflicts.insert(std::make_pair(i1, i2));
-                                //std::cout << getID() << " prog=" << getProgramID() << " phase=" << (it - phases.begin()) << " rightOnRedConflict i1=" << i1 << " i2=" << i2 << "\n";
+                            if (isFoes && (state[i1] == 's' || (!hasContRel && state[i2] == 'G' && !indirectLeft))) {
+                                myExtraConflicts.insert(std::make_pair(i1, i2));
+                                //std::cout << getID() << " prog=" << getProgramID() << " phase=" << (it - phases.begin()) << " extraConflict i1=" << i1 << " i2=" << i2 
+                                //    << " c1=" << c1 << " c2=" << c2 << "\n";
                             }
-                            //std::cout << getID() << " i1=" << i1 << " i2=" << i2 << " rightTurnConflict=" << rightTurnConflict << " forbidden=" << forbidden << " isFoes=" << isFoes << "\n";
+                            //std::cout << getID() << " p=" << (it - phases.begin()) << " i1=" << i1 << " i2=" << i2 << " rightTurnConflict=" << rightTurnConflict << " forbidden=" << forbidden << " isFoes=" << isFoes << "\n";
                         }
                     }
                 }
@@ -441,20 +444,20 @@ NBLoadedSUMOTLDef::initNeedsContRelation() const {
         }
     }
     myNeedsContRelationReady = true;
-    myRightOnRedConflictsReady = true;
+    myExtraConflictsReady = true;
 }
 
 
 bool
-NBLoadedSUMOTLDef::rightOnRedConflict(int index, int foeIndex) const {
+NBLoadedSUMOTLDef::extraConflict(int index, int foeIndex) const {
     if (amInvalid()) {
         return false;
     }
-    if (!myRightOnRedConflictsReady) {
-        initNeedsContRelation();
-        assert(myRightOnRedConflictsReady);
+    if (!myExtraConflictsReady) {
+        initExtraConflicts();
+        assert(myExtraConflictsReady);
     }
-    return std::find(myRightOnRedConflicts.begin(), myRightOnRedConflicts.end(), std::make_pair(index, foeIndex)) != myRightOnRedConflicts.end();
+    return std::find(myExtraConflicts.begin(), myExtraConflicts.end(), std::make_pair(index, foeIndex)) != myExtraConflicts.end();
 }
 
 

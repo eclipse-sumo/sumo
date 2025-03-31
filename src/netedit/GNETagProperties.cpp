@@ -24,12 +24,13 @@
 // method definitions
 // ===========================================================================
 
-GNETagProperties::GNETagProperties(const SumoXMLTag tag, const int tagType, const int tagProperty, const int tagParents,
-                                   const int conflicts, const GUIIcon icon, const SumoXMLTag XMLTag, const std::string tooltip,
-                                   const std::vector<SumoXMLTag> parentTags, const unsigned int backgroundColor,
-                                   const std::string fieldString) :
+GNETagProperties::GNETagProperties(const SumoXMLTag tag, GNETagProperties* parent, const int tagType, const int tagProperty,
+                                   const int tagParents, const int conflicts, const GUIIcon icon, const SumoXMLTag XMLTag,
+                                   const std::string tooltip, const std::vector<SumoXMLTag> XMLParentTags,
+                                   const unsigned int backgroundColor, const std::string selectorText) :
     myTag(tag),
     myTagStr(toString(tag)),
+    myParent(parent),
     myTagType(tagType),
     myTagProperty(tagProperty),
     myTagParents(tagParents),
@@ -37,9 +38,29 @@ GNETagProperties::GNETagProperties(const SumoXMLTag tag, const int tagType, cons
     myIcon(icon),
     myXMLTag(XMLTag),
     myTooltipText(tooltip),
-    myParentTags(parentTags),
-    myFieldString(fieldString.empty() ? toString(tag) : fieldString),
+    myXMLParentTags(XMLParentTags),
+    mySelectorText(selectorText.empty() ? toString(tag) : selectorText),
     myBackgroundColor(backgroundColor) {
+    if (parent) {
+        parent->addChild(this);
+    }
+}
+
+
+GNETagProperties::GNETagProperties(const SumoXMLTag tag, GNETagProperties* parent, const GUIIcon icon, const std::string tooltip,
+                                   const unsigned int backgroundColor, const std::string selectorText) :
+    myTag(tag),
+    myTagStr(toString(tag)),
+    myParent(parent),
+    myTagProperty(HIERARCHICAL),
+    myIcon(icon),
+    myXMLTag(tag),
+    myTooltipText(tooltip),
+    mySelectorText(selectorText.empty() ? toString(tag) : selectorText),
+    myBackgroundColor(backgroundColor) {
+    if (parent) {
+        parent->addChild(this);
+    }
 }
 
 
@@ -56,18 +77,6 @@ GNETagProperties::getTag() const {
 }
 
 
-Supermode
-GNETagProperties::getSupermode() const {
-    if (isDemandElement()) {
-        return Supermode::DEMAND;
-    } else if (isDataElement() || isMeanData()) {
-        return Supermode::DATA;
-    } else {
-        return Supermode::NETWORK;
-    }
-}
-
-
 const std::string&
 GNETagProperties::getTagStr() const {
     return myTagStr;
@@ -79,35 +88,137 @@ GNETagProperties::checkTagIntegrity() const {
     // check integrity only in debug mode
 #ifdef DEBUG
     if (myTagType == -1) {
-        throw ProcessError(TL("no tag type defined"));
+        throw ProcessError("No tag type defined");
     }
     if (myTagProperty == -1) {
-        throw ProcessError(TL("no tag property defined"));
+        throw ProcessError("No tag property defined");
     }
     if (myTagParents == -1) {
-        throw ProcessError(TL("no tag parent defined"));
+        throw ProcessError("No tag parent defined");
     }
     if (myConflicts == -1) {
-        throw ProcessError(TL("no conflict defined"));
+        throw ProcessError("No conflict defined");
+    }
+    // check that this edge has parents (Except supermodes)
+    if (myTag == SUMO_TAG_ROOTFILE) {
+        if (myParent != nullptr) {
+            throw ProcessError("Root parent must be empty");
+        }
+    } else if (myParent == nullptr) {
+        throw ProcessError("No parent defined");
+    }
+    // check network parents
+    if (isNetworkElement() && (myParent->getTag() != SUMO_TAG_NET)) {
+        throw ProcessError("Invalid network element parent");
+    }
+    // check additional parents
+    if (isStoppingPlace()) {
+        if (myParent->getTag() != GNE_TAG_STOPPINGPLACES) {
+            throw ProcessError("Invalid stoppingPlace parent");
+        }
+    } else if (isDetector()) {
+        if (myParent->getTag() != GNE_TAG_DETECTORS) {
+            throw ProcessError("Invalid detector parent");
+        }
+    } else if (isWireElement()) {
+        if (myParent->getTag() != GNE_TAG_WIRES) {
+            throw ProcessError("Invalid wire parent");
+        }
+    } else if (isJuPedSimElement()) {
+        if (myParent->getTag() != GNE_TAG_JUPEDSIM) {
+            throw ProcessError("Invalid juPedSim parent");
+        }
+    } else if (isTAZElement()) {
+        if (myParent->getTag() != GNE_TAG_TAZS) {
+            throw ProcessError("Invalid TAZ parent");
+        }
+    } else if (isShapeElement()) {
+        if (myParent->getTag() != GNE_TAG_SHAPES) {
+            throw ProcessError("Invalid shape parent");
+        }
+    } else if (isAdditionalElement()) {
+        if (myParent->getTag() != SUMO_TAG_VIEWSETTINGS_ADDITIONALS) {
+            throw ProcessError("Invalid additional parent");
+        }
+    }
+    // check demand parents
+    if (isVehicle()) {
+        if (myParent->getTag() != SUMO_TAG_VIEWSETTINGS_VEHICLES) {
+            throw ProcessError("Invalid vehicle parent");
+        }
+    } else if (isVehicleStop()) {
+        if (myParent->getTag() != GNE_TAG_STOPS) {
+            throw ProcessError("Invalid vehicle stop parent");
+        }
+    } else if (isPlanPersonTrip()) {
+        if (myParent->getTag() != GNE_TAG_PERSONTRIPS) {
+            throw ProcessError("Invalid person trip parent");
+        }
+    } else if (isPlanRide()) {
+        if (myParent->getTag() != GNE_TAG_RIDES) {
+            throw ProcessError("Invalid ride parent");
+        }
+    } else if (isPlanWalk()) {
+        if (myParent->getTag() != GNE_TAG_WALKS) {
+            throw ProcessError("Invalid walk parent");
+        }
+    } else if (isPlanStopPerson()) {
+        if (myParent->getTag() != GNE_TAG_PERSONSTOPS) {
+            throw ProcessError("Invalid person stop parent");
+        }
+    } else if (isPlanPerson()) {
+        if (myParent->getTag() != GNE_TAG_PERSONPLANS) {
+            throw ProcessError("Invalid person plan parent");
+        }
+    } else if (isPlanTransport()) {
+        if (myParent->getTag() != GNE_TAG_TRANSPORTS) {
+            throw ProcessError("Invalid ride parent");
+        }
+    } else if (isPlanTranship()) {
+        if (myParent->getTag() != GNE_TAG_TRANSHIPS) {
+            throw ProcessError("Invalid walk parent");
+        }
+    } else if (isPlanStopContainer()) {
+        if (myParent->getTag() != GNE_TAG_CONTAINERSTOPS) {
+            throw ProcessError("Invalid container stop parent");
+        }
+    } else if (isPlanContainer()) {
+        if (myParent->getTag() != GNE_TAG_CONTAINERPLANS) {
+            throw ProcessError("Invalid container plan parent");
+        }
+    } else if (isDemandElement()) {
+        if (myParent->getTag() != GNE_TAG_SUPERMODE_DEMAND) {
+            throw ProcessError("Invalid supermode demand parent");
+        }
+    }
+    // check data parents
+    if (isGenericData()) {
+        if (myParent->getTag() != GNE_TAG_DATAS) {
+            throw ProcessError("Invalid generic data parent");
+        }
+    } else if (isDataElement()) {
+        if (myParent->getTag() != GNE_TAG_SUPERMODE_DATA) {
+            throw ProcessError("Invalid supermode data parent");
+        }
     }
     // check that element must ist at least networkElement, Additional, or shape
     if (!isNetworkElement() && !isAdditionalElement() && !isDemandElement() && !isDataElement() && !isMeanData() && !isInternalLane() && !isOtherElement()) {
-        throw ProcessError(TL("no basic type property defined"));
+        throw ProcessError("no basic type property defined");
     }
     // check that element only is networkElement, Additional, or shape at the same time
     if ((isNetworkElement() + isAdditionalElement() + isDemandElement() + isDataElement() + isMeanData() + isOtherElement()) > 1) {
-        throw ProcessError(TL("multiple basic type properties defined"));
+        throw ProcessError("multiple basic type properties defined");
     }
     // check that element only is shape, TAZ, or wire at the same time
     if ((isShapeElement() + isTAZElement() + isWireElement()) > 1) {
-        throw ProcessError(TL("element can be either shape or TAZ or wire element at the same time"));
+        throw ProcessError("element can be either shape or TAZ or wire element at the same time");
     }
     // check that master tag is valid
-    if (isChild() && myParentTags.empty()) {
+    if (isChild() && myXMLParentTags.empty()) {
         throw FormatException("Parent tags cannot be empty");
     }
     // check that master was defined
-    if (!isChild() && !myParentTags.empty()) {
+    if (!isChild() && !myXMLParentTags.empty()) {
         throw FormatException("Element doesn't support parent elements");
     }
     // check reparent
@@ -126,11 +237,11 @@ GNETagProperties::checkTagIntegrity() const {
             if ((attributeProperty->getAttr() != SUMO_ATTR_ALLOW) && (attributeProperty->getAttr() != SUMO_ATTR_DISALLOW) &&
                     (attributeProperty->getAttr() != SUMO_ATTR_CHANGE_LEFT) && (attributeProperty->getAttr() != SUMO_ATTR_CHANGE_RIGHT) &&
                     (attributeProperty->getAttr() != GNE_ATTR_STOPOEXCEPTION)) {
-                throw ProcessError(TL("Attributes aren't combinables"));
+                throw ProcessError("Attributes aren't combinables");
             } else if ((attributeProperty->getAttr() == SUMO_ATTR_ALLOW) && !hasAttribute(SUMO_ATTR_DISALLOW)) {
-                throw ProcessError(TL("allow need a disallow attribute in the same tag"));
+                throw ProcessError("allow need a disallow attribute in the same tag");
             } else if ((attributeProperty->getAttr() == SUMO_ATTR_DISALLOW) && !hasAttribute(SUMO_ATTR_ALLOW)) {
-                throw ProcessError(TL("disallow need an allow attribute in the same tag"));
+                throw ProcessError("disallow need an allow attribute in the same tag");
             }
         }
     }
@@ -211,8 +322,8 @@ GNETagProperties::getDefaultColorValue(SumoXMLAttr attr) const {
 
 
 const std::string&
-GNETagProperties::getFieldString() const {
-    return myFieldString;
+GNETagProperties::getSelectorText() const {
+    return mySelectorText;
 }
 
 
@@ -263,6 +374,18 @@ GNETagProperties::at(int index) const {
 }
 
 
+bool
+GNETagProperties::hasAttribute(SumoXMLAttr attr) const {
+    // iterate over attribute properties
+    for (const auto& attributeProperty : myAttributeProperties) {
+        if (attributeProperty->getAttr() == attr) {
+            return true;
+        }
+    }
+    return false;
+}
+
+
 int
 GNETagProperties::getNumberOfAttributes() const {
     return (int)myAttributeProperties.size();
@@ -282,20 +405,99 @@ GNETagProperties::getXMLTag() const {
 
 
 const std::vector<SumoXMLTag>&
-GNETagProperties::getParentTags() const {
-    return myParentTags;
+GNETagProperties::getXMLParentTags() const {
+    return myXMLParentTags;
+}
+
+
+const GNETagProperties*
+GNETagProperties::getParent() const {
+    return myParent;
+}
+
+
+const std::vector<const GNETagProperties*>
+GNETagProperties::getParentHierarchy() const {
+    // get the list of all roots
+    std::vector<const GNETagProperties*> parents;
+    parents.push_back(this);
+    while (parents.back()->myParent != nullptr) {
+        parents.push_back(parents.back()->myParent);
+    }
+    std::reverse(parents.begin(), parents.end());
+    return parents;
+}
+
+
+const std::vector<const GNETagProperties*>&
+GNETagProperties::getTagChildren() const {
+    return myChildren;
+}
+
+
+std::vector<const GNETagProperties*>
+GNETagProperties::getTagChildrenRecursively() const {
+    std::vector<const GNETagProperties*> children;
+    // obtain all tags recursively (including this)
+    getChildrenTagProperties(this, children);
+    return children;
+}
+
+
+std::map<std::string, const GNEAttributeProperties*>
+GNETagProperties::getAttributeChildrenRecursively(const bool onlyCommon, const bool onlyDrawables) const {
+    std::map<std::string, const GNEAttributeProperties*> allChildrenAttributes;
+    // obtain all children attributes recursively (including this)
+    getChildrenAttributes(this, allChildrenAttributes, onlyDrawables);
+    // check if get only commons
+    if (onlyCommon) {
+        std::map<std::string, const GNEAttributeProperties*> commonChildrenAttributes;
+        // get all tag children and take only the common attributes
+        const auto tagChildren = getTagChildrenRecursively();
+        // iterate over all children and check if exist in child tag
+        for (const auto& attributeChild : allChildrenAttributes) {
+            bool isCommon = true;
+            for (const auto tagChild : tagChildren) {
+                if ((!onlyDrawables || tagChild->isDrawable()) &&   // filter only drawables
+                        !tagChild->isHierarchicalTag() &&               // hierarchical tags doesn't have attirbutes
+                        !tagChild->hasAttribute(attributeChild.second->getAttr())) {
+                    isCommon = false;
+                }
+            }
+            if (isCommon) {
+                commonChildrenAttributes.insert(attributeChild);
+            }
+        }
+        return commonChildrenAttributes;
+    } else {
+        return allChildrenAttributes;
+    }
+}
+
+
+Supermode
+GNETagProperties::getSupermode() const {
+    if (myParent == nullptr) {
+        throw ProcessError("Root doesn't have an associated supermode");
+    } else {
+        auto parents = getParentHierarchy();
+        // continue depending of supermode
+        if (parents.at(1)->getTag() == GNE_TAG_SUPERMODE_NETWORK) {
+            return Supermode::NETWORK;
+        } else if (parents.at(1)->getTag() == GNE_TAG_SUPERMODE_DEMAND) {
+            return Supermode::DEMAND;
+        } else if (parents.at(1)->getTag() == GNE_TAG_SUPERMODE_DATA) {
+            return Supermode::DATA;
+        } else {
+            throw ProcessError("Invalid supermode");
+        }
+    }
 }
 
 
 bool
-GNETagProperties::hasAttribute(SumoXMLAttr attr) const {
-    // iterate over attribute properties
-    for (const auto& attributeProperty : myAttributeProperties) {
-        if (attributeProperty->getAttr() == attr) {
-            return true;
-        }
-    }
-    return false;
+GNETagProperties::isHierarchicalTag() const {
+    return (myTagProperty & HIERARCHICAL) != 0;
 }
 
 
@@ -401,13 +603,13 @@ GNETagProperties::isRoute() const {
 
 bool
 GNETagProperties::isVehicleStop() const {
-    return (myTagType & VEHICLESTOP) != 0;
+    return (myTagType & STOP_VEHICLE) != 0;
 }
 
 
 bool
 GNETagProperties::isVehicleWaypoint() const {
-    return (myTagType & VEHICLEWAYPOINT) != 0;
+    return (myTagType & WAYPOINT_VEHICLE) != 0;
 }
 
 
@@ -491,13 +693,13 @@ GNETagProperties::isPlanStop() const {
 
 bool
 GNETagProperties::isPlanStopPerson() const {
-    return (myTagType & STOPPERSON) != 0;
+    return (myTagType & STOP_PERSON) != 0;
 }
 
 
 bool
 GNETagProperties::isPlanStopContainer() const {
-    return (myTagType & STOPCONTAINER) != 0;
+    return (myTagType & STOP_CONTAINER) != 0;
 }
 
 
@@ -799,6 +1001,37 @@ GNETagProperties::requireProj() const {
 bool
 GNETagProperties::vClassIcon() const {
     return (myTagProperty & VCLASS_ICON) != 0;
+}
+
+
+void
+GNETagProperties::addChild(const GNETagProperties* child) {
+    myChildren.push_back(child);
+}
+
+
+void
+GNETagProperties::getChildrenTagProperties(const GNETagProperties* tagProperties, std::vector<const GNETagProperties*>& result) const {
+    result.push_back(tagProperties);
+    // call it iterative for all children
+    for (const auto& child : tagProperties->myChildren) {
+        getChildrenTagProperties(child, result);
+    }
+}
+
+
+void
+GNETagProperties::getChildrenAttributes(const GNETagProperties* tagProperties, std::map<std::string, const GNEAttributeProperties*>& result, const bool onlyDrawables) const {
+    // add every attribute only once
+    if (!onlyDrawables || tagProperties->isDrawable()) {
+        for (const auto& attributeProperty : tagProperties->myAttributeProperties) {
+            result[attributeProperty->getAttrStr()] = attributeProperty;
+        }
+    }
+    // call it iterative for all children
+    for (const auto& child : tagProperties->myChildren) {
+        getChildrenAttributes(child, result, onlyDrawables);
+    }
 }
 
 /****************************************************************************/

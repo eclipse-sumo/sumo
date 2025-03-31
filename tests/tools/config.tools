@@ -55,6 +55,7 @@ copy_test_path:e2.add.xml
 copy_test_path:e3.add.xml
 copy_test_path:connections.con.xml
 copy_test_path:selection.txt
+copy_test_path:input_selection.txt
 copy_test_path:source.net.xml
 copy_test_path:source.nod.xml
 copy_test_path:source.edg.xml
@@ -72,6 +73,7 @@ copy_test_path:fcd.xml
 copy_test_path:fcd.xml.gz
 copy_test_path:fcd2.xml
 copy_test_path:data.txt
+copy_test_path:data.csv
 copy_test_path:source.csv
 copy_test_path:osm.xml
 copy_test_path:osm_bbox.osm.xml
@@ -220,6 +222,7 @@ gtfs_additional:gtfs_pt_stops.add.xml
 aggregatebattery:aggregatebattery.xml
 landmarks:landmarks.txt
 outputdata:output_data.txt
+errorlog:errorlog.txt
 
 [collate_script]
 osmimport:$SUMO_HOME/tests/unzip.py

@@ -332,6 +332,10 @@ public:
         return myTrafficLights.size() != 0;
     }
 
+
+    /// @brief whether this node was marked as having a signal in the (OSM) input
+    bool hadSignal() const;
+
     /// @brief Returns the traffic lights that were assigned to this node (The set of tls that control this node)
     const std::set<NBTrafficLightDefinition*>& getControllingTLS() const {
         return myTrafficLights;
@@ -708,7 +712,7 @@ public:
 
     /// @brief whether this is structurally similar to a geometry node
     bool geometryLike() const;
-    bool geometryLike(const EdgeVector& incoming, const EdgeVector& outgoing) const;
+    static bool geometryLike(const EdgeVector& incoming, const EdgeVector& outgoing);
 
     /// @brief update the type of this node as a roundabout
     void setRoundabout();
@@ -773,7 +777,7 @@ public:
     void avoidOverlap();
 
     /// @brief whether the given index must yield to the foeIndex while turing right on a red light
-    bool rightOnRedConflict(int index, int foeIndex) const;
+    bool extraConflict(int index, int foeIndex) const;
 
     /// @brief sort all edge containers for this node
     void sortEdges(bool useNodeShape);

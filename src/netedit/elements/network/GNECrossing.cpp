@@ -19,6 +19,7 @@
 /****************************************************************************/
 
 #include <netedit/GNENet.h>
+#include <netedit/GNETagProperties.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/changes/GNEChange_Attribute.h>
@@ -38,8 +39,6 @@
 GNECrossing::GNECrossing(GNENet* net) :
     GNENetworkElement(net, "", GLO_CROSSING, SUMO_TAG_CROSSING, GUIIcon::CROSSING),
     myTemplateNBCrossing(new NBNode::Crossing(nullptr, {}, 0, false, 0, 0, {})) {
-    // reset default values
-    resetDefaultValues();
 }
 
 
@@ -107,6 +106,10 @@ GNECrossing::checkDrawToContour() const {
 
 bool
 GNECrossing::checkDrawRelatedContour() const {
+    // check opened popup
+    if (myNet->getViewNet()->getPopup()) {
+        return myNet->getViewNet()->getPopup()->getGLObject() == this;
+    }
     return false;
 }
 
@@ -127,6 +130,12 @@ GNECrossing::checkDrawDeleteContour() const {
     } else {
         return false;
     }
+}
+
+
+bool
+GNECrossing::checkDrawDeleteContourSmall() const {
+    return false;
 }
 
 
@@ -299,15 +308,9 @@ GNECrossing::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     if (myShapeEdited) {
         return getShapeEditedPopUpMenu(app, parent, getNBCrossing()->customShape);
     } else {
-        GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
-        buildPopupHeader(ret, app);
-        buildCenterPopupEntry(ret);
-        buildNameCopyPopupEntry(ret);
-        // build selection and show parameters menu
-        myNet->getViewNet()->buildSelectionACPopupEntry(ret, this);
-        buildShowParamsPopupEntry(ret);
-        // build position copy entry
-        buildPositionCopyEntry(ret, app);
+        GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, this);
+        // build common options
+        buildPopUpMenuCommonOptions(ret, app, myNet->getViewNet(), myTagProperty->getTag(), mySelected);
         // check if we're in supermode network
         if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
             // create menu commands
@@ -427,8 +430,8 @@ GNECrossing::isValid(SumoXMLAttr key, const std::string& value) {
                 // parse edges and save their IDs in a set
                 std::vector<GNEEdge*> parsedEdges = parse<std::vector<GNEEdge*> >(myNet, value);
                 EdgeVector nbEdges;
-                for (auto i : parsedEdges) {
-                    nbEdges.push_back(i->getNBEdge());
+                for (const auto& edge : parsedEdges) {
+                    nbEdges.push_back(edge->getNBEdge());
                 }
                 std::sort(nbEdges.begin(), nbEdges.end());
                 //

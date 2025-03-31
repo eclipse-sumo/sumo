@@ -387,14 +387,8 @@ GNEVehicleFrame::createPath(const bool useLastRoute) {
             } else if ((vehicleTag == SUMO_TAG_FLOW) && (myPathCreator->getSelectedEdges().size() > 0)) {
                 // set tag
                 myVehicleBaseObject->setTag(SUMO_TAG_FLOW);
-                // set begin and end attributes
-                if (!myVehicleBaseObject->hasStringAttribute(SUMO_ATTR_BEGIN) || myVehicleBaseObject->getStringAttribute(SUMO_ATTR_BEGIN).empty()) {
-                    myVehicleBaseObject->addStringAttribute(SUMO_ATTR_BEGIN, "0");
-                }
-                // adjust poisson value
-                if (myVehicleBaseObject->hasStringAttribute(GNE_ATTR_POISSON)) {
-                    myVehicleBaseObject->addStringAttribute(SUMO_ATTR_PERIOD, "exp(" + myVehicleBaseObject->getStringAttribute(GNE_ATTR_POISSON) + ")");
-                }
+                // set flow attributes
+                updateFlowAttributes();
                 // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
                 SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(myVehicleBaseObject->getAllAttributes(), getPredefinedTagsMML(), toString(vehicleTag));
                 // obtain flow parameters
@@ -414,14 +408,8 @@ GNEVehicleFrame::createPath(const bool useLastRoute) {
             } else if ((vehicleTag == GNE_TAG_FLOW_WITHROUTE) && (myPathCreator->getPath().size() > 0)) {
                 // set tag
                 myVehicleBaseObject->setTag(SUMO_TAG_FLOW);
-                // set begin and end attributes
-                if (!myVehicleBaseObject->hasStringAttribute(SUMO_ATTR_BEGIN) || myVehicleBaseObject->getStringAttribute(SUMO_ATTR_BEGIN).empty()) {
-                    myVehicleBaseObject->addStringAttribute(SUMO_ATTR_BEGIN, "0");
-                }
-                // adjust poisson value
-                if (myVehicleBaseObject->hasStringAttribute(GNE_ATTR_POISSON)) {
-                    myVehicleBaseObject->addStringAttribute(SUMO_ATTR_PERIOD, "exp(" + myVehicleBaseObject->getStringAttribute(GNE_ATTR_POISSON) + ")");
-                }
+                // set flow attributes
+                updateFlowAttributes();
                 // get route edges
                 std::vector<std::string> routeEdges;
                 for (const auto& subPath : myPathCreator->getPath()) {
@@ -499,14 +487,8 @@ GNEVehicleFrame::createPath(const bool useLastRoute) {
             } else if ((vehicleTag == GNE_TAG_FLOW_JUNCTIONS) && (myPathCreator->getSelectedJunctions().size() > 0)) {
                 // set tag
                 myVehicleBaseObject->setTag(SUMO_TAG_FLOW);
-                // set begin and end attributes
-                if (!myVehicleBaseObject->hasStringAttribute(SUMO_ATTR_BEGIN) || myVehicleBaseObject->getStringAttribute(SUMO_ATTR_BEGIN).empty()) {
-                    myVehicleBaseObject->addStringAttribute(SUMO_ATTR_BEGIN, "0");
-                }
-                // adjust poisson value
-                if (myVehicleBaseObject->hasStringAttribute(GNE_ATTR_POISSON)) {
-                    myVehicleBaseObject->addStringAttribute(SUMO_ATTR_PERIOD, "exp(" + myVehicleBaseObject->getStringAttribute(GNE_ATTR_POISSON) + ")");
-                }
+                // set flow attributes
+                updateFlowAttributes();
                 // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
                 SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(myVehicleBaseObject->getAllAttributes(), getPredefinedTagsMML(), toString(vehicleTag));
                 // obtain flow parameters
@@ -525,14 +507,8 @@ GNEVehicleFrame::createPath(const bool useLastRoute) {
             } else if ((vehicleTag == GNE_TAG_FLOW_TAZS) && (myPathCreator->getSelectedTAZs().size() > 0)) {
                 // set tag
                 myVehicleBaseObject->setTag(SUMO_TAG_FLOW);
-                // set begin and end attributes
-                if (!myVehicleBaseObject->hasStringAttribute(SUMO_ATTR_BEGIN) || myVehicleBaseObject->getStringAttribute(SUMO_ATTR_BEGIN).empty()) {
-                    myVehicleBaseObject->addStringAttribute(SUMO_ATTR_BEGIN, "0");
-                }
-                // adjust poisson value
-                if (myVehicleBaseObject->hasStringAttribute(GNE_ATTR_POISSON)) {
-                    myVehicleBaseObject->addStringAttribute(SUMO_ATTR_PERIOD, "exp(" + myVehicleBaseObject->getStringAttribute(GNE_ATTR_POISSON) + ")");
-                }
+                // set flow attributes
+                updateFlowAttributes();
                 // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
                 SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(myVehicleBaseObject->getAllAttributes(), getPredefinedTagsMML(), toString(vehicleTag));
                 // obtain flow parameters
@@ -615,17 +591,8 @@ GNEVehicleFrame::buildVehicleOverRoute(SumoXMLTag vehicleTag, GNEDemandElement* 
         } else {
             // set tag
             myVehicleBaseObject->setTag(SUMO_TAG_FLOW);
-            // set begin and end attributes
-            if (!myVehicleBaseObject->hasStringAttribute(SUMO_ATTR_BEGIN) || myVehicleBaseObject->getStringAttribute(SUMO_ATTR_BEGIN).empty()) {
-                myVehicleBaseObject->addStringAttribute(SUMO_ATTR_BEGIN, "0");
-            }
-            if (!myVehicleBaseObject->hasStringAttribute(SUMO_ATTR_END) || myVehicleBaseObject->getStringAttribute(SUMO_ATTR_END).empty()) {
-                myVehicleBaseObject->addStringAttribute(SUMO_ATTR_END, "3600");
-            }
-            // adjust poisson value
-            if (myVehicleBaseObject->hasStringAttribute(GNE_ATTR_POISSON)) {
-                myVehicleBaseObject->addStringAttribute(SUMO_ATTR_PERIOD, "exp(" + myVehicleBaseObject->getStringAttribute(GNE_ATTR_POISSON) + ")");
-            }
+            // set flow attributes
+            updateFlowAttributes();
             // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
             SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(myVehicleBaseObject->getAllAttributes(), getPredefinedTagsMML(), toString(vehicleTag));
             // obtain routeFlow parameters in routeFlowParameters
@@ -653,6 +620,15 @@ GNEVehicleFrame::buildVehicleOverRoute(SumoXMLTag vehicleTag, GNEDemandElement* 
     } else {
         myViewNet->setStatusBarText(toString(vehicleTag) + " has to be placed within a route.");
         return false;
+    }
+}
+
+
+void
+GNEVehicleFrame::updateFlowAttributes() {
+    // adjust poisson value
+    if (myVehicleBaseObject->hasDoubleAttribute(GNE_ATTR_POISSON)) {
+        myVehicleBaseObject->addStringAttribute(SUMO_ATTR_PERIOD, "exp(" + toString(myVehicleBaseObject->getDoubleAttribute(GNE_ATTR_POISSON)) + ")");
     }
 }
 

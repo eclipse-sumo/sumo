@@ -1,2 +1,2 @@
-Warning: Vehicle 'f_0.206'; junction collision with vehicle 'f_1.182', lane=':J3_4_1', gap=-1.00, time=838.00, stage=laneChange.
-Warning: Vehicle 'f_0.234'; junction collision with vehicle 'f_1.213', lane=':J3_4_1', gap=-1.00, time=945.00, stage=laneChange.
+Warning: Vehicle 'f_0.206'; side collision with vehicle 'f_1.182', lane=':J3_4_1', gap=-1.00, time=838.00, stage=laneChange.
+Warning: Vehicle 'f_0.234'; side collision with vehicle 'f_1.213', lane=':J3_4_1', gap=-1.00, time=945.00, stage=laneChange.

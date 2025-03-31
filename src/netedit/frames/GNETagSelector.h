@@ -39,7 +39,7 @@ class GNETagSelector : public MFXGroupBoxModule {
 
 public:
     /// @brief constructor
-    GNETagSelector(GNEFrame* frameParent, GNETagProperties::TagType type, SumoXMLTag tag, bool onlyDrawables = true);
+    GNETagSelector(GNEFrame* frameParent, const GNETagProperties::TagType type, const SumoXMLTag tag);
 
     /// @brief destructor
     ~GNETagSelector();
@@ -50,17 +50,14 @@ public:
     /// @brief hide item selector
     void hideTagSelector();
 
-    /// @brief get templateAC
-    GNEAttributeCarrier* getTemplateAC(SumoXMLTag ACTag) const;
-
     /// @brief get current templateAC
     GNEAttributeCarrier* getCurrentTemplateAC() const;
 
-    /// @brief set current type manually
-    void setCurrentTagType(GNETagProperties::TagType tagType, const bool onlyDrawables, const bool notifyFrameParent = true);
+    /// @brief update tag types to select
+    void updateTagTypes(const GNETagProperties::TagType type, const SumoXMLTag tag, const bool informParent);
 
     /// @brief set current type manually
-    void setCurrentTag(SumoXMLTag newTag, const bool notifyFrameParent = true);
+    void setCurrentTag(SumoXMLTag newTag, const bool informParent = true);
 
     /// @brief refresh tagSelector (used when frameParent is show)
     void refreshTagSelector();
@@ -76,41 +73,12 @@ protected:
     FOX_CONSTRUCTOR(GNETagSelector)
 
 private:
-    class ACTemplate {
-
-    public:
-        /// @brief constructor
-        ACTemplate(GNENet* net, const GNETagProperties* tagProperty);
-
-        /// @brief destructor
-        ~ACTemplate();
-
-        /// @brief get template AC
-        GNEAttributeCarrier* getAC() const;
-
-    private:
-        /// @brief editedAC
-        GNEAttributeCarrier* myAC;
-
-        /// @brief Invalidated copy constructor.
-        ACTemplate(const ACTemplate&) = delete;
-
-        /// @brief Invalidated assignment operator
-        ACTemplate& operator=(const ACTemplate& src) = delete;
-    };
-
     /// @brief pointer to Frame Parent
     GNEFrame* myFrameParent;
-
-    /// @brief current tagType
-    GNETagProperties::TagType myTagType;
 
     /// @brief comboBox with the tags
     MFXComboBoxIcon* myTagsMatchBox;
 
     /// @brief current templateAC;
     GNEAttributeCarrier* myCurrentTemplateAC;
-
-    /// @brief list with ACTemplates
-    std::vector<ACTemplate*> myACTemplates;
 };

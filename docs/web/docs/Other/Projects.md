@@ -15,10 +15,10 @@ shows the integration of fleets of automated vehicles in public transport, deman
 - [Spurplan](https://www.dlr.de/en/ts/research-transfer/projects/sumo-trackplan-5-deadlock-processing-for-large-scale-scenarios)
 SUMO is being expanded and improved in various areas for modeling rail traffic
 
-- [VMo4Orte](https://verkehrsforschung.dlr.de/en/projects/vmo4orte)
+- [VMo4Orte](https://www.dlr.de/en/research-and-transfer/projects-and-missions/vmo4orte-connected-mobility-for-liveable-places)
 Development of solution modules that can be used to contribute to the transformation of the transport system
 
-- [MoCKiii](https://www.dlr.de/de/ts/forschung-und-transfer/projekte/mockiii)
+- [MoCKiii](https://www.dlr.de/en/ts/research-transfer/projects/mockiii)
 Creation of a dash board with which the city of Cologne can easily detect the current traffic situation, changes in mobility behavior and the traffic situation in order to then be able to initiate suitable countermeasures
 
 - [KoKoVi](https://www.dlr.de/en/research-and-transfer/projects-and-missions/kokovi)
@@ -30,46 +30,46 @@ Model for data on the future development of passenger transport demand in urban 
 
 ### Past Projects
 
-- [ITS for Asia](http://web.archive.org/web/20240722034452/https://verkehrsforschung.dlr.de/en/projects/itsforasia)
+- [ITS for Asia](https://www.dlr.de/en/ts/research-transfer/projects/itsforasia)
 Monitoring intersections to identify accident spots
 
-- [Digitaler Knoten 4.0](https://www.dlr.de/de/ts/forschung-und-transfer/projekte/digitaler-knoten-4.0)
+- [Digitaler Knoten 4.0](https://www.dlr.de/en/ts/research-transfer/projects/digitaler-knoten-4-0)
 Investigation of networked, efficient and safe organization of mixed traffic situations
 
 - [UrMo Digital](http://web.archive.org/web/20240424063206/https://verkehrsforschung.dlr.de/de/projekte/urmo-digital)
 Investigation of mobility and logistics concepts under the influence of digitalization
 
-- [Local Traffic Safety Analyzer (LTSA)](https://www.dlr.de/de/ts/forschung-und-transfer/projekte/ltsa)
+- [Local Traffic Safety Analyzer (LTSA)](https://www.dlr.de/en/ts/research-transfer/projects/ltsa)
 In terms of infrastructure, it recognizes and analyzes the road and provides movement lines (trajectories) as well as messages describing the situation for road users
 
-- [DATAMOST](http://web.archive.org/web/20240722043432/https://verkehrsforschung.dlr.de/en/projects/datamost-data-and-model-based-solutions-transformation-mobility)
+- [DATAMOST](https://www.dlr.de/en/vf/research-and-transfer/projects/datamost)
 Data and Model-based Solutions for the Transformation of Mobility
 
-- [DIGEST](http://web.archive.org/web/20240228160836/https://verkehrsforschung.dlr.de/de/projekte/digest-digitaler-zwilling-des-verkehrssystems-strasse)
+- [DIGEST](https://www.dlr.de/en/ts/research-transfer/projects/digest)
 Digital twin of the road transport system
 
-- [ALFRIED](https://www.dlr.de/de/ts/forschung-und-transfer/projekte/alfried)
+- [ALFRIED](https://www.dlr.de/en/ts/research-transfer/projects/alfried)
 Automatisiertes und vernetztes Fahren in der Logistik am Testfeld Friedrichshafen
 
-- [Spurplan-4](https://www.dlr.de/de/ts/forschung-und-transfer/projekte/spurplan-4)
+- [Spurplan-4](https://www.dlr.de/en/ts/research-transfer/projects/spurplan-4)
 Simulation of regional rail traffic for regular operations, disrupted operations and planning interventions
 
-- [VM50City](https://www.dlr.de/de/ts/forschung-und-transfer/projekte/vm50kcity)
+- [VM50City](https://www.dlr.de/en/ts/research-transfer/projects/vm50kcity)
 Examination of established categories of measures for potential and feasibility for small and medium-sized cities
 
-- [eUVM](https://www.dlr.de/de/ts/forschung-und-transfer/projekte/euvm)
+- [eUVM](https://www.dlr.de/en/ts/research-transfer/projects/euvm)
 Testing and implementing suitable measures to reduce traffic-related emissions
 
-- [AutomoVer](http://web.archive.org/web/20240722034702/https://verkehrsforschung.dlr.de/de/projekte/automatisierung-des-verkehrssystems)
+- [AutomoVer](https://www.dlr.de/en/fk/research-and-transfer/research-services/market-simulation-vector21/vector21-projects)
 Development of guidance for decision-makers
 - [MAVEN](http://www.maven-its.eu/) Managing Automated Vehicles
   Enhances Network
 - [TransAID](https://ec.europa.eu/inea/en/horizon-2020/projects/H2020-Transport/Automated-Road-Transport/TransAID)
   new hierarchical traffic management procedures to allow the smooth
   integration of automated vehicles in traffic systems
-- [VITAL](https://www.dlr.de/de/ts/forschung-und-transfer/projekte/vital):
+- [VITAL](https://www.dlr.de/en/ts/research-transfer/projects/vital):
   innovative traffic light control with V2X Communication.
-- [VABENE](http://web.archive.org/web/20240524132500/https://verkehrsforschung.dlr.de/en/projects/vabene). SUMO simulates and predicts
+- [VABENE](https://www.dlr.de/en/ts/research-transfer/projects/vabene). SUMO simulates and predicts
   large-scale traffic for disaster and public event management
 - [I.MoVe](http://web.archive.org/web/20240722035725/https://verkehrsforschung.dlr.de/de/projekte/imove)
   developing additional car following models

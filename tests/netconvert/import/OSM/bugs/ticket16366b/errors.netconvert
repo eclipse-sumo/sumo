@@ -1,0 +1,2 @@
+Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.tertiary_link' (first occurrence for edge '278643308').
+Warning: Minor green from edge '181185720#2' to edge '1353270451' exceeds 19.44m/s. Maybe a left-turn lane is missing.

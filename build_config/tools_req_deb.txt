@@ -1,3 +1,4 @@
+flake8
 python3-autopep8
 python3-ezdxf
 python3-flake8

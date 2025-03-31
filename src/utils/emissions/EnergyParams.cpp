@@ -202,7 +202,7 @@ EnergyParams::isEngineOff() const {
 
 bool
 EnergyParams::isOff() const {
-    return myStopDurationSeconds > getDoubleOptional(SUMO_ATTR_SHUT_OFF_STOP, DEFAULT_VEH_SHUT_OFF_STOP) && myAmParking;
+    return myStopDurationSeconds > getDoubleOptional(SUMO_ATTR_SHUT_OFF_STOP, DEFAULT_VEH_SHUT_OFF_STOP);
 }
 
 

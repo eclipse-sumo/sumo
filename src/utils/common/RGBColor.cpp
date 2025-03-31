@@ -325,6 +325,38 @@ RGBColor::parseColor(std::string coldef) {
 }
 
 
+bool
+RGBColor::isColor(std::string coldef) {
+    // check if is defined using a previous defined color
+    coldef = StringUtils::to_lower_case(coldef);
+    if ((coldef == "red") || (coldef == "green") || (coldef == "blue") ||
+            (coldef == "yellow") || (coldef == "cyan") || (coldef == "magenta") ||
+            (coldef == "orange") || (coldef == "white") || (coldef == "black") ||
+            (coldef == "grey") || (coldef == "gray") || (coldef == "invisible") ||
+            (coldef == "random")) {
+        return true;
+    }
+    // check if is defined using an hexadecimal value
+    if (coldef[0] == '#') {
+        if (StringUtils::isHex(coldef)) {
+            return ((coldef.length() == 7) || (coldef.length() == 9));
+        } else {
+            return false;
+        }
+    }
+    // Check definition by tuple of rgb or rgba
+    std::vector<std::string> st = StringTokenizer(coldef, ",").getVector();
+    if (st.size() == 3) {
+        return StringUtils::isDouble(st[0]) && StringUtils::isDouble(st[1]) && StringUtils::isDouble(st[2]);
+    } else if (st.size() == 4) {
+        return StringUtils::isDouble(st[0]) && StringUtils::isDouble(st[1]) &&
+               StringUtils::isDouble(st[2]) && StringUtils::isDouble(st[3]);
+    } else {
+        return false;
+    }
+}
+
+
 RGBColor
 RGBColor::parseColorReporting(
     const std::string& coldef, const std::string& objecttype,

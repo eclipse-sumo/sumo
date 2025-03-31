@@ -98,6 +98,9 @@ public:
 
         /// vehicles that cannot be stored in ahead because they are outside the lane bounds
         std::vector<MSVehicle*>  outsideBounds;
+
+        /// visibility distance to the closest zipper link that may be encountered when driving on this lane
+        double zipperDist;
         ///@}
 
     };

@@ -33,8 +33,6 @@
 
 GNEParkingArea::GNEParkingArea(GNENet* net) :
     GNEStoppingPlace(net, GLO_PARKING_AREA, SUMO_TAG_PARKING_AREA, GUIIcon::PARKINGAREA) {
-    // reset default values
-    resetDefaultValues();
 }
 
 
@@ -294,7 +292,7 @@ GNEParkingArea::isValid(SumoXMLAttr key, const std::string& value) {
                 return false;
             }
         case SUMO_ATTR_ACCEPTED_BADGES:
-            return canParse<std::vector<std::string> >(value);
+            return true;
         case SUMO_ATTR_ROADSIDE_CAPACITY:
             return canParse<int>(value) && (parse<int>(value) >= 0);
         case SUMO_ATTR_ONROAD:

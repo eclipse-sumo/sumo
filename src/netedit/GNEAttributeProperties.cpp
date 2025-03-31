@@ -78,6 +78,18 @@ GNEAttributeProperties::GNEAttributeProperties(GNETagProperties* tagProperties, 
 }
 
 
+GNEAttributeProperties::GNEAttributeProperties(GNETagProperties* tagProperties, const SumoXMLAttr attribute, const std::string& definition) :
+    myTagPropertyParent(tagProperties),
+    myAttribute(attribute),
+    myAttrStr(toString(attribute)),
+    myDefinition(definition) {
+    // check build conditions (only in debug mode)
+    checkBuildConstraints();
+    // add attribute in tag properties vector
+    tagProperties->myAttributeProperties.push_back(this);
+}
+
+
 GNEAttributeProperties::~GNEAttributeProperties() {}
 
 
@@ -259,6 +271,12 @@ GNEAttributeProperties::getDefaultBoolValue() const {
 const RGBColor&
 GNEAttributeProperties::getDefaultColorValue() const {
     return myDefaultColorValue;
+}
+
+
+const Position&
+GNEAttributeProperties::getDefaultPositionValue() const {
+    return myDefaultPositionValue;
 }
 
 
@@ -645,17 +663,22 @@ GNEAttributeProperties::parseDefaultValues(const std::string& defaultValue, cons
     } else if (isSUMOTime()) {
         myDefaultTimeValue = GNEAttributeCarrier::parse<SUMOTime>(defaultValue);
         if (overWritteDefaultString) {
-            myDefaultStringValue = toString(myDefaultTimeValue);
+            myDefaultStringValue = time2string(myDefaultTimeValue);
         }
     } else if (isBool()) {
         myDefaultBoolValue = GNEAttributeCarrier::parse<bool>(defaultValue);
         if (overWritteDefaultString) {
-            myDefaultStringValue = toString(myDefaultBoolValue);
+            myDefaultStringValue = myDefaultBoolValue ? GNEAttributeCarrier::True : GNEAttributeCarrier::False;
         }
     } else if (isBool()) {
         myDefaultColorValue = GNEAttributeCarrier::parse<RGBColor>(defaultValue);
         if (overWritteDefaultString) {
             myDefaultStringValue = toString(myDefaultColorValue);
+        }
+    } else if (isPosition()) {
+        myDefaultPositionValue = GNEAttributeCarrier::parse<Position>(defaultValue);
+        if (overWritteDefaultString) {
+            myDefaultStringValue = toString(myDefaultPositionValue);
         }
     }
 }
