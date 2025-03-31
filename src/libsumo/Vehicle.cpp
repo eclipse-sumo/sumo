@@ -2993,13 +2993,20 @@ Vehicle::handleVariable(const std::string& objID, const int variable, VariableWr
             return wrapper->wrapNextStopDataVector(objID, variable, getNextStops(objID));
         case VAR_NEXT_STOPS2:
             return wrapper->wrapNextStopDataVector(objID, variable, getStops(objID, StoHelp::readTypedInt(*paramData)));
+        case DISTANCE_REQUEST: {
+            TraCIRoadPosition roadPos;
+            Position pos;
+            if (Helper::readDistanceRequest(*paramData, roadPos, pos) == libsumo::POSITION_ROADMAP) {
+                return wrapper->wrapDouble(objID, variable, getDrivingDistance(objID, roadPos.edgeID, roadPos.pos, roadPos.laneIndex));
+            }
+            return wrapper->wrapDouble(objID, variable, getDrivingDistance2D(objID, pos.x(), pos.y()));
+        }
+        case VAR_TAXI_FLEET:
+            return wrapper->wrapStringList(objID, variable, getTaxiFleet(StoHelp::readTypedInt(*paramData)));
         case VAR_PARAMETER:
             return wrapper->wrapString(objID, variable, getParameter(objID, StoHelp::readTypedString(*paramData)));
         case VAR_PARAMETER_WITH_KEY:
             return wrapper->wrapStringPair(objID, variable, getParameterWithKey(objID, StoHelp::readTypedString(*paramData)));
-        case VAR_TAXI_FLEET:
-            // we cannot use the general fall through here because we do not have an object id
-            return false;
         default:
             return VehicleType::handleVariableWithID(objID, getTypeID(objID), variable, wrapper, paramData);
     }

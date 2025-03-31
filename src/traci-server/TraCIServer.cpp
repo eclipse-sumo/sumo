@@ -437,6 +437,7 @@ TraCIServer::TraCIServer(const SUMOTime begin, const int port, const int numClie
     myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_LANE_VARIABLE, libsumo::VAR_ANGLE));
     myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_LANE_VARIABLE, libsumo::LANE_CHANGES));
     myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_LANE_VARIABLE, libsumo::VAR_FOES));
+    myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_PERSON_VARIABLE, libsumo::DISTANCE_REQUEST));
     myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_PERSON_VARIABLE, libsumo::VAR_EDGES));
     myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_PERSON_VARIABLE, libsumo::VAR_STAGE));
     myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_TL_VARIABLE, libsumo::TL_BLOCKING_VEHICLES));
@@ -445,6 +446,7 @@ TraCIServer::TraCIServer(const SUMOTime begin, const int port, const int numClie
     myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_TL_VARIABLE, libsumo::TL_CONSTRAINT));
     myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_TL_VARIABLE, libsumo::TL_CONSTRAINT_BYFOE));
     myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_TL_VARIABLE, libsumo::VAR_PERSON_NUMBER));
+    myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_VEHICLE_VARIABLE, libsumo::DISTANCE_REQUEST));
     myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_VEHICLE_VARIABLE, libsumo::VAR_EDGE_TRAVELTIME));
     myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_VEHICLE_VARIABLE, libsumo::VAR_EDGE_EFFORT));
     myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_VEHICLE_VARIABLE, libsumo::VAR_FOLLOW_SPEED));
@@ -457,6 +459,7 @@ TraCIServer::TraCIServer(const SUMOTime begin, const int port, const int numClie
     myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_VEHICLE_VARIABLE, libsumo::VAR_NEIGHBORS));
     myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_VEHICLE_VARIABLE, libsumo::VAR_STOP_PARAMETER));
     myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_VEHICLE_VARIABLE, libsumo::VAR_NEXT_STOPS2));
+    myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_VEHICLE_VARIABLE, libsumo::VAR_TAXI_FLEET));
     myParameterized.insert(std::make_pair(0, libsumo::VAR_PARAMETER));
     myParameterized.insert(std::make_pair(0, libsumo::VAR_PARAMETER_WITH_KEY));
 
@@ -1435,14 +1438,26 @@ TraCIServer::addObjectVariableSubscription(const int commandId, const bool hasCo
                 } else if (parType == libsumo::POSITION_2D) {
                     parameters.back()->writeDouble(myInputStorage.readDouble());
                     parameters.back()->writeDouble(myInputStorage.readDouble());
+                    if (varID == libsumo::DISTANCE_REQUEST) {
+                        parameters.back()->writeUnsignedByte(myInputStorage.readUnsignedByte());
+                        break;
+                    }
                 } else if (parType == libsumo::POSITION_3D) {
                     parameters.back()->writeDouble(myInputStorage.readDouble());
                     parameters.back()->writeDouble(myInputStorage.readDouble());
                     parameters.back()->writeDouble(myInputStorage.readDouble());
+                    if (varID == libsumo::DISTANCE_REQUEST) {
+                        parameters.back()->writeUnsignedByte(myInputStorage.readUnsignedByte());
+                        break;
+                    }
                 } else if (parType == libsumo::POSITION_ROADMAP) {
                     parameters.back()->writeString(myInputStorage.readString());
                     parameters.back()->writeDouble(myInputStorage.readDouble());
                     parameters.back()->writeUnsignedByte(myInputStorage.readUnsignedByte());
+                    if (varID == libsumo::DISTANCE_REQUEST) {
+                        parameters.back()->writeUnsignedByte(myInputStorage.readUnsignedByte());
+                        break;
+                    }
                 } else if (parType == libsumo::TYPE_COMPOUND) {
                     count = myInputStorage.readInt();
                     parameters.back()->writeInt(count);

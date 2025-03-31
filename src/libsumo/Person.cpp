@@ -146,7 +146,7 @@ Person::getWalkingDistance(const std::string& personID, const std::string& edgeI
         auto it = std::find(edges.begin(), edges.end(), &lane->getEdge());
         if (it == edges.end()) {
             // Vehicle would return INVALID_DOUBLE_VALUE;
-            throw TraCIException(TLF("Edge '%' does not occur within remainig walk of person '%'", edgeID, personID));
+            throw TraCIException(TLF("Edge '%' does not occur within the remaining walk of person '%'.", edgeID, personID));
 
         }
         edges.erase(it + 1, edges.end());
@@ -1333,6 +1333,14 @@ Person::handleVariable(const std::string& objID, const int variable, VariableWra
         case VAR_MAXSPEED:
             // integrate desiredMaxSpeed and individual speedFactor
             return wrapper->wrapDouble(objID, variable, getMaxSpeed(objID));
+        case DISTANCE_REQUEST: {
+            TraCIRoadPosition roadPos;
+            Position pos;
+            if (Helper::readDistanceRequest(*paramData, roadPos, pos) == libsumo::POSITION_ROADMAP) {
+                return wrapper->wrapDouble(objID, variable, getWalkingDistance(objID, roadPos.edgeID, roadPos.pos, roadPos.laneIndex));
+            }
+            return wrapper->wrapDouble(objID, variable, getWalkingDistance2D(objID, pos.x(), pos.y()));
+        }
         case VAR_PARAMETER:
             return wrapper->wrapString(objID, variable, getParameter(objID, StoHelp::readTypedString(*paramData)));
         case VAR_PARAMETER_WITH_KEY:

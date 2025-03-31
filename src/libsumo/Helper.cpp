@@ -1872,6 +1872,38 @@ Helper::patchShapeDistance(const MSLane* lane, const Position& pos, double dist,
 }
 
 
+int
+Helper::readDistanceRequest(tcpip::Storage& data, TraCIRoadPosition& roadPos, Position& pos) {
+    int distType = 0;
+    StoHelp::readCompound(data, 2, "Retrieval of distance requires two parameter as compound.");
+    const int posType = data.readUnsignedByte();
+    switch (posType) {
+        case libsumo::POSITION_ROADMAP: {
+            roadPos.edgeID = data.readString();
+            roadPos.pos = data.readDouble();
+            roadPos.laneIndex = data.readUnsignedByte();
+            break;
+        }
+        case libsumo::POSITION_2D:
+        case libsumo::POSITION_3D: {
+            pos.setx(data.readDouble());
+            pos.sety(data.readDouble());
+            if (posType == libsumo::POSITION_3D) {
+                pos.setz(data.readDouble());
+            }
+            break;
+        }
+        default:
+            throw TraCIException("Unknown position format used for distance request.");
+    }
+    distType = data.readUnsignedByte();
+    if (distType != libsumo::REQUEST_DRIVINGDIST) {
+        throw TraCIException("Only driving distance is supported.");
+    }
+    return posType;
+}
+
+
 Helper::SubscriptionWrapper::SubscriptionWrapper(VariableWrapper::SubscriptionHandler handler, SubscriptionResults& into, ContextSubscriptionResults& context)
     : VariableWrapper(handler), myResults(into), myContextResults(context), myActiveResults(&into) {
 

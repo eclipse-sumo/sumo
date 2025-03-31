@@ -115,58 +115,6 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
                     }
                     break;
                 }
-                case libsumo::DISTANCE_REQUEST: {
-                    if (inputStorage.readUnsignedByte() != libsumo::TYPE_COMPOUND) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_GET_VEHICLE_VARIABLE, "Retrieval of distance requires a compound object.", outputStorage);
-                    }
-                    if (inputStorage.readInt() != 2) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_GET_VEHICLE_VARIABLE, "Retrieval of distance requires position and distance type as parameter.", outputStorage);
-                    }
-
-                    // read position
-                    int posType = inputStorage.readUnsignedByte();
-                    switch (posType) {
-                        case libsumo::POSITION_ROADMAP:
-                            try {
-                                const std::string roadID = inputStorage.readString();
-                                const double edgePos = inputStorage.readDouble();
-                                const int laneIndex = inputStorage.readUnsignedByte();
-                                server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_DOUBLE);
-                                server.getWrapperStorage().writeDouble(libsumo::Vehicle::getDrivingDistance(id, roadID, edgePos, laneIndex));
-                                break;
-                            } catch (libsumo::TraCIException& e) {
-                                return server.writeErrorStatusCmd(libsumo::CMD_GET_VEHICLE_VARIABLE, e.what(), outputStorage);
-                            }
-                        case libsumo::POSITION_2D:
-                        case libsumo::POSITION_3D: {
-                            const double p1x = inputStorage.readDouble();
-                            const double p1y = inputStorage.readDouble();
-                            if (posType == libsumo::POSITION_3D) {
-                                inputStorage.readDouble();        // z value is ignored
-                            }
-                            server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_DOUBLE);
-                            server.getWrapperStorage().writeDouble(libsumo::Vehicle::getDrivingDistance2D(id, p1x, p1y));
-                            break;
-                        }
-                        default:
-                            return server.writeErrorStatusCmd(libsumo::CMD_GET_VEHICLE_VARIABLE, "Unknown position format used for distance request", outputStorage);
-                    }
-                    // read distance type
-                    int distType = inputStorage.readUnsignedByte();
-                    if (distType != libsumo::REQUEST_DRIVINGDIST) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_GET_VEHICLE_VARIABLE, "Only driving distance is supported for vehicles.", outputStorage);
-                    }
-                    break;
-                }
-                case libsumo::VAR_TAXI_FLEET: {
-                    int flag = 0;
-                    if (!server.readTypeCheckingInt(inputStorage, flag)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_GET_VEHICLE_VARIABLE, "Retrieval of taxi fleet requires an integer flag.", outputStorage);
-                    }
-                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRINGLIST);
-                    server.getWrapperStorage().writeStringList(libsumo::Vehicle::getTaxiFleet(flag));
-                    break;
-                }
                 default:
                     return server.writeErrorStatusCmd(libsumo::CMD_GET_VEHICLE_VARIABLE, "Get Vehicle Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
             }

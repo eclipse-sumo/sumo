@@ -189,6 +189,7 @@ public:
     /// @brief return the distance of pos from the area covered by this lane
     static double patchShapeDistance(const MSLane* lane, const Position& pos, double dist, bool wasPerpendicular);
 
+    static int readDistanceRequest(tcpip::Storage& data, TraCIRoadPosition& roadPos, Position& pos);
 
     class LaneUtility {
     public:
