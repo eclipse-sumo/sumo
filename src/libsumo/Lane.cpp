@@ -526,6 +526,8 @@ Lane::handleVariable(const std::string& objID, const int variable, VariableWrapp
             return wrapper->wrapString(objID, variable, getBidiLane(objID));
         case VAR_FOES:
             return wrapper->wrapStringList(objID, variable, getFoes(objID, StoHelp::readTypedString(*paramData)));
+        case LANE_LINKS:
+            return wrapper->wrapConnectionVector(objID, variable, getLinks(objID));
         case VAR_PARAMETER:
             return wrapper->wrapString(objID, variable, getParameter(objID, StoHelp::readTypedString(*paramData)));
         case VAR_PARAMETER_WITH_KEY:

@@ -120,48 +120,18 @@ TraCIServer::initWrapper(const int domainID, const int variable, const std::stri
 
 bool
 TraCIServer::wrapConnectionVector(const std::string& /* objID */, const int /* variable */, const std::vector<libsumo::TraCIConnection>& value) {
-    myWrapperStorage.writeUnsignedByte(libsumo::TYPE_COMPOUND);
-    tcpip::Storage tempContent;
-    int cnt = 0;
-    tempContent.writeUnsignedByte(libsumo::TYPE_INTEGER);
-    tempContent.writeInt((int)value.size());
-    ++cnt;
-    for (const libsumo::TraCIConnection& con : value) {
-        // approached non-internal lane (if any)
-        tempContent.writeUnsignedByte(libsumo::TYPE_STRING);
-        tempContent.writeString(con.approachedLane);
-        ++cnt;
-        // approached "via", internal lane (if any)
-        tempContent.writeUnsignedByte(libsumo::TYPE_STRING);
-        tempContent.writeString(con.approachedInternal);
-        ++cnt;
-        // priority
-        tempContent.writeUnsignedByte(libsumo::TYPE_UBYTE);
-        tempContent.writeUnsignedByte(con.hasPrio);
-        ++cnt;
-        // opened
-        tempContent.writeUnsignedByte(libsumo::TYPE_UBYTE);
-        tempContent.writeUnsignedByte(con.isOpen);
-        ++cnt;
-        // approaching foe
-        tempContent.writeUnsignedByte(libsumo::TYPE_UBYTE);
-        tempContent.writeUnsignedByte(con.hasFoe);
-        ++cnt;
-        // state (not implemented yet)
-        tempContent.writeUnsignedByte(libsumo::TYPE_STRING);
-        tempContent.writeString(con.state);
-        ++cnt;
-        // direction
-        tempContent.writeUnsignedByte(libsumo::TYPE_STRING);
-        tempContent.writeString(con.direction);
-        ++cnt;
-        // length
-        tempContent.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-        tempContent.writeDouble(con.length);
-        ++cnt;
+    StoHelp::writeCompound(myWrapperStorage, 1 + (int)value.size() * 8);
+    StoHelp::writeTypedInt(myWrapperStorage, (int)value.size());
+    for (const libsumo::TraCIConnection& c : value) {
+        StoHelp::writeTypedString(myWrapperStorage, c.approachedLane);
+        StoHelp::writeTypedString(myWrapperStorage, c.approachedInternal);
+        StoHelp::writeTypedUnsignedByte(myWrapperStorage, c.hasPrio);
+        StoHelp::writeTypedUnsignedByte(myWrapperStorage, c.isOpen);
+        StoHelp::writeTypedUnsignedByte(myWrapperStorage, c.hasFoe);
+        StoHelp::writeTypedString(myWrapperStorage, c.state);
+        StoHelp::writeTypedString(myWrapperStorage, c.direction);
+        StoHelp::writeTypedDouble(myWrapperStorage, c.length);
     }
-    myWrapperStorage.writeInt(cnt);
-    myWrapperStorage.writeStorage(tempContent);
     return true;
 }
 
@@ -373,7 +343,7 @@ TraCIServer::wrapNextStopDataVector(const std::string& /* objID */, const int va
 
 
 bool
-TraCIServer::wrapVehicleDataVector(const std::string& /* objID */, const int variable, const std::vector<libsumo::TraCIVehicleData>& value) {
+TraCIServer::wrapVehicleDataVector(const std::string& /* objID */, const int /* variable */, const std::vector<libsumo::TraCIVehicleData>& value) {
     StoHelp::writeCompound(myWrapperStorage, 1 + (int)value.size() * 5);
     StoHelp::writeTypedInt(myWrapperStorage, (int)value.size());
     for (const libsumo::TraCIVehicleData& vd : value) {
