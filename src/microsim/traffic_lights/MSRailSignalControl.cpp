@@ -83,7 +83,7 @@ MSRailSignalControl::vehicleStateChanged(const SUMOVehicle* const vehicle, MSNet
     if (vehicle->isRail()) {
         std::string dummyMsg;
         if ((to == MSNet::VehicleState::BUILT && (!vehicle->getParameter().wasSet(VEHPARS_FORCE_REROUTE) || vehicle->hasValidRoute(dummyMsg)))
-                || (!vehicle->hasDeparted() && to == MSNet::VehicleState::NEWROUTE)) {
+                || to == MSNet::VehicleState::NEWROUTE) {
             // @note we could delay initialization until the departure time
             if (vehicle->getEdge()->getFunction() != SumoXMLEdgeFunc::CONNECTOR) {
                 MSRailSignal::initDriveWays(vehicle, to == MSNet::VehicleState::NEWROUTE);

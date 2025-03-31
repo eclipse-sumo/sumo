@@ -528,7 +528,7 @@ public:
      * @param[in] rem the reminder to add
      * @see MSMoveReminder
      */
-    void addReminder(MSMoveReminder* rem);
+    void addReminder(MSMoveReminder* rem, double pos = 0);
 
     /** @brief Removes a MoveReminder dynamically
      *
@@ -1143,6 +1143,9 @@ private:
 
     /// @brief patch stop.pars.index to record the number of skipped candidate edges before stop.edge (in a looped route)
     void setSkips(MSStop& stop, int prevActiveStops);
+
+    /// @brief remove outdated driveways on reroute
+    SUMOTime activateRemindersOnReroute(SUMOTime currentTime);
 
 private:
     /// invalidated assignment operator

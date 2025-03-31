@@ -78,6 +78,7 @@ public:
     bool notifyEnter(SUMOTrafficObject& veh, Notification reason, const MSLane* enteredLane);
     bool notifyLeave(SUMOTrafficObject& veh, double lastPos, Notification reason, const MSLane* enteredLane = 0);
     bool notifyLeaveBack(SUMOTrafficObject& veh, Notification reason, const MSLane* leftLane);
+    bool notifyReroute(SUMOTrafficObject& veh);
 
     /// @brief Wether there is a flank conflict with the given driveway
     bool flankConflict(const MSDriveWay& other) const;
@@ -163,6 +164,9 @@ public:
         return myOrigin;
     }
 
+    /// @brief whether the given train is on this driveway
+    bool hasTrain(SUMOVehicle* veh) const;
+
     static void init();
 
     static bool hasRS(const MSEdge* cur, const MSEdge* next);
@@ -176,7 +180,7 @@ public:
     /// @brief return logicID_linkIndex in a way that allows clicking in sumo-gui
     static std::string getClickableTLLinkID(const MSLink* link);
 
-    static const MSDriveWay* getDepartureDriveway(const SUMOVehicle* veh);
+    static const MSDriveWay* getDepartureDriveway(const SUMOVehicle* veh, bool init = false);
 
     static void writeDepatureBlocks(OutputDevice& od, bool writeVehicles);
 
@@ -200,6 +204,9 @@ protected:
 
     /// @brief number of edges in myRoute where overlap with other driveways is forbidden
     int myCoreSize;
+
+    /// @brief number of normal edges in myForward
+    int myForwardEdgeCount;
 
     /// @brief whether this driveway ends its forward section with a rail signal (and thus comprises a full block)
     bool myFoundSignal;
@@ -302,6 +309,14 @@ protected:
     void addSwitchFoes(MSLink* link);
 
     bool haveSubTrains() const;
+
+    /* @brief whether the train would have matched this driveway in it's past
+     * @return If matching, returns the number of edges the vehicle has gone past the start of the driveway,
+     *         Indicate no-match by returning a negative value */
+    int matchesPastRoute(SUMOVehicle& sveh) const;
+
+    /// @brief helper method for notifyEnter
+    void enterDriveWay(SUMOVehicle& sveh, Notification reason);
 
     static bool hasJoin(const SUMOVehicle* ego, const SUMOVehicle* foe);
 

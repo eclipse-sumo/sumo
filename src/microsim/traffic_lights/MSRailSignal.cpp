@@ -370,7 +370,13 @@ MSRailSignal::initDriveWays(const SUMOVehicle* ego, bool update) {
         endIndex = (int)edges.size() - 1;
     }
     const int departIndex = ego->getParameter().departEdge;
-    MSDriveWay* prev = const_cast<MSDriveWay*>(MSDriveWay::getDepartureDriveway(ego));
+    MSDriveWay* prev = const_cast<MSDriveWay*>(MSDriveWay::getDepartureDriveway(ego, true));
+    if (update && ego->hasDeparted()) {
+        MSBaseVehicle* veh = dynamic_cast<MSBaseVehicle*>(const_cast<SUMOVehicle*>(ego));
+        if (!prev->hasTrain(veh) && prev->notifyEnter(*veh, prev->NOTIFICATION_REROUTE, nullptr)) {
+            veh->addReminder(prev, 1);
+        }
+    }
     for (int i = departIndex; i <= endIndex - 1; i++) {
         const MSEdge* e = edges[i];
         if (e->isNormal() && e->getToJunction()->getType() == SumoXMLNodeType::RAIL_SIGNAL) {
@@ -394,6 +400,12 @@ MSRailSignal::initDriveWays(const SUMOVehicle* ego, bool update) {
                                 // (it's still an improvement over switching based on default driveways)
                                 rs->updateCurrentPhase();
                                 rs->setTrafficLightSignals(SIMSTEP);
+                                if (ego->hasDeparted() && i <= ego->getRoutePosition()) {
+                                    MSBaseVehicle* veh = dynamic_cast<MSBaseVehicle*>(const_cast<SUMOVehicle*>(ego));
+                                    if (!dw->hasTrain(veh) && dw->notifyEnter(*veh, dw->NOTIFICATION_REROUTE, nullptr)) {
+                                        veh->addReminder(dw, 1);
+                                    }
+                                }
                             }
                         }
                     }
@@ -401,7 +413,7 @@ MSRailSignal::initDriveWays(const SUMOVehicle* ego, bool update) {
             }
         }
     }
-    MSDriveWay::getDepartureDriveway(ego);
+    MSDriveWay::getDepartureDriveway(ego, true);
 }
 
 

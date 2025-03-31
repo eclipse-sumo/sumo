@@ -28,6 +28,7 @@
 class MSRailSignal;
 class MSRailSignalConstraint;
 class MSEdge;
+class MSDriveWay;
 
 // ===========================================================================
 // class definitions

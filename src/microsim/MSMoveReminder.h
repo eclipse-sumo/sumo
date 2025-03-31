@@ -237,6 +237,15 @@ public:
         return true;
     }
 
+    /** @brief Called if the vehicle change it's route
+     * @param[in] veh The rerouted vehicle.
+     * @return True if the reminder wants to receive further info.
+     */
+    virtual bool notifyReroute(SUMOTrafficObject& veh) {
+        UNUSED_PARAMETER(&veh);
+        return true;
+    }
+
     // TODO: Documentation
     void updateDetector(SUMOTrafficObject& veh, double entryPos, double leavePos,
                         SUMOTime entryTime, SUMOTime currentTime, SUMOTime leaveTime,
