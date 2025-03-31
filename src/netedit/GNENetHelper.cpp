@@ -22,7 +22,6 @@
 #include <netbuild/NBNetBuilder.h>
 #include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNENet.h>
-#include <netedit/GNETagProperties.h>
 #include <netedit/GNETagPropertiesDatabase.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>

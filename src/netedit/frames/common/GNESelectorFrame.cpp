@@ -19,7 +19,6 @@
 /****************************************************************************/
 
 #include <netedit/GNENet.h>
-#include <netedit/GNETagProperties.h>
 #include <netedit/GNETagPropertiesDatabase.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/elements/network/GNEConnection.h>

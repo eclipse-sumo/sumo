@@ -21,7 +21,6 @@
 
 #include <gui/dialogs/GUIDialog_Feedback.h>
 #include <netbuild/NBFrame.h>
-#include <netedit/GNETagProperties.h>
 #include <netedit/GNETagPropertiesDatabase.h>
 #include <netedit/changes/GNEChange_EdgeType.h>
 #include <netedit/dialogs/GNEAbout.h>

@@ -19,7 +19,6 @@
 /****************************************************************************/
 
 #include <netedit/GNENet.h>
-#include <netedit/GNETagProperties.h>
 #include <netedit/GNETagPropertiesDatabase.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
