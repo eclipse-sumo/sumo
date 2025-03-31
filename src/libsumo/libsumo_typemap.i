@@ -383,18 +383,26 @@ static PyObject* parseSubscriptionMap(const std::map<int, std::shared_ptr<libsum
 %}
 
 %define SUBSCRIBE_HELPER(domain)
-%pythonprepend SWIG_MODULE::domain::subscribe(const std::string&, const std::vector<int>&, double begin, double, const libsumo::TraCIResults&) %{
+%pythonprepend SWIG_MODULE::domain::subscribe(const std::string&, const std::vector<int>&, double, double, const libsumo::TraCIResults&) %{
     if len(args) > 1 and args[1] is None:
         args = (args[0], [-1]) + args[2:]
+    if len(args) > 4 and args[4] is None:
+        args = args[:4] + ({},)
     if "varIDs" in kwargs and kwargs["varIDs"] is None:
         kwargs["varIDs"] = [-1]
+    if "parameters" in kwargs and kwargs["parameters"] is None:
+        kwargs["parameters"] = {}
 %}
 
-%pythonprepend SWIG_MODULE::domain::subscribeContext(const std::string&, int, double, const std::vector<int>&, double begin, double, const libsumo::TraCIResults&) %{
+%pythonprepend SWIG_MODULE::domain::subscribeContext(const std::string&, int, double, const std::vector<int>&, double, double, const libsumo::TraCIResults&) %{
     if len(args) > 3 and args[3] is None:
         args = (args[0], args[1], args[2], [-1]) + args[4:]
+    if len(args) > 6 and args[6] is None:
+        args = args[:6] + ({},)
     if "varIDs" in kwargs and kwargs["varIDs"] is None:
         kwargs["varIDs"] = [-1]
+    if "parameters" in kwargs and kwargs["parameters"] is None:
+        kwargs["parameters"] = {}
 %}
 %enddef
 
