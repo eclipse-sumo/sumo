@@ -44,56 +44,6 @@ TraCIServerAPI_TrafficLight::processGet(TraCIServer& server, tcpip::Storage& inp
     try {
         if (!libsumo::TrafficLight::handleVariable(id, variable, &server, &inputStorage)) {
             switch (variable) {
-                case libsumo::TL_COMPLETE_DEFINITION_RYG: {
-                    std::vector<libsumo::TraCILogic> logics = libsumo::TrafficLight::getAllProgramLogics(id);
-                    tcpip::Storage& storage = server.getWrapperStorage();
-                    StoHelp::writeCompound(storage, (int)logics.size());
-                    for (const libsumo::TraCILogic& logic : logics) {
-                        StoHelp::writeCompound(storage, 5);
-                        StoHelp::writeTypedString(storage, logic.programID);
-                        StoHelp::writeTypedInt(storage, logic.type);
-                        StoHelp::writeTypedInt(storage, logic.currentPhaseIndex);
-                        StoHelp::writeCompound(storage, (int)logic.phases.size());
-                        for (const std::shared_ptr<libsumo::TraCIPhase>& phase : logic.phases) {
-                            StoHelp::writeCompound(storage, 6);
-                            StoHelp::writeTypedDouble(storage, phase->duration);
-                            StoHelp::writeTypedString(storage, phase->state);
-                            StoHelp::writeTypedDouble(storage, phase->minDur);
-                            StoHelp::writeTypedDouble(storage, phase->maxDur);
-                            StoHelp::writeCompound(storage, (int)phase->next.size());
-                            for (int n : phase->next) {
-                                StoHelp::writeTypedInt(storage, n);
-                            }
-                            StoHelp::writeTypedString(storage, phase->name);
-                        }
-                        StoHelp::writeCompound(storage, (int)logic.subParameter.size());
-                        for (const auto& item : logic.subParameter) {
-                            StoHelp::writeTypedStringList(storage, std::vector<std::string> {item.first, item.second});
-                        }
-                    }
-                    break;
-                }
-                case libsumo::TL_CONTROLLED_LINKS: {
-                    const std::vector<std::vector<libsumo::TraCILink> > links = libsumo::TrafficLight::getControlledLinks(id);
-                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_COMPOUND);
-                    tcpip::Storage tempContent;
-                    tempContent.writeUnsignedByte(libsumo::TYPE_INTEGER);
-                    tempContent.writeInt((int)links.size());
-                    int cnt = 1;
-                    for (const std::vector<libsumo::TraCILink>& sublinks : links) {
-                        tempContent.writeUnsignedByte(libsumo::TYPE_INTEGER);
-                        tempContent.writeInt((int)sublinks.size());
-                        ++cnt;
-                        for (const libsumo::TraCILink& link : sublinks) {
-                            tempContent.writeUnsignedByte(libsumo::TYPE_STRINGLIST);
-                            tempContent.writeStringList(std::vector<std::string>({ link.fromLane, link.toLane, link.viaLane }));
-                            ++cnt;
-                        }
-                    }
-                    server.getWrapperStorage().writeInt(cnt);
-                    server.getWrapperStorage().writeStorage(tempContent);
-                    break;
-                }
                 case libsumo::TL_CONSTRAINT_SWAP: {
                     if (inputStorage.readUnsignedByte() != libsumo::TYPE_COMPOUND) {
                         return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "A compound object is needed for swapping constraints.", outputStorage);

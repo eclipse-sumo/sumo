@@ -404,11 +404,32 @@ struct TraCILogic {
         : programID(_programID), type(_type), currentPhaseIndex(_currentPhaseIndex), phases(_phases) {}
     ~TraCILogic() {}
 
+    std::string getString() const {
+        std::ostringstream os;
+        os << "TraCILink(" << programID << "," << type << "," << currentPhaseIndex << ")";
+        return os.str();
+    }
+
     std::string programID;
     int type;
     int currentPhaseIndex;
     std::vector<std::shared_ptr<libsumo::TraCIPhase> > phases;
     std::map<std::string, std::string> subParameter;
+};
+
+
+struct TraCILogicVectorWrapped : TraCIResult {
+    std::string getString() const {
+        std::ostringstream os;
+        os << "TraCILogicVectorWrapped[";
+        for (const TraCILogic& v : value) {
+            os << v.getString() << ",";
+        }
+        os << "]";
+        return os.str();
+    }
+
+    std::vector<TraCILogic> value;
 };
 
 
@@ -418,9 +439,33 @@ struct TraCILink {
         : fromLane(_from), viaLane(_via), toLane(_to) {}
     ~TraCILink() {}
 
+    std::string getString() const {
+        std::ostringstream os;
+        os << "TraCILink(" << fromLane << "," << viaLane << "," << toLane << ")";
+        return os.str();
+    }
+
     std::string fromLane;
     std::string viaLane;
     std::string toLane;
+};
+
+
+struct TraCILinkVectorVectorWrapped : TraCIResult {
+    std::string getString() const {
+        std::ostringstream os;
+        os << "TraCILinkVectorVectorWrapped[";
+        for (const std::vector<TraCILink>& v : value) {
+            os << "[";
+            for (const TraCILink& tl : v) {
+                os << tl.getString() << ",";
+            }
+        }
+        os << "]";
+        return os.str();
+    }
+
+    std::vector<std::vector<TraCILink> > value;
 };
 
 

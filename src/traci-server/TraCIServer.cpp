@@ -283,6 +283,54 @@ TraCIServer::wrapReservationVector(const std::string& /* objID */, const int /* 
 
 
 bool
+TraCIServer::wrapLogicVector(const std::string& /* objID */, const int /* variable */, const std::vector<libsumo::TraCILogic>& value) {
+    StoHelp::writeCompound(myWrapperStorage, (int)value.size());
+    for (const libsumo::TraCILogic& logic : value) {
+        StoHelp::writeCompound(myWrapperStorage, 5);
+        StoHelp::writeTypedString(myWrapperStorage, logic.programID);
+        StoHelp::writeTypedInt(myWrapperStorage, logic.type);
+        StoHelp::writeTypedInt(myWrapperStorage, logic.currentPhaseIndex);
+        StoHelp::writeCompound(myWrapperStorage, (int)logic.phases.size());
+        for (const std::shared_ptr<libsumo::TraCIPhase>& phase : logic.phases) {
+            StoHelp::writeCompound(myWrapperStorage, 6);
+            StoHelp::writeTypedDouble(myWrapperStorage, phase->duration);
+            StoHelp::writeTypedString(myWrapperStorage, phase->state);
+            StoHelp::writeTypedDouble(myWrapperStorage, phase->minDur);
+            StoHelp::writeTypedDouble(myWrapperStorage, phase->maxDur);
+            StoHelp::writeCompound(myWrapperStorage, (int)phase->next.size());
+            for (int n : phase->next) {
+                StoHelp::writeTypedInt(myWrapperStorage, n);
+            }
+            StoHelp::writeTypedString(myWrapperStorage, phase->name);
+        }
+        StoHelp::writeCompound(myWrapperStorage, (int)logic.subParameter.size());
+        for (const auto& item : logic.subParameter) {
+            StoHelp::writeTypedStringList(myWrapperStorage, std::vector<std::string> {item.first, item.second});
+        }
+    }
+    return true;
+}
+
+
+bool
+TraCIServer::wrapLinkVectorVector(const std::string& /* objID */, const int /* variable */, const std::vector<std::vector<libsumo::TraCILink> >& value) {
+    int cnt = 1;
+    for (const std::vector<libsumo::TraCILink>& sublinks : value) {
+        cnt += (int)sublinks.size() + 1;
+    }
+    StoHelp::writeCompound(myWrapperStorage, cnt);
+    StoHelp::writeTypedInt(myWrapperStorage, (int)value.size());
+    for (const std::vector<libsumo::TraCILink>& sublinks : value) {
+        StoHelp::writeTypedInt(myWrapperStorage, (int)sublinks.size());
+        for (const libsumo::TraCILink& link : sublinks) {
+            StoHelp::writeTypedStringList(myWrapperStorage, std::vector<std::string>({ link.fromLane, link.toLane, link.viaLane }));
+        }
+    }
+    return true;
+}
+
+
+bool
 TraCIServer::wrapSignalConstraintVector(const std::string& /* objID */, const int /* variable */, const std::vector<libsumo::TraCISignalConstraint>& value) {
     StoHelp::writeCompound(myWrapperStorage, 1 + (int)value.size() * 5);
     StoHelp::writeTypedInt(myWrapperStorage, (int)value.size());
