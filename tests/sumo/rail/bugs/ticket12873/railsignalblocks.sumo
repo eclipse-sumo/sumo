@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-11-06 10:47:11 by Eclipse SUMO sumo Version v1_21_0+0637-f1850e93215
+<!-- generated on 2025-03-31 21:15:46 by Eclipse SUMO sumo Version v1_22_0+1175-7450f55ecdd
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -91,7 +91,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <bidi lanes=":J9_0_0 -E3_0 :J4_1_0 -E4_0 :J5_0_0 -E5_0"/>
                 <flank lanes=""/>
                 <conflictLinks signals=""/>
-                <foes driveWays="J5.0.0 J5.1.0 J6.d0 J9.0"/>
+                <foes driveWays="J5.0.0 J5.1.0 J6.d0 J6.d1 J9.0"/>
             </driveWay>
             <subDriveWay id="J9.0.0" vehicle="" edges="E30 E4">
                 <forward lanes=":J9_1_0 E30_0 :J4_2_0 E4_0 :J5_1_0"/>
@@ -105,7 +105,15 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                     deadlockCheck="E0_0"/>
             <flank lanes=""/>
             <conflictLinks signals="J9_0"/>
-            <foes driveWays="J6.d0 J9.0"/>
+            <foes driveWays="J6.d0 J6.d1 J9.0"/>
+        </driveWay>
+        <driveWay id="J6.d1" vehicle="v_1" edges="-E5 -E4 -E3 -E3.50 -E0">
+            <forward lanes="-E5_0"/>
+            <bidi lanes="E5_0 :J5_1_0 E4_0 :J4_2_0 E30_0 :J9_1_0 E3_0 :J1_2_0"
+                    deadlockCheck="E0_0"/>
+            <flank lanes=""/>
+            <conflictLinks signals=""/>
+            <foes driveWays="J0.d0 J6.d0 J6.d1 J9.0"/>
         </driveWay>
     </departJunction>
     <departJunction id="J0">
@@ -115,7 +123,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                     deadlockCheck="-E4_0 :J5_0_0 -E5_0"/>
             <flank lanes=""/>
             <conflictLinks signals="J5_0 J7_0"/>
-            <foes driveWays="J0.d0 J5.1 J6.d0 J7.0"/>
+            <foes driveWays="J0.d0 J5.1 J6.d0 J6.d1 J7.0"/>
             <sidings foe="J6.d0">
                 <siding start="E3" end="E3" length="94.64"/>
             </sidings>
