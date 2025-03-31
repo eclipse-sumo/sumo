@@ -284,15 +284,16 @@ GNEContour::checkDrawPathContour(const GUIVisualizationSettings& s, const GUIVis
         if (AC->checkDrawInspectContour()) {
             return true;
         }
-        if (AC->checkDrawInspectContourSmall()) {
-            return true;
-        }
         // front contour
         if (AC->checkDrawFrontContour()) {
             return true;
         }
         // delete contour
         if (AC->checkDrawDeleteContour()) {
+            return true;
+        }
+        // delete contour (small)
+        if (AC->checkDrawDeleteContourSmall()) {
             return true;
         }
         // select contour
@@ -330,8 +331,6 @@ GNEContour::drawDottedContours(const GUIVisualizationSettings& s, const GUIVisua
         // inspect contour
         if (AC->checkDrawInspectContour()) {
             return drawDottedContour(s, GUIDottedGeometry::DottedContourType::INSPECT, lineWidth, addOffset);
-        } else if (AC->checkDrawInspectContourSmall()) {
-            return drawDottedContour(s, GUIDottedGeometry::DottedContourType::INSPECT, s.dottedContourSettings.segmentWidthSmall, addOffset);
         }
         // front contour
         if (AC->checkDrawFrontContour()) {
