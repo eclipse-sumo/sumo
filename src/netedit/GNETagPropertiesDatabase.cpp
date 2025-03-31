@@ -444,8 +444,8 @@ GNETagPropertiesDatabase::fillHierarchy() {
             mySetTagProperties.at(GNE_TAG_SHAPES),
             GUIIcon::E1,
             TL("JuPedSim elements")),
-            FXRGBA(255, 255, 255, 255),
-            TL("JuPedSim elements");
+    FXRGBA(255, 255, 255, 255),
+    TL("JuPedSim elements");
     // TAZs - level 2
     mySetTagProperties[GNE_TAG_TAZS] = new GNETagProperties(GNE_TAG_TAZS,
             mySetTagProperties.at(GNE_TAG_SUPERMODE_NETWORK),
@@ -1710,7 +1710,7 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_LANES,
                                    GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                                   GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                                   GNEAttributeProperties::EDITMODE,
                                    TL("List of Variable Speed Sign lanes"));
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_POSITION,
@@ -1908,7 +1908,7 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_EDGES,
                                    GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                                   GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                                   GNEAttributeProperties::EDITMODE,
                                    TL("An edge id or a list of edge ids where vehicles shall be rerouted"));
 
         fillNameAttribute(myTagProperties[currentTag]);
