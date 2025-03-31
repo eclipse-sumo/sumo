@@ -727,7 +727,29 @@ struct TraCIReservation {
     double reservationTime;
     /// @brief the state of this reservation
     int state;
+
+    std::string getString() const {
+        std::ostringstream os;
+        os << "TraCIReservation(id=" << id << ")";
+        return os.str();
+    }
 };
+
+
+struct TraCIReservationVectorWrapped : TraCIResult {
+    std::string getString() const {
+        std::ostringstream os;
+        os << "TraCIReservationVectorWrapped[";
+        for (const TraCIReservation& v : value) {
+            os << v.getString() << ",";
+        }
+        os << "]";
+        return os.str();
+    }
+
+    std::vector<TraCIReservation> value;
+};
+
 
 struct TraCICollision {
     /// @brief The ids of the participating vehicles and persons

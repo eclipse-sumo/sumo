@@ -230,6 +230,7 @@ public:
         bool wrapStringPair(const std::string& objID, const int variable, const std::pair<std::string, std::string>& value);
         bool wrapIntPair(const std::string& objID, const int variable, const std::pair<int, int>& value);
         bool wrapStage(const std::string& objID, const int variable, const TraCIStage& value);
+        bool wrapReservationVector(const std::string& objID, const int variable, const std::vector<TraCIReservation>& value);
         bool wrapSignalConstraintVector(const std::string& objID, const int variable, const std::vector<TraCISignalConstraint>& value);
         bool wrapJunctionFoeVector(const std::string& objID, const int variable, const std::vector<TraCIJunctionFoe>& value);
         bool wrapNextStopDataVector(const std::string& objID, const int variable, const std::vector<TraCINextStopData>& value);

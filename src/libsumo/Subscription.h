@@ -170,6 +170,7 @@ public:
     virtual bool wrapStringPair(const std::string& objID, const int variable, const std::pair<std::string, std::string>& value) = 0;
     virtual bool wrapIntPair(const std::string& objID, const int variable, const std::pair<int, int>& value) = 0;
     virtual bool wrapStage(const std::string& objID, const int variable, const TraCIStage& value) = 0;
+    virtual bool wrapReservationVector(const std::string& objID, const int variable, const std::vector<TraCIReservation>& value) = 0;
     virtual bool wrapSignalConstraintVector(const std::string& objID, const int variable, const std::vector<TraCISignalConstraint>& value) = 0;
     virtual bool wrapJunctionFoeVector(const std::string& objID, const int variable, const std::vector<TraCIJunctionFoe>& value) = 0;
     virtual bool wrapNextStopDataVector(const std::string& objID, const int variable, const std::vector<TraCINextStopData>& value) = 0;

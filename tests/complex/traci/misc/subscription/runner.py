@@ -47,7 +47,7 @@ try:
                     else:
                         variable = source[s:source.index(")", s)]
                         remainder = ""
-                    if "TAXI_RESERVATIONS" in variable or variable == "TL_CONSTRAINT_SWAP":
+                    if variable in ("TL_CONSTRAINT_SWAP", "SPLIT_TAXI_RESERVATIONS"):
                         continue
                     if hasattr(traci.constants, variable):
                         print("Subscribing to %s.%s." % (dt._name, variable))

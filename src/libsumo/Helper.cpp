@@ -2037,6 +2037,15 @@ Helper::SubscriptionWrapper::wrapStage(const std::string& objID, const int varia
 
 
 bool
+Helper::SubscriptionWrapper::wrapReservationVector(const std::string& objID, const int variable, const std::vector<libsumo::TraCIReservation>& value) {
+    auto sl = std::make_shared<TraCIReservationVectorWrapped>();
+    sl->value = value;
+    (*myActiveResults)[objID][variable] = sl;
+    return true;
+}
+
+
+bool
 Helper::SubscriptionWrapper::wrapSignalConstraintVector(const std::string& objID, const int variable, const std::vector<libsumo::TraCISignalConstraint>& value) {
     auto sl = std::make_shared<TraCISignalConstraintVectorWrapped>();
     sl->value = value;

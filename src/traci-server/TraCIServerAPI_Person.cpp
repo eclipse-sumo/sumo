@@ -45,56 +45,8 @@ TraCIServerAPI_Person::processGet(TraCIServer& server, tcpip::Storage& inputStor
     const std::string id = inputStorage.readString();
     server.initWrapper(libsumo::RESPONSE_GET_PERSON_VARIABLE, variable, id);
     try {
-        // in case of SPLIT_TAXI_RESERVATIONS id is a reservation id and handleVariable would throw an "unknown person" error
-        if (variable == libsumo::SPLIT_TAXI_RESERVATIONS || !libsumo::Person::handleVariable(id, variable, &server, &inputStorage)) {
-            switch (variable) {
-                case libsumo::VAR_TAXI_RESERVATIONS: {
-                    int onlyNew = 0;
-                    if (!server.readTypeCheckingInt(inputStorage, onlyNew)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_GET_PERSON_VARIABLE, "Retrieval of reservations requires an integer flag.", outputStorage);
-                    }
-                    const std::vector<libsumo::TraCIReservation> result = libsumo::Person::getTaxiReservations(onlyNew);
-                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_COMPOUND);
-                    server.getWrapperStorage().writeInt((int)result.size());
-                    for (const libsumo::TraCIReservation& r : result) {
-                        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_COMPOUND);
-                        server.getWrapperStorage().writeInt(10);
-                        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRING);
-                        server.getWrapperStorage().writeString(r.id);
-                        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRINGLIST);
-                        server.getWrapperStorage().writeStringList(r.persons);
-                        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRING);
-                        server.getWrapperStorage().writeString(r.group);
-                        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRING);
-                        server.getWrapperStorage().writeString(r.fromEdge);
-                        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRING);
-                        server.getWrapperStorage().writeString(r.toEdge);
-                        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_DOUBLE);
-                        server.getWrapperStorage().writeDouble(r.departPos);
-                        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_DOUBLE);
-                        server.getWrapperStorage().writeDouble(r.arrivalPos);
-                        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_DOUBLE);
-                        server.getWrapperStorage().writeDouble(r.depart);
-                        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_DOUBLE);
-                        server.getWrapperStorage().writeDouble(r.reservationTime);
-                        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_INTEGER);
-                        server.getWrapperStorage().writeInt(r.state);
-                    }
-                    break;
-                }
-                case libsumo::SPLIT_TAXI_RESERVATIONS: {
-                    std::vector<std::string> persons;
-                    if (!server.readTypeCheckingStringList(inputStorage, persons)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_GET_PERSON_VARIABLE, "Splitting of reservations requires an string list.", outputStorage);
-                    }
-                    std::string splitID = libsumo::Person::splitTaxiReservation(id, persons);
-                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRING);
-                    server.getWrapperStorage().writeString(splitID);
-                    break;
-                }
-                default:
-                    return server.writeErrorStatusCmd(libsumo::CMD_GET_PERSON_VARIABLE, "Get Person Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
-            }
+        if (!libsumo::Person::handleVariable(id, variable, &server, &inputStorage)) {
+            return server.writeErrorStatusCmd(libsumo::CMD_GET_PERSON_VARIABLE, "Get Person Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
         }
     } catch (libsumo::TraCIException& e) {
         return server.writeErrorStatusCmd(libsumo::CMD_GET_PERSON_VARIABLE, e.what(), outputStorage);

@@ -276,6 +276,7 @@ public:
     bool wrapStringPair(const std::string& objID, const int variable, const std::pair<std::string, std::string>& value);
     bool wrapIntPair(const std::string& objID, const int variable, const std::pair<int, int>& value);
     bool wrapStage(const std::string& objID, const int variable, const libsumo::TraCIStage& value);
+    bool wrapReservationVector(const std::string& objID, const int variable, const std::vector<libsumo::TraCIReservation>& value);
     bool wrapSignalConstraintVector(const std::string& objID, const int variable, const std::vector<libsumo::TraCISignalConstraint>& value);
     bool wrapJunctionFoeVector(const std::string& objID, const int variable, const std::vector<libsumo::TraCIJunctionFoe>& value);
     bool wrapNextStopDataVector(const std::string& objID, const int variable, const std::vector<libsumo::TraCINextStopData>& value);

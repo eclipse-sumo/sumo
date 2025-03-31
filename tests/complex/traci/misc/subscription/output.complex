@@ -240,6 +240,7 @@ Subscribing to person.VAR_SPEED_DEVIATION.
 Subscribing to person.VAR_SPEED_FACTOR.
 Subscribing to person.VAR_STAGE.
 Subscribing to person.VAR_TAU.
+Subscribing to person.VAR_TAXI_RESERVATIONS.
 Subscribing to person.VAR_TYPE.
 Subscribing to person.VAR_VEHICLE.
 Subscribing to person.VAR_VEHICLECLASS.

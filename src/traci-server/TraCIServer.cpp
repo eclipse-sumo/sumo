@@ -293,6 +293,26 @@ TraCIServer::wrapStage(const std::string& /* objID */, const int /* variable */,
 
 
 bool
+TraCIServer::wrapReservationVector(const std::string& /* objID */, const int /* variable */, const std::vector<libsumo::TraCIReservation>& value) {
+    StoHelp::writeCompound(myWrapperStorage, (int)value.size());
+    for (const libsumo::TraCIReservation& r : value) {
+        StoHelp::writeCompound(myWrapperStorage, 10);
+        StoHelp::writeTypedString(myWrapperStorage, r.id);
+        StoHelp::writeTypedStringList(myWrapperStorage, r.persons);
+        StoHelp::writeTypedString(myWrapperStorage, r.group);
+        StoHelp::writeTypedString(myWrapperStorage, r.fromEdge);
+        StoHelp::writeTypedString(myWrapperStorage, r.toEdge);
+        StoHelp::writeTypedDouble(myWrapperStorage, r.departPos);
+        StoHelp::writeTypedDouble(myWrapperStorage, r.arrivalPos);
+        StoHelp::writeTypedDouble(myWrapperStorage, r.depart);
+        StoHelp::writeTypedDouble(myWrapperStorage, r.reservationTime);
+        StoHelp::writeTypedInt(myWrapperStorage, r.state);
+    }
+    return true;
+}
+
+
+bool
 TraCIServer::wrapSignalConstraintVector(const std::string& /* objID */, const int /* variable */, const std::vector<libsumo::TraCISignalConstraint>& value) {
     StoHelp::writeCompound(myWrapperStorage, 1 + (int)value.size() * 5);
     StoHelp::writeTypedInt(myWrapperStorage, (int)value.size());
@@ -440,6 +460,8 @@ TraCIServer::TraCIServer(const SUMOTime begin, const int port, const int numClie
     myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_PERSON_VARIABLE, libsumo::DISTANCE_REQUEST));
     myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_PERSON_VARIABLE, libsumo::VAR_EDGES));
     myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_PERSON_VARIABLE, libsumo::VAR_STAGE));
+    myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_PERSON_VARIABLE, libsumo::VAR_TAXI_RESERVATIONS));
+    myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_PERSON_VARIABLE, libsumo::SPLIT_TAXI_RESERVATIONS));
     myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_TL_VARIABLE, libsumo::TL_BLOCKING_VEHICLES));
     myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_TL_VARIABLE, libsumo::TL_RIVAL_VEHICLES));
     myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_TL_VARIABLE, libsumo::TL_PRIORITY_VEHICLES));

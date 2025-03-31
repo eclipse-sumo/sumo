@@ -1346,8 +1346,9 @@ Person::handleVariable(const std::string& objID, const int variable, VariableWra
         case VAR_PARAMETER_WITH_KEY:
             return wrapper->wrapStringPair(objID, variable, getParameterWithKey(objID, StoHelp::readTypedString(*paramData)));
         case VAR_TAXI_RESERVATIONS:
-            // we cannot use the general fall through here because we do not have an object id
-            return false;
+            return wrapper->wrapReservationVector(objID, variable, getTaxiReservations(StoHelp::readTypedInt(*paramData)));
+        case SPLIT_TAXI_RESERVATIONS:
+            return wrapper->wrapString(objID, variable, splitTaxiReservation(objID, StoHelp::readTypedStringList(*paramData)));
         default:
             return libsumo::VehicleType::handleVariable(getTypeID(objID), variable, wrapper, paramData);
     }
