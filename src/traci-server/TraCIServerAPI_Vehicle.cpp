@@ -62,62 +62,7 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
     server.initWrapper(libsumo::RESPONSE_GET_VEHICLE_VARIABLE, variable, id);
     try {
         if (!libsumo::Vehicle::handleVariable(id, variable, &server, &inputStorage)) {
-            switch (variable) {
-                case libsumo::VAR_BEST_LANES: {
-                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_COMPOUND);
-                    tcpip::Storage tempContent;
-                    int cnt = 0;
-                    tempContent.writeUnsignedByte(libsumo::TYPE_INTEGER);
-                    std::vector<libsumo::TraCIBestLanesData> bestLanes = libsumo::Vehicle::getBestLanes(id);
-                    tempContent.writeInt((int)bestLanes.size());
-                    ++cnt;
-                    for (std::vector<libsumo::TraCIBestLanesData>::const_iterator i = bestLanes.begin(); i != bestLanes.end(); ++i) {
-                        const libsumo::TraCIBestLanesData& bld = *i;
-                        tempContent.writeUnsignedByte(libsumo::TYPE_STRING);
-                        tempContent.writeString(bld.laneID);
-                        ++cnt;
-                        tempContent.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-                        tempContent.writeDouble(bld.length);
-                        ++cnt;
-                        tempContent.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-                        tempContent.writeDouble(bld.occupation);
-                        ++cnt;
-                        tempContent.writeUnsignedByte(libsumo::TYPE_BYTE);
-                        tempContent.writeByte(bld.bestLaneOffset);
-                        ++cnt;
-                        tempContent.writeUnsignedByte(libsumo::TYPE_UBYTE);
-                        bld.allowsContinuation ? tempContent.writeUnsignedByte(1) : tempContent.writeUnsignedByte(0);
-                        ++cnt;
-                        tempContent.writeUnsignedByte(libsumo::TYPE_STRINGLIST);
-                        tempContent.writeStringList(bld.continuationLanes);
-                        ++cnt;
-                    }
-                    server.getWrapperStorage().writeInt((int)cnt);
-                    server.getWrapperStorage().writeStorage(tempContent);
-                    break;
-                }
-                case libsumo::VAR_NEXT_TLS: {
-                    std::vector<libsumo::TraCINextTLSData> nextTLS = libsumo::Vehicle::getNextTLS(id);
-                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_COMPOUND);
-                    const int cnt = 1 + (int)nextTLS.size() * 4;
-                    server.getWrapperStorage().writeInt(cnt);
-                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_INTEGER);
-                    server.getWrapperStorage().writeInt((int)nextTLS.size());
-                    for (std::vector<libsumo::TraCINextTLSData>::iterator it = nextTLS.begin(); it != nextTLS.end(); ++it) {
-                        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRING);
-                        server.getWrapperStorage().writeString(it->id);
-                        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_INTEGER);
-                        server.getWrapperStorage().writeInt(it->tlIndex);
-                        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_DOUBLE);
-                        server.getWrapperStorage().writeDouble(it->dist);
-                        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_BYTE);
-                        server.getWrapperStorage().writeByte(it->state);
-                    }
-                    break;
-                }
-                default:
-                    return server.writeErrorStatusCmd(libsumo::CMD_GET_VEHICLE_VARIABLE, "Get Vehicle Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
-            }
+            return server.writeErrorStatusCmd(libsumo::CMD_GET_VEHICLE_VARIABLE, "Get Vehicle Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
         }
     } catch (libsumo::TraCIException& e) {
         return server.writeErrorStatusCmd(libsumo::CMD_GET_VEHICLE_VARIABLE, e.what(), outputStorage);

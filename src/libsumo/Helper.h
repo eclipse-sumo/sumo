@@ -235,6 +235,8 @@ public:
         bool wrapJunctionFoeVector(const std::string& objID, const int variable, const std::vector<TraCIJunctionFoe>& value);
         bool wrapNextStopDataVector(const std::string& objID, const int variable, const std::vector<TraCINextStopData>& value);
         bool wrapVehicleDataVector(const std::string& objID, const int variable, const std::vector<TraCIVehicleData>& value);
+        bool wrapBestLanesDataVector(const std::string& objID, const int variable, const std::vector<TraCIBestLanesData>& value);
+        bool wrapNextTLSDataVector(const std::string& objID, const int variable, const std::vector<TraCINextTLSData>& value);
         void empty(const std::string& objID);
     private:
         SubscriptionResults& myResults;

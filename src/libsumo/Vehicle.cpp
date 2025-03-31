@@ -2914,6 +2914,8 @@ Vehicle::handleVariable(const std::string& objID, const int variable, VariableWr
             return wrapper->wrapStringList(objID, variable, getRoute(objID));
         case VAR_SIGNALS:
             return wrapper->wrapInt(objID, variable, getSignals(objID));
+        case VAR_BEST_LANES:
+            return wrapper->wrapBestLanesDataVector(objID, variable, getBestLanes(objID));
         case VAR_NEXT_LINKS:
             return wrapper->wrapConnectionVector(objID, variable, getNextLinks(objID));
         case VAR_STOPSTATE:
@@ -2989,6 +2991,8 @@ Vehicle::handleVariable(const std::string& objID, const int variable, VariableWr
             const bool customParam = count == 3 && StoHelp::readTypedByte(*paramData) != 0;
             return wrapper->wrapString(objID, variable, getStopParameter(objID, nextStopIndex, param, customParam));
         }
+        case VAR_NEXT_TLS:
+            return wrapper->wrapNextTLSDataVector(objID, variable, getNextTLS(objID));
         case VAR_NEXT_STOPS:
             return wrapper->wrapNextStopDataVector(objID, variable, getNextStops(objID));
         case VAR_NEXT_STOPS2:

@@ -357,6 +357,36 @@ TraCIServer::wrapVehicleDataVector(const std::string& /* objID */, const int /* 
 }
 
 
+bool
+TraCIServer::wrapBestLanesDataVector(const std::string& /* objID */, const int /* variable */, const std::vector<libsumo::TraCIBestLanesData>& value) {
+    StoHelp::writeCompound(myWrapperStorage, 1 + (int)value.size() * 6);
+    StoHelp::writeTypedInt(myWrapperStorage, (int)value.size());
+    for (const libsumo::TraCIBestLanesData& bld : value) {
+        StoHelp::writeTypedString(myWrapperStorage, bld.laneID);
+        StoHelp::writeTypedDouble(myWrapperStorage, bld.length);
+        StoHelp::writeTypedDouble(myWrapperStorage, bld.occupation);
+        StoHelp::writeTypedByte(myWrapperStorage, bld.bestLaneOffset);
+        StoHelp::writeTypedUnsignedByte(myWrapperStorage, bld.allowsContinuation ? 1 : 0);
+        StoHelp::writeTypedStringList(myWrapperStorage, bld.continuationLanes);
+    }
+    return true;
+}
+
+
+bool
+TraCIServer::wrapNextTLSDataVector(const std::string& /* objID */, const int /* variable */, const std::vector<libsumo::TraCINextTLSData>& value) {
+    StoHelp::writeCompound(myWrapperStorage, 1 + (int)value.size() * 4);
+    StoHelp::writeTypedInt(myWrapperStorage, (int)value.size());
+    for (const libsumo::TraCINextTLSData& tlsd : value) {
+        StoHelp::writeTypedString(myWrapperStorage, tlsd.id);
+        StoHelp::writeTypedInt(myWrapperStorage, tlsd.tlIndex);
+        StoHelp::writeTypedDouble(myWrapperStorage, tlsd.dist);
+        StoHelp::writeTypedByte(myWrapperStorage, tlsd.state);
+    }
+    return true;
+}
+
+
 tcpip::Storage&
 TraCIServer::getWrapperStorage() {
     return myWrapperStorage;
