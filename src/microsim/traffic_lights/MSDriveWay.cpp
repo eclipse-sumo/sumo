@@ -90,7 +90,6 @@ MSDriveWay::MSDriveWay(const MSLink* origin, const std::string& id, bool tempora
     Named(id),
     myNumericalID(temporary ? -1 : myGlobalDriveWayIndex++),
     myOrigin(origin),
-    myMaxFlankLength(0),
     myActive(nullptr),
     myCoreSize(0),
     myFoundSignal(false),

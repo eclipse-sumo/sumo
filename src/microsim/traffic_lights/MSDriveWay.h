@@ -192,9 +192,6 @@ protected:
     /// @brief the link that enters this driveway or nullptr for a departure driveWay
     const MSLink* myOrigin;
 
-    /// @brief the maximum flank length searched while building this driveway
-    double myMaxFlankLength;
-
     /// @brief whether the current signal is switched green for a train approaching this block
     const SUMOVehicle* myActive;
 
