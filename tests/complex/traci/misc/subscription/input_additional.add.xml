@@ -23,6 +23,7 @@
     <poi id="poi_0" color="red" layer="202.00" x="274.48" y="459.55"/>
     <overheadWireSegment id="overheadwire_0" lane="1si_0"/>
     <route id="route_0" edges="1si"/>
+    <vType id="vehicletype_0"/>
     <vehicle id="vehicle_0" depart="0">
         <route edges="1si"/>
         <stop lane="1si_0" endPos="100"/>

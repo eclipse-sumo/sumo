@@ -47,10 +47,11 @@ try:
                     else:
                         variable = source[s:source.index(")", s)]
                         remainder = ""
-                    if "TAXI_RESERVATIONS" in variable or variable in ("DISTANCE_REQUEST", "TL_CONSTRAINT_SWAP"):
+                    if "TAXI_RESERVATIONS" in variable or variable == "TL_CONSTRAINT_SWAP":
                         continue
                     if hasattr(traci.constants, variable):
                         print("Subscribing to %s.%s." % (dt._name, variable))
+                        sys.stdout.flush()
                         v = getattr(traci.constants, variable)
                         if dt._name == "edge":
                             name = "1si"
@@ -84,7 +85,7 @@ try:
                         elif '"tru"' in remainder:
                             param = {v: ("tru", 2, ("1si", 0., 0), traci.constants.REQUEST_DRIVINGDIST)}
                         elif '"tou"' in remainder:
-                            param = {v: ("tou", 2, (0., 0.), traci.constants.REQUEST_DRIVINGDIST)}
+                            param = {v: ("tou", 2, (400., 495.), traci.constants.REQUEST_DRIVINGDIST)}
                         getattr(traci, dt._name).subscribe(name, [v], parameters=param)
 finally:
     traci.close()
