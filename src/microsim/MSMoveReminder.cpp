@@ -34,6 +34,7 @@ StringBijection<MSMoveReminder::Notification>::Entry MSMoveReminder::Notificatio
     {"teleport",               NOTIFICATION_TELEPORT},
     {"teleportContinuation",   NOTIFICATION_TELEPORT_CONTINUATION},
     {"parking",                NOTIFICATION_PARKING},
+    {"reroute",                NOTIFICATION_REROUTE},
     {"parkingReroute",         NOTIFICATION_PARKING_REROUTE},
     {"arrived",                NOTIFICATION_ARRIVED},
     {"teleportArrived",        NOTIFICATION_TELEPORT_ARRIVED},

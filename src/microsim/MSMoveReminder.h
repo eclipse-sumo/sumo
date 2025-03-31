@@ -106,6 +106,8 @@ public:
         NOTIFICATION_TELEPORT_CONTINUATION,
         /// @brief The vehicle starts or ends parking
         NOTIFICATION_PARKING,
+        /// @brief The vehicle changed it's route
+        NOTIFICATION_REROUTE,
         /// @brief The vehicle needs another parking area
         NOTIFICATION_PARKING_REROUTE,
         /// @brief The vehicle arrived at its destination (is deleted)
