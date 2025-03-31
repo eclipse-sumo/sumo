@@ -842,7 +842,8 @@ MSTriggeredRerouter::overtakingTrain(const SUMOVehicle& veh, ConstMSEdgeVector::
             if (itOnMain2 != route2.end()) {
                 auto itOnMain = mainStart + mainIndex;
                 double timeToMain = 0;
-                double timeToMain2 = 0;
+                // veh2 may be anywhere on the current edge so we have to discount
+                double timeToMain2 = -veh2->getEdge()->getMinimumTravelTime(veh2) * veh2->getPositionOnLane() / veh2->getEdge()->getLength();
                 for (auto it = veh.getCurrentRouteEdge(); it != itOnMain; it++) {
                     timeToMain += (*it)->getMinimumTravelTime(&veh);
                 }
