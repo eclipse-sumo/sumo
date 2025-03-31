@@ -280,6 +280,7 @@ public:
     bool wrapSignalConstraintVector(const std::string& objID, const int variable, const std::vector<libsumo::TraCISignalConstraint>& value);
     bool wrapJunctionFoeVector(const std::string& objID, const int variable, const std::vector<libsumo::TraCIJunctionFoe>& value);
     bool wrapNextStopDataVector(const std::string& objID, const int variable, const std::vector<libsumo::TraCINextStopData>& value);
+    bool wrapVehicleDataVector(const std::string& objID, const int variable, const std::vector<libsumo::TraCIVehicleData>& value);
     tcpip::Storage& getWrapperStorage();
     /// @}
 

@@ -467,6 +467,13 @@ struct TraCIConnectionVectorWrapped : TraCIResult {
 
 /// @brief mirrors MSInductLoop::VehicleData
 struct TraCIVehicleData {
+    std::string getString() const {
+        std::ostringstream os;
+        os << "TraCIVehicleData(" << id << "," << length << "," << entryTime
+           << "," << leaveTime << "," << typeID << ")";
+        return os.str();
+    }
+
     /// @brief The id of the vehicle
     std::string id;
     /// @brief Length of the vehicle
@@ -477,6 +484,21 @@ struct TraCIVehicleData {
     double leaveTime;
     /// @brief Type of the vehicle in
     std::string typeID;
+};
+
+
+struct TraCIVehicleDataVectorWrapped : TraCIResult {
+    std::string getString() const {
+        std::ostringstream os;
+        os << "TraCIVehicleDataVectorWrapped[";
+        for (const TraCIVehicleData& v : value) {
+            os << v.getString() << ",";
+        }
+        os << "]";
+        return os.str();
+    }
+
+    std::vector<TraCIVehicleData> value;
 };
 
 

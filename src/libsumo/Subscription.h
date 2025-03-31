@@ -174,6 +174,7 @@ public:
     virtual bool wrapSignalConstraintVector(const std::string& objID, const int variable, const std::vector<TraCISignalConstraint>& value) = 0;
     virtual bool wrapJunctionFoeVector(const std::string& objID, const int variable, const std::vector<TraCIJunctionFoe>& value) = 0;
     virtual bool wrapNextStopDataVector(const std::string& objID, const int variable, const std::vector<TraCINextStopData>& value) = 0;
+    virtual bool wrapVehicleDataVector(const std::string& objID, const int variable, const std::vector<TraCIVehicleData>& value) = 0;
     virtual void empty(const std::string& /* objID */) {}
 };
 

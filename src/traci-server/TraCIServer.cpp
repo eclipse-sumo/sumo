@@ -372,6 +372,21 @@ TraCIServer::wrapNextStopDataVector(const std::string& /* objID */, const int va
 }
 
 
+bool
+TraCIServer::wrapVehicleDataVector(const std::string& /* objID */, const int variable, const std::vector<libsumo::TraCIVehicleData>& value) {
+    StoHelp::writeCompound(myWrapperStorage, 1 + (int)value.size() * 5);
+    StoHelp::writeTypedInt(myWrapperStorage, (int)value.size());
+    for (const libsumo::TraCIVehicleData& vd : value) {
+        StoHelp::writeTypedString(myWrapperStorage, vd.id);
+        StoHelp::writeTypedDouble(myWrapperStorage, vd.length);
+        StoHelp::writeTypedDouble(myWrapperStorage, vd.entryTime);
+        StoHelp::writeTypedDouble(myWrapperStorage, vd.leaveTime);
+        StoHelp::writeTypedString(myWrapperStorage, vd.typeID);
+    }
+    return true;
+}
+
+
 tcpip::Storage&
 TraCIServer::getWrapperStorage() {
     return myWrapperStorage;

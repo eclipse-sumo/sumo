@@ -2072,6 +2072,15 @@ Helper::SubscriptionWrapper::wrapNextStopDataVector(const std::string& objID, co
 }
 
 
+bool
+Helper::SubscriptionWrapper::wrapVehicleDataVector(const std::string& objID, const int variable, const std::vector<libsumo::TraCIVehicleData>& value) {
+    auto sl = std::make_shared<TraCIVehicleDataVectorWrapped>();
+    sl->value = value;
+    (*myActiveResults)[objID][variable] = sl;
+    return true;
+}
+
+
 void
 Helper::SubscriptionWrapper::empty(const std::string& objID) {
     (*myActiveResults)[objID]; // initiate the empty map to track the objectID for TRACI_ID_LIST context subscriptions
