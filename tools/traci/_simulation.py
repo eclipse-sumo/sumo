@@ -663,12 +663,12 @@ class SimulationDomain(Domain):
     def writeMessage(self, msg):
         self._setCmd(tc.CMD_MESSAGE, "", "s", msg)
 
-    def subscribe(self, varIDs=(tc.VAR_DEPARTED_VEHICLES_IDS,), begin=0, end=2**31 - 1):
-        """subscribe(list(integer), double, double) -> None
+    def subscribe(self, varIDs=(tc.VAR_DEPARTED_VEHICLES_IDS,), begin=0, end=2**31 - 1, parameters=None):
+        """subscribe(list(integer), double, double, map) -> None
 
         Subscribe to one or more simulation values for the given interval.
         """
-        Domain.subscribe(self, "", varIDs, begin, end)
+        Domain.subscribe(self, "", varIDs, begin, end, parameters)
 
     def getSubscriptionResults(self):
         """getSubscriptionResults() -> dict(integer: <value_type>)
