@@ -39,7 +39,7 @@ class GNETagSelector : public MFXGroupBoxModule {
 
 public:
     /// @brief constructor
-    GNETagSelector(GNEFrame* frameParent, const GNETagProperties::TagType type, const SumoXMLTag tag);
+    GNETagSelector(GNEFrame* frameParent, const GNETagProperties::Type type, const SumoXMLTag tag);
 
     /// @brief destructor
     ~GNETagSelector();
@@ -54,7 +54,7 @@ public:
     GNEAttributeCarrier* getCurrentTemplateAC() const;
 
     /// @brief update tag types to select
-    void updateTagTypes(const GNETagProperties::TagType type, const SumoXMLTag tag, const bool informParent);
+    void updateTagTypes(const GNETagProperties::Type type, const SumoXMLTag tag, const bool informParent);
 
     /// @brief set current type manually
     void setCurrentTag(SumoXMLTag newTag, const bool informParent = true);

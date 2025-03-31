@@ -37,7 +37,7 @@ GNEWireFrame::GNEWireFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
     GNEFrame(viewParent, viewNet, TL("Wires")) {
 
     // create item Selector module for wires
-    myWireTagSelector = new GNETagSelector(this, GNETagProperties::TagType::WIRE, SUMO_TAG_TRACTION_SUBSTATION);
+    myWireTagSelector = new GNETagSelector(this, GNETagProperties::Type::WIRE, SUMO_TAG_TRACTION_SUBSTATION);
 
     // Create wire parameters
     myWireAttributesEditor = new GNEAttributesEditor(this, GNEAttributesEditorType::EditorType::CREATOR);
@@ -128,7 +128,7 @@ GNEWireFrame::createPath(const bool /* useLastRoute */) {
             // show warning dialogbox and stop check if input parameters are valid
             if (myWireAttributesEditor->checkAttributes(true)) {
                 // declare additional handler
-                GNEAdditionalHandler additionalHandler(myViewNet->getNet(), myBaseWire->hasStringAttribute(GNE_ATTR_ADDITIONAL_FILE)?
+                GNEAdditionalHandler additionalHandler(myViewNet->getNet(), myBaseWire->hasStringAttribute(GNE_ATTR_ADDITIONAL_FILE) ?
                                                        myBaseWire->getStringAttribute(GNE_ATTR_ADDITIONAL_FILE) : "",
                                                        myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), false);
                 // build additional
@@ -245,7 +245,7 @@ GNEWireFrame::buildWireOverView(const GNETagProperties* tagProperty) {
         return false;
     } else {
         // declare additional handler
-        GNEAdditionalHandler additionalHandler(myViewNet->getNet(), myBaseWire->hasStringAttribute(GNE_ATTR_ADDITIONAL_FILE)?
+        GNEAdditionalHandler additionalHandler(myViewNet->getNet(), myBaseWire->hasStringAttribute(GNE_ATTR_ADDITIONAL_FILE) ?
                                                myBaseWire->getStringAttribute(GNE_ATTR_ADDITIONAL_FILE) : "",
                                                myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), false);
         // build wire

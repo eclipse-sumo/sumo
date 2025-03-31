@@ -39,7 +39,7 @@ GNEPersonPlanFrame::GNEPersonPlanFrame(GNEViewParent* viewParent, GNEViewNet* vi
     GNEFrame(viewParent, viewNet, TL("PersonPlans")) {
 
     // create person types selector module
-    myPersonSelector = new GNEDemandElementSelector(this, {GNETagProperties::TagType::PERSON});
+    myPersonSelector = new GNEDemandElementSelector(this, {GNETagProperties::Type::PERSON});
 
     // Create plan selector
     myPlanSelector = new GNEPlanSelector(this, SUMO_TAG_PERSON);

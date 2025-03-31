@@ -15,26 +15,17 @@
 /// @author  Pablo Alvarez lopez
 /// @date    Feb 2025
 ///
-// Database with all tag properties
+// Database with all information about netedit elements
 /****************************************************************************/
 #pragma once
 #include <config.h>
 
-// ===========================================================================
-// class declaration
-// ===========================================================================
-
-class GNETagProperties;
+#include "GNETagProperties.h"
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
-/**
- * @class GNETagPropertiesDatabase
- *
- * Database with all information about netedit elements
- */
 class GNETagPropertiesDatabase {
 
 public:
@@ -50,8 +41,8 @@ public:
     /// @brief get tagProperties associated to the given set tag (persons, stops, plans, etc.)
     const std::vector<const GNETagProperties*> getTagPropertiesSet(const SumoXMLTag tag, const bool hardFail) const;
 
-    /// @brief get tagProperties associated to the given GNETagProperties::TagType (NETWORKELEMENT, ADDITIONALELEMENT, VEHICLE, etc.)
-    const std::vector<const GNETagProperties*> getTagPropertiesByType(const int tagPropertyCategory) const;
+    /// @brief get tagProperties associated to the given GNETagProperties::Type (NETWORKELEMENT, ADDITIONALELEMENT, VEHICLE, etc.)
+    const std::vector<const GNETagProperties*> getTagPropertiesByType(const GNETagProperties::Type type) const;
 
     /// @brief max number of editable (non extended) attributes
     int getMaxNumberOfEditableAttributeRows() const;

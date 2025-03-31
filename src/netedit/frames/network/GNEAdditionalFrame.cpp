@@ -138,7 +138,7 @@ GNEAdditionalFrame::GNEAdditionalFrame(GNEViewParent* viewParent, GNEViewNet* vi
     GNEFrame(viewParent, viewNet, TL("Additionals")) {
 
     // create item Selector module for additionals
-    myAdditionalTagSelector = new GNETagSelector(this, GNETagProperties::TagType::ADDITIONALELEMENT, SUMO_TAG_BUS_STOP);
+    myAdditionalTagSelector = new GNETagSelector(this, GNETagProperties::Type::ADDITIONALELEMENT, SUMO_TAG_BUS_STOP);
 
     // Create additional parameters
     myAdditionalAttributesEditor = new GNEAttributesEditor(this, GNEAttributesEditorType::EditorType::CREATOR);

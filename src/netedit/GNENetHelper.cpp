@@ -109,8 +109,8 @@ GNENetHelper::AttributeCarriers::AttributeCarriers(GNENet* net) :
     myNet(net),
     myStopIndex(0) {
     // fill additionals with tags
-    auto additionalTagProperties = myNet->getTagPropertiesDatabase()->getTagPropertiesByType(GNETagProperties::TagType::ADDITIONALELEMENT |
-                                   GNETagProperties::TagType::SHAPE | GNETagProperties::TagType::TAZELEMENT | GNETagProperties::TagType::WIRE);
+    auto additionalTagProperties = myNet->getTagPropertiesDatabase()->getTagPropertiesByType(GNETagProperties::Type::ADDITIONALELEMENT |
+                                   GNETagProperties::Type::SHAPE | GNETagProperties::Type::TAZELEMENT | GNETagProperties::Type::WIRE);
     for (const auto& additionalTagProperty : additionalTagProperties) {
         myAdditionals.insert(std::make_pair(additionalTagProperty->getTag(), std::unordered_map<const GUIGlObject*, GNEAdditional*>()));
         if (additionalTagProperty->hasAttribute(SUMO_ATTR_ID) || (additionalTagProperty->getTag() == SUMO_TAG_VAPORIZER)) {
@@ -120,24 +120,24 @@ GNENetHelper::AttributeCarriers::AttributeCarriers(GNENet* net) :
     myTAZSourceSinks.insert(std::make_pair(SUMO_TAG_TAZSOURCE, std::unordered_map<const GNEAttributeCarrier*, GNETAZSourceSink*>()));
     myTAZSourceSinks.insert(std::make_pair(SUMO_TAG_TAZSINK, std::unordered_map<const GNEAttributeCarrier*, GNETAZSourceSink*>()));
     // fill demand elements with tags
-    auto demandElementTagProperties = myNet->getTagPropertiesDatabase()->getTagPropertiesByType(GNETagProperties::TagType::DEMANDELEMENT);
+    auto demandElementTagProperties = myNet->getTagPropertiesDatabase()->getTagPropertiesByType(GNETagProperties::Type::DEMANDELEMENT);
     for (const auto& demandElementTagProperty : demandElementTagProperties) {
         myDemandElements.insert(std::make_pair(demandElementTagProperty->getTag(), std::unordered_map<const GUIGlObject*, GNEDemandElement*>()));
         if (demandElementTagProperty->hasAttribute(SUMO_ATTR_ID)) {
             myDemandElementIDs.insert(std::make_pair(demandElementTagProperty->getTag(), std::map<const std::string, GNEDemandElement*>()));
         }
     }
-    auto stopTagProperties = myNet->getTagPropertiesDatabase()->getTagPropertiesByType(GNETagProperties::TagType::STOP_VEHICLE);
+    auto stopTagProperties = myNet->getTagPropertiesDatabase()->getTagPropertiesByType(GNETagProperties::Type::STOP_VEHICLE);
     for (const auto& stopTagProperty : stopTagProperties) {
         myDemandElements.insert(std::make_pair(stopTagProperty->getTag(), std::unordered_map<const GUIGlObject*, GNEDemandElement*>()));
     }
     // fill data elements with tags
-    auto genericDataElementTagProperties = myNet->getTagPropertiesDatabase()->getTagPropertiesByType(GNETagProperties::TagType::GENERICDATA);
+    auto genericDataElementTagProperties = myNet->getTagPropertiesDatabase()->getTagPropertiesByType(GNETagProperties::Type::GENERICDATA);
     for (const auto& genericDataElementTagProperty : genericDataElementTagProperties) {
         myGenericDatas.insert(std::make_pair(genericDataElementTagProperty->getTag(), std::unordered_map<const GUIGlObject*, GNEGenericData*>()));
     }
     // fill meanDatas with tags
-    auto meanDataTagProperties = myNet->getTagPropertiesDatabase()->getTagPropertiesByType(GNETagProperties::TagType::MEANDATA);
+    auto meanDataTagProperties = myNet->getTagPropertiesDatabase()->getTagPropertiesByType(GNETagProperties::Type::MEANDATA);
     for (const auto& meanDataTagProperty : meanDataTagProperties) {
         myMeanDatas.insert(std::make_pair(meanDataTagProperty->getTag(), std::map<const std::string, GNEMeanData*>()));
     }
@@ -2976,62 +2976,62 @@ GNENetHelper::ACTemplate::buildTemplates() {
     myTemplates[SUMO_TAG_VTYPE] = new GNEVType(myNet);
     myTemplates[SUMO_TAG_VTYPE_DISTRIBUTION] = new GNEVTypeDistribution(myNet);
     // routes
-    const auto routes = myNet->getTagPropertiesDatabase()->getTagPropertiesByType(GNETagProperties::TagType::ROUTE);
+    const auto routes = myNet->getTagPropertiesDatabase()->getTagPropertiesByType(GNETagProperties::Type::ROUTE);
     for (const auto route : routes) {
         myTemplates[route->getTag()] = new GNERoute(route->getTag(), myNet);
     }
     // vehicles
-    const auto vehicles = myNet->getTagPropertiesDatabase()->getTagPropertiesByType(GNETagProperties::TagType::VEHICLE);
+    const auto vehicles = myNet->getTagPropertiesDatabase()->getTagPropertiesByType(GNETagProperties::Type::VEHICLE);
     for (const auto vehicle : vehicles) {
         myTemplates[vehicle->getTag()] = new GNEVehicle(vehicle->getTag(), myNet);
     }
     // persons
-    const auto persons = myNet->getTagPropertiesDatabase()->getTagPropertiesByType(GNETagProperties::TagType::PERSON);
+    const auto persons = myNet->getTagPropertiesDatabase()->getTagPropertiesByType(GNETagProperties::Type::PERSON);
     for (const auto person : persons) {
         myTemplates[person->getTag()] = new GNEPerson(person->getTag(), myNet);
     }
     // container
-    const auto containers = myNet->getTagPropertiesDatabase()->getTagPropertiesByType(GNETagProperties::TagType::CONTAINER);
+    const auto containers = myNet->getTagPropertiesDatabase()->getTagPropertiesByType(GNETagProperties::Type::CONTAINER);
     for (const auto container : containers) {
         myTemplates[container->getTag()] = new GNEContainer(container->getTag(), myNet);
     }
     // stops and waypoints
-    const auto stopAndWaypoints = myNet->getTagPropertiesDatabase()->getTagPropertiesByType(GNETagProperties::TagType::STOP_VEHICLE);
+    const auto stopAndWaypoints = myNet->getTagPropertiesDatabase()->getTagPropertiesByType(GNETagProperties::Type::STOP_VEHICLE);
     for (const auto stopAndWaypoint : stopAndWaypoints) {
         myTemplates[stopAndWaypoint->getTag()] = new GNEStop(stopAndWaypoint->getTag(), myNet);
     }
     // personTrip
-    const auto personTrips = myNet->getTagPropertiesDatabase()->getTagPropertiesByType(GNETagProperties::TagType::PERSONTRIP);
+    const auto personTrips = myNet->getTagPropertiesDatabase()->getTagPropertiesByType(GNETagProperties::Type::PERSONTRIP);
     for (const auto personTrip : personTrips) {
         myTemplates[personTrip->getTag()] = new GNEPersonTrip(personTrip->getTag(), myNet);
     }
     // walk
-    const auto walks = myNet->getTagPropertiesDatabase()->getTagPropertiesByType(GNETagProperties::TagType::WALK);
+    const auto walks = myNet->getTagPropertiesDatabase()->getTagPropertiesByType(GNETagProperties::Type::WALK);
     for (const auto walk : walks) {
         myTemplates[walk->getTag()] = new GNEWalk(walk->getTag(), myNet);
     }
     // ride
-    const auto rides = myNet->getTagPropertiesDatabase()->getTagPropertiesByType(GNETagProperties::TagType::RIDE);
+    const auto rides = myNet->getTagPropertiesDatabase()->getTagPropertiesByType(GNETagProperties::Type::RIDE);
     for (const auto ride : rides) {
         myTemplates[ride->getTag()] = new GNERide(ride->getTag(), myNet);
     }
     // stop person
-    const auto stopPersons = myNet->getTagPropertiesDatabase()->getTagPropertiesByType(GNETagProperties::TagType::STOP_PERSON);
+    const auto stopPersons = myNet->getTagPropertiesDatabase()->getTagPropertiesByType(GNETagProperties::Type::STOP_PERSON);
     for (const auto stopPerson : stopPersons) {
         myTemplates[stopPerson->getTag()] = new GNEStopPlan(stopPerson->getTag(), myNet);
     }
     // transport
-    const auto transports = myNet->getTagPropertiesDatabase()->getTagPropertiesByType(GNETagProperties::TagType::TRANSPORT);
+    const auto transports = myNet->getTagPropertiesDatabase()->getTagPropertiesByType(GNETagProperties::Type::TRANSPORT);
     for (const auto transport : transports) {
         myTemplates[transport->getTag()] = new GNETransport(transport->getTag(), myNet);
     }
     // tranship
-    const auto tranships = myNet->getTagPropertiesDatabase()->getTagPropertiesByType(GNETagProperties::TagType::TRANSHIP);
+    const auto tranships = myNet->getTagPropertiesDatabase()->getTagPropertiesByType(GNETagProperties::Type::TRANSHIP);
     for (const auto tranship : tranships) {
         myTemplates[tranship->getTag()] = new GNETranship(tranship->getTag(), myNet);
     }
     // stop container
-    const auto stopContainers = myNet->getTagPropertiesDatabase()->getTagPropertiesByType(GNETagProperties::TagType::STOP_CONTAINER);
+    const auto stopContainers = myNet->getTagPropertiesDatabase()->getTagPropertiesByType(GNETagProperties::Type::STOP_CONTAINER);
     for (const auto stopContainer : stopContainers) {
         myTemplates[stopContainer->getTag()] = new GNEStopPlan(stopContainer->getTag(), myNet);
     }

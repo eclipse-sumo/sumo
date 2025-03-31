@@ -42,10 +42,10 @@ GNEContainerFrame::GNEContainerFrame(GNEViewParent* viewParent, GNEViewNet* view
     myContainerBaseObject(new CommonXMLStructure::SumoBaseObject(nullptr)) {
 
     // create tag Selector module for containers
-    myContainerTagSelector = new GNETagSelector(this, GNETagProperties::TagType::CONTAINER, SUMO_TAG_CONTAINER);
+    myContainerTagSelector = new GNETagSelector(this, GNETagProperties::Type::CONTAINER, SUMO_TAG_CONTAINER);
 
     // create container types selector module and set DEFAULT_PEDTYPE_ID as default element
-    myTypeSelector = new GNEDemandElementSelector(this, SUMO_TAG_VTYPE, GNETagProperties::TagType::CONTAINER);
+    myTypeSelector = new GNEDemandElementSelector(this, SUMO_TAG_VTYPE, GNETagProperties::Type::CONTAINER);
 
     // Create attributes editor
     myContainerAttributesEditor = new GNEAttributesEditor(this, GNEAttributesEditorType::EditorType::CREATOR);
@@ -299,7 +299,7 @@ GNEContainerFrame::buildContainer() {
     // add pType parameter
     myContainerBaseObject->addStringAttribute(SUMO_ATTR_TYPE, myTypeSelector->getCurrentDemandElement()->getID());
     // declare route handler
-    GNERouteHandler routeHandler(myViewNet->getNet(), myContainerBaseObject->hasStringAttribute(GNE_ATTR_DEMAND_FILE)? myContainerBaseObject->getStringAttribute(GNE_ATTR_DEMAND_FILE) : "",
+    GNERouteHandler routeHandler(myViewNet->getNet(), myContainerBaseObject->hasStringAttribute(GNE_ATTR_DEMAND_FILE) ? myContainerBaseObject->getStringAttribute(GNE_ATTR_DEMAND_FILE) : "",
                                  myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), false);
     // check if we're creating a container or containerFlow
     if (containerTag == SUMO_TAG_CONTAINER) {

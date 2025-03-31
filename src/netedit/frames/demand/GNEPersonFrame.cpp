@@ -42,10 +42,10 @@ GNEPersonFrame::GNEPersonFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
     myPersonBaseObject(new CommonXMLStructure::SumoBaseObject(nullptr)) {
 
     // create tag Selector module for persons
-    myPersonTagSelector = new GNETagSelector(this, GNETagProperties::TagType::PERSON, SUMO_TAG_PERSON);
+    myPersonTagSelector = new GNETagSelector(this, GNETagProperties::Type::PERSON, SUMO_TAG_PERSON);
 
     // create person types selector module and set DEFAULT_PEDTYPE_ID as default element
-    myTypeSelector = new GNEDemandElementSelector(this, SUMO_TAG_VTYPE, GNETagProperties::TagType::PERSON);
+    myTypeSelector = new GNEDemandElementSelector(this, SUMO_TAG_VTYPE, GNETagProperties::Type::PERSON);
 
     // create person attributes
     myPersonAttributesEditor = new GNEAttributesEditor(this, GNEAttributesEditorType::EditorType::CREATOR);
@@ -297,7 +297,7 @@ GNEPersonFrame::buildPerson() {
     // add pType parameter
     myPersonBaseObject->addStringAttribute(SUMO_ATTR_TYPE, myTypeSelector->getCurrentDemandElement()->getID());
     // declare route handler
-    GNERouteHandler routeHandler(myViewNet->getNet(), myPersonBaseObject->hasStringAttribute(GNE_ATTR_DEMAND_FILE)?
+    GNERouteHandler routeHandler(myViewNet->getNet(), myPersonBaseObject->hasStringAttribute(GNE_ATTR_DEMAND_FILE) ?
                                  myPersonBaseObject->getStringAttribute(GNE_ATTR_DEMAND_FILE) : "",
                                  myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), false);
     // check if we're creating a person or personFlow

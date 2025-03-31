@@ -42,7 +42,7 @@ FXIMPLEMENT(GNETagSelector, MFXGroupBoxModule,  TagSelectorMap, ARRAYNUMBER(TagS
 // method definitions
 // ===========================================================================
 
-GNETagSelector::GNETagSelector(GNEFrame* frameParent, const GNETagProperties::TagType type, const SumoXMLTag tag) :
+GNETagSelector::GNETagSelector(GNEFrame* frameParent, const GNETagProperties::Type type, const SumoXMLTag tag) :
     MFXGroupBoxModule(frameParent, TL("Element")),
     myFrameParent(frameParent),
     myCurrentTemplateAC(nullptr) {
@@ -78,54 +78,54 @@ GNETagSelector::getCurrentTemplateAC() const {
 
 
 void
-GNETagSelector::updateTagTypes(const GNETagProperties::TagType type, const SumoXMLTag tag, const bool informParent) {
+GNETagSelector::updateTagTypes(const GNETagProperties::Type type, const SumoXMLTag tag, const bool informParent) {
     // check if net has proj
     const bool proj = (GeoConvHelper::getFinal().getProjString() != "!");
     // change GNETagSelector text
     switch (type) {
-        case GNETagProperties::TagType::NETWORKELEMENT:
+        case GNETagProperties::Type::NETWORKELEMENT:
             setText(TL("network elements"));
             break;
-        case GNETagProperties::TagType::ADDITIONALELEMENT:
+        case GNETagProperties::Type::ADDITIONALELEMENT:
             setText(TL("Additional elements"));
             break;
-        case GNETagProperties::TagType::SHAPE:
+        case GNETagProperties::Type::SHAPE:
             setText(TL("Shape elements"));
             break;
-        case GNETagProperties::TagType::TAZELEMENT:
+        case GNETagProperties::Type::TAZELEMENT:
             setText(TL("TAZ elements"));
             break;
-        case GNETagProperties::TagType::WIRE:
+        case GNETagProperties::Type::WIRE:
             setText(TL("Wire elements"));
             break;
-        case GNETagProperties::TagType::VEHICLE:
+        case GNETagProperties::Type::VEHICLE:
             setText(TL("Vehicles"));
             break;
-        case GNETagProperties::TagType::STOP_VEHICLE:
+        case GNETagProperties::Type::STOP_VEHICLE:
             setText(TL("Stops"));
             break;
-        case GNETagProperties::TagType::PERSON:
+        case GNETagProperties::Type::PERSON:
             setText(TL("Persons"));
             break;
-        case GNETagProperties::TagType::PERSONPLAN:
+        case GNETagProperties::Type::PERSONPLAN:
             setText(TL("Person plans"));
             break;
-        case GNETagProperties::TagType::CONTAINER:
+        case GNETagProperties::Type::CONTAINER:
             setText(TL("Container"));
             break;
-        case GNETagProperties::TagType::CONTAINERPLAN:
+        case GNETagProperties::Type::CONTAINERPLAN:
             setText(TL("Container plans"));
             break;
-        case GNETagProperties::TagType::PERSONTRIP:
+        case GNETagProperties::Type::PERSONTRIP:
             setText(TL("Person trips"));
             break;
-        case GNETagProperties::TagType::WALK:
+        case GNETagProperties::Type::WALK:
             setText(TL("Walks"));
             break;
-        case GNETagProperties::TagType::RIDE:
+        case GNETagProperties::Type::RIDE:
             setText(TL("Rides"));
             break;
-        case GNETagProperties::TagType::STOP_PERSON:
+        case GNETagProperties::Type::STOP_PERSON:
             setText(TL("Person stops"));
             break;
         default:
