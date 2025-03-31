@@ -22,6 +22,9 @@ routing
 # test correct simulation behavior in case trains are rerouted during the simulation
 rerouting
 
+# rail specific rerouter elements
+rerouter
+
 # tests for train reversal
 reversal
 
