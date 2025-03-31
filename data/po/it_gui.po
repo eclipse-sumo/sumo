@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-13 10:07+0100\n"
-"PO-Revision-Date: 2025-02-14 13:12+0000\n"
+"PO-Revision-Date: 2025-03-31 14:06+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.10\n"
+"X-Generator: Weblate 5.11-dev\n"
 
 #: src/gui/GUIApplicationWindow.cpp:308 src/gui/GUIApplicationWindow.cpp:311
 #: src/gui/GUIApplicationWindow.cpp:2271 src/gui/GUIApplicationWindow.cpp:2272
@@ -8997,23 +8997,23 @@ msgstr "Codice identificativo dell'incrocio di destinazione"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8735
 msgid "BusStop end ID"
-msgstr ""
+msgstr "Codice identificativo della fermata di autobus di destinazione"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8741
 msgid "TrainStop end ID"
-msgstr ""
+msgstr "Codice identificativo della fermata ferroviaria di destinazione"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8747
 msgid "ContainerStop end ID"
-msgstr ""
+msgstr "Codice identificativo della fermata di contenitori di destinazione"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8753
 msgid "ChargingStation end ID"
-msgstr ""
+msgstr "Codice identificativo della stazione di ricarica di destinazione"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8759
 msgid "ParkingArea end ID"
-msgstr ""
+msgstr "Codice identificativo del parcheggio di destinazione"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8771
 msgid "List of possible vehicle types to take"
@@ -12273,6 +12273,8 @@ msgstr "Una fermata richiede soltanto un luogo, un arco o una corsia"
 msgid ""
 "Could not build % with ID '%' in netedit; via % with ID '%' doesn't exist."
 msgstr ""
+"Non ho potuto costruire % con il codice identificativo '%' in netedit; % con "
+"il codice identificativo '%' non esiste."
 
 #: src/netedit/elements/demand/GNERouteHandler.cpp:2566
 msgid "% with id '%' doesn't exist in % '%'"
@@ -12811,11 +12813,11 @@ msgstr "Appiana la forma"
 
 #: src/netedit/elements/network/GNENetworkElement.cpp:340
 msgid "Remove geometry point (shift+click)"
-msgstr ""
+msgstr "Rimuovi punto geometrico (shift+clic)"
 
 #: src/netedit/elements/network/GNENetworkElement.cpp:354
 msgid "Finish editing (Enter)"
-msgstr ""
+msgstr "Termina le modifiche (Enter)"
 
 #: src/netedit/frames/GNEAttributesCreator.cpp:50
 msgid "Internal attributes"
@@ -12836,15 +12838,15 @@ msgstr "Codice identificativo dell'elemento addizionale non supportato"
 
 #: src/netedit/frames/GNEAttributesEditor.cpp:73
 msgid "Front element"
-msgstr ""
+msgstr "Elemento frontale"
 
 #: src/netedit/frames/GNEAttributesEditor.cpp:75
 msgid "Open element dialog"
-msgstr ""
+msgstr "Apri dialogo dell'elemento"
 
 #: src/netedit/frames/GNEAttributesEditor.cpp:79
 msgid "Edit extended attributes"
-msgstr ""
+msgstr "Modifica gli attributi estesi"
 
 #: src/netedit/frames/GNEAttributesEditor.cpp:155
 #, c-format
@@ -12855,7 +12857,7 @@ msgstr "Apri il dialogo %"
 #: src/netedit/frames/GNEAttributesEditor.cpp:340
 #, c-format
 msgid "change multiple % attributes"
-msgstr ""
+msgstr "cambia vari attributi %"
 
 #: src/netedit/frames/GNEAttributesEditor.cpp:318
 #, c-format
@@ -12864,7 +12866,7 @@ msgstr "cambia attributo %"
 
 #: src/netedit/frames/GNEAttributesEditorRow.cpp:81
 msgid "Change parent of this element"
-msgstr ""
+msgstr "Cambia elemento padre a questo elemento"
 
 #: src/netedit/frames/GNEAttributesEditorRow.cpp:92
 #: src/netedit/frames/GNEAttributesEditorRow.cpp:93
@@ -12901,7 +12903,7 @@ msgstr "Termina creazione di itinerario"
 
 #: src/netedit/frames/GNEConsecutiveSelector.cpp:62
 msgid "Abort path creation"
-msgstr ""
+msgstr "Interrompi creazione di traiettoria"
 
 #: src/netedit/frames/GNEConsecutiveSelector.cpp:65
 msgid "Remove last lane"
@@ -12995,7 +12997,7 @@ msgstr "Il tipo di veicoli standard '%' non può essere rimosso"
 
 #: src/netedit/frames/GNEElementTree.cpp:309
 msgid "Edge: %"
-msgstr ""
+msgstr "Arco: %"
 
 #: src/netedit/frames/GNEElementTree.cpp:314
 #: src/netedit/frames/GNENeteditAttributes.cpp:56
@@ -13292,7 +13294,7 @@ msgstr "Elemento di rete invalido"
 
 #: src/netedit/frames/GNEOverlappedInspection.cpp:51
 msgid "Overlapped junctions"
-msgstr ""
+msgstr "Incroci sovrapposti"
 
 #: src/netedit/frames/GNEOverlappedInspection.cpp:51
 msgid "Overlapped elements"
@@ -13491,19 +13493,19 @@ msgstr ""
 
 #: src/netedit/frames/GNEPlanCreatorLegend.cpp:36
 msgid " Valid element"
-msgstr ""
+msgstr " Elemento valido"
 
 #: src/netedit/frames/GNEPlanCreatorLegend.cpp:39
 msgid " From element"
-msgstr ""
+msgstr " Elemento di partenza"
 
 #: src/netedit/frames/GNEPlanCreatorLegend.cpp:42
 msgid " To element"
-msgstr ""
+msgstr " Elemento di destinazione"
 
 #: src/netedit/frames/GNEPlanSelector.cpp:90
 msgid "Plan type"
-msgstr ""
+msgstr "Tipo di piano"
 
 #: src/netedit/frames/GNESelectorParent.cpp:36
 msgid "Parent selector"
@@ -13926,11 +13928,11 @@ msgstr "intervallo [inizio, fine]"
 
 #: src/netedit/frames/common/GNEMatchGenericDataAttribute.cpp:258
 msgid "<from TAZ>"
-msgstr ""
+msgstr "<zona di assegnazione del traffico di partenza>"
 
 #: src/netedit/frames/common/GNEMatchGenericDataAttribute.cpp:276
 msgid "<to TAZ>"
-msgstr ""
+msgstr "<zona di assegnazione del traffico di destinazione>"
 
 #: src/netedit/frames/common/GNEMatchGenericDataAttribute.cpp:455
 msgid ""
@@ -14345,7 +14347,7 @@ msgstr "Attributi di dati"
 #: src/netedit/frames/data/GNEGenericDataFrame.cpp:502
 #: src/netedit/frames/data/GNEGenericDataFrame.cpp:525
 msgid "<all>"
-msgstr ""
+msgstr "<tutto>"
 
 #: src/netedit/frames/data/GNEMeanDataFrame.cpp:68
 msgid "MeanData Type"
