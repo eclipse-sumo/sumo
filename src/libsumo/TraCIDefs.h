@@ -250,14 +250,17 @@ struct TraCIPositionVector : TraCIResult {
 
 
 struct TraCIInt : TraCIResult {
-    TraCIInt() : value(0) {}
-    TraCIInt(int v) : value(v) {}
+    TraCIInt(int v=0, int t=libsumo::TYPE_INTEGER) : value(v), traciType(t) {}
     std::string getString() const {
         std::ostringstream os;
         os << value;
         return os.str();
     }
+    int getType() const {
+        return traciType;
+    }
     int value;
+    int traciType;
 #ifdef SWIGJAVA
     SWIGJAVA_CAST(TraCIInt)
 #endif
@@ -265,8 +268,7 @@ struct TraCIInt : TraCIResult {
 
 
 struct TraCIDouble : TraCIResult {
-    TraCIDouble() : value(0.) {}
-    TraCIDouble(double v) : value(v) {}
+    TraCIDouble(double v=0.) : value(v) {}
     std::string getString() const {
         std::ostringstream os;
         os << value;
@@ -283,8 +285,7 @@ struct TraCIDouble : TraCIResult {
 
 
 struct TraCIString : TraCIResult {
-    TraCIString() : value("") {}
-    TraCIString(std::string v) : value(v) {}
+    TraCIString(std::string v="") : value(v) {}
     std::string getString() const {
         return value;
     }

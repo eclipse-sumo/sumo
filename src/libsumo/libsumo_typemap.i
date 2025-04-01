@@ -103,8 +103,21 @@
             parameters[key_int] = std::make_shared<libsumo::TraCIInt>(PyInt_AsLong(value));
         } else if (PyFloat_Check(value)) {
             parameters[key_int] = std::make_shared<libsumo::TraCIDouble>(PyFloat_AsDouble(value));
-        } else if (PyString_Check(value)) {
-            parameters[key_int] = std::make_shared<libsumo::TraCIString>(PyString_AsString(value));
+        } else if (PyUnicode_Check(value)) {
+            parameters[key_int] = std::make_shared<libsumo::TraCIString>(PyUnicode_AsUTF8(value));
+        } else if (PySequence_Check(value)) {
+            const Py_ssize_t size = PySequence_Size(value);
+            if (size < 2 || !PyUnicode_Check(PySequence_GetItem(value, 0))) {
+                PyErr_SetString(PyExc_TypeError, "Wrong parameter format");
+                SWIG_fail;
+            }
+            const std::string format = PyUnicode_AsUTF8(PySequence_GetItem(value, 0));
+            if (format == "b") {
+                parameters[key_int] = std::make_shared<libsumo::TraCIInt>(PyInt_AsLong(PySequence_GetItem(value, 1)), libsumo::TYPE_BYTE);
+            }
+        } else {
+            PyErr_SetString(PyExc_TypeError, "Unknown parameter format");
+            SWIG_fail;
         }
     }
     $1 = &parameters;

@@ -40,6 +40,12 @@ public:
             case TYPE_DOUBLE:
                 result->writeDouble(((const TraCIDouble&)v).value);
                 break;
+            case TYPE_INTEGER:
+                result->writeInt(((const TraCIInt&)v).value);
+                break;
+            case TYPE_BYTE:
+                result->writeByte(((const TraCIInt&)v).value);
+                break;
             default:
                 // Error!
                 break;
