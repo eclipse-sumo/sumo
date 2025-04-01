@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Sun Aug 11 18:07:19 2019
+TraCITestClient output file. Date: Tue Apr  1 07:10:18 2025
 
 
 -> Command sent: <SimulationStep>:
@@ -6,7 +6,7 @@ TraCITestClient output file. Date: Sun Aug 11 18:07:19 2019
 
 -> Command sent: <GetVariable>:
   domID=164 varID=131 objID=0
-.. Answered with error to command (164), [description: Only driving distance is supported for vehicles.]
+.. Answered with error to command (164), [description: Only driving distance is supported.]
 
 -> Command sent: <SimulationStep>:
 .. Command acknowledged (2), [description: ]
