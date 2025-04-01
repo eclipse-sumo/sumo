@@ -41,6 +41,7 @@
 #include <netedit/frames/demand/GNEContainerPlanFrame.h>
 #include <netedit/frames/network/GNEAdditionalFrame.h>
 #include <netedit/frames/GNEElementTree.h>
+#include <netedit/frames/GNEViewObjectSelector.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/globjects/GLIncludes.h>
 #include <utils/options/OptionsCont.h>
@@ -332,14 +333,25 @@ GNEEdge::checkDrawRelatedContour() const {
 
 bool
 GNEEdge::checkDrawOverContour() const {
+    // get modes and viewParent (for code legibility)
+    const auto& modes = myNet->getViewNet()->getEditModes();
+    const auto& viewParent = myNet->getViewNet()->getViewParent();
     const auto& viewObjectsSelector = myNet->getViewNet()->getViewObjectsSelector();
-    // first check if this is the edge under cursor
+    // check if we're selecting edges in additional mode
+    if (modes.isCurrentSupermodeNetwork() && (modes.networkEditMode == NetworkEditMode::NETWORK_ADDITIONAL)) {
+        if (viewParent->getAdditionalFrame()->getViewObjetsSelector()->isNetworkElementSelected(this)) {
+            return true;
+        } else if (viewParent->getAdditionalFrame()->getViewObjetsSelector()->getTag() == myTagProperty->getTag()) {
+            return viewObjectsSelector.getEdgeFront() == this;
+        } else {
+            return false;
+        }
+    }
+    // check if this is the edge under cursor
     if (viewObjectsSelector.getEdgeFront() != this) {
         return false;
     } else {
-        // get modes and viewParent (for code legibility)
-        const auto& modes = myNet->getViewNet()->getEditModes();
-        const auto& viewParent = myNet->getViewNet()->getViewParent();
+        // continue depending of modes
         if (modes.isCurrentSupermodeDemand()) {
             // get current plan selector
             GNEPlanSelector* planSelector = nullptr;
@@ -383,6 +395,7 @@ GNEEdge::checkDrawOverContour() const {
                     return true;
                 }
             }
+
         }
         // nothing to draw
         return false;

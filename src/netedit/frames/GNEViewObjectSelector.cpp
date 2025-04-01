@@ -64,18 +64,15 @@ GNEViewObjectSelector::GNEViewObjectSelector(GNEFrame* frameParent) :
 GNEViewObjectSelector::~GNEViewObjectSelector() {}
 
 
+SumoXMLTag
+GNEViewObjectSelector::getTag() const {
+    return myTag;
+}
+
+
 bool
 GNEViewObjectSelector::isNetworkElementSelected(const GNEAttributeCarrier* AC) const {
-    if (myTag == AC->getTagProperty()->getTag()) {
-        for (int i = 0; i < myList->getNumItems(); i++) {
-            if (myList->getItem(i)->getText().text() == AC->getID()) {
-                return true;
-            }
-        }
-        return false;
-    } else {
-        return false;
-    }
+    return std::find(mySelectedACs.begin(), mySelectedACs.end(), AC) != mySelectedACs.end();
 }
 
 
@@ -89,6 +86,7 @@ GNEViewObjectSelector::showNetworkElementsSelector(const SumoXMLTag tag, const S
     setText(TLF("% selector", toString(tag)));
     // clear items
     myList->clearItems();
+    mySelectedACs.clear();
     show();
 }
 
@@ -107,6 +105,8 @@ GNEViewObjectSelector::toggleSelectedElement(const GNEAttributeCarrier* AC) {
             if (myList->getItem(i)->getText().text() == AC->getID()) {
                 // unselect element
                 myList->removeItem(i);
+                // remove it in list
+                mySelectedACs.erase(mySelectedACs.begin() + i);
                 // update viewNet
                 myFrameParent->getViewNet()->update();
                 return true;
@@ -114,6 +114,7 @@ GNEViewObjectSelector::toggleSelectedElement(const GNEAttributeCarrier* AC) {
         }
         // select element
         myList->appendItem(AC->getID().c_str(), AC->getACIcon());
+        mySelectedACs.push_back(AC);
         // update viewNet
         myFrameParent->getViewNet()->update();
         return true;
@@ -147,10 +148,10 @@ GNEViewObjectSelector::fillSumoBaseObject(CommonXMLStructure::SumoBaseObject* ba
             return false;
         } else {
             std::vector<std::string> selectedIDs;
-            selectedIDs.reserve(myList->getNumItems());
+            selectedIDs.reserve(mySelectedACs.size());
             // Obtain Id's of list
-            for (int i = 0; i < myList->getNumItems(); i++) {
-                selectedIDs.push_back(myList->getItem(i)->getText().text());
+            for (const auto AC : mySelectedACs) {
+                selectedIDs.push_back(AC->getID());
             }
             baseObject->addStringListAttribute(myAttribute, selectedIDs);
             return true;
@@ -166,6 +167,7 @@ void
 GNEViewObjectSelector::clearSelection() {
     // clear list of egdge ids
     myList->clearItems();
+    mySelectedACs.clear();
     // update viewNet
     myFrameParent->getViewNet()->update();
 }
@@ -175,12 +177,14 @@ long
 GNEViewObjectSelector::onCmdUseSelectedElements(FXObject*, FXSelector, void*) {
     // clear list of egdge ids
     myList->clearItems();
+    mySelectedACs.clear();
     // get all selected ACs
     const auto selectedACs = myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getSelectedAttributeCarriers(false);
     for (const auto AC : selectedACs) {
         if (AC->getTagProperty()->getTag() == myTag) {
             if (AC->isAttributeCarrierSelected()) {
                 myList->appendItem(AC->getID().c_str(), AC->getACIcon());
+                mySelectedACs.push_back(AC);
             }
         }
     }

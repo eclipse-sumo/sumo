@@ -45,6 +45,9 @@ public:
     /// @brief destructor
     ~GNEViewObjectSelector();
 
+    /// @brief get tag with selected element type
+    SumoXMLTag getTag() const;
+
     /// @brief check if the given AC is selected
     bool isNetworkElementSelected(const GNEAttributeCarrier* AC) const;
 
@@ -94,6 +97,9 @@ private:
 
     /// @brief button for clear selection
     FXButton* myClearSelection = nullptr;
+
+    /// @brief selected ACs
+    std::vector<const GNEAttributeCarrier*> mySelectedACs;
 
     /// @brief network element type
     SumoXMLTag myTag = SUMO_TAG_NOTHING;
