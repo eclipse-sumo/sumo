@@ -1044,7 +1044,7 @@ GNEVehicle::drawLanePartialGL(const GUIVisualizationSettings& s, const GNESegmen
                              myNet->getViewNet()->getInspectedElements().isACInspected(this);
     // check drawing conditions
     if (segment->getLane() && (drawInNetworkMode || drawInDemandMode || isSelected || isInspected) &&
-            myNet->getDemandPathManager()->getPathDraw()->checkDrawPathGeometry(s, segment->getLane(), myTagProperty->getTag())) {
+            myNet->getDemandPathManager()->getPathDraw()->checkDrawPathGeometry(s, segment->getLane(), myTagProperty->getTag(), false)) {
         // get detail level
         const auto d = s.getDetailLevel(1);
         // calculate width
@@ -1168,7 +1168,7 @@ GNEVehicle::drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNESe
                              myNet->getViewNet()->getInspectedElements().isACInspected(this);
     // check drawing conditions
     if (segment->getJunction() && (drawInNetworkMode || drawInDemandMode || isSelected || isInspected) &&
-            myNet->getDemandPathManager()->getPathDraw()->checkDrawPathGeometry(s, segment, myTagProperty->getTag())) {
+            myNet->getDemandPathManager()->getPathDraw()->checkDrawPathGeometry(s, segment, myTagProperty->getTag(), false)) {
         // get detail level
         const auto d = s.getDetailLevel(1);
         // calculate width

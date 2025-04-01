@@ -1916,7 +1916,7 @@ GNEDemandElementPlan::drawPlanLanePartial(const bool drawPlan, const GUIVisualiz
     // get plan parent
     const GNEDemandElement* planParent = myPlanElement->getParentDemandElements().front();
     // check if draw plan element can be drawn
-    if (drawPlan && segment->getLane() && myPlanElement->getNet()->getDemandPathManager()->getPathDraw()->checkDrawPathGeometry(s, segment->getLane(), tagProperty->getTag())) {
+    if (drawPlan && segment->getLane() && myPlanElement->getNet()->getDemandPathManager()->getPathDraw()->checkDrawPathGeometry(s, segment->getLane(), tagProperty->getTag(), true)) {
         // draw boundary
         if (tagProperty->isPlacedInRTree() && s.drawBoundaries) {
             GLHelper::drawBoundary(s, getPlanCenteringBoundary());
@@ -2028,7 +2028,7 @@ GNEDemandElementPlan::drawPlanJunctionPartial(const bool drawPlan, const GUIVisu
     // get plan parent
     const GNEDemandElement* planParent = myPlanElement->getParentDemandElements().front();
     // check if draw plan elements can be drawn
-    if (drawPlan && myPlanElement->getNet()->getDemandPathManager()->getPathDraw()->checkDrawPathGeometry(s, segment, tagProperty->getTag())) {
+    if (drawPlan && myPlanElement->getNet()->getDemandPathManager()->getPathDraw()->checkDrawPathGeometry(s, segment, tagProperty->getTag(), false)) {
         // draw boundary
         if (tagProperty->isPlacedInRTree() && s.drawBoundaries) {
             GLHelper::drawBoundary(s, getPlanCenteringBoundary());
