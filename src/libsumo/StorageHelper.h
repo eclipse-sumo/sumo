@@ -32,6 +32,9 @@ class StorageHelper {
 public:
     static inline std::shared_ptr<tcpip::Storage> toStorage(const TraCIResult& v) {
         std::shared_ptr<tcpip::Storage> result = std::make_shared<tcpip::Storage>();
+        if (v.getType() == POSITION_ROADMAP || v.getType() == POSITION_2D || v.getType() == POSITION_3D) {
+            writeCompound(*result, 2);
+        }
         result->writeUnsignedByte(v.getType());
         switch (v.getType()) {
             case TYPE_STRING:
@@ -46,9 +49,25 @@ public:
             case TYPE_BYTE:
                 result->writeByte(((const TraCIInt&)v).value);
                 break;
-            default:
-                // Error!
+            case POSITION_ROADMAP:
+                result->writeString(((const TraCIRoadPosition&)v).edgeID);
+                result->writeDouble(((const TraCIRoadPosition&)v).pos);
+                result->writeUnsignedByte(((const TraCIRoadPosition&)v).laneIndex);
                 break;
+            case POSITION_2D:
+                result->writeDouble(((const TraCIPosition&)v).x);
+                result->writeDouble(((const TraCIPosition&)v).y);
+                break;
+            case POSITION_3D:
+                result->writeDouble(((const TraCIPosition&)v).x);
+                result->writeDouble(((const TraCIPosition&)v).y);
+                result->writeDouble(((const TraCIPosition&)v).z);
+                break;
+            default:
+                throw TraCIException("Unknown type " + v.getType());
+        }
+        if (v.getType() == POSITION_ROADMAP || v.getType() == POSITION_2D || v.getType() == POSITION_3D) {
+            result->writeUnsignedByte(REQUEST_DRIVINGDIST);
         }
         return result;
     }

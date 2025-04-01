@@ -114,6 +114,18 @@
             const std::string format = PyUnicode_AsUTF8(PySequence_GetItem(value, 0));
             if (format == "b") {
                 parameters[key_int] = std::make_shared<libsumo::TraCIInt>(PyInt_AsLong(PySequence_GetItem(value, 1)), libsumo::TYPE_BYTE);
+            } else if (format == "tru") {
+                PyObject* pyRoadPos = PySequence_GetItem(value, 2);
+                const std::string edge = PyUnicode_AsUTF8(PySequence_GetItem(pyRoadPos, 0));
+                const double pos = PyFloat_AsDouble(PySequence_GetItem(pyRoadPos, 1));
+                const int laneIndex = PyInt_AsLong(PySequence_GetItem(pyRoadPos, 2));
+                parameters[key_int] = std::make_shared<libsumo::TraCIRoadPosition>(edge, pos, laneIndex);
+            } else if (format == "tou") {
+                PyObject* pyPos = PySequence_GetItem(value, 2);
+                libsumo::TraCIPosition pos;
+                pos.x = PyFloat_AsDouble(PySequence_GetItem(pyPos, 0));
+                pos.y = PyFloat_AsDouble(PySequence_GetItem(pyPos, 1));
+                parameters[key_int] = std::make_shared<libsumo::TraCIPosition>(pos);
             }
         } else {
             PyErr_SetString(PyExc_TypeError, "Unknown parameter format");
