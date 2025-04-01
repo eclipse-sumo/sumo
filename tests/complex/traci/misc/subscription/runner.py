@@ -47,8 +47,8 @@ try:
                     else:
                         variable = source[s:source.index(")", s)]
                         remainder = ""
-                    if (variable in ("FIND_ROUTE", "POSITION_CONVERSION", "TL_CONSTRAINT_SWAP", "SPLIT_TAXI_RESERVATIONS")
-                            or (dt._name == "simulation" and ("BUS_STOP" in variable or variable in ("DISTANCE_REQUEST", "ID_COUNT", "TRACI_ID_LIST")))):
+                    if (variable in ("FIND_ROUTE", "POSITION_CONVERSION", "TL_CONSTRAINT_SWAP", "SPLIT_TAXI_RESERVATIONS")  # noqa
+                            or (dt._name == "simulation" and ("BUS_STOP" in variable or variable in ("DISTANCE_REQUEST", "ID_COUNT", "TRACI_ID_LIST")))):  # noqa
                         continue
                     if hasattr(traci.constants, variable):
                         print("Subscribing to %s.%s." % (dt._name, variable))
