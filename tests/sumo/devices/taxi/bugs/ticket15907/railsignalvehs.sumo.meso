@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-12-19 13:18:19 by Eclipse SUMO sumo Version v1_21_0+1443-eacf6376ad0
+<!-- generated on 2025-04-01 15:11:33 by Eclipse SUMO sumo Version v1_22_0+1199-35045ecb3f1
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -37,16 +37,28 @@
 
 <railsignal-vehicle-output>
     <railSignal id="J2">
-        <link linkIndex="0" from="E1_0" to="E2_0"/>
+        <link linkIndex="0" from="E1_0" to="E2_0">
+            <driveWay id="J2.0">
+                <entry id="t_0" time="15.00" reason="junction"/>
+                <exit id="t_0" time="42.00" reason="junction"/>
+            </driveWay>
+        </link>
     </railSignal>
     <railSignal id="J6">
-        <link linkIndex="0" from="E5_0" to="E6_0"/>
+        <link linkIndex="0" from="E5_0" to="E6_0">
+            <driveWay id="J6.0"/>
+        </link>
     </railSignal>
     <departJunction id="J0">
         <driveWay id="J0.d0">
             <entry id="t_0" time="0.00" reason="departed"/>
-            <exit id="t_0" time="7.00" reason="junction"/>
+            <exit id="t_0" time="1.00" reason="reroute"/>
         </driveWay>
+        <driveWay id="J0.d1">
+            <entry id="t_0" time="0.00" reason="reroute"/>
+            <exit id="t_0" time="15.00" reason="junction"/>
+        </driveWay>
+        <subDriveWay id="J0.d1.0"/>
     </departJunction>
     <departJunction id="J1">
         <driveWay id="J1.d0"/>
