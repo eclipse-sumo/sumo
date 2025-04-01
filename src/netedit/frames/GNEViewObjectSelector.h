@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNENetworkSelector.h
+/// @file    GNEViewObjectSelector.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Mar 2022
 ///
@@ -26,50 +26,45 @@
 // class declaration
 // ===========================================================================
 
+class GNEAttributeCarrier;
 class GNEFrame;
-class GNENetworkElement;
+class GNETagProperties;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
-class GNENetworkSelector : public MFXGroupBoxModule {
+class GNEViewObjectSelector : protected MFXGroupBoxModule {
     /// @brief FOX-declaration
-    FXDECLARE(GNENetworkSelector)
+    FXDECLARE(GNEViewObjectSelector)
 
 public:
-    /// @brief network element selector type
-    enum class Type {
-        EDGE,
-        LANE,
-    };
-
     /// @brief constructor
-    GNENetworkSelector(GNEFrame* frameParent, const Type networkElementType);
+    GNEViewObjectSelector(GNEFrame* frameParent);
 
     /// @brief destructor
-    ~GNENetworkSelector();
+    ~GNEViewObjectSelector();
 
-    /// @brief get selected IDs
-    std::vector<std::string> getSelectedIDs() const;
+    /// @brief check if the given AC is selected
+    bool isNetworkElementSelected(const GNEAttributeCarrier* AC) const;
 
-    /// @brief check if the given networkElement is being selected
-    bool isNetworkElementSelected(const GNENetworkElement* networkElement) const;
+    /// @brief show GNEViewObjectSelector Module
+    void showNetworkElementsSelector(const SumoXMLTag tag, const SumoXMLAttr attribute);
 
-    /// @brief show GNENetworkSelector Module
-    void showNetworkElementsSelector();
-
-    /// @brief hide GNENetworkSelector Module
+    /// @brief hide GNEViewObjectSelector Module
     void hideNetworkElementsSelector();
 
-    /// @brief return true if module is shown
-    bool isShown() const;
+    /// @brief toggle selected element
+    bool toggleSelectedElement(const GNEAttributeCarrier* AC);
 
-    /// @brief toggle selected networkElement
-    bool toggleSelectedElement(const GNENetworkElement* networkElement);
+    /// @brief toggle selected lane
+    bool toggleSelectedLane(const GNELane* lane);
 
     /// @brief clear selection
     void clearSelection();
+
+    /// @brie fill SUMO base object
+    bool fillSumoBaseObject(CommonXMLStructure::SumoBaseObject* baseObject) const;
 
     /// @name FOX-callbacks
     /// @{
@@ -82,7 +77,7 @@ public:
 
 protected:
     /// @brief FOX need this
-    GNENetworkSelector();
+    GNEViewObjectSelector();
 
 private:
     /// @brief pointer to frame parent
@@ -91,12 +86,18 @@ private:
     /// @brief button for use selected edges
     FXButton* myUseSelected = nullptr;
 
-    /// @brief List of GNENetworkSelector
+    /// @brief List of GNEViewObjectSelector
     FXList* myList = nullptr;
+
+    /// @brief info label
+    FXLabel* myLabel = nullptr;
 
     /// @brief button for clear selection
     FXButton* myClearSelection = nullptr;
 
-    /// @brrief network element type
-    const Type myNetworkElementType;
+    /// @brief network element type
+    SumoXMLTag myTag = SUMO_TAG_NOTHING;
+
+    /// @brief attribute vinculated
+    SumoXMLAttr myAttribute = SUMO_ATTR_NOTHING;
 };

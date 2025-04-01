@@ -37,7 +37,7 @@ GNESelectorParent::GNESelectorParent(GNEFrame* frameParent) :
     // Create label with the type of GNESelectorParent
     myParentsLabel = new FXLabel(getCollapsableFrame(), TL("No element selected"), nullptr, GUIDesignLabelThick(JUSTIFY_NORMAL));
     // Create list
-    myParentsList = new FXList(getCollapsableFrame(), this, MID_GNE_SET_TYPE, GUIDesignListSingleElementFixedHeight);
+    myParentsList = new FXList(getCollapsableFrame(), this, MID_GNE_SET_TYPE, GUIDesignListFixedHeight);
     // Hide List
     hideSelectorParentModule();
 }

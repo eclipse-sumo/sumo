@@ -34,7 +34,7 @@
 #include <netedit/frames/GNEAttributesEditor.h>
 #include <netedit/frames/GNEConsecutiveSelector.h>
 #include <netedit/frames/GNEDrawingShape.h>
-#include <netedit/frames/GNENetworkSelector.h>
+#include <netedit/frames/GNEViewObjectSelector.h>
 #include <netedit/frames/GNEOverlappedInspection.h>
 #include <netedit/frames/GNEPathCreator.h>
 #include <netedit/frames/GNEPlanCreator.h>
@@ -1626,9 +1626,8 @@ GNEViewNet::abortOperation(bool clearSelection) {
         } else if (myEditModes.networkEditMode == NetworkEditMode::NETWORK_PROHIBITION) {
             myViewParent->getProhibitionFrame()->getSelectionModul()->onCmdCancel(nullptr, 0, nullptr);
         } else if (myEditModes.networkEditMode == NetworkEditMode::NETWORK_ADDITIONAL) {
-            // abort both network elements selections
-            myViewParent->getAdditionalFrame()->getEdgesSelector()->clearSelection();
-            myViewParent->getAdditionalFrame()->getLanesSelector()->clearSelection();
+            // clear view selection
+            myViewParent->getAdditionalFrame()->getViewObjetsSelector()->clearSelection();
             // abort path
             myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->abortPathCreation();
         } else if (myEditModes.networkEditMode == NetworkEditMode::NETWORK_WIRE) {
