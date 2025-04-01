@@ -147,8 +147,10 @@ MSDriveWay::notifyEnter(SUMOTrafficObject& veh, Notification reason, const MSLan
             && (reason == NOTIFICATION_DEPARTED || reason == NOTIFICATION_JUNCTION || reason == NOTIFICATION_PARKING)) {
         SUMOVehicle& sveh = dynamic_cast<SUMOVehicle&>(veh);
         MSRouteIterator firstIt = std::find(sveh.getCurrentRouteEdge(), sveh.getRoute().end(), myLane->getNextNormal());
-        if (myTrains.count(&sveh) == 0 && match(firstIt, sveh.getRoute().end())) {
-            enterDriveWay(sveh, reason);
+        if (match(firstIt, sveh.getRoute().end())) {
+            if (myTrains.count(&sveh) == 0) {
+                enterDriveWay(sveh, reason);
+            }
             return true;
         }
     } else if (reason == NOTIFICATION_REROUTE) {
