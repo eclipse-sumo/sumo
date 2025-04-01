@@ -2468,6 +2468,17 @@ GNETagPropertiesDatabase::fillJuPedSimElements() {
                                    TL("The shape of the walkable area"));
 
         fillNameAttribute(myTagProperties[currentTag]);
+
+        new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_GEO,
+                                   GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
+                                   GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE | GNEAttributeProperties::GEOEDITOR,
+                                   TL("Enable or disable GEO attributes"),
+                                   GNEAttributeCarrier::False);
+
+        new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_GEOSHAPE,
+                                   GNEAttributeProperties::STRING | GNEAttributeProperties::POSITION | GNEAttributeProperties::LIST | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY,
+                                   GNEAttributeProperties::EDITMODE | GNEAttributeProperties::GEOEDITOR,
+                                   TL("A custom geo shape for this walkable area"));
     }
     currentTag = GNE_TAG_JPS_OBSTACLE;
     {
@@ -2488,6 +2499,17 @@ GNETagPropertiesDatabase::fillJuPedSimElements() {
                                    TL("The shape of the obstacle"));
 
         fillNameAttribute(myTagProperties[currentTag]);
+
+        new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_GEO,
+                                   GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
+                                   GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE | GNEAttributeProperties::GEOEDITOR,
+                                   TL("Enable or disable GEO attributes"),
+                                   GNEAttributeCarrier::False);
+
+        new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_GEOSHAPE,
+                                   GNEAttributeProperties::STRING | GNEAttributeProperties::POSITION | GNEAttributeProperties::LIST | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY,
+                                   GNEAttributeProperties::EDITMODE | GNEAttributeProperties::GEOEDITOR,
+                                   TL("A custom geo shape for this obstacle"));
     }
 }
 
