@@ -357,10 +357,12 @@ MSLane::setBidiLane(MSLane* bidiLane) {
 
 // ------ interaction with MSMoveReminder ------
 void
-MSLane::addMoveReminder(MSMoveReminder* rem) {
+MSLane::addMoveReminder(MSMoveReminder* rem, bool addToVehicles) {
     myMoveReminders.push_back(rem);
-    for (MSVehicle* const veh : myVehicles) {
-        veh->addReminder(rem);
+    if (addToVehicles) {
+        for (MSVehicle* const veh : myVehicles) {
+            veh->addReminder(rem);
+        }
     }
     // XXX: Here, the partial occupators are ignored!? Refs. #3255
 }

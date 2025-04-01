@@ -836,6 +836,18 @@ MSBaseVehicle::getRouteValidity(bool update, bool silent, std::string* msgReturn
     return myRouteValidity;
 }
 
+
+bool
+MSBaseVehicle::hasReminder(MSMoveReminder* rem) const {
+    for (auto item : myMoveReminders) {
+        if (item.first == rem) {
+            return true;
+        }
+    }
+    return false;
+}
+
+
 void
 MSBaseVehicle::addReminder(MSMoveReminder* rem, double pos) {
 #ifdef _DEBUG

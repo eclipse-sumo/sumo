@@ -523,6 +523,9 @@ public:
     /// @brief check for route validity at first insertion attempt
     int getRouteValidity(bool update = true, bool silent = false, std::string* msgReturn = nullptr);
 
+    /// @brief Checks whether the vehilce has the given MoveReminder
+    bool hasReminder(MSMoveReminder* rem) const;
+
     /** @brief Adds a MoveReminder dynamically
      *
      * @param[in] rem the reminder to add

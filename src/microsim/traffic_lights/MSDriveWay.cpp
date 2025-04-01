@@ -159,9 +159,6 @@ MSDriveWay::notifyEnter(SUMOTrafficObject& veh, Notification reason, const MSLan
         // vehicle must still be one the drivway
         if (movedPast >= 0 && movedPast < myForwardEdgeCount) {
             enterDriveWay(sveh, reason);
-            for (MSDriveWay* sub : mySubDriveWays) {
-                sub->enterDriveWay(sveh, reason);
-            }
             return true;
         }
     }
@@ -226,6 +223,7 @@ MSDriveWay::notifyReroute(SUMOTrafficObject& veh) {
     SUMOVehicle* sveh = dynamic_cast<SUMOVehicle*>(&veh);
     assert(myTrains.count(sveh) != 0);
     if (matchesPastRoute(*sveh) >= 0) {
+        //std::cout << SIMTIME << " notifyReroute " << getDescription() << " veh=" << veh.getID() << " valid\n";
         return true;
     }
     // no match found, remove
@@ -961,7 +959,7 @@ MSDriveWay::buildRoute(const MSLink* origin,
                         MESegment* s = MSGlobals::gMesoNet->getSegmentForEdge(myLane->getEdge());
                         s->addDetector(this, myLane->getIndex());
                     } else {
-                        toLane->addMoveReminder(this);
+                        toLane->addMoveReminder(this, false);
                     }
                 }
             }
@@ -1785,7 +1783,7 @@ MSDriveWay::buildSubFoe(MSDriveWay* foe, bool movingBlock) {
     sub->myForward = forward;
     sub->myRoute = route;
     sub->myCoreSize = (int)sub->myRoute.size();
-    myLane->addMoveReminder(sub);
+    myLane->addMoveReminder(sub, false);
 
     // copy trains that are currently on this driveway (and associated entry events)
     for (SUMOVehicle* veh : myTrains) {

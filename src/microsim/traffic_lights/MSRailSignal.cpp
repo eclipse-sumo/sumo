@@ -373,7 +373,7 @@ MSRailSignal::initDriveWays(const SUMOVehicle* ego, bool update) {
     MSDriveWay* prev = const_cast<MSDriveWay*>(MSDriveWay::getDepartureDriveway(ego, true));
     if (update && ego->hasDeparted()) {
         MSBaseVehicle* veh = dynamic_cast<MSBaseVehicle*>(const_cast<SUMOVehicle*>(ego));
-        if (!prev->hasTrain(veh) && prev->notifyEnter(*veh, prev->NOTIFICATION_REROUTE, nullptr)) {
+        if (!prev->hasTrain(veh) && prev->notifyEnter(*veh, prev->NOTIFICATION_REROUTE, nullptr) && !veh->hasReminder(prev)) {
             veh->addReminder(prev, 1);
         }
     }
@@ -403,10 +403,12 @@ MSRailSignal::initDriveWays(const SUMOVehicle* ego, bool update) {
                                     rs->setTrafficLightSignals(SIMSTEP);
                                 } else if (ego->hasDeparted() && i <= ego->getRoutePosition()) {
                                     MSBaseVehicle* veh = dynamic_cast<MSBaseVehicle*>(const_cast<SUMOVehicle*>(ego));
-                                    if (!dw->hasTrain(veh) && dw->notifyEnter(*veh, dw->NOTIFICATION_REROUTE, nullptr)) {
+                                    if (!dw->hasTrain(veh) && dw->notifyEnter(*veh, dw->NOTIFICATION_REROUTE, nullptr) && !veh->hasReminder(dw)) {
                                         veh->addReminder(dw, 1);
                                         for (MSDriveWay* sub : dw->getSubDriveWays()) {
-                                            veh->addReminder(sub, 1);
+                                            if (!sub->hasTrain(veh) && sub->notifyEnter(*veh, dw->NOTIFICATION_REROUTE, nullptr) && !veh->hasReminder(sub)) {
+                                                veh->addReminder(sub, 1);
+                                            }
                                         }
                                     }
                                 }
