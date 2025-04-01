@@ -80,15 +80,19 @@ GNEMeanData::writeMeanData(OutputDevice& device) const {
     device.openTag(getTagProperty()->getTag());
     // write needed attributes
     device.writeAttr(SUMO_ATTR_ID, getID());
-    device.writeAttr(SUMO_ATTR_FILE, myFile);
+    if (myFile.empty()) {
+        device.writeAttr(SUMO_ATTR_FILE, myID + ".xml");
+    } else {
+        device.writeAttr(SUMO_ATTR_FILE, myFile);
+    }
     // write optional attributes
-    if (myPeriod != -1) {
+    if (myPeriod != myTagProperty->getDefaultTimeValue(SUMO_ATTR_PERIOD)) {
         device.writeAttr(SUMO_ATTR_PERIOD, STEPS2TIME(myPeriod));
     }
-    if (myBegin != -1) {
+    if (myBegin != myTagProperty->getDefaultTimeValue(SUMO_ATTR_BEGIN)) {
         device.writeAttr(SUMO_ATTR_BEGIN, STEPS2TIME(myBegin));
     }
-    if (myEnd != -1) {
+    if (myEnd != myTagProperty->getDefaultTimeValue(SUMO_ATTR_END)) {
         device.writeAttr(SUMO_ATTR_END, STEPS2TIME(myEnd));
     }
     if (myExcludeEmpty != myTagProperty->getDefaultStringValue(SUMO_ATTR_EXCLUDE_EMPTY)) {
@@ -97,13 +101,13 @@ GNEMeanData::writeMeanData(OutputDevice& device) const {
     if (myWithInternal) {
         device.writeAttr(SUMO_ATTR_WITH_INTERNAL, true);
     }
-    if (myMaxTravelTime != 100000) {
+    if (myMaxTravelTime != myTagProperty->getDefaultDoubleValue(SUMO_ATTR_MAX_TRAVELTIME)) {
         device.writeAttr(SUMO_ATTR_MAX_TRAVELTIME, myMaxTravelTime);
     }
-    if (myMinSamples != 0) {
+    if (myMinSamples != myTagProperty->getDefaultDoubleValue(SUMO_ATTR_MIN_SAMPLES)) {
         device.writeAttr(SUMO_ATTR_MIN_SAMPLES, myMinSamples);
     }
-    if (mySpeedThreshold != 0.1) {
+    if (mySpeedThreshold != myTagProperty->getDefaultDoubleValue(SUMO_ATTR_HALTING_SPEED_THRESHOLD)) {
         device.writeAttr(SUMO_ATTR_HALTING_SPEED_THRESHOLD, mySpeedThreshold);
     }
     if (myVTypes.size() > 0) {
@@ -112,7 +116,7 @@ GNEMeanData::writeMeanData(OutputDevice& device) const {
     if (myTrackVehicles) {
         device.writeAttr(SUMO_ATTR_TRACK_VEHICLES, true);
     }
-    if (myDetectPersons.size() > 0) {
+    if (myDetectPersons.size() > 0 && (myDetectPersons.at(0) != SUMOXMLDefinitions::PersonModeValues.getString(PersonMode::NONE))) {
         device.writeAttr(SUMO_ATTR_DETECT_PERSONS, myDetectPersons);
     }
     if (myWrittenAttributes.size() > 0) {
@@ -337,7 +341,7 @@ GNEMeanData::isValid(SumoXMLAttr key, const std::string& value) {
             if (value.empty()) {
                 return true;
             } else {
-                return (value == "walk");
+                return SUMOXMLDefinitions::PersonModeValues.hasString(value);
             }
         case SUMO_ATTR_WRITE_ATTRIBUTES:
             return canParse<std::vector<SumoXMLAttr> >(value);
@@ -379,25 +383,29 @@ GNEMeanData::setAttribute(SumoXMLAttr key, const std::string& value) {
             myID = value;
             break;
         case SUMO_ATTR_FILE:
-            myFile = value;
+            if (value.empty()) {
+                myFile = (myID + ".xml");
+            } else {
+                myFile = value;
+            }
             break;
         case SUMO_ATTR_PERIOD:
             if (value.empty()) {
-                myPeriod = -1;
+                myPeriod = myTagProperty->getDefaultTimeValue(key);
             } else {
                 myPeriod = string2time(value);
             }
             break;
         case SUMO_ATTR_BEGIN:
             if (value.empty()) {
-                myBegin = -1;
+                myBegin = myTagProperty->getDefaultTimeValue(key);
             } else {
                 myBegin = string2time(value);
             }
             break;
         case SUMO_ATTR_END:
             if (value.empty()) {
-                myEnd = -1;
+                myEnd = myTagProperty->getDefaultTimeValue(key);
             } else {
                 myEnd = string2time(value);
             }
@@ -416,16 +424,24 @@ GNEMeanData::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_MAX_TRAVELTIME:
             if (value.empty()) {
-                myMaxTravelTime = 100000;
+                myMaxTravelTime = myTagProperty->getDefaultDoubleValue(key);
             } else {
                 myMaxTravelTime = parse<double>(value);
             }
             break;
         case SUMO_ATTR_MIN_SAMPLES:
-            myMinSamples = parse<double>(value);
+            if (value.empty()) {
+                myMinSamples = myTagProperty->getDefaultDoubleValue(key);
+            } else {
+                myMinSamples = parse<double>(value);
+            }
             break;
         case SUMO_ATTR_HALTING_SPEED_THRESHOLD:
-            mySpeedThreshold = parse<double>(value);
+            if (value.empty()) {
+                mySpeedThreshold = myTagProperty->getDefaultDoubleValue(key);
+            } else {
+                mySpeedThreshold = parse<double>(value);
+            }
             break;
         case SUMO_ATTR_VTYPES:
             myVTypes = parse<std::vector<std::string> >(value);
@@ -434,7 +450,12 @@ GNEMeanData::setAttribute(SumoXMLAttr key, const std::string& value) {
             myTrackVehicles = parse<bool>(value);
             break;
         case SUMO_ATTR_DETECT_PERSONS:
-            myDetectPersons = parse<std::vector<std::string> >(value);
+            myDetectPersons.clear();
+            if (value.empty()) {
+                myDetectPersons.push_back(SUMOXMLDefinitions::PersonModeValues.getString(PersonMode::NONE));
+            } else {
+                myDetectPersons = parse<std::vector<std::string> >(value);
+            }
             break;
         case SUMO_ATTR_WRITE_ATTRIBUTES:
             myWrittenAttributes = parse<std::vector<SumoXMLAttr> >(value);

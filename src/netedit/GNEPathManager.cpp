@@ -648,15 +648,13 @@ GNEPathManager::drawLanePathElements(const GUIVisualizationSettings& s, const GN
             }
         }
         // now draw the rest of segments
-        double layer = 0;
         for (const auto& segment : myLaneSegments.at(lane)) {
             if (!gViewObjectsHandler.isPathElementMarkForRedraw(segment->getPathElement())) {
-                segment->getPathElement()->drawLanePartialGL(s, segment, layer);
+                segment->getPathElement()->drawLanePartialGL(s, segment, 0);
                 // check if path element is a route
                 if (segment->getPathElement()->isRoute()) {
                     numRoutes++;
                 }
-                layer += 0.01;
             }
         }
         // check if draw overlapped routes

@@ -8454,13 +8454,13 @@ GNETagPropertiesDatabase::fillCommonMeanDataAttributes(GNETagProperties* tagProp
                                GNEAttributeCarrier::False);
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_MAX_TRAVELTIME,
-                               GNEAttributeProperties::SUMOTIME | GNEAttributeProperties::DEFAULTVALUE,
+                               GNEAttributeProperties::FLOAT | GNEAttributeProperties::DEFAULTVALUE,
                                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
                                TL("The maximum travel time in seconds to write if only very small movements occur"),
                                toString(100000));
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_MIN_SAMPLES,
-                               GNEAttributeProperties::SUMOTIME | GNEAttributeProperties::DEFAULTVALUE,
+                               GNEAttributeProperties::FLOAT | GNEAttributeProperties::DEFAULTVALUE,
                                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
                                TL("Consider an edge/lane unused if it has at most this many sampled seconds"),
                                "0");
