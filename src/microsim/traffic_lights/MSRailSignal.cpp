@@ -405,6 +405,9 @@ MSRailSignal::initDriveWays(const SUMOVehicle* ego, bool update) {
                                     MSBaseVehicle* veh = dynamic_cast<MSBaseVehicle*>(const_cast<SUMOVehicle*>(ego));
                                     if (!dw->hasTrain(veh) && dw->notifyEnter(*veh, dw->NOTIFICATION_REROUTE, nullptr)) {
                                         veh->addReminder(dw, 1);
+                                        for (MSDriveWay* sub : dw->getSubDriveWays()) {
+                                            veh->addReminder(sub, 1);
+                                        }
                                     }
                                 }
                             }

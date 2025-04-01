@@ -167,6 +167,10 @@ public:
     /// @brief whether the given train is on this driveway
     bool hasTrain(SUMOVehicle* veh) const;
 
+    const std::vector<MSDriveWay*>& getSubDriveWays() const {
+        return mySubDriveWays;
+    }
+
     static void init();
 
     static bool hasRS(const MSEdge* cur, const MSEdge* next);
