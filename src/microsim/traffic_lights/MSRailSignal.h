@@ -331,7 +331,7 @@ protected:
         std::string getID() const;
 
         /// @brief retrieve an existing Driveway or construct a new driveway based on the vehicles route
-        MSDriveWay& getDriveWay(const SUMOVehicle*);
+        MSDriveWay& getDriveWay(const SUMOVehicle*, int searchStart = -1);
         MSDriveWay& getDriveWay(MSRouteIterator firstIt, MSRouteIterator endIt, const std::string& info = "");
 
         /// @brief try rerouting vehicle if reservation failed

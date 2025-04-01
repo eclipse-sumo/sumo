@@ -19,26 +19,30 @@ from __future__ import print_function
 from __future__ import absolute_import
 import os
 import sys
-from math import fabs, degrees
 
-sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+if 'SUMO_HOME' in os.environ:
+    sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 import sumolib  # noqa
 from sumolib.geomhelper import distance  # noqa
 from sumolib.xml import parse  # noqa
 from sumolib.net import lane2edge  # noqa
-from sumolib.statistics import Statistics
+from sumolib.statistics import Statistics  # noqa
 import sumolib.geomhelper as gh  # noqa
 
 SLACK = 1
 
+
 def get_options(args=None):
-    ap = sumolib.options.ArgumentParser(description="Identify which edges in the original network correspond to edges in the target network")
+    desc = "Identify which edges in the original network correspond to edges in the target network"
+    ap = sumolib.options.ArgumentParser(description=desc)
     ap.add_argument("--orig-net", dest="origNet", required=True, category="input", type=ap.net_file,
                     help="SUMO network with edges of interest", metavar="FILE")
-    ap.add_argument("--target-net", dest="targetNet", required=True, category="input", type=ap.net_file,
-                    help="SUMO network with edge ids that should be used to represent the original edges", metavar="FILE")
-    ap.add_argument("-o", "--output-file", dest="output", required=True, category="output", type=ap.additional_file,
+    ap.add_argument("--target-net", dest="targetNet", required=True, category="input", type=ap.net_file, metavar="FILE",
+                    help="SUMO network with edge ids that should be used to represent the original edges")
+    ap.add_argument("-o", "--output-file", dest="output", required=True, category="output", type=ap.file,
                     help="File for writing mapping information", metavar="FILE")
+    ap.add_argument("-s", "--success-output", dest="successOutput", category="output", type=ap.file,
+                    help="File for writing mapping success information", metavar="FILE")
     ap.add_argument("--radius", type=float, default=1.6,
                     help="radius for finding candidate edges")
     ap.add_argument("--min-common", type=float, dest="minCommon", default=0.1,
@@ -50,6 +54,8 @@ def get_options(args=None):
     options = ap.parse_args()
     if options.filterIds:
         options.filterIds = set(options.filterIds.split(','))
+    if not options.successOutput:
+        options.successOutput = options.output + ".success"
     return options
 
 
@@ -87,8 +93,6 @@ def compareEdge(edge, shape, edge2, radius):
     laneMatch = 1 / (1 + abs(edge.getLaneNumber() - edge2.getLaneNumber()))
 
     score = commonLength * quality * permissionMatch * laneMatch
-    #if edge.getID() == "-100010779#1":
-    #    print("DEBUG", edge.getID(), edge2.getID(), commonLength, quality, permissionMatch, laneMatch, off_dists, score)
     return score, commonLength
 
 
@@ -104,7 +108,7 @@ def cutOff(shape, commonLength):
 
 def mapEdge(options, edge):
     success = 0
-    results = [] # [(targetEdge, targetFraction, commonLength), ...]
+    results = []  # [(targetEdge, targetFraction, commonLength), ...]
     origShape = edge.getShape()
     shape = [options.remap_xy(xy) for xy in origShape]
     shapelen = gh.polyLength(shape)
@@ -138,7 +142,8 @@ def mapEdge(options, edge):
         print(edge.getID(), success)
     if success >= 1.01:
         print("implausibly high success %s for edge %s" % (success, edge.getID()), file=sys.stderr)
-
+    success = round(success, 2)
+    success = min(success, 1)
     return success, results
 
 
@@ -159,7 +164,7 @@ def main(options):
         options.remap_xy = lambda x: x
 
     successStats = Statistics("completeness")
-    with open(options.output, 'w') as fout, open(options.output + ".success", 'w') as sout:
+    with open(options.output, 'w') as fout, open(options.successOutput, 'w') as sout:
         fout.write(';'.join(["origEdge", "targetEdge", "targetFrom", "targetTo", "targetFraction", "common"]) + '\n')
         sout.write(';'.join(["origEdge", "success"]) + '\n')
         for edge in options.net.getEdges():
@@ -174,6 +179,7 @@ def main(options):
                     edge2.getFromNode().getID(), edge2.getToNode().getID(),
                     "%.2f" % fraction, "%.2f" % common]) + '\n')
     print(successStats)
+
 
 if __name__ == "__main__":
     main(get_options())

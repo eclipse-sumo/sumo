@@ -34,7 +34,7 @@ class GNETagProperties {
 public:
 
     /// @brief tag types
-    enum TagType {
+    enum class Type : int {
         // basic types
         NETWORKELEMENT =    1 << 0,  // Network elements (Edges, Junctions, Lanes...)
         ADDITIONALELEMENT = 1 << 1,  // Additional elements (Bus Stops, Charging Stations, Detectors...)
@@ -76,76 +76,75 @@ public:
         OTHER =             1 << 31, // Other type (used for TAZSourceSinks, VTypes, etc.)
     };
 
-    /// @brief general tag properties
-    enum TagProperty {
-        NO_PROPERTY =           1 << 0,     // Element doesn't have properties
-        NOTDRAWABLE =           1 << 1,     // Element cannot be drawn in view
-        GEOSHAPE =              1 << 2,     // Element's shape acn be defined using a GEO Shape
-        DIALOG =                1 << 3,     // Element can be edited using a dialog (GNECalibratorDialog, GNERerouterDialog...)
-        CHILD =                 1 << 4,     // Element is child of another element and will be written in XML without id (Example: E3Entry -> E3Detector...)
-        REPARENT =              1 << 5,     // Element can be reparent
-        NOTSELECTABLE =         1 << 6,     // Element cannot be selected
-        NOPARAMETERS =          1 << 7,     // Element doesn't accept parameters "key1=value1|key2=value2|...|keyN=valueN" (by default all tags supports parameters)
-        RTREE =                 1 << 8,     // Element is placed in RTREE
-        CENTERAFTERCREATION =   1 << 9,     // Camera is moved after element creation
-        REQUIRE_PROJ =          1 << 10,    // Element require a geo-projection defined in network
-        VCLASS_ICON =           1 << 11,    // Element returns icon depending of their vClass
-        SYMBOL =                1 << 12,    // Element is a symbol (VSSSymbols, RerouterSymbols...)
-        EXTENDED =              1 << 13,    // Element contains extended attributes (Usually vTypes)
-        HIERARCHICAL =          1 << 14,    // Element is a hierarchical
+    /// @brief tag property
+    enum class Property : int {
+        NOTDRAWABLE =           1 << 0,     // Element cannot be drawn in view
+        GEOSHAPE =              1 << 1,     // Element's shape acn be defined using a GEO Shape
+        DIALOG =                1 << 2,     // Element can be edited using a dialog (GNECalibratorDialog, GNERerouterDialog...)
+        CHILD =                 1 << 3,     // Element is child of another element and will be written in XML without id (Example: E3Entry -> E3Detector...)
+        REPARENT =              1 << 4,     // Element can be reparent
+        NOTSELECTABLE =         1 << 5,     // Element cannot be selected
+        NOPARAMETERS =          1 << 6,     // Element doesn't accept parameters "key1=value1|key2=value2|...|keyN=valueN" (by default all tags supports parameters)
+        RTREE =                 1 << 7,     // Element is placed in RTREE
+        CENTERAFTERCREATION =   1 << 8,     // Camera is moved after element creation
+        REQUIRE_PROJ =          1 << 9,     // Element require a geo-projection defined in network
+        VCLASS_ICON =           1 << 10,    // Element returns icon depending of their vClass
+        SYMBOL =                1 << 11,    // Element is a symbol (VSSSymbols, RerouterSymbols...)
+        EXTENDED =              1 << 12,    // Element contains extended attributes (Usually vTypes)
+        HIERARCHICAL =          1 << 13,    // Element is a hierarchical
+        NO_PROPERTY =           1 << 14,    // Element doesn't have properties
     };
 
-    /// @brief tag parents
-    enum TagParents {
-        NO_PARENTS =                1 << 0,     // No parents
-        // exclusive of vehicles
-        VEHICLE_ROUTE =             1 << 1,     // Vehicle is placed over route
-        VEHICLE_ROUTE_EMBEDDED =    1 << 2,     // Vehicle has an embedded route
-        VEHICLE_EDGES =             1 << 3,     // Vehicle is placed over a from-to edges
-        VEHICLE_JUNCTIONS =         1 << 4,     // Vehicle is placed over a from-to junctions
-        VEHICLE_TAZS =              1 << 5,     // Vehicle is placed over a from-to TAZs
-        // exclusive of plans
-        PLAN_CONSECUTIVE_EDGES =    1 << 6,     // Plan placed in consecutive edges
-        PLAN_ROUTE =                1 << 7,     // Plan placed in route
-        PLAN_EDGE =                 1 << 8,     // Plan placed in single edge
-        PLAN_BUSSTOP =              1 << 9,     // Plan placed in single busStop
-        PLAN_TRAINSTOP =            1 << 10,    // Plan placed in single trainStop
-        PLAN_CONTAINERSTOP =        1 << 11,    // Plan placed in single containerStop
-        PLAN_CHARGINGSTATION =      1 << 12,    // Plan placed in single charging station
-        PLAN_PARKINGAREA =          1 << 13,    // Plan placed in single parking area
-        PLAN_FROM_EDGE =            1 << 14,    // Plan starts in edge
-        PLAN_FROM_TAZ =             1 << 15,    // Plan starts in TAZ
-        PLAN_FROM_JUNCTION =        1 << 16,    // Plan starts in junction
-        PLAN_FROM_BUSSTOP =         1 << 17,    // Plan starts in busStop
-        PLAN_FROM_TRAINSTOP =       1 << 18,    // Plan starts in trainStop
-        PLAN_FROM_CONTAINERSTOP =   1 << 19,    // Plan starts in containerStop
-        PLAN_FROM_CHARGINGSTATION = 1 << 20,    // Plan starts in chargingStation
-        PLAN_FROM_PARKINGAREA =     1 << 21,    // Plan starts in parkingArea
-        PLAN_TO_EDGE =              1 << 22,    // Plan ends in edge
-        PLAN_TO_TAZ =               1 << 23,    // Plan ends in TAZ
-        PLAN_TO_JUNCTION =          1 << 24,    // Plan ends in junction
-        PLAN_TO_BUSSTOP =           1 << 25,    // Plan ends in busStop
-        PLAN_TO_TRAINSTOP =         1 << 26,    // Plan ends in trainStop
-        PLAN_TO_CONTAINERSTOP =     1 << 27,    // Plan ends in containerStop
-        PLAN_TO_CHARGINGSTATION =   1 << 28,    // Plan ends in chargingStation
-        PLAN_TO_PARKINGAREA =       1 << 29,    // Plan ends in parkingArea
+    /// @brief element in which this element is placed
+    enum class Over : int {
+        VIEW =                  1 << 0,     // No parents
+        JUNCTION =              1 << 1,     // Placed over junction
+        EDGE =                  1 << 2,     // Placed over edge
+        EDGES =                 1 << 3,     // Placed over edges
+        CONSECUTIVE_EDGES =     1 << 4,     // Placed over consecutive
+        LANE =                  1 << 5,     // Placed over lane
+        LANES =                 1 << 6,     // Placed over lanes
+        CONSECUTIVE_LANES =     1 << 4,     // Placed over consecutive lanes
+        ROUTE =                 1 << 7,     // Placed over route
+        ROUTE_EMBEDDED =        1 << 8,     // Placed over route embedded
+        BUSSTOP =               1 << 9,     // Placed over busStop
+        TRAINSTOP =             1 << 10,    // Placed over trainStop
+        CONTAINERSTOP =         1 << 11,    // Placed over containerStop
+        CHARGINGSTATION =       1 << 12,    // Placed over charging station
+        PARKINGAREA =           1 << 13,    // Placed over parking area
+        FROM_EDGE =             1 << 14,    // Starts in edge
+        FROM_TAZ =              1 << 15,    // Starts in TAZ
+        FROM_JUNCTION =         1 << 16,    // Starts in junction
+        FROM_BUSSTOP =          1 << 17,    // Starts in busStop
+        FROM_TRAINSTOP =        1 << 18,    // Starts in trainStop
+        FROM_CONTAINERSTOP =    1 << 19,    // Starts in containerStop
+        FROM_CHARGINGSTATION =  1 << 20,    // Starts in chargingStation
+        FROM_PARKINGAREA =      1 << 21,    // Starts in parkingArea
+        TO_EDGE =               1 << 22,    // Ends in edge
+        TO_TAZ =                1 << 23,    // Ends in TAZ
+        TO_JUNCTION =           1 << 24,    // Ends in junction
+        TO_BUSSTOP =            1 << 25,    // Ends in busStop
+        TO_TRAINSTOP =          1 << 26,    // Ends in trainStop
+        TO_CONTAINERSTOP =      1 << 27,    // Ends in containerStop
+        TO_CHARGINGSTATION =    1 << 28,    // Ends in chargingStation
+        TO_PARKINGAREA =        1 << 29,    // Ends in parkingArea
     };
 
     // @brief conflicts
-    enum Conflicts {
-        NO_CONFLICTS =              1 << 0,     // Element doesn't have conflicts
-        POS_LANE =                  1 << 1,     // Position over lane isn't valid
-        POS_LANE_START =            1 << 2,     // Start position over lane isn't valid
-        POS_LANE_END =              1 << 3,     // End position over lane isn't valid
-        NO_ADDITIONAL_CHILDREN =    1 << 4,     // Element doesn't have additional children
+    enum class Conflicts : int {
+        POS_LANE =                  1 << 0,     // Position over lane isn't valid
+        POS_LANE_START =            1 << 1,     // Start position over lane isn't valid
+        POS_LANE_END =              1 << 2,     // End position over lane isn't valid
+        NO_ADDITIONAL_CHILDREN =    1 << 3,     // Element doesn't have additional children
+        NO_CONFLICTS =              1 << 4,     // Element doesn't have conflicts
     };
 
     /// @brief declare friend class
     friend class GNEAttributeProperties;
 
     /// @brief parameter constructor
-    GNETagProperties(const SumoXMLTag tag, GNETagProperties* parent, const int tagType, const int tagProperty, const int tagParents, const int conflicts,
-                     const GUIIcon icon, const SumoXMLTag XMLTag, const std::string tooltip, std::vector<SumoXMLTag> XMLParentTags = {},
+    GNETagProperties(const SumoXMLTag tag, GNETagProperties* parent, const Type tagType, const Property tagProperty, const Over tagOver,
+                     const Conflicts conflicts, const GUIIcon icon, const SumoXMLTag XMLTag, const std::string tooltip, std::vector<SumoXMLTag> XMLParentTags = {},
                      const unsigned int backgroundColor = FXRGBA(255, 255, 255, 255), const std::string selectorText = "");
 
     /// @brief parameter constructor for hierarchical elements
@@ -546,16 +545,16 @@ private:
     std::vector<const GNETagProperties*> myChildren;
 
     /// @brief tag Types
-    const int myTagType = -1;
+    const Type myTagType = Type::OTHER;
 
     /// @brief tag properties
-    const int myTagProperty = -1;
+    const Property myTagProperty = Property::NO_PROPERTY;
 
-    /// @brief tag parents
-    const int myTagParents = -1;
+    /// @brief tag over
+    const Over myTagOver = Over::VIEW;
 
     /// @brief conflicts
-    const int myConflicts = -1;
+    const Conflicts myConflicts = Conflicts::NO_CONFLICTS;
 
     /// @brief vector with the attribute values vinculated with this Tag
     std::vector<const GNEAttributeProperties*> myAttributeProperties;
@@ -593,5 +592,45 @@ private:
     /// @brief Invalidated assignment operator
     GNETagProperties& operator=(const GNETagProperties& src) = delete;
 };
+
+/// @brief override tag parent bit operator
+constexpr GNETagProperties::Type operator|(GNETagProperties::Type a, GNETagProperties::Type b) {
+    return static_cast<GNETagProperties::Type>(static_cast<int>(a) | static_cast<int>(b));
+}
+
+/// @brief override tag parent bit operator
+constexpr bool operator&(GNETagProperties::Type a, GNETagProperties::Type b) {
+    return (static_cast<int>(a) & static_cast<int>(b)) != 0;
+}
+
+/// @brief override tag parent bit operator
+constexpr GNETagProperties::Property operator|(GNETagProperties::Property a, GNETagProperties::Property b) {
+    return static_cast<GNETagProperties::Property>(static_cast<int>(a) | static_cast<int>(b));
+}
+
+/// @brief override tag parent bit operator
+constexpr bool operator&(GNETagProperties::Property a, GNETagProperties::Property b) {
+    return (static_cast<int>(a) & static_cast<int>(b)) != 0;
+}
+
+/// @brief override tag parent bit operator
+constexpr GNETagProperties::Over operator|(GNETagProperties::Over a, GNETagProperties::Over b) {
+    return static_cast<GNETagProperties::Over>(static_cast<int>(a) | static_cast<int>(b));
+}
+
+/// @brief override tag parent bit operator
+constexpr bool operator&(GNETagProperties::Over a, GNETagProperties::Over b) {
+    return (static_cast<int>(a) & static_cast<int>(b)) != 0;
+}
+
+/// @brief override tag parent bit operator
+constexpr GNETagProperties::Conflicts operator|(GNETagProperties::Conflicts a, GNETagProperties::Conflicts b) {
+    return static_cast<GNETagProperties::Conflicts>(static_cast<int>(a) | static_cast<int>(b));
+}
+
+/// @brief override tag parent bit operator
+constexpr bool operator&(GNETagProperties::Conflicts a, GNETagProperties::Conflicts b) {
+    return (static_cast<int>(a) & static_cast<int>(b)) != 0;
+}
 
 /****************************************************************************/

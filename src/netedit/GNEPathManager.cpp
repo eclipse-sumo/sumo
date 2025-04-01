@@ -368,13 +368,14 @@ GNEPathManager::PathDraw::clearPathDraw() {
 
 
 bool
-GNEPathManager::PathDraw::checkDrawPathGeometry(const GUIVisualizationSettings& s, const GNELane* lane, SumoXMLTag tag) {
+GNEPathManager::PathDraw::checkDrawPathGeometry(const GUIVisualizationSettings& s, const GNELane* lane,
+        const SumoXMLTag tag, const bool isPlan) {
     // check conditions
     if (s.drawForViewObjectsHandler) {
         return true;
     } else if (myLaneDrawedElements.count(lane) > 0) {
         // check tag
-        if (myLaneDrawedElements.at(lane).count(tag) > 0) {
+        if (!isPlan && myLaneDrawedElements.at(lane).count(tag) > 0) {
             // element type was already inserted, then don't draw geometry
             return false;
         } else {
@@ -393,7 +394,8 @@ GNEPathManager::PathDraw::checkDrawPathGeometry(const GUIVisualizationSettings& 
 
 
 bool
-GNEPathManager::PathDraw::checkDrawPathGeometry(const GUIVisualizationSettings& s, const GNESegment* segment, SumoXMLTag tag) {
+GNEPathManager::PathDraw::checkDrawPathGeometry(const GUIVisualizationSettings& s, const GNESegment* segment,
+        const SumoXMLTag tag, const bool isPlan) {
     // check conditions
     if (s.drawForViewObjectsHandler) {
         return true;
@@ -403,7 +405,7 @@ GNEPathManager::PathDraw::checkDrawPathGeometry(const GUIVisualizationSettings& 
         // check lane2lane
         if (myLane2laneDrawedElements.count(lane2lane) > 0) {
             // check tag
-            if (myLane2laneDrawedElements.at(lane2lane).count(tag) > 0) {
+            if (!isPlan && myLane2laneDrawedElements.at(lane2lane).count(tag) > 0) {
                 // element type was already inserted, then don't draw geometry
                 return false;
             } else {

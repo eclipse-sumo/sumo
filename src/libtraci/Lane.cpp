@@ -237,15 +237,9 @@ Lane::getFoes(const std::string& laneID, const std::string& toLaneID) {
 }
 
 
-// XXX: there seems to be no "Dom::getFoes"
 std::vector<std::string>
 Lane::getInternalFoes(const std::string& laneID) {
-    //tcpip::Storage content;
-    //content.writeUnsignedByte(libsumo::TYPE_STRING);
-    //content.writeString("");
-    //return Dom::getStringVector(libsumo::VAR_FOES, laneID, &content);
     return getFoes(laneID, "");
-    //return Dom::getFoes(laneID, "");
 }
 
 

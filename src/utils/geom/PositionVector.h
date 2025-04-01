@@ -168,7 +168,7 @@ public:
     Position positionAtOffset(double pos, double lateralOffset = 0) const;
 
     /// @brief Returns the position at the given length
-    Position positionAtOffset2D(double pos, double lateralOffset = 0) const;
+    Position positionAtOffset2D(double pos, double lateralOffset = 0, bool extrapolateBeyond = false) const;
 
     /* @brief Returns position similar to positionAtOffset but instead of applying the
      * lateral offset orthogonal to the shape, apply it orthogonal to the given angle */
@@ -187,7 +187,7 @@ public:
     static Position positionAtOffset(const Position& p1, const Position& p2, double pos, double lateralOffset = 0.);
 
     /// Returns the position between the two given point at the specified position
-    static Position positionAtOffset2D(const Position& p1, const Position& p2, double pos, double lateralOffset = 0.);
+    static Position positionAtOffset2D(const Position& p1, const Position& p2, double pos, double lateralOffset = 0, bool extrapolateBeyond = false);
 
     /* @brief Returns position similar to positionAtOffset but instead of applying the
      * lateral offset orthogonal to the shape, apply it orthogonal to the given angle */

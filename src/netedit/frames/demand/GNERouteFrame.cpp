@@ -54,8 +54,6 @@ FXIMPLEMENT(GNERouteFrame::RouteModeSelector,   MFXGroupBoxModule,     RouteMode
 GNERouteFrame::RouteModeSelector::RouteModeSelector(GNERouteFrame* routeFrameParent) :
     MFXGroupBoxModule(routeFrameParent, TL("Route mode")),
     myRouteFrameParent(routeFrameParent) {
-    // create route template
-    myRouteTemplate = new GNERoute(SUMO_TAG_ROUTE, routeFrameParent->getViewNet()->getNet());
     // first fill myRouteModesStrings
     myRouteModesStrings.push_back(std::make_pair(RouteMode::NONCONSECUTIVE_EDGES, "non consecutive edges"));
     myRouteModesStrings.push_back(std::make_pair(RouteMode::CONSECUTIVE_EDGES, "consecutive edges"));
@@ -81,7 +79,6 @@ GNERouteFrame::RouteModeSelector::RouteModeSelector(GNERouteFrame* routeFramePar
 
 
 GNERouteFrame::RouteModeSelector::~RouteModeSelector() {
-    delete myRouteTemplate;
 }
 
 
@@ -105,14 +102,15 @@ GNERouteFrame::RouteModeSelector::isValidVehicleClass() const {
 
 void
 GNERouteFrame::RouteModeSelector::areParametersValid() {
+    const auto routeTemplate = myRouteFrameParent->getViewNet()->getNet()->getACTemplates()->getTemplateAC(SUMO_TAG_ROUTE);
     // check if current mode is valid
     if ((myCurrentRouteMode != RouteMode::INVALID) && myValidVClass) {
         // check if create routes consecutively
         const bool consecutiveEdges = (myCurrentRouteMode == RouteMode::CONSECUTIVE_EDGES);
         // show route attributes modul
-        myRouteFrameParent->myRouteAttributesEditor->showAttributesEditor(myRouteTemplate, true);
+        myRouteFrameParent->myRouteAttributesEditor->showAttributesEditor(routeTemplate, true);
         // show path creator
-        myRouteFrameParent->myPathCreator->showPathCreatorModule(myRouteTemplate->getTagProperty(), consecutiveEdges);
+        myRouteFrameParent->myPathCreator->showPathCreatorModule(routeTemplate->getTagProperty(), consecutiveEdges);
         // update edge colors
         myRouteFrameParent->myPathCreator->updateEdgeColors();
         // show legend
@@ -275,7 +273,7 @@ GNERouteFrame::createPath(const bool /*useLastRoute*/) {
         // set edges in route base object
         myRouteBaseObject->addStringListAttribute(SUMO_ATTR_EDGES, edges);
         // declare route handler
-        GNERouteHandler routeHandler(myViewNet->getNet(), myRouteBaseObject->hasStringAttribute(GNE_ATTR_DEMAND_FILE)?
+        GNERouteHandler routeHandler(myViewNet->getNet(), myRouteBaseObject->hasStringAttribute(GNE_ATTR_DEMAND_FILE) ?
                                      myRouteBaseObject->getStringAttribute(GNE_ATTR_DEMAND_FILE) : "",
                                      myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), false);
         // create route

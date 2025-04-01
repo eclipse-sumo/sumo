@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-12-18 09:31:36 by Eclipse SUMO sumo Version v1_21_0+1418-347bcd25c9e
+<!-- generated on 2025-04-01 10:53:51 by Eclipse SUMO sumo Version v1_22_0+1185-c17c4546020
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -51,8 +51,13 @@
     <departJunction id="J0">
         <driveWay id="J0.d0">
             <entry id="t_0" time="0.00" reason="departed"/>
-            <exit id="t_0" time="10.00" reason="junction"/>
+            <exit id="t_0" time="1.00" reason="reroute"/>
         </driveWay>
+        <driveWay id="J0.d1">
+            <entry id="t_0" time="0.00" reason="reroute"/>
+            <exit id="t_0" time="18.00" reason="parking"/>
+        </driveWay>
+        <subDriveWay id="J0.d1.0"/>
     </departJunction>
     <departJunction id="J1">
         <driveWay id="J1.d0"/>

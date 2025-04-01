@@ -109,6 +109,12 @@
                                 <xsd:attribute name="probability" type="nonNegativeFloatType"/>
                             </xsd:complexType>
                         </xsd:element>
+                        <xsd:element name="overtakingReroute">
+                            <xsd:complexType>
+                                <xsd:attribute name="main" type="xsd:string" use="required"/>
+                                <xsd:attribute name="siding" type="xsd:string" use="required"/>
+                            </xsd:complexType>
+                        </xsd:element>
                     </xsd:choice>
                     <xsd:attribute name="begin" type="nonNegativeFloatType" use="required"/>
                     <xsd:attribute name="end" type="nonNegativeFloatType" use="required"/>
@@ -365,6 +371,12 @@
                             <xsd:complexType>
                                 <xsd:attribute name="id" type="idType" use="required"/>
                                 <xsd:attribute name="probability" type="nonNegativeFloatType"/>
+                            </xsd:complexType>
+                        </xsd:element>
+                        <xsd:element name="overtakingReroute">
+                            <xsd:complexType>
+                                <xsd:attribute name="main" type="xsd:string" use="required"/>
+                                <xsd:attribute name="siding" type="xsd:string" use="required"/>
                             </xsd:complexType>
                         </xsd:element>
                     </xsd:choice>

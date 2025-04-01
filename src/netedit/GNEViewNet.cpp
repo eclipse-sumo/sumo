@@ -34,7 +34,7 @@
 #include <netedit/frames/GNEAttributesEditor.h>
 #include <netedit/frames/GNEConsecutiveSelector.h>
 #include <netedit/frames/GNEDrawingShape.h>
-#include <netedit/frames/GNENetworkSelector.h>
+#include <netedit/frames/GNEViewObjectSelector.h>
 #include <netedit/frames/GNEOverlappedInspection.h>
 #include <netedit/frames/GNEPathCreator.h>
 #include <netedit/frames/GNEPlanCreator.h>
@@ -879,12 +879,6 @@ GNEViewNet::setStatusBarText(const std::string& text) {
 }
 
 
-void
-GNEViewNet::resetLastClickedPosition() {
-    myLastClickedPosition = Position::INVALID;
-}
-
-
 bool
 GNEViewNet::autoSelectNodes() {
     if (myLockManager.isObjectLocked(GLO_JUNCTION, false)) {
@@ -1626,9 +1620,8 @@ GNEViewNet::abortOperation(bool clearSelection) {
         } else if (myEditModes.networkEditMode == NetworkEditMode::NETWORK_PROHIBITION) {
             myViewParent->getProhibitionFrame()->getSelectionModul()->onCmdCancel(nullptr, 0, nullptr);
         } else if (myEditModes.networkEditMode == NetworkEditMode::NETWORK_ADDITIONAL) {
-            // abort both network elements selections
-            myViewParent->getAdditionalFrame()->getEdgesSelector()->clearSelection();
-            myViewParent->getAdditionalFrame()->getLanesSelector()->clearSelection();
+            // clear view selection
+            myViewParent->getAdditionalFrame()->getViewObjetsSelector()->clearSelection();
             // abort path
             myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->abortPathCreation();
         } else if (myEditModes.networkEditMode == NetworkEditMode::NETWORK_WIRE) {
@@ -5871,11 +5864,7 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
         case NetworkEditMode::NETWORK_ADDITIONAL: {
             // avoid create additionals if control key is pressed
             if (!myMouseButtonKeyPressed.controlKeyPressed()) {
-                if ((getPositionInformation() == myLastClickedPosition) && !myMouseButtonKeyPressed.shiftKeyPressed()) {
-                    WRITE_WARNING(TL("Shift + click to create two additionals in the same position"));
-                } else if (myViewParent->getAdditionalFrame()->addAdditional(myViewObjectsSelector)) {
-                    // save last mouse position
-                    myLastClickedPosition = getPositionInformation();
+                if (myViewParent->getAdditionalFrame()->addAdditional(myViewObjectsSelector)) {
                     updateViewNet();
                 }
             }
@@ -6124,12 +6113,8 @@ GNEViewNet::processLeftButtonPressDemand(void* eventData) {
             myViewObjectsSelector.filterAdditionals(false, true);
             myViewObjectsSelector.filterDemandElements(true);
             // Handle click
-            if ((getPositionInformation() == myLastClickedPosition) && !myMouseButtonKeyPressed.controlKeyPressed()) {
-                WRITE_WARNING(TL("Control + click to create two stop in the same position"));
-            } else if (myViewParent->getStopFrame()->addStop(myViewObjectsSelector, myMouseButtonKeyPressed)) {
+            if (myViewParent->getStopFrame()->addStop(myViewObjectsSelector, myMouseButtonKeyPressed)) {
                 updateViewNet();
-                // save last mouse position
-                myLastClickedPosition = getPositionInformation();
             }
             // process click
             processClick(eventData);

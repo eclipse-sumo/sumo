@@ -147,10 +147,11 @@ def build_junction_lookup(net):
         addOrigId(lookup, origId, node)
     return lookup
 
+
 def mapSelection(options):
-    types = (("edge:",     lambda x: options.lookup[x]),
+    types = (("edge:", lambda x: options.lookup[x]),
              ("junction:", lambda x: options.junction_lookup[x]),
-             ("lane:",    lambda x: options.lookup[lane2edge(x)] + "_" + str(lane2index(x))))
+             ("lane:", lambda x: options.lookup[lane2edge(x)] + "_" + str(lane2index(x))))
     with open(options.output, 'w') as fout, open(options.selfile) as infile:
         for line in infile:
             line = line.strip()
@@ -161,7 +162,7 @@ def mapSelection(options):
                     ignored = False
                     break
             if ignored:
-                print("Warning: Could not map '%s'" % line, file= sys.stderr)
+                print("Warning: Could not map '%s'" % line, file=sys.stderr)
 
 
 def main(options):

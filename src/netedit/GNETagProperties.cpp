@@ -24,8 +24,9 @@
 // method definitions
 // ===========================================================================
 
-GNETagProperties::GNETagProperties(const SumoXMLTag tag, GNETagProperties* parent, const int tagType, const int tagProperty,
-                                   const int tagParents, const int conflicts, const GUIIcon icon, const SumoXMLTag XMLTag,
+GNETagProperties::GNETagProperties(const SumoXMLTag tag, GNETagProperties* parent, const Type tagType,
+                                   const Property tagProperty, const Over myTagOver,
+                                   const Conflicts conflicts, const GUIIcon icon, const SumoXMLTag XMLTag,
                                    const std::string tooltip, const std::vector<SumoXMLTag> XMLParentTags,
                                    const unsigned int backgroundColor, const std::string selectorText) :
     myTag(tag),
@@ -33,7 +34,7 @@ GNETagProperties::GNETagProperties(const SumoXMLTag tag, GNETagProperties* paren
     myParent(parent),
     myTagType(tagType),
     myTagProperty(tagProperty),
-    myTagParents(tagParents),
+    myTagOver(myTagOver),
     myConflicts(conflicts),
     myIcon(icon),
     myXMLTag(XMLTag),
@@ -52,7 +53,7 @@ GNETagProperties::GNETagProperties(const SumoXMLTag tag, GNETagProperties* paren
     myTag(tag),
     myTagStr(toString(tag)),
     myParent(parent),
-    myTagProperty(HIERARCHICAL),
+    myTagProperty(Property::HIERARCHICAL),
     myIcon(icon),
     myXMLTag(tag),
     myTooltipText(tooltip),
@@ -87,18 +88,6 @@ void
 GNETagProperties::checkTagIntegrity() const {
     // check integrity only in debug mode
 #ifdef DEBUG
-    if (myTagType == -1) {
-        throw ProcessError("No tag type defined");
-    }
-    if (myTagProperty == -1) {
-        throw ProcessError("No tag property defined");
-    }
-    if (myTagParents == -1) {
-        throw ProcessError("No tag parent defined");
-    }
-    if (myConflicts == -1) {
-        throw ProcessError("No conflict defined");
-    }
     // check that this edge has parents (Except supermodes)
     if (myTag == SUMO_TAG_ROOTFILE) {
         if (myParent != nullptr) {
@@ -497,19 +486,19 @@ GNETagProperties::getSupermode() const {
 
 bool
 GNETagProperties::isHierarchicalTag() const {
-    return (myTagProperty & HIERARCHICAL) != 0;
+    return myTagProperty & Property::HIERARCHICAL;
 }
 
 
 bool
 GNETagProperties::isNetworkElement() const {
-    return (myTagType & NETWORKELEMENT) != 0;
+    return myTagType & Type::NETWORKELEMENT;
 }
 
 
 bool
 GNETagProperties::isAdditionalElement() const {
-    return (myTagType & ADDITIONALELEMENT) != 0;
+    return myTagType & Type::ADDITIONALELEMENT;
 }
 
 
@@ -521,67 +510,67 @@ GNETagProperties::isAdditionalPureElement() const {
 
 bool
 GNETagProperties::isDemandElement() const {
-    return (myTagType & DEMANDELEMENT) != 0;
+    return myTagType & Type::DEMANDELEMENT;
 }
 
 
 bool
 GNETagProperties::isDataElement() const {
-    return (myTagType & DATAELEMENT) != 0;
+    return myTagType & Type::DATAELEMENT;
 }
 
 
 bool
 GNETagProperties::isOtherElement() const {
-    return (myTagType & OTHER) != 0;
+    return myTagType & Type::OTHER;
 }
 
 
 bool
 GNETagProperties::isStoppingPlace() const {
-    return (myTagType & STOPPINGPLACE) != 0;
+    return myTagType & Type::STOPPINGPLACE;
 }
 
 
 bool
 GNETagProperties::isDetector() const {
-    return (myTagType & DETECTOR) != 0;
+    return myTagType & Type::DETECTOR;
 }
 
 
 bool
 GNETagProperties::isCalibrator() const {
-    return (myTagType & CALIBRATOR) != 0;
+    return myTagType & Type::CALIBRATOR;
 }
 
 
 bool
 GNETagProperties::isShapeElement() const {
-    return (myTagType & SHAPE) != 0;
+    return myTagType & Type::SHAPE;
 }
 
 
 bool
 GNETagProperties::isTAZElement() const {
-    return (myTagType & TAZELEMENT) != 0;
+    return myTagType & Type::TAZELEMENT;
 }
 
 
 bool
 GNETagProperties::isWireElement() const {
-    return (myTagType & WIRE) != 0;
+    return myTagType & Type::WIRE;
 }
 
 
 bool
 GNETagProperties::isJuPedSimElement() const {
-    return (myTagType & JUPEDSIM) != 0;
+    return myTagType & Type::JUPEDSIM;
 }
 
 
 bool
 GNETagProperties::isType() const {
-    return (myTagType & VTYPE) != 0;
+    return myTagType & Type::VTYPE;
 }
 
 bool
@@ -591,43 +580,43 @@ GNETagProperties::isTypeDist() const {
 
 bool
 GNETagProperties::isVehicle() const {
-    return (myTagType & VEHICLE) != 0;
+    return myTagType & Type::VEHICLE;
 }
 
 
 bool
 GNETagProperties::isRoute() const {
-    return (myTagType & ROUTE) != 0;
+    return myTagType & Type::ROUTE;
 }
 
 
 bool
 GNETagProperties::isVehicleStop() const {
-    return (myTagType & STOP_VEHICLE) != 0;
+    return myTagType & Type::STOP_VEHICLE;
 }
 
 
 bool
 GNETagProperties::isVehicleWaypoint() const {
-    return (myTagType & WAYPOINT_VEHICLE) != 0;
+    return myTagType & Type::WAYPOINT_VEHICLE;
 }
 
 
 bool
 GNETagProperties::isFlow() const {
-    return (myTagType & FLOW) != 0;
+    return myTagType & Type::FLOW;
 }
 
 
 bool
 GNETagProperties::isPerson() const {
-    return (myTagType & PERSON) != 0;
+    return myTagType & Type::PERSON;
 }
 
 
 bool
 GNETagProperties::isContainer() const {
-    return (myTagType & CONTAINER) != 0;
+    return myTagType & Type::CONTAINER;
 }
 
 
@@ -645,43 +634,43 @@ GNETagProperties::isPlan() const {
 
 bool
 GNETagProperties::isPlanPerson() const {
-    return (myTagType & PERSONPLAN) != 0;
+    return myTagType & Type::PERSONPLAN;
 }
 
 
 bool
 GNETagProperties::isPlanContainer() const {
-    return (myTagType & CONTAINERPLAN) != 0;
+    return myTagType & Type::CONTAINERPLAN;
 }
 
 
 bool
 GNETagProperties::isPlanPersonTrip() const {
-    return (myTagType & PERSONTRIP) != 0;
+    return myTagType & Type::PERSONTRIP;
 }
 
 
 bool
 GNETagProperties::isPlanWalk() const {
-    return (myTagType & WALK) != 0;
+    return myTagType & Type::WALK;
 }
 
 
 bool
 GNETagProperties::isPlanRide() const {
-    return (myTagType & RIDE) != 0;
+    return myTagType & Type::RIDE;
 }
 
 
 bool
 GNETagProperties::isPlanTransport() const {
-    return (myTagType & TRANSPORT) != 0;
+    return myTagType & Type::TRANSPORT;
 }
 
 
 bool
 GNETagProperties::isPlanTranship() const {
-    return (myTagType & TRANSHIP) != 0;
+    return myTagType & Type::TRANSHIP;
 }
 
 
@@ -693,103 +682,103 @@ GNETagProperties::isPlanStop() const {
 
 bool
 GNETagProperties::isPlanStopPerson() const {
-    return (myTagType & STOP_PERSON) != 0;
+    return myTagType & Type::STOP_PERSON;
 }
 
 
 bool
 GNETagProperties::isPlanStopContainer() const {
-    return (myTagType & STOP_CONTAINER) != 0;
+    return myTagType & Type::STOP_CONTAINER;
 }
 
 
 bool
 GNETagProperties::isGenericData() const {
-    return (myTagType & GENERICDATA) != 0;
+    return myTagType & Type::GENERICDATA;
 }
 
 
 bool
 GNETagProperties::isMeanData() const {
-    return (myTagType & MEANDATA) != 0;
+    return myTagType & Type::MEANDATA;
 }
 
 
 bool
 GNETagProperties::vehicleRoute() const {
-    return (myTagParents & VEHICLE_ROUTE) != 0;
+    return isVehicle() && (myTagOver & Over::ROUTE);
 }
 
 
 bool
 GNETagProperties::vehicleRouteEmbedded() const {
-    return (myTagParents & VEHICLE_ROUTE_EMBEDDED) != 0;
+    return isVehicle() && (myTagOver & Over::ROUTE_EMBEDDED);
 }
 
 
 bool
 GNETagProperties::vehicleEdges() const {
-    return (myTagParents & VEHICLE_EDGES) != 0;
+    return isVehicle() && (myTagOver & Over::FROM_EDGE) && (myTagOver & Over::TO_EDGE);
 }
 
 
 bool
 GNETagProperties::vehicleJunctions() const {
-    return (myTagParents & VEHICLE_JUNCTIONS) != 0;
+    return isVehicle() && (myTagOver & Over::FROM_JUNCTION) && (myTagOver & Over::TO_JUNCTION);
 }
 
 
 bool
 GNETagProperties::vehicleTAZs() const {
-    return (myTagParents & VEHICLE_TAZS) != 0;
+    return isVehicle() && (myTagOver & Over::FROM_TAZ) && (myTagOver & Over::TO_TAZ);
 }
 
 
 bool
 GNETagProperties::planConsecutiveEdges() const {
-    return (myTagParents & PLAN_CONSECUTIVE_EDGES) != 0;
+    return isPlan() && (myTagOver & Over::CONSECUTIVE_EDGES);
 }
 
 
 bool
 GNETagProperties::planRoute() const {
-    return (myTagParents & PLAN_ROUTE) != 0;
+    return isPlan() && (myTagOver & Over::ROUTE);
 }
 
 
 bool
 GNETagProperties::planEdge() const {
-    return (myTagParents & PLAN_EDGE) != 0;
+    return isPlan() && (myTagOver & Over::EDGE);
 }
 
 
 bool
 GNETagProperties::planBusStop() const {
-    return (myTagParents & PLAN_BUSSTOP) != 0;
+    return isPlan() && (myTagOver & Over::BUSSTOP);
 }
 
 
 bool
 GNETagProperties::planTrainStop() const {
-    return (myTagParents & PLAN_TRAINSTOP) != 0;
+    return isPlan() && (myTagOver & Over::TRAINSTOP);
 }
 
 
 bool
 GNETagProperties::planContainerStop() const {
-    return (myTagParents & PLAN_CONTAINERSTOP) != 0;
+    return isPlan() && (myTagOver & Over::CONTAINERSTOP);
 }
 
 
 bool
 GNETagProperties::planChargingStation() const {
-    return (myTagParents & PLAN_CHARGINGSTATION) != 0;
+    return isPlan() && (myTagOver & Over::CHARGINGSTATION);
 }
 
 
 bool
 GNETagProperties::planParkingArea() const {
-    return (myTagParents & PLAN_PARKINGAREA) != 0;
+    return isPlan() && (myTagOver & Over::PARKINGAREA);
 }
 
 
@@ -811,49 +800,49 @@ GNETagProperties::planFromTo() const {
 
 bool
 GNETagProperties::planFromEdge() const {
-    return (myTagParents & PLAN_FROM_EDGE) != 0;
+    return (myTagOver & Over::FROM_EDGE);
 }
 
 
 bool
 GNETagProperties::planFromTAZ() const {
-    return (myTagParents & PLAN_FROM_TAZ) != 0;
+    return isPlan() && (myTagOver & Over::FROM_TAZ);
 }
 
 
 bool
 GNETagProperties::planFromJunction() const {
-    return (myTagParents & PLAN_FROM_JUNCTION) != 0;
+    return isPlan() && (myTagOver & Over::FROM_JUNCTION);
 }
 
 
 bool
 GNETagProperties::planFromBusStop() const {
-    return (myTagParents & PLAN_FROM_BUSSTOP) != 0;
+    return isPlan() && (myTagOver & Over::FROM_BUSSTOP);
 }
 
 
 bool
 GNETagProperties::planFromTrainStop() const {
-    return (myTagParents & PLAN_FROM_TRAINSTOP) != 0;
+    return isPlan() && (myTagOver & Over::FROM_TRAINSTOP);
 }
 
 
 bool
 GNETagProperties::planFromContainerStop() const {
-    return (myTagParents & PLAN_FROM_CONTAINERSTOP) != 0;
+    return isPlan() && (myTagOver & Over::FROM_CONTAINERSTOP);
 }
 
 
 bool
 GNETagProperties::planFromChargingStation() const {
-    return (myTagParents & PLAN_FROM_CHARGINGSTATION) != 0;
+    return isPlan() && (myTagOver & Over::FROM_CHARGINGSTATION);
 }
 
 
 bool
 GNETagProperties::planFromParkingArea() const {
-    return (myTagParents & PLAN_FROM_PARKINGAREA) != 0;
+    return isPlan() && (myTagOver & Over::FROM_PARKINGAREA);
 }
 
 
@@ -866,48 +855,48 @@ GNETagProperties::planFromStoppingPlace() const {
 
 bool
 GNETagProperties::planToEdge() const {
-    return (myTagParents & PLAN_TO_EDGE) != 0;
+    return isPlan() && (myTagOver & Over::TO_EDGE);
 }
 
 
 bool
 GNETagProperties::planToTAZ() const {
-    return (myTagParents & PLAN_TO_TAZ) != 0;
+    return isPlan() && (myTagOver & Over::TO_TAZ);
 }
 
 
 bool
 GNETagProperties::planToJunction() const {
-    return (myTagParents & PLAN_TO_JUNCTION) != 0;
+    return isPlan() && (myTagOver & Over::TO_JUNCTION);
 }
 
 bool
 GNETagProperties::planToBusStop() const {
-    return (myTagParents & PLAN_TO_BUSSTOP) != 0;
+    return isPlan() && (myTagOver & Over::TO_BUSSTOP);
 }
 
 
 bool
 GNETagProperties::planToTrainStop() const {
-    return (myTagParents & PLAN_TO_TRAINSTOP) != 0;
+    return isPlan() && (myTagOver & Over::TO_TRAINSTOP);
 }
 
 
 bool
 GNETagProperties::planToContainerStop() const {
-    return (myTagParents & PLAN_TO_CONTAINERSTOP) != 0;
+    return isPlan() && (myTagOver & Over::TO_CONTAINERSTOP);
 }
 
 
 bool
 GNETagProperties::planToChargingStation() const {
-    return (myTagParents & PLAN_TO_CHARGINGSTATION) != 0;
+    return isPlan() && (myTagOver & Over::TO_CHARGINGSTATION);
 }
 
 
 bool
 GNETagProperties::planToParkingArea() const {
-    return (myTagParents & PLAN_TO_PARKINGAREA) != 0;
+    return isPlan() && (myTagOver & Over::TO_PARKINGAREA);
 }
 
 
@@ -920,87 +909,87 @@ GNETagProperties::planToStoppingPlace() const {
 
 bool
 GNETagProperties::isChild() const {
-    return (myTagProperty & CHILD) != 0;
+    return (myTagProperty & Property::CHILD) ;
 }
 
 
 bool
 GNETagProperties::isSymbol() const {
-    return (myTagProperty & SYMBOL) != 0;
+    return (myTagProperty & Property::SYMBOL) ;
 }
 
 
 bool
 GNETagProperties::isInternalLane() const {
-    return (myTagType & INTERNALLANE) != 0;
+    return (myTagType & Type::INTERNALLANE) ;
 }
 
 
 bool
 GNETagProperties::isDrawable() const {
-    return (myTagProperty & NOTDRAWABLE) == 0;
+    return (myTagProperty & Property::NOTDRAWABLE) == false;
 }
 
 
 bool
 GNETagProperties::isSelectable() const {
     // note: By default all elements can be selected, except Tags with "NOTSELECTABLE"
-    return (myTagProperty & NOTSELECTABLE) == 0;
+    return (myTagProperty & Property::NOTSELECTABLE) == false;
 }
 
 
 bool
 GNETagProperties::hasGEOShape() const {
-    return (myTagProperty & GEOSHAPE) != 0;
+    return (myTagProperty & Property::GEOSHAPE) ;
 }
 
 
 bool
 GNETagProperties::hasDialog() const {
-    return (myTagProperty & DIALOG) != 0;
+    return (myTagProperty & Property::DIALOG) ;
 }
 
 
 bool
 GNETagProperties::hasExtendedAttributes() const {
-    return (myTagProperty & EXTENDED) != 0;
+    return (myTagProperty & Property::EXTENDED) ;
 }
 
 
 bool
 GNETagProperties::hasParameters() const {
     // note: By default all elements support parameters, except Tags with "NOPARAMETERS"
-    return (myTagProperty & NOPARAMETERS) == 0;
+    return (myTagProperty & Property::NOPARAMETERS) == false;
 }
 
 
 bool
 GNETagProperties::isPlacedInRTree() const {
-    return (myTagProperty & RTREE) != 0;
+    return (myTagProperty & Property::RTREE) ;
 }
 
 
 bool
 GNETagProperties::canBeReparent() const {
-    return (myTagProperty & REPARENT) != 0;
+    return (myTagProperty & Property::REPARENT) ;
 }
 
 
 bool
 GNETagProperties::canCenterCameraAfterCreation() const {
-    return (myTagProperty & CENTERAFTERCREATION) != 0;
+    return (myTagProperty & Property::CENTERAFTERCREATION) ;
 }
 
 
 bool
 GNETagProperties::requireProj() const {
-    return (myTagProperty & REQUIRE_PROJ) != 0;
+    return (myTagProperty & Property::REQUIRE_PROJ) ;
 }
 
 
 bool
 GNETagProperties::vClassIcon() const {
-    return (myTagProperty & VCLASS_ICON) != 0;
+    return (myTagProperty & Property::VCLASS_ICON) ;
 }
 
 

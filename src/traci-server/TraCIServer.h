@@ -272,7 +272,19 @@ public:
     bool wrapPositionVector(const std::string& objID, const int variable, const libsumo::TraCIPositionVector& value);
     bool wrapColor(const std::string& objID, const int variable, const libsumo::TraCIColor& value);
     bool wrapStringDoublePair(const std::string& objID, const int variable, const std::pair<std::string, double>& value);
+    bool wrapStringDoublePairList(const std::string& objID, const int variable, const std::vector<std::pair<std::string, double> >& value);
     bool wrapStringPair(const std::string& objID, const int variable, const std::pair<std::string, std::string>& value);
+    bool wrapIntPair(const std::string& objID, const int variable, const std::pair<int, int>& value);
+    bool wrapStage(const std::string& objID, const int variable, const libsumo::TraCIStage& value);
+    bool wrapReservationVector(const std::string& objID, const int variable, const std::vector<libsumo::TraCIReservation>& value);
+    bool wrapLogicVector(const std::string& objID, const int variable, const std::vector<libsumo::TraCILogic>& value);
+    bool wrapLinkVectorVector(const std::string& objID, const int variable, const std::vector<std::vector<libsumo::TraCILink> >& value);
+    bool wrapSignalConstraintVector(const std::string& objID, const int variable, const std::vector<libsumo::TraCISignalConstraint>& value);
+    bool wrapJunctionFoeVector(const std::string& objID, const int variable, const std::vector<libsumo::TraCIJunctionFoe>& value);
+    bool wrapNextStopDataVector(const std::string& objID, const int variable, const std::vector<libsumo::TraCINextStopData>& value);
+    bool wrapVehicleDataVector(const std::string& objID, const int variable, const std::vector<libsumo::TraCIVehicleData>& value);
+    bool wrapBestLanesDataVector(const std::string& objID, const int variable, const std::vector<libsumo::TraCIBestLanesData>& value);
+    bool wrapNextTLSDataVector(const std::string& objID, const int variable, const std::vector<libsumo::TraCINextTLSData>& value);
     tcpip::Storage& getWrapperStorage();
     /// @}
 

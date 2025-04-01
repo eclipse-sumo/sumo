@@ -1,0 +1,10 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <route id="horizontal" edges="2fi 2si 1o 1fi 1si 3o 3fi 3si 4o 4fi 4si"/>
+    <route id="vertical" edges="3fi 3si 4o"/>
+    <route id="withTaz2" edges="taz34-source taz12-sink"/>
+    <vehicle id="horiz" route="horizontal" depart="0"/>
+    <vType id="train" length="50.00" vClass="rail"/>
+    <trip id="t0" type="train" depart="0.00" from="a" to="g" departSpeed="max"/>
+    <trip id="t1" type="train" depart="0.00" from="h" to="g" departSpeed="max"/>
+    <trip id="t2" type="train" depart="0.00" from="d" to="g" departSpeed="max"/>
+</routes>

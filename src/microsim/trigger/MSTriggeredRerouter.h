@@ -41,6 +41,7 @@ class MSLane;
 class MSRoute;
 class SUMOVehicle;
 class MSParkingArea;
+class MSRailSignal;
 
 
 // ===========================================================================
@@ -108,6 +109,13 @@ public:
         RandomDistributor<MSStoppingPlaceRerouter::StoppingPlaceVisible> parkProbs;
         /// The edge probs are vias and not destinations
         bool isVia = false;
+        /// The list of main edges (const and non-const for different usage)
+        MSEdgeVector main;
+        ConstMSEdgeVector cMain;
+        /// The list of siding edges
+        MSEdgeVector siding;
+        ConstMSEdgeVector cSiding;
+        MSRailSignal* sidingExit = nullptr;
     };
 
     /** @brief Tries to reroute the vehicle
@@ -214,6 +222,12 @@ public:
     /// @brief search for an alternative ParkingArea
     MSParkingArea* rerouteParkingArea(const MSTriggeredRerouter::RerouteInterval* rerouteDef,
                                       SUMOVehicle& veh, bool& newDestination, ConstMSEdgeVector& newRoute);
+
+    /// @brief determine whether veh should switch from main to siding to be overtaken and return the overtaking vehicle or nullptr
+    std::pair<const SUMOVehicle*, MSRailSignal*> overtakingTrain(const SUMOVehicle& veh, ConstMSEdgeVector::const_iterator mainStart, const MSEdgeVector& main);
+
+    /// @brief find the last downstream signal on the given route
+    MSRailSignal* findSignal(ConstMSEdgeVector::const_iterator begin, ConstMSEdgeVector::const_iterator end);
 
     /// @brief return all rerouter instances
     static const std::map<std::string, MSTriggeredRerouter*>& getInstances() {

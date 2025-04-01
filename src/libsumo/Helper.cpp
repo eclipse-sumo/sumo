@@ -1872,6 +1872,38 @@ Helper::patchShapeDistance(const MSLane* lane, const Position& pos, double dist,
 }
 
 
+int
+Helper::readDistanceRequest(tcpip::Storage& data, TraCIRoadPosition& roadPos, Position& pos) {
+    int distType = 0;
+    StoHelp::readCompound(data, 2, "Retrieval of distance requires two parameter as compound.");
+    const int posType = data.readUnsignedByte();
+    switch (posType) {
+        case libsumo::POSITION_ROADMAP: {
+            roadPos.edgeID = data.readString();
+            roadPos.pos = data.readDouble();
+            roadPos.laneIndex = data.readUnsignedByte();
+            break;
+        }
+        case libsumo::POSITION_2D:
+        case libsumo::POSITION_3D: {
+            pos.setx(data.readDouble());
+            pos.sety(data.readDouble());
+            if (posType == libsumo::POSITION_3D) {
+                pos.setz(data.readDouble());
+            }
+            break;
+        }
+        default:
+            throw TraCIException("Unknown position format used for distance request.");
+    }
+    distType = data.readUnsignedByte();
+    if (distType != libsumo::REQUEST_DRIVINGDIST) {
+        throw TraCIException("Only driving distance is supported.");
+    }
+    return posType;
+}
+
+
 Helper::SubscriptionWrapper::SubscriptionWrapper(VariableWrapper::SubscriptionHandler handler, SubscriptionResults& into, ContextSubscriptionResults& context)
     : VariableWrapper(handler), myResults(into), myContextResults(context), myActiveResults(&into) {
 
@@ -1969,10 +2001,117 @@ Helper::SubscriptionWrapper::wrapStringDoublePair(const std::string& objID, cons
 
 
 bool
+Helper::SubscriptionWrapper::wrapStringDoublePairList(const std::string& objID, const int variable, const std::vector<std::pair<std::string, double> >& value) {
+    auto sl = std::make_shared<TraCIStringDoublePairList>();
+    sl->value = value;
+    (*myActiveResults)[objID][variable] = sl;
+    return true;
+}
+
+
+bool
 Helper::SubscriptionWrapper::wrapStringPair(const std::string& objID, const int variable, const std::pair<std::string, std::string>& value) {
     auto sl = std::make_shared<TraCIStringList>();
     sl->value.push_back(value.first);
     sl->value.push_back(value.second);
+    (*myActiveResults)[objID][variable] = sl;
+    return true;
+}
+
+
+bool
+Helper::SubscriptionWrapper::wrapIntPair(const std::string& objID, const int variable, const std::pair<int, int>& value) {
+    auto sl = std::make_shared<TraCIIntList>();
+    sl->value.push_back(value.first);
+    sl->value.push_back(value.second);
+    (*myActiveResults)[objID][variable] = sl;
+    return true;
+}
+
+
+bool
+Helper::SubscriptionWrapper::wrapStage(const std::string& objID, const int variable, const TraCIStage& value) {
+    (*myActiveResults)[objID][variable] = std::make_shared<TraCIStage>(value);
+    return true;
+}
+
+
+bool
+Helper::SubscriptionWrapper::wrapReservationVector(const std::string& objID, const int variable, const std::vector<libsumo::TraCIReservation>& value) {
+    auto sl = std::make_shared<TraCIReservationVectorWrapped>();
+    sl->value = value;
+    (*myActiveResults)[objID][variable] = sl;
+    return true;
+}
+
+
+bool
+Helper::SubscriptionWrapper::wrapLogicVector(const std::string& objID, const int variable, const std::vector<libsumo::TraCILogic>& value) {
+    auto sl = std::make_shared<TraCILogicVectorWrapped>();
+    sl->value = value;
+    (*myActiveResults)[objID][variable] = sl;
+    return true;
+}
+
+
+bool
+Helper::SubscriptionWrapper::wrapLinkVectorVector(const std::string& objID, const int variable, const std::vector<std::vector<libsumo::TraCILink> >& value) {
+    auto sl = std::make_shared<TraCILinkVectorVectorWrapped>();
+    sl->value = value;
+    (*myActiveResults)[objID][variable] = sl;
+    return true;
+}
+
+
+bool
+Helper::SubscriptionWrapper::wrapSignalConstraintVector(const std::string& objID, const int variable, const std::vector<libsumo::TraCISignalConstraint>& value) {
+    auto sl = std::make_shared<TraCISignalConstraintVectorWrapped>();
+    sl->value = value;
+    (*myActiveResults)[objID][variable] = sl;
+    return true;
+}
+
+
+bool
+Helper::SubscriptionWrapper::wrapJunctionFoeVector(const std::string& objID, const int variable, const std::vector<libsumo::TraCIJunctionFoe>& value) {
+    auto sl = std::make_shared<TraCIJunctionFoeVectorWrapped>();
+    sl->value = value;
+    (*myActiveResults)[objID][variable] = sl;
+    return true;
+}
+
+
+bool
+Helper::SubscriptionWrapper::wrapNextStopDataVector(const std::string& objID, const int variable, const std::vector<libsumo::TraCINextStopData>& value) {
+    auto sl = std::make_shared<TraCINextStopDataVectorWrapped>();
+    sl->value = value;
+    (*myActiveResults)[objID][variable] = sl;
+    return true;
+}
+
+
+bool
+Helper::SubscriptionWrapper::wrapVehicleDataVector(const std::string& objID, const int variable, const std::vector<libsumo::TraCIVehicleData>& value) {
+    auto sl = std::make_shared<TraCIVehicleDataVectorWrapped>();
+    sl->value = value;
+    (*myActiveResults)[objID][variable] = sl;
+    return true;
+}
+
+
+bool
+Helper::SubscriptionWrapper::wrapBestLanesDataVector(const std::string& objID, const int variable, const std::vector<libsumo::TraCIBestLanesData>& value) {
+    auto sl = std::make_shared<TraCIBestLanesDataVectorWrapped>();
+    sl->value = value;
+    (*myActiveResults)[objID][variable] = sl;
+    return true;
+}
+
+
+bool
+Helper::SubscriptionWrapper::wrapNextTLSDataVector(const std::string& objID, const int variable, const std::vector<libsumo::TraCINextTLSData>& value) {
+    auto sl = std::make_shared<TraCINextTLSDataVectorWrapped>();
+    sl->value = value;
     (*myActiveResults)[objID][variable] = sl;
     return true;
 }

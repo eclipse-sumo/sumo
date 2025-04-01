@@ -1140,7 +1140,7 @@ bool
 GUIBaseVehicle::drawAction_drawVehicleAsPolyWithCarriagges(const GUIVisualizationSettings& s, double scaledLength, bool asImage) const {
     if (getVType().getParameter().carriageLength > 0 &&
             (!myVehicle.isParking() || myVehicle.getNextStop().parkingarea == nullptr || myVehicle.getNextStop().parkingarea->parkOnRoad())) {
-        drawAction_drawCarriageClass(s, asImage);
+        drawAction_drawCarriageClass(s, scaledLength, asImage);
         return true;
     } else {
         if (asImage && GUIBaseVehicleHelper::drawAction_drawVehicleAsImage(

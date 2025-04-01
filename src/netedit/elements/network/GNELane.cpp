@@ -36,6 +36,7 @@
 #include <netedit/frames/demand/GNEVehicleFrame.h>
 #include <netedit/frames/network/GNEAdditionalFrame.h>
 #include <netedit/frames/network/GNETLSEditorFrame.h>
+#include <netedit/frames/GNEViewObjectSelector.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIDesigns.h>
@@ -364,7 +365,21 @@ GNELane::checkDrawRelatedContour() const {
 
 bool
 GNELane::checkDrawOverContour() const {
-    return false;
+    // get modes and viewParent (for code legibility)
+    const auto& modes = myNet->getViewNet()->getEditModes();
+    const auto& viewParent = myNet->getViewNet()->getViewParent();
+    // check if we're selecting edges in additional mode
+    if (modes.isCurrentSupermodeNetwork() && (modes.networkEditMode == NetworkEditMode::NETWORK_ADDITIONAL)) {
+        if (viewParent->getAdditionalFrame()->getViewObjetsSelector()->isNetworkElementSelected(this)) {
+            return true;
+        } else if (viewParent->getAdditionalFrame()->getViewObjetsSelector()->getTag() == myTagProperty->getTag()) {
+            return myNet->getViewNet()->getViewObjectsSelector().getLaneFront() == this;
+        } else {
+            return false;
+        }
+    } else {
+        return false;
+    }
 }
 
 

@@ -57,6 +57,8 @@ def get_options(args=None):
                     help="file to write the generated public transport stops and routes to")
     ap.add_argument("--duration", default=10, category="input",
                     type=int, help="minimum time to wait on a stop")
+    ap.add_argument("--bus-parking", action="store_true", default=False, category="processing", dest="busParking",
+                    help="set parking to true for bus mode")
     ap.add_argument("--bus-stop-length", default=13, category="input", type=float,
                     help="length for a bus stop")
     ap.add_argument("--train-stop-length", default=110, category="input", type=float,
@@ -210,7 +212,7 @@ def mapFCD(options, typedNets):
         subprocess.call(call, shell=True)
 
 
-def traceMap(options, typedNets, fixedStops, stopLookup, invEdgeMap, radius=150):
+def traceMap(options, veh2mode, typedNets, fixedStops, stopLookup, invEdgeMap, radius=150):
     routes = collections.OrderedDict()
     for mode in sorted(typedNets.keys()):
         vclass = gtfs2osm.OSM2SUMO_MODES.get(mode)
@@ -257,6 +259,7 @@ def traceMap(options, typedNets, fixedStops, stopLookup, invEdgeMap, radius=150)
                 if mappedRoute:
                     numRoutes += 1
                     routes[tid] = [e.getID() for e in mappedRoute]
+                    veh2mode[tid] = mode
         if options.verbose:
             print("mapped %s traces to %s routes (%s cacheHits)" % (
                 numTraces, numRoutes, cacheHits))
@@ -514,6 +517,7 @@ def main(options):
                                         missing_stops, missing_lines,
                                         gtfs_data, trip_list, shapes_dict, net)
     if not options.osm_routes:
+        veh2mode = {}
         # Import PT from GTFS
         if not options.skip_fcd:
             if not os.path.exists(options.mapperlib):
@@ -537,7 +541,7 @@ def main(options):
                 return
             if options.mapperlib != "tracemapper":
                 print("Warning! No mapping library found, falling back to tracemapper.", file=sys.stderr)
-            routes = traceMap(options, typedNets, fixedStops, stopLookup, invEdgeMap, options.radius)
+            routes = traceMap(options, veh2mode, typedNets, fixedStops, stopLookup, invEdgeMap, options.radius)
 
         if options.poly_output:
             generate_polygons(net, routes, options.poly_output)
@@ -549,14 +553,15 @@ def main(options):
             ft = humanReadableTime if options.hrtime else lambda x: x
             sumolib.xml.writeHeader(rout, os.path.basename(__file__), "routes", options=options)
             for vehID, edges in routes.items():
+                parking = ' parking="true"' if (options.busParking and veh2mode.get(vehID) == "bus") else ""
                 if edges:
                     rout.write(u'    <route id="%s" edges="%s">\n' % (vehID, " ".join([edgeMap[e] for e in edges])))
                     offset = None
                     for stop in stops[vehID]:
                         if offset is None:
                             offset = stop[1]
-                        rout.write(u'        <stop busStop="%s" duration="%s" until="%s"/> <!-- %s -->\n' %
-                                   (stop[0], ft(options.duration), ft(stop[1] - offset), stop[2]))
+                        rout.write(u'        <stop busStop="%s" duration="%s" until="%s"%s/> <!-- %s -->\n' %
+                                   (stop[0], ft(options.duration), ft(stop[1] - offset), parking, stop[2]))
                     rout.write(u'    </route>\n')
                 else:
                     print("Warning! Empty route for %s." % vehID, file=sys.stderr)

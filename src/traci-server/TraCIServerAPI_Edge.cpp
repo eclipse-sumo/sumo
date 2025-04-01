@@ -51,22 +51,9 @@ TraCIServerAPI_Edge::processGet(TraCIServer& server, tcpip::Storage& inputStorag
     server.initWrapper(libsumo::RESPONSE_GET_EDGE_VARIABLE, variable, id);
     try {
         if (!libsumo::Edge::handleVariable(id, variable, &server, &inputStorage)) {
-            switch (variable) {
-                case libsumo::VAR_EDGE_TRAVELTIME: {
-                    const double time = StoHelp::readTypedDouble(inputStorage, "The message must contain the time definition.");
-                    StoHelp::writeTypedDouble(server.getWrapperStorage(), libsumo::Edge::getAdaptedTraveltime(id, time));
-                    break;
-                }
-                case libsumo::VAR_EDGE_EFFORT: {
-                    const double time = StoHelp::readTypedDouble(inputStorage, "The message must contain the time definition.");
-                    StoHelp::writeTypedDouble(server.getWrapperStorage(), libsumo::Edge::getEffort(id, time));
-                    break;
-                }
-                default:
-                    return server.writeErrorStatusCmd(libsumo::CMD_GET_EDGE_VARIABLE,
-                                                      "Get Edge Variable: unsupported variable " + toHex(variable, 2)
-                                                      + " specified", outputStorage);
-            }
+            return server.writeErrorStatusCmd(libsumo::CMD_GET_EDGE_VARIABLE,
+                                              "Get Edge Variable: unsupported variable " + toHex(variable, 2)
+                                              + " specified", outputStorage);
         }
     } catch (libsumo::TraCIException& e) {
         return server.writeErrorStatusCmd(libsumo::CMD_GET_EDGE_VARIABLE, e.what(), outputStorage);

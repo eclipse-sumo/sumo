@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-13 10:07+0100\n"
-"PO-Revision-Date: 2025-03-25 16:37+0000\n"
+"PO-Revision-Date: 2025-03-27 10:01+0000\n"
 "Last-Translator: Benjamin Couéraud <bcoueraud87@gmail.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/fr/>\n"
@@ -994,83 +994,86 @@ msgstr "Localiser Arêtes"
 
 #: src/gui/GUIViewTraffic.cpp:113
 msgid "Locate an edge within the network."
-msgstr ""
+msgstr "Localiser une arête dans le réseau."
 
 #: src/gui/GUIViewTraffic.cpp:118 src/netedit/GNEViewNet.cpp:376
 msgid "Locate Vehicles"
-msgstr ""
+msgstr "Localiser véhicules"
 
 #: src/gui/GUIViewTraffic.cpp:118
 msgid "Locate a vehicle within the network."
-msgstr ""
+msgstr "Localiser un véhicule dans le réseau."
 
 #: src/gui/GUIViewTraffic.cpp:123 src/netedit/GNEViewNet.cpp:380
 msgid "Locate Persons"
-msgstr ""
+msgstr "Localiser personnes"
 
 #: src/gui/GUIViewTraffic.cpp:123
 msgid "Locate a person within the network."
-msgstr ""
+msgstr "Localiser une personne dans le réseau."
 
 #: src/gui/GUIViewTraffic.cpp:128
 msgid "Locate Container"
-msgstr ""
+msgstr "Localiser conteneur"
 
 #: src/gui/GUIViewTraffic.cpp:128
 msgid "Locate a container within the network."
-msgstr ""
+msgstr "Localiser conteneur dans le réseau."
 
 #: src/gui/GUIViewTraffic.cpp:133 src/netedit/GNEViewNet.cpp:403
 msgid "Locate TLS"
-msgstr ""
+msgstr "Localiser feu de circulation"
 
 #: src/gui/GUIViewTraffic.cpp:133
 msgid "Locate a tls within the network."
-msgstr ""
+msgstr "Localiser feu de circulation dans le réseau."
 
 #: src/gui/GUIViewTraffic.cpp:138 src/netedit/GNEViewNet.cpp:407
 msgid "Locate Additional"
-msgstr ""
+msgstr "Localiser élément additionnel"
 
 #: src/gui/GUIViewTraffic.cpp:138
 msgid "Locate an additional structure within the network."
-msgstr ""
+msgstr "Localiser élément additionnel dans le réseau."
 
 #: src/gui/GUIViewTraffic.cpp:143 src/netedit/GNEViewNet.cpp:411
 msgid "Locate PoI"
-msgstr ""
+msgstr "Localiser POI"
 
 #: src/gui/GUIViewTraffic.cpp:143
 msgid "Locate a PoI within the network."
-msgstr ""
+msgstr "Localiser POI dans le réseau."
 
 #: src/gui/GUIViewTraffic.cpp:148 src/netedit/GNEViewNet.cpp:415
 msgid "Locate Polygon"
-msgstr ""
+msgstr "Localiser polygone"
 
 #: src/gui/GUIViewTraffic.cpp:148
 msgid "Locate a Polygon within the network."
-msgstr ""
+msgstr "Localiser polygone dans le réseau."
 
 #: src/gui/dialogs/GUIDialog_AboutSUMO.cpp:39
 msgid "About Eclipse SUMO sumo-gui"
-msgstr ""
+msgstr "À propos de Eclipse SUMO sumo-gui"
 
 #: src/gui/dialogs/GUIDialog_AboutSUMO.cpp:54
 msgid ""
 "Graphical user interface for the microscopic, multi-modal traffic simulation"
 " SUMO."
 msgstr ""
+"Interface graphique pour le simulateur de trafic multimodal et microscopique "
+"SUMO."
 
 #: src/gui/dialogs/GUIDialog_AboutSUMO.cpp:57
 msgid "Includes JuPedSim %.%.%"
-msgstr ""
+msgstr "Inclus JuPedSim %.%.%"
 
 #: src/gui/dialogs/GUIDialog_AboutSUMO.cpp:64
 #: src/netedit/dialogs/GNEAbout.cpp:64
 msgid ""
 "This application is based on code provided by the Eclipse SUMO project."
 msgstr ""
+"Cette application est basée sur le code fourni par le projet Eclipse SUMO."
 
 #: src/gui/dialogs/GUIDialog_AboutSUMO.cpp:65
 #: src/netedit/dialogs/GNEAbout.cpp:65
@@ -1078,6 +1081,8 @@ msgid ""
 "These core components are available under the conditions of the Eclipse "
 "Public License v2."
 msgstr ""
+"Ces composants clés sont disponibles sous les conditions de la Eclipse "
+"Public License v2."
 
 #: src/gui/dialogs/GUIDialog_AboutSUMO.cpp:74
 #: src/gui/dialogs/GUIDialog_Feedback.cpp:58
@@ -1142,7 +1147,7 @@ msgstr "&Annuler"
 
 #: src/gui/dialogs/GUIDialog_Breakpoints.cpp:69
 msgid "Breakpoints Editor"
-msgstr ""
+msgstr "Editeur de points d'arrêt"
 
 #: src/gui/dialogs/GUIDialog_Breakpoints.cpp:92
 msgid "&Load"
@@ -1185,15 +1190,15 @@ msgstr "Erreur format heure"
 
 #: src/gui/dialogs/GUIDialog_Feedback.cpp:46
 msgid "- General problem solving"
-msgstr ""
+msgstr "- Résolution de problèmes géneraux"
 
 #: src/gui/dialogs/GUIDialog_Feedback.cpp:50
 msgid "- Sumo-user mailing list"
-msgstr ""
+msgstr "- Liste de diffusion des utilisateurs de SUMO"
 
 #: src/gui/dialogs/GUIDialog_Feedback.cpp:54
 msgid "- Send us an Email"
-msgstr ""
+msgstr "- Nous envoyer un email"
 
 #: src/guisim/Command_Hotkey_InductionLoop.cpp:55
 #: src/guisim/Command_Hotkey_InductionLoop.cpp:59
@@ -1209,55 +1214,55 @@ msgstr "Arrêt déclenché par interface non implémenté pour meso"
 
 #: src/guisim/GUIBaseVehicle.cpp:353
 msgid "Hide Current Route"
-msgstr ""
+msgstr "Cacher route courante"
 
 #: src/guisim/GUIBaseVehicle.cpp:355
 msgid "Show Current Route"
-msgstr ""
+msgstr "Montrer route courante"
 
 #: src/guisim/GUIBaseVehicle.cpp:358
 msgid "Hide Future Route"
-msgstr ""
+msgstr "Cacher route future"
 
 #: src/guisim/GUIBaseVehicle.cpp:360
 msgid "Show Future Route"
-msgstr ""
+msgstr "Montrer route future"
 
 #: src/guisim/GUIBaseVehicle.cpp:363
 msgid "Hide All Routes"
-msgstr ""
+msgstr "Cacher toutes les routes"
 
 #: src/guisim/GUIBaseVehicle.cpp:365
 msgid "Show All Routes"
-msgstr ""
+msgstr "Montrer toutes les routes"
 
 #: src/guisim/GUIBaseVehicle.cpp:368 src/guisim/GUIBaseVehicle.cpp:371
 msgid "Draw looped routes"
-msgstr ""
+msgstr "Dessiner routes cycliques"
 
 #: src/guisim/GUIBaseVehicle.cpp:375
 msgid "Hide Best Lanes"
-msgstr ""
+msgstr "Cacher meilleures voies"
 
 #: src/guisim/GUIBaseVehicle.cpp:377
 msgid "Show Best Lanes"
-msgstr ""
+msgstr "Montrer meilleures voies"
 
 #: src/guisim/GUIBaseVehicle.cpp:380
 msgid "Hide Link Items"
-msgstr ""
+msgstr "Cacher éléments de connexion"
 
 #: src/guisim/GUIBaseVehicle.cpp:382
 msgid "Show Link Items"
-msgstr ""
+msgstr "Montrer éléments de connexion"
 
 #: src/guisim/GUIBaseVehicle.cpp:386
 msgid "Start Tracking"
-msgstr ""
+msgstr "Démarrer suivi"
 
 #: src/guisim/GUIBaseVehicle.cpp:388
 msgid "Stop Tracking"
-msgstr ""
+msgstr "Arrêter suivi"
 
 #: src/guisim/GUIBaseVehicle.cpp:390
 msgid "Select Foes"
@@ -1588,27 +1593,27 @@ msgstr "nombre moyen d'immobilisations de l'intervalle précédent [#]"
 
 #: src/guisim/GUIE3Collector.cpp:94
 msgid "last interval mean time loss [s]"
-msgstr ""
+msgstr "perte de temps moyenne de l'intervalle précédent [s]"
 
 #: src/guisim/GUIE3Collector.cpp:96
 msgid "last interval mean vehicle count [#]"
-msgstr ""
+msgstr "nombre moyen de véhicules de l'intervalle précédent [#]"
 
 #: src/guisim/GUIEdge.cpp:184
 msgid "max speed [m/s]"
-msgstr ""
+msgstr "vitesse maximale [m/s]"
 
 #: src/guisim/GUIEdge.cpp:186 src/guisim/GUILane.cpp:1056
 msgid "street name"
-msgstr ""
+msgstr "nom de la rue"
 
 #: src/guisim/GUIEdge.cpp:187 src/guisim/GUILane.cpp:1064
 msgid "pending insertions [#]"
-msgstr ""
+msgstr "insertions en attente [#]"
 
 #: src/guisim/GUIEdge.cpp:188
 msgid "mean friction [%]"
-msgstr ""
+msgstr "friction moyenne [%]"
 
 #: src/guisim/GUIEdge.cpp:189
 msgid "mean vehicle speed [m/s]"
@@ -1863,282 +1868,282 @@ msgstr ""
 
 #: src/guisim/GUINet.cpp:470 src/netedit/GNENet.cpp:187
 msgid "Copy view geo-boundary to clipboard"
-msgstr ""
+msgstr "Copier coordonnées géographiques de la vue dans le presse-papiers"
 
 #: src/guisim/GUINet.cpp:481
 msgid "loaded vehicles [#]"
-msgstr ""
+msgstr "véhicules chargés [#]"
 
 #: src/guisim/GUINet.cpp:483
 msgid "insertion-backlogged vehicles [#]"
-msgstr ""
+msgstr "véhicules en attente d'insertion [#]"
 
 #: src/guisim/GUINet.cpp:485
 msgid "departed vehicles [#]"
-msgstr ""
+msgstr "véhicules déjà partis [#]"
 
 #: src/guisim/GUINet.cpp:487
 msgid "running vehicles [#]"
-msgstr ""
+msgstr "véhicules en déplacement [#]"
 
 #: src/guisim/GUINet.cpp:489
 msgid "arrived vehicles [#]"
-msgstr ""
+msgstr "véhicules arrivés [#]"
 
 #: src/guisim/GUINet.cpp:491
 msgid "discarded vehicles [#]"
-msgstr ""
+msgstr "véhicules éliminés [#]"
 
 #: src/guisim/GUINet.cpp:493
 msgid "collisions [#]"
-msgstr ""
+msgstr "collisions [#]"
 
 #: src/guisim/GUINet.cpp:495
 msgid "teleports [#]"
-msgstr ""
+msgstr "téléportations [#]"
 
 #: src/guisim/GUINet.cpp:497
 msgid "halting [#]"
-msgstr ""
+msgstr "véhicules immobilisés [#]"
 
 #: src/guisim/GUINet.cpp:499
 msgid "stopped [#]"
-msgstr ""
+msgstr "véhicules arrêtés [#]"
 
 #: src/guisim/GUINet.cpp:501
 msgid "avg. speed [m/s]"
-msgstr ""
+msgstr "vitesse moyenne [m/s]"
 
 #: src/guisim/GUINet.cpp:503
 msgid "avg. relative speed"
-msgstr ""
+msgstr "vitesse relative moyenne"
 
 #: src/guisim/GUINet.cpp:506
 msgid "loaded persons [#]"
-msgstr ""
+msgstr "personnes chargées [#]"
 
 #: src/guisim/GUINet.cpp:508
 msgid "running persons [#]"
-msgstr ""
+msgstr "personnes en déplacement [#]"
 
 #: src/guisim/GUINet.cpp:510
 msgid "jammed persons [#]"
-msgstr ""
+msgstr "personnes bloquées [#]"
 
 #: src/guisim/GUINet.cpp:513
 msgid "end time [s]"
-msgstr ""
+msgstr "temps final [s]"
 
 #: src/guisim/GUINet.cpp:514
 msgid "begin time [s]"
-msgstr ""
+msgstr "temps initial [s]"
 
 #: src/guisim/GUINet.cpp:517
 msgid "step duration [ms]"
-msgstr ""
+msgstr "durée d'un pas [ms]"
 
 #: src/guisim/GUINet.cpp:518
 msgid "FPS"
-msgstr ""
+msgstr "FPS"
 
 #: src/guisim/GUINet.cpp:519
 msgid "simulation duration [ms]"
-msgstr ""
+msgstr "durée de la simulation [ms]"
 
 #: src/guisim/GUINet.cpp:525
 msgid "idle duration [ms]"
-msgstr ""
+msgstr "durée d'inactivité [ms]"
 
 #: src/guisim/GUINet.cpp:526
 msgid "duration factor"
-msgstr ""
+msgstr "facteur de durée"
 
 #: src/guisim/GUINet.cpp:532
 msgid "updates per second"
-msgstr ""
+msgstr "nombre de mises-à-jour par seconde"
 
 #: src/guisim/GUINet.cpp:533
 msgid "avg. updates per second"
-msgstr ""
+msgstr "nombre moyen de mises à jour par seconde"
 
 #: src/guisim/GUINet.cpp:536
 msgid "avg. trip length [m]"
-msgstr ""
+msgstr "longueur de trajet moyenne [m]"
 
 #: src/guisim/GUINet.cpp:537
 msgid "avg. trip duration [s]"
-msgstr ""
+msgstr "durée de trajet moyenne [s]"
 
 #: src/guisim/GUINet.cpp:538
 msgid "avg. trip waiting time [s]"
-msgstr ""
+msgstr "temps d'attente moyen d'un trajet [s]"
 
 #: src/guisim/GUINet.cpp:539
 msgid "avg. trip time loss [s]"
-msgstr ""
+msgstr "perte de temps moyenne d'un trajet [s]"
 
 #: src/guisim/GUINet.cpp:540
 msgid "avg. trip depart delay [s]"
-msgstr ""
+msgstr "délai de départ moyen d'un trajet [s]"
 
 #: src/guisim/GUINet.cpp:541
 msgid "avg. trip speed [m/s]"
-msgstr ""
+msgstr "vitesse moyenne d'un trajet [m/s]"
 
 #: src/guisim/GUINet.cpp:543
 msgid "avg. walk length [m]"
-msgstr ""
+msgstr "longueur moyenne d'une marche [m]"
 
 #: src/guisim/GUINet.cpp:544
 msgid "avg. walk duration [s]"
-msgstr ""
+msgstr "durée moyenne d'une marche [s]"
 
 #: src/guisim/GUINet.cpp:545
 msgid "avg. walk time loss [s]"
-msgstr ""
+msgstr "perte de temps moyenne d'une marche [s]"
 
 #: src/guisim/GUINet.cpp:548
 msgid "nodes [#]"
-msgstr ""
+msgstr "noeuds [#]"
 
 #: src/guisim/GUINet.cpp:549
 msgid "edges [#]"
-msgstr ""
+msgstr "arêtes [#]"
 
 #: src/guisim/GUINet.cpp:550
 msgid "total edge length [km]"
-msgstr ""
+msgstr "longueur totale de l'arête [km]"
 
 #: src/guisim/GUINet.cpp:551
 msgid "total lane length [km]"
-msgstr ""
+msgstr "longueur totale de la voie [km]"
 
 #: src/guisim/GUINet.cpp:552
 msgid "network version "
-msgstr ""
+msgstr "version du réseau "
 
 #: src/guisim/GUINet.cpp:667
 msgid "Trying to set data value for the unknown edge '%'."
-msgstr "Essai définition de valeur des données arête '%'."
+msgstr "Essai de définition de valeur des données de l'arête '%'."
 
 #: src/guisim/GUINet.cpp:691
 msgid ""
 "Trying to set data value for the unknown relation from edge '%' to edge '%'."
 msgstr ""
-"Essai définition valeur des données pour la relation inconnue entre arête "
-"'%' et arête '%'."
+"Essai de définition de valeur des données pour la relation inconnue entre "
+"arête '%' et arête '%'."
 
 #: src/guisim/GUINet.cpp:709
 msgid "No data defined after simulation begin time."
-msgstr "Aucune donnée définie après heure de départ de la simulation."
+msgstr "Aucune donnée définie après temps de départ de la simulation."
 
 #: src/guisim/GUIParkingArea.cpp:113
 msgid "occupancy [#]"
-msgstr ""
+msgstr "occupation [#]"
 
 #: src/guisim/GUIParkingArea.cpp:114
 msgid "capacity [#]"
-msgstr ""
+msgstr "capacité [#]"
 
 #: src/guisim/GUIParkingArea.cpp:115
 msgid "alternatives [#]"
-msgstr ""
+msgstr "alternatives [#]"
 
 #: src/guisim/GUIParkingArea.cpp:116
 msgid "access badges"
-msgstr ""
+msgstr "badges d'accès"
 
 #: src/guisim/GUIPerson.cpp:234
 msgid "dest stop [id]"
-msgstr ""
+msgstr "arrêt final [id]"
 
 #: src/guisim/GUIPerson.cpp:235
 msgid "arrival position [m]"
-msgstr ""
+msgstr "position d'arrivée [m]"
 
 #: src/guisim/GUIPerson.cpp:237 src/guisim/GUIVehicle.cpp:106
 msgid "lane [id]"
-msgstr ""
+msgstr "voie [id]"
 
 #: src/guisim/GUIPerson.cpp:243
 msgid "vehicle [id]"
-msgstr ""
+msgstr "véhicule [id]"
 
 #: src/guisim/GUIPerson.cpp:244
 msgid "stop duration [s]"
-msgstr ""
+msgstr "durée de l'arrêt [s]"
 
 #: src/guisim/GUIPerson.cpp:260
 msgid "desired max speed [m/s]"
-msgstr ""
+msgstr "vitesse maximale désirée [m/s]"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:174
 msgid "Switch to '%'"
-msgstr ""
+msgstr "Changer pour '%'"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:182
 msgid "Switch off"
-msgstr ""
+msgstr "Eteindre"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:184
 msgid "Track Phases"
-msgstr ""
+msgstr "Suivre phases"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:185
 msgid "Show Phases"
-msgstr ""
+msgstr "Montrer phases"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:188
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:192
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:196
 msgid "Hide Detectors"
-msgstr ""
+msgstr "Cacher détecteurs"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:188
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:192
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:196
 msgid "Show Detectors"
-msgstr ""
+msgstr "Montrer détecteurs"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:202
 msgid "Phase: %"
-msgstr ""
+msgstr "Phase: %"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:205
 msgid "Phase name: %"
-msgstr ""
+msgstr "Nom de phase: %"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:240
 msgid "tlLogic [id]"
-msgstr ""
+msgstr "tlLogic [id]"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:242
 msgid "program"
-msgstr ""
+msgstr "programme"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:243
 msgid "phase"
-msgstr ""
+msgstr "phase"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:244
 msgid "phase name"
-msgstr ""
+msgstr "nom de phase"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:245
 msgid "duration"
-msgstr ""
+msgstr "durée"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:246
 msgid "minDur"
-msgstr ""
+msgstr "durée minimale"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:247
 msgid "maxDur"
-msgstr ""
+msgstr "durée maximale"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:248
 msgid "running duration"
-msgstr ""
+msgstr "durée écoulée"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:249
 msgid "earliestEnd"
@@ -2150,108 +2155,108 @@ msgstr ""
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:251
 msgid "time in cycle"
-msgstr ""
+msgstr "temps dans cycle"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:252
 msgid "cycle time"
-msgstr ""
+msgstr "durée du cycle"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:255
 msgid "req driveway"
-msgstr ""
+msgstr "allée requise"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:256
 msgid "blocking"
-msgstr ""
+msgstr "blocage"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:257
 msgid "blocking driveways"
-msgstr ""
+msgstr "allées bloquantes"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:258
 msgid "rival"
-msgstr ""
+msgstr "rivaux"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:260
 msgid "constraint"
-msgstr ""
+msgstr "contrainte"
 
 #: src/guisim/GUIVehicle.cpp:108
 msgid "shadow lane [id]"
-msgstr ""
+msgstr "voie virtuelle [id]"
 
 #: src/guisim/GUIVehicle.cpp:111
 msgid "target lane [id]"
-msgstr ""
+msgstr "voie cible [id]"
 
 #: src/guisim/GUIVehicle.cpp:114
 msgid "back lanes [id,..]"
-msgstr ""
+msgstr "voies précédentes [id,..]"
 
 #: src/guisim/GUIVehicle.cpp:118
 msgid "lateral offset [m]"
-msgstr ""
+msgstr "écart latéral [m]"
 
 #: src/guisim/GUIVehicle.cpp:122
 msgid "lateral speed [m/s]"
-msgstr ""
+msgstr "vitesse latérale [m/s]"
 
 #: src/guisim/GUIVehicle.cpp:124
 msgid "acceleration [m/s^2]"
-msgstr ""
+msgstr "accélération [m/s^2]"
 
 #: src/guisim/GUIVehicle.cpp:128
 msgid "slope [degree]"
-msgstr ""
+msgstr "pente [degrés]"
 
 #: src/guisim/GUIVehicle.cpp:132
 msgid "time gap on lane [s]"
-msgstr ""
+msgstr "intervalle de temps sur la voie [s]"
 
 #: src/guisim/GUIVehicle.cpp:136
 #, c-format
 msgid "waiting time (accumulated, % s) [s]"
-msgstr ""
+msgstr "temps d'attente (accumulé, % s) [s]"
 
 #: src/guisim/GUIVehicle.cpp:138
 msgid "time since startup [s]"
-msgstr ""
+msgstr "temps depuis départ [s]"
 
 #: src/guisim/GUIVehicle.cpp:140
 msgid "time loss [s]"
-msgstr ""
+msgstr "perte de temps [s]"
 
 #: src/guisim/GUIVehicle.cpp:142
 msgid "impatience"
-msgstr ""
+msgstr "impatience"
 
 #: src/guisim/GUIVehicle.cpp:144
 msgid "last lane change [s]"
-msgstr ""
+msgstr "dernier changement de voie [s]"
 
 #: src/guisim/GUIVehicle.cpp:147
 msgid "depart delay [s]"
-msgstr ""
+msgstr "délai de départ [s]"
 
 #: src/guisim/GUIVehicle.cpp:148
 msgid "odometer [m]"
-msgstr ""
+msgstr "odomètre [m]"
 
 #: src/guisim/GUIVehicle.cpp:151
 msgid "remaining [#]"
-msgstr ""
+msgstr "restants [#]"
 
 #: src/guisim/GUIVehicle.cpp:154
 msgid "insertion period [s]"
-msgstr ""
+msgstr "période d'insertion [s]"
 
 #: src/guisim/GUIVehicle.cpp:157
 msgid "insertion probability"
-msgstr ""
+msgstr "probabilité d'insertion"
 
 #: src/guisim/GUIVehicle.cpp:160 src/mesogui/GUIMEVehicle.cpp:91
 msgid "poisson rate"
-msgstr ""
+msgstr "paramètre de la distribution de Poisson"
 
 #: src/guisim/GUIVehicle.cpp:162
 msgid "stop info"
@@ -2259,171 +2264,171 @@ msgstr ""
 
 #: src/guisim/GUIVehicle.cpp:163
 msgid "line"
-msgstr ""
+msgstr "ligne"
 
 #: src/guisim/GUIVehicle.cpp:164
 msgid "CO2 [mg/s]"
-msgstr ""
+msgstr "CO2 [mg/s]"
 
 #: src/guisim/GUIVehicle.cpp:166
 msgid "CO [mg/s]"
-msgstr ""
+msgstr "CO [mg/s]"
 
 #: src/guisim/GUIVehicle.cpp:168
 msgid "HC [mg/s]"
-msgstr ""
+msgstr "HC [mg/s]"
 
 #: src/guisim/GUIVehicle.cpp:170
 msgid "NOx [mg/s]"
-msgstr ""
+msgstr "NOx [mg/s]"
 
 #: src/guisim/GUIVehicle.cpp:172
 msgid "PMx [mg/s]"
-msgstr ""
+msgstr "PMx [mg/s]"
 
 #: src/guisim/GUIVehicle.cpp:174
 msgid "fuel [mg/s]"
-msgstr ""
+msgstr "carburant [mg/s]"
 
 #: src/guisim/GUIVehicle.cpp:176
 msgid "electricity [Wh/s]"
-msgstr ""
+msgstr "électricité [Wh/s]"
 
 #: src/guisim/GUIVehicle.cpp:178
 msgid "noise (Harmonoise) [dB]"
-msgstr ""
+msgstr "bruit (Harmonoise) [dB]"
 
 #: src/guisim/GUIVehicle.cpp:180
 msgid "devices"
-msgstr ""
+msgstr "appareils"
 
 #: src/guisim/GUIVehicle.cpp:181
 msgid "persons"
-msgstr ""
+msgstr "personnes"
 
 #: src/guisim/GUIVehicle.cpp:183
 msgid "containers"
-msgstr ""
+msgstr "conteneurs"
 
 #: src/guisim/GUIVehicle.cpp:185
 msgid "lcState right"
-msgstr ""
+msgstr "état du changement de voie à droite"
 
 #: src/guisim/GUIVehicle.cpp:186
 msgid "lcState left"
-msgstr ""
+msgstr "état du changement de voie à gauche"
 
 #: src/guisim/GUIVehicle.cpp:187
 msgid "parking badges"
-msgstr ""
+msgstr "badges de stationnement"
 
 #: src/guisim/GUIVehicle.cpp:190
 msgid "lcState center"
-msgstr ""
+msgstr "état du changement de voie au centre"
 
 #: src/guisim/GUIVehicle.cpp:191
 msgid "right side on edge [m]"
-msgstr ""
+msgstr "côté droit de l'arête [m]"
 
 #: src/guisim/GUIVehicle.cpp:192
 msgid "left side on edge [m]"
-msgstr ""
+msgstr "côté gauche de l'arête [m]"
 
 #: src/guisim/GUIVehicle.cpp:193
 msgid "rightmost edge sublane [#]"
-msgstr ""
+msgstr "sous-voie la plus à droite de l'arête [#]"
 
 #: src/guisim/GUIVehicle.cpp:194
 msgid "leftmost edge sublane [#]"
-msgstr ""
+msgstr "sous-voie la plus à gauche de l'arête [#]"
 
 #: src/guisim/GUIVehicle.cpp:195
 msgid "lane change maneuver distance [m]"
-msgstr ""
+msgstr "distance de manoeuvre pour changement de voie [m]"
 
 #: src/guisim/GUIVehicle.cpp:198
 msgid "driveways"
-msgstr ""
+msgstr "allées"
 
 #: src/guisim/GUIVehicle.cpp:201
 msgid "present state of charge [Wh]"
-msgstr ""
+msgstr "état actuel de charge [Wh]"
 
 #: src/guisim/GUIVehicle.cpp:205
 msgid "relative state of charge (SoC) [-]"
-msgstr ""
+msgstr "état relatif de charge (SoC) [-]"
 
 #: src/guisim/GUIVehicle.cpp:207
 msgid "current timestep charge [Wh]"
-msgstr ""
+msgstr "charge du pas courant [Wh]"
 
 #: src/guisim/GUIVehicle.cpp:209
 msgid "maximum charge rate [W]"
-msgstr ""
+msgstr "taux de charge maximal [W]"
 
 #: src/guisim/GUIVehicle.cpp:213
 msgid "present electric current [A]"
-msgstr ""
+msgstr "intensité électrique actuelle [A]"
 
 #: src/guisim/GUIVehicle.cpp:218
 msgid "speed mode"
-msgstr ""
+msgstr "mode de vitesse"
 
 #: src/guisim/GUIVehicle.cpp:221
 msgid "lane change mode"
-msgstr ""
+msgstr "mode de changement de voie"
 
 #: src/guisim/GUIVehicle.cpp:234
 msgid "height [m]"
-msgstr ""
+msgstr "hauteur [m]"
 
 #: src/guisim/GUIVehicle.cpp:235
 msgid "minGap [m]"
-msgstr ""
+msgstr "écart minimal [m]"
 
 #: src/guisim/GUIVehicle.cpp:236
 msgid "vehicle class"
-msgstr ""
+msgstr "classe du véhicule"
 
 #: src/guisim/GUIVehicle.cpp:237
 msgid "emission class"
-msgstr ""
+msgstr "classe d'émission"
 
 #: src/guisim/GUIVehicle.cpp:239
 msgid "car-following model"
-msgstr ""
+msgstr "modèle de suivi de véhicule"
 
 #: src/guisim/GUIVehicle.cpp:240
 msgid "lane-change model"
-msgstr ""
+msgstr "modèle de changement de voie"
 
 #: src/guisim/GUIVehicle.cpp:241
 msgid "guiShape"
-msgstr ""
+msgstr "guiShape"
 
 #: src/guisim/GUIVehicle.cpp:243
 msgid "desired maximum speed [m/s]"
-msgstr ""
+msgstr "vitesse maximale désirée [m/s]"
 
 #: src/guisim/GUIVehicle.cpp:244
 msgid "maximum acceleration [m/s^2]"
-msgstr ""
+msgstr "accélération maximale [m/s^2]"
 
 #: src/guisim/GUIVehicle.cpp:245
 msgid "maximum deceleration [m/s^2]"
-msgstr ""
+msgstr "décélération maximale [m/s^2]"
 
 #: src/guisim/GUIVehicle.cpp:246
 msgid "emergency deceleration [m/s^2]"
-msgstr ""
+msgstr "décélération d'urgence [m/s^2]"
 
 #: src/guisim/GUIVehicle.cpp:247
 msgid "apparent deceleration [m/s^2]"
-msgstr ""
+msgstr "décélération apparente [m/s^2]"
 
 #: src/guisim/GUIVehicle.cpp:248
 msgid "imperfection (sigma)"
-msgstr ""
+msgstr "imperfection (sigma)"
 
 #: src/guisim/GUIVehicle.cpp:249
 msgid "desired headway (tau) [s]"
@@ -2431,7 +2436,7 @@ msgstr ""
 
 #: src/guisim/GUIVehicle.cpp:250
 msgid "speedfactor"
-msgstr ""
+msgstr "facteur vitesse"
 
 #: src/guisim/GUIVehicle.cpp:252
 msgid "action step length [s]"
@@ -2439,19 +2444,19 @@ msgstr ""
 
 #: src/guisim/GUIVehicle.cpp:254
 msgid "person capacity"
-msgstr ""
+msgstr "capacité en personnes"
 
 #: src/guisim/GUIVehicle.cpp:255
 msgid "boarding time [s]"
-msgstr ""
+msgstr "heure d'embarquement [s]"
 
 #: src/guisim/GUIVehicle.cpp:256
 msgid "container capacity"
-msgstr ""
+msgstr "capacité en conteneurs"
 
 #: src/guisim/GUIVehicle.cpp:257
 msgid "loading time [s]"
-msgstr ""
+msgstr "temps de chargement [s]"
 
 #: src/guisim/GUIVehicle.cpp:259
 msgid "minGapLat [m]"
@@ -2463,7 +2468,7 @@ msgstr ""
 
 #: src/guisim/GUIVehicle.cpp:261
 msgid "latAlignment"
-msgstr ""
+msgstr "alignement latéral"
 
 #: src/guisim/GUIVehicle.cpp:272
 msgid "manoeuver Angle vs Times"
@@ -2571,15 +2576,15 @@ msgstr ""
 
 #: src/netedit/GNEApplicationWindow.cpp:1433
 msgid "Detectors"
-msgstr ""
+msgstr "Détecteurs"
 
 #: src/netedit/GNEApplicationWindow.cpp:1434
 msgid "Districts"
-msgstr ""
+msgstr "Quartiers"
 
 #: src/netedit/GNEApplicationWindow.cpp:1435
 msgid "DRT"
-msgstr ""
+msgstr "Transport à la demande (DRT)"
 
 #: src/netedit/GNEApplicationWindow.cpp:1437
 msgid "CityBrain"
@@ -2587,27 +2592,27 @@ msgstr ""
 
 #: src/netedit/GNEApplicationWindow.cpp:1438
 msgid "GTFS"
-msgstr ""
+msgstr "GTFS"
 
 #: src/netedit/GNEApplicationWindow.cpp:1439
 msgid "Vissim"
-msgstr ""
+msgstr "Vissim"
 
 #: src/netedit/GNEApplicationWindow.cpp:1440
 msgid "Visum"
-msgstr ""
+msgstr "Visum"
 
 #: src/netedit/GNEApplicationWindow.cpp:1441
 msgid "Import"
-msgstr ""
+msgstr "Importer"
 
 #: src/netedit/GNEApplicationWindow.cpp:1442
 msgid "Net"
-msgstr ""
+msgstr "Réseau"
 
 #: src/netedit/GNEApplicationWindow.cpp:1443
 msgid "Output"
-msgstr ""
+msgstr "Sortie"
 
 #: src/netedit/GNEApplicationWindow.cpp:1444
 #: src/netedit/GNEApplicationWindowHelper.cpp:705
@@ -2622,7 +2627,7 @@ msgstr "Feu tricolore"
 
 #: src/netedit/GNEApplicationWindow.cpp:1447
 msgid "Trigger"
-msgstr ""
+msgstr "Déclencheur"
 
 #: src/netedit/GNEApplicationWindow.cpp:1448
 msgid "Turn-defs"
@@ -2630,11 +2635,11 @@ msgstr ""
 
 #: src/netedit/GNEApplicationWindow.cpp:1449
 msgid "Visualization"
-msgstr ""
+msgstr "Visualisation"
 
 #: src/netedit/GNEApplicationWindow.cpp:1450
 msgid "XML"
-msgstr ""
+msgstr "XML"
 
 #: src/netedit/GNEApplicationWindow.cpp:1546
 msgid "Network computed"
@@ -2712,16 +2717,16 @@ msgstr "Chargement configuration sumo '"
 
 #: src/netedit/GNEApplicationWindow.cpp:2357
 msgid "Netedit options"
-msgstr ""
+msgstr "options Netedit"
 
 #: src/netedit/GNEApplicationWindow.cpp:2374
 #: src/netedit/GNEApplicationWindowHelper.cpp:1888
 msgid "Sumo options"
-msgstr ""
+msgstr "options Sumo"
 
 #: src/netedit/GNEApplicationWindow.cpp:2391
 msgid "Netgenerate options"
-msgstr ""
+msgstr "options Netgenerate"
 
 #: src/netedit/GNEApplicationWindow.cpp:2407
 #: src/netedit/GNEApplicationWindowHelper.cpp:1276
@@ -2989,11 +2994,11 @@ msgstr "Ouvrir une nouvelle fenêtre netedit."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:210
 msgid "Generate Network"
-msgstr ""
+msgstr "Générer réseau"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:210
 msgid "Create network using netgenerate."
-msgstr ""
+msgstr "Générer réseau via netgenerate."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:217
 msgid "Load Netedit config..."
@@ -3071,7 +3076,7 @@ msgstr ""
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:262
 msgid "Reload"
-msgstr ""
+msgstr "Recharger"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:262
 #: src/netedit/GNEApplicationWindowHelper.cpp:266
@@ -3497,11 +3502,11 @@ msgstr "Créer routes."
 #: src/netedit/GNEApplicationWindowHelper.cpp:708
 #: src/netedit/GNETagPropertiesDatabase.cpp:3057
 msgid "Route distribution"
-msgstr ""
+msgstr "Distribution de routes"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:708
 msgid "Create and edit route distributions."
-msgstr ""
+msgstr "Créer et éditer des distributions de routes."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:712
 #: src/netedit/elements/demand/GNEVehicle.cpp:122
@@ -3526,7 +3531,7 @@ msgstr ""
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:718
 msgid "Create and edit type distributions."
-msgstr ""
+msgstr "Créer et éditer des distributions de types."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:721
 msgid "Create stops."
@@ -3664,19 +3669,19 @@ msgstr ""
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:913
 msgid "Show bubbles over junctions shapes"
-msgstr ""
+msgstr "Montrer les bulles au dessus des formes de jonctions"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:918
 msgid "Apply mouse movement to elevation"
-msgstr ""
+msgstr "Appliquer le mouvement de la souris à l'altitude"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:923
 msgid "Create consecutive edges"
-msgstr ""
+msgstr "Créer des arêtes consécutives"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:928
 msgid "Create an edge in the opposite direction"
-msgstr ""
+msgstr "Créer une arête dans la direction opposée"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1048
 #: src/netedit/GNEViewNetHelper.cpp:2977
@@ -3687,46 +3692,46 @@ msgstr ""
 #: src/netedit/GNEApplicationWindowHelper.cpp:1179
 #: src/netedit/GNEViewNetHelper.cpp:2984 src/netedit/GNEViewNetHelper.cpp:3255
 msgid "Show shapes"
-msgstr ""
+msgstr "Montrer formes"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1058
 #: src/netedit/GNEViewNetHelper.cpp:2991
 msgid "Show all trips"
-msgstr ""
+msgstr "Montrer tous les trajets"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1063
 #: src/netedit/GNEViewNetHelper.cpp:2998
 msgid "Show all person plans"
-msgstr ""
+msgstr "Montrer tous les itinéraires de personnes"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1068
 #: src/netedit/GNEViewNetHelper.cpp:3005
 msgid "Lock selected person"
-msgstr ""
+msgstr "Bloquer personne sélectionnée"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1073
 msgid "Show all container plans"
-msgstr ""
+msgstr "Montrer tous les itinéraires de conteneurs"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1078
 #: src/netedit/GNEViewNetHelper.cpp:3019
 msgid "Lock selected container"
-msgstr ""
+msgstr "Bloquer conteneur sélectionné"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1083
 #: src/netedit/GNEViewNetHelper.cpp:3026
 msgid "Show non-inspected demand elements"
-msgstr ""
+msgstr "Montrer les éléments de demande non inspectés"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1088
 #: src/netedit/GNEViewNetHelper.cpp:3033
 msgid "Show number of overlapped routes"
-msgstr ""
+msgstr "Montrer le nombre de routes se chevauchant"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1174
 #: src/netedit/GNEViewNetHelper.cpp:3249
 msgid "Show additionals"
-msgstr ""
+msgstr "Montrer les éléments additionnels"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1189
 msgid "Draw TAZRel from center"
@@ -3746,19 +3751,19 @@ msgstr ""
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1276
 msgid "Undo the last change."
-msgstr ""
+msgstr "Annuler le dernier changement."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1279
 msgid "Redo the last change."
-msgstr ""
+msgstr "Refaire le dernier changement."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1282
 msgid "Show undo/redo history"
-msgstr ""
+msgstr "Montrer l'historique des opérations"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1282
 msgid "Open undo/redo history dialog."
-msgstr ""
+msgstr "Montrer le dialogue d'historique des opérations."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1286
 msgid "Allow undo-redo"
@@ -3839,7 +3844,7 @@ msgstr ""
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1402
 msgid "Obstacles"
-msgstr ""
+msgstr "Obstacles"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1407
 msgid "&Routes"
@@ -3888,23 +3893,23 @@ msgstr ""
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1475
 msgid "Lock selected elements"
-msgstr ""
+msgstr "Bloquer les éléments sélectionnés"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1475
 msgid "selected elements"
-msgstr ""
+msgstr "éléments sélectionnés"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1482
 msgid "Lock all elements"
-msgstr ""
+msgstr "Bloquer tous les éléments"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1482
 msgid "all elements"
-msgstr ""
+msgstr "tous les éléments"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1486
 msgid "Unlock all elements"
-msgstr ""
+msgstr "Débloquer tous les éléments"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1846
 #, fuzzy
@@ -3924,17 +3929,16 @@ msgid "Compute junction shape and logic using volatile junctions."
 msgstr ""
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1852
-#, fuzzy
 msgid "Clean Junctions"
-msgstr "&Connexions"
+msgstr "Nettoyer jonctions"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1852
 msgid "Remove solitary junctions."
-msgstr ""
+msgstr "Supprimer jonctions solitaires."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1855
 msgid "Join Selected Junctions"
-msgstr ""
+msgstr "Joindre jonctions sélectionnées"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1855
 msgid "Join selected junctions into a single junction."
@@ -3942,11 +3946,11 @@ msgstr ""
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1858
 msgid "Clean invalid crossings"
-msgstr ""
+msgstr "Nettoyer croisements invalides"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1858
 msgid "Clear invalid crossings."
-msgstr ""
+msgstr "Supprimer croisements invalides."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1864
 msgid "Recompute Network in Data Mode"
@@ -3954,31 +3958,31 @@ msgstr ""
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1870
 msgid "Compute demand"
-msgstr ""
+msgstr "Calculer la demande"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1870
 msgid "Computes demand elements."
-msgstr ""
+msgstr "Calculer les élements de demande."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1873
 msgid "Clean routes"
-msgstr ""
+msgstr "Nettoyer routes"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1873
 msgid "Removes routes without vehicles."
-msgstr ""
+msgstr "Supprime routes sans véhicules."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1876
 msgid "Join routes"
-msgstr ""
+msgstr "Joindre routes"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1876
 msgid "Joins routes with the same edges."
-msgstr ""
+msgstr "Joindre routes avec les mêmes arêtes."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1879
 msgid "Adjust person plans"
-msgstr ""
+msgstr "Ajuster les itinéraires de personnes"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1879
 msgid "Adjust person plans (start/end positions, arrival positions, etc.)"
@@ -3986,7 +3990,7 @@ msgstr ""
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1882
 msgid "Clean invalid route elements"
-msgstr ""
+msgstr "Nettoyer élements de route invalides"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1882
 msgid "Clear elements with an invalid path (routes, Trips, Flows...)."
@@ -3994,7 +3998,7 @@ msgstr ""
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1888
 msgid "Configure sumo Options."
-msgstr ""
+msgstr "Configurer options sumo."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1894
 #: src/netedit/dialogs/options/GNEOptionsDialog.cpp:315
@@ -4004,7 +4008,7 @@ msgstr "Options"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1894
 msgid "Configure netedit Options."
-msgstr ""
+msgstr "Configurer options netedit."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:2013
 msgid "&WalkingAreas"

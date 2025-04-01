@@ -370,7 +370,13 @@ MSRailSignal::initDriveWays(const SUMOVehicle* ego, bool update) {
         endIndex = (int)edges.size() - 1;
     }
     const int departIndex = ego->getParameter().departEdge;
-    MSDriveWay* prev = const_cast<MSDriveWay*>(MSDriveWay::getDepartureDriveway(ego));
+    MSDriveWay* prev = const_cast<MSDriveWay*>(MSDriveWay::getDepartureDriveway(ego, true));
+    if (update && ego->hasDeparted()) {
+        MSBaseVehicle* veh = dynamic_cast<MSBaseVehicle*>(const_cast<SUMOVehicle*>(ego));
+        if (!prev->hasTrain(veh) && prev->notifyEnter(*veh, prev->NOTIFICATION_REROUTE, nullptr) && !veh->hasReminder(prev)) {
+            veh->addReminder(prev, 1);
+        }
+    }
     for (int i = departIndex; i <= endIndex - 1; i++) {
         const MSEdge* e = edges[i];
         if (e->isNormal() && e->getToJunction()->getType() == SumoXMLNodeType::RAIL_SIGNAL) {
@@ -382,7 +388,7 @@ MSRailSignal::initDriveWays(const SUMOVehicle* ego, bool update) {
                         if (rs != nullptr) {
                             LinkInfo& li = rs->myLinkInfos[link->getTLIndex()];
                             // init driveway
-                            MSDriveWay* dw = &li.getDriveWay(ego);
+                            MSDriveWay* dw = &li.getDriveWay(ego, i);
                             MSRailSignalControl::getInstance().addDrivewayFollower(prev, dw);
                             MSRailSignalControl::getInstance().addDWDeadlockChecks(rs, prev);
                             MSRailSignalControl::getInstance().notifyApproach(link);
@@ -392,8 +398,20 @@ MSRailSignal::initDriveWays(const SUMOVehicle* ego, bool update) {
                                 // after the states have been set
                                 // @note: This is a hack because it could lead to invalid tls-output
                                 // (it's still an improvement over switching based on default driveways)
-                                rs->updateCurrentPhase();
-                                rs->setTrafficLightSignals(SIMSTEP);
+                                if (!ego->hasDeparted()) {
+                                    rs->updateCurrentPhase();
+                                    rs->setTrafficLightSignals(SIMSTEP);
+                                } else if (ego->hasDeparted() && i <= ego->getRoutePosition()) {
+                                    MSBaseVehicle* veh = dynamic_cast<MSBaseVehicle*>(const_cast<SUMOVehicle*>(ego));
+                                    if (!dw->hasTrain(veh) && dw->notifyEnter(*veh, dw->NOTIFICATION_REROUTE, nullptr) && !veh->hasReminder(dw)) {
+                                        veh->addReminder(dw, 1);
+                                        for (MSDriveWay* sub : dw->getSubDriveWays()) {
+                                            if (!sub->hasTrain(veh) && sub->notifyEnter(*veh, dw->NOTIFICATION_REROUTE, nullptr) && !veh->hasReminder(sub)) {
+                                                veh->addReminder(sub, 1);
+                                            }
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
@@ -401,7 +419,7 @@ MSRailSignal::initDriveWays(const SUMOVehicle* ego, bool update) {
             }
         }
     }
-    MSDriveWay::getDepartureDriveway(ego);
+    MSDriveWay::getDepartureDriveway(ego, true);
 }
 
 
@@ -468,9 +486,10 @@ MSRailSignal::LinkInfo::getID() const {
 
 
 MSDriveWay&
-MSRailSignal::LinkInfo::getDriveWay(const SUMOVehicle* veh) {
+MSRailSignal::LinkInfo::getDriveWay(const SUMOVehicle* veh, int searchStart) {
     MSEdge* first = &myLink->getLane()->getEdge();
-    MSRouteIterator firstIt = std::find(veh->getCurrentRouteEdge(), veh->getRoute().end(), first);
+    auto searchStartIt = searchStart < 0 ? veh->getCurrentRouteEdge() : veh->getRoute().begin() + searchStart;
+    MSRouteIterator firstIt = std::find(searchStartIt, veh->getRoute().end(), first);
     if (firstIt == veh->getRoute().end()) {
         // possibly the vehicle has already gone past the first edge (i.e.
         // because first is short or the step-length is high)

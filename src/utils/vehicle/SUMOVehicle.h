@@ -217,6 +217,10 @@ public:
      */
     virtual bool hasDeparted() const = 0;
 
+    /** @brief Returns the edge on which this vehicle shall depart
+     */
+    virtual int getDepartEdge() const = 0;
+
     /** @brief Returns the distance that was already driven by this vehicle
      * @return the distance driven [m]
      */

@@ -189,6 +189,7 @@ public:
     /// @brief return the distance of pos from the area covered by this lane
     static double patchShapeDistance(const MSLane* lane, const Position& pos, double dist, bool wasPerpendicular);
 
+    static int readDistanceRequest(tcpip::Storage& data, TraCIRoadPosition& roadPos, Position& pos);
 
     class LaneUtility {
     public:
@@ -225,7 +226,19 @@ public:
         bool wrapPositionVector(const std::string& objID, const int variable, const TraCIPositionVector& value);
         bool wrapColor(const std::string& objID, const int variable, const TraCIColor& value);
         bool wrapStringDoublePair(const std::string& objID, const int variable, const std::pair<std::string, double>& value);
+        bool wrapStringDoublePairList(const std::string& objID, const int variable, const std::vector<std::pair<std::string, double> >& value);
         bool wrapStringPair(const std::string& objID, const int variable, const std::pair<std::string, std::string>& value);
+        bool wrapIntPair(const std::string& objID, const int variable, const std::pair<int, int>& value);
+        bool wrapStage(const std::string& objID, const int variable, const TraCIStage& value);
+        bool wrapReservationVector(const std::string& objID, const int variable, const std::vector<TraCIReservation>& value);
+        bool wrapLogicVector(const std::string& objID, const int variable, const std::vector<TraCILogic>& value);
+        bool wrapLinkVectorVector(const std::string& objID, const int variable, const std::vector<std::vector<TraCILink> >& value);
+        bool wrapSignalConstraintVector(const std::string& objID, const int variable, const std::vector<TraCISignalConstraint>& value);
+        bool wrapJunctionFoeVector(const std::string& objID, const int variable, const std::vector<TraCIJunctionFoe>& value);
+        bool wrapNextStopDataVector(const std::string& objID, const int variable, const std::vector<TraCINextStopData>& value);
+        bool wrapVehicleDataVector(const std::string& objID, const int variable, const std::vector<TraCIVehicleData>& value);
+        bool wrapBestLanesDataVector(const std::string& objID, const int variable, const std::vector<TraCIBestLanesData>& value);
+        bool wrapNextTLSDataVector(const std::string& objID, const int variable, const std::vector<TraCINextTLSData>& value);
         void empty(const std::string& objID);
     private:
         SubscriptionResults& myResults;

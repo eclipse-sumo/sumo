@@ -227,7 +227,7 @@ GNEShapeFrame::GNEShapeFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
     myBaseShape(nullptr) {
 
     // create item Selector module for shapes
-    myShapeTagSelector = new GNETagSelector(this, GNETagProperties::TagType::SHAPE, SUMO_TAG_POLY);
+    myShapeTagSelector = new GNETagSelector(this, GNETagProperties::Type::SHAPE, SUMO_TAG_POLY);
 
     // Create shape parameters
     myShapeAttributesEditor = new GNEAttributesEditor(this, GNEAttributesEditorType::EditorType::CREATOR);

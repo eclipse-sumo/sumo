@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-03-13 23:35:40.005259 by gtfs2pt.py v1_22_0+0829-a1b275cb524
+<configuration>
+    <merged-csv value="data.csv"/>
+    <modes value="bus"/>
+    <vtype-output value="vehtypes.xml"/>
+    <network value="net.net.xml"/>
+    <stops value="input_stops.xml"/>
+    <radius value="100.0"/>
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <busStop id="t1.0" lane="beg_0" startPos="10.00" endPos="20.00" friendlyPos="true" name="stopname1"/>
+    <busStop id="t1.1" lane="middle_0" startPos="80.00" endPos="90.00" friendlyPos="true" name="stopname2"/>
+    <busStop id="t1.2" lane="end_0" startPos="80.00" endPos="90.00" friendlyPos="true" name="stopname3"/>
+</additional>

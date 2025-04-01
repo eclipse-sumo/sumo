@@ -71,7 +71,8 @@ static const libsumo::TraCIResults getSubscriptionResults(const std::string& obj
 static const libsumo::ContextSubscriptionResults getAllContextSubscriptionResults(); \
 static const libsumo::SubscriptionResults getContextSubscriptionResults(const std::string& objectID); \
 static void subscribeParameterWithKey(const std::string& objectID, const std::string& key, double beginTime = libsumo::INVALID_DOUBLE_VALUE, double endTime = libsumo::INVALID_DOUBLE_VALUE); \
-static const int DOMAIN_ID;
+static const int DOMAIN_ID; \
+static int domainID() { return DOMAIN_ID; }
 
 #define LIBSUMO_SUBSCRIPTION_IMPLEMENTATION(CLASS, DOM) \
 const int CLASS::DOMAIN_ID(libsumo::CMD_GET_##DOM##_VARIABLE); \
@@ -331,6 +332,40 @@ struct TraCIDoubleList : TraCIResult {
 };
 
 
+struct TraCIIntList : TraCIResult {
+    std::string getString() const {
+        std::ostringstream os;
+        os << "[";
+        for (int v : value) {
+            os << v << ",";
+        }
+        os << "]";
+        return os.str();
+    }
+    std::vector<int> value;
+#ifdef SWIGJAVA
+    SWIGJAVA_CAST(TraCIIntList)
+#endif
+};
+
+
+struct TraCIStringDoublePairList : TraCIResult {
+    std::string getString() const {
+        std::ostringstream os;
+        os << "[";
+        for (const auto& v : value) {
+            os << "(" << v.first << "," << v.second << "),";
+        }
+        os << "]";
+        return os.str();
+    }
+    std::vector<std::pair<std::string, double> > value;
+#ifdef SWIGJAVA
+    SWIGJAVA_CAST(TraCIStringDoublePairList)
+#endif
+};
+
+
 /// @brief {variable->value}
 typedef std::map<int, std::shared_ptr<libsumo::TraCIResult> > TraCIResults;
 /// @brief {object->{variable->value}}
@@ -369,11 +404,32 @@ struct TraCILogic {
         : programID(_programID), type(_type), currentPhaseIndex(_currentPhaseIndex), phases(_phases) {}
     ~TraCILogic() {}
 
+    std::string getString() const {
+        std::ostringstream os;
+        os << "TraCILink(" << programID << "," << type << "," << currentPhaseIndex << ")";
+        return os.str();
+    }
+
     std::string programID;
     int type;
     int currentPhaseIndex;
     std::vector<std::shared_ptr<libsumo::TraCIPhase> > phases;
     std::map<std::string, std::string> subParameter;
+};
+
+
+struct TraCILogicVectorWrapped : TraCIResult {
+    std::string getString() const {
+        std::ostringstream os;
+        os << "TraCILogicVectorWrapped[";
+        for (const TraCILogic& v : value) {
+            os << v.getString() << ",";
+        }
+        os << "]";
+        return os.str();
+    }
+
+    std::vector<TraCILogic> value;
 };
 
 
@@ -383,9 +439,33 @@ struct TraCILink {
         : fromLane(_from), viaLane(_via), toLane(_to) {}
     ~TraCILink() {}
 
+    std::string getString() const {
+        std::ostringstream os;
+        os << "TraCILink(" << fromLane << "," << viaLane << "," << toLane << ")";
+        return os.str();
+    }
+
     std::string fromLane;
     std::string viaLane;
     std::string toLane;
+};
+
+
+struct TraCILinkVectorVectorWrapped : TraCIResult {
+    std::string getString() const {
+        std::ostringstream os;
+        os << "TraCILinkVectorVectorWrapped[";
+        for (const std::vector<TraCILink>& v : value) {
+            os << "[";
+            for (const TraCILink& tl : v) {
+                os << tl.getString() << ",";
+            }
+        }
+        os << "]";
+        return os.str();
+    }
+
+    std::vector<std::vector<TraCILink> > value;
 };
 
 
@@ -432,6 +512,13 @@ struct TraCIConnectionVectorWrapped : TraCIResult {
 
 /// @brief mirrors MSInductLoop::VehicleData
 struct TraCIVehicleData {
+    std::string getString() const {
+        std::ostringstream os;
+        os << "TraCIVehicleData(" << id << "," << length << "," << entryTime
+           << "," << leaveTime << "," << typeID << ")";
+        return os.str();
+    }
+
     /// @brief The id of the vehicle
     std::string id;
     /// @brief Length of the vehicle
@@ -442,6 +529,21 @@ struct TraCIVehicleData {
     double leaveTime;
     /// @brief Type of the vehicle in
     std::string typeID;
+};
+
+
+struct TraCIVehicleDataVectorWrapped : TraCIResult {
+    std::string getString() const {
+        std::ostringstream os;
+        os << "TraCIVehicleDataVectorWrapped[";
+        for (const TraCIVehicleData& v : value) {
+            os << v.getString() << ",";
+        }
+        os << "]";
+        return os.str();
+    }
+
+    std::vector<TraCIVehicleData> value;
 };
 
 
@@ -619,7 +721,7 @@ struct TraCIBestLanesDataVectorWrapped : TraCIResult {
 };
 
 
-struct TraCIStage {
+struct TraCIStage : TraCIResult {
 public:
     TraCIStage(int type = INVALID_INT_VALUE, const std::string& vType = "", const std::string& line = "", const std::string& destStop = "",
                const std::vector<std::string>& edges = std::vector<std::string>(),
@@ -692,7 +794,29 @@ struct TraCIReservation {
     double reservationTime;
     /// @brief the state of this reservation
     int state;
+
+    std::string getString() const {
+        std::ostringstream os;
+        os << "TraCIReservation(id=" << id << ")";
+        return os.str();
+    }
 };
+
+
+struct TraCIReservationVectorWrapped : TraCIResult {
+    std::string getString() const {
+        std::ostringstream os;
+        os << "TraCIReservationVectorWrapped[";
+        for (const TraCIReservation& v : value) {
+            os << v.getString() << ",";
+        }
+        os << "]";
+        return os.str();
+    }
+
+    std::vector<TraCIReservation> value;
+};
+
 
 struct TraCICollision {
     /// @brief The ids of the participating vehicles and persons
@@ -739,6 +863,21 @@ struct TraCISignalConstraint {
 };
 
 
+struct TraCISignalConstraintVectorWrapped : TraCIResult {
+    std::string getString() const {
+        std::ostringstream os;
+        os << "TraCISignalConstraintVectorWrapped[";
+        for (const TraCISignalConstraint& v : value) {
+            os << v.getString() << ",";
+        }
+        os << "]";
+        return os.str();
+    }
+
+    std::vector<TraCISignalConstraint> value;
+};
+
+
 struct TraCIJunctionFoe {
     /// @brief the id of the vehicle with intersecting trajectory
     std::string foeId;
@@ -750,7 +889,29 @@ struct TraCIJunctionFoe {
     std::string foeLane;
     bool egoResponse;
     bool foeResponse;
+
+    std::string getString() const {
+        std::ostringstream os;
+        os << "TraCIJunctionFoe(foeId=" << foeId << ", egoDist=" << egoDist << ", foeDist=" << foeDist << ", foeDist=" << foeDist << ")";
+        return os.str();
+    }
 };
+
+
+struct TraCIJunctionFoeVectorWrapped : TraCIResult {
+    std::string getString() const {
+        std::ostringstream os;
+        os << "TraCIJunctionFoeVectorWrapped[";
+        for (const TraCIJunctionFoe& v : value) {
+            os << v.getString() << ",";
+        }
+        os << "]";
+        return os.str();
+    }
+
+    std::vector<TraCIJunctionFoe> value;
+};
+
 
 }
 

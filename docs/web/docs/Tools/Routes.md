@@ -41,6 +41,9 @@ The tool determines all possible routes between the given source and target edge
 python tools/findAllRoutes.py -n <net-file> -o <output-file> -s <source-edges> -t <target-edges>
 ```
 
+!!! caution
+    Routes may contain any number of loops and detours. In a highly meshed network (i.e. a grid), the number of possible routes grows very large and most of them will not be plausible.
+
 # analyzePersonPlans.py
 Count the different types of person plans according to the sequence of used modes. Private rides are distinguished from public transport rides using the assumption that the name of the private vehicle will start with the name of the person (as happens for [duarouter](../duarouter.md)-generated person plans).
 ```

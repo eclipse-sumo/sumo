@@ -125,10 +125,10 @@ public:
         void clearPathDraw();
 
         /// @brief check if path element geometry must be drawn in the given lane
-        bool checkDrawPathGeometry(const GUIVisualizationSettings& s, const GNELane* lane, SumoXMLTag tag);
+        bool checkDrawPathGeometry(const GUIVisualizationSettings& s, const GNELane* lane, const SumoXMLTag tag, const bool isPlan);
 
         /// @brief check if path element geometry must be drawn in the given junction
-        bool checkDrawPathGeometry(const GUIVisualizationSettings& s, const GNESegment* segment, SumoXMLTag tag);
+        bool checkDrawPathGeometry(const GUIVisualizationSettings& s, const GNESegment* segment, const SumoXMLTag tag, const bool isPlan);
 
     private:
         /// @brief map for saving tags drawn in lanes

@@ -49,61 +49,7 @@ TraCIServerAPI_Lane::processGet(TraCIServer& server, tcpip::Storage& inputStorag
     server.initWrapper(libsumo::RESPONSE_GET_LANE_VARIABLE, variable, id);
     try {
         if (!libsumo::Lane::handleVariable(id, variable, &server, &inputStorage)) {
-            switch (variable) {
-                case libsumo::LANE_LINKS: {
-                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_COMPOUND);
-                    const std::vector<libsumo::TraCIConnection> links = libsumo::Lane::getLinks(id);
-                    tcpip::Storage tempContent;
-                    int cnt = 0;
-                    tempContent.writeUnsignedByte(libsumo::TYPE_INTEGER);
-                    tempContent.writeInt((int) links.size());
-                    ++cnt;
-                    for (std::vector<libsumo::TraCIConnection>::const_iterator i = links.begin(); i != links.end(); ++i) {
-                        // approached non-internal lane (if any)
-                        tempContent.writeUnsignedByte(libsumo::TYPE_STRING);
-                        tempContent.writeString(i->approachedLane);
-                        ++cnt;
-                        // approached "via", internal lane (if any)
-                        tempContent.writeUnsignedByte(libsumo::TYPE_STRING);
-                        tempContent.writeString(i->approachedInternal);
-                        ++cnt;
-                        // priority
-                        tempContent.writeUnsignedByte(libsumo::TYPE_UBYTE);
-                        tempContent.writeUnsignedByte(i->hasPrio);
-                        ++cnt;
-                        // opened
-                        tempContent.writeUnsignedByte(libsumo::TYPE_UBYTE);
-                        tempContent.writeUnsignedByte(i->isOpen);
-                        ++cnt;
-                        // approaching foe
-                        tempContent.writeUnsignedByte(libsumo::TYPE_UBYTE);
-                        tempContent.writeUnsignedByte(i->hasFoe);
-                        ++cnt;
-                        // state (not implemented, yet)
-                        tempContent.writeUnsignedByte(libsumo::TYPE_STRING);
-                        tempContent.writeString(i->state);
-                        ++cnt;
-                        // direction
-                        tempContent.writeUnsignedByte(libsumo::TYPE_STRING);
-                        tempContent.writeString(i->direction);
-                        ++cnt;
-                        // length
-                        tempContent.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-                        tempContent.writeDouble(i->length);
-                        ++cnt;
-                    }
-                    server.getWrapperStorage().writeInt(cnt);
-                    server.getWrapperStorage().writeStorage(tempContent);
-                    break;
-                }
-                case libsumo::VAR_FOES: {
-                    const std::string toLane = StoHelp::readTypedString(inputStorage, "Foe retrieval requires a string.");
-                    StoHelp::writeTypedStringList(server.getWrapperStorage(), toLane == "" ? libsumo::Lane::getInternalFoes(id) : libsumo::Lane::getFoes(id, toLane));
-                    break;
-                }
-                default:
-                    return server.writeErrorStatusCmd(libsumo::CMD_GET_LANE_VARIABLE, "Get Lane Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
-            }
+            return server.writeErrorStatusCmd(libsumo::CMD_GET_LANE_VARIABLE, "Get Lane Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
         }
     } catch (libsumo::TraCIException& e) {
         return server.writeErrorStatusCmd(libsumo::CMD_GET_LANE_VARIABLE, e.what(), outputStorage);

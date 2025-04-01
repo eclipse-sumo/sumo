@@ -166,7 +166,19 @@ public:
     virtual bool wrapPositionVector(const std::string& objID, const int variable, const TraCIPositionVector& value) = 0;
     virtual bool wrapColor(const std::string& objID, const int variable, const TraCIColor& value) = 0;
     virtual bool wrapStringDoublePair(const std::string& objID, const int variable, const std::pair<std::string, double>& value) = 0;
+    virtual bool wrapStringDoublePairList(const std::string& objID, const int variable, const std::vector<std::pair<std::string, double> >& value) = 0;
     virtual bool wrapStringPair(const std::string& objID, const int variable, const std::pair<std::string, std::string>& value) = 0;
+    virtual bool wrapIntPair(const std::string& objID, const int variable, const std::pair<int, int>& value) = 0;
+    virtual bool wrapStage(const std::string& objID, const int variable, const TraCIStage& value) = 0;
+    virtual bool wrapReservationVector(const std::string& objID, const int variable, const std::vector<TraCIReservation>& value) = 0;
+    virtual bool wrapLogicVector(const std::string& objID, const int variable, const std::vector<TraCILogic>& value) = 0;
+    virtual bool wrapLinkVectorVector(const std::string& objID, const int variable, const std::vector<std::vector<TraCILink> >& value) = 0;
+    virtual bool wrapSignalConstraintVector(const std::string& objID, const int variable, const std::vector<TraCISignalConstraint>& value) = 0;
+    virtual bool wrapJunctionFoeVector(const std::string& objID, const int variable, const std::vector<TraCIJunctionFoe>& value) = 0;
+    virtual bool wrapNextStopDataVector(const std::string& objID, const int variable, const std::vector<TraCINextStopData>& value) = 0;
+    virtual bool wrapVehicleDataVector(const std::string& objID, const int variable, const std::vector<TraCIVehicleData>& value) = 0;
+    virtual bool wrapBestLanesDataVector(const std::string& objID, const int variable, const std::vector<TraCIBestLanesData>& value) = 0;
+    virtual bool wrapNextTLSDataVector(const std::string& objID, const int variable, const std::vector<TraCINextTLSData>& value) = 0;
     virtual void empty(const std::string& /* objID */) {}
 };
 

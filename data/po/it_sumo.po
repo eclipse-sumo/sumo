@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-13 10:07+0100\n"
-"PO-Revision-Date: 2025-03-26 08:23+0000\n"
+"PO-Revision-Date: 2025-03-28 14:40+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -11120,11 +11120,11 @@ msgstr ""
 
 #: src/netwrite/NWWriter_SUMO.cpp:478
 msgid "Could not find bidi-connection for edge '%'"
-msgstr ""
+msgstr "Non ho trovato il collegamento bidirezionale per l'arco '%'"
 
 #: src/netwrite/NWWriter_XML.cpp:106 src/utils/options/OptionsCont.cpp:673
 msgid "Could not save configuration to '%'"
-msgstr ""
+msgstr "Non ho potuto salvare la configurazione in '%'"
 
 #: src/netwrite/NWWriter_XML.cpp:119 src/polyconvert/PCPolyContainer.cpp:105
 msgid ""
@@ -11181,19 +11181,20 @@ msgstr ""
 
 #: src/od2trips_main.cpp:140
 msgid "Spreads trips uniformly over each time period"
-msgstr ""
+msgstr "Distribuisci le corse in modo uniforme in ogni intervallo"
 
 #: src/od2trips_main.cpp:143
 msgid "Always choose source and sink edge which are not identical"
 msgstr ""
+"Scegli sempre degli archi di sorgente e di scaricao che non siano identici"
 
 #: src/od2trips_main.cpp:149
 msgid "Defines the prefix for vehicle names"
-msgstr ""
+msgstr "Definisce il prefisso per i nomi dei veicoli"
 
 #: src/od2trips_main.cpp:162
 msgid "Disable console output of current time step"
-msgstr ""
+msgstr "Disattiva l'uscita di console per il passo di simulazione attuale"
 
 #: src/od2trips_main.cpp:193
 msgid "No TAZ input file (-n) specified."
@@ -11879,11 +11880,11 @@ msgstr ""
 
 #: src/router/ROLoader.cpp:245
 msgid "The loader for % from file '%' could not be initialised (%)."
-msgstr ""
+msgstr "L'analizzatore per % dal file '%' non poteva essere inizializzato (%)."
 
 #: src/router/ROLoader.cpp:283
 msgid "failed."
-msgstr ""
+msgstr "fallito."
 
 #: src/router/RONet.cpp:162
 #, c-format
@@ -11926,7 +11927,7 @@ msgstr "Il tipo di veicolo '%' occorre almeno due volte."
 
 #: src/router/RONet.cpp:498
 msgid "Requesting departure time for unknown vehicle '%'"
-msgstr ""
+msgstr "Si richiede l'ora di partenza del veicolo sconosciuto '%'"
 
 #: src/router/RONet.cpp:528
 #, c-format
@@ -11937,11 +11938,15 @@ msgstr "Esiste un'altra persone con il codice identificativo '%'."
 msgid ""
 "Bulking different maximum speeds ('%' and '%') may lead to suboptimal routes."
 msgstr ""
+"La collezione di velocità massime differenti ('%' e '%') può portare a "
+"itinerari subottimali."
 
 #: src/router/RONet.cpp:640
 msgid ""
 "Bulking different vehicle classes ('%' and '%') may lead to invalid routes."
 msgstr ""
+"La collezione di classi di veicoli differenti ('%' e '%') può portare a "
+"degli itinerari invalidi."
 
 #: src/router/RONetHandler.cpp:139
 msgid "Unknown node '%'."
@@ -12160,18 +12165,20 @@ msgid ""
 "Sets a global slope (in deg) that is used if the file does not contain slope "
 "information."
 msgstr ""
+"Imposta una pendenza (in gradi) da usare se il file non contiene "
+"informazioni sulla pendenza."
 
 #: src/tools/emissionsDrivingCycle_main.cpp:118
 msgid "Defines the file to write the emission cycle results into."
-msgstr ""
+msgstr "Definisce il file dove scrivere i risultati del ciclo di emissioni."
 
 #: src/tools/emissionsDrivingCycle_main.cpp:121
 msgid "Defines the attributes to write."
-msgstr ""
+msgstr "Definisce gli attributi da scrivere."
 
 #: src/tools/emissionsDrivingCycle_main.cpp:124
 msgid "Save the emission values of each vehicle in XML"
-msgstr ""
+msgstr "Salva gli valori di emissioni di ogni veicolo in XML"
 
 #: src/tools/emissionsDrivingCycle_main.cpp:128
 msgid "Save the aggregated and normed emission values of each vehicle in CSV"

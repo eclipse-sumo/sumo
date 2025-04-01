@@ -306,7 +306,7 @@ public:
      *
      * @param[in] rem The move reminder to add
      */
-    virtual void addMoveReminder(MSMoveReminder* rem);
+    virtual void addMoveReminder(MSMoveReminder* rem, bool addToVehicles = true);
 
 
     /** @brief Remove a move-reminder from move-reminder container

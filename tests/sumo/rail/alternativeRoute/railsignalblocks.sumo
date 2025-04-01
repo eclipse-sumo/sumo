@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-10-16 14:27:09 by Eclipse SUMO sumo Version v1_20_0+0696-f5985653822
+<!-- generated on 2025-03-31 21:15:46 by Eclipse SUMO sumo Version v1_22_0+1175-7450f55ecdd
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -41,7 +41,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <no-step-log value="true"/>
     </report>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <railsignal-block-output>
@@ -250,7 +250,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </railSignal>
     <railSignal id="P1">
         <link linkIndex="0" from="T20_1_0" to=":P1_0_0">
-            <driveWay id="P1.0" vehicle="rail8" edges="T19_1 T29_1 T18_1 T17_1">
+            <driveWay id="P1.0" vehicle="rail6" edges="T19_1 T29_1 T18_1 T17_1">
                 <forward lanes=":P1_0_0 T19_1_0 :w8_1_0 T29_1_0 :w7_1_0 T18_1_0 :A_0_0 T17_1_0"/>
                 <bidi lanes=":P1_1_0 T19_0_0 :w8_2_0 T29_0_0 :w7_2_0 T18_0_0 :A_1_0 T17_0_0"/>
                 <flank lanes=""/>
@@ -363,7 +363,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <conflictLinks signals="B_0 N2_0"/>
             <foes driveWays="B.0 N2.0 e5.d0 e5.d1 e5.d2"/>
         </driveWay>
-        <driveWay id="e5.d2" vehicle="rail8" edges="T26_1 T25_1 T30_1 T21_1 T20_1 T19_1 T29_1 T18_1 T17_1">
+        <driveWay id="e5.d2" vehicle="rail6" edges="T26_1 T25_1 T30_1 T21_1 T20_1 T19_1 T29_1 T18_1 T17_1">
             <forward lanes="T26_1_0"/>
             <bidi lanes="T26_0_0 :G_1_0 T25_0_0 :w10_1_0"
                     deadlockCheck="T30_0_0 :w9_2_0 T21_0_0 :N1_1_0 T20_0_0 :P1_1_0 T19_0_0 :w8_2_0 T29_0_0 :w7_2_0 T18_0_0 :A_1_0 T17_0_0"/>

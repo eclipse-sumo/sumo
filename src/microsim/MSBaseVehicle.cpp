@@ -46,6 +46,8 @@
 #include <microsim/trigger/MSChargingStation.h>
 #include <microsim/trigger/MSStoppingPlaceRerouter.h>
 #include <microsim/traffic_lights/MSRailSignalConstraint.h>
+#include <microsim/traffic_lights/MSRailSignalControl.h>
+#include "MSEventControl.h"
 #include "MSGlobals.h"
 #include "MSVehicleControl.h"
 #include "MSVehicleType.h"
@@ -541,6 +543,22 @@ MSBaseVehicle::replaceRoute(ConstMSRoutePtr newRoute, const std::string& info, b
     myNumberReroutes++;
     myStopUntilOffset += myRoute->getPeriod();
     MSNet::getInstance()->informVehicleStateListener(this, MSNet::VehicleState::NEWROUTE, info);
+    if (!onInit && isRail() && MSRailSignalControl::hasInstance()) {
+        // we need to update driveways (add/remove reminders) before the next call to MSRailSignalControl::updateSignals
+        //
+        // rerouting may be triggered through
+        // - MoveReminders (executeMove->activateReminders)
+        //   - rerouters
+        //   - devices (MSDevice_Stationfinder)
+        // - TraCI (changeTarget, replaceStop, ...
+        // - events (MSDevice_Routing::myRerouteCommand, MSDevice_Taxi::triggerDispatch)
+        //
+        // Since activateReminders actively modifies reminders, adding/deleting reminders would create a mess
+        // hence, we use an event to be safe for all case
+
+        MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(new WrappingCommand<MSBaseVehicle>(this,
+                    &MSBaseVehicle::activateRemindersOnReroute), SIMSTEP);
+    }
 #ifdef DEBUG_REPLACE_ROUTE
     if (DEBUG_COND) {
         std::cout << SIMTIME << " veh=" << getID() << " replaceRoute info=" << info << " on " << (*myCurrEdge)->getID()
@@ -818,14 +836,26 @@ MSBaseVehicle::getRouteValidity(bool update, bool silent, std::string* msgReturn
     return myRouteValidity;
 }
 
+
+bool
+MSBaseVehicle::hasReminder(MSMoveReminder* rem) const {
+    for (auto item : myMoveReminders) {
+        if (item.first == rem) {
+            return true;
+        }
+    }
+    return false;
+}
+
+
 void
-MSBaseVehicle::addReminder(MSMoveReminder* rem) {
+MSBaseVehicle::addReminder(MSMoveReminder* rem, double pos) {
 #ifdef _DEBUG
     if (myTraceMoveReminders) {
-        traceMoveReminder("add", rem, 0, true);
+        traceMoveReminder("add", rem, pos, true);
     }
 #endif
-    myMoveReminders.push_back(std::make_pair(rem, 0.));
+    myMoveReminders.push_back(std::make_pair(rem, pos));
 }
 
 
@@ -847,30 +877,33 @@ MSBaseVehicle::removeReminder(MSMoveReminder* rem) {
 
 void
 MSBaseVehicle::activateReminders(const MSMoveReminder::Notification reason, const MSLane* enteredLane) {
-    for (MoveReminderCont::iterator rem = myMoveReminders.begin(); rem != myMoveReminders.end();) {
+    // notifyEnter may cause new reminders to be added so we cannot use an iterator
+    for (int i = 0; i < (int)myMoveReminders.size();) {
+        MSMoveReminder* rem = myMoveReminders[i].first;
+        const double remPos = myMoveReminders[i].second;
         // skip the reminder if it is a lane reminder but not for my lane (indicated by rem->second > 0.)
-        if (rem->first->getLane() != nullptr && rem->second > 0.) {
+        if (rem->getLane() != nullptr && remPos > 0.) {
 #ifdef _DEBUG
             if (myTraceMoveReminders) {
-                traceMoveReminder("notifyEnter_skipped", rem->first, rem->second, true);
+                traceMoveReminder("notifyEnter_skipped", rem, remPos, true);
             }
 #endif
-            ++rem;
+            ++i;
         } else {
-            if (rem->first->notifyEnter(*this, reason, enteredLane)) {
+            if (rem->notifyEnter(*this, reason, enteredLane)) {
 #ifdef _DEBUG
                 if (myTraceMoveReminders) {
-                    traceMoveReminder("notifyEnter", rem->first, rem->second, true);
+                    traceMoveReminder("notifyEnter", rem, remPos, true);
                 }
 #endif
-                ++rem;
+                ++i;
             } else {
 #ifdef _DEBUG
                 if (myTraceMoveReminders) {
-                    traceMoveReminder("notifyEnter", rem->first, rem->second, false);
+                    traceMoveReminder("notifyEnter", rem, remPos, false);
                 }
 #endif
-                rem = myMoveReminders.erase(rem);
+                myMoveReminders.erase(myMoveReminders.begin() + i);
             }
         }
     }
@@ -989,6 +1022,11 @@ MSBaseVehicle::setDepartAndArrivalEdge() {
         assert(pars->arrivalEdge >= begin);
         assert(pars->arrivalEdge < routeEdges);
     }
+}
+
+int
+MSBaseVehicle::getDepartEdge() const {
+    return myParameter->departEdge <= myRoute->size() ? myParameter->departEdge : 0;
 }
 
 int
@@ -1524,6 +1562,32 @@ MSBaseVehicle::setSkips(MSStop& stop, int prevActiveStops) {
         }
         const_cast<SUMOVehicleParameter::Stop&>(stop.pars).index = newIndex;
     }
+}
+
+
+SUMOTime
+MSBaseVehicle::activateRemindersOnReroute(SUMOTime /*currentTime*/) {
+    for (int i = 0; i < (int)myMoveReminders.size();) {
+        auto rem = &myMoveReminders[i];
+        if (rem->first->notifyReroute(*this)) {
+#ifdef _DEBUG
+            if (myTraceMoveReminders) {
+                traceMoveReminder("notifyReroute", rem->first, rem->second, true);
+            }
+#endif
+            ++i;
+        } else {
+#ifdef _DEBUG
+            if (myTraceMoveReminders) {
+                traceMoveReminder("notifyReroute", rem->first, rem->second, false);
+            }
+#endif
+            myMoveReminders.erase(myMoveReminders.begin() + i);
+        }
+    }
+    resetApproachOnReroute();
+    // event only called once
+    return 0;
 }
 
 

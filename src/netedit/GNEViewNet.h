@@ -557,9 +557,6 @@ public:
     /// @brief set statusBar text
     void setStatusBarText(const std::string& text);
 
-    /// @brief reset last clicked position
-    void resetLastClickedPosition();
-
     /// @brief whether to autoselect nodes or to lanes
     bool autoSelectNodes();
 
@@ -732,9 +729,6 @@ private:
 
     /// @brief draw preview roundabout
     bool myDrawPreviewRoundabout = false;
-
-    /// @brief last clicked position
-    Position myLastClickedPosition = Position::INVALID;
 
     /// @brief flag for mark if during this frame a popup was created (needed to avoid problems in linux with CursorDialogs)
     bool myCreatedPopup = false;

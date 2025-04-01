@@ -78,10 +78,10 @@ public:
     static void updateConstraints(const std::string& vehID, std::string tripId = "");
 
     // aliases for backward compatibility
-    inline static std::vector<libsumo::TraCILogic> getCompleteRedYellowGreenDefinition(const std::string& tlsID) {
+    static inline std::vector<libsumo::TraCILogic> getCompleteRedYellowGreenDefinition(const std::string& tlsID) {
         return getAllProgramLogics(tlsID);
     }
-    inline static void setCompleteRedYellowGreenDefinition(const std::string& tlsID, const libsumo::TraCILogic& logic) {
+    static inline void setCompleteRedYellowGreenDefinition(const std::string& tlsID, const libsumo::TraCILogic& logic) {
         setProgramLogic(tlsID, logic);
     }
 

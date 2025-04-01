@@ -331,6 +331,8 @@ InductionLoop::handleVariable(const std::string& objID, const int variable, Vari
             return wrapper->wrapInt(objID, variable, getLastIntervalVehicleNumber(objID));
         case VAR_LAST_INTERVAL_IDS:
             return wrapper->wrapStringList(objID, variable, getLastIntervalVehicleIDs(objID));
+        case LAST_STEP_VEHICLE_DATA:
+            return wrapper->wrapVehicleDataVector(objID, variable, getVehicleData(objID));
         case libsumo::VAR_PARAMETER:
             paramData->readUnsignedByte();
             return wrapper->wrapString(objID, variable, getParameter(objID, paramData->readString()));

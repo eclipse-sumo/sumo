@@ -90,9 +90,9 @@ MSDriveWay::MSDriveWay(const MSLink* origin, const std::string& id, bool tempora
     Named(id),
     myNumericalID(temporary ? -1 : myGlobalDriveWayIndex++),
     myOrigin(origin),
-    myMaxFlankLength(0),
     myActive(nullptr),
     myCoreSize(0),
+    myForwardEdgeCount(0),
     myFoundSignal(false),
     myFoundJump(false),
     myTerminateRoute(false),
@@ -140,28 +140,27 @@ MSDriveWay::clearState() {
 
 bool
 MSDriveWay::notifyEnter(SUMOTrafficObject& veh, Notification reason, const MSLane* enteredLane) {
-    UNUSED_PARAMETER(reason);
-    UNUSED_PARAMETER(enteredLane);
 #ifdef DEBUG_MOVEREMINDER
-    std::cout << SIMTIME << " notifyEnter " << getDescription() << " veh=" << veh.getID() << " lane=" << (MSGlobals::gUseMesoSim ? veh.getEdge()->getID() : enteredLane->getID()) << " reason=" << reason << "\n";
+    std::cout << SIMTIME << " notifyEnter " << getDescription() << " veh=" << veh.getID() << " lane=" << (MSGlobals::gUseMesoSim ? veh.getEdge()->getID() : Named::getIDSecure(enteredLane)) << " reason=" << reason << "\n";
 #endif
     if (veh.isVehicle() && (enteredLane == myLane || (MSGlobals::gUseMesoSim && veh.getEdge() == &myLane->getEdge()))
             && (reason == NOTIFICATION_DEPARTED || reason == NOTIFICATION_JUNCTION || reason == NOTIFICATION_PARKING)) {
         SUMOVehicle& sveh = dynamic_cast<SUMOVehicle&>(veh);
         MSRouteIterator firstIt = std::find(sveh.getCurrentRouteEdge(), sveh.getRoute().end(), myLane->getNextNormal());
-        if (myTrains.count(&sveh) == 0 && match(firstIt, sveh.getRoute().end())) {
-            myTrains.insert(&sveh);
-            if (myOrigin != nullptr) {
-                MSRailSignalControl::getInstance().notifyApproach(myOrigin);
+        if (match(firstIt, sveh.getRoute().end())) {
+            if (myTrains.count(&sveh) == 0) {
+                enterDriveWay(sveh, reason);
             }
-            for (const MSDriveWay* foe : myFoes) {
-                if (foe->myOrigin != nullptr) {
-                    MSRailSignalControl::getInstance().notifyApproach(foe->myOrigin);
-                }
-            }
-            if (myWriteVehicles) {
-                myVehicleEvents.push_back(VehicleEvent(SIMSTEP, true, veh.getID(), reason));
-            }
+            return true;
+        }
+    } else if (reason == NOTIFICATION_REROUTE) {
+        assert(veh.isVehicle());
+        SUMOVehicle& sveh = dynamic_cast<SUMOVehicle&>(veh);
+        assert(myTrains.count(&sveh) == 0);
+        int movedPast = matchesPastRoute(sveh);
+        // vehicle must still be one the drivway
+        if (movedPast >= 0 && movedPast < myForwardEdgeCount) {
+            enterDriveWay(sveh, reason);
             return true;
         }
     }
@@ -171,7 +170,6 @@ MSDriveWay::notifyEnter(SUMOTrafficObject& veh, Notification reason, const MSLan
 
 bool
 MSDriveWay::notifyLeave(SUMOTrafficObject& veh, double /*lastPos*/, Notification reason, const MSLane* enteredLane) {
-    UNUSED_PARAMETER(reason);
     UNUSED_PARAMETER(enteredLane);
 #ifdef DEBUG_MOVEREMINDER
     std::cout << SIMTIME << " notifyLeave " << getDescription() << " veh=" << veh.getID() << " lane=" << Named::getIDSecure(enteredLane) << " reason=" << toString(reason) << "\n";
@@ -199,8 +197,6 @@ MSDriveWay::notifyLeave(SUMOTrafficObject& veh, double /*lastPos*/, Notification
 
 bool
 MSDriveWay::notifyLeaveBack(SUMOTrafficObject& veh, Notification reason, const MSLane* leftLane) {
-    UNUSED_PARAMETER(reason);
-    UNUSED_PARAMETER(leftLane);
 #ifdef DEBUG_MOVEREMINDER
     std::cout << SIMTIME << " notifyLeaveBack " << getDescription() << " veh=" << veh.getID() << " lane=" << Named::getIDSecure(leftLane) << " reason=" << toString(reason) << "\n";
 #endif
@@ -219,6 +215,63 @@ MSDriveWay::notifyLeaveBack(SUMOTrafficObject& veh, Notification reason, const M
     }
 }
 
+
+bool
+MSDriveWay::notifyReroute(SUMOTrafficObject& veh) {
+#ifdef DEBUG_MOVEREMINDER
+    std::cout << SIMTIME << " notifyReroute " << getDescription() << " veh=" << veh.getID() << "\n";
+#endif
+    assert(veh.isVehicle());
+    SUMOVehicle* sveh = dynamic_cast<SUMOVehicle*>(&veh);
+    assert(myTrains.count(sveh) != 0);
+    if (matchesPastRoute(*sveh) >= 0) {
+        //std::cout << SIMTIME << " notifyReroute " << getDescription() << " veh=" << veh.getID() << " valid\n";
+        return true;
+    }
+    // no match found, remove
+    myTrains.erase(sveh);
+    if (myWriteVehicles) {
+        myVehicleEvents.push_back(VehicleEvent(SIMSTEP, false, veh.getID(), NOTIFICATION_REROUTE));
+    }
+    //std::cout << SIMTIME << " notifyReroute " << getDescription() << " veh=" << veh.getID() << " invalid\n";
+    return false;
+}
+
+
+int
+MSDriveWay::matchesPastRoute(SUMOVehicle& sveh) const {
+    // look backwards along the route to find the driveway lane
+    const ConstMSEdgeVector& routeEdges = sveh.getRoute().getEdges();
+    for (int i = sveh.getRoutePosition(); i >= 0; i--) {
+        if (routeEdges[i] == myLane->getNextNormal()) {
+            MSRouteIterator firstIt = routeEdges.begin() + i;
+            if (match(firstIt, sveh.getRoute().end())) {
+                // driveway is still valid after rerouting
+                //std::cout << SIMTIME << " notifyReroute " << getDescription() << " veh=" << veh.getID() << " valid\n";
+                return sveh.getRoutePosition() - i;
+            }
+            break;
+        }
+    }
+    return -1;
+}
+
+
+void
+MSDriveWay::enterDriveWay(SUMOVehicle& sveh, Notification reason) {
+    myTrains.insert(&sveh);
+    if (myOrigin != nullptr) {
+        MSRailSignalControl::getInstance().notifyApproach(myOrigin);
+    }
+    for (const MSDriveWay* foe : myFoes) {
+        if (foe->myOrigin != nullptr) {
+            MSRailSignalControl::getInstance().notifyApproach(foe->myOrigin);
+        }
+    }
+    if (myWriteVehicles) {
+        myVehicleEvents.push_back(VehicleEvent(SIMSTEP, true, sveh.getID(), reason));
+    }
+}
 
 bool
 MSDriveWay::reserve(const Approaching& closest, MSEdgeVector& occupied) {
@@ -899,13 +952,16 @@ MSDriveWay::buildRoute(const MSLink* origin,
         if (seekForwardSignal) {
             if (!foundUnsafeSwitch) {
                 myForward.push_back(toLane);
+                if (toLane->isNormal()) {
+                    myForwardEdgeCount++;
+                }
                 if (myForward.size() == 1) {
                     myLane = toLane;
                     if (MSGlobals::gUseMesoSim) {
                         MESegment* s = MSGlobals::gMesoNet->getSegmentForEdge(myLane->getEdge());
                         s->addDetector(this, myLane->getIndex());
                     } else {
-                        toLane->addMoveReminder(this);
+                        toLane->addMoveReminder(this, false);
                     }
                 }
             }
@@ -1729,7 +1785,7 @@ MSDriveWay::buildSubFoe(MSDriveWay* foe, bool movingBlock) {
     sub->myForward = forward;
     sub->myRoute = route;
     sub->myCoreSize = (int)sub->myRoute.size();
-    myLane->addMoveReminder(sub);
+    myLane->addMoveReminder(sub, false);
 
     // copy trains that are currently on this driveway (and associated entry events)
     for (SUMOVehicle* veh : myTrains) {
@@ -1891,8 +1947,8 @@ MSDriveWay::addDWDeadlock(const std::vector<const MSDriveWay*>& deadlockFoes) {
 }
 
 const MSDriveWay*
-MSDriveWay::getDepartureDriveway(const SUMOVehicle* veh) {
-    const MSEdge* edge = veh->getEdge();
+MSDriveWay::getDepartureDriveway(const SUMOVehicle* veh, bool init) {
+    const MSEdge* edge = init ? veh->getRoute().getEdges()[veh->getDepartEdge()] : veh->getEdge();
     if (edge->getFromJunction()->getType() == SumoXMLNodeType::RAIL_SIGNAL) {
         for (const MSLane* lane : edge->getLanes()) {
             for (auto ili : lane->getIncomingLanes()) {
@@ -1908,7 +1964,8 @@ MSDriveWay::getDepartureDriveway(const SUMOVehicle* veh) {
         }
     }
     for (MSDriveWay* dw : myDepartureDriveways[edge]) {
-        if (dw->match(veh->getCurrentRouteEdge(), veh->getRoute().end())) {
+        auto matchStart = init ? veh->getRoute().begin() + veh->getDepartEdge() : veh->getCurrentRouteEdge();
+        if (dw->match(matchStart, veh->getRoute().end())) {
             return dw;
         }
     }
@@ -2044,6 +2101,12 @@ MSDriveWay::retrieveDepartDriveWay(const MSEdge* edge, const std::string& id) {
         }
     }
     return nullptr;
+}
+
+
+bool
+MSDriveWay::hasTrain(SUMOVehicle* veh) const {
+    return myTrains.count(veh) != 0;
 }
 
 /****************************************************************************/

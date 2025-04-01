@@ -102,7 +102,7 @@ public:
     double getColorValue(const GUIVisualizationSettings& s, int activeScheme) const;
 
     /// @brief draws the given guiShape with distinct carriages/modules
-    void drawAction_drawCarriageClass(const GUIVisualizationSettings& s, bool asImage) const;
+    void drawAction_drawCarriageClass(const GUIVisualizationSettings& s, double scaledLength, bool asImage) const;
 
     /** @brief Returns the time since the last lane change in seconds
      * @see MSVehicle::myLastLaneChangeOffset

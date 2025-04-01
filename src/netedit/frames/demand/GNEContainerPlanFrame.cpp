@@ -39,7 +39,7 @@ GNEContainerPlanFrame::GNEContainerPlanFrame(GNEViewParent* viewParent, GNEViewN
     GNEFrame(viewParent, viewNet, TL("ContainerPlans")) {
 
     // create container types selector module
-    myContainerSelector = new GNEDemandElementSelector(this, {GNETagProperties::TagType::CONTAINER});
+    myContainerSelector = new GNEDemandElementSelector(this, {GNETagProperties::Type::CONTAINER});
 
     // Create plan selector
     myPlanSelector = new GNEPlanSelector(this, SUMO_TAG_CONTAINER);

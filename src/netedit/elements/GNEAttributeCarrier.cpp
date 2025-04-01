@@ -19,7 +19,6 @@
 /****************************************************************************/
 
 #include <netedit/GNENet.h>
-#include <netedit/GNETagProperties.h>
 #include <netedit/GNETagPropertiesDatabase.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
@@ -204,27 +203,6 @@ GNEAttributeCarrier::inGrid() const {
 bool
 GNEAttributeCarrier::checkDrawInspectContour() const {
     return myNet->getViewNet()->getInspectedElements().isACInspected(this);
-}
-
-
-bool
-GNEAttributeCarrier::checkDrawInspectContourSmall() const {
-    const auto& modes = myNet->getViewNet()->getEditModes();
-    if (modes.isCurrentSupermodeNetwork() &&
-            (modes.networkEditMode == NetworkEditMode::NETWORK_INSPECT) &&
-            (myTagProperty->getSupermode() == Supermode::NETWORK)) {
-        return myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == getGUIGlObject();
-    } else if (modes.isCurrentSupermodeDemand() &&
-               (modes.demandEditMode == DemandEditMode::DEMAND_INSPECT) &&
-               (myTagProperty->getSupermode() == Supermode::DEMAND)) {
-        return myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == getGUIGlObject();
-    } else if (modes.isCurrentSupermodeData() &&
-               (modes.dataEditMode == DataEditMode::DATA_INSPECT) &&
-               (myTagProperty->getSupermode() == Supermode::DATA)) {
-        return myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == getGUIGlObject();
-    } else {
-        return false;
-    }
 }
 
 

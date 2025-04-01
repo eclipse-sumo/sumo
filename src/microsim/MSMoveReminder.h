@@ -106,6 +106,8 @@ public:
         NOTIFICATION_TELEPORT_CONTINUATION,
         /// @brief The vehicle starts or ends parking
         NOTIFICATION_PARKING,
+        /// @brief The vehicle changed it's route
+        NOTIFICATION_REROUTE,
         /// @brief The vehicle needs another parking area
         NOTIFICATION_PARKING_REROUTE,
         /// @brief The vehicle arrived at its destination (is deleted)
@@ -232,6 +234,15 @@ public:
         UNUSED_PARAMETER(&veh);
         UNUSED_PARAMETER(reason);
         UNUSED_PARAMETER(leftLane);
+        return true;
+    }
+
+    /** @brief Called if the vehicle change it's route
+     * @param[in] veh The rerouted vehicle.
+     * @return True if the reminder wants to receive further info.
+     */
+    virtual bool notifyReroute(SUMOTrafficObject& veh) {
+        UNUSED_PARAMETER(&veh);
         return true;
     }
 

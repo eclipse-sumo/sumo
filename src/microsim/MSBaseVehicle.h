@@ -523,12 +523,15 @@ public:
     /// @brief check for route validity at first insertion attempt
     int getRouteValidity(bool update = true, bool silent = false, std::string* msgReturn = nullptr);
 
+    /// @brief Checks whether the vehilce has the given MoveReminder
+    bool hasReminder(MSMoveReminder* rem) const;
+
     /** @brief Adds a MoveReminder dynamically
      *
      * @param[in] rem the reminder to add
      * @see MSMoveReminder
      */
-    void addReminder(MSMoveReminder* rem);
+    void addReminder(MSMoveReminder* rem, double pos = 0);
 
     /** @brief Removes a MoveReminder dynamically
      *
@@ -986,6 +989,8 @@ public:
     /// @brief apply departEdge and arrivalEdge attributes
     void setDepartAndArrivalEdge();
 
+    int getDepartEdge() const;
+
     int getInsertionChecks() const;
 
     /// @brief interpret stop lane on opposite side of the road
@@ -1019,6 +1024,10 @@ public:
         return myChargingMemory;
     }
     //@}
+
+protected:
+    /// @brief reset rail signal approach information
+    virtual void resetApproachOnReroute() {};
 
 protected:
     /// @brief This vehicle's parameter.
@@ -1141,6 +1150,9 @@ private:
 
     /// @brief patch stop.pars.index to record the number of skipped candidate edges before stop.edge (in a looped route)
     void setSkips(MSStop& stop, int prevActiveStops);
+
+    /// @brief remove outdated driveways on reroute
+    SUMOTime activateRemindersOnReroute(SUMOTime currentTime);
 
 private:
     /// invalidated assignment operator

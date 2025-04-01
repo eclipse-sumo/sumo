@@ -60,24 +60,29 @@ class Reservation(object):
         ] if v != ""])
 
 
-def _readReservation(result):
-    # compound size and type
-    assert result.read("!i")[0] == 10
-    id = result.readTypedString()
-    persons = result.readTypedStringList()
-    group = result.readTypedString()
-    fromEdge = result.readTypedString()
-    toEdge = result.readTypedString()
-    departPos = result.readTypedDouble()
-    arrivalPos = result.readTypedDouble()
-    depart = result.readTypedDouble()
-    reservationTime = result.readTypedDouble()
-    state = result.readTypedInt()
-    return Reservation(id, persons, group, fromEdge, toEdge, departPos,
-                       arrivalPos, depart, reservationTime, state)
+def _readReservations(result):
+    reservations = []
+    for _ in range(result.readInt()):
+        result.read("!B")                   # Type
+        # compound size and type
+        assert result.read("!i")[0] == 10
+        id = result.readTypedString()
+        persons = result.readTypedStringList()
+        group = result.readTypedString()
+        fromEdge = result.readTypedString()
+        toEdge = result.readTypedString()
+        departPos = result.readTypedDouble()
+        arrivalPos = result.readTypedDouble()
+        depart = result.readTypedDouble()
+        reservationTime = result.readTypedDouble()
+        state = result.readTypedInt()
+        reservations.append(Reservation(id, persons, group, fromEdge, toEdge, departPos,
+                            arrivalPos, depart, reservationTime, state))
+    return tuple(reservations)
 
 
 _RETURN_VALUE_FUNC = {tc.VAR_STAGE: simulation._readStage,
+                      tc.VAR_TAXI_RESERVATIONS: _readReservations
                       }
 
 
@@ -232,17 +237,11 @@ class PersonDomain(VTypeDomain):
         return self._getUniversal(tc.VAR_VEHICLE, personID)
 
     def getTaxiReservations(self, onlyNew=0):
-        """getTaxiReservations(int) -> list(Stage)
+        """getTaxiReservations(int) -> list(Reservation)
         Returns all reservations. If onlyNew is 1, each reservation is returned
         only once
         """
-        answer = self._getCmd(tc.VAR_TAXI_RESERVATIONS, "", "i", onlyNew)
-        answer.read("!B")                   # Type
-        result = []
-        for _ in range(answer.readInt()):
-            answer.read("!B")                   # Type
-            result.append(_readReservation(answer))
-        return tuple(result)
+        return self._getUniversal(tc.VAR_TAXI_RESERVATIONS, "", "i", onlyNew)
 
     def splitTaxiReservation(self, reservationID, personIDs):
         """splitTaxiReservation(string, list(string)) -> string

@@ -313,6 +313,8 @@ GNEAttributesEditorRow::fillSumoBaseObject(CommonXMLStructure::SumoBaseObject* b
             }
         } else if (myAttrProperty->hasDefaultValue() && (myValueTextField->getText().text() == myAttrProperty->getDefaultStringValue())) {
             baseObject->addIntAttribute(attribute, myAttrProperty->getDefaultIntValue());
+        } else if (myAttrProperty->hasDefaultValue() && myValueTextField->getText().empty()) {
+            baseObject->addIntAttribute(attribute, myAttrProperty->getDefaultIntValue());
         } else {
             return attribute;
         }
@@ -345,6 +347,8 @@ GNEAttributesEditorRow::fillSumoBaseObject(CommonXMLStructure::SumoBaseObject* b
             }
         } else if (myAttrProperty->hasDefaultValue() && (myValueTextField->getText().text() == myAttrProperty->getDefaultStringValue())) {
             baseObject->addDoubleAttribute(attribute, myAttrProperty->getDefaultDoubleValue());
+        } else if (myAttrProperty->hasDefaultValue() && myValueTextField->getText().empty()) {
+            baseObject->addDoubleAttribute(attribute, myAttrProperty->getDefaultDoubleValue());
         } else {
             return attribute;
         }
@@ -358,6 +362,8 @@ GNEAttributesEditorRow::fillSumoBaseObject(CommonXMLStructure::SumoBaseObject* b
                 baseObject->addTimeAttribute(attribute, timeValue);
             }
         } else if (myAttrProperty->hasDefaultValue() && (myValueTextField->getText().text() == myAttrProperty->getDefaultStringValue())) {
+            baseObject->addTimeAttribute(attribute, myAttrProperty->getDefaultTimeValue());
+        } else if (myAttrProperty->hasDefaultValue() && myValueTextField->getText().empty()) {
             baseObject->addTimeAttribute(attribute, myAttrProperty->getDefaultTimeValue());
         } else {
             return attribute;
@@ -373,6 +379,8 @@ GNEAttributesEditorRow::fillSumoBaseObject(CommonXMLStructure::SumoBaseObject* b
         } else if (GNEAttributeCarrier::canParse<Position>(myValueTextField->getText().text())) {
             baseObject->addPositionAttribute(attribute, GNEAttributeCarrier::parse<Position>(myValueTextField->getText().text()));
         } else if (myAttrProperty->hasDefaultValue() && (myValueTextField->getText().text() == myAttrProperty->getDefaultStringValue())) {
+            baseObject->addPositionAttribute(attribute, myAttrProperty->getDefaultPositionValue());
+        } else if (myAttrProperty->hasDefaultValue() && myValueTextField->getText().empty()) {
             baseObject->addPositionAttribute(attribute, myAttrProperty->getDefaultPositionValue());
         } else {
             return attribute;

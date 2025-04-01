@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-03-27 16:10:00.003040 by gtfs2pt.py v1_22_0+1109-34d5d29d39f
+<configuration>
+    <merged-csv value="data.csv"/>
+    <modes value="bus"/>
+    <vtype-output value="vehtypes.xml"/>
+    <network value="net.net.xml"/>
+    <bus-parking value="True"/>
+    <stops value="input_stops.xml"/>
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <route id="t1" edges="beg middle middle2 end">
+        <stop busStop="t1.0" duration="10" until="0" parking="true"/> <!-- stopname1 -->
+        <stop busStop="t1.1" duration="10" until="50" parking="true"/> <!-- stopname2 -->
+        <stop busStop="t1.2" duration="10" until="50" parking="true"/> <!-- stopname3 -->
+    </route>
+    <vehicle id="t1.0" route="t1" type="bus" depart="10" line="t1">
+        <param key="gtfs.route_name" value="t1"/>
+    </vehicle>
+</routes>

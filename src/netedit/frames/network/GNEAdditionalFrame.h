@@ -28,9 +28,9 @@
 
 class GNEAttributesEditor;
 class GNEConsecutiveSelector;
-class GNENetworkSelector;
 class GNESelectorParent;
 class GNETagSelector;
+class GNEViewObjectSelector;
 
 // ===========================================================================
 // class definitions
@@ -107,17 +107,14 @@ public:
      */
     bool addAdditional(const GNEViewNetHelper::ViewObjectsSelector& viewObjects);
 
-    /// @brief get edges selector
-    GNENetworkSelector* getEdgesSelector() const;
-
-    /// @brief get edges selector
-    GNENetworkSelector* getLanesSelector() const;
-
     /// @brief get consecutive lane selector
     GNEConsecutiveSelector* getConsecutiveLaneSelector() const;
 
     /// @brief get attribtues editor
     GNEAttributesEditor* getAttributesEditor() const;
+
+    /// @brief get module for select view objects
+    GNEViewObjectSelector* getViewObjetsSelector() const;
 
     /// @brief create path
     bool createPath(const bool useLastRoute);
@@ -129,15 +126,15 @@ protected:
     /// @brief Tag selected in GNETagSelector
     void tagSelected();
 
+    /// @brief last clicked position
+    Position myLastClickedPosition;
+
 private:
     // @brief reste base additional object
     void resetBaseAdditionalObject();
 
     // @brief init baseAdditionalObject
     bool initBaseAdditionalObject(const GNETagProperties* tagProperty, const GNEViewNetHelper::ViewObjectsSelector& viewObjects);
-
-    /// @brief build common additional attributes
-    bool buildAdditionalCommonAttributes(const GNETagProperties* tagValues);
 
     /// @brief item selector
     GNETagSelector* myAdditionalTagSelector = nullptr;
@@ -148,11 +145,8 @@ private:
     /// @brief Module for select a single parent additional
     GNESelectorParent* mySelectorAdditionalParent = nullptr;
 
-    /// @brief Module for select edges
-    GNENetworkSelector* myEdgesSelector = nullptr;
-
-    /// @brief Module for select lanes
-    GNENetworkSelector* myLanesSelector = nullptr;
+    /// @brief Module for select view objects
+    GNEViewObjectSelector* myViewObjetsSelector = nullptr;
 
     /// @brief Module for select consecutive lanes
     GNEConsecutiveSelector* myConsecutiveLaneSelector = nullptr;
