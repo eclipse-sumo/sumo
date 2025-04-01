@@ -190,16 +190,16 @@ GNERoute::writeDemandElement(OutputDevice& device) const {
         device.writeAttr(SUMO_ATTR_ID, getID());
     }
     device.writeAttr(SUMO_ATTR_EDGES, parseIDs(getParentEdges()));
-    if (myColor != RGBColor::INVISIBLE) {
+    if (myColor != myTagProperty->getDefaultColorValue(SUMO_ATTR_COLOR)) {
         device.writeAttr(SUMO_ATTR_COLOR, toString(myColor));
     }
-    if (myRepeat != 0) {
+    if (myRepeat != myTagProperty->getDefaultDoubleValue(SUMO_ATTR_REPEAT)) {
         device.writeAttr(SUMO_ATTR_REPEAT, toString(myRepeat));
     }
-    if (myCycleTime != 0) {
+    if (myCycleTime != myTagProperty->getDefaultTimeValue(SUMO_ATTR_CYCLETIME)) {
         device.writeAttr(SUMO_ATTR_CYCLETIME, time2string(myCycleTime));
     }
-    if (myProbability != 1) {
+    if (myProbability != myTagProperty->getDefaultDoubleValue(SUMO_ATTR_PROB)) {
         device.writeAttr(SUMO_ATTR_PROB, toString(myProbability));
     }
     // write sorted stops
@@ -820,13 +820,25 @@ GNERoute::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             break;
         case SUMO_ATTR_REPEAT:
-            myRepeat = parse<int>(value);
+            if (value.empty()) {
+                myRepeat = myTagProperty->getDefaultIntValue(key);
+            } else {
+                myRepeat = parse<int>(value);
+            }
             break;
         case SUMO_ATTR_CYCLETIME:
-            myCycleTime = string2time(value);
+            if (value.empty()) {
+                myCycleTime = myTagProperty->getDefaultTimeValue(key);
+            } else {
+                myCycleTime = string2time(value);
+            }
             break;
         case SUMO_ATTR_PROB:
-            myProbability = parse<double>(value);
+            if (value.empty()) {
+                myProbability = myTagProperty->getDefaultDoubleValue(key);
+            } else {
+                myProbability = parse<double>(value);
+            }
             break;
         default:
             setCommonAttribute(this, key, value);

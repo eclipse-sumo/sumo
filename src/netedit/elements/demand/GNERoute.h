@@ -270,7 +270,7 @@ public:
 
 protected:
     /// @brief route color
-    RGBColor myColor = RGBColor::YELLOW;
+    RGBColor myColor = RGBColor::INVISIBLE;
 
     /// @brief repeat
     int myRepeat = 0;

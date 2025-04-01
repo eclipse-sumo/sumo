@@ -98,9 +98,6 @@ public:
         /// @brief current selected route mode
         RouteMode myCurrentRouteMode = RouteMode::NONCONSECUTIVE_EDGES;
 
-        /// @brief route template
-        GNERoute* myRouteTemplate = nullptr;
-
         /// @brief flag to check if VClass is Valid
         bool myValidVClass = true;
 
