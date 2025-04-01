@@ -126,6 +126,9 @@ protected:
     /// @brief Tag selected in GNETagSelector
     void tagSelected();
 
+    /// @brief last clicked position
+    Position myLastClickedPosition;
+
 private:
     // @brief reste base additional object
     void resetBaseAdditionalObject();

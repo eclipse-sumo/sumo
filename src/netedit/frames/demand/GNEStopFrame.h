@@ -101,6 +101,9 @@ protected:
     /// @brief selected demand element in DemandElementSelector
     void demandElementSelected();
 
+    /// @brief last clicked position
+    Position myLastClickedPosition;
+
 private:
     /// @brief stop parent base object
     CommonXMLStructure::SumoBaseObject* myStopParentBaseObject = nullptr;

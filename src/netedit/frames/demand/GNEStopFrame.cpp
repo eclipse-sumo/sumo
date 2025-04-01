@@ -176,7 +176,7 @@ GNEStopFrame::show() {
         myHelpCreation->showHelpCreation();
     }
     // reset last position
-    myViewNet->resetLastClickedPosition();
+    myLastClickedPosition = Position::INVALID;
     // show frame
     GNEFrame::show();
 }
@@ -187,6 +187,11 @@ GNEStopFrame::addStop(const GNEViewNetHelper::ViewObjectsSelector& viewObjects, 
     // first check stop type
     if (myStopTagSelector->getCurrentTemplateAC() == nullptr) {
         WRITE_WARNING(TL("Selected Stop type isn't valid."));
+        return false;
+    }
+    // check last position
+    if ((myViewNet->getPositionInformation() == myLastClickedPosition) && !myViewNet->getMouseButtonKeyPressed().shiftKeyPressed()) {
+        WRITE_WARNING(TL("Shift + click to create two additionals in the same position"));
         return false;
     }
     // check if we're selecting a new stop parent
@@ -574,8 +579,6 @@ GNEStopFrame::tagSelected() {
         // show Stop type selector module
         myAttributesEditor->showAttributesEditor(myStopTagSelector->getCurrentTemplateAC(), true);
         myHelpCreation->showHelpCreation();
-        // reset last position
-        myViewNet->resetLastClickedPosition();
     } else {
         // hide all modules if stop parent isn't valid
         myAttributesEditor->hideAttributesEditor();

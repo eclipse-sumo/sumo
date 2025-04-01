@@ -173,7 +173,7 @@ GNEAdditionalFrame::show() {
     // refresh tag selector
     myAdditionalTagSelector->refreshTagSelector();
     // reset last position
-    myViewNet->resetLastClickedPosition();
+    myLastClickedPosition = Position::INVALID;
     // show frame
     GNEFrame::show();
 }
@@ -218,6 +218,11 @@ GNEAdditionalFrame::addAdditional(const GNEViewNetHelper::ViewObjectsSelector& v
     // disable flows (temporal)
     if (tagProperties->getTag() == GNE_TAG_CALIBRATOR_FLOW) {
         WRITE_WARNING(TL("Currently unsupported. Create calibratorFlows using calibrator dialog"));
+        return false;
+    }
+    // check last position
+    if ((myViewNet->getPositionInformation() == myLastClickedPosition) && !myViewNet->getMouseButtonKeyPressed().shiftKeyPressed()) {
+        WRITE_WARNING(TL("Shift + click to create two additionals in the same position"));
         return false;
     }
     // check if additional attributes are valid
@@ -348,7 +353,7 @@ GNEAdditionalFrame::tagSelected() {
             myE2MultilaneLegendModule->hideE2MultilaneLegend();
         }
         // reset last position
-        myViewNet->resetLastClickedPosition();
+        myLastClickedPosition = myViewNet->getPositionInformation();
     } else {
         // hide all modules if additional isn't valid
         myAdditionalAttributesEditor->hideAttributesEditor();
