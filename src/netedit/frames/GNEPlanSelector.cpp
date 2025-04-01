@@ -104,6 +104,7 @@ GNEPlanSelector::GNEPlanSelector(GNEFrame* frameParent, SumoXMLTag planType) :
     }
     // add person plan elements
     for (const auto& planTemplate : myPlanTemplates) {
+        planTemplate.second->resetDefaultValues(false);
         myPlansComboBox->appendIconItem(planTemplate.first->getTooltipText().c_str(),
                                         GUIIconSubSys::getIcon(planTemplate.second->getTagProperty()->getGUIIcon()),
                                         planTemplate.second->getTagProperty()->getBackGroundColor());

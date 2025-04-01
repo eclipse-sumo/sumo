@@ -202,13 +202,13 @@ std::string
 GNEWalk::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_SPEED:
-            if (mySpeed == 0) {
+            if (mySpeed == myTagProperty->getDefaultDoubleValue(key)) {
                 return "";
             } else {
                 return toString(mySpeed);
             }
         case SUMO_ATTR_DURATION:
-            if (myDuration == 0) {
+            if (myDuration == myTagProperty->getDefaultTimeValue(key)) {
                 return "";
             } else {
                 return time2string(myDuration);
@@ -295,14 +295,14 @@ GNEWalk::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_SPEED:
             if (value.empty()) {
-                mySpeed = 0;
+                mySpeed = myTagProperty->getDefaultDoubleValue(key);
             } else {
                 mySpeed = GNEAttributeCarrier::parse<double>(value);
             }
             break;
         case SUMO_ATTR_DURATION:
             if (value.empty()) {
-                mySpeed = 0;
+                myDuration = myTagProperty->getDefaultTimeValue(key);
             } else {
                 myDuration = GNEAttributeCarrier::parse<SUMOTime>(value);
             }
