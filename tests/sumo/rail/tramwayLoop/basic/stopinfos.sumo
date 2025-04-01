@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-02-21 15:37:43 by Eclipse SUMO sumo Version v1_22_0+0441-086a4a97432
+<!-- generated on 2025-04-01 08:18:49 by Eclipse SUMO sumo Version v1_22_0+1180-d2b2fc4b657
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -63,7 +63,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <stopinfo id="tram7" type="RB628" lane="TleftLoop_1_0" pos="400.00" parking="0" started="977.00" ended="997.00" busStop="leftStop" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
     <stopinfo id="tram6" type="RB628" lane="TrightLoop_1_0" pos="400.00" parking="0" started="983.00" ended="1003.00" busStop="rightStop" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
     <stopinfo id="tram9" type="RB628" lane="TleftLoop_1_0" pos="400.00" parking="0" started="1074.00" ended="1094.00" busStop="leftStop" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
-    <stopinfo id="tram8" type="RB628" lane="TrightLoop_1_0" pos="400.00" parking="0" started="1129.00" ended="1149.00" busStop="rightStop" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
+    <stopinfo id="tram8" type="RB628" lane="TrightLoop_1_0" pos="400.00" parking="0" started="1130.00" ended="1150.00" busStop="rightStop" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
     <stopinfo id="tram2" type="RB628" lane="TrightLoop_1_0" pos="400.00" parking="0" started="1243.00" ended="1263.00" busStop="rightStop" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
     <stopinfo id="tram1" type="RB628" lane="TleftLoop_1_0" pos="400.00" parking="0" started="1276.00" ended="1296.00" busStop="leftStop" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
     <stopinfo id="tram5" type="RB628" lane="TrightLoop_1_0" pos="400.00" parking="0" started="1337.00" ended="1357.00" busStop="rightStop" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
@@ -71,7 +71,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <stopinfo id="tram7" type="RB628" lane="TrightLoop_1_0" pos="400.00" parking="0" started="1431.00" ended="1451.00" busStop="rightStop" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
     <stopinfo id="tram6" type="RB628" lane="TleftLoop_1_0" pos="400.00" parking="0" started="1464.00" ended="1484.00" busStop="leftStop" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
     <stopinfo id="tram9" type="RB628" lane="TrightLoop_1_0" pos="400.00" parking="0" started="1527.00" ended="1547.00" busStop="rightStop" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
-    <stopinfo id="tram8" type="RB628" lane="TleftLoop_1_0" pos="400.00" parking="0" started="1608.00" ended="1628.00" busStop="leftStop" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
+    <stopinfo id="tram8" type="RB628" lane="TleftLoop_1_0" pos="400.00" parking="0" started="1609.00" ended="1629.00" busStop="leftStop" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
     <stopinfo id="tram2" type="RB628" lane="TleftLoop_1_0" pos="400.00" parking="0" started="1722.00" ended="1742.00" busStop="leftStop" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
     <stopinfo id="tram1" type="RB628" lane="TrightLoop_1_0" pos="400.00" parking="0" started="1727.00" ended="1747.00" busStop="rightStop" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
     <stopinfo id="tram5" type="RB628" lane="TleftLoop_1_0" pos="400.00" parking="0" started="1817.00" ended="1837.00" busStop="leftStop" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
