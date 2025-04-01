@@ -8199,4 +8199,29 @@ MSVehicle::getWaitingTimeFor(const MSLink* link) const {
     return link == myHaveStoppedFor ? SUMOTime_MAX : getWaitingTime();
 }
 
+
+void
+MSVehicle::resetApproachOnReroute() {
+    bool diverged = false;
+    const ConstMSEdgeVector& route = myRoute->getEdges();
+    int ri = getRoutePosition();
+    for (const DriveProcessItem& dpi : myLFLinkLanes) {
+        if (dpi.myLink != nullptr) {
+            if (!diverged) {
+                const MSEdge* next = route[ri + 1];
+                if (&dpi.myLink->getLane()->getEdge() != next) {
+                    diverged = true;
+                } else {
+                    if (dpi.myLink->getViaLane() == nullptr) {
+                        ri++;
+                    }
+                }
+            }
+            if (diverged) {
+                dpi.myLink->removeApproaching(this);
+            }
+        }
+    }
+}
+
 /****************************************************************************/

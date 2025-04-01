@@ -2151,6 +2151,9 @@ protected:
     /// @brief comparison between different continuations from the same lane
     bool betterContinuation(const LaneQ* bestConnectedNext, const LaneQ& m) const;
 
+    /// @brief reset rail signal approach information
+    void resetApproachOnReroute();
+
 private:
     /// @brief The per vehicle variables of the car following model
     MSCFModel::VehicleVariables* myCFVariables;

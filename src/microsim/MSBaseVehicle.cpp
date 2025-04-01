@@ -1573,6 +1573,7 @@ MSBaseVehicle::activateRemindersOnReroute(SUMOTime /*currentTime*/) {
             myMoveReminders.erase(myMoveReminders.begin() + i);
         }
     }
+    resetApproachOnReroute();
     // event only called once
     return 0;
 }

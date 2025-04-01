@@ -398,9 +398,10 @@ MSRailSignal::initDriveWays(const SUMOVehicle* ego, bool update) {
                                 // after the states have been set
                                 // @note: This is a hack because it could lead to invalid tls-output
                                 // (it's still an improvement over switching based on default driveways)
-                                rs->updateCurrentPhase();
-                                rs->setTrafficLightSignals(SIMSTEP);
-                                if (ego->hasDeparted() && i <= ego->getRoutePosition()) {
+                                if (!ego->hasDeparted()) {
+                                    rs->updateCurrentPhase();
+                                    rs->setTrafficLightSignals(SIMSTEP);
+                                } else if (ego->hasDeparted() && i <= ego->getRoutePosition()) {
                                     MSBaseVehicle* veh = dynamic_cast<MSBaseVehicle*>(const_cast<SUMOVehicle*>(ego));
                                     if (!dw->hasTrain(veh) && dw->notifyEnter(*veh, dw->NOTIFICATION_REROUTE, nullptr)) {
                                         veh->addReminder(dw, 1);

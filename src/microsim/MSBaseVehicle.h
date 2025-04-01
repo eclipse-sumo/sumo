@@ -1023,6 +1023,10 @@ public:
     //@}
 
 protected:
+    /// @brief reset rail signal approach information
+    virtual void resetApproachOnReroute() {};
+
+protected:
     /// @brief This vehicle's parameter.
     const SUMOVehicleParameter* myParameter;
 
