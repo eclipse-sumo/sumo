@@ -70,8 +70,8 @@ or simply browse the [source code here](https://github.com/eclipse-sumo/sumo/tre
 ## Contributing
 
 If you find a bug in sumolib or have a suggestion for a new feature, please report it on the SUMO issue tracker at
-[https://github.com/eclipse-sumo/sumo/issues](https://github.com/eclipse-sumo/sumo/issues). If you would like to contribute code
-to sumolib, please submit a pull request to the SUMO repository at
+[https://github.com/eclipse-sumo/sumo/issues](https://github.com/eclipse-sumo/sumo/issues).
+If you would like to contribute code to sumolib, please submit a pull request to the SUMO repository at
 [https://github.com/eclipse-sumo/sumo](https://github.com/eclipse-sumo/sumo).
 
 ## License

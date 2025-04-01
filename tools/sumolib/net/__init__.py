@@ -960,8 +960,10 @@ def convertShape(shapeString):
 def lane2edge(laneID):
     return laneID[:laneID.rfind("_")]
 
+
 def lane2index(laneID):
     return int(laneID[laneID.rfind("_") + 1:])
+
 
 def readNet(filename, **others):
     """ load a .net.xml file
