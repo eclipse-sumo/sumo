@@ -388,7 +388,7 @@ MSRailSignal::initDriveWays(const SUMOVehicle* ego, bool update) {
                         if (rs != nullptr) {
                             LinkInfo& li = rs->myLinkInfos[link->getTLIndex()];
                             // init driveway
-                            MSDriveWay* dw = &li.getDriveWay(ego);
+                            MSDriveWay* dw = &li.getDriveWay(ego, i);
                             MSRailSignalControl::getInstance().addDrivewayFollower(prev, dw);
                             MSRailSignalControl::getInstance().addDWDeadlockChecks(rs, prev);
                             MSRailSignalControl::getInstance().notifyApproach(link);
@@ -481,9 +481,10 @@ MSRailSignal::LinkInfo::getID() const {
 
 
 MSDriveWay&
-MSRailSignal::LinkInfo::getDriveWay(const SUMOVehicle* veh) {
+MSRailSignal::LinkInfo::getDriveWay(const SUMOVehicle* veh, int searchStart) {
     MSEdge* first = &myLink->getLane()->getEdge();
-    MSRouteIterator firstIt = std::find(veh->getCurrentRouteEdge(), veh->getRoute().end(), first);
+    auto searchStartIt = searchStart < 0 ? veh->getCurrentRouteEdge() : veh->getRoute().begin() + searchStart;
+    MSRouteIterator firstIt = std::find(searchStartIt, veh->getRoute().end(), first);
     if (firstIt == veh->getRoute().end()) {
         // possibly the vehicle has already gone past the first edge (i.e.
         // because first is short or the step-length is high)
