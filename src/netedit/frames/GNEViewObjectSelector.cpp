@@ -21,6 +21,7 @@
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNETagProperties.h>
+#include <utils/common/MsgHandler.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 
@@ -144,7 +145,7 @@ bool
 GNEViewObjectSelector::fillSumoBaseObject(CommonXMLStructure::SumoBaseObject* baseObject) const {
     if (shown()) {
         if (myList->getNumItems() == 0) {
-            WRITE_WARNING(TL("List of %s cannot be empty", toString(myTag)));
+            WRITE_WARNING(TLF("List of % cannot be empty", toString(myTag)));
             return false;
         } else {
             std::vector<std::string> selectedIDs;
