@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-04-01 19:10:10 by Eclipse SUMO netconvert Version v1_22_0+1202-171753b0d33
+<!-- generated on 2025-04-02 08:16:53 by Eclipse SUMO netconvert Version v1_22_0+1213-a2546470c13
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -35,10 +35,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <location netOffset="1334334.68,-3552195.33" convBoundary="0.00,0.00,22.13,52.88" origBoundary="103.996797,30.618486,104.072080,30.693572" projParameter="+proj=utm +zone=51 +ellps=WGS84 +datum=WGS84 +units=m +no_def"/>
 
     <edge id=":101_0" function="internal">
-        <lane id=":101_0_0" index="0" speed="8.33" length="-nan" width="3.20" shape="14.47,40.39 14.47,40.39"/>
+        <lane id=":101_0_0" index="0" speed="8.33" length="0.10" width="3.20" shape="14.47,40.39 14.47,40.39"/>
     </edge>
     <edge id=":104_0" function="internal">
-        <lane id=":104_0_0" index="0" speed="8.33" length="-nan" width="3.20" shape="18.36,38.74 18.36,38.74"/>
+        <lane id=":104_0_0" index="0" speed="8.33" length="0.10" width="3.20" shape="18.36,38.74 18.36,38.74"/>
     </edge>
 
     <edge id="0" from="104" to="103" priority="7" length="13.45">
