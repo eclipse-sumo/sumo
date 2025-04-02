@@ -21,6 +21,7 @@
 #include <config.h>
 #include <foreign/tcpip/storage.h>
 #include <libsumo/TraCIDefs.h>
+#include <utils/common/ToString.h>
 
 
 // ===========================================================================
@@ -100,7 +101,7 @@ public:
                 break;
             }
             default:
-                throw TraCIException("Unknown type " + v.getType());
+                throw TraCIException("Unknown type " + toHex(v.getType()));
         }
         if (v.getType() == POSITION_ROADMAP || v.getType() == POSITION_2D || v.getType() == POSITION_3D) {
             result->writeUnsignedByte(REQUEST_DRIVINGDIST);
@@ -193,6 +194,19 @@ public:
         connection.state = readTypedString(inputStorage, error);
         connection.direction = readTypedString(inputStorage, error);
         connection.length = readTypedDouble(inputStorage, error);
+    }
+
+    static inline void readVehicleDataVector(tcpip::Storage& inputStorage, std::vector<libsumo::TraCIVehicleData>& result, const std::string& error = "") {
+        const int n = readTypedInt(inputStorage);
+        for (int i = 0; i < n; ++i) {
+            libsumo::TraCIVehicleData vd;
+            vd.id = readTypedString(inputStorage);
+            vd.length = readTypedDouble(inputStorage);
+            vd.entryTime = readTypedDouble(inputStorage);
+            vd.leaveTime = readTypedDouble(inputStorage);
+            vd.typeID = readTypedString(inputStorage);
+            result.push_back(vd);
+        }
     }
 
 

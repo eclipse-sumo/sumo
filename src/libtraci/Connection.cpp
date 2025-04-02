@@ -402,7 +402,12 @@ Connection::readVariables(tcpip::Storage& inMsg, const std::string& objectID, in
                 break;
                 case libsumo::TYPE_COMPOUND: {
                     const int n = inMsg.readInt();
-                    if (variableID == libsumo::VAR_NEXT_LINKS) {
+                    if (variableID == libsumo::LAST_STEP_VEHICLE_DATA) {
+                        auto r = std::make_shared<libsumo::TraCIVehicleDataVectorWrapped>();
+                        StoHelp::readVehicleDataVector(inMsg, r->value);
+                        into[objectID][variableID] = r;
+                        break;
+                    } else if (variableID == libsumo::VAR_NEXT_LINKS) {
                         const int count = StoHelp::readTypedInt(inMsg);
                         auto r = std::make_shared<libsumo::TraCIConnectionVectorWrapped>();
                         for (int i = 0; i < count; ++i) {

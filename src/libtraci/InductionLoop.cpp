@@ -101,29 +101,7 @@ InductionLoop::getVehicleData(const std::string& loopID) {
     std::vector<libsumo::TraCIVehicleData> result;
     tcpip::Storage& ret = Dom::get(libsumo::LAST_STEP_VEHICLE_DATA, loopID);
     ret.readInt();  // components
-    // number of items
-    ret.readUnsignedByte();
-    const int n = ret.readInt();
-    for (int i = 0; i < n; ++i) {
-        libsumo::TraCIVehicleData vd;
-
-        ret.readUnsignedByte();
-        vd.id = ret.readString();
-
-        ret.readUnsignedByte();
-        vd.length = ret.readDouble();
-
-        ret.readUnsignedByte();
-        vd.entryTime = ret.readDouble();
-
-        ret.readUnsignedByte();
-        vd.leaveTime = ret.readDouble();
-
-        ret.readUnsignedByte();
-        vd.typeID = ret.readString();
-
-        result.push_back(vd);
-    }
+    StoHelp::readVehicleDataVector(ret, result);
     return result;
 }
 
