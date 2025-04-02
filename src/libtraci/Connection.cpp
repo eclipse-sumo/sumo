@@ -429,6 +429,11 @@ Connection::readVariables(tcpip::Storage& inMsg, const std::string& objectID, in
                         }
                         into[objectID][variableID] = r;
                         break;
+                    } else if (variableID == libsumo::VAR_STAGE) {
+                        auto r = std::make_shared<libsumo::TraCIStage>();
+                        StoHelp::readStage(inMsg, *r);
+                        into[objectID][variableID] = r;
+                        break;
                     }
                     if (n == 2) {
                         const int firstType = inMsg.readUnsignedByte();
