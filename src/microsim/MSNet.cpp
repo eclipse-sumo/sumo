@@ -460,10 +460,10 @@ MSNet::generateStatistics(const SUMOTime start, const long now) {
             }
         }
         // print vehicle statistics
-        const std::string discardNotice = ((myVehicleControl->getLoadedVehicleNo() != myVehicleControl->getDepartedVehicleNo()) ?
-                                           " (Loaded: " + toString(myVehicleControl->getLoadedVehicleNo()) + ")" : "");
+        const std::string vehDiscardNotice = ((myVehicleControl->getLoadedVehicleNo() != myVehicleControl->getDepartedVehicleNo()) ?
+                                              " (Loaded: " + toString(myVehicleControl->getLoadedVehicleNo()) + ")" : "");
         msg << "Vehicles:\n"
-            << " Inserted: " << myVehicleControl->getDepartedVehicleNo() << discardNotice << "\n"
+            << " Inserted: " << myVehicleControl->getDepartedVehicleNo() << vehDiscardNotice << "\n"
             << " Running: " << myVehicleControl->getRunningVehicleNo() << "\n"
             << " Waiting: " << myInserter->getWaitingVehicleNo() << "\n";
 
@@ -492,7 +492,7 @@ MSNet::generateStatistics(const SUMOTime start, const long now) {
         }
         if (myPersonControl != nullptr && myPersonControl->getLoadedNumber() > 0) {
             const std::string discardNotice = ((myPersonControl->getLoadedNumber() != myPersonControl->getDepartedNumber()) ?
-                                           " (Loaded: " + toString(myPersonControl->getLoadedNumber()) + ")" : "");
+                                               " (Loaded: " + toString(myPersonControl->getLoadedNumber()) + ")" : "");
             msg << "Persons:\n"
                 << " Inserted: " << myPersonControl->getDepartedNumber() << discardNotice << "\n"
                 << " Running: " << myPersonControl->getRunningNumber() << "\n";
@@ -512,7 +512,7 @@ MSNet::generateStatistics(const SUMOTime start, const long now) {
         }
         if (myContainerControl != nullptr && myContainerControl->getLoadedNumber() > 0) {
             const std::string discardNotice = ((myContainerControl->getLoadedNumber() != myContainerControl->getDepartedNumber()) ?
-                                           " (Loaded: " + toString(myContainerControl->getLoadedNumber()) + ")" : "");
+                                               " (Loaded: " + toString(myContainerControl->getLoadedNumber()) + ")" : "");
             msg << "Containers:\n"
                 << " Inserted: " << myContainerControl->getDepartedNumber() << "\n"
                 << " Running: " << myContainerControl->getRunningNumber() << "\n";

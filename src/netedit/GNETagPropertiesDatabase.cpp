@@ -442,9 +442,9 @@ GNETagPropertiesDatabase::fillHierarchy() {
     mySetTagProperties[GNE_TAG_JUPEDSIM] = new GNETagProperties(GNE_TAG_JUPEDSIM,
             mySetTagProperties.at(GNE_TAG_SHAPES),
             GUIIcon::E1,
-            TL("JuPedSim elements")),
-    FXRGBA(255, 255, 255, 255),
-    TL("JuPedSim elements");
+            TL("JuPedSim elements"),
+            FXRGBA(255, 255, 255, 255),
+            TL("JuPedSim elements"));
     // TAZs - level 2
     mySetTagProperties[GNE_TAG_TAZS] = new GNETagProperties(GNE_TAG_TAZS,
             mySetTagProperties.at(GNE_TAG_SUPERMODE_NETWORK),
