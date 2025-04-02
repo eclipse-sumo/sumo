@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-13 10:07+0100\n"
-"PO-Revision-Date: 2025-03-28 14:40+0000\n"
+"PO-Revision-Date: 2025-04-02 10:49+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -12270,28 +12270,36 @@ msgstr ""
 #: src/tools/emissionsMap_main.cpp:133
 msgid "Defines the minimum velocity boundary of the map to generate (in m/s)."
 msgstr ""
+"Definisce il limite di velocità minimo della corrispondenza da generare (in "
+"m/s)."
 
 #: src/tools/emissionsMap_main.cpp:135
 msgid "Defines the maximum velocity boundary of the map to generate (in m/s)."
 msgstr ""
+"Definisce il limite di velocità massimo della corrispondenza da generare (in "
+"m/s)."
 
 #: src/tools/emissionsMap_main.cpp:137
 msgid "Defines the velocity step size (in m/s)."
-msgstr ""
+msgstr "Definisce il passo di velocità (in m/s)."
 
 #: src/tools/emissionsMap_main.cpp:139
 msgid ""
 "Defines the minimum acceleration boundary of the map to generate (in m/s^2)."
 msgstr ""
+"Definisce il limite minimo di accelerazione della corrispondenza da generare "
+"(in m/s^2)."
 
 #: src/tools/emissionsMap_main.cpp:141
 msgid ""
 "Defines the maximum acceleration boundary of the map to generate (in m/s^2)."
 msgstr ""
+"Definisce il limite massimo di accelerazione della corrispondenza da "
+"generare (in m/s^2)."
 
 #: src/tools/emissionsMap_main.cpp:143
 msgid "Defines the acceleration step size (in m/s^2)."
-msgstr ""
+msgstr "Definisce il passo di accelerazione (in m/s^2)."
 
 #: src/tools/emissionsMap_main.cpp:145
 msgid "Defines the minimum slope boundary of the map to generate (in deg)."
@@ -12309,6 +12317,8 @@ msgstr "Definisce la lunghezza del passo di pendenza (in gradi)."
 msgid ""
 "Defines the file (or the path if --iterate was set) to write the map(s) into."
 msgstr ""
+"Definisce il file (oppure il percorso se --iterate è stato impostato) dove "
+"scrivere le corrispondenze."
 
 #: src/tools/emissionsMap_main.cpp:194
 msgid "The emission class (-e) must be given."
@@ -12464,6 +12474,8 @@ msgid ""
 "SVCPermissions must be specified either via 'allow' or 'disallow'. Ignoring "
 "'disallow'"
 msgstr ""
+"Le autorizzazioni SVCPermissions devono essere specificate utilizzano "
+"'allow' o 'disallow'. 'disallow' verrà ignorato"
 
 #: src/utils/common/SUMOVehicleClass.cpp:442
 #, c-format
