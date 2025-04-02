@@ -21,6 +21,7 @@
 #include <config.h>
 #include <foreign/tcpip/storage.h>
 #include <libsumo/TraCIDefs.h>
+#include <utils/common/ToString.h>
 
 
 // ===========================================================================
@@ -32,7 +33,12 @@ class StorageHelper {
 public:
     static inline std::shared_ptr<tcpip::Storage> toStorage(const TraCIResult& v) {
         std::shared_ptr<tcpip::Storage> result = std::make_shared<tcpip::Storage>();
-        result->writeUnsignedByte(v.getType());
+        if (v.getType() == POSITION_ROADMAP || v.getType() == POSITION_2D || v.getType() == POSITION_3D) {
+            writeCompound(*result, 2);
+        }
+        if (v.getType() != -1) {
+            result->writeUnsignedByte(v.getType());
+        }
         switch (v.getType()) {
             case TYPE_STRING:
                 result->writeString(v.getString());
@@ -40,9 +46,65 @@ public:
             case TYPE_DOUBLE:
                 result->writeDouble(((const TraCIDouble&)v).value);
                 break;
-            default:
-                // Error!
+            case TYPE_INTEGER:
+                result->writeInt(((const TraCIInt&)v).value);
                 break;
+            case TYPE_BYTE:
+                result->writeByte(((const TraCIInt&)v).value);
+                break;
+            case TYPE_UBYTE:
+                result->writeUnsignedByte(((const TraCIInt&)v).value);
+                break;
+            case POSITION_ROADMAP:
+                result->writeString(((const TraCIRoadPosition&)v).edgeID);
+                result->writeDouble(((const TraCIRoadPosition&)v).pos);
+                result->writeUnsignedByte(((const TraCIRoadPosition&)v).laneIndex);
+                break;
+            case POSITION_2D:
+                result->writeDouble(((const TraCIPosition&)v).x);
+                result->writeDouble(((const TraCIPosition&)v).y);
+                break;
+            case POSITION_3D:
+                result->writeDouble(((const TraCIPosition&)v).x);
+                result->writeDouble(((const TraCIPosition&)v).y);
+                result->writeDouble(((const TraCIPosition&)v).z);
+                break;
+            case -1: {
+                // a hack for transfering multiple values
+                const auto& pl = ((const TraCIStringDoublePairList&)v).value;
+                const bool tisb = pl.size() == 2 && pl[0].first != "";
+                writeCompound(*result, pl.size() == 2 && !tisb ? 2 : (int)pl.size() + 1);
+                if (pl.size() == 1) {
+                    writeTypedDouble(*result, pl.front().second);
+                    writeTypedString(*result, pl.front().first);
+                } else if (pl.size() == 2) {
+                    if (tisb) {
+                        writeTypedInt(*result, (int)(pl.front().second + 0.5));
+                        writeTypedString(*result, pl.front().first);
+                        writeTypedByte(*result, (int)(pl.back().second + 0.5));
+                    } else {
+                        writeTypedDouble(*result, pl.front().second);
+                        writeTypedDouble(*result, pl.back().second);
+                    }
+                } else if (pl.size() == 3) {
+                    writeTypedDouble(*result, pl[0].second);
+                    writeTypedDouble(*result, pl[1].second);
+                    writeTypedDouble(*result, pl[2].second);
+                    writeTypedString(*result, pl[2].first);
+                } else if (pl.size() == 4) {
+                    writeTypedDouble(*result, pl[0].second);
+                    writeTypedDouble(*result, pl[1].second);
+                    writeTypedDouble(*result, pl[2].second);
+                    writeTypedDouble(*result, pl[3].second);
+                    writeTypedString(*result, pl[3].first);
+                }
+                break;
+            }
+            default:
+                throw TraCIException("Unknown type " + toHex(v.getType()));
+        }
+        if (v.getType() == POSITION_ROADMAP || v.getType() == POSITION_2D || v.getType() == POSITION_3D) {
+            result->writeUnsignedByte(REQUEST_DRIVINGDIST);
         }
         return result;
     }
@@ -100,6 +162,20 @@ public:
         return size;
     }
 
+    static inline void readPolygon(tcpip::Storage& ret, libsumo::TraCIPositionVector& poly, const std::string& error = "") {
+        int size = ret.readUnsignedByte();
+        if (size == 0) {
+            size = ret.readInt();
+        }
+        for (int i = 0; i < size; ++i) {
+            libsumo::TraCIPosition p;
+            p.x = ret.readDouble();
+            p.y = ret.readDouble();
+            p.z = 0.;
+            poly.value.emplace_back(p);
+        }
+    }
+
     static inline bool readBool(tcpip::Storage& ret, const std::string& error = "") {
         if (ret.readUnsignedByte() != libsumo::TYPE_UBYTE && error != "") {
             throw TraCIException(error);
@@ -132,6 +208,19 @@ public:
         connection.state = readTypedString(inputStorage, error);
         connection.direction = readTypedString(inputStorage, error);
         connection.length = readTypedDouble(inputStorage, error);
+    }
+
+    static inline void readVehicleDataVector(tcpip::Storage& inputStorage, std::vector<libsumo::TraCIVehicleData>& result, const std::string& error = "") {
+        const int n = readTypedInt(inputStorage);
+        for (int i = 0; i < n; ++i) {
+            libsumo::TraCIVehicleData vd;
+            vd.id = readTypedString(inputStorage);
+            vd.length = readTypedDouble(inputStorage);
+            vd.entryTime = readTypedDouble(inputStorage);
+            vd.leaveTime = readTypedDouble(inputStorage);
+            vd.typeID = readTypedString(inputStorage);
+            result.push_back(vd);
+        }
     }
 
 

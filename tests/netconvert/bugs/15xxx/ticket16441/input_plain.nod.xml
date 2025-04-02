@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<nodes version="1.20" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <location netOffset="1336247.57,-3545175.66" convBoundary="1912.89,7019.67,1935.02,7072.55" origBoundary="103.996797,30.618486,104.072080,30.693572" projParameter="+proj=utm +zone=51 +ellps=WGS84 +datum=WGS84 +units=m +no_def"/>
+
+    <node id="100" x="1934.27" y="7072.55" type="dead_end" shape="1931.46,7073.97 1934.06,7072.70 1933.95,7072.41 1931.35,7073.69"/>
+    <node id="101" x="1928.93" y="7059.42" type="priority" shape="1926.06,7060.70 1928.66,7059.43 1926.06,7060.70"/>
+    <node id="102" x="1912.89" y="7020.04" type="dead_end" shape="1910.07,7021.46 1912.67,7020.19 1912.56,7019.89 1909.96,7021.18"/>
+    <node id="103" x="1935.02" y="7072.18" type="dead_end" shape="1935.35,7072.31 1937.95,7071.04 1937.84,7070.75 1935.24,7072.02"/>
+    <node id="104" x="1929.67" y="7059.05" type="priority" shape="1932.55,7057.77 1929.95,7059.05 1932.55,7057.77"/>
+    <node id="105" x="1913.64" y="7019.67" type="dead_end" shape="1913.97,7019.80 1916.58,7018.52 1916.46,7018.23 1913.86,7019.51"/>
+</nodes>

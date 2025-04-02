@@ -49,10 +49,10 @@ GNEViewObjectSelector::GNEViewObjectSelector(GNEFrame* frameParent) :
     MFXGroupBoxModule(frameParent, TL("NetworkElements")),
     myFrameParent(frameParent) {
     // Create buttons
-    myClearSelection = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Clear"), "", "", nullptr, this, MID_GNE_CLEARSELECTION, GUIDesignButton);
+    myClearSelection = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Clear selection"), "", "", nullptr, this, MID_GNE_CLEARSELECTION, GUIDesignButton);
     myUseSelected = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Use selected"), "", "", nullptr, this, MID_GNE_USESELECTED, GUIDesignButton);
     // list label
-    new FXLabel(getCollapsableFrame(), "Selected elements", 0, GUIDesignLabelThick(JUSTIFY_NORMAL));
+    new FXLabel(getCollapsableFrame(), TL("Selected elements"), 0, GUIDesignLabelThick(JUSTIFY_NORMAL));
     // Create list
     myList = new FXList(getCollapsableFrame(), this, MID_GNE_SELECT, GUIDesignListFixedHeight);
     // create information label
@@ -82,7 +82,10 @@ GNEViewObjectSelector::showNetworkElementsSelector(const SumoXMLTag tag, const S
     myTag = tag;
     myAttribute = attribute;
     // update info
-    myLabel->setText((TLF("-Click over an % to select", toString(tag)) + std::string("\n") + TL("-ESC to clear selection")).c_str());
+    myLabel->setText((TL("-This additional requiere to\n select at least\n one element") + std::string("\n") +
+                      TLF("-Click over % to select", toString(tag)) + std::string("\n") +
+                      TL("-ESC to clear elements")).c_str());
+    myUseSelected->setText(TLF("Use selected %s", toString(tag)).c_str());
     // update groupBox elements
     setText(TLF("% selector", toString(tag)));
     // clear items

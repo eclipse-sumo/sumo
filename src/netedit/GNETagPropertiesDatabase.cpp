@@ -442,9 +442,9 @@ GNETagPropertiesDatabase::fillHierarchy() {
     mySetTagProperties[GNE_TAG_JUPEDSIM] = new GNETagProperties(GNE_TAG_JUPEDSIM,
             mySetTagProperties.at(GNE_TAG_SHAPES),
             GUIIcon::E1,
-            TL("JuPedSim elements")),
-    FXRGBA(255, 255, 255, 255),
-    TL("JuPedSim elements");
+            TL("JuPedSim elements"),
+            FXRGBA(255, 255, 255, 255),
+            TL("JuPedSim elements"));
     // TAZs - level 2
     mySetTagProperties[GNE_TAG_TAZS] = new GNETagProperties(GNE_TAG_TAZS,
             mySetTagProperties.at(GNE_TAG_SUPERMODE_NETWORK),
@@ -8426,19 +8426,22 @@ GNETagPropertiesDatabase::fillCommonMeanDataAttributes(GNETagProperties* tagProp
     fillFileAttribute(tagProperties);
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_PERIOD,
-                               GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE,
+                               GNEAttributeProperties::SUMOTIME | GNEAttributeProperties::DEFAULTVALUE,
                                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
-                               TL("The aggregation period the values the detector collects shall be summed up"));
+                               TL("The aggregation period the values the detector collects shall be summed up"), 
+                               "-1");
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_BEGIN,
-                               GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE,
+                               GNEAttributeProperties::SUMOTIME | GNEAttributeProperties::DEFAULTVALUE,
                                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
-                               TL("The time to start writing. If not given, the simulation's begin is used."));
+                               TL("The time to start writing. If not given, the simulation's begin is used."),
+                               "-1");
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_END,
-                               GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE,
+                               GNEAttributeProperties::SUMOTIME | GNEAttributeProperties::DEFAULTVALUE,
                                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
-                               TL("The time to end writing. If not given the simulation's end is used."));
+                               TL("The time to end writing. If not given the simulation's end is used."),
+                               "-1");
 
     auto excludeEmpty = new GNEAttributeProperties(tagProperties, SUMO_ATTR_EXCLUDE_EMPTY,
             GNEAttributeProperties::STRING | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::DEFAULTVALUE,

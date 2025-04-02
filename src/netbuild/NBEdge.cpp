@@ -1997,7 +1997,7 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
         ++numLanes;
         if (con.customLength != UNSPECIFIED_LOADED_LENGTH) {
             // split length proportionally
-            lengthSum += firstLength / shapeLength * con.customLength;
+            lengthSum += (shapeLength != 0 ? firstLength / shapeLength : 1) * con.customLength;
         } else {
             lengthSum += firstLength;
         }

@@ -228,7 +228,7 @@ TraCIServer::wrapStringDoublePair(const std::string& /* objID */, const int /* v
 
 bool
 TraCIServer::wrapStringDoublePairList(const std::string& /* objID */, const int /* variable */, const std::vector<std::pair<std::string, double> >& value) {
-    StoHelp::writeCompound(myWrapperStorage, value.size());
+    StoHelp::writeCompound(myWrapperStorage, (int)value.size());
     for (const auto& p : value) {
         myWrapperStorage.writeString(p.first);
         myWrapperStorage.writeDouble(p.second);

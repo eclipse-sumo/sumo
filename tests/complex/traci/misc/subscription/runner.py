@@ -19,16 +19,20 @@
 import os
 import sys
 import inspect
-import importlib
+from pprint import pprint
+
 if "SUMO_HOME" in os.environ:
     sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
 import sumolib
-import traci
-os.environ.pop('LIBSUMO_AS_TRACI', None)
-os.environ.pop('LIBTRACI_AS_TRACI', None)
-pure_traci = importlib.reload(traci)
-
-VERBOSE = False
+if os.environ.pop('LIBSUMO_AS_TRACI', None):
+    import traci as pure_traci
+    import libsumo as traci
+elif os.environ.pop('LIBTRACI_AS_TRACI', None):
+    import traci as pure_traci
+    import libtraci as traci
+else:
+    import traci
+    pure_traci = traci
 
 try:
     traci.start([sumolib.checkBinary("sumo"), "-c", "sumo.sumocfg", "+a", "input_additional.add.xml"])
@@ -91,5 +95,8 @@ try:
                             traci.simulation.subscribe([v], parameters=param)
                         else:
                             getattr(traci, dt._name).subscribe(name, [v], parameters=param)
+    traci.simulationStep()
+    for dt in pure_traci.DOMAINS:
+        pprint(getattr(traci, dt._name).getAllSubscriptionResults())
 finally:
     traci.close()

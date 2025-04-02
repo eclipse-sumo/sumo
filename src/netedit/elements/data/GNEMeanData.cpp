@@ -87,13 +87,14 @@ GNEMeanData::writeMeanData(OutputDevice& device) const {
     }
     // write optional attributes
     if (myPeriod != myTagProperty->getDefaultTimeValue(SUMO_ATTR_PERIOD)) {
-        device.writeAttr(SUMO_ATTR_PERIOD, STEPS2TIME(myPeriod));
+        std::cout << myPeriod << std::endl;
+        device.writeAttr(SUMO_ATTR_PERIOD, time2string(myPeriod));
     }
     if (myBegin != myTagProperty->getDefaultTimeValue(SUMO_ATTR_BEGIN)) {
-        device.writeAttr(SUMO_ATTR_BEGIN, STEPS2TIME(myBegin));
+        device.writeAttr(SUMO_ATTR_BEGIN, time2string(myBegin));
     }
     if (myEnd != myTagProperty->getDefaultTimeValue(SUMO_ATTR_END)) {
-        device.writeAttr(SUMO_ATTR_END, STEPS2TIME(myEnd));
+        device.writeAttr(SUMO_ATTR_END, time2string(myEnd));
     }
     if (myExcludeEmpty != myTagProperty->getDefaultStringValue(SUMO_ATTR_EXCLUDE_EMPTY)) {
         device.writeAttr(SUMO_ATTR_EXCLUDE_EMPTY, myExcludeEmpty);
@@ -215,19 +216,19 @@ GNEMeanData::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_FILE:
             return myFile;
         case SUMO_ATTR_PERIOD:
-            if (myPeriod == -1) {
+            if (myPeriod == myTagProperty->getDefaultTimeValue(key)) {
                 return "";
             } else {
                 return time2string(myPeriod);
             }
         case SUMO_ATTR_BEGIN:
-            if (myBegin == -1) {
+            if (myBegin == myTagProperty->getDefaultTimeValue(key)) {
                 return "";
             } else {
                 return time2string(myBegin);
             }
         case SUMO_ATTR_END:
-            if (myEnd == -1) {
+            if (myEnd == myTagProperty->getDefaultTimeValue(key)) {
                 return "";
             } else {
                 return time2string(myEnd);

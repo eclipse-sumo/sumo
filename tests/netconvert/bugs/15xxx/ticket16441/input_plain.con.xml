@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<connections version="1.20" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/connections_file.xsd">
+    <connection from="1" to="0" fromLane="0" toLane="0" keepClear="0" length="0.10" shape="1931.25,7058.41 1931.25,7058.41"/>
+    <connection from="2" to="3" fromLane="0" toLane="0" keepClear="0" length="0.10" shape="1927.36,7060.06 1927.36,7060.06"/>
+
+</connections>

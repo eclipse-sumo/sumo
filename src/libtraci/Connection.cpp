@@ -398,11 +398,28 @@ Connection::readVariables(tcpip::Storage& inMsg, const std::string& objectID, in
                         sl->value.push_back(inMsg.readString());
                     }
                     into[objectID][variableID] = sl;
+                    break;
                 }
-                break;
+                case libsumo::TYPE_POLYGON: {
+                    auto po = std::make_shared<libsumo::TraCIPositionVector>();
+                    StoHelp::readPolygon(inMsg, *po);
+                    into[objectID][variableID] = po;
+                    break;
+                }
+                case libsumo::TYPE_DOUBLELIST: {
+                    auto po = std::make_shared<libsumo::TraCIDoubleList>();
+                    po->value = inMsg.readDoubleList();
+                    into[objectID][variableID] = po;
+                    break;
+                }
                 case libsumo::TYPE_COMPOUND: {
                     const int n = inMsg.readInt();
-                    if (variableID == libsumo::VAR_NEXT_LINKS) {
+                    if (variableID == libsumo::LAST_STEP_VEHICLE_DATA) {
+                        auto r = std::make_shared<libsumo::TraCIVehicleDataVectorWrapped>();
+                        StoHelp::readVehicleDataVector(inMsg, r->value);
+                        into[objectID][variableID] = r;
+                        break;
+                    } else if (variableID == libsumo::VAR_NEXT_LINKS) {
                         const int count = StoHelp::readTypedInt(inMsg);
                         auto r = std::make_shared<libsumo::TraCIConnectionVectorWrapped>();
                         for (int i = 0; i < count; ++i) {
@@ -410,6 +427,11 @@ Connection::readVariables(tcpip::Storage& inMsg, const std::string& objectID, in
                             StoHelp::readConnection(inMsg, con);
                             r->value.emplace_back(con);
                         }
+                        into[objectID][variableID] = r;
+                        break;
+                    } else if (variableID == libsumo::VAR_STAGE) {
+                        auto r = std::make_shared<libsumo::TraCIStage>();
+                        StoHelp::readStage(inMsg, *r);
                         into[objectID][variableID] = r;
                         break;
                     }

@@ -10,10 +10,10 @@ Warning: 8 total messages of type: Could not assign stop '%' to pt line '%' (clo
 Warning: 10 total messages of type: Could not determine direction for line '%' at stop '%'.
 Warning: 5 total messages of type: Could not find corresponding edge or compatible lane for free-floating pt stop '%' (%). Thus, it will be removed!
 Warning: 2 total messages of type: Could not re-assign PT stop '%', probably broken osm file.
-Warning: 5 total messages of type: Discarding invalid crossing '%' at junction '%' with edges [%] (no vehicle lanes to cross).
+Warning: 9 total messages of type: Discarding invalid crossing '%' at junction '%' with edges [%] (no vehicle lanes to cross).
 Warning: 2 total messages of type: Discarding invalid crossing '%' at junction '%' with edges [%] (no walkingarea found).
 Warning: 4 total messages of type: Discarding unknown compound '%' in type '%' (first occurrence for edge '%').
-Warning: 16 total messages of type: Discarding unusable type '%' (first occurrence for edge '%').
+Warning: 17 total messages of type: Discarding unusable type '%' (first occurrence for edge '%').
 Warning: 15 total messages of type: Edge '%' already has a dedicated lane for %s. Not adding another one.
 Warning: 7 total messages of type: Edge sequence is not consistent with stop sequence in line '%', not adding bidi edges.
 Warning: 6 total messages of type: First stop edge '%' is not part of the route of line '%'.
@@ -28,9 +28,9 @@ Warning: 4 total messages of type: Lane '%' is not connected from any incoming e
 Warning: 9 total messages of type: Last stop edge '%' is not part of the route of line '%'.
 Warning: 2 total messages of type: No connection found between stops on edge '%' and edge '%'.
 Warning: 109 total messages of type: No way found for reference '%' in relation '%'
-Warning: 7 total messages of type: Not joining junctions % (%).
+Warning: 5 total messages of type: Not joining junctions % (%).
 Warning: 9 total messages of type: PT line '%' in relation % seems to be split, only keeping first part.
-Warning: 17 total messages of type: PT line in relation % with no stops ignored. Probably OSM file is incomplete.
+Warning: 21 total messages of type: PT line in relation % with no stops ignored. Probably OSM file is incomplete.
 Warning: 15 total messages of type: PT stop '%' has been moved to edge '%'.
 Warning: 17 total messages of type: Platform '%' in relation: '%' is given as polygon, which currently is not supported.
 Warning: 3 total messages of type: Reducing junction cluster % (%).
@@ -53,22 +53,20 @@ Warning: At actuated tlLogic 'cluster_21487209_2480337678_29219440_3831343134_#4
 Warning: Program '0' at tlLogic 'joinedS_3837048399_cluster_196741367_29221514_3837048403_3837048405_#6more' is incompatible with logic at junction 'cluster_196741367_29221514_3837048403_3837048405_#6more' (mutual conflict between link indices 0,6 tl indices 3,9 phase 6).
   To avoid deadlock/collisions, either: rebuild the signal plan with a newer version of netconvert/netedit
   or rebuild the network with option '--tls.ignore-internal-junction-jam' or include the program when building.
-Warning: busStop '3352479244' on lane '458953719#0_1' is too short for vehicle '34_bus_165:0'.
-Warning: busStop '-3918673879' on lane '-32805741#2_1' is too short for vehicle '59_bus_142:1'.
 Warning: No connection between edge '199847347#3' and edge '272795470#1' found.
 Warning: No route for vehicle '84_subway_U2:1' found.
 Warning: No connection between edge '384294422#2' and edge '387106270#2' found.
 Warning: No route for vehicle '83_subway_U2:0' found.
 Warning: Teleporting vehicle '84_subway_U2:1'; waited too long (wrong lane), lane='387106272_0', time=25947.00.
 Warning: Vehicle '84_subway_U2:1' ends teleporting on edge '387106272', time=25947.00.
-Warning: Teleporting vehicle '83_subway_U2:0'; waited too long (wrong lane), lane='200422335#0_0', time=25984.00.
-Warning: Vehicle '83_subway_U2:0' ends teleporting on edge '200422335#0', time=25984.00.
-Warning: Teleporting vehicle '84_subway_U2:1'; waited too long (wrong lane), lane='387106272_0', time=26263.00.
-Warning: Vehicle '84_subway_U2:1' ends teleporting on edge '199847347#2', time=26263.00.
+Warning: Teleporting vehicle '83_subway_U2:0'; waited too long (wrong lane), lane='200422335#0_0', time=25983.00.
+Warning: Vehicle '83_subway_U2:0' ends teleporting on edge '200422335#0', time=25983.00.
+Warning: Teleporting vehicle '84_subway_U2:1'; waited too long (wrong lane), lane='387106272_0', time=26262.00.
+Warning: Vehicle '84_subway_U2:1' ends teleporting on edge '199847347#2', time=26262.00.
 Warning: Teleporting vehicle '83_subway_U2:0'; waited too long (wrong lane), lane='200422335#1_0', time=26455.00.
 Warning: Vehicle '83_subway_U2:0' ends teleporting on edge '200422335#1', time=26455.00.
-Warning: Teleporting vehicle '84_subway_U2:1'; waited too long (wrong lane), lane='199847347#3_0', time=26679.00.
-Warning: Vehicle '84_subway_U2:1' ends teleporting on edge '272795470#1', time=26679.00.
+Warning: Teleporting vehicle '84_subway_U2:1'; waited too long (wrong lane), lane='199847347#3_0', time=26676.00.
+Warning: Vehicle '84_subway_U2:1' ends teleporting on edge '272795470#1', time=26676.00.
 Warning: 7 total messages of type: At actuated tlLogic '%', linkIndex % has no controlling detector.
 Warning: 7 total messages of type: Teleporting vehicle '%'; waited too long (wrong lane), lane='%', time=%.
 Warning: 7 total messages of type: Vehicle '%' ends teleporting on edge '%', time=%.

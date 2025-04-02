@@ -1407,10 +1407,12 @@ GNEDemandElementPlan::getPlanAttributeDouble(SumoXMLAttr key) const {
         case GNE_ATTR_PLAN_GEOMETRY_STARTPOS: {
             if (tagProperty->planStoppingPlace()) {
                 // use startpos of stoppingPlace parent (stops)
-                return myPlanElement->getParentStoppingPlaces().front()->getAttributeDouble(SUMO_ATTR_STARTPOS);
+                const auto factor = myPlanElement->getParentStoppingPlaces().front()->getParentLanes().front()->getLengthGeometryFactor();
+                return myPlanElement->getParentStoppingPlaces().front()->getAttributeDouble(SUMO_ATTR_STARTPOS) * factor;
             } else if (tagProperty->planFromStoppingPlace()) {
                 // use end position of stoppingPlace parent (for plans that starts in stoppingPlaces)
-                return myPlanElement->getParentStoppingPlaces().front()->getAttributeDouble(SUMO_ATTR_ENDPOS);
+                const auto factor = myPlanElement->getParentStoppingPlaces().front()->getParentLanes().front()->getLengthGeometryFactor();
+                return myPlanElement->getParentStoppingPlaces().front()->getAttributeDouble(SUMO_ATTR_ENDPOS) * factor;
             } else if (tagProperty->planFromTAZ()) {
                 return 0;
             } else if (tagProperty->planFromJunction()) {
@@ -1439,10 +1441,12 @@ GNEDemandElementPlan::getPlanAttributeDouble(SumoXMLAttr key) const {
             // continue depending of parents
             if (tagProperty->planStoppingPlace()) {
                 // use end position of the stoppingPlace (stops)
-                return myPlanElement->getParentStoppingPlaces().back()->getAttributeDouble(SUMO_ATTR_ENDPOS);
+                const auto factor = myPlanElement->getParentStoppingPlaces().back()->getParentLanes().front()->getLengthGeometryFactor();
+                return myPlanElement->getParentStoppingPlaces().back()->getAttributeDouble(SUMO_ATTR_ENDPOS) * factor;
             } else if (tagProperty->planToStoppingPlace()) {
                 // use start position of the stoppingPlace (for elements that ends in stoppingPlaces)
-                return myPlanElement->getParentStoppingPlaces().back()->getAttributeDouble(SUMO_ATTR_STARTPOS);
+                const auto factor = myPlanElement->getParentStoppingPlaces().back()->getParentLanes().front()->getLengthGeometryFactor();
+                return myPlanElement->getParentStoppingPlaces().back()->getAttributeDouble(SUMO_ATTR_STARTPOS) * factor;
             } else if (tagProperty->planToJunction() || tagProperty->planToTAZ()) {
                 // junctions and TAZs return always -1
                 return -1;

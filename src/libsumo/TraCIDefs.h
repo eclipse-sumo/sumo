@@ -186,6 +186,9 @@ struct TraCIPosition : TraCIResult {
         os << ")";
         return os.str();
     }
+    int getType() const {
+        return z != INVALID_DOUBLE_VALUE ? POSITION_3D : POSITION_2D;
+    }
     double x = INVALID_DOUBLE_VALUE, y = INVALID_DOUBLE_VALUE, z = INVALID_DOUBLE_VALUE;
 #ifdef SWIGJAVA
     SWIGJAVA_CAST(TraCIPosition)
@@ -196,16 +199,18 @@ struct TraCIPosition : TraCIResult {
  * @brief An edgeId, position and laneIndex
  */
 struct TraCIRoadPosition : TraCIResult {
-    TraCIRoadPosition() {}
-    TraCIRoadPosition(const std::string e, const double p) : edgeID(e), pos(p) {}
+    TraCIRoadPosition(const std::string e="", const double p=INVALID_DOUBLE_VALUE, const int li=INVALID_INT_VALUE) : edgeID(e), pos(p), laneIndex(li) {}
     std::string getString() const {
         std::ostringstream os;
         os << "TraCIRoadPosition(" << edgeID << "_" << laneIndex << "," << pos << ")";
         return os.str();
     }
-    std::string edgeID = "";
-    double pos = INVALID_DOUBLE_VALUE;
-    int laneIndex = INVALID_INT_VALUE;
+    int getType() const {
+        return POSITION_ROADMAP;
+    }
+    std::string edgeID;
+    double pos;
+    int laneIndex;
 #ifdef SWIGJAVA
     SWIGJAVA_CAST(TraCIRoadPosition)
 #endif
@@ -250,14 +255,17 @@ struct TraCIPositionVector : TraCIResult {
 
 
 struct TraCIInt : TraCIResult {
-    TraCIInt() : value(0) {}
-    TraCIInt(int v) : value(v) {}
+    TraCIInt(int v=0, int t=libsumo::TYPE_INTEGER) : value(v), traciType(t) {}
     std::string getString() const {
         std::ostringstream os;
         os << value;
         return os.str();
     }
+    int getType() const {
+        return traciType;
+    }
     int value;
+    int traciType;
 #ifdef SWIGJAVA
     SWIGJAVA_CAST(TraCIInt)
 #endif
@@ -265,8 +273,7 @@ struct TraCIInt : TraCIResult {
 
 
 struct TraCIDouble : TraCIResult {
-    TraCIDouble() : value(0.) {}
-    TraCIDouble(double v) : value(v) {}
+    TraCIDouble(double v=0.) : value(v) {}
     std::string getString() const {
         std::ostringstream os;
         os << value;
@@ -283,8 +290,7 @@ struct TraCIDouble : TraCIResult {
 
 
 struct TraCIString : TraCIResult {
-    TraCIString() : value("") {}
-    TraCIString(std::string v) : value(v) {}
+    TraCIString(std::string v="") : value(v) {}
     std::string getString() const {
         return value;
     }

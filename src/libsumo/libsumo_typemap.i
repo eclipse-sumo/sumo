@@ -103,8 +103,62 @@
             parameters[key_int] = std::make_shared<libsumo::TraCIInt>(PyInt_AsLong(value));
         } else if (PyFloat_Check(value)) {
             parameters[key_int] = std::make_shared<libsumo::TraCIDouble>(PyFloat_AsDouble(value));
-        } else if (PyString_Check(value)) {
-            parameters[key_int] = std::make_shared<libsumo::TraCIString>(PyString_AsString(value));
+        } else if (PyUnicode_Check(value)) {
+            parameters[key_int] = std::make_shared<libsumo::TraCIString>(PyUnicode_AsUTF8(value));
+        } else if (PySequence_Check(value)) {
+            const Py_ssize_t size = PySequence_Size(value);
+            if (size < 2 || !PyUnicode_Check(PySequence_GetItem(value, 0))) {
+                PyErr_SetString(PyExc_TypeError, "Wrong parameter format");
+                SWIG_fail;
+            }
+            const std::string format = PyUnicode_AsUTF8(PySequence_GetItem(value, 0));
+            if (format == "b") {
+                parameters[key_int] = std::make_shared<libsumo::TraCIInt>(PyInt_AsLong(PySequence_GetItem(value, 1)), libsumo::TYPE_BYTE);
+            } else if (format == "B") {
+                parameters[key_int] = std::make_shared<libsumo::TraCIInt>(PyInt_AsLong(PySequence_GetItem(value, 1)), libsumo::TYPE_UBYTE);
+            } else if (format == "tru") {
+                PyObject* pyRoadPos = PySequence_GetItem(value, 2);
+                const std::string edge = PyUnicode_AsUTF8(PySequence_GetItem(pyRoadPos, 0));
+                const double pos = PyFloat_AsDouble(PySequence_GetItem(pyRoadPos, 1));
+                const int laneIndex = PyInt_AsLong(PySequence_GetItem(pyRoadPos, 2));
+                parameters[key_int] = std::make_shared<libsumo::TraCIRoadPosition>(edge, pos, laneIndex);
+            } else if (format == "tou") {
+                PyObject* pyPos = PySequence_GetItem(value, 2);
+                libsumo::TraCIPosition pos;
+                pos.x = PyFloat_AsDouble(PySequence_GetItem(pyPos, 0));
+                pos.y = PyFloat_AsDouble(PySequence_GetItem(pyPos, 1));
+                parameters[key_int] = std::make_shared<libsumo::TraCIPosition>(pos);
+            } else if (format == "tisb") {
+                libsumo::TraCIStringDoublePairList wrap;
+                wrap.value.emplace_back(std::pair<std::string, double>(PyUnicode_AsUTF8(PySequence_GetItem(value, 3)), (double)PyInt_AsLong(PySequence_GetItem(value, 2))));
+                wrap.value.emplace_back(std::pair<std::string, double>("", (double)PyInt_AsLong(PySequence_GetItem(value, 4))));
+                parameters[key_int] = std::make_shared<libsumo::TraCIStringDoublePairList>(wrap);
+            } else if (format == "tds") {
+                libsumo::TraCIStringDoublePairList wrap;
+                wrap.value.emplace_back(std::pair<std::string, double>(PyUnicode_AsUTF8(PySequence_GetItem(value, 3)), PyFloat_AsDouble(PySequence_GetItem(value, 2))));
+                parameters[key_int] = std::make_shared<libsumo::TraCIStringDoublePairList>(wrap);
+            } else if (format == "tdddds") {
+                libsumo::TraCIStringDoublePairList wrap;
+                wrap.value.emplace_back(std::pair<std::string, double>("", PyFloat_AsDouble(PySequence_GetItem(value, 2))));
+                wrap.value.emplace_back(std::pair<std::string, double>("", PyFloat_AsDouble(PySequence_GetItem(value, 3))));
+                wrap.value.emplace_back(std::pair<std::string, double>("", PyFloat_AsDouble(PySequence_GetItem(value, 4))));
+                wrap.value.emplace_back(std::pair<std::string, double>(PyUnicode_AsUTF8(PySequence_GetItem(value, 6)), PyFloat_AsDouble(PySequence_GetItem(value, 5))));
+                parameters[key_int] = std::make_shared<libsumo::TraCIStringDoublePairList>(wrap);
+            } else if (format == "tddds") {
+                libsumo::TraCIStringDoublePairList wrap;
+                wrap.value.emplace_back(std::pair<std::string, double>("", PyFloat_AsDouble(PySequence_GetItem(value, 2))));
+                wrap.value.emplace_back(std::pair<std::string, double>("", PyFloat_AsDouble(PySequence_GetItem(value, 3))));
+                wrap.value.emplace_back(std::pair<std::string, double>(PyUnicode_AsUTF8(PySequence_GetItem(value, 5)), PyFloat_AsDouble(PySequence_GetItem(value, 4))));
+                parameters[key_int] = std::make_shared<libsumo::TraCIStringDoublePairList>(wrap);
+            } else if (format == "tdd") {
+                libsumo::TraCIStringDoublePairList wrap;
+                wrap.value.emplace_back(std::pair<std::string, double>("", PyFloat_AsDouble(PySequence_GetItem(value, 2))));
+                wrap.value.emplace_back(std::pair<std::string, double>("", PyFloat_AsDouble(PySequence_GetItem(value, 3))));
+                parameters[key_int] = std::make_shared<libsumo::TraCIStringDoublePairList>(wrap);
+            }
+        } else {
+            PyErr_SetString(PyExc_TypeError, "Unknown parameter format");
+            SWIG_fail;
         }
     }
     $1 = &parameters;
@@ -383,18 +437,26 @@ static PyObject* parseSubscriptionMap(const std::map<int, std::shared_ptr<libsum
 %}
 
 %define SUBSCRIBE_HELPER(domain)
-%pythonprepend SWIG_MODULE::domain::subscribe(const std::string&, const std::vector<int>&, double begin, double, const libsumo::TraCIResults&) %{
+%pythonprepend SWIG_MODULE::domain::subscribe(const std::string&, const std::vector<int>&, double, double, const libsumo::TraCIResults&) %{
     if len(args) > 1 and args[1] is None:
         args = (args[0], [-1]) + args[2:]
+    if len(args) > 4 and args[4] is None:
+        args = args[:4] + ({},)
     if "varIDs" in kwargs and kwargs["varIDs"] is None:
         kwargs["varIDs"] = [-1]
+    if "parameters" in kwargs and kwargs["parameters"] is None:
+        kwargs["parameters"] = {}
 %}
 
-%pythonprepend SWIG_MODULE::domain::subscribeContext(const std::string&, int, double, const std::vector<int>&, double begin, double, const libsumo::TraCIResults&) %{
+%pythonprepend SWIG_MODULE::domain::subscribeContext(const std::string&, int, double, const std::vector<int>&, double, double, const libsumo::TraCIResults&) %{
     if len(args) > 3 and args[3] is None:
         args = (args[0], args[1], args[2], [-1]) + args[4:]
+    if len(args) > 6 and args[6] is None:
+        args = args[:6] + ({},)
     if "varIDs" in kwargs and kwargs["varIDs"] is None:
         kwargs["varIDs"] = [-1]
+    if "parameters" in kwargs and kwargs["parameters"] is None:
+        kwargs["parameters"] = {}
 %}
 %enddef
 

@@ -135,19 +135,9 @@ public:
     static libsumo::TraCIPositionVector getPolygon(int var, const std::string& id, tcpip::Storage* add = nullptr) {
         std::unique_lock<std::mutex> lock{ libtraci::Connection::getActive().getMutex() };
         tcpip::Storage& result = get(var, id, add, libsumo::TYPE_POLYGON);
-        libsumo::TraCIPositionVector ret;
-        int size = result.readUnsignedByte();
-        if (size == 0) {
-            size = result.readInt();
-        }
-        for (int i = 0; i < size; ++i) {
-            libsumo::TraCIPosition p;
-            p.x = result.readDouble();
-            p.y = result.readDouble();
-            p.z = 0.;
-            ret.value.push_back(p);
-        }
-        return ret;
+        libsumo::TraCIPositionVector poly;
+        StoHelp::readPolygon(result, poly);
+        return poly;
     }
 
     static libsumo::TraCIPosition getPos(int var, const std::string& id, tcpip::Storage* add = nullptr, const bool isGeo = false) {

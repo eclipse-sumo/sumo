@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-01-27 07:27:11.006917 by gtfs2pt.py v1_21_0+2034-2ccd653df30
+<!-- generated on 2025-04-02 07:34:56.429207 by gtfs2pt.py v1_22_0+1212-bfc5d0fcc2a
   options: -n test/osm.net.xml.gz <doubleminus>gtfs data/GTFS_VBB_Mitte_20190713.zip <doubleminus>date 20190713 <doubleminus>osm-routes test/osm_ptlines.xml
 -->
 
@@ -737,8 +737,8 @@
         <stop busStop="070301009587_0" arrival="2580" duration="10" until="2580"/><!--stopSequence="15.0/17.0" "Berlin, Mollstr./Prenzlauer Allee"-->
         <stop busStop="070301008815_0" arrival="2700" duration="10" until="2700"/><!--stopSequence="16.0/17.0" "Berlin, Memhardstr."-->
     </vehicle>
-    <route id="8819" edges="1098856744 369223461#0 369223461#1 1098856742 369223458#2 369223458#3 1157111072#1 1115509343#1 1115509343#2 24993933#0 24993933#1 4613308#2 756306892 112128419#1 112128419#2 415280722 195401013#2 171826985#2 606078072#1 -534588621#3 -534588621#2 606078071#0 61583423#1 82654059#0 82654059#1 1133457735#1 1133457733 1332751227#0 81112790#0 81112790#1 23851930 11549895 233835641#0 233835641#2 753730627#0 753730627#1 4773463#1 4611723 541763976 120359703"/>
-    <vehicle id="114272681.0" route="8819" line="17467_700_114272681" depart="2340" departEdge="14" arrivalEdge="17" type="bus" color="89,91,98">
+    <route id="8819" edges="1098856744 369223461#0 369223461#1 1098856742 369223458#2 369223458#3 1157111072#1 1115509343#0 1115509343#1 1115509343#2 24993933#0 24993933#1 4613308#2 756306892 112128419#1 112128419#2 415280722 195401013#2 171826985#2 606078072#1 -534588621#3 -534588621#2 606078071#0 61583423#1 82654059#0 82654059#1 1133457735#1 1133457733 1332751227#0 81112790#0 81112790#1 23851930 11549895 233835641#0 233835641#2 753730627#0 753730627#1 4773463#1 4611723 541763976 120359703"/>
+    <vehicle id="114272681.0" route="8819" line="17467_700_114272681" depart="2340" departEdge="15" arrivalEdge="18" type="bus" color="89,91,98">
         <param key="gtfs.route_name" value="N2"/>
         <param key="gtfs.trip_headsign" value="S+U Zoologischer Garten"/>
         <stop busStop="070101007153_0" arrival="2340" duration="10" until="2340"/><!--stopSequence="0.0/9.0" "Berlin, S+U Alexanderplatz Bhf/Memhardstr. (Berlin)"-->
@@ -803,7 +803,7 @@
         <stop busStop="070101007309_0" arrival="2760" duration="10" until="2760"/><!--stopSequence="2.0/11.0" "Berlin, Spandauer Str./Marienkirche"-->
         <stop busStop="070101007373_0" arrival="2820" duration="10" until="2820"/><!--stopSequence="3.0/11.0" "Berlin, Berliner Rathaus"-->
     </vehicle>
-    <route id="8816" edges="4773464#0 4773464#1 4611724 625843709 304627753#0 304627753#1 1151326816 328426208#0 328426208#2 1320422403#0 1320422403#1 -625843712 -23851930 1320422402 1320422400#0 82654055 1133457765#0 606078065 1112054538 61583424#1 534588621#0 534588621#3 284493291#0 72157174#1 171826984#2 195401006 1113401735#1 139877314#1 783042668 310357283#2 19002403#1 19002403#2 523630409 -24993933#2 -24993933#0 -1115509343#2 -1115509343#1 -1115509343#0 -369223458#3 -369223458#2 -369223458#0 369223460#1 369223460#2 -1098856744"/>
+    <route id="8816" edges="4773464#0 4773464#1 4611724 625843709 304627753#0 304627753#1 1151326816 328426208#0 328426208#2 1320422403#0 1320422403#1 -625843712 -23851930 1320422402 1320422400#0 82654055 1133457765#0 606078065 1112054538 61583424#1 534588621#0 534588621#3 284493291#0 72157174#1 171826984#2 195401006 1113401735#1 139877314#1 783042668 310357283#2 19002403#1 19002403#2 523630409 -24993933#2 -24993933#0 -1115509343#2 -1115509343#1 -1115509343#0 -1157111072#1 -369223458#3 -369223458#2 -369223458#0 369223460#1 369223460#2 -1098856744"/>
     <vehicle id="114272713.0" route="8816" line="17467_700_114272713" depart="2640" departEdge="23" arrivalEdge="28" type="bus" color="89,91,98">
         <param key="gtfs.route_name" value="N2"/>
         <param key="gtfs.trip_headsign" value="S+U Alexanderplatz"/>
@@ -1008,7 +1008,7 @@
         <stop busStop="070101005179_0" arrival="4380" duration="10" until="4380"/><!--stopSequence="5.0/8.0" "Berlin, Fischerinsel"-->
         <stop busStop="070101005153_0" arrival="4500" duration="10" until="4500"/><!--stopSequence="6.0/8.0" "U Spittelmarkt (Berlin)"-->
     </vehicle>
-    <vehicle id="114272672.0" route="8819" line="17467_700_114272672" depart="4020" departEdge="13" arrivalEdge="17" type="bus" color="89,91,98">
+    <vehicle id="114272672.0" route="8819" line="17467_700_114272672" depart="4020" departEdge="14" arrivalEdge="18" type="bus" color="89,91,98">
         <param key="gtfs.route_name" value="N2"/>
         <param key="gtfs.trip_headsign" value="S+U Zoologischer Garten"/>
         <stop busStop="070101007113_0" arrival="4020" duration="10" until="4020"/><!--stopSequence="0.0/10.0" "Berlin, Memhardstr."-->
@@ -1267,7 +1267,7 @@
         <stop busStop="070101007373_0" arrival="6480" duration="10" until="6480"/><!--stopSequence="20.0/26.0" "Berlin, Berliner Rathaus"-->
         <stop busStop="070101006653_0" arrival="6540" duration="10" until="6540"/><!--stopSequence="21.0/26.0" "S+U Jannowitzbrücke (Berlin)"-->
     </vehicle>
-    <vehicle id="114272673.0" route="8819" line="17467_700_114272672" depart="5820" departEdge="13" arrivalEdge="17" type="bus" color="89,91,98">
+    <vehicle id="114272673.0" route="8819" line="17467_700_114272672" depart="5820" departEdge="14" arrivalEdge="18" type="bus" color="89,91,98">
         <param key="gtfs.route_name" value="N2"/>
         <param key="gtfs.trip_headsign" value="S+U Zoologischer Garten"/>
         <stop busStop="070101007113_0" arrival="5820" duration="10" until="5820"/><!--stopSequence="0.0/10.0" "Berlin, Memhardstr."-->
@@ -1503,7 +1503,7 @@
         <stop busStop="070101005179_0" arrival="7980" duration="10" until="7980"/><!--stopSequence="5.0/8.0" "Berlin, Fischerinsel"-->
         <stop busStop="070101005153_0" arrival="8100" duration="10" until="8100"/><!--stopSequence="6.0/8.0" "U Spittelmarkt (Berlin)"-->
     </vehicle>
-    <vehicle id="114272674.0" route="8819" line="17467_700_114272672" depart="7620" departEdge="13" arrivalEdge="17" type="bus" color="89,91,98">
+    <vehicle id="114272674.0" route="8819" line="17467_700_114272672" depart="7620" departEdge="14" arrivalEdge="18" type="bus" color="89,91,98">
         <param key="gtfs.route_name" value="N2"/>
         <param key="gtfs.trip_headsign" value="S+U Zoologischer Garten"/>
         <stop busStop="070101007113_0" arrival="7620" duration="10" until="7620"/><!--stopSequence="0.0/10.0" "Berlin, Memhardstr."-->
@@ -1726,7 +1726,7 @@
         <stop busStop="070101005179_0" arrival="9780" duration="10" until="9780"/><!--stopSequence="5.0/8.0" "Berlin, Fischerinsel"-->
         <stop busStop="070101005153_0" arrival="9900" duration="10" until="9900"/><!--stopSequence="6.0/8.0" "U Spittelmarkt (Berlin)"-->
     </vehicle>
-    <vehicle id="114272675.0" route="8819" line="17467_700_114272672" depart="9420" departEdge="13" arrivalEdge="17" type="bus" color="89,91,98">
+    <vehicle id="114272675.0" route="8819" line="17467_700_114272672" depart="9420" departEdge="14" arrivalEdge="18" type="bus" color="89,91,98">
         <param key="gtfs.route_name" value="N2"/>
         <param key="gtfs.trip_headsign" value="S+U Zoologischer Garten"/>
         <stop busStop="070101007113_0" arrival="9420" duration="10" until="9420"/><!--stopSequence="0.0/10.0" "Berlin, Memhardstr."-->
@@ -1956,7 +1956,7 @@
         <stop busStop="070101005179_0" arrival="11580" duration="10" until="11580"/><!--stopSequence="5.0/8.0" "Berlin, Fischerinsel"-->
         <stop busStop="070101005153_0" arrival="11700" duration="10" until="11700"/><!--stopSequence="6.0/8.0" "U Spittelmarkt (Berlin)"-->
     </vehicle>
-    <vehicle id="114272676.0" route="8819" line="17467_700_114272672" depart="11220" departEdge="13" arrivalEdge="17" type="bus" color="89,91,98">
+    <vehicle id="114272676.0" route="8819" line="17467_700_114272672" depart="11220" departEdge="14" arrivalEdge="18" type="bus" color="89,91,98">
         <param key="gtfs.route_name" value="N2"/>
         <param key="gtfs.trip_headsign" value="S+U Zoologischer Garten"/>
         <stop busStop="070101007113_0" arrival="11220" duration="10" until="11220"/><!--stopSequence="0.0/10.0" "Berlin, Memhardstr."-->
@@ -2162,7 +2162,7 @@
         <stop busStop="070101007373_0" arrival="13680" duration="10" until="13680"/><!--stopSequence="20.0/26.0" "Berlin, Berliner Rathaus"-->
         <stop busStop="070101006653_0" arrival="13740" duration="10" until="13740"/><!--stopSequence="21.0/26.0" "S+U Jannowitzbrücke (Berlin)"-->
     </vehicle>
-    <vehicle id="114272677.0" route="8819" line="17467_700_114272672" depart="13020" departEdge="13" arrivalEdge="17" type="bus" color="89,91,98">
+    <vehicle id="114272677.0" route="8819" line="17467_700_114272672" depart="13020" departEdge="14" arrivalEdge="18" type="bus" color="89,91,98">
         <param key="gtfs.route_name" value="N2"/>
         <param key="gtfs.trip_headsign" value="S+U Zoologischer Garten"/>
         <stop busStop="070101007113_0" arrival="13020" duration="10" until="13020"/><!--stopSequence="0.0/10.0" "Berlin, Memhardstr."-->
@@ -2368,7 +2368,7 @@
         <stop busStop="070101007373_0" arrival="15480" duration="10" until="15480"/><!--stopSequence="20.0/26.0" "Berlin, Berliner Rathaus"-->
         <stop busStop="070101006653_0" arrival="15540" duration="10" until="15540"/><!--stopSequence="21.0/26.0" "S+U Jannowitzbrücke (Berlin)"-->
     </vehicle>
-    <vehicle id="114272678.0" route="8819" line="17467_700_114272672" depart="14820" departEdge="13" arrivalEdge="17" type="bus" color="89,91,98">
+    <vehicle id="114272678.0" route="8819" line="17467_700_114272672" depart="14820" departEdge="14" arrivalEdge="18" type="bus" color="89,91,98">
         <param key="gtfs.route_name" value="N2"/>
         <param key="gtfs.trip_headsign" value="S+U Zoologischer Garten"/>
         <stop busStop="070101007113_0" arrival="14820" duration="10" until="14820"/><!--stopSequence="0.0/10.0" "Berlin, Memhardstr."-->
@@ -2578,7 +2578,7 @@
         <stop busStop="070301008816_0" arrival="16680" duration="10" until="16680"/><!--stopSequence="0.0/7.0" "S+U Alexanderplatz Bhf/Dircksenstr. (Berlin)"-->
         <stop busStop="070301008811_0" arrival="16980" duration="10" until="16980"/><!--stopSequence="3.0/7.0" "Berlin, Mollstr./Otto-Braun-Str."-->
     </vehicle>
-    <vehicle id="114272679.0" route="8819" line="17467_700_114272681" depart="16740" departEdge="14" arrivalEdge="17" type="bus" color="89,91,98">
+    <vehicle id="114272679.0" route="8819" line="17467_700_114272681" depart="16740" departEdge="15" arrivalEdge="18" type="bus" color="89,91,98">
         <param key="gtfs.route_name" value="N2"/>
         <param key="gtfs.trip_headsign" value="S+U Zoologischer Garten"/>
         <stop busStop="070101007153_0" arrival="16740" duration="10" until="16740"/><!--stopSequence="0.0/9.0" "Berlin, S+U Alexanderplatz Bhf/Memhardstr. (Berlin)"-->
@@ -2790,7 +2790,7 @@
         <stop busStop="070301008816_0" arrival="18480" duration="10" until="18480"/><!--stopSequence="0.0/7.0" "S+U Alexanderplatz Bhf/Dircksenstr. (Berlin)"-->
         <stop busStop="070301008811_0" arrival="18780" duration="10" until="18780"/><!--stopSequence="3.0/7.0" "Berlin, Mollstr./Otto-Braun-Str."-->
     </vehicle>
-    <vehicle id="114272680.0" route="8819" line="17467_700_114272681" depart="18540" departEdge="14" arrivalEdge="17" type="bus" color="89,91,98">
+    <vehicle id="114272680.0" route="8819" line="17467_700_114272681" depart="18540" departEdge="15" arrivalEdge="18" type="bus" color="89,91,98">
         <param key="gtfs.route_name" value="N2"/>
         <param key="gtfs.trip_headsign" value="S+U Zoologischer Garten"/>
         <stop busStop="070101007153_0" arrival="18540" duration="10" until="18540"/><!--stopSequence="0.0/9.0" "Berlin, S+U Alexanderplatz Bhf/Memhardstr. (Berlin)"-->
