@@ -155,9 +155,9 @@ MeanDataHandler::parseEdgeMeanData(const SUMOSAXAttributes& attrs) {
     const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk);
     const std::string file = attrs.get<std::string>(SUMO_ATTR_FILE, id.c_str(), parsedOk);
     // optional attributes
-    const SUMOTime period = attrs.getOptSUMOTimeReporting(SUMO_ATTR_PERIOD, id.c_str(), parsedOk, -1);
-    const SUMOTime begin = attrs.getOptSUMOTimeReporting(SUMO_ATTR_BEGIN, id.c_str(), parsedOk, -1);
-    const SUMOTime end = attrs.getOptSUMOTimeReporting(SUMO_ATTR_END, id.c_str(), parsedOk, -1);
+    const SUMOTime period = attrs.getOptSUMOTimeReporting(SUMO_ATTR_PERIOD, id.c_str(), parsedOk, TIME2STEPS(-1));
+    const SUMOTime begin = attrs.getOptSUMOTimeReporting(SUMO_ATTR_BEGIN, id.c_str(), parsedOk, TIME2STEPS(-1));
+    const SUMOTime end = attrs.getOptSUMOTimeReporting(SUMO_ATTR_END, id.c_str(), parsedOk, TIME2STEPS(-1));
     const bool trackVehicles = attrs.getOpt<bool>(SUMO_ATTR_TRACK_VEHICLES, id.c_str(), parsedOk, false);
     const std::vector<std::string> writeAttributes = attrs.getOpt<std::vector<std::string> >(SUMO_ATTR_WRITE_ATTRIBUTES, id.c_str(), parsedOk, {});
     const bool aggregate = attrs.getOpt<bool>(SUMO_ATTR_AGGREGATE, id.c_str(), parsedOk, false);
@@ -206,9 +206,9 @@ MeanDataHandler::parseLaneMeanData(const SUMOSAXAttributes& attrs) {
     const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk);
     const std::string file = attrs.get<std::string>(SUMO_ATTR_FILE, id.c_str(), parsedOk);
     // optional attributes
-    const SUMOTime period = attrs.getOptSUMOTimeReporting(SUMO_ATTR_PERIOD, id.c_str(), parsedOk, -1);
-    const SUMOTime begin = attrs.getOptSUMOTimeReporting(SUMO_ATTR_BEGIN, id.c_str(), parsedOk, -1);
-    const SUMOTime end = attrs.getOptSUMOTimeReporting(SUMO_ATTR_END, id.c_str(), parsedOk, -1);
+    const SUMOTime period = attrs.getOptSUMOTimeReporting(SUMO_ATTR_PERIOD, id.c_str(), parsedOk, TIME2STEPS(-1));
+    const SUMOTime begin = attrs.getOptSUMOTimeReporting(SUMO_ATTR_BEGIN, id.c_str(), parsedOk, TIME2STEPS(-1));
+    const SUMOTime end = attrs.getOptSUMOTimeReporting(SUMO_ATTR_END, id.c_str(), parsedOk, TIME2STEPS(-1));
     const bool trackVehicles = attrs.getOpt<bool>(SUMO_ATTR_TRACK_VEHICLES, id.c_str(), parsedOk, false);
     const std::vector<std::string> writeAttributes = attrs.getOpt<std::vector<std::string> >(SUMO_ATTR_WRITE_ATTRIBUTES, id.c_str(), parsedOk, {});
     const bool aggregate = attrs.getOpt<bool>(SUMO_ATTR_AGGREGATE, id.c_str(), parsedOk, false);

@@ -391,6 +391,8 @@ GNEAttributesEditorRow::fillSumoBaseObject(CommonXMLStructure::SumoBaseObject* b
             baseObject->addColorAttribute(attribute, GNEAttributeCarrier::parse<RGBColor>(myValueTextField->getText().text()));
         } else if (myAttrProperty->hasDefaultValue() && (myValueTextField->getText().text() == myAttrProperty->getDefaultStringValue())) {
             baseObject->addColorAttribute(attribute, myAttrProperty->getDefaultColorValue());
+        } else if (myAttrProperty->hasDefaultValue() && myValueTextField->getText().empty()) {
+            baseObject->addColorAttribute(attribute, myAttrProperty->getDefaultColorValue());
         } else {
             return attribute;
         }

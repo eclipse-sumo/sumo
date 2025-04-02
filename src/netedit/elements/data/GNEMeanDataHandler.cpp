@@ -65,11 +65,11 @@ GNEMeanDataHandler::buildEdgeMeanData(const CommonXMLStructure::SumoBaseObject* 
         return false;
     } else if (!checkDuplicatedMeanDataElement(SUMO_TAG_MEANDATA_EDGE, id)) {
         return false;
-    } else if ((period != -1) && !checkNegative(SUMO_TAG_MEANDATA_EDGE, id, SUMO_ATTR_PERIOD, period, true)) {
+    } else if ((period != TIME2STEPS(-1)) && !checkNegative(SUMO_TAG_MEANDATA_EDGE, id, SUMO_ATTR_PERIOD, period, true)) {
         return false;
-    } else if ((begin != -1) && !checkNegative(SUMO_TAG_MEANDATA_EDGE, id, SUMO_ATTR_BEGIN, begin, true)) {
+    } else if ((begin != TIME2STEPS(-1)) && !checkNegative(SUMO_TAG_MEANDATA_EDGE, id, SUMO_ATTR_BEGIN, begin, true)) {
         return false;
-    } else if ((end != -1) && !checkNegative(SUMO_TAG_MEANDATA_EDGE, id, SUMO_ATTR_END, end, true)) {
+    } else if ((end != TIME2STEPS(-1)) && !checkNegative(SUMO_TAG_MEANDATA_EDGE, id, SUMO_ATTR_END, end, true)) {
         return false;
     } else if (!checkNegative(SUMO_TAG_MEANDATA_EDGE, id, SUMO_ATTR_MAX_TRAVELTIME, maxTravelTime, true)) {
         return false;
@@ -114,11 +114,11 @@ GNEMeanDataHandler::buildLaneMeanData(const CommonXMLStructure::SumoBaseObject* 
         return false;
     } else if (!checkDuplicatedMeanDataElement(SUMO_TAG_MEANDATA_LANE, id)) {
         return false;
-    } else if ((period != -1) && !checkNegative(SUMO_TAG_MEANDATA_EDGE, id, SUMO_ATTR_PERIOD, period, true)) {
+    } else if ((period != TIME2STEPS(-1)) && !checkNegative(SUMO_TAG_MEANDATA_EDGE, id, SUMO_ATTR_PERIOD, period, true)) {
         return false;
-    } else if ((begin != -1) && !checkNegative(SUMO_TAG_MEANDATA_EDGE, id, SUMO_ATTR_BEGIN, begin, true)) {
+    } else if ((begin != TIME2STEPS(-1)) && !checkNegative(SUMO_TAG_MEANDATA_EDGE, id, SUMO_ATTR_BEGIN, begin, true)) {
         return false;
-    } else if ((end != -1) && !checkNegative(SUMO_TAG_MEANDATA_EDGE, id, SUMO_ATTR_END, end, true)) {
+    } else if ((end != TIME2STEPS(-1)) && !checkNegative(SUMO_TAG_MEANDATA_EDGE, id, SUMO_ATTR_END, end, true)) {
         return false;
     } else if (!checkNegative(SUMO_TAG_MEANDATA_EDGE, id, SUMO_ATTR_MAX_TRAVELTIME, maxTravelTime, true)) {
         return false;
