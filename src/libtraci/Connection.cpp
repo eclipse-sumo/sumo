@@ -406,6 +406,12 @@ Connection::readVariables(tcpip::Storage& inMsg, const std::string& objectID, in
                     into[objectID][variableID] = po;
                     break;
                 }
+                case libsumo::TYPE_DOUBLELIST: {
+                    auto po = std::make_shared<libsumo::TraCIDoubleList>();
+                    po->value = inMsg.readDoubleList();
+                    into[objectID][variableID] = po;
+                    break;
+                }
                 case libsumo::TYPE_COMPOUND: {
                     const int n = inMsg.readInt();
                     if (variableID == libsumo::LAST_STEP_VEHICLE_DATA) {
