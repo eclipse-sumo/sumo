@@ -114,6 +114,8 @@
             const std::string format = PyUnicode_AsUTF8(PySequence_GetItem(value, 0));
             if (format == "b") {
                 parameters[key_int] = std::make_shared<libsumo::TraCIInt>(PyInt_AsLong(PySequence_GetItem(value, 1)), libsumo::TYPE_BYTE);
+            } else if (format == "B") {
+                parameters[key_int] = std::make_shared<libsumo::TraCIInt>(PyInt_AsLong(PySequence_GetItem(value, 1)), libsumo::TYPE_UBYTE);
             } else if (format == "tru") {
                 PyObject* pyRoadPos = PySequence_GetItem(value, 2);
                 const std::string edge = PyUnicode_AsUTF8(PySequence_GetItem(pyRoadPos, 0));
@@ -126,6 +128,33 @@
                 pos.x = PyFloat_AsDouble(PySequence_GetItem(pyPos, 0));
                 pos.y = PyFloat_AsDouble(PySequence_GetItem(pyPos, 1));
                 parameters[key_int] = std::make_shared<libsumo::TraCIPosition>(pos);
+            } else if (format == "tisb") {
+                libsumo::TraCIStringDoublePairList wrap;
+                wrap.value.emplace_back(std::pair<std::string, double>(PyUnicode_AsUTF8(PySequence_GetItem(value, 3)), (double)PyInt_AsLong(PySequence_GetItem(value, 2))));
+                wrap.value.emplace_back(std::pair<std::string, double>("", (double)PyInt_AsLong(PySequence_GetItem(value, 4))));
+                parameters[key_int] = std::make_shared<libsumo::TraCIStringDoublePairList>(wrap);
+            } else if (format == "tds") {
+                libsumo::TraCIStringDoublePairList wrap;
+                wrap.value.emplace_back(std::pair<std::string, double>(PyUnicode_AsUTF8(PySequence_GetItem(value, 3)), PyFloat_AsDouble(PySequence_GetItem(value, 2))));
+                parameters[key_int] = std::make_shared<libsumo::TraCIStringDoublePairList>(wrap);
+            } else if (format == "tdddds") {
+                libsumo::TraCIStringDoublePairList wrap;
+                wrap.value.emplace_back(std::pair<std::string, double>("", PyFloat_AsDouble(PySequence_GetItem(value, 2))));
+                wrap.value.emplace_back(std::pair<std::string, double>("", PyFloat_AsDouble(PySequence_GetItem(value, 3))));
+                wrap.value.emplace_back(std::pair<std::string, double>("", PyFloat_AsDouble(PySequence_GetItem(value, 4))));
+                wrap.value.emplace_back(std::pair<std::string, double>(PyUnicode_AsUTF8(PySequence_GetItem(value, 6)), PyFloat_AsDouble(PySequence_GetItem(value, 5))));
+                parameters[key_int] = std::make_shared<libsumo::TraCIStringDoublePairList>(wrap);
+            } else if (format == "tddds") {
+                libsumo::TraCIStringDoublePairList wrap;
+                wrap.value.emplace_back(std::pair<std::string, double>("", PyFloat_AsDouble(PySequence_GetItem(value, 2))));
+                wrap.value.emplace_back(std::pair<std::string, double>("", PyFloat_AsDouble(PySequence_GetItem(value, 3))));
+                wrap.value.emplace_back(std::pair<std::string, double>(PyUnicode_AsUTF8(PySequence_GetItem(value, 5)), PyFloat_AsDouble(PySequence_GetItem(value, 4))));
+                parameters[key_int] = std::make_shared<libsumo::TraCIStringDoublePairList>(wrap);
+            } else if (format == "tdd") {
+                libsumo::TraCIStringDoublePairList wrap;
+                wrap.value.emplace_back(std::pair<std::string, double>("", PyFloat_AsDouble(PySequence_GetItem(value, 2))));
+                wrap.value.emplace_back(std::pair<std::string, double>("", PyFloat_AsDouble(PySequence_GetItem(value, 3))));
+                parameters[key_int] = std::make_shared<libsumo::TraCIStringDoublePairList>(wrap);
             }
         } else {
             PyErr_SetString(PyExc_TypeError, "Unknown parameter format");

@@ -35,7 +35,9 @@ public:
         if (v.getType() == POSITION_ROADMAP || v.getType() == POSITION_2D || v.getType() == POSITION_3D) {
             writeCompound(*result, 2);
         }
-        result->writeUnsignedByte(v.getType());
+        if (v.getType() != -1) {
+            result->writeUnsignedByte(v.getType());
+        }
         switch (v.getType()) {
             case TYPE_STRING:
                 result->writeString(v.getString());
@@ -48,6 +50,9 @@ public:
                 break;
             case TYPE_BYTE:
                 result->writeByte(((const TraCIInt&)v).value);
+                break;
+            case TYPE_UBYTE:
+                result->writeUnsignedByte(((const TraCIInt&)v).value);
                 break;
             case POSITION_ROADMAP:
                 result->writeString(((const TraCIRoadPosition&)v).edgeID);
@@ -63,6 +68,37 @@ public:
                 result->writeDouble(((const TraCIPosition&)v).y);
                 result->writeDouble(((const TraCIPosition&)v).z);
                 break;
+            case -1: {
+                // a hack for transfering multiple values
+                const auto& pl = ((const TraCIStringDoublePairList&)v).value;
+                const bool tisb = pl.size() == 2 && pl[0].first != "";
+                writeCompound(*result, pl.size() == 2 && !tisb ? 2 : (int)pl.size() + 1);
+                if (pl.size() == 1) {
+                    writeTypedDouble(*result, pl.front().second);
+                    writeTypedString(*result, pl.front().first);
+                } else if (pl.size() == 2) {
+                    if (tisb) {
+                        writeTypedInt(*result, (int)(pl.front().second + 0.5));
+                        writeTypedString(*result, pl.front().first);
+                        writeTypedByte(*result, (int)(pl.back().second + 0.5));
+                    } else {
+                        writeTypedDouble(*result, pl.front().second);
+                        writeTypedDouble(*result, pl.back().second);
+                    }
+                } else if (pl.size() == 3) {
+                    writeTypedDouble(*result, pl[0].second);
+                    writeTypedDouble(*result, pl[1].second);
+                    writeTypedDouble(*result, pl[2].second);
+                    writeTypedString(*result, pl[2].first);
+                } else if (pl.size() == 4) {
+                    writeTypedDouble(*result, pl[0].second);
+                    writeTypedDouble(*result, pl[1].second);
+                    writeTypedDouble(*result, pl[2].second);
+                    writeTypedDouble(*result, pl[3].second);
+                    writeTypedString(*result, pl[3].first);
+                }
+                break;
+            }
             default:
                 throw TraCIException("Unknown type " + v.getType());
         }
