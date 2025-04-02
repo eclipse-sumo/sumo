@@ -199,11 +199,11 @@ GNERoute::writeDemandElement(OutputDevice& device) const {
     if (myCycleTime != myTagProperty->getDefaultTimeValue(SUMO_ATTR_CYCLETIME)) {
         device.writeAttr(SUMO_ATTR_CYCLETIME, time2string(myCycleTime));
     }
-    if (myProbability != myTagProperty->getDefaultDoubleValue(SUMO_ATTR_PROB)) {
-        device.writeAttr(SUMO_ATTR_PROB, toString(myProbability));
-    }
     // write sorted stops
     if (myTagProperty->getTag() == SUMO_TAG_ROUTE) {
+        if (myProbability != myTagProperty->getDefaultDoubleValue(SUMO_ATTR_PROB)) {
+            device.writeAttr(SUMO_ATTR_PROB, toString(myProbability));
+        }
         // write stops
         for (const auto& demandElement : getChildDemandElements()) {
             if (demandElement->getTagProperty()->isVehicleStop()) {
