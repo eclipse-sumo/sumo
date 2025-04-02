@@ -22,6 +22,13 @@
 
 #ifdef HAVE_OSG
 
+#ifndef GLEW_STATIC
+#define GLEW_STATIC
+#endif
+#ifndef __glew_h__
+#include <GL/glew.h>
+#endif
+
 // Define NOMIMAX, due osg may include windows.h somewhere so we need to guard against macro pollution
 #ifdef WIN32
 #define NOMINMAX

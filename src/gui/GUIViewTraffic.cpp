@@ -412,16 +412,6 @@ GUIViewTraffic::doPaintGL(int mode, const Boundary& bound) {
             // TODO: didn't the bound "change" in between / at least that would be the effect?
             glm::mat4 translate = glm::translate(glm::mat4(1.f), glm::vec3(-bound.xmin(), -bound.ymin(), 0.0f));
 
-            /*
-            Boundary rotBound;
-            double rad = -DEG2RAD(myChanger->getRotation());
-            rotBound.add(Position(bound.xmin(), bound.ymin()).rotateAround2D(rad, bound.getCenter()));
-            rotBound.add(Position(bound.xmin(), bound.ymax()).rotateAround2D(rad, bound.getCenter()));
-            rotBound.add(Position(bound.xmax(), bound.ymin()).rotateAround2D(rad, bound.getCenter()));
-            rotBound.add(Position(bound.xmax(), bound.ymax()).rotateAround2D(rad, bound.getCenter()));
-            bound = rotBound;
-            */
-
             // test projection on an example vertex
             glm::vec3 exampleVertex = glm::vec3(10.f, 20.f, 3.f);
             glm::vec4 transformedVertex = proj * scale * translate * postRotate * rotate * preRotate * glm::vec4(exampleVertex, 1);
