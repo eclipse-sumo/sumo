@@ -162,6 +162,20 @@ public:
         return size;
     }
 
+    static inline void readPolygon(tcpip::Storage& ret, libsumo::TraCIPositionVector& poly, const std::string& error = "") {
+        int size = ret.readUnsignedByte();
+        if (size == 0) {
+            size = ret.readInt();
+        }
+        for (int i = 0; i < size; ++i) {
+            libsumo::TraCIPosition p;
+            p.x = ret.readDouble();
+            p.y = ret.readDouble();
+            p.z = 0.;
+            poly.value.emplace_back(p);
+        }
+    }
+
     static inline bool readBool(tcpip::Storage& ret, const std::string& error = "") {
         if (ret.readUnsignedByte() != libsumo::TYPE_UBYTE && error != "") {
             throw TraCIException(error);

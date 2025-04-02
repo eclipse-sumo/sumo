@@ -398,8 +398,14 @@ Connection::readVariables(tcpip::Storage& inMsg, const std::string& objectID, in
                         sl->value.push_back(inMsg.readString());
                     }
                     into[objectID][variableID] = sl;
+                    break;
                 }
-                break;
+                case libsumo::TYPE_POLYGON: {
+                    auto po = std::make_shared<libsumo::TraCIPositionVector>();
+                    StoHelp::readPolygon(inMsg, *po);
+                    into[objectID][variableID] = po;
+                    break;
+                }
                 case libsumo::TYPE_COMPOUND: {
                     const int n = inMsg.readInt();
                     if (variableID == libsumo::LAST_STEP_VEHICLE_DATA) {
