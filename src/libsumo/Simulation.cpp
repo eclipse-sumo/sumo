@@ -206,8 +206,8 @@ Simulation::close(const std::string& reason) {
 
 
 void
-Simulation::subscribe(const std::vector<int>& varIDs, double begin, double end, const libsumo::TraCIResults& params) {
-    libsumo::Helper::subscribe(CMD_SUBSCRIBE_SIM_VARIABLE, "", varIDs, begin, end, params);
+Simulation::subscribe(const std::vector<int>& varIDs, double begin, double end, const libsumo::TraCIResults& parameters) {
+    libsumo::Helper::subscribe(CMD_SUBSCRIBE_SIM_VARIABLE, "", varIDs, begin, end, parameters);
 }
 
 

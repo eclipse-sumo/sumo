@@ -123,7 +123,12 @@ Person::getTaxiReservations(int onlyNew) {
     StoHelp::writeTypedInt(content, onlyNew);
     tcpip::Storage& ret = Dom::get(libsumo::VAR_TAXI_RESERVATIONS, "", &content);
     std::vector<libsumo::TraCIReservation> result;
-    StoHelp::readReservationVector(ret, ret.readInt(), result);
+    int numReservations = ret.readInt();
+    while (numReservations-- > 0) {
+        libsumo::TraCIReservation r;
+        StoHelp::readReservation(ret, r);
+        result.emplace_back(r);
+    }
     return result;
 }
 
