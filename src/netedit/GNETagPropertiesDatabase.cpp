@@ -97,7 +97,7 @@ const std::vector<const GNETagProperties*>
 GNETagPropertiesDatabase::getTagPropertiesSet(const SumoXMLTag tag, const bool hardFail) const {
     // check that tag is defined in tagProperties or in tagPropertiesSet
     if (mySetTagProperties.count(tag) > 0) {
-        return mySetTagProperties.at(tag)->getTagChildren();
+        return mySetTagProperties.at(tag)->getHierarchicalChildren();
     } else if (hardFail) {
         throw ProcessError(TLF("TagPropertySet for tag '%' not defined", toString(tag)));
     } else {
@@ -8834,7 +8834,7 @@ GNETagPropertiesDatabase::updateMaxNumberOfAttributesEditorRows() {
 void
 GNETagPropertiesDatabase::updateMaxHierarchyDepth() {
     for (const auto& tagPropertyItem : myTagProperties) {
-        const int hierarchySize = (int)tagPropertyItem.second->getParentHierarchy().size();
+        const int hierarchySize = (int)tagPropertyItem.second->getHierarchicalParentsRecuersively().size();
         if (hierarchySize > myHierarchyDepth) {
             myHierarchyDepth = hierarchySize;
         }

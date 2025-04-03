@@ -2905,7 +2905,7 @@ GNENetHelper::AttributeCarriers::retrieveAttributeCarriersRecursively(const GNET
         }
     }
     // iterate over children
-    for (const auto child : tag->getTagChildren()) {
+    for (const auto child : tag->getHierarchicalChildren()) {
         retrieveAttributeCarriersRecursively(child, ACs);
     }
 }

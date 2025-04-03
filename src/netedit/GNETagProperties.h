@@ -225,25 +225,25 @@ public:
     /// @brief hierarchy functions
     /// @{
 
-    /// @brief get parent of this element
-    const GNETagProperties* getParent() const;
+    /// @brief get hierarchical parent of this element
+    const GNETagProperties* getHierarchicalParent() const;
 
     /// @brief get all parents, beginning from current element (root not included) untils this element
-    const std::vector<const GNETagProperties*> getParentHierarchy() const;
+    const std::vector<const GNETagProperties*> getHierarchicalParentsRecuersively() const;
 
     /// @brief get children of this tag property
-    const std::vector<const GNETagProperties*>& getTagChildren() const;
+    const std::vector<const GNETagProperties*>& getHierarchicalChildren() const;
 
     /// @brief get all children tags (Including children of their children)
-    std::vector<const GNETagProperties*> getTagChildrenRecursively() const;
+    std::vector<const GNETagProperties*> getHierarchicalChildrenRecursively() const;
 
     /// @brief get all children attributes sorted by name (Including this)
-    std::map<std::string, const GNEAttributeProperties*> getAttributeChildrenRecursively(const bool onlyCommon, const bool onlyDrawables) const;
+    std::map<std::string, const GNEAttributeProperties*> getHierarchicalChildrenAttributesRecursively(const bool onlyCommon, const bool onlyDrawables) const;
+
+    /// @}
 
     /// @brief get supermode associated with this tag
     Supermode getSupermode() const;
-
-    /// @}
 
     /// @brief check if this is a hirearchical tag
     bool isHierarchicalTag() const;
