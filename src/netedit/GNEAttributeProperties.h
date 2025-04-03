@@ -37,8 +37,8 @@ class GNEAttributeProperties {
 
 public:
 
-    /// @brief struct with the attribute Properties
-    enum class AttrProperty : int {
+    /// @brief enum class with all attribute properties
+    enum class Property : int {
         INT =               1 << 0,     // Attribute is an integer (Including Zero)
         FLOAT =             1 << 1,     // Attribute is a float
         SUMOTIME =          1 << 2,     // Attribute is a SUMOTime
@@ -68,8 +68,8 @@ public:
         NO_PROPERTY =       1 << 26,    // No property defined
     };
 
-    /// @brief struct with the attribute Properties
-    enum class EditProperty : int {
+    /// @brief enum class with all edit modes
+    enum class Edit : int {
         CREATEMODE =        1 << 0,    // Attribute can be modified in create mode
         EDITMODE =          1 << 1,    // Attribute can be modified in edit mode
         NETEDITEDITOR =     1 << 2,    // Attribute can be edited only in netedit editor
@@ -80,16 +80,16 @@ public:
     };
 
     /// @brief parameter constructor for attribute properties without default values
-    GNEAttributeProperties(GNETagProperties* tagProperties, const SumoXMLAttr attribute, const AttrProperty attributeProperty,
-                           const EditProperty editProperty, const std::string& definition);
+    GNEAttributeProperties(GNETagProperties* tagProperties, const SumoXMLAttr attribute, const Property attributeProperty,
+                           const Edit editProperty, const std::string& definition);
 
     /// @brief parameter constructor for attribute properties with default values specific
-    GNEAttributeProperties(GNETagProperties* tagProperties, const SumoXMLAttr attribute, const AttrProperty attributeProperty,
-                           const EditProperty editProperty, const std::string& definition, const std::string& defaultValue);
+    GNEAttributeProperties(GNETagProperties* tagProperties, const SumoXMLAttr attribute, const Property attributeProperty,
+                           const Edit editProperty, const std::string& definition, const std::string& defaultValue);
 
     /// @brief parameter constructor for attribute properties with default values generic
-    GNEAttributeProperties(GNETagProperties* tagProperties, const SumoXMLAttr attribute, const AttrProperty attributeProperty,
-                           const EditProperty editProperty, const std::string& definition, const std::string& defaultValueMask,
+    GNEAttributeProperties(GNETagProperties* tagProperties, const SumoXMLAttr attribute, const Property attributeProperty,
+                           const Edit editProperty, const std::string& definition, const std::string& defaultValueMask,
                            const std::string& defaultValue);
 
     /// @brief parameter constructor for special attribute properties (ej: no common)
@@ -158,7 +158,7 @@ public:
     /// @brief get default active value
     bool getDefaultActivated() const;
 
-    /// @brief return category (based on EditProperty)
+    /// @brief return category (based on Edit)
     std::string getCategory() const;
 
     /// @brief return a description of attribute
@@ -300,10 +300,10 @@ private:
     std::string myAttrStr;
 
     /// @brief attribute properties
-    AttrProperty myAttributeProperty = AttrProperty::NO_PROPERTY;
+    Property myAttributeProperty = Property::NO_PROPERTY;
 
     /// @brief edit properties
-    EditProperty myEditProperty = EditProperty::NO_EDIT;
+    Edit myEditProperty = Edit::NO_EDIT;
 
     /// @brief text with a definition of attribute
     std::string myDefinition;
@@ -364,22 +364,22 @@ private:
 };
 
 /// @brief override attribute parent bit operator
-constexpr GNEAttributeProperties::AttrProperty operator|(GNEAttributeProperties::AttrProperty a, GNEAttributeProperties::AttrProperty b) {
-    return static_cast<GNEAttributeProperties::AttrProperty>(static_cast<int>(a) | static_cast<int>(b));
+constexpr GNEAttributeProperties::Property operator|(GNEAttributeProperties::Property a, GNEAttributeProperties::Property b) {
+    return static_cast<GNEAttributeProperties::Property>(static_cast<int>(a) | static_cast<int>(b));
 }
 
 /// @brief override attribute parent bit operator
-constexpr bool operator&(GNEAttributeProperties::AttrProperty a, GNEAttributeProperties::AttrProperty b) {
+constexpr bool operator&(GNEAttributeProperties::Property a, GNEAttributeProperties::Property b) {
     return (static_cast<int>(a) & static_cast<int>(b)) != 0;
 }
 
 /// @brief override attribute parent bit operator
-constexpr GNEAttributeProperties::EditProperty operator|(GNEAttributeProperties::EditProperty a, GNEAttributeProperties::EditProperty b) {
-    return static_cast<GNEAttributeProperties::EditProperty>(static_cast<int>(a) | static_cast<int>(b));
+constexpr GNEAttributeProperties::Edit operator|(GNEAttributeProperties::Edit a, GNEAttributeProperties::Edit b) {
+    return static_cast<GNEAttributeProperties::Edit>(static_cast<int>(a) | static_cast<int>(b));
 }
 
 /// @brief override attribute parent bit operator
-constexpr bool operator&(GNEAttributeProperties::EditProperty a, GNEAttributeProperties::EditProperty b) {
+constexpr bool operator&(GNEAttributeProperties::Edit a, GNEAttributeProperties::Edit b) {
     return (static_cast<int>(a) & static_cast<int>(b)) != 0;
 }
 

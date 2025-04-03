@@ -27,8 +27,8 @@
 // method definitions
 // ===========================================================================
 
-GNEAttributeProperties::GNEAttributeProperties(GNETagProperties* tagProperties, const SumoXMLAttr attribute, const AttrProperty attributeProperty,
-        const EditProperty editProperty, const std::string& definition) :
+GNEAttributeProperties::GNEAttributeProperties(GNETagProperties* tagProperties, const SumoXMLAttr attribute, const Property attributeProperty,
+        const Edit editProperty, const std::string& definition) :
     myTagPropertyParent(tagProperties),
     myAttribute(attribute),
     myAttrStr(toString(attribute)),
@@ -42,8 +42,8 @@ GNEAttributeProperties::GNEAttributeProperties(GNETagProperties* tagProperties, 
 }
 
 
-GNEAttributeProperties::GNEAttributeProperties(GNETagProperties* tagProperties, const SumoXMLAttr attribute, const AttrProperty attributeProperty,
-        const EditProperty editProperty, const std::string& definition, const std::string& defaultValue) :
+GNEAttributeProperties::GNEAttributeProperties(GNETagProperties* tagProperties, const SumoXMLAttr attribute, const Property attributeProperty,
+        const Edit editProperty, const std::string& definition, const std::string& defaultValue) :
     myTagPropertyParent(tagProperties),
     myAttribute(attribute),
     myAttrStr(toString(attribute)),
@@ -60,8 +60,8 @@ GNEAttributeProperties::GNEAttributeProperties(GNETagProperties* tagProperties, 
 }
 
 
-GNEAttributeProperties::GNEAttributeProperties(GNETagProperties* tagProperties, const SumoXMLAttr attribute, const AttrProperty attributeProperty,
-        const EditProperty editProperty, const std::string& definition, const std::string& defaultValueMask, const std::string& defaultValue) :
+GNEAttributeProperties::GNEAttributeProperties(GNETagProperties* tagProperties, const SumoXMLAttr attribute, const Property attributeProperty,
+        const Edit editProperty, const std::string& definition, const std::string& defaultValueMask, const std::string& defaultValue) :
     myTagPropertyParent(tagProperties),
     myAttribute(attribute),
     myAttrStr(toString(attribute)),
@@ -98,10 +98,10 @@ GNEAttributeProperties::checkAttributeIntegrity() const {
     // check integrity only in debug mode
 #ifdef DEBUG
     // check that there are properties
-    if (myAttributeProperty == AttrProperty::NO_PROPERTY) {
+    if (myAttributeProperty == Property::NO_PROPERTY) {
         throw FormatException("Attr properties cannot be empty");
     }
-    if (myEditProperty == EditProperty::NO_EDIT) {
+    if (myEditProperty == Edit::NO_EDIT) {
         throw FormatException("Attr edition properties cannot be empty");
     }
     // check that positive attributes correspond only to a int, floats or SUMOTimes
@@ -414,66 +414,66 @@ GNEAttributeProperties::getMaximumRange() const {
 
 bool
 GNEAttributeProperties::hasDefaultValue() const {
-    return myAttributeProperty & AttrProperty::DEFAULTVALUE;
+    return myAttributeProperty & Property::DEFAULTVALUE;
 }
 
 
 bool
 GNEAttributeProperties::hasAttrSynonym() const {
-    return myAttributeProperty & AttrProperty::SYNONYM;
+    return myAttributeProperty & Property::SYNONYM;
 }
 
 bool
 GNEAttributeProperties::hasAttrRange() const {
-    return myAttributeProperty & AttrProperty::RANGE;
+    return myAttributeProperty & Property::RANGE;
 }
 
 
 bool
 GNEAttributeProperties::isInt() const {
-    return myAttributeProperty & AttrProperty::INT;
+    return myAttributeProperty & Property::INT;
 }
 
 
 bool
 GNEAttributeProperties::isFloat() const {
-    return myAttributeProperty & AttrProperty::FLOAT;
+    return myAttributeProperty & Property::FLOAT;
 }
 
 
 bool
 GNEAttributeProperties::isSUMOTime() const {
-    return myAttributeProperty & AttrProperty::SUMOTIME;
+    return myAttributeProperty & Property::SUMOTIME;
 }
 
 
 bool
 GNEAttributeProperties::isBool() const {
-    return myAttributeProperty & AttrProperty::BOOL;
+    return myAttributeProperty & Property::BOOL;
 }
 
 
 bool
 GNEAttributeProperties::isString() const {
-    return myAttributeProperty & AttrProperty::STRING;
+    return myAttributeProperty & Property::STRING;
 }
 
 
 bool
 GNEAttributeProperties::isPosition() const {
-    return myAttributeProperty & AttrProperty::POSITION;
+    return myAttributeProperty & Property::POSITION;
 }
 
 
 bool
 GNEAttributeProperties::isProbability() const {
-    return myAttributeProperty & AttrProperty::PROBABILITY;
+    return myAttributeProperty & Property::PROBABILITY;
 }
 
 
 bool
 GNEAttributeProperties::isAngle() const {
-    return myAttributeProperty & AttrProperty::ANGLE;
+    return myAttributeProperty & Property::ANGLE;
 }
 
 
@@ -485,37 +485,37 @@ GNEAttributeProperties::isNumerical() const {
 
 bool
 GNEAttributeProperties::isPositive() const {
-    return myAttributeProperty & AttrProperty::POSITIVE;
+    return myAttributeProperty & Property::POSITIVE;
 }
 
 
 bool
 GNEAttributeProperties::isColor() const {
-    return myAttributeProperty & AttrProperty::COLOR;
+    return myAttributeProperty & Property::COLOR;
 }
 
 
 bool
 GNEAttributeProperties::isVType() const {
-    return myAttributeProperty & AttrProperty::VTYPE;
+    return myAttributeProperty & Property::VTYPE;
 }
 
 
 bool
 GNEAttributeProperties::isFileOpen() const {
-    return myAttributeProperty & AttrProperty::FILEOPEN;
+    return myAttributeProperty & Property::FILEOPEN;
 }
 
 
 bool
 GNEAttributeProperties::isFileSave() const {
-    return myAttributeProperty & AttrProperty::FILESAVE;
+    return myAttributeProperty & Property::FILESAVE;
 }
 
 
 bool
 GNEAttributeProperties::isVClass() const {
-    return myAttributeProperty & AttrProperty::VCLASS;
+    return myAttributeProperty & Property::VCLASS;
 }
 
 
@@ -527,55 +527,55 @@ GNEAttributeProperties::isSVCPermission() const {
 
 bool
 GNEAttributeProperties::isList() const {
-    return myAttributeProperty & AttrProperty::LIST;
+    return myAttributeProperty & Property::LIST;
 }
 
 
 bool
 GNEAttributeProperties::isSecuential() const {
-    return myAttributeProperty & AttrProperty::SECUENCIAL;
+    return myAttributeProperty & Property::SECUENCIAL;
 }
 
 
 bool
 GNEAttributeProperties::isUnique() const {
-    return myAttributeProperty & AttrProperty::UNIQUE;
+    return myAttributeProperty & Property::UNIQUE;
 }
 
 
 bool
 GNEAttributeProperties::isDiscrete() const {
-    return myAttributeProperty & AttrProperty::DISCRETE;
+    return myAttributeProperty & Property::DISCRETE;
 }
 
 
 bool
 GNEAttributeProperties::requireUpdateGeometry() const {
-    return myAttributeProperty & AttrProperty::UPDATEGEOMETRY;
+    return myAttributeProperty & Property::UPDATEGEOMETRY;
 }
 
 
 bool
 GNEAttributeProperties::isActivatable() const {
-    return myAttributeProperty & AttrProperty::ACTIVATABLE;
+    return myAttributeProperty & Property::ACTIVATABLE;
 }
 
 
 bool
 GNEAttributeProperties::isFlow() const {
-    return myAttributeProperty & AttrProperty::FLOW;
+    return myAttributeProperty & Property::FLOW;
 }
 
 
 bool
 GNEAttributeProperties::isCopyable() const {
-    return myAttributeProperty & AttrProperty::COPYABLE;
+    return myAttributeProperty & Property::COPYABLE;
 }
 
 
 bool
 GNEAttributeProperties::isAlwaysEnabled() const {
-    return myAttributeProperty & AttrProperty::ALWAYSENABLED;
+    return myAttributeProperty & Property::ALWAYSENABLED;
 }
 
 
@@ -587,37 +587,37 @@ GNEAttributeProperties::isBasicEditor() const {
 
 bool
 GNEAttributeProperties::isExtendedEditor() const {
-    return myEditProperty & EditProperty::EXTENDEDEDITOR;
+    return myEditProperty & Edit::EXTENDEDEDITOR;
 }
 
 
 bool
 GNEAttributeProperties::isGeoEditor() const {
-    return myEditProperty & EditProperty::GEOEDITOR;
+    return myEditProperty & Edit::GEOEDITOR;
 }
 
 
 bool
 GNEAttributeProperties::isFlowEditor() const {
-    return myEditProperty & EditProperty::FLOWEDITOR;
+    return myEditProperty & Edit::FLOWEDITOR;
 }
 
 
 bool
 GNEAttributeProperties::isNeteditEditor() const {
-    return myEditProperty & EditProperty::NETEDITEDITOR;
+    return myEditProperty & Edit::NETEDITEDITOR;
 }
 
 
 bool
 GNEAttributeProperties::isCreateMode() const {
-    return myEditProperty & EditProperty::CREATEMODE;
+    return myEditProperty & Edit::CREATEMODE;
 }
 
 
 bool
 GNEAttributeProperties::isEditMode() const {
-    return myEditProperty & EditProperty::EDITMODE;
+    return myEditProperty & Edit::EDITMODE;
 }
 
 
@@ -630,11 +630,11 @@ GNEAttributeProperties::checkBuildConstraints() const {
         throw FormatException("Missing definition for AttributeProperty '" + toString(myAttribute) + "'");
     }
     // if default value isn't empty, but attribute doesn't support default values, throw exception.
-    if (!myDefaultStringValue.empty() && !(myAttributeProperty & AttrProperty::DEFAULTVALUE)) {
+    if (!myDefaultStringValue.empty() && !(myAttributeProperty & Property::DEFAULTVALUE)) {
         throw FormatException("AttributeProperty for '" + toString(myAttribute) + "' doesn't support default values");
     }
     // Attributes cannot be flowdefinition and enabilitablet at the same time
-    if ((myAttributeProperty & AttrProperty::FLOW) && (myAttributeProperty & AttrProperty::ACTIVATABLE)) {
+    if ((myAttributeProperty & Property::FLOW) && (myAttributeProperty & Property::ACTIVATABLE)) {
         throw FormatException("Attribute '" + toString(myAttribute) + "' cannot be flow definition and activatable at the same time");
     }
     // Check that attribute wasn't already inserted

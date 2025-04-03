@@ -574,43 +574,43 @@ GNETagPropertiesDatabase::fillNetworkElements() {
         fillIDAttribute(myTagProperties[currentTag], true);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_POSITION,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::UNIQUE | GNEAttributeProperties::AttrProperty::POSITION | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY, // virtual attribute from the combination of the actually attributes SUMO_ATTR_X, SUMO_ATTR_Y
-                                   GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::POSITION | GNEAttributeProperties::Property::UPDATEGEOMETRY, // virtual attribute from the combination of the actually attributes SUMO_ATTR_X, SUMO_ATTR_Y
+                                   GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The x-y-z position of the node on the plane in meters"));
 
         auto type = new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_TYPE,
-                                               GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::DISCRETE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                               GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DISCRETE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                                TL("An optional type for the node"));
         type->setDiscreteValues(nodeTypes);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_SHAPE,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::POSITION | GNEAttributeProperties::AttrProperty::LIST | GNEAttributeProperties::AttrProperty::UNIQUE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                                   GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::POSITION | GNEAttributeProperties::Property::LIST | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                                   GNEAttributeProperties::Edit::EDITMODE,
                                    TL("A custom shape for that node"));
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_RADIUS,
-                                   GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("Optional turning radius (for all corners) for that node in meters"),
                                    "4");
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_KEEP_CLEAR,
-                                   GNEAttributeProperties::AttrProperty::BOOL | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::BOOL | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("Whether the junction-blocking-heuristic should be activated at this node"),
                                    GNEAttributeCarrier::True);
 
         auto rightOfWay = new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_RIGHT_OF_WAY,
-                GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::DISCRETE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DISCRETE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                 TL("How to compute right of way rules at this node"),
                 SUMOXMLDefinitions::RightOfWayValues.getString(RightOfWay::DEFAULT));
         rightOfWay->setDiscreteValues(SUMOXMLDefinitions::RightOfWayValues.getStrings());
 
         auto fringe = new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_FRINGE,
-                GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::DISCRETE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DISCRETE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                 TL("Whether this junction is at the fringe of the network"),
                 SUMOXMLDefinitions::FringeTypeValues.getString(FringeType::DEFAULT));
         fringe->setDiscreteValues(SUMOXMLDefinitions::FringeTypeValues.getStrings());
@@ -618,14 +618,14 @@ GNETagPropertiesDatabase::fillNetworkElements() {
         fillNameAttribute(myTagProperties[currentTag]);
 
         auto tlType = new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_TLTYPE,
-                GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::DISCRETE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DISCRETE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                 TL("An optional type for the traffic light algorithm"));
         tlType->setDiscreteValues(TLTypes);
 
         auto tlLayout = new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_TLLAYOUT,
-                GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::DISCRETE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DISCRETE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                 TL("An optional layout for the traffic light plan"),
                 toString(TrafficLightLayout::DEFAULT));
         tlLayout->setDiscreteValues({toString(TrafficLightLayout::DEFAULT),
@@ -634,13 +634,13 @@ GNETagPropertiesDatabase::fillNetworkElements() {
                                      toString(TrafficLightLayout::ALTERNATE_ONEWAY)});
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_TLID,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("An optional id for the traffic light program"));
 
         new GNEAttributeProperties(myTagProperties[currentTag], GNE_ATTR_IS_ROUNDABOUT,
-                                   GNEAttributeProperties::AttrProperty::BOOL | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::BOOL | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("Whether this junction is part of a roundabout"),
                                    GNEAttributeCarrier::False);
     }
@@ -657,47 +657,47 @@ GNETagPropertiesDatabase::fillNetworkElements() {
         fillIDAttribute(myTagProperties[currentTag], false);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_NUMLANES,
-                                   GNEAttributeProperties::AttrProperty::INT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE | GNEAttributeProperties::AttrProperty::COPYABLE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::INT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::COPYABLE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The number of lanes of the edge"),
                                    toString(neteditOptions.getInt("default.lanenumber")));
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_SPEED,
-                                   GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE | GNEAttributeProperties::AttrProperty::COPYABLE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::COPYABLE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The maximum speed allowed on the edge in m/s"),
                                    toString(neteditOptions.getFloat("default.speed")));
 
         fillAllowDisallowAttributes(myTagProperties[currentTag]);
 
         auto spreadType = new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_SPREADTYPE,
-                GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::DISCRETE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE | GNEAttributeProperties::AttrProperty::COPYABLE,
-                GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DISCRETE | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::COPYABLE,
+                GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                 TL("The spreadType defines how to compute the lane geometry from the edge geometry (used for visualization)"),
                 SUMOXMLDefinitions::LaneSpreadFunctions.getString(LaneSpreadFunction::RIGHT));
         spreadType->setDiscreteValues(SUMOXMLDefinitions::LaneSpreadFunctions.getStrings());
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_PRIORITY,
-                                   GNEAttributeProperties::AttrProperty::INT | GNEAttributeProperties::AttrProperty::DEFAULTVALUE | GNEAttributeProperties::AttrProperty::COPYABLE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::INT | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::COPYABLE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The priority of the edge"),
                                    toString(neteditOptions.getInt("default.priority")));
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_WIDTH,
-                                   GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::DEFAULTVALUE | GNEAttributeProperties::AttrProperty::COPYABLE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::COPYABLE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("Lane width for all lanes of this edge in meters (used for visualization)"),
                                    "", toString(SUMO_const_laneWidth));
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_SIDEWALKWIDTH,
-                                   GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::DEFAULTVALUE | GNEAttributeProperties::AttrProperty::COPYABLE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::COPYABLE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The width of the sidewalk that should be added as an additional lane"),
                                    "", "2");
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_BIKELANEWIDTH,
-                                   GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::DEFAULTVALUE | GNEAttributeProperties::AttrProperty::COPYABLE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::COPYABLE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The width of the bike lane that should be added as an additional lane"),
                                    "", "1");
     }
@@ -712,16 +712,16 @@ GNETagPropertiesDatabase::fillNetworkElements() {
                 GUIIcon::LANETYPE, currentTag, TL("LaneType"));
         // set values of attributes
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_SPEED,
-                                   GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE | GNEAttributeProperties::AttrProperty::COPYABLE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::COPYABLE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The maximum speed allowed on the lane in m/s"),
                                    toString(neteditOptions.getFloat("default.speed")));
 
         fillAllowDisallowAttributes(myTagProperties[currentTag]);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_WIDTH,
-                                   GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY | GNEAttributeProperties::AttrProperty::COPYABLE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::UPDATEGEOMETRY | GNEAttributeProperties::Property::COPYABLE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("Lane width for all lanes of this type in meters (used for visualization)"),
                                    "3.2");
     }
@@ -738,110 +738,110 @@ GNETagPropertiesDatabase::fillNetworkElements() {
         fillIDAttribute(myTagProperties[currentTag], true);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_FROM,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::UNIQUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                                   GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                                   GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The name of a node within the nodes-file the edge shall start at"));
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_TO,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::UNIQUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                                   GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                                   GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The name of a node within the nodes-file the edge shall end at"));
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_SPEED,
-                                   GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE | GNEAttributeProperties::AttrProperty::COPYABLE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::COPYABLE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The maximum speed allowed on the edge in m/s"),
                                    toString(neteditOptions.getFloat("default.speed")));
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_PRIORITY,
-                                   GNEAttributeProperties::AttrProperty::INT | GNEAttributeProperties::AttrProperty::DEFAULTVALUE | GNEAttributeProperties::AttrProperty::COPYABLE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::INT | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::COPYABLE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The priority of the edge"),
                                    toString(neteditOptions.getInt("default.priority")));
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_NUMLANES,
-                                   GNEAttributeProperties::AttrProperty::INT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE | GNEAttributeProperties::AttrProperty::COPYABLE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::INT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::COPYABLE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The number of lanes of the edge"),
                                    toString(neteditOptions.getInt("default.lanenumber")));
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_TYPE,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::DEFAULTVALUE | GNEAttributeProperties::AttrProperty::COPYABLE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::COPYABLE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The name of a type within the SUMO edge type file"));
 
         fillAllowDisallowAttributes(myTagProperties[currentTag]);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_SHAPE,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::POSITION | GNEAttributeProperties::AttrProperty::LIST | GNEAttributeProperties::AttrProperty::UNIQUE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                                   GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::POSITION | GNEAttributeProperties::Property::LIST | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                                   GNEAttributeProperties::Edit::EDITMODE,
                                    TL("If the shape is given it should start and end with the positions of the from-node and to-node"));
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_LENGTH,
-                                   GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The length of the edge in meter"));
 
         auto spreadType = new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_SPREADTYPE,
-                GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::DISCRETE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE | GNEAttributeProperties::AttrProperty::COPYABLE,
-                GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DISCRETE | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::COPYABLE,
+                GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                 TL("The spreadType defines how to compute the lane geometry from the edge geometry (used for visualization)"),
                 SUMOXMLDefinitions::LaneSpreadFunctions.getString(LaneSpreadFunction::RIGHT));
         spreadType->setDiscreteValues(SUMOXMLDefinitions::LaneSpreadFunctions.getStrings());
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_NAME,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::DEFAULTVALUE | GNEAttributeProperties::AttrProperty::COPYABLE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::COPYABLE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("street name (does not need to be unique, used for visualization)"));
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_WIDTH,
-                                   GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY | GNEAttributeProperties::AttrProperty::COPYABLE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::UPDATEGEOMETRY | GNEAttributeProperties::Property::COPYABLE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("Lane width for all lanes of this edge in meters (used for visualization)"),
                                    "3.2");
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_ENDOFFSET,
-                                   GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("Move the stop line back from the intersection by the given amount"),
                                    "0");
 
         new GNEAttributeProperties(myTagProperties[currentTag], GNE_ATTR_SHAPE_START,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::POSITION | GNEAttributeProperties::AttrProperty::DEFAULTVALUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY, // virtual attribute used to define an endPoint
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::POSITION | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::UPDATEGEOMETRY, // virtual attribute used to define an endPoint
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("Custom position in which shape start (by default position of junction from)"));
 
         new GNEAttributeProperties(myTagProperties[currentTag], GNE_ATTR_SHAPE_END,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::POSITION | GNEAttributeProperties::AttrProperty::DEFAULTVALUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY, // virtual attribute from to define an endPoint
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::POSITION | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::UPDATEGEOMETRY, // virtual attribute from to define an endPoint
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("Custom position in which shape end (by default position of junction from)"));
 
         new GNEAttributeProperties(myTagProperties[currentTag], GNE_ATTR_BIDIR,
-                                   GNEAttributeProperties::AttrProperty::BOOL | GNEAttributeProperties::AttrProperty::DEFAULTVALUE | GNEAttributeProperties::AttrProperty::UNIQUE, // virtual attribute to check of this edge is part of a bidirectional railway (cannot be edited)
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::BOOL | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::UNIQUE, // virtual attribute to check of this edge is part of a bidirectional railway (cannot be edited)
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("Show if edge is bidirectional"),
                                    GNEAttributeCarrier::False);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_DISTANCE,
-                                   GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::DEFAULTVALUE | GNEAttributeProperties::AttrProperty::UNIQUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::UNIQUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("Distance"),
                                    "0");
 
         new GNEAttributeProperties(myTagProperties[currentTag], GNE_ATTR_STOPOFFSET,
-                                   GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The stop offset as positive value in meters"),
                                    "0");
 
         new GNEAttributeProperties(myTagProperties[currentTag], GNE_ATTR_STOPOEXCEPTION,
-                                   GNEAttributeProperties::AttrProperty::VCLASS | GNEAttributeProperties::AttrProperty::LIST | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::VCLASS | GNEAttributeProperties::Property::LIST | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("Specifies, for which vehicle classes the stopOffset does NOT apply."));
 
         new GNEAttributeProperties(myTagProperties[currentTag], GNE_ATTR_IS_ROUNDABOUT,
-                                   GNEAttributeProperties::AttrProperty::BOOL | GNEAttributeProperties::AttrProperty::DEFAULTVALUE | GNEAttributeProperties::AttrProperty::UNIQUE, // cannot be edited
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::BOOL | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::UNIQUE, // cannot be edited
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("Whether this edge is part of a roundabout"),
                                    GNEAttributeCarrier::False);
     }
@@ -858,72 +858,72 @@ GNETagPropertiesDatabase::fillNetworkElements() {
         fillIDAttribute(myTagProperties[currentTag], true);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_INDEX,
-                                   GNEAttributeProperties::AttrProperty::INT | GNEAttributeProperties::AttrProperty::UNIQUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::INT | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The enumeration index of the lane (0 is the rightmost lane, <NUMBER_LANES>-1 is the leftmost one)"));
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_SPEED,
-                                   GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE | GNEAttributeProperties::AttrProperty::COPYABLE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::COPYABLE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("Speed in meters per second"),
                                    toString(neteditOptions.getFloat("default.speed")));
 
         fillAllowDisallowAttributes(myTagProperties[currentTag]);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_WIDTH,
-                                   GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY | GNEAttributeProperties::AttrProperty::COPYABLE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::UPDATEGEOMETRY | GNEAttributeProperties::Property::COPYABLE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("Width in meters (used for visualization)"),
                                    "", "-1");
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_ENDOFFSET,
-                                   GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("Move the stop line back from the intersection by the given amount"),
                                    "0");
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_ACCELERATION,
-                                   GNEAttributeProperties::AttrProperty::BOOL | GNEAttributeProperties::AttrProperty::DEFAULTVALUE | GNEAttributeProperties::AttrProperty::COPYABLE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::BOOL | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::COPYABLE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("Enable or disable lane as acceleration lane"),
                                    GNEAttributeCarrier::False);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_CUSTOMSHAPE,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::POSITION | GNEAttributeProperties::AttrProperty::LIST | GNEAttributeProperties::AttrProperty::DEFAULTVALUE | GNEAttributeProperties::AttrProperty::UNIQUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::POSITION | GNEAttributeProperties::Property::LIST | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("If the shape is given it overrides the computation based on edge shape"));
 
         new GNEAttributeProperties(myTagProperties[currentTag], GNE_ATTR_OPPOSITE,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::DEFAULTVALUE | GNEAttributeProperties::AttrProperty::UNIQUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::UNIQUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("If given, this defines the opposite direction lane"));
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_CHANGE_LEFT,
-                                   GNEAttributeProperties::AttrProperty::VCLASS | GNEAttributeProperties::AttrProperty::LIST | GNEAttributeProperties::AttrProperty::DEFAULTVALUE | GNEAttributeProperties::AttrProperty::COPYABLE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::VCLASS | GNEAttributeProperties::Property::LIST | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::COPYABLE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("Permit changing left only for to the given vehicle classes"),
                                    "all");
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_CHANGE_RIGHT,
-                                   GNEAttributeProperties::AttrProperty::VCLASS | GNEAttributeProperties::AttrProperty::LIST | GNEAttributeProperties::AttrProperty::DEFAULTVALUE | GNEAttributeProperties::AttrProperty::COPYABLE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::VCLASS | GNEAttributeProperties::Property::LIST | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::COPYABLE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("Permit changing right only for to the given vehicle classes"),
                                    "all");
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_TYPE,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::DEFAULTVALUE | GNEAttributeProperties::AttrProperty::COPYABLE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::COPYABLE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("Lane type description (optional)"));
 
         new GNEAttributeProperties(myTagProperties[currentTag], GNE_ATTR_STOPOFFSET,
-                                   GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The stop offset as positive value in meters"),
                                    "0");
 
         new GNEAttributeProperties(myTagProperties[currentTag], GNE_ATTR_STOPOEXCEPTION,
-                                   GNEAttributeProperties::AttrProperty::VCLASS | GNEAttributeProperties::AttrProperty::LIST | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::VCLASS | GNEAttributeProperties::Property::LIST | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("Specifies, for which vehicle classes the stopOffset does NOT apply."));
     }
     currentTag = SUMO_TAG_CROSSING;
@@ -939,37 +939,37 @@ GNETagPropertiesDatabase::fillNetworkElements() {
         fillIDAttribute(myTagProperties[currentTag], true);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_EDGES,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::LIST | GNEAttributeProperties::AttrProperty::UNIQUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::LIST | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The (road) edges which are crossed"));
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_PRIORITY,
-                                   GNEAttributeProperties::AttrProperty::BOOL | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::BOOL | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("Whether the pedestrians have priority over the vehicles (automatically set to true at tls-controlled intersections)"),
                                    GNEAttributeCarrier::False);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_WIDTH,
-                                   GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The width of the crossings"),
                                    toString(OptionsCont::getOptions().getFloat("default.crossing-width")));
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_TLLINKINDEX,
-                                   GNEAttributeProperties::AttrProperty::INT | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::INT | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("sets the tls-index for this crossing (-1 means automatic assignment)"),
                                    "-1");
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_TLLINKINDEX2,
-                                   GNEAttributeProperties::AttrProperty::INT | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::INT | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("sets the opposite-direction tls-index for this crossing (-1 means not assigned)"),
                                    "-1");
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_CUSTOMSHAPE,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::POSITION | GNEAttributeProperties::AttrProperty::LIST | GNEAttributeProperties::AttrProperty::UNIQUE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::POSITION | GNEAttributeProperties::Property::LIST | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("Overrides default shape of pedestrian crossing"));
     }
     currentTag = SUMO_TAG_WALKINGAREA;
@@ -985,19 +985,19 @@ GNETagPropertiesDatabase::fillNetworkElements() {
         fillIDAttribute(myTagProperties[currentTag], true);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_WIDTH,
-                                   GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The width of the WalkingArea"),
                                    toString(OptionsCont::getOptions().getFloat("default.sidewalk-width")));
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_LENGTH,
-                                   GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The length of the WalkingArea in meter"));
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_SHAPE,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::POSITION | GNEAttributeProperties::AttrProperty::LIST | GNEAttributeProperties::AttrProperty::UNIQUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                                   GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::POSITION | GNEAttributeProperties::Property::LIST | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                                   GNEAttributeProperties::Edit::EDITMODE,
                                    TL("Overrides default shape of pedestrian sidewalk"));
 
     }
@@ -1012,118 +1012,118 @@ GNETagPropertiesDatabase::fillNetworkElements() {
                 GUIIcon::CONNECTION, currentTag, TL("Connection"));
         // set values of attributes
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_FROM,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::UNIQUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                                   GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                                   GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The ID of the edge the vehicles leave"));
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_TO,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::UNIQUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                                   GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                                   GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The ID of the edge the vehicles may reach when leaving 'from'"));
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_FROM_LANE,
-                                   GNEAttributeProperties::AttrProperty::INT | GNEAttributeProperties::AttrProperty::UNIQUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                                   GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::INT | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                                   GNEAttributeProperties::Edit::EDITMODE,
                                    TL("the lane index of the incoming lane (numbers starting with 0)"));
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_TO_LANE,
-                                   GNEAttributeProperties::AttrProperty::INT | GNEAttributeProperties::AttrProperty::UNIQUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                                   GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::INT | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                                   GNEAttributeProperties::Edit::EDITMODE,
                                    TL("the lane index of the outgoing lane (numbers starting with 0)"));
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_PASS,
-                                   GNEAttributeProperties::AttrProperty::BOOL | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::BOOL | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("if set, vehicles which pass this (lane-2-lane) connection) will not wait"),
                                    GNEAttributeCarrier::False);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_KEEP_CLEAR,
-                                   GNEAttributeProperties::AttrProperty::BOOL | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::BOOL | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("if set to false, vehicles which pass this (lane-2-lane) connection) will not worry about blocking the intersection"),
                                    GNEAttributeCarrier::False);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_CONTPOS,
-                                   GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("If set to a more than 0 value, an internal junction will be built at this position (in m)/n from the start of the internal lane for this connection"),
                                    "", toString(NBEdge::UNSPECIFIED_CONTPOS));
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_UNCONTROLLED,
-                                   GNEAttributeProperties::AttrProperty::BOOL | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::BOOL | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("If set to true, This connection will not be TLS-controlled despite its node being controlled"),
                                    GNEAttributeCarrier::False);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_VISIBILITY_DISTANCE,
-                                   GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("Vision distance between vehicles"),
                                    "", toString(NBEdge::UNSPECIFIED_VISIBILITY_DISTANCE));
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_TLLINKINDEX,
-                                   GNEAttributeProperties::AttrProperty::INT | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::INT | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("sets index of this connection within the controlling traffic light (-1 means automatic assignment)"),
                                    "-1");
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_TLLINKINDEX2,
-                                   GNEAttributeProperties::AttrProperty::INT | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::INT | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("sets index for the internal junction of this connection within the controlling traffic light (-1 means internal junction not controlled)"),
                                    "-1");
 
         fillAllowDisallowAttributes(myTagProperties[currentTag]);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_SPEED,
-                                   GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("sets custom speed limit for the connection"),
                                    "", toString(NBEdge::UNSPECIFIED_SPEED));
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_LENGTH,
-                                   GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("sets custom length for the connection"),
                                    "", toString(NBEdge::UNSPECIFIED_LOADED_LENGTH));
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_CUSTOMSHAPE,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::POSITION | GNEAttributeProperties::AttrProperty::LIST | GNEAttributeProperties::AttrProperty::UNIQUE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::POSITION | GNEAttributeProperties::Property::LIST | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("sets custom shape for the connection"));
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_CHANGE_LEFT,
-                                   GNEAttributeProperties::AttrProperty::VCLASS | GNEAttributeProperties::AttrProperty::LIST | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::VCLASS | GNEAttributeProperties::Property::LIST | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("Permit changing left only for to the given vehicle classes"),
                                    "all");
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_CHANGE_RIGHT,
-                                   GNEAttributeProperties::AttrProperty::VCLASS | GNEAttributeProperties::AttrProperty::LIST | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::VCLASS | GNEAttributeProperties::Property::LIST | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("Permit changing right only for to the given vehicle classes"),
                                    "all");
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_INDIRECT,
-                                   GNEAttributeProperties::AttrProperty::BOOL | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::BOOL | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("if set to true, vehicles will make a turn in 2 steps"),
                                    GNEAttributeCarrier::False);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_TYPE,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("set a custom edge type (for applying vClass-specific speed restrictions)"));
 
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_DIR,
-                                   GNEAttributeProperties::AttrProperty::STRING,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("turning direction for this connection (computed)"));
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_STATE,
-                                   GNEAttributeProperties::AttrProperty::STRING,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("link state for this connection (computed)"));
     }
     currentTag = GNE_TAG_INTERNAL_LANE;
@@ -1158,19 +1158,19 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
 
         // set specific attributes
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_LINES,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::LIST | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::LIST | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("Meant to be the names of the bus lines that stop at this bus stop. This is only used for visualization purposes"));
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_PERSON_CAPACITY,
-                                   GNEAttributeProperties::AttrProperty::INT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::INT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("Larger numbers of persons trying to enter will create an upstream jam on the sidewalk"),
                                    "6");
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_PARKING_LENGTH,
-                                   GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("Optional space definition for vehicles that park at this stop"),
                                    "0");
     }
@@ -1189,19 +1189,19 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
 
         // set specific attributes
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_LINES,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::LIST | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::LIST | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("Meant to be the names of the train lines that stop at this train stop. This is only used for visualization purposes"));
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_PERSON_CAPACITY,
-                                   GNEAttributeProperties::AttrProperty::INT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::INT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("Larger numbers of persons trying to enter will create an upstream jam on the sidewalk"),
                                    "6");
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_PARKING_LENGTH,
-                                   GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("Optional space definition for vehicles that park at this stop"),
                                    "0");
 
@@ -1224,8 +1224,8 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
         fillFriendlyPosAttribute(myTagProperties[currentTag]);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_LENGTH,
-                                   GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The walking length of the access in meters (default is geometric length)"),
                                    "", "-1");
     }
@@ -1244,19 +1244,19 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
 
         // set specific attributes
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_LINES,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::LIST | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::LIST | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("meant to be the names of the bus lines that stop at this container stop. This is only used for visualization purposes"));
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_CONTAINER_CAPACITY,
-                                   GNEAttributeProperties::AttrProperty::INT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::INT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("Larger numbers of container trying to enter will create an upstream jam on the sidewalk"),
                                    "6");
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_PARKING_LENGTH,
-                                   GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("Optional space definition for vehicles that park at this stop"),
                                    "", "0");
     }
@@ -1275,46 +1275,46 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
 
         // set specific attributes
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_CHARGINGPOWER,
-                                   GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("Charging power in W"),
                                    "22000");
 
         auto efficiency = new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_EFFICIENCY,
-                GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::RANGE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::RANGE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                 TL("Charging efficiency [0,1]"),
                 "0.95");
         efficiency->setRange(0, 1);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_CHARGEINTRANSIT,
-                                   GNEAttributeProperties::AttrProperty::BOOL | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::BOOL | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("Enable or disable charge in transit, i.e. vehicle must or must not to stop for charging"),
                                    GNEAttributeCarrier::False);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_CHARGEDELAY,
-                                   GNEAttributeProperties::AttrProperty::SUMOTIME | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::SUMOTIME | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("Time delay after the vehicles has reached / stopped on the charging station, before the energy transfer (charging) begins"),
                                    "0");
 
         auto chargeType = new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_CHARGETYPE,
-                GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::DISCRETE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DISCRETE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                 TL("Battery charging type"),
                 SUMOXMLDefinitions::ChargeTypes.getString(ChargeType::NORMAL));
         chargeType->setDiscreteValues(SUMOXMLDefinitions::ChargeTypes.getStrings());
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_WAITINGTIME,
-                                   GNEAttributeProperties::AttrProperty::SUMOTIME | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::SUMOTIME | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("Waiting time before start charging"),
                                    "900");
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_PARKING_AREA,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UPDATEGEOMETRY | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("Parking area the charging station is located"));
     }
     currentTag = SUMO_TAG_PARKING_AREA;
@@ -1332,48 +1332,48 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
 
         // set specific attributes
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_DEPARTPOS,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::DEFAULTVALUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("Lane position in that vehicle must depart when leaves parkingArea"));
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_ACCEPTED_BADGES,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::LIST | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::LIST | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("Accepted badges to access this parkingArea"));
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_ROADSIDE_CAPACITY,
-                                   GNEAttributeProperties::AttrProperty::INT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::INT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL(" The number of parking spaces for road-side parking"),
                                    "0");
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_ONROAD,
-                                   GNEAttributeProperties::AttrProperty::BOOL | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::BOOL | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("If set, vehicles will park on the road lane and thereby reducing capacity"),
                                    "0");
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_WIDTH,
-                                   GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The width of the road-side parking spaces"),
                                    toString(SUMO_const_laneWidth));
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_LENGTH,
-                                   GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The length of the road-side parking spaces. By default (endPos - startPos) / roadsideCapacity"),
                                    "", "0");
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_ANGLE,
-                                   GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::ANGLE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::ANGLE | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The angle of the road-side parking spaces relative to the lane angle, positive means clockwise"),
                                    "0");
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_LEFTHAND,
-                                   GNEAttributeProperties::AttrProperty::BOOL | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::BOOL | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("Enable or disable lefthand position"),
                                    GNEAttributeCarrier::False);
 
@@ -1390,30 +1390,30 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
         {SUMO_TAG_PARKING_AREA}, FXRGBA(240, 255, 205, 255));
         // set values of attributes
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_POSITION,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::UNIQUE | GNEAttributeProperties::AttrProperty::POSITION | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY, // virtual attribute from the combination of the actually attributes SUMO_ATTR_X, SUMO_ATTR_Y
-                                   GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::POSITION | GNEAttributeProperties::Property::UPDATEGEOMETRY, // virtual attribute from the combination of the actually attributes SUMO_ATTR_X, SUMO_ATTR_Y
+                                   GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The x-y-z position of the node on the plane in meters"));
 
         fillNameAttribute(myTagProperties[currentTag]);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_WIDTH,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::DEFAULTVALUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The width of the road-side parking spaces"));
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_LENGTH,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::DEFAULTVALUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The length of the road-side parking spaces"));
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_ANGLE,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::DEFAULTVALUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The angle of the road-side parking spaces relative to the lane angle, positive means clockwise"));
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_SLOPE,
-                                   GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::ANGLE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::ANGLE | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The slope of the road-side parking spaces"),
                                    "0");
 
@@ -1469,8 +1469,8 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
         fillFriendlyPosAttribute(myTagProperties[currentTag]);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_LENGTH,
-                                   GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The length of the detector in meters"),
                                    "10");
 
@@ -1479,8 +1479,8 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
         fillDetectorPeriodAttribute(myTagProperties[currentTag]);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_TLID,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The traffic light that triggers aggregation when switching"));
 
         fillFileAttribute(myTagProperties[currentTag]);
@@ -1494,8 +1494,8 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
         fillDetectorThresholdAttributes(myTagProperties[currentTag], true);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_SHOW_DETECTOR,
-                                   GNEAttributeProperties::AttrProperty::BOOL | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::BOOL | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("Show detector in sumo-gui"),
                                    GNEAttributeCarrier::True);
     }
@@ -1513,15 +1513,15 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
         fillIDAttribute(myTagProperties[currentTag], true);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_LANES,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::LIST | GNEAttributeProperties::AttrProperty::SECUENCIAL | GNEAttributeProperties::AttrProperty::UNIQUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                                   GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::LIST | GNEAttributeProperties::Property::SECUENCIAL | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                                   GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The sequence of lane ids in which the detector shall be laid on"));
 
         fillPosOverLaneAttribute(myTagProperties[currentTag]);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_ENDPOS,
-                                   GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::UNIQUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                                   GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                                   GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The end position on the lane the detector shall be laid on in meters"));
 
         fillFriendlyPosAttribute(myTagProperties[currentTag]);
@@ -1529,8 +1529,8 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
         fillDetectorPeriodAttribute(myTagProperties[currentTag]);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_TLID,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The traffic light that triggers aggregation when switching"));
 
         fillNameAttribute(myTagProperties[currentTag]);
@@ -1546,8 +1546,8 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
         fillDetectorThresholdAttributes(myTagProperties[currentTag], true);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_SHOW_DETECTOR,
-                                   GNEAttributeProperties::AttrProperty::BOOL | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::BOOL | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("Show detector in sumo-gui"),
                                    GNEAttributeCarrier::True);
     }
@@ -1565,8 +1565,8 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
         fillIDAttribute(myTagProperties[currentTag], true);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_POSITION,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::POSITION | GNEAttributeProperties::AttrProperty::UNIQUE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                                   GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::POSITION | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                                   GNEAttributeProperties::Edit::EDITMODE,
                                    TL("X-Y position of detector in editor (Only used in netedit)"),
                                    "0,0"); // virtual attribute from the combination of the actually attributes SUMO_ATTR_X, SUMO_ATTR_Y
 
@@ -1583,16 +1583,16 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
         fillDetectPersonsAttribute(myTagProperties[currentTag]);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_OPEN_ENTRY,
-                                   GNEAttributeProperties::AttrProperty::BOOL | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::BOOL | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("If set to true, no error will be reported if vehicles leave the detector without first entering it"),
                                    GNEAttributeCarrier::False);
 
         fillDetectorThresholdAttributes(myTagProperties[currentTag], false);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_EXPECT_ARRIVAL,
-                                   GNEAttributeProperties::AttrProperty::BOOL | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::BOOL | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("Whether no warning should be issued when a vehicle arrives within the detector area."),
                                    GNEAttributeCarrier::False);
     }
@@ -1679,16 +1679,16 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
         fillNameAttribute(myTagProperties[currentTag]);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_PERIOD,
-                                   GNEAttributeProperties::AttrProperty::SUMOTIME | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::SUMOTIME | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The frequency in which to report the distribution"),
                                    "3600");
 
         fillFileAttribute(myTagProperties[currentTag]);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_BEGIN,
-                                   GNEAttributeProperties::AttrProperty::SUMOTIME | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::SUMOTIME | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The time at which to start generating output"),
                                    "0");
 
@@ -1708,13 +1708,13 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
         fillIDAttribute(myTagProperties[currentTag], true);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_LANES,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::LIST | GNEAttributeProperties::AttrProperty::UNIQUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                                   GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::LIST | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                                   GNEAttributeProperties::Edit::EDITMODE,
                                    TL("List of Variable Speed Sign lanes"));
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_POSITION,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::POSITION | GNEAttributeProperties::AttrProperty::UNIQUE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                                   GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::POSITION | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                                   GNEAttributeProperties::Edit::EDITMODE,
                                    TL("X-Y position of detector in editor (Only used in netedit)"),
                                    "0,0"); // virtual attribute from the combination of the actually attributes SUMO_ATTR_X, SUMO_ATTR_Y
 
@@ -1745,13 +1745,13 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
         {SUMO_TAG_VSS}, FXRGBA(210, 233, 255, 255));
         // set values of attributes
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_TIME,
-                                   GNEAttributeProperties::AttrProperty::SUMOTIME | GNEAttributeProperties::AttrProperty::UNIQUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::SUMOTIME | GNEAttributeProperties::Property::UNIQUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("Time"));
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_SPEED,
-                                   GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("Speed"),
                                    toString(OptionsCont::getOptions().getFloat("default.speed")));
     }
@@ -1775,21 +1775,21 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
         fillNameAttribute(myTagProperties[currentTag]);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_PERIOD,
-                                   GNEAttributeProperties::AttrProperty::SUMOTIME | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::SUMOTIME | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The aggregation interval in which to calibrate the flows. Default is step-length"),
                                    "1");
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_ROUTEPROBE,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The id of the routeProbe element from which to determine the route distribution for generated vehicles"));
 
         fillOutputAttribute(myTagProperties[currentTag]);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_JAM_DIST_THRESHOLD,
-                                   GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("A threshold value to detect and clear unexpected jamming"),
                                    "0.50");
 
@@ -1815,21 +1815,21 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
         fillNameAttribute(myTagProperties[currentTag]);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_PERIOD,
-                                   GNEAttributeProperties::AttrProperty::SUMOTIME | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::SUMOTIME | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The aggregation interval in which to calibrate the flows. Default is step-length"),
                                    "1");
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_ROUTEPROBE,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The id of the routeProbe element from which to determine the route distribution for generated vehicles"));
 
         fillOutputAttribute(myTagProperties[currentTag]);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_JAM_DIST_THRESHOLD,
-                                   GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("A threshold value to detect and clear unexpected jamming"),
                                    "0.50");
 
@@ -1847,19 +1847,19 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
         {SUMO_TAG_CALIBRATOR}, FXRGBA(253, 255, 206, 255));
         // set values of attributes
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_ROUTE,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::UNIQUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                                   GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                                   GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The id of the route the vehicle shall drive along"));
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_BEGIN,
-                                   GNEAttributeProperties::AttrProperty::SUMOTIME | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::SUMOTIME | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("First calibrator flow departure time"),
                                    "0");
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_END,
-                                   GNEAttributeProperties::AttrProperty::SUMOTIME | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::SUMOTIME | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("End of departure interval"),
                                    "3600");
 
@@ -1868,20 +1868,20 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
 
         // optional attributes (at least one must be defined)
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_TYPE,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::DEFAULTVALUE | GNEAttributeProperties::AttrProperty::ACTIVATABLE | GNEAttributeProperties::AttrProperty::VTYPE,
-                                   GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::ACTIVATABLE | GNEAttributeProperties::Property::VTYPE,
+                                   GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The id of the vehicle type to use for this calibrator flow"),
                                    DEFAULT_VTYPE_ID);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_VEHSPERHOUR,
-                                   GNEAttributeProperties::AttrProperty::INT | GNEAttributeProperties::AttrProperty::DEFAULTVALUE | GNEAttributeProperties::AttrProperty::ACTIVATABLE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::INT | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::ACTIVATABLE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("Number of vehicles per hour, equally spaced"),
                                    "1800");
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_SPEED,
-                                   GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::DEFAULTVALUE | GNEAttributeProperties::AttrProperty::ACTIVATABLE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::ACTIVATABLE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("Vehicle's speed"),
                                    "15");
     }
@@ -1900,41 +1900,41 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
         fillIDAttribute(myTagProperties[currentTag], true);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_POSITION,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::POSITION | GNEAttributeProperties::AttrProperty::UNIQUE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                                   GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::POSITION | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                                   GNEAttributeProperties::Edit::EDITMODE,
                                    TL("X,Y position in editor (Only used in netedit)"),
                                    "0,0"); // virtual attribute from the combination of the actually attributes SUMO_ATTR_X, SUMO_ATTR_Y
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_EDGES,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::LIST | GNEAttributeProperties::AttrProperty::UNIQUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                                   GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::LIST | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                                   GNEAttributeProperties::Edit::EDITMODE,
                                    TL("An edge id or a list of edge ids where vehicles shall be rerouted"));
 
         fillNameAttribute(myTagProperties[currentTag]);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_PROB,
-                                   GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::PROBABILITY | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::PROBABILITY | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The probability for vehicle rerouting (0-1)"),
                                    "1");
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_HALTING_TIME_THRESHOLD,
-                                   GNEAttributeProperties::AttrProperty::SUMOTIME | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::SUMOTIME | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The waiting time threshold (in s) that must be reached to activate rerouting (default -1 which disables the threshold)"),
                                    "0");
 
         fillVTypesAttribute(myTagProperties[currentTag]);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_OFF,
-                                   GNEAttributeProperties::AttrProperty::BOOL | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::BOOL | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("Whether the router should be inactive initially (and switched on in the gui)"),
                                    GNEAttributeCarrier::False);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_OPTIONAL,
-                                   GNEAttributeProperties::AttrProperty::BOOL | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::BOOL | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("If rerouter is optional"),
                                    GNEAttributeCarrier::False);
     }
@@ -1961,14 +1961,14 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
         {SUMO_TAG_REROUTER}, FXRGBA(255, 213, 213, 255));
         // set values of attributes
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_BEGIN,
-                                   GNEAttributeProperties::AttrProperty::SUMOTIME | GNEAttributeProperties::AttrProperty::UNIQUE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::SUMOTIME | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("Begin"),
                                    "0");
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_END,
-                                   GNEAttributeProperties::AttrProperty::SUMOTIME | GNEAttributeProperties::AttrProperty::UNIQUE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::SUMOTIME | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("End"),
                                    "3600");
     }
@@ -2016,8 +2016,8 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
         fillEdgeAttribute(myTagProperties[currentTag], true);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_PROB,
-                                   GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("SUMO Probability"),
                                    "1");
     }
@@ -2033,20 +2033,20 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
         {SUMO_TAG_INTERVAL}, FXRGBA(255, 213, 213, 255));
         // set values of attributes
         auto parking = new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_PARKING,
-                GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::UNIQUE | GNEAttributeProperties::AttrProperty::SYNONYM,
-                GNEAttributeProperties::EditProperty::EDITMODE,
+                GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::SYNONYM,
+                GNEAttributeProperties::Edit::EDITMODE,
                 TL("ParkingArea ID"));
         parking->setSynonym(SUMO_ATTR_ID);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_PROB,
-                                   GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("SUMO Probability"),
                                    "1");
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_VISIBLE,
-                                   GNEAttributeProperties::AttrProperty::BOOL | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::BOOL | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("Enable or disable visibility for parking area reroutes"),
                                    GNEAttributeCarrier::True);
     }
@@ -2062,14 +2062,14 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
         {SUMO_TAG_INTERVAL}, FXRGBA(255, 213, 213, 255));
         // set values of attributes
         auto route = new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_ROUTE,
-                                                GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::UNIQUE | GNEAttributeProperties::AttrProperty::SYNONYM | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                                                GNEAttributeProperties::EditProperty::EDITMODE,
+                                                GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::SYNONYM | GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                                                GNEAttributeProperties::Edit::EDITMODE,
                                                 TL("Route"));
         route->setSynonym(SUMO_ATTR_ID);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_PROB,
-                                   GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("SUMO Probability"),
                                    "1");
     }
@@ -2089,14 +2089,14 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
         fillNameAttribute(myTagProperties[currentTag]);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_BEGIN,
-                                   GNEAttributeProperties::AttrProperty::SUMOTIME | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::SUMOTIME | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("Start Time"),
                                    "0");
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_END,
-                                   GNEAttributeProperties::AttrProperty::SUMOTIME | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::SUMOTIME | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("End Time"),
                                    "3600");
     }
@@ -2120,8 +2120,8 @@ GNETagPropertiesDatabase::fillShapeElements() {
         fillIDAttribute(myTagProperties[currentTag], true);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_SHAPE,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::POSITION | GNEAttributeProperties::AttrProperty::LIST | GNEAttributeProperties::AttrProperty::UNIQUE,
-                                   GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::POSITION | GNEAttributeProperties::Property::LIST | GNEAttributeProperties::Property::UNIQUE,
+                                   GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The shape of the polygon"));
 
         fillNameAttribute(myTagProperties[currentTag]);
@@ -2129,51 +2129,51 @@ GNETagPropertiesDatabase::fillShapeElements() {
         fillColorAttribute(myTagProperties[currentTag], "red");
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_FILL,
-                                   GNEAttributeProperties::AttrProperty::BOOL | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::BOOL | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("An information whether the polygon shall be filled"),
                                    GNEAttributeCarrier::False);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_LINEWIDTH,
-                                   GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The default line width for drawing an unfilled polygon"),
                                    "1");
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_LAYER,
-                                   GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The layer in which the polygon lies"),
                                    toString(Shape::DEFAULT_LAYER));
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_TYPE,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("A typename for the polygon"),
                                    toString(Shape::DEFAULT_TYPE));
 
         fillImgFileAttribute(myTagProperties[currentTag], false);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_ANGLE,
-                                   GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::ANGLE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::ANGLE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("Angle of rendered image in degree"),
                                    toString(Shape::DEFAULT_ANGLE));
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_GEO,
-                                   GNEAttributeProperties::AttrProperty::BOOL | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE | GNEAttributeProperties::EditProperty::GEOEDITOR,
+                                   GNEAttributeProperties::Property::BOOL | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::GEOEDITOR,
                                    TL("Enable or disable GEO attributes"),
                                    GNEAttributeCarrier::False);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_GEOSHAPE,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::POSITION | GNEAttributeProperties::AttrProperty::LIST | GNEAttributeProperties::AttrProperty::UNIQUE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                                   GNEAttributeProperties::EditProperty::EDITMODE | GNEAttributeProperties::EditProperty::GEOEDITOR,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::POSITION | GNEAttributeProperties::Property::LIST | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                                   GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::GEOEDITOR,
                                    TL("A custom geo shape for this polygon"));
 
         new GNEAttributeProperties(myTagProperties[currentTag], GNE_ATTR_CLOSE_SHAPE,
-                                   GNEAttributeProperties::AttrProperty::BOOL,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE | GNEAttributeProperties::EditProperty::NETEDITEDITOR,
+                                   GNEAttributeProperties::Property::BOOL,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::NETEDITEDITOR,
                                    TL("Toggle close or open shape"));
     }
     currentTag = SUMO_TAG_POI;
@@ -2190,8 +2190,8 @@ GNETagPropertiesDatabase::fillShapeElements() {
         fillIDAttribute(myTagProperties[currentTag], true);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_POSITION,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::POSITION | GNEAttributeProperties::AttrProperty::UNIQUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY, // virtual attribute from the combination of the actually attributes SUMO_ATTR_X, SUMO_ATTR_Y
-                                   GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::POSITION | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::UPDATEGEOMETRY, // virtual attribute from the combination of the actually attributes SUMO_ATTR_X, SUMO_ATTR_Y
+                                   GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The position in view"));
 
         // fill Poi attributes
@@ -2217,8 +2217,8 @@ GNETagPropertiesDatabase::fillShapeElements() {
         fillFriendlyPosAttribute(myTagProperties[currentTag]);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_POSITION_LAT,
-                                   GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::DEFAULTVALUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The lateral offset on the named lane at which the POI is located at"),
                                    "0");
 
@@ -2240,13 +2240,13 @@ GNETagPropertiesDatabase::fillShapeElements() {
 
         // set values of attributes
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_LON,
-                                   GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::UNIQUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE | GNEAttributeProperties::EditProperty::GEOEDITOR,
+                                   GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::GEOEDITOR,
                                    TL("The longitude position of the parking vehicle on the view"));
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_LAT,
-                                   GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::UNIQUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE | GNEAttributeProperties::EditProperty::GEOEDITOR,
+                                   GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::GEOEDITOR,
                                    TL("The latitude position of the parking vehicle on the view"));
 
         // fill Poi attributes
@@ -2271,13 +2271,13 @@ GNETagPropertiesDatabase::fillTAZElements() {
         fillIDAttribute(myTagProperties[currentTag], true);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_SHAPE,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::POSITION | GNEAttributeProperties::AttrProperty::LIST | GNEAttributeProperties::AttrProperty::UNIQUE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                                   GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::POSITION | GNEAttributeProperties::Property::LIST | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                                   GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The shape of the TAZ"));
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_CENTER,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::POSITION | GNEAttributeProperties::AttrProperty::DEFAULTVALUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::POSITION | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("TAZ center"));
 
         fillNameAttribute(myTagProperties[currentTag]);
@@ -2285,14 +2285,14 @@ GNETagPropertiesDatabase::fillTAZElements() {
         fillColorAttribute(myTagProperties[currentTag], "red");
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_FILL,
-                                   GNEAttributeProperties::AttrProperty::BOOL | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::BOOL | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("An information whether the TAZ shall be filled"),
                                    GNEAttributeCarrier::False);
 
         new GNEAttributeProperties(myTagProperties[currentTag], GNE_ATTR_EDGES_WITHIN,
-                                   GNEAttributeProperties::AttrProperty::BOOL | GNEAttributeProperties::AttrProperty::DEFAULTVALUE | GNEAttributeProperties::AttrProperty::COPYABLE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::NETEDITEDITOR,
+                                   GNEAttributeProperties::Property::BOOL | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::COPYABLE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::NETEDITEDITOR,
                                    TL("Use the edges within the shape"),
                                    GNEAttributeCarrier::True);
     }
@@ -2310,8 +2310,8 @@ GNETagPropertiesDatabase::fillTAZElements() {
         fillEdgeAttribute(myTagProperties[currentTag], true);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_WEIGHT,
-                                   GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("Depart weight associated to this Edge"),
                                    "1");
     }
@@ -2329,8 +2329,8 @@ GNETagPropertiesDatabase::fillTAZElements() {
         fillEdgeAttribute(myTagProperties[currentTag], true);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_WEIGHT,
-                                   GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("Arrival weight associated to this Edge"),
                                    "1");
     }
@@ -2353,20 +2353,20 @@ GNETagPropertiesDatabase::fillWireElements() {
         fillIDAttribute(myTagProperties[currentTag], true);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_POSITION,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::POSITION | GNEAttributeProperties::AttrProperty::UNIQUE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                                   GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::POSITION | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                                   GNEAttributeProperties::Edit::EDITMODE,
                                    TL("X-Y position of detector in editor (Only used in netedit)"),
                                    "0,0"); // virtual attribute from the combination of the actually attributes SUMO_ATTR_X, SUMO_ATTR_Y
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_VOLTAGE,
-                                   GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("Voltage of at connection point for the overhead wire"),
                                    "600");
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_CURRENTLIMIT,
-                                   GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("Current limit of the feeder line"),
                                    "400");
     }
@@ -2383,32 +2383,32 @@ GNETagPropertiesDatabase::fillWireElements() {
         fillIDAttribute(myTagProperties[currentTag], true);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_SUBSTATIONID,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::UNIQUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("Substation to which the circuit is connected"));
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_LANES,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::LIST | GNEAttributeProperties::AttrProperty::UNIQUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::LIST | GNEAttributeProperties::Property::UNIQUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("List of consecutive lanes of the circuit"));
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_STARTPOS,
-                                   GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::UNIQUE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::EDITMODE,
                                    TL("Starting position in the specified lane"),
                                    "", "0");
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_ENDPOS,
-                                   GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::UNIQUE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::EDITMODE,
                                    TL("Ending position in the specified lane"),
                                    "", "INVALID_DOUBLE");
 
         fillFriendlyPosAttribute(myTagProperties[currentTag]);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_OVERHEAD_WIRE_FORBIDDEN,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::LIST,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::LIST,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("Inner lanes, where placing of overhead wire is restricted"));
     }
     currentTag = SUMO_TAG_OVERHEAD_WIRE_CLAMP;
@@ -2424,23 +2424,23 @@ GNETagPropertiesDatabase::fillWireElements() {
         fillIDAttribute(myTagProperties[currentTag], true);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_OVERHEAD_WIRECLAMP_START,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::UNIQUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("ID of the overhead wire segment, to the start of which the overhead wire clamp is connected"));
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_OVERHEAD_WIRECLAMP_LANESTART,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::UNIQUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("ID of the overhead wire segment lane of overheadWireIDStartClamp"));
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_OVERHEAD_WIRECLAMP_END,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::UNIQUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("ID of the overhead wire segment, to the end of which the overhead wire clamp is connected"));
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_OVERHEAD_WIRECLAMP_LANEEND,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::UNIQUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("ID of the overhead wire segment lane of overheadWireIDEndClamp"));
     }
 }
@@ -2463,21 +2463,21 @@ GNETagPropertiesDatabase::fillJuPedSimElements() {
         fillIDAttribute(myTagProperties[currentTag], true);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_SHAPE,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::POSITION | GNEAttributeProperties::AttrProperty::LIST | GNEAttributeProperties::AttrProperty::UNIQUE,
-                                   GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::POSITION | GNEAttributeProperties::Property::LIST | GNEAttributeProperties::Property::UNIQUE,
+                                   GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The shape of the walkable area"));
 
         fillNameAttribute(myTagProperties[currentTag]);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_GEO,
-                                   GNEAttributeProperties::AttrProperty::BOOL | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE | GNEAttributeProperties::EditProperty::GEOEDITOR,
+                                   GNEAttributeProperties::Property::BOOL | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::GEOEDITOR,
                                    TL("Enable or disable GEO attributes"),
                                    GNEAttributeCarrier::False);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_GEOSHAPE,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::POSITION | GNEAttributeProperties::AttrProperty::LIST | GNEAttributeProperties::AttrProperty::UNIQUE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                                   GNEAttributeProperties::EditProperty::EDITMODE | GNEAttributeProperties::EditProperty::GEOEDITOR,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::POSITION | GNEAttributeProperties::Property::LIST | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                                   GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::GEOEDITOR,
                                    TL("A custom geo shape for this walkable area"));
     }
     currentTag = GNE_TAG_JPS_OBSTACLE;
@@ -2494,21 +2494,21 @@ GNETagPropertiesDatabase::fillJuPedSimElements() {
         fillIDAttribute(myTagProperties[currentTag], true);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_SHAPE,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::POSITION | GNEAttributeProperties::AttrProperty::LIST | GNEAttributeProperties::AttrProperty::UNIQUE,
-                                   GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::POSITION | GNEAttributeProperties::Property::LIST | GNEAttributeProperties::Property::UNIQUE,
+                                   GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The shape of the obstacle"));
 
         fillNameAttribute(myTagProperties[currentTag]);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_GEO,
-                                   GNEAttributeProperties::AttrProperty::BOOL | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE | GNEAttributeProperties::EditProperty::GEOEDITOR,
+                                   GNEAttributeProperties::Property::BOOL | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::GEOEDITOR,
                                    TL("Enable or disable GEO attributes"),
                                    GNEAttributeCarrier::False);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_GEOSHAPE,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::POSITION | GNEAttributeProperties::AttrProperty::LIST | GNEAttributeProperties::AttrProperty::UNIQUE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                                   GNEAttributeProperties::EditProperty::EDITMODE | GNEAttributeProperties::EditProperty::GEOEDITOR,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::POSITION | GNEAttributeProperties::Property::LIST | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                                   GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::GEOEDITOR,
                                    TL("A custom geo shape for this obstacle"));
     }
 }
@@ -2531,33 +2531,33 @@ GNETagPropertiesDatabase::fillDemandElements() {
         fillIDAttribute(myTagProperties[currentTag], true);
 
         new GNEAttributeProperties(myTagProperties[currentTag], GNE_ATTR_ROUTE_DISTRIBUTION,
-                                   GNEAttributeProperties::AttrProperty::STRING,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("Route distribution"));
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_EDGES,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::LIST | GNEAttributeProperties::AttrProperty::UNIQUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::LIST | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The edges the vehicle shall drive along, given as their ids, separated using spaces"));
 
         fillColorAttribute(myTagProperties[currentTag], "");
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_REPEAT,
-                                   GNEAttributeProperties::AttrProperty::INT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::INT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The number of times that the edges of this route shall be repeated"),
                                    "0");
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_CYCLETIME,
-                                   GNEAttributeProperties::AttrProperty::SUMOTIME | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::SUMOTIME | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("When defining a repeating route with stops and those stops use the until attribute,") + std::string("\n") +
                                    TL("the times will be shifted forward by 'cycleTime' on each repeat"),
                                    "0");
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_PROB,
-                                   GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The probability when being added to a distribution without an explicit probability"),
                                    "1");
     }
@@ -2587,21 +2587,21 @@ GNETagPropertiesDatabase::fillDemandElements() {
 
         // set values of attributes
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_EDGES,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::LIST | GNEAttributeProperties::AttrProperty::UNIQUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::LIST | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The edges the vehicle shall drive along, given as their ids, separated using spaces"));
 
         fillColorAttribute(myTagProperties[currentTag], "");
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_REPEAT,
-                                   GNEAttributeProperties::AttrProperty::INT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::INT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The number of times that the edges of this route shall be repeated"),
                                    "0");
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_CYCLETIME,
-                                   GNEAttributeProperties::AttrProperty::SUMOTIME | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::SUMOTIME | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("When defining a repeating route with stops and those stops use the until attribute,") + std::string("\n") +
                                    TL("the times will be shifted forward by 'cycleTime' on each repeat"),
                                    "0");
@@ -2620,13 +2620,13 @@ GNETagPropertiesDatabase::fillDemandElements() {
         fillIDAttribute(myTagProperties[currentTag], true);
 
         new GNEAttributeProperties(myTagProperties[currentTag], GNE_ATTR_VTYPE_DISTRIBUTION,
-                                   GNEAttributeProperties::AttrProperty::STRING,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("Type distribution"));
 
         auto vClass = new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_VCLASS,
-                GNEAttributeProperties::AttrProperty::DISCRETE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                GNEAttributeProperties::Property::DISCRETE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                 TL("An abstract vehicle class"),
                 "passenger");
         vClass->setDiscreteValues(SumoVehicleClassStrings.getStrings());
@@ -2634,148 +2634,148 @@ GNETagPropertiesDatabase::fillDemandElements() {
         fillColorAttribute(myTagProperties[currentTag], "");
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_LENGTH,
-                                   GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::ALWAYSENABLED,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::ALWAYSENABLED,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The vehicle's netto-length (length) [m]"));
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_MINGAP,
-                                   GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::ALWAYSENABLED,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::ALWAYSENABLED,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("Empty space after leader [m]"));
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_MAXSPEED,
-                                   GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::ALWAYSENABLED,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::ALWAYSENABLED,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The vehicle's maximum velocity [m/s]"));
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_SPEEDFACTOR,
-                                   GNEAttributeProperties::AttrProperty::STRING,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE | GNEAttributeProperties::EditProperty::EXTENDEDEDITOR,
+                                   GNEAttributeProperties::Property::STRING,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
                                    TL("The vehicle's expected multiplicator for lane speed limits (or a distribution specifier)"));
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_DESIRED_MAXSPEED,
-                                   GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::ALWAYSENABLED,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::ALWAYSENABLED,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The vehicle's desired maximum velocity (interacts with speedFactor).") + std::string("\n") +
                                    TL("Applicable when no speed limit applies (bicycles, some motorways) [m/s]"));
 
         auto emissionClass = new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_EMISSIONCLASS,
-                GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::DISCRETE,
-                GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE | GNEAttributeProperties::EditProperty::EXTENDEDEDITOR,
+                GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DISCRETE,
+                GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
                 TL("An abstract emission class"));
         emissionClass->setDiscreteValues(PollutantsInterface::getAllClassesStr());
 
         auto GUIShape = new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_GUISHAPE,
-                GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::DISCRETE,
-                GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE | GNEAttributeProperties::EditProperty::EXTENDEDEDITOR,
+                GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DISCRETE,
+                GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
                 TL("How this vehicle is rendered"));
         GUIShape->setDiscreteValues(SumoVehicleShapeStrings.getStrings());
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_WIDTH,
-                                   GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE | GNEAttributeProperties::EditProperty::EXTENDEDEDITOR,
+                                   GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
                                    TL("The vehicle's width [m] (only used for drawing)"),
                                    "1.8");
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_HEIGHT,
-                                   GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE | GNEAttributeProperties::EditProperty::EXTENDEDEDITOR,
+                                   GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
                                    TL("The vehicle's height [m] (only used for drawing)"),
                                    "1.5");
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_PARKING_BADGES,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::LIST | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::LIST | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The parking badges assigned to the vehicle"));
 
         fillImgFileAttribute(myTagProperties[currentTag], true);
 
         auto laneChangeModel = new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_LANE_CHANGE_MODEL,
-                GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::DISCRETE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE | GNEAttributeProperties::EditProperty::EXTENDEDEDITOR,
+                GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DISCRETE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
                 TL("The model used for changing lanes"),
                 SUMOXMLDefinitions::LaneChangeModels.getString(LaneChangeModel::DEFAULT));
         laneChangeModel->setDiscreteValues(SUMOXMLDefinitions::LaneChangeModels.getStrings());
 
         auto carFollowModel = new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_CAR_FOLLOW_MODEL,
-                GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::DISCRETE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE | GNEAttributeProperties::EditProperty::EXTENDEDEDITOR,
+                GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DISCRETE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
                 TL("The model used for car-following"),
                 SUMOXMLDefinitions::CarFollowModels.getString(SUMO_TAG_CF_KRAUSS));
         carFollowModel->setDiscreteValues(SUMOXMLDefinitions::CarFollowModels.getStrings());
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_PERSON_CAPACITY,
-                                   GNEAttributeProperties::AttrProperty::INT | GNEAttributeProperties::AttrProperty::POSITIVE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE | GNEAttributeProperties::EditProperty::EXTENDEDEDITOR,
+                                   GNEAttributeProperties::Property::INT | GNEAttributeProperties::Property::POSITIVE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
                                    TL("The number of persons (excluding an autonomous driver) the vehicle can transport"));
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_CONTAINER_CAPACITY,
-                                   GNEAttributeProperties::AttrProperty::INT | GNEAttributeProperties::AttrProperty::POSITIVE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE | GNEAttributeProperties::EditProperty::EXTENDEDEDITOR,
+                                   GNEAttributeProperties::Property::INT | GNEAttributeProperties::Property::POSITIVE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
                                    TL("The number of containers the vehicle can transport"));
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_BOARDING_DURATION,
-                                   GNEAttributeProperties::AttrProperty::SUMOTIME | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE | GNEAttributeProperties::EditProperty::EXTENDEDEDITOR,
+                                   GNEAttributeProperties::Property::SUMOTIME | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
                                    TL("The time required by a person to board the vehicle"),
                                    "0.50");
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_LOADING_DURATION,
-                                   GNEAttributeProperties::AttrProperty::SUMOTIME | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE | GNEAttributeProperties::EditProperty::EXTENDEDEDITOR,
+                                   GNEAttributeProperties::Property::SUMOTIME | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
                                    TL("The time required to load a container onto the vehicle"),
                                    "90");
 
         auto latAlignment = new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_LATALIGNMENT,
-                GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::DISCRETE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE | GNEAttributeProperties::EditProperty::EXTENDEDEDITOR,
+                GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DISCRETE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
                 TL("The preferred lateral alignment when using the sublane-model"),
                 "center");
         latAlignment->setDiscreteValues(SUMOVTypeParameter::getLatAlignmentStrings());
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_MINGAP_LAT,
-                                   GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE | GNEAttributeProperties::EditProperty::EXTENDEDEDITOR,
+                                   GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
                                    TL("The minimum lateral gap at a speed difference of 50km/h when using the sublane-model"),
                                    "0.12");
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_MAXSPEED_LAT,
-                                   GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE | GNEAttributeProperties::EditProperty::EXTENDEDEDITOR,
+                                   GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
                                    TL("The maximum lateral speed when using the sublane-model"),
                                    "1");
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_ACTIONSTEPLENGTH,
-                                   GNEAttributeProperties::AttrProperty::SUMOTIME | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE | GNEAttributeProperties::EditProperty::EXTENDEDEDITOR,
+                                   GNEAttributeProperties::Property::SUMOTIME | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
                                    TL("The interval length for which vehicle performs its decision logic (acceleration and lane-changing)"),
                                    toString(OptionsCont::getOptions().getFloat("default.action-step-length")));
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_PROB,
-                                   GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE | GNEAttributeProperties::EditProperty::EXTENDEDEDITOR,
+                                   GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
                                    TL("The probability when being added to a distribution without an explicit probability"),
                                    toString(DEFAULT_VEH_PROB));
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_OSGFILE,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE | GNEAttributeProperties::EditProperty::EXTENDEDEDITOR,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
                                    TL("3D model file for this class"));
         /*
                 Waiting for #16343
                 new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_CARRIAGE_LENGTH,
-                                           GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE,
-                                           GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE | GNEAttributeProperties::EditProperty::EXTENDEDEDITOR,
+                                           GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE,
+                                           GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
                                            TL("Carriage lengths"));
 
                 new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_LOCOMOTIVE_LENGTH,
-                                           GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE,
-                                           GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE | GNEAttributeProperties::EditProperty::EXTENDEDEDITOR,
+                                           GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE,
+                                           GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
                                            TL("Locomotive lengths"));
 
                 new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_CARRIAGE_GAP,
-                                           GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                           GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE | GNEAttributeProperties::EditProperty::EXTENDEDEDITOR,
+                                           GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                           GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
                                            TL("Gap between carriages"),
                                            "1");
         */
@@ -2822,24 +2822,24 @@ GNETagPropertiesDatabase::fillVehicleElements() {
         fillIDAttribute(myTagProperties[currentTag], true);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_TYPE,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::DEFAULTVALUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY | GNEAttributeProperties::AttrProperty::VTYPE,
-                                   GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::UPDATEGEOMETRY | GNEAttributeProperties::Property::VTYPE,
+                                   GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The id of the vehicle type to use for this trip"),
                                    DEFAULT_VTYPE_ID);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_FROM,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::UNIQUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                                   GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                                   GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The ID of the edge the trip starts at"));
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_TO,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::UNIQUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                                   GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                                   GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The ID of the edge the trip ends at"));
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_VIA,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::UNIQUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY | GNEAttributeProperties::AttrProperty::LIST,
-                                   GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::UPDATEGEOMETRY | GNEAttributeProperties::Property::LIST,
+                                   GNEAttributeProperties::Edit::EDITMODE,
                                    TL("List of intermediate edge ids which shall be part of the trip"));
 
         // add common attributes
@@ -2862,19 +2862,19 @@ GNETagPropertiesDatabase::fillVehicleElements() {
         fillIDAttribute(myTagProperties[currentTag], true);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_TYPE,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::DEFAULTVALUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY | GNEAttributeProperties::AttrProperty::VTYPE,
-                                   GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::UPDATEGEOMETRY | GNEAttributeProperties::Property::VTYPE,
+                                   GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The id of the vehicle type to use for this trip"),
                                    DEFAULT_VTYPE_ID);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_FROM_JUNCTION,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::UNIQUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                                   GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                                   GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The name of the junction the trip starts at"));
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_TO_JUNCTION,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::UNIQUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                                   GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                                   GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The name of the junction the trip ends at"));
 
         // add common attributes
@@ -2897,19 +2897,19 @@ GNETagPropertiesDatabase::fillVehicleElements() {
         fillIDAttribute(myTagProperties[currentTag], true);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_TYPE,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::DEFAULTVALUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY | GNEAttributeProperties::AttrProperty::VTYPE,
-                                   GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::UPDATEGEOMETRY | GNEAttributeProperties::Property::VTYPE,
+                                   GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The id of the vehicle type to use for this trip"),
                                    DEFAULT_VTYPE_ID);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_FROM_TAZ,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::UNIQUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                                   GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                                   GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The name of the TAZ the trip starts at"));
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_TO_TAZ,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::UNIQUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                                   GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                                   GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The name of the TAZ the trip ends at"));
 
         // add common attributes
@@ -2932,24 +2932,24 @@ GNETagPropertiesDatabase::fillVehicleElements() {
         fillIDAttribute(myTagProperties[currentTag], true);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_TYPE,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::DEFAULTVALUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY | GNEAttributeProperties::AttrProperty::VTYPE,
-                                   GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::UPDATEGEOMETRY | GNEAttributeProperties::Property::VTYPE,
+                                   GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The id of the vehicle type to use for this vehicle"),
                                    DEFAULT_VTYPE_ID);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_ROUTE,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::UNIQUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                                   GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                                   GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The id of the route the vehicle shall drive along"));
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_DEPARTEDGE,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::UNIQUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::UPDATEGEOMETRY | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The index of the edge within route the vehicle starts at"));
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_ARRIVALEDGE,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::UNIQUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::UPDATEGEOMETRY | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The index of the edge within route the vehicle ends at"));
 
         // add common attributes
@@ -2972,19 +2972,19 @@ GNETagPropertiesDatabase::fillVehicleElements() {
         fillIDAttribute(myTagProperties[currentTag], true);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_TYPE,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::DEFAULTVALUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY | GNEAttributeProperties::AttrProperty::VTYPE,
-                                   GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::UPDATEGEOMETRY | GNEAttributeProperties::Property::VTYPE,
+                                   GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The id of the vehicle type to use for this vehicle"),
                                    DEFAULT_VTYPE_ID);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_DEPARTEDGE,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::UNIQUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::UPDATEGEOMETRY | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The index of the edge within route the vehicle starts at"));
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_ARRIVALEDGE,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::UNIQUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::UPDATEGEOMETRY | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The index of the edge within route the vehicle ends at"));
 
         // add common attributes
@@ -3007,24 +3007,24 @@ GNETagPropertiesDatabase::fillVehicleElements() {
         fillIDAttribute(myTagProperties[currentTag], true);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_TYPE,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::DEFAULTVALUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY | GNEAttributeProperties::AttrProperty::VTYPE,
-                                   GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::UPDATEGEOMETRY | GNEAttributeProperties::Property::VTYPE,
+                                   GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The id of the flow type to use for this flow"),
                                    DEFAULT_VTYPE_ID);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_FROM,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::UNIQUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                                   GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                                   GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The ID of the edge the flow starts at"));
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_TO,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::UNIQUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                                   GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                                   GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The ID of the edge the flow ends at"));
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_VIA,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::UNIQUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY | GNEAttributeProperties::AttrProperty::LIST,
-                                   GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::UPDATEGEOMETRY | GNEAttributeProperties::Property::LIST,
+                                   GNEAttributeProperties::Edit::EDITMODE,
                                    TL("List of intermediate edge ids which shall be part of the flow"));
 
         // add common attributes
@@ -3048,19 +3048,19 @@ GNETagPropertiesDatabase::fillVehicleElements() {
         fillIDAttribute(myTagProperties[currentTag], true);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_TYPE,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::DEFAULTVALUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY | GNEAttributeProperties::AttrProperty::VTYPE,
-                                   GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::UPDATEGEOMETRY | GNEAttributeProperties::Property::VTYPE,
+                                   GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The id of the flow type to use for this flow"),
                                    DEFAULT_VTYPE_ID);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_FROM_JUNCTION,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::UNIQUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                                   GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                                   GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The name of the junction the flow starts at"));
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_TO_JUNCTION,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::UNIQUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                                   GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                                   GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The name of the junction the flow ends at"));
 
         // add common attributes
@@ -3084,19 +3084,19 @@ GNETagPropertiesDatabase::fillVehicleElements() {
         fillIDAttribute(myTagProperties[currentTag], true);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_TYPE,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::DEFAULTVALUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY | GNEAttributeProperties::AttrProperty::VTYPE,
-                                   GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::UPDATEGEOMETRY | GNEAttributeProperties::Property::VTYPE,
+                                   GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The id of the flow type to use for this flow"),
                                    DEFAULT_VTYPE_ID);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_FROM_TAZ,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::UNIQUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                                   GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                                   GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The name of the TAZ the flow starts at"));
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_TO_TAZ,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::UNIQUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                                   GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                                   GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The name of the TAZ the flow ends at"));
 
         // add common attributes
@@ -3120,24 +3120,24 @@ GNETagPropertiesDatabase::fillVehicleElements() {
         fillIDAttribute(myTagProperties[currentTag], true);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_TYPE,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::DEFAULTVALUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY | GNEAttributeProperties::AttrProperty::VTYPE,
-                                   GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::UPDATEGEOMETRY | GNEAttributeProperties::Property::VTYPE,
+                                   GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The id of the flow type to use for this flow"),
                                    DEFAULT_VTYPE_ID);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_ROUTE,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::UNIQUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                                   GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                                   GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The id of the route the flow shall drive along"));
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_DEPARTEDGE,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::UNIQUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::UPDATEGEOMETRY | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The index of the edge within route the flow starts at"));
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_ARRIVALEDGE,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::UNIQUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::UPDATEGEOMETRY | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The index of the edge within route the flow ends at"));
 
         // add common attributes
@@ -3161,19 +3161,19 @@ GNETagPropertiesDatabase::fillVehicleElements() {
         fillIDAttribute(myTagProperties[currentTag], true);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_TYPE,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::DEFAULTVALUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY | GNEAttributeProperties::AttrProperty::VTYPE,
-                                   GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::UPDATEGEOMETRY | GNEAttributeProperties::Property::VTYPE,
+                                   GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The id of the flow type to use for this flow"),
                                    DEFAULT_VTYPE_ID);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_DEPARTEDGE,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::UNIQUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::UPDATEGEOMETRY | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The index of the edge within route the flow starts at"));
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_ARRIVALEDGE,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::UNIQUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::UPDATEGEOMETRY | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The index of the edge within route the flow ends at"));
 
         // add common attributes
@@ -3202,20 +3202,20 @@ GNETagPropertiesDatabase::fillStopElements() {
         fillLaneAttribute(myTagProperties[currentTag], false);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_STARTPOS,
-                                   GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::UNIQUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                                   GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                                   GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The begin position on the lane (the lower position on the lane) in meters"));
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_ENDPOS,
-                                   GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::UNIQUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                                   GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                                   GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The end position on the lane (the higher position on the lane) in meters, must be larger than startPos by more than 0.1m"));
 
         fillFriendlyPosAttribute(myTagProperties[currentTag]);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_POSITION_LAT,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::DEFAULTVALUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The lateral offset on the named lane at which the vehicle must stop"));
 
         // fill common stop attributes
@@ -3223,17 +3223,17 @@ GNETagPropertiesDatabase::fillStopElements() {
         /*
             // netedit attributes
             new GNEAttributeProperties(myTagProperties[currentTag], GNE_ATTR_SIZE,
-                    GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY | GNEAttributeProperties::EditProperty::NETEDITEDITOR,
+                    GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::UPDATEGEOMETRY | GNEAttributeProperties::Edit::NETEDITEDITOR,
                     TLF("Length of %", myTagProperties[currentTag]->getTagStr()));
 
             new GNEAttributeProperties(myTagProperties[currentTag], GNE_ATTR_FORCESIZE,
-                    GNEAttributeProperties::AttrProperty::BOOL | GNEAttributeProperties::AttrProperty::DEFAULTVALUE | GNEAttributeProperties::EditProperty::NETEDITEDITOR,
-                    GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                    GNEAttributeProperties::Property::BOOL | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Edit::NETEDITEDITOR,
+                    GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                     TL("Force size during creation"),
                     GNEAttributeCarrier::False);
 
             new GNEAttributeProperties(myTagProperties[currentTag], GNE_ATTR_REFERENCE,
-                    GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::DISCRETE | GNEAttributeProperties::EditProperty::NETEDITEDITOR,
+                    GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DISCRETE | GNEAttributeProperties::Edit::NETEDITEDITOR,
                     TLF("Reference position used for creating %", myTagProperties[currentTag]->getTagStr()));
             attrProperty->setDiscreteValues(SUMOXMLDefinitions::ReferencePositions.getStrings());
             */
@@ -3250,8 +3250,8 @@ GNETagPropertiesDatabase::fillStopElements() {
         {SUMO_TAG_ROUTE, SUMO_TAG_TRIP, SUMO_TAG_FLOW}, FXRGBA(255, 213, 213, 255));
         // set values of attributes
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_BUS_STOP,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::LIST | GNEAttributeProperties::AttrProperty::UNIQUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                                   GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::LIST | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                                   GNEAttributeProperties::Edit::EDITMODE,
                                    TL("BusStop associated with this stop"));
 
         // fill common stop attributes
@@ -3269,8 +3269,8 @@ GNETagPropertiesDatabase::fillStopElements() {
         {SUMO_TAG_ROUTE, SUMO_TAG_TRIP, SUMO_TAG_FLOW}, FXRGBA(255, 213, 213, 255));
         // set values of attributes
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_TRAIN_STOP,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::LIST | GNEAttributeProperties::AttrProperty::UNIQUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                                   GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::LIST | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                                   GNEAttributeProperties::Edit::EDITMODE,
                                    TL("TrainStop associated with this stop"));
 
         // fill common stop attributes
@@ -3288,8 +3288,8 @@ GNETagPropertiesDatabase::fillStopElements() {
         {SUMO_TAG_ROUTE, SUMO_TAG_TRIP, SUMO_TAG_FLOW}, FXRGBA(255, 213, 213, 255));
         // set values of attributes
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_CONTAINER_STOP,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::LIST | GNEAttributeProperties::AttrProperty::UNIQUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                                   GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::LIST | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                                   GNEAttributeProperties::Edit::EDITMODE,
                                    TL("ContainerStop associated with this stop"));
 
         // fill common stop attributes
@@ -3307,8 +3307,8 @@ GNETagPropertiesDatabase::fillStopElements() {
         {SUMO_TAG_ROUTE, SUMO_TAG_TRIP, SUMO_TAG_FLOW}, FXRGBA(255, 213, 213, 255));
         // set values of attributes
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_CHARGING_STATION,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::LIST | GNEAttributeProperties::AttrProperty::UNIQUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                                   GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::LIST | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                                   GNEAttributeProperties::Edit::EDITMODE,
                                    TL("ChargingStation associated with this stop"));
 
         // fill common stop attributes
@@ -3326,8 +3326,8 @@ GNETagPropertiesDatabase::fillStopElements() {
         {SUMO_TAG_ROUTE, SUMO_TAG_TRIP, SUMO_TAG_FLOW}, FXRGBA(255, 213, 213, 255));
         // set values of attributes
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_PARKING_AREA,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::LIST | GNEAttributeProperties::AttrProperty::UNIQUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                                   GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::LIST | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                                   GNEAttributeProperties::Edit::EDITMODE,
                                    TL("ParkingArea associated with this stop"));
 
         // fill common stop attributes (no parking)
@@ -3353,20 +3353,20 @@ GNETagPropertiesDatabase::fillWaypointElements() {
         fillLaneAttribute(myTagProperties[currentTag], false);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_STARTPOS,
-                                   GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::UNIQUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                                   GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                                   GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The begin position on the lane (the lower position on the lane) in meters"));
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_ENDPOS,
-                                   GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::UNIQUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                                   GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                                   GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The end position on the lane (the higher position on the lane) in meters, must be larger than startPos by more than 0.1m"));
 
         fillFriendlyPosAttribute(myTagProperties[currentTag]);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_POSITION_LAT,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::DEFAULTVALUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The lateral offset on the named lane at which the vehicle must waypoint"));
 
         // fill common waypoint (stop) attributes
@@ -3374,17 +3374,17 @@ GNETagPropertiesDatabase::fillWaypointElements() {
         /*
             // netedit attributes
             new GNEAttributeProperties(myTagProperties[currentTag], GNE_ATTR_SIZE,
-                    GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY | GNEAttributeProperties::EditProperty::NETEDITEDITOR,
+                    GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::UPDATEGEOMETRY | GNEAttributeProperties::Edit::NETEDITEDITOR,
                     TLF("Length of %", myTagProperties[currentTag]->getTagStr()));
 
             new GNEAttributeProperties(myTagProperties[currentTag], GNE_ATTR_FORCESIZE,
-                    GNEAttributeProperties::AttrProperty::BOOL | GNEAttributeProperties::AttrProperty::DEFAULTVALUE | GNEAttributeProperties::EditProperty::NETEDITEDITOR,
-                    GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                    GNEAttributeProperties::Property::BOOL | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Edit::NETEDITEDITOR,
+                    GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                     TL("Force size during creation"),
                     GNEAttributeCarrier::False);
 
             new GNEAttributeProperties(myTagProperties[currentTag], GNE_ATTR_REFERENCE,
-                    GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::DISCRETE | GNEAttributeProperties::EditProperty::NETEDITEDITOR,
+                    GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DISCRETE | GNEAttributeProperties::Edit::NETEDITEDITOR,
                     TLF("Reference position used for creating %", myTagProperties[currentTag]->getTagStr()));
             attrProperty->setDiscreteValues(SUMOXMLDefinitions::ReferencePositions.getStrings());
             */
@@ -3401,8 +3401,8 @@ GNETagPropertiesDatabase::fillWaypointElements() {
         {SUMO_TAG_ROUTE, SUMO_TAG_TRIP, SUMO_TAG_FLOW}, FXRGBA(240, 255, 205, 255));
         // set values of attributes
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_BUS_STOP,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::LIST | GNEAttributeProperties::AttrProperty::UNIQUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                                   GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::LIST | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                                   GNEAttributeProperties::Edit::EDITMODE,
                                    TL("BusWaypoint associated with this waypoint"));
 
         // fill common waypoint (stop) attributes
@@ -3420,8 +3420,8 @@ GNETagPropertiesDatabase::fillWaypointElements() {
         {SUMO_TAG_ROUTE, SUMO_TAG_TRIP, SUMO_TAG_FLOW}, FXRGBA(240, 255, 205, 255));
         // set values of attributes
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_TRAIN_STOP,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::LIST | GNEAttributeProperties::AttrProperty::UNIQUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                                   GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::LIST | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                                   GNEAttributeProperties::Edit::EDITMODE,
                                    TL("TrainWaypoint associated with this waypoint"));
 
         // fill common waypoint (stop) attributes
@@ -3439,8 +3439,8 @@ GNETagPropertiesDatabase::fillWaypointElements() {
         {SUMO_TAG_ROUTE, SUMO_TAG_TRIP, SUMO_TAG_FLOW}, FXRGBA(240, 255, 205, 255));
         // set values of attributes
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_CONTAINER_STOP,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::LIST | GNEAttributeProperties::AttrProperty::UNIQUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                                   GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::LIST | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                                   GNEAttributeProperties::Edit::EDITMODE,
                                    TL("ContainerWaypoint associated with this waypoint"));
 
         // fill common waypoint (stop) attributes
@@ -3458,8 +3458,8 @@ GNETagPropertiesDatabase::fillWaypointElements() {
         {SUMO_TAG_ROUTE, SUMO_TAG_TRIP, SUMO_TAG_FLOW}, FXRGBA(240, 255, 205, 255));
         // set values of attributes
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_CHARGING_STATION,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::LIST | GNEAttributeProperties::AttrProperty::UNIQUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                                   GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::LIST | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                                   GNEAttributeProperties::Edit::EDITMODE,
                                    TL("ChargingStation associated with this waypoint"));
 
         // fill common waypoint (stop) attributes
@@ -3477,8 +3477,8 @@ GNETagPropertiesDatabase::fillWaypointElements() {
         {SUMO_TAG_ROUTE, SUMO_TAG_TRIP, SUMO_TAG_FLOW}, FXRGBA(240, 255, 205, 255));
         // set values of attributes
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_PARKING_AREA,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::LIST | GNEAttributeProperties::AttrProperty::UNIQUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                                   GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::LIST | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                                   GNEAttributeProperties::Edit::EDITMODE,
                                    TL("ParkingArea associated with this waypoint"));
 
         // fill common waypoint (stop) attributes
@@ -7069,70 +7069,70 @@ GNETagPropertiesDatabase::fillCommonAttributes(GNETagProperties* tagProperties) 
     // check if element can be reparent
     if (tagProperties->canCenterCameraAfterCreation()) {
         commonAttribute = new GNEAttributeProperties(tagProperties, GNE_ATTR_CENTER_AFTER_CREATION,
-                GNEAttributeProperties::AttrProperty::BOOL,
-                GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::NETEDITEDITOR,
+                GNEAttributeProperties::Property::BOOL,
+                GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::NETEDITEDITOR,
                 TLF("Center view over element % after creation", tagProperties->getTagStr()));
     }
     // fill file attributes
     if (!tagProperties->isChild() && !tagProperties->isSymbol()) {
         if (tagProperties->isAdditionalElement()) {
             commonAttribute = new GNEAttributeProperties(tagProperties, GNE_ATTR_ADDITIONAL_FILE,
-                    GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::FILESAVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                    GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE | GNEAttributeProperties::EditProperty::NETEDITEDITOR,
+                    GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::FILESAVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                    GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::NETEDITEDITOR,
                     TL("The path to the additional file"));
             commonAttribute->setFilenameExtensions(SUMOXMLDefinitions::AdditionalFileExtensions.getMultilineString());
         } else if (tagProperties->isDemandElement()) {
             commonAttribute = new GNEAttributeProperties(tagProperties, GNE_ATTR_DEMAND_FILE,
-                    GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::FILESAVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                    GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE | GNEAttributeProperties::EditProperty::NETEDITEDITOR,
+                    GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::FILESAVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                    GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::NETEDITEDITOR,
                     TL("The path to the route file"));
             commonAttribute->setFilenameExtensions(SUMOXMLDefinitions::RouteFileExtensions.getMultilineString());
         } else if (tagProperties->isDataElement()) {
             commonAttribute = new GNEAttributeProperties(tagProperties, GNE_ATTR_DATA_FILE,
-                    GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::FILESAVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                    GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE | GNEAttributeProperties::EditProperty::NETEDITEDITOR,
+                    GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::FILESAVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                    GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::NETEDITEDITOR,
                     TL("The path to the data file"));
             commonAttribute->setFilenameExtensions(SUMOXMLDefinitions::EdgeDataFileExtensions.getMultilineString());
         } else if (tagProperties->isMeanData()) {
             commonAttribute = new GNEAttributeProperties(tagProperties, GNE_ATTR_MEANDATA_FILE,
-                    GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::FILESAVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                    GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE | GNEAttributeProperties::EditProperty::NETEDITEDITOR,
+                    GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::FILESAVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                    GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::NETEDITEDITOR,
                     TL("The path to the data file"));
             commonAttribute->setFilenameExtensions(SUMOXMLDefinitions::MeanDataFileExtensions.getMultilineString());
         }
     }
     /*
     new GNEAttributeProperties(myTagProperties[currentTag], relativePath,
-            GNEAttributeProperties::AttrProperty::BOOL | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-            GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+            GNEAttributeProperties::Property::BOOL | GNEAttributeProperties::Property::DEFAULTVALUE,
+            GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
             TL("Enable or disable use image file as a relative path"),
             toString(Shape::DEFAULT_RELATIVEPATH));
     */
     // if this is a drawable element, add front and select attributes
     if (tagProperties->isDrawable()) {
         commonAttribute = new GNEAttributeProperties(tagProperties, GNE_ATTR_FRONTELEMENT,
-                GNEAttributeProperties::AttrProperty::BOOL,
-                GNEAttributeProperties::EditProperty::EDITMODE | GNEAttributeProperties::EditProperty::NETEDITEDITOR,
+                GNEAttributeProperties::Property::BOOL,
+                GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::NETEDITEDITOR,
                 TL("Toggle front element"));
 
         commonAttribute = new GNEAttributeProperties(tagProperties, GNE_ATTR_SELECTED,
-                GNEAttributeProperties::AttrProperty::BOOL | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                GNEAttributeProperties::EditProperty::NETEDITEDITOR,
+                GNEAttributeProperties::Property::BOOL | GNEAttributeProperties::Property::DEFAULTVALUE,
+                GNEAttributeProperties::Edit::NETEDITEDITOR,
                 TL("Toggle select element"),
                 GNEAttributeCarrier::False);
     }
     // check if element can be reparent
     if (tagProperties->canBeReparent()) {
         commonAttribute = new GNEAttributeProperties(tagProperties, GNE_ATTR_PARENT,
-                GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                GNEAttributeProperties::EditProperty::EDITMODE | GNEAttributeProperties::EditProperty::NETEDITEDITOR,
+                GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::NETEDITEDITOR,
                 TL("Change element parent"));
     }
     // check if element has parameters
     if (tagProperties->hasParameters()) {
         commonAttribute = new GNEAttributeProperties(tagProperties, GNE_ATTR_PARAMETERS,
-                GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE,
+                GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                 TL("Generic parameters (Format: key1=value1|key2=value2|..."));
     }
 }
@@ -7146,14 +7146,14 @@ GNETagPropertiesDatabase::fillCommonStoppingPlaceAttributes(GNETagProperties* ta
     fillLaneAttribute(tagProperties, false);
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_STARTPOS,
-                               GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::UNIQUE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                               GNEAttributeProperties::EditProperty::EDITMODE,
+                               GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                               GNEAttributeProperties::Edit::EDITMODE,
                                TL("The begin position on the lane (the lower position on the lane) in meters"),
                                TL("lane start"), "INVALID_DOUBLE");
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_ENDPOS,
-                               GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::UNIQUE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                               GNEAttributeProperties::EditProperty::EDITMODE,
+                               GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                               GNEAttributeProperties::Edit::EDITMODE,
                                TL("The end position on the lane (the higher position on the lane) in meters, must be larger than startPos by more than 0.1m"),
                                TL("lane end"), "INVALID_DOUBLE");
 
@@ -7167,20 +7167,20 @@ GNETagPropertiesDatabase::fillCommonStoppingPlaceAttributes(GNETagProperties* ta
 
     // netedit attributes
     new GNEAttributeProperties(tagProperties, GNE_ATTR_SIZE,
-                               GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE | GNEAttributeProperties::EditProperty::NETEDITEDITOR,
+                               GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::UPDATEGEOMETRY | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::NETEDITEDITOR,
                                TLF("Length of %", tagProperties->getTagStr()),
                                "10");
 
     new GNEAttributeProperties(tagProperties, GNE_ATTR_FORCESIZE,
-                               GNEAttributeProperties::AttrProperty::BOOL | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE | GNEAttributeProperties::EditProperty::NETEDITEDITOR,
+                               GNEAttributeProperties::Property::BOOL | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::NETEDITEDITOR,
                                TL("Force size during creation"),
                                GNEAttributeCarrier::False);
 
     auto reference = new GNEAttributeProperties(tagProperties, GNE_ATTR_REFERENCE,
-            GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::DISCRETE,
-            GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE | GNEAttributeProperties::EditProperty::NETEDITEDITOR,
+            GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DISCRETE,
+            GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::NETEDITEDITOR,
             TLF("Reference position used for creating %", tagProperties->getTagStr()));
     reference->setDiscreteValues(SUMOXMLDefinitions::ReferencePositions.getStrings());
 }
@@ -7194,41 +7194,41 @@ GNETagPropertiesDatabase::fillCommonPOIAttributes(GNETagProperties* tagPropertie
     fillColorAttribute(tagProperties, "red");
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_TYPE,
-                               GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                               GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                TL("A typename for the POI"),
                                toString(Shape::DEFAULT_TYPE));
 
     auto icon = new GNEAttributeProperties(tagProperties, SUMO_ATTR_ICON,
-                                           GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::DISCRETE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                           GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                           GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DISCRETE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                           GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                            TL("POI Icon"),
                                            SUMOXMLDefinitions::POIIcons.getString(POIIcon::NONE));
     icon->setDiscreteValues(SUMOXMLDefinitions::POIIcons.getStrings());
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_LAYER,
-                               GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                               GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                TL("The layer of the POI for drawing and selecting"),
                                toString(Shape::DEFAULT_LAYER_POI));
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_WIDTH,
-                               GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                               GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                TL("Width of rendered image in meters"),
                                toString(Shape::DEFAULT_IMG_WIDTH));
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_HEIGHT,
-                               GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                               GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                TL("Height of rendered image in meters"),
                                toString(Shape::DEFAULT_IMG_HEIGHT));
 
     fillImgFileAttribute(tagProperties, false);
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_ANGLE,
-                               GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::ANGLE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                               GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::ANGLE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                TL("Angle of rendered image in degree"),
                                toString(Shape::DEFAULT_ANGLE));
 }
@@ -7240,73 +7240,73 @@ GNETagPropertiesDatabase::fillCommonVehicleAttributes(GNETagProperties* tagPrope
     fillColorAttribute(tagProperties, "yellow");
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_DEPARTLANE,
-                               GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::DEFAULTVALUE |  GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                               GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE |  GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                TL("The lane on which the vehicle shall be inserted"),
                                "first");
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_DEPARTPOS,
-                               GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::DEFAULTVALUE |  GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                               GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE |  GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                TL("The position at which the vehicle shall enter the net"),
                                "base");
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_DEPARTSPEED,
-                               GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                               GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                TL("The speed with which the vehicle shall enter the network"),
                                "0");
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_ARRIVALLANE,
-                               GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::DEFAULTVALUE |  GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                               GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE |  GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                TL("The lane at which the vehicle shall leave the network"),
                                "current");
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_ARRIVALPOS,
-                               GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::DEFAULTVALUE |  GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                               GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE |  GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                TL("The position at which the vehicle shall leave the network"),
                                "max");
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_ARRIVALSPEED,
-                               GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                               GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                TL("The speed with which the vehicle shall leave the network"),
                                "current");
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_LINE,
-                               GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                               GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                TL("A string specifying the id of a public transport line which can be used when specifying person rides"));
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_PERSON_NUMBER,
-                               GNEAttributeProperties::AttrProperty::INT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                               GNEAttributeProperties::Property::INT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                TL("The number of occupied seats when the vehicle is inserted"),
                                "0");
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_CONTAINER_NUMBER,
-                               GNEAttributeProperties::AttrProperty::INT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                               GNEAttributeProperties::Property::INT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                TL("The number of occupied container places when the vehicle is inserted"),
                                "0");
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_DEPARTPOS_LAT,
-                               GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::DEFAULTVALUE |  GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                               GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE |  GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                TL("The lateral position on the departure lane at which the vehicle shall enter the net"),
                                "center");
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_ARRIVALPOS_LAT,
-                               GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::DEFAULTVALUE |  GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                               GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE |  GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                TL("The lateral position on the arrival lane at which the vehicle shall arrive"),
                                "center");
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_INSERTIONCHECKS,
-                               GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                               GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                TL("Insertion checks"),
                                SUMOXMLDefinitions::InsertionChecks.getString(InsertionCheck::ALL));
 }
@@ -7316,62 +7316,62 @@ void
 GNETagPropertiesDatabase::fillCommonFlowAttributes(GNETagProperties* tagProperties, SumoXMLAttr perHour) {
     // fill common flow attributes
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_BEGIN,
-                               GNEAttributeProperties::AttrProperty::SUMOTIME | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                               GNEAttributeProperties::Property::SUMOTIME | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                TL("First flow departure time"),
                                "0");
 
     auto flowTerminate = new GNEAttributeProperties(tagProperties, GNE_ATTR_FLOW_TERMINATE,
-            GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::DISCRETE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE | GNEAttributeProperties::AttrProperty::FLOW,
-            GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE | GNEAttributeProperties::EditProperty::FLOWEDITOR,
+            GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DISCRETE | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::FLOW,
+            GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::FLOWEDITOR,
             TL("Criterion for flow termination"),
             toString(SUMO_ATTR_END));
     flowTerminate->setDiscreteValues({toString(SUMO_ATTR_END), toString(SUMO_ATTR_NUMBER), toString(SUMO_ATTR_END) + "-" + toString(SUMO_ATTR_NUMBER)});
 
     auto flowSpacing = new GNEAttributeProperties(tagProperties, GNE_ATTR_FLOW_SPACING,
-            GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::DISCRETE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE | GNEAttributeProperties::AttrProperty::FLOW,
-            GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE | GNEAttributeProperties::EditProperty::FLOWEDITOR,
+            GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DISCRETE | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::FLOW,
+            GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::FLOWEDITOR,
             TL("Criterion for flow spacing"),
             toString(perHour));
     flowSpacing->setDiscreteValues({toString(perHour), toString(SUMO_ATTR_PERIOD), toString(SUMO_ATTR_PROB), toString(GNE_ATTR_POISSON)});
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_END,
-                               GNEAttributeProperties::AttrProperty::SUMOTIME | GNEAttributeProperties::AttrProperty::DEFAULTVALUE | GNEAttributeProperties::AttrProperty::FLOW,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE | GNEAttributeProperties::EditProperty::FLOWEDITOR,
+                               GNEAttributeProperties::Property::SUMOTIME | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::FLOW,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::FLOWEDITOR,
                                TL("End of departure interval"),
                                "3600");
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_NUMBER,
-                               GNEAttributeProperties::AttrProperty::INT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE | GNEAttributeProperties::AttrProperty::FLOW,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE | GNEAttributeProperties::EditProperty::FLOWEDITOR,
+                               GNEAttributeProperties::Property::INT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::FLOW,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::FLOWEDITOR,
                                TL("probability for emitting a flow each second") + std::string("\n") +
                                TL("(not together with vehsPerHour or period)"),
                                "1800");
 
     new GNEAttributeProperties(tagProperties, perHour,
-                               GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::DEFAULTVALUE | GNEAttributeProperties::AttrProperty::FLOW,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE | GNEAttributeProperties::EditProperty::FLOWEDITOR,
+                               GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::FLOW,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::FLOWEDITOR,
                                TL("Number of flows per hour, equally spaced") + std::string("\n") +
                                TL("(not together with period or probability or poisson)"),
                                "1800");
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_PERIOD,
-                               GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::DEFAULTVALUE | GNEAttributeProperties::AttrProperty::FLOW,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE | GNEAttributeProperties::EditProperty::FLOWEDITOR,
+                               GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::FLOW,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::FLOWEDITOR,
                                TL("Insert equally spaced flows at that period") + std::string("\n") +
                                TL("(not together with vehsPerHour or probability or poisson)"),
                                "2");
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_PROB,
-                               GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::DEFAULTVALUE | GNEAttributeProperties::AttrProperty::FLOW,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE | GNEAttributeProperties::EditProperty::FLOWEDITOR,
+                               GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::FLOW,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::FLOWEDITOR,
                                TL("probability for emitting a flow each second") + std::string("\n") +
                                TL("(not together with vehsPerHour or period or poisson)"),
                                "0.5");
 
     new GNEAttributeProperties(tagProperties, GNE_ATTR_POISSON,
-                               GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::DEFAULTVALUE | GNEAttributeProperties::AttrProperty::FLOW,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE | GNEAttributeProperties::EditProperty::FLOWEDITOR,
+                               GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::FLOW,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::FLOWEDITOR,
                                TL("Insert flow expected vehicles per second with poisson distributed insertion rate") + std::string("\n") +
                                TL("(not together with period or vehsPerHour or probability)"),
                                "0.5");
@@ -7382,276 +7382,276 @@ void
 GNETagPropertiesDatabase::fillCarFollowingModelAttributes(GNETagProperties* tagProperties) {
     // fill CFM attributes
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_ACCEL,
-                               GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                               GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                TL("The acceleration ability of vehicles of this type [m/s^2]"),
                                toString(SUMOVTypeParameter::getDefaultAccel()));
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_DECEL,
-                               GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                               GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                TL("The deceleration ability of vehicles of this type [m/s^2]"),
                                toString(SUMOVTypeParameter::getDefaultDecel()));
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_APPARENTDECEL,
-                               GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE | GNEAttributeProperties::EditProperty::EXTENDEDEDITOR,
+                               GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
                                TL("The apparent deceleration of the vehicle as used by the standard model [m/s^2]"),
                                toString(SUMOVTypeParameter::getDefaultDecel()));
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_EMERGENCYDECEL,
-                               GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE | GNEAttributeProperties::EditProperty::EXTENDEDEDITOR,
+                               GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
                                TL("The maximal physically possible deceleration for the vehicle [m/s^2]"),
                                toString(SUMOVTypeParameter::getDefaultEmergencyDecel(SVC_IGNORING,
                                         SUMOVTypeParameter::getDefaultDecel(),
                                         VTYPEPARS_DEFAULT_EMERGENCYDECEL_DEFAULT)));
 
     auto sigma = new GNEAttributeProperties(tagProperties, SUMO_ATTR_SIGMA,
-                                            GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::RANGE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                            GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                            GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::RANGE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                            GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                             TL("Car-following model parameter"),
                                             toString(SUMOVTypeParameter::getDefaultImperfection()));
     sigma->setRange(0, 1);
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_TAU,
-                               GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                               GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                TL("Car-following model parameter"),
                                "1");
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_TMP1,
-                               GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE  | GNEAttributeProperties::EditProperty::EXTENDEDEDITOR,
+                               GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE  | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
                                TL("SKRAUSSX parameter 1"));
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_TMP2,
-                               GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE  | GNEAttributeProperties::EditProperty::EXTENDEDEDITOR,
+                               GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE  | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
                                TL("SKRAUSSX parameter 2"));
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_TMP3,
-                               GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE  | GNEAttributeProperties::EditProperty::EXTENDEDEDITOR,
+                               GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE  | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
                                TL("SKRAUSSX parameter 3"));
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_TMP4,
-                               GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE  | GNEAttributeProperties::EditProperty::EXTENDEDEDITOR,
+                               GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE  | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
                                TL("SKRAUSSX parameter 4"));
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_TMP5,
-                               GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE  | GNEAttributeProperties::EditProperty::EXTENDEDEDITOR,
+                               GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE  | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
                                TL("SKRAUSSX parameter 5"));
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_CF_EIDM_T_LOOK_AHEAD,
-                               GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE  | GNEAttributeProperties::EditProperty::EXTENDEDEDITOR,
+                               GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE  | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
                                TL("EIDM Look ahead / preview parameter [s]"),
                                "4");
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_CF_EIDM_T_REACTION,
-                               GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE  | GNEAttributeProperties::EditProperty::EXTENDEDEDITOR,
+                               GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE  | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
                                TL("EIDM AP Reaction Time parameter [s]"),
                                "0.50");
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_CF_EIDM_T_PERSISTENCE_DRIVE,
-                               GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE  | GNEAttributeProperties::EditProperty::EXTENDEDEDITOR,
+                               GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE  | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
                                TL("EIDM Wiener Process parameter for the Driving Error [s]"),
                                "3");
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_CF_EIDM_T_PERSISTENCE_ESTIMATE,
-                               GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE  | GNEAttributeProperties::EditProperty::EXTENDEDEDITOR,
+                               GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE  | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
                                TL("EIDM Wiener Process parameter for the Estimation Error [s]"),
                                "10");
 
     auto coolness = new GNEAttributeProperties(tagProperties, SUMO_ATTR_CF_EIDM_C_COOLNESS,
-            GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::RANGE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-            GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE  | GNEAttributeProperties::EditProperty::EXTENDEDEDITOR,
+            GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::RANGE | GNEAttributeProperties::Property::DEFAULTVALUE,
+            GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE  | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
             TL("EIDM Coolness parameter of the Enhanced IDM [-]"),
             "0.99");
     coolness->setRange(0, 1);
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_CF_EIDM_SIG_LEADER,
-                               GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE  | GNEAttributeProperties::EditProperty::EXTENDEDEDITOR,
+                               GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE  | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
                                TL("EIDM leader speed estimation error parameter [-]"),
                                "0.02");
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_CF_EIDM_SIG_GAP,
-                               GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE  | GNEAttributeProperties::EditProperty::EXTENDEDEDITOR,
+                               GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE  | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
                                TL("EIDM gap estimation error parameter [-]"),
                                "0.10");
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_CF_EIDM_SIG_ERROR,
-                               GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE  | GNEAttributeProperties::EditProperty::EXTENDEDEDITOR,
+                               GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE  | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
                                TL("EIDM driving error parameter [-]"),
                                "0.04");
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_CF_EIDM_JERK_MAX,
-                               GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE  | GNEAttributeProperties::EditProperty::EXTENDEDEDITOR,
+                               GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE  | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
                                TL("EIDM maximal jerk parameter [m/s^3]"),
                                "3");
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_CF_EIDM_EPSILON_ACC,
-                               GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE  | GNEAttributeProperties::EditProperty::EXTENDEDEDITOR,
+                               GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE  | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
                                TL("EIDM maximal negative acceleration between two Action Points (threshold) [m/s^2]"),
                                "1");
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_CF_EIDM_T_ACC_MAX,
-                               GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE  | GNEAttributeProperties::EditProperty::EXTENDEDEDITOR,
+                               GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE  | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
                                TL("EIDM Time parameter until vehicle reaches amax after startup/driveoff [s]"),
                                "1.20");
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_CF_EIDM_M_FLATNESS,
-                               GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE  | GNEAttributeProperties::EditProperty::EXTENDEDEDITOR,
+                               GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE  | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
                                TL("EIDM Flatness parameter of startup/driveoff curve [-]"),
                                "2");
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_CF_EIDM_M_BEGIN,
-                               GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE  | GNEAttributeProperties::EditProperty::EXTENDEDEDITOR,
+                               GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE  | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
                                TL("EIDM Shift parameter of startup/driveoff curve [-]"),
                                "0.70");
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_CF_EIDM_USEVEHDYNAMICS,
-                               GNEAttributeProperties::AttrProperty::BOOL | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE  | GNEAttributeProperties::EditProperty::EXTENDEDEDITOR,
+                               GNEAttributeProperties::Property::BOOL | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE  | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
                                TL("EIDM parameter if model shall include vehicle dynamics into the acceleration calculation [0/1]"),
                                "0");
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_CF_EIDM_MAX_VEH_PREVIEW,
-                               GNEAttributeProperties::AttrProperty::INT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE  | GNEAttributeProperties::EditProperty::EXTENDEDEDITOR,
+                               GNEAttributeProperties::Property::INT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE  | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
                                TL("EIDM parameter how many vehicles are taken into the preview calculation of the driver (at least always 1!) [-]"),
                                "0");
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_CF_PWAGNER2009_TAULAST,
-                               GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE  | GNEAttributeProperties::EditProperty::EXTENDEDEDITOR,
+                               GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE  | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
                                TL("Peter Wagner 2009 parameter"),
                                "0");
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_CF_PWAGNER2009_APPROB,
-                               GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE  | GNEAttributeProperties::EditProperty::EXTENDEDEDITOR,
+                               GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE  | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
                                TL("Peter Wagner 2009 parameter"),
                                "0");
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_CF_IDMM_ADAPT_FACTOR,
-                               GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE  | GNEAttributeProperties::EditProperty::EXTENDEDEDITOR,
+                               GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE  | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
                                TL("IDMM parameter"),
                                "0");
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_CF_IDMM_ADAPT_TIME,
-                               GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE  | GNEAttributeProperties::EditProperty::EXTENDEDEDITOR,
+                               GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE  | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
                                TL("IDMM parameter"),
                                "0");
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_CF_W99_CC1,
-                               GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE  | GNEAttributeProperties::EditProperty::EXTENDEDEDITOR,
+                               GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE  | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
                                TL("W99 parameter"),
                                "1.3");
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_CF_W99_CC2,
-                               GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE  | GNEAttributeProperties::EditProperty::EXTENDEDEDITOR,
+                               GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE  | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
                                TL("W99 parameter"),
                                "8");
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_CF_W99_CC3,
-                               GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE  | GNEAttributeProperties::EditProperty::EXTENDEDEDITOR,
+                               GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE  | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
                                TL("W99 parameter"),
                                "-12");
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_CF_W99_CC4,
-                               GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE  | GNEAttributeProperties::EditProperty::EXTENDEDEDITOR,
+                               GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE  | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
                                TL("W99 parameter"),
                                "-0.25");
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_CF_W99_CC5,
-                               GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE  | GNEAttributeProperties::EditProperty::EXTENDEDEDITOR,
+                               GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE  | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
                                TL("W99 parameter"),
                                "0.35");
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_CF_W99_CC6,
-                               GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE  | GNEAttributeProperties::EditProperty::EXTENDEDEDITOR,
+                               GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE  | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
                                TL("W99 parameter"),
                                "6");
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_CF_W99_CC7,
-                               GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE  | GNEAttributeProperties::EditProperty::EXTENDEDEDITOR,
+                               GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE  | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
                                TL("W99 parameter"),
                                "0.25");
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_CF_W99_CC8,
-                               GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE  | GNEAttributeProperties::EditProperty::EXTENDEDEDITOR,
+                               GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE  | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
                                TL("W99 parameter"),
                                "2");
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_CF_W99_CC9,
-                               GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE  | GNEAttributeProperties::EditProperty::EXTENDEDEDITOR,
+                               GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE  | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
                                TL("W99 parameter"),
                                "1.5");
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_CF_WIEDEMANN_SECURITY,
-                               GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE  | GNEAttributeProperties::EditProperty::EXTENDEDEDITOR,
+                               GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE  | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
                                TL("Wiedemann parameter"));
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_CF_WIEDEMANN_ESTIMATION,
-                               GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE  | GNEAttributeProperties::EditProperty::EXTENDEDEDITOR,
+                               GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE  | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
                                TL("Wiedemann parameter"));
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_COLLISION_MINGAP_FACTOR,
-                               GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE  | GNEAttributeProperties::EditProperty::EXTENDEDEDITOR,
+                               GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE  | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
                                TL("MinGap factor parameter"));
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_K,
-                               GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE  | GNEAttributeProperties::EditProperty::EXTENDEDEDITOR,
+                               GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE  | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
                                TL("K parameter"));
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_CF_KERNER_PHI,
-                               GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE  | GNEAttributeProperties::EditProperty::EXTENDEDEDITOR,
+                               GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE  | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
                                TL("Kerner Phi parameter"));
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_CF_IDM_DELTA,
-                               GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE  | GNEAttributeProperties::EditProperty::EXTENDEDEDITOR,
+                               GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE  | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
                                TL("IDM Delta parameter"));
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_CF_IDM_STEPPING,
-                               GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE  | GNEAttributeProperties::EditProperty::EXTENDEDEDITOR,
+                               GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE  | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
                                TL("IDM Stepping parameter"));
 
     auto trainType = new GNEAttributeProperties(tagProperties, SUMO_ATTR_TRAIN_TYPE,
-            GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::DISCRETE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-            GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE  | GNEAttributeProperties::EditProperty::EXTENDEDEDITOR,
+            GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DISCRETE | GNEAttributeProperties::Property::DEFAULTVALUE,
+            GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE  | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
             TL("Train Types"),
             SUMOXMLDefinitions::TrainTypes.getString(TrainType::NGT400));
     trainType->setDiscreteValues(SUMOXMLDefinitions::TrainTypes.getStrings());
@@ -7662,63 +7662,63 @@ void
 GNETagPropertiesDatabase::fillJunctionModelAttributes(GNETagProperties* tagProperties) {
     // fill junction model attributes
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_JM_CROSSING_GAP,
-                               GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE  | GNEAttributeProperties::EditProperty::EXTENDEDEDITOR,
+                               GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE  | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
                                TL("Minimum distance to pedestrians that are walking towards the conflict point with the ego vehicle."),
                                "10");
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_JM_IGNORE_KEEPCLEAR_TIME,
-                               GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE  | GNEAttributeProperties::EditProperty::EXTENDEDEDITOR,
+                               GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE  | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
                                TL("The accumulated waiting time after which a vehicle will drive onto an intersection even though this might cause jamming."),
                                "", "-1");
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_JM_DRIVE_AFTER_YELLOW_TIME,
-                               GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE  | GNEAttributeProperties::EditProperty::EXTENDEDEDITOR,
+                               GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE  | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
                                TL("This value causes vehicles to violate a yellow light if the duration of the yellow phase is lower than the given threshold."),
                                "", "-1");
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_JM_DRIVE_AFTER_RED_TIME,
-                               GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE  | GNEAttributeProperties::EditProperty::EXTENDEDEDITOR,
+                               GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE  | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
                                TL("This value causes vehicles to violate a red light if the duration of the red phase is lower than the given threshold."),
                                "", "-1");
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_JM_DRIVE_RED_SPEED,
-                               GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE  | GNEAttributeProperties::EditProperty::EXTENDEDEDITOR,
+                               GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE  | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
                                TL("This value causes vehicles affected by jmDriveAfterRedTime to slow down when violating a red light."),
                                "0");
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_JM_IGNORE_FOE_PROB,
-                               GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE  | GNEAttributeProperties::EditProperty::EXTENDEDEDITOR,
+                               GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE  | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
                                TL("This value causes vehicles to ignore foe vehicles that have right-of-way with the given probability."),
                                "0");
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_JM_IGNORE_FOE_SPEED,
-                               GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE  | GNEAttributeProperties::EditProperty::EXTENDEDEDITOR,
+                               GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE  | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
                                TL("This value is used in conjunction with jmIgnoreFoeProb.") + std::string("\n") +
                                TL("Only vehicles with a speed below or equal to the given value may be ignored."),
                                "0");
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_JM_SIGMA_MINOR,
-                               GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE  | GNEAttributeProperties::EditProperty::EXTENDEDEDITOR,
+                               GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE  | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
                                TL("This value configures driving imperfection (dawdling) while passing a minor link."),
                                "0");
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_JM_TIMEGAP_MINOR,
-                               GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE  | GNEAttributeProperties::EditProperty::EXTENDEDEDITOR,
+                               GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE  | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
                                TL("This value defines the minimum time gap when passing ahead of a prioritized vehicle. "),
                                "1");
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_IMPATIENCE,
-                               GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE  | GNEAttributeProperties::EditProperty::EXTENDEDEDITOR,
+                               GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE  | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
                                TL("Willingess of drivers to impede vehicles with higher priority"),
                                "0");
 }
@@ -7728,124 +7728,124 @@ void
 GNETagPropertiesDatabase::fillLaneChangingModelAttributes(GNETagProperties* tagProperties) {
     // fill lane changing model
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_LCA_STRATEGIC_PARAM,
-                               GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE  | GNEAttributeProperties::EditProperty::EXTENDEDEDITOR,
+                               GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE  | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
                                TL("The eagerness for performing strategic lane changing. Higher values result in earlier lane-changing."),
                                "1");
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_LCA_COOPERATIVE_PARAM,
-                               GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE  | GNEAttributeProperties::EditProperty::EXTENDEDEDITOR,
+                               GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE  | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
                                TL("The willingness for performing cooperative lane changing. Lower values result in reduced cooperation."),
                                "1");
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_LCA_SPEEDGAIN_PARAM,
-                               GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE  | GNEAttributeProperties::EditProperty::EXTENDEDEDITOR,
+                               GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE  | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
                                TL("The eagerness for performing lane changing to gain speed. Higher values result in more lane-changing."),
                                "1");
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_LCA_KEEPRIGHT_PARAM,
-                               GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE  | GNEAttributeProperties::EditProperty::EXTENDEDEDITOR,
+                               GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE  | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
                                TL("The eagerness for following the obligation to keep right. Higher values result in earlier lane-changing."),
                                "1");
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_LCA_SUBLANE_PARAM,
-                               GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE  | GNEAttributeProperties::EditProperty::EXTENDEDEDITOR,
+                               GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE  | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
                                TL("The eagerness for using the configured lateral alignment within the lane.") + std::string("\n") +
                                TL("Higher values result in increased willingness to sacrifice speed for alignment."),
                                "1");
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_LCA_OPPOSITE_PARAM,
-                               GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE  | GNEAttributeProperties::EditProperty::EXTENDEDEDITOR,
+                               GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE  | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
                                TL("The eagerness for overtaking through the opposite-direction lane. Higher values result in more lane-changing."),
                                "1");
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_LCA_PUSHY,
-                               GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE  | GNEAttributeProperties::EditProperty::EXTENDEDEDITOR,
+                               GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE  | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
                                TL("Willingness to encroach laterally on other drivers."),
                                "0");
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_LCA_PUSHYGAP,
-                               GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE  | GNEAttributeProperties::EditProperty::EXTENDEDEDITOR,
+                               GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE  | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
                                TL("Minimum lateral gap when encroaching laterally on other drives (alternative way to define lcPushy)"),
                                "0");
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_LCA_ASSERTIVE,
-                               GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE  | GNEAttributeProperties::EditProperty::EXTENDEDEDITOR,
+                               GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE  | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
                                TL("Willingness to accept lower front and rear gaps on the target lane."),
                                "1");
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_LCA_IMPATIENCE,
-                               GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE  | GNEAttributeProperties::EditProperty::EXTENDEDEDITOR,
+                               GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE  | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
                                TL("Dynamic factor for modifying lcAssertive and lcPushy."),
                                "0");
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_LCA_TIME_TO_IMPATIENCE,
-                               GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE  | GNEAttributeProperties::EditProperty::EXTENDEDEDITOR,
+                               GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE  | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
                                TL("Time to reach maximum impatience (of 1). Impatience grows whenever a lane-change manoeuvre is blocked."),
                                "infinity");
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_LCA_ACCEL_LAT,
-                               GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE  | GNEAttributeProperties::EditProperty::EXTENDEDEDITOR,
+                               GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE  | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
                                TL("Maximum lateral acceleration per second."),
                                "1");
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_LCA_LOOKAHEADLEFT,
-                               GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE  | GNEAttributeProperties::EditProperty::EXTENDEDEDITOR,
+                               GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE  | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
                                TL("Factor for configuring the strategic lookahead distance when a change to the left is necessary (relative to right lookahead)."),
                                "2");
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_LCA_SPEEDGAINRIGHT,
-                               GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE  | GNEAttributeProperties::EditProperty::EXTENDEDEDITOR,
+                               GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE  | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
                                TL("Factor for configuring the threshold asymmetry when changing to the left or to the right for speed gain."),
                                "0.1");
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_LCA_MAXSPEEDLATSTANDING,
-                               GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE  | GNEAttributeProperties::EditProperty::EXTENDEDEDITOR,
+                               GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE  | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
                                TL("Upper bound on lateral speed when standing."),
                                "0");
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_LCA_MAXSPEEDLATFACTOR,
-                               GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE  | GNEAttributeProperties::EditProperty::EXTENDEDEDITOR,
+                               GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE  | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
                                TL("Upper bound on lateral speed while moving computed as lcMaxSpeedLatStanding + lcMaxSpeedLatFactor * getSpeed()"),
                                "1");
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_LCA_TURN_ALIGNMENT_DISTANCE,
-                               GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE  | GNEAttributeProperties::EditProperty::EXTENDEDEDITOR,
+                               GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE  | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
                                TL("Distance to an upcoming turn on the vehicles route, below which the alignment") + std::string("\n") +
                                TL("should be dynamically adapted to match the turn direction."),
                                "0");
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_LCA_OVERTAKE_RIGHT,
-                               GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE  | GNEAttributeProperties::EditProperty::EXTENDEDEDITOR,
+                               GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE  | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
                                TL("The probability for violating rules gainst overtaking on the right."),
                                "0");
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_LCA_KEEPRIGHT_ACCEPTANCE_TIME,
-                               GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE  | GNEAttributeProperties::EditProperty::EXTENDEDEDITOR,
+                               GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE  | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
                                TL("Time threshold for the willingness to change right."),
                                "", "-1");
 
     auto factor = new GNEAttributeProperties(tagProperties, SUMO_ATTR_LCA_OVERTAKE_DELTASPEED_FACTOR,
-            GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::RANGE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-            GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE  | GNEAttributeProperties::EditProperty::EXTENDEDEDITOR,
+            GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::RANGE | GNEAttributeProperties::Property::DEFAULTVALUE,
+            GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE  | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
             TL("Speed difference factor for the eagerness of overtaking a neighbor vehicle before changing lanes (threshold = factor*speedlimit)."),
             "0");
     factor->setRange(-1, 1);
@@ -7859,16 +7859,16 @@ GNETagPropertiesDatabase::fillCommonPersonAttributes(GNETagProperties* tagProper
     fillIDAttribute(tagProperties, true);
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_TYPE,
-                               GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::DEFAULTVALUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY | GNEAttributeProperties::AttrProperty::VTYPE,
-                               GNEAttributeProperties::EditProperty::EDITMODE,
+                               GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::UPDATEGEOMETRY | GNEAttributeProperties::Property::VTYPE,
+                               GNEAttributeProperties::Edit::EDITMODE,
                                TL("The id of the person type to use for this person"),
                                DEFAULT_VTYPE_ID);
 
     fillColorAttribute(tagProperties, "yellow");
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_DEPARTPOS,
-                               GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::DEFAULTVALUE |  GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                               GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE |  GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                TL("The position at which the person shall enter the net"),
                                "base");
 }
@@ -7880,16 +7880,16 @@ GNETagPropertiesDatabase::fillCommonContainerAttributes(GNETagProperties* tagPro
     fillIDAttribute(tagProperties, true);
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_TYPE,
-                               GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::DEFAULTVALUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY | GNEAttributeProperties::AttrProperty::VTYPE,
-                               GNEAttributeProperties::EditProperty::EDITMODE,
+                               GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::UPDATEGEOMETRY | GNEAttributeProperties::Property::VTYPE,
+                               GNEAttributeProperties::Edit::EDITMODE,
                                TL("The id of the container type to use for this container"),
                                DEFAULT_CONTAINERTYPE_ID);
 
     fillColorAttribute(tagProperties, "yellow");
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_DEPARTPOS,
-                               GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::DEFAULTVALUE |  GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                               GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE |  GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                TL("The position at which the container shall enter the net"),
                                "base");
 }
@@ -7899,93 +7899,93 @@ void
 GNETagPropertiesDatabase::fillCommonStopAttributes(GNETagProperties* tagProperties, const bool waypoint) {
     // fill common stop attributes
     auto duration = new GNEAttributeProperties(tagProperties, SUMO_ATTR_DURATION,
-            GNEAttributeProperties::AttrProperty::SUMOTIME | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::ACTIVATABLE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-            GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+            GNEAttributeProperties::Property::SUMOTIME | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::ACTIVATABLE | GNEAttributeProperties::Property::DEFAULTVALUE,
+            GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
             TL("Minimum duration for stopping"),
             "60");
     duration->setDefaultActivated(true);
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_UNTIL,
-                               GNEAttributeProperties::AttrProperty::SUMOTIME | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::ACTIVATABLE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                               GNEAttributeProperties::Property::SUMOTIME | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::ACTIVATABLE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                TL("The time step at which the route continues"),
                                "0");
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_EXTENSION,
-                               GNEAttributeProperties::AttrProperty::SUMOTIME | GNEAttributeProperties::AttrProperty::ACTIVATABLE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                               GNEAttributeProperties::Property::SUMOTIME | GNEAttributeProperties::Property::ACTIVATABLE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                TL("If set to a non-negative time value, then the stop duration can be extended at most by the extension value in seconds"),
                                "0");
 
     if (!waypoint) {
         auto triggered = new GNEAttributeProperties(tagProperties, SUMO_ATTR_TRIGGERED,
-                GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::DISCRETE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DISCRETE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                 TL("Whether a person or container or both may end the stop"),
                 "false");
         triggered->setDiscreteValues({"false", "person", "container", "join"});
 
         new GNEAttributeProperties(tagProperties, SUMO_ATTR_EXPECTED,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::LIST | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::LIST | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("List of elements that must board the vehicle before it may continue"));
 
         new GNEAttributeProperties(tagProperties, SUMO_ATTR_JOIN,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("Joins this train to another upon reaching the stop"));
     }
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_PERMITTED,
-                               GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::LIST | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                               GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::LIST | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                TL("List of elements that can board the vehicle before it may continue"));
 
     auto parking = new GNEAttributeProperties(tagProperties, SUMO_ATTR_PARKING,
-            GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::DISCRETE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-            GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+            GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DISCRETE | GNEAttributeProperties::Property::DEFAULTVALUE,
+            GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
             TL("Whether the vehicle stops on the road or beside"),
             "false");
     parking->setDiscreteValues({"true", "false", "opportunistic"});
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_ACTTYPE,
-                               GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                               GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                TL("Activity displayed for stopped person in GUI and output files"));
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_TRIP_ID,
-                               GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                               GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                TL("Parameter to be applied to the vehicle to track the trip id within a cyclical public transport route"));
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_LINE,
-                               GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                               GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                TL("New line attribute to be set on the vehicle when reaching this stop (for cyclical public transport route)"));
 
     if (waypoint) {
         new GNEAttributeProperties(tagProperties, SUMO_ATTR_SPEED,
-                                   GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("Speed to be kept while driving between startPos and endPos"),
                                    "0");
     } else {
         new GNEAttributeProperties(tagProperties, SUMO_ATTR_ONDEMAND,
-                                   GNEAttributeProperties::AttrProperty::BOOL | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::BOOL | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("Whether the stop may be skipped if no passengers wants to embark or disembark"),
                                    GNEAttributeCarrier::False);
     }
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_JUMP,
-                               GNEAttributeProperties::AttrProperty::SUMOTIME | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                               GNEAttributeProperties::Property::SUMOTIME | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                TL("transfer time if there shall be a jump from this stop to the next route edge"),
                                "", "-1");
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_SPLIT,
-                               GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                               GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                TL("Splits the train upon reaching the stop"));
 }
 
@@ -7996,25 +7996,25 @@ GNETagPropertiesDatabase::fillPlanParentAttributes(GNETagProperties* tagProperti
     // basic parents
     if (tagProperties->planConsecutiveEdges()) {
         new GNEAttributeProperties(tagProperties, SUMO_ATTR_EDGES,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::LIST | GNEAttributeProperties::AttrProperty::UNIQUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                                   GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::LIST | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                                   GNEAttributeProperties::Edit::EDITMODE,
                                    TL("list of consecutive edges"));
 
         new GNEAttributeProperties(tagProperties, SUMO_ATTR_ARRIVALPOS,
-                                   GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("Arrival position on the last edge"),
                                    "", "-1");
     }
     if (tagProperties->planRoute()) {
         new GNEAttributeProperties(tagProperties, SUMO_ATTR_ROUTE,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::LIST | GNEAttributeProperties::AttrProperty::UNIQUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                                   GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::LIST | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                                   GNEAttributeProperties::Edit::EDITMODE,
                                    TL("Route ID"));
 
         new GNEAttributeProperties(tagProperties, SUMO_ATTR_ARRIVALPOS,
-                                   GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("Arrival position on the destination edge"),
                                    "", "-1");
     }
@@ -8023,150 +8023,150 @@ GNETagPropertiesDatabase::fillPlanParentAttributes(GNETagProperties* tagProperti
         fillEdgeAttribute(tagProperties, false);
 
         new GNEAttributeProperties(tagProperties, SUMO_ATTR_ENDPOS,
-                                   GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::UNIQUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                                   GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                                   GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The end position on the lane (the higher position on the lane) in meters, must be larger than startPos by more than 0.1m"));
     }
     if (tagProperties->planBusStop()) {
         new GNEAttributeProperties(tagProperties, SUMO_ATTR_BUS_STOP,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::UNIQUE,
-                                   GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE,
+                                   GNEAttributeProperties::Edit::EDITMODE,
                                    TL("Bus stop ID"));
     }
     if (tagProperties->planTrainStop()) {
         new GNEAttributeProperties(tagProperties, SUMO_ATTR_TRAIN_STOP,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::UNIQUE,
-                                   GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE,
+                                   GNEAttributeProperties::Edit::EDITMODE,
                                    TL("Train stop ID"));
     }
     if (tagProperties->planContainerStop()) {
         new GNEAttributeProperties(tagProperties, SUMO_ATTR_CONTAINER_STOP,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::UNIQUE,
-                                   GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE,
+                                   GNEAttributeProperties::Edit::EDITMODE,
                                    TL("Container stop ID"));
     }
     if (tagProperties->planChargingStation()) {
         new GNEAttributeProperties(tagProperties, SUMO_ATTR_CHARGING_STATION,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::UNIQUE,
-                                   GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE,
+                                   GNEAttributeProperties::Edit::EDITMODE,
                                    TL("Charging station ID"));
     }
     if (tagProperties->planParkingArea()) {
         new GNEAttributeProperties(tagProperties, SUMO_ATTR_PARKING_AREA,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::UNIQUE,
-                                   GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE,
+                                   GNEAttributeProperties::Edit::EDITMODE,
                                    TL("Parking area ID"));
     }
     // from parents
     if (tagProperties->planFromEdge()) {
         new GNEAttributeProperties(tagProperties, SUMO_ATTR_FROM,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::UNIQUE,
-                                   GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE,
+                                   GNEAttributeProperties::Edit::EDITMODE,
                                    TL("Edge start ID"));
     }
     if (tagProperties->planFromTAZ()) {
         new GNEAttributeProperties(tagProperties, SUMO_ATTR_FROM_TAZ,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::UNIQUE,
-                                   GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE,
+                                   GNEAttributeProperties::Edit::EDITMODE,
                                    TL("TAZ start ID"));
     }
     if (tagProperties->planFromJunction()) {
         new GNEAttributeProperties(tagProperties, SUMO_ATTR_FROM_JUNCTION,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::UNIQUE,
-                                   GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE,
+                                   GNEAttributeProperties::Edit::EDITMODE,
                                    TL("Junction start ID"));
     }
     if (tagProperties->planFromBusStop()) {
         new GNEAttributeProperties(tagProperties, GNE_ATTR_FROM_BUSSTOP,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::UNIQUE,
-                                   GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE,
+                                   GNEAttributeProperties::Edit::EDITMODE,
                                    TL("BusStop start ID"));
     }
     if (tagProperties->planFromTrainStop()) {
         new GNEAttributeProperties(tagProperties, GNE_ATTR_FROM_TRAINSTOP,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::UNIQUE,
-                                   GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE,
+                                   GNEAttributeProperties::Edit::EDITMODE,
                                    TL("TrainStop start ID"));
     }
     if (tagProperties->planFromContainerStop()) {
         new GNEAttributeProperties(tagProperties, GNE_ATTR_FROM_CONTAINERSTOP,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::UNIQUE,
-                                   GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE,
+                                   GNEAttributeProperties::Edit::EDITMODE,
                                    TL("ContainerStop start ID"));
     }
     if (tagProperties->planFromChargingStation()) {
         new GNEAttributeProperties(tagProperties, GNE_ATTR_FROM_CHARGINGSTATION,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::UNIQUE,
-                                   GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE,
+                                   GNEAttributeProperties::Edit::EDITMODE,
                                    TL("ChargingStation start ID"));
     }
     if (tagProperties->planFromParkingArea()) {
         new GNEAttributeProperties(tagProperties, GNE_ATTR_FROM_CHARGINGSTATION,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::UNIQUE,
-                                   GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE,
+                                   GNEAttributeProperties::Edit::EDITMODE,
                                    TL("ParkingArea start ID"));
     }
     // to parents
     if (tagProperties->planToEdge()) {
         new GNEAttributeProperties(tagProperties, SUMO_ATTR_TO,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::UNIQUE,
-                                   GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE,
+                                   GNEAttributeProperties::Edit::EDITMODE,
                                    TL("Edge end ID"));
         // departPos only for tranships
         if (tagProperties->isPlanTranship()) {
             // depart pos
             new GNEAttributeProperties(tagProperties, SUMO_ATTR_DEPARTPOS,
-                                       GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                       GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                       GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                       GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                        TL("The position at which the tranship shall enter the net"),
                                        "0");
         }
         new GNEAttributeProperties(tagProperties, SUMO_ATTR_ARRIVALPOS,
-                                   GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("arrival position on the destination edge"),
                                    "", "-1");
     }
     if (tagProperties->planToTAZ()) {
         new GNEAttributeProperties(tagProperties, SUMO_ATTR_TO_TAZ,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::UNIQUE,
-                                   GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE,
+                                   GNEAttributeProperties::Edit::EDITMODE,
                                    TL("TAZ end ID"));
     }
     if (tagProperties->planToJunction()) {
         new GNEAttributeProperties(tagProperties, SUMO_ATTR_TO_JUNCTION,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::UNIQUE,
-                                   GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE,
+                                   GNEAttributeProperties::Edit::EDITMODE,
                                    TL("Junction end ID"));
     }
     if (tagProperties->planToBusStop()) {
         new GNEAttributeProperties(tagProperties, SUMO_ATTR_BUS_STOP,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::UNIQUE,
-                                   GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE,
+                                   GNEAttributeProperties::Edit::EDITMODE,
                                    TL("BusStop end ID"));
     }
     if (tagProperties->planToTrainStop()) {
         new GNEAttributeProperties(tagProperties, SUMO_ATTR_TRAIN_STOP,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::UNIQUE,
-                                   GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE,
+                                   GNEAttributeProperties::Edit::EDITMODE,
                                    TL("TrainStop end ID"));
     }
     if (tagProperties->planToContainerStop()) {
         new GNEAttributeProperties(tagProperties, SUMO_ATTR_CONTAINER_STOP,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::UNIQUE,
-                                   GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE,
+                                   GNEAttributeProperties::Edit::EDITMODE,
                                    TL("ContainerStop end ID"));
     }
     if (tagProperties->planToChargingStation()) {
         new GNEAttributeProperties(tagProperties, SUMO_ATTR_CHARGING_STATION,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::UNIQUE,
-                                   GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE,
+                                   GNEAttributeProperties::Edit::EDITMODE,
                                    TL("ChargingStation end ID"));
     }
     if (tagProperties->planToParkingArea()) {
         new GNEAttributeProperties(tagProperties, SUMO_ATTR_PARKING_AREA,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::UNIQUE,
-                                   GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE,
+                                   GNEAttributeProperties::Edit::EDITMODE,
                                    TL("ParkingArea end ID"));
     }
 }
@@ -8178,24 +8178,24 @@ GNETagPropertiesDatabase::fillPersonTripCommonAttributes(GNETagProperties* tagPr
     fillVTypesAttribute(tagProperties);
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_MODES,
-                               GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::LIST | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                               GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::LIST | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                TL("List of possible traffic modes. Walking is always possible regardless of this value"));
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_LINES,
-                               GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::LIST | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                               GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::LIST | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                TL("list of vehicle alternatives to take for the person trip"));
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_WALKFACTOR,
-                               GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                               GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                TL("Walk factor"),
                                "0");
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_GROUP,
-                               GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                               GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                TL("id of the travel group. Persons with the same group may share a taxi ride"));
 }
 
@@ -8204,14 +8204,14 @@ void
 GNETagPropertiesDatabase::fillWalkCommonAttributes(GNETagProperties* tagProperties) {
     // fill walk common attributes
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_SPEED,
-                               GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                               GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                TL("speed of the person for this tranship in m/s (not together with duration)"),
                                "1.39");
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_DURATION,
-                               GNEAttributeProperties::AttrProperty::SUMOTIME | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                               GNEAttributeProperties::Property::SUMOTIME | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                TL("duration of the plan in second (not together with speed)"),
                                "0");
 }
@@ -8221,13 +8221,13 @@ void
 GNETagPropertiesDatabase::fillRideCommonAttributes(GNETagProperties* tagProperties) {
     // fill ride common attributes
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_LINES,
-                               GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::LIST | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                               GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::LIST | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                TL("list of vehicle alternatives to take for the ride"));
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_GROUP,
-                               GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                               GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                TL("id of the travel group. Persons with the same group may share a taxi ride"));
 }
 
@@ -8235,13 +8235,13 @@ GNETagPropertiesDatabase::fillRideCommonAttributes(GNETagProperties* tagProperti
 void
 GNETagPropertiesDatabase::fillTransportCommonAttributes(GNETagProperties* tagProperties) {
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_LINES,
-                               GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::LIST | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                               GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::LIST | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                TL("list of vehicle alternatives to take for the transport"));
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_GROUP,
-                               GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                               GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                TL("id of the travel group. Persons with the same group may share a taxi ride"));
 }
 
@@ -8250,14 +8250,14 @@ void
 GNETagPropertiesDatabase::fillTranshipCommonAttributes(GNETagProperties* tagProperties) {
     // fill tranship attributes
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_SPEED,
-                               GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                               GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                TL("speed of the person for this tranship in m/s (not together with duration)"),
                                "1.39");
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_DURATION,
-                               GNEAttributeProperties::AttrProperty::SUMOTIME | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                               GNEAttributeProperties::Property::SUMOTIME | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                TL("duration of the plan in second (not together with speed)"),
                                "0");
 }
@@ -8267,21 +8267,21 @@ void
 GNETagPropertiesDatabase::fillPlanStopCommonAttributes(GNETagProperties* tagProperties) {
     // fill plan stop common attributes
     auto duration = new GNEAttributeProperties(tagProperties, SUMO_ATTR_DURATION,
-            GNEAttributeProperties::AttrProperty::SUMOTIME | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::ACTIVATABLE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-            GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+            GNEAttributeProperties::Property::SUMOTIME | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::ACTIVATABLE | GNEAttributeProperties::Property::DEFAULTVALUE,
+            GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
             TL("Minimum duration for stopping"),
             "60");
     duration->setDefaultActivated(true);
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_UNTIL,
-                               GNEAttributeProperties::AttrProperty::SUMOTIME | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::ACTIVATABLE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                               GNEAttributeProperties::Property::SUMOTIME | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::ACTIVATABLE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                TL("The time step at which the route continues"),
                                "0");
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_ACTTYPE,
-                               GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                               GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                TL("Activity displayed for stopped person in GUI and output files "));
 
     // friendlyPos attribute only for stops over edges
@@ -8324,14 +8324,14 @@ GNETagPropertiesDatabase::fillDataElements() {
 
         // set values of attributes
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_BEGIN,
-                                   GNEAttributeProperties::AttrProperty::SUMOTIME | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::SUMOTIME | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("Data interval begin time"),
                                    "0");
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_END,
-                                   GNEAttributeProperties::AttrProperty::SUMOTIME | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::SUMOTIME | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("Data interval end time"),
                                    "3600");
     }
@@ -8358,13 +8358,13 @@ GNETagPropertiesDatabase::fillDataElements() {
 
         // set values of attributes
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_FROM,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::UNIQUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                                   GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                                   GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The ID of the edge the edgeRel starts at"));
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_TO,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::UNIQUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                                   GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                                   GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The ID of the edge the edgeRel ends at"));
     }
     currentTag = SUMO_TAG_TAZREL;
@@ -8380,13 +8380,13 @@ GNETagPropertiesDatabase::fillDataElements() {
 
         // set values of attributes
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_FROM,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::UNIQUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                                   GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                                   GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The name of the TAZ the TAZRel starts at"));
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_TO,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::UNIQUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                                   GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                                   GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The name of the TAZ the TAZRel ends at"));
     }
     currentTag = SUMO_TAG_MEANDATA_EDGE;
@@ -8426,86 +8426,86 @@ GNETagPropertiesDatabase::fillCommonMeanDataAttributes(GNETagProperties* tagProp
     fillFileAttribute(tagProperties);
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_PERIOD,
-                               GNEAttributeProperties::AttrProperty::SUMOTIME | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                               GNEAttributeProperties::Property::SUMOTIME | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                TL("The aggregation period the values the detector collects shall be summed up"),
                                "-1");
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_BEGIN,
-                               GNEAttributeProperties::AttrProperty::SUMOTIME | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                               GNEAttributeProperties::Property::SUMOTIME | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                TL("The time to start writing. If not given, the simulation's begin is used."),
                                "-1");
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_END,
-                               GNEAttributeProperties::AttrProperty::SUMOTIME | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                               GNEAttributeProperties::Property::SUMOTIME | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                TL("The time to end writing. If not given the simulation's end is used."),
                                "-1");
 
     auto excludeEmpty = new GNEAttributeProperties(tagProperties, SUMO_ATTR_EXCLUDE_EMPTY,
-            GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::DISCRETE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-            GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+            GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DISCRETE | GNEAttributeProperties::Property::DEFAULTVALUE,
+            GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
             TL("If set to true, edges/lanes which were not used by a vehicle during this period will not be written"),
             SUMOXMLDefinitions::ExcludeEmptys.getString(ExcludeEmpty::FALSES));
     excludeEmpty->setDiscreteValues(SUMOXMLDefinitions::ExcludeEmptys.getStrings());
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_WITH_INTERNAL,
-                               GNEAttributeProperties::AttrProperty::BOOL | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                               GNEAttributeProperties::Property::BOOL | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                TL("If set, junction internal edges/lanes will be written as well"),
                                GNEAttributeCarrier::False);
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_MAX_TRAVELTIME,
-                               GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                               GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                TL("The maximum travel time in seconds to write if only very small movements occur"),
                                toString(100000));
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_MIN_SAMPLES,
-                               GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                               GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                TL("Consider an edge/lane unused if it has at most this many sampled seconds"),
                                "0");
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_HALTING_SPEED_THRESHOLD,
-                               GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                               GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                TL("The maximum speed to consider a vehicle halting;"),
                                "0.1");
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_VTYPES,
-                               GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::LIST | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                               GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::LIST | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                TL("space separated list of vehicle type ids to consider"));
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_TRACK_VEHICLES,
-                               GNEAttributeProperties::AttrProperty::BOOL | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                               GNEAttributeProperties::Property::BOOL | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                TL("whether aggregation should be performed over all vehicles that entered the edge/lane in the aggregation interval"),
                                GNEAttributeCarrier::False);
 
     fillDetectPersonsAttribute(tagProperties);
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_WRITE_ATTRIBUTES,
-                               GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::LIST | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                               GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::LIST | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                TL("List of attribute names that shall be written"));
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_EDGES,
-                               GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::LIST | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                               GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::LIST | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                TL("Restrict output to the given list of edge ids"));
 
     auto edgesFile = new GNEAttributeProperties(tagProperties, SUMO_ATTR_EDGESFILE,
-            GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::FILEOPEN | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-            GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+            GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::FILEOPEN | GNEAttributeProperties::Property::DEFAULTVALUE,
+            GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
             TL("Restrict output to the given list of edges given in file"));
     edgesFile->setFilenameExtensions(SUMOXMLDefinitions::OutputFileExtensions.getMultilineString());
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_AGGREGATE,
-                               GNEAttributeProperties::AttrProperty::BOOL | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                               GNEAttributeProperties::Property::BOOL | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                TL("Whether the traffic statistic of all edges shall be aggregated into a single value"),
                                GNEAttributeCarrier::False);
 }
@@ -8514,13 +8514,13 @@ void
 GNETagPropertiesDatabase::fillIDAttribute(GNETagProperties* tagProperties, const bool createMode) {
     if (createMode) {
         new GNEAttributeProperties(tagProperties, SUMO_ATTR_ID,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::UNIQUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TLF("ID of %", tagProperties->getTagStr()));
     } else {
         new GNEAttributeProperties(tagProperties, SUMO_ATTR_ID,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::UNIQUE,
-                                   GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE,
+                                   GNEAttributeProperties::Edit::EDITMODE,
                                    TLF("ID of %", tagProperties->getTagStr()));
     }
 }
@@ -8529,8 +8529,8 @@ GNETagPropertiesDatabase::fillIDAttribute(GNETagProperties* tagProperties, const
 void
 GNETagPropertiesDatabase::fillNameAttribute(GNETagProperties* tagProperties) {
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_NAME,
-                               GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                               GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                TLF("Optional name for %", tagProperties->getTagStr()));
 }
 
@@ -8540,14 +8540,14 @@ GNETagPropertiesDatabase::fillEdgeAttribute(GNETagProperties* tagProperties, con
     if (synonymID) {
         // set values of attributes
         auto edge = new GNEAttributeProperties(tagProperties, SUMO_ATTR_EDGE,
-                                               GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::UNIQUE | GNEAttributeProperties::AttrProperty::SYNONYM | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                                               GNEAttributeProperties::EditProperty::EDITMODE,
+                                               GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::SYNONYM | GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                                               GNEAttributeProperties::Edit::EDITMODE,
                                                TL("The id of an edge in the simulation network"));
         edge->setSynonym(SUMO_ATTR_ID);
     } else {
         new GNEAttributeProperties(tagProperties, SUMO_ATTR_EDGE,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::UNIQUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                                   GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                                   GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The id of an edge in the simulation network"));
     }
 }
@@ -8557,14 +8557,14 @@ void
 GNETagPropertiesDatabase::fillLaneAttribute(GNETagProperties* tagProperties, const bool synonymID) {
     if (synonymID) {
         auto lane = new GNEAttributeProperties(tagProperties, SUMO_ATTR_LANE,
-                                               GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::UNIQUE | GNEAttributeProperties::AttrProperty::SYNONYM | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                                               GNEAttributeProperties::EditProperty::EDITMODE,
+                                               GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::SYNONYM | GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                                               GNEAttributeProperties::Edit::EDITMODE,
                                                TLF("The name of the lane the % shall be located at", tagProperties->getTagStr()));
         lane->setSynonym(SUMO_ATTR_ID);
     } else {
         new GNEAttributeProperties(tagProperties, SUMO_ATTR_LANE,
-                                   GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::UNIQUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                                   GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                                   GNEAttributeProperties::Edit::EDITMODE,
                                    TLF("The name of the lane the % shall be located at", tagProperties->getTagStr()));
     }
 }
@@ -8573,8 +8573,8 @@ GNETagPropertiesDatabase::fillLaneAttribute(GNETagProperties* tagProperties, con
 void
 GNETagPropertiesDatabase::fillFriendlyPosAttribute(GNETagProperties* tagProperties) {
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_FRIENDLY_POS,
-                               GNEAttributeProperties::AttrProperty::BOOL | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                               GNEAttributeProperties::Property::BOOL | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                TL("If set, no error will be reported if element is placed behind the lane.") + std::string("\n") +
                                TL("Instead, it will be placed 0.1 meters from the lanes end or at position 0.1,") + std::string("\n") +
                                TL("if the position was negative and larger than the lanes length after multiplication with - 1"),
@@ -8585,8 +8585,8 @@ GNETagPropertiesDatabase::fillFriendlyPosAttribute(GNETagProperties* tagProperti
 void
 GNETagPropertiesDatabase::fillVTypesAttribute(GNETagProperties* tagProperties) {
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_VTYPES,
-                               GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::LIST | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                               GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::LIST | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                TL("Space separated list of vehicle type ids to consider"));
 }
 
@@ -8594,8 +8594,8 @@ GNETagPropertiesDatabase::fillVTypesAttribute(GNETagProperties* tagProperties) {
 void
 GNETagPropertiesDatabase::fillFileAttribute(GNETagProperties* tagProperties) {
     auto file = new GNEAttributeProperties(tagProperties, SUMO_ATTR_FILE,
-                                           GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::FILESAVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                           GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                           GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::FILESAVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                           GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                            TL("The path to the output file"));
     file->setFilenameExtensions(SUMOXMLDefinitions::OutputFileExtensions.getMultilineString());
 }
@@ -8604,8 +8604,8 @@ GNETagPropertiesDatabase::fillFileAttribute(GNETagProperties* tagProperties) {
 void
 GNETagPropertiesDatabase::fillOutputAttribute(GNETagProperties* tagProperties) {
     auto output = new GNEAttributeProperties(tagProperties, SUMO_ATTR_OUTPUT,
-            GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::FILESAVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-            GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+            GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::FILESAVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+            GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
             TL("Path to the output file to writting information"));
     output->setFilenameExtensions(SUMOXMLDefinitions::OutputFileExtensions.getMultilineString());
 }
@@ -8616,13 +8616,13 @@ GNETagPropertiesDatabase::fillImgFileAttribute(GNETagProperties* tagProperties, 
     GNEAttributeProperties* imgFile = nullptr;
     if (isExtended) {
         imgFile = new GNEAttributeProperties(tagProperties, SUMO_ATTR_IMGFILE,
-                                             GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::FILEOPEN | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                             GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE | GNEAttributeProperties::EditProperty::EXTENDEDEDITOR,
+                                             GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::FILEOPEN | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                             GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
                                              TLF("A bitmap to use for rendering this %", tagProperties->getTagStr()));
     } else {
         imgFile = new GNEAttributeProperties(tagProperties, SUMO_ATTR_IMGFILE,
-                                             GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::FILEOPEN | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                             GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                             GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::FILEOPEN | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                             GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                              TLF("A bitmap to use for rendering this %", tagProperties->getTagStr()));
     }
     imgFile->setFilenameExtensions(SUMOXMLDefinitions::ImageFileExtensions.getMultilineString());
@@ -8632,8 +8632,8 @@ GNETagPropertiesDatabase::fillImgFileAttribute(GNETagProperties* tagProperties, 
 void
 GNETagPropertiesDatabase::fillDepartAttribute(GNETagProperties* tagProperties) {
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_DEPART,
-                               GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                               GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                TLF("The departure time of the (first) % which is generated using this trip definition", tagProperties->getTagStr()),
                                "0");
 }
@@ -8642,14 +8642,14 @@ GNETagPropertiesDatabase::fillDepartAttribute(GNETagProperties* tagProperties) {
 void
 GNETagPropertiesDatabase::fillAllowDisallowAttributes(GNETagProperties* tagProperties) {
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_ALLOW,
-                               GNEAttributeProperties::AttrProperty::VCLASS | GNEAttributeProperties::AttrProperty::LIST | GNEAttributeProperties::AttrProperty::DEFAULTVALUE | GNEAttributeProperties::AttrProperty::COPYABLE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                               GNEAttributeProperties::Property::VCLASS | GNEAttributeProperties::Property::LIST | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::COPYABLE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                TL("Explicitly allows the given vehicle classes (not given will be not allowed)"),
                                "all");
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_DISALLOW,
-                               GNEAttributeProperties::AttrProperty::VCLASS | GNEAttributeProperties::AttrProperty::LIST | GNEAttributeProperties::AttrProperty::DEFAULTVALUE | GNEAttributeProperties::AttrProperty::COPYABLE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                               GNEAttributeProperties::Property::VCLASS | GNEAttributeProperties::Property::LIST | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::COPYABLE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                TL("Explicitly disallows the given vehicle classes (not given will be allowed)"));
 }
 
@@ -8657,8 +8657,8 @@ GNETagPropertiesDatabase::fillAllowDisallowAttributes(GNETagProperties* tagPrope
 void
 GNETagPropertiesDatabase::fillPosOverLaneAttribute(GNETagProperties* tagProperties) {
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_POSITION,
-                               GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::UNIQUE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE | GNEAttributeProperties::AttrProperty::UPDATEGEOMETRY,
-                               GNEAttributeProperties::EditProperty::EDITMODE,
+                               GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                               GNEAttributeProperties::Edit::EDITMODE,
                                TLF("The position on the lane the % shall be laid on in meters", tagProperties->getTagStr()),
                                "0");
 }
@@ -8667,8 +8667,8 @@ GNETagPropertiesDatabase::fillPosOverLaneAttribute(GNETagProperties* tagProperti
 void
 GNETagPropertiesDatabase::fillDetectPersonsAttribute(GNETagProperties* tagProperties) {
     auto detectPersons = new GNEAttributeProperties(tagProperties, SUMO_ATTR_DETECT_PERSONS,
-            GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::DISCRETE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-            GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+            GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DISCRETE | GNEAttributeProperties::Property::DEFAULTVALUE,
+            GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
             TL("Detect persons instead of vehicles (pedestrians or passengers)"),
             SUMOXMLDefinitions::PersonModeValues.getString(PersonMode::NONE));
     detectPersons->setDiscreteValues(SUMOXMLDefinitions::PersonModeValues.getStrings());
@@ -8678,8 +8678,8 @@ GNETagPropertiesDatabase::fillDetectPersonsAttribute(GNETagProperties* tagProper
 void
 GNETagPropertiesDatabase::fillColorAttribute(GNETagProperties* tagProperties, const std::string& defaultColor) {
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_COLOR,
-                               GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::COLOR | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                               GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::COLOR | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                TLF("The RGBA color with which the % shall be displayed", tagProperties->getTagStr()),
                                defaultColor);
 }
@@ -8688,8 +8688,8 @@ GNETagPropertiesDatabase::fillColorAttribute(GNETagProperties* tagProperties, co
 void
 GNETagPropertiesDatabase::fillDetectorPeriodAttribute(GNETagProperties* tagProperties) {
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_PERIOD,
-                               GNEAttributeProperties::AttrProperty::SUMOTIME | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                               GNEAttributeProperties::Property::SUMOTIME | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                TLF("The aggregation period the values the % detector collects shall be summed up", tagProperties->getTagStr()),
                                "300");
 }
@@ -8698,8 +8698,8 @@ GNETagPropertiesDatabase::fillDetectorPeriodAttribute(GNETagProperties* tagPrope
 void
 GNETagPropertiesDatabase::fillDetectorNextEdgesAttribute(GNETagProperties* tagProperties) {
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_NEXT_EDGES,
-                               GNEAttributeProperties::AttrProperty::STRING | GNEAttributeProperties::AttrProperty::LIST | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                               GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::LIST | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                TL("List of edge ids that must all be part of the future route of the vehicle to qualify for detection"));
 }
 
@@ -8707,20 +8707,20 @@ GNETagPropertiesDatabase::fillDetectorNextEdgesAttribute(GNETagProperties* tagPr
 void
 GNETagPropertiesDatabase::fillDetectorThresholdAttributes(GNETagProperties* tagProperties, const bool includingJam) {
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_HALTING_TIME_THRESHOLD,
-                               GNEAttributeProperties::AttrProperty::SUMOTIME | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                               GNEAttributeProperties::Property::SUMOTIME | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                TL("The time-based threshold that describes how much time has to pass until a vehicle is recognized as halting)"),
                                "1");
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_HALTING_SPEED_THRESHOLD,
-                               GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                               GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                               GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                TL("The speed-based threshold that describes how slow a vehicle has to be to be recognized as halting) in m/s"),
                                "1.39");
     if (includingJam) {
         new GNEAttributeProperties(tagProperties, SUMO_ATTR_JAM_DIST_THRESHOLD,
-                                   GNEAttributeProperties::AttrProperty::FLOAT | GNEAttributeProperties::AttrProperty::POSITIVE | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
-                                   GNEAttributeProperties::EditProperty::CREATEMODE | GNEAttributeProperties::EditProperty::EDITMODE,
+                                   GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The maximum distance to the next standing vehicle in order to make this vehicle count as a participant to the jam in m"),
                                    "10");
     }
