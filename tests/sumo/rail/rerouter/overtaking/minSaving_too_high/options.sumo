@@ -1,0 +1,4 @@
+-r input_routes2.rou.xml
+--vehroute-output vehroutes.xml
+--tripinfo-output tripinfos.xml
+--time-to-teleport 3600
