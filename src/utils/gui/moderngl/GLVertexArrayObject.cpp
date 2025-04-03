@@ -22,7 +22,7 @@
 #include <utils/common/UtilExceptions.h>
 #include <utils/gui/moderngl/GLStructs.h>
 
-#define GLVERTEXARRAYOBJECT_MINRESERVE 4000
+#define GLVERTEXARRAYOBJECT_GROWFACTOR 2
 
 
 GLVertexArrayObject::GLVertexArrayObject(unsigned int itemSize, unsigned int vertexSize)
@@ -177,7 +177,7 @@ void
 GLVertexArrayObject::setItemSize(const unsigned long long vertexCount, const unsigned long long indexCount) {
     long long diff = myVertexBufferSize - vertexCount;
     if (diff < 0) {
-        resizeBuffers(vertexCount + GLVERTEXARRAYOBJECT_MINRESERVE, indexCount + GLVERTEXARRAYOBJECT_MINRESERVE);
+        resizeBuffers(vertexCount * GLVERTEXARRAYOBJECT_GROWFACTOR, indexCount * GLVERTEXARRAYOBJECT_GROWFACTOR);
     }
 }
 
