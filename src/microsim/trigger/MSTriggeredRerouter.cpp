@@ -292,6 +292,12 @@ MSTriggeredRerouter::myStartElement(int element,
         if (myParsedRerouteInterval.sidingExit == nullptr) {
             throw InvalidArgument("The siding within rerouter '" + getID() + "' does not have a rail signal.");
         }
+        for (auto it = myParsedRerouteInterval.cSiding.begin(); it != myParsedRerouteInterval.cSiding.end(); it++) {
+            myParsedRerouteInterval.sidingLength += (*it)->getLength();
+            if ((*it)->getToJunction()->getID() == myParsedRerouteInterval.sidingExit->getID()) {
+                break;
+            }
+        }
         myParsedRerouteInterval.minSaving = attrs.getOpt<double>(SUMO_ATTR_MINSAVING, getID().c_str(), ok, 300);
     }
 }
@@ -536,6 +542,9 @@ MSTriggeredRerouter::triggerRouting(SUMOTrafficObject& tObject, MSMoveReminder::
             return false;
         }
         SUMOVehicle& veh = static_cast<SUMOVehicle&>(tObject);
+        if (veh.getLength() > rerouteDef->sidingLength) {
+            return false;
+        }
         const ConstMSEdgeVector& oldEdges = veh.getRoute().getEdges();
         auto mainStart = std::find(veh.getCurrentRouteEdge(), oldEdges.end(), rerouteDef->main.front());
         if (mainStart == oldEdges.end()

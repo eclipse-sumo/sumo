@@ -120,6 +120,8 @@ public:
         ConstMSEdgeVector cSiding;
         /// @brief The rail signal at the end of the siding
         MSRailSignal* sidingExit = nullptr;
+        /// @brief The usable length of the siding
+        double sidingLength = 0;
         /// @brief The threshold in savings for triggering reroute
         double minSaving;
         //}
