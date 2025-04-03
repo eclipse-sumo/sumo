@@ -223,7 +223,7 @@ public:
         }
     }
 
-    static inline void readReservationVector(tcpip::Storage& inputStorage, const int count, std::vector<libsumo::TraCIReservation>& result, const std::string& error = "") {
+    static inline void readReservationVector(tcpip::Storage& inputStorage, const int count, std::vector<libsumo::TraCIReservation>& result) {
         for (int i = 0; i < count; ++i) {
             libsumo::TraCIReservation r;
             readCompound(inputStorage, 10);
