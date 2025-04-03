@@ -846,19 +846,30 @@ GUIViewTraffic::initModernOpenGL() {
     if (sumoPath != nullptr && myRenderer == nullptr) {
         // shader paths
         // TODO: replace with production path
-        const std::string vertexShaderPath = "D:/Repos/sumo-opengl3.3/data/shaders/vertexShader.glsl"; // production value should be: std::string(getenv("SUMO_HOME")) + "/data/shaders/vertexShader.glsl";
-        const std::string fragmentShaderPath = "D:/Repos/sumo-opengl3.3/data/shaders/fragmentShader.glsl"; // production value should be: std::string(getenv("SUMO_HOME")) + "/data/shaders/fragmentShader.glsl";
+        // build standard shader (plain colors)
+        const std::string vertexShaderPathPlain = "D:/Repos/sumo-opengl3.3/data/shaders/vertexShader.glsl"; // production value should be: std::string(getenv("SUMO_HOME")) + "/data/shaders/vertexShader.glsl";
+        const std::string fragmentShaderPathPlain = "D:/Repos/sumo-opengl3.3/data/shaders/fragmentShader.glsl"; // production value should be: std::string(getenv("SUMO_HOME")) + "/data/shaders/fragmentShader.glsl";
         //const std::string vertexShaderPath = std::string(sumoPath) + "/data/shaders/vertexShader.glsl";
         //const std::string fragmentShaderPath = std::string(sumoPath) + "/data/shaders/fragmentShader.glsl";
+        const GLShader shaderPlain = GLShader(vertexShaderPathPlain, fragmentShaderPathPlain);
 
-        const GLShader shader = GLShader(vertexShaderPath, fragmentShaderPath);
+        const std::string vertexShaderPathTextured = "D:/Repos/sumo-opengl3.3/data/shaders/texturedVertexShader.glsl"; // production value should be: std::string(getenv("SUMO_HOME")) + "/data/shaders/texturedVertexShader.glsl";
+        const std::string fragmentShaderPathTextured = "D:/Repos/sumo-opengl3.3/data/shaders/texturedFragmentShader.glsl"; // production value should be: std::string(getenv("SUMO_HOME")) + "/data/shaders/texturedFragmentShader.glsl";
+        const GLShader shaderTextured = GLShader(vertexShaderPathTextured, fragmentShaderPathTextured);
 
         myRenderer = std::make_shared<GLRenderer>();
-        myRenderer->addShader("FaceColorShader", shader);
-        const std::vector<GLAttributeDefinition> attributeDefinitions = { {GL_FLOAT, 3, GL_FALSE}, {GL_UNSIGNED_BYTE, 4, GL_TRUE} };
-        myRenderer->addConfiguration("Standard", "FaceColorShader", GLHelper::computeVertexAttributeSize(attributeDefinitions));
+        myRenderer->addShader("FaceColorShader", shaderPlain);
+        const std::vector<GLAttributeDefinition> attributeDefinitionsPlain = { {GL_FLOAT, 3, GL_FALSE}, {GL_UNSIGNED_BYTE, 4, GL_TRUE} };
+        myRenderer->addConfiguration("Standard", "FaceColorShader", GLHelper::computeVertexAttributeSize(attributeDefinitionsPlain));
         myRenderer->activateConfiguration("Standard");
-        myRenderer->setVertexAttributes(attributeDefinitions);
+        myRenderer->setVertexAttributes(attributeDefinitionsPlain);
+        myRenderer->deactivateCurrentConfiguration();
+
+        myRenderer->addShader("TextureShader", shaderPlain);
+        const std::vector<GLAttributeDefinition> attributeDefinitionsTextured = { {GL_FLOAT, 3, GL_FALSE}, {GL_UNSIGNED_BYTE, 4, GL_TRUE}, {GL_FLOAT, 2, GL_FALSE} };
+        myRenderer->addConfiguration("Texture", "TextureShader", GLHelper::computeVertexAttributeSize(attributeDefinitionsTextured));
+        myRenderer->activateConfiguration("Texture");
+        myRenderer->setVertexAttributes(attributeDefinitionsTextured);
         myRenderer->deactivateCurrentConfiguration();
     }
 }
