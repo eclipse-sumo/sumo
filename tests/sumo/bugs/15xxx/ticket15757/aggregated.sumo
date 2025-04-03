@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-02-28 12:01:38 by Eclipse SUMO sumo Version v1_22_0+0580-601ed0b1c21
+<!-- generated on 2025-04-03 12:33:23 by Eclipse SUMO sumo Version v1_22_0+1228-a00bf006842
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -37,8 +37,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
-    <interval begin="0.00" end="9219.00" id="DEFAULT_EDGEDATA">
-        <edge id="E0" sampledSeconds="175691.75" traveltime="3549.91" overlapTraveltime="3572.67" density="95.29" laneDensity="47.64" occupancy="23.67" waitingTime="166747.86" timeLoss="174868.17" speed="0.06" speedRelative="0.00" departed="0" arrived="49" entered="148" left="99" laneChangedFrom="18" laneChangedTo="18" teleported="1"/>
-        <edge id="E1" sampledSeconds="39020.47" traveltime="711.08" overlapTraveltime="780.41" density="42.33" laneDensity="21.16" occupancy="10.20" waitingTime="36238.29" timeLoss="38642.50" speed="0.13" speedRelative="0.01" departed="50" arrived="0" entered="0" left="50" laneChangedFrom="18" laneChangedTo="18"/>
+    <interval begin="0.00" end="9409.00" id="DEFAULT_EDGEDATA">
+        <edge id="E0" sampledSeconds="177659.38" traveltime="3552.88" overlapTraveltime="3570.47" density="94.41" laneDensity="47.20" occupancy="23.45" waitingTime="168787.84" timeLoss="176825.25" speed="0.06" speedRelative="0.00" departed="0" arrived="50" entered="150" left="100" laneChangedFrom="19" laneChangedTo="19"/>
+        <edge id="E1" sampledSeconds="41983.74" traveltime="760.85" overlapTraveltime="839.67" density="44.62" laneDensity="22.31" occupancy="10.67" waitingTime="39100.31" timeLoss="41605.77" speed="0.13" speedRelative="0.01" departed="50" arrived="0" entered="0" left="50" laneChangedFrom="18" laneChangedTo="18"/>
     </interval>
 </meandata>
