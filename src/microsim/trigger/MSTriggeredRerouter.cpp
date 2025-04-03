@@ -866,6 +866,7 @@ MSTriggeredRerouter::overtakingTrain(const SUMOVehicle& veh, ConstMSEdgeVector::
                 for (auto it = veh2->getCurrentRouteEdge(); it != itOnMain2; it++) {
                     timeToMain2 += (*it)->getMinimumTravelTime(veh2);
                 }
+                double exitMain2Time = timeToMain2;
                 double commonTime = 0;
                 double commonTime2 = 0;
                 int nCommon = 0;
@@ -874,13 +875,16 @@ MSTriggeredRerouter::overtakingTrain(const SUMOVehicle& veh, ConstMSEdgeVector::
                     const MSEdge* common = *itOnMain;
                     commonTime += common->getMinimumTravelTime(&veh);
                     commonTime2 += common->getMinimumTravelTime(veh2);
+                    if (nCommon < (int)main.size() - mainIndex) {
+                        exitMain2Time = timeToMain2 + commonTime2;
+                    }
                     nCommon++;
                     itOnMain++;
                     itOnMain2++;
                 }
                 exitMain2 += MIN2(nCommon, (int)main.size() - mainIndex);
                 const double saving = timeToMain + commonTime - (timeToMain2 + commonTime2);
-                const double loss = 0;
+                const double loss = exitMain2Time; // lower bound because veh2 also has to exit the block
                 const double prio2 = veh2->getFloatParam(toString(SUMO_TAG_OVERTAKING_REROUTE) + ".prio", false, DEFAULT_PRIO_OVERTAKER, false);
                 const double netSaving = prio2 * saving - prio * loss;
                 //std::cout << " veh=" << veh.getID() << " veh2=" << veh2->getID()
