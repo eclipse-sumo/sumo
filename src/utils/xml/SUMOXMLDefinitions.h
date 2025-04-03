@@ -171,8 +171,14 @@ enum SumoXMLTag {
     SUMO_TAG_FLOWSTATE,
     /// @brief description of a vehicle/person/container type
     SUMO_TAG_VTYPE,
-    /// @brief begin/end of the description of a route
+    /// @brief description of a vehicle/person/container type
+    GNE_TAG_VTYPE_CHILD_DISTRIBUTION,
+    /// @brief description of a route
     SUMO_TAG_ROUTE,
+    /// @brief route placed in a route distribution
+    GNE_TAG_ROUTE_CHILDDISTRIBUTION,
+    /// @brief route placed in a route distribution (ref)
+    GNE_TAG_ROUTEREF_CHILDDISTRIBUTION,
     /// @brief embedded route
     GNE_TAG_ROUTE_EMBEDDED,
     /// @brief description of a logic request within the junction
