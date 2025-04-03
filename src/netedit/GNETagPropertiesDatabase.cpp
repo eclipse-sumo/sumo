@@ -2518,51 +2518,7 @@ GNETagPropertiesDatabase::fillJuPedSimElements() {
 void
 GNETagPropertiesDatabase::fillDemandElements() {
     // fill demand elements
-    SumoXMLTag currentTag = SUMO_TAG_ROUTE;
-    {
-        // set values of tag
-        myTagProperties[currentTag] = new GNETagProperties(currentTag, mySetTagProperties[GNE_TAG_SUPERMODE_DEMAND],
-                GNETagProperties::Type::DEMANDELEMENT | GNETagProperties::Type::ROUTE,
-                GNETagProperties::Property::NO_PROPERTY,
-                GNETagProperties::Over::CONSECUTIVE_EDGES,
-                GNETagProperties::Conflicts::NO_CONFLICTS,
-                GUIIcon::ROUTE, currentTag, TL("Route"));
-
-        // set values of attributes
-        fillIDAttribute(myTagProperties[currentTag], true);
-
-        new GNEAttributeProperties(myTagProperties[currentTag], GNE_ATTR_ROUTE_DISTRIBUTION,
-                                   GNEAttributeProperties::Property::STRING,
-                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
-                                   TL("Route distribution"));
-
-        new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_EDGES,
-                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::LIST | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
-                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
-                                   TL("The edges the vehicle shall drive along, given as their ids, separated using spaces"));
-
-        fillColorAttribute(myTagProperties[currentTag], "");
-
-        new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_REPEAT,
-                                   GNEAttributeProperties::Property::INT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
-                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
-                                   TL("The number of times that the edges of this route shall be repeated"),
-                                   "0");
-
-        new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_CYCLETIME,
-                                   GNEAttributeProperties::Property::SUMOTIME | GNEAttributeProperties::Property::DEFAULTVALUE,
-                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
-                                   TL("When defining a repeating route with stops and those stops use the until attribute,") + std::string("\n") +
-                                   TL("the times will be shifted forward by 'cycleTime' on each repeat"),
-                                   "0");
-
-        new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_PROB,
-                                   GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
-                                   GNEAttributeProperties::Edit::EDITMODE,
-                                   TL("The probability when being added to a distribution without an explicit probability"),
-                                   "1");
-    }
-    currentTag = SUMO_TAG_ROUTE_DISTRIBUTION;
+    SumoXMLTag currentTag = SUMO_TAG_ROUTE_DISTRIBUTION;
     {
         // set values of tag
         myTagProperties[currentTag] = new GNETagProperties(currentTag, mySetTagProperties[GNE_TAG_SUPERMODE_DEMAND],
@@ -2575,6 +2531,70 @@ GNETagPropertiesDatabase::fillDemandElements() {
         // set values of attributes
         fillIDAttribute(myTagProperties[currentTag], true);
     }
+    currentTag = SUMO_TAG_ROUTE;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = new GNETagProperties(currentTag, mySetTagProperties[GNE_TAG_SUPERMODE_DEMAND],
+                GNETagProperties::Type::DEMANDELEMENT | GNETagProperties::Type::ROUTE,
+                GNETagProperties::Property::NO_PROPERTY,
+                GNETagProperties::Over::CONSECUTIVE_EDGES,
+                GNETagProperties::Conflicts::NO_CONFLICTS,
+                GUIIcon::ROUTE, currentTag, TL("Route"));
+
+        // set values of attributes
+        fillIDAttribute(myTagProperties[currentTag], true);
+
+        // add common route attributes
+        fillCommonRouteAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_ROUTE_CHILDDISTRIBUTION;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = new GNETagProperties(currentTag, mySetTagProperties[GNE_TAG_SUPERMODE_DEMAND],
+                GNETagProperties::Type::DEMANDELEMENT | GNETagProperties::Type::ROUTE,
+                GNETagProperties::Property::CHILD,
+                GNETagProperties::Over::CONSECUTIVE_EDGES,
+                GNETagProperties::Conflicts::NO_CONFLICTS,
+                GUIIcon::ROUTE, currentTag, TL("Route (distribution)"),
+        {SUMO_TAG_ROUTE_DISTRIBUTION});
+
+        // set values of attributes
+        fillIDAttribute(myTagProperties[currentTag], true);
+
+        new GNEAttributeProperties(myTagProperties[currentTag], GNE_ATTR_ROUTE_DISTRIBUTION,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
+                                   TL("Route distribution in which this route is defined"));
+
+        // add common route attributes
+        fillCommonRouteAttributes(myTagProperties[currentTag]);
+
+        fillDistributionProbability(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_ROUTEREF_CHILDDISTRIBUTION;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = new GNETagProperties(currentTag, mySetTagProperties[GNE_TAG_SUPERMODE_DEMAND],
+                GNETagProperties::Type::DEMANDELEMENT | GNETagProperties::Type::ROUTE,
+                GNETagProperties::Property::CHILD,
+                GNETagProperties::Over::CONSECUTIVE_EDGES,
+                GNETagProperties::Conflicts::NO_CONFLICTS,
+                GUIIcon::ROUTE, currentTag, TL("Route (Ref)"),
+        {SUMO_TAG_ROUTE_DISTRIBUTION});
+
+        // set values of attributes
+        new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_REFID,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
+                                   TL("Reference ID of route"));
+
+        new GNEAttributeProperties(myTagProperties[currentTag], GNE_ATTR_ROUTE_DISTRIBUTION,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
+                                   TL("Route distribution in which this route is defined"));
+
+        fillDistributionProbability(myTagProperties[currentTag]);
+    }
     currentTag = GNE_TAG_ROUTE_EMBEDDED;
     {
         // set values of tag
@@ -2583,29 +2603,24 @@ GNETagPropertiesDatabase::fillDemandElements() {
                 GNETagProperties::Property::CHILD,
                 GNETagProperties::Over::CONSECUTIVE_EDGES,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
-                GUIIcon::ROUTE, SUMO_TAG_ROUTE, TL("RouteEmbedded"),
+                GUIIcon::ROUTE, SUMO_TAG_ROUTE, TL("Route (embedded)"),
         {GNE_TAG_VEHICLE_WITHROUTE, GNE_TAG_FLOW_WITHROUTE});
 
+        // add common route attributes
+        fillCommonRouteAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = SUMO_TAG_VTYPE_DISTRIBUTION;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = new GNETagProperties(currentTag, mySetTagProperties[GNE_TAG_SUPERMODE_DEMAND],
+                GNETagProperties::Type::DEMANDELEMENT,
+                GNETagProperties::Property::NOTDRAWABLE | GNETagProperties::Property::NOTSELECTABLE | GNETagProperties::Property::NOPARAMETERS,
+                GNETagProperties::Over::VIEW,
+                GNETagProperties::Conflicts::NO_CONFLICTS,
+                GUIIcon::VTYPEDISTRIBUTION, currentTag, TL("TypeDistribution"));
+
         // set values of attributes
-        new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_EDGES,
-                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::LIST | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
-                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
-                                   TL("The edges the vehicle shall drive along, given as their ids, separated using spaces"));
-
-        fillColorAttribute(myTagProperties[currentTag], "");
-
-        new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_REPEAT,
-                                   GNEAttributeProperties::Property::INT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
-                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
-                                   TL("The number of times that the edges of this route shall be repeated"),
-                                   "0");
-
-        new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_CYCLETIME,
-                                   GNEAttributeProperties::Property::SUMOTIME | GNEAttributeProperties::Property::DEFAULTVALUE,
-                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
-                                   TL("When defining a repeating route with stops and those stops use the until attribute,") + std::string("\n") +
-                                   TL("the times will be shifted forward by 'cycleTime' on each repeat"),
-                                   "0");
+        fillIDAttribute(myTagProperties[currentTag], true);
     }
     currentTag = SUMO_TAG_VTYPE;
     {
@@ -2620,187 +2635,30 @@ GNETagPropertiesDatabase::fillDemandElements() {
         // set values of attributes
         fillIDAttribute(myTagProperties[currentTag], true);
 
+        // add common vType attributes
+        fillCommonVTypeAttributes(myTagProperties[currentTag]);
+    }
+    currentTag = GNE_TAG_VTYPE_CHILDDISTRIBUTION;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = new GNETagProperties(currentTag, mySetTagProperties[GNE_TAG_SUPERMODE_DEMAND],
+                GNETagProperties::Type::DEMANDELEMENT | GNETagProperties::Type::VTYPE,
+                GNETagProperties::Property::NOTDRAWABLE | GNETagProperties::Property::NOTSELECTABLE | GNETagProperties::Property::VCLASS_ICON | GNETagProperties::Property::CHILD | GNETagProperties::Property::EXTENDED,
+                GNETagProperties::Over::VIEW,
+                GNETagProperties::Conflicts::NO_CONFLICTS,
+                GUIIcon::VTYPE, currentTag, TL("VehicleType (distribution)"),
+        {SUMO_TAG_VTYPE_DISTRIBUTION});
+
+        // set values of attributes
+        fillIDAttribute(myTagProperties[currentTag], true);
+
         new GNEAttributeProperties(myTagProperties[currentTag], GNE_ATTR_VTYPE_DISTRIBUTION,
                                    GNEAttributeProperties::Property::STRING,
                                    GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("Type distribution"));
 
-        auto vClass = new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_VCLASS,
-                GNEAttributeProperties::Property::DISCRETE | GNEAttributeProperties::Property::DEFAULTVALUE,
-                GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
-                TL("An abstract vehicle class"),
-                "passenger");
-        vClass->setDiscreteValues(SumoVehicleClassStrings.getStrings());
-
-        fillColorAttribute(myTagProperties[currentTag], "");
-
-        new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_LENGTH,
-                                   GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::ALWAYSENABLED,
-                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
-                                   TL("The vehicle's netto-length (length) [m]"));
-
-        new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_MINGAP,
-                                   GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::ALWAYSENABLED,
-                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
-                                   TL("Empty space after leader [m]"));
-
-        new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_MAXSPEED,
-                                   GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::ALWAYSENABLED,
-                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
-                                   TL("The vehicle's maximum velocity [m/s]"));
-
-        new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_SPEEDFACTOR,
-                                   GNEAttributeProperties::Property::STRING,
-                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
-                                   TL("The vehicle's expected multiplicator for lane speed limits (or a distribution specifier)"));
-
-        new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_DESIRED_MAXSPEED,
-                                   GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::ALWAYSENABLED,
-                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
-                                   TL("The vehicle's desired maximum velocity (interacts with speedFactor).") + std::string("\n") +
-                                   TL("Applicable when no speed limit applies (bicycles, some motorways) [m/s]"));
-
-        auto emissionClass = new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_EMISSIONCLASS,
-                GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DISCRETE,
-                GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
-                TL("An abstract emission class"));
-        emissionClass->setDiscreteValues(PollutantsInterface::getAllClassesStr());
-
-        auto GUIShape = new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_GUISHAPE,
-                GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DISCRETE,
-                GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
-                TL("How this vehicle is rendered"));
-        GUIShape->setDiscreteValues(SumoVehicleShapeStrings.getStrings());
-
-        new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_WIDTH,
-                                   GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
-                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
-                                   TL("The vehicle's width [m] (only used for drawing)"),
-                                   "1.8");
-
-        new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_HEIGHT,
-                                   GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
-                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
-                                   TL("The vehicle's height [m] (only used for drawing)"),
-                                   "1.5");
-
-        new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_PARKING_BADGES,
-                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::LIST | GNEAttributeProperties::Property::DEFAULTVALUE,
-                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
-                                   TL("The parking badges assigned to the vehicle"));
-
-        fillImgFileAttribute(myTagProperties[currentTag], true);
-
-        auto laneChangeModel = new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_LANE_CHANGE_MODEL,
-                GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DISCRETE | GNEAttributeProperties::Property::DEFAULTVALUE,
-                GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
-                TL("The model used for changing lanes"),
-                SUMOXMLDefinitions::LaneChangeModels.getString(LaneChangeModel::DEFAULT));
-        laneChangeModel->setDiscreteValues(SUMOXMLDefinitions::LaneChangeModels.getStrings());
-
-        auto carFollowModel = new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_CAR_FOLLOW_MODEL,
-                GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DISCRETE | GNEAttributeProperties::Property::DEFAULTVALUE,
-                GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
-                TL("The model used for car-following"),
-                SUMOXMLDefinitions::CarFollowModels.getString(SUMO_TAG_CF_KRAUSS));
-        carFollowModel->setDiscreteValues(SUMOXMLDefinitions::CarFollowModels.getStrings());
-
-        new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_PERSON_CAPACITY,
-                                   GNEAttributeProperties::Property::INT | GNEAttributeProperties::Property::POSITIVE,
-                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
-                                   TL("The number of persons (excluding an autonomous driver) the vehicle can transport"));
-
-        new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_CONTAINER_CAPACITY,
-                                   GNEAttributeProperties::Property::INT | GNEAttributeProperties::Property::POSITIVE,
-                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
-                                   TL("The number of containers the vehicle can transport"));
-
-        new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_BOARDING_DURATION,
-                                   GNEAttributeProperties::Property::SUMOTIME | GNEAttributeProperties::Property::DEFAULTVALUE,
-                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
-                                   TL("The time required by a person to board the vehicle"),
-                                   "0.50");
-
-        new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_LOADING_DURATION,
-                                   GNEAttributeProperties::Property::SUMOTIME | GNEAttributeProperties::Property::DEFAULTVALUE,
-                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
-                                   TL("The time required to load a container onto the vehicle"),
-                                   "90");
-
-        auto latAlignment = new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_LATALIGNMENT,
-                GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DISCRETE | GNEAttributeProperties::Property::DEFAULTVALUE,
-                GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
-                TL("The preferred lateral alignment when using the sublane-model"),
-                "center");
-        latAlignment->setDiscreteValues(SUMOVTypeParameter::getLatAlignmentStrings());
-
-        new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_MINGAP_LAT,
-                                   GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
-                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
-                                   TL("The minimum lateral gap at a speed difference of 50km/h when using the sublane-model"),
-                                   "0.12");
-
-        new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_MAXSPEED_LAT,
-                                   GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
-                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
-                                   TL("The maximum lateral speed when using the sublane-model"),
-                                   "1");
-
-        new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_ACTIONSTEPLENGTH,
-                                   GNEAttributeProperties::Property::SUMOTIME | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
-                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
-                                   TL("The interval length for which vehicle performs its decision logic (acceleration and lane-changing)"),
-                                   toString(OptionsCont::getOptions().getFloat("default.action-step-length")));
-
-        new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_PROB,
-                                   GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
-                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
-                                   TL("The probability when being added to a distribution without an explicit probability"),
-                                   toString(DEFAULT_VEH_PROB));
-
-        new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_OSGFILE,
-                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE,
-                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
-                                   TL("3D model file for this class"));
-        /*
-                Waiting for #16343
-                new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_CARRIAGE_LENGTH,
-                                           GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE,
-                                           GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
-                                           TL("Carriage lengths"));
-
-                new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_LOCOMOTIVE_LENGTH,
-                                           GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE,
-                                           GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
-                                           TL("Locomotive lengths"));
-
-                new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_CARRIAGE_GAP,
-                                           GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
-                                           GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
-                                           TL("Gap between carriages"),
-                                           "1");
-        */
-        // fill VType Car Following Model Values (implemented in a separated function to improve code legibility)
-        fillCarFollowingModelAttributes(myTagProperties[currentTag]);
-
-        // fill VType Junction Model Parameters (implemented in a separated function to improve code legibility)
-        fillJunctionModelAttributes(myTagProperties[currentTag]);
-
-        // fill VType Lane Change Model Parameters (implemented in a separated function to improve code legibility)
-        fillLaneChangingModelAttributes(myTagProperties[currentTag]);
-    }
-    currentTag = SUMO_TAG_VTYPE_DISTRIBUTION;
-    {
-        // set values of tag
-        myTagProperties[currentTag] = new GNETagProperties(currentTag, mySetTagProperties[GNE_TAG_SUPERMODE_DEMAND],
-                GNETagProperties::Type::DEMANDELEMENT,
-                GNETagProperties::Property::NOTDRAWABLE | GNETagProperties::Property::NOTSELECTABLE | GNETagProperties::Property::NOPARAMETERS,
-                GNETagProperties::Over::VIEW,
-                GNETagProperties::Conflicts::NO_CONFLICTS,
-                GUIIcon::VTYPEDISTRIBUTION, currentTag, TL("VehicleTypeDistribution"));
-
-        // set values of attributes
-        fillIDAttribute(myTagProperties[currentTag], true);
+        // add common vType attributes
+        fillCommonVTypeAttributes(myTagProperties[currentTag]);
     }
 }
 
@@ -7243,6 +7101,195 @@ GNETagPropertiesDatabase::fillCommonPOIAttributes(GNETagProperties* tagPropertie
 
 
 void
+GNETagPropertiesDatabase::fillCommonRouteAttributes(GNETagProperties* tagProperties) {
+    // fill route attributes
+    new GNEAttributeProperties(tagProperties, SUMO_ATTR_EDGES,
+                               GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::LIST | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
+                               TL("The edges the vehicle shall drive along, given as their ids, separated using spaces"));
+
+    fillColorAttribute(tagProperties, "");
+
+    new GNEAttributeProperties(tagProperties, SUMO_ATTR_REPEAT,
+                               GNEAttributeProperties::Property::INT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
+                               TL("The number of times that the edges of this route shall be repeated"),
+                               "0");
+
+    new GNEAttributeProperties(tagProperties, SUMO_ATTR_CYCLETIME,
+                               GNEAttributeProperties::Property::SUMOTIME | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
+                               TL("When defining a repeating route with stops and those stops use the until attribute,") + std::string("\n") +
+                               TL("the times will be shifted forward by 'cycleTime' on each repeat"),
+                               "0");
+}
+
+
+void
+GNETagPropertiesDatabase::fillCommonVTypeAttributes(GNETagProperties* tagProperties) {
+    auto vClass = new GNEAttributeProperties(tagProperties, SUMO_ATTR_VCLASS,
+            GNEAttributeProperties::Property::DISCRETE | GNEAttributeProperties::Property::DEFAULTVALUE,
+            GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
+            TL("An abstract vehicle class"),
+            "passenger");
+    vClass->setDiscreteValues(SumoVehicleClassStrings.getStrings());
+
+    fillColorAttribute(tagProperties, "");
+
+    new GNEAttributeProperties(tagProperties, SUMO_ATTR_LENGTH,
+                               GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::ALWAYSENABLED,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
+                               TL("The vehicle's netto-length (length) [m]"));
+
+    new GNEAttributeProperties(tagProperties, SUMO_ATTR_MINGAP,
+                               GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::ALWAYSENABLED,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
+                               TL("Empty space after leader [m]"));
+
+    new GNEAttributeProperties(tagProperties, SUMO_ATTR_MAXSPEED,
+                               GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::ALWAYSENABLED,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
+                               TL("The vehicle's maximum velocity [m/s]"));
+
+    new GNEAttributeProperties(tagProperties, SUMO_ATTR_SPEEDFACTOR,
+                               GNEAttributeProperties::Property::STRING,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
+                               TL("The vehicle's expected multiplicator for lane speed limits (or a distribution specifier)"));
+
+    new GNEAttributeProperties(tagProperties, SUMO_ATTR_DESIRED_MAXSPEED,
+                               GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::ALWAYSENABLED,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
+                               TL("The vehicle's desired maximum velocity (interacts with speedFactor).") + std::string("\n") +
+                               TL("Applicable when no speed limit applies (bicycles, some motorways) [m/s]"));
+
+    auto emissionClass = new GNEAttributeProperties(tagProperties, SUMO_ATTR_EMISSIONCLASS,
+            GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DISCRETE,
+            GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
+            TL("An abstract emission class"));
+    emissionClass->setDiscreteValues(PollutantsInterface::getAllClassesStr());
+
+    auto GUIShape = new GNEAttributeProperties(tagProperties, SUMO_ATTR_GUISHAPE,
+            GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DISCRETE,
+            GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
+            TL("How this vehicle is rendered"));
+    GUIShape->setDiscreteValues(SumoVehicleShapeStrings.getStrings());
+
+    new GNEAttributeProperties(tagProperties, SUMO_ATTR_WIDTH,
+                               GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
+                               TL("The vehicle's width [m] (only used for drawing)"),
+                               "1.8");
+
+    new GNEAttributeProperties(tagProperties, SUMO_ATTR_HEIGHT,
+                               GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
+                               TL("The vehicle's height [m] (only used for drawing)"),
+                               "1.5");
+
+    new GNEAttributeProperties(tagProperties, SUMO_ATTR_PARKING_BADGES,
+                               GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::LIST | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
+                               TL("The parking badges assigned to the vehicle"));
+
+    fillImgFileAttribute(tagProperties, true);
+
+    auto laneChangeModel = new GNEAttributeProperties(tagProperties, SUMO_ATTR_LANE_CHANGE_MODEL,
+            GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DISCRETE | GNEAttributeProperties::Property::DEFAULTVALUE,
+            GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
+            TL("The model used for changing lanes"),
+            SUMOXMLDefinitions::LaneChangeModels.getString(LaneChangeModel::DEFAULT));
+    laneChangeModel->setDiscreteValues(SUMOXMLDefinitions::LaneChangeModels.getStrings());
+
+    auto carFollowModel = new GNEAttributeProperties(tagProperties, SUMO_ATTR_CAR_FOLLOW_MODEL,
+            GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DISCRETE | GNEAttributeProperties::Property::DEFAULTVALUE,
+            GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
+            TL("The model used for car-following"),
+            SUMOXMLDefinitions::CarFollowModels.getString(SUMO_TAG_CF_KRAUSS));
+    carFollowModel->setDiscreteValues(SUMOXMLDefinitions::CarFollowModels.getStrings());
+
+    new GNEAttributeProperties(tagProperties, SUMO_ATTR_PERSON_CAPACITY,
+                               GNEAttributeProperties::Property::INT | GNEAttributeProperties::Property::POSITIVE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
+                               TL("The number of persons (excluding an autonomous driver) the vehicle can transport"));
+
+    new GNEAttributeProperties(tagProperties, SUMO_ATTR_CONTAINER_CAPACITY,
+                               GNEAttributeProperties::Property::INT | GNEAttributeProperties::Property::POSITIVE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
+                               TL("The number of containers the vehicle can transport"));
+
+    new GNEAttributeProperties(tagProperties, SUMO_ATTR_BOARDING_DURATION,
+                               GNEAttributeProperties::Property::SUMOTIME | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
+                               TL("The time required by a person to board the vehicle"),
+                               "0.50");
+
+    new GNEAttributeProperties(tagProperties, SUMO_ATTR_LOADING_DURATION,
+                               GNEAttributeProperties::Property::SUMOTIME | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
+                               TL("The time required to load a container onto the vehicle"),
+                               "90");
+
+    auto latAlignment = new GNEAttributeProperties(tagProperties, SUMO_ATTR_LATALIGNMENT,
+            GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DISCRETE | GNEAttributeProperties::Property::DEFAULTVALUE,
+            GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
+            TL("The preferred lateral alignment when using the sublane-model"),
+            "center");
+    latAlignment->setDiscreteValues(SUMOVTypeParameter::getLatAlignmentStrings());
+
+    new GNEAttributeProperties(tagProperties, SUMO_ATTR_MINGAP_LAT,
+                               GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
+                               TL("The minimum lateral gap at a speed difference of 50km/h when using the sublane-model"),
+                               "0.12");
+
+    new GNEAttributeProperties(tagProperties, SUMO_ATTR_MAXSPEED_LAT,
+                               GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
+                               TL("The maximum lateral speed when using the sublane-model"),
+                               "1");
+
+    new GNEAttributeProperties(tagProperties, SUMO_ATTR_ACTIONSTEPLENGTH,
+                               GNEAttributeProperties::Property::SUMOTIME | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
+                               TL("The interval length for which vehicle performs its decision logic (acceleration and lane-changing)"),
+                               toString(OptionsCont::getOptions().getFloat("default.action-step-length")));
+
+    fillDistributionProbability(tagProperties);
+
+    new GNEAttributeProperties(tagProperties, SUMO_ATTR_OSGFILE,
+                               GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
+                               TL("3D model file for this class"));
+    /*
+            Waiting for #16343
+            new GNEAttributeProperties(tagProperties, SUMO_ATTR_CARRIAGE_LENGTH,
+                                        GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE,
+                                        GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
+                                        TL("Carriage lengths"));
+
+            new GNEAttributeProperties(tagProperties, SUMO_ATTR_LOCOMOTIVE_LENGTH,
+                                        GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE,
+                                        GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
+                                        TL("Locomotive lengths"));
+
+            new GNEAttributeProperties(tagProperties, SUMO_ATTR_CARRIAGE_GAP,
+                                        GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                        GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::EXTENDEDEDITOR,
+                                        TL("Gap between carriages"),
+                                        "1");
+    */
+    // fill VType Car Following Model Values (implemented in a separated function to improve code legibility)
+    fillCarFollowingModelAttributes(tagProperties);
+
+    // fill VType Junction Model Parameters (implemented in a separated function to improve code legibility)
+    fillJunctionModelAttributes(tagProperties);
+
+    // fill VType Lane Change Model Parameters (implemented in a separated function to improve code legibility)
+    fillLaneChangingModelAttributes(tagProperties);
+}
+
+
+void
 GNETagPropertiesDatabase::fillCommonVehicleAttributes(GNETagProperties* tagProperties) {
     // fill vehicle attributes
     fillColorAttribute(tagProperties, "yellow");
@@ -8732,6 +8779,16 @@ GNETagPropertiesDatabase::fillDetectorThresholdAttributes(GNETagProperties* tagP
                                    TL("The maximum distance to the next standing vehicle in order to make this vehicle count as a participant to the jam in m"),
                                    "10");
     }
+}
+
+
+void
+GNETagPropertiesDatabase::fillDistributionProbability(GNETagProperties* tagProperties) {
+    new GNEAttributeProperties(tagProperties, SUMO_ATTR_PROB,
+                               GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
+                               TL("The probability when being added to a distribution without an explicit probability"),
+                               "1");
 }
 
 
