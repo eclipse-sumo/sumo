@@ -434,6 +434,11 @@ Connection::readVariables(tcpip::Storage& inMsg, const std::string& objectID, in
                         StoHelp::readStage(inMsg, *r);
                         into[objectID][variableID] = r;
                         break;
+                    } else if (variableID == libsumo::VAR_TAXI_RESERVATIONS) {
+                        auto r = std::make_shared<libsumo::TraCIReservationVectorWrapped>();
+                        StoHelp::readReservationVector(inMsg, n, r->value);
+                        into[objectID][variableID] = r;
+                        break;
                     }
                     if (n == 2) {
                         const int firstType = inMsg.readUnsignedByte();

@@ -219,7 +219,25 @@ public:
             vd.entryTime = readTypedDouble(inputStorage);
             vd.leaveTime = readTypedDouble(inputStorage);
             vd.typeID = readTypedString(inputStorage);
-            result.push_back(vd);
+            result.emplace_back(vd);
+        }
+    }
+
+    static inline void readReservationVector(tcpip::Storage& inputStorage, const int count, std::vector<libsumo::TraCIReservation>& result, const std::string& error = "") {
+        for (int i = 0; i < count; ++i) {
+            libsumo::TraCIReservation r;
+            readCompound(inputStorage, 10);
+            r.id = readTypedString(inputStorage);
+            r.persons = readTypedStringList(inputStorage);
+            r.group = readTypedString(inputStorage);
+            r.fromEdge = readTypedString(inputStorage);
+            r.toEdge = readTypedString(inputStorage);
+            r.departPos = readTypedDouble(inputStorage);
+            r.arrivalPos = readTypedDouble(inputStorage);
+            r.depart = readTypedDouble(inputStorage);
+            r.reservationTime = readTypedDouble(inputStorage);
+            r.state = readTypedInt(inputStorage);
+            result.emplace_back(r);
         }
     }
 
