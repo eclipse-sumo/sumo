@@ -119,10 +119,13 @@ public:
     /// @brief set tag property parent
     void setTagPropertyParent(GNETagProperties* tagPropertyParent);
 
+    /// @brief set alternative name
+    void setAlternativeName(const std::string& alternativeName);
+
     /// @brief get XML Attribute
     SumoXMLAttr getAttr() const;
 
-    /// @brief get XML Attribute
+    /// @brief get XML Attribute in string format (can be updated using alternative name)
     const std::string& getAttrStr() const;
 
     /// @brief get reference to tagProperty parent

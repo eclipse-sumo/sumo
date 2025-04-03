@@ -2290,11 +2290,12 @@ GNETagPropertiesDatabase::fillTAZElements() {
                                    TL("An information whether the TAZ shall be filled"),
                                    GNEAttributeCarrier::False);
 
-        new GNEAttributeProperties(myTagProperties[currentTag], GNE_ATTR_EDGES_WITHIN,
-                                   GNEAttributeProperties::Property::BOOL | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::COPYABLE,
-                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::NETEDITEDITOR,
-                                   TL("Use the edges within the shape"),
-                                   GNEAttributeCarrier::True);
+        auto edgesWithin = new GNEAttributeProperties(myTagProperties[currentTag], GNE_ATTR_EDGES_WITHIN,
+                GNEAttributeProperties::Property::BOOL | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::COPYABLE,
+                GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::NETEDITEDITOR,
+                TL("Use the edges within the shape"),
+                GNEAttributeCarrier::True);
+        edgesWithin->setAlternativeName(TL("edges within"));
     }
     currentTag = SUMO_TAG_TAZSOURCE;
     {
@@ -7072,6 +7073,7 @@ GNETagPropertiesDatabase::fillCommonAttributes(GNETagProperties* tagProperties) 
                 GNEAttributeProperties::Property::BOOL,
                 GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::NETEDITEDITOR,
                 TLF("Center view over element % after creation", tagProperties->getTagStr()));
+        commonAttribute->setAlternativeName(TL("center view"));
     }
     // fill file attributes
     if (!tagProperties->isChild() && !tagProperties->isSymbol()) {
@@ -7081,24 +7083,28 @@ GNETagPropertiesDatabase::fillCommonAttributes(GNETagProperties* tagProperties) 
                     GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::NETEDITEDITOR,
                     TL("The path to the additional file"));
             commonAttribute->setFilenameExtensions(SUMOXMLDefinitions::AdditionalFileExtensions.getMultilineString());
+            commonAttribute->setAlternativeName(TL("add. file"));
         } else if (tagProperties->isDemandElement()) {
             commonAttribute = new GNEAttributeProperties(tagProperties, GNE_ATTR_DEMAND_FILE,
                     GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::FILESAVE | GNEAttributeProperties::Property::DEFAULTVALUE,
                     GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::NETEDITEDITOR,
                     TL("The path to the route file"));
             commonAttribute->setFilenameExtensions(SUMOXMLDefinitions::RouteFileExtensions.getMultilineString());
+            commonAttribute->setAlternativeName(TL("route file"));
         } else if (tagProperties->isDataElement()) {
             commonAttribute = new GNEAttributeProperties(tagProperties, GNE_ATTR_DATA_FILE,
                     GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::FILESAVE | GNEAttributeProperties::Property::DEFAULTVALUE,
                     GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::NETEDITEDITOR,
                     TL("The path to the data file"));
             commonAttribute->setFilenameExtensions(SUMOXMLDefinitions::EdgeDataFileExtensions.getMultilineString());
+            commonAttribute->setAlternativeName(TL("data file"));
         } else if (tagProperties->isMeanData()) {
             commonAttribute = new GNEAttributeProperties(tagProperties, GNE_ATTR_MEANDATA_FILE,
                     GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::FILESAVE | GNEAttributeProperties::Property::DEFAULTVALUE,
                     GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::NETEDITEDITOR,
                     TL("The path to the data file"));
             commonAttribute->setFilenameExtensions(SUMOXMLDefinitions::MeanDataFileExtensions.getMultilineString());
+            commonAttribute->setAlternativeName(TL("mean file"));
         }
     }
     /*
@@ -7134,6 +7140,7 @@ GNETagPropertiesDatabase::fillCommonAttributes(GNETagProperties* tagProperties) 
                 GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE,
                 GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                 TL("Generic parameters (Format: key1=value1|key2=value2|..."));
+        commonAttribute->setAlternativeName(TL("parameters"));
     }
 }
 
@@ -7172,11 +7179,12 @@ GNETagPropertiesDatabase::fillCommonStoppingPlaceAttributes(GNETagProperties* ta
                                TLF("Length of %", tagProperties->getTagStr()),
                                "10");
 
-    new GNEAttributeProperties(tagProperties, GNE_ATTR_FORCESIZE,
-                               GNEAttributeProperties::Property::BOOL | GNEAttributeProperties::Property::DEFAULTVALUE,
-                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::NETEDITEDITOR,
-                               TL("Force size during creation"),
-                               GNEAttributeCarrier::False);
+    auto forceSize = new GNEAttributeProperties(tagProperties, GNE_ATTR_FORCESIZE,
+            GNEAttributeProperties::Property::BOOL | GNEAttributeProperties::Property::DEFAULTVALUE,
+            GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::NETEDITEDITOR,
+            TL("Force size during creation"),
+            GNEAttributeCarrier::False);
+    forceSize->setAlternativeName(TL("force size"));
 
     auto reference = new GNEAttributeProperties(tagProperties, GNE_ATTR_REFERENCE,
             GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DISCRETE,

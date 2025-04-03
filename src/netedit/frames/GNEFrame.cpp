@@ -207,9 +207,6 @@ GNEFrame::openHelpAttributesDialog(const GNEAttributeCarrier* AC) const {
     for (const auto& attrProperty : AC->getTagProperty()->getAttributeProperties()) {
         // Set attribute
         FXTableItem* attributeItem = new FXTableItem(attrProperty->getAttrStr().c_str());
-        if (attrProperty->getAttr() == GNE_ATTR_PARAMETERS) {
-            attributeItem->setText("parameters");
-        }
         attributeItem->setJustify(FXTableItem::CENTER_X);
         myTable->setItem(itemIndex, 0, attributeItem);
         // Set description of element

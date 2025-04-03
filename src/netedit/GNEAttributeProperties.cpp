@@ -98,14 +98,14 @@ GNEAttributeProperties::checkAttributeIntegrity() const {
     // check integrity only in debug mode
 #ifdef DEBUG
     // check that there are properties
-    if (myAttributeProperty == Property::NO_PROPERTY) {
+    if (myAttributeProperty & Property::NO_PROPERTY) {
         throw FormatException("Attr properties cannot be empty");
     }
-    if (myEditProperty == Edit::NO_EDIT) {
+    if (myEditProperty & Edit::NO_EDIT) {
         throw FormatException("Attr edition properties cannot be empty");
     }
     // check that positive attributes correspond only to a int, floats or SUMOTimes
-    if (isPositive() && !(isInt() || isFloat() || isSUMOTime())) {
+    if (isPositive() && !isNumerical()) {
         throw FormatException("Only int, floats or SUMOTimes can be positive");
     }
     // check that secuential attributes correspond to a list
@@ -200,6 +200,12 @@ GNEAttributeProperties::setRange(const double minimum, const double maximum) {
 void
 GNEAttributeProperties::setTagPropertyParent(GNETagProperties* tagPropertyParent) {
     myTagPropertyParent = tagPropertyParent;
+}
+
+
+void
+GNEAttributeProperties::setAlternativeName(const std::string& newAttrName) {
+    myAttrStr = newAttrName;
 }
 
 
