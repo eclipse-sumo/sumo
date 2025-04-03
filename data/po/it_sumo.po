@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-13 10:07+0100\n"
-"PO-Revision-Date: 2025-04-02 10:49+0000\n"
+"PO-Revision-Date: 2025-04-03 10:47+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -9945,32 +9945,38 @@ msgid ""
 "Ignoring lane-to-lane connection (not yet implemented for this format "
 "version)"
 msgstr ""
+"Il collegamento di corsia a corsia viene ignorato (perché non ancora "
+"implementato per questa versione di formato)"
 
 #: src/netimport/NIImporter_VISUM.cpp:1107
 msgid "A from-lane number for edge '%' is not numeric (%)."
-msgstr ""
+msgstr "Un indice della corsia entrante dell'arco '%' non è numerico (%)."
 
 #: src/netimport/NIImporter_VISUM.cpp:1112
 msgid "A from-lane number for edge '%' is not positive (%)."
-msgstr ""
+msgstr "Un indice della corsia entrante dell'arco '%' non è positivo (%)."
 
 #: src/netimport/NIImporter_VISUM.cpp:1121
 msgid "A to-lane number for edge '%' is not numeric (%)."
-msgstr ""
+msgstr "Un indice della corsia uscente dell'arco '%' non è numerico (%)."
 
 #: src/netimport/NIImporter_VISUM.cpp:1126
 msgid "A to-lane number for edge '%' is not positive (%)."
-msgstr ""
+msgstr "Un indice della corsia uscente dell'arco '%' non è positivo (%)."
 
 #: src/netimport/NIImporter_VISUM.cpp:1142
 msgid ""
 "A from-lane number for edge '%' is larger than the edge's lane number (%)."
 msgstr ""
+"Un indice della corsia entrante dell'arco '%' è maggiore del numero di "
+"corsie disponibili (%)."
 
 #: src/netimport/NIImporter_VISUM.cpp:1146
 msgid ""
 "A to-lane number for edge '%' is larger than the edge's lane number (%)."
 msgstr ""
+"Un indice della corsia uscente dell'arco '%' è maggiore del numero di corsie "
+"disponibili (%)."
 
 #: src/netimport/NIImporter_VISUM.cpp:1162
 msgid "Ignoring stopping place '%' without edge id"
@@ -11540,25 +11546,27 @@ msgstr "Carica punti di interesse da FILE supponendo un formato OSM"
 
 #: src/polyconvert/polyconvert_main.cpp:107
 msgid "The type will be made of the key-value - pair"
-msgstr ""
+msgstr "Il tipo verrà creato dal paio chiave-valore"
 
 #: src/polyconvert/polyconvert_main.cpp:109
 msgid "The id will be set from the given 'name' attribute"
-msgstr ""
+msgstr "Il codice identificativo verrà impostato dalL'attributo 'name' indicato"
 
 #: src/polyconvert/polyconvert_main.cpp:111
 msgid ""
 "If FLOAT >= 0, assemble one polygon from all ways of a relation if they all "
 "connect with gaps below FLOAT"
 msgstr ""
+"Se FLOAT>=0 un poligono verrà creato da tutti i cammini di una relazione se "
+"tutti sono collegati considerando buchi di meno di FLOAT"
 
 #: src/polyconvert/polyconvert_main.cpp:115
 msgid "Reads shapes from geojson FILE"
-msgstr ""
+msgstr "Legge forme dal FILE geojson"
 
 #: src/polyconvert/polyconvert_main.cpp:122
 msgid "Reads shapes from shapefiles FILE"
-msgstr ""
+msgstr "Legge forme dal FILE shape"
 
 #: src/polyconvert/polyconvert_main.cpp:126
 msgid "Guesses the shapefile's projection"
@@ -11587,6 +11595,8 @@ msgid ""
 "[auto|true|false]. Forces the 'fill' status to the given value. Default "
 "'auto' tries to determine it from the data type"
 msgstr ""
+"[auto|true|false]. Forza lo stato di 'fill' ad assumere il valore indicato. "
+"Con il valore standard 'auto' si cerca di determinarlo dal tipo di dati"
 
 #: src/polyconvert/polyconvert_main.cpp:152
 msgid "Reads types from FILE"
