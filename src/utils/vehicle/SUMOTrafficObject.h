@@ -260,9 +260,10 @@ public:
      * @param paramName the parameter name
      * @param required whether it is an error if the parameter is not set
      * @param deflt the default value to take if the parameter is not set (the default in the OptionsCont takes precedence)
+     * @param checkDist whether the given value may be a distribution definition
      * @return the float value
      */
-    double getFloatParam(const std::string& paramName, const bool required = false, const double deflt = INVALID_DOUBLE) const;
+    double getFloatParam(const std::string& paramName, const bool required = false, const double deflt = INVALID_DOUBLE, bool checkDist = true) const;
 
     /** @brief Retrieve a boolean parameter for the traffic object.
      * @param paramName the parameter name

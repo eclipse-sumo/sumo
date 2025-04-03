@@ -55,8 +55,17 @@ SUMOTrafficObject::getStringParam(const std::string& paramName, const bool requi
 
 
 double
-SUMOTrafficObject::getFloatParam(const std::string& paramName, const bool required, const double deflt) const {
+SUMOTrafficObject::getFloatParam(const std::string& paramName, const bool required, const double deflt, bool checkDist) const {
     const std::string val = getStringParam(paramName, required, toString(deflt));
+    if (!checkDist) {
+        try {
+            return StringUtils::toDouble(val);
+        } catch (NumberFormatException& e) {
+            const std::string type = isVehicle() ? "vehicle" : (isPerson() ? "person" : "container");
+            WRITE_ERRORF(TL("Invalid float value '%' for parameter '%' in % '%' (%)."), val, paramName, type, getID(), e.what());
+            return deflt;
+        }
+    }
     try {
         Distribution_Parameterized dist(val);
         const std::string& error = dist.isValid();

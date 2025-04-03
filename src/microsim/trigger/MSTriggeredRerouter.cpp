@@ -66,6 +66,10 @@
 //#define DEBUGCOND (true)
 //#define DEBUGCOND (veh.getID() == "")
 
+/// assume that a faster train has more priority and a slower train doesn't matter
+#define DEFAULT_PRIO_OVERTAKER 1
+#define DEFAULT_PRIO_OVERTAKEN 0
+
 // ===========================================================================
 // static member definition
 // ===========================================================================
@@ -836,6 +840,7 @@ std::pair<const SUMOVehicle*, MSRailSignal*>
 MSTriggeredRerouter::overtakingTrain(const SUMOVehicle& veh, ConstMSEdgeVector::const_iterator mainStart, const MSTriggeredRerouter::RerouteInterval* def) {
     const MSEdgeVector& main = def->main;
     const double vMax = veh.getMaxSpeed();
+    const double prio = veh.getFloatParam(toString(SUMO_TAG_OVERTAKING_REROUTE) + ".prio", false, DEFAULT_PRIO_OVERTAKEN, false);
     MSVehicleControl& c = MSNet::getInstance()->getVehicleControl();
     for (MSVehicleControl::constVehIt it_veh = c.loadedVehBegin(); it_veh != c.loadedVehEnd(); ++it_veh) {
         const SUMOVehicle* veh2 = (*it_veh).second;
@@ -875,9 +880,13 @@ MSTriggeredRerouter::overtakingTrain(const SUMOVehicle& veh, ConstMSEdgeVector::
                 }
                 exitMain2 += MIN2(nCommon, (int)main.size() - mainIndex);
                 const double saving = timeToMain + commonTime - (timeToMain2 + commonTime2);
-                //std::cout << " veh=" << veh.getID() << " veh2=" << veh2->getID() << " nCommon=" << nCommon << " cT=" << commonTime << " cT2=" << commonTime2
-                //    << " ttm=" << timeToMain << " ttm2=" << timeToMain2 << " saving=" << saving << "\n";
-                if (saving > def->minSaving) {
+                const double loss = 0;
+                const double prio2 = veh2->getFloatParam(toString(SUMO_TAG_OVERTAKING_REROUTE) + ".prio", false, DEFAULT_PRIO_OVERTAKER, false);
+                const double netSaving = prio2 * saving - prio * loss;
+                //std::cout << " veh=" << veh.getID() << " veh2=" << veh2->getID()
+                //    << " nCommon=" << nCommon << " cT=" << commonTime << " cT2=" << commonTime2 << " ttm=" << timeToMain << " ttm2=" << timeToMain2
+                //    << " saving=" << saving << " loss=" << loss << " prio=" << prio << " prio2=" << prio2 << " netSaving=" << netSaving << "\n";
+                if (netSaving > def->minSaving) {
                     MSRailSignal* s = findSignal(veh2->getCurrentRouteEdge(), exitMain2);
                     if (s != nullptr) {
                         return std::make_pair(veh2, s);
