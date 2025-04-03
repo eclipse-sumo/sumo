@@ -87,16 +87,7 @@ TrafficLight::getControlledLinks(const std::string& tlsID) {
     tcpip::Storage& ret = Dom::get(libsumo::TL_CONTROLLED_LINKS, tlsID);
     std::vector< std::vector<libsumo::TraCILink> > result;
     ret.readInt();
-    int numSignals = StoHelp::readTypedInt(ret);
-    while (numSignals-- > 0) {
-        std::vector<libsumo::TraCILink> controlledLinks;
-        int numLinks = StoHelp::readTypedInt(ret);
-        while (numLinks-- > 0) {
-            std::vector<std::string> link = StoHelp::readTypedStringList(ret);
-            controlledLinks.emplace_back(link[0], link[2], link[1]);
-        }
-        result.emplace_back(controlledLinks);
-    }
+    StoHelp::readLinkVectorVector(ret, result);
     return result;
 }
 

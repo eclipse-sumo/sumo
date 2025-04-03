@@ -462,6 +462,11 @@ Connection::readVariables(tcpip::Storage& inMsg, const std::string& objectID, in
                         StoHelp::readLinkVectorVector(inMsg, r->value);
                         into[objectID][variableID] = r;
                         break;
+                    } else if (variableID == libsumo::VAR_BEST_LANES) {
+                        auto r = std::make_shared<libsumo::TraCIBestLanesDataVectorWrapped>();
+                        StoHelp::readBestLanesVector(inMsg, r->value);
+                        into[objectID][variableID] = r;
+                        break;
                     }
                     if (n == 2) {
                         const int firstType = inMsg.readUnsignedByte();

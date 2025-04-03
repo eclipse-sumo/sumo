@@ -348,33 +348,7 @@ Vehicle::getBestLanes(const std::string& vehID) {
     std::vector<libsumo::TraCIBestLanesData> result;
     tcpip::Storage& ret = Dom::get(libsumo::VAR_BEST_LANES, vehID);
     ret.readInt();
-    ret.readUnsignedByte();
-
-    const int n = ret.readInt(); // number of following edge information
-    for (int i = 0; i < n; ++i) {
-        libsumo::TraCIBestLanesData info;
-        ret.readUnsignedByte();
-        info.laneID = ret.readString();
-
-        ret.readUnsignedByte();
-        info.length = ret.readDouble();
-
-        ret.readUnsignedByte();
-        info.occupation = ret.readDouble();
-
-        ret.readUnsignedByte();
-        info.bestLaneOffset = ret.readByte();
-
-        ret.readUnsignedByte();
-        info.allowsContinuation = (ret.readUnsignedByte() == 1);
-
-        ret.readUnsignedByte();
-        int m = ret.readInt();
-        while (m-- > 0) {
-            info.continuationLanes.push_back(ret.readString());
-        }
-        result.push_back(info);
-    }
+    StoHelp::readBestLanesVector(ret, result);
     return result;
 }
 

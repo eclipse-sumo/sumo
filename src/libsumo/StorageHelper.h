@@ -298,6 +298,21 @@ public:
     }
 
 
+    static inline void readBestLanesVector(tcpip::Storage& inputStorage, std::vector<libsumo::TraCIBestLanesData>& result, const std::string& error = "") {
+        const int n = readTypedInt(inputStorage, error);
+        for (int i = 0; i < n; ++i) {
+            libsumo::TraCIBestLanesData info;
+            info.laneID = readTypedString(inputStorage);
+            info.length = readTypedDouble(inputStorage);
+            info.occupation = readTypedDouble(inputStorage);
+            info.bestLaneOffset = readTypedUnsignedByte(inputStorage);
+            info.allowsContinuation = readBool(inputStorage);
+            info.continuationLanes = readTypedStringList(inputStorage, error);
+            result.emplace_back(info);
+        }
+    }
+
+
     static inline void writeTypedByte(tcpip::Storage& content, int value) {
         content.writeUnsignedByte(libsumo::TYPE_BYTE);
         content.writeByte(value);
