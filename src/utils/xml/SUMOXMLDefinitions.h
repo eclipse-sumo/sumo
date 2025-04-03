@@ -171,8 +171,8 @@ enum SumoXMLTag {
     SUMO_TAG_FLOWSTATE,
     /// @brief description of a vehicle/person/container type
     SUMO_TAG_VTYPE,
-    /// @brief description of a vehicle/person/container type
-    GNE_TAG_VTYPE_CHILD_DISTRIBUTION,
+    /// @brief description of a vehicle/person/container type placed in a vType distribution
+    GNE_TAG_VTYPE_CHILDDISTRIBUTION,
     /// @brief description of a route
     SUMO_TAG_ROUTE,
     /// @brief route placed in a route distribution
