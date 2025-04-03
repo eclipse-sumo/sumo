@@ -45,7 +45,14 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 </sumoConfiguration>
 -->
 
-<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <tripinfo id="v_2" depart="0.00" departLane="E1_0" departPos="0.00" departSpeed="22.22" departDelay="0.00" arrival="1709.00" arrivalLane="E15_0" arrivalPos="25000.00" arrivalSpeed="22.22" duration="1709.00" routeLength="37971.30" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="1" devices="vehroute_v_2 tripinfo_v_2" vType="train_slow" speedFactor="1.00" vaporized=""/>
-    <tripinfo id="v_0" depart="0.00" departLane="E0_0" departPos="15000.00" departSpeed="44.44" departDelay="0.00" arrival="2273.00" arrivalLane="E15_0" arrivalPos="25000.00" arrivalSpeed="44.44" duration="2273.00" routeLength="47928.88" waitingTime="1194.00" waitingCount="0" stopTime="0.00" timeLoss="1194.00" rerouteNo="0" devices="vehroute_v_0 tripinfo_v_0" vType="train" speedFactor="1.00" vaporized=""/>
-</tripinfos>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="v_2" type="train_slow" depart="0.00" departEdge="1" arrival="1707.00">
+        <route edges="E0 E1 E2 E3 E4 E5 E6 E7 E8 E9 E10 E11 E12 E13 E14 E15"/>
+    </vehicle>
+
+    <vehicle id="v_0" type="train" depart="0.00" departPos="15000.00" arrival="2271.00">
+        <route edges="E0 E1 E2 E3 E4 E5 E6 E7 E8 E9 E10 E11 E12 E13 E14 E15"/>
+        <param key="overtakingReroute.prio" value="0.2"/>
+    </vehicle>
+
+</routes>

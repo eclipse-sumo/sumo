@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-04-03 15:16:03 by Eclipse SUMO sumo Version v1_22_0+1248-e1ccfd1434f
+<!-- generated on 2025-04-03 17:21:00 by Eclipse SUMO sumo Version v1_22_0+1254-e2078adc338
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -27,6 +27,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </output>
 
     <processing>
+        <time-to-teleport value="1800"/>
         <time-to-teleport.railsignal-deadlock value="200"/>
         <default.speeddev value="0"/>
     </processing>
@@ -46,5 +47,5 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
     <tripinfo id="v_0" depart="0.00" departLane="E0c_0" departPos="13921.57" departSpeed="44.44" departDelay="0.00" arrival="966.00" arrivalLane="E15_0" arrivalPos="25000.00" arrivalSpeed="44.44" duration="966.00" routeLength="42928.90" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="vehroute_v_0 tripinfo_v_0" vType="train" speedFactor="1.00" vaporized=""/>
-    <tripinfo id="v_2" depart="0.00" departLane="E1_0" departPos="0.00" departSpeed="22.22" departDelay="0.00" arrival="2052.00" arrivalLane="E15_0" arrivalPos="25000.00" arrivalSpeed="22.22" duration="2052.00" routeLength="37971.30" waitingTime="347.00" waitingCount="0" stopTime="0.00" timeLoss="347.00" rerouteNo="1" devices="vehroute_v_2 tripinfo_v_2" vType="train_slow" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="v_2" depart="0.00" departLane="E1_0" departPos="0.00" departSpeed="22.22" departDelay="0.00" arrival="2092.00" arrivalLane="E15_0" arrivalPos="25000.00" arrivalSpeed="22.22" duration="2092.00" routeLength="37971.30" waitingTime="383.00" waitingCount="0" stopTime="0.00" timeLoss="383.00" rerouteNo="1" devices="vehroute_v_2 tripinfo_v_2" vType="train_slow" speedFactor="1.00" vaporized=""/>
 </tripinfos>
