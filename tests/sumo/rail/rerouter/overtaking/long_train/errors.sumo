@@ -1,4 +1,0 @@
-Warning: Teleporting vehicle 'v_2'; waited too long (yield, railSignal), lane='E5b_0', time=515.00.
-Warning: Vehicle 'v_2' ends teleporting on edge 'E6b', time=515.00.
-Warning: Teleporting vehicle 'v_0'; waited too long (yield), lane='E14_0', time=1354.00.
-Warning: Vehicle 'v_0' ends teleporting on edge 'E15', time=1938.00.

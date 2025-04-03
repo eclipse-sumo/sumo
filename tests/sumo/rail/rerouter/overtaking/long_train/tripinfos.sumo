@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-04-03 15:20:17 by Eclipse SUMO sumo Version v1_22_0+1248-e1ccfd1434f
+<!-- generated on 2025-04-03 16:43:43 by Eclipse SUMO sumo Version v1_22_0+1250-2c087ad13fc
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -27,6 +27,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </output>
 
     <processing>
+        <time-to-teleport value="1800"/>
         <time-to-teleport.railsignal-deadlock value="200"/>
         <default.speeddev value="0"/>
     </processing>
@@ -40,6 +41,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <tripinfo id="v_2" depart="0.00" departLane="E1_0" departPos="500.10" departSpeed="0.00" departDelay="0.00" arrival="1938.00" arrivalLane="E15_0" arrivalPos="25000.00" arrivalSpeed="22.22" duration="1938.00" routeLength="37523.51" waitingTime="201.00" waitingCount="1" stopTime="0.00" timeLoss="253.50" rerouteNo="1" devices="vehroute_v_2 tripinfo_v_2" vType="train_slow_long" speedFactor="1.00" vaporized=""/>
-    <tripinfo id="v_0" depart="0.00" departLane="E0_0" departPos="15000.00" departSpeed="0.00" departDelay="0.00" arrival="2500.00" arrivalLane="E15_0" arrivalPos="25000.00" arrivalSpeed="44.44" duration="2500.00" routeLength="48000.70" waitingTime="524.00" waitingCount="3" stopTime="0.00" timeLoss="836.46" rerouteNo="0" devices="vehroute_v_0 tripinfo_v_0" vType="train" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="v_2" depart="0.00" departLane="E1_0" departPos="500.10" departSpeed="0.00" departDelay="0.00" arrival="1732.00" arrivalLane="E15_0" arrivalPos="25000.00" arrivalSpeed="22.22" duration="1732.00" routeLength="37500.60" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="43.94" rerouteNo="0" devices="vehroute_v_2 tripinfo_v_2" vType="train_slow_long" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="v_0" depart="0.00" departLane="E0_0" departPos="15000.00" departSpeed="0.00" departDelay="0.00" arrival="2383.00" arrivalLane="E15_0" arrivalPos="25000.00" arrivalSpeed="44.44" duration="2383.00" routeLength="48000.80" waitingTime="1004.00" waitingCount="2" stopTime="0.00" timeLoss="1302.84" rerouteNo="0" devices="vehroute_v_0 tripinfo_v_0" vType="train" speedFactor="1.00" vaporized=""/>
 </tripinfos>
