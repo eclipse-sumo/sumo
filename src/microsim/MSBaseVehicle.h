@@ -431,7 +431,7 @@ public:
     /// @brief return index of edge within route
     int getRoutePosition() const;
 
-    int getArrivalPosition() const {
+    int getArrivalIndex() const {
         return myParameter->arrivalEdge;
     }
 
