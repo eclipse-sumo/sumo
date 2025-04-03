@@ -2152,7 +2152,7 @@ GNETagPropertiesDatabase::fillShapeElements() {
                                    TL("A typename for the polygon"),
                                    toString(Shape::DEFAULT_TYPE));
 
-        fillImgFileAttribute(myTagProperties[currentTag]);
+        fillImgFileAttribute(myTagProperties[currentTag], false);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_ANGLE,
                                    GNEAttributeProperties::FLOAT | GNEAttributeProperties::ANGLE | GNEAttributeProperties::DEFAULTVALUE,
@@ -2688,7 +2688,7 @@ GNETagPropertiesDatabase::fillDemandElements() {
                                    GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
                                    TL("The parking badges assigned to the vehicle"));
 
-        fillImgFileAttribute(myTagProperties[currentTag]);
+        fillImgFileAttribute(myTagProperties[currentTag], true);
 
         auto laneChangeModel = new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_LANE_CHANGE_MODEL,
                 GNEAttributeProperties::STRING | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::DEFAULTVALUE,
@@ -7224,7 +7224,7 @@ GNETagPropertiesDatabase::fillCommonPOIAttributes(GNETagProperties* tagPropertie
                                TL("Height of rendered image in meters"),
                                toString(Shape::DEFAULT_IMG_HEIGHT));
 
-    fillImgFileAttribute(tagProperties);
+    fillImgFileAttribute(tagProperties, false);
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_ANGLE,
                                GNEAttributeProperties::FLOAT | GNEAttributeProperties::ANGLE | GNEAttributeProperties::DEFAULTVALUE,
@@ -8428,7 +8428,7 @@ GNETagPropertiesDatabase::fillCommonMeanDataAttributes(GNETagProperties* tagProp
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_PERIOD,
                                GNEAttributeProperties::SUMOTIME | GNEAttributeProperties::DEFAULTVALUE,
                                GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
-                               TL("The aggregation period the values the detector collects shall be summed up"), 
+                               TL("The aggregation period the values the detector collects shall be summed up"),
                                "-1");
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_BEGIN,
@@ -8612,11 +8612,19 @@ GNETagPropertiesDatabase::fillOutputAttribute(GNETagProperties* tagProperties) {
 
 
 void
-GNETagPropertiesDatabase::fillImgFileAttribute(GNETagProperties* tagProperties) {
-    auto imgFile = new GNEAttributeProperties(tagProperties, SUMO_ATTR_IMGFILE,
-            GNEAttributeProperties::STRING | GNEAttributeProperties::FILEOPEN | GNEAttributeProperties::DEFAULTVALUE,
-            GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
-            TLF("A bitmap to use for rendering this %", tagProperties->getTagStr()));
+GNETagPropertiesDatabase::fillImgFileAttribute(GNETagProperties* tagProperties, const bool isExtended) {
+    GNEAttributeProperties* imgFile = nullptr;
+    if (isExtended) {
+        imgFile = new GNEAttributeProperties(tagProperties, SUMO_ATTR_IMGFILE,
+                                             GNEAttributeProperties::STRING | GNEAttributeProperties::FILEOPEN | GNEAttributeProperties::DEFAULTVALUE,
+                                             GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE | GNEAttributeProperties::EXTENDEDEDITOR,
+                                             TLF("A bitmap to use for rendering this %", tagProperties->getTagStr()));
+    } else {
+        imgFile = new GNEAttributeProperties(tagProperties, SUMO_ATTR_IMGFILE,
+                                             GNEAttributeProperties::STRING | GNEAttributeProperties::FILEOPEN | GNEAttributeProperties::DEFAULTVALUE,
+                                             GNEAttributeProperties::CREATEMODE | GNEAttributeProperties::EDITMODE,
+                                             TLF("A bitmap to use for rendering this %", tagProperties->getTagStr()));
+    }
     imgFile->setFilenameExtensions(SUMOXMLDefinitions::ImageFileExtensions.getMultilineString());
 }
 

@@ -211,7 +211,7 @@ protected:
     void fillOutputAttribute(GNETagProperties* tagProperties);
 
     /// @brief fill imgFile attribute
-    void fillImgFileAttribute(GNETagProperties* tagProperties);
+    void fillImgFileAttribute(GNETagProperties* tagProperties, const bool isExtended);
 
     /// @brief fill depart attribute
     void fillDepartAttribute(GNETagProperties* tagProperties);
