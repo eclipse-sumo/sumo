@@ -360,7 +360,7 @@ StringUtils::toLong(const std::string& sData) {
     }
     char* end;
     errno = 0;
-#ifdef WIN32
+#ifdef _MSC_VER
     long long int ret = _strtoi64(data, &end, 10);
 #else
     long long int ret = strtoll(data, &end, 10);
@@ -386,7 +386,7 @@ StringUtils::isLong(const std::string& sData) {
     // reset errno before parsing, to keep errors
     errno = 0;
     // continue depending of current plattform
-#ifdef WIN32
+#ifdef _MSC_VER
     _strtoi64(data, &end, 10);
 #else
     strtoll(data, &end, 10);
