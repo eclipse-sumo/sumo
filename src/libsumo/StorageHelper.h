@@ -162,7 +162,7 @@ public:
         return size;
     }
 
-    static inline void readPolygon(tcpip::Storage& ret, libsumo::TraCIPositionVector& poly, const std::string& error = "") {
+    static inline void readPolygon(tcpip::Storage& ret, libsumo::TraCIPositionVector& poly) {
         int size = ret.readUnsignedByte();
         if (size == 0) {
             size = ret.readInt();
