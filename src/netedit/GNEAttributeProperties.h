@@ -38,56 +38,58 @@ class GNEAttributeProperties {
 public:
 
     /// @brief struct with the attribute Properties
-    enum AttrProperty {
-        INT =               1 << 1,     // Attribute is an integer (Including Zero)
-        FLOAT =             1 << 2,     // Attribute is a float
-        SUMOTIME =          1 << 3,     // Attribute is a SUMOTime
-        BOOL =              1 << 4,     // Attribute is boolean (0/1, true/false)
-        STRING =            1 << 5,     // Attribute is a string
-        POSITION =          1 << 6,     // Attribute is a position defined by doubles (x,y or x,y,z)
-        COLOR =             1 << 7,     // Attribute is a color defined by a specifically word (Red, green) or by a special format (XXX,YYY,ZZZ)
-        VTYPE =             1 << 8,     // Attribute corresponds to a Vtype or VTypeDistribution
-        VCLASS =            1 << 9,     // Attribute is a VClass (passenger, bus, motorcicle...)
-        POSITIVE =          1 << 10,    // Attribute is positive (Including Zero)
-        UNIQUE =            1 << 11,    // Attribute is unique (cannot be edited in a selection of similar elements (ID, Position...)
-        FILEOPEN =          1 << 12,    // Attribute is a filename that opens an existent file
-        FILESAVE =          1 << 13,    // Attribute is a filename that can create a new file
-        DISCRETE =          1 << 14,    // Attribute is discrete (only certain values are allowed)
-        PROBABILITY =       1 << 15,    // Attribute is probability (only allowed values between 0 and 1, including both)
-        ANGLE =             1 << 16,    // Attribute is an angle (only takes values between 0 and 360, including both, another value will be automatically reduced
-        LIST =              1 << 17,    // Attribute is a list of other elements separated by spaces
-        SECUENCIAL =        1 << 18,    // Attribute is a special sequence of elements (for example: secuencial lanes in Multi Lane E2 detectors)
-        DEFAULTVALUE =      1 << 19,    // Attribute owns a static default value
-        SYNONYM =           1 << 20,    // Attribute will be written with a different name in der XML
-        RANGE =             1 << 21,    // Attribute only accept a range of elements (example: Probability [0,1])
-        UPDATEGEOMETRY =    1 << 22,    // Attribute require update geometry at the end of function setAttribute(...)
-        ACTIVATABLE =       1 << 23,    // Attribute can be switch on/off using a checkbox in frame
-        FLOW =              1 << 24,    // Attribute is part of a flow definition (Number, vehsPerHour...)
-        COPYABLE =          1 << 25,    // Attribute can be copied over other element with the same tagProperty (used for edge/lane templates)
-        ALWAYSENABLED =     1 << 26,    // Attribute cannot be disabled
+    enum class AttrProperty : int {
+        INT =               1 << 0,     // Attribute is an integer (Including Zero)
+        FLOAT =             1 << 1,     // Attribute is a float
+        SUMOTIME =          1 << 2,     // Attribute is a SUMOTime
+        BOOL =              1 << 3,     // Attribute is boolean (0/1, true/false)
+        STRING =            1 << 4,     // Attribute is a string
+        POSITION =          1 << 5,     // Attribute is a position defined by doubles (x,y or x,y,z)
+        COLOR =             1 << 6,     // Attribute is a color defined by a specifically word (Red, green) or by a special format (XXX,YYY,ZZZ)
+        VTYPE =             1 << 7,     // Attribute corresponds to a Vtype or VTypeDistribution
+        VCLASS =            1 << 8,     // Attribute is a VClass (passenger, bus, motorcicle...)
+        POSITIVE =          1 << 9,     // Attribute is positive (Including Zero)
+        UNIQUE =            1 << 10,    // Attribute is unique (cannot be edited in a selection of similar elements (ID, Position...)
+        FILEOPEN =          1 << 11,    // Attribute is a filename that opens an existent file
+        FILESAVE =          1 << 12,    // Attribute is a filename that can create a new file
+        DISCRETE =          1 << 13,    // Attribute is discrete (only certain values are allowed)
+        PROBABILITY =       1 << 14,    // Attribute is probability (only allowed values between 0 and 1, including both)
+        ANGLE =             1 << 15,    // Attribute is an angle (only takes values between 0 and 360, including both, another value will be automatically reduced
+        LIST =              1 << 16,    // Attribute is a list of other elements separated by spaces
+        SECUENCIAL =        1 << 17,    // Attribute is a special sequence of elements (for example: secuencial lanes in Multi Lane E2 detectors)
+        DEFAULTVALUE =      1 << 18,    // Attribute owns a static default value
+        SYNONYM =           1 << 19,    // Attribute will be written with a different name in der XML
+        RANGE =             1 << 20,    // Attribute only accept a range of elements (example: Probability [0,1])
+        UPDATEGEOMETRY =    1 << 21,    // Attribute require update geometry at the end of function setAttribute(...)
+        ACTIVATABLE =       1 << 22,    // Attribute can be switch on/off using a checkbox in frame
+        FLOW =              1 << 23,    // Attribute is part of a flow definition (Number, vehsPerHour...)
+        COPYABLE =          1 << 24,    // Attribute can be copied over other element with the same tagProperty (used for edge/lane templates)
+        ALWAYSENABLED =     1 << 25,    // Attribute cannot be disabled
+        NO_PROPERTY =       1 << 26,    // No property defined
     };
 
     /// @brief struct with the attribute Properties
-    enum EditProperty {
-        CREATEMODE =        1 << 1,    // Attribute can be modified in create mode
-        EDITMODE =          1 << 2,    // Attribute can be modified in edit mode
-        NETEDITEDITOR =     1 << 3,    // Attribute can be edited only in netedit editor
-        EXTENDEDEDITOR =    1 << 4,    // Attribute cannot be edited in editor, but is editable in extended Dialog
-        GEOEDITOR =         1 << 5,    // Attribute can be edited only in geo editor
-        FLOWEDITOR =        1 << 6,    // Attribute can be edited only in flow editor
+    enum class EditProperty : int {
+        CREATEMODE =        1 << 0,    // Attribute can be modified in create mode
+        EDITMODE =          1 << 1,    // Attribute can be modified in edit mode
+        NETEDITEDITOR =     1 << 2,    // Attribute can be edited only in netedit editor
+        EXTENDEDEDITOR =    1 << 3,    // Attribute cannot be edited in editor, but is editable in extended Dialog
+        GEOEDITOR =         1 << 4,    // Attribute can be edited only in geo editor
+        FLOWEDITOR =        1 << 5,    // Attribute can be edited only in flow editor
+        NO_EDIT =           1 << 6,    // No edit property defined
     };
 
     /// @brief parameter constructor for attribute properties without default values
-    GNEAttributeProperties(GNETagProperties* tagProperties, const SumoXMLAttr attribute, const int attributeProperty,
-                           const int editProperty, const std::string& definition);
+    GNEAttributeProperties(GNETagProperties* tagProperties, const SumoXMLAttr attribute, const AttrProperty attributeProperty,
+                           const EditProperty editProperty, const std::string& definition);
 
     /// @brief parameter constructor for attribute properties with default values specific
-    GNEAttributeProperties(GNETagProperties* tagProperties, const SumoXMLAttr attribute, const int attributeProperty,
-                           const int editProperty, const std::string& definition, const std::string& defaultValue);
+    GNEAttributeProperties(GNETagProperties* tagProperties, const SumoXMLAttr attribute, const AttrProperty attributeProperty,
+                           const EditProperty editProperty, const std::string& definition, const std::string& defaultValue);
 
     /// @brief parameter constructor for attribute properties with default values generic
-    GNEAttributeProperties(GNETagProperties* tagProperties, const SumoXMLAttr attribute, const int attributeProperty,
-                           const int editProperty, const std::string& definition, const std::string& defaultValueMask,
+    GNEAttributeProperties(GNETagProperties* tagProperties, const SumoXMLAttr attribute, const AttrProperty attributeProperty,
+                           const EditProperty editProperty, const std::string& definition, const std::string& defaultValueMask,
                            const std::string& defaultValue);
 
     /// @brief parameter constructor for special attribute properties (ej: no common)
@@ -298,10 +300,10 @@ private:
     std::string myAttrStr;
 
     /// @brief attribute properties
-    int myAttributeProperty = 0;
+    AttrProperty myAttributeProperty = AttrProperty::NO_PROPERTY;
 
     /// @brief edit properties
-    int myEditProperty = 0;
+    EditProperty myEditProperty = EditProperty::NO_EDIT;
 
     /// @brief text with a definition of attribute
     std::string myDefinition;
@@ -360,5 +362,25 @@ private:
     /// @brief Invalidated assignment operator
     GNEAttributeProperties& operator=(const GNEAttributeProperties& src) = delete;
 };
+
+/// @brief override attribute parent bit operator
+constexpr GNEAttributeProperties::AttrProperty operator|(GNEAttributeProperties::AttrProperty a, GNEAttributeProperties::AttrProperty b) {
+    return static_cast<GNEAttributeProperties::AttrProperty>(static_cast<int>(a) | static_cast<int>(b));
+}
+
+/// @brief override attribute parent bit operator
+constexpr bool operator&(GNEAttributeProperties::AttrProperty a, GNEAttributeProperties::AttrProperty b) {
+    return (static_cast<int>(a) & static_cast<int>(b)) != 0;
+}
+
+/// @brief override attribute parent bit operator
+constexpr GNEAttributeProperties::EditProperty operator|(GNEAttributeProperties::EditProperty a, GNEAttributeProperties::EditProperty b) {
+    return static_cast<GNEAttributeProperties::EditProperty>(static_cast<int>(a) | static_cast<int>(b));
+}
+
+/// @brief override attribute parent bit operator
+constexpr bool operator&(GNEAttributeProperties::EditProperty a, GNEAttributeProperties::EditProperty b) {
+    return (static_cast<int>(a) & static_cast<int>(b)) != 0;
+}
 
 /****************************************************************************/
