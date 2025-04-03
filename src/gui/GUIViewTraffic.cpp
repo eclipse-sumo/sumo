@@ -400,21 +400,22 @@ GUIViewTraffic::doPaintGL(int mode, const Boundary& bound) {
         */
 
         if (GLHelper::getVertexCounterModern() > 0) {
+            const Boundary currBound = myChanger->getViewport(true);
             // render
             // set camera perspective through GLSL uniform
-            glm::mat4 proj = glm::ortho(0.f, (float)getWidth(), 0.f, (float)getHeight(), -10.f, (float)GLO_MAX);
-            glm::mat4 preRotate = glm::translate(glm::mat4(1.f), glm::vec3(-bound.getCenter().x(), -bound.getCenter().y(), 0.0f));
+            // project from viewport pixel coordinates to normalised GL screen coordinates (from -1 to +1 in every dimension)
+            glm::mat4 proj = glm::ortho(0.f, (float)getWidth(), 0.f, (float)getHeight(), (float)-(GLO_MAX + 1), (float)(GLO_MAX + 1));
+
+            // rotate the view as set by the user
+            glm::mat4 preRotate = glm::translate(glm::mat4(1.f), glm::vec3(-currBound.getCenter().x(), -currBound.getCenter().y(), 0.0f));
             glm::mat4 rotate = glm::rotate(glm::mat4(1.f), (float)myChanger->getRotation(), glm::vec3(0.f, 0.f, 1.f));
-            glm::mat4 postRotate = glm::translate(glm::mat4(1.f), glm::vec3(bound.getCenter().x(), bound.getCenter().y(), 0.0f));
+            glm::mat4 postRotate = glm::translate(glm::mat4(1.f), glm::vec3(currBound.getCenter().x(), currBound.getCenter().y(), 0.0f));
 
-            glm::mat4 scale = glm::scale(glm::mat4(1.f), glm::vec3((double)getWidth() / bound.getWidth(), (double)getHeight() / bound.getHeight(), 1));
-            
-            // TODO: didn't the bound "change" in between / at least that would be the effect?
-            glm::mat4 translate = glm::translate(glm::mat4(1.f), glm::vec3(-bound.xmin(), -bound.ymin(), 0.0f));
+            // scale from SUMO model coordinates to viewport pixel coordinates
+            glm::mat4 scale = glm::scale(glm::mat4(1.f), glm::vec3((double)getWidth() / currBound.getWidth(), (double)getHeight() / currBound.getHeight(), 1));
 
-            // test projection on an example vertex
-            glm::vec3 exampleVertex = glm::vec3(10.f, 20.f, 3.f);
-            glm::vec4 transformedVertex = proj * scale * translate * postRotate * rotate * preRotate * glm::vec4(exampleVertex, 1);
+            // set the left bottom boundary
+            glm::mat4 translate = glm::translate(glm::mat4(1.f), glm::vec3(-currBound.xmin(), -currBound.ymin(), 0.0f));
 
             myRenderer->activateConfiguration("Standard");
             myRenderer->setUniform("u_MVP", proj * scale * translate * postRotate * rotate * preRotate);
