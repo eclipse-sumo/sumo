@@ -10,3 +10,6 @@ follower_exit_early
 
 # follower enters the main section from another edge
 follower_enter_within
+
+# train doesn't fit into the siding
+long_train
