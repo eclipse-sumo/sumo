@@ -16,3 +16,6 @@ long_train
 
 # no detour needed
 follower_low_prio
+
+# no detour needed
+leader_high_prio
