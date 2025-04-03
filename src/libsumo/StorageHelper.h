@@ -210,7 +210,7 @@ public:
         connection.length = readTypedDouble(inputStorage, error);
     }
 
-    static inline void readVehicleDataVector(tcpip::Storage& inputStorage, std::vector<libsumo::TraCIVehicleData>& result, const std::string& error = "") {
+    static inline void readVehicleDataVector(tcpip::Storage& inputStorage, std::vector<libsumo::TraCIVehicleData>& result) {
         const int n = readTypedInt(inputStorage);
         for (int i = 0; i < n; ++i) {
             libsumo::TraCIVehicleData vd;
