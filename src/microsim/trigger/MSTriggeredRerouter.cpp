@@ -292,6 +292,7 @@ MSTriggeredRerouter::myStartElement(int element,
         if (myParsedRerouteInterval.sidingExit == nullptr) {
             throw InvalidArgument("The siding within rerouter '" + getID() + "' does not have a rail signal.");
         }
+        myParsedRerouteInterval.minSaving = attrs.getOpt<double>(SUMO_ATTR_MINSAVING, getID().c_str(), ok, 300);
     }
 }
 
@@ -545,7 +546,7 @@ MSTriggeredRerouter::triggerRouting(SUMOTrafficObject& tObject, MSMoveReminder::
             //std::cout << SIMTIME << " veh=" << veh.getID() << " wrong route or stop\n";
             return false;
         }
-        std::pair<const SUMOVehicle*, MSRailSignal*> overtaker_signal = overtakingTrain(veh, mainStart, rerouteDef->main);
+        std::pair<const SUMOVehicle*, MSRailSignal*> overtaker_signal = overtakingTrain(veh, mainStart, rerouteDef);
         if (overtaker_signal.first != nullptr) {
             SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = hasReroutingDevice
                     ? MSRoutingEngine::getRouterTT(veh.getRNGIndex(), veh.getVClass(), rerouteDef->closed)
@@ -823,7 +824,8 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
 
 
 std::pair<const SUMOVehicle*, MSRailSignal*>
-MSTriggeredRerouter::overtakingTrain(const SUMOVehicle& veh, ConstMSEdgeVector::const_iterator mainStart, const MSEdgeVector& main) {
+MSTriggeredRerouter::overtakingTrain(const SUMOVehicle& veh, ConstMSEdgeVector::const_iterator mainStart, const MSTriggeredRerouter::RerouteInterval* def) {
+    const MSEdgeVector& main = def->main;
     const double vMax = veh.getMaxSpeed();
     MSVehicleControl& c = MSNet::getInstance()->getVehicleControl();
     for (MSVehicleControl::constVehIt it_veh = c.loadedVehBegin(); it_veh != c.loadedVehEnd(); ++it_veh) {
@@ -866,7 +868,7 @@ MSTriggeredRerouter::overtakingTrain(const SUMOVehicle& veh, ConstMSEdgeVector::
                 const double saving = timeToMain + commonTime - (timeToMain2 + commonTime2);
                 //std::cout << " veh=" << veh.getID() << " veh2=" << veh2->getID() << " nCommon=" << nCommon << " cT=" << commonTime << " cT2=" << commonTime2
                 //    << " ttm=" << timeToMain << " ttm2=" << timeToMain2 << " saving=" << saving << "\n";
-                if (saving > 300) {
+                if (saving > def->minSaving) {
                     MSRailSignal* s = findSignal(veh2->getCurrentRouteEdge(), exitMain2);
                     if (s != nullptr) {
                         return std::make_pair(veh2, s);
