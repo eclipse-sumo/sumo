@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-02-08 11:26:40 by Eclipse SUMO sumo Version v1_12_0+0353-0cd4bcd
+<!-- generated on 2025-04-04 15:32:57 by Eclipse SUMO sumo Version v1_14_1+18586-0db099af1ab
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -34,7 +34,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <report>
         <xml-validation value="never"/>
-        <xml-validation.routes value="never"/>
         <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -47,7 +46,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <device.battery.probability value="1"/>
     </battery>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <emission-export xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/emission_file.xsd">
@@ -70,7 +69,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="vehWithCustDepartEnergy" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="7.77" noise="65.09" route="!vehWithCustDepartEnergy" type="PKW" waiting="0.00" lane="76to16_0" pos="73.90" speed="14.97" angle="338.97" x="1401.75" y="94.55"/>
     </timestep>
     <timestep time="6.00">
-        <vehicle id="vehWithCustDepartEnergy" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="9.86" noise="65.69" route="!vehWithCustDepartEnergy" type="PKW" waiting="0.00" lane="76to16_0" pos="89.00" speed="15.10" angle="338.97" x="1396.34" y="108.64"/>
+        <vehicle id="vehWithCustDepartEnergy" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="9.85" noise="65.69" route="!vehWithCustDepartEnergy" type="PKW" waiting="0.00" lane="76to16_0" pos="89.00" speed="15.10" angle="338.97" x="1396.34" y="108.64"/>
     </timestep>
     <timestep time="7.00">
         <vehicle id="vehWithCustDepartEnergy" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="5.34" noise="64.39" route="!vehWithCustDepartEnergy" type="PKW" waiting="0.00" lane="76to16_0" pos="103.72" speed="14.72" angle="338.97" x="1391.05" y="122.38"/>
@@ -91,7 +90,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="vehWithCustDepartEnergy" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="6.79" noise="64.56" route="!vehWithCustDepartEnergy" type="PKW" waiting="0.00" lane="76to16_0" pos="176.72" speed="14.46" angle="338.97" x="1364.86" y="190.52"/>
     </timestep>
     <timestep time="13.00">
-        <vehicle id="vehWithCustDepartEnergy" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="13.25" noise="66.69" route="!vehWithCustDepartEnergy" type="PKW" waiting="0.00" lane="76to16_0" pos="191.73" speed="15.01" angle="338.97" x="1359.48" y="204.52"/>
+        <vehicle id="vehWithCustDepartEnergy" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="13.24" noise="66.69" route="!vehWithCustDepartEnergy" type="PKW" waiting="0.00" lane="76to16_0" pos="191.73" speed="15.01" angle="338.97" x="1359.48" y="204.52"/>
     </timestep>
     <timestep time="14.00">
         <vehicle id="vehWithCustDepartEnergy" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="5.52" noise="64.38" route="!vehWithCustDepartEnergy" type="PKW" waiting="0.00" lane="76to16_0" pos="206.38" speed="14.65" angle="338.97" x="1354.22" y="218.20"/>
@@ -106,10 +105,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="vehWithCustDepartEnergy" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="3.43" noise="63.86" route="!vehWithCustDepartEnergy" type="PKW" waiting="0.00" lane="76to16_0" pos="250.92" speed="14.49" angle="338.97" x="1338.24" y="259.77"/>
     </timestep>
     <timestep time="18.00">
-        <vehicle id="vehWithCustDepartEnergy" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="-0.35" noise="62.37" route="!vehWithCustDepartEnergy" type="PKW" waiting="0.00" lane="76to16_0" pos="264.37" speed="13.45" angle="338.97" x="1333.41" y="272.33"/>
+        <vehicle id="vehWithCustDepartEnergy" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="-0.34" noise="62.37" route="!vehWithCustDepartEnergy" type="PKW" waiting="0.00" lane="76to16_0" pos="264.37" speed="13.45" angle="338.97" x="1333.41" y="272.33"/>
     </timestep>
     <timestep time="19.00">
-        <vehicle id="vehWithCustDepartEnergy" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="-15.06" noise="55.62" route="!vehWithCustDepartEnergy" type="PKW" waiting="0.00" lane=":16_2_0" pos="5.51" speed="8.95" angle="21.82" x="1333.46" y="280.33"/>
+        <vehicle id="vehWithCustDepartEnergy" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="-15.05" noise="55.62" route="!vehWithCustDepartEnergy" type="PKW" waiting="0.00" lane=":16_2_0" pos="5.51" speed="8.95" angle="21.82" x="1333.46" y="280.33"/>
     </timestep>
     <timestep time="20.00">
         <vehicle id="vehWithCustDepartEnergy" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="4.86" noise="60.92" route="!vehWithCustDepartEnergy" type="PKW" waiting="0.00" lane="16to38_0" pos="8.48" speed="8.92" angle="65.31" x="1341.54" y="284.12"/>
@@ -124,7 +123,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="vehWithCustDepartEnergy" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="1.23" noise="58.25" route="!vehWithCustDepartEnergy" type="PKW" waiting="0.00" lane="16to38_0" pos="33.49" speed="7.99" angle="65.31" x="1364.26" y="294.57"/>
     </timestep>
     <timestep time="24.00">
-        <vehicle id="vehWithCustDepartEnergy" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="9.12" noise="64.03" route="!vehWithCustDepartEnergy" type="PKW" waiting="0.00" lane="16to38_0" pos="42.36" speed="8.86" angle="65.31" x="1372.31" y="298.27"/>
+        <vehicle id="vehWithCustDepartEnergy" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="9.11" noise="64.03" route="!vehWithCustDepartEnergy" type="PKW" waiting="0.00" lane="16to38_0" pos="42.36" speed="8.86" angle="65.31" x="1372.31" y="298.27"/>
     </timestep>
     <timestep time="25.00">
         <vehicle id="vehWithCustDepartEnergy" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="0.37" noise="57.80" route="!vehWithCustDepartEnergy" type="PKW" waiting="0.00" lane="16to38_0" pos="50.36" speed="8.01" angle="65.31" x="1379.59" y="301.62"/>
@@ -148,16 +147,16 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="vehWithCustDepartEnergy" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="1.66" noise="58.88" route="!vehWithCustDepartEnergy" type="PKW" waiting="0.00" lane="16to38_0" pos="102.42" speed="8.53" angle="65.31" x="1426.89" y="323.37"/>
     </timestep>
     <timestep time="32.00">
-        <vehicle id="vehWithCustDepartEnergy" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="4.83" noise="60.77" route="!vehWithCustDepartEnergy" type="PKW" waiting="0.00" lane="16to38_0" pos="110.96" speed="8.54" angle="65.31" x="1434.65" y="326.94"/>
+        <vehicle id="vehWithCustDepartEnergy" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="4.82" noise="60.77" route="!vehWithCustDepartEnergy" type="PKW" waiting="0.00" lane="16to38_0" pos="110.96" speed="8.54" angle="65.31" x="1434.65" y="326.94"/>
     </timestep>
     <timestep time="33.00">
-        <vehicle id="vehWithCustDepartEnergy" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="4.07" noise="60.21" route="!vehWithCustDepartEnergy" type="PKW" waiting="0.00" lane="16to38_0" pos="119.38" speed="8.41" angle="65.31" x="1442.29" y="330.45"/>
+        <vehicle id="vehWithCustDepartEnergy" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="4.06" noise="60.21" route="!vehWithCustDepartEnergy" type="PKW" waiting="0.00" lane="16to38_0" pos="119.38" speed="8.41" angle="65.31" x="1442.29" y="330.45"/>
     </timestep>
     <timestep time="34.00">
         <vehicle id="vehWithCustDepartEnergy" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="8.37" noise="63.38" route="!vehWithCustDepartEnergy" type="PKW" waiting="0.00" lane="16to38_0" pos="128.46" speed="9.08" angle="65.31" x="1450.54" y="334.25"/>
     </timestep>
     <timestep time="35.00">
-        <vehicle id="vehWithCustDepartEnergy" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="3.08" noise="59.77" route="!vehWithCustDepartEnergy" type="PKW" waiting="0.00" lane="16to38_0" pos="137.19" speed="8.73" angle="65.31" x="1458.47" y="337.89"/>
+        <vehicle id="vehWithCustDepartEnergy" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="3.07" noise="59.77" route="!vehWithCustDepartEnergy" type="PKW" waiting="0.00" lane="16to38_0" pos="137.19" speed="8.73" angle="65.31" x="1458.47" y="337.89"/>
     </timestep>
     <timestep time="36.00">
         <vehicle id="vehWithCustDepartEnergy" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="1.19" noise="58.25" route="!vehWithCustDepartEnergy" type="PKW" waiting="0.00" lane="16to38_0" pos="145.22" speed="8.03" angle="65.31" x="1465.77" y="341.25"/>
@@ -181,7 +180,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="vehWithCustDepartEnergy" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="0.06" noise="57.70" route="!vehWithCustDepartEnergy" type="PKW" waiting="0.00" lane="16to38_0" pos="196.24" speed="8.07" angle="65.31" x="1512.13" y="362.56"/>
     </timestep>
     <timestep time="43.00">
-        <vehicle id="vehWithCustDepartEnergy" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="7.78" noise="62.96" route="!vehWithCustDepartEnergy" type="PKW" waiting="0.00" lane=":38_7_0" pos="4.57" speed="8.68" angle="64.18" x="1519.97" y="366.27"/>
+        <vehicle id="vehWithCustDepartEnergy" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="7.77" noise="62.96" route="!vehWithCustDepartEnergy" type="PKW" waiting="0.00" lane=":38_7_0" pos="4.57" speed="8.68" angle="64.18" x="1519.97" y="366.27"/>
     </timestep>
     <timestep time="44.00">
         <vehicle id="vehWithCustDepartEnergy" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="5.36" noise="61.20" route="!vehWithCustDepartEnergy" type="PKW" waiting="0.00" lane="38to167_0" pos="2.54" speed="8.78" angle="57.75" x="1527.47" y="370.82"/>
@@ -193,10 +192,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="vehWithCustDepartEnergy" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="8.38" noise="63.41" route="!vehWithCustDepartEnergy" type="PKW" waiting="0.00" lane="38to167_0" pos="19.70" speed="8.93" angle="57.58" x="1541.95" y="380.02"/>
     </timestep>
     <timestep time="47.00">
-        <vehicle id="vehWithCustDepartEnergy" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="6.21" noise="61.84" route="!vehWithCustDepartEnergy" type="PKW" waiting="0.00" lane="38to167_0" pos="28.84" speed="9.14" angle="57.58" x="1549.67" y="384.92"/>
+        <vehicle id="vehWithCustDepartEnergy" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="6.20" noise="61.84" route="!vehWithCustDepartEnergy" type="PKW" waiting="0.00" lane="38to167_0" pos="28.84" speed="9.14" angle="57.58" x="1549.67" y="384.92"/>
     </timestep>
     <timestep time="48.00">
-        <vehicle id="vehWithCustDepartEnergy" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="4.27" noise="60.59" route="!vehWithCustDepartEnergy" type="PKW" waiting="0.00" lane="38to167_0" pos="37.83" speed="8.99" angle="57.58" x="1557.26" y="389.74"/>
+        <vehicle id="vehWithCustDepartEnergy" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="4.26" noise="60.59" route="!vehWithCustDepartEnergy" type="PKW" waiting="0.00" lane="38to167_0" pos="37.83" speed="8.99" angle="57.58" x="1557.26" y="389.74"/>
     </timestep>
     <timestep time="49.00">
         <vehicle id="vehWithCustDepartEnergy" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="5.19" noise="61.16" route="!vehWithCustDepartEnergy" type="PKW" waiting="0.00" lane="38to167_0" pos="46.86" speed="9.02" angle="57.58" x="1564.88" y="394.58"/>
@@ -211,7 +210,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="vehWithCustDepartEnergy" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="5.98" noise="61.68" route="!vehWithCustDepartEnergy" type="PKW" waiting="0.00" lane="38to167_0" pos="72.81" speed="9.08" angle="57.58" x="1586.78" y="408.49"/>
     </timestep>
     <timestep time="53.00">
-        <vehicle id="vehWithCustDepartEnergy" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="2.45" noise="59.35" route="!vehWithCustDepartEnergy" type="PKW" waiting="0.00" lane="38to167_0" pos="81.42" speed="8.61" angle="57.58" x="1594.05" y="413.11"/>
+        <vehicle id="vehWithCustDepartEnergy" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="2.44" noise="59.35" route="!vehWithCustDepartEnergy" type="PKW" waiting="0.00" lane="38to167_0" pos="81.42" speed="8.61" angle="57.58" x="1594.05" y="413.11"/>
     </timestep>
     <timestep time="54.00"/>
 </emission-export>
