@@ -303,6 +303,7 @@ public:
      * approaching (dummy values otherwise)
      * @note used for visualisation of link items */
     ApproachingVehicleInformation getApproaching(const SUMOVehicle* veh) const;
+    const ApproachingVehicleInformation* getApproachingPtr(const SUMOVehicle* veh) const;
 
     /// @brief return all approaching vehicles
     const ApproachInfos& getApproaching() const {
