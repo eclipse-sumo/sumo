@@ -69,6 +69,7 @@
 /// assume that a faster train has more priority and a slower train doesn't matter
 #define DEFAULT_PRIO_OVERTAKER 1
 #define DEFAULT_PRIO_OVERTAKEN 0
+#define DEFAULT_MAXDELAY 7200
 
 // ===========================================================================
 // static member definition
@@ -843,8 +844,13 @@ MSTriggeredRerouter::overtakingTrain(const SUMOVehicle& veh, ConstMSEdgeVector::
     const double prio = veh.getFloatParam(toString(SUMO_TAG_OVERTAKING_REROUTE) + ".prio", false, DEFAULT_PRIO_OVERTAKEN, false);
     MSVehicleControl& c = MSNet::getInstance()->getVehicleControl();
     for (MSVehicleControl::constVehIt it_veh = c.loadedVehBegin(); it_veh != c.loadedVehEnd(); ++it_veh) {
-        const SUMOVehicle* veh2 = (*it_veh).second;
+        const MSBaseVehicle* veh2 = dynamic_cast<const MSBaseVehicle*>((*it_veh).second);
         if (veh2->isOnRoad() && veh2->getMaxSpeed() > vMax) {
+            const double arrivalDelay = veh2->getStopArrivalDelay();
+            const double delay = MAX2(veh2->getStopDelay(), arrivalDelay == INVALID_DOUBLE ? 0 : arrivalDelay);
+            if (delay > veh2->getFloatParam(toString(SUMO_TAG_OVERTAKING_REROUTE) + ".maxDelay", false, DEFAULT_MAXDELAY, false)) {
+                continue;
+            }
             const ConstMSEdgeVector& route2 = veh2->getRoute().getEdges();
             auto itOnMain2 = route2.end();
             int mainIndex = 0;
