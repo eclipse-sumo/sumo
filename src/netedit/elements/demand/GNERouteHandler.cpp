@@ -236,16 +236,7 @@ GNERouteHandler::buildRouteRef(const CommonXMLStructure::SumoBaseObject* sumoBas
 
 
 bool
-GNERouteHandler::buildRouteDistributionChild(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, SUMOVehicleClass vClass,
-        const std::vector<std::string>& edgeIDs, const RGBColor& color, const int repeat, const SUMOTime cycleTime,
-        const double probability, const Parameterised::Map& routeParameters) {
-    return false;
-}
-
-
-bool
-GNERouteHandler::buildRouteDistribution(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const std::string& id,
-                                        const std::vector<std::string>& /*routeIDs*/, const std::vector<double>& probabilities) {
+GNERouteHandler::buildRouteDistribution(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const std::string& id) {
     // declare vector with route and their probabilities
     std::vector<const GNEDemandElement*> routes;
     // check conditions

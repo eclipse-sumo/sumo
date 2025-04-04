@@ -72,14 +72,8 @@ public:
     /// @brief build route ref
     bool buildRouteRef(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& refID, const double probability);
 
-    /// @brief build route as part of a distribution
-    bool buildRouteDistributionChild(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, SUMOVehicleClass vClass,
-                                     const std::vector<std::string>& edgeIDs, const RGBColor& color, const int repeat, const SUMOTime cycleTime,
-                                     const double probability, const Parameterised::Map& routeParameters);
-
     /// @brief build route distribution
-    bool buildRouteDistribution(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id,
-                                const std::vector<std::string>& vTypeIDs, const std::vector<double>& probabilities);
+    bool buildRouteDistribution(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id);
 
     /// @brief build a vehicle over an existent route
     bool buildVehicleOverRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters);
