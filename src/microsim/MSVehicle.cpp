@@ -5679,7 +5679,7 @@ MSVehicle::enterLaneAtInsertion(MSLane* enteredLane, double pos, double speed, d
         while (!myStops.empty() && myStops.front().edge == myCurrEdge && &myStops.front().lane->getEdge() == &myLane->getEdge()
                 && myStops.front().pars.endPos < pos) {
             WRITE_WARNINGF(TL("Vehicle '%' skips stop on lane '%' time=%."), getID(), myStops.front().lane->getID(),
-                    time2string(MSNet::getInstance()->getCurrentTimeStep()));
+                           time2string(MSNet::getInstance()->getCurrentTimeStep()));
             myStops.pop_front();
         }
 
@@ -5769,10 +5769,10 @@ MSVehicle::leaveLane(const MSMoveReminder::Notification reason, const MSLane* ap
             if (myStops.front().getSpeed() <= 0) {
                 WRITE_WARNINGF(TL("Vehicle '%' skips stop on lane '%' time=%."), getID(), myStops.front().lane->getID(),
                                time2string(MSNet::getInstance()->getCurrentTimeStep()))
-                    if (MSStopOut::active()) {
-                        // clean up if stopBlocked was called
-                        MSStopOut::getInstance()->stopNotStarted(this);
-                    }
+                if (MSStopOut::active()) {
+                    // clean up if stopBlocked was called
+                    MSStopOut::getInstance()->stopNotStarted(this);
+                }
                 myStops.pop_front();
             } else {
                 MSStop& stop = myStops.front();
@@ -6602,7 +6602,7 @@ MSVehicle::getDistanceToPosition(double destPos, const MSLane* destLane) const {
 
 
 std::pair<const MSVehicle* const, double>
-MSVehicle::getLeader(double dist) const {
+MSVehicle::getLeader(double dist, bool considerCrossingFoes) const {
     if (myLane == nullptr) {
         return std::make_pair(static_cast<const MSVehicle*>(nullptr), -1);
     }
@@ -6625,7 +6625,7 @@ MSVehicle::getLeader(double dist) const {
     }
     const double seen = myLane->getLength() - getPositionOnLane();
     const std::vector<MSLane*>& bestLaneConts = getBestLanesContinuation(myLane);
-    std::pair<const MSVehicle* const, double> result = myLane->getLeaderOnConsecutive(dist, seen, getSpeed(), *this, bestLaneConts);
+    std::pair<const MSVehicle* const, double> result = myLane->getLeaderOnConsecutive(dist, seen, getSpeed(), *this, bestLaneConts, considerCrossingFoes);
     lane->releaseVehicles();
     return result;
 }

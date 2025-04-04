@@ -1313,12 +1313,12 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
 #ifdef DEBUG_INSERTION
             if (DEBUG_COND2(aVehicle) || DEBUG_COND) {
                 std::cout << "\nIS_INSERTION_SUCCESS\n"
-                    << SIMTIME << " veh=" << aVehicle->getID() << " bestLaneOffset=" << bestLaneOffset << " bestLaneDist=" << aVehicle->getBestLaneDist() << " extraReservation=" << extraReservation
-                    << " distToStop=" << distToStop << " v=" << speed << " v2=" << stopSpeed << "\n";
+                          << SIMTIME << " veh=" << aVehicle->getID() << " bestLaneOffset=" << bestLaneOffset << " bestLaneDist=" << aVehicle->getBestLaneDist() << " extraReservation=" << extraReservation
+                          << " distToStop=" << distToStop << " v=" << speed << " v2=" << stopSpeed << "\n";
             }
 #endif
             if (checkFailure(aVehicle, speed, distToStop, MAX2(0.0, stopSpeed),
-                        patchSpeed, msg.str(), InsertionCheck::LANECHANGE)) {
+                             patchSpeed, msg.str(), InsertionCheck::LANECHANGE)) {
                 // we may not drive with the given velocity - we cannot reserve enough space for lane changing
                 return false;
             }
@@ -2949,7 +2949,7 @@ MSLane::getLeader(const MSVehicle* veh, const double vehPos, const std::vector<M
 
 std::pair<MSVehicle* const, double>
 MSLane::getLeaderOnConsecutive(double dist, double seen, double speed, const MSVehicle& veh,
-                               const std::vector<MSLane*>& bestLaneConts) const {
+                               const std::vector<MSLane*>& bestLaneConts, bool considerCrossingFoes) const {
 #ifdef DEBUG_CONTEXT
     if (DEBUG_COND2(&veh)) {
         std::cout << "   getLeaderOnConsecutive lane=" << getID() << " ego=" << veh.getID() << " seen=" << seen << " dist=" << dist << " conts=" << toString(bestLaneConts) << "\n";
@@ -3027,6 +3027,10 @@ MSLane::getLeaderOnConsecutive(double dist, double seen, double speed, const MSV
                               << "\n";
                 }
 #endif
+                // skip vehicles which do not share the outgoing edge (to get only real leader vehicles in TraCI #13842)
+                if (!considerCrossingFoes && !ll.sameTarget()) {
+                    continue;
+                }
                 // in the context of lane-changing, all candidates are leaders
                 if (lVeh != nullptr && !laneChanging && !veh.isLeader(*link, lVeh, ll.vehAndGap.second)) {
                     continue;

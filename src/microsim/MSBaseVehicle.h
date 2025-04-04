@@ -960,9 +960,10 @@ public:
      * If the distance is not given it is calculated from the brake gap.
      * The gap returned does not include the minGap.
      * @param dist    up to which distance to look at least for a leader
+     * @param considerCrossingFoes Whether vehicles on crossing foe links should be considered
      * @return The leading vehicle together with the gap; (0, -1) if no leader was found.
      */
-    virtual std::pair<const MSVehicle* const, double> getLeader(double dist = 0) const {
+    virtual std::pair<const MSVehicle* const, double> getLeader(double dist = 0, bool considerCrossingFoes = true) const {
         UNUSED_PARAMETER(dist);
         WRITE_WARNING(TL("getLeader not yet implemented for meso"));
         return std::make_pair(nullptr, -1);
