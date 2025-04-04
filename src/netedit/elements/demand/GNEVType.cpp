@@ -31,8 +31,8 @@
 // member method definitions
 // ===========================================================================
 
-GNEVType::GNEVType(GNENet* net) :
-    GNEDemandElement("", net, "", GLO_VTYPE, SUMO_TAG_VTYPE, GUIIcon::VTYPE, GNEPathElement::Options::DEMAND_ELEMENT),
+GNEVType::GNEVType(SumoXMLTag tag, GNENet* net) :
+    GNEDemandElement("", net, "", GLO_VTYPE, tag, GUIIcon::VTYPE, GNEPathElement::Options::DEMAND_ELEMENT),
     SUMOVTypeParameter(""),
     myDefaultVehicleType(true),
     myDefaultVehicleTypeModified(false) {
@@ -71,6 +71,33 @@ GNEVType::GNEVType(GNENet* net, const std::string& filename, const SUMOVTypePara
     SUMOVTypeParameter(vTypeParameter),
     myDefaultVehicleType(false),
     myDefaultVehicleTypeModified(false) {
+    // init Rail Visualization Parameters
+    initRailVisualizationParameters();
+}
+
+
+GNEVType::GNEVType(GNEDemandElement* distribution, const std::string& vTypeID, const std::string& filename) :
+    GNEDemandElement(vTypeID, distribution->getNet(), filename, GLO_VTYPE, GNE_TAG_VTYPE_CHILDDISTRIBUTION, GUIIcon::VTYPE, GNEPathElement::Options::DEMAND_ELEMENT),
+    SUMOVTypeParameter(vTypeID),
+    myDefaultVehicleType(false),
+    myDefaultVehicleTypeModified(false) {
+    // set parents
+    setParent<GNEDemandElement*>(distribution);
+    // set default vehicle class
+    vehicleClass = SVC_PASSENGER;
+    // init Rail Visualization Parameters
+    initRailVisualizationParameters();
+}
+
+
+GNEVType::GNEVType(GNEDemandElement* distribution, const std::string& filename, const SUMOVTypeParameter& vTypeParameter) :
+    GNEDemandElement(vTypeParameter.id, distribution->getNet(), filename, GLO_VTYPE, GNE_TAG_VTYPE_CHILDDISTRIBUTION, GUIIcon::VTYPE,
+                     GNEPathElement::Options::DEMAND_ELEMENT),
+    SUMOVTypeParameter(vTypeParameter),
+    myDefaultVehicleType(false),
+    myDefaultVehicleTypeModified(false) {
+    // set parents
+    setParent<GNEDemandElement*>(distribution);
     // init Rail Visualization Parameters
     initRailVisualizationParameters();
 }

@@ -86,10 +86,11 @@ GNERoute::GNERoute(GNENet* net) :
                      GNEPathElement::Options::DEMAND_ELEMENT | GNEPathElement::Options::ROUTE) {
 }
 
-
-GNERoute::GNERoute(const std::string& id, GNENet* net, const GNEDemandElement* originalRoute) :
-    GNEDemandElement(id, net, originalRoute->getFilename(), GLO_ROUTE, SUMO_TAG_ROUTE, GUIIcon::ROUTE,
-                     GNEPathElement::Options::DEMAND_ELEMENT | GNEPathElement::Options::ROUTE),
+// copy
+GNERoute::GNERoute(const std::string& id, const GNEDemandElement* originalRoute) :
+    GNEDemandElement(id, originalRoute->getNet(), originalRoute->getFilename(), originalRoute->getGUIGlObject()->getType(),
+                     originalRoute->getTagProperty()->getTag(), originalRoute->getTagProperty()->getGUIIcon(),
+                     originalRoute->getPathElementOptions()),
     Parameterised(originalRoute->getACParametersMap()),
     myRepeat(parse<int>(originalRoute->getAttribute(SUMO_ATTR_REPEAT))),
     myCycleTime(string2time(originalRoute->getAttribute(SUMO_ATTR_REPEAT))),
@@ -100,10 +101,11 @@ GNERoute::GNERoute(const std::string& id, GNENet* net, const GNEDemandElement* o
     setAttribute(SUMO_ATTR_COLOR, originalRoute->getAttribute(SUMO_ATTR_COLOR));
 }
 
-
-GNERoute::GNERoute(GNENet* net, GNEVehicle* vehicleParent, const GNEDemandElement* originalRoute) :
-    GNEDemandElement(vehicleParent, net, GLO_ROUTE_EMBEDDED, GNE_TAG_ROUTE_EMBEDDED, GUIIcon::ROUTE,
-                     GNEPathElement::Options::DEMAND_ELEMENT | GNEPathElement::Options::ROUTE),
+// copy (embedded)
+GNERoute::GNERoute(GNEVehicle* vehicleParent, const GNEDemandElement* originalRoute) :
+    GNEDemandElement(vehicleParent, vehicleParent->getNet(), originalRoute->getGUIGlObject()->getType(),
+                     originalRoute->getTagProperty()->getTag(), originalRoute->getTagProperty()->getGUIIcon(),
+                     originalRoute->getPathElementOptions()),
     Parameterised(originalRoute->getACParametersMap()),
     myRepeat(parse<int>(originalRoute->getAttribute(SUMO_ATTR_REPEAT))),
     myCycleTime(string2time(originalRoute->getAttribute(SUMO_ATTR_REPEAT))),
@@ -115,33 +117,54 @@ GNERoute::GNERoute(GNENet* net, GNEVehicle* vehicleParent, const GNEDemandElemen
     setAttribute(SUMO_ATTR_COLOR, originalRoute->getAttribute(SUMO_ATTR_COLOR));
 }
 
-
+// basic
 GNERoute::GNERoute(const std::string& id, GNENet* net, const std::string& filename, SUMOVehicleClass vClass,
                    const std::vector<GNEEdge*>& edges, const RGBColor& color, const int repeat,
-                   const SUMOTime cycleTime, const double probability, const Parameterised::Map& parameters) :
+                   const SUMOTime cycleTime, const Parameterised::Map& parameters) :
     GNEDemandElement(id, net, filename, GLO_ROUTE, SUMO_TAG_ROUTE, GUIIcon::ROUTE,
                      GNEPathElement::Options::DEMAND_ELEMENT | GNEPathElement::Options::ROUTE),
     Parameterised(parameters),
     myColor(color),
     myRepeat(repeat),
     myCycleTime(cycleTime),
-    myProbability(probability),
     myVClass(vClass) {
     // set parents
     setParents<GNEEdge*>(edges);
 }
 
-
-GNERoute::GNERoute(GNENet* net, GNEDemandElement* vehicleParent, const std::vector<GNEEdge*>& edges,
-                   const RGBColor& color, const int repeat, const SUMOTime cycleTime, const double probability,
-                   const Parameterised::Map& parameters) :
-    GNEDemandElement(vehicleParent, net, GLO_ROUTE_EMBEDDED, GNE_TAG_ROUTE_EMBEDDED, GUIIcon::ROUTE,
+// route placed in distribution
+GNERoute::GNERoute(GNEDemandElement* distributionParent, const std::string& id, const std::string& filename,
+                   SUMOVehicleClass vClass, const std::vector<GNEEdge*>& edges, const RGBColor& color, const int repeat,
+                   const SUMOTime cycleTime, const double probability, const Parameterised::Map& parameters) :
+    GNEDemandElement(distributionParent, distributionParent->getNet(), GLO_ROUTE, GNE_TAG_ROUTEREF_CHILDDISTRIBUTION, GUIIcon::ROUTE,
                      GNEPathElement::Options::DEMAND_ELEMENT | GNEPathElement::Options::ROUTE),
     Parameterised(parameters),
     myColor(color),
     myRepeat(repeat),
     myCycleTime(cycleTime),
-    myProbability(probability),
+    myProbability(probability) {
+    // set parents
+    setParents<GNEEdge*>(edges);
+    setParent<GNEDemandElement*>(distributionParent);
+}
+
+// route ref placed in distribution
+GNERoute::GNERoute(GNEDemandElement* distributionParent, GNEDemandElement* route, const double probability) :
+    GNEDemandElement(distributionParent, distributionParent->getNet(), GLO_ROUTE, GNE_TAG_ROUTEREF_CHILDDISTRIBUTION, GUIIcon::ROUTE,
+                     GNEPathElement::Options::DEMAND_ELEMENT | GNEPathElement::Options::ROUTE) {
+    // set parents
+    setParents<GNEDemandElement*>({distributionParent, route});
+}
+
+// embedded route
+GNERoute::GNERoute(GNEDemandElement* vehicleParent, const std::vector<GNEEdge*>& edges, const RGBColor& color,
+                   const int repeat, const SUMOTime cycleTime, const Parameterised::Map& parameters) :
+    GNEDemandElement(vehicleParent, vehicleParent->getNet(), GLO_ROUTE, GNE_TAG_ROUTE_EMBEDDED, GUIIcon::ROUTE,
+                     GNEPathElement::Options::DEMAND_ELEMENT | GNEPathElement::Options::ROUTE),
+    Parameterised(parameters),
+    myColor(color),
+    myRepeat(repeat),
+    myCycleTime(cycleTime),
     myVClass(vehicleParent->getVClass()) {
     // set parents
     setParents<GNEEdge*>(edges);
@@ -714,7 +737,7 @@ GNERoute::copyRoute(const GNERoute* originalRoute) {
     // generate new route ID
     const std::string newRouteID = net->getAttributeCarriers()->generateDemandElementID(SUMO_TAG_ROUTE);
     // create new route
-    GNERoute* newRoute = new GNERoute(newRouteID, net, originalRoute);
+    GNERoute* newRoute = new GNERoute(newRouteID, originalRoute);
     // add new route using undo-list
     undoList->begin(originalRoute, TLF("copy % '%'", originalRoute->getTagStr(), newRouteID));
     net->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(newRoute, true), true);

@@ -72,14 +72,28 @@ public:
     GNERoute(GNENet* net);
 
     /// @brief default constructor (used in copy vehicles)
-    GNERoute(const std::string& id, GNENet* net, const GNEDemandElement* originalRoute);
+    GNERoute(const std::string& id, const GNEDemandElement* originalRoute);
 
     /// @brief default  constructor (used in copy embedded vehicles)
-    GNERoute(GNENet* net, GNEVehicle* vehicleParent, const GNEDemandElement* originalRoute);
+    GNERoute(GNEVehicle* vehicleParent, const GNEDemandElement* originalRoute);
 
-    /**@brief parameter constructor
+    /**@brief parameter constructor for routes
      * @param[in] id route ID
      * @param[in] net net in which this Route is placed
+     * @param[in] filename file in which this element is stored
+     * @param[in] vClass vehicle class
+     * @param[in] edges route edges
+     * @param[in] color route color
+     * @param[in] repeat the number of times that the edges of this route shall be repeated
+     * @param[in] cycleType the times will be shifted forward by 'cycleTime' on each repeat
+     * @param[in] parameters generic parameters
+     */
+    GNERoute(const std::string& id, GNENet* net, const std::string& filename, SUMOVehicleClass vClass, const std::vector<GNEEdge*>& edges,
+             const RGBColor& color, const int repeat, const SUMOTime cycleTime, const Parameterised::Map& parameters);
+
+    /**@brief parameter constructor for routes defined within distributions
+     * @param[in] distribution parent
+     * @param[in] id route ID
      * @param[in] filename file in which this element is stored
      * @param[in] vClass vehicle class
      * @param[in] edges route edges
@@ -89,21 +103,26 @@ public:
      * @param[in] probability used in routeDistributions
      * @param[in] parameters generic parameters
      */
-    GNERoute(const std::string& id, GNENet* net, const std::string& filename, SUMOVehicleClass vClass, const std::vector<GNEEdge*>& edges,
+    GNERoute(GNEDemandElement* distributionParent, const std::string& id, const std::string& filename, SUMOVehicleClass vClass, const std::vector<GNEEdge*>& edges,
              const RGBColor& color, const int repeat, const SUMOTime cycleTime, const double probability, const Parameterised::Map& parameters);
 
+    /**@brief parameter constructor for route references
+     * @param[in] distribution parent
+     * @param[in] id route ID
+     * @param[in] probability used in routeDistributions
+     */
+    GNERoute(GNEDemandElement* distributionParent, GNEDemandElement* route, const double probability);
+
     /**@brief parameter constructor for embedded routes
-     * @param[in] net net in which this Route is placed
      * @param[in] vehicleParent vehicle parent of this embedded route
      * @param[in] edges route edges
      * @param[in] color route color
      * @param[in] repeat the number of times that the edges of this route shall be repeated
      * @param[in] cycleType the times will be shifted forward by 'cycleTime' on each repeat
-     * @param[in] probability used in routeDistributions
      * @param[in] parameters generic parameters
      */
-    GNERoute(GNENet* net, GNEDemandElement* vehicleParent, const std::vector<GNEEdge*>& edges, const RGBColor& color,
-             const int repeat, const SUMOTime cycleTime, const double probability, const Parameterised::Map& parameters);
+    GNERoute(GNEDemandElement* vehicleParent, const std::vector<GNEEdge*>& edges, const RGBColor& color,
+             const int repeat, const SUMOTime cycleTime, const Parameterised::Map& parameters);
 
     /// @brief destructor
     ~GNERoute();

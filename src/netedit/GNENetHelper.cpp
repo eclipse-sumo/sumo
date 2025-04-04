@@ -71,6 +71,7 @@
 #include <netedit/elements/demand/GNETransport.h>
 #include <netedit/elements/demand/GNEVType.h>
 #include <netedit/elements/demand/GNEVTypeDistribution.h>
+#include <netedit/elements/demand/GNERouteDistribution.h>
 #include <netedit/elements/demand/GNEVehicle.h>
 #include <netedit/elements/demand/GNEWalk.h>
 #include <netedit/elements/network/GNEConnection.h>
@@ -2972,13 +2973,17 @@ GNENetHelper::ACTemplate::buildTemplates() {
     myTemplates[GNE_TAG_JPS_WALKABLEAREA] = new GNEPoly(GNE_TAG_JPS_WALKABLEAREA, myNet);
     myTemplates[GNE_TAG_JPS_OBSTACLE] = new GNEPoly(GNE_TAG_JPS_OBSTACLE, myNet);
     // vTypes
-    myTemplates[SUMO_TAG_VTYPE] = new GNEVType(myNet);
+    const auto vTypes = myNet->getTagPropertiesDatabase()->getTagPropertiesByType(GNETagProperties::Type::VTYPE);
+    for (const auto vType : vTypes) {
+        myTemplates[vType->getTag()] = new GNEVType(vType->getTag(), myNet);
+    }
     myTemplates[SUMO_TAG_VTYPE_DISTRIBUTION] = new GNEVTypeDistribution(myNet);
     // routes
     const auto routes = myNet->getTagPropertiesDatabase()->getTagPropertiesByType(GNETagProperties::Type::ROUTE);
     for (const auto route : routes) {
         myTemplates[route->getTag()] = new GNERoute(route->getTag(), myNet);
     }
+    myTemplates[SUMO_TAG_ROUTE_DISTRIBUTION] = new GNERouteDistribution(myNet);
     // vehicles
     const auto vehicles = myNet->getTagPropertiesDatabase()->getTagPropertiesByType(GNETagProperties::Type::VEHICLE);
     for (const auto vehicle : vehicles) {

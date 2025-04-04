@@ -1826,7 +1826,7 @@ GNEVehicle::copyVehicle(const GNEVehicle* originalVehicle) {
     newVehicleParameters.id = newVehicleID;
     // create vehicle using vehicleParameters
     if (originalVehicle->getTagProperty()->vehicleRoute()) {
-        newRoute = new GNERoute(newRouteID, net, originalVehicle->getParentDemandElements().at(1));
+        newRoute = new GNERoute(newRouteID, originalVehicle->getParentDemandElements().at(1));
         newVehicle = new GNEVehicle(originalVehicle->getTagProperty()->getTag(), net, originalVehicle->getFilename(),
                                     originalVehicle->getParentDemandElements().at(0), newRoute,
                                     newVehicleParameters);
@@ -1834,7 +1834,7 @@ GNEVehicle::copyVehicle(const GNEVehicle* originalVehicle) {
         newVehicle = new GNEVehicle(originalVehicle->getTagProperty()->getTag(), net, originalVehicle->getFilename(),
                                     originalVehicle->getParentDemandElements().at(0),
                                     newVehicleParameters);
-        newEmbeddedRoute = new GNERoute(net, newVehicle, originalVehicle->getChildDemandElements().front());
+        newEmbeddedRoute = new GNERoute(newVehicle, originalVehicle->getChildDemandElements().front());
     } else if (originalVehicle->getTagProperty()->vehicleEdges()) {
         newVehicle = new GNEVehicle(originalVehicle->getTagProperty()->getTag(), net, originalVehicle->getFilename(),
                                     originalVehicle->getParentDemandElements().at(0),

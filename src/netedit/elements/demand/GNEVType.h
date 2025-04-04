@@ -32,16 +32,22 @@ class GNEVType : public GNEDemandElement, public SUMOVTypeParameter {
 
 public:
     /// @brief default constructor
-    GNEVType(GNENet* net);
+    GNEVType(SumoXMLTag tag, GNENet* net);
 
     /// @brief constructor for default VTypes
     GNEVType(const std::string& vTypeID, GNENet* net, const SUMOVehicleClass& defaultVClass);
 
-    /// @brief constructor
+    /// @brief constructor for standard vTypes
     GNEVType(const std::string& vTypeID, GNENet* net, const std::string& filename);
 
-    /// @brief parameter constructor
+    /// @brief parameter constructor for standard vTypes
     GNEVType(GNENet* net, const std::string& filename, const SUMOVTypeParameter& vTypeParameter);
+
+    /// @brief constructor for standard vTypes placed in distributions
+    GNEVType(GNEDemandElement* distribution, const std::string& vTypeID, const std::string& filename);
+
+    /// @brief parameter constructor for standard vTypes placed in distributions
+    GNEVType(GNEDemandElement* distribution, const std::string& filename, const SUMOVTypeParameter& vTypeParameter);
 
     /// @brief copy constructor
     GNEVType(const std::string& newVTypeID, GNENet* net, GNEVType* vTypeOriginal);

@@ -50,6 +50,9 @@ public:
     /// @brief destructor
     virtual ~GNEPathElement();
 
+    /// @brief get path element option
+    int getPathElementOptions() const;
+
     /// @brief check if pathElement is a network element
     bool isNetworkElement() const;
 

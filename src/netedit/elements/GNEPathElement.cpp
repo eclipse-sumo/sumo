@@ -32,6 +32,12 @@ GNEPathElement::GNEPathElement(const int options) :
 GNEPathElement::~GNEPathElement() {}
 
 
+int
+GNEPathElement::getPathElementOptions() const {
+    return myOption;
+}
+
+
 bool
 GNEPathElement::isNetworkElement() const {
     return (myOption & GNEPathElement::Options::NETWORK_ELEMENT) != 0;
