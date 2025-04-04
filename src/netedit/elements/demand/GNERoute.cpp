@@ -132,25 +132,10 @@ GNERoute::GNERoute(const std::string& id, GNENet* net, const std::string& filena
     setParents<GNEEdge*>(edges);
 }
 
-// route placed in distribution
-GNERoute::GNERoute(GNEDemandElement* distributionParent, const std::string& id, const std::string& filename,
-                   SUMOVehicleClass vClass, const std::vector<GNEEdge*>& edges, const RGBColor& color, const int repeat,
-                   const SUMOTime cycleTime, const double probability, const Parameterised::Map& parameters) :
-    GNEDemandElement(distributionParent, distributionParent->getNet(), GLO_ROUTE, GNE_TAG_ROUTEREF_CHILDDISTRIBUTION, GUIIcon::ROUTE,
-                     GNEPathElement::Options::DEMAND_ELEMENT | GNEPathElement::Options::ROUTE),
-    Parameterised(parameters),
-    myColor(color),
-    myRepeat(repeat),
-    myCycleTime(cycleTime),
-    myProbability(probability) {
-    // set parents
-    setParents<GNEEdge*>(edges);
-    setParent<GNEDemandElement*>(distributionParent);
-}
 
 // route ref placed in distribution
 GNERoute::GNERoute(GNEDemandElement* distributionParent, GNEDemandElement* route, const double probability) :
-    GNEDemandElement(distributionParent, distributionParent->getNet(), GLO_ROUTE, GNE_TAG_ROUTEREF_CHILDDISTRIBUTION, GUIIcon::ROUTE,
+    GNEDemandElement(distributionParent, distributionParent->getNet(), GLO_ROUTE, GNE_TAG_ROUTEREF, GUIIcon::ROUTE,
                      GNEPathElement::Options::DEMAND_ELEMENT | GNEPathElement::Options::ROUTE) {
     // set parents
     setParents<GNEDemandElement*>({distributionParent, route});

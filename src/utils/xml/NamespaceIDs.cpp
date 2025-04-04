@@ -71,7 +71,6 @@ const std::vector<SumoXMLTag> NamespaceIDs::types = {
 
 const std::vector<SumoXMLTag> NamespaceIDs::routes = {
     SUMO_TAG_ROUTE,
-    GNE_TAG_ROUTE_CHILDDISTRIBUTION,
     SUMO_TAG_ROUTE_DISTRIBUTION
 };
 

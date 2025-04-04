@@ -175,10 +175,8 @@ enum SumoXMLTag {
     GNE_TAG_VTYPE_CHILDDISTRIBUTION,
     /// @brief description of a route
     SUMO_TAG_ROUTE,
-    /// @brief route placed in a route distribution
-    GNE_TAG_ROUTE_CHILDDISTRIBUTION,
-    /// @brief route placed in a route distribution (ref)
-    GNE_TAG_ROUTEREF_CHILDDISTRIBUTION,
+    /// @brief virtual element used to reference routes with distributions
+    GNE_TAG_ROUTEREF,
     /// @brief embedded route
     GNE_TAG_ROUTE_EMBEDDED,
     /// @brief description of a logic request within the junction
