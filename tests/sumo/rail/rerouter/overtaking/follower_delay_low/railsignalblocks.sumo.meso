@@ -16,7 +16,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <input>
         <net-file value="net.net.xml"/>
         <route-files value="input_routes2.rou.xml"/>
-        <additional-files value="input_additional.add.xml,input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml,input_routes.rou.xml,input_additional2.add.xml"/>
     </input>
 
     <output>
@@ -24,6 +24,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <tripinfo-output value="tripinfos.xml"/>
         <vehroute-output value="vehroutes.xml"/>
         <railsignal-block-output value="railsignal_blocks.xml"/>
+        <stop-output value="stopinfos.xml"/>
     </output>
 
     <processing>

@@ -16,7 +16,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <input>
         <net-file value="net.net.xml"/>
         <route-files value="input_routes2.rou.xml"/>
-        <additional-files value="input_additional.add.xml,input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml,input_routes.rou.xml,input_additional2.add.xml"/>
     </input>
 
     <output>
@@ -24,6 +24,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <tripinfo-output value="tripinfos.xml"/>
         <vehroute-output value="vehroutes.xml"/>
         <railsignal-block-output value="railsignal_blocks.xml"/>
+        <stop-output value="stopinfos.xml"/>
     </output>
 
     <processing>
@@ -47,5 +48,5 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
     <tripinfo id="v_2" depart="0.00" departLane="E1_0" departPos="0.00" departSpeed="22.22" departDelay="0.00" arrival="1709.00" arrivalLane="E15_0" arrivalPos="25000.00" arrivalSpeed="22.22" duration="1709.00" routeLength="37971.30" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="1" devices="vehroute_v_2 tripinfo_v_2" vType="train_slow" speedFactor="1.00" vaporized=""/>
-    <tripinfo id="v_0" depart="0.00" departLane="E0_0" departPos="15000.00" departSpeed="44.44" departDelay="0.00" arrival="2273.00" arrivalLane="E15_0" arrivalPos="25000.00" arrivalSpeed="44.44" duration="2273.00" routeLength="47928.88" waitingTime="1194.00" waitingCount="0" stopTime="0.00" timeLoss="1194.00" rerouteNo="0" devices="vehroute_v_0 tripinfo_v_0" vType="train" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="v_0" depart="0.00" departLane="E0_0" departPos="15000.00" departSpeed="44.44" departDelay="0.00" arrival="2273.00" arrivalLane="E15_0" arrivalPos="25000.00" arrivalSpeed="44.44" duration="2273.00" routeLength="47928.88" waitingTime="1087.00" waitingCount="0" stopTime="106.83" timeLoss="1193.83" rerouteNo="0" devices="vehroute_v_0 tripinfo_v_0" vType="train" speedFactor="1.00" vaporized=""/>
 </tripinfos>

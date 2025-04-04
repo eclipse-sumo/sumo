@@ -17,5 +17,17 @@ long_train
 # no detour needed
 follower_low_prio
 
+# arrival_delay is too high so overtaking is not considered
+follower_arrival_delay_high
+
+# arrival_delay is too high so overtaking is not considered
+follower_arrival_delay_low
+
+# delay is too high so overtaking is not considered
+follower_delay_high
+
+# delay is too high so overtaking is not considered
+follower_delay_low
+
 # no detour needed
 leader_high_prio
