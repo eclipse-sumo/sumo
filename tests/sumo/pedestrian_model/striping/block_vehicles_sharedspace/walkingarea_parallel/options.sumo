@@ -1,0 +1,6 @@
+--no-step-log
+--net-file net.net.xml
+--route-files input_routes.rou.xml
+--collision.check-junctions
+--duration-log.statistics
+--default.speeddev 0.1

@@ -35,6 +35,9 @@ walkingarea_ignore2
 # walkingarea shared by pedestrians and vehicles moving in all directions
 walkingarea_shared
 
+# walkingarea shared by pedestrians and vehicles moving almost parallel
+walkingarea_parallel
+
 # walkingarea shared by pedestrians and vehicles moving in all directions
 walkingarea_shared_sublane
 
