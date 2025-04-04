@@ -62,9 +62,23 @@ RouteHandler::beginParseAttributes(SumoXMLTag tag, const SUMOSAXAttributes& attr
                 parseVTypeDistribution(attrs);
                 break;
             // routes
-            case SUMO_TAG_ROUTE:
-                parseRoute(attrs);
+            case SUMO_TAG_ROUTE: {
+                // continue depeding if we're parsing a basic route, an embedded route, or a distribution child
+                const auto parentTag = myCommonXMLStructure.getSumoBaseObjectRoot()->getTag();
+                if ((parentTag == SUMO_TAG_VEHICLE) || (parentTag == SUMO_TAG_FLOW)) {
+                    parseEmbeddedRoute(attrs);
+                } else if (parentTag == SUMO_TAG_ROUTE_DISTRIBUTION) {
+                    // check if we're parsing a reference or a full route defined as route distribution child
+                    if (attrs.hasAttribute(SUMO_ATTR_REFID)) {
+                        parseRouteRef(attrs);
+                    } else {
+                        parseRouteChildDistribution(attrs);
+                    }
+                } else {
+                    parseRoute(attrs);
+                }
                 break;
+            }
             case SUMO_TAG_ROUTE_DISTRIBUTION:
                 parseRouteDistribution(attrs);
                 break;
@@ -153,8 +167,8 @@ RouteHandler::endParseAttributes() {
         myCommonXMLStructure.closeSUMOBaseOBject();
         switch (obj->getTag()) {
             case SUMO_TAG_ROUTE:
-                // special case, because embedded routes are created within vehicles
-                if (obj->hasStringAttribute(SUMO_ATTR_ID)) {
+                // special case, because embedded and distribution routes are created within other elements
+                if (obj->getParentSumoBaseObject() == nullptr) {
                     // parse object and all their childrens
                     parseSumoBaseObject(obj);
                     // delete object (and all of their childrens)
@@ -190,7 +204,7 @@ RouteHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) {
         // vTypes
         case SUMO_TAG_VTYPE:
             // avoid create distributions here
-            if (!checkDistribution(obj)) {
+            if (!checkWithinDistribution(obj)) {
                 if (buildVType(obj,
                                obj->getVehicleTypeParameter())) {
                     obj->markAsCreated();
@@ -209,7 +223,25 @@ RouteHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) {
         // route
         case SUMO_TAG_ROUTE:
             // embedded routes are created in build<Vehicle/Flow>EmbeddedRoute
-            if (!checkDistribution(obj) && obj->hasStringAttribute(SUMO_ATTR_ID)) {
+            if (checkWithinDistribution(obj)) {
+                if (obj->hasStringAttribute(SUMO_ATTR_REFID)) {
+                    if (buildRouteRef(obj, obj->getStringAttribute(SUMO_ATTR_ID), obj->getDoubleAttribute(SUMO_ATTR_PROB))) {
+                        obj->markAsCreated();
+                    }
+                } else {
+                    if (buildRouteDistributionChild(obj,
+                                                    obj->getStringAttribute(SUMO_ATTR_ID),
+                                                    obj->getVClass(),
+                                                    obj->getStringListAttribute(SUMO_ATTR_EDGES),
+                                                    obj->getColorAttribute(SUMO_ATTR_COLOR),
+                                                    obj->getIntAttribute(SUMO_ATTR_REPEAT),
+                                                    obj->getTimeAttribute(SUMO_ATTR_CYCLETIME),
+                                                    obj->getDoubleAttribute(SUMO_ATTR_PROB),
+                                                    obj->getParameters())) {
+                        obj->markAsCreated();
+                    }
+                }
+            } else if (obj->hasStringAttribute(SUMO_ATTR_ID)) {
                 if (buildRoute(obj,
                                obj->getStringAttribute(SUMO_ATTR_ID),
                                obj->getVClass(),
@@ -217,7 +249,6 @@ RouteHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) {
                                obj->getColorAttribute(SUMO_ATTR_COLOR),
                                obj->getIntAttribute(SUMO_ATTR_REPEAT),
                                obj->getTimeAttribute(SUMO_ATTR_CYCLETIME),
-                               obj->getDoubleAttribute(SUMO_ATTR_PROB),
                                obj->getParameters())) {
                     obj->markAsCreated();
                 }
@@ -279,7 +310,6 @@ RouteHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) {
                                                       embeddedRoute->getColorAttribute(SUMO_ATTR_COLOR),
                                                       embeddedRoute->getIntAttribute(SUMO_ATTR_REPEAT),
                                                       embeddedRoute->getTimeAttribute(SUMO_ATTR_CYCLETIME),
-                                                      embeddedRoute->getDoubleAttribute(SUMO_ATTR_PROB),
                                                       embeddedRoute->getParameters())) {
                             obj->markAsCreated();
                         }
@@ -331,7 +361,6 @@ RouteHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) {
                                                    embeddedRoute->getColorAttribute(SUMO_ATTR_COLOR),
                                                    embeddedRoute->getIntAttribute(SUMO_ATTR_REPEAT),
                                                    embeddedRoute->getTimeAttribute(SUMO_ATTR_CYCLETIME),
-                                                   embeddedRoute->getDoubleAttribute(SUMO_ATTR_PROB),
                                                    embeddedRoute->getParameters())) {
                             obj->markAsCreated();
                         }
@@ -494,42 +523,128 @@ RouteHandler::parseVTypeDistribution(const SUMOSAXAttributes& attrs) {
 
 void
 RouteHandler::parseRoute(const SUMOSAXAttributes& attrs) {
-    // get embedded route flag
-    const bool embeddedRoute = isEmbeddedRoute(attrs);
+    // declare Ok Flag
+    bool parsedOk = true;
+    // needed attributes
+    const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk);
+    const std::vector<std::string> edges = attrs.get<std::vector<std::string> >(SUMO_ATTR_EDGES, id.c_str(), parsedOk);
+    // optional attributes
+    SUMOVehicleClass vClass = SUMOVehicleParserHelper::parseVehicleClass(attrs, id);
+    const RGBColor color = attrs.getOpt<RGBColor>(SUMO_ATTR_COLOR, id.c_str(), parsedOk, RGBColor::INVISIBLE);
+    const int repeat = attrs.getOpt<int>(SUMO_ATTR_REPEAT, id.c_str(), parsedOk, 0);
+    const SUMOTime cycleTime = attrs.getOptSUMOTimeReporting(SUMO_ATTR_CYCLETIME, id.c_str(), parsedOk, 0);
+    // check attributes
+    if (!checkNegative(SUMO_TAG_ROUTE, id, SUMO_ATTR_CYCLETIME, cycleTime, true)) {
+        parsedOk = false;
+    }
+    if (!checkNegative(SUMO_TAG_ROUTE, id, SUMO_ATTR_REPEAT, repeat, true)) {
+        parsedOk = false;
+    }
+    if (parsedOk) {
+        // set tag
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_ROUTE);
+        // add all attributes
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, id);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setVClass(vClass);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringListAttribute(SUMO_ATTR_EDGES, edges);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addColorAttribute(SUMO_ATTR_COLOR, color);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addIntAttribute(SUMO_ATTR_REPEAT, repeat);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addTimeAttribute(SUMO_ATTR_CYCLETIME, cycleTime);
+    } else {
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_NOTHING);
+    }
+}
+
+
+void
+RouteHandler::parseRouteChildDistribution(const SUMOSAXAttributes& attrs) {
+    // declare Ok Flag
+    bool parsedOk = true;
+    // needed attributes
+    const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk);
+    const std::vector<std::string> edges = attrs.get<std::vector<std::string> >(SUMO_ATTR_EDGES, id.c_str(), parsedOk);
+    const double probability = attrs.get<double>(SUMO_ATTR_PROB, id.c_str(), parsedOk, 1.0);
+    // optional attributes
+    SUMOVehicleClass vClass = SUMOVehicleParserHelper::parseVehicleClass(attrs, id);
+    const RGBColor color = attrs.getOpt<RGBColor>(SUMO_ATTR_COLOR, id.c_str(), parsedOk, RGBColor::INVISIBLE);
+    const int repeat = attrs.getOpt<int>(SUMO_ATTR_REPEAT, id.c_str(), parsedOk, 0);
+    const SUMOTime cycleTime = attrs.getOptSUMOTimeReporting(SUMO_ATTR_CYCLETIME, id.c_str(), parsedOk, 0);
+    // check attributes
+    if (!checkNegative(SUMO_TAG_ROUTE, id, SUMO_ATTR_CYCLETIME, cycleTime, true)) {
+        parsedOk = false;
+    }
+    if (!checkNegative(SUMO_TAG_ROUTE, id, SUMO_ATTR_REPEAT, repeat, true)) {
+        parsedOk = false;
+    }
+    if (parsedOk) {
+        // set tag
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_ROUTE);
+        // add all attributes
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, id);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setVClass(vClass);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringListAttribute(SUMO_ATTR_EDGES, edges);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addColorAttribute(SUMO_ATTR_COLOR, color);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addIntAttribute(SUMO_ATTR_REPEAT, repeat);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addTimeAttribute(SUMO_ATTR_CYCLETIME, cycleTime);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_PROB, probability);
+    } else {
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_NOTHING);
+    }
+}
+
+
+void
+RouteHandler::parseRouteRef(const SUMOSAXAttributes& attrs) {
+    // declare Ok Flag
+    bool parsedOk = true;
+    // special case for ID
+    const std::string refId = attrs.get<std::string>(SUMO_ATTR_REFID, "", parsedOk);
+    const double probability = attrs.getOpt<double>(SUMO_ATTR_PROB, refId.c_str(), parsedOk, 1.0);
+    if (parsedOk) {
+        // set tag
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_ROUTE);
+        // add all attributes
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_REFID, refId);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_PROB, probability);
+    } else {
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_NOTHING);
+    }
+}
+
+
+void
+RouteHandler::parseEmbeddedRoute(const SUMOSAXAttributes& attrs) {
     // first check if this is an embedded route
-    if (embeddedRoute && attrs.hasAttribute(SUMO_ATTR_ID)) {
+    if (attrs.hasAttribute(SUMO_ATTR_ID)) {
         writeError(TL("an embedded route cannot have their own ID"));
-    } else if (embeddedRoute || attrs.hasAttribute(SUMO_ATTR_ID)) {
+    } else {
         // declare Ok Flag
         bool parsedOk = true;
         // special case for ID
-        const std::string id = embeddedRoute ? myCommonXMLStructure.getCurrentSumoBaseObject()->getParentSumoBaseObject()->getVehicleParameter().id : attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk);
+        const std::string vehicleID = myCommonXMLStructure.getCurrentSumoBaseObject()->getParentSumoBaseObject()->getVehicleParameter().id;
         // needed attributes
-        const std::vector<std::string> edges = attrs.get<std::vector<std::string> >(SUMO_ATTR_EDGES, id.c_str(), parsedOk);
+        const std::vector<std::string> edges = attrs.get<std::vector<std::string> >(SUMO_ATTR_EDGES, vehicleID.c_str(), parsedOk);
         // optional attributes
-        SUMOVehicleClass vClass = SUMOVehicleParserHelper::parseVehicleClass(attrs, id);
-        const RGBColor color = attrs.getOpt<RGBColor>(SUMO_ATTR_COLOR, id.c_str(), parsedOk, RGBColor::INVISIBLE);
-        const int repeat = attrs.getOpt<int>(SUMO_ATTR_REPEAT, id.c_str(), parsedOk, 0);
-        const SUMOTime cycleTime = attrs.getOptSUMOTimeReporting(SUMO_ATTR_CYCLETIME, id.c_str(), parsedOk, 0);
-        const double probability = attrs.getOpt<double>(SUMO_ATTR_PROB, id.c_str(), parsedOk, 1.0);
+        SUMOVehicleClass vClass = SUMOVehicleParserHelper::parseVehicleClass(attrs, vehicleID);
+        const RGBColor color = attrs.getOpt<RGBColor>(SUMO_ATTR_COLOR, vehicleID.c_str(), parsedOk, RGBColor::INVISIBLE);
+        const int repeat = attrs.getOpt<int>(SUMO_ATTR_REPEAT, vehicleID.c_str(), parsedOk, 0);
+        const SUMOTime cycleTime = attrs.getOptSUMOTimeReporting(SUMO_ATTR_CYCLETIME, vehicleID.c_str(), parsedOk, 0);
         // check attributes
-        if (!checkNegative(SUMO_TAG_ROUTE, id, SUMO_ATTR_CYCLETIME, cycleTime, true)) {
+        if (!checkNegative(SUMO_TAG_ROUTE, vehicleID, SUMO_ATTR_CYCLETIME, cycleTime, true)) {
+            parsedOk = false;
+        }
+        if (!checkNegative(SUMO_TAG_ROUTE, vehicleID, SUMO_ATTR_REPEAT, repeat, true)) {
             parsedOk = false;
         }
         if (parsedOk) {
             // set tag
             myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_ROUTE);
-            // special case for ID (because empty id means embedded route)
-            if (!embeddedRoute) {
-                myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, id);
-            }
             // add all attributes
             myCommonXMLStructure.getCurrentSumoBaseObject()->setVClass(vClass);
             myCommonXMLStructure.getCurrentSumoBaseObject()->addStringListAttribute(SUMO_ATTR_EDGES, edges);
             myCommonXMLStructure.getCurrentSumoBaseObject()->addColorAttribute(SUMO_ATTR_COLOR, color);
             myCommonXMLStructure.getCurrentSumoBaseObject()->addIntAttribute(SUMO_ATTR_REPEAT, repeat);
             myCommonXMLStructure.getCurrentSumoBaseObject()->addTimeAttribute(SUMO_ATTR_CYCLETIME, cycleTime);
-            myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_PROB, probability);
         } else {
             myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_NOTHING);
         }
@@ -543,20 +658,11 @@ RouteHandler::parseRouteDistribution(const SUMOSAXAttributes& attrs) {
     bool parsedOk = true;
     // needed attributes
     const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk);
-    // optional attributes
-    const std::vector<std::string> routes = attrs.getOpt<std::vector<std::string> >(SUMO_ATTR_ROUTES, id.c_str(), parsedOk);
-    const std::vector<double> probabilities = attrs.getOpt<std::vector<double> >(SUMO_ATTR_PROBS, id.c_str(), parsedOk);
-    // check distribution
-    if (routes.size() != probabilities.size()) {
-        parsedOk = writeErrorInvalidDistribution(SUMO_TAG_ROUTE_DISTRIBUTION, id);
-    }
     if (parsedOk) {
         // set tag
         myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_ROUTE_DISTRIBUTION);
         // add all attributes
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, id);
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringListAttribute(SUMO_ATTR_ROUTES, routes);
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleListAttribute(SUMO_ATTR_PROBS, probabilities);
     } else {
         myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_NOTHING);
     }
@@ -1216,25 +1322,6 @@ RouteHandler::parseStopParameters(SUMOVehicleParameter::Stop& stop, const SUMOSA
     stop.jump = attrs.getOptSUMOTimeReporting(SUMO_ATTR_JUMP, nullptr, ok, -1);
     stop.jumpUntil = attrs.getOptSUMOTimeReporting(SUMO_ATTR_JUMP_UNTIL, nullptr, ok, -1);
     return true;
-}
-
-
-bool
-RouteHandler::isEmbeddedRoute(const SUMOSAXAttributes& attrs) const {
-    // check conditions
-    if (attrs.hasAttribute(SUMO_ATTR_ID)) {
-        return false;
-    } else if (myCommonXMLStructure.getCurrentSumoBaseObject()->getParentSumoBaseObject() == nullptr) {
-        return false;
-    } else if (myCommonXMLStructure.getCurrentSumoBaseObject()->getParentSumoBaseObject()->hasStringAttribute(SUMO_ATTR_ROUTE)) {
-        return false;
-    } else if (myCommonXMLStructure.getCurrentSumoBaseObject()->getParentSumoBaseObject()->getTag() == SUMO_TAG_FLOW) {
-        return true;
-    } else if (myCommonXMLStructure.getCurrentSumoBaseObject()->getParentSumoBaseObject()->getTag() == SUMO_TAG_VEHICLE) {
-        return true;
-    } else {
-        return false;
-    }
 }
 
 

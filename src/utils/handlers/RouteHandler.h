@@ -63,7 +63,15 @@ public:
     /// @brief build route
     virtual bool buildRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, SUMOVehicleClass vClass,
                             const std::vector<std::string>& edgeIDs, const RGBColor& color, const int repeat, const SUMOTime cycleTime,
-                            const double probability, const Parameterised::Map& routeParameters) = 0;
+                            const Parameterised::Map& routeParameters) = 0;
+
+    /// @brief build route ref
+    virtual bool buildRouteRef(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& refID, const double probability) = 0;
+
+    /// @brief build route as part of a distribution
+    virtual bool buildRouteDistributionChild(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, SUMOVehicleClass vClass,
+            const std::vector<std::string>& edgeIDs, const RGBColor& color, const int repeat, const SUMOTime cycleTime,
+            const double probability, const Parameterised::Map& routeParameters) = 0;
 
     /// @brief build route distribution
     virtual bool buildRouteDistribution(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id,
@@ -75,7 +83,7 @@ public:
     /// @brief build a vehicle with an embedded route
     virtual bool buildVehicleEmbeddedRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters,
                                            const std::vector<std::string>& edgeIDs, const RGBColor& color, const int repeat, const SUMOTime cycleTime,
-                                           const double probability, const Parameterised::Map& routeParameters) = 0;
+                                           const Parameterised::Map& routeParameters) = 0;
 
     /// @brief build a flow over an existent route
     virtual bool buildFlowOverRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters) = 0;
@@ -83,7 +91,7 @@ public:
     /// @brief build a flow with an embedded route
     virtual bool buildFlowEmbeddedRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters,
                                         const std::vector<std::string>& edgeIDs, const RGBColor& color, const int repeat, const SUMOTime cycleTime,
-                                        const double probability, const Parameterised::Map& routeParameters) = 0;
+                                        const Parameterised::Map& routeParameters) = 0;
 
     /// @brief build trip (from-to edges)
     virtual bool buildTrip(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters,
@@ -169,6 +177,15 @@ private:
     /// @brief parse route
     void parseRoute(const SUMOSAXAttributes& attrs);
 
+    /// @brief parse route declared within a distribution
+    void parseRouteChildDistribution(const SUMOSAXAttributes& attrs);
+
+    /// @brief parse route reference
+    void parseRouteRef(const SUMOSAXAttributes& attrs);
+
+    /// @brief parse embedded route
+    void parseEmbeddedRoute(const SUMOSAXAttributes& attrs);
+
     /// @brief parse route distribution
     void parseRouteDistribution(const SUMOSAXAttributes& attrs);
 
@@ -220,9 +237,6 @@ private:
 
     /// @brief parse stop parameters
     bool parseStopParameters(SUMOVehicleParameter::Stop& stop, const SUMOSAXAttributes& attrs);
-
-    /// @brief check if the current obj is an embedded route
-    bool isEmbeddedRoute(const SUMOSAXAttributes& attrs) const;
 
     /// @}
 

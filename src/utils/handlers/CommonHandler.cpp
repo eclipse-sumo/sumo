@@ -130,7 +130,7 @@ CommonHandler::checkListOfVehicleTypes(const SumoXMLTag tag, const std::string& 
 
 
 bool
-CommonHandler::checkDistribution(CommonXMLStructure::SumoBaseObject* obj) {
+CommonHandler::checkWithinDistribution(CommonXMLStructure::SumoBaseObject* obj) {
     if (obj->getParentSumoBaseObject() == nullptr) {
         return false;
     } else if (obj->getParentSumoBaseObject()->getTag() == SUMO_TAG_ROUTE_DISTRIBUTION) {
