@@ -30,21 +30,23 @@
 // method definitions
 // ===========================================================================
 
-
 const std::vector<SumoXMLTag> NamespaceIDs::busStops = {
     SUMO_TAG_BUS_STOP,
     SUMO_TAG_TRAIN_STOP
 };
+
 
 const std::vector<SumoXMLTag> NamespaceIDs::laneAreaDetectors = {
     SUMO_TAG_LANE_AREA_DETECTOR,
     GNE_TAG_MULTI_LANE_AREA_DETECTOR
 };
 
+
 const std::vector<SumoXMLTag> NamespaceIDs::calibrators = {
     SUMO_TAG_CALIBRATOR,
     GNE_TAG_CALIBRATOR_LANE
 };
+
 
 const std::vector<SumoXMLTag> NamespaceIDs::polygons = {
     SUMO_TAG_POLY,
@@ -53,21 +55,26 @@ const std::vector<SumoXMLTag> NamespaceIDs::polygons = {
     GNE_TAG_JPS_OBSTACLE
 };
 
+
 const std::vector<SumoXMLTag> NamespaceIDs::POIs = {
     SUMO_TAG_POI,
     GNE_TAG_POILANE,
     GNE_TAG_POIGEO
 };
 
+
 const std::vector<SumoXMLTag> NamespaceIDs::types = {
     SUMO_TAG_VTYPE,
     SUMO_TAG_VTYPE_DISTRIBUTION
 };
 
+
 const std::vector<SumoXMLTag> NamespaceIDs::routes = {
     SUMO_TAG_ROUTE,
+    GNE_TAG_ROUTE_CHILDDISTRIBUTION,
     SUMO_TAG_ROUTE_DISTRIBUTION
 };
+
 
 const std::vector<SumoXMLTag> NamespaceIDs::vehicles = {
     SUMO_TAG_VEHICLE, SUMO_TAG_TRIP,
@@ -81,15 +88,18 @@ const std::vector<SumoXMLTag> NamespaceIDs::vehicles = {
     GNE_TAG_FLOW_TAZS
 };
 
+
 const std::vector<SumoXMLTag> NamespaceIDs::persons = {
     SUMO_TAG_PERSON,
     SUMO_TAG_PERSONFLOW
 };
 
+
 const std::vector<SumoXMLTag> NamespaceIDs::containers = {
     SUMO_TAG_CONTAINER,
     SUMO_TAG_CONTAINERFLOW
 };
+
 
 const std::vector<SumoXMLTag> NamespaceIDs::stops = {
     GNE_TAG_STOP_LANE,
