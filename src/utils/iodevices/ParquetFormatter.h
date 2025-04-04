@@ -30,11 +30,17 @@
 #include <parquet/exception.h>
 #include <parquet/stream_writer.h>
 
+#include <optional>
+#include <stdexcept>
+#include <set>
+#include <limits>
+#include <map>
+#include <iostream> // Include for std::cerr
+
 #include "OutputFormatter.h"
 #include <utils/common/ToString.h>
 #include "StreamDevices.h"
-
-#define PARQUET_TESTING
+#include <utils/common/MsgHandler.h>
 
 
 // Helper function to determine if a type is a fixed-length character array
@@ -103,14 +109,11 @@ void AppendField(parquet::schema::NodeVector& fields, const T& val, const std::s
             parquet::ConvertedType::TIMESTAMP_MILLIS));
     }
     else {
-        // // warn
-        // fmt::print("Unsupported type for AppendField\n");
-        // static_assert(always_false<T>, "Unsupported type for AppendField");
-        
+        // Default to string (UTF8) for any unhandled types to ensure compatibility
+        fields.push_back(parquet::schema::PrimitiveNode::Make(
+            field_name, parquet::Repetition::OPTIONAL, parquet::Type::BYTE_ARRAY,
+            parquet::ConvertedType::UTF8));
     }
-    // else {
-    //     static_assert(always_false<T>, "Unsupported type for AppendField");
-    // }
 }
 
 // ===========================================================================
@@ -259,6 +262,21 @@ public:
     const std::string& getName() const {
         return myName;
     }
+    
+    /// @brief clear the attributes vector
+    void clearAttributes() {
+        myAttributes.clear();
+    }
+
+    /// @brief set the attributes vector (takes ownership)
+    void setAttributes(std::vector<std::unique_ptr<AttributeBase>>&& attrs) {
+        myAttributes = std::move(attrs);
+    }
+
+    /// @brief swap attributes with another vector
+    void swapAttributes(std::vector<std::unique_ptr<AttributeBase>>& out) {
+        out.swap(myAttributes);
+    }
 
 protected:
     /// @brief The name of the XMLElement
@@ -270,6 +288,31 @@ protected:
     /// @brief a store for the attributes
     std::vector<std::unique_ptr<AttributeBase>> myAttributes;
 };
+
+// Helper function to safely convert various types to double
+// Needed for interval begin/end times which might be passed as different types
+template <typename T>
+double convertToDouble(const T& value) {
+    if constexpr (std::is_arithmetic_v<T>) {
+        return static_cast<double>(value);
+    } else if constexpr (std::is_convertible_v<T, std::string_view>) {
+        try {
+            // Use stod for robust string-to-double conversion
+            return std::stod(std::string(value));
+        } catch (const std::invalid_argument& e) {
+            return std::numeric_limits<double>::quiet_NaN(); // Return NaN on failure
+        } catch (const std::out_of_range& e) {
+            return std::numeric_limits<double>::quiet_NaN(); // Return NaN on failure
+        }
+    } else {
+        // Fallback: try converting to string first, then to double
+        try {
+            return std::stod(toString(value));
+        } catch (...) {
+            return std::numeric_limits<double>::quiet_NaN(); // Return NaN on failure
+        }
+    }
+}
 
 /**
  * @class PlainXMLFormatter
@@ -284,6 +327,26 @@ public:
 
     /// @brief Destructor
     virtual ~ParquetFormatter() = default;
+
+    /// @brief Lock the schema to prevent clearing
+    void lockSchema() {
+        schemaLocked = true;
+    }
+
+    /// @brief Unlock the schema to allow clearing
+    void unlockSchema() {
+        schemaLocked = false;
+    }
+    
+    /// @brief Enable actual data writing
+    void enableDataWrite() {
+        dataWriteEnabled = true;
+    }
+    
+    /// @brief Disable actual data writing (use for schema setup only)
+    void disableDataWrite() {
+        dataWriteEnabled = false;
+    }
 
     /** @brief Writes an XML header with optional configuration
      *
@@ -349,19 +412,107 @@ public:
         if (myXMLStack.empty()) {
             return false;
         }
-        
-        // only check the last XMLElement
-        if (!myXMLStack.back().written()) {
-            for (auto& elem : myXMLStack) {
-                into << elem;
-                elem.setWritten();
+
+        // Get the element being closed
+        XMLElement& currentElement = myXMLStack.back();
+        bool isIntervalTag = currentElement.getName() == toString(SUMO_TAG_INTERVAL);
+        bool isTimestepTag = currentElement.getName() == toString(SUMO_TAG_TIMESTEP);
+
+        // If data writing is disabled, we're just setting up the schema
+        // so don't write anything to the output
+        if (!dataWriteEnabled) {
+            myXMLStack.pop_back();
+            // Clear interval attributes when interval tag is popped during schema setup
+            if (isIntervalTag) {
+                currentIntervalBegin.reset();
+                currentIntervalEnd.reset();
+                currentIntervalId.reset();
+            } else if (isTimestepTag) {
+                currentTimeValue.reset();
             }
-            // close the row
+            // Return true if the stack is still not empty (indicating more tags to close)
+            return !myXMLStack.empty();
+        }
+
+        // Only write attributes if the element hasn't been processed yet and it's not an interval/timestep tag
+        // (interval/timestep tags don't represent rows in Parquet)
+        if (!currentElement.written() && !isIntervalTag && !isTimestepTag && into.type() == StreamDevice::Type::PARQUET) {
+            // Create a temporary map to hold attributes by name for easy lookup
+            std::map<std::string, std::unique_ptr<AttributeBase>> attributeMap;
+            
+            // First add the interval attributes if they exist
+            if (currentIntervalId.has_value()) {
+                attributeMap["id"] = std::make_unique<Attribute<std::string>>("id", toString(*currentIntervalId));
+            }
+            if (currentIntervalBegin.has_value()) {
+                attributeMap["begin"] = std::make_unique<Attribute<std::string>>("begin", toString(*currentIntervalBegin));
+            }
+            if (currentIntervalEnd.has_value()) {
+                attributeMap["end"] = std::make_unique<Attribute<std::string>>("end", toString(*currentIntervalEnd));
+            }
+            // Add the timestep time value if it exists
+            if (currentTimeValue.has_value()) {
+                attributeMap["time"] = std::make_unique<Attribute<std::string>>("time", toString(*currentTimeValue));
+            }
+            
+            // Move the original element attributes into the map, potentially overwriting interval ones if names clash
+            std::vector<std::unique_ptr<AttributeBase>> originalAttrs;
+            currentElement.swapAttributes(originalAttrs);
+            for (auto& attr : originalAttrs) {
+                 attributeMap[attr->getName()] = std::move(attr); // Move into map
+            }
+            
+            // Create the final attributes vector, ordered according to the schema (myNodeVector)
+            std::vector<std::unique_ptr<AttributeBase>> finalAttributes;
+            for (const auto& node : myNodeVector) {
+                const std::string& fieldName = node->name();
+                auto it = attributeMap.find(fieldName);
+                if (it != attributeMap.end()) {
+                    // Attribute exists, move it to the final vector
+                    finalAttributes.push_back(std::move(it->second));
+                    attributeMap.erase(it); // Remove from map
+                } else {
+                    // Attribute is missing, add a default/empty one
+                    finalAttributes.push_back(std::make_unique<Attribute<std::string>>(fieldName, ""));
+                }
+            }
+            
+            // Add any remaining attributes from the map (shouldn't happen if schema is complete)
+            for (auto& pair : attributeMap) {
+                 finalAttributes.push_back(std::move(pair.second));
+                 std::cerr << "Warning: Attribute '" + pair.first + "' was present in data but not found in Parquet schema.\n";
+            }
+
+            // Set the ordered attributes
+            currentElement.setAttributes(std::move(finalAttributes));
+            
+            // Now write all attributes to the stream
+            into << currentElement;
+            currentElement.setWritten(); // Mark this element's attributes as processed for this row
+
+            // Close the row in the Parquet stream
+            into.endLine();
+        } else if (!currentElement.written() && !isIntervalTag && !isTimestepTag) {
+            // Non-Parquet output or during schema setup
+            into << currentElement;
+            currentElement.setWritten();
             into.endLine();
         }
-        // pop the last XMLElement and remove from memory
+
+        // Pop the element from the stack
         myXMLStack.pop_back();
-        return false;
+        
+        // Clear interval attributes when interval tag is closed
+        if (isIntervalTag) {
+            currentIntervalBegin.reset();
+            currentIntervalEnd.reset();
+            currentIntervalId.reset();
+        } else if (isTimestepTag) {
+            currentTimeValue.reset();
+        }
+
+        // Return true if the stack is still not empty (indicating more parent tags exist)
+        return !myXMLStack.empty();
     };
 
 
@@ -394,12 +545,57 @@ public:
     template <class T>
     void writeAttr(StreamDevice& into, const std::string& attr, const T& val) {
         UNUSED_PARAMETER(into);
-        std::unique_ptr<AttributeBase> typed_attr = std::make_unique<Attribute<T>>(attr, val);
-        this->myXMLStack.back().addAttribute(std::move(typed_attr));
+        
+        // Check if we are inside the 'interval' tag and capture specific attributes
+        if (!myXMLStack.empty() && myXMLStack.back().getName() == toString(SUMO_TAG_INTERVAL)) {
+            if (attr == "begin") {
+                // Ensure value is converted to double for time
+                try {
+                    currentIntervalBegin = convertToDouble(val);
+                } catch (const std::invalid_argument& e) {
+                    // Handle or log error if conversion fails
+                    currentIntervalBegin.reset();
+                }
+                // Continue to add to interval element's attribute list
+            } else if (attr == "end") {
+                try {
+                    currentIntervalEnd = convertToDouble(val);
+                } catch (const std::invalid_argument& e) {
+                    currentIntervalEnd.reset();
+                }
+                // Continue to add to interval element's attribute list
+            } else if (attr == "id") {
+                // ID should be string
+                currentIntervalId = toString(val);
+                // Continue to add to interval element's attribute list
+            }
+        } 
+        // Check if we are inside the 'timestep' tag and capture time attribute
+        else if (!myXMLStack.empty() && myXMLStack.back().getName() == toString(SUMO_TAG_TIMESTEP)) {
+            if (attr == "time") {
+                // Store the time value as string
+                currentTimeValue = toString(val);
+            }
+        }
+        
+        // Always convert values to string format for consistency across types
+        // This avoids type mismatches when writing different types to the same column
+        auto stringVal = toString(val);
+        std::unique_ptr<AttributeBase> typed_attr = std::make_unique<Attribute<std::string>>(attr, stringVal);
+        
         if (!sharedNodeVector && this->fields.find(attr) == this->fields.end()) {
-            // add the field to the schema
-            AppendField(myNodeVector, val, attr);
+            // Add all fields as string type for maximum compatibility
+            parquet::schema::NodePtr stringNode = parquet::schema::PrimitiveNode::Make(
+                attr, parquet::Repetition::OPTIONAL, parquet::Type::BYTE_ARRAY,
+                parquet::ConvertedType::UTF8);
+            myNodeVector.push_back(stringNode);
             this->fields.insert(attr);
+            // Store field type for reference
+            this->fieldTypes[attr] = parquet::Type::BYTE_ARRAY;
+        }
+        
+        if (!myXMLStack.empty()) {
+            this->myXMLStack.back().addAttribute(std::move(typed_attr));
         }
     }
 
@@ -445,10 +641,17 @@ public:
 
     void clearStack() {
         myXMLStack.clear();
-        myNodeVector.clear();
-        fields.clear();
+        if (!schemaLocked) {
+            myNodeVector.clear();
+            fields.clear();
+            fieldTypes.clear();
+        }
+        // Clear interval attributes
+        currentIntervalBegin.reset();
+        currentIntervalEnd.reset();
+        currentIntervalId.reset();
+        currentTimeValue.reset();
     }
-
 
 private:
     /// @brief The stack of begun xml XMLElements.
@@ -463,6 +666,21 @@ private:
 
     // @brief the set of unique fields
     std::set<std::string> fields;
+
+    /// @brief flag to determin if we have locked the schema
+    bool schemaLocked{false};
+
+    /// @brief flag to enable/disable data writing
+    bool dataWriteEnabled{true};
+    
+    /// @brief map to track field types in the schema
+    std::map<std::string, parquet::Type::type> fieldTypes;
+    
+    // Store interval attributes to add to each row
+    std::optional<double> currentIntervalBegin;
+    std::optional<double> currentIntervalEnd;
+    std::optional<std::string> currentIntervalId;
+    std::optional<std::string> currentTimeValue;
 };
 // ===========================================================================
 #endif // HAVE_PARQUET

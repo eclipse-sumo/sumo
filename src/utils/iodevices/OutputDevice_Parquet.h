@@ -36,6 +36,11 @@
 #include <parquet/stream_reader.h>
 #include <parquet/stream_writer.h>
 
+// Include S3 filesystem
+#ifdef HAVE_S3
+#include <arrow/filesystem/s3fs.h>
+#endif
+
 
 
 /**
@@ -74,6 +79,30 @@ public:
         UNUSED_PARAMETER(flags);
     };
 
+    /// @brief Lock the schema to prevent clearing
+    void lockSchema() {
+        auto formatter = dynamic_cast<ParquetFormatter*>(&this->getFormatter());
+        if (formatter != nullptr) {
+            formatter->lockSchema();
+        }
+    }
+
+    /// @brief Enable data writing in the formatter
+    void enableDataWrite() {
+        auto formatter = dynamic_cast<ParquetFormatter*>(&this->getFormatter());
+        if (formatter != nullptr) {
+            formatter->enableDataWrite();
+        }
+    }
+
+    /// @brief Disable data writing in the formatter
+    void disableDataWrite() {
+        auto formatter = dynamic_cast<ParquetFormatter*>(&this->getFormatter());
+        if (formatter != nullptr) {
+            formatter->disableDataWrite();
+        }
+    }
+
 protected:
 
     /// @brief Returns whether the output device is a parquet
@@ -86,7 +115,7 @@ protected:
 
 private:
     /// The wrapped ofstream
-    std::shared_ptr<arrow::io::FileOutputStream> myFile = nullptr;
+    std::shared_ptr<arrow::io::OutputStream> myFile = nullptr;
     // the builder for the writer properties
     parquet::WriterProperties::Builder builder;
     // the schema
@@ -99,7 +128,27 @@ private:
     std::string myFullName;
 
     parquet::schema::NodeVector myNodeVector;
+    
+    /// flag indicating if this is an S3 output
+    bool myIsS3 = false;
+    
+#ifdef HAVE_S3
+    /// S3 filesystem instance if writing to S3
+    std::shared_ptr<arrow::fs::S3FileSystem> myS3FileSystem = nullptr;
+#endif
 
+    /** @brief Create output stream based on the filename (S3 or local)
+     * @return Arrow output stream
+     */
+    std::shared_ptr<arrow::io::OutputStream> createOutputStream();
+    
+    /** @brief Parse S3 URL and extract bucket and key
+     * @param url S3 URL in format s3://bucket/path
+     * @param[out] bucket Bucket name
+     * @param[out] key Object key
+     * @return Success status
+     */
+    bool parseS3Url(const std::string& url, std::string& bucket, std::string& key);
 };
 
 #endif // HAVE_PARQUET

@@ -390,9 +390,14 @@ public:
     }
 
     /// @todo should move to the formatter
-    /// @brief Returns the type of the output device
+    /// @brief Sets OS flags for the output stream
     virtual void setOSFlags(std::ios_base::fmtflags flags) {
         getOStream().setOSFlags(flags);
+    }
+    
+    /// @brief Returns the type of the output device
+    virtual OutputWriterType getType() const {
+        return OutputWriterType::XML;
     }
 
     // @brief handle the raw write
@@ -419,10 +424,6 @@ protected:
         return static_cast<T*>(myStreamDevice);
     }
 
-    /// @brief Returns whether the output device is a parquet
-    virtual OutputWriterType getType() const {
-        return OutputWriterType::XML;
-    }
     /** @brief Called after every write access.
      *
      * Default implementation does nothing.

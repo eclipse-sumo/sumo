@@ -1,4 +1,3 @@
-
 #pragma once
 #include <config.h>
 #include <fstream> 
@@ -286,8 +285,16 @@ public:
     }
 
     void close() override {
-        myStream->EndRowGroup();
-        myStream.release();
+        try {
+            if (myStream) {
+                myStream->EndRowGroup();
+                myStream.release();
+            }
+        } catch (const parquet::ParquetException& e) {
+            std::cerr << "Error ending row group in Parquet file: " << e.what() << std::endl;
+            // Release the stream anyway to avoid a double free
+            myStream.release();
+        }
     }
 
     void setPrecision(int precision) override {
@@ -318,7 +325,12 @@ public:
     };
 
     StreamDevice& endLine() override {
-        myStream->EndRow();
+        try {
+            myStream->EndRow();
+        } catch (const parquet::ParquetException& e) {
+            std::cerr << "Error ending row in Parquet file: " << e.what() << std::endl;
+            // Don't rethrow to allow the program to continue with the next row
+        }
         return *this;
     }
 
