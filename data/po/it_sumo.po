@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-13 10:07+0100\n"
-"PO-Revision-Date: 2025-04-03 10:47+0000\n"
+"PO-Revision-Date: 2025-04-04 13:19+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -11720,6 +11720,8 @@ msgid ""
 "Option weights.priority-factor does not take effect because all edges have "
 "the same priority."
 msgstr ""
+"L'opzione weights.priority-factor non produce alcun effetto perché tutti gli "
+"archi hanno la stessa priorità."
 
 #: src/router/ROFrame.cpp:47
 msgid "Write generated routes to FILE"
@@ -11886,7 +11888,7 @@ msgstr "Il file di elementi addizionali '%' non è accessibile."
 
 #: src/router/ROLoader.cpp:219
 msgid "Routes found between time steps % and %."
-msgstr ""
+msgstr "Itinerari incontrati tra i passi di simulazione % e %."
 
 #: src/router/ROLoader.cpp:245
 msgid "The loader for % from file '%' could not be initialised (%)."
@@ -12502,19 +12504,19 @@ msgstr "Salva la configurazione attuale in FILE"
 
 #: src/utils/common/SystemFrame.cpp:52
 msgid "Enforce relative paths when saving the configuration"
-msgstr ""
+msgstr "Applica percorsi relativi nel salvare la configurazione"
 
 #: src/utils/common/SystemFrame.cpp:55
 msgid "Saves a configuration template (empty) into FILE"
-msgstr ""
+msgstr "Salva un modello di configurazione (vuoto) in FILE"
 
 #: src/utils/common/SystemFrame.cpp:58
 msgid "Saves the configuration schema into FILE"
-msgstr ""
+msgstr "Salva lo schema di configurazione in FILE"
 
 #: src/utils/common/SystemFrame.cpp:62
 msgid "Adds comments to saved template, configuration, or schema"
-msgstr ""
+msgstr "Aggiunge commenti al modello, al schema o alla configurazione salvata"
 
 #: src/utils/common/SystemFrame.cpp:71
 msgid "Switches to verbose output"
@@ -12526,61 +12528,70 @@ msgstr ""
 
 #: src/utils/common/SystemFrame.cpp:77
 msgid "Prints this screen or selected topics"
-msgstr ""
+msgstr "Mostra questo schermo o temi selezionati"
 
 #: src/utils/common/SystemFrame.cpp:80
 msgid "Prints the current version"
-msgstr ""
+msgstr "Mostra la versione attuale"
 
 #: src/utils/common/SystemFrame.cpp:97
 msgid "Disables output of warnings"
-msgstr ""
+msgstr "Disattiva gli avvertimenti"
 
 #: src/utils/common/SystemFrame.cpp:100
 msgid "Aggregate warnings of the same type whenever more than INT occur"
 msgstr ""
+"Riassuma gli avvertimenti secondo il loro tipo ogni volta che occorono più "
+"di INT volte"
 
 #: src/utils/common/SystemFrame.cpp:104
 msgid "Writes all messages to FILE (implies verbose)"
-msgstr ""
+msgstr "Scrive tutti i messaggi in FILE (implica uscita dettagliata)"
 
 #: src/utils/common/SystemFrame.cpp:107
 msgid "Writes all non-error messages to FILE (implies verbose)"
 msgstr ""
+"Scrive tutti i messaggi eccetto gli errori in FILE (implica uscita "
+"dettagliata)"
 
 #: src/utils/common/SystemFrame.cpp:110
 msgid "Writes all warnings and errors to FILE"
-msgstr ""
+msgstr "Scrive tutti gli avvertimenti e errori in FILE"
 
 #: src/utils/common/SystemFrame.cpp:113
 msgid "Writes timestamps in front of all messages"
-msgstr ""
+msgstr "Scrive una marche temporale davanti ad ogni messaggio"
 
 #: src/utils/common/SystemFrame.cpp:116
 msgid "Writes process ID in front of all messages"
-msgstr ""
+msgstr "Scrive il codice identificativo del processo davanti ad ogni messaggio"
 
 #: src/utils/common/SystemFrame.cpp:119
 msgid "Language to use in messages"
-msgstr ""
+msgstr "Lingua da usare per i messaggi"
 
 #: src/utils/common/SystemFrame.cpp:122
 msgid "Include license info into every output file"
-msgstr ""
+msgstr "Includi informazione di licenza in ogni file in uscita"
 
 #: src/utils/common/SystemFrame.cpp:125
 msgid ""
 "Prefix which is applied to all output files. The special string 'TIME' is "
 "replaced by the current time."
 msgstr ""
+"Prefisso da applicare a tutti i file in uscita. La sequenza di caratteri "
+"speciale 'TIME' viene sostituita con l'ora attuale."
 
 #: src/utils/common/SystemFrame.cpp:128
 msgid "Defines the number of digits after the comma for floating point output"
 msgstr ""
+"Definisce la parte dopo la virgola per uscite di numeri in virgola mobile"
 
 #: src/utils/common/SystemFrame.cpp:131
 msgid "Defines the number of digits after the comma for lon,lat output"
 msgstr ""
+"Definisce la parte dopo la vorgola per uscite di coordinate geografiche ("
+"lon, lat)"
 
 #: src/utils/common/SystemFrame.cpp:134
 msgid ""
@@ -12674,11 +12685,11 @@ msgstr ""
 
 #: src/utils/foxtools/MFXDecalsTable.cpp:73
 msgid "Add decal"
-msgstr ""
+msgstr "Aggiungi immagine di sfondo"
 
 #: src/utils/foxtools/MFXDecalsTable.cpp:73
 msgid "Add decal."
-msgstr ""
+msgstr "Aggiungi immagine di sfondo."
 
 #: src/utils/foxtools/MFXDecalsTable.cpp:159
 #: src/utils/foxtools/MFXDecalsTable.cpp:170
