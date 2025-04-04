@@ -94,7 +94,6 @@ GNERoute::GNERoute(const std::string& id, const GNEDemandElement* originalRoute)
     Parameterised(originalRoute->getACParametersMap()),
     myRepeat(parse<int>(originalRoute->getAttribute(SUMO_ATTR_REPEAT))),
     myCycleTime(string2time(originalRoute->getAttribute(SUMO_ATTR_REPEAT))),
-    myProbability(parse<double>(originalRoute->getAttribute(SUMO_ATTR_PROB))),
     myVClass(originalRoute->getVClass()) {
     // set parents
     setParents<GNEEdge*>(originalRoute->getParentEdges());
@@ -109,7 +108,6 @@ GNERoute::GNERoute(GNEVehicle* vehicleParent, const GNEDemandElement* originalRo
     Parameterised(originalRoute->getACParametersMap()),
     myRepeat(parse<int>(originalRoute->getAttribute(SUMO_ATTR_REPEAT))),
     myCycleTime(string2time(originalRoute->getAttribute(SUMO_ATTR_REPEAT))),
-    myProbability(parse<double>(originalRoute->getAttribute(SUMO_ATTR_PROB))),
     myVClass(originalRoute->getVClass()) {
     // set parents
     setParents<GNEEdge*>(originalRoute->getParentEdges());
@@ -132,14 +130,6 @@ GNERoute::GNERoute(const std::string& id, GNENet* net, const std::string& filena
     setParents<GNEEdge*>(edges);
 }
 
-
-// route ref placed in distribution
-GNERoute::GNERoute(GNEDemandElement* distributionParent, GNEDemandElement* route, const double probability) :
-    GNEDemandElement(distributionParent, distributionParent->getNet(), GLO_ROUTE, GNE_TAG_ROUTEREF, GUIIcon::ROUTE,
-                     GNEPathElement::Options::DEMAND_ELEMENT | GNEPathElement::Options::ROUTE) {
-    // set parents
-    setParents<GNEDemandElement*>({distributionParent, route});
-}
 
 // embedded route
 GNERoute::GNERoute(GNEDemandElement* vehicleParent, const std::vector<GNEEdge*>& edges, const RGBColor& color,
@@ -209,9 +199,6 @@ GNERoute::writeDemandElement(OutputDevice& device) const {
     }
     // write sorted stops
     if (myTagProperty->getTag() == SUMO_TAG_ROUTE) {
-        if (myProbability != myTagProperty->getDefaultDoubleValue(SUMO_ATTR_PROB)) {
-            device.writeAttr(SUMO_ATTR_PROB, toString(myProbability));
-        }
         // write stops
         for (const auto& demandElement : getChildDemandElements()) {
             if (demandElement->getTagProperty()->isVehicleStop()) {
@@ -534,8 +521,6 @@ GNERoute::getAttribute(SumoXMLAttr key) const {
             return toString(myRepeat);
         case SUMO_ATTR_CYCLETIME:
             return time2string(myCycleTime);
-        case SUMO_ATTR_PROB:
-            return toString(myProbability);
         case GNE_ATTR_ROUTE_DISTRIBUTION:
             return getDistributionParents();
         default:
@@ -574,7 +559,6 @@ bool
 GNERoute::isAttributeEnabled(SumoXMLAttr key) const {
     switch (key) {
         case GNE_ATTR_ROUTE_DISTRIBUTION:
-        case SUMO_ATTR_PROB:
             return false;
         default:
             return true;
@@ -592,7 +576,6 @@ GNERoute::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* u
         case SUMO_ATTR_COLOR:
         case SUMO_ATTR_REPEAT:
         case SUMO_ATTR_CYCLETIME:
-        case SUMO_ATTR_PROB:
             GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
         // special case due depart and arrival edge vehicles
@@ -657,8 +640,6 @@ GNERoute::isValid(SumoXMLAttr key, const std::string& value) {
             } else {
                 return false;
             }
-        case SUMO_ATTR_PROB:
-            return canParse<double>(value) && (parse<double>(value) >= 0);
         default:
             return isCommonValid(key, value);
     }
@@ -839,13 +820,6 @@ GNERoute::setAttribute(SumoXMLAttr key, const std::string& value) {
                 myCycleTime = myTagProperty->getDefaultTimeValue(key);
             } else {
                 myCycleTime = string2time(value);
-            }
-            break;
-        case SUMO_ATTR_PROB:
-            if (value.empty()) {
-                myProbability = myTagProperty->getDefaultDoubleValue(key);
-            } else {
-                myProbability = parse<double>(value);
             }
             break;
         default:

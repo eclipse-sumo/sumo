@@ -303,15 +303,6 @@ private:
     /// @brief flag to check if overwrite elements
     const bool myOverwrite;
 
-    /// @brief vehicle tags
-    static const std::vector<SumoXMLTag> myVehicleTags;
-
-    /// @brief person tags
-    static const std::vector<SumoXMLTag> myPersonTags;
-
-    /// @brief container tags
-    static const std::vector<SumoXMLTag> myContainerTags;
-
     /// @brief invalidate default onstructor
     GNERouteHandler() = delete;
 

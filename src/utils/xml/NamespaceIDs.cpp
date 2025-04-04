@@ -18,13 +18,11 @@
 // Class for unify namespace IDs (elements that share the same namespace ID)
 /****************************************************************************/
 
-
 // ===========================================================================
 // included modules
 // ===========================================================================
 
 #include "NamespaceIDs.h"
-
 
 // ===========================================================================
 // method definitions
@@ -76,14 +74,15 @@ const std::vector<SumoXMLTag> NamespaceIDs::routes = {
 
 
 const std::vector<SumoXMLTag> NamespaceIDs::vehicles = {
-    SUMO_TAG_VEHICLE, SUMO_TAG_TRIP,
-    GNE_TAG_VEHICLE_WITHROUTE,
-    GNE_TAG_TRIP_JUNCTIONS,
-    GNE_TAG_TRIP_TAZS,
-    GNE_TAG_FLOW_ROUTE,
+    SUMO_TAG_TRIP,
     SUMO_TAG_FLOW,
+    SUMO_TAG_VEHICLE,
+    GNE_TAG_FLOW_ROUTE,
+    GNE_TAG_VEHICLE_WITHROUTE,
     GNE_TAG_FLOW_WITHROUTE,
+    GNE_TAG_TRIP_JUNCTIONS,
     GNE_TAG_FLOW_JUNCTIONS,
+    GNE_TAG_TRIP_TAZS,
     GNE_TAG_FLOW_TAZS
 };
 

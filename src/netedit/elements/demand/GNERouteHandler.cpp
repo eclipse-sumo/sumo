@@ -35,6 +35,7 @@
 #include <utils/common/SUMOVehicleClass.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/vehicle/SUMORouteHandler.h>
+#include <utils/xml/NamespaceIDs.h>
 #include <utils/xml/SUMOSAXAttributes.h>
 #include <utils/xml/SUMOSAXHandler.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
@@ -55,27 +56,6 @@
 #include "GNEVehicle.h"
 #include "GNEWalk.h"
 
-// ===========================================================================
-// static definitions
-// ===========================================================================
-
-const std::vector<SumoXMLTag> GNERouteHandler::myVehicleTags = {
-    SUMO_TAG_TRIP, SUMO_TAG_FLOW,                       // over edges
-    SUMO_TAG_VEHICLE, GNE_TAG_FLOW_ROUTE,               // over route
-    GNE_TAG_VEHICLE_WITHROUTE, GNE_TAG_FLOW_WITHROUTE,  // over embedded routes
-    GNE_TAG_TRIP_TAZS, GNE_TAG_FLOW_TAZS,               // over TAZs
-    GNE_TAG_TRIP_JUNCTIONS, GNE_TAG_FLOW_JUNCTIONS      // over junctions
-};
-
-const std::vector<SumoXMLTag> GNERouteHandler::myPersonTags = {
-    SUMO_TAG_PERSON,
-    SUMO_TAG_PERSONFLOW
-};
-
-const std::vector<SumoXMLTag> GNERouteHandler::myContainerTags = {
-    SUMO_TAG_CONTAINER,
-    SUMO_TAG_CONTAINERFLOW
-};
 
 // ===========================================================================
 // member method definitions
@@ -192,11 +172,11 @@ GNERouteHandler::buildVTypeDistribution(const CommonXMLStructure::SumoBaseObject
 
 
 bool
-GNERouteHandler::buildRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, SUMOVehicleClass vClass,
+GNERouteHandler::buildRoute(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const std::string& id, SUMOVehicleClass vClass,
                             const std::vector<std::string>& edgeIDs, const RGBColor& color, const int repeat, const SUMOTime cycleTime,
                             const Parameterised::Map& routeParameters) {
     // check conditions
-    const auto element = retrieveDemandElement({SUMO_TAG_ROUTE, SUMO_TAG_ROUTE_DISTRIBUTION}, id);
+    const auto element = retrieveDemandElement(NamespaceIDs::routes, id);
     if (!checkElement(SUMO_TAG_ROUTE, element)) {
         return false;
     } else if (!checkValidDemandElementID(SUMO_TAG_ROUTE, id)) {
@@ -240,7 +220,7 @@ GNERouteHandler::buildRouteDistribution(const CommonXMLStructure::SumoBaseObject
     // declare vector with route and their probabilities
     std::vector<const GNEDemandElement*> routes;
     // check conditions
-    const auto element = retrieveDemandElement({SUMO_TAG_ROUTE, SUMO_TAG_ROUTE_DISTRIBUTION}, id);
+    const auto element = retrieveDemandElement(NamespaceIDs::routes, id);
     if (!checkElement(SUMO_TAG_ROUTE_DISTRIBUTION, element)) {
         return false;
     } else if (!checkValidDemandElementID(SUMO_TAG_ROUTE_DISTRIBUTION, id)) {
@@ -264,7 +244,7 @@ GNERouteHandler::buildRouteDistribution(const CommonXMLStructure::SumoBaseObject
 bool
 GNERouteHandler::buildVehicleOverRoute(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const SUMOVehicleParameter& vehicleParameters) {
     // check conditions
-    const auto element = retrieveDemandElement(myVehicleTags, vehicleParameters.id);
+    const auto element = retrieveDemandElement(NamespaceIDs::vehicles, vehicleParameters.id);
     if (!checkElement(SUMO_TAG_VEHICLE, element)) {
         return false;
     } else if (!checkValidDemandElementID(SUMO_TAG_VEHICLE, vehicleParameters.id)) {
@@ -306,7 +286,7 @@ GNERouteHandler::buildVehicleEmbeddedRoute(const CommonXMLStructure::SumoBaseObj
         const std::vector<std::string>& edgeIDs, const RGBColor& color, const int repeat, const SUMOTime cycleTime,
         const Parameterised::Map& routeParameters) {
     // check conditions
-    const auto element = retrieveDemandElement(myVehicleTags, vehicleParameters.id);
+    const auto element = retrieveDemandElement(NamespaceIDs::vehicles, vehicleParameters.id);
     if (!checkElement(GNE_TAG_VEHICLE_WITHROUTE, element)) {
         return false;
     } else if (!checkValidDemandElementID(GNE_TAG_VEHICLE_WITHROUTE, vehicleParameters.id)) {
@@ -356,7 +336,7 @@ GNERouteHandler::buildVehicleEmbeddedRoute(const CommonXMLStructure::SumoBaseObj
 bool
 GNERouteHandler::buildFlowOverRoute(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const SUMOVehicleParameter& vehicleParameters) {
     // check conditions
-    const auto element = retrieveDemandElement(myVehicleTags, vehicleParameters.id);
+    const auto element = retrieveDemandElement(NamespaceIDs::vehicles, vehicleParameters.id);
     if (!checkElement(GNE_TAG_FLOW_ROUTE, element)) {
         return false;
     } else if (!checkValidDemandElementID(GNE_TAG_FLOW_ROUTE, vehicleParameters.id)) {
@@ -398,7 +378,7 @@ GNERouteHandler::buildFlowEmbeddedRoute(const CommonXMLStructure::SumoBaseObject
                                         const std::vector<std::string>& edgeIDs, const RGBColor& color, const int repeat, const SUMOTime cycleTime,
                                         const Parameterised::Map& routeParameters) {
     // check conditions
-    const auto element = retrieveDemandElement(myVehicleTags, vehicleParameters.id);
+    const auto element = retrieveDemandElement(NamespaceIDs::vehicles, vehicleParameters.id);
     if (!checkElement(GNE_TAG_FLOW_WITHROUTE, element)) {
         return false;
     } else if (!checkValidDemandElementID(GNE_TAG_FLOW_WITHROUTE, vehicleParameters.id)) {
@@ -449,7 +429,7 @@ bool
 GNERouteHandler::buildTrip(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters,
                            const std::string& fromEdgeID, const std::string& toEdgeID) {
     // check conditions
-    const auto element = retrieveDemandElement(myVehicleTags, vehicleParameters.id);
+    const auto element = retrieveDemandElement(NamespaceIDs::vehicles, vehicleParameters.id);
     if (!checkElement(SUMO_TAG_TRIP, element)) {
         return false;
     } else if (!checkValidDemandElementID(SUMO_TAG_TRIP, vehicleParameters.id)) {
@@ -502,7 +482,7 @@ bool
 GNERouteHandler::buildTripJunctions(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const SUMOVehicleParameter& vehicleParameters,
                                     const std::string& fromJunctionID, const std::string& toJunctionID) {
     // check conditions
-    const auto element = retrieveDemandElement(myVehicleTags, vehicleParameters.id);
+    const auto element = retrieveDemandElement(NamespaceIDs::vehicles, vehicleParameters.id);
     if (!checkElement(GNE_TAG_TRIP_JUNCTIONS, element)) {
         return false;
     } else if (!checkValidDemandElementID(GNE_TAG_TRIP_JUNCTIONS, vehicleParameters.id)) {
@@ -549,7 +529,7 @@ bool
 GNERouteHandler::buildTripTAZs(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const SUMOVehicleParameter& vehicleParameters,
                                const std::string& fromTAZID, const std::string& toTAZID) {
     // check conditions
-    const auto element = retrieveDemandElement(myVehicleTags, vehicleParameters.id);
+    const auto element = retrieveDemandElement(NamespaceIDs::vehicles, vehicleParameters.id);
     if (!checkElement(GNE_TAG_TRIP_TAZS, element)) {
         return false;
     } else if (!checkValidDemandElementID(GNE_TAG_TRIP_TAZS, vehicleParameters.id)) {
@@ -596,7 +576,7 @@ bool
 GNERouteHandler::buildFlow(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters,
                            const std::string& fromEdgeID, const std::string& toEdgeID) {
     // check conditions
-    const auto element = retrieveDemandElement(myVehicleTags, vehicleParameters.id);
+    const auto element = retrieveDemandElement(NamespaceIDs::vehicles, vehicleParameters.id);
     if (!checkElement(SUMO_TAG_FLOW, element)) {
         return false;
     } else if (!checkValidDemandElementID(SUMO_TAG_FLOW, vehicleParameters.id)) {
@@ -649,7 +629,7 @@ bool
 GNERouteHandler::buildFlowJunctions(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const SUMOVehicleParameter& vehicleParameters,
                                     const std::string& fromJunctionID, const std::string& toJunctionID) {
     // check conditions
-    const auto element = retrieveDemandElement(myVehicleTags, vehicleParameters.id);
+    const auto element = retrieveDemandElement(NamespaceIDs::vehicles, vehicleParameters.id);
     if (!checkElement(GNE_TAG_FLOW_JUNCTIONS, element)) {
         return false;
     } else if (!checkValidDemandElementID(GNE_TAG_FLOW_JUNCTIONS, vehicleParameters.id)) {
@@ -696,7 +676,7 @@ bool
 GNERouteHandler::buildFlowTAZs(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const SUMOVehicleParameter& vehicleParameters,
                                const std::string& fromTAZID, const std::string& toTAZID) {
     // check conditions
-    const auto element = retrieveDemandElement(myVehicleTags, vehicleParameters.id);
+    const auto element = retrieveDemandElement(NamespaceIDs::vehicles, vehicleParameters.id);
     if (!checkElement(GNE_TAG_FLOW_TAZS, element)) {
         return false;
     } else if (!checkValidDemandElementID(GNE_TAG_FLOW_TAZS, vehicleParameters.id)) {
@@ -742,7 +722,7 @@ GNERouteHandler::buildFlowTAZs(const CommonXMLStructure::SumoBaseObject* /*sumoB
 bool
 GNERouteHandler::buildPerson(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const SUMOVehicleParameter& personParameters) {
     // check conditions
-    const auto element = retrieveDemandElement(myPersonTags, personParameters.id);
+    const auto element = retrieveDemandElement(NamespaceIDs::persons, personParameters.id);
     if (!checkElement(SUMO_TAG_PERSON, element)) {
         return false;
     } else if (!checkValidDemandElementID(SUMO_TAG_PERSON, personParameters.id)) {
@@ -776,7 +756,7 @@ GNERouteHandler::buildPerson(const CommonXMLStructure::SumoBaseObject* /*sumoBas
 bool
 GNERouteHandler::buildPersonFlow(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const SUMOVehicleParameter& personFlowParameters) {
     // check conditions
-    const auto element = retrieveDemandElement(myPersonTags, personFlowParameters.id);
+    const auto element = retrieveDemandElement(NamespaceIDs::persons, personFlowParameters.id);
     if (!checkElement(SUMO_TAG_PERSONFLOW, element)) {
         return false;
     } else if (!checkValidDemandElementID(SUMO_TAG_PERSONFLOW, personFlowParameters.id)) {
@@ -918,7 +898,7 @@ GNERouteHandler::buildRide(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
 bool
 GNERouteHandler::buildContainer(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const SUMOVehicleParameter& containerParameters) {
     // check conditions
-    const auto element = retrieveDemandElement(myContainerTags, containerParameters.id);
+    const auto element = retrieveDemandElement(NamespaceIDs::containers, containerParameters.id);
     if (!checkElement(SUMO_TAG_CONTAINER, element)) {
         return false;
     } else if (!checkValidDemandElementID(SUMO_TAG_CONTAINER, containerParameters.id)) {
@@ -952,7 +932,7 @@ GNERouteHandler::buildContainer(const CommonXMLStructure::SumoBaseObject* /*sumo
 bool
 GNERouteHandler::buildContainerFlow(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const SUMOVehicleParameter& containerFlowParameters) {
     // check conditions
-    const auto element = retrieveDemandElement(myContainerTags, containerFlowParameters.id);
+    const auto element = retrieveDemandElement(NamespaceIDs::containers, containerFlowParameters.id);
     if (!checkElement(SUMO_TAG_CONTAINERFLOW, element)) {
         return false;
     } else if (!checkValidDemandElementID(SUMO_TAG_CONTAINERFLOW, containerFlowParameters.id)) {

@@ -91,13 +91,6 @@ public:
     GNERoute(const std::string& id, GNENet* net, const std::string& filename, SUMOVehicleClass vClass, const std::vector<GNEEdge*>& edges,
              const RGBColor& color, const int repeat, const SUMOTime cycleTime, const Parameterised::Map& parameters);
 
-    /**@brief parameter constructor for route references
-     * @param[in] distribution parent
-     * @param[in] id route ID
-     * @param[in] probability used in routeDistributions
-     */
-    GNERoute(GNEDemandElement* distributionParent, GNEDemandElement* route, const double probability);
-
     /**@brief parameter constructor for embedded routes
      * @param[in] vehicleParent vehicle parent of this embedded route
      * @param[in] edges route edges
@@ -281,9 +274,6 @@ protected:
 
     /// @brief cycleTime
     SUMOTime myCycleTime = 0;
-
-    /// @brief probability
-    double myProbability = 1.0;
 
     /// @brief SUMOVehicleClass (Only used for drawing)
     SUMOVehicleClass myVClass = SVC_PASSENGER;
