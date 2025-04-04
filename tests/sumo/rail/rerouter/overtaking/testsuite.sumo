@@ -26,6 +26,12 @@ follower_arrival_delay_low
 # delay is too high so overtaking is not considered
 follower_delay_high
 
+# delay is high but overtaking is considered anyway
+follower_delay_high_maxDelay_high
+
+# delay is high but overtaking is considered anyway
+follower_delay_high_maxDelay_default
+
 # delay is too high so overtaking is not considered
 follower_delay_low
 
