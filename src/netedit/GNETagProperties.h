@@ -81,7 +81,7 @@ public:
         NOTDRAWABLE =           1 << 0,     // Element cannot be drawn in view
         GEOSHAPE =              1 << 1,     // Element's shape acn be defined using a GEO Shape
         DIALOG =                1 << 2,     // Element can be edited using a dialog (GNECalibratorDialog, GNERerouterDialog...)
-        CHILD =                 1 << 3,     // Element is child of another element and will be written in XML without id (Example: E3Entry -> E3Detector...)
+        XMLCHILD =              1 << 3,     // Element is child of another element and will be written in XML (Example: E3Entry -> E3Detector...)
         REPARENT =              1 << 4,     // Element can be reparent
         NOTSELECTABLE =         1 << 5,     // Element cannot be selected
         NOPARAMETERS =          1 << 6,     // Element doesn't accept parameters "key1=value1|key2=value2|...|keyN=valueN" (by default all tags supports parameters)
@@ -193,11 +193,17 @@ public:
     /// @brief get GUI icon associated to this Tag
     GUIIcon getGUIIcon() const;
 
+    /// @brief default values
+    /// @{
+
     /// @brief get XML tag
     SumoXMLTag getXMLTag() const;
 
     /// @brief get XML parent tags
     const std::vector<SumoXMLTag>& getXMLParentTags() const;
+
+    /// @brief return true if tag correspond to an element that can be reparent
+    bool canBeReparent() const;
 
     /// @brief default values
     /// @{
@@ -514,9 +520,6 @@ public:
 
     /// @brief return true if Tag correspond to an element that has to be placed in RTREE
     bool isPlacedInRTree() const;
-
-    /// @brief return true if tag correspond to an element that can be reparent
-    bool canBeReparent() const;
 
     /// @brief return true if tag correspond to an element that center camera after creation
     bool canCenterCameraAfterCreation() const;

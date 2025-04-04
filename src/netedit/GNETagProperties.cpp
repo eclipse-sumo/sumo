@@ -909,7 +909,7 @@ GNETagProperties::planToStoppingPlace() const {
 
 bool
 GNETagProperties::isChild() const {
-    return (myTagProperty & Property::CHILD) ;
+    return (myTagProperty & Property::XMLCHILD) ;
 }
 
 

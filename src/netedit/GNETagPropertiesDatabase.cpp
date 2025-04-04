@@ -1211,7 +1211,7 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
         // set values of tag
         myTagProperties[currentTag] = new GNETagProperties(currentTag, mySetTagProperties.at(SUMO_TAG_VIEWSETTINGS_ADDITIONALS),
                 GNETagProperties::Type::ADDITIONALELEMENT,
-                GNETagProperties::Property::CHILD | GNETagProperties::Property::REPARENT,
+                GNETagProperties::Property::XMLCHILD | GNETagProperties::Property::REPARENT,
                 GNETagProperties::Over::LANE,
                 GNETagProperties::Conflicts::POS_LANE,
                 GUIIcon::ACCESS, currentTag, TL("Access"),
@@ -1383,7 +1383,7 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
         // set values of tag
         myTagProperties[currentTag] = new GNETagProperties(currentTag, mySetTagProperties.at(SUMO_TAG_VIEWSETTINGS_ADDITIONALS),
                 GNETagProperties::Type::ADDITIONALELEMENT,
-                GNETagProperties::Property::CHILD | GNETagProperties::Property::REPARENT | GNETagProperties::Property::RTREE,
+                GNETagProperties::Property::XMLCHILD | GNETagProperties::Property::REPARENT | GNETagProperties::Property::RTREE,
                 GNETagProperties::Over::VIEW,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::PARKINGSPACE, currentTag, TL("ParkingSpace"),
@@ -1601,7 +1601,7 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
         // set values of tag
         myTagProperties[currentTag] = new GNETagProperties(currentTag, mySetTagProperties.at(GNE_TAG_DETECTORS),
                 GNETagProperties::Type::ADDITIONALELEMENT | GNETagProperties::Type::DETECTOR,
-                GNETagProperties::Property::CHILD | GNETagProperties::Property::REPARENT,
+                GNETagProperties::Property::XMLCHILD | GNETagProperties::Property::REPARENT,
                 GNETagProperties::Over::LANE,
                 GNETagProperties::Conflicts::POS_LANE,
                 GUIIcon::E3ENTRY, currentTag, TL("E3 DetEntry"),
@@ -1619,7 +1619,7 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
         // set values of tag
         myTagProperties[currentTag] = new GNETagProperties(currentTag, mySetTagProperties.at(GNE_TAG_DETECTORS),
                 GNETagProperties::Type::ADDITIONALELEMENT | GNETagProperties::Type::DETECTOR,
-                GNETagProperties::Property::CHILD | GNETagProperties::Property::REPARENT,
+                GNETagProperties::Property::XMLCHILD | GNETagProperties::Property::REPARENT,
                 GNETagProperties::Over::LANE,
                 GNETagProperties::Conflicts::POS_LANE,
                 GUIIcon::E3EXIT, currentTag, TL("E3 DetExit"),
@@ -1727,7 +1727,7 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
         // set values of tag
         myTagProperties[currentTag] = new GNETagProperties(currentTag, mySetTagProperties.at(SUMO_TAG_VIEWSETTINGS_ADDITIONALS),
                 GNETagProperties::Type::ADDITIONALELEMENT,
-                GNETagProperties::Property::CHILD | GNETagProperties::Property::NOPARAMETERS | GNETagProperties::Property::NOTSELECTABLE | GNETagProperties::Property::SYMBOL,
+                GNETagProperties::Property::XMLCHILD | GNETagProperties::Property::NOPARAMETERS | GNETagProperties::Property::NOTSELECTABLE | GNETagProperties::Property::SYMBOL,
                 GNETagProperties::Over::LANE,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::LANE, currentTag, TL("VariableSpeedSign (lane)"),
@@ -1738,7 +1738,7 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
         // set values of tag
         myTagProperties[currentTag] = new GNETagProperties(currentTag, mySetTagProperties.at(SUMO_TAG_VIEWSETTINGS_ADDITIONALS),
                 GNETagProperties::Type::ADDITIONALELEMENT,
-                GNETagProperties::Property::CHILD | GNETagProperties::Property::NOPARAMETERS,
+                GNETagProperties::Property::XMLCHILD | GNETagProperties::Property::NOPARAMETERS,
                 GNETagProperties::Over::VIEW,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::VSSSTEP, currentTag, TL("VariableSpeedSign Step"),
@@ -1840,7 +1840,7 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
         // set values of tag
         myTagProperties[currentTag] = new GNETagProperties(currentTag, mySetTagProperties.at(SUMO_TAG_VIEWSETTINGS_ADDITIONALS),
                 GNETagProperties::Type::ADDITIONALELEMENT | GNETagProperties::Type::CALIBRATOR,
-                GNETagProperties::Property::CHILD,
+                GNETagProperties::Property::XMLCHILD,
                 GNETagProperties::Over::VIEW,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::FLOW, SUMO_TAG_FLOW, TL("CalibratorFlow"),
@@ -1943,7 +1943,7 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
         // set values of tag
         myTagProperties[currentTag] = new GNETagProperties(currentTag, mySetTagProperties.at(SUMO_TAG_VIEWSETTINGS_ADDITIONALS),
                 GNETagProperties::Type::ADDITIONALELEMENT,
-                GNETagProperties::Property::CHILD | GNETagProperties::Property::NOPARAMETERS | GNETagProperties::Property::NOTSELECTABLE | GNETagProperties::Property::SYMBOL,
+                GNETagProperties::Property::XMLCHILD | GNETagProperties::Property::NOPARAMETERS | GNETagProperties::Property::NOTSELECTABLE | GNETagProperties::Property::SYMBOL,
                 GNETagProperties::Over::EDGE,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::EDGE, currentTag, TL("Rerouter (Edge)"),
@@ -1954,7 +1954,7 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
         // set values of tag
         myTagProperties[currentTag] = new GNETagProperties(currentTag, mySetTagProperties.at(SUMO_TAG_VIEWSETTINGS_ADDITIONALS),
                 GNETagProperties::Type::ADDITIONALELEMENT,
-                GNETagProperties::Property::CHILD | GNETagProperties::Property::NOPARAMETERS,
+                GNETagProperties::Property::XMLCHILD | GNETagProperties::Property::NOPARAMETERS,
                 GNETagProperties::Over::VIEW,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::REROUTERINTERVAL, currentTag, TL("Rerouter Interval"),
@@ -1977,7 +1977,7 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
         // set values of tag
         myTagProperties[currentTag] = new GNETagProperties(currentTag, mySetTagProperties.at(SUMO_TAG_VIEWSETTINGS_ADDITIONALS),
                 GNETagProperties::Type::ADDITIONALELEMENT,
-                GNETagProperties::Property::CHILD | GNETagProperties::Property::NOPARAMETERS,
+                GNETagProperties::Property::XMLCHILD | GNETagProperties::Property::NOPARAMETERS,
                 GNETagProperties::Over::VIEW,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::CLOSINGREROUTE, currentTag, TL("ClosingReroute"),
@@ -1992,7 +1992,7 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
         // set values of tag
         myTagProperties[currentTag] = new GNETagProperties(currentTag, mySetTagProperties.at(SUMO_TAG_VIEWSETTINGS_ADDITIONALS),
                 GNETagProperties::Type::ADDITIONALELEMENT,
-                GNETagProperties::Property::CHILD | GNETagProperties::Property::NOPARAMETERS,
+                GNETagProperties::Property::XMLCHILD | GNETagProperties::Property::NOPARAMETERS,
                 GNETagProperties::Over::VIEW,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::CLOSINGLANEREROUTE, currentTag, TL("ClosingLaneReroute"),
@@ -2007,7 +2007,7 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
         // set values of tag
         myTagProperties[currentTag] = new GNETagProperties(currentTag, mySetTagProperties.at(SUMO_TAG_VIEWSETTINGS_ADDITIONALS),
                 GNETagProperties::Type::ADDITIONALELEMENT,
-                GNETagProperties::Property::CHILD | GNETagProperties::Property::NOPARAMETERS,
+                GNETagProperties::Property::XMLCHILD | GNETagProperties::Property::NOPARAMETERS,
                 GNETagProperties::Over::VIEW,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::DESTPROBREROUTE, currentTag, TL("DestinationProbabilityReroute"),
@@ -2026,7 +2026,7 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
         // set values of tag
         myTagProperties[currentTag] = new GNETagProperties(currentTag, mySetTagProperties.at(SUMO_TAG_VIEWSETTINGS_ADDITIONALS),
                 GNETagProperties::Type::ADDITIONALELEMENT,
-                GNETagProperties::Property::CHILD | GNETagProperties::Property::NOPARAMETERS,
+                GNETagProperties::Property::XMLCHILD | GNETagProperties::Property::NOPARAMETERS,
                 GNETagProperties::Over::VIEW,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::PARKINGZONEREROUTE, currentTag, TL("ParkingAreaReroute"),
@@ -2055,7 +2055,7 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
         // set values of tag
         myTagProperties[currentTag] = new GNETagProperties(currentTag, mySetTagProperties.at(SUMO_TAG_VIEWSETTINGS_ADDITIONALS),
                 GNETagProperties::Type::ADDITIONALELEMENT,
-                GNETagProperties::Property::CHILD | GNETagProperties::Property::NOPARAMETERS,
+                GNETagProperties::Property::XMLCHILD | GNETagProperties::Property::NOPARAMETERS,
                 GNETagProperties::Over::VIEW,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::ROUTEPROBREROUTE, currentTag, TL("RouteProbabilityReroute"),
@@ -2302,7 +2302,7 @@ GNETagPropertiesDatabase::fillTAZElements() {
         // set values of tag
         myTagProperties[currentTag] = new GNETagProperties(currentTag, mySetTagProperties.at(GNE_TAG_TAZS),
                 GNETagProperties::Type::OTHER,
-                GNETagProperties::Property::CHILD | GNETagProperties::Property::NOPARAMETERS,
+                GNETagProperties::Property::XMLCHILD | GNETagProperties::Property::NOPARAMETERS,
                 GNETagProperties::Over::EDGE,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::TAZEDGE, currentTag, TL("TAZ Source"),
@@ -2321,7 +2321,7 @@ GNETagPropertiesDatabase::fillTAZElements() {
         // set values of tag
         myTagProperties[currentTag] = new GNETagProperties(currentTag, mySetTagProperties.at(GNE_TAG_TAZS),
                 GNETagProperties::Type::OTHER,
-                GNETagProperties::Property::CHILD | GNETagProperties::Property::NOPARAMETERS,
+                GNETagProperties::Property::XMLCHILD | GNETagProperties::Property::NOPARAMETERS,
                 GNETagProperties::Over::EDGE,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::TAZEDGE, currentTag, TL("TAZ Sink"),
@@ -2552,7 +2552,7 @@ GNETagPropertiesDatabase::fillDemandElements() {
         // set values of tag
         myTagProperties[currentTag] = new GNETagProperties(currentTag, mySetTagProperties[GNE_TAG_SUPERMODE_DEMAND],
                 GNETagProperties::Type::DEMANDELEMENT | GNETagProperties::Type::ROUTE,
-                GNETagProperties::Property::CHILD,
+                GNETagProperties::Property::XMLCHILD,
                 GNETagProperties::Over::CONSECUTIVE_EDGES,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::ROUTE, currentTag, TL("Route (distribution)"),
@@ -2576,7 +2576,7 @@ GNETagPropertiesDatabase::fillDemandElements() {
         // set values of tag
         myTagProperties[currentTag] = new GNETagProperties(currentTag, mySetTagProperties[GNE_TAG_SUPERMODE_DEMAND],
                 GNETagProperties::Type::DEMANDELEMENT | GNETagProperties::Type::ROUTE,
-                GNETagProperties::Property::CHILD,
+                GNETagProperties::Property::XMLCHILD,
                 GNETagProperties::Over::CONSECUTIVE_EDGES,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::ROUTE, currentTag, TL("Route (Ref)"),
@@ -2600,7 +2600,7 @@ GNETagPropertiesDatabase::fillDemandElements() {
         // set values of tag
         myTagProperties[currentTag] = new GNETagProperties(currentTag, mySetTagProperties[GNE_TAG_SUPERMODE_DEMAND],
                 GNETagProperties::Type::DEMANDELEMENT | GNETagProperties::Type::ROUTE,
-                GNETagProperties::Property::CHILD,
+                GNETagProperties::Property::XMLCHILD,
                 GNETagProperties::Over::CONSECUTIVE_EDGES,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::ROUTE, SUMO_TAG_ROUTE, TL("Route (embedded)"),
@@ -2643,7 +2643,7 @@ GNETagPropertiesDatabase::fillDemandElements() {
         // set values of tag
         myTagProperties[currentTag] = new GNETagProperties(currentTag, mySetTagProperties[GNE_TAG_SUPERMODE_DEMAND],
                 GNETagProperties::Type::DEMANDELEMENT | GNETagProperties::Type::VTYPE,
-                GNETagProperties::Property::NOTDRAWABLE | GNETagProperties::Property::NOTSELECTABLE | GNETagProperties::Property::VCLASS_ICON | GNETagProperties::Property::CHILD | GNETagProperties::Property::EXTENDED,
+                GNETagProperties::Property::NOTDRAWABLE | GNETagProperties::Property::NOTSELECTABLE | GNETagProperties::Property::VCLASS_ICON | GNETagProperties::Property::XMLCHILD | GNETagProperties::Property::EXTENDED,
                 GNETagProperties::Over::VIEW,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::VTYPE, currentTag, TL("VehicleType (distribution)"),
@@ -3052,7 +3052,7 @@ GNETagPropertiesDatabase::fillStopElements() {
         // set values of tag
         myTagProperties[currentTag] = new GNETagProperties(currentTag, mySetTagProperties.at(GNE_TAG_STOPS),
                 GNETagProperties::Type::DEMANDELEMENT | GNETagProperties::Type::STOP_VEHICLE,
-                GNETagProperties::Property::CHILD,
+                GNETagProperties::Property::XMLCHILD,
                 GNETagProperties::Over::LANE,
                 GNETagProperties::Conflicts::POS_LANE_START | GNETagProperties::Conflicts::POS_LANE_END,
                 GUIIcon::STOPELEMENT, SUMO_TAG_STOP, TL("StopLane"),
@@ -3102,7 +3102,7 @@ GNETagPropertiesDatabase::fillStopElements() {
         // set values of tag
         myTagProperties[currentTag] = new GNETagProperties(currentTag, mySetTagProperties.at(GNE_TAG_STOPS),
                 GNETagProperties::Type::DEMANDELEMENT | GNETagProperties::Type::STOP_VEHICLE,
-                GNETagProperties::Property::CHILD,
+                GNETagProperties::Property::XMLCHILD,
                 GNETagProperties::Over::BUSSTOP,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::STOPELEMENT, SUMO_TAG_STOP, TL("StopBusStop"),
@@ -3121,7 +3121,7 @@ GNETagPropertiesDatabase::fillStopElements() {
         // set values of tag
         myTagProperties[currentTag] = new GNETagProperties(currentTag, mySetTagProperties.at(GNE_TAG_STOPS),
                 GNETagProperties::Type::DEMANDELEMENT | GNETagProperties::Type::STOP_VEHICLE,
-                GNETagProperties::Property::CHILD,
+                GNETagProperties::Property::XMLCHILD,
                 GNETagProperties::Over::TRAINSTOP,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::STOPELEMENT, SUMO_TAG_STOP, TL("StopTrainStop"),
@@ -3140,7 +3140,7 @@ GNETagPropertiesDatabase::fillStopElements() {
         // set values of tag
         myTagProperties[currentTag] = new GNETagProperties(currentTag, mySetTagProperties.at(GNE_TAG_STOPS),
                 GNETagProperties::Type::DEMANDELEMENT | GNETagProperties::Type::STOP_VEHICLE,
-                GNETagProperties::Property::CHILD,
+                GNETagProperties::Property::XMLCHILD,
                 GNETagProperties::Over::CONTAINERSTOP,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::STOPELEMENT, SUMO_TAG_STOP, TL("StopContainerStop"),
@@ -3159,7 +3159,7 @@ GNETagPropertiesDatabase::fillStopElements() {
         // set values of tag
         myTagProperties[currentTag] = new GNETagProperties(currentTag, mySetTagProperties.at(GNE_TAG_STOPS),
                 GNETagProperties::Type::DEMANDELEMENT | GNETagProperties::Type::STOP_VEHICLE,
-                GNETagProperties::Property::CHILD,
+                GNETagProperties::Property::XMLCHILD,
                 GNETagProperties::Over::CHARGINGSTATION,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::STOPELEMENT, SUMO_TAG_STOP, TL("StopChargingStation"),
@@ -3178,7 +3178,7 @@ GNETagPropertiesDatabase::fillStopElements() {
         // set values of tag
         myTagProperties[currentTag] = new GNETagProperties(currentTag, mySetTagProperties.at(GNE_TAG_STOPS),
                 GNETagProperties::Type::DEMANDELEMENT | GNETagProperties::Type::STOP_VEHICLE,
-                GNETagProperties::Property::CHILD,
+                GNETagProperties::Property::XMLCHILD,
                 GNETagProperties::Over::PARKINGAREA,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::STOPELEMENT, SUMO_TAG_STOP, TL("StopParkingArea"),
@@ -3203,7 +3203,7 @@ GNETagPropertiesDatabase::fillWaypointElements() {
         // set values of tag
         myTagProperties[currentTag] = new GNETagProperties(currentTag, mySetTagProperties.at(GNE_TAG_STOPS),
                 GNETagProperties::Type::DEMANDELEMENT | GNETagProperties::Type::STOP_VEHICLE | GNETagProperties::Type::WAYPOINT_VEHICLE,
-                GNETagProperties::Property::CHILD,
+                GNETagProperties::Property::XMLCHILD,
                 GNETagProperties::Over::LANE,
                 GNETagProperties::Conflicts::POS_LANE_START | GNETagProperties::Conflicts::POS_LANE_END,
                 GUIIcon::WAYPOINT, SUMO_TAG_STOP, TL("WaypointLane"),
@@ -3253,7 +3253,7 @@ GNETagPropertiesDatabase::fillWaypointElements() {
         // set values of tag
         myTagProperties[currentTag] = new GNETagProperties(currentTag, mySetTagProperties.at(GNE_TAG_STOPS),
                 GNETagProperties::Type::DEMANDELEMENT | GNETagProperties::Type::STOP_VEHICLE | GNETagProperties::Type::WAYPOINT_VEHICLE,
-                GNETagProperties::Property::CHILD,
+                GNETagProperties::Property::XMLCHILD,
                 GNETagProperties::Over::BUSSTOP,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::WAYPOINT, SUMO_TAG_STOP, TL("WaypointBusStop"),
@@ -3272,7 +3272,7 @@ GNETagPropertiesDatabase::fillWaypointElements() {
         // set values of tag
         myTagProperties[currentTag] = new GNETagProperties(currentTag, mySetTagProperties.at(GNE_TAG_STOPS),
                 GNETagProperties::Type::DEMANDELEMENT | GNETagProperties::Type::STOP_VEHICLE | GNETagProperties::Type::WAYPOINT_VEHICLE,
-                GNETagProperties::Property::CHILD,
+                GNETagProperties::Property::XMLCHILD,
                 GNETagProperties::Over::TRAINSTOP,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::WAYPOINT, SUMO_TAG_STOP, TL("WaypointTrainStop"),
@@ -3291,7 +3291,7 @@ GNETagPropertiesDatabase::fillWaypointElements() {
         // set values of tag
         myTagProperties[currentTag] = new GNETagProperties(currentTag, mySetTagProperties.at(GNE_TAG_STOPS),
                 GNETagProperties::Type::DEMANDELEMENT | GNETagProperties::Type::STOP_VEHICLE | GNETagProperties::Type::WAYPOINT_VEHICLE,
-                GNETagProperties::Property::CHILD | GNETagProperties::Property::NOPARAMETERS,
+                GNETagProperties::Property::XMLCHILD | GNETagProperties::Property::NOPARAMETERS,
                 GNETagProperties::Over::CONTAINERSTOP,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::WAYPOINT, SUMO_TAG_STOP, TL("WaypointContainerStop"),
@@ -3310,7 +3310,7 @@ GNETagPropertiesDatabase::fillWaypointElements() {
         // set values of tag
         myTagProperties[currentTag] = new GNETagProperties(currentTag, mySetTagProperties.at(GNE_TAG_STOPS),
                 GNETagProperties::Type::DEMANDELEMENT | GNETagProperties::Type::STOP_VEHICLE | GNETagProperties::Type::WAYPOINT_VEHICLE,
-                GNETagProperties::Property::CHILD,
+                GNETagProperties::Property::XMLCHILD,
                 GNETagProperties::Over::CHARGINGSTATION,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::WAYPOINT, SUMO_TAG_STOP, TL("WaypointChargingStation"),
@@ -3329,7 +3329,7 @@ GNETagPropertiesDatabase::fillWaypointElements() {
         // set values of tag
         myTagProperties[currentTag] = new GNETagProperties(currentTag, mySetTagProperties.at(GNE_TAG_STOPS),
                 GNETagProperties::Type::DEMANDELEMENT | GNETagProperties::Type::STOP_VEHICLE | GNETagProperties::Type::WAYPOINT_VEHICLE,
-                GNETagProperties::Property::CHILD | GNETagProperties::Property::NOPARAMETERS,
+                GNETagProperties::Property::XMLCHILD | GNETagProperties::Property::NOPARAMETERS,
                 GNETagProperties::Over::PARKINGAREA,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::WAYPOINT, SUMO_TAG_STOP, TL("WaypointParkingArea"),
@@ -3425,7 +3425,7 @@ void
 GNETagPropertiesDatabase::fillContainerTransportElements() {
     // declare common tag types and properties
     const auto tagType = GNETagProperties::Type::DEMANDELEMENT | GNETagProperties::Type::CONTAINERPLAN | GNETagProperties::Type::TRANSPORT;
-    const auto tagProperty = GNETagProperties::Property::CHILD | GNETagProperties::Property::NOPARAMETERS;
+    const auto tagProperty = GNETagProperties::Property::XMLCHILD | GNETagProperties::Property::NOPARAMETERS;
     const auto tagPropertyTAZ = GNETagProperties::Property::RTREE | tagProperty;
     const auto conflicts = GNETagProperties::Conflicts::NO_CONFLICTS;
     const std::vector<SumoXMLTag> parents({SUMO_TAG_CONTAINER, SUMO_TAG_CONTAINERFLOW});
@@ -4088,7 +4088,7 @@ void
 GNETagPropertiesDatabase::fillContainerTranshipElements() {
     // declare common tag types and properties
     const auto tagType = GNETagProperties::Type::DEMANDELEMENT | GNETagProperties::Type::CONTAINERPLAN | GNETagProperties::Type::TRANSHIP;
-    const auto tagProperty = GNETagProperties::Property::CHILD | GNETagProperties::Property::NOPARAMETERS;
+    const auto tagProperty = GNETagProperties::Property::XMLCHILD | GNETagProperties::Property::NOPARAMETERS;
     const auto tagPropertyTAZ = GNETagProperties::Property::RTREE | tagProperty;
     const auto conflicts = GNETagProperties::Conflicts::NO_CONFLICTS;
     const std::vector<SumoXMLTag> parents({SUMO_TAG_CONTAINER, SUMO_TAG_CONTAINERFLOW});
@@ -4761,7 +4761,7 @@ void
 GNETagPropertiesDatabase::fillContainerStopElements() {
     // declare common tag types and properties
     const auto tagType = GNETagProperties::Type::DEMANDELEMENT | GNETagProperties::Type::CONTAINERPLAN | GNETagProperties::Type::STOP_CONTAINER;
-    const auto tagProperty = GNETagProperties::Property::CHILD | GNETagProperties::Property::NOPARAMETERS;
+    const auto tagProperty = GNETagProperties::Property::XMLCHILD | GNETagProperties::Property::NOPARAMETERS;
     const auto conflicts = GNETagProperties::Conflicts::NO_CONFLICTS;
     const std::vector<SumoXMLTag> parents({SUMO_TAG_CONTAINER, SUMO_TAG_CONTAINERFLOW});
     const unsigned int color = FXRGBA(255, 213, 213, 255);
@@ -4840,7 +4840,7 @@ void
 GNETagPropertiesDatabase::fillPersonPlanTrips() {
     // declare common tag types and properties
     const auto tagType = GNETagProperties::Type::DEMANDELEMENT | GNETagProperties::Type::PERSONPLAN | GNETagProperties::Type::PERSONTRIP;
-    const auto tagProperty = GNETagProperties::Property::CHILD | GNETagProperties::Property::NOPARAMETERS;
+    const auto tagProperty = GNETagProperties::Property::XMLCHILD | GNETagProperties::Property::NOPARAMETERS;
     const auto tagPropertyTAZ = GNETagProperties::Property::RTREE | tagProperty;
     const auto conflicts = GNETagProperties::Conflicts::NO_CONFLICTS;
     const std::vector<SumoXMLTag> parents({SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW});
@@ -5502,7 +5502,7 @@ void
 GNETagPropertiesDatabase::fillPersonPlanWalks() {
     // declare common tag types and properties
     const auto tagType = GNETagProperties::Type::DEMANDELEMENT | GNETagProperties::Type::PERSONPLAN | GNETagProperties::Type::WALK;
-    const auto tagProperty = GNETagProperties::Property::CHILD | GNETagProperties::Property::NOPARAMETERS;
+    const auto tagProperty = GNETagProperties::Property::XMLCHILD | GNETagProperties::Property::NOPARAMETERS;
     const auto tagPropertyTAZ = GNETagProperties::Property::RTREE | tagProperty;
     const auto conflicts = GNETagProperties::Conflicts::NO_CONFLICTS;
     const std::vector<SumoXMLTag> parents({SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW});
@@ -6185,7 +6185,7 @@ void
 GNETagPropertiesDatabase::fillPersonPlanRides() {
     // declare common tag types and properties
     const auto tagType = GNETagProperties::Type::DEMANDELEMENT | GNETagProperties::Type::PERSONPLAN | GNETagProperties::Type::RIDE;
-    const auto tagProperty = GNETagProperties::Property::CHILD | GNETagProperties::Property::NOPARAMETERS;
+    const auto tagProperty = GNETagProperties::Property::XMLCHILD | GNETagProperties::Property::NOPARAMETERS;
     const auto tagPropertyTAZ = GNETagProperties::Property::RTREE | tagProperty;
     const auto conflicts = GNETagProperties::Conflicts::NO_CONFLICTS;
     const std::vector<SumoXMLTag> parents({SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW});
@@ -6847,7 +6847,7 @@ void
 GNETagPropertiesDatabase::fillPersonStopElements() {
     // declare common tag types and properties
     const auto tagType = GNETagProperties::Type::DEMANDELEMENT | GNETagProperties::Type::PERSONPLAN | GNETagProperties::Type::STOP_PERSON;
-    const auto tagProperty = GNETagProperties::Property::CHILD | GNETagProperties::Property::NOPARAMETERS;
+    const auto tagProperty = GNETagProperties::Property::XMLCHILD | GNETagProperties::Property::NOPARAMETERS;
     const auto conflicts = GNETagProperties::Conflicts::NO_CONFLICTS;
     const std::vector<SumoXMLTag> parents({SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW});
     const unsigned int color = FXRGBA(255, 213, 213, 255);
@@ -8368,7 +8368,7 @@ GNETagPropertiesDatabase::fillDataElements() {
         // set values of tag
         myTagProperties[currentTag] = new GNETagProperties(currentTag, mySetTagProperties[GNE_TAG_SUPERMODE_DATA],
                 GNETagProperties::Type::DATAELEMENT,
-                GNETagProperties::Property::NOTDRAWABLE | GNETagProperties::Property::NOPARAMETERS | GNETagProperties::Property::CHILD | GNETagProperties::Property::NOTSELECTABLE,
+                GNETagProperties::Property::NOTDRAWABLE | GNETagProperties::Property::NOPARAMETERS | GNETagProperties::Property::XMLCHILD | GNETagProperties::Property::NOTSELECTABLE,
                 GNETagProperties::Over::VIEW,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::DATAINTERVAL, currentTag, TL("DataInterval"),
@@ -8427,7 +8427,7 @@ GNETagPropertiesDatabase::fillDataElements() {
         // set values of tag
         myTagProperties[currentTag] = new GNETagProperties(currentTag, mySetTagProperties.at(GNE_TAG_DATAS),
                 GNETagProperties::Type::DATAELEMENT | GNETagProperties::Type::GENERICDATA,
-                GNETagProperties::Property::RTREE | GNETagProperties::Property::CHILD,
+                GNETagProperties::Property::RTREE | GNETagProperties::Property::XMLCHILD,
                 GNETagProperties::Over::FROM_TAZ | GNETagProperties::Over::TO_TAZ,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::TAZRELDATA, currentTag, TL("TAZRelation"),
