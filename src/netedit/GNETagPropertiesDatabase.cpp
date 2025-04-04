@@ -2547,30 +2547,32 @@ GNETagPropertiesDatabase::fillDemandElements() {
         // add common route attributes
         fillCommonRouteAttributes(myTagProperties[currentTag]);
     }
-    currentTag = GNE_TAG_ROUTEREF;
-    {
-        // set values of tag
-        myTagProperties[currentTag] = new GNETagProperties(currentTag, mySetTagProperties[GNE_TAG_SUPERMODE_DEMAND],
-                GNETagProperties::Type::DEMANDELEMENT | GNETagProperties::Type::ROUTE,
-                GNETagProperties::Property::XMLCHILD,
-                GNETagProperties::Over::CONSECUTIVE_EDGES,
-                GNETagProperties::Conflicts::NO_CONFLICTS,
-                GUIIcon::ROUTE, currentTag, TL("Route (Ref)"),
-        {SUMO_TAG_ROUTE_DISTRIBUTION});
+    /*
+        currentTag = GNE_TAG_ROUTEREF;
+        {
+            // set values of tag
+            myTagProperties[currentTag] = new GNETagProperties(currentTag, mySetTagProperties[GNE_TAG_SUPERMODE_DEMAND],
+                    GNETagProperties::Type::DEMANDELEMENT | GNETagProperties::Type::ROUTE,
+                    GNETagProperties::Property::XMLCHILD,
+                    GNETagProperties::Over::CONSECUTIVE_EDGES,
+                    GNETagProperties::Conflicts::NO_CONFLICTS,
+                    GUIIcon::ROUTE, currentTag, TL("Route (Ref)"),
+            {SUMO_TAG_ROUTE_DISTRIBUTION});
 
-        // set values of attributes
-        new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_REFID,
-                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE,
-                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
-                                   TL("Reference ID of route"));
+            // set values of attributes
+            new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_REFID,
+                                       GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE,
+                                       GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
+                                       TL("Reference ID of route"));
 
-        new GNEAttributeProperties(myTagProperties[currentTag], GNE_ATTR_ROUTE_DISTRIBUTION,
-                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE,
-                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
-                                   TL("Route distribution in which this route is defined"));
+            new GNEAttributeProperties(myTagProperties[currentTag], GNE_ATTR_ROUTE_DISTRIBUTION,
+                                       GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE,
+                                       GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
+                                       TL("Route distribution in which this route is defined"));
 
-        fillDistributionProbability(myTagProperties[currentTag]);
-    }
+            fillDistributionProbability(myTagProperties[currentTag]);
+        }
+    */
     currentTag = GNE_TAG_ROUTE_EMBEDDED;
     {
         // set values of tag
