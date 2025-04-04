@@ -231,6 +231,9 @@ GNEEdge::checkDrawFromContour() const {
         if (planCreator) {
             if (planCreator->getPlanParameteres().fromEdge == getID()) {
                 return true;
+            } else if ((planCreator->getPlanParameteres().consecutiveEdges.size() > 0) &&
+                       (planCreator->getPlanParameteres().consecutiveEdges.front() == getID())) {
+                return true;
             }
         } else if (modes.demandEditMode == DemandEditMode::DEMAND_VEHICLE) {
             const auto& selectedEdges = viewParent->getVehicleFrame()->getPathCreator()->getSelectedEdges();
@@ -285,6 +288,9 @@ GNEEdge::checkDrawToContour() const {
         // continue depending of planCreator
         if (planCreator) {
             if (planCreator->getPlanParameteres().toEdge == getID()) {
+                return true;
+            } else if ((planCreator->getPlanParameteres().consecutiveEdges.size() > 1) &&
+                       (planCreator->getPlanParameteres().consecutiveEdges.back() == getID())) {
                 return true;
             }
         } else if (modes.demandEditMode == DemandEditMode::DEMAND_VEHICLE) {
