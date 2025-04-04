@@ -99,10 +99,6 @@ HelpersEnergy::compute(const SUMOEmissionClass /* c */, const PollutantsInterfac
         power += param->getDoubleOptional(SUMO_ATTR_RADIALDRAGCOEFFICIENT, myDefaultRadialDragCoefficient) * mass * v * v / radius / TS;
     }
 
-    // EnergyLoss,constantConsumers
-    // Energy loss through constant loads (e.g. A/C) [W]
-    power += param->getDoubleOptional(SUMO_ATTR_CONSTANTPOWERINTAKE, myDefaultConstantPowerIntake);
-
     // E_Bat = E_kin_pot + EnergyLoss;
     if (power > 0) {
         // Assumption: Efficiency of myPropulsionEfficiency when accelerating
@@ -123,6 +119,10 @@ HelpersEnergy::compute(const SUMOEmissionClass /* c */, const PollutantsInterfac
             power *= (1 / exp(param->getDoubleOptional(SUMO_ATTR_RECUPERATIONEFFICIENCY_BY_DECELERATION, myDefaultRecuperationEfficiencyByDeceleration) / fabs(a)));
         }
     }
+
+    // EnergyLoss,constantConsumers
+    // Energy loss through constant loads (e.g. A/C) [W]
+    power += param->getDoubleOptional(SUMO_ATTR_CONSTANTPOWERINTAKE, myDefaultConstantPowerIntake);
 
     // convert from [W], to [Wh/s] (3600s / 1h):
     return power / 3600.;
