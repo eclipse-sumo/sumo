@@ -965,6 +965,7 @@ public:
      */
     virtual std::pair<const MSVehicle* const, double> getLeader(double dist = 0, bool considerCrossingFoes = true) const {
         UNUSED_PARAMETER(dist);
+        UNUSED_PARAMETER(considerCrossingFoes);
         WRITE_WARNING(TL("getLeader not yet implemented for meso"));
         return std::make_pair(nullptr, -1);
     }
