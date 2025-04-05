@@ -274,20 +274,7 @@ Vehicle::getJunctionFoes(const std::string& vehID, double dist) {
     std::unique_lock<std::mutex> lock{ libtraci::Connection::getActive().getMutex() };
     tcpip::Storage& ret = Dom::get(libsumo::VAR_FOES, vehID, &content);
     ret.readInt(); // compound size
-    const int n = StoHelp::readTypedInt(ret); // number of foe informations
-    for (int i = 0; i < n; ++i) {
-        libsumo::TraCIJunctionFoe info;
-        info.foeId = StoHelp::readTypedString(ret);
-        info.egoDist = StoHelp::readTypedDouble(ret);
-        info.foeDist = StoHelp::readTypedDouble(ret);
-        info.egoExitDist = StoHelp::readTypedDouble(ret);
-        info.foeExitDist = StoHelp::readTypedDouble(ret);
-        info.egoLane = StoHelp::readTypedString(ret);
-        info.foeLane = StoHelp::readTypedString(ret);
-        info.egoResponse = StoHelp::readBool(ret);
-        info.foeResponse = StoHelp::readBool(ret);
-        result.emplace_back(info);
-    }
+    StoHelp::readJunctionFoeVector(ret, result);
     return result;
 }
 
@@ -532,10 +519,8 @@ Vehicle::getLaneChangeState(const std::string& vehID, int direction) {
     std::unique_lock<std::mutex> lock{ libtraci::Connection::getActive().getMutex() };
     tcpip::Storage& ret = Dom::get(libsumo::CMD_CHANGELANE, vehID, &content);
     ret.readInt(); // components
-    ret.readUnsignedByte();
-    const int stateWithoutTraCI = ret.readInt();
-    ret.readUnsignedByte();
-    const int state = ret.readInt();
+    const int stateWithoutTraCI = StoHelp::readTypedInt(ret);
+    const int state = StoHelp::readTypedInt(ret);
     return std::make_pair(stateWithoutTraCI, state);
 }
 

@@ -467,6 +467,30 @@ Connection::readVariables(tcpip::Storage& inMsg, const std::string& objectID, in
                         StoHelp::readBestLanesVector(inMsg, r->value);
                         into[objectID][variableID] = r;
                         break;
+                    } else if (variableID == libsumo::VAR_COLLISIONS) {
+                        auto r = std::make_shared<libsumo::TraCICollisionVectorWrapped>();
+                        StoHelp::readCollisionVector(inMsg, r->value);
+                        into[objectID][variableID] = r;
+                        break;
+                    } else if (variableID == libsumo::VAR_FOES) {
+                        auto r = std::make_shared<libsumo::TraCIJunctionFoeVectorWrapped>();
+                        StoHelp::readJunctionFoeVector(inMsg, r->value);
+                        into[objectID][variableID] = r;
+                        break;
+                    } else if (variableID == libsumo::CMD_CHANGELANE) {
+                        auto r = std::make_shared<libsumo::TraCIIntList>();
+                        r->value.push_back(StoHelp::readTypedInt(inMsg));
+                        r->value.push_back(StoHelp::readTypedInt(inMsg));
+                        into[objectID][variableID] = r;
+                        break;
+                    } else if (variableID == libsumo::VAR_NEIGHBORS) {
+                        auto r = std::make_shared<libsumo::TraCIStringDoublePairList>();
+                        for (int i = 0; i < n; i++) {
+                            const std::string neighID = inMsg.readString();
+                            r->value.emplace_back(neighID, inMsg.readDouble());
+                        }
+                        into[objectID][variableID] = r;
+                        break;
                     }
                     if (n == 2) {
                         const int firstType = inMsg.readUnsignedByte();

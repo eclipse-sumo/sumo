@@ -92,8 +92,7 @@ try:
                         elif '"tou"' in remainder:
                             param = {v: ("tou", 2, (400., 495.), traci.constants.REQUEST_DRIVINGDIST)}
                         if dt._name == "simulation":
-                            if not traci.isLibtraci():
-                                traci.simulation.subscribe([v], parameters=param)
+                            traci.simulation.subscribe([v], parameters=param)
                         else:
                             getattr(traci, dt._name).subscribe(name, [v], parameters=param)
     traci.simulationStep()

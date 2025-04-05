@@ -312,6 +312,40 @@ public:
         }
     }
 
+    static inline void readCollisionVector(tcpip::Storage& inputStorage, std::vector<libsumo::TraCICollision>& result, const std::string& error = "") {
+        int numCollisions = readTypedInt(inputStorage, error);
+        while (numCollisions-- > 0) {
+            libsumo::TraCICollision c;
+            c.collider = readTypedString(inputStorage);
+            c.victim = readTypedString(inputStorage);
+            c.colliderType = readTypedString(inputStorage);
+            c.victimType = readTypedString(inputStorage);
+            c.colliderSpeed = readTypedDouble(inputStorage);
+            c.victimSpeed = readTypedDouble(inputStorage);
+            c.type = readTypedString(inputStorage);
+            c.lane = readTypedString(inputStorage);
+            c.pos = readTypedDouble(inputStorage);
+            result.emplace_back(c);
+        }
+    }
+
+    static inline void readJunctionFoeVector(tcpip::Storage& inputStorage, std::vector<libsumo::TraCIJunctionFoe>& result, const std::string& error = "") {
+        const int n = readTypedInt(inputStorage, error);
+        for (int i = 0; i < n; ++i) {
+            libsumo::TraCIJunctionFoe info;
+            info.foeId = readTypedString(inputStorage);
+            info.egoDist = readTypedDouble(inputStorage);
+            info.foeDist = readTypedDouble(inputStorage);
+            info.egoExitDist = readTypedDouble(inputStorage);
+            info.foeExitDist = readTypedDouble(inputStorage);
+            info.egoLane = readTypedString(inputStorage);
+            info.foeLane = readTypedString(inputStorage);
+            info.egoResponse = readBool(inputStorage);
+            info.foeResponse = readBool(inputStorage);
+            result.emplace_back(info);
+        }
+    }
+
 
     static inline void writeTypedByte(tcpip::Storage& content, int value) {
         content.writeUnsignedByte(libsumo::TYPE_BYTE);
