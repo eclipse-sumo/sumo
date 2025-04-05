@@ -147,7 +147,7 @@
 #else
 
     /* defined if we're using MINGW32 */
-    #cmakedefine MINGW32
+/* #undef MINGW32 */
 
     /* Windows (MinGW32) */
     #ifdef MINGW32
@@ -171,46 +171,49 @@
 
 
 /* Reporting string for enabled options */
-#define HAVE_ENABLED "@ENABLED_FEATURES@"
+#define HAVE_ENABLED "Darwin-24.3.0 arm64 AppleClang 16.0.0.16000026 Release FMI Proj GUI FMT Intl SWIG Eigen PARQUET GDAL FFmpeg OSG GL2PS"
 
 /* defined if Eigen is available */
-#cmakedefine HAVE_EIGEN
+#define HAVE_EIGEN
 
 /* defined if ffmpeg is available */
-#cmakedefine HAVE_FFMPEG
+#define HAVE_FFMPEG
 
 /* defined if fmt is available */
-#cmakedefine HAVE_FMT
+#define HAVE_FMT
 
 /* defined if FOX is available */
-#cmakedefine HAVE_FOX
+#define HAVE_FOX
 
 /* defined if GDAL is available */
-#cmakedefine HAVE_GDAL
+#define HAVE_GDAL
 
 /* defined if PARQUET is available */
-# cmakedefine HAVE_PARQUET
+# define HAVE_PARQUET
+
+/* defined if S3 is available */
+#define HAVE_S3
 
 /* defined if GL2PS is available */
-#cmakedefine HAVE_GL2PS
+#define HAVE_GL2PS
 
 /* defined if libintl is available */
-#cmakedefine HAVE_INTL
+#define HAVE_INTL
 
 /* defined and set to version if JuPedSim is available */
-#cmakedefine JPS_VERSION @JPS_VERSION@
+/* #undef JPS_VERSION */
 
 /* defined if osg is available */
-#cmakedefine HAVE_OSG
+#define HAVE_OSG
 
 /* defined if zlib is available */
-#cmakedefine HAVE_ZLIB
+#define HAVE_ZLIB
 
 /* set to proj.h, proj_api.h or empty depending on which proj is available */
-#cmakedefine PROJ_API_FILE "@PROJ_API_FILE@"
+#define PROJ_API_FILE "proj.h"
 
 /* defined if python is available */
-#cmakedefine HAVE_PYTHON
+/* #undef HAVE_PYTHON */
 
 /* Define if auto-generated version.h should be used. */
 #define HAVE_VERSION_H

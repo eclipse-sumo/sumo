@@ -30,20 +30,22 @@
 #include <utils/common/SUMOTime.h>
 #include <utils/common/ToString.h>
 #include <utils/common/StringTokenizer.h>
+#include <utils/common/StringUtils.h>
 #include <utils/iodevices/OutputDevice.h>
+#include <utils/iodevices/OutputDevice_Parquet.h>
+#include <utils/emissions/PollutantsInterface.h>
+#include <utils/options/OptionsCont.h>
 #include <microsim/MSEdgeControl.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSVehicle.h>
 #include <microsim/cfmodels/MSCFModel.h>
 #include <microsim/MSNet.h>
-#include "MSMeanData_Amitran.h"
-#include "MSMeanData.h"
-
 #include <microsim/MSGlobals.h>
 #include <mesosim/MESegment.h>
 #include <mesosim/MELoop.h>
-
+#include "MSMeanData.h"
+#include "MSMeanData_Amitran.h"
 
 // ===========================================================================
 // debug constants
@@ -678,8 +680,21 @@ MSMeanData::writeEdge(OutputDevice& dev,
 
 void
 MSMeanData::openInterval(OutputDevice& dev, const SUMOTime startTime, const SUMOTime stopTime) {
-    dev.openTag(SUMO_TAG_INTERVAL).writeAttr(SUMO_ATTR_BEGIN, time2string(startTime)).writeAttr(SUMO_ATTR_END, time2string(stopTime));
-    dev.writeAttr(SUMO_ATTR_ID, myID);
+    if (dev.getType() == OutputWriterType::PARQUET) {
+        // For Parquet, we need to use the exact same attribute strings as in the schema
+        // Important: we don't use SUMO_ATTR_BEGIN/END here because those are ID numbers
+        // that could change across SUMO versions. Instead use exact string names.
+        dev.openTag(SUMO_TAG_INTERVAL);
+        dev.writeAttr("begin", STEPS2TIME(startTime));
+        dev.writeAttr("end", STEPS2TIME(stopTime));
+        dev.writeAttr("id", std::string(myID));
+    } else {
+        // Keep existing code for XML untouched
+        dev.openTag(SUMO_TAG_INTERVAL)
+           .writeAttr(SUMO_ATTR_BEGIN, time2string(startTime))
+           .writeAttr(SUMO_ATTR_END, time2string(stopTime))
+           .writeAttr(SUMO_ATTR_ID, myID);
+    }
 }
 
 
@@ -687,7 +702,7 @@ bool
 MSMeanData::writePrefix(OutputDevice& dev, const MeanDataValues& values, const SumoXMLTag tag, const std::string id) const {
     if (myDumpEmpty || !values.isEmpty()) {
         dev.openTag(tag);
-        dev.writeAttr(SUMO_ATTR_ID, id);
+        dev.writeAttr(SUMO_ATTR_ID, toString(id));
         dev.writeOptionalAttr(SUMO_ATTR_SAMPLEDSECONDS, values.getSamples(), myWrittenAttributes);
         return true;
     }
@@ -698,6 +713,11 @@ MSMeanData::writePrefix(OutputDevice& dev, const MeanDataValues& values, const S
 void
 MSMeanData::writeXMLOutput(OutputDevice& dev,
                            SUMOTime startTime, SUMOTime stopTime) {
+    // If Parquet output, initialize the schema first
+    if (dev.getType() == OutputWriterType::PARQUET) {
+        initParquetSchema(dev);
+    }
+    
     // check whether this dump shall be written for the current time
     int numReady = myDumpBegin < stopTime && myDumpEnd - DELTA_T >= startTime ? 1 : 0;
     if (myTrackVehicles && myDumpBegin < stopTime) {
@@ -723,18 +743,26 @@ MSMeanData::writeXMLOutput(OutputDevice& dev,
         return;
     }
     while (numReady-- > 0) {
+        SUMOTime currentStartTime = startTime;
+        SUMOTime currentStopTime = stopTime;
+        
         if (!myPendingIntervals.empty()) {
-            startTime = myPendingIntervals.front().first;
-            stopTime = myPendingIntervals.front().second;
+            currentStartTime = myPendingIntervals.front().first;
+            currentStopTime = myPendingIntervals.front().second;
             myPendingIntervals.pop_front();
         }
-        openInterval(dev, startTime, stopTime);
+        
+        // Ensure valid time values
+        if (currentStartTime < 0) currentStartTime = 0;
+        if (currentStopTime <= currentStartTime) currentStopTime = currentStartTime + DELTA_T;
+        
+        openInterval(dev, currentStartTime, currentStopTime);
         if (myAggregate) {
-            writeAggregated(dev, startTime, stopTime);
+            writeAggregated(dev, currentStartTime, currentStopTime);
         } else {
             MSEdgeVector::const_iterator edge = myEdges.begin();
             for (const std::vector<MeanDataValues*>& measures : myMeasures) {
-                writeEdge(dev, measures, *edge, startTime, stopTime);
+                writeEdge(dev, measures, *edge, currentStartTime, currentStopTime);
                 ++edge;
             }
         }
@@ -755,6 +783,186 @@ MSMeanData::detectorUpdate(const SUMOTime step) {
     if (step + DELTA_T == myDumpBegin) {
         init();
     }
+}
+
+
+void
+MSMeanData::initParquetSchema(OutputDevice& dev) {
+    // Check if this is a Parquet output device
+    if (dev.getType() != OutputWriterType::PARQUET) {
+        return;
+    }
+
+    auto* parquetDev = dynamic_cast<OutputDevice_Parquet*>(&dev);
+    if (parquetDev == nullptr) {
+        return;
+    }
+
+    // Disable actual data writing during schema setup
+    parquetDev->disableDataWrite();
+
+    // First create an instance to get all possible attributes
+    MeanDataValues* dummyData = createValues(nullptr, 0, false);
+    
+    // Open tags to set up the schema structure
+    dev.openTag(SUMO_TAG_INTERVAL);
+    
+    // CRITICAL: First ensure that all interval metadata is written with correct field names
+    // These must use the exact field name strings used in actual data writing
+    dev.writeAttr("begin", 0.0);
+    dev.writeAttr("end", 0.0);
+    dev.writeAttr("id", std::string(""));
+    
+    if (myAmEdgeBased) {
+        // Edge-based output
+        dev.openTag(SUMO_TAG_EDGE);
+        dev.writeAttr(SUMO_ATTR_ID, std::string(""));
+        
+        // Add attributes in exact order matching SUMO_ATTR enum
+        // First batch - meanData specific attributes (1-19)
+        dev.writeAttr(SUMO_ATTR_SAMPLEDSECONDS, 0.0);     // SUMO_ATTR_SAMPLEDSECONDS = 2
+        dev.writeAttr(SUMO_ATTR_DENSITY, 0.0);            // SUMO_ATTR_DENSITY = 3
+        dev.writeAttr(SUMO_ATTR_LANEDENSITY, 0.0);        // SUMO_ATTR_LANEDENSITY = 4
+        dev.writeAttr(SUMO_ATTR_OCCUPANCY, 0.0);          // SUMO_ATTR_OCCUPANCY = 5
+        dev.writeAttr(SUMO_ATTR_WAITINGTIME, 0.0);        // SUMO_ATTR_WAITINGTIME = 6
+        dev.writeAttr(SUMO_ATTR_TIMELOSS, 0.0);           // SUMO_ATTR_TIMELOSS = 7
+        dev.writeAttr(SUMO_ATTR_SPEED, 0.0);              // SUMO_ATTR_SPEED = 8
+        dev.writeAttr(SUMO_ATTR_SPEEDREL, 0.0);           // SUMO_ATTR_SPEEDREL = 9
+        dev.writeAttr(SUMO_ATTR_DEPARTED, 0);             // SUMO_ATTR_DEPARTED = 10
+        dev.writeAttr(SUMO_ATTR_ARRIVED, 0);              // SUMO_ATTR_ARRIVED = 11
+        dev.writeAttr(SUMO_ATTR_ENTERED, 0);              // SUMO_ATTR_ENTERED = 12
+        dev.writeAttr(SUMO_ATTR_LEFT, 0);                 // SUMO_ATTR_LEFT = 13
+        dev.writeAttr(SUMO_ATTR_VAPORIZED, 0);            // SUMO_ATTR_VAPORIZED = 14
+        dev.writeAttr(SUMO_ATTR_TELEPORTED, 0);           // SUMO_ATTR_TELEPORTED = 15
+        dev.writeAttr(SUMO_ATTR_TRAVELTIME, 0.0);         // SUMO_ATTR_TRAVELTIME = 16
+        dev.writeAttr(SUMO_ATTR_LANECHANGEDFROM, 0);      // SUMO_ATTR_LANECHANGEDFROM = 17
+        dev.writeAttr(SUMO_ATTR_LANECHANGEDTO, 0);        // SUMO_ATTR_LANECHANGEDTO = 18
+        dev.writeAttr(SUMO_ATTR_OVERLAPTRAVELTIME, 0.0);  // SUMO_ATTR_OVERLAPTRAVELTIME = 19
+        
+        // Emissions (20-40)
+        dev.writeAttr(SUMO_ATTR_CO_ABS, 0.0);             // SUMO_ATTR_CO_ABS = 20
+        dev.writeAttr(SUMO_ATTR_CO2_ABS, 0.0);            // SUMO_ATTR_CO2_ABS = 21
+        dev.writeAttr(SUMO_ATTR_HC_ABS, 0.0);             // SUMO_ATTR_HC_ABS = 22
+        dev.writeAttr(SUMO_ATTR_PMX_ABS, 0.0);            // SUMO_ATTR_PMX_ABS = 23
+        dev.writeAttr(SUMO_ATTR_NOX_ABS, 0.0);            // SUMO_ATTR_NOX_ABS = 24
+        dev.writeAttr(SUMO_ATTR_FUEL_ABS, 0.0);           // SUMO_ATTR_FUEL_ABS = 25
+        dev.writeAttr(SUMO_ATTR_ELECTRICITY_ABS, 0.0);    // SUMO_ATTR_ELECTRICITY_ABS = 26
+        dev.writeAttr(SUMO_ATTR_CO_NORMED, 0.0);          // SUMO_ATTR_CO_NORMED = 27
+        dev.writeAttr(SUMO_ATTR_CO2_NORMED, 0.0);         // SUMO_ATTR_CO2_NORMED = 28
+        dev.writeAttr(SUMO_ATTR_HC_NORMED, 0.0);          // SUMO_ATTR_HC_NORMED = 29
+        dev.writeAttr(SUMO_ATTR_PMX_NORMED, 0.0);         // SUMO_ATTR_PMX_NORMED = 30
+        dev.writeAttr(SUMO_ATTR_NOX_NORMED, 0.0);         // SUMO_ATTR_NOX_NORMED = 31
+        dev.writeAttr(SUMO_ATTR_FUEL_NORMED, 0.0);        // SUMO_ATTR_FUEL_NORMED = 32
+        dev.writeAttr(SUMO_ATTR_ELECTRICITY_NORMED, 0.0); // SUMO_ATTR_ELECTRICITY_NORMED = 33
+        dev.writeAttr(SUMO_ATTR_CO_PERVEH, 0.0);          // SUMO_ATTR_CO_PERVEH = 34
+        dev.writeAttr(SUMO_ATTR_CO2_PERVEH, 0.0);         // SUMO_ATTR_CO2_PERVEH = 35
+        dev.writeAttr(SUMO_ATTR_HC_PERVEH, 0.0);          // SUMO_ATTR_HC_PERVEH = 36
+        dev.writeAttr(SUMO_ATTR_PMX_PERVEH, 0.0);         // SUMO_ATTR_PMX_PERVEH = 37
+        dev.writeAttr(SUMO_ATTR_NOX_PERVEH, 0.0);         // SUMO_ATTR_NOX_PERVEH = 38
+        dev.writeAttr(SUMO_ATTR_FUEL_PERVEH, 0.0);        // SUMO_ATTR_FUEL_PERVEH = 39
+        dev.writeAttr(SUMO_ATTR_ELECTRICITY_PERVEH, 0.0); // SUMO_ATTR_ELECTRICITY_PERVEH = 40
+        
+        // Harmonoise
+        dev.writeAttr(SUMO_ATTR_NOISE, 0.0);              // SUMO_ATTR_NOISE = 41
+        
+        // Amitran
+        dev.writeAttr(SUMO_ATTR_AMOUNT, 0);               // SUMO_ATTR_AMOUNT = 42
+        dev.writeAttr(SUMO_ATTR_AVERAGESPEED, 0.0);       // SUMO_ATTR_AVERAGESPEED = 43
+        
+        // Add nested elements for vehicle type configs (for Amitran output)
+        dev.openTag("actorConfig");
+        dev.writeAttr(SUMO_ATTR_ID, std::string(""));
+        dev.writeAttr(SUMO_ATTR_AMOUNT, 0);
+        dev.writeAttr(SUMO_ATTR_AVERAGESPEED, 0.0);
+        dev.closeTag();
+        
+        // Write dummy values for all attributes with proper types
+        dummyData->write(dev, myWrittenAttributes, 0.0, 0, 0.0, 0.0, 0);
+        
+        // Close the edge tag
+        dev.closeTag();
+    } else {
+        // Lane-based output - same approach as edge-based
+        dev.openTag(SUMO_TAG_EDGE);
+        dev.writeAttr(SUMO_ATTR_ID, std::string(""));
+        
+        dev.openTag(SUMO_TAG_LANE);
+        dev.writeAttr(SUMO_ATTR_ID, std::string(""));
+        
+        // Add attributes in exact order matching SUMO_ATTR enum
+        dev.writeAttr(SUMO_ATTR_SAMPLEDSECONDS, 0.0);     // SUMO_ATTR_SAMPLEDSECONDS = 2
+        dev.writeAttr(SUMO_ATTR_DENSITY, 0.0);            // SUMO_ATTR_DENSITY = 3
+        dev.writeAttr(SUMO_ATTR_LANEDENSITY, 0.0);        // SUMO_ATTR_LANEDENSITY = 4
+        dev.writeAttr(SUMO_ATTR_OCCUPANCY, 0.0);          // SUMO_ATTR_OCCUPANCY = 5
+        dev.writeAttr(SUMO_ATTR_WAITINGTIME, 0.0);        // SUMO_ATTR_WAITINGTIME = 6
+        dev.writeAttr(SUMO_ATTR_TIMELOSS, 0.0);           // SUMO_ATTR_TIMELOSS = 7
+        dev.writeAttr(SUMO_ATTR_SPEED, 0.0);              // SUMO_ATTR_SPEED = 8
+        dev.writeAttr(SUMO_ATTR_SPEEDREL, 0.0);           // SUMO_ATTR_SPEEDREL = 9
+        dev.writeAttr(SUMO_ATTR_DEPARTED, 0);             // SUMO_ATTR_DEPARTED = 10
+        dev.writeAttr(SUMO_ATTR_ARRIVED, 0);              // SUMO_ATTR_ARRIVED = 11
+        dev.writeAttr(SUMO_ATTR_ENTERED, 0);              // SUMO_ATTR_ENTERED = 12
+        dev.writeAttr(SUMO_ATTR_LEFT, 0);                 // SUMO_ATTR_LEFT = 13
+        dev.writeAttr(SUMO_ATTR_VAPORIZED, 0);            // SUMO_ATTR_VAPORIZED = 14
+        dev.writeAttr(SUMO_ATTR_TELEPORTED, 0);           // SUMO_ATTR_TELEPORTED = 15
+        dev.writeAttr(SUMO_ATTR_TRAVELTIME, 0.0);         // SUMO_ATTR_TRAVELTIME = 16
+        dev.writeAttr(SUMO_ATTR_LANECHANGEDFROM, 0);      // SUMO_ATTR_LANECHANGEDFROM = 17
+        dev.writeAttr(SUMO_ATTR_LANECHANGEDTO, 0);        // SUMO_ATTR_LANECHANGEDTO = 18
+        dev.writeAttr(SUMO_ATTR_OVERLAPTRAVELTIME, 0.0);  // SUMO_ATTR_OVERLAPTRAVELTIME = 19
+        
+        // Emissions (20-40)
+        dev.writeAttr(SUMO_ATTR_CO_ABS, 0.0);             // SUMO_ATTR_CO_ABS = 20
+        dev.writeAttr(SUMO_ATTR_CO2_ABS, 0.0);            // SUMO_ATTR_CO2_ABS = 21
+        dev.writeAttr(SUMO_ATTR_HC_ABS, 0.0);             // SUMO_ATTR_HC_ABS = 22
+        dev.writeAttr(SUMO_ATTR_PMX_ABS, 0.0);            // SUMO_ATTR_PMX_ABS = 23
+        dev.writeAttr(SUMO_ATTR_NOX_ABS, 0.0);            // SUMO_ATTR_NOX_ABS = 24
+        dev.writeAttr(SUMO_ATTR_FUEL_ABS, 0.0);           // SUMO_ATTR_FUEL_ABS = 25
+        dev.writeAttr(SUMO_ATTR_ELECTRICITY_ABS, 0.0);    // SUMO_ATTR_ELECTRICITY_ABS = 26
+        dev.writeAttr(SUMO_ATTR_CO_NORMED, 0.0);          // SUMO_ATTR_CO_NORMED = 27
+        dev.writeAttr(SUMO_ATTR_CO2_NORMED, 0.0);         // SUMO_ATTR_CO2_NORMED = 28
+        dev.writeAttr(SUMO_ATTR_HC_NORMED, 0.0);          // SUMO_ATTR_HC_NORMED = 29
+        dev.writeAttr(SUMO_ATTR_PMX_NORMED, 0.0);         // SUMO_ATTR_PMX_NORMED = 30
+        dev.writeAttr(SUMO_ATTR_NOX_NORMED, 0.0);         // SUMO_ATTR_NOX_NORMED = 31
+        dev.writeAttr(SUMO_ATTR_FUEL_NORMED, 0.0);        // SUMO_ATTR_FUEL_NORMED = 32
+        dev.writeAttr(SUMO_ATTR_ELECTRICITY_NORMED, 0.0); // SUMO_ATTR_ELECTRICITY_NORMED = 33
+        dev.writeAttr(SUMO_ATTR_CO_PERVEH, 0.0);          // SUMO_ATTR_CO_PERVEH = 34
+        dev.writeAttr(SUMO_ATTR_CO2_PERVEH, 0.0);         // SUMO_ATTR_CO2_PERVEH = 35
+        dev.writeAttr(SUMO_ATTR_HC_PERVEH, 0.0);          // SUMO_ATTR_HC_PERVEH = 36
+        dev.writeAttr(SUMO_ATTR_PMX_PERVEH, 0.0);         // SUMO_ATTR_PMX_PERVEH = 37
+        dev.writeAttr(SUMO_ATTR_NOX_PERVEH, 0.0);         // SUMO_ATTR_NOX_PERVEH = 38
+        dev.writeAttr(SUMO_ATTR_FUEL_PERVEH, 0.0);        // SUMO_ATTR_FUEL_PERVEH = 39
+        dev.writeAttr(SUMO_ATTR_ELECTRICITY_PERVEH, 0.0); // SUMO_ATTR_ELECTRICITY_PERVEH = 40
+        
+        // Harmonoise
+        dev.writeAttr(SUMO_ATTR_NOISE, 0.0);              // SUMO_ATTR_NOISE = 41
+        
+        // Amitran
+        dev.writeAttr(SUMO_ATTR_AMOUNT, 0);               // SUMO_ATTR_AMOUNT = 42
+        dev.writeAttr(SUMO_ATTR_AVERAGESPEED, 0.0);       // SUMO_ATTR_AVERAGESPEED = 43
+        
+        // Add nested elements for vehicle type configs (for Amitran output)
+        dev.openTag("actorConfig");
+        dev.writeAttr(SUMO_ATTR_ID, std::string(""));
+        dev.writeAttr(SUMO_ATTR_AMOUNT, 0);
+        dev.writeAttr(SUMO_ATTR_AVERAGESPEED, 0.0);
+        dev.closeTag();
+        
+        // Write dummy values for all attributes with proper types
+        dummyData->write(dev, myWrittenAttributes, 0.0, 0, 0.0, 0.0, 0);
+        
+        // Close the lane and edge tags
+        dev.closeTag();
+        dev.closeTag();
+    }
+    
+    // Close the interval tag
+    dev.closeTag();
+    
+    // Clean up
+    delete dummyData;
+    
+    // Lock the schema to prevent clearing and re-enable data writing
+    parquetDev->lockSchema();
+    parquetDev->enableDataWrite();
 }
 
 
@@ -781,6 +989,30 @@ MSMeanData::getEdgeValues(const MSEdge* edge) const {
     } else {
         return nullptr;
     }
+}
+
+void
+MSMeanData::writeTimeAttributeF(OutputDevice& dev, SumoXMLAttr attr, SUMOTime time, long long int attributeMask) {
+    // Only applies to Parquet format - XML uses time2string directly
+    if (dev.getType() != OutputWriterType::PARQUET) {
+        return;
+    }
+    
+    if (attributeMask != -1) {
+        // Check if attribute should be written (if masked)
+        if ((attributeMask & ((long long int)1 << (int)attr)) == 0) {
+            return;
+        }
+    }
+    
+    // For Parquet, always use numeric values (doubles) for time
+    dev.writeAttr(attr, STEPS2TIME(time));
+}
+
+double MSMeanData::formatTimeForParquet(SUMOTime time) {
+    // Use high precision conversion to avoid rounding issues
+    // This ensures time values are consistently formatted across the application
+    return STEPS2TIME(time);
 }
 
 /****************************************************************************/

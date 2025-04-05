@@ -24,6 +24,7 @@
 #include <string>
 #include <vector>
 #include <utils/xml/SUMOXMLDefinitions.h>
+#include "StreamDevices.h"
 
 
 // ===========================================================================
@@ -49,7 +50,7 @@ class RGBColor;
 class OutputFormatter {
 public:
     /// @brief Destructor
-    virtual ~OutputFormatter() { }
+    virtual ~OutputFormatter() = default;
 
 
     /** @brief Writes an XML header with optional configuration
@@ -63,9 +64,18 @@ public:
      * @todo Check which parameter is used herein
      * @todo Describe what is saved
      */
-    virtual bool writeXMLHeader(std::ostream& into, const std::string& rootElement,
+    virtual bool writeXMLHeader(StreamDevice& into, const std::string& rootElement,
                                 const std::map<SumoXMLAttr, std::string>& attrs,
                                 bool includeConfig = true) = 0;
+
+    /** @brief Writes an XML header 
+     * 
+     * 
+     * @param[in] into The output stream to use
+     * @param[in] rootElement The root element to use
+     * @return Whether the header was written
+     */
+    virtual bool writeHeader(StreamDevice& into, const SumoXMLTag& rootElement) = 0;
 
 
     /** @brief Opens an XML tag
@@ -78,7 +88,7 @@ public:
      * @param[in] xmlElement Name of element to open
      * @return The OutputDevice for further processing
      */
-    virtual void openTag(std::ostream& into, const std::string& xmlElement) = 0;
+    virtual void openTag(StreamDevice& into, const std::string& xmlElement) = 0;
 
 
     /** @brief Opens an XML tag
@@ -88,7 +98,7 @@ public:
      * @param[in] into The output stream to use
      * @param[in] xmlElement Id of the element to open
      */
-    virtual void openTag(std::ostream& into, const SumoXMLTag& xmlElement) = 0;
+    virtual void openTag(StreamDevice& into, const SumoXMLTag& xmlElement) = 0;
 
 
     /** @brief Closes the most recently opened tag and optinally add a comment
@@ -97,11 +107,17 @@ public:
      * @return Whether a further element existed in the stack and could be closed
      * @todo it is not verified that the topmost element was closed
      */
-    virtual bool closeTag(std::ostream& into, const std::string& comment = "") = 0;
+    virtual bool closeTag(StreamDevice& into, const std::string& comment = "") = 0;
 
-    virtual void writePreformattedTag(std::ostream& into, const std::string& val) = 0;
+    virtual void writePreformattedTag(StreamDevice& into, const std::string& val) = 0;
 
-    virtual void writePadding(std::ostream& into, const std::string& val) = 0;
+    virtual void writePadding(StreamDevice& into, const std::string& val) = 0;
 
     virtual bool wroteHeader() const = 0;
+
+    template <typename T>
+    void writeRaw(StreamDevice& into, const T& val){
+        
+        into << val;
+    }
 };
