@@ -1,4 +1,3 @@
- Retrying in 1 seconds
 Subscribing to busstop.VAR_LANEPOSITION.
 Subscribing to busstop.ID_COUNT.
 Subscribing to busstop.TRACI_ID_LIST.
@@ -402,7 +401,6 @@ Subscribing to vehicle.VAR_MINGAP_LAT.
 Subscribing to vehicle.VAR_NOXEMISSION.
 Subscribing to vehicle.VAR_NEIGHBORS.
 Subscribing to vehicle.VAR_NEXT_LINKS.
-Subscribing to vehicle.VAR_NEXT_STOPS.
 Subscribing to vehicle.VAR_NEXT_TLS.
 Subscribing to vehicle.VAR_NOISEEMISSION.
 Subscribing to vehicle.VAR_PMXEMISSION.
@@ -1038,7 +1036,6 @@ Subscribing to vehicletype.VAR_WIDTH.
                112: (),
                113: 0.0,
                114: 1.750652830884792,
-               115: (('1si_0', 100.0, '', 6, -0.001, -1073741824.0),),
                116: (StopData(lane=1si_0, startPos=99.8, endPos=100.0, stopFlags=3, duration=-0.001),),
                120: ('', -1.0),
                122: 0.0,

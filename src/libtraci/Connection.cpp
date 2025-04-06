@@ -491,6 +491,16 @@ Connection::readVariables(tcpip::Storage& inMsg, const std::string& objectID, in
                         }
                         into[objectID][variableID] = r;
                         break;
+                    } else if (variableID == libsumo::VAR_NEXT_STOPS2) {
+                        auto r = std::make_shared<libsumo::TraCINextStopDataVectorWrapped>();
+                        StoHelp::readStopVector(inMsg, r->value);
+                        into[objectID][variableID] = r;
+                        break;
+                    } else if (variableID == libsumo::VAR_NEXT_TLS) {
+                        auto r = std::make_shared<libsumo::TraCINextTLSDataVectorWrapped>();
+                        StoHelp::readTLSDataVector(inMsg, r->value);
+                        into[objectID][variableID] = r;
+                        break;
                     }
                     if (n == 2) {
                         const int firstType = inMsg.readUnsignedByte();
@@ -517,10 +527,10 @@ Connection::readVariables(tcpip::Storage& inMsg, const std::string& objectID, in
                 // TODO Other data types
 
                 default:
-                    throw libsumo::TraCIException("Unimplemented subscription type: " + toString(type));
+                    throw libsumo::TraCIException("Unimplemented subscription: variableID=" + toHex(variableID) + " type=" + toHex(type));
             }
         } else {
-            throw libsumo::TraCIException("Subscription response error: variableID=" + toString(variableID) + " status=" + toString(status));
+            throw libsumo::TraCIException("Subscription response error: variableID=" + toHex(variableID) + " status=" + toHex(status));
         }
 
         variableCount--;

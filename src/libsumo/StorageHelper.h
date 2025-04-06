@@ -346,6 +346,42 @@ public:
         }
     }
 
+    static inline void readStopVector(tcpip::Storage& inputStorage, std::vector<libsumo::TraCINextStopData>& result, const std::string& error = "") {
+        const int n = readTypedInt(inputStorage, error);
+        for (int i = 0; i < n; ++i) {
+            libsumo::TraCINextStopData s;
+            s.lane = readTypedString(inputStorage);
+            s.endPos = readTypedDouble(inputStorage);
+            s.stoppingPlaceID = readTypedString(inputStorage);
+            s.stopFlags = readTypedInt(inputStorage);
+            s.duration = readTypedDouble(inputStorage);
+            s.until = readTypedDouble(inputStorage);
+            s.startPos = readTypedDouble(inputStorage);
+            s.intendedArrival = readTypedDouble(inputStorage);
+            s.arrival = readTypedDouble(inputStorage);
+            s.depart = readTypedDouble(inputStorage);
+            s.split = readTypedString(inputStorage);
+            s.join = readTypedString(inputStorage);
+            s.actType = readTypedString(inputStorage);
+            s.tripId = readTypedString(inputStorage);
+            s.line = readTypedString(inputStorage);
+            s.speed = readTypedDouble(inputStorage);
+            result.emplace_back(s);
+        }
+    }
+
+    static inline void readTLSDataVector(tcpip::Storage& inputStorage, std::vector<libsumo::TraCINextTLSData>& result, const std::string& error = "") {
+        const int n = readTypedInt(inputStorage, error);
+        for (int i = 0; i < n; ++i) {
+            libsumo::TraCINextTLSData tls;
+            tls.id = readTypedString(inputStorage);
+            tls.tlIndex = readTypedInt(inputStorage);
+            tls.dist = readTypedDouble(inputStorage);
+            tls.state = readTypedByte(inputStorage);
+            result.emplace_back(tls);
+        }
+    }
+
 
     static inline void writeTypedByte(tcpip::Storage& content, int value) {
         content.writeUnsignedByte(libsumo::TYPE_BYTE);

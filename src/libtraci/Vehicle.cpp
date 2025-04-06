@@ -346,25 +346,7 @@ Vehicle::getNextTLS(const std::string& vehID) {
     std::vector<libsumo::TraCINextTLSData> result;
     tcpip::Storage& ret = Dom::get(libsumo::VAR_NEXT_TLS, vehID);
     ret.readInt(); // components
-    // number of items
-    ret.readUnsignedByte();
-    const int n = ret.readInt();
-    for (int i = 0; i < n; ++i) {
-        libsumo::TraCINextTLSData d;
-        ret.readUnsignedByte();
-        d.id = ret.readString();
-
-        ret.readUnsignedByte();
-        d.tlIndex = ret.readInt();
-
-        ret.readUnsignedByte();
-        d.dist = ret.readDouble();
-
-        ret.readUnsignedByte();
-        d.state = (char)ret.readByte();
-
-        result.push_back(d);
-    }
+    StoHelp::readTLSDataVector(ret, result);
     return result;
 }
 
@@ -397,28 +379,7 @@ Vehicle::getStops(const std::string& vehID, int limit) {
     std::unique_lock<std::mutex> lock{ libtraci::Connection::getActive().getMutex() };
     tcpip::Storage& ret = Dom::get(libsumo::VAR_NEXT_STOPS2, vehID, &content);
     ret.readInt(); // components
-    // number of items
-    const int n = StoHelp::readCompound(ret);
-    for (int i = 0; i < n; ++i) {
-        libsumo::TraCINextStopData s;
-        s.lane = StoHelp::readTypedString(ret);
-        s.endPos = StoHelp::readTypedDouble(ret);
-        s.stoppingPlaceID = StoHelp::readTypedString(ret);
-        s.stopFlags = StoHelp::readTypedInt(ret);
-        s.duration = StoHelp::readTypedDouble(ret);
-        s.until = StoHelp::readTypedDouble(ret);
-        s.startPos = StoHelp::readTypedDouble(ret);
-        s.intendedArrival = StoHelp::readTypedDouble(ret);
-        s.arrival = StoHelp::readTypedDouble(ret);
-        s.depart = StoHelp::readTypedDouble(ret);
-        s.split = StoHelp::readTypedString(ret);
-        s.join = StoHelp::readTypedString(ret);
-        s.actType = StoHelp::readTypedString(ret);
-        s.tripId = StoHelp::readTypedString(ret);
-        s.line = StoHelp::readTypedString(ret);
-        s.speed = StoHelp::readTypedDouble(ret);
-        result.emplace_back(s);
-    }
+    StoHelp::readStopVector(ret, result);
     return result;
 }
 
