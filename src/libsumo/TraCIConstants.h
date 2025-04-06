@@ -41,7 +41,7 @@ namespace libsumo {
 // ****************************************
 // VERSION
 // ****************************************
-TRACI_CONST int TRACI_VERSION = 21;
+TRACI_CONST int TRACI_VERSION = 22;
 
 // ****************************************
 // COMMANDS
@@ -896,9 +896,6 @@ TRACI_CONST int TL_COMPLETE_PROGRAM_RYG = 0x2c;
 
 // assumed time to next switch (get: traffic lights)
 TRACI_CONST int TL_NEXT_SWITCH = 0x2d;
-
-// current state, using external signal names (get: traffic lights)
-TRACI_CONST int TL_EXTERNAL_STATE = 0x2e;
 
 // add/get rail signal constraints
 TRACI_CONST int TL_CONSTRAINT = 0x2f;
