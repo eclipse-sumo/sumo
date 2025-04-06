@@ -27,6 +27,7 @@
 #include <utils/shapes/PointOfInterest.h>
 #include <utils/shapes/ShapeContainer.h>
 #include <libsumo/POI.h>
+#include <libsumo/StorageHelper.h>
 #include <libsumo/TraCIConstants.h>
 #include "TraCIServerAPI_POI.h"
 
@@ -189,10 +190,7 @@ TraCIServerAPI_POI::processSet(TraCIServer& server, tcpip::Storage& inputStorage
                 if (!server.readTypeCheckingColor(inputStorage, col)) {
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_POI_VARIABLE, "The second PoI parameter must be the color.", outputStorage);
                 }
-                int layer = 0;
-                if (!server.readTypeCheckingInt(inputStorage, layer)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_POI_VARIABLE, "The third PoI parameter must be the layer encoded as int.", outputStorage);
-                }
+                int layer = StoHelp::readTypedInt(inputStorage, "The third PoI parameter must be the layer encoded as int.");
                 libsumo::TraCIPosition pos;
                 if (!server.readTypeCheckingPosition2D(inputStorage, pos)) {
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_POI_VARIABLE, "The fourth PoI parameter must be the position.", outputStorage);
@@ -234,10 +232,8 @@ TraCIServerAPI_POI::processSet(TraCIServer& server, tcpip::Storage& inputStorage
             }
             break;
             case libsumo::REMOVE: {
-                int layer = 0; // !!! layer not used yet (shouldn't the id be enough?)
-                if (!server.readTypeCheckingInt(inputStorage, layer)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_POI_VARIABLE, "The layer must be given using an int.", outputStorage);
-                }
+                // !!! layer not used yet (shouldn't the id be enough?)
+                const int layer = StoHelp::readTypedInt(inputStorage, "The layer must be given using an int.");
                 if (!libsumo::POI::remove(id, layer)) {
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_POI_VARIABLE, "Could not remove PoI '" + id + "'", outputStorage);
                 }

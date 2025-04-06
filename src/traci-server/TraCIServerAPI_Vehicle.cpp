@@ -43,6 +43,7 @@
 #include <utils/emissions/PollutantsInterface.h>
 #include <utils/emissions/HelpersHarmonoise.h>
 #include <utils/vehicle/SUMOVehicleParameter.h>
+#include <libsumo/StorageHelper.h>
 #include <libsumo/TraCIConstants.h>
 #include <libsumo/Vehicle.h>
 #include <libsumo/VehicleType.h>
@@ -201,10 +202,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 if (compoundSize != 3 && compoundSize != 4) {
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Setting a stop parameter needs a compound object description of 3 or 4 items.", outputStorage);
                 }
-                int nextStopIndex;
-                if (!server.readTypeCheckingInt(inputStorage, nextStopIndex)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "The first setStopParameter parameter must be the nextStopIndex given as an integer.", outputStorage);
-                }
+                const int nextStopIndex = StoHelp::readTypedInt(inputStorage, "The first setStopParameter parameter must be the nextStopIndex given as an integer.");
                 std::string param;
                 if (!server.readTypeCheckingString(inputStorage, param)) {
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "The second setStopParameter parameter must be the param given as a string.", outputStorage);
@@ -522,14 +520,9 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 libsumo::Vehicle::rerouteEffort(id);
             }
             break;
-            case libsumo::VAR_SIGNALS: {
-                int signals = 0;
-                if (!server.readTypeCheckingInt(inputStorage, signals)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Setting signals requires an integer.", outputStorage);
-                }
-                libsumo::Vehicle::setSignals(id, signals);
-            }
-            break;
+            case libsumo::VAR_SIGNALS:
+                libsumo::Vehicle::setSignals(id, StoHelp::readTypedInt(inputStorage, "Setting signals requires an integer."));
+                break;
             case libsumo::VAR_MOVE_TO: {
                 if (inputStorage.readUnsignedByte() != libsumo::TYPE_COMPOUND) {
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Setting position requires a compound object.", outputStorage);
@@ -550,9 +543,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 }
                 int reason = libsumo::MOVE_AUTOMATIC;
                 if (numArgs == 3) {
-                    if (!server.readTypeCheckingInt(inputStorage, reason)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "The third parameter for setting a position must be the reason given as an int.", outputStorage);
-                    }
+                    reason = StoHelp::readTypedInt(inputStorage, "The third parameter for setting a position must be the reason given as an int.");
                 }
                 // process
                 libsumo::Vehicle::moveTo(id, laneID, position, reason);
@@ -632,30 +623,15 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 libsumo::Vehicle::setPreviousSpeed(id, prevSpeed, prevAcceleration);
             }
             break;
-            case libsumo::VAR_SPEEDSETMODE: {
-                int speedMode = 0;
-                if (!server.readTypeCheckingInt(inputStorage, speedMode)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Setting speed mode requires an integer.", outputStorage);
-                }
-                libsumo::Vehicle::setSpeedMode(id, speedMode);
-            }
-            break;
-            case libsumo::VAR_LANECHANGE_MODE: {
-                int laneChangeMode = 0;
-                if (!server.readTypeCheckingInt(inputStorage, laneChangeMode)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Setting lane change mode requires an integer.", outputStorage);
-                }
-                libsumo::Vehicle::setLaneChangeMode(id, laneChangeMode);
-            }
-            break;
-            case libsumo::VAR_ROUTING_MODE: {
-                int routingMode = 0;
-                if (!server.readTypeCheckingInt(inputStorage, routingMode)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Setting routing mode requires an integer.", outputStorage);
-                }
-                libsumo::Vehicle::setRoutingMode(id, routingMode);
-            }
-            break;
+            case libsumo::VAR_SPEEDSETMODE:
+                libsumo::Vehicle::setSpeedMode(id, StoHelp::readTypedInt(inputStorage, "Setting speed mode requires an integer."));
+                break;
+            case libsumo::VAR_LANECHANGE_MODE:
+                libsumo::Vehicle::setLaneChangeMode(id, StoHelp::readTypedInt(inputStorage, "Setting lane change mode requires an integer."));
+                break;
+            case libsumo::VAR_ROUTING_MODE:
+                libsumo::Vehicle::setRoutingMode(id, StoHelp::readTypedInt(inputStorage, "Setting routing mode requires an integer."));
+                break;
             case libsumo::VAR_COLOR: {
                 libsumo::TraCIColor col;
                 if (!server.readTypeCheckingColor(inputStorage, col)) {
@@ -679,10 +655,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 if (!server.readTypeCheckingString(inputStorage, routeID)) {
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Second parameter (route) requires a string.", outputStorage);
                 }
-                int departCode;
-                if (!server.readTypeCheckingInt(inputStorage, departCode)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Third parameter (depart) requires an integer.", outputStorage);
-                }
+                const int departCode = StoHelp::readTypedInt(inputStorage, "Third parameter (depart) requires an integer.");
                 std::string depart = toString(STEPS2TIME(departCode));
                 if (-departCode == static_cast<int>(DepartDefinition::TRIGGERED)) {
                     depart = "triggered";
@@ -808,14 +781,8 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 if (!server.readTypeCheckingString(inputStorage, line)) {
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Twelth parameter (line) requires a string.", outputStorage);
                 }
-                int personCapacity;
-                if (!server.readTypeCheckingInt(inputStorage, personCapacity)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "13th parameter (person capacity) requires an int.", outputStorage);
-                }
-                int personNumber;
-                if (!server.readTypeCheckingInt(inputStorage, personNumber)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "14th parameter (person number) requires an int.", outputStorage);
-                }
+                const int personCapacity = StoHelp::readTypedInt(inputStorage, "13th parameter (person capacity) requires an int.");
+                const int personNumber = StoHelp::readTypedInt(inputStorage, "14th parameter (person number) requires an int.");
                 libsumo::Vehicle::add(id, routeID, vTypeID, depart, departLane, departPos, departSpeed, arrivalLane, arrivalPos, arrivalSpeed,
                                       fromTaz, toTaz, line, personCapacity, personNumber);
             }
@@ -836,27 +803,19 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 if (numArgs < 5 || numArgs > 7) {
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "MoveToXY vehicle should obtain: edgeID, lane, x, y, angle and optionally keepRouteFlag and matchThreshold.", outputStorage);
                 }
-                // edge ID
                 std::string edgeID;
                 if (!server.readTypeCheckingString(inputStorage, edgeID)) {
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "The first parameter for moveToXY must be the edge ID given as a string.", outputStorage);
                 }
-                // lane index
-                int laneNum = 0;
-                if (!server.readTypeCheckingInt(inputStorage, laneNum)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "The second parameter for moveToXY must be lane given as an int.", outputStorage);
-                }
-                // x
+                const int laneIndex = StoHelp::readTypedInt(inputStorage, "The second parameter for moveToXY must be lane given as an int.");
                 double x = 0;
                 if (!server.readTypeCheckingDouble(inputStorage, x)) {
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "The third parameter for moveToXY must be the x-position given as a double.", outputStorage);
                 }
-                // y
                 double y = 0;
                 if (!server.readTypeCheckingDouble(inputStorage, y)) {
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "The fourth parameter for moveToXY must be the y-position given as a double.", outputStorage);
                 }
-                // angle
                 double angle = 0;
                 if (!server.readTypeCheckingDouble(inputStorage, angle)) {
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "The fifth parameter for moveToXY must be the angle given as a double.", outputStorage);
@@ -874,7 +833,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                         return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "The seventh parameter for moveToXY must be the matchThreshold given as a double.", outputStorage);
                     }
                 }
-                libsumo::Vehicle::moveToXY(id, edgeID, laneNum, x, y, angle, keepRouteFlag, matchThreshold);
+                libsumo::Vehicle::moveToXY(id, edgeID, laneIndex, x, y, angle, keepRouteFlag, matchThreshold);
             }
             break;
             case libsumo::VAR_SPEED_FACTOR: {
@@ -1070,10 +1029,7 @@ TraCIServerAPI_Vehicle::insertReplaceStop(TraCIServer& server, tcpip::Storage& i
     if (!server.readTypeCheckingDouble(inputStorage, duration)) {
         return server.writeErrorStatusCmd(libsumo::CMD_GET_VEHICLE_VARIABLE, "The fourth stop " + m2 + " parameter must be the stopping duration given as a double.", outputStorage);
     }
-    int stopFlags = 0;
-    if (!server.readTypeCheckingInt(inputStorage, stopFlags)) {
-        return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "The fifth stop " + m2 + " parameter must be a int indicating its parking/triggered status.", outputStorage);
-    }
+    const int stopFlags = StoHelp::readTypedInt(inputStorage, "The fifth stop " + m2 + " parameter must be a int indicating its parking/triggered status.");
     double startPos = libsumo::INVALID_DOUBLE_VALUE;
     if (!server.readTypeCheckingDouble(inputStorage, startPos)) {
         return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "The sixth stop " + m2 + " parameter must be the start position along the edge given as a double.", outputStorage);
@@ -1082,10 +1038,7 @@ TraCIServerAPI_Vehicle::insertReplaceStop(TraCIServer& server, tcpip::Storage& i
     if (!server.readTypeCheckingDouble(inputStorage, until)) {
         return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "The seventh stop " + m2 + " parameter must be the minimum departure time given as a double.", outputStorage);
     }
-    int nextStopIndex = 0;
-    if (!server.readTypeCheckingInt(inputStorage, nextStopIndex)) {
-        return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "The eigth stop " + m2 + " parameter must be the replacement index given as a int.", outputStorage);
-    }
+    const int nextStopIndex = StoHelp::readTypedInt(inputStorage, "The eigth stop " + m2 + " parameter must be the replacement index given as a int.");
     int teleport = 0;
     if (compoundSize == 9) {
         if (!server.readTypeCheckingByte(inputStorage, teleport)) {

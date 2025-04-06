@@ -97,11 +97,7 @@ TraCIServerAPI_TrafficLight::processSet(TraCIServer& server, tcpip::Storage& inp
     try {
         switch (variable) {
             case libsumo::TL_PHASE_INDEX: {
-                int index = 0;
-                if (!server.readTypeCheckingInt(inputStorage, index)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "The phase index must be given as an integer.", outputStorage);
-                }
-                libsumo::TrafficLight::setPhase(id, index);
+                libsumo::TrafficLight::setPhase(id, StoHelp::readTypedInt(inputStorage, "The phase index must be given as an integer."));
             }
             break;
             case libsumo::VAR_NAME: {
@@ -146,12 +142,8 @@ TraCIServerAPI_TrafficLight::processSet(TraCIServer& server, tcpip::Storage& inp
                 if (!server.readTypeCheckingString(inputStorage, logic.programID)) {
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "set program: 1. parameter (programID) must be a string.", outputStorage);
                 }
-                if (!server.readTypeCheckingInt(inputStorage, logic.type)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "set program: 2. parameter (type) must be an int.", outputStorage);
-                }
-                if (!server.readTypeCheckingInt(inputStorage, logic.currentPhaseIndex)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "set program: 3. parameter (index) must be an int.", outputStorage);
-                }
+                logic.type = StoHelp::readTypedInt(inputStorage, "set program: 2. parameter (type) must be an int.");
+                logic.currentPhaseIndex = StoHelp::readTypedInt(inputStorage, "set program: 3. parameter (index) must be an int.");
                 if (inputStorage.readUnsignedByte() != libsumo::TYPE_COMPOUND) {
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "A compound object is needed for the phases.", outputStorage);
                 }
@@ -185,11 +177,7 @@ TraCIServerAPI_TrafficLight::processSet(TraCIServer& server, tcpip::Storage& inp
                     }
                     const int numNext = inputStorage.readInt();
                     for (int k = 0; k < numNext; k++) {
-                        int nextEntry;
-                        if (!server.readTypeCheckingInt(inputStorage, nextEntry)) {
-                            return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "set program: 4.5. parameter (next) must be a list of int.", outputStorage);
-                        }
-                        next.push_back(nextEntry);
+                        next.push_back(StoHelp::readTypedInt(inputStorage, "set program: 4.5. parameter (next) must be a list of int."));
                     }
                     if (items == 6) {
                         if (!server.readTypeCheckingString(inputStorage, name)) {
@@ -257,14 +245,8 @@ TraCIServerAPI_TrafficLight::processSet(TraCIServer& server, tcpip::Storage& inp
                 if (!server.readTypeCheckingString(inputStorage, foeId)) {
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "The foe tripId must be given as a string.", outputStorage);
                 }
-                int type;
-                if (!server.readTypeCheckingInt(inputStorage, type)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "The type must be an int.", outputStorage);
-                }
-                int limit;
-                if (!server.readTypeCheckingInt(inputStorage, limit)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "The limit must be an int.", outputStorage);
-                }
+                const int type = StoHelp::readTypedInt(inputStorage, "The type must be an int.");
+                const int limit = StoHelp::readTypedInt(inputStorage, "The limit must be an int.");
                 libsumo::TrafficLight::addConstraint(id, tripId, foeSignal, foeId, type, limit);
             }
             break;

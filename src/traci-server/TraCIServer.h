@@ -160,15 +160,6 @@ public:
     /// @name Helpers for reading and checking values
     /// @{
 
-    /** @brief Reads the value type and an int, verifying the type
-     *
-     * @param[in, changed] inputStorage The storage to read from
-     * @param[out] into Holder of the read value
-     * @return Whether an integer value was given (by data type)
-     */
-    bool readTypeCheckingInt(tcpip::Storage& inputStorage, int& into);
-
-
     /** @brief Reads the value type and a double, verifying the type
      *
      * @param[in, changed] inputStorage The storage to read from
