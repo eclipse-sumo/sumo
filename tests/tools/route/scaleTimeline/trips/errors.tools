@@ -1,8 +1,0 @@
-Traceback (most recent call last):
-  File "/scr1/sumo/tests/../tools/route/scaleTimeLine.py", line 203, in <module>
-    main(get_options(sys.argv[1:]))
-  File "/scr1/sumo/tests/../tools/route/scaleTimeLine.py", line 197, in main
-    scaleRoutes(options, outf)
-  File "/scr1/sumo/tests/../tools/route/scaleTimeLine.py", line 183, in scaleRoutes
-    if depart < periodList[currIndex] and depart >= periodList[currIndex - 1]:
-IndexError: list index out of range
