@@ -59,7 +59,6 @@ def get_options(args=None):
                     help="Define the interval duration and then the scaled percentage for each interval; "
                     "e.g. 200% of the current demand")
     ap.add_argument("--timeline-pair", dest="timelinepair", type=str,
-                    default="7200,200;7200,200;7200,200;7200,200;7200,200;7200,200",
                     help="Define the timeline pairs (duration, scacled percentage)")
     ap.add_argument("--random", action="store_true", dest="random", category="random",
                     default=False, help="use a random seed to initialize the random number generator")
@@ -68,13 +67,14 @@ def get_options(args=None):
                     default=False, help="tell me what you are doing")
     options = ap.parse_args(args=args)
 
-    if options.timelinelist:
+    if options.timelinepair:
+        pairs = [x.split(',') for x in options.timelinepair.split(';')]
+        options.timelinelist = []
+        for d, s in pairs:
+            options.timelinelist.append([float(d), float(s)])
+    else:
         duration = float(options.timelinelist.split(",")[0])
         options.timelinelist = [[duration, float(i)] for i in options.timelinelist.split(",")[1:]]
-
-    elif options.timelinepair:
-        timelinelist = [x.split(',') for x in options.timelinepair.split(';')]
-        options.timelinelist.append([float(x) for x in data])
 
     options.routefiles = options.routefiles.split(',')
     if not options.outfile:
