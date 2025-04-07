@@ -2374,12 +2374,12 @@ GNENet::saveAdditionalsConfirmed() {
         device.writeXMLHeader("additional", "additional_file.xsd", EMPTY_HEADER, false);
         // write vTypes with additional childrens (due calibrators)
         writeVTypeComment(device, additionalsByFilename.second, true);
-        writeVTypeDistributions(device, additionalsByFilename.second, true);
         writeVTypes(device, additionalsByFilename.second, true);
+        writeVTypeDistributions(device, additionalsByFilename.second, true);
         // write routes with additional children (due route prob reroutes)
         writeRouteComment(device, additionalsByFilename.second, true);
-        writeRouteDistributions(device, additionalsByFilename.second, true);
         writeRoutes(device, additionalsByFilename.second, true);
+        writeRouteDistributions(device, additionalsByFilename.second, true);
         // routeProbes
         writeRouteProbeComment(device, additionalsByFilename.second);
         writeAdditionalByType(device, additionalsByFilename.second, {SUMO_TAG_ROUTEPROBE});
@@ -2600,9 +2600,19 @@ GNENet::writeRoutes(OutputDevice& device, const std::unordered_set<const GNEAttr
     std::map<std::string, GNEDemandElement*> sortedRoutes;
     for (const auto& route : myAttributeCarriers->getDemandElements().at(SUMO_TAG_ROUTE)) {
         if (ACs.count(route.second) > 0) {
-            if ((additionalFile && (route.second->getChildAdditionals().size() > 0)) ||
-                    (!additionalFile && (route.second->getChildAdditionals().size() == 0))) {
-                sortedRoutes[route.second->getID()] = route.second;
+            // first check if element is part of a distribution
+            int numRefs = 0;
+            for (const auto vTypeChild : route.second->getChildDemandElements()) {
+                if (vTypeChild->getTagProperty()->getTag() == GNE_TAG_ROUTEREF) {
+                    numRefs++;
+                }
+            }
+            // routes with reference 1 will be saved in route distribution
+            if (numRefs != 1) {
+                if ((additionalFile && (route.second->getChildAdditionals().size() > 0)) ||
+                        (!additionalFile && (route.second->getChildAdditionals().size() == 0))) {
+                    sortedRoutes[route.second->getID()] = route.second;
+                }
             }
         }
     }
