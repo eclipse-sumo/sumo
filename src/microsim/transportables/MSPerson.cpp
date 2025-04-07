@@ -73,13 +73,18 @@ MSPerson::MSPersonStage_Access::clone() const {
 }
 
 void
-MSPerson::MSPersonStage_Access::proceed(MSNet* net, MSTransportable* person, SUMOTime now, MSStage* /* previous */) {
+MSPerson::MSPersonStage_Access::proceed(MSNet* net, MSTransportable* person, SUMOTime now, MSStage* previous) {
     myDeparted = now;
-    myEstimatedArrival = now + TIME2STEPS(myDist / person->getMaxSpeed());
+    if (myDist >= 0) {
+        myEstimatedArrival = now + TIME2STEPS(myDist / person->getMaxSpeed());
+    } else {
+        myEstimatedArrival = now + previous->getJumpDuration();
+    }
     // TODO myEstimatedArrival is not a multiple of DELTA_T here. This might give a problem because the destination position will not be reached precisely
-    net->getBeginOfTimestepEvents()->addEvent(new ProceedCmd(person, &myDestinationStop->getLane().getEdge()), myEstimatedArrival);
+    MSEdge* edge = myDestinationStop != nullptr ? &myDestinationStop->getLane().getEdge() : const_cast<MSEdge*>(myDestination);
+    net->getBeginOfTimestepEvents()->addEvent(new ProceedCmd(person, edge), myEstimatedArrival);
     net->getPersonControl().startedAccess();
-    myDestinationStop->getLane().getEdge().addTransportable(person);
+    edge->addTransportable(person);
 }
 
 
@@ -91,7 +96,11 @@ MSPerson::MSPersonStage_Access::getStageDescription(const bool /* isPerson */) c
 
 std::string
 MSPerson::MSPersonStage_Access::getStageSummary(const bool /* isPerson */) const {
-    return (myAmExit ? "access from stop '" : "access to stop '") + getDestinationStop()->getID() + "'";
+    if (myDestination == nullptr) {
+        return ("jump to edge '") + getDestination()->getID() + "'";
+    } else {
+        return (myAmExit ? "access from stop '" : "access to stop '") + getDestinationStop()->getID() + "'";
+    }
 }
 
 
@@ -115,7 +124,9 @@ MSPerson::MSPersonStage_Access::getSpeed() const {
 void
 MSPerson::MSPersonStage_Access::tripInfoOutput(OutputDevice& os, const MSTransportable* const) const {
     os.openTag("access");
-    os.writeAttr("stop", getDestinationStop()->getID());
+    if (getDestinationStop() != nullptr) {
+        os.writeAttr("stop", getDestinationStop()->getID());
+    }
     os.writeAttr("depart", time2string(myDeparted));
     os.writeAttr("arrival", myArrived >= 0 ? time2string(myArrived) : "-1");
     os.writeAttr("duration", myArrived > 0 ? time2string(getDuration()) : "-1");
@@ -202,6 +213,13 @@ MSPerson::checkAccess(const MSStage* const prior, const bool waitAtStop) {
             myStep = myPlan->insert(myStep, newStage);
             return true;
         }
+    }
+    if (prior->getJumpDuration() > 0) {
+        // negative distance indicates jump
+        MSStage* newStage = new MSPersonStage_Access(prior->getDestination(), nullptr, prior->getArrivalPos(), 0.0, -1, true,
+                prior->getPosition(SIMSTEP) , (*myStep)->getPosition(SIMSTEP));
+        myStep = myPlan->insert(myStep, newStage);
+        return true;
     }
     return false;
 }

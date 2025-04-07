@@ -37,7 +37,7 @@
 * ----------------------------------------------------------------------- */
 MSStageWaiting::MSStageWaiting(const MSEdge* destination, MSStoppingPlace* toStop,
                                SUMOTime duration, SUMOTime until, double pos, const std::string& actType,
-                               const bool initial) :
+                               const bool initial, SUMOTime jumpDuration) :
     MSStage(initial ? MSStageType::WAITING_FOR_DEPART : MSStageType::WAITING,
             destination,
             toStop,
@@ -46,6 +46,7 @@ MSStageWaiting::MSStageWaiting(const MSEdge* destination, MSStoppingPlace* toSto
     myWaitingUntil(until),
     myStopWaitPos(Position::INVALID),
     myActType(actType),
+    myJumpDuration(jumpDuration),
     myStopEndTime(-1) {
 }
 
@@ -149,6 +150,9 @@ MSStageWaiting::routeOutput(const bool /* isPerson */, OutputDevice& os, const b
         if (OptionsCont::getOptions().getBool("vehroute-output.exit-times")) {
             os.writeAttr(SUMO_ATTR_STARTED, myDeparted >= 0 ? time2string(myDeparted) : "-1");
             os.writeAttr(SUMO_ATTR_ENDED, myArrived >= 0 ? time2string(myArrived) : "-1");
+        }
+        if (myJumpDuration >= 0) {
+            os.writeAttr(SUMO_ATTR_JUMP, time2string(myJumpDuration));
         }
         if (myActType != "") {
             os.writeAttr(SUMO_ATTR_ACTTYPE, myActType);
