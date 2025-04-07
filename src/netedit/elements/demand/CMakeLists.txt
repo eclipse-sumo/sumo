@@ -15,6 +15,8 @@ set(netedit_elements_demand_SRCS
    GNEDistribution.cpp
    GNERoute.h
    GNERoute.cpp
+   GNERouteRef.h
+   GNERouteRef.cpp
    GNERouteDistribution.h
    GNERouteDistribution.cpp
    GNEVType.h
