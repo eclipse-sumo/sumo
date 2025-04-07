@@ -5,6 +5,9 @@ objects
 flows
 
 # Tests for <SUMO_DIST>/tools/scaleTimeline.py
+flows2
+
+# Tests for <SUMO_DIST>/tools/scaleTimeline.py
 trips
 
 # Tests for <SUMO_DIST>/tools/scaleTimeline.py
