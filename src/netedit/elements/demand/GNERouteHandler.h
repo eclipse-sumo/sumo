@@ -67,7 +67,7 @@ public:
     /// @brief build route
     bool buildRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, SUMOVehicleClass vClass,
                     const std::vector<std::string>& edgeIDs, const RGBColor& color, const int repeat, const SUMOTime cycleTime,
-                    const Parameterised::Map& routeParameters);
+                    const double probability, const Parameterised::Map& routeParameters);
 
     /// @brief build route ref
     bool buildRouteRef(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& routeID, const double probability);

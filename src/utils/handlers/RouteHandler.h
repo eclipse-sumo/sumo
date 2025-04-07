@@ -63,7 +63,7 @@ public:
     /// @brief build route
     virtual bool buildRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, SUMOVehicleClass vClass,
                             const std::vector<std::string>& edgeIDs, const RGBColor& color, const int repeat, const SUMOTime cycleTime,
-                            const Parameterised::Map& routeParameters) = 0;
+                            const double probability, const Parameterised::Map& routeParameters) = 0;
 
     /// @brief build route ref
     virtual bool buildRouteRef(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& routeID, const double probability) = 0;
@@ -170,9 +170,6 @@ private:
 
     /// @brief parse route
     void parseRoute(const SUMOSAXAttributes& attrs);
-
-    /// @brief parse route declared within a distribution
-    void parseRouteWithinDistribution(const SUMOSAXAttributes& attrs);
 
     /// @brief parse route reference
     void parseRouteRef(const SUMOSAXAttributes& attrs);

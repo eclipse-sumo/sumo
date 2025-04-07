@@ -173,9 +173,9 @@ GNERouteHandler::buildVTypeDistribution(const CommonXMLStructure::SumoBaseObject
 
 
 bool
-GNERouteHandler::buildRoute(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const std::string& id, SUMOVehicleClass vClass,
+GNERouteHandler::buildRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, SUMOVehicleClass vClass,
                             const std::vector<std::string>& edgeIDs, const RGBColor& color, const int repeat, const SUMOTime cycleTime,
-                            const Parameterised::Map& routeParameters) {
+                            const double probability, const Parameterised::Map& routeParameters) {
     // check conditions
     const auto element = retrieveDemandElement(NamespaceIDs::routes, id);
     if (!checkElement(SUMO_TAG_ROUTE, element)) {
@@ -192,14 +192,33 @@ GNERouteHandler::buildRoute(const CommonXMLStructure::SumoBaseObject* /*sumoBase
         } else {
             // create GNERoute
             GNEDemandElement* route = new GNERoute(id, myNet, myFilename, vClass, edges, color, repeat, cycleTime, routeParameters);
+            // if this route was created within a route distribution, we have to create an extra routeRef
+            GNEDemandElement* routeRef = nullptr;
+            GNEDemandElement* distributionParent = nullptr;
+            if (sumoBaseObject->getParentSumoBaseObject() && (sumoBaseObject->getParentSumoBaseObject()->getTag() == SUMO_TAG_ROUTE_DISTRIBUTION)) {
+                const auto& routeDistributionID = sumoBaseObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID);
+                distributionParent = myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_ROUTE_DISTRIBUTION, routeDistributionID, false);
+                if (distributionParent) {
+                    routeRef = new GNERouteRef(distributionParent, route, probability);
+                } else {
+                    WRITE_WARNING(TLF("Route '%' with probability % cannot be referenced with distribution '%'", id, toString(probability), routeDistributionID));
+                }
+            }
             if (myAllowUndoRedo) {
                 myNet->getViewNet()->getUndoList()->begin(route, TL("add ") + route->getTagStr() + " '" + id + "'");
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(route, true), true);
+                if (routeRef) {
+                    myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(routeRef, true), true);
+                }
                 myNet->getViewNet()->getUndoList()->end();
             } else {
                 myNet->getAttributeCarriers()->insertDemandElement(route);
                 for (const auto& edge : edges) {
                     edge->addChildElement(route);
+                }
+                if (routeRef) {
+                    distributionParent->addChildElement(routeRef);
+                    route->addChildElement(routeRef);
                 }
                 route->incRef("buildRoute");
             }
@@ -1673,7 +1692,7 @@ GNERouteHandler::transformToVehicle(GNEVehicle* originalVehicle, bool createEmbe
             // generate route ID
             const std::string routeID = net->getAttributeCarriers()->generateDemandElementID(SUMO_TAG_ROUTE);
             // build route
-            routeHandler.buildRoute(nullptr, routeID, vClass, edgeIDs, routeColor, 0, 1, {});
+            routeHandler.buildRoute(nullptr, routeID, vClass, edgeIDs, routeColor, 0, 0, 1.0, {});
             // set route ID in vehicle parameters
             vehicleParameters.routeid = routeID;
             // create vehicle
@@ -1764,7 +1783,7 @@ GNERouteHandler::transformToRouteFlow(GNEVehicle* originalVehicle, bool createEm
             // generate a new route id
             const std::string routeID = net->getAttributeCarriers()->generateDemandElementID(SUMO_TAG_ROUTE);
             // build route
-            routeHandler.buildRoute(nullptr, routeID, vClass, edgeIDs, routeColor, 0, 1, {});
+            routeHandler.buildRoute(nullptr, routeID, vClass, edgeIDs, routeColor, 0, 0, 1.0, {});
             // set route ID in vehicle parameters
             vehicleParameters.routeid = routeID;
             // create vehicle
