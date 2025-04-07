@@ -131,8 +131,6 @@ def writeObjs(totalList, outf):
 
 
 def scaleRoutes(options, outf):
-    lastDepart = 0
-    lastBegin = 0
     periodMap = {}
     accPeriod = 0
     periodList = []
@@ -149,17 +147,20 @@ def scaleRoutes(options, outf):
 
     # scale the number of objs for each pre-defined interval
     for routefile in options.routefiles:
+        lastDepart = 0
         currIndex = 0
         candidatsList = []
+        periodBegin = 0
+        periodEnd = periodList[currIndex]
         for elem in sumolib.xml.parse(routefile, ['vehicle', 'trip', 'flow', 'person', 'personFlow', 'vType']):
             if elem.name == 'vType':
                 outf.write(elem.toXML(' ' * 4))
             elif elem.name in ['flow', 'personFlow']:
                 begin = parseTime(elem.begin)
-                if begin < lastBegin:
+                if begin < lastDepart:
                     sys.stderr.write("Unsorted departure %s for %s '%s'" % (
                         begin, elem.tag, elem.id))
-                    lastBegin = begin
+                    lastDepart = begin
                 scale = getScale(begin, periodList, periodMap)
                 elem.number = str(int(getFlowNumber(elem) * scale))
                 outf.write(elem.toXML(' ' * 4))
@@ -169,20 +170,20 @@ def scaleRoutes(options, outf):
                     sys.stderr.write("Unsorted departure %s for %s '%s'" % (
                         depart, elem.tag, elem.id))
                     lastDepart = depart
-                if depart < periodList[currIndex] and (currIndex == 0 or depart >= periodList[currIndex - 1]):
+                if depart >= periodBegin and depart < periodEnd:
                     candidatsList.append(elem)
                 else:
-                    if currIndex < len(periodList):
-                        if candidatsList:
-                            totalList, idMap = getScaledObjList(periodMap, periodList, currIndex, candidatsList, idMap)
-                            writeObjs(totalList, outf)
-                            currIndex += 1
-                            candidatsList = []
-                            # check the current or the first object in the next period
-                            if depart < periodList[currIndex] and depart >= periodList[currIndex - 1]:
-                                candidatsList.append(elem)
-                    else:
-                        outf.write(elem.toXML(' ' * 4))
+                    # write old period and start new period
+                    if candidatsList:
+                        totalList, idMap = getScaledObjList(periodMap, periodList, currIndex, candidatsList, idMap)
+                        writeObjs(totalList, outf)
+                    while currIndex + 1 < len(periodList):
+                        currIndex += 1
+                        periodBegin = periodEnd
+                        periodEnd = periodList[currIndex]
+                        if depart >= periodBegin and depart < periodEnd:
+                            candidatsList.append(elem)
+                            break;
         if candidatsList:
             totalList, idMap = getScaledObjList(periodMap, periodList, currIndex, candidatsList, idMap)
             writeObjs(totalList, outf)
