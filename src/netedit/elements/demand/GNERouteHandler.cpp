@@ -824,7 +824,7 @@ GNERouteHandler::buildPersonTrip(const CommonXMLStructure::SumoBaseObject* sumoB
         return writeError(TL("invalid combination for personTrip"));
     } else if (planParents.checkIntegrity(tagIcon.first, personParent, planParameters)) {
         // build person trip
-        GNEDemandElement* personTrip = new GNEPersonTrip(myNet, tagIcon.first, tagIcon.second, personParent, planParents,
+        GNEDemandElement* personTrip = new GNEPersonTrip(tagIcon.first, tagIcon.second, personParent, planParents,
                 arrivalPos, types, modes, lines, walkFactor, group);
         // continue depending of undo.redo
         if (myAllowUndoRedo) {
@@ -863,7 +863,7 @@ GNERouteHandler::buildWalk(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
         return false;
     } else if (planParents.checkIntegrity(tagIcon.first, personParent, planParameters)) {
         // build person trip
-        GNEDemandElement* walk = new GNEWalk(myNet, tagIcon.first, tagIcon.second, personParent, planParents, arrivalPos, speed, duration);
+        GNEDemandElement* walk = new GNEWalk(tagIcon.first, tagIcon.second, personParent, planParents, arrivalPos, speed, duration);
         // continue depending of undo.redo
         if (myAllowUndoRedo) {
             myNet->getViewNet()->getUndoList()->begin(walk, TLF("add % in '%'", walk->getTagStr(), personParent->getID()));
@@ -897,7 +897,7 @@ GNERouteHandler::buildRide(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
         return writeError(TL("invalid combination for ride"));
     } else if (planParents.checkIntegrity(tagIcon.first, personParent, planParameters)) {
         // build ride
-        GNEDemandElement* ride = new GNERide(myNet, tagIcon.first, tagIcon.second, personParent, planParents, arrivalPos, lines, group);
+        GNEDemandElement* ride = new GNERide(tagIcon.first, tagIcon.second, personParent, planParents, arrivalPos, lines, group);
         // continue depending of undo-redo
         if (myAllowUndoRedo) {
             myNet->getViewNet()->getUndoList()->begin(ride, TLF("add % in '%'", ride->getTagStr(), personParent->getID()));
@@ -999,7 +999,7 @@ GNERouteHandler::buildTransport(const CommonXMLStructure::SumoBaseObject* sumoBa
         return writeError(TL("invalid combination for personTrip"));
     } else if (planParents.checkIntegrity(tagIcon.first, containerParent, planParameters)) {
         // build transport
-        GNEDemandElement* transport = new GNETransport(myNet, tagIcon.first, tagIcon.second, containerParent, planParents, arrivalPos, lines, group);
+        GNEDemandElement* transport = new GNETransport(tagIcon.first, tagIcon.second, containerParent, planParents, arrivalPos, lines, group);
         // continue depending of undo-redo
         if (myAllowUndoRedo) {
             myNet->getViewNet()->getUndoList()->begin(transport, TLF("add % in '%'", transport->getTagStr(), containerParent->getID()));
@@ -1037,7 +1037,7 @@ GNERouteHandler::buildTranship(const CommonXMLStructure::SumoBaseObject* sumoBas
         return false;
     } else if (planParents.checkIntegrity(tagIcon.first, containerParent, planParameters)) {
         // build tranship
-        GNEDemandElement* tranship = new GNETranship(myNet, tagIcon.first, tagIcon.second, containerParent, planParents,
+        GNEDemandElement* tranship = new GNETranship(tagIcon.first, tagIcon.second, containerParent, planParents,
                 arrivalPosition, departPosition, speed, duration);
         // continue depending of undo-redo
         if (myAllowUndoRedo) {
@@ -1073,7 +1073,7 @@ GNERouteHandler::buildPersonStop(const CommonXMLStructure::SumoBaseObject* sumoB
         return writeError(TL("invalid combination for person stop"));
     } else if (planParents.checkIntegrity(tagIcon.first, personParent, planParameters)) {
         // build person stop
-        GNEDemandElement* stopPlan = new GNEStopPlan(myNet, tagIcon.first, tagIcon.second, personParent, planParents,
+        GNEDemandElement* stopPlan = new GNEStopPlan(tagIcon.first, tagIcon.second, personParent, planParents,
                 endPos, duration, until, actType, friendlyPos, parameterSet);
         // continue depending of undo-redo
         if (myAllowUndoRedo) {
@@ -1109,7 +1109,7 @@ GNERouteHandler::buildContainerStop(const CommonXMLStructure::SumoBaseObject* su
         return writeError(TL("invalid combination for containerStop"));
     } else if (planParents.checkIntegrity(tagIcon.first, containerParent, planParameters)) {
         // build container stop
-        GNEDemandElement* stopPlan = new GNEStopPlan(myNet, tagIcon.first, tagIcon.second, containerParent, planParents,
+        GNEDemandElement* stopPlan = new GNEStopPlan(tagIcon.first, tagIcon.second, containerParent, planParents,
                 endPos, duration, until, actType, friendlyPos, parameterSet);
         // continue depending of undo-redo
         if (myAllowUndoRedo) {

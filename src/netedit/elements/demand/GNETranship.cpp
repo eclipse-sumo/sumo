@@ -42,9 +42,9 @@ GNETranship::GNETranship(SumoXMLTag tag, GNENet* net) :
 }
 
 
-GNETranship::GNETranship(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* containerParent, const GNEPlanParents& planParameters,
+GNETranship::GNETranship(SumoXMLTag tag, GUIIcon icon, GNEDemandElement* containerParent, const GNEPlanParents& planParameters,
                          const double departPosition, const double arrivalPosition, const double speed, const SUMOTime duration) :
-    GNEDemandElement(containerParent, net, GLO_TRANSHIP, tag, icon, GNEPathElement::Options::DEMAND_ELEMENT),
+    GNEDemandElement(containerParent, GLO_TRANSHIP, tag, icon, GNEPathElement::Options::DEMAND_ELEMENT),
     GNEDemandElementPlan(this, departPosition, arrivalPosition),
     mySpeed(speed),
     myDuration(duration) {

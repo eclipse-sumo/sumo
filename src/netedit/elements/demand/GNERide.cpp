@@ -41,9 +41,9 @@ GNERide::GNERide(SumoXMLTag tag, GNENet* net) :
 }
 
 
-GNERide::GNERide(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* personParent, const GNEPlanParents& planParameters,
+GNERide::GNERide(SumoXMLTag tag, GUIIcon icon, GNEDemandElement* personParent, const GNEPlanParents& planParameters,
                  const double arrivalPosition, const std::vector<std::string>& lines, const std::string& group) :
-    GNEDemandElement(personParent, net, GLO_PERSONTRIP, tag, icon, GNEPathElement::Options::DEMAND_ELEMENT),
+    GNEDemandElement(personParent, GLO_PERSONTRIP, tag, icon, GNEPathElement::Options::DEMAND_ELEMENT),
     GNEDemandElementPlan(this, -1, arrivalPosition),
     myLines(lines),
     myGroup(group) {

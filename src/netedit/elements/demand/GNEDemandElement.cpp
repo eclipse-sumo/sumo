@@ -45,8 +45,8 @@
 #pragma warning(push)
 #pragma warning(disable: 4355) // mask warning about "this" in initializers
 #endif
-GNEDemandElement::GNEDemandElement(const std::string& id, GNENet* net, const std::string& filename, GUIGlObjectType type, SumoXMLTag tag,
-                                   GUIIcon icon, const int pathOptions) :
+GNEDemandElement::GNEDemandElement(const std::string& id, GNENet* net, const std::string& filename, GUIGlObjectType type,
+                                   SumoXMLTag tag, GUIIcon icon, const int pathOptions) :
     GNEAttributeCarrier(tag, net, filename, id.empty()),
     GUIGlObject(type, id, GUIIconSubSys::getIcon(icon)),
     GNEPathElement(pathOptions),
@@ -55,9 +55,9 @@ GNEDemandElement::GNEDemandElement(const std::string& id, GNENet* net, const std
 }
 
 
-GNEDemandElement::GNEDemandElement(GNEDemandElement* demandElementParent, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, GUIIcon icon,
-                                   const int options) :
-    GNEAttributeCarrier(tag, net, demandElementParent->getFilename(), false),
+GNEDemandElement::GNEDemandElement(GNEDemandElement* demandElementParent, GUIGlObjectType type, SumoXMLTag tag,
+                                   GUIIcon icon, const int options) :
+    GNEAttributeCarrier(tag, demandElementParent->getNet(), demandElementParent->getFilename(), false),
     GUIGlObject(type, demandElementParent->getID(), GUIIconSubSys::getIcon(icon)),
     GNEPathElement(options),
     GNEDemandElementDistribution(this),
@@ -247,12 +247,12 @@ GNEDemandElement::checkDrawDeleteContourSmall() const {
     if (myTagProperty->vehicleRoute()) {
         const auto route = myNet->getViewNet()->getViewObjectsSelector().getDemandElementFront();
         if (route && (route == myNet->getViewNet()->getViewObjectsSelector().getAttributeCarrierFront())) {
-            return (getParentDemandElements().at(1) == route); 
+            return (getParentDemandElements().at(1) == route);
         }
-    }else if (myTagProperty->getTag() == GNE_TAG_ROUTE_EMBEDDED) {
+    } else if (myTagProperty->getTag() == GNE_TAG_ROUTE_EMBEDDED) {
         const auto vehicle = myNet->getViewNet()->getViewObjectsSelector().getDemandElementFront();
         if (vehicle && (vehicle == myNet->getViewNet()->getViewObjectsSelector().getAttributeCarrierFront())) {
-            return (getParentDemandElements().front() == vehicle); 
+            return (getParentDemandElements().front() == vehicle);
         }
     }
     return false;

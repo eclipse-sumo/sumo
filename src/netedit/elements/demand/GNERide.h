@@ -43,7 +43,6 @@ public:
     GNERide(SumoXMLTag tag, GNENet* net);
 
     /**@brief constructor called in buildRide
-     * @param[in] net Network in which this Ride is placed
      * @param[in] tag personTrip tag
      * @param[in] icon personTrip icon
      * @param[in] personParent person parent
@@ -51,7 +50,7 @@ public:
      * @param[in] lines list of lines
      * @param[in] group group
      */
-    GNERide(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* personParent, const GNEPlanParents& planParameters,
+    GNERide(SumoXMLTag tag, GUIIcon icon, GNEDemandElement* personParent, const GNEPlanParents& planParameters,
             const double arrivalPosition, const std::vector<std::string>& lines, const std::string& group);
 
     /// @brief destructor

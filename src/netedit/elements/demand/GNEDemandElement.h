@@ -67,8 +67,8 @@ public:
      * @param[in] icon additional icon
      * @param[in] pathOptions path options
      */
-    GNEDemandElement(const std::string& id, GNENet* net, const std::string& filename, GUIGlObjectType type, SumoXMLTag tag,
-                     GUIIcon icon, const int pathOptions);
+    GNEDemandElement(const std::string& id, GNENet* net, const std::string& filename, GUIGlObjectType type,
+                     SumoXMLTag tag, GUIIcon icon, const int pathOptions);
 
     /**@brief Constructor
      * @param[in] demandElementParent pointer to parent demand element pointer (used to generate an ID)
@@ -78,8 +78,8 @@ public:
      * @param[in] icon additional icon
      * @param[in] pathOptions path options
      */
-    GNEDemandElement(GNEDemandElement* demandElementParent, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, GUIIcon icon,
-                     const int pathOptions);
+    GNEDemandElement(GNEDemandElement* demandElementParent, GUIGlObjectType type, SumoXMLTag tag,
+                     GUIIcon icon, const int pathOptions);
 
     /// @brief Destructor
     virtual ~GNEDemandElement();

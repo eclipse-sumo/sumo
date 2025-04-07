@@ -102,7 +102,7 @@ GNERoute::GNERoute(const std::string& id, const GNEDemandElement* originalRoute)
 
 // copy (embedded)
 GNERoute::GNERoute(GNEVehicle* vehicleParent, const GNEDemandElement* originalRoute) :
-    GNEDemandElement(vehicleParent, vehicleParent->getNet(), originalRoute->getGUIGlObject()->getType(),
+    GNEDemandElement(vehicleParent, originalRoute->getGUIGlObject()->getType(),
                      originalRoute->getTagProperty()->getTag(), originalRoute->getTagProperty()->getGUIIcon(),
                      originalRoute->getPathElementOptions()),
     Parameterised(originalRoute->getACParametersMap()),
@@ -134,7 +134,7 @@ GNERoute::GNERoute(const std::string& id, GNENet* net, const std::string& filena
 // embedded route
 GNERoute::GNERoute(GNEDemandElement* vehicleParent, const std::vector<GNEEdge*>& edges, const RGBColor& color,
                    const int repeat, const SUMOTime cycleTime, const Parameterised::Map& parameters) :
-    GNEDemandElement(vehicleParent, vehicleParent->getNet(), GLO_ROUTE, GNE_TAG_ROUTE_EMBEDDED, GUIIcon::ROUTE,
+    GNEDemandElement(vehicleParent, GLO_ROUTE, GNE_TAG_ROUTE_EMBEDDED, GUIIcon::ROUTE,
                      GNEPathElement::Options::DEMAND_ELEMENT | GNEPathElement::Options::ROUTE),
     Parameterised(parameters),
     myColor(color),
