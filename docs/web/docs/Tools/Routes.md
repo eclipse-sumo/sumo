@@ -225,6 +225,24 @@ Uses "route_departOffset.py" for building 24 route files which describe a whole 
 python tools/route/route_1htoDay.py <route-file>
 ```
 
+# scaleTimeline.py
+
+increase or reduces traffic in a given route file by applying a timeline definition. The time extend of the output file is the same as the input. 
+
+```
+sumo/tools/route/scaleTimeLine.py -r 1d_flat.rou.xml -o 1d_timeline.rou.xml --timeline-list 3600,8,5,4,3,4,12,45,74,66,52,50,50,52,53,56,67,84,86,74,50,39,30,21,16
+```
+
+The first value in the **timeline-list** defines the duration of one time interval and the following values define a percentage of the input traffic to be used for each time interval.
+
+
+Usage example for transforming a 1-hour peak-traffic scenario into a whole-day scenario:
+
+```
+sumo/tools/route/route_1htoDay.py 1h_peak.rou.xml -o 1d_peak.rou.xml
+sumo/tools/route/scaleTimeLine.py -r 1d_peak.rou.xml -o 1d_timeline.rou.xml
+```
+
 # route2alts.py
 
 Counts possible routes for all depart/arrival edges.
@@ -300,7 +318,7 @@ python tools/route/addParkingAreaStops2Routes.py -r <route-file> -p ParkingAreaA
 ```
 
 This only adds a stop at **parkingAreaA** to the vehicle with id **0_parkingAreaA**.
-Note, that the lane of that parking area must belong to one of the edges
+, that the lane of that parking area must belong to one of the edges
 "e1, e2, e3" of the vehicles route.
 
 # addParkingAreaStops2Trips.py
@@ -332,7 +350,7 @@ python tools/route/addParkingAreaStops2Routes.py -r <route-file> -p <parkings-fi
 ```
 
 This only adds a stop at **parkingAreaA** to the vehicle with id **0_parkingAreaA**.
-Note, that the lane of that parking area must belong to one of the edges
+, that the lane of that parking area must belong to one of the edges
 "e1, e2, e3" of the vehicles route.
 
 # addStops2Routes.py
