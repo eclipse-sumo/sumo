@@ -377,7 +377,7 @@ public:
             tls.id = readTypedString(inputStorage);
             tls.tlIndex = readTypedInt(inputStorage);
             tls.dist = readTypedDouble(inputStorage);
-            tls.state = readTypedByte(inputStorage);
+            tls.state = (char)readTypedByte(inputStorage);
             result.emplace_back(tls);
         }
     }
