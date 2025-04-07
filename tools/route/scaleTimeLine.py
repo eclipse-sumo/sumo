@@ -176,6 +176,7 @@ def scaleRoutes(options, outf):
                     if candidatsList:
                         totalList, idMap = getScaledObjList(periodMap, periodList, currIndex, candidatsList, idMap)
                         writeObjs(totalList, outf)
+                        candidatsList.clear()
                     while currIndex + 1 < len(periodList):
                         currIndex += 1
                         periodBegin = periodEnd
