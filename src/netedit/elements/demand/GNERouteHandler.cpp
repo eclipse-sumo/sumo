@@ -1240,14 +1240,14 @@ GNERouteHandler::buildStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
                 GNEDemandElement* stop = nullptr;
                 if (stopParent->getTagProperty()->isPerson()) {
                     if (stoppingPlace->getTagProperty()->getTag() == SUMO_TAG_BUS_STOP) {
-                        stop = new GNEStop(GNE_TAG_STOPPERSON_BUSSTOP, myNet, stopParent, stoppingPlace, stopParameters);
+                        stop = new GNEStop(GNE_TAG_STOPPERSON_BUSSTOP, stopParent, stoppingPlace, stopParameters);
                     } else {
-                        stop = new GNEStop(GNE_TAG_STOPPERSON_TRAINSTOP, myNet, stopParent, stoppingPlace, stopParameters);
+                        stop = new GNEStop(GNE_TAG_STOPPERSON_TRAINSTOP, stopParent, stoppingPlace, stopParameters);
                     }
                 } else if (stopParent->getTagProperty()->isContainer()) {
-                    stop = new GNEStop(GNE_TAG_STOPCONTAINER_CONTAINERSTOP, myNet, stopParent, stoppingPlace, stopParameters);
+                    stop = new GNEStop(GNE_TAG_STOPCONTAINER_CONTAINERSTOP, stopParent, stoppingPlace, stopParameters);
                 } else {
-                    stop = new GNEStop(stopTagType, myNet, stopParent, stoppingPlace, stopParameters);
+                    stop = new GNEStop(stopTagType, stopParent, stoppingPlace, stopParameters);
                 }
                 // add it depending of undoDemandElements
                 if (myAllowUndoRedo) {
@@ -1263,7 +1263,7 @@ GNERouteHandler::buildStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
                 return true;
             } else if (lane) {
                 // create stop using stopParameters and lane (only for vehicles)
-                GNEDemandElement* stop = new GNEStop(stopTagType, myNet, stopParent, lane, stopParameters);
+                GNEDemandElement* stop = new GNEStop(stopTagType, stopParent, lane, stopParameters);
                 // add it depending of undoDemandElements
                 if (myAllowUndoRedo) {
                     myNet->getViewNet()->getUndoList()->begin(stop, TL("add ") + stop->getTagStr() + " in '" + stopParent->getID() + "'");
