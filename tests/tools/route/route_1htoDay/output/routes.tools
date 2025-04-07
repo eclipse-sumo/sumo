@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-04-07 14:29:31.984920 by route_1htoDay.py v1_22_0+1316-06074bbf2ca
+<configuration>
+    <routes value="routes.rou.xml"/>
+    <output-file value="out.rou.xml"/>
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="a_0" depart="100">
+        <route edges="a b c d"/>
+    </vehicle>
+    <flow id="b_0" begin="400" end="600" period="10">
+        <route edges="c e f g"/>
+    </flow>
+    <vehicle id="a_3600" depart="3700">
+        <route edges="a b c d"/>
+    </vehicle>
+    <flow id="b_3600" begin="4000" end="4200" period="10">
+        <route edges="c e f g"/>
+    </flow>
+    <vehicle id="a_7200" depart="7300">
+        <route edges="a b c d"/>
+    </vehicle>
+    <flow id="b_7200" begin="7600" end="7800" period="10">
+        <route edges="c e f g"/>
+    </flow>
+    <vehicle id="a_10800" depart="10900">
+        <route edges="a b c d"/>
+    </vehicle>
+    <flow id="b_10800" begin="11200" end="11400" period="10">
+        <route edges="c e f g"/>
+    </flow>
+    <vehicle id="a_14400" depart="14500">
+        <route edges="a b c d"/>
+    </vehicle>
+    <flow id="b_14400" begin="14800" end="15000" period="10">
+        <route edges="c e f g"/>
+    </flow>
+    <vehicle id="a_18000" depart="18100">
+        <route edges="a b c d"/>
+    </vehicle>
+    <flow id="b_18000" begin="18400" end="18600" period="10">
+        <route edges="c e f g"/>
+    </flow>
+    <vehicle id="a_21600" depart="21700">
+        <route edges="a b c d"/>
+    </vehicle>
+    <flow id="b_21600" begin="22000" end="22200" period="10">
+        <route edges="c e f g"/>
+    </flow>
+    <vehicle id="a_25200" depart="25300">
+        <route edges="a b c d"/>
+    </vehicle>
+    <flow id="b_25200" begin="25600" end="25800" period="10">
+        <route edges="c e f g"/>
+    </flow>
+    <vehicle id="a_28800" depart="28900">
+        <route edges="a b c d"/>
+    </vehicle>
+    <flow id="b_28800" begin="29200" end="29400" period="10">
+        <route edges="c e f g"/>
+    </flow>
+    <vehicle id="a_32400" depart="32500">
+        <route edges="a b c d"/>
+    </vehicle>
+    <flow id="b_32400" begin="32800" end="33000" period="10">
+        <route edges="c e f g"/>
+    </flow>
+    <vehicle id="a_36000" depart="36100">
+        <route edges="a b c d"/>
+    </vehicle>
+    <flow id="b_36000" begin="36400" end="36600" period="10">
+        <route edges="c e f g"/>
+    </flow>
+    <vehicle id="a_39600" depart="39700">
+        <route edges="a b c d"/>
+    </vehicle>
+    <flow id="b_39600" begin="40000" end="40200" period="10">
+        <route edges="c e f g"/>
+    </flow>
+    <vehicle id="a_43200" depart="43300">
+        <route edges="a b c d"/>
+    </vehicle>
+    <flow id="b_43200" begin="43600" end="43800" period="10">
+        <route edges="c e f g"/>
+    </flow>
+    <vehicle id="a_46800" depart="46900">
+        <route edges="a b c d"/>
+    </vehicle>
+    <flow id="b_46800" begin="47200" end="47400" period="10">
+        <route edges="c e f g"/>
+    </flow>
+    <vehicle id="a_50400" depart="50500">
+        <route edges="a b c d"/>
+    </vehicle>
+    <flow id="b_50400" begin="50800" end="51000" period="10">
+        <route edges="c e f g"/>
+    </flow>
+    <vehicle id="a_54000" depart="54100">
+        <route edges="a b c d"/>
+    </vehicle>
+    <flow id="b_54000" begin="54400" end="54600" period="10">
+        <route edges="c e f g"/>
+    </flow>
+    <vehicle id="a_57600" depart="57700">
+        <route edges="a b c d"/>
+    </vehicle>
+    <flow id="b_57600" begin="58000" end="58200" period="10">
+        <route edges="c e f g"/>
+    </flow>
+    <vehicle id="a_61200" depart="61300">
+        <route edges="a b c d"/>
+    </vehicle>
+    <flow id="b_61200" begin="61600" end="61800" period="10">
+        <route edges="c e f g"/>
+    </flow>
+    <vehicle id="a_64800" depart="64900">
+        <route edges="a b c d"/>
+    </vehicle>
+    <flow id="b_64800" begin="65200" end="65400" period="10">
+        <route edges="c e f g"/>
+    </flow>
+    <vehicle id="a_68400" depart="68500">
+        <route edges="a b c d"/>
+    </vehicle>
+    <flow id="b_68400" begin="68800" end="69000" period="10">
+        <route edges="c e f g"/>
+    </flow>
+    <vehicle id="a_72000" depart="72100">
+        <route edges="a b c d"/>
+    </vehicle>
+    <flow id="b_72000" begin="72400" end="72600" period="10">
+        <route edges="c e f g"/>
+    </flow>
+    <vehicle id="a_75600" depart="75700">
+        <route edges="a b c d"/>
+    </vehicle>
+    <flow id="b_75600" begin="76000" end="76200" period="10">
+        <route edges="c e f g"/>
+    </flow>
+    <vehicle id="a_79200" depart="79300">
+        <route edges="a b c d"/>
+    </vehicle>
+    <flow id="b_79200" begin="79600" end="79800" period="10">
+        <route edges="c e f g"/>
+    </flow>
+    <vehicle id="a_82800" depart="82900">
+        <route edges="a b c d"/>
+    </vehicle>
+    <flow id="b_82800" begin="83200" end="83400" period="10">
+        <route edges="c e f g"/>
+    </flow>
+</routes>

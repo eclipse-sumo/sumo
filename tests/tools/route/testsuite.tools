@@ -15,9 +15,6 @@ findAllRoutes
 
 # test generating edge selections from a route file
 route2sel
-
-# Tests for <SUMO_DIST>/tools/route_tools/route_1htoDay.py
-route_1htoDay
 geoTrip2POI
 
 # sort routes and flows
@@ -80,3 +77,4 @@ addTAZ
 
 # extract OD matrix from vehicles
 route2OD
+route_1htoDay
