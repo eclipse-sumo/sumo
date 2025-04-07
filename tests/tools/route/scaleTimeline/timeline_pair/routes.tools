@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-04-07 14:06:31.023668 by scaleTimeLine.py v1_22_0+1306-fafdb30113f
+<configuration>
+    <route-files value="input_routes.rou.xml"/>
+    <output-file value="out.rou.xml"/>
+    <timeline-pair value="3600,50;3600,200;3600,100"/>
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <trip id="0" depart="0" from="D0E0" to="A1A0"/>
+    <trip id="0#1" depart="0" from="D0E0" to="A1A0"/>
+    <trip id="1" depart="10" from="C1C2" to="C4C3"/>
+    <trip id="1#1" depart="10" from="C1C2" to="C4C3"/>
+    <trip id="0" depart="0" from="D0E0" to="A1A0"/>
+    <trip id="0#2" depart="0" from="D0E0" to="A1A0"/>
+    <trip id="1" depart="10" from="C1C2" to="C4C3"/>
+    <trip id="1#2" depart="10" from="C1C2" to="C4C3"/>
+    <trip id="2" depart="3600" from="B1B2" to="B4C4"/>
+    <trip id="2#1" depart="3600" from="B1B2" to="B4C4"/>
+    <trip id="2#2" depart="3600" from="B1B2" to="B4C4"/>
+    <trip id="3" depart="3610" from="A3A2" to="B1A1"/>
+    <trip id="0" depart="0" from="D0E0" to="A1A0"/>
+    <trip id="0#3" depart="0" from="D0E0" to="A1A0"/>
+    <trip id="0#4" depart="0" from="D0E0" to="A1A0"/>
+    <trip id="1" depart="10" from="C1C2" to="C4C3"/>
+    <trip id="1#3" depart="10" from="C1C2" to="C4C3"/>
+    <trip id="2" depart="3600" from="B1B2" to="B4C4"/>
+    <trip id="2#3" depart="3600" from="B1B2" to="B4C4"/>
+    <trip id="3" depart="3610" from="A3A2" to="B1A1"/>
+    <trip id="3#1" depart="3610" from="A3A2" to="B1A1"/>
+    <trip id="4" depart="7200" from="E0E1" to="C2C3"/>
+    <trip id="5" depart="7210" from="C0D0" to="A4A3"/>
+    <trip id="5#1" depart="7210" from="C0D0" to="A4A3"/>
+    <trip id="0" depart="0" from="D0E0" to="A1A0"/>
+    <trip id="0#5" depart="0" from="D0E0" to="A1A0"/>
+    <trip id="1" depart="10" from="C1C2" to="C4C3"/>
+    <trip id="1#4" depart="10" from="C1C2" to="C4C3"/>
+    <trip id="1#5" depart="10" from="C1C2" to="C4C3"/>
+    <trip id="4" depart="10800" from="E0E1" to="C2C3"/>
+    <trip id="2" depart="3600" from="B1B2" to="B4C4"/>
+    <trip id="3" depart="3610" from="A3A2" to="B1A1"/>
+    <trip id="3#2" depart="3610" from="A3A2" to="B1A1"/>
+    <trip id="4" depart="7200" from="E0E1" to="C2C3"/>
+    <trip id="4#1" depart="7200" from="E0E1" to="C2C3"/>
+    <trip id="4#2" depart="7200" from="E0E1" to="C2C3"/>
+    <trip id="5" depart="7210" from="C0D0" to="A4A3"/>
+    <trip id="5#2" depart="7210" from="C0D0" to="A4A3"/>
+    <trip id="0" depart="0" from="D0E0" to="A1A0"/>
+    <trip id="0#6" depart="0" from="D0E0" to="A1A0"/>
+    <trip id="0#7" depart="0" from="D0E0" to="A1A0"/>
+    <trip id="1" depart="10" from="C1C2" to="C4C3"/>
+    <trip id="1#6" depart="10" from="C1C2" to="C4C3"/>
+    <trip id="4" depart="10800" from="E0E1" to="C2C3"/>
+    <trip id="4#3" depart="10800" from="E0E1" to="C2C3"/>
+    <trip id="5" depart="18010" from="C0D0" to="A4A3"/>
+    <trip id="5#4" depart="18010" from="C0D0" to="A4A3"/>
+    <trip id="2" depart="3600" from="B1B2" to="B4C4"/>
+    <trip id="2#4" depart="3600" from="B1B2" to="B4C4"/>
+    <trip id="2#5" depart="3600" from="B1B2" to="B4C4"/>
+    <trip id="3" depart="3610" from="A3A2" to="B1A1"/>
+    <trip id="4" depart="7200" from="E0E1" to="C2C3"/>
+    <trip id="5" depart="7210" from="C0D0" to="A4A3"/>
+    <trip id="5#3" depart="7210" from="C0D0" to="A4A3"/>
+</routes>

@@ -6,3 +6,9 @@ flows
 
 # Tests for <SUMO_DIST>/tools/scaleTimeline.py
 trips
+
+# Tests for <SUMO_DIST>/tools/scaleTimeline.py
+timeline_list
+
+# Tests for <SUMO_DIST>/tools/scaleTimeline.py
+timeline_pair
