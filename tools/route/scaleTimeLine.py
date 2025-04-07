@@ -161,7 +161,14 @@ def scaleRoutes(options, outf):
                         begin, elem.tag, elem.id))
                     lastDepart = begin
                 scale = getScale(begin, periodList, periodMap)
-                elem.number = str(int(getFlowNumber(elem) * scale))
+                if elem.hasAttribute("number"):
+                    elem.number = str(int(getFlowNumber(elem) * scale))
+                elif elem.hasAttribute("period"):
+                    if "exp" in elem.period:
+                        rate = float(elem.period[4:-2])
+                        elem.period = 'exp(%s)' % rate * scale
+                    else:
+                        elem.period = float(elem.period) / scale
                 outf.write(elem.toXML(' ' * 4))
             else:
                 depart = parseTime(elem.depart)
