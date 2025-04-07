@@ -19,18 +19,10 @@
 /****************************************************************************/
 
 #include <netedit/GNENet.h>
-#include <netedit/GNESegment.h>
 #include <netedit/GNETagProperties.h>
-#include <netedit/GNEUndoList.h>
-#include <netedit/GNEViewNet.h>
-#include <netedit/GNEViewParent.h>
 #include <netedit/changes/GNEChange_Attribute.h>
-#include <netedit/changes/GNEChange_DemandElement.h>
 #include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIDesigns.h>
-#include <utils/gui/div/GUIGlobalViewObjectsHandler.h>
-#include <netedit/frames/demand/GNEVehicleFrame.h>
 
 #include "GNERouteRef.h"
 #include "GNEVehicle.h"
@@ -89,9 +81,7 @@ void
 GNERouteRef::writeDemandElement(OutputDevice& device) const {
     device.openTag(GNE_TAG_ROUTEREF);
     device.writeAttr(SUMO_ATTR_REFID, getAttribute(SUMO_ATTR_REFID));
-    if (myProbability != myTagProperty->getDefaultDoubleValue(SUMO_ATTR_PROB)) {
-        device.writeAttr(SUMO_ATTR_PROB, myProbability);
-    }
+    device.writeAttr(SUMO_ATTR_PROB, myProbability);
     // write parameters
     writeParams(device);
     // close tag
@@ -287,7 +277,7 @@ GNERouteRef::getPopUpID() const {
 
 std::string
 GNERouteRef::getHierarchyName() const {
-    return getTagStr() + ": " + getAttribute(GNE_ATTR_ROUTE_DISTRIBUTION) + " -> " + getAttribute(SUMO_ATTR_REFID) ;
+    return TLF("Distribution '%' refs '%'", getAttribute(GNE_ATTR_ROUTE_DISTRIBUTION), getAttribute(SUMO_ATTR_REFID));
 }
 
 

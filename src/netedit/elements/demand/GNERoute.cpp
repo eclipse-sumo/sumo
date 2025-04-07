@@ -195,12 +195,22 @@ GNERoute::writeDemandElement(OutputDevice& device) const {
     if (myCycleTime != myTagProperty->getDefaultTimeValue(SUMO_ATTR_CYCLETIME)) {
         device.writeAttr(SUMO_ATTR_CYCLETIME, time2string(myCycleTime));
     }
+    // write probability if we have exactly one routeRef
+    std::vector<GNEDemandElement*> refs;
+    for (const auto& routeChild : getChildDemandElements()) {
+        if (routeChild->getTagProperty()->getTag() == GNE_TAG_ROUTEREF) {
+            refs.push_back(routeChild);
+        }
+    }
+    if (refs.size() == 1) {
+        device.writeAttr(SUMO_ATTR_PROB, refs.front()->getAttribute(SUMO_ATTR_PROB));
+    }
     // write sorted stops
     if (myTagProperty->getTag() == SUMO_TAG_ROUTE) {
         // write stops
-        for (const auto& demandElement : getChildDemandElements()) {
-            if (demandElement->getTagProperty()->isVehicleStop()) {
-                demandElement->writeDemandElement(device);
+        for (const auto& routeChild : getChildDemandElements()) {
+            if (routeChild->getTagProperty()->isVehicleStop()) {
+                routeChild->writeDemandElement(device);
             }
         }
     }

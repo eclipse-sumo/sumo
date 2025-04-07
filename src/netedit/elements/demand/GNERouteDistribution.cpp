@@ -41,15 +41,24 @@ GNERouteDistribution::~GNERouteDistribution() {}
 
 void
 GNERouteDistribution::writeDemandElement(OutputDevice& device) const {
-    // only save if there is distribution elements to save
-    if (!isDistributionEmpty()) {
-        // now write attributes
-        device.openTag(getTagProperty()->getTag());
-        device.writeAttr(SUMO_ATTR_ID, getID());
-        device.writeAttr(SUMO_ATTR_ROUTES, getAttributeDistributionKeys());
-        device.writeAttr(SUMO_ATTR_PROBS, getAttributeDistributionValues());
-        device.closeTag();
+    // write attributes
+    device.openTag(getTagProperty()->getTag());
+    device.writeAttr(SUMO_ATTR_ID, getID());
+    // check if write route or refs)
+    for (const auto& refChild : getChildDemandElements()) {
+        int numReferences = 0;
+        for (const auto& routeChild : refChild->getParentDemandElements().at(1)->getChildDemandElements()) {
+            if (routeChild->getTagProperty()->getTag() == GNE_TAG_ROUTEREF) {
+                numReferences++;
+            }
+        }
+        if (numReferences == 1) {
+            refChild->getParentDemandElements().at(1)->writeDemandElement(device);
+        } else {
+            refChild->writeDemandElement(device);
+        }
     }
+    device.closeTag();
 }
 
 /****************************************************************************/
