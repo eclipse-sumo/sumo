@@ -54,7 +54,8 @@ def get_options(args=None):
     ap.add_argument("-o", "--output-file", dest="outfile", category="output", type=ap.file,
                     help="define the output filename")
     ap.add_argument("--timeline-list", dest="timelinelist", type=str,
-                    default="3600,200,200,200,200,200,200,200,200,200,200,200,200",
+                    # TGw2_PKW from https://sumo.dlr.de/docs/Demand/Importing_O/D_Matrices.html#daily_time_lines
+                    default="3600,0.8,0.5,0.4,0.3,0.4,1.2,4.5,7.4,6.6,5.2,5.0,5.0,5.2,5.3,5.6,6.7,8.4,8.6,7.4,5.0,3.9,3.0,2.1,1.6",
                     help="Define the interval duration and then the scaled percentage for each interval; "
                     "e.g. 200% of the current demand")
     ap.add_argument("--timeline-pair", dest="timelinepair", type=str,
