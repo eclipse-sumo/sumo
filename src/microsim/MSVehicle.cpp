@@ -319,6 +319,7 @@ MSVehicle::Influencer::GapControlState::cleanup() {
     if (myVehStateListener != nullptr) {
         MSNet::getInstance()->removeVehicleStateListener(myVehStateListener);
         delete myVehStateListener;
+        myVehStateListener = nullptr;
     }
 }
 
