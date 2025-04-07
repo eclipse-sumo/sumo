@@ -76,7 +76,6 @@ def get_options(args=None):
         options.timelinelist = []
         for data in timelinelist:
             options.timelinelist.append([float(x) for x in data])
-        # options.timelinelist = list(map(float, templist))
 
     options.routefiles = options.routefiles.split(',')
     if not options.outfile:
@@ -119,9 +118,9 @@ def getScale(depart, periodList, periodMap):
     scale = 1.
     for i, p in enumerate(periodList):
         if i == 0 and depart < p:
-            scale = periodMap[p]/100.
-        elif depart < p and depart >= periodList[i-1]:
-            scale = periodMap[p]/100.
+            scale = periodMap[p] / 100.
+        elif depart < p and depart >= periodList[i - 1]:
+            scale = periodMap[p] / 100.
 
     return scale
 
@@ -138,10 +137,10 @@ def scaleRoutes(options, outf):
     accPeriod = 0
     periodList = []
     idMap = {}
-    for d in options.timelinelist:
-        accPeriod += d[0]
+    for duration, scale in options.timelinelist:
+        accPeriod += duration
         periodList.append(accPeriod)
-        periodMap[accPeriod] = d[1]
+        periodMap[accPeriod] = scale
 
     # get all ids
     for routefile in options.routefiles:
@@ -154,7 +153,7 @@ def scaleRoutes(options, outf):
         candidatsList = []
         for elem in sumolib.xml.parse(routefile, ['vehicle', 'trip', 'flow', 'person', 'personFlow', 'vType']):
             if elem.name == 'vType':
-                outf.write(elem.toXML(' '*4))
+                outf.write(elem.toXML(' ' * 4))
             elif elem.name in ['flow', 'personFlow']:
                 begin = parseTime(elem.begin)
                 if begin < lastBegin:
@@ -163,7 +162,7 @@ def scaleRoutes(options, outf):
                     lastBegin = begin
                 scale = getScale(begin, periodList, periodMap)
                 elem.number = str(int(getFlowNumber(elem) * scale))
-                outf.write(elem.toXML(' '*4))
+                outf.write(elem.toXML(' ' * 4))
             else:
                 depart = parseTime(elem.depart)
                 if depart < lastDepart:
@@ -183,7 +182,7 @@ def scaleRoutes(options, outf):
                             if depart < periodList[currIndex] and depart >= periodList[currIndex - 1]:
                                 candidatsList.append(elem)
                     else:
-                        outf.write(elem.toXML(' '*4))
+                        outf.write(elem.toXML(' ' * 4))
         if candidatsList:
             totalList, idMap = getScaledObjList(periodMap, periodList, currIndex, candidatsList, idMap)
             writeObjs(totalList, outf)
