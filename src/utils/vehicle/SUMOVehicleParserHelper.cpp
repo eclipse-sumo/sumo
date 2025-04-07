@@ -1655,7 +1655,7 @@ SUMOVehicleParserHelper::parseJMParams(SUMOVTypeParameter* into, const SUMOSAXAt
                 return false;
             }
             // declare a double in wich save CFM attribute
-            double JMAttribute = -1;
+            double JMAttribute = INVALID_DOUBLE;
             try {
                 // obtain CFM attribute in double format
                 JMAttribute = StringUtils::toDouble(parsedJMAttribute);
@@ -1664,7 +1664,7 @@ SUMOVehicleParserHelper::parseJMParams(SUMOVTypeParameter* into, const SUMOSAXAt
                 return false;
             }
             // now continue checking other properties (-1 is the default value)
-            if (JMAttribute != -1) {
+            if (JMAttribute != INVALID_DOUBLE) {
                 // special case for sigma minor
                 if (it == SUMO_ATTR_JM_SIGMA_MINOR) {
                     // check attributes sigma minor
@@ -1672,9 +1672,14 @@ SUMOVehicleParserHelper::parseJMParams(SUMOVTypeParameter* into, const SUMOSAXAt
                         WRITE_ERRORF(TL("Invalid Junction-Model Attribute %. Only values between [0-1] are allowed"), toString(it));
                         return false;
                     }
-                } else {
+                } else if (JMAttribute < 0
+                        && it != SUMO_ATTR_JM_TIMEGAP_MINOR
+                        && it != SUMO_ATTR_JM_EXTRA_GAP) {
+                    // attributes with error value
+                    if (JMAttribute != -1 || (it != SUMO_ATTR_JM_DRIVE_AFTER_YELLOW_TIME
+                                           && it != SUMO_ATTR_JM_DRIVE_AFTER_RED_TIME
+                                           && it != SUMO_ATTR_JM_IGNORE_KEEPCLEAR_TIME)) {
                     // check attributes of type "nonNegativeFloatType" (>= 0)
-                    if (JMAttribute < 0) {
                         WRITE_ERRORF(TL("Invalid Junction-Model Attribute %. Must be equal or greater than 0"), toString(it));
                         return false;
                     }
