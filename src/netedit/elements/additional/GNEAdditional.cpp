@@ -22,7 +22,7 @@
 #include <foreign/fontstash/fontstash.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNESegment.h>
-#include <netedit/GNETagProperties.h>
+#include <netedit/GNETagPropertiesDatabase.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/frames/GNEAttributesEditor.h>
 #include <netedit/frames/GNEPathCreator.h>
@@ -49,18 +49,17 @@
 // ===========================================================================
 
 GNEAdditional::GNEAdditional(const std::string& id, GNENet* net, const std::string& filename, GUIGlObjectType type,
-                             SumoXMLTag tag, GUIIcon icon, const std::string& additionalName) :
+                             SumoXMLTag tag, const std::string& additionalName) :
     GNEAttributeCarrier(tag, net, filename, id.empty()),
-    GUIGlObject(type, id, GUIIconSubSys::getIcon(icon)),
+    GUIGlObject(type, id, GUIIconSubSys::getIcon(net->getTagPropertiesDatabase()->getTagProperty(tag, true)->getGUIIcon())),
     GNEPathElement(GNEPathElement::Options::ADDITIONAL_ELEMENT),
     myAdditionalName(additionalName) {
 }
 
 
-GNEAdditional::GNEAdditional(GNEAdditional* additionalParent, GUIGlObjectType type, SumoXMLTag tag, GUIIcon icon,
-                             const std::string& additionalName) :
+GNEAdditional::GNEAdditional(GNEAdditional* additionalParent, GUIGlObjectType type, SumoXMLTag tag, const std::string& additionalName) :
     GNEAttributeCarrier(tag, additionalParent->getNet(), additionalParent->getFilename(), false),
-    GUIGlObject(type, additionalParent->getID(), GUIIconSubSys::getIcon(icon)),
+    GUIGlObject(type, additionalParent->getID(), GUIIconSubSys::getIcon(additionalParent->getNet()->getTagPropertiesDatabase()->getTagProperty(tag, true)->getGUIIcon())),
     GNEPathElement(GNEPathElement::Options::ADDITIONAL_ELEMENT),
     myAdditionalName(additionalName) {
 }
@@ -1038,20 +1037,6 @@ GNEAdditional::getJuPedSimGLO(SumoXMLTag tag) {
             return GLO_JPS_WALKABLEAREA;
         case GNE_TAG_JPS_OBSTACLE:
             return GLO_JPS_OBSTACLE;
-        default:
-            throw InvalidArgument("Invalid JuPedSim tag");
-    }
-}
-
-
-GUIIcon
-GNEAdditional::getJuPedSimIcon(SumoXMLTag tag) {
-    // continue depending of tag
-    switch (tag) {
-        case GNE_TAG_JPS_WALKABLEAREA:
-            return GUIIcon::JPS_WALKABLEAREA;
-        case GNE_TAG_JPS_OBSTACLE:
-            return GUIIcon::JPS_OBSTACLE;
         default:
             throw InvalidArgument("Invalid JuPedSim tag");
     }

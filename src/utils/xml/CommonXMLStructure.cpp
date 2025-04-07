@@ -138,6 +138,904 @@ CommonXMLStructure::PlanParameters::getNumberOfDefinedParameters() const {
 }
 
 
+
+SumoXMLTag
+CommonXMLStructure::PlanParameters::getWalkTag() const {
+    if (isSingleEdgePlan()) {
+        return GNE_TAG_WALK_EDGE_EDGE;
+    } else if (consecutiveEdges.size() > 0) {
+        return GNE_TAG_WALK_EDGES;
+    } else if (!toRoute.empty()) {
+        return GNE_TAG_WALK_ROUTE;
+    } else if (!fromEdge.empty()) {
+        if (!toEdge.empty()) {
+            return GNE_TAG_WALK_EDGE_EDGE;
+        } else if (!toTAZ.empty()) {
+            return GNE_TAG_WALK_EDGE_TAZ;
+        } else if (!toJunction.empty()) {
+            return GNE_TAG_WALK_EDGE_JUNCTION;
+        } else if (!toBusStop.empty()) {
+            return GNE_TAG_WALK_EDGE_BUSSTOP;
+        } else if (!toTrainStop.empty()) {
+            return GNE_TAG_WALK_EDGE_TRAINSTOP;
+        } else if (!toContainerStop.empty()) {
+            return GNE_TAG_WALK_EDGE_CONTAINERSTOP;
+        } else if (!toChargingStation.empty()) {
+            return GNE_TAG_WALK_EDGE_CHARGINGSTATION;
+        } else if (!toParkingArea.empty()) {
+            return GNE_TAG_WALK_EDGE_PARKINGAREA;
+        } else {
+            return SUMO_TAG_NOTHING;
+        }
+    } else if (!fromTAZ.empty()) {
+        if (!toEdge.empty()) {
+            return GNE_TAG_WALK_TAZ_EDGE;
+        } else if (!toTAZ.empty()) {
+            return GNE_TAG_WALK_TAZ_TAZ;
+        } else if (!toJunction.empty()) {
+            return GNE_TAG_WALK_TAZ_JUNCTION;
+        } else if (!toBusStop.empty()) {
+            return GNE_TAG_WALK_TAZ_BUSSTOP;
+        } else if (!toTrainStop.empty()) {
+            return GNE_TAG_WALK_TAZ_TRAINSTOP;
+        } else if (!toContainerStop.empty()) {
+            return GNE_TAG_WALK_TAZ_CONTAINERSTOP;
+        } else if (!toChargingStation.empty()) {
+            return GNE_TAG_WALK_TAZ_CHARGINGSTATION;
+        } else if (!toParkingArea.empty()) {
+            return GNE_TAG_WALK_TAZ_PARKINGAREA;
+        } else {
+            return SUMO_TAG_NOTHING;
+        }
+    } else if (!fromJunction.empty()) {
+        if (!toEdge.empty()) {
+            return GNE_TAG_WALK_JUNCTION_EDGE;
+        } else if (!toTAZ.empty()) {
+            return GNE_TAG_WALK_JUNCTION_TAZ;
+        } else if (!toJunction.empty()) {
+            return GNE_TAG_WALK_JUNCTION_JUNCTION;
+        } else if (!toBusStop.empty()) {
+            return GNE_TAG_WALK_JUNCTION_BUSSTOP;
+        } else if (!toTrainStop.empty()) {
+            return GNE_TAG_WALK_JUNCTION_TRAINSTOP;
+        } else if (!toContainerStop.empty()) {
+            return GNE_TAG_WALK_JUNCTION_CONTAINERSTOP;
+        } else if (!toChargingStation.empty()) {
+            return GNE_TAG_WALK_JUNCTION_CHARGINGSTATION;
+        } else if (!toParkingArea.empty()) {
+            return GNE_TAG_WALK_JUNCTION_PARKINGAREA;
+        } else {
+            return SUMO_TAG_NOTHING;
+        }
+    } else if (!fromBusStop.empty()) {
+        if (!toEdge.empty()) {
+            return GNE_TAG_WALK_BUSSTOP_EDGE;
+        } else if (!toTAZ.empty()) {
+            return GNE_TAG_WALK_BUSSTOP_TAZ;
+        } else if (!toJunction.empty()) {
+            return GNE_TAG_WALK_BUSSTOP_JUNCTION;
+        } else if (!toBusStop.empty()) {
+            return GNE_TAG_WALK_BUSSTOP_BUSSTOP;
+        } else if (!toTrainStop.empty()) {
+            return GNE_TAG_WALK_BUSSTOP_TRAINSTOP;
+        } else if (!toContainerStop.empty()) {
+            return GNE_TAG_WALK_BUSSTOP_CONTAINERSTOP;
+        } else if (!toChargingStation.empty()) {
+            return GNE_TAG_WALK_BUSSTOP_CHARGINGSTATION;
+        } else if (!toParkingArea.empty()) {
+            return GNE_TAG_WALK_BUSSTOP_PARKINGAREA;
+        } else {
+            return SUMO_TAG_NOTHING;
+        }
+    } else if (!fromTrainStop.empty()) {
+        if (!toEdge.empty()) {
+            return GNE_TAG_WALK_TRAINSTOP_EDGE;
+        } else if (!toTAZ.empty()) {
+            return GNE_TAG_WALK_TRAINSTOP_TAZ;
+        } else if (!toJunction.empty()) {
+            return GNE_TAG_WALK_TRAINSTOP_JUNCTION;
+        } else if (!toBusStop.empty()) {
+            return GNE_TAG_WALK_TRAINSTOP_BUSSTOP;
+        } else if (!toTrainStop.empty()) {
+            return GNE_TAG_WALK_TRAINSTOP_TRAINSTOP;
+        } else if (!toContainerStop.empty()) {
+            return GNE_TAG_WALK_TRAINSTOP_CONTAINERSTOP;
+        } else if (!toChargingStation.empty()) {
+            return GNE_TAG_WALK_TRAINSTOP_CHARGINGSTATION;
+        } else if (!toParkingArea.empty()) {
+            return GNE_TAG_WALK_TRAINSTOP_PARKINGAREA;
+        } else {
+            return SUMO_TAG_NOTHING;
+        }
+    } else if (!fromContainerStop.empty()) {
+        if (!toEdge.empty()) {
+            return GNE_TAG_WALK_CONTAINERSTOP_EDGE;
+        } else if (!toTAZ.empty()) {
+            return GNE_TAG_WALK_CONTAINERSTOP_TAZ;
+        } else if (!toJunction.empty()) {
+            return GNE_TAG_WALK_CONTAINERSTOP_JUNCTION;
+        } else if (!toBusStop.empty()) {
+            return GNE_TAG_WALK_CONTAINERSTOP_BUSSTOP;
+        } else if (!toTrainStop.empty()) {
+            return GNE_TAG_WALK_CONTAINERSTOP_TRAINSTOP;
+        } else if (!toContainerStop.empty()) {
+            return GNE_TAG_WALK_CONTAINERSTOP_CONTAINERSTOP;
+        } else if (!toChargingStation.empty()) {
+            return GNE_TAG_WALK_CONTAINERSTOP_CHARGINGSTATION;
+        } else if (!toParkingArea.empty()) {
+            return GNE_TAG_WALK_CONTAINERSTOP_PARKINGAREA;
+        } else {
+            return SUMO_TAG_NOTHING;
+        }
+    } else if (!fromChargingStation.empty()) {
+        if (!toEdge.empty()) {
+            return GNE_TAG_WALK_CHARGINGSTATION_EDGE;
+        } else if (!toTAZ.empty()) {
+            return GNE_TAG_WALK_CHARGINGSTATION_TAZ;
+        } else if (!toJunction.empty()) {
+            return GNE_TAG_WALK_CHARGINGSTATION_JUNCTION;
+        } else if (!toBusStop.empty()) {
+            return GNE_TAG_WALK_CHARGINGSTATION_BUSSTOP;
+        } else if (!toTrainStop.empty()) {
+            return GNE_TAG_WALK_CHARGINGSTATION_TRAINSTOP;
+        } else if (!toContainerStop.empty()) {
+            return GNE_TAG_WALK_CHARGINGSTATION_CONTAINERSTOP;
+        } else if (!toChargingStation.empty()) {
+            return GNE_TAG_WALK_CHARGINGSTATION_CHARGINGSTATION;
+        } else if (!toParkingArea.empty()) {
+            return GNE_TAG_WALK_CHARGINGSTATION_PARKINGAREA;
+        } else {
+            return SUMO_TAG_NOTHING;
+        }
+    } else if (!fromParkingArea.empty()) {
+        if (!toEdge.empty()) {
+            return GNE_TAG_WALK_PARKINGAREA_EDGE;
+        } else if (!toTAZ.empty()) {
+            return GNE_TAG_WALK_PARKINGAREA_TAZ;
+        } else if (!toJunction.empty()) {
+            return GNE_TAG_WALK_PARKINGAREA_JUNCTION;
+        } else if (!toBusStop.empty()) {
+            return GNE_TAG_WALK_PARKINGAREA_BUSSTOP;
+        } else if (!toTrainStop.empty()) {
+            return GNE_TAG_WALK_PARKINGAREA_TRAINSTOP;
+        } else if (!toContainerStop.empty()) {
+            return GNE_TAG_WALK_PARKINGAREA_CONTAINERSTOP;
+        } else if (!toChargingStation.empty()) {
+            return GNE_TAG_WALK_PARKINGAREA_CHARGINGSTATION;
+        } else if (!toParkingArea.empty()) {
+            return GNE_TAG_WALK_PARKINGAREA_PARKINGAREA;
+        } else {
+            return SUMO_TAG_NOTHING;
+        }
+    } else {
+        return SUMO_TAG_NOTHING;
+    }
+}
+
+
+SumoXMLTag
+CommonXMLStructure::PlanParameters::getPersonTripTag() const {
+    if (isSingleEdgePlan()) {
+        return GNE_TAG_PERSONTRIP_EDGE_EDGE;
+    } else if (!fromEdge.empty()) {
+        if (!toEdge.empty()) {
+            return GNE_TAG_PERSONTRIP_EDGE_EDGE;
+        } else if (!toTAZ.empty()) {
+            return GNE_TAG_PERSONTRIP_EDGE_TAZ;
+        } else if (!toJunction.empty()) {
+            return GNE_TAG_PERSONTRIP_EDGE_JUNCTION;
+        } else if (!toBusStop.empty()) {
+            return GNE_TAG_PERSONTRIP_EDGE_BUSSTOP;
+        } else if (!toTrainStop.empty()) {
+            return GNE_TAG_PERSONTRIP_EDGE_TRAINSTOP;
+        } else if (!toContainerStop.empty()) {
+            return GNE_TAG_PERSONTRIP_EDGE_CONTAINERSTOP;
+        } else if (!toChargingStation.empty()) {
+            return GNE_TAG_PERSONTRIP_EDGE_CHARGINGSTATION;
+        } else if (!toParkingArea.empty()) {
+            return GNE_TAG_PERSONTRIP_EDGE_PARKINGAREA;
+        } else {
+            return SUMO_TAG_NOTHING;
+        }
+    } else if (!fromTAZ.empty()) {
+        if (!toEdge.empty()) {
+            return GNE_TAG_PERSONTRIP_TAZ_EDGE;
+        } else if (!toTAZ.empty()) {
+            return GNE_TAG_PERSONTRIP_TAZ_TAZ;
+        } else if (!toJunction.empty()) {
+            return GNE_TAG_PERSONTRIP_TAZ_JUNCTION;
+        } else if (!toBusStop.empty()) {
+            return GNE_TAG_PERSONTRIP_TAZ_BUSSTOP;
+        } else if (!toTrainStop.empty()) {
+            return GNE_TAG_PERSONTRIP_TAZ_TRAINSTOP;
+        } else if (!toContainerStop.empty()) {
+            return GNE_TAG_PERSONTRIP_TAZ_CONTAINERSTOP;
+        } else if (!toChargingStation.empty()) {
+            return GNE_TAG_PERSONTRIP_TAZ_CHARGINGSTATION;
+        } else if (!toParkingArea.empty()) {
+            return GNE_TAG_PERSONTRIP_TAZ_PARKINGAREA;
+        } else {
+            return SUMO_TAG_NOTHING;
+        }
+    } else if (!fromJunction.empty()) {
+        if (!toEdge.empty()) {
+            return GNE_TAG_PERSONTRIP_JUNCTION_EDGE;
+        } else if (!toTAZ.empty()) {
+            return GNE_TAG_PERSONTRIP_JUNCTION_TAZ;
+        } else if (!toJunction.empty()) {
+            return GNE_TAG_PERSONTRIP_JUNCTION_JUNCTION;
+        } else if (!toBusStop.empty()) {
+            return GNE_TAG_PERSONTRIP_JUNCTION_BUSSTOP;
+        } else if (!toTrainStop.empty()) {
+            return GNE_TAG_PERSONTRIP_JUNCTION_TRAINSTOP;
+        } else if (!toContainerStop.empty()) {
+            return GNE_TAG_PERSONTRIP_JUNCTION_CONTAINERSTOP;
+        } else if (!toChargingStation.empty()) {
+            return GNE_TAG_PERSONTRIP_JUNCTION_CHARGINGSTATION;
+        } else if (!toParkingArea.empty()) {
+            return GNE_TAG_PERSONTRIP_JUNCTION_PARKINGAREA;
+        } else {
+            return SUMO_TAG_NOTHING;
+        }
+    } else if (!fromBusStop.empty()) {
+        if (!toEdge.empty()) {
+            return GNE_TAG_PERSONTRIP_BUSSTOP_EDGE;
+        } else if (!toTAZ.empty()) {
+            return GNE_TAG_PERSONTRIP_BUSSTOP_TAZ;
+        } else if (!toJunction.empty()) {
+            return GNE_TAG_PERSONTRIP_BUSSTOP_JUNCTION;
+        } else if (!toBusStop.empty()) {
+            return GNE_TAG_PERSONTRIP_BUSSTOP_BUSSTOP;
+        } else if (!toTrainStop.empty()) {
+            return GNE_TAG_PERSONTRIP_BUSSTOP_TRAINSTOP;
+        } else if (!toContainerStop.empty()) {
+            return GNE_TAG_PERSONTRIP_BUSSTOP_CONTAINERSTOP;
+        } else if (!toChargingStation.empty()) {
+            return GNE_TAG_PERSONTRIP_BUSSTOP_CHARGINGSTATION;
+        } else if (!toParkingArea.empty()) {
+            return GNE_TAG_PERSONTRIP_BUSSTOP_PARKINGAREA;
+        } else {
+            return SUMO_TAG_NOTHING;
+        }
+    } else if (!fromTrainStop.empty()) {
+        if (!toEdge.empty()) {
+            return GNE_TAG_PERSONTRIP_TRAINSTOP_EDGE;
+        } else if (!toTAZ.empty()) {
+            return GNE_TAG_PERSONTRIP_TRAINSTOP_TAZ;
+        } else if (!toJunction.empty()) {
+            return GNE_TAG_PERSONTRIP_TRAINSTOP_JUNCTION;
+        } else if (!toBusStop.empty()) {
+            return GNE_TAG_PERSONTRIP_TRAINSTOP_BUSSTOP;
+        } else if (!toTrainStop.empty()) {
+            return GNE_TAG_PERSONTRIP_TRAINSTOP_TRAINSTOP;
+        } else if (!toContainerStop.empty()) {
+            return GNE_TAG_PERSONTRIP_TRAINSTOP_CONTAINERSTOP;
+        } else if (!toChargingStation.empty()) {
+            return GNE_TAG_PERSONTRIP_TRAINSTOP_CHARGINGSTATION;
+        } else if (!toParkingArea.empty()) {
+            return GNE_TAG_PERSONTRIP_TRAINSTOP_PARKINGAREA;
+        } else {
+            return SUMO_TAG_NOTHING;
+        }
+    } else if (!fromContainerStop.empty()) {
+        if (!toEdge.empty()) {
+            return GNE_TAG_PERSONTRIP_CONTAINERSTOP_EDGE;
+        } else if (!toTAZ.empty()) {
+            return GNE_TAG_PERSONTRIP_CONTAINERSTOP_TAZ;
+        } else if (!toJunction.empty()) {
+            return GNE_TAG_PERSONTRIP_CONTAINERSTOP_JUNCTION;
+        } else if (!toBusStop.empty()) {
+            return GNE_TAG_PERSONTRIP_CONTAINERSTOP_BUSSTOP;
+        } else if (!toTrainStop.empty()) {
+            return GNE_TAG_PERSONTRIP_CONTAINERSTOP_TRAINSTOP;
+        } else if (!toContainerStop.empty()) {
+            return GNE_TAG_PERSONTRIP_CONTAINERSTOP_CONTAINERSTOP;
+        } else if (!toChargingStation.empty()) {
+            return GNE_TAG_PERSONTRIP_CONTAINERSTOP_CHARGINGSTATION;
+        } else if (!toParkingArea.empty()) {
+            return GNE_TAG_PERSONTRIP_CONTAINERSTOP_PARKINGAREA;
+        } else {
+            return SUMO_TAG_NOTHING;
+        }
+    } else if (!fromChargingStation.empty()) {
+        if (!toEdge.empty()) {
+            return GNE_TAG_PERSONTRIP_CHARGINGSTATION_EDGE;
+        } else if (!toTAZ.empty()) {
+            return GNE_TAG_PERSONTRIP_CHARGINGSTATION_TAZ;
+        } else if (!toJunction.empty()) {
+            return GNE_TAG_PERSONTRIP_CHARGINGSTATION_JUNCTION;
+        } else if (!toBusStop.empty()) {
+            return GNE_TAG_PERSONTRIP_CHARGINGSTATION_BUSSTOP;
+        } else if (!toTrainStop.empty()) {
+            return GNE_TAG_PERSONTRIP_CHARGINGSTATION_TRAINSTOP;
+        } else if (!toContainerStop.empty()) {
+            return GNE_TAG_PERSONTRIP_CHARGINGSTATION_CONTAINERSTOP;
+        } else if (!toChargingStation.empty()) {
+            return GNE_TAG_PERSONTRIP_CHARGINGSTATION_CHARGINGSTATION;
+        } else if (!toParkingArea.empty()) {
+            return GNE_TAG_PERSONTRIP_CHARGINGSTATION_PARKINGAREA;
+        } else {
+            return SUMO_TAG_NOTHING;
+        }
+    } else if (!fromParkingArea.empty()) {
+        if (!toEdge.empty()) {
+            return GNE_TAG_PERSONTRIP_PARKINGAREA_EDGE;
+        } else if (!toTAZ.empty()) {
+            return GNE_TAG_PERSONTRIP_PARKINGAREA_TAZ;
+        } else if (!toJunction.empty()) {
+            return GNE_TAG_PERSONTRIP_PARKINGAREA_JUNCTION;
+        } else if (!toBusStop.empty()) {
+            return GNE_TAG_PERSONTRIP_PARKINGAREA_BUSSTOP;
+        } else if (!toTrainStop.empty()) {
+            return GNE_TAG_PERSONTRIP_PARKINGAREA_TRAINSTOP;
+        } else if (!toContainerStop.empty()) {
+            return GNE_TAG_PERSONTRIP_PARKINGAREA_CONTAINERSTOP;
+        } else if (!toChargingStation.empty()) {
+            return GNE_TAG_PERSONTRIP_PARKINGAREA_CHARGINGSTATION;
+        } else if (!toParkingArea.empty()) {
+            return GNE_TAG_PERSONTRIP_PARKINGAREA_PARKINGAREA;
+        } else {
+            return SUMO_TAG_NOTHING;
+        }
+    } else {
+        return SUMO_TAG_NOTHING;
+    }
+}
+
+
+SumoXMLTag
+CommonXMLStructure::PlanParameters::getRideTag() const {
+    if (isSingleEdgePlan()) {
+        return GNE_TAG_RIDE_EDGE_EDGE;
+    } else if (!fromEdge.empty()) {
+        if (!toEdge.empty()) {
+            return GNE_TAG_RIDE_EDGE_EDGE;
+        } else if (!toTAZ.empty()) {
+            return GNE_TAG_RIDE_EDGE_TAZ;
+        } else if (!toJunction.empty()) {
+            return GNE_TAG_RIDE_EDGE_JUNCTION;
+        } else if (!toBusStop.empty()) {
+            return GNE_TAG_RIDE_EDGE_BUSSTOP;
+        } else if (!toTrainStop.empty()) {
+            return GNE_TAG_RIDE_EDGE_TRAINSTOP;
+        } else if (!toContainerStop.empty()) {
+            return GNE_TAG_RIDE_EDGE_CONTAINERSTOP;
+        } else if (!toChargingStation.empty()) {
+            return GNE_TAG_RIDE_EDGE_CHARGINGSTATION;
+        } else if (!toParkingArea.empty()) {
+            return GNE_TAG_RIDE_EDGE_PARKINGAREA;
+        } else {
+            return SUMO_TAG_NOTHING;
+        }
+    } else if (!fromTAZ.empty()) {
+        if (!toEdge.empty()) {
+            return GNE_TAG_RIDE_TAZ_EDGE;
+        } else if (!toTAZ.empty()) {
+            return GNE_TAG_RIDE_TAZ_TAZ;
+        } else if (!toJunction.empty()) {
+            return GNE_TAG_RIDE_TAZ_JUNCTION;
+        } else if (!toBusStop.empty()) {
+            return GNE_TAG_RIDE_TAZ_BUSSTOP;
+        } else if (!toTrainStop.empty()) {
+            return GNE_TAG_RIDE_TAZ_TRAINSTOP;
+        } else if (!toContainerStop.empty()) {
+            return GNE_TAG_RIDE_TAZ_CONTAINERSTOP;
+        } else if (!toChargingStation.empty()) {
+            return GNE_TAG_RIDE_TAZ_CHARGINGSTATION;
+        } else if (!toParkingArea.empty()) {
+            return GNE_TAG_RIDE_TAZ_PARKINGAREA;
+        } else {
+            return SUMO_TAG_NOTHING;
+        }
+    } else if (!fromJunction.empty()) {
+        if (!toEdge.empty()) {
+            return GNE_TAG_RIDE_JUNCTION_EDGE;
+        } else if (!toTAZ.empty()) {
+            return GNE_TAG_RIDE_JUNCTION_TAZ;
+        } else if (!toJunction.empty()) {
+            return GNE_TAG_RIDE_JUNCTION_JUNCTION;
+        } else if (!toBusStop.empty()) {
+            return GNE_TAG_RIDE_JUNCTION_BUSSTOP;
+        } else if (!toTrainStop.empty()) {
+            return GNE_TAG_RIDE_JUNCTION_TRAINSTOP;
+        } else if (!toContainerStop.empty()) {
+            return GNE_TAG_RIDE_JUNCTION_CONTAINERSTOP;
+        } else if (!toChargingStation.empty()) {
+            return GNE_TAG_RIDE_JUNCTION_CHARGINGSTATION;
+        } else if (!toParkingArea.empty()) {
+            return GNE_TAG_RIDE_JUNCTION_PARKINGAREA;
+        } else {
+            return SUMO_TAG_NOTHING;
+        }
+    } else if (!fromBusStop.empty()) {
+        if (!toEdge.empty()) {
+            return GNE_TAG_RIDE_BUSSTOP_EDGE;
+        } else if (!toTAZ.empty()) {
+            return GNE_TAG_RIDE_BUSSTOP_TAZ;
+        } else if (!toJunction.empty()) {
+            return GNE_TAG_RIDE_BUSSTOP_JUNCTION;
+        } else if (!toBusStop.empty()) {
+            return GNE_TAG_RIDE_BUSSTOP_BUSSTOP;
+        } else if (!toTrainStop.empty()) {
+            return GNE_TAG_RIDE_BUSSTOP_TRAINSTOP;
+        } else if (!toContainerStop.empty()) {
+            return GNE_TAG_RIDE_BUSSTOP_CONTAINERSTOP;
+        } else if (!toChargingStation.empty()) {
+            return GNE_TAG_RIDE_BUSSTOP_CHARGINGSTATION;
+        } else if (!toParkingArea.empty()) {
+            return GNE_TAG_RIDE_BUSSTOP_PARKINGAREA;
+        } else {
+            return SUMO_TAG_NOTHING;
+        }
+    } else if (!fromTrainStop.empty()) {
+        if (!toEdge.empty()) {
+            return GNE_TAG_RIDE_TRAINSTOP_EDGE;
+        } else if (!toTAZ.empty()) {
+            return GNE_TAG_RIDE_TRAINSTOP_TAZ;
+        } else if (!toJunction.empty()) {
+            return GNE_TAG_RIDE_TRAINSTOP_JUNCTION;
+        } else if (!toBusStop.empty()) {
+            return GNE_TAG_RIDE_TRAINSTOP_BUSSTOP;
+        } else if (!toTrainStop.empty()) {
+            return GNE_TAG_RIDE_TRAINSTOP_TRAINSTOP;
+        } else if (!toContainerStop.empty()) {
+            return GNE_TAG_RIDE_TRAINSTOP_CONTAINERSTOP;
+        } else if (!toChargingStation.empty()) {
+            return GNE_TAG_RIDE_TRAINSTOP_CHARGINGSTATION;
+        } else if (!toParkingArea.empty()) {
+            return GNE_TAG_RIDE_TRAINSTOP_PARKINGAREA;
+        } else {
+            return SUMO_TAG_NOTHING;
+        }
+    } else if (!fromContainerStop.empty()) {
+        if (!toEdge.empty()) {
+            return GNE_TAG_RIDE_CONTAINERSTOP_EDGE;
+        } else if (!toTAZ.empty()) {
+            return GNE_TAG_RIDE_CONTAINERSTOP_TAZ;
+        } else if (!toJunction.empty()) {
+            return GNE_TAG_RIDE_CONTAINERSTOP_JUNCTION;
+        } else if (!toBusStop.empty()) {
+            return GNE_TAG_RIDE_CONTAINERSTOP_BUSSTOP;
+        } else if (!toTrainStop.empty()) {
+            return GNE_TAG_RIDE_CONTAINERSTOP_TRAINSTOP;
+        } else if (!toContainerStop.empty()) {
+            return GNE_TAG_RIDE_CONTAINERSTOP_CONTAINERSTOP;
+        } else if (!toChargingStation.empty()) {
+            return GNE_TAG_RIDE_CONTAINERSTOP_CHARGINGSTATION;
+        } else if (!toParkingArea.empty()) {
+            return GNE_TAG_RIDE_CONTAINERSTOP_PARKINGAREA;
+        } else {
+            return SUMO_TAG_NOTHING;
+        }
+    } else if (!fromChargingStation.empty()) {
+        if (!toEdge.empty()) {
+            return GNE_TAG_RIDE_CHARGINGSTATION_EDGE;
+        } else if (!toTAZ.empty()) {
+            return GNE_TAG_RIDE_CHARGINGSTATION_TAZ;
+        } else if (!toJunction.empty()) {
+            return GNE_TAG_RIDE_CHARGINGSTATION_JUNCTION;
+        } else if (!toBusStop.empty()) {
+            return GNE_TAG_RIDE_CHARGINGSTATION_BUSSTOP;
+        } else if (!toTrainStop.empty()) {
+            return GNE_TAG_RIDE_CHARGINGSTATION_TRAINSTOP;
+        } else if (!toContainerStop.empty()) {
+            return GNE_TAG_RIDE_CHARGINGSTATION_CONTAINERSTOP;
+        } else if (!toChargingStation.empty()) {
+            return GNE_TAG_RIDE_CHARGINGSTATION_CHARGINGSTATION;
+        } else if (!toParkingArea.empty()) {
+            return GNE_TAG_RIDE_CHARGINGSTATION_PARKINGAREA;
+        } else {
+            return SUMO_TAG_NOTHING;
+        }
+    } else if (!fromParkingArea.empty()) {
+        if (!toEdge.empty()) {
+            return GNE_TAG_RIDE_PARKINGAREA_EDGE;
+        } else if (!toTAZ.empty()) {
+            return GNE_TAG_RIDE_PARKINGAREA_TAZ;
+        } else if (!toJunction.empty()) {
+            return GNE_TAG_RIDE_PARKINGAREA_JUNCTION;
+        } else if (!toBusStop.empty()) {
+            return GNE_TAG_RIDE_PARKINGAREA_BUSSTOP;
+        } else if (!toTrainStop.empty()) {
+            return GNE_TAG_RIDE_PARKINGAREA_TRAINSTOP;
+        } else if (!toContainerStop.empty()) {
+            return GNE_TAG_RIDE_PARKINGAREA_CONTAINERSTOP;
+        } else if (!toChargingStation.empty()) {
+            return GNE_TAG_RIDE_PARKINGAREA_CHARGINGSTATION;
+        } else if (!toParkingArea.empty()) {
+            return GNE_TAG_RIDE_PARKINGAREA_PARKINGAREA;
+        } else {
+            return SUMO_TAG_NOTHING;
+        }
+    } else {
+        return SUMO_TAG_NOTHING;
+    }
+}
+
+
+SumoXMLTag
+CommonXMLStructure::PlanParameters::getTransportTag() const {
+    if (isSingleEdgePlan()) {
+        return GNE_TAG_TRANSPORT_EDGE_EDGE;
+    } else if (!fromEdge.empty()) {
+        if (!toEdge.empty()) {
+            return GNE_TAG_TRANSPORT_EDGE_EDGE;
+        } else if (!toTAZ.empty()) {
+            return GNE_TAG_TRANSPORT_EDGE_TAZ;
+        } else if (!toJunction.empty()) {
+            return GNE_TAG_TRANSPORT_EDGE_JUNCTION;
+        } else if (!toBusStop.empty()) {
+            return GNE_TAG_TRANSPORT_EDGE_BUSSTOP;
+        } else if (!toTrainStop.empty()) {
+            return GNE_TAG_TRANSPORT_EDGE_TRAINSTOP;
+        } else if (!toContainerStop.empty()) {
+            return GNE_TAG_TRANSPORT_EDGE_CONTAINERSTOP;
+        } else if (!toChargingStation.empty()) {
+            return GNE_TAG_TRANSPORT_EDGE_CHARGINGSTATION;
+        } else if (!toParkingArea.empty()) {
+            return GNE_TAG_TRANSPORT_EDGE_PARKINGAREA;
+        } else {
+            return SUMO_TAG_NOTHING;
+        }
+    } else if (!fromTAZ.empty()) {
+        if (!toEdge.empty()) {
+            return GNE_TAG_TRANSPORT_TAZ_EDGE;
+        } else if (!toTAZ.empty()) {
+            return GNE_TAG_TRANSPORT_TAZ_TAZ;
+        } else if (!toJunction.empty()) {
+            return GNE_TAG_TRANSPORT_TAZ_JUNCTION;
+        } else if (!toBusStop.empty()) {
+            return GNE_TAG_TRANSPORT_TAZ_BUSSTOP;
+        } else if (!toTrainStop.empty()) {
+            return GNE_TAG_TRANSPORT_TAZ_TRAINSTOP;
+        } else if (!toContainerStop.empty()) {
+            return GNE_TAG_TRANSPORT_TAZ_CONTAINERSTOP;
+        } else if (!toChargingStation.empty()) {
+            return GNE_TAG_TRANSPORT_TAZ_CHARGINGSTATION;
+        } else if (!toParkingArea.empty()) {
+            return GNE_TAG_TRANSPORT_TAZ_PARKINGAREA;
+        } else {
+            return SUMO_TAG_NOTHING;
+        }
+    } else if (!fromJunction.empty()) {
+        if (!toEdge.empty()) {
+            return GNE_TAG_TRANSPORT_JUNCTION_EDGE;
+        } else if (!toTAZ.empty()) {
+            return GNE_TAG_TRANSPORT_JUNCTION_TAZ;
+        } else if (!toJunction.empty()) {
+            return GNE_TAG_TRANSPORT_JUNCTION_JUNCTION;
+        } else if (!toBusStop.empty()) {
+            return GNE_TAG_TRANSPORT_JUNCTION_BUSSTOP;
+        } else if (!toTrainStop.empty()) {
+            return GNE_TAG_TRANSPORT_JUNCTION_TRAINSTOP;
+        } else if (!toContainerStop.empty()) {
+            return GNE_TAG_TRANSPORT_JUNCTION_CONTAINERSTOP;
+        } else if (!toChargingStation.empty()) {
+            return GNE_TAG_TRANSPORT_JUNCTION_CHARGINGSTATION;
+        } else if (!toParkingArea.empty()) {
+            return GNE_TAG_TRANSPORT_JUNCTION_PARKINGAREA;
+        } else {
+            return SUMO_TAG_NOTHING;
+        }
+    } else if (!fromBusStop.empty()) {
+        if (!toEdge.empty()) {
+            return GNE_TAG_TRANSPORT_BUSSTOP_EDGE;
+        } else if (!toTAZ.empty()) {
+            return GNE_TAG_TRANSPORT_BUSSTOP_TAZ;
+        } else if (!toJunction.empty()) {
+            return GNE_TAG_TRANSPORT_BUSSTOP_JUNCTION;
+        } else if (!toBusStop.empty()) {
+            return GNE_TAG_TRANSPORT_BUSSTOP_BUSSTOP;
+        } else if (!toTrainStop.empty()) {
+            return GNE_TAG_TRANSPORT_BUSSTOP_TRAINSTOP;
+        } else if (!toContainerStop.empty()) {
+            return GNE_TAG_TRANSPORT_BUSSTOP_CONTAINERSTOP;
+        } else if (!toChargingStation.empty()) {
+            return GNE_TAG_TRANSPORT_BUSSTOP_CHARGINGSTATION;
+        } else if (!toParkingArea.empty()) {
+            return GNE_TAG_TRANSPORT_BUSSTOP_PARKINGAREA;
+        } else {
+            return SUMO_TAG_NOTHING;
+        }
+    } else if (!fromTrainStop.empty()) {
+        if (!toEdge.empty()) {
+            return GNE_TAG_TRANSPORT_TRAINSTOP_EDGE;
+        } else if (!toTAZ.empty()) {
+            return GNE_TAG_TRANSPORT_TRAINSTOP_TAZ;
+        } else if (!toJunction.empty()) {
+            return GNE_TAG_TRANSPORT_TRAINSTOP_JUNCTION;
+        } else if (!toBusStop.empty()) {
+            return GNE_TAG_TRANSPORT_TRAINSTOP_BUSSTOP;
+        } else if (!toTrainStop.empty()) {
+            return GNE_TAG_TRANSPORT_TRAINSTOP_TRAINSTOP;
+        } else if (!toContainerStop.empty()) {
+            return GNE_TAG_TRANSPORT_TRAINSTOP_CONTAINERSTOP;
+        } else if (!toChargingStation.empty()) {
+            return GNE_TAG_TRANSPORT_TRAINSTOP_CHARGINGSTATION;
+        } else if (!toParkingArea.empty()) {
+            return GNE_TAG_TRANSPORT_TRAINSTOP_PARKINGAREA;
+        } else {
+            return SUMO_TAG_NOTHING;
+        }
+    } else if (!fromContainerStop.empty()) {
+        if (!toEdge.empty()) {
+            return GNE_TAG_TRANSPORT_CONTAINERSTOP_EDGE;
+        } else if (!toTAZ.empty()) {
+            return GNE_TAG_TRANSPORT_CONTAINERSTOP_TAZ;
+        } else if (!toJunction.empty()) {
+            return GNE_TAG_TRANSPORT_CONTAINERSTOP_JUNCTION;
+        } else if (!toBusStop.empty()) {
+            return GNE_TAG_TRANSPORT_CONTAINERSTOP_BUSSTOP;
+        } else if (!toTrainStop.empty()) {
+            return GNE_TAG_TRANSPORT_CONTAINERSTOP_TRAINSTOP;
+        } else if (!toContainerStop.empty()) {
+            return GNE_TAG_TRANSPORT_CONTAINERSTOP_CONTAINERSTOP;
+        } else if (!toChargingStation.empty()) {
+            return GNE_TAG_TRANSPORT_CONTAINERSTOP_CHARGINGSTATION;
+        } else if (!toParkingArea.empty()) {
+            return GNE_TAG_TRANSPORT_CONTAINERSTOP_PARKINGAREA;
+        } else {
+            return SUMO_TAG_NOTHING;
+        }
+    } else if (!fromChargingStation.empty()) {
+        if (!toEdge.empty()) {
+            return GNE_TAG_TRANSPORT_CHARGINGSTATION_EDGE;
+        } else if (!toTAZ.empty()) {
+            return GNE_TAG_TRANSPORT_CHARGINGSTATION_TAZ;
+        } else if (!toJunction.empty()) {
+            return GNE_TAG_TRANSPORT_CHARGINGSTATION_JUNCTION;
+        } else if (!toBusStop.empty()) {
+            return GNE_TAG_TRANSPORT_CHARGINGSTATION_BUSSTOP;
+        } else if (!toTrainStop.empty()) {
+            return GNE_TAG_TRANSPORT_CHARGINGSTATION_TRAINSTOP;
+        } else if (!toContainerStop.empty()) {
+            return GNE_TAG_TRANSPORT_CHARGINGSTATION_CONTAINERSTOP;
+        } else if (!toChargingStation.empty()) {
+            return GNE_TAG_TRANSPORT_CHARGINGSTATION_CHARGINGSTATION;
+        } else if (!toParkingArea.empty()) {
+            return GNE_TAG_TRANSPORT_CHARGINGSTATION_PARKINGAREA;
+        } else {
+            return SUMO_TAG_NOTHING;
+        }
+    } else if (!fromParkingArea.empty()) {
+        if (!toEdge.empty()) {
+            return GNE_TAG_TRANSPORT_PARKINGAREA_EDGE;
+        } else if (!toTAZ.empty()) {
+            return GNE_TAG_TRANSPORT_PARKINGAREA_TAZ;
+        } else if (!toJunction.empty()) {
+            return GNE_TAG_TRANSPORT_PARKINGAREA_JUNCTION;
+        } else if (!toBusStop.empty()) {
+            return GNE_TAG_TRANSPORT_PARKINGAREA_BUSSTOP;
+        } else if (!toTrainStop.empty()) {
+            return GNE_TAG_TRANSPORT_PARKINGAREA_TRAINSTOP;
+        } else if (!toContainerStop.empty()) {
+            return GNE_TAG_TRANSPORT_PARKINGAREA_CONTAINERSTOP;
+        } else if (!toChargingStation.empty()) {
+            return GNE_TAG_TRANSPORT_PARKINGAREA_CHARGINGSTATION;
+        } else if (!toParkingArea.empty()) {
+            return GNE_TAG_TRANSPORT_PARKINGAREA_PARKINGAREA;
+        } else {
+            return SUMO_TAG_NOTHING;
+        }
+    } else {
+        return SUMO_TAG_NOTHING;
+    }
+}
+
+
+SumoXMLTag
+CommonXMLStructure::PlanParameters::getTranshipTag() const {
+    if (isSingleEdgePlan()) {
+        return GNE_TAG_TRANSHIP_EDGE_EDGE;
+    } else if (consecutiveEdges.size() > 0) {
+        return GNE_TAG_TRANSHIP_EDGES;
+    } else if (!fromEdge.empty()) {
+        if (!toEdge.empty()) {
+            return GNE_TAG_TRANSHIP_EDGE_EDGE;
+        } else if (!toTAZ.empty()) {
+            return GNE_TAG_TRANSHIP_EDGE_TAZ;
+        } else if (!toJunction.empty()) {
+            return GNE_TAG_TRANSHIP_EDGE_JUNCTION;
+        } else if (!toBusStop.empty()) {
+            return GNE_TAG_TRANSHIP_EDGE_BUSSTOP;
+        } else if (!toTrainStop.empty()) {
+            return GNE_TAG_TRANSHIP_EDGE_TRAINSTOP;
+        } else if (!toContainerStop.empty()) {
+            return GNE_TAG_TRANSHIP_EDGE_CONTAINERSTOP;
+        } else if (!toChargingStation.empty()) {
+            return GNE_TAG_TRANSHIP_EDGE_CHARGINGSTATION;
+        } else if (!toParkingArea.empty()) {
+            return GNE_TAG_TRANSHIP_EDGE_PARKINGAREA;
+        } else {
+            return SUMO_TAG_NOTHING;
+        }
+    } else if (!fromTAZ.empty()) {
+        if (!toEdge.empty()) {
+            return GNE_TAG_TRANSHIP_TAZ_EDGE;
+        } else if (!toTAZ.empty()) {
+            return GNE_TAG_TRANSHIP_TAZ_TAZ;
+        } else if (!toJunction.empty()) {
+            return GNE_TAG_TRANSHIP_TAZ_JUNCTION;
+        } else if (!toBusStop.empty()) {
+            return GNE_TAG_TRANSHIP_TAZ_BUSSTOP;
+        } else if (!toTrainStop.empty()) {
+            return GNE_TAG_TRANSHIP_TAZ_TRAINSTOP;
+        } else if (!toContainerStop.empty()) {
+            return GNE_TAG_TRANSHIP_TAZ_CONTAINERSTOP;
+        } else if (!toChargingStation.empty()) {
+            return GNE_TAG_TRANSHIP_TAZ_CHARGINGSTATION;
+        } else if (!toParkingArea.empty()) {
+            return GNE_TAG_TRANSHIP_TAZ_PARKINGAREA;
+        } else {
+            return SUMO_TAG_NOTHING;
+        }
+    } else if (!fromJunction.empty()) {
+        if (!toEdge.empty()) {
+            return GNE_TAG_TRANSHIP_JUNCTION_EDGE;
+        } else if (!toTAZ.empty()) {
+            return GNE_TAG_TRANSHIP_JUNCTION_TAZ;
+        } else if (!toJunction.empty()) {
+            return GNE_TAG_TRANSHIP_JUNCTION_JUNCTION;
+        } else if (!toBusStop.empty()) {
+            return GNE_TAG_TRANSHIP_JUNCTION_BUSSTOP;
+        } else if (!toTrainStop.empty()) {
+            return GNE_TAG_TRANSHIP_JUNCTION_TRAINSTOP;
+        } else if (!toContainerStop.empty()) {
+            return GNE_TAG_TRANSHIP_JUNCTION_CONTAINERSTOP;
+        } else if (!toChargingStation.empty()) {
+            return GNE_TAG_TRANSHIP_JUNCTION_CHARGINGSTATION;
+        } else if (!toParkingArea.empty()) {
+            return GNE_TAG_TRANSHIP_JUNCTION_PARKINGAREA;
+        } else {
+            return SUMO_TAG_NOTHING;
+        }
+    } else if (!fromBusStop.empty()) {
+        if (!toEdge.empty()) {
+            return GNE_TAG_TRANSHIP_BUSSTOP_EDGE;
+        } else if (!toTAZ.empty()) {
+            return GNE_TAG_TRANSHIP_BUSSTOP_TAZ;
+        } else if (!toJunction.empty()) {
+            return GNE_TAG_TRANSHIP_BUSSTOP_JUNCTION;
+        } else if (!toBusStop.empty()) {
+            return GNE_TAG_TRANSHIP_BUSSTOP_BUSSTOP;
+        } else if (!toTrainStop.empty()) {
+            return GNE_TAG_TRANSHIP_BUSSTOP_TRAINSTOP;
+        } else if (!toContainerStop.empty()) {
+            return GNE_TAG_TRANSHIP_BUSSTOP_CONTAINERSTOP;
+        } else if (!toChargingStation.empty()) {
+            return GNE_TAG_TRANSHIP_BUSSTOP_CHARGINGSTATION;
+        } else if (!toParkingArea.empty()) {
+            return GNE_TAG_TRANSHIP_BUSSTOP_PARKINGAREA;
+        } else {
+            return SUMO_TAG_NOTHING;
+        }
+    } else if (!fromTrainStop.empty()) {
+        if (!toEdge.empty()) {
+            return GNE_TAG_TRANSHIP_TRAINSTOP_EDGE;
+        } else if (!toTAZ.empty()) {
+            return GNE_TAG_TRANSHIP_TRAINSTOP_TAZ;
+        } else if (!toJunction.empty()) {
+            return GNE_TAG_TRANSHIP_TRAINSTOP_JUNCTION;
+        } else if (!toBusStop.empty()) {
+            return GNE_TAG_TRANSHIP_TRAINSTOP_BUSSTOP;
+        } else if (!toTrainStop.empty()) {
+            return GNE_TAG_TRANSHIP_TRAINSTOP_TRAINSTOP;
+        } else if (!toContainerStop.empty()) {
+            return GNE_TAG_TRANSHIP_TRAINSTOP_CONTAINERSTOP;
+        } else if (!toChargingStation.empty()) {
+            return GNE_TAG_TRANSHIP_TRAINSTOP_CHARGINGSTATION;
+        } else if (!toParkingArea.empty()) {
+            return GNE_TAG_TRANSHIP_TRAINSTOP_PARKINGAREA;
+        } else {
+            return SUMO_TAG_NOTHING;
+        }
+    } else if (!fromContainerStop.empty()) {
+        if (!toEdge.empty()) {
+            return GNE_TAG_TRANSHIP_CONTAINERSTOP_EDGE;
+        } else if (!toTAZ.empty()) {
+            return GNE_TAG_TRANSHIP_CONTAINERSTOP_TAZ;
+        } else if (!toJunction.empty()) {
+            return GNE_TAG_TRANSHIP_CONTAINERSTOP_JUNCTION;
+        } else if (!toBusStop.empty()) {
+            return GNE_TAG_TRANSHIP_CONTAINERSTOP_BUSSTOP;
+        } else if (!toTrainStop.empty()) {
+            return GNE_TAG_TRANSHIP_CONTAINERSTOP_TRAINSTOP;
+        } else if (!toContainerStop.empty()) {
+            return GNE_TAG_TRANSHIP_CONTAINERSTOP_CONTAINERSTOP;
+        } else if (!toChargingStation.empty()) {
+            return GNE_TAG_TRANSHIP_CONTAINERSTOP_CHARGINGSTATION;
+        } else if (!toParkingArea.empty()) {
+            return GNE_TAG_TRANSHIP_CONTAINERSTOP_PARKINGAREA;
+        } else {
+            return SUMO_TAG_NOTHING;
+        }
+    } else if (!fromChargingStation.empty()) {
+        if (!toEdge.empty()) {
+            return GNE_TAG_TRANSHIP_CHARGINGSTATION_EDGE;
+        } else if (!toTAZ.empty()) {
+            return GNE_TAG_TRANSHIP_CHARGINGSTATION_TAZ;
+        } else if (!toJunction.empty()) {
+            return GNE_TAG_TRANSHIP_CHARGINGSTATION_JUNCTION;
+        } else if (!toBusStop.empty()) {
+            return GNE_TAG_TRANSHIP_CHARGINGSTATION_BUSSTOP;
+        } else if (!toTrainStop.empty()) {
+            return GNE_TAG_TRANSHIP_CHARGINGSTATION_TRAINSTOP;
+        } else if (!toContainerStop.empty()) {
+            return GNE_TAG_TRANSHIP_CHARGINGSTATION_CONTAINERSTOP;
+        } else if (!toChargingStation.empty()) {
+            return GNE_TAG_TRANSHIP_CHARGINGSTATION_CHARGINGSTATION;
+        } else if (!toParkingArea.empty()) {
+            return GNE_TAG_TRANSHIP_CHARGINGSTATION_PARKINGAREA;
+        } else {
+            return SUMO_TAG_NOTHING;
+        }
+    } else if (!fromParkingArea.empty()) {
+        if (!toEdge.empty()) {
+            return GNE_TAG_TRANSHIP_PARKINGAREA_EDGE;
+        } else if (!toTAZ.empty()) {
+            return GNE_TAG_TRANSHIP_PARKINGAREA_TAZ;
+        } else if (!toJunction.empty()) {
+            return GNE_TAG_TRANSHIP_PARKINGAREA_JUNCTION;
+        } else if (!toBusStop.empty()) {
+            return GNE_TAG_TRANSHIP_PARKINGAREA_BUSSTOP;
+        } else if (!toTrainStop.empty()) {
+            return GNE_TAG_TRANSHIP_PARKINGAREA_TRAINSTOP;
+        } else if (!toContainerStop.empty()) {
+            return GNE_TAG_TRANSHIP_PARKINGAREA_CONTAINERSTOP;
+        } else if (!toChargingStation.empty()) {
+            return GNE_TAG_TRANSHIP_PARKINGAREA_CHARGINGSTATION;
+        } else if (!toParkingArea.empty()) {
+            return GNE_TAG_TRANSHIP_PARKINGAREA_PARKINGAREA;
+        } else {
+            return SUMO_TAG_NOTHING;
+        }
+    } else {
+        return SUMO_TAG_NOTHING;
+    }
+}
+
+
+SumoXMLTag
+CommonXMLStructure::PlanParameters::getPersonStopTag() const {
+    if (!toEdge.empty()) {
+        return GNE_TAG_STOPPERSON_EDGE;
+    } else if (!toBusStop.empty()) {
+        return GNE_TAG_STOPPERSON_BUSSTOP;
+    } else if (!toTrainStop.empty()) {
+        return GNE_TAG_STOPPERSON_TRAINSTOP;
+    } else if (!toContainerStop.empty()) {
+        return GNE_TAG_STOPPERSON_CONTAINERSTOP;
+    } else if (!toChargingStation.empty()) {
+        return GNE_TAG_STOPPERSON_CHARGINGSTATION;
+    } else if (!toParkingArea.empty()) {
+        return GNE_TAG_STOPPERSON_PARKINGAREA;
+    } else {
+        return SUMO_TAG_NOTHING;
+    }
+}
+
+
+SumoXMLTag
+CommonXMLStructure::PlanParameters::getContainerStopTag() const {
+    if (!toEdge.empty()) {
+        return GNE_TAG_STOPCONTAINER_EDGE;
+    } else if (!toBusStop.empty()) {
+        return GNE_TAG_STOPCONTAINER_BUSSTOP;
+    } else if (!toTrainStop.empty()) {
+        return GNE_TAG_STOPCONTAINER_TRAINSTOP;
+    } else if (!toContainerStop.empty()) {
+        return GNE_TAG_STOPCONTAINER_CONTAINERSTOP;
+    } else if (!toChargingStation.empty()) {
+        return GNE_TAG_STOPCONTAINER_CHARGINGSTATION;
+    } else if (!toParkingArea.empty()) {
+        return GNE_TAG_STOPCONTAINER_PARKINGAREA;
+    } else {
+        return SUMO_TAG_NOTHING;
+    }
+}
+
+
+
 const CommonXMLStructure::SumoBaseObject*
 CommonXMLStructure::PlanParameters::getPreviousPlanObj(const CommonXMLStructure::SumoBaseObject* sumoBaseObject) const {
     // first check if object exist

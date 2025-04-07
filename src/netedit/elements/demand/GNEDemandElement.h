@@ -64,22 +64,19 @@ public:
      * @param[in] filename file in which this AttributeCarrier is stored
      * @param[in] type GUIGlObjectType of demand element
      * @param[in] tag Type of xml tag that define the demand element element (SUMO_TAG_ROUTE, SUMO_TAG_VEHICLE, etc...)
-     * @param[in] icon additional icon
      * @param[in] pathOptions path options
      */
     GNEDemandElement(const std::string& id, GNENet* net, const std::string& filename, GUIGlObjectType type,
-                     SumoXMLTag tag, GUIIcon icon, const int pathOptions);
+                     SumoXMLTag tag, const int pathOptions);
 
     /**@brief Constructor
      * @param[in] demandElementParent pointer to parent demand element pointer (used to generate an ID)
      * @param[in] net pointer to GNEViewNet of this demand element element belongs
      * @param[in] type GUIGlObjectType of demand element
      * @param[in] tag Type of xml tag that define the demand element element (SUMO_TAG_ROUTE, SUMO_TAG_VEHICLE, etc...)
-     * @param[in] icon additional icon
      * @param[in] pathOptions path options
      */
-    GNEDemandElement(GNEDemandElement* demandElementParent, GUIGlObjectType type, SumoXMLTag tag,
-                     GUIIcon icon, const int pathOptions);
+    GNEDemandElement(GNEDemandElement* demandElementParent, GUIGlObjectType type, SumoXMLTag tag, const int pathOptions);
 
     /// @brief Destructor
     virtual ~GNEDemandElement();

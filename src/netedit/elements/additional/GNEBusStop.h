@@ -147,12 +147,11 @@ private:
     void setAttribute(SumoXMLAttr key, const std::string& value);
 
     /// @brief default constructor
-    GNEBusStop(SumoXMLTag tag, GUIGlObjectType type, GUIIcon icon, GNENet* net);
+    GNEBusStop(SumoXMLTag tag, GUIGlObjectType type, GNENet* net);
 
     /**@brief parameter Constructor
      * @param[in] tag busStop or trainStop tag
      * @param[in] type busStop or trainStop GLO type
-     * @param[in] icon busStop or trainStop icon
      * @param[in] id busStop ID
      * @param[in] net pointer to GNENet of this additional element belongs
      * @param[in] filename file in which this element is stored
@@ -167,7 +166,7 @@ private:
      * @param[in] friendlyPos enable or disable friendly position
      * @param[in] parameters generic parameters
      */
-    GNEBusStop(SumoXMLTag tag, GUIGlObjectType type, GUIIcon icon, const std::string& id, GNENet* net,
+    GNEBusStop(SumoXMLTag tag, GUIGlObjectType type, const std::string& id, GNENet* net,
                const std::string& filename, GNELane* lane, const double startPos, const double endPos,
                const std::string& name, const std::vector<std::string>& lines, int personCapacity,
                double parkingLength, const RGBColor& color, bool friendlyPosition,

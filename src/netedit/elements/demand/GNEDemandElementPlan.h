@@ -43,28 +43,6 @@ class GNERoute;
 
 class GNEDemandElementPlan {
 
-public:
-    /// @brief get the walk tag and icon for the combination
-    static std::pair<SumoXMLTag, GUIIcon> getWalkTagIcon(const CommonXMLStructure::PlanParameters& planParameters);
-
-    /// @brief get the personTrip tag and icon for the combination
-    static std::pair<SumoXMLTag, GUIIcon> getPersonTripTagIcon(const CommonXMLStructure::PlanParameters& planParameters);
-
-    /// @brief get the ride tag and icon for the combination
-    static std::pair<SumoXMLTag, GUIIcon> getRideTagIcon(const CommonXMLStructure::PlanParameters& planParameters);
-
-    /// @brief get the transport tag and icon for the combination
-    static std::pair<SumoXMLTag, GUIIcon> getTransportTagIcon(const CommonXMLStructure::PlanParameters& planParameters);
-
-    /// @brief get the tranship tag and icon for the combination
-    static std::pair<SumoXMLTag, GUIIcon> getTranshipTagIcon(const CommonXMLStructure::PlanParameters& planParameters);
-
-    /// @brief get the person stop tag and icon for the combination
-    static std::pair<SumoXMLTag, GUIIcon> getPersonStopTagIcon(const CommonXMLStructure::PlanParameters& planParameters);
-
-    /// @brief get the container stop tag and icon for the combination
-    static std::pair<SumoXMLTag, GUIIcon> getContainerStopTagIcon(const CommonXMLStructure::PlanParameters& planParameters);
-
 protected:
     /// @brief variable used for draw central contour
     GNEContour myPlanContour;

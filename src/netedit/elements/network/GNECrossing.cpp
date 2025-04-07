@@ -37,13 +37,13 @@
 // ===========================================================================
 
 GNECrossing::GNECrossing(GNENet* net) :
-    GNENetworkElement(net, "", GLO_CROSSING, SUMO_TAG_CROSSING, GUIIcon::CROSSING),
+    GNENetworkElement(net, "", GLO_CROSSING, SUMO_TAG_CROSSING),
     myTemplateNBCrossing(new NBNode::Crossing(nullptr, {}, 0, false, 0, 0, {})) {
 }
 
 
 GNECrossing::GNECrossing(GNEJunction* junction, std::vector<NBEdge*> crossingEdges) :
-    GNENetworkElement(junction->getNet(), junction->getNBNode()->getCrossing(crossingEdges)->id, GLO_CROSSING, SUMO_TAG_CROSSING, GUIIcon::CROSSING),
+    GNENetworkElement(junction->getNet(), junction->getNBNode()->getCrossing(crossingEdges)->id, GLO_CROSSING, SUMO_TAG_CROSSING),
     myCrossingEdges(crossingEdges),
     myTemplateNBCrossing(nullptr) {
     // set parent

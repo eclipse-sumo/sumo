@@ -30,14 +30,14 @@
 // ===========================================================================
 
 GNEClosingLaneReroute::GNEClosingLaneReroute(GNENet* net) :
-    GNEAdditional("", net, "", GLO_REROUTER_CLOSINGLANEREROUTE, SUMO_TAG_CLOSING_LANE_REROUTE, GUIIcon::CLOSINGLANEREROUTE, ""),
+    GNEAdditional("", net, "", GLO_REROUTER_CLOSINGLANEREROUTE, SUMO_TAG_CLOSING_LANE_REROUTE, ""),
     myClosedLane(nullptr),
     myPermissions(0) {
 }
 
 
 GNEClosingLaneReroute::GNEClosingLaneReroute(GNEAdditional* rerouterIntervalParent, GNELane* closedLane, SVCPermissions permissions) :
-    GNEAdditional(rerouterIntervalParent, GLO_REROUTER_CLOSINGLANEREROUTE, SUMO_TAG_CLOSING_LANE_REROUTE, GUIIcon::CLOSINGLANEREROUTE, ""),
+    GNEAdditional(rerouterIntervalParent, GLO_REROUTER_CLOSINGLANEREROUTE, SUMO_TAG_CLOSING_LANE_REROUTE, ""),
     myClosedLane(closedLane),
     myPermissions(permissions) {
     // set parents

@@ -815,16 +815,16 @@ GNERouteHandler::buildPersonTrip(const CommonXMLStructure::SumoBaseObject* sumoB
                                  const std::vector<std::string>& lines, const double walkFactor, const std::string& group) {
     // get values
     GNEDemandElement* personParent = getPersonParent(sumoBaseObject);
-    const auto tagIcon = GNEDemandElementPlan::getPersonTripTagIcon(planParameters);
+    const auto personTripTag = planParameters.getPersonTripTag();
     GNEPlanParents planParents = GNEPlanParents(planParameters, myNet->getAttributeCarriers());
     // check conditions
     if (personParent == nullptr) {
         return writeErrorInvalidParent(SUMO_TAG_PERSONTRIP, SUMO_TAG_PERSON);
-    } else if (tagIcon.first == SUMO_TAG_NOTHING) {
+    } else if (personTripTag == SUMO_TAG_NOTHING) {
         return writeError(TL("invalid combination for personTrip"));
-    } else if (planParents.checkIntegrity(tagIcon.first, personParent, planParameters)) {
+    } else if (planParents.checkIntegrity(personTripTag, personParent, planParameters)) {
         // build person trip
-        GNEDemandElement* personTrip = new GNEPersonTrip(tagIcon.first, tagIcon.second, personParent, planParents,
+        GNEDemandElement* personTrip = new GNEPersonTrip(personTripTag, personParent, planParents,
                 arrivalPos, types, modes, lines, walkFactor, group);
         // continue depending of undo.redo
         if (myAllowUndoRedo) {
@@ -850,20 +850,20 @@ GNERouteHandler::buildWalk(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
                            const double arrivalPos, const double speed, const SUMOTime duration) {
     // get values
     GNEDemandElement* personParent = getPersonParent(sumoBaseObject);
-    const auto tagIcon = GNEDemandElementPlan::getWalkTagIcon(planParameters);
+    const auto walkTag = planParameters.getWalkTag();
     GNEPlanParents planParents = GNEPlanParents(planParameters, myNet->getAttributeCarriers());
     // check conditions
     if (personParent == nullptr) {
         return writeErrorInvalidParent(SUMO_TAG_WALK, SUMO_TAG_PERSON);
-    } else if (tagIcon.first == SUMO_TAG_NOTHING) {
+    } else if (walkTag == SUMO_TAG_NOTHING) {
         return writeError(TL("invalid combination for personTrip"));
     } else if (!checkNegative(SUMO_TAG_WALK, personParent->getID(), SUMO_ATTR_SPEED, speed, true)) {
         return false;
     } else if (!checkNegative(SUMO_TAG_WALK, personParent->getID(), SUMO_ATTR_DURATION, duration, true)) {
         return false;
-    } else if (planParents.checkIntegrity(tagIcon.first, personParent, planParameters)) {
+    } else if (planParents.checkIntegrity(walkTag, personParent, planParameters)) {
         // build person trip
-        GNEDemandElement* walk = new GNEWalk(tagIcon.first, tagIcon.second, personParent, planParents, arrivalPos, speed, duration);
+        GNEDemandElement* walk = new GNEWalk(walkTag, personParent, planParents, arrivalPos, speed, duration);
         // continue depending of undo.redo
         if (myAllowUndoRedo) {
             myNet->getViewNet()->getUndoList()->begin(walk, TLF("add % in '%'", walk->getTagStr(), personParent->getID()));
@@ -888,16 +888,16 @@ GNERouteHandler::buildRide(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
                            const double arrivalPos, const std::vector<std::string>& lines, const std::string& group) {
     // get values
     GNEDemandElement* personParent = getPersonParent(sumoBaseObject);
-    const auto tagIcon = GNEDemandElementPlan::getRideTagIcon(planParameters);
+    const auto rideTag = planParameters.getRideTag();
     GNEPlanParents planParents = GNEPlanParents(planParameters, myNet->getAttributeCarriers());
     // check conditions
     if (personParent == nullptr) {
         return writeErrorInvalidParent(SUMO_TAG_RIDE, SUMO_TAG_PERSON);
-    } else if (tagIcon.first == SUMO_TAG_NOTHING) {
+    } else if (rideTag == SUMO_TAG_NOTHING) {
         return writeError(TL("invalid combination for ride"));
-    } else if (planParents.checkIntegrity(tagIcon.first, personParent, planParameters)) {
+    } else if (planParents.checkIntegrity(rideTag, personParent, planParameters)) {
         // build ride
-        GNEDemandElement* ride = new GNERide(tagIcon.first, tagIcon.second, personParent, planParents, arrivalPos, lines, group);
+        GNEDemandElement* ride = new GNERide(rideTag, personParent, planParents, arrivalPos, lines, group);
         // continue depending of undo-redo
         if (myAllowUndoRedo) {
             myNet->getViewNet()->getUndoList()->begin(ride, TLF("add % in '%'", ride->getTagStr(), personParent->getID()));
@@ -990,16 +990,16 @@ GNERouteHandler::buildTransport(const CommonXMLStructure::SumoBaseObject* sumoBa
                                 const double arrivalPos, const std::vector<std::string>& lines, const std::string& group) {
     // get values
     GNEDemandElement* containerParent = getContainerParent(sumoBaseObject);
-    const auto tagIcon = GNEDemandElementPlan::getTransportTagIcon(planParameters);
+    const auto transportTag = planParameters.getTransportTag();
     GNEPlanParents planParents = GNEPlanParents(planParameters, myNet->getAttributeCarriers());
     // check conditions
     if (containerParent == nullptr) {
         return writeErrorInvalidParent(SUMO_TAG_TRANSPORT, SUMO_TAG_CONTAINER);
-    } else if (tagIcon.first == SUMO_TAG_NOTHING) {
+    } else if (transportTag == SUMO_TAG_NOTHING) {
         return writeError(TL("invalid combination for personTrip"));
-    } else if (planParents.checkIntegrity(tagIcon.first, containerParent, planParameters)) {
+    } else if (planParents.checkIntegrity(transportTag, containerParent, planParameters)) {
         // build transport
-        GNEDemandElement* transport = new GNETransport(tagIcon.first, tagIcon.second, containerParent, planParents, arrivalPos, lines, group);
+        GNEDemandElement* transport = new GNETransport(transportTag, containerParent, planParents, arrivalPos, lines, group);
         // continue depending of undo-redo
         if (myAllowUndoRedo) {
             myNet->getViewNet()->getUndoList()->begin(transport, TLF("add % in '%'", transport->getTagStr(), containerParent->getID()));
@@ -1024,20 +1024,20 @@ GNERouteHandler::buildTranship(const CommonXMLStructure::SumoBaseObject* sumoBas
                                const double arrivalPosition, const double departPosition, const double speed, const SUMOTime duration) {
     // get values
     GNEDemandElement* containerParent = getContainerParent(sumoBaseObject);
-    const auto tagIcon = GNEDemandElementPlan::getTranshipTagIcon(planParameters);
+    const auto transhipTag = planParameters.getTranshipTag();
     GNEPlanParents planParents = GNEPlanParents(planParameters, myNet->getAttributeCarriers());
     // check conditions
     if (containerParent == nullptr) {
         return writeErrorInvalidParent(SUMO_TAG_TRANSHIP, SUMO_TAG_CONTAINER);
-    } else if (tagIcon.first == SUMO_TAG_NOTHING) {
+    } else if (transhipTag == SUMO_TAG_NOTHING) {
         return writeError(TL("invalid combination for personTrip"));
     } else if (!checkNegative(SUMO_TAG_TRANSHIP, containerParent->getID(), SUMO_ATTR_SPEED, speed, true)) {
         return false;
     } else if (!checkNegative(SUMO_TAG_TRANSHIP, containerParent->getID(), SUMO_ATTR_DURATION, duration, true)) {
         return false;
-    } else if (planParents.checkIntegrity(tagIcon.first, containerParent, planParameters)) {
+    } else if (planParents.checkIntegrity(transhipTag, containerParent, planParameters)) {
         // build tranship
-        GNEDemandElement* tranship = new GNETranship(tagIcon.first, tagIcon.second, containerParent, planParents,
+        GNEDemandElement* tranship = new GNETranship(transhipTag, containerParent, planParents,
                 arrivalPosition, departPosition, speed, duration);
         // continue depending of undo-redo
         if (myAllowUndoRedo) {
@@ -1064,16 +1064,16 @@ GNERouteHandler::buildPersonStop(const CommonXMLStructure::SumoBaseObject* sumoB
                                  const std::string& actType, const bool friendlyPos, const int parameterSet) {
     // get values
     GNEDemandElement* personParent = getPersonParent(sumoBaseObject);
-    const auto tagIcon = GNEDemandElementPlan::getPersonStopTagIcon(planParameters);
+    const auto personStopTag = planParameters.getPersonStopTag();
     GNEPlanParents planParents = GNEPlanParents(planParameters, myNet->getAttributeCarriers());
     // check conditions
     if (personParent == nullptr) {
         return writeErrorInvalidParent(SUMO_TAG_STOP, SUMO_TAG_PERSON);
-    } else if (tagIcon.first == SUMO_TAG_NOTHING) {
+    } else if (personStopTag == SUMO_TAG_NOTHING) {
         return writeError(TL("invalid combination for person stop"));
-    } else if (planParents.checkIntegrity(tagIcon.first, personParent, planParameters)) {
+    } else if (planParents.checkIntegrity(personStopTag, personParent, planParameters)) {
         // build person stop
-        GNEDemandElement* stopPlan = new GNEStopPlan(tagIcon.first, tagIcon.second, personParent, planParents,
+        GNEDemandElement* stopPlan = new GNEStopPlan(personStopTag, personParent, planParents,
                 endPos, duration, until, actType, friendlyPos, parameterSet);
         // continue depending of undo-redo
         if (myAllowUndoRedo) {
@@ -1100,16 +1100,16 @@ GNERouteHandler::buildContainerStop(const CommonXMLStructure::SumoBaseObject* su
                                     const SUMOTime until, const std::string& actType, const bool friendlyPos, const int parameterSet) {
     // get values
     GNEDemandElement* containerParent = getContainerParent(sumoBaseObject);
-    const auto tagIcon = GNEDemandElementPlan::getContainerStopTagIcon(planParameters);
+    const auto containerStopTag = planParameters.getContainerStopTag();
     GNEPlanParents planParents = GNEPlanParents(planParameters, myNet->getAttributeCarriers());
     // check conditions
     if (containerParent == nullptr) {
         return writeErrorInvalidParent(SUMO_TAG_STOP, SUMO_TAG_CONTAINER);
-    } else if (tagIcon.first == SUMO_TAG_NOTHING) {
+    } else if (containerStopTag == SUMO_TAG_NOTHING) {
         return writeError(TL("invalid combination for containerStop"));
-    } else if (planParents.checkIntegrity(tagIcon.first, containerParent, planParameters)) {
+    } else if (planParents.checkIntegrity(containerStopTag, containerParent, planParameters)) {
         // build container stop
-        GNEDemandElement* stopPlan = new GNEStopPlan(tagIcon.first, tagIcon.second, containerParent, planParents,
+        GNEDemandElement* stopPlan = new GNEStopPlan(containerStopTag, containerParent, planParents,
                 endPos, duration, until, actType, friendlyPos, parameterSet);
         // continue depending of undo-redo
         if (myAllowUndoRedo) {

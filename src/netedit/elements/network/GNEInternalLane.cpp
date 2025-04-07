@@ -59,7 +59,7 @@ const StringBijection<FXuint> GNEInternalLane::LinkStateNames(
 
 GNEInternalLane::GNEInternalLane(GNETLSEditorFrame* editor, GNEJunction* junctionParent,
                                  const std::string& id, const PositionVector& shape, int tlIndex, LinkState state) :
-    GNENetworkElement(junctionParent->getNet(), id, GLO_TLLOGIC, GNE_TAG_INTERNAL_LANE, GUIIcon::LANE),
+    GNENetworkElement(junctionParent->getNet(), id, GLO_TLLOGIC, GNE_TAG_INTERNAL_LANE),
     myJunctionParent(junctionParent),
     myState(state),
     myStateTarget(myState),
@@ -76,7 +76,7 @@ GNEInternalLane::GNEInternalLane(GNETLSEditorFrame* editor, GNEJunction* junctio
 
 
 GNEInternalLane::GNEInternalLane() :
-    GNENetworkElement(nullptr, "dummyInternalLane", GLO_TLLOGIC, GNE_TAG_INTERNAL_LANE, GUIIcon::LANE),
+    GNENetworkElement(nullptr, "dummyInternalLane", GLO_TLLOGIC, GNE_TAG_INTERNAL_LANE),
     myJunctionParent(nullptr),
     myState(0),
     myEditor(0),

@@ -34,7 +34,7 @@ public:
      * @param[in] type GUIGlObjectType of detector
      * @param[in] tag Type of xml tag that define the detector (SUMO_TAG_INDUCTION_LOOP, SUMO_TAG_LANE_AREA_DETECTOR, etc...)
      */
-    GNEDetector(GNENet* net, GUIGlObjectType type, SumoXMLTag tag, GUIIcon icon);
+    GNEDetector(GNENet* net, GUIGlObjectType type, SumoXMLTag tag);
 
     /**@brief Constructor
      * @param[in] id Gl-id of the detector (Must be unique)
@@ -53,7 +53,7 @@ public:
      * @param[in] friendlyPos enable or disable friendly positions
      * @param[in] parameters generic parameters
      */
-    GNEDetector(const std::string& id, GNENet* net, const std::string& filename, GUIGlObjectType type, SumoXMLTag tag, GUIIcon icon,
+    GNEDetector(const std::string& id, GNENet* net, const std::string& filename, GUIGlObjectType type, SumoXMLTag tag,
                 const double pos, const SUMOTime period, GNELane* lane, const std::string& outputFilename,
                 const std::vector<std::string>& vehicleTypes, const std::vector<std::string>& nextEdges,
                 const std::string& detectPersons, const std::string& name, const bool friendlyPos, const Parameterised::Map& parameters);
@@ -75,7 +75,7 @@ public:
      * @param[in] friendlyPos enable or disable friendly positions
      * @param[in] parameters generic parameters
      */
-    GNEDetector(const std::string& id, GNENet* net, const std::string& filename, GUIGlObjectType type, SumoXMLTag tag, GUIIcon icon,
+    GNEDetector(const std::string& id, GNENet* net, const std::string& filename, GUIGlObjectType type, SumoXMLTag tag,
                 const double pos, const SUMOTime period, const std::vector<GNELane*>& lanes, const std::string& outputFilename,
                 const std::vector<std::string>& vehicleTypes, const std::vector<std::string>& nextEdges, const std::string& detectPersons,
                 const std::string& name, const bool friendlyPos, const Parameterised::Map& parameters);
@@ -92,7 +92,7 @@ public:
      * @param[in] friendlyPos enable or disable friendly positions
      * @param[in] parameters generic parameters
      */
-    GNEDetector(GNEAdditional* additionalParent, GUIGlObjectType type, SumoXMLTag tag, GUIIcon icon, const double pos,
+    GNEDetector(GNEAdditional* additionalParent, GUIGlObjectType type, SumoXMLTag tag, const double pos,
                 const SUMOTime period, GNELane* lane, const std::string& outputFilename, const std::string& name,
                 const bool friendlyPos, const Parameterised::Map& parameters);
 

@@ -60,6 +60,27 @@ public:
         /// @brief get number of defined plans
         int getNumberOfDefinedParameters() const;
 
+        /// @brief get the walk tag for the current combination of parameters
+        SumoXMLTag getWalkTag() const;
+
+        /// @brief get the personTrip tag for the current combination of parameters
+        SumoXMLTag getPersonTripTag() const;
+
+        /// @brief get the ride tag for the current combination of parameters
+        SumoXMLTag getRideTag() const;
+
+        /// @brief get the transport tag for the current combination of parameters
+        SumoXMLTag getTransportTag() const;
+
+        /// @brief get the tranship tag for the current combination of parameters
+        SumoXMLTag getTranshipTag() const;
+
+        /// @brief get the person stop tag for the current combination of parameters
+        SumoXMLTag getPersonStopTag() const;
+
+        /// @brief get the container stop tag for the current combination of parameters
+        SumoXMLTag getContainerStopTag() const;
+
         /// @brief from edge
         std::string fromEdge;
 

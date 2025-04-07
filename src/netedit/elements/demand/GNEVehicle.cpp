@@ -423,7 +423,7 @@ GNEVehicle::GNESelectedVehiclesPopupMenu::onCmdTransform(FXObject* obj, FXSelect
 #pragma warning(disable: 4355) // mask warning about "this" in initializers
 #endif
 GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net) :
-    GNEDemandElement("", net, "", GLO_VEHICLE, tag, GUIIcon::VEHICLE, GNEPathElement::Options::DEMAND_ELEMENT),
+    GNEDemandElement("", net, "", GLO_VEHICLE, tag, GNEPathElement::Options::DEMAND_ELEMENT),
     GNEDemandElementFlow(this) {
     // set end and vehPerHours as default flow values
     toggleAttribute(SUMO_ATTR_END, true);
@@ -433,8 +433,7 @@ GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net) :
 
 GNEVehicle::GNEVehicle(SumoXMLTag tag, const std::string& vehicleID, GNENet* net, const std::string& filename,
                        GNEDemandElement* vehicleType, GNEDemandElement* route) :
-    GNEDemandElement(vehicleID, net, filename, (tag == GNE_TAG_FLOW_ROUTE) ? GLO_ROUTEFLOW : GLO_VEHICLE, tag,
-                     (tag == GNE_TAG_FLOW_ROUTE) ? GUIIcon::ROUTEFLOW : GUIIcon::VEHICLE, GNEPathElement::Options::DEMAND_ELEMENT),
+    GNEDemandElement(vehicleID, net, filename, (tag == GNE_TAG_FLOW_ROUTE) ? GLO_ROUTEFLOW : GLO_VEHICLE, tag, GNEPathElement::Options::DEMAND_ELEMENT),
     GNEDemandElementFlow(this) {
     // set parents
     setParents<GNEDemandElement*>({vehicleType, route});
@@ -446,8 +445,7 @@ GNEVehicle::GNEVehicle(SumoXMLTag tag, const std::string& vehicleID, GNENet* net
 
 
 GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net, const std::string& filename, GNEDemandElement* vehicleType, GNEDemandElement* route, const SUMOVehicleParameter& vehicleParameters) :
-    GNEDemandElement(vehicleParameters.id, net, filename, (tag == GNE_TAG_FLOW_ROUTE) ? GLO_ROUTEFLOW : GLO_VEHICLE, tag,
-                     (tag == GNE_TAG_FLOW_ROUTE) ? GUIIcon::ROUTEFLOW : GUIIcon::VEHICLE, GNEPathElement::Options::DEMAND_ELEMENT),
+    GNEDemandElement(vehicleParameters.id, net, filename, (tag == GNE_TAG_FLOW_ROUTE) ? GLO_ROUTEFLOW : GLO_VEHICLE, tag, GNEPathElement::Options::DEMAND_ELEMENT),
     GNEDemandElementFlow(this, vehicleParameters) {
     // set parents
     setParents<GNEDemandElement*>({vehicleType, route});
@@ -459,8 +457,7 @@ GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net, const std::string& filename,
 
 
 GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net, const std::string& filename, GNEDemandElement* vehicleType, const SUMOVehicleParameter& vehicleParameters) :
-    GNEDemandElement(vehicleParameters.id, net, filename, (tag == GNE_TAG_VEHICLE_WITHROUTE) ? GLO_VEHICLE : GLO_ROUTEFLOW, tag,
-                     (tag == GNE_TAG_FLOW_ROUTE) ? GUIIcon::ROUTEFLOW : GUIIcon::VEHICLE, GNEPathElement::Options::DEMAND_ELEMENT),
+    GNEDemandElement(vehicleParameters.id, net, filename, (tag == GNE_TAG_VEHICLE_WITHROUTE) ? GLO_VEHICLE : GLO_ROUTEFLOW, tag, GNEPathElement::Options::DEMAND_ELEMENT),
     GNEDemandElementFlow(this, vehicleParameters) {
     // set parents
     setParent<GNEDemandElement*>(vehicleType);
@@ -475,8 +472,7 @@ GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net, const std::string& filename,
 
 GNEVehicle::GNEVehicle(SumoXMLTag tag, const std::string& vehicleID, GNENet* net, const std::string& filename, GNEDemandElement* vehicleType,
                        GNEEdge* fromEdge, GNEEdge* toEdge) :
-    GNEDemandElement(vehicleID, net, filename, (tag == SUMO_TAG_FLOW) ? GLO_FLOW : GLO_TRIP, tag,
-                     (tag == SUMO_TAG_FLOW) ? GUIIcon::FLOW : GUIIcon::TRIP, GNEPathElement::Options::DEMAND_ELEMENT),
+    GNEDemandElement(vehicleID, net, filename, (tag == SUMO_TAG_FLOW) ? GLO_FLOW : GLO_TRIP, tag, GNEPathElement::Options::DEMAND_ELEMENT),
     GNEDemandElementFlow(this) {
     // set parents
     setParents<GNEEdge*>({fromEdge, toEdge});
@@ -486,8 +482,7 @@ GNEVehicle::GNEVehicle(SumoXMLTag tag, const std::string& vehicleID, GNENet* net
 
 GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net, const std::string& filename, GNEDemandElement* vehicleType, GNEEdge* fromEdge, GNEEdge* toEdge,
                        const SUMOVehicleParameter& vehicleParameters) :
-    GNEDemandElement(vehicleParameters.id, net, filename, (tag == SUMO_TAG_FLOW) ? GLO_FLOW : GLO_TRIP, tag,
-                     (tag == SUMO_TAG_FLOW) ? GUIIcon::FLOW : GUIIcon::TRIP, GNEPathElement::Options::DEMAND_ELEMENT),
+    GNEDemandElement(vehicleParameters.id, net, filename, (tag == SUMO_TAG_FLOW) ? GLO_FLOW : GLO_TRIP, tag, GNEPathElement::Options::DEMAND_ELEMENT),
     GNEDemandElementFlow(this, vehicleParameters) {
     // set parents
     setParents<GNEEdge*>({fromEdge, toEdge});
@@ -496,8 +491,7 @@ GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net, const std::string& filename,
 
 
 GNEVehicle::GNEVehicle(SumoXMLTag tag, const std::string& vehicleID, GNENet* net, const std::string& filename, GNEDemandElement* vehicleType, GNEJunction* fromJunction, GNEJunction* toJunction) :
-    GNEDemandElement(vehicleID, net, filename, (tag == GNE_TAG_FLOW_JUNCTIONS) ? GLO_FLOW : GLO_TRIP, tag,
-                     (tag == GNE_TAG_FLOW_JUNCTIONS) ? GUIIcon::FLOW_JUNCTIONS : GUIIcon::TRIP_JUNCTIONS, GNEPathElement::Options::DEMAND_ELEMENT),
+    GNEDemandElement(vehicleID, net, filename, (tag == GNE_TAG_FLOW_JUNCTIONS) ? GLO_FLOW : GLO_TRIP, tag, GNEPathElement::Options::DEMAND_ELEMENT),
     GNEDemandElementFlow(this) {
     // set parents
     setParents<GNEJunction*>({fromJunction, toJunction});
@@ -506,8 +500,7 @@ GNEVehicle::GNEVehicle(SumoXMLTag tag, const std::string& vehicleID, GNENet* net
 
 
 GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net, const std::string& filename, GNEDemandElement* vehicleType, GNEJunction* fromJunction, GNEJunction* toJunction, const SUMOVehicleParameter& vehicleParameters) :
-    GNEDemandElement(vehicleParameters.id, net, filename, (tag == GNE_TAG_FLOW_JUNCTIONS) ? GLO_FLOW : GLO_TRIP, tag,
-                     (tag == GNE_TAG_FLOW_JUNCTIONS) ? GUIIcon::FLOW_JUNCTIONS : GUIIcon::TRIP_JUNCTIONS, GNEPathElement::Options::DEMAND_ELEMENT),
+    GNEDemandElement(vehicleParameters.id, net, filename, (tag == GNE_TAG_FLOW_JUNCTIONS) ? GLO_FLOW : GLO_TRIP, tag, GNEPathElement::Options::DEMAND_ELEMENT),
     GNEDemandElementFlow(this, vehicleParameters) {
     // set parents
     setParents<GNEJunction*>({fromJunction, toJunction});
@@ -516,8 +509,7 @@ GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net, const std::string& filename,
 
 
 GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net, const std::string& filename, GNEDemandElement* vehicleType, GNEAdditional* fromTAZ, GNEAdditional* toTAZ, const SUMOVehicleParameter& vehicleParameters) :
-    GNEDemandElement(vehicleParameters.id, net, filename, (tag == GNE_TAG_FLOW_TAZS) ? GLO_FLOW : GLO_TRIP, tag,
-                     (tag == GNE_TAG_FLOW_TAZS) ? GUIIcon::FLOW_TAZS : GUIIcon::TRIP_TAZS, GNEPathElement::Options::DEMAND_ELEMENT),
+    GNEDemandElement(vehicleParameters.id, net, filename, (tag == GNE_TAG_FLOW_TAZS) ? GLO_FLOW : GLO_TRIP, tag, GNEPathElement::Options::DEMAND_ELEMENT),
     GNEDemandElementFlow(this, vehicleParameters) {
     // set parents
     setParents<GNEAdditional*>({fromTAZ, toTAZ});

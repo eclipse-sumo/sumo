@@ -37,14 +37,14 @@
 // ===========================================================================
 
 GNECalibrator::GNECalibrator(SumoXMLTag tag, GNENet* net) :
-    GNEAdditional("", net, "", GLO_CALIBRATOR, tag, GUIIcon::CALIBRATOR, ""),
+    GNEAdditional("", net, "", GLO_CALIBRATOR, tag, ""),
     myCalibratorContours(new std::vector<GNEContour*>()) {
 }
 
 
 GNECalibrator::GNECalibrator(const std::string& id, GNENet* net, const std::string& filename, GNEEdge* edge, double pos, SUMOTime frequency, const std::string& name,
                              const std::string& output, const double jamThreshold, const std::vector<std::string>& vTypes, const Parameterised::Map& parameters) :
-    GNEAdditional(id, net, filename, GLO_CALIBRATOR, SUMO_TAG_CALIBRATOR, GUIIcon::CALIBRATOR, name),
+    GNEAdditional(id, net, filename, GLO_CALIBRATOR, SUMO_TAG_CALIBRATOR, name),
     Parameterised(parameters),
     myPositionOverLane(pos),
     myFrequency(frequency),
@@ -62,7 +62,7 @@ GNECalibrator::GNECalibrator(const std::string& id, GNENet* net, const std::stri
 GNECalibrator::GNECalibrator(const std::string& id, GNENet* net, const std::string& filename, GNEEdge* edge, double pos, SUMOTime frequency, const std::string& name,
                              const std::string& output, GNEAdditional* routeProbe, const double jamThreshold, const std::vector<std::string>& vTypes,
                              const Parameterised::Map& parameters) :
-    GNEAdditional(id, net, filename, GLO_CALIBRATOR, SUMO_TAG_CALIBRATOR, GUIIcon::CALIBRATOR, name),
+    GNEAdditional(id, net, filename, GLO_CALIBRATOR, SUMO_TAG_CALIBRATOR, name),
     Parameterised(parameters),
     myPositionOverLane(pos),
     myFrequency(frequency),
@@ -80,7 +80,7 @@ GNECalibrator::GNECalibrator(const std::string& id, GNENet* net, const std::stri
 
 GNECalibrator::GNECalibrator(const std::string& id, GNENet* net, const std::string& filename, GNELane* lane, double pos, SUMOTime frequency, const std::string& name,
                              const std::string& output, const double jamThreshold, const std::vector<std::string>& vTypes, const Parameterised::Map& parameters) :
-    GNEAdditional(id, net, filename, GLO_CALIBRATOR, GNE_TAG_CALIBRATOR_LANE, GUIIcon::CALIBRATOR, name),
+    GNEAdditional(id, net, filename, GLO_CALIBRATOR, GNE_TAG_CALIBRATOR_LANE, name),
     Parameterised(parameters),
     myPositionOverLane(pos),
     myFrequency(frequency),
@@ -98,7 +98,7 @@ GNECalibrator::GNECalibrator(const std::string& id, GNENet* net, const std::stri
 GNECalibrator::GNECalibrator(const std::string& id, GNENet* net, const std::string& filename, GNELane* lane, double pos, SUMOTime frequency, const std::string& name,
                              const std::string& output, GNEAdditional* routeProbe, const double jamThreshold, const std::vector<std::string>& vTypes,
                              const Parameterised::Map& parameters) :
-    GNEAdditional(id, net, filename, GLO_CALIBRATOR, GNE_TAG_CALIBRATOR_LANE, GUIIcon::CALIBRATOR, name),
+    GNEAdditional(id, net, filename, GLO_CALIBRATOR, GNE_TAG_CALIBRATOR_LANE, name),
     Parameterised(parameters),
     myPositionOverLane(pos),
     myFrequency(frequency),

@@ -44,13 +44,12 @@ public:
 
     /**@brief constructor called in buildRide
      * @param[in] tag personTrip tag
-     * @param[in] icon personTrip icon
      * @param[in] personParent person parent
      * @param[in] planParameters plan parameters
      * @param[in] lines list of lines
      * @param[in] group group
      */
-    GNERide(SumoXMLTag tag, GUIIcon icon, GNEDemandElement* personParent, const GNEPlanParents& planParameters,
+    GNERide(SumoXMLTag tag, GNEDemandElement* personParent, const GNEPlanParents& planParameters,
             const double arrivalPosition, const std::vector<std::string>& lines, const std::string& group);
 
     /// @brief destructor

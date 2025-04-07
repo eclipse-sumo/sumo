@@ -28,14 +28,14 @@
 // member method definitions
 // ===========================================================================
 
-GNEDistribution::GNEDistribution(GNENet* net, GUIGlObjectType type, SumoXMLTag elementTag, GUIIcon icon) :
-    GNEDemandElement("", net, "", type, elementTag, icon, GNEPathElement::Options::DEMAND_ELEMENT) {
+GNEDistribution::GNEDistribution(GNENet* net, GUIGlObjectType type, SumoXMLTag elementTag) :
+    GNEDemandElement("", net, "", type, elementTag, GNEPathElement::Options::DEMAND_ELEMENT) {
 }
 
 
 GNEDistribution::GNEDistribution(const std::string& ID, GNENet* net, const std::string& filename, GUIGlObjectType type, SumoXMLTag elementTag,
-                                 GUIIcon icon, const int deterministic) :
-    GNEDemandElement(ID, net, filename, type, elementTag, icon, GNEPathElement::Options::DEMAND_ELEMENT),
+                                 const int deterministic) :
+    GNEDemandElement(ID, net, filename, type, elementTag, GNEPathElement::Options::DEMAND_ELEMENT),
     myDeterministic(deterministic) {
 }
 

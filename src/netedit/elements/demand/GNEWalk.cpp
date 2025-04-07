@@ -37,14 +37,14 @@
 #pragma warning(disable: 4355) // mask warning about "this" in initializers
 #endif
 GNEWalk::GNEWalk(SumoXMLTag tag, GNENet* net) :
-    GNEDemandElement("", net, "", GLO_WALK, tag, GUIIcon::WALK_EDGE, GNEPathElement::Options::DEMAND_ELEMENT),
+    GNEDemandElement("", net, "", GLO_WALK, tag, GNEPathElement::Options::DEMAND_ELEMENT),
     GNEDemandElementPlan(this, -1, -1) {
 }
 
 
-GNEWalk::GNEWalk(SumoXMLTag tag, GUIIcon icon, GNEDemandElement* personParent, const GNEPlanParents& planParameters,
+GNEWalk::GNEWalk(SumoXMLTag tag, GNEDemandElement* personParent, const GNEPlanParents& planParameters,
                  const double arrivalPosition, const double speed, const SUMOTime duration) :
-    GNEDemandElement(personParent, GLO_WALK, tag, icon, GNEPathElement::Options::DEMAND_ELEMENT),
+    GNEDemandElement(personParent, GLO_WALK, tag, GNEPathElement::Options::DEMAND_ELEMENT),
     GNEDemandElementPlan(this, -1, arrivalPosition),
     mySpeed(speed),
     myDuration(duration) {

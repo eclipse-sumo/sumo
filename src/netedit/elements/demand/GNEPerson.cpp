@@ -144,7 +144,7 @@ GNEPerson::GNESelectedPersonsPopupMenu::onCmdTransform(FXObject* obj, FXSelector
 #pragma warning(disable: 4355) // mask warning about "this" in initializers
 #endif
 GNEPerson::GNEPerson(SumoXMLTag tag, GNENet* net) :
-    GNEDemandElement("", net, "", GLO_PERSON, tag, GUIIcon::PERSON, GNEPathElement::Options::DEMAND_ELEMENT),
+    GNEDemandElement("", net, "", GLO_PERSON, tag, GNEPathElement::Options::DEMAND_ELEMENT),
     GNEDemandElementFlow(this) {
     // enable set and persons per hour as default flow values
     toggleAttribute(SUMO_ATTR_END, true);
@@ -153,8 +153,7 @@ GNEPerson::GNEPerson(SumoXMLTag tag, GNENet* net) :
 
 
 GNEPerson::GNEPerson(SumoXMLTag tag, GNENet* net, const std::string& filename, GNEDemandElement* pType, const SUMOVehicleParameter& personparameters) :
-    GNEDemandElement(personparameters.id, net, filename, (tag == SUMO_TAG_PERSONFLOW) ? GLO_PERSONFLOW : GLO_PERSON, tag,
-                     (tag == SUMO_TAG_PERSONFLOW) ? GUIIcon::PERSONFLOW : GUIIcon::PERSON, GNEPathElement::Options::DEMAND_ELEMENT),
+    GNEDemandElement(personparameters.id, net, filename, (tag == SUMO_TAG_PERSONFLOW) ? GLO_PERSONFLOW : GLO_PERSON, tag, GNEPathElement::Options::DEMAND_ELEMENT),
     GNEDemandElementFlow(this, personparameters) {
     // set parents
     setParent<GNEDemandElement*>(pType);

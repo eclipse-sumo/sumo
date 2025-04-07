@@ -31,12 +31,12 @@
 // ===========================================================================
 
 GNERerouterSymbol::GNERerouterSymbol(GNENet* net) :
-    GNEAdditional("", net, "", GLO_REROUTER, GNE_TAG_REROUTER_SYMBOL, GUIIcon::REROUTER, "") {
+    GNEAdditional("", net, "", GLO_REROUTER, GNE_TAG_REROUTER_SYMBOL, "") {
 }
 
 
 GNERerouterSymbol::GNERerouterSymbol(GNEAdditional* rerouterParent, GNEEdge* edge) :
-    GNEAdditional(rerouterParent, GLO_REROUTER, GNE_TAG_REROUTER_SYMBOL, GUIIcon::REROUTER, "") {
+    GNEAdditional(rerouterParent, GLO_REROUTER, GNE_TAG_REROUTER_SYMBOL, "") {
     // set parents
     setParent<GNEEdge*>(edge);
     setParent<GNEAdditional*>(rerouterParent);

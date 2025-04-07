@@ -76,7 +76,7 @@ const double GNEEdge::SNAP_RADIUS_SQUARED = (SUMO_const_halfLaneWidth* SUMO_cons
 // ===========================================================================
 
 GNEEdge::GNEEdge(GNENet* net, NBEdge* nbe, bool wasSplit, bool loaded):
-    GNENetworkElement(net, nbe->getID(), GLO_EDGE, SUMO_TAG_EDGE, GUIIcon::EDGE),
+    GNENetworkElement(net, nbe->getID(), GLO_EDGE, SUMO_TAG_EDGE),
     myNBEdge(nbe),
     myAmResponsible(false),
     myWasSplit(wasSplit),

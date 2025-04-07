@@ -27,12 +27,12 @@
 // ===========================================================================
 
 GNERouteDistribution::GNERouteDistribution(GNENet* net) :
-    GNEDistribution(net, GLO_ROUTE, SUMO_TAG_ROUTE_DISTRIBUTION, GUIIcon::ROUTEDISTRIBUTION) {
+    GNEDistribution(net, GLO_ROUTE, SUMO_TAG_ROUTE_DISTRIBUTION) {
 }
 
 
 GNERouteDistribution::GNERouteDistribution(const std::string& ID, GNENet* net, const std::string& filename) :
-    GNEDistribution(ID, net, filename, GLO_ROUTE, SUMO_TAG_ROUTE_DISTRIBUTION, GUIIcon::ROUTEDISTRIBUTION, -1) {
+    GNEDistribution(ID, net, filename, GLO_ROUTE, SUMO_TAG_ROUTE_DISTRIBUTION, -1) {
 }
 
 

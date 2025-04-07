@@ -44,7 +44,6 @@ public:
 
     /**@brief constructor called in buildPersonTrip
      * @param[in] tag personTrip tag
-     * @param[in] icon personTrip icon
      * @param[in] planParameters plan parameters
      * @param[in] types list of possible vehicle types to take
      * @param[in] modes list of possible traffic modes
@@ -52,7 +51,7 @@ public:
      * @param[in] walkFactor walk factor
      * @param[in] group group
      */
-    GNEPersonTrip(SumoXMLTag tag, GUIIcon icon, GNEDemandElement* personParent, const GNEPlanParents& planParameters,
+    GNEPersonTrip(SumoXMLTag tag, GNEDemandElement* personParent, const GNEPlanParents& planParameters,
                   const double arrivalPosition, const std::vector<std::string>& types, const std::vector<std::string>& modes,
                   const std::vector<std::string>& lines, const double walkFactor, const std::string& group);
 

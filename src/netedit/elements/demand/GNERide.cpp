@@ -36,14 +36,14 @@
 #pragma warning(disable: 4355) // mask warning about "this" in initializers
 #endif
 GNERide::GNERide(SumoXMLTag tag, GNENet* net) :
-    GNEDemandElement("", net, "", GLO_RIDE, tag, GUIIcon::RIDE_EDGE, GNEPathElement::Options::DEMAND_ELEMENT),
+    GNEDemandElement("", net, "", GLO_RIDE, tag, GNEPathElement::Options::DEMAND_ELEMENT),
     GNEDemandElementPlan(this, -1, -1) {
 }
 
 
-GNERide::GNERide(SumoXMLTag tag, GUIIcon icon, GNEDemandElement* personParent, const GNEPlanParents& planParameters,
+GNERide::GNERide(SumoXMLTag tag, GNEDemandElement* personParent, const GNEPlanParents& planParameters,
                  const double arrivalPosition, const std::vector<std::string>& lines, const std::string& group) :
-    GNEDemandElement(personParent, GLO_PERSONTRIP, tag, icon, GNEPathElement::Options::DEMAND_ELEMENT),
+    GNEDemandElement(personParent, GLO_PERSONTRIP, tag, GNEPathElement::Options::DEMAND_ELEMENT),
     GNEDemandElementPlan(this, -1, arrivalPosition),
     myLines(lines),
     myGroup(group) {

@@ -42,7 +42,7 @@
 // ===========================================================================
 
 GNELaneAreaDetector::GNELaneAreaDetector(SumoXMLTag tag, GNENet* net) :
-    GNEDetector(net, GLO_E2DETECTOR, tag, GUIIcon::E2) {
+    GNEDetector(net, GLO_E2DETECTOR, tag) {
 }
 
 
@@ -50,7 +50,7 @@ GNELaneAreaDetector::GNELaneAreaDetector(const std::string& id, GNENet* net, con
         const std::string& trafficLight, const std::string& outputFilename, const std::vector<std::string>& vehicleTypes, const std::vector<std::string>& nextEdges,
         const std::string& detectPersons, const std::string& name, const SUMOTime timeThreshold, double speedThreshold, const double jamThreshold, const bool friendlyPos,
         const bool show, const Parameterised::Map& parameters) :
-    GNEDetector(id, net, filename, GLO_E2DETECTOR, SUMO_TAG_LANE_AREA_DETECTOR, GUIIcon::E2, pos, freq, lane, outputFilename, vehicleTypes, nextEdges,
+    GNEDetector(id, net, filename, GLO_E2DETECTOR, SUMO_TAG_LANE_AREA_DETECTOR, pos, freq, lane, outputFilename, vehicleTypes, nextEdges,
                 detectPersons, name, friendlyPos, parameters),
     myEndPositionOverLane(pos + length),
     myTimeThreshold(timeThreshold),
@@ -65,7 +65,7 @@ GNELaneAreaDetector::GNELaneAreaDetector(const std::string& id, GNENet* net, con
         const std::string& trafficLight, const std::string& outputFilename, const std::vector<std::string>& vehicleTypes, const std::vector<std::string>& nextEdges,
         const std::string& detectPersons, const std::string& name, const SUMOTime timeThreshold, double speedThreshold, const double jamThreshold, const bool friendlyPos, const bool show,
         const Parameterised::Map& parameters) :
-    GNEDetector(id, net, filename, GLO_E2DETECTOR, GNE_TAG_MULTI_LANE_AREA_DETECTOR, GUIIcon::E2, pos, freq, lanes, outputFilename, vehicleTypes, nextEdges,
+    GNEDetector(id, net, filename, GLO_E2DETECTOR, GNE_TAG_MULTI_LANE_AREA_DETECTOR, pos, freq, lanes, outputFilename, vehicleTypes, nextEdges,
                 detectPersons, name, friendlyPos, parameters),
     myEndPositionOverLane(endPos),
     myTimeThreshold(timeThreshold),

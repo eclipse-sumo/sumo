@@ -42,7 +42,7 @@
 
 GNEPoly::GNEPoly(SumoXMLTag tag, GNENet* net) :
     TesselatedPolygon("", "", RGBColor::BLACK, {}, false, false, 0, 0, 0, "", "", Parameterised::Map()),
-GNEAdditional("", net, "", GLO_POLYGON, tag, GUIIcon::POLY, "") {
+GNEAdditional("", net, "", GLO_POLYGON, tag, "") {
 }
 
 
@@ -50,7 +50,7 @@ GNEPoly::GNEPoly(const std::string& id, GNENet* net, const std::string& filename
                  bool geo, bool fill, double lineWidth, const RGBColor& color, double layer, double angle, const std::string& imgFile,
                  const std::string& name, const Parameterised::Map& parameters) :
     TesselatedPolygon(id, type, color, shape, geo, fill, lineWidth, layer, angle, imgFile, name, parameters),
-    GNEAdditional(id, net, filename, GLO_POLYGON, SUMO_TAG_POLY, GUIIcon::POLY, ""),
+    GNEAdditional(id, net, filename, GLO_POLYGON, SUMO_TAG_POLY, ""),
     myClosedShape(shape.isClosed()) {
     // check if imgFile is valid
     if (!imgFile.empty() && GUITexturesHelper::getTextureID(imgFile) == -1) {
@@ -78,7 +78,7 @@ GNEPoly::GNEPoly(SumoXMLTag tag, const std::string& id, GNENet* net, const std::
                  bool geo, const std::string& name, const Parameterised::Map& parameters) :
     TesselatedPolygon(id, getJuPedSimType(tag), getJuPedSimColor(tag), shape, geo, getJuPedSimFill(tag), 1,
                       getJuPedSimLayer(tag), 0, "", name, parameters),
-    GNEAdditional(id, net, filename, getJuPedSimGLO(tag), tag, getJuPedSimIcon(tag), ""),
+    GNEAdditional(id, net, filename, getJuPedSimGLO(tag), tag, ""),
     myClosedShape(shape.isClosed()),
     mySimplifiedShape(false) {
     // set GEO shape

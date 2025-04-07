@@ -36,16 +36,16 @@
 // member method definitions
 // ===========================================================================
 
-GNEDetector::GNEDetector(GNENet* net, GUIGlObjectType type, SumoXMLTag tag, GUIIcon icon) :
-    GNEAdditional("", net, "", type, tag, icon, "") {
+GNEDetector::GNEDetector(GNENet* net, GUIGlObjectType type, SumoXMLTag tag) :
+    GNEAdditional("", net, "", type, tag, "") {
 }
 
 
-GNEDetector::GNEDetector(const std::string& id, GNENet* net, const std::string& filename, GUIGlObjectType type, SumoXMLTag tag, GUIIcon icon,
+GNEDetector::GNEDetector(const std::string& id, GNENet* net, const std::string& filename, GUIGlObjectType type, SumoXMLTag tag,
                          const double pos, const SUMOTime period, GNELane* lane, const std::string& outputFilename,
                          const std::vector<std::string>& vehicleTypes, const std::vector<std::string>& nextEdges,
                          const std::string& detectPersons, const std::string& name, const bool friendlyPos, const Parameterised::Map& parameters) :
-    GNEAdditional(id, net, filename, type, tag, icon, name),
+    GNEAdditional(id, net, filename, type, tag, name),
     Parameterised(parameters),
     myPositionOverLane(pos),
     myPeriod(period),
@@ -59,11 +59,11 @@ GNEDetector::GNEDetector(const std::string& id, GNENet* net, const std::string& 
 }
 
 
-GNEDetector::GNEDetector(const std::string& id, GNENet* net, const std::string& filename, GUIGlObjectType type, SumoXMLTag tag, GUIIcon icon,
+GNEDetector::GNEDetector(const std::string& id, GNENet* net, const std::string& filename, GUIGlObjectType type, SumoXMLTag tag,
                          const double pos, const SUMOTime period, const std::vector<GNELane*>& lanes, const std::string& outputFilename,
                          const std::vector<std::string>& vehicleTypes, const std::vector<std::string>& nextEdges, const std::string& detectPersons,
                          const std::string& name, const bool friendlyPos, const Parameterised::Map& parameters) :
-    GNEAdditional(id, net, filename, type, tag, icon, name),
+    GNEAdditional(id, net, filename, type, tag, name),
     Parameterised(parameters),
     myPositionOverLane(pos),
     myPeriod(period),
@@ -77,10 +77,10 @@ GNEDetector::GNEDetector(const std::string& id, GNENet* net, const std::string& 
 }
 
 
-GNEDetector::GNEDetector(GNEAdditional* additionalParent, GUIGlObjectType type, SumoXMLTag tag, GUIIcon icon,
+GNEDetector::GNEDetector(GNEAdditional* additionalParent, GUIGlObjectType type, SumoXMLTag tag,
                          const double pos, const SUMOTime period, GNELane* lane, const std::string& outputFilename,
                          const std::string& name, const bool friendlyPos, const Parameterised::Map& parameters) :
-    GNEAdditional(additionalParent, type, tag, icon, name),
+    GNEAdditional(additionalParent, type, tag, name),
     Parameterised(parameters),
     myPositionOverLane(pos),
     myPeriod(period),

@@ -35,7 +35,6 @@ public:
 
     /**@brief constructor called in buildStopPlan
      * @param[in] tag stop tag
-     * @param[in] icon stop icon
      * @param[in] planParameters plan parameters
      * @param[in] additionals from-to additionals
      * @param[in] endPos end position
@@ -45,8 +44,9 @@ public:
      * @param[in] friendlyPos friendly pos
      * @param[in] parameterSet parameter sets
      */
-    GNEStopPlan(SumoXMLTag tag, GUIIcon icon, GNEDemandElement* personParent, const GNEPlanParents& planParameters,
-                const double endPos, const SUMOTime duration, const SUMOTime until, const std::string& actType, bool friendlyPos, const int parameterSet);
+    GNEStopPlan(SumoXMLTag tag, GNEDemandElement* personParent, const GNEPlanParents& planParameters,
+                const double endPos, const SUMOTime duration, const SUMOTime until, const std::string& actType,
+                bool friendlyPos, const int parameterSet);
 
     /// @brief destructor
     ~GNEStopPlan();

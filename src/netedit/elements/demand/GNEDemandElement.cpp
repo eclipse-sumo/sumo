@@ -20,7 +20,7 @@
 
 #include <netedit/GNENet.h>
 #include <netedit/GNESegment.h>
-#include <netedit/GNETagProperties.h>
+#include <netedit/GNETagPropertiesDatabase.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/frames/GNEPathCreator.h>
 #include <netedit/frames/GNEPlanSelector.h>
@@ -46,20 +46,19 @@
 #pragma warning(disable: 4355) // mask warning about "this" in initializers
 #endif
 GNEDemandElement::GNEDemandElement(const std::string& id, GNENet* net, const std::string& filename, GUIGlObjectType type,
-                                   SumoXMLTag tag, GUIIcon icon, const int pathOptions) :
+                                   SumoXMLTag tag, const int pathOptions) :
     GNEAttributeCarrier(tag, net, filename, id.empty()),
-    GUIGlObject(type, id, GUIIconSubSys::getIcon(icon)),
+    GUIGlObject(type, id, GUIIconSubSys::getIcon(net->getTagPropertiesDatabase()->getTagProperty(tag, true)->getGUIIcon())),
     GNEPathElement(pathOptions),
     GNEDemandElementDistribution(this),
     myStackedLabelNumber(0) {
 }
 
 
-GNEDemandElement::GNEDemandElement(GNEDemandElement* demandElementParent, GUIGlObjectType type, SumoXMLTag tag,
-                                   GUIIcon icon, const int options) :
+GNEDemandElement::GNEDemandElement(GNEDemandElement* demandElementParent, GUIGlObjectType type, SumoXMLTag tag, const int pathOptions) :
     GNEAttributeCarrier(tag, demandElementParent->getNet(), demandElementParent->getFilename(), false),
-    GUIGlObject(type, demandElementParent->getID(), GUIIconSubSys::getIcon(icon)),
-    GNEPathElement(options),
+    GUIGlObject(type, demandElementParent->getID(), GUIIconSubSys::getIcon(demandElementParent->getNet()->getTagPropertiesDatabase()->getTagProperty(tag, true)->getGUIIcon())),
+    GNEPathElement(pathOptions),
     GNEDemandElementDistribution(this),
     myStackedLabelNumber(0) {
 }

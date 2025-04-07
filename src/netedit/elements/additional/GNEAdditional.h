@@ -48,20 +48,18 @@ public:
      * @param[in] filename file in which this AttributeCarrier is stored
      * @param[in] type GUIGlObjectType of additional
      * @param[in] tag Type of xml tag that define the additional element (SUMO_TAG_BUS_STOP, SUMO_TAG_REROUTER, etc...)
-     * @param[in] icon additional icon
      * @param[in] additionalName Additional name
      */
-    GNEAdditional(const std::string& id, GNENet* net, const std::string& filename, GUIGlObjectType type, SumoXMLTag tag, GUIIcon icon,
+    GNEAdditional(const std::string& id, GNENet* net, const std::string& filename, GUIGlObjectType type, SumoXMLTag tag,
                   const std::string& additionalName);
 
     /**@brief Constructor for additional with parents
      * @param[in] additionalParent pointer to additional parent
      * @param[in] type GUIGlObjectType of additional
      * @param[in] tag Type of xml tag that define the additional element (SUMO_TAG_BUS_STOP, SUMO_TAG_REROUTER, etc...)
-     * @param[in] icon additional icon
      * @param[in] additionalName Additional name
      */
-    GNEAdditional(GNEAdditional* additionalParent, GUIGlObjectType type, SumoXMLTag tag, GUIIcon icon, const std::string& additionalName);
+    GNEAdditional(GNEAdditional* additionalParent, GUIGlObjectType type, SumoXMLTag tag, const std::string& additionalName);
 
     /// @brief Destructor
     ~GNEAdditional();
@@ -428,9 +426,6 @@ protected:
 
     /// @brief get GLO color
     static GUIGlObjectType getJuPedSimGLO(SumoXMLTag tag);
-
-    /// @brief get JuPedSim icon
-    static GUIIcon getJuPedSimIcon(SumoXMLTag tag);
 
     /// @}
 

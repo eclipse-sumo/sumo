@@ -41,16 +41,16 @@
 // member method definitions
 // ===========================================================================
 
-GNEStoppingPlace::GNEStoppingPlace(GNENet* net, GUIGlObjectType type, SumoXMLTag tag, GUIIcon icon) :
-    GNEAdditional("", net, "", type, tag, icon, "") {
+GNEStoppingPlace::GNEStoppingPlace(GNENet* net, GUIGlObjectType type, SumoXMLTag tag) :
+    GNEAdditional("", net, "", type, tag, "") {
 }
 
 
 GNEStoppingPlace::GNEStoppingPlace(const std::string& id, GNENet* net, const std::string& filename, GUIGlObjectType type,
-                                   SumoXMLTag tag, GUIIcon icon, GNELane* lane, const double startPos, const double endPos,
+                                   SumoXMLTag tag, GNELane* lane, const double startPos, const double endPos,
                                    const std::string& name, bool friendlyPosition, const RGBColor& color,
                                    const Parameterised::Map& parameters) :
-    GNEAdditional(id, net, filename, type, tag, icon, name),
+    GNEAdditional(id, net, filename, type, tag, name),
     Parameterised(parameters),
     myStartPosition(startPos),
     myEndPosition(endPos),
