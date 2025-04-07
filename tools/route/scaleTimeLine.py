@@ -73,9 +73,7 @@ def get_options(args=None):
 
     elif options.timelinepair:
         timelinelist = [x.split(',') for x in options.timelinepair.split(';')]
-        options.timelinelist = []
-        for data in timelinelist:
-            options.timelinelist.append([float(x) for x in data])
+        options.timelinelist.append([float(x) for x in data])
 
     options.routefiles = options.routefiles.split(',')
     if not options.outfile:
