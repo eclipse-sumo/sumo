@@ -22,15 +22,12 @@
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 
 #include "GNEDemandElement.h"
-#include "GNERouteHandler.h"
-
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
 
 class GNEEdge;
-class GNEConnection;
 class GNEVehicle;
 
 // ===========================================================================

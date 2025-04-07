@@ -37,6 +37,7 @@
 
 #include "GNEVehicle.h"
 #include "GNERoute.h"
+#include "GNERouteHandler.h"
 
 // ===========================================================================
 // FOX callback mapping

@@ -70,7 +70,7 @@ public:
                     const Parameterised::Map& routeParameters);
 
     /// @brief build route ref
-    bool buildRouteRef(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& refID, const double probability);
+    bool buildRouteRef(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& routeID, const double probability);
 
     /// @brief build route distribution
     bool buildRouteDistribution(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id);
@@ -275,6 +275,9 @@ protected:
 
     /// @brief get container parent
     GNEDemandElement* getContainerParent(const CommonXMLStructure::SumoBaseObject* sumoBaseObject) const;
+
+    /// @brief get route distribution parent
+    GNEDemandElement* getRouteDistributionParent(const CommonXMLStructure::SumoBaseObject* sumoBaseObject) const;
 
     /// @brief get distribution elements
     bool getDistributionElements(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, SumoXMLTag distributionElementTag,

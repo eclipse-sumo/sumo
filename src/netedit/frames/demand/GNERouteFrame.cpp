@@ -21,7 +21,7 @@
 #include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewParent.h>
-#include <netedit/elements/demand/GNERoute.h>
+#include <netedit/elements/demand/GNERouteHandler.h>
 #include <netedit/frames/GNEAttributesEditor.h>
 #include <netedit/frames/GNEFrame.h>
 #include <netedit/frames/GNEPathCreator.h>

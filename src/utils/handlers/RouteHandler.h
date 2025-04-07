@@ -66,7 +66,7 @@ public:
                             const Parameterised::Map& routeParameters) = 0;
 
     /// @brief build route ref
-    virtual bool buildRouteRef(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& refID, const double probability) = 0;
+    virtual bool buildRouteRef(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& routeID, const double probability) = 0;
 
     /// @brief build route distribution
     virtual bool buildRouteDistribution(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id) = 0;

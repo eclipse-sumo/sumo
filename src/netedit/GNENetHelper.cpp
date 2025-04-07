@@ -52,7 +52,6 @@
 #include <netedit/elements/additional/GNERouteProbe.h>
 #include <netedit/elements/additional/GNETAZ.h>
 #include <netedit/elements/additional/GNETAZSourceSink.h>
-#include <netedit/elements/additional/GNETAZSourceSink.h>
 #include <netedit/elements/additional/GNETractionSubstation.h>
 #include <netedit/elements/additional/GNEVaporizer.h>
 #include <netedit/elements/additional/GNEVariableSpeedSign.h>
@@ -65,6 +64,7 @@
 #include <netedit/elements/demand/GNEPersonTrip.h>
 #include <netedit/elements/demand/GNERide.h>
 #include <netedit/elements/demand/GNERoute.h>
+#include <netedit/elements/demand/GNERouteRef.h>
 #include <netedit/elements/demand/GNEStop.h>
 #include <netedit/elements/demand/GNEStopPlan.h>
 #include <netedit/elements/demand/GNETranship.h>
@@ -2977,13 +2977,16 @@ GNENetHelper::ACTemplate::buildTemplates() {
     for (const auto vType : vTypes) {
         myTemplates[vType->getTag()] = new GNEVType(vType->getTag(), myNet);
     }
+    // vType distributions
     myTemplates[SUMO_TAG_VTYPE_DISTRIBUTION] = new GNEVTypeDistribution(myNet);
-    // routes
+    // routes (basic and embedded)
     const auto routes = myNet->getTagPropertiesDatabase()->getTagPropertiesByType(GNETagProperties::Type::ROUTE);
     for (const auto route : routes) {
         myTemplates[route->getTag()] = new GNERoute(route->getTag(), myNet);
     }
+    // route distribution
     myTemplates[SUMO_TAG_ROUTE_DISTRIBUTION] = new GNERouteDistribution(myNet);
+    myTemplates[GNE_TAG_ROUTEREF] = new GNERouteRef(myNet);
     // vehicles
     const auto vehicles = myNet->getTagPropertiesDatabase()->getTagPropertiesByType(GNETagProperties::Type::VEHICLE);
     for (const auto vehicle : vehicles) {

@@ -224,7 +224,9 @@ RouteHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) {
         case SUMO_TAG_ROUTE:
             // embedded routes are created in build<Vehicle/Flow>EmbeddedRoute
             if (obj->hasStringAttribute(SUMO_ATTR_REFID)) {
-                if (buildRouteRef(obj, obj->getStringAttribute(SUMO_ATTR_REFID), obj->getDoubleAttribute(SUMO_ATTR_PROB))) {
+                if (buildRouteRef(obj,
+                                  obj->getStringAttribute(SUMO_ATTR_REFID),
+                                  obj->getDoubleAttribute(SUMO_ATTR_PROB))) {
                     obj->markAsCreated();
                 }
             } else if (obj->hasStringAttribute(SUMO_ATTR_ID)) {
