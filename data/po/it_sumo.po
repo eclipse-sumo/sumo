@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-13 10:07+0100\n"
-"PO-Revision-Date: 2025-04-04 13:19+0000\n"
+"PO-Revision-Date: 2025-04-07 12:10+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -12051,15 +12051,17 @@ msgstr ""
 
 #: src/router/RORouteHandler.cpp:809
 msgid "Discarding container '%' because its plan is empty"
-msgstr ""
+msgstr "Il contenitore '%' viene scartato perché il suo piano è vuoto"
 
 #: src/router/RORouteHandler.cpp:826
 msgid "Discarding containerFlow '%' because its plan is empty"
-msgstr ""
+msgstr "Il flusso di contenitori '%' viene scartato perché il suo piano è vuoto"
 
 #: src/router/RORouteHandler.cpp:1126
 msgid "Triggered departure for container '%' requires a unique lines value."
 msgstr ""
+"La partenza generata per il contenitore '%' richiede che il valore "
+"dell'attributo 'lines' sia unico."
 
 #: src/sumo_main.cpp:49
 msgid "Another interrupt signal received, hard exit."
@@ -12085,7 +12087,7 @@ msgstr "Uscita (dopo un errore sconosciuto)."
 
 #: src/tools/TrajectoriesHandler.cpp:76
 msgid "Unknown actor configuration '%' for vehicle '%'!"
-msgstr ""
+msgstr "Configurazione di attore sconosciuta '%' per il veicolo '%'!"
 
 #: src/tools/TrajectoriesHandler.cpp:94
 msgid "Motion state for unknown vehicle '%'!"
@@ -12194,15 +12196,15 @@ msgstr "Salva gli valori di emissioni di ogni veicolo in XML"
 
 #: src/tools/emissionsDrivingCycle_main.cpp:128
 msgid "Save the aggregated and normed emission values of each vehicle in CSV"
-msgstr ""
+msgstr "Salva i valori di emissioni aggregati e normati di ogni veicolo in CSV"
 
 #: src/tools/emissionsDrivingCycle_main.cpp:144
 msgid "Defines the begin time in seconds;"
-msgstr ""
+msgstr "Definisce l'ora iniziale in secondi;"
 
 #: src/tools/emissionsDrivingCycle_main.cpp:147
 msgid "Defines the end time in seconds;"
-msgstr ""
+msgstr "Definisce l'ora terminale in secondi;"
 
 #: src/tools/emissionsDrivingCycle_main.cpp:151
 msgid "Not writing anything."
