@@ -3,3 +3,6 @@ objects
 
 # Tests for <SUMO_DIST>/tools/scaleTimeline.py
 flows
+
+# Tests for <SUMO_DIST>/tools/scaleTimeline.py
+trips
