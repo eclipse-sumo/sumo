@@ -372,6 +372,7 @@
 #include "icons/ridetaz.xpm"
 #include "icons/ridetrainstop.xpm"
 #include "icons/route.xpm"
+#include "icons/routeref.xpm"
 #include "icons/routedistribution.xpm"
 #include "icons/routeflow.xpm"
 #include "icons/stopelement.xpm"
@@ -887,6 +888,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::TAZEDGE] = new FXXPMIcon(a, tazedge_xpm);
 
     myIcons[GUIIcon::ROUTE] = new FXXPMIcon(a, route_xpm);
+    myIcons[GUIIcon::ROUTEREF] = new FXXPMIcon(a, routeref_xpm);
     myIcons[GUIIcon::ROUTEDISTRIBUTION] = new FXXPMIcon(a, routedistribution_xpm);
     myIcons[GUIIcon::VTYPE] = new FXXPMIcon(a, vtype_xpm);
     myIcons[GUIIcon::VTYPE_DEFAULT] = new FXXPMIcon(a, vtype_default_xpm);

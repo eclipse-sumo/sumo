@@ -2555,7 +2555,7 @@ GNETagPropertiesDatabase::fillDemandElements() {
                 GNETagProperties::Property::XMLCHILD,
                 GNETagProperties::Over::VIEW,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
-                GUIIcon::ROUTE, currentTag, TL("Route (Ref)"),
+                GUIIcon::ROUTEREF, currentTag, TL("Route (Ref)"),
         {SUMO_TAG_ROUTE_DISTRIBUTION});
 
         // set values of attributes
