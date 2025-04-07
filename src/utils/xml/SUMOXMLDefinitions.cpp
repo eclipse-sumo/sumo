@@ -652,6 +652,8 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::tags[] = {
     { "datas",          GNE_TAG_DATAS },
     // attributes
     { "allAttributes",  GNE_TAG_ATTRIBUTES_ALL },
+    // other
+    { "error",          SUMO_TAG_ERROR },
     // Last element
     { "",   SUMO_TAG_NOTHING }  // -> must be the last one
 };

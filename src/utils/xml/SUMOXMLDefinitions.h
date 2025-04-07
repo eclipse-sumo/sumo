@@ -828,6 +828,8 @@ enum SumoXMLTag {
     GNE_TAG_ATTRIBUTES_ALL,
     /// @}
 
+    /// @brief tag used for indicate that there is an error (usually loading elements in handlers)
+    SUMO_TAG_ERROR,
     /// @brief invalid tag, must be the last one
     SUMO_TAG_NOTHING,
 };
