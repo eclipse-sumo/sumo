@@ -46,7 +46,7 @@
 #pragma warning(disable: 4355) // mask warning about "this" in initializers
 #endif
 GNEDemandElement::GNEDemandElement(const std::string& id, GNENet* net, const std::string& filename, GUIGlObjectType type,
-                                   SumoXMLTag tag, const int pathOptions) :
+                                   SumoXMLTag tag, const GNEPathElement::Options pathOptions) :
     GNEAttributeCarrier(tag, net, filename, id.empty()),
     GUIGlObject(type, id, GUIIconSubSys::getIcon(net->getTagPropertiesDatabase()->getTagProperty(tag, true)->getGUIIcon())),
     GNEPathElement(pathOptions),
@@ -55,7 +55,7 @@ GNEDemandElement::GNEDemandElement(const std::string& id, GNENet* net, const std
 }
 
 
-GNEDemandElement::GNEDemandElement(GNEDemandElement* demandElementParent, GUIGlObjectType type, SumoXMLTag tag, const int pathOptions) :
+GNEDemandElement::GNEDemandElement(GNEDemandElement* demandElementParent, GUIGlObjectType type, SumoXMLTag tag, const GNEPathElement::Options pathOptions) :
     GNEAttributeCarrier(tag, demandElementParent->getNet(), demandElementParent->getFilename(), false),
     GUIGlObject(type, demandElementParent->getID(), GUIIconSubSys::getIcon(demandElementParent->getNet()->getTagPropertiesDatabase()->getTagProperty(tag, true)->getGUIIcon())),
     GNEPathElement(pathOptions),

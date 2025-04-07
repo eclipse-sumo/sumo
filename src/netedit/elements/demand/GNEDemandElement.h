@@ -67,7 +67,7 @@ public:
      * @param[in] pathOptions path options
      */
     GNEDemandElement(const std::string& id, GNENet* net, const std::string& filename, GUIGlObjectType type,
-                     SumoXMLTag tag, const int pathOptions);
+                     SumoXMLTag tag, const GNEPathElement::Options pathOptions);
 
     /**@brief Constructor
      * @param[in] demandElementParent pointer to parent demand element pointer (used to generate an ID)
@@ -76,7 +76,7 @@ public:
      * @param[in] tag Type of xml tag that define the demand element element (SUMO_TAG_ROUTE, SUMO_TAG_VEHICLE, etc...)
      * @param[in] pathOptions path options
      */
-    GNEDemandElement(GNEDemandElement* demandElementParent, GUIGlObjectType type, SumoXMLTag tag, const int pathOptions);
+    GNEDemandElement(GNEDemandElement* demandElementParent, GUIGlObjectType type, SumoXMLTag tag, const GNEPathElement::Options pathOptions);
 
     /// @brief Destructor
     virtual ~GNEDemandElement();

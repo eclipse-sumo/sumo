@@ -36,7 +36,7 @@ class GNESegment;
 class GNEPathElement {
 
 public:
-    enum Options {
+    enum class Options : int {
         NETWORK_ELEMENT =       1 << 0, // Network element
         ADDITIONAL_ELEMENT =    1 << 1, // Additional element
         DEMAND_ELEMENT =        1 << 2, // Demand element
@@ -45,13 +45,13 @@ public:
     };
 
     /// @brief constructor
-    GNEPathElement(const int options);
+    GNEPathElement(const GNEPathElement::Options options);
 
     /// @brief destructor
     virtual ~GNEPathElement();
 
     /// @brief get path element option
-    int getPathElementOptions() const;
+    GNEPathElement::Options getPathElementOptions() const;
 
     /// @brief check if pathElement is a network element
     bool isNetworkElement() const;
@@ -101,7 +101,7 @@ public:
 
 private:
     /// @brief pathElement option
-    const int myOption;
+    const GNEPathElement::Options myOptions = GNEPathElement::Options::NETWORK_ELEMENT;
 
     /// @brief invalidate default constructor
     GNEPathElement() = delete;
@@ -112,3 +112,13 @@ private:
     /// @brief Invalidated assignment operator.
     GNEPathElement& operator=(const GNEPathElement&) = delete;
 };
+
+/// @brief override tag parent bit operator
+constexpr GNEPathElement::Options operator|(GNEPathElement::Options a, GNEPathElement::Options b) {
+    return static_cast<GNEPathElement::Options>(static_cast<int>(a) | static_cast<int>(b));
+}
+
+/// @brief override tag parent bit operator
+constexpr bool operator&(GNEPathElement::Options a, GNEPathElement::Options b) {
+    return (static_cast<int>(a) & static_cast<int>(b)) != 0;
+}
