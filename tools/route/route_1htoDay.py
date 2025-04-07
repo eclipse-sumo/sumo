@@ -35,19 +35,19 @@ else:
 
 
 def get_options(args=None):
-    optParser = ArgumentParser()
-    optParser.add_argument("input_network", category='input', help="Provide an input network")
-    return optParser.parse_args(args=args)
+    op = ArgumentParser()
+    op.add_argument("routes", category='input', help="Provide an input route file for 1h")
+    return op.parse_args(args=args)
 
 
 def main(options):
     for i in range(0, 24):
-        out = options.input_network
+        out = options.routes
         out = out[:out.find(".")] + "_" + str(i) + out[out.find("."):]
         print("Building routes for hour " + str(i) + " into '" + out + "'...")
         route_departOffset.main(
             route_departOffset.get_options([
-                "--input-file", options.input_network,
+                "--input-file", options.routes,
                 "--output-file", out,
                 "--depart-offset", str(i * 3600),
                 "--modify-ids"]))
