@@ -455,11 +455,11 @@ GNEApplicationWindowHelper::FileMenuCommands::buildAdditionalSection(FXMenuPane*
                                            GUIIconSubSys::getIcon(GUIIcon::SAVE_ADDITIONALELEMENTS), myGNEApp, MID_HOTKEY_CTRL_SHIFT_A_SAVEADDITIONALELEMENTS);
 
     GUIDesigns::buildFXMenuCommandShortcut(menuPane,
-                                           TL("Save Additionals unified"), "", TL("Save additional elements unified in the same file."),
+                                           TL("Save Additionals unified as..."), "", TL("Save all additional elements to the chosen file."),
                                            GUIIconSubSys::getIcon(GUIIcon::SAVE_ADDITIONALELEMENTS), myGNEApp, MID_GNE_TOOLBARFILE_SAVEADDITIONALELEMENTS_UNIFIED);
 
     GUIDesigns::buildFXMenuCommandShortcut(menuPane,
-                                           TL("Save JuPedSim Elements As..."), "", TL("Save JuPedSim elements in a separated file."),
+                                           TL("Save JuPedSim Elements as..."), "", TL("Save JuPedSim elements in a separated file."),
                                            GUIIconSubSys::getIcon(GUIIcon::SAVE_JUPEDSIMELEMENTS), myGNEApp, MID_GNE_TOOLBARFILE_SAVEJUPEDSIMELEMENTS_AS);
 
     new FXMenuSeparator(menuPane);
@@ -483,7 +483,7 @@ GNEApplicationWindowHelper::FileMenuCommands::buildDemandSection(FXMenuPane* men
                                            GUIIconSubSys::getIcon(GUIIcon::SAVE_DEMANDELEMENTS), myGNEApp, MID_HOTKEY_CTRL_SHIFT_D_SAVEDEMANDELEMENTS);
 
     GUIDesigns::buildFXMenuCommandShortcut(menuPane,
-                                           TL("Save Demand Elements unified"), "", TL("Save demand elements to another file."),
+                                           TL("Save Demand Elements unified as..."), "", TL("Save all demand elements to the chosen file"),
                                            GUIIconSubSys::getIcon(GUIIcon::SAVE_DEMANDELEMENTS), myGNEApp, MID_GNE_TOOLBARFILE_SAVEDEMANDELEMENTS_UNIFIED);
 
     new FXMenuSeparator(menuPane);
@@ -507,7 +507,7 @@ GNEApplicationWindowHelper::FileMenuCommands::buildDataSection(FXMenuPane* menuP
                                            GUIIconSubSys::getIcon(GUIIcon::SAVE_DATAELEMENTS), myGNEApp, MID_HOTKEY_CTRL_SHIFT_B_SAVEDATAELEMENTS);
 
     GUIDesigns::buildFXMenuCommandShortcut(menuPane,
-                                           TL("Save Data Elements unified"), "", TL("Save data elements to another file."),
+                                           TL("Save Data Elements unified as..."), "", TL("Save all data elements to the chosen file."),
                                            GUIIconSubSys::getIcon(GUIIcon::SAVE_DATAELEMENTS), myGNEApp, MID_GNE_TOOLBARFILE_SAVEDATAELEMENTS_UNIFIED);
 
     new FXMenuSeparator(menuPane);
@@ -531,7 +531,7 @@ GNEApplicationWindowHelper::FileMenuCommands::buildMeanDataSection(FXMenuPane* m
                                            GUIIconSubSys::getIcon(GUIIcon::SAVE_MEANDATAELEMENTS), myGNEApp, MID_HOTKEY_CTRL_SHIFT_M_SAVEMEANDATAELEMENTS);
 
     GUIDesigns::buildFXMenuCommandShortcut(menuPane,
-                                           TL("Save MeanDatas unified"), "Ctrl+Shift+M", TL("Save meanData elements to another file."),
+                                           TL("Save MeanDatas unified as..."), "Ctrl+Shift+M", TL("Save all meanData elements to the chosen file."),
                                            GUIIconSubSys::getIcon(GUIIcon::SAVE_MEANDATAELEMENTS), myGNEApp, MID_GNE_TOOLBARFILE_SAVEMEANDATAELEMENTS_UNIFIED);
 
     new FXMenuSeparator(menuPane);
