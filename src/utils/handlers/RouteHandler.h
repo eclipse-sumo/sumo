@@ -60,8 +60,7 @@ public:
     virtual bool buildVTypeRef(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& vTypeID, const double probability) = 0;
 
     /// @brief build vType distribution
-    virtual bool buildVTypeDistribution(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const int deterministic,
-                                        const std::vector<std::string>& vTypeIDs, const std::vector<double>& probabilities) = 0;
+    virtual bool buildVTypeDistribution(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const int deterministic) = 0;
 
     /// @brief build route
     virtual bool buildRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, SUMOVehicleClass vClass,

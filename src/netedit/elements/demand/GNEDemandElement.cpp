@@ -51,7 +51,6 @@ GNEDemandElement::GNEDemandElement(const std::string& id, GNENet* net, const std
     GUIGlObject(net->getTagPropertiesDatabase()->getTagProperty(tag, true)->getGLType(), id,
                 GUIIconSubSys::getIcon(net->getTagPropertiesDatabase()->getTagProperty(tag, true)->getGUIIcon())),
     GNEPathElement(pathOptions),
-    GNEDemandElementDistribution(this),
     myStackedLabelNumber(0) {
 }
 
@@ -62,7 +61,6 @@ GNEDemandElement::GNEDemandElement(GNEDemandElement* demandElementParent, SumoXM
     GUIGlObject(demandElementParent->getNet()->getTagPropertiesDatabase()->getTagProperty(tag, true)->getGLType(), demandElementParent->getID(),
                 GUIIconSubSys::getIcon(demandElementParent->getNet()->getTagPropertiesDatabase()->getTagProperty(tag, true)->getGUIIcon())),
     GNEPathElement(pathOptions),
-    GNEDemandElementDistribution(this),
     myStackedLabelNumber(0) {
 }
 #ifdef _MSC_VER
@@ -626,14 +624,6 @@ GNEDemandElement::replaceDemandElementParent(SumoXMLTag tag, const std::string& 
 }
 
 
-void
-GNEDemandElement::setVTypeDistributionParent(const std::string& value) {
-    // note: distribution parents can be null
-    auto newVTypeDistribution = myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE_DISTRIBUTION, value, false);
-    GNEHierarchicalElement::updateParent(this, 0, newVTypeDistribution);
-}
-
-
 bool
 GNEDemandElement::checkChildDemandElementRestriction() const {
     // throw exception because this function mus be implemented in child (see GNEE3Detector)
@@ -826,27 +816,6 @@ GNEDemandElement::getColorByScheme(const GUIColorer& c, const SUMOVehicleParamet
             return c.getScheme().getColor(0);
         }
     }
-}
-
-
-std::string
-GNEDemandElement::getDistributionParents() const {
-    SumoXMLTag tagDistribution = SUMO_TAG_NOTHING;
-    if (myTagProperty->getTag() == SUMO_TAG_VTYPE) {
-        tagDistribution = SUMO_TAG_VTYPE_DISTRIBUTION;
-    } else if (myTagProperty->getTag() == SUMO_TAG_ROUTE) {
-        tagDistribution = SUMO_TAG_ROUTE_DISTRIBUTION;
-    } else {
-        return "";
-    }
-    // check if the current element is in the distributions
-    std::vector<std::string> distributionParents;
-    for (const auto& distribution : myNet->getAttributeCarriers()->getDemandElements().at(tagDistribution)) {
-        if (distribution.second->keyExists(this)) {
-            distributionParents.push_back(distribution.second->getID());
-        }
-    }
-    return toString(distributionParents);
 }
 
 

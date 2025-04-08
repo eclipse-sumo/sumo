@@ -19,8 +19,6 @@ set(netedit_changes_SRCS
    GNEChange_DataSet.h
    GNEChange_DemandElement.cpp
    GNEChange_DemandElement.h
-   GNEChange_Distribution.cpp
-   GNEChange_Distribution.h
    GNEChange_Edge.cpp
    GNEChange_Edge.h
    GNEChange_EdgeType.cpp

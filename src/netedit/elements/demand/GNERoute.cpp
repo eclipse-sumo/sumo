@@ -528,8 +528,6 @@ GNERoute::getAttribute(SumoXMLAttr key) const {
             return toString(myRepeat);
         case SUMO_ATTR_CYCLETIME:
             return time2string(myCycleTime);
-        case GNE_ATTR_ROUTE_DISTRIBUTION:
-            return getDistributionParents();
         default:
             return getCommonAttribute(this, key);
     }
@@ -563,13 +561,8 @@ GNERoute::getAttributePosition(SumoXMLAttr key) const {
 
 
 bool
-GNERoute::isAttributeEnabled(SumoXMLAttr key) const {
-    switch (key) {
-        case GNE_ATTR_ROUTE_DISTRIBUTION:
-            return false;
-        default:
-            return true;
-    }
+GNERoute::isAttributeEnabled(SumoXMLAttr /*key*/) const {
+    return true;
 }
 
 

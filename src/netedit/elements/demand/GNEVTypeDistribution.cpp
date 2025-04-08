@@ -19,6 +19,9 @@
 /****************************************************************************/
 
 #include <netedit/GNETagProperties.h>
+#include <netedit/GNENet.h>
+#include <netedit/changes/GNEChange_Attribute.h>
+#include <utils/xml/NamespaceIDs.h>
 
 #include "GNEVTypeDistribution.h"
 
@@ -27,32 +30,263 @@
 // ===========================================================================
 
 GNEVTypeDistribution::GNEVTypeDistribution(GNENet* net) :
-    GNEDistribution(net, SUMO_TAG_VTYPE_DISTRIBUTION) {
+    GNEDemandElement("", net, "", SUMO_TAG_VTYPE_DISTRIBUTION, GNEPathElement::Options::DEMAND_ELEMENT) {
 }
 
 
 GNEVTypeDistribution::GNEVTypeDistribution(const std::string& ID, GNENet* net, const std::string& filename, const int deterministic) :
-    GNEDistribution(ID, net, filename, SUMO_TAG_VTYPE_DISTRIBUTION, deterministic) {
+    GNEDemandElement(ID, net, filename, SUMO_TAG_VTYPE_DISTRIBUTION, GNEPathElement::Options::DEMAND_ELEMENT) {
 }
 
 
 GNEVTypeDistribution::~GNEVTypeDistribution() {}
 
 
+GNEMoveOperation*
+GNEVTypeDistribution::getMoveOperation() {
+    // distributions cannot be moved
+    return nullptr;
+}
+
+
 void
 GNEVTypeDistribution::writeDemandElement(OutputDevice& device) const {
-    // only save if there is distribution elements to save
-    if (!isDistributionEmpty()) {
-        // now write attributes
-        device.openTag(getTagProperty()->getTag());
-        device.writeAttr(SUMO_ATTR_ID, getID());
-        if (myDeterministic >= 0) {
-            device.writeAttr(SUMO_ATTR_DETERMINISTIC, myDeterministic);
-        }
-        device.writeAttr(SUMO_ATTR_VTYPES, getAttributeDistributionKeys());
-        device.writeAttr(SUMO_ATTR_PROBS, getAttributeDistributionValues());
-        device.closeTag();
+    // now write attributes
+    device.openTag(getTagProperty()->getTag());
+    device.writeAttr(SUMO_ATTR_ID, getID());
+    if (myDeterministic != myTagProperty->getDefaultIntValue(SUMO_ATTR_DETERMINISTIC)) {
+        device.writeAttr(SUMO_ATTR_DETERMINISTIC, myDeterministic);
     }
+    device.closeTag();
+}
+
+
+GNEDemandElement::Problem
+GNEVTypeDistribution::isDemandElementValid() const {
+    // currently distributions don't have problems
+    return GNEDemandElement::Problem::OK;
+}
+
+
+std::string
+GNEVTypeDistribution::getDemandElementProblem() const {
+    return "";
+}
+
+
+void
+GNEVTypeDistribution::fixDemandElementProblem() {
+    // nothing to fix
+}
+
+
+SUMOVehicleClass
+GNEVTypeDistribution::getVClass() const {
+    if (getChildDemandElements().size() > 0) {
+        return getChildDemandElements().front()->getVClass();
+    } else {
+        return SVC_IGNORING;
+    }
+}
+
+
+const RGBColor&
+GNEVTypeDistribution::getColor() const {
+    if (getChildDemandElements().size() > 0) {
+        return getChildDemandElements().front()->getColor();
+    } else {
+        return RGBColor::INVISIBLE;
+    }
+}
+
+
+void
+GNEVTypeDistribution::updateGeometry() {
+    // nothing to update
+}
+
+
+Position
+GNEVTypeDistribution::getPositionInView() const {
+    if (getChildDemandElements().size() > 0) {
+        return getChildDemandElements().front()->getPositionInView();
+    } else {
+        return Position();
+    }
+}
+
+
+std::string
+GNEVTypeDistribution::getParentName() const {
+    return myNet->getMicrosimID();
+}
+
+
+Boundary
+GNEVTypeDistribution::getCenteringBoundary() const {
+    if (getChildDemandElements().size() > 0) {
+        return getChildDemandElements().front()->getCenteringBoundary();
+    } else {
+        return Boundary(-0.1, -0.1, 0.1, 0.1);
+    }
+}
+
+
+void
+GNEVTypeDistribution::splitEdgeGeometry(const double /*splitPosition*/, const GNENetworkElement* /*originalElement*/, const GNENetworkElement* /*newElement*/, GNEUndoList* /*undoList*/) {
+    // geometry of this element cannot be splitted
+}
+
+
+void
+GNEVTypeDistribution::drawGL(const GUIVisualizationSettings&) const {
+    // Vehicle Types aren't draw
+}
+
+
+void
+GNEVTypeDistribution::computePathElement() {
+    // nothing to compute
+}
+
+
+void
+GNEVTypeDistribution::drawLanePartialGL(const GUIVisualizationSettings& /*s*/, const GNESegment* /*segment*/, const double /*offsetFront*/) const {
+    // route distributions don't use drawJunctionPartialGL
+}
+
+
+void
+GNEVTypeDistribution::drawJunctionPartialGL(const GUIVisualizationSettings& /*s*/, const GNESegment* /*segment*/, const double /*offsetFront*/) const {
+    // route distributions don't use drawJunctionPartialGL
+}
+
+
+GNELane*
+GNEVTypeDistribution::getFirstPathLane() const {
+    return nullptr;
+}
+
+
+GNELane*
+GNEVTypeDistribution::getLastPathLane() const {
+    return nullptr;
+}
+
+
+std::string
+GNEVTypeDistribution::getAttribute(SumoXMLAttr key) const {
+    switch (key) {
+        case SUMO_ATTR_ID:
+            return getMicrosimID();
+        case SUMO_ATTR_DETERMINISTIC:
+            if (myDeterministic == -1) {
+                return "";
+            } else {
+                return toString(myDeterministic);
+            }
+        default:
+            return getCommonAttribute(this, key);
+    }
+}
+
+
+double
+GNEVTypeDistribution::getAttributeDouble(SumoXMLAttr key) const {
+    throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
+}
+
+
+Position
+GNEVTypeDistribution::getAttributePosition(SumoXMLAttr key) const {
+    throw InvalidArgument(getTagStr() + " doesn't have a Position attribute of type '" + toString(key) + "'");
+}
+
+
+void
+GNEVTypeDistribution::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
+    if (value == getAttribute(key)) {
+        return; //avoid needless changes, later logic relies on the fact that attributes have changed
+    }
+    switch (key) {
+        case SUMO_ATTR_ID:
+        case SUMO_ATTR_DETERMINISTIC:
+            GNEChange_Attribute::changeAttribute(this, key, value, undoList);
+            break;
+        default:
+            setCommonAttribute(key, value, undoList);
+            break;
+    }
+}
+
+
+bool
+GNEVTypeDistribution::isValid(SumoXMLAttr key, const std::string& value) {
+    switch (key) {
+        case SUMO_ATTR_ID:
+            return isValidDemandElementID(NamespaceIDs::routes, value);
+        case SUMO_ATTR_DETERMINISTIC:
+            if ((value == "-1") || value.empty()) {
+                return true;
+            } else {
+                return canParse<int>(value) && (parse<int>(value) >= 0);
+            }
+        default:
+            return isCommonValid(key, value);
+    }
+}
+
+
+std::string
+GNEVTypeDistribution::getPopUpID() const {
+    return getTagStr();
+}
+
+
+std::string
+GNEVTypeDistribution::getHierarchyName() const {
+    return getTagStr() + ": " + getAttribute(SUMO_ATTR_ID) ;
+}
+
+
+const Parameterised::Map&
+GNEVTypeDistribution::getACParametersMap() const {
+    throw InvalidArgument(getTagStr() + " doesn't have parameters");
+}
+
+// ===========================================================================
+// private
+// ===========================================================================
+
+void
+GNEVTypeDistribution::setAttribute(SumoXMLAttr key, const std::string& value) {
+    switch (key) {
+        case SUMO_ATTR_ID:
+            setDemandElementID(value);
+            break;
+        case SUMO_ATTR_DETERMINISTIC:
+            if (value.empty()) {
+                myDeterministic = -1;
+            } else {
+                myDeterministic = parse<int>(value);
+            }
+            break;
+        default:
+            setCommonAttribute(this, key, value);
+            break;
+    }
+}
+
+
+void
+GNEVTypeDistribution::setMoveShape(const GNEMoveResult& /*moveResult*/) {
+    // distributions cannot be moved
+}
+
+
+void
+GNEVTypeDistribution::commitMoveShape(const GNEMoveResult& /*moveResult*/, GNEUndoList* /*undoList*/) {
+    // distributions cannot be moved
 }
 
 /****************************************************************************/

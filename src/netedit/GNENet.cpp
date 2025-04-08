@@ -2375,11 +2375,9 @@ GNENet::saveAdditionalsConfirmed() {
         // write vTypes with additional childrens (due calibrators)
         writeVTypeComment(device, additionalsByFilename.second, true);
         writeVTypes(device, additionalsByFilename.second, true);
-        writeVTypeDistributions(device, additionalsByFilename.second, true);
         // write routes with additional children (due route prob reroutes)
         writeRouteComment(device, additionalsByFilename.second, true);
         writeRoutes(device, additionalsByFilename.second, true);
-        writeRouteDistributions(device, additionalsByFilename.second, true);
         // routeProbes
         writeRouteProbeComment(device, additionalsByFilename.second);
         writeAdditionalByType(device, additionalsByFilename.second, {SUMO_TAG_ROUTEPROBE});
@@ -2447,11 +2445,11 @@ GNENet::saveDemandElementsConfirmed() {
         // first  write all vTypeDistributions (and their vTypes)
         writeVTypeComment(device, demandByFilename.second, false);
         writeVTypes(device, demandByFilename.second, false);
-        writeVTypeDistributions(device, demandByFilename.second, false);
+        writeVTypeDistributions(device, demandByFilename.second);
         // now write all routes (and their associated stops), except routes with additional children (due routeProbReroutes)
         writeRouteComment(device, demandByFilename.second, false);
         writeRoutes(device, demandByFilename.second, false);
-        writeRouteDistributions(device, demandByFilename.second, false);
+        writeRouteDistributions(device, demandByFilename.second);
         // sort vehicles/persons by depart
         std::map<double, std::map<std::pair<SumoXMLTag, std::string>, GNEDemandElement*> > vehiclesSortedByDepart;
         for (const auto& demandElementTag : myAttributeCarriers->getDemandElements()) {
@@ -2576,16 +2574,12 @@ GNENet::writeDemandByType(OutputDevice& device, const std::unordered_set<const G
 
 
 void
-GNENet::writeRouteDistributions(OutputDevice& device, const std::unordered_set<const GNEAttributeCarrier*>& ACs, const bool additionalFile) const {
+GNENet::writeRouteDistributions(OutputDevice& device, const std::unordered_set<const GNEAttributeCarrier*>& ACs) const {
     std::map<std::string, GNEDemandElement*> sortedElements;
     // first write route Distributions
     for (const auto& routeDistribution : myAttributeCarriers->getDemandElements().at(SUMO_TAG_ROUTE_DISTRIBUTION)) {
         if (ACs.count(routeDistribution.second) > 0) {
-            // get number of additional children
-            const auto numChildren = routeDistribution.second->getAttributeDouble(GNE_ATTR_ADDITIONALCHILDREN);
-            if ((additionalFile && (numChildren != 0)) || (!additionalFile && (numChildren == 0))) {
-                sortedElements[routeDistribution.second->getID()] = routeDistribution.second;
-            }
+            sortedElements[routeDistribution.second->getID()] = routeDistribution.second;
         }
     }
     for (const auto& element : sortedElements) {
@@ -2623,16 +2617,12 @@ GNENet::writeRoutes(OutputDevice& device, const std::unordered_set<const GNEAttr
 
 
 void
-GNENet::writeVTypeDistributions(OutputDevice& device, const std::unordered_set<const GNEAttributeCarrier*>& ACs, const bool additionalFile) const {
+GNENet::writeVTypeDistributions(OutputDevice& device, const std::unordered_set<const GNEAttributeCarrier*>& ACs) const {
     std::map<std::string, GNEDemandElement*> sortedElements;
     // first write vType Distributions
     for (const auto& vTypeDistribution : myAttributeCarriers->getDemandElements().at(SUMO_TAG_VTYPE_DISTRIBUTION)) {
         if (ACs.count(vTypeDistribution.second) > 0) {
-            // get number of additional children
-            const auto numChildren = vTypeDistribution.second->getAttributeDouble(GNE_ATTR_ADDITIONALCHILDREN);
-            if ((additionalFile && (numChildren != 0)) || (!additionalFile && (numChildren == 0))) {
-                sortedElements[vTypeDistribution.second->getID()] = vTypeDistribution.second;
-            }
+            sortedElements[vTypeDistribution.second->getID()] = vTypeDistribution.second;
         }
     }
     for (const auto& element : sortedElements) {

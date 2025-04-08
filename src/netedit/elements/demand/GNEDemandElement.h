@@ -26,8 +26,6 @@
 #include <netedit/elements/GNEPathElement.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 
-#include "GNEDemandElementDistribution.h"
-
 // ===========================================================================
 // class declarations
 // ===========================================================================
@@ -38,7 +36,7 @@ class SUMOVehicleParameter;
 // class definitions
 // ===========================================================================
 
-class GNEDemandElement : public GNEAttributeCarrier, public GNEHierarchicalElement, public GUIGlObject, public GNEPathElement, public GNEMoveElement, public GNEDemandElementDistribution {
+class GNEDemandElement : public GNEAttributeCarrier, public GNEHierarchicalElement, public GUIGlObject, public GNEPathElement, public GNEMoveElement {
 
 public:
     /// @brief friend declaration (needed for vTypes)
@@ -378,9 +376,6 @@ protected:
     /// @brief replace demand element parent
     void replaceDemandElementParent(SumoXMLTag tag, const std::string& value, const int parentIndex);
 
-    /// @brief set VTypeDistribution parent
-    void setVTypeDistributionParent(const std::string& value);
-
     /// @}
 
     /// @brief auxiliar struct used for calculate pathStopIndex
@@ -410,9 +405,6 @@ protected:
 
     /// @brief get color by scheme (used by vehicles, persons and containers)
     RGBColor getColorByScheme(const GUIColorer& c, const SUMOVehicleParameter* parameters) const;
-
-    /// @brief get distribution in which the given element is part
-    std::string getDistributionParents() const;
 
     /// @brief build menu command route length
     void buildMenuCommandRouteLength(GUIGLObjectPopupMenu* ret) const;

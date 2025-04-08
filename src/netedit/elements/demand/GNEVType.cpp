@@ -496,8 +496,6 @@ GNEVType::getAttribute(SumoXMLAttr key) const {
             } else {
                 return False;
             }
-        case GNE_ATTR_VTYPE_DISTRIBUTION:
-            return getDistributionParents();
         default:
             return getCommonAttribute(this, key);
     }
@@ -933,8 +931,6 @@ GNEVType::isAttributeEnabled(SumoXMLAttr key) const {
             return wasSet(VTYPEPARS_LOCOMOTIVE_LENGTH_SET);
         case SUMO_ATTR_CARRIAGE_GAP:
             return wasSet(VTYPEPARS_CARRIAGE_GAP_SET);
-        case GNE_ATTR_VTYPE_DISTRIBUTION:
-            return false;
         default:
             return true;
     }

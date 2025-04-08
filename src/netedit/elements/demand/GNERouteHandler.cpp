@@ -103,7 +103,7 @@ GNERouteHandler::buildVType(const CommonXMLStructure::SumoBaseObject* sumoBaseOb
         // overwrite default vehicle type
         return GNEVType::overwriteVType(myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, vTypeParameter.id, false), vTypeParameter, myNet->getViewNet()->getUndoList());
     } else {
-        const auto element = retrieveDemandElement({SUMO_TAG_VTYPE, SUMO_TAG_VTYPE_DISTRIBUTION}, vTypeParameter.id);
+        const auto element = retrieveDemandElement(NamespaceIDs::types, vTypeParameter.id);
         if (!checkElement(SUMO_TAG_VTYPE, element)) {
             return false;
         } else if (!checkValidDemandElementID(SUMO_TAG_VTYPE, vTypeParameter.id)) {
@@ -119,15 +119,9 @@ GNERouteHandler::buildVType(const CommonXMLStructure::SumoBaseObject* sumoBaseOb
             if (myAllowUndoRedo) {
                 myNet->getViewNet()->getUndoList()->begin(vType, TL("add ") + vType->getTagStr() + " '" + vTypeParameter.id + "'");
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(vType, true), true);
-                if (vTypeDistribution) {
-                    vTypeDistribution->addDistributionKey(vType, vType->getAttributeDouble(SUMO_ATTR_PROB), myNet->getViewNet()->getUndoList());
-                }
                 myNet->getViewNet()->getUndoList()->end();
             } else {
                 myNet->getAttributeCarriers()->insertDemandElement(vType);
-                if (vTypeDistribution) {
-                    vTypeDistribution->addDistributionKey(vType, vType->getAttributeDouble(SUMO_ATTR_PROB));
-                }
                 vType->incRef("buildVType");
             }
             return true;
@@ -164,17 +158,14 @@ GNERouteHandler::buildVTypeRef(const CommonXMLStructure::SumoBaseObject* sumoBas
 
 
 bool
-GNERouteHandler::buildVTypeDistribution(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const int deterministic,
-                                        const std::vector<std::string>& vTypeIDs, const std::vector<double>& probabilities) {
+GNERouteHandler::buildVTypeDistribution(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const int deterministic) {
     // declare vector with vType and their probabilities
     std::vector<const GNEDemandElement*> vTypes;
     // check conditions
-    const auto element = retrieveDemandElement({SUMO_TAG_VTYPE, SUMO_TAG_VTYPE_DISTRIBUTION}, id);
+    const auto element = retrieveDemandElement(NamespaceIDs::types, id);
     if (!checkElement(SUMO_TAG_VTYPE_DISTRIBUTION, element)) {
         return false;
     } else if (!checkValidDemandElementID(SUMO_TAG_VTYPE_DISTRIBUTION, id)) {
-        return false;
-    } else if (getDistributionElements(sumoBaseObject, SUMO_TAG_VTYPE, vTypeIDs, probabilities, vTypes)) {
         return false;
     } else {
         // create distributions
@@ -182,17 +173,9 @@ GNERouteHandler::buildVTypeDistribution(const CommonXMLStructure::SumoBaseObject
         if (myAllowUndoRedo) {
             myNet->getViewNet()->getUndoList()->begin(vTypeDistribution, TL("add ") + vTypeDistribution->getTagStr() + " '" + id + "'");
             myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(vTypeDistribution, true), true);
-            // add all distributions
-            for (int i = 0; i < (int)vTypes.size(); i++) {
-                vTypeDistribution->addDistributionKey(vTypes.at(i), probabilities.at(i), myNet->getViewNet()->getUndoList());
-            }
             myNet->getViewNet()->getUndoList()->end();
         } else {
             myNet->getAttributeCarriers()->insertDemandElement(vTypeDistribution);
-            // add all distributions directly
-            for (int i = 0; i < (int)vTypes.size(); i++) {
-                vTypeDistribution->addDistributionKey(vTypes.at(i), probabilities.at(i));
-            }
             vTypeDistribution->incRef("buildVTypeDistribution");
         }
         return true;

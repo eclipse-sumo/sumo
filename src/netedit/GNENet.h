@@ -585,13 +585,13 @@ private:
     void writeDemandByType(OutputDevice& device, const std::unordered_set<const GNEAttributeCarrier*>& ACs, SumoXMLTag tag) const;
 
     /// @brief write route distributions sorted by ID
-    void writeRouteDistributions(OutputDevice& device, const std::unordered_set<const GNEAttributeCarrier*>& ACs, const bool additionalFile) const;
+    void writeRouteDistributions(OutputDevice& device, const std::unordered_set<const GNEAttributeCarrier*>& ACs) const;
 
     /// @brief write route sorted by ID
     void writeRoutes(OutputDevice& device, const std::unordered_set<const GNEAttributeCarrier*>& ACs, const bool additionalFile) const;
 
     /// @brief write vTypeDistributions sorted by ID
-    void writeVTypeDistributions(OutputDevice& device, const std::unordered_set<const GNEAttributeCarrier*>& ACs, const bool additionalFile) const;
+    void writeVTypeDistributions(OutputDevice& device, const std::unordered_set<const GNEAttributeCarrier*>& ACs) const;
 
     /// @brief write vTypes sorted by ID
     void writeVTypes(OutputDevice& device, const std::unordered_set<const GNEAttributeCarrier*>& ACs, const bool additionalFile) const;

@@ -1859,8 +1859,6 @@ enum SumoXMLAttr {
     GNE_ATTR_STOPINDEX,
     /// @brief stop index (position in the parent's path)
     GNE_ATTR_PATHSTOPINDEX,
-    /// @brief check number of additional children (used in vTypeDistribution)
-    GNE_ATTR_ADDITIONALCHILDREN,
     /// @brief person/container geometry start position
     GNE_ATTR_PLAN_GEOMETRY_STARTPOS,
     /// @brief person/container geometry end position

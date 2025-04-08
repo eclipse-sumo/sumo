@@ -1400,7 +1400,6 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::attrs[] = {
     { "poisson",                            GNE_ATTR_POISSON },
     { "stopIndex",                          GNE_ATTR_STOPINDEX },
     { "pathStopIndex",                      GNE_ATTR_PATHSTOPINDEX },
-    { "additionalChildren",                 GNE_ATTR_ADDITIONALCHILDREN },
     { "planGeometryStartPos",               GNE_ATTR_PLAN_GEOMETRY_STARTPOS },
     { "planGeometryEndPos",                 GNE_ATTR_PLAN_GEOMETRY_ENDPOS },
     { "fromLaneID",                         GNE_ATTR_FROM_LANEID },

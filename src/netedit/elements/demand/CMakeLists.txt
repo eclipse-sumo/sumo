@@ -5,14 +5,10 @@ set(netedit_elements_demand_SRCS
    GNEPlanParents.cpp
    GNEDemandElement.h
    GNEDemandElement.cpp
-   GNEDemandElementDistribution.h
-   GNEDemandElementDistribution.cpp
    GNEDemandElementFlow.h
    GNEDemandElementFlow.cpp
    GNEDemandElementPlan.h
    GNEDemandElementPlan.cpp
-   GNEDistribution.h
-   GNEDistribution.cpp
    GNERoute.h
    GNERoute.cpp
    GNERouteRef.h

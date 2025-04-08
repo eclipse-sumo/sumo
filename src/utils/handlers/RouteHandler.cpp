@@ -200,8 +200,28 @@ RouteHandler::endParseAttributes() {
                 // delete object (and all of their childrens)
                 delete obj;
                 break;
-            case SUMO_TAG_VTYPE:
             case SUMO_TAG_VTYPE_DISTRIBUTION:
+                // overwritte probabilities in children
+                for (int i = 0; i < (int)obj->getStringListAttribute(SUMO_ATTR_VTYPES).size(); i++) {
+                    const auto& vTypeID = obj->getStringListAttribute(SUMO_ATTR_VTYPES).at(i);
+                    const double probability = obj->getDoubleListAttribute(SUMO_ATTR_PROBS).at(i);
+                    // find child
+                    for (auto objChild : obj->getSumoBaseObjectChildren()) {
+                        if (objChild->hasStringAttribute(SUMO_ATTR_ID) && (objChild->getStringAttribute(SUMO_ATTR_ID) == vTypeID)) {
+                            // vTypes
+                            objChild->addDoubleAttribute(SUMO_ATTR_PROB, probability);
+                        } else if (objChild->hasStringAttribute(SUMO_ATTR_REFID) && (objChild->getStringAttribute(SUMO_ATTR_REFID) == vTypeID)) {
+                            // vTypeReferences
+                            objChild->addDoubleAttribute(SUMO_ATTR_PROB, probability);
+                        }
+                    }
+                }
+                // parse object and all their childrens
+                parseSumoBaseObject(obj);
+                // delete object (and all of their childrens)
+                delete obj;
+                break;
+            case SUMO_TAG_VTYPE:
             case SUMO_TAG_TRIP:
             case SUMO_TAG_VEHICLE:
             case SUMO_TAG_FLOW:
@@ -238,9 +258,7 @@ RouteHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) {
         case SUMO_TAG_VTYPE_DISTRIBUTION:
             if (buildVTypeDistribution(obj,
                                        obj->getStringAttribute(SUMO_ATTR_ID),
-                                       obj->getIntAttribute(SUMO_ATTR_DETERMINISTIC),
-                                       obj->getStringListAttribute(SUMO_ATTR_VTYPES),
-                                       obj->getDoubleListAttribute(SUMO_ATTR_PROBS))) {
+                                       obj->getIntAttribute(SUMO_ATTR_DETERMINISTIC))) {
                 obj->markAsCreated();
             }
             break;
