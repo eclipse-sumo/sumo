@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-13 10:07+0100\n"
-"PO-Revision-Date: 2025-04-07 12:10+0000\n"
+"PO-Revision-Date: 2025-04-08 07:40+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -12746,36 +12746,39 @@ msgstr ""
 #: src/utils/geom/GeoConvHelper.cpp:232
 msgid "Inverse projection works only with explicit proj parameters."
 msgstr ""
+"La proiezione inversa funziona solamente con dei parametri proj espliciti."
 
 #: src/utils/geom/GeoConvHelper.cpp:237
 msgid "The projection method needs to be uniquely defined."
-msgstr ""
+msgstr "Il metodo di proiezione deve essere definito di forma unica."
 
 #: src/utils/geom/GeoConvHelper.cpp:288
 msgid "Uses a simple method for projection"
-msgstr ""
+msgstr "Utilizza un metodo semplice per la proiezione"
 
 #: src/utils/geom/GeoConvHelper.cpp:291
 msgid "Scaling factor for input coordinates"
-msgstr ""
+msgstr "Fattore di scala per le coordinate d'ingresso"
 
 #: src/utils/geom/GeoConvHelper.cpp:294
 msgid "Rotation (clockwise degrees) for input coordinates"
-msgstr ""
+msgstr "Rotazione (in gradi nel senso orario) per le coordinate d'ingresso"
 
 #: src/utils/geom/GeoConvHelper.cpp:298
 msgid ""
 "Determine the UTM zone (for a universal transversal mercator projection "
 "based on the WGS84 ellipsoid)"
 msgstr ""
+"Determina la zona UTM (per una proiezione universale di Mercator basata "
+"sul'ellipsoide WGS84)"
 
 #: src/utils/geom/GeoConvHelper.cpp:304
 msgid "Uses STR as proj.4 definition for projection"
-msgstr ""
+msgstr "Utilizza STR come definizione proj.4 della proiezione"
 
 #: src/utils/geom/GeoConvHelper.cpp:307
 msgid "Inverses projection"
-msgstr ""
+msgstr "Inverti proiezione"
 
 #: src/utils/geom/GeoConvHelper.cpp:310
 msgid "Convert from Gauss-Krueger to UTM"
