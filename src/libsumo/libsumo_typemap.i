@@ -89,6 +89,13 @@
     $1 = &vars;
 }
 
+%{
+#if PY_MAJOR_VERSION < 3
+#define PyUnicodeCheck PyStringCheck
+#define PyUnicode_AsUTF8 PyString_AsString
+#endif
+%}
+
 %typemap(in) const libsumo::TraCIResults& (libsumo::TraCIResults parameters) {
     if (!PyDict_Check($input)) {
         PyErr_SetString(PyExc_TypeError, "Expecting a dict");
