@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-02-13 10:07+0100\n"
-"PO-Revision-Date: 2025-04-08 07:40+0000\n"
+"PO-Revision-Date: 2025-04-08 08:27+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -12782,23 +12782,23 @@ msgstr "Inverti proiezione"
 
 #: src/utils/geom/GeoConvHelper.cpp:310
 msgid "Convert from Gauss-Krueger to UTM"
-msgstr ""
+msgstr "Converti da Gauss-Krueger a UTM"
 
 #: src/utils/geom/GeoConvHelper.cpp:374
 msgid "Failed to create transformation, reason unknown."
-msgstr ""
+msgstr "La trasformazione non poteva essere creata per motivi sconosciuti."
 
 #: src/utils/geom/GeoConvHelper.cpp:376
 msgid "Failed to create transformation, %."
-msgstr ""
+msgstr "La trasformazione non poteva essere creata (%)."
 
 #: src/utils/geom/GeoConvHelper.cpp:381
 msgid "Failed to transform, %."
-msgstr ""
+msgstr "Trasformazione fallita (%)."
 
 #: src/utils/geom/GeoConvHelper.cpp:464
 msgid "Could not transform (%,%)"
-msgstr ""
+msgstr "Non ho potuto trasformare (%,%)"
 
 #: src/utils/geom/GeoConvHelper.cpp:606
 #, c-format
@@ -12840,25 +12840,30 @@ msgstr ""
 
 #: src/utils/handlers/AdditionalHandler.cpp:1455
 msgid "Calibrators need either an edge or a lane"
-msgstr ""
+msgstr "Calibrator hanno bisogno di un arco o di una corsia"
 
 #: src/utils/handlers/AdditionalHandler.cpp:1503
 msgid ""
 "CalibratorFlows need either the attribute vehsPerHour or speed or type (or "
 "any combination of these)"
 msgstr ""
+"CalibratorFlow hanno bisogno di almeno uno degli attributi vehsPerHour, "
+"speed o type"
 
 #: src/utils/handlers/AdditionalHandler.cpp:1920
 msgid "X and Y must be be defined together in POIs"
-msgstr ""
+msgstr "X e Y devono essere specificati insieme nei punti punti di interesse"
 
 #: src/utils/handlers/AdditionalHandler.cpp:1926
 msgid "lane and position must be defined together in POIs"
 msgstr ""
+"corsia e posizione devono essere specificate insieme nei punti di interesse"
 
 #: src/utils/handlers/AdditionalHandler.cpp:1932
 msgid "lon and lat must be be defined together in POIs"
 msgstr ""
+"longitudine e latitudine devono essere specificate insieme nei punti di "
+"interesse"
 
 #: src/utils/handlers/AdditionalHandler.cpp:1959
 #: src/utils/shapes/ShapeHandler.cpp:127
