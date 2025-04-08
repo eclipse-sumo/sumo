@@ -102,7 +102,7 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::tags[] = {
     { "flowTAZs",                               GNE_TAG_FLOW_TAZS },
     { "flowState",                              SUMO_TAG_FLOWSTATE },
     { "vType",                                  SUMO_TAG_VTYPE },
-    { "vTypeChildDistribution",                 GNE_TAG_VTYPE_CHILDDISTRIBUTION },
+    { "vTypeRef",                               GNE_TAG_VTYPEREF },
     { "route",                                  SUMO_TAG_ROUTE },
     { "routeRef",                               GNE_TAG_ROUTEREF },
     { "routeEmbedded",                          GNE_TAG_ROUTE_EMBEDDED },
