@@ -200,11 +200,10 @@ to be inside the range of the stop.
 Stops define a delay until the next element of a plan is started. They
 can be used to model activities such as working or shopping. Stops for
 persons follow the specification at
-[Specification\#Stops](index.md#stops). However, only
-the attributes `lane`, `duration` and `until` are evaluated. Using these attributes it is
-possible to model activities with a fixed duration as well as those with
+[Specification\#Stops](index.md#stops). However, the attributes `index`, `triggered`, `containerTriggered` and `parking` are not evaluated. 
+With a `<stop>` it is possible to model activities with a fixed duration as well as those with
 a fixed end time. If a person needs to be transferred between two
-positions without delay, it is possible to use two stops in conjunction.
+positions without delay, it is possible to use two stops at different locations in sequence and set attribute `jump` for the first stop.
 
 ## Parameters
 
