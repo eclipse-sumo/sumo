@@ -230,6 +230,9 @@ RODUAFrame::checkOptions() {
     if (oc.isDefault("routing-algorithm") && (oc.isSet("astar.all-distances") || oc.isSet("astar.landmark-distances") || oc.isSet("astar.save-landmark-distances"))) {
         oc.setDefault("routing-algorithm", "astar");
     }
+    if (!oc.isDefault("weights.random-factor") && (oc.isSet("astar.all-distances") || oc.isSet("astar.landmark-distances") || oc.isSet("astar.save-landmark-distances"))) {
+        WRITE_WARNING(TL("The option --weights.random-factor should not be used together with astar and precomputed distances."));
+    }
 
     if (oc.getString("route-choice-method") != "gawron" && oc.getString("route-choice-method") != "logit") {
         WRITE_ERRORF(TL("Invalid route choice method '%'."), oc.getString("route-choice-method"));
