@@ -110,3 +110,10 @@ Here, the expected quantities are
 
 - `expectedHeadway = lastRecognizedHeadway - expectedSpeedDifference*elapsedTimeSinceLastRecognition`
 - `expectedSpeedDifference = lastRecognizedSpeedDifference`
+
+# Publication
+
+See sectino *2.3.1.3 Modelling of a Decreased Post-ToC Driver Performance* in 
+[TransAID project report: Modelling, simulation and assessment of vehicle
+automations and automated vehicles’ driver behaviour in
+mixed traffic](https://www.transaid.eu/wp-content/uploads/2017/Deliverables/WP3/TransAID_D3.1_Modelling-simulation-and-assessment-of-vehicle-automations.pdf)
