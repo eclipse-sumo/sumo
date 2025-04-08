@@ -25,8 +25,8 @@
 // ===========================================================================
 
 GNETagProperties::GNETagProperties(const SumoXMLTag tag, GNETagProperties* parent, const Type tagType,
-                                   const Property tagProperty, const Over myTagOver,
-                                   const Conflicts conflicts, const GUIIcon icon, const SumoXMLTag XMLTag,
+                                   const Property tagProperty, const Over myTagOver, const Conflicts conflicts,
+                                   const GUIIcon icon, const GUIGlObjectType GLType, const SumoXMLTag XMLTag,
                                    const std::string tooltip, const std::vector<SumoXMLTag> XMLParentTags,
                                    const unsigned int backgroundColor, const std::string selectorText) :
     myTag(tag),
@@ -48,8 +48,8 @@ GNETagProperties::GNETagProperties(const SumoXMLTag tag, GNETagProperties* paren
 }
 
 
-GNETagProperties::GNETagProperties(const SumoXMLTag tag, GNETagProperties* parent, const GUIIcon icon, const std::string tooltip,
-                                   const unsigned int backgroundColor, const std::string selectorText) :
+GNETagProperties::GNETagProperties(const SumoXMLTag tag, GNETagProperties* parent, const GUIIcon icon, const GUIGlObjectType GLType,
+                                   const std::string tooltip, const unsigned int backgroundColor, const std::string selectorText) :
     myTag(tag),
     myTagStr(toString(tag)),
     myParent(parent),

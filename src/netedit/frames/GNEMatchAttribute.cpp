@@ -487,6 +487,7 @@ GNEMatchAttribute::CurrentEditedProperties::CurrentEditedProperties(const GNEMat
     myTagPropertiesAllAttributes = new GNETagProperties(GNE_TAG_ATTRIBUTES_ALL,
             nullptr,
             GUIIcon::EMPTY,
+            GUIGlObjectType::GLO_NETWORK,
             TL("Show all attributes"),
             FXRGBA(255, 255, 255, 255),
             TL("<all>"));
