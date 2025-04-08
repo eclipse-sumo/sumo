@@ -38,14 +38,14 @@
 // ===========================================================================
 
 GNEOverheadWire::GNEOverheadWire(GNENet* net) :
-    GNEAdditional("", net, "", GLO_OVERHEAD_WIRE_SEGMENT, SUMO_TAG_OVERHEAD_WIRE_SECTION, "") {
+    GNEAdditional("", net, "", SUMO_TAG_OVERHEAD_WIRE_SECTION, "") {
 }
 
 
 GNEOverheadWire::GNEOverheadWire(const std::string& id, GNENet* net, const std::string& filename, std::vector<GNELane*> lanes, GNEAdditional* substation,
                                  const double startPos, const double endPos, const bool friendlyPos, const std::vector<std::string>& forbiddenInnerLanes,
                                  const Parameterised::Map& parameters) :
-    GNEAdditional(id, net, filename, GLO_OVERHEAD_WIRE_SEGMENT, SUMO_TAG_OVERHEAD_WIRE_SECTION, ""),
+    GNEAdditional(id, net, filename, SUMO_TAG_OVERHEAD_WIRE_SECTION, ""),
     Parameterised(parameters),
     myStartPos(startPos),
     myEndPos(endPos),

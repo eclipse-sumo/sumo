@@ -35,13 +35,13 @@
 // ===========================================================================
 
 GNEVaporizer::GNEVaporizer(GNENet* net) :
-    GNEAdditional("", net, "", GLO_VAPORIZER, SUMO_TAG_VAPORIZER, "") {
+    GNEAdditional("", net, "", SUMO_TAG_VAPORIZER, "") {
 }
 
 
 GNEVaporizer::GNEVaporizer(GNENet* net, const std::string& filename, GNEEdge* edge, SUMOTime from, SUMOTime end,
                            const std::string& name, const Parameterised::Map& parameters) :
-    GNEAdditional(edge->getID(), net, filename, GLO_VAPORIZER, SUMO_TAG_VAPORIZER, name),
+    GNEAdditional(edge->getID(), net, filename, SUMO_TAG_VAPORIZER, name),
     Parameterised(parameters),
     myBegin(from),
     myEnd(end) {

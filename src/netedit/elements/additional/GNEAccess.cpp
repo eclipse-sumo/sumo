@@ -39,7 +39,7 @@
 // ===========================================================================
 
 GNEAccess::GNEAccess(GNENet* net) :
-    GNEAdditional("", net, "", GLO_ACCESS, SUMO_TAG_ACCESS, ""),
+    GNEAdditional("", net, "", SUMO_TAG_ACCESS, ""),
     myPositionOverLane(0),
     myLength(0),
     myFriendlyPosition(false) {
@@ -48,7 +48,7 @@ GNEAccess::GNEAccess(GNENet* net) :
 
 GNEAccess::GNEAccess(GNEAdditional* busStop, GNELane* lane, const double pos, const std::string& specialPos,
                      const bool friendlyPos, const double length, const Parameterised::Map& parameters) :
-    GNEAdditional(busStop, GLO_ACCESS, SUMO_TAG_ACCESS, ""),
+    GNEAdditional(busStop, SUMO_TAG_ACCESS, ""),
     Parameterised(parameters),
     myPositionOverLane(pos),
     mySpecialPosition(specialPos),

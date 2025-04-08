@@ -166,7 +166,7 @@ GNELane::DrawingConstants::drawSuperposed() const {
 #pragma warning(disable: 4355) // mask warning about "this" in initializers
 #endif
 GNELane::GNELane(GNEEdge* edge, const int index) :
-    GNENetworkElement(edge->getNet(), edge->getNBEdge()->getLaneID(index), GLO_LANE, SUMO_TAG_LANE),
+    GNENetworkElement(edge->getNet(), edge->getNBEdge()->getLaneID(index), SUMO_TAG_LANE),
     myIndex(index),
     myDrawingConstants(new DrawingConstants(this)),
     mySpecialColor(nullptr),
@@ -180,7 +180,7 @@ GNELane::GNELane(GNEEdge* edge, const int index) :
 
 
 GNELane::GNELane() :
-    GNENetworkElement(nullptr, "dummyConstructorGNELane", GLO_LANE, SUMO_TAG_LANE),
+    GNENetworkElement(nullptr, "dummyConstructorGNELane", SUMO_TAG_LANE),
     myIndex(-1),
     myDrawingConstants(nullptr),
     mySpecialColor(nullptr),

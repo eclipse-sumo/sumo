@@ -32,12 +32,12 @@
 // ===========================================================================
 
 GNERerouterInterval::GNERerouterInterval(GNENet* net) :
-    GNEAdditional("", net, "", GLO_REROUTER_INTERVAL, SUMO_TAG_INTERVAL, "") {
+    GNEAdditional("", net, "", SUMO_TAG_INTERVAL, "") {
 }
 
 
 GNERerouterInterval::GNERerouterInterval(GNERerouterDialog* rerouterDialog) :
-    GNEAdditional(rerouterDialog->getEditedAdditional(), GLO_REROUTER_INTERVAL, SUMO_TAG_INTERVAL, "") {
+    GNEAdditional(rerouterDialog->getEditedAdditional(), SUMO_TAG_INTERVAL, "") {
     // set parents
     setParent<GNEAdditional*>(rerouterDialog->getEditedAdditional());
     // update boundary of rerouter parent
@@ -46,7 +46,7 @@ GNERerouterInterval::GNERerouterInterval(GNERerouterDialog* rerouterDialog) :
 
 
 GNERerouterInterval::GNERerouterInterval(GNEAdditional* rerouterParent, SUMOTime begin, SUMOTime end) :
-    GNEAdditional(rerouterParent, GLO_REROUTER, SUMO_TAG_INTERVAL, ""),
+    GNEAdditional(rerouterParent, SUMO_TAG_INTERVAL, ""),
     myBegin(begin),
     myEnd(end) {
     // set parents

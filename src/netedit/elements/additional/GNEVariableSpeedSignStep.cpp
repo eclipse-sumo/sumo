@@ -30,12 +30,12 @@
 // ===========================================================================
 
 GNEVariableSpeedSignStep::GNEVariableSpeedSignStep(GNENet* net) :
-    GNEAdditional("", net, "", GLO_VSS_STEP, SUMO_TAG_STEP, "") {
+    GNEAdditional("", net, "", SUMO_TAG_STEP, "") {
 }
 
 
 GNEVariableSpeedSignStep::GNEVariableSpeedSignStep(GNEAdditional* variableSpeedSignParent, SUMOTime time, const std::string& speed) :
-    GNEAdditional(variableSpeedSignParent, GLO_VSS_STEP, SUMO_TAG_STEP, ""),
+    GNEAdditional(variableSpeedSignParent, SUMO_TAG_STEP, ""),
     myTime(time),
     mySpeed(speed) {
     // set parents

@@ -48,18 +48,20 @@
 // member method definitions
 // ===========================================================================
 
-GNEAdditional::GNEAdditional(const std::string& id, GNENet* net, const std::string& filename, GUIGlObjectType type,
+GNEAdditional::GNEAdditional(const std::string& id, GNENet* net, const std::string& filename,
                              SumoXMLTag tag, const std::string& additionalName) :
     GNEAttributeCarrier(tag, net, filename, id.empty()),
-    GUIGlObject(type, id, GUIIconSubSys::getIcon(net->getTagPropertiesDatabase()->getTagProperty(tag, true)->getGUIIcon())),
+    GUIGlObject(net->getTagPropertiesDatabase()->getTagProperty(tag, true)->getGLType(), id,
+                GUIIconSubSys::getIcon(net->getTagPropertiesDatabase()->getTagProperty(tag, true)->getGUIIcon())),
     GNEPathElement(GNEPathElement::Options::ADDITIONAL_ELEMENT),
     myAdditionalName(additionalName) {
 }
 
 
-GNEAdditional::GNEAdditional(GNEAdditional* additionalParent, GUIGlObjectType type, SumoXMLTag tag, const std::string& additionalName) :
+GNEAdditional::GNEAdditional(GNEAdditional* additionalParent, SumoXMLTag tag, const std::string& additionalName) :
     GNEAttributeCarrier(tag, additionalParent->getNet(), additionalParent->getFilename(), false),
-    GUIGlObject(type, additionalParent->getID(), GUIIconSubSys::getIcon(additionalParent->getNet()->getTagPropertiesDatabase()->getTagProperty(tag, true)->getGUIIcon())),
+    GUIGlObject(additionalParent->getNet()->getTagPropertiesDatabase()->getTagProperty(tag, true)->getGLType(), additionalParent->getID(),
+                GUIIconSubSys::getIcon(additionalParent->getNet()->getTagPropertiesDatabase()->getTagProperty(tag, true)->getGUIIcon())),
     GNEPathElement(GNEPathElement::Options::ADDITIONAL_ELEMENT),
     myAdditionalName(additionalName) {
 }
@@ -1023,20 +1025,6 @@ GNEAdditional::getJuPedSimLayer(SumoXMLTag tag) {
             return 1;
         case GNE_TAG_JPS_OBSTACLE:
             return 2;
-        default:
-            throw InvalidArgument("Invalid JuPedSim tag");
-    }
-}
-
-
-GUIGlObjectType
-GNEAdditional::getJuPedSimGLO(SumoXMLTag tag) {
-    // continue depending of tag
-    switch (tag) {
-        case GNE_TAG_JPS_WALKABLEAREA:
-            return GLO_JPS_WALKABLEAREA;
-        case GNE_TAG_JPS_OBSTACLE:
-            return GLO_JPS_OBSTACLE;
         default:
             throw InvalidArgument("Invalid JuPedSim tag");
     }

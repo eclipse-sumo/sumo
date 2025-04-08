@@ -652,7 +652,7 @@ GNETagPropertiesDatabase::fillNetworkElements() {
                 GNETagProperties::Property::NOTDRAWABLE | GNETagProperties::Property::NOTSELECTABLE,
                 GNETagProperties::Over::VIEW,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
-                GUIIcon::EDGETYPE, GUIGlObjectType::GLO_EDGE, currentTag, TL("EdgeType"));
+                GUIIcon::EDGETYPE, GUIGlObjectType::GLO_EDGETYPE, currentTag, TL("EdgeType"));
         // set values of attributes
         fillIDAttribute(myTagProperties[currentTag], false);
 
@@ -709,7 +709,7 @@ GNETagPropertiesDatabase::fillNetworkElements() {
                 GNETagProperties::Property::NOTDRAWABLE | GNETagProperties::Property::NOTSELECTABLE,
                 GNETagProperties::Over::VIEW,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
-                GUIIcon::LANETYPE, GUIGlObjectType::GLO_LANE, currentTag, TL("LaneType"));
+                GUIIcon::LANETYPE, GUIGlObjectType::GLO_LANETYPE, currentTag, TL("LaneType"));
         // set values of attributes
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_SPEED,
                                    GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::COPYABLE,
@@ -2458,7 +2458,7 @@ GNETagPropertiesDatabase::fillJuPedSimElements() {
                 GNETagProperties::Property::RTREE,
                 GNETagProperties::Over::VIEW,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
-                GUIIcon::JPS_WALKABLEAREA, GUIGlObjectType::GLO_POLYGON, SUMO_TAG_POLY, TL("JuPedSim WalkableArea"),
+                GUIIcon::JPS_WALKABLEAREA, GUIGlObjectType::GLO_JPS_WALKABLEAREA, SUMO_TAG_POLY, TL("JuPedSim WalkableArea"),
                 {}, FXRGBA(253, 255, 206, 255));
         // set values of attributes
         fillIDAttribute(myTagProperties[currentTag], true);
@@ -2489,7 +2489,7 @@ GNETagPropertiesDatabase::fillJuPedSimElements() {
                 GNETagProperties::Property::RTREE,
                 GNETagProperties::Over::VIEW,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
-                GUIIcon::JPS_OBSTACLE, GUIGlObjectType::GLO_POLYGON, SUMO_TAG_POLY, TL("JuPedSim Obstacle"),
+                GUIIcon::JPS_OBSTACLE, GUIGlObjectType::GLO_JPS_OBSTACLE, SUMO_TAG_POLY, TL("JuPedSim Obstacle"),
                 {}, FXRGBA(253, 255, 206, 255));
         // set values of attributes
         fillIDAttribute(myTagProperties[currentTag], true);

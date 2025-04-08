@@ -31,15 +31,14 @@
 // ===========================================================================
 
 GNEChargingStation::GNEChargingStation(GNENet* net) :
-    GNEStoppingPlace(net, GLO_CHARGING_STATION, SUMO_TAG_CHARGING_STATION) {
+    GNEStoppingPlace(net, SUMO_TAG_CHARGING_STATION) {
 }
 
 
 GNEChargingStation::GNEChargingStation(const std::string& id, GNENet* net, const std::string& filename, GNELane* lane, const double startPos, const double endPos,
                                        const std::string& name, double chargingPower, double efficiency, bool chargeInTransit, SUMOTime chargeDelay,
                                        const std::string& chargeType, const SUMOTime waitingTime, bool friendlyPosition, const Parameterised::Map& parameters) :
-    GNEStoppingPlace(id, net, filename, GLO_CHARGING_STATION, SUMO_TAG_CHARGING_STATION,
-                     lane, startPos, endPos, name, friendlyPosition, RGBColor::INVISIBLE, parameters),
+    GNEStoppingPlace(id, net, filename, SUMO_TAG_CHARGING_STATION, lane, startPos, endPos, name, friendlyPosition, RGBColor::INVISIBLE, parameters),
     myChargingPower(chargingPower),
     myEfficiency(efficiency),
     myChargeInTransit(chargeInTransit),

@@ -34,21 +34,21 @@
 // ===========================================================================
 
 GNEEdgeType::GNEEdgeType(GNECreateEdgeFrame* createEdgeFrame) :
-    GNENetworkElement(createEdgeFrame->getViewNet()->getNet(), "", GLO_EDGETYPE, SUMO_TAG_TYPE) {
+    GNENetworkElement(createEdgeFrame->getViewNet()->getNet(), "", SUMO_TAG_TYPE) {
     // create laneType
     myLaneTypes.push_back(new GNELaneType(this));
 }
 
 
 GNEEdgeType::GNEEdgeType(const GNEEdgeType* edgeType) :
-    GNENetworkElement(edgeType->getNet(), edgeType->getID(), GLO_EDGETYPE, SUMO_TAG_TYPE),
+    GNENetworkElement(edgeType->getNet(), edgeType->getID(), SUMO_TAG_TYPE),
     Parameterised(edgeType->getParametersMap()),
     NBTypeCont::EdgeTypeDefinition(edgeType) {
 }
 
 
 GNEEdgeType::GNEEdgeType(GNENet* net) :
-    GNENetworkElement(net, net->getAttributeCarriers()->generateEdgeTypeID(), GLO_EDGE, SUMO_TAG_TYPE) {
+    GNENetworkElement(net, net->getAttributeCarriers()->generateEdgeTypeID(), SUMO_TAG_TYPE) {
     // create laneType
     GNELaneType* laneType = new GNELaneType(this);
     myLaneTypes.push_back(laneType);
@@ -56,7 +56,7 @@ GNEEdgeType::GNEEdgeType(GNENet* net) :
 
 
 GNEEdgeType::GNEEdgeType(GNENet* net, const std::string& ID, const NBTypeCont::EdgeTypeDefinition* edgeType) :
-    GNENetworkElement(net, ID, GLO_EDGE, SUMO_TAG_TYPE) {
+    GNENetworkElement(net, ID, SUMO_TAG_TYPE) {
     // create  laneTypes
     for (const auto& laneTypeDef : edgeType->laneTypeDefinitions) {
         GNELaneType* laneType = new GNELaneType(this, laneTypeDef);

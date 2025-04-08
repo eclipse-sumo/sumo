@@ -19,7 +19,7 @@
 /****************************************************************************/
 
 #include <netedit/GNENet.h>
-#include <netedit/GNETagProperties.h>
+#include <netedit/GNETagPropertiesDatabase.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/frames/common/GNESelectorFrame.h>
 #include <netedit/frames/data/GNEEdgeDataFrame.h>
@@ -35,18 +35,19 @@
 // member method definitions
 // ===========================================================================
 
-GNEGenericData::GNEGenericData(SumoXMLTag tag, GUIIcon icon, const GUIGlObjectType type, GNENet* net) :
+GNEGenericData::GNEGenericData(SumoXMLTag tag, GNENet* net) :
     GNEAttributeCarrier(tag, net, "", true),
-    GUIGlObject(type, "", GUIIconSubSys::getIcon(icon)),
+    GUIGlObject(net->getTagPropertiesDatabase()->getTagProperty(tag, true)->getGLType(), "",
+                GUIIconSubSys::getIcon(net->getTagPropertiesDatabase()->getTagProperty(tag, true)->getGUIIcon())),
     GNEPathElement(GNEPathElement::Options::DATA_ELEMENT),
     myDataIntervalParent(nullptr) {
 }
 
 
-GNEGenericData::GNEGenericData(const SumoXMLTag tag, GUIIcon icon, const GUIGlObjectType type, GNEDataInterval* dataIntervalParent,
-                               const Parameterised::Map& parameters) :
+GNEGenericData::GNEGenericData(const SumoXMLTag tag, GNEDataInterval* dataIntervalParent, const Parameterised::Map& parameters) :
     GNEAttributeCarrier(tag, dataIntervalParent->getNet(), dataIntervalParent->getFilename(), false),
-    GUIGlObject(type, dataIntervalParent->getID(), GUIIconSubSys::getIcon(icon)),
+    GUIGlObject(dataIntervalParent->getNet()->getTagPropertiesDatabase()->getTagProperty(tag, true)->getGLType(), dataIntervalParent->getID(),
+                GUIIconSubSys::getIcon(dataIntervalParent->getNet()->getTagPropertiesDatabase()->getTagProperty(tag, true)->getGUIIcon())),
     GNEPathElement(GNEPathElement::Options::DATA_ELEMENT),
     Parameterised(parameters),
     myDataIntervalParent(dataIntervalParent) {

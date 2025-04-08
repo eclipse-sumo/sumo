@@ -32,14 +32,14 @@
 // ===========================================================================
 
 GNEContainerStop::GNEContainerStop(GNENet* net) :
-    GNEStoppingPlace(net, GLO_CONTAINER_STOP, SUMO_TAG_CONTAINER_STOP) {
+    GNEStoppingPlace(net, SUMO_TAG_CONTAINER_STOP) {
 }
 
 
 GNEContainerStop::GNEContainerStop(const std::string& id, GNENet* net, const std::string& filename, GNELane* lane, const double startPos, const double endPos,
                                    const std::string& name, const std::vector<std::string>& lines, int containerCapacity, double parkingLength, const RGBColor& color,
                                    bool friendlyPosition, const Parameterised::Map& parameters) :
-    GNEStoppingPlace(id, net, filename, GLO_CONTAINER_STOP, SUMO_TAG_CONTAINER_STOP, lane, startPos, endPos, name, friendlyPosition, color, parameters),
+    GNEStoppingPlace(id, net, filename, SUMO_TAG_CONTAINER_STOP, lane, startPos, endPos, name, friendlyPosition, color, parameters),
     myLines(lines),
     myContainerCapacity(containerCapacity),
     myParkingLength(parkingLength) {

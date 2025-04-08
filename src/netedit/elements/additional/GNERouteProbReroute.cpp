@@ -31,12 +31,12 @@
 // ===========================================================================
 
 GNERouteProbReroute::GNERouteProbReroute(GNENet* net) :
-    GNEAdditional("", net, "", GLO_REROUTER_ROUTEPROBREROUTE, SUMO_TAG_ROUTE_PROB_REROUTE, "") {
+    GNEAdditional("", net, "", SUMO_TAG_ROUTE_PROB_REROUTE, "") {
 }
 
 
 GNERouteProbReroute::GNERouteProbReroute(GNEAdditional* rerouterIntervalParent, GNEDemandElement* route, double probability) :
-    GNEAdditional(rerouterIntervalParent, GLO_REROUTER_ROUTEPROBREROUTE, SUMO_TAG_ROUTE_PROB_REROUTE, ""),
+    GNEAdditional(rerouterIntervalParent, SUMO_TAG_ROUTE_PROB_REROUTE, ""),
     myProbability(probability) {
     // set parents
     setParent<GNEAdditional*>(rerouterIntervalParent);

@@ -31,10 +31,10 @@ class GNEDistribution : public GNEDemandElement, public Parameterised {
 
 public:
     /// @brief default constructor
-    GNEDistribution(GNENet* net, GUIGlObjectType type, SumoXMLTag elementTag);
+    GNEDistribution(GNENet* net, SumoXMLTag elementTag);
 
     /// @brief parameter constructor
-    GNEDistribution(const std::string& ID, GNENet* net, const std::string& filename, GUIGlObjectType type,
+    GNEDistribution(const std::string& ID, GNENet* net, const std::string& filename,
                     SumoXMLTag elementTag, const int deterministic);
 
     /// @brief destructor

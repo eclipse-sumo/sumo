@@ -81,6 +81,7 @@ StringBijection<GUIGlObjectType>::Entry GUIGlObject::GUIGlObjectTypeNamesInitial
     {"e1DetectorInstant",       GLO_E1DETECTOR_INSTANT},
     {"e2Detector",              GLO_E2DETECTOR},
     {"e3Detector",              GLO_E3DETECTOR},
+    {"entryExitDetector",       GLO_DET_ENTRYEXIT},
     {"entryDetector",           GLO_DET_ENTRY},
     {"exitDetector",            GLO_DET_EXIT},
     {"rerouter",                GLO_REROUTER},

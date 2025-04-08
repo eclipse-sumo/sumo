@@ -36,10 +36,9 @@ public:
     /**@brief Constructor.
      * @param[in] net The net to inform about gui updates
      * @param[in] id of the element
-     * @param[in] type type of GL object
      * @param[in] tag sumo xml tag of the element
      */
-    GNENetworkElement(GNENet* net, const std::string& id, GUIGlObjectType type, SumoXMLTag tag);
+    GNENetworkElement(GNENet* net, const std::string& id, SumoXMLTag tag);
 
     /// @brief Destructor
     virtual ~GNENetworkElement();

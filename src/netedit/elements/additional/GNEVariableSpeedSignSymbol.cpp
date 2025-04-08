@@ -31,12 +31,12 @@
 // ===========================================================================
 
 GNEVariableSpeedSignSymbol::GNEVariableSpeedSignSymbol(GNENet* net) :
-    GNEAdditional("", net, "", GLO_VSS, GNE_TAG_VSS_SYMBOL, "") {
+    GNEAdditional("", net, "", GNE_TAG_VSS_SYMBOL, "") {
 }
 
 
 GNEVariableSpeedSignSymbol::GNEVariableSpeedSignSymbol(GNEAdditional* VSSParent, GNELane* lane) :
-    GNEAdditional(VSSParent, GLO_VSS, GNE_TAG_VSS_SYMBOL, "") {
+    GNEAdditional(VSSParent, GNE_TAG_VSS_SYMBOL, "") {
     // set parents
     setParent<GNELane*>(lane);
     setParent<GNEAdditional*>(VSSParent);

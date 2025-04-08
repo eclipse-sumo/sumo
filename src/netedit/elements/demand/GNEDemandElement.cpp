@@ -45,19 +45,22 @@
 #pragma warning(push)
 #pragma warning(disable: 4355) // mask warning about "this" in initializers
 #endif
-GNEDemandElement::GNEDemandElement(const std::string& id, GNENet* net, const std::string& filename, GUIGlObjectType type,
+GNEDemandElement::GNEDemandElement(const std::string& id, GNENet* net, const std::string& filename,
                                    SumoXMLTag tag, const GNEPathElement::Options pathOptions) :
     GNEAttributeCarrier(tag, net, filename, id.empty()),
-    GUIGlObject(type, id, GUIIconSubSys::getIcon(net->getTagPropertiesDatabase()->getTagProperty(tag, true)->getGUIIcon())),
+    GUIGlObject(net->getTagPropertiesDatabase()->getTagProperty(tag, true)->getGLType(), id,
+                GUIIconSubSys::getIcon(net->getTagPropertiesDatabase()->getTagProperty(tag, true)->getGUIIcon())),
     GNEPathElement(pathOptions),
     GNEDemandElementDistribution(this),
     myStackedLabelNumber(0) {
 }
 
 
-GNEDemandElement::GNEDemandElement(GNEDemandElement* demandElementParent, GUIGlObjectType type, SumoXMLTag tag, const GNEPathElement::Options pathOptions) :
+GNEDemandElement::GNEDemandElement(GNEDemandElement* demandElementParent, SumoXMLTag tag,
+                                   const GNEPathElement::Options pathOptions) :
     GNEAttributeCarrier(tag, demandElementParent->getNet(), demandElementParent->getFilename(), false),
-    GUIGlObject(type, demandElementParent->getID(), GUIIconSubSys::getIcon(demandElementParent->getNet()->getTagPropertiesDatabase()->getTagProperty(tag, true)->getGUIIcon())),
+    GUIGlObject(demandElementParent->getNet()->getTagPropertiesDatabase()->getTagProperty(tag, true)->getGLType(), demandElementParent->getID(),
+                GUIIconSubSys::getIcon(demandElementParent->getNet()->getTagPropertiesDatabase()->getTagProperty(tag, true)->getGUIIcon())),
     GNEPathElement(pathOptions),
     GNEDemandElementDistribution(this),
     myStackedLabelNumber(0) {

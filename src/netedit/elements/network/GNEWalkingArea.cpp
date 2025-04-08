@@ -37,7 +37,7 @@
 // ===========================================================================
 
 GNEWalkingArea::GNEWalkingArea(GNEJunction* junction, const std::string& ID) :
-    GNENetworkElement(junction->getNet(), ID, GLO_WALKINGAREA, SUMO_TAG_WALKINGAREA),
+    GNENetworkElement(junction->getNet(), ID, SUMO_TAG_WALKINGAREA),
     myTesselation(ID, "", RGBColor::GREY, junction->getNBNode()->getWalkingArea(ID).shape, false, true, 0) {
     // set parent
     setParent<GNEJunction*>(junction);

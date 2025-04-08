@@ -37,14 +37,14 @@
 #pragma warning(disable: 4355) // mask warning about "this" in initializers
 #endif
 GNETranship::GNETranship(SumoXMLTag tag, GNENet* net) :
-    GNEDemandElement("", net, "", GLO_TRANSHIP, tag, GNEPathElement::Options::DEMAND_ELEMENT),
+    GNEDemandElement("", net, "", tag, GNEPathElement::Options::DEMAND_ELEMENT),
     GNEDemandElementPlan(this, -1, -1) {
 }
 
 
 GNETranship::GNETranship(SumoXMLTag tag, GNEDemandElement* containerParent, const GNEPlanParents& planParameters,
                          const double departPosition, const double arrivalPosition, const double speed, const SUMOTime duration) :
-    GNEDemandElement(containerParent, GLO_TRANSHIP, tag, GNEPathElement::Options::DEMAND_ELEMENT),
+    GNEDemandElement(containerParent, tag, GNEPathElement::Options::DEMAND_ELEMENT),
     GNEDemandElementPlan(this, departPosition, arrivalPosition),
     mySpeed(speed),
     myDuration(duration) {
