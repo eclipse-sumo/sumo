@@ -370,11 +370,11 @@ GNEDistributionFrame::DistributionRow::getProbability() const {
 long
 GNEDistributionFrame::DistributionRow::onCmdSetKey(FXObject*, FXSelector, void*) {
     // get Undo list
-    GNEUndoList* undoList = myDistributionValuesEditorParent->getFrameParent()->getViewNet()->getUndoList();
+    //GNEUndoList* undoList = myDistributionValuesEditorParent->getFrameParent()->getViewNet()->getUndoList();
     // get current distribution
     auto currentDistribution = myDistributionValuesEditorParent->myDistributionSelector->getCurrentDistribution();
     // get ACs
-    const auto& ACs = myDistributionValuesEditorParent->getFrameParent()->getViewNet()->getNet()->getAttributeCarriers();
+    //const auto& ACs = myDistributionValuesEditorParent->getFrameParent()->getViewNet()->getNet()->getAttributeCarriers();
     // continue if we have a distribution to edit
     if (currentDistribution == nullptr) {
         return 1;
@@ -420,7 +420,7 @@ GNEDistributionFrame::DistributionRow::onCmdSetProbability(FXObject*, FXSelector
     }
     // get probability
     const std::string probabilityStr = myProbabilityTextField->getText().text();
-    const double probability = GNEAttributeCarrier::canParse<double>(probabilityStr) ? GNEAttributeCarrier::parse<double>(probabilityStr) : -1;
+    //const double probability = GNEAttributeCarrier::canParse<double>(probabilityStr) ? GNEAttributeCarrier::parse<double>(probabilityStr) : -1;
     // Check if set new probability
     /*
     if (probability >= 0) {
@@ -461,7 +461,7 @@ bool
 GNEDistributionFrame::DistributionRow::isValidNewKey() const {
     const auto ACs = myDistributionValuesEditorParent->getFrameParent()->getViewNet()->getNet()->getAttributeCarriers();
     // get element associated with key
-    const auto element = ACs->retrieveDemandElement(myDistributionValuesEditorParent->myDistributionValueTag, myComboBoxKeys->getText().text(), false);
+    //const auto element = ACs->retrieveDemandElement(myDistributionValuesEditorParent->myDistributionValueTag, myComboBoxKeys->getText().text(), false);
     // first check if element exists
     /*
     if (element) {
@@ -612,6 +612,7 @@ GNEDistributionFrame::DistributionValuesEditor::onUpdAddRow(FXObject* sender, FX
         }
         */
     }
+    return 1;
 }
 
 /****************************************************************************/
