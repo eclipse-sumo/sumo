@@ -1384,7 +1384,8 @@ NIImporter_OpenDrive::setEdgeLinks2(OpenDriveEdge& e, const std::map<std::string
                 if (l.linkType != OPENDRIVE_LT_SUCCESSOR) {
                     std::swap(c.fromEdge, c.toEdge);
                     std::swap(c.fromLane, c.toLane);
-                    std::swap(c.fromCP, c.toCP);
+                    c.fromCP = c.toCP;
+                    c.toCP = OPENDRIVE_CP_START;
                 }
                 if (edges.find(c.fromEdge) == edges.end()) {
                     WRITE_ERRORF(TL("While setting connections: incoming road '%' is not known."), c.fromEdge);
@@ -1416,7 +1417,8 @@ NIImporter_OpenDrive::setEdgeLinks2(OpenDriveEdge& e, const std::map<std::string
                 if (l.linkType != OPENDRIVE_LT_SUCCESSOR) {
                     std::swap(c.fromEdge, c.toEdge);
                     std::swap(c.fromLane, c.toLane);
-                    std::swap(c.fromCP, c.toCP);
+                    c.fromCP = c.toCP;
+                    c.toCP = OPENDRIVE_CP_START;
                 }
                 if (edges.find(c.fromEdge) == edges.end()) {
                     WRITE_ERRORF(TL("While setting connections: incoming road '%' is not known."), c.fromEdge);
