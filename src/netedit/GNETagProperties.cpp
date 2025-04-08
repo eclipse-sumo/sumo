@@ -219,6 +219,10 @@ GNETagProperties::checkTagIntegrity() const {
     if (vClassIcon() && !hasAttribute(SUMO_ATTR_VCLASS)) {
         throw FormatException("Element require attribute SUMO_ATTR_VCLASS");
     }
+    // check glType
+    if (!isHierarchicalTag() && (myGLType == GUIGlObjectType::GLO_MAX)) {
+        throw FormatException("Only hierarchical tags can have a GLType GLO_MAX");
+    }
     // check integrity of all attributes
     for (const auto& attributeProperty : myAttributeProperties) {
         attributeProperty->checkAttributeIntegrity();

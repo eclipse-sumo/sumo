@@ -570,7 +570,7 @@ private:
     const GUIIcon myIcon = GUIIcon::EMPTY;
 
     /// @brief GUIGlObjectType associated with this tag property
-    const GUIGlObjectType myGLType = GUIGlObjectType::GLO_NETWORK;
+    const GUIGlObjectType myGLType = GUIGlObjectType::GLO_MAX;
 
     /// @brief Tag written in XML and used in GNENetHelper::AttributeCarriers
     const SumoXMLTag myXMLTag = SUMO_TAG_NOTHING;
