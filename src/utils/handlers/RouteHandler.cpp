@@ -56,7 +56,13 @@ RouteHandler::beginParseAttributes(SumoXMLTag tag, const SUMOSAXAttributes& attr
         switch (tag) {
             // vTypes
             case SUMO_TAG_VTYPE:
-                parseVType(attrs);
+                // continue depeding if we're parsing a vType or a reference
+                if ((myCommonXMLStructure.getSumoBaseObjectRoot()->getTag() == SUMO_TAG_VTYPE_DISTRIBUTION) &&
+                        attrs.hasAttribute(SUMO_ATTR_REFID)) {
+                    parseVTypeRef(attrs);
+                } else {
+                    parseVType(attrs);
+                }
                 break;
             case SUMO_TAG_VTYPE_DISTRIBUTION:
                 parseVTypeDistribution(attrs);
@@ -69,7 +75,7 @@ RouteHandler::beginParseAttributes(SumoXMLTag tag, const SUMOSAXAttributes& attr
                 if (parentTag != SUMO_TAG_ERROR) {
                     if ((parentTag == SUMO_TAG_VEHICLE) || (parentTag == SUMO_TAG_FLOW)) {
                         parseRouteEmbedded(attrs);
-                    } else if (parentTag == SUMO_TAG_ROUTE_DISTRIBUTION && attrs.hasAttribute(SUMO_ATTR_REFID)) {
+                    } else if ((parentTag == SUMO_TAG_ROUTE_DISTRIBUTION) && attrs.hasAttribute(SUMO_ATTR_REFID)) {
                         parseRouteRef(attrs);
                     } else {
                         parseRoute(attrs);
@@ -492,6 +498,25 @@ RouteHandler::parseVType(const SUMOSAXAttributes& attrs) {
         myCommonXMLStructure.getCurrentSumoBaseObject()->setVehicleTypeParameter(vehicleTypeParameter);
         // delete vehicleType parameter (because in XMLStructure we have a copy)
         delete vehicleTypeParameter;
+    } else {
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_ERROR);
+    }
+}
+
+
+void
+RouteHandler::parseVTypeRef(const SUMOSAXAttributes& attrs) {
+    // declare Ok Flag
+    bool parsedOk = true;
+    // special case for ID
+    const std::string refId = attrs.get<std::string>(SUMO_ATTR_REFID, "", parsedOk);
+    const double probability = attrs.getOpt<double>(SUMO_ATTR_PROB, refId.c_str(), parsedOk, 1.0);
+    if (parsedOk) {
+        // set tag
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_VTYPE);
+        // add all attributes
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_REFID, refId);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_PROB, probability);
     } else {
         myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_ERROR);
     }

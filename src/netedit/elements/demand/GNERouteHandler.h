@@ -60,6 +60,9 @@ public:
     /// @brief build vType
     bool buildVType(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVTypeParameter& vTypeParameter);
 
+    /// @brief build vType ref
+    bool buildVTypeRef(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& vTypeID, const double probability);
+
     /// @brief build vType distribution
     bool buildVTypeDistribution(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const int deterministic,
                                 const std::vector<std::string>& vTypeIDs, const std::vector<double>& probabilities);
@@ -278,6 +281,9 @@ protected:
 
     /// @brief get route distribution parent
     GNEDemandElement* getRouteDistributionParent(const CommonXMLStructure::SumoBaseObject* sumoBaseObject) const;
+
+    /// @brief get vType distribution parent
+    GNEDemandElement* getVTypeDistributionParent(const CommonXMLStructure::SumoBaseObject* sumoBaseObject) const;
 
     /// @brief get distribution elements
     bool getDistributionElements(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, SumoXMLTag distributionElementTag,

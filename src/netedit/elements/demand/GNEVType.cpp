@@ -75,34 +75,6 @@ GNEVType::GNEVType(GNENet* net, const std::string& filename, const SUMOVTypePara
 }
 
 
-GNEVType::GNEVType(GNEDemandElement* distribution, const std::string& vTypeID, const std::string& filename) :
-    GNEDemandElement(vTypeID, distribution->getNet(), filename, GNE_TAG_VTYPE_CHILDDISTRIBUTION,
-                     GNEPathElement::Options::DEMAND_ELEMENT),
-    SUMOVTypeParameter(vTypeID),
-    myDefaultVehicleType(false),
-    myDefaultVehicleTypeModified(false) {
-    // set parents
-    setParent<GNEDemandElement*>(distribution);
-    // set default vehicle class
-    vehicleClass = SVC_PASSENGER;
-    // init Rail Visualization Parameters
-    initRailVisualizationParameters();
-}
-
-
-GNEVType::GNEVType(GNEDemandElement* distribution, const std::string& filename, const SUMOVTypeParameter& vTypeParameter) :
-    GNEDemandElement(vTypeParameter.id, distribution->getNet(), filename, GNE_TAG_VTYPE_CHILDDISTRIBUTION,
-                     GNEPathElement::Options::DEMAND_ELEMENT),
-    SUMOVTypeParameter(vTypeParameter),
-    myDefaultVehicleType(false),
-    myDefaultVehicleTypeModified(false) {
-    // set parents
-    setParent<GNEDemandElement*>(distribution);
-    // init Rail Visualization Parameters
-    initRailVisualizationParameters();
-}
-
-
 GNEVType::GNEVType(const std::string& newVTypeID, GNENet* net, GNEVType* vTypeOriginal) :
     GNEDemandElement(newVTypeID, net, vTypeOriginal->getFilename(), vTypeOriginal->getTagProperty()->getTag(),
                      GNEPathElement::Options::DEMAND_ELEMENT),

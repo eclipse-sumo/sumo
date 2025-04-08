@@ -36,10 +36,10 @@ class GNERouteDistribution;
 class GNERouteRef : public GNEDemandElement, public Parameterised {
 
 public:
-    /// @brief default constructor (used in calibrators)
+    /// @brief default constructor
     GNERouteRef(GNENet* net);
 
-    /// @brief default  constructor (used in copy embedded vehicles)
+    /// @brief parameter constructor
     GNERouteRef(GNEDemandElement* distributionParent, GNEDemandElement* routeParent, const double probability);
 
     /// @brief destructor

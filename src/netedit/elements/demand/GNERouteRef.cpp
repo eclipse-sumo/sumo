@@ -59,20 +59,6 @@ GNERouteRef::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, this);
     // build common options
     buildPopUpMenuCommonOptions(ret, app, myNet->getViewNet(), myTagProperty->getTag(), mySelected);
-    // show option to open demand element dialog
-    if (myTagProperty->hasDialog()) {
-        GUIDesigns::buildFXMenuCommand(ret, "Open " + getTagStr() + " Dialog", getACIcon(), &parent, MID_OPEN_ADDITIONAL_DIALOG);
-        new FXMenuSeparator(ret);
-    }
-    GUIDesigns::buildFXMenuCommand(ret, "Cursor position in view: " + toString(getPositionInView().x()) + "," + toString(getPositionInView().y()), nullptr, nullptr, 0);
-    new FXMenuSeparator(ret);
-    GUIDesigns::buildFXMenuCommand(ret, "Apply distance along route", nullptr, ret, MID_GNE_ROUTE_APPLY_DISTANCE);
-    // route length
-    buildMenuCommandRouteLength(ret);
-    if (myNet->getViewNet()->getEditModes().isCurrentSupermodeDemand()) {
-        // add reverse
-        buildMenuAddReverse(ret);
-    }
     return ret;
 }
 

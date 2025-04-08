@@ -56,6 +56,9 @@ public:
     /// @brief build vType
     virtual bool buildVType(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVTypeParameter& vTypeParameter) = 0;
 
+    /// @brief build vType ref
+    virtual bool buildVTypeRef(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& vTypeID, const double probability) = 0;
+
     /// @brief build vType distribution
     virtual bool buildVTypeDistribution(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const int deterministic,
                                         const std::vector<std::string>& vTypeIDs, const std::vector<double>& probabilities) = 0;
@@ -164,6 +167,9 @@ private:
     /// @{
     /// @brief parse vType
     void parseVType(const SUMOSAXAttributes& attrs);
+
+    /// @brief parse vType reference
+    void parseVTypeRef(const SUMOSAXAttributes& attrs);
 
     /// @brief parse vType distribution
     void parseVTypeDistribution(const SUMOSAXAttributes& attrs);

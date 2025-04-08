@@ -2614,27 +2614,29 @@ GNETagPropertiesDatabase::fillDemandElements() {
         // add common vType attributes
         fillCommonVTypeAttributes(myTagProperties[currentTag]);
     }
-    currentTag = GNE_TAG_VTYPE_CHILDDISTRIBUTION;
+    currentTag = GNE_TAG_VTYPEREF;
     {
         // set values of tag
         myTagProperties[currentTag] = new GNETagProperties(currentTag, mySetTagProperties[GNE_TAG_SUPERMODE_DEMAND],
-                GNETagProperties::Type::DEMANDELEMENT | GNETagProperties::Type::VTYPE,
-                GNETagProperties::Property::NOTDRAWABLE | GNETagProperties::Property::NOTSELECTABLE | GNETagProperties::Property::VCLASS_ICON | GNETagProperties::Property::XMLCHILD | GNETagProperties::Property::EXTENDED,
+                GNETagProperties::Type::DEMANDELEMENT,
+                GNETagProperties::Property::XMLCHILD,
                 GNETagProperties::Over::VIEW,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
-                GUIIcon::VTYPE, GUIGlObjectType::GLO_VTYPE, currentTag, TL("VehicleType (distribution)"),
+                GUIIcon::VTYPEREF, GUIGlObjectType::GLO_VTYPE_REF, currentTag, TL("VType (Ref)"),
         {SUMO_TAG_VTYPE_DISTRIBUTION});
 
         // set values of attributes
-        fillIDAttribute(myTagProperties[currentTag], true);
-
         new GNEAttributeProperties(myTagProperties[currentTag], GNE_ATTR_VTYPE_DISTRIBUTION,
-                                   GNEAttributeProperties::Property::STRING,
-                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
-                                   TL("Type distribution"));
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE,
+                                   GNEAttributeProperties::Edit::EDITMODE,
+                                   TL("VType distribution in which this vTypeRef is defined"));
 
-        // add common vType attributes
-        fillCommonVTypeAttributes(myTagProperties[currentTag]);
+        new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_REFID,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE,
+                                   GNEAttributeProperties::Edit::EDITMODE,
+                                   TL("Reference ID of vType"));
+
+        fillDistributionProbability(myTagProperties[currentTag]);
     }
 }
 

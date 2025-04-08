@@ -53,6 +53,7 @@
 #include "GNETranship.h"
 #include "GNETransport.h"
 #include "GNEVType.h"
+#include "GNEVTypeRef.h"
 #include "GNEVTypeDistribution.h"
 #include "GNEVehicle.h"
 #include "GNEWalk.h"
@@ -131,6 +132,33 @@ GNERouteHandler::buildVType(const CommonXMLStructure::SumoBaseObject* sumoBaseOb
             }
             return true;
         }
+    }
+}
+
+
+bool
+GNERouteHandler::buildVTypeRef(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& vTypeID, const double probability) {
+    const auto distribution = getVTypeDistributionParent(sumoBaseObject);
+    const auto vType = myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, vTypeID, false);
+    // check distributions
+    if (distribution == nullptr) {
+        return writeErrorInvalidParent(GNE_TAG_VTYPEREF, SUMO_TAG_VTYPE_DISTRIBUTION);
+    } else if (vType == nullptr) {
+        return writeErrorInvalidParent(GNE_TAG_VTYPEREF, SUMO_TAG_VTYPE, vTypeID);
+    } else {
+        // create distributions
+        GNEDemandElement* vTypeRef = new GNEVTypeRef(distribution, vType, probability);
+        if (myAllowUndoRedo) {
+            myNet->getViewNet()->getUndoList()->begin(vTypeRef, TL("add ") + vTypeRef->getTagStr() + " in '" + distribution->getID() + "'");
+            myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(vTypeRef, true), true);
+            myNet->getViewNet()->getUndoList()->end();
+        } else {
+            myNet->getAttributeCarriers()->insertDemandElement(vTypeRef);
+            distribution->addChildElement(vTypeRef);
+            vType->addChildElement(vTypeRef);
+            vTypeRef->incRef("buildVTypeRef");
+        }
+        return true;
     }
 }
 
@@ -2583,6 +2611,19 @@ GNERouteHandler::getContainerParent(const CommonXMLStructure::SumoBaseObject* su
 
 GNEDemandElement*
 GNERouteHandler::getRouteDistributionParent(const CommonXMLStructure::SumoBaseObject* sumoBaseObject) const {
+    // check that sumoBaseObject has parent
+    if (sumoBaseObject->getParentSumoBaseObject() == nullptr) {
+        return nullptr;
+    }
+    if (sumoBaseObject->getParentSumoBaseObject()->getTag() != SUMO_TAG_ROUTE_DISTRIBUTION) {
+        return nullptr;
+    }
+    return myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_ROUTE_DISTRIBUTION, sumoBaseObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID), false);
+}
+
+
+GNEDemandElement*
+GNERouteHandler::getVTypeDistributionParent(const CommonXMLStructure::SumoBaseObject* sumoBaseObject) const {
     // check that sumoBaseObject has parent
     if (sumoBaseObject->getParentSumoBaseObject() == nullptr) {
         return nullptr;

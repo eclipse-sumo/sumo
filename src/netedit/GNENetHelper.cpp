@@ -65,6 +65,7 @@
 #include <netedit/elements/demand/GNERide.h>
 #include <netedit/elements/demand/GNERoute.h>
 #include <netedit/elements/demand/GNERouteRef.h>
+#include <netedit/elements/demand/GNEVTypeRef.h>
 #include <netedit/elements/demand/GNEStop.h>
 #include <netedit/elements/demand/GNEStopPlan.h>
 #include <netedit/elements/demand/GNETranship.h>
@@ -2979,6 +2980,7 @@ GNENetHelper::ACTemplate::buildTemplates() {
     }
     // vType distributions
     myTemplates[SUMO_TAG_VTYPE_DISTRIBUTION] = new GNEVTypeDistribution(myNet);
+    myTemplates[GNE_TAG_VTYPEREF] = new GNEVTypeRef(myNet);
     // routes (basic and embedded)
     const auto routes = myNet->getTagPropertiesDatabase()->getTagPropertiesByType(GNETagProperties::Type::ROUTE);
     for (const auto route : routes) {
