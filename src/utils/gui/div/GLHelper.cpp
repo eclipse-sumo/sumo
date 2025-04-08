@@ -862,7 +862,7 @@ GLHelper::drawFilledCircleModern(double radius, int steps, double beg, double en
     for (int i = 0; i <= steps; ++i) {
         const std::pair<double, double>& p2 = getCircleCoords().at(angleLookup(beg + i * inc));
         addVertex(GL_TRIANGLES, p1.first * radius, p1.second * radius);
-        addVertex(GL_TRIANGLES, p1.first * radius, p1.second * radius);
+        addVertex(GL_TRIANGLES, p2.first * radius, p2.second * radius);
         addVertex(GL_TRIANGLES, 0., 0.);
         p1 = p2;
     }
