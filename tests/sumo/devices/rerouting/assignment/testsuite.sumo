@@ -64,6 +64,9 @@ taz_astar_landmark
 # running A* with districts and landmarks missing edges
 taz_astar_landmark_missing
 
+# running A* with landmarks and random weights
+taz_astar_landmark_random_weights
+
 # running A* with districts and an empty landmark file
 taz_astar_landmark_empty
 
