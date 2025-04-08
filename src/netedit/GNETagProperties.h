@@ -149,7 +149,7 @@ public:
                      const unsigned int backgroundColor = FXRGBA(255, 255, 255, 255), const std::string selectorText = "");
 
     /// @brief parameter constructor for hierarchical elements
-    GNETagProperties(const SumoXMLTag tag, GNETagProperties* parent, const GUIIcon icon, const GUIGlObjectType GLType, const std::string tooltip,
+    GNETagProperties(const SumoXMLTag tag, GNETagProperties* parent, const GUIIcon icon, const std::string tooltip,
                      const unsigned int backgroundColor = FXRGBA(255, 255, 255, 255), const std::string selectorText = "");
 
     /// @brief destructor
@@ -191,8 +191,11 @@ public:
     /// @brief get number of attributes
     int getNumberOfAttributes() const;
 
-    /// @brief get GUI icon associated to this Tag
+    /// @brief get GUI icon associated to this tag property
     GUIIcon getGUIIcon() const;
+
+    /// @brief get GUIGlObjectType associated with this tag property
+    GUIGlObjectType getGLType() const;
 
     /// @brief default values
     /// @{
@@ -563,8 +566,11 @@ private:
     /// @brief vector with the attribute values vinculated with this Tag
     std::vector<const GNEAttributeProperties*> myAttributeProperties;
 
-    /// @brief icon associated to this Tag
+    /// @brief icon associated to this tag property
     const GUIIcon myIcon = GUIIcon::EMPTY;
+
+    /// @brief GUIGlObjectType associated with this tag property
+    const GUIGlObjectType myGLType = GUIGlObjectType::GLO_NETWORK;
 
     /// @brief Tag written in XML and used in GNENetHelper::AttributeCarriers
     const SumoXMLTag myXMLTag = SUMO_TAG_NOTHING;

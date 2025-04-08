@@ -37,6 +37,7 @@ GNETagProperties::GNETagProperties(const SumoXMLTag tag, GNETagProperties* paren
     myTagOver(myTagOver),
     myConflicts(conflicts),
     myIcon(icon),
+    myGLType(GLType),
     myXMLTag(XMLTag),
     myTooltipText(tooltip),
     myXMLParentTags(XMLParentTags),
@@ -48,8 +49,8 @@ GNETagProperties::GNETagProperties(const SumoXMLTag tag, GNETagProperties* paren
 }
 
 
-GNETagProperties::GNETagProperties(const SumoXMLTag tag, GNETagProperties* parent, const GUIIcon icon, const GUIGlObjectType GLType,
-                                   const std::string tooltip, const unsigned int backgroundColor, const std::string selectorText) :
+GNETagProperties::GNETagProperties(const SumoXMLTag tag, GNETagProperties* parent, const GUIIcon icon, const std::string tooltip,
+                                   const unsigned int backgroundColor, const std::string selectorText) :
     myTag(tag),
     myTagStr(toString(tag)),
     myParent(parent),
@@ -384,6 +385,12 @@ GNETagProperties::getNumberOfAttributes() const {
 GUIIcon
 GNETagProperties::getGUIIcon() const {
     return myIcon;
+}
+
+
+GUIGlObjectType
+GNETagProperties::getGLType() const {
+    return myGLType;
 }
 
 

@@ -377,27 +377,23 @@ GNETagPropertiesDatabase::fillHierarchy() {
     mySetTagProperties[SUMO_TAG_ROOTFILE] = new GNETagProperties(SUMO_TAG_ROOTFILE,
             nullptr,
             GUIIcon::NETEDIT_MINI,
-            GUIGlObjectType::GLO_NETWORK,
             TL("Root"));
     // supermodes - level 1
     mySetTagProperties[GNE_TAG_SUPERMODE_NETWORK] = new GNETagProperties(GNE_TAG_SUPERMODE_NETWORK,
             mySetTagProperties.at(SUMO_TAG_ROOTFILE),
             GUIIcon::SUPERMODENETWORK,
-            GUIGlObjectType::GLO_NETWORK,
             TL("Supermode network"),
             FXRGBA(255, 255, 255, 255),
             TL("Supermode network"));
     mySetTagProperties[GNE_TAG_SUPERMODE_DEMAND] = new GNETagProperties(GNE_TAG_SUPERMODE_DEMAND,
             mySetTagProperties.at(SUMO_TAG_ROOTFILE),
             GUIIcon::SUPERMODEDEMAND,
-            GUIGlObjectType::GLO_VEHICLE,
             TL("Supermode demand"),
             FXRGBA(255, 255, 255, 255),
             TL("Supermode demand"));
     mySetTagProperties[GNE_TAG_SUPERMODE_DATA] = new GNETagProperties(GNE_TAG_SUPERMODE_DATA,
             mySetTagProperties.at(SUMO_TAG_ROOTFILE),
             GUIIcon::SUPERMODEDATA,
-            GUIGlObjectType::GLO_EDGEDATA,
             TL("Supermode data"),
             FXRGBA(255, 255, 255, 255),
             TL("Supermode data"));
@@ -405,7 +401,6 @@ GNETagPropertiesDatabase::fillHierarchy() {
     mySetTagProperties[SUMO_TAG_NET] = new GNETagProperties(SUMO_TAG_NET,
             mySetTagProperties.at(GNE_TAG_SUPERMODE_NETWORK),
             GUIIcon::MODECREATEEDGE,
-            GUIGlObjectType::GLO_NETWORK,
             TL("Network elements"),
             FXRGBA(255, 255, 255, 255),
             TL("Network elements"));
@@ -413,7 +408,6 @@ GNETagPropertiesDatabase::fillHierarchy() {
     mySetTagProperties[SUMO_TAG_VIEWSETTINGS_ADDITIONALS] = new GNETagProperties(SUMO_TAG_VIEWSETTINGS_ADDITIONALS,
             mySetTagProperties.at(GNE_TAG_SUPERMODE_NETWORK),
             GUIIcon::MODEADDITIONAL,
-            GUIGlObjectType::GLO_ADDITIONALELEMENT,
             TL("Additional elements"),
             FXRGBA(255, 255, 255, 255),
             TL("Additional elements"));
@@ -421,7 +415,6 @@ GNETagPropertiesDatabase::fillHierarchy() {
     mySetTagProperties[GNE_TAG_STOPPINGPLACES] = new GNETagProperties(GNE_TAG_STOPPINGPLACES,
             mySetTagProperties.at(SUMO_TAG_VIEWSETTINGS_ADDITIONALS),
             GUIIcon::BUSSTOP,
-            GUIGlObjectType::GLO_BUS_STOP,
             TL("Stopping places"),
             FXRGBA(255, 255, 255, 255),
             TL("Stopping places"));
@@ -429,7 +422,6 @@ GNETagPropertiesDatabase::fillHierarchy() {
     mySetTagProperties[GNE_TAG_DETECTORS] = new GNETagProperties(GNE_TAG_DETECTORS,
             mySetTagProperties.at(SUMO_TAG_VIEWSETTINGS_ADDITIONALS),
             GUIIcon::E1,
-            GUIGlObjectType::GLO_E1DETECTOR,
             TL("Detectors"),
             FXRGBA(255, 255, 255, 255),
             TL("Detectors"));
@@ -437,7 +429,6 @@ GNETagPropertiesDatabase::fillHierarchy() {
     mySetTagProperties[GNE_TAG_WIRES] = new GNETagProperties(GNE_TAG_WIRES,
             mySetTagProperties.at(GNE_TAG_SUPERMODE_NETWORK),
             GUIIcon::MODEWIRE,
-            GUIGlObjectType::GLO_WIRE,
             TL("Wire elements"),
             FXRGBA(255, 255, 255, 255),
             TL("Wire elements"));
@@ -445,14 +436,12 @@ GNETagPropertiesDatabase::fillHierarchy() {
     mySetTagProperties[GNE_TAG_SHAPES] = new GNETagProperties(GNE_TAG_SHAPES,
             mySetTagProperties.at(GNE_TAG_SUPERMODE_NETWORK),
             GUIIcon::MODESHAPE,
-            GUIGlObjectType::GLO_POLYGON,
             TL("Shape elements"),
             FXRGBA(255, 255, 255, 255),
             TL("Shape elements"));
     mySetTagProperties[GNE_TAG_JUPEDSIM] = new GNETagProperties(GNE_TAG_JUPEDSIM,
             mySetTagProperties.at(GNE_TAG_SHAPES),
             GUIIcon::JPS_WALKABLEAREA,
-            GUIGlObjectType::GLO_POLYGON,
             TL("JuPedSim elements"),
             FXRGBA(255, 255, 255, 255),
             TL("JuPedSim elements"));
@@ -460,7 +449,6 @@ GNETagPropertiesDatabase::fillHierarchy() {
     mySetTagProperties[GNE_TAG_TAZS] = new GNETagProperties(GNE_TAG_TAZS,
             mySetTagProperties.at(GNE_TAG_SUPERMODE_NETWORK),
             GUIIcon::MODEADDITIONAL,
-            GUIGlObjectType::GLO_TAZ,
             TL("TAZ elements"),
             FXRGBA(255, 255, 255, 255),
             TL("TAZ elements"));
@@ -468,7 +456,6 @@ GNETagPropertiesDatabase::fillHierarchy() {
     mySetTagProperties[SUMO_TAG_VIEWSETTINGS_VEHICLES] = new GNETagProperties(SUMO_TAG_VIEWSETTINGS_VEHICLES,
             mySetTagProperties.at(GNE_TAG_SUPERMODE_DEMAND),
             GUIIcon::VEHICLE,
-            GUIGlObjectType::GLO_VEHICLE,
             TL("Vehicles"),
             FXRGBA(255, 255, 255, 255),
             TL("Vehicles"));
@@ -476,7 +463,6 @@ GNETagPropertiesDatabase::fillHierarchy() {
     mySetTagProperties[GNE_TAG_FLOWS] = new GNETagProperties(GNE_TAG_FLOWS,
             mySetTagProperties.at(GNE_TAG_SUPERMODE_DEMAND),
             GUIIcon::FLOW,
-            GUIGlObjectType::GLO_FLOW,
             TL("Flows"),
             FXRGBA(255, 255, 255, 255),
             TL("Vehicle flows"));
@@ -484,7 +470,6 @@ GNETagPropertiesDatabase::fillHierarchy() {
     mySetTagProperties[GNE_TAG_STOPS] = new GNETagProperties(GNE_TAG_STOPS,
             mySetTagProperties.at(GNE_TAG_SUPERMODE_DEMAND),
             GUIIcon::MODESTOP,
-            GUIGlObjectType::GLO_STOP,
             TL("Vehicle stops"),
             FXRGBA(255, 255, 255, 255),
             TL("Vehicle stops"));
@@ -492,7 +477,6 @@ GNETagPropertiesDatabase::fillHierarchy() {
     mySetTagProperties[GNE_TAG_PERSONPLANS] = new GNETagProperties(GNE_TAG_PERSONPLANS,
             mySetTagProperties.at(GNE_TAG_SUPERMODE_DEMAND),
             GUIIcon::MODEPERSONPLAN,
-            GUIGlObjectType::GLO_PERSON,
             TL("Person plans"),
             FXRGBA(255, 255, 255, 255),
             TL("Person plans"));
@@ -500,7 +484,6 @@ GNETagPropertiesDatabase::fillHierarchy() {
     mySetTagProperties[GNE_TAG_PERSONTRIPS] = new GNETagProperties(GNE_TAG_PERSONTRIPS,
             mySetTagProperties.at(GNE_TAG_PERSONPLANS),
             GUIIcon::PERSONTRIP_BUSSTOP,
-            GUIGlObjectType::GLO_PERSONTRIP,
             TL("Person trips"),
             FXRGBA(255, 255, 255, 255),
             TL("Person trips"));
@@ -508,7 +491,6 @@ GNETagPropertiesDatabase::fillHierarchy() {
     mySetTagProperties[GNE_TAG_RIDES] = new GNETagProperties(GNE_TAG_RIDES,
             mySetTagProperties.at(GNE_TAG_PERSONPLANS),
             GUIIcon::RIDE_BUSSTOP,
-            GUIGlObjectType::GLO_RIDE,
             TL("Person rides"),
             FXRGBA(255, 255, 255, 255),
             TL("Person rides"));
@@ -516,7 +498,6 @@ GNETagPropertiesDatabase::fillHierarchy() {
     mySetTagProperties[GNE_TAG_WALKS] = new GNETagProperties(GNE_TAG_WALKS,
             mySetTagProperties.at(GNE_TAG_PERSONPLANS),
             GUIIcon::WALK_BUSSTOP,
-            GUIGlObjectType::GLO_WALK,
             TL("Person walks"),
             FXRGBA(255, 255, 255, 255),
             TL("Person walks"));
@@ -524,7 +505,6 @@ GNETagPropertiesDatabase::fillHierarchy() {
     mySetTagProperties[GNE_TAG_PERSONSTOPS] = new GNETagProperties(GNE_TAG_PERSONSTOPS,
             mySetTagProperties.at(GNE_TAG_PERSONPLANS),
             GUIIcon::STOP,
-            GUIGlObjectType::GLO_PERSON,
             TL("Person stop"),
             FXRGBA(255, 255, 255, 255),
             TL("Person stop"));
@@ -532,7 +512,6 @@ GNETagPropertiesDatabase::fillHierarchy() {
     mySetTagProperties[GNE_TAG_CONTAINERPLANS] = new GNETagProperties(GNE_TAG_CONTAINERPLANS,
             mySetTagProperties.at(GNE_TAG_SUPERMODE_DEMAND),
             GUIIcon::MODECONTAINERPLAN,
-            GUIGlObjectType::GLO_PERSON,
             TL("Container plans"),
             FXRGBA(255, 255, 255, 255),
             TL("Container plans"));
@@ -540,7 +519,6 @@ GNETagPropertiesDatabase::fillHierarchy() {
     mySetTagProperties[GNE_TAG_TRANSPORTS] = new GNETagProperties(GNE_TAG_TRANSPORTS,
             mySetTagProperties.at(GNE_TAG_CONTAINERPLANS),
             GUIIcon::TRANSPORT_BUSSTOP,
-            GUIGlObjectType::GLO_TRANSPORT,
             TL("Container transports"),
             FXRGBA(255, 255, 255, 255),
             TL("Container transports"));
@@ -548,7 +526,6 @@ GNETagPropertiesDatabase::fillHierarchy() {
     mySetTagProperties[GNE_TAG_TRANSHIPS] = new GNETagProperties(GNE_TAG_TRANSHIPS,
             mySetTagProperties.at(GNE_TAG_CONTAINERPLANS),
             GUIIcon::TRANSHIP_BUSSTOP,
-            GUIGlObjectType::GLO_TRANSHIP,
             TL("Container tranships"),
             FXRGBA(255, 255, 255, 255),
             TL("Container tranships"));
@@ -556,7 +533,6 @@ GNETagPropertiesDatabase::fillHierarchy() {
     mySetTagProperties[GNE_TAG_CONTAINERSTOPS] = new GNETagProperties(GNE_TAG_CONTAINERSTOPS,
             mySetTagProperties.at(GNE_TAG_CONTAINERPLANS),
             GUIIcon::STOP,
-            GUIGlObjectType::GLO_STOP,
             TL("Container stops"),
             FXRGBA(255, 255, 255, 255),
             TL("Container stops"));
@@ -564,7 +540,6 @@ GNETagPropertiesDatabase::fillHierarchy() {
     mySetTagProperties[GNE_TAG_DATAS] = new GNETagProperties(GNE_TAG_DATAS,
             mySetTagProperties.at(GNE_TAG_SUPERMODE_DATA),
             GUIIcon::EDGEDATA,
-            GUIGlObjectType::GLO_EDGEDATA,
             TL("Datas"),
             FXRGBA(255, 255, 255, 255),
             TL("Datas"));
