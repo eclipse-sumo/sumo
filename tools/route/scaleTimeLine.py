@@ -191,7 +191,7 @@ def scaleRoutes(options, outf):
                         periodEnd = periodList[currIndex]
                         if depart >= periodBegin and depart < periodEnd:
                             candidatsList.append(elem)
-                            break;
+                            break
         if candidatsList:
             totalList, idMap = getScaledObjList(periodMap, periodList, currIndex, candidatsList, idMap)
             writeObjs(totalList, outf)
