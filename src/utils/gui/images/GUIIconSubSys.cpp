@@ -398,6 +398,7 @@
 #include "icons/triptazs.xpm"
 #include "icons/vehicle.xpm"
 #include "icons/vtype.xpm"
+#include "icons/vtyperef.xpm"
 #include "icons/vtype_bike.xpm"
 #include "icons/vtype_container.xpm"
 #include "icons/vtype_default.xpm"
@@ -891,6 +892,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::ROUTEREF] = new FXXPMIcon(a, routeref_xpm);
     myIcons[GUIIcon::ROUTEDISTRIBUTION] = new FXXPMIcon(a, routedistribution_xpm);
     myIcons[GUIIcon::VTYPE] = new FXXPMIcon(a, vtype_xpm);
+    myIcons[GUIIcon::VTYPEREF] = new FXXPMIcon(a, vtyperef_xpm);
     myIcons[GUIIcon::VTYPE_DEFAULT] = new FXXPMIcon(a, vtype_default_xpm);
     myIcons[GUIIcon::VTYPE_BIKE] = new FXXPMIcon(a, vtype_bike_xpm);
     myIcons[GUIIcon::VTYPE_TAXI] = new FXXPMIcon(a, vtype_taxi_xpm);
