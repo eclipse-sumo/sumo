@@ -8,10 +8,10 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-04-08 15:43+0200\n"
-"PO-Revision-Date: 2025-03-20 08:43+0000\n"
+"PO-Revision-Date: 2025-04-10 07:35+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
-"Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/sumo-"
-"gui-netedit/de/>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
+"sumo-gui-netedit/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -2830,16 +2830,16 @@ msgstr "Weitere Daten erfolgreich aus der folgenden Datei geladen: "
 
 #: src/netedit/GNEApplicationWindow.cpp:3702
 msgid "reloading additionals"
-msgstr ""
+msgstr "Erneutes Laden der weiteren Daten"
 
 #: src/netedit/GNEApplicationWindow.cpp:3711
 #, c-format
 msgid "Reloading of additional file '%' failed."
-msgstr ""
+msgstr "Das erneute Laden der Datei '%' ist fehlgeschlagen."
 
 #: src/netedit/GNEApplicationWindow.cpp:3767
 msgid "Additionals saved"
-msgstr ""
+msgstr "Weitere Daten gespeichert"
 
 #: src/netedit/GNEApplicationWindow.cpp:3770
 msgid "Saving additional aborted"
@@ -2851,11 +2851,11 @@ msgstr "Speichern der weiteren Elemente fehlgeschlagen!"
 
 #: src/netedit/GNEApplicationWindow.cpp:3799
 msgid "saving of unified additional elements in '%'"
-msgstr ""
+msgstr "Speichern der gesammelten weiteren Elemente in '%'"
 
 #: src/netedit/GNEApplicationWindow.cpp:3840
 msgid "JuPedSim elements saved"
-msgstr ""
+msgstr "JuPedSim-Elemente gespeichert"
 
 #: src/netedit/GNEApplicationWindow.cpp:3843
 msgid "Saving JuPedSim aborted"
@@ -2881,16 +2881,16 @@ msgstr "Folgende Route-Datei wurde erfolgreich geladen: "
 
 #: src/netedit/GNEApplicationWindow.cpp:3916
 msgid "reloading demand elements"
-msgstr ""
+msgstr "Erneutes Laden der Nachfrageelemente"
 
 #: src/netedit/GNEApplicationWindow.cpp:3925
 #, c-format
 msgid "Reloading of route file '%'failed."
-msgstr ""
+msgstr "Das erneute Laden der Routendatei '%' ist fehlgeschlagen."
 
 #: src/netedit/GNEApplicationWindow.cpp:3979
 msgid "Demand elements saved"
-msgstr ""
+msgstr "Nachfrageelemente gespeichert"
 
 #: src/netedit/GNEApplicationWindow.cpp:3982
 #: src/netedit/GNEApplicationWindow.cpp:4159
@@ -2904,7 +2904,7 @@ msgstr "Speichern der Nachfrageelemente fehlgeschlagen!"
 
 #: src/netedit/GNEApplicationWindow.cpp:4011
 msgid "saving of unified demand elements in '%'"
-msgstr ""
+msgstr "Speichern der gesammelten Nachfrageelemente in '%'"
 
 #: src/netedit/GNEApplicationWindow.cpp:4058
 #: src/netedit/GNEApplicationWindow.cpp:4760
@@ -2922,7 +2922,7 @@ msgstr "Laden der Datendatei war erfolgreich: "
 
 #: src/netedit/GNEApplicationWindow.cpp:4094
 msgid "reloading data elements"
-msgstr ""
+msgstr "Erneutes Laden der Datenelemente"
 
 #: src/netedit/GNEApplicationWindow.cpp:4103
 msgid "Reloading of data file failed: "
@@ -2930,7 +2930,7 @@ msgstr "Erneutes Laden der Datendatei ist fehlgeschlagen: "
 
 #: src/netedit/GNEApplicationWindow.cpp:4156
 msgid "Data elements saved"
-msgstr ""
+msgstr "Datenelemente gespeichert"
 
 #: src/netedit/GNEApplicationWindow.cpp:4164
 msgid "Saving data elements failed!"
@@ -2938,7 +2938,7 @@ msgstr "Speichern der Datenelemente fehlgeschlagen!"
 
 #: src/netedit/GNEApplicationWindow.cpp:4188
 msgid "saving of unified data elements in '%'"
-msgstr ""
+msgstr "Speichern der gesammelten Datenelemente in '%'"
 
 #: src/netedit/GNEApplicationWindow.cpp:4231
 msgid "load meanDatas from '"
@@ -2980,7 +2980,7 @@ msgstr "lädt weitere Elemente aus '"
 #: src/netedit/GNEApplicationWindow.cpp:4804
 #: src/netedit/GNEApplicationWindow.cpp:4811
 msgid "loading meanData elements from '"
-msgstr ""
+msgstr "Laden von MeanData-Elementen aus '"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:136
 msgid "nets"
