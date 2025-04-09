@@ -65,7 +65,7 @@ GNERouteRef::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
 
 void
 GNERouteRef::writeDemandElement(OutputDevice& device) const {
-    device.openTag(GNE_TAG_ROUTEREF);
+    device.openTag(SUMO_TAG_ROUTE);
     device.writeAttr(SUMO_ATTR_REFID, getAttribute(SUMO_ATTR_REFID));
     device.writeAttr(SUMO_ATTR_PROB, myProbability);
     // write parameters
@@ -263,7 +263,7 @@ GNERouteRef::getPopUpID() const {
 
 std::string
 GNERouteRef::getHierarchyName() const {
-    return TLF("Distribution '%' refs '%'", getAttribute(GNE_ATTR_ROUTE_DISTRIBUTION), getAttribute(SUMO_ATTR_REFID));
+    return TLF("%: % -> %", myTagProperty->getTagStr(), getAttribute(GNE_ATTR_ROUTE_DISTRIBUTION), getAttribute(SUMO_ATTR_REFID));
 }
 
 

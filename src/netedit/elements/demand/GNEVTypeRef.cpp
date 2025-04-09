@@ -65,7 +65,7 @@ GNEVTypeRef::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
 
 void
 GNEVTypeRef::writeDemandElement(OutputDevice& device) const {
-    device.openTag(GNE_TAG_VTYPEREF);
+    device.openTag(SUMO_TAG_VTYPE);
     device.writeAttr(SUMO_ATTR_REFID, getAttribute(SUMO_ATTR_REFID));
     device.writeAttr(SUMO_ATTR_PROB, myProbability);
     // write parameters
@@ -263,7 +263,7 @@ GNEVTypeRef::getPopUpID() const {
 
 std::string
 GNEVTypeRef::getHierarchyName() const {
-    return TLF("Distribution '%' refs '%'", getAttribute(GNE_ATTR_VTYPE_DISTRIBUTION), getAttribute(SUMO_ATTR_REFID));
+    return TLF("%: % -> %", myTagProperty->getTagStr(), getAttribute(GNE_ATTR_VTYPE_DISTRIBUTION), getAttribute(SUMO_ATTR_REFID));
 }
 
 
