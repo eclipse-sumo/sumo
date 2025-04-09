@@ -1223,7 +1223,7 @@ NIImporter_OpenDrive::buildConnectionsToOuter(const Connection& c,
                                         + " wEnd=" + (destLane.widthData.empty() ? "?" : toString(destLane.widthData.front().computeAt(cn.shape.length2D())))
                                         + " width=" + toString(destLane.width) + "\n";
 #endif
-                            if (abs(destLane.id) <= abs(referenceLane)) {
+                            if (abs(destLane.id) <= abs(referenceLane) || abs(destLane.id) == abs(c.toLane)) {
                                 const double multiplier = offsetFactor * (destLane.id == referenceLane ? 0.5 : 1);
 #ifdef DEBUG_INTERNALSHAPES
                                 destPred += "     multiplier=" + toString(multiplier) + "\n";
