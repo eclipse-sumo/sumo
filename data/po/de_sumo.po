@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-04-08 15:43+0200\n"
-"PO-Revision-Date: 2025-04-08 07:40+0000\n"
+"PO-Revision-Date: 2025-04-10 07:35+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -979,12 +979,12 @@ msgstr "MeanData-Definitionen mit ID '%' gefunden."
 
 #: src/libsumo/Person.cpp:149
 msgid "Edge '%' does not occur within the remaining walk of person '%'."
-msgstr ""
+msgstr "Die Kante '%' tritt im verbleibenden Fußweg der Person '%' nicht auf."
 
 #: src/libsumo/Person.cpp:162
 #, c-format
 msgid "Person '%' is not walking"
-msgstr ""
+msgstr "Die Person '%' geht nicht zu Fuß"
 
 #: src/libsumo/Person.cpp:585
 #, c-format
@@ -2891,7 +2891,7 @@ msgstr "Ungültiger Skalierungsfaktor."
 #: src/microsim/MSFrame.cpp:896
 msgid "A vehroute-output file is needed for exit times."
 msgstr ""
-"Eine Fahrzeugrouten-Ausgabe-Datei wird für die Ausstiegszeiten benötigt."
+"Es wird eine Fahrzeugrouten-Ausgabedatei für die Ankunftszeiten benötigt."
 
 #: src/microsim/MSFrame.cpp:908
 msgid "You can either restart or quit on end."
@@ -2990,7 +2990,7 @@ msgstr ""
 
 #: src/microsim/MSFrame.cpp:1051
 msgid "You need a non-negative delay."
-msgstr "Du brauchst eine nicht negative Verzögerung."
+msgstr "Die Verzögerung darf nicht negativ sein."
 
 #: src/microsim/MSFrame.cpp:1064
 msgid "Parallel simulation is only possible when compiled with Fox."
@@ -3099,7 +3099,7 @@ msgstr "Frontalkollision"
 
 #: src/microsim/MSLane.cpp:2021
 msgid "side collision"
-msgstr ""
+msgstr "Seitenkollision"
 
 #: src/microsim/MSLane.cpp:2024
 msgid "junction collision"
@@ -5548,6 +5548,8 @@ msgid ""
 "Edge '%' is shorter than %m (%m) and will cause incorrect flow reduction "
 "with option --meso-tls-penalty"
 msgstr ""
+"Die Kante '%' is kürzer als %m (%m) und wird mit der Option --meso-tls-"
+"penalty zu einer inkorrekten Flussabsenkung führen"
 
 #: src/microsim/traffic_lights/NEMAController.cpp:164
 msgid ""
@@ -6891,7 +6893,7 @@ msgstr "Signale zur Sicherung von ÖV-Halten raten"
 
 #: src/netbuild/NBFrame.cpp:269 src/netgen/netgen_main.cpp:97
 msgid "List rail classes that may run without rail signals"
-msgstr ""
+msgstr "Bahnklassen, die ohne Signale fahren können, auflisten"
 
 #: src/netbuild/NBFrame.cpp:272
 msgid "The search radius for finding suitable road accesses for rail stops"
@@ -7321,6 +7323,7 @@ msgstr ""
 #: src/netbuild/NBHelpers.cpp:89
 msgid "Could not load names of edges to keep from '%'."
 msgstr ""
+"Die Namen der zu behaltenden Kanten konnten nicht aus '%' geladen werden."
 
 #: src/netbuild/NBHelpers.cpp:107
 msgid "Could not load IDs from '%'."
@@ -8286,27 +8289,27 @@ msgstr "Wahrscheinlichkeit, dass Straßen an jedem Knoten weitergeführt werden"
 
 #: src/netgen/NGFrame.cpp:187
 msgid "Probability for a node having at most 1 neighbor"
-msgstr ""
+msgstr "Wahrscheinlichkeit, dass ein Knoten maximal einen Nachbar hat"
 
 #: src/netgen/NGFrame.cpp:192
 msgid "Probability for a node having at most 2 neighbors"
-msgstr ""
+msgstr "Wahrscheinlichkeit, dass ein Knoten maximal zwei Nachbaren hat"
 
 #: src/netgen/NGFrame.cpp:197
 msgid "Probability for a node having at most 3 neighbors"
-msgstr ""
+msgstr "Wahrscheinlichkeit, dass ein Knoten maximal drei Nachbaren hat"
 
 #: src/netgen/NGFrame.cpp:202
 msgid "Probability for a node having at most 4 neighbors"
-msgstr ""
+msgstr "Wahrscheinlichkeit, dass ein Knoten maximal vier Nachbaren hat"
 
 #: src/netgen/NGFrame.cpp:207
 msgid "Probability for a node having at most 5 neighbors"
-msgstr ""
+msgstr "Wahrscheinlichkeit, dass ein Knoten maximal fünf Nachbaren hat"
 
 #: src/netgen/NGFrame.cpp:212
 msgid "Probability for a node having at most 6 neighbors"
-msgstr ""
+msgstr "Wahrscheinlichkeit, dass ein Knoten maximal sechs Nachbaren hat"
 
 #: src/netgen/NGFrame.cpp:215
 msgid "Place nodes on a regular grid with spacing rand.min-distance"
@@ -8600,6 +8603,8 @@ msgid ""
 "Default to building two sidewalks on oneway streets (may affect divided "
 "roads)"
 msgstr ""
+"Standardmäßig an Einbahnstraßen beidseitig Gehwege erstellen (kann Sraßen "
+"mit getrennten Fahrbahnen betreffen)"
 
 #: src/netimport/NIFrame.cpp:210
 msgid "Import crossings"
@@ -8652,6 +8657,8 @@ msgstr ""
 msgid ""
 "Whether edges shoulds carry information on the usage of typemap defaults"
 msgstr ""
+"Ob Kanten Informationen über die Nutzung von Typenstandardwerten halten "
+"sollen"
 
 #: src/netimport/NIFrame.cpp:243
 msgid "The edge lengths given in the MATSim-file will be kept"
@@ -12904,18 +12911,25 @@ msgid ""
 "Could not build % with ID '%' in netedit; Cannot have an external route and "
 "an embedded route in the same definition."
 msgstr ""
+"% mit der ID '%' konnte nicht in netedit erstellt werden; Es kann in einer "
+"Definition sowohl eine externe und eine interne Route geben."
 
 #: src/utils/handlers/CommonHandler.cpp:164
 msgid ""
 "Could not build % with ID '%' in netedit; Cannot have multiple from-to "
 "attributes."
 msgstr ""
+"% mit der ID '%' konnte nicht in netedit erstellt werden; Es dürfen keine "
+"mehrfachen from-to-Attribute existieren."
 
 #: src/utils/handlers/CommonHandler.cpp:167
 msgid ""
 "Could not build % with ID '%' in netedit; Cannot have from-to attributes and "
 "route attributes in the same definition."
 msgstr ""
+"% mit der ID '%' konnte nicht in netedit erstellt werden; Es können in der "
+"gleichen Definition nicht sowohl from-to-Attribute als auch Routen "
+"existieren."
 
 #: src/utils/handlers/CommonHandler.cpp:170
 msgid ""
@@ -12984,7 +12998,7 @@ msgstr ""
 
 #: src/utils/handlers/CommonHandler.cpp:327
 msgid "Overwritting % with ID '%'"
-msgstr ""
+msgstr "% wird mit ID '%' überschrieben"
 
 #: src/utils/handlers/CommonHandler.cpp:333
 msgid ""
@@ -13003,6 +13017,8 @@ msgstr ""
 msgid ""
 "Could not build % with ID '%' in netedit; List of edges cannot be empty."
 msgstr ""
+"% mit der ID '%' konnte nicht in netedit erstellt werden; Die Kantenliste "
+"darf nicht leer sein."
 
 #: src/utils/handlers/CommonHandler.cpp:359
 msgid "Could not build % with ID '%' in netedit; List of lanes isn't valid."
@@ -13049,7 +13065,7 @@ msgstr "MeanData-Elemente können keine Attribute als Parameter laden"
 
 #: src/utils/handlers/RouteHandler.cpp:595
 msgid "an embedded route cannot have their own ID"
-msgstr ""
+msgstr "eine interne Route kann keine eigene ID haben"
 
 #: src/utils/handlers/RouteHandler.cpp:662
 #: src/utils/handlers/RouteHandler.cpp:752
@@ -13328,6 +13344,8 @@ msgid ""
 "Not all network edges were found in the lookup table '%' for landmark edge "
 "'%'.%"
 msgstr ""
+"Es wurden nicht alle Kanten des Netzwerkes in der Nachschlagetabelle '%' in "
+"Bezug zur Landmark-Kante '%' gefunden.%"
 
 #: src/utils/router/AStarLookupTable.h:323
 #, c-format
@@ -13428,7 +13446,7 @@ msgstr ""
 
 #: src/utils/shapes/ShapeHandler.cpp:144
 msgid "Invalid characters for PoI ID '%'"
-msgstr ""
+msgstr "Ungültige Zeichen in der PoI-ID '%'"
 
 #: src/utils/shapes/ShapeHandler.cpp:175
 msgid "Either (x, y), (lon, lat) or (lane, pos) must be specified for PoI '%'."
@@ -13451,7 +13469,7 @@ msgstr "Pol '%' existiert bereits."
 
 #: src/utils/shapes/ShapeHandler.cpp:218
 msgid "Invalid characters for Poly ID '%'"
-msgstr ""
+msgstr "Ungültige Zeichen in der Polygon-ID '%'"
 
 #: src/utils/shapes/ShapeHandler.cpp:260
 msgid "Polygon's shape cannot be empty."
@@ -13619,7 +13637,7 @@ msgstr "Es fehlt der Parameter '%' in % '%'."
 
 #: src/utils/vehicle/SUMOTrafficObject.cpp:65
 msgid "Invalid float value '%' for parameter '%' in % '%' (%)."
-msgstr ""
+msgstr "Ungültiger Fließkommawert '%' für Parameter '%' in % '%' (%)."
 
 #: src/utils/vehicle/SUMOTrafficObject.cpp:78
 msgid "Invalid distribution / float value '%' for parameter '%' in % '%' (%)."
@@ -13815,6 +13833,8 @@ msgstr "Fehlender Wert '%' in Kante '%'."
 msgid ""
 "The value '%' of attribute '%' should be numeric in edge '%' at time step %."
 msgstr ""
+"Der Wert '%' des Attributs '%' sollte für die Kante '%' zur Zeit % numerisch "
+"sein."
 
 #: src/utils/xml/SUMOSAXReader.cpp:110 src/utils/xml/SUMOSAXReader.cpp:136
 msgid "Cannot read file '%'!"
@@ -13844,7 +13864,7 @@ msgstr "Der XML-Einleseprozess konnte nicht erstellt werden."
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1863
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1875
 msgid "XML files (*.xml, *.xml.gz)"
-msgstr ""
+msgstr "XML-Dateien (*.xml, *.xml.gz)"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1719
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1724
@@ -13872,111 +13892,115 @@ msgstr "Alle Dateien (*)"
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1723
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1787
 msgid "Plain text files (*.txt)"
-msgstr ""
+msgstr "Textdateien (*.txt)"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1728
 msgid "CSV files (*.txt)"
-msgstr ""
+msgstr "CSV-Dateien (*.txt)"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1733
 msgid "Open scene graph  files (*.osg)"
-msgstr ""
+msgstr "OpenSceneGraph-Datei (*.osg)"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1738
 msgid ""
 "All Image Files (*.gif,*.bmp,*.xpm,*.pcx,*.ico,*.rgb,*.xbm,*.tga,*.png,*.jpg,"
 "*.jpeg,*.tif,*.tiff,*.ps,*.eps,*.pdf,*.svg,*.tex,*.pgf)"
 msgstr ""
+"Alle Bilddateien "
+"(*.gif,*.bmp,*.xpm,*.pcx,*.ico,*.rgb,*.xbm,*.tga,*.png,*.jpg,*.jpeg,*.tif,*.tiff,*.ps,*.eps,*.pdf,*.svg,*.tex,*.pgf)"
+""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1739
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1765
 msgid "GIF Image (*.gif)"
-msgstr ""
+msgstr "GIF-Bild (*.gif)"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1740
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1766
 msgid "BMP Image (*.bmp)"
-msgstr ""
+msgstr "BMP-Bild (*.bmp)"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1741
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1767
 msgid "XPM Image (*.xpm)"
-msgstr ""
+msgstr "XPM-Bild (*.xpm)"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1742
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1768
 msgid "PCX Image (*.pcx)"
-msgstr ""
+msgstr "PCX-Bild (*.pcx)"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1743
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1769
 msgid "ICO Image (*.ico)"
-msgstr ""
+msgstr "ICO-Bild (*.ico)"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1744
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1770
 msgid "RGB Image (*.rgb)"
-msgstr ""
+msgstr "RGB-Bild (*.rgb)"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1745
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1771
 msgid "XBM Image (*.xbm)"
-msgstr ""
+msgstr "XBM-Bild (*.xbm)"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1746
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1772
 msgid "TARGA Image (*.tga)"
-msgstr ""
+msgstr "TARGA-Bild (*.tga)"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1747
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1773
 msgid "PNG Image (*.png)"
-msgstr ""
+msgstr "PNG-Bild (*.png)"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1748
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1774
 msgid "JPEG Image (*.jpg,*.jpeg)"
-msgstr ""
+msgstr "JPEG-Bild (*.jpg,*.jpeg)"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1749
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1775
 msgid "TIFF Image (*.tif,*.tiff)"
-msgstr ""
+msgstr "TIFF-Bild (*.tif,*.tiff)"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1750
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1776
 msgid "Postscript (*.ps)"
-msgstr ""
+msgstr "Postscript (*.ps)"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1751
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1777
 msgid "Encapsulated Postscript (*.eps)"
-msgstr ""
+msgstr "Encapsulated Postscript (*.eps)"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1752
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1778
+#, fuzzy
 msgid "Portable Document Format (*.pdf)"
-msgstr ""
+msgstr "Portable Document Format (*.pdf)"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1753
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1779
 msgid "Scalable Vector Graphics (*.svg)"
-msgstr ""
+msgstr "Scalable Vector Graphics (*.svg)"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1754
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1780
 msgid "LATEX text strings (*.tex)"
-msgstr ""
+msgstr "LATEX Text-Strings (*.tex)"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1755
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1781
 msgid "Portable LaTeX Graphics (*.pgf)"
-msgstr ""
+msgstr "Portierbare LaTeX-Grafik (*.pgf)"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1756
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1782
 msgid "All Files (*)"
-msgstr ""
+msgstr "Alle Dateien (*)"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1760
 msgid ""
@@ -13984,22 +14008,25 @@ msgid ""
 "png,*.jpg,*.jpeg,*.tif,*.tiff,*.ps,*.eps,*.pdf,*.svg,*.tex,*.pgf,*.h264,*."
 "hevc,*.mp4)"
 msgstr ""
+"Alle Bild- und Videodateien "
+"(*.gif,*.bmp,*.xpm,*.pcx,*.ico,*.rgb,*.xbm,*.tga,*.png,*.jpg,*.jpeg,*.tif,*.tiff,*.ps,*.eps,*.pdf,*.svg,*.tex,*.pgf,*.h264,*.hevc,*.mp4)"
+""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1761
 msgid "All Video Files (*.h264,*.hevc,*.mp4)"
-msgstr ""
+msgstr "Alle Videodateien (*.h264,*.hevc,*.mp4)"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1762
 msgid "G264 Video (*.h264)"
-msgstr ""
+msgstr "G264 Video (*.h264)"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1763
 msgid "HEVC Video (*.hevc)"
-msgstr ""
+msgstr "HEVC Video (*.hevc)"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1764
 msgid "MP4 Video (*.mp4)"
-msgstr ""
+msgstr "MP4 Video (*.mp4)"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1786
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1798
@@ -14007,7 +14034,7 @@ msgstr ""
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1810
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1816
 msgid "XML files (*.xml)"
-msgstr ""
+msgstr "XMl-Dateien (*.xml)"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1792
 msgid "View settings files (*.xml, *.xml.gz)"
@@ -14015,56 +14042,56 @@ msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1797
 msgid "State GZipped XML files (*.xml.gz)"
-msgstr ""
+msgstr "GZip-Standdateien (*.xml.gz)"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1803
 msgid "Sumo config files (*.sumocfg))"
-msgstr ""
+msgstr "Sumo-Konfigurationsdateien (*.sumocfg)"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1809
 msgid "Netedit config files (*.netecfg)"
-msgstr ""
+msgstr "Netedit-Konfigurationsdateien (*.sumocfg)"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1815
 msgid "Netconvert config files (*.netccfg)"
-msgstr ""
+msgstr "Netconvert-Konfigurationsdateien (*.netccfg)"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1821
 msgid "OSM network files (*.osm, *.osm.gz)"
-msgstr ""
+msgstr "OSM-Netzwerkdateien (*.osm,*.osm.gz)"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1827
 msgid "SUMO network files (*.net.xml, *.net.xml.gz)"
-msgstr ""
+msgstr "SUMO-Netzwerkdateien (*.net.xml,*.net.xml.gz)"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1833
 msgid "TLS files (*.ttl.xml, *.ttl.xml.gz)"
-msgstr ""
+msgstr "TLS-Dateien (*.ttl.xml,*.ttl.xml.gz)"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1839
 msgid "Junction files (*.nod.xml, *.nod.xml.gz)"
-msgstr ""
+msgstr "Knotenpunktdateien (*.nod.xml,*.nod.xml.gz)"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1845
 msgid "Edge type files (*.ttl.xml, *.ttl.xml.gz)"
-msgstr ""
+msgstr "Kantentypdateien (*.ttl.xml,*.ttl.xml.gz)"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1851
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1874
 msgid "Additional files (*.add.xml, *.add.xml.gz)"
-msgstr ""
+msgstr "Dateien für weitere Elemente (*.add.xml,*.add.xml.gz)"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1862
 msgid "Route files (*.rou.xml, *.rou.xml.gz)"
-msgstr ""
+msgstr "Routendateien (*.rou.xml, *.rou.xml.gz)"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1868
 msgid "Edge data files (*.xml, *.xml.gz)"
-msgstr ""
+msgstr "Edge Data (*.xml, *.xml.gz)"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1873
 msgid "Mean data files (*.med.add.xml, *.med.add.xml.gz)"
-msgstr ""
+msgstr "Mean Data (*.med.add.xml, *.med.add.xml.gz)"
 
 #: src/utils/xml/XMLSubSys.cpp:73
 msgid ""
