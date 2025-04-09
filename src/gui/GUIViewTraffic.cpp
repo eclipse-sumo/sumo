@@ -32,8 +32,8 @@
 #include <cmath>
 #include <limits>
 
-#include "glm.hpp"
-#include "gtc/matrix_transform.hpp"
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 
 #include <foreign/rtree/SUMORTree.h>
 #include <gui/GUIApplicationWindow.h>
@@ -845,16 +845,13 @@ GUIViewTraffic::initModernOpenGL() {
     const char* sumoPath = getenv("SUMO_HOME");
     if (sumoPath != nullptr && myRenderer == nullptr) {
         // shader paths
-        // TODO: replace with production path
         // build standard shader (plain colors)
-        const std::string vertexShaderPathPlain = "D:/Repos/sumo-opengl3.3/data/shaders/vertexShader.glsl"; // production value should be: std::string(getenv("SUMO_HOME")) + "/data/shaders/vertexShader.glsl";
-        const std::string fragmentShaderPathPlain = "D:/Repos/sumo-opengl3.3/data/shaders/fragmentShader.glsl"; // production value should be: std::string(getenv("SUMO_HOME")) + "/data/shaders/fragmentShader.glsl";
-        //const std::string vertexShaderPath = std::string(sumoPath) + "/data/shaders/vertexShader.glsl";
-        //const std::string fragmentShaderPath = std::string(sumoPath) + "/data/shaders/fragmentShader.glsl";
+        const std::string vertexShaderPathPlain = std::string(sumoPath) + "/data/shaders/vertexShader.glsl";
+        const std::string fragmentShaderPathPlain = std::string(sumoPath) + "/data/shaders/fragmentShader.glsl";
         const GLShader shaderPlain = GLShader(vertexShaderPathPlain, fragmentShaderPathPlain);
 
-        const std::string vertexShaderPathTextured = "D:/Repos/sumo-opengl3.3/data/shaders/texturedVertexShader.glsl"; // production value should be: std::string(getenv("SUMO_HOME")) + "/data/shaders/texturedVertexShader.glsl";
-        const std::string fragmentShaderPathTextured = "D:/Repos/sumo-opengl3.3/data/shaders/texturedFragmentShader.glsl"; // production value should be: std::string(getenv("SUMO_HOME")) + "/data/shaders/texturedFragmentShader.glsl";
+        const std::string vertexShaderPathTextured = std::string(sumoPath) + "/data/shaders/texturedVertexShader.glsl";
+        const std::string fragmentShaderPathTextured = std::string(sumoPath) + "/data/shaders/texturedFragmentShader.glsl";
         const GLShader shaderTextured = GLShader(vertexShaderPathTextured, fragmentShaderPathTextured);
 
         myRenderer = std::make_shared<GLRenderer>();
