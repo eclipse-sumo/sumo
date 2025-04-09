@@ -2595,6 +2595,12 @@ GNETagPropertiesDatabase::fillDemandElements() {
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::VTYPEDISTRIBUTION, GUIGlObjectType::GLO_VTYPE_DISTRIBUTION, currentTag, TL("TypeDistribution"));
 
+        new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_DETERMINISTIC,
+                                   GNEAttributeProperties::Property::INT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
+                                   TL("Deterministic distribution"),
+                                   "-1");
+
         // set values of attributes
         fillIDAttribute(myTagProperties[currentTag], true);
     }
