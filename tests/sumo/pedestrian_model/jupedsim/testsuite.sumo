@@ -39,6 +39,9 @@ geometry_switching
 geometry_generation
 tls
 
+# walking in the opposite direction over a trafficlight
+tls_backward
+
 # crossing behavior
 crossing_noPrio
 
