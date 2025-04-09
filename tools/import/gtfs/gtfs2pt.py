@@ -77,8 +77,6 @@ def get_options(args=None):
                     help="file with replacement stops (based on stop ids)")
     ap.add_argument("--radius", default=150, category="input", type=float,
                     help="maximum matching radius for candidate edges and stops")
-    ap.add_argument("-H", "--human-readable-time", category="output", dest="hrtime", default=False, action="store_true",
-                    help="write times as h:m:s")
 
     # ----------------------- fcd options -------------------------------------
     ap.add_argument("--network-split", category="input",

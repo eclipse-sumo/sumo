@@ -54,6 +54,10 @@ def add_options():
                     (", ".join(gtfs2osm.OSM2SUMO_MODES.keys())))
     op.add_argument("--vtype-output", default="vtypes.xml", category="output", type=op.file,
                     help="file to write the generated vehicle types to")
+    op.add_argument("--write-terminals", action="store_true", default=False, dest="writeTerminals", category="processing",
+                    help="Write vehicle parameters that describe terminal stops and times")
+    op.add_argument("-H", "--human-readable-time", category="output", dest="hrtime", default=False, action="store_true",
+                    help="write times as h:m:s")
     op.add_argument("-v", "--verbose", action="store_true", default=False,
                     category="processing", help="tell me what you are doing")
     op.add_argument("-b", "--begin", default=0, category="time", type=op.time,
@@ -122,6 +126,7 @@ def dataAvailable(options):
 
 
 def main(options):
+    ft = humanReadableTime if options.hrtime else lambda x: x
     if options.mergedCSV:
         full_data_merged = pd.read_csv(options.mergedCSV, sep=";",
                                        keep_default_na=False,
@@ -153,8 +158,10 @@ def main(options):
             buf = u""
             offset = 0
             firstDep = None
+            firstStop = None
             lastIndex = None
             lastArrival = None
+            lastStop = None
             for idx, d in data.sort_values(by=['stop_sequence']).iterrows():
                 if d.stop_sequence == lastIndex:
                     print("Invalid stop_sequence in input for trip %s" % trip_id, file=sys.stderr)
@@ -163,6 +170,7 @@ def main(options):
                         print("Warning! Stop %s for vehicle %s starts earlier (%s) than previous stop (%s)" % (
                             idx, trip_id, d.arrival_time, lastArrival), file=sys.stderr)
                 lastArrival = d.arrival_time
+                lastStop = d.stop_name
 
                 arrivalSec = d.arrival_time + timeIndex
                 stopSeq.append(d.stop_id)
@@ -174,6 +182,7 @@ def main(options):
                          sumolib.xml.quoteattr(d.stop_name, True), d.fare_zone, d.fare_token, d.start_char))
                 if firstDep is None:
                     firstDep = departureSec - timeIndex
+                    firstStop = d.stop_name
                 offset += departureSec - arrivalSec
                 lastIndex = d.stop_sequence
             mode = gtfs2osm.GTFS2OSM_MODES[d.route_type]
@@ -185,11 +194,17 @@ def main(options):
                     timeIndex = arrivalSec
                 tripFile[mode].write(u'    <vehicle id="%s" route="%s" type="%s" depart="%s" line="%s">\n' %
                                      (trip_id, seqs[s], mode, firstDep, seqs[s]))
-                tripFile[mode].write(u'        <param key="gtfs.route_name" value=%s/>\n' %
-                                     sumolib.xml.quoteattr(str(d.route_short_name), True))
+                params = [("gtfs.route_name", d.route_short_name)]
                 if d.trip_headsign:
-                    tripFile[mode].write(u'        <param key="gtfs.trip_headsign" value=%s/>\n' %
-                                         sumolib.xml.quoteattr(str(d.trip_headsign), True))
+                    params.append(("gtfs.trip_headsign", d.trip_headsign))
+                if options.writeTerminals:
+                    params += [("gtfs.origin_stop", firstStop),
+                               ("gtfs.origin_depart", ft(firstDep)),
+                               ("gtfs.destination_stop", lastStop),
+                               ("gtfs.destination_arrrival", ft(lastArrival))]
+                for k, v in params:
+                    tripFile[mode].write(u'        <param key="%s" value=%s/>\n' % (
+                        k, sumolib.xml.quoteattr(str(v), True)))
                 tripFile[mode].write(u'    </vehicle>\n')
                 seenModes.add(mode)
     for mode in modes:
