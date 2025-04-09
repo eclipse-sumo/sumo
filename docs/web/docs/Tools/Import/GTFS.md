@@ -60,6 +60,18 @@ be repaired with the **--repair** option. When this option is enabled and by the
 repair some warnings and errors occurs, these are written in a new output file
 "invalid_osm_routes.txt".
 
+If the option **--write-terminals** is set, then each vehicle will also record `<param>` elements that describe the terminal stop names and terminal depart/arrival times. This may be useful if the GTFS data has a scope that is larger than the loaded network.
+
+## known stop locations
+
+Running time and mapping quality depends on testing the right candidate edges for placing stops and building up the route.
+If some or all stops are known (i.e. from importing an OSM network with netconvert option **--ptstop-output** then these stops can be used as candidate locations by setting option **--stops** 
+This can greatly speed up search as it restricts candidates to all loaded stops within option **--radius** (default 150m) of the stop coordinate. If no loaded candidates exist, then all edges with suitable permissions are considered.
+
+!!! note
+    When obtaining stops from **--ptstop-output** the option **--ptline-output** should be set as well because this improves the OSM based stop-to-edge mapping if the OSM stop locations are themselves ambiguous.
+
+
 # gtfs2fcd.py
 
 This is a helper script which converts the stop sequences found in GTFS data into SUMO's FCD format and
