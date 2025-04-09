@@ -167,7 +167,7 @@ CommonHandler::checkVehicleParents(CommonXMLStructure::SumoBaseObject* obj) {
             return writeError(TLF("Could not build % with ID '%' in netedit; Cannot have from-to attributes and route attributes in the same definition.", toString(tag), id));
         }
         if ((hasRoute + hasEmbeddedRoute + overEdges + overJunctions + overTAZs) == 0) {
-            return writeError(TLF("Could not build % with ID '%' in netedit; Requiere either a route or an embedded route or a from-to attribute (Edges, junctions or TAZs).", toString(tag), id));
+            return writeError(TLF("Could not build % with ID '%' in netedit; Requires either a route or an embedded route or a from-to attribute (Edges, junctions or TAZs).", toString(tag), id));
         }
         return true;
     }
