@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-04-09 09:23:49.249145 by gtfs2pt.py v1_22_0+1377-76c5d2ae13d
+<!-- generated on 2025-04-09 09:47:00.454824 by gtfs2pt.py v1_22_0+1378-c103530ec18
 <configuration>
     <merged-csv value="data.csv"/>
     <modes value="bus"/>
     <vtype-output value="vehtypes.xml"/>
+    <write-terminals value="True"/>
     <network value="net.net.xml"/>
 </configuration>
 -->
@@ -17,5 +18,9 @@
     <vehicle id="132189814.0" route="132189814" type="bus" depart="37010" line="132189814">
         <param key="gtfs.route_name" value="413"/>
         <param key="gtfs.trip_headsign" value="Braunschweig Dieselstraße"/>
+        <param key="gtfs.origin_stop" value="Braunschweig Staatstheater"/>
+        <param key="gtfs.origin_depart" value="36900"/>
+        <param key="gtfs.destination_stop" value="Braunschweig Holzhof"/>
+        <param key="gtfs.destination_arrrival" value="37440"/>
     </vehicle>
 </routes>
